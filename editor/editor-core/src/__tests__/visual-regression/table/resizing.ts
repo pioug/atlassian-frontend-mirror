@@ -24,9 +24,9 @@ import {
   scrollToBottom,
 } from '@atlaskit/editor-test-helpers/page-objects/editor';
 import { retryUntilStablePosition } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { TableCssClassName as ClassName } from '@atlaskit/editor-plugin-table/types';
-import { EditorProps } from '../../../types';
+import type { EditorProps } from '../../../types';
 import { TableSharedCssClassName } from '@atlaskit/editor-common/styles';
 
 const waitToolbarThenSnapshot = async (page: PuppeteerPage) => {
@@ -91,18 +91,12 @@ describe('Snapshot Test: table resizing', () => {
       await waitToolbarThenSnapshot(page);
     });
 
-    describe.each([
-      ['without tableOverflowShadowsOptimization', false],
-      ['with tableOverflowShadowsOptimization', true],
-    ])('Overflow Table %s', (tableOverflowShadowsOptimization) => {
+    describe('Overflow Table', () => {
       beforeEach(async () => {
         await initEditorWithTable({
           allowTables: {
             stickyHeaders: true,
             advanced: true,
-          },
-          featureFlags: {
-            tableOverflowShadowsOptimization,
           },
         });
         // Go to overflow
@@ -177,10 +171,7 @@ describe('Snapshot Test: table resizing', () => {
       });
     });
 
-    describe.each([
-      ['without stickyHeadersOptimization', false],
-      ['with stickyHeadersOptimization', true],
-    ])('Overflow Table %s', (stickyHeadersOptimization) => {
+    describe('with sticky headers', () => {
       beforeEach(async () => {
         await initFullPageEditorWithAdf(
           page,
@@ -191,9 +182,6 @@ describe('Snapshot Test: table resizing', () => {
             allowTables: {
               stickyHeaders: true,
               advanced: true,
-            },
-            featureFlags: {
-              stickyHeadersOptimization,
             },
           },
         );

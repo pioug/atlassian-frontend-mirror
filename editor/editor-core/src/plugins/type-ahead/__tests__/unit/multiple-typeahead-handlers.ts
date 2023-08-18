@@ -21,12 +21,12 @@ import type {
 import { insertTypeAheadItem } from '../../commands/insert-type-ahead-item';
 import type { TypeAheadHandler } from '../../types';
 import { getPluginState } from '../../utils';
-import typeAheadPlugin from '../..';
 import deprecatedAnalyticsPlugin from '../../../analytics';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import quickInsert from '../../../quick-insert';
 import mentionsPlugin from '../../../mentions';
 import { emojiPlugin } from '../../../emoji';
+import typeAheadPlugin from '../../../type-ahead';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 
@@ -59,10 +59,10 @@ describe('type-ahead: multiple plugins', () => {
       .add([featureFlagsPlugin, {}])
       .add([analyticsPlugin, { createAnalyticsEvent }])
       .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }])
+      .add([typeAheadPlugin, { createAnalyticsEvent }])
       .add(mentionsPlugin)
       .add(emojiPlugin)
-      .add(quickInsert)
-      .add([typeAheadPlugin, { createAnalyticsEvent }]);
+      .add(quickInsert);
 
     return createEditor({
       doc,

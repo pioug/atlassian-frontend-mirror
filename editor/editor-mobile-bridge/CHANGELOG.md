@@ -1,5 +1,48 @@
 # @atlaskit/editor-mobile-bridge
 
+## 187.26.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.25.3
+
+### Patch Changes
+
+- [`cbff538b420`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cbff538b420) - [ED-19428] Move shared types from quick-insert plugin to editor-common as a first step towards decoupling it from editor-core
+- Updated dependencies
+
+## 187.25.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.25.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.25.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.24.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.24.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 187.24.1
 
 ### Patch Changes

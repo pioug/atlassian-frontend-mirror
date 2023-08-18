@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { jsx } from '@emotion/react';
 import { useIntl } from 'react-intl-next';
@@ -8,7 +8,12 @@ import Button from '@atlaskit/button/standard-button';
 import BoardIcon from '@atlaskit/icon/glyph/board';
 import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
 import { DatasourceResponseSchemaProperty } from '@atlaskit/linking-types';
-import { CheckboxOption, OptionType, PopupSelect } from '@atlaskit/select';
+import {
+  CheckboxOption,
+  ModifierList,
+  OptionType,
+  PopupSelect,
+} from '@atlaskit/select';
 
 import { columnPickerMessages } from './messages';
 import { ColumnPickerProps } from './types';
@@ -21,6 +26,7 @@ export const ColumnPicker = ({
 }: ColumnPickerProps) => {
   const intl = useIntl();
   const [allOptions, setAllOptions] = useState<OptionType[]>([]);
+  const pickerRef = useRef<PopupSelect<OptionType, true, ModifierList>>(null);
 
   const mapColumnToOption: (
     column: DatasourceResponseSchemaProperty,
@@ -95,6 +101,13 @@ export const ColumnPicker = ({
     );
   };
 
+  useEffect(() => {
+    if (allOptions.length) {
+      // necessary to refocus the search input after the loading state
+      pickerRef?.current?.selectRef?.inputRef?.focus();
+    }
+  }, [allOptions]);
+
   return (
     <PopupSelect
       classNamePrefix={'column-picker-popup'}
@@ -107,6 +120,7 @@ export const ColumnPicker = ({
       hideSelectedOptions={false}
       id={'column-picker-popup'}
       isMulti
+      ref={pickerRef}
       isOptionDisabled={handleIsOptionDisabled}
       placeholder={intl.formatMessage(columnPickerMessages.search)}
       onKeyDown={stopEscapePropagationWhenOpen}

@@ -1,6 +1,9 @@
-import { QuickInsertItem, QuickInsertProvider } from '@atlaskit/editor-core';
-import { allowListPayloadType } from '../editor/event-dispatch';
-import WebBridgeImpl from '../editor/native-to-web';
+import type {
+  QuickInsertItem,
+  QuickInsertProvider,
+} from '@atlaskit/editor-common/provider-factory';
+import type { allowListPayloadType } from '../editor/event-dispatch';
+import type WebBridgeImpl from '../editor/native-to-web';
 
 export const createQuickInsertProvider = async (
   bridge: WebBridgeImpl,

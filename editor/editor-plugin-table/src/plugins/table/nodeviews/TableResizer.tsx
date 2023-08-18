@@ -40,6 +40,7 @@ import { defaultSnappingWidths, findClosestSnap } from '../utils/snapping';
 interface TableResizerProps {
   width: number;
   maxWidth: number;
+  containerWidth: number;
   updateWidth: (width: number) => void;
   editorView: EditorView;
   getPos: () => number | undefined;
@@ -87,10 +88,31 @@ const getResizerMinWidth = (node: PMNode) => {
   return minColumnWidth + 1;
 };
 
+/**
+ * When guidelines are outside the viewport, filter them out, do not show
+ * So the guideline container won't make the fabric-editor-popup-scroll-parent overflow
+ * @param guidelines
+ * @param containerWidth editorWidth
+ */
+const getVisibleGuidelines = (
+  guidelines: GuidelineConfig[],
+  containerWidth: number,
+) => {
+  return guidelines.filter((guideline) => {
+    return (
+      guideline.position &&
+      guideline.position.x !== undefined &&
+      typeof guideline.position.x === 'number' &&
+      Math.abs(guideline.position.x * 2) < containerWidth
+    );
+  });
+};
+
 export const TableResizer = ({
   children,
   width,
   maxWidth,
+  containerWidth,
   updateWidth,
   editorView,
   getPos,
@@ -111,17 +133,21 @@ export const TableResizer = ({
     ({ gap, keys }: { gap: number; keys: string[] }) => {
       if (gap !== currentGap.current) {
         currentGap.current = gap;
+        const visibleGuidelines = getVisibleGuidelines(
+          defaultGuidelines,
+          containerWidth,
+        );
         displayGuideline(
           getGuidelinesWithHighlights(
             gap,
             TABLE_SNAP_GAP,
             keys,
-            defaultGuidelines,
+            visibleGuidelines,
           ),
         );
       }
     },
-    [displayGuideline],
+    [displayGuideline, containerWidth],
   );
 
   const guidelineSnaps = useMemo(
@@ -144,8 +170,12 @@ export const TableResizer = ({
 
     dispatch(tr.setMeta(tableWidthPluginKey, { resizing: true }));
 
-    setSnappingEnabled(displayGuideline(defaultGuidelines));
-  }, [displayGuideline, editorView, startMeasure]);
+    const visibleGuidelines = getVisibleGuidelines(
+      defaultGuidelines,
+      containerWidth,
+    );
+    setSnappingEnabled(displayGuideline(visibleGuidelines));
+  }, [displayGuideline, containerWidth, editorView, startMeasure]);
 
   const handleResize = useCallback(
     (originalState, delta) => {

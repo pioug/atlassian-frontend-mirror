@@ -1,5 +1,17 @@
 # @atlaskit/banner
 
+## 12.1.17
+
+### Patch Changes
+
+- [`9af31f3c1ae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9af31f3c1ae) - Delete version.json
+
+## 12.1.16
+
+### Patch Changes
+
+- [`56b444b56a8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56b444b56a8) - Fix a bug where text descenders were cut off at high zoom levels on Windows
+
 ## 12.1.15
 
 ### Patch Changes

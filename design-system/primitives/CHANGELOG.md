@@ -1,5 +1,11 @@
 # @atlaskit/primitives
 
+## 1.2.1
+
+### Patch Changes
+
+- [`9a88d718e48`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9a88d718e48) - This package is now onboarded onto the product push model.
+
 ## 1.2.0
 
 ### Minor Changes

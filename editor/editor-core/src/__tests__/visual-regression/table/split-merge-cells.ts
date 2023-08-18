@@ -12,7 +12,7 @@ import {
 } from '@atlaskit/editor-test-helpers/page-objects/table';
 import { pressKeyCombo } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
 import adf from './__fixtures__/default-table.adf.json';
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { waitForFloatingControl } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 
 describe('Table context menu: merge-split cells', () => {
@@ -27,7 +27,6 @@ describe('Table context menu: merge-split cells', () => {
       await initFullPageEditorWithAdf(page, adf, undefined, undefined, {
         allowTables: {
           advanced: true,
-          tableCellOptimization: true,
           stickyHeaders: true,
         },
       });

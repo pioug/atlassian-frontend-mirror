@@ -159,48 +159,6 @@ describe('Feature Flags from Props', () => {
     });
   });
 
-  describe('table optimization flags', () => {
-    describe.each([
-      'stickyHeadersOptimization',
-      'initialRenderOptimization',
-      'mouseMoveOptimization',
-      'tableOverflowShadowsOptimization',
-    ])('%s', (flagName) => {
-      it.each<{ actual?: any; expected?: any }>([
-        { actual: true, expected: true },
-        { actual: false, expected: false },
-        { actual: undefined, expected: false },
-        { actual: null, expected: false },
-      ])(`set ${flagName} to %s based on feature flag`, (testData) => {
-        const { actual, expected } = testData;
-        const flags = createFeatureFlagsFromProps({
-          featureFlags: {
-            [flagName]: actual,
-          },
-        });
-        expect((flags as any)[flagName]).toBe(expected);
-      });
-    });
-
-    describe.each(['tableRenderOptimization'])('%s', (flagName) => {
-      it.each<{ actual?: any; expected?: any }>([
-        { actual: true, expected: true },
-        { actual: false, expected: false },
-        // if not set, tableRenderOptimization will default to true
-        { actual: undefined, expected: true },
-        { actual: null, expected: true },
-      ])(`set ${flagName} to %s based on feature flag`, (testData) => {
-        const { actual, expected } = testData;
-        const flags = createFeatureFlagsFromProps({
-          featureFlags: {
-            [flagName]: actual,
-          },
-        });
-        expect((flags as any)[flagName]).toBe(expected);
-      });
-    });
-  });
-
   describe('featureFlags', () => {
     it('should merge mapFeatureFlagsProp result', () => {
       expect(
@@ -233,11 +191,6 @@ describe('Feature Flags from Props', () => {
             catchAllTracking: true,
             showAvatarGroupAsPlugin: false,
             twoLineEditorToolbar: false,
-            // already using .featureFlags explicitly
-            // stickyHeadersOptimization: true,
-            // initialRenderOptimization: true,
-            // mouseMoveOptimization: true,
-            // tableRenderOptimization: true,
           },
         }),
       ).toEqual(createFeatureFlagsFromProps({}));

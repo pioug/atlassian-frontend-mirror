@@ -73,11 +73,11 @@ describe('emojis', () => {
       doc,
       preset: new Preset<LightEditorPlugin>()
         .add([featureFlagsPlugin, {}])
+        .add(typeAheadPlugin)
         .add(emojiPlugin)
         .add([analyticsPlugin, { createAnalyticsEvent }])
         .add(blockTypePlugin)
         .add(listPlugin)
-        .add(typeAheadPlugin)
         .add(quickInsertPlugin),
       providerFactory,
       pluginKey: emojiPluginKey,

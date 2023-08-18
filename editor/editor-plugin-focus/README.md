@@ -1,6 +1,6 @@
 # EditorPluginFocus
 
-Card plugin for @atlaskit/editor-core
+Focus plugin for @atlaskit/editor-core
 
 ## Usage
 

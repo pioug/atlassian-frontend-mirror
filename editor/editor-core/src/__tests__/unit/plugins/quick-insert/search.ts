@@ -3,7 +3,7 @@ import {
   searchQuickInsertItems,
   getFeaturedQuickInsertItems,
 } from '../../../../plugins/quick-insert/search';
-import { QuickInsertItem } from '../../../../plugins/quick-insert/types';
+import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
 
 const action = (): false => false;
 

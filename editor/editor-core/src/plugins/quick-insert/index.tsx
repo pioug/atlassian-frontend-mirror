@@ -1,35 +1,31 @@
 import React from 'react';
-import { IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl-next';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import memoizeOne from 'memoize-one';
-import {
+import type {
   QuickInsertItem,
   QuickInsertProvider,
   ProviderFactory,
 } from '@atlaskit/editor-common/provider-factory';
 import { TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
 
-import { Dispatch } from '../../event-dispatcher';
-import { NextEditorPlugin, Command } from '../../types';
+import type { Dispatch } from '../../event-dispatcher';
+import type { NextEditorPlugin, Command } from '../../types';
 
 import { pluginKey } from './plugin-key';
 import { searchQuickInsertItems } from './search';
-import {
-  QuickInsertHandler,
-  QuickInsertPluginOptions,
+import type { QuickInsertHandler } from './types';
+import type {
   QuickInsertPluginState,
   QuickInsertPluginStateKeys,
-} from './types';
+  QuickInsertPluginOptions,
+} from '@atlaskit/editor-common/types';
 
-import { EmptyStateHandler } from '../../types/empty-state-handler';
+import type { EmptyStateHandler } from '../../types/empty-state-handler';
 
 import ModalElementBrowser from './ui/ModalElementBrowser';
 
-export type {
-  QuickInsertHandler,
-  QuickInsertPluginState,
-  QuickInsertPluginOptions,
-};
+export type { QuickInsertHandler, QuickInsertPluginOptions };
 export { pluginKey };
 
 const quickInsertPlugin: NextEditorPlugin<

@@ -163,7 +163,7 @@ ruleTester.run('use-primitives', rule, {
 
     // it suggests Box for div/span containing one JSX child
     {
-      code: '<span><section>Section content</section></span>',
+      code: '<span><button>button content</button></span>',
       errors: [
         {
           messageId: 'preferPrimitivesBox',
@@ -172,7 +172,7 @@ ruleTester.run('use-primitives', rule, {
               desc: `Convert to Box`,
               output: [
                 `import { Box } from '@atlaskit/primitives';`,
-                `<Box as="span"><section>Section content</section></Box>`,
+                `<Box as="span"><button>button content</button></Box>`,
               ].join('\n'),
             },
           ],
@@ -182,13 +182,9 @@ ruleTester.run('use-primitives', rule, {
 
     // it suggests Box when the only child is a React.Fragment
     {
-      code: [
-        `<div>`,
-        `  <>`,
-        `    <section></section>`,
-        `  </>`,
-        `</div>`,
-      ].join('\n'),
+      code: [`<div>`, `  <>`, `    <button></button>`, `  </>`, `</div>`].join(
+        '\n',
+      ),
       errors: [
         {
           messageId: 'preferPrimitivesBox',
@@ -199,7 +195,7 @@ ruleTester.run('use-primitives', rule, {
                 `import { Box } from '@atlaskit/primitives';`,
                 `<Box>`,
                 `  <>`,
-                `    <section></section>`,
+                `    <button></button>`,
                 `  </>`,
                 `</Box>`,
               ].join('\n'),

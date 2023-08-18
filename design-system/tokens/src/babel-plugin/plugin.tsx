@@ -1,8 +1,43 @@
 import { Binding, NodePath, Scope } from '@babel/traverse';
 import * as t from '@babel/types';
 
-import tokenDefaultValues from '../artifacts/token-default-values';
 import tokenNames from '../artifacts/token-names';
+import legacyLight from '../artifacts/tokens-raw/atlassian-legacy-light';
+import light from '../artifacts/tokens-raw/atlassian-light';
+
+type DefaultTheme = 'light' | 'legacy-light';
+
+// Convert raw tokens to key-value pairs { token: value }
+const getThemeValues = (theme: DefaultTheme): { [x: string]: string } => {
+  const tokensToMap = theme === 'light' ? light : legacyLight;
+
+  return tokensToMap.reduce((formatted: { [x: string]: string }, rawToken) => {
+    let value: string;
+
+    if (typeof rawToken.value === 'string') {
+      value = rawToken.value;
+    } else if (typeof rawToken.value === 'number') {
+      value = rawToken.value.toString();
+    } else {
+      // If it's a box shadow, it'll be an array of values that needs to be
+      // formatted to look like '0px 0px 8px #091e4229, 0px 0px 1px #091e421F'
+      value = rawToken.value.reduce((prev, curr, index) => {
+        let value = `${curr.offset.x}px ${curr.offset.y}px ${curr.radius}px ${curr.color}`;
+
+        if (index === 0) {
+          value += `, `;
+        }
+
+        return prev + value;
+      }, '');
+    }
+
+    return { ...formatted, [rawToken.cleanName]: value };
+  }, {});
+};
+
+const lightValues = getThemeValues('light');
+const legacyLightValues = getThemeValues('legacy-light');
 
 export default function plugin() {
   return {
@@ -10,7 +45,12 @@ export default function plugin() {
       Program: {
         enter(
           path: NodePath<t.Program>,
-          state: { opts: { shouldUseAutoFallback?: boolean } },
+          state: {
+            opts: {
+              shouldUseAutoFallback?: boolean;
+              defaultTheme?: DefaultTheme;
+            };
+          },
         ) {
           const sourceFile = path.hub.file.opts.filename;
           if (sourceFile && sourceFile.includes('node_modules')) {
@@ -51,7 +91,10 @@ export default function plugin() {
               if (path.node.arguments.length < 2) {
                 if (state.opts.shouldUseAutoFallback) {
                   replacementNode = t.stringLiteral(
-                    `var(${cssTokenValue}, ${getDefaultFallback(tokenName)})`,
+                    `var(${cssTokenValue}, ${getDefaultFallback(
+                      tokenName,
+                      state.opts.defaultTheme,
+                    )})`,
                   );
                 } else {
                   replacementNode = t.stringLiteral(`var(${cssTokenValue})`);
@@ -134,9 +177,11 @@ export default function plugin() {
 }
 
 function getDefaultFallback(
-  tokenName: keyof typeof tokenDefaultValues,
+  tokenName: keyof typeof lightValues,
+  theme: DefaultTheme = 'light',
 ): string {
-  return tokenDefaultValues[tokenName];
+  const tokens = theme === 'legacy-light' ? legacyLightValues : lightValues;
+  return tokens[tokenName];
 }
 
 function getNonAliasedImportName(node: t.ImportSpecifier): string {

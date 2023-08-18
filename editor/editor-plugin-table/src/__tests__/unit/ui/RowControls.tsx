@@ -46,6 +46,7 @@ describe('RowControls', () => {
     ) {
       this.disconnect = jest.fn();
       this.observe = jest.fn();
+      this.unobserve = jest.fn();
     };
   });
 

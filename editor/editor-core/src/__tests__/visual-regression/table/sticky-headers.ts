@@ -1,4 +1,4 @@
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import {
   snapshot,
   initEditorWithAdf,
@@ -10,7 +10,7 @@ import * as stickyHeaderADF from './__fixtures__/sticky-header.adf.json';
 async function scrollToPos(
   page: PuppeteerPage,
   nthTable: number,
-  offsetY = -80,
+  offsetY = -90,
 ) {
   return page.evaluate(
     (nth: number, offset: number) => {
@@ -78,7 +78,7 @@ describe('Snapshot Test: sticky-headers', () => {
   it(`should have the header stick for an unresized-table with numbered column`, async () => {
     await initEditor(page, stickyHeaderADF);
     await animationFrame(page);
-    const o = await scrollToPos(page, 2);
+    const o = await scrollToPos(page, 2, -120);
     await animationFrame(page);
     console.log('TOP:', o, 440 - o!); // eslint-disable-line no-console
   });
@@ -110,7 +110,7 @@ describe('Snapshot Test: sticky-headers', () => {
     console.log('TOP:', o, 920 - o!); // eslint-disable-line no-console
   });
 
-  it(`should have the header not stick for an table with resized columns`, async () => {
+  it(`should have the header stick for an table with resized columns`, async () => {
     await initEditor(page, stickyHeaderADF);
     await animationFrame(page);
     const o = await scrollToPos(page, 6);
@@ -145,7 +145,7 @@ describe('Snapshot Test: sticky-headers', () => {
   it(`should have the header stick for an table with overflow`, async () => {
     await initEditor(page, stickyHeaderADF);
     await animationFrame(page);
-    const o = await scrollToPos(page, 10, -155);
+    const o = await scrollToPos(page, 10);
     await animationFrame(page);
     console.log('TOP:', o, 2900 - o!); // eslint-disable-line no-console
   });
@@ -162,7 +162,7 @@ describe('Snapshot Test: sticky-headers', () => {
   it(`should have the header stick for an table within a layout`, async () => {
     await initEditor(page, stickyHeaderADF);
     await animationFrame(page);
-    const o = await scrollToPos(page, 12, -120);
+    const o = await scrollToPos(page, 12, -150);
     await animationFrame(page);
     console.log('TOP:', o, 4500 - o!); // eslint-disable-line no-console
   });
@@ -170,7 +170,7 @@ describe('Snapshot Test: sticky-headers', () => {
   it(`should have the header stick for an table within layout and brokenout`, async () => {
     await initEditor(page, stickyHeaderADF);
     await animationFrame(page);
-    const o = await scrollToPos(page, 13);
+    const o = await scrollToPos(page, 13, -230);
     console.log('TOP:', o, 4900 - o!); // eslint-disable-line no-console
   });
 

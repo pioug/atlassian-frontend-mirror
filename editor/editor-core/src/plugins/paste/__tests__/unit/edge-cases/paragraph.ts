@@ -32,7 +32,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { focusPlugin } from '@atlaskit/editor-plugin-focus';
 import codeBlockPlugin from '../../../../code-block';
-import compositionPlugin from '../../../../composition';
+import { compositionPlugin } from '@atlaskit/editor-plugin-composition';
 import mediaPlugin from '../../../../media';
 import pastePlugin from '../../../index';
 import blockTypePlugin from '../../../../block-type';

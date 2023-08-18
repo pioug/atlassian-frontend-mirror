@@ -2,96 +2,157 @@ import { logDebug } from '../../../../util/logger';
 import { EventType } from '../../../../types';
 import WebsocketClient from './websocketClient';
 import { MessageData } from '../../types';
-import { APSTransport, APSTransportParams } from '../index';
+import { Message } from '../../../types';
+import { APSTransportParams } from '../index';
 import { APSTransportType } from '../../../../apiTypes';
-import { APSAnalyticsClient } from '../../APSAnalyticsClient';
+import { getTimestampBasedSequenceNumber } from '../../utils';
+import AbstractApsTransport from '../abstract-aps-transport';
 
-export default class WebsocketTransport implements APSTransport {
+enum State {
+  CLOSED,
+  CONNECTING,
+  OPEN,
+  RECONNECTING,
+}
+
+export default class WebsocketTransport extends AbstractApsTransport {
   private readonly activeChannels = new Set<string>();
-  private readonly eventEmitter;
-  private readonly analyticsClient: APSAnalyticsClient;
+  private closedByClient = false;
+  private state: State = State.CLOSED;
   private websocketClient?: WebsocketClient;
   readonly url: URL;
 
   constructor(params: APSTransportParams) {
+    super(params);
     this.url = WebsocketTransport.toWssUrl(params.url);
-    this.eventEmitter = params.eventEmitter;
-    this.analyticsClient = params.analyticsClient;
   }
 
   transportType() {
     return APSTransportType.WEBSOCKET;
   }
 
-  async subscribe(channels: Set<string>): Promise<void> {
+  private async initClient(channels: string[]): Promise<WebsocketClient> {
     return new Promise((resolve, reject) => {
-      const newChannels = [...channels].filter(
-        (channelName) => !this.activeChannels.has(channelName),
-      );
-      const removedChannels = [...this.activeChannels].filter(
-        (channelName) => !channels.has(channelName),
-      );
+      const ws = new WebsocketClient({
+        url: this.url,
+        onOpen: () => {
+          this.eventEmitter.emit(EventType.NETWORK_UP, {});
+          this.closedByClient = false;
+          ws.send({
+            type: 'subscribe',
+            channels: channels,
+            replayFrom: this.lastSeenSequenceNumber || undefined,
+          });
+          this.lastSeenSequenceNumber = getTimestampBasedSequenceNumber();
+          resolve(ws);
+        },
+        onMessage: (event: MessageEvent) => {
+          const data = JSON.parse(event.data) as MessageData;
 
-      newChannels.forEach((channel) => this.activeChannels.add(channel));
-      removedChannels.forEach((channel) => this.activeChannels.delete(channel));
+          if (data.type === 'CHANNEL_ACCESS_DENIED') {
+            this.eventEmitter.emit(EventType.ACCESS_DENIED, data.payload);
+            return;
+          }
 
-      if (!this.websocketClient) {
-        this.websocketClient = new WebsocketClient({
-          url: this.url,
-          onOpen: () => {
-            resolve();
-            this.eventEmitter.emit(EventType.NETWORK_UP, {});
-          },
-          onMessage: (event: MessageEvent) => {
-            const data = JSON.parse(event.data) as MessageData;
+          this.lastSeenSequenceNumber = (data as Message).sequenceNumber;
 
-            if (data.type === 'CHANNEL_ACCESS_DENIED') {
-              this.eventEmitter.emit(EventType.ACCESS_DENIED, data.payload);
-              return;
-            }
+          this.eventEmitter.emit(EventType.MESSAGE, data.type, data.payload);
+        },
+        onClose: (event: CloseEvent) => {
+          if (this.closedByClient) {
+            return;
+          }
 
-            this.eventEmitter.emit(EventType.MESSAGE, data.type, data.payload);
-          },
-          onClose: (event: CloseEvent) => {
-            if (event.code !== 1000) {
-              // 1000 is "normal closure"
-              this.analyticsClient.sendEvent('aps-ws', 'unexpected close', {
-                code: event.code,
-                wasClean: event.wasClean,
-                reason: event.reason,
-              });
-            }
+          this.analyticsClient.sendEvent('aps-ws', 'close', {
+            code: event.code,
+            wasClean: event.wasClean,
+            reason: event.reason,
+          });
 
-            this.eventEmitter.emit(EventType.NETWORK_DOWN, {});
-          },
-          onMessageSendError: (readyState: number) => {
-            this.analyticsClient.sendEvent('aps-ws', 'error sending message', {
-              readyState,
-            });
-          },
-          onMaximumRetriesError: () => {
-            reject('Maximum reconnection attempts reached.');
-          },
-          onError: (event: ErrorEvent) => {
-            logDebug('Websocket connection closed due to error', event);
-          },
-        });
-      }
+          this.eventEmitter.emit(EventType.NETWORK_DOWN, {});
 
+          if (
+            this.state === State.CONNECTING ||
+            this.state === State.RECONNECTING
+          ) {
+            reject('connection closed');
+            return;
+          }
+
+          if (this.state === State.OPEN) {
+            this.reconnect([...this.activeChannels])
+              .then((websocketClient) => {
+                this.websocketClient = websocketClient;
+              })
+              .catch(reject);
+          }
+        },
+        onMessageSendError: (readyState: number) => {
+          this.analyticsClient.sendEvent('aps-ws', 'error sending message', {
+            readyState,
+          });
+        },
+        onError: (event: ErrorEvent) => {
+          logDebug('Websocket onError', event);
+        },
+      });
+    });
+  }
+
+  private async connect(channels: string[]) {
+    this.state = State.CONNECTING;
+
+    return this.connectWithBackoff(async () => this.initClient(channels)).then(
+      (ws) => {
+        this.state = State.OPEN;
+        return ws;
+      },
+    );
+  }
+
+  private async reconnect(channels: string[]) {
+    this.state = State.RECONNECTING;
+
+    return this.reconnectWithBackoff(async () =>
+      this.initClient(channels),
+    ).then((ws) => {
+      this.state = State.OPEN;
+      return ws;
+    });
+  }
+
+  async subscribe(channels: Set<string>): Promise<void> {
+    const newChannels = [...channels].filter(
+      (channelName) => !this.activeChannels.has(channelName),
+    );
+    const removedChannels = [...this.activeChannels].filter(
+      (channelName) => !channels.has(channelName),
+    );
+
+    if (removedChannels.length === 0 && newChannels.length === 0) {
+      return Promise.resolve();
+    }
+
+    newChannels.forEach((channel) => this.activeChannels.add(channel));
+    removedChannels.forEach((channel) => this.activeChannels.delete(channel));
+
+    if (!this.websocketClient) {
+      this.websocketClient = await this.connect(newChannels);
+    } else {
       if (newChannels.length > 0) {
-        this.websocketClient?.send({
+        await this.websocketClient?.send({
           type: 'subscribe',
           channels: Array.from(newChannels),
         });
       }
 
       if (removedChannels.length > 0) {
-        this.websocketClient?.send({
+        await this.websocketClient?.send({
           type: 'unsubscribe',
           channels: Array.from(removedChannels),
         });
       }
-    });
+    }
   }
 
   close(): void {
@@ -104,8 +165,11 @@ export default class WebsocketTransport implements APSTransport {
       this.activeChannels.clear();
     }
 
+    this.lastSeenSequenceNumber = null;
     this.websocketClient?.close();
     this.websocketClient = undefined;
+    this.closedByClient = true;
+    this.state = State.CLOSED;
   }
 
   private static toWssUrl = (apsUrl: URL) => {

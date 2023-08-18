@@ -6,10 +6,7 @@ import {
   getCellDomAttrs,
 } from '@atlaskit/adf-schema';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import type {
-  GetEditorFeatureFlags,
-  getPosHandler,
-} from '@atlaskit/editor-common/types';
+import type { getPosHandler } from '@atlaskit/editor-common/types';
 import { DOMSerializer, Node } from '@atlaskit/editor-prosemirror/model';
 import { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 
@@ -24,13 +21,11 @@ export default class TableCellNodeView implements NodeView {
   view: EditorView;
   providerFactory?: ProviderFactory;
   observer?: ResizeObserver;
-  mouseMoveOptimization?: boolean;
 
   constructor(
     node: Node,
     view: EditorView,
     getPos: any,
-    getEditorFeatureFlags: GetEditorFeatureFlags,
     observer?: ResizeObserver,
   ) {
     this.view = view;
@@ -45,11 +40,8 @@ export default class TableCellNodeView implements NodeView {
     this.dom = dom as HTMLElement;
     this.contentDOM = contentDOM as HTMLElement;
 
-    const { mouseMoveOptimization } = getEditorFeatureFlags();
-
-    if (mouseMoveOptimization && observer) {
+    if (observer) {
       this.contentDOM.id = uuid();
-      this.mouseMoveOptimization = mouseMoveOptimization;
       this.observer = observer;
       observer.observe(this.contentDOM);
     }
@@ -108,7 +100,7 @@ export default class TableCellNodeView implements NodeView {
   }
 
   destroy() {
-    if (this.mouseMoveOptimization && this.observer) {
+    if (this.observer) {
       this.observer.unobserve(this.contentDOM);
     }
   }

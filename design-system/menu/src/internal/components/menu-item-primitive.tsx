@@ -35,18 +35,29 @@ const contentStyles = css({
   justifyContent: 'center',
   flexDirection: 'column',
   flexGrow: 1,
-  // Fix - avoid clipped text descenders when using standard 16px line-height
   lineHeight: token('font.lineHeight.100', '16px'),
   outline: 'none',
-  overflow: 'hidden',
   textAlign: 'left',
+  // Use "clip" overflow to allow ellipses on x-axis without clipping descenders
+  '@supports not (overflow-x: clip)': {
+    overflow: 'hidden',
+  },
+  '@supports (overflow-x: clip)': {
+    overflowX: 'clip',
+  },
 });
 
 const truncateStyles = css({
   display: 'block',
-  overflow: 'hidden',
   textOverflow: 'ellipsis',
   whiteSpace: 'nowrap',
+  // Use "clip" overflow to allow ellipses on x-axis without clipping descenders
+  '@supports not (overflow-x: clip)': {
+    overflow: 'hidden',
+  },
+  '@supports (overflow-x: clip)': {
+    overflowX: 'clip',
+  },
 });
 
 const wordBreakStyles = css({

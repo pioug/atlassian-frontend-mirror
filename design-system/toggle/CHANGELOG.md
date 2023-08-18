@@ -1,5 +1,11 @@
 # @atlaskit/toggle
 
+## 12.6.11
+
+### Patch Changes
+
+- [`9af31f3c1ae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9af31f3c1ae) - Delete version.json
+
 ## 12.6.10
 
 ### Patch Changes

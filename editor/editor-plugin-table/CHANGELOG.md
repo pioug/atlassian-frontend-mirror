@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-table
 
+## 2.10.0
+
+### Minor Changes
+
+- [`0f3026deda5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0f3026deda5) - ED-12027 cleaned up table optimisation feature flags, made optimised code run by default.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.9.1
+
+### Patch Changes
+
+- [`84cf99bc0f0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/84cf99bc0f0) - ED-19153:Update table container width to be consistent with table resizer.
+
 ## 2.9.0
 
 ### Minor Changes

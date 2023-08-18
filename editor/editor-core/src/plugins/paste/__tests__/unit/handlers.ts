@@ -77,7 +77,8 @@ import extensionPlugin from '../../../extension';
 import rulePlugin from '../../../rule';
 import floatingToolbarPlugin from '../../../floating-toolbar';
 import codeBlockPlugin from '../../../code-block';
-import compositionPlugin from '../../../composition';
+import { compositionPlugin } from '@atlaskit/editor-plugin-composition';
+import typeAheadPlugin from '../../../type-ahead';
 import betterTypeHistoryPlugin from '../../../better-type-history';
 
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
@@ -1632,6 +1633,7 @@ describe('handlePasteIntoTaskOrDecisionOrPanel', () => {
             .add(hyperlinkPlugin)
             .add(tasksAndDecisionsPlugin)
             .add(panelPlugin)
+            .add(typeAheadPlugin)
             .add(emojiPlugin)
             .add(widthPlugin)
             .add(guidelinePlugin)
@@ -2065,6 +2067,7 @@ describe('handlePasteIntoTaskOrDecisionOrPanel', () => {
       .add(hyperlinkPlugin)
       .add(tasksAndDecisionsPlugin)
       .add(panelPlugin)
+      .add(typeAheadPlugin)
       .add(emojiPlugin)
       .add(blockTypePlugin)
       .add(compositionPlugin)

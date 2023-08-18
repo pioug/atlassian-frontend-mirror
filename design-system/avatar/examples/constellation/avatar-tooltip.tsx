@@ -16,7 +16,6 @@ const AvatarTooltipExample = () => {
         size="large"
         onClick={console.log}
         presence={presence}
-        label={label}
       />
     </Tooltip>
   );

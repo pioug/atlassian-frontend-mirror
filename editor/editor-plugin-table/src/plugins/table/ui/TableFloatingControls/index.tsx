@@ -26,7 +26,6 @@ export interface Props {
   isHeaderColumnEnabled?: boolean;
   isNumberColumnEnabled?: boolean;
   hasHeaderRow?: boolean;
-  tableHeight?: number;
   headerRowHeight?: number;
   hoveredRows?: number[];
   ordering?: TableColumnOrdering;
@@ -53,13 +52,7 @@ export default class TableFloatingControls extends Component<Props, State> {
   // tracking the table height changes to update floating controls
   private tryInitResizeObserver() {
     let { tableRef } = this.props;
-    const { tableRenderOptimization } = this.props.getEditorFeatureFlags();
-    if (
-      tableRenderOptimization &&
-      tableRef &&
-      !this.resizeObserver &&
-      window?.ResizeObserver
-    ) {
+    if (tableRef && !this.resizeObserver && window?.ResizeObserver) {
       this.resizeObserver = new ResizeObserver((entries) => {
         for (let entry of entries) {
           const tableHeight = entry.contentRect.height;
@@ -85,13 +78,8 @@ export default class TableFloatingControls extends Component<Props, State> {
       headerRowHeight,
       stickyHeader,
     } = this.props;
-    const { tableRenderOptimization } = this.props.getEditorFeatureFlags();
-    const tableHeight = tableRenderOptimization
-      ? this.state?.tableHeight
-      : this.props.tableHeight;
-    const nextTableHeight = tableRenderOptimization
-      ? nextState?.tableHeight
-      : nextProps.tableHeight;
+    const tableHeight = this.state?.tableHeight;
+    const nextTableHeight = nextState?.tableHeight;
     return (
       ordering !== nextProps.ordering ||
       tableRef !== nextProps.tableRef ||

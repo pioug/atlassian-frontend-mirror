@@ -41,7 +41,7 @@ import {
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
-import compositionPlugin from '../../../../composition';
+import { compositionPlugin } from '@atlaskit/editor-plugin-composition';
 
 describe('join-list-item-forward', () => {
   const createEditor = createProsemirrorEditorFactory();

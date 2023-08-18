@@ -20,7 +20,7 @@ import {
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import codeBlockPlugin from '../../';
-import compositionPlugin from '../../../composition';
+import { compositionPlugin } from '@atlaskit/editor-plugin-composition';
 import layoutPlugin from '../../../layout';
 import blockTypePlugin from '../../../block-type';
 import basePlugin from '../../../base';

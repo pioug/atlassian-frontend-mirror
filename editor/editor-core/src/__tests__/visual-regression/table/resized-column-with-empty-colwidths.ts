@@ -1,4 +1,4 @@
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import {
   scrollToElement,
   selectors,
@@ -34,14 +34,9 @@ describe('table with zero width and text', () => {
       await snapshot(page);
     });
 
-    describe.each([
-      ['with stickyHeadersOptimization', true],
-      ['without stickyHeadersOptimization', false],
-    ])('with sticky headers and %s', (_, stickyHeadersOptimization) => {
+    describe('with sticky headers', () => {
       beforeEach(async () => {
-        await setupEditor(true, {
-          stickyHeadersOptimization,
-        });
+        await setupEditor(true);
       });
 
       it('on initial render', async () => {

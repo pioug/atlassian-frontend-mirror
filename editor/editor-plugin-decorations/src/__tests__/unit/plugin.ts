@@ -8,14 +8,16 @@ import { deleteActiveLayoutNode } from '@atlaskit/editor-core/src/plugins/layout
 import mentionsPlugin from '@atlaskit/editor-core/src/plugins/mentions';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import panelPlugin from '@atlaskit/editor-core/src/plugins/panel';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import typeAheadPlugin from '@atlaskit/editor-core/src/plugins/type-ahead';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
-  DocBuilder,
   layoutColumn,
   layoutSection,
   mention,
@@ -49,6 +51,7 @@ describe('decoration', () => {
         .add(mockPlugin)
         .add(panelPlugin)
         .add(layoutPlugin)
+        .add(typeAheadPlugin)
         .add(mentionsPlugin),
     });
   };

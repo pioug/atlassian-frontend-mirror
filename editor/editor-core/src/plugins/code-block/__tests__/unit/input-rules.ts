@@ -16,7 +16,7 @@ import {
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import blockTypePlugin from '../../../block-type';
 import codeBlockPlugin from '../../';
-import compositionPlugin from '../../../composition';
+import { compositionPlugin } from '@atlaskit/editor-plugin-composition';
 import panelPlugin from '../../../panel';
 import { textFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';
 import listPlugin from '../../../list';

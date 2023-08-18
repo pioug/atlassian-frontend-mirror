@@ -1,5 +1,11 @@
 # @atlaskit/link-picker
 
+## 1.28.2
+
+### Patch Changes
+
+- [`d2cf6a73817`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d2cf6a73817) - Remove redundant aria-label from the input field
+
 ## 1.28.1
 
 ### Patch Changes

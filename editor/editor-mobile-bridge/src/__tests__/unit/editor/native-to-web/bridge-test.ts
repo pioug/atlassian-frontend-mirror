@@ -4,8 +4,8 @@ import {
   getListCommands,
   clearEditorContent,
   setKeyboardHeight,
-  QuickInsertActionInsert,
 } from '@atlaskit/editor-core';
+import type { QuickInsertActionInsert } from '@atlaskit/editor-common/provider-factory';
 import { isLinkAtPos, isTextAtPos } from '@atlaskit/editor-common/link';
 import WebBridgeImpl from '../../../../editor/native-to-web';
 import { defaultPadding } from '../../../../web-bridge';

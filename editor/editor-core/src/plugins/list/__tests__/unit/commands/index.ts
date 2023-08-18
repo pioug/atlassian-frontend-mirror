@@ -43,7 +43,7 @@ import listPlugin from '../../..';
 import blockTypePlugin from '../../../../block-type';
 import datePlugin from '../../../../date';
 import codeBlockPlugin from '../../../../code-block';
-import compositionPlugin from '../../../../composition';
+import { compositionPlugin } from '@atlaskit/editor-plugin-composition';
 import panelPlugin from '../../../../panel';
 import indentationPlugin from '../../../../indentation';
 import alignmentPlugin from '../../../../alignment';

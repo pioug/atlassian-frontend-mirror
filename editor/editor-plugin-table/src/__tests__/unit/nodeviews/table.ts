@@ -36,97 +36,85 @@ describe('table -> nodeviews -> table.tsx', () => {
       table(attrs)(...args)(defaultSchema);
 
   describe('TableView', () => {
-    describe('with tableRenderOptimization', () => {
-      const editor = (doc: DocBuilder) =>
-        createEditor({
-          doc,
-          preset: new Preset<LightEditorPlugin>()
-            .add([featureFlagsPlugin, {}])
-            .add([analyticsPlugin, {}])
-            .add(contentInsertionPlugin)
-            .add(widthPlugin)
-            .add(guidelinePlugin)
-            .add([
-              tablePlugin,
-              {
-                tableOptions: {},
-                getEditorFeatureFlags: () => ({
-                  tableRenderOptimization: true,
-                }),
-              },
-            ]),
-          pluginKey,
-        });
+    const editor = (doc: DocBuilder) =>
+      createEditor({
+        doc,
+        preset: new Preset<LightEditorPlugin>()
+          .add([featureFlagsPlugin, {}])
+          .add([analyticsPlugin, {}])
+          .add(contentInsertionPlugin)
+          .add(widthPlugin)
+          .add(guidelinePlugin)
+          .add([
+            tablePlugin,
+            {
+              tableOptions: {},
+            },
+          ]),
+        pluginKey,
+      });
 
-      describe('on view update', () => {
-        let tableNode: PMNode,
-          tableNodeView: TableView,
-          renderSpy: jest.SpyInstance,
-          view: EditorView;
-        beforeEach(() => {
-          tableNode = createTableNode({
-            isNumberColumnEnabled: true,
-          })(tr(td()(p('{<>}text')), tdEmpty, tdEmpty));
-          const { editorView, portalProviderAPI, eventDispatcher } = editor(
-            doc(
-              p('text'),
-              table()(tr(tdCursor, tdEmpty), tr(tdEmpty, tdEmpty)),
-            ),
-          );
-          view = editorView;
-          tableNodeView = new TableView({
-            node: tableNode,
-            allowColumnResizing: false,
-            view: editorView,
-            portalProviderAPI,
-            eventDispatcher,
-            getPos: () => 1,
-            tableRenderOptimization: true,
-            getEditorContainerWidth: () => ({ width: 500 }),
-            getEditorFeatureFlags: () => ({}),
-            hasIntlContext: true,
-          }).init();
+    describe('on view update', () => {
+      let tableNode: PMNode,
+        tableNodeView: TableView,
+        renderSpy: jest.SpyInstance,
+        view: EditorView;
+      beforeEach(() => {
+        tableNode = createTableNode({
+          isNumberColumnEnabled: true,
+        })(tr(td()(p('{<>}text')), tdEmpty, tdEmpty));
+        const { editorView, portalProviderAPI, eventDispatcher } = editor(
+          doc(p('text'), table()(tr(tdCursor, tdEmpty), tr(tdEmpty, tdEmpty))),
+        );
+        view = editorView;
+        tableNodeView = new TableView({
+          node: tableNode,
+          allowColumnResizing: false,
+          view: editorView,
+          portalProviderAPI,
+          eventDispatcher,
+          getPos: () => 1,
+          getEditorContainerWidth: () => ({ width: 500 }),
+          getEditorFeatureFlags: () => ({}),
+          hasIntlContext: true,
+        }).init();
 
-          renderSpy = jest.spyOn(tableNodeView, 'render');
-        });
+        renderSpy = jest.spyOn(tableNodeView, 'render');
+      });
 
-        it('does not rerender if attributes or table width did not change', () => {
-          const newNodeWithUnchangedAttributesOrWidth = createTableNode({
-            isNumberColumnEnabled: true,
-          })(tr(td()(p('{<>}text1')), tdEmpty, tdEmpty));
-          tableNodeView.update(newNodeWithUnchangedAttributesOrWidth, []);
-          expect(renderSpy).not.toHaveBeenCalled();
-        });
+      it('does not rerender if attributes or table width did not change', () => {
+        const newNodeWithUnchangedAttributesOrWidth = createTableNode({
+          isNumberColumnEnabled: true,
+        })(tr(td()(p('{<>}text1')), tdEmpty, tdEmpty));
+        tableNodeView.update(newNodeWithUnchangedAttributesOrWidth, []);
+        expect(renderSpy).not.toHaveBeenCalled();
+      });
 
-        it('rerenders when table width changes', () => {
-          const newNodeWithUnchangedAttributesAndExtraColumn = createTableNode({
-            isNumberColumnEnabled: true,
-          })(tr(td()(p('{<>}text1')), tdEmpty, tdEmpty, tdEmpty));
-          tableNodeView.update(
-            newNodeWithUnchangedAttributesAndExtraColumn,
-            [],
-          );
-          expect(renderSpy).toHaveBeenCalled();
-        });
+      it('rerenders when table width changes', () => {
+        const newNodeWithUnchangedAttributesAndExtraColumn = createTableNode({
+          isNumberColumnEnabled: true,
+        })(tr(td()(p('{<>}text1')), tdEmpty, tdEmpty, tdEmpty));
+        tableNodeView.update(newNodeWithUnchangedAttributesAndExtraColumn, []);
+        expect(renderSpy).toHaveBeenCalled();
+      });
 
-        it('rerenders when attributes change', () => {
-          const newNodeWithChangedAttributes = createTableNode({
-            isNumberColumnEnabled: false,
-          })(tr(td()(p('{<>}text1')), tdEmpty));
+      it('rerenders when attributes change', () => {
+        const newNodeWithChangedAttributes = createTableNode({
+          isNumberColumnEnabled: false,
+        })(tr(td()(p('{<>}text1')), tdEmpty));
 
-          tableNodeView.update(newNodeWithChangedAttributes, []);
-          expect(renderSpy).toHaveBeenCalled();
-        });
+        tableNodeView.update(newNodeWithChangedAttributes, []);
+        expect(renderSpy).toHaveBeenCalled();
+      });
 
-        it('rerenders when hovered rows change but attributes dont change', () => {
-          const newNodeWithUnchangedAttributes = createTableNode({
-            isNumberColumnEnabled: true,
-          })(tr(td()(p('{<>}text1')), tdEmpty));
+      it('rerenders when hovered rows change but attributes dont change', () => {
+        const newNodeWithUnchangedAttributes = createTableNode({
+          isNumberColumnEnabled: true,
+        })(tr(td()(p('{<>}text1')), tdEmpty));
 
-          hoverRows([1])(view.state, view.dispatch);
-          tableNodeView.update(newNodeWithUnchangedAttributes, []);
-          expect(renderSpy).toHaveBeenCalled();
-        });
+        hoverRows([1])(view.state, view.dispatch);
+        tableNodeView.update(newNodeWithUnchangedAttributes, []);
+        expect(renderSpy).toHaveBeenCalled();
       });
     });
   });

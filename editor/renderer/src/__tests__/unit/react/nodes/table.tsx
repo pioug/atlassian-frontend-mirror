@@ -5,7 +5,7 @@ import {
   akEditorTableLegacyCellMinWidth as tableCellMinWidth,
   akEditorTableCellMinWidth,
 } from '@atlaskit/editor-shared-styles';
-import { TableLayout } from '@atlaskit/adf-schema';
+import type { TableLayout } from '@atlaskit/adf-schema';
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 import { inlineCard, p, table, td, th, tr } from '@atlaskit/adf-utils/builders';
 import Table, { TableProcessor } from '../../../../react/nodes/table';
@@ -18,8 +18,8 @@ import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { shadowObserverClassNames } from '@atlaskit/editor-common/ui';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { TableSharedCssClassName } from '@atlaskit/editor-common/styles';
-import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { ReactWrapper } from 'enzyme';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { ReactWrapper } from 'enzyme';
 
 const schema = getSchemaBasedOnStage('stage0');
 
@@ -72,15 +72,80 @@ describe('Renderer - React/Nodes/Table', () => {
     expect(table.find(TableRow).prop('isNumberColumnEnabled')).toEqual(true);
   });
 
-  it('should NOT render a colgroup when columnWidths is an empty array', () => {
-    const columnWidths: Array<number> = [];
-    const table = mountBasicTable({ columnWidths, renderWidth });
-    expect(table.find('colgroup')).toHaveLength(0);
+  describe('should NOT render a colgroup when columnWidths is an empty array', () => {
+    ffTest(
+      'platform.editor.custom-table-width',
+      (ff) =>
+        ffTest(
+          'platform.editor.custom-table-width-scale-down-undefined-column',
+          () => {
+            const columnWidths: Array<number> = [];
+            const table = mountBasicTable({
+              columnWidths,
+              renderWidth,
+              isNumberColumnEnabled: false,
+            });
+            expect(table.find('col')).toHaveLength(0);
+          },
+          () => {
+            const columnWidths: Array<number> = [];
+            const table = mountBasicTable({
+              columnWidths,
+              renderWidth,
+              isNumberColumnEnabled: false,
+            });
+            expect(table.find('col')).toHaveLength(0);
+          },
+          ff,
+        ),
+      () => {
+        const columnWidths: Array<number> = [];
+        const table = mountBasicTable({
+          columnWidths,
+          renderWidth,
+          isNumberColumnEnabled: false,
+        });
+        expect(table.find('col')).toHaveLength(0);
+      },
+    );
   });
 
-  it('should NOT render a colgroup when columnWidths is an array of zeros', () => {
-    const table = mountBasicTable({ columnWidths: [0, 0, 0] });
-    expect(table.find('colgroup')).toHaveLength(0);
+  describe('should NOT render a colgroup when columnWidths is an array of zeros', () => {
+    ffTest(
+      'platform.editor.custom-table-width',
+      (ff) =>
+        ffTest(
+          'platform.editor.custom-table-width-scale-down-undefined-column',
+          () => {
+            const columnWidths: Array<number> = [0, 0, 0];
+            const table = mountBasicTable({
+              columnWidths,
+              renderWidth,
+              isNumberColumnEnabled: false,
+            });
+            expect(table.find('col')).toHaveLength(3);
+          },
+          () => {
+            const columnWidths: Array<number> = [0, 0, 0];
+            const table = mountBasicTable({
+              columnWidths,
+              renderWidth,
+              isNumberColumnEnabled: false,
+            });
+            expect(table.find('col')).toHaveLength(3);
+          },
+          ff,
+        ),
+      () => {
+        const columnWidths: Array<number> = [0, 0, 0];
+        const table = mountBasicTable({
+          columnWidths,
+          renderWidth,
+          isNumberColumnEnabled: false,
+        });
+        expect(table.find('col')).toHaveLength(0);
+      },
+    );
   });
 
   it('should render children', () => {
@@ -244,7 +309,6 @@ describe('Renderer - React/Nodes/Table', () => {
               </TableRow>
             </Table>,
           );
-
           expect(table.find('col')).toHaveLength(0);
         },
       );

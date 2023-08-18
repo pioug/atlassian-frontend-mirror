@@ -24,6 +24,7 @@ import type {
 } from '@atlaskit/editor-prosemirror/state';
 import basePlugin from '../../';
 import { emojiPlugin } from '../../../emoji';
+import typeAheadPlugin from '../../../type-ahead';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
@@ -55,6 +56,7 @@ describe('Inline cursor target', () => {
         .add([analyticsPlugin, {}])
         .add(contentInsertionPlugin)
         .add([basePlugin, { allowInlineCursorTarget: true }])
+        .add(typeAheadPlugin)
         .add(emojiPlugin)
         .add(widthPlugin)
         .add(guidelinePlugin)

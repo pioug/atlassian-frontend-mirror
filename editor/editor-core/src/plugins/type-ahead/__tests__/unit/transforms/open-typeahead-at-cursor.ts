@@ -33,7 +33,7 @@ describe('typeahead -> transforms -> openTypeAheadAtCursor', () => {
     doc: DocBuilder,
   ) => ReturnType<ReturnType<typeof createProsemirrorEditorFactory>>;
 
-  let openTypeAhead: (tr: Transaction) => Transaction | null;
+  let openTypeAhead: ({ tr }: { tr: Transaction }) => Transaction | null;
   beforeAll(() => {
     const createEditor = createProsemirrorEditorFactory();
     const preset = new Preset<LightEditorPlugin>()
@@ -65,7 +65,7 @@ describe('typeahead -> transforms -> openTypeAheadAtCursor', () => {
 
       const tr = editorView.state.tr;
 
-      openTypeAhead(tr);
+      openTypeAhead({ tr });
 
       expect(tr).toEqualDocumentAndSelection(
         // prettier-ignore
@@ -83,7 +83,7 @@ describe('typeahead -> transforms -> openTypeAheadAtCursor', () => {
       );
 
       const tr = editorView.state.tr;
-      openTypeAhead(tr);
+      openTypeAhead({ tr });
 
       expect(tr).toEqualDocumentAndSelection(
         doc(panel({ panelType: 'info' })(p('12345')), p('{<>}')),
@@ -98,7 +98,7 @@ describe('typeahead -> transforms -> openTypeAheadAtCursor', () => {
       );
 
       const tr = editorView.state.tr;
-      openTypeAhead(tr);
+      openTypeAhead({ tr });
 
       expect(tr).toEqualDocumentAndSelection(
         doc(p('{<>}'), panel({ panelType: 'info' })(p('12345'))),

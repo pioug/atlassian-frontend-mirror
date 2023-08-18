@@ -106,8 +106,14 @@ export const getTabStyles = (mode: ThemeModes): CSSObject => {
     padding: `${tabTopBottomPadding} ${tabLeftRightPadding}`,
     position: 'relative',
     whiteSpace: 'nowrap',
-    overflow: 'hidden',
     textOverflow: 'ellipsis',
+    // Use "clip" overflow to allow ellipses on x-axis without clipping descenders
+    '@supports not (overflow-x: clip)': {
+      overflow: 'hidden',
+    },
+    '@supports (overflow-x: clip)': {
+      overflowX: 'clip',
+    },
 
     '&:hover': {
       // TODO: interaction states will be reviewed in DSP-1438

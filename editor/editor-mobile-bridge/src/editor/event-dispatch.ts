@@ -1,5 +1,5 @@
 import EventEmitter from 'events';
-import { QuickInsertItemId } from '@atlaskit/editor-core';
+import type { QuickInsertItemId } from '@atlaskit/editor-common/provider-factory';
 
 export type allowListPayloadType = Set<QuickInsertItemId>;
 

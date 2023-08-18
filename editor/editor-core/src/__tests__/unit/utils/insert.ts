@@ -50,7 +50,7 @@ import mediaPlugin from '../../../plugins/media';
 import listPlugin from '../../../plugins/list';
 import { focusPlugin } from '@atlaskit/editor-plugin-focus';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
-import compositionPlugin from '../../../plugins/composition';
+import { compositionPlugin } from '@atlaskit/editor-plugin-composition';
 import type {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,

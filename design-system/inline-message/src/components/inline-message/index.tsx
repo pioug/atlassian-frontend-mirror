@@ -74,9 +74,15 @@ const titleStyles = css({
 const textStyles = css({
   padding: `${token('space.0', '0px')} ${token('space.050', '4px')}`,
   color: `var(${VAR_SECONDARY_TEXT_COLOR})`,
-  overflow: 'hidden',
   textOverflow: 'ellipsis',
   whiteSpace: 'nowrap',
+  // Use "clip" overflow to allow ellipses on x-axis without clipping descenders
+  '@supports not (overflow-x: clip)': {
+    overflow: 'hidden',
+  },
+  '@supports (overflow-x: clip)': {
+    overflowX: 'clip',
+  },
 });
 
 const rootStyles = css({

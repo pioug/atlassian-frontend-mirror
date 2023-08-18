@@ -9,6 +9,28 @@ import getAnalyticsClient from '../../../../../../protocols/aps/APSAnalyticsClie
 import * as sinon from 'sinon';
 
 const textEncoder = new TextEncoderNode();
+
+jest.mock('../../../../../../protocols/aps/utils', () => {
+  const originalModule = jest.requireActual(
+    '../../../../../../protocols/aps/utils',
+  );
+  return {
+    ...originalModule,
+    reconnectBackoffOptions: jest.fn(() => ({
+      delayFirstAttempt: false,
+      startingDelay: 0,
+      timeMultiple: 1,
+      numOfAttempts: 3,
+    })),
+    firstConnectBackoffOptions: jest.fn(() => ({
+      delayFirstAttempt: false,
+      startingDelay: 0,
+      timeMultiple: 1,
+      numOfAttempts: 3,
+    })),
+  };
+});
+
 const mockResponseWithReader = async (messages: string[]) => {
   const msgSize = messages.length;
   let msgCounter = 0;
@@ -59,9 +81,15 @@ const restoreStub = (stub: any) => {
   }
 };
 
+const wait = (time: number = 100) => {
+  return new Promise((resolve) => {
+    setTimeout(resolve, time);
+  });
+};
+
 describe('HttpTransport', () => {
-  const url = new URL('https://mock.com');
   let eventEmitter = new EventEmitter2();
+  let httpTransport: HttpTransport;
 
   beforeAll(() => {
     // @ts-ignore
@@ -71,6 +99,15 @@ describe('HttpTransport', () => {
   afterAll(() => {
     // @ts-ignore
     global.TextDecoder = undefined;
+  });
+
+  beforeEach(() => {
+    httpTransport = new HttpTransport({
+      url: new URL('https://mock.com'),
+      eventEmitter,
+      analyticsClient: getAnalyticsClient(),
+      isFallback: false,
+    });
   });
 
   afterEach(() => {
@@ -88,12 +125,6 @@ describe('HttpTransport', () => {
           ]),
         );
 
-      const httpTransport = new HttpTransport({
-        url,
-        eventEmitter,
-        analyticsClient: getAnalyticsClient(),
-      });
-
       await httpTransport.subscribe(new Set());
 
       expect(stubbedFetch.getCalls().length).toBe(0);
@@ -110,12 +141,6 @@ describe('HttpTransport', () => {
             JSON.stringify({ type: 'event', payload: 'goodbye' }),
           ]),
         );
-
-      const httpTransport = new HttpTransport({
-        url,
-        eventEmitter,
-        analyticsClient: getAnalyticsClient(),
-      });
 
       httpTransport.subscribe(new Set(['channel-1']));
 
@@ -140,12 +165,6 @@ describe('HttpTransport', () => {
           ]),
         );
 
-      const httpTransport = new HttpTransport({
-        url,
-        eventEmitter,
-        analyticsClient: getAnalyticsClient(),
-      });
-
       httpTransport.subscribe(new Set(['channel-1']));
 
       const [msg1, msg2] = await consumeMessageEvents(eventEmitter, 2);
@@ -160,16 +179,12 @@ describe('HttpTransport', () => {
   });
 
   describe('#close', () => {
-    it('does not try to reconnect when subscription is closed', () => {
+    it('does not try to reconnect when subscription is closed', async () => {
       sinon.stub(window, 'fetch').resolves(mockRequestThatNeverCompletes());
 
-      const httpTransport = new HttpTransport({
-        url,
-        eventEmitter,
-        analyticsClient: getAnalyticsClient(),
-      });
-
       httpTransport.subscribe(new Set(['channel-1']));
+
+      await wait(0);
 
       httpTransport.close();
 

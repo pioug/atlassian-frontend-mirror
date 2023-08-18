@@ -497,9 +497,6 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
                 linkTextMessages.linkTextPlaceholder,
               )}
               clearLabel={intl.formatMessage(linkTextMessages.clearLinkText)}
-              aria-label={intl.formatMessage(
-                linkTextMessages.linkTextAriaLabel,
-              )}
               onClear={handleClear}
               onChange={handleChangeText}
             />

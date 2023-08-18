@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 8.4.0
+
+### Minor Changes
+
+- [`0128df16060`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0128df16060) - Added new `prefer-primitives` rule that detects use of `<div>` and `<span>` either as HTML tags or via styled components (`styled.div`, `styled('div')`) and suggests using primitive components instead.
+
 ## 8.3.0
 
 ### Minor Changes

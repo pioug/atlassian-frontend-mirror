@@ -12,13 +12,18 @@ import {
   SelectItemMode,
   TypeAheadAvailableNodes,
 } from '@atlaskit/editor-common/type-ahead';
-import type { OnInsertSelectedItem, OnTextInsert } from '../../../../types';
+import type {
+  OnInsertSelectedItem,
+  OnTextInsert,
+  TypeAheadHandler,
+} from '../../../../types';
 import { useItemInsert } from '../../../../ui/hooks/use-item-insert';
 import { CloseSelectionOptions } from '../../../../constants';
 import typeAheadPlugin from '../../../../';
-import type { TypeAheadHandler } from '../../../../types';
-import type { TypeAheadItem } from '@atlaskit/editor-common/provider-factory';
-import type { QuickInsertActionInsert } from '../../../../../quick-insert/types';
+import type {
+  TypeAheadItem,
+  QuickInsertActionInsert,
+} from '@atlaskit/editor-common/provider-factory';
 
 let container: HTMLElement | null;
 beforeEach(() => {

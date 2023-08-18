@@ -9,15 +9,54 @@ jest.mock('../../artifacts/token-names', () => {
     default: {
       'test-token': '--test-token',
       'test-token-escape': '--test-token \\u{54} ${ ` \' " \u{54}',
+      'test-token-shadow': '--test-token-shadow',
     },
   };
 });
-jest.mock('../../artifacts/token-default-values', () => ({
+
+jest.mock('../../artifacts/tokens-raw/atlassian-light', () => ({
   __esModule: true,
-  default: {
-    'test-token': '#ffffff',
-    'test-token-escape': '#000000',
-  },
+  default: [
+    {
+      value: '#ffffff',
+      cleanName: 'test-token',
+    },
+    {
+      value: '#000000',
+      cleanName: 'test-token-escape',
+    },
+    {
+      value: [
+        {
+          radius: 8,
+          offset: { x: 0, y: 0 },
+          color: '#091e423f',
+          opacity: 0.16,
+        },
+        {
+          radius: 1,
+          offset: { x: 0, y: 0 },
+          color: '#091e424f',
+          opacity: 0.12,
+        },
+      ],
+      cleanName: 'test-token-shadow',
+    },
+  ],
+}));
+
+jest.mock('../../artifacts/tokens-raw/atlassian-legacy-light', () => ({
+  __esModule: true,
+  default: [
+    {
+      value: '#cccccc',
+      cleanName: 'test-token',
+    },
+    {
+      value: '#111111',
+      cleanName: 'test-token-escape',
+    },
+  ],
 }));
 
 const transform =
@@ -25,6 +64,7 @@ const transform =
     shouldUseAutoFallback = false,
     transformTemplateLiterals = false,
     options: TransformOptions = {},
+    defaultTheme = 'light',
   ) =>
   (code: TemplateStringsArray | string): string => {
     const plugins: any = [
@@ -32,6 +72,7 @@ const transform =
         babelPlugin,
         {
           shouldUseAutoFallback: shouldUseAutoFallback,
+          defaultTheme: defaultTheme,
         },
       ],
     ];
@@ -66,33 +107,42 @@ describe('Tokens Babel Plugin', () => {
 
   it('converts 1-argument usage correctly when shouldUseAutoFallback set to true', () => {
     const actual = transform(true)`
-      import { token } from '@atlaskit/tokens';
-      token('test-token');
-    `;
+        import { token } from '@atlaskit/tokens';
+        token('test-token');
+      `;
 
     expect(actual).toMatchInlineSnapshot('"\\"var(--test-token, #ffffff)\\";"');
   });
 
+  it('converts 1-argument usage correctly when shouldUseAutoFallback set to true AND fallback is legacy-light', () => {
+    const actual = transform(true, false, {}, 'legacy-light')`
+        import { token } from '@atlaskit/tokens';
+        token('test-token');
+      `;
+
+    expect(actual).toMatchInlineSnapshot('"\\"var(--test-token, #cccccc)\\";"');
+  });
+
   it('converts StringLiteral second argument', () => {
     const actual = transform()`
-      import { token } from '@atlaskit/tokens';
-      token('test-token', 'blue');
-    `;
+        import { token } from '@atlaskit/tokens';
+        token('test-token', 'blue');
+      `;
 
     expect(actual).toMatchInlineSnapshot('"\\"var(--test-token, blue)\\";"');
   });
 
   it('removes empty StringLiteral second argument', () => {
     const noAutoFallback = transform()`
-      import { token } from '@atlaskit/tokens';
-      token('test-token', '');
-    `;
+        import { token } from '@atlaskit/tokens';
+        token('test-token', '');
+      `;
 
     // No fallback inserted if user passes in an empty string
     const autoFallback = transform(true)`
-      import { token } from '@atlaskit/tokens';
-      token('test-token', '');
-    `;
+        import { token } from '@atlaskit/tokens';
+        token('test-token', '');
+      `;
 
     expect(noAutoFallback).toMatchInlineSnapshot('"\\"var(--test-token)\\";"');
     expect(autoFallback).toMatchInlineSnapshot('"\\"var(--test-token)\\";"');
@@ -100,9 +150,9 @@ describe('Tokens Babel Plugin', () => {
 
   it('handles aliased imports', () => {
     const actual = transform()`
-      import { token as getToken } from '@atlaskit/tokens';
-      getToken('test-token');
-    `;
+        import { token as getToken } from '@atlaskit/tokens';
+        getToken('test-token');
+      `;
 
     expect(actual).toMatchInlineSnapshot('"\\"var(--test-token)\\";"');
   });
@@ -117,121 +167,121 @@ describe('Tokens Babel Plugin', () => {
 
   it("doesn't remove tokens import if there are still usages left", () => {
     const actual = transform()`
-      import { token } from '@atlaskit/tokens';
-      a = token;
-      token('test-token', 'blue');
-    `;
+        import { token } from '@atlaskit/tokens';
+        a = token;
+        token('test-token', 'blue');
+      `;
 
     expect(actual).toMatchInlineSnapshot(`
-          "import { token } from '@atlaskit/tokens';
-          a = token;
-          \\"var(--test-token, blue)\\";"
-        `);
+            "import { token } from '@atlaskit/tokens';
+            a = token;
+            \\"var(--test-token, blue)\\";"
+          `);
   });
 
   it('converts expression second arguments', () => {
     const actual = transform()`
-      import { token } from '@atlaskit/tokens';
-      token('test-token', \`\${color.blue}\`);
-      token('test-token', color.blue);
-      token('test-token', condition ? "blue" : color.red );
-      token('test-token', getColor());
-    `;
+        import { token } from '@atlaskit/tokens';
+        token('test-token', \`\${color.blue}\`);
+        token('test-token', color.blue);
+        token('test-token', condition ? "blue" : color.red );
+        token('test-token', getColor());
+      `;
 
     expect(actual).toMatchInlineSnapshot(`
-      "\`var(--test-token, \${\`\${color.blue}\`})\`;
-      \`var(--test-token, \${color.blue})\`;
-      \`var(--test-token, \${condition ? \\"blue\\" : color.red})\`;
-      \`var(--test-token, \${getColor()})\`;"
-    `);
+        "\`var(--test-token, \${\`\${color.blue}\`})\`;
+        \`var(--test-token, \${color.blue})\`;
+        \`var(--test-token, \${condition ? \\"blue\\" : color.red})\`;
+        \`var(--test-token, \${getColor()})\`;"
+      `);
   });
 
   it('converts escape characters correctly', () => {
     const actual = transform()`
-      import { token } from '@atlaskit/tokens';
-      token('test-token-escape', color.blue);
-      token('test-token-escape');
-    `;
+        import { token } from '@atlaskit/tokens';
+        token('test-token-escape', color.blue);
+        token('test-token-escape');
+      `;
 
     expect(actual).toMatchInlineSnapshot(`
-      "\`var(--test-token \\\\\\\\u{54} \\\\\${ \\\\\` ' \\" T, \${color.blue})\`;
-      \\"var(--test-token \\\\\\\\u{54} \${ \` ' \\\\\\" T)\\";"
-    `);
+        "\`var(--test-token \\\\\\\\u{54} \\\\\${ \\\\\` ' \\" T, \${color.blue})\`;
+        \\"var(--test-token \\\\\\\\u{54} \${ \` ' \\\\\\" T)\\";"
+      `);
   });
 
   // If the token name has escape characters they should make it into the final result
   it('works correctly with template literal conversion', () => {
     const actual = transform(false, true)`
-      import { token } from '@atlaskit/tokens';
-      token('test-token', \`\${color.blue}\`);
-      token('test-token', color.blue);
-      token('test-token', condition ? "blue" : color.red );
-      token('test-token', getColor());
-      token('test-token-escape', color.blue);
-      token('test-token-escape');
-    `;
+        import { token } from '@atlaskit/tokens';
+        token('test-token', \`\${color.blue}\`);
+        token('test-token', color.blue);
+        token('test-token', condition ? "blue" : color.red );
+        token('test-token', getColor());
+        token('test-token-escape', color.blue);
+        token('test-token-escape');
+      `;
 
     expect(actual).toMatchInlineSnapshot(`
-      "\\"var(--test-token, \\".concat(\\"\\".concat(color.blue), \\")\\");
-      \\"var(--test-token, \\".concat(color.blue, \\")\\");
-      \\"var(--test-token, \\".concat(condition ? \\"blue\\" : color.red, \\")\\");
-      \\"var(--test-token, \\".concat(getColor(), \\")\\");
-      \\"var(--test-token \\\\\\\\u{54} \${ \` ' \\\\\\" T, \\".concat(color.blue, \\")\\");
-      \\"var(--test-token \\\\\\\\u{54} \${ \` ' \\\\\\" T)\\";"
-    `);
+        "\\"var(--test-token, \\".concat(\\"\\".concat(color.blue), \\")\\");
+        \\"var(--test-token, \\".concat(color.blue, \\")\\");
+        \\"var(--test-token, \\".concat(condition ? \\"blue\\" : color.red, \\")\\");
+        \\"var(--test-token, \\".concat(getColor(), \\")\\");
+        \\"var(--test-token \\\\\\\\u{54} \${ \` ' \\\\\\" T, \\".concat(color.blue, \\")\\");
+        \\"var(--test-token \\\\\\\\u{54} \${ \` ' \\\\\\" T)\\";"
+      `);
   });
 
   it('throws if token does not exist', () => {
     expect(
       () => transform()`
-      import { token } from '@atlaskit/tokens';
-      token('this.token.does.not.exist');
-    `,
+        import { token } from '@atlaskit/tokens';
+        token('this.token.does.not.exist');
+      `,
     ).toThrowError("token 'this.token.does.not.exist' does not exist");
   });
 
   it('throws on empty token() call', () => {
     expect(
       () => transform()`
-      import { token } from '@atlaskit/tokens';
-      token();
-    `,
+        import { token } from '@atlaskit/tokens';
+        token();
+      `,
     ).toThrowError('token() requires at least one argument');
   });
 
   it('throws on non-string token argument', () => {
     expect(
       () => transform()`
-      import { token } from '@atlaskit/tokens';
-      token(()=>{}, color.blue, color.red);
-    `,
+        import { token } from '@atlaskit/tokens';
+        token(()=>{}, color.blue, color.red);
+      `,
     ).toThrowError('token() must have a string as the first argument');
   });
 
   it('throws on too many arguments', () => {
     expect(
       () => transform()`
-      import { token } from '@atlaskit/tokens';
-      token('test-token', color.blue, color.red);
-    `,
+        import { token } from '@atlaskit/tokens';
+        token('test-token', color.blue, color.red);
+      `,
     ).toThrowError('token() does not accept 3 arguments');
   });
 
   it('correctly handles assorted usages', () => {
     const actual = transform()`
-      import { token } from '@atlaskit/tokens';
-      componentStyles = css({
-        color: token('test-token'),
-        color: \`\${token('test-token')}\`,
-      });
-    `;
+        import { token } from '@atlaskit/tokens';
+        componentStyles = css({
+          color: token('test-token'),
+          color: \`\${token('test-token')}\`,
+        });
+      `;
 
     expect(actual).toMatchInlineSnapshot(`
-      "componentStyles = css({
-        color: \\"var(--test-token)\\",
-        color: \`\${\\"var(--test-token)\\"}\`
-      });"
-    `);
+        "componentStyles = css({
+          color: \\"var(--test-token)\\",
+          color: \`\${\\"var(--test-token)\\"}\`
+        });"
+      `);
   });
 
   it('correctly handles nested scopes', () => {
@@ -251,41 +301,52 @@ const getStyles = css => css\`
 
   it('Ignores token functions from other packages', () => {
     const actual = transform()`
-      import { token } from 'foobar';
-      token('test-token');
-    `;
+        import { token } from 'foobar';
+        token('test-token');
+      `;
 
     expect(actual).toMatchInlineSnapshot(`
-      "import { token } from 'foobar';
-      token('test-token');"
-    `);
+        "import { token } from 'foobar';
+        token('test-token');"
+      `);
   });
 
   it('Ignores token functions in node_modules directories', () => {
     const actual = transform(false, false, {
       filename: 'node_modules/foo/bar.tsx',
     })`
-      import { token } from '@atlaskit/tokens';
-      token('test-token');
-    `;
+        import { token } from '@atlaskit/tokens';
+        token('test-token');
+      `;
 
     expect(actual).toMatchInlineSnapshot(`
-      "import { token } from '@atlaskit/tokens';
-      token('test-token');"
-    `);
+        "import { token } from '@atlaskit/tokens';
+        token('test-token');"
+      `);
   });
 
   it('Ignores token functions in nested node_modules directories', () => {
     const actual = transform(false, false, {
       filename: 'packages/foo/node_modules/bar/bar.tsx',
     })`
-      import { token } from '@atlaskit/tokens';
-      token('test-token');
-    `;
+        import { token } from '@atlaskit/tokens';
+        token('test-token');
+      `;
 
     expect(actual).toMatchInlineSnapshot(`
-      "import { token } from '@atlaskit/tokens';
-      token('test-token');"
-    `);
+        "import { token } from '@atlaskit/tokens';
+        token('test-token');"
+      `);
+  });
+
+  it('formats box shadow fallback styles correctly', () => {
+    const actual = transform(true)`
+        import { token } from '@atlaskit/tokens';
+        token('test-token-shadow');
+      `;
+
+    expect(actual).toMatchInlineSnapshot(
+      '"\\"var(--test-token-shadow, 0px 0px 8px #091e423f, 0px 0px 1px #091e424f)\\";"',
+    );
   });
 });

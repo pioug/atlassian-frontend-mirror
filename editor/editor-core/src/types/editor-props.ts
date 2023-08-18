@@ -20,6 +20,7 @@ import type {
   Transformer,
   LinkingOptions,
   TextFormattingOptions,
+  QuickInsertOptions,
 } from '@atlaskit/editor-common/types';
 import type { ErrorReportingHandler } from '@atlaskit/editor-common/utils';
 import type { PluginConfig as TablesPluginConfig } from '@atlaskit/editor-plugin-table/types';
@@ -38,7 +39,6 @@ import type { MediaOptions, MediaState } from '../plugins/media/types';
 import type { MentionPluginConfig } from '../plugins/mentions/types';
 import type { PanelPluginConfig } from '../plugins/panel/types';
 import type { PlaceholderTextOptions } from '../plugins/placeholder-text/types';
-import type { QuickInsertOptions } from '../plugins/quick-insert/types';
 import type { TextColorPluginConfig } from '../plugins/text-color/pm-plugins/main';
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 

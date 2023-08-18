@@ -1,14 +1,8 @@
-import { IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl-next';
 
 import type { QuickInsertItem, QuickInsertProvider } from '../provider-factory';
 
 import type { EmptyStateHandler } from './empty-state-handler';
-
-export type {
-  QuickInsertActionInsert,
-  QuickInsertItem,
-  QuickInsertProvider,
-} from '../provider-factory';
 
 export type QuickInsertOptions =
   | boolean
@@ -33,6 +27,7 @@ export type QuickInsertPluginState = {
 };
 
 export type QuickInsertPluginStateKeys = keyof QuickInsertPluginState;
+
 export interface QuickInsertPluginOptions {
   headless?: boolean;
   disableDefaultItems?: boolean;

@@ -55,8 +55,8 @@ describe('TableRowNodeView', () => {
   let tableRowNodeView: TableRowNodeView;
   const fakeGetEditorFeatureFlags = jest.fn(() => ({}));
   const createEditor = createProsemirrorEditorFactory();
-  const editor = (doc: DocBuilder, stickyHeadersOptimization?: boolean) => {
-    const featureFlags = { stickyHeadersOptimization };
+  const editor = (doc: DocBuilder) => {
+    const featureFlags = {};
     fakeGetEditorFeatureFlags.mockReturnValue(featureFlags);
     return createEditor({
       doc,
@@ -114,7 +114,6 @@ describe('TableRowNodeView', () => {
         editorView,
         jest.fn(),
         eventDispatcher,
-        fakeGetEditorFeatureFlags,
       );
     });
     afterEach(() => {
@@ -216,7 +215,6 @@ describe('TableRowNodeView', () => {
         editorView,
         jest.fn(),
         eventDispatcher,
-        fakeGetEditorFeatureFlags,
       );
       tableRowDom = editorView.dom.getElementsByTagName('tr')[0];
     });
@@ -258,7 +256,7 @@ describe('TableRowNodeView', () => {
     });
   });
 
-  describe('with stickyHeadersOptimization', () => {
+  describe('sticky headers', () => {
     let rafStub: Stub;
     let originalIntersectionObserver: object;
     let originalResizeObserver: object;
@@ -323,6 +321,7 @@ describe('TableRowNodeView', () => {
       ) {
         this.disconnect = jest.fn();
         this.observe = jest.fn();
+        this.unobserve = jest.fn();
         intersectCallback = callback;
       };
 
@@ -332,6 +331,7 @@ describe('TableRowNodeView', () => {
       ) {
         this.disconnect = jest.fn();
         this.observe = jest.fn();
+        this.unobserve = jest.fn();
         resizeCallback = callback;
       };
     });
@@ -349,7 +349,6 @@ describe('TableRowNodeView', () => {
 
       const editorData = editor(
         doc(table()(tr(thEmpty, thEmpty), tr(tdEmpty, tdEmpty))),
-        true, // toggle to enable optimization
       );
       editorView = editorData.editorView;
       eventDispatcher = editorData.eventDispatcher;
@@ -362,7 +361,6 @@ describe('TableRowNodeView', () => {
         editorView,
         jest.fn(),
         eventDispatcher,
-        fakeGetEditorFeatureFlags,
       );
       tableRowNodeView.dom = tableRowDom;
     });
@@ -604,7 +602,6 @@ describe('TableRowNodeView', () => {
     beforeEach(() => {
       const editorData = editor(
         doc(table()(tr(thEmpty, thEmpty), tr(tdEmpty, tdEmpty))),
-        true, // toggle to enable optimization
       );
       editorView = editorData.editorView;
       eventDispatcher = editorData.eventDispatcher;
@@ -616,7 +613,6 @@ describe('TableRowNodeView', () => {
         editorView,
         jest.fn(),
         eventDispatcher,
-        fakeGetEditorFeatureFlags,
       );
       tableRowNodeView.dom = tableRowDom;
 

@@ -41,6 +41,8 @@ interface PluginConfig {
   // (undocumented)
   allowBackgroundColor?: boolean;
   // (undocumented)
+  allowCellOptionsInFloatingToolbar?: boolean;
+  // (undocumented)
   allowCollapse?: boolean;
   // (undocumented)
   allowColumnResizing?: boolean;

@@ -1,6 +1,6 @@
-import { Color as StatusColor } from '@atlaskit/status/element';
-import { QuickInsertItem } from '@atlaskit/editor-core/src/plugins/quick-insert/types';
-import {
+import type { Color as StatusColor } from '@atlaskit/status/element';
+import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
+import type {
   AnalyticsBridge,
   CollabBridge,
   default as NativeBridge,
@@ -22,12 +22,10 @@ import {
 } from './bridge';
 
 import { sendToBridge } from '../../bridge-utils';
-import {
-  EditorLifecycleActions,
-  EditorLifecycleAnalyticsEvents,
-} from '../../analytics/lifecycle';
+import type { EditorLifecycleAnalyticsEvents } from '../../analytics/lifecycle';
+import { EditorLifecycleActions } from '../../analytics/lifecycle';
 import { ActionSubject, EventType } from '../../analytics/enums';
-import { Serialized } from '../../types';
+import type { Serialized } from '../../types';
 
 export default class AndroidBridge implements NativeBridge {
   mentionBridge: MentionBridge;

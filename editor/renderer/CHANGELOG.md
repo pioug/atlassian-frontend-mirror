@@ -1,5 +1,12 @@
 # @atlaskit/renderer
 
+## 108.11.5
+
+### Patch Changes
+
+- [`41e6188b408`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41e6188b408) - [ux] add scale down to undefined table in custom table width
+- Updated dependencies
+
 ## 108.11.4
 
 ### Patch Changes

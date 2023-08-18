@@ -1,6 +1,7 @@
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { GapCursorSelection } from '@atlaskit/editor-common/selection';
+import type { EditorCommand } from '@atlaskit/editor-common/types';
 import { pluginKey } from '../pm-plugins/key';
 import { ACTIONS } from '../pm-plugins/actions';
 import type { TypeAheadHandler, TypeAheadInputMethod } from '../types';
@@ -25,8 +26,8 @@ export const openTypeAhead = (props: Props) => (tr: Transaction) => {
 };
 
 export const openTypeAheadAtCursor =
-  ({ triggerHandler, inputMethod, query }: Props) =>
-  (tr: Transaction): Transaction | null => {
+  ({ triggerHandler, inputMethod, query }: Props): EditorCommand =>
+  ({ tr }) => {
     openTypeAhead({
       triggerHandler,
       inputMethod,

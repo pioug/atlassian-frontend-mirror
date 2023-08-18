@@ -1,5 +1,11 @@
 # @atlaskit/side-navigation
 
+## 2.0.0
+
+### Major Changes
+
+- [`cf66b43d67a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf66b43d67a) - Updated spacing of Side Navigation components to ensure token values and fallbacks are matching. When used with space tokens enabled, there is no visual difference with the previous release of Side Navigation. When used without space tokens enabled there will be a slight visual difference; we recommend enabling space tokens if they are not already enabled to resolve this.
+
 ## 1.10.4
 
 ### Patch Changes

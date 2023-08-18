@@ -19,6 +19,7 @@ import {
 import annotationPlugin from '../..';
 import { emojiPlugin } from '../../../emoji';
 import blockTypePlugin from '../../../block-type';
+import typeAheadPlugin from '../../../type-ahead';
 import tasksAndDecisionsPlugin from '../../../tasks-and-decisions';
 import { buildToolbar } from '../../toolbar';
 import { inlineCommentProvider } from '../_utils';
@@ -34,6 +35,7 @@ import { AnnotationSharedClassNames } from '@atlaskit/editor-common/styles';
 
 const annotationPreset = new Preset<LightEditorPlugin>()
   .add([annotationPlugin, { inlineComment: inlineCommentProvider }])
+  .add(typeAheadPlugin)
   .add(emojiPlugin)
   .add(blockTypePlugin)
   .add(tasksAndDecisionsPlugin);

@@ -1,5 +1,11 @@
 # @atlaskit/radio
 
+## 5.6.9
+
+### Patch Changes
+
+- [`9af31f3c1ae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9af31f3c1ae) - Delete version.json
+
 ## 5.6.8
 
 ### Patch Changes

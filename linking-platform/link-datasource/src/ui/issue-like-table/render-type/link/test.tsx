@@ -10,7 +10,6 @@ import SmartLinkClient from '../../../../../examples-helpers/smartLinkCustomClie
 import Link, { LINK_TYPE_TEST_ID } from './index';
 
 mockSimpleIntersectionObserver(); // required to mock smart link internals
-
 describe('Link Type', () => {
   const setup = ({ url = '', ...props }) => {
     return render(
@@ -39,7 +38,7 @@ describe('Link Type', () => {
     );
   });
 
-  it('renders with the text passed', async () => {
+  it('renders with the text passed and has correct attributes', async () => {
     const { queryByRole } = setup({
       url: 'https://www.atlassian.com/',
       text: 'Atlassian Website',
@@ -50,6 +49,7 @@ describe('Link Type', () => {
     expect(anchor).toBeInTheDocument();
     expect(anchor).toHaveTextContent('Atlassian Website');
     expect(anchor).toHaveAttribute('href', 'https://www.atlassian.com/');
+    expect(anchor).toHaveAttribute('target', '_blank');
   });
 
   it('renders with the styles when linkType is passed', async () => {

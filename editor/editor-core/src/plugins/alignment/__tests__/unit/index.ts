@@ -29,7 +29,7 @@ import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import panelPlugin from '../../../panel';
 import listPlugin from '../../../list';
 import codeBlockPlugin from '../../../code-block';
-import compositionPlugin from '../../../composition';
+import { compositionPlugin } from '@atlaskit/editor-plugin-composition';
 import blockTypePlugin from '../../../block-type';
 import type { AlignmentPluginState } from '../../pm-plugins/types';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';

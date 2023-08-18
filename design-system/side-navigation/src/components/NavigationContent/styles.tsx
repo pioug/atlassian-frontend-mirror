@@ -147,7 +147,7 @@ export const containerCSS = (opts: StyleOpts) =>
 
     '& [data-ds--menu--heading-item]': {
       marginBottom: token('space.075', '6px'),
-      marginTop: token('space.200', '20px'),
+      marginTop: token('space.200', '16px'),
     },
     '& [data-ds--menu--skeleton-heading-item]': {
       marginTop: skeletonHeadingTopMargin,

@@ -88,7 +88,6 @@ import type { MediaFeatureFlags } from '@atlaskit/media-common';
 //   advanced: true,
 //   allowColumnSorting: true,
 //   stickyHeaders: true,
-//   tableCellOptimization: true,
 //   allowCollapse: true,
 //   allowDistributeColumns: true,
 //   permittedLayouts: 'all' as any,
@@ -348,7 +347,6 @@ export class ExampleEditorComponent extends React.Component<
                   advanced: true,
                   allowColumnSorting: true,
                   stickyHeaders: true,
-                  tableCellOptimization: true,
                   allowCollapse: true,
                   allowDistributeColumns: true,
                 }}
@@ -742,11 +740,6 @@ export function FullPageExample(props: ExampleProps) {
   );
 
   const defaultFeatureFlags = {
-    mouseMoveOptimization: true,
-    initialRenderOptimization: true,
-    tableRenderOptimization: true,
-    stickyHeadersOptimization: true,
-    tableOverflowShadowsOptimization: true,
     maxUnsafeChromeSpellcheckingVersion: 100,
   };
 

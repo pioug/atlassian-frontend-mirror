@@ -15,15 +15,8 @@ describe('Focused table: fullpage', () => {
   });
 
   // FIXME: This test was automatically skipped due to failure on 06/08/2023: https://product-fabric.atlassian.net/browse/ED-19363
-  it.skip.each([
-    ['with stickyHeadersOptimization', true],
-    ['without stickyHeadersOptimization', false],
-  ])('focus via keayboard %s', async (_, stickyHeadersOptimization) => {
-    await initFullPageEditorWithAdf(page, adf, undefined, undefined, {
-      featureFlags: {
-        stickyHeadersOptimization,
-      },
-    });
+  it.skip('focus via keyboard', async () => {
+    await initFullPageEditorWithAdf(page, adf, undefined, undefined, {});
     await selectElementWithText({
       page,
       tag: 'p',

@@ -95,7 +95,6 @@ const toDOM = (node: PmNode, props: Props) => {
 export default class TableView extends ReactNodeView<Props> {
   private table: HTMLElement | undefined;
   private resizeObserver?: ResizeObserver;
-  private tableRenderOptimization?: boolean;
   eventDispatcher?: EventDispatcher;
 
   getPos: getPosHandlerNode;
@@ -114,7 +113,6 @@ export default class TableView extends ReactNodeView<Props> {
       props.hasIntlContext,
     );
     this.getPos = props.getPos;
-    this.tableRenderOptimization = props.tableRenderOptimization;
     this.eventDispatcher = props.eventDispatcher;
   }
 
@@ -247,37 +245,33 @@ export default class TableView extends ReactNodeView<Props> {
 
   private hasHoveredRows = false;
   viewShouldUpdate(nextNode: PmNode) {
-    if (this.tableRenderOptimization) {
-      const { hoveredRows } = getPluginState(this.view.state);
-      const hoveredRowsChanged = !!hoveredRows?.length !== this.hasHoveredRows;
-      if (nextNode.attrs.isNumberColumnEnabled && hoveredRowsChanged) {
-        this.hasHoveredRows = !!hoveredRows?.length;
-        return true;
-      }
-
-      const node = this.getNode();
-      if (typeof node.attrs !== typeof nextNode.attrs) {
-        return true;
-      }
-      const attrKeys = Object.keys(node.attrs);
-      const nextAttrKeys = Object.keys(nextNode.attrs);
-      if (attrKeys.length !== nextAttrKeys.length) {
-        return true;
-      }
-
-      const tableMap = TableMap.get(node);
-      const nextTableMap = TableMap.get(nextNode);
-
-      if (tableMap.width !== nextTableMap.width) {
-        return true;
-      }
-
-      return attrKeys.some((key) => {
-        return node.attrs[key] !== nextNode.attrs[key];
-      });
+    const { hoveredRows } = getPluginState(this.view.state);
+    const hoveredRowsChanged = !!hoveredRows?.length !== this.hasHoveredRows;
+    if (nextNode.attrs.isNumberColumnEnabled && hoveredRowsChanged) {
+      this.hasHoveredRows = !!hoveredRows?.length;
+      return true;
     }
 
-    return super.viewShouldUpdate(nextNode);
+    const node = this.getNode();
+    if (typeof node.attrs !== typeof nextNode.attrs) {
+      return true;
+    }
+    const attrKeys = Object.keys(node.attrs);
+    const nextAttrKeys = Object.keys(nextNode.attrs);
+    if (attrKeys.length !== nextAttrKeys.length) {
+      return true;
+    }
+
+    const tableMap = TableMap.get(node);
+    const nextTableMap = TableMap.get(nextNode);
+
+    if (tableMap.width !== nextTableMap.width) {
+      return true;
+    }
+
+    return attrKeys.some((key) => {
+      return node.attrs[key] !== nextNode.attrs[key];
+    });
   }
 
   ignoreMutation(
@@ -335,7 +329,6 @@ export const createTableView = (
 ): NodeView => {
   const { pluginConfig } = getPluginState(view.state);
   const { allowColumnResizing } = getPluginConfig(pluginConfig);
-  const { tableRenderOptimization } = getEditorFeatureFlags();
   const hasIntlContext = true;
 
   return new TableView({
@@ -346,7 +339,6 @@ export const createTableView = (
     eventDispatcher,
     getPos: getPos as getPosHandlerNode,
     options,
-    tableRenderOptimization,
     getEditorContainerWidth,
     getEditorFeatureFlags,
     hasIntlContext,

@@ -1,5 +1,11 @@
 # @atlaskit/pragmatic-drag-and-drop-hitbox
 
+## 0.11.8
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.11.7
 
 ### Patch Changes

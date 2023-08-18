@@ -224,3 +224,10 @@ export type {
 
 export type { LayoutPluginOptions } from './layout';
 export type { LongPressSelectionPluginOptions } from './selection';
+
+export type {
+  QuickInsertPluginState,
+  QuickInsertPluginStateKeys,
+  QuickInsertOptions,
+  QuickInsertPluginOptions,
+} from './quick-insert';

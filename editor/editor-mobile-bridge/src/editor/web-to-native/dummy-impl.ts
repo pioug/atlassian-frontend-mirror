@@ -1,9 +1,10 @@
 /* eslint-disable no-console */
-import { Color as StatusColor } from '@atlaskit/status/element';
-import { QuickInsertItem } from '@atlaskit/editor-core/src/plugins/quick-insert/types';
-import NativeBridge, { EditorBridges, EditorBridgeNames } from './bridge';
+import type { Color as StatusColor } from '@atlaskit/status/element';
+import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
+import type { EditorBridges, EditorBridgeNames } from './bridge';
+import type NativeBridge from './bridge';
 import { sendToBridge } from '../../bridge-utils';
-import { Serialized } from '../../types';
+import type { Serialized } from '../../types';
 
 const callsFromDummyBridge = new Map<string, any[][]>();
 

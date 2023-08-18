@@ -1,5 +1,11 @@
 # @atlaskit/empty-state
 
+## 7.6.3
+
+### Patch Changes
+
+- [`9af31f3c1ae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9af31f3c1ae) - Delete version.json
+
 ## 7.6.2
 
 ### Patch Changes

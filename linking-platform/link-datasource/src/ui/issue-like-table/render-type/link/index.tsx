@@ -36,7 +36,12 @@ const LinkRenderType = ({
 
   const anchor = useMemo(
     () => (
-      <LinkUrl href={url} style={linkStyle} data-testid={testId}>
+      <LinkUrl
+        href={url}
+        style={linkStyle}
+        data-testid={testId}
+        target="_blank"
+      >
         {text || url}
       </LinkUrl>
     ),

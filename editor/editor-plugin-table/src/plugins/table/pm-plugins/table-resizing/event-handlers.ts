@@ -214,7 +214,7 @@ export const handleMouseDown = (
 
     resizeColumn(resizeState, colIndex, clientX - dragging.startX, dom);
 
-    updateControls(getEditorFeatureFlags)(state);
+    updateControls()(state);
     updateResizeHandles(dom);
   }
 

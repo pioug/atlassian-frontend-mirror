@@ -21,8 +21,7 @@ import {
   IconQuote,
   IconStatus,
 } from '@atlaskit/editor-common/quick-insert';
-
-import type { QuickInsertPluginState } from '../../plugins/quick-insert/types';
+import type { QuickInsertPluginState } from '@atlaskit/editor-common/types';
 import withOuterListeners from '../with-outer-listeners';
 import WithPluginState from '../WithPluginState';
 import { pluginKey } from '../../plugins/quick-insert/plugin-key';

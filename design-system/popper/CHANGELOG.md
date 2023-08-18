@@ -1,5 +1,11 @@
 # @atlaskit/popper
 
+## 5.5.4
+
+### Patch Changes
+
+- [`9af31f3c1ae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9af31f3c1ae) - Delete version.json
+
 ## 5.5.3
 
 ### Patch Changes

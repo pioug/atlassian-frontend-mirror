@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-text-formatting
 
+## 0.2.3
+
+### Patch Changes
+
+- [`f12aff135b6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f12aff135b6) - Extract Composition Plugin
+
 ## 0.2.2
 
 ### Patch Changes

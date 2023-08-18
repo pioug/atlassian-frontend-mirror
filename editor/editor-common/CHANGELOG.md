@@ -1,5 +1,23 @@
 # @atlaskit/editor-common
 
+## 74.47.0
+
+### Minor Changes
+
+- [`0f3026deda5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0f3026deda5) - ED-12027 cleaned up table optimisation feature flags, made optimised code run by default.
+
+## 74.46.3
+
+### Patch Changes
+
+- [`cbff538b420`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cbff538b420) - [ED-19428] Move shared types from quick-insert plugin to editor-common as a first step towards decoupling it from editor-core
+
+## 74.46.2
+
+### Patch Changes
+
+- [`72e552fe076`](https://bitbucket.org/atlassian/atlassian-frontend/commits/72e552fe076) - [ux] ED-17954: Fix inline node selections for mentions and emojis in iOS. Previously, the visually hidden assistive text would also be shown as a selection in iOS which would often make the selection look larger than the actual node itself.
+
 ## 74.46.1
 
 ### Patch Changes

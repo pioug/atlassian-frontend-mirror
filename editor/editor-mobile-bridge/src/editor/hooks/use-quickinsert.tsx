@@ -1,14 +1,15 @@
 import React from 'react';
-import { IntlShape } from 'react-intl-next';
-import { allowListPayloadType, EventTypes } from '../event-dispatch';
+import type { IntlShape } from 'react-intl-next';
+import type { allowListPayloadType } from '../event-dispatch';
+import { EventTypes } from '../event-dispatch';
 import { createQuickInsertProvider } from '../../providers';
-import WebBridgeImpl from '../native-to-web';
+import type WebBridgeImpl from '../native-to-web';
+import type { EditorProps } from '@atlaskit/editor-core';
 import {
-  EditorProps,
   processQuickInsertItems,
-  QuickInsertItem,
   quickInsertPluginKey,
 } from '@atlaskit/editor-core';
+import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
 import { toNativeBridge } from '../web-to-native';
 
 export function useQuickInsert(

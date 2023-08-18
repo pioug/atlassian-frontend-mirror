@@ -39,7 +39,7 @@ const open =
 
     const { tr } = state;
 
-    openTypeAheadAtCursor({ triggerHandler: handler, inputMethod })(tr);
+    openTypeAheadAtCursor({ triggerHandler: handler, inputMethod })({ tr });
 
     editorView.dispatch(tr);
 

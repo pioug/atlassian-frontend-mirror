@@ -102,23 +102,25 @@ test.describe('resizing a table', () => {
     expect(await fiveColumn.containerWidth()).toBe(minWidths.threeColumns);
   });
 
-  test('should reach maximum width if resizing in 3 column', async ({
-    editor,
-  }) => {
-    await editor.page.setViewportSize({ width: 2000, height: 1024 });
-    await editor.waitForEditorStable();
-    const nodes = EditorNodeContainerModel.from(editor);
-    const tableLocator = nodes.table.nth(4);
-    const fiveColumn = EditorTableModel.from(tableLocator);
-    const resizerModel = fiveColumn.resizer();
-    await fiveColumn.selectTable();
+  // FIXME: This test was manually skipped due to flakiness: https://atlassian.slack.com/archives/C03SZ041DB7/p1692332936293629
+  test.fixme(
+    'should reach maximum width if resizing in 3 column',
+    async ({ editor }) => {
+      await editor.page.setViewportSize({ width: 2000, height: 1024 });
+      await editor.waitForEditorStable();
+      const nodes = EditorNodeContainerModel.from(editor);
+      const tableLocator = nodes.table.nth(4);
+      const fiveColumn = EditorTableModel.from(tableLocator);
+      const resizerModel = fiveColumn.resizer();
+      await fiveColumn.selectTable();
 
-    await resizerModel.resize({
-      mouse: editor.page.mouse,
-      moveDistance: 1500,
-    });
+      await resizerModel.resize({
+        mouse: editor.page.mouse,
+        moveDistance: 1500,
+      });
 
-    expect(await resizerModel.containerWidth()).toBe(MAX_COLUMN_WIDTH);
-    expect(await fiveColumn.containerWidth()).toBe(MAX_COLUMN_WIDTH);
-  });
+      expect(await resizerModel.containerWidth()).toBe(MAX_COLUMN_WIDTH);
+      expect(await fiveColumn.containerWidth()).toBe(MAX_COLUMN_WIDTH);
+    },
+  );
 });

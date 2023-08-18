@@ -53,13 +53,15 @@ export interface PluginConfig {
   permittedLayouts?: PermittedLayoutsDescriptor;
   allowControls?: boolean;
   stickyHeaders?: boolean;
+  allowCellOptionsInFloatingToolbar?: boolean;
+  allowDistributeColumns?: boolean;
+  // to be cleaned up in ED-19477 after confluence no longer consumes table optimisation flags
   tableCellOptimization?: boolean;
   tableRenderOptimization?: boolean;
   stickyHeadersOptimization?: boolean;
   initialRenderOptimization?: boolean;
   mouseMoveOptimization?: boolean;
   tableOverflowShadowsOptimization?: boolean;
-  allowDistributeColumns?: boolean;
 }
 
 export type { ColumnResizingPluginState } from '@atlaskit/editor-common/types';
@@ -115,7 +117,6 @@ export interface TablePluginState {
   ordering?: TableColumnOrdering;
   resizeHandleRowIndex?: number;
   resizeHandleColumnIndex?: number;
-  tableCellOptimization?: boolean;
   // for table wrap/collapse
   isTableCollapsed?: boolean; // is the current table already in an expand?
   canCollapseTable?: boolean; // enabled/disabled state of collapse option

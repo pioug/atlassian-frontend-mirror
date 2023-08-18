@@ -20,7 +20,7 @@ describe('ReactEditorView/reconfigureState', () => {
     it('should send the feature flag', () => {
       const editorProps = {
         featureFlags: {
-          tableOverflowShadowsOptimization: true, // Needs to be a valid FF
+          ufo: true,
         },
       };
 
@@ -34,7 +34,7 @@ describe('ReactEditorView/reconfigureState', () => {
 
       expect(featureFlagsPluginSpy).toHaveBeenCalledTimes(1);
       expect(featureFlagsPluginSpy).toHaveBeenCalledWith(
-        expect.objectContaining({ tableOverflowShadowsOptimization: true }),
+        expect.objectContaining({ ufo: true }),
         expect.objectContaining({ dependencies: {} }),
       );
     });
@@ -85,7 +85,7 @@ describe('ReactEditorView/reconfigureState', () => {
     it('should reconfigure the state using the new feature flag', () => {
       const editorProps = {
         featureFlags: {
-          tableOverflowShadowsOptimization: true,
+          ufo: true,
         },
         appearance: 'mobile',
       } as any;
@@ -99,13 +99,13 @@ describe('ReactEditorView/reconfigureState', () => {
 
       expect(featureFlagsPluginSpy).toHaveBeenCalledTimes(1);
       expect(featureFlagsPluginSpy).toHaveBeenCalledWith(
-        expect.objectContaining({ tableOverflowShadowsOptimization: true }),
+        expect.objectContaining({ ufo: true }),
         expect.objectContaining({ dependencies: {} }),
       );
 
       const nextEditorProps = {
         featureFlags: {
-          tableOverflowShadowsOptimization: false,
+          ufo: false,
           appearance: 'mobile',
         },
       };
@@ -120,7 +120,7 @@ describe('ReactEditorView/reconfigureState', () => {
       expect(featureFlagsPluginSpy).toHaveBeenCalledTimes(2);
       expect(featureFlagsPluginSpy).toHaveBeenNthCalledWith(
         2,
-        expect.objectContaining({ tableOverflowShadowsOptimization: false }),
+        expect.objectContaining({ ufo: false }),
         expect.objectContaining({ dependencies: {} }),
       );
 

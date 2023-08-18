@@ -9,8 +9,10 @@ import {
 import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import { TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
-import type { TypeAheadItem } from '@atlaskit/editor-common/provider-factory';
-import type { QuickInsertActionInsert } from '../../../../quick-insert/types';
+import type {
+  TypeAheadItem,
+  QuickInsertActionInsert,
+} from '@atlaskit/editor-common/provider-factory';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 
 import type { TypeAheadHandler } from '../../../types';

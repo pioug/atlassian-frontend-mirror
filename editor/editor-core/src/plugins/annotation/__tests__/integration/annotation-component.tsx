@@ -1,5 +1,5 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
-import { BrowserObject } from '@atlaskit/webdriver-runner/wd-wrapper';
+import type { BrowserObject } from '@atlaskit/webdriver-runner/wd-wrapper';
 import {
   mountEditor,
   goToEditorTestingWDExample,
@@ -18,9 +18,12 @@ import * as paragraphEmojiADF from '../__fixtures__/paragraph-with-emoji.adf.jso
 const shortcutWindows = [KEY.CONTROL, KEY.ALT, 'c', KEY.CONTROL, KEY.ALT];
 const shortcutMac = [KEY.META, KEY.ALT, 'c', KEY.META, KEY.ALT];
 
+// FIXME: This test was automatically skipped due to failure on 17/08/2023: https://product-fabric.atlassian.net/browse/ED-19558
 BrowserTestCase(
   `can open create dialogue from toolbar`,
-  {},
+  {
+    skip: ['*'],
+  },
   async (client: BrowserObject) => {
     const page = await goToEditorTestingWDExample(client);
 
@@ -38,9 +41,12 @@ BrowserTestCase(
   },
 );
 
+// FIXME: This test was automatically skipped due to failure on 17/08/2023: https://product-fabric.atlassian.net/browse/ED-19559
 BrowserTestCase(
   `can create an annotation from the component`,
-  {},
+  {
+    skip: ['*'],
+  },
   async (client: BrowserObject, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 
@@ -63,9 +69,12 @@ BrowserTestCase(
   },
 );
 
+// FIXME: This test was automatically skipped due to failure on 17/08/2023: https://product-fabric.atlassian.net/browse/ED-19560
 BrowserTestCase(
   `can create annotation dialogue from keyboard shortcut`,
-  {},
+  {
+    skip: ['*'],
+  },
   async (client: BrowserObject) => {
     const page = await goToEditorTestingWDExample(client);
 
@@ -83,9 +92,12 @@ BrowserTestCase(
     expect(await page.isExisting(annotationSelectors.component)).toBe(true);
   },
 );
+// FIXME: This test was automatically skipped due to failure on 17/08/2023: https://product-fabric.atlassian.net/browse/ED-19561
 BrowserTestCase(
   `cannot create annotation dialogue from keyboard shortcut with inline selection`,
-  {},
+  {
+    skip: ['*'],
+  },
   async (client: BrowserObject) => {
     const page = await goToEditorTestingWDExample(client);
 

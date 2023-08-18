@@ -523,7 +523,6 @@ describe('floatingToolbar()', () => {
               );
             }
           },
-          // check no buttons are disabled when FF is off
           async () => {
             const { items } = await setup(undefined, source);
             const pixelEntry = findPixelEntry(items);

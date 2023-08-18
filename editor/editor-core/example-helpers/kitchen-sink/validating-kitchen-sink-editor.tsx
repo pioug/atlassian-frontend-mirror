@@ -76,7 +76,6 @@ const EMPTY: EditorPlugin[] = [];
 //   // Sticky headers don't demonstrate well with the kitchen sink wrapper
 //   stickyHeaders: false,
 //   // stickyHeaders: true,
-//   // stickyHeadersOptimization: true,
 // };
 
 // TODO: restore when using new table plugin in editor-core

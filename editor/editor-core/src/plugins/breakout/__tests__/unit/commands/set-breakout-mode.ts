@@ -15,7 +15,7 @@ import { setBreakoutMode } from '../../../commands/set-breakout-mode';
 import breakoutPlugin from '../../../';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import codeBlockPlugin from '../../../../code-block';
-import compositionPlugin from '../../../../composition';
+import { compositionPlugin } from '@atlaskit/editor-plugin-composition';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 describe('Breakout Commands: set-breakout-mode', () => {

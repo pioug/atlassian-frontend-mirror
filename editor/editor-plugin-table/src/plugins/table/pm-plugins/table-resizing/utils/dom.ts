@@ -2,7 +2,6 @@ import {
   tableCellBorderWidth,
   tableMarginTop,
 } from '@atlaskit/editor-common/styles';
-import type { GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
 import {
   closestElement,
   containsClassName,
@@ -11,65 +10,48 @@ import {
 import { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import { updateOverflowShadows } from '../../../nodeviews/update-overflow-shadows';
 import { TableCssClassName as ClassName } from '../../../types';
 import { colWidthsForRow } from '../../../utils/column-controls';
 import { getRowHeights } from '../../../utils/row-controls';
 import { getPluginState as getMainPluginState } from '../../plugin-factory';
 
-export const updateControls =
-  (getEditorFeatureFlags: GetEditorFeatureFlags) => (state: EditorState) => {
-    const { tableRef } = getMainPluginState(state);
-    if (!tableRef) {
-      return;
-    }
-    const tr = tableRef.querySelector('tr');
-    if (!tr) {
-      return;
-    }
-    const wrapper = tableRef.parentElement;
-    if (!(wrapper && wrapper.parentElement)) {
-      return;
-    }
+export const updateControls = () => (state: EditorState) => {
+  const { tableRef } = getMainPluginState(state);
+  if (!tableRef) {
+    return;
+  }
+  const tr = tableRef.querySelector('tr');
+  if (!tr) {
+    return;
+  }
+  const wrapper = tableRef.parentElement;
+  if (!(wrapper && wrapper.parentElement)) {
+    return;
+  }
 
-    const rowControls = wrapper.parentElement.querySelectorAll<HTMLElement>(
-      `.${ClassName.ROW_CONTROLS_BUTTON_WRAP}`,
-    );
-    const numberedRows = wrapper.parentElement.querySelectorAll<HTMLElement>(
-      ClassName.NUMBERED_COLUMN_BUTTON,
-    );
+  const rowControls = wrapper.parentElement.querySelectorAll<HTMLElement>(
+    `.${ClassName.ROW_CONTROLS_BUTTON_WRAP}`,
+  );
+  const numberedRows = wrapper.parentElement.querySelectorAll<HTMLElement>(
+    ClassName.NUMBERED_COLUMN_BUTTON,
+  );
 
-    syncStickyRowToTable(tableRef);
+  syncStickyRowToTable(tableRef);
 
-    const rowHeights = getRowHeights(tableRef);
+  const rowHeights = getRowHeights(tableRef);
 
-    // update rows controls height on resize
-    for (let i = 0, count = rowControls.length; i < count; i++) {
-      const height = rowHeights[i];
-      if (height) {
-        rowControls[i].style.height = `${height}px`;
+  // update rows controls height on resize
+  for (let i = 0, count = rowControls.length; i < count; i++) {
+    const height = rowHeights[i];
+    if (height) {
+      rowControls[i].style.height = `${height}px`;
 
-        if (numberedRows.length) {
-          numberedRows[i].style.height = `${height}px`;
-        }
+      if (numberedRows.length) {
+        numberedRows[i].style.height = `${height}px`;
       }
     }
-
-    const rightShadows = wrapper.parentElement.querySelectorAll<HTMLElement>(
-      `.${ClassName.TABLE_RIGHT_SHADOW}`,
-    );
-
-    const leftShadows = wrapper.parentElement.querySelectorAll<HTMLElement>(
-      `.${ClassName.TABLE_LEFT_SHADOW}`,
-    );
-
-    updateOverflowShadows(getEditorFeatureFlags)(
-      wrapper,
-      tableRef,
-      rightShadows,
-      leftShadows,
-    );
-  };
+  }
+};
 
 export const isClickNear = (
   event: MouseEvent,

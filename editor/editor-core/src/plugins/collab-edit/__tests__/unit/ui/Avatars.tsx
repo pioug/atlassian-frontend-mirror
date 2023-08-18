@@ -22,6 +22,7 @@ import ToolbarButton from '../../../../../ui/ToolbarButton';
 // Editor plugins
 import collabEditPlugin from '../../../index';
 import mentionsPlugin from '../../../../mentions';
+import typeAheadPlugin from '../../../../type-ahead';
 
 describe('collab-edit | Avatars', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -37,6 +38,7 @@ describe('collab-edit | Avatars', () => {
       preset: new Preset<LightEditorPlugin>()
         .add([featureFlagsPlugin, {}])
         .add([collabEditPlugin, {}])
+        .add(typeAheadPlugin)
         .add(mentionsPlugin),
       pluginKey,
       providerFactory,

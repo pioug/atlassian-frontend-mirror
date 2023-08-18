@@ -1,43 +1,30 @@
 import React from 'react';
 import {
-  orderedList,
-  orderedListWithOrder,
   bulletList,
   listItem,
+  orderedList,
+  orderedListWithOrder,
 } from '@atlaskit/adf-schema';
-import type { NextEditorPlugin } from '../../types';
 import { createPlugin } from './pm-plugins/main';
 import inputRulePlugin from './pm-plugins/input-rules';
 import keymapPlugin from './pm-plugins/keymap';
 import { listMessages as messages } from '@atlaskit/editor-common/messages';
 import {
   ACTION,
-  EVENT_TYPE,
-  INPUT_METHOD,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
+  EVENT_TYPE,
+  INPUT_METHOD,
 } from '../analytics';
-import { tooltip, toggleBulletList, toggleOrderedList } from '../../keymaps';
+import { toggleBulletList, toggleOrderedList, tooltip } from '../../keymaps';
 import { IconList, IconListNumber } from '@atlaskit/editor-common/quick-insert';
-import type { ListPluginOptions } from './types';
-import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
-import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import type { OptionalPlugin } from '@atlaskit/editor-common/types';
+import type { ListPlugin } from '@atlaskit/editor-plugin-list';
 
 /*
   Toolbar buttons to bullet and ordered list can be found in
   packages/editor/editor-core/src/plugins/toolbar-lists-indentation/ui/Toolbar.tsx
  */
-const listPlugin: NextEditorPlugin<
-  'list',
-  {
-    pluginConfiguration: ListPluginOptions | undefined;
-    dependencies: [
-      typeof featureFlagsPlugin,
-      OptionalPlugin<typeof analyticsPlugin>,
-    ];
-  }
-> = (options, api) => {
+const listPlugin: ListPlugin = (options, api) => {
   const featureFlags =
     api?.dependencies.featureFlags.sharedState.currentState() || {};
   const editorAnalyticsAPI = api?.dependencies.analytics?.actions;

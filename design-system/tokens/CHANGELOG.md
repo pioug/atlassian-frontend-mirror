@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 1.14.2
+
+### Patch Changes
+
+- [`8e1667c2c03`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8e1667c2c03) - Adds the ability to specify a fallback theme in the tokens Babel plugin via the `defaultTheme` option. Also adds 'legacy-light' as one of the available themes, while keeping 'light' as the default if nothing is provided.
+
 ## 1.14.1
 
 ### Patch Changes

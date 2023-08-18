@@ -6,10 +6,8 @@ import { usePreviousState } from '@atlaskit/editor-common/hooks';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 
 import type EditorActions from '../../actions';
-import type {
-  QuickInsertOptions,
-  QuickInsertProvider,
-} from '../../plugins/quick-insert/types';
+import type { QuickInsertOptions } from '@atlaskit/editor-common/types';
+import type { QuickInsertProvider } from '@atlaskit/editor-common/provider-factory';
 import type {
   EditorNextProps,
   EditorProps,

@@ -28,7 +28,7 @@ import codeBlockTypePlugin from '../../../code-block';
 import type { FeatureFlags } from '@atlaskit/editor-common/types';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
-import compositionPlugin from '../../../composition';
+import { compositionPlugin } from '@atlaskit/editor-plugin-composition';
 
 describe('inputrules', () => {
   let createAnalyticsEvent: CreateUIAnalyticsEvent;

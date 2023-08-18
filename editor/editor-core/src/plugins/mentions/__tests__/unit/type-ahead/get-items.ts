@@ -1,12 +1,13 @@
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import { DocBuilder, doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import {
+import type {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
@@ -28,8 +29,8 @@ describe('mentions: type-ahead', () => {
     });
 
     const preset = new Preset<LightEditorPlugin>()
-      .add(mentionsPlugin)
-      .add([typeAheadPlugin, { createAnalyticsEvent }]);
+      .add([typeAheadPlugin, { createAnalyticsEvent }])
+      .add(mentionsPlugin);
 
     return createEditor({
       doc,

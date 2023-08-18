@@ -1,9 +1,9 @@
 import type { ExtensionProvider } from '@atlaskit/editor-common/extensions';
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
-import { QuickInsertProvider } from '@atlaskit/editor-common/provider-factory';
-import EditorActions from '../actions';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
+import type { QuickInsertProvider } from '@atlaskit/editor-common/provider-factory';
+import type EditorActions from '../actions';
 
-import { QuickInsertOptions } from '../plugins/quick-insert/types';
+import type { QuickInsertOptions } from '@atlaskit/editor-common/types';
 import {
   extensionProviderToQuickInsertProvider,
   combineQuickInsertProviders,

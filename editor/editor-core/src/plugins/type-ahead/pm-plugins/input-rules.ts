@@ -36,7 +36,7 @@ export function inputRulePlugin(
         return openTypeAheadAtCursor({
           triggerHandler: typeAhead,
           inputMethod: INPUT_METHOD.KEYBOARD,
-        })(state.tr);
+        })({ tr: state.tr });
       }),
     );
 

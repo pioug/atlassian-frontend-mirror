@@ -40,7 +40,7 @@ import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-re
 import blockTypePlugin from '../../../block-type';
 import typeAheadPlugin from '../../../type-ahead';
 import codeBlockPlugin from '../../../code-block';
-import compositionPlugin from '../../../composition';
+import { compositionPlugin } from '@atlaskit/editor-plugin-composition';
 import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import tasksAndDecisionsPlugin from '../../../tasks-and-decisions';
 import listPlugin from '../../../list';
@@ -69,8 +69,8 @@ describe('plugins/undo-redo/autoformatting: undo & redo', () => {
         .add([featureFlagsPlugin, { newInsertionBehaviour: true }])
         .add([analyticsPlugin, {}])
         .add(decorationsPlugin)
-        .add([emojiPlugin, {}])
         .add(typeAheadPlugin)
+        .add([emojiPlugin, {}])
         .add(blockTypePlugin)
         .add(compositionPlugin)
         .add([codeBlockPlugin, { appearance: 'full-page' }])

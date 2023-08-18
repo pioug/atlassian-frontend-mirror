@@ -6,6 +6,7 @@ export interface APSTransportParams {
   url: URL;
   eventEmitter: EventEmitter2;
   analyticsClient: APSAnalyticsClient;
+  isFallback: boolean;
 }
 
 export interface APSTransport {

@@ -85,7 +85,7 @@ export const resizerNextTestId = 'mediaSingle.resizerNext.testid';
 
 type ResizableMediaSingleNextProps = Props;
 
-export class ResizableMediaSingleNext extends React.Component<
+class ResizableMediaSingleNext extends React.Component<
   ResizableMediaSingleNextProps,
   State
 > {
@@ -435,12 +435,12 @@ export class ResizableMediaSingleNext extends React.Component<
     return dispatch(tr);
   };
 
-  private updateSizeInPluginState = (width: number | null) => {
+  private updateSizeInPluginState = throttle((width?: number) => {
     const { state, dispatch } = this.props.view;
     const tr = state.tr;
     tr.setMeta(MEDIA_PLUGIN_RESIZING_WIDTH_KEY, width);
     return dispatch(tr);
-  };
+  }, MEDIA_SINGLE_RESIZE_THROTTLE_TIME);
 
   private calcMaxWidth = memoizeOne(
     (contentWidth: number, containerWidth: number, fullWidthMode?: boolean) => {
@@ -585,10 +585,9 @@ export class ResizableMediaSingleNext extends React.Component<
     this.updateSizeInPluginState(this.state.size.width);
     // re-calucate guidelines
     this.updateGuidelines();
-    return 0;
   };
 
-  handleResize: HandleResize = throttle((size, delta) => {
+  handleResize: HandleResize = (size, delta) => {
     const {
       width: originalWidth,
       height: originalHeight,
@@ -627,7 +626,7 @@ export class ResizableMediaSingleNext extends React.Component<
     if (calculatedWidthWithLayout.layout !== layout) {
       updateSize(width, calculatedWidthWithLayout.layout);
     }
-  }, MEDIA_SINGLE_RESIZE_THROTTLE_TIME);
+  };
 
   handleResizeStop: HandleResize = (size, delta) => {
     const {

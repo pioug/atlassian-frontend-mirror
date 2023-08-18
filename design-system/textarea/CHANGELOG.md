@@ -1,5 +1,11 @@
 # @atlaskit/textarea
 
+## 4.7.6
+
+### Patch Changes
+
+- [`9af31f3c1ae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9af31f3c1ae) - Delete version.json
+
 ## 4.7.5
 
 ### Patch Changes

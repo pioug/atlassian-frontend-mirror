@@ -1,7 +1,8 @@
-import { Color as StatusColor } from '@atlaskit/status/element';
-import { QuickInsertItem } from '@atlaskit/editor-core/src/plugins/quick-insert/types';
-import NativeBridge, { EditorBridges, EditorBridgeNames } from './bridge';
-import { Serialized } from '../../types';
+import type { Color as StatusColor } from '@atlaskit/status/element';
+import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
+import type { EditorBridges, EditorBridgeNames } from './bridge';
+import type NativeBridge from './bridge';
+import type { Serialized } from '../../types';
 
 export default class WebBridge implements NativeBridge {
   private window: Window;

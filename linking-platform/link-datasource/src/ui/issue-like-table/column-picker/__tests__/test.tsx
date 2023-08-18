@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { fireEvent } from '@testing-library/dom';
+import { fireEvent, waitFor } from '@testing-library/dom';
 import { render } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 import invariant from 'tiny-invariant';
@@ -18,7 +18,7 @@ const renderColumnPicker = (
   columns: DatasourceResponseSchemaProperty[],
   selectedColumnKeys: string[],
 ) => {
-  return render(
+  const columnPickerRender = render(
     <IntlProvider locale="en">
       <ColumnPicker
         columns={columns}
@@ -27,17 +27,24 @@ const renderColumnPicker = (
       />
     </IntlProvider>,
   );
+
+  const openPopUpMenu = () =>
+    fireEvent.click(
+      columnPickerRender.getByTestId('column-picker-trigger-button'),
+    );
+
+  return { ...columnPickerRender, openPopUpMenu };
 };
 
 describe('Column picker', () => {
   it('should have specific html element id', async () => {
-    const { getByTestId } = renderColumnPicker([], []);
+    const { openPopUpMenu } = renderColumnPicker([], []);
 
-    // open popup
-    const triggerButton = getByTestId('column-picker-trigger-button');
-    fireEvent.click(triggerButton);
+    await waitFor(() => {
+      openPopUpMenu();
 
-    expect(document.getElementById('column-picker-popup')).not.toBeNull();
+      expect(document.getElementById('column-picker-popup')).not.toBeNull();
+    });
   });
 
   it('should have correct default checked and unchecked checkboxes based on the columns info passed in', async () => {
@@ -56,17 +63,17 @@ describe('Column picker', () => {
 
     const selectedColumnKeys: string[] = ['type'];
 
-    const { getByText, getByTestId } = renderColumnPicker(
+    const { openPopUpMenu, getByText } = renderColumnPicker(
       columns,
       selectedColumnKeys,
     );
 
-    // open popup
-    const triggerButton = getByTestId('column-picker-trigger-button');
-    fireEvent.click(triggerButton);
+    await waitFor(() => {
+      openPopUpMenu();
 
-    expect(getByText('Type').closest(OPTION_SELECTED_CLASS)).not.toBeNull();
-    expect(getByText('Blah').closest(OPTION_SELECTED_CLASS)).toBeNull();
+      expect(getByText('Type').closest(OPTION_SELECTED_CLASS)).not.toBeNull();
+      expect(getByText('Blah').closest(OPTION_SELECTED_CLASS)).toBeNull();
+    });
   });
 
   it('should call onChange with correct parameters if a checkbox is clicked', async () => {
@@ -85,22 +92,21 @@ describe('Column picker', () => {
 
     const selectedColumnKeys: string[] = ['type'];
 
-    const { getByText, getByTestId } = renderColumnPicker(
+    const { openPopUpMenu, getByText } = renderColumnPicker(
       columns,
       selectedColumnKeys,
     );
 
-    // open popup
-    const triggerButton = getByTestId('column-picker-trigger-button');
-    fireEvent.click(triggerButton);
+    await waitFor(() => {
+      openPopUpMenu();
 
-    const checkbox = getByText('Blah').closest(OPTION_CLASS);
-    invariant(checkbox);
-    fireEvent.click(checkbox);
+      const checkbox = getByText('Blah').closest(OPTION_CLASS);
+      invariant(checkbox);
+      fireEvent.click(checkbox);
 
-    expect(mockOnChange).toBeCalledTimes(1);
-
-    expect(mockOnChange).toBeCalledWith(['type', 'blah']);
+      expect(mockOnChange).toBeCalledTimes(1);
+      expect(mockOnChange).toBeCalledWith(['type', 'blah']);
+    });
   });
 
   it('should disable the checkbox if only 1 is passed in and is selected', async () => {
@@ -114,17 +120,17 @@ describe('Column picker', () => {
 
     const selectedColumnKeys: string[] = ['type'];
 
-    const { getByText, getByTestId } = renderColumnPicker(
+    const { openPopUpMenu, getByText } = renderColumnPicker(
       columns,
       selectedColumnKeys,
     );
 
-    // open popup
-    const triggerButton = getByTestId('column-picker-trigger-button');
-    fireEvent.click(triggerButton);
+    await waitFor(() => {
+      openPopUpMenu();
 
-    const checkbox = getByText('Type').closest(OPTION_CLASS);
-    expect(checkbox).toHaveClass('column-picker-popup__option--is-disabled');
+      const checkbox = getByText('Type').closest(OPTION_CLASS);
+      expect(checkbox).toHaveClass('column-picker-popup__option--is-disabled');
+    });
   });
 
   it('should disable last checked checkbox when there are multiple options and they are all deselected', async () => {
@@ -148,19 +154,19 @@ describe('Column picker', () => {
 
     const selectedColumnKeys: string[] = ['type'];
 
-    const { getByText, getByTestId } = renderColumnPicker(
+    const { openPopUpMenu, getByText } = renderColumnPicker(
       columns,
       selectedColumnKeys,
     );
 
-    // open popup
-    const triggerButton = getByTestId('column-picker-trigger-button');
-    fireEvent.click(triggerButton);
+    await waitFor(() => {
+      openPopUpMenu();
 
-    const typeCheckbox = getByText('Type').closest(OPTION_CLASS);
-    expect(typeCheckbox).toHaveClass(
-      'column-picker-popup__option--is-disabled',
-    );
+      const typeCheckbox = getByText('Type').closest(OPTION_CLASS);
+      expect(typeCheckbox).toHaveClass(
+        'column-picker-popup__option--is-disabled',
+      );
+    });
   });
 
   it('should bring all selected options to the top when opening the popup', async () => {
@@ -189,26 +195,63 @@ describe('Column picker', () => {
 
     const selectedColumnKeys: string[] = ['tom', 'john'];
 
-    const { getByText, getByTestId } = renderColumnPicker(
+    const { openPopUpMenu, getByText } = renderColumnPicker(
       columns,
       selectedColumnKeys,
     );
 
-    // open popup
-    const triggerButton = getByTestId('column-picker-trigger-button');
-    fireEvent.click(triggerButton);
+    await waitFor(() => {
+      openPopUpMenu();
 
-    const popupList = getByText('Matt').closest(OPTION_LIST_CLASS);
-    expect(popupList).toHaveTextContent('TomJohnMattBob');
+      const popupList = getByText('Matt').closest(OPTION_LIST_CLASS);
+      expect(popupList).toHaveTextContent('TomJohnMattBob');
+    });
   });
 
   it('should show loading text when no columns are passed', async () => {
-    const { getByText, getByTestId } = renderColumnPicker([], []);
+    const { openPopUpMenu, getByText } = renderColumnPicker([], []);
 
-    // open popup
-    const triggerButton = getByTestId('column-picker-trigger-button');
-    fireEvent.click(triggerButton);
+    await waitFor(() => {
+      openPopUpMenu();
 
-    expect(getByText('Loading...')).not.toBeNull();
+      expect(getByText('Loading...')).not.toBeNull();
+    });
+  });
+
+  it('should focus the search input when opened and options are passed in', async () => {
+    const columns: DatasourceResponseSchemaProperty[] = [
+      {
+        key: 'matt',
+        type: 'icon',
+        title: 'Matt',
+      },
+      {
+        key: 'tom',
+        type: 'string',
+        title: 'Tom',
+      },
+      {
+        key: 'bob',
+        type: 'string',
+        title: 'Bob',
+      },
+      {
+        key: 'john',
+        type: 'string',
+        title: 'John',
+      },
+    ];
+
+    const selectedColumnKeys: string[] = ['tom', 'john'];
+    const { openPopUpMenu, getByRole } = renderColumnPicker(
+      columns,
+      selectedColumnKeys,
+    );
+
+    await waitFor(() => {
+      openPopUpMenu();
+
+      expect(getByRole('combobox')).toHaveFocus();
+    });
   });
 });

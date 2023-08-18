@@ -409,7 +409,7 @@ export const tableStyles = (
         ${token('elevation.surface', 'white')};
     }
 
-    ${props.featureFlags?.stickyHeadersOptimization ? sentinelStyles : ''}
+    ${sentinelStyles}
     ${OverflowShadow(props)}
 
     .${ClassName.TABLE_STICKY} .${ClassName.TABLE_STICKY_SHADOW} {

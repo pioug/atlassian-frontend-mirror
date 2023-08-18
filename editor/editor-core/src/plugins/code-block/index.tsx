@@ -28,7 +28,7 @@ import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 // Insertions via the drop down menu
 // tslint-ignore-next-line
 import { createInsertCodeBlockTransaction } from '../block-type/commands/block-type';
-import type compositionPlugin from '../composition';
+import type { compositionPlugin } from '@atlaskit/editor-plugin-composition';
 
 const codeBlockPlugin: NextEditorPlugin<
   'codeBlock',

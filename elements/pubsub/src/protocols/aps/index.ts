@@ -43,12 +43,22 @@ export default class APSProtocol implements Protocol {
       analyticsClient: this.analyticsClient,
     };
 
+    const paramsActive = {
+      ...transportParams,
+      isFallback: false,
+    };
+
+    const paramsFallback = {
+      ...transportParams,
+      isFallback: true,
+    };
+
     if (preferredTransport === APSTransportType.WEBSOCKET) {
-      this.activeTransport = new WebsocketTransport(transportParams);
-      this.fallbackTransport = new HttpTransport(transportParams);
+      this.activeTransport = new WebsocketTransport(paramsActive);
+      this.fallbackTransport = new HttpTransport(paramsFallback);
     } else {
-      this.activeTransport = new HttpTransport(transportParams);
-      this.fallbackTransport = new WebsocketTransport(transportParams);
+      this.activeTransport = new HttpTransport(paramsActive);
+      this.fallbackTransport = new WebsocketTransport(paramsFallback);
     }
   }
 
@@ -107,12 +117,13 @@ export default class APSProtocol implements Protocol {
           );
           this.activeTransport
             .subscribe(new Set(config.channels))
-            .catch((errorSecondary) => {
+            .catch((errorFallback) => {
+              // should not happen, since we retry forever
               this.analyticsClient.sendEvent(
                 'aps-protocol',
                 'fall back failed',
                 {
-                  error: errorSecondary.message || 'Unknown error',
+                  error: errorFallback.message || 'Unknown error',
                 },
               );
             });

@@ -154,7 +154,6 @@ describe('table plugin: decorations', () => {
 
 describe('table event handlers', () => {
   const createEditor = createProsemirrorEditorFactory();
-  const fakeGetEditorFeatureFlags = () => ({});
   const editor = (doc: DocBuilder) =>
     createEditor({
       doc,
@@ -222,9 +221,7 @@ describe('table event handlers', () => {
         const event = {
           target: firstCell.node,
         };
-        expect(
-          handleMouseMove(fakeGetEditorFeatureFlags)(editorView, event as any),
-        ).toEqual(false);
+        expect(handleMouseMove(editorView, event as any)).toEqual(false);
       });
     });
   });

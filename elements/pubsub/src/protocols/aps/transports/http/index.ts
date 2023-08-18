@@ -1,26 +1,20 @@
-import { APSTransport, APSTransportParams } from '../index';
+import { APSTransportParams } from '../index';
 import { EventType } from '../../../../types';
-import { logDebug, logError } from '../../../../util/logger';
+import { logDebug } from '../../../../util/logger';
 import { APSTransportType } from '../../../../apiTypes';
-import { APSAnalyticsClient } from '../../APSAnalyticsClient';
+import { getTimestampBasedSequenceNumber } from '../../utils';
+import AbstractApsTransport from '../abstract-aps-transport';
 
-export default class HttpTransport implements APSTransport {
+export default class HttpTransport extends AbstractApsTransport {
   private static readonly MSG_BOUNDARY = '\n';
   private static readonly PARAM_SUBSCRIBE_TO_CHANNELS = 'subscribeToChannels';
   private static readonly PARAM_REPLAY_FROM = 'replayFrom';
-  private readonly analyticsClient: APSAnalyticsClient;
 
-  readonly baseUrl: URL;
-  private readonly eventEmitter;
   private networkUp: boolean = false;
   private abortController: AbortController | null = null;
 
-  private lastSeenSequenceNumber: number | null = null;
-
   constructor(params: APSTransportParams) {
-    this.baseUrl = params.url;
-    this.eventEmitter = params.eventEmitter;
-    this.analyticsClient = params.analyticsClient;
+    super(params);
   }
 
   transportType() {
@@ -43,18 +37,12 @@ export default class HttpTransport implements APSTransport {
     );
 
     if (this.abortController !== null) {
-      // @ts-ignore: not sure why typecheck doesn't allow me to pass a parameter here. https://developer.mozilla.org/en-US/docs/Web/API/AbortController/abort#syntax
-      this.abortController.abort('NEW_SUBSCRIPTION_SET');
-      return new Promise((resolve) => {
-        // puts the call to makeHttpRequest at the back of the execution queue,
-        // so the error handler code triggered by aborting the request can execute first.
-        setTimeout(() => {
-          resolve(this.makeHttpRequest(url));
-        }, 0);
-      });
+      return this.connectWithBackoff(() =>
+        this.reconnectWithNewSubscriptionSet(url),
+      );
     }
 
-    return this.makeHttpRequest(url);
+    return this.connectWithBackoff(() => this.makeHttpRequest(url));
   }
 
   close(): void {
@@ -62,6 +50,18 @@ export default class HttpTransport implements APSTransport {
     this.networkUp = false;
     // @ts-ignore: not sure why typecheck doesn't allow me to pass a parameter here. https://developer.mozilla.org/en-US/docs/Web/API/AbortController/abort#syntax
     this.abortController?.abort('CLOSED_BY_CLIENT');
+  }
+
+  private reconnectWithNewSubscriptionSet(url: URL): Promise<any> {
+    // @ts-ignore: not sure why typecheck doesn't allow me to pass a parameter here. https://developer.mozilla.org/en-US/docs/Web/API/AbortController/abort#syntax
+    this.abortController.abort('NEW_SUBSCRIPTION_SET');
+    return new Promise((resolve) => {
+      // puts the call to makeHttpRequest at the back of the execution queue,
+      // so the error handler code triggered by aborting the request can execute first.
+      setTimeout(() => {
+        resolve(this.makeHttpRequest(url));
+      }, 0);
+    });
   }
 
   private reconnect(url: URL): Promise<any> {
@@ -82,21 +82,6 @@ export default class HttpTransport implements APSTransport {
     return this.makeHttpRequest(url);
   }
 
-  private onFetchSuccessful(response: Response) {
-    if (!this.networkUp) {
-      this.networkUp = true;
-      // Emit the "NETWORK_UP" event only when the first request is completed. This ensures that the event
-      // is not sent on reconnects that happen due to natural timeout.
-      this.eventEmitter.emit(EventType.NETWORK_UP, {});
-    }
-    // "sequenceNumber" is usually obtained from consumed messages. Here, we're setting its value based on the
-    // timestamp when the HTTP request is established to cover the scenario where zero messages are received as part
-    // of the request.
-    this.lastSeenSequenceNumber = Math.floor(new Date().getTime() / 1000); // timestamp in seconds
-
-    return response;
-  }
-
   private async makeHttpRequest(urlWithParams: URL): Promise<void> {
     // AbortController allows us to abort the HTTP request - in case the "close" function is called, or the list of
     // subscribed channels change.
@@ -111,27 +96,36 @@ export default class HttpTransport implements APSTransport {
     try {
       await this.processResponse(response);
     } catch (error: any) {
-      this.onProcessResponseError(error);
+      if (!this.isAbortError(error)) {
+        this.analyticsClient.sendEvent('aps-http', 'reconnecting');
+        return this.reconnectWithBackoff(() => this.reconnect(urlWithParams));
+      }
     }
-
-    return this.reconnect(urlWithParams);
   }
 
-  private onProcessResponseError(error: any) {
+  private onFetchSuccessful(response: Response) {
+    if (!this.networkUp) {
+      this.networkUp = true;
+      // Emit the "NETWORK_UP" event only when the first request is completed. This ensures that the event
+      // is not sent on reconnects that happen due to natural timeout.
+      this.eventEmitter.emit(EventType.NETWORK_UP, {});
+    }
+    this.lastSeenSequenceNumber = getTimestampBasedSequenceNumber();
+
+    return response;
+  }
+
+  private isAbortError(error: any) {
     if (error.name === 'AbortError') {
       logDebug(
         'Request was intentionally aborted. Reason: ' +
           // @ts-ignore AbortSignal does contain a property called "reason". https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal/reason
           this.abortController?.signal?.reason,
       );
-      return;
+      return true;
     }
 
-    this.networkUp = false;
-    this.eventEmitter.emit(EventType.NETWORK_DOWN, {});
-    const msg = 'Error processing response payload';
-    logError(msg, error);
-    throw new Error(msg);
+    return false;
   }
 
   private emitMessage(sanitizedChunk: string) {
@@ -177,16 +171,8 @@ export default class HttpTransport implements APSTransport {
       }
     };
     const readChunk = async (): Promise<any> => {
-      try {
-        const chunk = await reader.read();
-        return consumeChunk(chunk);
-      } catch (error: any) {
-        if (error.message?.includes('network error')) {
-          logDebug('http request ended normally due to timeout');
-        } else {
-          throw error;
-        }
-      }
+      const chunk = await reader.read();
+      return consumeChunk(chunk);
     };
 
     return readChunk();

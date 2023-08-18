@@ -65,9 +65,9 @@ export interface AvatarPropTypes {
    */
   appearance?: AppearanceType;
   /**
-   * Used to provide better content to screen readers when using presence/status. Rather
-   * than a screen reader speaking "online, approved, John Smith", passing in a label
-   * allows a custom message like "John Smith (approved and online)".
+   * Used to provide custom content to screen readers.
+   * Status or presence is not added to the label by default if it passed as nodes.
+   * If status or presence is passed as a string, the default content format is "John Smith (online)".
    */
   label?: string;
   /**
@@ -357,6 +357,21 @@ const Avatar = forwardRef<HTMLElement, AvatarPropTypes>(
       };
     };
 
+    const isPresence = isValidIconSize && presence && !status;
+    const isStatus = isValidIconSize && status;
+
+    // add presence or status to the label by default if presence and status are passed as a string
+    // if status or presence are nodes this is not added to the label by default
+    const generateDefaultLabel = () => {
+      if (!name && !status && !presence) {
+        return;
+      }
+
+      return `${name || ''} ${
+        isStatus && !customStatusNode ? `(${status})` : ''
+      } ${isPresence && !customPresenceNode ? `(${presence})` : ''}`;
+    };
+
     return (
       <div
         data-testid={testId}
@@ -381,7 +396,9 @@ const Avatar = forwardRef<HTMLElement, AvatarPropTypes>(
               }),
               ...componentProps(),
               ...(testId && getTestId(testId, children)),
-              ...((onClick || href) && { 'aria-label': label }),
+              ...((onClick || href) && {
+                'aria-label': label || generateDefaultLabel(),
+              }),
               children: (
                 <AvatarImage
                   alt={name}
@@ -402,7 +419,7 @@ const Avatar = forwardRef<HTMLElement, AvatarPropTypes>(
                 );
           }}
         </ClassNames>
-        {isValidIconSize && presence && !status && (
+        {isPresence && (
           <PresenceWrapper
             appearance={appearance!}
             size={size as IndicatorSizeType}
@@ -414,7 +431,7 @@ const Avatar = forwardRef<HTMLElement, AvatarPropTypes>(
             {customPresenceNode}
           </PresenceWrapper>
         )}
-        {isValidIconSize && status && (
+        {isStatus && (
           <StatusWrapper
             appearance={appearance!}
             size={size as IndicatorSizeType}

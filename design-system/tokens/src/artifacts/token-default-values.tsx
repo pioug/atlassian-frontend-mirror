@@ -1,10 +1,13 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
  *
+ * DEPRECATED, PLEASE DO NOT USE.
+ * Default values can now be based on either light or legacy-light themes, whereas this only contains light theme values.
+ *
  * Token names mapped to their value in the default Atlassian themes ('light').
  * These default values are used by the Babel plugin to optionally provide automatic fallbacks.
  *
- * @codegen <<SignedSource::cd2ec139d4552898a3fc16a50aac159c>>
+ * @codegen <<SignedSource::b5a6322ad7a59d086ea12e85ec78c8f0>>
  * @codegenCommand yarn build tokens
  */
 const defaultTokenValues = {

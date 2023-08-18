@@ -48,10 +48,11 @@ import { AnnotationSelectionType } from '../../types';
 import annotationPlugin from '../..';
 import { textFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';
 import { emojiPlugin } from '../../../emoji';
+import typeAheadPlugin from '../../../type-ahead';
 import { inlineCommentProvider } from '../_utils';
 import mediaPlugin from '../../../media';
 import codeBlockPlugin from '../../../code-block';
-import compositionPlugin from '../../../composition';
+import { compositionPlugin } from '@atlaskit/editor-plugin-composition';
 import blockTypePlugin from '../../../block-type';
 import floatingToolbarPlugin from '../../../floating-toolbar';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
@@ -80,6 +81,7 @@ const annotationPreset = new Preset<LightEditorPlugin>()
     { inlineComment: { ...inlineCommentProvider, disallowOnWhitespace: true } },
   ])
   .add(textFormattingPlugin)
+  .add(typeAheadPlugin)
   .add(emojiPlugin)
   .add(decorationsPlugin)
   .add(panelPlugin)

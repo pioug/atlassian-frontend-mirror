@@ -129,10 +129,10 @@ class PubSubEventComponent extends Component<{}, State> {
     this.state.client.off(this.state.eventType, this.onEvent);
   };
 
-  onEvent = (event: any, _: any) => {
+  onEvent = (event: any, msg: any) => {
     this.setState(({ events }) => {
       return {
-        events: [...events, event],
+        events: [...events, `${event}:${msg}`],
       };
     });
   };

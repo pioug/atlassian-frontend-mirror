@@ -13,7 +13,7 @@ import {
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import listPlugin from '../..';
 import codeBlockPlugin from '../../../code-block';
-import compositionPlugin from '../../../composition';
+import { compositionPlugin } from '@atlaskit/editor-plugin-composition';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import { undo } from '@atlaskit/editor-prosemirror/history';

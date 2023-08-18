@@ -15,7 +15,7 @@ import type { focusPlugin } from '@atlaskit/editor-plugin-focus';
 
 export const pluginKey = new PluginKey('placeholderPlugin');
 import { isTypeAheadOpen } from '../type-ahead/utils';
-import type compositionPlugin from '../composition';
+import type { compositionPlugin } from '@atlaskit/editor-plugin-composition';
 
 interface PlaceHolderState {
   hasPlaceholder: boolean;
@@ -119,7 +119,9 @@ export function createPlugin(
     state: {
       init: (_, state) =>
         createPlaceHolderStateFrom(
-          Boolean(api?.dependencies.focus.sharedState.currentState()?.hasFocus),
+          Boolean(
+            api?.dependencies.focus?.sharedState.currentState()?.hasFocus,
+          ),
           state,
           defaultPlaceholderText,
           bracketPlaceholderText,
@@ -127,7 +129,7 @@ export function createPlugin(
       apply: (tr, _oldPluginState, _oldEditorState, newEditorState) => {
         const meta = tr.getMeta(pluginKey);
         const isEditorFocused = Boolean(
-          api?.dependencies.focus.sharedState.currentState()?.hasFocus,
+          api?.dependencies.focus?.sharedState.currentState()?.hasFocus,
         );
 
         if (meta) {
@@ -159,7 +161,7 @@ export function createPlugin(
           getPlaceholderState(editorState);
 
         const compositionPluginState =
-          api?.dependencies.composition.sharedState.currentState();
+          api?.dependencies.composition?.sharedState.currentState();
         if (
           hasPlaceholder &&
           placeholderText &&

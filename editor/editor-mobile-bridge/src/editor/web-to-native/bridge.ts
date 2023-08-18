@@ -1,6 +1,6 @@
-import { Serialized } from '../../types';
-import { Color as StatusColor } from '@atlaskit/status/element';
-import { QuickInsertItem } from '@atlaskit/editor-core/src/plugins/quick-insert/types';
+import type { Serialized } from '../../types';
+import type { Color as StatusColor } from '@atlaskit/status/element';
+import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
 export default interface NativeBridge
   extends MentionBridge,
     TextFormattingBridge,

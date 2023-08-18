@@ -139,26 +139,12 @@ export const createPlugin = (
       node: ProseMirrorNode,
       view: EditorView,
       getPos: getPosHandler,
-    ) =>
-      new TableCellNodeView(
-        node,
-        view,
-        getPos,
-        getEditorFeatureFlags,
-        observer,
-      ),
+    ) => new TableCellNodeView(node, view, getPos, observer),
     tableHeader: (
       node: ProseMirrorNode,
       view: EditorView,
       getPos: getPosHandler,
-    ) =>
-      new TableCellNodeView(
-        node,
-        view,
-        getPos,
-        getEditorFeatureFlags,
-        observer,
-      ),
+    ) => new TableCellNodeView(node, view, getPos, observer),
   };
 
   // Used to prevent invalid table cell spans being reported more than once per editor/document
@@ -367,8 +353,7 @@ export const createPlugin = (
       },
 
       nodeViews: {
-        //temporary flag to test tableCell optimisation
-        ...(tableCellNodeview as any),
+        ...tableCellNodeview,
         table: (node, view, getPos) =>
           createTableView(
             node,
@@ -395,10 +380,7 @@ export const createPlugin = (
         mouseover: whenTableInFocus(handleMouseOver),
         mouseleave: whenTableInFocus(handleMouseLeave),
         mouseout: whenTableInFocus(handleMouseOut),
-        mousemove: whenTableInFocus(
-          handleMouseMove(getEditorFeatureFlags),
-          elementContentRects,
-        ),
+        mousemove: whenTableInFocus(handleMouseMove, elementContentRects),
         click: whenTableInFocus(handleClick),
       },
 

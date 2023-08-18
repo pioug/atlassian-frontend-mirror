@@ -3,7 +3,6 @@ import type { Format } from 'style-dictionary';
 
 import { createSignedArtifact } from '@atlassian/codegen';
 
-import { DEFAULT_THEME } from '../../../src/constants';
 import { getTokenId } from '../../../src/utils/token-ids';
 import sortTokens from '../sort-tokens';
 
@@ -35,7 +34,10 @@ const formatter: Format['formatter'] = ({ dictionary }) => {
   return createSignedArtifact(
     source,
     `yarn build tokens`,
-    `Token names mapped to their value in the default Atlassian themes ('${DEFAULT_THEME}').
+    `DEPRECATED, PLEASE DO NOT USE.
+    Default values can now be based on either light or legacy-light themes, whereas this only contains light theme values.
+
+    Token names mapped to their value in the default Atlassian themes ('light').
     These default values are used by the Babel plugin to optionally provide automatic fallbacks.`,
   );
 };

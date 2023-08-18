@@ -160,11 +160,16 @@ describe('<LinkPicker />', () => {
     it('should render a Field (URL field) with correct aria-describedby prop', async () => {
       const screenReaderDescriptionId = 'search-recent-links-field-description';
       const { testIds } = setupLinkPicker();
-
       expect(screen.getByTestId(testIds.urlInputField)).toHaveAttribute(
         'aria-describedby',
         screenReaderDescriptionId,
       );
+    });
+
+    it('should have visual label connected to input field', async () => {
+      const { testIds } = setupLinkPicker();
+      const inputNode = screen.getByLabelText('Display text (optional)');
+      expect(inputNode).toHaveAttribute('data-testid', testIds.textInputField);
     });
 
     it('should NOT display an invalid URL on load', async () => {

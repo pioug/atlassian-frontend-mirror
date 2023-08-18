@@ -1,5 +1,11 @@
 # @atlaskit/range
 
+## 7.1.7
+
+### Patch Changes
+
+- [`9af31f3c1ae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9af31f3c1ae) - Delete version.json
+
 ## 7.1.6
 
 ### Patch Changes

@@ -1,12 +1,12 @@
 import React from 'react';
-import { ExtensionProvider } from '@atlaskit/editor-common/extensions';
-import {
+import type { ExtensionProvider } from '@atlaskit/editor-common/extensions';
+import type {
   QuickInsertItem,
   QuickInsertProvider,
 } from '@atlaskit/editor-common/provider-factory';
 
 import { useStateFromPromise } from '../src/utils/react-hooks/use-state-from-promise';
-import EditorActions from '../src/actions';
+import type EditorActions from '../src/actions';
 import { extensionProviderToQuickInsertProvider } from '../src/utils/extensions';
 import { searchQuickInsertItems } from '../src/plugins/quick-insert/search';
 import { getExampleExtensionProviders } from './get-example-extension-providers';

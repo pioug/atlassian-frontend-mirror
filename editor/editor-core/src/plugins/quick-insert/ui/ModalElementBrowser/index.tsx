@@ -3,7 +3,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import WithPluginState from '../../../../ui/WithPluginState';
 import { pluginKey } from '../../plugin-key';
-import type { QuickInsertPluginState } from '../../types';
+import type { QuickInsertPluginState } from '@atlaskit/editor-common/types';
 import { searchQuickInsertItems } from '../../search';
 
 import ModalElementBrowser from '../../../../ui/ElementBrowser/ModalElementBrowser';

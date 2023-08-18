@@ -2,7 +2,6 @@ import debounce from 'lodash/debounce';
 import throttle from 'lodash/throttle';
 
 import { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
-import type { GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
 import { findOverflowScrollParent } from '@atlaskit/editor-common/ui';
 import { mapChildren } from '@atlaskit/editor-common/utils';
 import { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
@@ -78,7 +77,6 @@ export class TableRowNodeView implements NodeView {
 
   private intersectionObserver?: IntersectionObserver;
   private resizeObserver?: ResizeObserver;
-  private stickyHeadersOptimization = false;
   private sentinels: {
     top?: HTMLElement | null;
     bottom?: HTMLElement | null;
@@ -94,7 +92,6 @@ export class TableRowNodeView implements NodeView {
     view: EditorView,
     getPos: any,
     eventDispatcher: EventDispatcher,
-    getEditorFeatureFlags: GetEditorFeatureFlags,
   ) {
     this.view = view;
     this.node = node;
@@ -104,9 +101,6 @@ export class TableRowNodeView implements NodeView {
     this.dom = document.createElement('tr');
     this.contentDOM = this.dom;
 
-    const featureFlags = getEditorFeatureFlags();
-    const { stickyHeadersOptimization } = featureFlags;
-    this.stickyHeadersOptimization = !!stickyHeadersOptimization;
     this.lastTimePainted = 0;
     this.isHeaderRow = supportedHeaderRow(node);
     this.isSticky = false;
@@ -139,11 +133,7 @@ export class TableRowNodeView implements NodeView {
       findOverflowScrollParent(this.view.dom as HTMLElement) || window;
 
     if (this.editorScrollableElement) {
-      if (this.stickyHeadersOptimization) {
-        this.initObservers();
-      } else {
-        this.editorScrollableElement.addEventListener('scroll', this.onScroll);
-      }
+      this.initObservers();
       this.topPosEditorElement = getTop(this.editorScrollableElement);
     }
 
@@ -180,10 +170,6 @@ export class TableRowNodeView implements NodeView {
 
     if (this.resizeObserver) {
       this.resizeObserver.disconnect();
-    }
-
-    if (this.editorScrollableElement && !this.stickyHeadersOptimization) {
-      this.editorScrollableElement.removeEventListener('scroll', this.onScroll);
     }
 
     this.eventDispatcher.off('widthPlugin', this.updateStickyHeaderWidth);
@@ -340,66 +326,6 @@ export class TableRowNodeView implements NodeView {
 
   nextFrame: number | undefined;
 
-  onScroll = () => {
-    if (!this.tree) {
-      return;
-    }
-
-    this.latestDomTop = getTop(this.tree.wrapper);
-
-    // kick off rAF loop again if it hasn't already happened
-    if (!this.nextFrame) {
-      this.loop();
-    }
-  };
-
-  loop = () => {
-    this.nextFrame = window.requestAnimationFrame(() => {
-      if (
-        this.previousDomTop === this.latestDomTop &&
-        this.previousPadding === this.padding
-      ) {
-        this.nextFrame = undefined;
-        return;
-      }
-
-      // can't store these since React might re-render at any time
-      const tree = this.tree;
-      if (!tree) {
-        this.nextFrame = undefined;
-        return;
-      }
-
-      this.paint(tree);
-
-      // run again on next frame
-      this.previousPadding = this.padding;
-      this.previousDomTop = this.latestDomTop;
-      this.loop();
-    });
-  };
-
-  paint = (tree: TableDOMElements) => {
-    const { table, wrapper } = tree;
-
-    // If the previous refresh is less than 10ms then don't do anything.
-    // The jumpiness happen under that time and this is to avoid it.
-    const timelapse = Math.abs(performance.now() - this.lastTimePainted);
-    if (timelapse < 10) {
-      return;
-    }
-
-    if (this.shouldHeaderStick(tree)) {
-      this.makeHeaderRowSticky(tree);
-    } else {
-      this.makeRowHeaderNotSticky(table);
-    }
-
-    // ensure scroll positions are locked
-    this.dom.scrollLeft = wrapper.scrollLeft;
-    this.lastTimePainted = performance.now();
-  };
-
   /* nodeview lifecycle */
   update(node: PmNode, ..._args: any[]) {
     // do nothing if nodes were identical
@@ -477,7 +403,6 @@ export class TableRowNodeView implements NodeView {
 
   onTablePluginState = (state: TablePluginState) => {
     const tableRef = state.tableRef;
-    let focusChanged = false;
 
     const tree = this.tree;
     if (!tree) {
@@ -498,9 +423,6 @@ export class TableRowNodeView implements NodeView {
     // If current table selected and header row is toggled off, turn off sticky header
     if (isCurrentTableSelected && !state.isHeaderRowEnabled && this.tree) {
       this.makeRowHeaderNotSticky(this.tree.table);
-    }
-    if (isCurrentTableSelected !== this.focused) {
-      focusChanged = true;
     }
     this.focused = isCurrentTableSelected;
 
@@ -535,10 +457,6 @@ export class TableRowNodeView implements NodeView {
 
     // run after table style changes have been committed
     setTimeout(() => {
-      // if focus changed while header is sticky - still repaint the positions will shift
-      if (!this.stickyHeadersOptimization || (focusChanged && this.isSticky)) {
-        this.paint(tree);
-      }
       syncStickyRowToTable(tree.table);
     }, 0);
   };

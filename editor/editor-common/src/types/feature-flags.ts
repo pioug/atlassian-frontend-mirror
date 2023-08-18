@@ -127,51 +127,6 @@ export type FeatureFlags = {
 
   /**
    * @description
-   * Enables performance optimization for sticky headers in tables
-   *
-   * @see https://product-fabric.atlassian.net/browse/ED-11807
-   * @default false
-   */
-  stickyHeadersOptimization?: boolean;
-
-  /**
-   * @description
-   * Enables performance optimization for initial table render
-   *
-   * @see https://product-fabric.atlassian.net/browse/ED-11647
-   * @default false
-   */
-  initialRenderOptimization?: boolean;
-
-  /**
-   * @description
-   * Enables performance optimization for mousemove inside table
-   *
-   * @see https://product-fabric.atlassian.net/browse/ED-11577
-   * @default false
-   */
-  mouseMoveOptimization?: boolean;
-
-  /**
-   * @description
-   * Enables performance optimization for table rendering on keypress
-   *
-   * @see https://product-fabric.atlassian.net/browse/ED-11640
-   * @default false
-   */
-  tableRenderOptimization?: boolean;
-
-  /**
-   * @description
-   * Enables performance optimization for table rendering on keypress
-   *
-   * @see https://product-fabric.atlassian.net/browse/ED-11781
-   * @default false
-   */
-  tableOverflowShadowsOptimization?: boolean;
-
-  /**
-   * @description
    * Yield to user interaction work before sending analytics
    *
    * @see https://product-fabric.atlassian.net/browse/ED-10584

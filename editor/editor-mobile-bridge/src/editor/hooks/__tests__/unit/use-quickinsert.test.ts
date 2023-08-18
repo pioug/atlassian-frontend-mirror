@@ -1,7 +1,7 @@
 import { renderHook } from '@testing-library/react-hooks';
 import { useQuickInsert } from '../../use-quickinsert';
 import WebBridgeImpl from '../../../native-to-web';
-import { IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl-next';
 import { processQuickInsertItems } from '@atlaskit/editor-core';
 
 const mockSomeDefaultItems = [

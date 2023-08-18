@@ -1,5 +1,11 @@
 # @atlaskit/pragmatic-drag-and-drop-auto-scroll
 
+## 0.3.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.3.1
 
 ### Patch Changes

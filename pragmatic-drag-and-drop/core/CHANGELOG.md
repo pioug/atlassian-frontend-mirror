@@ -1,10 +1,42 @@
 # @atlaskit/pragmatic-drag-and-drop
 
+## 0.23.0
+
+### Minor Changes
+
+- [`3da89e29dfc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3da89e29dfc) - We have renamed and tweaked the recently added `setCustomNativeDragPreview` `getOffset` utility `preserveOffsetFromPointer` to be a bit easier to understand what it is doing.
+
+  ```diff
+  - import { preserveOffsetFromPointer } from '@atlaskit/pragmatic-drag-and-drop/util/preserve-offset-from-pointer';
+  + import { preserveOffsetOnSource } from '@atlaskit/pragmatic-drag-and-drop/util/preserve-offset-on-source';
+
+  draggable({
+    element: myElement,
+    onGenerateDragPreview: ({ nativeSetDragImage, location, source }) => {
+      setCustomNativeDragPreview({
+  -      getOffset: preserveOffsetFromPointer({
+  +      'preserveOffsetOnSource' is a more accurate description of what is being achieved
+  +      getOffset: preserveOffsetOnSource({
+  -        sourceElement: source.element,
+  +        // no longer including 'source' in argument name
+  +        // as it is implied by the function name
+  +        element: source.element,
+          input: location.current.input,
+        }),
+        render: function render({ container }) {
+          /* ... */
+        },
+        nativeSetDragImage,
+      });
+    },
+  });
+  ```
+
 ## 0.22.0
 
 ### Minor Changes
 
-- [`d644a68ddf6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d644a68ddf6) - Added a new `setCustomNativeDragPreview` `getOffset` utililiy: `preserveOffsetFromPointer`. `preserveOffsetFromPointer` mimics the default behaviour for non custom drag previews when starting a drag: the initial cursor position offset is preserved for a seamless drag and drop experience.
+- [`d644a68ddf6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d644a68ddf6) - Added a new `setCustomNativeDragPreview` `getOffset` utility: `preserveOffsetFromPointer`. `preserveOffsetFromPointer` mimics the default behaviour for non custom drag previews when starting a drag: the initial cursor position offset is preserved for a seamless drag and drop experience.
 
   ```ts
   import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/util/set-custom-native-drag-preview';

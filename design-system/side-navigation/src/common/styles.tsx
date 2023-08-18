@@ -50,7 +50,7 @@ export const baseSideNavItemStyle: CSSFn = ({ isSelected, isDisabled }) => {
     // This padding is set to ensure that the center of the left icon
     // is approximately center aligned with the horizontal app switcher.
     paddingBlock: token('space.100', '8px'),
-    paddingInline: token('space.100', '10px'),
+    paddingInline: token('space.100', '8px'),
     borderRadius: token('border.radius', '3px'),
     // -- TODO: DELETE THESE COLOR OVERRIDES WHEN CLEANING UP FALLBACK THEMING --
     // Menu and side navigation are now color aligned so they do not need this!
@@ -69,6 +69,6 @@ export const baseSideNavItemStyle: CSSFn = ({ isSelected, isDisabled }) => {
 
 export const sectionHeaderSpacingStyles: StatelessCSSFn = () => {
   return {
-    paddingInline: token('space.100', '10px'),
+    paddingInline: token('space.100', '8px'),
   };
 };

@@ -27,12 +27,12 @@ import type { PlaceholderPluginOptions } from '../../../plugins/placeholder';
 import placeholderPlugin from '../../../plugins/placeholder';
 import type { AnnotationProviders } from '../../../plugins/annotation';
 import annotationPlugin from '../../../plugins/annotation';
-import compositionPlugin from '../../../plugins/composition';
+import { compositionPlugin } from '@atlaskit/editor-plugin-composition';
 import type {
   TextFormattingOptions,
   HyperlinkPluginOptions,
+  QuickInsertPluginOptions,
 } from '@atlaskit/editor-common/types';
-import type { QuickInsertPluginOptions } from '../../../plugins/quick-insert';
 import quickInsertPlugin from '../../../plugins/quick-insert';
 import selectionPlugin from '../../../plugins/selection';
 import codeBlockPlugin from '../../../plugins/code-block';

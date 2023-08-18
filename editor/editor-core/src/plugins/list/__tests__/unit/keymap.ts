@@ -38,6 +38,7 @@ import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import mediaPlugin from '../../../media';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { focusPlugin } from '@atlaskit/editor-plugin-focus';
+import typeAheadPlugin from '../../../type-ahead';
 
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import simulatePlatform, {
@@ -50,7 +51,7 @@ import type {
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
-import compositionPlugin from '../../../composition';
+import { compositionPlugin } from '@atlaskit/editor-plugin-composition';
 
 const emojiProvider = getTestEmojiResource();
 
@@ -76,6 +77,7 @@ describe('lists plugin -> keymap', () => {
       .add(editorDisabledPlugin)
       .add([listPlugin, { restartNumberedLists: true }])
       .add(blockTypePlugin)
+      .add(typeAheadPlugin)
       .add(emojiPlugin)
       .add(compositionPlugin)
       .add([codeBlockTypePlugin, { appearance: 'full-page' }])

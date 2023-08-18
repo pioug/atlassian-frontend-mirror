@@ -38,14 +38,38 @@ interface ColorColumn {
   presence?: PresenceType;
   appearance?: AppearanceType;
   status?: StatusType;
+  key?: number;
 }
 
-const ColorColumn = (props: ColorColumn) => (
-  <div style={{ ...styles.column, backgroundColor: props.borderColor }}>
-    {/* eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props */}
-    <Avatar onClick={console.log} {...props} size="xlarge" />
-    {/* eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props */}
-    <Avatar onClick={console.log} {...props} />
+const ColorColumn = ({
+  key,
+  src,
+  borderColor,
+  presence,
+  status,
+  appearance,
+}: ColorColumn) => (
+  <div style={{ ...styles.column, backgroundColor: borderColor }}>
+    <Avatar
+      onClick={console.log}
+      key={key}
+      src={src}
+      borderColor={borderColor}
+      status={status}
+      presence={presence}
+      appearance={appearance}
+      size="xlarge"
+      name="John Smith ACME co"
+    />
+    <Avatar
+      onClick={console.log}
+      key={key}
+      src={src}
+      borderColor={borderColor}
+      status={status}
+      presence={presence}
+      appearance={appearance}
+    />
   </div>
 );
 

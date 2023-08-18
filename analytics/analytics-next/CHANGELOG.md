@@ -1,5 +1,11 @@
 # @atlaskit/analytics-next
 
+## 9.1.4
+
+### Patch Changes
+
+- [`9af31f3c1ae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9af31f3c1ae) - Delete version.json
+
 ## 9.1.3
 
 ### Patch Changes

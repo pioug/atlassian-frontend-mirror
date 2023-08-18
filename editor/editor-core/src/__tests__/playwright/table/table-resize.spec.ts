@@ -187,6 +187,22 @@ test.describe('resizing a table', () => {
     expect(await resizerModel.containerWidth()).toBe(760);
     expect(await tableModel.containerWidth()).toBe(760);
   });
+
+  test('should not show editor page scroll bar', async ({ editor }) => {
+    // Check the editor page scroll bar not showing by
+    // checking the pm-table-resizer-container div to have the same width as resizer-item div
+    const nodes = EditorNodeContainerModel.from(editor);
+    const tableModel = EditorTableModel.from(nodes.table);
+    const resizerModel = tableModel.resizer();
+
+    await resizerModel.resizeAndHold({
+      mouse: editor.page.mouse,
+      moveDistance: 100,
+    });
+
+    expect(await resizerModel.containerWidth()).toBe(960);
+    expect(await resizerModel.resizerItemWidth()).toBe(960);
+  });
 });
 
 test.describe('rendering table width', () => {

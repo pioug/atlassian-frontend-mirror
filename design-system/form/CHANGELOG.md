@@ -1,5 +1,11 @@
 # @atlaskit/form
 
+## 8.11.12
+
+### Patch Changes
+
+- [`56b444b56a8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56b444b56a8) - Fix a bug where text descenders were cut off at high zoom levels on Windows
+
 ## 8.11.11
 
 ### Patch Changes

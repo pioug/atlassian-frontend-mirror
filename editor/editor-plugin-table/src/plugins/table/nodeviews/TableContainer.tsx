@@ -1,23 +1,20 @@
-import React, {
-  forwardRef,
-  PropsWithChildren,
-  useCallback,
-  useRef,
-} from 'react';
+import type { PropsWithChildren } from 'react';
+import React, { forwardRef, useCallback, useRef } from 'react';
 
 import classNames from 'classnames';
 
-import { TableEventPayload } from '@atlaskit/editor-common/analytics';
+import type { TableEventPayload } from '@atlaskit/editor-common/analytics';
 import type { GuidelineConfig } from '@atlaskit/editor-common/guideline';
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
 import { calcTableWidth } from '@atlaskit/editor-common/styles';
-import { EditorContainerWidth } from '@atlaskit/editor-common/types';
-import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { EditorContainerWidth } from '@atlaskit/editor-common/types';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorMobileBreakoutPoint } from '@atlaskit/editor-shared-styles';
 
 import { TABLE_MAX_WIDTH } from '../pm-plugins/table-resizing/utils';
-import { TableCssClassName as ClassName, PluginInjectionAPI } from '../types';
+import type { PluginInjectionAPI } from '../types';
+import { TableCssClassName as ClassName } from '../types';
 
 import { TableResizer } from './TableResizer';
 
@@ -94,6 +91,14 @@ export const ResizableTableContainer = ({
 
       const marginLeft = getMarginLeft(lineLength, width);
 
+      // make sure during resizing
+      // the pm-table-resizer-container width is the same as its child div resizer-item
+      // otherwise when resize table from wider to narrower , pm-table-resizer-container stays wider
+      // and cause the fabric-editor-popup-scroll-parent to overflow
+      if (containerRef.current.style.width !== `${width}px`) {
+        containerRef.current.style.width = `${width}px`;
+      }
+
       if (marginLeftRef.current !== marginLeft) {
         marginLeftRef.current = marginLeft;
 
@@ -141,6 +146,7 @@ export const ResizableTableContainer = ({
       <TableResizer
         width={width}
         maxWidth={maxResizerWidth}
+        containerWidth={containerWidth}
         updateWidth={updateWidth}
         editorView={editorView}
         getPos={getPos}

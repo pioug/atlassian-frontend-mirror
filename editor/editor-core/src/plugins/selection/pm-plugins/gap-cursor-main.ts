@@ -154,7 +154,7 @@ const plugin = new SafePlugin({
 
       const docSize = view.state.doc.content.size;
       const nodeInside =
-        posAtCoords.inside <= 0 || posAtCoords.inside > docSize
+        posAtCoords.inside < 0 || posAtCoords.inside > docSize
           ? null
           : view.state.doc.nodeAt(posAtCoords.inside);
       if (nodeInside?.isAtom) {

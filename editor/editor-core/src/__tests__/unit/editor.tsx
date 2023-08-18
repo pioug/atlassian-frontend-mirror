@@ -44,54 +44,50 @@ jest.mock('uuid/v4', () => ({
 
 jest.mock('@atlaskit/editor-common/provider-factory');
 
-import {
-  render,
-  screen,
-  fireEvent,
-  RenderResult,
-} from '@testing-library/react';
+import type { RenderResult } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import React from 'react';
 import Editor from '../../editor';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { analyticsClient } from '@atlaskit/editor-test-helpers/analytics-client-mock';
-import FabricAnalyticsListeners, {
-  AnalyticsWebClient,
-} from '@atlaskit/analytics-listeners';
-import {
+import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
+import FabricAnalyticsListeners from '@atlaskit/analytics-listeners';
+import type {
   GasPurePayload,
   GasPureScreenEventPayload,
 } from '@atlaskit/analytics-gas-types';
 import { EDITOR_APPEARANCE_CONTEXT } from '@atlaskit/analytics-namespaced-context';
-import {
+import type {
   AutoformattingProvider,
-  ProviderFactory,
   QuickInsertProvider,
 } from '@atlaskit/editor-common/provider-factory';
-import { EditorAppearance, EditorProps } from '../../types';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { EditorAppearance, EditorProps } from '../../types';
 
 import {
   name as packageName,
   version as packageVersion,
 } from '../../version-wrapper';
-import { EditorActions, EditorContext, MediaOptions } from '../..';
+import type { MediaOptions } from '../..';
+import { EditorActions, EditorContext } from '../..';
 import { asMock } from '@atlaskit/media-test-helpers';
 import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
 import { EditorExperience } from '@atlaskit/editor-common/ufo';
 
-import * as ActivityProviderModule from '@atlaskit/activity-provider';
+import type * as ActivityProviderModule from '@atlaskit/activity-provider';
 const { ActivityResource } = jest.genMockFromModule<
   typeof ActivityProviderModule
 >('@atlaskit/activity-provider');
 
-import * as EmojiModule from '@atlaskit/emoji';
-import { QuickInsertOptions } from '../../plugins/quick-insert/types';
+import type * as EmojiModule from '@atlaskit/emoji';
+import type { QuickInsertOptions } from '@atlaskit/editor-common/types';
 import { IntlProvider } from 'react-intl-next';
 const { EmojiResource } =
   jest.genMockFromModule<typeof EmojiModule>('@atlaskit/emoji');
 
 import type { ExtensionProvider } from '@atlaskit/editor-common/extensions';
 import { measureTTI as mockMeasureTTI } from '@atlaskit/editor-common/utils';
-import { CardOptions } from '@atlaskit/editor-common/card';
+import type { CardOptions } from '@atlaskit/editor-common/card';
 import { matchers } from '@emotion/jest';
 import * as utils from '@atlaskit/editor-common/utils';
 import measurements from '../../utils/performance/measure-enum';

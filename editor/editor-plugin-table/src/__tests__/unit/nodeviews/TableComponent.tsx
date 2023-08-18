@@ -6,6 +6,7 @@ import { replaceRaf } from 'raf-stub';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { Command } from '@atlaskit/editor-common/types';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { selectTableClosestToPos } from '@atlaskit/editor-tables/src/utils/select-nodes';
 import {
   findTable,
@@ -73,6 +74,33 @@ describe('table -> nodeviews -> TableComponent.tsx', () => {
       pluginKey,
     });
   };
+  const getTableComponent = (editorView: EditorView, props: any = {}) => {
+    const tableF = findTable(editorView.state.selection);
+    const getNode = () => tableF!.node;
+    return (
+      <TableComponent
+        view={editorView}
+        eventDispatcher={
+          { on: () => {}, off: () => {} } as any as EventDispatcher
+        }
+        // @ts-ignore
+        containerWidth={{}}
+        // @ts-ignore
+        getNode={getNode}
+        getEditorFeatureFlags={getEditorFeatureFlags}
+        allowControls
+        contentDOM={(wrapper: HTMLElement | null) => {
+          const node = editorView.dom.getElementsByTagName('table')[0];
+          if (!wrapper?.firstChild) {
+            wrapper?.appendChild(node);
+          }
+        }}
+        getPos={jest.fn()}
+        {...props}
+      />
+    );
+  };
+
   afterEach(() => {
     jest.clearAllMocks();
   });
@@ -81,17 +109,11 @@ describe('table -> nodeviews -> TableComponent.tsx', () => {
     it('should add table selected css class to the selected table', () => {
       const { editorView } = editor(
         doc(p('text'), table()(tr(tdEmpty, tdEmpty, tdCursor))),
-        {
-          tableCellOptimization: true,
-          tableRenderOptimization: true,
-          stickyHeadersOptimization: true,
-          initialRenderOptimization: true,
-        },
       );
       const { state, dispatch } = editorView;
       dispatch(selectTable(state.tr));
-      requestAnimationFrame.step();
-      const tableContainer = document.querySelector(
+      const { container } = render(getTableComponent(editorView));
+      const tableContainer = container.querySelector(
         `.${ClassName.TABLE_CONTAINER}`,
       );
       expect(
@@ -135,45 +157,12 @@ describe('table -> nodeviews -> TableComponent.tsx', () => {
 
       render(
         <div>
-          <TableComponent
-            view={editorView}
-            eventDispatcher={
-              { on: () => {}, off: () => {} } as any as EventDispatcher
-            }
-            // @ts-ignore
-            containerWidth={{}}
-            // @ts-ignore
-            getNode={getTableNode(1)}
-            getEditorFeatureFlags={getEditorFeatureFlags}
-            allowControls
-            contentDOM={(wrapper: HTMLElement | null) => {
-              const node = editorView.dom.getElementsByTagName('table')[0];
-              if (!wrapper?.firstChild) {
-                wrapper?.appendChild(node);
-              }
-            }}
-            getPos={jest.fn()}
-          />
-          <TableComponent
-            view={editorView}
-            eventDispatcher={
-              { on: () => {}, off: () => {} } as any as EventDispatcher
-            }
-            // @ts-ignore
-            containerWidth={{}}
-            // @ts-ignore
-            getNode={getTableNode(2)}
-            getEditorFeatureFlags={getEditorFeatureFlags}
-            allowControls
-            contentDOM={(wrapper: HTMLElement | null) => {
-              const node = editorView.dom.getElementsByTagName('table')[0];
-              if (!wrapper?.firstChild) {
-                wrapper?.appendChild(node);
-              }
-            }}
-            getPos={jest.fn()}
-          />
-          ,
+          {getTableComponent(editorView, {
+            getNode: getTableNode(1),
+          })}
+          {getTableComponent(editorView, {
+            getNode: getTableNode(2),
+          })}
         </div>,
       );
       expect(clearHoverSelectionSpy).not.toBeCalled();
@@ -189,8 +178,8 @@ describe('table -> nodeviews -> TableComponent.tsx', () => {
       const { editorView } = editor(
         doc(p('text'), table()(tr(thEmpty, thEmpty, thEmpty))),
       );
-      const { state, dispatch } = editorView;
 
+      const { state, dispatch } = editorView;
       const isInDanger = true;
       hoverTable(isInDanger)(state, dispatch);
       dispatch(selectTable(state.tr));
@@ -198,29 +187,19 @@ describe('table -> nodeviews -> TableComponent.tsx', () => {
       const tableF = findTable(state.selection);
       const getNode = () => tableF!.node;
 
+      const { rerender } = render(
+        getTableComponent(editorView, {
+          getNode,
+        }),
+      );
+
       const newTr = state.tr.setSelection(TextSelection.create(state.doc, 0));
       dispatch(newTr);
 
-      render(
-        <TableComponent
-          view={editorView}
-          eventDispatcher={
-            { on: () => {}, off: () => {} } as any as EventDispatcher
-          }
-          // @ts-ignore
-          containerWidth={{}}
-          // @ts-ignore
-          getNode={getNode}
-          getEditorFeatureFlags={getEditorFeatureFlags}
-          allowControls
-          contentDOM={(wrapper: HTMLElement | null) => {
-            const node = editorView.dom.getElementsByTagName('table')[0];
-            if (!wrapper?.firstChild) {
-              wrapper?.appendChild(node);
-            }
-          }}
-          getPos={jest.fn()}
-        />,
+      rerender(
+        getTableComponent(editorView, {
+          getNode,
+        }),
       );
       expect(clearHoverSelectionSpy).toBeCalledTimes(1);
     });
@@ -295,30 +274,7 @@ describe('table -> nodeviews -> TableComponent.tsx', () => {
       const { editorView: view } = editor(
         doc(p('text'), table()(tr(td()(p('{<>}text')), tdEmpty, tdEmpty))),
       );
-
-      const tableF = findTable(view.state.selection);
-      const getNode = () => tableF!.node;
-      const { container } = render(
-        <TableComponent
-          view={view}
-          eventDispatcher={
-            { on: jest.fn(), off: jest.fn() } as unknown as EventDispatcher
-          }
-          // @ts-ignore
-          containerWidth={{}}
-          getNode={getNode}
-          contentDOM={(contentElement: HTMLElement | null) => {
-            const node = view.dom.getElementsByTagName('table')[0];
-
-            if (!contentElement?.firstChild) {
-              contentElement?.appendChild(node);
-            }
-          }}
-          getEditorFeatureFlags={getEditorFeatureFlags}
-          getPos={jest.fn()}
-          {...props}
-        />,
-      );
+      const { container } = render(getTableComponent(view, props));
       const controlsContainer = container.querySelector(
         `.${ClassName.WITH_CONTROLS}`,
       );

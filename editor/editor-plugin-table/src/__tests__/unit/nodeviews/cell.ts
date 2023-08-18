@@ -111,9 +111,7 @@ describe('table -> nodeviews -> tableCell.tsx', () => {
         refs: { pos },
       } = editor(
         doc(p('text'), table()(tr(td()(p('{pos}text')), tdEmpty, tdEmpty))),
-        {
-          tableCellOptimization: true,
-        },
+        {},
       );
       const { state, dispatch } = editorView;
       const cell = findCellClosestToPos(state.doc.resolve(pos))!;

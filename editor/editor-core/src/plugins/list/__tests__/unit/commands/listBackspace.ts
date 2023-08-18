@@ -15,7 +15,7 @@ import { backspaceKeyCommand } from '../../../commands';
 import { listBackspace } from '../../../commands/listBackspace';
 import listPlugin from '../../..';
 import codeBlockPlugin from '../../../../code-block';
-import compositionPlugin from '../../../../composition';
+import { compositionPlugin } from '@atlaskit/editor-plugin-composition';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';

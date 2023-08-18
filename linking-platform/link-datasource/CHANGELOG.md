@@ -1,5 +1,23 @@
 # @atlaskit/link-datasource
 
+## 0.34.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.34.4
+
+### Patch Changes
+
+- [`0fb7c3220b9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0fb7c3220b9) - Fix issue where link doesn't open in new tab
+
+## 0.34.3
+
+### Patch Changes
+
+- [`f93b91224c7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f93b91224c7) - [ux] Refocused column search after initial load
+
 ## 0.34.2
 
 ### Patch Changes

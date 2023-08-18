@@ -6,11 +6,13 @@ import type {
   ListInputMethod,
   ListState,
   MentionPluginState,
-  QuickInsertItem,
   StatusState,
   StatusType,
-  QuickInsertItemId,
 } from '@atlaskit/editor-core';
+import type {
+  QuickInsertItem,
+  QuickInsertItemId,
+} from '@atlaskit/editor-common/provider-factory';
 import {
   changeColor,
   clearEditorContent,

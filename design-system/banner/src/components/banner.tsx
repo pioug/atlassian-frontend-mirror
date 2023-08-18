@@ -14,13 +14,19 @@ const textStyles = css({
   color: `var(${CSS_VAR_TEXT_COLOR})`,
   fontWeight: token('font.weight.medium', '500'),
   lineHeight: token('font.lineHeight.300', '24px'),
-  overflow: 'hidden',
   textOverflow: 'ellipsis',
   whiteSpace: 'nowrap',
   // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   'a, a:visited, a:hover, a:focus, a:active': {
     color: 'currentColor',
     textDecoration: 'underline',
+  },
+  // Use "clip" overflow to allow ellipses on x-axis without clipping descenders
+  '@supports not (overflow-x: clip)': {
+    overflow: 'hidden',
+  },
+  '@supports (overflow-x: clip)': {
+    overflowX: 'clip',
   },
 });
 

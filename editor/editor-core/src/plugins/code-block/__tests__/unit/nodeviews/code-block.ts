@@ -15,7 +15,7 @@ import {
   resetShouldIgnoreFollowingMutations,
 } from '../../../actions';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
-import compositionPlugin from '../../../../composition';
+import { compositionPlugin } from '@atlaskit/editor-plugin-composition';
 
 const codeBlock =
   (attrs?: {}) =>

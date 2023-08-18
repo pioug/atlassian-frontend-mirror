@@ -2,7 +2,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { pluginKey as quickInsertPluginKey } from './plugin-key';
 import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
 import { searchQuickInsertItems } from './search';
-import type { QuickInsertPluginOptions } from './types';
+import type { QuickInsertPluginOptions } from '@atlaskit/editor-common/types';
 
 const getItems =
   (editorView: EditorView) =>

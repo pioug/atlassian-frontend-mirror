@@ -25,11 +25,11 @@ import type {
   FireElementsChannelEvent,
   MentionPluginState,
 } from './types';
-import { openTypeAheadAtCursor } from '../type-ahead/transforms/open-typeahead-at-cursor';
 import { createTypeAheadConfig } from './type-ahead';
 import { mentionPluginKey } from './pm-plugins/key';
 import { createMentionPlugin } from './pm-plugins/main';
 import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { TypeAheadPlugin } from '../type-ahead';
 
 export { mentionPluginKey };
 
@@ -46,7 +46,7 @@ const mentionsPlugin: NextEditorPlugin<
   'mention',
   {
     pluginConfiguration: MentionPluginOptions | undefined;
-    dependencies: [OptionalPlugin<typeof analyticsPlugin>];
+    dependencies: [OptionalPlugin<typeof analyticsPlugin>, TypeAheadPlugin];
     sharedState: MentionPluginState | undefined;
   }
 > = (options?, api?) => {
@@ -127,10 +127,10 @@ const mentionsPlugin: NextEditorPlugin<
             if (pluginState && pluginState.canInsertMention === false) {
               return false;
             }
-            openTypeAheadAtCursor({
+            api?.dependencies.typeAhead.commands.openTypeAheadAtCursor({
               triggerHandler: typeAhead,
               inputMethod: INPUT_METHOD.QUICK_INSERT,
-            })(tr);
+            })({ tr });
 
             api?.dependencies.analytics?.actions.attachAnalyticsEvent({
               action: ACTION.INVOKED,

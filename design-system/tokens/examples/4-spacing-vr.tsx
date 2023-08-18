@@ -3,21 +3,19 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 
-import { UNSAFE_Box as Box } from '@atlaskit/ds-explorations';
-import Inline from '@atlaskit/primitives/inline';
+import { Box, Inline, xcss } from '@atlaskit/primitives';
 
 import { CSSToken, token } from '../src';
 
-const ExampleSizeBox = ({ scaleToken }: { scaleToken: CSSToken }) => (
-  <Box
-    backgroundColor="brand.bold"
-    // These should be updated to use a Box prop directly instead of UNSAFE_style once Box takes tokens
-    UNSAFE_style={{
-      width: scaleToken,
-      height: scaleToken,
-    }}
-  ></Box>
-);
+const ExampleSizeBox = ({ scaleToken }: { scaleToken: CSSToken }) => {
+  const boxStyles = xcss({
+    width: scaleToken,
+    height: scaleToken,
+    backgroundColor: 'color.background.brand.bold',
+  });
+
+  return <Box xcss={boxStyles}></Box>;
+};
 
 export default () => {
   return (

@@ -17,6 +17,7 @@ import {
   changePanelType,
 } from '../../../../plugins/panel/actions';
 import panelPlugin from '../../../../plugins/panel';
+import typeAheadPlugin from '../../../../plugins/type-ahead';
 import { emojiPlugin } from '../../../../plugins/emoji';
 import deprecatedAnalyticsPlugin from '../../../../plugins/analytics';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
@@ -39,6 +40,7 @@ describe('panel actions', () => {
       .add([analyticsPlugin, { createAnalyticsEvent }])
       .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }])
       .add(decorationsPlugin)
+      .add(typeAheadPlugin)
       .add([panelPlugin, { allowCustomPanel, allowCustomPanelEdit }])
       .add(emojiPlugin);
 

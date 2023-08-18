@@ -243,67 +243,62 @@ test.describe('when resizing a square table with multiple column widths and cust
   });
 });
 
-for (const overflowShadowsOptimisation of [true, false]) {
-  test.describe(`and when overflowShadowsOptimisation is ${overflowShadowsOptimisation}`, () => {
-    test.use({
-      adf: getTablesWithMultipleSizes(),
-    });
-    const distance = 1000;
-    test.use({
-      editorProps: {
-        appearance: 'full-page',
-        allowTables: {
-          advanced: true,
-        },
-        featureFlags: {
-          tableOverflowShadowsOptimization: overflowShadowsOptimisation,
-        },
-      },
-    });
-
-    test('should stack columns to the right', async ({ editor }) => {
-      const nodes = EditorNodeContainerModel.from(editor);
-      const tableModel = EditorTableModel.from(nodes.table);
-
-      const cell = await tableModel.cell(0);
-      await cell.click();
-
-      await cell.resize({
-        mouse: editor.page.mouse,
-        cellSide: 'right',
-        moveDirection: 'right',
-        moveDistance: distance,
-      });
-
-      await expect(editor).toMatchDocument(
-        createSquareTable({
-          lines: 3,
-          columnWidths: [1084, 48, 48, 48, 48],
-          hasHeader: true,
-        }),
-      );
-    });
-
-    test('should overflow the container', async ({ editor }) => {
-      const nodes = EditorNodeContainerModel.from(editor);
-      const tableModel = EditorTableModel.from(nodes.table);
-
-      const cell = await tableModel.cell(0);
-      await cell.click();
-
-      await cell.resize({
-        mouse: editor.page.mouse,
-        cellSide: 'right',
-        moveDirection: 'right',
-        moveDistance: distance,
-      });
-
-      const hasOverflowed = await tableModel.hasOverflowed();
-
-      expect(hasOverflowed).toBeTruthy();
-    });
+test.describe(`when table is in overflow state`, () => {
+  test.use({
+    adf: getTablesWithMultipleSizes(),
   });
-}
+  const distance = 1000;
+  test.use({
+    editorProps: {
+      appearance: 'full-page',
+      allowTables: {
+        advanced: true,
+      },
+    },
+  });
+
+  test('should stack columns to the right', async ({ editor }) => {
+    const nodes = EditorNodeContainerModel.from(editor);
+    const tableModel = EditorTableModel.from(nodes.table);
+
+    const cell = await tableModel.cell(0);
+    await cell.click();
+
+    await cell.resize({
+      mouse: editor.page.mouse,
+      cellSide: 'right',
+      moveDirection: 'right',
+      moveDistance: distance,
+    });
+
+    await expect(editor).toMatchDocument(
+      createSquareTable({
+        lines: 3,
+        columnWidths: [1084, 48, 48, 48, 48],
+        hasHeader: true,
+      }),
+    );
+  });
+
+  test('should overflow the container', async ({ editor }) => {
+    const nodes = EditorNodeContainerModel.from(editor);
+    const tableModel = EditorTableModel.from(nodes.table);
+
+    const cell = await tableModel.cell(0);
+    await cell.click();
+
+    await cell.resize({
+      mouse: editor.page.mouse,
+      cellSide: 'right',
+      moveDirection: 'right',
+      moveDistance: distance,
+    });
+
+    const hasOverflowed = await tableModel.hasOverflowed();
+
+    expect(hasOverflowed).toBeTruthy();
+  });
+});
 
 test.describe('when table has no custom column width defined', () => {
   test.describe('and when multiple columns are selected', () => {

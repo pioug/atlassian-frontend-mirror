@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-autoscroll",
-  "version": "0.6.3",
+  "version": "0.6.4",
   "description": "A port of the react-beautiful-dnd auto scroller for @atlaskit/pragmatic-drag-and-drop",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -38,7 +38,7 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@atlaskit/pragmatic-drag-and-drop": "^0.22.0",
+    "@atlaskit/pragmatic-drag-and-drop": "^0.23.0",
     "@babel/runtime": "^7.0.0",
     "css-box-model": "^1.2.0"
   },

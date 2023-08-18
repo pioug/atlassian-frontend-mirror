@@ -26,7 +26,7 @@ export interface PubNubPayload {
 
 export interface Message {
   type: AVI;
-  time: number;
+  sequenceNumber: number;
   payload: any;
 }
 export interface APSProtocolConfig extends ProtocolConfig {

@@ -21,13 +21,7 @@ export const createPlugin = (
     props: {
       nodeViews: {
         tableRow: (node, view, getPos) => {
-          return new TableRowNodeView(
-            node,
-            view,
-            getPos,
-            eventDispatcher,
-            getEditorFeatureFlags,
-          );
+          return new TableRowNodeView(node, view, getPos, eventDispatcher);
         },
       },
     },

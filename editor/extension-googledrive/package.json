@@ -1,0 +1,50 @@
+{
+  "name": "@atlaskit/editor-extension-googledrive",
+  "version": "0.1.0",
+  "description": "An Atlassian editor extension to add a native Google Drive picker",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": {
+    "url": "https://bitbucket.org/atlassian/atlassian-frontend.git"
+  },
+  "author": "Atlassian",
+  "license": "Apache-2.0",
+  "sideEffects": false,
+  "atlaskit:src": "src/index.ts",
+  "atlassian": {
+    "team": "trello-ecosystem",
+    "inPublicMirror": true,
+    "releaseModel": "continuous"
+  },
+  "af:exports": {},
+  "dependencies": {
+    "@atlaskit/adf-schema": "^28.1.1",
+    "@atlaskit/adf-utils": "^19.0.0",
+    "@atlaskit/editor-common": "^74.47.0",
+    "@atlaskit/icon": "^21.12.0",
+    "@babel/runtime": "^7.0.0"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0"
+  },
+  "devDependencies": {
+    "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0",
+    "typescript": "~4.9.5"
+  },
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
+  "techstack": {
+    "@repo/internal": {
+      "design-tokens": [
+        "color"
+      ],
+      "deprecation": "no-deprecated-imports",
+      "styling": [
+        "emotion"
+      ]
+    }
+  }
+}

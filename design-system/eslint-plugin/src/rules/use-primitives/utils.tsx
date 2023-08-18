@@ -348,7 +348,7 @@ const getJSXAttributeByName = (
   ) as JSXAttribute | undefined;
 };
 
-const isWhiteSpace = (value: string) => value.trim() === '';
+export const isWhiteSpace = (value: string) => value.trim() === '';
 
 function containsOnlyWhitespace(node: JSXElement) {
   return node.children.every((child: EslintNode) => {
@@ -367,7 +367,7 @@ type JSXChild =
   | 'JSXText'
   | 'JSXSpreadChild'[];
 
-const getChildrenByType = (node: JSXElement, types: JSXChild[]) => {
+export const getChildrenByType = (node: JSXElement, types: JSXChild[]) => {
   return node.children.filter((child: EslintNode) => {
     return types.find((type) => isNodeOfType(child, type as any));
   });
@@ -445,9 +445,14 @@ const getCSSPropStyleObject = (
   return styleObj;
 };
 
-const isValidPrimitiveElement = (node: JSXElement) => {
+export const validPrimitiveElements =
+  /^div|span|article|aside|dialog|footer|header|li|main|nav|ol|section|ul$/;
+
+export const isValidPrimitiveElement = (node: JSXElement) => {
   // For now we are only targeting div and span elements
-  return /^div|span$/.test((node.openingElement.name as JSXIdentifier).name);
+  return validPrimitiveElements.test(
+    (node.openingElement.name as JSXIdentifier).name,
+  );
 };
 
 const hasInlineCompatibleStyles = (cssStyleObject: CSSPropStyleObject) => {

@@ -39,7 +39,7 @@ import blockTypePlugin from '../../../block-type';
 import listPlugin from '../../../list';
 import extensionPlugin from '../../../extension';
 import codeBlockPlugin from '../../../code-block';
-import compositionPlugin from '../../../composition';
+import { compositionPlugin } from '@atlaskit/editor-plugin-composition';
 import rulePlugin from '../../../rule';
 import betterTypeHistoryPlugin from '../../../better-type-history';
 import dispatchPasteEvent from '@atlaskit/editor-test-helpers/dispatch-paste-event';

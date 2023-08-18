@@ -26,7 +26,7 @@ import { textFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';
 import panelPlugin from '../../../panel';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import codeBlockPlugin from '../../../code-block';
-import compositionPlugin from '../../../composition';
+import { compositionPlugin } from '@atlaskit/editor-plugin-composition';
 import statusInlineBlockTypePlugin from '../../../status';
 import { toggleOrderedList, toggleBulletList } from '../../commands';
 import { setGapCursorSelection, setNodeSelection } from '../../../../utils';

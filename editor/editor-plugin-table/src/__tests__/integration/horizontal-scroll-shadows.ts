@@ -7,7 +7,7 @@ import {
   mountEditor,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
-import WebdriverPage from '@atlaskit/webdriver-runner/wd-wrapper';
+import type WebdriverPage from '@atlaskit/webdriver-runner/wd-wrapper';
 
 import { TableCssClassName as className } from '../../plugins/table/types';
 
@@ -15,19 +15,16 @@ import basicTable from './__fixtures__/basic-table';
 
 const checkShadows = async (page: WebdriverPage, side?: 'left' | 'right') => {
   const leftShadow = await page.$(`.${className.TABLE_LEFT_SHADOW}`);
-  const leftShadowStyle = await leftShadow.getAttribute('style');
   const rightShadow = await page.$(`.${className.TABLE_RIGHT_SHADOW}`);
-  const rightShadowStyle = await rightShadow.getAttribute('style');
 
   if (!side) {
-    return (
-      leftShadowStyle.includes('display: block;') &&
-      rightShadowStyle.includes('display: block;')
-    );
+    const leftDisplayed = await leftShadow.isDisplayed();
+    const rightDisplayed = await rightShadow.isDisplayed();
+    return leftDisplayed && rightDisplayed;
   } else if (side === 'left') {
-    return leftShadowStyle.includes('display: block;');
+    return await leftShadow.isDisplayed();
   } else if (side === 'right') {
-    return rightShadowStyle.includes('display: block;');
+    return await rightShadow.isDisplayed();
   }
 };
 

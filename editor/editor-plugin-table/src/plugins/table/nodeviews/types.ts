@@ -25,7 +25,6 @@ export interface Props {
   eventDispatcher: EventDispatcher;
   getPos: () => number | undefined;
   options?: TableOptions;
-  tableRenderOptimization?: boolean;
   getEditorContainerWidth: GetEditorContainerWidth;
   getEditorFeatureFlags: GetEditorFeatureFlags;
   hasIntlContext: boolean;

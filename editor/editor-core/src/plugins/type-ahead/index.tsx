@@ -37,6 +37,7 @@ import {
   fireAnalyticsEvent,
 } from '@atlaskit/editor-common/analytics';
 import type { CloseSelectionOptions } from './constants';
+import { openTypeAheadAtCursor } from './transforms/open-typeahead-at-cursor';
 
 export type TypeAheadPluginOptions = {
   isMobile?: boolean;
@@ -151,6 +152,16 @@ const TypeAheadMenu: React.FC<TypeAheadMenuType> = React.memo(
   },
 );
 
+export type TypeAheadPlugin = NextEditorPlugin<
+  'typeAhead',
+  {
+    pluginConfiguration: TypeAheadPluginOptions | undefined;
+    commands: {
+      openTypeAheadAtCursor: typeof openTypeAheadAtCursor;
+    };
+  }
+>;
+
 /**
  *
  * Revamped typeahead using decorations instead of the `typeAheadQuery` mark
@@ -159,12 +170,7 @@ const TypeAheadMenu: React.FC<TypeAheadMenuType> = React.memo(
  *
  *
  */
-const typeAheadPlugin: NextEditorPlugin<
-  'typeAhead',
-  {
-    pluginConfiguration: TypeAheadPluginOptions | undefined;
-  }
-> = (options?) => {
+const typeAheadPlugin: TypeAheadPlugin = (options?) => {
   const fireAnalyticsCallback = fireAnalyticsEvent(
     options?.createAnalyticsEvent,
   );
@@ -203,6 +209,10 @@ const typeAheadPlugin: NextEditorPlugin<
             inputRulePlugin(schema, typeAhead, featureFlags),
         },
       ];
+    },
+
+    commands: {
+      openTypeAheadAtCursor,
     },
 
     contentComponent({

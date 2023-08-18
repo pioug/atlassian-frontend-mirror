@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/popper",
-  "version": "5.5.3",
+  "version": "5.5.4",
   "description": "A wrapper for React Popper for situations which require a bespoke popup where other ADS components are deemed unsuitable",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

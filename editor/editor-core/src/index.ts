@@ -41,13 +41,6 @@ export type {
   InlineCommentState,
   UpdateEvent,
 } from './plugins/annotation';
-export type {
-  QuickInsertProvider,
-  QuickInsertItem,
-  QuickInsertItemId,
-  QuickInsertActionInsert,
-} from '@atlaskit/editor-common/provider-factory';
-
 // Used in mobile bridge
 export { stateKey as mediaPluginKey } from './plugins/media/pm-plugins/main';
 export { mentionPluginKey } from './plugins/mentions';
@@ -96,8 +89,17 @@ export {
   pluginKey as quickInsertPluginKey,
   memoProcessItems as processQuickInsertItems,
 } from './plugins/quick-insert';
-export type { QuickInsertPluginState } from './plugins/quick-insert';
-export type { TypeAheadItem } from './plugins/type-ahead/types';
+export type { TypeAheadItem } from '@atlaskit/editor-common/provider-factory';
+export type {
+  /**
+   * @deprecated Use QuickInsertItem from @atlaskit/editor-common/provider-factory instead
+   */
+  QuickInsertItem,
+  /**
+   * @deprecated Use QuickInsertProvider from @atlaskit/editor-common/provider-factory instead
+   */
+  QuickInsertProvider,
+} from '@atlaskit/editor-common/provider-factory';
 export { historyPluginKey } from './plugins/history';
 export {
   INPUT_METHOD,

@@ -6,6 +6,24 @@ import { APSTransportType } from '../../../../apiTypes';
 jest.mock('../../../../protocols/aps/transports/ws');
 jest.mock('../../../../protocols/aps/transports/http');
 
+jest.mock('../../../../protocols/aps/utils', () => {
+  const originalModule = jest.requireActual('../../../../protocols/aps/utils');
+  return {
+    ...originalModule,
+    preferredProtocolBackoffOptions: jest.fn(() => ({
+      delayFirstAttempt: false,
+      startingDelay: 0,
+      timeMultiple: 1,
+      numOfAttempts: 3,
+    })),
+    fallbackProtocolBackoffOptions: jest.fn(() => ({
+      delayFirstAttempt: false,
+      startingDelay: 0,
+      timeMultiple: 1,
+    })),
+  };
+});
+
 const mockWebsocketTransport = {
   subscribe: jest.fn(),
   close: jest.fn(),
@@ -45,25 +63,29 @@ describe('APS', () => {
     // The #subscribe tests are hard to test without a "wait" without changing the original signature, which doesn't
     // return a Promise.
     const wait = async (time: number = 100) => {
-      new Promise((resolve) => {
+      return new Promise((resolve) => {
         setTimeout(resolve, time);
       });
     };
 
-    it('should use the websocket transport by default', () => {
+    it('should use the websocket transport by default', async () => {
       const apsProtocol = new APSProtocol();
 
       apsProtocol.subscribe({ type: 'aps', channels: ['channel-1'] });
+
+      await wait();
 
       expect(mockWebsocketTransport.subscribe).toHaveBeenCalledTimes(1);
       expect(mockHttpTransport.subscribe).toHaveBeenCalledTimes(0);
       expect(apsProtocol.activeTransport).toBe(mockWebsocketTransport);
     });
 
-    it('should use the http transport when it is passed in the params', () => {
+    it('should use the http transport when it is passed in the params', async () => {
       const apsProtocol = new APSProtocol(undefined, APSTransportType.HTTP);
 
       apsProtocol.subscribe({ type: 'aps', channels: ['channel-1'] });
+
+      await wait();
 
       expect(mockWebsocketTransport.subscribe).toHaveBeenCalledTimes(0);
       expect(mockHttpTransport.subscribe).toHaveBeenCalledTimes(1);
@@ -101,12 +123,12 @@ describe('APS', () => {
 
       await wait();
 
-      expect(mockWebsocketTransport.subscribe).toHaveBeenCalledTimes(1);
       expect(mockHttpTransport.subscribe).toHaveBeenCalledTimes(1);
+      expect(mockWebsocketTransport.subscribe).toHaveBeenCalledTimes(1);
       expect(apsProtocol.activeTransport).toBe(mockWebsocketTransport);
     });
 
-    it('should not try to fallback when skipFallback is used', () => {
+    it('should not try to fallback when skipFallback is used', async () => {
       const apsProtocol = new APSProtocol(undefined, undefined, true);
 
       mockHttpTransport.subscribe.mockImplementation(() => Promise.resolve());
@@ -115,6 +137,8 @@ describe('APS', () => {
       );
 
       apsProtocol.subscribe({ type: 'aps', channels: ['channel-1'] });
+
+      await wait();
 
       expect(mockWebsocketTransport.subscribe).toHaveBeenCalledTimes(1);
       expect(mockHttpTransport.subscribe).toHaveBeenCalledTimes(0);

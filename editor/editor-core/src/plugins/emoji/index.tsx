@@ -37,9 +37,9 @@ import { EmojiNodeView } from './nodeviews/emoji';
 import type { TypeAheadHandler, TypeAheadItem } from '../type-ahead/types';
 import { messages } from '../insert-block/ui/ToolbarInsertBlock/messages';
 import type { EmojiPluginOptions, EmojiPluginState } from './types';
-import { openTypeAheadAtCursor } from '../type-ahead/transforms/open-typeahead-at-cursor';
 import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { insertEmoji } from './commands/insert-emoji';
+import type { TypeAheadPlugin } from '../type-ahead';
 
 export const emojiToTypeaheadItem = (
   emoji: EmojiDescription,
@@ -109,7 +109,7 @@ export type EmojiPlugin = NextEditorPlugin<
   'emoji',
   {
     pluginConfiguration: EmojiPluginOptions | undefined;
-    dependencies: [OptionalPlugin<typeof analyticsPlugin>];
+    dependencies: [OptionalPlugin<typeof analyticsPlugin>, TypeAheadPlugin];
     sharedState: EmojiPluginState | undefined;
     commands: {
       insertEmoji: (
@@ -279,10 +279,10 @@ export const emojiPlugin: EmojiPlugin = (options, api) => {
           icon: () => <IconEmoji />,
           action(insert, state) {
             const tr = insert(undefined);
-            openTypeAheadAtCursor({
+            api?.dependencies.typeAhead.commands.openTypeAheadAtCursor({
               triggerHandler: typeAhead,
               inputMethod: INPUT_METHOD.QUICK_INSERT,
-            })(tr);
+            })({ tr });
 
             api?.dependencies.analytics?.actions.attachAnalyticsEvent({
               action: ACTION.INVOKED,

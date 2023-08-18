@@ -4,7 +4,6 @@ import {
   EVENT_TYPE,
   TABLE_ACTION,
 } from '@atlaskit/editor-common/analytics';
-import type { GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
 import {
   browser,
   closestElement,
@@ -298,98 +297,92 @@ export const handleMouseLeave = (view: EditorView, event: Event): boolean => {
   return false;
 };
 
-export const handleMouseMove =
-  (getEditorFeatureFlags: GetEditorFeatureFlags) =>
-  (
-    view: EditorView,
-    event: Event,
-    elementContentRects?: ElementContentRects,
-  ) => {
-    if (!(event.target instanceof HTMLElement)) {
-      return false;
-    }
-    const element = event.target;
+export const handleMouseMove = (
+  view: EditorView,
+  event: Event,
+  elementContentRects?: ElementContentRects,
+) => {
+  if (!(event.target instanceof HTMLElement)) {
+    return false;
+  }
+  const element = event.target;
 
-    if (isColumnControlsDecorations(element)) {
-      const { state, dispatch } = view;
-      const { insertColumnButtonIndex } = getPluginState(state);
-      const [startIndex, endIndex] = getColumnOrRowIndex(element);
+  if (isColumnControlsDecorations(element)) {
+    const { state, dispatch } = view;
+    const { insertColumnButtonIndex } = getPluginState(state);
+    const [startIndex, endIndex] = getColumnOrRowIndex(element);
 
-      const positionColumn =
-        getMousePositionHorizontalRelativeByElement(
-          event as MouseEvent,
-          false,
-          elementContentRects,
-        ) === 'right'
-          ? endIndex
-          : startIndex;
-
-      if (positionColumn !== insertColumnButtonIndex) {
-        return showInsertColumnButton(positionColumn)(state, dispatch);
-      }
-    }
-
-    if (isRowControlsButton(element)) {
-      const { state, dispatch } = view;
-      const { insertRowButtonIndex } = getPluginState(state);
-      const [startIndex, endIndex] = getColumnOrRowIndex(element);
-
-      const positionRow =
-        getMousePositionVerticalRelativeByElement(event as MouseEvent) ===
-        'bottom'
-          ? endIndex
-          : startIndex;
-
-      if (positionRow !== insertRowButtonIndex) {
-        return showInsertRowButton(positionRow)(state, dispatch);
-      }
-    }
-
-    const { mouseMoveOptimization } = getEditorFeatureFlags();
-
-    if (!isResizeHandleDecoration(element) && isCell(element)) {
-      const positionColumn = getMousePositionHorizontalRelativeByElement(
+    const positionColumn =
+      getMousePositionHorizontalRelativeByElement(
         event as MouseEvent,
-        mouseMoveOptimization,
         elementContentRects,
-        RESIZE_HANDLE_AREA_DECORATION_GAP,
+      ) === 'right'
+        ? endIndex
+        : startIndex;
+
+    if (positionColumn !== insertColumnButtonIndex) {
+      return showInsertColumnButton(positionColumn)(state, dispatch);
+    }
+  }
+
+  if (isRowControlsButton(element)) {
+    const { state, dispatch } = view;
+    const { insertRowButtonIndex } = getPluginState(state);
+    const [startIndex, endIndex] = getColumnOrRowIndex(element);
+
+    const positionRow =
+      getMousePositionVerticalRelativeByElement(event as MouseEvent) ===
+      'bottom'
+        ? endIndex
+        : startIndex;
+
+    if (positionRow !== insertRowButtonIndex) {
+      return showInsertRowButton(positionRow)(state, dispatch);
+    }
+  }
+
+  if (!isResizeHandleDecoration(element) && isCell(element)) {
+    const positionColumn = getMousePositionHorizontalRelativeByElement(
+      event as MouseEvent,
+      elementContentRects,
+      RESIZE_HANDLE_AREA_DECORATION_GAP,
+    );
+
+    if (positionColumn !== null) {
+      const { state, dispatch } = view;
+      const { resizeHandleColumnIndex, resizeHandleRowIndex } =
+        getPluginState(state);
+      const tableCell = closestElement(
+        element,
+        'td, th',
+      ) as HTMLTableCellElement;
+      const cellStartPosition = view.posAtDOM(tableCell, 0);
+      const rect = findCellRectClosestToPos(
+        state.doc.resolve(cellStartPosition),
       );
 
-      if (positionColumn !== null) {
-        const { state, dispatch } = view;
-        const { resizeHandleColumnIndex, resizeHandleRowIndex } =
-          getPluginState(state);
-        const tableCell = closestElement(
-          element,
-          'td, th',
-        ) as HTMLTableCellElement;
-        const cellStartPosition = view.posAtDOM(tableCell, 0);
-        const rect = findCellRectClosestToPos(
-          state.doc.resolve(cellStartPosition),
-        );
+      if (rect) {
+        const columnEndIndexTarget =
+          positionColumn === 'left' ? rect.left : rect.right;
 
-        if (rect) {
-          const columnEndIndexTarget =
-            positionColumn === 'left' ? rect.left : rect.right;
+        const rowIndexTarget = rect.top;
 
-          const rowIndexTarget = rect.top;
-
-          if (
-            columnEndIndexTarget !== resizeHandleColumnIndex ||
-            rowIndexTarget !== resizeHandleRowIndex ||
-            !hasResizeHandler({ target: element, columnEndIndexTarget })
-          ) {
-            return addResizeHandleDecorations(
-              rowIndexTarget,
-              columnEndIndexTarget,
-            )(state, dispatch);
-          }
+        if (
+          columnEndIndexTarget !== resizeHandleColumnIndex ||
+          rowIndexTarget !== resizeHandleRowIndex ||
+          !hasResizeHandler({ target: element, columnEndIndexTarget })
+        ) {
+          return addResizeHandleDecorations(
+            rowIndexTarget,
+            columnEndIndexTarget,
+          )(state, dispatch);
         }
       }
     }
+  }
 
-    return false;
-  };
+  return false;
+};
 
 export function handleTripleClick(view: EditorView, pos: number) {
   const { state, dispatch } = view;

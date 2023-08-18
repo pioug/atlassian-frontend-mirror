@@ -1,7 +1,10 @@
 import Fuse from 'fuse.js';
-import { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
+import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
 import { dedupe } from '../../utils';
-import { QuickInsertPluginState, QuickInsertPluginOptions } from './types';
+import type {
+  QuickInsertPluginState,
+  QuickInsertPluginOptions,
+} from '@atlaskit/editor-common/types';
 
 const options = {
   threshold: 0.3,

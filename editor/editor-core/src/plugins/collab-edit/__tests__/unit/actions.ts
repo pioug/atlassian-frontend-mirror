@@ -14,6 +14,7 @@ import { applyRemoteSteps } from '../../actions';
 import type { PrivateCollabEditOptions } from '../../types';
 import collabEditPlugin from '../../index';
 import mentionsPlugin from '../../../mentions';
+import typeAheadPlugin from '../../../type-ahead';
 import unsupportedContentPlugin from '../../../unsupported-content';
 import { textFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';
 import { toggleMark } from '@atlaskit/editor-common/mark';
@@ -40,6 +41,7 @@ describe('collab-edit: actions', () => {
         .add([featureFlagsPlugin, {}])
         .add([collabEditPlugin, collabEditOptions as PrivateCollabEditOptions])
         .add(unsupportedContentPlugin)
+        .add(typeAheadPlugin)
         .add(mentionsPlugin)
         .add(textFormattingPlugin),
       providerFactory,

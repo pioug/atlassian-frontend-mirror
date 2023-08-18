@@ -134,7 +134,7 @@ describe('subscribe to toolbar and picker updates', () => {
       openTypeAheadAtCursor({
         triggerHandler: typeAheadHandlers[0],
         inputMethod: INPUT_METHOD.KEYBOARD,
-      })(tr);
+      })({ tr });
 
       tr.setSelection(TextSelection.create(tr.doc, refs['next']));
 

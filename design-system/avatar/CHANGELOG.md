@@ -1,5 +1,11 @@
 # @atlaskit/avatar
 
+## 21.3.8
+
+### Patch Changes
+
+- [`7a3cbead067`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7a3cbead067) - Default content for label
+
 ## 21.3.7
 
 ### Patch Changes

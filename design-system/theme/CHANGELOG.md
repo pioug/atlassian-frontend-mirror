@@ -1,5 +1,11 @@
 # @atlaskit/theme
 
+## 12.5.6
+
+### Patch Changes
+
+- [`9af31f3c1ae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9af31f3c1ae) - Delete version.json
+
 ## 12.5.5
 
 ### Patch Changes

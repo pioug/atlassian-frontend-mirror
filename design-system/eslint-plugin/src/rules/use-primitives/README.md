@@ -24,6 +24,6 @@ This rule marks code as violations when it can be replaced 1:1 with a primitive 
 
 ```js
 <Component>
-  <Box css={someStyles}></Box>
+  <Box xcss={someStyles}></Box>
 </Component>
 ```

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::10aa91b16d9c498373b4a22760ca7fab>>
+ * @codegen <<SignedSource::4d3e671ea25ef8fe248882948fda472c>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import consistentCssPropUsage from './consistent-css-prop-usage';
@@ -14,6 +14,7 @@ import noDeprecatedImports from './no-deprecated-imports';
 import noMargin from './no-margin';
 import noNestedStyles from './no-nested-styles';
 import noUnsafeDesignTokenUsage from './no-unsafe-design-token-usage';
+import preferPrimitives from './prefer-primitives';
 import usePrimitives from './use-primitives';
 import useVisuallyHidden from './use-visually-hidden';
 
@@ -29,6 +30,7 @@ export default {
   'no-margin': noMargin,
   'no-nested-styles': noNestedStyles,
   'no-unsafe-design-token-usage': noUnsafeDesignTokenUsage,
+  'prefer-primitives': preferPrimitives,
   'use-primitives': usePrimitives,
   'use-visually-hidden': useVisuallyHidden,
 };

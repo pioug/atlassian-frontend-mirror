@@ -17,9 +17,6 @@ test.use({
       stickyHeaders: true,
     },
     allowStatus: true,
-    featureFlags: {
-      stickyHeadersOptimization: true,
-    },
   },
   adf: tableWithScoll,
 });

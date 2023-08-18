@@ -1,5 +1,54 @@
 # @atlaskit/editor-core
 
+## 187.26.0
+
+### Minor Changes
+
+- [`0f3026deda5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0f3026deda5) - ED-12027 cleaned up table optimisation feature flags, made optimised code run by default.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.25.3
+
+### Patch Changes
+
+- [`cbff538b420`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cbff538b420) - [ED-19428] Move shared types from quick-insert plugin to editor-common as a first step towards decoupling it from editor-core
+
+## 187.25.2
+
+### Patch Changes
+
+- [`f12aff135b6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f12aff135b6) - Extract Composition Plugin
+- Updated dependencies
+
+## 187.25.1
+
+### Patch Changes
+
+- [`8b914beaa94`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8b914beaa94) - [DTR-1800] Fixed boundary value bug that caused gap cursors to trigger when clicking inside a leaf node at the root of the element
+
+## 187.25.0
+
+### Minor Changes
+
+- [`af2e8676033`](https://bitbucket.org/atlassian/atlassian-frontend/commits/af2e8676033) - Create new command for typeahead plugin which exposes openTypeAheadAtCursor. Typeahead plugin is now a dependency for both emoji and mention plugins.
+
+## 187.24.3
+
+### Patch Changes
+
+- [`72e552fe076`](https://bitbucket.org/atlassian/atlassian-frontend/commits/72e552fe076) - [ux] ED-17954: Fix inline node selections for mentions and emojis in iOS. Previously, the visually hidden assistive text would also be shown as a selection in iOS which would often make the selection look larger than the actual node itself.
+- [`048717e2a19`](https://bitbucket.org/atlassian/atlassian-frontend/commits/048717e2a19) - fix janky media toolbar when resize
+
+## 187.24.2
+
+### Patch Changes
+
+- [`8efc1dfc706`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8efc1dfc706) - ED-19330 create editor-list-plugin
+- Updated dependencies
+
 ## 187.24.1
 
 ### Patch Changes

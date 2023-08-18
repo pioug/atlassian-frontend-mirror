@@ -1,5 +1,11 @@
 # @atlaskit/pubsub
 
+## 6.6.0
+
+### Minor Changes
+
+- [`e5b6edb6c82`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e5b6edb6c82) - Improve reconnect mechanisms for both WS and HTTP protocols
+
 ## 6.5.4
 
 ### Patch Changes

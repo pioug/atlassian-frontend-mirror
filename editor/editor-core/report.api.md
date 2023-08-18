@@ -89,7 +89,7 @@ import type { HyperlinkPluginOptions } from '@atlaskit/editor-common/types';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { InputMethodInsertMedia } from '@atlaskit/editor-common/analytics';
 import { InputTracking } from '@atlaskit/editor-common/types';
-import { IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl-next';
 import { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
 import { jsx } from '@emotion/react';
 import { lightModeStatusColorPalette } from '@atlaskit/editor-common/ui-color';
@@ -132,9 +132,10 @@ import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { Providers } from '@atlaskit/editor-common/provider-factory';
 import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
 import { PureComponent } from 'react';
-import { QuickInsertActionInsert } from '@atlaskit/editor-common/provider-factory';
 import { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
-import { QuickInsertItemId } from '@atlaskit/editor-common/provider-factory';
+import type { QuickInsertOptions } from '@atlaskit/editor-common/types';
+import type { QuickInsertPluginOptions } from '@atlaskit/editor-common/types';
+import type { QuickInsertPluginState } from '@atlaskit/editor-common/types';
 import { QuickInsertProvider } from '@atlaskit/editor-common/provider-factory';
 import { default as React_2 } from 'react';
 import type { ReactElement } from 'react';
@@ -157,8 +158,8 @@ import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { TransactionTracking } from '@atlaskit/editor-common/types';
 import type { Transformer as Transformer_2 } from '@atlaskit/editor-common/types';
 import type { TypeAheadHandler } from '@atlaskit/editor-common/types';
-import type { TypeAheadItem } from '@atlaskit/editor-common/types';
-import type { TypeAheadItem as TypeAheadItem_2 } from '@atlaskit/editor-common/provider-factory';
+import { TypeAheadItem } from '@atlaskit/editor-common/provider-factory';
+import type { TypeAheadItem as TypeAheadItem_2 } from '@atlaskit/editor-common/types';
 import type { TypeAheadStats } from '@atlaskit/editor-common/types';
 import { UIComponentFactory } from '@atlaskit/editor-common/types';
 import { UploadEndEventPayload } from '@atlaskit/media-picker/types';
@@ -412,8 +413,8 @@ export const createTypeAheadTools: (editorView: EditorView) => {
   close: (options?: CloseOptions) => boolean;
   openMention: (inputMethod: TypeAheadInputMethod) => boolean;
   searchMention: (query?: string) => {
-    type: (appendValue: string) => Promise<TypeAheadItem_2[]> | undefined;
-    result: () => Promise<TypeAheadItem_2[] | undefined>;
+    type: (appendValue: string) => Promise<TypeAheadItem[]> | undefined;
+    result: () => Promise<TypeAheadItem[] | undefined>;
     close: (options?: CloseOptions) => boolean;
     insert: ({
       index,
@@ -425,8 +426,8 @@ export const createTypeAheadTools: (editorView: EditorView) => {
   };
   openQuickInsert: (inputMethod: TypeAheadInputMethod) => boolean;
   searchQuickInsert: (query?: string) => {
-    type: (appendValue: string) => Promise<TypeAheadItem_2[]> | undefined;
-    result: () => Promise<TypeAheadItem_2[] | undefined>;
+    type: (appendValue: string) => Promise<TypeAheadItem[]> | undefined;
+    result: () => Promise<TypeAheadItem[] | undefined>;
     close: (options?: CloseOptions) => boolean;
     insert: ({
       index,
@@ -438,8 +439,8 @@ export const createTypeAheadTools: (editorView: EditorView) => {
   };
   openEmoji: (inputMethod: TypeAheadInputMethod) => boolean;
   searchEmoji: (query?: string) => {
-    type: (appendValue: string) => Promise<TypeAheadItem_2[]> | undefined;
-    result: () => Promise<TypeAheadItem_2[] | undefined>;
+    type: (appendValue: string) => Promise<TypeAheadItem[]> | undefined;
+    result: () => Promise<TypeAheadItem[] | undefined>;
     close: (options?: CloseOptions) => boolean;
     insert: ({
       index,
@@ -1160,9 +1161,9 @@ export const insertHorizontalRule: (
 
 // @public (undocumented)
 type InsertItemProps = {
-  contentItem: TypeAheadItem_2;
+  contentItem: TypeAheadItem;
   query: string;
-  sourceListItem: TypeAheadItem_2[];
+  sourceListItem: TypeAheadItem[];
 };
 
 // @public (undocumented)
@@ -1762,8 +1763,6 @@ type Props_5 = {
 // @public (undocumented)
 type ProsemirrorGetPosHandler = () => number | undefined;
 
-export { QuickInsertActionInsert };
-
 // @public (undocumented)
 type QuickInsertHandler =
   | ((intl: IntlShape) => Array<QuickInsertItem>)
@@ -1771,40 +1770,8 @@ type QuickInsertHandler =
 
 export { QuickInsertItem };
 
-export { QuickInsertItemId };
-
-// @public (undocumented)
-type QuickInsertOptions =
-  | boolean
-  | {
-      provider: Promise<QuickInsertProvider>;
-    };
-
 // @public (undocumented)
 export const quickInsertPluginKey: PluginKey<QuickInsertPluginState>;
-
-// @public (undocumented)
-interface QuickInsertPluginOptions {
-  // (undocumented)
-  disableDefaultItems?: boolean;
-  // (undocumented)
-  elementBrowserHelpUrl?: string;
-  // (undocumented)
-  emptyStateHandler?: EmptyStateHandler;
-  // (undocumented)
-  enableElementBrowser?: boolean;
-  // (undocumented)
-  headless?: boolean;
-}
-
-// @public (undocumented)
-export type QuickInsertPluginState = {
-  isElementBrowserModalOpen: boolean;
-  lazyDefaultItems: () => QuickInsertItem[];
-  providedItems?: QuickInsertItem[];
-  provider?: QuickInsertProvider;
-  emptyStateHandler?: EmptyStateHandler;
-};
 
 export { QuickInsertProvider };
 
@@ -2174,7 +2141,7 @@ export type TypeAheadPluginState = {
   decorationElement: HTMLElement | null;
   typeAheadHandlers: Array<TypeAheadHandler>;
   query: string;
-  items: Array<TypeAheadItem>;
+  items: Array<TypeAheadItem_2>;
   triggerHandler?: TypeAheadHandler;
   selectedIndex: number;
   stats: TypeAheadStatsSerializable | null;

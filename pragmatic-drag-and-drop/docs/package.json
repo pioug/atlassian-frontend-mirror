@@ -47,7 +47,7 @@
     "@atlaskit/grid": "^0.11.0",
     "@atlaskit/heading": "^1.2.0",
     "@atlaskit/icon": "^21.11.0",
-    "@atlaskit/pragmatic-drag-and-drop": "^0.22.0",
+    "@atlaskit/pragmatic-drag-and-drop": "^0.23.0",
     "@atlaskit/pragmatic-drag-and-drop-hitbox": "^0.11.0",
     "@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-autoscroll": "^0.6.0",
     "@atlaskit/pragmatic-drag-and-drop-react-indicator": "^0.16.0",

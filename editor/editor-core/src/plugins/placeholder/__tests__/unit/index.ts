@@ -9,7 +9,7 @@ import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { focusPlugin } from '@atlaskit/editor-plugin-focus';
 import placeholderPlugin, { placeholderTestId } from '../../';
-import compositionPlugin from '../../../composition';
+import { compositionPlugin } from '@atlaskit/editor-plugin-composition';
 import typeAheadPlugin from '../../../type-ahead';
 
 function expectNoPlaceholder(editorView: EditorView) {

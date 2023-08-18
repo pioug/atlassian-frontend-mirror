@@ -15,7 +15,7 @@ import breakoutPlugin from '../../../';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import codeBlockPlugin from '../../../../code-block';
-import compositionPlugin from '../../../../composition';
+import { compositionPlugin } from '@atlaskit/editor-plugin-composition';
 
 describe('Breakout Commands: remove-breakout', () => {
   const createEditor = createProsemirrorEditorFactory();

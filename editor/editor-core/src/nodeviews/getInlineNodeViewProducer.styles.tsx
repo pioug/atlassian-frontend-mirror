@@ -19,6 +19,10 @@ export const InlineNodeViewSharedStyles = css`
     & > *:not(span[aria-hidden='true'].zeroWidthSpaceContainer) {
       white-space: pre-wrap;
     }
+    // Prevent visually hidden assistive text from being selected.
+    & > .assistive {
+      user-select: none;
+    }
   }
   /** Remove browser deafult selections style. This prevents
     unexpected visual artefacts in Safari when navigating

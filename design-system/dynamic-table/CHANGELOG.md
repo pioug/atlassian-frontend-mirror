@@ -1,5 +1,17 @@
 # @atlaskit/dynamic-table
 
+## 14.11.5
+
+### Patch Changes
+
+- [`9af31f3c1ae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9af31f3c1ae) - Delete version.json
+
+## 14.11.4
+
+### Patch Changes
+
+- [`56b444b56a8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56b444b56a8) - Fix a bug where text descenders were cut off at high zoom levels on Windows
+
 ## 14.11.3
 
 ### Patch Changes

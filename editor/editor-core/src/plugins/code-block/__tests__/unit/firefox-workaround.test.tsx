@@ -18,7 +18,7 @@ import { pluginKey } from '../../plugin-key';
 import { Slice } from '@atlaskit/editor-prosemirror/model';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
-import compositionPlugin from '../../../composition';
+import { compositionPlugin } from '@atlaskit/editor-plugin-composition';
 
 describe('code-block', () => {
   const createEditor = createProsemirrorEditorFactory();

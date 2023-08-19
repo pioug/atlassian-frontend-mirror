@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import Select from '@atlaskit/select';
+import React from 'react';
+import Select, { components, SingleValueProps } from '@atlaskit/select';
 
 export type Locale = {
   value: string;
@@ -8,9 +8,9 @@ export type Locale = {
 
 export type LocaleSelectProps = {
   id?: string;
-  locales: Locale[];
-  defaultLocale: Locale;
-  onLocaleChange: (locale: Locale) => void;
+  locales?: Locale[];
+  defaultLocale?: Locale;
+  onLocaleChange?: (locale: Locale) => void;
 };
 
 export const defaultLocales: Locale[] = [
@@ -42,28 +42,36 @@ export const defaultLocales: Locale[] = [
   { value: 'no-NO', label: 'norsk (Norge)' },
 ];
 
-export default class LocaleSelect extends Component<LocaleSelectProps> {
-  static defaultProps = {
-    locales: defaultLocales,
-    defaultLocale: defaultLocales[0],
-    onLocaleChange: () => {},
-  };
+const SingleValue = ({
+  children,
+  ...props
+}: SingleValueProps<Locale, false>) => {
+  const selectedLang = props.data.value;
+  return (
+    <components.SingleValue {...props} innerProps={{ lang: selectedLang }}>
+      {children}
+    </components.SingleValue>
+  );
+};
 
-  render() {
-    const { locales, defaultLocale, onLocaleChange, id } = this.props;
+const LocaleSelect: React.FunctionComponent<LocaleSelectProps> = ({
+  id,
+  locales = defaultLocales,
+  defaultLocale = defaultLocales[0],
+  onLocaleChange = () => {},
+}: LocaleSelectProps) => (
+  <Select<Locale>
+    inputId={id}
+    options={locales}
+    defaultValue={defaultLocale}
+    onChange={(locale) => onLocaleChange(locale as Locale)}
+    components={{ SingleValue }}
+    styles={{
+      container: (css: any) => ({ ...css, width: 300, margin: '0.5em 0' }),
+      dropdownIndicator: (css: any) => ({ ...css, paddingLeft: 0 }),
+      menu: (css: any) => ({ ...css, width: 300 }),
+    }}
+  />
+);
 
-    return (
-      <Select<Locale>
-        inputId={id}
-        options={locales}
-        defaultValue={defaultLocale}
-        onChange={(locale) => onLocaleChange(locale as Locale)}
-        styles={{
-          container: (css: any) => ({ ...css, width: 300, margin: '0.5em 0' }),
-          dropdownIndicator: (css: any) => ({ ...css, paddingLeft: 0 }),
-          menu: (css: any) => ({ ...css, width: 300 }),
-        }}
-      />
-    );
-  }
-}
+export default LocaleSelect;

@@ -1,5 +1,11 @@
 # @atlaskit/locale
 
+## 2.5.3
+
+### Patch Changes
+
+- [`60f2d9bdf8b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/60f2d9bdf8b) - [ux] Add `lang` attribute to text box for more context for assistive technology users.
+
 ## 2.5.2
 
 ### Patch Changes

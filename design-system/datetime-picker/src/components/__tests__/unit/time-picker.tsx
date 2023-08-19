@@ -53,6 +53,19 @@ describe('TimePicker', () => {
     jest.resetAllMocks();
   });
 
+  it('should apply `lang` attribute to inner input field', () => {
+    const timeValue = '3:00 PM';
+    const lang = 'en-US';
+
+    const { getByText } = render(
+      <TimePicker locale={lang} value={timeValue} testId="test" />,
+    );
+
+    const value = getByText(timeValue);
+
+    expect(value).toHaveAttribute('lang', expect.stringContaining(lang));
+  });
+
   it('should render the time in a custom timeFormat', () => {
     render(<TimePicker value="12:00" timeFormat="HH--mm--SSS" testId="test" />);
     const container = screen.getByTestId('test--container');

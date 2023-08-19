@@ -1,5 +1,11 @@
 # @atlaskit/link-datasource
 
+## 0.34.6
+
+### Patch Changes
+
+- [`d018119646e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d018119646e) - [ux] Added classname to datasource table for disabling of comments in confluence
+
 ## 0.34.5
 
 ### Patch Changes

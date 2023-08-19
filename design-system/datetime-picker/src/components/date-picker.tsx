@@ -38,6 +38,7 @@ import {
   placeholderDatetime,
 } from '../internal';
 import FixedLayer from '../internal/fixed-layer';
+import { makeSingleValue } from '../internal/single-value';
 import { Appearance, SelectProps, Spacing } from '../types';
 
 import { convertTokens } from './utils';
@@ -661,9 +662,12 @@ class DatePicker extends Component<DatePickerProps, State> {
     const dropDownIcon =
       appearance === 'subtle' || hideIcon || showClearIndicator ? null : icon;
 
+    const SingleValue = makeSingleValue({ lang: this.props.locale });
+
     const selectComponents = {
       DropdownIndicator: dropDownIcon,
       Menu,
+      SingleValue,
       ...(!showClearIndicator && { ClearIndicator: EmptyComponent }),
     };
 

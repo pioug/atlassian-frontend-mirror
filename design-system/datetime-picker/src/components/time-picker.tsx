@@ -37,6 +37,7 @@ import {
 } from '../internal';
 import FixedLayer from '../internal/fixed-layer';
 import parseTime from '../internal/parse-time';
+import { makeSingleValue } from '../internal/single-value';
 import { Appearance, Spacing } from '../types';
 
 import { convertTokens } from './utils';
@@ -420,9 +421,12 @@ class TimePicker extends React.Component<TimePickerProps, State> {
       value,
     };
 
+    const SingleValue = makeSingleValue({ lang: this.props.locale });
+
     const selectComponents: SelectComponentsConfig<OptionType> = {
       DropdownIndicator: EmptyComponent,
       Menu: FixedLayerMenu,
+      SingleValue,
       ...(hideIcon && { ClearIndicator: EmptyComponent }),
     };
 

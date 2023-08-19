@@ -233,6 +233,24 @@ describe('DatePicker', () => {
     );
   });
 
+  it('should apply `lang` attribute to inner input field', () => {
+    const formattedDate = new Date('06/08/2018');
+    const dateValue = formattedDate.toISOString();
+    const lang = 'en-US';
+
+    const { getByText } = render(
+      <DatePicker locale={lang} value={dateValue} testId="test" />,
+    );
+
+    const value = getByText(
+      `${
+        formattedDate.getMonth() + 1
+      }/${formattedDate.getDate()}/${formattedDate.getFullYear()}`,
+    );
+
+    expect(value).toHaveAttribute('lang', expect.stringContaining(lang));
+  });
+
   describe('should call onChange when a new date is selected', () => {
     ffTest(
       'platform.design-system-team.date-picker-input-a11y-fix_cbbxs',

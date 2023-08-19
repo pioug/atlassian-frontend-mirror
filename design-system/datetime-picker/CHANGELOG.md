@@ -1,5 +1,11 @@
 # @atlaskit/datetime-picker
 
+## 12.7.10
+
+### Patch Changes
+
+- [`e211efc7c5f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e211efc7c5f) - [ux] Add `lang` attribute to value of pickers.
+
 ## 12.7.9
 
 ### Patch Changes

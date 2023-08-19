@@ -76,7 +76,8 @@ export const DatasourceTableView = ({
   const isDataReady = columns.length > 0;
 
   return (
-    <div>
+    // datasource-table classname is to exclude all children from being commentable - exclude list is in CFE
+    <div className="datasource-table">
       {isDataReady ? (
         <IssueLikeDataTableView
           testId={'datasource-table-view'}

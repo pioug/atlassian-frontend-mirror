@@ -34,7 +34,7 @@ const preset = new Preset<LightEditorPlugin>()
   .add(panelPlugin);
 
 export const editor = (doc: DocBuilder) =>
-  createEditor<SelectionPluginState, PluginKey>({
+  createEditor<SelectionPluginState, PluginKey, typeof preset>({
     doc,
     preset,
     pluginKey: selectionPluginKey,

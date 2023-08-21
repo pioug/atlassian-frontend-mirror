@@ -1,5 +1,11 @@
 # @atlaskit/editor-json-transformer
 
+## 8.10.7
+
+### Patch Changes
+
+- [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
+
 ## 8.10.6
 
 ### Patch Changes

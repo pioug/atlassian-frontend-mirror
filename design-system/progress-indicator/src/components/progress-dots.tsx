@@ -12,9 +12,8 @@ import { jsx } from '@emotion/react';
 import { bind } from 'bind-event-listener';
 
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
-import Box from '@atlaskit/ds-explorations/box';
 import noop from '@atlaskit/ds-lib/noop';
-import Inline from '@atlaskit/primitives/inline';
+import { Box, Inline } from '@atlaskit/primitives';
 import { useGlobalTheme } from '@atlaskit/theme/components';
 
 import type { ProgressDotsProps } from '../types';
@@ -119,13 +118,12 @@ const ProgressDots: FC<ProgressDotsProps> = ({
 
   return (
     <Box
-      UNSAFE_style={
+      style={
         {
           [varDotsSize]: `${sizes[size]}px`,
           [varDotsMargin]: rawGapValue,
         } as CSSProperties
       }
-      display="block"
       role="tablist"
     >
       <Inline

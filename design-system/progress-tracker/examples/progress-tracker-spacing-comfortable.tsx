@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Box from '@atlaskit/ds-explorations/box';
+import { Box } from '@atlaskit/primitives';
 
 import { ProgressTracker, Stages } from '../src';
 

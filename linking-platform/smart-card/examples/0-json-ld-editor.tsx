@@ -23,6 +23,7 @@ const Example: React.FC = () => {
     <JsonldEditor>
       {({
         ari,
+        branchDeploy,
         initialJson,
         isEmbedSupported,
         json,
@@ -40,6 +41,7 @@ const Example: React.FC = () => {
           <div>
             <CardExample
               ari={ari}
+              branchDeploy={branchDeploy}
               isEmbedSupported={isEmbedSupported}
               json={json}
               onError={onUrlError}
@@ -49,7 +51,11 @@ const Example: React.FC = () => {
           </div>
           <div>
             <h6>JSON-LD</h6>
-            <LoadLinkForm onSubmit={onSubmitUrl} error={urlError} />
+            <LoadLinkForm
+              onSubmit={onSubmitUrl}
+              error={urlError}
+              branchDeploy={branchDeploy}
+            />
             <JsonldExample defaultValue={initialJson} onSelect={onJsonChange} />
             <JsonldEditorInput
               error={jsonError}

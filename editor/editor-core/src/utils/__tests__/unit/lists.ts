@@ -11,7 +11,7 @@ import {
   pastePlugin,
   betterTypeHistoryPlugin,
 } from '../../../plugins';
-import { doesSelectionWhichStartsOrEndsInListContainEntireList } from '../../lists';
+import { doesSelectionWhichStartsOrEndsInListContainEntireList } from '../../../plugins/paste/handlers';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
@@ -34,29 +34,31 @@ describe('doesSelectionWhichStartsOrEndsInListContainEntireList', () => {
     });
   };
   it('should return true for selection of entire list', () => {
-    const { editorView } = editor(
+    const { editorView, editorAPI } = editor(
       doc(ol()('{<}', li(p('One')), li(p('Two')), li(p('Three{>}')))),
     );
     expect(
       doesSelectionWhichStartsOrEndsInListContainEntireList(
         editorView.state.selection,
+        editorAPI.dependencies.list?.actions?.findRootParentListNode,
       ),
     ).toBe(true);
   });
 
   it('should return true for selection starting in paragraph and ending at end of list', () => {
-    const { editorView } = editor(
+    const { editorView, editorAPI } = editor(
       doc(p('{<}hello'), ol()(li(p('One')), li(p('Two')), li(p('Three{>}')))),
     );
     expect(
       doesSelectionWhichStartsOrEndsInListContainEntireList(
         editorView.state.selection,
+        editorAPI.dependencies.list?.actions?.findRootParentListNode,
       ),
     ).toBe(true);
   });
 
   it('should return true for selection starting at the start of a list and ending in a paragraph', () => {
-    const { editorView } = editor(
+    const { editorView, editorAPI } = editor(
       doc(
         ol()('{<}', li(p('One')), li(p('Two')), li(p('Three'))),
         p('goodbye{>}'),
@@ -65,37 +67,41 @@ describe('doesSelectionWhichStartsOrEndsInListContainEntireList', () => {
     expect(
       doesSelectionWhichStartsOrEndsInListContainEntireList(
         editorView.state.selection,
+        editorAPI.dependencies.list?.actions?.findRootParentListNode,
       ),
     ).toBe(true);
   });
 
   it('should return false for selection of no list', () => {
-    const { editorView } = editor(doc(p('{<}Hello{>}')));
+    const { editorView, editorAPI } = editor(doc(p('{<}Hello{>}')));
     expect(
       doesSelectionWhichStartsOrEndsInListContainEntireList(
         editorView.state.selection,
+        editorAPI.dependencies.list?.actions?.findRootParentListNode,
       ),
     ).toBe(false);
   });
 
   it('should return false for selection starting in paragraph and ending inside a list', () => {
-    const { editorView } = editor(
+    const { editorView, editorAPI } = editor(
       doc(p('{<}hello'), ol()(li(p('One{>}')), li(p('Two')), li(p('Three')))),
     );
     expect(
       doesSelectionWhichStartsOrEndsInListContainEntireList(
         editorView.state.selection,
+        editorAPI.dependencies.list?.actions?.findRootParentListNode,
       ),
     ).toBe(false);
   });
 
   it('should return false for selection inside a list', () => {
-    const { editorView } = editor(
+    const { editorView, editorAPI } = editor(
       doc(ol()(li(p('{<}One')), li(p('Two{>}')), li(p('Three')))),
     );
     expect(
       doesSelectionWhichStartsOrEndsInListContainEntireList(
         editorView.state.selection,
+        editorAPI.dependencies.list?.actions?.findRootParentListNode,
       ),
     ).toBe(false);
   });

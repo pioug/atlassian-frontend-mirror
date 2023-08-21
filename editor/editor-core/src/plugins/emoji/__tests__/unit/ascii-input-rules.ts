@@ -23,7 +23,7 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 // Editor Plugins
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { emojiPlugin } from '../../';
-import basePlugin from '../../../base';
+import { basePlugin } from '../../../base';
 import blockTypePlugin from '../../../block-type';
 import typeAheadPlugin from '../../../type-ahead';
 import { textFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';
@@ -45,6 +45,7 @@ describe('ascii emojis - input rules', () => {
       doc,
       preset: new Preset<LightEditorPlugin>()
         .add([featureFlagsPlugin, {}])
+        .add(basePlugin)
         .add([analyticsPlugin, { createAnalyticsEvent }])
         .add(decorationsPlugin)
         .add(typeAheadPlugin)
@@ -52,8 +53,7 @@ describe('ascii emojis - input rules', () => {
         .add(blockTypePlugin)
         .add(compositionPlugin)
         .add([codeBlockPlugin, { appearance: 'full-page' }])
-        .add(textFormattingPlugin)
-        .add(basePlugin),
+        .add(textFormattingPlugin),
       providerFactory,
     });
   };

@@ -240,6 +240,12 @@ export {
 } from './commands';
 export type { WalkNode } from './commands';
 
+export {
+  GUTTER_SELECTOR,
+  GUTTER_SIZE_IN_PX,
+  GUTTER_SIZE_MOBILE_IN_PX,
+} from './scroll-gutter';
+
 export function shallowEqual(obj1: any = {}, obj2: any = {}) {
   const keys1 = Object.keys(obj1);
   const keys2 = Object.keys(obj2);

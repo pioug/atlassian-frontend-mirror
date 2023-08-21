@@ -1,29 +1,31 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::3e4dc097014124b77e69b832281f37ed>>
+ * @codegen <<SignedSource::8a2c4f8f66783e1940d1aab250cf35a9>>
  * @codegenCommand yarn build tokens
  */
 export default `
 html[data-theme~="typography:typography"] {
-  --ds-font-family-monospace: "SFMono-Medium", "SF Mono", "Segoe UI Mono", "Roboto Mono", "Ubuntu Mono", Menlo, Consolas, Courier, monospace;
-  --ds-font-family-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-  --ds-font-size-050: 0.6875rem;
-  --ds-font-size-075: 0.75rem;
-  --ds-font-size-100: 0.875rem;
-  --ds-font-size-200: 1rem;
-  --ds-font-size-300: 1.25rem;
-  --ds-font-size-400: 1.5rem;
-  --ds-font-size-500: 1.8125rem;
-  --ds-font-size-600: 2.1875rem;
-  --ds-font-weight-bold: 700;
-  --ds-font-weight-medium: 500;
-  --ds-font-weight-regular: 400;
-  --ds-font-weight-semibold: 600;
-  --ds-font-lineHeight-100: 1rem;
-  --ds-font-lineHeight-200: 1.25rem;
-  --ds-font-lineHeight-300: 1.5rem;
-  --ds-font-lineHeight-400: 1.75rem;
-  --ds-font-lineHeight-500: 2rem;
-  --ds-font-lineHeight-600: 2.5rem;
+  --ds-font-body: normal 400 0.875rem/1.25rem var(--ds-font-family-sans);
+  --ds-font-body-sm: normal 400 0.6875rem/1.25rem var(--ds-font-family-sans);
+  --ds-font-code: normal 400 0.875em/1 var(--ds-font-family-monospace);
+  --ds-font-heading-lg: normal 700 1.5rem/1.75rem var(--ds-font-family-sans);
+  --ds-font-heading-md: normal 700 1.25rem/1.5rem var(--ds-font-family-sans);
+  --ds-font-heading-sm: normal 700 1rem/1.25rem var(--ds-font-family-sans);
+  --ds-font-heading-xl: normal 700 1.75rem/2rem var(--ds-font-family-sans);
+  --ds-font-heading-xs: normal 700 0.875rem/1rem var(--ds-font-family-sans);
+  --ds-font-heading-xxl: normal 700 2.25rem/2.5rem var(--ds-font-family-sans);
+  --ds-font-heading-xxs: normal 700 0.75rem/1rem var(--ds-font-family-sans);
+  --ds-font-letterSpacing-0: 0;
+  --ds-font-letterSpacing-100: 0;
+  --ds-font-letterSpacing-200: 0;
+  --ds-font-letterSpacing-300: 0;
+  --ds-font-letterSpacing-400: 0;
+  --ds-font-ui: normal 400 0.875rem/1 var(--ds-font-family-sans);
+  --ds-font-ui-sm: normal 400 0.6875rem/1 var(--ds-font-family-sans);
+  --ds-font-family-code: ui-monospace, Menlo, "Segoe UI Mono", "Ubuntu Mono", monospace;
+  --ds-font-family-monospace: ui-monospace, Menlo, "Segoe UI Mono", "Ubuntu Mono", monospace;
+  --ds-font-family-product: ui-sans-serif, "Segoe UI", system-ui, Ubuntu, "Helvetica Neue", sans-serif;
+  --ds-font-family-sans: ui-sans-serif, "Segoe UI", system-ui, Ubuntu, "Helvetica Neue", sans-serif;
+  --ds-font-family-brand: Charlie Sans;
 }
 `;

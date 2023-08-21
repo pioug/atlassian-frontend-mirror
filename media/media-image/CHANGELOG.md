@@ -1,5 +1,11 @@
 # @atlaskit/media-image
 
+## 17.4.5
+
+### Patch Changes
+
+- [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
+
 ## 17.4.4
 
 ### Patch Changes

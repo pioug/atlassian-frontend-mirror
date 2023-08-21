@@ -56,7 +56,7 @@ describe('mark utilities', () => {
 
     describe('on mentions and emojis', () => {
       it('enables code mark', () => {
-        const { editorView, pluginInjectionAPI } = editor(
+        const { editorView, editorAPI } = editor(
           doc(
             p('{<}hey', helgaMention(), grinningEmoji()),
             p(helgaMention(), grinningEmoji()),
@@ -64,9 +64,9 @@ describe('mark utilities', () => {
           ),
         );
 
-        pluginInjectionAPI
-          .api()
-          .executeCommand(toggleMark(editorView.state.schema.marks.code));
+        editorAPI.dependencies.core.actions.execute(
+          toggleMark(editorView.state.schema.marks.code),
+        );
 
         expect(editorView.state.doc).toEqualDocument(
           doc(p(code('hey@helga😀')), p(code('@helga😀')), p(code('hey😀'))),
@@ -77,7 +77,7 @@ describe('mark utilities', () => {
     describe('in cell selection', () => {
       describe('with mentions and emojis', () => {
         it('enables code mark', () => {
-          const { editorView, pluginInjectionAPI } = editor(
+          const { editorView, editorAPI } = editor(
             doc(
               table()(
                 tr(td()(p('{<cell}hey', grinningEmoji())), tdEmpty, tdEmpty),
@@ -91,9 +91,9 @@ describe('mark utilities', () => {
             ),
           );
 
-          pluginInjectionAPI
-            .api()
-            .executeCommand(toggleMark(editorView.state.schema.marks.code));
+          editorAPI.dependencies.core.actions.execute(
+            toggleMark(editorView.state.schema.marks.code),
+          );
 
           expect(editorView.state.doc).toEqualDocument(
             doc(
@@ -108,7 +108,7 @@ describe('mark utilities', () => {
       });
 
       it('enables code mark', () => {
-        const { editorView, pluginInjectionAPI } = createEditor({
+        const { editorView, editorAPI } = createEditor({
           doc: doc(
             table()(
               tr(td()(p('{<cell}hey')), tdEmpty, tdEmpty),
@@ -119,9 +119,9 @@ describe('mark utilities', () => {
           editorProps: { allowTables: true },
         });
 
-        pluginInjectionAPI
-          .api()
-          .executeCommand(toggleMark(editorView.state.schema.marks.code));
+        editorAPI.dependencies.core.actions.execute(
+          toggleMark(editorView.state.schema.marks.code),
+        );
 
         expect(editorView.state.doc).toEqualDocument(
           doc(
@@ -135,7 +135,7 @@ describe('mark utilities', () => {
       });
 
       it('enables the bold mark', () => {
-        const { editorView, pluginInjectionAPI } = createEditor({
+        const { editorView, editorAPI } = createEditor({
           doc: doc(
             table()(
               tr(td()(p('{<cell}hey')), tdEmpty, tdEmpty),
@@ -146,9 +146,9 @@ describe('mark utilities', () => {
           editorProps: { allowTables: true },
         });
 
-        pluginInjectionAPI
-          .api()
-          .executeCommand(toggleMark(editorView.state.schema.marks.strong));
+        editorAPI.dependencies.core.actions.execute(
+          toggleMark(editorView.state.schema.marks.strong),
+        );
 
         expect(editorView.state.doc).toEqualDocument(
           doc(
@@ -162,7 +162,7 @@ describe('mark utilities', () => {
       });
 
       it('bolds the selection when only part of the selection has the bold mark', () => {
-        const { editorView, pluginInjectionAPI } = createEditor({
+        const { editorView, editorAPI } = createEditor({
           doc: doc(
             table()(
               tr(td({})(p('{<cell}a1')), tdEmpty, tdEmpty),
@@ -173,9 +173,9 @@ describe('mark utilities', () => {
           editorProps: { allowTables: true },
         });
 
-        pluginInjectionAPI
-          .api()
-          .executeCommand(toggleMark(editorView.state.schema.marks.strong));
+        editorAPI.dependencies.core.actions.execute(
+          toggleMark(editorView.state.schema.marks.strong),
+        );
 
         expect(editorView.state.doc).toEqualDocument(
           doc(
@@ -190,13 +190,13 @@ describe('mark utilities', () => {
     });
 
     it('enables the bold mark', () => {
-      const { editorView, pluginInjectionAPI } = editor(
+      const { editorView, editorAPI } = editor(
         doc(p('{<}text', hardBreak(), 'here{>}')),
       );
 
-      pluginInjectionAPI
-        .api()
-        .executeCommand(toggleMark(editorView.state.schema.marks.strong));
+      editorAPI.dependencies.core.actions.execute(
+        toggleMark(editorView.state.schema.marks.strong),
+      );
 
       expect(editorView.state.doc).toEqualDocument(
         doc(p(strong('text'), hardBreak(), strong('here'))),
@@ -204,13 +204,13 @@ describe('mark utilities', () => {
     });
 
     it('bolds the selection when only part of the selection has the bold mark', () => {
-      const { editorView, pluginInjectionAPI } = editor(
+      const { editorView, editorAPI } = editor(
         doc(p('{<}text', hardBreak(), strong('here{>}'))),
       );
 
-      pluginInjectionAPI
-        .api()
-        .executeCommand(toggleMark(editorView.state.schema.marks.strong));
+      editorAPI.dependencies.core.actions.execute(
+        toggleMark(editorView.state.schema.marks.strong),
+      );
 
       expect(editorView.state.doc).toEqualDocument(
         doc(p(strong('text'), hardBreak(), strong('here'))),
@@ -218,7 +218,7 @@ describe('mark utilities', () => {
     });
 
     it('bolds the selection when only part of the selection has the bold mark with various elements', () => {
-      const { editorView, pluginInjectionAPI } = editor(
+      const { editorView, editorAPI } = editor(
         doc(
           p('{<}text', hardBreak(), 'other text'),
           ul(li(p('first item')), li(p('second item'))),
@@ -227,9 +227,9 @@ describe('mark utilities', () => {
         ),
       );
 
-      pluginInjectionAPI
-        .api()
-        .executeCommand(toggleMark(editorView.state.schema.marks.strong));
+      editorAPI.dependencies.core.actions.execute(
+        toggleMark(editorView.state.schema.marks.strong),
+      );
 
       expect(editorView.state.doc).toEqualDocument(
         doc(
@@ -242,7 +242,7 @@ describe('mark utilities', () => {
     });
 
     it('bolds the selection when only part of the selection has the bold mark mixed with tables', () => {
-      const { editorView, pluginInjectionAPI } = editor(
+      const { editorView, editorAPI } = editor(
         doc(
           p('{<}text', hardBreak(), 'other text'),
           ul(li(p('first item')), li(p('second item'))),
@@ -256,9 +256,9 @@ describe('mark utilities', () => {
         ),
       );
 
-      pluginInjectionAPI
-        .api()
-        .executeCommand(toggleMark(editorView.state.schema.marks.strong));
+      editorAPI.dependencies.core.actions.execute(
+        toggleMark(editorView.state.schema.marks.strong),
+      );
 
       expect(editorView.state.doc).toEqualDocument(
         doc(
@@ -276,17 +276,17 @@ describe('mark utilities', () => {
     });
 
     it('enables muliple marks when toggled', () => {
-      const { editorView, pluginInjectionAPI } = editor(
+      const { editorView, editorAPI } = editor(
         doc(p('{<}text', hardBreak(), 'here{>}')),
       );
 
-      pluginInjectionAPI
-        .api()
-        .executeCommand(toggleMark(editorView.state.schema.marks.strong));
+      editorAPI.dependencies.core.actions.execute(
+        toggleMark(editorView.state.schema.marks.strong),
+      );
 
-      pluginInjectionAPI
-        .api()
-        .executeCommand(toggleMark(editorView.state.schema.marks.em));
+      editorAPI.dependencies.core.actions.execute(
+        toggleMark(editorView.state.schema.marks.em),
+      );
 
       expect(editorView.state.doc).toEqualDocument(
         doc(p(em(strong('text')), hardBreak(), em(strong('here')))),
@@ -294,17 +294,17 @@ describe('mark utilities', () => {
     });
 
     it('can toggle a mark on and off', () => {
-      const { editorView, pluginInjectionAPI } = editor(
+      const { editorView, editorAPI } = editor(
         doc(p('{<}text', hardBreak(), 'here{>}')),
       );
 
-      pluginInjectionAPI
-        .api()
-        .executeCommand(toggleMark(editorView.state.schema.marks.strong));
+      editorAPI.dependencies.core.actions.execute(
+        toggleMark(editorView.state.schema.marks.strong),
+      );
 
-      pluginInjectionAPI
-        .api()
-        .executeCommand(toggleMark(editorView.state.schema.marks.strong));
+      editorAPI.dependencies.core.actions.execute(
+        toggleMark(editorView.state.schema.marks.strong),
+      );
 
       expect(editorView.state.doc).toEqualDocument(
         doc(p('text', hardBreak(), 'here')),
@@ -312,21 +312,15 @@ describe('mark utilities', () => {
     });
 
     it('can toggle a mark with different attributes', () => {
-      const { editorView, pluginInjectionAPI } = editor(
-        doc(p('{<}text here{>}')),
+      const { editorView, editorAPI } = editor(doc(p('{<}text here{>}')));
+
+      editorAPI.dependencies.core.actions.execute(
+        toggleMark(editorView.state.schema.marks.subsup, { type: 'sup' }),
       );
 
-      pluginInjectionAPI
-        .api()
-        .executeCommand(
-          toggleMark(editorView.state.schema.marks.subsup, { type: 'sup' }),
-        );
-
-      pluginInjectionAPI
-        .api()
-        .executeCommand(
-          toggleMark(editorView.state.schema.marks.subsup, { type: 'sub' }),
-        );
+      editorAPI.dependencies.core.actions.execute(
+        toggleMark(editorView.state.schema.marks.subsup, { type: 'sub' }),
+      );
 
       expect(editorView.state.doc).toEqualDocument(
         doc(p(subsup({ type: 'sub' })('text here'))),
@@ -334,7 +328,7 @@ describe('mark utilities', () => {
     });
 
     it('toggles only marks of same type and attributes', () => {
-      const { editorView, pluginInjectionAPI } = editor(
+      const { editorView, editorAPI } = editor(
         doc(
           p(
             'This is the first normal {<}text ',
@@ -346,11 +340,9 @@ describe('mark utilities', () => {
         ),
       );
 
-      pluginInjectionAPI
-        .api()
-        .executeCommand(
-          toggleMark(editorView.state.schema.marks.subsup, { type: 'sup' }),
-        );
+      editorAPI.dependencies.core.actions.execute(
+        toggleMark(editorView.state.schema.marks.subsup, { type: 'sup' }),
+      );
 
       expect(editorView.state.doc).toEqualDocument(
         doc(
@@ -366,25 +358,21 @@ describe('mark utilities', () => {
     });
 
     it('can apply two different marks at different points', () => {
-      const { editorView, pluginInjectionAPI } = editor(
+      const { editorView, editorAPI } = editor(
         doc(p('This is the first normal text {<>}')),
       );
 
-      pluginInjectionAPI
-        .api()
-        .executeCommand(
-          toggleMark(editorView.state.schema.marks.subsup, { type: 'sup' }),
-        );
+      editorAPI.dependencies.core.actions.execute(
+        toggleMark(editorView.state.schema.marks.subsup, { type: 'sup' }),
+      );
 
       insertText(editorView, 'This text is sup');
       sendKeyToPm(editorView, 'Enter');
       insertText(editorView, 'This is the second normal text ');
 
-      pluginInjectionAPI
-        .api()
-        .executeCommand(
-          toggleMark(editorView.state.schema.marks.subsup, { type: 'sub' }),
-        );
+      editorAPI.dependencies.core.actions.execute(
+        toggleMark(editorView.state.schema.marks.subsup, { type: 'sub' }),
+      );
 
       insertText(editorView, 'This is sub');
 
@@ -403,11 +391,11 @@ describe('mark utilities', () => {
     });
 
     it('can apply a mark half way through a selection', () => {
-      const { editorView, pluginInjectionAPI } = editor(doc(p('te{<}xt{>}')));
+      const { editorView, editorAPI } = editor(doc(p('te{<}xt{>}')));
 
-      pluginInjectionAPI
-        .api()
-        .executeCommand(toggleMark(editorView.state.schema.marks.strong));
+      editorAPI.dependencies.core.actions.execute(
+        toggleMark(editorView.state.schema.marks.strong),
+      );
 
       expect(editorView.state.doc).toEqualDocument(doc(p('te', strong('xt'))));
     });
@@ -416,16 +404,16 @@ describe('mark utilities', () => {
       const {
         editorView,
         refs: { nextCursorPos },
-        pluginInjectionAPI,
+        editorAPI,
       } = editor(doc(p('text here{<>}{nextCursorPos}')));
 
-      pluginInjectionAPI
-        .api()
-        .executeCommand(toggleMark(editorView.state.schema.marks.strong));
+      editorAPI.dependencies.core.actions.execute(
+        toggleMark(editorView.state.schema.marks.strong),
+      );
 
-      pluginInjectionAPI
-        .api()
-        .executeCommand(toggleMark(editorView.state.schema.marks.strong));
+      editorAPI.dependencies.core.actions.execute(
+        toggleMark(editorView.state.schema.marks.strong),
+      );
 
       expect(editorView.state.selection.from).toEqual(nextCursorPos);
       expect(editorView.state.doc).toEqualDocument(
@@ -434,15 +422,11 @@ describe('mark utilities', () => {
     });
 
     it('enables a mark with attributes', () => {
-      const { editorView, pluginInjectionAPI } = editor(
-        doc(p('{<}text here{>}')),
-      );
+      const { editorView, editorAPI } = editor(doc(p('{<}text here{>}')));
 
-      pluginInjectionAPI
-        .api()
-        .executeCommand(
-          toggleMark(editorView.state.schema.marks.subsup, { type: 'sup' }),
-        );
+      editorAPI.dependencies.core.actions.execute(
+        toggleMark(editorView.state.schema.marks.subsup, { type: 'sup' }),
+      );
 
       expect(editorView.state.doc).toEqualDocument(
         doc(p(subsup({ type: 'sup' })('text here'))),
@@ -450,15 +434,13 @@ describe('mark utilities', () => {
     });
 
     it('can toggle marks with only differing attributes', () => {
-      const { editorView, pluginInjectionAPI } = editor(
+      const { editorView, editorAPI } = editor(
         doc(p('text here', subsup({ type: 'sub' })('{<>}'))),
       );
 
-      pluginInjectionAPI
-        .api()
-        .executeCommand(
-          toggleMark(editorView.state.schema.marks.subsup, { type: 'sup' }),
-        );
+      editorAPI.dependencies.core.actions.execute(
+        toggleMark(editorView.state.schema.marks.subsup, { type: 'sup' }),
+      );
 
       expect(editorView.state.doc).toEqualDocument(
         doc(p('text here', subsup({ type: 'sup' })(''))),

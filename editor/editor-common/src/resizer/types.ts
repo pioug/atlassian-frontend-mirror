@@ -31,3 +31,5 @@ export type HandleHeightSizeType = 'small' | 'medium' | 'large';
 export type HandleAlignmentMethod = 'center' | 'sticky';
 
 export type HandlePositioning = 'overlap' | 'adjacent';
+
+export type ResizerAppearance = 'danger';

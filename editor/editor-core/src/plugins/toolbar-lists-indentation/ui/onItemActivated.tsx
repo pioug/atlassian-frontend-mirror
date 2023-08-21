@@ -1,12 +1,6 @@
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import {
-  indentList,
-  outdentList,
-  toggleBulletList,
-  toggleOrderedList,
-} from '../../list/commands';
-import {
   getIndentCommand as indentParagraphOrHeading,
   getOutdentCommand as outdentParagraphOrHeading,
 } from '../../indentation/commands';
@@ -20,10 +14,15 @@ import { pluginKey as indentationButtonsPluginKey } from '../pm-plugins/indentat
 import type { FeatureFlags } from '@atlaskit/editor-common/types';
 
 import type { ButtonName } from '../types';
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type toolbarListsIndentationPlugin from '../index';
 
 export const onItemActivated =
-  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
+  (
+    pluginInjectionApi:
+      | ExtractInjectionAPI<typeof toolbarListsIndentationPlugin>
+      | undefined,
+  ) =>
   ({
     buttonName,
     editorView,
@@ -35,11 +34,17 @@ export const onItemActivated =
   }) => {
     switch (buttonName) {
       case 'bullet_list':
-        toggleBulletList(editorAnalyticsAPI)(editorView, INPUT_METHOD.TOOLBAR);
+        pluginInjectionApi?.dependencies.list.actions.toggleBulletList(
+          editorView,
+          INPUT_METHOD.TOOLBAR,
+        );
 
         break;
       case 'ordered_list':
-        toggleOrderedList(editorAnalyticsAPI)(editorView, INPUT_METHOD.TOOLBAR);
+        pluginInjectionApi?.dependencies.list.actions.toggleOrderedList(
+          editorView,
+          INPUT_METHOD.TOOLBAR,
+        );
 
         break;
 
@@ -54,10 +59,9 @@ export const onItemActivated =
           );
         }
         if (node === 'list') {
-          indentList(editorAnalyticsAPI)(INPUT_METHOD.TOOLBAR)(
-            editorView.state,
-            editorView.dispatch,
-          );
+          pluginInjectionApi?.dependencies.list.actions.indentList(
+            INPUT_METHOD.TOOLBAR,
+          )(editorView.state, editorView.dispatch);
         }
         if (node === 'taskList') {
           indentTaskList(INPUT_METHOD.TOOLBAR)(
@@ -79,10 +83,10 @@ export const onItemActivated =
           );
         }
         if (node === 'list') {
-          outdentList(editorAnalyticsAPI)(INPUT_METHOD.TOOLBAR, featureFlags)(
-            editorView.state,
-            editorView.dispatch,
-          );
+          pluginInjectionApi?.dependencies.list.actions.outdentList(
+            INPUT_METHOD.TOOLBAR,
+            featureFlags,
+          )(editorView.state, editorView.dispatch);
         }
         if (node === 'taskList') {
           outdentTaskList(INPUT_METHOD.TOOLBAR)(

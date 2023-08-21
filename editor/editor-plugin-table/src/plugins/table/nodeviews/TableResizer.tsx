@@ -17,6 +17,7 @@ import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { findTable } from '@atlaskit/editor-tables/utils';
 
+import { getPluginState } from '../pm-plugins/plugin-factory';
 import {
   COLUMN_MIN_WIDTH,
   getColgroupChildrenLength,
@@ -126,6 +127,7 @@ export const TableResizer = ({
 
   const resizerMinWidth = getResizerMinWidth(node);
   const handleHeightSize = getResizerHandleHeight(tableRef);
+  const { isInDanger } = getPluginState(editorView.state);
 
   const { startMeasure, endMeasure, countFrames } = useMeasureFramerate();
 
@@ -331,6 +333,7 @@ export const TableResizer = ({
       innerPadding={tableHandlePosition}
       isHandleVisible={findTable(editorView.state?.selection)?.pos === getPos()}
       handleComponent={handleComponent}
+      appearance={isInDanger ? 'danger' : undefined}
     >
       {children}
     </ResizerNext>

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/email-renderer",
-  "version": "8.2.4",
+  "version": "8.2.5",
   "description": "Email renderer",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

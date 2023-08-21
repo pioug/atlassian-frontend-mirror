@@ -4,7 +4,7 @@ import type { EditorCommand } from '../types/editor-command';
 /**
  * Convert a EditorCommand to a standard Prosemirror Command.
  * The preferred approach to dispatching a `EditorCommand` is via the
- * `executeCommand` on `pluginInjectionAPI`. In some cases
+ * `dependencies.core.actions.execute` on `pluginInjectionAPI`. In some cases
  * the type may require a Command until we refactor this out and this
  * function is suitable for those cases.
  *

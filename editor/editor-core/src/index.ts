@@ -117,7 +117,6 @@ export {
 
 // Used in editor-test-helpers and mobile bridge
 export { setTextSelection, dedupe, getNodesCount, measurements } from './utils';
-export { getListCommands } from './utils/list-commands';
 export { ReactEditorView, BaseReactEditorView } from './create-editor';
 export { getDefaultPresetOptionsFromEditorProps } from './create-editor';
 export type {

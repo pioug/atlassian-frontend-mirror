@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import Button from '@atlaskit/button';
-import Box from '@atlaskit/ds-explorations/box';
+import { Box } from '@atlaskit/primitives';
 
 import { ProgressTracker, Stage, Stages } from '../src';
 
@@ -193,7 +193,7 @@ class ProgressExample extends Component<{}, State> {
 
   render() {
     return (
-      <Box display="block">
+      <Box>
         <ProgressTracker items={this.state.items} animated={false} />
         <Button onClick={() => this.next()}>Next</Button>
         <Button onClick={() => this.prev()}>Prev</Button>

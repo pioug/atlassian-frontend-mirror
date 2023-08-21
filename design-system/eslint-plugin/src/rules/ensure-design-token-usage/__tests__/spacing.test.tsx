@@ -747,14 +747,12 @@ export const spacingTests: Tests = {
       code: `
     const cssTemplateLiteral = css\`
       width: 50%;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;\`;
-    `,
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;\``,
       options: [{ domains: ['typography'], applyImport: false }],
       output: `
     const cssTemplateLiteral = css\`
       width: 50%;
-      font-family: \${token('font.family.sans', \`-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif\`)};\`;
-    `,
+      font-family: \${token('font.family.sans', \`-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif\`)};\``,
       errors: [
         {
           message: `The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<fontFamily: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif>>`,

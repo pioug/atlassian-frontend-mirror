@@ -1,27 +1,147 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::62a42989e49ca7f7856827fb9ea059d6>>
+ * @codegen <<SignedSource::89e4530c84e484a163c9df048290ecf5>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
   {
-    "value": "\"SFMono-Medium\", \"SF Mono\", \"Segoe UI Mono\", \"Roboto Mono\", \"Ubuntu Mono\", Menlo, Consolas, Courier, monospace",
+    "value": "Roboto Mono",
     "attributes": {
       "group": "typography"
     },
     "filePath": "src/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "\"SFMono-Medium\", \"SF Mono\", \"Segoe UI Mono\", \"Roboto Mono\", \"Ubuntu Mono\", Menlo, Consolas, Courier, monospace",
+      "value": "Roboto Mono",
       "attributes": {
         "group": "typography"
       }
     },
-    "name": "typography.fontFamily.FontFamilyMonospace",
+    "name": "typography.fontFamily.FontFamilyAndroidMono",
     "path": [
       "typography",
       "fontFamily",
-      "FontFamilyMonospace"
+      "FontFamilyAndroidMono"
+    ]
+  },
+  {
+    "value": "Roboto",
+    "attributes": {
+      "group": "typography"
+    },
+    "filePath": "src/palettes/typography-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": "Roboto",
+      "attributes": {
+        "group": "typography"
+      }
+    },
+    "name": "typography.fontFamily.FontFamilyAndroidSans",
+    "path": [
+      "typography",
+      "fontFamily",
+      "FontFamilyAndroidSans"
+    ]
+  },
+  {
+    "value": "Charlie Sans",
+    "attributes": {
+      "group": "typography"
+    },
+    "filePath": "src/palettes/typography-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": "Charlie Sans",
+      "attributes": {
+        "group": "typography"
+      }
+    },
+    "name": "typography.fontFamily.FontFamilyCharlie",
+    "path": [
+      "typography",
+      "fontFamily",
+      "FontFamilyCharlie"
+    ]
+  },
+  {
+    "value": "ui-monospace, Menlo, \"Segoe UI Mono\", \"Ubuntu Mono\", monospace",
+    "attributes": {
+      "group": "typography"
+    },
+    "filePath": "src/palettes/typography-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": "ui-monospace, Menlo, \"Segoe UI Mono\", \"Ubuntu Mono\", monospace",
+      "attributes": {
+        "group": "typography"
+      }
+    },
+    "name": "typography.fontFamily.FontFamilyWebMono",
+    "path": [
+      "typography",
+      "fontFamily",
+      "FontFamilyWebMono"
+    ]
+  },
+  {
+    "value": "ui-sans-serif, \"Segoe UI\", system-ui, Ubuntu, \"Helvetica Neue\", sans-serif",
+    "attributes": {
+      "group": "typography"
+    },
+    "filePath": "src/palettes/typography-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": "ui-sans-serif, \"Segoe UI\", system-ui, Ubuntu, \"Helvetica Neue\", sans-serif",
+      "attributes": {
+        "group": "typography"
+      }
+    },
+    "name": "typography.fontFamily.FontFamilyWebSans",
+    "path": [
+      "typography",
+      "fontFamily",
+      "FontFamilyWebSans"
+    ]
+  },
+  {
+    "value": "SF Mono",
+    "attributes": {
+      "group": "typography"
+    },
+    "filePath": "src/palettes/typography-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": "SF Mono",
+      "attributes": {
+        "group": "typography"
+      }
+    },
+    "name": "typography.fontFamily.FontFamilyiOSMono",
+    "path": [
+      "typography",
+      "fontFamily",
+      "FontFamilyiOSMono"
+    ]
+  },
+  {
+    "value": "SF Pro",
+    "attributes": {
+      "group": "typography"
+    },
+    "filePath": "src/palettes/typography-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": "SF Pro",
+      "attributes": {
+        "group": "typography"
+      }
+    },
+    "name": "typography.fontFamily.FontFamilyiOSSans",
+    "path": [
+      "typography",
+      "fontFamily",
+      "FontFamilyiOSSans"
     ]
   },
   {
@@ -37,11 +157,11 @@ const tokens = [
         "group": "typography"
       }
     },
-    "name": "typography.fontFamily.FontFamilySans",
+    "name": "typography.fontFamily.LegacyFontFamilyWebSans",
     "path": [
       "typography",
       "fontFamily",
-      "FontFamilySans"
+      "LegacyFontFamilyWebSans"
     ]
   },
   {
@@ -57,11 +177,11 @@ const tokens = [
         "group": "typography"
       }
     },
-    "name": "typography.fontSize.FontSize050",
+    "name": "typography.fontSize.FontSize11",
     "path": [
       "typography",
       "fontSize",
-      "FontSize050"
+      "FontSize11"
     ]
   },
   {
@@ -77,11 +197,11 @@ const tokens = [
         "group": "typography"
       }
     },
-    "name": "typography.fontSize.FontSize075",
+    "name": "typography.fontSize.FontSize12",
     "path": [
       "typography",
       "fontSize",
-      "FontSize075"
+      "FontSize12"
     ]
   },
   {
@@ -97,11 +217,11 @@ const tokens = [
         "group": "typography"
       }
     },
-    "name": "typography.fontSize.FontSize100",
+    "name": "typography.fontSize.FontSize14",
     "path": [
       "typography",
       "fontSize",
-      "FontSize100"
+      "FontSize14"
     ]
   },
   {
@@ -117,11 +237,11 @@ const tokens = [
         "group": "typography"
       }
     },
-    "name": "typography.fontSize.FontSize200",
+    "name": "typography.fontSize.FontSize16",
     "path": [
       "typography",
       "fontSize",
-      "FontSize200"
+      "FontSize16"
     ]
   },
   {
@@ -137,11 +257,11 @@ const tokens = [
         "group": "typography"
       }
     },
-    "name": "typography.fontSize.FontSize300",
+    "name": "typography.fontSize.FontSize20",
     "path": [
       "typography",
       "fontSize",
-      "FontSize300"
+      "FontSize20"
     ]
   },
   {
@@ -157,11 +277,91 @@ const tokens = [
         "group": "typography"
       }
     },
-    "name": "typography.fontSize.FontSize400",
+    "name": "typography.fontSize.FontSize24",
     "path": [
       "typography",
       "fontSize",
-      "FontSize400"
+      "FontSize24"
+    ]
+  },
+  {
+    "value": "28px",
+    "attributes": {
+      "group": "typography"
+    },
+    "filePath": "src/palettes/typography-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": 28,
+      "attributes": {
+        "group": "typography"
+      }
+    },
+    "name": "typography.fontSize.FontSize28",
+    "path": [
+      "typography",
+      "fontSize",
+      "FontSize28"
+    ]
+  },
+  {
+    "value": "36px",
+    "attributes": {
+      "group": "typography"
+    },
+    "filePath": "src/palettes/typography-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": 36,
+      "attributes": {
+        "group": "typography"
+      }
+    },
+    "name": "typography.fontSize.FontSize36",
+    "path": [
+      "typography",
+      "fontSize",
+      "FontSize36"
+    ]
+  },
+  {
+    "value": "48px",
+    "attributes": {
+      "group": "typography"
+    },
+    "filePath": "src/palettes/typography-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": 48,
+      "attributes": {
+        "group": "typography"
+      }
+    },
+    "name": "typography.fontSize.FontSize48",
+    "path": [
+      "typography",
+      "fontSize",
+      "FontSize48"
+    ]
+  },
+  {
+    "value": "0.875em",
+    "attributes": {
+      "group": "typography"
+    },
+    "filePath": "src/palettes/typography-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": "0.875em",
+      "attributes": {
+        "group": "typography"
+      }
+    },
+    "name": "typography.fontSize.FontSizeCode",
+    "path": [
+      "typography",
+      "fontSize",
+      "FontSizeCode"
     ]
   },
   {
@@ -177,11 +377,11 @@ const tokens = [
         "group": "typography"
       }
     },
-    "name": "typography.fontSize.FontSize500",
+    "name": "typography.fontSize.LegacyFontSize29",
     "path": [
       "typography",
       "fontSize",
-      "FontSize500"
+      "LegacyFontSize29"
     ]
   },
   {
@@ -197,51 +397,11 @@ const tokens = [
         "group": "typography"
       }
     },
-    "name": "typography.fontSize.FontSize600",
+    "name": "typography.fontSize.LegacyFontSize35",
     "path": [
       "typography",
       "fontSize",
-      "FontSize600"
-    ]
-  },
-  {
-    "value": "700",
-    "attributes": {
-      "group": "typography"
-    },
-    "filePath": "src/palettes/typography-palette.tsx",
-    "isSource": true,
-    "original": {
-      "value": "700",
-      "attributes": {
-        "group": "typography"
-      }
-    },
-    "name": "typography.fontWeight.FontWeightBold",
-    "path": [
-      "typography",
-      "fontWeight",
-      "FontWeightBold"
-    ]
-  },
-  {
-    "value": "500",
-    "attributes": {
-      "group": "typography"
-    },
-    "filePath": "src/palettes/typography-palette.tsx",
-    "isSource": true,
-    "original": {
-      "value": "500",
-      "attributes": {
-        "group": "typography"
-      }
-    },
-    "name": "typography.fontWeight.FontWeightMedium",
-    "path": [
-      "typography",
-      "fontWeight",
-      "FontWeightMedium"
+      "LegacyFontSize35"
     ]
   },
   {
@@ -257,11 +417,31 @@ const tokens = [
         "group": "typography"
       }
     },
-    "name": "typography.fontWeight.FontWeightRegular",
+    "name": "typography.fontWeight.FontWeight400",
     "path": [
       "typography",
       "fontWeight",
-      "FontWeightRegular"
+      "FontWeight400"
+    ]
+  },
+  {
+    "value": "500",
+    "attributes": {
+      "group": "typography"
+    },
+    "filePath": "src/palettes/typography-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": "500",
+      "attributes": {
+        "group": "typography"
+      }
+    },
+    "name": "typography.fontWeight.FontWeight500",
+    "path": [
+      "typography",
+      "fontWeight",
+      "FontWeight500"
     ]
   },
   {
@@ -277,11 +457,151 @@ const tokens = [
         "group": "typography"
       }
     },
-    "name": "typography.fontWeight.FontWeightSemiBold",
+    "name": "typography.fontWeight.FontWeight600",
     "path": [
       "typography",
       "fontWeight",
-      "FontWeightSemiBold"
+      "FontWeight600"
+    ]
+  },
+  {
+    "value": "700",
+    "attributes": {
+      "group": "typography"
+    },
+    "filePath": "src/palettes/typography-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": "700",
+      "attributes": {
+        "group": "typography"
+      }
+    },
+    "name": "typography.fontWeight.FontWeight700",
+    "path": [
+      "typography",
+      "fontWeight",
+      "FontWeight700"
+    ]
+  },
+  {
+    "value": "0",
+    "attributes": {
+      "group": "typography"
+    },
+    "filePath": "src/palettes/typography-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": "0",
+      "attributes": {
+        "group": "typography"
+      }
+    },
+    "name": "typography.letterSpacing.LetterSpacing0",
+    "path": [
+      "typography",
+      "letterSpacing",
+      "LetterSpacing0"
+    ]
+  },
+  {
+    "value": "-0.003em",
+    "attributes": {
+      "group": "typography"
+    },
+    "filePath": "src/palettes/typography-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": "-0.003em",
+      "attributes": {
+        "group": "typography"
+      }
+    },
+    "name": "typography.letterSpacing.LetterSpacing100",
+    "path": [
+      "typography",
+      "letterSpacing",
+      "LetterSpacing100"
+    ]
+  },
+  {
+    "value": "-0.006em",
+    "attributes": {
+      "group": "typography"
+    },
+    "filePath": "src/palettes/typography-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": "-0.006em",
+      "attributes": {
+        "group": "typography"
+      }
+    },
+    "name": "typography.letterSpacing.LetterSpacing200",
+    "path": [
+      "typography",
+      "letterSpacing",
+      "LetterSpacing200"
+    ]
+  },
+  {
+    "value": "-0.008em",
+    "attributes": {
+      "group": "typography"
+    },
+    "filePath": "src/palettes/typography-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": "-0.008em",
+      "attributes": {
+        "group": "typography"
+      }
+    },
+    "name": "typography.letterSpacing.LetterSpacing300",
+    "path": [
+      "typography",
+      "letterSpacing",
+      "LetterSpacing300"
+    ]
+  },
+  {
+    "value": "-0.01em",
+    "attributes": {
+      "group": "typography"
+    },
+    "filePath": "src/palettes/typography-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": "-0.01em",
+      "attributes": {
+        "group": "typography"
+      }
+    },
+    "name": "typography.letterSpacing.LetterSpacing400",
+    "path": [
+      "typography",
+      "letterSpacing",
+      "LetterSpacing400"
+    ]
+  },
+  {
+    "value": "1",
+    "attributes": {
+      "group": "typography"
+    },
+    "filePath": "src/palettes/typography-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": "1",
+      "attributes": {
+        "group": "typography"
+      }
+    },
+    "name": "typography.lineHeight.LineHeight1",
+    "path": [
+      "typography",
+      "lineHeight",
+      "LineHeight1"
     ]
   },
   {

@@ -6,6 +6,8 @@
  */
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 
+import type { CorePlugin } from '../preset/core-plugin';
+
 import type {
   EditorCommand,
   EditorCommandWithMetadata,
@@ -87,38 +89,20 @@ export interface NextEditorPluginMetadata {
 export type PluginInjectionAPI<
   Name extends string,
   Metadata extends NextEditorPluginMetadata,
-> = {
-  dependencies: CreatePluginDependenciesAPI<
-    [
-      NextEditorPlugin<Name, Metadata>,
-      ...ExtractPluginDependenciesFromMetadata<Metadata>,
-    ]
-  >;
-  /**
-   * Dispatches an EditorCommand to ProseMirror
-   *
-   * @param command A function (EditorCommand | undefined) that takes an object containing a `Transaction` and returns a `Transaction` if it
-   * is successful or `null` if it shouldn't be dispatched.
-   * @returns (boolean) if the command was successful in dispatching
-   */
-  executeCommand: (command: EditorCommand | undefined) => boolean;
-};
+> = PublicPluginAPI<
+  [
+    NextEditorPlugin<Name, Metadata>,
+    ...ExtractPluginDependenciesFromMetadata<Metadata>,
+  ]
+>;
 
-export type PluginInjectionAPIWithDependency<Plugin> =
-  Plugin extends NextEditorPlugin<infer Name, infer Metadata>
-    ? {
-        dependencies: CreatePluginDependenciesAPI<
-          [NextEditorPlugin<Name, Metadata>]
-        >;
-      }
-    : never;
+export type PluginInjectionAPIWithDependency<
+  Plugin extends NextEditorPlugin<any, any>,
+> = PublicPluginAPI<[Plugin]>;
 
-export type PluginInjectionAPIWithDependencies<Plugins> =
-  Plugins extends NextEditorPlugin<infer Name, infer Metadata>[]
-    ? {
-        dependencies: CreatePluginDependenciesAPI<Plugins>;
-      }
-    : never;
+export type PluginInjectionAPIWithDependencies<
+  Plugins extends NextEditorPlugin<any, any>[],
+> = PublicPluginAPI<Plugins>;
 
 type NextEditorPluginFunctionDefinition<
   Name extends string,
@@ -384,13 +368,22 @@ export type ExtractInjectionAPI<Plugin> = Plugin extends NextEditorPlugin<
   : never;
 
 export type PublicPluginAPI<PluginList extends NextEditorPlugin<any, any>[]> = {
-  dependencies: CreatePluginDependenciesAPI<PluginList>;
-  /**
-   * Dispatches an EditorCommand to ProseMirror
-   *
-   * @param command A function (EditorCommand | undefined) that takes an object containing a `Transaction` and returns a `Transaction` if it
-   * is successful or `null` if it shouldn't be dispatched.
-   * @returns (boolean) if the command was successful in dispatching
-   */
-  executeCommand: (command: EditorCommand | undefined) => boolean;
+  dependencies: CreatePluginDependenciesAPI<[...PluginList, CorePlugin]>;
+};
+
+export type ExtractNextEditorPlugins<
+  Plugins extends AllEditorPresetPluginTypes[],
+> = {
+  [PluginNumber in keyof Plugins]: Plugins[PluginNumber] extends NextEditorPlugin<
+    infer Name,
+    infer Metadata
+  >
+    ? NextEditorPlugin<Name, Metadata>
+    : Plugins[PluginNumber] extends [
+        NextEditorPlugin<infer Name, infer Metadata>,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        any,
+      ]
+    ? NextEditorPlugin<Name, Metadata>
+    : never;
 };

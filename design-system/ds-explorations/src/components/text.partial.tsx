@@ -195,11 +195,11 @@ export default Text;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::9f746e797b8b5262d58b40dfecb39e6d>>
+ * @codegen <<SignedSource::271f64d0bee32f98e5b7a72e76e774a0>>
  * @codegenId typography
  * @codegenCommand yarn codegen-styles
  * @codegenParams ["fontSize", "fontWeight", "fontFamily", "lineHeight"]
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-typography.tsx <<SignedSource::e6bf70c53b8eecdb84ae4c79966537e3>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-typography.tsx <<SignedSource::8b6245d4bfc5527a3c9b33af544e04b1>>
  */
 const fontSizeMap = {
   'size.050': css({
@@ -248,10 +248,25 @@ const fontWeightMap = {
 export type FontWeight = keyof typeof fontWeightMap;
 
 const fontFamilyMap = {
+  brand: css({
+    fontFamily: token('font.family.brand', 'Charlie Sans'),
+  }),
+  code: css({
+    fontFamily: token(
+      'font.family.code',
+      'ui-monospace, Menlo, "Segoe UI Mono", "Ubuntu Mono", monospace',
+    ),
+  }),
   monospace: css({
     fontFamily: token(
       'font.family.monospace',
-      '"SFMono-Medium", "SF Mono", "Segoe UI Mono", "Roboto Mono", "Ubuntu Mono", Menlo, Consolas, Courier, monospace',
+      'ui-monospace, Menlo, "Segoe UI Mono", "Ubuntu Mono", monospace',
+    ),
+  }),
+  product: css({
+    fontFamily: token(
+      'font.family.product',
+      'ui-sans-serif, "Segoe UI", system-ui, Ubuntu, "Helvetica Neue", sans-serif',
     ),
   }),
   sans: css({
@@ -265,6 +280,9 @@ const fontFamilyMap = {
 export type FontFamily = keyof typeof fontFamilyMap;
 
 const lineHeightMap = {
+  'lineHeight.1': css({
+    lineHeight: token('font.lineHeight.1', '1'),
+  }),
   'lineHeight.100': css({
     lineHeight: token('font.lineHeight.100', '16px'),
   }),

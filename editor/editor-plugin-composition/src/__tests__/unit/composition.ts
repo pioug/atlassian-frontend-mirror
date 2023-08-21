@@ -14,10 +14,11 @@ import { pluginKey } from '../../pm-plugins/plugin-key';
 
 describe('compositionPlugin', () => {
   const createEditor = createProsemirrorEditorFactory();
+  const preset = new Preset<LightEditorPlugin>().add(compositionPlugin);
   const editor = (doc: DocBuilder) =>
-    createEditor<CompositionState, typeof pluginKey>({
+    createEditor<CompositionState, typeof pluginKey, typeof preset>({
       doc,
-      preset: new Preset<LightEditorPlugin>().add(compositionPlugin),
+      preset,
       pluginKey,
     });
 

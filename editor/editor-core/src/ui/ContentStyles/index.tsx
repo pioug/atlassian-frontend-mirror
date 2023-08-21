@@ -18,8 +18,12 @@ import {
   gridStyles,
   smartCardStyles,
   embedCardStyles,
+  codeBlockInListSafariFix,
 } from '@atlaskit/editor-common/styles';
-import { editorFontSize } from '@atlaskit/editor-shared-styles';
+import {
+  blockNodesVerticalMargin,
+  editorFontSize,
+} from '@atlaskit/editor-shared-styles';
 import { token } from '@atlaskit/tokens';
 
 import { unsupportedStyles } from '../../plugins/unsupported-content/styles';
@@ -29,7 +33,6 @@ import { tableStyles } from '@atlaskit/editor-plugin-table/ui/common-styles';
 import { placeholderStyles } from '../../plugins/placeholder/styles';
 import { blocktypeStyles } from '../../plugins/block-type/styles';
 import { codeBlockStyles } from '../../plugins/code-block/styles';
-import { listsStyles } from '../../plugins/list/styles';
 import { ruleStyles } from '../../plugins/rule/styles';
 import { mediaStyles } from '../../plugins/media/styles';
 import { layoutStyles } from '../../plugins/layout/styles';
@@ -52,6 +55,7 @@ import {
   linkSharedStyle,
   codeMarkSharedStyles,
 } from '@atlaskit/editor-common/styles';
+import { browser } from '@atlaskit/editor-common/utils';
 
 export const linkStyles = css`
   .ProseMirror {
@@ -63,6 +67,29 @@ type ContentStylesProps = {
   theme?: any;
   featureFlags?: FeatureFlags;
 };
+
+const listsStyles = css`
+  .ProseMirror {
+    li {
+      position: relative;
+
+      > p:not(:first-child) {
+        margin: 4px 0 0 0;
+      }
+
+      // In SSR the above rule will apply to all p tags because first-child would be a style tag.
+      // The following rule resets the first p tag back to its original margin
+      // defined in packages/editor/editor-common/src/styles/shared/paragraph.ts
+      > style:first-child + p {
+        margin-top: ${blockNodesVerticalMargin};
+      }
+    }
+
+    & :not([data-node-type='decisionList']) > li {
+      ${browser.safari ? codeBlockInListSafariFix : ''}
+    }
+  }
+`;
 
 const contentStyles = (props: ContentStylesProps) => css`
   .ProseMirror {

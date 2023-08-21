@@ -1,5 +1,12 @@
 # @atlassian/smart-user-picker
 
+## 6.1.6
+
+### Patch Changes
+
+- [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
+- Updated dependencies
+
 ## 6.1.5
 
 ### Patch Changes

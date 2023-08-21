@@ -1,15 +1,15 @@
 import { useLayoutEffect } from 'react';
-import {
+import type {
   OptionalPlugin,
   NextEditorPlugin,
   ExtractInjectionAPI,
 } from '@atlaskit/editor-common/types';
-import WebBridgeImpl from '../native-to-web';
+import type WebBridgeImpl from '../native-to-web';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
-
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
+import type { ListPlugin } from '@atlaskit/editor-plugin-list';
 import type { TextFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';
 import { useHyperlinkListener } from './useHyperlinkListener';
 import { useTextFormattingListener } from './useTextFormattingListener';
@@ -20,7 +20,7 @@ const useListeners = (
 ) => {
   const { hyperlinkState, textFormattingState } = useSharedPluginState(
     pluginInjectionApi,
-    ['hyperlink', 'textFormatting'],
+    ['hyperlink', 'textFormatting', 'list'],
   );
 
   useHyperlinkListener(editorView, hyperlinkState);
@@ -34,6 +34,7 @@ export const mobileApiPlugin: NextEditorPlugin<
       OptionalPlugin<typeof analyticsPlugin>,
       typeof hyperlinkPlugin,
       TextFormattingPlugin,
+      ListPlugin,
     ];
     pluginConfiguration: { bridge: WebBridgeImpl };
   }

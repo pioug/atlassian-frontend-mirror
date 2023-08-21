@@ -5,8 +5,11 @@ import { onItemActivated } from './onItemActivated';
 
 import { ToolbarDropdown } from './ToolbarDropdown';
 import { Toolbar } from './Toolbar';
-import type { FeatureFlags } from '@atlaskit/editor-common/types';
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type {
+  ExtractInjectionAPI,
+  FeatureFlags,
+} from '@atlaskit/editor-common/types';
+import type toolbarListsIndentationPlugin from '../index';
 
 export interface Props {
   editorView: EditorView;
@@ -24,7 +27,9 @@ export interface Props {
   showIndentationButtons?: boolean;
   indentDisabled?: boolean;
   outdentDisabled?: boolean;
-  editorAnalyticsAPI?: EditorAnalyticsAPI;
+  pluginInjectionApi?:
+    | ExtractInjectionAPI<typeof toolbarListsIndentationPlugin>
+    | undefined;
 }
 
 export default function ToolbarListsIndentation(props: Props) {
@@ -43,7 +48,7 @@ export default function ToolbarListsIndentation(props: Props) {
     indentDisabled,
     outdentDisabled,
     featureFlags,
-    editorAnalyticsAPI,
+    pluginInjectionApi,
   } = props;
 
   if (isSmall) {
@@ -62,7 +67,7 @@ export default function ToolbarListsIndentation(props: Props) {
         indentDisabled={indentDisabled}
         outdentDisabled={outdentDisabled}
         disabled={disabled}
-        onItemActivated={onItemActivated(editorAnalyticsAPI)}
+        onItemActivated={onItemActivated(pluginInjectionApi)}
         featureFlags={featureFlags}
       />
     );
@@ -80,7 +85,7 @@ export default function ToolbarListsIndentation(props: Props) {
       indentDisabled={indentDisabled}
       outdentDisabled={outdentDisabled}
       disabled={disabled}
-      onItemActivated={onItemActivated(editorAnalyticsAPI)}
+      onItemActivated={onItemActivated(pluginInjectionApi)}
       featureFlags={featureFlags}
     />
   );

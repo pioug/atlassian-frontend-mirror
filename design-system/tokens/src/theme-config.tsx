@@ -14,7 +14,8 @@ export type Themes =
   | 'atlassian-legacy-dark'
   | 'atlassian-shape'
   | 'atlassian-spacing'
-  | 'atlassian-typography';
+  | 'atlassian-typography'
+  | 'atlassian-typography-adg3';
 export type ThemeFileNames = Themes;
 
 /**
@@ -58,6 +59,7 @@ export const themeIds = [
   'spacing',
   'typography',
   'shape',
+  'typography-adg3',
 ] as const;
 
 export type ThemeIds = (typeof themeIds)[number];
@@ -167,9 +169,9 @@ const themeConfig: Record<Themes | ThemeOverrides, ThemeConfig> = {
       type: 'spacing',
     },
   },
-  'atlassian-typography': {
-    id: 'typography',
-    displayName: 'Atlassian Typography',
+  'atlassian-typography-adg3': {
+    id: 'typography-adg3',
+    displayName: 'ADG3 Typography',
     palette: 'typographyPalette',
     attributes: {
       type: 'typography',
@@ -203,6 +205,14 @@ const themeConfig: Record<Themes | ThemeOverrides, ThemeConfig> = {
       mode: 'dark',
     },
   },
+  'atlassian-typography': {
+    id: 'typography',
+    displayName: 'Atlassian Typography',
+    palette: 'typographyPalette',
+    attributes: {
+      type: 'typography',
+    },
+  },
 };
 
 type HEX = `#${string}`;
@@ -224,7 +234,7 @@ export interface ThemeState {
   colorMode: ThemeColorModes;
   shape?: Extract<ThemeIds, 'shape'>;
   spacing?: Extract<ThemeIds, 'spacing'>;
-  typography?: Extract<ThemeIds, 'typography'>;
+  typography?: Extract<ThemeIds, 'typography' | 'typography-adg3'>;
   UNSAFE_themeOptions?: ThemeOptionsSchema;
 }
 

@@ -1,5 +1,32 @@
 # @atlaskit/editor-common
 
+## 74.49.0
+
+### Minor Changes
+
+- [`9ebabeaa630`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9ebabeaa630) - added ExtractPublicEditorAPI type helper
+
+### Patch Changes
+
+- [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
+- Updated dependencies
+
+## 74.48.0
+
+### Minor Changes
+
+- [`30d49e87f62`](https://bitbucket.org/atlassian/atlassian-frontend/commits/30d49e87f62) - Added danger apperance to ReszierNext component and toggled it when the delete icon in the table floating toolbar is rolled over
+
+### Patch Changes
+
+- [`967f4819f58`](https://bitbucket.org/atlassian/atlassian-frontend/commits/967f4819f58) - Introduce core plugin that is always injected into the pluginInjectionApi. This has a new action `execute` that replaces the existing `executeCommand` that was called from the `pluginInjectionApi`.
+
+## 74.47.1
+
+### Patch Changes
+
+- [`c54d67a60b4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c54d67a60b4) - [ux] Addresses some styling problems in the Editor related to selected smart cards
+
 ## 74.47.0
 
 ### Minor Changes

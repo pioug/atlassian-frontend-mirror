@@ -58,7 +58,9 @@ export function findFirstParentListItemNode($pos: ResolvedPos): {
   };
 }
 
-export function findRootParentListNode($pos: ResolvedPos): ResolvedPos | null {
+export const findRootParentListNode = (
+  $pos: ResolvedPos,
+): ResolvedPos | null => {
   const { doc } = $pos;
 
   if ($pos.pos + 1 > doc.content.size) {
@@ -85,4 +87,4 @@ export function findRootParentListNode($pos: ResolvedPos): ResolvedPos | null {
   const listNodePosition = doc.resolve(parentList.pos);
 
   return findRootParentListNode(listNodePosition);
-}
+};

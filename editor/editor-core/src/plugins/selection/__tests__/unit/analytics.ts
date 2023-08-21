@@ -56,7 +56,7 @@ describe('selection analytics', () => {
     .add(tablesPlugin);
 
   const editor = (doc: DocBuilder) =>
-    createEditor<SelectionPluginState, PluginKey>({
+    createEditor<SelectionPluginState, PluginKey, typeof preset>({
       doc,
       preset,
       pluginKey: selectionPluginKey,

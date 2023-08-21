@@ -28,7 +28,7 @@
   "dependencies": {
     "@atlaskit/ds-lib": "^2.2.0",
     "@atlaskit/theme": "^12.5.0",
-    "@atlaskit/tokens": "^1.14.0",
+    "@atlaskit/tokens": "^1.15.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
     "react-uid": "^2.2.0"
@@ -38,7 +38,6 @@
   },
   "devDependencies": {
     "@af/accessibility-testing": "*",
-    "@af/visual-regression": "*",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",

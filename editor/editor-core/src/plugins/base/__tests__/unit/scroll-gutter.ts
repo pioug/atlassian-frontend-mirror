@@ -2,13 +2,13 @@ import {
   scrollIntoView,
   insertText,
 } from '@atlaskit/editor-test-helpers/transactions';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import basePlugin from '../../';
-import { GUTTER_SELECTOR } from '../../pm-plugins/scroll-gutter';
+import { basePlugin } from '../../';
+import { GUTTER_SELECTOR } from '@atlaskit/editor-common/utils';
 import * as mobileDimensionsUtils from '../../../mobile-dimensions/utils';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 

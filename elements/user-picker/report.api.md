@@ -505,7 +505,10 @@ export type UserPickerProps = WithAnalyticsEventsProps & {
   defaultValue?: DefaultValue;
   placeholder?: React_2.ReactNode;
   addMoreMessage?: string;
-  noOptionsMessage?: ((value: { inputValue: string }) => null | string) | null;
+  noOptionsMessage?:
+    | ((value: { inputValue: string }) => React_2.ReactNode | null | string)
+    | React_2.ReactNode
+    | null;
   footer?: React_2.ReactNode;
   value?: Value;
   isDisabled?: boolean;

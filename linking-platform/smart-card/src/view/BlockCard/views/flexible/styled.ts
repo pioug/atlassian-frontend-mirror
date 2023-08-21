@@ -14,7 +14,18 @@ export const metadataBlockCss = css`
   }
 `;
 export const titleBlockCss = css`
-  gap: 0.5em;
+  ${getBooleanFF(
+    'platform.linking-platform.smart-card.enable-better-metadata_iojwg',
+  )
+    ? `gap: 0.5em;`
+    : ``}
+  ${getBooleanFF(
+    'platform.linking-platform.smart-card.show-smart-links-refreshed-design',
+  )
+    ? `[data-smart-element="Title"] {
+          font-weight: 600;
+        }`
+    : ``}
 `;
 
 const flexibleBlockCardElevationStyle = css`

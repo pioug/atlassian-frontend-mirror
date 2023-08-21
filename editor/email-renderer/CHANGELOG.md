@@ -1,5 +1,11 @@
 # @atlaskit/email-renderer
 
+## 8.2.5
+
+### Patch Changes
+
+- [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
+
 ## 8.2.4
 
 ### Patch Changes

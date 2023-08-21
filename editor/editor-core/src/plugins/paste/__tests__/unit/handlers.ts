@@ -86,6 +86,7 @@ import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import { contextPanelPlugin } from '@atlaskit/editor-plugin-context-panel';
+import type { FindRootParentListNode } from '@atlaskit/editor-plugin-list';
 
 describe('handleParagraphBlockMarks', () => {
   let slice: Slice;
@@ -1701,23 +1702,28 @@ describe('handlePastePanelOrDecisionContentIntoList', () => {
     editorView: any,
     openStart: number,
     openEnd: number,
+    findRootParentListNode: FindRootParentListNode | undefined,
   ) => {
     const pasteSlice = new Slice(
       pasteContent(editorView.state.schema).content,
       openStart,
       openEnd,
     );
-    handlePastePanelOrDecisionContentIntoList(pasteSlice)(
-      editorView.state,
-      editorView.dispatch,
-    );
+    handlePastePanelOrDecisionContentIntoList(
+      pasteSlice,
+      findRootParentListNode,
+    )(editorView.state, editorView.dispatch);
   };
 
   it('should paste over the list when pasting panel content with the whole list selected', () => {
     const pasteContent = doc(panel()(p('{<}Test{>}')));
     const expectedDocument = doc(panel()(p('Test')));
-    const { editorView } = editor(destinationDocumentWholeListSelected);
-    createPasteSlice(pasteContent, editorView, 0, 0);
+    const { editorView, editorAPI } = editor(
+      destinationDocumentWholeListSelected,
+    );
+    const findRootParentListNode =
+      editorAPI.dependencies.list?.actions?.findRootParentListNode;
+    createPasteSlice(pasteContent, editorView, 0, 0, findRootParentListNode);
 
     expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
     expect(() => {
@@ -1736,8 +1742,16 @@ describe('handlePastePanelOrDecisionContentIntoList', () => {
         decisionItem({ localId: 'local-uuid' })('Hello'),
       ),
     );
-    const { editorView } = editor(destinationDocumentWholeListSelected);
-    createPasteSlice(pasteContent, editorView, 0, 0);
+    const { editorView, editorAPI } = editor(
+      destinationDocumentWholeListSelected,
+    );
+    createPasteSlice(
+      pasteContent,
+      editorView,
+      0,
+      0,
+      editorAPI.dependencies.list?.actions?.findRootParentListNode,
+    );
 
     expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
     expect(() => {
@@ -1748,8 +1762,16 @@ describe('handlePastePanelOrDecisionContentIntoList', () => {
   it('should not paste inside the list when pasting panel with the whole list item selected', () => {
     const pasteContent = doc(panel()(p('{<}Test{>}')));
     const expectedDocument = destinationDocumentWholeListItemSelected;
-    const { editorView } = editor(destinationDocumentWholeListItemSelected);
-    createPasteSlice(pasteContent, editorView, 0, 0);
+    const { editorView, editorAPI } = editor(
+      destinationDocumentWholeListItemSelected,
+    );
+    createPasteSlice(
+      pasteContent,
+      editorView,
+      0,
+      0,
+      editorAPI.dependencies.list?.actions?.findRootParentListNode,
+    );
 
     expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
     expect(() => {
@@ -1762,8 +1784,14 @@ describe('handlePastePanelOrDecisionContentIntoList', () => {
     const expectedDocument = doc(
       ul(li(p('1')), li(p('2 This is a test{<>}')), li(p('3'))),
     );
-    const { editorView } = editor(destinationDocument);
-    createPasteSlice(pasteContent, editorView, 2, 2);
+    const { editorView, editorAPI } = editor(destinationDocument);
+    createPasteSlice(
+      pasteContent,
+      editorView,
+      2,
+      2,
+      editorAPI.dependencies.list?.actions?.findRootParentListNode,
+    );
 
     expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
     expect(() => {
@@ -1780,8 +1808,14 @@ describe('handlePastePanelOrDecisionContentIntoList', () => {
     const expectedDocument = doc(
       ul(li(p('1')), li(p('2 Hello{<>}')), li(p('3'))),
     );
-    const { editorView } = editor(destinationDocument);
-    createPasteSlice(pasteContent, editorView, 2, 2);
+    const { editorView, editorAPI } = editor(destinationDocument);
+    createPasteSlice(
+      pasteContent,
+      editorView,
+      2,
+      2,
+      editorAPI.dependencies.list?.actions?.findRootParentListNode,
+    );
 
     expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
     expect(() => {
@@ -1797,8 +1831,14 @@ describe('handlePastePanelOrDecisionContentIntoList', () => {
     const expectedDocument = doc(
       ul(li(p('1')), li(p('2 This is a test ', a({ href })(href))), li(p('3'))),
     );
-    const { editorView } = editor(destinationDocument);
-    createPasteSlice(pasteContent, editorView, 2, 2);
+    const { editorView, editorAPI } = editor(destinationDocument);
+    createPasteSlice(
+      pasteContent,
+      editorView,
+      2,
+      2,
+      editorAPI.dependencies.list?.actions?.findRootParentListNode,
+    );
 
     expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
     expect(() => {
@@ -1809,8 +1849,14 @@ describe('handlePastePanelOrDecisionContentIntoList', () => {
   it('should not paste inside the list when pasting whole panel', () => {
     const pasteContent = doc('{<}', panel()(p('This is a test{>}')));
     const expectedDocument = doc(ul(li(p('1')), li(p('2 ')), li(p('3'))));
-    const { editorView } = editor(destinationDocument);
-    createPasteSlice(pasteContent, editorView, 0, 0);
+    const { editorView, editorAPI } = editor(destinationDocument);
+    createPasteSlice(
+      pasteContent,
+      editorView,
+      0,
+      0,
+      editorAPI.dependencies.list?.actions?.findRootParentListNode,
+    );
     expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
     expect(() => {
       editorView.state.tr.doc.check();
@@ -1820,8 +1866,16 @@ describe('handlePastePanelOrDecisionContentIntoList', () => {
   it('should not paste inside the list when pasting whole panel and selection is the middle of the List', () => {
     const pasteContent = doc('{<}', panel()(p('This is a test{>}')));
     const expectedDocument = doc(ul(li(p('1')), li(p('22')), li(p('3'))));
-    const { editorView } = editor(destinationDocumentMiddleOfListItemSelected);
-    createPasteSlice(pasteContent, editorView, 0, 0);
+    const { editorView, editorAPI } = editor(
+      destinationDocumentMiddleOfListItemSelected,
+    );
+    createPasteSlice(
+      pasteContent,
+      editorView,
+      0,
+      0,
+      editorAPI.dependencies.list?.actions?.findRootParentListNode,
+    );
     expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
     expect(() => {
       editorView.state.tr.doc.check();
@@ -1831,8 +1885,14 @@ describe('handlePastePanelOrDecisionContentIntoList', () => {
   it('should not paste inside the list when pasting whole divider', () => {
     const pasteContent = doc('{<}', hr(), '{>}');
     const expectedDocument = doc(ul(li(p('1')), li(p('2 ')), li(p('3'))));
-    const { editorView } = editor(destinationDocument);
-    createPasteSlice(pasteContent, editorView, 0, 0);
+    const { editorView, editorAPI } = editor(destinationDocument);
+    createPasteSlice(
+      pasteContent,
+      editorView,
+      0,
+      0,
+      editorAPI.dependencies.list?.actions?.findRootParentListNode,
+    );
     expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
     expect(() => {
       editorView.state.tr.doc.check();
@@ -1842,8 +1902,14 @@ describe('handlePastePanelOrDecisionContentIntoList', () => {
   it('should not paste inside the list when pasting whole heading', () => {
     const pasteContent = doc('{<}', h1('Test{>}'));
     const expectedDocument = doc(ul(li(p('1')), li(p('2 ')), li(p('3'))));
-    const { editorView } = editor(destinationDocument);
-    createPasteSlice(pasteContent, editorView, 0, 0);
+    const { editorView, editorAPI } = editor(destinationDocument);
+    createPasteSlice(
+      pasteContent,
+      editorView,
+      0,
+      0,
+      editorAPI.dependencies.list?.actions?.findRootParentListNode,
+    );
     expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
     expect(() => {
       editorView.state.tr.doc.check();
@@ -1853,8 +1919,14 @@ describe('handlePastePanelOrDecisionContentIntoList', () => {
   it('should not paste inside the list when pasting whole blockquote', () => {
     const pasteContent = doc('{<}', blockquote(p('blockquote{>}')));
     const expectedDocument = doc(ul(li(p('1')), li(p('2 ')), li(p('3'))));
-    const { editorView } = editor(destinationDocument);
-    createPasteSlice(pasteContent, editorView, 0, 0);
+    const { editorView, editorAPI } = editor(destinationDocument);
+    createPasteSlice(
+      pasteContent,
+      editorView,
+      0,
+      0,
+      editorAPI.dependencies.list?.actions?.findRootParentListNode,
+    );
     expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
     expect(() => {
       editorView.state.tr.doc.check();
@@ -1868,8 +1940,14 @@ describe('handlePastePanelOrDecisionContentIntoList', () => {
       ),
     );
     const expectedDocument = doc(ul(li(p('1')), li(p('2 ')), li(p('3'))));
-    const { editorView } = editor(destinationDocument);
-    createPasteSlice(pasteContent, editorView, 0, 0);
+    const { editorView, editorAPI } = editor(destinationDocument);
+    createPasteSlice(
+      pasteContent,
+      editorView,
+      0,
+      0,
+      editorAPI.dependencies.list?.actions?.findRootParentListNode,
+    );
     expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
     expect(() => {
       editorView.state.tr.doc.check();
@@ -1883,8 +1961,14 @@ describe('handlePastePanelOrDecisionContentIntoList', () => {
       ),
     );
     const expectedDocument = doc(ul(li(p('1')), li(p('2 ')), li(p('3'))));
-    const { editorView } = editor(destinationDocument);
-    createPasteSlice(pasteContent, editorView, 0, 0);
+    const { editorView, editorAPI } = editor(destinationDocument);
+    createPasteSlice(
+      pasteContent,
+      editorView,
+      0,
+      0,
+      editorAPI.dependencies.list?.actions?.findRootParentListNode,
+    );
     expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
     expect(() => {
       editorView.state.tr.doc.check();

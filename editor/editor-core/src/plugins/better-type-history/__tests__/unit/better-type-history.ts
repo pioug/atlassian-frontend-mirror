@@ -33,6 +33,7 @@ import createPMPlugin from '../../pm-plugins/main';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
+import listPlugin from '../../../list';
 
 describe('close history', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -45,6 +46,7 @@ describe('close history', () => {
         .add(decorationsPlugin)
         .add(blockTypePlugin)
         .add(betterTypeHistoryPlugin)
+        .add([listPlugin, {}])
         .add([pastePlugin, {}])
         .add(hyperlinkPlugin)
         .add(panelPlugin)

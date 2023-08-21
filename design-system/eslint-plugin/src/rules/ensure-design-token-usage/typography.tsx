@@ -35,22 +35,25 @@ export const isCodeFontFamily = (node: EslintNode): node is CallExpression =>
     node.callee.name === 'getCodeFontFamily');
 
 export const typographyValueToToken = Object.fromEntries(
-  typographyTokens.map((currentToken) => {
-    // Group tokens by property name (e.g. fontSize, fontFamily, lineHeight)
-    // This allows us to look up values specific to a property
-    // (so as not to mix tokens with overlapping values e.g. font size and line height both have tokens for 16px)
-    const tokenGroup = currentToken.attributes.group;
-    return [
-      tokenGroup,
-      Object.fromEntries(
-        typographyTokens
-          .map((token) =>
-            token.attributes.group === tokenGroup
-              ? [token.value.replaceAll(`"`, `'`), token.name]
-              : [],
-          )
-          .filter((token) => token.length),
-      ),
-    ];
-  }),
+  typographyTokens
+    // we're filtering here to remove the `font` tokens.
+    .filter((t) => t.attributes.group !== 'typography')
+    .map((currentToken) => {
+      // Group tokens by property name (e.g. fontSize, fontFamily, lineHeight)
+      // This allows us to look up values specific to a property
+      // (so as not to mix tokens with overlapping values e.g. font size and line height both have tokens for 16px)
+      const tokenGroup = currentToken.attributes.group;
+      return [
+        tokenGroup,
+        Object.fromEntries(
+          typographyTokens
+            .map((token) =>
+              token.attributes.group === tokenGroup
+                ? [(token.value as string).replaceAll(`"`, `'`), token.name]
+                : [],
+            )
+            .filter((token) => token.length),
+        ),
+      ];
+    }),
 );

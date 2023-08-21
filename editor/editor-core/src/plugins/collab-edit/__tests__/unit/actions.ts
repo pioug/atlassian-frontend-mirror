@@ -77,13 +77,13 @@ describe('collab-edit: actions', () => {
   });
   describe('when there are storedMarks in prosemirror state', () => {
     it('should set marks in the new transaction', () => {
-      const { editorView, pluginInjectionAPI } = editor(
+      const { editorView, editorAPI } = editor(
         doc(p('This is all my text{<>}')),
       );
       const { state } = editorView;
 
       const { strong } = state.schema.marks;
-      pluginInjectionAPI.api().executeCommand(toggleMark(strong));
+      editorAPI.dependencies.core?.actions?.execute(toggleMark(strong));
 
       expect(editorView.state.storedMarks).toEqual([
         editorView.state.schema.marks.strong.create(),

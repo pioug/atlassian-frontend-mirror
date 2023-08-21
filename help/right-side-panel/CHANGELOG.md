@@ -1,5 +1,12 @@
 # @atlaskit/right-side-panel
 
+## 1.2.5
+
+### Patch Changes
+
+- [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
+- Updated dependencies
+
 ## 1.2.4
 
 ### Patch Changes

@@ -13,7 +13,6 @@ import {
   wrappedLayouts,
   handleSides,
   imageAlignmentMap,
-  calcColumnsFromPx,
 } from '@atlaskit/editor-common/ui';
 import {
   nonWrappedLayouts,
@@ -22,7 +21,6 @@ import {
 import {
   akEditorFullWidthLayoutWidth,
   akEditorGutterPadding,
-  akEditorDefaultLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
 import { wrapperStyle } from './styled';
 import type { Props, EnabledHandles } from './types';
@@ -90,6 +88,7 @@ class ResizableMediaSingleNext extends React.Component<
   State
 > {
   private lastSnappedGuidelineKeys: string[] = [];
+  private wrapper?: HTMLElement;
 
   constructor(props: ResizableMediaSingleNextProps) {
     super(props);
@@ -113,28 +112,6 @@ class ResizableMediaSingleNext extends React.Component<
       relativeGuides: {},
       guidelines: [],
     };
-  }
-
-  /**
-   * Calculate media single node initial width if props.mediaSingleWidth is undefined
-   * (Mainly when switching from lagacy experience to new experience).
-   *
-   * @returns initial width in pixel
-   */
-  calcInitialWidth() {
-    const {
-      width: origWidth,
-      lineLength: contentWidth,
-      containerWidth,
-    } = this.props;
-
-    return Math.max(
-      Math.min(
-        origWidth || DEFAULT_IMAGE_WIDTH,
-        contentWidth || containerWidth || akEditorDefaultLayoutWidth,
-      ),
-      MEDIA_SINGLE_MIN_PIXEL_WIDTH,
-    );
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -190,9 +167,75 @@ class ResizableMediaSingleNext extends React.Component<
     return true;
   }
 
+  async componentDidMount() {
+    const { viewMediaClientConfig } = this.props;
+    if (viewMediaClientConfig) {
+      await this.checkVideoFile(viewMediaClientConfig);
+    }
+  }
+
+  UNSAFE_componentWillReceiveProps(nextProps: Props) {
+    if (this.props.viewMediaClientConfig !== nextProps.viewMediaClientConfig) {
+      this.checkVideoFile(nextProps.viewMediaClientConfig);
+    }
+  }
+
+  get wrappedLayout() {
+    return wrappedLayouts.indexOf(this.props.layout) > -1;
+  }
+
+  get pos() {
+    if (typeof this.props.getPos !== 'function') {
+      return null;
+    }
+    const pos = this.props.getPos();
+    if (Number.isNaN(pos as unknown) || typeof pos !== 'number') {
+      return null;
+    }
+    return pos;
+  }
+
+  get $pos() {
+    const pos = this.pos;
+    // need to pass view because we may not get updated props in time
+    return pos && this.props.view.state.doc.resolve(pos);
+  }
+
+  get aspectRatio() {
+    const { width, height } = this.props;
+    if (width) {
+      return width / height;
+    }
+
+    // TODO handle this case
+    return 1;
+  }
+
+  get insideInlineLike(): boolean {
+    const $pos = this.$pos;
+    if (!$pos) {
+      return false;
+    }
+
+    const { listItem } = this.props.view.state.schema.nodes;
+    return !!findParentNodeOfTypeClosestToPos($pos, [listItem]);
+  }
+
+  get insideLayout(): boolean {
+    const $pos = this.$pos;
+    if (!$pos) {
+      return false;
+    }
+
+    const { layoutColumn } = this.props.view.state.schema.nodes;
+
+    return !!findParentNodeOfTypeClosestToPos($pos, [layoutColumn]);
+  }
+
   // check if is inside of layout, table, expand, nestedExpand and list item
-  isNestedNode() {
-    return !!(this.$pos && this.$pos.parent.type.name !== 'doc');
+  isNestedNode(): boolean {
+    const $pos = this.$pos;
+    return !!($pos && $pos.parent.type !== $pos.parent.type.schema.nodes.doc);
   }
 
   private getDefaultGuidelines() {
@@ -227,32 +270,6 @@ class ResizableMediaSingleNext extends React.Component<
       guidelines: [...defaultGuidelines, ...dynamicGuidelines],
     });
   };
-
-  get wrappedLayout() {
-    return wrappedLayouts.indexOf(this.props.layout) > -1;
-  }
-
-  async componentDidMount() {
-    const { viewMediaClientConfig } = this.props;
-    if (viewMediaClientConfig) {
-      await this.checkVideoFile(viewMediaClientConfig);
-    }
-  }
-
-  UNSAFE_componentWillReceiveProps(nextProps: Props) {
-    if (this.props.viewMediaClientConfig !== nextProps.viewMediaClientConfig) {
-      this.checkVideoFile(nextProps.viewMediaClientConfig);
-    }
-  }
-
-  get aspectRatio() {
-    const { width, height } = this.props;
-    if (width) {
-      return width / height;
-    }
-    // TODO handle this case
-    return 1;
-  }
 
   async checkVideoFile(viewMediaClientConfig?: MediaClientConfig) {
     const $pos = this.$pos;
@@ -355,78 +372,17 @@ class ResizableMediaSingleNext extends React.Component<
     return 'full-width';
   };
 
-  get $pos() {
-    if (typeof this.props.getPos !== 'function') {
-      return null;
-    }
-    const pos = this.props.getPos();
-    if (Number.isNaN(pos as any) || typeof pos !== 'number') {
-      return null;
-    }
-
-    // need to pass view because we may not get updated props in time
-    return this.props.view.state.doc.resolve(pos);
-  }
-
-  /**
-   * The maxmimum number of grid columns this node can resize to.
-   */
-  get gridWidth() {
-    const { gridSize } = this.props;
-
-    return !(this.wrappedLayout || this.insideInlineLike)
-      ? gridSize / 2
-      : gridSize;
-  }
-
-  calcColumnLeftOffset = () => {
-    const { offsetLeft } = this.state;
-    return this.insideInlineLike
-      ? calcColumnsFromPx(
-          offsetLeft,
-          this.props.lineLength,
-          this.props.gridSize,
-        )
-      : 0;
-  };
-
-  wrapper?: HTMLElement;
-
   calcPxHeight = (newWidth: number): number => {
     const { width = newWidth, height } = this.props;
     return Math.round((height / width) * newWidth);
   };
 
-  get insideInlineLike(): boolean {
-    const $pos = this.$pos;
-    if (!$pos) {
-      return false;
-    }
-
-    const { listItem } = this.props.view.state.schema.nodes;
-    return !!findParentNodeOfTypeClosestToPos($pos, [listItem]);
-  }
-
-  get insideLayout(): boolean {
-    const $pos = this.$pos;
-    if (!$pos) {
-      return false;
-    }
-
-    const { layoutColumn } = this.props.view.state.schema.nodes;
-
-    return !!findParentNodeOfTypeClosestToPos($pos, [layoutColumn]);
-  }
-
   private saveWrapper = (wrapper: HTMLDivElement) => (this.wrapper = wrapper);
 
-  private displayGuideline = (guidelines: GuidelineConfig[]) => {
-    const { pluginInjectionApi } = this.props;
-
-    pluginInjectionApi?.dependencies?.guideline?.actions?.displayGuideline(
+  private displayGuideline = (guidelines: GuidelineConfig[]) =>
+    this.props.pluginInjectionApi?.dependencies?.guideline?.actions?.displayGuideline(
       this.props.view,
     )({ guidelines });
-  };
 
   private setIsResizing = (isResizing: boolean) => {
     const { state, dispatch } = this.props.view;
@@ -453,13 +409,14 @@ class ResizableMediaSingleNext extends React.Component<
   );
 
   private getRelativeGuides = () => {
+    const $pos = this.$pos;
     const relativeGuides: GuidelineConfig[] =
-      this.$pos && this.$pos.nodeAfter && this.state.size.width
+      $pos && $pos.nodeAfter && this.state.size.width
         ? getRelativeGuidelines(
             this.state.relativeGuides,
             {
-              node: this.$pos.nodeAfter,
-              pos: this.$pos.pos,
+              node: $pos.nodeAfter,
+              pos: $pos.pos,
             },
             this.props.view,
             this.props.lineLength,
@@ -501,81 +458,28 @@ class ResizableMediaSingleNext extends React.Component<
     }
   };
 
-  roundPixelValue = (value: number) => Math.round(value);
-
-  getHeightFromNewWidth = (
-    originalWidth: number,
-    originalHeight: number,
-    newWidth: number,
-  ) => this.roundPixelValue((originalHeight / originalWidth) * newWidth);
-
   calculateSizeState = (
     size: Position & Dimensions,
     delta: Dimensions,
-    originalWidth: number = 0,
-    originalHeight: number,
     onResizeStop: boolean = false,
   ) => {
-    const calculatedWidth = this.roundPixelValue(size.width + delta.width);
+    const calculatedWidth = Math.round(size.width + delta.width);
     const calculatedWidthWithLayout = this.calcNewSize(
       calculatedWidth,
       onResizeStop,
     );
-    const calculatedHeightWithLayout = this.getHeightFromNewWidth(
-      originalWidth,
-      originalHeight,
-      calculatedWidth,
-    );
 
     return {
       width: calculatedWidth,
-      height: calculatedHeightWithLayout,
+      height: calculatedWidth / this.aspectRatio,
       calculatedWidthWithLayout,
     };
   };
 
   selectCurrentMediaNode = () => {
     // TODO: if adding !this.props.selected, it doesn't work if media single node is at top postion
-    if (typeof this.props.getPos === 'function') {
-      const propPos = this.props.getPos();
-      if (propPos !== undefined) {
-        setNodeSelection(this.props.view, propPos);
-      }
-    }
-  };
-
-  getParentNodeTypeNameFromCurrentPositionNode = () => {
-    const $pos = this.$pos;
-
-    if (!$pos) {
-      return undefined;
-    }
-
-    // Supported Parent Nodes
-    const {
-      listItem,
-      expand,
-      tableCell,
-      tableHeader,
-      layoutSection,
-      nestedExpand,
-    } = this.props.view.state.schema.nodes;
-    const parentNode = findParentNodeOfTypeClosestToPos($pos, [
-      listItem,
-      expand,
-      tableCell,
-      tableHeader,
-      layoutSection,
-      nestedExpand,
-    ]);
-
-    // Return matched parent node name
-    if (parentNode) {
-      return parentNode.node.type.name;
-    }
-
-    // Return undefined if parent node cannot be found
-    return undefined;
+    const pos = this.pos;
+    pos && setNodeSelection(this.props.view, pos);
   };
 
   handleResizeStart: HandleResizeStart = () => {
@@ -583,20 +487,14 @@ class ResizableMediaSingleNext extends React.Component<
     this.selectCurrentMediaNode();
     this.setIsResizing(true);
     this.updateSizeInPluginState(this.state.size.width);
-    // re-calucate guidelines
+    // re-calculate guidelines
     this.updateGuidelines();
   };
 
   handleResize: HandleResize = (size, delta) => {
-    const {
-      width: originalWidth,
-      height: originalHeight,
-      layout,
-      updateSize,
-      lineLength,
-    } = this.props;
+    const { layout, updateSize, lineLength } = this.props;
     const { width, height, calculatedWidthWithLayout } =
-      this.calculateSizeState(size, delta, originalWidth, originalHeight);
+      this.calculateSizeState(size, delta);
 
     const guidelineSnaps = getGuidelineSnaps(
       this.state.guidelines,
@@ -629,17 +527,12 @@ class ResizableMediaSingleNext extends React.Component<
   };
 
   handleResizeStop: HandleResize = (size, delta) => {
-    const {
-      width: originalWidth,
-      height: originalHeight,
-      updateSize,
-      dispatchAnalyticsEvent,
-      nodeType,
-    } = this.props;
+    const { updateSize, dispatchAnalyticsEvent, nodeType } = this.props;
     const { width, height, calculatedWidthWithLayout } =
-      this.calculateSizeState(size, delta, originalWidth, originalHeight, true);
+      this.calculateSizeState(size, delta, true);
 
     if (dispatchAnalyticsEvent) {
+      const $pos = this.$pos;
       const event = getMediaResizeAnalyticsEvent(nodeType || 'mediaSingle', {
         width,
         layout: calculatedWidthWithLayout.layout,
@@ -648,7 +541,7 @@ class ResizableMediaSingleNext extends React.Component<
           this.lastSnappedGuidelineKeys,
           this.state.guidelines,
         ),
-        parentNode: this.getParentNodeTypeNameFromCurrentPositionNode(),
+        parentNode: $pos ? $pos.parent.type.name : undefined,
       });
       if (event) {
         dispatchAnalyticsEvent(event);

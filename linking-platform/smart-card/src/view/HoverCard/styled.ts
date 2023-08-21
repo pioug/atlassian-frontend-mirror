@@ -5,6 +5,7 @@ import { FlexibleUiOptions } from '../FlexibleCard/types';
 import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 import { themed } from '@atlaskit/theme/components';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 // Temporary fix for Confluence inline comment on editor mod has z-index of 500, Jira issue view has z-index of 510
 export const HOVER_CARD_Z_INDEX = layers.modal();
@@ -13,11 +14,12 @@ export const flexibleUiOptions: FlexibleUiOptions = {
   hideBackground: true,
   hideElevation: true,
   size: SmartLinkSize.Medium,
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-  theme: SmartLinkTheme.Black,
   hidePadding: true,
   hideHoverCardPreviewButton: false,
   zIndex: HOVER_CARD_Z_INDEX + 1,
+  ...(!getBooleanFF(
+    'platform.linking-platform.smart-card.enable-better-metadata_iojwg',
+  ) && { theme: SmartLinkTheme.Black }),
 };
 
 export const CARD_WIDTH_REM = 24;
@@ -62,6 +64,14 @@ export const titleBlockCss = css`
       }
     }
   }
+
+  ${getBooleanFF(
+    'platform.linking-platform.smart-card.show-smart-links-refreshed-design',
+  )
+    ? `[data-smart-element="Title"] {
+          font-weight: 600;
+        }`
+    : ``}
 `;
 
 export const getTransitionStyles = (snippetHeight: number) => css`

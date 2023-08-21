@@ -1,12 +1,13 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { isEmptyDocument } from '@atlaskit/editor-common/utils';
+import {
+  GUTTER_SELECTOR,
+  GUTTER_SIZE_IN_PX,
+  isEmptyDocument,
+} from '@atlaskit/editor-common/utils';
 import { getMobileDimensionsPluginState } from '../../mobile-dimensions/utils';
 
-export const GUTTER_SIZE_IN_PX = 120; // Default gutter size
-export const GUTTER_SIZE_MOBILE_IN_PX = 36; // Gutter size for Mobile
-export const GUTTER_SELECTOR = '#editor-scroll-gutter';
 const MIN_TAP_SIZE_IN_PX = 40;
 
 function supportsIntersectionObserver() {

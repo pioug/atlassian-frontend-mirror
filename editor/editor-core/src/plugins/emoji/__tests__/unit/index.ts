@@ -86,9 +86,9 @@ describe('emojis', () => {
 
   describe('insertEmoji', () => {
     it('should insert emoji-node', () => {
-      const { editorView, pluginInjectionAPI } = editor(doc(p('{<>}')));
+      const { editorView, editorAPI } = editor(doc(p('{<>}')));
 
-      pluginInjectionAPI.api().executeCommand(
+      editorAPI.dependencies.core?.actions?.execute(
         insertEmoji(mockAnalyticsPlugin().actions as any)({
           fallback: 'Oscar Wallhult',
           shortName: 'oscar',
@@ -102,13 +102,11 @@ describe('emojis', () => {
     });
 
     it('should insert a space after the emoji-node', () => {
-      const { editorView, pluginInjectionAPI } = editor(doc(p('{<>}')));
+      const { editorView, editorAPI } = editor(doc(p('{<>}')));
 
-      pluginInjectionAPI
-        .api()
-        .executeCommand(
-          insertEmoji(mockAnalyticsPlugin().actions as any)(grinEmojiId),
-        );
+      editorAPI.dependencies.core?.actions?.execute(
+        insertEmoji(mockAnalyticsPlugin().actions as any)(grinEmojiId),
+      );
 
       expect(editorView.state.doc).toEqualDocument(
         doc(p(emoji(grinEmojiId)(), ' ')),
@@ -116,15 +114,13 @@ describe('emojis', () => {
     });
 
     it('should allow inserting multiple emojis next to each other', () => {
-      const { editorView, pluginInjectionAPI } = editor(
+      const { editorView, editorAPI } = editor(
         doc(p(emoji(grinEmojiId)(), ' ', '{<>}')),
       );
 
-      pluginInjectionAPI
-        .api()
-        .executeCommand(
-          insertEmoji(mockAnalyticsPlugin().actions as any)(evilburnsEmojiId),
-        );
+      editorAPI.dependencies.core?.actions?.execute(
+        insertEmoji(mockAnalyticsPlugin().actions as any)(evilburnsEmojiId),
+      );
 
       expect(editorView.state.doc).toEqualDocument(
         doc(p(emoji(grinEmojiId)(), ' ', emoji(evilburnsEmojiId)(), ' ')),
@@ -132,13 +128,11 @@ describe('emojis', () => {
     });
 
     it('should allow inserting emoji on new line after hard break', () => {
-      const { editorView, pluginInjectionAPI } = editor(doc(p(br(), '{<>}')));
+      const { editorView, editorAPI } = editor(doc(p(br(), '{<>}')));
 
-      pluginInjectionAPI
-        .api()
-        .executeCommand(
-          insertEmoji(mockAnalyticsPlugin().actions as any)(grinEmojiId),
-        );
+      editorAPI.dependencies.core?.actions?.execute(
+        insertEmoji(mockAnalyticsPlugin().actions as any)(grinEmojiId),
+      );
 
       expect(editorView.state.doc).toEqualDocument(
         doc(p(br(), emoji(grinEmojiId)(), ' ')),
@@ -146,15 +140,13 @@ describe('emojis', () => {
     });
 
     it('should not break list into two when inserting emoji inside list item', () => {
-      const { editorView, pluginInjectionAPI } = editor(
+      const { editorView, editorAPI } = editor(
         doc(ul(li(p('One')), li(p('Two ', '{<>}')), li(p('Three')))),
       );
 
-      pluginInjectionAPI
-        .api()
-        .executeCommand(
-          insertEmoji(mockAnalyticsPlugin().actions as any)(grinEmojiId),
-        );
+      editorAPI.dependencies.core?.actions?.execute(
+        insertEmoji(mockAnalyticsPlugin().actions as any)(grinEmojiId),
+      );
 
       expect(editorView.state.doc).toEqualDocument(
         doc(
@@ -168,15 +160,13 @@ describe('emojis', () => {
     });
 
     it('should insert only 1 emoji at a time inside blockqoute', () => {
-      const { editorView, pluginInjectionAPI } = editor(
+      const { editorView, editorAPI } = editor(
         doc(blockquote(p('Hello ', '{<>}'))),
       );
 
-      pluginInjectionAPI
-        .api()
-        .executeCommand(
-          insertEmoji(mockAnalyticsPlugin().actions as any)(grinEmojiId),
-        );
+      editorAPI.dependencies.core?.actions?.execute(
+        insertEmoji(mockAnalyticsPlugin().actions as any)(grinEmojiId),
+      );
 
       expect(editorView.state.doc).toEqualDocument(
         doc(blockquote(p('Hello ', emoji(grinEmojiId)(), ' '))),
@@ -189,15 +179,13 @@ describe('emojis', () => {
     });
 
     it('should fire analytics event when insert emoji', () => {
-      const { pluginInjectionAPI } = editor(doc(p('{<>}')));
-      pluginInjectionAPI
-        .api()
-        .executeCommand(
-          insertEmoji(mockAnalyticsPlugin().actions as any)(
-            grinEmojiId,
-            INPUT_METHOD.PICKER,
-          ),
-        );
+      const { editorAPI } = editor(doc(p('{<>}')));
+      editorAPI.dependencies.core?.actions?.execute(
+        insertEmoji(mockAnalyticsPlugin().actions as any)(
+          grinEmojiId,
+          INPUT_METHOD.PICKER,
+        ),
+      );
       expect(mockDispatchAnalyticsEvent).toBeCalledWith({
         action: 'inserted',
         actionSubject: 'document',

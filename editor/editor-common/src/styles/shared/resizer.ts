@@ -1,5 +1,6 @@
 import { css } from '@emotion/react';
 
+import { akEditorDeleteBorder } from '@atlaskit/editor-shared-styles';
 import { B200, B50, N60 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -78,6 +79,15 @@ export const resizerStyles = css`
     .${resizerItemClassName}.display-handle
     .${resizerHandleLeftClassName}::after {
     background: ${token('color.border', N60)};
+  }
+
+  .${resizerItemClassName}.danger {
+    &
+      .${resizerHandleRightClassName}::after,
+      .${resizerHandleLeftClassName}::after {
+      transition: none;
+      background: ${token('color.border.danger', akEditorDeleteBorder)};
+    }
   }
 
   .${akEditorSelectedNodeClassName}

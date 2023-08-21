@@ -36,20 +36,22 @@ const TABLE_LOCAL_ID = 'test-table-local-id';
 describe('text color commands', () => {
   const createEditor = createProsemirrorEditorFactory();
 
+  const preset = new Preset<LightEditorPlugin>()
+    .add([featureFlagsPlugin, {}])
+    .add([analyticsPlugin, {}])
+    .add(contentInsertionPlugin)
+    .add(decorationsPlugin)
+    .add(textColorPlugin)
+    .add(widthPlugin)
+    .add(guidelinePlugin)
+    .add(tablesPlugin)
+    .add(blockTypePlugin)
+    .add(panelPlugin);
+
   const editor = (doc: DocBuilder) =>
-    createEditor<TextColorPluginState, PluginKey>({
+    createEditor<TextColorPluginState, PluginKey, typeof preset>({
       doc,
-      preset: new Preset<LightEditorPlugin>()
-        .add([featureFlagsPlugin, {}])
-        .add([analyticsPlugin, {}])
-        .add(contentInsertionPlugin)
-        .add(decorationsPlugin)
-        .add(textColorPlugin)
-        .add(widthPlugin)
-        .add(guidelinePlugin)
-        .add(tablesPlugin)
-        .add(blockTypePlugin)
-        .add(panelPlugin),
+      preset,
       pluginKey: textColorPluginKey,
     });
 

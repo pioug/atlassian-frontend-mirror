@@ -3,31 +3,16 @@ import { useMemo } from 'react';
 import type { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
 import type {
   AllEditorPresetPluginTypes,
-  PublicPluginAPI,
-  NextEditorPlugin,
+  ExtractPublicEditorAPI,
 } from '@atlaskit/editor-common/types';
 import { usePresetContext } from './presets/context';
-
-type ExtractNextEditorPlugins<Plugins extends AllEditorPresetPluginTypes[]> = {
-  [PluginNumber in keyof Plugins]: Plugins[PluginNumber] extends NextEditorPlugin<
-    infer Name,
-    infer Metadata
-  >
-    ? NextEditorPlugin<Name, Metadata>
-    : Plugins[PluginNumber] extends [
-        NextEditorPlugin<infer Name, infer Metadata>,
-        any,
-      ]
-    ? NextEditorPlugin<Name, Metadata>
-    : never;
-};
 
 interface PresetAPI<
   PluginNames extends string[] = [],
   StackPlugins extends AllEditorPresetPluginTypes[] = [],
 > {
   editorApi:
-    | PublicPluginAPI<ExtractNextEditorPlugins<StackPlugins>>
+    | ExtractPublicEditorAPI<EditorPresetBuilder<PluginNames, StackPlugins>>
     | undefined;
   preset: EditorPresetBuilder<PluginNames, StackPlugins>;
 }
@@ -53,7 +38,7 @@ interface PresetAPI<
  *   , []);
  *
  *   // Can execute typesafe commands based on plugin1 or 2
- *   const runCommand = () => editorApi.executeCommand(
+ *   const runCommand = () => editorApi.dependencies.core.actions.execute(
  *     editorApi.dependencies.plugin1.commands.doSomething()
  *   )
  *   return (

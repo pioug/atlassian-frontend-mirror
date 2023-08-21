@@ -72,14 +72,13 @@ import {
   stopTrackingPastedMacroPositions,
 } from './commands';
 import { getPluginState as getPastePluginState } from './pm-plugins/plugin-factory';
-import { doesSelectionWhichStartsOrEndsInListContainEntireList } from '../../utils/lists';
 import type {
   QueueCardsFromTransactionAction,
   CardOptions,
 } from '@atlaskit/editor-common/card';
 import { anyMarkActive } from '@atlaskit/editor-common/mark';
-
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { FindRootParentListNode } from '@atlaskit/editor-plugin-list';
 
 // remove text attribute from mention for copy/paste (GDPR)
 export function handleMention(slice: Slice, schema: Schema): Slice {
@@ -386,8 +385,53 @@ export function handlePasteNonNestableBlockNodesIntoList(
   };
 }
 
+export const doesSelectionWhichStartsOrEndsInListContainEntireList = (
+  selection: Selection,
+  findRootParentListNode: FindRootParentListNode | undefined,
+) => {
+  const { $from, $to, from, to } = selection;
+  const selectionParentListItemNodeResolvedPos = findRootParentListNode
+    ? findRootParentListNode($from) || findRootParentListNode($to)
+    : null;
+
+  const selectionParentListNode =
+    selectionParentListItemNodeResolvedPos?.parent;
+
+  if (!selectionParentListItemNodeResolvedPos || !selectionParentListNode) {
+    return false;
+  }
+
+  const startOfEntireList =
+    $from.pos < $to.pos
+      ? selectionParentListItemNodeResolvedPos.pos + $from.depth - 1
+      : selectionParentListItemNodeResolvedPos.pos + $to.depth - 1;
+  const endOfEntireList =
+    $from.pos < $to.pos
+      ? selectionParentListItemNodeResolvedPos.pos +
+        selectionParentListNode.nodeSize -
+        $to.depth -
+        1
+      : selectionParentListItemNodeResolvedPos.pos +
+        selectionParentListNode.nodeSize -
+        $from.depth -
+        1;
+
+  if (!startOfEntireList || !endOfEntireList) {
+    return false;
+  }
+
+  if (from < to) {
+    return startOfEntireList >= $from.pos && endOfEntireList <= $to.pos;
+  } else if (from > to) {
+    return startOfEntireList >= $to.pos && endOfEntireList <= $from.pos;
+  } else {
+    return false;
+  }
+};
+
 export function handlePastePanelOrDecisionContentIntoList(
   slice: Slice,
+  findRootParentListNode: FindRootParentListNode | undefined,
 ): Command {
   return (state: EditorState, dispatch?: CommandDispatch): boolean => {
     const { schema, tr } = state;
@@ -401,7 +445,10 @@ export function handlePastePanelOrDecisionContentIntoList(
 
     const sliceIsWholeNodeButShouldNotReplaceSelection =
       isSliceWholeNode &&
-      !doesSelectionWhichStartsOrEndsInListContainEntireList(selection);
+      !doesSelectionWhichStartsOrEndsInListContainEntireList(
+        selection,
+        findRootParentListNode,
+      );
 
     if (
       !selectionParentListItemNode ||

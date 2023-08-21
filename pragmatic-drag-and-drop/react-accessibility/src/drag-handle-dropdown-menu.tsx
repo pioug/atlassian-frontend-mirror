@@ -36,6 +36,7 @@ export type DragHandleDropdownMenuProps = {
 export function DragHandleDropdownMenu({
   children,
   triggerRef: consumerRef,
+  appearance,
   label,
 }: DragHandleDropdownMenuProps) {
   const renderTrigger = useCallback(
@@ -45,10 +46,15 @@ export function DragHandleDropdownMenu({
     }: CustomTriggerProps<HTMLButtonElement>) => {
       const mergedRef = mergeRefs([consumerRef, triggerRef]);
       return (
-        <DragHandleButton ref={mergedRef} {...triggerProps} label={label} />
+        <DragHandleButton
+          ref={mergedRef}
+          {...triggerProps}
+          label={label}
+          appearance={appearance}
+        />
       );
     },
-    [consumerRef, label],
+    [appearance, consumerRef, label],
   );
 
   return <DropdownMenu trigger={renderTrigger}>{children}</DropdownMenu>;

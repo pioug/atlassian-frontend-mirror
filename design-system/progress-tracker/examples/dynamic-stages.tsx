@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/standard-button';
-import Box from '@atlaskit/ds-explorations/box';
 import ArrowLeftCircleIcon from '@atlaskit/icon/glyph/arrow-left';
 import ArrowRightCircleIcon from '@atlaskit/icon/glyph/arrow-right';
-import Inline from '@atlaskit/primitives/inline';
-import Stack from '@atlaskit/primitives/stack';
+import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
 
 import { ProgressTracker, Stages } from '../src';
+
+const borderBottomStyles = xcss({
+  borderStyle: 'solid',
+  borderWidth: 'border.width',
+});
 
 function createTrackerItems(stages: number, currentStage: number): Stages {
   let resultItems: Stages = [];
@@ -43,7 +46,7 @@ export default () => {
   return (
     <Stack space="space.100">
       <Tracker itemsNumber={itemsNumber} currentStage={currentStage} />
-      <Box UNSAFE_style={{ borderBottom: '1px solid' }}>
+      <Box xcss={borderBottomStyles}>
         <Button
           className="button"
           onClick={() => {

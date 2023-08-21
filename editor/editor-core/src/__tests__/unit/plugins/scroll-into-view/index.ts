@@ -7,7 +7,7 @@ import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import { scrollIntoViewPluginKey } from '../../../../plugins/scroll-into-view';
 import type { CommandDispatch } from '../../../../types';
 import { toggleMark } from '@atlaskit/editor-common/mark';
-import type { EditorPluginInjectionAPI } from '@atlaskit/editor-common/preset';
+import type { ExtractPublicEditorAPI } from '@atlaskit/editor-common/types';
 
 describe('ScrollIntoView plugin', () => {
   const createEditor = createEditorFactory();
@@ -23,7 +23,7 @@ describe('ScrollIntoView plugin', () => {
   let dispatch: CommandDispatch;
   let plugin: any;
   let appendTrSpy: jest.SpyInstance;
-  let pluginInjectionAPI: EditorPluginInjectionAPI;
+  let editorAPI: ExtractPublicEditorAPI<any>;
 
   const getAppendedTr = () =>
     appendTrSpy.mock.results[appendTrSpy.mock.results.length - 1].value;
@@ -37,7 +37,7 @@ describe('ScrollIntoView plugin', () => {
   };
 
   beforeEach(() => {
-    ({ editorView, plugin, pluginInjectionAPI } = editor({
+    ({ editorView, plugin, editorAPI } = editor({
       editorProps: {
         quickInsert: true,
       },
@@ -53,7 +53,7 @@ describe('ScrollIntoView plugin', () => {
 
   it('scrolls into view when transaction updates stored marks', () => {
     const { strong } = state.schema.marks;
-    pluginInjectionAPI.api().executeCommand(toggleMark(strong));
+    editorAPI.dependencies.core.actions.execute(toggleMark(strong));
     expect(getAppendedTr().scrolledIntoView).toEqual(true);
   });
 

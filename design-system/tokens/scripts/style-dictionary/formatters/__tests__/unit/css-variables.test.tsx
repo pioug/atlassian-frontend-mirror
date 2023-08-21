@@ -329,7 +329,7 @@ describe('formatter', () => {
             name: 'brand',
             value: '16px',
             path: ['typog', 'base'],
-            attributes: { group: 'typography', mode: 'dark' },
+            attributes: { group: 'spacing', mode: 'dark' },
           },
         ],
       },
@@ -344,5 +344,55 @@ describe('formatter', () => {
       }
       "
     `);
+  });
+
+  it('should create correct format for typographic tokens', () => {
+    const result = formatter({
+      dictionary: {
+        allTokens: [
+          {
+            name: 'brand',
+            value: '24px',
+            path: ['typog', 'ffbase'],
+            attributes: { group: 'fontFamily' },
+            original: {
+              value: 'FontValue',
+            },
+          },
+          {
+            name: 'brand',
+            value: {
+              fontWeight: 'bold',
+              fontStyle: 'normal',
+              fontSize: '16px',
+              fontFamily: 'sans-serif',
+              lineHeight: '24px',
+            },
+            original: {
+              value: {
+                fontWeight: 'XXXX',
+                fontStyle: 'XXXX',
+                fontSize: 'XXXX',
+                fontFamily: 'FontValue',
+                lineHeight: 'XXXX',
+              },
+            },
+            path: ['typog', 'base'],
+            attributes: { group: 'typography' },
+          },
+        ],
+      },
+      options: {
+        themeName: 'atlassian-typography',
+      },
+    } as any);
+
+    expect(result).toMatchInlineSnapshot(`
+        "html[data-theme~=\\"typography:typography\\"] {
+          --ds-base: normal bold 16px/24px var(--ds-ffbase);
+          --ds-ffbase: 24px;
+        }
+        "
+      `);
   });
 });

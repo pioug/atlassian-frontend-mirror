@@ -20,13 +20,15 @@ import boxShadowTransform from './transformers/box-shadow';
 import dotSyntax from './transformers/dot-syntax';
 import paletteTransform from './transformers/palette';
 import pixelRemTransform from './transformers/pixel-rem';
+import fontTransform from './transformers/web-font';
 
 const createGlobalConfig = (schemaInputDir: string): Config => ({
   source: [`${schemaInputDir}/**/*.tsx`],
   include: [
     path.join(THEME_INPUT_DIR, 'atlassian-light/**/*.tsx'),
     path.join(THEME_INPUT_DIR, 'atlassian-spacing/**/*.tsx'),
-    path.join(THEME_INPUT_DIR, 'atlassian-typography/**/*.tsx'),
+    // TODO this is the temporary 'default'
+    path.join(THEME_INPUT_DIR, 'atlassian-typography-adg3/**/*.tsx'),
     path.join(THEME_INPUT_DIR, 'atlassian-shape/**/*.tsx'),
     path.join(THEME_INPUT_DIR, 'default/**/*.tsx'),
   ],
@@ -41,6 +43,7 @@ const createGlobalConfig = (schemaInputDir: string): Config => ({
   transform: {
     'name/dot': dotSyntax,
     'pixel/rem': pixelRemTransform,
+    'font/web': fontTransform,
     'box-shadow/figma': boxShadowTransform(defaultPalette),
     'color/palette': paletteTransform({
       ...defaultPalette,
@@ -89,6 +92,7 @@ const createGlobalConfig = (schemaInputDir: string): Config => ({
         'name/dot',
         'color/palette',
         'pixel/rem',
+        'font/web',
         'box-shadow/figma',
       ],
       buildPath: ARTIFACT_OUTPUT_DIR,

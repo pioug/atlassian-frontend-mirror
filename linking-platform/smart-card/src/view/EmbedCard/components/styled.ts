@@ -94,7 +94,7 @@ function selected({ isSelected, frameStyle }: WrapperProps) {
       cursor: pointer;
       box-shadow: 0 0 0 3px ${token('color.border.selected', colors.B100)};
       content: '';
-      outline: none;
+      border: none;
       position: absolute;
       height: 100%;
       width: 100%;
@@ -187,7 +187,7 @@ const visibleStyles = `
       getBooleanFF(
         'platform.linking-platform.smart-card.show-smart-links-refreshed-design',
       )
-        ? `outline: 1px solid ${token('color.border.input', N40)};
+        ? `border: 1px solid ${token('color.border.input', N40)};
            background-color: ${themed({
              light: token('elevation.surface.raised', 'white'),
              dark: token('elevation.surface.raised', BACKGROUND_COLOR_DARK),
@@ -281,7 +281,7 @@ export const Content = styled.div`
     'platform.linking-platform.smart-card.show-smart-links-refreshed-design',
   )
     ? `${contentBorderRadius};
-       outline: 1px solid ${token('color.border.input', N40)};`
+       border: 1px solid ${token('color.border.input', N40)};`
     : borderRadius}
   background-color: ${token('elevation.surface.raised', 'white')};
   position: absolute;

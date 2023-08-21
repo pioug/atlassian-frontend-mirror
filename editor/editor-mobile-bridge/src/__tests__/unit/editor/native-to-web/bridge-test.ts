@@ -1,7 +1,6 @@
 import * as mocks from './bridge-test.mock';
 import {
   INPUT_METHOD,
-  getListCommands,
   clearEditorContent,
   setKeyboardHeight,
 } from '@atlaskit/editor-core';
@@ -45,6 +44,7 @@ describe('quick insert should work', () => {
 
 describe('lists should work', () => {
   const bridge: any = new WebBridgeImpl();
+
   const commands = {
     indentList: jest.fn(() => {
       return () => () => {};
@@ -58,11 +58,19 @@ describe('lists should work', () => {
     toggleBulletList: jest.fn(() => () => {}),
   };
 
+  const mockPluginInjectionApi = {
+    dependencies: {
+      list: {
+        actions: commands,
+      },
+    },
+  };
+
   beforeEach(() => {
-    (getListCommands as jest.Mock).mockImplementationOnce(() => commands);
     mocks.mockCalls.length = 0;
     bridge.editorView = {};
     bridge.listBridgeState = {};
+    bridge.setPluginInjectionApi(mockPluginInjectionApi);
   });
 
   afterEach(() => {

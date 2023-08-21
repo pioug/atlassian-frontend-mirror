@@ -8,7 +8,7 @@ import { ReactEditorView } from '../../ReactEditorView';
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 import { createIntl } from 'react-intl-next';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import basePlugin from '../../../plugins/base';
+import { basePlugin } from '../../../plugins/base';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { replaceRaf } from 'raf-stub';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';

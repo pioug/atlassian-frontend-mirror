@@ -279,6 +279,21 @@ describe('BaseUserPicker', () => {
     expect(container).toHaveTextContent(customMessage);
   });
 
+  it('should pass custom no options component to picker', async () => {
+    const customMessage = 'No options found';
+    const { container } = render(
+      getBasePickerWithoutAnalytics({
+        noOptionsMessage: () => <div>{customMessage}</div>,
+      }),
+    );
+
+    await selectEvent.openMenu(
+      container.querySelectorAll('#test')[0] as HTMLElement,
+    );
+
+    expect(container).toHaveTextContent(customMessage);
+  });
+
   it('should show loadOptionsErrorMessage on server error', async () => {
     const loadOptionsError = (() =>
       new Promise<OptionData>((_, reject) => reject('Failed'))) as LoadOptions;

@@ -1,5 +1,18 @@
 # @atlaskit/button
 
+## 16.9.3
+
+### Patch Changes
+
+- [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
+- Updated dependencies
+
+## 16.9.2
+
+### Patch Changes
+
+- [`234448e5bb3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/234448e5bb3) - [ux] Updated inner space fix values to be -2px to cover up for 2px margins.
+
 ## 16.9.1
 
 ### Patch Changes

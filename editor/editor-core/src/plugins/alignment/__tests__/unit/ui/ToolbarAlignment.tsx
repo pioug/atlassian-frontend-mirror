@@ -19,12 +19,13 @@ import { mountWithIntl } from '../../../../../__tests__/__helpers/enzyme';
 describe('ToolbarAlignment', () => {
   const createEditor = createProsemirrorEditorFactory();
   let toolbarAlignment: ReactWrapper;
+  const preset = new Preset<LightEditorPlugin>().add(alignmentPlugin);
 
   const editor = (doc: DocBuilder) =>
-    createEditor<AlignmentPluginState, PluginKey>({
+    createEditor<AlignmentPluginState, PluginKey, typeof preset>({
       doc,
       pluginKey,
-      preset: new Preset<LightEditorPlugin>().add(alignmentPlugin),
+      preset,
     });
 
   beforeEach(() => {

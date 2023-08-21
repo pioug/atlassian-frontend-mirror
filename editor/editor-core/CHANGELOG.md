@@ -1,5 +1,32 @@
 # @atlaskit/editor-core
 
+## 187.28.0
+
+### Minor Changes
+
+- [`9ebabeaa630`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9ebabeaa630) - added ExtractPublicEditorAPI type helper
+
+### Patch Changes
+
+- [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
+- Updated dependencies
+
+## 187.27.1
+
+### Patch Changes
+
+- [`719a3a60441`](https://bitbucket.org/atlassian/atlassian-frontend/commits/719a3a60441) - ED-19411 minor refactor of ResizableMediaSingleNext
+
+## 187.27.0
+
+### Minor Changes
+
+- [`967f4819f58`](https://bitbucket.org/atlassian/atlassian-frontend/commits/967f4819f58) - Introduce core plugin that is always injected into the pluginInjectionApi. This has a new action `execute` that replaces the existing `executeCommand` that was called from the `pluginInjectionApi`.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 187.26.0
 
 ### Minor Changes

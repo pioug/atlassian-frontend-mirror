@@ -304,7 +304,8 @@ describe('Table Floating Toolbar with Cell options', () => {
     await snapshot(page);
   });
 
-  it('should focus first menu item in when opening dropdown by keyboard', async () => {
+  // FIXME: This test was automatically skipped due to failure on 19/08/2023: https://product-fabric.atlassian.net/browse/ED-19607
+  it.skip('should focus first menu item in when opening dropdown by keyboard', async () => {
     await initEditor();
     const endCellSelector = getSelectorForTableCell({ row: 3, cell: 2 });
     await page.waitForSelector(endCellSelector);

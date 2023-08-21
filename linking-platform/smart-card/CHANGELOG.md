@@ -1,5 +1,25 @@
 # @atlaskit/smart-card
 
+## 26.15.8
+
+### Patch Changes
+
+- [`215e90a628b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/215e90a628b) - Update Metadata Display Order for Figma Hover Cards
+- [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
+- Updated dependencies
+
+## 26.15.7
+
+### Patch Changes
+
+- [`c54d67a60b4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c54d67a60b4) - [ux] Addresses some styling problems in the Editor related to selected smart cards
+
+## 26.15.6
+
+### Patch Changes
+
+- [`ba101932150`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ba101932150) - [ux] Use semibold font-weight for title in flexible smart cards.
+
 ## 26.15.5
 
 ### Patch Changes

@@ -4,6 +4,14 @@ import type { AttributeSchema, LineHeightTokenSchema } from '../../../types';
 const font: AttributeSchema<LineHeightTokenSchema<BaseToken>> = {
   font: {
     lineHeight: {
+      '1': {
+        attributes: {
+          group: 'lineHeight',
+          state: 'active',
+          introduced: '0.10.33',
+          description: 'Used single-line text.',
+        },
+      },
       '100': {
         attributes: {
           group: 'lineHeight',

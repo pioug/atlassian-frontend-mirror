@@ -27,6 +27,7 @@ import {
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { ExtractPublicEditorAPI } from '@atlaskit/editor-common/types';
 import { uuid } from '@atlaskit/adf-schema';
 import layoutPlugin from '../../../../../plugins/layout';
 import blockTypePlugin from '../../../../../plugins/block-type';
@@ -43,8 +44,12 @@ import typeAheadPlugin from '../../../../../plugins/type-ahead';
 import quickInsertPlugin from '../../../../../plugins/quick-insert';
 import taskDecisionPlugin from '../../../../../plugins/tasks-and-decisions';
 import mentionsPlugin from '../../../../../plugins/mentions';
+import { emojiPlugin } from '../../../../../plugins/emoji';
+import datePlugin from '../../../../../plugins/date';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
+import { imageUploadPlugin } from '@atlaskit/editor-plugin-image-upload';
+import { editorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 
 import { pluginKey as blockTypePluginKey } from '../../../../../plugins/block-type/pm-plugins/main';
 import {
@@ -150,7 +155,6 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
   const createEditor = createProsemirrorEditorFactory();
 
   let editorView: EditorView;
-  let pluginInjectionAPI: any;
   let pluginState: any;
   let toolbarOption: ToolbarOptionWrapper;
   let baseToolbarOption: ReactWrapper<
@@ -166,31 +170,40 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
     taskDecisionProvider: Promise.resolve(getMockTaskDecisionResource()),
   });
 
+  const createPreset = (createAnalyticsEvent: CreateUIAnalyticsEvent) =>
+    new Preset<LightEditorPlugin>()
+      .add([featureFlagsPlugin, { newInsertionBehaviour: true }])
+      .add(blockTypePlugin)
+      .add(editorDisabledPlugin)
+      .add([analyticsPlugin, { createAnalyticsEvent }])
+      .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }])
+      .add(widthPlugin)
+      .add(guidelinePlugin)
+      .add(contentInsertionPlugin)
+      .add(decorationsPlugin)
+      .add(layoutPlugin)
+      .add(panelPlugin)
+      .add(rulePlugin)
+      .add(tablesPlugin)
+      .add(imageUploadPlugin)
+      .add([statusPlugin, { menuDisabled: true }])
+      .add(expandPlugin)
+      .add(taskDecisionPlugin)
+      .add([typeAheadPlugin, { createAnalyticsEvent }])
+      .add(mentionsPlugin)
+      .add(hyperlinkPlugin)
+      .add([quickInsertPlugin, { disableDefaultItems: true }])
+      .add(datePlugin)
+      .add(emojiPlugin);
+
+  let editorAPI: ExtractPublicEditorAPI<ReturnType<typeof createPreset>>;
+
   const editor = (doc: DocBuilder) => {
     createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
     return createEditor({
       doc,
       pluginKey: blockTypePluginKey,
-      preset: new Preset<LightEditorPlugin>()
-        .add([featureFlagsPlugin, { newInsertionBehaviour: true }])
-        .add(blockTypePlugin)
-        .add([analyticsPlugin, { createAnalyticsEvent }])
-        .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }])
-        .add(widthPlugin)
-        .add(guidelinePlugin)
-        .add(contentInsertionPlugin)
-        .add(decorationsPlugin)
-        .add(layoutPlugin)
-        .add(panelPlugin)
-        .add(rulePlugin)
-        .add(tablesPlugin)
-        .add([statusPlugin, { menuDisabled: true }])
-        .add(expandPlugin)
-        .add(taskDecisionPlugin)
-        .add([typeAheadPlugin, { createAnalyticsEvent }])
-        .add(mentionsPlugin)
-        .add(hyperlinkPlugin)
-        .add([quickInsertPlugin, { disableDefaultItems: true }]),
+      preset: createPreset(createAnalyticsEvent),
       providerFactory,
     });
   };
@@ -220,7 +233,7 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     dispatchAnalyticsSpy = jest.fn();
-    ({ editorView, pluginState, pluginInjectionAPI } = editor(doc(p('text'))));
+    ({ editorView, pluginState, editorAPI } = editor(doc(p('text'))));
     dispatchSpy = jest.spyOn(editorView, 'dispatch');
   });
 
@@ -724,7 +737,7 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
         beforeEach(() => {
           buildToolbarForMenu({
             linkSupported: true,
-            pluginInjectionApi: pluginInjectionAPI.api(),
+            pluginInjectionApi: editorAPI,
           });
           menu.clickButton(messages.link.defaultMessage, toolbarOption);
         });

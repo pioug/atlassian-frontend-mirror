@@ -1,5 +1,11 @@
 # @atlaskit/pragmatic-drag-and-drop-react-accessibility
 
+## 0.3.0
+
+### Minor Changes
+
+- [`ee9aa9b7300`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ee9aa9b7300) - [ux] The button now has `display: flex`
+
 ## 0.2.0
 
 ### Minor Changes

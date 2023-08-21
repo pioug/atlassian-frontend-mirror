@@ -598,6 +598,8 @@ export function createPlugin(
               view,
               event,
               slice,
+              pluginInjectionApi?.dependencies.list?.actions
+                .findRootParentListNode,
             )(state, dispatch)
           ) {
             return true;

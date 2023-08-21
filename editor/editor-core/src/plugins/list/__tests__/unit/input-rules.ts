@@ -22,7 +22,7 @@ import {
 import listTypePlugin from '../..';
 import deprecatedAnalyticsPlugin from '../../../analytics';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import basePlugins from '../../../base';
+import { basePlugin } from '../../../base';
 import blockType from '../../../block-type';
 import codeBlockTypePlugin from '../../../code-block';
 import type { FeatureFlags } from '@atlaskit/editor-common/types';
@@ -44,7 +44,7 @@ describe('inputrules', () => {
         .add([featureFlagsPlugin, featureFlags])
         .add([analyticsPlugin, { createAnalyticsEvent }])
         .add([listTypePlugin, featureFlags])
-        .add(basePlugins)
+        .add(basePlugin)
         .add(decorationsPlugin)
         .add(compositionPlugin)
         .add(blockType)

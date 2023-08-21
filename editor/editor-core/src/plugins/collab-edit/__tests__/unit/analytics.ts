@@ -1,6 +1,6 @@
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 
@@ -19,7 +19,7 @@ import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 describe('Collab Edit Analytics', () => {
   const createEditor = createProsemirrorEditorFactory();
   it('should add doc structured if FF is on', () => {
-    const { editorView, pluginInjectionAPI } = createEditor({
+    const { editorView, editorAPI } = createEditor({
       preset: new Preset<LightEditorPlugin>()
         .add([featureFlagsPlugin, {}])
         .add([
@@ -40,8 +40,7 @@ describe('Collab Edit Analytics', () => {
       editorView.state,
       editorView.state.tr,
       { synchronyErrorDocStructure: true },
-      pluginInjectionAPI.api<typeof analyticsPlugin>().dependencies.analytics
-        .actions,
+      editorAPI.dependencies.analytics.actions,
     )(new Error('Triggered error boundary'));
 
     expect(getAnalyticsEventsFromTransaction(tr)[0].payload).toEqual(
@@ -56,7 +55,7 @@ describe('Collab Edit Analytics', () => {
   });
 
   it('should not add doc structured if FF is off', () => {
-    const { editorView, pluginInjectionAPI } = createEditor({
+    const { editorView, editorAPI } = createEditor({
       preset: new Preset<LightEditorPlugin>()
         .add([featureFlagsPlugin, { synchronyErrorDocStructure: false }])
         .add([
@@ -77,8 +76,7 @@ describe('Collab Edit Analytics', () => {
       editorView.state,
       editorView.state.tr,
       { synchronyErrorDocStructure: false },
-      pluginInjectionAPI.api<typeof analyticsPlugin>().dependencies.analytics
-        .actions,
+      editorAPI.dependencies.analytics.actions,
     )(new Error('Triggered error boundary'));
 
     expect(getAnalyticsEventsFromTransaction(tr)[0].payload).toEqual(

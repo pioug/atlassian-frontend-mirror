@@ -64,7 +64,7 @@ describe('find/replace plugin', () => {
   const initEditor = (doc: DocBuilder) => {
     // blockTypePlugin includes the keyboard shortcut for undo which we need
     const preset = getFindReplacePreset().add(blockTypePlugin);
-    ({ editorView, refs } = createEditor<boolean, PluginKey>({
+    ({ editorView, refs } = createEditor<boolean, PluginKey, typeof preset>({
       doc,
       preset,
     }));

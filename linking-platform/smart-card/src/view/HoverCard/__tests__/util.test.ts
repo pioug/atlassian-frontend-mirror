@@ -77,6 +77,20 @@ describe('getSimulatedBetterMetadata', () => {
       expect(metadata.bottomMetadataBlock).toEqual(defaultBottomMetadata);
     });
   });
+  describe('for Figma objects', () => {
+    it('should return metadata elements only for top primary ', () => {
+      const metadata = getSimulatedBetterMetadata(
+        'figma-object-provider',
+        mockBaseResponseWithPreview.data as JsonLd.Data.BaseData,
+      );
+      const topMetadata = [ElementName.AuthorGroup, ElementName.ModifiedOn];
+
+      expect(metadata.topMetadataBlock.primary).toEqual(topMetadata);
+      expect(metadata.topMetadataBlock.secondary).toBeEmpty;
+      expect(metadata.topMetadataBlock.subtitle).toBeEmpty;
+      expect(metadata.bottomMetadataBlock).toEqual(defaultBottomMetadata);
+    });
+  });
 
   describe('for Trello objects', () => {
     it('should return metadata elements for top primary, secondary & subtitles', () => {
@@ -184,7 +198,7 @@ describe('getSimulatedBetterMetadata', () => {
         mockBaseResponseWithPreview.data as JsonLd.Data.BaseData,
       );
       const topMetadata = {
-        primary: [ElementName.ModifiedOn, ElementName.CreatedBy],
+        primary: [ElementName.CreatedBy, ElementName.ModifiedOn],
         secondary: [],
         subtitle: [],
       };

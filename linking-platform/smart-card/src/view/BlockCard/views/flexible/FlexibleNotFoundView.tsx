@@ -26,6 +26,7 @@ const FlexibleNotFoundView = ({
   url,
   onClick,
   testId = 'smart-block-not-found-view',
+  titleBlockProps,
 }: FlexibleBlockCardProps) => {
   const status = cardState.status as SmartLinkStatus;
 
@@ -40,7 +41,11 @@ const FlexibleNotFoundView = ({
       ui={{ hideElevation: true }}
       url={url}
     >
-      <TitleBlock hideRetry={true} anchorTarget={anchorTarget} />
+      <TitleBlock
+        hideRetry={true}
+        anchorTarget={anchorTarget}
+        {...titleBlockProps}
+      />
       <CustomBlock>
         <WarningIcon
           label="not-found-warning-icon"

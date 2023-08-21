@@ -20,6 +20,30 @@ const font: AttributeSchema<FontFamilyTokenSchema<BaseToken>> = {
           description: 'Helpful guidance goes here',
         },
       },
+      code: {
+        attributes: {
+          group: 'fontFamily',
+          state: 'experimental',
+          introduced: '1.14.0',
+          description: 'Helpful guidance goes here',
+        },
+      },
+      brand: {
+        attributes: {
+          group: 'fontFamily',
+          state: 'experimental',
+          introduced: '1.14.0',
+          description: 'Helpful guidance goes here',
+        },
+      },
+      product: {
+        attributes: {
+          group: 'fontFamily',
+          state: 'experimental',
+          introduced: '1.14.0',
+          description: 'Helpful guidance goes here',
+        },
+      },
     },
   },
 };

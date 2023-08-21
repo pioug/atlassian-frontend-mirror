@@ -130,6 +130,13 @@ test.describe('sticky header', () => {
     test('should be visible when sticky header is enabled', async ({
       editor,
     }) => {
+      fixTest({
+        jiraIssueId: 'ED-19605',
+        reason:
+          'FIXME: This test was automatically skipped due to failure on 18/08/2023: https://product-fabric.atlassian.net/browse/ED-19605',
+        browsers: [BROWSERS.webkit],
+      });
+
       const nodes = EditorNodeContainerModel.from(editor);
       const tableModel = EditorTableModel.from(nodes.table);
 

@@ -153,6 +153,8 @@ export type {
   PublicPluginAPI,
 } from './next-editor-plugin';
 
+export type { ExtractPublicEditorAPI } from './editor-public-api';
+
 export type {
   EditorCommand,
   EditorCommandWithMetadata,

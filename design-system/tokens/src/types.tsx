@@ -14,7 +14,8 @@ export type Groups =
   | 'fontSize'
   | 'fontWeight'
   | 'fontFamily'
-  | 'lineHeight';
+  | 'lineHeight'
+  | 'letterSpacing';
 
 export type ActiveTokenState = 'active';
 export type DeprecatedTokenState = 'deprecated';
@@ -171,10 +172,14 @@ export type FontSizeToken<BaseToken> = DesignToken<BaseToken, 'fontSize'>;
 export type FontWeightToken<BaseToken> = DesignToken<BaseToken, 'fontWeight'>;
 export type FontFamilyToken<BaseToken> = DesignToken<BaseToken, 'fontFamily'>;
 export type LineHeightToken<BaseToken> = DesignToken<BaseToken, 'lineHeight'>;
-
-export type TypographyToken<BaseToken> = DesignToken<
+export type LetterSpacingToken<BaseToken> = DesignToken<
   BaseToken,
-  'fontSize' | 'fontWeight' | 'fontFamily' | 'lineHeight'
+  'letterSpacing'
+>;
+
+export type DeprecatedTypographyToken<BaseToken> = DesignToken<
+  BaseToken,
+  'fontSize' | 'fontWeight' | 'fontFamily' | 'lineHeight' | 'letterSpacing'
 >;
 
 export type RawToken = DesignToken<string, 'raw'>;
@@ -222,6 +227,10 @@ export interface FontFamilyPaletteTokenSchema<ScaleValues extends string> {
 
 export interface LineHeightScaleTokenSchema<ScaleValues extends string> {
   lineHeight: Record<ScaleValues, TypographySchemaValue>;
+}
+
+export interface LetterSpacingScaleTokenSchema<ScaleValues extends string> {
+  letterSpacing: Record<ScaleValues, TypographySchemaValue>;
 }
 
 export interface BackgroundColorTokenSchema<BaseToken> {
@@ -906,6 +915,65 @@ export interface SpacingTokenSchema {
   };
 }
 
+/**
+ * Typography tokens are complex multi-palette ouputs
+ */
+export type TypographyToken<
+  TPalette extends {
+    fontWeight: string;
+    fontSize: string;
+    lineHeight: string;
+    fontFamily: string;
+    letterSpacing: string;
+  },
+> = DesignToken<
+  {
+    fontStyle: 'normal';
+    fontWeight: TPalette['fontWeight'];
+    fontFamily: TPalette['fontFamily'];
+    fontSize: TPalette['fontSize'];
+    lineHeight: TPalette['lineHeight'];
+    letterSpacing: TPalette['letterSpacing'];
+  },
+  'typography'
+>;
+
+/**
+ * The semantic interface for typography tokens
+ */
+export interface TypographyTokenSchema<
+  TPalette extends {
+    fontWeight: string;
+    fontSize: string;
+    lineHeight: string;
+    fontFamily: string;
+    letterSpacing: string;
+  },
+> {
+  font: {
+    heading: {
+      xxl: TypographyToken<TPalette>;
+      xl: TypographyToken<TPalette>;
+      lg: TypographyToken<TPalette>;
+      md: TypographyToken<TPalette>;
+      sm: TypographyToken<TPalette>;
+      xs: TypographyToken<TPalette>;
+      xxs: TypographyToken<TPalette>;
+    };
+    ui: {
+      '[default]': TypographyToken<TPalette>;
+      sm: TypographyToken<TPalette>;
+    };
+    body: {
+      '[default]': TypographyToken<TPalette>;
+      sm: TypographyToken<TPalette>;
+    };
+    code: {
+      '[default]': TypographyToken<TPalette>;
+    };
+  };
+}
+
 export interface ShapeTokenSchema {
   border: {
     width: {
@@ -926,28 +994,36 @@ export interface ShapeTokenSchema {
   };
 }
 
+/**
+ * @private
+ * @deprecated probably
+ */
 export interface FontSizeTokenSchema<BaseToken> {
   font: {
     size: {
-      '050': TypographyToken<BaseToken>;
-      '075': TypographyToken<BaseToken>;
-      '100': TypographyToken<BaseToken>;
-      '200': TypographyToken<BaseToken>;
-      '300': TypographyToken<BaseToken>;
-      '400': TypographyToken<BaseToken>;
-      '500': TypographyToken<BaseToken>;
-      '600': TypographyToken<BaseToken>;
+      '050': DeprecatedTypographyToken<BaseToken>;
+      '075': DeprecatedTypographyToken<BaseToken>;
+      '100': DeprecatedTypographyToken<BaseToken>;
+      '200': DeprecatedTypographyToken<BaseToken>;
+      '300': DeprecatedTypographyToken<BaseToken>;
+      '400': DeprecatedTypographyToken<BaseToken>;
+      '500': DeprecatedTypographyToken<BaseToken>;
+      '600': DeprecatedTypographyToken<BaseToken>;
     };
   };
 }
 
+/**
+ * @private
+ * @deprecated probably
+ */
 export interface FontWeightTokenSchema<BaseToken> {
   font: {
     weight: {
-      regular: TypographyToken<BaseToken>;
-      medium: TypographyToken<BaseToken>;
-      semibold: TypographyToken<BaseToken>;
-      bold: TypographyToken<BaseToken>;
+      regular: DeprecatedTypographyToken<BaseToken>;
+      medium: DeprecatedTypographyToken<BaseToken>;
+      semibold: DeprecatedTypographyToken<BaseToken>;
+      bold: DeprecatedTypographyToken<BaseToken>;
     };
   };
 }
@@ -955,21 +1031,49 @@ export interface FontWeightTokenSchema<BaseToken> {
 export interface FontFamilyTokenSchema<BaseToken> {
   font: {
     family: {
-      sans: TypographyToken<BaseToken>;
-      monospace: TypographyToken<BaseToken>;
+      /**
+       * @private
+       * @deprecated
+       */
+      sans: DeprecatedTypographyToken<BaseToken>;
+      /**
+       * @private
+       * @deprecated
+       */
+      monospace: DeprecatedTypographyToken<BaseToken>;
+      product: DeprecatedTypographyToken<BaseToken>;
+      brand: DeprecatedTypographyToken<BaseToken>;
+      code: DeprecatedTypographyToken<BaseToken>;
     };
   };
 }
 
+/**
+ * @private
+ * @deprecated probably
+ */
 export interface LineHeightTokenSchema<BaseToken> {
   font: {
     lineHeight: {
-      '100': TypographyToken<BaseToken>;
-      '200': TypographyToken<BaseToken>;
-      '300': TypographyToken<BaseToken>;
-      '400': TypographyToken<BaseToken>;
-      '500': TypographyToken<BaseToken>;
-      '600': TypographyToken<BaseToken>;
+      '1': DeprecatedTypographyToken<BaseToken>;
+      '100': DeprecatedTypographyToken<BaseToken>;
+      '200': DeprecatedTypographyToken<BaseToken>;
+      '300': DeprecatedTypographyToken<BaseToken>;
+      '400': DeprecatedTypographyToken<BaseToken>;
+      '500': DeprecatedTypographyToken<BaseToken>;
+      '600': DeprecatedTypographyToken<BaseToken>;
+    };
+  };
+}
+
+export interface LetterSpacingTokenSchema<BaseToken> {
+  font: {
+    letterSpacing: {
+      '0': DeprecatedTypographyToken<BaseToken>;
+      '100': DeprecatedTypographyToken<BaseToken>;
+      '200': DeprecatedTypographyToken<BaseToken>;
+      '300': DeprecatedTypographyToken<BaseToken>;
+      '400': DeprecatedTypographyToken<BaseToken>;
     };
   };
 }

@@ -1,7 +1,6 @@
 import React from 'react';
 import type {
   NextEditorPlugin,
-  OptionalPlugin,
   ToolbarUiComponentFactoryParams,
   ExtractInjectionAPI,
   FeatureFlags,
@@ -13,32 +12,25 @@ import { pluginKey as blockTypeStateKey } from '../block-type/pm-plugins/main';
 import { stateKey as mediaStateKey } from '../media/pm-plugins/plugin-key';
 import type { MediaPluginState } from '../media/pm-plugins/types';
 
-import type { ImageUploadPlugin } from '@atlaskit/editor-plugin-image-upload';
 import { isTypeAheadAllowed } from '../type-ahead/utils';
 
 import { pluginKey as layoutStateKey } from '../layout';
 import type { LayoutState } from '../layout/pm-plugins/types';
 import type { MacroState } from '../macro';
 import { insertMacroFromMacroBrowser } from '../macro';
-import type { EmojiPlugin } from '../emoji';
 import WithPluginState from '../../ui/WithPluginState';
 import ToolbarInsertBlock from './ui/ToolbarInsertBlock';
 import { pluginKey as typeAheadPluginKey } from '../type-ahead/pm-plugins/key';
 import { insertBlockTypesWithAnalytics } from '../block-type/commands';
 import { INPUT_METHOD } from '../analytics';
-import type datePlugin from '../date';
 import { pluginKey as placeholderTextStateKey } from '../placeholder-text/plugin-key';
 import type { PluginState as PlaceholderTextPluginState } from '../placeholder-text/types';
 import { pluginKey as macroStateKey } from '../macro/plugin-key';
 import { ToolbarSize } from '../../ui/Toolbar/types';
-import type { tablesPlugin } from '@atlaskit/editor-plugin-table';
-import type { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
-import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import type mentionsPlugin from '../mentions';
+import type { InsertBlockPluginDependencies } from './types';
 
 const toolbarSizeToButtons = (toolbarSize: ToolbarSize) => {
   switch (toolbarSize) {
@@ -85,16 +77,7 @@ const insertBlockPlugin: NextEditorPlugin<
   'insertBlock',
   {
     pluginConfiguration: InsertBlockOptions | undefined;
-    dependencies: [
-      typeof featureFlagsPlugin,
-      OptionalPlugin<typeof tablesPlugin>,
-      OptionalPlugin<typeof hyperlinkPlugin>,
-      OptionalPlugin<typeof datePlugin>,
-      OptionalPlugin<typeof analyticsPlugin>,
-      OptionalPlugin<ImageUploadPlugin>,
-      OptionalPlugin<typeof mentionsPlugin>,
-      OptionalPlugin<EmojiPlugin>,
-    ];
+    dependencies: InsertBlockPluginDependencies;
   }
 > = (options = {}, api?) => {
   const featureFlags =

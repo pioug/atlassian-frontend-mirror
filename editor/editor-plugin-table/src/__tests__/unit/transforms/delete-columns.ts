@@ -4,17 +4,17 @@ import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertio
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
-import { PluginKey } from '@atlaskit/editor-prosemirror/state';
-import { Rect } from '@atlaskit/editor-tables/table-map';
+import type { PluginKey } from '@atlaskit/editor-prosemirror/state';
+import type { Rect } from '@atlaskit/editor-tables/table-map';
 import { getSelectionRect } from '@atlaskit/editor-tables/utils';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
-  DocBuilder,
   p,
   table,
   td,
@@ -26,7 +26,7 @@ import {
 import tablePlugin from '../../../plugins/table-plugin';
 import { pluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
 import { deleteColumns } from '../../../plugins/table/transforms';
-import { TablePluginState } from '../../../plugins/table/types';
+import type { TablePluginState } from '../../../plugins/table/types';
 
 const colsToRect = (cols: Array<number>, noOfRows: number): Rect => ({
   left: Math.min(...cols),
@@ -56,7 +56,7 @@ describe('table plugin -> transforms -> delete columns', () => {
     .add(tablePlugin);
 
   const editor = (doc: DocBuilder) =>
-    createEditor<TablePluginState, PluginKey>({
+    createEditor<TablePluginState, PluginKey, typeof preset>({
       doc,
       preset,
       pluginKey,

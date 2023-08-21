@@ -45,11 +45,11 @@ export const getFindReplacePreset = (
 export const editor = (
   doc: DocBuilder,
   createAnalyticsEvent?: CreateUIAnalyticsEvent,
-  options: Partial<CreatePMEditorOptions> = {},
+  options: Partial<CreatePMEditorOptions<never>> = {},
 ) => {
   const preset = getFindReplacePreset(createAnalyticsEvent);
 
-  return createEditor<boolean, PluginKey>({
+  return createEditor<boolean, PluginKey, typeof preset>({
     doc,
     preset,
     ...options,

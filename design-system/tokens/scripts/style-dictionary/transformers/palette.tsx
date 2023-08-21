@@ -1,6 +1,7 @@
 import type { Transform } from 'style-dictionary';
 
 import type {
+  DeprecatedTypographyToken,
   OpacityToken,
   PaintToken,
   RawToken,
@@ -28,6 +29,7 @@ const transform = (palette: Record<string, any>): Transform => {
         | SpacingToken
         | ShapeToken
         | TypographyToken<any>
+        | DeprecatedTypographyToken<any>
         | OpacityToken
         | RawToken;
 
@@ -94,6 +96,27 @@ const transform = (palette: Record<string, any>): Transform => {
         );
       }
 
+      if (originalToken.attributes.group === 'typography') {
+        const {
+          fontSize,
+          fontStyle,
+          fontWeight,
+          lineHeight,
+          fontFamily,
+          letterSpacing,
+        } = originalToken.value;
+        return {
+          fontSize: palette.typography.fontSize[fontSize].value,
+          // this is not actually a token atm
+          fontStyle: fontStyle,
+          fontWeight: palette.typography.fontWeight[fontWeight].value,
+          lineHeight: palette.typography.lineHeight[lineHeight].value,
+          // should we try and get fontFamily metadata out here
+          fontFamily: palette.typography.fontFamily[fontFamily].value,
+          letterSpacing: palette.typography.letterSpacing[letterSpacing].value,
+        };
+      }
+
       if (originalToken.attributes.group === 'fontSize') {
         const value = originalToken.value;
         return palette.typography.fontSize[value].value;
@@ -112,6 +135,11 @@ const transform = (palette: Record<string, any>): Transform => {
       if (originalToken.attributes.group === 'lineHeight') {
         const value = originalToken.value;
         return palette.typography.lineHeight[value].value;
+      }
+
+      if (originalToken.attributes.group === 'letterSpacing') {
+        const value = originalToken.value;
+        return palette.typography.letterSpacing[value].value;
       }
     },
   };

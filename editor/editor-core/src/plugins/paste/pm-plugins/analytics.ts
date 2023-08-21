@@ -53,6 +53,7 @@ import type {
 import type pastePlugin from '../';
 
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { FindRootParentListNode } from '@atlaskit/editor-plugin-list';
 
 type PasteContext = {
   type: PasteType;
@@ -512,12 +513,13 @@ export const handlePastePanelOrDecisionIntoListWithAnalytics = (
   view: EditorView,
   event: ClipboardEvent,
   slice: Slice,
+  findRootParentListNode: FindRootParentListNode | undefined,
 ): Command =>
   injectAnalyticsPayloadBeforeCommand(
     createPasteAnalyticsPayloadBySelection(event, slice, {
       type: PasteTypes.richText,
     }),
-  )(handlePastePanelOrDecisionContentIntoList(slice));
+  )(handlePastePanelOrDecisionContentIntoList(slice, findRootParentListNode));
 
 export const handlePasteNonNestableBlockNodesIntoListWithAnalytics = (
   view: EditorView,

@@ -17,20 +17,31 @@ type Props = {
   onResolve?: (json: JsonLd.Response) => void;
   url: string;
   ari?: string;
+  branchDeploy?: string;
 };
+
 const JsonldEditorProvider: React.FC<Props> = ({
   children,
   onError,
   onFetch,
   onResolve,
   ari,
+  branchDeploy,
 }) => {
   // This will cause Provider to rerender which is not a normal use case for
   // smart links. We are hacking it so that we can force using json from
   // jsonld editor.
   const client = useMemo(
-    () => new JsonldEditorClient('staging', onFetch, onResolve, onError, ari),
-    [ari, onError, onFetch, onResolve],
+    () =>
+      new JsonldEditorClient(
+        'staging',
+        onFetch,
+        onResolve,
+        onError,
+        ari,
+        branchDeploy,
+      ),
+    [ari, branchDeploy, onError, onFetch, onResolve],
   );
 
   return (
@@ -43,7 +54,7 @@ const JsonldEditorProvider: React.FC<Props> = ({
 const withJsonldEditorProvider =
   <P extends object>(Component: React.ComponentType<P>): React.FC<P & Props> =>
   (props) => {
-    const { ari, json, onError, onResolve, url } = props;
+    const { ari, branchDeploy, json, onError, onResolve, url } = props;
     const onFetch = useCallback(() => json, [json]);
 
     return (
@@ -53,6 +64,7 @@ const withJsonldEditorProvider =
         onResolve={onResolve}
         url={url}
         ari={ari}
+        branchDeploy={branchDeploy}
       >
         <Component {...props} />
       </JsonldEditorProvider>

@@ -23,7 +23,7 @@ import codeBlockPlugin from '../../';
 import { compositionPlugin } from '@atlaskit/editor-plugin-composition';
 import layoutPlugin from '../../../layout';
 import blockTypePlugin from '../../../block-type';
-import basePlugin from '../../../base';
+import { basePlugin } from '../../../base';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import breakoutPlugin from '../../../breakout';
@@ -42,6 +42,7 @@ describe('codeBlock - keymaps', () => {
       doc,
       preset: new Preset<LightEditorPlugin>()
         .add([featureFlagsPlugin, {}])
+        .add(basePlugin)
         .add([analyticsPlugin, {}])
         .add(contentInsertionPlugin)
         .add(decorationsPlugin)
@@ -49,7 +50,6 @@ describe('codeBlock - keymaps', () => {
         .add([codeBlockPlugin, { appearance: 'full-page' }])
         .add(layoutPlugin)
         .add(blockTypePlugin)
-        .add(basePlugin)
         .add(listPlugin)
         .add(widthPlugin)
         .add(guidelinePlugin)

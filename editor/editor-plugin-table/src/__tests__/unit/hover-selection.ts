@@ -3,21 +3,21 @@ import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertio
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
-import { PluginKey } from '@atlaskit/editor-prosemirror/state';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { PluginKey } from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
   getCellsInColumn,
   getCellsInRow,
   getCellsInTable,
 } from '@atlaskit/editor-tables/utils';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
-  DocBuilder,
   p,
   table,
   tdCursor,
@@ -35,7 +35,8 @@ import {
 } from '../../plugins/table/commands';
 import { getDecorations } from '../../plugins/table/pm-plugins/decorations/plugin';
 import { pluginKey } from '../../plugins/table/pm-plugins/plugin-key';
-import { TableDecorations, TablePluginState } from '../../plugins/table/types';
+import type { TablePluginState } from '../../plugins/table/types';
+import { TableDecorations } from '../../plugins/table/types';
 
 describe('table hover selection plugin', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -48,7 +49,7 @@ describe('table hover selection plugin', () => {
     .add(tablePlugin);
 
   const editor = (doc: DocBuilder) =>
-    createEditor<TablePluginState, PluginKey>({
+    createEditor<TablePluginState, PluginKey, typeof preset>({
       doc,
       preset,
       pluginKey,

@@ -7,14 +7,13 @@ import {
   PreviewBlock,
   SnippetBlock,
 } from '../../../FlexibleCard/components/blocks';
-import { metadataBlockCss, titleBlockCss } from './styled';
+import { metadataBlockCss } from './styled';
 import {
   ActionName,
   CardDisplay,
   ElementName,
   MediaPlacement,
   SmartLinkPosition,
-  SmartLinkSize,
 } from '../../../../constants';
 import { FlexibleBlockCardProps } from './types';
 import uuid from 'uuid';
@@ -38,6 +37,7 @@ const FlexibleResolvedView = ({
   testId = 'smart-block-resolved-view',
   url,
   analytics,
+  titleBlockProps,
 }: FlexibleBlockCardProps) => {
   const [isPreviewBlockErrored, setIsPreviewBlockErrored] =
     useState<boolean>(false);
@@ -74,9 +74,7 @@ const FlexibleResolvedView = ({
         subtitle={[{ name: ElementName.Location }]}
         metadataPosition={SmartLinkPosition.Top}
         anchorTarget={anchorTarget}
-        {...(getBooleanFF(
-          'platform.linking-platform.smart-card.enable-better-metadata_iojwg',
-        ) && { overrideCss: titleBlockCss, size: SmartLinkSize.Large })}
+        {...titleBlockProps}
       />
       <MetadataBlock
         primary={topMetadata}

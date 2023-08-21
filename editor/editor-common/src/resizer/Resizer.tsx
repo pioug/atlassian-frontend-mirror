@@ -25,6 +25,7 @@ import type {
   HandleResize,
   HandleResizeStart,
   HandleStyles,
+  ResizerAppearance,
   Snap,
 } from './types';
 
@@ -68,6 +69,7 @@ export type ResizerProps = {
   resizeRatio?: number;
   // control visibility of resize handle, by default handle is only visible on hover of element resizing
   isHandleVisible?: boolean;
+  appearance?: ResizerAppearance;
 };
 
 export default function ResizerNext(
@@ -87,6 +89,7 @@ export default function ResizerNext(
     handleHeightSize = 'medium',
     handleAlignmentMethod = 'center',
     handlePositioning = 'overlap',
+    appearance,
     handleStyles,
     resizeRatio = 1,
     innerPadding,
@@ -208,10 +211,15 @@ export default function ResizerNext(
     },
   };
 
-  const resizerClassName = classnames(className, resizerItemClassName, {
-    'is-resizing': isResizing,
-    'display-handle': isHandleVisible,
-  });
+  const resizerClassName = classnames(
+    className,
+    resizerItemClassName,
+    {
+      'is-resizing': isResizing,
+      'display-handle': isHandleVisible,
+    },
+    appearance,
+  );
 
   // snapGap is usually a constant, if snap.x?.length is 0 and snapGap has a value resizer cannot be resized
   const snapGapActual = useMemo(() => {

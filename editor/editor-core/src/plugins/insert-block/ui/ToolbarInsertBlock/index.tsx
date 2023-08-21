@@ -342,7 +342,7 @@ export class ToolbarInsertBlock extends React.PureComponent<
     const { pluginInjectionApi } = this.props;
 
     return (
-      pluginInjectionApi?.executeCommand(
+      pluginInjectionApi?.dependencies.core.actions.execute(
         pluginInjectionApi?.dependencies?.hyperlink?.commands.showLinkToolbar(
           inputMethod,
         ),
@@ -464,7 +464,7 @@ export class ToolbarInsertBlock extends React.PureComponent<
   private handleSelectedEmoji = (emojiId: EmojiId): boolean => {
     const { pluginInjectionApi } = this.props;
     this.props.editorView.focus();
-    pluginInjectionApi?.executeCommand(
+    pluginInjectionApi?.dependencies.core.actions.execute(
       pluginInjectionApi.dependencies.emoji?.commands.insertEmoji(
         emojiId,
         INPUT_METHOD.PICKER,

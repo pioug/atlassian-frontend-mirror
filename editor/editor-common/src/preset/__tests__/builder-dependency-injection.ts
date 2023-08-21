@@ -139,5 +139,36 @@ describe('Editor EditorPresetBuilder - build', () => {
 
       expect(fakefn).toHaveBeenCalled();
     });
+
+    it('should not allow another core plugin to be added', () => {
+      const fakefn = jest.fn();
+      const plugin1: NextEditorPlugin<'core', { sharedState: number }> = (
+        _,
+        api,
+      ) => {
+        return {
+          name: 'core',
+          getSharedState: (editorState) => {
+            fakefn();
+            return 12;
+          },
+        };
+      };
+
+      const pluginInjectionAPI = new EditorPluginInjectionAPI({
+        // We don't care about the editor state
+        // @ts-ignore
+        getEditorState: () => {
+          return 1;
+        },
+      });
+      expect(() => {
+        new EditorPresetBuilder().add(plugin1).build({
+          pluginInjectionAPI,
+        });
+      }).toThrowError(
+        'Plugin core has already been initialised in the Editor API!',
+      );
+    });
   });
 });

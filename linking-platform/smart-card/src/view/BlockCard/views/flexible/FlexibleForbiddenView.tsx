@@ -33,6 +33,7 @@ const FlexibleForbiddenView = ({
   onError,
   testId = 'smart-block-forbidden-view',
   url,
+  titleBlockProps,
 }: FlexibleBlockCardProps) => {
   const status = cardState.status as SmartLinkStatus;
   const details = cardState?.details;
@@ -86,7 +87,11 @@ const FlexibleForbiddenView = ({
       ui={{ hideElevation: true }}
       url={url}
     >
-      <TitleBlock hideRetry={true} anchorTarget={anchorTarget} />
+      <TitleBlock
+        hideRetry={true}
+        anchorTarget={anchorTarget}
+        {...titleBlockProps}
+      />
       <CustomBlock>
         <LockIcon
           label="forbidden-lock-icon"

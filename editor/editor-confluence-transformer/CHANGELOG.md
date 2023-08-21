@@ -1,5 +1,12 @@
 # @atlaskit/editor-cq-transformer
 
+## 8.2.11
+
+### Patch Changes
+
+- [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
+- Updated dependencies
+
 ## 8.2.10
 
 ### Patch Changes

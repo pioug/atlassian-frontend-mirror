@@ -1,5 +1,12 @@
 # @atlaskit/table-tree
 
+## 9.6.3
+
+### Patch Changes
+
+- [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
+- Updated dependencies
+
 ## 9.6.2
 
 ### Patch Changes

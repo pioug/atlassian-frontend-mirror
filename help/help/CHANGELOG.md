@@ -1,5 +1,12 @@
 # @atlaskit/help
 
+## 7.2.7
+
+### Patch Changes
+
+- [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
+- Updated dependencies
+
 ## 7.2.6
 
 ### Patch Changes

@@ -2,20 +2,26 @@ import {
   FontFamilyPaletteTokenSchema,
   FontSizeScaleTokenSchema,
   FontWeightScaleTokenSchema,
+  LetterSpacingScaleTokenSchema,
   LineHeightScaleTokenSchema,
 } from '../types';
 
 export type FontSizeScaleValues =
-  | 'FontSize050'
-  | 'FontSize075'
-  | 'FontSize100'
-  | 'FontSize200'
-  | 'FontSize300'
-  | 'FontSize400'
-  | 'FontSize500'
-  | 'FontSize600';
+  | 'FontSizeCode'
+  | 'FontSize11'
+  | 'FontSize12'
+  | 'FontSize14'
+  | 'FontSize16'
+  | 'FontSize20'
+  | 'FontSize24'
+  | 'FontSize28'
+  | 'LegacyFontSize29'
+  | 'LegacyFontSize35'
+  | 'FontSize36'
+  | 'FontSize48';
 
 export type LineHeightScaleValues =
+  | 'LineHeight1'
   | 'LineHeight100'
   | 'LineHeight200'
   | 'LineHeight300'
@@ -24,26 +30,87 @@ export type LineHeightScaleValues =
   | 'LineHeight600';
 
 export type FontWeightScaleValues =
-  | 'FontWeightRegular'
-  | 'FontWeightMedium'
-  | 'FontWeightSemiBold'
-  | 'FontWeightBold';
+  | 'FontWeight400'
+  | 'FontWeight500'
+  | 'FontWeight600'
+  | 'FontWeight700';
 
-export type FontFamilyPaletteValues = 'FontFamilySans' | 'FontFamilyMonospace';
+export type FontFamilyPaletteValues =
+  | 'FontFamilyCharlie'
+  | 'FontFamilyWebSans'
+  | 'LegacyFontFamilyWebSans'
+  | 'FontFamilyiOSSans'
+  | 'FontFamilyAndroidSans'
+  | 'FontFamilyWebMono'
+  | 'FontFamilyiOSMono'
+  | 'FontFamilyAndroidMono';
+
+export type LetterSpacingScaleValues =
+  | 'LetterSpacing0'
+  | 'LetterSpacing100'
+  | 'LetterSpacing200'
+  | 'LetterSpacing300'
+  | 'LetterSpacing400';
 
 export type AtlassianTokenSchema = {
   typography:
     | FontSizeScaleTokenSchema<FontSizeScaleValues>
     | FontWeightScaleTokenSchema<FontWeightScaleValues>
     | FontFamilyPaletteTokenSchema<FontFamilyPaletteValues>
-    | LineHeightScaleTokenSchema<LineHeightScaleValues>;
+    | LineHeightScaleTokenSchema<LineHeightScaleValues>
+    | LetterSpacingScaleTokenSchema<LetterSpacingScaleValues>;
 };
+
+export type LetterSpacingBaseToken =
+  keyof LetterSpacingScaleTokenSchema<LetterSpacingScaleValues>['letterSpacing'];
+
+const letterSpacingScale: LetterSpacingScaleTokenSchema<LetterSpacingScaleValues> =
+  {
+    letterSpacing: {
+      LetterSpacing0: {
+        value: '0',
+        attributes: {
+          group: 'typography',
+        },
+      },
+      LetterSpacing100: {
+        value: '-0.003em',
+        attributes: {
+          group: 'typography',
+        },
+      },
+      LetterSpacing200: {
+        value: '-0.006em',
+        attributes: {
+          group: 'typography',
+        },
+      },
+      LetterSpacing300: {
+        value: '-0.008em',
+        attributes: {
+          group: 'typography',
+        },
+      },
+      LetterSpacing400: {
+        value: '-0.01em',
+        attributes: {
+          group: 'typography',
+        },
+      },
+    },
+  };
 
 export type LineHeightBaseToken =
   keyof LineHeightScaleTokenSchema<LineHeightScaleValues>['lineHeight'];
 
 const lineHeightScale: LineHeightScaleTokenSchema<LineHeightScaleValues> = {
   lineHeight: {
+    LineHeight1: {
+      value: '1',
+      attributes: {
+        group: 'typography',
+      },
+    },
     LineHeight100: {
       value: 16,
       attributes: {
@@ -88,25 +155,25 @@ export type FontWeightBaseToken =
 
 const fontWeightScale: FontWeightScaleTokenSchema<FontWeightScaleValues> = {
   fontWeight: {
-    FontWeightRegular: {
+    FontWeight400: {
       value: '400',
       attributes: {
         group: 'typography',
       },
     },
-    FontWeightMedium: {
+    FontWeight500: {
       value: '500',
       attributes: {
         group: 'typography',
       },
     },
-    FontWeightSemiBold: {
+    FontWeight600: {
       value: '600',
       attributes: {
         group: 'typography',
       },
     },
-    FontWeightBold: {
+    FontWeight700: {
       value: '700',
       attributes: {
         group: 'typography',
@@ -121,14 +188,55 @@ export type FontFamilyBaseToken =
 const fontFamilyPalette: FontFamilyPaletteTokenSchema<FontFamilyPaletteValues> =
   {
     fontFamily: {
-      FontFamilySans: {
-        value: `-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif`,
+      FontFamilyCharlie: {
+        value: 'Charlie Sans',
         attributes: {
           group: 'typography',
         },
       },
-      FontFamilyMonospace: {
-        value: `"SFMono-Medium", "SF Mono", "Segoe UI Mono", "Roboto Mono", "Ubuntu Mono", Menlo, Consolas, Courier, monospace`,
+      LegacyFontFamilyWebSans: {
+        value: `-apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Roboto\", \"Oxygen\", \"Ubuntu\", \"Fira Sans\", \"Droid Sans\", \"Helvetica Neue\", sans-serif`,
+        attributes: {
+          group: 'typography',
+        },
+      },
+      /**
+       * @see https://infinnie.github.io/blog/2017/systemui.html
+       * @see https://github.com/twbs/bootstrap/pull/22377
+       * @see https://fonts.google.com/knowledge/glossary/system_font_web_safe_font
+       */
+      FontFamilyWebSans: {
+        value: `ui-sans-serif, \"Segoe UI\", system-ui, Ubuntu, \"Helvetica Neue\", sans-serif`,
+        attributes: {
+          group: 'typography',
+        },
+      },
+      FontFamilyiOSSans: {
+        value: 'SF Pro',
+        attributes: {
+          group: 'typography',
+        },
+      },
+      FontFamilyAndroidSans: {
+        value: 'Roboto',
+        attributes: {
+          group: 'typography',
+        },
+      },
+      FontFamilyWebMono: {
+        value: `ui-monospace, Menlo, \"Segoe UI Mono\", \"Ubuntu Mono\", monospace`,
+        attributes: {
+          group: 'typography',
+        },
+      },
+      FontFamilyiOSMono: {
+        value: 'SF Mono',
+        attributes: {
+          group: 'typography',
+        },
+      },
+      FontFamilyAndroidMono: {
+        value: 'Roboto Mono',
         attributes: {
           group: 'typography',
         },
@@ -141,50 +249,74 @@ export type FontSizeBaseToken =
 
 const fontSizeScale: FontSizeScaleTokenSchema<FontSizeScaleValues> = {
   fontSize: {
-    FontSize050: {
+    FontSizeCode: {
+      value: '0.875em',
+      attributes: {
+        group: 'typography',
+      },
+    },
+    FontSize11: {
       value: 11,
       attributes: {
         group: 'typography',
       },
     },
-    FontSize075: {
+    FontSize12: {
       value: 12,
       attributes: {
         group: 'typography',
       },
     },
-    FontSize100: {
+    FontSize14: {
       value: 14,
       attributes: {
         group: 'typography',
       },
     },
-    FontSize200: {
+    FontSize16: {
       value: 16,
       attributes: {
         group: 'typography',
       },
     },
-    FontSize300: {
+    FontSize20: {
       value: 20,
       attributes: {
         group: 'typography',
       },
     },
-    FontSize400: {
+    FontSize24: {
       value: 24,
       attributes: {
         group: 'typography',
       },
     },
-    FontSize500: {
+    FontSize28: {
+      value: 28,
+      attributes: {
+        group: 'typography',
+      },
+    },
+    LegacyFontSize29: {
       value: 29,
       attributes: {
         group: 'typography',
       },
     },
-    FontSize600: {
+    LegacyFontSize35: {
       value: 35,
+      attributes: {
+        group: 'typography',
+      },
+    },
+    FontSize36: {
+      value: 36,
+      attributes: {
+        group: 'typography',
+      },
+    },
+    FontSize48: {
+      value: 48,
       attributes: {
         group: 'typography',
       },
@@ -198,6 +330,7 @@ const typographyPalette: AtlassianTokenSchema = {
     ...fontWeightScale,
     ...fontFamilyPalette,
     ...lineHeightScale,
+    ...letterSpacingScale,
   },
 };
 

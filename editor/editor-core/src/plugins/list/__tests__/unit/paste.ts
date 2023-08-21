@@ -18,7 +18,7 @@ import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import listPlugin from '../..';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import blockTypePlugin from '../../../block-type';
-import basePlugin from '../../../base';
+import { basePlugin } from '../../../base';
 import betterTypeHistoryPlugin from '../../../better-type-history';
 import { microsoftWordDesktopPasteOutput } from './__fixtures__/paste-word-desktop';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
@@ -42,13 +42,13 @@ describe('paste of lists with restartNumberedLists enabled', () => {
       doc,
       preset: new Preset<LightEditorPlugin>()
         .add([featureFlagsPlugin, { restartNumberedLists: true }])
+        .add(basePlugin)
         .add([analyticsPlugin, {}])
         .add(betterTypeHistoryPlugin)
         .add([pastePlugin, {}])
         .add(hyperlinkPlugin)
         .add([listPlugin, { restartNumberedLists: true }])
-        .add(blockTypePlugin)
-        .add(basePlugin),
+        .add(blockTypePlugin),
     });
 
   const emptyDoc = doc(p('{<>}'));

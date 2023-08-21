@@ -22,7 +22,7 @@ import {
   createProsemirrorEditorFactory,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import basePlugin from '../../../../base';
+import { basePlugin } from '../../../../base';
 import { textFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';
 import blockTypePlugin from '../../../../block-type';
 import listPlugin from '../../../../list';
@@ -37,8 +37,8 @@ describe('Indentation buttons', () => {
       doc,
       preset: new Preset<LightEditorPlugin>()
         .add([featureFlagsPlugin, {}])
-        .add([analyticsPlugin, {}])
         .add(basePlugin)
+        .add([analyticsPlugin, {}])
         .add(textFormattingPlugin)
         .add(listPlugin)
         .add(blockTypePlugin)
@@ -63,7 +63,7 @@ describe('Indentation buttons', () => {
     click: 'indent' | 'outdent';
     noOfClicks?: number;
   }) => {
-    const { editorView } = editor(doc);
+    const { editorView, editorAPI } = editor(doc);
     const { indentDisabled, outdentDisabled } = pluginKey.getState(
       editorView.state,
     )!;
@@ -76,6 +76,7 @@ describe('Indentation buttons', () => {
           outdentDisabled={outdentDisabled}
           showIndentationButtons={true}
           featureFlags={{}}
+          pluginInjectionApi={editorAPI}
         />
       </IntlProvider>,
     );

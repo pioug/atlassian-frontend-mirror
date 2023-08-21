@@ -14,3 +14,10 @@ export const getDefaultUrl = (): string => {
   const url = extractUrlFromLinkJsonLd(data?.url || defaultUrl);
   return url || defaultUrl;
 };
+
+export const getBranchDeploy = (): string => {
+  const urlParams = new URLSearchParams(parent.location.search);
+  const branchDeploy = urlParams.get('branchDeploy');
+  const region = urlParams.get('region');
+  return branchDeploy && region ? `${branchDeploy}.${region}` : '';
+};

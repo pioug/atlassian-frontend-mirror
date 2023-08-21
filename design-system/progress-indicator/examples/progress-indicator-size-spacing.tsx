@@ -1,10 +1,8 @@
 import React, { FC, useState } from 'react';
 
 import Button from '@atlaskit/button/standard-button';
-import Box from '@atlaskit/ds-explorations/box';
 import Text from '@atlaskit/ds-explorations/text';
-import Inline from '@atlaskit/primitives/inline';
-import Stack from '@atlaskit/primitives/stack';
+import { Box, Inline, Stack } from '@atlaskit/primitives';
 
 import { ProgressIndicator } from '../src';
 
@@ -38,7 +36,7 @@ const Example: FC<ExampleProps> = ({ values = ['one', 'two', 'three'] }) => {
   };
 
   return (
-    <Box paddingInline="space.200" paddingBlock="space.200" display="block">
+    <Box paddingInline="space.200" paddingBlock="space.200">
       <SpreadInlineLayout>
         <Button isDisabled={selectedIndex === 0} onClick={handlePrev}>
           Prev

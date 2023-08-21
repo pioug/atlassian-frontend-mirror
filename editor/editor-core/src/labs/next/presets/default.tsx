@@ -9,7 +9,7 @@ import { textFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import unsupportedContentPlugin from '../../../plugins/unsupported-content';
 import type { BasePluginOptions } from '../../../plugins/base';
-import basePlugin from '../../../plugins/base';
+import { basePlugin } from '../../../plugins/base';
 import { focusPlugin } from '@atlaskit/editor-plugin-focus';
 import { editorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 import typeAheadPlugin from '../../../plugins/type-ahead';

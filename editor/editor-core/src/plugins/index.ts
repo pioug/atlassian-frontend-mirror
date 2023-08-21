@@ -1,4 +1,4 @@
-export { default as basePlugin } from './base';
+export { basePlugin } from './base';
 export { default as blockTypePlugin } from './block-type';
 export { pluginKey as blockPluginStateKey } from './block-type';
 export type { BlockTypeState } from './block-type';

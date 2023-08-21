@@ -1,5 +1,8 @@
 import type { Transform } from 'style-dictionary';
 
+const pixelToRem = (value: unknown) =>
+  typeof value === 'number' ? `${value / 16}rem` : value;
+
 /**
  * transform a raw value to a rem based value
  */
@@ -17,11 +20,15 @@ const pixelRemTransform: Transform = {
   transformer: (token) => {
     const { value } = token;
 
-    if (typeof value === 'number') {
-      return `${value / 16}rem`;
+    if (token.attributes?.group === 'typography') {
+      return {
+        ...value,
+        fontSize: pixelToRem(value.fontSize),
+        lineHeight: pixelToRem(value.lineHeight),
+      };
     }
 
-    return value;
+    return pixelToRem(value);
   },
 };
 

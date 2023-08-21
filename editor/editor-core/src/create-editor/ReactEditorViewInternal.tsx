@@ -11,7 +11,10 @@ import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { WrappedComponentProps } from 'react-intl-next';
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
-import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type {
+  ContextIdentifierProvider,
+  ProviderFactory,
+} from '@atlaskit/editor-common/provider-factory';
 import { editorMessages } from './messages';
 
 import type { ErrorReporter, SEVERITY } from '@atlaskit/editor-common/utils';
@@ -95,7 +98,6 @@ import {
   PROSEMIRROR_RENDERED_DEGRADED_SEVERITY_THRESHOLD,
   DEFAULT_SAMPLING_RATE_VALID_TRANSACTIONS,
 } from './consts';
-import { getContextIdentifier } from '../plugins/base/pm-plugins/context-identifier';
 import type {
   UfoSessionCompletePayloadAEP,
   FireAnalyticsCallback,
@@ -899,6 +901,12 @@ export class ReactEditorView<T = {}> extends React.Component<
           const nodes = getNodesCount(this.view.state.doc);
           const ttfb = getResponseEndTime();
 
+          const contextIdentifier = this.pluginInjectionAPI
+            .api()
+            .dependencies.base?.sharedState.currentState() as
+            | ContextIdentifierProvider
+            | undefined;
+
           this.dispatchAnalyticsEvent({
             action: ACTION.PROSEMIRROR_RENDERED,
             actionSubject: ACTION_SUBJECT.EDITOR,
@@ -908,7 +916,7 @@ export class ReactEditorView<T = {}> extends React.Component<
               nodes,
               ttfb,
               severity: this.proseMirrorRenderedSeverity,
-              objectId: getContextIdentifier(this.editorState)?.objectId,
+              objectId: contextIdentifier?.objectId,
               distortedDuration,
             },
             eventType: EVENT_TYPE.OPERATIONAL,

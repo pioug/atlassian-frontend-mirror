@@ -184,8 +184,14 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
   }
 
   componentDidUpdate() {
-    const { view, getNode, isMediaFullscreen, allowColumnResizing } =
-      this.props;
+    const {
+      view,
+      getNode,
+      isMediaFullscreen,
+      allowColumnResizing,
+      isResizing,
+      options,
+    } = this.props;
     const { isInDanger } = getPluginState(view.state);
     const table = findTable(view.state.selection);
 
@@ -227,7 +233,17 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
         tablesHaveDifferentNoOfColumns(currentTable, previousTable)
       ) {
         const { view } = this.props;
-        recreateResizeColsByNode(this.table, currentTable);
+
+        const shouldRecreateResizeCols =
+          !options?.isTableResizingEnabled ||
+          !isResizing ||
+          (tablesHaveDifferentNoOfColumns(currentTable, previousTable) &&
+            isResizing);
+
+        if (shouldRecreateResizeCols) {
+          recreateResizeColsByNode(this.table, currentTable);
+        }
+
         updateControls()(view.state);
       }
 
@@ -345,6 +361,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
         isNested={isNested}
         pluginInjectionApi={pluginInjectionApi}
         isTableResizingEnabled={options?.isTableResizingEnabled}
+        isResizing={isResizing}
       >
         <div
           className={ClassName.TABLE_STICKY_SENTINEL_TOP}

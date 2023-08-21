@@ -1,5 +1,11 @@
 # @atlaskit/pagination
 
+## 14.4.12
+
+### Patch Changes
+
+- [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
+
 ## 14.4.11
 
 ### Patch Changes

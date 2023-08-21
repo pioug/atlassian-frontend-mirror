@@ -1,5 +1,11 @@
 # @atlaskit/reduced-ui-pack
 
+## 18.0.6
+
+### Patch Changes
+
+- [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
+
 ## 18.0.5
 
 ### Patch Changes

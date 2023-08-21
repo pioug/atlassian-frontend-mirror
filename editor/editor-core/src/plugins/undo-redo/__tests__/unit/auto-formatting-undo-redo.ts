@@ -46,7 +46,7 @@ import tasksAndDecisionsPlugin from '../../../tasks-and-decisions';
 import listPlugin from '../../../list';
 import { textFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';
 import { emojiPlugin } from '../../../emoji';
-import basePlugin from '../../../base';
+import { basePlugin } from '../../../base';
 import layoutPlugin from '../../../layout';
 import rulePlugin from '../../../rule';
 import alignmentPlugin from '../../../alignment';
@@ -67,6 +67,7 @@ describe('plugins/undo-redo/autoformatting: undo & redo', () => {
       doc,
       preset: new Preset<LightEditorPlugin>()
         .add([featureFlagsPlugin, { newInsertionBehaviour: true }])
+        .add(basePlugin)
         .add([analyticsPlugin, {}])
         .add(decorationsPlugin)
         .add(typeAheadPlugin)
@@ -76,7 +77,6 @@ describe('plugins/undo-redo/autoformatting: undo & redo', () => {
         .add([codeBlockPlugin, { appearance: 'full-page' }])
         .add(tasksAndDecisionsPlugin)
         .add(textFormattingPlugin)
-        .add(basePlugin)
         .add(hyperlinkPlugin)
         .add(layoutPlugin)
         .add(rulePlugin)

@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { JsonLd } from 'json-ld-types';
-import { getDefaultResponse, getDefaultUrl } from './utils';
+import { getBranchDeploy, getDefaultResponse, getDefaultUrl } from './utils';
 import {
   extractPreview,
   extractUrlFromLinkJsonLd,
@@ -11,10 +11,12 @@ import uuid from 'uuid';
 const initialJson = getDefaultResponse();
 const initialText = stringify(initialJson);
 const initialUrl = getDefaultUrl();
+const initialBranchDeploy = getBranchDeploy();
 const temporaryUrl = 'https://json-ld-editor-temporary-url';
 
 type JsonldEditorOpts = {
   ari?: string;
+  branchDeploy?: string;
   initialJson: JsonLd.Response;
   isEmbedSupported: boolean;
   json?: JsonLd.Response;
@@ -36,6 +38,7 @@ const JsonldEditor: React.FC<{
   const [text, setText] = useState<string>(initialText);
   const [url, setUrl] = useState<string>(initialUrl);
   const [ari, setAri] = useState<string>();
+  const [branchDeploy, setBranchDeploy] = useState<string>(initialBranchDeploy);
   const [urlError, setUrlError] = useState<string | undefined>();
   const [isEmbedSupported, setIsEmbedSupported] = useState<boolean>(false);
 
@@ -130,16 +133,21 @@ const JsonldEditor: React.FC<{
    * Load actual URL and ARI.
    * Triggered by LoadLinkForm.
    */
-  const onSubmitUrl = useCallback((newUrl: string, newAri?: string) => {
-    // Set new url and ari to provider.
-    setAri(newAri);
-    setUrl(newUrl);
+  const onSubmitUrl = useCallback(
+    (newUrl: string, newAri?: string, newBranchDeploy?: string) => {
+      // Set new url, ari and branch deploy to provider.
+      setAri(newAri);
+      setUrl(newUrl);
+      if (newBranchDeploy !== undefined) {
+        setBranchDeploy(newBranchDeploy);
+      }
+      setUrlError(undefined);
 
-    setUrlError(undefined);
-
-    // Clear json so client would fetch actual url.
-    setJson(undefined);
-  }, []);
+      // Clear json so client would fetch actual url.
+      setJson(undefined);
+    },
+    [],
+  );
 
   /**
    * URL is resolved successfully, including unauth and forbidden status.
@@ -188,6 +196,7 @@ const JsonldEditor: React.FC<{
   const options = useMemo(
     () => ({
       ari,
+      branchDeploy,
       initialJson,
       isEmbedSupported,
       json,
@@ -204,6 +213,7 @@ const JsonldEditor: React.FC<{
     }),
     [
       ari,
+      branchDeploy,
       isEmbedSupported,
       json,
       jsonError,

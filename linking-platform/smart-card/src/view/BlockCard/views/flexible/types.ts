@@ -5,6 +5,7 @@ import { OnResolveCallback } from '../../../Card/types';
 import { CardProviderRenderers } from '@atlaskit/link-provider';
 import { AnalyticsFacade } from '../../../../state/analytics';
 import { AnchorTarget } from '../../../FlexibleCard/components/types';
+import { TitleBlockProps } from '../../../FlexibleCard/components/blocks/title-block/types';
 
 export type FlexibleBlockCardProps = {
   /**
@@ -89,4 +90,8 @@ export type FlexibleBlockCardProps = {
    * Determines the URL of the Smart Link.
    */
   url: string;
+  /**
+   * Determines a style of the Title Block.
+   */
+  titleBlockProps?: TitleBlockProps;
 };

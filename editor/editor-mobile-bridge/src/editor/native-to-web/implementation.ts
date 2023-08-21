@@ -27,7 +27,6 @@ import {
   setIsExpanded,
   updateStatusWithAnalytics,
   insertExpand,
-  getListCommands,
   insertDate,
   dateToDateType,
   insertHorizontalRule,
@@ -253,7 +252,7 @@ export default class WebBridgeImpl
     inputMethod: TextFormattingInputMethodBasic = INPUT_METHOD.TOOLBAR,
   ) {
     if (this.textFormatBridgeState) {
-      this.pluginInjectionApi?.executeCommand(
+      this.pluginInjectionApi?.dependencies.core.actions.execute(
         this.pluginInjectionApi?.dependencies.textFormatting.commands.toggleStrong(
           inputMethod,
         ),
@@ -265,7 +264,7 @@ export default class WebBridgeImpl
     inputMethod: TextFormattingInputMethodBasic = INPUT_METHOD.TOOLBAR,
   ) {
     if (this.textFormatBridgeState) {
-      this.pluginInjectionApi?.executeCommand(
+      this.pluginInjectionApi?.dependencies.core.actions.execute(
         this.pluginInjectionApi?.dependencies.textFormatting.commands.toggleEm(
           inputMethod,
         ),
@@ -277,7 +276,7 @@ export default class WebBridgeImpl
     inputMethod: TextFormattingInputMethodBasic = INPUT_METHOD.TOOLBAR,
   ) {
     if (this.textFormatBridgeState) {
-      this.pluginInjectionApi?.executeCommand(
+      this.pluginInjectionApi?.dependencies.core.actions.execute(
         this.pluginInjectionApi?.dependencies.textFormatting.commands.toggleUnderline(
           inputMethod,
         ),
@@ -289,7 +288,7 @@ export default class WebBridgeImpl
     inputMethod: TextFormattingInputMethodBasic = INPUT_METHOD.TOOLBAR,
   ) {
     if (this.textFormatBridgeState) {
-      this.pluginInjectionApi?.executeCommand(
+      this.pluginInjectionApi?.dependencies.core.actions.execute(
         this.pluginInjectionApi?.dependencies.textFormatting.commands.toggleCode(
           inputMethod,
         ),
@@ -301,7 +300,7 @@ export default class WebBridgeImpl
     inputMethod: TextFormattingInputMethodBasic = INPUT_METHOD.TOOLBAR,
   ) {
     if (this.textFormatBridgeState) {
-      this.pluginInjectionApi?.executeCommand(
+      this.pluginInjectionApi?.dependencies.core.actions.execute(
         this.pluginInjectionApi?.dependencies.textFormatting.commands.toggleStrike(
           inputMethod,
         ),
@@ -313,7 +312,7 @@ export default class WebBridgeImpl
     inputMethod: TextFormattingInputMethodBasic = INPUT_METHOD.TOOLBAR,
   ) {
     if (this.textFormatBridgeState) {
-      this.pluginInjectionApi?.executeCommand(
+      this.pluginInjectionApi?.dependencies.core.actions.execute(
         this.pluginInjectionApi?.dependencies.textFormatting.commands.toggleSuperscript(
           inputMethod,
         ),
@@ -325,7 +324,7 @@ export default class WebBridgeImpl
     inputMethod: TextFormattingInputMethodBasic = INPUT_METHOD.TOOLBAR,
   ) {
     if (this.textFormatBridgeState) {
-      this.pluginInjectionApi?.executeCommand(
+      this.pluginInjectionApi?.dependencies.core.actions.execute(
         this.pluginInjectionApi?.dependencies.textFormatting.commands.toggleSubscript(
           inputMethod,
         ),
@@ -518,7 +517,7 @@ export default class WebBridgeImpl
 
   onOrderedListSelected(inputMethod: ListInputMethod = INPUT_METHOD.TOOLBAR) {
     if (this.listBridgeState && this.editorView) {
-      getListCommands().toggleOrderedList(this.editorAnalyticsApi)(
+      this.pluginInjectionApi?.dependencies.list?.actions?.toggleOrderedList(
         this.editorView,
         inputMethod,
       );
@@ -527,7 +526,7 @@ export default class WebBridgeImpl
 
   onBulletListSelected(inputMethod: ListInputMethod = INPUT_METHOD.TOOLBAR) {
     if (this.listBridgeState && this.editorView) {
-      getListCommands().toggleBulletList(this.editorAnalyticsApi)(
+      this.pluginInjectionApi?.dependencies.list?.actions?.toggleBulletList(
         this.editorView,
         inputMethod,
       );
@@ -536,16 +535,15 @@ export default class WebBridgeImpl
 
   onIndentList(inputMethod: ListInputMethod = INPUT_METHOD.TOOLBAR) {
     if (this.listBridgeState && this.editorView) {
-      getListCommands().indentList(this.editorAnalyticsApi)(inputMethod)(
-        this.editorView.state,
-        this.editorView.dispatch,
-      );
+      this.pluginInjectionApi?.dependencies.list?.actions?.indentList(
+        inputMethod,
+      )(this.editorView.state, this.editorView.dispatch);
     }
   }
 
   onOutdentList(inputMethod: ListInputMethod = INPUT_METHOD.TOOLBAR) {
     if (this.listBridgeState && this.editorView) {
-      getListCommands().outdentList(this.editorAnalyticsApi)(
+      this.pluginInjectionApi?.dependencies.list?.actions?.outdentList(
         inputMethod,
         this.featureFlags,
       )(this.editorView.state, this.editorView.dispatch);

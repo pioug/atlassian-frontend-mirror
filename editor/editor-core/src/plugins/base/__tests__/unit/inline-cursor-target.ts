@@ -22,7 +22,7 @@ import type {
   EditorState,
   PluginKey,
 } from '@atlaskit/editor-prosemirror/state';
-import basePlugin from '../../';
+import { basePlugin } from '../../';
 import { emojiPlugin } from '../../../emoji';
 import typeAheadPlugin from '../../../type-ahead';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
@@ -46,21 +46,23 @@ jest.mock('@atlaskit/editor-common/utils', () => ({
 
 describe('Inline cursor target', () => {
   const createEditor = createProsemirrorEditorFactory();
+  const preset = new Preset<LightEditorPlugin>()
+    .add([featureFlagsPlugin, {}])
+    .add([analyticsPlugin, {}])
+    .add(contentInsertionPlugin)
+    .add([basePlugin, { allowInlineCursorTarget: true }])
+    .add(typeAheadPlugin)
+    .add(emojiPlugin)
+    .add(widthPlugin)
+    .add(guidelinePlugin)
+    .add(tablesPlugin);
+
   const editorFactory = (doc: DocBuilder) =>
-    createEditor<InlineCursorTargetState, PluginKey>({
+    createEditor<InlineCursorTargetState, PluginKey, typeof preset>({
       doc,
       providerFactory,
       pluginKey: inlineCursorTargetStateKey,
-      preset: new Preset<LightEditorPlugin>()
-        .add([featureFlagsPlugin, {}])
-        .add([analyticsPlugin, {}])
-        .add(contentInsertionPlugin)
-        .add([basePlugin, { allowInlineCursorTarget: true }])
-        .add(typeAheadPlugin)
-        .add(emojiPlugin)
-        .add(widthPlugin)
-        .add(guidelinePlugin)
-        .add(tablesPlugin),
+      preset,
     });
 
   it(`should create cursor targets when inbetween inline node views with no trailing spaces`, () => {

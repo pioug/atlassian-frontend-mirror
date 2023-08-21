@@ -14,7 +14,7 @@ import {
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import listPlugin from '../../../plugins/list';
-import basePlugin from '../../../plugins/base';
+import { basePlugin } from '../../../plugins/base';
 import mediaPlugin from '../../../plugins/media';
 import floatingToolbarPlugin from '../../../plugins/floating-toolbar';
 
@@ -39,9 +39,9 @@ describe('createWrappingJoinRule()', () => {
       doc,
       preset: new Preset<LightEditorPlugin>()
         .add([featureFlagsPlugin, {}])
+        .add(basePlugin)
         .add(editorDisabledPlugin)
         .add([analyticsPlugin, {}])
-        .add(basePlugin)
         .add(decorationsPlugin)
         .add(listPlugin)
         .add(hyperlinkPlugin)

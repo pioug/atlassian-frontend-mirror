@@ -126,7 +126,7 @@ export const getSimulatedBetterMetadata = (
   const types = data ? extractType(data) : undefined;
   const defaultMetadata = {
     topMetadataBlock: {
-      primary: [ElementName.ModifiedOn, ElementName.CreatedBy],
+      primary: [ElementName.CreatedBy, ElementName.ModifiedOn],
       secondary: [],
       subtitle: [],
     },
@@ -247,6 +247,7 @@ export const getSimulatedBetterMetadata = (
         },
       };
     case 'google-object-provider':
+    case 'figma-object-provider':
       return {
         ...defaultMetadata,
         topMetadataBlock: {

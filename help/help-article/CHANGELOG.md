@@ -1,5 +1,12 @@
 # @atlaskit/help-article
 
+## 4.1.4
+
+### Patch Changes
+
+- [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
+- Updated dependencies
+
 ## 4.1.3
 
 ### Patch Changes

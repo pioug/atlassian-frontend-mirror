@@ -57,7 +57,7 @@ const alignmentPreset = new Preset<LightEditorPlugin>()
 describe('alignment', () => {
   const createEditor = createProsemirrorEditorFactory();
   const editor = (doc: DocBuilder) =>
-    createEditor<AlignmentPluginState, PluginKey>({
+    createEditor<AlignmentPluginState, PluginKey, typeof alignmentPreset>({
       doc,
       pluginKey: alignmentPluginKey,
       preset: alignmentPreset,

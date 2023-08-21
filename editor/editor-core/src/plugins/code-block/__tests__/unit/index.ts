@@ -31,7 +31,7 @@ import { copyToClipboard } from '../../../../utils/clipboard';
 import codeBlockPlugin from '../../';
 import { compositionPlugin } from '@atlaskit/editor-plugin-composition';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
-import basePlugin from '../../../base';
+import { basePlugin } from '../../../base';
 import typeAheadPlugin from '../../../type-ahead';
 import quickInsertPlugin from '../../../quick-insert';
 import deprecatedAnalyticsPlugin from '../../../analytics';
@@ -52,22 +52,24 @@ describe('code-block', () => {
   const editor = (doc: DocBuilder) => {
     createAnalyticsEvent = createAnalyticsEventMock();
 
-    return createEditor<CodeBlockState, PluginKey>({
+    const preset = new Preset<LightEditorPlugin>()
+      .add([featureFlagsPlugin, {}])
+      .add(basePlugin)
+      .add([analyticsPlugin, { createAnalyticsEvent }])
+      .add(contentInsertionPlugin)
+      .add(decorationsPlugin)
+      .add(compositionPlugin)
+      .add([codeBlockPlugin, { appearance: 'full-page' }])
+      .add(widthPlugin)
+      .add(guidelinePlugin)
+      .add(tablesPlugin)
+      .add(typeAheadPlugin)
+      .add(quickInsertPlugin)
+      .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }]);
+
+    return createEditor<CodeBlockState, PluginKey, typeof preset>({
       doc,
-      preset: new Preset<LightEditorPlugin>()
-        .add([featureFlagsPlugin, {}])
-        .add([analyticsPlugin, { createAnalyticsEvent }])
-        .add(contentInsertionPlugin)
-        .add(decorationsPlugin)
-        .add(compositionPlugin)
-        .add([codeBlockPlugin, { appearance: 'full-page' }])
-        .add(widthPlugin)
-        .add(guidelinePlugin)
-        .add(tablesPlugin)
-        .add(basePlugin)
-        .add(typeAheadPlugin)
-        .add(quickInsertPlugin)
-        .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }]),
+      preset,
       pluginKey: codeBlockPluginKey,
     });
   };

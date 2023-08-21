@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-text-formatting
 
+## 0.2.4
+
+### Patch Changes
+
+- [`967f4819f58`](https://bitbucket.org/atlassian/atlassian-frontend/commits/967f4819f58) - Introduce core plugin that is always injected into the pluginInjectionApi. This has a new action `execute` that replaces the existing `executeCommand` that was called from the `pluginInjectionApi`.
+- Updated dependencies
+
 ## 0.2.3
 
 ### Patch Changes

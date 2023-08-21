@@ -5,8 +5,8 @@ import { CSSProperties, PureComponent } from 'react';
 import { css, jsx } from '@emotion/react';
 import { CSSTransition } from 'react-transition-group';
 
-import Box from '@atlaskit/ds-explorations/box';
 import Text from '@atlaskit/ds-explorations/text';
+import { Box, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
 import ProgressBar from './bar';
@@ -27,6 +27,8 @@ interface State {
   oldMarkerColor?: string;
   oldPercentageComplete: number;
 }
+
+const listItemContentStyles = xcss({ width: '100%', position: 'relative' });
 
 const listItemStyles = css({
   margin: token('space.0', '0px'),
@@ -116,7 +118,7 @@ export default class ProgressTrackerStage extends PureComponent<
         css={listItemStyles}
         aria-current={ariaCurrent}
       >
-        <Box display="block" UNSAFE_style={{ width: '100%' }}>
+        <Box xcss={listItemContentStyles}>
           <CSSTransition
             appear
             in={this.state.transitioning}

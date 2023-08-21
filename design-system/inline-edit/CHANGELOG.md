@@ -1,5 +1,12 @@
 # @atlaskit/inline-edit
 
+## 12.4.2
+
+### Patch Changes
+
+- [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
+- Updated dependencies
+
 ## 12.4.1
 
 ### Patch Changes

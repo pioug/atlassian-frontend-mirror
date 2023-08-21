@@ -1,5 +1,12 @@
 # @atlaskit/flag
 
+## 15.2.17
+
+### Patch Changes
+
+- [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
+- Updated dependencies
+
 ## 15.2.16
 
 ### Patch Changes

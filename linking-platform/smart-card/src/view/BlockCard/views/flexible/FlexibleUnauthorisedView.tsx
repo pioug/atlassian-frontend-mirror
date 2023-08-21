@@ -41,6 +41,7 @@ const FlexibleUnauthorisedView = ({
   onError,
   testId = 'smart-block-unauthorized-view',
   url,
+  titleBlockProps,
 }: FlexibleBlockCardProps) => {
   const data = cardState.details?.data as JsonLd.Data.BaseData;
   const providerName = extractProvider(data)?.text;
@@ -92,7 +93,11 @@ const FlexibleUnauthorisedView = ({
       ui={{ hideElevation: true }}
       url={url}
     >
-      <TitleBlock hideRetry={true} anchorTarget={anchorTarget} />
+      <TitleBlock
+        hideRetry={true}
+        anchorTarget={anchorTarget}
+        {...titleBlockProps}
+      />
       <CustomBlock overrideCss={contentStyles} testId={`${testId}-content`}>
         <div>{content}</div>
       </CustomBlock>

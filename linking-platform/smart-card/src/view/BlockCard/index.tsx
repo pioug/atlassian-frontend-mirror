@@ -27,6 +27,8 @@ import { handleClickCommon } from './utils/handlers';
 import { useFeatureFlag } from '@atlaskit/link-provider';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { AnchorTarget } from '../FlexibleCard/components/types';
+import { titleBlockCss } from './views/flexible/styled';
+import { SmartLinkSize } from '../../constants';
 
 export { default as PreviewAction } from './actions/PreviewAction';
 export type { ResolvedViewProps as BlockCardResolvedViewProps } from './views/ResolvedView';
@@ -85,7 +87,14 @@ export const BlockCard: FC<BlockCardProps> = ({
       ? '_self'
       : undefined;
 
-    const flexibleProps = {
+    const titleBlockProps = {
+      overrideCss: titleBlockCss,
+      ...(getBooleanFF(
+        'platform.linking-platform.smart-card.enable-better-metadata_iojwg',
+      ) && { size: SmartLinkSize.Large }),
+    };
+
+    const flexibleBlockCardProps = {
       id,
       cardState,
       url,
@@ -98,37 +107,39 @@ export const BlockCard: FC<BlockCardProps> = ({
       showServerActions,
       analytics,
       extensionKey,
+      titleBlockProps: titleBlockProps,
       ...(anchorTarget ? { anchorTarget } : {}),
     };
+
     switch (status) {
       case 'pending':
       case 'resolving':
         return (
           <FlexibleResolvedView
-            {...flexibleProps}
+            {...flexibleBlockCardProps}
             testId={'smart-block-resolving-view'}
           />
         );
       case 'resolved':
-        return <FlexibleResolvedView {...flexibleProps} />;
+        return <FlexibleResolvedView {...flexibleBlockCardProps} />;
       case 'unauthorized':
         return (
           <FlexibleUnauthorisedView
-            {...flexibleProps}
+            {...flexibleBlockCardProps}
             onAuthorize={handleAuthorize}
           />
         );
       case 'forbidden':
         return (
           <FlexibleForbiddenView
-            {...flexibleProps}
+            {...flexibleBlockCardProps}
             onAuthorize={handleAuthorize}
           />
         );
       case 'not_found':
         return (
           <FlexibleNotFoundView
-            {...flexibleProps}
+            {...flexibleBlockCardProps}
             onAuthorize={handleAuthorize}
           />
         );
@@ -150,7 +161,7 @@ export const BlockCard: FC<BlockCardProps> = ({
         }
         return (
           <FlexibleErroredView
-            {...flexibleProps}
+            {...flexibleBlockCardProps}
             onAuthorize={handleAuthorize}
           />
         );

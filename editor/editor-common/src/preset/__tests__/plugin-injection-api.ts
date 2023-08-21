@@ -350,20 +350,22 @@ describe('EditorPluginInjectionAPI', () => {
     });
   });
 
-  describe('executeCommand', () => {
+  describe('dependencies.core.actions.execute', () => {
     it('shouldnt dispatch a transaction if no command passed', () => {
       const api = coreAPI.api();
-      expect(api.executeCommand(undefined)).toBe(false);
+      expect(api.dependencies.core?.actions?.execute(undefined)).toBe(false);
     });
 
     it('shouldnt dispatch a transaction if the EditorCommand returns null', () => {
       const api = coreAPI.api();
-      expect(api.executeCommand(() => null)).toBe(false);
+      expect(api.dependencies.core?.actions?.execute(() => null)).toBe(false);
     });
 
     it('should dispatch a transaction if the EditorCommand returns a transaction', () => {
       const api = coreAPI.api();
-      expect(api.executeCommand(({ tr }) => tr)).toBe(true);
+      expect(
+        api.dependencies.core?.actions?.execute(({ tr }: { tr: any }) => tr),
+      ).toBe(true);
       expect(fakeDispatch).toHaveBeenCalledWith(fakeTr);
     });
 
@@ -385,7 +387,9 @@ describe('EditorPluginInjectionAPI', () => {
 
       coreAPI.onEditorPluginInitialized(plugin1(undefined, api));
 
-      api.executeCommand(api?.dependencies.one?.commands?.updateTransaction);
+      api.dependencies.core.actions.execute(
+        api?.dependencies.one?.commands?.updateTransaction,
+      );
       expect(fakeTr.insertText).toHaveBeenCalledWith('hello');
       expect(fakeDispatch).toHaveBeenCalledWith(42);
     });
@@ -410,7 +414,7 @@ describe('EditorPluginInjectionAPI', () => {
 
       coreAPI.onEditorPluginInitialized(plugin1(undefined, api));
 
-      api.executeCommand(
+      api.dependencies.core.actions.execute(
         api?.dependencies.one?.commands?.updateTransaction('yo'),
       );
       expect(fakeTr.insertText).toHaveBeenCalledWith('yo');

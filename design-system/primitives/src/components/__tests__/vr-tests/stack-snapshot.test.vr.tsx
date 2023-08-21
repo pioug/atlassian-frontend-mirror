@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { snapshot } from '@af/visual-regression';
 
 import StackBasic from '../../../../examples/20-stack-basic';

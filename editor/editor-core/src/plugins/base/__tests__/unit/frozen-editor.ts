@@ -27,9 +27,9 @@ jest.mock('../../../../utils/performance/get-performance-timing', () => ({
   getTimeSince: jest.fn(() => 10),
 }));
 
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   Preset,
-  LightEditorPlugin,
   createProsemirrorEditorFactory,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 
@@ -41,8 +41,10 @@ import {
 } from '../../../analytics';
 import { SEVERITY } from '@atlaskit/editor-common/utils';
 import { EditorExperience } from '@atlaskit/editor-common/ufo';
-import { doc, p, DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
-import basePlugin, { BasePluginOptions } from '../../';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { BasePluginOptions } from '../../';
+import { basePlugin } from '../../';
 import {
   frozenEditorPluginKey,
   NORMAL_SEVERITY_THRESHOLD,

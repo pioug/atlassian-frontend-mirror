@@ -1,5 +1,13 @@
 # @atlaskit/progress-indicator
 
+## 9.5.15
+
+### Patch Changes
+
+- [`4ce6b505282`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ce6b505282) - The internal composition of this component has changed. There is no expected change in behavior.
+- [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
+- Updated dependencies
+
 ## 9.5.14
 
 ### Patch Changes

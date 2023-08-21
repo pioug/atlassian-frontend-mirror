@@ -1,5 +1,12 @@
 # @atlaskit/date
 
+## 0.10.3
+
+### Patch Changes
+
+- [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
+- Updated dependencies
+
 ## 0.10.2
 
 ### Patch Changes

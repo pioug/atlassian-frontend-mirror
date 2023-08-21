@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-table
 
+## 2.10.2
+
+### Patch Changes
+
+- [`31031f52f80`](https://bitbucket.org/atlassian/atlassian-frontend/commits/31031f52f80) - Fix table shift when two users resize the same table in collab mode
+- Updated dependencies
+
+## 2.10.1
+
+### Patch Changes
+
+- [`30d49e87f62`](https://bitbucket.org/atlassian/atlassian-frontend/commits/30d49e87f62) - Added danger apperance to ReszierNext component and toggled it when the delete icon in the table floating toolbar is rolled over
+- Updated dependencies
+
 ## 2.10.0
 
 ### Minor Changes

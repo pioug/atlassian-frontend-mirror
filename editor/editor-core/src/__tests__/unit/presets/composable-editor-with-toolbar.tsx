@@ -150,7 +150,7 @@ function Toolbar({
       <Button
         onClick={() => {
           const command = editorApi?.dependencies.dog.commands.bark;
-          editorApi?.executeCommand(command);
+          editorApi?.dependencies.core.actions.execute(command);
         }}
       >
         Click me!

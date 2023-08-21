@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { Device, snapshot } from '@af/visual-regression';
 
 import UseMediaQueryExample from '../../../../examples/50-use-media-query';

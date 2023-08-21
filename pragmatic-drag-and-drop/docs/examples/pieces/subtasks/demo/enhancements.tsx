@@ -1,15 +1,16 @@
 /* eslint-disable @atlaskit/design-system/no-unsafe-design-token-usage */
 /** @jsx jsx */
-import { ReactNode, useRef, useState } from 'react';
+import { ReactNode, useCallback, useRef, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 import ReactDOM from 'react-dom';
 
+import { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
+import { DragHandleDropdownMenu } from '@atlaskit/pragmatic-drag-and-drop-react-accessibility/drag-handle-dropdown-menu';
+import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-indicator/box';
 import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/util/set-custom-native-drag-preview';
 import { token } from '@atlaskit/tokens';
 
-import { DragHandleButton } from '../../drag-handle-button';
-import { DropIndicatorWithTerminal } from '../../drop-indicator-with-terminal';
 import { useFlashOnDrop } from '../../hooks/use-flash-on-drop';
 import { DragState, useSortableField } from '../../hooks/use-sortable-field';
 import {
@@ -61,6 +62,42 @@ const stateToAppearanceMap: Record<DragState, SubtaskAppearance> = {
   dragging: 'disabled',
 };
 
+/**
+ * The styles used for the element before here are not suitable for production
+ * use for multiple reasons, including:
+ *
+ * - Use of magic values for positioning.
+ * - Use of `:has()` selector which is not fully supported.
+ *
+ * This is just for demonstration purposes.
+ */
+const elementBeforeStyles = css({
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  '--button-opacity': 0,
+  ':has(:focus-visible), :has([aria-expanded="true"])': {
+    '--button-opacity': 1,
+  },
+});
+
+const elementBeforeButtonVisibleStyles = css({ '--button-opacity': 1 });
+const elementBeforeButtonHiddenStyles = css({ '--button-opacity': 0 });
+
+const elementBeforeIconContainerStyles = css({
+  position: 'absolute',
+  top: 12,
+  left: 8,
+  opacity: 'calc(1 - var(--button-opacity))',
+});
+
+const elementBeforeButtonContainerStyles = css({
+  position: 'absolute',
+  top: 8,
+  left: 4,
+  opacity: 'var(--button-opacity)',
+});
+
 function DraggableSubtask({
   index,
   id,
@@ -97,6 +134,17 @@ function DraggableSubtask({
 
   useFlashOnDrop({ ref, draggableId: id, type });
 
+  const moveUp = useCallback(() => {
+    reorderItem({ id, action: 'up' });
+  }, [id, reorderItem]);
+
+  const moveDown = useCallback(() => {
+    reorderItem({ id, action: 'down' });
+  }, [id, reorderItem]);
+
+  const isMoveUpDisabled = index === 0;
+  const isMoveDownDisabled = index === data.length - 1;
+
   return (
     <Subtask
       ref={ref}
@@ -106,26 +154,30 @@ function DraggableSubtask({
       css={draggableSubtaskStyles}
       isIconHidden
     >
-      <span style={{ position: 'absolute', top: 8, left: 4 }}>
-        <DragHandleButton
-          ref={setDragHandle}
-          id={id}
-          index={index}
-          dataLength={data.length}
-          reorderItem={reorderItem}
-          fallbackIcon={<SubtaskObjectIcon />}
-          isTriggerHiddenWhenIdle
-          isTriggerForcedVisible={isHovering}
-          dragState={dragState}
-        />
+      <span
+        css={[
+          elementBeforeStyles,
+          isHovering && elementBeforeButtonVisibleStyles,
+          dragState === 'dragging' && elementBeforeButtonHiddenStyles,
+        ]}
+      >
+        <span css={elementBeforeIconContainerStyles}>
+          <SubtaskObjectIcon />
+        </span>
+        <span css={elementBeforeButtonContainerStyles}>
+          <DragHandleDropdownMenu triggerRef={setDragHandle} label="reorder">
+            <DropdownItemGroup>
+              <DropdownItem onClick={moveUp} isDisabled={isMoveUpDisabled}>
+                Move up
+              </DropdownItem>
+              <DropdownItem onClick={moveDown} isDisabled={isMoveDownDisabled}>
+                Move down
+              </DropdownItem>
+            </DropdownItemGroup>
+          </DragHandleDropdownMenu>
+        </span>
       </span>
-      {closestEdge && (
-        <DropIndicatorWithTerminal
-          edge={closestEdge}
-          gap="1px"
-          terminalOffset="8px"
-        />
-      )}
+      {closestEdge && <DropIndicator edge={closestEdge} gap="1px" />}
     </Subtask>
   );
 }

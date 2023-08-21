@@ -29,7 +29,7 @@
   "dependencies": {
     "@atlaskit/icon": "^21.12.0",
     "@atlaskit/theme": "^12.5.0",
-    "@atlaskit/tokens": "^1.14.0",
+    "@atlaskit/tokens": "^1.15.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
     "final-form": "^4.20.1",

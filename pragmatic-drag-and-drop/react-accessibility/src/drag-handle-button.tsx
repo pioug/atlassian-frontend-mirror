@@ -18,6 +18,7 @@ const buttonStyles = css({
   width: 'max-content',
   border: 'none',
   cursor: 'grab',
+  display: 'flex',
 });
 
 export type DragHandleButtonAppearance = 'default' | 'subtle' | 'selected';

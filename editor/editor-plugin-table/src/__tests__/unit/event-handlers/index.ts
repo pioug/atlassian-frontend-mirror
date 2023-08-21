@@ -3,15 +3,15 @@ import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertio
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
-import { PluginKey } from '@atlaskit/editor-prosemirror/state';
+import type { PluginKey } from '@atlaskit/editor-prosemirror/state';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
-  DocBuilder,
   table,
   tdCursor,
   tdEmpty,
@@ -22,7 +22,7 @@ import tablePlugin from '../../../plugins/table-plugin';
 import { whenTableInFocus } from '../../../plugins/table/event-handlers';
 import { pluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
 import { setDragging } from '../../../plugins/table/pm-plugins/table-resizing/commands';
-import { TablePluginState } from '../../../plugins/table/types';
+import type { TablePluginState } from '../../../plugins/table/types';
 
 describe('event-handlers', () => {
   let editor: any;
@@ -39,7 +39,7 @@ describe('event-handlers', () => {
           .add(guidelinePlugin)
           .add([tablePlugin, { tableOptions: { allowColumnResizing: false } }]);
         editor = (doc: DocBuilder) =>
-          createEditor<TablePluginState, PluginKey>({
+          createEditor<TablePluginState, PluginKey, typeof preset>({
             doc,
             preset,
             pluginKey,
@@ -72,7 +72,7 @@ describe('event-handlers', () => {
           .add(guidelinePlugin)
           .add([tablePlugin, { tableOptions: { allowColumnResizing: false } }]);
         editor = (doc: DocBuilder) =>
-          createEditor<TablePluginState, PluginKey>({
+          createEditor<TablePluginState, PluginKey, typeof preset>({
             doc,
             preset,
             pluginKey,

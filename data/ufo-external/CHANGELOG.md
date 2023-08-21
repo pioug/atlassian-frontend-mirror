@@ -1,5 +1,11 @@
 # @af/ufo-types
 
+## 0.2.4
+
+### Patch Changes
+
+- [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
+
 ## 0.2.3
 
 ### Patch Changes

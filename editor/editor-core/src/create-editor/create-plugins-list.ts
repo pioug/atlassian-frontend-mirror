@@ -5,7 +5,7 @@ import type { EditorPluginFeatureProps } from '../types/editor-props';
 import type { BlockTypePluginOptions } from '../plugins/block-type/types';
 import createUniversalPreset from '../labs/next/presets/universal';
 import type { ScrollGutterPluginOptions } from '../plugins/base/pm-plugins/scroll-gutter';
-import { GUTTER_SIZE_MOBILE_IN_PX } from '../plugins/base/pm-plugins/scroll-gutter';
+import { GUTTER_SIZE_MOBILE_IN_PX } from '@atlaskit/editor-common/utils';
 import type { DefaultPresetPluginOptions } from '../labs/next/presets/default';
 import type { EditorPresetProps } from '../labs/next/presets/types';
 import { isFullPage as fullPageCheck } from '../utils/is-full-page';

@@ -10,6 +10,7 @@ class JsonldEditorClient extends CardClient {
   private readonly onResolve?: (response: JsonLd.Response) => void;
   private readonly onError?: (error: Error) => void;
   private readonly ari?: string;
+  private readonly branchDeploy?: string;
 
   constructor(
     envKey?: EnvironmentsKeys,
@@ -17,13 +18,14 @@ class JsonldEditorClient extends CardClient {
     onResolve?: (response: JsonLd.Response) => void,
     onError?: (error: Error) => void,
     ari?: string,
+    branchDeploy?: string,
   ) {
     super(envKey);
-
     this.onFetch = onFetch;
     this.onResolve = onResolve;
     this.onError = onError;
     this.ari = ari;
+    this.branchDeploy = branchDeploy;
   }
 
   async fetchData(url: string, force?: boolean) {
@@ -40,11 +42,23 @@ class JsonldEditorClient extends CardClient {
         } as JsonLd.Response);
       }
     }
-
     // Fetch with ari context
-    if (this.ari) {
-      const data = [{ resourceUrl: url, context: this.ari }];
-      return request('post', `${this.orsBaseURL}/resolve/batch`, data)
+    if (this.ari || this.branchDeploy) {
+      const data = [
+        {
+          resourceUrl: url,
+          ...(this.ari ? { context: this.ari } : {}),
+          ...(this.branchDeploy ? { branchDeploy: this.branchDeploy } : {}),
+        },
+      ];
+
+      const headers = this.branchDeploy
+        ? {
+            'ATL-SG-SERVICE-INJECTION-URL':
+              'https://object-resolver-service.us-west-1.staging.atl-paas.net',
+          }
+        : undefined;
+      return request('post', `${this.orsBaseURL}/resolve/batch`, data, headers)
         .then((resolvedUrls: BatchResponse = []) => {
           const response = resolvedUrls[0];
           if (!isSuccessfulResponse(response)) {

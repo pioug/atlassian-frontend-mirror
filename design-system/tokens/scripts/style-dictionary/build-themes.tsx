@@ -26,6 +26,7 @@ import dotSyntax from './transformers/dot-syntax';
 import numberPixelTransform from './transformers/number-pixel';
 import paletteTransform from './transformers/palette';
 import pixelRemTransform from './transformers/pixel-rem';
+import fontTransform from './transformers/web-font';
 
 const getPalette = (paletteId: Palettes) => {
   switch (paletteId) {
@@ -89,6 +90,7 @@ const createThemeConfig = (
       'box-shadow/figma': boxShadowTransform(palette),
       'pixel/rem': pixelRemTransform,
       'raw/pixel': numberPixelTransform,
+      'font/web': fontTransform,
     },
     source: [path.join(THEME_INPUT_DIR, themeName, '**', '*.tsx')],
     include: [

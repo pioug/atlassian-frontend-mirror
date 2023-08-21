@@ -1,5 +1,12 @@
 # @atlaskit/ds-explorations
 
+## 2.2.10
+
+### Patch Changes
+
+- [`b11339bc8a3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b11339bc8a3) - Internal updates for ADS Typography ADG3 theme.
+- Updated dependencies
+
 ## 2.2.9
 
 ### Patch Changes

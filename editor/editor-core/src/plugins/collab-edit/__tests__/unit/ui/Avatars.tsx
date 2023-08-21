@@ -32,14 +32,16 @@ describe('collab-edit | Avatars', () => {
     mentionProvider: new Promise(() => {}),
   });
 
+  const preset = new Preset<LightEditorPlugin>()
+    .add([featureFlagsPlugin, {}])
+    .add([collabEditPlugin, {}])
+    .add(typeAheadPlugin)
+    .add(mentionsPlugin);
+
   const editor = (doc: DocBuilder) =>
-    createEditor<PluginState, PluginKey>({
+    createEditor<PluginState, PluginKey, typeof preset>({
       doc,
-      preset: new Preset<LightEditorPlugin>()
-        .add([featureFlagsPlugin, {}])
-        .add([collabEditPlugin, {}])
-        .add(typeAheadPlugin)
-        .add(mentionsPlugin),
+      preset,
       pluginKey,
       providerFactory,
     });

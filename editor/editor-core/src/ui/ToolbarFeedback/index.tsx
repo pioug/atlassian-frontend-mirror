@@ -8,7 +8,8 @@ import { Popup } from '@atlaskit/editor-common/ui';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/custom-theme-button';
 
-import ToolbarButton, { ToolbarButtonRef } from '../ToolbarButton';
+import type { ToolbarButtonRef } from '../ToolbarButton';
+import ToolbarButton from '../ToolbarButton';
 import withOuterListeners from '../with-outer-listeners';
 
 import {
@@ -19,8 +20,8 @@ import {
   confirmationHeader,
   confirmationImg,
 } from './styles';
+import type { AnalyticsDispatch } from '../../plugins/analytics';
 import {
-  AnalyticsDispatch,
   ACTION,
   ACTION_SUBJECT,
   EVENT_TYPE,
@@ -28,13 +29,14 @@ import {
 } from '../../plugins/analytics';
 import { createDispatch } from '../../event-dispatcher';
 import { openFeedbackDialog } from '../../plugins/feedback-dialog';
-import { FeedbackInfo } from '../../types';
-import deprecationWarnings, {
-  DeprecationWarning,
-} from '../../utils/deprecation-warnings';
+import type { FeedbackInfo } from '../../types';
+import type { DeprecationWarning } from '../../utils/deprecation-warnings';
+import deprecationWarnings from '../../utils/deprecation-warnings';
 import pickBy from '../../utils/pick-by';
 import { analyticsEventKey } from '../../plugins/analytics/consts';
-import { getContextIdentifier } from '../../plugins/base/pm-plugins/context-identifier';
+import { usePresetContext } from '../../presets/context';
+import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
+import type { basePlugin } from '../../plugins';
 
 const PopupWithOutsideListeners = withOuterListeners(Popup);
 const POPUP_HEIGHT = 388;
@@ -99,7 +101,14 @@ declare global {
 
 const isNullOrUndefined = (attr: string) => attr === null || attr === undefined;
 
-export default class ToolbarFeedback extends PureComponent<Props, State> {
+type ToolbarFeedbackInternalProps = Props & {
+  api?: PublicPluginAPI<[typeof basePlugin]>;
+};
+
+class ToolbarFeedbackInternal extends PureComponent<
+  ToolbarFeedbackInternalProps,
+  State
+> {
   static contextTypes = {
     editorActions: PropTypes.object.isRequired,
   };
@@ -109,7 +118,7 @@ export default class ToolbarFeedback extends PureComponent<Props, State> {
     showOptOutOption: false,
   };
 
-  constructor(props: Props) {
+  constructor(props: ToolbarFeedbackInternalProps) {
     super(props);
     deprecationWarnings(ToolbarFeedback.name, props, deprecations);
   }
@@ -215,9 +224,10 @@ export default class ToolbarFeedback extends PureComponent<Props, State> {
       jiraIssueCollectorScriptLoading: true,
       showOptOutOption: false,
     });
-    const { editorView } = this.context.editorActions;
+    const basePluginState =
+      this.props.api?.dependencies.base.sharedState.currentState();
     const sessionId = window.localStorage.getItem('awc.session.id')?.toString();
-    const contentId = getContextIdentifier(editorView?.state)?.objectId;
+    const contentId = basePluginState?.contextIdentifier?.objectId;
     const tabId = window.sessionStorage['awc.tab.id'];
     await openFeedbackDialog({
       ...this.getFeedbackInfo(),
@@ -254,4 +264,9 @@ export default class ToolbarFeedback extends PureComponent<Props, State> {
   private hasJquery = (): boolean => {
     return typeof window.jQuery !== 'undefined';
   };
+}
+
+export default function ToolbarFeedback(props: Props) {
+  const api = usePresetContext();
+  return <ToolbarFeedbackInternal api={api} {...props} />;
 }

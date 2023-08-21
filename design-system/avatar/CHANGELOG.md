@@ -1,5 +1,12 @@
 # @atlaskit/avatar
 
+## 21.3.9
+
+### Patch Changes
+
+- [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
+- Updated dependencies
+
 ## 21.3.8
 
 ### Patch Changes

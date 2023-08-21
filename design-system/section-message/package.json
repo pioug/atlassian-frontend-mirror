@@ -44,7 +44,7 @@
     "@atlaskit/icon": "^21.12.0",
     "@atlaskit/primitives": "^1.2.0",
     "@atlaskit/theme": "^12.5.0",
-    "@atlaskit/tokens": "^1.14.0",
+    "@atlaskit/tokens": "^1.15.0",
     "@babel/runtime": "^7.0.0"
   },
   "peerDependencies": {

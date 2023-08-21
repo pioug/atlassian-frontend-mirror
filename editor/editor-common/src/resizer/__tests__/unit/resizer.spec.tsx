@@ -500,4 +500,39 @@ describe('Resizer', () => {
 
     expect(container.querySelector('.display-handle')).not.toBeInTheDocument();
   });
+
+  it('should apply correct class name to resizer when appearance is set to "danger"', () => {
+    const { container } = render(
+      <ResizerNext
+        enable={{ left: true, right: true }}
+        handleResizeStart={mockHandleResizeStart}
+        handleResize={mockHandleResize}
+        handleResizeStop={mockHandleResizeStop}
+        width={initialWidth}
+        appearance="danger"
+      >
+        <div>resizable div</div>
+      </ResizerNext>,
+    );
+
+    expect(container.querySelector('.danger')).toBeInTheDocument();
+  });
+
+  it('should not apply any appearance classes to resizer when appearance is unset', () => {
+    const { container } = render(
+      <ResizerNext
+        enable={{ left: true, right: true }}
+        handleResizeStart={mockHandleResizeStart}
+        handleResize={mockHandleResize}
+        handleResizeStop={mockHandleResizeStop}
+        width={initialWidth}
+        appearance={undefined}
+      >
+        <div>resizable div</div>
+      </ResizerNext>,
+    );
+
+    // NOTE: Check for all available appearance classes
+    expect(container.querySelector('.danger')).not.toBeInTheDocument();
+  });
 });

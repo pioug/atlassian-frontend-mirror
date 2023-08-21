@@ -1,0 +1,150 @@
+{
+  "name": "Typography adg3",
+  "tokens": {
+    "Typography adg3/font.family.code": {
+      "attributes": {
+        "group": "fontFamily",
+        "state": "experimental",
+        "introduced": "1.14.0",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "ui-monospace, Menlo, \"Segoe UI Mono\", \"Ubuntu Mono\", monospace"
+    },
+    "Typography adg3/font.family.monospace": {
+      "attributes": {
+        "group": "fontFamily",
+        "state": "active",
+        "introduced": "0.10.33",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "ui-monospace, Menlo, \"Segoe UI Mono\", \"Ubuntu Mono\", monospace"
+    },
+    "Typography adg3/font.family.product": {
+      "attributes": {
+        "group": "fontFamily",
+        "state": "experimental",
+        "introduced": "1.14.0",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "ui-sans-serif, \"Segoe UI\", system-ui, Ubuntu, \"Helvetica Neue\", sans-serif"
+    },
+    "Typography adg3/font.family.sans": {
+      "attributes": {
+        "group": "fontFamily",
+        "state": "active",
+        "introduced": "0.10.33",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Roboto\", \"Oxygen\", \"Ubuntu\", \"Fira Sans\", \"Droid Sans\", \"Helvetica Neue\", sans-serif"
+    },
+    "Typography adg3/font.family.brand": {
+      "attributes": {
+        "group": "fontFamily",
+        "state": "experimental",
+        "introduced": "1.14.0",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "Charlie Sans"
+    },
+    "Typography adg3/font.weight.bold": {
+      "attributes": {
+        "group": "fontWeight",
+        "state": "active",
+        "introduced": "0.10.33",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "700"
+    },
+    "Typography adg3/font.weight.medium": {
+      "attributes": {
+        "group": "fontWeight",
+        "state": "active",
+        "introduced": "0.10.33",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "500"
+    },
+    "Typography adg3/font.weight.regular": {
+      "attributes": {
+        "group": "fontWeight",
+        "state": "active",
+        "introduced": "0.10.33",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "400"
+    },
+    "Typography adg3/font.weight.semibold": {
+      "attributes": {
+        "group": "fontWeight",
+        "state": "active",
+        "introduced": "0.10.33",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "600"
+    },
+    "Typography adg3/font.lineHeight.1": {
+      "attributes": {
+        "group": "lineHeight",
+        "state": "active",
+        "introduced": "0.10.33",
+        "description": "Used single-line text."
+      },
+      "value": "1"
+    },
+    "Typography adg3/font.lineHeight.100": {
+      "attributes": {
+        "group": "lineHeight",
+        "state": "active",
+        "introduced": "0.10.33",
+        "description": "Helpful guidance goes here"
+      },
+      "value": 16
+    },
+    "Typography adg3/font.lineHeight.200": {
+      "attributes": {
+        "group": "lineHeight",
+        "state": "active",
+        "introduced": "0.10.33",
+        "description": "Helpful guidance goes here"
+      },
+      "value": 20
+    },
+    "Typography adg3/font.lineHeight.300": {
+      "attributes": {
+        "group": "lineHeight",
+        "state": "active",
+        "introduced": "0.10.33",
+        "description": "Helpful guidance goes here"
+      },
+      "value": 24
+    },
+    "Typography adg3/font.lineHeight.400": {
+      "attributes": {
+        "group": "lineHeight",
+        "state": "active",
+        "introduced": "0.10.33",
+        "description": "Helpful guidance goes here"
+      },
+      "value": 28
+    },
+    "Typography adg3/font.lineHeight.500": {
+      "attributes": {
+        "group": "lineHeight",
+        "state": "active",
+        "introduced": "0.10.33",
+        "description": "Helpful guidance goes here"
+      },
+      "value": 32
+    },
+    "Typography adg3/font.lineHeight.600": {
+      "attributes": {
+        "group": "lineHeight",
+        "state": "active",
+        "introduced": "0.10.33",
+        "description": "Helpful guidance goes here"
+      },
+      "value": 40
+    }
+  },
+  "renameMap": {}
+}

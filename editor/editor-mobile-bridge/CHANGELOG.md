@@ -1,5 +1,37 @@
 # @atlaskit/editor-mobile-bridge
 
+## 187.28.0
+
+### Patch Changes
+
+- [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
+- Updated dependencies
+
+## 187.27.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.27.0
+
+### Patch Changes
+
+- [`967f4819f58`](https://bitbucket.org/atlassian/atlassian-frontend/commits/967f4819f58) - Introduce core plugin that is always injected into the pluginInjectionApi. This has a new action `execute` that replaces the existing `executeCommand` that was called from the `pluginInjectionApi`.
+- Updated dependencies
+
+## 187.26.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.26.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 187.26.0
 
 ### Patch Changes

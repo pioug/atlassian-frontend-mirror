@@ -512,21 +512,23 @@ describe('gap-cursor', () => {
     const createProsemirrorEditor = createProsemirrorEditorFactory();
     let stub: any;
     let rafSpy: any;
+    const preset = new Preset<LightEditorPlugin>()
+      .add([featureFlagsPlugin, {}])
+      .add(decorationsPlugin)
+      .add(editorDisabledPlugin)
+      .add(widthPlugin)
+      .add(guidelinePlugin)
+      .add(gridPlugin)
+      .add(floatingToolbarPlugin)
+      .add(focusPlugin)
+      .add([mediaPlugin, { allowMediaSingle: true }])
+      .add(selectionPlugin);
+
     const editor = (doc: DocBuilder) => {
-      return createProsemirrorEditor<boolean, PluginKey>({
+      return createProsemirrorEditor<boolean, PluginKey, typeof preset>({
         doc,
         pluginKey: gapCursorPluginKey,
-        preset: new Preset<LightEditorPlugin>()
-          .add([featureFlagsPlugin, {}])
-          .add(decorationsPlugin)
-          .add(editorDisabledPlugin)
-          .add(widthPlugin)
-          .add(guidelinePlugin)
-          .add(gridPlugin)
-          .add(floatingToolbarPlugin)
-          .add(focusPlugin)
-          .add([mediaPlugin, { allowMediaSingle: true }])
-          .add(selectionPlugin),
+        preset,
       });
     };
 

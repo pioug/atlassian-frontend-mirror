@@ -54,13 +54,20 @@ const validateAri = (str: unknown) => {
   }
 };
 
+const validateBranchDeploy = (str: unknown) => {
+  if (str && !['jira-object-provider.stg-west'].includes(str as string)) {
+    return 'INCORRECT_BRANCH_DEPLOY_FORMAT';
+  }
+};
+
 const LoadLinkForm: React.FC<{
   error?: string;
-  onSubmit: (url: string, ari?: string) => void;
-}> = ({ error: urlError, onSubmit }) => {
+  onSubmit: (url: string, ari?: string, branchDeploy?: string) => void;
+  branchDeploy?: string;
+}> = ({ error: urlError, onSubmit, branchDeploy }) => {
   const handleSubmit = useCallback(
-    (formState: { url: string; ari: string }) => {
-      onSubmit(formState.url, formState.ari);
+    (formState: { url: string; ari: string; branchDeploy: string }) => {
+      onSubmit(formState.url, formState.ari, formState.branchDeploy);
     },
     [onSubmit],
   );
@@ -181,6 +188,25 @@ const LoadLinkForm: React.FC<{
                 </div>
                 {error === 'INCORRECT_ARI_FORMAT' && (
                   <ErrorMessage>Please enter a valid ARI.</ErrorMessage>
+                )}
+              </React.Fragment>
+            )}
+          </Field>
+          <Field
+            label="Branch Deploy"
+            name="branchDeploy"
+            validate={validateBranchDeploy}
+            defaultValue={branchDeploy}
+          >
+            {({ fieldProps, error }: any) => (
+              <React.Fragment>
+                <div css={textFieldStyles}>
+                  <Textfield {...fieldProps} />
+                </div>
+                {error === 'INCORRECT_BRANCH_DEPLOY_FORMAT' && (
+                  <ErrorMessage>
+                    Please enter a valid Branch Deploy
+                  </ErrorMessage>
                 )}
               </React.Fragment>
             )}

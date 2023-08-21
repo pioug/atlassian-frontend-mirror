@@ -6,7 +6,7 @@ import {
   EditorPluginInjectionAPI,
   SharedStateAPI,
 } from '../../../preset/plugin-injection-api';
-import { NextEditorPlugin } from '../../../types';
+import type { NextEditorPlugin } from '../../../types';
 import { useSharedPluginState } from '../../useSharedPluginState';
 
 const ultimateQuestionOfLife = 42;

@@ -1,18 +1,21 @@
-import { mount, ReactWrapper } from 'enzyme';
 import React from 'react';
-import PropTypes from 'prop-types';
-import { Popup } from '@atlaskit/editor-common/ui';
 import ToolbarFeedback from '../../../ui/ToolbarFeedback';
 import { openFeedbackDialog } from '../../../plugins/feedback-dialog';
 import { analyticsEventKey } from '../../../plugins/analytics/consts';
+import type { basePlugin } from '../../../plugins/base';
+import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
+import { screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import EditorContext from '../../../ui/EditorContext';
+import type EditorActions from '../../../actions';
+import * as presetContext from '../../../presets/context';
+import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
 
 jest.mock('../../../plugins/feedback-dialog', () => ({
   openFeedbackDialog: jest.fn(),
 }));
 
 describe('@atlaskit/editor-core/ui/ToolbarFeedback', () => {
-  let toolbarOption: ReactWrapper;
-
   beforeAll(() => {
     window.jQuery = { ajax: () => {} };
   });
@@ -23,32 +26,24 @@ describe('@atlaskit/editor-core/ui/ToolbarFeedback', () => {
     }
   });
 
-  const mockEventDispatcher: { emit: jest.Mock } = { emit: jest.fn() };
-
-  function mountWithEditorActions(props = {}) {
-    const context = {
-      editorActions: { eventDispatcher: mockEventDispatcher },
-    };
-    const childContextTypes = {
-      editorActions: PropTypes.object.isRequired,
-    };
-    toolbarOption = mount(<ToolbarFeedback {...props} />, {
-      context,
-      childContextTypes,
-    });
-  }
-
   describe('analytics', () => {
-    afterEach(() => {
-      if (toolbarOption) {
-        toolbarOption.unmount();
-      }
-    });
+    const mockEventDispatcher: { emit: jest.Mock } = { emit: jest.fn() };
 
-    it('should trigger feedback button clicked analytics event when feedback icon clicked', () => {
-      mountWithEditorActions();
-
-      toolbarOption.find('button').simulate('click');
+    it('should trigger feedback button clicked analytics event when feedback icon clicked', async () => {
+      renderWithIntl(
+        <EditorContext
+          editorActions={
+            { eventDispatcher: mockEventDispatcher } as unknown as EditorActions
+          }
+        >
+          <ToolbarFeedback
+            packageName={'editor'}
+            packageVersion={'1.1.1'}
+            labels={['label1', 'label2']}
+          />
+        </EditorContext>,
+      );
+      await userEvent.click(screen.getByRole('button'));
       expect(mockEventDispatcher.emit).toHaveBeenCalledWith(analyticsEventKey, {
         payload: {
           action: 'clicked',
@@ -60,35 +55,67 @@ describe('@atlaskit/editor-core/ui/ToolbarFeedback', () => {
     });
   });
 
-  it('should open opt out popup for bitbucket when feedback icon is clicked', () => {
-    const toolbarOption = mount(<ToolbarFeedback product="bitbucket" />);
-    expect(toolbarOption.find(Popup).length).toEqual(0);
-    toolbarOption.find('button').simulate('click');
-    expect(toolbarOption.find(Popup).length).toEqual(1);
-    toolbarOption.unmount();
-  });
-
   describe('openFeedbackDialog', () => {
-    beforeEach(() => {
-      mountWithEditorActions({
-        packageName: 'editor',
-        packageVersion: '1.1.1',
-        labels: ['label1', 'label2'],
+    const mockEventDispatcher: { emit: jest.Mock } = { emit: jest.fn() };
+
+    it('should open opt out popup for bitbucket when feedback icon is clicked', async () => {
+      renderWithIntl(
+        <EditorContext
+          editorActions={
+            { eventDispatcher: mockEventDispatcher } as unknown as EditorActions
+          }
+        >
+          <ToolbarFeedback product="bitbucket" />
+        </EditorContext>,
+      );
+      const confirmationText =
+        'We are rolling out a new editing experience across Atlassian products. Help us improve by providing feedback.';
+      expect(screen.queryAllByText(confirmationText).length).toEqual(0);
+      await userEvent.click(screen.getByRole('button'));
+      expect(screen.queryAllByText(confirmationText).length).toEqual(1);
+    });
+
+    it('should call openFeedbackDialog with correct params', async () => {
+      const usePresetContext = jest.spyOn(presetContext, 'usePresetContext');
+      usePresetContext.mockImplementation(() => {
+        return {
+          dependencies: {
+            base: {
+              sharedState: {
+                currentState: () => {
+                  return {
+                    contextIdentifier: {
+                      objectId: 'object-id',
+                    },
+                  };
+                },
+              },
+            },
+          },
+        } as PublicPluginAPI<[typeof basePlugin]>;
       });
-      toolbarOption.find('button').simulate('click');
-    });
 
-    afterEach(() => {
-      if (toolbarOption) {
-        toolbarOption.unmount();
-      }
-    });
+      renderWithIntl(
+        <EditorContext
+          editorActions={
+            { eventDispatcher: mockEventDispatcher } as unknown as EditorActions
+          }
+        >
+          <ToolbarFeedback
+            packageName={'editor'}
+            packageVersion={'1.1.1'}
+            labels={['label1', 'label2']}
+          />
+        </EditorContext>,
+      );
 
-    it('should call openFeedbackDialog with correct params', () => {
+      await userEvent.click(screen.getByRole('button'));
+
       expect(openFeedbackDialog).toHaveBeenCalledWith({
         packageName: 'editor',
         packageVersion: '1.1.1',
         labels: ['label1', 'label2'],
+        contentId: 'object-id',
       });
     });
   });

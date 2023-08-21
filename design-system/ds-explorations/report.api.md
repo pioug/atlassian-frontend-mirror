@@ -396,6 +396,7 @@ type LineHeight = keyof typeof lineHeightMap;
 
 // @public (undocumented)
 const lineHeightMap: {
+  'lineHeight.1': SerializedStyles;
   'lineHeight.100': SerializedStyles;
   'lineHeight.200': SerializedStyles;
   'lineHeight.300': SerializedStyles;

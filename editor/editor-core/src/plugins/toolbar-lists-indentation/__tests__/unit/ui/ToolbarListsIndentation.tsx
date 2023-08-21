@@ -14,7 +14,7 @@ import { listMessages } from '@atlaskit/editor-common/messages';
 import { messages as indentationMessages } from '../../../../indentation/messages';
 import ToolbarButton from '../../../../../ui/ToolbarButton';
 import { DropdownMenuWithKeyboardNavigation as DropdownMenu } from '@atlaskit/editor-common/ui-menu';
-import basePlugin from '../../../../base';
+import { basePlugin } from '../../../../base';
 import deprecatedAnalyticsPlugin from '../../../../analytics';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import toolbarListsIndentationPlugin from '../../../';
@@ -68,7 +68,7 @@ describe('ToolbarListsIndentation', () => {
     }
   });
 
-  const editor = ({ doc }: { doc: DocBuilder }) => {
+  const editorWithoutMockAnaylticsPlugin = ({ doc }: { doc: DocBuilder }) => {
     return createEditor({
       doc,
       preset: new Preset<LightEditorPlugin>()
@@ -91,16 +91,63 @@ describe('ToolbarListsIndentation', () => {
     });
   };
 
-  const setup = (
+  const editorWithMockAnaylticsPlugin = ({ doc }: { doc: DocBuilder }) => {
+    return createEditor({
+      doc,
+      preset: new Preset<LightEditorPlugin>()
+        .add([featureFlagsPlugin, {}])
+        .add(basePlugin)
+        .add([analyticsPlugin, { createAnalyticsEvent }])
+        .add(mockAnalyticsPlugin)
+        .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }])
+        .add(textFormattingPlugin)
+        .add(listPlugin)
+        .add(blockTypePlugin)
+        .add([
+          toolbarListsIndentationPlugin,
+          {
+            showIndentationButtons: true,
+            allowHeadingAndParagraphIndentation: true,
+          },
+        ])
+        .add(indentationPlugin),
+      pluginKey,
+    });
+  };
+
+  const setupWithoutMockAnalytics = (
     props: { doc?: DocBuilder } & Partial<ToolbarListsIndentationProps> = {},
   ) => {
     const { doc: setupDoc, ...toolbarProps } = props;
-    const editorWrapper = editor({ doc: setupDoc || doc(p('text')) });
+    const editorWrapper = editorWithoutMockAnaylticsPlugin({
+      doc: setupDoc || doc(p('text')),
+    });
     const ToolbarListsIndentationWrapper = mountWithIntl(
       <ToolbarListsIndentation
         editorView={editorWrapper.editorView}
-        editorAnalyticsAPI={mockAnalyticsPlugin().actions as any}
         featureFlags={{}}
+        pluginInjectionApi={editorWrapper.editorAPI}
+        {...toolbarProps}
+      />,
+    );
+    return {
+      ...editorWrapper,
+      ToolbarListsIndentation: ToolbarListsIndentationWrapper,
+    };
+  };
+
+  const setupWithMockAnalytics = (
+    props: { doc?: DocBuilder } & Partial<ToolbarListsIndentationProps> = {},
+  ) => {
+    const { doc: setupDoc, ...toolbarProps } = props;
+    const editorWrapper = editorWithMockAnaylticsPlugin({
+      doc: setupDoc || doc(p('text')),
+    });
+    const ToolbarListsIndentationWrapper = mountWithIntl(
+      <ToolbarListsIndentation
+        editorView={editorWrapper.editorView}
+        featureFlags={{}}
+        pluginInjectionApi={editorWrapper.editorAPI}
         {...toolbarProps}
       />,
     );
@@ -111,7 +158,9 @@ describe('ToolbarListsIndentation', () => {
   };
 
   it('should render disabled ToolbarButtons if disabled property is true', () => {
-    const { ToolbarListsIndentation } = setup({ disabled: true });
+    const { ToolbarListsIndentation } = setupWithMockAnalytics({
+      disabled: true,
+    });
 
     ToolbarListsIndentation.find(ToolbarButton).forEach((node) => {
       expect(node.prop('disabled')).toBe(true);
@@ -119,7 +168,7 @@ describe('ToolbarListsIndentation', () => {
   });
 
   it('should not render indentation buttons if showIndentationButtons is false', () => {
-    const { ToolbarListsIndentation } = setup({
+    const { ToolbarListsIndentation } = setupWithMockAnalytics({
       showIndentationButtons: false,
     });
 
@@ -127,13 +176,17 @@ describe('ToolbarListsIndentation', () => {
   });
 
   it('should render indentation buttons if showIndentationButtons is true', () => {
-    const { ToolbarListsIndentation } = setup({ showIndentationButtons: true });
+    const { ToolbarListsIndentation } = setupWithMockAnalytics({
+      showIndentationButtons: true,
+    });
 
     expect(ToolbarListsIndentation.find(ToolbarButton).length).toEqual(4);
   });
 
   it('should have a dropdown if option isSmall = true', () => {
-    const { ToolbarListsIndentation } = setup({ isSmall: true });
+    const { ToolbarListsIndentation } = setupWithMockAnalytics({
+      isSmall: true,
+    });
 
     expect(ToolbarListsIndentation.find(DropdownMenu).length).toEqual(1);
   });
@@ -142,7 +195,7 @@ describe('ToolbarListsIndentation', () => {
     let ToolbarListsIndentation: ReactWrapper<any, any, any>;
 
     beforeEach(() => {
-      ({ ToolbarListsIndentation } = setup());
+      ({ ToolbarListsIndentation } = setupWithMockAnalytics());
     });
 
     it('should dispatch analytics event when bulleted list button is clicked', () => {
@@ -182,7 +235,7 @@ describe('ToolbarListsIndentation', () => {
 
   describe('indentation buttons analytics', () => {
     it('should dispatch analytics event when indent button is clicked', () => {
-      const { ToolbarListsIndentation } = setup({
+      const { ToolbarListsIndentation } = setupWithoutMockAnalytics({
         showIndentationButtons: true,
         indentDisabled: false,
         doc: doc(p('{<>}hello world')),
@@ -206,7 +259,7 @@ describe('ToolbarListsIndentation', () => {
     });
 
     it('should dispatch analytics event when outdent button is clicked', () => {
-      const { ToolbarListsIndentation } = setup({
+      const { ToolbarListsIndentation } = setupWithoutMockAnalytics({
         showIndentationButtons: true,
         outdentDisabled: false,
         doc: doc(indentation({ level: 1 })(p('{<>}hello world'))),
@@ -232,7 +285,7 @@ describe('ToolbarListsIndentation', () => {
 
   describe('keyboard shortcuts', () => {
     it('should have ARIA keyshortcuts attribute', () => {
-      const { editorView } = editor({ doc: doc(p('')) });
+      const { editorView } = setupWithMockAnalytics({ doc: doc(p('')) });
       const { getByTestId } = render(
         <IntlProvider locale="en">
           <Toolbar

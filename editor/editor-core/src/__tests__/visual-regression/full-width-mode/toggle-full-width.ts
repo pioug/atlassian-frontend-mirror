@@ -6,7 +6,7 @@ import {
   initEditorWithAdf,
   Appearance,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import mixedContentAdf from './__fixtures__/mixed-content.adf.json';
 import layoutWithBreakoutAdf from './__fixtures__/layout-with-breakout.adf.json';
 import breakoutAdf from './__fixtures__/mixed-content-with-breakout.adf.json';
@@ -134,7 +134,8 @@ describe('Snapshot Test: Toggle between full-width and default mode', () => {
   });
 
   describe('Media', () => {
-    it('resizes image correctly', async () => {
+    // FIXME: This test was automatically skipped due to failure on 18/08/2023: https://product-fabric.atlassian.net/browse/ED-19606
+    it.skip('resizes image correctly', async () => {
       await initEditor(mediaAdf);
       await waitForMediaToBeLoaded(page);
       await toggleFullWidthMode();

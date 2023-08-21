@@ -23,7 +23,7 @@ import { cardPlugin } from '@atlaskit/editor-plugin-card';
 import floatingToolbarPlugin from '../../../../floating-toolbar';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
-import basePlugin from '../../../../base';
+import { basePlugin } from '../../../../base';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
@@ -38,8 +38,8 @@ describe('paste paragraph edge cases', () => {
       doc,
       preset: new Preset<LightEditorPlugin>()
         .add([featureFlagsPlugin, {}])
-        .add([analyticsPlugin, {}])
         .add(basePlugin)
+        .add([analyticsPlugin, {}])
         .add(decorationsPlugin)
         .add(widthPlugin)
         .add(gridPlugin)

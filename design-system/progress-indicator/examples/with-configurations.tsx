@@ -1,17 +1,13 @@
 /** @jsx jsx */
 import React, { ChangeEvent, ReactNode, useState } from 'react';
 
-import { css, jsx } from '@emotion/react';
+import { jsx } from '@emotion/react';
 import Lorem from 'react-lorem-component';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
-import Box from '@atlaskit/ds-explorations/box';
 import Text from '@atlaskit/ds-explorations/text';
-import Inline from '@atlaskit/primitives/inline';
-import Stack from '@atlaskit/primitives/stack';
-import { N900 } from '@atlaskit/theme/colors';
-import { token } from '@atlaskit/tokens';
+import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
 
 import { ProgressIndicator } from '../src';
 
@@ -29,28 +25,28 @@ type FooterProps = {
   children: ReactNode;
 };
 
-const invertedFooterStyles = css({
-  backgroundColor: token('color.text', N900),
+const invertedFooterStyles = xcss({
+  backgroundColor: 'color.background.neutral.bold',
 });
+const displayBlockStyles = xcss({ display: 'block' });
+const displayNoneStyles = xcss({ display: 'none' });
 
 const Footer = ({ appearance, children }: FooterProps) => (
   <Box
     as="footer"
-    display="block"
-    css={appearance === 'inverted' ? invertedFooterStyles : null}
+    xcss={appearance === 'inverted' ? invertedFooterStyles : undefined}
   >
     {children}
   </Box>
 );
 
-const headingStyles = css({
-  color: token('color.background.neutral.bold', 'N900'),
-  fontWeight: token('font.weight.medium', '500'),
+const headingStyles = xcss({
+  color: 'color.text',
+  fontWeight: 'font.weight.medium',
 });
 
-const pageStyles = css({
+const pageStyles = xcss({
   maxWidth: '840px',
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   marginInline: 'auto',
 });
 
@@ -101,14 +97,12 @@ const ProgressIndicatorDots = () => {
     setIsInteractive(event.target.checked);
 
   return (
-    <Box display="block" css={pageStyles}>
-      <Box display="block" paddingBlock="space.400">
+    <Box xcss={pageStyles}>
+      <Box paddingBlock="space.400">
         <Stack space="space.400">
           <SpreadInlineLayout>
             <Stack space="space.150">
-              <Box css={headingStyles} display="block">
-                Appearance
-              </Box>
+              <Box xcss={headingStyles}>Appearance</Box>
               <ButtonGroup>
                 {appearances.map((app) => (
                   <Button
@@ -123,9 +117,7 @@ const ProgressIndicatorDots = () => {
               </ButtonGroup>
             </Stack>
             <Stack space="space.150">
-              <Box css={headingStyles} display="block">
-                Spacing
-              </Box>
+              <Box xcss={headingStyles}>Spacing</Box>
               <ButtonGroup>
                 {spacing.map((spc) => (
                   <Button
@@ -140,9 +132,7 @@ const ProgressIndicatorDots = () => {
               </ButtonGroup>
             </Stack>
             <Stack space="space.150">
-              <Box css={headingStyles} display="block">
-                Size
-              </Box>
+              <Box xcss={headingStyles}>Size</Box>
               <ButtonGroup>
                 {sizes.map((sz) => (
                   <Button
@@ -172,20 +162,19 @@ const ProgressIndicatorDots = () => {
               </Inline>
             </Box>
           </SpreadInlineLayout>
-          <Box display="block">
+          <Box>
             {values.map((v, i) => {
               const selected = i === selectedIndex;
               const panelId = `panel${i}`;
 
               return (
                 <Box
-                  display="block"
                   aria-hidden={!selected}
                   aria-labelledby={`tab${i}`}
                   key={v}
                   id={panelId}
                   role="tabpanel"
-                  UNSAFE_style={{ display: selected ? 'block' : 'none' }}
+                  xcss={selected ? displayBlockStyles : displayNoneStyles}
                 >
                   <Stack space="space.100">
                     <Text as="strong" fontSize="size.100" fontWeight="bold">
@@ -198,11 +187,7 @@ const ProgressIndicatorDots = () => {
             })}
           </Box>
           <Footer appearance={selectedAppearance}>
-            <Box
-              display="block"
-              paddingBlock="space.150"
-              paddingInline="space.100"
-            >
+            <Box paddingBlock="space.150" paddingInline="space.100">
               <SpreadInlineLayout>
                 <Button
                   isDisabled={selectedIndex === 0}

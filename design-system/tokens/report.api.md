@@ -340,6 +340,12 @@ export type ActiveTokens =
   | 'elevation.surface.sunken'
   | 'font.family.monospace'
   | 'font.family.sans'
+  | 'font.letterSpacing.0'
+  | 'font.letterSpacing.100'
+  | 'font.letterSpacing.200'
+  | 'font.letterSpacing.300'
+  | 'font.letterSpacing.400'
+  | 'font.lineHeight.1'
   | 'font.lineHeight.100'
   | 'font.lineHeight.200'
   | 'font.lineHeight.300'
@@ -880,8 +886,28 @@ type CSSTokenMap = {
   'space.600': 'var(--ds-space-600)';
   'space.800': 'var(--ds-space-800)';
   'space.1000': 'var(--ds-space-1000)';
+  'font.body': 'var(--ds-font-body)';
+  'font.body.sm': 'var(--ds-font-body-sm)';
+  'font.code': 'var(--ds-font-code)';
+  'font.heading.lg': 'var(--ds-font-heading-lg)';
+  'font.heading.md': 'var(--ds-font-heading-md)';
+  'font.heading.sm': 'var(--ds-font-heading-sm)';
+  'font.heading.xl': 'var(--ds-font-heading-xl)';
+  'font.heading.xs': 'var(--ds-font-heading-xs)';
+  'font.heading.xxl': 'var(--ds-font-heading-xxl)';
+  'font.heading.xxs': 'var(--ds-font-heading-xxs)';
+  'font.letterSpacing.0': 'var(--ds-font-letterSpacing-0)';
+  'font.letterSpacing.100': 'var(--ds-font-letterSpacing-100)';
+  'font.letterSpacing.200': 'var(--ds-font-letterSpacing-200)';
+  'font.letterSpacing.300': 'var(--ds-font-letterSpacing-300)';
+  'font.letterSpacing.400': 'var(--ds-font-letterSpacing-400)';
+  'font.ui': 'var(--ds-font-ui)';
+  'font.ui.sm': 'var(--ds-font-ui-sm)';
+  'font.family.code': 'var(--ds-font-family-code)';
   'font.family.monospace': 'var(--ds-font-family-monospace)';
+  'font.family.product': 'var(--ds-font-family-product)';
   'font.family.sans': 'var(--ds-font-family-sans)';
+  'font.family.brand': 'var(--ds-font-family-brand)';
   'font.size.050': 'var(--ds-font-size-050)';
   'font.size.075': 'var(--ds-font-size-075)';
   'font.size.100': 'var(--ds-font-size-100)';
@@ -894,6 +920,7 @@ type CSSTokenMap = {
   'font.weight.medium': 'var(--ds-font-weight-medium)';
   'font.weight.regular': 'var(--ds-font-weight-regular)';
   'font.weight.semibold': 'var(--ds-font-weight-semibold)';
+  'font.lineHeight.1': 'var(--ds-font-lineHeight-1)';
   'font.lineHeight.100': 'var(--ds-font-lineHeight-100)';
   'font.lineHeight.200': 'var(--ds-font-lineHeight-200)';
   'font.lineHeight.300': 'var(--ds-font-lineHeight-300)';
@@ -994,6 +1021,7 @@ export type Groups =
   | 'fontFamily'
   | 'fontSize'
   | 'fontWeight'
+  | 'letterSpacing'
   | 'lineHeight'
   | 'opacity'
   | 'paint'
@@ -1324,6 +1352,12 @@ type InternalTokenIds =
   | 'elevation.surface.sunken'
   | 'font.family.monospace'
   | 'font.family.sans'
+  | 'font.letterSpacing.0'
+  | 'font.letterSpacing.100'
+  | 'font.letterSpacing.200'
+  | 'font.letterSpacing.300'
+  | 'font.letterSpacing.400'
+  | 'font.lineHeight.1'
   | 'font.lineHeight.100'
   | 'font.lineHeight.200'
   | 'font.lineHeight.300'
@@ -1469,6 +1503,7 @@ const themeIds: readonly [
   'spacing',
   'typography',
   'shape',
+  'typography-adg3',
 ];
 
 // @public (undocumented)
@@ -1483,6 +1518,7 @@ const themeIdsWithOverrides: readonly [
   'spacing',
   'typography',
   'shape',
+  'typography-adg3',
   'light-new-input-border',
   'dark-new-input-border',
 ];
@@ -1534,7 +1570,8 @@ export type Themes =
   | 'atlassian-light'
   | 'atlassian-shape'
   | 'atlassian-spacing'
-  | 'atlassian-typography';
+  | 'atlassian-typography'
+  | 'atlassian-typography-adg3';
 
 // @public
 export interface ThemeState {
@@ -1549,7 +1586,7 @@ export interface ThemeState {
   // (undocumented)
   spacing?: Extract<ThemeIds, 'spacing'>;
   // (undocumented)
-  typography?: Extract<ThemeIds, 'typography'>;
+  typography?: Extract<ThemeIds, 'typography' | 'typography-adg3'>;
   // (undocumented)
   UNSAFE_themeOptions?: ThemeOptionsSchema;
 }
@@ -1922,8 +1959,28 @@ const tokens: {
   readonly 'space.600': '--ds-space-600';
   readonly 'space.800': '--ds-space-800';
   readonly 'space.1000': '--ds-space-1000';
+  readonly 'font.body': '--ds-font-body';
+  readonly 'font.body.sm': '--ds-font-body-sm';
+  readonly 'font.code': '--ds-font-code';
+  readonly 'font.heading.lg': '--ds-font-heading-lg';
+  readonly 'font.heading.md': '--ds-font-heading-md';
+  readonly 'font.heading.sm': '--ds-font-heading-sm';
+  readonly 'font.heading.xl': '--ds-font-heading-xl';
+  readonly 'font.heading.xs': '--ds-font-heading-xs';
+  readonly 'font.heading.xxl': '--ds-font-heading-xxl';
+  readonly 'font.heading.xxs': '--ds-font-heading-xxs';
+  readonly 'font.letterSpacing.0': '--ds-font-letterSpacing-0';
+  readonly 'font.letterSpacing.100': '--ds-font-letterSpacing-100';
+  readonly 'font.letterSpacing.200': '--ds-font-letterSpacing-200';
+  readonly 'font.letterSpacing.300': '--ds-font-letterSpacing-300';
+  readonly 'font.letterSpacing.400': '--ds-font-letterSpacing-400';
+  readonly 'font.ui': '--ds-font-ui';
+  readonly 'font.ui.sm': '--ds-font-ui-sm';
+  readonly 'font.family.code': '--ds-font-family-code';
   readonly 'font.family.monospace': '--ds-font-family-monospace';
+  readonly 'font.family.product': '--ds-font-family-product';
   readonly 'font.family.sans': '--ds-font-family-sans';
+  readonly 'font.family.brand': '--ds-font-family-brand';
   readonly 'font.size.050': '--ds-font-size-050';
   readonly 'font.size.075': '--ds-font-size-075';
   readonly 'font.size.100': '--ds-font-size-100';
@@ -1936,6 +1993,7 @@ const tokens: {
   readonly 'font.weight.medium': '--ds-font-weight-medium';
   readonly 'font.weight.regular': '--ds-font-weight-regular';
   readonly 'font.weight.semibold': '--ds-font-weight-semibold';
+  readonly 'font.lineHeight.1': '--ds-font-lineHeight-1';
   readonly 'font.lineHeight.100': '--ds-font-lineHeight-100';
   readonly 'font.lineHeight.200': '--ds-font-lineHeight-200';
   readonly 'font.lineHeight.300': '--ds-font-lineHeight-300';

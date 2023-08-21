@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/icon-file-type",
-  "version": "6.4.3",
+  "version": "6.4.4",
   "description": "A file type icon is used to represent specific types of content used across Atlassian products.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

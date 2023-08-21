@@ -22,7 +22,7 @@ import {
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import { deleteKeyCommand } from '../../../commands';
 import listPlugin from '../../..';
-import basePlugins from '../../../../base';
+import { basePlugin } from '../../../../base';
 import blockType from '../../../../block-type';
 import codeBlockTypePlugin from '../../../../code-block';
 import statusInlineBlockTypePlugin from '../../../../status';
@@ -56,7 +56,7 @@ describe('join-list-item-forward', () => {
       .add([featureFlagsPlugin, {}])
       .add([analyticsPlugin, { createAnalyticsEvent }])
       .add(listPlugin)
-      .add(basePlugins)
+      .add(basePlugin)
       .add(decorationsPlugin)
       .add(blockType)
       .add(compositionPlugin)
@@ -1030,13 +1030,12 @@ describe('join-list-item-forward', () => {
           )
         )
       );
-      const { editorView, pluginInjectionAPI } = editor(initialDoc);
+      const { editorView, editorAPI } = editor(initialDoc);
       // deleteKeyCommand(undefined)(editorView.state, editorView.dispatch);
-      deleteKeyCommand(
-        pluginInjectionAPI.api().dependencies.analytics?.actions as
-          | EditorAnalyticsAPI
-          | undefined,
-      )(editorView.state, editorView.dispatch);
+      deleteKeyCommand(editorAPI.dependencies.analytics?.actions)(
+        editorView.state,
+        editorView.dispatch,
+      );
       expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
     });
   });
@@ -1063,12 +1062,11 @@ describe('join-list-item-forward', () => {
           )
         ),
       );
-      const { editorView, pluginInjectionAPI } = editor(initialDoc);
-      deleteKeyCommand(
-        pluginInjectionAPI.api().dependencies?.analytics?.actions as
-          | EditorAnalyticsAPI
-          | undefined,
-      )(editorView.state, editorView.dispatch);
+      const { editorView, editorAPI } = editor(initialDoc);
+      deleteKeyCommand(editorAPI.dependencies?.analytics?.actions)(
+        editorView.state,
+        editorView.dispatch,
+      );
       expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
     });
   });

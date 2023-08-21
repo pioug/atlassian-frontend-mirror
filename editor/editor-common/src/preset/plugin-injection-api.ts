@@ -4,7 +4,6 @@ import throttle from 'lodash/throttle';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import type { EditorCommand } from '../types/editor-command';
 import type {
   DefaultEditorPlugin,
   NextEditorPlugin,
@@ -12,7 +11,7 @@ import type {
   PluginInjectionAPI,
 } from '../types/next-editor-plugin';
 
-import { editorCommandToPMCommand } from './editor-commands';
+import { corePlugin } from './core-plugin';
 
 type NextEditorPluginInitializedType = ReturnType<NextEditorPlugin<any>>;
 
@@ -287,14 +286,14 @@ export class EditorPluginInjectionAPI implements PluginInjectionAPIDefinition {
   private actionsAPI: ActionsAPI;
   private commandsAPI: EditorCommandsAPI;
   private plugins: Map<string, NextEditorPluginInitializedType>;
-  private getEditorView: () => EditorView | undefined;
 
   constructor({ getEditorState, getEditorView }: PluginInjectionAPIProps) {
     this.sharedStateAPI = new SharedStateAPI({ getEditorState });
     this.plugins = new Map();
     this.actionsAPI = new ActionsAPI();
     this.commandsAPI = new EditorCommandsAPI();
-    this.getEditorView = getEditorView;
+    // Special core plugin that is always added
+    this.addPlugin(corePlugin({ getEditorView }));
   }
 
   api<T extends NextEditorPlugin<any, any>>() {
@@ -337,18 +336,7 @@ export class EditorPluginInjectionAPI implements PluginInjectionAPIDefinition {
 
     return {
       dependencies,
-      executeCommand: this.executeCommand.bind(this),
     };
-  }
-
-  private executeCommand(command: EditorCommand | undefined): boolean {
-    const editorView = this.getEditorView();
-    if (!editorView || !command) {
-      return false;
-    }
-
-    const { state, dispatch } = editorView;
-    return editorCommandToPMCommand(command)(state, dispatch);
   }
 
   onEditorViewUpdated = ({
@@ -367,6 +355,15 @@ export class EditorPluginInjectionAPI implements PluginInjectionAPIDefinition {
   };
 
   private addPlugin = (plugin: NextEditorPluginInitializedType) => {
+    // Plugins other than `core` are checked by the preset itself
+    // For some reason in some tests we have duplicates that are missed.
+    // To follow-up in ED-19611
+    if (plugin.name === 'core' && this.plugins.has(plugin.name)) {
+      throw new Error(
+        `Plugin ${plugin.name} has already been initialised in the Editor API! 
+        There cannot be duplicate plugins or you will have unexpected behaviour`,
+      );
+    }
     this.plugins.set(plugin.name, plugin);
   };
 

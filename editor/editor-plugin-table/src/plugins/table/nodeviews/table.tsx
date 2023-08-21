@@ -12,13 +12,16 @@ import type {
   getPosHandlerNode,
 } from '@atlaskit/editor-common/types';
 import { WithPluginState } from '@atlaskit/editor-common/with-plugin-state';
-import {
+import type {
   DOMOutputSpec,
-  DOMSerializer,
   Node as PmNode,
 } from '@atlaskit/editor-prosemirror/model';
-import { EditorState, PluginKey } from '@atlaskit/editor-prosemirror/state';
-import { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
+import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
+import type {
+  EditorState,
+  PluginKey,
+} from '@atlaskit/editor-prosemirror/state';
+import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 
@@ -28,11 +31,11 @@ import { pluginKey } from '../pm-plugins/plugin-key';
 import { pluginKey as tableResizingPluginKey } from '../pm-plugins/table-resizing';
 import { generateColgroup } from '../pm-plugins/table-resizing/utils';
 import { pluginKey as tableWidthPluginKey } from '../pm-plugins/table-width';
-import { PluginInjectionAPI } from '../types';
+import type { PluginInjectionAPI } from '../types';
 import { isTableNested } from '../utils';
 
 import TableComponent from './TableComponent';
-import { Props, TableOptions } from './types';
+import type { Props, TableOptions } from './types';
 
 type ForwardRef = (node: HTMLElement | null) => void;
 
@@ -160,7 +163,11 @@ export default class TableView extends ReactNodeView<Props> {
       this.getPos(),
     );
 
-    if (tableInlineWidth) {
+    const isTableResizing = tableWidthPluginKey.getState(
+      this.view.state,
+    )?.resizing;
+
+    if (!isTableResizing && tableInlineWidth) {
       handleInlineTableWidth(this.table, tableInlineWidth);
     }
   }

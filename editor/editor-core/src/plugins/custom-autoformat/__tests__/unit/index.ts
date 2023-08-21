@@ -14,7 +14,7 @@ import {
 import { pluginKey } from '../../utils';
 // Editor plugins
 import customAutoformatPlugin from '../../index';
-import basePlugin from '../../../base';
+import { basePlugin } from '../../../base';
 import listPlugin from '../../../list';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
@@ -46,9 +46,9 @@ describe('custom-autoformat', () => {
       doc,
       preset: new Preset<LightEditorPlugin>()
         .add([featureFlagsPlugin, {}])
+        .add(basePlugin)
         .add([analyticsPlugin, {}])
         .add(customAutoformatPlugin)
-        .add(basePlugin)
         .add(listPlugin),
       providerFactory,
       pluginKey,

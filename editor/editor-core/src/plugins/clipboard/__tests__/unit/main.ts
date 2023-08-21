@@ -70,7 +70,7 @@ describe('clipboard plugin', () => {
     ]);
 
   const editor = (doc: DocBuilder) =>
-    createEditor<undefined, PluginKey>({
+    createEditor<undefined, PluginKey, typeof preset>({
       doc,
       preset,
       pluginKey: clipboardPluginKey,

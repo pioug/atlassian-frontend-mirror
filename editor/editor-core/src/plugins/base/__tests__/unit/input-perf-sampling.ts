@@ -13,7 +13,7 @@ import {
   DEFAULT_TRACK_SEVERITY_THRESHOLD_NORMAL,
   DEFAULT_TRACK_SEVERITY_THRESHOLD_DEGRADED,
 } from '../../pm-plugins/frozen-editor';
-import basePlugin from '../../';
+import { basePlugin } from '../../';
 import * as timingUtils from '../../../../utils/performance/get-performance-timing';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 

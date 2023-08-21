@@ -28,6 +28,7 @@ const FlexibleErroredView = ({
   url,
   onClick,
   testId = 'smart-block-errored-view',
+  titleBlockProps,
 }: FlexibleBlockCardProps) => {
   const status = cardState.status as SmartLinkStatus;
 
@@ -46,7 +47,11 @@ const FlexibleErroredView = ({
       ui={{ hideElevation: true }}
       url={url}
     >
-      <TitleBlock hideRetry={true} anchorTarget={anchorTarget} />
+      <TitleBlock
+        hideRetry={true}
+        anchorTarget={anchorTarget}
+        {...titleBlockProps}
+      />
       <CustomBlock>
         <WarningIcon
           label="errored-warning-icon"

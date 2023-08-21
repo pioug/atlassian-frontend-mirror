@@ -1,5 +1,12 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 8.4.1
+
+### Patch Changes
+
+- [`b11339bc8a3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b11339bc8a3) - Internal updates for ADS Typography ADG3 theme.
+- Updated dependencies
+
 ## 8.4.0
 
 ### Minor Changes

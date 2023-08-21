@@ -1,15 +1,16 @@
 /* eslint-disable @atlaskit/design-system/no-unsafe-design-token-usage */
 /** @jsx jsx */
-import { Fragment, ReactNode, useRef, useState } from 'react';
+import { Fragment, ReactNode, useCallback, useRef, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 import ReactDOM from 'react-dom';
 
+import { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
+import { DragHandleDropdownMenu } from '@atlaskit/pragmatic-drag-and-drop-react-accessibility/drag-handle-dropdown-menu';
+import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-indicator/box';
 import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/util/set-custom-native-drag-preview';
 import { token } from '@atlaskit/tokens';
 
-import { DragHandleButton } from '../../drag-handle-button';
-import { DropIndicatorWithTerminal } from '../../drop-indicator-with-terminal';
 import { useFlashOnDrop } from '../../hooks/use-flash-on-drop';
 import { useSortableField } from '../../hooks/use-sortable-field';
 import { Field, FieldLabel } from '../index';
@@ -77,6 +78,17 @@ function DraggableField({
 
   useFlashOnDrop({ ref, draggableId: item.id, type });
 
+  const moveUp = useCallback(() => {
+    reorderItem({ id: item.id, action: 'up' });
+  }, [item.id, reorderItem]);
+
+  const moveDown = useCallback(() => {
+    reorderItem({ id: item.id, action: 'down' });
+  }, [item.id, reorderItem]);
+
+  const isMoveUpDisabled = index === 0;
+  const isMoveDownDisabled = index === data.length - 1;
+
   return (
     <Field
       ref={ref}
@@ -90,28 +102,30 @@ function DraggableField({
               marginLeft: -4,
             }}
           >
-            <DragHandleButton
-              ref={setDragHandle}
-              id={item.id}
-              index={index}
-              dataLength={data.length}
-              reorderItem={reorderItem}
-              dragState={dragState}
-              triggerAppearance="subtle"
-            />
+            <DragHandleDropdownMenu
+              triggerRef={setDragHandle}
+              label="reorder"
+              appearance="subtle"
+            >
+              <DropdownItemGroup>
+                <DropdownItem onClick={moveUp} isDisabled={isMoveUpDisabled}>
+                  Move up
+                </DropdownItem>
+                <DropdownItem
+                  onClick={moveDown}
+                  isDisabled={isMoveDownDisabled}
+                >
+                  Move down
+                </DropdownItem>
+              </DropdownItemGroup>
+            </DragHandleDropdownMenu>
           </span>
           {item.label}
         </Fragment>
       }
     >
       {item.content}
-      {closestEdge && (
-        <DropIndicatorWithTerminal
-          edge={closestEdge}
-          gap="8px"
-          terminalOffset="4px"
-        />
-      )}
+      {closestEdge && <DropIndicator edge={closestEdge} gap="8px" />}
     </Field>
   );
 }

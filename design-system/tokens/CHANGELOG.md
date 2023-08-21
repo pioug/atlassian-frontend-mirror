@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 1.15.0
+
+### Minor Changes
+
+- [`6b31bb82f08`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6b31bb82f08) - Introduces experimental typography theme (v2).
+
 ## 1.14.2
 
 ### Patch Changes

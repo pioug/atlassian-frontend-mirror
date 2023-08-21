@@ -19,6 +19,15 @@ import {
 import { toggleBulletList, toggleOrderedList, tooltip } from '../../keymaps';
 import { IconList, IconListNumber } from '@atlaskit/editor-common/quick-insert';
 import type { ListPlugin } from '@atlaskit/editor-plugin-list';
+import { isInsideListItem } from './utils/selection';
+import {
+  indentList,
+  outdentList,
+  toggleBulletList as toggleBulletListCommand,
+  toggleOrderedList as toggleOrderedListCommand,
+} from './commands';
+import { findRootParentListNode } from './utils/find';
+import { pluginKey as listPluginKey } from './pm-plugins/main';
 
 /*
   Toolbar buttons to bullet and ordered list can be found in
@@ -31,6 +40,22 @@ const listPlugin: ListPlugin = (options, api) => {
 
   return {
     name: 'list',
+    actions: {
+      indentList: indentList(editorAnalyticsAPI),
+      outdentList: outdentList(editorAnalyticsAPI),
+      toggleOrderedList: toggleOrderedListCommand(editorAnalyticsAPI),
+      toggleBulletList: toggleBulletListCommand(editorAnalyticsAPI),
+      isInsideListItem,
+      findRootParentListNode,
+    },
+    getSharedState: (editorState) => {
+      if (!editorState) {
+        return undefined;
+      }
+
+      return listPluginKey.getState(editorState);
+    },
+
     nodes() {
       return [
         { name: 'bulletList', node: bulletList },

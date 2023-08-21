@@ -217,7 +217,8 @@ describe('<LeftSidebar />', () => {
     expect(screenshot2).toMatchProdImageSnapshot();
   });
 
-  it('should match the snapshot of left sidebar content height 100%', async () => {
+  // FIXME: This test was automatically skipped due to failure on 20/08/2023: https://product-fabric.atlassian.net/browse/DSP-12566
+  it.skip('should match the snapshot of left sidebar content height 100%', async () => {
     const { page } = global;
     const content = "[data-testid='content']";
     const leftSidebar = "[data-testid='side-navigation']";

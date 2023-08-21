@@ -3,15 +3,16 @@ import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertio
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
-import { PluginKey, TextSelection } from '@atlaskit/editor-prosemirror/state';
+import type { PluginKey } from '@atlaskit/editor-prosemirror/state';
+import { TextSelection } from '@atlaskit/editor-prosemirror/state';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
-  DocBuilder,
   table,
   tdCursor,
   tdEmpty,
@@ -22,7 +23,7 @@ import tablePlugin from '../../plugins/table-plugin';
 import { handleDocOrSelectionChanged } from '../../plugins/table/handlers';
 import { defaultTableSelection } from '../../plugins/table/pm-plugins/default-table-selection';
 import { pluginKey } from '../../plugins/table/pm-plugins/plugin-key';
-import { TablePluginState } from '../../plugins/table/types';
+import type { TablePluginState } from '../../plugins/table/types';
 
 describe('table action handlers', () => {
   let editor: any;
@@ -39,7 +40,7 @@ describe('table action handlers', () => {
       .add(tablePlugin);
 
     editor = (doc: DocBuilder) =>
-      createEditor<TablePluginState, PluginKey>({
+      createEditor<TablePluginState, PluginKey, typeof preset>({
         doc,
         preset,
         pluginKey,

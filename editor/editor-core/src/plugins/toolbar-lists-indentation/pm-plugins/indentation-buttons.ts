@@ -4,8 +4,6 @@ import { hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { shallowEqual } from '@atlaskit/editor-common/utils';
 import type { Dispatch } from '../../../event-dispatcher';
-
-import { isInsideListItem } from '../../list/utils/selection';
 import {
   getCurrentIndentLevel as getTaskListIndentLevel,
   getTaskItemIndex,
@@ -17,6 +15,8 @@ import {
 } from '../../indentation/commands';
 
 import { getListItemAttributes } from '@atlaskit/editor-common/lists';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type toolbarListsIndentationPlugin from '../index';
 
 export interface IndentationButtons {
   indentDisabled: boolean;
@@ -31,6 +31,7 @@ export const pluginKey = new PluginKey<IndentationButtons>(
 function getIndentationButtonsState(
   editorState: EditorState,
   allowHeadingAndParagraphIndentation: boolean,
+  api: ExtractInjectionAPI<typeof toolbarListsIndentationPlugin> | undefined,
 ): IndentationButtons {
   const state = {
     indentDisabled: true,
@@ -45,7 +46,7 @@ function getIndentationButtonsState(
   // not use the indentation mark.
   // Check for lists before paragraphs and headings in case
   // the selection is in a list nested in a layout column.
-  if (isInsideListItem(editorState)) {
+  if (api?.dependencies.list.actions.isInsideListItem(editorState)) {
     const { indentLevel, itemIndex } = getListItemAttributes(selection.$head);
 
     return {
@@ -107,10 +108,12 @@ export const createPlugin = ({
   dispatch,
   showIndentationButtons,
   allowHeadingAndParagraphIndentation,
+  api,
 }: {
   dispatch: Dispatch;
   showIndentationButtons: boolean;
   allowHeadingAndParagraphIndentation: boolean;
+  api: ExtractInjectionAPI<typeof toolbarListsIndentationPlugin> | undefined;
 }) =>
   new SafePlugin({
     state: {
@@ -125,6 +128,7 @@ export const createPlugin = ({
           ? getIndentationButtonsState(
               state,
               allowHeadingAndParagraphIndentation,
+              api,
             )
           : initialState;
       },
@@ -133,6 +137,7 @@ export const createPlugin = ({
           const state = getIndentationButtonsState(
             newState,
             allowHeadingAndParagraphIndentation,
+            api,
           );
 
           if (!shallowEqual(pluginState, state)) {

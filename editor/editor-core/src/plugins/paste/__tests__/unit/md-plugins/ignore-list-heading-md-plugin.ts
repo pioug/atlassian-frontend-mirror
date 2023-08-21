@@ -8,7 +8,7 @@ import {
 
 // Editor Plugins
 import pastePlugin from '../../..';
-import basePlugin from '../../../../base';
+import { basePlugin } from '../../../../base';
 import blockTypePlugin from '../../../../block-type';
 import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import listPlugin from '../../../../list';
@@ -27,14 +27,14 @@ describe('Paste Markdown Plugins', () => {
       doc,
       preset: new Preset<LightEditorPlugin>()
         .add([featureFlagsPlugin, {}])
+        .add(basePlugin)
         .add([analyticsPlugin, {}])
         .add(hyperlinkPlugin)
         .add(betterTypeHistoryPlugin)
         .add([pastePlugin, {}])
         .add([listPlugin])
         .add(blockTypePlugin)
-        .add(textFormattingPlugin)
-        .add(basePlugin),
+        .add(textFormattingPlugin),
     });
   };
 

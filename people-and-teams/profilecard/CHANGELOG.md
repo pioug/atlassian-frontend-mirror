@@ -1,5 +1,12 @@
 # @atlaskit/profilecard
 
+## 19.5.8
+
+### Patch Changes
+
+- [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
+- Updated dependencies
+
 ## 19.5.7
 
 ### Patch Changes

@@ -1,5 +1,16 @@
 # @atlaskit/user-picker
 
+## 10.6.0
+
+### Minor Changes
+
+- [`7b8ae37bf88`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7b8ae37bf88) - Allow passing a component for noOptionsMessage prop
+
+### Patch Changes
+
+- [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
+- Updated dependencies
+
 ## 10.5.1
 
 ### Patch Changes

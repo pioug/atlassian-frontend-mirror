@@ -7,38 +7,35 @@ import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertio
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
-import {
-  Fragment,
+import type {
   Node as ProsemirrorNode,
   Schema,
-  Slice,
 } from '@atlaskit/editor-prosemirror/model';
-import {
+import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
+import type {
   PluginKey,
-  TextSelection,
   Transaction,
 } from '@atlaskit/editor-prosemirror/state';
-import {
-  __serializeForClipboard,
-  EditorView,
-} from '@atlaskit/editor-prosemirror/view';
+import { TextSelection } from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { __serializeForClipboard } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import {
   getCellsInTable,
   selectColumn,
   selectTable,
 } from '@atlaskit/editor-tables/utils';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import dispatchPasteEvent from '@atlaskit/editor-test-helpers/dispatch-paste-event';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   br,
   code_block,
   doc,
-  DocBuilder,
   expand,
   p,
   panel,
@@ -51,7 +48,7 @@ import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 
 import tablePlugin from '../../plugins/table-plugin';
 import { pluginKey as tablePluginKey } from '../../plugins/table/pm-plugins/plugin-key';
-import { PluginConfig, TablePluginState } from '../../plugins/table/types';
+import type { PluginConfig, TablePluginState } from '../../plugins/table/types';
 import {
   removeTableFromFirstChild,
   removeTableFromLastChild,
@@ -125,7 +122,7 @@ describe('table plugin', () => {
     .add([tablePlugin, { tableOptions }]);
 
   const editor = (doc: DocBuilder) => {
-    return createEditor<TablePluginState, PluginKey>({
+    return createEditor<TablePluginState, PluginKey, typeof preset>({
       doc,
       preset,
       pluginKey: tablePluginKey,

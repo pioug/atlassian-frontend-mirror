@@ -9,6 +9,7 @@
 export default {
   'fabric.linking.actions': 'Aktionen',
   'fabric.linking.add_account': 'Account hinzufügen',
+  'fabric.linking.assigned_to': 'Zugewiesen an {context}',
   'fabric.linking.cancel': 'Abbrechen',
   'fabric.linking.cannot_connect': 'Verbindung nicht möglich, versuchen Sie es erneut',
   'fabric.linking.cannot_find_link': 'Link konnte nicht gefunden werden',
@@ -26,6 +27,8 @@ export default {
   'fabric.linking.connect_to': 'Mit {name} verbinden',
   'fabric.linking.connect_unauthorised_account_action': 'Mit {context} verbinden',
   'fabric.linking.connect_unauthorised_account_description':
+    'Verbinden Sie {context} mit Atlassian, damit mehr Details zu Ihrer Arbeit und Zusammenarbeit an einem zentralen Ort angezeigt werden.',
+  'fabric.linking.connect_unauthorised_account_description_no_provider':
     'Mit Atlassian verbinden, damit mehr Details zu Ihrer Arbeit und Zusammenarbeit an einem zentralen Ort angezeigt werden.',
   'fabric.linking.continue': 'Weiter',
   'fabric.linking.copy_url_to_clipboard': 'Link kopieren',
@@ -74,6 +77,7 @@ export default {
   'fabric.linking.priority_minor': 'Geringfügig',
   'fabric.linking.priority_trivial': 'Unwesentlich',
   'fabric.linking.priority_undefined': 'Nicht definiert',
+  'fabric.linking.read_time': 'Lesedauer: {context} Min.',
   'fabric.linking.request_access': 'Zugriff anfordern',
   'fabric.linking.request_access_description':
     'Sie müssen Zugriff auf {context} anfordern, um diese Vorschau anzeigen zu können.',
@@ -93,6 +97,12 @@ export default {
   'fabric.linking.status_change_update_error': 'Der Status konnte nicht aktualisiert werden',
   'fabric.linking.try_again': 'Versuchen Sie es erneut.',
   'fabric.linking.try_another_account': 'Versuchen Sie es mit einem anderen Konto erneut.',
+  'fabric.linking.unauthorised_account_description':
+    'Sie versuchen, die Vorschau eines Links zu einer privaten {context}-Seite anzuzeigen. Überprüfen Sie die URL oder wenden Sie sich an den Seitenbesitzer.',
+  'fabric.linking.unauthorised_account_description_no_provider':
+    'Sie versuchen, die Vorschau eines Links zu einer privaten Seite anzuzeigen. Überprüfen Sie die URL oder wenden Sie sich an den Seitenbesitzer.',
+  'fabric.linking.unauthorised_account_name': 'Private Seiten von {context} können nicht angezeigt werden',
+  'fabric.linking.unauthorised_account_name_no_provider': 'Private Seiten können nicht angezeigt werden',
   'fabric.linking.unlink_account': 'Kontoverknüpfung löschen',
   'fabric.linking.updated_by': 'Geändert von {context}',
   'fabric.linking.view': 'Anzeigen',

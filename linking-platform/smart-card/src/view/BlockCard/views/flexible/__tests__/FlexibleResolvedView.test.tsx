@@ -5,7 +5,7 @@ import { SmartCardProvider } from '@atlaskit/link-provider';
 import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
 import FlexibleResolvedView from '../FlexibleResolvedView';
 import { mockAnalytics } from '../../../../../utils/mocks';
-import { mockConfluenceResponse } from './__mocks__/mocks';
+import { mockConfluenceResponse } from './__mocks__/blockCardMocks';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 describe('FlexibleResolvedView', () => {

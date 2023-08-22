@@ -7,10 +7,17 @@
  */
 //Dutch (Netherlands)
 export default {
+  'linkDataSource.assets.configModal.aqlSearchInput.helpTooltipText': 'Syntaxhulp',
   'linkDataSource.assets.configModal.aqlSearchInput.placeholder': 'Zoeken via AQL',
   'linkDataSource.assets.configModal.objectSchemaSelect.label': 'Selecteer schema',
   'linkDataSource.assets.configModal.objectSchemaSelect.placeholder': 'Selecteer schema',
   'linkDataSource.assets.configModal.objectSchemaSelect.schemaRequired': 'Er is een schema nodig',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.learnMoreLink':
+    'Meer informatie over zoeken met AQL.',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchDescription':
+    'Begin met typen of gebruik een AQL om te zoeken.',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle':
+    'Zoeken naar objecten en objecttypen',
   'linkDataSource.assets.configmodal.cancelButtonText': 'Annuleren',
   'linkDataSource.assets.configmodal.insertIssuesButtonText': 'Objecten invoegen',
   'linkDataSource.assets.configmodal.insertObjectsTitle': 'Objecten invoegen van',

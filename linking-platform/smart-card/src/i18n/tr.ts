@@ -9,6 +9,7 @@
 export default {
   'fabric.linking.actions': 'Eylemler',
   'fabric.linking.add_account': 'Hesap ekle',
+  'fabric.linking.assigned_to': '{context} adlı kişiye atandı',
   'fabric.linking.cancel': 'İptal',
   'fabric.linking.cannot_connect': 'Bağlanılamıyor, tekrar deneyin',
   'fabric.linking.cannot_find_link': 'Bağlantı bulunamıyor',
@@ -26,6 +27,8 @@ export default {
   'fabric.linking.connect_to': '{name} hesabını bağlan',
   'fabric.linking.connect_unauthorised_account_action': '{context} hesabını bağlayın',
   'fabric.linking.connect_unauthorised_account_description':
+    "Çalışmanızla ilgili daha fazla ayrıntıyı bir arada görmek ve tek bir yerden iş birliği yapmak için {context} hesabını Atlassian'a bağlayın.",
+  'fabric.linking.connect_unauthorised_account_description_no_provider':
     "Çalışmanızla ilgili daha fazla ayrıntıyı bir arada görmek ve tek bir yerden iş birliği yapmak için Atlassian'a bağlanın.",
   'fabric.linking.continue': 'Devam',
   'fabric.linking.copy_url_to_clipboard': 'Bağlantıyı kopyalayın',
@@ -74,6 +77,7 @@ export default {
   'fabric.linking.priority_minor': 'Düşük',
   'fabric.linking.priority_trivial': 'Önemsiz',
   'fabric.linking.priority_undefined': 'Tanımlanmamış',
+  'fabric.linking.read_time': '{context} dk. okuma süresi',
   'fabric.linking.request_access': 'Erişim talep edin',
   'fabric.linking.request_access_description': 'Bu önizlemeyi görüntülemek için {context} ürününe erişim talep edin.',
   'fabric.linking.request_access_pending': 'Erişim bekleniyor',
@@ -92,6 +96,12 @@ export default {
   'fabric.linking.status_change_update_error': 'Durum güncellenemedi',
   'fabric.linking.try_again': 'Yeniden dene',
   'fabric.linking.try_another_account': 'Başka bir hesapla deneyin',
+  'fabric.linking.unauthorised_account_description':
+    "Özel bir {context} sayfasına olan bir bağlantıyı önizlemeye çalışıyorsunuz. URL'yi incelemenizi veya sayfa sahibiyle iletişime geçmenizi öneririz.",
+  'fabric.linking.unauthorised_account_description_no_provider':
+    "Özel bir sayfaya olan bir bağlantıyı önizlemeye çalışıyorsunuz. URL'yi incelemenizi veya sayfa sahibiyle iletişime geçmenizi öneririz.",
+  'fabric.linking.unauthorised_account_name': '{context} üzerindeki özel sayfalar görüntülenemiyor',
+  'fabric.linking.unauthorised_account_name_no_provider': 'Özel sayfalar görüntülenemiyor',
   'fabric.linking.unlink_account': 'Hesabın Bağlantısını Kaldır',
   'fabric.linking.updated_by': '{context} tarafından değiştirildi',
   'fabric.linking.view': 'Görüntüle',

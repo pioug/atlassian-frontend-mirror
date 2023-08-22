@@ -2577,6 +2577,694 @@ exports[`Renderer - EmailSerializer should render media single correctly: html 1
 </div>
 `;
 
+exports[`Renderer - EmailSerializer should render media single with pixel sizing correctly: html 1`] = `
+<div
+  class="csg-wrapper"
+  style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; line-height: 24px; vertical-align: baseline;"
+>
+  <p
+    class="csg-p"
+    style="margin: 0; padding: 0px; margin-bottom: 7px; padding-top: 7px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px;"
+  >
+    Wrap-left:
+  </p>
+  <div
+    class="csg-media-single-wrap-left"
+    style="float: left; width: 300px; max-width: 100%;"
+  >
+    <div
+      class="csg-media-lozenge-wrapper"
+      style="margin: 8px 0;"
+    >
+      <div
+        class="csg-media-lozenge"
+        style="line-height: 14px; display: inline-block; border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px;"
+      >
+        <span>
+          <img
+            class="csg-media-lozenge-icon"
+            height="14"
+            src="cid:csg-icon-genericAttachment"
+            style="vertical-align: baseline;"
+            width="14"
+          />
+        </span>
+        <span
+          class="csg-media-lozenge-text"
+          style="overflow: hidden; display: inline-block;"
+        >
+          Attached file
+        </span>
+      </div>
+    </div>
+  </div>
+  <p
+    class="csg-p"
+    style="margin: 0; padding: 0px; margin-bottom: 7px; padding-top: 7px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px;"
+  >
+    Bacon ipsum dolor amet kevin bacon pork cupim. Bresaola beef sirloin pork. Sausage ribeye tongue burgdoggen frankfurter meatball. Brisket chuck capicola, beef ribs meatball tenderloin short ribs pancetta pork loin filet mignon jowl bresaola shoulder biltong. Cupim burgdoggen ribeye, prosciutto kielbasa ball tip swine chuck pork biltong jerky leberkas alcatra. Hamburger pancetta prosciutto kielbasa, alcatra pork chop ground round porchetta frankfurter beef ribs cupim picanha shank. Tail buffalo pork loin, t-bone brisket landjaeger shoulder.
+  </p>
+  <div
+    class="csg-media-single-wrap-right"
+    style="float: right; width: 300px; max-width: 100%;"
+  >
+    <div
+      class="csg-media-lozenge-wrapper"
+      style="margin: 8px 0;"
+    >
+      <div
+        class="csg-media-lozenge"
+        style="line-height: 14px; display: inline-block; border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px;"
+      >
+        <span>
+          <img
+            class="csg-media-lozenge-icon"
+            height="14"
+            src="cid:csg-icon-genericAttachment"
+            style="vertical-align: baseline;"
+            width="14"
+          />
+        </span>
+        <span
+          class="csg-media-lozenge-text"
+          style="overflow: hidden; display: inline-block;"
+        >
+          Attached file
+        </span>
+      </div>
+    </div>
+  </div>
+  <p
+    class="csg-p"
+    style="margin: 0; padding: 0px; margin-bottom: 7px; padding-top: 7px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px;"
+  >
+    Wrap-right:
+  </p>
+  <p
+    class="csg-p"
+    style="margin: 0; padding: 0px; margin-bottom: 7px; padding-top: 7px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px;"
+  >
+    Rump tongue tenderloin, pork chop meatball filet mignon pork ham hock pastrami cow. Beef porchetta bresaola shank rump, tenderloin kielbasa pork loin brisket pancetta. Frankfurter tail pig salami pork beef ribs pastrami doner flank kielbasa meatloaf strip steak spare ribs pork chop. Strip steak drumstick filet mignon jerky cupim ribeye meatloaf doner turkey ground round shank tongue salami. Alcatra shankle tri-tip pork chop meatball brisket filet mignon prosciutto shoulder biltong hamburger beef ribs ball tip. Ham landjaeger tri-tip beef andouille, short ribs pancetta meatloaf bacon flank venison. Prosciutto shankle leberkas turkey frankfurter tail flank bresaola.
+  </p>
+  <p
+    class="csg-p"
+    style="margin: 0; padding: 0px; margin-bottom: 7px; padding-top: 7px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px;"
+  >
+    Align right:
+  </p>
+  <div
+    class="csg-media-single-align-end"
+    style="margin-left: auto; margin-right: 0px; width: 400px; max-width: 100%;"
+  >
+    <div
+      class="csg-media-lozenge-wrapper"
+      style="margin: 8px 0;"
+    >
+      <div
+        class="csg-media-lozenge"
+        style="line-height: 14px; display: inline-block; border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px;"
+      >
+        <span>
+          <img
+            class="csg-media-lozenge-icon"
+            height="14"
+            src="cid:csg-icon-genericAttachment"
+            style="vertical-align: baseline;"
+            width="14"
+          />
+        </span>
+        <span
+          class="csg-media-lozenge-text"
+          style="overflow: hidden; display: inline-block;"
+        >
+          Attached file
+        </span>
+      </div>
+    </div>
+  </div>
+  <p
+    class="csg-p"
+    style="margin: 0; padding: 0px; margin-bottom: 7px; padding-top: 7px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px;"
+  >
+    Align left:
+  </p>
+  <div
+    class="csg-media-single-align-start"
+    style="margin-left: 0px; margin-right: auto; width: 150px; max-width: 100%;"
+  >
+    <div
+      class="csg-media-lozenge-wrapper"
+      style="margin: 8px 0;"
+    >
+      <div
+        class="csg-media-lozenge"
+        style="line-height: 14px; display: inline-block; border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px;"
+      >
+        <span>
+          <img
+            class="csg-media-lozenge-icon"
+            height="14"
+            src="cid:csg-icon-genericAttachment"
+            style="vertical-align: baseline;"
+            width="14"
+          />
+        </span>
+        <span
+          class="csg-media-lozenge-text"
+          style="overflow: hidden; display: inline-block;"
+        >
+          Attached file
+        </span>
+      </div>
+    </div>
+  </div>
+  <p
+    class="csg-p"
+    style="margin: 0; padding: 0px; margin-bottom: 7px; padding-top: 7px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px;"
+  >
+    Center align:
+  </p>
+  <div
+    class="csg-media-single-center"
+    style="margin-left: auto; margin-right: auto; width: 600px; max-width: 100%;"
+  >
+    <div
+      class="csg-media-lozenge-wrapper"
+      style="margin: 8px 0;"
+    >
+      <div
+        class="csg-media-lozenge"
+        style="line-height: 14px; display: inline-block; border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px;"
+      >
+        <span>
+          <img
+            class="csg-media-lozenge-icon"
+            height="14"
+            src="cid:csg-icon-genericAttachment"
+            style="vertical-align: baseline;"
+            width="14"
+          />
+        </span>
+        <span
+          class="csg-media-lozenge-text"
+          style="overflow: hidden; display: inline-block;"
+        >
+          Attached file
+        </span>
+      </div>
+    </div>
+  </div>
+  <p
+    class="csg-p"
+    style="margin: 0; padding: 0px; margin-bottom: 7px; padding-top: 7px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px;"
+  >
+    Bacon ipsum dolor amet kevin bacon pork cupim. Bresaola beef sirloin pork. Sausage ribeye tongue burgdoggen frankfurter meatball. Brisket chuck capicola, beef ribs meatball tenderloin short ribs pancetta pork loin filet mignon jowl bresaola shoulder biltong. Cupim burgdoggen ribeye, prosciutto kielbasa ball tip swine chuck pork biltong jerky leberkas alcatra. Hamburger pancetta prosciutto kielbasa, alcatra pork chop ground round porchetta frankfurter beef ribs cupim picanha shank. Tail buffalo pork loin, t-bone brisket landjaeger shoulder.
+  </p>
+  <p
+    class="csg-p"
+    style="margin: 0; padding: 0px; margin-bottom: 7px; padding-top: 7px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px;"
+  >
+    Wide:
+  </p>
+  <div
+    class="csg-media-single-wide"
+    style="width: 100%; max-width: 100%;"
+  >
+    <div
+      class="csg-media-lozenge-wrapper"
+      style="margin: 8px 0;"
+    >
+      <div
+        class="csg-media-lozenge"
+        style="line-height: 14px; display: inline-block; border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px;"
+      >
+        <span>
+          <img
+            class="csg-media-lozenge-icon"
+            height="14"
+            src="cid:csg-icon-genericAttachment"
+            style="vertical-align: baseline;"
+            width="14"
+          />
+        </span>
+        <span
+          class="csg-media-lozenge-text"
+          style="overflow: hidden; display: inline-block;"
+        >
+          Attached file
+        </span>
+      </div>
+    </div>
+  </div>
+  <p
+    class="csg-p"
+    style="margin: 0; padding: 0px; margin-bottom: 7px; padding-top: 7px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px;"
+  >
+    Full-width:
+  </p>
+  <div
+    class="csg-media-single-full-width"
+    style="width: 100%; max-width: 100%;"
+  >
+    <div
+      class="csg-media-lozenge-wrapper"
+      style="margin: 8px 0;"
+    >
+      <div
+        class="csg-media-lozenge"
+        style="line-height: 14px; display: inline-block; border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px;"
+      >
+        <span>
+          <img
+            class="csg-media-lozenge-icon"
+            height="14"
+            src="cid:csg-icon-genericAttachment"
+            style="vertical-align: baseline;"
+            width="14"
+          />
+        </span>
+        <span
+          class="csg-media-lozenge-text"
+          style="overflow: hidden; display: inline-block;"
+        >
+          Attached file
+        </span>
+      </div>
+    </div>
+  </div>
+  <a
+    class="csg-mark-link"
+    href="https://pug.jira-dev.com/wiki"
+    style="border: none; background: transparent; color: #0052cc; text-decoration: none;"
+  >
+    <div
+      class="csg-media-single-align-start"
+      style="margin-left: 0px; margin-right: auto; width: 300px; max-width: 100%;"
+    >
+      <div
+        class="csg-media-lozenge-wrapper"
+        style="margin: 8px 0;"
+      >
+        <div
+          class="csg-media-lozenge"
+          style="line-height: 14px; display: inline-block; border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px;"
+        >
+          <span>
+            <img
+              class="csg-media-lozenge-icon"
+              height="14"
+              src="cid:csg-icon-genericAttachment"
+              style="vertical-align: baseline;"
+              width="14"
+            />
+          </span>
+          <span
+            class="csg-media-lozenge-text"
+            style="overflow: hidden; display: inline-block;"
+          >
+            Attached file
+          </span>
+        </div>
+      </div>
+    </div>
+  </a>
+  <div
+    class="csg-media-single-full-width"
+    style="width: 100%; max-width: 100%;"
+  >
+    <div
+      class="csg-media-lozenge-wrapper"
+      style="margin: 8px 0;"
+    >
+      <div
+        class="csg-media-lozenge"
+        style="line-height: 14px; display: inline-block; border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px;"
+      >
+        <span>
+          <img
+            class="csg-media-lozenge-icon"
+            height="14"
+            src="cid:csg-icon-genericAttachment"
+            style="vertical-align: baseline;"
+            width="14"
+          />
+        </span>
+        <span
+          class="csg-media-lozenge-text"
+          style="overflow: hidden; display: inline-block;"
+        >
+          Attached file
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Renderer - EmailSerializer should render media single with pixel sizing fallback correctly: html 1`] = `
+<div
+  class="csg-wrapper"
+  style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; line-height: 24px; vertical-align: baseline;"
+>
+  <p
+    class="csg-p"
+    style="margin: 0; padding: 0px; margin-bottom: 7px; padding-top: 7px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px;"
+  >
+    Wrap-left:
+  </p>
+  <div
+    class="csg-media-single-wrap-left"
+    style="float: left; width: 100%; max-width: 100%;"
+  >
+    <div
+      class="csg-media-lozenge-wrapper"
+      style="margin: 8px 0;"
+    >
+      <div
+        class="csg-media-lozenge"
+        style="line-height: 14px; display: inline-block; border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px;"
+      >
+        <span>
+          <img
+            class="csg-media-lozenge-icon"
+            height="14"
+            src="cid:csg-icon-genericAttachment"
+            style="vertical-align: baseline;"
+            width="14"
+          />
+        </span>
+        <span
+          class="csg-media-lozenge-text"
+          style="overflow: hidden; display: inline-block;"
+        >
+          Attached file
+        </span>
+      </div>
+    </div>
+  </div>
+  <p
+    class="csg-p"
+    style="margin: 0; padding: 0px; margin-bottom: 7px; padding-top: 7px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px;"
+  >
+    Bacon ipsum dolor amet kevin bacon pork cupim. Bresaola beef sirloin pork. Sausage ribeye tongue burgdoggen frankfurter meatball. Brisket chuck capicola, beef ribs meatball tenderloin short ribs pancetta pork loin filet mignon jowl bresaola shoulder biltong. Cupim burgdoggen ribeye, prosciutto kielbasa ball tip swine chuck pork biltong jerky leberkas alcatra. Hamburger pancetta prosciutto kielbasa, alcatra pork chop ground round porchetta frankfurter beef ribs cupim picanha shank. Tail buffalo pork loin, t-bone brisket landjaeger shoulder.
+  </p>
+  <div
+    class="csg-media-single-wrap-right"
+    style="float: right; width: 100%; max-width: 100%;"
+  >
+    <div
+      class="csg-media-lozenge-wrapper"
+      style="margin: 8px 0;"
+    >
+      <div
+        class="csg-media-lozenge"
+        style="line-height: 14px; display: inline-block; border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px;"
+      >
+        <span>
+          <img
+            class="csg-media-lozenge-icon"
+            height="14"
+            src="cid:csg-icon-genericAttachment"
+            style="vertical-align: baseline;"
+            width="14"
+          />
+        </span>
+        <span
+          class="csg-media-lozenge-text"
+          style="overflow: hidden; display: inline-block;"
+        >
+          Attached file
+        </span>
+      </div>
+    </div>
+  </div>
+  <p
+    class="csg-p"
+    style="margin: 0; padding: 0px; margin-bottom: 7px; padding-top: 7px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px;"
+  >
+    Wrap-right:
+  </p>
+  <p
+    class="csg-p"
+    style="margin: 0; padding: 0px; margin-bottom: 7px; padding-top: 7px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px;"
+  >
+    Rump tongue tenderloin, pork chop meatball filet mignon pork ham hock pastrami cow. Beef porchetta bresaola shank rump, tenderloin kielbasa pork loin brisket pancetta. Frankfurter tail pig salami pork beef ribs pastrami doner flank kielbasa meatloaf strip steak spare ribs pork chop. Strip steak drumstick filet mignon jerky cupim ribeye meatloaf doner turkey ground round shank tongue salami. Alcatra shankle tri-tip pork chop meatball brisket filet mignon prosciutto shoulder biltong hamburger beef ribs ball tip. Ham landjaeger tri-tip beef andouille, short ribs pancetta meatloaf bacon flank venison. Prosciutto shankle leberkas turkey frankfurter tail flank bresaola.
+  </p>
+  <p
+    class="csg-p"
+    style="margin: 0; padding: 0px; margin-bottom: 7px; padding-top: 7px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px;"
+  >
+    Align right:
+  </p>
+  <div
+    class="csg-media-single-align-end"
+    style="margin-left: auto; margin-right: 0px; width: 100%; max-width: 100%;"
+  >
+    <div
+      class="csg-media-lozenge-wrapper"
+      style="margin: 8px 0;"
+    >
+      <div
+        class="csg-media-lozenge"
+        style="line-height: 14px; display: inline-block; border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px;"
+      >
+        <span>
+          <img
+            class="csg-media-lozenge-icon"
+            height="14"
+            src="cid:csg-icon-genericAttachment"
+            style="vertical-align: baseline;"
+            width="14"
+          />
+        </span>
+        <span
+          class="csg-media-lozenge-text"
+          style="overflow: hidden; display: inline-block;"
+        >
+          Attached file
+        </span>
+      </div>
+    </div>
+  </div>
+  <p
+    class="csg-p"
+    style="margin: 0; padding: 0px; margin-bottom: 7px; padding-top: 7px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px;"
+  >
+    Align left:
+  </p>
+  <div
+    class="csg-media-single-align-start"
+    style="margin-left: 0px; margin-right: auto; width: 100%; max-width: 100%;"
+  >
+    <div
+      class="csg-media-lozenge-wrapper"
+      style="margin: 8px 0;"
+    >
+      <div
+        class="csg-media-lozenge"
+        style="line-height: 14px; display: inline-block; border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px;"
+      >
+        <span>
+          <img
+            class="csg-media-lozenge-icon"
+            height="14"
+            src="cid:csg-icon-genericAttachment"
+            style="vertical-align: baseline;"
+            width="14"
+          />
+        </span>
+        <span
+          class="csg-media-lozenge-text"
+          style="overflow: hidden; display: inline-block;"
+        >
+          Attached file
+        </span>
+      </div>
+    </div>
+  </div>
+  <p
+    class="csg-p"
+    style="margin: 0; padding: 0px; margin-bottom: 7px; padding-top: 7px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px;"
+  >
+    Center align:
+  </p>
+  <div
+    class="csg-media-single-center"
+    style="margin-left: auto; margin-right: auto; width: 100%; max-width: 100%;"
+  >
+    <div
+      class="csg-media-lozenge-wrapper"
+      style="margin: 8px 0;"
+    >
+      <div
+        class="csg-media-lozenge"
+        style="line-height: 14px; display: inline-block; border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px;"
+      >
+        <span>
+          <img
+            class="csg-media-lozenge-icon"
+            height="14"
+            src="cid:csg-icon-genericAttachment"
+            style="vertical-align: baseline;"
+            width="14"
+          />
+        </span>
+        <span
+          class="csg-media-lozenge-text"
+          style="overflow: hidden; display: inline-block;"
+        >
+          Attached file
+        </span>
+      </div>
+    </div>
+  </div>
+  <p
+    class="csg-p"
+    style="margin: 0; padding: 0px; margin-bottom: 7px; padding-top: 7px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px;"
+  >
+    Bacon ipsum dolor amet kevin bacon pork cupim. Bresaola beef sirloin pork. Sausage ribeye tongue burgdoggen frankfurter meatball. Brisket chuck capicola, beef ribs meatball tenderloin short ribs pancetta pork loin filet mignon jowl bresaola shoulder biltong. Cupim burgdoggen ribeye, prosciutto kielbasa ball tip swine chuck pork biltong jerky leberkas alcatra. Hamburger pancetta prosciutto kielbasa, alcatra pork chop ground round porchetta frankfurter beef ribs cupim picanha shank. Tail buffalo pork loin, t-bone brisket landjaeger shoulder.
+  </p>
+  <p
+    class="csg-p"
+    style="margin: 0; padding: 0px; margin-bottom: 7px; padding-top: 7px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px;"
+  >
+    Wide:
+  </p>
+  <div
+    class="csg-media-single-wide"
+    style="width: 100%; max-width: 100%;"
+  >
+    <div
+      class="csg-media-lozenge-wrapper"
+      style="margin: 8px 0;"
+    >
+      <div
+        class="csg-media-lozenge"
+        style="line-height: 14px; display: inline-block; border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px;"
+      >
+        <span>
+          <img
+            class="csg-media-lozenge-icon"
+            height="14"
+            src="cid:csg-icon-genericAttachment"
+            style="vertical-align: baseline;"
+            width="14"
+          />
+        </span>
+        <span
+          class="csg-media-lozenge-text"
+          style="overflow: hidden; display: inline-block;"
+        >
+          Attached file
+        </span>
+      </div>
+    </div>
+  </div>
+  <p
+    class="csg-p"
+    style="margin: 0; padding: 0px; margin-bottom: 7px; padding-top: 7px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px;"
+  >
+    Full-width:
+  </p>
+  <div
+    class="csg-media-single-full-width"
+    style="width: 100%; max-width: 100%;"
+  >
+    <div
+      class="csg-media-lozenge-wrapper"
+      style="margin: 8px 0;"
+    >
+      <div
+        class="csg-media-lozenge"
+        style="line-height: 14px; display: inline-block; border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px;"
+      >
+        <span>
+          <img
+            class="csg-media-lozenge-icon"
+            height="14"
+            src="cid:csg-icon-genericAttachment"
+            style="vertical-align: baseline;"
+            width="14"
+          />
+        </span>
+        <span
+          class="csg-media-lozenge-text"
+          style="overflow: hidden; display: inline-block;"
+        >
+          Attached file
+        </span>
+      </div>
+    </div>
+  </div>
+  <a
+    class="csg-mark-link"
+    href="https://pug.jira-dev.com/wiki"
+    style="border: none; background: transparent; color: #0052cc; text-decoration: none;"
+  >
+    <div
+      class="csg-media-single-align-start"
+      style="margin-left: 0px; margin-right: auto; width: 100%; max-width: 100%;"
+    >
+      <div
+        class="csg-media-lozenge-wrapper"
+        style="margin: 8px 0;"
+      >
+        <div
+          class="csg-media-lozenge"
+          style="line-height: 14px; display: inline-block; border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px;"
+        >
+          <span>
+            <img
+              class="csg-media-lozenge-icon"
+              height="14"
+              src="cid:csg-icon-genericAttachment"
+              style="vertical-align: baseline;"
+              width="14"
+            />
+          </span>
+          <span
+            class="csg-media-lozenge-text"
+            style="overflow: hidden; display: inline-block;"
+          >
+            Attached file
+          </span>
+        </div>
+      </div>
+    </div>
+  </a>
+  <div
+    class="csg-media-single-full-width"
+    style="width: 100%; max-width: 100%;"
+  >
+    <div
+      class="csg-media-lozenge-wrapper"
+      style="margin: 8px 0;"
+    >
+      <div
+        class="csg-media-lozenge"
+        style="line-height: 14px; display: inline-block; border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px;"
+      >
+        <span>
+          <img
+            class="csg-media-lozenge-icon"
+            height="14"
+            src="cid:csg-icon-genericAttachment"
+            style="vertical-align: baseline;"
+            width="14"
+          />
+        </span>
+        <span
+          class="csg-media-lozenge-text"
+          style="overflow: hidden; display: inline-block;"
+        >
+          Attached file
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`Renderer - EmailSerializer should render mention correctly: html 1`] = `
 <div
   class="csg-wrapper"

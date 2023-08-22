@@ -1,5 +1,17 @@
 # @atlaskit/link-datasource
 
+## 1.0.0
+
+### Major Changes
+
+- [`c8ad3f81d9c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c8ad3f81d9c) - Releasing first major version. Nothing has changes since last version.
+
+## 0.34.8
+
+### Patch Changes
+
+- [`3f3b63589a1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3f3b63589a1) - Fix issue where icon sizing is inconsitent. Also added some icons that are larger and were causing problems in prod to the mock data so we can have some examples on hand.
+
 ## 0.34.7
 
 ### Patch Changes

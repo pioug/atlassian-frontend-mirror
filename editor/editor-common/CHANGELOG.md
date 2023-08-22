@@ -1,5 +1,23 @@
 # @atlaskit/editor-common
 
+## 74.49.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 74.49.2
+
+### Patch Changes
+
+- [`a3c9fd814c5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a3c9fd814c5) - Set minimum width for media single node of video type (when first inserted and when resizing)
+
+## 74.49.1
+
+### Patch Changes
+
+- [`79c0b7e6821`](https://bitbucket.org/atlassian/atlassian-frontend/commits/79c0b7e6821) - Decouple `base` plugin from `editor-core`
+
 ## 74.49.0
 
 ### Minor Changes

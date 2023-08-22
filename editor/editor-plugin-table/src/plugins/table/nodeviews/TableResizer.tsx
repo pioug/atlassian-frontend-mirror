@@ -43,6 +43,8 @@ interface TableResizerProps {
   maxWidth: number;
   containerWidth: number;
   updateWidth: (width: number) => void;
+  onResizeStop: () => void;
+  onResizeStart: () => void;
   editorView: EditorView;
   getPos: () => number | undefined;
   node: PMNode;
@@ -57,9 +59,14 @@ const handles = { right: true };
 const tableHandleMarginTop = 12;
 const tableHandlePosition = 14;
 
-const getResizerHandleHeight = (tableRef: HTMLTableElement) => {
+const getResizerHandleHeight = (tableRef: HTMLTableElement | undefined) => {
   const tableHeight = tableRef?.clientHeight;
   let handleHeightSize: HandleHeightSizeType | undefined = 'small';
+
+  if (!tableHeight) {
+    return handleHeightSize;
+  }
+
   /*
     - One row table height (minimum possible table height) ~ 45px
     - Two row table height ~ 90px
@@ -69,9 +76,9 @@ const getResizerHandleHeight = (tableRef: HTMLTableElement) => {
     - > 46 because the height of the table can be a float number like 45.44.
     - < 96 is the height of large resize handle.
   */
-  if (tableHeight && tableHeight > 46 && tableHeight < 96) {
+  if (tableHeight > 46 && tableHeight < 96) {
     handleHeightSize = 'medium';
-  } else if (tableHeight && tableHeight >= 96) {
+  } else if (tableHeight >= 96) {
     handleHeightSize = 'large';
   }
 
@@ -115,6 +122,8 @@ export const TableResizer = ({
   maxWidth,
   containerWidth,
   updateWidth,
+  onResizeStop,
+  onResizeStart,
   editorView,
   getPos,
   node,
@@ -177,7 +186,15 @@ export const TableResizer = ({
       containerWidth,
     );
     setSnappingEnabled(displayGuideline(visibleGuidelines));
-  }, [displayGuideline, containerWidth, editorView, startMeasure]);
+
+    onResizeStart();
+  }, [
+    displayGuideline,
+    editorView,
+    startMeasure,
+    onResizeStart,
+    containerWidth,
+  ]);
 
   const handleResize = useCallback(
     (originalState, delta) => {
@@ -281,6 +298,8 @@ export const TableResizer = ({
       updateWidth(newWidth);
       scheduleResize.cancel();
 
+      onResizeStop();
+
       return newWidth;
     },
     [
@@ -293,6 +312,7 @@ export const TableResizer = ({
       displayGuideline,
       attachAnalyticsEvent,
       endMeasure,
+      onResizeStop,
     ],
   );
 

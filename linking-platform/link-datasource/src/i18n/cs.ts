@@ -7,10 +7,17 @@
  */
 //Czech
 export default {
+  'linkDataSource.assets.configModal.aqlSearchInput.helpTooltipText': 'Nápověda k syntaxi',
   'linkDataSource.assets.configModal.aqlSearchInput.placeholder': 'Vyhledat pomocí AQL',
   'linkDataSource.assets.configModal.objectSchemaSelect.label': 'Vyberte schéma.',
   'linkDataSource.assets.configModal.objectSchemaSelect.placeholder': 'Vyberte schéma.',
   'linkDataSource.assets.configModal.objectSchemaSelect.schemaRequired': 'Je nutné vybrat schéma',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.learnMoreLink':
+    'Další informace o vyhledávání pomocí AQL',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchDescription':
+    'Chcete-li vyhledávat, začněte psát nebo použijte dotaz AQL.',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle':
+    'Vyhledat objekty nebo typy objektů',
   'linkDataSource.assets.configmodal.cancelButtonText': 'Zrušit',
   'linkDataSource.assets.configmodal.insertIssuesButtonText': 'Vložit objekty',
   'linkDataSource.assets.configmodal.insertObjectsTitle': 'Vložit objekty z:',

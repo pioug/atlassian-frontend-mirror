@@ -20,6 +20,8 @@ describe('Icon Type', () => {
     expect(imgContainer).toBeInTheDocument();
     expect(img).toBeInTheDocument();
     expect(img).toHaveAttribute('src', Image.trello);
+    expect(img).toHaveStyle('minWidth: 20px');
+    expect(img).toHaveStyle('maxWidth: 20px');
   });
 
   it('renders with the alt text when label is passed', async () => {
@@ -33,5 +35,7 @@ describe('Icon Type', () => {
     expect(imgContainer).toBeInTheDocument();
     expect(img).toBeInTheDocument();
     expect(img).toHaveAttribute('alt', 'my_image');
+    expect(img).toHaveStyle('minWidth: 20px');
+    expect(img).toHaveStyle('maxWidth: 20px');
   });
 });

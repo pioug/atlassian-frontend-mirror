@@ -7,7 +7,7 @@ import {
   mockBaseResponse,
   mockConfluenceResponse,
   mockConfluenceResponseWithOwnedBy,
-} from './__mocks__/mocks';
+} from './__mocks__/blockCardMocks';
 
 describe('getSimulatedBetterMetadata', () => {
   const baseTopMetadata: ElementItem[] = [

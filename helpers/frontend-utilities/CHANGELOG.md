@@ -1,5 +1,11 @@
 # @af/frontend-utilities
 
+## 2.7.1
+
+### Patch Changes
+
+- [`7d8eacf84c7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7d8eacf84c7) - "Changing the retry library to support Parcel scopehoisting"
+
 ## 2.7.0
 
 ### Minor Changes

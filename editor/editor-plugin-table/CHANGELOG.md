@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-table
 
+## 2.10.3
+
+### Patch Changes
+
+- [`d6e4badd8c4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6e4badd8c4) - Add explicit height to table when resizing width to increase performance
+
 ## 2.10.2
 
 ### Patch Changes

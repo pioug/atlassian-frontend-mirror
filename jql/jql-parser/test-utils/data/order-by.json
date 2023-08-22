@@ -1,0 +1,24 @@
+{
+  "valid": [
+    "order by issuetype",
+    "order by issuetype asc",
+    "order by issuetype desc",
+    "order by issuetype, another",
+    "order by issuetype, another asc",
+    "order by issuetype asc, another desc",
+    "order by \"field with spaces\" asc",
+    "order by \"field with \\\"escaped characters\\\"\" asc"
+  ],
+  "invalid": [
+    "order",
+    "order by",
+    "order issuetype",
+    "order by by",
+    "order by order",
+    "order by asc",
+    "order by desc",
+    "order by issuetype asc desc",
+    "order by issuetype,",
+    "order by issuetype asc,"
+  ]
+}

@@ -7,10 +7,17 @@
  */
 //Ukrainian (Ukraine)
 export default {
+  'linkDataSource.assets.configModal.aqlSearchInput.helpTooltipText': 'Довідка із синтаксису',
   'linkDataSource.assets.configModal.aqlSearchInput.placeholder': 'Пошук через AQL',
   'linkDataSource.assets.configModal.objectSchemaSelect.label': 'Вибрати схему',
   'linkDataSource.assets.configModal.objectSchemaSelect.placeholder': 'Виберіть схему',
   'linkDataSource.assets.configModal.objectSchemaSelect.schemaRequired': 'Необхідно вибрати схему',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.learnMoreLink':
+    'Докладніше про пошук засобами AQL.',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchDescription':
+    'Почніть вводити запит або скористайтесь AQL для пошуку.',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle':
+    "Пошук об’єктів або типів об'єктів",
   'linkDataSource.assets.configmodal.cancelButtonText': 'Скасувати',
   'linkDataSource.assets.configmodal.insertIssuesButtonText': 'Вставити об’єкти',
   'linkDataSource.assets.configmodal.insertObjectsTitle': 'Вставка об’єктів з',

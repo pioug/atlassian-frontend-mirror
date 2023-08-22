@@ -43,10 +43,12 @@ const createMediaState = (
   id: string,
   width = 256,
   height = 128,
+  customFields?: Partial<MediaState>,
 ): MediaState => ({
   id,
   status: 'preview',
   dimensions: { width, height },
+  ...customFields,
 });
 
 describe('media-single', () => {
@@ -1013,7 +1015,7 @@ describe('media-single', () => {
       width: number = 1800,
     ) => ({ lineLength, width });
 
-    describe('it should have width and widthType defined', () => {
+    describe('it should have width and widthType correctly defined', () => {
       describe('when all widths are defined and media width is smaller than 24px', () => {
         ffTest(
           'platform.editor.media.extended-resize-experience',
@@ -1372,6 +1374,69 @@ describe('media-single', () => {
                 mediaSingle({
                   layout: 'center',
                 })(temporaryMediaWithoutDimensions()),
+                p(),
+              ),
+            );
+          },
+        );
+      });
+
+      describe('when all widths are defined and video media width is smaller than 320 (min width)', () => {
+        ffTest(
+          'platform.editor.media.extended-resize-experience',
+          () => {
+            const { editorView } = editor(doc(p('')));
+
+            insertMediaSingleNode(
+              editorView,
+              createMediaState(temporaryFileId, 100, 100, {
+                fileMimeType: 'video/quicktime',
+              }),
+              INPUT_METHOD.PICKER_CLOUD,
+              testCollectionName,
+              false,
+              false,
+              widthPluginState(),
+            );
+            expect(editorView.state.doc).toEqualDocument(
+              doc(
+                mediaSingle({
+                  layout: 'center',
+                  width: 320,
+                  widthType: 'pixel',
+                })(
+                  temporaryMediaWithDimensions(100, 100, {
+                    __fileMimeType: 'video/quicktime',
+                  }),
+                ),
+                p(),
+              ),
+            );
+          },
+          () => {
+            const { editorView } = editor(doc(p('')));
+
+            insertMediaSingleNode(
+              editorView,
+              createMediaState(temporaryFileId, 100, 100, {
+                fileMimeType: 'video/quicktime',
+              }),
+              INPUT_METHOD.PICKER_CLOUD,
+              testCollectionName,
+              false,
+              false,
+              widthPluginState(),
+            );
+
+            expect(editorView.state.doc).toEqualDocument(
+              doc(
+                mediaSingle({
+                  layout: 'center',
+                })(
+                  temporaryMediaWithDimensions(100, 100, {
+                    __fileMimeType: 'video/quicktime',
+                  }),
+                ),
                 p(),
               ),
             );

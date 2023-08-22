@@ -7,10 +7,17 @@
  */
 //Vietnamese (Vietnam)
 export default {
+  'linkDataSource.assets.configModal.aqlSearchInput.helpTooltipText': 'Trợ giúp về cú pháp',
   'linkDataSource.assets.configModal.aqlSearchInput.placeholder': 'Tìm qua AQL',
   'linkDataSource.assets.configModal.objectSchemaSelect.label': 'Chọn sơ đồ',
   'linkDataSource.assets.configModal.objectSchemaSelect.placeholder': 'Chọn sơ đồ',
   'linkDataSource.assets.configModal.objectSchemaSelect.schemaRequired': 'Cần có sơ đồ',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.learnMoreLink':
+    'Tìm hiểu thêm về việc tìm kiếm bằng AQL.',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchDescription':
+    'Bắt đầu nhập hoặc sử dụng AQL để tìm kiếm.',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle':
+    'Tìm kiếm đối tượng hoặc loại đối tượng',
   'linkDataSource.assets.configmodal.cancelButtonText': 'Hủy',
   'linkDataSource.assets.configmodal.insertIssuesButtonText': 'Chèn đối tượng',
   'linkDataSource.assets.configmodal.insertObjectsTitle': 'Chèn đối tượng từ',

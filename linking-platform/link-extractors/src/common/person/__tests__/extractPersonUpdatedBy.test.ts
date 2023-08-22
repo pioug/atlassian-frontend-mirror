@@ -4,7 +4,7 @@ import {
   TEST_NAME,
   TEST_PERSON,
   TEST_URL,
-} from '../../__mocks__/jsonld';
+} from '../../__mocks__/linkingPlatformJsonldMocks';
 import {
   extractPersonUpdatedBy,
   LinkTypeUpdatedBy,

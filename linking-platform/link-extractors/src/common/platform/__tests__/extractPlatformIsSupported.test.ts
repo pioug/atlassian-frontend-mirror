@@ -1,4 +1,8 @@
-import { TEST_BASE_DATA, TEST_LINK, TEST_OBJECT } from '../../__mocks__/jsonld';
+import {
+  TEST_BASE_DATA,
+  TEST_LINK,
+  TEST_OBJECT,
+} from '../../__mocks__/linkingPlatformJsonldMocks';
 import { extractPlatformIsSupported } from '../extractPlatformIsSupported';
 
 describe('extractPlatformIsSupported()', () => {

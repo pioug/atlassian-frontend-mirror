@@ -51,7 +51,7 @@ import type { DirectEditorProps } from '@atlaskit/editor-prosemirror/view';
 import { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import type { EditorActionsOptions } from '@atlaskit/editor-common/types';
-import { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { EditorAppearance } from '@atlaskit/editor-common/types';
 import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 import { FeatureFlags as EditorFeatureFlags } from '@atlaskit/editor-common/types';
@@ -61,7 +61,6 @@ import { EditorReactContext } from '@atlaskit/editor-common/types';
 import type { EditorSelectionAPI } from '@atlaskit/editor-common/selection';
 import { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { EditorView as EditorView_2 } from 'prosemirror-view';
 import { EmojiResource } from '@atlaskit/emoji/resource';
 import { EmptyStateHandler } from '@atlaskit/editor-common/types';
 import type { ErrorReporter } from '@atlaskit/editor-common/utils';
@@ -94,6 +93,7 @@ import { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
 import { jsx } from '@emotion/react';
 import { lightModeStatusColorPalette } from '@atlaskit/editor-common/ui-color';
 import type { LinkingOptions } from '@atlaskit/editor-common/types';
+import { ListState } from '@atlaskit/editor-plugin-list';
 import type { LongPressSelectionPluginOptions } from '@atlaskit/editor-common/types';
 import { MacroAttributes } from '@atlaskit/editor-common/provider-factory';
 import { MacroProvider } from '@atlaskit/editor-common/provider-factory';
@@ -131,7 +131,6 @@ import PropTypes from 'prop-types';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { Providers } from '@atlaskit/editor-common/provider-factory';
 import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
-import { PureComponent } from 'react';
 import { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
 import type { QuickInsertOptions } from '@atlaskit/editor-common/types';
 import type { QuickInsertPluginOptions } from '@atlaskit/editor-common/types';
@@ -1054,25 +1053,6 @@ export function getDefaultPresetOptionsFromEditorProps(
 ): EditorPresetProps & DefaultPresetPluginOptions & EditorPluginFeatureProps;
 
 // @public (undocumented)
-export const getListCommands: () => {
-  indentList: (
-    editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
-  ) => (inputMethod?: INPUT_METHOD | INPUT_METHOD) => Command;
-  outdentList: (
-    editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
-  ) => (
-    inputMethod: (INPUT_METHOD | INPUT_METHOD) | undefined,
-    featureFlags: EditorFeatureFlags,
-  ) => Command;
-  toggleOrderedList: (
-    editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
-  ) => (view: EditorView_2, inputMethod?: ListInputMethod) => boolean;
-  toggleBulletList: (
-    editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
-  ) => (view: EditorView_2, inputMethod?: ListInputMethod) => boolean;
-};
-
-// @public (undocumented)
 export function getNodesCount(node: Node_2): Record<string, number>;
 
 // @public (undocumented)
@@ -1208,19 +1188,7 @@ type Listener = (data: any) => void;
 // @public (undocumented)
 export type ListInputMethod = INPUT_METHOD.KEYBOARD | INPUT_METHOD.TOOLBAR;
 
-// @public (undocumented)
-export interface ListState {
-  // (undocumented)
-  bulletListActive: boolean;
-  // (undocumented)
-  bulletListDisabled: boolean;
-  // (undocumented)
-  decorationSet: DecorationSet;
-  // (undocumented)
-  orderedListActive: boolean;
-  // (undocumented)
-  orderedListDisabled: boolean;
-}
+export { ListState };
 
 // @public (undocumented)
 export const listStateKey: PluginKey<ListState>;
@@ -1960,16 +1928,6 @@ interface SimpleEntry {
 interface State {}
 
 // @public (undocumented)
-interface State_2 {
-  // (undocumented)
-  jiraIssueCollectorScriptLoading: boolean;
-  // (undocumented)
-  showOptOutOption?: boolean;
-  // (undocumented)
-  target?: HTMLElement;
-}
-
-// @public (undocumented)
 export const statusMessages: {
   placeholder: {
     id: string;
@@ -2080,19 +2038,7 @@ interface TextSelectionData {
 }
 
 // @public (undocumented)
-export class ToolbarFeedback extends PureComponent<Props_3, State_2> {
-  constructor(props: Props_3);
-  // (undocumented)
-  static contextTypes: {
-    editorActions: PropTypes.Validator<object>;
-  };
-  // (undocumented)
-  render(): jsx.JSX.Element | null;
-  // (undocumented)
-  showJiraCollectorDialogCallback?: () => void;
-  // (undocumented)
-  state: State_2;
-}
+export function ToolbarFeedback(props: Props_3): jsx.JSX.Element;
 
 // @public (undocumented)
 export const ToolbarHelp: React_2.FC<

@@ -1,5 +1,9 @@
-import EmailSerializer, { EmailSerializerOpts } from '../..';
-import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
+import type { EmailSerializerOpts } from '../..';
+import EmailSerializer from '../..';
+import {
+  defaultSchema,
+  getSchemaBasedOnStage,
+} from '@atlaskit/adf-schema/schema-default';
 import MockDate from 'mockdate';
 
 import * as paragraphIndents from './__fixtures__/paragraph-indents.adf.json';
@@ -25,6 +29,7 @@ import * as layoutColumnSection from './__fixtures__/layout-column-section.adf.j
 import * as extensions from './__fixtures__/extensions.adf.json';
 import * as date from './__fixtures__/date.adf.json';
 import * as mediaSingle from './__fixtures__/media-single.adf.json';
+import * as mediaSingleWithPixelSizing from './__fixtures__/media-single-pixel-sizing.adf.json';
 import * as mediaGroup from './__fixtures__/media-group.adf.json';
 import * as mediaGroupAllTypes from './__fixtures__/media-group-all-types.adf.json';
 import * as mediaInline from './__fixtures__/media-inline.adf.json';
@@ -39,7 +44,7 @@ import * as image from './__fixtures__/image.adf.json';
 import * as placeholder from './__fixtures__/placeholder.adf.json';
 import * as annotation from './__fixtures__/annotation.adf.json';
 import * as breakout from './__fixtures__/breakout.adf.json';
-import { MetaDataContext } from '../../interfaces';
+import type { MetaDataContext } from '../../interfaces';
 
 const defaultTestOpts: EmailSerializerOpts = {
   isImageStubEnabled: false,
@@ -93,11 +98,15 @@ const render = (
   doc: any,
   serializerOptions: Partial<EmailSerializerOpts> = {},
   context?: MetaDataContext,
+  schemaStage?: string,
 ) => {
   const opts = {
     ...defaultTestOpts,
     ...serializerOptions,
   };
+  const schema = schemaStage
+    ? getSchemaBasedOnStage(schemaStage)
+    : getSchemaBasedOnStage();
   const serializer = new EmailSerializer(schema, opts);
   const docFromSchema = schema.nodeFromJSON(doc);
   const { result, embeddedImages } = serializer.serializeFragmentWithImages(
@@ -115,14 +124,14 @@ const render = (
 describe('EmailSerializer constructor', () => {
   MockDate.reset();
   it('should initialize with default values', () => {
-    const s = new EmailSerializer(schema);
+    const s = new EmailSerializer(defaultSchema);
     expect(s.opts).toEqual({
       isImageStubEnabled: false,
       isInlineCSSEnabled: false,
     });
   });
   it('should override default values', () => {
-    const s = new EmailSerializer(schema, { isInlineCSSEnabled: true });
+    const s = new EmailSerializer(defaultSchema, { isInlineCSSEnabled: true });
     expect(s.opts).toEqual({
       isImageStubEnabled: false,
       isInlineCSSEnabled: true,
@@ -153,6 +162,21 @@ describe('Renderer - EmailSerializer', () => {
 
   it('should render media single correctly', () => {
     const { result } = render(mediaSingle);
+    expect(result).toMatchSnapshot('html');
+  });
+
+  it('should render media single with pixel sizing fallback correctly', () => {
+    const { result } = render(mediaSingleWithPixelSizing);
+    expect(result).toMatchSnapshot('html');
+  });
+
+  it('should render media single with pixel sizing correctly', () => {
+    const { result } = render(
+      mediaSingleWithPixelSizing,
+      {},
+      undefined,
+      'stage0',
+    );
     expect(result).toMatchSnapshot('html');
   });
 

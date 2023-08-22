@@ -109,6 +109,7 @@ export class ValidatingKitchenSinkEditor extends React.Component<
 
   private validatorTimeout?: number;
   private editorView?: EditorView;
+  private providers = getProviders();
 
   render() {
     const {
@@ -174,7 +175,7 @@ export class ValidatingKitchenSinkEditor extends React.Component<
           allowStatus={true}
           allowNestedTasks
           codeBlock={{ allowCopyToClipboard: true, appearance }}
-          {...getProviders()}
+          {...this.providers}
           mentionProvider={Promise.resolve(
             sanitizePrivateContent ?? false
               ? mentionResourceProviderWithResolver

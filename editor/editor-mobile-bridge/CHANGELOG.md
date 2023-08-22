@@ -1,5 +1,36 @@
 # @atlaskit/editor-mobile-bridge
 
+## 187.28.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.28.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.28.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.28.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.28.1
+
+### Patch Changes
+
+- [`5d6ec9ac49c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5d6ec9ac49c) - ED-19330 Refactor to actions. Move styles locally
+- Updated dependencies
+
 ## 187.28.0
 
 ### Patch Changes

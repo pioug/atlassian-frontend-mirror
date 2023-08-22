@@ -9,6 +9,7 @@
 export default {
   'fabric.linking.actions': 'Действия',
   'fabric.linking.add_account': 'Добавить аккаунт',
+  'fabric.linking.assigned_to': 'Назначено пользователю {context}',
   'fabric.linking.cancel': 'Отмена',
   'fabric.linking.cannot_connect': 'Не удается подключиться, повторите попытку',
   'fabric.linking.cannot_find_link': 'Не удается найти ссылку',
@@ -27,6 +28,8 @@ export default {
   'fabric.linking.connect_to': 'Подключить к {name}',
   'fabric.linking.connect_unauthorised_account_action': 'Подключиться к {context}',
   'fabric.linking.connect_unauthorised_account_description':
+    'Подключите {context} к Atlassian, чтобы получать более подробную информацию о работе и вести сотрудничество в единой среде.',
+  'fabric.linking.connect_unauthorised_account_description_no_provider':
     'Подключитесь к Atlassian, чтобы получать более подробную информацию о работе и совместно работать в единой среде.',
   'fabric.linking.continue': 'Продолжить',
   'fabric.linking.copy_url_to_clipboard': 'Копировать ссылку',
@@ -75,6 +78,7 @@ export default {
   'fabric.linking.priority_minor': 'Незначительный',
   'fabric.linking.priority_trivial': 'Тривиальный',
   'fabric.linking.priority_undefined': 'Не определен',
+  'fabric.linking.read_time': 'Время чтения: {context} мин.',
   'fabric.linking.request_access': 'Запросить доступ',
   'fabric.linking.request_access_description': 'Запросите доступ к продукту {context} для предварительного просмотра.',
   'fabric.linking.request_access_pending': 'Ожидается предоставление доступа',
@@ -93,6 +97,12 @@ export default {
   'fabric.linking.status_change_update_error': 'Не удалось обновить статус',
   'fabric.linking.try_again': 'Повторить попытку',
   'fabric.linking.try_another_account': 'Попробуйте использовать другой аккаунт',
+  'fabric.linking.unauthorised_account_description':
+    'Вы пытаетесь перейти к предварительному просмотру ссылки на приватную страницу {context}. Рекомендуется проверить URL-адрес или связаться с владельцем страницы.',
+  'fabric.linking.unauthorised_account_description_no_provider':
+    'Вы пытаетесь перейти к предварительному просмотру ссылки на приватную страницу. Рекомендуется проверить URL-адрес или связаться с владельцем страницы.',
+  'fabric.linking.unauthorised_account_name': 'Приватные страницы {context} недоступны для отображения',
+  'fabric.linking.unauthorised_account_name_no_provider': 'Приватные страницы недоступны для отображения',
   'fabric.linking.unlink_account': 'Отменить связь с аккаунтом',
   'fabric.linking.updated_by': 'Изменено: {context}',
   'fabric.linking.view': 'Просмотреть',

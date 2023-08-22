@@ -1,5 +1,11 @@
 # @atlaskit/link-test-helpers
 
+## 6.0.3
+
+### Patch Changes
+
+- [`3f3b63589a1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3f3b63589a1) - Fix issue where icon sizing is inconsitent. Also added some icons that are larger and were causing problems in prod to the mock data so we can have some examples on hand.
+
 ## 6.0.2
 
 ### Patch Changes

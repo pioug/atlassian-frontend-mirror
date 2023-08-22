@@ -1,5 +1,31 @@
 # @atlaskit/editor-core
 
+## 187.28.5
+
+### Patch Changes
+
+- [`5ce0bea6aa6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5ce0bea6aa6) - [ED-19399] Fixing text color underline on toolbar
+
+## 187.28.3
+
+### Patch Changes
+
+- [`6cced3b0ed6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6cced3b0ed6) - Warn if the emoji provider prop for the Editor is changing too quickly as it will cause performance issues.
+
+## 187.28.2
+
+### Patch Changes
+
+- [`a3c9fd814c5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a3c9fd814c5) - Set minimum width for media single node of video type (when first inserted and when resizing)
+
+## 187.28.1
+
+### Patch Changes
+
+- [`79c0b7e6821`](https://bitbucket.org/atlassian/atlassian-frontend/commits/79c0b7e6821) - Decouple `base` plugin from `editor-core`
+- [`5d6ec9ac49c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5d6ec9ac49c) - ED-19330 Decouple list plugin from editor-core
+- Updated dependencies
+
 ## 187.28.0
 
 ### Minor Changes

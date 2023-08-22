@@ -16,10 +16,28 @@
 
 ```ts
 import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { Command } from '@atlaskit/editor-common/types';
+import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { FeatureFlags } from '@atlaskit/editor-common/types';
 import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import type { OptionalPlugin } from '@atlaskit/editor-common/types';
+import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
+
+// @public (undocumented)
+export type FindRootParentListNode = ($pos: ResolvedPos) => ResolvedPos | null;
+
+// @public (undocumented)
+type IndentList = (inputMethod: InputMethod) => Command;
+
+// @public (undocumented)
+type InputMethod = INPUT_METHOD.KEYBOARD | INPUT_METHOD.TOOLBAR;
+
+// @public (undocumented)
+type IsInsideListItem = (state: EditorState) => boolean;
 
 // @public (undocumented)
 export type ListPlugin = NextEditorPlugin<
@@ -30,11 +48,49 @@ export type ListPlugin = NextEditorPlugin<
       typeof featureFlagsPlugin,
       OptionalPlugin<typeof analyticsPlugin>,
     ];
+    actions: {
+      indentList: IndentList;
+      outdentList: OutdentList;
+      toggleOrderedList: ToggleOrderedList;
+      toggleBulletList: ToggleBulletList;
+      isInsideListItem: IsInsideListItem;
+      findRootParentListNode: FindRootParentListNode;
+    };
+    sharedState: ListState | undefined;
   }
 >;
 
 // @public (undocumented)
 export type ListPluginOptions = Pick<FeatureFlags, 'restartNumberedLists'>;
+
+// @public (undocumented)
+export interface ListState {
+  // (undocumented)
+  bulletListActive: boolean;
+  // (undocumented)
+  bulletListDisabled: boolean;
+  // (undocumented)
+  decorationSet: DecorationSet;
+  // (undocumented)
+  orderedListActive: boolean;
+  // (undocumented)
+  orderedListDisabled: boolean;
+}
+
+// @public (undocumented)
+type OutdentList = (
+  inputMethod: InputMethod,
+  featureFlags: FeatureFlags,
+) => Command;
+
+// @public (undocumented)
+type ToggleBulletList = (view: EditorView, inputMethod: InputMethod) => boolean;
+
+// @public (undocumented)
+type ToggleOrderedList = (
+  view: EditorView,
+  inputMethod: InputMethod,
+) => boolean;
 
 // (No @packageDocumentation comment for this package)
 ```

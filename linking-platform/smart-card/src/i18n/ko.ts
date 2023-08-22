@@ -9,6 +9,7 @@
 export default {
   'fabric.linking.actions': '작업',
   'fabric.linking.add_account': '계정 추가',
+  'fabric.linking.assigned_to': '{context} 님에게 할당',
   'fabric.linking.cancel': '취소',
   'fabric.linking.cannot_connect': '연결할 수 없습니다. 다시 시도하세요',
   'fabric.linking.cannot_find_link': '링크를 찾을 수 없음',
@@ -25,6 +26,8 @@ export default {
   'fabric.linking.connect_to': '{name}에 연결',
   'fabric.linking.connect_unauthorised_account_action': '{context}에 연결',
   'fabric.linking.connect_unauthorised_account_description':
+    '{context}을(를) Atlassian에 연결하여 작업과 공동 작업에 대해 한곳에서 더 많은 세부 정보를 확인하세요.',
+  'fabric.linking.connect_unauthorised_account_description_no_provider':
     'Atlassian에 연결하여 작업과 공동 작업에 대해 한곳에서 더 많은 세부 정보를 확인하세요.',
   'fabric.linking.continue': '계속',
   'fabric.linking.copy_url_to_clipboard': '링크 복사',
@@ -72,6 +75,7 @@ export default {
   'fabric.linking.priority_minor': '경미함',
   'fabric.linking.priority_trivial': '사소함',
   'fabric.linking.priority_undefined': '정의되지 않음',
+  'fabric.linking.read_time': '{context}분 읽기',
   'fabric.linking.request_access': '액세스 요청',
   'fabric.linking.request_access_description': '이 미리 보기를 보려면 {context}에 액세스를 요청하세요.',
   'fabric.linking.request_access_pending': '액세스 보류 중',
@@ -90,6 +94,12 @@ export default {
   'fabric.linking.status_change_update_error': '상태를 업데이트할 수 없습니다',
   'fabric.linking.try_again': '다시 시도',
   'fabric.linking.try_another_account': '다른 계정으로 시도해 보세요.',
+  'fabric.linking.unauthorised_account_description':
+    '비공개 {context} 페이지의 링크를 미리 보려고 하고 있습니다. URL을 검토하거나 페이지 소유자에게 문의하는 것이 좋습니다.',
+  'fabric.linking.unauthorised_account_description_no_provider':
+    '비공개 페이지의 링크를 미리 보려고 하고 있습니다. URL을 검토하거나 페이지 소유자에게 문의하는 것이 좋습니다.',
+  'fabric.linking.unauthorised_account_name': '{context}의 비공개 페이지는 표시할 수 없습니다',
+  'fabric.linking.unauthorised_account_name_no_provider': '비공개 페이지를 표시할 수 없습니다',
   'fabric.linking.unlink_account': '계정 연결 해제',
   'fabric.linking.updated_by': '수정한 사용자: {context}',
   'fabric.linking.view': '보기',

@@ -9,6 +9,7 @@
 export default {
   'fabric.linking.actions': 'Acties',
   'fabric.linking.add_account': 'Account toevoegen',
+  'fabric.linking.assigned_to': 'Toegewezen aan {context}',
   'fabric.linking.cancel': 'Annuleren',
   'fabric.linking.cannot_connect': 'Geen verbinding, probeer het opnieuw',
   'fabric.linking.cannot_find_link': 'Kan link niet vinden',
@@ -26,6 +27,8 @@ export default {
   'fabric.linking.connect_to': 'Met {name} verbinden',
   'fabric.linking.connect_unauthorised_account_action': 'Met {context} koppelen',
   'fabric.linking.connect_unauthorised_account_description':
+    'Koppel {context} aan Atlassian om meer gegevens van je werk te kunnen bekijken en samen te werken vanaf één plek.',
+  'fabric.linking.connect_unauthorised_account_description_no_provider':
     'Koppel aan Atlassian om meer gegevens van je werk te kunnen bekijken en samen te werken vanaf één plek.',
   'fabric.linking.continue': 'Doorgaan',
   'fabric.linking.copy_url_to_clipboard': 'Link kopiëren',
@@ -74,6 +77,7 @@ export default {
   'fabric.linking.priority_minor': 'Gering',
   'fabric.linking.priority_trivial': 'Triviaal',
   'fabric.linking.priority_undefined': 'Niet gedefinieerd',
+  'fabric.linking.read_time': '{context} min. leestijd',
   'fabric.linking.request_access': 'Toegang aanvragen',
   'fabric.linking.request_access_description': 'Vraag toegang aan tot {context} om deze voorvertoning te bekijken.',
   'fabric.linking.request_access_pending': 'Toegang wordt behandeld',
@@ -92,6 +96,12 @@ export default {
   'fabric.linking.status_change_update_error': 'We konden de status niet bijwerken',
   'fabric.linking.try_again': 'Opnieuw proberen',
   'fabric.linking.try_another_account': 'Gebruik een ander account',
+  'fabric.linking.unauthorised_account_description':
+    'Je probeert een voorbeeldweergave van een link naar een besloten {context}-pagina te bekijken. We raden je aan om URL te controleren of om contact op te nemen met de eigenaar van de pagina.',
+  'fabric.linking.unauthorised_account_description_no_provider':
+    'Je probeert een voorbeeldweergave van een link naar een besloten pagina te bekijken. We raden je aan om URL te controleren of om contact op te nemen met de eigenaar van de pagina.',
+  'fabric.linking.unauthorised_account_name': "We kunnen besloten pagina's van {context} niet weergeven",
+  'fabric.linking.unauthorised_account_name_no_provider': "We kunnen besloten pagina's niet weergeven",
   'fabric.linking.unlink_account': 'Verbinding met account verwijderen',
   'fabric.linking.updated_by': 'Gewijzigd door {context}',
   'fabric.linking.view': 'Bekijken',

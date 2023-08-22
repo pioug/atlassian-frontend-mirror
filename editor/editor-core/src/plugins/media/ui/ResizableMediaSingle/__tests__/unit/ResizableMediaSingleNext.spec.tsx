@@ -1,4 +1,4 @@
-import { render, waitFor } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import React from 'react';
 
 import type {
@@ -120,11 +120,7 @@ describe('non-nested <ResizableMediaSingleNext /> should be responsive', () => {
     const resizer = getByTestId(resizerNextTestId);
     const style = window.getComputedStyle(resizer);
     expect(style.width).toBe(`${mediaSingleWidth}px`);
-    waitFor(() => {
-      expect(style.maxWidth).toBe(
-        `${Math.min(mediaSingleWidth, containerWidth - 64)}px`,
-      );
-    });
+    expect(style.maxWidth).toBe(`${containerWidth - 64}px`);
   };
 
   describe('when it is center layout and wide viewport', () => {
@@ -209,28 +205,25 @@ describe('non-nested <ResizableMediaSingleNext /> should be responsive', () => {
       const resizer = getByTestId(resizerNextTestId);
 
       const style = window.getComputedStyle(resizer);
-      waitFor(() => {
-        expect(style.width).toBe('1800px');
-        expect(style.minWidth).toBe(`1800px`);
-      });
+
+      expect(style.width).toBe('1800px');
+      expect(style.maxWidth).toBe('1800px');
     });
   });
 
   describe('when it is full-width layout and narrow viewport', () => {
     ffTest('platform.editor.media.extended-resize-experience', async () => {
       const { getByTestId } = setup({
-        mediaSingleWidth: 936,
-        containerWidth: 1000,
+        mediaSingleWidth: 900,
+        containerWidth: 750,
         layout: 'full-width',
       });
       const resizer = getByTestId(resizerNextTestId);
 
       const style = window.getComputedStyle(resizer);
-      expect(style.width).toBe('936px');
+      expect(style.width).toBe('900px');
       // Need to wait as min-width is override width !important
-      waitFor(() => {
-        expect(style.minWidth).toBe(`936px`);
-      });
+      expect(style.maxWidth).toBe('686px');
     });
   });
 });

@@ -7,10 +7,17 @@
  */
 //Norwegian (Bokmål)
 export default {
+  'linkDataSource.assets.configModal.aqlSearchInput.helpTooltipText': 'Syntaks-hjelp',
   'linkDataSource.assets.configModal.aqlSearchInput.placeholder': 'Søk via AQL',
   'linkDataSource.assets.configModal.objectSchemaSelect.label': 'Velg oppsett',
   'linkDataSource.assets.configModal.objectSchemaSelect.placeholder': 'Velg oppsett',
   'linkDataSource.assets.configModal.objectSchemaSelect.schemaRequired': 'Oppsett kreves',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.learnMoreLink':
+    'Finn ut mer om å søke med AQL.',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchDescription':
+    'Begynn å skrive eller bruk AQL for å søke.',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle':
+    'Søk etter objekter eller objekttyper',
   'linkDataSource.assets.configmodal.cancelButtonText': 'Avbryt',
   'linkDataSource.assets.configmodal.insertIssuesButtonText': 'Sett inn objekter',
   'linkDataSource.assets.configmodal.insertObjectsTitle': 'Sett inn objekter fra',

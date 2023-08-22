@@ -1,5 +1,11 @@
 # @atlaskit/email-renderer
 
+## 8.3.0
+
+### Minor Changes
+
+- [`d06696a2912`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d06696a2912) - Add pixel size support for media single
+
 ## 8.2.5
 
 ### Patch Changes

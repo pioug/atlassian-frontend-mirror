@@ -1,0 +1,33 @@
+{
+  "valid": [
+    "assignee changed",
+    "assignee cHanGeD",
+    "assignee changed after \"2021-03-17\"",
+    "assignee changed after -4w",
+    "assignee changed after startOfWeek()",
+    "assignee changed before \"2021-03-17\"",
+    "assignee changed before -4w",
+    "assignee changed before now()",
+    "assignee changed on \"2021-03-17\"",
+    "assignee changed on -4w",
+    "assignee changed on now()",
+    "assignee changed during (\"2021-03-17\", now())",
+    "assignee changed by a",
+    "assignee changed by currentUser()",
+    "assignee changed by (a, currentUser())",
+    "assignee changed from empty to null",
+    "assignee changed from a to b",
+    "assignee changed from currentUser() to membersOf(\"jira-administrators\")",
+    "assignee changed from value to another_value by jane after \"2020/07/31\" before \"2020/08/05\""
+  ],
+  "invalid": [
+    "assignee changed value",
+    "assignee changed after",
+    "assignee changed before",
+    "assignee changed on",
+    "assignee changed during",
+    "assignee changed by",
+    "assignee changed from",
+    "assignee changed to"
+  ]
+}

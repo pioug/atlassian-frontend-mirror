@@ -128,9 +128,7 @@ export class ToolbarTextColor extends React.Component<
       fitWidth = 242;
     }
 
-    const selectedColor =
-      pluginState.color !== pluginState.defaultColor && pluginState.color;
-
+    const selectedColor = this.getSelectedColor(pluginState);
     const { selectedRowIndex, selectedColumnIndex } =
       getSelectedRowAndColumnFromPalette(palette, pluginState.color);
 
@@ -306,6 +304,15 @@ export class ToolbarTextColor extends React.Component<
     this.hide(e);
     this.toolbarItemRef?.current?.focus();
   };
+
+  private getSelectedColor(pluginState: TextColorPluginState) {
+    const selectedColor =
+      pluginState.color !== pluginState.defaultColor &&
+      (pluginState.color
+        ? hexToEditorTextPaletteColor(pluginState.color)!
+        : pluginState.color);
+    return selectedColor;
+  }
 
   private getCommonAnalyticsAttributes() {
     return {

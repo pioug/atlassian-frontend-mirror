@@ -252,6 +252,7 @@ export class ExampleEditorComponent extends React.Component<
 
   private startTime: number = 0;
   private editorActions: EditorActions | null = null;
+  private providers = getProviders();
 
   UNSAFE_componentWillMount() {
     this.startTime = new Date().getTime();
@@ -388,7 +389,7 @@ export class ExampleEditorComponent extends React.Component<
                   allowCopyToClipboard: true,
                   appearance: this.state.appearance,
                 }}
-                {...getProviders()}
+                {...this.providers}
                 media={{
                   provider: mediaProvider,
                   allowMediaSingle: true,

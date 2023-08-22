@@ -9,6 +9,7 @@
 export default {
   'fabric.linking.actions': 'アクション',
   'fabric.linking.add_account': 'アカウントを追加',
+  'fabric.linking.assigned_to': '割り当て先: {context}',
   'fabric.linking.cancel': 'キャンセル',
   'fabric.linking.cannot_connect': '接続できません、もう一度お試しください。',
   'fabric.linking.cannot_find_link': 'リンクが見つかりません。',
@@ -25,6 +26,8 @@ export default {
   'fabric.linking.connect_to': '{name} に接続',
   'fabric.linking.connect_unauthorised_account_action': '{context} に接続',
   'fabric.linking.connect_unauthorised_account_description':
+    '{context} をアトラシアンに接続すると、作業やコラボレーションの詳細を 1 か所で確認できます。',
+  'fabric.linking.connect_unauthorised_account_description_no_provider':
     'アトラシアンに接続すると、作業やコラボレーションの詳細を 1 か所で確認できます。',
   'fabric.linking.continue': '続行',
   'fabric.linking.copy_url_to_clipboard': 'リンクをコピー',
@@ -73,6 +76,7 @@ export default {
   'fabric.linking.priority_minor': 'マイナー',
   'fabric.linking.priority_trivial': '軽度',
   'fabric.linking.priority_undefined': '未定義',
+  'fabric.linking.read_time': '読了時間 {context} 分',
   'fabric.linking.request_access': 'アクセスをリクエスト',
   'fabric.linking.request_access_description':
     'このプレビューを表示するための{context}へのアクセスをリクエストします。',
@@ -92,6 +96,12 @@ export default {
   'fabric.linking.status_change_update_error': 'ステータスを更新できませんでした。',
   'fabric.linking.try_again': '再試行',
   'fabric.linking.try_another_account': '別のアカウントでお試しください',
+  'fabric.linking.unauthorised_account_description':
+    '{context} の非公開ページへのリンクをプレビューしようとしています。URL を確認するか、ページの所有者に問い合わせることをお勧めします。',
+  'fabric.linking.unauthorised_account_description_no_provider':
+    '非公開ページへのリンクをプレビューしようとしています。URL を確認するか、ページの所有者に問い合わせることをお勧めします。',
+  'fabric.linking.unauthorised_account_name': '{context} の非公開ページは表示できません',
+  'fabric.linking.unauthorised_account_name_no_provider': '非公開ページは表示できません',
   'fabric.linking.unlink_account': 'アカウントのリンクを解除',
   'fabric.linking.updated_by': '変更元: {context}',
   'fabric.linking.view': '表示',

@@ -9,6 +9,7 @@
 export default {
   'fabric.linking.actions': 'Tiltak',
   'fabric.linking.add_account': 'Legg til en konto',
+  'fabric.linking.assigned_to': 'Tilordnet til {context}',
   'fabric.linking.cancel': 'Avbryt',
   'fabric.linking.cannot_connect': 'Kan ikke koble til, prøv på nytt',
   'fabric.linking.cannot_find_link': 'Finner ikke koblingen',
@@ -26,6 +27,8 @@ export default {
   'fabric.linking.connect_to': 'Koble til {name}',
   'fabric.linking.connect_unauthorised_account_action': 'Koble til {context}',
   'fabric.linking.connect_unauthorised_account_description':
+    'Koble {context} til Atlassian for å se flere detaljer for arbeidet ditt og samarbeide på ett sted.',
+  'fabric.linking.connect_unauthorised_account_description_no_provider':
     'Koble til Atlassian for å se flere detaljer for arbeidet ditt og samarbeide på ett sted.',
   'fabric.linking.continue': 'Fortsett',
   'fabric.linking.copy_url_to_clipboard': 'Kopier kobling',
@@ -74,6 +77,7 @@ export default {
   'fabric.linking.priority_minor': 'Mindre alvorlig',
   'fabric.linking.priority_trivial': 'Uviktig',
   'fabric.linking.priority_undefined': 'Udefinert',
+  'fabric.linking.read_time': '{context} min å lese',
   'fabric.linking.request_access': 'Be om tilgang',
   'fabric.linking.request_access_description': 'Be om tilgang til {context} for å se denne forhåndsvisningen.',
   'fabric.linking.request_access_pending': 'Venter på tilgang',
@@ -92,6 +96,12 @@ export default {
   'fabric.linking.status_change_update_error': 'Vi kan ikke oppdatere statusen',
   'fabric.linking.try_again': 'Prøv på nytt',
   'fabric.linking.try_another_account': 'Prøv en annen konto',
+  'fabric.linking.unauthorised_account_description':
+    'Du prøver å forhåndsvise en kobling til en privat {context}-side. Vi anbefaler at du sjekker nettadressen eller kontakter sideeieren.',
+  'fabric.linking.unauthorised_account_description_no_provider':
+    'Du prøver å forhåndsvise en kobling til en privat side. Vi anbefaler at du sjekker nettadressen eller kontakter sideeieren.',
+  'fabric.linking.unauthorised_account_name': 'Vi kan ikke vise private sider fra {context}',
+  'fabric.linking.unauthorised_account_name_no_provider': 'Vi kan ikke vise private sider',
   'fabric.linking.unlink_account': 'Fjern kobling fra konto',
   'fabric.linking.updated_by': 'Endret av {context}',
   'fabric.linking.view': 'Vis',

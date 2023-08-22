@@ -7,7 +7,7 @@ import {
   TEST_NAME,
   TEST_OBJECT,
   TEST_URL,
-} from '../../__mocks__/jsonld';
+} from '../../__mocks__/linkingPlatformJsonldMocks';
 import { CONFLUENCE_GENERATOR_ID, JIRA_GENERATOR_ID } from '../../constants';
 import { extractProvider } from '../extractProvider';
 

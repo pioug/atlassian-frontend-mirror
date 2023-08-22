@@ -4,10 +4,11 @@ import { render } from '@testing-library/react';
 import { axe } from '@af/accessibility-testing';
 
 import InfoIcon from '@atlaskit/icon/glyph/info';
-import { B300 } from '@atlaskit/theme/colors';
+import SuccessIcon from '@atlaskit/icon/glyph/check-circle';
+import { B300, G300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-import Flag, { FlagGroup } from '../../index';
+import Flag, { AutoDismissFlag, FlagGroup } from '../../index';
 import FlagsProviderExample from '../../../examples/constellation/flags-provider-show-flag';
 
 describe('Accessibility jest-axe', () => {
@@ -53,6 +54,25 @@ describe('Accessibility jest-axe', () => {
 
   it('FlagsProvider', async () => {
     const { container } = render(<FlagsProviderExample />);
+
+    await axe(container);
+  });
+
+  it('AutoDismissFlag', async () => {
+    const { container } = render(
+      <AutoDismissFlag
+        id={1}
+        icon={
+          <SuccessIcon
+            primaryColor={token('color.icon.success', G300)}
+            label="Success"
+            size="medium"
+          />
+        }
+        title={`#${1} Your changes were saved`}
+        description="I will auto dismiss after 8 seconds."
+      />,
+    );
 
     await axe(container);
   });

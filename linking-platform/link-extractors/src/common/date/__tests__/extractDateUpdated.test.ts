@@ -1,4 +1,4 @@
-import { TEST_BASE_DATA } from '../../__mocks__/jsonld';
+import { TEST_BASE_DATA } from '../../__mocks__/linkingPlatformJsonldMocks';
 import { LinkTypeCreated } from '../extractDateCreated';
 import { extractDateUpdated } from '../extractDateUpdated';
 

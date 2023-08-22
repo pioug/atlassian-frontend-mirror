@@ -7,10 +7,17 @@
  */
 //Swedish
 export default {
+  'linkDataSource.assets.configModal.aqlSearchInput.helpTooltipText': 'Syntaxhjälp',
   'linkDataSource.assets.configModal.aqlSearchInput.placeholder': 'Sök via AQL',
   'linkDataSource.assets.configModal.objectSchemaSelect.label': 'Välj schema',
   'linkDataSource.assets.configModal.objectSchemaSelect.placeholder': 'Välj schema',
   'linkDataSource.assets.configModal.objectSchemaSelect.schemaRequired': 'Schema krävs',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.learnMoreLink':
+    'Läs mer om att söka med AQL.',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchDescription':
+    'Börja skriva eller använd AQL för att söka.',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle':
+    'Sök efter objekt eller objektstyper',
   'linkDataSource.assets.configmodal.cancelButtonText': 'Avbryt',
   'linkDataSource.assets.configmodal.insertIssuesButtonText': 'Infoga objekt',
   'linkDataSource.assets.configmodal.insertObjectsTitle': 'Infoga objekt från',

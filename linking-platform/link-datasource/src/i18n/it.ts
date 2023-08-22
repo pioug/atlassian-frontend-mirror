@@ -7,10 +7,17 @@
  */
 //Italian (Italy)
 export default {
+  'linkDataSource.assets.configModal.aqlSearchInput.helpTooltipText': 'Guida alla sintassi',
   'linkDataSource.assets.configModal.aqlSearchInput.placeholder': 'Cerca tramite AQL',
   'linkDataSource.assets.configModal.objectSchemaSelect.label': 'Seleziona lo schema',
   'linkDataSource.assets.configModal.objectSchemaSelect.placeholder': 'Seleziona lo schema',
   'linkDataSource.assets.configModal.objectSchemaSelect.schemaRequired': 'Lo schema è obbligatorio',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.learnMoreLink':
+    'Scopri di più sulla ricerca con AQL',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchDescription':
+    'Inizia a digitare o utilizza AQL per la ricerca.',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle':
+    'Cerca oggetti o tipi di oggetto',
   'linkDataSource.assets.configmodal.cancelButtonText': 'Annulla',
   'linkDataSource.assets.configmodal.insertIssuesButtonText': 'Inserisci oggetti',
   'linkDataSource.assets.configmodal.insertObjectsTitle': 'Inserisci oggetti da',

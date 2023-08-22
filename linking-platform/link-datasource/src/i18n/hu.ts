@@ -7,10 +7,13 @@
  */
 //Hungarian
 export default {
+  'linkDataSource.assets.configModal.aqlSearchInput.helpTooltipText': 'Szintaxis súgó',
   'linkDataSource.assets.configModal.aqlSearchInput.placeholder': 'Keresés az AQL-lel',
   'linkDataSource.assets.configModal.objectSchemaSelect.label': 'Séma kiválasztása',
   'linkDataSource.assets.configModal.objectSchemaSelect.placeholder': 'Séma kiválasztása',
   'linkDataSource.assets.configModal.objectSchemaSelect.schemaRequired': 'A séma megadása kötelező',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.learnMoreLink':
+    'További információ az AQL-lel történő keresésről',
   'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchDescription':
     'A kereséshez kezdj el gépelni vagy használj AQL-t.',
   'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle':

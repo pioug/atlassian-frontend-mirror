@@ -4,7 +4,7 @@ import {
   TEST_OBJECT,
   TEST_STRING,
   TEST_URL,
-} from '../../__mocks__/jsonld';
+} from '../../__mocks__/linkingPlatformJsonldMocks';
 import { extractPersonFromJsonLd } from '../extractPerson';
 
 describe('extractPersonFromJsonLd', () => {

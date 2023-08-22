@@ -18,8 +18,7 @@ export const mockJiraData = {
       },
       priority: {
         label: 'major',
-        source:
-          'https://product-fabric.atlassian.net/images/icons/priorities/major.svg',
+        source: 'https://static.thenounproject.com/png/60319-200.png',
       },
       status: {
         text: 'To do',
@@ -35,8 +34,7 @@ export const mockJiraData = {
     {
       type: {
         label: 'story',
-        source:
-          'https://product-fabric.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10315?size=medium',
+        source: 'https://static.thenounproject.com/png/60319-200.png',
       },
       issueNumber: 'DONUT-1173',
       summary: "Audio in meeting room K909 doesn't work",

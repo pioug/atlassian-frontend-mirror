@@ -3,7 +3,7 @@ import {
   TEST_LINK,
   TEST_STRING,
   TEST_URL,
-} from '../../__mocks__/jsonld';
+} from '../../__mocks__/linkingPlatformJsonldMocks';
 import { extractUrlFromLinkJsonLd } from '../extractUrlFromLinkJsonLd';
 
 describe('extractUrlFromLinkJsonLd()', () => {

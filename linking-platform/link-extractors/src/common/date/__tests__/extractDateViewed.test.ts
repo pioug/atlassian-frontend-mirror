@@ -1,6 +1,6 @@
 import { JsonLd } from 'json-ld-types';
 
-import { TEST_BASE_DATA } from '../../__mocks__/jsonld';
+import { TEST_BASE_DATA } from '../../__mocks__/linkingPlatformJsonldMocks';
 import { extractDateViewed } from '../extractDateViewed';
 
 describe('extractors.date.viewed', () => {

@@ -19,6 +19,7 @@ import { insertMediaGroupNode } from '../../../../plugins/media/utils/media-file
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { MediaPluginState } from '../../../../plugins/media/pm-plugins/types';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { MediaAttributes } from '@atlaskit/adf-schema/schema';
 
 export {
   getFreshMediaProvider,
@@ -30,9 +31,14 @@ export {
   temporaryMedia,
 };
 
-export const temporaryMediaWithDimensions = (width = 256, height = 128) => {
+export const temporaryMediaWithDimensions = (
+  width = 256,
+  height = 128,
+  customAttrs?: Partial<MediaAttributes>,
+) => {
   return media({
     ...temporaryMediaAttrs,
+    ...customAttrs,
     width,
     height,
   })();

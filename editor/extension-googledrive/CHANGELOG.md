@@ -1,5 +1,11 @@
 # @atlaskit/editor-extension-googledrive
 
+## 0.2.0
+
+### Minor Changes
+
+- [`e846d82cf86`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e846d82cf86) - [ux] Adjusting the package so that the code for building extension is included
+
 ## 0.1.0
 
 ### Minor Changes

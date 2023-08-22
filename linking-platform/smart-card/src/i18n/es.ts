@@ -9,6 +9,7 @@
 export default {
   'fabric.linking.actions': 'Acciones',
   'fabric.linking.add_account': 'Añadir cuenta',
+  'fabric.linking.assigned_to': 'Asignado a {context}',
   'fabric.linking.cancel': 'Cancelar',
   'fabric.linking.cannot_connect': 'No se podido establecer la conexión. Inténtalo de nuevo',
   'fabric.linking.cannot_find_link': 'No se ha podido encontrar el enlace',
@@ -25,6 +26,8 @@ export default {
   'fabric.linking.connect_to': 'Conectarse a {name}',
   'fabric.linking.connect_unauthorised_account_action': 'Conectarse a {context}',
   'fabric.linking.connect_unauthorised_account_description':
+    'Conecta {context} con Atlassian para ver más detalles de tu trabajo y colaborar desde un único lugar.',
+  'fabric.linking.connect_unauthorised_account_description_no_provider':
     'Conéctate con Atlassian para ver más detalles de tu trabajo y colaborar desde un único lugar.',
   'fabric.linking.continue': 'Continuar',
   'fabric.linking.copy_url_to_clipboard': 'Copiar enlace',
@@ -73,6 +76,7 @@ export default {
   'fabric.linking.priority_minor': 'No importante',
   'fabric.linking.priority_trivial': 'Trivial',
   'fabric.linking.priority_undefined': 'Sin definir',
+  'fabric.linking.read_time': '{context} min de lectura',
   'fabric.linking.request_access': 'Solicitar acceso',
   'fabric.linking.request_access_description': 'Solicita acceso a {context} para ver esta vista previa.',
   'fabric.linking.request_access_pending': 'Acceso pendiente',
@@ -91,6 +95,12 @@ export default {
   'fabric.linking.status_change_update_error': 'No hemos podido actualizar el estado',
   'fabric.linking.try_again': 'Volver a intentarlo',
   'fabric.linking.try_another_account': 'Probar otra cuenta',
+  'fabric.linking.unauthorised_account_description':
+    'Estás intentando previsualizar un enlace a una página privada de {context}. Te recomendamos que revises la URL o contactes con el propietario de la página.',
+  'fabric.linking.unauthorised_account_description_no_provider':
+    'Estás intentando previsualizar un enlace a una página privada. Te recomendamos que revises la URL o contactes con el propietario de la página.',
+  'fabric.linking.unauthorised_account_name': 'No podemos mostrar las páginas privadas de {context}',
+  'fabric.linking.unauthorised_account_name_no_provider': 'No podemos mostrar páginas privadas',
   'fabric.linking.unlink_account': 'Desvincular cuenta',
   'fabric.linking.updated_by': 'Modificado por {context}',
   'fabric.linking.view': 'Ver',

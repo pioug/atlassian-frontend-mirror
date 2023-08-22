@@ -9,6 +9,7 @@
 export default {
   'fabric.linking.actions': 'Műveletek',
   'fabric.linking.add_account': 'Fiók hozzáadása',
+  'fabric.linking.assigned_to': 'Hozzárendelve a következő személyhez: {context}',
   'fabric.linking.cancel': 'Mégse',
   'fabric.linking.cannot_connect': 'Nem sikerült kapcsolódni, próbálkozz újra',
   'fabric.linking.cannot_find_link': 'A link nem található',
@@ -27,6 +28,8 @@ export default {
   'fabric.linking.connect_to': 'Csatlakozás ehhez: {name}',
   'fabric.linking.connect_unauthorised_account_action': 'Csatlakozás ehhez: {context}',
   'fabric.linking.connect_unauthorised_account_description':
+    'Az Atlassian és a(z) {context} csatlakoztatásával egy helyen nézhetsz meg további részleteket a munkádról és működhetsz együtt másokkal.',
+  'fabric.linking.connect_unauthorised_account_description_no_provider':
     'Az Atlassian csatlakoztatásával egy helyen nézhetsz meg további részleteket a munkádról és működhetsz együtt másokkal.',
   'fabric.linking.continue': 'Folytatás',
   'fabric.linking.copy_url_to_clipboard': 'Link másolása',
@@ -75,6 +78,7 @@ export default {
   'fabric.linking.priority_minor': 'Kevésbé jelentős',
   'fabric.linking.priority_trivial': 'Triviális',
   'fabric.linking.priority_undefined': 'Nincs meghatározva',
+  'fabric.linking.read_time': '{context} perc olvasási idő',
   'fabric.linking.request_access': 'Hozzáférés kérése',
   'fabric.linking.request_access_description':
     'Kérj hozzáférést a következő termékhez az előnézet megtekintése érdekében: {context}.',
@@ -94,6 +98,12 @@ export default {
   'fabric.linking.status_change_update_error': 'Nem sikerült frissíteni az állapotot',
   'fabric.linking.try_again': 'Próbáld újra',
   'fabric.linking.try_another_account': 'Próbálkozz másik fiókkal',
+  'fabric.linking.unauthorised_account_description':
+    'Egy privát {context}-oldalra mutató link előnézetét próbálod megtekinteni. Azt javasoljuk, hogy ellenőrizd az URL-címet, vagy lépj kapcsolatba az oldal tulajdonosával.',
+  'fabric.linking.unauthorised_account_description_no_provider':
+    'Egy privát oldalra mutató link előnézetét próbálod megtekinteni. Azt javasoljuk, hogy ellenőrizd az URL-címet, vagy lépj kapcsolatba az oldal tulajdonosával.',
+  'fabric.linking.unauthorised_account_name': 'Nem tudunk privát oldalakat megjeleníteni a(z) {context} felületéről',
+  'fabric.linking.unauthorised_account_name_no_provider': 'Nem tudunk privát oldalakat megjeleníteni',
   'fabric.linking.unlink_account': 'Fiók leválasztása',
   'fabric.linking.updated_by': 'Módosította: {context}',
   'fabric.linking.view': 'Megtekintés',

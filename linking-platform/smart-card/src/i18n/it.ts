@@ -9,6 +9,7 @@
 export default {
   'fabric.linking.actions': 'Azioni',
   'fabric.linking.add_account': 'Aggiungi account',
+  'fabric.linking.assigned_to': 'Assegnato a {context}',
   'fabric.linking.cancel': 'Annulla',
   'fabric.linking.cannot_connect': 'Impossibile connettersi, riprova',
   'fabric.linking.cannot_find_link': 'Impossibile trovare il link',
@@ -26,6 +27,8 @@ export default {
   'fabric.linking.connect_to': 'Collegati a {name}',
   'fabric.linking.connect_unauthorised_account_action': 'Connetti a {context}',
   'fabric.linking.connect_unauthorised_account_description':
+    "Connetti {context} ad Atlassian per visualizzare maggiori dettagli sul lavoro e collaborare da un'unica posizione.",
+  'fabric.linking.connect_unauthorised_account_description_no_provider':
     "Effettua la connessione ad Atlassian per visualizzare maggiori dettagli sul lavoro e collaborare da un'unica posizione.",
   'fabric.linking.continue': 'Continua',
   'fabric.linking.copy_url_to_clipboard': 'Copia il link',
@@ -74,6 +77,7 @@ export default {
   'fabric.linking.priority_minor': 'Minore',
   'fabric.linking.priority_trivial': 'Banale',
   'fabric.linking.priority_undefined': 'Non definita',
+  'fabric.linking.read_time': '{context} minuti di lettura',
   'fabric.linking.request_access': 'Richiedi accesso',
   'fabric.linking.request_access_description': "Richiedi l'accesso a {context} per visualizzare questa anteprima.",
   'fabric.linking.request_access_pending': 'Accesso in sospeso',
@@ -93,6 +97,12 @@ export default {
   'fabric.linking.status_change_update_error': 'Impossibile aggiornare lo stato',
   'fabric.linking.try_again': 'Riprova',
   'fabric.linking.try_another_account': 'Prova con un altro account',
+  'fabric.linking.unauthorised_account_description':
+    "Stai tentando di visualizzare in anteprima un link a una pagina {context} privata. Ti consigliamo di controllare l'URL o contattare il responsabile della pagina.",
+  'fabric.linking.unauthorised_account_description_no_provider':
+    "Stai tentando di visualizzare in anteprima un link a una pagina privata. Ti consigliamo di controllare l'URL o contattare il responsabile della pagina.",
+  'fabric.linking.unauthorised_account_name': 'Non è possibile visualizzare le pagine private di {context}',
+  'fabric.linking.unauthorised_account_name_no_provider': 'Impossibile visualizzare le pagine private',
   'fabric.linking.unlink_account': 'Scollega account',
   'fabric.linking.updated_by': 'Modificato da {context}',
   'fabric.linking.view': 'Visualizza',

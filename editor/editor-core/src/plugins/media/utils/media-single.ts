@@ -16,10 +16,14 @@ import type {
 } from '@atlaskit/editor-prosemirror/state';
 import { checkNodeDown } from '../../../utils';
 import {
+  getMediaSingleInitialWidth,
+  MEDIA_SINGLE_DEFAULT_MIN_PIXEL_WIDTH,
+  MEDIA_SINGLE_VIDEO_MIN_PIXEL_WIDTH,
+} from '@atlaskit/editor-common/media-single';
+import {
   isEmptyParagraph,
   floatingLayouts,
 } from '@atlaskit/editor-common/utils';
-import { getMediaSingleInitialWidth } from '@atlaskit/editor-common/media-single';
 
 import { copyOptionalAttrsFromMediaState } from '../utils/media-common';
 import type { MediaState } from '../types';
@@ -173,8 +177,9 @@ export const insertMediaSingleNode = (
     state.schema,
     collection,
     contentWidth,
-    // pass undefined to use default min width
-    undefined,
+    mediaState.status !== 'error' && isVideo(mediaState.fileMimeType)
+      ? MEDIA_SINGLE_VIDEO_MIN_PIXEL_WIDTH
+      : MEDIA_SINGLE_DEFAULT_MIN_PIXEL_WIDTH,
     alignLeftOnInsert,
   )(mediaState as MediaSingleState);
 
@@ -348,6 +353,9 @@ export function isCaptionNode(editorView: EditorView) {
   }
   return false;
 }
+
+export const isVideo = (fileType?: string) =>
+  !!fileType && fileType.includes('video');
 
 export const getParentWidthForNestedMediaSingleNode = (
   resolvedPos: ResolvedPos,

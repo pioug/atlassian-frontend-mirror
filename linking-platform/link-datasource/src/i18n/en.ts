@@ -7,6 +7,7 @@
  */
 //
 export default {
+  'linkDataSource.assets.configModal.aqlSearchInput.helpTooltipText': 'Syntax help',
   'linkDataSource.assets.configModal.aqlSearchInput.placeholder': 'Search via AQL',
   'linkDataSource.assets.configModal.objectSchemaSelect.label': 'Select schema',
   'linkDataSource.assets.configModal.objectSchemaSelect.placeholder': 'Select schema',
@@ -18,7 +19,8 @@ export default {
   'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle':
     'Search for objects or object types',
   'linkDataSource.assets.configmodal.cancelButtonText': 'Cancel',
-  'linkDataSource.assets.configmodal.insertIssuesButtonText': 'Insert objects',
+  'linkDataSource.assets.configmodal.insertIssuesButtonText':
+    'Insert {objectsCount, plural, one {object} other {objects}}',
   'linkDataSource.assets.configmodal.insertObjectsTitle': 'Insert objects from',
   'linkDataSource.column-picker.search': 'Search for fields',
   'linkDataSource.jira-issues.accessInstructions': 'To request access, contact your admin.',

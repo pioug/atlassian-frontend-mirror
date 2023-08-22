@@ -9,6 +9,7 @@
 export default {
   'fabric.linking.actions': 'Akcje',
   'fabric.linking.add_account': 'Dodaj konto',
+  'fabric.linking.assigned_to': 'Przypisano do {context}',
   'fabric.linking.cancel': 'Anuluj',
   'fabric.linking.cannot_connect': 'Nie można nawiązać połączenia. Spróbuj ponownie.',
   'fabric.linking.cannot_find_link': 'Nie można znaleźć łącza',
@@ -25,6 +26,8 @@ export default {
   'fabric.linking.connect_to': 'Połącz z {name}',
   'fabric.linking.connect_unauthorised_account_action': 'Połącz z {context}',
   'fabric.linking.connect_unauthorised_account_description':
+    'Połącz {context} z Atlassian, aby wyświetlać więcej szczegółów dotyczących pracy i współpracować w jednym miejscu.',
+  'fabric.linking.connect_unauthorised_account_description_no_provider':
     'Połącz z Atlassian, aby wyświetlać więcej szczegółów dotyczących pracy i współpracować w jednym miejscu.',
   'fabric.linking.continue': 'Kontynuuj',
   'fabric.linking.copy_url_to_clipboard': 'Kopiuj łącze',
@@ -73,6 +76,7 @@ export default {
   'fabric.linking.priority_minor': 'Drobny',
   'fabric.linking.priority_trivial': 'Trywialny',
   'fabric.linking.priority_undefined': 'Nie zdefiniowano',
+  'fabric.linking.read_time': '{context} min czytania',
   'fabric.linking.request_access': 'Wyślij wniosek o dostęp',
   'fabric.linking.request_access_description': 'Poproś o dostęp do {context}, aby wyświetlić ten podgląd.',
   'fabric.linking.request_access_pending': 'Oczekuje na dostęp',
@@ -91,6 +95,12 @@ export default {
   'fabric.linking.status_change_update_error': 'Nie można zaktualizować statusu',
   'fabric.linking.try_again': 'Spróbuj ponownie',
   'fabric.linking.try_another_account': 'Spróbuj użyć innego konta',
+  'fabric.linking.unauthorised_account_description':
+    'Próbujesz wyświetlić podgląd łącza do strony prywatnej {context}. Zalecamy, aby sprawdzić adres URL lub skontaktować się z właścicielem strony.',
+  'fabric.linking.unauthorised_account_description_no_provider':
+    'Próbujesz wyświetlić podgląd łącza do strony prywatnej. Zalecamy, aby sprawdzić adres URL lub skontaktować się z właścicielem strony.',
+  'fabric.linking.unauthorised_account_name': 'Nie można wyświetlić stron prywatnych z {context}',
+  'fabric.linking.unauthorised_account_name_no_provider': 'Nie można wyświetlić stron prywatnych',
   'fabric.linking.unlink_account': 'Odłącz konto',
   'fabric.linking.updated_by': 'Autor modyfikacji: {context}',
   'fabric.linking.view': 'Wyświetl',

@@ -9,6 +9,7 @@
 export default {
   'fabric.linking.actions': '動作',
   'fabric.linking.add_account': '新增帳戶',
+  'fabric.linking.assigned_to': '已指派給 {context}',
   'fabric.linking.cancel': '取消',
   'fabric.linking.cannot_connect': '無法連結，請再試一次',
   'fabric.linking.cannot_find_link': '找不到連結',
@@ -24,6 +25,8 @@ export default {
   'fabric.linking.connect_to': '連結至 {name}',
   'fabric.linking.connect_unauthorised_account_action': '連結至 {context}',
   'fabric.linking.connect_unauthorised_account_description':
+    '將 {context} 連結至 Atlassian，以從單一位置檢視更多工作的詳細資料，並進行協作。',
+  'fabric.linking.connect_unauthorised_account_description_no_provider':
     '連結至 Atlassian 以從單一位置檢視更多工作的詳細資料並進行協作。',
   'fabric.linking.continue': '繼續',
   'fabric.linking.copy_url_to_clipboard': '複製連結',
@@ -68,6 +71,7 @@ export default {
   'fabric.linking.priority_minor': '次要',
   'fabric.linking.priority_trivial': '不太重要',
   'fabric.linking.priority_undefined': '未定義',
+  'fabric.linking.read_time': '{context} 分鐘閱讀時間',
   'fabric.linking.request_access': '要求存取權',
   'fabric.linking.request_access_description': '要求 {context} 的存取權以檢視此預覽。',
   'fabric.linking.request_access_pending': '存取擱置',
@@ -85,6 +89,12 @@ export default {
   'fabric.linking.status_change_update_error': '我們無法更新狀態',
   'fabric.linking.try_again': '再試一次',
   'fabric.linking.try_another_account': '使用其他帳戶嘗試',
+  'fabric.linking.unauthorised_account_description':
+    '您正在嘗試預覽私人 {context} 頁面的連結。建議您檢閱 URL 或連絡頁面擁有者。',
+  'fabric.linking.unauthorised_account_description_no_provider':
+    '您正在嘗試預覽私人頁面的連結。建議您檢閱 URL 或連絡頁面擁有者。',
+  'fabric.linking.unauthorised_account_name': '無法顯示 {context} 的私人頁面',
+  'fabric.linking.unauthorised_account_name_no_provider': '無法顯示私人頁面',
   'fabric.linking.unlink_account': '取消帳戶的連結',
   'fabric.linking.updated_by': '修改者：{context}',
   'fabric.linking.view': '檢視',

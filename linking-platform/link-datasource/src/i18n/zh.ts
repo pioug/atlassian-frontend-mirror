@@ -7,10 +7,16 @@
  */
 //Chinese (Simplified)
 export default {
+  'linkDataSource.assets.configModal.aqlSearchInput.helpTooltipText': '语法帮助',
   'linkDataSource.assets.configModal.aqlSearchInput.placeholder': '通过 AQL 搜索',
   'linkDataSource.assets.configModal.objectSchemaSelect.label': '选择架构',
   'linkDataSource.assets.configModal.objectSchemaSelect.placeholder': '选择架构',
   'linkDataSource.assets.configModal.objectSchemaSelect.schemaRequired': '必须选择架构',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.learnMoreLink':
+    '详细了解如何使用 AQL 进行搜索。',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchDescription':
+    '开始输入搜索内容或使用 AQL 进行搜索。',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle': '搜索对象或对象类型',
   'linkDataSource.assets.configmodal.cancelButtonText': '取消',
   'linkDataSource.assets.configmodal.insertIssuesButtonText': '插入对象',
   'linkDataSource.assets.configmodal.insertObjectsTitle': '插入以下来源的对象：',

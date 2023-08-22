@@ -7,10 +7,17 @@
  */
 //Japanese
 export default {
+  'linkDataSource.assets.configModal.aqlSearchInput.helpTooltipText': '構文ヘルプ',
   'linkDataSource.assets.configModal.aqlSearchInput.placeholder': 'AQL で検索',
   'linkDataSource.assets.configModal.objectSchemaSelect.label': 'スキーマを選択',
   'linkDataSource.assets.configModal.objectSchemaSelect.placeholder': 'スキーマを選択',
   'linkDataSource.assets.configModal.objectSchemaSelect.schemaRequired': 'スキーマは必須です',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.learnMoreLink':
+    'AQL 検索の詳細をご確認ください。',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchDescription':
+    '語句を入力するか、AQL を使って検索できます。',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle':
+    'オブジェクトまたはオブジェクト タイプの検索',
   'linkDataSource.assets.configmodal.cancelButtonText': 'キャンセル',
   'linkDataSource.assets.configmodal.insertIssuesButtonText': 'オブジェクトを挿入',
   'linkDataSource.assets.configmodal.insertObjectsTitle': 'オブジェクトの挿入元',

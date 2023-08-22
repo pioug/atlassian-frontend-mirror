@@ -1,4 +1,4 @@
-import { TEST_OBJECT } from '../../__mocks__/jsonld';
+import { TEST_OBJECT } from '../../__mocks__/linkingPlatformJsonldMocks';
 import { extractType } from '../extractType';
 
 describe('extractors.primitives.type', () => {

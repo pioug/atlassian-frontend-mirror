@@ -9,6 +9,7 @@
 export default {
   'fabric.linking.actions': 'Дії',
   'fabric.linking.add_account': 'Додати обліковий запис',
+  'fabric.linking.assigned_to': 'Призначено для {context}',
   'fabric.linking.cancel': 'Скасувати',
   'fabric.linking.cannot_connect': 'Не вдається підключитися, спробуйте ще раз',
   'fabric.linking.cannot_find_link': 'Не вдається знайти посилання',
@@ -27,6 +28,8 @@ export default {
   'fabric.linking.connect_to': 'Підключення до {name}',
   'fabric.linking.connect_unauthorised_account_action': 'Підключитися до {context}',
   'fabric.linking.connect_unauthorised_account_description':
+    'Підключіть обліковий запис {context} до Atlassian, щоб переглядати більше відомостей про роботу й співпрацювати на одному ресурсі.',
+  'fabric.linking.connect_unauthorised_account_description_no_provider':
     'Підключіться до Atlassian, щоб переглядати більше відомостей про роботу й співпрацювати на одному ресурсі.',
   'fabric.linking.continue': 'Продовжити',
   'fabric.linking.copy_url_to_clipboard': 'Скопіюйте посилання',
@@ -75,6 +78,7 @@ export default {
   'fabric.linking.priority_minor': 'Низький',
   'fabric.linking.priority_trivial': 'Звичайний',
   'fabric.linking.priority_undefined': 'Не визначено',
+  'fabric.linking.read_time': 'Текст на {context} хв',
   'fabric.linking.request_access': 'Надіслати запит на доступ',
   'fabric.linking.request_access_description':
     'Надішліть запит на доступ до {context}, щоб попередньо переглянути продукт.',
@@ -94,6 +98,12 @@ export default {
   'fabric.linking.status_change_update_error': 'Не вдалось оновити стан',
   'fabric.linking.try_again': 'Повторити спробу',
   'fabric.linking.try_another_account': 'Увійти з іншим обліковим запитом',
+  'fabric.linking.unauthorised_account_description':
+    'Ви намагаєтеся переглянути посилання на приватну сторінку {context}. Ми рекомендуємо перевірити URL-адресу або зв’язатися з власником сторінки.',
+  'fabric.linking.unauthorised_account_description_no_provider':
+    'Ви намагаєтеся переглянути посилання на приватну сторінку. Ми рекомендуємо перевірити URL-адресу або зв’язатися з власником сторінки.',
+  'fabric.linking.unauthorised_account_name': 'Ми не можемо відображати приватні сторінки з {context}',
+  'fabric.linking.unauthorised_account_name_no_provider': 'Ми не можемо відображати приватні сторінки',
   'fabric.linking.unlink_account': 'Від’єднати обліковий запис',
   'fabric.linking.updated_by': 'Автор зміни: {context}',
   'fabric.linking.view': 'Переглянути',

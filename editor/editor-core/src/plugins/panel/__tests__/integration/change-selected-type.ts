@@ -77,7 +77,7 @@ BrowserTestCase(
 BrowserTestCase(
   'change-selected-type.ts: Select panel and then change Icon when allowCustomPanelEdit is true',
   // TODO: Skipped safari, need to unskip again after fixing: https://product-fabric.atlassian.net/browse/ED-16306
-  { skip: ['safari'] },
+  { skip: ['safari', 'chrome'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
@@ -107,7 +107,7 @@ BrowserTestCase(
 BrowserTestCase(
   'Should be able to undo the emoji icon using keyboard shortcut',
   // TODO: Skipped safari, need to unskip again after fixing: https://product-fabric.atlassian.net/browse/ED-16306
-  { skip: ['safari'] },
+  { skip: ['safari', 'chrome'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {

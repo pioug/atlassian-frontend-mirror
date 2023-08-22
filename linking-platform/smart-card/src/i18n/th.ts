@@ -9,6 +9,7 @@
 export default {
   'fabric.linking.actions': 'การดำเนินการ',
   'fabric.linking.add_account': 'เพิ่มบัญชี',
+  'fabric.linking.assigned_to': 'มอบหมายให้ {context} แล้ว',
   'fabric.linking.cancel': 'ยกเลิก',
   'fabric.linking.cannot_connect': 'ไม่สามารถเชื่อมต่อได้ โปรดลองอีกครั้ง',
   'fabric.linking.cannot_find_link': 'ไม่พบลิงก์',
@@ -26,6 +27,8 @@ export default {
   'fabric.linking.connect_to': 'เชื่อมต่อกับ {name}',
   'fabric.linking.connect_unauthorised_account_action': 'เชื่อมต่อกับ {context}',
   'fabric.linking.connect_unauthorised_account_description':
+    'เชื่อมต่อ {context} กับ Atlassian เพื่อดูรายละเอียดเพิ่มเติมของงานของคุณและทำงานร่วมกันจากที่เดียว',
+  'fabric.linking.connect_unauthorised_account_description_no_provider':
     'เชื่อมต่อไปยัง Atlassian เพื่อดูรายละเอียดเพิ่มเติมของงานของคุณและทำงานร่วมกันจากที่เดียว',
   'fabric.linking.continue': 'ดำเนินการต่อ',
   'fabric.linking.copy_url_to_clipboard': 'คัดลอกลิงก์',
@@ -73,6 +76,7 @@ export default {
   'fabric.linking.priority_minor': 'น้อย',
   'fabric.linking.priority_trivial': 'ไม่สำคัญ',
   'fabric.linking.priority_undefined': 'ไม่ได้ระบุ',
+  'fabric.linking.read_time': 'อ่าน {context} นาที',
   'fabric.linking.request_access': 'ส่งคำขอเพื่อเข้าถึง',
   'fabric.linking.request_access_description': 'ส่งคำขอในการเข้าถึง {context} เพื่อดูตัวอย่างนี้',
   'fabric.linking.request_access_pending': 'การเข้าถึงกำลังรอดำเนินการ',
@@ -91,6 +95,12 @@ export default {
   'fabric.linking.status_change_update_error': 'เราไม่สามารถอัปเดตสถานะได้',
   'fabric.linking.try_again': 'ลองอีกครั้ง',
   'fabric.linking.try_another_account': 'ลองบัญชีอื่น',
+  'fabric.linking.unauthorised_account_description':
+    'คุณกำลังพยายามแสดงตัวอย่างลิงก์ไปยังหน้าข้อมูล {context} เราขอแนะนำให้คุณตรวจสอบ URL หรือติดต่อเจ้าของหน้าข้อมูล',
+  'fabric.linking.unauthorised_account_description_no_provider':
+    'คุณกำลังพยายามแสดงตัวอย่างลิงก์ไปยังหน้าข้อมูลส่วนตัว เราขอแนะนำให้คุณตรวจสอบ URL หรือติดต่อเจ้าของหน้าข้อมูล',
+  'fabric.linking.unauthorised_account_name': 'เราไม่สามารถแสดงหน้าข้อมูลส่วนตัวจาก {context} ได้',
+  'fabric.linking.unauthorised_account_name_no_provider': 'เราไม่สามารถแสดงหน้าข้อมูลส่วนตัวได้',
   'fabric.linking.unlink_account': 'ยกเลิกการเชื่อมโยงบัญชี',
   'fabric.linking.updated_by': 'แก้ไขแล้วโดย {context}',
   'fabric.linking.view': 'ดู',

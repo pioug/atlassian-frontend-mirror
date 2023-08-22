@@ -70,12 +70,9 @@ export default () => (
         padding: token('space.200', '16px'),
       }}
     >
-      {/* TODO: Make emoji accessible (DSP-11751) */}
-      {/* eslint-disable-next-line jsx-a11y/accessible-emoji */}
-      <b>Scroll across and down ↘️ to see the popper</b>
-      <br />
-      <br />
+      <h2>Scroll down halfway, then across to see the popper</h2>
       <Lorem count={10} />
+      <h2>Halfway, now scroll right</h2>
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <BasicPopper />
       </div>

@@ -21,6 +21,7 @@ import {
 import {
   akEditorFullWidthLayoutWidth,
   akEditorGutterPadding,
+  akEditorDefaultLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
 import { wrapperStyle } from './styled';
 import type { Props, EnabledHandles } from './types';
@@ -38,7 +39,8 @@ import {
   resizerStyles,
 } from '@atlaskit/editor-common/styles';
 import {
-  MEDIA_SINGLE_MIN_PIXEL_WIDTH,
+  MEDIA_SINGLE_DEFAULT_MIN_PIXEL_WIDTH,
+  MEDIA_SINGLE_VIDEO_MIN_PIXEL_WIDTH,
   MEDIA_SINGLE_SNAP_GAP,
   MEDIA_SINGLE_RESIZE_THROTTLE_TIME,
   calculateOffsetLeft,
@@ -408,6 +410,17 @@ class ResizableMediaSingleNext extends React.Component<
     },
   );
 
+  private calcMinWidth = memoizeOne(
+    (isVideoFile: boolean, contentWidth?: number) => {
+      return Math.min(
+        contentWidth || akEditorDefaultLayoutWidth,
+        isVideoFile
+          ? MEDIA_SINGLE_VIDEO_MIN_PIXEL_WIDTH
+          : MEDIA_SINGLE_DEFAULT_MIN_PIXEL_WIDTH,
+      );
+    },
+  );
+
   private getRelativeGuides = () => {
     const $pos = this.$pos;
     const relativeGuides: GuidelineConfig[] =
@@ -577,7 +590,7 @@ class ResizableMediaSingleNext extends React.Component<
       lineLength,
     } = this.props;
 
-    const { isResizing, size } = this.state;
+    const { isResizing, size, isVideoFile } = this.state;
 
     const enable: EnabledHandles = {};
     handleSides.forEach((side) => {
@@ -615,6 +628,8 @@ class ResizableMediaSingleNext extends React.Component<
       fullWidthMode,
     );
 
+    const minWidth = this.calcMinWidth(isVideoFile, lineLength);
+
     return (
       <div
         ref={this.saveWrapper}
@@ -629,7 +644,7 @@ class ResizableMediaSingleNext extends React.Component<
         })}
       >
         <ResizerNext
-          minWidth={MEDIA_SINGLE_MIN_PIXEL_WIDTH}
+          minWidth={minWidth}
           maxWidth={maxWidth}
           className={resizerNextClassName}
           snapGap={MEDIA_SINGLE_SNAP_GAP}

@@ -7,10 +7,17 @@
  */
 //Turkish (Turkey)
 export default {
+  'linkDataSource.assets.configModal.aqlSearchInput.helpTooltipText': 'Söz dizimi yardımı',
   'linkDataSource.assets.configModal.aqlSearchInput.placeholder': 'AQL ile arayın',
   'linkDataSource.assets.configModal.objectSchemaSelect.label': 'Şema seçin',
   'linkDataSource.assets.configModal.objectSchemaSelect.placeholder': 'Şema seçin',
   'linkDataSource.assets.configModal.objectSchemaSelect.schemaRequired': 'Şema gerekli',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.learnMoreLink':
+    'AQL ile arama yapmak hakkında daha fazla bilgi edinin.',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchDescription':
+    'Aramak için yazmaya başlayın veya AQL kullanın.',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle':
+    'Nesne veya nesne türleri arayın',
   'linkDataSource.assets.configmodal.cancelButtonText': 'İptal',
   'linkDataSource.assets.configmodal.insertIssuesButtonText': 'Nesne ekle',
   'linkDataSource.assets.configmodal.insertObjectsTitle': 'Şuradan nesne ekleyin:',

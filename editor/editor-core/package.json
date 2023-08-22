@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-core",
-  "version": "187.28.0",
+  "version": "187.28.5",
   "description": "A package contains Atlassian editor core functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -73,7 +73,7 @@
     "@atlaskit/editor-plugin-guideline": "^0.3.4",
     "@atlaskit/editor-plugin-hyperlink": "^0.3.0",
     "@atlaskit/editor-plugin-image-upload": "^0.1.0",
-    "@atlaskit/editor-plugin-list": "^0.1.0",
+    "@atlaskit/editor-plugin-list": "^0.2.0",
     "@atlaskit/editor-plugin-table": "^2.10.0",
     "@atlaskit/editor-plugin-text-formatting": "^0.2.0",
     "@atlaskit/editor-plugin-width": "^0.1.0",

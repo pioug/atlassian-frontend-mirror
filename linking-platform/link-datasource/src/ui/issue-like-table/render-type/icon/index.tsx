@@ -22,13 +22,14 @@ const IconRenderType = ({
   source,
   testId = ICON_TYPE_TEST_ID,
 }: IconProps) => {
-  const style = /svg/i.test(source)
-    ? { minWidth: '20px', maxWidth: '20px' } // having just width: '20px' shriks it when table width is reduced
-    : {};
-
   return (
     <IconWrapper>
-      <Image src={source} alt={label} data-testid={testId} style={style} />
+      <Image
+        src={source}
+        alt={label}
+        data-testid={testId}
+        style={{ minWidth: '20px', maxWidth: '20px' }} // having just width: '20px' shrinks it when table width is reduced
+      />
     </IconWrapper>
   );
 };

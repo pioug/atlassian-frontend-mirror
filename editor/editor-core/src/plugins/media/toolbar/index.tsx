@@ -65,7 +65,7 @@ import { PixelEntry } from '../ui/PixelEntry';
 import {
   DEFAULT_IMAGE_WIDTH,
   DEFAULT_IMAGE_HEIGHT,
-  MEDIA_SINGLE_MIN_PIXEL_WIDTH,
+  MEDIA_SINGLE_DEFAULT_MIN_PIXEL_WIDTH,
   MEDIA_SINGLE_GUTTER_SIZE,
   calcMediaSinglePixelWidth,
 } from '@atlaskit/editor-common/media-single';
@@ -424,7 +424,7 @@ const generateMediaSingleFloatingToolbar = (
                 if (
                   value !== '' &&
                   !isNaN(value) &&
-                  value >= MEDIA_SINGLE_MIN_PIXEL_WIDTH &&
+                  value >= MEDIA_SINGLE_DEFAULT_MIN_PIXEL_WIDTH &&
                   value <= akEditorFullWidthLayoutWidth
                 ) {
                   return true;

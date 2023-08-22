@@ -9,6 +9,7 @@
 export default {
   'fabric.linking.actions': 'Åtgärder',
   'fabric.linking.add_account': 'Lägg till konto',
+  'fabric.linking.assigned_to': 'Tilldelad till {context}',
   'fabric.linking.cancel': 'Avbryt',
   'fabric.linking.cannot_connect': 'Det går inte att ansluta, försök igen',
   'fabric.linking.cannot_find_link': 'Kan inte hitta länk',
@@ -26,6 +27,8 @@ export default {
   'fabric.linking.connect_to': 'Anslut till {name}',
   'fabric.linking.connect_unauthorised_account_action': 'Anslut till {context}',
   'fabric.linking.connect_unauthorised_account_description':
+    'Anslut {context} till Atlassian för att se mer information om ditt arbete och samarbete på ett och samma ställe.',
+  'fabric.linking.connect_unauthorised_account_description_no_provider':
     'Anslut till Atlassian för att se mer information om ditt arbete och samarbete på ett och samma ställe.',
   'fabric.linking.continue': 'Fortsätt',
   'fabric.linking.copy_url_to_clipboard': 'Kopiera länk',
@@ -74,6 +77,7 @@ export default {
   'fabric.linking.priority_minor': 'Smärre',
   'fabric.linking.priority_trivial': 'Obetydlig',
   'fabric.linking.priority_undefined': 'Ej definierad',
+  'fabric.linking.read_time': '{context} minuters läsning',
   'fabric.linking.request_access': 'Begär åtkomst',
   'fabric.linking.request_access_description': 'Be om åtkomst till {context} för att visa förhandsgranskningen.',
   'fabric.linking.request_access_pending': 'Väntar på åtkomst',
@@ -92,6 +96,12 @@ export default {
   'fabric.linking.status_change_update_error': 'Vi kunde inte uppdatera statusen',
   'fabric.linking.try_again': 'Försök igen',
   'fabric.linking.try_another_account': 'Försök med ett annat konto',
+  'fabric.linking.unauthorised_account_description':
+    'Du försöker att förhandsgranska en länk till en privat {context}-sida. Vi rekommenderar att du granskar webbadressen eller kontaktar sidans ägare.',
+  'fabric.linking.unauthorised_account_description_no_provider':
+    'Du försöker att förhandsgranska en länk till en privat sida. Vi rekommenderar att du granskar webbadressen eller kontaktar sidans ägare.',
+  'fabric.linking.unauthorised_account_name': 'Vi kan inte visa privata sidor från {context}',
+  'fabric.linking.unauthorised_account_name_no_provider': 'Vi kan inte visa privata sidor',
   'fabric.linking.unlink_account': 'Ta bort kontolänk',
   'fabric.linking.updated_by': 'Ändrad av {context}',
   'fabric.linking.view': 'Visa',

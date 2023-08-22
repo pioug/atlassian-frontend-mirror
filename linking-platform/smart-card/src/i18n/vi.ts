@@ -9,6 +9,7 @@
 export default {
   'fabric.linking.actions': 'Hành động',
   'fabric.linking.add_account': 'Thêm tài khoản',
+  'fabric.linking.assigned_to': 'Đã chỉ định cho {context}',
   'fabric.linking.cancel': 'Hủy',
   'fabric.linking.cannot_connect': 'Không thể kết nối, hãy thử lại',
   'fabric.linking.cannot_find_link': 'Không tìm được liên kết',
@@ -26,6 +27,8 @@ export default {
   'fabric.linking.connect_to': 'Kết nối với {name}',
   'fabric.linking.connect_unauthorised_account_action': 'Kết nối với {context}',
   'fabric.linking.connect_unauthorised_account_description':
+    'Kết nối {context} với Atlassian để xem thêm chi tiết về công việc của bạn và cộng tác ở một nơi tập trung.',
+  'fabric.linking.connect_unauthorised_account_description_no_provider':
     'Kết nối với Atlassian để xem thêm chi tiết về công việc của bạn và cộng tác ở một nơi tập trung.',
   'fabric.linking.continue': 'Tiếp tục',
   'fabric.linking.copy_url_to_clipboard': 'Sao chép liên kết',
@@ -74,6 +77,7 @@ export default {
   'fabric.linking.priority_minor': 'Nhỏ',
   'fabric.linking.priority_trivial': 'Không đáng kể',
   'fabric.linking.priority_undefined': 'Chưa xác định',
+  'fabric.linking.read_time': '{context} phút đọc',
   'fabric.linking.request_access': 'Yêu cầu cấp quyền truy cập',
   'fabric.linking.request_access_description': 'Yêu cầu quyền truy cập để {context} xem bản xem trước này.',
   'fabric.linking.request_access_pending': 'Đang chờ xử lý quyền truy cập',
@@ -92,6 +96,12 @@ export default {
   'fabric.linking.status_change_update_error': 'Chúng tôi không thể cập nhật trạng thái',
   'fabric.linking.try_again': 'Thử lại',
   'fabric.linking.try_another_account': 'Thử một tài khoản khác',
+  'fabric.linking.unauthorised_account_description':
+    'Bạn đang tìm cách xem trước liên kết đến trang {context} riêng tư. Bạn nên xem lại URL hoặc liên hệ với chủ sở hữu trang.',
+  'fabric.linking.unauthorised_account_description_no_provider':
+    'Bạn đang tìm cách xem trước liên kết đến một trang riêng tư. Bạn nên xem lại URL hoặc liên hệ với chủ sở hữu trang.',
+  'fabric.linking.unauthorised_account_name': 'Chúng tôi không thể hiển thị trang riêng tư từ {context}',
+  'fabric.linking.unauthorised_account_name_no_provider': 'Chúng tôi không thể hiển thị trang riêng tư',
   'fabric.linking.unlink_account': 'Hủy liên kết tài khoản',
   'fabric.linking.updated_by': 'Được sửa đổi bởi {context}',
   'fabric.linking.view': 'Xem',

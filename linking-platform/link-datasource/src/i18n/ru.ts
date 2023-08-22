@@ -7,10 +7,17 @@
  */
 //Russian
 export default {
+  'linkDataSource.assets.configModal.aqlSearchInput.helpTooltipText': 'Описание синтаксиса',
   'linkDataSource.assets.configModal.aqlSearchInput.placeholder': 'Поиск с помощью AQL',
   'linkDataSource.assets.configModal.objectSchemaSelect.label': 'Выберите схему',
   'linkDataSource.assets.configModal.objectSchemaSelect.placeholder': 'Выберите схему',
   'linkDataSource.assets.configModal.objectSchemaSelect.schemaRequired': 'Укажите схему',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.learnMoreLink':
+    'Подробнее о поиске с помощью AQL.',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchDescription':
+    'Начните вводить текст или используйте AQL для поиска.',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle':
+    'Поиск по объектам или типам объектов',
   'linkDataSource.assets.configmodal.cancelButtonText': 'Отмена',
   'linkDataSource.assets.configmodal.insertIssuesButtonText': 'Вставить объекты',
   'linkDataSource.assets.configmodal.insertObjectsTitle': 'Вставить объекты из',

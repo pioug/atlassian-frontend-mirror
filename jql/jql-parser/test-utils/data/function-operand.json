@@ -1,0 +1,22 @@
+{
+  "valid": [
+    "issuetype=fn()",
+    "issuetype = fn()",
+    "issuetype = fn( )",
+    "issuetype = fn ()",
+    "issuetype = fn(one)",
+    "issuetype = fn(one,two)",
+    "issuetype = fn  (  one  ,  two  )",
+    "issuetype = fn(one,\"two\",3)",
+    "issuetype in (fn(one,two))",
+    "assignee = \"currentUser\"()",
+    "assignee = 'currentUser'()"
+  ],
+  "invalid": [
+    "fn()",
+    "issuetype = value(",
+    "issuetype = value(one",
+    "issuetype = value)",
+    "issuetype = ()value"
+  ]
+}

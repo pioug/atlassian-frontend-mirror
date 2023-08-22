@@ -9,6 +9,7 @@
 export default {
   'fabric.linking.actions': 'Toiminnot',
   'fabric.linking.add_account': 'Lisää tili',
+  'fabric.linking.assigned_to': 'Määrätty käyttäjälle {context}',
   'fabric.linking.cancel': 'Peruuta',
   'fabric.linking.cannot_connect': 'Ei voi muodostaa yhteyttä, yritä uudelleen',
   'fabric.linking.cannot_find_link': 'Linkkiä ei löydy',
@@ -27,6 +28,8 @@ export default {
   'fabric.linking.connect_to': 'Yhdistä kohteeseen {name}',
   'fabric.linking.connect_unauthorised_account_action': 'Yhdistä kohteeseen {context}',
   'fabric.linking.connect_unauthorised_account_description':
+    'Yhdistä {context} Atlassianiin, jotta saat lisätietoja työstäsi ja voit tehdä yhteistyötä yhdessä paikassa.',
+  'fabric.linking.connect_unauthorised_account_description_no_provider':
     'Yhdistä Atlassianiin nähdäksesi lisää tietoja työstäsi ja tehdäksesi yhteistyötä yhdessä paikassa.',
   'fabric.linking.continue': 'Jatka',
   'fabric.linking.copy_url_to_clipboard': 'Kopioi linkki',
@@ -74,6 +77,7 @@ export default {
   'fabric.linking.priority_minor': 'Vähäinen',
   'fabric.linking.priority_trivial': 'Mitätön',
   'fabric.linking.priority_undefined': 'Määrittelemätön',
+  'fabric.linking.read_time': 'Lukuaika: {context}',
   'fabric.linking.request_access': 'Pyydä pääsyä',
   'fabric.linking.request_access_description':
     'Pyydä sovelluksen {context} käyttöoikeutta tämän esikatselun katsomista varten.',
@@ -93,6 +97,12 @@ export default {
   'fabric.linking.status_change_update_error': 'Tilan päivitys epäonnistui',
   'fabric.linking.try_again': 'Yritä uudelleen',
   'fabric.linking.try_another_account': 'Kokeile toista tiliä',
+  'fabric.linking.unauthorised_account_description':
+    'Yrität esikatsella yksityisen {context}-sivun linkkiä. Suosittelemme, että tarkistat URL-osoitteen tai otat yhteyden sivun omistajaan.',
+  'fabric.linking.unauthorised_account_description_no_provider':
+    'Yrität esikatsella yksityisen sivun linkkiä. Suosittelemme, että tarkistat URL-osoitteen tai otat yhteyden sivun omistajaan.',
+  'fabric.linking.unauthorised_account_name': 'Yksityisiä sivuja ei voida näyttää kohteesta {context}',
+  'fabric.linking.unauthorised_account_name_no_provider': 'Yksityisiä sivuja ei voida näyttää',
   'fabric.linking.unlink_account': 'Poista tilin linkitys',
   'fabric.linking.updated_by': 'Muokannut: {context}',
   'fabric.linking.view': 'Näytä',

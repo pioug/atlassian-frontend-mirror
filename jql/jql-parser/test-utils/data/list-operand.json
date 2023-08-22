@@ -1,0 +1,16 @@
+{
+  "valid": [
+    "issuetype in (value)",
+    "issuetype in (value, \"another value\")",
+    "issuetype in ((value), another)",
+    "issuetype in (value, somefunction())"
+  ],
+  "invalid": [
+    "issuetype in ()",
+    "issuetype in (,)",
+    "issuetype in )value(",
+    "issuetype in (value",
+    "issuetype in (value,",
+    "issuetype in value)"
+  ]
+}

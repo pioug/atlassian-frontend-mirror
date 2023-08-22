@@ -7,10 +7,16 @@
  */
 //Finnish
 export default {
+  'linkDataSource.assets.configModal.aqlSearchInput.helpTooltipText': 'Syntaksiohje',
   'linkDataSource.assets.configModal.aqlSearchInput.placeholder': 'Hae AQL:n kautta',
   'linkDataSource.assets.configModal.objectSchemaSelect.label': 'Valitse kaavio',
   'linkDataSource.assets.configModal.objectSchemaSelect.placeholder': 'Valitse kaavio',
   'linkDataSource.assets.configModal.objectSchemaSelect.schemaRequired': 'Kaavio vaaditaan',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.learnMoreLink': 'Lue lisää AQL-hausta.',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchDescription':
+    'Aloita haku kirjoittamalla tai käyttämällä AQL:ää.',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle':
+    'Hae objekteja tai objektityyppejä',
   'linkDataSource.assets.configmodal.cancelButtonText': 'Peruuta',
   'linkDataSource.assets.configmodal.insertIssuesButtonText': 'Lisää kohteet',
   'linkDataSource.assets.configmodal.insertObjectsTitle': 'Lisää objekteja kohteesta',

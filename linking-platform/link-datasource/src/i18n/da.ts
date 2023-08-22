@@ -7,10 +7,17 @@
  */
 //Danish (Denmark)
 export default {
+  'linkDataSource.assets.configModal.aqlSearchInput.helpTooltipText': 'Syntakshjælp',
   'linkDataSource.assets.configModal.aqlSearchInput.placeholder': 'Søg via AQL',
   'linkDataSource.assets.configModal.objectSchemaSelect.label': 'Vælg skema',
   'linkDataSource.assets.configModal.objectSchemaSelect.placeholder': 'Vælg skema',
   'linkDataSource.assets.configModal.objectSchemaSelect.schemaRequired': 'Skema er påkrævet',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.learnMoreLink':
+    'Lær mere om søgning med AQL.',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchDescription':
+    'Begynd at indtaste, eller brug AQL for at søge.',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle':
+    'Søg efter objekter eller objekttyper',
   'linkDataSource.assets.configmodal.cancelButtonText': 'Annuller',
   'linkDataSource.assets.configmodal.insertIssuesButtonText': 'Indsæt objekter',
   'linkDataSource.assets.configmodal.insertObjectsTitle': 'Indsæt objekter fra',

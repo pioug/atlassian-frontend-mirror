@@ -1,6 +1,7 @@
 import type { RichMediaLayout } from '@atlaskit/adf-schema';
 
-export const MEDIA_SINGLE_MIN_PIXEL_WIDTH = 24;
+export const MEDIA_SINGLE_DEFAULT_MIN_PIXEL_WIDTH = 24;
+export const MEDIA_SINGLE_VIDEO_MIN_PIXEL_WIDTH = 320;
 export const MEDIA_SINGLE_SNAP_GAP = 3;
 export const MEDIA_SINGLE_HIGHLIGHT_GAP = 10;
 export const MEDIA_SINGLE_HANDLE_MARGIN = 12;

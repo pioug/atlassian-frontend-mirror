@@ -3,7 +3,7 @@ import {
   TEST_IMAGE,
   TEST_LINK,
   TEST_URL,
-} from '../../__mocks__/jsonld';
+} from '../../__mocks__/linkingPlatformJsonldMocks';
 import { extractImage } from '../extractImage';
 
 describe('extractors.preview.image', () => {

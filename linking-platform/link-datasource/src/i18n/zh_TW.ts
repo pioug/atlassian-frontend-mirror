@@ -7,10 +7,13 @@
  */
 //Chinese (Traditional)
 export default {
+  'linkDataSource.assets.configModal.aqlSearchInput.helpTooltipText': '語法說明',
   'linkDataSource.assets.configModal.aqlSearchInput.placeholder': '透過 AQL 搜尋',
   'linkDataSource.assets.configModal.objectSchemaSelect.label': '選取結構描述',
   'linkDataSource.assets.configModal.objectSchemaSelect.placeholder': '選取結構描述',
   'linkDataSource.assets.configModal.objectSchemaSelect.schemaRequired': '結構描述為必要項目',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.learnMoreLink':
+    '進一步了解如何使用 JQL 進行搜尋。',
   'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchDescription':
     '開始輸入或使用 AQL 進行搜尋。',
   'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle': '搜尋物件或物件類型',

@@ -7,10 +7,16 @@
  */
 //Thai (Thailand)
 export default {
+  'linkDataSource.assets.configModal.aqlSearchInput.helpTooltipText': 'การช่วยเหลือด้านโครงสร้าง',
   'linkDataSource.assets.configModal.aqlSearchInput.placeholder': 'ค้นหาผ่าน AQL',
   'linkDataSource.assets.configModal.objectSchemaSelect.label': 'เลือกรายละเอียดเรื่อง',
   'linkDataSource.assets.configModal.objectSchemaSelect.placeholder': 'เลือกรายละเอียดเรื่อง',
   'linkDataSource.assets.configModal.objectSchemaSelect.schemaRequired': 'ต้องระบุรายละเอียดเรื่อง',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.learnMoreLink':
+    'เรียนรู้เพิ่มเติมเกี่ยวกับการค้นหาด้วย AQL',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchDescription':
+    'เริ่มพิมพ์หรือใช้ AQL เพื่อค้นหา',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle': 'ค้นหาเรื่องหรือประเภทเรื่อง',
   'linkDataSource.assets.configmodal.cancelButtonText': 'ยกเลิก',
   'linkDataSource.assets.configmodal.insertIssuesButtonText': 'แทรกเรื่อง',
   'linkDataSource.assets.configmodal.insertObjectsTitle': 'แทรกเรื่องจาก',

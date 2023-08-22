@@ -325,19 +325,79 @@ const setAsciiMap =
     return true;
   };
 
-export const setProvider =
-  (provider?: EmojiProvider): Command =>
-  (state, dispatch) => {
-    if (dispatch) {
-      dispatch(
-        state.tr.setMeta(emojiPluginKey, {
-          action: ACTIONS.SET_PROVIDER,
-          params: { provider },
-        }),
-      );
+/**
+ *
+ * Wrapper to call `onLimitReached` when a specified number of calls of that function
+ * have been made within a time period.
+ *
+ * Note: It does not rate limit
+ *
+ * @param fn Function to wrap
+ * @param limitTime Time limit in milliseconds
+ * @param limitCount Number of function calls before `onRateReached` is called (per time period)
+ * @returns Wrapped function
+ */
+export function createRateLimitReachedFunction<
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  LimitedFunction extends (...args: any[]) => any,
+>(
+  fn: Function,
+  limitTime: number,
+  limitCount: number,
+  onLimitReached: () => void,
+): (
+  ...args: Parameters<LimitedFunction>
+) => ReturnType<LimitedFunction> | undefined {
+  let lastCallTime = 0;
+  let callCount = 0;
+
+  return function wrappedFn(
+    ...args: Parameters<LimitedFunction>
+  ): ReturnType<LimitedFunction> | undefined {
+    const now = Date.now();
+    if (now - lastCallTime < limitTime) {
+      if (++callCount > limitCount) {
+        onLimitReached?.();
+      }
+    } else {
+      lastCallTime = now;
+      callCount = 1;
     }
-    return true;
+    return fn(...args);
   };
+}
+
+// At this stage console.error only
+const logRateWarning = () => {
+  if (process.env.NODE_ENV === 'development') {
+    // eslint-disable-next-line no-console
+    console.error(
+      'The emoji provider injected in the Editor is being reloaded frequently, this will cause a slow Editor experience.',
+    );
+  }
+};
+
+export const setProvider: ((provider?: EmojiProvider) => Command) | undefined =
+  createRateLimitReachedFunction(
+    (provider?: EmojiProvider): Command =>
+      (state, dispatch) => {
+        if (dispatch) {
+          dispatch(
+            state.tr.setMeta(emojiPluginKey, {
+              action: ACTIONS.SET_PROVIDER,
+              params: { provider },
+            }),
+          );
+        }
+        return true;
+      },
+    // If we change the emoji provider more than three times every 5 seconds we should warn.
+    // This seems like a really long time but the performance can be that laggy that we don't
+    // even get 3 events in 3 seconds and miss this indicator.
+    5000,
+    3,
+    logRateWarning,
+  );
 
 export const emojiPluginKey = new PluginKey<EmojiPluginState>('emojiPlugin');
 
@@ -401,7 +461,7 @@ export function createEmojiPlugin(
         switch (name) {
           case 'emojiProvider':
             if (!providerPromise) {
-              return setProvider(undefined)(
+              return setProvider?.(undefined)?.(
                 editorView.state,
                 editorView.dispatch,
               );
@@ -409,13 +469,19 @@ export function createEmojiPlugin(
 
             providerPromise
               .then((provider) => {
-                setProvider(provider)(editorView.state, editorView.dispatch);
+                setProvider?.(provider)?.(
+                  editorView.state,
+                  editorView.dispatch,
+                );
                 provider.getAsciiMap().then((asciiMap) => {
                   setAsciiMap(asciiMap)(editorView.state, editorView.dispatch);
                 });
               })
               .catch(() =>
-                setProvider(undefined)(editorView.state, editorView.dispatch),
+                setProvider?.(undefined)?.(
+                  editorView.state,
+                  editorView.dispatch,
+                ),
               );
             break;
         }

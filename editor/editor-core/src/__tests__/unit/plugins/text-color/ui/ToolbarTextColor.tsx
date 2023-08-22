@@ -1,30 +1,23 @@
 import React from 'react';
 import { createIntl } from 'react-intl-next';
-import { ReactWrapper } from 'enzyme';
+import type { ReactWrapper } from 'enzyme';
 
 import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { mountWithIntl } from '../../../../__helpers/enzyme';
-import {
-  doc,
-  code_block,
-  p,
-  DocBuilder,
-} from '@atlaskit/editor-test-helpers/doc-builder';
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import { doc, code_block, p } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { hexToEditorTextPaletteColor } from '@atlaskit/editor-palette';
 
-import {
-  TextColorPluginState,
-  pluginKey,
-} from '../../../../../plugins/text-color/pm-plugins/main';
+import type { TextColorPluginState } from '../../../../../plugins/text-color/pm-plugins/main';
+import { pluginKey } from '../../../../../plugins/text-color/pm-plugins/main';
 import { Color } from '@atlaskit/editor-common/ui-color';
 
 import ToolbarButton from '../../../../../ui/ToolbarButton';
-import {
-  ToolbarTextColor,
-  Props as ToolbarTextColorProps,
-} from '../../../../../plugins/text-color/ui/ToolbarTextColor';
-import { PaletteColor } from '../../../../../ui/ColorPalette/Palettes/type';
+import type { Props as ToolbarTextColorProps } from '../../../../../plugins/text-color/ui/ToolbarTextColor';
+import { ToolbarTextColor } from '../../../../../plugins/text-color/ui/ToolbarTextColor';
+import type { PaletteColor } from '../../../../../ui/ColorPalette/Palettes/type';
 import ReactEditorViewContext from '../../../../../create-editor/ReactEditorViewContext';
 
 const mockDispatchAnalytics = jest.fn(() => () => {});
@@ -166,6 +159,24 @@ describe('ToolbarTextColor', () => {
 
       expect(toolbarTextColor.find(Color).length).toEqual(
         pluginState.palette.length,
+      );
+    });
+
+    it('should update selected color', () => {
+      clickToolbarButton(toolbarTextColor);
+      pluginState.color = getColorFromPalette(pluginState.palette, 1)!.hexCode;
+      clickColor(toolbarTextColor, getColorFromPalette(pluginState.palette, 1)); // click on second color from palette
+      const iconBefore = toolbarTextColor
+        .find(ToolbarButton)
+        .prop('iconBefore');
+      const divProps = iconBefore.props.children[0];
+      const childDivProps = divProps.props.children[1];
+      expect(childDivProps.props.css[1]).toBe(
+        'background: ' +
+          hexToEditorTextPaletteColor(
+            getColorFromPalette(pluginState.palette, 1)!.hexCode,
+          ) +
+          ';',
       );
     });
 

@@ -1,4 +1,4 @@
-import { NodeSerializerOpts } from '../interfaces';
+import type { NodeSerializerOpts } from '../interfaces';
 import { createTag } from '../create-tag';
 import { serializeStyle } from '../serialize-style';
 import { createClassName } from '../styles/util';
@@ -38,9 +38,17 @@ export default function mediaSingle({
   marks,
   text,
 }: NodeSerializerOpts) {
+  // If not full width or wide
   const honorWidth = !['wide', 'full-width'].includes(attrs.layout);
+
+  // Support Pixel Sizing
+  const widthType = attrs.widthType || 'percent';
+  const width =
+    widthType === 'pixel' ? attrs.width : Math.min(attrs.width, 100); // fallback for unsupported pixel value
+  const widthUnitType = widthType === 'pixel' ? 'px' : '%';
+
   const style: any = {
-    width: honorWidth ? `${attrs.width || 100}%` : '100%',
+    width: honorWidth ? `${width}${widthUnitType}` : '100%',
     'max-width': '100%',
   };
 

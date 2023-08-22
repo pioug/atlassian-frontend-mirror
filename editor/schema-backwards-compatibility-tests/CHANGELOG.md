@@ -1,5 +1,11 @@
 # @atlaskit/schema-backwards-compatibility-tests
 
+## 0.0.4
+
+### Patch Changes
+
+- [`a49e81b5d0d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a49e81b5d0d) - Add test to prevent changes to adf-schema package (ADFEXP-527)
+
 ## 0.0.3
 
 ### Patch Changes

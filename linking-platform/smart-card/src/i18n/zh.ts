@@ -9,6 +9,7 @@
 export default {
   'fabric.linking.actions': '操作',
   'fabric.linking.add_account': '添加帐户',
+  'fabric.linking.assigned_to': '已分配给 {context}',
   'fabric.linking.cancel': '取消',
   'fabric.linking.cannot_connect': '无法连接，请重试',
   'fabric.linking.cannot_find_link': '未找到链接',
@@ -24,6 +25,8 @@ export default {
   'fabric.linking.connect_to': '连接到 {name}',
   'fabric.linking.connect_unauthorised_account_action': '连接到 {context}',
   'fabric.linking.connect_unauthorised_account_description':
+    '将 {context} 连接到 Atlassian，在一个位置集中查看工作的更多详情并开展协作。',
+  'fabric.linking.connect_unauthorised_account_description_no_provider':
     '连接到 Atlassian，在一个位置集中查看工作的更多详情并开展协作。',
   'fabric.linking.continue': '继续',
   'fabric.linking.copy_url_to_clipboard': '复制链接',
@@ -68,6 +71,7 @@ export default {
   'fabric.linking.priority_minor': '次要',
   'fabric.linking.priority_trivial': '微小',
   'fabric.linking.priority_undefined': '未定义',
+  'fabric.linking.read_time': '阅读预计用时：{context} 分钟',
   'fabric.linking.request_access': '请求访问',
   'fabric.linking.request_access_description': '请求访问 {context} 以查看此预览。',
   'fabric.linking.request_access_pending': '访问待处理',
@@ -85,6 +89,12 @@ export default {
   'fabric.linking.status_change_update_error': '无法更新状态',
   'fabric.linking.try_again': '请重试',
   'fabric.linking.try_another_account': '请尝试其他帐户',
+  'fabric.linking.unauthorised_account_description':
+    '您正在尝试通过链接预览私有 {context} 页面。我们建议您检查此 URL 或联系页面负责人。',
+  'fabric.linking.unauthorised_account_description_no_provider':
+    '您正在尝试通过链接预览私有页面。我们建议您检查此 URL 或联系页面负责人。',
+  'fabric.linking.unauthorised_account_name': '无法显示私有 {context} 页面',
+  'fabric.linking.unauthorised_account_name_no_provider': '无法显示私有页面',
   'fabric.linking.unlink_account': '取消帐户链接',
   'fabric.linking.updated_by': '修改者：{context}',
   'fabric.linking.view': '查看',

@@ -1,4 +1,8 @@
-import { TEST_BASE_DATA, TEST_LINK, TEST_URL } from '../../__mocks__/jsonld';
+import {
+  TEST_BASE_DATA,
+  TEST_LINK,
+  TEST_URL,
+} from '../../__mocks__/linkingPlatformJsonldMocks';
 import { extractLink } from '../extractLink';
 
 describe('extractors.primitives.link', () => {

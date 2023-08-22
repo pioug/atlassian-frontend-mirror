@@ -89,6 +89,33 @@ export const ResizableTableContainer = ({
   const marginLeftRef = useRef<number | undefined>(0);
   const tableWidthRef = useRef<number>(akEditorDefaultLayoutWidth);
 
+  const updateContainerHeight = useCallback((height: number | 'auto') => {
+    containerRef.current?.style.setProperty(
+      'height',
+      typeof height === 'number' ? `${height + 29}px` : 'auto',
+    );
+  }, []);
+
+  const resizeObserverRef = useRef(
+    new ResizeObserver((entries) => {
+      updateContainerHeight(entries[entries.length - 1].contentRect.height);
+    }),
+  );
+
+  const onResizeStart = useCallback(() => {
+    updateContainerHeight(tableRef?.clientHeight);
+
+    if (tableRef) {
+      resizeObserverRef.current.observe(tableRef);
+    }
+  }, [tableRef, updateContainerHeight]);
+
+  const onResizeStop = useCallback(() => {
+    updateContainerHeight('auto');
+
+    resizeObserverRef.current.disconnect();
+  }, [updateContainerHeight]);
+
   const updateWidth = useCallback(
     (width: number) => {
       if (!containerRef.current) {
@@ -157,6 +184,8 @@ export const ResizableTableContainer = ({
       ref={containerRef}
     >
       <TableResizer
+        onResizeStart={onResizeStart}
+        onResizeStop={onResizeStop}
         width={width}
         maxWidth={maxResizerWidth}
         containerWidth={containerWidth}

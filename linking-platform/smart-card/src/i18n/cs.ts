@@ -9,6 +9,7 @@
 export default {
   'fabric.linking.actions': 'Akce',
   'fabric.linking.add_account': 'Přidat účet',
+  'fabric.linking.assigned_to': 'Přiřazeno k: {context}',
   'fabric.linking.cancel': 'Zrušit',
   'fabric.linking.cannot_connect': 'Nelze se připojit, zkuste to znovu.',
   'fabric.linking.cannot_find_link': 'Nepodařilo se najít odkaz.',
@@ -26,6 +27,8 @@ export default {
   'fabric.linking.connect_to': 'Připojit k {name}',
   'fabric.linking.connect_unauthorised_account_action': 'Připojit k: {context}',
   'fabric.linking.connect_unauthorised_account_description':
+    'Propojte {context} a Atlassian a budete moci sledovat další podrobnosti o své práci a spolupracovat na jednom místě.',
+  'fabric.linking.connect_unauthorised_account_description_no_provider':
     'Připojte Atlassian a budete moci sledovat další podrobnosti o své práci a spolupracovat na jednom místě.',
   'fabric.linking.continue': 'Pokračovat',
   'fabric.linking.copy_url_to_clipboard': 'Kopírovat odkaz',
@@ -74,6 +77,7 @@ export default {
   'fabric.linking.priority_minor': 'Nízká',
   'fabric.linking.priority_trivial': 'Triviální',
   'fabric.linking.priority_undefined': 'Nedefinováno',
+  'fabric.linking.read_time': '{context} min. čtení',
   'fabric.linking.request_access': 'Požádat o přístup',
   'fabric.linking.request_access_description':
     'Pokud si chcete zobrazit tento náhled, požádejte o přístup k řešení {context}.',
@@ -94,6 +98,12 @@ export default {
   'fabric.linking.status_change_update_error': 'Aktualizace stavu se nezdařila',
   'fabric.linking.try_again': 'Zkusit znovu',
   'fabric.linking.try_another_account': 'Zkuste jiný účet',
+  'fabric.linking.unauthorised_account_description':
+    'Pokoušíte se zobrazit náhled odkazu na soukromou stránku ze zdroje {context}. Doporučujeme zkontrolovat adresu URL nebo kontaktovat vlastníka stránky.',
+  'fabric.linking.unauthorised_account_description_no_provider':
+    'Pokoušíte se zobrazit náhled odkazu na soukromou stránku. Doporučujeme zkontrolovat adresu URL nebo kontaktovat vlastníka stránky.',
+  'fabric.linking.unauthorised_account_name': 'Soukromé stránky ze zdroje {context} nejde zobrazit.',
+  'fabric.linking.unauthorised_account_name_no_provider': 'Soukromé stránky nejde zobrazit.',
   'fabric.linking.unlink_account': 'Odpojit účet',
   'fabric.linking.updated_by': 'Upravil(a) {context}',
   'fabric.linking.view': 'Zobrazit',

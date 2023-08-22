@@ -4,7 +4,7 @@ import {
   TEST_NAME,
   TEST_OBJECT,
   TEST_URL,
-} from '../../__mocks__/jsonld';
+} from '../../__mocks__/linkingPlatformJsonldMocks';
 import { extractContext } from '../extractContext';
 
 describe('extractors.context.context', () => {

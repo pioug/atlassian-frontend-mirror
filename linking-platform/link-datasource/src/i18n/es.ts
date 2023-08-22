@@ -7,10 +7,17 @@
  */
 //Spanish (International)
 export default {
+  'linkDataSource.assets.configModal.aqlSearchInput.helpTooltipText': 'Ayuda de Sintaxis',
   'linkDataSource.assets.configModal.aqlSearchInput.placeholder': 'Buscar con AQL',
   'linkDataSource.assets.configModal.objectSchemaSelect.label': 'Seleccionar esquema',
   'linkDataSource.assets.configModal.objectSchemaSelect.placeholder': 'Seleccionar esquema',
   'linkDataSource.assets.configModal.objectSchemaSelect.schemaRequired': 'El esquema es obligatorio',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.learnMoreLink':
+    'Obtén más información sobre cómo realizar búsquedas con AQL.',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchDescription':
+    'Empieza a escribir o utiliza AQL para buscar.',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle':
+    'Busca objetos o tipos de objetos',
   'linkDataSource.assets.configmodal.cancelButtonText': 'Cancelar',
   'linkDataSource.assets.configmodal.insertIssuesButtonText': 'Insertar objetos',
   'linkDataSource.assets.configmodal.insertObjectsTitle': 'Insertar objetos de',

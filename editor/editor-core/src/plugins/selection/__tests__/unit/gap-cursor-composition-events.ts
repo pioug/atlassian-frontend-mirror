@@ -3,7 +3,7 @@ import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import { setGapCursorSelection } from '../../../../utils';
+import { setGapCursorSelection } from '@atlaskit/editor-common/selection';
 import { Side } from '../../../../plugins/selection/gap-cursor-selection';
 
 import type { BlockNodesKeys, LeafBlockNodesKeys } from './_gap-cursor-utils';

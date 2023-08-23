@@ -33,7 +33,7 @@ import createPMPlugin from '../../pm-plugins/main';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
-import listPlugin from '../../../list';
+import { listPlugin } from '@atlaskit/editor-plugin-list';
 
 describe('close history', () => {
   const createEditor = createProsemirrorEditorFactory();

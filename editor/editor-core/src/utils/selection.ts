@@ -10,7 +10,6 @@ import {
   AllSelection,
 } from '@atlaskit/editor-prosemirror/state';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
-import type { Side } from '@atlaskit/editor-common/selection';
 import { GapCursorSelection } from '@atlaskit/editor-common/selection';
 
 export {
@@ -22,17 +21,6 @@ export function setAllSelection(view: EditorView) {
   const { state, dispatch } = view;
   const tr = state.tr.setSelection(new AllSelection(view.state.doc));
   dispatch(tr);
-}
-
-export function setGapCursorSelection(
-  view: EditorView,
-  pos: number,
-  side: Side,
-) {
-  const { state } = view;
-  view.dispatch(
-    state.tr.setSelection(new GapCursorSelection(state.doc.resolve(pos), side)),
-  );
 }
 
 export function setCellSelection(

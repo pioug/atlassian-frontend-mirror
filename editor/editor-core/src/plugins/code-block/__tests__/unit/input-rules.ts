@@ -19,7 +19,7 @@ import codeBlockPlugin from '../../';
 import { compositionPlugin } from '@atlaskit/editor-plugin-composition';
 import panelPlugin from '../../../panel';
 import { textFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';
-import listPlugin from '../../../list';
+import { listPlugin } from '@atlaskit/editor-plugin-list';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';

@@ -1,5 +1,11 @@
 # @atlaskit/codemod-cli
 
+## 0.13.4
+
+### Patch Changes
+
+- [`9c4335f135d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9c4335f135d) - Updated README.md
+
 ## 0.13.3
 
 ### Patch Changes

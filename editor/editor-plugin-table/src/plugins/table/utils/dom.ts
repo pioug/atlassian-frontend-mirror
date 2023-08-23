@@ -3,7 +3,8 @@ import {
   containsClassName,
 } from '@atlaskit/editor-common/utils';
 
-import { TableCssClassName as ClassName, ElementContentRects } from '../types';
+import { TableCssClassName as ClassName } from '../types';
+import type { ElementContentRects } from '../types';
 import { tableToolbarSize } from '../ui/consts';
 
 const SELECTOR_TABLE_LEAFS = `.${ClassName.TABLE_CELL}, .${ClassName.TABLE_HEADER_CELL}`;
@@ -154,11 +155,12 @@ export const getMousePositionVerticalRelativeByElement = (
   return null;
 };
 
+// This function is deprecated
 export const updateResizeHandles = (tableRef?: HTMLElement) => {
   if (!tableRef) {
     return;
   }
-  const height = tableRef.offsetHeight + tableToolbarSize;
+
   // see ED-7600
   const nodes = Array.from(
     tableRef.querySelectorAll(
@@ -169,6 +171,7 @@ export const updateResizeHandles = (tableRef?: HTMLElement) => {
     return;
   }
 
+  const height = tableRef.offsetHeight + tableToolbarSize;
   nodes.forEach((node) => {
     node.style.height = `${height}px`;
   });

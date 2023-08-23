@@ -3,13 +3,13 @@ import { useState } from 'react';
 
 import { jsx } from '@emotion/react';
 
-import Box from '@atlaskit/ds-explorations/box';
 import FilterIcon from '@atlaskit/icon/glyph/filter';
 import WorkIcon from '@atlaskit/icon/glyph/folder';
 import CustomerIcon from '@atlaskit/icon/glyph/person';
 import QueueIcon from '@atlaskit/icon/glyph/queues';
 import SettingsIcon from '@atlaskit/icon/glyph/settings';
 import LanguageIcon from '@atlaskit/icon/glyph/world';
+import { Box, xcss } from '@atlaskit/primitives';
 import Select from '@atlaskit/select';
 
 import {
@@ -25,6 +25,10 @@ import {
 
 import AppFrame from './common/app-frame';
 import SampleHeader from './common/sample-header';
+
+const containerStyles = xcss({
+  flexGrow: 1,
+});
 
 interface Option {
   label: string;
@@ -56,14 +60,7 @@ const ControlledExample = () => {
   return (
     <AppFrame
       content={
-        <Box
-          as="div"
-          padding="space.400"
-          display="block"
-          UNSAFE_style={{
-            flexGrow: 1,
-          }}
-        >
+        <Box padding="space.400" xcss={containerStyles}>
           <Select<Option>
             onChange={(value) => setStack((value as Option).value || [])}
             options={[

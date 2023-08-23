@@ -1,0 +1,4 @@
+jql,count
+"ORDER BY created DESC, key DESC",178720
+"project = ? ORDER BY created DESC, key DESC",178206
+"project = ? AND issuetype = ? ORDER BY created DESC, key DESC",136813

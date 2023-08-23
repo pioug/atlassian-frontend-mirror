@@ -34,13 +34,8 @@ export {
   getNodesCount,
 } from './document';
 
-export { sanitiseMarksInSelection } from './mark';
 export { isParagraph, isText, isLinkMark } from './nodes';
-export {
-  setNodeSelection,
-  setGapCursorSelection,
-  setTextSelection,
-} from './selection';
+export { setNodeSelection, setTextSelection } from './selection';
 
 export type { JSONDocNode };
 

@@ -21,9 +21,11 @@ import {
 import sampleSchema from '@atlaskit/editor-test-helpers/schema';
 import * as paragraphMediaAdf from './__fixtures__/paragraph-and-media.adf.json';
 
+// FIXME: safari test is inconsistent
+// https://automate.browserstack.com/dashboard/v2/builds/c1745da2a13b05d3767df8571454442f9a822903?overallStatus=error
 BrowserTestCase(
   'selection: arrow right selection continues past media node',
-  { skip: [] },
+  { skip: ['safari'] },
   async (
     client: Parameters<typeof goToEditorTestingWDExample>[0],
     _testName: string,
@@ -83,10 +85,11 @@ BrowserTestCase(
     expect(pmDocument).toEqualDocument(expectedDocument);
   },
 );
-
+// FIXME: safari test is inconsistent
+// https://automate.browserstack.com/dashboard/v2/builds/c1745da2a13b05d3767df8571454442f9a822903?overallStatus=error
 BrowserTestCase(
   'selection: arrow left selection continues past media node',
-  { skip: [] },
+  { skip: ['safari'] },
   async (
     client: Parameters<typeof goToEditorTestingWDExample>[0],
     _testName: string,

@@ -1,0 +1,43 @@
+{
+  "valid": [
+    "assignee is empty",
+    "assignee is not empty",
+    "assignee is EmPtY",
+    "assignee is not EmPtY",
+    "assignee is null",
+    "assignee is not null",
+    "assignee Is empty",
+    "assignee iS empty",
+    "assignee Is nOt empty",
+    "assignee is    not empty",
+    "assignee is\nnot empty"
+  ],
+  "invalid": [
+    "assignee is",
+    "assignee is not",
+    "assignee is b",
+    "assignee is not b",
+    "assignee is 0",
+    "assignee is not 0",
+    "assignee is -5",
+    "assignee is not -5",
+    "assignee is currentUser()",
+    "assignee is not currentUser()",
+    "assignee is (a, b)",
+    "assignee is not (a, b)",
+    "assignee is empty after -1w",
+    "assignee is not empty after -1w",
+    "assignee is empty before -1w",
+    "assignee is not empty before -1w",
+    "assignee is empty on -1w",
+    "assignee is not empty on -1w",
+    "assignee is empty during (-1w, now())",
+    "assignee is not empty during (-1w, now())",
+    "assignee is empty by b",
+    "assignee is not empty by b",
+    "assignee is empty from b",
+    "assignee is not empty from b",
+    "assignee is empty to b",
+    "assignee is not empty to b"
+  ]
+}

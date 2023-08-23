@@ -59,6 +59,10 @@ export const resizerStyles = css`
     border-radius: 6px;
   }
 
+  .${resizerItemClassName} {
+    will-change: width;
+  }
+
   .${resizerItemClassName}:hover
     .${resizerHandleLeftClassName},
     .${resizerItemClassName}:hover

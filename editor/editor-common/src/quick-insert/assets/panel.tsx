@@ -1,20 +1,31 @@
-// TODO: https://product-fabric.atlassian.net/browse/DSP-4138
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React from 'react';
 
+import { useIconThemed } from '../use-icon-themed';
+
 export default function IconPanel() {
+  const { iconThemed } = useIconThemed();
   return (
     <svg focusable="false" aria-hidden width={40} height={40}>
       <g fill="none" fillRule="evenodd">
-        <path fill="#FFF" d="M0 0h40v40H0z" />
-        <rect fill="#DEEBFF" x={8} y={12} width={32} height={16} rx={1} />
+        <path
+          fill={iconThemed({ light: '#FFF', dark: '#161A1D' })}
+          d="M0 0h40v40H0z"
+        />
+        <rect
+          fill={iconThemed({ light: '#DEEBFF', dark: '#09326C' })}
+          x={8}
+          y={12}
+          width={32}
+          height={16}
+          rx={1}
+        />
         <path
           d="M12 20a4 4 0 108 0 4 4 0 00-8 0z"
-          fill="#0052CC"
+          fill={iconThemed({ light: '#0052CC', dark: '#388BFF' })}
           fillRule="nonzero"
         />
         <rect
-          fill="#FFF"
+          fill={iconThemed({ light: '#FFF', dark: '#09326C' })}
           fillRule="nonzero"
           x={15.556}
           y={19.722}
@@ -22,7 +33,13 @@ export default function IconPanel() {
           height={2.2}
           rx={0.5}
         />
-        <circle fill="#FFF" fillRule="nonzero" cx={16} cy={18.444} r={1} />
+        <circle
+          fill={iconThemed({ light: '#FFF', dark: '#09326C' })}
+          fillRule="nonzero"
+          cx={16}
+          cy={18.444}
+          r={1}
+        />
       </g>
     </svg>
   );

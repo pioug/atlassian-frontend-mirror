@@ -16,10 +16,9 @@ import {
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 
-import {
-  setGapCursorSelection,
-  setCellSelection,
-} from '../../../utils/selection';
+import { setCellSelection } from '../../../utils/selection';
+import { setGapCursorSelection } from '@atlaskit/editor-common/selection';
+
 import { Side as GapCursorSide } from '../../../plugins/selection/gap-cursor-selection';
 import rulePlugin from '../../../plugins/rule';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';

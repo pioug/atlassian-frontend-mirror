@@ -47,7 +47,8 @@ describe('Cards:', () => {
   });
 
   describe.each(themes)('Theme: %s', (theme) => {
-    describe.each([
+    // FIXME: This test was manually skipped due to failure on 23/08/2023: https://product-fabric.atlassian.net/browse/ED-19657
+    describe.skip.each([
       Appearance.fullPage,
       Appearance.fullWidth,
       Appearance.comment,

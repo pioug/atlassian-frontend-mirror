@@ -1,5 +1,18 @@
 # @atlaskit/stylelint-design-system
 
+## 1.0.1
+
+### Patch Changes
+
+- [`4451f8e1747`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4451f8e1747) - Register ts-node and enable direct consumption without precompiling
+
+## 1.0.0
+
+### Major Changes
+
+- [`b175ec37c65`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b175ec37c65) - Cuts the first major release of this package. It is now considered stable and ready for general adoption.
+  This version contains no code changes.
+
 ## 0.5.0
 
 ### Minor Changes

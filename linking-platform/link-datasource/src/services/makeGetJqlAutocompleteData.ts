@@ -1,7 +1,7 @@
 import {
   GetAutocompleteInitialData,
   JQLAutocompleteResponse,
-} from '@atlassianlabs/jql-editor-autocomplete-rest';
+} from '@atlaskit/jql-editor-autocomplete-rest';
 
 export type AutocompleteInitialDataResponse = {
   jqlFields: Awaited<ReturnType<GetAutocompleteInitialData>>['jqlFields'];

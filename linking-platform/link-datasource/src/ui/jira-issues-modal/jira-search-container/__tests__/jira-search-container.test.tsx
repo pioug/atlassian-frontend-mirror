@@ -12,7 +12,7 @@ import { EVENT_CHANNEL } from '../../../../analytics';
 import { JiraIssueDatasourceParameters } from '../../types';
 import { JiraSearchContainer, SearchContainerProps } from '../index';
 
-jest.mock('@atlassianlabs/jql-editor-autocomplete-rest', () => ({
+jest.mock('@atlaskit/jql-editor-autocomplete-rest', () => ({
   useAutocompleteProvider: jest
     .fn()
     .mockReturnValue('useAutocompleteProvider-call-result'),

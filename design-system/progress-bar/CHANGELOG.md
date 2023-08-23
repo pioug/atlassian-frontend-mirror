@@ -1,5 +1,12 @@
 # @atlaskit/progress-bar
 
+## 1.0.0
+
+### Major Changes
+
+- [`b175ec37c65`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b175ec37c65) - Cuts the first major release of this package. It is now considered stable and ready for general adoption.
+  This version contains no code changes.
+
 ## 0.6.4
 
 ### Patch Changes

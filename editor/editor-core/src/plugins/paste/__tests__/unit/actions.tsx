@@ -44,7 +44,7 @@ import layoutPlugin from '../../../layout';
 import panelPlugin from '../../../panel';
 import mediaPlugin from '../../../media';
 import captionPlugin from '../../../caption';
-import listPlugin from '../../../list';
+import { listPlugin } from '@atlaskit/editor-plugin-list';
 import floatingToolbarPlugin from '../../../floating-toolbar';
 import betterTypeHistoryPlugin from '../../../better-type-history';
 

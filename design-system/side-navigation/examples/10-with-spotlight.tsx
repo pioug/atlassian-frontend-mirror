@@ -4,7 +4,6 @@ import { Fragment, useState } from 'react';
 import { jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button';
-import Box from '@atlaskit/ds-explorations/box';
 import Text from '@atlaskit/ds-explorations/text';
 import DropboxIcon from '@atlaskit/icon/glyph/dropbox';
 import WorkIcon from '@atlaskit/icon/glyph/folder';
@@ -18,7 +17,7 @@ import {
   SpotlightTarget,
   SpotlightTransition,
 } from '@atlaskit/onboarding';
-import Inline from '@atlaskit/primitives/inline';
+import { Box, Inline } from '@atlaskit/primitives';
 import { N10 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 

@@ -72,7 +72,7 @@ import { editorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
-import listPlugin from '../../../list';
+import { listPlugin } from '@atlaskit/editor-plugin-list';
 import extensionPlugin from '../../../extension';
 import rulePlugin from '../../../rule';
 import floatingToolbarPlugin from '../../../floating-toolbar';

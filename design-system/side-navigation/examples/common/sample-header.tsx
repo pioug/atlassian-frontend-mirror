@@ -1,7 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 
-import Box, { BoxProps } from '@atlaskit/ds-explorations/box';
 import Icon from '@atlaskit/icon';
 import { CustomItemComponentProps } from '@atlaskit/menu';
 
@@ -11,13 +10,12 @@ import SampleIcon from './sample-logo';
 
 const Container = ({ children, ...props }: CustomItemComponentProps) => {
   return (
-    <Box
+    <div
       // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
       {...props}
-      as="div"
     >
-      {children as BoxProps['children']}
-    </Box>
+      {children}
+    </div>
   );
 };
 

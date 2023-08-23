@@ -3,8 +3,11 @@ import { ReactNode } from 'react';
 
 import { jsx } from '@emotion/react';
 
-import Box, { BoxProps } from '@atlaskit/ds-explorations/box';
-import { token } from '@atlaskit/tokens';
+import { Box, xcss } from '@atlaskit/primitives';
+
+const navigationFooterStyles = xcss({
+  position: 'relative',
+});
 
 export interface NavigationFooterProps {
   children: ReactNode;
@@ -21,14 +24,11 @@ export interface NavigationFooterProps {
 const NavigationFooter = ({ children }: NavigationFooterProps) => {
   return (
     <Box
-      display="block"
-      position="relative"
       padding="space.100"
-      UNSAFE_style={{
-        paddingBottom: token('space.200', '16px'),
-      }}
+      paddingBlockEnd="space.200"
+      xcss={navigationFooterStyles}
     >
-      {children as BoxProps['children']}
+      {children}
     </Box>
   );
 };

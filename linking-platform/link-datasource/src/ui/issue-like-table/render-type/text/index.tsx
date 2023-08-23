@@ -14,7 +14,12 @@ const TextRenderType = ({ text, testId = TEXT_TYPE_TEST_ID }: TextProps) => {
     return <></>;
   }
 
-  return <span data-testid={testId}>{text}</span>;
+  return (
+    <>
+      <span data-testid={testId}>{text}</span>
+      <br />
+    </>
+  );
 };
 
 export default TextRenderType;

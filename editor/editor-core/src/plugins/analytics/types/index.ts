@@ -63,7 +63,6 @@ export {
   PUNC,
   TABLE_ACTION,
   INDENT_TYPE,
-  LIST_TEXT_SCENARIOS,
   SYMBOL,
   TABLE_BREAKOUT,
 } from '@atlaskit/editor-common/analytics';

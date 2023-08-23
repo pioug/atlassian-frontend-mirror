@@ -3,4 +3,6 @@ export type {
   ListPluginOptions,
   FindRootParentListNode,
   ListState,
+  InputMethod,
 } from './types';
+export { listPlugin } from './plugin';

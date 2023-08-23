@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-core",
-  "version": "187.28.5",
+  "version": "187.29.0",
   "description": "A package contains Atlassian editor core functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -55,7 +55,7 @@
     "@atlaskit/code": "^14.6.0",
     "@atlaskit/date": "^0.10.0",
     "@atlaskit/datetime-picker": "^12.7.0",
-    "@atlaskit/editor-common": "^74.49.0",
+    "@atlaskit/editor-common": "^74.50.0",
     "@atlaskit/editor-json-transformer": "^8.10.0",
     "@atlaskit/editor-markdown-transformer": "^5.2.5",
     "@atlaskit/editor-palette": "1.5.1",
@@ -73,7 +73,7 @@
     "@atlaskit/editor-plugin-guideline": "^0.3.4",
     "@atlaskit/editor-plugin-hyperlink": "^0.3.0",
     "@atlaskit/editor-plugin-image-upload": "^0.1.0",
-    "@atlaskit/editor-plugin-list": "^0.2.0",
+    "@atlaskit/editor-plugin-list": "^1.0.0",
     "@atlaskit/editor-plugin-table": "^2.10.0",
     "@atlaskit/editor-plugin-text-formatting": "^0.2.0",
     "@atlaskit/editor-plugin-width": "^0.1.0",
@@ -240,6 +240,10 @@
       "referenceOnly": "true"
     },
     "platform.editor.update-table-cell-width-via-step": {
+      "type": "boolean",
+      "referenceOnly": "true"
+    },
+    "platform.editor.table-remove-update-resize-handles_djvab": {
       "type": "boolean",
       "referenceOnly": "true"
     },

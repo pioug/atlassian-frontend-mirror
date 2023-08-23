@@ -1,5 +1,18 @@
 # @atlaskit/editor-mobile-bridge
 
+## 187.29.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.29.0
+
+### Patch Changes
+
+- [`8e9c21af71d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8e9c21af71d) - Extracting list plugin code from editor-core to @atlaskit/editor-plugin-list.
+- Updated dependencies
+
 ## 187.28.5
 
 ### Patch Changes

@@ -21,7 +21,7 @@ import { scrollbarStyles } from '@atlaskit/editor-shared-styles/scrollbar';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { B300, N0, N20A, N300, N40A, R500 } from '@atlaskit/theme/colors';
 import { fontSize } from '@atlaskit/theme/constants';
-import { ThemeProps } from '@atlaskit/theme/types';
+import type { ThemeProps } from '@atlaskit/theme/types';
 import { token } from '@atlaskit/tokens';
 
 import { TableCssClassName as ClassName } from '../types';

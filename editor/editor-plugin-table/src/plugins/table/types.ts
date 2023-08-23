@@ -282,6 +282,7 @@ export const TableCssClassName = {
   RESIZE_CURSOR: `${tablePrefixSelector}-resize-cursor`,
   IS_RESIZING: `${tablePrefixSelector}-is-resizing`,
 
+  // Resize handle is going to be removed together with updateResizeHandles - table's utility function
   RESIZE_HANDLE: `${tablePrefixSelector}-resize-handle`,
   RESIZE_HANDLE_DECORATION: `${tablePrefixSelector}-resize-decoration`,
 

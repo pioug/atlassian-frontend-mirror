@@ -34,7 +34,7 @@ export type FindRootParentListNode = ($pos: ResolvedPos) => ResolvedPos | null;
 type IndentList = (inputMethod: InputMethod) => Command;
 
 // @public (undocumented)
-type InputMethod = INPUT_METHOD.KEYBOARD | INPUT_METHOD.TOOLBAR;
+export type InputMethod = INPUT_METHOD.KEYBOARD | INPUT_METHOD.TOOLBAR;
 
 // @public (undocumented)
 type IsInsideListItem = (state: EditorState) => boolean;
@@ -59,6 +59,9 @@ export type ListPlugin = NextEditorPlugin<
     sharedState: ListState | undefined;
   }
 >;
+
+// @public (undocumented)
+export const listPlugin: ListPlugin;
 
 // @public (undocumented)
 export type ListPluginOptions = Pick<FeatureFlags, 'restartNumberedLists'>;
@@ -103,7 +106,8 @@ type ToggleOrderedList = (
 
 ```json
 {
-  "react": "^16.8.0"
+  "react": "^16.8.0",
+  "react-intl-next": "npm:react-intl@^5.18.1"
 }
 ```
 

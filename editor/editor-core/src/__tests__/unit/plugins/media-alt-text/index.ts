@@ -22,7 +22,7 @@ import {
   closeMediaAltTextMenu,
 } from '../../../../plugins/media/pm-plugins/alt-text/commands';
 import { getPluginState } from '../../../../plugins/media/pm-plugins/alt-text';
-import { setGapCursorSelection } from '../../../../utils';
+import { setGapCursorSelection } from '@atlaskit/editor-common/selection';
 import {
   Side,
   GapCursorSelection,

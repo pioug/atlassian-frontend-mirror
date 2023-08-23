@@ -9,6 +9,7 @@ export {
 } from './gap-cursor/selection';
 
 export { isIgnored, isValidTargetNode } from './gap-cursor/utils';
+export { setGapCursorSelection } from './gap-cursor/utils/setGapCursorSelection';
 
 export {
   atTheBeginningOfBlock,

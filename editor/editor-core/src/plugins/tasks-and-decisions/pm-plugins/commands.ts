@@ -5,7 +5,7 @@ import {
 } from '@atlaskit/editor-prosemirror/transform';
 
 import type { Command } from '../../../types';
-import { findCutBefore } from '../../../utils/commands';
+import { findCutBefore } from '@atlaskit/editor-common/commands';
 
 import {
   getBlockRange,

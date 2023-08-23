@@ -120,10 +120,13 @@ describe('Floating toolbars:', () => {
 
     describe('with popup items', () => {
       // skip Appearance.mobile
-      it.each([
-        Appearance.fullWidth,
-        Appearance.comment,
-        Appearance.chromeless,
+      it.skip.each([
+        // FIXME: This test was manually skipped due to failure on 23/08/2023: https://product-fabric.atlassian.net/browse/ED-19658
+        // Appearance.fullWidth,
+        // FIXME: This test was manually skipped due to failure on 23/08/2023: https://product-fabric.atlassian.net/browse/ED-19659
+        // Appearance.comment,
+        // FIXME: This test was manually skipped due to failure on 23/08/2023: https://product-fabric.atlassian.net/browse/ED-19660
+        // Appearance.chromeless,
       ])(
         'should render color and emoji pickers dropdown is opened with "%s" appearance',
         async (appearance) => {

@@ -1,5 +1,17 @@
 # @atlaskit/editor-common
 
+## 74.50.1
+
+### Patch Changes
+
+- [`eefbc3c6065`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eefbc3c6065) - [ED-19510] Applies performance tweaks for table
+
+## 74.50.0
+
+### Minor Changes
+
+- [`8e9c21af71d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8e9c21af71d) - Extracting list plugin code from editor-core to @atlaskit/editor-plugin-list.
+
 ## 74.49.3
 
 ### Patch Changes

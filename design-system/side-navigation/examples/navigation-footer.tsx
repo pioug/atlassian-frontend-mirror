@@ -1,8 +1,8 @@
 import React, { Fragment, MouseEvent } from 'react';
 
 import Button from '@atlaskit/button';
-import Box from '@atlaskit/ds-explorations/box';
 import Icon from '@atlaskit/icon';
+import { Box } from '@atlaskit/primitives';
 
 import { Footer, NavigationFooter } from '../src';
 
@@ -10,11 +10,7 @@ import SampleIcon from './common/next-gen-project-icon';
 
 const Example = () => {
   return (
-    <Box
-      display="block"
-      onClick={(e: MouseEvent) => e.preventDefault()}
-      as="div"
-    >
+    <Box onClick={(e: MouseEvent) => e.preventDefault()}>
       <NavigationFooter>
         <Footer
           useDeprecatedApi={false}

@@ -20,11 +20,11 @@ import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 
 import { setTextSelection } from '../../../../index';
-import { setGapCursorSelection } from '../../../../utils';
 import {
+  setGapCursorSelection,
   GapCursorSelection,
   Side,
-} from '../../../selection/gap-cursor-selection';
+} from '@atlaskit/editor-common/selection';
 
 import type {
   BlockNodesKeys,

@@ -13,18 +13,23 @@ import type { ListPlugin } from '@atlaskit/editor-plugin-list';
 import type { TextFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';
 import { useHyperlinkListener } from './useHyperlinkListener';
 import { useTextFormattingListener } from './useTextFormattingListener';
+import { useListListener } from './useListListener';
 
 const useListeners = (
   pluginInjectionApi: ExtractInjectionAPI<typeof mobileApiPlugin> | undefined,
   editorView: EditorView,
+  bridge: WebBridgeImpl,
 ) => {
-  const { hyperlinkState, textFormattingState } = useSharedPluginState(
-    pluginInjectionApi,
-    ['hyperlink', 'textFormatting', 'list'],
-  );
+  const { hyperlinkState, textFormattingState, listState } =
+    useSharedPluginState(pluginInjectionApi, [
+      'hyperlink',
+      'textFormatting',
+      'list',
+    ]);
 
   useHyperlinkListener(editorView, hyperlinkState);
-  useTextFormattingListener(textFormattingState);
+  useTextFormattingListener(textFormattingState, bridge);
+  useListListener(listState, bridge);
 };
 
 export const mobileApiPlugin: NextEditorPlugin<
@@ -46,6 +51,6 @@ export const mobileApiPlugin: NextEditorPlugin<
       bridge.setPluginInjectionApi(api);
     }, []);
 
-    useListeners(api, editorView);
+    useListeners(api, editorView, bridge);
   },
 });

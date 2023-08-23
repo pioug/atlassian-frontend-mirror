@@ -1,5 +1,18 @@
 # @atlaskit/link-datasource
 
+## 1.0.2
+
+### Patch Changes
+
+- [`bfa189b840a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bfa189b840a) - [ux] String render types will now render each string on a new line
+
+## 1.0.1
+
+### Patch Changes
+
+- [`801e874de87`](https://bitbucket.org/atlassian/atlassian-frontend/commits/801e874de87) - Migrate `jql-editor-common` and `jql-editor-autocomplete-rest` packages to the `@atlaskit` namespace. Any consumers should update their imports to `@atlaskit/jql-editor-common` and `@atlaskit/jql-editor-autocomplete-rest`.
+- Updated dependencies
+
 ## 1.0.0
 
 ### Major Changes

@@ -19,7 +19,7 @@ import {
   EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import listPlugin from '../../../../list';
+import { listPlugin } from '@atlaskit/editor-plugin-list';
 import { pluginKey as undoPluginKey } from '../../../pm-plugins/plugin-key';
 import { attachInputMeta } from '../../../attach-input-meta';
 import { InputSource } from '../../../enums';

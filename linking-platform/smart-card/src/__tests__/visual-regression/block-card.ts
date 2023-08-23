@@ -1,5 +1,7 @@
-import { waitForResolvedBlockCard } from '@atlaskit/media-integration-test-helpers';
 import { getURL, setup, takeSnapshot } from '../__utils__/vr-helpers';
+
+const blockCardSelector = (status: string = 'resolved') =>
+  `[data-testid="block-card-${status.replace(/_/g, '-')}-view"]`;
 
 describe('Block Card', () => {
   // FIXME: This test was automatically skipped due to failure on 08/06/2023: https://product-fabric.atlassian.net/browse/EDM-6951
@@ -13,7 +15,7 @@ describe('Block Card', () => {
     const url = getURL(testName);
     const page = await setup(url);
 
-    await waitForResolvedBlockCard(page);
+    await page.waitForSelector(blockCardSelector());
 
     const image = await takeSnapshot(page, 280, 0);
     expect(image).toMatchProdImageSnapshot();
@@ -23,7 +25,7 @@ describe('Block Card', () => {
     const url = getURL('vr-block-card-actions-menu');
     const page = await setup(url);
 
-    await waitForResolvedBlockCard(page);
+    await page.waitForSelector(blockCardSelector());
 
     await page.click('button[data-testid="dropdown-trigger"]');
 

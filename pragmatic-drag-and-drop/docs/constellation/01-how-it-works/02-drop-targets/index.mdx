@@ -4,6 +4,8 @@ title: Drop targets
 description: Drop targets are elements that items can be dropped on.
 ---
 
+import SectionMessage from '@atlaskit/section-message';
+
 Drop targets are elements that can be dropped upon by something that is dragging. There are different drop targets for different types of draggable items, such as elements or files.
 
 ## Basic usage
@@ -153,7 +155,13 @@ dropTargetForLinks({
 });
 ```
 
-When working with nested _drop targets_, the inner most drop targets `dropEffect` is the one that will be applied; even if inner most drop target is using the default value (`"move"`)
+When working with nested _drop targets_, the inner most drop targets `dropEffect` is the one that will be applied; even if inner most drop target is using the default value (`"move"`).
+
+<SectionMessage>
+
+For more information about controlling the users cursor while dragging, see [our cursor guide](./cursors)
+
+</SectionMessage>
 
 - `getIsSticky?: (args: GetFeedbackArgs) => boolean`: Drop targets are generally calculated based on where the user's pointer is currently located. In some scenarios you might want to _hold on_ to a previous drop target (make it _sticky_), even when the drop target is no longer being directly dragged over. This is useful if you want to maintain a selection while you are in _gaps_ between drop targets. `getIsSticky()` is called `repeatedly` while a drop target is no longer being dragged over to determine whether a drop target should be sticky.
 

@@ -7,7 +7,7 @@ import type { CardOptions } from '@atlaskit/editor-common/card';
 import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import type { cardPlugin } from '@atlaskit/editor-plugin-card';
 import type betterTypeHistoryPlugin from '../better-type-history';
-import type listPlugin from '../list';
+import type { listPlugin } from '@atlaskit/editor-plugin-list';
 import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 
 export type PastePluginOptions = {

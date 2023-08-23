@@ -1,5 +1,15 @@
 # @atlaskit/editor-core
 
+## 187.29.0
+
+### Minor Changes
+
+- [`8e9c21af71d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8e9c21af71d) - Extracting list plugin code from editor-core to @atlaskit/editor-plugin-list.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 187.28.5
 
 ### Patch Changes

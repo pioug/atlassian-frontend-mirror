@@ -2,11 +2,11 @@
 
 import { css } from '@emotion/react';
 
+import type { TableLayout } from '@atlaskit/adf-schema';
 import {
   tableCellContentDomSelector,
   tableCellSelector,
   tableHeaderSelector,
-  TableLayout,
   tablePrefixSelector,
 } from '@atlaskit/adf-schema';
 import {
@@ -24,7 +24,7 @@ import {
 } from '@atlaskit/editor-shared-styles';
 import { DN20 } from '@atlaskit/theme/colors';
 import { themed } from '@atlaskit/theme/components';
-import { ThemeProps } from '@atlaskit/theme/types';
+import type { ThemeProps } from '@atlaskit/theme/types';
 import { token } from '@atlaskit/tokens';
 
 import browser from '../../utils/browser';
@@ -78,6 +78,14 @@ const tableSharedStyle = (props: ThemeProps) => css`
   .${TableSharedCssClassName.TABLE_CONTAINER}[data-number-column='true'] {
     padding-left: ${akEditorTableNumberColumnWidth - 1}px;
     clear: both;
+  }
+
+  .${TableSharedCssClassName.TABLE_RESIZER_CONTAINER} {
+    will-change: width, height, margin-left;
+  }
+
+  .${TableSharedCssClassName.TABLE_RESIZER_CONTAINER} table {
+    will-change: width;
   }
 
   .${TableSharedCssClassName.TABLE_NODE_WRAPPER} > table {

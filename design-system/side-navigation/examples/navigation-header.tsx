@@ -1,6 +1,6 @@
 import React, { MouseEvent } from 'react';
 
-import Box from '@atlaskit/ds-explorations/box';
+import { Box } from '@atlaskit/primitives';
 
 import { CustomItemComponentProps, Header, NavigationHeader } from '../src';
 
@@ -22,11 +22,7 @@ const InteractiveContainer = ({
 
 const Example = () => {
   return (
-    <Box
-      display="block"
-      onClick={(e: MouseEvent) => e.preventDefault()}
-      as="div"
-    >
+    <Box onClick={(e: MouseEvent) => e.preventDefault()}>
       <NavigationHeader>
         <Header description="Next-gen software">Concise Systems</Header>
       </NavigationHeader>

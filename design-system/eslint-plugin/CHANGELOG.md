@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 8.4.2
+
+### Patch Changes
+
+- [`fb85e69cf5e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fb85e69cf5e) - Added this package into push model consumption.
+
 ## 8.4.1
 
 ### Patch Changes

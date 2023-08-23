@@ -1,0 +1,3 @@
+export const ORDER_BY_OPERATOR_ORDER_BY = 'ORDER BY';
+export const ORDER_BY_DIRECTION_ASC = 'ASC';
+export const ORDER_BY_DIRECTION_DESC = 'DESC';

@@ -57,6 +57,14 @@ const items: Item[] = [
     variations: ['Hello World'],
   },
   {
+    type: 'string',
+    variations: [
+      'This is the first string in an array.',
+      'This is the second string in an array.',
+      'Array of strings will have line breaks.',
+    ],
+  },
+  {
     type: 'boolean',
     variations: [true, false],
   },

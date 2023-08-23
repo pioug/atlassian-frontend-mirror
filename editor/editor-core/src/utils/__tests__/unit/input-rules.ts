@@ -13,7 +13,7 @@ import {
   createProsemirrorEditorFactory,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import listPlugin from '../../../plugins/list';
+import { listPlugin } from '@atlaskit/editor-plugin-list';
 import { basePlugin } from '../../../plugins/base';
 import mediaPlugin from '../../../plugins/media';
 import floatingToolbarPlugin from '../../../plugins/floating-toolbar';

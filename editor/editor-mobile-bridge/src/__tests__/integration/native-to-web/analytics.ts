@@ -9,7 +9,8 @@ import {
   getBridgeOutput,
 } from '../_utils';
 
-import { INPUT_METHOD, AnalyticsEventPayload } from '@atlaskit/editor-core';
+import type { AnalyticsEventPayload } from '@atlaskit/editor-core';
+import { INPUT_METHOD } from '@atlaskit/editor-core';
 
 const initPage = async (browser: Page) => {
   await browser.goto(editor.path);

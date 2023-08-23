@@ -1,26 +1,24 @@
-import { PluginKey } from '@atlaskit/editor-prosemirror/state';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
-import rafSchedule from 'raf-schd';
-import {
-  EventDispatcher,
-  blockPluginStateKey,
+import type {
   BlockTypeState,
-  listStateKey,
-  ListState,
-  textColorPluginKey,
-  TextColorPluginState,
-  historyPluginKey,
+  EventDispatcher,
   HistoryPluginState,
   SelectionDataState,
-  selectionPluginKey,
+  TextColorPluginState,
 } from '@atlaskit/editor-core';
-import { valueOf as valueOfListState } from '../web-to-native/listState';
-import WebBridgeImpl from '../native-to-web';
-import { toNativeBridge } from '../web-to-native';
+import {
+  blockPluginStateKey,
+  historyPluginKey,
+  selectionPluginKey,
+  textColorPluginKey,
+} from '@atlaskit/editor-core';
+import type { PluginKey } from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import rafSchedule from 'raf-schd';
 import { createPromise } from '../../cross-platform-promise';
-import EditorConfiguration from '../editor-configuration';
 import { getSelectionObserverEnabled } from '../../query-param-reader';
-import isEqual from 'lodash/isEqual';
+import EditorConfiguration from '../editor-configuration';
+import type WebBridgeImpl from '../native-to-web';
+import { toNativeBridge } from '../web-to-native';
 
 interface BridgePluginListener<T> {
   bridge: string;
@@ -130,26 +128,6 @@ export const configFactory = (
       }),
     );
   }
-
-  let oldListState: any;
-
-  const listConfiguration = createListenerConfig<ListState>({
-    bridge: 'listBridge',
-    pluginKey: listStateKey,
-    updater: (pluginState) => {
-      const { decorationSet, ...newListState } = pluginState;
-
-      if (isEqual(oldListState, newListState)) {
-        return;
-      }
-      oldListState = newListState;
-
-      toNativeBridge.call('listBridge', 'updateListState', {
-        states: JSON.stringify(valueOfListState(pluginState)),
-      });
-    },
-  });
-  configs.push(listConfiguration);
 
   return configs;
 };

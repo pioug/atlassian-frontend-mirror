@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-table
 
+## 2.10.4
+
+### Patch Changes
+
+- [`eefbc3c6065`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eefbc3c6065) - [ED-19510] Applies performance tweaks for table
+
 ## 2.10.3
 
 ### Patch Changes

@@ -9,10 +9,10 @@ import {
   Droppable,
 } from 'react-beautiful-dnd';
 
-import Box, { BoxProps } from '@atlaskit/ds-explorations/box';
 import ItemIcon from '@atlaskit/icon/glyph/editor/bullet-list';
 import RBDIcon from '@atlaskit/icon/glyph/editor/media-wide';
 import { CustomItemComponentProps } from '@atlaskit/menu';
+import { Box } from '@atlaskit/primitives';
 
 import {
   ButtonItem,
@@ -59,11 +59,7 @@ const ADragDropView = (props: { items: CustomDraggable[] }) => {
     <DragDropContext onDragEnd={handleDragEnd}>
       <Droppable droppableId="droppable-1">
         {(provided) => (
-          <Box
-            display="block"
-            ref={provided.innerRef}
-            {...provided.droppableProps}
-          >
+          <Box ref={provided.innerRef} {...provided.droppableProps}>
             <Fragment>
               {draggables.map((item, index) => {
                 return (
@@ -127,7 +123,7 @@ const generateDraggableCustomItems = (n: number): CustomDraggable[] => {
     ({ children, ...rest }, ref) => {
       return (
         <Box ref={ref} {...rest}>
-          {children as BoxProps['children']}
+          {children}
         </Box>
       );
     },

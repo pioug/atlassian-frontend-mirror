@@ -427,6 +427,7 @@ describe('focus lock', () => {
       <div>
         <Portal zIndex={layers.dialog() + 1}>
           <input
+            // This is required to test a very unique implementation for an internal Chrome plugin. See DSP-11753 for more info.
             // eslint-disable-next-line jsx-a11y/no-autofocus
             autoFocus={true}
             data-testid="input-field-outside-modal"
@@ -453,13 +454,13 @@ describe('focus lock', () => {
     expect(getByTestId('input-field-outside-modal')).not.toHaveFocus();
   });
 
-  // TODO: Ensure modals can't have *anything* focusing outside of it (DSP-11753)
   it('Input field outside modal dialog has focus when data-atlas-extension attribute exists and autofocus is turned on', () => {
     const { getByTestId } = render(
       <div>
         <Portal zIndex={layers.dialog() + 1}>
           <input
             data-atlas-extension="test"
+            // This is required to test a very unique implementation for an internal Chrome plugin. See DSP-11753 for more info.
             // eslint-disable-next-line jsx-a11y/no-autofocus
             autoFocus={true}
             data-testid="input-field-outside-modal"

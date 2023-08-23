@@ -6,11 +6,11 @@ import {
 import { doc, p, ol, li } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   blockTypePlugin,
-  listPlugin,
   panelPlugin,
   pastePlugin,
   betterTypeHistoryPlugin,
 } from '../../../plugins';
+import { listPlugin } from '@atlaskit/editor-plugin-list';
 import { doesSelectionWhichStartsOrEndsInListContainEntireList } from '../../../plugins/paste/handlers';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';

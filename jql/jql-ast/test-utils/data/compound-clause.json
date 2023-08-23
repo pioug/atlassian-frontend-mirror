@@ -1,0 +1,23 @@
+{
+  "valid": [
+    "issuetype = bug & component = jql",
+    "issuetype = bug && component = jql",
+    "issuetype = bug and component = jql",
+    "issuetype = bug and component = jql and label = jql",
+    "issuetype = bug and component = jql && label = jql & tag = jql AND url ~ jql",
+    "issuetype = bug | component = jql",
+    "issuetype = bug || component = jql",
+    "issuetype = bug or component = jql",
+    "issuetype = bug or component = jql or label = jql",
+    "issuetype = bug or component = jql || label = jql | tag = jql OR url ~ jql"
+  ],
+  "invalid": [
+    "issuetype = bug and ()",
+    "issuetype = bug and and component = jql",
+    "issuetype = bug or component or component = jql",
+    "and issuetype = bug",
+    "or issuetype = bug",
+    "issuetype = bug and",
+    "issuetype = bug or"
+  ]
+}

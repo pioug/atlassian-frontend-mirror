@@ -3,9 +3,9 @@ import { Fragment, MouseEvent } from 'react';
 
 import { jsx } from '@emotion/react';
 
-import Box from '@atlaskit/ds-explorations/box';
 import OpenIcon from '@atlaskit/icon/glyph/open';
 import SettingsIcon from '@atlaskit/icon/glyph/settings';
+import { Box, xcss } from '@atlaskit/primitives';
 
 import {
   CustomItemComponentProps,
@@ -15,6 +15,10 @@ import {
   Section,
 } from '../src';
 
+const containerStyles = xcss({
+  overflow: 'hidden',
+  height: '340px',
+});
 const CustomNestingItem = ({
   children,
   href,
@@ -30,15 +34,7 @@ const CustomNestingItem = ({
 
 const BasicExample = () => {
   return (
-    <Box
-      display="block"
-      onClick={(e: MouseEvent) => e.preventDefault()}
-      overflow="hidden"
-      UNSAFE_style={{
-        height: 340,
-      }}
-      as="div"
-    >
+    <Box xcss={containerStyles} onClick={(e: MouseEvent) => e.preventDefault()}>
       <NestableNavigationContent>
         <Section>
           <NestingItem id="0" title="Settings">

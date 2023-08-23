@@ -215,7 +215,13 @@ export const handleMouseDown = (
     resizeColumn(resizeState, colIndex, clientX - dragging.startX, dom);
 
     updateControls()(state);
-    updateResizeHandles(dom);
+    // Remove updateResizeHandles
+    if (
+      getBooleanFF('platform.editor.table-remove-update-resize-handles_djvab')
+    ) {
+    } else {
+      updateResizeHandles(dom);
+    }
   }
 
   window.addEventListener('mouseup', finish);

@@ -1,15 +1,15 @@
 import React from 'react';
 
 import { JQLEditor, JQLEditorProps } from '@atlassianlabs/jql-editor';
-import {
-  GetAutocompleteInitialData,
-  GetAutocompleteSuggestions,
-  useAutocompleteProvider,
-} from '@atlassianlabs/jql-editor-autocomplete-rest';
 import { render } from '@testing-library/react';
 import fetchMock from 'fetch-mock/cjs/client';
 import { IntlProvider } from 'react-intl-next';
 
+import {
+  GetAutocompleteInitialData,
+  GetAutocompleteSuggestions,
+  useAutocompleteProvider,
+} from '@atlaskit/jql-editor-autocomplete-rest';
 import {
   mockAutoCompleteData,
   mockSuggestionData,
@@ -24,7 +24,7 @@ jest.mock('@atlassianlabs/jql-editor', () => ({
     .mockReturnValue(<div data-testid={'mocked-jira-editor'}></div>),
 }));
 
-jest.mock('@atlassianlabs/jql-editor-autocomplete-rest', () => ({
+jest.mock('@atlaskit/jql-editor-autocomplete-rest', () => ({
   useAutocompleteProvider: jest
     .fn()
     .mockReturnValue('useAutocompleteProvider-call-result'),

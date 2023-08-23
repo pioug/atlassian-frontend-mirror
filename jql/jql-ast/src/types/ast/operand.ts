@@ -1,0 +1,116 @@
+import {
+  NODE_TYPE_OPERAND,
+  OPERAND_EMPTY,
+  OPERAND_TYPE_FUNCTION,
+  OPERAND_TYPE_KEYWORD,
+  OPERAND_TYPE_LIST,
+  OPERAND_TYPE_VALUE,
+} from '../../constants';
+
+import { Argument } from './argument';
+import { AstNode } from './common';
+
+export type KeywordOperandValue = typeof OPERAND_EMPTY;
+
+/**
+ * An operand that is a user-provided value.
+ */
+export interface ValueOperand extends AstNode {
+  type: typeof NODE_TYPE_OPERAND;
+  operandType: typeof OPERAND_TYPE_VALUE;
+  /**
+   * Literal operand value (with quotes and escaping preserved).
+   */
+  text: string;
+  /**
+   * Semantic operand value (without quotes or escaping derived from those quotes).
+   */
+  value: string;
+}
+
+/**
+ * An operand that is a JQL keyword.
+ * See <a href="https://confluence.atlassian.com/jiracorecloud/advanced-searching-keywords-reference-765593717.html#Advancedsearching-keywordsreference-EMPTYEMPTY">Advanced searching - keywords reference</a>
+ * for more information about operand keywords.
+ */
+export interface KeywordOperand extends AstNode {
+  type: typeof NODE_TYPE_OPERAND;
+  operandType: typeof OPERAND_TYPE_KEYWORD;
+  /**
+   * The keyword that is the operand value.
+   */
+  value: KeywordOperandValue;
+}
+
+/**
+ * An operand that is a function.
+ * See <a href="https://confluence.atlassian.com/x/dwiiLQ">Advanced searching - functions reference</a> for more
+ * information about JQL functions.
+ */
+export interface FunctionOperand extends AstNode {
+  type: typeof NODE_TYPE_OPERAND;
+  operandType: typeof OPERAND_TYPE_FUNCTION;
+  /**
+   * The name of the function.
+   */
+  function: FunctionString;
+  /**
+   * The list of function arguments.
+   */
+  arguments: Argument[];
+}
+
+/**
+ * A function name used in an operand.
+ */
+export interface FunctionString extends AstNode {
+  /**
+   * Literal name of the function (with quotes and escaping preserved).
+   */
+  text: string;
+  /**
+   * Semantic name of the function (without quotes or escaping derived from those quotes).
+   */
+  value: string;
+}
+
+/**
+ * An operand that is a list of values.
+ */
+export interface ListOperand extends AstNode {
+  type: typeof NODE_TYPE_OPERAND;
+  operandType: typeof OPERAND_TYPE_LIST;
+  /**
+   * The list of operand values.
+   */
+  values: Operand[];
+
+  /**
+   * Function to append operand to existing list of operand
+   */
+  appendOperand: (this: ListOperand, operand: Operand) => void;
+}
+
+//
+// ---- Operand Union
+//
+
+export type OperandType =
+  | typeof OPERAND_TYPE_VALUE
+  | typeof OPERAND_TYPE_FUNCTION
+  | typeof OPERAND_TYPE_KEYWORD
+  | typeof OPERAND_TYPE_LIST;
+
+/**
+ * Represents the right hand side value of a clause.
+ */
+export type Operand =
+  | ListOperand
+  | ValueOperand
+  | KeywordOperand
+  | FunctionOperand;
+
+export const isOperandNode = (
+  maybeOperandNode: AstNode,
+): maybeOperandNode is Operand =>
+  (maybeOperandNode as Operand).type === NODE_TYPE_OPERAND;

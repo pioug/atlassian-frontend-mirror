@@ -1,8 +1,8 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 
-import Box from '@atlaskit/ds-explorations/box';
 import Text from '@atlaskit/ds-explorations/text';
+import { Box } from '@atlaskit/primitives';
 
 import {
   NestableNavigationContent,
@@ -37,7 +37,7 @@ const CorrectCustomLeafNodeComponent = () => {
   }
 
   return (
-    <Box padding="space.100" display="block">
+    <Box padding="space.100">
       <Text
         UNSAFE_style={{
           fontWeight: 500,

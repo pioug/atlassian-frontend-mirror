@@ -1,0 +1,38 @@
+{
+  "valid": [
+    "assignee = empty",
+    "assignee != empty",
+    "assignee = null",
+    "assignee != null",
+    "assignee = a",
+    "assignee != a",
+    "priority = 3",
+    "priority != 3",
+    "temperature = -5",
+    "temperature != -5",
+    "assignee = currentUser()",
+    "assignee != currentUser()"
+  ],
+  "invalid": [
+    "assignee",
+    "assignee =",
+    "assignee !=",
+    "assignee ! = empty",
+    "assignee = (a, b)",
+    "assignee != (a, b)",
+    "assignee = a after -1w",
+    "assignee != a after -1w",
+    "assignee = a before -1w",
+    "assignee != a before -1w",
+    "assignee = a on -1w",
+    "assignee != a on -1w",
+    "assignee = a during (-1w, now())",
+    "assignee != a during (-1w, now())",
+    "assignee = a by b",
+    "assignee != a by b",
+    "assignee = a from b",
+    "assignee != a from b",
+    "assignee = a to b",
+    "assignee != a to b"
+  ]
+}

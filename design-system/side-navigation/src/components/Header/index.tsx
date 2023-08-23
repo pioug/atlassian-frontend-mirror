@@ -1,13 +1,15 @@
 import React, { forwardRef } from 'react';
 
-import Box, { BoxProps } from '@atlaskit/ds-explorations/box';
 import { CSSFn, CustomItemComponentProps } from '@atlaskit/menu';
+import { Box, xcss } from '@atlaskit/primitives';
 import { N500 } from '@atlaskit/theme/colors';
 import { headingSizes } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
 
 import { overrideStyleFunction } from '../../common/styles';
 import { CustomItem } from '../Item';
+
+const containerStyles = xcss({ display: 'block', position: 'relative' });
 
 /**
  * __Container__
@@ -38,8 +40,8 @@ export const Container = ({ children, ...props }: CustomItemComponentProps) => {
     disabled,
   }))(props);
   return (
-    <Box as="div" display="block" {...safeProps}>
-      {children as BoxProps['children']}
+    <Box xcss={containerStyles} {...safeProps}>
+      {children}
     </Box>
   );
 };

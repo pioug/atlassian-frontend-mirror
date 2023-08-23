@@ -1,14 +1,14 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { MouseEvent } from 'react';
 
-import Box from '@atlaskit/ds-explorations/box';
 import BookIcon from '@atlaskit/icon/glyph/book';
 import OpenIcon from '@atlaskit/icon/glyph/open';
+import { Box } from '@atlaskit/primitives';
 
 import { LinkItem } from '../src';
 
 const Example = () => (
-  <Box display="block" onClick={(e: MouseEvent) => e.preventDefault()} as="div">
+  <Box onClick={(e: MouseEvent) => e.preventDefault()}>
     <LinkItem href="#">My articles</LinkItem>
     <LinkItem href="#" isDisabled>
       My articles

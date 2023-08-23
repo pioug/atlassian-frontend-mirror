@@ -1,4 +1,4 @@
-import { GetAutocompleteSuggestions } from '@atlassianlabs/jql-editor-autocomplete-rest';
+import { GetAutocompleteSuggestions } from '@atlaskit/jql-editor-autocomplete-rest';
 
 export type AutocompleteSuggestionsResponse = {
   results: Awaited<ReturnType<GetAutocompleteSuggestions>>['results'];

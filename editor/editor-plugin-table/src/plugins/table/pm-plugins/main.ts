@@ -26,8 +26,8 @@ import type {
   getPosHandler,
 } from '@atlaskit/editor-common/types';
 import { browser, closestElement } from '@atlaskit/editor-common/utils';
-import { Node as ProseMirrorNode } from '@atlaskit/editor-prosemirror/model';
-import {
+import type { Node as ProseMirrorNode } from '@atlaskit/editor-prosemirror/model';
+import type {
   EditorState,
   TextSelection,
   Transaction,
@@ -36,8 +36,9 @@ import {
   findParentDomRefOfType,
   findParentNodeOfType,
 } from '@atlaskit/editor-prosemirror/utils';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { findTable } from '@atlaskit/editor-tables/utils';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import {
   addBoldInEmptyHeaderCells,
@@ -66,13 +67,13 @@ import { createTableView } from '../nodeviews/table';
 import TableCellNodeView from '../nodeviews/tableCell';
 import { pluginKey as decorationsPluginKey } from '../pm-plugins/decorations/plugin';
 import { fixTables, replaceSelectedTable } from '../transforms';
-import {
-  TableCssClassName as ClassName,
+import type {
   ElementContentRects,
   InvalidNodeAttr,
   PluginConfig,
   PluginInjectionAPI,
 } from '../types';
+import { TableCssClassName as ClassName } from '../types';
 import {
   findControlsHoverDecoration,
   transformSliceToCorrectEmptyTableCells,
@@ -230,8 +231,16 @@ export const createPlugin = (
             setTableRef(tableRef)(state, dispatch);
           }
 
-          if (pluginState.tableNode !== tableNode) {
-            updateResizeHandles(tableRef);
+          // Removes updateResizeHandles
+          if (
+            getBooleanFF(
+              'platform.editor.table-remove-update-resize-handles_djvab',
+            )
+          ) {
+          } else {
+            if (pluginState.tableNode !== tableNode) {
+              updateResizeHandles(tableRef);
+            }
           }
 
           if (pluginState.editorHasFocus && pluginState.tableRef) {

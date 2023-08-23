@@ -14,7 +14,6 @@ export { default as helpDialogPlugin } from './help-dialog';
 export { default as insertBlockPlugin } from './insert-block';
 export { default as jiraIssuePlugin } from './jira-issue';
 export { default as layoutPlugin } from './layout';
-export { default as listPlugin } from './list';
 export { default as toolbarListsIndentationPlugin } from './toolbar-lists-indentation';
 export { default as macroPlugin } from './macro';
 export { default as maxContentSizePlugin } from './max-content-size';

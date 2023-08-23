@@ -1,0 +1,13 @@
+{
+  "valid": [
+    "project = JQL and issuetype = Bug order by created desc",
+    "project\n=\nJQL\nand\nissuetype\n=\nBug\norder\nby\ncreated\ndesc",
+    "status changed from \"To do\" to \"In progress\" after -1w",
+    "NOT project = JDEV AND assignee in (currentUser(), membersOf(\"jira-admins\")) AND status changed from Open to \"In progress\" AND labels not in (\"Cannot Reproduce\") AND reporter is not empty AND \"Custom number[Number]\" = 1 AND assignee.property[\"name\"] = \"Charlie\" OR created >= 2019-11-15 ORDER BY created DESC, updated ASC",
+    "(project = VPP OR project = VI) AND statusCategory not in (Done) AND (labels != not-mvp AND labels != after-mvp AND labels != not-vertigo-mvp AND labels != post-mvp OR labels is EMPTY) AND issuetype != epic AND \"Delivery Team\" in (\"JIRA Vertigo GDN - Dalek\", \"JIRA Vertigo Search\", \"JIRA Helix\", \"JIRA Swarm - Core App\", \"JIRA Swarm - Dragonfire\", \"JIRA Portfolio\", JIRA, \"JIRA Fusion\", \"JIRA Software\", \"JIRA Ninjas\", \"JIRA Performance\", \"JIRA Ecosystem\", \"JIRA Vertigo DB+Cache\") AND status not in (\"Not required\", \"Post MVP\", Post-release) AND issuetype != bug AND (fixVersion != Post-MVP AND fixVersion != \"Post-Vertigo MVP\" OR fixVersion is EMPTY) ORDER BY status DESC"
+  ],
+  "invalid": [
+    "project = next and assignee = atlas order by rank",
+    "project = JQL order by issuetype = Bug"
+  ]
+}

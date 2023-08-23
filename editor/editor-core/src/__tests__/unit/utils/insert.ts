@@ -47,7 +47,7 @@ import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import codeBlockPlugin from '../../../plugins/code-block';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import mediaPlugin from '../../../plugins/media';
-import listPlugin from '../../../plugins/list';
+import { listPlugin } from '@atlaskit/editor-plugin-list';
 import { focusPlugin } from '@atlaskit/editor-plugin-focus';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { compositionPlugin } from '@atlaskit/editor-plugin-composition';

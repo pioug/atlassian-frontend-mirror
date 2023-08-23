@@ -3,7 +3,6 @@ import React, { Fragment, useCallback, useMemo, useState } from 'react';
 
 import { jsx } from '@emotion/react';
 
-import Box, { BoxProps } from '@atlaskit/ds-explorations/box';
 import RightArrow from '@atlaskit/icon/glyph/arrow-right-circle';
 import {
   ButtonItemProps,
@@ -11,6 +10,7 @@ import {
   CustomItemComponentProps,
   Overrides,
 } from '@atlaskit/menu';
+import { Box, xcss } from '@atlaskit/primitives';
 import { N10 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -25,6 +25,10 @@ import {
 import { useChildIdsEffect } from '../utils/hooks';
 
 import { nestingItemStyle } from './styles';
+
+const iconContainerStyles = xcss({
+  display: 'inline',
+});
 
 interface NestingItemOverrides extends Overrides {
   /**
@@ -227,13 +231,8 @@ const NestingItem = <TCustomComponentProps extends CustomItemComponentProps>(
     return (
       <NestedContext.Provider value={context}>
         {stack.length >= 1 && (
-          <Box
-            as="div"
-            display="block"
-            paddingBlock="space.075"
-            paddingInline="space.100"
-          >
-            {backButton as BoxProps['children']}
+          <Box paddingBlock="space.075" paddingInline="space.100">
+            {backButton}
           </Box>
         )}
         <NavigationContent
@@ -256,11 +255,11 @@ const NestingItem = <TCustomComponentProps extends CustomItemComponentProps>(
     iconAfter: (
       <Fragment>
         {iconAfter ? (
-          <Box data-custom-icon display="inline" as="span">
-            {iconAfter as BoxProps['children']}
+          <Box xcss={iconContainerStyles} data-custom-icon as="span">
+            {iconAfter}
           </Box>
         ) : null}
-        <Box data-right-arrow display="inline" as="span">
+        <Box data-right-arrow xcss={iconContainerStyles} as="span">
           <RightArrow
             testId={testId && `${testId}--item--right-arrow`}
             secondaryColor={token('elevation.surface', N10)}

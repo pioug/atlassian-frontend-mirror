@@ -3,9 +3,9 @@ import { forwardRef, MouseEvent } from 'react';
 
 import { jsx } from '@emotion/react';
 
-import Box from '@atlaskit/ds-explorations/box';
 import AddItemIcon from '@atlaskit/icon/glyph/add-item';
 import OpenIcon from '@atlaskit/icon/glyph/open';
+import { Box } from '@atlaskit/primitives';
 
 import { CustomItem, CustomItemComponentProps } from '../src';
 
@@ -23,7 +23,7 @@ const CustomLink = forwardRef<HTMLAnchorElement, CustomProps>(
 );
 
 const Example = () => (
-  <Box display="block" onClick={(e: MouseEvent) => e.preventDefault()} as="div">
+  <Box onClick={(e: MouseEvent) => e.preventDefault()}>
     <CustomItem href="/create-article-1" component={CustomLink}>
       Custom create article
     </CustomItem>

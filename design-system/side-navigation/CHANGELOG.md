@@ -1,5 +1,11 @@
 # @atlaskit/side-navigation
 
+## 2.0.1
+
+### Patch Changes
+
+- [`cac6bbb702d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cac6bbb702d) - The internal composition of this component has changed. There is no expected change in behavior.
+
 ## 2.0.0
 
 ### Major Changes

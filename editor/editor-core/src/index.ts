@@ -50,9 +50,6 @@ export { changeColor } from './plugins/text-color/commands/change-color';
 export { insertHorizontalRule } from './plugins/rule/commands';
 export { blockPluginStateKey } from './plugins';
 export type { BlockTypeState } from './plugins';
-export { pluginKey as listStateKey } from './plugins/list/pm-plugins/main';
-export type { ListState } from './plugins/list/types';
-export type { InputMethod as ListInputMethod } from './plugins/list/commands';
 export { subscribeToToolbarAndPickerUpdates } from './plugins/view-update-subscription/subscribe/toolbarAndPickerUpdates';
 export { subscribeTypeAheadUpdates } from './plugins/view-update-subscription/subscribe/type-ahead-updates';
 export type {

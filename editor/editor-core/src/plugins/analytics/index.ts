@@ -26,7 +26,6 @@ export {
   TRIGGER_METHOD,
   USER_CONTEXT,
   DELETE_DIRECTION,
-  LIST_TEXT_SCENARIOS,
   fireAnalyticsEvent,
   getAnalyticsEventsFromTransaction,
 } from '@atlaskit/editor-common/analytics';

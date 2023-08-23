@@ -1,8 +1,13 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 
-import Box from '@atlaskit/ds-explorations/box';
-import { token } from '@atlaskit/tokens';
+import { Box, xcss } from '@atlaskit/primitives';
+
+const navigationFooterStyles = xcss({
+  display: 'block',
+  padding: 'space.100',
+  paddingTop: 'space.300',
+});
 
 export interface NavigationHeaderProps {
   children: JSX.Element | JSX.Element[];
@@ -19,14 +24,7 @@ export interface NavigationHeaderProps {
 const NavigationHeader = (props: NavigationHeaderProps) => {
   const { children } = props;
   return (
-    <Box
-      display="block"
-      data-navheader
-      padding="space.100"
-      UNSAFE_style={{
-        paddingTop: token('space.300', '24px'),
-      }}
-    >
+    <Box xcss={navigationFooterStyles} data-navheader>
       {children}
     </Box>
   );

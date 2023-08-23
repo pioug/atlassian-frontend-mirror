@@ -1,16 +1,21 @@
 /* eslint-disable @repo/internal/react/consistent-props-definitions */
 import React from 'react';
 
-import Box from '@atlaskit/ds-explorations/box';
 import Text from '@atlaskit/ds-explorations/text';
 import warnOnce from '@atlaskit/ds-lib/warn-once';
-import Stack from '@atlaskit/primitives/stack';
+import { Box, Stack, xcss } from '@atlaskit/primitives';
 import { N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { overrideStyleFunction } from '../../common/styles';
 import { Container, HeaderProps } from '../Header';
 import { CustomItem } from '../Item';
+
+const iconContainerStyles = xcss({
+  display: 'inline-block',
+  width: 'size.200',
+  height: 'size.200',
+});
 
 type NewFooterProps = Omit<HeaderProps, 'cssFn' | 'component' | 'onClick'>;
 
@@ -120,11 +125,9 @@ const Footer = ({
   testId,
 }: NewFooterProps) => {
   return (
-    <Box display="block" padding="space.100" testId={testId}>
+    <Box padding="space.100" testId={testId}>
       <Stack space="space.100" alignInline="center">
-        <Box display="inlineBlock" width="size.200" height="size.200">
-          {iconBefore}
-        </Box>
+        <Box xcss={iconContainerStyles}>{iconBefore}</Box>
         <Stack space="space.075">
           <Text
             fontSize="size.075"

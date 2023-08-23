@@ -1,5 +1,11 @@
 # @atlaskit/schema-backwards-compatibility-tests
 
+## 0.0.5
+
+### Patch Changes
+
+- [`ac4a7af2595`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ac4a7af2595) - Remove test that relies on adf-sample
+
 ## 0.0.4
 
 ### Patch Changes

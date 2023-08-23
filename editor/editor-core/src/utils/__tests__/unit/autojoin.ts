@@ -4,7 +4,8 @@ import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { autoJoinTr } from '@atlaskit/editor-common/utils';
-import { wrapInList } from '../../../plugins/list/actions/wrap-and-join-lists';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import { wrapInList } from '@atlaskit/editor-plugin-list/src/actions/wrap-and-join-lists';
 
 describe('autoJoinTr', () => {
   // Adapted from https://github.com/ProseMirror/prosemirror-commands/blob/master/test/test-commands.js

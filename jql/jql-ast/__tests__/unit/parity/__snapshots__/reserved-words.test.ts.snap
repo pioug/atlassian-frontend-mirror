@@ -1,0 +1,5589 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Reserved words 🟥 abort = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'abort' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      13,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "abort = value",
+}
+`;
+
+exports[`Reserved words 🟥 access = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'access' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      14,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "access = value",
+}
+`;
+
+exports[`Reserved words 🟥 add = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'add' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      11,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "add = value",
+}
+`;
+
+exports[`Reserved words 🟥 after = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'after' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      13,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "after = value",
+}
+`;
+
+exports[`Reserved words 🟥 alias = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'alias' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      13,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "alias = value",
+}
+`;
+
+exports[`Reserved words 🟥 alter = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'alter' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      13,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "alter = value",
+}
+`;
+
+exports[`Reserved words 🟥 and = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'and' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      11,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "and = value",
+}
+`;
+
+exports[`Reserved words 🟥 any = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'any' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      11,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "any = value",
+}
+`;
+
+exports[`Reserved words 🟥 as = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'as' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      10,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "as = value",
+}
+`;
+
+exports[`Reserved words 🟥 asc = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'asc' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      11,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "asc = value",
+}
+`;
+
+exports[`Reserved words 🟥 assignee = abort 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'abort' expecting {EMPTY, POSNUMBER, NEGNUMBER, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      16,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": Object {
+      "accept": [Function],
+      "appendOperand": [Function],
+      "clauseType": "terminal",
+      "enterNode": [Function],
+      "exitNode": [Function],
+      "field": Object {
+        "accept": [Function],
+        "enterNode": [Function],
+        "exitNode": [Function],
+        "getChildren": [Function],
+        "parent": [Circular],
+        "position": Array [
+          0,
+          8,
+        ],
+        "properties": Array [],
+        "text": "assignee",
+        "value": "assignee",
+      },
+      "getChildren": [Function],
+      "operand": undefined,
+      "operator": Object {
+        "accept": [Function],
+        "enterNode": [Function],
+        "exitNode": [Function],
+        "getChildren": [Function],
+        "parent": [Circular],
+        "position": Array [
+          9,
+          10,
+        ],
+        "text": "=",
+        "value": "=",
+      },
+      "parent": [Circular],
+      "position": Array [
+        0,
+        16,
+      ],
+      "predicates": Array [],
+      "remove": [Function],
+      "replace": [Function],
+      "setOperand": [Function],
+      "setOperator": [Function],
+      "type": "clause",
+    },
+  },
+  "represents": "assignee = abort",
+}
+`;
+
+exports[`Reserved words 🟥 assignee abort 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'abort' expecting {'<', '>', '>=', '<=', '=', '!=', '~', '!~', IN, IS, NOT, WAS, CHANGED}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      14,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": Object {
+      "accept": [Function],
+      "appendOperand": [Function],
+      "clauseType": "terminal",
+      "enterNode": [Function],
+      "exitNode": [Function],
+      "field": Object {
+        "accept": [Function],
+        "enterNode": [Function],
+        "exitNode": [Function],
+        "getChildren": [Function],
+        "parent": [Circular],
+        "position": Array [
+          0,
+          8,
+        ],
+        "properties": Array [],
+        "text": "assignee",
+        "value": "assignee",
+      },
+      "getChildren": [Function],
+      "operand": undefined,
+      "operator": undefined,
+      "parent": [Circular],
+      "position": Array [
+        0,
+        14,
+      ],
+      "predicates": Array [],
+      "remove": [Function],
+      "replace": [Function],
+      "setOperand": [Function],
+      "setOperator": [Function],
+      "type": "clause",
+    },
+  },
+  "represents": "assignee abort",
+}
+`;
+
+exports[`Reserved words 🟥 audit = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'audit' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      13,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "audit = value",
+}
+`;
+
+exports[`Reserved words 🟥 avg = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'avg' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      11,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "avg = value",
+}
+`;
+
+exports[`Reserved words 🟥 before = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'before' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      14,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "before = value",
+}
+`;
+
+exports[`Reserved words 🟥 begin = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'begin' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      13,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "begin = value",
+}
+`;
+
+exports[`Reserved words 🟥 between = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'between' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      15,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "between = value",
+}
+`;
+
+exports[`Reserved words 🟥 boolean = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'boolean' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      15,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "boolean = value",
+}
+`;
+
+exports[`Reserved words 🟥 break = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'break' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      13,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "break = value",
+}
+`;
+
+exports[`Reserved words 🟥 by = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'by' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      10,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "by = value",
+}
+`;
+
+exports[`Reserved words 🟥 byte = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'byte' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      12,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "byte = value",
+}
+`;
+
+exports[`Reserved words 🟥 catch = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'catch' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      13,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "catch = value",
+}
+`;
+
+exports[`Reserved words 🟥 cf = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input '=' expecting '['],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      10,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": Object {
+      "accept": [Function],
+      "appendOperand": [Function],
+      "clauseType": "terminal",
+      "enterNode": [Function],
+      "exitNode": [Function],
+      "field": Object {
+        "accept": [Function],
+        "enterNode": [Function],
+        "exitNode": [Function],
+        "getChildren": [Function],
+        "parent": [Circular],
+        "position": Array [
+          0,
+          2,
+        ],
+        "properties": Array [],
+        "text": "cf",
+        "value": "cf",
+      },
+      "getChildren": [Function],
+      "operand": Object {
+        "accept": [Function],
+        "enterNode": [Function],
+        "exitNode": [Function],
+        "getChildren": [Function],
+        "operandType": "value",
+        "parent": [Circular],
+        "position": Array [
+          5,
+          10,
+        ],
+        "text": "value",
+        "type": "operand",
+        "value": "value",
+      },
+      "operator": Object {
+        "accept": [Function],
+        "enterNode": [Function],
+        "exitNode": [Function],
+        "getChildren": [Function],
+        "parent": [Circular],
+        "position": Array [
+          3,
+          4,
+        ],
+        "text": "=",
+        "value": "=",
+      },
+      "parent": [Circular],
+      "position": Array [
+        0,
+        10,
+      ],
+      "predicates": Array [],
+      "remove": [Function],
+      "replace": [Function],
+      "setOperand": [Function],
+      "setOperator": [Function],
+      "type": "clause",
+    },
+  },
+  "represents": "cf = value",
+}
+`;
+
+exports[`Reserved words 🟥 changed = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'changed' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      15,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "changed = value",
+}
+`;
+
+exports[`Reserved words 🟥 char = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'char' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      12,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "char = value",
+}
+`;
+
+exports[`Reserved words 🟥 character = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'character' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      17,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "character = value",
+}
+`;
+
+exports[`Reserved words 🟥 check = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'check' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      13,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "check = value",
+}
+`;
+
+exports[`Reserved words 🟥 checkpoint = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'checkpoint' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      18,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "checkpoint = value",
+}
+`;
+
+exports[`Reserved words 🟥 collate = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'collate' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      15,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "collate = value",
+}
+`;
+
+exports[`Reserved words 🟥 collation = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'collation' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      17,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "collation = value",
+}
+`;
+
+exports[`Reserved words 🟥 column = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'column' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      14,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "column = value",
+}
+`;
+
+exports[`Reserved words 🟥 commit = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'commit' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      14,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "commit = value",
+}
+`;
+
+exports[`Reserved words 🟥 connect = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'connect' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      15,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "connect = value",
+}
+`;
+
+exports[`Reserved words 🟥 continue = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'continue' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      16,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "continue = value",
+}
+`;
+
+exports[`Reserved words 🟥 count = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'count' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      13,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "count = value",
+}
+`;
+
+exports[`Reserved words 🟥 create = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'create' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      14,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "create = value",
+}
+`;
+
+exports[`Reserved words 🟥 current = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'current' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      15,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "current = value",
+}
+`;
+
+exports[`Reserved words 🟥 date = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'date' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      12,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "date = value",
+}
+`;
+
+exports[`Reserved words 🟥 decimal = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'decimal' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      15,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "decimal = value",
+}
+`;
+
+exports[`Reserved words 🟥 declare = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'declare' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      15,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "declare = value",
+}
+`;
+
+exports[`Reserved words 🟥 decrement = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'decrement' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      17,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "decrement = value",
+}
+`;
+
+exports[`Reserved words 🟥 default = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'default' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      15,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "default = value",
+}
+`;
+
+exports[`Reserved words 🟥 defaults = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'defaults' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      16,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "defaults = value",
+}
+`;
+
+exports[`Reserved words 🟥 define = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'define' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      14,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "define = value",
+}
+`;
+
+exports[`Reserved words 🟥 delete = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'delete' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      14,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "delete = value",
+}
+`;
+
+exports[`Reserved words 🟥 delimiter = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'delimiter' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      17,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "delimiter = value",
+}
+`;
+
+exports[`Reserved words 🟥 desc = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'desc' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      12,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "desc = value",
+}
+`;
+
+exports[`Reserved words 🟥 difference = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'difference' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      18,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "difference = value",
+}
+`;
+
+exports[`Reserved words 🟥 distinct = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'distinct' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      16,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "distinct = value",
+}
+`;
+
+exports[`Reserved words 🟥 divide = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'divide' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      14,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "divide = value",
+}
+`;
+
+exports[`Reserved words 🟥 do = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'do' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      10,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "do = value",
+}
+`;
+
+exports[`Reserved words 🟥 double = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'double' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      14,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "double = value",
+}
+`;
+
+exports[`Reserved words 🟥 drop = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'drop' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      12,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "drop = value",
+}
+`;
+
+exports[`Reserved words 🟥 else = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'else' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      12,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "else = value",
+}
+`;
+
+exports[`Reserved words 🟥 empty = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'empty' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      13,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "empty = value",
+}
+`;
+
+exports[`Reserved words 🟥 encoding = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'encoding' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      16,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "encoding = value",
+}
+`;
+
+exports[`Reserved words 🟥 end = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'end' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      11,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "end = value",
+}
+`;
+
+exports[`Reserved words 🟥 equals = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'equals' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      14,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "equals = value",
+}
+`;
+
+exports[`Reserved words 🟥 escape = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'escape' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      14,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "escape = value",
+}
+`;
+
+exports[`Reserved words 🟥 exclusive = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'exclusive' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      17,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "exclusive = value",
+}
+`;
+
+exports[`Reserved words 🟥 exec = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'exec' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      12,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "exec = value",
+}
+`;
+
+exports[`Reserved words 🟥 execute = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'execute' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      15,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "execute = value",
+}
+`;
+
+exports[`Reserved words 🟥 exists = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'exists' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      14,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "exists = value",
+}
+`;
+
+exports[`Reserved words 🟥 explain = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'explain' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      15,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "explain = value",
+}
+`;
+
+exports[`Reserved words 🟥 false = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'false' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      13,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "false = value",
+}
+`;
+
+exports[`Reserved words 🟥 fetch = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'fetch' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      13,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "fetch = value",
+}
+`;
+
+exports[`Reserved words 🟥 field = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'field' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      13,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "field = value",
+}
+`;
+
+exports[`Reserved words 🟥 file = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'file' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      12,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "file = value",
+}
+`;
+
+exports[`Reserved words 🟥 first = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'first' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      13,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "first = value",
+}
+`;
+
+exports[`Reserved words 🟥 float = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'float' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      13,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "float = value",
+}
+`;
+
+exports[`Reserved words 🟥 for = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'for' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      11,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "for = value",
+}
+`;
+
+exports[`Reserved words 🟥 from = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'from' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      12,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "from = value",
+}
+`;
+
+exports[`Reserved words 🟥 function = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'function' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      16,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "function = value",
+}
+`;
+
+exports[`Reserved words 🟥 go = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'go' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      10,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "go = value",
+}
+`;
+
+exports[`Reserved words 🟥 goto = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'goto' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      12,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "goto = value",
+}
+`;
+
+exports[`Reserved words 🟥 grant = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'grant' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      13,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "grant = value",
+}
+`;
+
+exports[`Reserved words 🟥 greater = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'greater' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      15,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "greater = value",
+}
+`;
+
+exports[`Reserved words 🟥 group = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'group' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      13,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "group = value",
+}
+`;
+
+exports[`Reserved words 🟥 having = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'having' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      14,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "having = value",
+}
+`;
+
+exports[`Reserved words 🟥 identified = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'identified' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      18,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "identified = value",
+}
+`;
+
+exports[`Reserved words 🟥 if = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'if' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      10,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "if = value",
+}
+`;
+
+exports[`Reserved words 🟥 immediate = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'immediate' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      17,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "immediate = value",
+}
+`;
+
+exports[`Reserved words 🟥 in = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'in' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      10,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "in = value",
+}
+`;
+
+exports[`Reserved words 🟥 increment = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'increment' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      17,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "increment = value",
+}
+`;
+
+exports[`Reserved words 🟥 index = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'index' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      13,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "index = value",
+}
+`;
+
+exports[`Reserved words 🟥 initial = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'initial' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      15,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "initial = value",
+}
+`;
+
+exports[`Reserved words 🟥 inner = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'inner' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      13,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "inner = value",
+}
+`;
+
+exports[`Reserved words 🟥 inout = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'inout' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      13,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "inout = value",
+}
+`;
+
+exports[`Reserved words 🟥 input = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'input' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      13,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "input = value",
+}
+`;
+
+exports[`Reserved words 🟥 insert = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'insert' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      14,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "insert = value",
+}
+`;
+
+exports[`Reserved words 🟥 int = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'int' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      11,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "int = value",
+}
+`;
+
+exports[`Reserved words 🟥 integer = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'integer' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      15,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "integer = value",
+}
+`;
+
+exports[`Reserved words 🟥 intersect = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'intersect' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      17,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "intersect = value",
+}
+`;
+
+exports[`Reserved words 🟥 intersection = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'intersection' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      20,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "intersection = value",
+}
+`;
+
+exports[`Reserved words 🟥 into = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'into' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      12,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "into = value",
+}
+`;
+
+exports[`Reserved words 🟥 is = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'is' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      10,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "is = value",
+}
+`;
+
+exports[`Reserved words 🟥 isempty = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'isempty' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      15,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "isempty = value",
+}
+`;
+
+exports[`Reserved words 🟥 isnull = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'isnull' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      14,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "isnull = value",
+}
+`;
+
+exports[`Reserved words 🟥 join = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'join' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      12,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "join = value",
+}
+`;
+
+exports[`Reserved words 🟥 last = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'last' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      12,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "last = value",
+}
+`;
+
+exports[`Reserved words 🟥 left = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'left' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      12,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "left = value",
+}
+`;
+
+exports[`Reserved words 🟥 less = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'less' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      12,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "less = value",
+}
+`;
+
+exports[`Reserved words 🟥 like = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'like' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      12,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "like = value",
+}
+`;
+
+exports[`Reserved words 🟥 limit = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'limit' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      13,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "limit = value",
+}
+`;
+
+exports[`Reserved words 🟥 lock = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'lock' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      12,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "lock = value",
+}
+`;
+
+exports[`Reserved words 🟥 long = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'long' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      12,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "long = value",
+}
+`;
+
+exports[`Reserved words 🟥 max = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'max' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      11,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "max = value",
+}
+`;
+
+exports[`Reserved words 🟥 min = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'min' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      11,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "min = value",
+}
+`;
+
+exports[`Reserved words 🟥 minus = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'minus' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      13,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "minus = value",
+}
+`;
+
+exports[`Reserved words 🟥 mode = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'mode' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      12,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "mode = value",
+}
+`;
+
+exports[`Reserved words 🟥 modify = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'modify' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      14,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "modify = value",
+}
+`;
+
+exports[`Reserved words 🟥 modulo = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'modulo' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      14,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "modulo = value",
+}
+`;
+
+exports[`Reserved words 🟥 more = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'more' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      12,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "more = value",
+}
+`;
+
+exports[`Reserved words 🟥 multiply = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'multiply' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      16,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "multiply = value",
+}
+`;
+
+exports[`Reserved words 🟥 next = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'next' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      12,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "next = value",
+}
+`;
+
+exports[`Reserved words 🟥 noaudit = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'noaudit' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      15,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "noaudit = value",
+}
+`;
+
+exports[`Reserved words 🟥 not = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: extraneous input '=' expecting {'(', '!', NOT, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+    [JQLSyntaxError: mismatched input '<EOF>' expecting {'<', '>', '>=', '<=', '=', '!=', '~', '!~', IN, IS, NOT, WAS, CHANGED}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      11,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": Object {
+      "accept": [Function],
+      "clause": Object {
+        "accept": [Function],
+        "appendOperand": [Function],
+        "clauseType": "terminal",
+        "enterNode": [Function],
+        "exitNode": [Function],
+        "field": Object {
+          "accept": [Function],
+          "enterNode": [Function],
+          "exitNode": [Function],
+          "getChildren": [Function],
+          "parent": [Circular],
+          "position": Array [
+            6,
+            11,
+          ],
+          "properties": Array [],
+          "text": "value",
+          "value": "value",
+        },
+        "getChildren": [Function],
+        "operand": undefined,
+        "operator": undefined,
+        "parent": [Circular],
+        "position": Array [
+          6,
+          11,
+        ],
+        "predicates": Array [],
+        "remove": [Function],
+        "replace": [Function],
+        "setOperand": [Function],
+        "setOperator": [Function],
+        "type": "clause",
+      },
+      "clauseType": "not",
+      "enterNode": [Function],
+      "exitNode": [Function],
+      "getChildren": [Function],
+      "operator": Object {
+        "accept": [Function],
+        "enterNode": [Function],
+        "exitNode": [Function],
+        "getChildren": [Function],
+        "parent": [Circular],
+        "position": Array [
+          0,
+          3,
+        ],
+        "value": "not",
+      },
+      "parent": [Circular],
+      "position": Array [
+        0,
+        11,
+      ],
+      "remove": [Function],
+      "removeClause": [Function],
+      "replace": [Function],
+      "replaceClause": [Function],
+      "type": "clause",
+    },
+  },
+  "represents": "not = value",
+}
+`;
+
+exports[`Reserved words 🟥 notin = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'notin' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      13,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "notin = value",
+}
+`;
+
+exports[`Reserved words 🟥 nowait = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'nowait' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      14,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "nowait = value",
+}
+`;
+
+exports[`Reserved words 🟥 null = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'null' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      12,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "null = value",
+}
+`;
+
+exports[`Reserved words 🟥 number = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'number' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      14,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "number = value",
+}
+`;
+
+exports[`Reserved words 🟥 object = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'object' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      14,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "object = value",
+}
+`;
+
+exports[`Reserved words 🟥 of = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'of' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      10,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "of = value",
+}
+`;
+
+exports[`Reserved words 🟥 on = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'on' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      10,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "on = value",
+}
+`;
+
+exports[`Reserved words 🟥 option = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'option' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      14,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "option = value",
+}
+`;
+
+exports[`Reserved words 🟥 or = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'or' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      10,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "or = value",
+}
+`;
+
+exports[`Reserved words 🟥 order = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input '=' expecting BY],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      13,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "order = value",
+}
+`;
+
+exports[`Reserved words 🟥 outer = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'outer' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      13,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "outer = value",
+}
+`;
+
+exports[`Reserved words 🟥 output = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'output' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      14,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "output = value",
+}
+`;
+
+exports[`Reserved words 🟥 power = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'power' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      13,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "power = value",
+}
+`;
+
+exports[`Reserved words 🟥 previous = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'previous' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      16,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "previous = value",
+}
+`;
+
+exports[`Reserved words 🟥 prior = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'prior' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      13,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "prior = value",
+}
+`;
+
+exports[`Reserved words 🟥 privileges = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'privileges' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      18,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "privileges = value",
+}
+`;
+
+exports[`Reserved words 🟥 public = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'public' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      14,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "public = value",
+}
+`;
+
+exports[`Reserved words 🟥 raise = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'raise' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      13,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "raise = value",
+}
+`;
+
+exports[`Reserved words 🟥 raw = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'raw' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      11,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "raw = value",
+}
+`;
+
+exports[`Reserved words 🟥 remainder = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'remainder' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      17,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "remainder = value",
+}
+`;
+
+exports[`Reserved words 🟥 rename = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'rename' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      14,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "rename = value",
+}
+`;
+
+exports[`Reserved words 🟥 resource = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'resource' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      16,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "resource = value",
+}
+`;
+
+exports[`Reserved words 🟥 return = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'return' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      14,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "return = value",
+}
+`;
+
+exports[`Reserved words 🟥 returns = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'returns' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      15,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "returns = value",
+}
+`;
+
+exports[`Reserved words 🟥 revoke = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'revoke' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      14,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "revoke = value",
+}
+`;
+
+exports[`Reserved words 🟥 right = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'right' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      13,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "right = value",
+}
+`;
+
+exports[`Reserved words 🟥 row = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'row' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      11,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "row = value",
+}
+`;
+
+exports[`Reserved words 🟥 rowid = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'rowid' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      13,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "rowid = value",
+}
+`;
+
+exports[`Reserved words 🟥 rownum = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'rownum' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      14,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "rownum = value",
+}
+`;
+
+exports[`Reserved words 🟥 rows = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'rows' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      12,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "rows = value",
+}
+`;
+
+exports[`Reserved words 🟥 select = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'select' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      14,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "select = value",
+}
+`;
+
+exports[`Reserved words 🟥 session = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'session' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      15,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "session = value",
+}
+`;
+
+exports[`Reserved words 🟥 set = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'set' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      11,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "set = value",
+}
+`;
+
+exports[`Reserved words 🟥 share = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'share' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      13,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "share = value",
+}
+`;
+
+exports[`Reserved words 🟥 size = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'size' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      12,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "size = value",
+}
+`;
+
+exports[`Reserved words 🟥 sqrt = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'sqrt' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      12,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "sqrt = value",
+}
+`;
+
+exports[`Reserved words 🟥 start = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'start' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      13,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "start = value",
+}
+`;
+
+exports[`Reserved words 🟥 strict = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'strict' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      14,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "strict = value",
+}
+`;
+
+exports[`Reserved words 🟥 string = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'string' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      14,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "string = value",
+}
+`;
+
+exports[`Reserved words 🟥 subtract = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'subtract' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      16,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "subtract = value",
+}
+`;
+
+exports[`Reserved words 🟥 sum = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'sum' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      11,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "sum = value",
+}
+`;
+
+exports[`Reserved words 🟥 synonym = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'synonym' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      15,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "synonym = value",
+}
+`;
+
+exports[`Reserved words 🟥 table = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'table' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      13,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "table = value",
+}
+`;
+
+exports[`Reserved words 🟥 then = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'then' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      12,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "then = value",
+}
+`;
+
+exports[`Reserved words 🟥 to = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'to' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      10,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "to = value",
+}
+`;
+
+exports[`Reserved words 🟥 trans = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'trans' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      13,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "trans = value",
+}
+`;
+
+exports[`Reserved words 🟥 transaction = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'transaction' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      19,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "transaction = value",
+}
+`;
+
+exports[`Reserved words 🟥 trigger = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'trigger' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      15,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "trigger = value",
+}
+`;
+
+exports[`Reserved words 🟥 true = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'true' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      12,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "true = value",
+}
+`;
+
+exports[`Reserved words 🟥 uid = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'uid' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      11,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "uid = value",
+}
+`;
+
+exports[`Reserved words 🟥 union = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'union' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      13,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "union = value",
+}
+`;
+
+exports[`Reserved words 🟥 unique = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'unique' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      14,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "unique = value",
+}
+`;
+
+exports[`Reserved words 🟥 update = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'update' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      14,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "update = value",
+}
+`;
+
+exports[`Reserved words 🟥 user = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'user' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      12,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "user = value",
+}
+`;
+
+exports[`Reserved words 🟥 validate = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'validate' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      16,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "validate = value",
+}
+`;
+
+exports[`Reserved words 🟥 values = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'values' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      14,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "values = value",
+}
+`;
+
+exports[`Reserved words 🟥 view = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'view' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      12,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "view = value",
+}
+`;
+
+exports[`Reserved words 🟥 was = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'was' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      11,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "was = value",
+}
+`;
+
+exports[`Reserved words 🟥 when = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'when' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      12,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "when = value",
+}
+`;
+
+exports[`Reserved words 🟥 whenever = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'whenever' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      16,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "whenever = value",
+}
+`;
+
+exports[`Reserved words 🟥 where = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'where' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      13,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "where = value",
+}
+`;
+
+exports[`Reserved words 🟥 while = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'while' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      13,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "while = value",
+}
+`;
+
+exports[`Reserved words 🟥 with = value 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'with' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      12,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "with = value",
+}
+`;
+
+exports[`Reserved words 🟩 "abort" = value 1`] = `
+Object {
+  "errors": Array [],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      15,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": Object {
+      "accept": [Function],
+      "appendOperand": [Function],
+      "clauseType": "terminal",
+      "enterNode": [Function],
+      "exitNode": [Function],
+      "field": Object {
+        "accept": [Function],
+        "enterNode": [Function],
+        "exitNode": [Function],
+        "getChildren": [Function],
+        "parent": [Circular],
+        "position": Array [
+          0,
+          7,
+        ],
+        "properties": Array [],
+        "text": "\\"abort\\"",
+        "value": "abort",
+      },
+      "getChildren": [Function],
+      "operand": Object {
+        "accept": [Function],
+        "enterNode": [Function],
+        "exitNode": [Function],
+        "getChildren": [Function],
+        "operandType": "value",
+        "parent": [Circular],
+        "position": Array [
+          10,
+          15,
+        ],
+        "text": "value",
+        "type": "operand",
+        "value": "value",
+      },
+      "operator": Object {
+        "accept": [Function],
+        "enterNode": [Function],
+        "exitNode": [Function],
+        "getChildren": [Function],
+        "parent": [Circular],
+        "position": Array [
+          8,
+          9,
+        ],
+        "text": "=",
+        "value": "=",
+      },
+      "parent": [Circular],
+      "position": Array [
+        0,
+        15,
+      ],
+      "predicates": Array [],
+      "remove": [Function],
+      "replace": [Function],
+      "setOperand": [Function],
+      "setOperator": [Function],
+      "type": "clause",
+    },
+  },
+  "represents": "\\"abort\\" = value",
+}
+`;
+
+exports[`Reserved words 🟩 'abort' = value 1`] = `
+Object {
+  "errors": Array [],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      15,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": Object {
+      "accept": [Function],
+      "appendOperand": [Function],
+      "clauseType": "terminal",
+      "enterNode": [Function],
+      "exitNode": [Function],
+      "field": Object {
+        "accept": [Function],
+        "enterNode": [Function],
+        "exitNode": [Function],
+        "getChildren": [Function],
+        "parent": [Circular],
+        "position": Array [
+          0,
+          7,
+        ],
+        "properties": Array [],
+        "text": "'abort'",
+        "value": "abort",
+      },
+      "getChildren": [Function],
+      "operand": Object {
+        "accept": [Function],
+        "enterNode": [Function],
+        "exitNode": [Function],
+        "getChildren": [Function],
+        "operandType": "value",
+        "parent": [Circular],
+        "position": Array [
+          10,
+          15,
+        ],
+        "text": "value",
+        "type": "operand",
+        "value": "value",
+      },
+      "operator": Object {
+        "accept": [Function],
+        "enterNode": [Function],
+        "exitNode": [Function],
+        "getChildren": [Function],
+        "parent": [Circular],
+        "position": Array [
+          8,
+          9,
+        ],
+        "text": "=",
+        "value": "=",
+      },
+      "parent": [Circular],
+      "position": Array [
+        0,
+        15,
+      ],
+      "predicates": Array [],
+      "remove": [Function],
+      "replace": [Function],
+      "setOperand": [Function],
+      "setOperator": [Function],
+      "type": "clause",
+    },
+  },
+  "represents": "'abort' = value",
+}
+`;
+
+exports[`Reserved words 🟩 issuetype = "abort" 1`] = `
+Object {
+  "errors": Array [],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      19,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": Object {
+      "accept": [Function],
+      "appendOperand": [Function],
+      "clauseType": "terminal",
+      "enterNode": [Function],
+      "exitNode": [Function],
+      "field": Object {
+        "accept": [Function],
+        "enterNode": [Function],
+        "exitNode": [Function],
+        "getChildren": [Function],
+        "parent": [Circular],
+        "position": Array [
+          0,
+          9,
+        ],
+        "properties": Array [],
+        "text": "issuetype",
+        "value": "issuetype",
+      },
+      "getChildren": [Function],
+      "operand": Object {
+        "accept": [Function],
+        "enterNode": [Function],
+        "exitNode": [Function],
+        "getChildren": [Function],
+        "operandType": "value",
+        "parent": [Circular],
+        "position": Array [
+          12,
+          19,
+        ],
+        "text": "\\"abort\\"",
+        "type": "operand",
+        "value": "abort",
+      },
+      "operator": Object {
+        "accept": [Function],
+        "enterNode": [Function],
+        "exitNode": [Function],
+        "getChildren": [Function],
+        "parent": [Circular],
+        "position": Array [
+          10,
+          11,
+        ],
+        "text": "=",
+        "value": "=",
+      },
+      "parent": [Circular],
+      "position": Array [
+        0,
+        19,
+      ],
+      "predicates": Array [],
+      "remove": [Function],
+      "replace": [Function],
+      "setOperand": [Function],
+      "setOperator": [Function],
+      "type": "clause",
+    },
+  },
+  "represents": "issuetype = \\"abort\\"",
+}
+`;
+
+exports[`Reserved words 🟩 issuetype = 'abort' 1`] = `
+Object {
+  "errors": Array [],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      19,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": Object {
+      "accept": [Function],
+      "appendOperand": [Function],
+      "clauseType": "terminal",
+      "enterNode": [Function],
+      "exitNode": [Function],
+      "field": Object {
+        "accept": [Function],
+        "enterNode": [Function],
+        "exitNode": [Function],
+        "getChildren": [Function],
+        "parent": [Circular],
+        "position": Array [
+          0,
+          9,
+        ],
+        "properties": Array [],
+        "text": "issuetype",
+        "value": "issuetype",
+      },
+      "getChildren": [Function],
+      "operand": Object {
+        "accept": [Function],
+        "enterNode": [Function],
+        "exitNode": [Function],
+        "getChildren": [Function],
+        "operandType": "value",
+        "parent": [Circular],
+        "position": Array [
+          12,
+          19,
+        ],
+        "text": "'abort'",
+        "type": "operand",
+        "value": "abort",
+      },
+      "operator": Object {
+        "accept": [Function],
+        "enterNode": [Function],
+        "exitNode": [Function],
+        "getChildren": [Function],
+        "parent": [Circular],
+        "position": Array [
+          10,
+          11,
+        ],
+        "text": "=",
+        "value": "=",
+      },
+      "parent": [Circular],
+      "position": Array [
+        0,
+        19,
+      ],
+      "predicates": Array [],
+      "remove": [Function],
+      "replace": [Function],
+      "setOperand": [Function],
+      "setOperator": [Function],
+      "type": "clause",
+    },
+  },
+  "represents": "issuetype = 'abort'",
+}
+`;

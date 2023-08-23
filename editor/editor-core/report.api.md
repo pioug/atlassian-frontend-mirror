@@ -93,7 +93,6 @@ import { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
 import { jsx } from '@emotion/react';
 import { lightModeStatusColorPalette } from '@atlaskit/editor-common/ui-color';
 import type { LinkingOptions } from '@atlaskit/editor-common/types';
-import { ListState } from '@atlaskit/editor-plugin-list';
 import type { LongPressSelectionPluginOptions } from '@atlaskit/editor-common/types';
 import { MacroAttributes } from '@atlaskit/editor-common/provider-factory';
 import { MacroProvider } from '@atlaskit/editor-common/provider-factory';
@@ -1184,14 +1183,6 @@ export { lightModeStatusColorPalette };
 
 // @public (undocumented)
 type Listener = (data: any) => void;
-
-// @public (undocumented)
-export type ListInputMethod = INPUT_METHOD.KEYBOARD | INPUT_METHOD.TOOLBAR;
-
-export { ListState };
-
-// @public (undocumented)
-export const listStateKey: PluginKey<ListState>;
 
 export { MacroAttributes };
 

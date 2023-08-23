@@ -1,0 +1,21 @@
+{
+  "valid": [
+    "issuetype = value",
+    "issuetype = 7",
+    "issuetype = -7",
+    "issuetype = \"7\"",
+    "issuetype = \"value\"",
+    "issuetype = \"\"",
+    "issuetype = \"value with spaces\"",
+    "issuetype = \"value with $pecial characters\"",
+    "issuetype = \"value with \\\"escaped\\\" characters\"",
+    "issuetype = 'value with \\'escaped\\' characters'",
+    "issuetype = 'value with \\\"escaped\\\" characters'"
+  ],
+  "invalid": [
+    "issuetype = \"\"\"",
+    "issuetype = value with spaces",
+    "issuetype = value with $pecial characters",
+    "issuetype = \"value with \"unescaped\" characters\""
+  ]
+}

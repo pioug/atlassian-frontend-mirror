@@ -1,0 +1,25 @@
+{
+  "valid": [
+    "! issuetype = bug",
+    "not issuetype = bug",
+    "not not issuetype = bug",
+    "not ! issuetype = bug",
+    "issuetype = bug and not component = jql",
+    "issuetype = bug or not component = jql",
+    "not issuetype = bug and component = jql or label = jql",
+    "not issuetype = bug or component = jql and label = jql",
+    "not issuetype = bug and (component = jql or label = jql)",
+    "! issuetype = bug and not issuetype = epic and (component = jql or label = jql)"
+  ],
+  "invalid": [
+    "!",
+    "not",
+    "not not",
+    "not !",
+    "! not",
+    "not issuetype",
+    "not issuetype = ",
+    "not issuetype = bug and",
+    "not issuetype = bug or"
+  ]
+}

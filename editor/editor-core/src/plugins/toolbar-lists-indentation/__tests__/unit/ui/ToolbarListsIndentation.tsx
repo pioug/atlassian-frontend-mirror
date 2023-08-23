@@ -5,45 +5,32 @@ import {
   createProsemirrorEditorFactory,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import type { ReactWrapper } from 'enzyme';
-import { mountWithIntl } from '../../../../../__tests__/__helpers/enzyme';
+import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import { doc, p, indentation } from '@atlaskit/editor-test-helpers/doc-builder';
-import { pluginKey } from '../../../../list/pm-plugins/main';
 import { listMessages } from '@atlaskit/editor-common/messages';
-import { messages as indentationMessages } from '../../../../indentation/messages';
-import ToolbarButton from '../../../../../ui/ToolbarButton';
-import { DropdownMenuWithKeyboardNavigation as DropdownMenu } from '@atlaskit/editor-common/ui-menu';
 import { basePlugin } from '../../../../base';
 import deprecatedAnalyticsPlugin from '../../../../analytics';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import toolbarListsIndentationPlugin from '../../../';
 import indentationPlugin from '../../../../indentation';
 import blockTypePlugin from '../../../../block-type';
-import listPlugin from '../../../../list';
+import { listPlugin } from '@atlaskit/editor-plugin-list';
 import { textFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';
 import type { Props as ToolbarListsIndentationProps } from '../../../ui';
 import ToolbarListsIndentation from '../../../ui';
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 
-import { render } from '@testing-library/react';
-import { Toolbar } from '../../../ui/Toolbar';
-import { IntlProvider } from 'react-intl-next';
+import { screen, fireEvent } from '@testing-library/react';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
-function clickToolbarOption(toolbarOption: ReactWrapper, title: string) {
-  toolbarOption
-    .find(ToolbarButton)
-    .filterWhere((toolbarButton) =>
-      toolbarButton.prop('aria-label')!.includes(title),
-    )
-    .find('button')
-    .simulate('click');
+async function clickToolbarOption(title: string) {
+  const toolbarButton = await screen.findByTestId(title);
+  fireEvent.click(toolbarButton);
 }
 
 describe('ToolbarListsIndentation', () => {
   const createEditor = createProsemirrorEditorFactory();
-  let ToolbarListsIndentationWrapper: ReactWrapper;
   let createAnalyticsEvent: CreateUIAnalyticsEvent;
   const mockDispatchAnalyticsEvent = jest.fn();
   const mockAnalyticsPlugin = () => {
@@ -58,15 +45,6 @@ describe('ToolbarListsIndentation', () => {
     };
   };
   createAnalyticsEvent = createAnalyticsEventMock();
-
-  afterEach(() => {
-    if (ToolbarListsIndentationWrapper) {
-      if (ToolbarListsIndentationWrapper.length > 0) {
-        ToolbarListsIndentationWrapper.unmount();
-      }
-      ToolbarListsIndentationWrapper.detach();
-    }
-  });
 
   const editorWithoutMockAnaylticsPlugin = ({ doc }: { doc: DocBuilder }) => {
     return createEditor({
@@ -87,7 +65,6 @@ describe('ToolbarListsIndentation', () => {
           },
         ])
         .add(indentationPlugin),
-      pluginKey,
     });
   };
 
@@ -111,7 +88,6 @@ describe('ToolbarListsIndentation', () => {
           },
         ])
         .add(indentationPlugin),
-      pluginKey,
     });
   };
 
@@ -122,7 +98,7 @@ describe('ToolbarListsIndentation', () => {
     const editorWrapper = editorWithoutMockAnaylticsPlugin({
       doc: setupDoc || doc(p('text')),
     });
-    const ToolbarListsIndentationWrapper = mountWithIntl(
+    renderWithIntl(
       <ToolbarListsIndentation
         editorView={editorWrapper.editorView}
         featureFlags={{}}
@@ -132,7 +108,6 @@ describe('ToolbarListsIndentation', () => {
     );
     return {
       ...editorWrapper,
-      ToolbarListsIndentation: ToolbarListsIndentationWrapper,
     };
   };
 
@@ -143,7 +118,7 @@ describe('ToolbarListsIndentation', () => {
     const editorWrapper = editorWithMockAnaylticsPlugin({
       doc: setupDoc || doc(p('text')),
     });
-    const ToolbarListsIndentationWrapper = mountWithIntl(
+    const ToolbarListsIndentationWrapper = renderWithIntl(
       <ToolbarListsIndentation
         editorView={editorWrapper.editorView}
         featureFlags={{}}
@@ -157,52 +132,53 @@ describe('ToolbarListsIndentation', () => {
     };
   };
 
-  it('should render disabled ToolbarButtons if disabled property is true', () => {
-    const { ToolbarListsIndentation } = setupWithMockAnalytics({
+  it('should render disabled ToolbarButtons if disabled property is true', async () => {
+    setupWithMockAnalytics({
       disabled: true,
     });
 
-    ToolbarListsIndentation.find(ToolbarButton).forEach((node) => {
-      expect(node.prop('disabled')).toBe(true);
+    const buttons = await screen.findAllByRole('button');
+    buttons.forEach((button) => {
+      expect(button).toBeDisabled();
     });
   });
 
-  it('should not render indentation buttons if showIndentationButtons is false', () => {
-    const { ToolbarListsIndentation } = setupWithMockAnalytics({
+  it('should not render indentation buttons if showIndentationButtons is false', async () => {
+    setupWithMockAnalytics({
       showIndentationButtons: false,
     });
+    const buttons = await screen.findAllByRole('button');
 
-    expect(ToolbarListsIndentation.find(ToolbarButton).length).toEqual(2);
+    expect(buttons.length).toEqual(2);
   });
 
-  it('should render indentation buttons if showIndentationButtons is true', () => {
-    const { ToolbarListsIndentation } = setupWithMockAnalytics({
+  it('should render indentation buttons if showIndentationButtons is true', async () => {
+    setupWithMockAnalytics({
       showIndentationButtons: true,
     });
 
-    expect(ToolbarListsIndentation.find(ToolbarButton).length).toEqual(4);
+    const buttons = await screen.findAllByRole('button');
+
+    expect(buttons.length).toEqual(4);
   });
 
-  it('should have a dropdown if option isSmall = true', () => {
-    const { ToolbarListsIndentation } = setupWithMockAnalytics({
+  it('should have a dropdown if option isSmall = true', async () => {
+    setupWithMockAnalytics({
       isSmall: true,
     });
 
-    expect(ToolbarListsIndentation.find(DropdownMenu).length).toEqual(1);
+    const buttons = await screen.findAllByRole('button');
+
+    expect(buttons.length).toEqual(1);
   });
 
   describe('list analytics', () => {
-    let ToolbarListsIndentation: ReactWrapper<any, any, any>;
-
     beforeEach(() => {
-      ({ ToolbarListsIndentation } = setupWithMockAnalytics());
+      setupWithMockAnalytics();
     });
 
-    it('should dispatch analytics event when bulleted list button is clicked', () => {
-      clickToolbarOption(
-        ToolbarListsIndentation,
-        listMessages.unorderedList.defaultMessage,
-      );
+    it('should dispatch analytics event when bulleted list button is clicked', async () => {
+      await clickToolbarOption(listMessages.unorderedList.defaultMessage);
 
       expect(mockDispatchAnalyticsEvent).toHaveBeenCalledWith({
         action: 'inserted',
@@ -215,11 +191,8 @@ describe('ToolbarListsIndentation', () => {
       });
     });
 
-    it('should dispatch analytics event when numbered list button is clicked', () => {
-      clickToolbarOption(
-        ToolbarListsIndentation,
-        listMessages.orderedList.defaultMessage,
-      );
+    it('should dispatch analytics event when numbered list button is clicked', async () => {
+      await clickToolbarOption(listMessages.orderedList.defaultMessage);
 
       expect(mockDispatchAnalyticsEvent).toHaveBeenCalledWith({
         action: 'inserted',
@@ -234,17 +207,14 @@ describe('ToolbarListsIndentation', () => {
   });
 
   describe('indentation buttons analytics', () => {
-    it('should dispatch analytics event when indent button is clicked', () => {
-      const { ToolbarListsIndentation } = setupWithoutMockAnalytics({
+    it('should dispatch analytics event when indent button is clicked', async () => {
+      setupWithoutMockAnalytics({
         showIndentationButtons: true,
         indentDisabled: false,
         doc: doc(p('{<>}hello world')),
       });
 
-      clickToolbarOption(
-        ToolbarListsIndentation,
-        indentationMessages.indent.defaultMessage,
-      );
+      await clickToolbarOption('indent');
 
       expect(createAnalyticsEvent).toHaveBeenCalledWith({
         action: 'formatted',
@@ -258,17 +228,14 @@ describe('ToolbarListsIndentation', () => {
       });
     });
 
-    it('should dispatch analytics event when outdent button is clicked', () => {
-      const { ToolbarListsIndentation } = setupWithoutMockAnalytics({
+    it('should dispatch analytics event when outdent button is clicked', async () => {
+      setupWithoutMockAnalytics({
         showIndentationButtons: true,
         outdentDisabled: false,
         doc: doc(indentation({ level: 1 })(p('{<>}hello world'))),
       });
 
-      clickToolbarOption(
-        ToolbarListsIndentation,
-        indentationMessages.outdent.defaultMessage,
-      );
+      await clickToolbarOption('outdent');
 
       expect(createAnalyticsEvent).toHaveBeenCalledWith({
         action: 'formatted',
@@ -285,32 +252,19 @@ describe('ToolbarListsIndentation', () => {
 
   describe('keyboard shortcuts', () => {
     it('should have ARIA keyshortcuts attribute', () => {
-      const { editorView } = setupWithMockAnalytics({ doc: doc(p('')) });
-      const { getByTestId } = render(
-        <IntlProvider locale="en">
-          <Toolbar
-            editorView={editorView}
-            showIndentationButtons={true}
-            featureFlags={{}}
-            onItemActivated={({ buttonName, editorView }) => ({
-              buttonName,
-              editorView,
-            })}
-          />
-        </IntlProvider>,
-      );
+      setupWithMockAnalytics({ showIndentationButtons: true, doc: doc(p('')) });
       expect(
-        getByTestId('Bullet list').getAttribute('aria-keyshortcuts'),
+        screen.getByTestId('Bullet list').getAttribute('aria-keyshortcuts'),
       ).toEqual('Control+Shift+8');
       expect(
-        getByTestId('Numbered list').getAttribute('aria-keyshortcuts'),
+        screen.getByTestId('Numbered list').getAttribute('aria-keyshortcuts'),
       ).toEqual('Control+Shift+7');
-      expect(getByTestId('indent').getAttribute('aria-keyshortcuts')).toEqual(
-        'Tab',
-      );
-      expect(getByTestId('outdent').getAttribute('aria-keyshortcuts')).toEqual(
-        'Shift+Tab',
-      );
+      expect(
+        screen.getByTestId('indent').getAttribute('aria-keyshortcuts'),
+      ).toEqual('Tab');
+      expect(
+        screen.getByTestId('outdent').getAttribute('aria-keyshortcuts'),
+      ).toEqual('Shift+Tab');
     });
   });
 });

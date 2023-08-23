@@ -21,13 +21,14 @@ import {
 import { pluginKey as alignmentPluginKey } from '../../pm-plugins/main';
 import { changeAlignment } from '../../commands';
 import { insertBlockType } from '../../../block-type/commands';
-import { toggleBulletList } from '../../../list/commands';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import { toggleBulletList } from '@atlaskit/editor-plugin-list/src/commands';
 
 import alignmentPlugin from '../../';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 
 import panelPlugin from '../../../panel';
-import listPlugin from '../../../list';
+import { listPlugin } from '@atlaskit/editor-plugin-list';
 import codeBlockPlugin from '../../../code-block';
 import { compositionPlugin } from '@atlaskit/editor-plugin-composition';
 import blockTypePlugin from '../../../block-type';

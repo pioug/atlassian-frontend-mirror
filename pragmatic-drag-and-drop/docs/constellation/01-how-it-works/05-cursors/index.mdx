@@ -1,0 +1,22 @@
+---
+title: Cursor control
+description: How you can control the users cursor while dragging
+---
+
+import SectionMessage from '@atlaskit/section-message';
+
+[The specification for web platform drag and drop](https://html.spec.whatwg.org/multipage/dnd.html#dom-datatransfer-dropeffect) currently gives very little flexibility when it comes to what `cursor` is used. Embracing the web platform unlocks huge speed and flexibility wins, but there are some (unfortunate) design constraints that we need to work within. Ideally we would have `cursor:grabbing` while dragging!
+
+While a drag operation is occurring, the `cursor` is **exclusively** controlled by the [`dropEffect`](https://html.spec.whatwg.org/multipage/dnd.html#dom-datatransfer-dropeffect) associated with the drag operation. You can control the `dropEffect` by using the `getDropEffect()` [drop target API](./drop-targets).
+
+| `dropEffect` | `cursor`         | Notes                           |
+| ------------ | ---------------- | ------------------------------- |
+| `"move"`     | `cursor:default` |                                 |
+| `"link"`     | `cursor:alias`   | ⚠️ Safari uses `cursor:default` |
+| `"copy"`     | `cursor:copy`    |                                 |
+| `"none"`     | `cursor:default` |                                 |
+
+### Known web platform bugs
+
+- Chrome: sometimes the `cursor` can inconsistently use the `cursor` value of the element being dragged over
+- Chrome: the `cursor` can sometimes flash `cursor:copy` when a drag is first starting - [bug](https://bugs.chromium.org/p/chromium/issues/detail?id=1356797)

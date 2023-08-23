@@ -17,9 +17,12 @@ import { runEscapeKeydownSuite } from '@atlaskit/editor-test-helpers/integration
 
 const emojiPanel = '[data-emoji-picker-container="true"]';
 
+// FIXME: This test was automatically skipped due to failure on 22/08/2023: https://product-fabric.atlassian.net/browse/ED-19661
 BrowserTestCase(
   'insert-block.ts: opens emoji picker from dropdown after resizing',
-  {},
+  {
+    skip: ['*'],
+  },
   async (client: any) => {
     const page = await goToEditorTestingWDExample(client);
 
@@ -38,9 +41,12 @@ BrowserTestCase(
   },
 );
 
+// FIXME: This test was automatically skipped due to failure on 22/08/2023: https://product-fabric.atlassian.net/browse/ED-19662
 BrowserTestCase(
   'insert-block.ts: with new extensions opens emoji picker from dropdown after resizing',
-  {},
+  {
+    skip: ['*'],
+  },
   async (client: any) => {
     const page = await goToEditorTestingWDExample(client);
 

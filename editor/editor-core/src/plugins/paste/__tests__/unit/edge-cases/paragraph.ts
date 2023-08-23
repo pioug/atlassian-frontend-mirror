@@ -38,7 +38,7 @@ import pastePlugin from '../../../index';
 import blockTypePlugin from '../../../../block-type';
 import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import { editorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
-import listPlugin from '../../../../list';
+import { listPlugin } from '@atlaskit/editor-plugin-list';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';

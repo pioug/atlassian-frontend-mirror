@@ -1,4 +1,4 @@
-import { ListState } from '@atlaskit/editor-core';
+import type { ListState } from '@atlaskit/editor-plugin-list';
 
 export interface ListsState {
   name: string;

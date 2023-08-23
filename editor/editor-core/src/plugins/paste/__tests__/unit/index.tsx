@@ -102,7 +102,7 @@ import mediaPlugin from '../../../media';
 import type { PluginConfig as TablePluginConfig } from '@atlaskit/editor-plugin-table/types';
 import blockTypePlugin from '../../../block-type';
 import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
-import listPlugin from '../../../list';
+import { listPlugin } from '@atlaskit/editor-plugin-list';
 import codeBlockPlugin from '../../../code-block';
 import { compositionPlugin } from '@atlaskit/editor-plugin-composition';
 import { textFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';

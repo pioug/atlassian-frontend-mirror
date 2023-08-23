@@ -1,0 +1,39 @@
+{
+  "valid": [
+    "description ~ empty",
+    "description !~ empty",
+    "description ~ null",
+    "description !~ null",
+    "description ~ a",
+    "description !~ a",
+    "description ~ \"a*\"",
+    "description !~ \"a*\"",
+    "description ~ 0",
+    "description !~ 0",
+    "description ~ -5",
+    "description !~ -5",
+    "comment ~ currentUser()",
+    "comment !~ currentUser()"
+  ],
+  "invalid": [
+    "description ~",
+    "description !~",
+    "description ! ~ empty",
+    "description ~ (a, b)",
+    "description !~ (a, b)",
+    "description ~ a after -1w",
+    "description !~ a after -1w",
+    "description ~ a before -1w",
+    "description !~ a before -1w",
+    "description ~ a on -1w",
+    "description !~ a on -1w",
+    "description ~ a during (-1w, now())",
+    "description !~ a during (-1w, now())",
+    "description ~ a by b",
+    "description !~ a by b",
+    "description ~ a from b",
+    "description !~ a from b",
+    "description ~ a to b",
+    "description !~ a to b"
+  ]
+}

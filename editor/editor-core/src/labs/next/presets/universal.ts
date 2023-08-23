@@ -13,7 +13,6 @@ import {
   insertBlockPlugin,
   jiraIssuePlugin,
   layoutPlugin,
-  listPlugin,
   toolbarListsIndentationPlugin,
   macroPlugin,
   maxContentSizePlugin,
@@ -47,6 +46,7 @@ import {
   borderPlugin,
 } from '../../../plugins';
 
+import { listPlugin } from '@atlaskit/editor-plugin-list';
 import { imageUploadPlugin } from '@atlaskit/editor-plugin-image-upload';
 import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import { contextPanelPlugin } from '@atlaskit/editor-plugin-context-panel';

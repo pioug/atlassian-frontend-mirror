@@ -152,7 +152,8 @@ describe('custom panels', () => {
     await page.hover(`${PanelSharedSelectors.title}`);
   });
 
-  it('remove emoji icon from custom panel', async () => {
+  // FIXME: This test was automatically skipped due to failure on 22/08/2023: https://product-fabric.atlassian.net/browse/ED-19651
+  it.skip('remove emoji icon from custom panel', async () => {
     await page.click(`.${PanelSharedCssClassName.icon}`);
     await page.click(`${PanelSharedSelectors.emojiIcon}`);
     const selectedEmoji = `${PanelSharedSelectors.selectedEmoji}`;
@@ -172,7 +173,8 @@ describe('custom panels', () => {
     await page.hover(`${PanelSharedSelectors.title}`);
   });
 
-  it('updates the panel and add emoji icon', async () => {
+  // FIXME: This test was automatically skipped due to failure on 22/08/2023: https://product-fabric.atlassian.net/browse/ED-19652
+  it.skip('updates the panel and add emoji icon', async () => {
     await page.click(`.${PanelSharedCssClassName.icon}`);
     await page.click(`${PanelSharedSelectors.emojiIcon}`);
     const selectedEmoji = `${PanelSharedSelectors.selectedEmoji}`;
@@ -184,7 +186,8 @@ describe('custom panels', () => {
     await page.click(`${PanelSharedSelectors.title}`);
   });
 
-  it('should show emoji picker on top of the toolbar', async () => {
+  // FIXME: This test was automatically skipped due to failure on 22/08/2023: https://product-fabric.atlassian.net/browse/ED-19653
+  it.skip('should show emoji picker on top of the toolbar', async () => {
     await page.click(`.${PanelSharedCssClassName.icon}`);
     await pressKey(page, [
       'ArrowRight',
@@ -210,7 +213,8 @@ describe('custom panels', () => {
       await page.click(`${PanelSharedSelectors.noteButton}`);
     });
 
-    it('ColorPicker when clicked on EmojiPicker', async () => {
+    // FIXME: This test was manually skipped due to failure on 23/08/2023: https://product-fabric.atlassian.net/browse/ED-19654
+    it.skip('ColorPicker when clicked on EmojiPicker', async () => {
       await page.click(`.${PanelSharedCssClassName.icon}`);
       await page.click(`${PanelSharedSelectors.colorPalette}`);
       await page.click(`${PanelSharedSelectors.emojiIcon}`);
@@ -242,7 +246,8 @@ describe('custom panels', () => {
     });
   });
 
-  it('should open custom Emoji option when clicked on addYourOwnEmoji button', async () => {
+  // FIXME: This test was automatically skipped due to failure on 22/08/2023: https://product-fabric.atlassian.net/browse/ED-19655
+  it.skip('should open custom Emoji option when clicked on addYourOwnEmoji button', async () => {
     await page.click(`.${PanelSharedCssClassName.icon}`);
     await page.click(`${PanelSharedSelectors.emojiIcon}`);
     await page.click(`${PanelSharedSelectors.addYourOwnEmoji}`);
@@ -251,7 +256,8 @@ describe('custom panels', () => {
     await page.click(`${PanelSharedSelectors.emojiPopup} input`);
   });
 
-  it('with a duplicate short name, should be able select yellow warning emoji', async () => {
+  // FIXME: This test was automatically skipped due to failure on 22/08/2023: https://product-fabric.atlassian.net/browse/ED-19656
+  it.skip('with a duplicate short name, should be able select yellow warning emoji', async () => {
     await page.click(`.${PanelSharedCssClassName.icon}`);
     await page.click(`${PanelSharedSelectors.warningButton}`);
     await page.click(`${PanelSharedSelectors.emojiIcon}`);

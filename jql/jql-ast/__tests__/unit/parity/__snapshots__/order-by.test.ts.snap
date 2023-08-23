@@ -1,0 +1,1447 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Order by 🟥 order 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input '<EOF>' expecting BY],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": undefined,
+    "parent": null,
+    "position": Array [
+      0,
+      5,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "order",
+}
+`;
+
+exports[`Order by 🟥 order by 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input '<EOF>' expecting {POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": Object {
+      "accept": [Function],
+      "enterNode": [Function],
+      "exitNode": [Function],
+      "fields": Array [],
+      "getChildren": [Function],
+      "operator": Object {
+        "accept": [Function],
+        "enterNode": [Function],
+        "exitNode": [Function],
+        "getChildren": [Function],
+        "parent": [Circular],
+        "position": Array [
+          0,
+          8,
+        ],
+        "value": "ORDER BY",
+      },
+      "parent": [Circular],
+      "position": Array [
+        0,
+        8,
+      ],
+      "prependOrderField": [Function],
+      "setOrderDirection": [Function],
+      "type": "order_by",
+    },
+    "parent": null,
+    "position": Array [
+      0,
+      8,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "order by",
+}
+`;
+
+exports[`Order by 🟥 order by asc 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'asc' expecting {POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": Object {
+      "accept": [Function],
+      "enterNode": [Function],
+      "exitNode": [Function],
+      "fields": Array [],
+      "getChildren": [Function],
+      "operator": Object {
+        "accept": [Function],
+        "enterNode": [Function],
+        "exitNode": [Function],
+        "getChildren": [Function],
+        "parent": [Circular],
+        "position": Array [
+          0,
+          8,
+        ],
+        "value": "ORDER BY",
+      },
+      "parent": [Circular],
+      "position": Array [
+        0,
+        12,
+      ],
+      "prependOrderField": [Function],
+      "setOrderDirection": [Function],
+      "type": "order_by",
+    },
+    "parent": null,
+    "position": Array [
+      0,
+      12,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "order by asc",
+}
+`;
+
+exports[`Order by 🟥 order by by 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'by' expecting {POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": Object {
+      "accept": [Function],
+      "enterNode": [Function],
+      "exitNode": [Function],
+      "fields": Array [],
+      "getChildren": [Function],
+      "operator": Object {
+        "accept": [Function],
+        "enterNode": [Function],
+        "exitNode": [Function],
+        "getChildren": [Function],
+        "parent": [Circular],
+        "position": Array [
+          0,
+          8,
+        ],
+        "value": "ORDER BY",
+      },
+      "parent": [Circular],
+      "position": Array [
+        0,
+        11,
+      ],
+      "prependOrderField": [Function],
+      "setOrderDirection": [Function],
+      "type": "order_by",
+    },
+    "parent": null,
+    "position": Array [
+      0,
+      11,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "order by by",
+}
+`;
+
+exports[`Order by 🟥 order by desc 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'desc' expecting {POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": Object {
+      "accept": [Function],
+      "enterNode": [Function],
+      "exitNode": [Function],
+      "fields": Array [],
+      "getChildren": [Function],
+      "operator": Object {
+        "accept": [Function],
+        "enterNode": [Function],
+        "exitNode": [Function],
+        "getChildren": [Function],
+        "parent": [Circular],
+        "position": Array [
+          0,
+          8,
+        ],
+        "value": "ORDER BY",
+      },
+      "parent": [Circular],
+      "position": Array [
+        0,
+        13,
+      ],
+      "prependOrderField": [Function],
+      "setOrderDirection": [Function],
+      "type": "order_by",
+    },
+    "parent": null,
+    "position": Array [
+      0,
+      13,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "order by desc",
+}
+`;
+
+exports[`Order by 🟥 order by issuetype asc desc 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: extraneous input 'desc' expecting <EOF>],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": Object {
+      "accept": [Function],
+      "enterNode": [Function],
+      "exitNode": [Function],
+      "fields": Array [
+        Object {
+          "accept": [Function],
+          "direction": Object {
+            "accept": [Function],
+            "enterNode": [Function],
+            "exitNode": [Function],
+            "getChildren": [Function],
+            "parent": [Circular],
+            "position": Array [
+              19,
+              22,
+            ],
+            "value": "ASC",
+          },
+          "enterNode": [Function],
+          "exitNode": [Function],
+          "field": Object {
+            "accept": [Function],
+            "enterNode": [Function],
+            "exitNode": [Function],
+            "getChildren": [Function],
+            "parent": [Circular],
+            "position": Array [
+              9,
+              18,
+            ],
+            "properties": Array [],
+            "text": "issuetype",
+            "value": "issuetype",
+          },
+          "getChildren": [Function],
+          "parent": [Circular],
+          "position": Array [
+            9,
+            22,
+          ],
+          "setOrderDirection": [Function],
+        },
+      ],
+      "getChildren": [Function],
+      "operator": Object {
+        "accept": [Function],
+        "enterNode": [Function],
+        "exitNode": [Function],
+        "getChildren": [Function],
+        "parent": [Circular],
+        "position": Array [
+          0,
+          8,
+        ],
+        "value": "ORDER BY",
+      },
+      "parent": [Circular],
+      "position": Array [
+        0,
+        22,
+      ],
+      "prependOrderField": [Function],
+      "setOrderDirection": [Function],
+      "type": "order_by",
+    },
+    "parent": null,
+    "position": Array [
+      0,
+      27,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "order by issuetype asc desc",
+}
+`;
+
+exports[`Order by 🟥 order by issuetype asc, 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input '<EOF>' expecting {POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": Object {
+      "accept": [Function],
+      "enterNode": [Function],
+      "exitNode": [Function],
+      "fields": Array [
+        Object {
+          "accept": [Function],
+          "direction": Object {
+            "accept": [Function],
+            "enterNode": [Function],
+            "exitNode": [Function],
+            "getChildren": [Function],
+            "parent": [Circular],
+            "position": Array [
+              19,
+              22,
+            ],
+            "value": "ASC",
+          },
+          "enterNode": [Function],
+          "exitNode": [Function],
+          "field": Object {
+            "accept": [Function],
+            "enterNode": [Function],
+            "exitNode": [Function],
+            "getChildren": [Function],
+            "parent": [Circular],
+            "position": Array [
+              9,
+              18,
+            ],
+            "properties": Array [],
+            "text": "issuetype",
+            "value": "issuetype",
+          },
+          "getChildren": [Function],
+          "parent": [Circular],
+          "position": Array [
+            9,
+            22,
+          ],
+          "setOrderDirection": [Function],
+        },
+      ],
+      "getChildren": [Function],
+      "operator": Object {
+        "accept": [Function],
+        "enterNode": [Function],
+        "exitNode": [Function],
+        "getChildren": [Function],
+        "parent": [Circular],
+        "position": Array [
+          0,
+          8,
+        ],
+        "value": "ORDER BY",
+      },
+      "parent": [Circular],
+      "position": Array [
+        0,
+        23,
+      ],
+      "prependOrderField": [Function],
+      "setOrderDirection": [Function],
+      "type": "order_by",
+    },
+    "parent": null,
+    "position": Array [
+      0,
+      23,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "order by issuetype asc,",
+}
+`;
+
+exports[`Order by 🟥 order by issuetype, 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input '<EOF>' expecting {POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": Object {
+      "accept": [Function],
+      "enterNode": [Function],
+      "exitNode": [Function],
+      "fields": Array [
+        Object {
+          "accept": [Function],
+          "direction": undefined,
+          "enterNode": [Function],
+          "exitNode": [Function],
+          "field": Object {
+            "accept": [Function],
+            "enterNode": [Function],
+            "exitNode": [Function],
+            "getChildren": [Function],
+            "parent": [Circular],
+            "position": Array [
+              9,
+              18,
+            ],
+            "properties": Array [],
+            "text": "issuetype",
+            "value": "issuetype",
+          },
+          "getChildren": [Function],
+          "parent": [Circular],
+          "position": Array [
+            9,
+            18,
+          ],
+          "setOrderDirection": [Function],
+        },
+      ],
+      "getChildren": [Function],
+      "operator": Object {
+        "accept": [Function],
+        "enterNode": [Function],
+        "exitNode": [Function],
+        "getChildren": [Function],
+        "parent": [Circular],
+        "position": Array [
+          0,
+          8,
+        ],
+        "value": "ORDER BY",
+      },
+      "parent": [Circular],
+      "position": Array [
+        0,
+        19,
+      ],
+      "prependOrderField": [Function],
+      "setOrderDirection": [Function],
+      "type": "order_by",
+    },
+    "parent": null,
+    "position": Array [
+      0,
+      19,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "order by issuetype,",
+}
+`;
+
+exports[`Order by 🟥 order by order 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: mismatched input 'order' expecting {POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": Object {
+      "accept": [Function],
+      "enterNode": [Function],
+      "exitNode": [Function],
+      "fields": Array [],
+      "getChildren": [Function],
+      "operator": Object {
+        "accept": [Function],
+        "enterNode": [Function],
+        "exitNode": [Function],
+        "getChildren": [Function],
+        "parent": [Circular],
+        "position": Array [
+          0,
+          8,
+        ],
+        "value": "ORDER BY",
+      },
+      "parent": [Circular],
+      "position": Array [
+        0,
+        14,
+      ],
+      "prependOrderField": [Function],
+      "setOrderDirection": [Function],
+      "type": "order_by",
+    },
+    "parent": null,
+    "position": Array [
+      0,
+      14,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "order by order",
+}
+`;
+
+exports[`Order by 🟥 order issuetype 1`] = `
+Object {
+  "errors": Array [
+    [JQLSyntaxError: missing BY at 'issuetype'],
+  ],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": Object {
+      "accept": [Function],
+      "enterNode": [Function],
+      "exitNode": [Function],
+      "fields": Array [
+        Object {
+          "accept": [Function],
+          "direction": undefined,
+          "enterNode": [Function],
+          "exitNode": [Function],
+          "field": Object {
+            "accept": [Function],
+            "enterNode": [Function],
+            "exitNode": [Function],
+            "getChildren": [Function],
+            "parent": [Circular],
+            "position": Array [
+              6,
+              15,
+            ],
+            "properties": Array [],
+            "text": "issuetype",
+            "value": "issuetype",
+          },
+          "getChildren": [Function],
+          "parent": [Circular],
+          "position": Array [
+            6,
+            15,
+          ],
+          "setOrderDirection": [Function],
+        },
+      ],
+      "getChildren": [Function],
+      "operator": Object {
+        "accept": [Function],
+        "enterNode": [Function],
+        "exitNode": [Function],
+        "getChildren": [Function],
+        "parent": [Circular],
+        "position": Array [
+          0,
+          0,
+        ],
+        "value": "ORDER BY",
+      },
+      "parent": [Circular],
+      "position": Array [
+        0,
+        15,
+      ],
+      "prependOrderField": [Function],
+      "setOrderDirection": [Function],
+      "type": "order_by",
+    },
+    "parent": null,
+    "position": Array [
+      0,
+      15,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "order issuetype",
+}
+`;
+
+exports[`Order by 🟩 order by "field with \\"escaped characters\\"" asc 1`] = `
+Object {
+  "errors": Array [],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": Object {
+      "accept": [Function],
+      "enterNode": [Function],
+      "exitNode": [Function],
+      "fields": Array [
+        Object {
+          "accept": [Function],
+          "direction": Object {
+            "accept": [Function],
+            "enterNode": [Function],
+            "exitNode": [Function],
+            "getChildren": [Function],
+            "parent": [Circular],
+            "position": Array [
+              45,
+              48,
+            ],
+            "value": "ASC",
+          },
+          "enterNode": [Function],
+          "exitNode": [Function],
+          "field": Object {
+            "accept": [Function],
+            "enterNode": [Function],
+            "exitNode": [Function],
+            "getChildren": [Function],
+            "parent": [Circular],
+            "position": Array [
+              9,
+              44,
+            ],
+            "properties": Array [],
+            "text": "\\"field with \\\\\\"escaped characters\\\\\\"\\"",
+            "value": "field with \\"escaped characters\\"",
+          },
+          "getChildren": [Function],
+          "parent": [Circular],
+          "position": Array [
+            9,
+            48,
+          ],
+          "setOrderDirection": [Function],
+        },
+      ],
+      "getChildren": [Function],
+      "operator": Object {
+        "accept": [Function],
+        "enterNode": [Function],
+        "exitNode": [Function],
+        "getChildren": [Function],
+        "parent": [Circular],
+        "position": Array [
+          0,
+          8,
+        ],
+        "value": "ORDER BY",
+      },
+      "parent": [Circular],
+      "position": Array [
+        0,
+        48,
+      ],
+      "prependOrderField": [Function],
+      "setOrderDirection": [Function],
+      "type": "order_by",
+    },
+    "parent": null,
+    "position": Array [
+      0,
+      48,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "order by \\"field with \\\\\\"escaped characters\\\\\\"\\" asc",
+}
+`;
+
+exports[`Order by 🟩 order by "field with spaces" asc 1`] = `
+Object {
+  "errors": Array [],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": Object {
+      "accept": [Function],
+      "enterNode": [Function],
+      "exitNode": [Function],
+      "fields": Array [
+        Object {
+          "accept": [Function],
+          "direction": Object {
+            "accept": [Function],
+            "enterNode": [Function],
+            "exitNode": [Function],
+            "getChildren": [Function],
+            "parent": [Circular],
+            "position": Array [
+              29,
+              32,
+            ],
+            "value": "ASC",
+          },
+          "enterNode": [Function],
+          "exitNode": [Function],
+          "field": Object {
+            "accept": [Function],
+            "enterNode": [Function],
+            "exitNode": [Function],
+            "getChildren": [Function],
+            "parent": [Circular],
+            "position": Array [
+              9,
+              28,
+            ],
+            "properties": Array [],
+            "text": "\\"field with spaces\\"",
+            "value": "field with spaces",
+          },
+          "getChildren": [Function],
+          "parent": [Circular],
+          "position": Array [
+            9,
+            32,
+          ],
+          "setOrderDirection": [Function],
+        },
+      ],
+      "getChildren": [Function],
+      "operator": Object {
+        "accept": [Function],
+        "enterNode": [Function],
+        "exitNode": [Function],
+        "getChildren": [Function],
+        "parent": [Circular],
+        "position": Array [
+          0,
+          8,
+        ],
+        "value": "ORDER BY",
+      },
+      "parent": [Circular],
+      "position": Array [
+        0,
+        32,
+      ],
+      "prependOrderField": [Function],
+      "setOrderDirection": [Function],
+      "type": "order_by",
+    },
+    "parent": null,
+    "position": Array [
+      0,
+      32,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "order by \\"field with spaces\\" asc",
+}
+`;
+
+exports[`Order by 🟩 order by issuetype 1`] = `
+Object {
+  "errors": Array [],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": Object {
+      "accept": [Function],
+      "enterNode": [Function],
+      "exitNode": [Function],
+      "fields": Array [
+        Object {
+          "accept": [Function],
+          "direction": undefined,
+          "enterNode": [Function],
+          "exitNode": [Function],
+          "field": Object {
+            "accept": [Function],
+            "enterNode": [Function],
+            "exitNode": [Function],
+            "getChildren": [Function],
+            "parent": [Circular],
+            "position": Array [
+              9,
+              18,
+            ],
+            "properties": Array [],
+            "text": "issuetype",
+            "value": "issuetype",
+          },
+          "getChildren": [Function],
+          "parent": [Circular],
+          "position": Array [
+            9,
+            18,
+          ],
+          "setOrderDirection": [Function],
+        },
+      ],
+      "getChildren": [Function],
+      "operator": Object {
+        "accept": [Function],
+        "enterNode": [Function],
+        "exitNode": [Function],
+        "getChildren": [Function],
+        "parent": [Circular],
+        "position": Array [
+          0,
+          8,
+        ],
+        "value": "ORDER BY",
+      },
+      "parent": [Circular],
+      "position": Array [
+        0,
+        18,
+      ],
+      "prependOrderField": [Function],
+      "setOrderDirection": [Function],
+      "type": "order_by",
+    },
+    "parent": null,
+    "position": Array [
+      0,
+      18,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "order by issuetype",
+}
+`;
+
+exports[`Order by 🟩 order by issuetype asc 1`] = `
+Object {
+  "errors": Array [],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": Object {
+      "accept": [Function],
+      "enterNode": [Function],
+      "exitNode": [Function],
+      "fields": Array [
+        Object {
+          "accept": [Function],
+          "direction": Object {
+            "accept": [Function],
+            "enterNode": [Function],
+            "exitNode": [Function],
+            "getChildren": [Function],
+            "parent": [Circular],
+            "position": Array [
+              19,
+              22,
+            ],
+            "value": "ASC",
+          },
+          "enterNode": [Function],
+          "exitNode": [Function],
+          "field": Object {
+            "accept": [Function],
+            "enterNode": [Function],
+            "exitNode": [Function],
+            "getChildren": [Function],
+            "parent": [Circular],
+            "position": Array [
+              9,
+              18,
+            ],
+            "properties": Array [],
+            "text": "issuetype",
+            "value": "issuetype",
+          },
+          "getChildren": [Function],
+          "parent": [Circular],
+          "position": Array [
+            9,
+            22,
+          ],
+          "setOrderDirection": [Function],
+        },
+      ],
+      "getChildren": [Function],
+      "operator": Object {
+        "accept": [Function],
+        "enterNode": [Function],
+        "exitNode": [Function],
+        "getChildren": [Function],
+        "parent": [Circular],
+        "position": Array [
+          0,
+          8,
+        ],
+        "value": "ORDER BY",
+      },
+      "parent": [Circular],
+      "position": Array [
+        0,
+        22,
+      ],
+      "prependOrderField": [Function],
+      "setOrderDirection": [Function],
+      "type": "order_by",
+    },
+    "parent": null,
+    "position": Array [
+      0,
+      22,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "order by issuetype asc",
+}
+`;
+
+exports[`Order by 🟩 order by issuetype asc, another desc 1`] = `
+Object {
+  "errors": Array [],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": Object {
+      "accept": [Function],
+      "enterNode": [Function],
+      "exitNode": [Function],
+      "fields": Array [
+        Object {
+          "accept": [Function],
+          "direction": Object {
+            "accept": [Function],
+            "enterNode": [Function],
+            "exitNode": [Function],
+            "getChildren": [Function],
+            "parent": [Circular],
+            "position": Array [
+              19,
+              22,
+            ],
+            "value": "ASC",
+          },
+          "enterNode": [Function],
+          "exitNode": [Function],
+          "field": Object {
+            "accept": [Function],
+            "enterNode": [Function],
+            "exitNode": [Function],
+            "getChildren": [Function],
+            "parent": [Circular],
+            "position": Array [
+              9,
+              18,
+            ],
+            "properties": Array [],
+            "text": "issuetype",
+            "value": "issuetype",
+          },
+          "getChildren": [Function],
+          "parent": [Circular],
+          "position": Array [
+            9,
+            22,
+          ],
+          "setOrderDirection": [Function],
+        },
+        Object {
+          "accept": [Function],
+          "direction": Object {
+            "accept": [Function],
+            "enterNode": [Function],
+            "exitNode": [Function],
+            "getChildren": [Function],
+            "parent": [Circular],
+            "position": Array [
+              32,
+              36,
+            ],
+            "value": "DESC",
+          },
+          "enterNode": [Function],
+          "exitNode": [Function],
+          "field": Object {
+            "accept": [Function],
+            "enterNode": [Function],
+            "exitNode": [Function],
+            "getChildren": [Function],
+            "parent": [Circular],
+            "position": Array [
+              24,
+              31,
+            ],
+            "properties": Array [],
+            "text": "another",
+            "value": "another",
+          },
+          "getChildren": [Function],
+          "parent": [Circular],
+          "position": Array [
+            24,
+            36,
+          ],
+          "setOrderDirection": [Function],
+        },
+      ],
+      "getChildren": [Function],
+      "operator": Object {
+        "accept": [Function],
+        "enterNode": [Function],
+        "exitNode": [Function],
+        "getChildren": [Function],
+        "parent": [Circular],
+        "position": Array [
+          0,
+          8,
+        ],
+        "value": "ORDER BY",
+      },
+      "parent": [Circular],
+      "position": Array [
+        0,
+        36,
+      ],
+      "prependOrderField": [Function],
+      "setOrderDirection": [Function],
+      "type": "order_by",
+    },
+    "parent": null,
+    "position": Array [
+      0,
+      36,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "order by issuetype asc, another desc",
+}
+`;
+
+exports[`Order by 🟩 order by issuetype desc 1`] = `
+Object {
+  "errors": Array [],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": Object {
+      "accept": [Function],
+      "enterNode": [Function],
+      "exitNode": [Function],
+      "fields": Array [
+        Object {
+          "accept": [Function],
+          "direction": Object {
+            "accept": [Function],
+            "enterNode": [Function],
+            "exitNode": [Function],
+            "getChildren": [Function],
+            "parent": [Circular],
+            "position": Array [
+              19,
+              23,
+            ],
+            "value": "DESC",
+          },
+          "enterNode": [Function],
+          "exitNode": [Function],
+          "field": Object {
+            "accept": [Function],
+            "enterNode": [Function],
+            "exitNode": [Function],
+            "getChildren": [Function],
+            "parent": [Circular],
+            "position": Array [
+              9,
+              18,
+            ],
+            "properties": Array [],
+            "text": "issuetype",
+            "value": "issuetype",
+          },
+          "getChildren": [Function],
+          "parent": [Circular],
+          "position": Array [
+            9,
+            23,
+          ],
+          "setOrderDirection": [Function],
+        },
+      ],
+      "getChildren": [Function],
+      "operator": Object {
+        "accept": [Function],
+        "enterNode": [Function],
+        "exitNode": [Function],
+        "getChildren": [Function],
+        "parent": [Circular],
+        "position": Array [
+          0,
+          8,
+        ],
+        "value": "ORDER BY",
+      },
+      "parent": [Circular],
+      "position": Array [
+        0,
+        23,
+      ],
+      "prependOrderField": [Function],
+      "setOrderDirection": [Function],
+      "type": "order_by",
+    },
+    "parent": null,
+    "position": Array [
+      0,
+      23,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "order by issuetype desc",
+}
+`;
+
+exports[`Order by 🟩 order by issuetype, another 1`] = `
+Object {
+  "errors": Array [],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": Object {
+      "accept": [Function],
+      "enterNode": [Function],
+      "exitNode": [Function],
+      "fields": Array [
+        Object {
+          "accept": [Function],
+          "direction": undefined,
+          "enterNode": [Function],
+          "exitNode": [Function],
+          "field": Object {
+            "accept": [Function],
+            "enterNode": [Function],
+            "exitNode": [Function],
+            "getChildren": [Function],
+            "parent": [Circular],
+            "position": Array [
+              9,
+              18,
+            ],
+            "properties": Array [],
+            "text": "issuetype",
+            "value": "issuetype",
+          },
+          "getChildren": [Function],
+          "parent": [Circular],
+          "position": Array [
+            9,
+            18,
+          ],
+          "setOrderDirection": [Function],
+        },
+        Object {
+          "accept": [Function],
+          "direction": undefined,
+          "enterNode": [Function],
+          "exitNode": [Function],
+          "field": Object {
+            "accept": [Function],
+            "enterNode": [Function],
+            "exitNode": [Function],
+            "getChildren": [Function],
+            "parent": [Circular],
+            "position": Array [
+              20,
+              27,
+            ],
+            "properties": Array [],
+            "text": "another",
+            "value": "another",
+          },
+          "getChildren": [Function],
+          "parent": [Circular],
+          "position": Array [
+            20,
+            27,
+          ],
+          "setOrderDirection": [Function],
+        },
+      ],
+      "getChildren": [Function],
+      "operator": Object {
+        "accept": [Function],
+        "enterNode": [Function],
+        "exitNode": [Function],
+        "getChildren": [Function],
+        "parent": [Circular],
+        "position": Array [
+          0,
+          8,
+        ],
+        "value": "ORDER BY",
+      },
+      "parent": [Circular],
+      "position": Array [
+        0,
+        27,
+      ],
+      "prependOrderField": [Function],
+      "setOrderDirection": [Function],
+      "type": "order_by",
+    },
+    "parent": null,
+    "position": Array [
+      0,
+      27,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "order by issuetype, another",
+}
+`;
+
+exports[`Order by 🟩 order by issuetype, another asc 1`] = `
+Object {
+  "errors": Array [],
+  "query": Object {
+    "accept": [Function],
+    "appendClause": [Function],
+    "enterNode": [Function],
+    "exitNode": [Function],
+    "getChildren": [Function],
+    "orderBy": Object {
+      "accept": [Function],
+      "enterNode": [Function],
+      "exitNode": [Function],
+      "fields": Array [
+        Object {
+          "accept": [Function],
+          "direction": undefined,
+          "enterNode": [Function],
+          "exitNode": [Function],
+          "field": Object {
+            "accept": [Function],
+            "enterNode": [Function],
+            "exitNode": [Function],
+            "getChildren": [Function],
+            "parent": [Circular],
+            "position": Array [
+              9,
+              18,
+            ],
+            "properties": Array [],
+            "text": "issuetype",
+            "value": "issuetype",
+          },
+          "getChildren": [Function],
+          "parent": [Circular],
+          "position": Array [
+            9,
+            18,
+          ],
+          "setOrderDirection": [Function],
+        },
+        Object {
+          "accept": [Function],
+          "direction": Object {
+            "accept": [Function],
+            "enterNode": [Function],
+            "exitNode": [Function],
+            "getChildren": [Function],
+            "parent": [Circular],
+            "position": Array [
+              28,
+              31,
+            ],
+            "value": "ASC",
+          },
+          "enterNode": [Function],
+          "exitNode": [Function],
+          "field": Object {
+            "accept": [Function],
+            "enterNode": [Function],
+            "exitNode": [Function],
+            "getChildren": [Function],
+            "parent": [Circular],
+            "position": Array [
+              20,
+              27,
+            ],
+            "properties": Array [],
+            "text": "another",
+            "value": "another",
+          },
+          "getChildren": [Function],
+          "parent": [Circular],
+          "position": Array [
+            20,
+            31,
+          ],
+          "setOrderDirection": [Function],
+        },
+      ],
+      "getChildren": [Function],
+      "operator": Object {
+        "accept": [Function],
+        "enterNode": [Function],
+        "exitNode": [Function],
+        "getChildren": [Function],
+        "parent": [Circular],
+        "position": Array [
+          0,
+          8,
+        ],
+        "value": "ORDER BY",
+      },
+      "parent": [Circular],
+      "position": Array [
+        0,
+        31,
+      ],
+      "prependOrderField": [Function],
+      "setOrderDirection": [Function],
+      "type": "order_by",
+    },
+    "parent": null,
+    "position": Array [
+      0,
+      31,
+    ],
+    "prependOrderField": [Function],
+    "removeClause": [Function],
+    "replaceClause": [Function],
+    "setOrderDirection": [Function],
+    "type": "query",
+    "where": undefined,
+  },
+  "represents": "order by issuetype, another asc",
+}
+`;

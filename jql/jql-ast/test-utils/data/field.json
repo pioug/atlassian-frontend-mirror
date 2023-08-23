@@ -1,0 +1,34 @@
+{
+  "valid": [
+    "issuetype = value",
+    "\"issue type\" = value",
+    "\"issuetype $pecial characters\" = value",
+    "issue\\\"type = value",
+    "issue\\ type = value",
+    "issuetype\u2ee5 = value",
+    "issue\\ntype\\u2ee5 = value",
+    "\"issue\\\\ntype\\\\u2ee5\" = value",
+    "\\ = value",
+    "\"don't\" = value",
+    "\"don\\\"t\" = value",
+    "12345 = value",
+    "-67890 = value",
+    "some\\u0082issuetype = value",
+    "cf[123] = value",
+    "cf [ 123 ] = value",
+    "development[commits] = value",
+    "development[commits].all = value",
+    "development [ commits ] . all = value",
+    "assignee.property[name] = value"
+  ],
+  "invalid": [
+    "fi\"eld = value",
+    "fi\neld = value",
+    "fi eld = value",
+    "$issuetype = value",
+    "= value",
+    " = value",
+    "don't = value",
+    "cf [ 1 2 3 ] = value"
+  ]
+}

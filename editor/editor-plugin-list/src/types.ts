@@ -1,17 +1,22 @@
 import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type {
+  Command,
+  FeatureFlags,
   NextEditorPlugin,
   OptionalPlugin,
 } from '@atlaskit/editor-common/types';
-import type { Command, FeatureFlags } from '@atlaskit/editor-common/types';
 import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import type {
+  DecorationSet,
+  EditorView,
+} from '@atlaskit/editor-prosemirror/view';
 
-type InputMethod = INPUT_METHOD.KEYBOARD | INPUT_METHOD.TOOLBAR;
+export type InputMethod = INPUT_METHOD.KEYBOARD | INPUT_METHOD.TOOLBAR;
+
+export const MAX_NESTED_LIST_INDENTATION = 6;
 
 export type ListPluginOptions = Pick<FeatureFlags, 'restartNumberedLists'>;
 

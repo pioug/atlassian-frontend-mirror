@@ -1,11 +1,18 @@
 /** @jsx jsx */
-import { Fragment, memo, useEffect, useRef, useState } from 'react';
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { css, jsx, SerializedStyles } from '@emotion/react';
 import { createPortal } from 'react-dom';
 import invariant from 'tiny-invariant';
 
+import Button from '@atlaskit/button';
+import DropdownMenu, {
+  CustomTriggerProps,
+  DropdownItem,
+  DropdownItemGroup,
+} from '@atlaskit/dropdown-menu';
 import Heading from '@atlaskit/heading';
+import MoreIcon from '@atlaskit/icon/glyph/more';
 import { easeInOut } from '@atlaskit/motion/curves';
 import { mediumDurationMs } from '@atlaskit/motion/durations';
 import {
@@ -26,7 +33,13 @@ import { token } from '@atlaskit/tokens';
 import { ColumnType } from '../data/people';
 import { cardGap, columnGap } from '../util/constants';
 
+import { useBoardContext } from './board-context';
 import { Card } from './card';
+import {
+  ColumnContext,
+  ColumnContextProps,
+  useColumnContext,
+} from './column-context';
 
 const columnStyles = css({
   display: 'flex',
@@ -195,8 +208,25 @@ export const Column = memo(function Column({ column }: { column: ColumnType }) {
     );
   }, [columnId]);
 
+  const stableItems = useRef(column.items);
+  useEffect(() => {
+    stableItems.current = column.items;
+  }, [column.items]);
+
+  const getCardIndex = useCallback((userId: string) => {
+    return stableItems.current.findIndex(item => item.userId === userId);
+  }, []);
+
+  const getNumCards = useCallback(() => {
+    return stableItems.current.length;
+  }, []);
+
+  const contextValue: ColumnContextProps = useMemo(() => {
+    return { columnId, getCardIndex, getNumCards };
+  }, [columnId, getCardIndex, getNumCards]);
+
   return (
-    <Fragment>
+    <ColumnContext.Provider value={contextValue}>
       <div css={[columnStyles, stateStyles[state.type]]} ref={columnRef}>
         <div
           css={columnHeaderStyles}
@@ -206,6 +236,7 @@ export const Column = memo(function Column({ column }: { column: ColumnType }) {
           <Heading level="h300" as="span">
             {column.title}
           </Heading>
+          <ActionMenu />
         </div>
         <div css={scrollContainerStyles}>
           <div css={cardListStyles} ref={cardListRef}>
@@ -221,7 +252,7 @@ export const Column = memo(function Column({ column }: { column: ColumnType }) {
       {state.type === 'generate-safari-column-preview'
         ? createPortal(<SafariColumnPreview column={column} />, state.container)
         : null}
-    </Fragment>
+    </ColumnContext.Provider>
   );
 });
 
@@ -240,5 +271,63 @@ function SafariColumnPreview({ column }: { column: ColumnType }) {
         {column.title}
       </Heading>
     </div>
+  );
+}
+
+function ActionMenu() {
+  return (
+    <DropdownMenu trigger={DropdownMenuTrigger}>
+      <ActionMenuItems />
+    </DropdownMenu>
+  );
+}
+
+function ActionMenuItems() {
+  const { columnId } = useColumnContext();
+  const { getColumns, reorderColumn } = useBoardContext();
+
+  const columns = getColumns();
+  const startIndex = columns.findIndex(column => column.columnId === columnId);
+
+  const moveLeft = useCallback(() => {
+    reorderColumn({
+      startIndex,
+      finishIndex: startIndex - 1,
+    });
+  }, [reorderColumn, startIndex]);
+
+  const moveRight = useCallback(() => {
+    reorderColumn({
+      startIndex,
+      finishIndex: startIndex + 1,
+    });
+  }, [reorderColumn, startIndex]);
+
+  const isMoveLeftDisabled = startIndex === 0;
+  const isMoveRightDisabled = startIndex === columns.length - 1;
+
+  return (
+    <DropdownItemGroup>
+      <DropdownItem onClick={moveLeft} isDisabled={isMoveLeftDisabled}>
+        Move left
+      </DropdownItem>
+      <DropdownItem onClick={moveRight} isDisabled={isMoveRightDisabled}>
+        Move right
+      </DropdownItem>
+    </DropdownItemGroup>
+  );
+}
+
+function DropdownMenuTrigger({
+  triggerRef,
+  ...triggerProps
+}: CustomTriggerProps) {
+  return (
+    <Button
+      ref={triggerRef}
+      {...triggerProps}
+      appearance="subtle"
+      iconBefore={<MoreIcon label="Actions" />}
+    />
   );
 }

@@ -1,5 +1,11 @@
 # @atlaskit/link-test-helpers
 
+## 6.0.4
+
+### Patch Changes
+
+- [`f2fcb2a54c8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f2fcb2a54c8) - Update test data types
+
 ## 6.0.3
 
 ### Patch Changes

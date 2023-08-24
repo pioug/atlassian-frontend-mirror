@@ -4,12 +4,12 @@ import {
   InsertTypeAheadStep,
   InsertTypeAheadStages,
 } from '@atlaskit/adf-schema/steps';
+import type { TypeAheadInputMethod } from '@atlaskit/editor-plugin-type-ahead';
 import type {
   CreateTypeAheadDecorations,
   PopupMountPointReference,
   RemoveTypeAheadDecorations,
   TypeAheadHandler,
-  TypeAheadInputMethod,
   TypeAheadPluginState,
 } from '../types';
 import { ACTIONS } from './actions';

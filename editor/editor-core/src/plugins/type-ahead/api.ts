@@ -5,6 +5,7 @@ import {
   TypeAheadAvailableNodes,
   SelectItemMode,
 } from '@atlaskit/editor-common/type-ahead';
+import type { TypeAheadInputMethod } from '@atlaskit/editor-plugin-type-ahead';
 import {
   findHandler,
   findHandlerByTrigger,
@@ -20,7 +21,7 @@ import {
 import { closeTypeAhead } from './transforms/close-type-ahead';
 import { updateQuery } from './commands/update-query';
 import { insertTypeAheadItem } from './commands/insert-type-ahead-item';
-import type { TypeAheadHandler, TypeAheadInputMethod } from './types';
+import type { TypeAheadHandler } from './types';
 import type { Command } from '../../types/command';
 
 type CommonProps = {

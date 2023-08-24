@@ -13,18 +13,18 @@ const getWidthRelativeGuideline = (
   view: EditorView,
   nodeWithPos: NodeWithPos,
   editorWidth: number,
+  topOffset: number,
   size?: { width: number; height: number },
 ): GuidelineConfig | null => {
   const { node, pos } = nodeWithPos;
 
-  const { top: topOffSet, height: viewHeight } =
-    view.dom.getBoundingClientRect();
+  const { height: viewHeight } = view.dom.getBoundingClientRect();
   const { top } = view.coordsAtPos(pos + 1); // media node
 
   const { width, height } =
     size || getMediaSingleDimensions(node, editorWidth) || {};
 
-  const y = top - topOffSet - RELATIVE_GUIDES_GAP;
+  const y = top - topOffset - RELATIVE_GUIDES_GAP;
 
   if (!width || !height || y < 0 || y > viewHeight) {
     return null;
@@ -75,11 +75,11 @@ const getHeightRelativeGuideline = (
   view: EditorView,
   nodeWithPos: NodeWithPos,
   editorWidth: number,
+  topOffset: number,
   size?: { width: number; height: number },
 ): GuidelineConfig | null => {
   const { node, pos } = nodeWithPos;
-  const { top: topOffSet, height: viewHeight } =
-    view.dom.getBoundingClientRect();
+  const { height: viewHeight } = view.dom.getBoundingClientRect();
   const { top } = view.coordsAtPos(pos + 1); // media node
 
   const { width, height } =
@@ -89,7 +89,7 @@ const getHeightRelativeGuideline = (
     return null;
   }
 
-  const start = top - topOffSet;
+  const start = top - topOffset;
   const end = start + height;
 
   if (end < 0 || start > viewHeight) {
@@ -158,6 +158,7 @@ export const getRelativeGuidelines = (
   nodeWithPos: NodeWithPos,
   view: EditorView,
   editorWidth: number,
+  topOffset: number,
   size: { width: number; height: number },
 ) => {
   const matchWidth = relativeGuides.width
@@ -180,6 +181,7 @@ export const getRelativeGuidelines = (
         view,
         nodeWithPos,
         editorWidth,
+        topOffset,
         size,
       ),
       ...matches.map((nodeWithPos, index) => {
@@ -188,6 +190,7 @@ export const getRelativeGuidelines = (
           view,
           nodeWithPos,
           editorWidth,
+          topOffset,
         );
       }),
     ].filter((config): config is GuidelineConfig => !!config);

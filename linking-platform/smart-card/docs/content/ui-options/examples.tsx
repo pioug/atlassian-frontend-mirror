@@ -148,7 +148,7 @@ ${(
 
 ### Hide hover card preview button
 
-Hide hover preview’s "Full screen view" button.
+Hide hover preview’s "Open preview" button.
 
 ${(
   <CustomExample

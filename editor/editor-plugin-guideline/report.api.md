@@ -17,7 +17,7 @@
 ```ts
 import { DisplayGuideline } from '@atlaskit/editor-common/guideline';
 import { GuidelinePluginState } from '@atlaskit/editor-common/guideline';
-import { NextEditorPlugin } from '@atlaskit/editor-common/types';
+import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import type { widthPlugin } from '@atlaskit/editor-plugin-width';
 
 // @public (undocumented)

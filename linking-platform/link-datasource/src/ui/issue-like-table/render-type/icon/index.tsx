@@ -12,7 +12,7 @@ interface IconProps extends Icon {
 const IconWrapper = styled.div`
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: left;
 `;
 
 export const ICON_TYPE_TEST_ID = 'link-datasource-render-type--icon';

@@ -22,7 +22,7 @@ const typography: ValueSchema<
         value: {
           fontWeight: 'FontWeight700',
           fontSize: 'FontSize36',
-          lineHeight: 'LineHeight600',
+          lineHeight: 'LineHeight700',
           fontFamily: 'FontFamilyWebSans',
           fontStyle: 'normal',
           letterSpacing: 'LetterSpacing0',
@@ -115,7 +115,7 @@ const typography: ValueSchema<
       sm: {
         value: {
           fontWeight: 'FontWeight400',
-          fontSize: 'FontSize11',
+          fontSize: 'FontSize12',
           lineHeight: 'LineHeight200',
           fontFamily: 'FontFamilyWebSans',
           fontStyle: 'normal',
@@ -137,7 +137,7 @@ const typography: ValueSchema<
       sm: {
         value: {
           fontWeight: 'FontWeight400',
-          fontSize: 'FontSize11',
+          fontSize: 'FontSize12',
           lineHeight: 'LineHeight1',
           fontFamily: 'FontFamilyWebSans',
           fontStyle: 'normal',

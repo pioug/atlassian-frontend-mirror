@@ -41,7 +41,6 @@ export default () => (
     <Provider
       storeOptions={storeOptions}
       client={new CustomLoadingClient('staging')}
-      featureFlags={{ enableImprovedPreviewAction: true }}
     >
       <Card
         url={url}
@@ -53,7 +52,6 @@ export default () => (
     <Provider
       storeOptions={storeOptions}
       client={new CustomFailureClient('staging')}
-      featureFlags={{ enableImprovedPreviewAction: true }}
     >
       <Card
         url={url}

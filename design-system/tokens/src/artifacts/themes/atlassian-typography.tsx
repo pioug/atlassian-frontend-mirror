@@ -1,12 +1,12 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::8a2c4f8f66783e1940d1aab250cf35a9>>
+ * @codegen <<SignedSource::ce2e1e115aa9ff0027981ef8ba658c64>>
  * @codegenCommand yarn build tokens
  */
 export default `
 html[data-theme~="typography:typography"] {
   --ds-font-body: normal 400 0.875rem/1.25rem var(--ds-font-family-sans);
-  --ds-font-body-sm: normal 400 0.6875rem/1.25rem var(--ds-font-family-sans);
+  --ds-font-body-sm: normal 400 0.75rem/1.25rem var(--ds-font-family-sans);
   --ds-font-code: normal 400 0.875em/1 var(--ds-font-family-monospace);
   --ds-font-heading-lg: normal 700 1.5rem/1.75rem var(--ds-font-family-sans);
   --ds-font-heading-md: normal 700 1.25rem/1.5rem var(--ds-font-family-sans);
@@ -21,7 +21,7 @@ html[data-theme~="typography:typography"] {
   --ds-font-letterSpacing-300: 0;
   --ds-font-letterSpacing-400: 0;
   --ds-font-ui: normal 400 0.875rem/1 var(--ds-font-family-sans);
-  --ds-font-ui-sm: normal 400 0.6875rem/1 var(--ds-font-family-sans);
+  --ds-font-ui-sm: normal 400 0.75rem/1 var(--ds-font-family-sans);
   --ds-font-family-code: ui-monospace, Menlo, "Segoe UI Mono", "Ubuntu Mono", monospace;
   --ds-font-family-monospace: ui-monospace, Menlo, "Segoe UI Mono", "Ubuntu Mono", monospace;
   --ds-font-family-product: ui-sans-serif, "Segoe UI", system-ui, Ubuntu, "Helvetica Neue", sans-serif;

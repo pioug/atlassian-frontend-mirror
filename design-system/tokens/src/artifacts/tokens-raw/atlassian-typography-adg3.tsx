@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::276e80b37fcbf4b84df1a4060d56d879>>
+ * @codegen <<SignedSource::72f2d56fa731cf91334d35722aa12dda>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -71,7 +71,7 @@ const tokens = [
       },
       "value": {
         "fontWeight": "FontWeight400",
-        "fontSize": "FontSize11",
+        "fontSize": "LegacyFontSize11",
         "lineHeight": "LineHeight200",
         "fontFamily": "FontFamilyWebSans",
         "fontStyle": "normal",
@@ -359,7 +359,7 @@ const tokens = [
       "value": {
         "fontWeight": "FontWeight500",
         "fontSize": "LegacyFontSize35",
-        "lineHeight": "LineHeight600",
+        "lineHeight": "LineHeight700",
         "fontFamily": "FontFamilyWebSans",
         "fontStyle": "normal",
         "letterSpacing": "LetterSpacing400"
@@ -422,7 +422,7 @@ const tokens = [
       "description": "Helpful guidance goes here"
     },
     "value": "0",
-    "filePath": "src/tokens/atlassian-typography-adg3/utils.tsx",
+    "filePath": "src/tokens/atlassian-typography-adg3/letter-spacing.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -449,7 +449,7 @@ const tokens = [
       "description": "Helpful guidance goes here"
     },
     "value": "-0.003em",
-    "filePath": "src/tokens/atlassian-typography-adg3/utils.tsx",
+    "filePath": "src/tokens/atlassian-typography-adg3/letter-spacing.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -476,7 +476,7 @@ const tokens = [
       "description": "Helpful guidance goes here"
     },
     "value": "-0.006em",
-    "filePath": "src/tokens/atlassian-typography-adg3/utils.tsx",
+    "filePath": "src/tokens/atlassian-typography-adg3/letter-spacing.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -503,7 +503,7 @@ const tokens = [
       "description": "Helpful guidance goes here"
     },
     "value": "-0.008em",
-    "filePath": "src/tokens/atlassian-typography-adg3/utils.tsx",
+    "filePath": "src/tokens/atlassian-typography-adg3/letter-spacing.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -530,7 +530,7 @@ const tokens = [
       "description": "Helpful guidance goes here"
     },
     "value": "-0.01em",
-    "filePath": "src/tokens/atlassian-typography-adg3/utils.tsx",
+    "filePath": "src/tokens/atlassian-typography-adg3/letter-spacing.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -616,7 +616,7 @@ const tokens = [
       },
       "value": {
         "fontWeight": "FontWeight400",
-        "fontSize": "FontSize11",
+        "fontSize": "LegacyFontSize11",
         "lineHeight": "LineHeight100",
         "fontFamily": "FontFamilyWebSans",
         "fontStyle": "normal",
@@ -783,7 +783,7 @@ const tokens = [
         "introduced": "0.10.33",
         "description": "Helpful guidance goes here"
       },
-      "value": "FontSize11"
+      "value": "LegacyFontSize11"
     },
     "name": "font.size.050",
     "path": [
@@ -1269,7 +1269,7 @@ const tokens = [
         "introduced": "0.10.33",
         "description": "Helpful guidance goes here"
       },
-      "value": "LineHeight600"
+      "value": "LineHeight700"
     },
     "name": "font.lineHeight.600",
     "path": [

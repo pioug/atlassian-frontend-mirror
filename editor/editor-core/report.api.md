@@ -42,7 +42,6 @@ import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider
 import type { ContextUpdateHandler } from '@atlaskit/editor-common/types';
 import { createTable } from '@atlaskit/editor-plugin-table/commands';
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
-import type { CreateUIAnalyticsEvent as CreateUIAnalyticsEvent_2 } from '@atlaskit/analytics-next/types';
 import { darkModeStatusColorPalette } from '@atlaskit/editor-common/ui-color';
 import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import type { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
@@ -156,8 +155,10 @@ import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { TransactionTracking } from '@atlaskit/editor-common/types';
 import type { Transformer as Transformer_2 } from '@atlaskit/editor-common/types';
 import type { TypeAheadHandler } from '@atlaskit/editor-common/types';
+import type { TypeAheadInputMethod } from '@atlaskit/editor-plugin-type-ahead';
 import { TypeAheadItem } from '@atlaskit/editor-common/provider-factory';
 import type { TypeAheadItem as TypeAheadItem_2 } from '@atlaskit/editor-common/types';
+import type { TypeAheadPluginOptions } from '@atlaskit/editor-plugin-type-ahead';
 import type { TypeAheadStats } from '@atlaskit/editor-common/types';
 import { UIComponentFactory } from '@atlaskit/editor-common/types';
 import { UploadEndEventPayload } from '@atlaskit/media-picker/types';
@@ -2054,23 +2055,10 @@ class TransactionTracker {
   shouldTrackTransaction(options: TransactionTracking): boolean;
 }
 
-// @public (undocumented)
-type TypeAheadInputMethod =
-  | INPUT_METHOD.INSERT_MENU
-  | INPUT_METHOD.KEYBOARD
-  | INPUT_METHOD.QUICK_INSERT
-  | INPUT_METHOD.TOOLBAR;
-
 export { TypeAheadItem };
 
 // @public (undocumented)
 export const typeAheadPluginKey: PluginKey<TypeAheadPluginState>;
-
-// @public (undocumented)
-type TypeAheadPluginOptions = {
-  isMobile?: boolean;
-  createAnalyticsEvent?: CreateUIAnalyticsEvent_2;
-};
 
 // @public (undocumented)
 export type TypeAheadPluginState = {

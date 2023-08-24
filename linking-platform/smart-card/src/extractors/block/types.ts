@@ -10,5 +10,4 @@ export interface ExtractBlockOpts {
   extensionKey?: string;
   source?: CardInnerAppearance;
   testId?: string;
-  enableImprovedPreviewAction?: boolean;
 }

@@ -8,7 +8,7 @@ import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { emoji } from '@atlaskit/adf-schema';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import { TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
-import type { EmojiDescription, EmojiProvider, EmojiId } from '@atlaskit/emoji';
+import type { EmojiDescription, EmojiProvider } from '@atlaskit/emoji';
 import {
   EmojiTypeAheadItem,
   SearchSort,
@@ -17,11 +17,9 @@ import {
 } from '@atlaskit/emoji';
 import type {
   Command,
-  NextEditorPlugin,
   PMPluginFactoryParams,
-  OptionalPlugin,
-  EditorCommand,
 } from '@atlaskit/editor-common/types';
+import type { EmojiPlugin } from '@atlaskit/editor-plugin-emoji';
 
 import { getInlineNodeViewProducer } from '@atlaskit/editor-common/react-node-view';
 import { inputRulePlugin as asciiInputRulePlugin } from './pm-plugins/ascii-input-rules';
@@ -36,11 +34,8 @@ import { IconEmoji } from '@atlaskit/editor-common/quick-insert';
 import { EmojiNodeView } from './nodeviews/emoji';
 import type { TypeAheadHandler, TypeAheadItem } from '../type-ahead/types';
 import { messages } from '../insert-block/ui/ToolbarInsertBlock/messages';
-import type { EmojiPluginOptions, EmojiPluginState } from './types';
-import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { EmojiPluginState } from './types';
 import { insertEmoji } from './commands/insert-emoji';
-import type { TypeAheadPlugin } from '../type-ahead';
-
 export const emojiToTypeaheadItem = (
   emoji: EmojiDescription,
   emojiProvider?: EmojiProvider,
@@ -105,23 +100,6 @@ type EmojiProviderChangeHandler = {
   result: (res: { emojis: Array<EmojiDescription> }) => void;
 };
 const TRIGGER = ':';
-export type EmojiPlugin = NextEditorPlugin<
-  'emoji',
-  {
-    pluginConfiguration: EmojiPluginOptions | undefined;
-    dependencies: [OptionalPlugin<typeof analyticsPlugin>, TypeAheadPlugin];
-    sharedState: EmojiPluginState | undefined;
-    commands: {
-      insertEmoji: (
-        emojiId: EmojiId,
-        inputMethod?:
-          | INPUT_METHOD.PICKER
-          | INPUT_METHOD.ASCII
-          | INPUT_METHOD.TYPEAHEAD,
-      ) => EditorCommand;
-    };
-  }
->;
 
 export const emojiPlugin: EmojiPlugin = (options, api) => {
   const typeAhead: TypeAheadHandler = {

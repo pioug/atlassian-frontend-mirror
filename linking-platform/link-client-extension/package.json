@@ -34,7 +34,7 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@atlaskit/linking-common": "^4.4.0",
+    "@atlaskit/linking-common": "^4.5.0",
     "@atlaskit/linking-types": "^8.2.0",
     "@babel/runtime": "^7.0.0",
     "json-ld-types": "3.8.0",

@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 10.7.0
+
+### Minor Changes
+
+- [`406273e2aa8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/406273e2aa8) - Export Option component from /option entrypoint
+
 ## 10.6.0
 
 ### Minor Changes

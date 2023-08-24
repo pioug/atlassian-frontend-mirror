@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 1.15.1
+
+### Patch Changes
+
+- [`2b79cf3df13`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2b79cf3df13) - Patches certain token values in the internal typography theme.
+
 ## 1.15.0
 
 ### Minor Changes

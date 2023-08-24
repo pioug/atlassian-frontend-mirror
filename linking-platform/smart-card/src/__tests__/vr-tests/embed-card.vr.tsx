@@ -8,13 +8,18 @@ import EmbedCardUnauthorised from '../../../examples/vr-embed-card/vr-embed-card
 import EmbedCardUnauthorisedWithProviderImage from '../../../examples/vr-embed-card/vr-embed-card-unauthorised-with-provider-image';
 import EmbedCardUnauthorisedNoAuth from '../../../examples/vr-embed-card/vr-embed-card-unauthorised-no-auth';
 
+/**
+ * These tests are making external network request which needs be fixed
+ * Ticket: https://product-fabric.atlassian.net/browse/EDM-7660
+ * Slack: https://atlassian.slack.com/archives/CR5KWBDT4/p1692161302662599
+ */
 snapshot(EmbedCardError);
-snapshot(EmbedCardForbidden);
-snapshot(EmbedCardNotFound);
+snapshot.skip(EmbedCardForbidden);
+snapshot.skip(EmbedCardNotFound);
 snapshot(EmbedCardResolved);
-snapshot(EmbedCardUnauthorised);
+snapshot.skip(EmbedCardUnauthorised);
 snapshot(EmbedCardUnauthorisedWithProviderImage);
-snapshot(EmbedCardUnauthorisedNoAuth);
+snapshot.skip(EmbedCardUnauthorisedNoAuth);
 
 // //Same list of tests for refreshed embed card design under the FF
 // //TODO: Delete during the 'platform.linking-platform.smart-card.show-smart-links-refreshed-design' FF clean up
@@ -28,7 +33,7 @@ snapshot(EmbedCardError, {
     },
   },
 });
-snapshot(EmbedCardForbidden, {
+snapshot.skip(EmbedCardForbidden, {
   description: 'refreshed embed card forbidden view',
   hooks: {
     featureFlags: {
@@ -37,7 +42,7 @@ snapshot(EmbedCardForbidden, {
     },
   },
 });
-snapshot(EmbedCardNotFound, {
+snapshot.skip(EmbedCardNotFound, {
   description: 'refreshed embed card link not found',
   hooks: {
     featureFlags: {
@@ -55,7 +60,7 @@ snapshot(EmbedCardResolved, {
     },
   },
 });
-snapshot(EmbedCardUnauthorised, {
+snapshot.skip(EmbedCardUnauthorised, {
   description: 'refreshed embed card unathorised view',
   hooks: {
     featureFlags: {
@@ -73,7 +78,7 @@ snapshot(EmbedCardUnauthorisedWithProviderImage, {
     },
   },
 });
-snapshot(EmbedCardUnauthorisedNoAuth, {
+snapshot.skip(EmbedCardUnauthorisedNoAuth, {
   description: 'refreshed embed card unathorised view with no auth',
   hooks: {
     featureFlags: {

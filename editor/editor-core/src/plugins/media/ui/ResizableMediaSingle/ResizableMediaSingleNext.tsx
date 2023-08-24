@@ -85,6 +85,21 @@ export const resizerNextTestId = 'mediaSingle.resizerNext.testid';
 
 type ResizableMediaSingleNextProps = Props;
 
+const handleComponent = {
+  left: (
+    <div
+      data-testid="richMedia-resize-handle-left-elem"
+      contentEditable={false}
+    />
+  ),
+  right: (
+    <div
+      data-testid="richMedia-resize-handle-right-elem"
+      contentEditable={false}
+    />
+  ),
+};
+
 class ResizableMediaSingleNext extends React.Component<
   ResizableMediaSingleNextProps,
   State
@@ -94,6 +109,7 @@ class ResizableMediaSingleNext extends React.Component<
 
   constructor(props: ResizableMediaSingleNextProps) {
     super(props);
+
     const initialWidth = props.mediaSingleWidth || DEFAULT_IMAGE_WIDTH;
 
     this.state = {
@@ -200,7 +216,7 @@ class ResizableMediaSingleNext extends React.Component<
   get $pos() {
     const pos = this.pos;
     // need to pass view because we may not get updated props in time
-    return pos && this.props.view.state.doc.resolve(pos);
+    return pos === null ? pos : this.props.view.state.doc.resolve(pos);
   }
 
   get aspectRatio() {
@@ -237,7 +253,7 @@ class ResizableMediaSingleNext extends React.Component<
   // check if is inside of layout, table, expand, nestedExpand and list item
   isNestedNode(): boolean {
     const $pos = this.$pos;
-    return !!($pos && $pos.parent.type !== $pos.parent.type.schema.nodes.doc);
+    return !!($pos && $pos.depth !== 0);
   }
 
   private getDefaultGuidelines() {
@@ -274,13 +290,11 @@ class ResizableMediaSingleNext extends React.Component<
   };
 
   async checkVideoFile(viewMediaClientConfig?: MediaClientConfig) {
-    const $pos = this.$pos;
-
-    if (!$pos || !viewMediaClientConfig) {
+    if (this.pos === null || !viewMediaClientConfig) {
       return;
     }
 
-    const mediaNode = this.props.view.state.doc.nodeAt($pos.pos + 1);
+    const mediaNode = this.props.view.state.doc.nodeAt(this.pos + 1);
     if (!mediaNode || !mediaNode.attrs.id) {
       return;
     }
@@ -422,6 +436,12 @@ class ResizableMediaSingleNext extends React.Component<
   );
 
   private getRelativeGuides = () => {
+    const guidelinePluginState =
+      this.props.pluginInjectionApi?.dependencies?.guideline?.sharedState?.currentState();
+    const { top: topOffset } = guidelinePluginState?.rect || {
+      top: 0,
+      left: 0,
+    };
     const $pos = this.$pos;
     const relativeGuides: GuidelineConfig[] =
       $pos && $pos.nodeAfter && this.state.size.width
@@ -433,6 +453,7 @@ class ResizableMediaSingleNext extends React.Component<
             },
             this.props.view,
             this.props.lineLength,
+            topOffset,
             this.state.size,
           )
         : [];
@@ -491,8 +512,11 @@ class ResizableMediaSingleNext extends React.Component<
 
   selectCurrentMediaNode = () => {
     // TODO: if adding !this.props.selected, it doesn't work if media single node is at top postion
-    const pos = this.pos;
-    pos && setNodeSelection(this.props.view, pos);
+    if (this.pos === null) {
+      return;
+    }
+
+    setNodeSelection(this.props.view, this.pos);
   };
 
   handleResizeStart: HandleResizeStart = () => {
@@ -655,7 +679,9 @@ class ResizableMediaSingleNext extends React.Component<
           handleResizeStop={this.handleResizeStop}
           snap={this.state.snaps}
           resizeRatio={nonWrappedLayouts.includes(layout) ? 2 : 1}
+          handleComponent={handleComponent}
           data-testid={resizerNextTestId}
+          isHandleVisible={selected}
         >
           {children}
         </ResizerNext>

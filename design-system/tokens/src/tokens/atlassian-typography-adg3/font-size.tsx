@@ -4,7 +4,7 @@ import { FontSizeTokenSchema, ValueSchema } from '../../types';
 const font: ValueSchema<FontSizeTokenSchema<BaseToken>> = {
   font: {
     size: {
-      '050': { value: 'FontSize11' },
+      '050': { value: 'LegacyFontSize11' },
       '075': { value: 'FontSize12' },
       '100': { value: 'FontSize14' },
       '200': { value: 'FontSize16' },

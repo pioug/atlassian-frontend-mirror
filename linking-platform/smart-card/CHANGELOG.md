@@ -1,5 +1,12 @@
 # @atlaskit/smart-card
 
+## 26.15.9
+
+### Patch Changes
+
+- [`f64123c5b1e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f64123c5b1e) - [ux] Update Full screen view button to Open preview
+- Updated dependencies
+
 ## 26.15.8
 
 ### Patch Changes

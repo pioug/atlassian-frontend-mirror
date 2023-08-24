@@ -41,10 +41,7 @@ export default () => {
 
   return (
     <VRTestWrapper title="Hover Card: CanOpen and Positioning">
-      <Provider
-        client={new CustomClient('staging')}
-        featureFlags={{ enableImprovedPreviewAction: true }}
-      >
+      <Provider client={new CustomClient('staging')}>
         <HoverCard url="https://www.mockurl.com" canOpen={canOpen}>
           <div css={styles}>
             <div

@@ -3,22 +3,22 @@ import { css, jsx } from '@emotion/react';
 
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import {
+import type {
   ExtractInjectionAPI,
   NextEditorPlugin,
 } from '@atlaskit/editor-common/types';
 import type { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorGridLineZIndex } from '@atlaskit/editor-shared-styles';
 
 import { GuidelineContainer } from './guidelineContainer';
-import {
+import type {
   DisplayGuideline,
+  GuidelineContainerRect,
   GuidelinePluginOptions,
   GuidelinePluginState,
 } from './types';
-import { getEditorCenterX } from './utils';
 
 const guidelineStyles = css({
   position: 'absolute',
@@ -53,7 +53,10 @@ const guidelinePMPlugin = new SafePlugin<GuidelinePluginState>({
     apply(tr, currentPluginState) {
       const nextPluginState = tr.getMeta(key);
       if (nextPluginState) {
-        return nextPluginState as GuidelinePluginState;
+        return {
+          ...currentPluginState,
+          ...nextPluginState,
+        } as GuidelinePluginState;
       }
 
       return currentPluginState;
@@ -86,14 +89,28 @@ const ContentComponent = ({
     return null;
   }
 
+  const updateRect = ({ top, left }: GuidelineContainerRect) => {
+    const { dispatch, state } = editorView;
+
+    const { top: prevTop, left: prevLeft } = guidelineState.rect || {};
+
+    if (prevTop !== top || prevLeft !== left) {
+      const tr = state.tr.setMeta(key, {
+        rect: { top, left },
+      });
+      dispatch(tr);
+      return true;
+    }
+  };
+
   return (
     <div css={guidelineStyles}>
       <GuidelineContainer
         guidelines={guidelineState.guidelines}
         height={(editorView.dom as HTMLElement).scrollHeight}
-        centerOffset={getEditorCenterX(editorView)}
         width={widthState.width}
         editorWidth={widthState.lineLength}
+        updateRect={updateRect}
       />
     </div>
   );

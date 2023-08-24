@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::89e4530c84e484a163c9df048290ecf5>>
+ * @codegen <<SignedSource::c5a499034468ced262952ef968c2fd67>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -165,26 +165,6 @@ const tokens = [
     ]
   },
   {
-    "value": "11px",
-    "attributes": {
-      "group": "typography"
-    },
-    "filePath": "src/palettes/typography-palette.tsx",
-    "isSource": true,
-    "original": {
-      "value": 11,
-      "attributes": {
-        "group": "typography"
-      }
-    },
-    "name": "typography.fontSize.FontSize11",
-    "path": [
-      "typography",
-      "fontSize",
-      "FontSize11"
-    ]
-  },
-  {
     "value": "12px",
     "attributes": {
       "group": "typography"
@@ -305,6 +285,26 @@ const tokens = [
     ]
   },
   {
+    "value": "32px",
+    "attributes": {
+      "group": "typography"
+    },
+    "filePath": "src/palettes/typography-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": 32,
+      "attributes": {
+        "group": "typography"
+      }
+    },
+    "name": "typography.fontSize.FontSize32",
+    "path": [
+      "typography",
+      "fontSize",
+      "FontSize32"
+    ]
+  },
+  {
     "value": "36px",
     "attributes": {
       "group": "typography"
@@ -362,6 +362,26 @@ const tokens = [
       "typography",
       "fontSize",
       "FontSizeCode"
+    ]
+  },
+  {
+    "value": "11px",
+    "attributes": {
+      "group": "typography"
+    },
+    "filePath": "src/palettes/typography-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": 11,
+      "attributes": {
+        "group": "typography"
+      }
+    },
+    "name": "typography.fontSize.LegacyFontSize11",
+    "path": [
+      "typography",
+      "fontSize",
+      "LegacyFontSize11"
     ]
   },
   {
@@ -705,6 +725,26 @@ const tokens = [
     ]
   },
   {
+    "value": "36px",
+    "attributes": {
+      "group": "typography"
+    },
+    "filePath": "src/palettes/typography-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": 36,
+      "attributes": {
+        "group": "typography"
+      }
+    },
+    "name": "typography.lineHeight.LineHeight600",
+    "path": [
+      "typography",
+      "lineHeight",
+      "LineHeight600"
+    ]
+  },
+  {
     "value": "40px",
     "attributes": {
       "group": "typography"
@@ -717,11 +757,11 @@ const tokens = [
         "group": "typography"
       }
     },
-    "name": "typography.lineHeight.LineHeight600",
+    "name": "typography.lineHeight.LineHeight700",
     "path": [
       "typography",
       "lineHeight",
-      "LineHeight600"
+      "LineHeight700"
     ]
   }
 ];

@@ -213,6 +213,7 @@ describe('getThemeStyles', () => {
       { id: 'typography', attrs: { 'data-theme': 'typography' } },
       { id: 'shape', attrs: { 'data-theme': 'shape' } },
       { id: 'typography-adg3', attrs: { 'data-theme': 'typography-adg3' } },
+      { id: 'typography-minor3', attrs: { 'data-theme': 'typography-minor3' } },
       {
         id: 'light-new-input-border',
         attrs: { 'data-theme': 'light-new-input-border' },

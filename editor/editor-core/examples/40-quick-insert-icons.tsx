@@ -6,6 +6,7 @@ import {
   IconDate,
   IconDecision,
   IconDivider,
+  IconHeading,
   IconList,
   IconListNumber,
   IconQuote,
@@ -21,11 +22,11 @@ import { IconTable } from '@atlaskit/editor-common/icons';
 
 const iconWrapper = {
   display: 'grid',
-  'grid-template-columns': 'repeat(auto-fill, minmax(40px, 1fr))',
-  'justify-items': 'center',
-  'align-items': 'center',
+  gridTemplateColumns: 'repeat(auto-fill, minmax(40px, 1fr))',
+  justifyItems: 'center',
+  alignItems: 'center',
   gap: '20px',
-  'max-width': '500px',
+  maxWidth: '500px',
 };
 
 /**
@@ -55,6 +56,12 @@ const QuickInsertIconsExample = () => {
       {icons.map((Icon, index) => (
         <Icon key={index} />
       ))}
+      <IconHeading level={1} />
+      <IconHeading level={2} />
+      <IconHeading level={3} />
+      <IconHeading level={4} />
+      <IconHeading level={5} />
+      <IconHeading level={6} />
     </div>
   );
 };

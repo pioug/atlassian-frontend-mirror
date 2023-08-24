@@ -1,8 +1,11 @@
 import React from 'react';
 
+import styled from '@emotion/styled';
 import { FormatDateOptions, useIntl } from 'react-intl-next';
 
 import { DateTimeType, DateType, TimeType } from '@atlaskit/linking-types';
+
+import { FieldTextFontSize } from '../../styled';
 
 export interface DateProps {
   testId?: string;
@@ -23,6 +26,10 @@ const timeOptions: FormatDateOptions = {
   hour: '2-digit',
   minute: '2-digit',
 };
+
+const DateTimeWrapper = styled.span`
+  font-size: ${FieldTextFontSize};
+`;
 
 const DateTimeRenderType = ({
   value,
@@ -47,7 +54,9 @@ const DateTimeRenderType = ({
     options[display] || options['date'],
   );
 
-  return <span data-testid={testId}>{formattedString}</span>;
+  return (
+    <DateTimeWrapper data-testid={testId}>{formattedString}</DateTimeWrapper>
+  );
 };
 
 export default DateTimeRenderType;

@@ -83,18 +83,18 @@ const columns: DatasourceResponseSchemaProperty[] = [
   {
     key: 'created',
     title: 'Date of Creation for each issue',
-    type: 'string',
+    type: 'date',
   },
   {
     key: 'due',
     title: 'Due Date',
-    type: 'string',
+    type: 'date',
   },
   ...new Array<DatasourceResponseSchemaProperty>(100)
     .fill({
       key: 'due',
       title: 'Due Date',
-      type: 'string',
+      type: 'date',
     })
     .map((prop, i) => ({ ...prop, key: prop.key + i, title: prop.title + i })),
 ];

@@ -2,6 +2,9 @@
 order: 2
 ---
 
+import { Stack } from '@atlaskit/primitives';
+import SectionMessage from '@atlaskit/section-message';
+
 import BoardExample from '../../examples/board';
 import GridExample from '../../examples/grid';
 import TableExample from '../../examples/table';
@@ -34,8 +37,48 @@ Drag and drop can power many types of experiences.
 
 ## Drawing
 
+<SectionMessage
+  appearance="information"
+  title="Excepted from Success Criterion 2.1.1 - Keyboard (Level A)"
+>
+  <Stack space="space.200">
+    <p>
+      This example is excepted from the{' '}
+      <a href="https://www.w3.org/WAI/WCAG21/Understanding/keyboard">
+        WCAG Success Criterion 2.1.1 - Keyboard (Level A)
+      </a>
+      . The underlying function (freehand drawing) requires input that depends on
+      the path of the user's movement and not just the endpoints.
+    </p>
+    <p>
+      Due to{' '}
+      <a href="https://www.w3.org/WAI/WCAG21/Understanding/keyboard-no-exception">
+        Success Criterion 2.1.3 - Keyboard (No Exception) (Level AAA)
+      </a>
+      , path-dependent input cannot meet <a href="https://www.w3.org/WAI/WCAG21/Understanding/keyboard-accessible">
+        Guideline 2.1
+      </a> at Level AAA.
+    </p>
+    <p>
+      Wherever possible, this exception should not be relied on, and an
+      alternative input method should be provided.
+    </p>
+  </Stack>
+</SectionMessage>
+
 <Example Component={DrawingExample} />
 
 ## Resizing
+
+<SectionMessage
+  appearance="information"
+  title="Accessibility guidance in progress"
+>
+  <p>
+    An investigation is required to decide on appropriate accessible controls
+    for resizing. If you would like us to prioritise this investigation, please
+    reach out.
+  </p>
+</SectionMessage>
 
 <Example Component={ResizingExample} />

@@ -1,5 +1,34 @@
 # @atlaskit/editor-common
 
+## 74.51.0
+
+### Minor Changes
+
+- [`7f45581d141`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7f45581d141) - ED-19630 fixed guideline alignment issue.
+
+### Patch Changes
+
+- [`f76bc3a94fa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f76bc3a94fa) - [ux] Datasource container border radius increased
+
+## 74.50.4
+
+### Patch Changes
+
+- [`2f7d7be2983`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2f7d7be2983) - [ux] ED-19438 Added dark mode icons for headings 1 to 6
+- [`64d1dfc55b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/64d1dfc55b5) - refactor utils for calc max width for nested node
+
+## 74.50.3
+
+### Patch Changes
+
+- [`c8acabc067e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c8acabc067e) - COMMENTS-342: Remove white space no wrap in expand macro causing inline comment navigation bug
+
+## 74.50.2
+
+### Patch Changes
+
+- [`90520713d49`](https://bitbucket.org/atlassian/atlassian-frontend/commits/90520713d49) - [ux] [ED-19441] - Added dark mode icons for panels
+
 ## 74.50.1
 
 ### Patch Changes

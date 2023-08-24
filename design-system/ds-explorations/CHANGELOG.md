@@ -1,5 +1,11 @@
 # @atlaskit/ds-explorations
 
+## 2.2.11
+
+### Patch Changes
+
+- [`103ee1d5dd4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/103ee1d5dd4) - Internal updates to generated artifacts.
+
 ## 2.2.10
 
 ### Patch Changes

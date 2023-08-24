@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 import React from 'react';
 
 import type {
@@ -14,6 +14,7 @@ import {
   doc,
   mediaSingle,
   media,
+  p,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { focusPlugin } from '@atlaskit/editor-plugin-focus';
@@ -35,9 +36,12 @@ import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
+import { setNodeSelection } from '@atlaskit/editor-common/utils';
 
+const mediaPos = 2;
 const defaultDocument: CreatePMEditorOptions['doc'] = doc(
-  mediaSingle()(
+  p(''),
+  mediaSingle({ layout: 'center', width: 200, widthType: 'pixel' })(
     media({
       id: 'a559980d-cd47-43e2-8377-27359fcb905f',
       type: 'file',
@@ -78,16 +82,31 @@ const getEditorView = (document: CreatePMEditorOptions['doc']) => {
   return { editorView };
 };
 
+const updateSizeMock = jest.fn();
+const dispatchAnalyticsEventMock = jest.fn();
+const displayGuidelineMock = jest.fn();
+
+const pluginInjectionApiMock = {
+  dependencies: {
+    guideline: {
+      actions: {
+        displayGuideline: () => displayGuidelineMock,
+      },
+    },
+  },
+};
+
 const setup = (
   customProps?: Partial<Props>,
   document: CreatePMEditorOptions['doc'] = defaultDocument,
 ) => {
   const { editorView } = getEditorView(document);
+  setNodeSelection(editorView, mediaPos);
 
   return render(
     <ResizableMediaSingleNext
-      updateSize={jest.fn()}
-      getPos={jest.fn().mockReturnValue(0)}
+      updateSize={updateSizeMock}
+      getPos={() => mediaPos}
       view={editorView}
       lineLength={760}
       gridSize={12}
@@ -96,8 +115,8 @@ const setup = (
       width={1200}
       height={1000}
       selected={true}
-      dispatchAnalyticsEvent={jest.fn()}
-      pluginInjectionApi={undefined}
+      dispatchAnalyticsEvent={dispatchAnalyticsEventMock}
+      pluginInjectionApi={pluginInjectionApiMock as any}
       {...customProps}
     >
       <div></div>
@@ -266,6 +285,57 @@ describe('non-nested <ResizableMediaSingleNext /> should be responsive and small
       const style = window.getComputedStyle(resizer);
       expect(style.width).toBe('600px');
       expect(style.maxWidth).toBe('320px');
+    });
+  });
+});
+
+describe('Guidelines', () => {
+  beforeEach(() => {
+    displayGuidelineMock.mockReset();
+  });
+
+  it('should call displayGuideline with correct guidelineConfig list', () => {
+    const { getByTestId, container } = setup({
+      mediaSingleWidth: 600,
+      containerWidth: 400,
+      lineLength: 320,
+    });
+    const draggableElement = getByTestId('richMedia-resize-handle-right-elem');
+
+    fireEvent.mouseDown(draggableElement);
+    fireEvent.mouseMove(draggableElement, {
+      clientX: 16,
+      clientY: 0,
+    });
+
+    expect(displayGuidelineMock).toBeCalledWith({
+      guidelines: [
+        { key: 'grid_0', position: { x: -160 }, active: true, show: true },
+        { key: 'grid_1', position: { x: -133.5 } },
+        { key: 'grid_2', position: { x: -106.5 } },
+        { key: 'grid_3', position: { x: -80 } },
+        { key: 'grid_4', position: { x: -53.5 } },
+        { key: 'grid_5', position: { x: -26.5 } },
+        { key: 'grid_6', position: { x: 0 } },
+        { key: 'grid_7', position: { x: 26.5 } },
+        { key: 'grid_8', position: { x: 53.5 } },
+        { key: 'grid_9', position: { x: 80 } },
+        { key: 'grid_10', position: { x: 106.5 } },
+        { key: 'grid_11', position: { x: 133.5 } },
+        { key: 'grid_12', position: { x: 160 }, active: true, show: true },
+        { key: 'wide_left', position: { x: -213 } },
+        { key: 'wide_right', position: { x: 213 } },
+        { key: 'full_width_left', position: { x: -168 } },
+        { key: 'full_width_right', position: { x: 168 } },
+      ],
+    });
+
+    expect(container.getElementsByClassName('is-resizing').length).toBe(1);
+    fireEvent.mouseUp(draggableElement);
+
+    expect(container.getElementsByClassName('is-resizing').length).toBe(0);
+    expect(displayGuidelineMock).toBeCalledWith({
+      guidelines: [],
     });
   });
 });

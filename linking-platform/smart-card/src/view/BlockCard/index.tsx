@@ -24,7 +24,6 @@ import FlexibleErroredView from './views/flexible/FlexibleErroredView';
 import FlexibleForbiddenView from './views/flexible/FlexibleForbiddenView';
 import { jsx } from '@emotion/react';
 import { handleClickCommon } from './utils/handlers';
-import { useFeatureFlag } from '@atlaskit/link-provider';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { AnchorTarget } from '../FlexibleCard/components/types';
 import { titleBlockCss } from './views/flexible/styled';
@@ -75,10 +74,6 @@ export const BlockCard: FC<BlockCardProps> = ({
     handleInvoke,
     extensionKey,
   };
-
-  const enableImprovedPreviewAction = Boolean(
-    useFeatureFlag('enableImprovedPreviewAction'),
-  );
 
   if (enableFlexibleBlockCard) {
     const anchorTarget: AnchorTarget | undefined = getBooleanFF(
@@ -179,7 +174,6 @@ export const BlockCard: FC<BlockCardProps> = ({
         extractorOpts,
         renderers,
         platform,
-        enableImprovedPreviewAction,
       );
       if (onResolve) {
         onResolve({

@@ -1,10 +1,17 @@
 import type { RichMediaLayout } from '@atlaskit/adf-schema';
+import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
   akEditorDefaultLayoutWidth,
   akEditorFullWidthLayoutWidth,
   akEditorGutterPadding,
   breakoutWideScaleRatio,
 } from '@atlaskit/editor-shared-styles';
+
+import {
+  floatingLayouts,
+  isRichMediaInsideOfBlockNode,
+} from '../utils/rich-media-utils';
 
 import {
   DEFAULT_IMAGE_WIDTH,
@@ -172,3 +179,85 @@ export const roundToNearest = (
   value: number,
   interval: number = DEFAULT_ROUNDING_INTERVAL,
 ): number => Math.round(value / interval) * interval;
+
+/**
+ * Get parent width for a nested media single node
+ * @param view Editor view
+ * @param pos node position
+ */
+export const getMaxWidthForNestedNode = (
+  view: EditorView,
+  pos: number | undefined,
+): number | null => {
+  if (typeof pos !== 'number') {
+    return null;
+  }
+  if (isRichMediaInsideOfBlockNode(view, pos)) {
+    const $pos = view.state.doc.resolve(pos);
+    const domNode = view.nodeDOM($pos.pos);
+
+    if (
+      $pos.nodeAfter &&
+      floatingLayouts.indexOf($pos.nodeAfter.attrs.layout) > -1 &&
+      domNode &&
+      domNode.parentElement
+    ) {
+      return domNode.parentElement.offsetWidth;
+    }
+
+    if (domNode instanceof HTMLElement) {
+      return domNode.offsetWidth;
+    }
+  }
+
+  return null;
+};
+
+/**
+ * Get parent width for a nested media single node for new experience
+ * @param view Editor view
+ * @param pos node position
+ */
+export const getMaxWidthForNestedNodeNext = (
+  view: EditorView,
+  pos: number | undefined,
+): number | null => {
+  if (typeof pos !== 'number') {
+    return null;
+  }
+  const $pos = view.state.doc.resolve(pos);
+  if ($pos && $pos.parent.type.name !== 'doc') {
+    return getParentWidthForNestedMediaSingleNode($pos, view);
+  }
+
+  return null;
+};
+
+export const getParentWidthForNestedMediaSingleNode = (
+  resolvedPos: ResolvedPos,
+  view: EditorView,
+): number | null => {
+  const domNode = view.nodeDOM(resolvedPos.pos);
+
+  if (
+    resolvedPos.nodeAfter &&
+    floatingLayouts.includes(resolvedPos.nodeAfter.attrs.layout) &&
+    domNode &&
+    domNode.parentElement
+  ) {
+    const { tableCell, tableHeader } = view.state.schema.nodes;
+    if ([tableCell, tableHeader].includes(resolvedPos.parent.type)) {
+      // since table has constant padding, use hardcoded constant instead of query the dom
+      const tablePadding = 8;
+      return domNode.parentElement.offsetWidth - tablePadding * 2;
+    }
+
+    return domNode.parentElement.offsetWidth;
+  }
+
+  if (domNode instanceof HTMLElement) {
+    return domNode.offsetWidth;
+  }
+
+  return null;
+};

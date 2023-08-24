@@ -1,5 +1,45 @@
 # @atlaskit/editor-core
 
+## 187.30.1
+
+### Patch Changes
+
+- [`e6582078cf9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e6582078cf9) - ED-19433 Create editor-plugin-emoji package for atlaskit
+- Updated dependencies
+
+## 187.30.0
+
+### Minor Changes
+
+- [`7f45581d141`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7f45581d141) - ED-19630 fixed guideline alignment issue.
+
+### Patch Changes
+
+- [`1e4b853a636`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1e4b853a636) - ED-19411 added guideline test, fixed invalid cursor location issue.
+- Updated dependencies
+
+## 187.29.4
+
+### Patch Changes
+
+- [`8595f0ddc4b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8595f0ddc4b) - Always show resizer handles when mediaSingle node is selected
+- [`1af653a9630`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1af653a9630) - ED-19433 Initial scaffold for editor-plugin-type-ahead
+- [`2f7d7be2983`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2f7d7be2983) - [ux] ED-19438 Added dark mode icons for headings 1 to 6
+- [`1b917526a9f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1b917526a9f) - [ux] add convert to pixels cta in pixel entry for legacy experience
+- Updated dependencies
+
+## 187.29.3
+
+### Patch Changes
+
+- [`9650cf173e5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9650cf173e5) - Fix bug where if mediaSingle node is first item in document it is treated as video
+
+## 187.29.2
+
+### Patch Changes
+
+- [`90520713d49`](https://bitbucket.org/atlassian/atlassian-frontend/commits/90520713d49) - [ux] [ED-19441] - Added dark mode icons for panels
+
 ## 187.29.0
 
 ### Minor Changes

@@ -6,6 +6,7 @@ import type { IntlShape, MessageDescriptor } from 'react-intl-next';
 import ReactEditorViewContext from '../../../../../../create-editor/ReactEditorViewContext';
 import type { PixelEntryProps } from '../../types';
 import { PixelEntry } from '../..';
+import { PIXELENTRY_MIGRATION_BUTTON_TESTID } from '../../constants';
 
 const intlMock = {
   formatMessage: (messageDescriptor: MessageDescriptor) =>
@@ -18,8 +19,10 @@ const setup = (propsOverrides?: Partial<PixelEntryProps>) => {
     width: 600,
     mediaWidth: 600,
     mediaHeight: 800,
+    showMigration: false,
     onSubmit: jest.fn(),
     validate: jest.fn(),
+    onMigrate: jest.fn(),
     ...propsOverrides,
   };
   const editorRef = {
@@ -45,10 +48,14 @@ const setup = (propsOverrides?: Partial<PixelEntryProps>) => {
 describe('PixelEntry floating bar component', () => {
   test('renders two inputs with default values', () => {
     setup();
+    const migrationButton = screen.queryByTestId(
+      PIXELENTRY_MIGRATION_BUTTON_TESTID,
+    );
 
     const inputWidth = screen.getByDisplayValue('600');
     const inputHeight = screen.getByDisplayValue('800');
 
+    expect(migrationButton).not.toBeInTheDocument();
     expect(inputWidth).toBeInTheDocument();
     expect(inputWidth).toHaveAttribute('name', 'inputWidth');
     expect(inputWidth).toHaveAttribute('value', '600');
@@ -155,5 +162,16 @@ describe('PixelEntry floating bar component', () => {
 
     expect(validateMock).toHaveBeenCalled();
     expect(validateMock).toHaveBeenLastCalledWith(750);
+  });
+
+  test('ensure migration button and onMigrate is called if showMigration is true', async () => {
+    const onMigrateMock = jest.fn();
+    setup({ showMigration: true, onMigrate: onMigrateMock });
+    const migrationButton = screen.getByTestId(
+      PIXELENTRY_MIGRATION_BUTTON_TESTID,
+    );
+    await fireEvent.click(migrationButton);
+    expect(migrationButton).toBeInTheDocument();
+    expect(onMigrateMock).toHaveBeenCalled();
   });
 });

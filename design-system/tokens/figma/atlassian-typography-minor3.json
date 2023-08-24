@@ -1,0 +1,51 @@
+{
+  "name": "Typography minor3",
+  "tokens": {
+    "Typography minor3/font.family.code": {
+      "attributes": {
+        "group": "fontFamily",
+        "state": "experimental",
+        "introduced": "1.14.0",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "ui-monospace, Menlo, \"Segoe UI Mono\", \"Ubuntu Mono\", monospace"
+    },
+    "Typography minor3/font.family.monospace": {
+      "attributes": {
+        "group": "fontFamily",
+        "state": "active",
+        "introduced": "0.10.33",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "ui-monospace, Menlo, \"Segoe UI Mono\", \"Ubuntu Mono\", monospace"
+    },
+    "Typography minor3/font.family.product": {
+      "attributes": {
+        "group": "fontFamily",
+        "state": "experimental",
+        "introduced": "1.14.0",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "ui-sans-serif, \"Segoe UI\", system-ui, Ubuntu, \"Helvetica Neue\", sans-serif"
+    },
+    "Typography minor3/font.family.sans": {
+      "attributes": {
+        "group": "fontFamily",
+        "state": "active",
+        "introduced": "0.10.33",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "ui-sans-serif, \"Segoe UI\", system-ui, Ubuntu, \"Helvetica Neue\", sans-serif"
+    },
+    "Typography minor3/font.family.brand": {
+      "attributes": {
+        "group": "fontFamily",
+        "state": "experimental",
+        "introduced": "1.14.0",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "Charlie Sans"
+    }
+  },
+  "renameMap": {}
+}

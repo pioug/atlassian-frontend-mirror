@@ -17,6 +17,7 @@ import {
 } from './styles';
 import type { PixelEntryFormValues, PixelEntryProps } from './types';
 import { messages } from './messages';
+import { PIXELENTRY_MIGRATION_BUTTON_TESTID } from './constants';
 
 export const PixelEntry = ({
   width,
@@ -25,6 +26,8 @@ export const PixelEntry = ({
   onSubmit,
   validate,
   intl: { formatMessage },
+  showMigration,
+  onMigrate,
 }: PixelEntryProps) => {
   const ratioWidth = useMemo(() => {
     return mediaHeight / mediaWidth;
@@ -99,6 +102,21 @@ export const PixelEntry = ({
     },
     [ratioHeight, ratioWidth],
   );
+
+  if (showMigration) {
+    return (
+      <Tooltip content={formatMessage(messages.migrationButtonTooltip)}>
+        <Button
+          appearance="warning"
+          spacing="compact"
+          onClick={onMigrate}
+          testId={PIXELENTRY_MIGRATION_BUTTON_TESTID}
+        >
+          {formatMessage(messages.migrationButtonText)}
+        </Button>
+      </Tooltip>
+    );
+  }
 
   return (
     <div css={pixelEntryForm}>

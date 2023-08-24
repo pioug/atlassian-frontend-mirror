@@ -47,9 +47,7 @@ describe('FlexibleResolvedView', () => {
     expect(footerBlock.firstElementChild?.textContent?.trim()).toBe(
       'Confluence',
     );
-    expect(footerBlock.children[1]?.textContent?.trim()).toBe(
-      'Full screen view',
-    );
+    expect(footerBlock.children[1]?.textContent?.trim()).toBe('Open preview');
     expect(previewBlock).toBeDefined();
   });
   describe('elements like Comments & reactions rendered in top block or bottom metadata block, depending on the FF  ', () => {

@@ -395,7 +395,7 @@ export const IssueLikeDataTableView = ({
                   tag="span"
                   testId={'datasource-header-content'}
                 >
-                  <Heading level="h400" as={'span'}>
+                  <Heading level="h200" as={'span'}>
                     {content}
                   </Heading>
                 </Tooltip>

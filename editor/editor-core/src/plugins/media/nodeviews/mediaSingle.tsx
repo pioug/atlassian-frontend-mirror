@@ -20,11 +20,7 @@ import type {
 } from '@atlaskit/editor-common/provider-factory';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { MediaSingle } from '@atlaskit/editor-common/ui';
-import {
-  browser,
-  floatingLayouts,
-  isRichMediaInsideOfBlockNode,
-} from '@atlaskit/editor-common/utils';
+import { browser } from '@atlaskit/editor-common/utils';
 import type { CardEvent } from '@atlaskit/media-card';
 import { isNodeSelectedOrInRange } from '../../../utils/nodes';
 import type { MediaClientConfig } from '@atlaskit/media-core';
@@ -35,7 +31,6 @@ import type {
   ForwardRef,
 } from '../../../nodeviews/';
 import { setNodeSelection, setTextSelection } from '../../../utils';
-import { getParentWidthForNestedMediaSingleNode } from '../utils/media-single';
 import ResizableMediaSingleNext from '../ui/ResizableMediaSingle/ResizableMediaSingleNext';
 import ResizableMediaSingle from '../ui/ResizableMediaSingle';
 import type { EventDispatcher } from '../../../event-dispatcher';
@@ -63,6 +58,8 @@ import {
   MEDIA_SINGLE_GUTTER_SIZE,
   DEFAULT_IMAGE_HEIGHT,
   DEFAULT_IMAGE_WIDTH,
+  getMaxWidthForNestedNode,
+  getMaxWidthForNestedNodeNext,
 } from '@atlaskit/editor-common/media-single';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
@@ -314,8 +311,9 @@ export default class MediaSingleNode extends Component<
     const isSelected = selected();
 
     const contentWidthForLegacyExperience =
-      this.getLineLength(view, getPos()) || lineLength;
-    const contentWidth = this.getLineLengthNext(view, getPos()) || lineLength;
+      getMaxWidthForNestedNode(view, getPos()) || lineLength;
+    const contentWidth =
+      getMaxWidthForNestedNodeNext(view, getPos()) || lineLength;
 
     const mediaSingleProps = {
       layout,
@@ -416,60 +414,6 @@ export default class MediaSingleNode extends Component<
     insertAndSelectCaptionFromMediaSinglePos(
       pluginInjectionApi?.dependencies?.analytics?.actions,
     )(getPos(), node)(view.state, view.dispatch);
-  };
-
-  /**
-   * Get parent width for a nested media single node
-   * @param view Editor view
-   * @param pos node position
-   */
-  private getLineLength = (
-    view: EditorView,
-    pos: number | undefined,
-    includeMoreParentNodeTypes?: boolean,
-  ): number | null => {
-    if (typeof pos !== 'number') {
-      return null;
-    }
-    if (isRichMediaInsideOfBlockNode(view, pos)) {
-      const $pos = view.state.doc.resolve(pos);
-      const domNode = view.nodeDOM($pos.pos);
-
-      if (
-        $pos.nodeAfter &&
-        floatingLayouts.indexOf($pos.nodeAfter.attrs.layout) > -1 &&
-        domNode &&
-        domNode.parentElement
-      ) {
-        return domNode.parentElement.offsetWidth;
-      }
-
-      if (domNode instanceof HTMLElement) {
-        return domNode.offsetWidth;
-      }
-    }
-
-    return null;
-  };
-
-  /**
-   * Get parent width for a nested media single node for new experience
-   * @param view Editor view
-   * @param pos node position
-   */
-  private getLineLengthNext = (
-    view: EditorView,
-    pos: number | undefined,
-  ): number | null => {
-    if (typeof pos !== 'number') {
-      return null;
-    }
-    const $pos = view.state.doc.resolve(pos);
-    if ($pos && $pos.parent.type.name !== 'doc') {
-      return getParentWidthForNestedMediaSingleNode($pos, view);
-    }
-
-    return null;
   };
 }
 

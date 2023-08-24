@@ -270,6 +270,7 @@ export interface LinkingPlatformFeatureFlags {
   enableActionableElement?: boolean;
   enableFlexibleBlockCard?: boolean;
   enableHoverCardResolutionTracking?: boolean;
+  // @deprecated
   enableImprovedPreviewAction?: boolean;
   enableLinkPickerForgeTabs?: boolean;
   // @deprecated

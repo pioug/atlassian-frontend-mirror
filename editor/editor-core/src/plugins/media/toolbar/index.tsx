@@ -68,6 +68,7 @@ import {
   MEDIA_SINGLE_DEFAULT_MIN_PIXEL_WIDTH,
   MEDIA_SINGLE_GUTTER_SIZE,
   calcMediaSinglePixelWidth,
+  getMaxWidthForNestedNode,
 } from '@atlaskit/editor-common/media-single';
 import {
   akEditorDefaultLayoutWidth,
@@ -402,12 +403,18 @@ const generateMediaSingleFloatingToolbar = (
           const { width: mediaWidth, height: mediaHeight } =
             selectedMediaNode.attrs;
 
+          const isLegacy = widthType !== 'pixel';
+
           const pixelWidth = calcMediaSinglePixelWidth({
             width: singleMediaWidth,
             widthType,
             origWidth: mediaWidth || DEFAULT_IMAGE_WIDTH,
             layout,
-            contentWidth,
+            contentWidth:
+              getMaxWidthForNestedNode(
+                editorView,
+                selectedMediaSingleNode.pos,
+              ) || contentWidth,
             containerWidth,
             gutterOffset: MEDIA_SINGLE_GUTTER_SIZE,
           });
@@ -418,6 +425,7 @@ const generateMediaSingleFloatingToolbar = (
               width={
                 pluginState.isResizing ? pluginState.resizingWidth : pixelWidth
               }
+              showMigration={!pluginState.isResizing && isLegacy}
               mediaWidth={mediaWidth || DEFAULT_IMAGE_WIDTH}
               mediaHeight={mediaHeight || DEFAULT_IMAGE_HEIGHT}
               validate={(value) => {
@@ -441,6 +449,26 @@ const generateMediaSingleFloatingToolbar = (
                     width,
                     widthType: 'pixel',
                   },
+                );
+                tr.setMeta('scrollIntoView', false);
+                tr.setSelection(
+                  NodeSelection.create(tr.doc, selectedMediaSingleNode.pos),
+                );
+                dispatch(tr);
+              }}
+              onMigrate={() => {
+                const tr = state.tr.setNodeMarkup(
+                  selectedMediaSingleNode.pos,
+                  undefined,
+                  {
+                    ...selectedMediaSingleNode.node.attrs,
+                    width: pixelWidth,
+                    widthType: 'pixel',
+                  },
+                );
+                tr.setMeta('scrollIntoView', false);
+                tr.setSelection(
+                  NodeSelection.create(tr.doc, selectedMediaSingleNode.pos),
                 );
                 dispatch(tr);
               }}

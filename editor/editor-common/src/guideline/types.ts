@@ -39,13 +39,19 @@ export type GuidelineConfig = {
   position: Position;
 } & GuidelineStyles;
 
+export type GuidelineContainerRect = {
+  top: number;
+  left: number;
+};
+
 export type GuidelinePluginState = {
   guidelines: GuidelineConfig[];
+  rect?: GuidelineContainerRect;
 };
 
 export interface GuidelinePluginOptions {}
 
-export type DisplayGrid = (props: Required<GuidelinePluginState>) => boolean;
+export type DisplayGrid = (props: GuidelinePluginState) => boolean;
 export type DisplayGuideline = (view: EditorView) => DisplayGrid;
 
 export type GuidelineSnap = {

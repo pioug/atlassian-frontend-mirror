@@ -31,4 +31,5 @@ export type {
   ShadowToken,
   SpacingToken,
   ShapeToken,
+  TypographyToken,
 } from './types';

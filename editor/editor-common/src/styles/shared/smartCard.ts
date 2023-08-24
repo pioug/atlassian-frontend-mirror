@@ -3,7 +3,6 @@ import { css } from '@emotion/react';
 import {
   akEditorDeleteBackground,
   akEditorDeleteBorder,
-  akEditorRuleBorderRadius,
   akEditorSelectedNodeClassName,
   getSelectionStyles,
   SelectionStyle,
@@ -105,7 +104,7 @@ export const smartCardStyles = css`
     .${DATASOURCE_INNER_CONTAINER_CLASSNAME} {
       cursor: pointer;
       background-color: ${token('color.background.neutral.subtle', N0)};
-      border-radius: ${token('border.radius.100', akEditorRuleBorderRadius)};
+      border-radius: ${token('border.radius.100', '3px')};
       border: 1px solid ${token('color.border', N40)};
     }
 

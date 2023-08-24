@@ -1,5 +1,6 @@
 /** @jsx jsx */
-import React, { forwardRef, Ref } from 'react';
+import type { Ref } from 'react';
+import React, { forwardRef } from 'react';
 
 import { css, jsx } from '@emotion/react';
 import { defineMessages } from 'react-intl-next';
@@ -14,7 +15,7 @@ import * as colors from '@atlaskit/theme/colors';
 import { themed } from '@atlaskit/theme/components';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { fontSize, gridSize } from '@atlaskit/theme/constants';
-import { ThemeProps } from '@atlaskit/theme/types';
+import type { ThemeProps } from '@atlaskit/theme/types';
 import { token } from '@atlaskit/tokens';
 
 export const messages = defineMessages({
@@ -200,12 +201,12 @@ const contentStyles = (styleProps: StyleProps) => (themeProps: ThemeProps) =>
       ? `
         .expand-content-wrapper, .nestedExpand-content-wrapper {
           /* We visually hide the content here to preserve the content during copy+paste */
+          /* Do not add text nowrap here because inline comment navigation depends on the location of the text */
           width: 100%;
           display: block;
           height: 0;
           overflow: hidden;
           clip: rect(1px, 1px, 1px, 1px);
-          white-space: nowrap;
           user-select: none;
         }
       `

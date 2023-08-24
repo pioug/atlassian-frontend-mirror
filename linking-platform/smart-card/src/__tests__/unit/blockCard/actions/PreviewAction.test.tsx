@@ -34,7 +34,7 @@ describe('PreviewAction', () => {
     });
 
     const { container } = renderWithIntl(action.text);
-    expect(container.textContent).toBe('Full screen view');
+    expect(container.textContent).toBe('Open preview');
 
     const handlerExecutor = action.promise;
     await handlerExecutor();

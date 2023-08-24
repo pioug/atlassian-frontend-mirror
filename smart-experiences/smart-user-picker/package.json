@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/smart-user-picker",
-  "version": "6.1.6",
+  "version": "6.2.0",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
@@ -22,7 +22,8 @@
   "sideEffects": false,
   "atlaskit:src": "src/index.ts",
   "af:exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.ts",
+    "./option": "./src/option.ts"
   },
   "atlassian": {
     "team": "Search Platform: Search Experience",
@@ -32,7 +33,7 @@
   "dependencies": {
     "@atlaskit/analytics-next": "^9.1.0",
     "@atlaskit/ufo": "^0.2.0",
-    "@atlaskit/user-picker": "^10.6.0",
+    "@atlaskit/user-picker": "^10.7.0",
     "@babel/runtime": "^7.0.0",
     "lodash": "^4.17.21",
     "memoize-one": "^6.0.0",

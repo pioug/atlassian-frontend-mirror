@@ -43,7 +43,7 @@ export interface HoverCardProps extends WithAnalyticsEventsProps {
   closeOnChildClick?: boolean;
 
   /**
-   * Determines if the hover card should display the "Full Screen View" button.
+   * Determines if the hover card should display the "Open preview" button.
    */
   hidePreviewButton?: boolean;
 

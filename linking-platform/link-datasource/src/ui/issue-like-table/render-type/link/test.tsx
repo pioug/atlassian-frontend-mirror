@@ -11,13 +11,30 @@ import Link, { LINK_TYPE_TEST_ID } from './index';
 
 mockSimpleIntersectionObserver(); // required to mock smart link internals
 describe('Link Type', () => {
+  const smartLinkClient = new SmartLinkClient();
+  const spyFetchData = jest.spyOn(smartLinkClient, 'fetchData');
+  // Needed to suppress console errors in smart-card
+  let consoleErrorFn: jest.SpyInstance;
+  beforeEach(() => {
+    consoleErrorFn = jest
+      .spyOn(console, 'error')
+      .mockImplementation(() => jest.fn());
+  });
+  afterEach(() => {
+    consoleErrorFn.mockRestore();
+  });
   const setup = ({ url = '', ...props }) => {
     return render(
-      <SmartCardProvider client={new SmartLinkClient()}>
+      <SmartCardProvider client={smartLinkClient}>
         <Link url={url} {...props} />
       </SmartCardProvider>,
     );
   };
+  it('renders empty dom when url is undefined', async () => {
+    const { container } = setup({ url: undefined });
+    expect(container).toBeEmptyDOMElement();
+  });
+
   it('renders as a smart link', async () => {
     const { getByText, queryByTestId } = setup({
       url: 'https://product-fabric.atlassian.net/browse/EDM-5941',
@@ -36,6 +53,41 @@ describe('Link Type', () => {
       'href',
       'https://product-fabric.atlassian.net/browse/EDM-5941',
     );
+  });
+
+  it('renders errored view when smart link does not resolve', async () => {
+    const { queryByTestId } = setup({
+      url: 'https://link-that-does-not-resolve.com',
+    });
+
+    await waitFor(() => expect(spyFetchData).toHaveBeenCalled());
+
+    const card = queryByTestId(`${LINK_TYPE_TEST_ID}-errored-view`);
+
+    expect(card).toBeInTheDocument();
+    expect(card).toHaveTextContent('https://link-that-does-not-resolve.com');
+    expect(card).toHaveAttribute(
+      'href',
+      'https://link-that-does-not-resolve.com',
+    );
+  });
+
+  it('renders fallback when smart link resolves with ResolveUnsupportedError', async () => {
+    const { queryByRole } = setup({
+      url: 'https://link-that-is-unsupported.com',
+    });
+
+    await waitFor(() => expect(spyFetchData).toHaveBeenCalled());
+
+    const anchor = queryByRole('link');
+
+    expect(anchor).toBeInTheDocument();
+    expect(anchor).toHaveTextContent('https://link-that-is-unsupported.com');
+    expect(anchor).toHaveAttribute(
+      'href',
+      'https://link-that-is-unsupported.com',
+    );
+    expect(anchor).toHaveAttribute('target', '_blank');
   });
 
   it('renders with the text passed and has correct attributes', async () => {

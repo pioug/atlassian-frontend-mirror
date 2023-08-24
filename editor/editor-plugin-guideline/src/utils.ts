@@ -1,4 +1,3 @@
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
   akEditorBreakoutPadding,
   akEditorDefaultLayoutWidth,
@@ -6,18 +5,7 @@ import {
   breakoutWideScaleRatio,
 } from '@atlaskit/editor-shared-styles';
 
-import { GuidelineConfig } from './types';
-
-/**
- * This function calculates the Editor's x axis of the center point
- * in relation to the viewport
- * @param editorView
- * @returns x axis in number
- */
-export const getEditorCenterX = (editorView: EditorView): number => {
-  const editorRect = (editorView.dom as HTMLElement).getBoundingClientRect();
-  return editorRect.width / 2 + editorRect.x - 0.5;
-};
+import type { GuidelineConfig } from './types';
 
 const defaultGrids = [-6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6];
 

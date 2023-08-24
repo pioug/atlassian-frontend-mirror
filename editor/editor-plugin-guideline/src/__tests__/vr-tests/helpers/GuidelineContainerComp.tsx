@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { GuidelineContainer } from '../../../guidelineContainer';
-import { GuidelineConfig } from '../../../types';
+import type { GuidelineConfig } from '../../../types';
 
 const guidelines: GuidelineConfig[] = [
   { key: 'vertical_full', position: { x: 0 } },
@@ -49,9 +49,9 @@ export const GuidelineContainerComp = () => {
     <GuidelineContainer
       guidelines={guidelines}
       height={800}
-      centerOffset={600}
       width={1800}
       editorWidth={760}
+      updateRect={() => {}}
     />
   );
 };

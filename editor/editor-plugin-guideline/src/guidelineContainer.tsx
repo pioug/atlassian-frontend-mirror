@@ -7,7 +7,7 @@ import { akEditorFullWidthLayoutWidth } from '@atlaskit/editor-shared-styles';
 
 import { VAR_POSITION_OFFSET_X, VAR_POSITION_OFFSET_Y } from './constants';
 import { Guideline } from './guideline';
-import { GuidelineConfig } from './types';
+import type { GuidelineConfig, GuidelineContainerRect } from './types';
 
 const guidelineContainerStyles = css({
   position: 'fixed',
@@ -22,13 +22,13 @@ const guidelineContainerStyles = css({
 type ContainerProps = {
   guidelines: GuidelineConfig[];
   height: number;
-  centerOffset: number;
   width: number;
   editorWidth: number;
+  updateRect: (rect: GuidelineContainerRect) => void;
 };
 
 export const GuidelineContainer = (props: ContainerProps) => {
-  const { guidelines, height, editorWidth, centerOffset } = props;
+  const { guidelines, height, updateRect } = props;
   const [offset, setOffset] = useState(0);
 
   const ref = useRef<HTMLDivElement>(null);
@@ -36,10 +36,16 @@ export const GuidelineContainer = (props: ContainerProps) => {
   useLayoutEffect(() => {
     const rect = ref?.current?.getBoundingClientRect();
     if (rect) {
+      const centerOffset = rect.width / 2 - 0.5;
+
       // X pixels from guideline container left to editor center.
-      setOffset(centerOffset - rect.x);
+      if (offset !== centerOffset) {
+        setOffset(centerOffset);
+      }
+
+      updateRect({ top: rect.top, left: rect.left });
     }
-  }, [centerOffset, guidelines, editorWidth]);
+  }, [updateRect, offset]);
 
   const style = {
     [VAR_POSITION_OFFSET_X]: `${offset}px`,

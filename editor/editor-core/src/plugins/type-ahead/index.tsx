@@ -7,9 +7,6 @@
  *
  */
 import React from 'react';
-import type { NextEditorPlugin } from '../../types/editor-plugin';
-
-import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type {
@@ -38,11 +35,10 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import type { CloseSelectionOptions } from './constants';
 import { openTypeAheadAtCursor } from './transforms/open-typeahead-at-cursor';
-
-export type TypeAheadPluginOptions = {
-  isMobile?: boolean;
-  createAnalyticsEvent?: CreateUIAnalyticsEvent;
-};
+import type {
+  TypeAheadPluginOptions,
+  TypeAheadPlugin,
+} from '@atlaskit/editor-plugin-type-ahead';
 
 type TypeAheadMenuType = {
   typeAheadState: TypeAheadPluginState;
@@ -50,6 +46,8 @@ type TypeAheadMenuType = {
   popupMountRef: PopupMountPointReference;
   fireAnalyticsCallback: FireAnalyticsCallback;
 };
+
+export type { TypeAheadPluginOptions, TypeAheadPlugin };
 const TypeAheadMenu: React.FC<TypeAheadMenuType> = React.memo(
   ({ editorView, popupMountRef, typeAheadState, fireAnalyticsCallback }) => {
     const isOpen = typeAheadState.decorationSet.find().length > 0;
@@ -151,16 +149,6 @@ const TypeAheadMenu: React.FC<TypeAheadMenuType> = React.memo(
     );
   },
 );
-
-export type TypeAheadPlugin = NextEditorPlugin<
-  'typeAhead',
-  {
-    pluginConfiguration: TypeAheadPluginOptions | undefined;
-    commands: {
-      openTypeAheadAtCursor: typeof openTypeAheadAtCursor;
-    };
-  }
->;
 
 /**
  *

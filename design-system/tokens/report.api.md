@@ -1504,6 +1504,7 @@ const themeIds: readonly [
   'typography',
   'shape',
   'typography-adg3',
+  'typography-minor3',
 ];
 
 // @public (undocumented)
@@ -1519,6 +1520,7 @@ const themeIdsWithOverrides: readonly [
   'typography',
   'shape',
   'typography-adg3',
+  'typography-minor3',
   'light-new-input-border',
   'dark-new-input-border',
 ];
@@ -1571,7 +1573,8 @@ export type Themes =
   | 'atlassian-shape'
   | 'atlassian-spacing'
   | 'atlassian-typography'
-  | 'atlassian-typography-adg3';
+  | 'atlassian-typography-adg3'
+  | 'atlassian-typography-minor3';
 
 // @public
 export interface ThemeState {
@@ -1586,7 +1589,10 @@ export interface ThemeState {
   // (undocumented)
   spacing?: Extract<ThemeIds, 'spacing'>;
   // (undocumented)
-  typography?: Extract<ThemeIds, 'typography' | 'typography-adg3'>;
+  typography?: Extract<
+    ThemeIds,
+    'typography' | 'typography-adg3' | 'typography-minor3'
+  >;
   // (undocumented)
   UNSAFE_themeOptions?: ThemeOptionsSchema;
 }
@@ -2011,6 +2017,27 @@ type TokenState =
   | DeletedTokenState
   | DeprecatedTokenState
   | ExperimentalTokenState;
+
+// @public
+export type TypographyToken<
+  TPalette extends {
+    fontWeight: string;
+    fontSize: string;
+    lineHeight: string;
+    fontFamily: string;
+    letterSpacing: string;
+  },
+> = DesignToken<
+  {
+    fontStyle: 'normal';
+    fontWeight: TPalette['fontWeight'];
+    fontFamily: TPalette['fontFamily'];
+    fontSize: TPalette['fontSize'];
+    lineHeight: TPalette['lineHeight'];
+    letterSpacing: TPalette['letterSpacing'];
+  },
+  'typography'
+>;
 
 // @public
 export const useThemeObserver: () => Partial<ActiveThemeState>;

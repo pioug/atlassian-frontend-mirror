@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-guideline
 
+## 0.4.0
+
+### Minor Changes
+
+- [`7f45581d141`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7f45581d141) - ED-19630 fixed guideline alignment issue.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.3.13
 
 ### Patch Changes

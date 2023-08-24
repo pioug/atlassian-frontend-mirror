@@ -6,11 +6,14 @@ import { FormattedMessage } from 'react-intl-next';
 import Avatar, { SizeType } from '@atlaskit/avatar';
 import { User } from '@atlaskit/linking-types';
 
+import { FieldTextFontSize } from '../../styled';
+
 import { userTypeMessages } from './messages';
 
 const UserWrapper = styled.div`
   display: flex;
   align-items: center;
+  font-size: ${FieldTextFontSize};
 `;
 
 const AvatarWrapper = styled.div`

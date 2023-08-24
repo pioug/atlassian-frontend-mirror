@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::bae3fa2256b534cd5a8fad9a180e3fa8>>
+ * @codegen <<SignedSource::bf6a6956c0f05008a38d080067ade3fb>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -53,7 +53,7 @@ const tokens = [
       "description": "Smaller body font."
     },
     "value": {
-      "fontSize": 11,
+      "fontSize": 12,
       "fontStyle": "normal",
       "fontWeight": "400",
       "lineHeight": 20,
@@ -71,7 +71,7 @@ const tokens = [
       },
       "value": {
         "fontWeight": "FontWeight400",
-        "fontSize": "FontSize11",
+        "fontSize": "FontSize12",
         "lineHeight": "LineHeight200",
         "fontFamily": "FontFamilyWebSans",
         "fontStyle": "normal",
@@ -359,7 +359,7 @@ const tokens = [
       "value": {
         "fontWeight": "FontWeight700",
         "fontSize": "FontSize36",
-        "lineHeight": "LineHeight600",
+        "lineHeight": "LineHeight700",
         "fontFamily": "FontFamilyWebSans",
         "fontStyle": "normal",
         "letterSpacing": "LetterSpacing0"
@@ -422,7 +422,7 @@ const tokens = [
       "description": "Helpful guidance goes here"
     },
     "value": "0",
-    "filePath": "src/tokens/atlassian-typography/utils.tsx",
+    "filePath": "src/tokens/atlassian-typography/letter-spacing.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -449,7 +449,7 @@ const tokens = [
       "description": "Helpful guidance goes here"
     },
     "value": "0",
-    "filePath": "src/tokens/atlassian-typography/utils.tsx",
+    "filePath": "src/tokens/atlassian-typography/letter-spacing.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -476,7 +476,7 @@ const tokens = [
       "description": "Helpful guidance goes here"
     },
     "value": "0",
-    "filePath": "src/tokens/atlassian-typography/utils.tsx",
+    "filePath": "src/tokens/atlassian-typography/letter-spacing.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -503,7 +503,7 @@ const tokens = [
       "description": "Helpful guidance goes here"
     },
     "value": "0",
-    "filePath": "src/tokens/atlassian-typography/utils.tsx",
+    "filePath": "src/tokens/atlassian-typography/letter-spacing.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -530,7 +530,7 @@ const tokens = [
       "description": "Helpful guidance goes here"
     },
     "value": "0",
-    "filePath": "src/tokens/atlassian-typography/utils.tsx",
+    "filePath": "src/tokens/atlassian-typography/letter-spacing.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -598,7 +598,7 @@ const tokens = [
       "description": "Single-line non-wrapping supporting text like that in a smaller label."
     },
     "value": {
-      "fontSize": 11,
+      "fontSize": 12,
       "fontStyle": "normal",
       "fontWeight": "400",
       "lineHeight": "1",
@@ -616,7 +616,7 @@ const tokens = [
       },
       "value": {
         "fontWeight": "FontWeight400",
-        "fontSize": "FontSize11",
+        "fontSize": "FontSize12",
         "lineHeight": "LineHeight1",
         "fontFamily": "FontFamilyWebSans",
         "fontStyle": "normal",

@@ -59,7 +59,7 @@ describe('Number Type', () => {
     expect(el).toHaveTextContent('-69.35');
   });
 
-  it('renders the decimal as two places when a long decimal is passed', async () => {
+  it('renders the decimal with correct precision when a long decimal is passed', async () => {
     const { queryByTestId } = setup({
       number: -69.353423423,
     });
@@ -67,7 +67,18 @@ describe('Number Type', () => {
     const el = queryByTestId(NUMBER_TYPE_TEST_ID);
 
     expect(el).toBeInTheDocument();
-    expect(el).toHaveTextContent('-69.35');
+    expect(el).toHaveTextContent('-69.353423423');
+  });
+
+  it('formats large numbers with commas', async () => {
+    const { queryByTestId } = setup({
+      number: 10000000123.23,
+    });
+
+    const el = queryByTestId(NUMBER_TYPE_TEST_ID);
+
+    expect(el).toBeInTheDocument();
+    expect(el).toHaveTextContent('10,000,000,123.23');
   });
 
   it('it does not render number type when a non-number type is passed', async () => {

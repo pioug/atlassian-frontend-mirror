@@ -1,5 +1,11 @@
 # @atlaskit/linking-common
 
+## 4.5.0
+
+### Minor Changes
+
+- [`4a3a91d26e7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4a3a91d26e7) - Deprecate enableImprovedPreviewAction feature flag from LinkingPlatformFeatureFlags.
+
 ## 4.4.0
 
 ### Minor Changes

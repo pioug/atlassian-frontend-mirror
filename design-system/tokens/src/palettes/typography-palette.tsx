@@ -8,7 +8,7 @@ import {
 
 export type FontSizeScaleValues =
   | 'FontSizeCode'
-  | 'FontSize11'
+  | 'LegacyFontSize11'
   | 'FontSize12'
   | 'FontSize14'
   | 'FontSize16'
@@ -16,6 +16,7 @@ export type FontSizeScaleValues =
   | 'FontSize24'
   | 'FontSize28'
   | 'LegacyFontSize29'
+  | 'FontSize32'
   | 'LegacyFontSize35'
   | 'FontSize36'
   | 'FontSize48';
@@ -27,7 +28,8 @@ export type LineHeightScaleValues =
   | 'LineHeight300'
   | 'LineHeight400'
   | 'LineHeight500'
-  | 'LineHeight600';
+  | 'LineHeight600'
+  | 'LineHeight700';
 
 export type FontWeightScaleValues =
   | 'FontWeight400'
@@ -142,6 +144,12 @@ const lineHeightScale: LineHeightScaleTokenSchema<LineHeightScaleValues> = {
       },
     },
     LineHeight600: {
+      value: 36,
+      attributes: {
+        group: 'typography',
+      },
+    },
+    LineHeight700: {
       value: 40,
       attributes: {
         group: 'typography',
@@ -255,7 +263,7 @@ const fontSizeScale: FontSizeScaleTokenSchema<FontSizeScaleValues> = {
         group: 'typography',
       },
     },
-    FontSize11: {
+    LegacyFontSize11: {
       value: 11,
       attributes: {
         group: 'typography',
@@ -299,6 +307,12 @@ const fontSizeScale: FontSizeScaleTokenSchema<FontSizeScaleValues> = {
     },
     LegacyFontSize29: {
       value: 29,
+      attributes: {
+        group: 'typography',
+      },
+    },
+    FontSize32: {
+      value: 32,
       attributes: {
         group: 'typography',
       },

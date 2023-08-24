@@ -39,7 +39,7 @@ export interface LinkingPlatformFeatureFlags {
   useLozengeAction?: string;
   /**
    * This determines whether preview buttons should use the 'primary' appearance and differing text 'open preview'
-   * See https://product-fabric.atlassian.net/browse/EDM-6632
+   * @deprecated Implementation removed on EDM-6745
    */
   enableImprovedPreviewAction?: boolean;
 

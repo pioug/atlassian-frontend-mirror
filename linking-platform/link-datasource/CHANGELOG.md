@@ -1,5 +1,17 @@
 # @atlaskit/link-datasource
 
+## 1.0.4
+
+### Patch Changes
+
+- [`ea1fef58561`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ea1fef58561) - [ux] Fixes to column styling and other minor formatting issues
+
+## 1.0.3
+
+### Patch Changes
+
+- [`513a4e98543`](https://bitbucket.org/atlassian/atlassian-frontend/commits/513a4e98543) - [ux] links will now fallback to rendering as an anchor if smart-card fails to resolve
+
 ## 1.0.2
 
 ### Patch Changes

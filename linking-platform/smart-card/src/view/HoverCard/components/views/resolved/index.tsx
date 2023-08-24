@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { JsonLd } from 'json-ld-types';
-import { useFeatureFlag } from '@atlaskit/link-provider';
 import { ActionItem } from '../../../../FlexibleCard/components/blocks/types';
 import {
   ActionName,
@@ -39,19 +38,11 @@ import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 export const toFooterActions = (
   cardActions: LinkAction[],
   onActionClick?: (actionId: string) => void,
-  enableImprovedPreviewAction?: boolean,
 ): ActionItem[] => {
-  const appearance = enableImprovedPreviewAction
-    ? { appearance: 'primary' }
-    : undefined;
-  const previewText = enableImprovedPreviewAction
-    ? messages.preview_improved
-    : messages.preview;
-
   return cardActions.map((action: LinkAction) => {
     if (action.id === 'preview-content') {
       return {
-        content: <FormattedMessage {...previewText} />,
+        content: <FormattedMessage {...messages.preview_improved} />,
         name: ActionName.CustomAction,
         onClick: () => {
           if (onActionClick) {
@@ -60,7 +51,7 @@ export const toFooterActions = (
           return action.invoke();
         },
         testId: action.id,
-        ...appearance,
+        appearance: 'primary',
       } as CustomActionItem;
     }
 
@@ -89,10 +80,6 @@ const HoverCardResolvedView: React.FC<HoverCardResolvedProps> = ({
   onActionClick,
   extensionKey,
 }) => {
-  const enableImprovedPreviewAction = useFeatureFlag(
-    'enableImprovedPreviewAction',
-  );
-
   useEffect(() => {
     // Since this hover view is only rendered on resolved status,
     // there is no need to check for statuses.
@@ -103,13 +90,8 @@ const HoverCardResolvedView: React.FC<HoverCardResolvedProps> = ({
   }, [analytics.ui, cardState.status]);
 
   const footerActions = useMemo(
-    () =>
-      toFooterActions(
-        cardActions,
-        onActionClick,
-        Boolean(enableImprovedPreviewAction),
-      ),
-    [cardActions, onActionClick, enableImprovedPreviewAction],
+    () => toFooterActions(cardActions, onActionClick),
+    [cardActions, onActionClick],
   );
 
   const data = cardState.details?.data as JsonLd.Data.BaseData;

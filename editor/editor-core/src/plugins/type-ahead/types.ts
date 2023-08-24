@@ -6,7 +6,6 @@ import type {
   ReadonlyTransaction,
 } from '@atlaskit/editor-prosemirror/state';
 
-import type { INPUT_METHOD } from '../analytics/types/enums';
 import type { CloseSelectionOptions } from './constants';
 import type { UiComponentFactoryParams } from '../../types/ui-components';
 import type { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
@@ -21,6 +20,8 @@ import type {
   TypeAheadHandler,
 } from '@atlaskit/editor-common/types';
 
+import type { TypeAheadInputMethod } from '@atlaskit/editor-plugin-type-ahead';
+
 export type {
   TypeAheadStats,
   TypeAheadItemRenderProps,
@@ -29,6 +30,7 @@ export type {
   TypeAheadItem,
   TypeAheadForceSelect,
   TypeAheadHandler,
+  TypeAheadInputMethod,
 };
 
 export type OnSelectItem = (props: {
@@ -82,12 +84,6 @@ export type OnTextInsertProps = {
   text: string;
 };
 export type OnTextInsert = (props: OnTextInsertProps) => void;
-
-export type TypeAheadInputMethod =
-  | INPUT_METHOD.INSERT_MENU
-  | INPUT_METHOD.KEYBOARD
-  | INPUT_METHOD.QUICK_INSERT
-  | INPUT_METHOD.TOOLBAR;
 
 export type InsertionTransactionMeta = (
   editorState: EditorState,

@@ -66,7 +66,6 @@ export default () => (
       client={new CustomClient('staging')}
       featureFlags={{
         enableFlexibleBlockCard: true,
-        enableImprovedPreviewAction: true,
       }}
     >
       {renderLink('Card', TrelloCard.data.url, 'card', 430)}

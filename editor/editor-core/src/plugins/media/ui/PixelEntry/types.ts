@@ -18,6 +18,10 @@ export type PixelEntryProps = {
    */
   mediaHeight: number;
   /**
+   * show migration button to convert to pixels for legacy image resize experience
+   */
+  showMigration?: boolean;
+  /**
    * The submit function that is called when the form is valid and the submit key is pressed
    */
   onSubmit?: (value: PixelEntryFormData) => void;
@@ -26,6 +30,10 @@ export type PixelEntryProps = {
    * The value passed through the validator currently comes from the width input only.
    */
   validate?: (value: number | '') => boolean;
+  /**
+   * Migration handler called when the CTA button is clicked
+   */
+  onMigrate?: () => void;
 };
 
 export type PixelEntryFormValues = {

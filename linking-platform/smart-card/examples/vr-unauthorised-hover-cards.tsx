@@ -12,12 +12,7 @@ class CustomClient extends Client {
 
 export default () => (
   <VRTestWrapper title="Unauthorised Hover Card (Tooltip)">
-    <Provider
-      client={new CustomClient('staging')}
-      featureFlags={{
-        enableImprovedPreviewAction: true,
-      }}
-    >
+    <Provider client={new CustomClient('staging')}>
       <Card
         url={'https://www.mockurl.com'}
         appearance="inline"

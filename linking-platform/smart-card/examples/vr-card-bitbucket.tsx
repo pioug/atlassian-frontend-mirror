@@ -73,10 +73,7 @@ const renderLink = (
 
 export default () => (
   <VRTestWrapper title="Bitbucket Links">
-    <Provider
-      client={new CustomClient('staging')}
-      featureFlags={{ enableImprovedPreviewAction: true }}
-    >
+    <Provider client={new CustomClient('staging')}>
       {renderLink('Branch', BitbucketBranch.data.url, 'branch', 430)}
       {renderLink('Commit', BitbucketCommit.data.url, 'commit')}
       {renderLink('File', BitbucketFile1.data.url, 'file')}

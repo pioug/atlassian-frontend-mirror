@@ -2,6 +2,8 @@ import React from 'react';
 
 import { NumberType } from '@atlaskit/linking-types';
 
+import TextRenderType from '../text';
+
 interface NumberProps {
   testId?: string;
   number: NumberType['value'];
@@ -17,11 +19,13 @@ const NumberRenderType = ({
     return <></>;
   }
 
-  const formattedNumber = Number.isInteger(number)
-    ? number
-    : `${number.toFixed(2)}`;
+  const formattedNumber = number.toLocaleString(undefined, {
+    maximumFractionDigits: 15,
+  });
 
-  return <span data-testid={testId}>{formattedNumber}</span>;
+  return (
+    <TextRenderType testId={testId} text={formattedNumber}></TextRenderType>
+  );
 };
 
 export default NumberRenderType;

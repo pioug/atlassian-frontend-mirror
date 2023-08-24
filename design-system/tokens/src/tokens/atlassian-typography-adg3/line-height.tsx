@@ -10,7 +10,7 @@ const font: ValueSchema<LineHeightTokenSchema<BaseToken>> = {
       '300': { value: 'LineHeight300' },
       '400': { value: 'LineHeight400' },
       '500': { value: 'LineHeight500' },
-      '600': { value: 'LineHeight600' },
+      '600': { value: 'LineHeight700' },
     },
   },
 };

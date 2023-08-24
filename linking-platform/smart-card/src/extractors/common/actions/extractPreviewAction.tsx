@@ -67,7 +67,6 @@ export const extractPreviewAction = ({
   source = 'block',
   analytics,
   meta,
-  enableImprovedPreviewAction,
 }: ExtractBlockOpts & {
   viewProps: BlockCardResolvedViewProps;
   jsonLd: JsonLd.Data.BaseData;
@@ -97,7 +96,6 @@ export const extractPreviewAction = ({
         handleInvoke(getInvokeOpts(key, 'ViewAction'));
       },
       isSupportTheming: extractIsSupportTheming(meta),
-      enableImprovedPreviewAction,
     });
     // Setup props to go through proper Redux 'invocation' flow
     // for analytics, further state management if required in future.

@@ -26,8 +26,6 @@ import {
   SmartLinkPosition,
   SmartLinkSize,
 } from '../../../../../../constants';
-import { asMock } from '@atlaskit/link-test-helpers/jest';
-import { useFeatureFlag } from '@atlaskit/link-provider';
 import { useSmartLinkActions } from '@atlaskit/smart-card/hooks';
 import { LinkAction } from '../../../../../../state/hooks-external/useSmartLinkActions';
 import { CardState } from '@atlaskit/linking-common';
@@ -189,39 +187,26 @@ describe('HoverCardResolvedView', () => {
       expect(commentAction.textContent).toBe('Comment');
     });
 
-    it.each([
-      {
-        ffValue: true,
-        textContent: 'Open preview',
-      },
-      {
-        ffValue: false,
-        textContent: 'Full screen view',
-      },
-    ])(
-      'renders PreviewAction correctly when FF "enableImprovedPreviewAction" is false',
-      async ({ ffValue, textContent }) => {
-        asMock(useFeatureFlag).mockReturnValue(ffValue);
-        mockWithActions();
+    it('renders PreviewAction correctly', async () => {
+      mockWithActions();
 
-        const { result } = renderHook(() =>
-          useSmartLinkActions({
-            url,
-            appearance: CardDisplay.HoverCardPreview,
-          }),
-        );
-        const cardActions = result.current;
+      const { result } = renderHook(() =>
+        useSmartLinkActions({
+          url,
+          appearance: CardDisplay.HoverCardPreview,
+        }),
+      );
+      const cardActions = result.current;
 
-        const { findByTestId } = await setup({ cardActions });
+      const { findByTestId } = await setup({ cardActions });
 
-        await findByTestId('smart-element-group-actions');
+      await findByTestId('smart-element-group-actions');
 
-        // correctly renders preview action
-        const previewAction = await findByTestId('preview-content');
-        expect(previewAction).toBeDefined();
-        expect(previewAction.textContent).toBe(textContent);
-      },
-    );
+      // correctly renders preview action
+      const previewAction = await findByTestId('preview-content');
+      expect(previewAction).toBeDefined();
+      expect(previewAction.textContent).toBe('Open preview');
+    });
   });
 
   describe('metadata', () => {

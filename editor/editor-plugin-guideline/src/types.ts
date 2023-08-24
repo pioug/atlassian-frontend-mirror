@@ -4,6 +4,7 @@ export type {
   VerticalPosition,
   HorizontalPosition,
   GuidelineConfig,
+  GuidelineContainerRect,
   GuidelinePluginState,
   GuidelinePluginOptions,
   DisplayGuideline,

@@ -24,7 +24,7 @@ export const fallbackRenderType: TableViewPropsRenderType = item => {
     case 'icon':
       return <IconRenderType {...item.value} />;
     case 'link':
-      return <LinkRenderType {...item.value} />;
+      return <LinkRenderType key={item.value?.url} {...item.value} />;
     case 'number':
       return <NumberRenderType number={item.value} />;
     case 'status':

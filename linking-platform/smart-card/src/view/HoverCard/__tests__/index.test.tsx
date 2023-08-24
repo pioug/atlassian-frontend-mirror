@@ -575,13 +575,11 @@ describe('HoverCard', () => {
       const previewButton = await findByTestId('preview-content');
 
       expect(commentButton.textContent).toBe('Comment');
-      expect(previewButton.textContent).toBe('Full screen view');
+      expect(previewButton.textContent).toBe('Open preview');
     });
 
     it('should render smartlink actions with improved preview action feature flag', async () => {
-      const { findByTestId } = await setup({
-        featureFlags: { enableImprovedPreviewAction: true },
-      });
+      const { findByTestId } = await setup();
       jest.runAllTimers();
       const commentButton = await findByTestId('comment');
       const previewButton = await findByTestId('preview-content');
@@ -596,12 +594,11 @@ describe('HoverCard', () => {
       });
       jest.runAllTimers();
       const previewButton = await findByTestId('preview-content');
-      expect(previewButton.textContent).toBe('Full screen view');
+      expect(previewButton.textContent).toBe('Open preview');
     });
 
     it('should still render the full screen view action on inline link hover when disabled via flexui prop with improved preview action feature flag', async () => {
       const { findByTestId } = await setup({
-        featureFlags: { enableImprovedPreviewAction: true },
         extraCardProps: {
           ui: { hideHoverCardPreviewButton: true },
         },
@@ -1492,7 +1489,7 @@ describe('HoverCard', () => {
         expect(titleBlock.textContent?.trim()).toBe('I love cheese');
         expect(snippetBlock.textContent).toBe('Here is your serving of cheese');
         expect(footerBlock.textContent?.trim()).toBe(
-          'ConfluenceCommentFull screen view',
+          'ConfluenceCommentOpen preview',
         );
       });
 
@@ -1796,7 +1793,7 @@ describe('HoverCard', () => {
       expect(titleBlock.textContent?.trim()).toBe('I love cheese');
       expect(snippetBlock.textContent).toBe('Here is your serving of cheese');
       expect(footerBlock.textContent?.trim()).toBe(
-        'ConfluenceCommentFull screen view',
+        'ConfluenceCommentOpen preview',
       );
     });
 

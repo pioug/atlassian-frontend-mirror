@@ -48,6 +48,7 @@ const SyncWrapper = styled.div`
 
 const SyncTextWrapper = styled.div`
   margin-right: 5px;
+  font-size: 12px;
 `;
 
 export const TableFooter = ({
@@ -74,7 +75,7 @@ export const TableFooter = ({
       <TopBorderWrapper>
         <IssueCounterWrapper data-testid={'issue-count-wrapper'}>
           {showIssueCount && (
-            <Heading testId="issue-count" level="h400">
+            <Heading testId="issue-count" level="h200">
               <FormattedNumber value={issueCount as number} />{' '}
               <FormattedMessage
                 {...footerMessages.issueText}

@@ -14,6 +14,7 @@ export type {
   Position,
   GuidelineStyles,
   GuidelineConfig,
+  GuidelineContainerRect,
   GuidelinePluginState,
   GuidelinePluginOptions,
   DisplayGuideline,

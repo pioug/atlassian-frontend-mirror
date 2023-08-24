@@ -31,4 +31,15 @@ export const messages = defineMessages({
     defaultMessage: 'Submit',
     description: 'The text give to the hidden submit button',
   },
+  migrationButtonText: {
+    id: 'fabric.editor.media.pixelEntry.migrationButtonText',
+    defaultMessage: 'Convert to pixels',
+    description:
+      'The text give to the button used to covert to pixels for legacy experience',
+  },
+  migrationButtonTooltip: {
+    id: 'fabric.editor.media.pixelEntry.migrationButtonTooltip',
+    defaultMessage: 'Migrate from percentage to fixed pixel sizing',
+    description: 'The tooltip displayed on the migration button',
+  },
 });

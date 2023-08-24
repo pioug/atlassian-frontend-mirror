@@ -5,7 +5,6 @@ import { useFlexibleUiAnalyticsContext } from '../../../../../../state/flexible-
 import { useSmartLinkAnalytics } from '../../../../../../state';
 import { FormattedMessage } from 'react-intl-next';
 import { messages } from '../../../../../../messages';
-import { useFeatureFlag } from '@atlaskit/link-provider';
 import { openEmbedModalWithFlexibleUiIcon } from '../../../utils';
 
 const PreviewAction: React.FC<PreviewActionProps> = (
@@ -28,14 +27,6 @@ const PreviewAction: React.FC<PreviewActionProps> = (
   const defaultAnalytics = useSmartLinkAnalytics(url, () => {});
   const analytics = useFlexibleUiAnalyticsContext() || defaultAnalytics;
 
-  const enableImprovedPreviewAction = Boolean(
-    useFeatureFlag('enableImprovedPreviewAction'),
-  );
-
-  const previewText = enableImprovedPreviewAction
-    ? messages.preview_improved
-    : messages.preview;
-
   if (src && url) {
     const embedModal = () =>
       openEmbedModalWithFlexibleUiIcon({
@@ -56,7 +47,7 @@ const PreviewAction: React.FC<PreviewActionProps> = (
           onClick();
         }
       },
-      content: <FormattedMessage {...previewText} />,
+      content: <FormattedMessage {...messages.preview_improved} />,
     };
 
     return (

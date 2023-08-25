@@ -1,5 +1,11 @@
 # @atlaskit/schema-backwards-compatibility-tests
 
+## 0.0.6
+
+### Patch Changes
+
+- [`33cb07de05f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/33cb07de05f) - change adf-schema to fixed versioning
+
 ## 0.0.5
 
 ### Patch Changes

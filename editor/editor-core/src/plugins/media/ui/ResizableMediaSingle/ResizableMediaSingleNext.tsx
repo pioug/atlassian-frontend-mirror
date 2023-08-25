@@ -474,11 +474,13 @@ class ResizableMediaSingleNext extends React.Component<
         MEDIA_SINGLE_SNAP_GAP,
       );
 
-      this.lastSnappedGuidelineKeys = activeGuidelineKeys;
-
       const relativeGuidelines = activeGuidelineKeys.length
         ? []
         : this.getRelativeGuides();
+
+      this.lastSnappedGuidelineKeys = activeGuidelineKeys.length
+        ? activeGuidelineKeys
+        : relativeGuidelines.map((rg) => rg.key);
 
       this.displayGuideline([
         ...getGuidelinesWithHighlights(

@@ -1,4 +1,4 @@
-import { DefaultMentionNameResolver } from '../../../mention/src/resource';
+import { DefaultMentionNameResolver } from '@atlaskit/mention/resource';
 import {
   UIAnalyticsEvent,
   WithAnalyticsEventsProps,

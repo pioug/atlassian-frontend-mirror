@@ -11,6 +11,8 @@ import {
   mockReactDomWarningGlobal,
   renderWithIntl,
 } from '../../_testing-library';
+// These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { mockNonUploadingEmojiResourceFactory } from '@atlaskit/util-data-test/mock-non-uploading-emoji-resource-factory';
 import { VirtualList } from '../../../../components/picker/VirtualList';
 import EmojiRepository from '../../../../api/EmojiRepository';

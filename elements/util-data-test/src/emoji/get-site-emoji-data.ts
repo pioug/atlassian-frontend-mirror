@@ -1,4 +1,4 @@
-import { EmojiServiceResponse } from '../../../emoji/src/types';
+import { EmojiServiceResponse } from '@atlaskit/emoji/types';
 import { siteEmojiWtf } from './site-emoji-wtf';
 
 export const getSiteEmojiData = (): EmojiServiceResponse => ({

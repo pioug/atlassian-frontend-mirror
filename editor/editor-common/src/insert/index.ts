@@ -1,17 +1,17 @@
-import {
-  Fragment,
+import type {
   MarkType,
-  Node,
   NodeType,
   ResolvedPos,
-  Slice,
 } from '@atlaskit/editor-prosemirror/model';
-import {
+import { Fragment, Node, Slice } from '@atlaskit/editor-prosemirror/model';
+import type {
   EditorState,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
+import {
   NodeSelection,
   Selection,
   TextSelection,
-  Transaction,
 } from '@atlaskit/editor-prosemirror/state';
 import {
   ReplaceAroundStep,
@@ -309,7 +309,7 @@ const finaliseInsert = (tr: Transaction, nodeLength: number) => {
 };
 
 /**
- * Method extracted from typeahed plugin to be shared with the element browser on handling element insertion.
+ * Method extracted from typeahead plugin to be shared with the element browser on handling element insertion.
  */
 export const insertSelectedItem =
   (

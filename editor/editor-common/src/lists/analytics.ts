@@ -1,16 +1,16 @@
-import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
-import { CommonListAnalyticsAttributes } from '../analytics';
+import type { CommonListAnalyticsAttributes } from '../analytics';
 import { isListItemNode, isListNode } from '../utils';
 
 import { getListItemAttributes } from './selection';
 
 export const getCommonListAnalyticsAttributes = (
-  state: EditorState,
+  tr: Transaction,
 ): CommonListAnalyticsAttributes => {
   const {
     selection: { $from, $to },
-  } = state;
+  } = tr;
   const fromAttrs = getListItemAttributes($from);
   const toAttrs = getListItemAttributes($to);
 
@@ -19,17 +19,17 @@ export const getCommonListAnalyticsAttributes = (
     itemIndexAtSelectionEnd: toAttrs.itemIndex,
     indentLevelAtSelectionStart: fromAttrs.indentLevel,
     indentLevelAtSelectionEnd: toAttrs.indentLevel,
-    itemsInSelection: countListItemsInSelection(state),
+    itemsInSelection: countListItemsInSelection(tr),
   };
 };
 
-export const countListItemsInSelection = (state: EditorState) => {
-  const { from, to } = state.selection;
+export const countListItemsInSelection = (tr: Transaction) => {
+  const { from, to } = tr.selection;
   if (from === to) {
     return 1;
   }
   let count = 0;
-  const listSlice = state.doc.cut(from, to);
+  const listSlice = tr.doc.cut(from, to);
   listSlice.content.nodesBetween(
     0,
     listSlice.content.size,

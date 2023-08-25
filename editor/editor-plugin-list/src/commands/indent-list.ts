@@ -11,7 +11,8 @@ import {
   getListItemAttributes,
   hasValidListIndentationLevel,
 } from '@atlaskit/editor-common/lists';
-import type { Command } from '@atlaskit/editor-common/types';
+import { PassiveTransaction } from '@atlaskit/editor-common/preset';
+import type { EditorCommand } from '@atlaskit/editor-common/types';
 import { isBulletList } from '@atlaskit/editor-common/utils';
 import { closeHistory } from '@atlaskit/editor-prosemirror/history';
 
@@ -23,16 +24,15 @@ import { isInsideListItem, isInsideTableCell } from '../utils/selection';
 type InputMethod = INPUT_METHOD.KEYBOARD | INPUT_METHOD.TOOLBAR;
 export const indentList =
   (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
-  (inputMethod: InputMethod = INPUT_METHOD.KEYBOARD): Command => {
-    return function (state, dispatch) {
+  (inputMethod: InputMethod = INPUT_METHOD.KEYBOARD): EditorCommand => {
+    return function ({ tr }) {
       const {
-        tr,
         selection: { $from },
-      } = state;
+      } = tr;
 
       // don't indent if selection is not inside a list
-      if (!isInsideListItem(state)) {
-        return false;
+      if (!isInsideListItem(tr)) {
+        return null;
       }
 
       // Save the history, so it could undo/revert to the same state before the indent, see https://product-fabric.atlassian.net/browse/ED-14753
@@ -47,12 +47,12 @@ export const indentList =
           firstListItemSelectedAttributes.indentLevel === 0 &&
           firstListItemSelectedAttributes.itemIndex === 0)
       ) {
-        if (isInsideTableCell(state)) {
+        if (isInsideTableCell(tr)) {
           // dont consume tab, as table-keymap should move cursor to next cell
-          return false;
+          return null;
         } else {
           // Even though this is a non-operation, we don't want to send this event to the browser. Because if we return false, the browser will move the focus to another place
-          return true;
+          return new PassiveTransaction();
         }
       }
 
@@ -69,7 +69,7 @@ export const indentList =
 
       if (maximimunNestedLevelReached || !tr.docChanged) {
         // Even though this is a non-operation, we don't want to send this event to the browser. Because if we return false, the browser will move the focus to another place
-        return true;
+        return new PassiveTransaction();
       }
 
       editorAnalyticsAPI?.attachAnalyticsEvent({
@@ -78,15 +78,11 @@ export const indentList =
         actionSubjectId,
         eventType: EVENT_TYPE.TRACK,
         attributes: {
-          ...getCommonListAnalyticsAttributes(state),
+          ...getCommonListAnalyticsAttributes(tr),
           inputMethod,
         },
       })(tr);
 
-      if (dispatch) {
-        dispatch(tr);
-      }
-
-      return true;
+      return tr;
     };
   };

@@ -148,7 +148,9 @@ export type TableProps = SharedTableProps & {
   stickyHeaders?: StickyHeaderConfig;
 };
 
-const isHeaderRowEnabled = (rows: React.ReactChild[]) => {
+const isHeaderRowEnabled = (
+  rows: (React.ReactChild | React.ReactFragment | React.ReactPortal)[],
+) => {
   if (!rows.length) {
     return false;
   }
@@ -168,7 +170,7 @@ const isHeaderRowEnabled = (rows: React.ReactChild[]) => {
 
 const tableCanBeSticky = (
   node: PMNode | undefined,
-  children: React.ReactChild[],
+  children: (React.ReactChild | React.ReactFragment | React.ReactPortal)[],
 ) => {
   return (
     isHeaderRowEnabled(children) &&
@@ -411,9 +413,7 @@ export class TableContainer extends React.Component<
       left = lineLength / 2 - tableWidth / 2;
     }
 
-    const children = React.Children.toArray<React.ReactChild>(
-      this.props.children,
-    );
+    const children = React.Children.toArray(this.props.children);
 
     return (
       <>
@@ -494,16 +494,21 @@ export class TableContainer extends React.Component<
     );
   }
 
-  private grabFirstRowRef = (children: React.ReactNode[]) => {
-    return React.Children.map(children, (child, idx) => {
-      if (idx === 0 && React.isValidElement(child)) {
-        return React.cloneElement(child, {
-          innerRef: this.stickyHeaderRef,
-        } as React.Attributes);
-      }
+  private grabFirstRowRef = (
+    children: (React.ReactNode | React.ReactFragment | React.ReactPortal)[],
+  ): React.ReactNode[] => {
+    return React.Children.map<React.ReactElement, any>(
+      children || false,
+      (child, idx) => {
+        if (idx === 0 && React.isValidElement(child)) {
+          return React.cloneElement(child, {
+            innerRef: this.stickyHeaderRef,
+          } as React.Attributes);
+        }
 
-      return child;
-    });
+        return child;
+      },
+    );
   };
 }
 
@@ -525,10 +530,11 @@ export class TableProcessor extends React.Component<
       return null;
     }
 
-    let childrenArray = React.Children.toArray<React.ReactElement>(children);
+    let childrenArray = React.Children.toArray(children);
     const orderedChildren = compose(
       this.addNumberColumnIndexes,
       this.addSortableColumn,
+      // @ts-expect-error TS2345: Argument of type '(ReactChild | ReactFragment | ReactPortal)[]' is not assignable to parameter of type 'ReactElement<any, string | JSXElementConstructor<any>>[]'
     )(childrenArray);
 
     return <TableContainer {...this.props}>{orderedChildren}</TableContainer>;

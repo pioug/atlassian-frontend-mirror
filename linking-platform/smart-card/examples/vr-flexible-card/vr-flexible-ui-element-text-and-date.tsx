@@ -1,9 +1,9 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
 
-import { VRTestWrapper } from './utils/vr-test';
-import { FlexibleUiContext } from '../src/state/flexible-ui-context';
-import { exampleTokens, getContext } from './utils/flexible-ui';
+import VRTestWrapper from '../utils/vr-test-wrapper';
+import { FlexibleUiContext } from '../../src/state/flexible-ui-context';
+import { exampleTokens, getContext } from '../utils/flexible-ui';
 import {
   CreatedBy,
   OwnedBy,
@@ -15,7 +15,8 @@ import {
   TargetBranch,
   AssignedTo,
   ReadTime,
-} from '../src/view/FlexibleCard/components/elements';
+  SentOn,
+} from '../../src/view/FlexibleCard/components/elements';
 
 const overrideCss = css`
   color: ${exampleTokens.overrideColor};
@@ -30,6 +31,7 @@ const context = getContext({
   modifiedBy: 'Tony Stark',
   readTime: '5',
   assignedTo: 'Joe Smith',
+  sentOn: '2020-02-04T12:40:12.353+0800',
   snippet:
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque id feugiat elit, ut gravida felis. Phasellus arcu velit, tincidunt id rhoncus sit amet, vehicula vel ligula. Nullam nec vestibulum velit, eu tempus elit. Nunc sodales ultricies metus eget facilisis. Phasellus a arcu tortor. In porttitor metus ac ex ornare, quis efficitur est laoreet. Fusce elit elit, finibus vulputate accumsan ut, porttitor eu libero. Mauris eget hendrerit risus, vitae mollis dui. Sed pretium nisi tellus, quis bibendum est vestibulum ac.',
   sourceBranch: 'lp-flexible-smart-links',
@@ -37,13 +39,14 @@ const context = getContext({
 });
 
 export default () => (
-  <VRTestWrapper title="Flexible UI: Element: Text">
+  <VRTestWrapper>
     <FlexibleUiContext.Provider value={context}>
       <CreatedBy testId="vr-test-text" />
       <OwnedBy />
       <ModifiedBy />
       <CreatedOn />
       <ModifiedOn />
+      <SentOn />
       <AssignedTo />
       <Snippet />
       <SourceBranch />

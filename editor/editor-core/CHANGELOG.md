@@ -1,5 +1,71 @@
 # @atlaskit/editor-core
 
+## 187.31.0
+
+### Minor Changes
+
+- [`c70a6612aba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c70a6612aba) - [ED-19428] Decouple quick-insert plugin from editor-core
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.30.10
+
+### Patch Changes
+
+- [`a31ffa191cb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a31ffa191cb) - [ux] ED-19348 Fix gap-cursor position for numbered-table in wide/full-width mode
+
+## 187.30.9
+
+### Patch Changes
+
+- [`4795a87a349`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4795a87a349) - Migrating some actions of `editor-plugin-list` to commands. Adding sharedState for `editor-plugin-text-formatting`.
+- [`1f40b8ca01b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1f40b8ca01b) - [ux] ED-16028 Serializing mention text during copy
+- [`a34c6ca52c2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a34c6ca52c2) - [ux] [ED-19442] - Modified images and mentions icons and added dark mode
+- Updated dependencies
+
+## 187.30.8
+
+### Patch Changes
+
+- [`04a2b9f4cfe`](https://bitbucket.org/atlassian/atlassian-frontend/commits/04a2b9f4cfe) - fix convert pixels in nested table when media single node does not have width
+- [`edeab2d50b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/edeab2d50b2) - Fix analytics event for image resizing and relative snaps
+- Updated dependencies
+
+## 187.30.7
+
+### Patch Changes
+
+- [`f7f92b615ff`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f7f92b615ff) - [ux] ED-19439 Added dark mode icons for link and layout. Fixed gradient in date dark mode icon.
+- Updated dependencies
+
+## 187.30.6
+
+### Patch Changes
+
+- [`c77b39ff19f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c77b39ff19f) - [ux] [ED-19130] Fix up gap cursor positioning for breakout nodes
+- [`33cb07de05f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/33cb07de05f) - change adf-schema to fixed versioning
+- Updated dependencies
+
+## 187.30.5
+
+### Patch Changes
+
+- [`ef2d5662e05`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ef2d5662e05) - [ux] Implement pixel entry input validation when submitting and render warning decoration for invalid input
+
+## 187.30.4
+
+### Patch Changes
+
+- [`14a853a7939`](https://bitbucket.org/atlassian/atlassian-frontend/commits/14a853a7939) - [ux] ED-19439 Added dark mode icons for emoji, expand and fallback
+
+## 187.30.3
+
+### Patch Changes
+
+- [`f68eb1b1731`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f68eb1b1731) - Move common functions from `editor-core` to `editor-common` in preparation for `base` plugin extraction
+
 ## 187.30.1
 
 ### Patch Changes

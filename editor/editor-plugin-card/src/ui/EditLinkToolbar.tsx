@@ -1,43 +1,43 @@
 import React from 'react';
 
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type {
+  ACTION_SUBJECT_ID,
+  EditorAnalyticsAPI,
+} from '@atlaskit/editor-common/analytics';
 import {
   ACTION,
-  ACTION_SUBJECT_ID,
   buildEditLinkPayload,
-  EditorAnalyticsAPI,
   INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
 import { commandWithMetadata } from '@atlaskit/editor-common/card';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
-import {
-  HyperlinkAddToolbarProps,
-  HyperlinkAddToolbar as HyperlinkToolbar,
-} from '@atlaskit/editor-common/link';
+import type { HyperlinkAddToolbarProps } from '@atlaskit/editor-common/link';
+import { HyperlinkAddToolbar as HyperlinkToolbar } from '@atlaskit/editor-common/link';
 import { linkToolbarMessages } from '@atlaskit/editor-common/messages';
-import {
+import type {
   DatasourceAdf,
   ProviderFactory,
 } from '@atlaskit/editor-common/provider-factory';
 import type {
   Command,
   ExtractInjectionAPI,
+  FeatureFlags,
   FloatingToolbarConfig,
   FloatingToolbarItem,
   LinkInputType,
   LinkPickerOptions,
 } from '@atlaskit/editor-common/types';
-import { FeatureFlags } from '@atlaskit/editor-common/types';
 import {
   LINKPICKER_HEIGHT_IN_PX,
   RECENT_SEARCH_HEIGHT_IN_PX,
   RECENT_SEARCH_WIDTH_IN_PX,
 } from '@atlaskit/editor-common/ui';
+import { getDatasourceType } from '@atlaskit/editor-common/utils';
 import type { ForceFocusSelector } from '@atlaskit/editor-plugin-floating-toolbar';
-import { Node } from '@atlaskit/editor-prosemirror/model';
+import type { Node } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { JIRA_LIST_OF_LINKS_DATASOURCE_ID } from '@atlaskit/link-datasource';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { cardPlugin } from '../plugin';
 import {
@@ -306,12 +306,9 @@ export const editLinkToolbarConfig = (
 export const editDatasource =
   (node: Node, editorAnalyticsApi: EditorAnalyticsAPI | undefined): Command =>
   (state, dispatch) => {
-    const modalType =
-      (node.attrs as DatasourceAdf['attrs'])?.datasource.id ===
-      JIRA_LIST_OF_LINKS_DATASOURCE_ID
-        ? 'jira'
-        : undefined;
-
+    const modalType = getDatasourceType(
+      (node.attrs as DatasourceAdf['attrs'])?.datasource.id,
+    );
     if (dispatch && modalType) {
       const { tr } = state;
       showDatasourceModal(modalType)(tr);

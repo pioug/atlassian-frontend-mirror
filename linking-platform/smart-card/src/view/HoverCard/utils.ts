@@ -126,7 +126,7 @@ export const getSimulatedBetterMetadata = (
   const types = data ? extractType(data) : undefined;
   const defaultMetadata = {
     topMetadataBlock: {
-      primary: [ElementName.CreatedBy, ElementName.ModifiedOn],
+      primary: [ElementName.AuthorGroup, ElementName.ModifiedOn],
       secondary: [],
       subtitle: [],
     },

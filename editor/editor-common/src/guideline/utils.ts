@@ -46,20 +46,29 @@ export const getGuidelineTypeFromKey = (
     return 'default';
   }
 
-  // Find the first matched guideline (ignoring duplicates or groups)
-  const matchedGuideline = guidelines.find((guideline) =>
-    keys.some((key) => guideline.key === key),
-  );
-  if (!matchedGuideline) {
-    return 'none';
+  // Check for temporary guidelines
+  if (
+    keys.some((key) =>
+      ['media_'].some(
+        (temoporaryGuideline) => key.indexOf(temoporaryGuideline) >= 0,
+      ),
+    )
+  ) {
+    return 'temporary';
   }
 
-  // Check whether temporary or horizontal guides
-  if (isVerticalPosition(matchedGuideline.position)) {
-    return isRange(matchedGuideline.position.y) ? 'relative' : 'temporary';
-  } else {
-    return isRange(matchedGuideline.position.x) ? 'relative' : 'none'; // Can never have temporary horizontal guides
+  // Check for relative guidelines
+  if (
+    keys.some((key) =>
+      ['relative_'].some(
+        (relativeGuideline) => key.indexOf(relativeGuideline) >= 0,
+      ),
+    )
+  ) {
+    return 'relative';
   }
+
+  return 'none';
 };
 
 /**

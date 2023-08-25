@@ -1,6 +1,8 @@
 /** @jsx jsx */
 import React from 'react';
 import { jsx } from '@emotion/react';
+// These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { getEmojis } from '@atlaskit/util-data-test/get-emojis';
 import EmojiPickerList, {
   Props,

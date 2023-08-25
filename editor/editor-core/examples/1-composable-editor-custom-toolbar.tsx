@@ -3,13 +3,18 @@ import { css, jsx } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 
-import type { ExtractPublicEditorAPI } from '@atlaskit/editor-common/types';
+import type {
+  ExtractPublicEditorAPI,
+  PublicPluginAPI,
+} from '@atlaskit/editor-common/types';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
 import { createDefaultPreset } from '@atlaskit/editor-core/labs-next';
 import { cardPlugin } from '@atlaskit/editor-plugin-card';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
+import type { ListPlugin } from '@atlaskit/editor-plugin-list';
+import { listPlugin } from '@atlaskit/editor-plugin-list';
 
-import Button from '@atlaskit/button';
+import Button, { ButtonGroup } from '@atlaskit/button';
 import { cardProviderStaging } from '@atlaskit/editor-test-helpers/card-provider';
 
 import { EditorContext } from '@atlaskit/editor-core';
@@ -28,7 +33,70 @@ const smartCardClient = new ConfluenceCardClient('stg');
 const createPreset = () =>
   createDefaultPreset({ featureFlags: {}, paste: {} })
     .add(gridPlugin)
-    .add([cardPlugin, { platform: 'web' }]);
+    .add([cardPlugin, { platform: 'web' }])
+    .add(listPlugin);
+
+interface ListToolbarProps {
+  editorApi: PublicPluginAPI<[ListPlugin]> | undefined;
+}
+
+function ListToolbar({ editorApi }: ListToolbarProps) {
+  const { listState } = useSharedPluginState(editorApi, ['list']);
+  const toggleOrderedList =
+    editorApi?.dependencies.list.commands.toggleOrderedList(
+      INPUT_METHOD.TOOLBAR,
+    );
+
+  const toggleBulletList =
+    editorApi?.dependencies.list.commands.toggleBulletList(
+      INPUT_METHOD.TOOLBAR,
+    );
+
+  return (
+    <ButtonGroup>
+      <Button
+        isDisabled={listState?.bulletListDisabled}
+        onClick={() => {
+          editorApi?.dependencies.core.actions.execute(toggleBulletList);
+        }}
+        isSelected={listState?.bulletListActive}
+      >
+        Bullet List
+      </Button>
+      <Button
+        isDisabled={listState?.orderedListDisabled}
+        onClick={() => {
+          editorApi?.dependencies.core.actions.execute(toggleOrderedList);
+        }}
+        isSelected={listState?.orderedListActive}
+      >
+        Ordered List
+      </Button>
+    </ButtonGroup>
+  );
+}
+
+function FormattingToolbar({ editorApi }: ToolbarProps) {
+  const { textFormattingState } = useSharedPluginState(editorApi, [
+    'textFormatting',
+  ]);
+  const toggleStrong =
+    editorApi?.dependencies.textFormatting.commands.toggleStrong(
+      INPUT_METHOD.TOOLBAR,
+    );
+
+  return (
+    <Button
+      isDisabled={textFormattingState?.strongDisabled}
+      onClick={() => {
+        editorApi?.dependencies.core.actions.execute(toggleStrong);
+      }}
+      isSelected={textFormattingState?.strongActive}
+    >
+      Bold
+    </Button>
+  );
+}
 
 interface ToolbarProps {
   editorApi:
@@ -45,14 +113,15 @@ function Toolbar({ editorApi }: ToolbarProps) {
     );
 
   return (
-    <div>
+    <ButtonGroup>
+      <FormattingToolbar editorApi={editorApi} />
+      <ListToolbar editorApi={editorApi} />
+
       <Button
+        appearance="link"
         isDisabled={hyperlinkState?.activeLinkMark !== undefined}
         onClick={() => {
-          // Testing one potential approach to the "editorCommands" API
-          if (showLinkToolbarAction) {
-            editorApi?.dependencies.core.actions.execute(showLinkToolbarAction);
-          }
+          editorApi?.dependencies.core.actions.execute(showLinkToolbarAction);
         }}
       >
         {hyperlinkState?.activeLinkMark ? 'Active Link' : 'Insert Link'}
@@ -68,7 +137,7 @@ function Toolbar({ editorApi }: ToolbarProps) {
       >
         Insert Text
       </Button>
-    </div>
+    </ButtonGroup>
   );
 }
 

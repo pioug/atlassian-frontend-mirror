@@ -1,6 +1,8 @@
 import React from 'react';
 import { waitUntil } from '@atlaskit/elements-test-helpers';
 import { mountWithIntl } from '../../_enzyme';
+// These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { MockEmojiResource } from '@atlaskit/util-data-test/mock-emoji-resource';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { axe, toHaveNoViolations } from 'jest-axe';

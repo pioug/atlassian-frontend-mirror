@@ -10,6 +10,7 @@ import type { EditorProps } from '@atlaskit/editor-core';
 
 import { mobileApiPlugin } from './plugins/mobileApiPlugin';
 import type WebBridgeImpl from './native-to-web';
+import type { IntlShape } from 'react-intl-next';
 
 interface WrapperProps {
   props: EditorWrapperProps;
@@ -17,12 +18,13 @@ interface WrapperProps {
 
 interface EditorWrapperProps extends EditorProps {
   bridge: WebBridgeImpl;
+  intl: IntlShape;
 }
 
 const ComposableEditorWrapper = ({ props }: WrapperProps) => {
   const preset = useUniversalPreset({ props }).add([
     mobileApiPlugin,
-    { bridge: props.bridge },
+    { bridge: props.bridge, intl: props.intl },
   ]);
   return <ComposableEditor preset={preset} {...props} />;
 };

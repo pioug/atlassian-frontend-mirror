@@ -4,11 +4,9 @@ import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import InsertMenu from '../../InsertMenu';
 import { IntlProvider } from 'react-intl-next';
-import { InsertMenuProps } from '../../types';
-
-jest.mock('../../../../plugins/quick-insert/search', () => ({
-  getFeaturedQuickInsertItems: jest.fn().mockImplementation(() => () => []),
-}));
+import type { InsertMenuProps } from '../../types';
+import type { PluginInjectionAPIWithDependencies } from '@atlaskit/editor-common/types';
+import type { InsertBlockPluginDependencies } from '../../../../plugins/insert-block/types';
 
 const dropdownItems = [
   {
@@ -91,7 +89,7 @@ describe('InsertMenu', () => {
   const createEditor = createEditorFactory();
 
   it('should not show viewMore, when showElementBrowserLink is false', () => {
-    const { editorView } = createEditor({
+    const { editorView, editorAPI } = createEditor({
       doc: doc(p()),
     });
     render(
@@ -102,6 +100,9 @@ describe('InsertMenu', () => {
           showElementBrowserLink={false}
           onInsert={jest.fn()}
           toggleVisiblity={jest.fn()}
+          pluginInjectionApi={
+            editorAPI as PluginInjectionAPIWithDependencies<InsertBlockPluginDependencies>
+          }
         />
       </IntlProvider>,
     );
@@ -111,7 +112,7 @@ describe('InsertMenu', () => {
   });
 
   it('should show viewMore, when showElementBrowserLink is true', () => {
-    const { editorView } = createEditor({
+    const { editorView, editorAPI } = createEditor({
       doc: doc(p()),
     });
     render(
@@ -122,6 +123,9 @@ describe('InsertMenu', () => {
           showElementBrowserLink={true}
           onInsert={jest.fn()}
           toggleVisiblity={jest.fn()}
+          pluginInjectionApi={
+            editorAPI as PluginInjectionAPIWithDependencies<InsertBlockPluginDependencies>
+          }
         />
       </IntlProvider>,
     );

@@ -82,6 +82,7 @@ const elementMappings: Record<
   },
   [ElementName.Provider]: { component: Badge },
   [ElementName.ReadTime]: { component: Text },
+  [ElementName.SentOn]: { component: DateTime },
   [ElementName.Snippet]: {
     component: Text,
     props: {
@@ -163,6 +164,8 @@ const getData = (
       return toFormattedTextProps(messages.modified_by, context.modifiedBy);
     case ElementName.ModifiedOn:
       return toDateTimeProps('modified', context.modifiedOn);
+    case ElementName.SentOn:
+      return toDateTimeProps('sent', context.sentOn);
     case ElementName.ReadTime:
       return toFormattedTextProps(messages.read_time, data as string);
     case ElementName.Snippet:
@@ -212,7 +215,7 @@ const toDateLozengeProps = (
 };
 
 const toDateTimeProps = (
-  type: 'created' | 'modified',
+  type: 'created' | 'modified' | 'sent',
   dateString?: string,
 ): Partial<DateTimeProps> | undefined => {
   return dateString ? { date: new Date(dateString), type } : undefined;

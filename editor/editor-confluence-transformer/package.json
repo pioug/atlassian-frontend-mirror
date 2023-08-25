@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-confluence-transformer",
-  "version": "8.2.11",
+  "version": "8.2.12",
   "description": "Editor Confluence Transformer",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -32,8 +32,8 @@
     }
   },
   "dependencies": {
-    "@atlaskit/adf-schema": "^28.1.0",
-    "@atlaskit/editor-common": "^74.51.0",
+    "@atlaskit/adf-schema": "28.1.2",
+    "@atlaskit/editor-common": "^74.52.0",
     "@atlaskit/editor-prosemirror": "1.1.0",
     "@atlaskit/editor-shared-styles": "^2.6.0",
     "@babel/runtime": "^7.0.0",

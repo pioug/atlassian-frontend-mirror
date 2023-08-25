@@ -172,7 +172,7 @@ describe('utils', () => {
           const editorState = createEditorState(
             documentWithSelectionOutsideList,
           );
-          const result = countListItemsInSelection(editorState);
+          const result = countListItemsInSelection(editorState.tr);
 
           expect(result).toEqual(1);
         });
@@ -183,7 +183,7 @@ describe('utils', () => {
       describe('#countListItemsInSelection', () => {
         it('should count how many list items are in the selection', () => {
           const editorState = createEditorState(documentWithCursorSelection);
-          const result = countListItemsInSelection(editorState);
+          const result = countListItemsInSelection(editorState.tr);
 
           expect(result).toEqual(1);
         });
@@ -196,7 +196,7 @@ describe('utils', () => {
           const editorState = createEditorState(
             rangeSelectionAcrossTwoLevelsOfNestedLists,
           );
-          const result = countListItemsInSelection(editorState);
+          const result = countListItemsInSelection(editorState.tr);
 
           expect(result).toEqual(2);
         });
@@ -209,7 +209,7 @@ describe('utils', () => {
           const editorState = createEditorState(
             rangeSelectionAcrossThreeLevelsOfNestedLists,
           );
-          const result = countListItemsInSelection(editorState);
+          const result = countListItemsInSelection(editorState.tr);
 
           expect(result).toEqual(7);
         });
@@ -222,7 +222,7 @@ describe('utils', () => {
           const editorState = createEditorState(
             rangeSelectionFromDeepestLiToLastTopLevelLiOfNestedLists,
           );
-          const result = countListItemsInSelection(editorState);
+          const result = countListItemsInSelection(editorState.tr);
 
           expect(result).toEqual(3);
         });
@@ -233,7 +233,7 @@ describe('utils', () => {
       describe('#countListItemsInSelection', () => {
         it('should count how many list items are in the selection', () => {
           const editorState = createEditorState(rangeSelectionAcrossTwoLists);
-          const result = countListItemsInSelection(editorState);
+          const result = countListItemsInSelection(editorState.tr);
 
           expect(result).toEqual(7);
         });

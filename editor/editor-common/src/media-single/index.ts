@@ -17,6 +17,7 @@ export {
   getMediaSingleInitialWidth,
   calculateOffsetLeft,
   roundToNearest,
+  calcMinWidth,
   getMaxWidthForNestedNode,
   getMaxWidthForNestedNodeNext,
 } from './utils';

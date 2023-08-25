@@ -232,4 +232,7 @@ export type {
   QuickInsertPluginStateKeys,
   QuickInsertOptions,
   QuickInsertPluginOptions,
+  QuickInsertSearchOptions,
+  QuickInsertSharedState,
+  QuickInsertHandler,
 } from './quick-insert';

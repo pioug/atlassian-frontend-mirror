@@ -1,4 +1,6 @@
 import { AnalyticsListener as AnalyticsListenerNext } from '@atlaskit/analytics-next';
+// These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import Tooltip from '@atlaskit/tooltip';
 import { ConcurrentExperience } from '@atlaskit/ufo';

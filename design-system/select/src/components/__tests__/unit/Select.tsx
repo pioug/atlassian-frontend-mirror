@@ -312,7 +312,6 @@ describe('Select', () => {
   /**
    * filterOption is getting called multiple for a change in inputValue
    */
-  /* eslint-disable jest/no-disabled-tests */
   it.skip('should call filterOption when input of select is changed', async () => {
     const filterOptionSpy = jest.fn();
     render(

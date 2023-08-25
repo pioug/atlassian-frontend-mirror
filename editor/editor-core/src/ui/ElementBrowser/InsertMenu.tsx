@@ -21,15 +21,7 @@ import {
   IconQuote,
   IconStatus,
 } from '@atlaskit/editor-common/quick-insert';
-import type { QuickInsertPluginState } from '@atlaskit/editor-common/types';
 import withOuterListeners from '../with-outer-listeners';
-import WithPluginState from '../WithPluginState';
-import { pluginKey } from '../../plugins/quick-insert/plugin-key';
-import {
-  getFeaturedQuickInsertItems,
-  searchQuickInsertItems,
-} from '../../plugins/quick-insert/search';
-import { insertItem } from '../../plugins/quick-insert/commands';
 import ElementBrowser from './components/ElementBrowserLoader';
 
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
@@ -43,6 +35,7 @@ const InsertMenu = ({
   showElementBrowserLink,
   onInsert,
   toggleVisiblity,
+  pluginInjectionApi,
 }: InsertMenuProps) => {
   const [itemCount, setItemCount] = useState(0);
 
@@ -74,44 +67,69 @@ const InsertMenu = ({
     : undefined;
 
   const onInsertItem = useCallback(
-    (item) => {
+    (item: QuickInsertItem) => {
       toggleVisiblity();
       if (!editorView.hasFocus()) {
         editorView.focus();
       }
-      insertItem(item)(editorView.state, editorView.dispatch);
+      pluginInjectionApi?.dependencies.quickInsert?.actions.insertItem(item)(
+        editorView.state,
+        editorView.dispatch,
+      );
     },
-    [editorView, toggleVisiblity],
+    [editorView, toggleVisiblity, pluginInjectionApi],
   );
 
   const getItems = useCallback(
-    (quickInsertState: QuickInsertPluginState) =>
-      (query?: string, category?: string) => {
-        let result;
-        /**
-         * @warning The results if there is a query are not the same as the results if there is no query.
-         * For example: If you have a typed panel and then select the panel item then it will call a different action
-         * than is specified on the editor plugins quick insert
-         * @see above transform function for more details.
-         */
-        if (query) {
-          result = searchQuickInsertItems(quickInsertState, {})(
+    (query?: string, category?: string) => {
+      let result;
+      /**
+       * @warning The results if there is a query are not the same as the results if there is no query.
+       * For example: If you have a typed panel and then select the panel item then it will call a different action
+       * than is specified on the editor plugins quick insert
+       * @see above transform function for more details.
+       */
+      if (query) {
+        pluginInjectionApi?.dependencies.core.actions.execute(
+          pluginInjectionApi?.dependencies.quickInsert?.commands.search({
             query,
             category,
-          );
-        } else {
-          result = quickInsertDropdownItems.concat(
-            getFeaturedQuickInsertItems(quickInsertState, {})(),
-          ) as QuickInsertItem[];
-        }
-        setItemCount(result.length);
-        return result;
-      },
-    [quickInsertDropdownItems],
+          }),
+        );
+        result =
+          pluginInjectionApi?.dependencies.quickInsert?.sharedState.currentState()
+            ?.suggestions ?? [];
+      } else {
+        pluginInjectionApi?.dependencies.core.actions.execute(
+          pluginInjectionApi?.dependencies.quickInsert?.commands.search({
+            category,
+            featuredItems: true,
+          }),
+        );
+        const featuredQuickInsertSuggestions =
+          pluginInjectionApi?.dependencies.quickInsert?.sharedState.currentState()
+            ?.suggestions ?? [];
+        result = quickInsertDropdownItems.concat(
+          featuredQuickInsertSuggestions,
+        ) as QuickInsertItem[];
+      }
+      setItemCount(result.length);
+      return result;
+    },
+    [
+      pluginInjectionApi?.dependencies.core.actions,
+      pluginInjectionApi?.dependencies.quickInsert?.commands,
+      pluginInjectionApi?.dependencies.quickInsert?.sharedState,
+      quickInsertDropdownItems,
+    ],
   );
 
-  const render = useCallback(
-    ({ quickInsertState }) => (
+  const emptyStateHandler =
+    pluginInjectionApi?.dependencies.quickInsert?.sharedState.currentState()
+      ?.emptyStateHandler;
+
+  return (
+    <div css={(theme: ThemeProps) => insertMenuWrapper(theme, itemCount)}>
       <ElementBrowserWrapper
         handleClickOutside={toggleVisiblity}
         handleEscapeKeydown={toggleVisiblity}
@@ -119,8 +137,8 @@ const InsertMenu = ({
       >
         <ElementBrowser
           mode="inline"
-          getItems={getItems(quickInsertState)}
-          emptyStateHandler={quickInsertState?.emptyStateHandler}
+          getItems={getItems}
+          emptyStateHandler={emptyStateHandler}
           onInsertItem={onInsertItem}
           showSearch
           showCategories={false}
@@ -129,22 +147,6 @@ const InsertMenu = ({
           viewMoreItem={viewMoreItem}
         />
       </ElementBrowserWrapper>
-    ),
-    [
-      getItems,
-      onInsertItem,
-      quickInsertDropdownItems.length,
-      toggleVisiblity,
-      viewMoreItem,
-    ],
-  );
-
-  return (
-    <div css={(theme: ThemeProps) => insertMenuWrapper(theme, itemCount)}>
-      <WithPluginState
-        plugins={{ quickInsertState: pluginKey }}
-        render={render}
-      />
     </div>
   );
 };

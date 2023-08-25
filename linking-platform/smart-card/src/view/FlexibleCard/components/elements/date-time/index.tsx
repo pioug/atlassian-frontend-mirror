@@ -30,6 +30,10 @@ const typeToDescriptorMap: Record<
     relative: messages.modified_on_relative,
     absolute: messages.modified_on_absolute,
   },
+  sent: {
+    relative: messages.sent_on_relative,
+    absolute: messages.sent_on_absolute,
+  },
 };
 
 /**
@@ -38,6 +42,7 @@ const typeToDescriptorMap: Record<
  * @param {DateTimeProps} DateTimeProps - The props necessary for the DateTime element.
  * @see CreatedOn
  * @see ModifiedOn
+ * @see SentOn
  */
 const DateTime: React.FC<DateTimeProps> = ({
   date,

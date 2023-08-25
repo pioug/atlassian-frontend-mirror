@@ -25,6 +25,8 @@ export const PixelEntry = ({
   mediaHeight,
   onSubmit,
   validate,
+  minWidth,
+  maxWidth,
   intl: { formatMessage },
   showMigration,
   onMigrate,
@@ -51,17 +53,35 @@ export const PixelEntry = ({
   // Handle submit when user presses enter in form
   const handleOnSubmit = (data: PixelEntryFormValues) => {
     if (onSubmit) {
-      if (data.inputWidth === '') {
-        return;
+      let widthToBeSumitted = data.inputWidth;
+      let isInvalidInput = false;
+
+      if (data.inputWidth < minWidth) {
+        widthToBeSumitted = minWidth;
+        isInvalidInput = true;
       }
-      onSubmit({ width: data.inputWidth });
+
+      if (data.inputWidth > maxWidth) {
+        widthToBeSumitted = maxWidth;
+        isInvalidInput = true;
+      }
+
+      // If user keeps submitting an invalid input, node width attribute will be updated with the same value
+      // and won't upadte the state in useEffect (since width is the same)
+      // Thus, we set the state here to always display the correct dimension
+      if (isInvalidInput) {
+        setComputedWidth(widthToBeSumitted);
+        setComputedHeight(Math.round(ratioWidth * widthToBeSumitted));
+      }
+
+      onSubmit({ width: widthToBeSumitted });
     }
   };
 
   // Syncronous validation returning undefined for valid and string for invalid
   const handleValidateWidth = useCallback(
     (value?: number | '') => {
-      if (!value || !validate) {
+      if (!validate || value === undefined) {
         return;
       }
       if (validate) {
@@ -85,16 +105,20 @@ export const PixelEntry = ({
       switch (type) {
         case 'inputWidth': {
           setComputedWidth(newInputValue);
-          if (!isNaN(value)) {
+          if (newInputValue) {
             setComputedHeight(Math.round(ratioWidth * value));
+          } else {
+            setComputedHeight('');
           }
           break;
         }
 
         case 'inputHeight': {
           setComputedHeight(newInputValue);
-          if (!isNaN(value)) {
+          if (newInputValue) {
             setComputedWidth(Math.round(ratioHeight * value));
+          } else {
+            setComputedWidth('');
           }
           break;
         }
@@ -134,7 +158,9 @@ export const PixelEntry = ({
                   {({ fieldProps }) => (
                     <Tooltip
                       hideTooltipOnMouseDown
-                      content={formatMessage(messages.inputWidthTooltip)}
+                      content={formatMessage(messages.inputWidthTooltip, {
+                        maxWidth,
+                      })}
                       position="top"
                     >
                       <Textfield
@@ -144,7 +170,10 @@ export const PixelEntry = ({
                         isCompact
                         onChange={handleOnChange('inputWidth')}
                         pattern="\d*"
-                        aria-label={formatMessage(messages.inputWidthAriaLabel)}
+                        aria-label={formatMessage(
+                          messages.inputWidthAriaLabel,
+                          { maxWidth },
+                        )}
                       />
                     </Tooltip>
                   )}

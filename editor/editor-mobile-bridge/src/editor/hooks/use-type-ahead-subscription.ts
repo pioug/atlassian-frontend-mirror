@@ -1,12 +1,9 @@
 import { useEffect } from 'react';
 import { TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
-import {
-  subscribeTypeAheadUpdates,
-  createQuickInsertTools,
-} from '@atlaskit/editor-core';
-import EditorConfiguration from '../editor-configuration';
+import { subscribeTypeAheadUpdates } from '@atlaskit/editor-core';
+import type EditorConfiguration from '../editor-configuration';
 import { toNativeBridge } from '../web-to-native';
-import WebBridgeImpl from '../native-to-web';
+import type WebBridgeImpl from '../native-to-web';
 
 export function useTypeAheadSubscription(
   editorReady: boolean,
@@ -46,13 +43,19 @@ export function useTypeAheadSubscription(
         const query = newPluginState.query;
 
         if (isQuickInsert && (wasOpened || hasQueryChanged)) {
-          const quickInsertList = createQuickInsertTools(editorView).getItems(
-            query,
-            {
-              disableDefaultItems: true,
-            },
+          bridge.getPluginInjectionApi()?.dependencies.core.actions.execute(
+            bridge
+              .getPluginInjectionApi()
+              ?.dependencies.quickInsert?.commands.search({
+                query,
+                disableDefaultItems: true,
+              }),
           );
-          const quickInsertItems = quickInsertList.map(({ id, title }) => ({
+          const quickInsertList = bridge
+            .getPluginInjectionApi()
+            ?.dependencies.quickInsert?.sharedState.currentState()?.suggestions;
+
+          const quickInsertItems = quickInsertList?.map(({ id, title }) => ({
             id,
             title,
           }));

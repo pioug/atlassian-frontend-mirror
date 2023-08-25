@@ -3,8 +3,7 @@ import React, { FC } from 'react';
 import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 import styled from 'styled-components';
 
-import { DN30, DN800, N30, N800 } from '@atlaskit/theme/colors';
-import { themed } from '@atlaskit/theme/components';
+import { N30, N800 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { LineChartIcon } from '../../common/ui';
@@ -14,13 +13,13 @@ import { chartPlaceholderMessages } from './messages';
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 const ChartPlaceholderCard = styled.div`
   align-items: flex-start;
-  background-color: ${themed({ light: N30, dark: DN30 })};
+  background-color: ${token('elevation.surface', N30)};
   display: flex;
   line-height: 24px;
   overflow-wrap: break-word;
   padding: ${token('space.100', '8px')} 23px ${token('space.100', '8px')}
     ${token('space.100', '8px')};
-  color: ${themed({ light: N800, dark: DN800 })};
+  color: ${token('color.text', N800)};
   word-break: break-word;
 `;
 

@@ -67,6 +67,8 @@ export type MessageKey =
   | 'restricted_link'
   | 'request_access_to_view'
   | 'request_denied'
+  | 'sent_on_relative'
+  | 'sent_on_absolute'
   | 'status_change_load_error'
   | 'status_change_permission_error'
   | 'status_change_update_error'
@@ -492,6 +494,16 @@ export const messages: Messages = defineMessages({
     id: 'fabric.linking.save',
     defaultMessage: 'Save',
     description: 'Just the "save" word',
+  },
+  sent_on_relative: {
+    id: 'fabric.linking.sent_on_relative',
+    defaultMessage: 'Sent {context}',
+    description: 'Indicated when entity was sent (relative form)',
+  },
+  sent_on_absolute: {
+    id: 'fabric.linking.sent_on_absolute',
+    defaultMessage: 'Sent on {context}',
+    description: 'Indicated when entity was sent (absolute form)',
   },
   status_change_load_error: {
     id: 'fabric.linking.status_change_load_error',

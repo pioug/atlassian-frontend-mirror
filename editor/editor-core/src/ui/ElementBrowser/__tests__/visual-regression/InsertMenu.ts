@@ -1,8 +1,5 @@
-import {
-  getExampleUrl,
-  loadPage,
-  PuppeteerPage,
-} from '@atlaskit/visual-regression/helper';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import { getExampleUrl, loadPage } from '@atlaskit/visual-regression/helper';
 import {
   ToolbarMenuItem,
   toolbarMenuItemsSelectors,

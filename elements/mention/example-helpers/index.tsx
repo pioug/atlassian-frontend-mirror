@@ -1,4 +1,6 @@
 import React from 'react';
+// These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
+// eslint-disable-next-line import/no-extraneous-dependencies
 import {
   mentions as mentionsData,
   mentionSampleAvatarUrl,
@@ -13,7 +15,9 @@ import {
 } from '../src/types';
 import debug from '../src/util/logger';
 
+// eslint-disable-next-line import/no-extraneous-dependencies
 export { MockPresenceResource } from '@atlaskit/util-data-test/mock-presence-resource';
+// eslint-disable-next-line import/no-extraneous-dependencies
 export { mentions } from '@atlaskit/util-data-test/mention-story-data';
 
 export const resourceProvider = mentionResourceProvider;

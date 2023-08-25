@@ -1,18 +1,19 @@
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 import {
+  bodiedExtension,
   doc,
-  table,
-  p,
-  tr,
-  th,
-  td,
-  unsupportedInline,
-  unsupportedBlock,
   extension,
   inlineExtension,
-  bodiedExtension,
+  p,
+  table,
+  td,
+  th,
+  tr,
+  unsupportedBlock,
+  unsupportedInline,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { countNodes } from '../../count-nodes';
+
+import { countNodes } from '../count-nodes';
 
 describe('#countNodes', () => {
   it('should match empty 3x3 table and a paragraph', () => {

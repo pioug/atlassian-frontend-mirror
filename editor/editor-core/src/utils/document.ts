@@ -108,10 +108,6 @@ export function processRawFragmentValue(
   return Fragment.from(adfEntities);
 }
 
-export const isSelectionEndOfParagraph = (state: EditorState): boolean =>
-  state.selection.$to.parent.type === state.schema.nodes.paragraph &&
-  state.selection.$to.pos === state.doc.resolve(state.selection.$to.pos).end();
-
 export type ChangedFn = (
   node: Node,
   pos: number,

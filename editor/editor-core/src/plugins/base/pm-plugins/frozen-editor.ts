@@ -7,20 +7,20 @@ import {
   isPerformanceObserverAvailable,
   isPerformanceAPIAvailable,
   getAnalyticsEventSeverity,
+  countNodes,
 } from '@atlaskit/editor-common/utils';
 import { EditorExperience, ExperienceStore } from '@atlaskit/editor-common/ufo';
 import type {
   DispatchAnalyticsEvent,
   AnalyticsEventPayload,
-} from '../../analytics';
+} from '@atlaskit/editor-common/analytics';
 import {
   ACTION,
   ACTION_SUBJECT,
   BROWSER_FREEZE_INTERACTION_TYPE,
   EVENT_TYPE,
-} from '../../analytics';
+} from '@atlaskit/editor-common/analytics';
 import { getParticipantsCount } from '../../collab-edit/get-participants-count';
-import { countNodes } from '../../../utils/count-nodes';
 import type {
   InputTracking,
   BrowserFreezetracking,

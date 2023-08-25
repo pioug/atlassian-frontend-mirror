@@ -479,6 +479,7 @@ type ElementItemProps =
   | Provider_2
   | ReactCount
   | ReadTime
+  | SentOn
   | Snippet
   | SourceBranch
   | State_2
@@ -538,6 +539,8 @@ export enum ElementName {
   ReactCount = 'ReactCount',
   // (undocumented)
   ReadTime = 'ReadTime',
+  // (undocumented)
+  SentOn = 'SentOn',
   // (undocumented)
   Snippet = 'Snippet',
   // (undocumented)
@@ -807,6 +810,11 @@ type RetryOptions = {
 
 // @public (undocumented)
 type ScreenAuthPopupEventProps = CommonEventProps;
+
+// @public
+type SentOn = {
+  name: ElementName.SentOn;
+};
 
 export { SmartCardContext as Context };
 export { SmartCardContext };

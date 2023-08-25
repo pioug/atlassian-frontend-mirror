@@ -50,7 +50,7 @@ export interface AvatarGroupProps {
   /**
    * Component used to render each avatar
    */
-  avatar?: ElementType<AvatarProps>;
+  avatar?: typeof Avatar | ElementType<AvatarProps>;
 
   /**
    * The maximum number of avatars allowed in the list.

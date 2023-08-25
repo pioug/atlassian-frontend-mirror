@@ -1,11 +1,18 @@
-import * as timingUtils from '../../../../../utils/performance/get-performance-timing';
+import { getTimeSince } from '@atlaskit/editor-common/utils';
 import InputLatencyTracker from '../../input-latency-tracking';
+
+jest.mock('@atlaskit/editor-common/utils', () => ({
+  ...jest.requireActual<Object>('@atlaskit/editor-common/utils'),
+  isPerformanceAPIAvailable: () => true,
+  getTimeSince: jest.fn(),
+}));
+
+const mockGetTimeSince = getTimeSince as jest.Mock;
 
 describe('InputLatencyTracker', () => {
   describe('calls handlers with correct information', () => {
     it('with uneven samples', () => {
-      const getTimeSinceMock = jest.spyOn(timingUtils, 'getTimeSince');
-      getTimeSinceMock
+      mockGetTimeSince
         .mockReturnValueOnce(6)
         .mockReturnValueOnce(8)
         .mockReturnValueOnce(9)
@@ -62,8 +69,7 @@ describe('InputLatencyTracker', () => {
     });
 
     it('with even samples', () => {
-      const getTimeSinceMock = jest.spyOn(timingUtils, 'getTimeSince');
-      getTimeSinceMock
+      mockGetTimeSince
         .mockReturnValueOnce(6)
         .mockReturnValueOnce(8)
         .mockReturnValueOnce(9)

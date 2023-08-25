@@ -43,8 +43,6 @@ interface TableResizerProps {
   maxWidth: number;
   containerWidth: number;
   updateWidth: (width: number) => void;
-  onResizeStop: () => void;
-  onResizeStart: () => void;
   editorView: EditorView;
   getPos: () => number | undefined;
   node: PMNode;
@@ -122,8 +120,6 @@ export const TableResizer = ({
   maxWidth,
   containerWidth,
   updateWidth,
-  onResizeStop,
-  onResizeStart,
   editorView,
   getPos,
   node,
@@ -186,15 +182,7 @@ export const TableResizer = ({
       containerWidth,
     );
     setSnappingEnabled(displayGuideline(visibleGuidelines));
-
-    onResizeStart();
-  }, [
-    displayGuideline,
-    editorView,
-    startMeasure,
-    onResizeStart,
-    containerWidth,
-  ]);
+  }, [displayGuideline, editorView, startMeasure, containerWidth]);
 
   const handleResize = useCallback(
     (originalState, delta) => {
@@ -298,8 +286,6 @@ export const TableResizer = ({
       updateWidth(newWidth);
       scheduleResize.cancel();
 
-      onResizeStop();
-
       return newWidth;
     },
     [
@@ -312,7 +298,6 @@ export const TableResizer = ({
       displayGuideline,
       attachAnalyticsEvent,
       endMeasure,
-      onResizeStop,
     ],
   );
 

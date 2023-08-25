@@ -12,6 +12,9 @@ export const metadataBlockCss = css`
       padding-left: 0px;
     }
   }
+  [data-smart-element-group] {
+    line-height: 1rem;
+  }
 `;
 export const titleBlockCss = css`
   ${getBooleanFF(

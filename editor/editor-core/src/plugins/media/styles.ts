@@ -12,7 +12,7 @@ import {
   akEditorSelectedNodeClassName,
   akEditorDeleteIconColor,
 } from '@atlaskit/editor-shared-styles';
-import { N60, B200 } from '@atlaskit/theme/colors';
+import { N60, B200, Y500 } from '@atlaskit/theme/colors';
 import {
   fileCardImageViewSelector,
   inlinePlayerClassName,
@@ -179,6 +179,26 @@ export const mediaStyles = css`
 
     div div .media-card-frame::after {
       box-shadow: none;
+    }
+  }
+
+  .warning {
+    /* Media single */
+    .${richMediaClassName} .${fileCardImageViewSelector}::after {
+      border: 1px solid ${token('color.border.warning', Y500)};
+    }
+
+    .${richMediaClassName} .${inlinePlayerClassName}::after {
+      border: 1px solid ${token('color.border.warning', Y500)};
+    }
+
+    .${richMediaClassName} .${newFileExperienceClassName} {
+      box-shadow: 0 0 0 1px ${token('color.border.warning', Y500)} !important;
+    }
+
+    .resizer-handle-left::after,
+    .resizer-handle-right::after {
+      background: ${token('color.icon.warning', Y500)} !important;
     }
   }
 `;

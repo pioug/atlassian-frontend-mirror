@@ -4,7 +4,7 @@ import {
   MentionDescription,
   MentionsResult,
   AbstractMentionResource,
-} from '../../../mention/src/resource';
+} from '@atlaskit/mention/resource';
 import debug from '../logger';
 import { mentionTestResult } from './mention-test-data';
 import { MockMentionConfig } from './mock-mention-resource';

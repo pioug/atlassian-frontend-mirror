@@ -1,5 +1,57 @@
 # @atlaskit/editor-common
 
+## 74.52.0
+
+### Minor Changes
+
+- [`c70a6612aba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c70a6612aba) - [ED-19428] Decouple quick-insert plugin from editor-core
+
+## 74.51.7
+
+### Patch Changes
+
+- [`4795a87a349`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4795a87a349) - Migrating some actions of `editor-plugin-list` to commands. Adding sharedState for `editor-plugin-text-formatting`.
+- [`a34c6ca52c2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a34c6ca52c2) - [ux] [ED-19442] - Modified images and mentions icons and added dark mode
+
+## 74.51.6
+
+### Patch Changes
+
+- [`edeab2d50b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/edeab2d50b2) - Fix analytics event for image resizing and relative snaps
+
+## 74.51.5
+
+### Patch Changes
+
+- [`3fa17b4c298`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3fa17b4c298) - Update type definitions to conform to changes within `@types/react@16.14.15`.
+- [`f7f92b615ff`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f7f92b615ff) - [ux] ED-19439 Added dark mode icons for link and layout. Fixed gradient in date dark mode icon.
+- [`1e1bbc02f1c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1e1bbc02f1c) - Export function `getDatasourceType`
+
+## 74.51.4
+
+### Patch Changes
+
+- [`33cb07de05f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/33cb07de05f) - change adf-schema to fixed versioning
+
+## 74.51.3
+
+### Patch Changes
+
+- [`265255c9011`](https://bitbucket.org/atlassian/atlassian-frontend/commits/265255c9011) - Remove height from will-change css
+- [`ef2d5662e05`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ef2d5662e05) - [ux] Implement pixel entry input validation when submitting and render warning decoration for invalid input
+
+## 74.51.2
+
+### Patch Changes
+
+- [`14a853a7939`](https://bitbucket.org/atlassian/atlassian-frontend/commits/14a853a7939) - [ux] ED-19439 Added dark mode icons for emoji, expand and fallback
+
+## 74.51.1
+
+### Patch Changes
+
+- [`f68eb1b1731`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f68eb1b1731) - Move common functions from `editor-core` to `editor-common` in preparation for `base` plugin extraction
+
 ## 74.51.0
 
 ### Minor Changes

@@ -153,11 +153,11 @@ describe('utils', () => {
         'none',
       ],
       [
-        { keys: ['temporary_x_guideline_1'], guidelines: fullGuidelineSet },
+        { keys: ['media_x_guideline_1'], guidelines: fullGuidelineSet },
         'temporary',
       ],
       [
-        { keys: ['temporary_x_guideline_2'], guidelines: fullGuidelineSet },
+        { keys: ['media_x_guideline_2'], guidelines: fullGuidelineSet },
         'temporary',
       ],
       [

@@ -87,7 +87,13 @@ const FlexibleResolvedView = ({
 
       {getBooleanFF(
         'platform.linking-platform.smart-card.enable-better-metadata_iojwg',
-      ) && <MetadataBlock primary={bottomMetadata} maxLines={1} />}
+      ) && (
+        <MetadataBlock
+          primary={bottomMetadata}
+          maxLines={1}
+          overrideCss={metadataBlockCss}
+        />
+      )}
 
       {!isPreviewBlockErrored ? (
         <PreviewBlock

@@ -1,5 +1,60 @@
 # @atlaskit/legacy-mobile-macros
 
+## 2.4.147
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.146
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.145
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.144
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.143
+
+### Patch Changes
+
+- [`33cb07de05f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/33cb07de05f) - change adf-schema to fixed versioning
+- Updated dependencies
+
+## 2.4.142
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.141
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.140
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.139
+
+### Patch Changes
+
+- [`0514e72ec52`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0514e72ec52) - [ux] Adding design tokens for colors to support dark mode
+
 ## 2.4.138
 
 ### Patch Changes

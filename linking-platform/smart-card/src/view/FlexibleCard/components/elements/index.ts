@@ -142,6 +142,11 @@ export const ReactCount = createElement<BadgeProps>(ElementName.ReactCount);
  */
 export const ReadTime = createElement<TextProps>(ElementName.ReadTime);
 /**
+ * Creates a SentOn DateTime element using the data from SentOn in the Flexible UI Context.
+ * @see DateTime
+ */
+export const SentOn = createElement<DateTimeProps>(ElementName.SentOn);
+/**
  * Creates a Snippet element using the data from Snippet in the Flexible UI Context.
  * @see Text
  */

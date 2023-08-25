@@ -53,6 +53,7 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
+    "@af/accessibility-testing": "*",
     "@af/visual-regression": "*",
     "@atlaskit/notification-indicator": "*",
     "@atlaskit/notification-log-client": "*",

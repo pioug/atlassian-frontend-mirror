@@ -56,6 +56,7 @@ import {
   HoverCard as StandaloneHoverCard,
   HoverCardProps,
 } from '../../../hoverCard';
+import { HoverCardInternalProps } from '../types';
 import { PROVIDER_KEYS_WITH_THEMING } from '../../../extractors/constants';
 import { setGlobalTheme } from '@atlaskit/tokens';
 
@@ -1760,7 +1761,7 @@ describe('HoverCard', () => {
     const childTestId = 'hover-test-div';
 
     const standaloneSetUp = async (
-      props?: Partial<HoverCardProps>,
+      props?: Partial<HoverCardProps & HoverCardInternalProps>,
       setUpParams?: Parameters<typeof setup>[0],
     ) => {
       const hoverCardComponent = (
@@ -2475,6 +2476,59 @@ describe('HoverCard', () => {
 
         const hoverCard = queryByTestId('hover-card-unauthorised-view');
         expect(hoverCard).not.toBeInTheDocument();
+      });
+    });
+
+    describe('internal hover card props', () => {
+      it('noFadeDelay should cancel fade in/out timeouts when is true', async () => {
+        const noFadeDelay = true;
+        const { queryByTestId, findByTestId } = await standaloneSetUp({
+          noFadeDelay: noFadeDelay,
+        });
+
+        // No Fade In Delay
+        jest.advanceTimersByTime(0);
+        expect(queryByTestId('hover-card')).not.toBeNull();
+
+        const triggerArea = await findByTestId('hover-card-trigger-wrapper');
+        expect(triggerArea).toBeDefined();
+
+        fireEvent.mouseLeave(triggerArea);
+
+        // No Fade Out Delay
+        jest.advanceTimersByTime(0);
+        expect(queryByTestId('hover-card')).toBeNull();
+      });
+      it('noFadeDelay should not cancel fade in/out timeouts when is false', async () => {
+        const noFadeDelay = false;
+        const { queryByTestId, findByTestId } = await standaloneSetUp({
+          noFadeDelay: noFadeDelay,
+        });
+
+        // Fade In Delay not completed yet
+        jest.advanceTimersByTime(499);
+
+        expect(queryByTestId('hover-card')).toBeNull();
+
+        // Fade In Delay completed
+        jest.advanceTimersByTime(1);
+
+        expect(queryByTestId('hover-card')).not.toBeNull();
+
+        const triggerArea = await findByTestId('hover-card-trigger-wrapper');
+        expect(triggerArea).toBeDefined();
+
+        fireEvent.mouseLeave(triggerArea);
+
+        // Fade Out Delay not completed yet
+        jest.advanceTimersByTime(299);
+        expect(queryByTestId('hover-card')).not.toBeNull();
+
+        // Fade Out Delay completed
+        act(() => {
+          jest.advanceTimersByTime(1);
+        });
+        expect(queryByTestId('hover-card')).toBeNull();
       });
     });
   });

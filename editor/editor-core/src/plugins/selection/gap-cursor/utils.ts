@@ -174,3 +174,21 @@ export const isIgnoredClick = (elem: HTMLElement) => {
 
   return false;
 };
+
+/* 
+  Calculates custom style for breakout mode
+  Mainly to handle table width to include the numbered column width as well
+*/
+export const getComputedStyleForLayoutMode = (
+  dom: HTMLElement,
+  node: PMNode | undefined | null,
+  style: CSSStyleDeclaration,
+) => {
+  if (node && node.type.name === 'table') {
+    const tableContainer = dom.querySelector('.pm-table-container');
+    if (tableContainer) {
+      return window.getComputedStyle(tableContainer);
+    }
+  }
+  return style;
+};

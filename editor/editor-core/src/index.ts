@@ -82,10 +82,6 @@ export {
 } from './plugins/status/actions';
 export { typeAheadPluginKey } from './plugins/type-ahead';
 export type { TypeAheadPluginState } from './plugins/type-ahead';
-export {
-  pluginKey as quickInsertPluginKey,
-  memoProcessItems as processQuickInsertItems,
-} from './plugins/quick-insert';
 export type { TypeAheadItem } from '@atlaskit/editor-common/provider-factory';
 export type {
   /**
@@ -113,7 +109,13 @@ export {
 } from './plugins/mobile-dimensions/commands';
 
 // Used in editor-test-helpers and mobile bridge
-export { setTextSelection, dedupe, getNodesCount, measurements } from './utils';
+export { setTextSelection, getNodesCount, measurements } from './utils';
+export {
+  /**
+   * @deprecated Use dedupe from @atlaskit/editor-common/utils instead
+   */
+  dedupe,
+} from '@atlaskit/editor-common/utils';
 export { ReactEditorView, BaseReactEditorView } from './create-editor';
 export { getDefaultPresetOptionsFromEditorProps } from './create-editor';
 export type {
@@ -159,4 +161,3 @@ export type { PaletteColor } from './ui/ColorPalette/Palettes/type';
 export { DEFAULT_BORDER_COLOR } from './ui/ColorPalette/Palettes/common';
 export { default as messages, statusMessages, dateMessages } from './messages';
 export { createTypeAheadTools } from './plugins/type-ahead/api';
-export { createQuickInsertTools } from './plugins/quick-insert/api';

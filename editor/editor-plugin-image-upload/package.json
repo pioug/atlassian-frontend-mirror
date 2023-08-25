@@ -31,7 +31,7 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@atlaskit/editor-common": "^74.51.0",
+    "@atlaskit/editor-common": "^74.52.0",
     "@atlaskit/editor-prosemirror": "1.1.0",
     "@atlaskit/prosemirror-input-rules": "^2.4.0",
     "@babel/runtime": "^7.0.0"
@@ -41,7 +41,6 @@
   },
   "devDependencies": {
     "@af/visual-regression": "*",
-    "@atlaskit/editor-test-helpers": "^18.11.0",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",

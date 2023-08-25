@@ -4,7 +4,6 @@ import styled from 'styled-components';
 
 import ErrorIcon from '@atlaskit/icon/glyph/error';
 import * as colors from '@atlaskit/theme/colors';
-import { themed } from '@atlaskit/theme/components';
 import { token } from '@atlaskit/tokens';
 
 import { macroIcon } from './MacroIcon';
@@ -37,7 +36,7 @@ const Error = styled.span`
 `;
 
 const ErrorMessage = styled.span`
-  color: ${themed({ light: colors.N90, dark: colors.DN100 })};
+  color: ${token('color.text.subtlest', colors.N90)};
   padding-left: ${token('space.050', '4px')};
   margin-top: calc(-1 * ${token('space.050', '4px')});
   word-break: break-word;
@@ -89,7 +88,7 @@ export const MacroFallbackCard = ({
         <Error>
           <ErrorContent>
             <ErrorIcon
-              primaryColor={colors.R300}
+              primaryColor={token('color.icon.danger', colors.R300)}
               size="medium"
               label={errorMessage}
             />

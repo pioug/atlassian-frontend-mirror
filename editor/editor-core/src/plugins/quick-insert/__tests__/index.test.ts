@@ -1,8 +1,7 @@
-import { memoProcessItems } from '..';
-import type { QuickInsertHandler } from '../types';
-
 import type { IntlShape } from 'react-intl-next';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { QuickInsertHandler } from '@atlaskit/editor-common/types';
+import { memoProcessQuickInsertItems } from '@atlaskit/editor-common/quick-insert';
 
 describe('processItems', () => {
   const intlMock = {
@@ -22,16 +21,12 @@ describe('processItems', () => {
         action: mockAction,
       },
     ];
-    const actionObject = {
-      hyperlink: jest.fn(),
-    };
-    const data = memoProcessItems([quickInsertHandler], intlMock, actionObject);
+    const data = memoProcessQuickInsertItems([quickInsertHandler], intlMock);
 
     data[0].action(mockQuickInsertActionInsert, mockEditorState);
 
     // Assert that we only call the function once to prevent multiple windows opening
     expect(mockAction).toBeCalledTimes(1);
-    expect(actionObject.hyperlink).toBeCalledTimes(1);
   });
 
   it('should only call the action once despite calling the memoProcessItems multiple times', () => {
@@ -43,19 +38,15 @@ describe('processItems', () => {
         action: mockAction,
       },
     ];
-    const actionObject = {
-      hyperlink: jest.fn(),
-    };
-    const quickInserHandlers = [quickInsertHandler];
+    const quickInsertHandlers = [quickInsertHandler];
 
-    memoProcessItems(quickInserHandlers, intlMock, actionObject);
-    memoProcessItems(quickInserHandlers, intlMock, actionObject);
-    const data = memoProcessItems(quickInserHandlers, intlMock, actionObject);
+    memoProcessQuickInsertItems(quickInsertHandlers, intlMock);
+    memoProcessQuickInsertItems(quickInsertHandlers, intlMock);
+    const data = memoProcessQuickInsertItems(quickInsertHandlers, intlMock);
 
     data[0].action(mockQuickInsertActionInsert, mockEditorState);
 
     // Assert that we only call the function once to prevent multiple windows opening
     expect(mockAction).toBeCalledTimes(1);
-    expect(actionObject.hyperlink).toBeCalledTimes(1);
   });
 });

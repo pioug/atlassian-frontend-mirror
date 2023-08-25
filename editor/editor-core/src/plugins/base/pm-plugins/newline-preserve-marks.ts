@@ -2,9 +2,11 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { keydownHandler } from '@atlaskit/editor-prosemirror/keymap';
-import { filterCommand as filter } from '@atlaskit/editor-common/utils';
+import {
+  filterCommand as filter,
+  isSelectionEndOfParagraph,
+} from '@atlaskit/editor-common/utils';
 import type { Command } from '../../../types';
-import { isSelectionEndOfParagraph } from '../../../utils';
 
 export const newlinePreserveMarksKey = new PluginKey(
   'newlinePreserveMarksPlugin',

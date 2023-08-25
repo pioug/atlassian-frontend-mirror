@@ -1,6 +1,6 @@
 import { AbstractResource } from '@atlaskit/util-service-support';
 
-import { EmojiProvider, EmojiRepository } from '../../../emoji/src/resource';
+import { EmojiProvider, EmojiRepository } from '@atlaskit/emoji/resource';
 
 import {
   EmojiDescription,
@@ -12,7 +12,7 @@ import {
   User,
   OptionalUser,
   CategoryId,
-} from '../../../emoji/src/types';
+} from '@atlaskit/emoji/types';
 
 import { MockEmojiResourceConfig, PromiseBuilder } from './types';
 import { selectedToneStorageKey } from '../emoji-constants';

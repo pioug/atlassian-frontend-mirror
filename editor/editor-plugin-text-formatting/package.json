@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-text-formatting",
-  "version": "0.2.4",
+  "version": "0.3.0",
   "description": "Text-formatting plugin for @atlaskit/editor-core",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -31,8 +31,8 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@atlaskit/adf-schema": "^28.0.0",
-    "@atlaskit/editor-common": "^74.51.0",
+    "@atlaskit/adf-schema": "28.1.2",
+    "@atlaskit/editor-common": "^74.52.0",
     "@atlaskit/editor-plugin-analytics": "^0.1.0",
     "@atlaskit/editor-prosemirror": "1.1.0",
     "@atlaskit/editor-shared-styles": "^2.5.0",
@@ -50,7 +50,6 @@
     "@atlaskit/editor-plugin-composition": "^0.0.1",
     "@atlaskit/editor-plugin-decorations": "^0.1.0",
     "@atlaskit/editor-plugin-feature-flags": "^0.1.0",
-    "@atlaskit/editor-test-helpers": "^18.11.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@testing-library/react": "^12.1.5",
     "typescript": "~4.9.5"

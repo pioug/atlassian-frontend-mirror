@@ -14,6 +14,7 @@ import type {
 import type {
   QuickInsertItem,
   QuickInsertItemId,
+  TypeAheadItem,
 } from '@atlaskit/editor-common/provider-factory';
 import {
   changeColor,
@@ -33,19 +34,18 @@ import {
   dateToDateType,
   insertHorizontalRule,
   createTypeAheadTools,
-  createQuickInsertTools,
 } from '@atlaskit/editor-core';
-import type { InputMethodBasic as TextFormattingInputMethodBasic } from '@atlaskit/editor-common/types';
-import type { TextFormattingState } from '@atlaskit/editor-common/types';
+import type {
+  InputMethodBasic as TextFormattingInputMethodBasic,
+  TextFormattingState,
+  LinkInputType as LinkInputMethod,
+  ExtractInjectionAPI,
+  FeatureFlags,
+} from '@atlaskit/editor-common/types';
 import { hasVisibleContent } from '@atlaskit/editor-common/utils';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { isTextAtPos, isLinkAtPos } from '@atlaskit/editor-common/link';
-import type {
-  LinkInputType as LinkInputMethod,
-  ExtractInjectionAPI,
-} from '@atlaskit/editor-common/types';
-import type { TypeAheadItem } from '@atlaskit/editor-common/provider-factory';
-import type { EditorViewWithComposition } from '../../types';
+import type { EditorViewWithComposition, Serialized } from '../../types';
 import type {
   EditorState,
   Transaction,
@@ -69,7 +69,6 @@ import type { Socket } from '@atlaskit/collab-provider/types';
 import { LifecycleImpl } from './lifecycle';
 import type { allowListPayloadType } from '../event-dispatch';
 import { BridgeEventEmitter, EventTypes } from '../event-dispatch';
-import type { Serialized } from '../../types';
 import type { Provider as CollabProvider } from '@atlaskit/collab-provider';
 import { toNativeBridge } from '../web-to-native';
 import MobileEditorConfiguration from '../editor-configuration';
@@ -89,7 +88,6 @@ import type {
   MobileUploadErrorEvent,
 } from '@atlaskit/media-client';
 import type { UploadPreviewUpdateEventPayload } from '@atlaskit/media-picker/types';
-import type { FeatureFlags } from '@atlaskit/editor-common/types';
 import type NativeBridge from '../web-to-native/bridge';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import type { mobileApiPlugin } from '../plugins/mobileApiPlugin';
@@ -202,6 +200,10 @@ export default class WebBridgeImpl
     this.pluginInjectionApi = pluginInjectionApi;
     this.editorAnalyticsApi =
       pluginInjectionApi?.dependencies.analytics?.actions;
+  }
+
+  getPluginInjectionApi() {
+    return this.pluginInjectionApi;
   }
 
   getEditorConfiguration() {
@@ -519,36 +521,41 @@ export default class WebBridgeImpl
 
   onOrderedListSelected(inputMethod: ListInputMethod = INPUT_METHOD.TOOLBAR) {
     if (this.listBridgeState && this.editorView) {
-      this.pluginInjectionApi?.dependencies.list?.actions?.toggleOrderedList(
-        this.editorView,
-        inputMethod,
+      this.pluginInjectionApi?.dependencies.core.actions.execute(
+        this.pluginInjectionApi?.dependencies.list?.commands?.toggleOrderedList(
+          inputMethod,
+        ),
       );
     }
   }
 
   onBulletListSelected(inputMethod: ListInputMethod = INPUT_METHOD.TOOLBAR) {
     if (this.listBridgeState && this.editorView) {
-      this.pluginInjectionApi?.dependencies.list?.actions?.toggleBulletList(
-        this.editorView,
-        inputMethod,
+      this.pluginInjectionApi?.dependencies.core.actions.execute(
+        this.pluginInjectionApi?.dependencies.list?.commands?.toggleBulletList(
+          inputMethod,
+        ),
       );
     }
   }
 
   onIndentList(inputMethod: ListInputMethod = INPUT_METHOD.TOOLBAR) {
     if (this.listBridgeState && this.editorView) {
-      this.pluginInjectionApi?.dependencies.list?.actions?.indentList(
-        inputMethod,
-      )(this.editorView.state, this.editorView.dispatch);
+      this.pluginInjectionApi?.dependencies.core.actions.execute(
+        this.pluginInjectionApi?.dependencies.list?.commands?.indentList(
+          inputMethod,
+        ),
+      );
     }
   }
 
   onOutdentList(inputMethod: ListInputMethod = INPUT_METHOD.TOOLBAR) {
     if (this.listBridgeState && this.editorView) {
-      this.pluginInjectionApi?.dependencies.list?.actions?.outdentList(
-        inputMethod,
-        this.featureFlags,
-      )(this.editorView.state, this.editorView.dispatch);
+      this.pluginInjectionApi?.dependencies.core.actions.execute(
+        this.pluginInjectionApi?.dependencies.list?.commands?.outdentList(
+          inputMethod,
+        ),
+      );
     }
   }
 
@@ -731,11 +738,17 @@ export default class WebBridgeImpl
           return;
         }
 
-        const quickInsertTool = createQuickInsertTools(this.editorView);
-        const quickInsertList = quickInsertTool.getItems(query, {
-          disableDefaultItems: true,
-        });
-        const quickInsertItem = quickInsertList[index];
+        this.pluginInjectionApi?.dependencies.core.actions.execute(
+          this.pluginInjectionApi?.dependencies.quickInsert?.commands.search({
+            query,
+            disableDefaultItems: true,
+          }),
+        );
+        const quickInsertList =
+          this.pluginInjectionApi?.dependencies.quickInsert?.sharedState.currentState()
+            ?.suggestions;
+
+        const quickInsertItem = quickInsertList?.[index];
 
         if (!quickInsertItem) {
           return;

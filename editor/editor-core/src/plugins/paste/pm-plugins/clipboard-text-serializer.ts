@@ -3,7 +3,7 @@ import type { Slice, Node } from '@atlaskit/editor-prosemirror/model';
 /**
  * Returns a plain text serialization of a given slice. This is used for populating the plain text
  * section of the clipboard on copy.
- * The current implementation is bare bones - only inlineCards and blockCards are tested (they
+ * The current implementation is bare bones - only inlineCards, blockCards and mentions are tested (they
  * previously were empty on plain text copy).
  * Unknown nodes are passed to node.textBetween().
  *
@@ -28,6 +28,8 @@ export function clipboardTextSerializer(slice: Slice) {
       text += node.attrs.url;
     } else if (node.type.name === 'blockCard') {
       text += node.attrs.url;
+    } else if (node.type.name === 'mention') {
+      text += node.attrs.text;
     } else {
       text += node.textBetween(0, node.content.size, '\n\n');
     }

@@ -131,6 +131,7 @@ export enum ElementName {
   Title = 'Title',
   ViewCount = 'ViewCount',
   VoteCount = 'VoteCount',
+  SentOn = 'SentOn',
 }
 
 /**

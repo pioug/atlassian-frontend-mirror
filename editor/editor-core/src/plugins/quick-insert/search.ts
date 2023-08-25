@@ -1,79 +1,16 @@
-import Fuse from 'fuse.js';
-import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
-import { dedupe } from '../../utils';
 import type {
-  QuickInsertPluginState,
-  QuickInsertPluginOptions,
+  EditorCommand,
+  QuickInsertSearchOptions,
 } from '@atlaskit/editor-common/types';
+import { pluginKey } from './plugin-key';
 
-const options = {
-  threshold: 0.3,
-  keys: [
-    { name: 'title', weight: 0.57 },
-    { name: 'priority', weight: 0.3 },
-    { name: 'keywords', weight: 0.08 },
-    { name: 'description', weight: 0.04 },
-    { name: 'keyshortcut', weight: 0.01 },
-  ],
-};
+export type QuickInsertSearch = (
+  searchOptions: QuickInsertSearchOptions,
+) => EditorCommand;
 
-export function find(
-  query: string,
-  items: QuickInsertItem[],
-): QuickInsertItem[] {
-  const fuse = new Fuse(items, options);
-  if (query === '') {
-    // Copy and sort list by priority
-    return items
-      .slice(0)
-      .sort(
-        (a, b) =>
-          (a.priority || Number.POSITIVE_INFINITY) -
-          (b.priority || Number.POSITIVE_INFINITY),
-      );
-  }
-
-  return fuse.search(query).map((result) => result.item);
-}
-
-export const searchQuickInsertItems =
-  (
-    quickInsertState?: QuickInsertPluginState,
-    options?: QuickInsertPluginOptions,
-  ) =>
-  (query?: string, category?: string): QuickInsertItem[] => {
-    const defaultItems =
-      !quickInsertState || (options && options.disableDefaultItems)
-        ? []
-        : quickInsertState.lazyDefaultItems();
-    const providedItems = quickInsertState?.providedItems;
-
-    const items = providedItems
-      ? dedupe([...defaultItems, ...providedItems], (item) => item.title)
-      : defaultItems;
-
-    return find(
-      query || '',
-      category === 'all' || !category
-        ? items
-        : items.filter(
-            (item) => item.categories && item.categories.includes(category),
-          ),
-    );
-  };
-
-export const getFeaturedQuickInsertItems =
-  (
-    { providedItems, lazyDefaultItems }: QuickInsertPluginState,
-    options?: QuickInsertPluginOptions,
-  ) =>
-  (): QuickInsertItem[] => {
-    const defaultItems =
-      options && options.disableDefaultItems ? [] : lazyDefaultItems();
-
-    const items = providedItems
-      ? dedupe([...defaultItems, ...providedItems], (item) => item.title)
-      : defaultItems;
-
-    return items.filter((item) => item.featured);
-  };
+export const search: QuickInsertSearch =
+  ({ query, category, disableDefaultItems, featuredItems }) =>
+  ({ tr }) =>
+    tr.setMeta(pluginKey, {
+      searchOptions: { query, category, disableDefaultItems, featuredItems },
+    });

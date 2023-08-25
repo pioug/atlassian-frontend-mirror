@@ -28,12 +28,11 @@ import { toggleMark } from '@atlaskit/editor-prosemirror/commands';
 import {
   isMarkTypeAllowedInCurrentSelection,
   isEmptyNode,
-  dedupe,
   compose,
   pipe,
   isSelectionInsideLastNodeInDocument,
 } from '../../../utils';
-import { shallowEqual } from '@atlaskit/editor-common/utils';
+import { shallowEqual, dedupe } from '@atlaskit/editor-common/utils';
 
 import type { Node, Schema } from '@atlaskit/editor-prosemirror/model';
 import { closestElement } from '../../../utils/dom';

@@ -11,7 +11,11 @@ import {
   OUTDENT_SCENARIOS,
 } from '@atlaskit/editor-common/analytics';
 import { getCommonListAnalyticsAttributes } from '@atlaskit/editor-common/lists';
-import type { Command, FeatureFlags } from '@atlaskit/editor-common/types';
+import { PassiveTransaction } from '@atlaskit/editor-common/preset';
+import type {
+  EditorCommand,
+  FeatureFlags,
+} from '@atlaskit/editor-common/types';
 import { isBulletList } from '@atlaskit/editor-common/utils';
 import { closeHistory } from '@atlaskit/editor-prosemirror/history';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
@@ -27,31 +31,31 @@ export const outdentList =
   (
     inputMethod: InputMethod = INPUT_METHOD.KEYBOARD,
     featureFlags: FeatureFlags,
-  ): Command => {
-    return function (state, dispatch) {
-      if (!isInsideListItem(state)) {
-        return false;
+  ): EditorCommand => {
+    return function ({ tr }) {
+      if (!isInsideListItem(tr)) {
+        return null;
       }
-      const { $from } = state.selection;
+      const { $from } = tr.selection;
       const parentListNode = findFirstParentListNode($from);
       if (!parentListNode) {
         // Even though this is a non-operation, we don't want to send this event to the browser. Because if we return false, the browser will move the focus to another place
-        return true;
+        return new PassiveTransaction();
       }
 
       // Save the history, so it could undo/revert to the same state before the outdent, see https://product-fabric.atlassian.net/browse/ED-14753
-      closeHistory(state.tr);
+      closeHistory(tr);
 
       const actionSubjectId = isBulletList(parentListNode.node)
         ? ACTION_SUBJECT_ID.FORMAT_LIST_BULLET
         : ACTION_SUBJECT_ID.FORMAT_LIST_NUMBER;
 
-      let customTr: Transaction = state.tr;
-      outdentListAction(customTr, state, featureFlags);
+      let customTr: Transaction = tr;
+      outdentListAction(customTr, featureFlags);
       if (!customTr || !customTr.docChanged) {
         // Even though this is a non-operation, we don't want to send this event to the browser. Because if we return false, the browser will move the focus to another place
         // If inside table cell and can't outdent list, then let it handle by table keymap
-        return !isInsideTableCell(state);
+        return !isInsideTableCell(customTr) ? new PassiveTransaction() : null;
       }
 
       const restartListsAttributes: RestartListAttributes = {};
@@ -70,17 +74,13 @@ export const outdentList =
         actionSubjectId,
         eventType: EVENT_TYPE.TRACK,
         attributes: {
-          ...getCommonListAnalyticsAttributes(state),
+          ...getCommonListAnalyticsAttributes(customTr),
           ...restartListsAttributes,
 
           inputMethod,
         },
       })(customTr);
 
-      if (dispatch) {
-        dispatch(customTr);
-      }
-
-      return true;
+      return customTr;
     };
   };

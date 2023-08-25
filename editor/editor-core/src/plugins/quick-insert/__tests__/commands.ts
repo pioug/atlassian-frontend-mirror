@@ -14,11 +14,11 @@ import {
   openElementBrowserModal,
   closeElementBrowserModal,
   insertItem,
-} from '../../../../plugins/quick-insert/commands';
-import { selectNode } from '../../../../utils/commands';
+} from '../commands';
+import { selectNode } from '../../../utils/commands';
 
-import { pluginKey } from '../../../../plugins/quick-insert/plugin-key';
-import { datePlugin } from '../../../../plugins';
+import { pluginKey } from '../plugin-key';
+import { datePlugin } from '../..';
 
 jest.mock('@atlaskit/adf-schema', () => ({
   ...jest.requireActual<Object>('@atlaskit/adf-schema'),
@@ -32,8 +32,8 @@ describe('Quick Insert Commands', () => {
 
   describe('openElementBrowserModal', () => {
     it('should set isElementBrowserModalOpen to true', () => {
-      const { editorView } = createEditor({});
-      openElementBrowserModal()(editorView.state, editorView.dispatch);
+      const { editorView, editorAPI } = createEditor({});
+      editorAPI.dependencies.core?.actions?.execute(openElementBrowserModal);
 
       const quickInsertState = pluginKey.getState(editorView.state);
 

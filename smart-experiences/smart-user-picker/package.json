@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/smart-user-picker",
-  "version": "6.2.0",
+  "version": "6.3.0",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
@@ -33,7 +33,7 @@
   "dependencies": {
     "@atlaskit/analytics-next": "^9.1.0",
     "@atlaskit/ufo": "^0.2.0",
-    "@atlaskit/user-picker": "^10.7.0",
+    "@atlaskit/user-picker": "^10.8.0",
     "@babel/runtime": "^7.0.0",
     "lodash": "^4.17.21",
     "memoize-one": "^6.0.0",

@@ -1,5 +1,11 @@
 # @atlaskit/editor-json-transformer
 
+## 8.10.8
+
+### Patch Changes
+
+- [`33cb07de05f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/33cb07de05f) - change adf-schema to fixed versioning
+
 ## 8.10.7
 
 ### Patch Changes

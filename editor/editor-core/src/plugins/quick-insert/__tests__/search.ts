@@ -1,9 +1,8 @@
-import {
-  find,
-  searchQuickInsertItems,
-  getFeaturedQuickInsertItems,
-} from '../../../../plugins/quick-insert/search';
 import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
+import {
+  getQuickInsertSuggestions,
+  find,
+} from '@atlaskit/editor-common/quick-insert';
 
 const action = (): false => false;
 
@@ -148,26 +147,29 @@ describe('Quick Insert Search', () => {
     ).toEqual(['Quote']);
   });
 
-  describe('getFeaturedQuickInsertItems', () => {
-    const featuredItems = getFeaturedQuickInsertItems({
-      isElementBrowserModalOpen: false,
-      lazyDefaultItems: () => items,
-      providedItems: [
-        {
-          priority: 9,
-          title: 'Code inline',
-          categories: ['formatting'],
-          action,
-        },
-        {
-          priority: 9,
-          title: 'Page builder',
-          categories: ['advanced'],
-          action,
-        },
-      ],
-    })();
+  describe('getQuickInsertSuggestions - featured items', () => {
     it('should get featured items from quickInsertItems', () => {
+      const featuredItems = getQuickInsertSuggestions({
+        searchOptions: {
+          featuredItems: true,
+        },
+        lazyDefaultItems: () => items,
+        providedItems: [
+          {
+            priority: 9,
+            title: 'Code inline',
+            categories: ['formatting'],
+            action,
+          },
+          {
+            priority: 9,
+            title: 'Page builder',
+            categories: ['advanced'],
+            action,
+          },
+        ],
+      });
+
       expect(featuredItems).toStrictEqual([
         {
           priority: 1,
@@ -197,10 +199,13 @@ describe('Quick Insert Search', () => {
     });
   });
 
-  describe('searchQuickInsertItems', () => {
-    const search = searchQuickInsertItems(
-      {
-        isElementBrowserModalOpen: false,
+  describe('getQuickInsertSuggestions', () => {
+    const search = (query?: string, category?: string): QuickInsertItem[] =>
+      getQuickInsertSuggestions({
+        searchOptions: {
+          query,
+          category,
+        },
         lazyDefaultItems: () => items,
         providedItems: [
           {
@@ -216,9 +221,7 @@ describe('Quick Insert Search', () => {
             action,
           },
         ],
-      },
-      {},
-    );
+      });
 
     it('should match items based on a search term', () => {
       expect(search('Date')[0].title).toBe('Date');

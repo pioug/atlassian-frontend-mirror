@@ -212,6 +212,7 @@ export {
   hasDocAsParent,
   bracketTyped,
   hasVisibleContent,
+  isSelectionEndOfParagraph,
 } from './document';
 
 export {
@@ -224,7 +225,7 @@ export {
 
 export { sanitizeNodeForPrivacy } from './filter/privacy-filter';
 
-export { canRenderDatasource } from './datasource';
+export { canRenderDatasource, getDatasourceType } from './datasource';
 export {
   filterCommand,
   isEmptySelectionAtStart,
@@ -245,6 +246,10 @@ export {
   GUTTER_SIZE_IN_PX,
   GUTTER_SIZE_MOBILE_IN_PX,
 } from './scroll-gutter';
+
+export { getTimeSince } from './performance/get-performance-timing';
+
+export { countNodes } from './count-nodes';
 
 export function shallowEqual(obj1: any = {}, obj2: any = {}) {
   const keys1 = Object.keys(obj1);
@@ -438,3 +443,5 @@ export function isNodeEmpty(node?: PMNode): boolean {
     ).length
   );
 }
+
+export { dedupe } from './dedupe';

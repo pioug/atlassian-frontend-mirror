@@ -179,6 +179,12 @@ export const extractReadTime = (
   );
 };
 
+export const extractSentOn = (
+  data: JsonLd.Data.BaseData,
+): string | undefined => {
+  return extractValue<JsonLd.Data.Message, string>(data, 'dateSent');
+};
+
 export const extractStoryPoints = (
   data: JsonLd.Data.BaseData,
 ): number | undefined => {

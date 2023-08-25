@@ -33,6 +33,14 @@ export const separatorCss = css`
   [data-separator] + [data-separator]:before {
     margin-right: ${elementGap};
   }
+  ${getBooleanFF(
+    'platform.linking-platform.smart-card.enable-better-metadata_iojwg',
+  )
+    ? ` [data-smart-element-avatar-group] + [data-separator]:before {
+      content: '•';
+      margin-right: ${elementGap};
+    }`
+    : ``}
 `;
 
 export const HoverCardContainer = css`

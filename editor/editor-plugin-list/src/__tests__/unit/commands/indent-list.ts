@@ -1,6 +1,7 @@
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import { editorCommandToPMCommand } from '@atlaskit/editor-common/preset';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import {
@@ -73,20 +74,22 @@ describe('lists plugin -> commands -> outdentList', () => {
       );
 
       it('should return true', () => {
-        const { editorView } = editor(document);
-        const result = indentList(undefined)(INPUT_METHOD.KEYBOARD)(
-          editorView.state,
-          editorView.dispatch,
+        const { editorAPI } = editor(document);
+        const result = editorAPI.dependencies.core.actions.execute(
+          editorAPI.dependencies.list.commands.indentList(
+            INPUT_METHOD.KEYBOARD,
+          ),
         );
         expect(result).toBe(true);
       });
 
       it('should not call analytics', () => {
-        const { editorView } = editor(document);
-        indentList(editorAnalyticsAPIFake)(INPUT_METHOD.KEYBOARD)(
-          editorView.state,
-          editorView.dispatch,
-        );
+        const {
+          editorView: { state, dispatch },
+        } = editor(document);
+        editorCommandToPMCommand(
+          indentList(editorAnalyticsAPIFake)(INPUT_METHOD.KEYBOARD),
+        )(state, dispatch);
         expect(
           editorAnalyticsAPIFake.attachAnalyticsEvent,
         ).not.toHaveBeenCalled();
@@ -107,20 +110,22 @@ describe('lists plugin -> commands -> outdentList', () => {
       );
 
       it('should return true', () => {
-        const { editorView } = editor(document);
-        const result = indentList(undefined)(INPUT_METHOD.KEYBOARD)(
-          editorView.state,
-          editorView.dispatch,
+        const { editorAPI } = editor(document);
+        const result = editorAPI.dependencies.core.actions.execute(
+          editorAPI.dependencies.list.commands.indentList(
+            INPUT_METHOD.KEYBOARD,
+          ),
         );
         expect(result).toBe(true);
       });
 
       it('should not call analytics', () => {
-        const { editorView } = editor(document);
-        indentList(editorAnalyticsAPIFake)(INPUT_METHOD.KEYBOARD)(
-          editorView.state,
-          editorView.dispatch,
-        );
+        const {
+          editorView: { state, dispatch },
+        } = editor(document);
+        editorCommandToPMCommand(
+          indentList(editorAnalyticsAPIFake)(INPUT_METHOD.KEYBOARD),
+        )(state, dispatch);
         expect(
           editorAnalyticsAPIFake.attachAnalyticsEvent,
         ).not.toHaveBeenCalled();
@@ -141,20 +146,22 @@ describe('lists plugin -> commands -> outdentList', () => {
       );
 
       it('should return true', () => {
-        const { editorView } = editor(document);
-        const result = indentList(undefined)(INPUT_METHOD.KEYBOARD)(
-          editorView.state,
-          editorView.dispatch,
+        const { editorAPI } = editor(document);
+        const result = editorAPI.dependencies.core.actions.execute(
+          editorAPI.dependencies.list.commands.indentList(
+            INPUT_METHOD.KEYBOARD,
+          ),
         );
         expect(result).toBe(true);
       });
 
       it('should not call analytics', () => {
-        const { editorView } = editor(document);
-        indentList(editorAnalyticsAPIFake)(INPUT_METHOD.KEYBOARD)(
-          editorView.state,
-          editorView.dispatch,
-        );
+        const {
+          editorView: { state, dispatch },
+        } = editor(document);
+        editorCommandToPMCommand(
+          indentList(editorAnalyticsAPIFake)(INPUT_METHOD.KEYBOARD),
+        )(state, dispatch);
         expect(
           editorAnalyticsAPIFake.attachAnalyticsEvent,
         ).not.toHaveBeenCalled();
@@ -176,11 +183,12 @@ describe('lists plugin -> commands -> outdentList', () => {
       );
 
       it('should call indent analytics', () => {
-        const { editorView } = editor(document);
-        indentList(editorAnalyticsAPIFake)(INPUT_METHOD.KEYBOARD)(
-          editorView.state,
-          editorView.dispatch,
-        );
+        const {
+          editorView: { state, dispatch },
+        } = editor(document);
+        editorCommandToPMCommand(
+          indentList(editorAnalyticsAPIFake)(INPUT_METHOD.KEYBOARD),
+        )(state, dispatch);
         expect(
           editorAnalyticsAPIFake.attachAnalyticsEvent,
         ).toHaveBeenCalledWith({

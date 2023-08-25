@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import { renderHook, act } from '@testing-library/react-hooks';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
 import { EmojiCommonProvider } from '../context/EmojiCommonProvider';
 import { useEmoji } from './useEmoji';

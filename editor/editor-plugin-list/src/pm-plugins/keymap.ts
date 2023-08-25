@@ -3,6 +3,7 @@ import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import {
   backspace,
   bindKeymapWithCommand,
+  bindKeymapWithEditorCommand,
   deleteKey,
   enter,
   findKeyMapForBrowser,
@@ -32,22 +33,22 @@ export function keymapPlugin(
 ): SafePlugin | undefined {
   const list = {};
 
-  bindKeymapWithCommand(
+  bindKeymapWithEditorCommand(
     findShortcutByKeymap(toggleOrderedList)!,
     toggleList(editorAnalyticsAPI)(INPUT_METHOD.KEYBOARD, 'orderedList'),
     list,
   );
-  bindKeymapWithCommand(
+  bindKeymapWithEditorCommand(
     findShortcutByKeymap(toggleBulletList)!,
     toggleList(editorAnalyticsAPI)(INPUT_METHOD.KEYBOARD, 'bulletList'),
     list,
   );
-  bindKeymapWithCommand(
+  bindKeymapWithEditorCommand(
     indentList.common!,
     indentListCommand(editorAnalyticsAPI)(INPUT_METHOD.KEYBOARD),
     list,
   );
-  bindKeymapWithCommand(
+  bindKeymapWithEditorCommand(
     outdentList.common!,
     outdentListCommand(editorAnalyticsAPI)(INPUT_METHOD.KEYBOARD, featureFlags),
     list,

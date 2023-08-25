@@ -1,5 +1,23 @@
 # @atlaskit/smart-card
 
+## 26.16.0
+
+### Minor Changes
+
+- [`b73f38b2588`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b73f38b2588) - Add new FlexUI element - SentOn
+
+## 26.15.11
+
+### Patch Changes
+
+- [`3d5b709c646`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3d5b709c646) - Update css styles for metadata block elements in Block & Hover Card
+
+## 26.15.10
+
+### Patch Changes
+
+- [`9eed222eff6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9eed222eff6) - noFadeDelay internal hover card prop added.
+
 ## 26.15.9
 
 ### Patch Changes

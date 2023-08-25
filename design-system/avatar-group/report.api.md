@@ -16,7 +16,9 @@
 
 ```ts
 import type { AnalyticsEvent } from '@atlaskit/analytics-next';
-import type { AvatarPropTypes } from '@atlaskit/avatar';
+import Avatar from '@atlaskit/avatar';
+import { AvatarPropTypes } from '@atlaskit/avatar';
+import { default as default_2 } from '@atlaskit/avatar';
 import { ElementType } from 'react';
 import { jsx } from '@emotion/react';
 import { MouseEventHandler } from 'react';
@@ -65,7 +67,7 @@ interface AvatarGroupOverrides {
   // (undocumented)
   Avatar?: {
     render?: (
-      Component: ElementType<AvatarProps>,
+      Component: ElementType<AvatarProps> | typeof default_2,
       props: AvatarProps,
       index: number,
     ) => ReactNode;
@@ -83,7 +85,7 @@ interface AvatarGroupOverrides {
 // @public (undocumented)
 export interface AvatarGroupProps {
   appearance?: 'grid' | 'stack';
-  avatar?: ElementType<AvatarProps>;
+  avatar?: ElementType<AvatarProps> | typeof Avatar;
   borderColor?: string;
   boundariesElement?: 'scrollParent' | 'viewport' | 'window';
   data: Array<AvatarProps>;

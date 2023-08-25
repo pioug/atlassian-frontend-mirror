@@ -1,10 +1,17 @@
 /** @jsx jsx */
-import { Fragment, memo, useEffect, useRef, useState } from 'react';
+import {
+  Fragment,
+  memo,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 
 import { css, jsx } from '@emotion/react';
-import { bind } from 'bind-event-listener';
 import invariant from 'tiny-invariant';
 
+import Button from '@atlaskit/button';
 import ImageIcon from '@atlaskit/icon/glyph/image';
 import { easeInOut } from '@atlaskit/motion/curves';
 import { largeDurationMs, mediumDurationMs } from '@atlaskit/motion/durations';
@@ -135,17 +142,22 @@ const Gallery = memo(function Gallery({
 
 const fileStyles = css({
   display: 'flex',
+  flexDirection: 'column',
   padding: 'calc(var(--grid) * 6) calc(var(--grid) * 4)',
   boxSizing: 'border-box',
   alignItems: 'center',
   justifyContent: 'center',
   background: token('elevation.surface.sunken', '#091E4208'),
   borderRadius: 'var(--border-radius)',
-  color: token('color.text.disabled', '#091E424F'),
-  fontSize: '1.4rem',
   transition: `all ${mediumDurationMs}ms ${easeInOut}`,
   border: '2px dashed transparent',
   width: '100%',
+  gap: token('space.300', '24px'),
+});
+
+const textStyles = css({
+  color: token('color.text.disabled', '#091E424F'),
+  fontSize: '1.4rem',
 });
 
 const overStyles = css({
@@ -165,10 +177,61 @@ const appStyles = css({
   flexDirection: 'column',
 });
 
+const displayNoneStyles = css({ display: 'none' });
+
 function Uploader() {
   const ref = useRef<HTMLDivElement | null>(null);
   const [state, setState] = useState<'idle' | 'potential' | 'over'>('idle');
   const [uploads, setUploads] = useState<UserUpload[]>([]);
+
+  /**
+   * Creating a stable reference so that we can use it in our unmount effect.
+   *
+   * If we used uploads as a dependency in the second `useEffect` it would run
+   * every time the uploads changed, which is not desirable.
+   */
+  const stableUploadsRef = useRef<UserUpload[]>(uploads);
+  useEffect(() => {
+    stableUploadsRef.current = uploads;
+  }, [uploads]);
+
+  useEffect(() => {
+    return () => {
+      /**
+       * MDN recommends explicitly releasing the object URLs when possible,
+       * instead of relying just on the browser's garbage collection.
+       */
+      stableUploadsRef.current.forEach(upload => {
+        URL.revokeObjectURL(upload.dataUrl);
+      });
+    };
+  }, []);
+
+  const addUpload = useCallback((file: File | null) => {
+    if (!file) {
+      return;
+    }
+
+    if (!file.type.startsWith('image/')) {
+      return;
+    }
+
+    const upload: UserUpload = {
+      type: 'image',
+      dataUrl: URL.createObjectURL(file),
+      name: file.name,
+      size: file.size,
+    };
+    setUploads(current => [...current, upload]);
+  }, []);
+
+  const onFileInputChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const files = Array.from(event.currentTarget.files ?? []);
+      files.forEach(addUpload);
+    },
+    [addUpload],
+  );
 
   useEffect(() => {
     const el = ref.current;
@@ -185,38 +248,7 @@ function Uploader() {
           [...source.items]
             .filter(item => item.kind === 'file')
             .map(item => item.getAsFile())
-            .forEach(file => {
-              if (file == null) {
-                return;
-              }
-
-              if (!file.type.startsWith('image/')) {
-                return;
-              }
-
-              const reader = new FileReader();
-              reader.readAsDataURL(file);
-
-              // for simplicity:
-              // - not handling errors
-              // - not aborting the
-              // - not unbinding the event listener when the effect is removed
-              bind(reader, {
-                type: 'load',
-                listener(event) {
-                  const result = reader.result;
-                  if (typeof result === 'string') {
-                    const upload: UserUpload = {
-                      type: 'image',
-                      dataUrl: result,
-                      name: file.name,
-                      size: file.size,
-                    };
-                    setUploads(current => [...current, upload]);
-                  }
-                },
-              });
-            });
+            .forEach(addUpload);
         },
       }),
       monitorForFiles({
@@ -231,6 +263,22 @@ function Uploader() {
       }),
     );
   });
+
+  /**
+   * We trigger the file input manually when clicking the button. This also
+   * works when selecting the button using a keyboard.
+   *
+   * We do this for two reasons:
+   *
+   * 1. Styling file inputs is very limited.
+   * 2. Associating the button as a label for the input only gives us pointer
+   *    support, but does not work for keyboard.
+   */
+  const inputRef = useRef<HTMLInputElement>(null);
+  const onInputTriggerClick = useCallback(() => {
+    inputRef.current?.click();
+  }, []);
+
   return (
     <div css={appStyles}>
       <div
@@ -244,9 +292,21 @@ function Uploader() {
             : undefined,
         ]}
       >
-        <strong>
-          Drop some images on me! <ImageIcon label="image icon" />
+        <strong css={textStyles}>
+          Drop some images on me! <ImageIcon label="" />
         </strong>
+
+        <Button onClick={onInputTriggerClick}>Select images</Button>
+
+        <input
+          ref={inputRef}
+          css={displayNoneStyles}
+          id="file-input"
+          onChange={onFileInputChange}
+          type="file"
+          accept="image/*"
+          multiple
+        />
       </div>
       <Gallery uploads={uploads} />
     </div>

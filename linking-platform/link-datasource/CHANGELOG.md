@@ -1,5 +1,23 @@
 # @atlaskit/link-datasource
 
+## 1.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.0.6
+
+### Patch Changes
+
+- [`b1c75396ac8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b1c75396ac8) - [ux] Cursor will not appear as grab when read only
+
+## 1.0.5
+
+### Patch Changes
+
+- [`33cb07de05f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/33cb07de05f) - change adf-schema to fixed versioning
+
 ## 1.0.4
 
 ### Patch Changes

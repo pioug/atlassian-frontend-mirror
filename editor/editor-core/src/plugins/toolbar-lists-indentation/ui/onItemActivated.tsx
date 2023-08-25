@@ -11,7 +11,6 @@ import {
 import { INPUT_METHOD } from '../../analytics';
 
 import { pluginKey as indentationButtonsPluginKey } from '../pm-plugins/indentation-buttons';
-import type { FeatureFlags } from '@atlaskit/editor-common/types';
 
 import type { ButtonName } from '../types';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
@@ -26,24 +25,23 @@ export const onItemActivated =
   ({
     buttonName,
     editorView,
-    featureFlags,
   }: {
-    featureFlags: FeatureFlags;
     buttonName: ButtonName;
     editorView: EditorView;
   }) => {
     switch (buttonName) {
       case 'bullet_list':
-        pluginInjectionApi?.dependencies.list.actions.toggleBulletList(
-          editorView,
-          INPUT_METHOD.TOOLBAR,
+        pluginInjectionApi?.dependencies.core.actions.execute(
+          pluginInjectionApi?.dependencies.list.commands.toggleBulletList(
+            INPUT_METHOD.TOOLBAR,
+          ),
         );
-
         break;
       case 'ordered_list':
-        pluginInjectionApi?.dependencies.list.actions.toggleOrderedList(
-          editorView,
-          INPUT_METHOD.TOOLBAR,
+        pluginInjectionApi?.dependencies.core.actions.execute(
+          pluginInjectionApi?.dependencies.list.commands.toggleOrderedList(
+            INPUT_METHOD.TOOLBAR,
+          ),
         );
 
         break;
@@ -59,9 +57,11 @@ export const onItemActivated =
           );
         }
         if (node === 'list') {
-          pluginInjectionApi?.dependencies.list.actions.indentList(
-            INPUT_METHOD.TOOLBAR,
-          )(editorView.state, editorView.dispatch);
+          pluginInjectionApi?.dependencies.core.actions.execute(
+            pluginInjectionApi?.dependencies.list.commands.indentList(
+              INPUT_METHOD.TOOLBAR,
+            ),
+          );
         }
         if (node === 'taskList') {
           indentTaskList(INPUT_METHOD.TOOLBAR)(
@@ -83,10 +83,11 @@ export const onItemActivated =
           );
         }
         if (node === 'list') {
-          pluginInjectionApi?.dependencies.list.actions.outdentList(
-            INPUT_METHOD.TOOLBAR,
-            featureFlags,
-          )(editorView.state, editorView.dispatch);
+          pluginInjectionApi?.dependencies.core.actions.execute(
+            pluginInjectionApi?.dependencies.list.commands.outdentList(
+              INPUT_METHOD.TOOLBAR,
+            ),
+          );
         }
         if (node === 'taskList') {
           outdentTaskList(INPUT_METHOD.TOOLBAR)(

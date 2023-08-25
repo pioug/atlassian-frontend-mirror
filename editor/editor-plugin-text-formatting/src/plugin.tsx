@@ -12,6 +12,7 @@ import type {
   NextEditorPlugin,
   OptionalPlugin,
   TextFormattingOptions,
+  TextFormattingState,
 } from '@atlaskit/editor-common/types';
 import { WithPluginState } from '@atlaskit/editor-common/with-plugin-state';
 import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
@@ -55,6 +56,7 @@ export type TextFormattingPlugin = NextEditorPlugin<
       toggleEm: ToggleMarkEditorCommand;
       toggleStrong: ToggleMarkEditorCommand;
     };
+    sharedState: TextFormattingState | undefined;
   }
 >;
 
@@ -124,6 +126,13 @@ export const textFormattingPlugin: TextFormattingPlugin = (
           keymapPlugin(schema, api?.dependencies.analytics?.actions),
       },
     ];
+  },
+
+  getSharedState(editorState) {
+    if (!editorState) {
+      return undefined;
+    }
+    return textFormattingPluginKey.getState(editorState);
   },
 
   primaryToolbarComponent({

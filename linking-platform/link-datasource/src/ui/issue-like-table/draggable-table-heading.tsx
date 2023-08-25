@@ -191,6 +191,7 @@ export const DraggableTableHeading = ({
       data-testid={`${id}-column-heading`}
       style={{
         maxWidth,
+        cursor: 'grab',
       }}
     >
       <div

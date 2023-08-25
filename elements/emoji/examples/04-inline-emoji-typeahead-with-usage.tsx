@@ -1,6 +1,8 @@
 import { layers } from '@atlaskit/theme/constants';
 import React, { FC, useRef, useState } from 'react';
 import { lorem, onClose, onOpen } from '../example-helpers';
+// These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { getEmojiResourceUsageClear } from '@atlaskit/util-data-test/get-emoji-resource-usage-clear';
 import {
   UsageShowAndClearComponent,

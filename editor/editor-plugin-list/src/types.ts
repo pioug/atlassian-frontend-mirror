@@ -1,6 +1,6 @@
 import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type {
-  Command,
+  EditorCommand,
   FeatureFlags,
   NextEditorPlugin,
   OptionalPlugin,
@@ -8,11 +8,8 @@ import type {
 import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
-import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import type {
-  DecorationSet,
-  EditorView,
-} from '@atlaskit/editor-prosemirror/view';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
 export type InputMethod = INPUT_METHOD.KEYBOARD | INPUT_METHOD.TOOLBAR;
 
@@ -20,24 +17,15 @@ export const MAX_NESTED_LIST_INDENTATION = 6;
 
 export type ListPluginOptions = Pick<FeatureFlags, 'restartNumberedLists'>;
 
-export type IndentList = (inputMethod: InputMethod) => Command;
+export type IndentList = (inputMethod: InputMethod) => EditorCommand;
 
-export type OutdentList = (
-  inputMethod: InputMethod,
-  featureFlags: FeatureFlags,
-) => Command;
+export type OutdentList = (inputMethod: InputMethod) => EditorCommand;
 
-export type ToggleOrderedList = (
-  view: EditorView,
-  inputMethod: InputMethod,
-) => boolean;
+export type ToggleOrderedList = (inputMethod: InputMethod) => EditorCommand;
 
-export type ToggleBulletList = (
-  view: EditorView,
-  inputMethod: InputMethod,
-) => boolean;
+export type ToggleBulletList = (inputMethod: InputMethod) => EditorCommand;
 
-export type IsInsideListItem = (state: EditorState) => boolean;
+export type IsInsideListItem = (tr: Transaction) => boolean;
 
 export type FindRootParentListNode = ($pos: ResolvedPos) => ResolvedPos | null;
 
@@ -58,12 +46,14 @@ export type ListPlugin = NextEditorPlugin<
       OptionalPlugin<typeof analyticsPlugin>,
     ];
     actions: {
+      isInsideListItem: IsInsideListItem;
+      findRootParentListNode: FindRootParentListNode;
+    };
+    commands: {
       indentList: IndentList;
       outdentList: OutdentList;
       toggleOrderedList: ToggleOrderedList;
       toggleBulletList: ToggleBulletList;
-      isInsideListItem: IsInsideListItem;
-      findRootParentListNode: FindRootParentListNode;
     };
     sharedState: ListState | undefined;
   }

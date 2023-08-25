@@ -1,5 +1,17 @@
 # @atlaskit/editor-extension-googledrive
 
+## 0.2.2
+
+### Patch Changes
+
+- [`33cb07de05f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/33cb07de05f) - change adf-schema to fixed versioning
+
+## 0.2.1
+
+### Patch Changes
+
+- [`f3a203dc445`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f3a203dc445) - Adjusting .npmignore and the atlaskit documentation
+
 ## 0.2.0
 
 ### Minor Changes

@@ -1,10 +1,10 @@
 import { ElementProps } from '../types';
 
-export type DateTimeType = 'created' | 'modified';
+export type DateTimeType = 'created' | 'modified' | 'sent';
 
 export type DateTimeProps = ElementProps & {
   /**
-   * Whether the date time element text should contain "Modified" or "Created"
+   * Whether the date time element text should contain "Modified" or "Created" or "sent"
    */
   type?: DateTimeType;
 

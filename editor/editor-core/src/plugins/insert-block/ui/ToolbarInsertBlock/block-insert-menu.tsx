@@ -5,6 +5,8 @@ import { BlockInsertElementBrowser } from './block-insert-element-browser';
 import { BlockInsertMenuLegacy } from './block-insert-menu-legacy';
 import type { BlockMenuItem } from './create-items';
 import { DropDownButton } from './dropdown-button';
+import type { PluginInjectionAPIWithDependencies } from '@atlaskit/editor-common/types';
+import type { InsertBlockPluginDependencies } from '../../types';
 
 export interface BlockInsertMenuProps {
   disabled: boolean;
@@ -27,6 +29,9 @@ export interface BlockInsertMenuProps {
   onOpenChange(attrs: any): void;
   togglePlusMenuVisibility(): void;
   onKeyDown?: React.KeyboardEventHandler;
+  pluginInjectionApi:
+    | PluginInjectionAPIWithDependencies<InsertBlockPluginDependencies>
+    | undefined;
 }
 
 export const BlockInsertMenu: React.FC<BlockInsertMenuProps> = (props) => {
@@ -72,6 +77,7 @@ export const BlockInsertMenu: React.FC<BlockInsertMenuProps> = (props) => {
         spacing={props.spacing}
         togglePlusMenuVisibility={props.togglePlusMenuVisibility}
         showElementBrowserLink={props.showElementBrowserLink}
+        pluginInjectionApi={props.pluginInjectionApi}
       />
     );
   }

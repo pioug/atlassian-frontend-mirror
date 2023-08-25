@@ -44,7 +44,9 @@ import {
   downloadMedia,
   getSelectedMediaSingle,
   removeMediaGroupNode,
+  getPixelWidthOfElement,
 } from './utils';
+import { isVideo } from '../utils/media-single';
 import {
   changeInlineToMediaCard,
   changeMediaCardToInline,
@@ -65,10 +67,8 @@ import { PixelEntry } from '../ui/PixelEntry';
 import {
   DEFAULT_IMAGE_WIDTH,
   DEFAULT_IMAGE_HEIGHT,
-  MEDIA_SINGLE_DEFAULT_MIN_PIXEL_WIDTH,
-  MEDIA_SINGLE_GUTTER_SIZE,
-  calcMediaSinglePixelWidth,
-  getMaxWidthForNestedNode,
+  calcMinWidth,
+  getMaxWidthForNestedNodeNext,
 } from '@atlaskit/editor-common/media-single';
 import {
   akEditorDefaultLayoutWidth,
@@ -293,6 +293,8 @@ const generateMediaSingleFloatingToolbar = (
   } = options;
 
   let toolbarButtons: FloatingToolbarItem<Command>[] = [];
+  const { hoverDecoration } =
+    pluginInjectionApi?.dependencies.decorations.actions ?? {};
 
   if (shouldShowImageBorder(state)) {
     toolbarButtons.push({
@@ -377,47 +379,44 @@ const generateMediaSingleFloatingToolbar = (
           const { state, dispatch } = editorView;
 
           const selectedMediaSingleNode = getSelectedMediaSingle(state);
+          if (!selectedMediaSingleNode) {
+            return null;
+          }
 
           const contentWidth =
             widthPlugin?.sharedState.currentState()?.lineLength ||
             akEditorDefaultLayoutWidth;
 
-          const containerWidth =
-            widthPlugin?.sharedState.currentState()?.width ||
-            akEditorFullWidthLayoutWidth;
-
-          if (!selectedMediaSingleNode) {
-            return null;
-          }
           const selectedMediaNode =
             selectedMediaSingleNode.node.content.firstChild;
           if (!selectedMediaNode) {
             return null;
           }
 
-          const {
-            width: singleMediaWidth,
-            widthType,
-            layout,
-          } = selectedMediaSingleNode.node.attrs;
+          const { widthType } = selectedMediaSingleNode.node.attrs;
           const { width: mediaWidth, height: mediaHeight } =
             selectedMediaNode.attrs;
 
+          const maxWidthForNestedNode = getMaxWidthForNestedNodeNext(
+            editorView,
+            selectedMediaSingleNode.pos,
+          );
+          const maxWidth =
+            maxWidthForNestedNode || akEditorFullWidthLayoutWidth;
+          const isVideoFile = isVideo(selectedMediaNode.attrs.__fileMimeType);
+
+          const minWidth = calcMinWidth(
+            isVideoFile,
+            maxWidthForNestedNode || contentWidth,
+          );
+
           const isLegacy = widthType !== 'pixel';
 
-          const pixelWidth = calcMediaSinglePixelWidth({
-            width: singleMediaWidth,
-            widthType,
-            origWidth: mediaWidth || DEFAULT_IMAGE_WIDTH,
-            layout,
-            contentWidth:
-              getMaxWidthForNestedNode(
-                editorView,
-                selectedMediaSingleNode.pos,
-              ) || contentWidth,
-            containerWidth,
-            gutterOffset: MEDIA_SINGLE_GUTTER_SIZE,
-          });
+          const pixelWidth = getPixelWidthOfElement(
+            editorView,
+            selectedMediaSingleNode.pos + 1, // get pos of media node
+            mediaWidth || DEFAULT_IMAGE_WIDTH,
+          );
 
           return (
             <PixelEntry
@@ -428,17 +427,29 @@ const generateMediaSingleFloatingToolbar = (
               showMigration={!pluginState.isResizing && isLegacy}
               mediaWidth={mediaWidth || DEFAULT_IMAGE_WIDTH}
               mediaHeight={mediaHeight || DEFAULT_IMAGE_HEIGHT}
+              minWidth={minWidth}
+              maxWidth={maxWidth}
               validate={(value) => {
-                if (
-                  value !== '' &&
-                  !isNaN(value) &&
-                  value >= MEDIA_SINGLE_DEFAULT_MIN_PIXEL_WIDTH &&
-                  value <= akEditorFullWidthLayoutWidth
-                ) {
-                  return true;
+                if (value && (value < minWidth || value > maxWidth)) {
+                  hoverDecoration?.(mediaSingle, true, 'warning')(
+                    editorView.state,
+                    dispatch,
+                    editorView,
+                  );
+                } else {
+                  // remove decoration when:
+                  // input is within min-max range or
+                  // input is empty
+                  hoverDecoration?.(mediaSingle, false)(
+                    editorView.state,
+                    dispatch,
+                    editorView,
+                  );
                 }
-
-                return false;
+                if (value === '') {
+                  return false;
+                }
+                return true;
               }}
               onSubmit={({ width }) => {
                 const tr = state.tr.setNodeMarkup(
@@ -546,8 +557,7 @@ const generateMediaSingleFloatingToolbar = (
       { type: 'separator' },
     );
   }
-  const { hoverDecoration } =
-    pluginInjectionApi?.dependencies.decorations.actions ?? {};
+
   const removeButton: FloatingToolbarItem<Command> = {
     id: 'editor.media.delete',
     type: 'button',

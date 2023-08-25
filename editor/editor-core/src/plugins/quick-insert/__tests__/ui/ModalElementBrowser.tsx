@@ -1,15 +1,14 @@
-import { mockSearch } from './ModalElementBrowser.mock';
-import { mountWithIntl } from '../../../../__helpers/enzyme';
+import './ModalElementBrowser.mock';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import { TypeAheadInsert } from '../../../../../plugins/type-ahead/types';
-import quickInsertPlugin from '../../../../../plugins/quick-insert';
-import { Props } from '../../../../../ui/ElementBrowser/ModalElementBrowser';
-import {
-  closeElementBrowserModal,
-  insertItem,
-} from '../../../../../plugins/quick-insert/commands';
-import { searchQuickInsertItems } from '../../../../../plugins/quick-insert/search';
+import type { TypeAheadInsert } from '../../../type-ahead/types';
+import quickInsertPlugin from '../..';
+import type { Props } from '../../../../ui/ElementBrowser/ModalElementBrowser';
+import { closeElementBrowserModal, insertItem } from '../../commands';
+import { getQuickInsertSuggestions } from '@atlaskit/editor-common/quick-insert';
+
+jest.mock('@atlaskit/editor-common/quick-insert');
 
 describe('Quick Insert', () => {
   const createEditor = createEditorFactory();
@@ -85,8 +84,12 @@ describe('Quick Insert', () => {
 
       modalProps.getItems('proj', 'all');
 
-      expect(searchQuickInsertItems).toHaveBeenCalledWith(undefined, {});
-      expect(mockSearch).toHaveBeenCalledWith('proj', 'all');
+      expect(getQuickInsertSuggestions).toHaveBeenCalledTimes(1);
+      expect(getQuickInsertSuggestions).toHaveBeenCalledWith({
+        searchOptions: { category: 'all', query: 'proj' },
+        lazyDefaultItems: undefined,
+        providedItems: undefined,
+      });
     });
 
     it('should call the close command if the modal is closed', () => {

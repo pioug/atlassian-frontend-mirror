@@ -14,13 +14,16 @@ import {
   DEFAULT_TRACK_SEVERITY_THRESHOLD_DEGRADED,
 } from '../../pm-plugins/frozen-editor';
 import { basePlugin } from '../../';
-import * as timingUtils from '../../../../utils/performance/get-performance-timing';
+import { getTimeSince } from '@atlaskit/editor-common/utils';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 jest.mock('@atlaskit/editor-common/utils', () => ({
   ...jest.requireActual<Object>('@atlaskit/editor-common/utils'),
   isPerformanceAPIAvailable: () => true,
+  getTimeSince: jest.fn(),
 }));
+
+const mockGetTimeSince = getTimeSince as jest.Mock;
 
 // allow us to control requestAnimationFrame execution
 replaceRaf();
@@ -80,8 +83,7 @@ describe('Input performance latency', () => {
         const { editorView, dispatchAnalyticsEvent } = createEditor(adfDoc);
         typeText(editorView, 'XY');
 
-        const getTimeSinceMock = jest.spyOn(timingUtils, 'getTimeSince');
-        getTimeSinceMock.mockImplementation((startTime) => 1);
+        mockGetTimeSince.mockImplementation((startTime) => 1);
 
         //@ts-ignore
         requestAnimationFrame.step();
@@ -107,8 +109,6 @@ describe('Input performance latency', () => {
         });
 
         expect(dispatchAnalyticsEvent).toHaveBeenCalledTimes(2);
-
-        getTimeSinceMock.mockRestore();
       });
 
       it('should not send analytics event with severity when trackSeverity is turned off', () => {
@@ -116,8 +116,7 @@ describe('Input performance latency', () => {
         const { editorView, dispatchAnalyticsEvent } = editor;
         typeText(editorView, 'XY');
 
-        const getTimeSinceMock = jest.spyOn(timingUtils, 'getTimeSince');
-        getTimeSinceMock.mockImplementation((startTime) => 1);
+        mockGetTimeSince.mockImplementation((startTime) => 1);
 
         //@ts-ignore
         requestAnimationFrame.step();
@@ -143,8 +142,6 @@ describe('Input performance latency', () => {
         });
 
         expect(dispatchAnalyticsEvent).toHaveBeenCalledTimes(2);
-
-        getTimeSinceMock.mockRestore();
       });
 
       it('should send analytics event with severity normal when duration < DEFAULT_TRACK_SEVERITY_THRESHOLD_NORMAL', () => {
@@ -152,8 +149,7 @@ describe('Input performance latency', () => {
         const { editorView, dispatchAnalyticsEvent } = editor;
         typeText(editorView, 'XY');
 
-        const getTimeSinceMock = jest.spyOn(timingUtils, 'getTimeSince');
-        getTimeSinceMock.mockImplementation((startTime) => 1);
+        mockGetTimeSince.mockImplementation((startTime) => 1);
 
         //@ts-ignore
         requestAnimationFrame.step();
@@ -180,8 +176,6 @@ describe('Input performance latency', () => {
         });
 
         expect(dispatchAnalyticsEvent).toHaveBeenCalledTimes(2);
-
-        getTimeSinceMock.mockRestore();
       });
 
       it('should send analytics event with severity degraded when duration > DEFAULT_TRACK_SEVERITY_THRESHOLD_NORMAL', async () => {
@@ -189,8 +183,7 @@ describe('Input performance latency', () => {
         const { editorView, dispatchAnalyticsEvent } = editor;
         typeText(editorView, 'XY');
 
-        const getTimeSinceMock = jest.spyOn(timingUtils, 'getTimeSince');
-        getTimeSinceMock.mockImplementation(
+        mockGetTimeSince.mockImplementation(
           (startTime) => DEFAULT_TRACK_SEVERITY_THRESHOLD_NORMAL + 1,
         );
 
@@ -219,8 +212,6 @@ describe('Input performance latency', () => {
         });
 
         expect(dispatchAnalyticsEvent).toHaveBeenCalledTimes(2);
-
-        getTimeSinceMock.mockRestore();
       });
 
       it('should send analytics event with severity blocking when duration > DEFAULT_TRACK_SEVERITY_THRESHOLD_DEGRADED', async () => {
@@ -228,8 +219,7 @@ describe('Input performance latency', () => {
         const { editorView, dispatchAnalyticsEvent } = editor;
         typeText(editorView, 'XY');
 
-        const getTimeSinceMock = jest.spyOn(timingUtils, 'getTimeSince');
-        getTimeSinceMock.mockImplementation(
+        mockGetTimeSince.mockImplementation(
           (startTime) => DEFAULT_TRACK_SEVERITY_THRESHOLD_DEGRADED + 1,
         );
 
@@ -268,8 +258,6 @@ describe('Input performance latency', () => {
 
         // once for INPUT_PERF_SAMPLING, once for INPUT_PERF_SAMPLING_AVG and once for SLOW_INPUT
         expect(dispatchAnalyticsEvent).toHaveBeenCalledTimes(3);
-
-        getTimeSinceMock.mockRestore();
       });
     });
 
@@ -283,8 +271,7 @@ describe('Input performance latency', () => {
         );
         typeText(editorView, 'XY');
 
-        const getTimeSinceMock = jest.spyOn(timingUtils, 'getTimeSince');
-        getTimeSinceMock.mockImplementation(
+        mockGetTimeSince.mockImplementation(
           (startTime) => DEFAULT_TRACK_SEVERITY_THRESHOLD_NORMAL,
         );
 
@@ -313,8 +300,6 @@ describe('Input performance latency', () => {
         });
 
         expect(dispatchAnalyticsEvent).toHaveBeenCalledTimes(2);
-
-        getTimeSinceMock.mockRestore();
       });
 
       it('should send analytics event with severity degraded when duration > custom severityNormalThreshold', async () => {
@@ -326,8 +311,7 @@ describe('Input performance latency', () => {
         );
         typeText(editorView, 'XY');
 
-        const getTimeSinceMock = jest.spyOn(timingUtils, 'getTimeSince');
-        getTimeSinceMock.mockImplementation(
+        mockGetTimeSince.mockImplementation(
           (startTime) => customSettings.normalThreshold + 1,
         );
 
@@ -356,8 +340,6 @@ describe('Input performance latency', () => {
         });
 
         expect(dispatchAnalyticsEvent).toHaveBeenCalledTimes(2);
-
-        getTimeSinceMock.mockRestore();
       });
 
       it('should send analytics event with severity blocking when duration > custom severityDegradedThreshold', async () => {
@@ -369,8 +351,7 @@ describe('Input performance latency', () => {
         );
         typeText(editorView, 'XY');
 
-        const getTimeSinceMock = jest.spyOn(timingUtils, 'getTimeSince');
-        getTimeSinceMock.mockImplementation(
+        mockGetTimeSince.mockImplementation(
           (startTime) => customSettings.degradedThreshold + 1,
         );
 
@@ -408,8 +389,6 @@ describe('Input performance latency', () => {
         });
 
         expect(dispatchAnalyticsEvent).toHaveBeenCalledTimes(3);
-
-        getTimeSinceMock.mockRestore();
       });
 
       it('should flush analytics when editorView is destroyed', () => {
@@ -422,8 +401,7 @@ describe('Input performance latency', () => {
         );
         typeText(editorView, 'XY');
 
-        const getTimeSinceMock = jest.spyOn(timingUtils, 'getTimeSince');
-        getTimeSinceMock.mockImplementation((startTime) => 1);
+        mockGetTimeSince.mockImplementation((startTime) => 1);
 
         //@ts-ignore
         requestAnimationFrame.step();
@@ -450,14 +428,15 @@ describe('Input performance latency', () => {
             eventType: EVENT_TYPE.OPERATIONAL,
           }),
         );
-
-        getTimeSinceMock.mockRestore();
       });
     });
   });
 
   describe('tracking timings', () => {
     it('should not share tracking start time and calculate timings separately', () => {
+      mockGetTimeSince.mockImplementation(
+        (startTime) => performance.now() - startTime,
+      );
       const editor = createEditor(adfDoc, true);
       const { editorView, dispatchAnalyticsEvent } = editor;
       const performanceNowMock = jest.spyOn(performance, 'now');
@@ -518,6 +497,9 @@ describe('Input performance latency', () => {
     });
 
     it('should track individual keypress processing time when 2 keys are pressed at the same time', async () => {
+      mockGetTimeSince.mockImplementation(
+        (startTime) => performance.now() - startTime,
+      );
       const editor = createEditor(
         adfDoc,
         true,

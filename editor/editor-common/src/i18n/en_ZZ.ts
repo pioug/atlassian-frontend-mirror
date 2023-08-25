@@ -101,6 +101,7 @@ export default {
   'fabric.editor.link.description': '⁣⁢Insert a link⁯‌⁠⁬⁫⁠⁬⁮⁭⁮‌⁫⁭؜‍⁭⁫⁫؜⁠؜⁣⁤',
   'fabric.editor.linkAddress': '⁣⁢Link address⁡⁪⁯⁯⁯⁫⁠⁠‌‍⁯‌⁪⁬‌⁡⁭؜‌⁫⁪⁯⁮⁫‌‌⁣⁤',
   'fabric.editor.linkPlaceholder': '⁣⁢Paste link؜⁯⁡⁪⁠‌⁪‍⁬⁡⁫⁫⁪⁠⁬⁭⁠‍⁪⁮⁫⁣⁤',
+  'fabric.editor.lists': '⁣⁢Lists؜⁯⁡‍⁬⁬⁪‌⁪⁯⁫⁡؜‌؜⁭⁮⁪⁣⁤',
   'fabric.editor.mediaAddLink': '⁣⁢Add link⁯⁮⁡‍⁪‍⁪‌⁬‍⁭⁯⁪⁫⁠⁫⁭⁭‍⁫⁮⁯‍⁯⁣⁤',
   'fabric.editor.mediaFiles': '⁣⁢Image, video, or file⁮⁠‍⁪⁯‌⁭⁪؜⁬⁮⁠⁭⁯‌⁬‍⁫⁣⁤',
   'fabric.editor.mediaFiles.description': '⁣⁢Add images and other files to your page⁠⁫‍⁬⁪‌⁭⁫⁮؜⁪⁫؜؜‍⁠⁠⁪⁠⁭⁠⁮⁯⁪⁮⁮‍⁯⁣⁤',
@@ -112,6 +113,8 @@ export default {
   'fabric.editor.off': '⁣⁢{formattingType} Off⁭⁭‍⁪⁭⁬⁫‍⁫⁬‌⁭‌⁫⁮⁫⁮⁡‌⁫⁠⁮⁠⁣⁤',
   'fabric.editor.on': '⁣⁢{formattingType} On⁠⁪⁫⁮⁭‌⁫⁮‌⁡‍⁬‍⁡⁮؜⁮⁠⁬⁯⁯⁣⁤',
   'fabric.editor.openLink': '⁣⁢Open link in a new tab⁮⁫⁭⁠⁡⁡‌⁫⁮⁫‍⁯‌⁠⁫⁪⁭‌‌⁡⁯⁡⁣⁤',
+  'fabric.editor.orderedList': '⁣⁢Numbered list⁮⁭⁯‍⁡؜؜⁯⁬⁡⁪⁪⁪⁯؜⁡⁬⁬⁮⁮‍؜⁣⁤',
+  'fabric.editor.orderedList.description': '⁣⁢Create an ordered list‍؜⁭⁪⁠⁡⁯⁫⁫‍‍⁭⁫⁯⁪⁯‌⁭‍⁪‍⁣⁤',
   'fabric.editor.pageActionsLabel': '⁣⁢Page actions‌؜؜⁫؜⁭⁫‍⁡⁭⁯‍⁯؜‌⁫‍⁬⁫⁯⁣⁤',
   'fabric.editor.placeholderText': '⁣⁢Placeholder text⁮⁬⁭⁯⁠؜‌؜⁯⁯⁫⁮‌⁬‌⁬‌⁮‌⁠⁪‍⁣⁤',
   'fabric.editor.placeholderText.description': '⁣⁢Insert a text placeholder into the page؜‍‍⁯⁬⁬⁪⁪⁯‍⁫⁠⁪⁠؜⁭⁠⁡⁯⁣⁤',
@@ -145,6 +148,8 @@ export default {
   'fabric.editor.unableToOpenLink': '⁣⁢Unable to open this link⁠‌⁡⁯‍⁡⁮‍⁫⁭⁠⁮⁡⁡⁯⁫‍⁠‌⁡⁪⁠؜⁠⁮⁫⁣⁤',
   'fabric.editor.underline': '⁣⁢Underline⁮⁪‌⁬⁪⁯⁮⁮⁭⁭⁭⁡⁮⁪⁯⁫؜؜⁠⁬⁭⁭⁣⁤',
   'fabric.editor.unlink': '⁣⁢Unlink⁭⁮‌⁫⁪⁪⁭‌⁡⁭⁬⁡⁡⁠⁪⁬‍⁬؜⁫‍⁣⁤',
+  'fabric.editor.unorderedList': '⁣⁢Bullet list⁠⁪⁮⁯؜⁡⁯⁮⁡⁡⁡⁭⁬‍؜⁯⁪⁮⁫⁠⁡؜‌⁪⁡⁪⁣⁤',
+  'fabric.editor.unorderedList.description': '⁣⁢Create an unordered list⁮؜⁯⁫⁡‌⁯⁮‌⁡؜⁯⁡⁬⁮⁠؜⁫‌⁡‌⁬⁣⁤',
   'fabric.editor.unsupportedBlockContent':
     '⁣⁢This editor does not support displaying this content؜⁫⁪⁬⁬‍⁭⁬؜⁮⁮⁡‍⁯⁪؜⁫‌⁭؜⁮⁡⁭⁫⁪⁣⁤',
   'fabric.editor.unsupportedContentTooltip':

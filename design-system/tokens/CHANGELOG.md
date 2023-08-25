@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 1.15.2
+
+### Patch Changes
+
+- [`3c114ea4257`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3c114ea4257) - Update type definitions to conform to inherited changes from `@types/react@16.14.15`.
+
 ## 1.15.1
 
 ### Patch Changes

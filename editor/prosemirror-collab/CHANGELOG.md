@@ -1,5 +1,11 @@
 ## 1.3.0 (2022-05-30)
 
+## 0.2.8
+
+### Patch Changes
+
+- [`33cb07de05f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/33cb07de05f) - change adf-schema to fixed versioning
+
 ## 0.2.7
 
 ### Patch Changes

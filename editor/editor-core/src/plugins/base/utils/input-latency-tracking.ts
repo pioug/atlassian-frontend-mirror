@@ -1,8 +1,6 @@
-import { getTimeSince } from '../../../utils/performance/get-performance-timing';
-import {
-  getAnalyticsEventSeverity,
-  SEVERITY,
-} from '@atlaskit/editor-common/utils';
+import { getTimeSince } from '@atlaskit/editor-common/utils';
+import type { SEVERITY } from '@atlaskit/editor-common/utils';
+import { getAnalyticsEventSeverity } from '@atlaskit/editor-common/utils';
 
 interface Opts {
   dispatchAverage?: (

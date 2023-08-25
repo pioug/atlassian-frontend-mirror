@@ -4,8 +4,11 @@ import type { Node } from '@atlaskit/editor-prosemirror/model';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
-import { ZERO_WIDTH_SPACE, browser } from '@atlaskit/editor-common/utils';
-import { isTextSelection } from '../../../utils';
+import {
+  ZERO_WIDTH_SPACE,
+  browser,
+  isTextSelection,
+} from '@atlaskit/editor-common/utils';
 
 export const inlineCursorTargetStateKey = new PluginKey(
   'inlineCursorTargetPlugin',

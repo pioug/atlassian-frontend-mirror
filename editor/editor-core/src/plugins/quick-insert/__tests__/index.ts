@@ -1,15 +1,11 @@
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import {
-  doc,
-  p,
-  panel,
-  DocBuilder,
-} from '@atlaskit/editor-test-helpers/doc-builder';
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { pluginKey as quickInsertPluginKey } from '../../../../plugins/quick-insert/plugin-key';
-import { TypeAheadInsert } from '../../../../plugins/type-ahead/types';
-import { EditorProps } from '../../../../types/editor-props';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import { doc, p, panel } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { pluginKey as quickInsertPluginKey } from '../plugin-key';
+import type { TypeAheadInsert } from '../../type-ahead/types';
+import type { EditorProps } from '../../../types/editor-props';
 
 beforeAll(() => {
   window.queueMicrotask = (fn) => fn();

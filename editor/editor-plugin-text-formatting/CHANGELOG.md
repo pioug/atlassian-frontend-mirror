@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-text-formatting
 
+## 0.3.0
+
+### Minor Changes
+
+- [`4795a87a349`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4795a87a349) - Migrating some actions of `editor-plugin-list` to commands. Adding sharedState for `editor-plugin-text-formatting`.
+
+## 0.2.5
+
+### Patch Changes
+
+- [`33cb07de05f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/33cb07de05f) - change adf-schema to fixed versioning
+
 ## 0.2.4
 
 ### Patch Changes

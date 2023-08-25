@@ -18,6 +18,14 @@ export type PixelEntryProps = {
    */
   mediaHeight: number;
   /**
+   * The minimum acceptable width input
+   */
+  minWidth: number;
+  /**
+   * The maximum acceptable width input
+   */
+  maxWidth: number;
+  /**
    * show migration button to convert to pixels for legacy image resize experience
    */
   showMigration?: boolean;
@@ -37,8 +45,8 @@ export type PixelEntryProps = {
 };
 
 export type PixelEntryFormValues = {
-  inputWidth: number | '';
-  inputHeight: number | '';
+  inputWidth: number;
+  inputHeight: number;
 };
 
 export type PixelEntryFormData = {

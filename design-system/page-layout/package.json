@@ -50,6 +50,7 @@
     "react-dom": "^16.8.0"
   },
   "devDependencies": {
+    "@af/accessibility-testing": "*",
     "@atlaskit/atlassian-navigation": "^2.6.0",
     "@atlaskit/atlassian-notifications": "^0.4.0",
     "@atlaskit/drawer": "^7.5.0",

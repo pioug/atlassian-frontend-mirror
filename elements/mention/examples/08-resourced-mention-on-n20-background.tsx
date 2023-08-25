@@ -6,6 +6,8 @@ import { N20 } from '@atlaskit/theme/colors';
 import debug from '../src/util/logger';
 import { onMentionEvent } from '../example-helpers/index';
 import { mockMentionData as mentionData } from '../src/__tests__/unit/_test-helpers';
+// These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { mentionResourceProviderWithResolver } from '@atlaskit/util-data-test/mention-story-data';
 import { ELEMENTS_CHANNEL } from '../src/_constants';
 import ResourcedMention from '../src/components/Mention/ResourcedMention';

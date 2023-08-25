@@ -71,7 +71,7 @@ export default class TableRow extends React.Component<Props, State> {
   render() {
     const { children, innerRef } = this.props;
 
-    const childrenArray = React.Children.toArray<React.ReactNode>(children);
+    const childrenArray = React.Children.toArray(children);
     return (
       <tr ref={innerRef}>
         {this.props.isNumberColumnEnabled && (

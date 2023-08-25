@@ -71,6 +71,10 @@ export interface HoverCardInternalProps {
    * @see EDM-7187 for further details
    */
   allowEventPropagation?: boolean;
+  /**
+   * Suspend hover card UI delays (fade-in, fade-out) for VR testing purposes.
+   */
+  noFadeDelay?: boolean;
 }
 
 export interface HoverCardComponentProps

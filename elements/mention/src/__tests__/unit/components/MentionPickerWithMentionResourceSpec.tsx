@@ -1,3 +1,5 @@
+// These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { ReactWrapper } from 'enzyme';
 import 'es6-promise/auto'; // 'whatwg-fetch' needs a Promise polyfill

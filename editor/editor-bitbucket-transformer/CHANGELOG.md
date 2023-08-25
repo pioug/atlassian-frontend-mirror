@@ -1,5 +1,11 @@
 # @atlaskit/editor-bitbucket-transformer
 
+## 8.1.9
+
+### Patch Changes
+
+- [`33cb07de05f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/33cb07de05f) - change adf-schema to fixed versioning
+
 ## 8.1.8
 
 ### Patch Changes

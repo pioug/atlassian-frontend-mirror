@@ -2,3 +2,6 @@ src/
 examples/
 example-helpers/
 index.ts
+docs/
+build/
+tsconfig.json

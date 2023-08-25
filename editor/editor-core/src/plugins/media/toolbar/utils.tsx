@@ -1,13 +1,14 @@
 import type { MediaBaseAttributes } from '@atlaskit/adf-schema';
 import { getMediaClient } from '@atlaskit/media-client';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { MediaPluginState } from '../pm-plugins/types';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
   findParentNodeOfType,
   removeParentNodeOfType,
   removeSelectedNode,
   findSelectedNodeOfType,
 } from '@atlaskit/editor-prosemirror/utils';
-import type { MediaPluginState } from '../pm-plugins/types';
 
 export const getSelectedMediaContainerNodeAttrs = (
   mediaPluginState: MediaPluginState,
@@ -62,4 +63,16 @@ export const getSelectedMediaSingle = (state: EditorState) => {
     findSelectedNodeOfType(mediaSingle)(state.selection) ||
     findParentNodeOfType(mediaSingle)(state.selection)
   );
+};
+
+export const getPixelWidthOfElement = (
+  editorView: EditorView,
+  pos: number,
+  mediaWidth: number,
+) => {
+  const domNode = editorView.nodeDOM(pos);
+  if (domNode instanceof HTMLElement) {
+    return domNode.offsetWidth;
+  }
+  return mediaWidth;
 };

@@ -13,10 +13,7 @@ import {
 } from '@atlaskit/editor-common/utils';
 import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import { Fragment, NodeRange, Slice } from '@atlaskit/editor-prosemirror/model';
-import type {
-  EditorState,
-  Transaction,
-} from '@atlaskit/editor-prosemirror/state';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import {
   NodeSelection,
   Selection,
@@ -40,7 +37,6 @@ import { createListNodeRange } from '../utils/selection';
 
 export const outdentListItemsSelected = (
   tr: Transaction,
-  state: EditorState,
   featureFlags: FeatureFlags,
 ) => {
   const originalSelection = tr.selection;
@@ -79,7 +75,6 @@ export const outdentListItemsSelected = (
       extractListItemsRangeFromList({
         tr,
         range: mappedRange,
-        state,
         featureFlags,
       });
       hasNormalizedToPositionLiftedOut =
@@ -269,10 +264,8 @@ const outdentRangeToParentList = ({ tr, range }: OutdentListRangeProps) => {
 const extractListItemsRangeFromList = ({
   tr,
   range,
-  state,
   featureFlags,
 }: OutdentListRangeProps & {
-  state: EditorState;
   featureFlags: FeatureFlags;
 }) => {
   const list = range.parent;

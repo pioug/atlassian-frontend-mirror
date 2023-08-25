@@ -2,7 +2,7 @@ import {
   MentionNameClient,
   MentionNameDetails,
   MentionNameStatus,
-} from '../../../mention/src/resource';
+} from '@atlaskit/mention/resource';
 import debug from '../logger';
 
 export class MockMentionNameClient implements MentionNameClient {

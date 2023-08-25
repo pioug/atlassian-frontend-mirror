@@ -2,11 +2,9 @@
 import React, { useState, useCallback, Fragment } from 'react';
 import { IntlProvider } from 'react-intl-next';
 import { css, jsx } from '@emotion/react';
-import {
-  AnalyticsEventPayload,
-  AnalyticsListener,
-} from '@atlaskit/analytics-next';
-import { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
+import type { AnalyticsEventPayload } from '@atlaskit/analytics-next';
+import { AnalyticsListener } from '@atlaskit/analytics-next';
+import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
 import Button from '@atlaskit/button/standard-button';
 import InlineDialog from '@atlaskit/inline-dialog/src/InlineDialog';
 import ElementBrowser from '../src/ui/ElementBrowser';

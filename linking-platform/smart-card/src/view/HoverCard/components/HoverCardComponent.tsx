@@ -33,6 +33,7 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
   showServerActions = false,
   allowEventPropagation = false,
   zIndex = HOVER_CARD_Z_INDEX,
+  noFadeDelay = false,
 }) => {
   const [isOpen, setIsOpen] = React.useState(false);
   const fadeOutTimeoutId = useRef<ReturnType<typeof setTimeout>>();
@@ -90,8 +91,12 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
       // we want to clear out the reference to signify that there's no in-progress resolve event
       resolveTimeOutId.current = undefined;
     }
-    fadeOutTimeoutId.current = setTimeout(() => hideCard(), FADE_OUT_DELAY);
-  }, [hideCard]);
+    if (noFadeDelay) {
+      hideCard();
+    } else {
+      fadeOutTimeoutId.current = setTimeout(() => hideCard(), FADE_OUT_DELAY);
+    }
+  }, [hideCard, noFadeDelay]);
 
   // clearing out the timeouts in order to avoid memory leaks
   // in case the component unmounts before they execute
@@ -156,12 +161,16 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
 
       if (!isOpen && !fadeInTimeoutId.current) {
         // setting a timeout to show a Hover Card after delay runs out
-        fadeInTimeoutId.current = setTimeout(() => {
+        if (noFadeDelay) {
           setIsOpen(true);
-        }, FADE_IN_DELAY);
+        } else {
+          fadeInTimeoutId.current = setTimeout(() => {
+            setIsOpen(true);
+          }, FADE_IN_DELAY);
+        }
       }
     },
-    [initResolve, isOpen, setMousePosition],
+    [initResolve, isOpen, setMousePosition, noFadeDelay],
   );
 
   const linkActions = useSmartLinkActions({

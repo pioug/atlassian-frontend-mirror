@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-card
 
+## 0.4.7
+
+### Patch Changes
+
+- [`9c86163d326`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9c86163d326) - [ux] Adds ability to edit Assets datasource modal from inserted table
+
+## 0.4.6
+
+### Patch Changes
+
+- [`33cb07de05f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/33cb07de05f) - change adf-schema to fixed versioning
+
 ## 0.4.5
 
 ### Patch Changes

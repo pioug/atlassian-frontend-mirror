@@ -14,10 +14,8 @@ import {
   openHelp,
   tooltip,
 } from '@atlaskit/editor-common/keymaps';
-
 import WithPluginState from '../../ui/WithPluginState';
 import { HelpDialogLoader } from './ui/HelpDialogLoader';
-import { pluginKey as quickInsertPluginKey } from '../quick-insert';
 import {
   ACTION,
   ACTION_SUBJECT,
@@ -28,10 +26,10 @@ import {
 import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import QuestionCircleIcon from '@atlaskit/icon/glyph/question-circle';
-
 import { messages } from '../insert-block/ui/ToolbarInsertBlock/messages';
 import { openHelpCommand } from './commands';
 import { pluginKey } from './plugin-key';
+import type quickInsertPlugin from '../quick-insert';
 
 export function createPlugin(dispatch: Function, imageEnabled: boolean) {
   return new SafePlugin({
@@ -57,7 +55,10 @@ export function createPlugin(dispatch: Function, imageEnabled: boolean) {
 const helpDialog: NextEditorPlugin<
   'helpDialog',
   {
-    dependencies: [OptionalPlugin<typeof analyticsPlugin>];
+    dependencies: [
+      OptionalPlugin<typeof analyticsPlugin>,
+      OptionalPlugin<typeof quickInsertPlugin>,
+    ];
     pluginConfiguration: boolean;
   }
 > = (imageUploadProviderExists = false, api) => ({
@@ -108,13 +109,12 @@ const helpDialog: NextEditorPlugin<
       <WithPluginState
         plugins={{
           helpDialog: pluginKey,
-          quickInsert: quickInsertPluginKey,
         }}
-        render={({ helpDialog = {} as any, quickInsert }) => (
+        render={({ helpDialog = {} as any }) => (
           <HelpDialogLoader
             editorView={editorView}
             isVisible={helpDialog.isVisible}
-            quickInsertEnabled={!!quickInsert}
+            quickInsertEnabled={!!api?.dependencies.quickInsert}
             imageEnabled={helpDialog.imageEnabled}
           />
         )}

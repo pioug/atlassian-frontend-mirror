@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-extension-googledrive",
-  "version": "0.2.0",
+  "version": "0.2.2",
   "description": "An Atlassian editor extension to add a native Google Drive picker",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -25,9 +25,9 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@atlaskit/adf-schema": "^28.1.1",
+    "@atlaskit/adf-schema": "28.1.2",
     "@atlaskit/adf-utils": "^19.0.0",
-    "@atlaskit/editor-common": "^74.51.0",
+    "@atlaskit/editor-common": "^74.52.0",
     "@atlaskit/icon": "^21.12.0",
     "@babel/runtime": "^7.0.0"
   },

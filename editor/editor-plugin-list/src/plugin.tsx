@@ -46,12 +46,15 @@ export const listPlugin: ListPlugin = (options, api) => {
   return {
     name: 'list',
     actions: {
-      indentList: indentList(editorAnalyticsAPI),
-      outdentList: outdentList(editorAnalyticsAPI),
-      toggleOrderedList: toggleOrderedListCommand(editorAnalyticsAPI),
-      toggleBulletList: toggleBulletListCommand(editorAnalyticsAPI),
       isInsideListItem,
       findRootParentListNode,
+    },
+    commands: {
+      indentList: indentList(editorAnalyticsAPI),
+      outdentList: inputMethod =>
+        outdentList(editorAnalyticsAPI)(inputMethod, featureFlags),
+      toggleOrderedList: toggleOrderedListCommand(editorAnalyticsAPI),
+      toggleBulletList: toggleBulletListCommand(editorAnalyticsAPI),
     },
     getSharedState: editorState => {
       if (!editorState) {

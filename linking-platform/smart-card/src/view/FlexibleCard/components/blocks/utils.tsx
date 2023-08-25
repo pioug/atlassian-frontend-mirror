@@ -43,6 +43,7 @@ export const ElementDisplaySchema: Record<
   [ElementName.ReadTime]: ['inline'],
   [ElementName.Snippet]: ['block'],
   [ElementName.SourceBranch]: ['inline'],
+  [ElementName.SentOn]: ['inline'],
   [ElementName.State]: ['inline'],
   [ElementName.SubscriberCount]: ['inline'],
   [ElementName.SubTasksProgress]: ['inline'],

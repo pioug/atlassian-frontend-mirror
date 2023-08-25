@@ -4,7 +4,7 @@ import React from 'react';
 import { jsx } from '@emotion/react';
 import classnames from 'classnames';
 
-import { RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
+import type { RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
 import {
   akEditorMediaResizeHandlerPaddingWide,
   DEFAULT_EMBED_CARD_WIDTH,
@@ -67,7 +67,7 @@ export default function MediaSingle({
 
   let mediaSingleWidth = size?.width || pctWidth;
 
-  const children = React.Children.toArray<React.ReactNode>(propsChildren);
+  const children = React.Children.toArray(propsChildren);
   if (
     !mediaSingleWidth &&
     shouldAddDefaultWrappedWidth(layout, width, editorWidth)

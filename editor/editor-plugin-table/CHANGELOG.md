@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-table
 
+## 2.10.6
+
+### Patch Changes
+
+- [`33cb07de05f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/33cb07de05f) - change adf-schema to fixed versioning
+- Updated dependencies
+
+## 2.10.5
+
+### Patch Changes
+
+- [`e813382ff78`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e813382ff78) - Revert ED-19511 due to incorrect height calculations when sticky headers are enabled for tables
+
 ## 2.10.4
 
 ### Patch Changes

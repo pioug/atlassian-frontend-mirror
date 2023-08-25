@@ -18,6 +18,9 @@ const mockParameters: AssetsDatasourceParameters = {
   workspaceId: '',
   schemaId: '1',
 };
+
+const visibleColumnKeys = ['key', 'summary', 'labels', 'status', 'created'];
+
 export default () => {
   mockDatasourceFetchRequests({
     datasourceId: ASSETS_LIST_OF_LINKS_DATASOURCE_ID,
@@ -28,7 +31,7 @@ export default () => {
       <SmartCardProvider client={new SmartLinkClient()}>
         <JSMAssetsConfigModal
           datasourceId={ASSETS_LIST_OF_LINKS_DATASOURCE_ID}
-          visibleColumnKeys={undefined}
+          visibleColumnKeys={visibleColumnKeys}
           parameters={mockParameters}
           onCancel={() => {}}
           onInsert={() => {}}

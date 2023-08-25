@@ -16,7 +16,6 @@ import {
   wrapperStyle,
 } from '@atlaskit/editor-common/styles';
 import { insertDate } from '../../../date/actions';
-import { openElementBrowserModal } from '../../../quick-insert/commands';
 import { showPlaceholderFloatingToolbar } from '../../../placeholder-text/actions';
 import { insertLayoutColumnsWithAnalytics } from '../../../layout/actions';
 import { insertTaskDecisionCommand } from '../../../tasks-and-decisions/commands';
@@ -319,6 +318,7 @@ export class ToolbarInsertBlock extends React.PureComponent<
               this.props.replacePlusMenuWithElementBrowser ?? false
             }
             showElementBrowserLink={this.props.showElementBrowserLink || false}
+            pluginInjectionApi={this.props.pluginInjectionApi}
           />
         </span>
         {this.props.showSeparator && <span css={separatorStyles} />}
@@ -475,9 +475,11 @@ export class ToolbarInsertBlock extends React.PureComponent<
   };
 
   private openElementBrowser = () => {
-    openElementBrowserModal()(
-      this.props.editorView.state,
-      this.props.editorView.dispatch,
+    const { pluginInjectionApi } = this.props;
+
+    pluginInjectionApi?.dependencies.core.actions.execute(
+      pluginInjectionApi?.dependencies.quickInsert?.commands
+        .openElementBrowserModal,
     );
   };
 

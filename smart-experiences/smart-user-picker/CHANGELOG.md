@@ -1,5 +1,15 @@
 # @atlassian/smart-user-picker
 
+## 6.3.0
+
+### Minor Changes
+
+- [`38c3ed63070`](https://bitbucket.org/atlassian/atlassian-frontend/commits/38c3ed63070) - Export sub-components of Option
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.2.0
 
 ### Minor Changes

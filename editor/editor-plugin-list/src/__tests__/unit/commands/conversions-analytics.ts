@@ -7,6 +7,7 @@ import {
   EVENT_TYPE,
   INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
+import { editorCommandToPMCommand } from '@atlaskit/editor-common/preset';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import {
@@ -190,10 +191,9 @@ describe('list-conversion', () => {
   ])('list-conversion', (scenario, documentNode, expectedAttributes) => {
     it(`analytics ul to ol ${scenario}`, () => {
       const { editorView } = editor(documentNode);
-      toggleOrderedList(editorAnalyticsAPIFake)(
-        editorView,
-        INPUT_METHOD.KEYBOARD,
-      );
+      editorCommandToPMCommand(
+        toggleOrderedList(editorAnalyticsAPIFake)(INPUT_METHOD.KEYBOARD),
+      )(editorView.state, editorView.dispatch);
 
       expect(editorAnalyticsAPIFake.attachAnalyticsEvent).toHaveBeenCalledWith({
         action: ACTION.CONVERTED,
@@ -225,7 +225,9 @@ describe('list-conversion', () => {
         ),
       ),
     );
-    toggleBulletList(editorAnalyticsAPIFake)(editorView, INPUT_METHOD.KEYBOARD);
+    editorCommandToPMCommand(
+      toggleBulletList(editorAnalyticsAPIFake)(INPUT_METHOD.KEYBOARD),
+    )(editorView.state, editorView.dispatch);
 
     expect(editorAnalyticsAPIFake.attachAnalyticsEvent).toHaveBeenCalledWith({
       action: ACTION.CONVERTED,
@@ -253,7 +255,9 @@ describe('list-conversion', () => {
         ),
       ),
     );
-    toggleBulletList(editorAnalyticsAPIFake)(editorView, INPUT_METHOD.KEYBOARD);
+    editorCommandToPMCommand(
+      toggleBulletList(editorAnalyticsAPIFake)(INPUT_METHOD.KEYBOARD),
+    )(editorView.state, editorView.dispatch);
 
     expect(editorAnalyticsAPIFake.attachAnalyticsEvent).toHaveBeenCalledWith({
       action: ACTION.CONVERTED,

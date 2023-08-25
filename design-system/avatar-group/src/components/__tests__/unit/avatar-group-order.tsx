@@ -1,12 +1,12 @@
 /* eslint-disable @repo/internal/react/no-unsafe-overrides */
-import React, { ElementType, useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 import { render } from '@testing-library/react';
 
 import Avatar, { AppearanceType, SizeType } from '@atlaskit/avatar';
 
 import { RANDOM_USERS } from '../../../../examples-util/data';
-import AvatarGroup from '../../avatar-group';
+import AvatarGroup, { type AvatarGroupProps } from '../../avatar-group';
 import { AvatarProps } from '../../types';
 import { composeUniqueKey } from '../../utils';
 
@@ -33,6 +33,30 @@ const createAvatarAuditor =
     return <Avatar {...props} />;
   };
 
+const createAvatarGroup = (
+  props: AvatarGroupProps,
+  withUniqueIndex = false,
+) => {
+  return (
+    <AvatarGroup
+      testId="test"
+      maxCount={4}
+      // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+      {...props}
+      overrides={{
+        Avatar: {
+          render: (Component, props: AvatarProps, index: number) => (
+            <Component
+              {...props}
+              key={withUniqueIndex ? composeUniqueKey(props, index) : index}
+            />
+          ),
+        },
+      }}
+    />
+  );
+};
+
 describe('avatar group re-ordering', () => {
   const rearrange = (data: Array<any>) => {
     const updated = [...data];
@@ -51,36 +75,27 @@ describe('avatar group re-ordering', () => {
     const onUnmount = jest.fn();
 
     const Avatar = createAvatarAuditor({ onMount, onUnmount });
-    const overrides = {
-      Avatar: {
-        render: (
-          Component: ElementType<AvatarProps>,
-          props: AvatarProps,
-          index: number,
-        ) => <Component {...props} key={composeUniqueKey(props, index)} />,
-      },
-    };
 
     const { rerender } = render(
-      <AvatarGroup
-        testId="test"
-        data={data}
-        avatar={Avatar}
-        maxCount={4}
-        overrides={overrides}
-      />,
+      createAvatarGroup(
+        {
+          data,
+          avatar: Avatar,
+        },
+        true,
+      ),
     );
 
     expect(onMount.mock.calls.length).toBe(avatarCount);
 
     rerender(
-      <AvatarGroup
-        testId="test"
-        data={rearrange(data)}
-        maxCount={4}
-        avatar={Avatar}
-        overrides={overrides}
-      />,
+      createAvatarGroup(
+        {
+          data: rearrange(data),
+          avatar: Avatar,
+        },
+        true,
+      ),
     );
 
     // should not have unmount triggered
@@ -92,36 +107,27 @@ describe('avatar group re-ordering', () => {
     const onUnmount = jest.fn();
 
     const Avatar = createAvatarAuditor({ onMount, onUnmount });
-    const overrides = {
-      Avatar: {
-        render: (
-          Component: ElementType<AvatarProps>,
-          props: AvatarProps,
-          index: number,
-        ) => <Component {...props} key={index} />,
-      },
-    };
 
     const { rerender } = render(
-      <AvatarGroup
-        testId="test"
-        data={data}
-        maxCount={4}
-        avatar={Avatar}
-        overrides={overrides}
-      />,
+      createAvatarGroup(
+        {
+          data,
+          avatar: Avatar,
+        },
+        false,
+      ),
     );
 
     expect(onMount.mock.calls.length).toBe(avatarCount);
 
     rerender(
-      <AvatarGroup
-        testId="test"
-        data={rearrange(data)}
-        maxCount={4}
-        avatar={Avatar}
-        overrides={overrides}
-      />,
+      createAvatarGroup(
+        {
+          data: rearrange(data),
+          avatar: Avatar,
+        },
+        false,
+      ),
     );
 
     // should have 2 unmount triggered

@@ -57,7 +57,6 @@ export function Toolbar(props: ToolbarProps) {
       onItemActivated({
         editorView: props.editorView,
         buttonName,
-        featureFlags: props.featureFlags,
       });
 
   useEffect(() => {

@@ -1,24 +1,22 @@
 import React, { useEffect } from 'react';
 import memoizeOne from 'memoize-one';
 import isEqual from 'lodash/isEqual';
-import {
+import type {
   MediaProvider as MediaProviderType,
   EditorProps,
   MentionProvider,
-  EditorContext,
 } from '@atlaskit/editor-core';
+import { EditorContext } from '@atlaskit/editor-core';
 import { hasVisibleContent } from '@atlaskit/editor-common/utils';
 import { Editor } from './editor-wrapper';
 import FabricAnalyticsListeners from '@atlaskit/analytics-listeners';
-import { Provider as CollabProvider } from '@atlaskit/collab-provider';
+import type { Provider as CollabProvider } from '@atlaskit/collab-provider';
 import { toNativeBridge } from './web-to-native';
-import WebBridgeImpl from './native-to-web';
-import {
-  SmartCardProvider,
-  CardClient as EditorCardClient,
-} from '@atlaskit/link-provider';
-import { EditorCardProvider } from '@atlaskit/editor-card-provider';
-import { EmojiResource } from '@atlaskit/emoji/resource';
+import type WebBridgeImpl from './native-to-web';
+import type { CardClient as EditorCardClient } from '@atlaskit/link-provider';
+import { SmartCardProvider } from '@atlaskit/link-provider';
+import type { EditorCardProvider } from '@atlaskit/editor-card-provider';
+import type { EmojiResource } from '@atlaskit/emoji/resource';
 import { useCollabEdit } from './hooks/use-collab-edit';
 import { useQuickInsert } from './hooks/use-quickinsert';
 import { useAnalytics } from './hooks/use-analytics';
@@ -28,7 +26,8 @@ import { useTaskAndDecision } from './hooks/use-task-decision';
 import { useReflowDectector } from './hooks/use-reflow-detector';
 import throttle from 'lodash/throttle';
 import { withIntlProvider } from '../i18n/with-intl-provider';
-import { IntlShape, injectIntl } from 'react-intl-next';
+import type { IntlShape } from 'react-intl-next';
+import { injectIntl } from 'react-intl-next';
 import { useCollabListeners } from './hooks/use-collab-listeners';
 import { geti18NMessages } from './editor-localisation-provider';
 import { withSystemTheme } from '../WithSystemTheme';
@@ -42,7 +41,7 @@ import {
 } from '../query-param-reader';
 import { useEditorLifecycle } from './hooks/use-editor-life-cycle';
 import { usePluginListeners } from './hooks/use-plugin-listeners';
-import EditorConfiguration from './editor-configuration';
+import type EditorConfiguration from './editor-configuration';
 import { useToolbarSubscription } from './hooks/use-toolbar-subscription';
 import { useTypeAheadSubscription } from './hooks/use-type-ahead-subscription';
 import type { FeatureFlags } from '@atlaskit/editor-common/types';
@@ -123,7 +122,6 @@ export function MobileEditor(props: MobileEditorProps) {
   const analyticsClient = useAnalytics();
   const quickInsert = useQuickInsert(
     bridge,
-    intl,
     editorConfiguration.isQuickInsertEnabled(),
   );
   useCollabListeners(bridge, collabEdit);

@@ -1,5 +1,36 @@
 # @atlaskit/media-ui
 
+## 24.0.0
+
+### Major Changes
+
+- [`3fa17b4c298`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3fa17b4c298) - Removed support for `'auto'` as an allowed value for the `loading` property within `MediaImageProps`.
+
+  ```diff
+  export interface MediaImageProps {
+      ...
+  -   loading?: 'auto' | 'lazy' | 'eager';
+  +   loading?: 'lazy' | 'eager';
+      ...
+  }
+  ```
+
+  > The `loading` property within `MediaImageProps` directly maps to the [`loading`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/loading#value) property of an `HTMLImageElement`.
+
+  ```typescript
+  // node_modules/typescript/lib/lib.dom.d.ts:
+
+  /** Provides special properties and methods for manipulating <img> elements. */
+  interface HTMLImageElement extends HTMLElement {
+      ...
+      /** Sets or retrieves the policy for loading image elements that are outside the viewport. */
+      loading: "eager" | "lazy";
+      ...
+  }
+  ```
+
+  The `'auto'` value was **experimental** within older versions of Chrome and never made its way into the final HTML spec. Learn more [here](https://web.dev/browser-level-image-lazy-loading/#are-there-plans-to-automatically-lazy-load-images-in-chrome).
+
 ## 23.3.0
 
 ### Minor Changes

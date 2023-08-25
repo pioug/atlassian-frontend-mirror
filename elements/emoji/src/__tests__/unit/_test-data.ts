@@ -1,5 +1,7 @@
 import * as sinon from 'sinon';
 
+// These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
+/* eslint-disable import/no-extraneous-dependencies */
 import { getTestEmojiRepository } from '@atlaskit/util-data-test/get-test-emoji-repository';
 import { getTestSiteEmojiRepository } from '@atlaskit/util-data-test/get-test-site-emoji-repository';
 import { mediaServiceEmoji } from '@atlaskit/util-data-test/media-service-emoji';
@@ -29,6 +31,7 @@ import {
   blackFlagEmoji as getBlackFlagEmoji,
   standardBoomEmoji as getStandardBoomEmoji,
 } from '@atlaskit/util-data-test/emoji-samples';
+/* eslint-enable import/no-extraneous-dependencies */
 
 import TokenManager from '../../api/media/TokenManager';
 import {
@@ -42,6 +45,7 @@ import {
 } from '../../types';
 import { convertMediaToImageRepresentation } from '../../util/type-helpers';
 
+/* eslint-disable import/no-extraneous-dependencies */
 export {
   mediaEmojiImagePath,
   mediaBaseUrl,
@@ -80,6 +84,7 @@ export const siteEmojiFoo = getTestSiteEmojiFoo();
 export { getTestEmojiResource as getEmojiResourcePromise } from '@atlaskit/util-data-test/get-test-emoji-resource';
 export { getTestEmojiResourceFromRepository as getEmojiResourcePromiseFromRepository } from '@atlaskit/util-data-test/get-test-emoji-resource-from-repository';
 export { getTestEmojiResourceNonUploading as getNonUploadingEmojiResourcePromise } from '@atlaskit/util-data-test/get-test-emoji-resource-non-uploading';
+/* eslint-enable import/no-extraneous-dependencies */
 
 export const newEmojiRepository = getTestEmojiRepository;
 export const newSiteEmojiRepository = getTestSiteEmojiRepository;

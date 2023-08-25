@@ -1,6 +1,7 @@
 jest.mock('@atlaskit/editor-common/utils', () => ({
   ...jest.requireActual<Object>('@atlaskit/editor-common/utils'),
   isPerformanceAPIAvailable: () => true,
+  getTimeSince: jest.fn(() => 10),
 }));
 const mockStore = {
   get: jest.fn(),
@@ -20,12 +21,6 @@ jest.mock('@atlaskit/editor-common/ufo', () => ({
     getInstance: () => mockStore,
   },
 }));
-jest.mock('../../../../utils/performance/get-performance-timing', () => ({
-  ...jest.requireActual<Object>(
-    '../../../../utils/performance/get-performance-timing',
-  ),
-  getTimeSince: jest.fn(() => 10),
-}));
 
 import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
@@ -38,8 +33,8 @@ import {
   ACTION_SUBJECT,
   BROWSER_FREEZE_INTERACTION_TYPE,
   EVENT_TYPE,
-} from '../../../analytics';
-import { SEVERITY } from '@atlaskit/editor-common/utils';
+} from '@atlaskit/editor-common/analytics';
+import { SEVERITY, getTimeSince } from '@atlaskit/editor-common/utils';
 import { EditorExperience } from '@atlaskit/editor-common/ufo';
 import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
@@ -52,7 +47,6 @@ import {
   DEFAULT_FREEZE_THRESHOLD,
 } from '../../pm-plugins/frozen-editor';
 import * as utils from '../../utils/frozen-editor';
-import { getTimeSince } from '../../../../utils/performance/get-performance-timing';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 describe('frozen editor', () => {

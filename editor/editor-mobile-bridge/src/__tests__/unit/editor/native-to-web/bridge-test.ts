@@ -60,8 +60,13 @@ describe('lists should work', () => {
 
   const mockPluginInjectionApi = {
     dependencies: {
+      core: {
+        actions: {
+          execute: () => {},
+        },
+      },
       list: {
-        actions: commands,
+        commands,
       },
     },
   };

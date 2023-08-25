@@ -1,7 +1,7 @@
 import type { ElementType, ReactNode } from 'react';
 
 import type { AnalyticsEvent } from '@atlaskit/analytics-next';
-import type { AvatarPropTypes } from '@atlaskit/avatar';
+import { default as Avatar, type AvatarPropTypes } from '@atlaskit/avatar';
 import { MenuGroupProps } from '@atlaskit/menu';
 import { ContentProps } from '@atlaskit/popup';
 
@@ -26,7 +26,7 @@ export interface AvatarGroupOverrides {
   };
   Avatar?: {
     render?: (
-      Component: ElementType<AvatarProps>,
+      Component: typeof Avatar | ElementType<AvatarProps>,
       props: AvatarProps,
       index: number,
     ) => ReactNode;

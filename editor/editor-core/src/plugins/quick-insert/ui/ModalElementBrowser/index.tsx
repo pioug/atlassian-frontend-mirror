@@ -4,11 +4,11 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import WithPluginState from '../../../../ui/WithPluginState';
 import { pluginKey } from '../../plugin-key';
 import type { QuickInsertPluginState } from '@atlaskit/editor-common/types';
-import { searchQuickInsertItems } from '../../search';
 
 import ModalElementBrowser from '../../../../ui/ElementBrowser/ModalElementBrowser';
 
 import { closeElementBrowserModal, insertItem } from '../../commands';
+import { getQuickInsertSuggestions } from '@atlaskit/editor-common/quick-insert';
 
 type Props = {
   editorView: EditorView;
@@ -21,13 +21,20 @@ const Modal = ({
   helpUrl,
 }: {
   editorView: EditorView;
-  quickInsertState: QuickInsertPluginState;
+  quickInsertState: QuickInsertPluginState | undefined;
   helpUrl?: string;
 }) => {
   const getItems = useCallback(
     (query?: string, category?: string) =>
-      searchQuickInsertItems(quickInsertState, {})(query, category),
-    [quickInsertState],
+      getQuickInsertSuggestions({
+        searchOptions: {
+          query,
+          category,
+        },
+        lazyDefaultItems: quickInsertState?.lazyDefaultItems,
+        providedItems: quickInsertState?.providedItems,
+      }),
+    [quickInsertState?.lazyDefaultItems, quickInsertState?.providedItems],
   );
 
   const focusInEditor = useCallback(() => {
@@ -55,11 +62,8 @@ const Modal = ({
       getItems={getItems}
       onInsertItem={onInsertItem}
       helpUrl={helpUrl}
-      isOpen={
-        (quickInsertState && quickInsertState.isElementBrowserModalOpen) ||
-        false
-      }
-      emptyStateHandler={quickInsertState && quickInsertState.emptyStateHandler}
+      isOpen={quickInsertState?.isElementBrowserModalOpen || false}
+      emptyStateHandler={quickInsertState?.emptyStateHandler}
       onClose={onClose}
     />
   );

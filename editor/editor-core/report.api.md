@@ -45,6 +45,7 @@ import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { darkModeStatusColorPalette } from '@atlaskit/editor-common/ui-color';
 import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import type { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
+import { dedupe } from '@atlaskit/editor-common/utils';
 import { DEFAULT_BORDER_COLOR } from '@atlaskit/editor-common/ui-color';
 import type { DirectEditorProps } from '@atlaskit/editor-prosemirror/view';
 import { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
@@ -87,7 +88,6 @@ import type { HyperlinkPluginOptions } from '@atlaskit/editor-common/types';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { InputMethodInsertMedia } from '@atlaskit/editor-common/analytics';
 import { InputTracking } from '@atlaskit/editor-common/types';
-import type { IntlShape } from 'react-intl-next';
 import { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
 import { jsx } from '@emotion/react';
 import { lightModeStatusColorPalette } from '@atlaskit/editor-common/ui-color';
@@ -132,7 +132,6 @@ import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
 import { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
 import type { QuickInsertOptions } from '@atlaskit/editor-common/types';
 import type { QuickInsertPluginOptions } from '@atlaskit/editor-common/types';
-import type { QuickInsertPluginState } from '@atlaskit/editor-common/types';
 import { QuickInsertProvider } from '@atlaskit/editor-common/provider-factory';
 import { default as React_2 } from 'react';
 import type { ReactElement } from 'react';
@@ -395,14 +394,6 @@ interface CreateEditorStateOptions {
   selectionAtStart?: boolean;
 }
 
-// @public (undocumented)
-export const createQuickInsertTools: (editorView: EditorView) => {
-  getItems: (
-    query: string,
-    options?: QuickInsertPluginOptions,
-  ) => QuickInsertItem[];
-};
-
 export { createTable };
 
 // @public (undocumented)
@@ -519,8 +510,7 @@ type DateType = {
   day?: number;
 };
 
-// @public (undocumented)
-export function dedupe<T>(list?: T[], iteratee?: (p: T) => T | T[keyof T]): T[];
+export { dedupe };
 
 export { DEFAULT_BORDER_COLOR };
 
@@ -1659,16 +1649,6 @@ type PrimaryToolbarComponents =
   | ReactComponents;
 
 // @public (undocumented)
-const processItems: (
-  items: Array<QuickInsertHandler | QuickInsertItem>,
-  intl: IntlShape,
-  extendedActions?: Record<string, Function>,
-) => QuickInsertItem[];
-
-// @public (undocumented)
-export const processQuickInsertItems: typeof processItems;
-
-// @public (undocumented)
 interface Props {
   // (undocumented)
   children?: any;
@@ -1723,15 +1703,7 @@ type Props_5 = {
 // @public (undocumented)
 type ProsemirrorGetPosHandler = () => number | undefined;
 
-// @public (undocumented)
-type QuickInsertHandler =
-  | ((intl: IntlShape) => Array<QuickInsertItem>)
-  | Array<QuickInsertItem>;
-
 export { QuickInsertItem };
-
-// @public (undocumented)
-export const quickInsertPluginKey: PluginKey<QuickInsertPluginState>;
 
 export { QuickInsertProvider };
 

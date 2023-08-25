@@ -3,8 +3,8 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import { createIntl } from 'react-intl-next';
 
-import { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import { CardOptions } from '@atlaskit/editor-common/card';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { CardOptions } from '@atlaskit/editor-common/card';
 import commonMessages, {
   linkMessages,
   linkToolbarMessages,
@@ -15,14 +15,14 @@ import type {
   FloatingToolbarButton,
   FloatingToolbarConfig,
 } from '@atlaskit/editor-common/types';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   blockCard,
   datasourceBlockCard,
   doc,
-  DocBuilder,
   embedCard,
   expand,
   inlineCard,
@@ -32,7 +32,10 @@ import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 import CogIcon from '@atlaskit/icon/glyph/editor/settings';
 import UnlinkIcon from '@atlaskit/icon/glyph/editor/unlink';
 import OpenIcon from '@atlaskit/icon/glyph/shortcut';
-import { JIRA_LIST_OF_LINKS_DATASOURCE_ID } from '@atlaskit/link-datasource';
+import {
+  ASSETS_LIST_OF_LINKS_DATASOURCE_ID,
+  JIRA_LIST_OF_LINKS_DATASOURCE_ID,
+} from '@atlaskit/link-datasource';
 import type { DatasourceAdf } from '@atlaskit/smart-card';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
@@ -99,6 +102,23 @@ const datasourceAdfAttrsWithRealJiraId: DatasourceAdf['attrs'] = {
 const datasourceWithUrlAdfAttrs: DatasourceAdf['attrs'] = {
   ...datasourceNoUrlAdfAttrs,
   url: mockJqlUrl,
+};
+
+const datasourceAdfAttrsWithRealAssetsId: DatasourceAdf['attrs'] = {
+  datasource: {
+    id: ASSETS_LIST_OF_LINKS_DATASOURCE_ID,
+    parameters: {
+      workspaceId: 'workspace-id',
+      aql: 'dummy-aql',
+      schemaId: 'schema-id',
+    },
+    views: [
+      {
+        type: 'table',
+        properties: { columns: [{ key: 'col1' }, { key: 'col2' }] },
+      },
+    ],
+  },
 };
 
 // Copied and simplified from:
@@ -1179,7 +1199,7 @@ describe('card', () => {
         expect(editorView.state.doc).toEqualDocument(doc(p('ab'), p('cd')));
       });
 
-      describe('shows modal after edit button is clicked when the feature flag is ON', () => {
+      describe('shows jira issues modal after edit button is clicked when the feature flag is ON', () => {
         ffTest(
           'platform.linking-platform.datasource-jira_issues',
           () => {
@@ -1261,6 +1281,97 @@ describe('card', () => {
 
             const pluginStateAfterClick = pluginKey.getState(editorView.state);
             expect(pluginStateAfterClick?.datasourceModalType).toBeUndefined();
+            expect(pluginStateAfterClick?.showDatasourceModal).toEqual(false);
+          },
+        );
+      });
+
+      describe('shows assets modal after edit button is clicked when the feature flag is ON', () => {
+        ffTest(
+          'platform.linking-platform.datasource-assets_objects',
+          () => {
+            const { editorView, pluginState } = editor(
+              doc(
+                p('ab'),
+                '{<node>}',
+                datasourceBlockCard(datasourceAdfAttrsWithRealAssetsId)(),
+                p('cd'),
+              ),
+            );
+
+            const toolbar = floatingToolbar(
+              { allowDatasource: true },
+              featureFlagsMock,
+            )(editorView.state, intl, providerFactory);
+
+            if (!toolbar) {
+              return expect(toolbar).toBeTruthy();
+            }
+
+            expect(pluginState.datasourceModalType).toBeUndefined();
+            expect(pluginState.showDatasourceModal).toEqual(false);
+
+            const editButton = getToolbarButtonByTitle(
+              toolbar,
+              editorView,
+              editDatasourceTitle,
+            );
+
+            editButton.onClick(editorView.state, editorView.dispatch);
+
+            const toolbarAfterClick = floatingToolbar(
+              {},
+              featureFlagsMock,
+              undefined,
+              undefined,
+              mockPluginInjectionApi,
+            )(editorView.state, intl, providerFactory);
+
+            if (!toolbarAfterClick) {
+              return expect(toolbarAfterClick).toBeTruthy();
+            }
+
+            const pluginStateAfterClick = pluginKey.getState(editorView.state);
+            expect(pluginStateAfterClick?.datasourceModalType).toEqual(
+              'assets',
+            );
+            expect(pluginStateAfterClick?.showDatasourceModal).toEqual(true);
+          },
+          () => {
+            const { editorView, pluginState } = editor(
+              doc(
+                p('ab'),
+                '{<node>}',
+                datasourceBlockCard(datasourceAdfAttrsWithRealAssetsId)(),
+                p('cd'),
+              ),
+            );
+
+            const toolbar = floatingToolbar({}, featureFlagsMock)(
+              editorView.state,
+              intl,
+              providerFactory,
+            );
+
+            if (!toolbar) {
+              return expect(toolbar).toBeTruthy();
+            }
+
+            expect(pluginState.datasourceModalType).toBeUndefined();
+            expect(pluginState.showDatasourceModal).toEqual(false);
+
+            const editButton = getToolbarButtonByTitle(
+              toolbar,
+              editorView,
+              'Edit link',
+            );
+
+            editButton.onClick(editorView.state, editorView.dispatch);
+
+            const pluginStateAfterClick = pluginKey.getState(editorView.state);
+            expect(pluginStateAfterClick?.datasourceModalType).toEqual(
+              undefined,
+            );
             expect(pluginStateAfterClick?.showDatasourceModal).toEqual(false);
           },
         );

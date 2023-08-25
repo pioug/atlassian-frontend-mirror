@@ -1,5 +1,5 @@
-import { EmojiRepository } from '../../../emoji/src/resource';
-import { EmojiDescription } from '../../../emoji/src/types';
+import { EmojiRepository } from '@atlaskit/emoji/resource';
+import { EmojiDescription } from '@atlaskit/emoji/types';
 
 export const isUsageClearEmojiRepository = (
   object: any,

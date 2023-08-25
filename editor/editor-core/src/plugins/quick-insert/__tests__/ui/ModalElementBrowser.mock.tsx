@@ -4,16 +4,10 @@ const mockCommand = (nestedMock?: jest.Mock) => {
   return jest.fn().mockImplementation(() => nestedMock || jest.fn());
 };
 
-jest.doMock('../../../../../plugins/quick-insert/commands', () => {
+jest.doMock('../../commands', () => {
   return {
     closeElementBrowserModal: mockCommand(),
     insertItem: mockCommand(),
     openElementBrowserModal: mockCommand(),
-  };
-});
-
-jest.doMock('../../../../../plugins/quick-insert/search', () => {
-  return {
-    searchQuickInsertItems: mockCommand(mockSearch),
   };
 });

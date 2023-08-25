@@ -8,13 +8,13 @@ import type {
 import { useStateFromPromise } from '../src/utils/react-hooks/use-state-from-promise';
 import type EditorActions from '../src/actions';
 import { extensionProviderToQuickInsertProvider } from '../src/utils/extensions';
-import { searchQuickInsertItems } from '../src/plugins/quick-insert/search';
+import { getQuickInsertSuggestions } from '@atlaskit/editor-common/quick-insert';
 import { getExampleExtensionProviders } from './get-example-extension-providers';
 
 const ACTIONS = {} as EditorActions;
 const EMPTY: any[] = [];
 
-const useDefaultQuickInsertProvier = (providers: ExtensionProvider) => {
+const useDefaultQuickInsertProvider = (providers: ExtensionProvider) => {
   const [quickInsertProvider] = useStateFromPromise<QuickInsertProvider>(
     () => extensionProviderToQuickInsertProvider(providers, ACTIONS),
     [providers],
@@ -25,7 +25,7 @@ const useDefaultQuickInsertProvier = (providers: ExtensionProvider) => {
 
 export const useDefaultQuickInsertGetItems = () => {
   const providers = React.useMemo(() => getExampleExtensionProviders(), []);
-  const quickInsertProvider = useDefaultQuickInsertProvier(providers);
+  const quickInsertProvider = useDefaultQuickInsertProvider(providers);
 
   const [items] = useStateFromPromise<QuickInsertItem[]>(
     () => quickInsertProvider?.getItems() ?? Promise.resolve(EMPTY),
@@ -35,13 +35,13 @@ export const useDefaultQuickInsertGetItems = () => {
 
   return React.useCallback(
     (query?: string, category?: string) =>
-      searchQuickInsertItems(
-        {
-          isElementBrowserModalOpen: true,
-          lazyDefaultItems: () => items || [],
+      getQuickInsertSuggestions({
+        searchOptions: {
+          query,
+          category,
         },
-        {},
-      )(query, category),
+        lazyDefaultItems: () => items || [],
+      }),
     [items],
   );
 };

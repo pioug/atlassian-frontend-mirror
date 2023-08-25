@@ -241,6 +241,7 @@ export type ElementItemProps =
   | Provider
   | ReactCount
   | ReadTime
+  | SentOn
   | Snippet
   | SourceBranch
   | State
@@ -419,6 +420,13 @@ export type ReactCount = {
  */
 export type ReadTime = {
   name: ElementName.ReadTime;
+};
+/**
+ * Represents the props available for an SentOn element.
+ * @see SentOn
+ */
+export type SentOn = {
+  name: ElementName.SentOn;
 };
 /**
  * Represents the props available for an Snippet element.

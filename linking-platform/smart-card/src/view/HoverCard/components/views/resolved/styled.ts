@@ -1,11 +1,11 @@
 import { css } from '@emotion/react';
 import { separatorCss } from '../../../styled';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 const elementGap = '0.5rem';
 
 export const metadataBlockCss = css`
   gap: 0px;
-
   /* primary element group */
   [data-smart-element-group]:nth-of-type(1) {
     flex-grow: 7;
@@ -26,10 +26,21 @@ export const metadataBlockCss = css`
       margin-left: ${elementGap};
     }
   }
+  ${getBooleanFF(
+    'platform.linking-platform.smart-card.enable-better-metadata_iojwg',
+  )
+    ? `[data-smart-element-group] {
+       line-height: 1rem;
+    }`
+    : ``}
 `;
 
 export const footerBlockCss = css`
-  padding-top: 0.25rem;
+  ${!getBooleanFF(
+    'platform.linking-platform.smart-card.enable-better-metadata_iojwg',
+  )
+    ? `padding-top: 0.25rem;`
+    : ``}
 `;
 
 export const hiddenSnippetStyles = css`

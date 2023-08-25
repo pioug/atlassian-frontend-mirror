@@ -89,10 +89,6 @@ const Textfield = forwardRef((props: TextfieldProps, ref) => {
       }
 
       if (typeof ref === 'object') {
-        // This is a blunder on the part of @types/react
-        // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/31065
-        // .current should be assignable
-        // @ts-expect-error
         ref.current = inputElement;
       }
 

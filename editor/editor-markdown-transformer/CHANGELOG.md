@@ -1,5 +1,11 @@
 # @atlaskit/editor-markdown-transformer
 
+## 5.2.12
+
+### Patch Changes
+
+- [`33cb07de05f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/33cb07de05f) - change adf-schema to fixed versioning
+
 ## 5.2.11
 
 ### Patch Changes

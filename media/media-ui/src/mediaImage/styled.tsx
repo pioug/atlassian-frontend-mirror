@@ -11,7 +11,7 @@ const imgStyle: CSSProperties = {
 export const ImageComponent: React.FC<
   React.ClassAttributes<HTMLImageElement> &
     React.ImgHTMLAttributes<HTMLImageElement> & {
-      loading?: 'auto' | 'lazy' | 'eager';
+      loading?: 'lazy' | 'eager';
       imageRef?:
         | ((instance: HTMLImageElement | null) => void)
         | React.RefObject<HTMLImageElement>

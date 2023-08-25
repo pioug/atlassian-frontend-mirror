@@ -21,6 +21,7 @@ import type { InputMethodBasic } from '@atlaskit/editor-common/types';
 import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import type { OptionalPlugin } from '@atlaskit/editor-common/types';
 import type { TextFormattingOptions } from '@atlaskit/editor-common/types';
+import type { TextFormattingState } from '@atlaskit/editor-common/types';
 
 // @public (undocumented)
 export type TextFormattingPlugin = NextEditorPlugin<
@@ -37,6 +38,7 @@ export type TextFormattingPlugin = NextEditorPlugin<
       toggleEm: ToggleMarkEditorCommand;
       toggleStrong: ToggleMarkEditorCommand;
     };
+    sharedState: TextFormattingState | undefined;
   }
 >;
 

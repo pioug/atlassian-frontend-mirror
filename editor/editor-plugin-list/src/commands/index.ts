@@ -11,8 +11,13 @@ import {
   getCommonListAnalyticsAttributes,
   moveTargetIntoList,
 } from '@atlaskit/editor-common/lists';
+import { editorCommandToPMCommand } from '@atlaskit/editor-common/preset';
 import { GapCursorSelection } from '@atlaskit/editor-common/selection';
-import type { Command, FeatureFlags } from '@atlaskit/editor-common/types';
+import type {
+  Command,
+  EditorCommand,
+  FeatureFlags,
+} from '@atlaskit/editor-common/types';
 import {
   filterCommand as filter,
   hasVisibleContent,
@@ -31,7 +36,6 @@ import {
   findPositionOfNodeBefore,
   hasParentNodeOfType,
 } from '@atlaskit/editor-prosemirror/utils';
-import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { convertListType } from '../actions/conversions';
 import { wrapInListAndJoin } from '../actions/wrap-and-join-lists';
@@ -71,9 +75,11 @@ export const enterKeyCommand =
         /** Check if the wrapper has any visible content */
         const wrapperHasContent = hasVisibleContent(wrapper);
         if (!wrapperHasContent) {
-          return outdentList(editorAnalyticsAPI)(
-            INPUT_METHOD.KEYBOARD,
-            featureFlags,
+          return editorCommandToPMCommand(
+            outdentList(editorAnalyticsAPI)(
+              INPUT_METHOD.KEYBOARD,
+              featureFlags,
+            ),
           )(state, dispatch);
         } else if (!hasParentNodeOfType(codeBlock)(selection)) {
           return splitListItem(listItem)(state, dispatch);
@@ -97,18 +103,23 @@ export const backspaceKeyCommand =
 
           // list items might have multiple paragraphs; only do this at the first one
           isFirstChildOfParent,
-          isInsideListItem,
+          state => isInsideListItem(state.tr),
         ],
         chainCommands(
           deletePreviousEmptyListItem,
-          outdentList(editorAnalyticsAPI)(INPUT_METHOD.KEYBOARD, featureFlags),
+          editorCommandToPMCommand(
+            outdentList(editorAnalyticsAPI)(
+              INPUT_METHOD.KEYBOARD,
+              featureFlags,
+            ),
+          ),
         ),
       ),
 
       // if we're just inside a paragraph node (or gapcursor is shown) and backspace, then try to join
       // the text to the previous list item, if one exists
       filter(
-        [isEmptySelectionAtStart, canJoinToPreviousListItem],
+        [isEmptySelectionAtStart, state => canJoinToPreviousListItem(state.tr)],
         joinToPreviousListItem,
       ),
     )(state, dispatch);
@@ -165,11 +176,10 @@ export const toggleList =
   (
     inputMethod: InputMethod,
     listType: 'bulletList' | 'orderedList',
-  ): Command => {
-    return function (state, dispatch) {
-      let tr = state.tr;
+  ): EditorCommand => {
+    return function ({ tr }) {
       const listInsideSelection = selectionContainsList(tr);
-      const listNodeType: NodeType = state.schema.nodes[listType];
+      const listNodeType: NodeType = tr.doc.type.schema.nodes[listType];
 
       const actionSubjectId =
         listType === 'bulletList'
@@ -177,7 +187,7 @@ export const toggleList =
           : ACTION_SUBJECT_ID.FORMAT_LIST_NUMBER;
 
       if (listInsideSelection) {
-        const { selection } = state;
+        const { selection } = tr;
 
         // for gap cursor or node selection - list is expected 1 level up (listItem -> list)
         // for text selection - list is expected 2 levels up (paragraph -> listItem -> list)
@@ -200,7 +210,7 @@ export const toggleList =
           fromNode?.type.name === listType &&
           toNode?.type.name === listType
         ) {
-          let tr = state.tr;
+          const commonAttributes = getCommonListAnalyticsAttributes(tr);
           untoggleSelectedList(tr);
           editorAnalyticsAPI?.attachAnalyticsEvent({
             action: ACTION.CONVERTED,
@@ -208,15 +218,12 @@ export const toggleList =
             actionSubjectId: ACTION_SUBJECT_ID.TEXT,
             eventType: EVENT_TYPE.TRACK,
             attributes: {
-              ...getCommonListAnalyticsAttributes(state),
+              ...commonAttributes,
               transformedFrom,
               inputMethod,
             },
           })(tr);
-          if (dispatch) {
-            dispatch(tr);
-          }
-          return true;
+          return tr;
         }
 
         convertListType({ tr, nextListNodeType: listNodeType });
@@ -226,7 +233,7 @@ export const toggleList =
           actionSubjectId,
           eventType: EVENT_TYPE.TRACK,
           attributes: {
-            ...getCommonListAnalyticsAttributes(state),
+            ...getCommonListAnalyticsAttributes(tr),
             transformedFrom,
             inputMethod,
           },
@@ -252,33 +259,23 @@ export const toggleList =
       // If document wasn't changed, return false from the command to indicate that the
       // editing action failed
       if (!tr.docChanged) {
-        return false;
+        return null;
       }
 
-      if (dispatch) {
-        dispatch(tr);
-      }
-
-      return true;
+      return tr;
     };
   };
 
 export const toggleBulletList =
   (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
-  (view: EditorView, inputMethod: InputMethod = INPUT_METHOD.TOOLBAR) => {
-    return toggleList(editorAnalyticsAPI)(inputMethod, 'bulletList')(
-      view.state,
-      view.dispatch,
-    );
+  (inputMethod: InputMethod = INPUT_METHOD.TOOLBAR): EditorCommand => {
+    return toggleList(editorAnalyticsAPI)(inputMethod, 'bulletList');
   };
 
 export const toggleOrderedList =
   (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
-  (view: EditorView, inputMethod: InputMethod = INPUT_METHOD.TOOLBAR) => {
-    return toggleList(editorAnalyticsAPI)(inputMethod, 'orderedList')(
-      view.state,
-      view.dispatch,
-    );
+  (inputMethod: InputMethod = INPUT_METHOD.TOOLBAR): EditorCommand => {
+    return toggleList(editorAnalyticsAPI)(inputMethod, 'orderedList');
   };
 
 /**

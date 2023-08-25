@@ -25,6 +25,7 @@ import {
   extractSubscriberCount,
   extractStoryPoints,
   extractTargetBranch,
+  extractSentOn,
   extractPersonAssignedToAsArray,
 } from '../utils';
 
@@ -324,6 +325,22 @@ describe('extractReadTime', () => {
       'atlassian:readTimeInMinutes': 10,
     } as JsonLd.Data.BaseData);
     expect(value).toEqual(10);
+  });
+});
+
+describe('extractSentOn', () => {
+  it('returns undefined when there is no data for extractSentOn', () => {
+    expect(
+      extractSentOn(TEST_BASE_DATA as JsonLd.Data.Message),
+    ).toBeUndefined();
+  });
+
+  it('returns the value when data is present', () => {
+    const value = extractSentOn({
+      ...TEST_BASE_DATA,
+      dateSent: '2023-08-10T03:45:14.797Z',
+    } as JsonLd.Data.Message);
+    expect(value).toEqual('2023-08-10T03:45:14.797Z');
   });
 });
 

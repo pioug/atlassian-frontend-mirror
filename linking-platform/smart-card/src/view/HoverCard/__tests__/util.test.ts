@@ -198,7 +198,7 @@ describe('getSimulatedBetterMetadata', () => {
         mockBaseResponseWithPreview.data as JsonLd.Data.BaseData,
       );
       const topMetadata = {
-        primary: [ElementName.CreatedBy, ElementName.ModifiedOn],
+        primary: [ElementName.AuthorGroup, ElementName.ModifiedOn],
         secondary: [],
         subtitle: [],
       };

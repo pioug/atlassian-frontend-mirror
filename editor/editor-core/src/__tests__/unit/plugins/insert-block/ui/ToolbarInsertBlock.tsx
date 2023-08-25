@@ -75,18 +75,12 @@ import type { Props as ToolbarInsertBlockProps } from '../../../../../plugins/in
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import { DropdownMenuWithKeyboardNavigation as DropdownMenu } from '@atlaskit/editor-common/ui-menu';
 import ToolbarButton from '../../../../../ui/ToolbarButton';
-
-import { openElementBrowserModal } from '../../../../../plugins/quick-insert/commands';
 import InsertMenu from '../../../../../ui/ElementBrowser/InsertMenu';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 import ReactEditorViewContext from '../../../../../create-editor/ReactEditorViewContext';
-
-jest.mock('../../../../../plugins/quick-insert/commands', () => ({
-  openElementBrowserModal: jest.fn(() => jest.fn()),
-}));
 
 jest.mock('../../../../../ui/ElementBrowser/InsertMenu', () => () => <div />);
 
@@ -871,18 +865,42 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
         });
       });
 
-      describe('click mview more (macro) option', () => {
+      describe('click view more (macro) option', () => {
         it('should open the element browser', () => {
+          const pluginInjectionApi: any = {
+            dependencies: {
+              core: {
+                actions: {
+                  execute: jest.fn(),
+                },
+              },
+              quickInsert: {
+                commands: {
+                  openElementBrowserModal: jest.fn(),
+                },
+              },
+            },
+          };
+
           const insertMacroFromMacroBrowserSpy = jest.fn();
           buildToolbarForMenu({
             insertMenuItems: [],
             showElementBrowserLink: true,
             onInsertMacroFromMacroBrowser: () => insertMacroFromMacroBrowserSpy,
+            pluginInjectionApi,
           });
 
           menu.clickButton(messages.viewMore.defaultMessage, toolbarOption);
           expect(insertMacroFromMacroBrowserSpy).not.toHaveBeenCalled();
-          expect(openElementBrowserModal).toHaveBeenCalled();
+          expect(
+            pluginInjectionApi.dependencies.core.actions.execute,
+          ).toHaveBeenCalledTimes(1);
+          expect(
+            pluginInjectionApi.dependencies.core.actions.execute,
+          ).toHaveBeenCalledWith(
+            pluginInjectionApi.dependencies.quickInsert.commands
+              .openElementBrowserModal,
+          );
         });
       });
 

@@ -16,28 +16,27 @@
 
 ```ts
 import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import type { Command } from '@atlaskit/editor-common/types';
 import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { EditorCommand } from '@atlaskit/editor-common/types';
 import type { FeatureFlags } from '@atlaskit/editor-common/types';
 import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import type { OptionalPlugin } from '@atlaskit/editor-common/types';
 import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
 // @public (undocumented)
 export type FindRootParentListNode = ($pos: ResolvedPos) => ResolvedPos | null;
 
 // @public (undocumented)
-type IndentList = (inputMethod: InputMethod) => Command;
+type IndentList = (inputMethod: InputMethod) => EditorCommand;
 
 // @public (undocumented)
 export type InputMethod = INPUT_METHOD.KEYBOARD | INPUT_METHOD.TOOLBAR;
 
 // @public (undocumented)
-type IsInsideListItem = (state: EditorState) => boolean;
+type IsInsideListItem = (tr: Transaction) => boolean;
 
 // @public (undocumented)
 export type ListPlugin = NextEditorPlugin<
@@ -49,12 +48,14 @@ export type ListPlugin = NextEditorPlugin<
       OptionalPlugin<typeof analyticsPlugin>,
     ];
     actions: {
+      isInsideListItem: IsInsideListItem;
+      findRootParentListNode: FindRootParentListNode;
+    };
+    commands: {
       indentList: IndentList;
       outdentList: OutdentList;
       toggleOrderedList: ToggleOrderedList;
       toggleBulletList: ToggleBulletList;
-      isInsideListItem: IsInsideListItem;
-      findRootParentListNode: FindRootParentListNode;
     };
     sharedState: ListState | undefined;
   }
@@ -81,19 +82,13 @@ export interface ListState {
 }
 
 // @public (undocumented)
-type OutdentList = (
-  inputMethod: InputMethod,
-  featureFlags: FeatureFlags,
-) => Command;
+type OutdentList = (inputMethod: InputMethod) => EditorCommand;
 
 // @public (undocumented)
-type ToggleBulletList = (view: EditorView, inputMethod: InputMethod) => boolean;
+type ToggleBulletList = (inputMethod: InputMethod) => EditorCommand;
 
 // @public (undocumented)
-type ToggleOrderedList = (
-  view: EditorView,
-  inputMethod: InputMethod,
-) => boolean;
+type ToggleOrderedList = (inputMethod: InputMethod) => EditorCommand;
 
 // (No @packageDocumentation comment for this package)
 ```

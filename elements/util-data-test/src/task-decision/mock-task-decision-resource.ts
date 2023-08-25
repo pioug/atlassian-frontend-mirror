@@ -8,7 +8,7 @@ import type {
   RecentUpdatesId,
   TaskDecisionProvider,
   TaskState,
-} from '../../../task-decision/src';
+} from '@atlaskit/task-decision';
 
 export interface MockTaskDecisionResourceConfig {
   hasMore?: boolean;

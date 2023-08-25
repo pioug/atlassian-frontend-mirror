@@ -76,6 +76,7 @@ const context: FlexibleUiDataContext = {
   viewAction: {
     viewUrl: 'https://www.link-url.com',
   },
+  sentOn: '2023-08-10T03:45:14.797Z',
   viewCount: 21,
   voteCount: 41,
 };

@@ -81,7 +81,7 @@ const tableSharedStyle = (props: ThemeProps) => css`
   }
 
   .${TableSharedCssClassName.TABLE_RESIZER_CONTAINER} {
-    will-change: width, height, margin-left;
+    will-change: width, margin-left;
   }
 
   .${TableSharedCssClassName.TABLE_RESIZER_CONTAINER} table {

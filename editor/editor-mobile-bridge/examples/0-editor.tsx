@@ -11,6 +11,7 @@ import { createCollabProviderFactory } from '../src/providers/collab-provider';
 import { getBridge } from '../src/editor/native-to-web/bridge-initialiser';
 import { useEditorConfiguration } from '../src/editor/hooks/use-editor-configuration';
 import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
+import MobileEditorConfiguration from '../src/editor/editor-configuration';
 
 // For media mocking
 import '../src/__tests__/integration-webview/_mocks/editorTestSetup';
@@ -19,7 +20,10 @@ window.logBridge = window.logBridge || [];
 
 export default function Example() {
   const bridge = getBridge();
-  const editorConfiguration = useEditorConfiguration(bridge);
+  const editorConfig = new MobileEditorConfiguration(
+    `{ "enableQuickInsert": "true" }`,
+  );
+  const editorConfiguration = useEditorConfiguration(bridge, editorConfig);
   const emojiProvider = getEmojiResource();
 
   useEffect(() => {

@@ -1,3 +1,4 @@
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
@@ -8,7 +9,6 @@ import {
 import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import { doc, li, ol, p, ul } from '@atlaskit/editor-test-helpers/doc-builder';
 
-import { toggleBulletList, toggleOrderedList } from '../../commands';
 import { listPlugin } from '../../index';
 
 describe('lists plugin -> joining lists', () => {
@@ -58,7 +58,7 @@ describe('lists plugin -> joining lists', () => {
   );
 
   it("should join with previous list if it's of the same type", () => {
-    const { editorView } = editor(
+    const { editorView, editorAPI } = editor(
       doc(
         ol()(li(p('One')), li(p('Two')), li(p('Three'))),
         p('{<}Four'),
@@ -67,12 +67,16 @@ describe('lists plugin -> joining lists', () => {
       ),
     );
 
-    toggleOrderedList(undefined)(editorView);
+    editorAPI.dependencies.core.actions.execute(
+      editorAPI.dependencies.list.commands.toggleOrderedList(
+        INPUT_METHOD.TOOLBAR,
+      ),
+    );
     expect(editorView.state.doc).toEqualDocument(expectedOutputForPreviousList);
   });
 
   it("should join with previous list if it's of the same type and selection starts at the end of previous line", () => {
-    const { editorView } = editor(
+    const { editorView, editorAPI } = editor(
       doc(
         ol()(li(p('One')), li(p('Two')), li(p('Three{<}'))),
         p('Four'),
@@ -81,12 +85,16 @@ describe('lists plugin -> joining lists', () => {
       ),
     ); // When selection starts on previous (empty) node
 
-    toggleOrderedList(undefined)(editorView);
+    editorAPI.dependencies.core.actions.execute(
+      editorAPI.dependencies.list.commands.toggleOrderedList(
+        INPUT_METHOD.TOOLBAR,
+      ),
+    );
     expect(editorView.state.doc).toEqualDocument(expectedOutputForPreviousList);
   });
 
   it("should not join with previous list if it's not of the same type", () => {
-    const { editorView } = editor(
+    const { editorView, editorAPI } = editor(
       doc(
         ol()(li(p('One')), li(p('Two')), li(p('Three'))),
         p('{<}Four'),
@@ -95,7 +103,11 @@ describe('lists plugin -> joining lists', () => {
       ),
     );
 
-    toggleBulletList(undefined)(editorView);
+    editorAPI.dependencies.core.actions.execute(
+      editorAPI.dependencies.list.commands.toggleBulletList(
+        INPUT_METHOD.TOOLBAR,
+      ),
+    );
     expect(editorView.state.doc).toEqualDocument(
       doc(
         ol()(li(p('One')), li(p('Two')), li(p('Three'))),
@@ -106,7 +118,7 @@ describe('lists plugin -> joining lists', () => {
   });
 
   it("should join with previous list if it's not of the same type and selection starts at the end of previous line", () => {
-    const { editorView } = editor(
+    const { editorView, editorAPI } = editor(
       doc(
         ol()(li(p('One')), li(p('Two')), li(p('Three{<}'))),
         p('Four'),
@@ -115,7 +127,11 @@ describe('lists plugin -> joining lists', () => {
       ),
     ); // When selection starts on previous (empty) node
 
-    toggleBulletList(undefined)(editorView);
+    editorAPI.dependencies.core.actions.execute(
+      editorAPI.dependencies.list.commands.toggleBulletList(
+        INPUT_METHOD.TOOLBAR,
+      ),
+    );
     expect(editorView.state.doc).toEqualDocument(
       doc(
         ul(
@@ -131,7 +147,7 @@ describe('lists plugin -> joining lists', () => {
   });
 
   it("should join with next list if it's of the same type", () => {
-    const { editorView } = editor(
+    const { editorView, editorAPI } = editor(
       doc(
         p('One'),
         p('{<}Two'),
@@ -140,12 +156,16 @@ describe('lists plugin -> joining lists', () => {
       ),
     );
 
-    toggleOrderedList(undefined)(editorView);
+    editorAPI.dependencies.core.actions.execute(
+      editorAPI.dependencies.list.commands.toggleOrderedList(
+        INPUT_METHOD.TOOLBAR,
+      ),
+    );
     expect(editorView.state.doc).toEqualDocument(expectedOutputForNextList);
   });
 
   it("should join with next list if it's of the same type and selection starts at the end of previous line", () => {
-    const { editorView } = editor(
+    const { editorView, editorAPI } = editor(
       doc(
         p('One{<}'),
         p('Two'),
@@ -154,7 +174,11 @@ describe('lists plugin -> joining lists', () => {
       ),
     );
 
-    toggleOrderedList(undefined)(editorView);
+    editorAPI.dependencies.core.actions.execute(
+      editorAPI.dependencies.list.commands.toggleOrderedList(
+        INPUT_METHOD.TOOLBAR,
+      ),
+    );
     expect(editorView.state.doc).toEqualDocument(
       doc(
         ol()(
@@ -170,7 +194,7 @@ describe('lists plugin -> joining lists', () => {
   });
 
   it("should not join with next list if it isn't of the same type", () => {
-    const { editorView } = editor(
+    const { editorView, editorAPI } = editor(
       doc(
         p('One'),
         p('{<}Two'),
@@ -179,7 +203,11 @@ describe('lists plugin -> joining lists', () => {
       ),
     );
 
-    toggleBulletList(undefined)(editorView);
+    editorAPI.dependencies.core.actions.execute(
+      editorAPI.dependencies.list.commands.toggleBulletList(
+        INPUT_METHOD.TOOLBAR,
+      ),
+    );
     expect(editorView.state.doc).toEqualDocument(
       doc(
         p('One'),
@@ -190,7 +218,7 @@ describe('lists plugin -> joining lists', () => {
   });
 
   it("should not join with next list if it isn't of the same type and selection starts at the end of previous line", () => {
-    const { editorView } = editor(
+    const { editorView, editorAPI } = editor(
       doc(
         p('One{<}'),
         p('Two'),
@@ -199,7 +227,11 @@ describe('lists plugin -> joining lists', () => {
       ),
     );
 
-    toggleBulletList(undefined)(editorView);
+    editorAPI.dependencies.core.actions.execute(
+      editorAPI.dependencies.list.commands.toggleBulletList(
+        INPUT_METHOD.TOOLBAR,
+      ),
+    );
     expect(editorView.state.doc).toEqualDocument(
       doc(
         ul(li(p('One')), li(p('Two')), li(p('Three'))),
@@ -209,7 +241,7 @@ describe('lists plugin -> joining lists', () => {
   });
 
   it("should join with previous and next list if they're of the same type", () => {
-    const { editorView } = editor(
+    const { editorView, editorAPI } = editor(
       doc(
         ol()(li(p('One')), li(p('Two'))),
         p('{<}Three'),
@@ -218,14 +250,18 @@ describe('lists plugin -> joining lists', () => {
       ),
     );
 
-    toggleOrderedList(undefined)(editorView);
+    editorAPI.dependencies.core.actions.execute(
+      editorAPI.dependencies.list.commands.toggleOrderedList(
+        INPUT_METHOD.TOOLBAR,
+      ),
+    );
     expect(editorView.state.doc).toEqualDocument(
       expectedOutputForPreviousAndNextList,
     );
   });
 
   it("should join with previous but not the next list if they're of the same type and selection starts at the end of previous line", () => {
-    const { editorView } = editor(
+    const { editorView, editorAPI } = editor(
       doc(
         ol()(li(p('One')), li(p('Two{<}'))),
         p('Three'),
@@ -234,7 +270,11 @@ describe('lists plugin -> joining lists', () => {
       ),
     );
 
-    toggleOrderedList(undefined)(editorView);
+    editorAPI.dependencies.core.actions.execute(
+      editorAPI.dependencies.list.commands.toggleOrderedList(
+        INPUT_METHOD.TOOLBAR,
+      ),
+    );
     expect(editorView.state.doc).toEqualDocument(
       doc(
         ol()(li(p('One')), li(p('Two')), li(p('Three')), li(p('Four{>}'))),
@@ -244,7 +284,7 @@ describe('lists plugin -> joining lists', () => {
   });
 
   it("should not join with previous and next list if they're not of the same type", () => {
-    const { editorView } = editor(
+    const { editorView, editorAPI } = editor(
       doc(
         ol()(li(p('One')), li(p('Two'))),
         p('{<}Three'),
@@ -253,7 +293,11 @@ describe('lists plugin -> joining lists', () => {
       ),
     );
 
-    toggleBulletList(undefined)(editorView);
+    editorAPI.dependencies.core.actions.execute(
+      editorAPI.dependencies.list.commands.toggleBulletList(
+        INPUT_METHOD.TOOLBAR,
+      ),
+    );
     expect(editorView.state.doc).toEqualDocument(
       doc(
         ol()(li(p('One')), li(p('Two'))),
@@ -264,7 +308,7 @@ describe('lists plugin -> joining lists', () => {
   });
 
   it("should join with previous but not the next list if they're not of the same type and selectoin starts at the end of previous line", () => {
-    const { editorView } = editor(
+    const { editorView, editorAPI } = editor(
       doc(
         ol()(li(p('One')), li(p('Two{<}'))),
         p('Three'),
@@ -273,7 +317,11 @@ describe('lists plugin -> joining lists', () => {
       ),
     );
 
-    toggleBulletList(undefined)(editorView);
+    editorAPI.dependencies.core.actions.execute(
+      editorAPI.dependencies.list.commands.toggleBulletList(
+        INPUT_METHOD.TOOLBAR,
+      ),
+    );
     expect(editorView.state.doc).toEqualDocument(
       doc(
         ul(li(p('One')), li(p('Two')), li(p('Three')), li(p('Four'))),

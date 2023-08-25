@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/user-picker",
-  "version": "10.7.0",
+  "version": "10.8.0",
   "description": "Fabric component for display a dropdown to select a user from",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -60,7 +60,6 @@
   "devDependencies": {
     "@atlaskit/analytics-viewer": "^0.5.0",
     "@atlaskit/elements-test-helpers": "^0.7.0",
-    "@atlaskit/util-data-test": "^17.8.0",
     "@atlaskit/visual-regression": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@emotion/styled": "^11.0.0",

@@ -1,4 +1,4 @@
-import { denormaliseEmojiServiceResponse } from '../../../emoji/src/utils';
+import { denormaliseEmojiServiceResponse } from '@atlaskit/emoji/utils';
 import { getTestAtlassianEmojis } from './get-test-atlassian-emojis';
 import { getTestSiteEmojis } from './get-test-site-emojis';
 import { getTestStandardEmojis } from './get-test-standard-emojis';

@@ -8,12 +8,12 @@ export const messages = defineMessages({
   },
   inputWidthTooltip: {
     id: 'fabric.editor.media.pixelEntry.inputWidthTooltip',
-    defaultMessage: 'Width',
+    defaultMessage: 'Max width {maxWidth}px',
     description: 'The tooltip displayed ontop of the width input',
   },
   inputWidthAriaLabel: {
     id: 'fabric.editor.media.pixelEntry.inputWidthAriaLabel',
-    defaultMessage: 'width input',
+    defaultMessage: 'Max width {maxWidth}px',
     description: 'The width input aria label',
   },
   inputHeightTooltip: {

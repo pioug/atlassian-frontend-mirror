@@ -39,7 +39,6 @@ export default function Accordion({
     <Fragment>
       {children ? (
         <details
-          // @ts-expect-error
           onToggle={handleToggle}
           open={isOpen}
           css={{

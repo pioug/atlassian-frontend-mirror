@@ -6,8 +6,13 @@ import {
   IconDate,
   IconDecision,
   IconDivider,
+  IconEmoji,
+  IconExpand,
+  IconFallback,
   IconHeading,
+  IconLayout,
   IconList,
+  IconLink,
   IconListNumber,
   IconQuote,
   IconStatus,
@@ -16,6 +21,8 @@ import {
   IconPanelSuccess,
   IconPanelWarning,
   IconPanelError,
+  IconMention,
+  IconImages,
 } from '@atlaskit/editor-common/quick-insert';
 
 import { IconTable } from '@atlaskit/editor-common/icons';
@@ -40,7 +47,12 @@ const QuickInsertIconsExample = () => {
     IconDate,
     IconDecision,
     IconDivider,
+    IconEmoji,
+    IconExpand,
+    IconFallback,
+    IconLayout,
     IconList,
+    IconLink,
     IconListNumber,
     IconQuote,
     IconStatus,
@@ -50,6 +62,8 @@ const QuickInsertIconsExample = () => {
     IconPanelSuccess,
     IconPanelWarning,
     IconPanelError,
+    IconMention,
+    IconImages,
   ];
   return (
     <div style={iconWrapper}>

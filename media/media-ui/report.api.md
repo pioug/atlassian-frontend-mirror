@@ -443,7 +443,7 @@ export interface MediaImageProps {
   // (undocumented)
   forceSyncDisplay?: boolean;
   // (undocumented)
-  loading?: 'auto' | 'eager' | 'lazy';
+  loading?: 'eager' | 'lazy';
   // (undocumented)
   onImageError?: () => void;
   // (undocumented)

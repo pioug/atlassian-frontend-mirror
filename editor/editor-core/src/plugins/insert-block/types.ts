@@ -10,6 +10,7 @@ import type { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type mentionsPlugin from '../mentions';
+import type quickInsertPlugin from '../quick-insert';
 
 export type InsertBlockPluginDependencies = [
   typeof featureFlagsPlugin,
@@ -20,4 +21,5 @@ export type InsertBlockPluginDependencies = [
   OptionalPlugin<ImageUploadPlugin>,
   OptionalPlugin<typeof mentionsPlugin>,
   OptionalPlugin<EmojiPlugin>,
+  OptionalPlugin<typeof quickInsertPlugin>,
 ];

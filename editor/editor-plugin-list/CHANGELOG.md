@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-list
 
+## 1.1.0
+
+### Minor Changes
+
+- [`4795a87a349`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4795a87a349) - Migrating some actions of `editor-plugin-list` to commands. Adding sharedState for `editor-plugin-text-formatting`.
+
 ## 1.0.0
 
 ### Major Changes

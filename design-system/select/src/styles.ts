@@ -146,7 +146,6 @@ export default function baseStyles<Option, IsMulti extends boolean>(
         ':hover': {
           '::-webkit-scrollbar-thumb': {
             // scrollbars occur only if the user passes in a custom component with overflow: scroll
-            // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
             backgroundColor: 'rgba(0,0,0,0.2)',
           },
           cursor: 'pointer',
@@ -154,7 +153,6 @@ export default function baseStyles<Option, IsMulti extends boolean>(
           borderColor: borderColorHover,
         },
         '::-webkit-scrollbar-thumb:hover': {
-          // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
           backgroundColor: 'rgba(0,0,0,0.4)',
         },
       };

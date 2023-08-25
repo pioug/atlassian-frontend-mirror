@@ -174,6 +174,12 @@ export type FlexibleUiDataContext = {
    */
   readTime?: string;
   /**
+   * Contains the ISO timestamp of when the resource was created.
+   * @type string - ISO Timestamp
+   * @see SentOn
+   */
+  sentOn?: string;
+  /**
    * Contains the source branch name of the link typed pull request.
    * @type string
    * @see SourceBranch

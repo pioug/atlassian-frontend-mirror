@@ -1,13 +1,13 @@
 import React from 'react';
-import {
+import type {
   Mark as PMMark,
   Node as PMNode,
 } from '@atlaskit/editor-prosemirror/model';
-import { RendererContext } from '../types';
-import { Serializer } from '../..';
-import { ExtensionLayout } from '@atlaskit/adf-schema';
+import type { RendererContext } from '../types';
+import type { Serializer } from '../..';
+import type { ExtensionLayout } from '@atlaskit/adf-schema';
 import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { renderExtension } from './extension';
 import ExtensionRenderer from '../../ui/ExtensionRenderer';
 
@@ -30,8 +30,12 @@ export interface Props {
 const BodiedExtension: React.FunctionComponent<Props> = (props) => {
   const { children, layout = 'default', path = [] } = props;
 
-  const removeOverflow = React.Children.toArray<any>(children)
-    .map((child) => child!.props.nodeType === 'table')
+  const removeOverflow = React.Children.toArray(children)
+    .map((child) =>
+      React.isValidElement<any>(child)
+        ? child.props.nodeType === 'table'
+        : false,
+    )
     .every(Boolean);
 
   return (

@@ -1,6 +1,5 @@
 import type {
   Node as PMNode,
-  ResolvedPos,
   Schema,
 } from '@atlaskit/editor-prosemirror/model';
 import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
@@ -20,10 +19,7 @@ import {
   MEDIA_SINGLE_DEFAULT_MIN_PIXEL_WIDTH,
   MEDIA_SINGLE_VIDEO_MIN_PIXEL_WIDTH,
 } from '@atlaskit/editor-common/media-single';
-import {
-  isEmptyParagraph,
-  floatingLayouts,
-} from '@atlaskit/editor-common/utils';
+import { isEmptyParagraph } from '@atlaskit/editor-common/utils';
 
 import { copyOptionalAttrsFromMediaState } from '../utils/media-common';
 import type { MediaState } from '../types';
@@ -309,6 +305,12 @@ export function transformSliceForMedia(slice: Slice, schema: Schema) {
     const __mediaTraceId = getRandomHex(8);
 
     newSlice = mapSlice(newSlice, (node) => {
+      // This logic is duplicated in editor-plugin-ai where external images can be inserted
+      // from external sources through the use of AI.  The editor-plugin-ai package is avoiding
+      // sharing dependencies with editor-core to support products using it with various versions
+      // of editor packages.
+      // The duplication is in the following file:
+      // packages/editor/editor-plugin-ai/src/prebuilt/content-transformers/markdown-to-pm/markdown-transformer.ts
       if (node.type.name === 'media') {
         return media.createChecked(
           {
@@ -356,32 +358,3 @@ export function isCaptionNode(editorView: EditorView) {
 
 export const isVideo = (fileType?: string) =>
   !!fileType && fileType.includes('video');
-
-export const getParentWidthForNestedMediaSingleNode = (
-  resolvedPos: ResolvedPos,
-  view: EditorView,
-): number | null => {
-  const domNode = view.nodeDOM(resolvedPos.pos);
-
-  if (
-    resolvedPos.nodeAfter &&
-    floatingLayouts.includes(resolvedPos.nodeAfter.attrs.layout) &&
-    domNode &&
-    domNode.parentElement
-  ) {
-    const { tableCell, tableHeader } = view.state.schema.nodes;
-    if ([tableCell, tableHeader].includes(resolvedPos.parent.type)) {
-      // since table has constant padding, use hardcoded constant instead of query the dom
-      const tablePadding = 8;
-      return domNode.parentElement.offsetWidth - tablePadding * 2;
-    }
-
-    return domNode.parentElement.offsetWidth;
-  }
-
-  if (domNode instanceof HTMLElement) {
-    return domNode.offsetWidth;
-  }
-
-  return null;
-};

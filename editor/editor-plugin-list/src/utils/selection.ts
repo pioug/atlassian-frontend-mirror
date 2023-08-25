@@ -11,7 +11,6 @@ import type {
   ResolvedPos,
 } from '@atlaskit/editor-prosemirror/model';
 import type {
-  EditorState,
   Selection,
   Transaction,
 } from '@atlaskit/editor-prosemirror/state';
@@ -61,31 +60,29 @@ export const isWrappingPossible = (
 };
 
 // canOutdent
-export const isInsideListItem = (state: EditorState): boolean => {
-  const { parent } = state.selection.$from;
-  const { listItem } = state.schema.nodes;
+export const isInsideListItem = (tr: Transaction): boolean => {
+  const { parent } = tr.selection.$from;
+  const { listItem } = tr.doc.type.schema.nodes;
 
-  if (state.selection instanceof GapCursorSelection) {
+  if (tr.selection instanceof GapCursorSelection) {
     return isListItemNode(parent);
   }
 
-  return (
-    hasParentNodeOfType(listItem)(state.selection) && isParagraphNode(parent)
-  );
+  return hasParentNodeOfType(listItem)(tr.selection) && isParagraphNode(parent);
 };
 
-export const isInsideTableCell = (state: EditorState): boolean => {
-  const { tableCell, tableHeader } = state.schema.nodes;
-  return !!findParentNodeOfType([tableCell, tableHeader])(state.selection);
+export const isInsideTableCell = (tr: Transaction): boolean => {
+  const { tableCell, tableHeader } = tr.doc.type.schema.nodes;
+  return !!findParentNodeOfType([tableCell, tableHeader])(tr.selection);
 };
 
-export const canJoinToPreviousListItem = (state: EditorState): boolean => {
-  const { $from } = state.selection;
+export const canJoinToPreviousListItem = (tr: Transaction): boolean => {
+  const { $from } = tr.selection;
 
-  const $before = state.doc.resolve($from.pos - 1);
+  const $before = tr.doc.resolve($from.pos - 1);
   let nodeBefore = $before ? $before.nodeBefore : null;
 
-  if (state.selection instanceof GapCursorSelection) {
+  if (tr.selection instanceof GapCursorSelection) {
     nodeBefore = $from.nodeBefore;
   }
 

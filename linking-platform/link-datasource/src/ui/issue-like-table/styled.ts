@@ -10,7 +10,6 @@ export const Table = styled.table`
 `;
 
 export const TableHeading = styled.th`
-  cursor: grab;
   position: relative;
   padding-block: ${token('space.100', '8px')};
   line-height: ${token('font.lineHeight.300', '16px')};

@@ -1,5 +1,11 @@
 # @atlaskit/media-test-helpers
 
+## 33.0.12
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 33.0.11
 
 ### Patch Changes

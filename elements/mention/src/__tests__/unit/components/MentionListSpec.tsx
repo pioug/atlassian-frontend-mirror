@@ -1,5 +1,9 @@
+// These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { waitUntil } from '@atlaskit/elements-test-helpers';
+// These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { mentionTestResult } from '@atlaskit/util-data-test/mention-test-data';
 import { ReactWrapper } from 'enzyme';
 import React from 'react';

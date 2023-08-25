@@ -26,7 +26,6 @@ export default class WithPromises extends Component<{}, State> {
 
   handleInputChange = (newValue: string) => {
     const inputValue = newValue.replace(/\W/g, '');
-    // eslint-disable-next-line react/no-unused-state
     this.setState({ inputValue });
     return inputValue;
   };

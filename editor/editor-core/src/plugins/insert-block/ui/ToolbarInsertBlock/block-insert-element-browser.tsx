@@ -5,6 +5,8 @@ import InsertMenu from '../../../../ui/ElementBrowser/InsertMenu';
 import type { BlockMenuItem } from './create-items';
 import { DropDownButton } from './dropdown-button';
 import type { OnInsert } from '../../../../ui/ElementBrowser/types';
+import type { PluginInjectionAPIWithDependencies } from '@atlaskit/editor-common/types';
+import type { InsertBlockPluginDependencies } from '../../types';
 
 type SimpleEventHandler<T> = (event?: T) => void;
 
@@ -25,6 +27,9 @@ export interface BlockInsertElementBrowserProps {
   onKeyDown?: React.KeyboardEventHandler;
   onInsert: OnInsert;
   togglePlusMenuVisibility: SimpleEventHandler<MouseEvent | KeyboardEvent>;
+  pluginInjectionApi:
+    | PluginInjectionAPIWithDependencies<InsertBlockPluginDependencies>
+    | undefined;
 }
 
 export const BlockInsertElementBrowser: React.FC<
@@ -50,6 +55,7 @@ export const BlockInsertElementBrowser: React.FC<
             onInsert={props.onInsert}
             toggleVisiblity={props.togglePlusMenuVisibility}
             showElementBrowserLink={props.showElementBrowserLink}
+            pluginInjectionApi={props.pluginInjectionApi}
           />
         </Popup>
       )}

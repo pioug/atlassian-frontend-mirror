@@ -1,4 +1,4 @@
-import { EmojiDescription } from '../../../emoji/src/types';
+import { EmojiDescription } from '@atlaskit/emoji/types';
 import {
   EmojiRepositoryUsageClear,
   isUsageClearEmojiRepository,

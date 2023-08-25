@@ -13,7 +13,7 @@ export interface MediaImageProps {
   crossOrigin?: '' | 'anonymous' | 'use-credentials';
   onImageLoad?: (loadedImage: HTMLImageElement) => void;
   onImageError?: () => void;
-  loading?: 'auto' | 'lazy' | 'eager';
+  loading?: 'lazy' | 'eager';
   //An option to force display image with showImage rules bypassed
   forceSyncDisplay?: boolean;
   // Expands the width and height of the image. Read more: https://product-fabric.atlassian.net/browse/MEX-2481

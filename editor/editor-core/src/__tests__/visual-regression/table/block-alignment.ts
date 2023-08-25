@@ -13,10 +13,8 @@ import {
 import { animationFrame } from '@atlaskit/editor-test-helpers/page-objects/editor';
 import { emojiSelectors } from '@atlaskit/editor-test-helpers/page-objects/emoji';
 import { retryUntilStablePosition } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
-import {
-  PuppeteerPage,
-  waitForLoadedBackgroundImages,
-} from '@atlaskit/visual-regression/helper';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import { waitForLoadedBackgroundImages } from '@atlaskit/visual-regression/helper';
 
 describe('Table with block looks correct for fullpage:', () => {
   let page: PuppeteerPage;
@@ -89,7 +87,8 @@ describe('Table with block looks correct for comment:', () => {
     await snapshot(page, undefined, editorCommentContentSelector);
   });
 
-  it('default layout ', async () => {
+  // https://product-fabric.atlassian.net/browse/ED-19725
+  it.skip('default layout ', async () => {
     await initCommentEditorWithAdf(page, adf, Device.LaptopMDPI);
     await animationFrame(page);
     await page.click(getSelectorForTableCell({ row: 4, cell: 1 }));

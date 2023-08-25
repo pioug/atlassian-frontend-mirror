@@ -1,19 +1,18 @@
 import React from 'react';
-import { ReactElement, PureComponent } from 'react';
-import { CardEvent, defaultImageCardDimensions } from '@atlaskit/media-card';
-import {
-  FilmstripView,
-  SizeEvent,
-  ScrollEvent,
-} from '@atlaskit/media-filmstrip';
+import type { ReactElement } from 'react';
+import { PureComponent } from 'react';
+import type { CardEvent } from '@atlaskit/media-card';
+import { defaultImageCardDimensions } from '@atlaskit/media-card';
+import type { SizeEvent, ScrollEvent } from '@atlaskit/media-filmstrip';
+import { FilmstripView } from '@atlaskit/media-filmstrip';
 import type {
   EventHandlers,
   CardSurroundings,
   CardEventClickHandler,
 } from '@atlaskit/editor-common/ui';
-import { Identifier } from '@atlaskit/media-client';
-import { MediaProps } from './media';
-import { MediaFeatureFlags } from '@atlaskit/media-common';
+import type { Identifier } from '@atlaskit/media-client';
+import type { MediaProps } from './media';
+import type { MediaFeatureFlags } from '@atlaskit/media-common';
 
 export interface MediaGroupProps {
   children?: React.ReactNode;
@@ -124,11 +123,14 @@ export default class MediaGroup extends PureComponent<
   renderStrip() {
     const { children } = this.props;
     const { animate, offset } = this.state;
-    const surroundingItems = React.Children.map(children, (child) =>
-      this.mapMediaPropsToIdentifier(
-        (child as React.ReactElement<MediaProps>).props,
-      ),
-    ).filter((identifier) => !!identifier);
+    const childIdentifiers = React.Children.map(children, (child) => {
+      if (React.isValidElement<MediaProps>(child)) {
+        return this.mapMediaPropsToIdentifier(child.props);
+      }
+    });
+    const surroundingItems = (childIdentifiers || []).filter(
+      (identifier) => !!identifier,
+    );
 
     return (
       <FilmstripView

@@ -1,6 +1,10 @@
 import React from 'react';
 import { ReactWrapper } from 'enzyme';
+// These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+// These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { MockMentionResource } from '@atlaskit/util-data-test/mock-mention-resource';
 import MentionList from '../../../components/MentionList';
 import ResourcedMentionList, {

@@ -8,7 +8,8 @@ import {
 } from '@atlaskit/adf-utils/transforms';
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
-import { Node, ResolvedPos, Schema } from '@atlaskit/editor-prosemirror/model';
+import type { ResolvedPos, Schema } from '@atlaskit/editor-prosemirror/model';
+import { Node } from '@atlaskit/editor-prosemirror/model';
 import type {
   EditorState,
   ReadonlyTransaction,
@@ -16,12 +17,8 @@ import type {
   Transaction,
 } from '@atlaskit/editor-prosemirror/state';
 
-import {
-  ACTION,
-  ACTION_SUBJECT,
-  DispatchAnalyticsEvent,
-  EVENT_TYPE,
-} from '../analytics';
+import type { DispatchAnalyticsEvent } from '../analytics';
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../analytics';
 import type { ProviderFactory } from '../provider-factory';
 import type { ReplaceRawValue, Transformer } from '../types';
 
@@ -380,3 +377,7 @@ export function hasVisibleContent(node: Node): boolean {
 
   return false;
 }
+
+export const isSelectionEndOfParagraph = (state: EditorState): boolean =>
+  state.selection.$to.parent.type === state.schema.nodes.paragraph &&
+  state.selection.$to.pos === state.doc.resolve(state.selection.$to.pos).end();

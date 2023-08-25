@@ -3,6 +3,8 @@ import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import type { BlockMenuItem } from '../../plugins/insert-block/ui/ToolbarInsertBlock/create-items';
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
+import type { PluginInjectionAPIWithDependencies } from '@atlaskit/editor-common/types';
+import type { InsertBlockPluginDependencies } from '../../plugins/insert-block/types';
 
 type SimpleEventHandler<T> = (event?: T) => void;
 
@@ -27,6 +29,9 @@ export interface InsertMenuProps {
   showElementBrowserLink: boolean;
   toggleVisiblity: SimpleEventHandler<MouseEvent | KeyboardEvent>;
   onInsert: OnInsert;
+  pluginInjectionApi:
+    | PluginInjectionAPIWithDependencies<InsertBlockPluginDependencies>
+    | undefined;
 }
 
 export type OnInsert = ({ item }: { item: MenuItem }) => Transaction;

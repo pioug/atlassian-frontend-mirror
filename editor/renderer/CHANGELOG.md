@@ -1,5 +1,18 @@
 # @atlaskit/renderer
 
+## 108.11.9
+
+### Patch Changes
+
+- [`3fa17b4c298`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3fa17b4c298) - Update type definitions to conform to changes within `@types/react@16.14.15`.
+- Updated dependencies
+
+## 108.11.8
+
+### Patch Changes
+
+- [`33cb07de05f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/33cb07de05f) - change adf-schema to fixed versioning
+
 ## 108.11.7
 
 ### Patch Changes

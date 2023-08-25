@@ -4,10 +4,12 @@ import {
   createProsemirrorEditorFactory,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
+import {
+  SelectItemMode,
+  TypeAheadAvailableNodes,
+} from '@atlaskit/editor-common/type-ahead';
 import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
-import { TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
 import type { EmojiProvider } from '@atlaskit/emoji';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import { getEmojiResourceWithStandardAndAtlassianEmojis } from '@atlaskit/util-data-test/get-emoji-resource-standard-atlassian';
@@ -23,7 +25,7 @@ import type { TypeAheadHandler } from '../../types';
 import { getPluginState } from '../../utils';
 import deprecatedAnalyticsPlugin from '../../../analytics';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import quickInsert from '../../../quick-insert';
+import quickInsertPlugin from '../../../quick-insert';
 import mentionsPlugin from '../../../mentions';
 import { emojiPlugin } from '../../../emoji';
 import typeAheadPlugin from '../../../type-ahead';
@@ -62,7 +64,7 @@ describe('type-ahead: multiple plugins', () => {
       .add([typeAheadPlugin, { createAnalyticsEvent }])
       .add(mentionsPlugin)
       .add(emojiPlugin)
-      .add(quickInsert);
+      .add(quickInsertPlugin);
 
     return createEditor({
       doc,

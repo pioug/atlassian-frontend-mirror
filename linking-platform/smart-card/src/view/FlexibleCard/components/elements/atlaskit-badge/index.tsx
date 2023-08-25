@@ -1,8 +1,13 @@
 /** @jsx jsx */
 import React from 'react';
 import AKBadge from '@atlaskit/badge';
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 import { AtlaskitBadgeProps } from './types';
+
+const badgeStyles = css`
+  align-items: center;
+  display: inline-flex;
+`;
 
 /**
  * A base element that displays a visual indicator for a numeric value
@@ -22,7 +27,7 @@ const AtlaskitBadge: React.FC<AtlaskitBadgeProps> = ({
 
   return (
     <span
-      css={overrideCss}
+      css={[badgeStyles, overrideCss]}
       data-fit-to-content
       data-smart-element={name}
       data-smart-element-atlaskit-badge

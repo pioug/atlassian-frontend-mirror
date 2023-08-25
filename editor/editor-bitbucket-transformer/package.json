@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-bitbucket-transformer",
-  "version": "8.1.8",
+  "version": "8.1.9",
   "description": "Editor Bitbucket transformer",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -32,7 +32,7 @@
     }
   },
   "dependencies": {
-    "@atlaskit/editor-common": "^74.51.0",
+    "@atlaskit/editor-common": "^74.52.0",
     "@atlaskit/editor-prosemirror": "1.1.0",
     "@babel/runtime": "^7.0.0"
   },
@@ -40,7 +40,7 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/adf-schema": "^28.1.0",
+    "@atlaskit/adf-schema": "28.1.2",
     "@atlaskit/editor-json-transformer": "^8.10.0",
     "@atlaskit/editor-test-helpers": "^18.11.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",

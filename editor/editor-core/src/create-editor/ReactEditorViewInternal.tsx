@@ -92,7 +92,7 @@ import {
   EVENT_NAME_ON_CHANGE,
   TransactionTracker,
 } from '../utils/performance/track-transactions';
-import { countNodes } from '../utils/count-nodes';
+import { countNodes } from '@atlaskit/editor-common/utils';
 import {
   PROSEMIRROR_RENDERED_NORMAL_SEVERITY_THRESHOLD,
   PROSEMIRROR_RENDERED_DEGRADED_SEVERITY_THRESHOLD,

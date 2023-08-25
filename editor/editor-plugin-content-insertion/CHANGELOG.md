@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-content-insertion
 
+## 0.0.9
+
+### Patch Changes
+
+- [`33cb07de05f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/33cb07de05f) - change adf-schema to fixed versioning
+
 ## 0.0.8
 
 ### Patch Changes

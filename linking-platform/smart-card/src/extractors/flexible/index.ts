@@ -22,6 +22,7 @@ import {
   extractSubTasksProgress,
   extractStoryPoints,
   extractReadTime,
+  extractSentOn,
   extractPersonAssignedToAsArray,
 } from './utils';
 import { extractPersonsUpdatedBy } from './collaboratorGroup';
@@ -92,6 +93,7 @@ const extractFlexibleUiContext = ({
     provider: extractProviderIcon(data),
     programmingLanguage: extractProgrammingLanguage(data),
     readTime: extractReadTime(data),
+    sentOn: extractSentOn(data),
     snippet: extractSummary(data) || undefined, // Explicitly set here to remove an empty string
     sourceBranch: extractSourceBranch(
       data as JsonLd.Data.SourceCodePullRequest,

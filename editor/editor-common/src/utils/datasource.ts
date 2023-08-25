@@ -4,9 +4,9 @@ import {
 } from '@atlaskit/link-datasource';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
-import { DatasourceModalType } from '../types';
+import type { DatasourceModalType } from '../types';
 
-const getDatasourceType = (
+export const getDatasourceType = (
   datasourceId: string,
 ): DatasourceModalType | undefined => {
   switch (datasourceId) {

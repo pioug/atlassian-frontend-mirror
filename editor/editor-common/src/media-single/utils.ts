@@ -17,6 +17,7 @@ import {
   DEFAULT_IMAGE_WIDTH,
   DEFAULT_ROUNDING_INTERVAL,
   MEDIA_SINGLE_DEFAULT_MIN_PIXEL_WIDTH,
+  MEDIA_SINGLE_VIDEO_MIN_PIXEL_WIDTH,
   wrappedLayouts,
 } from './constants';
 
@@ -179,6 +180,20 @@ export const roundToNearest = (
   value: number,
   interval: number = DEFAULT_ROUNDING_INTERVAL,
 ): number => Math.round(value / interval) * interval;
+
+/**
+ * Retuns minimum value for media single node
+ * @param isVideoFile is child media of video type
+ * @param contentWidth parent content width
+ */
+export const calcMinWidth = (isVideoFile: boolean, contentWidth: number) => {
+  return Math.min(
+    contentWidth,
+    isVideoFile
+      ? MEDIA_SINGLE_VIDEO_MIN_PIXEL_WIDTH
+      : MEDIA_SINGLE_DEFAULT_MIN_PIXEL_WIDTH,
+  );
+};
 
 /**
  * Get parent width for a nested media single node

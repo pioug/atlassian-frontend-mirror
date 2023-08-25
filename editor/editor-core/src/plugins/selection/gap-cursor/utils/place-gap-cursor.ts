@@ -1,5 +1,9 @@
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { getLayoutModeFromTargetNode, isLeftCursor } from '../utils';
+import {
+  getLayoutModeFromTargetNode,
+  isLeftCursor,
+  getComputedStyleForLayoutMode,
+} from '../utils';
 import type { GapCursorSelection } from '../selection';
 import { Side } from '../selection';
 
@@ -11,7 +15,11 @@ import { Side } from '../selection';
 const nestedCases: Record<string, string> = {
   'tableView-content-wrap': 'table',
   'mediaSingleView-content-wrap': '.rich-media-item',
+  'bodiedExtensionView-content-wrap': '.extension-container',
+  'embedCardView-content-wrap': '.rich-media-item',
+  'datasourceView-content-wrap': '.datasourceView-content-inner-wrap',
 };
+
 const computeNestedStyle = (dom: HTMLElement) => {
   const foundKey = Object.keys(nestedCases).find((className) =>
     dom.classList.contains(className),
@@ -105,16 +113,17 @@ export const toDOM = (view: EditorView, getPos: () => number | undefined) => {
     const gapCursor = element.firstChild as HTMLSpanElement;
     gapCursor.style.height = `${measureHeight(style)}px`;
 
+    const layoutMode = node && getLayoutModeFromTargetNode(node);
+
     // TODO remove this table specific piece. need to figure out margin collapsing logic
-    if (nodeStart !== 0 || (node && node.type.name === 'table')) {
+    if (nodeStart !== 0 || layoutMode || node?.type.name === 'table') {
       gapCursor.style.marginTop = style.getPropertyValue('margin-top');
     }
 
-    const layoutMode = node && getLayoutModeFromTargetNode(node);
-
     if (layoutMode) {
       gapCursor.setAttribute('layout', layoutMode);
-      gapCursor.style.width = `${measureWidth(style)}px`;
+      const breakoutModeStyle = getComputedStyleForLayoutMode(dom, node, style);
+      gapCursor.style.width = `${measureWidth(breakoutModeStyle)}px`;
     } else {
       mutateElementStyle(gapCursor, style, selection.side);
     }

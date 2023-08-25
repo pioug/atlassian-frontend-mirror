@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 
 import styled from 'styled-components';
 
-import { DN100 } from '@atlaskit/theme/colors';
-import { themed } from '@atlaskit/theme/components';
+import { N0 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import { useMacroViewedAnalyticsEvent } from '../../../common/utils';
 
@@ -15,8 +15,8 @@ class MacroPlaceholderImageError {
 
 const PlaceholderImage = styled.img`
   max-width: ${(props) => `${props.width}px`};
-  background-color: ${themed({ dark: DN100 })};
-  padding: 8px;
+  background-color: ${token('elevation.surface', N0)};
+  padding: ${token('space.100', '8px')};
   width: 100%;
   box-sizing: border-box;
 `;

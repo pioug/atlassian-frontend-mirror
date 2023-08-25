@@ -6,7 +6,6 @@ import styled from 'styled-components';
 import Button from '@atlaskit/button/standard-button';
 import Spinner from '@atlaskit/spinner';
 import * as colors from '@atlaskit/theme/colors';
-import { themed } from '@atlaskit/theme/components';
 import { token } from '@atlaskit/tokens';
 
 import { useMacroViewedAnalyticsEvent } from '../../../common/utils';
@@ -29,8 +28,8 @@ const noop = () => {};
 const Action = styled.span<ActionProps>`
   color: ${(props) =>
     props.callToAction
-      ? themed({ light: colors.B300, dark: colors.B100 })
-      : themed({ light: colors.N90, dark: colors.DN100 })};
+      ? token('color.link', colors.B300)
+      : token('color.text.subtlest', colors.N90)};
   align-self: center;
   text-align: right;
   white-space: nowrap;
@@ -41,9 +40,9 @@ const Action = styled.span<ActionProps>`
 const cardStyles = (componentType: ComponentType<any>) => {
   return styled(componentType)`
     && {
-      background-color: ${themed({ light: colors.N0, dark: colors.DN0 })};
-      border: solid 2px ${themed({ light: colors.N30, dark: colors.DN50 })};
-      color: ${themed({ light: colors.N800, dark: colors.DN900 })} !important;
+      background-color: ${token('elevation.surface', colors.N0)};
+      border: solid 2px ${token('color.border', colors.N30)};
+      color: ${token('color.text', colors.N800)} !important;
       display: flex;
       height: unset;
       min-height: 44px;

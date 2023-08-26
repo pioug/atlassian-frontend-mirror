@@ -1,5 +1,11 @@
 # @atlaskit/link-datasource
 
+## 1.0.8
+
+### Patch Changes
+
+- [`f3420d5b890`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f3420d5b890) - fix flaky VR tests for assets modal
+
 ## 1.0.7
 
 ### Patch Changes

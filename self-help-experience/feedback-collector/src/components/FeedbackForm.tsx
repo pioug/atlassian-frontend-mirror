@@ -252,7 +252,10 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
                                   {...messages.canBeContactedLabel}
                                   values={{
                                     a: (chunks: string) => (
-                                      <a href="https://www.atlassian.com/legal/privacy-policy">
+                                      <a
+                                        href="https://www.atlassian.com/legal/privacy-policy"
+                                        target="_blank"
+                                      >
                                         {chunks}
                                       </a>
                                     ),

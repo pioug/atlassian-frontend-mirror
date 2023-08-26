@@ -1,5 +1,11 @@
 # @atlaskit/select
 
+## 16.5.11
+
+### Patch Changes
+
+- [`479e6a92e33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/479e6a92e33) - Move css styles out to top-level scope for more consistency.
+
 ## 16.5.10
 
 ### Patch Changes

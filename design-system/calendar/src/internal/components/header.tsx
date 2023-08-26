@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { memo } from 'react';
+import { memo, useState } from 'react';
 
 import { jsx } from '@emotion/react';
 
@@ -23,8 +23,8 @@ interface HeaderProps {
   previousHeading: string;
   nextMonthLabel?: string;
   nextHeading: string;
-  handleClickNext?: () => void;
-  handleClickPrev?: () => void;
+  handleClickNext: (e: React.MouseEvent<HTMLElement>) => void;
+  handleClickPrev: (e: React.MouseEvent<HTMLElement>) => void;
   mode?: ThemeModes;
   headerId: string;
   tabIndex?: TabIndex;
@@ -49,6 +49,30 @@ const Header = memo<HeaderProps>(function Header({
   testId,
 }) {
   const announceId = useUniqueId('month-year-announce');
+
+  // All of this is because `aria-atomic` is not fully supported for different
+  // assistive technologies. We want the value of the current month and year to
+  // be announced, but *only* if that value has been interacted with since
+  // being mounted. This allows us to conditionally apply the `aria-live`
+  // attribute.  Without this, the `aria-live` property is set on mount and
+  // overrides the default input's readout in downstream consumers (e.g.
+  // datetime picker).
+  const [hasInteractedWithMonth, setHasInteractedWithMonth] =
+    useState<boolean>(false);
+
+  const handlePrevMonthInteraction = (e: React.MouseEvent<HTMLElement>) => {
+    if (!hasInteractedWithMonth) {
+      setHasInteractedWithMonth(true);
+    }
+    handleClickPrev(e);
+  };
+
+  const handleNextMonthInteraction = (e: React.MouseEvent<HTMLElement>) => {
+    if (!hasInteractedWithMonth) {
+      setHasInteractedWithMonth(true);
+    }
+    handleClickNext(e);
+  };
 
   const renderedHeading = (
     <Heading
@@ -95,7 +119,7 @@ const Header = memo<HeaderProps>(function Header({
               ? tabIndex
               : -1
           }
-          onClick={handleClickPrev}
+          onClick={handlePrevMonthInteraction}
           testId={testId && `${testId}--previous-month`}
           iconBefore={
             <ArrowleftIcon
@@ -117,7 +141,7 @@ const Header = memo<HeaderProps>(function Header({
         ) ? (
           // This is required to ensure that the new month/year is announced when the previous/next month buttons are activated
           <Box
-            aria-live="polite"
+            aria-live={hasInteractedWithMonth ? 'polite' : undefined}
             id={announceId}
             testId={testId && `${testId}--current-month-year--container`}
           >
@@ -136,7 +160,7 @@ const Header = memo<HeaderProps>(function Header({
               ? tabIndex
               : -1
           }
-          onClick={handleClickNext}
+          onClick={handleNextMonthInteraction}
           testId={testId && `${testId}--next-month`}
           iconBefore={
             <ArrowrightIcon

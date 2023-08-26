@@ -1,7 +1,7 @@
 import React from 'react';
 import Form from '@atlaskit/form';
 import userEvent from '@testing-library/user-event';
-import { shallow, ReactWrapper } from 'enzyme';
+import { ReactWrapper, shallow } from 'enzyme';
 import { mountWithIntl } from '../../../../__tests__/__helpers/enzyme';
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 import { FieldComponent } from '../../FormContent';
@@ -12,7 +12,7 @@ import ColorPickerField, {
   ORIGINAL_COLOR_PICKER_COLUMNS,
 } from '../../Fields/ColorPicker';
 import ColorPickerButton from '../../../ColorPickerButton';
-import { FieldComponentProps } from '../../types';
+import type { FieldComponentProps } from '../../types';
 import ReactEditorViewContext from '../../../../create-editor/ReactEditorViewContext';
 
 describe('ColorField', () => {
@@ -89,7 +89,9 @@ describe('ColorField', () => {
       .simulate('click');
 
     const colorPickerButton = wrapper.find(ColorPickerButton);
-    expect(colorPickerButton.props().currentColor).toEqual('#7AB2FFFF');
+    expect(colorPickerButton.props().currentColor).toEqual(
+      'var(--ds-background-accent-blue-subtle, #7AB2FF)',
+    );
     expect(mockOnBlur).toHaveBeenCalledWith('color-picker', true);
   });
 

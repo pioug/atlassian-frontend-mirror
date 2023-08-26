@@ -4,7 +4,10 @@ import type { Transition } from '@atlaskit/motion/types';
 
 import { ModalDialogProps } from '../../types';
 
-// eslint-disable-next-line @repo/internal/react/require-jsdoc
+/**
+ * This will run the respective passed in callback functions when modal is
+ * opened or closed.
+ */
 export default function useOnMotionFinish({
   onOpenComplete,
   onCloseComplete,

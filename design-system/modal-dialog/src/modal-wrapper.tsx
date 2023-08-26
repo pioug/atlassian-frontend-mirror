@@ -13,6 +13,7 @@ import useCloseOnEscapePress from '@atlaskit/ds-lib/use-close-on-escape-press';
 import FadeIn from '@atlaskit/motion/fade-in';
 import Portal from '@atlaskit/portal';
 import { layers } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 import ModalDialog from './internal/components/modal-dialog';
 import useModalStack from './internal/hooks/use-modal-stack';
@@ -26,10 +27,8 @@ const fillScreenStyles = css({
   height: '100vh',
 
   position: 'fixed',
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-  top: 0,
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-  left: 0,
+  top: token('space.0', '0'),
+  left: token('space.0', '0'),
 
   overflowY: 'auto',
   WebkitOverflowScrolling: 'touch',

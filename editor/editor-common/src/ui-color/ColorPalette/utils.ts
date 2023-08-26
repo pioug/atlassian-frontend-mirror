@@ -1,4 +1,4 @@
-import { PaletteColor } from './Palettes/type';
+import type { PaletteColor } from './Palettes/type';
 
 export const DEFAULT_COLOR_PICKER_COLUMNS = 7;
 
@@ -49,3 +49,24 @@ export function getSelectedRowAndColumnFromPalette(
   const colorsPerRow = getColorsPerRowFromPalette(palette, cols);
   return getSelectedRowAndColumn(colorsPerRow, selectedColor);
 }
+
+export const getTokenCSSVariableValue = (
+  variableExpression: string,
+): string => {
+  const matcher = variableExpression.match(/var\(([^,\)]+)(,.*)?\)/);
+  if (matcher) {
+    const variable = matcher[1].trim();
+    const fallback = matcher[2] ? matcher[2].replace(',', '').trim() : '';
+    if (typeof document === 'undefined') {
+      return fallback;
+    }
+    const value = window
+      .getComputedStyle(document.documentElement)
+      .getPropertyValue(variable)
+      .trim();
+
+    return value || fallback;
+  }
+
+  return '';
+};

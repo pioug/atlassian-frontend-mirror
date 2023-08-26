@@ -453,18 +453,17 @@ class TimePicker extends React.Component<TimePickerProps, State> {
     });
 
     return (
-      // eslint-disable-next-line jsx-a11y/no-static-element-interactions
       <div
         {...innerProps}
         ref={this.setContainerRef}
         data-testid={testId && `${testId}--container`}
-        onKeyDown={this.onSelectKeyDown}
       >
         <input
           name={name}
           type="hidden"
           value={value}
           data-testid={testId && `${testId}--input`}
+          onKeyDown={this.onSelectKeyDown}
         />
         <SelectComponent
           appearance={this.props.appearance}

@@ -3,18 +3,20 @@ import React from 'react';
 
 import { jsx } from '@emotion/react';
 import chromatism from 'chromatism';
-import { injectIntl, WrappedComponentProps } from 'react-intl-next';
+import type { WrappedComponentProps } from 'react-intl-next';
+import { injectIntl } from 'react-intl-next';
 
 import { N0, N500 } from '@atlaskit/theme/colors';
 import { token, useThemeObserver } from '@atlaskit/tokens';
 
 import Color from './Color';
 import getColorMessage from './Palettes/getColorMessage';
-import { PaletteColor, PaletteTooltipMessages } from './Palettes/type';
+import type { PaletteColor, PaletteTooltipMessages } from './Palettes/type';
 import { colorPaletteWrapper } from './styles';
 import {
   DEFAULT_COLOR_PICKER_COLUMNS,
   getColorsPerRowFromPalette,
+  getTokenCSSVariableValue,
 } from './utils';
 
 interface Props {
@@ -42,7 +44,7 @@ interface Props {
      *  tooltip messages. Which is same as palette, where consumer determines which
      *  colors ColorPalette should render.
      * Same way now consumer will determine which tooltip messages should
-     *  be used using paletteColorTooltipMessages option.
+     *  be using paletteColorTooltipMessages option.
      */
     paletteColorTooltipMessages?: PaletteTooltipMessages;
     /**
@@ -58,13 +60,19 @@ interface Props {
  * For a given color pick the color from a list of colors with
  * the highest contrast
  *
- * @param color color string, suppports HEX, RGB, RGBA etc.
+ * @param color color string, supports HEX, RGB, RGBA etc.
+ * @param useIconToken boolean, describes if a token should be used for the icon color
  * @return Highest contrast color in pool
  */
 function getCheckMarkColor(color: string, useIconToken: boolean): string {
+  const tokenVal = getTokenCSSVariableValue(color);
+  const colorValue = !!tokenVal ? tokenVal : color;
+
   // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   const contrastColor = [N0, N500].sort(
-    (a, b) => chromatism.difference(b, color) - chromatism.difference(a, color),
+    (a, b) =>
+      chromatism.difference(b, colorValue) -
+      chromatism.difference(a, colorValue),
   )[0];
 
   if (!useIconToken) {
@@ -105,14 +113,14 @@ const ColorPalette = (props: Props & WrappedComponentProps) => {
 
   return (
     <React.Fragment>
-      {colorsPerRow.map((row, rowIdx) => (
+      {colorsPerRow.map((row) => (
         <div
           css={colorPaletteWrapper}
           className={className}
           key={`row-first-color-${row[0].value}`}
           role="radiogroup"
         >
-          {row.map(({ value, label, border, message }, colorIdx) => {
+          {row.map(({ value, label, border, message }) => {
             if (showSomewhatSemanticTooltips && paletteColorTooltipMessages) {
               if (tokenTheme === 'dark') {
                 message = getColorMessage(

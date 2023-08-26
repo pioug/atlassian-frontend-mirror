@@ -1,5 +1,11 @@
 # @atlaskit/calendar
 
+## 13.2.2
+
+### Patch Changes
+
+- [`ceedd1f27df`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ceedd1f27df) - [ux] Ensures month/year does not render as live region until it has changed or has otherwise been interacted with for better usability. Part of feature flag for keyboard accessibility.
+
 ## 13.2.1
 
 ### Patch Changes

@@ -1,5 +1,17 @@
 # @atlaskit/editor-core
 
+## 187.31.2
+
+### Patch Changes
+
+- [`dbccd831543`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dbccd831543) - [ux] tokenize ColorPicker, make charts package compatible with tokens, make check mark compatible with tokens
+
+## 187.31.1
+
+### Patch Changes
+
+- [`4b8154ff94d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4b8154ff94d) - added node attributes to safeInsert, so that it does not takes the default attributes
+
 ## 187.31.0
 
 ### Minor Changes

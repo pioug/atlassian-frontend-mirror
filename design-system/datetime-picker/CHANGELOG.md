@@ -1,5 +1,17 @@
 # @atlaskit/datetime-picker
 
+## 12.8.0
+
+### Minor Changes
+
+- [`0ab32310305`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0ab32310305) - [ux] We are testing adding keyboard accessibility to the datepicker change behind a feature flag. If this fix is successful it will be available in a later release.
+
+## 12.7.12
+
+### Patch Changes
+
+- [`5fae4d61ff7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5fae4d61ff7) - Move event handlers to time picker input
+
 ## 12.7.11
 
 ### Patch Changes

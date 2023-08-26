@@ -2,7 +2,10 @@ import { useContext } from 'react';
 
 import { ScrollContext } from '../context';
 
-// eslint-disable-next-line @repo/internal/react/require-jsdoc
+/**
+ * This returns whether or not scrolling is allowed based on the existing
+ * scrolling context.
+ */
 export default function useScroll() {
   const shouldScrollInViewport = useContext(ScrollContext);
   if (shouldScrollInViewport == null) {

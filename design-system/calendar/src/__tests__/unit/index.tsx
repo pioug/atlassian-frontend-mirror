@@ -158,7 +158,7 @@ describe('Calendar', () => {
       );
     });
 
-    describe('should render month/year section as a live region', () => {
+    describe('should render month/year section as a live region only after user has interacted with either previous/next month buttons', () => {
       ffTest(
         'platform.design-system-team.calendar-keyboard-accessibility_967h1',
         () => {
@@ -167,6 +167,13 @@ describe('Calendar', () => {
           const headingContainer = renderResult.getByTestId(
             `${testId}--current-month-year--container`,
           );
+
+          expect(headingContainer).not.toHaveAttribute('aria-live');
+
+          const previousMonthButton = renderResult.getByTestId(
+            `${testId}--previous-month-icon`,
+          );
+          fireEvent.click(previousMonthButton);
 
           expect(headingContainer).toHaveAttribute('aria-live');
         },

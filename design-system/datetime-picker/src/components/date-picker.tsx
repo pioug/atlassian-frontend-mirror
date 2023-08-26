@@ -267,7 +267,13 @@ const Menu = ({
           locale={selectProps.calendarLocale}
           testId={selectProps.testId && `${selectProps.testId}--calendar`}
           weekStartDay={selectProps.calendarWeekStartDay}
-          tabIndex={-1}
+          tabIndex={
+            getBooleanFF(
+              'platform.design-system-team.accessible-datetime-picker_691ec',
+            )
+              ? undefined
+              : -1
+          }
         />
       </div>
     }
@@ -386,6 +392,14 @@ class DatePicker extends Component<DatePickerProps, State> {
     }
   };
 
+  onContainerBlur = (event: React.FocusEvent<HTMLElement>) => {
+    const newlyFocusedElement = event.relatedTarget as HTMLElement;
+
+    if (!this.containerRef?.contains(newlyFocusedElement)) {
+      this.setState({ isOpen: false });
+    }
+  };
+
   onSelectBlur = (event: React.FocusEvent<HTMLInputElement>) => {
     const newlyFocusedElement = event.relatedTarget as HTMLElement;
 
@@ -450,24 +464,43 @@ class DatePicker extends Component<DatePickerProps, State> {
     switch (keyPressed) {
       case 'arrowup':
       case 'arrowdown':
-        if (this.calendarRef) {
-          event.preventDefault();
-          const key = keyPressed === 'arrowup' ? 'up' : 'down';
-          this.calendarRef.navigate(key);
+        if (
+          !getBooleanFF(
+            'platform.design-system-team.accessible-datetime-picker_691ec',
+          )
+        ) {
+          if (this.calendarRef) {
+            event.preventDefault();
+            const key = keyPressed === 'arrowup' ? 'up' : 'down';
+            this.calendarRef.navigate(key);
+          }
+          this.setState({ isOpen: true });
         }
-        this.setState({ isOpen: true });
         break;
       case 'arrowleft':
       case 'arrowright':
-        if (this.calendarRef) {
+        if (
+          !getBooleanFF(
+            'platform.design-system-team.accessible-datetime-picker_691ec',
+          ) &&
+          this.calendarRef
+        ) {
           event.preventDefault();
           const key = keyPressed === 'arrowleft' ? 'left' : 'right';
           this.calendarRef.navigate(key);
         }
         break;
       case 'escape':
-      case 'tab':
         this.setState({ isOpen: false });
+        break;
+      case 'tab':
+        if (
+          !getBooleanFF(
+            'platform.design-system-team.accessible-datetime-picker_691ec',
+          )
+        ) {
+          this.setState({ isOpen: false });
+        }
         break;
       case 'backspace':
       case 'delete': {
@@ -702,6 +735,13 @@ class DatePicker extends Component<DatePickerProps, State> {
       <div
         {...innerProps}
         role="presentation"
+        onBlur={
+          getBooleanFF(
+            'platform.design-system-team.accessible-datetime-picker_691ec',
+          )
+            ? this.onContainerBlur
+            : undefined
+        }
         onClick={this.onInputClick}
         onInput={this.onTextInput}
         onKeyDown={this.onInputKeyDown}

@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, Interpolation } from '@emotion/react';
+import { css, jsx, SerializedStyles } from '@emotion/react';
 import { Component, FC } from 'react';
 
 import RadioIcon from '@atlaskit/icon/glyph/radio';
@@ -28,10 +28,10 @@ import { OptionProps, OptionType } from '../types';
 
 const getPrimitiveStyles = (
   props: Omit<OptionProps, 'children' | 'innerProps' | 'innerRef'>,
-): [Interpolation<any>, string] => {
+): [SerializedStyles, string] => {
   const { cx, className, getStyles, isDisabled, isFocused, isSelected } = props;
 
-  const styles = {
+  const baseStyles = {
     alignItems: 'center',
     backgroundColor: isFocused
       ? token('color.background.neutral.subtle.hovered', N20)
@@ -41,9 +41,11 @@ const getPrimitiveStyles = (
     paddingBottom: token('space.050', '4px'),
     paddingLeft: token('space.200', '16px'),
     paddingTop: token('space.050', '4px'),
+    // This 'none' needs to be present to ensure that style is not applied when
+    // the option is selected but not focused.
     boxShadow: isFocused
-      ? `inset 2px 0px 0px ${token('color.border.focused', B400)};`
-      : '',
+      ? `inset 2px 0px 0px ${token('color.border.focused', B400)}`
+      : 'none',
 
     ':active': {
       backgroundColor: token('color.background.neutral.subtle.pressed', N30),
@@ -54,10 +56,11 @@ const getPrimitiveStyles = (
     },
   };
 
-  const augmentedStyles: Interpolation<any> = {
+  const augmentedStyles: SerializedStyles = css({
     ...getStyles('option', props),
-    ...styles,
-  };
+    ...baseStyles,
+  });
+
   const bemClasses = {
     option: true,
     'option--is-disabled': isDisabled,
@@ -186,6 +189,28 @@ const getBorderColor = ({
   return token('color.border.input', N100);
 };
 
+const baseIconStyles = css({
+  alignItems: 'center',
+  display: 'flex ',
+  flexShrink: 0,
+  paddingRight: token('space.050', '4px'),
+  // Here we are adding a border to the Checkbox and Radio SVG icons
+  // This is an a11y fix for Select only for now but it may be rolled
+  // into the `@atlaskit/icon` package's Checkbox and Radio SVGs later
+  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+  '& svg rect, & svg circle:first-of-type': {
+    strokeWidth: token('border.width.outline', '2px'),
+    strokeLinejoin: 'round',
+  },
+});
+
+const baseOptionStyles = css({
+  textOverflow: 'ellipsis',
+  overflowX: 'hidden',
+  flexGrow: 1,
+  whiteSpace: 'nowrap',
+});
+
 interface OptionState {
   isActive?: boolean;
 }
@@ -217,31 +242,29 @@ class ControlOption<
     const [styles, classes] = getPrimitiveStyles({ getStyles, ...rest });
 
     return (
-      /**
-       * TODO Fix this type error
-       * @see https://product-fabric.atlassian.net/browse/DSP-6063
-       */
-      // @ts-ignore
-      // TODO: Make these use proper dynamic styling (DSP-12490)
+      // These need to remain this way because `react-select` passes props with
+      // styles inside, and that must be done dynamically.
       // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
       <div css={styles} className={classes} ref={innerRef} {...props}>
         <div
-          // TODO: Make these use proper dynamic styling (DSP-12490)
-          // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-          css={{
-            alignItems: 'center',
-            display: 'flex ',
-            flexShrink: 0,
-            paddingRight: token('space.050', '4px'),
+          css={[
+            baseIconStyles,
             // Here we are adding a border to the Checkbox and Radio SVG icons
             // This is an a11y fix for Select only for now but it may be rolled
             // into the `@atlaskit/icon` package's Checkbox and Radio SVGs later
-            '& svg rect, & svg circle:first-of-type': {
-              stroke: getBorderColor({ ...this.props, ...this.state }),
-              strokeWidth: '2px',
-              strokeLinejoin: 'round',
+            // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+            {
+              // This can eventually be changed to static styles that are
+              // applied conditionally (e.g. `isActive && activeBorderStyles`),
+              // but considering there are multiple instances of `react-select`
+              // requiring styles to be generated dynamically, it seemed like a
+              // low priority.
+              // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+              '& svg rect, & svg circle:first-of-type': {
+                stroke: getBorderColor({ ...this.props, ...this.state }),
+              },
             },
-          }}
+          ]}
         >
           {!!Icon ? (
             <Icon
@@ -254,18 +277,7 @@ class ControlOption<
             />
           ) : null}
         </div>
-        <div
-          // TODO: Make these use proper dynamic styling (DSP-12490)
-          // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-          css={{
-            textOverflow: 'ellipsis',
-            overflowX: 'hidden',
-            flexGrow: 1,
-            whiteSpace: 'nowrap',
-          }}
-        >
-          {children}
-        </div>
+        <div css={baseOptionStyles}>{children}</div>
       </div>
     );
   }

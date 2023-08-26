@@ -72,8 +72,14 @@ class Controlled extends React.Component<ControlledProps, State> {
 
   render() {
     return (
-      // eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events
-      <div onClick={this.handleClick}>
+      /**
+       * It is not normally acceptable to add click handlers to non-interactivce elements
+       * as this is an accessibility anti-pattern. However, because this instance is
+       * for "React" reasons and not creating an inaccessible custom element, we can
+       * add role="presentation" so that there is no negative impacts to assistive
+       * technologies.
+       */
+      <div onClick={this.handleClick} role="presentation">
         {this.props.children({
           value: this.state.value,
           onValueChange: this.onValueChange,

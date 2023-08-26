@@ -1,5 +1,11 @@
 # @atlaskit/editor-common
 
+## 74.52.1
+
+### Patch Changes
+
+- [`dbccd831543`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dbccd831543) - [ux] tokenize ColorPicker, make charts package compatible with tokens, make check mark compatible with tokens
+
 ## 74.52.0
 
 ### Minor Changes

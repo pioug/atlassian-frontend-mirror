@@ -1,5 +1,11 @@
 # @atlaskit/editor-extension-googledrive
 
+## 0.2.3
+
+### Patch Changes
+
+- [`9dc1e8578e6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9dc1e8578e6) - Changing version of dependency
+
 ## 0.2.2
 
 ### Patch Changes

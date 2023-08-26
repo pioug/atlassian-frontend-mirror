@@ -1,5 +1,11 @@
 # @atlaskit/util-data-test
 
+## 17.8.6
+
+### Patch Changes
+
+- [`6d4fd331a62`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6d4fd331a62) - Updated the packages to remove cyclic dependency. Changed relative imports from emoji, mention, user-picker packages to absolute in util-data-test.
+
 ## 17.8.5
 
 ### Patch Changes

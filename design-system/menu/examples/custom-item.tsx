@@ -2,6 +2,7 @@
 import { jsx } from '@emotion/react';
 
 import Icon from '@atlaskit/icon';
+import { Box } from '@atlaskit/primitives';
 import { B100 } from '@atlaskit/theme/colors';
 
 import { CSSFn, CustomItem, CustomItemComponentProps } from '../src';
@@ -54,8 +55,17 @@ const cssFn: CSSFn = (state) => {
 };
 
 export default () => (
-  // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
-  <div onClick={(e) => e.preventDefault()}>
+  /**
+   * It is not normally acceptable to add click handlers to non-interactive elements
+   * as this is an accessibility anti-pattern. However, because this instance is
+   * for performance reasons (to avoid multiple click handlers) and not creating an
+   * inaccessible custom element, we can add role="presentation" so that there is
+   * no negative impacts to assistive technologies.
+   */
+  <Box
+    onClick={(e: React.MouseEvent) => e.preventDefault()}
+    role="presentation"
+  >
     <CustomItem
       href="/navigation-system"
       component={CustomComponent}
@@ -101,5 +111,5 @@ export default () => (
     >
       iconBefore and description CustomItem
     </CustomItem>
-  </div>
+  </Box>
 );

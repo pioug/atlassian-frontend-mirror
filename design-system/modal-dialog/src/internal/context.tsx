@@ -1,4 +1,3 @@
-/* eslint-disable @repo/internal/react/require-jsdoc */
 import { createContext } from 'react';
 
 import { ModalDialogProps, OnCloseHandler } from '../types';
@@ -22,6 +21,6 @@ export type ModalAttributes = {
   onClose?: OnCloseHandler;
 };
 
+/* eslint-disable @repo/internal/react/require-jsdoc */
 export const ModalContext = createContext<ModalAttributes | null>(null);
-
 export const ScrollContext = createContext<boolean | null>(null);

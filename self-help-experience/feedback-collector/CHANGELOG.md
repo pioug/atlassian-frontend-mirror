@@ -1,5 +1,11 @@
 # @atlaskit/feedback-collector
 
+## 13.0.5
+
+### Patch Changes
+
+- [`8f7a65cea77`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f7a65cea77) - [ux] Opens privacy policy link in new tab
+
 ## 13.0.4
 
 ### Patch Changes

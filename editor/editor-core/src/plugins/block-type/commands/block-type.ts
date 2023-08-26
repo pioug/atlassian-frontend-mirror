@@ -285,7 +285,7 @@ export function createWrapSelectionTransaction({
 }: {
   state: EditorState;
   type: NodeType;
-  // This should be the node attributes from the ADF schema where prosemirro attributes are specified
+  // This should be the node attributes from the ADF schema where prosemirror attributes are specified
   nodeAttributes?: Record<string, any>;
 }) {
   let { tr } = state;
@@ -302,7 +302,9 @@ export function createWrapSelectionTransaction({
     tr.wrap(range, wrapping).scrollIntoView();
   } else {
     /** We always want to append a block type */
-    safeInsert(type.createAndFill() as PMNode)(tr).scrollIntoView();
+    safeInsert(type.createAndFill(nodeAttributes) as PMNode)(
+      tr,
+    ).scrollIntoView();
   }
 
   return tr;

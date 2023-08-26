@@ -4,7 +4,7 @@ import React from 'react';
 import { IntlProvider } from 'react-intl-next';
 import { mount, ReactWrapper } from 'enzyme';
 
-import {
+import type {
   ExtensionManifest,
   EnumField,
   BooleanField,
@@ -23,10 +23,8 @@ import { FieldTypeError, ValidationError } from '../../../ui/ConfigPanel/types';
 import { validate } from '../../../ui/ConfigPanel/utils';
 import ConfigPanel from '../../../ui/ConfigPanel';
 
+import type { MountResult, Props, Wrapper } from './_ConfigPanel_helpers';
 import {
-  MountResult,
-  Props,
-  Wrapper,
   createOptionResolver,
   createProvider,
   eventuallyFind,
@@ -1076,7 +1074,8 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
             await flushPromises();
 
             expect(onChange).toHaveBeenCalledWith({
-              'color-picker': '#7AB2FFFF',
+              'color-picker':
+                'var(--ds-background-accent-blue-subtle, #7AB2FF)',
             });
           });
 

@@ -1,5 +1,11 @@
 # @atlaskit/modal-dialog
 
+## 12.6.7
+
+### Patch Changes
+
+- [`d2b6377be3d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d2b6377be3d) - Add some basic JSDoc for internal components, add tokens.
+
 ## 12.6.6
 
 ### Patch Changes

@@ -112,7 +112,7 @@ export const AsyncCreatableSelect: {
         | {},
       callback?: (() => void) | undefined,
     ): void;
-    forceUpdate(callBack?: (() => void) | undefined): void;
+    forceUpdate(callback?: (() => void) | undefined): void;
     readonly props: Readonly<
       | AsyncSelectProps<Option, IsMulti>
       | CreatableSelectProps<Option, IsMulti>
@@ -227,7 +227,7 @@ export const AsyncSelect: {
         | {},
       callback?: (() => void) | undefined,
     ): void;
-    forceUpdate(callBack?: (() => void) | undefined): void;
+    forceUpdate(callback?: (() => void) | undefined): void;
     readonly props: Readonly<
       | AsyncSelectProps<Option, IsMulti>
       | CreatableSelectProps<Option, IsMulti>
@@ -385,7 +385,7 @@ export const CreatableSelect: {
         | {},
       callback?: (() => void) | undefined,
     ): void;
-    forceUpdate(callBack?: (() => void) | undefined): void;
+    forceUpdate(callback?: (() => void) | undefined): void;
     readonly props: Readonly<
       | AsyncSelectProps<Option, IsMulti>
       | CreatableSelectProps<Option, IsMulti>
@@ -517,7 +517,7 @@ const _default: {
         | {},
       callback?: (() => void) | undefined,
     ): void;
-    forceUpdate(callBack?: (() => void) | undefined): void;
+    forceUpdate(callback?: (() => void) | undefined): void;
     readonly props: Readonly<
       | AsyncSelectProps<Option, IsMulti>
       | CreatableSelectProps<Option, IsMulti>
@@ -1223,7 +1223,7 @@ export const SelectWithoutAnalytics: {
         | {},
       callback?: (() => void) | undefined,
     ): void;
-    forceUpdate(callBack?: (() => void) | undefined): void;
+    forceUpdate(callback?: (() => void) | undefined): void;
     readonly props: Readonly<
       | AsyncSelectProps<Option, IsMulti>
       | CreatableSelectProps<Option, IsMulti>

@@ -2,12 +2,11 @@
 import { jsx, css } from '@emotion/react';
 import { Fragment } from 'react';
 import { Field } from '@atlaskit/form';
-import { ColorField } from '@atlaskit/editor-common/extensions';
-import { FeatureFlags } from '@atlaskit/editor-common/types';
-import { hexToEditorTableChartsPaletteColor } from '@atlaskit/editor-palette';
-import { PaletteColor } from '../../../ui/ColorPalette/Palettes';
+import type { ColorField } from '@atlaskit/editor-common/extensions';
+import type { FeatureFlags } from '@atlaskit/editor-common/types';
+import type { PaletteColor } from '../../../ui/ColorPalette/Palettes';
 import { DEFAULT_BORDER_COLOR } from '../../../ui/ColorPalette/Palettes/common';
-import { OnFieldChange } from '../types';
+import type { OnFieldChange } from '../types';
 import { validate } from '../utils';
 import { token } from '@atlaskit/tokens';
 import { requiredIndicator } from './common/RequiredIndicator';
@@ -24,29 +23,59 @@ import { chartsColorPaletteTooltipMessages } from '../../../ui/ColorPalette';
 */
 
 export const colorPalette: PaletteColor[] = [
-  { label: 'Light Blue', value: '#7AB2FFFF' }, // 400
-  { label: 'Light Green', value: '#6BE1B0FF' }, // 400
-  { label: 'Light Yellow', value: '#FFDB57FF' }, // 400
-  { label: 'Light Red', value: '#FF8F73FF' }, // 400
-  { label: 'Light Purple', value: '#B5A7FBFF' }, // 400
+  {
+    label: 'Light Blue',
+    value: token('color.background.accent.blue.subtle', '#7AB2FF'),
+  }, // 400
+  {
+    label: 'Light Green',
+    value: token('color.background.accent.green.subtle', '#6BE1B0'),
+  }, // 400
+  {
+    label: 'Light Yellow',
+    value: token('color.background.accent.yellow.subtle', '#FFDB57'),
+  }, // 400
+  {
+    label: 'Light Red',
+    value: token('color.background.accent.red.subtle', '#FF8F73'),
+  }, // 400
+  {
+    label: 'Light Purple',
+    value: token('color.background.accent.purple.subtle', '#B5A7FB'),
+  }, // 400
 
-  { label: 'Blue', value: '#247FFFFF' }, // 600
-  { label: 'Green', value: '#23A971FF' }, // 600
-  { label: 'Yellow', value: '#FFBE33FF' }, // 600
-  { label: 'Red', value: '#FC552CFF' }, // 600
-  { label: 'Purple', value: '#8B77EEFF' }, // 600
+  { label: 'Blue', value: token('color.chart.blue.bold', '#247FFF') }, // 600
+  { label: 'Green', value: token('color.chart.green.bold', '#23A971') }, // 600
+  { label: 'Yellow', value: token('color.chart.yellow.bold', '#FFBE33') }, // 600
+  { label: 'Red', value: token('color.chart.red.bold', '#FC552C') }, // 600
+  { label: 'Purple', value: token('color.chart.purple.bold', '#8B77EE') }, // 600
 
-  { label: 'Dark Blue', value: '#0055CCFF' }, // 800
-  { label: 'Dark Green', value: '#177D52FF' }, // 800
-  { label: 'Dark Yellow', value: '#FF9D00FF' }, // 800
-  { label: 'Dark Red', value: '#D32D03FF' }, // 800
-  { label: 'Dark Purple', value: '#5A43D0FF' }, // 800
+  { label: 'Dark Blue', value: token('color.chart.blue.bolder', '#0055CC') }, // 800
+  { label: 'Dark Green', value: token('color.chart.green.bolder', '#177D52') }, // 800
+  {
+    label: 'Dark Yellow',
+    value: token('color.chart.yellow.bolder', '#FF9D00'),
+  }, // 800
+  { label: 'Dark Red', value: token('color.chart.red.bolder', '#D32D03') }, // 800
+  {
+    label: 'Dark Purple',
+    value: token('color.chart.purple.bolder', '#5A43D0'),
+  }, // 800
 
-  { label: 'Darker Blue', value: '#003884FF' }, // 1000
-  { label: 'Darker Green', value: '#055C3FFF' }, // 1000
-  { label: 'Darker Yellow', value: '#946104FF' }, // 1000
-  { label: 'Darker Red', value: '#A32000FF' }, // 1000
-  { label: 'Darker Purple', value: '#44368BFF' }, // 1000
+  { label: 'Darker Blue', value: token('color.chart.blue.boldest', '#003884') }, // 1000
+  {
+    label: 'Darker Green',
+    value: token('color.chart.green.boldest', '#055C3F'),
+  }, // 1000
+  {
+    label: 'Darker Yellow',
+    value: token('color.chart.yellow.boldest', '#946104'),
+  }, // 1000
+  { label: 'Darker Red', value: token('color.chart.red.boldest', '#A32000') }, // 1000
+  {
+    label: 'Darker Purple',
+    value: token('color.chart.purple.boldest', '#44368B'),
+  }, // 1000
 ].map((color) => ({
   ...color,
   border: DEFAULT_BORDER_COLOR,
@@ -57,45 +86,99 @@ export const colorPalette: PaletteColor[] = [
  * Decided here https://product-fabric.atlassian.net/wiki/spaces/EUXQ/pages/3477245015/Tokenising+table+charts+color
  */
 export const extendedColorPalette: PaletteColor[] = [
-  { label: 'Darker Blue', value: '#003884' }, // 1000
-  { label: 'Darker Teal', value: '#206B74' }, // 1000
-  { label: 'Darker Green', value: '#055C3F' }, // 1000
-  { label: 'Darker Yellow', value: '#946104' }, // 1000
-  { label: 'Darker Orange', value: '#974F0C' }, // 1000
-  { label: 'Darker Red', value: '#A32000' }, // 1000
-  { label: 'Darker Magenta', value: '#943D73' }, // 1000
-  { label: 'Darker Purple', value: '#44368B' }, // 1000
-  { label: 'Darker Gray', value: '#44546F' }, // 1000
+  { label: 'Darker Blue', value: token('color.chart.blue.boldest', '#003884') }, // 1000
+  { label: 'Darker Teal', value: token('color.chart.teal.boldest', '#206B74') }, // 1000
+  {
+    label: 'Darker Green',
+    value: token('color.chart.green.boldest', '#055C3F'),
+  }, // 1000
+  {
+    label: 'Darker Yellow',
+    value: token('color.chart.yellow.boldest', '#946104'),
+  }, // 1000
+  {
+    label: 'Darker Orange',
+    value: token('color.chart.orange.boldest', '#974F0C'),
+  }, // 1000
+  { label: 'Darker Red', value: token('color.chart.red.boldest', '#A32000') }, // 1000
+  {
+    label: 'Darker Magenta',
+    value: token('color.chart.magenta.boldest', '#943D73'),
+  }, // 1000
+  {
+    label: 'Darker Purple',
+    value: token('color.chart.purple.boldest', '#44368B'),
+  }, // 1000
+  { label: 'Darker Gray', value: token('color.chart.gray.boldest', '#44546F') }, // 1000
 
-  { label: 'Dark Blue', value: '#0055CC' }, // 800
-  { label: 'Dark Teal', value: '#1D7F8C' }, // 800
-  { label: 'Dark Green', value: '#177D52' }, // 800
-  { label: 'Dark Yellow', value: '#FF9D00' }, // 800
-  { label: 'Dark Orange', value: '#B65C02' }, // 800
-  { label: 'Dark Red', value: '#D32D03' }, // 800
-  { label: 'Dark Magenta', value: '#CD519D' }, // 800
-  { label: 'Dark Purple', value: '#5A43D0' }, // 800
-  { label: 'Dark Gray', value: '#758195' }, // 800
+  { label: 'Dark Blue', value: token('color.chart.blue.bolder', '#0055CC') }, // 800
+  { label: 'Dark Teal', value: token('color.chart.teal.bolder', '#1D7F8C') }, // 800
+  { label: 'Dark Green', value: token('color.chart.green.bolder', '#177D52') }, // 800
+  {
+    label: 'Dark Yellow',
+    value: token('color.chart.yellow.bolder', '#FF9D00'),
+  }, // 800
+  {
+    label: 'Dark Orange',
+    value: token('color.chart.orange.bolder', '#B65C02'),
+  }, // 800
+  { label: 'Dark Red', value: token('color.chart.red.bolder', '#D32D03') }, // 800
+  {
+    label: 'Dark Magenta',
+    value: token('color.chart.magenta.bolder', '#CD519D'),
+  }, // 800
+  {
+    label: 'Dark Purple',
+    value: token('color.chart.purple.bolder', '#5A43D0'),
+  }, // 800
+  { label: 'Dark Gray', value: token('color.chart.gray.bolder', '#758195') }, // 800
 
-  { label: 'Blue', value: '#247FFF' }, // 600
-  { label: 'Teal', value: '#1D9AAA' }, // 600
-  { label: 'Green', value: '#23A971' }, // 600
-  { label: 'Yellow', value: '#FFBE33' }, // 600
-  { label: 'Orange', value: '#D97008' }, // 600
-  { label: 'Red', value: '#FC552C' }, // 600
-  { label: 'Magenta', value: '#DA62AC' }, // 600
-  { label: 'Purple', value: '#8B77EE' }, // 600
-  { label: 'Gray', value: '#8590A2' }, // 600
+  { label: 'Blue', value: token('color.chart.blue.bold', '#247FFF') }, // 600
+  { label: 'Teal', value: token('color.chart.teal.bold', '#1D9AAA') }, // 600
+  { label: 'Green', value: token('color.chart.green.bold', '#23A971') }, // 600
+  { label: 'Yellow', value: token('color.chart.yellow.bold', '#FFBE33') }, // 600
+  { label: 'Orange', value: token('color.chart.orange.bold', '#D97008') }, // 600
+  { label: 'Red', value: token('color.chart.red.bold', '#FC552C') }, // 600
+  { label: 'Magenta', value: token('color.chart.magenta.bold', '#DA62AC') }, // 600
+  { label: 'Purple', value: token('color.chart.purple.bold', '#8B77EE') }, // 600
+  { label: 'Gray', value: token('color.chart.gray.bold', '#8590A2') }, // 600
 
-  { label: 'Light Blue', value: '#7AB2FF' }, // 400
-  { label: 'Light Teal', value: '#60C6D2' }, // 400
-  { label: 'Light Green', value: '#6BE1B0' }, // 400
-  { label: 'Light Yellow', value: '#FFDB57' }, // 400
-  { label: 'Light Orange', value: '#FAA53D' }, // 400
-  { label: 'Light Red', value: '#FF8F73' }, // 400
-  { label: 'Light Magenta', value: '#E774BB' }, // 400
-  { label: 'Light Purple', value: '#B5A7FB' }, // 400
-  { label: 'Light Gray', value: '#8993A5' }, // 400
+  {
+    label: 'Light Blue',
+    value: token('color.background.accent.blue.subtle', '#7AB2FF'),
+  }, // 400
+  {
+    label: 'Light Teal',
+    value: token('color.background.accent.teal.subtle', '#60C6D2'),
+  }, // 400
+  {
+    label: 'Light Green',
+    value: token('color.background.accent.green.subtle', '#6BE1B0'),
+  }, // 400
+  {
+    label: 'Light Yellow',
+    value: token('color.background.accent.yellow.subtle', '#FFDB57'),
+  }, // 400
+  {
+    label: 'Light Orange',
+    value: token('color.background.accent.orange.subtle', '#FAA53D'),
+  }, // 400
+  {
+    label: 'Light Red',
+    value: token('color.background.accent.red.subtle', '#FF8F73'),
+  }, // 400
+  {
+    label: 'Light Magenta',
+    value: token('color.background.accent.magenta.subtle', '#E774BB'),
+  }, // 400
+  {
+    label: 'Light Purple',
+    value: token('color.background.accent.purple.subtle', '#B5A7FB'),
+  }, // 400
+  {
+    label: 'Light Gray',
+    value: token('color.background.accent.gray.subtle', '#8993A5'),
+  }, // 400
 ].map((color) => ({
   ...color,
   border: DEFAULT_BORDER_COLOR,
@@ -146,14 +229,9 @@ const ColorPicker = (props: Props) => {
   return expandedChartColors ? (
     <ColorPickerButton
       title={title}
-      // Original color palette had hex code with alpha channel.
-      // However, alpha channel was always FF, and it was not used
-      // Expanded color palette does not have alpha channel, so
-      //  removing last two characters from hex code with alpha here.
-      currentColor={currentColor.substring(0, 7)}
+      currentColor={currentColor}
       onChange={onColorChange}
       colorPalette={extendedColorPalette}
-      hexToPaletteColor={hexToEditorTableChartsPaletteColor}
       paletteColorTooltipMessages={chartsColorPaletteTooltipMessages}
       // We did not want to create new FF or update
       //  useSomewhatSemanticTextColorNames name

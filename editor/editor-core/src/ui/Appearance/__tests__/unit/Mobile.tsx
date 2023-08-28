@@ -1,12 +1,13 @@
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { NextEditorPlugin } from '@atlaskit/editor-common/types';
+import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import { doc, DocBuilder, p } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import { render } from '@testing-library/react';
 import React from 'react';
 import Mobile from '../../Mobile';
@@ -19,8 +20,8 @@ describe('mobile editor', () => {
   const stateCheckerPlugin: NextEditorPlugin<
     'test',
     { dependencies: [typeof widthPlugin] }
-  > = (_, api) => {
-    api?.dependencies.width.sharedState.onChange((state) => {
+  > = ({ api }) => {
+    api?.width.sharedState.onChange((state) => {
       widthSharedStateUpdate(state);
     });
     return { name: 'test' };

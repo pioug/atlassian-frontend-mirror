@@ -1,6 +1,6 @@
 import { name } from '../../../../version-wrapper';
 import { mediaPlugin } from '../../../../plugins';
-import { EditorPlugin } from '../../../../types';
+import type { EditorPlugin } from '../../../../types';
 import { mediaSingleWithCaption, mediaSingle } from '@atlaskit/adf-schema';
 
 import {
@@ -22,7 +22,7 @@ const getNode = (plugin: EditorPlugin, nodeName: string) =>
 describe(name, () => {
   describe('Plugins -> Media', () => {
     it('should not have mediaSingle node by default', () => {
-      const availableNodes = getNodeNames(mediaPlugin());
+      const availableNodes = getNodeNames(mediaPlugin({ config: undefined }));
       expect(availableNodes).toHaveLength(2);
       expect(availableNodes).not.toContain('mediaSingle');
     });
@@ -30,8 +30,10 @@ describe(name, () => {
     it('should have mediaSingle node when allowMediaSingle is true', () => {
       const availableNodes = getNodeNames(
         mediaPlugin({
-          provider: Promise.resolve() as any,
-          allowMediaSingle: true,
+          config: {
+            provider: Promise.resolve() as any,
+            allowMediaSingle: true,
+          },
         }),
       );
       expect(availableNodes).toHaveLength(3);
@@ -41,8 +43,10 @@ describe(name, () => {
     it('should not have mediaGroup node when allowMediaGroup is false', () => {
       const availableNodes = getNodeNames(
         mediaPlugin({
-          allowMediaGroup: false,
-          allowMediaSingle: true,
+          config: {
+            allowMediaGroup: false,
+            allowMediaSingle: true,
+          },
         }),
       );
       expect(availableNodes).toHaveLength(2);
@@ -51,8 +55,7 @@ describe(name, () => {
 
     it('mediaSingle should be a mediaSingle when captions is off by default', () => {
       const plugin = mediaPlugin({
-        provider: Promise.resolve() as any,
-        allowMediaSingle: true,
+        config: { provider: Promise.resolve() as any, allowMediaSingle: true },
       });
       expect(getNode(plugin, 'mediaSingle')!.node).toEqual(
         expect.objectContaining({
@@ -65,9 +68,11 @@ describe(name, () => {
 
     it('mediaSingle should be a mediaSingleWithCaption when captions is enabled', () => {
       const plugin = mediaPlugin({
-        provider: Promise.resolve() as any,
-        allowMediaSingle: true,
-        featureFlags: { captions: true },
+        config: {
+          provider: Promise.resolve() as any,
+          allowMediaSingle: true,
+          featureFlags: { captions: true },
+        },
       });
 
       expect(getNode(plugin, 'mediaSingle')!.node).toEqual(
@@ -83,8 +88,10 @@ describe(name, () => {
       'platform.editor.media.extended-resize-experience',
       () => {
         const plugin = mediaPlugin({
-          provider: Promise.resolve() as any,
-          allowMediaSingle: true,
+          config: {
+            provider: Promise.resolve() as any,
+            allowMediaSingle: true,
+          },
         });
 
         const mediaNodeSpec = getNode(plugin, 'mediaSingle')!.node;
@@ -122,8 +129,10 @@ describe(name, () => {
       },
       () => {
         const plugin = mediaPlugin({
-          provider: Promise.resolve() as any,
-          allowMediaSingle: true,
+          config: {
+            provider: Promise.resolve() as any,
+            allowMediaSingle: true,
+          },
         });
 
         const mediaNodeSpec = getNode(plugin, 'mediaSingle')!.node;

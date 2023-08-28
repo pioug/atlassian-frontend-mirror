@@ -19,12 +19,15 @@ import type { EditorContainerWidth } from '@atlaskit/editor-common/types';
 import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 
 // @public (undocumented)
-export const widthPlugin: NextEditorPlugin<
+export type WidthPlugin = NextEditorPlugin<
   'width',
   {
     sharedState: EditorContainerWidth | undefined;
   }
 >;
+
+// @public (undocumented)
+export const widthPlugin: WidthPlugin;
 
 // @public (undocumented)
 export type WidthPluginState = EditorContainerWidth;

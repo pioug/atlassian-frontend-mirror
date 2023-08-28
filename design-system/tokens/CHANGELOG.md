@@ -1,5 +1,20 @@
 # @atlaskit/tokens
 
+## 1.17.0
+
+### Minor Changes
+
+- [`e6d73d0e019`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e6d73d0e019) - Removes inset from elevation shadow borders.
+
+## 1.16.0
+
+### Minor Changes
+
+- [`031034da425`](https://bitbucket.org/atlassian/atlassian-frontend/commits/031034da425) - Introduces surface detection through the use of design tokens/CSS variables:
+
+  - The `utility.elevation.surface.current` design token allows UI to be styled with a color based on a parent element's surface color.
+  - The `CURRENT_SURFACE_CSS_VAR` constant is exported to enable the current surface CSS variable to be set.
+
 ## 1.15.2
 
 ### Patch Changes

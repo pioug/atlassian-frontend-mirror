@@ -119,9 +119,9 @@ export const ResizableTableContainer = ({
   const displayGuideline = useCallback(
     (guidelines: GuidelineConfig[]) => {
       return (
-        pluginInjectionApi?.dependencies?.guideline?.actions?.displayGuideline(
-          editorView,
-        )({ guidelines }) ?? false
+        pluginInjectionApi?.guideline?.actions?.displayGuideline(editorView)({
+          guidelines,
+        }) ?? false
       );
     },
     [pluginInjectionApi, editorView],
@@ -129,7 +129,7 @@ export const ResizableTableContainer = ({
 
   const attachAnalyticsEvent = useCallback(
     (payload: TableEventPayload) => {
-      return pluginInjectionApi?.dependencies?.analytics?.actions.attachAnalyticsEvent(
+      return pluginInjectionApi?.analytics?.actions.attachAnalyticsEvent(
         payload,
       );
     },

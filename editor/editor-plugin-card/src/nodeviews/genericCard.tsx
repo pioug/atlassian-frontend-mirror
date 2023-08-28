@@ -6,17 +6,17 @@ import { isSafeUrl } from '@atlaskit/adf-schema';
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import {
+import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type {
   getPosHandler,
   ReactComponentProps,
 } from '@atlaskit/editor-common/react-node-view';
-import { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { getAnalyticsEditorAppearance } from '@atlaskit/editor-common/utils';
-import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { SmartCardContext } from '@atlaskit/link-provider';
-import { APIError, CardPlatform } from '@atlaskit/smart-card';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { SmartCardContext } from '@atlaskit/link-provider';
+import type { APIError, CardPlatform } from '@atlaskit/smart-card';
 
 import type { cardPlugin } from '../index';
 import { changeSelectedCardToLinkFallback } from '../pm-plugins/doc';
@@ -132,7 +132,7 @@ export function Card(
           true,
           node,
           getPos(),
-          pluginInjectionApi?.dependencies.analytics?.actions,
+          pluginInjectionApi?.analytics?.actions,
         )(view.state, view.dispatch);
         return null;
       } else {

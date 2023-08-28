@@ -62,7 +62,12 @@ const LinkRenderType = ({
     return null;
   }
 
-  return text ? anchor : <SmartCard />;
+  return (
+    <>
+      {text ? anchor : <SmartCard />}
+      <br />
+    </>
+  );
 };
 
 export default React.memo(LinkRenderType);

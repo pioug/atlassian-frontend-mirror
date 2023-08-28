@@ -15,17 +15,20 @@
 <!--SECTION START: Main Entry Types-->
 
 ```ts
-import { FeatureFlags } from '@atlaskit/editor-common/types';
-import { NextEditorPlugin } from '@atlaskit/editor-common/types';
+import type { FeatureFlags } from '@atlaskit/editor-common/types';
+import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 
 // @public (undocumented)
-const featureFlagsPlugin: NextEditorPlugin<
+export type FeatureFlagsPlugin = NextEditorPlugin<
   'featureFlags',
   {
     pluginConfiguration: FeatureFlags;
     sharedState: FeatureFlags;
   }
 >;
+
+// @public (undocumented)
+const featureFlagsPlugin: FeatureFlagsPlugin;
 export default featureFlagsPlugin;
 
 // (No @packageDocumentation comment for this package)

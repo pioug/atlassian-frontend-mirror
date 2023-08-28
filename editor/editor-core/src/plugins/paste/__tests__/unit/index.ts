@@ -72,7 +72,7 @@ describe('Paste plugin', () => {
         it('preserves current formatting when pasting (ie. removes formatting, applies active formatting)', () => {
           const { strong } = editorView.state.schema.marks;
 
-          editorAPI.dependencies.core?.actions?.execute(toggleMark(strong));
+          editorAPI.core?.actions?.execute(toggleMark(strong));
 
           paste();
           expect(editorView.state.doc).toMatchSnapshot();
@@ -101,7 +101,7 @@ describe('Paste plugin', () => {
         it('preserves current formatting when pasting, creates hyperlink (ie. removes formatting, applies active formatting)', () => {
           // This does not test that it doesn't create a *smart* link.
           const { strong } = editorView.state.schema.marks;
-          editorAPI.dependencies.core?.actions?.execute(toggleMark(strong));
+          editorAPI.core?.actions?.execute(toggleMark(strong));
           paste();
           expect(editorView.state.doc).toMatchSnapshot();
         });

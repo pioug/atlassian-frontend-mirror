@@ -22,15 +22,13 @@ import type { MediaOptions } from '../../../../../plugins/media/types';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 
 const getMockWidthInjectionApi: any = (width: number) => ({
-  dependencies: {
-    width: {
-      sharedState: {
-        currentState() {
-          return { width };
-        },
-        onChange() {
-          return () => {};
-        },
+  width: {
+    sharedState: {
+      currentState() {
+        return { width };
+      },
+      onChange() {
+        return () => {};
       },
     },
   },

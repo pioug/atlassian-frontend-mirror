@@ -4,30 +4,32 @@ import React from 'react';
 import { jsx } from '@emotion/react';
 import PropTypes from 'prop-types';
 
-import { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
+import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
-import ReactNodeView, {
+import type {
   getPosHandler,
   ReactComponentProps,
 } from '@atlaskit/editor-common/react-node-view';
+import ReactNodeView from '@atlaskit/editor-common/react-node-view';
 import {
   DATASOURCE_INNER_CONTAINER_CLASSNAME,
   SmartCardSharedCssClassName,
 } from '@atlaskit/editor-common/styles';
-import { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { UnsupportedInline } from '@atlaskit/editor-common/ui';
 import { calcBreakoutWidth } from '@atlaskit/editor-common/utils';
-import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
-import {
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type {
   DatasourceAdf,
   DatasourceAdfView,
-  DatasourceTableView,
 } from '@atlaskit/link-datasource';
+import { DatasourceTableView } from '@atlaskit/link-datasource';
 
 import { DatasourceErrorBoundary } from '../datasourceErrorBoundary';
 import type { cardPlugin } from '../index';
-import { getLinkNodeType, LinkNodes } from '../pm-plugins/doc';
+import type { LinkNodes } from '../pm-plugins/doc';
+import { getLinkNodeType } from '../pm-plugins/doc';
 
 const getPosSafely = (pos: getPosHandler) => {
   if (!pos || typeof pos === 'boolean') {
@@ -154,8 +156,7 @@ export class Datasource extends ReactNodeView<DatasourceProps> {
       props.hasIntlContext,
     );
 
-    const sharedState =
-      props?.pluginInjectionApi?.dependencies?.width?.sharedState;
+    const sharedState = props?.pluginInjectionApi?.width?.sharedState;
 
     this.tableWidth = sharedState?.currentState()?.width;
 

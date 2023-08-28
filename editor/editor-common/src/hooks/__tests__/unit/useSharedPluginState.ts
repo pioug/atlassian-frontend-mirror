@@ -28,10 +28,9 @@ describe('useSharedPluginState', () => {
     getEditorView: () => undefined,
   });
 
-  const pluginA: NextEditorPlugin<'pluginA', { sharedState: number }> = (
-    _,
+  const pluginA: NextEditorPlugin<'pluginA', { sharedState: number }> = ({
     api,
-  ) => {
+  }) => {
     return {
       name: 'pluginA',
       getSharedState(editorView) {
@@ -44,7 +43,7 @@ describe('useSharedPluginState', () => {
   const pluginNoSharedState: NextEditorPlugin<
     'pluginNoShared',
     { dependencies: [typeof pluginA] }
-  > = (_, api) => {
+  > = ({ api }) => {
     return {
       name: 'pluginNoShared',
       useHook() {
@@ -65,7 +64,7 @@ describe('useSharedPluginState', () => {
   const pluginB: NextEditorPlugin<
     'pluginB',
     { sharedState: string; dependencies: [typeof pluginA] }
-  > = (_, api) => {
+  > = ({ api }) => {
     return {
       name: 'pluginB',
       getSharedState(editorView) {
@@ -113,7 +112,7 @@ describe('useSharedPluginState', () => {
   const pluginC: NextEditorPlugin<
     'pluginC',
     { sharedState: { test: number; something: string[] } }
-  > = (_, api) => {
+  > = ({ api }) => {
     return {
       name: 'pluginC',
       getSharedState(editorView) {
@@ -125,11 +124,11 @@ describe('useSharedPluginState', () => {
     };
   };
 
-  const api = coreAPI.api();
+  const api = coreAPI.api() as any;
 
-  coreAPI.onEditorPluginInitialized(pluginA(undefined, api));
-  coreAPI.onEditorPluginInitialized(pluginB(undefined, api));
-  coreAPI.onEditorPluginInitialized(pluginC(undefined, api));
+  coreAPI.onEditorPluginInitialized(pluginA({ api, config: undefined }));
+  coreAPI.onEditorPluginInitialized(pluginB({ api, config: undefined }));
+  coreAPI.onEditorPluginInitialized(pluginC({ api, config: undefined }));
 
   it('should get the current value when using', () => {
     const { result } = renderHook(() => useSharedPluginState(api, ['pluginA']));
@@ -180,18 +179,15 @@ describe('useSharedPluginState', () => {
   it('should not re-rerender if the plugins update', () => {
     const numRenders = jest.fn();
 
-    const { rerender } = renderHook(
-      ({ state }) => {
-        const output = useSharedPluginState(state, ['pluginA', 'pluginB']);
+    const { rerender } = renderHook(() => {
+      const output = useSharedPluginState(api, ['pluginA', 'pluginB']);
 
-        useEffect(() => {
-          numRenders();
-        }, [output]);
+      useEffect(() => {
+        numRenders();
+      }, [output]);
 
-        return output;
-      },
-      { initialProps: { state: api } },
-    );
+      return output;
+    });
 
     act(() => {
       coreAPI.onEditorViewUpdated({

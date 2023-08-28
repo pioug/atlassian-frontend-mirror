@@ -138,7 +138,7 @@ const datePlugin: NextEditorPlugin<
       focusDateInput: boolean;
     };
   }
-> = (options = {}, api) => ({
+> = ({ config: options = {}, api }) => ({
   name: 'date',
 
   getSharedState(editorState) {
@@ -213,7 +213,7 @@ const datePlugin: NextEditorPlugin<
         action(insert, state) {
           const tr = createDate(true)(insert, state);
 
-          api?.dependencies?.analytics?.actions?.attachAnalyticsEvent?.({
+          api?.analytics?.actions?.attachAnalyticsEvent?.({
             action: ACTION.INSERTED,
             actionSubject: ACTION_SUBJECT.DOCUMENT,
             actionSubjectId: ACTION_SUBJECT_ID.DATE,

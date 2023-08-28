@@ -15,12 +15,12 @@
 <!--SECTION START: Main Entry Types-->
 
 ```ts
-import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { Command } from '@atlaskit/editor-common/types';
 import type { EditorCommand } from '@atlaskit/editor-common/types';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { FloatingToolbarItem } from '@atlaskit/editor-common/types';
 import type { HyperlinkPluginOptions } from '@atlaskit/editor-common/types';
 import type { HyperlinkState } from '@atlaskit/editor-common/link';
@@ -50,10 +50,7 @@ export type HyperlinkPlugin = NextEditorPlugin<
   'hyperlink',
   {
     pluginConfiguration: HyperlinkPluginOptions | undefined;
-    dependencies: [
-      typeof featureFlagsPlugin,
-      OptionalPlugin<typeof analyticsPlugin>,
-    ];
+    dependencies: [FeatureFlagsPlugin, OptionalPlugin<AnalyticsPlugin>];
     actions: {
       prependToolbarButtons: PrependToolbarButtons;
       hideLinkToolbar: HideLinkToolbar;

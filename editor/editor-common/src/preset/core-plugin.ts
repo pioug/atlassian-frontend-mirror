@@ -23,12 +23,12 @@ export type CorePlugin = NextEditorPlugin<
   }
 >;
 
-export const corePlugin: CorePlugin = ({ getEditorView }) => {
+export const corePlugin: CorePlugin = ({ config }) => {
   return {
     name: 'core',
     actions: {
       execute: (command) => {
-        const editorView = getEditorView();
+        const editorView = config?.getEditorView();
         if (!editorView || !command) {
           return false;
         }

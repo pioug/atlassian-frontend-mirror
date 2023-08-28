@@ -36,9 +36,9 @@ describe('EditorNext', () => {
   });
 });
 
-const testPlugin: NextEditorPlugin<'test', { pluginConfiguration: any }> = (
-  testFunc,
-) => ({
+const testPlugin: NextEditorPlugin<'test', { pluginConfiguration: any }> = ({
+  config: testFunc,
+}) => ({
   name: 'test',
 
   usePluginHook() {

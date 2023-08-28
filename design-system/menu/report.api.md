@@ -107,6 +107,7 @@ export const HeadingItem: MemoExoticComponent<
     testId,
     id,
     cssFn,
+    className: UNSAFE_className,
     ...rest
   }: HeadingItemProps) => jsx.JSX.Element
 >;
@@ -148,6 +149,7 @@ export const MenuGroup: ({
   testId,
   role,
   spacing,
+  className: UNSAFE_className,
   ...rest
 }: MenuGroupProps) => jsx.JSX.Element;
 

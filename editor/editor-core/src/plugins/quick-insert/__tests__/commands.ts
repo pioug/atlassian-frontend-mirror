@@ -33,7 +33,7 @@ describe('Quick Insert Commands', () => {
   describe('openElementBrowserModal', () => {
     it('should set isElementBrowserModalOpen to true', () => {
       const { editorView, editorAPI } = createEditor({});
-      editorAPI.dependencies.core?.actions?.execute(openElementBrowserModal);
+      editorAPI.core?.actions?.execute(openElementBrowserModal);
 
       const quickInsertState = pluginKey.getState(editorView.state);
 
@@ -77,7 +77,7 @@ describe('Quick Insert Commands', () => {
     it('should accept an inline node', () => {
       const { editorView } = createEditor({
         doc: doc(p('foo {<>}bar')),
-        editorPlugins: [datePlugin()],
+        editorPlugins: [datePlugin({ config: undefined })],
       });
 
       editorView.focus();
@@ -98,7 +98,7 @@ describe('Quick Insert Commands', () => {
 
     it('should accept text', () => {
       const { editorView } = createEditor({
-        editorPlugins: [datePlugin()],
+        editorPlugins: [datePlugin({ config: undefined })],
       });
 
       insertItem({
@@ -113,7 +113,7 @@ describe('Quick Insert Commands', () => {
 
     it('should accept fragment', () => {
       const { editorView } = createEditor({
-        editorPlugins: [datePlugin()],
+        editorPlugins: [datePlugin({ config: undefined })],
       });
 
       insertItem({
@@ -184,7 +184,7 @@ describe('Quick Insert Commands', () => {
     it('should select inserted inline node when selectInlineNode is specified', () => {
       const { editorView } = createEditor({
         doc: doc(p('{<>}')),
-        editorPlugins: [datePlugin()],
+        editorPlugins: [datePlugin({ config: undefined })],
       });
 
       insertItem({
@@ -204,7 +204,7 @@ describe('Quick Insert Commands', () => {
     it("should move cursor after inline node+space when selectInlineNode isn't specified", () => {
       const { editorView } = createEditor({
         doc: doc(p('{<>}')),
-        editorPlugins: [datePlugin()],
+        editorPlugins: [datePlugin({ config: undefined })],
       });
 
       insertItem({

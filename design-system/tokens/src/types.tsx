@@ -833,6 +833,11 @@ export interface ChartColorTokenSchema<BaseToken> {
 }
 
 export interface UtilTokenSchema<BaseToken> {
+  elevation: {
+    surface: {
+      current: PaintToken<BaseToken>;
+    };
+  };
   UNSAFE: {
     transparent: RawToken;
   };

@@ -1,4 +1,7 @@
-import type { MediaBaseAttributes } from '@atlaskit/adf-schema';
+import type {
+  MediaBaseAttributes,
+  RichMediaLayout,
+} from '@atlaskit/adf-schema';
 import { getMediaClient } from '@atlaskit/media-client';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { MediaPluginState } from '../pm-plugins/types';
@@ -9,6 +12,9 @@ import {
   removeSelectedNode,
   findSelectedNodeOfType,
 } from '@atlaskit/editor-prosemirror/utils';
+
+import { akEditorFullWidthLayoutWidth } from '@atlaskit/editor-shared-styles';
+import { wrappedLayouts } from '@atlaskit/editor-common/media-single';
 
 export const getSelectedMediaContainerNodeAttrs = (
   mediaPluginState: MediaPluginState,
@@ -75,4 +81,29 @@ export const getPixelWidthOfElement = (
     return domNode.offsetWidth;
   }
   return mediaWidth;
+};
+
+export const calcNewLayout = (
+  width: number,
+  layout: RichMediaLayout,
+  contentWidth: number,
+  fullWidthMode = false,
+) => {
+  const isWrappedLayout = wrappedLayouts.indexOf(layout) > -1;
+  if (width >= akEditorFullWidthLayoutWidth) {
+    // If width is greater than or equal to full editor width
+    return 'full-width';
+  }
+
+  if (fullWidthMode) {
+    // If under editor full width mode
+    return isWrappedLayout ? layout : 'center';
+  }
+
+  if (width > contentWidth) {
+    // If width is greater than content length and not nested
+    return 'wide';
+  }
+
+  return isWrappedLayout && width !== contentWidth ? layout : 'center';
 };

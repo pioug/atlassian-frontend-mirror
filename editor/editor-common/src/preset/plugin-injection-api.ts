@@ -276,7 +276,7 @@ interface PluginInjectionAPIDefinition {
   api: <T extends NextEditorPlugin<any, any>>() => PluginInjectionAPI<
     T extends NextEditorPlugin<infer Name, any> ? Name : never,
     T extends NextEditorPlugin<any, infer Metadata> ? Metadata : never
-  >;
+  >['dependencies'];
   onEditorViewUpdated: (props: EditorStateDelta) => void;
   onEditorPluginInitialized: (plugin: NextEditorPluginInitializedType) => void;
 }
@@ -293,7 +293,7 @@ export class EditorPluginInjectionAPI implements PluginInjectionAPIDefinition {
     this.actionsAPI = new ActionsAPI();
     this.commandsAPI = new EditorCommandsAPI();
     // Special core plugin that is always added
-    this.addPlugin(corePlugin({ getEditorView }));
+    this.addPlugin(corePlugin({ config: { getEditorView } }));
   }
 
   api<T extends NextEditorPlugin<any, any>>() {
@@ -303,7 +303,7 @@ export class EditorPluginInjectionAPI implements PluginInjectionAPIDefinition {
       T extends NextEditorPlugin<any, infer Metadata> ? Metadata : never
     >['dependencies'];
 
-    const dependencies = new Proxy<DependenciesGenericType>({} as any, {
+    return new Proxy<DependenciesGenericType>({} as any, {
       get: function (target, prop: string, receiver) {
         // If we pass this as a prop React hates us
         // Let's just reflect the result and ignore these
@@ -333,10 +333,6 @@ export class EditorPluginInjectionAPI implements PluginInjectionAPIDefinition {
         return proxyCoreAPI;
       },
     });
-
-    return {
-      dependencies,
-    };
   }
 
   onEditorViewUpdated = ({

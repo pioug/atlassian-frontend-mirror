@@ -1,9 +1,9 @@
-import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
-import type { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
-import type { gridPlugin } from '@atlaskit/editor-plugin-grid';
-import type { widthPlugin } from '@atlaskit/editor-plugin-width';
-import type { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
+import type { GuidelinePlugin } from '@atlaskit/editor-plugin-guideline';
+import type { GridPlugin } from '@atlaskit/editor-plugin-grid';
+import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
+import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import type { MediaPluginState } from './pm-plugins/types';
 import type { FloatingToolbarPlugin } from '@atlaskit/editor-plugin-floating-toolbar';
 import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
@@ -19,12 +19,12 @@ export type MediaNextEditorPluginType = NextEditorPlugin<
   {
     pluginConfiguration: MediaOptions | undefined;
     dependencies: [
-      typeof featureFlagsPlugin,
-      OptionalPlugin<typeof analyticsPlugin>,
-      typeof guidelinePlugin,
-      typeof gridPlugin,
-      typeof widthPlugin,
-      typeof decorationsPlugin,
+      FeatureFlagsPlugin,
+      OptionalPlugin<AnalyticsPlugin>,
+      GuidelinePlugin,
+      GridPlugin,
+      WidthPlugin,
+      DecorationsPlugin,
       FloatingToolbarPlugin,
       EditorDisabledPlugin,
       FocusPlugin,

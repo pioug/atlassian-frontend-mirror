@@ -4,9 +4,9 @@ import { render } from '@testing-library/react';
 import { replaceRaf } from 'raf-stub';
 
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
-import { Command } from '@atlaskit/editor-common/types';
+import type { Command } from '@atlaskit/editor-common/types';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { selectTableClosestToPos } from '@atlaskit/editor-tables/src/utils/select-nodes';
 import {
   findTable,
@@ -14,9 +14,9 @@ import {
   selectTable,
 } from '@atlaskit/editor-tables/utils';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
-  DocBuilder,
   p,
   table,
   td,
@@ -34,10 +34,8 @@ import {
 } from '../../../plugins/table/commands';
 import TableComponent from '../../../plugins/table/nodeviews/TableComponent';
 import { pluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
-import {
-  TableCssClassName as ClassName,
-  TablePluginState,
-} from '../../../plugins/table/types';
+import type { TablePluginState } from '../../../plugins/table/types';
+import { TableCssClassName as ClassName } from '../../../plugins/table/types';
 
 jest.mock('../../../plugins/table/utils/nodes', () =>
   Object.assign({}, jest.requireActual('../../../plugins/table/utils/nodes'), {
@@ -67,7 +65,7 @@ describe('table -> nodeviews -> TableComponent.tsx', () => {
       editorProps: {
         allowTables: false,
         dangerouslyAppendPlugins: {
-          __plugins: [tablePlugin()],
+          __plugins: [tablePlugin({ config: undefined })],
         },
         featureFlags,
       },

@@ -21,7 +21,7 @@ import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import { NodeType } from '@atlaskit/editor-prosemirror/model';
 
 // @public (undocumented)
-export const decorationsPlugin: NextEditorPlugin<
+export type DecorationsPlugin = NextEditorPlugin<
   'decorations',
   {
     sharedState: DecorationState;
@@ -31,6 +31,9 @@ export const decorationsPlugin: NextEditorPlugin<
     };
   }
 >;
+
+// @public (undocumented)
+export const decorationsPlugin: DecorationsPlugin;
 
 // @public (undocumented)
 export type DecorationState = {

@@ -1,4 +1,4 @@
-import { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
+import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type {
   EditorContainerWidth,
@@ -45,12 +45,14 @@ function createPlugin(
   });
 }
 
-export const widthPlugin: NextEditorPlugin<
+export type WidthPlugin = NextEditorPlugin<
   'width',
   {
     sharedState: EditorContainerWidth | undefined;
   }
-> = () => ({
+>;
+
+export const widthPlugin: WidthPlugin = () => ({
   name: 'width',
 
   pmPlugins: () => [

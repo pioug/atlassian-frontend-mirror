@@ -1,4 +1,5 @@
 import React from 'react';
+// eslint-disable-next-line
 import { mount, ReactWrapper } from 'enzyme';
 
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
@@ -12,7 +13,7 @@ import {
   akEditorFullWidthLayoutWidth,
   akEditorFullWidthLayoutLineLength,
 } from '@atlaskit/editor-shared-styles';
-import { EditorPlugin } from '../../../types';
+import type { EditorPlugin } from '../../../types';
 import { EventDispatcher } from '../../../event-dispatcher';
 import EditorActions from '../../../actions';
 import { contextPanelPlugin } from '@atlaskit/editor-plugin-context-panel';
@@ -363,7 +364,10 @@ describe('ContextPanel', () => {
 
   it('uses pluginContent instead if plugins define content', () => {
     const editor = editorFactory({
-      editorPlugins: [mockContextPanelPlugin, contextPanelPlugin()],
+      editorPlugins: [
+        mockContextPanelPlugin,
+        contextPanelPlugin({ config: undefined }),
+      ],
       doc: doc(p('hello')),
     });
     const editorActions = new EditorActions();
@@ -385,7 +389,7 @@ describe('ContextPanel', () => {
 
   it('should focus editor on ESC from the sidebar config panel', async () => {
     const { editorView } = editorFactory({
-      editorPlugins: [contextPanelPlugin()],
+      editorPlugins: [contextPanelPlugin({ config: undefined })],
       doc: doc(p('hello')),
     });
     const editorActions = new EditorActions();

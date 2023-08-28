@@ -75,10 +75,8 @@ describe('lists plugin -> commands -> outdentList', () => {
 
       it('should return true', () => {
         const { editorAPI } = editor(document);
-        const result = editorAPI.dependencies.core.actions.execute(
-          editorAPI.dependencies.list.commands.indentList(
-            INPUT_METHOD.KEYBOARD,
-          ),
+        const result = editorAPI.core.actions.execute(
+          editorAPI.list.commands.indentList(INPUT_METHOD.KEYBOARD),
         );
         expect(result).toBe(true);
       });
@@ -111,10 +109,8 @@ describe('lists plugin -> commands -> outdentList', () => {
 
       it('should return true', () => {
         const { editorAPI } = editor(document);
-        const result = editorAPI.dependencies.core.actions.execute(
-          editorAPI.dependencies.list.commands.indentList(
-            INPUT_METHOD.KEYBOARD,
-          ),
+        const result = editorAPI.core.actions.execute(
+          editorAPI.list.commands.indentList(INPUT_METHOD.KEYBOARD),
         );
         expect(result).toBe(true);
       });
@@ -147,10 +143,8 @@ describe('lists plugin -> commands -> outdentList', () => {
 
       it('should return true', () => {
         const { editorAPI } = editor(document);
-        const result = editorAPI.dependencies.core.actions.execute(
-          editorAPI.dependencies.list.commands.indentList(
-            INPUT_METHOD.KEYBOARD,
-          ),
+        const result = editorAPI.core.actions.execute(
+          editorAPI.list.commands.indentList(INPUT_METHOD.KEYBOARD),
         );
         expect(result).toBe(true);
       });

@@ -15,7 +15,7 @@ import type { PrivateCollabEditOptions } from '../../types';
 import collabEditPlugin from '../../index';
 import mentionsPlugin from '../../../mentions';
 import typeAheadPlugin from '../../../type-ahead';
-import unsupportedContentPlugin from '../../../unsupported-content';
+import { unsupportedContentPlugin } from '@atlaskit/editor-plugin-unsupported-content';
 import { textFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';
 import { toggleMark } from '@atlaskit/editor-common/mark';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
@@ -83,7 +83,7 @@ describe('collab-edit: actions', () => {
       const { state } = editorView;
 
       const { strong } = state.schema.marks;
-      editorAPI.dependencies.core?.actions?.execute(toggleMark(strong));
+      editorAPI.core?.actions?.execute(toggleMark(strong));
 
       expect(editorView.state.storedMarks).toEqual([
         editorView.state.schema.marks.strong.create(),

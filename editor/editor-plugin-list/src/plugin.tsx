@@ -38,10 +38,9 @@ import { isInsideListItem } from './utils/selection';
   Toolbar buttons to bullet and ordered list can be found in
   packages/editor/editor-core/src/plugins/toolbar-lists-indentation/ui/Toolbar.tsx
  */
-export const listPlugin: ListPlugin = (options, api) => {
-  const featureFlags =
-    api?.dependencies.featureFlags.sharedState.currentState() || {};
-  const editorAnalyticsAPI = api?.dependencies.analytics?.actions;
+export const listPlugin: ListPlugin = ({ config: options, api }) => {
+  const featureFlags = api?.featureFlags.sharedState.currentState() || {};
+  const editorAnalyticsAPI = api?.analytics?.actions;
 
   return {
     name: 'list',
@@ -86,16 +85,11 @@ export const listPlugin: ListPlugin = (options, api) => {
         {
           name: 'listInputRule',
           plugin: ({ schema, featureFlags }) =>
-            inputRulePlugin(
-              schema,
-              featureFlags,
-              api?.dependencies.analytics?.actions,
-            ),
+            inputRulePlugin(schema, featureFlags, api?.analytics?.actions),
         },
         {
           name: 'listKeymap',
-          plugin: () =>
-            keymapPlugin(featureFlags, api?.dependencies.analytics?.actions),
+          plugin: () => keymapPlugin(featureFlags, api?.analytics?.actions),
         },
       ];
     },

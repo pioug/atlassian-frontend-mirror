@@ -25,27 +25,35 @@ const toolbarScrollButtons = css`
 const LeftIcon = ChevronLeftLargeIcon as React.ComponentClass<any>;
 const RightIcon = ChevronRightLargeIcon as React.ComponentClass<any>;
 
-export interface Props {
+interface ScrollButtonsProps {
   intl: IntlShape;
   scrollContainerRef: React.RefObject<HTMLDivElement>;
   node: Node;
   disabled: boolean;
 }
 
-export default ({ intl, scrollContainerRef, node, disabled }: Props) => {
+export const ScrollButtons = ({
+  intl,
+  scrollContainerRef,
+  node,
+  disabled,
+}: ScrollButtonsProps) => {
   const buttonsContainerRef = useRef<HTMLDivElement>(null);
   const [needScroll, setNeedScroll] = useState(false);
   const [canScrollLeft, setCanScrollLeft] = useState(true);
   const [canScrollRight, setCanScrollRight] = useState(true);
 
-  const scheduledSetCanScroll = rafSchedule(() => {
-    const { scrollLeft, scrollWidth, offsetWidth } =
-      scrollContainerRef.current!;
+  const setCanScrollDebounced = rafSchedule(() => {
+    // Refs are null before mounting and after unmount
+    if (!scrollContainerRef.current) {
+      return;
+    }
+    const { scrollLeft, scrollWidth, offsetWidth } = scrollContainerRef.current;
     setCanScrollLeft(scrollLeft > 0);
     setCanScrollRight(scrollLeft + offsetWidth < scrollWidth - 1); // -1 to account for half pixel
   });
 
-  const onScroll = () => scheduledSetCanScroll();
+  const onScroll = () => setCanScrollDebounced();
 
   const scrollLeft = () => {
     const { width: scrollContainerWidth = 0 } =
@@ -110,6 +118,7 @@ export default ({ intl, scrollContainerRef, node, disabled }: Props) => {
         scrollContainerRefCurrent.removeEventListener('scroll', onScroll);
         resizeObserver.unobserve(scrollContainerRefCurrent);
       }
+      setCanScrollDebounced.cancel();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

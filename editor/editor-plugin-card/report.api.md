@@ -16,26 +16,26 @@
 
 ```ts
 import { ACTION } from '@atlaskit/editor-common/analytics';
-import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { CardAppearance } from '@atlaskit/editor-common/provider-factory';
 import type { CardOptions } from '@atlaskit/editor-common/card';
 import type { CardPluginActions } from '@atlaskit/editor-common/card';
 import { CardProvider } from '@atlaskit/editor-common/provider-factory';
 import type { CardReplacementInputMethod } from '@atlaskit/editor-common/card';
 import type { DatasourceModalType } from '@atlaskit/editor-common/types';
-import type { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
+import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import type { EditorAppearance } from '@atlaskit/editor-common/types';
-import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { FloatingToolbarPlugin } from '@atlaskit/editor-plugin-floating-toolbar';
-import type { gridPlugin } from '@atlaskit/editor-plugin-grid';
-import type { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
+import type { GridPlugin } from '@atlaskit/editor-plugin-grid';
+import type { HyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import type { LinkPickerOptions } from '@atlaskit/editor-common/types';
 import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import { Node as Node_2 } from '@atlaskit/editor-prosemirror/model';
 import type { OptionalPlugin } from '@atlaskit/editor-common/types';
 import { SmartLinkEvents } from '@atlaskit/smart-card';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import type { widthPlugin } from '@atlaskit/editor-plugin-width';
+import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
 
 // @public (undocumented)
 type CardInfo = {
@@ -45,23 +45,26 @@ type CardInfo = {
 };
 
 // @public (undocumented)
-export const cardPlugin: NextEditorPlugin<
+export type CardPlugin = NextEditorPlugin<
   'card',
   {
     pluginConfiguration: CardPluginOptions;
     dependencies: [
-      typeof featureFlagsPlugin,
-      OptionalPlugin<typeof analyticsPlugin>,
-      typeof widthPlugin,
-      typeof decorationsPlugin,
-      typeof gridPlugin,
+      FeatureFlagsPlugin,
+      OptionalPlugin<AnalyticsPlugin>,
+      WidthPlugin,
+      DecorationsPlugin,
+      GridPlugin,
       FloatingToolbarPlugin,
-      typeof hyperlinkPlugin,
+      HyperlinkPlugin,
     ];
     sharedState: CardPluginState | null;
     actions: CardPluginActions;
   }
 >;
+
+// @public (undocumented)
+export const cardPlugin: CardPlugin;
 
 // @public (undocumented)
 type CardPluginEvent = DatasourceEvent | LinkEvent;

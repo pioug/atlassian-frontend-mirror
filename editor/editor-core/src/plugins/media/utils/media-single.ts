@@ -18,6 +18,7 @@ import {
   getMediaSingleInitialWidth,
   MEDIA_SINGLE_DEFAULT_MIN_PIXEL_WIDTH,
   MEDIA_SINGLE_VIDEO_MIN_PIXEL_WIDTH,
+  getMaxWidthForNestedNodeNext,
 } from '@atlaskit/editor-common/media-single';
 import { isEmptyParagraph } from '@atlaskit/editor-common/utils';
 
@@ -167,7 +168,10 @@ export const insertMediaSingleNode = (
   // add undefined as fallback as we don't want media single width to have upper limit as 0
   // if widthPluginState.width is 0, default 760 will be used
   const contentWidth =
-    widthPluginState?.lineLength || widthPluginState?.width || undefined;
+    getMaxWidthForNestedNodeNext(view, state.selection.$from.pos, true) ||
+    widthPluginState?.lineLength ||
+    widthPluginState?.width ||
+    undefined;
 
   const node = createMediaSingleNode(
     state.schema,
@@ -278,6 +282,7 @@ export function transformSliceForMedia(slice: Slice, schema: Schema) {
     media,
     mediaInline,
     expand,
+    nestedExpand,
   } = schema.nodes;
 
   return (selection: Selection) => {
@@ -289,12 +294,32 @@ export function transformSliceForMedia(slice: Slice, schema: Schema) {
         bulletList,
         orderedList,
         expand,
+        nestedExpand,
       ])(selection)
     ) {
       newSlice = mapSlice(newSlice, (node) => {
-        const attrs = hasParentNodeOfType([layoutSection, table])(selection)
-          ? { layout: node.attrs.layout }
-          : {};
+        const extendedOrLegacyAttrs = getBooleanFF(
+          'platform.editor.media.extended-resize-experience',
+        )
+          ? {
+              layout: node.attrs.layout,
+              widthType: node.attrs.widthType,
+              width: node.attrs.width,
+            }
+          : { layout: node.attrs.layout };
+
+        let attrs = {};
+        if (hasParentNodeOfType([layoutSection, table])(selection)) {
+          // Supports layouts
+          attrs = { ...extendedOrLegacyAttrs };
+        } else if (
+          hasParentNodeOfType([bulletList, orderedList, expand, nestedExpand])(
+            selection,
+          )
+        ) {
+          // does not support other layouts
+          attrs = { ...extendedOrLegacyAttrs, layout: 'center' };
+        }
 
         return node.type.name === 'mediaSingle'
           ? mediaSingle.createChecked(attrs, node.content, node.marks)

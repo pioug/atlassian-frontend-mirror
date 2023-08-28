@@ -12,20 +12,20 @@ import type {
   OptionalPlugin,
 } from '@atlaskit/editor-common/types';
 import { canRenderDatasource } from '@atlaskit/editor-common/utils';
-import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import type { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
-import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';
+import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { FloatingToolbarPlugin } from '@atlaskit/editor-plugin-floating-toolbar';
-import type { gridPlugin } from '@atlaskit/editor-plugin-grid';
-import type { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
-import type { widthPlugin } from '@atlaskit/editor-plugin-width';
+import type { GridPlugin } from '@atlaskit/editor-plugin-grid';
+import type { HyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
+import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
 import {
   ASSETS_LIST_OF_LINKS_DATASOURCE_ID,
   JIRA_LIST_OF_LINKS_DATASOURCE_ID,
 } from '@atlaskit/link-datasource';
 
 import { createEventsQueue } from './analytics/create-events-queue';
-import { CardPluginEvent } from './analytics/types';
+import type { CardPluginEvent } from './analytics/types';
 import { messages } from './messages';
 import { hideLinkToolbar, showDatasourceModal } from './pm-plugins/actions';
 import {
@@ -44,25 +44,26 @@ import { EditorLinkingPlatformAnalytics } from './ui/EditorLinkingPlatformAnalyt
 import { EditorSmartCardEvents } from './ui/EditorSmartCardEvents';
 import LayoutButton from './ui/LayoutButton';
 
-export const cardPlugin: NextEditorPlugin<
+export type CardPlugin = NextEditorPlugin<
   'card',
   {
     pluginConfiguration: CardPluginOptions;
     dependencies: [
-      typeof featureFlagsPlugin,
-      OptionalPlugin<typeof analyticsPlugin>,
-      typeof widthPlugin,
-      typeof decorationsPlugin,
-      typeof gridPlugin,
+      FeatureFlagsPlugin,
+      OptionalPlugin<AnalyticsPlugin>,
+      WidthPlugin,
+      DecorationsPlugin,
+      GridPlugin,
       FloatingToolbarPlugin,
-      typeof hyperlinkPlugin,
+      HyperlinkPlugin,
     ];
     sharedState: CardPluginState | null;
     actions: CardPluginActions;
   }
-> = (options, api) => {
-  const featureFlags =
-    api?.dependencies?.featureFlags?.sharedState.currentState() || {};
+>;
+
+export const cardPlugin: CardPlugin = ({ config: options, api }) => {
+  const featureFlags = api?.featureFlags?.sharedState.currentState() || {};
 
   const cardPluginEvents = featureFlags?.lpAnalyticsEventsNext
     ? createEventsQueue<CardPluginEvent>()

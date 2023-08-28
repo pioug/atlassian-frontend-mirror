@@ -1,6 +1,6 @@
-import { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 
-import { NextEditorPlugin } from '../../types';
+import type { NextEditorPlugin } from '../../types';
 
 describe('NextEditorPlugin: types', () => {
   describe('actions', () => {
@@ -59,8 +59,8 @@ describe('NextEditorPlugin: types', () => {
         const PluginSomething: NextEditorPlugin<
           'something',
           { dependencies: [typeof PluginDog] }
-        > = (_, api) => {
-          api?.dependencies.dog.actions.bark();
+        > = ({ api }) => {
+          api?.dog.actions.bark();
           return {
             name: 'something',
           };
@@ -78,10 +78,10 @@ describe('NextEditorPlugin: types', () => {
         const PluginDog: NextEditorPlugin<
           'dog',
           { actions: { lol: () => string } }
-        > = (_, api) => {
+        > = ({ api }) => {
           if (api) {
             // Should work
-            const result = api.dependencies.dog.actions.lol();
+            const result = api.dog.actions.lol();
 
             result.trim();
           }
@@ -105,10 +105,10 @@ describe('NextEditorPlugin: types', () => {
         const PluginDog: NextEditorPlugin<
           'dog',
           { sharedState: 'hello darkness' }
-        > = (_, api) => {
+        > = ({ api }) => {
           if (api) {
             // Should work
-            const result = api.dependencies.dog.sharedState.currentState();
+            const result = api.dog.sharedState.currentState();
             result?.trim();
           }
 

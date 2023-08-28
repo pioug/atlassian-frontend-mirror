@@ -39,7 +39,7 @@ const maxContentSizePlugin: NextEditorPlugin<
   {
     pluginConfiguration: number | undefined;
   }
-> = (maxContentSize?: number) => ({
+> = ({ config: maxContentSize }) => ({
   name: 'maxContentSize',
 
   pmPlugins() {

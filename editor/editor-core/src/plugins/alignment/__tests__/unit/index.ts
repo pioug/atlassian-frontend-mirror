@@ -141,10 +141,8 @@ describe('alignment', () => {
       const { editorView, editorAPI } = editor(
         doc(alignmentMark({ align: 'end' })(p('{<>}hello'))),
       );
-      editorAPI.dependencies.core.actions.execute(
-        editorAPI.dependencies.list.commands.toggleBulletList(
-          INPUT_METHOD.TOOLBAR,
-        ),
+      editorAPI.core.actions.execute(
+        editorAPI.list.commands.toggleBulletList(INPUT_METHOD.TOOLBAR),
       );
       expect(editorView.state.doc).toEqualDocument(doc(ul(li(p('hello')))));
     });

@@ -31,6 +31,11 @@ export const messages = defineMessages({
     defaultMessage: 'Submit',
     description: 'The text give to the hidden submit button',
   },
+  fullWidthLabel: {
+    id: 'fabric.editor.image.fullWidthLabel',
+    defaultMessage: 'Full-width',
+    description: 'The media has reached its maximum width',
+  },
   migrationButtonText: {
     id: 'fabric.editor.media.pixelEntry.migrationButtonText',
     defaultMessage: 'Convert to pixels',

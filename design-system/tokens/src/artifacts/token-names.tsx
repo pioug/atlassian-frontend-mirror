@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::941775f7937b33243f0409b0ddd4fcd1>>
+ * @codegen <<SignedSource::b711d4f618026dc282f82bd14b87c1b3>>
  * @codegenCommand yarn build tokens
  */
 const tokens = {
@@ -352,6 +352,7 @@ const tokens = {
   'opacity.disabled': '--ds-opacity-disabled',
   'opacity.loading': '--ds-opacity-loading',
   'utility.UNSAFE.transparent': '--ds-UNSAFE-transparent',
+  'utility.elevation.surface.current': '--ds-elevation-surface-current',
   'border.radius.050': '--ds-border-radius-050',
   'border.radius': '--ds-border-radius',
   'border.radius.100': '--ds-border-radius-100',
@@ -727,6 +728,7 @@ export type CSSTokenMap = {
   'opacity.disabled': 'var(--ds-opacity-disabled)';
   'opacity.loading': 'var(--ds-opacity-loading)';
   'utility.UNSAFE.transparent': 'var(--ds-UNSAFE-transparent)';
+  'utility.elevation.surface.current': 'var(--ds-elevation-surface-current)';
   'border.radius.050': 'var(--ds-border-radius-050)';
   'border.radius': 'var(--ds-border-radius)';
   'border.radius.100': 'var(--ds-border-radius-100)';

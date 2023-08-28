@@ -113,7 +113,7 @@ import {
   RELIABILITY_INTERVAL,
 } from '@atlaskit/editor-common/ufo';
 import { createIntl } from 'react-intl-next';
-import { createPreset } from '../../create-plugins-list';
+import { createPreset } from '../../create-preset';
 import PluginSlot from '../../../ui/PluginSlot';
 
 const portalProviderAPI: any = {

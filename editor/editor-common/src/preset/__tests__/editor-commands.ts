@@ -20,7 +20,7 @@ describe('editor-commands', () => {
         testCommand: EditorCommand;
       };
     }
-  > = (_, api) => {
+  > = ({ api }) => {
     return {
       name: 'one',
       commands: {
@@ -41,11 +41,11 @@ describe('editor-commands', () => {
     {
       dependencies: [typeof pluginOne];
     }
-  > = (_, api) => {
+  > = ({ api }) => {
     // Typing should work here
-    api?.dependencies.one.commands.testCommandWithMeta(42)({ tr: 0 as any });
+    api?.one.commands.testCommandWithMeta(42)({ tr: 0 as any });
     // @ts-expect-error notATestCommand shouldn't exist on `commands`
-    api?.dependencies.one.commands.notATestCommand?.(0)({ tr: 0 as any });
+    api?.one.commands.notATestCommand?.(0)({ tr: 0 as any });
 
     return {
       name: 'two',
@@ -63,9 +63,9 @@ describe('editor-commands', () => {
     {
       dependencies: [typeof pluginOne];
     }
-  > = (_, api) => {
+  > = ({ api }) => {
     // Typing should work here
-    api?.dependencies.one.commands.testCommand({ tr: 0 as any });
+    api?.one.commands.testCommand({ tr: 0 as any });
 
     return {
       name: 'three',
@@ -92,9 +92,11 @@ describe('editor-commands', () => {
     getEditorView: () => undefined,
   });
 
+  const api = coreAPI.api() as any;
+
   it('should call plugin commandWithMeta', () => {
-    coreAPI.onEditorPluginInitialized(pluginOne(undefined, coreAPI.api()));
-    coreAPI.onEditorPluginInitialized(pluginTwo(undefined, coreAPI.api()));
+    coreAPI.onEditorPluginInitialized(pluginOne({ api, config: undefined }));
+    coreAPI.onEditorPluginInitialized(pluginTwo({ api, config: undefined }));
 
     expect(mockTestCommandWithMeta).toHaveBeenCalledWith(42);
   });
@@ -102,8 +104,8 @@ describe('editor-commands', () => {
   it('should call plugin command', () => {
     expect(mockTestCommand).not.toHaveBeenCalled();
 
-    coreAPI.onEditorPluginInitialized(pluginOne(undefined, coreAPI.api()));
-    coreAPI.onEditorPluginInitialized(pluginThree(undefined, coreAPI.api()));
+    coreAPI.onEditorPluginInitialized(pluginOne({ api, config: undefined }));
+    coreAPI.onEditorPluginInitialized(pluginThree({ api, config: undefined }));
 
     expect(mockTestCommand).toHaveBeenCalledTimes(1);
   });

@@ -60,10 +60,10 @@ export type TextFormattingPlugin = NextEditorPlugin<
   }
 >;
 
-export const textFormattingPlugin: TextFormattingPlugin = (
-  options = {},
+export const textFormattingPlugin: TextFormattingPlugin = ({
+  config: options,
   api,
-) => ({
+}) => ({
   name: 'textFormatting',
 
   marks() {
@@ -72,14 +72,14 @@ export const textFormattingPlugin: TextFormattingPlugin = (
       { name: 'strong', mark: strong },
       { name: 'strike', mark: strike },
     ]
-      .concat(options.disableCode ? [] : { name: 'code', mark: code })
+      .concat(options?.disableCode ? [] : { name: 'code', mark: code })
       .concat(
-        options.disableSuperscriptAndSubscript
+        options?.disableSuperscriptAndSubscript
           ? []
           : { name: 'subsup', mark: subsup },
       )
       .concat(
-        options.disableUnderline ? [] : { name: 'underline', mark: underline },
+        options?.disableUnderline ? [] : { name: 'underline', mark: underline },
       );
   },
 
@@ -87,8 +87,7 @@ export const textFormattingPlugin: TextFormattingPlugin = (
     return [
       {
         name: 'textFormatting',
-        plugin: ({ dispatch }) =>
-          pmPlugin(dispatch, api?.dependencies.analytics?.actions),
+        plugin: ({ dispatch }) => pmPlugin(dispatch, api?.analytics?.actions),
       },
       {
         name: 'textFormattingCursor',
@@ -97,18 +96,13 @@ export const textFormattingPlugin: TextFormattingPlugin = (
       {
         name: 'textFormattingInputRule',
         plugin: ({ schema }) =>
-          textFormattingInputRulePlugin(
-            schema,
-            api?.dependencies.analytics?.actions,
-          ),
+          textFormattingInputRulePlugin(schema, api?.analytics?.actions),
       },
       {
         name: 'textFormattingSmartRule',
         plugin: () =>
-          !options.disableSmartTextCompletion
-            ? textFormattingSmartInputRulePlugin(
-                api?.dependencies.analytics?.actions,
-              )
+          !options?.disableSmartTextCompletion
+            ? textFormattingSmartInputRulePlugin(api?.analytics?.actions)
             : undefined,
       },
       {
@@ -117,13 +111,11 @@ export const textFormattingPlugin: TextFormattingPlugin = (
       },
       {
         name: 'textFormattingClearKeymap',
-        plugin: () =>
-          clearFormattingKeymapPlugin(api?.dependencies.analytics?.actions),
+        plugin: () => clearFormattingKeymapPlugin(api?.analytics?.actions),
       },
       {
         name: 'textFormattingKeymap',
-        plugin: ({ schema }) =>
-          keymapPlugin(schema, api?.dependencies.analytics?.actions),
+        plugin: ({ schema }) => keymapPlugin(schema, api?.analytics?.actions),
       },
     ];
   },
@@ -160,9 +152,9 @@ export const textFormattingPlugin: TextFormattingPlugin = (
               editorView={editorView}
               isToolbarDisabled={disabled}
               shouldUseResponsiveToolbar={Boolean(
-                options.responsiveToolbarMenu,
+                options?.responsiveToolbarMenu,
               )}
-              editorAnalyticsAPI={api?.dependencies.analytics?.actions}
+              editorAnalyticsAPI={api?.analytics?.actions}
             />
           );
         }}
@@ -171,22 +163,12 @@ export const textFormattingPlugin: TextFormattingPlugin = (
   },
 
   commands: {
-    toggleSuperscript: toggleSuperscriptWithAnalytics(
-      api?.dependencies.analytics?.actions,
-    ),
-    toggleSubscript: toggleSubscriptWithAnalytics(
-      api?.dependencies.analytics?.actions,
-    ),
-    toggleStrike: toggleStrikeWithAnalytics(
-      api?.dependencies.analytics?.actions,
-    ),
-    toggleCode: toggleCodeWithAnalytics(api?.dependencies.analytics?.actions),
-    toggleUnderline: toggleUnderlineWithAnalytics(
-      api?.dependencies.analytics?.actions,
-    ),
-    toggleEm: toggleEmWithAnalytics(api?.dependencies.analytics?.actions),
-    toggleStrong: toggleStrongWithAnalytics(
-      api?.dependencies.analytics?.actions,
-    ),
+    toggleSuperscript: toggleSuperscriptWithAnalytics(api?.analytics?.actions),
+    toggleSubscript: toggleSubscriptWithAnalytics(api?.analytics?.actions),
+    toggleStrike: toggleStrikeWithAnalytics(api?.analytics?.actions),
+    toggleCode: toggleCodeWithAnalytics(api?.analytics?.actions),
+    toggleUnderline: toggleUnderlineWithAnalytics(api?.analytics?.actions),
+    toggleEm: toggleEmWithAnalytics(api?.analytics?.actions),
+    toggleStrong: toggleStrongWithAnalytics(api?.analytics?.actions),
   },
 });

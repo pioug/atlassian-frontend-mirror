@@ -93,6 +93,7 @@ import {
   TransactionTracker,
 } from '../utils/performance/track-transactions';
 import { countNodes } from '@atlaskit/editor-common/utils';
+import createPluginsList from './create-plugins-list';
 import {
   PROSEMIRROR_RENDERED_NORMAL_SEVERITY_THRESHOLD,
   PROSEMIRROR_RENDERED_DEGRADED_SEVERITY_THRESHOLD,
@@ -563,9 +564,11 @@ export class ReactEditorView<T = {}> extends React.Component<
   getPlugins(
     preset: EditorPresetBuilder<string[], AllEditorPresetPluginTypes[]>,
   ): EditorPlugin[] {
-    const plugins = preset.build({
-      pluginInjectionAPI: this.pluginInjectionAPI,
-    });
+    const plugins = createPluginsList(
+      preset,
+      this.props.editorProps,
+      this.pluginInjectionAPI,
+    );
 
     this.editorPlugins = plugins;
 
@@ -903,7 +906,7 @@ export class ReactEditorView<T = {}> extends React.Component<
 
           const contextIdentifier = this.pluginInjectionAPI
             .api()
-            .dependencies.base?.sharedState.currentState() as
+            .base?.sharedState.currentState() as
             | ContextIdentifierProvider
             | undefined;
 

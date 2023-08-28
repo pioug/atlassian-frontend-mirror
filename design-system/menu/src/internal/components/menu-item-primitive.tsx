@@ -212,7 +212,7 @@ const MenuItemPrimitive = ({
   iconAfter,
   iconBefore,
   overrides,
-  className,
+  className: UNSAFE_externalClassName,
   shouldTitleWrap = false,
   shouldDescriptionWrap = false,
   isDisabled = false,
@@ -229,6 +229,11 @@ const MenuItemPrimitive = ({
   const selectionStyle = useContext(SELECTION_STYLE_CONTEXT_DO_NOT_USE);
   const renderTitle =
     (overrides && overrides.Title && overrides.Title.render) || defaultRender;
+  const UNSAFE_className = getBooleanFF(
+    'platform.design-system-team.unsafe-overrides-killswitch_c8j9m',
+  )
+    ? undefined
+    : UNSAFE_externalClassName;
 
   return (
     <ClassNames>
@@ -256,7 +261,7 @@ const MenuItemPrimitive = ({
                     ],
                   isDisabled ? disabledStyles : interactiveStyles,
                 ]),
-                className,
+                UNSAFE_className,
               ]),
               children: (
                 <Inline

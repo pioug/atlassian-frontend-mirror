@@ -25,7 +25,7 @@ import {
 } from '../../../utils';
 import { LinkAction } from '../../../../../state/hooks-external/useSmartLinkActions';
 import { CustomActionItem } from '../../../../FlexibleCard/components/blocks/types';
-import SnippetOrPreview from '../../SnippetOrPreview';
+import ImagePreview from '../../ImagePreview';
 import {
   extractMetadata,
   elementNamesToItems,
@@ -130,13 +130,16 @@ const HoverCardResolvedView: React.FC<HoverCardResolvedProps> = ({
       snippetBlockRef.current?.getBoundingClientRect().height ?? 0;
   }, []);
 
-  const body = SnippetOrPreview({
+  const imagePreview = ImagePreview({
     data: data,
-    snippetHeight: snippetHeight.current,
+    fallbackElementHeight: snippetHeight.current,
   });
 
   return (
     <FlexibleCard {...flexibleCardProps}>
+      {getBooleanFF(
+        'platform.linking-platform.smart-card.enable-better-metadata_iojwg',
+      ) && imagePreview}
       <TitleBlock
         {...titleBlockProps}
         metadataPosition={SmartLinkPosition.Top}
@@ -151,7 +154,11 @@ const HoverCardResolvedView: React.FC<HoverCardResolvedProps> = ({
           'platform.linking-platform.smart-card.enable-better-metadata_iojwg',
         ) && { size: SmartLinkSize.Medium })}
       />
-      {body}
+      {!imagePreview && <SnippetBlock />}
+      {!getBooleanFF(
+        'platform.linking-platform.smart-card.enable-better-metadata_iojwg',
+      ) && imagePreview}
+
       <SnippetBlock
         testId={'hidden-snippet'}
         onRender={onSnippetRender}

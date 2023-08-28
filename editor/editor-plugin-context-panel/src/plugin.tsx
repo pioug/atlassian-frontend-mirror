@@ -1,12 +1,12 @@
-import React from 'react';
+import type React from 'react';
 
-import { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
+import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { NextEditorPlugin } from '@atlaskit/editor-common/types';
+import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 
 import { applyChange } from './transforms';
-import { ContextPanelHandler } from './types';
+import type { ContextPanelHandler } from './types';
 
 export const pluginKey = new PluginKey<ContextPanelPluginState>(
   'contextPanelPluginKey',
@@ -61,10 +61,12 @@ function contextPanelPluginFactory(
   });
 }
 
-export const contextPanelPlugin: NextEditorPlugin<
+export type ContextPanelPlugin = NextEditorPlugin<
   'contextPanel',
   { actions: { applyChange: typeof applyChange } }
-> = () => ({
+>;
+
+export const contextPanelPlugin: ContextPanelPlugin = () => ({
   name: 'contextPanel',
 
   actions: {

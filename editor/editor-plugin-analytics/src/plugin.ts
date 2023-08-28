@@ -1,18 +1,16 @@
 import { useLayoutEffect } from 'react';
 
-import {
-  AnalyticsStep,
-  AnalyticsWithChannel,
-} from '@atlaskit/adf-schema/steps';
+import type { AnalyticsWithChannel } from '@atlaskit/adf-schema/steps';
+import { AnalyticsStep } from '@atlaskit/adf-schema/steps';
 import { FabricChannel } from '@atlaskit/analytics-listeners';
-import {
-  CreateUIAnalyticsEvent,
-  useAnalyticsEvents,
-} from '@atlaskit/analytics-next';
-import {
-  ACTION,
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+import type {
   AnalyticsEventPayload,
   EditorAnalyticsAPI,
+} from '@atlaskit/editor-common/analytics';
+import {
+  ACTION,
   EVENT_TYPE,
   fireAnalyticsEvent,
   getAnalyticsEventsFromTransaction,
@@ -27,13 +25,11 @@ import {
   isPerformanceAPIAvailable,
   measureRender,
 } from '@atlaskit/editor-common/utils';
-import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
-import { Transaction } from '@atlaskit/editor-prosemirror/state';
+import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
-import {
-  createAttachPayloadIntoTransaction,
-  CreateAttachPayloadIntoTransaction,
-} from './analytics-api/attach-payload-into-transaction';
+import type { CreateAttachPayloadIntoTransaction } from './analytics-api/attach-payload-into-transaction';
+import { createAttachPayloadIntoTransaction } from './analytics-api/attach-payload-into-transaction';
 import { analyticsPluginKey } from './plugin-key';
 import { generateUndoRedoInputSoucePayload } from './undo-redo-input-source';
 
@@ -119,7 +115,7 @@ function createPlugin(
   });
 }
 
-const analyticsPlugin: NextEditorPlugin<
+export type AnalyticsPlugin = NextEditorPlugin<
   'analytics',
   {
     pluginConfiguration: AnalyticsPluginOptions;
@@ -127,12 +123,13 @@ const analyticsPlugin: NextEditorPlugin<
       createAnalyticsEvent: CreateUIAnalyticsEvent | null;
       attachAnalyticsEvent: CreateAttachPayloadIntoTransaction | null;
     };
-    dependencies: [typeof featureFlagsPlugin];
+    dependencies: [FeatureFlagsPlugin];
     actions: EditorAnalyticsAPI;
   }
-> = (options, api) => {
-  const featureFlags =
-    api?.dependencies.featureFlags?.sharedState.currentState() || {};
+>;
+
+const analyticsPlugin: AnalyticsPlugin = ({ config: options = {}, api }) => {
+  const featureFlags = api?.featureFlags?.sharedState.currentState() || {};
 
   return {
     name: 'analytics',
@@ -162,7 +159,7 @@ const analyticsPlugin: NextEditorPlugin<
         ) =>
         (tr: Transaction) => {
           const { createAnalyticsEvent, attachAnalyticsEvent } =
-            api?.dependencies.analytics?.sharedState.currentState() ?? {};
+            api?.analytics?.sharedState.currentState() ?? {};
           if (!tr || !createAnalyticsEvent || !attachAnalyticsEvent) {
             return false;
           }

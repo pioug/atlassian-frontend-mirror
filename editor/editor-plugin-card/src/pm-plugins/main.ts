@@ -1,6 +1,6 @@
 import rafSchedule from 'raf-schd';
 
-import { ProviderHandler } from '@atlaskit/editor-common/provider-factory';
+import type { ProviderHandler } from '@atlaskit/editor-common/provider-factory';
 import { getInlineNodeViewProducer } from '@atlaskit/editor-common/react-node-view';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { DATASOURCE_INNER_CONTAINER_CLASSNAME } from '@atlaskit/editor-common/styles';
@@ -9,17 +9,20 @@ import type {
   PMPluginFactoryParams,
 } from '@atlaskit/editor-common/types';
 import { canRenderDatasource } from '@atlaskit/editor-common/utils';
-import { EditorState, NodeSelection } from '@atlaskit/editor-prosemirror/state';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { eventsFromTransaction } from '../analytics/events-from-tr';
 import type { cardPlugin } from '../index';
-import { BlockCard, BlockCardNodeViewProps } from '../nodeviews/blockCard';
+import type { BlockCardNodeViewProps } from '../nodeviews/blockCard';
+import { BlockCard } from '../nodeviews/blockCard';
 import { Datasource } from '../nodeviews/datasource';
-import { EmbedCard, EmbedCardNodeViewProps } from '../nodeviews/embedCard';
+import type { EmbedCardNodeViewProps } from '../nodeviews/embedCard';
+import { EmbedCard } from '../nodeviews/embedCard';
 import { InlineCardNodeView } from '../nodeviews/inlineCard';
-import { CardPluginOptions, CardPluginState } from '../types';
+import type { CardPluginOptions, CardPluginState } from '../types';
 
 import {
   setCardLayoutAndDatasourceTableRef,
@@ -179,8 +182,8 @@ export const createPlugin =
                     provider,
                     request,
                     options,
-                    pluginInjectionApi?.dependencies.analytics?.actions,
-                    pluginInjectionApi?.dependencies.analytics?.sharedState.currentState()
+                    pluginInjectionApi?.analytics?.actions,
+                    pluginInjectionApi?.analytics?.sharedState.currentState()
                       ?.createAnalyticsEvent ?? undefined,
                   ),
                 );

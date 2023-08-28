@@ -33,7 +33,7 @@ const annotationPlugin: NextEditorPlugin<
     pluginConfiguration: AnnotationProviders | undefined;
     sharedState: InlineCommentPluginState | undefined;
   }
-> = (annotationProviders?, api?) => {
+> = ({ config: annotationProviders, api }) => {
   return {
     name: 'annotation',
 

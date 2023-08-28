@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import type { IntlShape } from 'react-intl-next';
 import type { ChangeEvent } from 'react';
 import Textfield from '@atlaskit/textfield';
 import Tooltip from '@atlaskit/tooltip';
@@ -14,6 +15,7 @@ import {
   pixelSizingWrapper,
   pixelEntryForm,
   pixelEntryHiddenSubmit,
+  pixelSizingFullWidthLabelStyles,
 } from './styles';
 import type { PixelEntryFormValues, PixelEntryProps } from './types';
 import { messages } from './messages';
@@ -24,9 +26,9 @@ export const PixelEntry = ({
   mediaWidth,
   mediaHeight,
   onSubmit,
-  validate,
   minWidth,
   maxWidth,
+  onChange,
   intl: { formatMessage },
   showMigration,
   onMigrate,
@@ -52,6 +54,10 @@ export const PixelEntry = ({
 
   // Handle submit when user presses enter in form
   const handleOnSubmit = (data: PixelEntryFormValues) => {
+    if (data.inputWidth === '' || data.inputHeight === '') {
+      return;
+    }
+
     if (onSubmit) {
       let widthToBeSumitted = data.inputWidth;
       let isInvalidInput = false;
@@ -78,53 +84,38 @@ export const PixelEntry = ({
     }
   };
 
-  // Syncronous validation returning undefined for valid and string for invalid
-  const handleValidateWidth = useCallback(
-    (value?: number | '') => {
-      if (!validate || value === undefined) {
-        return;
-      }
-      if (validate) {
-        return validate(value) === true
-          ? undefined
-          : formatMessage(messages.validationFailedMessage);
-      }
-      return;
-    },
-    [validate, formatMessage],
-  );
-
   // Handle updating computed fields based on
   const handleOnChange = useCallback(
     (type: string) => (event: ChangeEvent<HTMLInputElement>) => {
       const value = parseInt(event.currentTarget.value);
-      const newInputValue = isNaN(value)
-        ? ''
-        : parseInt(event.currentTarget.value);
+      const newInputValue = isNaN(value) ? '' : value;
+
+      let newWidth: number | '' = '';
 
       switch (type) {
         case 'inputWidth': {
+          newWidth = newInputValue;
           setComputedWidth(newInputValue);
-          if (newInputValue) {
-            setComputedHeight(Math.round(ratioWidth * value));
-          } else {
-            setComputedHeight('');
-          }
+          const newHeight =
+            newInputValue !== '' ? Math.round(ratioWidth * newInputValue) : '';
+          setComputedHeight(newHeight);
           break;
         }
 
         case 'inputHeight': {
           setComputedHeight(newInputValue);
-          if (newInputValue) {
-            setComputedWidth(Math.round(ratioHeight * value));
-          } else {
-            setComputedWidth('');
-          }
+          newWidth =
+            newInputValue !== '' ? Math.round(ratioHeight * newInputValue) : '';
+          setComputedWidth(newWidth);
           break;
         }
       }
+
+      const isInvalidInputValid =
+        newWidth !== '' && (newWidth < minWidth || newWidth > maxWidth);
+      onChange && onChange(isInvalidInputValid);
     },
-    [ratioHeight, ratioWidth],
+    [minWidth, maxWidth, onChange, ratioWidth, ratioHeight],
   );
 
   if (showMigration) {
@@ -152,7 +143,6 @@ export const PixelEntry = ({
                 <Field
                   key="inputWidth"
                   name="inputWidth"
-                  validate={handleValidateWidth}
                   defaultValue={computedWidth}
                 >
                   {({ fieldProps }) => (
@@ -212,6 +202,16 @@ export const PixelEntry = ({
           );
         }}
       </Form>
+    </div>
+  );
+};
+
+export const FullWidthDisplay: React.FC<{ intl: IntlShape }> = ({
+  intl: { formatMessage },
+}) => {
+  return (
+    <div css={pixelSizingFullWidthLabelStyles}>
+      <span>{formatMessage(messages.fullWidthLabel)}</span>
     </div>
   );
 };

@@ -9,7 +9,9 @@ const CustomHighlightComponent = () => <div>HighlightComponent</div>;
 describe('Highlight component', () => {
   it('should render custom component', () => {
     const { pluginsOptions } = mentionsPlugin({
-      HighlightComponent: CustomHighlightComponent,
+      config: {
+        HighlightComponent: CustomHighlightComponent,
+      },
     });
     const getHighlight = pluginsOptions?.typeAhead?.getHighlight;
     expect(getHighlight!({} as EditorState)).toEqual(
@@ -19,7 +21,7 @@ describe('Highlight component', () => {
 
   it('should not render custom component', () => {
     jest.spyOn(PluginKey.prototype, 'getState').mockImplementation(() => ({}));
-    const { pluginsOptions } = mentionsPlugin();
+    const { pluginsOptions } = mentionsPlugin({ config: undefined });
     const getHighlight = pluginsOptions?.typeAhead?.getHighlight;
 
     expect(getHighlight!({} as EditorState)).toEqual(null);

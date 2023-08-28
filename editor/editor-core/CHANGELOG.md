@@ -1,5 +1,88 @@
 # @atlaskit/editor-core
 
+## 187.32.2
+
+### Patch Changes
+
+- [`eab48233583`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eab48233583) - Calculate parent content width properly when inserting a nested media single node
+
+## 187.32.1
+
+### Patch Changes
+
+- [`37624e80f01`](https://bitbucket.org/atlassian/atlassian-frontend/commits/37624e80f01) - NO-ISSUE Cancel animation frame debounced call when unmounting scroll buttons
+- [`dc93b06778b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dc93b06778b) - Fix pasted mediaSingle nodes into parent nodes
+
+## 187.32.0
+
+### Minor Changes
+
+- [`8467bdcdf4f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8467bdcdf4f) - Removing `dependencies` prop from PluginInjectionAPI and changing
+  signature of `NextEditorPlugin`.
+
+  Previously a `NextEditorPlugin` would be consumed as so:
+
+  ```ts
+  const plugin: NextEditorPlugin< ... > = (config, api) => {
+    // Can use api like so:
+    api.dependencies.core.actions.execute( ... )
+    return { ... }
+  }
+  ```
+
+  Now these have become named parameters like so and the `pluginInjectionAPI` is used
+  without the `dependencies` prop:
+
+  ```ts
+  const plugin: NextEditorPlugin< ... > = ({ config, api }) => {
+    // Can use api like so:
+    api.core.actions.execute( ... )
+    return { ... }
+  }
+  ```
+
+### Patch Changes
+
+- [`8f2f42eab4d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f2f42eab4d) - update layout when submit pixel values in media toolbar
+- Updated dependencies
+
+## 187.31.7
+
+### Patch Changes
+
+- [`c3de9f17631`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c3de9f17631) - ED-19359:
+  editor-core: Migrated skipped test: packages/editor/editor-core/src/tests/integration/gap-cursor/gap-cursor.ts to Libra
+  Libra: added a new page-model(editor-confirmation-popup-base-model.ts) to libra package and updated editor extension model
+- [`a9feb9fae6e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a9feb9fae6e) - [ED-19672] Workaround tofix detached Extension calling NodeView.getPos
+
+## 187.31.6
+
+### Patch Changes
+
+- [`e0f020abea0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e0f020abea0) - created new plugin for unsupported-content, moved code and styles
+- [`dcf5ea47df4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dcf5ea47df4) - [ux] Display 'Full width' in media single floating toolbar when the node reaches full width
+- Updated dependencies
+
+## 187.31.5
+
+### Patch Changes
+
+- [`a1965abfbe9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a1965abfbe9) - Fix `allowBlockType` so that exclude codeBlock correctly disables codeBlock in the editor.
+- Updated dependencies
+
+## 187.31.4
+
+### Patch Changes
+
+- [`24e27147cbd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/24e27147cbd) - Added atlaskit docs to all existing plugins.
+- Updated dependencies
+
+## 187.31.3
+
+### Patch Changes
+
+- [`0debfab882f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0debfab882f) - ED-17959 prevent redundant rerenders on insert block component and due to typeahead state changes
+
 ## 187.31.2
 
 ### Patch Changes

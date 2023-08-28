@@ -43,7 +43,7 @@
     "@atlaskit/select": "^16.5.0",
     "@atlaskit/spinner": "^15.5.0",
     "@atlaskit/theme": "^12.5.0",
-    "@atlaskit/tokens": "^1.15.0",
+    "@atlaskit/tokens": "^1.17.0",
     "@atlaskit/tooltip": "^17.8.0",
     "@atlaskit/ufo": "^0.2.0",
     "@babel/runtime": "^7.0.0",

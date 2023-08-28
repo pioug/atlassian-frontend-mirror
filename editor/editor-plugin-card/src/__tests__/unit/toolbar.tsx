@@ -62,18 +62,16 @@ const mockEditorAnalyticsApi: EditorAnalyticsAPI = {
 };
 
 const mockPluginInjectionApi: any = {
-  dependencies: {
-    decorations: {
-      actions: {
-        hoverDecoration: () => () => {},
-      },
+  decorations: {
+    actions: {
+      hoverDecoration: () => () => {},
     },
-    analytics: {
-      actions: mockEditorAnalyticsApi,
-    },
-    card: {
-      actions: undefined,
-    },
+  },
+  analytics: {
+    actions: mockEditorAnalyticsApi,
+  },
+  card: {
+    actions: undefined,
   },
 };
 

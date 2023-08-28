@@ -42,10 +42,9 @@ describe('EditorPluginInjectionAPI', () => {
       type ActionsOne = {
         lol: typeof actionPluginOneFn;
       };
-      const plugin1: NextEditorPlugin<'one', { actions: ActionsOne }> = (
-        _,
+      const plugin1: NextEditorPlugin<'one', { actions: ActionsOne }> = ({
         api,
-      ) => {
+      }) => {
         return {
           name: 'one',
           actions: {
@@ -59,22 +58,21 @@ describe('EditorPluginInjectionAPI', () => {
         {
           dependencies: [typeof plugin1];
         }
-      > = (_, api) => {
-        api?.dependencies.one.actions.lol();
+      > = ({ api }) => {
+        api?.one.actions.lol();
         return {
           name: 'two',
         };
       };
 
-      const api = coreAPI.api();
-      const one = plugin1(undefined, api);
+      const api = coreAPI.api() as any;
+      const one = plugin1({ api, config: undefined });
       coreAPI.onEditorPluginInitialized(one);
 
-      const two = plugin2(
-        undefined,
-        // @ts-ignore
+      const two = plugin2({
         api,
-      );
+        config: undefined,
+      });
       coreAPI.onEditorPluginInitialized(two);
 
       expect(actionPluginOneFn).toHaveBeenCalled();
@@ -89,10 +87,9 @@ describe('EditorPluginInjectionAPI', () => {
     });
 
     it('should call the plugin dependency getSharedState', () => {
-      const plugin1: NextEditorPlugin<'one', { sharedState: number }> = (
-        _,
+      const plugin1: NextEditorPlugin<'one', { sharedState: number }> = ({
         api,
-      ) => {
+      }) => {
         return {
           name: 'one',
           getSharedState: getSharedStateFake,
@@ -103,25 +100,24 @@ describe('EditorPluginInjectionAPI', () => {
         {
           dependencies: [typeof plugin1];
         }
-      > = (_, api) => {
+      > = ({ api }) => {
         return {
           name: 'two',
 
           checkCurrentState: () => {
-            api?.dependencies.one.sharedState.currentState();
+            api?.one.sharedState.currentState();
           },
         };
       };
 
-      const api = coreAPI.api();
-      const one = plugin1(undefined, api);
+      const api = coreAPI.api() as any;
+      const one = plugin1({ api, config: undefined });
       coreAPI.onEditorPluginInitialized(one);
 
-      const two = plugin2(
-        undefined,
-        // @ts-ignore
+      const two = plugin2({
         api,
-      );
+        config: undefined,
+      });
       coreAPI.onEditorPluginInitialized(two);
 
       // @ts-ignore
@@ -133,10 +129,9 @@ describe('EditorPluginInjectionAPI', () => {
 
   describe('when the shared state changes', () => {
     it('should can the sharedState.onChange callback', () => {
-      const plugin1: NextEditorPlugin<'one', { sharedState: number }> = (
-        _,
+      const plugin1: NextEditorPlugin<'one', { sharedState: number }> = ({
         api,
-      ) => {
+      }) => {
         let counter = 1;
 
         return {
@@ -157,16 +152,17 @@ describe('EditorPluginInjectionAPI', () => {
         {
           dependencies: [typeof plugin1];
         }
-      > = (_, api) => {
-        api?.dependencies.one.sharedState.onChange(fakeOnChange);
+      > = ({ api }) => {
+        api?.one.sharedState.onChange(fakeOnChange);
         return {
           name: 'two',
         };
       };
+      const api = coreAPI.api() as any;
 
-      coreAPI.onEditorPluginInitialized(plugin1(undefined, coreAPI.api()));
+      coreAPI.onEditorPluginInitialized(plugin1({ api, config: undefined }));
 
-      coreAPI.onEditorPluginInitialized(plugin2(undefined, coreAPI.api()));
+      coreAPI.onEditorPluginInitialized(plugin2({ api, config: undefined }));
 
       coreAPI.onEditorViewUpdated({
         // @ts-ignore
@@ -190,10 +186,9 @@ describe('EditorPluginInjectionAPI', () => {
             name: string;
           };
         };
-        const plugin1: NextEditorPlugin<'one', { sharedState: OneState }> = (
-          _,
+        const plugin1: NextEditorPlugin<'one', { sharedState: OneState }> = ({
           api,
-        ) => {
+        }) => {
           return {
             name: 'one',
             getSharedState: (fakeEditorState) => {
@@ -221,15 +216,27 @@ describe('EditorPluginInjectionAPI', () => {
           {
             dependencies: [typeof plugin1];
           }
-        > = (_, api) => {
-          api?.dependencies.one.sharedState.onChange(fakeOnChange);
+        > = ({ api }) => {
+          api?.one.sharedState.onChange(fakeOnChange);
           return {
             name: 'two',
           };
         };
 
-        coreAPI.onEditorPluginInitialized(plugin1(undefined, coreAPI.api()));
-        coreAPI.onEditorPluginInitialized(plugin2(undefined, coreAPI.api()));
+        const api = coreAPI.api() as any;
+
+        coreAPI.onEditorPluginInitialized(
+          plugin1({
+            config: undefined,
+            api,
+          }),
+        );
+        coreAPI.onEditorPluginInitialized(
+          plugin2({
+            config: undefined,
+            api,
+          }),
+        );
 
         coreAPI.onEditorViewUpdated({
           // @ts-ignore
@@ -304,10 +311,9 @@ describe('EditorPluginInjectionAPI', () => {
 
   describe('notifyListeners', () => {
     it('should call the onChange by order', () => {
-      const plugin1: NextEditorPlugin<'one', { sharedState: number }> = (
-        _,
+      const plugin1: NextEditorPlugin<'one', { sharedState: number }> = ({
         api,
-      ) => {
+      }) => {
         return {
           name: 'one',
           getSharedState: (fakeEditorState) => {
@@ -316,11 +322,11 @@ describe('EditorPluginInjectionAPI', () => {
         };
       };
 
-      const api = coreAPI.api();
-      coreAPI.onEditorPluginInitialized(plugin1(undefined, api));
+      const api = coreAPI.api() as ExtractInjectionAPI<typeof plugin1>;
+      coreAPI.onEditorPluginInitialized(plugin1({ api, config: undefined }));
 
       const onChangeFn = jest.fn();
-      api?.dependencies?.one?.sharedState.onChange(onChangeFn);
+      api?.one?.sharedState.onChange(onChangeFn);
 
       const noUpdate: any = {
         oldEditorState: 1,
@@ -350,22 +356,22 @@ describe('EditorPluginInjectionAPI', () => {
     });
   });
 
-  describe('dependencies.core.actions.execute', () => {
+  describe('core.actions.execute', () => {
     it('shouldnt dispatch a transaction if no command passed', () => {
       const api = coreAPI.api();
-      expect(api.dependencies.core?.actions?.execute(undefined)).toBe(false);
+      expect(api.core?.actions?.execute(undefined)).toBe(false);
     });
 
     it('shouldnt dispatch a transaction if the EditorCommand returns null', () => {
       const api = coreAPI.api();
-      expect(api.dependencies.core?.actions?.execute(() => null)).toBe(false);
+      expect(api.core?.actions?.execute(() => null)).toBe(false);
     });
 
     it('should dispatch a transaction if the EditorCommand returns a transaction', () => {
       const api = coreAPI.api();
-      expect(
-        api.dependencies.core?.actions?.execute(({ tr }: { tr: any }) => tr),
-      ).toBe(true);
+      expect(api.core?.actions?.execute(({ tr }: { tr: any }) => tr)).toBe(
+        true,
+      );
       expect(fakeDispatch).toHaveBeenCalledWith(fakeTr);
     });
 
@@ -373,7 +379,7 @@ describe('EditorPluginInjectionAPI', () => {
       const plugin1: NextEditorPlugin<
         'one',
         { commands: { updateTransaction: EditorCommand } }
-      > = (_, api) => {
+      > = ({ api }) => {
         return {
           name: 'one',
           commands: {
@@ -383,13 +389,12 @@ describe('EditorPluginInjectionAPI', () => {
           },
         };
       };
-      const api: ExtractInjectionAPI<typeof plugin1> = coreAPI.api();
+      const api: ExtractInjectionAPI<typeof plugin1> =
+        coreAPI.api() as ExtractInjectionAPI<typeof plugin1>;
 
-      coreAPI.onEditorPluginInitialized(plugin1(undefined, api));
+      coreAPI.onEditorPluginInitialized(plugin1({ api, config: undefined }));
 
-      api.dependencies.core.actions.execute(
-        api?.dependencies.one?.commands?.updateTransaction,
-      );
+      api.core.actions.execute(api?.one?.commands?.updateTransaction);
       expect(fakeTr.insertText).toHaveBeenCalledWith('hello');
       expect(fakeDispatch).toHaveBeenCalledWith(42);
     });
@@ -398,7 +403,7 @@ describe('EditorPluginInjectionAPI', () => {
       const plugin1: NextEditorPlugin<
         'one',
         { commands: { updateTransaction: (meta: string) => EditorCommand } }
-      > = (_, api) => {
+      > = ({ api }) => {
         return {
           name: 'one',
           commands: {
@@ -410,13 +415,12 @@ describe('EditorPluginInjectionAPI', () => {
           },
         };
       };
-      const api: ExtractInjectionAPI<typeof plugin1> = coreAPI.api();
+      const api: ExtractInjectionAPI<typeof plugin1> =
+        coreAPI.api() as ExtractInjectionAPI<typeof plugin1>;
 
-      coreAPI.onEditorPluginInitialized(plugin1(undefined, api));
+      coreAPI.onEditorPluginInitialized(plugin1({ api, config: undefined }));
 
-      api.dependencies.core.actions.execute(
-        api?.dependencies.one?.commands?.updateTransaction('yo'),
-      );
+      api.core?.actions?.execute(api?.one?.commands?.updateTransaction('yo'));
       expect(fakeTr.insertText).toHaveBeenCalledWith('yo');
       expect(fakeDispatch).toHaveBeenCalledWith(42);
     });

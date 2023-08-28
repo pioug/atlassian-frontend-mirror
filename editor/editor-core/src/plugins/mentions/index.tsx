@@ -49,13 +49,13 @@ const mentionsPlugin: NextEditorPlugin<
     dependencies: [OptionalPlugin<typeof analyticsPlugin>, TypeAheadPlugin];
     sharedState: MentionPluginState | undefined;
   }
-> = (options?, api?) => {
+> = ({ config: options, api }) => {
   let sessionId = uuid();
   const fireEvent: FireElementsChannelEvent = <T extends AnalyticsEventPayload>(
     payload: T,
   ): void => {
     const { createAnalyticsEvent } =
-      api?.dependencies.analytics?.sharedState.currentState() ?? {};
+      api?.analytics?.sharedState.currentState() ?? {};
     if (!createAnalyticsEvent) {
       return;
     }
@@ -127,12 +127,12 @@ const mentionsPlugin: NextEditorPlugin<
             if (pluginState && pluginState.canInsertMention === false) {
               return false;
             }
-            api?.dependencies.typeAhead.commands.openTypeAheadAtCursor({
+            api?.typeAhead.commands.openTypeAheadAtCursor({
               triggerHandler: typeAhead,
               inputMethod: INPUT_METHOD.QUICK_INSERT,
             })({ tr });
 
-            api?.dependencies.analytics?.actions.attachAnalyticsEvent({
+            api?.analytics?.actions.attachAnalyticsEvent({
               action: ACTION.INVOKED,
               actionSubject: ACTION_SUBJECT.TYPEAHEAD,
               actionSubjectId: ACTION_SUBJECT_ID.TYPEAHEAD_MENTION,

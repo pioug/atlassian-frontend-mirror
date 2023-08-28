@@ -84,7 +84,7 @@ const saveOnEnterPlugin: NextEditorPlugin<
   {
     pluginConfiguration: Config | undefined;
   }
-> = (onSave?) => ({
+> = ({ config: onSave }) => ({
   name: 'saveOnEnter',
 
   pmPlugins() {

@@ -15,16 +15,16 @@
 <!--SECTION START: Main Entry Types-->
 
 ```ts
-import { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
-import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { Command } from '@atlaskit/editor-common/types';
-import type { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import type { ContentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 import type { EditorSelectionAPI } from '@atlaskit/editor-common/selection';
 import type { GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
-import type { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
+import type { GuidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import type { TableLayout } from '@atlaskit/adf-schema';
-import type { widthPlugin } from '@atlaskit/editor-plugin-width';
+import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
 
 // @public (undocumented)
 type InsertTableAction = (analyticsPayload: AnalyticsEventPayload) => Command;
@@ -81,6 +81,23 @@ interface PluginConfig {
 }
 
 // @public (undocumented)
+export type TablePlugin = NextEditorPlugin<
+  'table',
+  {
+    pluginConfiguration: TablePluginOptions | undefined;
+    actions: {
+      insertTable: InsertTableAction;
+    };
+    dependencies: [
+      AnalyticsPlugin,
+      ContentInsertionPlugin,
+      WidthPlugin,
+      GuidelinePlugin,
+    ];
+  }
+>;
+
+// @public (undocumented)
 interface TablePluginOptions {
   // (undocumented)
   allowContextualMenu?: boolean;
@@ -101,21 +118,7 @@ interface TablePluginOptions {
 }
 
 // @public (undocumented)
-export const tablesPlugin: NextEditorPlugin<
-  'table',
-  {
-    pluginConfiguration: TablePluginOptions | undefined;
-    actions: {
-      insertTable: InsertTableAction;
-    };
-    dependencies: [
-      typeof analyticsPlugin,
-      typeof contentInsertionPlugin,
-      typeof widthPlugin,
-      typeof guidelinePlugin,
-    ];
-  }
->;
+export const tablesPlugin: TablePlugin;
 
 // (No @packageDocumentation comment for this package)
 ```

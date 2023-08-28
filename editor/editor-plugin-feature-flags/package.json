@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-feature-flags",
-  "version": "0.1.7",
+  "version": "0.1.9",
   "description": "Feature flags plugin for @atlaskit/editor-core",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -27,7 +27,7 @@
     "releaseModel": "continuous"
   },
   "dependencies": {
-    "@atlaskit/editor-common": "^74.52.0",
+    "@atlaskit/editor-common": "^74.53.0",
     "@atlaskit/editor-prosemirror": "1.1.0",
     "@babel/runtime": "^7.0.0"
   },

@@ -158,7 +158,7 @@ const TypeAheadMenu: React.FC<TypeAheadMenuType> = React.memo(
  *
  *
  */
-const typeAheadPlugin: TypeAheadPlugin = (options?) => {
+const typeAheadPlugin: TypeAheadPlugin = ({ config: options }) => {
   const fireAnalyticsCallback = fireAnalyticsEvent(
     options?.createAnalyticsEvent,
   );

@@ -4,11 +4,11 @@ import type {
   NextEditorPlugin,
   OptionalPlugin,
 } from '@atlaskit/editor-common/types';
-import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { TypeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
-import type { EmojiId } from '@atlaskit/emoji';
 import type {
   EmojiDescription,
+  EmojiId,
   EmojiProvider,
   EmojiResourceConfig,
 } from '@atlaskit/emoji';
@@ -27,7 +27,7 @@ export type EmojiPlugin = NextEditorPlugin<
   'emoji',
   {
     pluginConfiguration: EmojiPluginOptions | undefined;
-    dependencies: [OptionalPlugin<typeof analyticsPlugin>, TypeAheadPlugin];
+    dependencies: [OptionalPlugin<AnalyticsPlugin>, TypeAheadPlugin];
     sharedState: EmojiPluginState | undefined;
     commands: {
       insertEmoji: (

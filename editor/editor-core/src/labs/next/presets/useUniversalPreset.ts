@@ -2,7 +2,7 @@ import { useLayoutEffect, useState } from 'react';
 import type { EditorProps } from '../../../types/editor-props';
 
 import { usePreviousState } from '@atlaskit/editor-common/hooks';
-import { createPreset } from '../../../create-editor/create-plugins-list';
+import { createPreset } from '../../../create-editor/create-preset';
 import { shouldRecreatePreset } from '../../../create-editor/preset-utils';
 import type { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
 

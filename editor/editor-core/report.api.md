@@ -27,7 +27,7 @@ import type { AllEditorPresetPluginTypes } from '@atlaskit/editor-common/types';
 import type { AllowedBlockTypes } from '@atlaskit/editor-common/types';
 import { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
 import type { AnalyticsEventPayload as AnalyticsEventPayload_2 } from '@atlaskit/analytics-next/AnalyticsEvent';
-import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { AnnotationTypes } from '@atlaskit/adf-schema';
 import { BrowserFreezetracking } from '@atlaskit/editor-common/types';
 import type { CardOptions } from '@atlaskit/editor-common/card';
@@ -44,7 +44,7 @@ import { createTable } from '@atlaskit/editor-plugin-table/commands';
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { darkModeStatusColorPalette } from '@atlaskit/editor-common/ui-color';
 import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import type { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
+import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import { dedupe } from '@atlaskit/editor-common/utils';
 import { DEFAULT_BORDER_COLOR } from '@atlaskit/editor-common/ui-color';
 import type { DirectEditorProps } from '@atlaskit/editor-prosemirror/view';
@@ -73,7 +73,7 @@ import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
 import type { ExtensionProvider } from '@atlaskit/editor-common/extensions';
 import { ExtensionType } from '@atlaskit/editor-common/provider-factory';
 import { FC } from 'react';
-import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { FireAnalyticsCallback } from '@atlaskit/editor-common/analytics';
 import type { FloatingToolbarPlugin } from '@atlaskit/editor-plugin-floating-toolbar';
 import type { FocusPlugin } from '@atlaskit/editor-plugin-focus';
@@ -81,8 +81,8 @@ import { FULL_WIDTH_MODE } from '@atlaskit/editor-common/analytics';
 import { GapCursorSelection } from '@atlaskit/editor-common/selection';
 import { Side as GapCursorSide } from '@atlaskit/editor-common/selection';
 import type { GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
-import type { gridPlugin } from '@atlaskit/editor-plugin-grid';
-import type { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
+import type { GridPlugin } from '@atlaskit/editor-plugin-grid';
+import type { GuidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import type { HeadingLevelsAndNormalText } from '@atlaskit/editor-common/types';
 import type { HyperlinkPluginOptions } from '@atlaskit/editor-common/types';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
@@ -166,7 +166,7 @@ import { UploadParams } from '@atlaskit/media-picker/types';
 import { UploadPreviewUpdateEventPayload } from '@atlaskit/media-picker/types';
 import type { UseStickyToolbarType } from '@atlaskit/editor-common/ui';
 import type { WeekDay } from '@atlaskit/calendar/types';
-import type { widthPlugin } from '@atlaskit/editor-plugin-width';
+import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
 import type { WidthPluginState } from '@atlaskit/editor-plugin-width';
 import { WithIntlProps } from 'react-intl-next';
 import { WithPluginState } from '@atlaskit/editor-common/with-plugin-state';
@@ -1208,12 +1208,12 @@ type MediaNextEditorPluginType = NextEditorPlugin<
   {
     pluginConfiguration: MediaOptions | undefined;
     dependencies: [
-      typeof featureFlagsPlugin,
-      OptionalPlugin<typeof analyticsPlugin>,
-      typeof guidelinePlugin,
-      typeof gridPlugin,
-      typeof widthPlugin,
-      typeof decorationsPlugin,
+      FeatureFlagsPlugin,
+      OptionalPlugin<AnalyticsPlugin>,
+      GuidelinePlugin,
+      GridPlugin,
+      WidthPlugin,
+      DecorationsPlugin,
       FloatingToolbarPlugin,
       EditorDisabledPlugin,
       FocusPlugin,

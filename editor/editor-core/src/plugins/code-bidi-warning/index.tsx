@@ -9,7 +9,7 @@ const codeBidiWarning: NextEditorPlugin<
   {
     pluginConfiguration: Config;
   }
-> = ({ appearance }) => ({
+> = ({ config }) => ({
   name: 'codeBidiWarning',
 
   pmPlugins() {
@@ -17,7 +17,7 @@ const codeBidiWarning: NextEditorPlugin<
       {
         name: 'codeBidiWarning',
         plugin: (options) => {
-          return createPlugin(options, { appearance });
+          return createPlugin(options, config);
         },
       },
     ];

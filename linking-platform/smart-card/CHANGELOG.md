@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 26.16.1
+
+### Patch Changes
+
+- [`8e0d75e3666`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8e0d75e3666) - Update Image preview styles for Hover Card
+
 ## 26.16.0
 
 ### Minor Changes

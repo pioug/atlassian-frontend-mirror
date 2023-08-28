@@ -198,8 +198,7 @@ export default class WebBridgeImpl
     pluginInjectionApi: ExtractInjectionAPI<typeof mobileApiPlugin> | undefined,
   ) {
     this.pluginInjectionApi = pluginInjectionApi;
-    this.editorAnalyticsApi =
-      pluginInjectionApi?.dependencies.analytics?.actions;
+    this.editorAnalyticsApi = pluginInjectionApi?.analytics?.actions;
   }
 
   getPluginInjectionApi() {
@@ -256,8 +255,8 @@ export default class WebBridgeImpl
     inputMethod: TextFormattingInputMethodBasic = INPUT_METHOD.TOOLBAR,
   ) {
     if (this.textFormatBridgeState) {
-      this.pluginInjectionApi?.dependencies.core.actions.execute(
-        this.pluginInjectionApi?.dependencies.textFormatting.commands.toggleStrong(
+      this.pluginInjectionApi?.core.actions.execute(
+        this.pluginInjectionApi?.textFormatting.commands.toggleStrong(
           inputMethod,
         ),
       );
@@ -268,10 +267,8 @@ export default class WebBridgeImpl
     inputMethod: TextFormattingInputMethodBasic = INPUT_METHOD.TOOLBAR,
   ) {
     if (this.textFormatBridgeState) {
-      this.pluginInjectionApi?.dependencies.core.actions.execute(
-        this.pluginInjectionApi?.dependencies.textFormatting.commands.toggleEm(
-          inputMethod,
-        ),
+      this.pluginInjectionApi?.core.actions.execute(
+        this.pluginInjectionApi?.textFormatting.commands.toggleEm(inputMethod),
       );
     }
   }
@@ -280,8 +277,8 @@ export default class WebBridgeImpl
     inputMethod: TextFormattingInputMethodBasic = INPUT_METHOD.TOOLBAR,
   ) {
     if (this.textFormatBridgeState) {
-      this.pluginInjectionApi?.dependencies.core.actions.execute(
-        this.pluginInjectionApi?.dependencies.textFormatting.commands.toggleUnderline(
+      this.pluginInjectionApi?.core.actions.execute(
+        this.pluginInjectionApi?.textFormatting.commands.toggleUnderline(
           inputMethod,
         ),
       );
@@ -292,8 +289,8 @@ export default class WebBridgeImpl
     inputMethod: TextFormattingInputMethodBasic = INPUT_METHOD.TOOLBAR,
   ) {
     if (this.textFormatBridgeState) {
-      this.pluginInjectionApi?.dependencies.core.actions.execute(
-        this.pluginInjectionApi?.dependencies.textFormatting.commands.toggleCode(
+      this.pluginInjectionApi?.core.actions.execute(
+        this.pluginInjectionApi?.textFormatting.commands.toggleCode(
           inputMethod,
         ),
       );
@@ -304,8 +301,8 @@ export default class WebBridgeImpl
     inputMethod: TextFormattingInputMethodBasic = INPUT_METHOD.TOOLBAR,
   ) {
     if (this.textFormatBridgeState) {
-      this.pluginInjectionApi?.dependencies.core.actions.execute(
-        this.pluginInjectionApi?.dependencies.textFormatting.commands.toggleStrike(
+      this.pluginInjectionApi?.core.actions.execute(
+        this.pluginInjectionApi?.textFormatting.commands.toggleStrike(
           inputMethod,
         ),
       );
@@ -316,8 +313,8 @@ export default class WebBridgeImpl
     inputMethod: TextFormattingInputMethodBasic = INPUT_METHOD.TOOLBAR,
   ) {
     if (this.textFormatBridgeState) {
-      this.pluginInjectionApi?.dependencies.core.actions.execute(
-        this.pluginInjectionApi?.dependencies.textFormatting.commands.toggleSuperscript(
+      this.pluginInjectionApi?.core.actions.execute(
+        this.pluginInjectionApi?.textFormatting.commands.toggleSuperscript(
           inputMethod,
         ),
       );
@@ -328,8 +325,8 @@ export default class WebBridgeImpl
     inputMethod: TextFormattingInputMethodBasic = INPUT_METHOD.TOOLBAR,
   ) {
     if (this.textFormatBridgeState) {
-      this.pluginInjectionApi?.dependencies.core.actions.execute(
-        this.pluginInjectionApi?.dependencies.textFormatting.commands.toggleSubscript(
+      this.pluginInjectionApi?.core.actions.execute(
+        this.pluginInjectionApi?.textFormatting.commands.toggleSubscript(
           inputMethod,
         ),
       );
@@ -521,40 +518,32 @@ export default class WebBridgeImpl
 
   onOrderedListSelected(inputMethod: ListInputMethod = INPUT_METHOD.TOOLBAR) {
     if (this.listBridgeState && this.editorView) {
-      this.pluginInjectionApi?.dependencies.core.actions.execute(
-        this.pluginInjectionApi?.dependencies.list?.commands?.toggleOrderedList(
-          inputMethod,
-        ),
+      this.pluginInjectionApi?.core.actions.execute(
+        this.pluginInjectionApi?.list?.commands?.toggleOrderedList(inputMethod),
       );
     }
   }
 
   onBulletListSelected(inputMethod: ListInputMethod = INPUT_METHOD.TOOLBAR) {
     if (this.listBridgeState && this.editorView) {
-      this.pluginInjectionApi?.dependencies.core.actions.execute(
-        this.pluginInjectionApi?.dependencies.list?.commands?.toggleBulletList(
-          inputMethod,
-        ),
+      this.pluginInjectionApi?.core.actions.execute(
+        this.pluginInjectionApi?.list?.commands?.toggleBulletList(inputMethod),
       );
     }
   }
 
   onIndentList(inputMethod: ListInputMethod = INPUT_METHOD.TOOLBAR) {
     if (this.listBridgeState && this.editorView) {
-      this.pluginInjectionApi?.dependencies.core.actions.execute(
-        this.pluginInjectionApi?.dependencies.list?.commands?.indentList(
-          inputMethod,
-        ),
+      this.pluginInjectionApi?.core.actions.execute(
+        this.pluginInjectionApi?.list?.commands?.indentList(inputMethod),
       );
     }
   }
 
   onOutdentList(inputMethod: ListInputMethod = INPUT_METHOD.TOOLBAR) {
     if (this.listBridgeState && this.editorView) {
-      this.pluginInjectionApi?.dependencies.core.actions.execute(
-        this.pluginInjectionApi?.dependencies.list?.commands?.outdentList(
-          inputMethod,
-        ),
+      this.pluginInjectionApi?.core.actions.execute(
+        this.pluginInjectionApi?.list?.commands?.outdentList(inputMethod),
       );
     }
   }
@@ -576,7 +565,7 @@ export default class WebBridgeImpl
       (!isLinkAtPos(from)(state) && from === to) ||
       !isTextAtPos(from)(state)
     ) {
-      this.pluginInjectionApi?.dependencies.hyperlink.actions.insertLink(
+      this.pluginInjectionApi?.hyperlink.actions.insertLink(
         inputMethod,
         from,
         to,
@@ -595,7 +584,7 @@ export default class WebBridgeImpl
         }
       : { leftBound: from, rightBound: to };
 
-    return this.pluginInjectionApi?.dependencies.hyperlink.actions.updateLink(
+    return this.pluginInjectionApi?.hyperlink.actions.updateLink(
       url,
       text || url,
       leftBound,
@@ -738,14 +727,14 @@ export default class WebBridgeImpl
           return;
         }
 
-        this.pluginInjectionApi?.dependencies.core.actions.execute(
-          this.pluginInjectionApi?.dependencies.quickInsert?.commands.search({
+        this.pluginInjectionApi?.core.actions.execute(
+          this.pluginInjectionApi?.quickInsert?.commands.search({
             query,
             disableDefaultItems: true,
           }),
         );
         const quickInsertList =
-          this.pluginInjectionApi?.dependencies.quickInsert?.sharedState.currentState()
+          this.pluginInjectionApi?.quickInsert?.sharedState.currentState()
             ?.suggestions;
 
         const quickInsertItem = quickInsertList?.[index];

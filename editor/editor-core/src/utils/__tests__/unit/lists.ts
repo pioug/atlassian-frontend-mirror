@@ -40,7 +40,7 @@ describe('doesSelectionWhichStartsOrEndsInListContainEntireList', () => {
     expect(
       doesSelectionWhichStartsOrEndsInListContainEntireList(
         editorView.state.selection,
-        editorAPI.dependencies.list?.actions?.findRootParentListNode,
+        editorAPI.list?.actions?.findRootParentListNode,
       ),
     ).toBe(true);
   });
@@ -52,7 +52,7 @@ describe('doesSelectionWhichStartsOrEndsInListContainEntireList', () => {
     expect(
       doesSelectionWhichStartsOrEndsInListContainEntireList(
         editorView.state.selection,
-        editorAPI.dependencies.list?.actions?.findRootParentListNode,
+        editorAPI.list?.actions?.findRootParentListNode,
       ),
     ).toBe(true);
   });
@@ -67,7 +67,7 @@ describe('doesSelectionWhichStartsOrEndsInListContainEntireList', () => {
     expect(
       doesSelectionWhichStartsOrEndsInListContainEntireList(
         editorView.state.selection,
-        editorAPI.dependencies.list?.actions?.findRootParentListNode,
+        editorAPI.list?.actions?.findRootParentListNode,
       ),
     ).toBe(true);
   });
@@ -77,7 +77,7 @@ describe('doesSelectionWhichStartsOrEndsInListContainEntireList', () => {
     expect(
       doesSelectionWhichStartsOrEndsInListContainEntireList(
         editorView.state.selection,
-        editorAPI.dependencies.list?.actions?.findRootParentListNode,
+        editorAPI.list?.actions?.findRootParentListNode,
       ),
     ).toBe(false);
   });
@@ -89,7 +89,7 @@ describe('doesSelectionWhichStartsOrEndsInListContainEntireList', () => {
     expect(
       doesSelectionWhichStartsOrEndsInListContainEntireList(
         editorView.state.selection,
-        editorAPI.dependencies.list?.actions?.findRootParentListNode,
+        editorAPI.list?.actions?.findRootParentListNode,
       ),
     ).toBe(false);
   });
@@ -101,7 +101,7 @@ describe('doesSelectionWhichStartsOrEndsInListContainEntireList', () => {
     expect(
       doesSelectionWhichStartsOrEndsInListContainEntireList(
         editorView.state.selection,
-        editorAPI.dependencies.list?.actions?.findRootParentListNode,
+        editorAPI.list?.actions?.findRootParentListNode,
       ),
     ).toBe(false);
   });

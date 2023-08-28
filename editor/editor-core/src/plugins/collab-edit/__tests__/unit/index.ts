@@ -43,7 +43,7 @@ describe('collab-edit: index.ts', () => {
 
   describe('when onEditorViewStateUpdated is called', () => {
     it('should call collab send function', (done) => {
-      const editorPlugin = collabEditPlugin({});
+      const editorPlugin = collabEditPlugin({ config: {} });
       const collabFactoryPlugin: PMPlugin = editorPlugin.pmPlugins!()[0];
       const props: PMPluginFactoryParams = {
         dispatch,

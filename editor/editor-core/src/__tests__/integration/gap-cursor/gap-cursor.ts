@@ -6,13 +6,11 @@ import {
 import type { EditorAppearance } from '../../../types';
 import type { BrowserObject } from '@atlaskit/webdriver-runner/wd-wrapper';
 import * as infoPanelAdf from './__fixtures__/info-panel.adf.json';
-import * as connectedExtensionAdf from './__fixtures__/connected-extensions.adf.json';
 import * as listWithCodeBlockAdf from './__fixtures__/list-with-code-block.adf.json';
 import { panelSelectors } from '@atlaskit/editor-test-helpers/page-objects/panel';
 import { selectors } from '@atlaskit/editor-test-helpers/page-objects/editor';
 import { listSelectors } from '@atlaskit/editor-test-helpers/page-objects/list';
 import {
-  expectToMatchSelection,
   simulateProsemirrorClick,
   setProseMirrorTextSelection,
 } from '@atlaskit/editor-test-helpers/integration/helpers';
@@ -66,54 +64,5 @@ BrowserTestCase(
 
     const gapCursorVisible = await page.isVisible(gapCursorInnerSelector);
     expect(gapCursorVisible).toBe(true);
-  },
-);
-
-// FIXME: This test was automatically skipped due to failure on 04/08/2023: https://product-fabric.atlassian.net/browse/ED-19359
-BrowserTestCase(
-  `gap-cursor: should stay where it was after confirmation dialog closed`,
-  {
-    skip: ['*'],
-  },
-  async (browser: BrowserObject) => {
-    const page = await goToEditorTestingWDExample(browser);
-
-    await mountEditor(page, {
-      appearance: 'full-page',
-      allowExtension: {
-        allowAutoSave: true,
-      },
-      allowFragmentMark: true,
-      defaultValue: connectedExtensionAdf,
-    });
-
-    const extensionContainerSelector = '.extension-container';
-    const removeButtonSelector = 'button[aria-label="Remove"]';
-    const confirmationModalTestId = 'ak-floating-toolbar-confirmation-modal';
-    const checkboxSelector = `input[type="checkbox"]`;
-    const deleteButtonSelector = `button[data-testid="${confirmationModalTestId}-confirm-button"]`;
-
-    // Click extension
-    await page.waitForVisible(extensionContainerSelector);
-    await page.click(extensionContainerSelector);
-
-    // Click remove button on the floating toobar of the extension
-    await page.isClickable(removeButtonSelector);
-    await page.click(removeButtonSelector);
-
-    // Click checkbox on the confirmation dialog
-    await page.isClickable(`section[data-testid="${confirmationModalTestId}"]`);
-    await page.click(checkboxSelector);
-
-    // Click Delete on the confirmation dialog
-    await page.isClickable(deleteButtonSelector);
-    await page.click(deleteButtonSelector);
-
-    // Gap cursor should be at position 165
-    await expectToMatchSelection(page, {
-      type: 'text',
-      anchor: 165,
-      head: 165,
-    });
   },
 );

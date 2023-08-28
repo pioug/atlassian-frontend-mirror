@@ -33,16 +33,19 @@ describe('EmojiTypeAhead', () => {
             }),
         },
       });
-      const emojiPluginMonkeyPatched = (
-        options: EmojiPluginOptions,
-        api: any,
-      ) => {
-        const emojiEditorPlugin = emojiPlugin(options, api);
+      const emojiPluginMonkeyPatched = ({
+        config,
+        api,
+      }: {
+        config: EmojiPluginOptions;
+        api?: any;
+      }) => {
+        const emojiEditorPlugin = emojiPlugin({ config, api });
         return {
           ...emojiEditorPlugin,
           pluginsOptions: {
             typeAhead: {
-              ...emojiPlugin(options).pluginsOptions!.typeAhead!,
+              ...emojiPlugin({ config, api }).pluginsOptions!.typeAhead!,
               getItems:
                 customGetItems ||
                 emojiEditorPlugin.pluginsOptions!.typeAhead!.getItems,

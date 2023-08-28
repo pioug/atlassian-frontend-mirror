@@ -7,11 +7,11 @@ import {
   tableRow,
   tableWithCustomWidth,
 } from '@atlaskit/adf-schema';
+import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
 import {
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
-  AnalyticsEventPayload,
   EVENT_TYPE,
   INPUT_METHOD,
   TABLE_ACTION,
@@ -31,11 +31,11 @@ import type {
 } from '@atlaskit/editor-common/types';
 import { browser } from '@atlaskit/editor-common/utils';
 import { WithPluginState } from '@atlaskit/editor-common/with-plugin-state';
-import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import type { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
-import type { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
-import type { widthPlugin } from '@atlaskit/editor-plugin-width';
-import { Transaction } from '@atlaskit/editor-prosemirror/state';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { ContentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import type { GuidelinePlugin } from '@atlaskit/editor-plugin-guideline';
+import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { tableEditing } from '@atlaskit/editor-tables/pm-plugins';
 import { createTable } from '@atlaskit/editor-tables/utils';
@@ -62,7 +62,7 @@ import {
   pluginKey as tableWidthPluginKey,
 } from './pm-plugins/table-width';
 import { getToolbarConfig } from './toolbar';
-import { ColumnResizingPluginState, PluginConfig } from './types';
+import type { ColumnResizingPluginState, PluginConfig } from './types';
 import FloatingContextualButton from './ui/FloatingContextualButton';
 import FloatingContextualMenu from './ui/FloatingContextualMenu';
 import FloatingDeleteButton from './ui/FloatingDeleteButton';
@@ -88,7 +88,7 @@ type InsertTableAction = (analyticsPayload: AnalyticsEventPayload) => Command;
 
 const defaultGetEditorFeatureFlags = () => ({});
 
-const tablesPlugin: NextEditorPlugin<
+export type TablePlugin = NextEditorPlugin<
   'table',
   {
     pluginConfiguration: TablePluginOptions | undefined;
@@ -96,21 +96,23 @@ const tablesPlugin: NextEditorPlugin<
       insertTable: InsertTableAction;
     };
     dependencies: [
-      typeof analyticsPlugin,
-      typeof contentInsertionPlugin,
-      typeof widthPlugin,
-      typeof guidelinePlugin,
+      AnalyticsPlugin,
+      ContentInsertionPlugin,
+      WidthPlugin,
+      GuidelinePlugin,
     ];
   }
-> = (options?: TablePluginOptions, api?) => {
+>;
+
+const tablesPlugin: TablePlugin = ({ config: options, api }) => {
   const editorViewRef: Record<'current', EditorView | null> = { current: null };
   const defaultGetEditorContainerWidth: GetEditorContainerWidth = () => {
     const defaultState = {
       width: document?.body?.offsetWidth ?? 500,
     };
-    return api?.dependencies.width.sharedState.currentState() ?? defaultState;
+    return api?.width.sharedState.currentState() ?? defaultState;
   };
-  const editorAnalyticsAPI = api?.dependencies.analytics?.actions;
+  const editorAnalyticsAPI = api?.analytics?.actions;
 
   return {
     name: 'table',
@@ -124,7 +126,7 @@ const tablesPlugin: NextEditorPlugin<
           });
 
           return (
-            api?.dependencies?.contentInsertion?.actions?.insert({
+            api?.contentInsertion?.actions?.insert({
               state,
               dispatch,
               node,

@@ -14,6 +14,7 @@ import ModalHeader from '../../examples/constellation/modal-header-default';
 import ModalCustomHeader from '../../examples/constellation/modal-header-custom';
 import ModalFooter from '../../examples/constellation/modal-footer-default';
 import ModalCustomFooter from '../../examples/constellation/modal-footer-custom';
+import ModalCurrentSurface from '../../examples/constellation/modal-current-surface';
 
 ## Default
 
@@ -141,5 +142,16 @@ footer.
 
 <Example
   Component={ModalCustomFooter}
+  packageName="@atlaskit/modal-dialog"
+/>
+
+## Surface detection
+
+Modal dialog sets the [current surface CSS variable](/components/tokens/code#current-surface-color) to the Modal surface color.
+
+Using the `utility.elevation.surface.current` design token allows elements to be styled with a color based on the current surface color.
+
+<Example
+  Component={ModalCurrentSurface}
   packageName="@atlaskit/modal-dialog"
 />

@@ -368,7 +368,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
     if (isMediaSingle(state.schema, mediaStateWithContext.fileMimeType)) {
       // read width state right before inserting to get up-to-date and define values
       const widthPluginState: WidthPluginState | undefined =
-        this.pluginInjectionApi?.dependencies.width.sharedState.currentState();
+        this.pluginInjectionApi?.width.sharedState.currentState();
 
       insertMediaSingleNode(
         this.view,
@@ -378,7 +378,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
         this.mediaOptions && this.mediaOptions.alignLeftOnInsert,
         this.newInsertionBehaviour,
         widthPluginState,
-        pluginInjectionApi?.dependencies?.analytics?.actions,
+        pluginInjectionApi?.analytics?.actions,
       );
     } else if (
       getMediaFeatureFlag('mediaInline', this.mediaOptions?.featureFlags) &&
@@ -386,18 +386,14 @@ export class MediaPluginStateImplementation implements MediaPluginState {
       (!isInsidePotentialEmptyParagraph(state) || isInListItem(state)) &&
       canInsertMediaInline(state)
     ) {
-      insertMediaInlineNode(
-        pluginInjectionApi?.dependencies?.analytics?.actions,
-      )(
+      insertMediaInlineNode(pluginInjectionApi?.analytics?.actions)(
         this.view,
         mediaStateWithContext,
         collection,
         this.getInputMethod(pickerType),
       );
     } else {
-      insertMediaGroupNode(
-        pluginInjectionApi?.dependencies?.analytics?.actions,
-      )(
+      insertMediaGroupNode(pluginInjectionApi?.analytics?.actions)(
         this.view,
         [mediaStateWithContext],
         collection,

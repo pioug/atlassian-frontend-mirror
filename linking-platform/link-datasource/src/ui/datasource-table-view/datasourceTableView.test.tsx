@@ -204,7 +204,7 @@ describe('DatasourceTableView', () => {
     getByRole('button', { name: 'Refresh' }).click();
 
     expect(mockReset).toHaveBeenCalledTimes(1);
-    expect(mockReset).toHaveBeenCalledWith(true);
+    expect(mockReset).toHaveBeenCalledWith({ shouldForceRequest: true });
   });
 
   describe('when results are not returned', () => {

@@ -1,4 +1,4 @@
-import { NextEditorPlugin, OptionalPlugin } from '../../types';
+import type { NextEditorPlugin, OptionalPlugin } from '../../types';
 import { EditorPresetBuilder } from '../builder';
 
 type BasicDogConfig = { lovesTreats?: boolean; treatsPerBite?: number };
@@ -27,12 +27,12 @@ const PluginBark: NextEditorPlugin<
     sharedState: BarkState;
     dependencies: [typeof PluginDog];
   }
-> = (_, api) => {
-  const dogState = api?.dependencies.dog.sharedState.currentState();
+> = ({ api }) => {
+  const dogState = api?.dog.sharedState.currentState();
   // eslint-disable-next-line no-console
   console.log(dogState?.goodDog);
 
-  api?.dependencies.dog.sharedState.onChange(({ nextSharedState }) => {
+  api?.dog.sharedState.onChange(({ nextSharedState }) => {
     // eslint-disable-next-line no-console
     console.log(nextSharedState.goodDog);
   });
@@ -72,9 +72,9 @@ const PluginBarkLoud: NextEditorPlugin<
   {
     dependencies: [typeof PluginBark, typeof PluginDog];
   }
-> = (_, api) => {
-  api?.dependencies.dog.sharedState.currentState()?.goodDog;
-  api?.dependencies.bark.sharedState.currentState()?.coisa;
+> = ({ api }) => {
+  api?.dog.sharedState.currentState()?.goodDog;
+  api?.bark.sharedState.currentState()?.coisa;
 
   return {
     name: 'bark-loud',
@@ -104,7 +104,7 @@ describe('next-editor-plugin internal plugin / consumer behaviour', () => {
         {
           pluginConfiguration: Config;
         }
-      > = (config) => ({
+      > = ({ config }) => ({
         name: 'pluginWithSomeMandatoryConfig',
         readProps: () => {
           expect(config.mandatoryValue).toEqual(config.mandatoryValue);
@@ -121,7 +121,7 @@ describe('next-editor-plugin internal plugin / consumer behaviour', () => {
         mandatoryValue: { bar: false },
       };
 
-      const plugin = PluginWithSomeMandatoryConfig(config);
+      const plugin = PluginWithSomeMandatoryConfig({ config });
 
       expect((plugin as any).readProps()).toEqual(config);
       expect((plugin as any).readProps()).not.toEqual({ nonsense: true });
@@ -138,7 +138,7 @@ describe('next-editor-plugin internal plugin / consumer behaviour', () => {
         {
           pluginConfiguration: Config;
         }
-      > = (props = { mandatoryValue: { bar: true } }) => ({
+      > = ({ config: props = { mandatoryValue: { bar: true } } }) => ({
         name: 'pluginWithSomeMandatoryConfig',
         readProps: () => {
           return props;
@@ -149,14 +149,14 @@ describe('next-editor-plugin internal plugin / consumer behaviour', () => {
         optionalValue: { foo: true },
         mandatoryValue: { bar: false },
       };
-      const plugin = PluginWithSomeMandatoryConfig(config);
+      const plugin = PluginWithSomeMandatoryConfig({ config });
 
       expect((plugin as any).readProps()).toEqual(config);
       expect((plugin as any).readProps()).not.toEqual({ nonsense: true });
 
       // Shouldn't be able to call a plugin with undefined
       // @ts-expect-error
-      PluginWithSomeMandatoryConfig(undefined);
+      PluginWithSomeMandatoryConfig({ config: undefined });
     }).not.toThrow();
   });
 });
@@ -187,9 +187,9 @@ describe('EditorEditorPresetBuilder', () => {
      */
     it('expects a value for its first argument', () => {
       expect(() => {
-        PluginWithNoArgsOrConfig(undefined);
+        PluginWithNoArgsOrConfig({ config: undefined });
 
-        PluginWithNoArgsOrConfig(undefined);
+        PluginWithNoArgsOrConfig({ config: undefined });
       }).not.toThrow();
     });
   });
@@ -386,7 +386,7 @@ describe('building a builder', () => {
   const plugin1: NextEditorPlugin<
     'one',
     { sharedState: number; pluginConfiguration: number }
-  > = (_, api) => {
+  > = ({ api }) => {
     return {
       name: 'one',
       getSharedState(editorState) {
@@ -399,10 +399,10 @@ describe('building a builder', () => {
     {
       dependencies: [typeof plugin1];
     }
-  > = (_, api) => {
+  > = ({ api }) => {
     // eslint-disable-next-line no-console
     console.log('two', api);
-    api?.dependencies.one.sharedState.currentState();
+    api?.one.sharedState.currentState();
     return {
       name: 'two',
     };
@@ -413,10 +413,10 @@ describe('building a builder', () => {
     {
       dependencies: [typeof plugin2];
     }
-  > = (_, api) => {
+  > = ({ api }) => {
     // eslint-disable-next-line no-console
     console.log('three', api);
-    api?.dependencies.two.sharedState.currentState();
+    api?.two.sharedState.currentState();
     return {
       name: 'three',
     };
@@ -427,7 +427,7 @@ describe('building a builder', () => {
     {
       dependencies: [typeof plugin3];
     }
-  > = (_, api) => {
+  > = ({ api }) => {
     return {
       name: 'four',
     };
@@ -439,7 +439,7 @@ describe('building a builder', () => {
       dependencies: [typeof plugin4];
       pluginConfiguration: 5;
     }
-  > = (_, api) => {
+  > = ({ api }) => {
     return {
       name: 'five',
     };
@@ -547,10 +547,9 @@ describe('building a builder', () => {
   });
 
   describe('Plugin with optional dependencies', () => {
-    const pluginWithoutDependencies: NextEditorPlugin<'withoutDependencies'> = (
-      _,
-      api,
-    ) => {
+    const pluginWithoutDependencies: NextEditorPlugin<
+      'withoutDependencies'
+    > = ({ api }) => {
       return {
         name: 'withoutDependencies',
       };
@@ -565,21 +564,21 @@ describe('building a builder', () => {
           typeof pluginWithoutDependencies,
         ];
       }
-    > = (_, api) => {
-      api?.dependencies.one.sharedState.currentState();
+    > = ({ api }) => {
+      api?.one.sharedState.currentState();
 
       // @ts-expect-error Two is optional so should be unwrapped to access
-      api?.dependencies.two.sharedState.currentState();
+      api?.two.sharedState.currentState();
 
-      api?.dependencies.two?.sharedState.currentState();
+      api?.two?.sharedState.currentState();
 
-      api?.dependencies.withoutDependencies.sharedState.currentState();
+      api?.withoutDependencies.sharedState.currentState();
 
       // @ts-expect-error We shouldn't be able to access anything that doesn't exist as a dependency
-      api?.dependencies.five.sharedState.currentState();
+      api?.five.sharedState.currentState();
 
       // @ts-expect-error Should still fail if optional
-      api?.dependencies.five?.sharedState.currentState();
+      api?.five?.sharedState.currentState();
       return {
         name: 'withOptionalDeps',
       };
@@ -595,13 +594,13 @@ describe('building a builder', () => {
           OptionalPlugin<typeof plugin3>,
         ];
       }
-    > = (_, api) => {
-      api?.dependencies.one.sharedState.currentState();
+    > = ({ api }) => {
+      api?.one.sharedState.currentState();
 
       // @ts-expect-error Three is optional so should be unwrapped to access
-      api?.dependencies.three.sharedState.currentState();
+      api?.three.sharedState.currentState();
 
-      api?.dependencies.three?.sharedState.currentState();
+      api?.three?.sharedState.currentState();
       return {
         name: 'withOptionalDepsComplex',
       };
@@ -618,19 +617,19 @@ describe('building a builder', () => {
           doesSomething: () => void;
         };
       }
-    > = (_, api) => {
-      api?.dependencies.one.sharedState.currentState();
+    > = ({ api }) => {
+      api?.one.sharedState.currentState();
 
       // @ts-expect-error Three is optional so should be unwrapped to access
-      api?.dependencies.withOptionalDepsComplex.sharedState.currentState();
+      api?.withOptionalDepsComplex.sharedState.currentState();
 
-      api?.dependencies.withOptionalDepsComplex?.sharedState.currentState();
+      api?.withOptionalDepsComplex?.sharedState.currentState();
 
       // Actions should be typed appropriately
-      api?.dependencies.dependingOnOptional.actions.doesSomething();
+      api?.dependingOnOptional.actions.doesSomething();
 
       // @ts-expect-error
-      api?.dependencies.dependingOnOptional.actions.doesNothing();
+      api?.dependingOnOptional.actions.doesNothing();
 
       return {
         name: 'dependingOnOptional',

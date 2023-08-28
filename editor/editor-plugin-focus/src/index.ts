@@ -8,7 +8,7 @@ export type FocusPlugin = NextEditorPlugin<
   'focus',
   { sharedState: FocusState }
 >;
-const focusPlugin: FocusPlugin = (_, api) => {
+const focusPlugin: FocusPlugin = ({ api }) => {
   return {
     name: 'focus',
 

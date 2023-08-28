@@ -412,7 +412,7 @@ export default class MediaSingleNode extends Component<
     }
 
     insertAndSelectCaptionFromMediaSinglePos(
-      pluginInjectionApi?.dependencies?.analytics?.actions,
+      pluginInjectionApi?.analytics?.actions,
     )(getPos(), node)(view.state, view.dispatch);
   };
 }

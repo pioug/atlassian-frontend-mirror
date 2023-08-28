@@ -328,6 +328,7 @@ const TextArea: React_2.MemoExoticComponent<
       | 'testId'
       | 'theme'
       | 'title'
+      | 'translate'
       | 'typeof'
       | 'unselectable'
       | 'value'

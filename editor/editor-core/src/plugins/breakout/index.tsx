@@ -15,7 +15,7 @@ import type {
 } from '@atlaskit/editor-common/types';
 import type {
   WidthPluginState,
-  widthPlugin,
+  WidthPlugin,
 } from '@atlaskit/editor-plugin-width';
 import type { Props as LayoutButtonProps } from './ui/LayoutButton';
 import LayoutButton from './ui/LayoutButton';
@@ -58,13 +58,10 @@ class BreakoutView {
     this.mark = mark as any as BreakoutPMMark;
     this.view = view;
     this.contentDOM = contentDOM;
-    this.unsubscribe =
-      pluginInjectionApi?.dependencies.width.sharedState.onChange(
-        ({ nextSharedState }) => this.updateWidth(nextSharedState),
-      );
-    this.updateWidth(
-      pluginInjectionApi?.dependencies.width.sharedState.currentState(),
+    this.unsubscribe = pluginInjectionApi?.width.sharedState.onChange(
+      ({ nextSharedState }) => this.updateWidth(nextSharedState),
     );
+    this.updateWidth(pluginInjectionApi?.width.sharedState.currentState());
   }
 
   private updateWidth = (widthState: WidthPluginState | undefined) => {
@@ -217,10 +214,10 @@ const breakoutPlugin: NextEditorPlugin<
   'breakout',
   {
     pluginConfiguration: BreakoutPluginOptions | undefined;
-    dependencies: [typeof widthPlugin];
+    dependencies: [WidthPlugin];
     sharedState: Partial<BreakoutPluginState>;
   }
-> = (options, api) => ({
+> = ({ config: options, api }) => ({
   name: 'breakout',
 
   pmPlugins() {

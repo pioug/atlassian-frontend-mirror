@@ -1,8 +1,14 @@
 import { css, SerializedStyles } from '@emotion/react';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 export const loadingViewContainer = css`
   display: flex;
   flex-direction: column;
+  ${getBooleanFF(
+    'platform.linking-platform.smart-card.enable-better-metadata_iojwg',
+  )
+    ? `padding: 1rem;`
+    : ``}
 `;
 
 export const skeletonContainer = css`

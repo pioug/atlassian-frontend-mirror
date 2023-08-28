@@ -87,11 +87,9 @@ const dispatchAnalyticsEventMock = jest.fn();
 const displayGuidelineMock = jest.fn();
 
 const pluginInjectionApiMock = {
-  dependencies: {
-    guideline: {
-      actions: {
-        displayGuideline: () => displayGuidelineMock,
-      },
+  guideline: {
+    actions: {
+      displayGuideline: () => displayGuidelineMock,
     },
   },
 };

@@ -58,7 +58,7 @@ export const DatasourceTableView = ({
   }, [visibleColumnKeys, defaultVisibleColumnKeys, onVisibleColumnKeysChange]);
 
   const forcedReset = useCallback(() => {
-    reset(true);
+    reset({ shouldForceRequest: true });
   }, [reset]);
 
   if (status === 'resolved' && !responseItems.length) {

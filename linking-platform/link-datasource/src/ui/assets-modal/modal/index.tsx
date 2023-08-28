@@ -52,6 +52,7 @@ export const AssetsConfigModal = (props: AssetsConfigModalProps) => {
   const [visibleColumnKeys, setVisibleColumnKeys] = useState(
     initialVisibleColumnKeys,
   );
+  const [isNewSearch, setIsNewSearch] = useState<boolean>(false);
 
   // If a workspaceError occurs this is a critical error
   const { workspaceId, workspaceError, objectSchema, assetsClientLoading } =
@@ -79,12 +80,13 @@ export const AssetsConfigModal = (props: AssetsConfigModalProps) => {
   } = useDatasourceTableState({
     datasourceId,
     parameters: isParametersSet ? parameters : undefined,
-    fieldKeys: visibleColumnKeys,
+    fieldKeys: isNewSearch ? [] : visibleColumnKeys,
   });
 
   const onVisibleColumnKeysChange = useCallback(
     (visibleColumnKeys: string[]) => {
       setVisibleColumnKeys(visibleColumnKeys);
+      setIsNewSearch(false);
     },
     [],
   );
@@ -94,9 +96,19 @@ export const AssetsConfigModal = (props: AssetsConfigModalProps) => {
       !initialVisibleColumnKeys || (initialVisibleColumnKeys || []).length === 0
         ? defaultVisibleColumnKeys
         : initialVisibleColumnKeys;
-
     setVisibleColumnKeys(newVisibleColumnKeys);
   }, [initialVisibleColumnKeys, defaultVisibleColumnKeys]);
+
+  useEffect(() => {
+    const [data] = responseItems;
+    if (data && isNewSearch) {
+      setVisibleColumnKeys(Object.keys(data));
+    } else if (data && (visibleColumnKeys || []).length) {
+      setVisibleColumnKeys(visibleColumnKeys);
+    }
+    // Purposely not included 'visibleColumnKeys' as a dependency to prevent infinite loop
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [responseItems, isNewSearch]);
 
   const isDisabled =
     !!workspaceError ||
@@ -162,12 +174,21 @@ export const AssetsConfigModal = (props: AssetsConfigModalProps) => {
   ]);
 
   const handleOnSearch = useCallback(
-    (aql: string, schemaId: string) => {
-      reset();
-      setAql(aql);
-      setSchemaId(schemaId);
+    (searchAql: string, searchSchemaId: string) => {
+      if (schemaId !== searchSchemaId) {
+        reset({ shouldResetColumns: true });
+        setAql(searchAql);
+        setSchemaId(searchSchemaId);
+        setIsNewSearch(true);
+        loadDatasourceDetails();
+      }
+      if (aql !== searchAql) {
+        reset();
+        setAql(searchAql);
+        setSchemaId(searchSchemaId);
+      }
     },
-    [reset],
+    [aql, loadDatasourceDetails, reset, schemaId],
   );
 
   const renderModalTitleContent = useCallback(() => {

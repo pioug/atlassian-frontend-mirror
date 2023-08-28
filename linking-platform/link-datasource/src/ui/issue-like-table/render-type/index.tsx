@@ -30,7 +30,7 @@ export const fallbackRenderType: TableViewPropsRenderType = item => {
     case 'status':
       return <StatusRenderType {...item.value} />;
     case 'string':
-      return <StringRenderType text={item.value} />;
+      return <StringRenderType key={item.value} text={item.value} />;
     case 'tag':
       return (
         <TagRenderType

@@ -40,7 +40,7 @@ const codeBlockPlugin: NextEditorPlugin<
       OptionalPlugin<typeof analyticsPlugin>,
     ];
   }
-> = (options, api) => ({
+> = ({ config: options, api }) => ({
   name: 'codeBlock',
 
   nodes() {
@@ -55,7 +55,7 @@ const codeBlockPlugin: NextEditorPlugin<
           createPlugin({
             ...options,
             getIntl,
-            appearance: options.appearance,
+            appearance: options?.appearance ?? 'comment',
           }),
       },
       {
@@ -94,7 +94,7 @@ const codeBlockPlugin: NextEditorPlugin<
         icon: () => <IconCode />,
         action(insert, state) {
           const tr = createInsertCodeBlockTransaction({ state });
-          api?.dependencies.analytics?.actions.attachAnalyticsEvent({
+          api?.analytics?.actions.attachAnalyticsEvent({
             action: ACTION.INSERTED,
             actionSubject: ACTION_SUBJECT.DOCUMENT,
             actionSubjectId: ACTION_SUBJECT_ID.CODE_BLOCK,
@@ -106,8 +106,8 @@ const codeBlockPlugin: NextEditorPlugin<
       },
     ],
     floatingToolbar: getToolbarConfig(
-      options.allowCopyToClipboard,
-      api?.dependencies.decorations.actions.hoverDecoration,
+      options?.allowCopyToClipboard,
+      api?.decorations.actions.hoverDecoration,
     ),
   },
 });

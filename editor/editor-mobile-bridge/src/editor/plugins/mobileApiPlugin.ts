@@ -50,7 +50,7 @@ export const mobileApiPlugin: NextEditorPlugin<
     ];
     pluginConfiguration: { bridge: WebBridgeImpl; intl: IntlShape };
   }
-> = ({ bridge, intl }, api) => ({
+> = ({ config: { bridge, intl }, api }) => ({
   name: 'mobile',
 
   usePluginHook({ editorView }) {

@@ -23,7 +23,7 @@ describe('collab-edit: send-transaction.ts', () => {
       },
     },
   });
-  const plugin = collabEditPlugin({});
+  const plugin = collabEditPlugin({ config: {} });
   // @ts-ignore
   const pmPlugin = plugin.pmPlugins!()[0].plugin({
     dispatch: jest.fn(),

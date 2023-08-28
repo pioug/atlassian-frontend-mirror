@@ -15,9 +15,8 @@ export const findReplacePlugin: NextEditorPlugin<
     pluginConfiguration: Config;
     dependencies: [typeof featureFlagsPlugin];
   }
-> = (props, api) => {
-  const featureFlags =
-    api?.dependencies?.featureFlags?.sharedState.currentState() || {};
+> = ({ config: props, api }) => {
+  const featureFlags = api?.featureFlags?.sharedState.currentState() || {};
 
   return {
     name: 'findReplace',
@@ -44,7 +43,7 @@ export const findReplacePlugin: NextEditorPlugin<
       containerElement,
       dispatchAnalyticsEvent,
     }) {
-      if (props.twoLineEditorToolbar) {
+      if (props?.twoLineEditorToolbar) {
         return null;
       } else {
         return (
@@ -56,7 +55,7 @@ export const findReplacePlugin: NextEditorPlugin<
             editorView={editorView}
             containerElement={containerElement}
             dispatchAnalyticsEvent={dispatchAnalyticsEvent}
-            takeFullWidth={props.takeFullWidth}
+            takeFullWidth={props?.takeFullWidth}
             featureFlags={featureFlags}
           />
         );

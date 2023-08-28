@@ -347,25 +347,23 @@ describe('media', () => {
 
       const analyticsFn = jest.fn().mockImplementation(() => () => {});
       const mockPluginInjectionApi: any = {
-        dependencies: {
-          width: {
-            sharedState: {
-              currentState() {
-                return {
-                  lineLength: null,
-                };
-              },
+        width: {
+          sharedState: {
+            currentState() {
+              return {
+                lineLength: null,
+              };
             },
           },
-          decorations: {
-            actions: {
-              hoverDecoration: () => () => {},
-            },
+        },
+        decorations: {
+          actions: {
+            hoverDecoration: () => () => {},
           },
-          analytics: {
-            actions: {
-              attachAnalyticsEvent: analyticsFn,
-            },
+        },
+        analytics: {
+          actions: {
+            attachAnalyticsEvent: analyticsFn,
           },
         },
       };

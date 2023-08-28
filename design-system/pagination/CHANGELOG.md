@@ -1,5 +1,11 @@
 # @atlaskit/pagination
 
+## 14.4.13
+
+### Patch Changes
+
+- [`5891eff1980`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5891eff1980) - The internal composition of this component has changed. There is no expected change in behavior.
+
 ## 14.4.12
 
 ### Patch Changes

@@ -132,7 +132,7 @@ const blockTypePlugin: NextEditorPlugin<
     pluginConfiguration: BlockTypePluginOptions | undefined;
     dependencies: [OptionalPlugin<typeof analyticsPlugin>];
   }
-> = (options?, api?) => ({
+> = ({ config: options, api }) => ({
   name: 'blockType',
 
   nodes() {
@@ -158,7 +158,7 @@ const blockTypePlugin: NextEditorPlugin<
         name: 'blockType',
         plugin: ({ dispatch }) =>
           createPlugin(
-            api?.dependencies.analytics?.actions,
+            api?.analytics?.actions,
             dispatch,
             options && options.lastNodeMustBeParagraph,
           ),
@@ -166,22 +166,14 @@ const blockTypePlugin: NextEditorPlugin<
       {
         name: 'blockTypeInputRule',
         plugin: ({ schema, featureFlags }) =>
-          inputRulePlugin(
-            api?.dependencies.analytics?.actions,
-            schema,
-            featureFlags,
-          ),
+          inputRulePlugin(api?.analytics?.actions, schema, featureFlags),
       },
       // Needs to be lower priority than editor-tables.tableEditing
       // plugin as it is currently swallowing right/down arrow events inside tables
       {
         name: 'blockTypeKeyMap',
         plugin: ({ schema, featureFlags }) =>
-          keymapPlugin(
-            api?.dependencies.analytics?.actions,
-            schema,
-            featureFlags,
-          ),
+          keymapPlugin(api?.analytics?.actions, schema, featureFlags),
       },
     ];
   },
@@ -204,7 +196,7 @@ const blockTypePlugin: NextEditorPlugin<
       setBlockTypeWithAnalytics(
         name,
         INPUT_METHOD.TOOLBAR,
-        api?.dependencies.analytics?.actions,
+        api?.analytics?.actions,
       )(editorView.state, editorView.dispatch);
 
     return (
@@ -243,12 +235,12 @@ const blockTypePlugin: NextEditorPlugin<
         ...blockquotePluginOptions(
           intl,
           exclude.indexOf('blockquote') === -1,
-          api?.dependencies.analytics?.actions,
+          api?.analytics?.actions,
         ),
         ...headingPluginOptions(
           intl,
           exclude.indexOf('heading') === -1,
-          api?.dependencies.analytics?.actions,
+          api?.analytics?.actions,
         ),
       ];
     },

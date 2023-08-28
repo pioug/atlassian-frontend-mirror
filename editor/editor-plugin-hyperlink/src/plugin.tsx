@@ -18,8 +18,8 @@ import type {
   NextEditorPlugin,
   OptionalPlugin,
 } from '@atlaskit/editor-common/types';
-import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 
 import type {
   HideLinkToolbar,
@@ -48,10 +48,7 @@ export type HyperlinkPlugin = NextEditorPlugin<
   'hyperlink',
   {
     pluginConfiguration: HyperlinkPluginOptions | undefined;
-    dependencies: [
-      typeof featureFlagsPlugin,
-      OptionalPlugin<typeof analyticsPlugin>,
-    ];
+    dependencies: [FeatureFlagsPlugin, OptionalPlugin<AnalyticsPlugin>];
     actions: {
       /**
        * Add items to the left of the hyperlink floating toolbar
@@ -73,7 +70,7 @@ export type HyperlinkPlugin = NextEditorPlugin<
        * Example:
        *
        * ```
-       * const newTr = pluginInjectionApi?.dependencies.hyperlink.commands.showLinkToolbar(
+       * const newTr = pluginInjectionApi?.hyperlink.commands.showLinkToolbar(
        *   inputMethod
        * )({ tr })
        * ```
@@ -84,9 +81,11 @@ export type HyperlinkPlugin = NextEditorPlugin<
   }
 >;
 
-export const hyperlinkPlugin: HyperlinkPlugin = (options = {}, api) => {
-  const featureFlags =
-    api?.dependencies?.featureFlags?.sharedState.currentState() || {};
+export const hyperlinkPlugin: HyperlinkPlugin = ({
+  config: options = {},
+  api,
+}) => {
+  const featureFlags = api?.featureFlags?.sharedState.currentState() || {};
   return {
     name: 'hyperlink',
 
@@ -96,7 +95,7 @@ export const hyperlinkPlugin: HyperlinkPlugin = (options = {}, api) => {
 
     commands: {
       showLinkToolbar: (inputMethod = INPUT_METHOD.TOOLBAR) =>
-        showLinkToolbar(inputMethod, api?.dependencies.analytics?.actions),
+        showLinkToolbar(inputMethod, api?.analytics?.actions),
     },
 
     actions: {
@@ -117,7 +116,7 @@ export const hyperlinkPlugin: HyperlinkPlugin = (options = {}, api) => {
           from,
           to,
           href,
-          api?.dependencies.analytics?.actions,
+          api?.analytics?.actions,
           title,
           displayText,
           cardsAvailable,
@@ -154,16 +153,13 @@ export const hyperlinkPlugin: HyperlinkPlugin = (options = {}, api) => {
               schema,
               skipAnalytics,
               featureFlags,
-              api?.dependencies.analytics?.actions,
+              api?.analytics?.actions,
             ),
         },
         {
           name: 'hyperlinkKeymap',
           plugin: () =>
-            createKeymapPlugin(
-              skipAnalytics,
-              api?.dependencies.analytics?.actions,
-            ),
+            createKeymapPlugin(skipAnalytics, api?.analytics?.actions),
         },
 
         {
@@ -191,7 +187,7 @@ export const hyperlinkPlugin: HyperlinkPlugin = (options = {}, api) => {
             });
 
             const analyticsAttached =
-              api?.dependencies?.analytics?.actions?.attachAnalyticsEvent?.({
+              api?.analytics?.actions?.attachAnalyticsEvent?.({
                 action: ACTION.INVOKED,
                 actionSubject: ACTION_SUBJECT.TYPEAHEAD,
                 actionSubjectId: ACTION_SUBJECT_ID.TYPEAHEAD_LINK,

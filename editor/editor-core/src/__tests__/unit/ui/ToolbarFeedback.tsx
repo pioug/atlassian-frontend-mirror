@@ -79,16 +79,14 @@ describe('@atlaskit/editor-core/ui/ToolbarFeedback', () => {
       const usePresetContext = jest.spyOn(presetContext, 'usePresetContext');
       usePresetContext.mockImplementation(() => {
         return {
-          dependencies: {
-            base: {
-              sharedState: {
-                currentState: () => {
-                  return {
-                    contextIdentifier: {
-                      objectId: 'object-id',
-                    },
-                  };
-                },
+          base: {
+            sharedState: {
+              currentState: () => {
+                return {
+                  contextIdentifier: {
+                    objectId: 'object-id',
+                  },
+                };
               },
             },
           },

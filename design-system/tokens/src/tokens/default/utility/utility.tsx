@@ -13,6 +13,18 @@ const utility: AttributeSchema<UtilTokenSchema<BaseToken>> = {
       },
     },
   },
+  elevation: {
+    surface: {
+      current: {
+        attributes: {
+          group: 'paint',
+          state: 'active',
+          introduced: '1.14.0',
+          description: `A dynamic token that represents the current surface color set by a parent element. It defaults to the 'elevation.surface' token value.`,
+        },
+      },
+    },
+  },
 };
 
 export default { utility };

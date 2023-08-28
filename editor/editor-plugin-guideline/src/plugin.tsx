@@ -7,7 +7,7 @@ import type {
   ExtractInjectionAPI,
   NextEditorPlugin,
 } from '@atlaskit/editor-common/types';
-import type { widthPlugin } from '@atlaskit/editor-plugin-width';
+import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorGridLineZIndex } from '@atlaskit/editor-shared-styles';
@@ -116,16 +116,18 @@ const ContentComponent = ({
   );
 };
 
-export const guidelinePlugin: NextEditorPlugin<
+export type GuidelinePlugin = NextEditorPlugin<
   'guideline',
   {
-    dependencies: [typeof widthPlugin];
+    dependencies: [WidthPlugin];
     sharedState: GuidelinePluginState | null;
     actions: {
       displayGuideline: DisplayGuideline;
     };
   }
-> = (options?, api?) => ({
+>;
+
+export const guidelinePlugin: GuidelinePlugin = ({ config: options, api }) => ({
   name: 'guideline',
   getSharedState(editorState) {
     if (!editorState) {

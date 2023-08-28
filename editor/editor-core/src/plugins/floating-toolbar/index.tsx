@@ -155,7 +155,7 @@ function filterUndefined<T>(x?: T): x is T {
   return !!x;
 }
 
-const floatingToolbarPlugin: FloatingToolbarPlugin = (_, api) => {
+const floatingToolbarPlugin: FloatingToolbarPlugin = ({ api }) => {
   return {
     name: 'floatingToolbar',
 
@@ -247,8 +247,7 @@ function ContentComponent({
   pluginInjectionApi: ExtractInjectionAPI<FloatingToolbarPlugin> | undefined;
 }) {
   const featureFlags =
-    pluginInjectionApi?.dependencies?.featureFlags?.sharedState.currentState() ||
-    {};
+    pluginInjectionApi?.featureFlags?.sharedState.currentState() || {};
   const { floatingToolbarState, editorDisabledState } = useSharedPluginState(
     pluginInjectionApi,
     ['floatingToolbar', 'editorDisabled'],
@@ -294,7 +293,7 @@ function ContentComponent({
   let customPositionCalculation;
   const toolbarItems = processCopyButtonItems(editorView.state)(
     Array.isArray(items) ? items : items(node),
-    pluginInjectionApi?.dependencies.decorations.actions.hoverDecoration,
+    pluginInjectionApi?.decorations.actions.hoverDecoration,
   );
 
   if (onPositionCalculated) {

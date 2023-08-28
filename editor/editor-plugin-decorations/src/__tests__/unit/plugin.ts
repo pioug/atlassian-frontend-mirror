@@ -33,7 +33,7 @@ const ref: { current: any | null } = { current: null };
 const mockPlugin: NextEditorPlugin<
   'test',
   { dependencies: [typeof decorationsPlugin] }
-> = (_, api) => {
+> = ({ api }) => {
   ref.current = api;
   return {
     name: 'test',
@@ -57,11 +57,10 @@ describe('decoration', () => {
   };
 
   const getState = () => {
-    return ref.current?.dependencies.decorations.sharedState.currentState();
+    return ref.current?.decorations.sharedState.currentState();
   };
 
-  const getHoverDecoration = () =>
-    ref.current?.dependencies.decorations.actions ?? {};
+  const getHoverDecoration = () => ref.current?.decorations.actions ?? {};
 
   it('adds a decoration', () => {
     const { editorView } = editor(doc(panel()(p('he{<>}llo'))));

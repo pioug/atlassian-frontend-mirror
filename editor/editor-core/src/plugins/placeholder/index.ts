@@ -119,9 +119,7 @@ export function createPlugin(
     state: {
       init: (_, state) =>
         createPlaceHolderStateFrom(
-          Boolean(
-            api?.dependencies.focus?.sharedState.currentState()?.hasFocus,
-          ),
+          Boolean(api?.focus?.sharedState.currentState()?.hasFocus),
           state,
           defaultPlaceholderText,
           bracketPlaceholderText,
@@ -129,7 +127,7 @@ export function createPlugin(
       apply: (tr, _oldPluginState, _oldEditorState, newEditorState) => {
         const meta = tr.getMeta(pluginKey);
         const isEditorFocused = Boolean(
-          api?.dependencies.focus?.sharedState.currentState()?.hasFocus,
+          api?.focus?.sharedState.currentState()?.hasFocus,
         );
 
         if (meta) {
@@ -161,7 +159,7 @@ export function createPlugin(
           getPlaceholderState(editorState);
 
         const compositionPluginState =
-          api?.dependencies.composition?.sharedState.currentState();
+          api?.composition?.sharedState.currentState();
         if (
           hasPlaceholder &&
           placeholderText &&
@@ -187,7 +185,7 @@ const placeholderPlugin: NextEditorPlugin<
     pluginConfiguration: PlaceholderPluginOptions | undefined;
     dependencies: [typeof focusPlugin, typeof compositionPlugin];
   }
-> = (options, api) => ({
+> = ({ config: options, api }) => ({
   name: 'placeholder',
 
   pmPlugins() {

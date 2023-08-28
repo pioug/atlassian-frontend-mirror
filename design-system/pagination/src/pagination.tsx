@@ -4,12 +4,11 @@ import {
   UIAnalyticsEvent,
   usePlatformLeafEventHandler,
 } from '@atlaskit/analytics-next';
-import Box from '@atlaskit/ds-explorations/box';
 import noop from '@atlaskit/ds-lib/noop';
 import useControlled from '@atlaskit/ds-lib/use-controlled';
 import ChevronLeftLargeIcon from '@atlaskit/icon/glyph/chevron-left-large';
 import ChevronRightLargeIcon from '@atlaskit/icon/glyph/chevron-right-large';
-import Inline from '@atlaskit/primitives/inline';
+import { Box, Inline } from '@atlaskit/primitives';
 
 import Navigator from './internal/components/navigator';
 import PageComponent from './internal/components/page';
@@ -102,13 +101,7 @@ function InnerPagination<T>(
   };
 
   return (
-    <Box
-      testId={testId}
-      UNSAFE_style={style}
-      ref={ref}
-      aria-label={label}
-      as="nav"
-    >
+    <Box testId={testId} style={style} ref={ref} aria-label={label} as="nav">
       <Inline space="space.0" alignBlock="center">
         <Navigator
           key="left-navigator"

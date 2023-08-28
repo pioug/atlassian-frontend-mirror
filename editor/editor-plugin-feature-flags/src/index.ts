@@ -1,15 +1,22 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { FeatureFlags, NextEditorPlugin } from '@atlaskit/editor-common/types';
+import type {
+  FeatureFlags,
+  NextEditorPlugin,
+} from '@atlaskit/editor-common/types';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 
 const pluginKey = new PluginKey('featureFlags');
-const featureFlagsPlugin: NextEditorPlugin<
+export type FeatureFlagsPlugin = NextEditorPlugin<
   'featureFlags',
   {
     pluginConfiguration: FeatureFlags;
     sharedState: FeatureFlags;
   }
-> = (featureFlags = {}) => ({
+>;
+
+const featureFlagsPlugin: FeatureFlagsPlugin = ({
+  config: featureFlags = {},
+}) => ({
   name: 'featureFlags',
 
   getSharedState(editorState) {

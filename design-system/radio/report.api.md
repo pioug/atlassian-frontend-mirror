@@ -357,6 +357,7 @@ export const Radio: MemoExoticComponent<
       | 'suppressHydrationWarning'
       | 'tabIndex'
       | 'title'
+      | 'translate'
       | 'type'
       | 'typeof'
       | 'unselectable'

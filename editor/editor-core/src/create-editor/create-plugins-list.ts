@@ -3,15 +3,16 @@ import type { EditorPlugin, EditorProps } from '../types';
 import type { EditorPluginFeatureProps } from '../types/editor-props';
 
 import type { BlockTypePluginOptions } from '../plugins/block-type/types';
-import createUniversalPreset from '../labs/next/presets/universal';
 import type { ScrollGutterPluginOptions } from '../plugins/base/pm-plugins/scroll-gutter';
 import { GUTTER_SIZE_MOBILE_IN_PX } from '@atlaskit/editor-common/utils';
 import type { DefaultPresetPluginOptions } from '../labs/next/presets/default';
 import type { EditorPresetProps } from '../labs/next/presets/types';
 import { isFullPage as fullPageCheck } from '../utils/is-full-page';
 import { createFeatureFlagsFromProps } from './feature-flags-from-props';
-import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
-import type { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
+import type {
+  EditorPresetBuilder,
+  EditorPluginInjectionAPI,
+} from '@atlaskit/editor-common/preset';
 
 const isCodeBlockAllowed = (
   options?: Pick<BlockTypePluginOptions, 'allowBlockType'>,
@@ -131,59 +132,15 @@ export function getDefaultPresetOptionsFromEditorProps(
  * their placement in the editor toolbar
  */
 export default function createPluginsList(
+  preset: EditorPresetBuilder<any, any>,
   props: EditorProps,
-  prevProps?: EditorProps,
+  pluginInjectionAPI?: EditorPluginInjectionAPI,
 ): EditorPlugin[] {
-  const preset = createUniversalPreset(
-    props.appearance,
-    getDefaultPresetOptionsFromEditorProps(props),
-    createFeatureFlagsFromProps(props),
-    prevProps?.appearance,
-  );
-
   const excludes = new Set<string>();
 
   if (!isCodeBlockAllowed({ allowBlockType: props.allowBlockType })) {
     excludes.add('codeBlock');
   }
 
-  return preset.build({ excludePlugins: excludes });
-}
-
-function withDangerouslyAppendPlugins(preset: EditorPresetBuilder<any, any>) {
-  function createEditorNextPluginsFromDangerouslyAppended(
-    plugins: EditorPlugin[],
-  ): NextEditorPlugin<any, any>[] {
-    return plugins ? plugins.map((plugin) => () => plugin) : [];
-  }
-
-  return (editorPluginsToAppend?: EditorPlugin[]) => {
-    if (!editorPluginsToAppend || editorPluginsToAppend.length === 0) {
-      return preset;
-    }
-
-    const nextEditorPluginsToAppend =
-      createEditorNextPluginsFromDangerouslyAppended(editorPluginsToAppend);
-
-    const presetWithAppendedPlugins = nextEditorPluginsToAppend.reduce(
-      (acc, plugin) => {
-        return acc.add(plugin);
-      },
-      preset,
-    );
-
-    return presetWithAppendedPlugins;
-  };
-}
-export function createPreset(props: EditorProps, prevProps?: EditorProps) {
-  const preset = createUniversalPreset(
-    props.appearance,
-    getDefaultPresetOptionsFromEditorProps(props),
-    createFeatureFlagsFromProps(props),
-    prevProps?.appearance,
-  );
-
-  return withDangerouslyAppendPlugins(preset)(
-    props.dangerouslyAppendPlugins?.__plugins,
-  );
+  return preset.build({ pluginInjectionAPI, excludePlugins: excludes });
 }

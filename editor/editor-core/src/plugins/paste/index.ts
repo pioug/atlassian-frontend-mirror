@@ -27,9 +27,9 @@ const pastePlugin: NextEditorPlugin<
       OptionalPlugin<typeof analyticsPlugin>,
     ];
   }
-> = ({ cardOptions, sanitizePrivateContent }, api) => {
-  const featureFlags =
-    api?.dependencies?.featureFlags?.sharedState.currentState() || {};
+> = ({ config, api }) => {
+  const { cardOptions, sanitizePrivateContent } = config ?? {};
+  const featureFlags = api?.featureFlags?.sharedState.currentState() || {};
   return {
     name: 'paste',
 

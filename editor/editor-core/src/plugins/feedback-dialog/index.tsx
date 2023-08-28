@@ -69,8 +69,8 @@ const feedbackDialog: NextEditorPlugin<
   {
     pluginConfiguration: FeedbackInfo;
   }
-> = (feedbackInfo: FeedbackInfo) => {
-  defaultFeedbackInfo = feedbackInfo;
+> = ({ config: feedbackInfo }) => {
+  defaultFeedbackInfo = feedbackInfo ?? {};
   return {
     name: 'feedbackDialog',
 

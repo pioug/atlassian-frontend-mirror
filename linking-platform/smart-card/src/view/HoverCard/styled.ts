@@ -14,12 +14,11 @@ export const flexibleUiOptions: FlexibleUiOptions = {
   hideBackground: true,
   hideElevation: true,
   size: SmartLinkSize.Medium,
-  hidePadding: true,
   hideHoverCardPreviewButton: false,
   zIndex: HOVER_CARD_Z_INDEX + 1,
   ...(!getBooleanFF(
     'platform.linking-platform.smart-card.enable-better-metadata_iojwg',
-  ) && { theme: SmartLinkTheme.Black }),
+  ) && { theme: SmartLinkTheme.Black, hidePadding: true }),
 };
 
 export const CARD_WIDTH_REM = 24;
@@ -48,7 +47,11 @@ export const HoverCardContainer = css`
   border-width: 0;
   box-sizing: border-box;
   width: ${CARD_WIDTH_REM}rem;
-  padding: 1rem;
+  ${!getBooleanFF(
+    'platform.linking-platform.smart-card.enable-better-metadata_iojwg',
+  )
+    ? `padding: 1rem;`
+    : ``}
 
   .${loadingPlaceholderClassName} {
     display: none;
@@ -103,4 +106,16 @@ export const popupContainerStyles = css`
       '0px 0px 0px rgba(188, 214, 240, 0.12),0px 8px 12px rgba(3, 4, 4, 0.36),0px 0px 1px rgba(3, 4, 4, 0.5)',
     ),
   })()};
+`;
+
+export const getPreviewBlockStyles = (snippetHeight: number) => css`
+  height: ${snippetHeight}px;
+  ${getBooleanFF(
+    'platform.linking-platform.smart-card.show-smart-links-refreshed-design',
+  )
+    ? `  border-top-left-radius: ${token('border.radius.300', '12px')};
+         border-top-right-radius: ${token('border.radius.300', '12px')};
+         margin-bottom: ${blockGap};
+        }`
+    : ``}
 `;

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { fireEvent, render } from '@testing-library/react';
 
-import { TableAttributes } from '@atlaskit/adf-schema';
+import type { TableAttributes } from '@atlaskit/adf-schema';
 import {
   ACTION_SUBJECT,
   EVENT_TYPE,
@@ -11,9 +11,9 @@ import {
 import { akEditorWideLayoutWidth } from '@atlaskit/editor-shared-styles';
 import { findTable } from '@atlaskit/editor-tables/utils';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
-  DocBuilder,
   p,
   table,
   td,
@@ -27,7 +27,7 @@ import {
   TableContainer,
 } from '../../../plugins/table/nodeviews/TableContainer';
 import { pluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
-import { TablePluginState } from '../../../plugins/table/types';
+import type { TablePluginState } from '../../../plugins/table/types';
 
 const mockStartMeasure = jest.fn();
 const mockEndMeasure = jest.fn(() => {
@@ -57,7 +57,7 @@ describe('table -> nodeviews -> TableContainer.tsx', () => {
       editorProps: {
         allowTables: false,
         dangerouslyAppendPlugins: {
-          __plugins: [tablePlugin()],
+          __plugins: [tablePlugin({ config: undefined })],
         },
         featureFlags,
       },
@@ -199,9 +199,7 @@ describe('table -> nodeviews -> TableContainer.tsx', () => {
           }
           pluginInjectionApi={
             {
-              dependencies: {
-                analytics: { actions: { attachAnalyticsEvent: analyticsMock } },
-              },
+              analytics: { actions: { attachAnalyticsEvent: analyticsMock } },
             } as any
           }
         />,

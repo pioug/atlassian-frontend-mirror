@@ -7,7 +7,7 @@ import clearMarksOnChangeToEmptyDocumentPlugin from '../../../plugins/clear-mark
 import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import { textFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
-import unsupportedContentPlugin from '../../../plugins/unsupported-content';
+import { unsupportedContentPlugin } from '@atlaskit/editor-plugin-unsupported-content';
 import type { BasePluginOptions } from '../../../plugins/base';
 import { basePlugin } from '../../../plugins/base';
 import { focusPlugin } from '@atlaskit/editor-plugin-focus';

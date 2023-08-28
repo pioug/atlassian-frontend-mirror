@@ -27,9 +27,8 @@ const rulePlugin: NextEditorPlugin<
     pluginConfiguration: undefined;
     dependencies: [typeof featureFlagsPlugin];
   }
-> = (_, api) => {
-  const featureFlags =
-    api?.dependencies?.featureFlags?.sharedState.currentState() || {};
+> = ({ api }) => {
+  const featureFlags = api?.featureFlags?.sharedState.currentState() || {};
   return {
     name: 'rule',
 

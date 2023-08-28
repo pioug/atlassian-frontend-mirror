@@ -16,15 +16,15 @@
 
 ```ts
 import { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import type { PerformanceTracking } from '@atlaskit/editor-common/types';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
 // @public (undocumented)
-export const analyticsPlugin: NextEditorPlugin<
+export type AnalyticsPlugin = NextEditorPlugin<
   'analytics',
   {
     pluginConfiguration: AnalyticsPluginOptions;
@@ -32,10 +32,13 @@ export const analyticsPlugin: NextEditorPlugin<
       createAnalyticsEvent: CreateUIAnalyticsEvent | null;
       attachAnalyticsEvent: CreateAttachPayloadIntoTransaction | null;
     };
-    dependencies: [typeof featureFlagsPlugin];
+    dependencies: [FeatureFlagsPlugin];
     actions: EditorAnalyticsAPI;
   }
 >;
+
+// @public (undocumented)
+export const analyticsPlugin: AnalyticsPlugin;
 
 // @public (undocumented)
 export interface AnalyticsPluginOptions {

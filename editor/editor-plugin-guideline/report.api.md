@@ -18,19 +18,22 @@
 import { DisplayGuideline } from '@atlaskit/editor-common/guideline';
 import { GuidelinePluginState } from '@atlaskit/editor-common/guideline';
 import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
-import type { widthPlugin } from '@atlaskit/editor-plugin-width';
+import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
 
 // @public (undocumented)
-export const guidelinePlugin: NextEditorPlugin<
+export type GuidelinePlugin = NextEditorPlugin<
   'guideline',
   {
-    dependencies: [typeof widthPlugin];
+    dependencies: [WidthPlugin];
     sharedState: GuidelinePluginState | null;
     actions: {
       displayGuideline: DisplayGuideline;
     };
   }
 >;
+
+// @public (undocumented)
+export const guidelinePlugin: GuidelinePlugin;
 
 // (No @packageDocumentation comment for this package)
 ```

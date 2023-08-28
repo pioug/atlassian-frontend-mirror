@@ -228,6 +228,15 @@ export const getMaxWidthForNestedNode = (
   return null;
 };
 
+const calcParentPadding = (view: EditorView, resolvedPos: ResolvedPos) => {
+  // since table has constant padding, use hardcoded constant instead of query the dom
+  const tablePadding = 8;
+  const { tableCell, tableHeader } = view.state.schema.nodes;
+  return [tableCell, tableHeader].includes(resolvedPos.parent.type)
+    ? tablePadding * 2
+    : 0;
+};
+
 /**
  * Get parent width for a nested media single node for new experience
  * @param view Editor view
@@ -236,13 +245,16 @@ export const getMaxWidthForNestedNode = (
 export const getMaxWidthForNestedNodeNext = (
   view: EditorView,
   pos: number | undefined,
+  forInsertion?: boolean,
 ): number | null => {
   if (typeof pos !== 'number') {
     return null;
   }
   const $pos = view.state.doc.resolve(pos);
   if ($pos && $pos.parent.type.name !== 'doc') {
-    return getParentWidthForNestedMediaSingleNode($pos, view);
+    return forInsertion
+      ? getParentWidthForNestedMediaSingleNodeForInsertion($pos, view)
+      : getParentWidthForNestedMediaSingleNode($pos, view);
   }
 
   return null;
@@ -260,19 +272,29 @@ export const getParentWidthForNestedMediaSingleNode = (
     domNode &&
     domNode.parentElement
   ) {
-    const { tableCell, tableHeader } = view.state.schema.nodes;
-    if ([tableCell, tableHeader].includes(resolvedPos.parent.type)) {
-      // since table has constant padding, use hardcoded constant instead of query the dom
-      const tablePadding = 8;
-      return domNode.parentElement.offsetWidth - tablePadding * 2;
-    }
+    const parentPadding = calcParentPadding(view, resolvedPos);
 
-    return domNode.parentElement.offsetWidth;
+    return domNode.parentElement.offsetWidth - parentPadding;
   }
 
   if (domNode instanceof HTMLElement) {
     return domNode.offsetWidth;
   }
 
+  return null;
+};
+
+export const getParentWidthForNestedMediaSingleNodeForInsertion = (
+  resolvedPos: ResolvedPos,
+  view: EditorView,
+): number | null => {
+  const parentPos = resolvedPos.before(resolvedPos.depth);
+  const parentDomNode = view.nodeDOM(parentPos);
+
+  const parentPadding = calcParentPadding(view, resolvedPos);
+
+  if (parentDomNode instanceof HTMLElement) {
+    return parentDomNode.offsetWidth - parentPadding;
+  }
   return null;
 };

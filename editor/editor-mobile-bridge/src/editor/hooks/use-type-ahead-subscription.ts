@@ -43,17 +43,15 @@ export function useTypeAheadSubscription(
         const query = newPluginState.query;
 
         if (isQuickInsert && (wasOpened || hasQueryChanged)) {
-          bridge.getPluginInjectionApi()?.dependencies.core.actions.execute(
-            bridge
-              .getPluginInjectionApi()
-              ?.dependencies.quickInsert?.commands.search({
-                query,
-                disableDefaultItems: true,
-              }),
+          bridge.getPluginInjectionApi()?.core.actions.execute(
+            bridge.getPluginInjectionApi()?.quickInsert?.commands.search({
+              query,
+              disableDefaultItems: true,
+            }),
           );
           const quickInsertList = bridge
             .getPluginInjectionApi()
-            ?.dependencies.quickInsert?.sharedState.currentState()?.suggestions;
+            ?.quickInsert?.sharedState.currentState()?.suggestions;
 
           const quickInsertItems = quickInsertList?.map(({ id, title }) => ({
             id,

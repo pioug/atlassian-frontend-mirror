@@ -33,3 +33,4 @@ export type {
   ShapeToken,
   TypographyToken,
 } from './types';
+export { CURRENT_SURFACE_CSS_VAR } from './constants';

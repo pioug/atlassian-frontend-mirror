@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-platform
 
+## 0.2.5
+
+### Patch Changes
+
+- [`e5f52093b2a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e5f52093b2a) - Add a rule to ensure that publish config is correct for packages
+
 ## 0.2.4
 
 ### Patch Changes

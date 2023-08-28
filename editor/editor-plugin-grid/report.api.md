@@ -15,10 +15,10 @@
 <!--SECTION START: Main Entry Types-->
 
 ```ts
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { GridType } from '@atlaskit/editor-common/types';
-import { NextEditorPlugin } from '@atlaskit/editor-common/types';
-import type { widthPlugin } from '@atlaskit/editor-plugin-width';
+import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
+import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
 
 // @public (undocumented)
 type CreateDisplayGrid = (view: EditorView) => DisplayGrid;
@@ -27,17 +27,20 @@ type CreateDisplayGrid = (view: EditorView) => DisplayGrid;
 type DisplayGrid = (props: Required_2<GridPluginState>) => boolean;
 
 // @public (undocumented)
-export const gridPlugin: NextEditorPlugin<
+export type GridPlugin = NextEditorPlugin<
   'grid',
   {
     pluginConfiguration: GridPluginOptions | undefined;
-    dependencies: [typeof widthPlugin];
+    dependencies: [WidthPlugin];
     sharedState: GridPluginState | null;
     actions: {
       displayGrid: CreateDisplayGrid;
     };
   }
 >;
+
+// @public (undocumented)
+export const gridPlugin: GridPlugin;
 
 // @public (undocumented)
 interface GridPluginOptions {

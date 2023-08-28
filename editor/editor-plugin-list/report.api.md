@@ -15,11 +15,11 @@
 <!--SECTION START: Main Entry Types-->
 
 ```ts
-import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import type { EditorCommand } from '@atlaskit/editor-common/types';
 import type { FeatureFlags } from '@atlaskit/editor-common/types';
-import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import type { OptionalPlugin } from '@atlaskit/editor-common/types';
@@ -43,10 +43,7 @@ export type ListPlugin = NextEditorPlugin<
   'list',
   {
     pluginConfiguration: ListPluginOptions | undefined;
-    dependencies: [
-      typeof featureFlagsPlugin,
-      OptionalPlugin<typeof analyticsPlugin>,
-    ];
+    dependencies: [FeatureFlagsPlugin, OptionalPlugin<AnalyticsPlugin>];
     actions: {
       isInsideListItem: IsInsideListItem;
       findRootParentListNode: FindRootParentListNode;

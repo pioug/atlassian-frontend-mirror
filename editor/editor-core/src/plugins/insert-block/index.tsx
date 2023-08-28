@@ -29,7 +29,6 @@ import { pluginKey as macroStateKey } from '../macro/plugin-key';
 import { ToolbarSize } from '../../ui/Toolbar/types';
 
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import type { InsertBlockPluginDependencies } from './types';
 
 const toolbarSizeToButtons = (toolbarSize: ToolbarSize) => {
@@ -58,30 +57,14 @@ export interface InsertBlockOptions {
   showElementBrowserLink?: boolean;
 }
 
-/**
- * Wrapper over insertBlockTypeWithAnalytics to autobind toolbar input method
- * @param name Block name
- */
-function handleInsertBlockType(
-  editorAnalyticsApi: EditorAnalyticsAPI | undefined,
-) {
-  return (name: string) =>
-    insertBlockTypesWithAnalytics(
-      name,
-      INPUT_METHOD.TOOLBAR,
-      editorAnalyticsApi,
-    );
-}
-
 const insertBlockPlugin: NextEditorPlugin<
   'insertBlock',
   {
     pluginConfiguration: InsertBlockOptions | undefined;
     dependencies: InsertBlockPluginDependencies;
   }
-> = (options = {}, api?) => {
-  const featureFlags =
-    api?.dependencies?.featureFlags?.sharedState.currentState() || {};
+> = ({ config: options = {}, api }) => {
+  const featureFlags = api?.featureFlags?.sharedState.currentState() || {};
   return {
     name: 'insertBlock',
 
@@ -104,7 +87,7 @@ const insertBlockPlugin: NextEditorPlugin<
         return (
           <WithPluginState
             plugins={{
-              typeAheadState: typeAheadPluginKey,
+              typeAheadState: typeAheadPluginKey, // needed to check isTypeAheadAllowed in ToolbarInsertBlock
               blockTypeState: blockTypeStateKey,
               mediaState: mediaStateKey,
               macroState: macroStateKey,
@@ -211,6 +194,20 @@ function ToolbarInsertBlockWithInjectionApi({
     'emoji',
   ]);
 
+  /**
+   * Wrapper over insertBlockTypeWithAnalytics to autobind toolbar input method
+   * @param name Block name
+   */
+  const handleInsertBlockType = React.useCallback(
+    (name: string) =>
+      insertBlockTypesWithAnalytics(
+        name,
+        INPUT_METHOD.TOOLBAR,
+        pluginInjectionApi?.analytics?.actions,
+      ),
+    [pluginInjectionApi?.analytics?.actions],
+  );
+
   return (
     <ToolbarInsertBlock
       pluginInjectionApi={pluginInjectionApi}
@@ -233,11 +230,9 @@ function ToolbarInsertBlockWithInjectionApi({
       mediaUploadsEnabled={mediaState && mediaState.allowsUploads}
       onShowMediaPicker={mediaState && mediaState.showMediaPicker}
       mediaSupported={!!mediaState}
-      imageUploadSupported={!!pluginInjectionApi?.dependencies.imageUpload}
+      imageUploadSupported={!!pluginInjectionApi?.imageUpload}
       imageUploadEnabled={imageUploadState?.enabled}
-      handleImageUpload={
-        pluginInjectionApi?.dependencies.imageUpload?.actions.startUpload
-      }
+      handleImageUpload={pluginInjectionApi?.imageUpload?.actions.startUpload}
       availableWrapperBlockTypes={
         blockTypeState && blockTypeState.availableWrapperBlockTypes
       }
@@ -251,9 +246,7 @@ function ToolbarInsertBlockWithInjectionApi({
       emojiProvider={providers.emojiProvider}
       nativeStatusSupported={options.nativeStatusSupported}
       horizontalRuleEnabled={options.horizontalRuleEnabled}
-      onInsertBlockType={handleInsertBlockType(
-        pluginInjectionApi?.dependencies.analytics?.actions,
-      )}
+      onInsertBlockType={handleInsertBlockType}
       onInsertMacroFromMacroBrowser={insertMacroFromMacroBrowser}
       macroProvider={macroState.macroProvider}
       popupsMountPoint={popupsMountPoint}

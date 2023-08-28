@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c96324369c8a09e129803eff1f33d1e8>>
+ * @codegen <<SignedSource::433c4b4063a7a64e2fbe6ec86614ba47>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -8846,6 +8846,34 @@ const tokens = [
       "transparent"
     ],
     "cleanName": "utility.UNSAFE.transparent"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.14.0",
+      "description": "A dynamic token that represents the current surface color set by a parent element. It defaults to the 'elevation.surface' token value."
+    },
+    "value": "#FFFFFF",
+    "filePath": "src/tokens/atlassian-light/utility/utility.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.14.0",
+        "description": "A dynamic token that represents the current surface color set by a parent element. It defaults to the 'elevation.surface' token value."
+      },
+      "value": "Neutral0"
+    },
+    "name": "utility.elevation.surface.current",
+    "path": [
+      "utility",
+      "elevation",
+      "surface",
+      "current"
+    ],
+    "cleanName": "utility.elevation.surface.current"
   }
 ];
 

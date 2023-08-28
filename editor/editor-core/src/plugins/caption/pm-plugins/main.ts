@@ -42,7 +42,7 @@ export default (
   dispatch: Dispatch,
   pluginInjectionApi: ExtractInjectionAPI<typeof captionPlugin> | undefined,
 ) => {
-  const analyticsApi = pluginInjectionApi?.dependencies.analytics?.actions;
+  const analyticsApi = pluginInjectionApi?.analytics?.actions;
   return new SafePlugin({
     appendTransaction(
       transactions: readonly Transaction[],

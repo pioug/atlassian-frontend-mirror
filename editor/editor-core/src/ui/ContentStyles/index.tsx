@@ -19,6 +19,7 @@ import {
   smartCardStyles,
   embedCardStyles,
   codeBlockInListSafariFix,
+  unsupportedStyles,
 } from '@atlaskit/editor-common/styles';
 import {
   blockNodesVerticalMargin,
@@ -26,7 +27,6 @@ import {
 } from '@atlaskit/editor-shared-styles';
 import { token } from '@atlaskit/tokens';
 
-import { unsupportedStyles } from '../../plugins/unsupported-content/styles';
 import { telepointerStyle } from '../../plugins/collab-edit/styles';
 import { gapCursorStyles } from '../../plugins/selection/gap-cursor/styles';
 import { tableStyles } from '@atlaskit/editor-plugin-table/ui/common-styles';

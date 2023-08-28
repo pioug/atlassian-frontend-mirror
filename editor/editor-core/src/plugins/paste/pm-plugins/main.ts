@@ -287,12 +287,10 @@ export function createPlugin(
             !isPastingTextInsidePlaceholderText &&
             !isPastingTable &&
             !isPastingOverLayoutColumns &&
-            pluginInjectionApi?.dependencies.betterTypeHistory
+            pluginInjectionApi?.betterTypeHistory
           ) {
             tr =
-              pluginInjectionApi?.dependencies.betterTypeHistory?.actions.flagPasteEvent(
-                tr,
-              );
+              pluginInjectionApi?.betterTypeHistory?.actions.flagPasteEvent(tr);
           }
 
           addLinkMetadata(view.state.selection, tr, {
@@ -353,8 +351,7 @@ export function createPlugin(
               handleMacroAutoConvert(
                 text,
                 markdownSlice,
-                pluginInjectionApi?.dependencies.card?.actions
-                  ?.queueCardsFromChangedTr,
+                pluginInjectionApi?.card?.actions?.queueCardsFromChangedTr,
                 cardOptions,
                 extensionAutoConverter,
               )(state, dispatch, view)
@@ -430,7 +427,7 @@ export function createPlugin(
             event,
             slice,
             isPastedFile ? PasteTypes.binary : PasteTypes.richText,
-            pluginInjectionApi?.dependencies?.analytics?.actions,
+            pluginInjectionApi?.analytics?.actions,
           )(state, dispatch, view)
         ) {
           return true;
@@ -508,8 +505,7 @@ export function createPlugin(
             handleMacroAutoConvert(
               text,
               slice,
-              pluginInjectionApi?.dependencies.card?.actions
-                ?.queueCardsFromChangedTr,
+              pluginInjectionApi?.card?.actions?.queueCardsFromChangedTr,
               cardOptions,
               extensionAutoConverter,
             )(state, dispatch, view)
@@ -598,8 +594,7 @@ export function createPlugin(
               view,
               event,
               slice,
-              pluginInjectionApi?.dependencies.list?.actions
-                .findRootParentListNode,
+              pluginInjectionApi?.list?.actions.findRootParentListNode,
             )(state, dispatch)
           ) {
             return true;

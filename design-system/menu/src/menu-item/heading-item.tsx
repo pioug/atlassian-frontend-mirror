@@ -5,6 +5,7 @@ import { css, jsx } from '@emotion/react';
 
 import { propDeprecationWarning } from '@atlaskit/ds-lib/deprecation-warning';
 import noop from '@atlaskit/ds-lib/noop';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { N300 } from '@atlaskit/theme/colors';
 import { headingSizes } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
@@ -38,6 +39,11 @@ const HeadingItem = memo(
     testId,
     id,
     cssFn = noop as any,
+    // Although this isn't defined on props it is available because we've used
+    // Spread props below and on the jsx element. To forcibly block usage I've
+    // picked it out and supressed the expected type error.
+    // @ts-expect-error
+    className: UNSAFE_className,
     ...rest
   }: HeadingItemProps) => {
     propDeprecationWarning(
@@ -47,16 +53,29 @@ const HeadingItem = memo(
       '', // TODO: Create DAC post when primitives/xcss are available as alternatives
     );
 
+    const UNSAFE_overrides = getBooleanFF(
+      'platform.design-system-team.unsafe-overrides-killswitch_c8j9m',
+    )
+      ? undefined
+      : css(cssFn(undefined));
+
     return (
       <div
         css={[
           headingStyles,
           // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-          css(cssFn(undefined)),
+          UNSAFE_overrides,
         ]}
         data-testid={testId}
         data-ds--menu--heading-item
         id={id}
+        className={
+          getBooleanFF(
+            'platform.design-system-team.unsafe-overrides-killswitch_c8j9m',
+          )
+            ? undefined
+            : UNSAFE_className
+        }
         {...rest}
       >
         {children}

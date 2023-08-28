@@ -1722,7 +1722,7 @@ describe('handlePastePanelOrDecisionContentIntoList', () => {
       destinationDocumentWholeListSelected,
     );
     const findRootParentListNode =
-      editorAPI.dependencies.list?.actions?.findRootParentListNode;
+      editorAPI.list?.actions?.findRootParentListNode;
     createPasteSlice(pasteContent, editorView, 0, 0, findRootParentListNode);
 
     expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
@@ -1750,7 +1750,7 @@ describe('handlePastePanelOrDecisionContentIntoList', () => {
       editorView,
       0,
       0,
-      editorAPI.dependencies.list?.actions?.findRootParentListNode,
+      editorAPI.list?.actions?.findRootParentListNode,
     );
 
     expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
@@ -1770,7 +1770,7 @@ describe('handlePastePanelOrDecisionContentIntoList', () => {
       editorView,
       0,
       0,
-      editorAPI.dependencies.list?.actions?.findRootParentListNode,
+      editorAPI.list?.actions?.findRootParentListNode,
     );
 
     expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
@@ -1790,7 +1790,7 @@ describe('handlePastePanelOrDecisionContentIntoList', () => {
       editorView,
       2,
       2,
-      editorAPI.dependencies.list?.actions?.findRootParentListNode,
+      editorAPI.list?.actions?.findRootParentListNode,
     );
 
     expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
@@ -1814,7 +1814,7 @@ describe('handlePastePanelOrDecisionContentIntoList', () => {
       editorView,
       2,
       2,
-      editorAPI.dependencies.list?.actions?.findRootParentListNode,
+      editorAPI.list?.actions?.findRootParentListNode,
     );
 
     expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
@@ -1837,7 +1837,7 @@ describe('handlePastePanelOrDecisionContentIntoList', () => {
       editorView,
       2,
       2,
-      editorAPI.dependencies.list?.actions?.findRootParentListNode,
+      editorAPI.list?.actions?.findRootParentListNode,
     );
 
     expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
@@ -1855,7 +1855,7 @@ describe('handlePastePanelOrDecisionContentIntoList', () => {
       editorView,
       0,
       0,
-      editorAPI.dependencies.list?.actions?.findRootParentListNode,
+      editorAPI.list?.actions?.findRootParentListNode,
     );
     expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
     expect(() => {
@@ -1874,7 +1874,7 @@ describe('handlePastePanelOrDecisionContentIntoList', () => {
       editorView,
       0,
       0,
-      editorAPI.dependencies.list?.actions?.findRootParentListNode,
+      editorAPI.list?.actions?.findRootParentListNode,
     );
     expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
     expect(() => {
@@ -1891,7 +1891,7 @@ describe('handlePastePanelOrDecisionContentIntoList', () => {
       editorView,
       0,
       0,
-      editorAPI.dependencies.list?.actions?.findRootParentListNode,
+      editorAPI.list?.actions?.findRootParentListNode,
     );
     expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
     expect(() => {
@@ -1908,7 +1908,7 @@ describe('handlePastePanelOrDecisionContentIntoList', () => {
       editorView,
       0,
       0,
-      editorAPI.dependencies.list?.actions?.findRootParentListNode,
+      editorAPI.list?.actions?.findRootParentListNode,
     );
     expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
     expect(() => {
@@ -1925,7 +1925,7 @@ describe('handlePastePanelOrDecisionContentIntoList', () => {
       editorView,
       0,
       0,
-      editorAPI.dependencies.list?.actions?.findRootParentListNode,
+      editorAPI.list?.actions?.findRootParentListNode,
     );
     expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
     expect(() => {
@@ -1946,7 +1946,7 @@ describe('handlePastePanelOrDecisionContentIntoList', () => {
       editorView,
       0,
       0,
-      editorAPI.dependencies.list?.actions?.findRootParentListNode,
+      editorAPI.list?.actions?.findRootParentListNode,
     );
     expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
     expect(() => {
@@ -1967,7 +1967,7 @@ describe('handlePastePanelOrDecisionContentIntoList', () => {
       editorView,
       0,
       0,
-      editorAPI.dependencies.list?.actions?.findRootParentListNode,
+      editorAPI.list?.actions?.findRootParentListNode,
     );
     expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
     expect(() => {

@@ -396,7 +396,7 @@ class ResizableMediaSingleNext extends React.Component<
   private saveWrapper = (wrapper: HTMLDivElement) => (this.wrapper = wrapper);
 
   private displayGuideline = (guidelines: GuidelineConfig[]) =>
-    this.props.pluginInjectionApi?.dependencies?.guideline?.actions?.displayGuideline(
+    this.props.pluginInjectionApi?.guideline?.actions?.displayGuideline(
       this.props.view,
     )({ guidelines });
 
@@ -437,7 +437,7 @@ class ResizableMediaSingleNext extends React.Component<
 
   private getRelativeGuides = () => {
     const guidelinePluginState =
-      this.props.pluginInjectionApi?.dependencies?.guideline?.sharedState?.currentState();
+      this.props.pluginInjectionApi?.guideline?.sharedState?.currentState();
     const { top: topOffset } = guidelinePluginState?.rect || {
       top: 0,
       left: 0,

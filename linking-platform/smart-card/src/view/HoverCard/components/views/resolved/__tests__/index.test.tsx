@@ -209,6 +209,33 @@ describe('HoverCardResolvedView', () => {
     });
   });
 
+  describe('image preview display position - first or 3rd position, depending on the FF  ', () => {
+    ffTest(
+      'platform.linking-platform.smart-card.enable-better-metadata_iojwg',
+      async () => {
+        const { findByTestId } = await setup({
+          mockResponse: mockBaseResponseWithPreview as JsonLd.Response,
+        });
+        const container = await findByTestId('smart-links-container');
+        const imagePreview = await findByTestId(
+          'smart-block-preview-resolved-view',
+        );
+        expect(container.firstElementChild).toBe(imagePreview);
+      },
+      async () => {
+        const { findByTestId } = await setup({
+          mockResponse: mockBaseResponseWithPreview as JsonLd.Response,
+        });
+        const container = await findByTestId('smart-links-container');
+        const imagePreview = await findByTestId(
+          'smart-block-preview-resolved-view',
+        );
+        //is displayed after title & metadata blocks
+        expect(container.children[2]).toBe(imagePreview);
+      },
+    );
+  });
+
   describe('metadata', () => {
     it('renders correctly for confluence links', async () => {
       const { findByTestId } = await setup();

@@ -123,7 +123,7 @@ import { handlePasteLinkOnSelectedText } from '../../handlers';
 import { Slice } from '@atlaskit/editor-prosemirror/model';
 import { measureRender as measureRenderMocked } from '@atlaskit/editor-common/utils';
 import { createPasteMeasurePayload as createPasteMeasurePayloadMocked } from '../../pm-plugins/analytics';
-import unsupportedContentPlugin from '../../../unsupported-content';
+import { unsupportedContentPlugin } from '@atlaskit/editor-plugin-unsupported-content';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 const TABLE_LOCAL_ID = 'test-table-local-id';

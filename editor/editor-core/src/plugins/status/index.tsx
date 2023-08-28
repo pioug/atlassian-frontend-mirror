@@ -29,7 +29,7 @@ const baseStatusPlugin: NextEditorPlugin<
   {
     pluginConfiguration: StatusPluginOptions | undefined;
   }
-> = (options?) => ({
+> = ({ config: options }) => ({
   name: 'status',
 
   nodes() {
@@ -118,9 +118,9 @@ const decorateWithPluginOptions = (
       }
     >
   >,
-  options: StatusPluginOptions,
+  options: StatusPluginOptions | undefined,
 ) => {
-  if (options.menuDisabled === true) {
+  if (options?.menuDisabled === true) {
     return plugin;
   }
   plugin.pluginsOptions = {
@@ -154,7 +154,10 @@ const statusPlugin: NextEditorPlugin<
   {
     pluginConfiguration: StatusPluginOptions;
   }
-> = (options: StatusPluginOptions, api) =>
-  decorateWithPluginOptions(baseStatusPlugin(options, api), options);
+> = ({ config: options, api }) =>
+  decorateWithPluginOptions(
+    baseStatusPlugin({ config: options, api }),
+    options,
+  );
 
 export default statusPlugin;

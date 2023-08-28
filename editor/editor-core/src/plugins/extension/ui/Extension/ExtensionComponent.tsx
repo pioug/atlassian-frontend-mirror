@@ -23,7 +23,7 @@ import Extension from './Extension';
 import InlineExtension from './InlineExtension';
 import type { ProsemirrorGetPosHandler } from '../../../../nodeviews';
 import type { EditorAppearance } from '../../../../types/editor-appearance';
-import type { widthPlugin } from '@atlaskit/editor-plugin-width';
+import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
 import type { PluginInjectionAPIWithDependency } from '@atlaskit/editor-common/types';
 
 export interface Props {
@@ -35,9 +35,7 @@ export interface Props {
   extensionProvider?: Promise<ExtensionProvider>;
   references?: ReferenceEntity[];
   editorAppearance?: EditorAppearance;
-  pluginInjectionApi:
-    | PluginInjectionAPIWithDependency<typeof widthPlugin>
-    | undefined;
+  pluginInjectionApi: PluginInjectionAPIWithDependency<WidthPlugin> | undefined;
 }
 
 export interface State {

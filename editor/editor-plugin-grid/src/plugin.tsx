@@ -5,13 +5,13 @@ import classnames from 'classnames';
 
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import {
+import type {
   ExtractInjectionAPI,
   NextEditorPlugin,
 } from '@atlaskit/editor-common/types';
-import type { widthPlugin } from '@atlaskit/editor-plugin-width';
+import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
   akEditorBreakoutPadding,
   akEditorFullPageMaxWidth,
@@ -253,17 +253,19 @@ const gridPMPlugin = new SafePlugin<GridPluginState>({
   },
 });
 
-export const gridPlugin: NextEditorPlugin<
+export type GridPlugin = NextEditorPlugin<
   'grid',
   {
     pluginConfiguration: GridPluginOptions | undefined;
-    dependencies: [typeof widthPlugin];
+    dependencies: [WidthPlugin];
     sharedState: GridPluginState | null;
     actions: {
       displayGrid: CreateDisplayGrid;
     };
   }
-> = (options?, api?) => {
+>;
+
+export const gridPlugin: GridPlugin = ({ config: options, api }) => {
   return {
     name: 'grid',
 

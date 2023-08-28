@@ -1,5 +1,17 @@
 # @atlaskit/link-datasource
 
+## 1.0.10
+
+### Patch Changes
+
+- [`4994b59823e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4994b59823e) - [ux] Fix assets modal columns to reset when changing schema
+
+## 1.0.9
+
+### Patch Changes
+
+- [`ee9ef928b39`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ee9ef928b39) - [ux] Link render types will now render on a new line
+
 ## 1.0.8
 
 ### Patch Changes

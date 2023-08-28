@@ -151,6 +151,7 @@ export type {
   PluginInjectionAPIWithDependency,
   PluginInjectionAPIWithDependencies,
   PublicPluginAPI,
+  NextEditorPluginFunctionOptionalConfigDefinition,
 } from './next-editor-plugin';
 
 export type { ExtractPublicEditorAPI } from './editor-public-api';

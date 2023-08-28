@@ -91,7 +91,7 @@ describe('annotation', () => {
 
   function mount(editorView: EditorView): RenderResult {
     return render(
-      annotationPlugin({ inlineComment: inlineCommentProviderFake })
+      annotationPlugin({ config: { inlineComment: inlineCommentProviderFake } })
         .contentComponent!({
         editorView,
         editorActions: null as any,

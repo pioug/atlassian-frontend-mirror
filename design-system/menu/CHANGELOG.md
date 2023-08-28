@@ -1,5 +1,11 @@
 # @atlaskit/menu
 
+## 1.10.0
+
+### Minor Changes
+
+- [`6bb299616f3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6bb299616f3) - Adds a killswitch to turn off unsafe style overrides via a feature flag.
+
 ## 1.9.8
 
 ### Patch Changes

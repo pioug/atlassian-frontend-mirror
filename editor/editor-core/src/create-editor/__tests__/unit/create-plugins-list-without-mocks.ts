@@ -1,6 +1,14 @@
-import createPluginsList from '../../create-plugins-list';
 import { expandPlugin } from '../../../plugins';
 import * as expand from '../../../plugins/expand';
+
+import createPluginsListBase from '../../create-plugins-list';
+import { createPreset } from '../../create-preset';
+
+import type { EditorProps } from '../../../types';
+
+const createPluginsList = (props: EditorProps, prevProps?: EditorProps) => {
+  return createPluginsListBase(createPreset(props, prevProps), props);
+};
 
 describe('create-plugins-list without mock tests', () => {
   it('should have the default create-plugins-list plugins available for full-page', () => {
@@ -80,9 +88,11 @@ describe('create-plugins-list without mock tests', () => {
         allowExpand: { allowInsertion: true },
       });
       expect(expandPlugin).toHaveBeenCalledWith({
-        allowInsertion: true,
-        useLongPressSelection: false,
-        appearance: 'full-page',
+        config: {
+          allowInsertion: true,
+          useLongPressSelection: false,
+          appearance: 'full-page',
+        },
       });
     });
 

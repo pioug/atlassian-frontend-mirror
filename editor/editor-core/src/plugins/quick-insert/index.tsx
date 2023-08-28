@@ -43,7 +43,7 @@ const quickInsertPlugin: NextEditorPlugin<
       openElementBrowserModal: EditorCommand;
     };
   }
-> = (options) => ({
+> = ({ config: options }) => ({
   name: 'quickInsert',
 
   pmPlugins(defaultItems: Array<QuickInsertHandler>) {

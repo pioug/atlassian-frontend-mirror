@@ -76,11 +76,11 @@ export const createPlugin = (
         view.state,
         view.state.tr,
         featureFlags,
-        pluginInjectionApi?.dependencies.analytics?.actions,
+        pluginInjectionApi?.analytics?.actions,
       );
       const onSyncUpError: SyncUpErrorFunction = (attributes) => {
         const fireAnalyticsCallback = fireAnalyticsEvent(
-          pluginInjectionApi?.dependencies.analytics?.sharedState.currentState()
+          pluginInjectionApi?.analytics?.sharedState.currentState()
             ?.createAnalyticsEvent ?? undefined,
         );
         fireAnalyticsCallback({
@@ -99,8 +99,7 @@ export const createPlugin = (
           options,
           providerFactory,
           featureFlags,
-          editorAnalyticsApi:
-            pluginInjectionApi?.dependencies.analytics?.actions,
+          editorAnalyticsApi: pluginInjectionApi?.analytics?.actions,
         }),
         addErrorAnalytics,
       );

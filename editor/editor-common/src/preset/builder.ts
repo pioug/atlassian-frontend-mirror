@@ -150,8 +150,8 @@ export class EditorPresetBuilder<
         }
 
         const plugin = pluginInjectionAPI
-          ? fn(config, pluginInjectionAPI.api())
-          : fn(config);
+          ? fn({ config, api: pluginInjectionAPI.api() })
+          : fn({ config });
 
         if (plugin && excludePlugins?.has(plugin.name)) {
           return null;

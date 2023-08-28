@@ -88,7 +88,7 @@ describe('emojis', () => {
     it('should insert emoji-node', () => {
       const { editorView, editorAPI } = editor(doc(p('{<>}')));
 
-      editorAPI.dependencies.core?.actions?.execute(
+      editorAPI.core?.actions?.execute(
         insertEmoji(mockAnalyticsPlugin().actions as any)({
           fallback: 'Oscar Wallhult',
           shortName: 'oscar',
@@ -104,7 +104,7 @@ describe('emojis', () => {
     it('should insert a space after the emoji-node', () => {
       const { editorView, editorAPI } = editor(doc(p('{<>}')));
 
-      editorAPI.dependencies.core?.actions?.execute(
+      editorAPI.core?.actions?.execute(
         insertEmoji(mockAnalyticsPlugin().actions as any)(grinEmojiId),
       );
 
@@ -118,7 +118,7 @@ describe('emojis', () => {
         doc(p(emoji(grinEmojiId)(), ' ', '{<>}')),
       );
 
-      editorAPI.dependencies.core?.actions?.execute(
+      editorAPI.core?.actions?.execute(
         insertEmoji(mockAnalyticsPlugin().actions as any)(evilburnsEmojiId),
       );
 
@@ -130,7 +130,7 @@ describe('emojis', () => {
     it('should allow inserting emoji on new line after hard break', () => {
       const { editorView, editorAPI } = editor(doc(p(br(), '{<>}')));
 
-      editorAPI.dependencies.core?.actions?.execute(
+      editorAPI.core?.actions?.execute(
         insertEmoji(mockAnalyticsPlugin().actions as any)(grinEmojiId),
       );
 
@@ -144,7 +144,7 @@ describe('emojis', () => {
         doc(ul(li(p('One')), li(p('Two ', '{<>}')), li(p('Three')))),
       );
 
-      editorAPI.dependencies.core?.actions?.execute(
+      editorAPI.core?.actions?.execute(
         insertEmoji(mockAnalyticsPlugin().actions as any)(grinEmojiId),
       );
 
@@ -164,7 +164,7 @@ describe('emojis', () => {
         doc(blockquote(p('Hello ', '{<>}'))),
       );
 
-      editorAPI.dependencies.core?.actions?.execute(
+      editorAPI.core?.actions?.execute(
         insertEmoji(mockAnalyticsPlugin().actions as any)(grinEmojiId),
       );
 
@@ -180,7 +180,7 @@ describe('emojis', () => {
 
     it('should fire analytics event when insert emoji', () => {
       const { editorAPI } = editor(doc(p('{<>}')));
-      editorAPI.dependencies.core?.actions?.execute(
+      editorAPI.core?.actions?.execute(
         insertEmoji(mockAnalyticsPlugin().actions as any)(
           grinEmojiId,
           INPUT_METHOD.PICKER,

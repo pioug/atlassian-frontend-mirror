@@ -31,7 +31,8 @@ describe(name, () => {
     });
 
     it('should provide the placeholderText node', () => {
-      const nodes = placeholderTextPlugin({ allowInserting: true }).nodes!();
+      const nodes = placeholderTextPlugin({ config: { allowInserting: true } })
+        .nodes!();
       expect(nodes).toEqual([expect.objectContaining({ name: 'placeholder' })]);
     });
 
@@ -73,7 +74,9 @@ describe(name, () => {
       });
 
       it('should provide the placeholderText node', () => {
-        const nodes = placeholderTextPlugin({ allowInserting: false }).nodes!();
+        const nodes = placeholderTextPlugin({
+          config: { allowInserting: false },
+        }).nodes!();
         expect(nodes).toEqual([
           expect.objectContaining({ name: 'placeholder' }),
         ]);

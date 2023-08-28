@@ -16,7 +16,7 @@
 
 ```ts
 import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
-import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { CommandDispatch } from '@atlaskit/editor-common/types';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { Fragment } from '@atlaskit/editor-prosemirror/model';
@@ -24,13 +24,16 @@ import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import type { Node as Node_2 } from '@atlaskit/editor-prosemirror/model';
 
 // @public (undocumented)
-export const contentInsertionPlugin: NextEditorPlugin<
+export type ContentInsertionPlugin = NextEditorPlugin<
   'contentInsertion',
   {
     actions: InsertNodeAPI;
-    dependencies: [typeof analyticsPlugin];
+    dependencies: [AnalyticsPlugin];
   }
 >;
+
+// @public (undocumented)
+export const contentInsertionPlugin: ContentInsertionPlugin;
 
 // @public (undocumented)
 export type InsertNodeAPI = {

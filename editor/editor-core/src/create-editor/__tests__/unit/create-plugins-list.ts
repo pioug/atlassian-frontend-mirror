@@ -37,11 +37,16 @@ import fakeTextCursorPlugin from '../../../plugins/fake-text-cursor';
 import submitEditorPlugin from '../../../plugins/submit-editor';
 import quickInsertPlugin from '../../../plugins/quick-insert';
 
-import createPluginsList, {
+import createPluginsListBase, {
   getScrollGutterOptions,
 } from '../../create-plugins-list';
+import { createPreset } from '../../create-preset';
 
-import { EditorProps } from '../../../types';
+import type { EditorProps } from '../../../types';
+
+const createPluginsList = (props: EditorProps, prevProps?: EditorProps) => {
+  createPluginsListBase(createPreset(props, prevProps), props);
+};
 
 describe('createPluginsList', () => {
   afterEach(() => {
@@ -50,7 +55,7 @@ describe('createPluginsList', () => {
 
   it('should add helpDialogPlugin if allowHelpDialog is true', () => {
     createPluginsList({ allowHelpDialog: true });
-    expect(helpDialogPlugin).toHaveBeenCalledWith(false);
+    expect(helpDialogPlugin).toHaveBeenCalledWith({ config: false });
   });
 
   it('should add fakeTextCursorPlugin by default', () => {
@@ -62,12 +67,12 @@ describe('createPluginsList', () => {
     const tableOptions = { allowTables: true };
     createPluginsList(tableOptions);
     expect(tablesPlugin).toHaveBeenCalledTimes(1);
-    expect(tablesPlugin).toHaveBeenCalledWith(
-      expect.objectContaining({
+    expect(tablesPlugin).toHaveBeenCalledWith({
+      config: expect.objectContaining({
         fullWidthEnabled: false,
         wasFullWidthEnabled: undefined,
       }),
-    );
+    });
   });
 
   it('should add tablePlugin if allowTables is true where previous appearance was full-width', () => {
@@ -75,12 +80,12 @@ describe('createPluginsList', () => {
     const prevProps: EditorProps = { appearance: 'full-width' };
     createPluginsList(tableOptions, prevProps);
     expect(tablesPlugin).toHaveBeenCalledTimes(1);
-    expect(tablesPlugin).toHaveBeenCalledWith(
-      expect.objectContaining({
+    expect(tablesPlugin).toHaveBeenCalledWith({
+      config: expect.objectContaining({
         fullWidthEnabled: false,
         wasFullWidthEnabled: true,
       }),
-    );
+    });
   });
 
   it('should add tablePlugin if allowTables is true where previous appearance was mobile', () => {
@@ -88,12 +93,12 @@ describe('createPluginsList', () => {
     const prevProps: EditorProps = { appearance: 'mobile' };
     createPluginsList(tableOptions, prevProps);
     expect(tablesPlugin).toHaveBeenCalledTimes(1);
-    expect(tablesPlugin).toHaveBeenCalledWith(
-      expect.objectContaining({
+    expect(tablesPlugin).toHaveBeenCalledWith({
+      config: expect.objectContaining({
         fullWidthEnabled: false,
         wasFullWidthEnabled: false,
       }),
-    );
+    });
   });
 
   it('should always add submitEditorPlugin to the editor', () => {
@@ -109,8 +114,10 @@ describe('createPluginsList', () => {
   it('should add quickInsertPlugin with special options when appearance === "mobile"', () => {
     createPluginsList({ appearance: 'mobile' });
     expect(quickInsertPlugin).toHaveBeenCalledWith({
-      disableDefaultItems: true,
-      headless: true,
+      config: {
+        disableDefaultItems: true,
+        headless: true,
+      },
     });
   });
 
@@ -118,7 +125,9 @@ describe('createPluginsList', () => {
     createPluginsList({ appearance: 'mobile' });
 
     expect(selectionPlugin).toHaveBeenCalledWith({
-      useLongPressSelection: false,
+      config: {
+        useLongPressSelection: false,
+      },
     });
   });
 
@@ -139,14 +148,16 @@ describe('createPluginsList', () => {
   it('should pass empty options to placeholderText plugin if allowTemplatePlaceholders is true', () => {
     createPluginsList({ allowTemplatePlaceholders: true });
     expect(placeholderTextPlugin).toHaveBeenCalledTimes(1);
-    expect(placeholderTextPlugin).toHaveBeenCalledWith({});
+    expect(placeholderTextPlugin).toHaveBeenCalledWith({ config: {} });
   });
 
   it('should enable allowInserting for placeholderText plugin if options.allowInserting is true', () => {
     createPluginsList({ allowTemplatePlaceholders: { allowInserting: true } });
     expect(placeholderTextPlugin).toHaveBeenCalledTimes(1);
     expect(placeholderTextPlugin).toHaveBeenCalledWith({
-      allowInserting: true,
+      config: {
+        allowInserting: true,
+      },
     });
   });
 
@@ -163,8 +174,8 @@ describe('createPluginsList', () => {
       linking: { smartLinks, linkPicker: { plugins: linkPickerPlugins } },
     });
 
-    expect(hyperlinkPlugin).toHaveBeenCalledWith(
-      expect.objectContaining({
+    expect(hyperlinkPlugin).toHaveBeenCalledWith({
+      config: expect.objectContaining({
         cardOptions: {
           allowEmbeds: true,
         },
@@ -172,7 +183,7 @@ describe('createPluginsList', () => {
           plugins: linkPickerPlugins,
         },
       }),
-    );
+    });
   });
 
   it('should initialise hyperlink, falling back to `smartLinks` prop if `linking.smartLinks` is not provided', () => {
@@ -184,8 +195,8 @@ describe('createPluginsList', () => {
       linking: { linkPicker: { plugins: linkPickerPlugins } },
     });
 
-    expect(hyperlinkPlugin).toHaveBeenCalledWith(
-      expect.objectContaining({
+    expect(hyperlinkPlugin).toHaveBeenCalledWith({
+      config: expect.objectContaining({
         cardOptions: {
           allowEmbeds: true,
         },
@@ -193,7 +204,7 @@ describe('createPluginsList', () => {
           plugins: linkPickerPlugins,
         },
       }),
-    );
+    });
   });
 
   it('should initialise hyperlink, preferring `linking.smartLinks` over `smartLinks` prop if both are provided', () => {
@@ -209,8 +220,8 @@ describe('createPluginsList', () => {
       },
     });
 
-    expect(hyperlinkPlugin).toHaveBeenCalledWith(
-      expect.objectContaining({
+    expect(hyperlinkPlugin).toHaveBeenCalledWith({
+      config: expect.objectContaining({
         cardOptions: {
           allowEmbeds: false,
         },
@@ -218,7 +229,7 @@ describe('createPluginsList', () => {
           plugins: linkPickerPlugins,
         },
       }),
-    );
+    });
   });
 
   it('should add cardPlugin if `linking.smartLinks` is provided', () => {
@@ -231,11 +242,13 @@ describe('createPluginsList', () => {
 
     expect(cardPlugin).toHaveBeenCalledWith(
       expect.objectContaining({
-        allowEmbeds: true,
-        platform: 'web',
-        fullWidthMode: false,
-        linkPicker: {
-          plugins: linkPickerPlugins,
+        config: {
+          allowEmbeds: true,
+          platform: 'web',
+          fullWidthMode: false,
+          linkPicker: {
+            plugins: linkPickerPlugins,
+          },
         },
       }),
     );
@@ -252,11 +265,13 @@ describe('createPluginsList', () => {
 
     expect(cardPlugin).toHaveBeenCalledWith(
       expect.objectContaining({
-        allowEmbeds: true,
-        platform: 'web',
-        fullWidthMode: false,
-        linkPicker: {
-          plugins: linkPickerPlugins,
+        config: {
+          allowEmbeds: true,
+          platform: 'web',
+          fullWidthMode: false,
+          linkPicker: {
+            plugins: linkPickerPlugins,
+          },
         },
       }),
     );
@@ -277,11 +292,13 @@ describe('createPluginsList', () => {
 
     expect(cardPlugin).toHaveBeenCalledWith(
       expect.objectContaining({
-        allowEmbeds: false,
-        platform: 'web',
-        fullWidthMode: false,
-        linkPicker: {
-          plugins: linkPickerPlugins,
+        config: {
+          allowEmbeds: false,
+          platform: 'web',
+          fullWidthMode: false,
+          linkPicker: {
+            plugins: linkPickerPlugins,
+          },
         },
       }),
     );
@@ -290,52 +307,60 @@ describe('createPluginsList', () => {
   it('should not add statusPlugin if allowStatus prop is false', () => {
     createPluginsList({ allowStatus: false });
     expect(statusPlugin).not.toBeCalled();
-    expect(insertBlockPlugin).toBeCalledWith(
-      expect.objectContaining({ nativeStatusSupported: false }),
-    );
+    expect(insertBlockPlugin).toBeCalledWith({
+      config: expect.objectContaining({ nativeStatusSupported: false }),
+    });
   });
 
   it('should add statusPlugin if allowStatus prop is true', () => {
     createPluginsList({ allowStatus: true });
     expect(statusPlugin).toHaveBeenCalledTimes(1);
     expect(statusPlugin).toHaveBeenCalledWith({
-      menuDisabled: false,
-      allowZeroWidthSpaceAfter: true,
+      config: {
+        menuDisabled: false,
+        allowZeroWidthSpaceAfter: true,
+      },
     });
-    expect(insertBlockPlugin).toBeCalledWith(
-      expect.objectContaining({ nativeStatusSupported: true }),
-    );
+    expect(insertBlockPlugin).toBeCalledWith({
+      config: expect.objectContaining({ nativeStatusSupported: true }),
+    });
   });
 
   it('should add statusPlugin if allowStatus prop is provided with menuDisabled true', () => {
     createPluginsList({ allowStatus: { menuDisabled: true } });
     expect(statusPlugin).toHaveBeenCalledTimes(1);
     expect(statusPlugin).toHaveBeenCalledWith({
-      menuDisabled: true,
-      allowZeroWidthSpaceAfter: true,
+      config: {
+        menuDisabled: true,
+        allowZeroWidthSpaceAfter: true,
+      },
     });
-    expect(insertBlockPlugin).toBeCalledWith(
-      expect.objectContaining({ nativeStatusSupported: false }),
-    );
+    expect(insertBlockPlugin).toBeCalledWith({
+      config: expect.objectContaining({ nativeStatusSupported: false }),
+    });
   });
 
   it('should add statusPlugin if allowStatus prop is provided with menuDisabled false', () => {
     createPluginsList({ allowStatus: { menuDisabled: false } });
     expect(statusPlugin).toHaveBeenCalledTimes(1);
     expect(statusPlugin).toHaveBeenCalledWith({
-      menuDisabled: false,
-      allowZeroWidthSpaceAfter: true,
+      config: {
+        menuDisabled: false,
+        allowZeroWidthSpaceAfter: true,
+      },
     });
-    expect(insertBlockPlugin).toBeCalledWith(
-      expect.objectContaining({ nativeStatusSupported: true }),
-    );
+    expect(insertBlockPlugin).toBeCalledWith({
+      config: expect.objectContaining({ nativeStatusSupported: true }),
+    });
   });
 
   it('should add analyticsPlugin if allowAnalyticsGASV3 prop is provided', () => {
     createPluginsList({ allowAnalyticsGASV3: true }, undefined);
     expect(analyticsPlugin).toHaveBeenCalledTimes(1);
     expect(analyticsPlugin).toHaveBeenCalledWith({
-      performanceTracking: undefined,
+      config: {
+        performanceTracking: undefined,
+      },
     });
   });
 
@@ -351,7 +376,7 @@ describe('createPluginsList', () => {
       packageVersion: '1.1.1',
     };
     createPluginsList({ feedbackInfo });
-    expect(feedbackDialogPlugin).toBeCalledWith(feedbackInfo);
+    expect(feedbackDialogPlugin).toBeCalledWith({ config: feedbackInfo });
   });
 
   it('should always add insertBlockPlugin to the editor with insertMenuItems', () => {
@@ -382,7 +407,7 @@ describe('createPluginsList', () => {
 
     createPluginsList(props);
     expect(insertBlockPlugin).toHaveBeenCalledTimes(1);
-    expect(insertBlockPlugin).toHaveBeenCalledWith(props);
+    expect(insertBlockPlugin).toHaveBeenCalledWith({ config: props });
   });
 
   it('should add historyPlugin to mobile editor', () => {
@@ -430,7 +455,9 @@ describe('createPluginsList', () => {
       createPluginsList({ placeholder: defaultPlaceholder });
 
       expect(placeholderPlugin).toHaveBeenCalledWith({
-        placeholder: defaultPlaceholder,
+        config: {
+          placeholder: defaultPlaceholder,
+        },
       });
     });
   });
@@ -470,18 +497,22 @@ describe('createPluginsList', () => {
     it('should pass allowCompositionInputOverride when mobile editor', () => {
       createPluginsList({ appearance: 'mobile' });
       expect(codeBlockPlugin).toHaveBeenCalledWith({
-        allowCompositionInputOverride: true,
-        appearance: 'mobile',
-        useLongPressSelection: false,
+        config: {
+          allowCompositionInputOverride: true,
+          appearance: 'mobile',
+          useLongPressSelection: false,
+        },
       });
     });
 
     it('should not pass allowCompositionInputOverride when not mobile editor', () => {
       createPluginsList({ appearance: 'full-page' });
       expect(codeBlockPlugin).toHaveBeenCalledWith({
-        allowCompositionInputOverride: false,
-        appearance: 'full-page',
-        useLongPressSelection: false,
+        config: {
+          allowCompositionInputOverride: false,
+          appearance: 'full-page',
+          useLongPressSelection: false,
+        },
       });
     });
   });

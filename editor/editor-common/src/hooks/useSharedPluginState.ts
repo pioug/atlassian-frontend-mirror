@@ -4,38 +4,33 @@ import type {
   ExtractPluginSharedState,
   NextEditorPlugin,
   PluginDependenciesAPI,
-  PluginInjectionAPIWithDependencies,
   PublicPluginAPI,
 } from '../types/next-editor-plugin';
 
 type NamedPluginStatesFromInjectionAPI<
-  API extends PluginInjectionAPIWithDependencies<any> | undefined,
+  API extends PublicPluginAPI<any> | undefined,
   PluginList extends string[],
 > = Readonly<{
-  [K in PluginList[number] as `${K}State`]: API extends PluginInjectionAPIWithDependencies<any>
-    ? API['dependencies'][K] extends
-        | PluginDependenciesAPI<infer Plugin>
-        | undefined
+  [K in PluginList[number] as `${K}State`]: API extends PublicPluginAPI<any>
+    ? API[K] extends PluginDependenciesAPI<infer Plugin> | undefined
       ? ExtractPluginSharedState<Plugin> | undefined
       : never
     : never;
 }>;
 
 type NamedPluginDependencies<
-  API extends PluginInjectionAPIWithDependencies<any> | undefined,
+  API extends PublicPluginAPI<any> | undefined,
   PluginList extends string[],
 > = Readonly<{
-  [K in PluginList[number] as `${K}State`]: API extends PluginInjectionAPIWithDependencies<any>
-    ? API['dependencies'][K] extends PluginDependenciesAPI<any> | undefined
-      ? API['dependencies'][K] | undefined
+  [K in PluginList[number] as `${K}State`]: API extends PublicPluginAPI<any>
+    ? API[K] extends PluginDependenciesAPI<any> | undefined
+      ? API[K] | undefined
       : never
     : never;
 }>;
 
-type ExtractPluginNames<API extends PluginInjectionAPIWithDependencies<any>> =
-  API extends PluginInjectionAPIWithDependencies<any>
-    ? keyof API['dependencies']
-    : never;
+type ExtractPluginNames<API extends PublicPluginAPI<any>> =
+  API extends PublicPluginAPI<any> ? keyof API : never;
 
 type NamedPluginKeys = Readonly<{
   [stateName: string]:
@@ -95,7 +90,7 @@ function useStaticPlugins<T>(plugins: T[]): T[] {
  *   return <p>{ dogState.title } { exampleState.description }</p>
  * }
  *
- * const examplePlugin: NextEditorPlugin<'example', { dependencies: [typeof pluginDog] }> = (_, api) => {
+ * const examplePlugin: NextEditorPlugin<'example', { dependencies: [typeof pluginDog] }> = ({ api }) => {
  *   return {
  *     name: 'example',
  *     contentComponent: () =>
@@ -126,11 +121,11 @@ export function useSharedPluginState<
       pluginNames.reduce(
         (acc, pluginName) => ({
           ...acc,
-          [`${pluginName}State`]: injectionApi?.dependencies[pluginName],
+          [`${pluginName}State`]: injectionApi?.[pluginName],
         }),
         {} as NamedPluginDependencies<typeof injectionApi, PluginNames>,
       ),
-    [injectionApi?.dependencies, pluginNames],
+    [injectionApi, pluginNames],
   );
 
   return useSharedPluginStateInternal(namedExternalPlugins);

@@ -1,5 +1,46 @@
 # @atlaskit/editor-common
 
+## 74.53.1
+
+### Patch Changes
+
+- [`eab48233583`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eab48233583) - Calculate parent content width properly when inserting a nested media single node
+
+## 74.53.0
+
+### Minor Changes
+
+- [`8467bdcdf4f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8467bdcdf4f) - Removing `dependencies` prop from PluginInjectionAPI and changing
+  signature of `NextEditorPlugin`.
+
+  Previously a `NextEditorPlugin` would be consumed as so:
+
+  ```ts
+  const plugin: NextEditorPlugin< ... > = (config, api) => {
+    // Can use api like so:
+    api.dependencies.core.actions.execute( ... )
+    return { ... }
+  }
+  ```
+
+  Now these have become named parameters like so and the `pluginInjectionAPI` is used
+  without the `dependencies` prop:
+
+  ```ts
+  const plugin: NextEditorPlugin< ... > = ({ config, api }) => {
+    // Can use api like so:
+    api.core.actions.execute( ... )
+    return { ... }
+  }
+  ```
+
+## 74.52.2
+
+### Patch Changes
+
+- [`e0f020abea0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e0f020abea0) - created new plugin for unsupported-content, moved code and styles
+- Updated dependencies
+
 ## 74.52.1
 
 ### Patch Changes

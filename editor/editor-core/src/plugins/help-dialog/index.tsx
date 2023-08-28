@@ -61,7 +61,7 @@ const helpDialog: NextEditorPlugin<
     ];
     pluginConfiguration: boolean;
   }
-> = (imageUploadProviderExists = false, api) => ({
+> = ({ config: imageUploadProviderExists = false, api }) => ({
   name: 'helpDialog',
 
   pmPlugins() {
@@ -73,7 +73,7 @@ const helpDialog: NextEditorPlugin<
       },
       {
         name: 'helpDialogKeymap',
-        plugin: () => keymapPlugin(api?.dependencies.analytics?.actions),
+        plugin: () => keymapPlugin(api?.analytics?.actions),
       },
     ];
   },
@@ -91,7 +91,7 @@ const helpDialog: NextEditorPlugin<
         action(insert) {
           const tr = insert('');
           openHelpCommand(tr);
-          api?.dependencies.analytics?.actions.attachAnalyticsEvent({
+          api?.analytics?.actions.attachAnalyticsEvent({
             action: ACTION.HELP_OPENED,
             actionSubject: ACTION_SUBJECT.HELP,
             actionSubjectId: ACTION_SUBJECT_ID.HELP_QUICK_INSERT,
@@ -114,7 +114,7 @@ const helpDialog: NextEditorPlugin<
           <HelpDialogLoader
             editorView={editorView}
             isVisible={helpDialog.isVisible}
-            quickInsertEnabled={!!api?.dependencies.quickInsert}
+            quickInsertEnabled={!!api?.quickInsert}
             imageEnabled={helpDialog.imageEnabled}
           />
         )}

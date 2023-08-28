@@ -2,8 +2,8 @@ import React from 'react';
 
 import { HashRouter, Link, Route, Switch } from 'react-router-dom';
 
-import Box from '@atlaskit/ds-explorations/box';
 import Heading from '@atlaskit/heading';
+import { Box } from '@atlaskit/primitives';
 
 import Pagination from '../src';
 

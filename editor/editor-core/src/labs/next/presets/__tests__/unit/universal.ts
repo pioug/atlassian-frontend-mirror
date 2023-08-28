@@ -97,12 +97,12 @@ describe('createUniversalPreset', () => {
       expect(tablesPlugin).toHaveBeenCalledTimes(0);
       preset.build();
       expect(tablesPlugin).toHaveBeenCalledTimes(1);
-      expect(tablesPlugin).toHaveBeenCalledWith(
-        expect.objectContaining({
+      expect(tablesPlugin).toHaveBeenCalledWith({
+        config: expect.objectContaining({
           fullWidthEnabled: false,
           wasFullWidthEnabled: undefined,
         }),
-      );
+      });
     });
 
     it('should add tablePlugin if allowTables is true where previous appearance was full-width', () => {
@@ -118,12 +118,12 @@ describe('createUniversalPreset', () => {
       expect(tablesPlugin).toHaveBeenCalledTimes(0);
       preset.build();
       expect(tablesPlugin).toHaveBeenCalledTimes(1);
-      expect(tablesPlugin).toHaveBeenCalledWith(
-        expect.objectContaining({
+      expect(tablesPlugin).toHaveBeenCalledWith({
+        config: expect.objectContaining({
           fullWidthEnabled: false,
           wasFullWidthEnabled: true,
         }),
-      );
+      });
     });
   });
 
@@ -164,7 +164,9 @@ describe('createUniversalPreset', () => {
       expect(datePlugin).toHaveBeenCalledTimes(1);
       expect(datePlugin).toHaveBeenCalledWith(
         expect.objectContaining({
-          weekStartDay: 0,
+          config: {
+            weekStartDay: 0,
+          },
         }),
       );
     });

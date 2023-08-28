@@ -75,7 +75,7 @@ export default class ResizableMediaSingle extends React.Component<
   ) => {
     const { pluginInjectionApi, view } = this.props;
 
-    pluginInjectionApi?.dependencies?.grid?.actions?.displayGrid(view)({
+    pluginInjectionApi?.grid?.actions?.displayGrid(view)({
       visible,
       gridType,
       highlight: highlight as Highlights,

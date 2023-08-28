@@ -2,8 +2,8 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 
-import { DatasourceModalType } from '@atlaskit/editor-common/types';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { DatasourceModalType } from '@atlaskit/editor-common/types';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import ModalWithState from '../DatasourceModal/ModalWithState';
 
@@ -11,13 +11,11 @@ const getMockAPI: any = (
   datasourceModalType?: DatasourceModalType,
   showDatasourceModal?: boolean,
 ) => ({
-  dependencies: {
-    card: {
-      sharedState: {
-        getSharedState: () => {},
-        currentState: () => ({ datasourceModalType, showDatasourceModal }),
-        onChange: () => {},
-      },
+  card: {
+    sharedState: {
+      getSharedState: () => {},
+      currentState: () => ({ datasourceModalType, showDatasourceModal }),
+      onChange: () => {},
     },
   },
 });

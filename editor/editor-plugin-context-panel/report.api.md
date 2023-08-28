@@ -15,7 +15,7 @@
 <!--SECTION START: Main Entry Types-->
 
 ```ts
-import { NextEditorPlugin } from '@atlaskit/editor-common/types';
+import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import { Transaction } from '@atlaskit/editor-prosemirror/state';
 
 // @public (undocumented)
@@ -25,7 +25,7 @@ const applyChange: (tr: Transaction) => Transaction;
 export type ApplyChangeHandler = (tr: Transaction) => Transaction;
 
 // @public (undocumented)
-export const contextPanelPlugin: NextEditorPlugin<
+export type ContextPanelPlugin = NextEditorPlugin<
   'contextPanel',
   {
     actions: {
@@ -33,6 +33,9 @@ export const contextPanelPlugin: NextEditorPlugin<
     };
   }
 >;
+
+// @public (undocumented)
+export const contextPanelPlugin: ContextPanelPlugin;
 
 // (No @packageDocumentation comment for this package)
 ```

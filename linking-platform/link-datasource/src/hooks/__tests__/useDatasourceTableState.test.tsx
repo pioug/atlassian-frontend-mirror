@@ -544,7 +544,7 @@ describe('useDatasourceTableState', () => {
 
       asMock(getDatasourceData).mockReset();
       act(() => {
-        result.current.reset(true);
+        result.current.reset({ shouldForceRequest: true });
       });
       await waitForNextUpdate();
       expect(getDatasourceData).toHaveBeenCalledTimes(1);

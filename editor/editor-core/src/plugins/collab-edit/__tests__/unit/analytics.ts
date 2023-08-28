@@ -40,7 +40,7 @@ describe('Collab Edit Analytics', () => {
       editorView.state,
       editorView.state.tr,
       { synchronyErrorDocStructure: true },
-      editorAPI.dependencies.analytics.actions,
+      editorAPI.analytics.actions,
     )(new Error('Triggered error boundary'));
 
     expect(getAnalyticsEventsFromTransaction(tr)[0].payload).toEqual(
@@ -76,7 +76,7 @@ describe('Collab Edit Analytics', () => {
       editorView.state,
       editorView.state.tr,
       { synchronyErrorDocStructure: false },
-      editorAPI.dependencies.analytics.actions,
+      editorAPI.analytics.actions,
     )(new Error('Triggered error boundary'));
 
     expect(getAnalyticsEventsFromTransaction(tr)[0].payload).toEqual(

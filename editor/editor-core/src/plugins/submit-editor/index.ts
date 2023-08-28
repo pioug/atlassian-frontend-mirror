@@ -76,7 +76,7 @@ type Config = EditorProps['onSave'];
 const submitEditorPlugin: NextEditorPlugin<
   'submitEditor',
   { pluginConfiguration: Config | undefined }
-> = (onSave?) => ({
+> = ({ config: onSave }) => ({
   name: 'submitEditor',
 
   pmPlugins() {

@@ -3,7 +3,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { createIntl, IntlProvider } from 'react-intl-next';
 
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import {
   ACTION,
   ACTION_SUBJECT,
@@ -12,11 +12,11 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import { findParentNodeOfTypeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
 import * as prosemirrorUtils from '@atlaskit/editor-prosemirror/utils';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
-  DocBuilder,
   table,
   tdCursor,
   tdEmpty,
@@ -33,11 +33,9 @@ import tablePlugin from '../../../plugins/table-plugin';
 import { setEditorFocus, setTableRef } from '../../../plugins/table/commands';
 import { getPluginState } from '../../../plugins/table/pm-plugins/plugin-factory';
 import { pluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
-import { TablePluginState } from '../../../plugins/table/types';
-import {
-  FloatingInsertButton,
-  Props as FloatingInsertButtonProps,
-} from '../../../plugins/table/ui/FloatingInsertButton';
+import type { TablePluginState } from '../../../plugins/table/types';
+import type { Props as FloatingInsertButtonProps } from '../../../plugins/table/ui/FloatingInsertButton';
+import { FloatingInsertButton } from '../../../plugins/table/ui/FloatingInsertButton';
 
 jest.mock('@atlaskit/editor-prosemirror/utils', () => {
   // Unblock prosemirror bump:
@@ -61,7 +59,9 @@ const editor = (doc: DocBuilder) =>
     doc,
     editorProps: {
       allowTables: false,
-      dangerouslyAppendPlugins: { __plugins: [tablePlugin()] },
+      dangerouslyAppendPlugins: {
+        __plugins: [tablePlugin({ config: undefined })],
+      },
     },
     pluginKey,
   });

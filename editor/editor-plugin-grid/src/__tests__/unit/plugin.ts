@@ -1,11 +1,11 @@
 import { act, render } from '@testing-library/react';
 
-import { NextEditorPlugin } from '@atlaskit/editor-common/types';
+import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 
@@ -21,7 +21,7 @@ describe('gridPlugin', () => {
     const pluginDependsOnGrid: NextEditorPlugin<
       'test',
       { dependencies: [typeof gridPlugin] }
-    > = (_, api) => {
+    > = ({ api }) => {
       gridApiRef.current = api;
       return {
         name: 'test',
@@ -51,7 +51,7 @@ describe('gridPlugin', () => {
     );
 
     act(() => {
-      gridApiRef.current?.dependencies?.grid?.actions?.displayGrid(editorView)({
+      gridApiRef.current?.grid?.actions?.displayGrid(editorView)({
         visible: true,
         gridType: 'full',
         highlight: [],
@@ -72,7 +72,7 @@ describe('gridPlugin', () => {
     );
 
     act(() => {
-      gridApiRef.current?.dependencies?.grid?.actions?.displayGrid(editorView)({
+      gridApiRef.current?.grid?.actions?.displayGrid(editorView)({
         visible: true,
         gridType: 'full',
         highlight: [],
@@ -80,7 +80,7 @@ describe('gridPlugin', () => {
     });
 
     act(() => {
-      gridApiRef.current?.dependencies?.grid?.actions?.displayGrid(editorView)({
+      gridApiRef.current?.grid?.actions?.displayGrid(editorView)({
         visible: false,
         gridType: 'full',
         highlight: [],
@@ -99,7 +99,7 @@ describe('gridPlugin', () => {
     const highlight = [2, 5];
 
     act(() => {
-      gridApiRef.current?.dependencies?.grid?.actions?.displayGrid(editorView)({
+      gridApiRef.current?.grid?.actions?.displayGrid(editorView)({
         visible: true,
         gridType: 'full',
         highlight,

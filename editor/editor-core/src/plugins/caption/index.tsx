@@ -1,5 +1,5 @@
 import { caption } from '@atlaskit/adf-schema';
-import { NextEditorPlugin } from '@atlaskit/editor-common/types';
+import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import { default as createCaptionPlugin } from './pm-plugins/main';
 import { captionKeymap } from './pm-plugins/keymap';
 import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
@@ -7,7 +7,7 @@ import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 const captionPlugin: NextEditorPlugin<
   'caption',
   { dependencies: [typeof analyticsPlugin] }
-> = (_, api) => {
+> = ({ api }) => {
   return {
     name: 'caption',
 

@@ -42,7 +42,7 @@ const ideUX = (
       handleTextInput(view, from, to, text) {
         const { state, dispatch } = view;
         const compositionPluginState =
-          pluginInjectionApi?.dependencies.composition?.sharedState.currentState();
+          pluginInjectionApi?.composition?.sharedState.currentState();
         if (
           isCursorInsideCodeBlock(state) &&
           !compositionPluginState?.isComposing

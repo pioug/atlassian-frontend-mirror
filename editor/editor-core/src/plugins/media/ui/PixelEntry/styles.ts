@@ -47,3 +47,11 @@ export const pixelEntryHiddenSubmit = css`
   width: 0;
   height: 0;
 `;
+
+export const pixelSizingFullWidthLabelStyles = css`
+  min-width: ${PIXEL_SIZING_WRAPPER_MINIMUM_WIDTH}px;
+  height: ${token('space.300', '24px')};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;

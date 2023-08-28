@@ -59,15 +59,13 @@ describe('lists should work', () => {
   };
 
   const mockPluginInjectionApi = {
-    dependencies: {
-      core: {
-        actions: {
-          execute: () => {},
-        },
+    core: {
+      actions: {
+        execute: () => {},
       },
-      list: {
-        commands,
-      },
+    },
+    list: {
+      commands,
     },
   };
 
@@ -166,12 +164,10 @@ describe('links should work', () => {
     mocks.mockCalls.length = 0;
     bridge.editorView = {};
     bridge.setPluginInjectionApi({
-      dependencies: {
-        hyperlink: {
-          actions: {
-            updateLink: mockUpdateLink.mockImplementation(() => () => {}),
-            insertLink: mockInsertLink.mockImplementation(() => () => {}),
-          },
+      hyperlink: {
+        actions: {
+          updateLink: mockUpdateLink.mockImplementation(() => () => {}),
+          insertLink: mockInsertLink.mockImplementation(() => () => {}),
         },
       },
     });

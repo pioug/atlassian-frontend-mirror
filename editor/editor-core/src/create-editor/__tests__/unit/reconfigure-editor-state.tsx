@@ -3,7 +3,7 @@ import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 import ReactEditorView from '../../ReactEditorView';
 import * as FeatureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
-import { createPreset } from '../../create-plugins-list';
+import { createPreset } from '../../create-preset';
 
 describe('ReactEditorView/reconfigureState', () => {
   const defaultProps = {
@@ -33,10 +33,10 @@ describe('ReactEditorView/reconfigureState', () => {
       );
 
       expect(featureFlagsPluginSpy).toHaveBeenCalledTimes(1);
-      expect(featureFlagsPluginSpy).toHaveBeenCalledWith(
-        expect.objectContaining({ ufo: true }),
-        expect.objectContaining({ dependencies: {} }),
-      );
+      expect(featureFlagsPluginSpy).toHaveBeenCalledWith({
+        config: expect.objectContaining({ ufo: true }),
+        api: expect.objectContaining({}),
+      });
     });
   });
 
@@ -54,10 +54,10 @@ describe('ReactEditorView/reconfigureState', () => {
       );
 
       expect(featureFlagsPluginSpy).toHaveBeenCalledTimes(1);
-      expect(featureFlagsPluginSpy).toHaveBeenCalledWith(
-        expect.objectContaining({ undoRedoButtons: false }),
-        expect.objectContaining({ dependencies: {} }),
-      );
+      expect(featureFlagsPluginSpy).toHaveBeenCalledWith({
+        config: expect.objectContaining({ undoRedoButtons: false }),
+        api: expect.objectContaining({}),
+      });
 
       const nextEditorProps = {
         allowUndoRedoButtons: true,
@@ -71,11 +71,10 @@ describe('ReactEditorView/reconfigureState', () => {
       );
 
       expect(featureFlagsPluginSpy).toHaveBeenCalledTimes(2);
-      expect(featureFlagsPluginSpy).toHaveBeenNthCalledWith(
-        2,
-        expect.objectContaining({ undoRedoButtons: true }),
-        expect.objectContaining({ dependencies: {} }),
-      );
+      expect(featureFlagsPluginSpy).toHaveBeenNthCalledWith(2, {
+        config: expect.objectContaining({ undoRedoButtons: true }),
+        api: expect.objectContaining({}),
+      });
 
       unmount();
     });
@@ -98,10 +97,10 @@ describe('ReactEditorView/reconfigureState', () => {
       );
 
       expect(featureFlagsPluginSpy).toHaveBeenCalledTimes(1);
-      expect(featureFlagsPluginSpy).toHaveBeenCalledWith(
-        expect.objectContaining({ ufo: true }),
-        expect.objectContaining({ dependencies: {} }),
-      );
+      expect(featureFlagsPluginSpy).toHaveBeenCalledWith({
+        config: expect.objectContaining({ ufo: true }),
+        api: expect.objectContaining({}),
+      });
 
       const nextEditorProps = {
         featureFlags: {
@@ -118,11 +117,10 @@ describe('ReactEditorView/reconfigureState', () => {
       );
 
       expect(featureFlagsPluginSpy).toHaveBeenCalledTimes(2);
-      expect(featureFlagsPluginSpy).toHaveBeenNthCalledWith(
-        2,
-        expect.objectContaining({ ufo: false }),
-        expect.objectContaining({ dependencies: {} }),
-      );
+      expect(featureFlagsPluginSpy).toHaveBeenNthCalledWith(2, {
+        config: expect.objectContaining({ ufo: false }),
+        api: expect.objectContaining({}),
+      });
 
       unmount();
     });

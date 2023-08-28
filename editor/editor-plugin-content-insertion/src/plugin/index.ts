@@ -1,20 +1,22 @@
 import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
-import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 
 import type { InsertNodeAPI } from '../types';
 
 import { createInsertNodeAPI } from './api';
 
-export const contentInsertionPlugin: NextEditorPlugin<
+export type ContentInsertionPlugin = NextEditorPlugin<
   'contentInsertion',
   {
     actions: InsertNodeAPI;
-    dependencies: [typeof analyticsPlugin];
+    dependencies: [AnalyticsPlugin];
   }
-> = (_, api) => {
+>;
+
+export const contentInsertionPlugin: ContentInsertionPlugin = ({ api }) => {
   return {
     name: 'contentInsertion',
 
-    actions: createInsertNodeAPI(api?.dependencies.analytics?.actions),
+    actions: createInsertNodeAPI(api?.analytics?.actions),
   };
 };

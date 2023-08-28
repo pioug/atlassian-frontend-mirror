@@ -130,7 +130,7 @@ describe('collab-edit: plugin', () => {
     const subsSpy = jest.spyOn(providerFactory, 'subscribe');
     const unsubSpy = jest.spyOn(providerFactory, 'unsubscribeAll');
 
-    let editorPlugin = collabEditPlugin({});
+    let editorPlugin = collabEditPlugin({ config: {} });
     let collabFactoryPlugin = editorPlugin.pmPlugins!()[0];
     let plugin = collabFactoryPlugin.plugin(props)!;
 
@@ -154,7 +154,7 @@ describe('collab-edit: plugin', () => {
       state: editorState,
     });
 
-    editorPlugin = collabEditPlugin({});
+    editorPlugin = collabEditPlugin({ config: {} });
     collabFactoryPlugin = editorPlugin.pmPlugins!()[0];
     plugin = collabFactoryPlugin.plugin(props)!;
 

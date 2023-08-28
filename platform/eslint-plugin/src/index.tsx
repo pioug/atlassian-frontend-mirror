@@ -7,6 +7,7 @@ import ensureAtlassianTeam from './rules/ensure-atlassian-team';
 import noInvalidFeatureFlagUsage from './rules/no-invalid-feature-flag-usage';
 import ensureFeatureFlagPrefix from './rules/ensure-feature-flag-prefix';
 import noInvalidStorybookDecoratorUsage from './rules/no-invalid-storybook-decorator-usage';
+import ensurePublishValid from './rules/ensure-publish-valid';
 
 export const rules = {
   'ensure-feature-flag-registration': ensureFeatureFlagRegistration,
@@ -17,6 +18,7 @@ export const rules = {
   'no-invalid-feature-flag-usage': noInvalidFeatureFlagUsage,
   'no-pre-post-install-scripts': noPreAndPostInstallScripts,
   'no-invalid-storybook-decorator-usage': noInvalidStorybookDecoratorUsage,
+  'ensure-publish-valid': ensurePublishValid,
 };
 
 export const configs = {

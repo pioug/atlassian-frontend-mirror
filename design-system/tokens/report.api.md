@@ -380,7 +380,8 @@ export type ActiveTokens =
   | 'space.500'
   | 'space.600'
   | 'space.800'
-  | 'utility.UNSAFE.transparent';
+  | 'utility.UNSAFE.transparent'
+  | 'utility.elevation.surface.current';
 
 // @public (undocumented)
 type ActiveTokenState = 'active';
@@ -861,6 +862,7 @@ type CSSTokenMap = {
   'opacity.disabled': 'var(--ds-opacity-disabled)';
   'opacity.loading': 'var(--ds-opacity-loading)';
   'utility.UNSAFE.transparent': 'var(--ds-UNSAFE-transparent)';
+  'utility.elevation.surface.current': 'var(--ds-elevation-surface-current)';
   'border.radius.050': 'var(--ds-border-radius-050)';
   'border.radius': 'var(--ds-border-radius)';
   'border.radius.100': 'var(--ds-border-radius-100)';
@@ -928,6 +930,9 @@ type CSSTokenMap = {
   'font.lineHeight.500': 'var(--ds-font-lineHeight-500)';
   'font.lineHeight.600': 'var(--ds-font-lineHeight-600)';
 };
+
+// @public (undocumented)
+export const CURRENT_SURFACE_CSS_VAR: '--ds-elevation-surface-current';
 
 // @public (undocumented)
 type DataColorModes = Exclude<ThemeColorModes, 'auto'>;
@@ -1392,7 +1397,8 @@ type InternalTokenIds =
   | 'space.500'
   | 'space.600'
   | 'space.800'
-  | 'utility.UNSAFE.transparent';
+  | 'utility.UNSAFE.transparent'
+  | 'utility.elevation.surface.current';
 
 // @public (undocumented)
 export type OpacityToken = DesignToken<string, 'opacity'>;
@@ -1940,6 +1946,7 @@ const tokens: {
   readonly 'opacity.disabled': '--ds-opacity-disabled';
   readonly 'opacity.loading': '--ds-opacity-loading';
   readonly 'utility.UNSAFE.transparent': '--ds-UNSAFE-transparent';
+  readonly 'utility.elevation.surface.current': '--ds-elevation-surface-current';
   readonly 'border.radius.050': '--ds-border-radius-050';
   readonly 'border.radius': '--ds-border-radius';
   readonly 'border.radius.100': '--ds-border-radius-100';

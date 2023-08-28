@@ -10,7 +10,7 @@ import FocusRing from '@atlaskit/focus-ring';
 import FadeIn from '@atlaskit/motion/fade-in';
 import { media } from '@atlaskit/primitives';
 import { N0, N30A, N60A } from '@atlaskit/theme/colors';
-import { token } from '@atlaskit/tokens';
+import { CURRENT_SURFACE_CSS_VAR, token } from '@atlaskit/tokens';
 
 import type { ModalDialogProps } from '../../types';
 import { borderRadius, textColor } from '../constants';
@@ -36,6 +36,7 @@ const dialogStyles = css({
 
   backgroundColor: token('elevation.surface.overlay', N0),
   color: textColor,
+  [CURRENT_SURFACE_CSS_VAR]: token('elevation.surface.overlay', N0),
   pointerEvents: 'auto',
 
   [media.above.xs]: {

@@ -3,9 +3,11 @@ import type {
   ResolvedPos,
   Schema,
 } from '@atlaskit/editor-prosemirror/model';
-import { TableSharedCssClassName } from '@atlaskit/editor-common/styles';
+import {
+  TableSharedCssClassName,
+  UnsupportedSharedCssClassName,
+} from '@atlaskit/editor-common/styles';
 import { Side } from './selection';
-import { UnsupportedSharedCssClassName } from '../../unsupported-content/styles';
 import { CAPTION_PLACEHOLDER_ID } from '../../media/ui/CaptionPlaceholder';
 
 export const isLeftCursor = (side: Side): side is Side.LEFT =>

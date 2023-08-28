@@ -13,7 +13,6 @@ import { borderRadius } from '@atlaskit/theme/constants';
 import { DN70 } from '@atlaskit/theme/colors';
 
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
-import type { FloatingToolbarItem } from '@atlaskit/editor-common/types';
 import { compareArrays, shallowEqual } from '../utils';
 import { showConfirmDialog } from '../pm-plugins/toolbar-data/commands';
 import {
@@ -39,13 +38,14 @@ import { token } from '@atlaskit/tokens';
 
 import { clearHoverSelection } from '@atlaskit/editor-plugin-table/commands';
 
-import ScrollButtons from './ScrollButtons';
+import { ScrollButtons } from './ScrollButtons';
 import { ToolbarArrowKeyNavigationProvider } from '@atlaskit/editor-common/ui-menu';
 import {
   checkShouldForceFocusAndApply,
   forceFocusSelector,
 } from '../pm-plugins/force-focus';
 import type {
+  FloatingToolbarItem,
   FeatureFlags,
   PluginInjectionAPIWithDependencies,
   OptionalPlugin,
@@ -307,7 +307,7 @@ const ToolbarItems = React.memo(
                     extensionProvider={extensionsProvider}
                     separator={item.separator}
                     applyChangeToContextPanel={
-                      api?.dependencies.contextPanel?.actions.applyChange
+                      api?.contextPanel?.actions.applyChange
                     }
                   />
                 );
@@ -546,10 +546,7 @@ class Toolbar extends Component<Props & WrappedComponentProps, State> {
       if (table) {
         return clearHoverSelection()(state, dispatch);
       }
-      this.props.api?.dependencies.decorations.actions.removeDecoration(
-        state,
-        dispatch,
-      );
+      this.props.api?.decorations.actions.removeDecoration(state, dispatch);
     }
   }
 

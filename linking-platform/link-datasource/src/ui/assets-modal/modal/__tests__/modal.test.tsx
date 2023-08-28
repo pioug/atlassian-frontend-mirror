@@ -140,7 +140,6 @@ describe('AssetsConfigModal', () => {
       datasourceTableHookState?: DatasourceTableState;
       assetsClientHookState?: UseAssetsClientState;
       visibleColumnKeys?: string[];
-      dontWaitForSitesToLoad?: boolean;
     } = {},
   ) => {
     asMock(useDatasourceTableState).mockReturnValue(
@@ -325,7 +324,11 @@ describe('AssetsConfigModal', () => {
                 {
                   type: 'table',
                   properties: {
-                    columns: [{ key: 'myColumn' }],
+                    columns: [
+                      {
+                        key: 'myColumn',
+                      },
+                    ],
                   },
                 },
               ],
@@ -333,7 +336,6 @@ describe('AssetsConfigModal', () => {
           },
         });
       });
-
       it('should insert blockCard adf with default column keys when visibleColumnKeys is undefined', async () => {
         const { getByRole, onInsert } = await setup({
           visibleColumnKeys: undefined,
@@ -358,8 +360,50 @@ describe('AssetsConfigModal', () => {
                   type: 'table',
                   properties: {
                     columns: [
-                      { key: 'myDefaultColumn' },
-                      { key: 'otherDefaultColumn' },
+                      {
+                        key: 'myDefaultColumn',
+                      },
+                      {
+                        key: 'otherDefaultColumn',
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        });
+      });
+      it('should insert initial columns if no response items are returned', async () => {
+        const { getByRole, onInsert } = await setup({
+          datasourceTableHookState: {
+            ...getDefaultDataSourceTableHookState(),
+            responseItems: [],
+          },
+        });
+        const insertButton = getByRole('button', { name: 'Insert objects' });
+
+        expect(insertButton).toBeEnabled();
+        insertButton.click();
+
+        expect(onInsert).toHaveBeenCalledWith({
+          type: 'blockCard',
+          attrs: {
+            datasource: {
+              id: 'some-assets-datasource-id',
+              parameters: {
+                workspaceId: 'some-workspace-id',
+                aql: 'some-query',
+                schemaId: '123',
+              },
+              views: [
+                {
+                  type: 'table',
+                  properties: {
+                    columns: [
+                      {
+                        key: 'myColumn',
+                      },
                     ],
                   },
                 },

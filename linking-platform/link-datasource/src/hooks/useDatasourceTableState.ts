@@ -17,11 +17,16 @@ export interface onNextPageProps {
 
 export type NextPageType = (requestInfo?: onNextPageProps) => void;
 
+interface ResetOptions {
+  shouldForceRequest?: boolean;
+  shouldResetColumns?: boolean;
+}
+
 export interface DatasourceTableState {
   status: DatasourceTableStatusType;
   onNextPage: NextPageType;
   // Resets state of the hook to be as if it is a first time it is being called.
-  reset: (shouldForceRequest?: boolean) => void;
+  reset: (options?: ResetOptions) => void;
   loadDatasourceDetails: () => void;
   responseItems: DatasourceDataResponseItem[];
   hasNextPage: boolean;
@@ -194,14 +199,17 @@ export const useDatasourceTableState = ({
     ],
   );
 
-  const reset = useCallback((shouldForceRequest: boolean = false) => {
+  const reset = useCallback((options?: ResetOptions) => {
     setStatus('empty');
     setResponseItems([]);
     setHasNextPage(true);
     setNextCursor(undefined);
     setTotalCount(undefined);
     setLastRequestedFieldKeys([]);
-    setShouldForceRequest(shouldForceRequest);
+    setShouldForceRequest(options?.shouldForceRequest || false);
+    if (options?.shouldResetColumns) {
+      setColumns([]);
+    }
   }, []);
 
   // this takes care of requesting /data initally

@@ -46,7 +46,7 @@ function getIndentationButtonsState(
   // not use the indentation mark.
   // Check for lists before paragraphs and headings in case
   // the selection is in a list nested in a layout column.
-  if (api?.dependencies.list.actions.isInsideListItem(editorState.tr)) {
+  if (api?.list.actions.isInsideListItem(editorState.tr)) {
     const { indentLevel, itemIndex } = getListItemAttributes(selection.$head);
 
     return {

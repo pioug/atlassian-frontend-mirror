@@ -2,15 +2,17 @@ import React from 'react';
 
 import { textColor } from '@atlaskit/adf-schema';
 
-import { NextEditorPlugin } from '@atlaskit/editor-common/types';
+import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import WithPluginState from '../../ui/WithPluginState';
 
+import type {
+  TextColorPluginConfig,
+  TextColorPluginState,
+} from './pm-plugins/main';
 import {
   createPlugin,
-  TextColorPluginConfig,
   pluginKey as textColorPluginKey,
-  TextColorPluginState,
 } from './pm-plugins/main';
 import ToolbarTextColor from './ui/ToolbarTextColor';
 
@@ -31,9 +33,8 @@ const textColorPlugin: NextEditorPlugin<
     pluginConfiguration: Config | undefined;
     dependencies: [typeof featureFlagsPlugin];
   }
-> = (textColorConfig?, api?) => {
-  const featureFlags =
-    api?.dependencies?.featureFlags?.sharedState.currentState() || {};
+> = ({ config: textColorConfig, api }) => {
+  const featureFlags = api?.featureFlags?.sharedState.currentState() || {};
 
   return {
     name: 'textColor',

@@ -36,10 +36,9 @@ describe('ReactEditorView: plugin injection API', () => {
     it('should call plugin one getSharedState function', () => {
       const fakefn = jest.fn();
       let editorView: EditorView | null = null;
-      const plugin1: NextEditorPlugin<'one', { sharedState: number }> = (
-        _,
+      const plugin1: NextEditorPlugin<'one', { sharedState: number }> = ({
         api,
-      ) => {
+      }) => {
         return {
           name: 'one',
           getSharedState: (editorState) => {
@@ -51,7 +50,7 @@ describe('ReactEditorView: plugin injection API', () => {
       const plugin2: NextEditorPlugin<
         'two',
         { dependencies: [typeof plugin1] }
-      > = (_, api) => {
+      > = ({ api }) => {
         return {
           name: 'two',
           pmPlugins: () => {
@@ -64,7 +63,7 @@ describe('ReactEditorView: plugin injection API', () => {
                       editorView = _editorView;
                       return {
                         update() {
-                          api?.dependencies.one.sharedState.currentState();
+                          api?.one.sharedState.currentState();
                         },
                       };
                     },
@@ -94,10 +93,9 @@ describe('ReactEditorView: plugin injection API', () => {
     it('should call the on change listeners with the new state', () => {
       const fakefn = jest.fn();
       let editorView: EditorView | null = null;
-      const plugin1: NextEditorPlugin<'one', { sharedState: number }> = (
-        _,
+      const plugin1: NextEditorPlugin<'one', { sharedState: number }> = ({
         api,
-      ) => {
+      }) => {
         return {
           name: 'one',
           getSharedState: (editorState) => {
@@ -111,8 +109,8 @@ describe('ReactEditorView: plugin injection API', () => {
       const plugin2: NextEditorPlugin<
         'two',
         { dependencies: [typeof plugin1] }
-      > = (_, api) => {
-        api?.dependencies.one.sharedState.onChange(fakefn);
+      > = ({ api }) => {
+        api?.one.sharedState.onChange(fakefn);
         return {
           name: 'two',
           pmPlugins: () => {
@@ -153,10 +151,9 @@ describe('ReactEditorView: plugin injection API', () => {
 
   it('should test on change behaviour without change in shared state', () => {
     const fakefn = jest.fn();
-    const plugin1: NextEditorPlugin<'one', { sharedState: number }> = (
-      _,
+    const plugin1: NextEditorPlugin<'one', { sharedState: number }> = ({
       api,
-    ) => {
+    }) => {
       return {
         name: 'one',
         getSharedState: (editorState) => {
@@ -167,8 +164,8 @@ describe('ReactEditorView: plugin injection API', () => {
     const plugin2: NextEditorPlugin<
       'two',
       { dependencies: [typeof plugin1] }
-    > = (_, api) => {
-      api?.dependencies.one.sharedState.onChange(fakefn);
+    > = ({ api }) => {
+      api?.one.sharedState.onChange(fakefn);
       return {
         name: 'two',
       };

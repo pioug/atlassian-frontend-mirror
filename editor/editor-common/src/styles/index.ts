@@ -78,3 +78,8 @@ export {
   wrapperStyle,
   triggerWrapperStyles,
 } from './shared/plugins';
+
+export {
+  UnsupportedSharedCssClassName,
+  unsupportedStyles,
+} from './shared/unsupported-content';

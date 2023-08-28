@@ -31,9 +31,8 @@ const expandPlugin: NextEditorPlugin<
     pluginConfiguration: ExpandPluginOptions | undefined;
     dependencies: [typeof featureFlagsPlugin, typeof decorationsPlugin];
   }
-> = (options = {}, api) => {
-  const featureFlags =
-    api?.dependencies?.featureFlags?.sharedState.currentState() || {};
+> = ({ config: options = {}, api }) => {
+  const featureFlags = api?.featureFlags?.sharedState.currentState() || {};
   return {
     name: 'expand',
 
@@ -67,7 +66,7 @@ const expandPlugin: NextEditorPlugin<
 
     pluginsOptions: {
       floatingToolbar: getToolbarConfig(
-        api?.dependencies.decorations.actions.hoverDecoration,
+        api?.decorations.actions.hoverDecoration,
       ),
 
       quickInsert: ({ formatMessage }) => {

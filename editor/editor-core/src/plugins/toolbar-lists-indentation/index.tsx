@@ -8,8 +8,8 @@ import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import ToolbarListsIndentation from './ui';
 import { ToolbarSize } from '../../ui/Toolbar/types';
 import { createPlugin as indentationButtonsPlugin } from './pm-plugins/indentation-buttons';
-import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
-import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { ListPlugin } from '@atlaskit/editor-plugin-list';
 import type { IndentationButtons } from './pm-plugins/indentation-buttons';
 import type { ToolbarUiComponentFactoryParams } from '../../types';
@@ -25,15 +25,18 @@ const toolbarListsIndentationPlugin: NextEditorPlugin<
   {
     pluginConfiguration: Config;
     dependencies: [
-      typeof featureFlagsPlugin,
+      FeatureFlagsPlugin,
       ListPlugin,
-      OptionalPlugin<typeof analyticsPlugin>,
+      OptionalPlugin<AnalyticsPlugin>,
     ];
     sharedState: IndentationButtons | undefined;
   }
-> = ({ showIndentationButtons, allowHeadingAndParagraphIndentation }, api) => {
-  const featureFlags =
-    api?.dependencies.featureFlags?.sharedState.currentState() || {};
+> = ({ config, api }) => {
+  const {
+    showIndentationButtons = false,
+    allowHeadingAndParagraphIndentation = false,
+  } = config ?? {};
+  const featureFlags = api?.featureFlags?.sharedState.currentState() || {};
 
   return {
     name: 'toolbarListsIndentation',

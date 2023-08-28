@@ -383,6 +383,7 @@ export const Code: React_2.MemoExoticComponent<
       | 'target'
       | 'testId'
       | 'title'
+      | 'translate'
       | 'type'
       | 'typeof'
       | 'unselectable'

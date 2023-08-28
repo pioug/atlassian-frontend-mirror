@@ -57,7 +57,9 @@ const tasksAndDecisionsPlugin: NextEditorPlugin<
   {
     pluginConfiguration: TaskDecisionPluginOptions | undefined;
   }
-> = ({ allowNestedTasks, consumeTabs, useLongPressSelection } = {}) => ({
+> = ({
+  config: { allowNestedTasks, consumeTabs, useLongPressSelection } = {},
+}) => ({
   name: 'taskDecision',
   nodes() {
     return [

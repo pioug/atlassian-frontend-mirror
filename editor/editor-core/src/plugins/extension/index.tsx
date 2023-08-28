@@ -4,7 +4,7 @@ import {
   inlineExtension,
 } from '@atlaskit/adf-schema';
 import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
-import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type {
   NextEditorPlugin,
   EditorAppearance,
@@ -16,9 +16,9 @@ import keymapPlugin from './pm-plugins/keymap';
 import { createPlugin as createUniqueIdPlugin } from './pm-plugins/unique-id';
 import { getToolbarConfig } from './toolbar';
 import { getContextPanel } from './context-panel';
-import type { widthPlugin } from '@atlaskit/editor-plugin-width';
-import type { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
-import type { contextPanelPlugin } from '@atlaskit/editor-plugin-context-panel';
+import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
+import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';
+import type { ContextPanelPlugin } from '@atlaskit/editor-plugin-context-panel';
 
 interface ExtensionPluginOptions extends LongPressSelectionPluginOptions {
   allowAutoSave?: boolean;
@@ -32,15 +32,14 @@ const extensionPlugin: NextEditorPlugin<
   {
     pluginConfiguration: ExtensionPluginOptions | undefined;
     dependencies: [
-      typeof featureFlagsPlugin,
-      typeof widthPlugin,
-      typeof decorationsPlugin,
-      OptionalPlugin<typeof contextPanelPlugin>,
+      FeatureFlagsPlugin,
+      WidthPlugin,
+      DecorationsPlugin,
+      OptionalPlugin<ContextPanelPlugin>,
     ];
   }
-> = (options = {}, api) => {
-  const featureFlags =
-    api?.dependencies?.featureFlags?.sharedState.currentState() || {};
+> = ({ config: options = {}, api }) => {
+  const featureFlags = api?.featureFlags?.sharedState.currentState() || {};
 
   return {
     name: 'extension',
@@ -90,8 +89,7 @@ const extensionPlugin: NextEditorPlugin<
         },
         {
           name: 'extensionKeymap',
-          plugin: () =>
-            keymapPlugin(api?.dependencies.contextPanel?.actions.applyChange),
+          plugin: () => keymapPlugin(api?.contextPanel?.actions.applyChange),
         },
         {
           name: 'extensionUniqueId',
@@ -103,14 +101,13 @@ const extensionPlugin: NextEditorPlugin<
     pluginsOptions: {
       floatingToolbar: getToolbarConfig({
         breakoutEnabled: options.breakoutEnabled,
-        hoverDecoration: api?.dependencies.decorations.actions.hoverDecoration,
-        applyChangeToContextPanel:
-          api?.dependencies.contextPanel?.actions.applyChange,
+        hoverDecoration: api?.decorations.actions.hoverDecoration,
+        applyChangeToContextPanel: api?.contextPanel?.actions.applyChange,
       }),
       contextPanel: getContextPanel(
         options.allowAutoSave,
         featureFlags,
-        api?.dependencies.contextPanel?.actions.applyChange,
+        api?.contextPanel?.actions.applyChange,
       ),
     },
   };

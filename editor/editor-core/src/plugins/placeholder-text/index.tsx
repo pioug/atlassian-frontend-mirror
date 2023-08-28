@@ -177,9 +177,9 @@ export function createPlugin(
   });
 }
 
-const basePlaceholderTextPlugin: PlaceholderTextPlugin = (
-  options: PlaceholderTextOptions,
-) => ({
+const basePlaceholderTextPlugin: PlaceholderTextPlugin = ({
+  config: options,
+}) => ({
   name: 'placeholderText',
 
   nodes() {
@@ -256,7 +256,7 @@ const decorateWithPluginOptions = (
           const tr = state.tr;
           tr.setMeta(pluginKey, { showInsertPanelAt: tr.selection.anchor });
 
-          api?.dependencies.analytics?.actions.attachAnalyticsEvent({
+          api?.analytics?.actions.attachAnalyticsEvent({
             action: ACTION.INSERTED,
             actionSubject: ACTION_SUBJECT.DOCUMENT,
             actionSubjectId: ACTION_SUBJECT_ID.PLACEHOLDER_TEXT,
@@ -288,9 +288,9 @@ const placeholderTextPlugin: NextEditorPlugin<
     dependencies: [OptionalPlugin<typeof analyticsPlugin>];
     pluginConfiguration: PlaceholderTextOptions;
   }
-> = (options: PlaceholderTextOptions, api) =>
+> = ({ config: options = {}, api }) =>
   decorateWithPluginOptions(
-    basePlaceholderTextPlugin(options, api),
+    basePlaceholderTextPlugin({ config: options, api }),
     options,
     api,
   );

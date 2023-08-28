@@ -101,7 +101,7 @@ type EmojiProviderChangeHandler = {
 };
 const TRIGGER = ':';
 
-export const emojiPlugin: EmojiPlugin = (options, api) => {
+export const emojiPlugin: EmojiPlugin = ({ config: options, api }) => {
   const typeAhead: TypeAheadHandler = {
     id: TypeAheadAvailableNodes.EMOJI,
     trigger: TRIGGER,
@@ -178,14 +178,14 @@ export const emojiPlugin: EmojiPlugin = (options, api) => {
           .then(
             recordSelectionSucceededSli({
               createAnalyticsEvent:
-                api?.dependencies.analytics?.sharedState.currentState()
+                api?.analytics?.sharedState.currentState()
                   ?.createAnalyticsEvent ?? undefined,
             }),
           )
           .catch(
             recordSelectionFailedSli({
               createAnalyticsEvent:
-                api?.dependencies.analytics?.sharedState.currentState()
+                api?.analytics?.sharedState.currentState()
                   ?.createAnalyticsEvent ?? undefined,
             }),
           );
@@ -198,7 +198,7 @@ export const emojiPlugin: EmojiPlugin = (options, api) => {
       const space = state.schema.text(' ');
 
       const tr = insert(Fragment.from([emojiNode, space]));
-      api?.dependencies.analytics?.actions.attachAnalyticsEvent({
+      api?.analytics?.actions.attachAnalyticsEvent({
         action: ACTION.INSERTED,
         actionSubject: ACTION_SUBJECT.DOCUMENT,
         actionSubjectId: ACTION_SUBJECT_ID.EMOJI,
@@ -229,7 +229,7 @@ export const emojiPlugin: EmojiPlugin = (options, api) => {
               schema,
               providerFactory,
               featureFlags,
-              api?.dependencies.analytics?.actions,
+              api?.analytics?.actions,
             ),
         },
       ];
@@ -243,7 +243,7 @@ export const emojiPlugin: EmojiPlugin = (options, api) => {
     },
 
     commands: {
-      insertEmoji: insertEmoji(api?.dependencies.analytics?.actions),
+      insertEmoji: insertEmoji(api?.analytics?.actions),
     },
 
     pluginsOptions: {
@@ -257,12 +257,12 @@ export const emojiPlugin: EmojiPlugin = (options, api) => {
           icon: () => <IconEmoji />,
           action(insert, state) {
             const tr = insert(undefined);
-            api?.dependencies.typeAhead.commands.openTypeAheadAtCursor({
+            api?.typeAhead.commands.openTypeAheadAtCursor({
               triggerHandler: typeAhead,
               inputMethod: INPUT_METHOD.QUICK_INSERT,
             })({ tr });
 
-            api?.dependencies.analytics?.actions.attachAnalyticsEvent({
+            api?.analytics?.actions.attachAnalyticsEvent({
               action: ACTION.INVOKED,
               actionSubject: ACTION_SUBJECT.TYPEAHEAD,
               actionSubjectId: ACTION_SUBJECT_ID.TYPEAHEAD_EMOJI,

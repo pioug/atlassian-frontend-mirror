@@ -30,7 +30,6 @@ export { default as submitEditorPlugin } from './submit-editor';
 export { default as tasksAndDecisionsPlugin } from './tasks-and-decisions';
 export { default as textColorPlugin } from './text-color';
 export { default as typeAheadPlugin } from './type-ahead';
-export { default as unsupportedContentPlugin } from './unsupported-content';
 export { default as floatingToolbarPlugin } from './floating-toolbar';
 export { default as statusPlugin } from './status';
 export { default as breakoutPlugin } from './breakout';

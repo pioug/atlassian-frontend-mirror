@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::10dbc24fd477fa86fa9ecfdb19000ddf>>
+ * @codegen <<SignedSource::72b954bf07d3f88c91f182994cf842e8>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -8649,13 +8649,12 @@ const tokens = [
       {
         "radius": 0,
         "spread": 1,
-        "color": "#BCD6F00A",
+        "color": "#39424a",
         "offset": {
           "x": 0,
           "y": 0
         },
-        "opacity": 0.12,
-        "inset": true
+        "opacity": 1
       },
       {
         "radius": 12,
@@ -8668,6 +8667,7 @@ const tokens = [
       },
       {
         "radius": 1,
+        "spread": 1,
         "offset": {
           "x": 0,
           "y": 0
@@ -8689,13 +8689,12 @@ const tokens = [
         {
           "radius": 0,
           "spread": 1,
-          "color": "DarkNeutral100A",
+          "color": "#39424a",
           "offset": {
             "x": 0,
             "y": 0
           },
-          "opacity": 0.12,
-          "inset": true
+          "opacity": 1
         },
         {
           "radius": 12,
@@ -8708,6 +8707,7 @@ const tokens = [
         },
         {
           "radius": 1,
+          "spread": 1,
           "offset": {
             "x": 0,
             "y": 0
@@ -8741,8 +8741,7 @@ const tokens = [
           "x": 0,
           "y": 0
         },
-        "opacity": 0,
-        "inset": true
+        "opacity": 0
       },
       {
         "radius": 1,
@@ -8781,8 +8780,7 @@ const tokens = [
             "x": 0,
             "y": 0
           },
-          "opacity": 0,
-          "inset": true
+          "opacity": 0
         },
         {
           "radius": 1,
@@ -8890,6 +8888,34 @@ const tokens = [
       "transparent"
     ],
     "cleanName": "utility.UNSAFE.transparent"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.14.0",
+      "description": "A dynamic token that represents the current surface color set by a parent element. It defaults to the 'elevation.surface' token value."
+    },
+    "value": "#1D2125",
+    "filePath": "src/tokens/atlassian-dark/utility/utility.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.14.0",
+        "description": "A dynamic token that represents the current surface color set by a parent element. It defaults to the 'elevation.surface' token value."
+      },
+      "value": "DarkNeutral100"
+    },
+    "name": "utility.elevation.surface.current",
+    "path": [
+      "utility",
+      "elevation",
+      "surface",
+      "current"
+    ],
+    "cleanName": "utility.elevation.surface.current"
   }
 ];
 

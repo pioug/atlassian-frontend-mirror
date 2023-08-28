@@ -37,7 +37,7 @@ describe('Quick Insert', () => {
       providerFactory.setProvider('quickInsertProvider', provider);
 
       const plugin = quickInsertPlugin({
-        enableElementBrowser: true,
+        config: { enableElementBrowser: true },
       });
 
       const component = plugin.contentComponent!({
@@ -56,7 +56,7 @@ describe('Quick Insert', () => {
     it('should not render the element browser modal component if the flag is not enabled', () => {
       const { editorView } = createEditor({});
 
-      const plugin = quickInsertPlugin();
+      const plugin = quickInsertPlugin({ config: undefined });
 
       const component = plugin.contentComponent!({
         editorView,

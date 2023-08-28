@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b43cd34188f48573ad15a23eeca733c5>>
+ * @codegen <<SignedSource::4c22d0040bb94fc1c6de62360674bb8f>>
  * @codegenCommand yarn build tokens
  */
 export default `
@@ -313,5 +313,6 @@ html[data-color-mode="dark"][data-theme~="dark:light"] {
   --ds-opacity-disabled: 0.4;
   --ds-opacity-loading: 0.2;
   --ds-UNSAFE-transparent: transparent;
+  --ds-elevation-surface-current: #FFFFFF;
 }
 `;

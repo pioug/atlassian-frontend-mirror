@@ -109,7 +109,7 @@ export type HoverCardContentProps = {
   showServerActions?: boolean;
 };
 
-export type SnippetOrPreviewProps = {
+export type ImagePreviewProps = {
   data: JsonLd.Data.BaseData;
-  snippetHeight: number;
+  fallbackElementHeight: number;
 };

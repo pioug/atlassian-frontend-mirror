@@ -156,9 +156,7 @@ export class EditLinkToolbar extends React.Component<EditLinkToolbarProps> {
         }}
         onEscapeCallback={(state, dispatch) => {
           const { tr } = state;
-          pluginInjectionApi?.dependencies.hyperlink.actions.hideLinkToolbar(
-            tr,
-          );
+          pluginInjectionApi?.hyperlink.actions.hideLinkToolbar(tr);
           hideLinkToolbar(tr);
 
           forceFocusSelector?.(
@@ -173,9 +171,7 @@ export class EditLinkToolbar extends React.Component<EditLinkToolbarProps> {
         }}
         onClickAwayCallback={(state, dispatch) => {
           const { tr } = state;
-          pluginInjectionApi?.dependencies.hyperlink.actions.hideLinkToolbar(
-            tr,
-          );
+          pluginInjectionApi?.hyperlink.actions.hideLinkToolbar(tr);
 
           if (dispatch) {
             dispatch(tr);
@@ -250,8 +246,7 @@ export const buildEditLinkToolbar = ({
           node={node}
           featureFlags={featureFlags}
           forceFocusSelector={
-            pluginInjectionApi?.dependencies.floatingToolbar.actions
-              ?.forceFocusSelector
+            pluginInjectionApi?.floatingToolbar.actions?.forceFocusSelector
           }
           onSubmit={(newHref, newText, inputMethod, analytic) => {
             const urlChanged = newHref !== displayInfo.url;
@@ -267,7 +262,7 @@ export const buildEditLinkToolbar = ({
                   undefined,
                   undefined,
                   undefined,
-                  pluginInjectionApi?.dependencies.analytics?.actions,
+                  pluginInjectionApi?.analytics?.actions,
                 ),
                 {
                   action: ACTION.UPDATED,

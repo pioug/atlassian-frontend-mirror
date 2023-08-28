@@ -306,6 +306,7 @@ elevation.shadow.raised, "Use for the box shadow of raised card elements, such a
 opacity.disabled, "Apply to images when in a disabled state."
 opacity.loading, "Apply to content that sits under a loading spinner."
 utility.UNSAFE.transparent, "Transparent token used for backwards compatibility between new and old theming solutions"
+utility.elevation.surface.current, "A dynamic token that represents the current surface color set by a parent element. It defaults to the 'elevation.surface' token value."
 border.radius.050, "Used for selection indicators, like tabs."
 border.radius, "The default border radius."
 border.radius.100, "Used for buttons and inputs."

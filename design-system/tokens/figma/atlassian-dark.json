@@ -2740,13 +2740,12 @@
         {
           "radius": 0,
           "spread": 1,
-          "color": "#BCD6F00A",
+          "color": "#39424a",
           "offset": {
             "x": 0,
             "y": 0
           },
-          "opacity": 0.12,
-          "inset": true
+          "opacity": 1
         },
         {
           "radius": 12,
@@ -2759,6 +2758,7 @@
         },
         {
           "radius": 1,
+          "spread": 1,
           "offset": {
             "x": 0,
             "y": 0
@@ -2784,8 +2784,7 @@
             "x": 0,
             "y": 0
           },
-          "opacity": 0,
-          "inset": true
+          "opacity": 0
         },
         {
           "radius": 1,

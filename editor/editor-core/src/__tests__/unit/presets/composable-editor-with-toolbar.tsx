@@ -89,7 +89,7 @@ const dogPlugin: NextEditorPlugin<
     commands: { bark: EditorCommand };
     sharedState: { hasBarked: boolean } | undefined;
   }
-> = (_, api) => {
+> = ({ api }) => {
   return {
     name: 'dog',
 
@@ -149,8 +149,8 @@ function Toolbar({
       </p>
       <Button
         onClick={() => {
-          const command = editorApi?.dependencies.dog.commands.bark;
-          editorApi?.dependencies.core.actions.execute(command);
+          const command = editorApi?.dog.commands.bark;
+          editorApi?.core.actions.execute(command);
         }}
       >
         Click me!

@@ -45,9 +45,8 @@ const collabEditPlugin: NextEditorPlugin<
       OptionalPlugin<typeof analyticsPlugin>,
     ];
   }
-> = (options, api) => {
-  const featureFlags =
-    api?.dependencies?.featureFlags?.sharedState.currentState() || {};
+> = ({ config: options, api }) => {
+  const featureFlags = api?.featureFlags?.sharedState.currentState() || {};
 
   let providerResolver: (value: CollabEditProvider) => void = () => {};
   const collabEditProviderPromise: Promise<CollabEditProvider> = new Promise(
@@ -103,7 +102,7 @@ const collabEditPlugin: NextEditorPlugin<
         props.newEditorState,
         props.newEditorState.tr,
         featureFlags,
-        api?.dependencies.analytics?.actions,
+        api?.analytics?.actions,
       );
 
       executeProviderCode(
@@ -112,7 +111,7 @@ const collabEditPlugin: NextEditorPlugin<
           transactions: props.transactions,
           oldEditorState: props.oldEditorState,
           newEditorState: props.newEditorState,
-          useNativePlugin: options && options.useNativePlugin!,
+          useNativePlugin: options?.useNativePlugin ?? false,
         }),
         addErrorAnalytics,
       );

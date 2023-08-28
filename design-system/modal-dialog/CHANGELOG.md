@@ -1,5 +1,12 @@
 # @atlaskit/modal-dialog
 
+## 12.6.8
+
+### Patch Changes
+
+- [`d6f63fa1abc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6f63fa1abc) - Adds support for surface detection when using design tokens. Enabling children to be styled with the Modal’s surface color when using the `utility.elevation.surface.current` design token.
+- Updated dependencies
+
 ## 12.6.7
 
 ### Patch Changes

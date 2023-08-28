@@ -5,6 +5,7 @@ import { css, jsx } from '@emotion/react';
 
 import { propDeprecationWarning } from '@atlaskit/ds-lib/deprecation-warning';
 import noop from '@atlaskit/ds-lib/noop';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { N20A } from '@atlaskit/theme/colors';
 import {
   borderRadius as borderRadiusFn,
@@ -123,6 +124,12 @@ const SkeletonItem = ({
     '', // TODO: Create DAC post when primitives/xcss are available as alternatives
   );
 
+  const UNSAFE_overrides = getBooleanFF(
+    'platform.design-system-team.unsafe-overrides-killswitch_c8j9m',
+  )
+    ? undefined
+    : css(cssFn());
+
   return (
     <SkeletonShimmer isShimmering={isShimmering}>
       {({ className }) => (
@@ -140,7 +147,7 @@ const SkeletonItem = ({
             hasIcon && iconStyles,
             width ? customWidthStyles : defaultWidthStyles,
             // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-            css(cssFn()),
+            UNSAFE_overrides,
           ]}
           data-testid={testId}
         />

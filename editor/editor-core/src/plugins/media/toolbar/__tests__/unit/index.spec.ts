@@ -53,17 +53,15 @@ import {
 import type { MediaPluginState } from '../../../../../plugins/media/pm-plugins/types';
 
 const mockInjectionAPI: any = {
-  dependencies: {
-    decorations: {
-      actions: {
-        hoverDecoration: () => () => {},
-      },
+  decorations: {
+    actions: {
+      hoverDecoration: () => () => {},
     },
-    width: {
-      sharedState: {
-        currentState: () => {
-          return { lineLength: 760, width: 1800 };
-        },
+  },
+  width: {
+    sharedState: {
+      currentState: () => {
+        return { lineLength: 760, width: 1800 };
       },
     },
   },

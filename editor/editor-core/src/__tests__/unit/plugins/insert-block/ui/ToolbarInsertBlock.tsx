@@ -775,11 +775,9 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
       describe('click table option', () => {
         const insertTable = jest.fn().mockImplementation(() => () => {});
         const pluginInjectionApi: any = {
-          dependencies: {
-            table: {
-              actions: {
-                insertTable,
-              },
+          table: {
+            actions: {
+              insertTable,
             },
           },
         };
@@ -868,16 +866,14 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
       describe('click view more (macro) option', () => {
         it('should open the element browser', () => {
           const pluginInjectionApi: any = {
-            dependencies: {
-              core: {
-                actions: {
-                  execute: jest.fn(),
-                },
+            core: {
+              actions: {
+                execute: jest.fn(),
               },
-              quickInsert: {
-                commands: {
-                  openElementBrowserModal: jest.fn(),
-                },
+            },
+            quickInsert: {
+              commands: {
+                openElementBrowserModal: jest.fn(),
               },
             },
           };
@@ -892,14 +888,11 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
 
           menu.clickButton(messages.viewMore.defaultMessage, toolbarOption);
           expect(insertMacroFromMacroBrowserSpy).not.toHaveBeenCalled();
-          expect(
-            pluginInjectionApi.dependencies.core.actions.execute,
-          ).toHaveBeenCalledTimes(1);
-          expect(
-            pluginInjectionApi.dependencies.core.actions.execute,
-          ).toHaveBeenCalledWith(
-            pluginInjectionApi.dependencies.quickInsert.commands
-              .openElementBrowserModal,
+          expect(pluginInjectionApi.core.actions.execute).toHaveBeenCalledTimes(
+            1,
+          );
+          expect(pluginInjectionApi.core.actions.execute).toHaveBeenCalledWith(
+            pluginInjectionApi.quickInsert.commands.openElementBrowserModal,
           );
         });
       });

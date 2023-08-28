@@ -200,8 +200,7 @@ export const getToolbarConfig =
   (state, intl, providerFactory) => {
     const { formatMessage } = intl;
     const linkState: HyperlinkState | undefined = stateKey.getState(state);
-    const editorAnalyticsApi =
-      pluginInjectionApi?.dependencies.analytics?.actions;
+    const editorAnalyticsApi = pluginInjectionApi?.analytics?.actions;
 
     /**
      * Enable focus trap only if feature flag is enabled AND for the new version of the picker

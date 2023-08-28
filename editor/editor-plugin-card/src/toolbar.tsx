@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl-next';
 
 import { isSafeUrl } from '@atlaskit/adf-schema';
 import type {
@@ -26,7 +26,7 @@ import commonMessages, {
   linkToolbarMessages,
   cardMessages as messages,
 } from '@atlaskit/editor-common/messages';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import {
   FLOATING_TOOLBAR_LINKPICKER_CLASSNAME,
   richMediaClassName,
@@ -42,9 +42,10 @@ import type {
 } from '@atlaskit/editor-common/types';
 import { canRenderDatasource } from '@atlaskit/editor-common/utils';
 import type { HoverDecorationHandler } from '@atlaskit/editor-plugin-decorations';
-import type { widthPlugin } from '@atlaskit/editor-plugin-width';
-import { Node, NodeType } from '@atlaskit/editor-prosemirror/model';
-import { EditorState, NodeSelection } from '@atlaskit/editor-prosemirror/state';
+import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
+import type { Node, NodeType } from '@atlaskit/editor-prosemirror/model';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import {
   findDomRefAtPos,
   removeSelectedNode,
@@ -54,11 +55,11 @@ import CogIcon from '@atlaskit/icon/glyph/editor/settings';
 import UnlinkIcon from '@atlaskit/icon/glyph/editor/unlink';
 import OpenIcon from '@atlaskit/icon/glyph/shortcut';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
-import { CardPlatform } from '@atlaskit/smart-card';
+import type { CardPlatform } from '@atlaskit/smart-card';
 
 import { changeSelectedCardToText } from './pm-plugins/doc';
 import { pluginKey } from './pm-plugins/main';
-import { CardPluginState } from './types';
+import type { CardPluginState } from './types';
 import {
   buildEditLinkToolbar,
   editDatasource,
@@ -275,9 +276,7 @@ const unlinkCard = (
 const buildAlignmentOptions = (
   state: EditorState,
   intl: IntlShape,
-  widthPluginDependencyApi:
-    | PluginDependenciesAPI<typeof widthPlugin>
-    | undefined,
+  widthPluginDependencyApi: PluginDependenciesAPI<WidthPlugin> | undefined,
   analyticsApi: EditorAnalyticsAPI | undefined,
   cardOptions?: CardOptions,
 ): FloatingToolbarItem<Command>[] => {
@@ -340,8 +339,7 @@ const generateToolbarItems =
   ) =>
   (node: Node): Array<FloatingToolbarItem<Command>> => {
     const { url } = titleUrlPairFromNode(node);
-    const { actions: editorAnalyticsApi } =
-      pluginInjectionApi?.dependencies?.analytics ?? {};
+    const { actions: editorAnalyticsApi } = pluginInjectionApi?.analytics ?? {};
     let metadata = {};
     if (url && !isSafeUrl(url)) {
       return [];
@@ -356,8 +354,7 @@ const generateToolbarItems =
     const pluginState: CardPluginState | undefined = pluginKey.getState(state);
 
     const currentAppearance = appearanceForNodeType(node.type);
-    const { hoverDecoration } =
-      pluginInjectionApi?.dependencies?.decorations?.actions ?? {};
+    const { hoverDecoration } = pluginInjectionApi?.decorations?.actions ?? {};
 
     const isDatasource =
       currentAppearance === 'block' && node?.attrs?.datasource;
@@ -455,8 +452,8 @@ const generateToolbarItems =
         const alignmentOptions = buildAlignmentOptions(
           state,
           intl,
-          pluginInjectionApi?.dependencies?.width,
-          pluginInjectionApi?.dependencies?.analytics?.actions,
+          pluginInjectionApi?.width,
+          pluginInjectionApi?.analytics?.actions,
           cardOptions,
         );
         if (alignmentOptions.length) {
@@ -488,7 +485,7 @@ const generateToolbarItems =
                 allowBlockCards={allowBlockCards}
                 platform={platform}
                 editorAnalyticsApi={editorAnalyticsApi}
-                cardActions={pluginInjectionApi?.dependencies.card.actions}
+                cardActions={pluginInjectionApi?.card.actions}
               />
             ),
           },

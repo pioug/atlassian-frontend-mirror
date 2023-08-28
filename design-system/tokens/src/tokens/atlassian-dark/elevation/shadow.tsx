@@ -7,14 +7,13 @@ const shadow: ValueSchema<ShadowTokenSchema<BaseToken>> = {
       raised: {
         value: [
           {
-            // This inset shadow is just to allow animations between shadow types
+            // This shadow is just to allow animations between shadow types
             radius: 0,
             spread: 1,
             // @ts-ignore no current palette colour for this yet
             color: '#000000',
             offset: { x: 0, y: 0 },
             opacity: 0,
-            inset: true,
           },
           {
             radius: 1,
@@ -63,10 +62,10 @@ const shadow: ValueSchema<ShadowTokenSchema<BaseToken>> = {
           {
             radius: 0,
             spread: 1,
-            color: 'DarkNeutral100A',
+            // @ts-ignore no current palette colour for this yet
+            color: '#39424a',
             offset: { x: 0, y: 0 },
-            opacity: 0.12,
-            inset: true,
+            opacity: 1,
           },
           {
             radius: 12,
@@ -77,6 +76,7 @@ const shadow: ValueSchema<ShadowTokenSchema<BaseToken>> = {
           },
           {
             radius: 1,
+            spread: 1,
             offset: { x: 0, y: 0 },
             color: 'DarkNeutral-100A',
             // This opacity overrides the color alpha.

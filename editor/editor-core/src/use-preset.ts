@@ -38,8 +38,8 @@ interface PresetAPI<
  *   , []);
  *
  *   // Can execute typesafe commands based on plugin1 or 2
- *   const runCommand = () => editorApi.dependencies.core.actions.execute(
- *     editorApi.dependencies.plugin1.commands.doSomething()
+ *   const runCommand = () => editorApi.core.actions.execute(
+ *     editorApi.plugin1.commands.doSomething()
  *   )
  *   return (
  *     <>

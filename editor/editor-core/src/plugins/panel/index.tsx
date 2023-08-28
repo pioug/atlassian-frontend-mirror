@@ -39,7 +39,7 @@ const panelPlugin: NextEditorPlugin<
     pluginConfiguration: PanelPluginOptions | undefined;
     dependencies: [typeof decorationsPlugin];
   }
-> = (options = {}, api) => ({
+> = ({ config: options = {}, api }) => ({
   name: 'panel',
 
   nodes() {
@@ -164,7 +164,7 @@ const panelPlugin: NextEditorPlugin<
         intl,
         options,
         providerFactory,
-        api?.dependencies.decorations.actions.hoverDecoration,
+        api?.decorations.actions.hoverDecoration,
       ),
   },
 });

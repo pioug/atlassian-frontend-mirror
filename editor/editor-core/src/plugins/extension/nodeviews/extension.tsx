@@ -16,7 +16,7 @@ import Extension from '../ui/Extension';
 import ExtensionNodeWrapper from '../ui/Extension/ExtensionNodeWrapper';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
 import type { EventDispatcher } from '../../../event-dispatcher';
-import type { widthPlugin } from '@atlaskit/editor-plugin-width';
+import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
 
 interface ExtensionNodeViewOptions {
   appearance?: EditorAppearance;
@@ -59,7 +59,7 @@ export class ExtensionNode extends ReactNodeView {
       // referentiality plugin won't utilise appearance just yet
       extensionNodeViewOptions?: ExtensionNodeViewOptions;
       pluginInjectionApi:
-        | PluginInjectionAPIWithDependency<typeof widthPlugin>
+        | PluginInjectionAPIWithDependency<WidthPlugin>
         | undefined;
     },
     forwardRef: ForwardRef,
@@ -93,9 +93,7 @@ export default function ExtensionNodeView(
   providerFactory: ProviderFactory,
   extensionHandlers: ExtensionHandlers,
   extensionNodeViewOptions: ExtensionNodeViewOptions,
-  pluginInjectionApi:
-    | PluginInjectionAPIWithDependency<typeof widthPlugin>
-    | undefined,
+  pluginInjectionApi: PluginInjectionAPIWithDependency<WidthPlugin> | undefined,
 ) {
   return (node: PmNode, view: EditorView, getPos: getPosHandler): NodeView => {
     const hasIntlContext = true;

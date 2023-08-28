@@ -48,9 +48,11 @@ import type { MediaNextEditorPluginType } from './next-plugin-type';
 export type { MediaState, MediaProvider, CustomMediaPicker };
 export { insertMediaSingleNode } from './utils/media-single';
 
-const mediaPlugin: MediaNextEditorPluginType = (options = {}, api) => {
-  const featureFlags =
-    api?.dependencies?.featureFlags?.sharedState.currentState() || {};
+const mediaPlugin: MediaNextEditorPluginType = ({
+  config: options = {},
+  api,
+}) => {
+  const featureFlags = api?.featureFlags?.sharedState.currentState() || {};
 
   return {
     name: 'media',
@@ -179,8 +181,7 @@ const mediaPlugin: MediaNextEditorPluginType = (options = {}, api) => {
         },
         {
           name: 'mediaKeymap',
-          plugin: () =>
-            keymapPlugin(options, api?.dependencies.analytics?.actions),
+          plugin: () => keymapPlugin(options, api?.analytics?.actions),
         },
       ];
 
@@ -199,10 +200,7 @@ const mediaPlugin: MediaNextEditorPluginType = (options = {}, api) => {
         pmPlugins.push({
           name: 'mediaAltTextKeymap',
           plugin: ({ schema }) =>
-            keymapMediaAltTextPlugin(
-              schema,
-              api?.dependencies.analytics?.actions,
-            ),
+            keymapMediaAltTextPlugin(schema, api?.analytics?.actions),
         });
       }
 
@@ -303,7 +301,7 @@ const mediaPlugin: MediaNextEditorPluginType = (options = {}, api) => {
             const pluginState = pluginKey.getState(state);
             pluginState?.showMediaPicker();
             const tr = insert('');
-            api?.dependencies.analytics?.actions.attachAnalyticsEvent({
+            api?.analytics?.actions.attachAnalyticsEvent({
               action: ACTION.OPENED,
               actionSubject: ACTION_SUBJECT.PICKER,
               actionSubjectId: ACTION_SUBJECT_ID.PICKER_CLOUD,
@@ -332,6 +330,7 @@ const mediaPlugin: MediaNextEditorPluginType = (options = {}, api) => {
               options && options.allowAdvancedToolBarOptions,
             allowAltTextOnImages: options && options.allowAltTextOnImages,
             altTextValidator: options && options.altTextValidator,
+            fullWidthEnabled: options && options.fullWidthEnabled,
           },
           api,
         ),

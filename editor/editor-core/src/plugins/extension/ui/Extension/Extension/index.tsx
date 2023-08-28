@@ -25,7 +25,7 @@ import type { EditorAppearance } from '../../../../../types/editor-appearance';
 import classnames from 'classnames';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type {
-  widthPlugin,
+  WidthPlugin,
   WidthPluginState,
 } from '@atlaskit/editor-plugin-width';
 import type { PluginInjectionAPIWithDependency } from '@atlaskit/editor-common/types';
@@ -40,9 +40,7 @@ export interface Props {
   references?: ReferenceEntity[];
   hideFrame?: boolean;
   editorAppearance?: EditorAppearance;
-  pluginInjectionApi:
-    | PluginInjectionAPIWithDependency<typeof widthPlugin>
-    | undefined;
+  pluginInjectionApi: PluginInjectionAPIWithDependency<WidthPlugin> | undefined;
 }
 
 type WidthStateProps = { widthState?: WidthPluginState };
@@ -67,12 +65,23 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
   const hasChildren = !!children;
   const removeBorder = (hideFrame && !isMobile && !hasBody) || false;
 
-  const pos: number | undefined =
-    typeof props.getPos === 'function' ? props.getPos() : undefined;
-  const isTopLevelNode =
-    typeof pos !== 'undefined' &&
-    !isNaN(pos) &&
-    props.view.state.doc.resolve(pos).depth === 0;
+  const { getPos, view } = props;
+  const isTopLevelNode = React.useMemo(() => {
+    try {
+      const pos: number | undefined =
+        typeof getPos === 'function' ? getPos() : undefined;
+
+      return (
+        typeof pos !== 'undefined' &&
+        !isNaN(pos) &&
+        view.state.doc.resolve(pos).depth === 0
+      );
+    } catch (e) {
+      return false;
+    }
+
+    return false;
+  }, [view, getPos]);
 
   const shouldBreakout =
     // Extension should breakout when the layout is set to 'full-width' or 'wide'.

@@ -11,7 +11,7 @@ describe('Editor EditorPresetBuilder - build', () => {
         onEditorPluginInitialized: jest.fn(),
       } as any;
 
-      const plugin1: NextEditorPlugin<'one'> = jest.fn((_, api) => {
+      const plugin1: NextEditorPlugin<'one'> = jest.fn(({ api }) => {
         return {
           name: 'one',
         };
@@ -21,7 +21,7 @@ describe('Editor EditorPresetBuilder - build', () => {
         pluginInjectionAPI: pluginInjectionAPIFake,
       });
 
-      expect(plugin1).toHaveBeenCalledWith(undefined, fakeAPI);
+      expect(plugin1).toHaveBeenCalledWith({ config: undefined, api: fakeAPI });
     });
 
     it('should call onEditorPluginInitialized', () => {
@@ -33,14 +33,14 @@ describe('Editor EditorPresetBuilder - build', () => {
         name: 'one',
       };
       // @ts-ignore
-      const plugin1: NextEditorPlugin<'one'> = (_, api) => {
+      const plugin1: NextEditorPlugin<'one'> = ({ api }) => {
         return one;
       };
       const two = {
         name: 'two',
       };
       // @ts-ignore
-      const plugin2: NextEditorPlugin<'two'> = (_, api) => {
+      const plugin2: NextEditorPlugin<'two'> = ({ api }) => {
         return two;
       };
       new EditorPresetBuilder().add(plugin1).add(plugin2).build({
@@ -65,21 +65,21 @@ describe('Editor EditorPresetBuilder - build', () => {
           name: 'one',
         };
         // @ts-ignore
-        const plugin1: NextEditorPlugin<'one'> = (_, api) => {
+        const plugin1: NextEditorPlugin<'one'> = ({ api }) => {
           return one;
         };
         const two = {
           name: 'two',
         };
         // @ts-ignore
-        const plugin2: NextEditorPlugin<'two'> = (_, api) => {
+        const plugin2: NextEditorPlugin<'two'> = ({ api }) => {
           return two;
         };
         const three = {
           name: 'three',
         };
         // @ts-ignore
-        const plugin3: NextEditorPlugin<'three'> = (_, api) => {
+        const plugin3: NextEditorPlugin<'three'> = ({ api }) => {
           return three;
         };
         new EditorPresetBuilder()
@@ -104,10 +104,9 @@ describe('Editor EditorPresetBuilder - build', () => {
   describe('when using a real PluginInjectionAPI', () => {
     it('should enable external plugins to be called in the initialisation function', () => {
       const fakefn = jest.fn();
-      const plugin1: NextEditorPlugin<'one', { sharedState: number }> = (
-        _,
+      const plugin1: NextEditorPlugin<'one', { sharedState: number }> = ({
         api,
-      ) => {
+      }) => {
         return {
           name: 'one',
           getSharedState: (editorState) => {
@@ -119,8 +118,8 @@ describe('Editor EditorPresetBuilder - build', () => {
       const plugin2: NextEditorPlugin<
         'two',
         { dependencies: [typeof plugin1] }
-      > = (_, api) => {
-        api?.dependencies.one.sharedState.currentState();
+      > = ({ api }) => {
+        api?.one.sharedState.currentState();
         return {
           name: 'two',
         };
@@ -142,10 +141,9 @@ describe('Editor EditorPresetBuilder - build', () => {
 
     it('should not allow another core plugin to be added', () => {
       const fakefn = jest.fn();
-      const plugin1: NextEditorPlugin<'core', { sharedState: number }> = (
-        _,
+      const plugin1: NextEditorPlugin<'core', { sharedState: number }> = ({
         api,
-      ) => {
+      }) => {
         return {
           name: 'core',
           getSharedState: (editorState) => {

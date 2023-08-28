@@ -32,7 +32,8 @@ export const figmaFormatter: Format['formatter'] = ({
           token.attributes.group === 'shape' ||
           token.attributes.group === 'fontWeight') &&
         token.attributes.state !== 'deprecated' &&
-        token.attributes.state !== 'deleted',
+        token.attributes.state !== 'deleted' &&
+        token.path[0] !== 'utility',
     ),
   ).reduce<Record<string, any>>((accum, token) => {
     accum[formatTokenPath(token.path, themeName)] = {

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/menu",
-  "version": "1.9.8",
+  "version": "1.10.0",
   "description": "A collection of composable menu components that can be used anywhere.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -32,7 +32,7 @@
     "@atlaskit/platform-feature-flags": "^0.2.0",
     "@atlaskit/primitives": "^1.2.0",
     "@atlaskit/theme": "^12.5.0",
-    "@atlaskit/tokens": "^1.15.0",
+    "@atlaskit/tokens": "^1.17.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1"
   },
@@ -106,6 +106,9 @@
   },
   "platform-feature-flags": {
     "platform.design-system-team.menu-selected-state-change_0see9": {
+      "type": "boolean"
+    },
+    "platform.design-system-team.unsafe-overrides-killswitch_c8j9m": {
       "type": "boolean"
     }
   },

@@ -54,6 +54,7 @@ export const rules: {
   'no-invalid-feature-flag-usage': Rule.RuleModule;
   'no-pre-post-install-scripts': Rule.RuleModule;
   'no-invalid-storybook-decorator-usage': Rule.RuleModule;
+  'ensure-publish-valid': Rule.RuleModule;
 };
 
 // (No @packageDocumentation comment for this package)

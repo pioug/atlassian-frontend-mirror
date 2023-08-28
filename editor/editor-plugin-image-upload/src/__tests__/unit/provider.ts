@@ -48,9 +48,9 @@ describe('OptionalPlugin usage should', () => {
 
   it('call the provider correctly with uploadImage action', async () => {
     let doUpload = () => {};
-    const imageUploadPlugin: PluginUsingImageUpload = (_, api) => {
+    const imageUploadPlugin: PluginUsingImageUpload = ({ api }) => {
       doUpload = () => {
-        api?.dependencies.imageUpload.actions.startUpload()(
+        api?.imageUpload.actions.startUpload()(
           jest.fn() as any,
           jest.fn() as any,
         );

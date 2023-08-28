@@ -201,10 +201,8 @@ describe('media', () => {
       return () => {};
     };
     const mockInjectionAPI: any = {
-      dependencies: {
-        analytics: { actions: { attachAnalyticsEvent: mockAddAnalyticsEvent } },
-        decorations: { actions: { hoverDecoration: () => () => {} } },
-      },
+      analytics: { actions: { attachAnalyticsEvent: mockAddAnalyticsEvent } },
+      decorations: { actions: { hoverDecoration: () => () => {} } },
     };
 
     const toolbar = floatingToolbar(

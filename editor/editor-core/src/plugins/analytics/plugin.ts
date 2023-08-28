@@ -37,7 +37,7 @@ function createPlugin(
 
   const hasRequiredPerformanceAPIs = isPerformanceAPIAvailable();
   const getCreateAnalyticsEvent = () =>
-    pluginInjectionApi?.dependencies.analytics?.sharedState.currentState()
+    pluginInjectionApi?.analytics?.sharedState.currentState()
       ?.createAnalyticsEvent;
 
   return new SafePlugin({
@@ -48,8 +48,7 @@ function createPlugin(
           ...options,
           createAnalyticsEvent: getCreateAnalyticsEvent(),
           fireAnalytics: fireAnalyticsEvent(options.createAnalyticsEvent),
-          editorAnalyticsApi:
-            pluginInjectionApi?.dependencies.analytics?.actions,
+          editorAnalyticsApi: pluginInjectionApi?.analytics?.actions,
         };
       },
       apply: (tr, pluginState, _, state) => {
@@ -116,9 +115,8 @@ const analyticsPlugin: NextEditorPlugin<
     pluginConfiguration: AnalyticsPluginOptions;
     dependencies: [typeof featureFlagsPlugin, typeof newAnalyticsPlugin];
   }
-> = (options, api) => {
-  const featureFlags =
-    api?.dependencies.featureFlags?.sharedState.currentState() || {};
+> = ({ config: options, api }) => {
+  const featureFlags = api?.featureFlags?.sharedState.currentState() || {};
 
   return {
     name: 'deprecatedAnalytics',
@@ -127,7 +125,7 @@ const analyticsPlugin: NextEditorPlugin<
       return [
         {
           name: 'analyticsPlugin',
-          plugin: () => createPlugin(options, featureFlags, api),
+          plugin: () => createPlugin(options ?? {}, featureFlags, api),
         },
       ];
     },

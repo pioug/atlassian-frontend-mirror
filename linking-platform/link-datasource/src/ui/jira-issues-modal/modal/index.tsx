@@ -193,7 +193,7 @@ export const PlainJiraIssuesConfigModal = (
   const onSearch = useCallback(
     (newParameters: JiraIssueDatasourceParametersQuery) => {
       setJql(newParameters.jql);
-      reset(true);
+      reset({ shouldForceRequest: true });
     },
     [reset],
   );
@@ -201,7 +201,7 @@ export const PlainJiraIssuesConfigModal = (
   const onSiteSelection = useCallback(
     (site: Site) => {
       setCloudId(site.cloudId);
-      reset(true);
+      reset({ shouldForceRequest: true });
     },
     [reset],
   );

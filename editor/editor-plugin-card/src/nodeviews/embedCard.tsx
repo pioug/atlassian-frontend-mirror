@@ -3,14 +3,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import rafSchedule from 'raf-schd';
 
-import { RichMediaLayout } from '@atlaskit/adf-schema';
+import type { RichMediaLayout } from '@atlaskit/adf-schema';
 import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
-import { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
+import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
-import ReactNodeView, {
-  getPosHandler,
-} from '@atlaskit/editor-common/react-node-view';
+import type { getPosHandler } from '@atlaskit/editor-common/react-node-view';
+import ReactNodeView from '@atlaskit/editor-common/react-node-view';
 import type {
   ColumnResizingPluginState,
   ExtractInjectionAPI,
@@ -26,9 +25,12 @@ import {
   isRichMediaInsideOfBlockNode,
 } from '@atlaskit/editor-common/utils';
 import type { Highlights } from '@atlaskit/editor-plugin-grid';
-import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { EditorState, PluginKey } from '@atlaskit/editor-prosemirror/state';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type {
+  EditorState,
+  PluginKey,
+} from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
   DEFAULT_EMBED_CARD_HEIGHT,
   DEFAULT_EMBED_CARD_WIDTH,
@@ -42,7 +44,8 @@ import type { cardPlugin } from '../index';
 import { registerCard } from '../pm-plugins/actions';
 import ResizableEmbedCard from '../ui/ResizableEmbedCard';
 
-import { Card, SmartCardProps } from './genericCard';
+import type { SmartCardProps } from './genericCard';
+import { Card } from './genericCard';
 
 interface CardProps {
   layout: RichMediaLayout;
@@ -142,7 +145,7 @@ const CardInner = ({
     gridType: GridType,
     highlight: number[] | string[],
   ) =>
-    pluginInjectionApi?.dependencies.grid.actions?.displayGrid(view)({
+    pluginInjectionApi?.grid.actions?.displayGrid(view)({
       visible,
       gridType,
       highlight: highlight as Highlights,

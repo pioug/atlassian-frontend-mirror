@@ -40,11 +40,12 @@
     "./schema-default": "./src/schema/default-schema.ts"
   },
   "scripts": {
-    "build:json-schema": "mkdir -p dist && cp -r json-schema dist",
-    "generate:json-schema": "mkdir -p json-schema/v1/ && yarn generate:json-schema:full && yarn generate:json-schema:stage-0",
-    "generate:json-schema:stage-0": "json-schema-generator --outDir=./json-schema/v1/ --stage=0 ./src/schema/nodes/doc.ts",
-    "generate:json-schema:full": "json-schema-generator --outDir=./json-schema/v1/ ./src/schema/nodes/doc.ts",
-    "ak-postbuild": "yarn build:json-schema"
+    "build:removed": "echo \"This package is being removed. New location: http://go/bb/atlassian/adf-schema\"",
+    "build:json-schema": "yarn build:removed",
+    "generate:json-schema": "yarn build:removed",
+    "generate:json-schema:stage-0": "yarn build:removed",
+    "generate:json-schema:full": "yarn build:removed",
+    "ak-postbuild": "yarn build:removed"
   },
   "dependencies": {
     "@atlaskit/codemod-utils": "^4.2.0",

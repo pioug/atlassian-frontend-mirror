@@ -86,15 +86,23 @@ export interface NextEditorPluginMetadata {
   readonly commands?: NextEditorEditorCommands;
 }
 
+/**
+ * `PluginInjectionAPI` doesn't actually use `dependencies`,
+ * we should use it as PluginInjectionAPI< ... >['dependencies']
+ * it is only here because otherwise typescript blows up
+ * trying to compare `PluginInjectionAPI` to `PublicPluginAPI`
+ */
 export type PluginInjectionAPI<
   Name extends string,
   Metadata extends NextEditorPluginMetadata,
-> = PublicPluginAPI<
-  [
-    NextEditorPlugin<Name, Metadata>,
-    ...ExtractPluginDependenciesFromMetadata<Metadata>,
-  ]
->;
+> = {
+  dependencies: PublicPluginAPI<
+    [
+      NextEditorPlugin<Name, Metadata>,
+      ...ExtractPluginDependenciesFromMetadata<Metadata>,
+    ]
+  >;
+};
 
 export type PluginInjectionAPIWithDependency<
   Plugin extends NextEditorPlugin<any, any>,
@@ -104,23 +112,14 @@ export type PluginInjectionAPIWithDependencies<
   Plugins extends NextEditorPlugin<any, any>[],
 > = PublicPluginAPI<Plugins>;
 
-type NextEditorPluginFunctionDefinition<
-  Name extends string,
-  Metadata extends NextEditorPluginMetadata,
-  Configuration,
-> = (
-  config: Configuration,
-  api?: PluginInjectionAPI<Name, Metadata>,
-) => DefaultEditorPlugin<Name, Metadata>;
-
-type NextEditorPluginFunctionOptionalConfigDefinition<
+export type NextEditorPluginFunctionOptionalConfigDefinition<
   Name extends string,
   Metadata extends NextEditorPluginMetadata,
   Configuration = undefined,
-> = (
-  config?: Configuration,
-  api?: PluginInjectionAPI<Name, Metadata>,
-) => DefaultEditorPlugin<Name, Metadata>;
+> = (props: {
+  config: Configuration;
+  api?: PluginInjectionAPI<Name, Metadata>['dependencies'];
+}) => DefaultEditorPlugin<Name, Metadata>;
 
 // Used internally to indicate the plugin is internal
 // This is used to ensure typescript can tell the difference between `NextEditorPlugin` and `OptionalPlugin<NextEditorPlugin>`
@@ -140,17 +139,11 @@ export type NextEditorPlugin<
   Metadata extends NextEditorPluginMetadata = {},
 > = Metadata extends NextEditorPluginMetadata
   ? 'pluginConfiguration' extends keyof Metadata
-    ? undefined extends Metadata['pluginConfiguration']
-      ? NextEditorPluginFunctionOptionalConfigDefinition<
-          Name,
-          Metadata,
-          Metadata['pluginConfiguration']
-        >
-      : NextEditorPluginFunctionDefinition<
-          Name,
-          Metadata,
-          Metadata['pluginConfiguration']
-        >
+    ? NextEditorPluginFunctionOptionalConfigDefinition<
+        Name,
+        Metadata,
+        Metadata['pluginConfiguration']
+      >
     : NextEditorPluginFunctionOptionalConfigDefinition<Name, Metadata>
   : never;
 
@@ -198,10 +191,10 @@ export type ExtractPluginDependencies<Plugin> = Plugin extends NextEditorPlugin<
   any,
   any
 >
-  ? Plugin extends (
-      config: any,
-      api: any,
-    ) => DefaultEditorPlugin<any, infer Metadata>
+  ? Plugin extends (props: {
+      config: any;
+      api: any;
+    }) => DefaultEditorPlugin<any, infer Metadata>
     ? ExtractPluginDependenciesFromMetadataWithoutOptionals<Metadata>
     : never
   : never;
@@ -210,10 +203,10 @@ type ExtractPluginConfiguration<Plugin> = Plugin extends NextEditorPlugin<
   any,
   any
 >
-  ? Plugin extends (
-      config: any,
-      api: any,
-    ) => DefaultEditorPlugin<any, infer Metadata>
+  ? Plugin extends (props: {
+      config: any;
+      api: any;
+    }) => DefaultEditorPlugin<any, infer Metadata>
     ? ExtractPluginConfigurationFromMetadata<Metadata>
     : never
   : never;
@@ -222,10 +215,10 @@ export type ExtractPluginSharedState<Plugin> = Plugin extends NextEditorPlugin<
   any,
   any
 >
-  ? Plugin extends (
-      config: any,
-      api: any,
-    ) => DefaultEditorPlugin<any, infer Metadata>
+  ? Plugin extends (props: {
+      config: any;
+      api: any;
+    }) => DefaultEditorPlugin<any, infer Metadata>
     ? ExtractSharedStateFromMetadata<Metadata>
     : never
   : never;
@@ -234,10 +227,10 @@ export type ExtractPluginActions<Plugin> = Plugin extends NextEditorPlugin<
   any,
   any
 >
-  ? Plugin extends (
-      config: any,
-      api: any,
-    ) => DefaultEditorPlugin<any, infer Metadata>
+  ? Plugin extends (props: {
+      config: any;
+      api: any;
+    }) => DefaultEditorPlugin<any, infer Metadata>
     ? ExtractActionsFromMetadata<Metadata>
     : never
   : never;
@@ -364,12 +357,11 @@ export type ExtractInjectionAPI<Plugin> = Plugin extends NextEditorPlugin<
   infer Name,
   infer Metadata
 >
-  ? PluginInjectionAPI<Name, Metadata>
+  ? PluginInjectionAPI<Name, Metadata>['dependencies']
   : never;
 
-export type PublicPluginAPI<PluginList extends NextEditorPlugin<any, any>[]> = {
-  dependencies: CreatePluginDependenciesAPI<[...PluginList, CorePlugin]>;
-};
+export type PublicPluginAPI<PluginList extends NextEditorPlugin<any, any>[]> =
+  CreatePluginDependenciesAPI<[...PluginList, CorePlugin]>;
 
 export type ExtractNextEditorPlugins<
   Plugins extends AllEditorPresetPluginTypes[],

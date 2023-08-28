@@ -1,5 +1,6 @@
 import { snapshot } from '@af/visual-regression';
 import HoverCard from '../../../examples/vr-hover-card/vr-hover-card-layout';
+import HoverCardWithPreview from '../../../examples/vr-hover-card/vr-hover-card-with-image-preview';
 
 snapshot(HoverCard, {
   description: 'Standalone hover card deafult',
@@ -34,6 +35,26 @@ snapshot(HoverCard, {
     featureFlags: {
       'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
         true,
+    },
+  },
+});
+
+snapshot(HoverCardWithPreview, {
+  description: 'Standalone hover card  with image Preview',
+  states: [{ state: 'hovered', selector: { byRole: 'button' } }],
+  drawsOutsideBounds: true,
+});
+
+//Same list of tests for refreshed hover card design & better metadata under the FF
+snapshot(HoverCardWithPreview, {
+  description: 'Redesigned Standalone hover card with image Preview',
+  states: [{ state: 'hovered', selector: { byRole: 'button' } }],
+  drawsOutsideBounds: true,
+  hooks: {
+    featureFlags: {
+      'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
+        true,
+      'platform.linking-platform.smart-card.enable-better-metadata_iojwg': true,
     },
   },
 });

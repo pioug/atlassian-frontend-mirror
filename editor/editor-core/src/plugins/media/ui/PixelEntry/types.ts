@@ -26,6 +26,11 @@ export type PixelEntryProps = {
    */
   maxWidth: number;
   /**
+   *
+   * Handler for valid input
+   */
+  onChange?: (valid: boolean) => void;
+  /**
    * show migration button to convert to pixels for legacy image resize experience
    */
   showMigration?: boolean;
@@ -45,8 +50,8 @@ export type PixelEntryProps = {
 };
 
 export type PixelEntryFormValues = {
-  inputWidth: number;
-  inputHeight: number;
+  inputWidth: number | '';
+  inputHeight: number | '';
 };
 
 export type PixelEntryFormData = {

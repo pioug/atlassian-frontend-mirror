@@ -342,10 +342,8 @@ export class ToolbarInsertBlock extends React.PureComponent<
     const { pluginInjectionApi } = this.props;
 
     return (
-      pluginInjectionApi?.dependencies.core.actions.execute(
-        pluginInjectionApi?.dependencies?.hyperlink?.commands.showLinkToolbar(
-          inputMethod,
-        ),
+      pluginInjectionApi?.core.actions.execute(
+        pluginInjectionApi?.hyperlink?.commands.showLinkToolbar(inputMethod),
       ) ?? false
     );
   };
@@ -355,8 +353,7 @@ export class ToolbarInsertBlock extends React.PureComponent<
     if (!editorView) {
       return true;
     }
-    const pluginState =
-      pluginInjectionApi?.dependencies.mention?.sharedState.currentState();
+    const pluginState = pluginInjectionApi?.mention?.sharedState.currentState();
     if (pluginState && pluginState.canInsertMention === false) {
       return false;
     }
@@ -371,7 +368,7 @@ export class ToolbarInsertBlock extends React.PureComponent<
     const { state, dispatch } = editorView;
 
     return (
-      pluginInjectionApi?.dependencies.table?.actions.insertTable?.({
+      pluginInjectionApi?.table?.actions.insertTable?.({
         action: ACTION.INSERTED,
         actionSubject: ACTION_SUBJECT.DOCUMENT,
         actionSubjectId: ACTION_SUBJECT_ID.TABLE,
@@ -464,8 +461,8 @@ export class ToolbarInsertBlock extends React.PureComponent<
   private handleSelectedEmoji = (emojiId: EmojiId): boolean => {
     const { pluginInjectionApi } = this.props;
     this.props.editorView.focus();
-    pluginInjectionApi?.dependencies.core.actions.execute(
-      pluginInjectionApi.dependencies.emoji?.commands.insertEmoji(
+    pluginInjectionApi?.core.actions.execute(
+      pluginInjectionApi.emoji?.commands.insertEmoji(
         emojiId,
         INPUT_METHOD.PICKER,
       ),
@@ -477,9 +474,8 @@ export class ToolbarInsertBlock extends React.PureComponent<
   private openElementBrowser = () => {
     const { pluginInjectionApi } = this.props;
 
-    pluginInjectionApi?.dependencies.core.actions.execute(
-      pluginInjectionApi?.dependencies.quickInsert?.commands
-        .openElementBrowserModal,
+    pluginInjectionApi?.core.actions.execute(
+      pluginInjectionApi?.quickInsert?.commands.openElementBrowserModal,
     );
   };
 

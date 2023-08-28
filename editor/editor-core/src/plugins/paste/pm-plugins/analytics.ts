@@ -388,7 +388,7 @@ export const handlePasteIntoTaskAndDecisionWithAnalytics = (
   )(
     handlePasteIntoTaskOrDecisionOrPanel(
       slice,
-      pluginInjectionApi?.dependencies.card?.actions?.queueCardsFromChangedTr,
+      pluginInjectionApi?.card?.actions?.queueCardsFromChangedTr,
     ),
   );
 
@@ -443,7 +443,7 @@ export const handlePastePreservingMarksWithAnalytics = (
   )(
     handlePastePreservingMarks(
       slice,
-      pluginInjectionApi?.dependencies.card?.actions?.queueCardsFromChangedTr,
+      pluginInjectionApi?.card?.actions?.queueCardsFromChangedTr,
     ),
   );
 
@@ -460,7 +460,7 @@ export const handleMarkdownWithAnalytics = (
   )(
     handleMarkdown(
       slice,
-      pluginInjectionApi?.dependencies.card?.actions?.queueCardsFromChangedTr,
+      pluginInjectionApi?.card?.actions?.queueCardsFromChangedTr,
     ),
   );
 
@@ -477,7 +477,7 @@ export const handleRichTextWithAnalytics = (
   )(
     handleRichText(
       slice,
-      pluginInjectionApi?.dependencies.card?.actions?.queueCardsFromChangedTr,
+      pluginInjectionApi?.card?.actions?.queueCardsFromChangedTr,
     ),
   );
 

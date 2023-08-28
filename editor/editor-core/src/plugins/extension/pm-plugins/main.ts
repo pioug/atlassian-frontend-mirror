@@ -225,7 +225,7 @@ const createPlugin = (
     showEditButton: false,
     showContextPanel: false,
     applyChangeToContextPanel:
-      pluginInjectionApi?.dependencies.contextPanel?.actions.applyChange,
+      pluginInjectionApi?.contextPanel?.actions.applyChange,
   });
 
   const extensionNodeViewOptions = {
@@ -254,9 +254,7 @@ const createPlugin = (
             prevState,
             domAtPos,
             extensionHandlers,
-            applyChange:
-              pluginInjectionApi?.dependencies.contextPanel?.actions
-                .applyChange,
+            applyChange: pluginInjectionApi?.contextPanel?.actions.applyChange,
           });
         },
         destroy: () => {

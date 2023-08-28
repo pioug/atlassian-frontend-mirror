@@ -76,9 +76,11 @@ export const getLinkingToolbar = (
                   intl={intl}
                   editing={editing}
                   onUnlink={() =>
-                    unlink(
-                      pluginInjectionApi?.dependencies?.analytics?.actions,
-                    )(view.state, view.dispatch, view)
+                    unlink(pluginInjectionApi?.analytics?.actions)(
+                      view.state,
+                      view.dispatch,
+                      view,
+                    )
                   }
                   onBack={(href, meta) => {
                     if (href.trim() && meta.inputMethod) {
@@ -99,7 +101,7 @@ export const getLinkingToolbar = (
                       state: { tr },
                       dispatch,
                     } = view;
-                    pluginInjectionApi?.dependencies.floatingToolbar.actions?.forceFocusSelector(
+                    pluginInjectionApi?.floatingToolbar.actions?.forceFocusSelector(
                       FORCE_FOCUS_SELECTOR,
                     )(tr);
                     dispatch(tr);

@@ -21,7 +21,7 @@ import type {
   InputTracking,
   BrowserFreezetracking,
 } from '../../types/performance-tracking';
-import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
 
 export interface BasePluginOptions {
@@ -40,7 +40,7 @@ export type BasePlugin = NextEditorPlugin<
   'base',
   {
     pluginConfiguration: BasePluginOptions | undefined;
-    dependencies: [typeof featureFlagsPlugin];
+    dependencies: [FeatureFlagsPlugin];
     sharedState: BasePluginState;
   }
 >;
@@ -49,9 +49,8 @@ export type BasePlugin = NextEditorPlugin<
 export const isChromeWithSelectionBug =
   browser.chrome && browser.chrome_version >= 88;
 
-const basePlugin: BasePlugin = (options, api) => {
-  const featureFlags =
-    api?.dependencies?.featureFlags?.sharedState.currentState() || {};
+const basePlugin: BasePlugin = ({ config: options, api }) => {
+  const featureFlags = api?.featureFlags?.sharedState.currentState() || {};
 
   return {
     name: 'base',

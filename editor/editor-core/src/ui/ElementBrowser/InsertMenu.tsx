@@ -72,7 +72,7 @@ const InsertMenu = ({
       if (!editorView.hasFocus()) {
         editorView.focus();
       }
-      pluginInjectionApi?.dependencies.quickInsert?.actions.insertItem(item)(
+      pluginInjectionApi?.quickInsert?.actions.insertItem(item)(
         editorView.state,
         editorView.dispatch,
       );
@@ -90,24 +90,24 @@ const InsertMenu = ({
        * @see above transform function for more details.
        */
       if (query) {
-        pluginInjectionApi?.dependencies.core.actions.execute(
-          pluginInjectionApi?.dependencies.quickInsert?.commands.search({
+        pluginInjectionApi?.core.actions.execute(
+          pluginInjectionApi?.quickInsert?.commands.search({
             query,
             category,
           }),
         );
         result =
-          pluginInjectionApi?.dependencies.quickInsert?.sharedState.currentState()
+          pluginInjectionApi?.quickInsert?.sharedState.currentState()
             ?.suggestions ?? [];
       } else {
-        pluginInjectionApi?.dependencies.core.actions.execute(
-          pluginInjectionApi?.dependencies.quickInsert?.commands.search({
+        pluginInjectionApi?.core.actions.execute(
+          pluginInjectionApi?.quickInsert?.commands.search({
             category,
             featuredItems: true,
           }),
         );
         const featuredQuickInsertSuggestions =
-          pluginInjectionApi?.dependencies.quickInsert?.sharedState.currentState()
+          pluginInjectionApi?.quickInsert?.sharedState.currentState()
             ?.suggestions ?? [];
         result = quickInsertDropdownItems.concat(
           featuredQuickInsertSuggestions,
@@ -117,15 +117,15 @@ const InsertMenu = ({
       return result;
     },
     [
-      pluginInjectionApi?.dependencies.core.actions,
-      pluginInjectionApi?.dependencies.quickInsert?.commands,
-      pluginInjectionApi?.dependencies.quickInsert?.sharedState,
+      pluginInjectionApi?.core.actions,
+      pluginInjectionApi?.quickInsert?.commands,
+      pluginInjectionApi?.quickInsert?.sharedState,
       quickInsertDropdownItems,
     ],
   );
 
   const emptyStateHandler =
-    pluginInjectionApi?.dependencies.quickInsert?.sharedState.currentState()
+    pluginInjectionApi?.quickInsert?.sharedState.currentState()
       ?.emptyStateHandler;
 
   return (

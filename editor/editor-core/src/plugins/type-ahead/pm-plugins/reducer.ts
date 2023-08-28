@@ -206,6 +206,11 @@ export const createReducer = ({
         onRemove,
       });
 
+      // return same pluginState if decorationSet did not change
+      if (mappedDecorationSet === currentPluginState.decorationSet) {
+        return currentPluginState;
+      }
+
       return {
         ...currentPluginState,
         decorationSet: mappedDecorationSet,

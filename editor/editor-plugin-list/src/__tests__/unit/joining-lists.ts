@@ -67,10 +67,8 @@ describe('lists plugin -> joining lists', () => {
       ),
     );
 
-    editorAPI.dependencies.core.actions.execute(
-      editorAPI.dependencies.list.commands.toggleOrderedList(
-        INPUT_METHOD.TOOLBAR,
-      ),
+    editorAPI.core.actions.execute(
+      editorAPI.list.commands.toggleOrderedList(INPUT_METHOD.TOOLBAR),
     );
     expect(editorView.state.doc).toEqualDocument(expectedOutputForPreviousList);
   });
@@ -85,10 +83,8 @@ describe('lists plugin -> joining lists', () => {
       ),
     ); // When selection starts on previous (empty) node
 
-    editorAPI.dependencies.core.actions.execute(
-      editorAPI.dependencies.list.commands.toggleOrderedList(
-        INPUT_METHOD.TOOLBAR,
-      ),
+    editorAPI.core.actions.execute(
+      editorAPI.list.commands.toggleOrderedList(INPUT_METHOD.TOOLBAR),
     );
     expect(editorView.state.doc).toEqualDocument(expectedOutputForPreviousList);
   });
@@ -103,10 +99,8 @@ describe('lists plugin -> joining lists', () => {
       ),
     );
 
-    editorAPI.dependencies.core.actions.execute(
-      editorAPI.dependencies.list.commands.toggleBulletList(
-        INPUT_METHOD.TOOLBAR,
-      ),
+    editorAPI.core.actions.execute(
+      editorAPI.list.commands.toggleBulletList(INPUT_METHOD.TOOLBAR),
     );
     expect(editorView.state.doc).toEqualDocument(
       doc(
@@ -127,10 +121,8 @@ describe('lists plugin -> joining lists', () => {
       ),
     ); // When selection starts on previous (empty) node
 
-    editorAPI.dependencies.core.actions.execute(
-      editorAPI.dependencies.list.commands.toggleBulletList(
-        INPUT_METHOD.TOOLBAR,
-      ),
+    editorAPI.core.actions.execute(
+      editorAPI.list.commands.toggleBulletList(INPUT_METHOD.TOOLBAR),
     );
     expect(editorView.state.doc).toEqualDocument(
       doc(
@@ -156,10 +148,8 @@ describe('lists plugin -> joining lists', () => {
       ),
     );
 
-    editorAPI.dependencies.core.actions.execute(
-      editorAPI.dependencies.list.commands.toggleOrderedList(
-        INPUT_METHOD.TOOLBAR,
-      ),
+    editorAPI.core.actions.execute(
+      editorAPI.list.commands.toggleOrderedList(INPUT_METHOD.TOOLBAR),
     );
     expect(editorView.state.doc).toEqualDocument(expectedOutputForNextList);
   });
@@ -174,10 +164,8 @@ describe('lists plugin -> joining lists', () => {
       ),
     );
 
-    editorAPI.dependencies.core.actions.execute(
-      editorAPI.dependencies.list.commands.toggleOrderedList(
-        INPUT_METHOD.TOOLBAR,
-      ),
+    editorAPI.core.actions.execute(
+      editorAPI.list.commands.toggleOrderedList(INPUT_METHOD.TOOLBAR),
     );
     expect(editorView.state.doc).toEqualDocument(
       doc(
@@ -203,10 +191,8 @@ describe('lists plugin -> joining lists', () => {
       ),
     );
 
-    editorAPI.dependencies.core.actions.execute(
-      editorAPI.dependencies.list.commands.toggleBulletList(
-        INPUT_METHOD.TOOLBAR,
-      ),
+    editorAPI.core.actions.execute(
+      editorAPI.list.commands.toggleBulletList(INPUT_METHOD.TOOLBAR),
     );
     expect(editorView.state.doc).toEqualDocument(
       doc(
@@ -227,10 +213,8 @@ describe('lists plugin -> joining lists', () => {
       ),
     );
 
-    editorAPI.dependencies.core.actions.execute(
-      editorAPI.dependencies.list.commands.toggleBulletList(
-        INPUT_METHOD.TOOLBAR,
-      ),
+    editorAPI.core.actions.execute(
+      editorAPI.list.commands.toggleBulletList(INPUT_METHOD.TOOLBAR),
     );
     expect(editorView.state.doc).toEqualDocument(
       doc(
@@ -250,10 +234,8 @@ describe('lists plugin -> joining lists', () => {
       ),
     );
 
-    editorAPI.dependencies.core.actions.execute(
-      editorAPI.dependencies.list.commands.toggleOrderedList(
-        INPUT_METHOD.TOOLBAR,
-      ),
+    editorAPI.core.actions.execute(
+      editorAPI.list.commands.toggleOrderedList(INPUT_METHOD.TOOLBAR),
     );
     expect(editorView.state.doc).toEqualDocument(
       expectedOutputForPreviousAndNextList,
@@ -270,10 +252,8 @@ describe('lists plugin -> joining lists', () => {
       ),
     );
 
-    editorAPI.dependencies.core.actions.execute(
-      editorAPI.dependencies.list.commands.toggleOrderedList(
-        INPUT_METHOD.TOOLBAR,
-      ),
+    editorAPI.core.actions.execute(
+      editorAPI.list.commands.toggleOrderedList(INPUT_METHOD.TOOLBAR),
     );
     expect(editorView.state.doc).toEqualDocument(
       doc(
@@ -293,10 +273,8 @@ describe('lists plugin -> joining lists', () => {
       ),
     );
 
-    editorAPI.dependencies.core.actions.execute(
-      editorAPI.dependencies.list.commands.toggleBulletList(
-        INPUT_METHOD.TOOLBAR,
-      ),
+    editorAPI.core.actions.execute(
+      editorAPI.list.commands.toggleBulletList(INPUT_METHOD.TOOLBAR),
     );
     expect(editorView.state.doc).toEqualDocument(
       doc(
@@ -317,10 +295,8 @@ describe('lists plugin -> joining lists', () => {
       ),
     );
 
-    editorAPI.dependencies.core.actions.execute(
-      editorAPI.dependencies.list.commands.toggleBulletList(
-        INPUT_METHOD.TOOLBAR,
-      ),
+    editorAPI.core.actions.execute(
+      editorAPI.list.commands.toggleBulletList(INPUT_METHOD.TOOLBAR),
     );
     expect(editorView.state.doc).toEqualDocument(
       doc(

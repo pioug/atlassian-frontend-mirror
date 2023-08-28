@@ -42,22 +42,20 @@ interface ListToolbarProps {
 
 function ListToolbar({ editorApi }: ListToolbarProps) {
   const { listState } = useSharedPluginState(editorApi, ['list']);
-  const toggleOrderedList =
-    editorApi?.dependencies.list.commands.toggleOrderedList(
-      INPUT_METHOD.TOOLBAR,
-    );
+  const toggleOrderedList = editorApi?.list.commands.toggleOrderedList(
+    INPUT_METHOD.TOOLBAR,
+  );
 
-  const toggleBulletList =
-    editorApi?.dependencies.list.commands.toggleBulletList(
-      INPUT_METHOD.TOOLBAR,
-    );
+  const toggleBulletList = editorApi?.list.commands.toggleBulletList(
+    INPUT_METHOD.TOOLBAR,
+  );
 
   return (
     <ButtonGroup>
       <Button
         isDisabled={listState?.bulletListDisabled}
         onClick={() => {
-          editorApi?.dependencies.core.actions.execute(toggleBulletList);
+          editorApi?.core.actions.execute(toggleBulletList);
         }}
         isSelected={listState?.bulletListActive}
       >
@@ -66,7 +64,7 @@ function ListToolbar({ editorApi }: ListToolbarProps) {
       <Button
         isDisabled={listState?.orderedListDisabled}
         onClick={() => {
-          editorApi?.dependencies.core.actions.execute(toggleOrderedList);
+          editorApi?.core.actions.execute(toggleOrderedList);
         }}
         isSelected={listState?.orderedListActive}
       >
@@ -80,16 +78,15 @@ function FormattingToolbar({ editorApi }: ToolbarProps) {
   const { textFormattingState } = useSharedPluginState(editorApi, [
     'textFormatting',
   ]);
-  const toggleStrong =
-    editorApi?.dependencies.textFormatting.commands.toggleStrong(
-      INPUT_METHOD.TOOLBAR,
-    );
+  const toggleStrong = editorApi?.textFormatting.commands.toggleStrong(
+    INPUT_METHOD.TOOLBAR,
+  );
 
   return (
     <Button
       isDisabled={textFormattingState?.strongDisabled}
       onClick={() => {
-        editorApi?.dependencies.core.actions.execute(toggleStrong);
+        editorApi?.core.actions.execute(toggleStrong);
       }}
       isSelected={textFormattingState?.strongActive}
     >
@@ -107,10 +104,9 @@ interface ToolbarProps {
 function Toolbar({ editorApi }: ToolbarProps) {
   const { hyperlinkState } = useSharedPluginState(editorApi, ['hyperlink']);
 
-  const showLinkToolbarAction =
-    editorApi?.dependencies.hyperlink.commands.showLinkToolbar(
-      INPUT_METHOD.TOOLBAR,
-    );
+  const showLinkToolbarAction = editorApi?.hyperlink.commands.showLinkToolbar(
+    INPUT_METHOD.TOOLBAR,
+  );
 
   return (
     <ButtonGroup>
@@ -121,7 +117,7 @@ function Toolbar({ editorApi }: ToolbarProps) {
         appearance="link"
         isDisabled={hyperlinkState?.activeLinkMark !== undefined}
         onClick={() => {
-          editorApi?.dependencies.core.actions.execute(showLinkToolbarAction);
+          editorApi?.core.actions.execute(showLinkToolbarAction);
         }}
       >
         {hyperlinkState?.activeLinkMark ? 'Active Link' : 'Insert Link'}
@@ -130,7 +126,7 @@ function Toolbar({ editorApi }: ToolbarProps) {
       <Button
         appearance="primary"
         onClick={() => {
-          editorApi?.dependencies.core.actions.execute(({ tr }) => {
+          editorApi?.core.actions.execute(({ tr }) => {
             return tr.insertText('*Knowing where ones towel is.*');
           });
         }}

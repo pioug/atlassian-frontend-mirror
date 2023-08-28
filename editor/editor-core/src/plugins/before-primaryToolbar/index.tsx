@@ -1,5 +1,5 @@
 import React from 'react';
-import { NextEditorPlugin } from '@atlaskit/editor-common/types';
+import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import { BeforePrimaryToolbarWrapper } from './ui/BeforePrimaryToolbarWrapper';
 
 type Config = {
@@ -11,13 +11,13 @@ const beforePrimaryToolbar: NextEditorPlugin<
   {
     pluginConfiguration: Config;
   }
-> = (props) => ({
+> = ({ config: props }) => ({
   name: 'beforePrimaryToolbar',
 
   primaryToolbarComponent() {
     return (
       <BeforePrimaryToolbarWrapper
-        beforePrimaryToolbarComponents={props.beforePrimaryToolbarComponents}
+        beforePrimaryToolbarComponents={props?.beforePrimaryToolbarComponents}
       />
     );
   },

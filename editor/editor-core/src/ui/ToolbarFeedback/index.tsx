@@ -224,8 +224,7 @@ class ToolbarFeedbackInternal extends PureComponent<
       jiraIssueCollectorScriptLoading: true,
       showOptOutOption: false,
     });
-    const basePluginState =
-      this.props.api?.dependencies.base.sharedState.currentState();
+    const basePluginState = this.props.api?.base.sharedState.currentState();
     const sessionId = window.localStorage.getItem('awc.session.id')?.toString();
     const contentId = basePluginState?.contextIdentifier?.objectId;
     const tabId = window.sessionStorage['awc.tab.id'];

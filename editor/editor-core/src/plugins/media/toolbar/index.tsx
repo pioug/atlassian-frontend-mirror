@@ -45,6 +45,7 @@ import {
   getSelectedMediaSingle,
   removeMediaGroupNode,
   getPixelWidthOfElement,
+  calcNewLayout,
 } from './utils';
 import { isVideo } from '../utils/media-single';
 import {
@@ -63,7 +64,7 @@ import { currentMediaNodeBorderMark } from '../utils/current-media-node';
 import { shouldShowImageBorder } from './imageBorder';
 import type mediaPlugin from '../index';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import { PixelEntry } from '../ui/PixelEntry';
+import { PixelEntry, FullWidthDisplay } from '../ui/PixelEntry';
 import {
   DEFAULT_IMAGE_WIDTH,
   DEFAULT_IMAGE_HEIGHT,
@@ -293,8 +294,7 @@ const generateMediaSingleFloatingToolbar = (
   } = options;
 
   let toolbarButtons: FloatingToolbarItem<Command>[] = [];
-  const { hoverDecoration } =
-    pluginInjectionApi?.dependencies.decorations.actions ?? {};
+  const { hoverDecoration } = pluginInjectionApi?.decorations.actions ?? {};
 
   if (shouldShowImageBorder(state)) {
     toolbarButtons.push({
@@ -309,14 +309,16 @@ const generateMediaSingleFloatingToolbar = (
         return (
           <ImageBorderItem
             toggleBorder={() => {
-              toggleBorderMark(
-                pluginInjectionApi?.dependencies?.analytics?.actions,
-              )(state, dispatch);
+              toggleBorderMark(pluginInjectionApi?.analytics?.actions)(
+                state,
+                dispatch,
+              );
             }}
             setBorder={(attrs) => {
-              setBorderMark(
-                pluginInjectionApi?.dependencies?.analytics?.actions,
-              )(attrs)(state, dispatch);
+              setBorderMark(pluginInjectionApi?.analytics?.actions)(attrs)(
+                state,
+                dispatch,
+              );
             }}
             showSomewhatSemanticTooltips={
               getEditorFeatureFlags?.().useSomewhatSemanticTextColorNames
@@ -331,7 +333,7 @@ const generateMediaSingleFloatingToolbar = (
   }
 
   if (allowAdvancedToolBarOptions) {
-    const widthPlugin = pluginInjectionApi?.dependencies.width;
+    const widthPlugin = pluginInjectionApi?.width;
     let isChangingLayoutDisabled = false;
 
     if (getBooleanFF('platform.editor.media.extended-resize-experience')) {
@@ -351,7 +353,7 @@ const generateMediaSingleFloatingToolbar = (
       intl,
       state.schema.nodes.mediaSingle,
       widthPlugin,
-      pluginInjectionApi?.dependencies.analytics?.actions,
+      pluginInjectionApi?.analytics?.actions,
       allowResizing,
       allowResizingInTables,
       true,
@@ -369,19 +371,16 @@ const generateMediaSingleFloatingToolbar = (
       getBooleanFF('platform.editor.media.extended-resize-experience') &&
       allowResizing
     ) {
+      const selectedMediaSingleNode = getSelectedMediaSingle(state);
+
       const sizeInput = {
         type: 'custom',
         fallback: [],
         render: (editorView) => {
-          if (!editorView) {
+          if (!editorView || !selectedMediaSingleNode) {
             return null;
           }
           const { state, dispatch } = editorView;
-
-          const selectedMediaSingleNode = getSelectedMediaSingle(state);
-          if (!selectedMediaSingleNode) {
-            return null;
-          }
 
           const contentWidth =
             widthPlugin?.sharedState.currentState()?.lineLength ||
@@ -393,7 +392,11 @@ const generateMediaSingleFloatingToolbar = (
             return null;
           }
 
-          const { widthType } = selectedMediaSingleNode.node.attrs;
+          const {
+            width: mediaSingleWidth,
+            widthType,
+            layout,
+          } = selectedMediaSingleNode.node.attrs;
           const { width: mediaWidth, height: mediaHeight } =
             selectedMediaNode.attrs;
 
@@ -412,11 +415,15 @@ const generateMediaSingleFloatingToolbar = (
 
           const isLegacy = widthType !== 'pixel';
 
-          const pixelWidth = getPixelWidthOfElement(
+          const pixelWidthFromElement = getPixelWidthOfElement(
             editorView,
             selectedMediaSingleNode.pos + 1, // get pos of media node
             mediaWidth || DEFAULT_IMAGE_WIDTH,
           );
+
+          const pixelWidth = isLegacy
+            ? pixelWidthFromElement
+            : mediaSingleWidth;
 
           return (
             <PixelEntry
@@ -429,27 +436,20 @@ const generateMediaSingleFloatingToolbar = (
               mediaHeight={mediaHeight || DEFAULT_IMAGE_HEIGHT}
               minWidth={minWidth}
               maxWidth={maxWidth}
-              validate={(value) => {
-                if (value && (value < minWidth || value > maxWidth)) {
+              onChange={(valid: boolean) => {
+                if (valid) {
                   hoverDecoration?.(mediaSingle, true, 'warning')(
                     editorView.state,
                     dispatch,
                     editorView,
                   );
                 } else {
-                  // remove decoration when:
-                  // input is within min-max range or
-                  // input is empty
                   hoverDecoration?.(mediaSingle, false)(
                     editorView.state,
                     dispatch,
                     editorView,
                   );
                 }
-                if (value === '') {
-                  return false;
-                }
-                return true;
               }}
               onSubmit={({ width }) => {
                 const tr = state.tr.setNodeMarkup(
@@ -459,6 +459,12 @@ const generateMediaSingleFloatingToolbar = (
                     ...selectedMediaSingleNode.node.attrs,
                     width,
                     widthType: 'pixel',
+                    layout: calcNewLayout(
+                      width,
+                      layout,
+                      contentWidth,
+                      options.fullWidthEnabled,
+                    ),
                   },
                 );
                 tr.setMeta('scrollIntoView', false);
@@ -473,7 +479,7 @@ const generateMediaSingleFloatingToolbar = (
                   undefined,
                   {
                     ...selectedMediaSingleNode.node.attrs,
-                    width: pixelWidth,
+                    width: pixelWidthFromElement,
                     widthType: 'pixel',
                   },
                 );
@@ -489,7 +495,23 @@ const generateMediaSingleFloatingToolbar = (
       } as FloatingToolbarItem<Command>;
 
       if (pluginState.isResizing) {
-        // If the image is resizing then only return `sizeInput` as the only toolbar item
+        // If the image is resizing
+        // then return pixel entry component or full width label as the only toolbar item
+        if (!selectedMediaSingleNode) {
+          return [];
+        }
+
+        const { layout } = selectedMediaSingleNode.node.attrs;
+        if (layout === 'full-width') {
+          const fullWidthLabel = {
+            type: 'custom',
+            fallback: [],
+            render: () => {
+              return <FullWidthDisplay intl={intl} />;
+            },
+          } as FloatingToolbarItem<Command>;
+          return [fullWidthLabel];
+        }
         return [sizeInput];
       }
 
@@ -516,14 +538,12 @@ const generateMediaSingleFloatingToolbar = (
                   state: { tr },
                   dispatch,
                 } = editorView;
-                pluginInjectionApi?.dependencies.analytics?.actions.attachAnalyticsEvent(
-                  {
-                    eventType: EVENT_TYPE.TRACK,
-                    action: ACTION.VISITED,
-                    actionSubject: ACTION_SUBJECT.MEDIA,
-                    actionSubjectId: ACTION_SUBJECT_ID.LINK,
-                  },
-                )(tr);
+                pluginInjectionApi?.analytics?.actions.attachAnalyticsEvent({
+                  eventType: EVENT_TYPE.TRACK,
+                  action: ACTION.VISITED,
+                  actionSubject: ACTION_SUBJECT.MEDIA,
+                  actionSubjectId: ACTION_SUBJECT_ID.LINK,
+                })(tr);
                 dispatch(tr);
                 return true;
               }
@@ -549,11 +569,7 @@ const generateMediaSingleFloatingToolbar = (
 
   if (allowAltTextOnImages) {
     toolbarButtons.push(
-      altTextButton(
-        intl,
-        state,
-        pluginInjectionApi?.dependencies.analytics?.actions,
-      ),
+      altTextButton(intl, state, pluginInjectionApi?.analytics?.actions),
       { type: 'separator' },
     );
   }
@@ -610,8 +626,7 @@ export const floatingToolbar = (
     stateKey.getState(state);
 
   const mediaLinkingState: MediaLinkingState = getMediaLinkingState(state);
-  const { hoverDecoration } =
-    pluginInjectionApi?.dependencies.decorations.actions ?? {};
+  const { hoverDecoration } = pluginInjectionApi?.decorations.actions ?? {};
 
   if (!mediaPluginState) {
     return;
@@ -650,8 +665,7 @@ export const floatingToolbar = (
       return getAltTextToolbar(baseToolbar, {
         altTextValidator,
         forceFocusSelector:
-          pluginInjectionApi?.dependencies.floatingToolbar.actions
-            ?.forceFocusSelector,
+          pluginInjectionApi?.floatingToolbar.actions?.forceFocusSelector,
       });
     }
   }
@@ -675,7 +689,7 @@ export const floatingToolbar = (
       intl,
       mediaPluginState,
       hoverDecoration,
-      pluginInjectionApi?.dependencies?.analytics?.actions,
+      pluginInjectionApi?.analytics?.actions,
     );
   } else if (
     allowMediaInline &&
@@ -693,7 +707,7 @@ export const floatingToolbar = (
       intl,
       mediaPluginState,
       hoverDecoration,
-      pluginInjectionApi?.dependencies?.analytics?.actions,
+      pluginInjectionApi?.analytics?.actions,
     );
   } else {
     baseToolbar.getDomRef = () => {

@@ -5,6 +5,7 @@ import { Children, forwardRef, Fragment, Ref } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import { propDeprecationWarning } from '@atlaskit/ds-lib/deprecation-warning';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { N30A } from '@atlaskit/theme/colors';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { gridSize as gridSizeFn } from '@atlaskit/theme/constants';
@@ -107,6 +108,11 @@ const Section = forwardRef<HTMLElement, SectionProps>(
       hasSeparator,
       id,
       isList = false,
+      // Although this isn't defined on props it is available because we've used
+      // Spread props below and on the jsx element. To forcibly block usage I've
+      // picked it out and supressed the expected type error.
+      // @ts-expect-error
+      className: UNSAFE_className,
       ...rest
     }: // Type needed on props to extract types with extract react types.
     SectionProps,
@@ -118,6 +124,13 @@ const Section = forwardRef<HTMLElement, SectionProps>(
       overrides !== undefined,
       '', // TODO: Create DAC post when primitives/xcss are available as alternatives
     );
+
+    const UNSAFE_headingOverrides = getBooleanFF(
+      'platform.design-system-team.unsafe-overrides-killswitch_c8j9m',
+    )
+      ? undefined
+      : overrides && overrides.HeadingItem && overrides.HeadingItem.cssFn;
+
     const content = isList ? (
       <ul
         style={{
@@ -143,9 +156,7 @@ const Section = forwardRef<HTMLElement, SectionProps>(
         <Fragment>
           <HeadingItem
             // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
-            cssFn={
-              overrides && overrides.HeadingItem && overrides.HeadingItem.cssFn
-            }
+            cssFn={UNSAFE_headingOverrides}
             testId={testId && `${testId}--heading`}
             aria-hidden
           >
@@ -160,6 +171,13 @@ const Section = forwardRef<HTMLElement, SectionProps>(
     return (
       <div
         {...rest}
+        className={
+          getBooleanFF(
+            'platform.design-system-team.unsafe-overrides-killswitch_c8j9m',
+          )
+            ? undefined
+            : UNSAFE_className
+        }
         id={id}
         // NOTE: Firefox allows elements that have "overflow: auto" to gain focus (as if it had tab-index="0")
         // We have made a deliberate choice to leave this behaviour as is.

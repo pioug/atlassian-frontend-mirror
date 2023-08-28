@@ -4,7 +4,7 @@ import * as main from '../../pm-plugins/main';
 describe('cardPlugin', () => {
   describe('pmPlugins', () => {
     it('returns card plugin', () => {
-      const editorPlugin = cardPlugin({ platform: 'web' });
+      const editorPlugin = cardPlugin({ config: { platform: 'web' } });
       const pmPlugins = editorPlugin.pmPlugins!();
 
       expect(pmPlugins.length).toEqual(3);
@@ -31,7 +31,7 @@ describe('cardPlugin', () => {
         createAnalyticsEvent: expect.any(Function),
       };
       const spy = jest.spyOn(main, 'createPlugin');
-      const editorPlugin = cardPlugin(options);
+      const editorPlugin = cardPlugin({ config: options });
       editorPlugin.pmPlugins!();
 
       expect(spy).toHaveBeenCalledWith(options, undefined);
@@ -39,7 +39,7 @@ describe('cardPlugin', () => {
 
     it('invokes createPlugin with default plugin options', () => {
       const spy = jest.spyOn(main, 'createPlugin');
-      const editorPlugin = cardPlugin({ platform: 'web' });
+      const editorPlugin = cardPlugin({ config: { platform: 'web' } });
       editorPlugin.pmPlugins!();
 
       expect(spy).toHaveBeenCalledWith(

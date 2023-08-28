@@ -2,6 +2,7 @@
 import { jsx } from '@emotion/react';
 
 import { UNSAFE_Box as Box } from '@atlaskit/ds-explorations';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import {
   SELECTION_STYLE_CONTEXT_DO_NOT_USE,
@@ -25,6 +26,11 @@ const MenuGroup = ({
   testId,
   role,
   spacing = 'cozy',
+  // Although this isn't defined on props it is available because we've used
+  // Spread props below and on the jsx element. To forcibly block usage I've
+  // picked it out and supressed the expected type error.
+  // @ts-expect-error
+  className: UNSAFE_className,
   ...rest
 }: MenuGroupProps) => (
   <SpacingContext.Provider value={spacing}>
@@ -42,6 +48,13 @@ const MenuGroup = ({
         testId={testId}
         role={role}
         position="static"
+        className={
+          getBooleanFF(
+            'platform.design-system-team.unsafe-overrides-killswitch_c8j9m',
+          )
+            ? undefined
+            : UNSAFE_className
+        }
         // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
         {...rest}
       />

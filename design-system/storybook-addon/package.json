@@ -33,7 +33,7 @@
     ".": "./src/index.tsx"
   },
   "dependencies": {
-    "@atlaskit/tokens": "^1.15.0",
+    "@atlaskit/tokens": "^1.17.0",
     "@babel/runtime": "^7.0.0",
     "@storybook/addons": "^6.4.0",
     "@storybook/api": "^6.4.0",

@@ -1,14 +1,13 @@
 import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 
+import type { DecorationState, HoverDecorationHandler } from './pm-plugin';
 import decorationPlugin, {
-  DecorationState,
   decorationStateKey,
   hoverDecoration,
-  HoverDecorationHandler,
   removeDecoration,
 } from './pm-plugin';
 
-export const decorationsPlugin: NextEditorPlugin<
+export type DecorationsPlugin = NextEditorPlugin<
   'decorations',
   {
     sharedState: DecorationState;
@@ -17,7 +16,9 @@ export const decorationsPlugin: NextEditorPlugin<
       removeDecoration: typeof removeDecoration;
     };
   }
-> = () => ({
+>;
+
+export const decorationsPlugin: DecorationsPlugin = () => ({
   name: 'decorations',
 
   pmPlugins() {

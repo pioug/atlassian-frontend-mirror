@@ -34,7 +34,7 @@ const layoutPlugin: NextEditorPlugin<
       OptionalPlugin<typeof analyticsPlugin>,
     ];
   }
-> = (options = {}, api) => ({
+> = ({ config: options = {}, api }) => ({
   name: 'layout',
 
   nodes() {
@@ -64,7 +64,7 @@ const layoutPlugin: NextEditorPlugin<
           allowBreakout,
           addSidebarLayouts,
           allowSingleColumnLayout,
-          api?.dependencies.decorations.actions?.hoverDecoration,
+          api?.decorations.actions?.hoverDecoration,
         );
       }
       return undefined;
@@ -79,7 +79,7 @@ const layoutPlugin: NextEditorPlugin<
         icon: () => <IconLayout />,
         action(insert, state) {
           const tr = insert(createDefaultLayoutSection(state));
-          api?.dependencies.analytics?.actions?.attachAnalyticsEvent({
+          api?.analytics?.actions?.attachAnalyticsEvent({
             action: ACTION.INSERTED,
             actionSubject: ACTION_SUBJECT.DOCUMENT,
             actionSubjectId: ACTION_SUBJECT_ID.LAYOUT,

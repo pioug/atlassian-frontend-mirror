@@ -1,20 +1,21 @@
 // #region Imports
-import { CellAttributes } from '@atlaskit/adf-schema';
-import { Command } from '@atlaskit/editor-common/types';
+import type { CellAttributes } from '@atlaskit/adf-schema';
+import type { Command } from '@atlaskit/editor-common/types';
 import {
   closestElement,
   isParagraph,
   isTextSelection,
   mapSlice,
 } from '@atlaskit/editor-common/utils';
-import {
+import type {
   Node as PMNode,
   Schema,
   Slice,
 } from '@atlaskit/editor-prosemirror/model';
-import { TextSelection, Transaction } from '@atlaskit/editor-prosemirror/state';
-import { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { TextSelection } from '@atlaskit/editor-prosemirror/state';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import {
@@ -33,7 +34,10 @@ import {
 } from '@atlaskit/editor-tables/utils';
 
 import { getDecorations } from '../pm-plugins/decorations/plugin';
-import { buildColumnResizingDecorations } from '../pm-plugins/decorations/utils';
+import {
+  buildColumnResizingDecorations,
+  clearColumnResizingDecorations,
+} from '../pm-plugins/decorations/utils';
 import { createCommand, getPluginState } from '../pm-plugins/plugin-factory';
 import { fixAutoSizedTable } from '../transforms';
 import { TableCssClassName as ClassName, TableDecorations } from '../types';
@@ -436,12 +440,14 @@ export const hideInsertColumnOrRowButton = () =>
 export const addResizeHandleDecorations = (
   rowIndex: number,
   columnIndex: number,
+  includeTooltip: boolean,
 ) =>
   createCommand(
     (state) => {
       const tableNode = findTable(state.selection);
       const {
         pluginConfig: { allowColumnResizing },
+        getIntl,
       } = getPluginState(state);
 
       if (!tableNode || !allowColumnResizing) {
@@ -454,16 +460,87 @@ export const addResizeHandleDecorations = (
           decorationSet: buildColumnResizingDecorations(
             rowIndex,
             columnIndex,
+            includeTooltip,
+            getIntl,
           )({
             tr: state.tr,
             decorationSet: getDecorations(state),
           }),
           resizeHandleRowIndex: rowIndex,
           resizeHandleColumnIndex: columnIndex,
+          resizeHandleIncludeTooltip: includeTooltip,
         },
       };
     },
     (tr: Transaction) => tr.setMeta('addToHistory', false),
+  );
+
+export const updateResizeHandleDecorations = (
+  rowIndex?: number,
+  columnIndex?: number,
+  includeTooltip?: boolean,
+) =>
+  createCommand(
+    (state) => {
+      const tableNode = findTable(state.selection);
+      const {
+        resizeHandleRowIndex,
+        resizeHandleColumnIndex,
+        resizeHandleIncludeTooltip,
+        pluginConfig: { allowColumnResizing },
+        getIntl,
+      } = getPluginState(state);
+
+      if (!tableNode || !allowColumnResizing) {
+        return false;
+      }
+
+      const resolvedRowIndex = rowIndex ?? resizeHandleRowIndex;
+      const resolvedColumnIndex = columnIndex ?? resizeHandleColumnIndex;
+      const resolvedIncludeTooltip =
+        includeTooltip ?? resizeHandleIncludeTooltip;
+
+      if (
+        resolvedRowIndex === undefined ||
+        resolvedColumnIndex === undefined ||
+        resolvedIncludeTooltip === undefined
+      ) {
+        return false;
+      }
+
+      return {
+        type: 'UPDATE_RESIZE_HANDLE_DECORATIONS',
+        data: {
+          decorationSet: buildColumnResizingDecorations(
+            resolvedRowIndex,
+            resolvedColumnIndex,
+            resolvedIncludeTooltip,
+            getIntl,
+          )({
+            tr: state.tr,
+            decorationSet: getDecorations(state),
+          }),
+          resizeHandleRowIndex: rowIndex,
+          resizeHandleColumnIndex: columnIndex,
+          resizeHandleIncludeTooltip: includeTooltip,
+        },
+      };
+    },
+    (tr: Transaction) => tr.setMeta('addToHistory', false),
+  );
+
+export const removeResizeHandleDecorations = () =>
+  createCommand(
+    (state) => ({
+      type: 'REMOVE_RESIZE_HANDLE_DECORATIONS',
+      data: {
+        decorationSet: clearColumnResizingDecorations()({
+          tr: state.tr,
+          decorationSet: getDecorations(state),
+        }),
+      },
+    }),
+    (tr) => tr.setMeta('addToHistory', false),
   );
 
 export const autoSizeTable = (

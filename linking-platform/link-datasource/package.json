@@ -53,7 +53,7 @@
     "@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-autoscroll": "^0.6.0",
     "@atlaskit/pragmatic-drag-and-drop-react-indicator": "^0.16.0",
     "@atlaskit/select": "^16.5.0",
-    "@atlaskit/smart-card": "^26.16.0",
+    "@atlaskit/smart-card": "^26.18.0",
     "@atlaskit/spinner": "^15.5.0",
     "@atlaskit/tag": "^11.5.0",
     "@atlaskit/textfield": "5.6.5",

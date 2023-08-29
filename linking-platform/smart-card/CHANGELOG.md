@@ -1,5 +1,17 @@
 # @atlaskit/smart-card
 
+## 26.18.0
+
+### Minor Changes
+
+- [`e7e73b61721`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e7e73b61721) - [ux] We are testing an improved dispaly for Slack hover & block cards behind a feature flag. If this update is successful it will be available in a later release.
+
+## 26.17.0
+
+### Minor Changes
+
+- [`efc2669bc13`](https://bitbucket.org/atlassian/atlassian-frontend/commits/efc2669bc13) - We are testing adding a prefix to the Avatar name tooltip in the Hover Card behind the "platform.linking-platform.smart-card.enable-better-metadata_iojwg" feature flag. You can turn it on by passing new showNamePrefix prop to the Flexible UI elements such us AssignedToGroup, OwnedByGroup and AuthorGroup. If this fix is successful it will be available in a later release.
+
 ## 26.16.1
 
 ### Patch Changes

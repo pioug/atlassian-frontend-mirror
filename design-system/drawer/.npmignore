@@ -7,3 +7,5 @@ docs/
 build/
 tsconfig.json
 constellation/
+tsconfig.app.json
+tsconfig.dev.json

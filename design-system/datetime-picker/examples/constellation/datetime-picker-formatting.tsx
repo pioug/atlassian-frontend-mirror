@@ -1,6 +1,5 @@
 import React from 'react';
 
-// eslint-disable-next-line no-restricted-imports
 import { parseISO } from 'date-fns';
 
 import { DateTimePicker } from '../../src';

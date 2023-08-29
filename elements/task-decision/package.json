@@ -23,7 +23,7 @@
   "sideEffects": false,
   "atlaskit:src": "src/index.ts",
   "atlassian": {
-    "team": "Editor",
+    "team": "Editor: AI",
     "deprecatedAutoEntryPoints": true,
     "releaseModel": "continuous",
     "website": {

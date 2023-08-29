@@ -78,6 +78,28 @@ describe('getSimulatedBetterMetadata', () => {
     });
   });
 
+  describe('for slack objects', () => {
+    it('should return metadata elements only  top primary  ', () => {
+      const metadata = getSimulatedBetterMetadata({
+        ...mockBaseResponse,
+        meta: {
+          ...mockBaseResponse.meta,
+          key: 'slack-object-provider',
+        },
+      } as JsonLd.Response);
+      const topMetadata = [
+        { name: ElementName.AuthorGroup },
+        { name: ElementName.SentOn },
+      ];
+      const bottomMetadata = [
+        { name: ElementName.ReactCount },
+        { name: ElementName.CommentCount },
+      ];
+      expect(metadata.topMetadata).toEqual(topMetadata);
+      expect(metadata.bottomMetadata).toEqual(bottomMetadata);
+    });
+  });
+
   describe('for rest of providers != jira/Confluence/', () => {
     it('should return default metadata for tirle & metadataBlocks', () => {
       const metadata = getSimulatedBetterMetadata(

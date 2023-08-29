@@ -46,6 +46,15 @@ jest.mock('../../../plugins/table/utils/analytics', () => ({
   },
 }));
 
+jest.mock('react-intl-next', () => {
+  return {
+    ...(jest.requireActual('react-intl-next') as any),
+    useIntl: jest.fn().mockReturnValue({
+      formatMessage: (descriptor: any) => descriptor.defaultMessage,
+    }),
+  };
+});
+
 describe('table -> nodeviews -> TableContainer.tsx', () => {
   const createEditor = createEditorFactory<TablePluginState>();
   const editor = (
@@ -211,11 +220,11 @@ describe('table -> nodeviews -> TableContainer.tsx', () => {
     test('fires when resizing is finished', async () => {
       const { container, analyticsMock } = buildContainer({ layout: 'wide' });
 
-      fireEvent.mouseDown(container.querySelector('.resizer-handle-right')!);
-      fireEvent.mouseMove(container.querySelector('.resizer-handle-right')!);
-      fireEvent.mouseMove(container.querySelector('.resizer-handle-right')!);
-      fireEvent.mouseMove(container.querySelector('.resizer-handle-right')!);
-      fireEvent.mouseUp(container.querySelector('.resizer-handle-right')!);
+      fireEvent.mouseDown(container.querySelector('.resizer-handle.right')!);
+      fireEvent.mouseMove(container.querySelector('.resizer-handle.right')!);
+      fireEvent.mouseMove(container.querySelector('.resizer-handle.right')!);
+      fireEvent.mouseMove(container.querySelector('.resizer-handle.right')!);
+      fireEvent.mouseUp(container.querySelector('.resizer-handle.right')!);
 
       expect(analyticsMock).toHaveBeenCalledWith({
         action: TABLE_ACTION.RESIZED,
@@ -261,11 +270,11 @@ describe('table -> nodeviews -> TableContainer.tsx', () => {
     test('calls useMeasureFramerate handlers', async () => {
       const { container } = buildContainer({ layout: 'wide' });
 
-      fireEvent.mouseDown(container.querySelector('.resizer-handle-right')!);
-      fireEvent.mouseMove(container.querySelector('.resizer-handle-right')!, {
+      fireEvent.mouseDown(container.querySelector('.resizer-handle.right')!);
+      fireEvent.mouseMove(container.querySelector('.resizer-handle.right')!, {
         clientX: 100,
       });
-      fireEvent.mouseUp(container.querySelector('.resizer-handle-right')!);
+      fireEvent.mouseUp(container.querySelector('.resizer-handle.right')!);
 
       expect(mockStartMeasure).toHaveBeenCalled();
       expect(mockEndMeasure).toHaveBeenCalled();

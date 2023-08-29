@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 1.17.1
+
+### Patch Changes
+
+- [`11d00ba7be0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/11d00ba7be0) - Fixes style-dictionary token references. allowing semantic tokens to be aliases of other semantic tokens
+
 ## 1.17.0
 
 ### Minor Changes

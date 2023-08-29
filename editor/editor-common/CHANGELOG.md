@@ -1,5 +1,11 @@
 # @atlaskit/editor-common
 
+## 74.54.0
+
+### Minor Changes
+
+- [`b08849ad727`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b08849ad727) - [ux] Added tooltip to table column resize handles, also added a tooltip to the custom table width table resizer handle
+
 ## 74.53.1
 
 ### Patch Changes

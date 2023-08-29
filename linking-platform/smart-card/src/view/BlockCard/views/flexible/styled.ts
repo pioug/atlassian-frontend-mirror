@@ -31,6 +31,10 @@ export const titleBlockCss = css`
     : ``}
 `;
 
+export const footerBlockCss = css`
+  height: 1.5rem;
+`;
+
 const flexibleBlockCardElevationStyle = css`
   border-radius: 1.5px;
   box-shadow: ${tokens.elevation};

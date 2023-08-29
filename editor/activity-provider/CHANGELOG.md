@@ -1,5 +1,11 @@
 # @atlaskit/activity-provider
 
+## 2.4.3
+
+### Patch Changes
+
+- [`b3378348ad8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b3378348ad8) - Dependency `graphql` has been updated to major version 15
+
 ## 2.4.2
 
 ### Patch Changes

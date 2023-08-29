@@ -1,0 +1,52 @@
+{
+  "extends": "../../../tsconfig.base.json",
+  "include": [
+    "**/docs/**/*",
+    "**/__tests__/**/*",
+    "**/vr-tests/**/*",
+    "**/__perf__/**/*",
+    "**/*.test.*",
+    "**/test.*",
+    "**/test-*",
+    "**/examples.ts",
+    "**/examples.tsx",
+    "**/examples/*.ts",
+    "**/examples/*.tsx",
+    "**/examples/**/*.ts",
+    "**/examples/**/*.tsx",
+    "**/storybook/**/*",
+    "**/constellation/**/*",
+    ".storybook/*",
+    "./__fixtures__/**/*",
+    "./__generated__/**/*",
+    "./mocks/**/*",
+    "./__mocks__/**/*",
+    "**/mock.*",
+    "**/codemods/**/*.ts",
+    "**/codemods/**/*.tsx"
+  ],
+  "exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
+  "compilerOptions": {
+    "baseUrl": "./",
+    "types": ["cypress"],
+    "composite": true,
+    "outDir": "../../../tsDist/@atlaskit__in-product-testing-sample/dev"
+  },
+  "references": [
+    {
+      "path": "tsconfig.app.json"
+    },
+    {
+      "path": "../../editor/editor-common/tsconfig.app.json"
+    },
+    {
+      "path": "../../notifications/notification-common/tsconfig.app.json"
+    },
+    {
+      "path": "../../people-and-teams/people-menu/tsconfig.app.json"
+    },
+    {
+      "path": "../../activity-platform/recent-work/tsconfig.app.json"
+    }
+  ]
+}

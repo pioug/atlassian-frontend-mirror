@@ -23,7 +23,7 @@
   "sideEffects": false,
   "atlaskit:src": "src/index.ts",
   "atlassian": {
-    "team": "Editor Services",
+    "team": "Editor: Collaboration",
     "inPublicMirror": true,
     "releaseModel": "continuous"
   },
@@ -36,7 +36,7 @@
   "dependencies": {
     "@atlaskit/analytics-gas-types": "^5.1.0",
     "@atlaskit/analytics-listeners": "^8.7.0",
-    "@atlaskit/editor-common": "^74.53.0",
+    "@atlaskit/editor-common": "^74.54.0",
     "@atlaskit/editor-json-transformer": "^8.10.0",
     "@atlaskit/editor-prosemirror": "1.1.0",
     "@atlaskit/prosemirror-collab": "^0.2.0",

@@ -6,7 +6,3 @@ export { scrollbarStyles } from '@atlaskit/editor-shared-styles/scrollbar';
 export const expandIconWrapperStyle = css`
   margin-left: -8px;
 `;
-
-export const clickSelectWrapperStyle = css`
-  user-select: all;
-`;

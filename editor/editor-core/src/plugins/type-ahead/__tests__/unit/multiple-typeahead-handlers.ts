@@ -27,7 +27,7 @@ import deprecatedAnalyticsPlugin from '../../../analytics';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import quickInsertPlugin from '../../../quick-insert';
 import mentionsPlugin from '../../../mentions';
-import { emojiPlugin } from '../../../emoji';
+import { emojiPlugin } from '@atlaskit/editor-plugin-emoji';
 import typeAheadPlugin from '../../../type-ahead';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';

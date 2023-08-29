@@ -23,7 +23,7 @@
   "sideEffects": false,
   "atlaskit:src": "src/index.ts",
   "atlassian": {
-    "team": "Editor Services",
+    "team": "Editor: Collaboration",
     "deprecatedAutoEntryPoints": true,
     "inPublicMirror": true,
     "releaseModel": "continuous",
@@ -34,7 +34,7 @@
   },
   "dependencies": {
     "@atlaskit/button": "^16.9.0",
-    "@atlaskit/editor-common": "^74.53.0",
+    "@atlaskit/editor-common": "^74.54.0",
     "@atlaskit/editor-core": "^187.32.0",
     "@atlaskit/editor-shared-styles": "^2.6.0",
     "@atlaskit/renderer": "^108.11.0",

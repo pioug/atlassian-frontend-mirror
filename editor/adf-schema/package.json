@@ -23,7 +23,7 @@
   "sideEffects": false,
   "atlaskit:src": "src/index.ts",
   "atlassian": {
-    "team": "Editor Services: Sword",
+    "team": "Editor: ADF",
     "singleton": true,
     "inPublicMirror": true,
     "releaseModel": "continuous"

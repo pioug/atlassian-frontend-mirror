@@ -1,26 +1,23 @@
 import { uuid } from '@atlaskit/adf-schema';
-import {
+import type {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
   emoji,
   p,
   taskItem,
   taskList,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { compareSelection } from '@atlaskit/editor-test-helpers/selection';
 import sendKeyToPm, {
   testKeymap,
 } from '@atlaskit/editor-test-helpers/send-key-to-pm';
-
 import { MockMentionResource } from '@atlaskit/util-data-test/mock-mention-resource';
 import { grinEmoji } from '@atlaskit/util-data-test/emoji-samples';
-
-import { emojiPluginKey } from '../../../../../plugins/emoji';
 import { isEmptyTaskDecision } from '../../../../../plugins/tasks-and-decisions/pm-plugins/helpers';
 
 import { ListTypes } from './_helpers';
@@ -50,7 +47,6 @@ describe('tasks and decisions - keymaps', () => {
         allowNestedTasks: true,
         emojiProvider: new Promise(() => {}),
       },
-      pluginKey: emojiPluginKey,
       createAnalyticsEvent,
     });
   };

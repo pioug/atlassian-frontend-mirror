@@ -1,5 +1,32 @@
 # @atlaskit/editor-core
 
+## 187.32.7
+
+### Patch Changes
+
+- [`8b78535f8bd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8b78535f8bd) - Fix sticky header not resize with table
+- Updated dependencies
+
+## 187.32.6
+
+### Patch Changes
+
+- [`20fa6edb5d4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/20fa6edb5d4) - ED-19617 Extract Floating Toolbar VR test to editor-core
+- [`7d9ffc3a1ce`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7d9ffc3a1ce) - [ux] ED-19342 Fix: Inserting Code-Block at gap-cursor will not consume all the content after gap-cursor
+
+## 187.32.5
+
+### Patch Changes
+
+- [`ee475b14581`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ee475b14581) - Set max width for nested media single node to 100% to make it reponsive to parent width change
+
+## 187.32.3
+
+### Patch Changes
+
+- [`113fcc02759`](https://bitbucket.org/atlassian/atlassian-frontend/commits/113fcc02759) - ED-19433 Extract Emoji Plugin to its own package
+- Updated dependencies
+
 ## 187.32.2
 
 ### Patch Changes

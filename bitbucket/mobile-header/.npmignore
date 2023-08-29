@@ -4,3 +4,5 @@ examples/
 
 # Ignoring generated index.ts
 index.ts
+tsconfig.app.json
+tsconfig.dev.json

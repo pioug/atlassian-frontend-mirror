@@ -9,7 +9,7 @@
   "author": "Atlassian Pty Ltd",
   "main": "index.js",
   "atlassian": {
-    "team": "Editor",
+    "team": "Editor: Lego",
     "releaseModel": "continuous"
   },
   "license": "MIT",

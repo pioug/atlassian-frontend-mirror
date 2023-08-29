@@ -8,6 +8,7 @@ import Icon from './elements/icon';
 import { openEmbedModal } from '../../EmbedModal/utils';
 import { AnalyticsFacade } from '../../../state/analytics';
 import { PreviewActionData } from '../../../state/flexible-ui-context/types';
+import { IntlShape, MessageDescriptor } from 'react-intl-next';
 
 export const sizeToButtonSpacing: Record<SmartLinkSize, Spacing> = {
   [SmartLinkSize.Small]: 'none',
@@ -21,6 +22,15 @@ export const getFormattedMessage = (message?: MessageProps) => {
     const { descriptor, values } = message;
     return <FormattedMessage {...descriptor} values={values} />;
   }
+};
+
+export const getFormattedMessageAsString = (
+  intl: IntlShape,
+  message: MessageDescriptor,
+  context?: string,
+) => {
+  const { formatMessage } = intl;
+  return message ? formatMessage(message, { context }) : null;
 };
 
 const getIconDimensionStyles = (value: string): SerializedStyles => css`

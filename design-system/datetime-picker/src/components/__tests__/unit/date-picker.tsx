@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { fireEvent, render, screen } from '@testing-library/react';
-// eslint-disable-next-line no-restricted-imports
 import { format, parseISO } from 'date-fns';
 
 import { ffTest } from '@atlassian/feature-flags-test-utils';

@@ -245,7 +245,7 @@ describe('non-nested <ResizableMediaSingleNext /> should be responsive', () => {
   });
 });
 
-describe('non-nested <ResizableMediaSingleNext /> should be responsive and smaller than parent node', () => {
+describe('nested <ResizableMediaSingleNext /> should be responsive and smaller than parent node', () => {
   let nestedNodeCheckSpy: jest.SpyInstance;
   beforeEach(() => {
     nestedNodeCheckSpy = jest
@@ -267,7 +267,7 @@ describe('non-nested <ResizableMediaSingleNext /> should be responsive and small
 
       const style = window.getComputedStyle(resizer);
       expect(style.width).toBe('600px');
-      expect(style.maxWidth).toBe('760px');
+      expect(style.maxWidth).toBe('100%');
     });
   });
 
@@ -282,7 +282,7 @@ describe('non-nested <ResizableMediaSingleNext /> should be responsive and small
 
       const style = window.getComputedStyle(resizer);
       expect(style.width).toBe('600px');
-      expect(style.maxWidth).toBe('320px');
+      expect(style.maxWidth).toBe('100%');
     });
   });
 });

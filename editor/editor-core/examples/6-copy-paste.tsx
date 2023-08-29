@@ -1,11 +1,13 @@
 /** @jsx jsx */
+import type { SerializedStyles } from '@emotion/react';
 import { css, jsx } from '@emotion/react';
-import React, { Fragment } from 'react';
+import type { ReactNode } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
 import { ReactRenderer } from '@atlaskit/renderer';
 import { Editor } from './../src';
-import { EditorProps, EditorAppearance } from './../src/editor';
+import type { EditorProps, EditorAppearance } from './../src/editor';
 import EditorContext from './../src/ui/EditorContext';
 import WithEditorActions from './../src/ui/WithEditorActions';
 import { autoformattingProvider } from '@atlaskit/editor-test-helpers/autoformatting-provider';
@@ -24,7 +26,7 @@ import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import { customInsertMenuItems } from '@atlaskit/editor-test-helpers/mock-insert-menu';
 import quickInsertProviderFactory from '../example-helpers/quick-insert-provider';
 import { TitleInput } from '../example-helpers/PageElements';
-import { EditorActions, MediaProvider, MediaOptions } from './../src';
+import type { EditorActions, MediaProvider, MediaOptions } from './../src';
 import { MockActivityResource } from '../example-helpers/activity-provider';
 import BreadcrumbsMiscActions from '../example-helpers/breadcrumbs-misc-actions';
 import {
@@ -34,6 +36,20 @@ import {
 import { videoFileId } from '@atlaskit/media-test-helpers/exampleMediaItems';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { DocNode } from '@atlaskit/adf-schema';
+import type {
+  ImagePreview,
+  UploadPreviewUpdateEventPayload,
+} from '@atlaskit/media-picker';
+import { Clipboard } from '@atlaskit/media-picker';
+import { fileToDataURI } from '@atlaskit/media-ui';
+import type { MediaClientConfig } from '@atlaskit/media-core/auth';
+import Modal, {
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
+  ModalTitle,
+  ModalTransition,
+} from '@atlaskit/modal-dialog';
 
 const wrapper = css`
   box-sizing: border-box;
@@ -47,8 +63,27 @@ const content = css`
   border: 2px solid #ccc;
   box-sizing: border-box;
 `;
+
+const fullWidthEditorStyles = css`
+  padding: 0;
+  width: 100%;
+  border: 2px solid #ccc;
+  box-sizing: border-box;
+`;
+
 const rendererWrapper = css`
   width: 500px;
+`;
+
+const externalClipboardWrapper = css`
+  width: 500px;
+  padding: 10px;
+  border: 1px dashed #ccc;
+`;
+
+const pastedImageStyles = css`
+  max-width: 200px;
+  height: auto;
 `;
 
 const getLocalStorageKey = (collectionName: string) =>
@@ -360,7 +395,7 @@ class ExampleEditorComponent extends React.Component<
     }
   };
 
-  renderEditor = (collectionName: string) => {
+  renderEditor = (collectionName: string, contentStyles?: SerializedStyles) => {
     const defaultValue =
       (localStorage &&
         localStorage.getItem(getLocalStorageKey(collectionName))) ||
@@ -379,12 +414,13 @@ class ExampleEditorComponent extends React.Component<
       allowAltTextOnImages: true,
       featureFlags: {
         mediaInline: true,
+        securedClipboard: true,
       },
     };
 
     return (
       <EditorContext key={collectionName}>
-        <div css={content}>
+        <div css={contentStyles || content}>
           <h2>Editor ({collectionName})</h2>
           <SmartCardProvider>
             <WithEditorActions
@@ -482,11 +518,181 @@ class ExampleEditorComponent extends React.Component<
           {this.renderEditor(defaultCollectionName)}
           {this.renderEditor(defaultMediaPickerCollectionName)}
           {this.renderRenderer()}
+          <div css={externalClipboardWrapper}>
+            <ExampleExternalClipboard />
+            <ClipboardWidthPopup
+              content={
+                <div style={{ padding: 20 }}>
+                  <h3>Clipboard in popup: </h3>
+                  {this.renderEditor(
+                    defaultCollectionName,
+                    fullWidthEditorStyles,
+                  )}
+                  <ExampleExternalClipboard />
+                </div>
+              }
+            />
+          </div>
         </div>
       </div>
     );
   }
 }
+
+interface ClipboardWrapperProps {
+  mediaProvider: Promise<MediaProvider>;
+  children: Function;
+}
+
+const ClipboardWrapper = (props: ClipboardWrapperProps) => {
+  const { mediaProvider, children } = props;
+  const [mediaClientConfig, setMediaClientConfig] =
+    useState<MediaClientConfig>();
+
+  useEffect(() => {
+    const getMediaClientConfig = async () => {
+      const mP = await mediaProvider;
+      if (!mP || !mP.uploadParams) {
+        return;
+      }
+      const resolvedMediaClientConfig =
+        (await mP.uploadMediaClientConfig) || (await mP.viewMediaClientConfig);
+      if (!resolvedMediaClientConfig) {
+        return;
+      }
+      setMediaClientConfig(resolvedMediaClientConfig);
+    };
+    getMediaClientConfig();
+  }, [mediaProvider]);
+
+  return (
+    <div>
+      <h2>External Clipboard example</h2>
+      <p>
+        Use CMD+C to copy an image from finder, followed by CMD+V to paste the
+        image when this window is focused.
+      </p>
+      <p>
+        You can also take a screenshot with SHIFT+CTRL+COMMAND+4 (Mac) and paste
+        with CMD+V.
+      </p>
+      <p>
+        If you paste an image you will see a preview. You should <b>NOT</b> see
+        the image pasted in <b>Editor</b>.
+      </p>
+      <p>
+        If you paste an image in <b>Editor</b>, you should <b>NOT</b> see a
+        preview in here.
+      </p>
+      <p>
+        Because Editor's paste event should only be listened within the
+        editorDomElement.
+      </p>
+
+      <p>
+        Notes: If you paste an image in <b>Renderer</b>, you will see a preview
+        here, because external Clipboard bind paste event globally by default.
+      </p>
+      {children(mediaClientConfig)}
+    </div>
+  );
+};
+
+const ClipboardWidthPopup = ({ content }: { content: ReactNode }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <div>
+      <Button
+        appearance="primary"
+        isSelected={isOpen}
+        onClick={() => setIsOpen(!isOpen)}
+        style={{ marginTop: 16 }}
+      >
+        {isOpen ? 'Close' : 'Open'} pop with editor and clipboard{' '}
+      </Button>
+      <ModalTransition>
+        {isOpen && (
+          <Modal onClose={() => setIsOpen(false)} width="large">
+            <ModalHeader>
+              <ModalTitle>Editor inside Modal</ModalTitle>
+            </ModalHeader>
+            <ModalBody>{content}</ModalBody>
+            <ModalFooter>
+              <Button appearance="subtle" onClick={() => setIsOpen(false)}>
+                Cancel
+              </Button>
+            </ModalFooter>
+          </Modal>
+        )}
+      </ModalTransition>
+    </div>
+  );
+};
+
+const ExampleExternalClipboard = () => {
+  const [pastedImgSrc, setPastedImgSrc] = useState('');
+  const [pastedImgScaleFactor, setPastedImgScaleFactor] = useState(1);
+  const [pastedImgWidth, setPastedImgWidth] = useState(0);
+  const [pastedImgHeight, setPastedImgHeight] = useState(0);
+
+  const onUploadPreviewUpdate = async (
+    data: UploadPreviewUpdateEventPayload,
+  ) => {
+    if (data.preview.file && data.preview.file.type.indexOf('image/') === 0) {
+      const src = await fileToDataURI(data.preview.file);
+      const imgPreview = data.preview as ImagePreview;
+      const scaleFactor = imgPreview.scaleFactor;
+      const width = imgPreview.dimensions.width;
+      const height = imgPreview.dimensions.height;
+      setPastedImgSrc(src);
+      setPastedImgScaleFactor(scaleFactor);
+      setPastedImgWidth(width);
+      setPastedImgHeight(height);
+    }
+  };
+
+  const onReset = () => {
+    setPastedImgSrc('');
+    setPastedImgScaleFactor(1);
+    setPastedImgWidth(0);
+    setPastedImgHeight(0);
+  };
+
+  return (
+    <ClipboardWrapper mediaProvider={mediaProvider}>
+      {(mediaClientConfig: MediaClientConfig) => (
+        <div>
+          <Clipboard
+            mediaClientConfig={mediaClientConfig}
+            onUploadsStart={() => console.log('clipboard start')}
+            onEnd={() => console.log('clipboard ended')}
+            onError={() => console.log('clipboard error')}
+            onPreviewUpdate={onUploadPreviewUpdate}
+          />
+          <br />
+          <Button
+            className="close_button"
+            appearance="primary"
+            onClick={onReset}
+          >
+            Clear pasted media
+          </Button>
+          {pastedImgSrc && (
+            <p>
+              <img
+                src={pastedImgSrc}
+                width={Math.round(pastedImgWidth / pastedImgScaleFactor)}
+                height={Math.round(pastedImgHeight / pastedImgScaleFactor)}
+                css={pastedImageStyles}
+              />
+            </p>
+          )}
+        </div>
+      )}
+    </ClipboardWrapper>
+  );
+};
 
 export default function Example(props: EditorProps & ExampleProps) {
   return (

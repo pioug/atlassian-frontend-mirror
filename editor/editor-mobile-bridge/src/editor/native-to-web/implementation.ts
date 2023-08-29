@@ -727,16 +727,11 @@ export default class WebBridgeImpl
           return;
         }
 
-        this.pluginInjectionApi?.core.actions.execute(
-          this.pluginInjectionApi?.quickInsert?.commands.search({
+        const quickInsertList =
+          this.pluginInjectionApi?.quickInsert?.actions.getSuggestions({
             query,
             disableDefaultItems: true,
-          }),
-        );
-        const quickInsertList =
-          this.pluginInjectionApi?.quickInsert?.sharedState.currentState()
-            ?.suggestions;
-
+          });
         const quickInsertItem = quickInsertList?.[index];
 
         if (!quickInsertItem) {

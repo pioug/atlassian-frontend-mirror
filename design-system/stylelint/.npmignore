@@ -7,3 +7,5 @@ build/
 __tests__/
 tsconfig.json
 index.js
+tsconfig.app.json
+tsconfig.dev.json

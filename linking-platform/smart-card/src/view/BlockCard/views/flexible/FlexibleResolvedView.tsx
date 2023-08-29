@@ -7,7 +7,7 @@ import {
   PreviewBlock,
   SnippetBlock,
 } from '../../../FlexibleCard/components/blocks';
-import { metadataBlockCss } from './styled';
+import { metadataBlockCss, footerBlockCss } from './styled';
 import {
   ActionName,
   CardDisplay,
@@ -105,6 +105,9 @@ const FlexibleResolvedView = ({
         />
       ) : null}
       <FooterBlock
+        {...(getBooleanFF(
+          'platform.linking-platform.smart-card.enable-better-metadata_iojwg',
+        ) && { overrideCss: footerBlockCss })}
         actions={[
           {
             name: ActionName.PreviewAction,

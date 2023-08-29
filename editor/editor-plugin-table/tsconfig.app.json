@@ -1,0 +1,82 @@
+{
+  "extends": "../../../tsconfig.base.json",
+  "include": ["./src/**/*.ts", "./src/**/*.tsx"],
+  "exclude": [
+    "**/docs/**/*",
+    "**/__tests__/**/*",
+    "**/vr-tests/**/*",
+    "**/__perf__/**/*",
+    "**/*.test.*",
+    "**/test.*",
+    "**/test-*",
+    "**/examples.ts",
+    "**/examples.tsx",
+    "**/examples/*.ts",
+    "**/examples/*.tsx",
+    "**/examples/**/*.ts",
+    "**/examples/**/*.tsx",
+    "**/storybook/**/*",
+    "**/constellation/**/*",
+    ".storybook/*",
+    "./__fixtures__/**/*",
+    "./__generated__/**/*",
+    "./mocks/**/*",
+    "./__mocks__/**/*",
+    "**/mock.*",
+    "**/codemods/**/*.ts",
+    "**/codemods/**/*.tsx",
+    "./src/plugins/table/nodeviews/__mocks__/**/*"
+  ],
+  "compilerOptions": {
+    "baseUrl": "./",
+    "composite": true,
+    "outDir": "../../../tsDist/@atlaskit__editor-plugin-table/app"
+  },
+  "references": [
+    {
+      "path": "../adf-schema/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-common/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-palette/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-analytics/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-content-insertion/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-guideline/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-width/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-prosemirror/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-shared-styles/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-tables/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/icon/tsconfig.app.json"
+    },
+    {
+      "path": "../../platform/feature-flags/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/theme/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/tokens/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/tooltip/tsconfig.app.json"
+    }
+  ]
+}

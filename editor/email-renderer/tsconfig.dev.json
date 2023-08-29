@@ -1,0 +1,51 @@
+{
+  "extends": "../../../tsconfig.base.json",
+  "include": [
+    "**/docs/**/*",
+    "**/__tests__/**/*",
+    "**/vr-tests/**/*",
+    "**/__perf__/**/*",
+    "**/*.test.*",
+    "**/test.*",
+    "**/test-*",
+    "**/examples.ts",
+    "**/examples.tsx",
+    "**/examples/*.ts",
+    "**/examples/*.tsx",
+    "**/examples/**/*.ts",
+    "**/examples/**/*.tsx",
+    "**/storybook/**/*",
+    "**/constellation/**/*",
+    ".storybook/*",
+    "./__fixtures__/**/*",
+    "./__generated__/**/*",
+    "./mocks/**/*",
+    "./__mocks__/**/*",
+    "**/mock.*",
+    "**/codemods/**/*.ts",
+    "**/codemods/**/*.tsx",
+    "./src/static/generator/generate.ts",
+    "./src/static/generator/image-sources.ts",
+    "./src/static/generator/types/**/*"
+  ],
+  "exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
+  "compilerOptions": {
+    "baseUrl": "./",
+    "composite": true,
+    "outDir": "../../../tsDist/@atlaskit__email-renderer/dev"
+  },
+  "references": [
+    {
+      "path": "tsconfig.app.json"
+    },
+    {
+      "path": "../adf-schema/tsconfig.app.json"
+    },
+    {
+      "path": "../../../build/website/docs/tsconfig.app.json"
+    },
+    {
+      "path": "../../elements/util-data-test/tsconfig.app.json"
+    }
+  ]
+}

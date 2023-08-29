@@ -3,9 +3,10 @@ import { isDecendantOfType } from '@codeshift/utils';
 
 export function isDecendantOfToken(
   j: core.JSCodeshift,
-  path: ASTNode,
+  path: ASTPath | ASTNode,
 ): boolean {
   if (
+    'type' in path &&
     path.type === 'CallExpression' &&
     path.callee.type === 'Identifier' &&
     path.callee.name === 'token'

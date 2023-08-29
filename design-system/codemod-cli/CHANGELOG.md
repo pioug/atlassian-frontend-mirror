@@ -1,5 +1,11 @@
 # @atlaskit/codemod-cli
 
+## 0.14.0
+
+### Minor Changes
+
+- [`26d4e25c2b3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/26d4e25c2b3) - replace strings that contain only the color name; replace hard-coded colors in template literals that have CSS declarations; better color names for literals that have multiple expressions; replace full value of box-shadow in template literals
+
 ## 0.13.4
 
 ### Patch Changes

@@ -51,7 +51,6 @@ export default function ContrastCard({
           })}
         >
           <Inline space="space.150">
-            {/* eslint-disable @atlaskit/design-system/use-primitives */}
             <div
               css={{
                 backgroundColor: backgroundValue,
@@ -71,7 +70,6 @@ export default function ContrastCard({
                   }}
                 />
               </div>
-              {/* eslint-enable @atlaskit/design-system/use-primitives */}
             </div>
 
             <Stack space="space.050">

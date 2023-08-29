@@ -84,6 +84,15 @@ describe('PostCSS Transform', () => {
     );
   });
 
+  it('should not transform box-shadow: none', async () => {
+    const result = await applyTransform(
+      transformer,
+      `.container { box-shadow: none; }`,
+    );
+
+    expect(result).toMatchInlineSnapshot(`".container { box-shadow: none; }"`);
+  });
+
   it('should not transform border radius', async () => {
     const result = await applyTransform(
       transformer,

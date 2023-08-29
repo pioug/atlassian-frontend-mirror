@@ -1,7 +1,7 @@
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
 import { tableCellMinWidth } from '@atlaskit/editor-common/styles';
-import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { Transaction } from '@atlaskit/editor-prosemirror/state';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { DomAtPos } from '@atlaskit/editor-prosemirror/utils';
 import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
 
@@ -15,9 +15,10 @@ import {
   getTotalWidth,
   updateColgroup,
 } from '../utils/resize-state';
-import { ResizeState } from '../utils/types';
+import type { ResizeState } from '../utils/types';
 
 import { hasTableBeenResized, insertColgroupFromNode } from './colgroup';
+import { syncStickyRowToTable } from './dom';
 
 export interface ScaleOptions {
   node: PMNode;
@@ -169,6 +170,7 @@ export const previewScaleTable = (
   }
 
   if (!hasTableBeenResized(node)) {
+    syncStickyRowToTable(tableRef);
     return;
   }
 

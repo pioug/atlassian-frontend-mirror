@@ -8,3 +8,5 @@ build/
 tsconfig.json
 
 examples-util/
+tsconfig.app.json
+tsconfig.dev.json

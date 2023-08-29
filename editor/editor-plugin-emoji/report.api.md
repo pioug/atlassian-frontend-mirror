@@ -46,6 +46,9 @@ export type EmojiPlugin = NextEditorPlugin<
 >;
 
 // @public (undocumented)
+export const emojiPlugin: EmojiPlugin;
+
+// @public (undocumented)
 export interface EmojiPluginOptions {
   // (undocumented)
   headless?: boolean;

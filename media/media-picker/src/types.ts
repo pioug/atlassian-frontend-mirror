@@ -83,7 +83,13 @@ export interface BrowserConfig extends LocalUploadConfig {
   readonly replaceFileId?: string /* allow consumer to provide fileId (for replacement uploads). Passing this value will force multiple to be false */;
 }
 
-export interface ClipboardConfig extends LocalUploadConfig {}
+export interface ClipboardConfig extends LocalUploadConfig {
+  container?: HTMLElement;
+  // This callback is called when paste event is caputred
+  // For consumer to have a chance to excersie extra works such as `stopPropagation()`
+  // Return value: `true`, prevent the platform behaviour; `false` or `undefined` go ahead with the platform behaviour
+  onPaste?: (event: ClipboardEvent) => boolean | undefined;
+}
 
 export interface DropzoneConfig extends LocalUploadConfig {
   container?: HTMLElement;

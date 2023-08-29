@@ -4,18 +4,16 @@ import { fireEvent, render } from '@testing-library/react';
 
 import {
   resizerHandleClassName,
-  resizerHandleLeftClassName,
-  resizerHandleRightClassName,
+  resizerHandleThumbClassName,
+  resizerHandleTrackClassName,
   resizerItemClassName,
 } from '../../../styles/shared/resizer';
 import { ResizerNext } from '../../index';
-import { HandleResize } from '../../types';
+import type { HandleResize } from '../../types';
 
 describe('Resizer', () => {
   let initialWidth: number;
   let customHandleClassName: string;
-  let customHandleLeftClassName: string;
-  let customHandleRightClassName: string;
   let customResizableClassName: string;
 
   let mockHandleResizeStart: () => void;
@@ -25,8 +23,6 @@ describe('Resizer', () => {
   beforeEach(() => {
     initialWidth = 50;
     customHandleClassName = 'test-handle';
-    customHandleLeftClassName = `${customHandleClassName}-left`;
-    customHandleRightClassName = `${customHandleClassName}-right`;
     customResizableClassName = 'test-resizable-item';
 
     mockHandleResizeStart = jest.fn(() => 60);
@@ -70,7 +66,7 @@ describe('Resizer', () => {
     );
 
     const handleRight = container.querySelector(
-      `.${resizerHandleLeftClassName}`,
+      `.${resizerHandleClassName}.left`,
     );
     const resizable = container.querySelector(`.${resizerItemClassName}`);
 
@@ -100,10 +96,10 @@ describe('Resizer', () => {
       </ResizerNext>,
     );
     expect(
-      container.querySelector(`.${resizerHandleLeftClassName}`),
+      container.querySelector(`.${resizerHandleClassName}.left`),
     ).toBeNull();
     expect(
-      container.querySelector(`.${resizerHandleRightClassName}`),
+      container.querySelector(`.${resizerHandleClassName}.right`),
     ).toBeInTheDocument();
   });
 
@@ -121,7 +117,7 @@ describe('Resizer', () => {
     );
 
     const handleRight = container.querySelector(
-      `.${resizerHandleLeftClassName}`,
+      `.${resizerHandleClassName}.left`,
     );
     const resizable = container.querySelector(`.${resizerItemClassName}`);
 
@@ -147,10 +143,10 @@ describe('Resizer', () => {
       </ResizerNext>,
     );
     expect(
-      container.querySelector(`.${resizerHandleLeftClassName}`),
+      container.querySelector(`.${resizerHandleClassName}.left`),
     ).toBeInTheDocument();
     expect(
-      container.querySelector(`.${resizerHandleRightClassName}`),
+      container.querySelector(`.${resizerHandleClassName}.right`),
     ).toBeInTheDocument();
   });
 
@@ -170,17 +166,17 @@ describe('Resizer', () => {
     );
 
     expect(
-      container.querySelector(`.${customHandleLeftClassName}`),
+      container.querySelector(`.${customHandleClassName}.left`),
     ).toBeInTheDocument();
     expect(
-      container.querySelector(`.${customHandleRightClassName}`),
+      container.querySelector(`.${customHandleClassName}.right`),
     ).toBeInTheDocument();
 
     expect(
-      container.querySelector(`.${resizerHandleLeftClassName}`),
+      container.querySelector(`.${resizerHandleClassName}.left`),
     ).toBeNull();
     expect(
-      container.querySelector(`.${resizerHandleRightClassName}`),
+      container.querySelector(`.${resizerHandleClassName}.right`),
     ).toBeNull();
   });
 
@@ -224,10 +220,10 @@ describe('Resizer', () => {
     );
 
     const leftHandle = container.querySelector(
-      `.${resizerHandleLeftClassName}`,
+      `.${resizerHandleClassName}.left`,
     );
     const rightHandle = container.querySelector(
-      `.${resizerHandleRightClassName}`,
+      `.${resizerHandleClassName}.right`,
     );
 
     expect(leftHandle?.getAttribute('style')).toContain(
@@ -253,10 +249,10 @@ describe('Resizer', () => {
       </ResizerNext>,
     );
     expect(
-      container.querySelector(`.${resizerHandleClassName.medium}`),
+      container.querySelector(`.${customHandleClassName}.medium`),
     ).toBeInTheDocument();
     expect(
-      container.querySelectorAll(`.${resizerHandleClassName.medium}`).length,
+      container.querySelectorAll(`.${customHandleClassName}.medium`).length,
     ).toBe(2);
   });
 
@@ -276,10 +272,10 @@ describe('Resizer', () => {
       </ResizerNext>,
     );
     expect(
-      container.querySelector(`.${resizerHandleClassName.large}`),
+      container.querySelector(`.${customHandleClassName}.large`),
     ).toBeInTheDocument();
     expect(
-      container.querySelectorAll(`.${resizerHandleClassName.large}`).length,
+      container.querySelectorAll(`.${customHandleClassName}.large`).length,
     ).toBe(2);
   });
 
@@ -299,10 +295,10 @@ describe('Resizer', () => {
       </ResizerNext>,
     );
     expect(
-      container.querySelector(`.${resizerHandleClassName.small}`),
+      container.querySelector(`.${customHandleClassName}.small`),
     ).toBeInTheDocument();
     expect(
-      container.querySelectorAll(`.${resizerHandleClassName.small}`).length,
+      container.querySelectorAll(`.${customHandleClassName}.small`).length,
     ).toBe(1);
   });
 
@@ -322,7 +318,7 @@ describe('Resizer', () => {
     );
 
     const handleRight = container.querySelector(
-      `.${resizerHandleRightClassName}`,
+      `.${resizerHandleClassName}.right`,
     );
     const resizable = container.querySelector(`.${resizerItemClassName}`);
 
@@ -363,7 +359,7 @@ describe('Resizer', () => {
     );
 
     const handleRight = container.querySelector(
-      `.${resizerHandleRightClassName}`,
+      `.${resizerHandleClassName}.right`,
     );
     const resizable = container.querySelector(`.${resizerItemClassName}`);
 
@@ -403,7 +399,7 @@ describe('Resizer', () => {
     );
 
     const handleRight = container.querySelector(
-      `.${resizerHandleRightClassName}`,
+      `.${resizerHandleClassName}.right`,
     );
     const resizable = container.querySelector(`.${resizerItemClassName}`);
 
@@ -443,7 +439,7 @@ describe('Resizer', () => {
     );
 
     const handleRight = container.querySelector(
-      `.${resizerHandleRightClassName}`,
+      `.${resizerHandleClassName}.right`,
     );
     const resizable = container.querySelector(`.${resizerItemClassName}`);
 
@@ -534,5 +530,126 @@ describe('Resizer', () => {
 
     // NOTE: Check for all available appearance classes
     expect(container.querySelector('.danger')).not.toBeInTheDocument();
+  });
+
+  it('should apply correct class name to resizer when handleAlignmentMethod not set', () => {
+    const { container } = render(
+      <ResizerNext
+        enable={{ left: true, right: true }}
+        handleResizeStart={mockHandleResizeStart}
+        handleResize={mockHandleResize}
+        handleResizeStop={mockHandleResizeStop}
+        width={initialWidth}
+      >
+        <div>resizable div</div>
+      </ResizerNext>,
+    );
+
+    expect(
+      container.querySelector(`.${resizerHandleClassName}.center`),
+    ).toBeInTheDocument();
+  });
+
+  it('should apply correct class name to resizer when handleAlignmentMethod set to "center"', () => {
+    const { container } = render(
+      <ResizerNext
+        enable={{ left: true, right: true }}
+        handleResizeStart={mockHandleResizeStart}
+        handleResize={mockHandleResize}
+        handleResizeStop={mockHandleResizeStop}
+        width={initialWidth}
+        handleAlignmentMethod="center"
+      >
+        <div>resizable div</div>
+      </ResizerNext>,
+    );
+
+    expect(
+      container.querySelector(`.${resizerHandleClassName}.center`),
+    ).toBeInTheDocument();
+  });
+
+  it('should apply correct class name to resizer when handleAlignmentMethod set to "sticky"', () => {
+    const { container } = render(
+      <ResizerNext
+        enable={{ left: true, right: true }}
+        handleResizeStart={mockHandleResizeStart}
+        handleResize={mockHandleResize}
+        handleResizeStop={mockHandleResizeStop}
+        width={initialWidth}
+        handleAlignmentMethod="sticky"
+      >
+        <div>resizable div</div>
+      </ResizerNext>,
+    );
+
+    expect(
+      container.querySelector(`.${resizerHandleClassName}.sticky`),
+    ).toBeInTheDocument();
+  });
+
+  it('should apply correct class name to resizer when handleHighlight not set', () => {
+    const { container } = render(
+      <ResizerNext
+        enable={{ left: true, right: true }}
+        handleResizeStart={mockHandleResizeStart}
+        handleResize={mockHandleResize}
+        handleResizeStop={mockHandleResizeStop}
+        width={initialWidth}
+      >
+        <div>resizable div</div>
+      </ResizerNext>,
+    );
+
+    expect(
+      container.querySelector(`.${resizerHandleThumbClassName}`),
+    ).toBeInTheDocument();
+    expect(
+      container.querySelector(`.${resizerHandleTrackClassName}`),
+    ).toBeNull();
+  });
+
+  it('should apply correct class name to resizer when handleHighlight set to "none"', () => {
+    const { container } = render(
+      <ResizerNext
+        enable={{ left: true, right: true }}
+        handleResizeStart={mockHandleResizeStart}
+        handleResize={mockHandleResize}
+        handleResizeStop={mockHandleResizeStop}
+        width={initialWidth}
+        handleHighlight="none"
+      >
+        <div>resizable div</div>
+      </ResizerNext>,
+    );
+
+    expect(
+      container.querySelector(`.${resizerHandleThumbClassName}`),
+    ).toBeInTheDocument();
+    expect(
+      container.querySelector(`.${resizerHandleTrackClassName}`),
+    ).toBeNull();
+  });
+
+  it('should apply correct class name to resizer when handleHighlight set to "shadow"', () => {
+    const { container } = render(
+      <ResizerNext
+        enable={{ left: true, right: true }}
+        handleResizeStart={mockHandleResizeStart}
+        handleResize={mockHandleResize}
+        handleResizeStop={mockHandleResizeStop}
+        width={initialWidth}
+        handleHighlight="shadow"
+      >
+        <div>resizable div</div>
+      </ResizerNext>,
+    );
+
+    expect(
+      container.querySelector(`.${resizerHandleThumbClassName}`),
+    ).toBeInTheDocument();
+    expect(
+      container.querySelector(`.${resizerHandleTrackClassName}.shadow`),
+    ).toBeInTheDocument();
   });
 });

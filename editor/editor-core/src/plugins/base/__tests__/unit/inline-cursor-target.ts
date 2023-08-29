@@ -23,7 +23,7 @@ import type {
   PluginKey,
 } from '@atlaskit/editor-prosemirror/state';
 import { basePlugin } from '../../';
-import { emojiPlugin } from '../../../emoji';
+import { emojiPlugin } from '@atlaskit/editor-plugin-emoji';
 import typeAheadPlugin from '../../../type-ahead';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';

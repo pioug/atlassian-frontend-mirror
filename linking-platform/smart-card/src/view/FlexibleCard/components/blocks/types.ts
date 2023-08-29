@@ -266,6 +266,10 @@ export type AttachmentCount = {
  */
 export type AuthorGroup = {
   name: ElementName.AuthorGroup;
+  /**
+   * Shows a name prefix Created by in the Avatar tooltip.
+   */
+  showNamePrefix?: boolean;
 };
 /**
  * Represents the props available for an OwnedByGroup element.
@@ -273,6 +277,10 @@ export type AuthorGroup = {
  */
 export type OwnedByGroup = {
   name: ElementName.OwnedByGroup;
+  /**
+   * Shows a name prefix Owned by in the Avatar tooltip.
+   */
+  showNamePrefix?: boolean;
 };
 /**
  * Represents the props available for an AssignedToGroup element.
@@ -280,6 +288,10 @@ export type OwnedByGroup = {
  */
 export type AssignedToGroup = {
   name: ElementName.AssignedToGroup;
+  /**
+   * Shows a name prefix Assigned To in the Avatar tooltip.
+   */
+  showNamePrefix?: boolean;
 };
 
 /**

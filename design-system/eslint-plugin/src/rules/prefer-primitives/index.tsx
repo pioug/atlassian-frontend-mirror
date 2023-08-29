@@ -57,7 +57,7 @@ const rule = createLintRule({
 
           // styled.div``
           if (isNodeOfType(node.property, 'Identifier')) {
-            if (validPrimitiveElements.test(node.property.name)) {
+            if (validPrimitiveElements.has(node.property.name)) {
               const styledIdentifier = (node.object as Identifier).name;
               const elementName = node.property.name;
 
@@ -84,7 +84,7 @@ const rule = createLintRule({
         if (isNodeOfType(node.arguments[0], 'Literal')) {
           const argValue = node.arguments[0].raw;
           if (typeof argValue === 'string') {
-            const suggest = validPrimitiveElements.test(
+            const suggest = validPrimitiveElements.has(
               argValue.replaceAll(`'`, ''), // argValue will have '' around the element name, strip it out for this test
             );
 

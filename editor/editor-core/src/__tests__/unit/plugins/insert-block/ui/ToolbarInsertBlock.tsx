@@ -44,7 +44,7 @@ import typeAheadPlugin from '../../../../../plugins/type-ahead';
 import quickInsertPlugin from '../../../../../plugins/quick-insert';
 import taskDecisionPlugin from '../../../../../plugins/tasks-and-decisions';
 import mentionsPlugin from '../../../../../plugins/mentions';
-import { emojiPlugin } from '../../../../../plugins/emoji';
+import { emojiPlugin } from '@atlaskit/editor-plugin-emoji';
 import datePlugin from '../../../../../plugins/date';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';

@@ -10,7 +10,7 @@
   "license": "Apache-2.0",
   "sideEffects": false,
   "atlassian": {
-    "team": "Editor",
+    "team": "Editor: Lego",
     "deprecatedAutoEntryPoints": true,
     "inPublicMirror": true,
     "releaseModel": "continuous"

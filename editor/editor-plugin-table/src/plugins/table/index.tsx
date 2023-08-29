@@ -162,6 +162,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
             dispatch,
             portalProviderAPI,
             eventDispatcher,
+            getIntl,
           }) => {
             const {
               fullWidthEnabled,
@@ -179,6 +180,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
               pluginConfig(tableOptions),
               defaultGetEditorContainerWidth,
               getEditorFeatureFlags || defaultGetEditorFeatureFlags,
+              getIntl,
               breakoutEnabled,
               fullWidthEnabled,
               tableResizingEnabled,

@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 jest.autoMockOff();
 
 import jscodeshift from 'jscodeshift';
@@ -8,7 +9,7 @@ interface Options {
   parser: string;
 }
 
-function applyTransform(
+async function applyTransform(
   transform: any,
   input: string,
   options: Options = {
@@ -16,7 +17,7 @@ function applyTransform(
   },
 ) {
   const transformer = transform.default ? transform.default : transform;
-  const output = transformer(
+  const output = await transformer(
     { source: input },
     { jscodeshift: jscodeshift.withParser(options.parser) },
   );
@@ -24,9 +25,19 @@ function applyTransform(
   return (output || '').trim();
 }
 
+async function withMockedConsoleWarn(fn: any) {
+  const originalWarn = console.warn;
+  const warn = jest.fn();
+  console.warn = warn;
+
+  await fn(warn);
+
+  console.warn = originalWarn;
+}
+
 describe('theme-to-design-tokens', () => {
-  it('should ignore colors already wrapped in a token (object styles)', () => {
-    const result = applyTransform(
+  it('should ignore colors already wrapped in a token (object styles)', async () => {
+    const result = await applyTransform(
       codemod,
       `
 import { token } from "@atlaskit/tokens";
@@ -51,8 +62,8 @@ css({
     `);
   });
 
-  it('should ignore colors already wrapped in a token (template literals)', () => {
-    const result = applyTransform(
+  it('should ignore colors already wrapped in a token (template literals)', async () => {
+    const result = await applyTransform(
       codemod,
       `
 import { token } from \"@atlaskit/tokens";
@@ -73,8 +84,8 @@ const DragHandle = styled.div\`
     `);
   });
 
-  it('should ignore colors already wrapped in a token (JSX Attributes)', () => {
-    const result = applyTransform(
+  it('should ignore colors already wrapped in a token (JSX Attributes)', async () => {
+    const result = await applyTransform(
       codemod,
       `
 import { token } from "@atlaskit/tokens";
@@ -96,8 +107,8 @@ import { Y400 } from '@atlaskit/theme/colors';
     `);
   });
 
-  it('should transform legacy tokens', () => {
-    const result = applyTransform(
+  it('should transform legacy tokens', async () => {
+    const result = await applyTransform(
       codemod,
       `
 import { B500, N500 } from '@atlaskit/theme/colors';
@@ -119,14 +130,14 @@ css({
     `);
   });
 
-  it('should not transform non color css properties', () => {
-    const result = applyTransform(codemod, `css({ gap: '2px', });`);
+  it('should not transform non color css properties', async () => {
+    const result = await applyTransform(codemod, `css({ gap: '2px', });`);
 
     expect(result).toMatchInlineSnapshot(`"css({ gap: '2px', });"`);
   });
 
-  it('should transform hard-coded tokens', () => {
-    const result = applyTransform(
+  it('should transform hard-coded tokens', async () => {
+    const result = await applyTransform(
       codemod,
       `
 css({
@@ -146,8 +157,8 @@ css({
     `);
   });
 
-  it('should transform legacy tokens from default import', () => {
-    const result = applyTransform(
+  it('should transform legacy tokens from default import', async () => {
+    const result = await applyTransform(
       codemod,
       `
 import colors from '@atlaskit/theme/colors';
@@ -167,8 +178,8 @@ css({
     `);
   });
 
-  it('should transform typical surface/text colors', () => {
-    const result = applyTransform(
+  it('should transform typical surface/text colors', async () => {
+    const result = await applyTransform(
       codemod,
       `
 const DragHandle = styled.div\`
@@ -187,8 +198,8 @@ const DragHandle = styled.div\`
     `);
   });
 
-  it('should transform box shadow', () => {
-    const result = applyTransform(
+  it('should transform box shadow in template literals', async () => {
+    const result = await applyTransform(
       codemod,
       `
 export const EnvironmentWrapper = styled.div\`
@@ -197,22 +208,59 @@ export const EnvironmentWrapper = styled.div\`
 `,
     );
 
-    /**
-     * Assertion is technically wrong since the shadow token should replace the entire property
-     * ie box-shadow: ${token("elevation.shadow.overflow", `0 0 1px ${colors.N60A}`)};
-     *
-     * Leaving as is for now since this is quite hard to implement reliably
-     */
     expect(result).toMatchInlineSnapshot(`
       "import { token } from \\"@atlaskit/tokens\\";
       export const EnvironmentWrapper = styled.div\`
-        box-shadow: 0 0 1px \${token(\\"elevation.shadow.raised\\", colors.N60A)};
+        box-shadow: \${token(\\"elevation.shadow.raised\\", \`0 0 1px \${colors.N60A}\`)};
       \`;"
     `);
   });
 
-  it('should not apply text tokens to background', () => {
-    const result = applyTransform(
+  it('should transform comma-separated box shadow with a single replaceable color', async () => {
+    const result = await applyTransform(
+      codemod,
+      `
+export const EnvironmentWrapper = styled.div\`
+  box-shadow: 0 0 1px \${colors.N60A},
+              2px 2px 1rem black;
+\`;
+`,
+    );
+
+    expect(result).toMatchInlineSnapshot(`
+      "import { token } from \\"@atlaskit/tokens\\";
+      export const EnvironmentWrapper = styled.div\`
+        box-shadow: \${token(\\"elevation.shadow.raised\\", \`0 0 1px \${colors.N60A},
+                    2px 2px 1rem black\`)};
+      \`;"
+    `);
+  });
+
+  it('should warn about comma-separated box shadow when two colors are expressions', async () => {
+    await withMockedConsoleWarn(async (warn: any) => {
+      const result = await applyTransform(
+        codemod,
+        `
+export const EnvironmentWrapper = styled.div\`
+  box-shadow: 0 0 1px \${colors.N60A},
+              2px 2px 1rem \${colors.N70A};
+\`;
+`,
+      );
+
+      expect(result).toMatchInlineSnapshot(`
+              "export const EnvironmentWrapper = styled.div\`
+                box-shadow: 0 0 1px \${colors.N60A},
+                            2px 2px 1rem \${colors.N70A};
+              \`;"
+          `);
+
+      expect(warn).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  it('should not apply text tokens to background', async () => {
+    const result = await applyTransform(
       codemod,
       `
 const EnvironmentWrapper = styled.div\`
@@ -229,8 +277,8 @@ const EnvironmentWrapper = styled.div\`
     `);
   });
 
-  it('should transform static colors', () => {
-    const result = applyTransform(
+  it('should transform static colors in css properties', async () => {
+    const result = await applyTransform(
       codemod,
       `
 import colors from '@atlaskit/theme/colors';
@@ -250,8 +298,131 @@ css({
     `);
   });
 
-  it('should transform nested style blocks', () => {
-    const result = applyTransform(
+  it('should skip non-colors in properties', async () => {
+    const result = await applyTransform(
+      codemod,
+      `
+series.push({
+    name: "Processing time (ms)",
+});`,
+    );
+    expect(result).toMatchInlineSnapshot(`
+      "series.push({
+          name: \\"Processing time (ms)\\",
+      });"
+    `);
+  });
+
+  it('should transform static colors in styled.div template literals', async () => {
+    const result = await applyTransform(
+      codemod,
+      `
+const SomeWrapper = styled.div\`
+  outline: 3px dashed #eee;
+  background-color: #fafafa;
+\`;
+`,
+    );
+
+    expect(result).toMatchInlineSnapshot(`
+          "const SomeWrapper = styled.div\`
+            outline: 3px dashed var(--ds-surface-sunken, #eee);
+            background-color: var(--ds-background-input, #fafafa);
+          \`;"
+        `);
+  });
+
+  it('should transform box-shadow in styled.div template literals', async () => {
+    const result = await applyTransform(
+      codemod,
+      `
+export const LoginPaper = styled.div\`
+  box-shadow: #dcdcdc 0 0 10px;
+\`;
+`,
+    );
+
+    expect(result).toMatchInlineSnapshot(`
+      "export const LoginPaper = styled.div\`
+        box-shadow: var(--ds-shadow-overflow, #dcdcdc 0 0 10px);
+      \`;"
+    `);
+  });
+
+  it('should transform static colors in plain template literals', async () => {
+    const result = await applyTransform(
+      codemod,
+      `
+const StringValue = \`
+  background-color: #172B4D;
+  color: #ffffff;
+\`;
+`,
+    );
+
+    expect(result).toMatchInlineSnapshot(`
+          "const StringValue = \`
+            background-color: var(--ds-background-input, #172B4D);
+            color: var(--ds-surface, #ffffff);
+          \`;"
+        `);
+  });
+
+  it('should transform static colors in constant declarations', async () => {
+    const result = await applyTransform(
+      codemod,
+      `
+const FONT_COLOR = \`#172B4D\`;
+const BG_COLOR = \"#FAFAFA\";
+const DARK_PURPLE = '#5243AA';
+      `,
+    );
+
+    const expected = `import { token } from "@atlaskit/tokens";
+const FONT_COLOR = token("color.text", \`#172B4D\`);
+const BG_COLOR = token("color.text", "#FAFAFA");
+const DARK_PURPLE = token("color.text.accent.purple", '#5243AA');`;
+
+    expect(result).toEqual(expected);
+  });
+
+  it('should skip non-colors in expressions', async () => {
+    const result = await applyTransform(
+      codemod,
+      `
+function getLink(start, limit) {
+    return "#start=" + start + "&limit=" + limit
+}
+      `,
+    );
+
+    const expected = `function getLink(start, limit) {
+    return "#start=" + start + "&limit=" + limit
+}`;
+    expect(result).toEqual(expected);
+  });
+
+  it('should not transform static colors in constant declarations already transformed', async () => {
+    const result = await applyTransform(
+      codemod,
+      `
+import { token } from "@atlaskit/tokens";
+const FONT_COLOR = token("color.text", "#172B4D");
+const BG_COLOR = token("color.text", "#FAFAFA");
+const DARK_PURPLE = token("color.text.accent.purple", '#5243AA');
+      `,
+    );
+
+    const expected = `import { token } from "@atlaskit/tokens";
+const FONT_COLOR = token("color.text", "#172B4D");
+const BG_COLOR = token("color.text", "#FAFAFA");
+const DARK_PURPLE = token("color.text.accent.purple", '#5243AA');`;
+
+    expect(result).toEqual(expected);
+  });
+
+  it('should transform nested style blocks', async () => {
+    const result = await applyTransform(
       codemod,
       `
 const dangerButton = css({
@@ -293,8 +464,8 @@ const dangerButton = css({
     `);
   });
 
-  it('should transform nested style objects', () => {
-    const result = applyTransform(
+  it('should transform nested style objects', async () => {
+    const result = await applyTransform(
       codemod,
       `
 import { B100, B300, B400, B50, N10, N20, N30, N40, N70, R300 } from '@atlaskit/theme/colors';
@@ -358,8 +529,8 @@ const themeColors = {
     `);
   });
 
-  it('should transform abstract objects', () => {
-    const result = applyTransform(
+  it('should transform abstract objects', async () => {
+    const result = await applyTransform(
       codemod,
       `
 import { G400, G300, N20 } from '@atlaskit/theme/colors';
@@ -389,8 +560,8 @@ const colorMap = {
     `);
   });
 
-  it('should transform deep abstract objects', () => {
-    const result = applyTransform(
+  it('should transform deep abstract objects', async () => {
+    const result = await applyTransform(
       codemod,
       `
 import { G400, G300, N20 } from '@atlaskit/theme/colors';
@@ -428,8 +599,8 @@ const colorMap = {
     `);
   });
 
-  it('should not object keys with legacy named colors', () => {
-    const result = applyTransform(
+  it('should not object keys with legacy named colors', async () => {
+    const result = await applyTransform(
       codemod,
       `
 import { background, subtleText, primary } from '@atlaskit/theme/colors';
@@ -451,8 +622,8 @@ const colorMap = {
     `);
   });
 
-  it('should transform tokens via css prop', () => {
-    const result = applyTransform(
+  it('should transform tokens via css prop', async () => {
+    const result = await applyTransform(
       codemod,
       `
 import { B500, N500 } from '@atlaskit/theme/colors';
@@ -482,8 +653,8 @@ const Button = () => (
     `);
   });
 
-  it('should transform tokens via css prop and object styles', () => {
-    const result = applyTransform(
+  it('should transform tokens via css prop and object styles', async () => {
+    const result = await applyTransform(
       codemod,
       `
 import { B500, N500 } from '@atlaskit/theme/colors';
@@ -509,15 +680,15 @@ const Button = () => (
     `);
   });
 
-  it('should transform colors used in template literals', () => {
-    const result = applyTransform(
+  it('should transform colors used in template literals', async () => {
+    const result = await applyTransform(
       codemod,
       `
 import { B500, N500 } from '@atlaskit/theme/colors';
 
 const Button = styled.button\`
   color: \${B500};
-  backgroundColor: \${N500};
+  background-color: \${N500};
 \`;`,
     );
 
@@ -527,13 +698,103 @@ const Button = styled.button\`
 
       const Button = styled.button\`
         color: \${token(\\"color.text.information\\", B500)};
-        backgroundColor: \${token(\\"color.background.neutral.bold\\", N500)};
+        background-color: \${token(\\"color.background.neutral.bold\\", N500)};
       \`;"
     `);
   });
 
-  it('should transform colors used as props', () => {
-    const result = applyTransform(
+  it('should correctly handle mixed identifiers and color expressions in template literals', async () => {
+    // This is a contrived example, because usually people don't mix both forms
+    // in a single template, but it can happen with other expressions than
+    // colors, so this serves as a nice minimal example for the intended
+    // behavior.
+    const result = await applyTransform(
+      codemod,
+      `
+const Button = styled.button\`
+  color: \${B500};
+  background-color: \${colors.N500};
+\`;`,
+    );
+
+    expect(result).toMatchInlineSnapshot(`
+      "import { token } from \\"@atlaskit/tokens\\";
+      const Button = styled.button\`
+        color: \${token(\\"color.text.information\\", B500)};
+        background-color: \${token(\\"color.background.neutral.bold\\", colors.N500)};
+      \`;"
+    `);
+  });
+
+  it('should skip over non-color expressions in template literals', async () => {
+    // It's a more realistic example of the same behavior as tested in the
+    // previous test.
+    const result = await applyTransform(
+      codemod,
+      `
+export const MessageContainer = styled.section\`
+    background-color: \${colors.N0};
+    border-radius: \${borderRadius}px;
+    color: \${colors.N500};
+    padding: \${gridSize() * 2}px;
+    margin: \${gridSize() / 2}px 1px;
+    \${elevation.e100};
+\`;`,
+    );
+
+    expect(result).toMatchInlineSnapshot(`
+      "import { token } from \\"@atlaskit/tokens\\";
+      export const MessageContainer = styled.section\`
+          background-color: \${token(\\"elevation.surface\\", colors.N0)};
+          border-radius: \${borderRadius}px;
+          color: \${token(\\"color.text.subtle\\", colors.N500)};
+          padding: \${gridSize() * 2}px;
+          margin: \${gridSize() / 2}px 1px;
+          \${elevation.e100};
+      \`;"
+    `);
+  });
+
+  it('should replace template literals that have hard-coded colors and arbitrary expressions', async () => {
+    const result = await applyTransform(
+      codemod,
+      `
+const size = {
+    mobileMin: '320px',
+    mobileMax: '767px',
+};
+export const device = {
+    mobile: \`(min-width: \${size.mobileMin}) and (max-width: \${size.mobileMax})\`,
+};
+    const ButtonContainer = styled.div\`
+        @media \${device.mobile} {
+            z-index: 2;
+            background-color: #fff;
+            box-shadow: 0px -5px 7px -1px rgba(39, 37, 40, 0.16);
+        }
+    \`;
+`,
+    );
+    expect(result).toMatchInlineSnapshot(`
+        "const size = {
+            mobileMin: '320px',
+            mobileMax: '767px',
+        };
+        export const device = {
+            mobile: \`(min-width: \${size.mobileMin}) and (max-width: \${size.mobileMax})\`,
+        };
+            const ButtonContainer = styled.div\`
+                @media \${device.mobile} {
+                    z-index: 2;
+                    background-color: var(--ds-surface, #fff);
+                    box-shadow: var(--ds-shadow-overflow, 0px -5px 7px -1px rgba(39, 37, 40, 0.16));
+                }
+            \`;"
+      `);
+  });
+
+  it('should transform colors used as props', async () => {
+    const result = await applyTransform(
       codemod,
       `
 import React from 'react';
@@ -555,8 +816,8 @@ const PresenceWrapper = () => (
     `);
   });
 
-  it('should transform disable styles object', () => {
-    const result = applyTransform(
+  it('should transform disable styles object', async () => {
+    const result = await applyTransform(
       codemod,
       `
 import React from 'react';
@@ -579,8 +840,8 @@ const disabledStyles = css({
     `);
   });
 
-  it('should transform styled bold brand', () => {
-    const result = applyTransform(
+  it('should transform styled bold brand', async () => {
+    const result = await applyTransform(
       codemod,
       `
 import React from 'react';
@@ -619,8 +880,8 @@ styled.div\`
     `);
   });
 
-  it('should transform colors using property context (low-accuracy)', () => {
-    const result = applyTransform(
+  it('should transform colors using property context (low-accuracy)', async () => {
+    const result = await applyTransform(
       codemod,
       `
 import { B50, R400 } from '@atlaskit/theme/colors';
@@ -644,8 +905,8 @@ const cols = {
     `);
   });
 
-  it('should transform border properties', () => {
-    const result = applyTransform(
+  it('should transform border properties', async () => {
+    const result = await applyTransform(
       codemod,
       `
 import colors from '@atlaskit/theme/colors';
@@ -667,8 +928,8 @@ const Wrapper = styled.div\`
     `);
   });
 
-  it('should correctly transform icon colors (error)', () => {
-    const result = applyTransform(
+  it('should correctly transform icon colors (error)', async () => {
+    const result = await applyTransform(
       codemod,
       `<ErrorIcon primaryColor={colors.R400} />`,
     );
@@ -679,8 +940,8 @@ const Wrapper = styled.div\`
     `);
   });
 
-  it('should correctly transform icon colors (success)', () => {
-    const result = applyTransform(
+  it('should correctly transform icon colors (success)', async () => {
+    const result = await applyTransform(
       codemod,
       `<TickIcon primaryColor={colors.G400} />`,
     );
@@ -691,8 +952,8 @@ const Wrapper = styled.div\`
     `);
   });
 
-  it('should correctly transform icon colors (warning)', () => {
-    const result = applyTransform(
+  it('should correctly transform icon colors (warning)', async () => {
+    const result = await applyTransform(
       codemod,
       `<WarningIcon primaryColor={colors.Y400} />`,
     );
@@ -703,8 +964,8 @@ const Wrapper = styled.div\`
     `);
   });
 
-  it('should correctly transform icon colors (error)', () => {
-    const result = applyTransform(
+  it('should correctly transform icon colors (error)', async () => {
+    const result = await applyTransform(
       codemod,
       `
 import { R400 } from '@atlaskit/theme/colors';
@@ -721,8 +982,8 @@ import { R400 } from '@atlaskit/theme/colors';
     `);
   });
 
-  it('should correctly transform icon colors (success)', () => {
-    const result = applyTransform(
+  it('should correctly transform icon colors (success)', async () => {
+    const result = await applyTransform(
       codemod,
       `
 import { G400 } from '@atlaskit/theme/colors';
@@ -737,8 +998,8 @@ import { G400 } from '@atlaskit/theme/colors';
     `);
   });
 
-  it('should correctly transform icon colors (warning)', () => {
-    const result = applyTransform(
+  it('should correctly transform icon colors (warning)', async () => {
+    const result = await applyTransform(
       codemod,
       `
 import { Y400 } from '@atlaskit/theme/colors';
@@ -752,8 +1013,8 @@ import { Y400 } from '@atlaskit/theme/colors';
     `);
   });
 
-  it('should correctly transform icon colors (warning)', () => {
-    const result = applyTransform(
+  it('should correctly transform icon colors (warning)', async () => {
+    const result = await applyTransform(
       codemod,
       `
 import { Y400 } from '@atlaskit/theme/colors';
@@ -767,8 +1028,8 @@ import { Y400 } from '@atlaskit/theme/colors';
     `);
   });
 
-  it('should correctly transform text colors (subtlest)', () => {
-    const result = applyTransform(
+  it('should correctly transform text colors (subtlest)', async () => {
+    const result = await applyTransform(
       codemod,
       `
 const Example = styled.strong\`
@@ -784,8 +1045,8 @@ const Example = styled.strong\`
     `);
   });
 
-  it('should correctly transform text colors (subtle)', () => {
-    const result = applyTransform(
+  it('should correctly transform text colors (subtle)', async () => {
+    const result = await applyTransform(
       codemod,
       `
 const Example = styled.strong\`
@@ -801,8 +1062,8 @@ const Example = styled.strong\`
     `);
   });
 
-  it('should correctly transform text colors (default)', () => {
-    const result = applyTransform(
+  it('should correctly transform text colors (default)', async () => {
+    const result = await applyTransform(
       codemod,
       `
 const Example = styled.strong\`
@@ -818,8 +1079,8 @@ const Example = styled.strong\`
     `);
   });
 
-  it('should not transform default argument objects', () => {
-    const result = applyTransform(
+  it('should not transform default argument objects', async () => {
+    const result = await applyTransform(
       codemod,
       `const Tag = ({ text: text, testId = TAG_TYPE_TEST_ID }) => null`,
     );
@@ -829,8 +1090,8 @@ const Example = styled.strong\`
     );
   });
 
-  it('should not transform default argument objects', () => {
-    const result = applyTransform(
+  it('should not transform default argument objects', async () => {
+    const result = await applyTransform(
       codemod,
       `function Tags ({ text: text, testId = TAG_TYPE_TEST_ID }) {}`,
     );

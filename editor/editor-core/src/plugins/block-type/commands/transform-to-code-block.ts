@@ -5,6 +5,7 @@ import type {
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
+import { GapCursorSelection } from '@atlaskit/editor-common/selection';
 
 import { timestampToString, mapSlice } from '@atlaskit/editor-common/utils';
 
@@ -14,9 +15,10 @@ export function transformToCodeBlockAction(
   attrs?: any,
 ): Transaction {
   const startOfCodeBlockText = state.selection.$from;
-  const endPosition = state.selection.empty
-    ? startOfCodeBlockText.end()
-    : state.selection.$to.pos;
+  const endPosition =
+    state.selection.empty && !(state.selection instanceof GapCursorSelection)
+      ? startOfCodeBlockText.end()
+      : state.selection.$to.pos;
   const startLinePosition = startOfCodeBlockText.start();
   //when cmd+A is used to select the content. start position should be 0.
   const parentStartPosition =
@@ -82,7 +84,12 @@ export function transformToCodeBlockAction(
 
   // Reposition cursor when inserting into layouts or table headers
   const mapped = tr.doc.resolve(tr.mapping.map(startMapped) + 1);
-  const selection = TextSelection.findFrom(mapped, 1, true);
+
+  const selection = TextSelection.findFrom(
+    mapped,
+    state.selection instanceof GapCursorSelection ? -1 : 1,
+    true,
+  );
   if (selection) {
     return tr.setSelection(selection);
   }

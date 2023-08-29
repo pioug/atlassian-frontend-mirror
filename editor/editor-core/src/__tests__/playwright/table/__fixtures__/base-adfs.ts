@@ -1996,6 +1996,515 @@ export const tableWithActionItemInTopCellOfLastColumn = {
     },
   ],
 };
+export const simpleTableWithScroll = {
+  type: 'doc',
+  content: [
+    {
+      type: 'paragraph',
+    },
+    {
+      type: 'table',
+      attrs: {
+        isNumberColumnEnabled: false,
+        layout: 'default',
+        __autoSize: false,
+        localId: 'daf03091-0d01-4c5b-97e0-f6f73deffd64',
+        width: null,
+      },
+      content: [
+        {
+          type: 'tableRow',
+          content: [
+            {
+              type: 'tableHeader',
+              attrs: {
+                colspan: 1,
+                rowspan: 1,
+                colwidth: null,
+                background: null,
+              },
+              content: [
+                {
+                  type: 'paragraph',
+                },
+              ],
+            },
+            {
+              type: 'tableHeader',
+              attrs: {
+                colspan: 1,
+                rowspan: 1,
+                colwidth: null,
+                background: null,
+              },
+              content: [
+                {
+                  type: 'paragraph',
+                },
+              ],
+            },
+            {
+              type: 'tableHeader',
+              attrs: {
+                colspan: 1,
+                rowspan: 1,
+                colwidth: null,
+                background: null,
+              },
+              content: [
+                {
+                  type: 'paragraph',
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: 'tableRow',
+          content: [
+            {
+              type: 'tableCell',
+              attrs: {
+                colspan: 1,
+                rowspan: 1,
+                colwidth: null,
+                background: null,
+              },
+              content: [
+                {
+                  type: 'paragraph',
+                },
+              ],
+            },
+            {
+              type: 'tableCell',
+              attrs: {
+                colspan: 1,
+                rowspan: 1,
+                colwidth: null,
+                background: null,
+              },
+              content: [
+                {
+                  type: 'paragraph',
+                },
+              ],
+            },
+            {
+              type: 'tableCell',
+              attrs: {
+                colspan: 1,
+                rowspan: 1,
+                colwidth: null,
+                background: null,
+              },
+              content: [
+                {
+                  type: 'paragraph',
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: 'tableRow',
+          content: [
+            {
+              type: 'tableCell',
+              attrs: {
+                colspan: 1,
+                rowspan: 1,
+                colwidth: null,
+                background: null,
+              },
+              content: [
+                {
+                  type: 'paragraph',
+                },
+              ],
+            },
+            {
+              type: 'tableCell',
+              attrs: {
+                colspan: 1,
+                rowspan: 1,
+                colwidth: null,
+                background: null,
+              },
+              content: [
+                {
+                  type: 'paragraph',
+                },
+              ],
+            },
+            {
+              type: 'tableCell',
+              attrs: {
+                colspan: 1,
+                rowspan: 1,
+                colwidth: null,
+                background: null,
+              },
+              content: [
+                {
+                  type: 'paragraph',
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: 'tableRow',
+          content: [
+            {
+              type: 'tableCell',
+              attrs: {
+                colspan: 1,
+                rowspan: 1,
+                colwidth: null,
+                background: null,
+              },
+              content: [
+                {
+                  type: 'paragraph',
+                },
+              ],
+            },
+            {
+              type: 'tableCell',
+              attrs: {
+                colspan: 1,
+                rowspan: 1,
+                colwidth: null,
+                background: null,
+              },
+              content: [
+                {
+                  type: 'paragraph',
+                },
+              ],
+            },
+            {
+              type: 'tableCell',
+              attrs: {
+                colspan: 1,
+                rowspan: 1,
+                colwidth: null,
+                background: null,
+              },
+              content: [
+                {
+                  type: 'paragraph',
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: 'tableRow',
+          content: [
+            {
+              type: 'tableCell',
+              attrs: {
+                colspan: 1,
+                rowspan: 1,
+                colwidth: null,
+                background: null,
+              },
+              content: [
+                {
+                  type: 'paragraph',
+                },
+              ],
+            },
+            {
+              type: 'tableCell',
+              attrs: {
+                colspan: 1,
+                rowspan: 1,
+                colwidth: null,
+                background: null,
+              },
+              content: [
+                {
+                  type: 'paragraph',
+                },
+              ],
+            },
+            {
+              type: 'tableCell',
+              attrs: {
+                colspan: 1,
+                rowspan: 1,
+                colwidth: null,
+                background: null,
+              },
+              content: [
+                {
+                  type: 'paragraph',
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: 'tableRow',
+          content: [
+            {
+              type: 'tableCell',
+              attrs: {
+                colspan: 1,
+                rowspan: 1,
+                colwidth: null,
+                background: null,
+              },
+              content: [
+                {
+                  type: 'paragraph',
+                },
+              ],
+            },
+            {
+              type: 'tableCell',
+              attrs: {
+                colspan: 1,
+                rowspan: 1,
+                colwidth: null,
+                background: null,
+              },
+              content: [
+                {
+                  type: 'paragraph',
+                },
+              ],
+            },
+            {
+              type: 'tableCell',
+              attrs: {
+                colspan: 1,
+                rowspan: 1,
+                colwidth: null,
+                background: null,
+              },
+              content: [
+                {
+                  type: 'paragraph',
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: 'tableRow',
+          content: [
+            {
+              type: 'tableCell',
+              attrs: {
+                colspan: 1,
+                rowspan: 1,
+                colwidth: null,
+                background: null,
+              },
+              content: [
+                {
+                  type: 'paragraph',
+                },
+              ],
+            },
+            {
+              type: 'tableCell',
+              attrs: {
+                colspan: 1,
+                rowspan: 1,
+                colwidth: null,
+                background: null,
+              },
+              content: [
+                {
+                  type: 'paragraph',
+                },
+              ],
+            },
+            {
+              type: 'tableCell',
+              attrs: {
+                colspan: 1,
+                rowspan: 1,
+                colwidth: null,
+                background: null,
+              },
+              content: [
+                {
+                  type: 'paragraph',
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: 'tableRow',
+          content: [
+            {
+              type: 'tableCell',
+              attrs: {
+                colspan: 1,
+                rowspan: 1,
+                colwidth: null,
+                background: null,
+              },
+              content: [
+                {
+                  type: 'paragraph',
+                },
+              ],
+            },
+            {
+              type: 'tableCell',
+              attrs: {
+                colspan: 1,
+                rowspan: 1,
+                colwidth: null,
+                background: null,
+              },
+              content: [
+                {
+                  type: 'paragraph',
+                },
+              ],
+            },
+            {
+              type: 'tableCell',
+              attrs: {
+                colspan: 1,
+                rowspan: 1,
+                colwidth: null,
+                background: null,
+              },
+              content: [
+                {
+                  type: 'paragraph',
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: 'tableRow',
+          content: [
+            {
+              type: 'tableCell',
+              attrs: {
+                colspan: 1,
+                rowspan: 1,
+                colwidth: null,
+                background: null,
+              },
+              content: [
+                {
+                  type: 'paragraph',
+                },
+              ],
+            },
+            {
+              type: 'tableCell',
+              attrs: {
+                colspan: 1,
+                rowspan: 1,
+                colwidth: null,
+                background: null,
+              },
+              content: [
+                {
+                  type: 'paragraph',
+                },
+              ],
+            },
+            {
+              type: 'tableCell',
+              attrs: {
+                colspan: 1,
+                rowspan: 1,
+                colwidth: null,
+                background: null,
+              },
+              content: [
+                {
+                  type: 'paragraph',
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: 'tableRow',
+          content: [
+            {
+              type: 'tableCell',
+              attrs: {
+                colspan: 1,
+                rowspan: 1,
+                colwidth: null,
+                background: null,
+              },
+              content: [
+                {
+                  type: 'paragraph',
+                },
+              ],
+            },
+            {
+              type: 'tableCell',
+              attrs: {
+                colspan: 1,
+                rowspan: 1,
+                colwidth: null,
+                background: null,
+              },
+              content: [
+                {
+                  type: 'paragraph',
+                },
+              ],
+            },
+            {
+              type: 'tableCell',
+              attrs: {
+                colspan: 1,
+                rowspan: 1,
+                colwidth: null,
+                background: null,
+              },
+              content: [
+                {
+                  type: 'paragraph',
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      type: 'paragraph',
+    },
+    {
+      type: 'paragraph',
+    },
+    {
+      type: 'paragraph',
+    },
+    {
+      type: 'paragraph',
+    },
+    {
+      type: 'paragraph',
+    },
+    {
+      type: 'paragraph',
+    },
+    { type: 'paragraph', content: [{ type: 'text', text: 'Bottom' }] },
+  ],
+};
 
 export const tableWithScoll = {
   version: 1,

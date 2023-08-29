@@ -41,8 +41,14 @@ const MediaPicker = ({
   const featureFlags =
     mediaState.mediaOptions && mediaState.mediaOptions.featureFlags;
 
+  const container = editorDomElement as HTMLElement;
+
   const clipboard = focusState?.hasFocus ? (
-    <ClipboardWrapper mediaState={mediaState} featureFlags={featureFlags} />
+    <ClipboardWrapper
+      mediaState={mediaState}
+      featureFlags={featureFlags}
+      container={container}
+    />
   ) : null;
 
   return (

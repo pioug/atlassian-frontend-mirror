@@ -94,7 +94,7 @@ import extensionPlugin from '../../../extension';
 import panelPlugin from '../../../panel';
 import tasksAndDecisionsPlugin from '../../../tasks-and-decisions';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
-import { emojiPlugin } from '../../../emoji';
+import { emojiPlugin } from '@atlaskit/editor-plugin-emoji';
 import mentionsPlugin from '../../../mentions';
 import { cardPlugin } from '@atlaskit/editor-plugin-card';
 import pastePlugin from '../../index';

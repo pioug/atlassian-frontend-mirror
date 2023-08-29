@@ -14,6 +14,8 @@ import {
 } from './utils/legacy-colors';
 import { cleanMeta } from './utils/meta';
 
+const options = { syntax: lessSyntax, from: undefined };
+
 const tokens = rawTokens
   .filter((t) => t.attributes.state === 'active')
   .map((t) => t.name.replace(/\.\[default\]/g, ''))
@@ -46,7 +48,7 @@ function stripLessVar(prop: string) {
   return prop.substring(1);
 }
 
-function isColorProperty(prop: string) {
+export function isColorProperty(prop: string) {
   return (
     prop === 'color' ||
     prop === 'background' ||
@@ -57,7 +59,8 @@ function isColorProperty(prop: string) {
     prop === 'border-right' ||
     prop === 'border-top' ||
     prop === 'border-bottom' ||
-    prop === 'border-color'
+    prop === 'border-color' ||
+    prop === 'outline'
   );
 }
 
@@ -122,6 +125,9 @@ const plugin = (): Plugin => {
       if (!isColorProperty(decl.prop)) {
         return;
       }
+      if (decl.value === 'none') {
+        return;
+      }
 
       const searchTerms: string[] = [
         getDeclarationMeta(decl),
@@ -149,9 +155,9 @@ const plugin = (): Plugin => {
       }
 
       // Less variables
-      const lassVarMatch = decl.value.match(lessVarRe);
-      if (lassVarMatch) {
-        match = lassVarMatch[0];
+      const lessVarMatch = decl.value.match(lessVarRe);
+      if (lessVarMatch) {
+        match = lessVarMatch[0];
 
         searchTerms.push(
           ...(getMetaFromCssVar(`--${stripLessVar(match)}`) ?? []),
@@ -202,7 +208,10 @@ const plugin = (): Plugin => {
   };
 };
 
-export default async function transformer(file: FileInfo) {
-  return await postcss([plugin()]).process(file.source, { syntax: lessSyntax })
-    .css;
+export default async function transformer(file: FileInfo | string) {
+  const processor = postcss([plugin()]);
+  const src = typeof file === 'string' ? file : file.source;
+  const { css } = await processor.process(src, options);
+
+  return css;
 }

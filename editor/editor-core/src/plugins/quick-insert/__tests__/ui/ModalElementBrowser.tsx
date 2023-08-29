@@ -6,9 +6,9 @@ import type { TypeAheadInsert } from '../../../type-ahead/types';
 import quickInsertPlugin from '../..';
 import type { Props } from '../../../../ui/ElementBrowser/ModalElementBrowser';
 import { closeElementBrowserModal, insertItem } from '../../commands';
-import { getQuickInsertSuggestions } from '@atlaskit/editor-common/quick-insert';
+import { getQuickInsertSuggestions } from '../../search';
 
-jest.mock('@atlaskit/editor-common/quick-insert');
+jest.mock('../../search');
 
 describe('Quick Insert', () => {
   const createEditor = createEditorFactory();
@@ -85,11 +85,11 @@ describe('Quick Insert', () => {
       modalProps.getItems('proj', 'all');
 
       expect(getQuickInsertSuggestions).toHaveBeenCalledTimes(1);
-      expect(getQuickInsertSuggestions).toHaveBeenCalledWith({
-        searchOptions: { category: 'all', query: 'proj' },
-        lazyDefaultItems: undefined,
-        providedItems: undefined,
-      });
+      expect(getQuickInsertSuggestions).toHaveBeenCalledWith(
+        { category: 'all', query: 'proj' },
+        undefined,
+        undefined,
+      );
     });
 
     it('should call the close command if the modal is closed', () => {

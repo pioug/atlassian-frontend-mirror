@@ -39,7 +39,10 @@ describe('palette transformer', () => {
       ],
     };
 
-    const actual = boxShadow(palette).transformer({ original: token } as any);
+    const actual = boxShadow(palette).transformer(
+      { original: token } as any,
+      {},
+    );
 
     expect(actual).toEqual('1px 2px 3px #E9F2FF');
   });
@@ -63,7 +66,10 @@ describe('palette transformer', () => {
       ],
     };
 
-    const actual = boxShadow(palette).transformer({ original: token } as any);
+    const actual = boxShadow(palette).transformer(
+      { original: token } as any,
+      {},
+    );
 
     expect(actual).toEqual('1px 2px 3px 4px #E9F2FF');
   });
@@ -87,7 +93,10 @@ describe('palette transformer', () => {
       ],
     };
 
-    const actual = boxShadow(palette).transformer({ original: token } as any);
+    const actual = boxShadow(palette).transformer(
+      { original: token } as any,
+      {},
+    );
 
     expect(actual).toEqual('inset 1px 2px 3px #E9F2FF');
   });
@@ -110,7 +119,10 @@ describe('palette transformer', () => {
       ],
     };
 
-    const actual = boxShadow(palette).transformer({ original: token } as any);
+    const actual = boxShadow(palette).transformer(
+      { original: token } as any,
+      {},
+    );
 
     expect(actual).toEqual('1px 2px 3px #E9F2FF80');
   });
@@ -139,7 +151,10 @@ describe('palette transformer', () => {
       ],
     };
 
-    const actual = boxShadow(palette).transformer({ original: token } as any);
+    const actual = boxShadow(palette).transformer(
+      { original: token } as any,
+      {},
+    );
 
     expect(actual).toEqual('1px 2px 3px #E9F2FF80, 0px 0px 1px #388BFF');
   });

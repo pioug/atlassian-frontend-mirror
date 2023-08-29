@@ -10,3 +10,5 @@ tsconfig.json
 scripts/
 analytics.spec.yaml
 generated.json
+tsconfig.app.json
+tsconfig.dev.json

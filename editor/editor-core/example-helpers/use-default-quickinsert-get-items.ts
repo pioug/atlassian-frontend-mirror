@@ -8,8 +8,8 @@ import type {
 import { useStateFromPromise } from '../src/utils/react-hooks/use-state-from-promise';
 import type EditorActions from '../src/actions';
 import { extensionProviderToQuickInsertProvider } from '../src/utils/extensions';
-import { getQuickInsertSuggestions } from '@atlaskit/editor-common/quick-insert';
 import { getExampleExtensionProviders } from './get-example-extension-providers';
+import { find } from '@atlaskit/editor-common/quick-insert';
 
 const ACTIONS = {} as EditorActions;
 const EMPTY: any[] = [];
@@ -34,14 +34,19 @@ export const useDefaultQuickInsertGetItems = () => {
   );
 
   return React.useCallback(
-    (query?: string, category?: string) =>
-      getQuickInsertSuggestions({
-        searchOptions: {
-          query,
-          category,
-        },
-        lazyDefaultItems: () => items || [],
-      }),
+    (query?: string, category?: string) => {
+      // Roughly based on the quick-insert getSuggestions logic, but with custom default items for the examples
+      const defaultItems = items || [];
+
+      return find(
+        query || '',
+        category === 'all' || !category
+          ? defaultItems
+          : defaultItems.filter(
+              (item) => item.categories && item.categories.includes(category),
+            ),
+      );
+    },
     [items],
   );
 };

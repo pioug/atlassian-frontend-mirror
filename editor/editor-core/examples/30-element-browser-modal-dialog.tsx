@@ -11,7 +11,27 @@ import ElementBrowser from '../src/ui/ElementBrowser';
 import ModalElementBrowser from '../src/ui/ElementBrowser/ModalElementBrowser';
 import { useDefaultQuickInsertGetItems } from '../example-helpers/use-default-quickinsert-get-items';
 
-export default () => {
+const modalExampleWrapper = css`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 50%;
+`;
+
+const inlineBrowserWrapper = css`
+  display: flex;
+  min-height: inherit;
+  max-height: inherit;
+  width: 320px;
+  height: 480px; // The internal AutoSizer component for react-virtualized needs a fixed height from parent level.
+  margin: -16px -24px;
+`;
+
+const onInsertItem = (item: QuickInsertItem) => {
+  console.log('Inserting item ', item);
+};
+
+const ElementBrowserModalDialog = () => {
   const getItems = useDefaultQuickInsertGetItems();
   const [showModal, setModalVisibility] = useState(false);
   const [showInlineModal, setInlineModalVisibility] = useState(false);
@@ -86,22 +106,4 @@ export default () => {
   );
 };
 
-const onInsertItem = (item: QuickInsertItem) => {
-  console.log('Inserting item ', item);
-};
-
-const modalExampleWrapper = css`
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  height: 50%;
-`;
-
-const inlineBrowserWrapper = css`
-  display: flex;
-  min-height: inherit;
-  max-height: inherit;
-  width: 320px;
-  height: 480px; // The internal AutoSizer component for react-virtualized needs a fixed height from parent level.
-  margin: -16px -24px;
-`;
+export default () => <ElementBrowserModalDialog />;

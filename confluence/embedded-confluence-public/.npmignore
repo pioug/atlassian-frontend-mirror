@@ -13,3 +13,5 @@ dist/es2019/
 dist/esm/
 scripts/
 report.api.md
+tsconfig.app.json
+tsconfig.dev.json

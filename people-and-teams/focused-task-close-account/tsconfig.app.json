@@ -1,0 +1,61 @@
+{
+  "extends": "../../../tsconfig.base.json",
+  "include": ["./src/**/*.ts", "./src/**/*.tsx"],
+  "exclude": [
+    "**/docs/**/*",
+    "**/__tests__/**/*",
+    "**/vr-tests/**/*",
+    "**/__perf__/**/*",
+    "**/*.test.*",
+    "**/test.*",
+    "**/test-*",
+    "**/examples.ts",
+    "**/examples.tsx",
+    "**/examples/*.ts",
+    "**/examples/*.tsx",
+    "**/examples/**/*.ts",
+    "**/examples/**/*.tsx",
+    "**/storybook/**/*",
+    "**/constellation/**/*",
+    ".storybook/*",
+    "./__fixtures__/**/*",
+    "./__generated__/**/*",
+    "./mocks/**/*",
+    "./__mocks__/**/*",
+    "**/mock.*",
+    "**/codemods/**/*.ts",
+    "**/codemods/**/*.tsx",
+    "./src/mocks/**/*"
+  ],
+  "compilerOptions": {
+    "baseUrl": "./",
+    "composite": true,
+    "outDir": "../../../tsDist/@atlaskit__focused-task-close-account/app"
+  },
+  "references": [
+    {
+      "path": "../../design-system/avatar/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/button/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/drawer/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/icon/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/inline-dialog/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/section-message/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/theme/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/tokens/tsconfig.app.json"
+    }
+  ]
+}

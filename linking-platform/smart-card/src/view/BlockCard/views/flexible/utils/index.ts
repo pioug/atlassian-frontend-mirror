@@ -72,6 +72,18 @@ export const getSimulatedBetterMetadata = (
           { name: ElementName.SubTasksProgress },
         ],
       };
+    case 'slack-object-provider':
+      return {
+        titleMetadata: defaultTitleMetadata,
+        topMetadata: [
+          { name: ElementName.AuthorGroup },
+          { name: ElementName.SentOn },
+        ],
+        bottomMetadata: [
+          { name: ElementName.ReactCount },
+          { name: ElementName.CommentCount },
+        ],
+      };
     default:
       return {
         titleMetadata: defaultTitleMetadata,

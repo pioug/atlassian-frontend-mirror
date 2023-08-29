@@ -1,5 +1,5 @@
 import { defaultTableSelection } from './pm-plugins/default-table-selection';
-import { TablePluginAction, TablePluginState } from './types';
+import type { TablePluginAction, TablePluginState } from './types';
 
 export default (
   pluginState: TablePluginState,
@@ -87,11 +87,59 @@ export default (
       if (
         action.data.resizeHandleColumnIndex ===
           pluginState.resizeHandleColumnIndex &&
-        action.data.resizeHandleRowIndex === pluginState.resizeHandleRowIndex
+        action.data.resizeHandleRowIndex === pluginState.resizeHandleRowIndex &&
+        action.data.resizeHandleIncludeTooltip ===
+          pluginState.resizeHandleIncludeTooltip
       ) {
         return pluginState;
       }
-      return { ...pluginState, ...action.data };
+      return {
+        ...pluginState,
+        ...action.data,
+        isResizeHandleWidgetAdded: true,
+      };
+
+    case 'UPDATE_RESIZE_HANDLE_DECORATIONS':
+      const {
+        resizeHandleColumnIndex,
+        resizeHandleRowIndex,
+        resizeHandleIncludeTooltip,
+      } = action.data;
+
+      if (
+        (resizeHandleColumnIndex === pluginState.resizeHandleColumnIndex ||
+          !Number.isFinite(resizeHandleColumnIndex)) &&
+        (resizeHandleRowIndex === pluginState.resizeHandleRowIndex ||
+          !Number.isFinite(resizeHandleRowIndex)) &&
+        (resizeHandleIncludeTooltip ===
+          pluginState.resizeHandleIncludeTooltip ||
+          resizeHandleIncludeTooltip === undefined)
+      ) {
+        return pluginState;
+      }
+
+      return {
+        ...pluginState,
+        resizeHandleColumnIndex:
+          resizeHandleColumnIndex ?? pluginState.resizeHandleColumnIndex,
+        resizeHandleRowIndex:
+          resizeHandleRowIndex ?? pluginState.resizeHandleRowIndex,
+        resizeHandleIncludeTooltip:
+          resizeHandleIncludeTooltip ?? pluginState.resizeHandleIncludeTooltip,
+      };
+
+    case 'REMOVE_RESIZE_HANDLE_DECORATIONS':
+      if (!pluginState.isResizeHandleWidgetAdded) {
+        return pluginState;
+      }
+
+      return {
+        ...pluginState,
+        ...action.data,
+        resizeHandleColumnIndex: undefined,
+        resizeHandleRowIndex: undefined,
+        isResizeHandleWidgetAdded: false,
+      };
 
     case 'SET_TABLE_REF':
     case 'HOVER_ROWS':

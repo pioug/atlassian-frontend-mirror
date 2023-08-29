@@ -1,10 +1,14 @@
 /** @jsx jsx */
-import React from 'react';
+import React, { useMemo } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import AtlaskitAvatarGroup from '@atlaskit/avatar-group';
 import { SmartLinkSize } from '../../../../../constants';
 import { AvatarGroupProps } from './types';
+import { messages } from '../../../../../messages';
+import { useIntl, IntlShape } from 'react-intl-next';
+import { ElementName } from '../../../../../constants';
+import { getFormattedMessageAsString } from '../../utils';
 
 const MAX_COUNT = 4;
 
@@ -38,6 +42,27 @@ const getStyles = (size: SmartLinkSize) => {
   }
 };
 
+const getPersonNameWithPrefix = (
+  elementName: ElementName,
+  personName: string,
+  intl: IntlShape,
+): string | null => {
+  switch (elementName) {
+    case ElementName.AssignedToGroup:
+      return getFormattedMessageAsString(
+        intl,
+        messages.assigned_to,
+        personName,
+      );
+    case ElementName.OwnedByGroup:
+      return getFormattedMessageAsString(intl, messages.owned_by, personName);
+    case ElementName.AuthorGroup:
+      return getFormattedMessageAsString(intl, messages.created_by, personName);
+    default:
+      return personName;
+  }
+};
+
 /**
  * A base element that displays a group of avatars.
  * @internal
@@ -52,10 +77,26 @@ const AvatarGroup: React.FC<AvatarGroupProps> = ({
   overrideCss,
   size = SmartLinkSize.Medium,
   testId = 'smart-element-avatar-group',
+  showNamePrefix = false,
 }) => {
-  if (!items.length) {
+  const intl = useIntl();
+
+  const data = useMemo(() => {
+    if (name && showNamePrefix) {
+      return items.map((person) => {
+        return {
+          ...person,
+          name: getPersonNameWithPrefix(name, person.name, intl) || person.name,
+        };
+      });
+    }
+    return items;
+  }, [name, items, showNamePrefix, intl]);
+
+  if (!data.length) {
     return null;
   }
+
   return (
     <span
       css={[getStyles(size), overrideCss]}
@@ -68,7 +109,7 @@ const AvatarGroup: React.FC<AvatarGroupProps> = ({
         maxCount={maxCount}
         appearance="stack"
         size="small"
-        data={items}
+        data={data}
         testId={testId}
       />
     </span>

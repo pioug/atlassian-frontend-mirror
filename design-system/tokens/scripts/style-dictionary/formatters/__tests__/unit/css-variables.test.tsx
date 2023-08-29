@@ -4,6 +4,8 @@ describe('formatter', () => {
   it('should parse token', () => {
     const result = formatter({
       dictionary: {
+        getReferences: jest.fn().mockReturnValue([]),
+        usesReference: jest.fn().mockReturnValue(false),
         allTokens: [
           {
             name: 'brand',
@@ -31,6 +33,8 @@ describe('formatter', () => {
   it('should preserve camelCase tokens', () => {
     const result = formatter({
       dictionary: {
+        getReferences: jest.fn().mockReturnValue([]),
+        usesReference: jest.fn().mockReturnValue(false),
         allTokens: [
           {
             name: 'colorAccent',
@@ -58,6 +62,8 @@ describe('formatter', () => {
   it('should omit palette tokens', () => {
     const result = formatter({
       dictionary: {
+        getReferences: jest.fn().mockReturnValue([]),
+        usesReference: jest.fn().mockReturnValue(false),
         allTokens: [
           {
             name: 'B900',
@@ -86,6 +92,8 @@ describe('formatter', () => {
   it('should parse nested token', () => {
     const result = formatter({
       dictionary: {
+        getReferences: jest.fn().mockReturnValue([]),
+        usesReference: jest.fn().mockReturnValue(false),
         allTokens: [
           {
             name: 'accent',
@@ -113,6 +121,8 @@ describe('formatter', () => {
   it('should parse deeply nested token', () => {
     const result = formatter({
       dictionary: {
+        getReferences: jest.fn().mockReturnValue([]),
+        usesReference: jest.fn().mockReturnValue(false),
         allTokens: [
           {
             name: 'brand',
@@ -140,6 +150,8 @@ describe('formatter', () => {
   it('should omit [default] keywords in token paths', () => {
     const result = formatter({
       dictionary: {
+        getReferences: jest.fn().mockReturnValue([]),
+        usesReference: jest.fn().mockReturnValue(false),
         allTokens: [
           {
             name: '[default]',
@@ -169,6 +181,8 @@ describe('formatter', () => {
   it('should omit nested [default] keywords in token paths', () => {
     const result = formatter({
       dictionary: {
+        getReferences: jest.fn().mockReturnValue([]),
+        usesReference: jest.fn().mockReturnValue(false),
         allTokens: [
           {
             name: '[default]',
@@ -198,6 +212,8 @@ describe('formatter', () => {
   it('should omit nested [default] keywords in the middle of token paths', () => {
     const result = formatter({
       dictionary: {
+        getReferences: jest.fn().mockReturnValue([]),
+        usesReference: jest.fn().mockReturnValue(false),
         allTokens: [
           {
             name: '[default]',
@@ -234,6 +250,8 @@ describe('formatter', () => {
   it('should omit prefers-color-scheme media selector for non-color themes', () => {
     const result = formatter({
       dictionary: {
+        getReferences: jest.fn().mockReturnValue([]),
+        usesReference: jest.fn().mockReturnValue(false),
         allTokens: [
           {
             value: '0',
@@ -270,6 +288,8 @@ describe('formatter', () => {
   it('should inject color-scheme for color themes with a light mode', () => {
     const result = formatter({
       dictionary: {
+        getReferences: jest.fn().mockReturnValue([]),
+        usesReference: jest.fn().mockReturnValue(false),
         allTokens: [
           {
             name: 'brand',
@@ -297,6 +317,8 @@ describe('formatter', () => {
   it('should inject color-scheme for color themes with a dark mode', () => {
     const result = formatter({
       dictionary: {
+        getReferences: jest.fn().mockReturnValue([]),
+        usesReference: jest.fn().mockReturnValue(false),
         allTokens: [
           {
             name: 'brand',
@@ -324,6 +346,8 @@ describe('formatter', () => {
   it('should not inject color-scheme for non-color themes with a dark mode', () => {
     const result = formatter({
       dictionary: {
+        getReferences: jest.fn().mockReturnValue([]),
+        usesReference: jest.fn().mockReturnValue(false),
         allTokens: [
           {
             name: 'brand',
@@ -349,6 +373,8 @@ describe('formatter', () => {
   it('should create correct format for typographic tokens', () => {
     const result = formatter({
       dictionary: {
+        getReferences: jest.fn().mockReturnValue([]),
+        usesReference: jest.fn().mockReturnValue(false),
         allTokens: [
           {
             name: 'brand',

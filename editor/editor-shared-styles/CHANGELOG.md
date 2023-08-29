@@ -1,5 +1,11 @@
 # @atlaskit/editor-shared-styles
 
+## 2.6.1
+
+### Patch Changes
+
+- [`113fcc02759`](https://bitbucket.org/atlassian/atlassian-frontend/commits/113fcc02759) - ED-19433 Extract Emoji Plugin to its own package
+
 ## 2.6.0
 
 ### Minor Changes

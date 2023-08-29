@@ -1,17 +1,15 @@
 import classnames from 'classnames';
 
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
+import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type {
   GetEditorContainerWidth,
   GetEditorFeatureFlags,
 } from '@atlaskit/editor-common/types';
 
-import {
-  TableCssClassName as ClassName,
-  ColumnResizingPluginState,
-} from '../../types';
+import { TableCssClassName as ClassName } from '../../types';
+import type { ColumnResizingPluginState } from '../../types';
 
 import { setResizeHandlePos } from './commands';
 import { handleMouseDown } from './event-handlers';

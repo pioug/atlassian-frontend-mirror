@@ -23,6 +23,7 @@ export const areEqualFeatureFlags = (
     captions: ffA.captions === ffB.captions,
     mediaInline: ffA.mediaInline === ffB.mediaInline,
     folderUploads: ffA.folderUploads === ffB.folderUploads,
+    securedClipboard: ffA.securedClipboard === ffB.securedClipboard,
   };
   return Object.values(results).every((result) => result);
 };
@@ -70,6 +71,7 @@ export const defaultMediaFeatureFlags: Required<MediaFeatureFlags> = {
   // We can't yet switch this feature on
   // TODO https://product-fabric.atlassian.net/browse/MEX-104
   folderUploads: false,
+  securedClipboard: false,
 };
 
 /**

@@ -115,11 +115,15 @@ export interface TablePluginState {
   isFullWidthModeEnabled?: boolean;
   layout?: TableLayout;
   ordering?: TableColumnOrdering;
+  isResizeHandleWidgetAdded?: boolean;
   resizeHandleRowIndex?: number;
   resizeHandleColumnIndex?: number;
+  resizeHandleIncludeTooltip?: boolean;
   // for table wrap/collapse
   isTableCollapsed?: boolean; // is the current table already in an expand?
   canCollapseTable?: boolean; // enabled/disabled state of collapse option
+
+  getIntl: () => IntlShape;
 }
 
 export type TablePluginAction =
@@ -175,7 +179,21 @@ export type TablePluginAction =
         decorationSet: DecorationSet;
         resizeHandleRowIndex: number;
         resizeHandleColumnIndex: number;
+        resizeHandleIncludeTooltip: boolean;
       };
+    }
+  | {
+      type: 'UPDATE_RESIZE_HANDLE_DECORATIONS';
+      data: {
+        decorationSet: DecorationSet;
+        resizeHandleRowIndex: number | undefined;
+        resizeHandleColumnIndex: number | undefined;
+        resizeHandleIncludeTooltip: boolean | undefined;
+      };
+    }
+  | {
+      type: 'REMOVE_RESIZE_HANDLE_DECORATIONS';
+      data: { decorationSet: DecorationSet };
     }
   | { type: 'CLEAR_HOVER_SELECTION'; data: { decorationSet: DecorationSet } }
   | { type: 'SHOW_RESIZE_HANDLE_LINE'; data: { decorationSet: DecorationSet } }
@@ -224,6 +242,7 @@ export enum TableDecorations {
   COLUMN_CONTROLS_DECORATIONS = 'COLUMN_CONTROLS_DECORATIONS',
   COLUMN_SELECTED = 'COLUMN_SELECTED',
   COLUMN_RESIZING_HANDLE = 'COLUMN_RESIZING_HANDLE',
+  COLUMN_RESIZING_HANDLE_WIDGET = 'COLUMN_RESIZING_HANDLE_WIDGET',
   COLUMN_RESIZING_HANDLE_LINE = 'COLUMN_RESIZING_HANDLE_LINE',
 
   LAST_CELL_ELEMENT = 'LAST_CELL_ELEMENT',

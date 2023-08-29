@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React from 'react';
+import { useCallback, useEffect } from 'react';
 import { jsx } from '@emotion/react';
 import type { IntlShape, WrappedComponentProps } from 'react-intl-next';
 import { injectIntl, defineMessages, FormattedMessage } from 'react-intl-next';
@@ -67,6 +67,9 @@ import { messages as undoRedoMessages } from '../../undo-redo/messages';
 import { alignmentMessages } from '../../../ui/Alignment/messages';
 import { closeHelpCommand } from '../commands';
 import { annotationMessages } from '../../annotation/toolbar';
+import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type helpDialogPlugin from '..';
 
 const messages = defineMessages({
   editorHelp: {
@@ -502,13 +505,6 @@ export const getComponentFromKeymap = (keymap: Keymap) => {
   );
 };
 
-export interface Props {
-  editorView: EditorView;
-  isVisible: boolean;
-  imageEnabled?: boolean;
-  quickInsertEnabled?: boolean;
-}
-
 const ModalHeader = injectIntl(
   ({ intl: { formatMessage } }: WrappedComponentProps) => {
     const { onClose } = useModal();
@@ -546,119 +542,128 @@ const ModalFooter = () => (
   </div>
 );
 
-class HelpDialog extends React.Component<Props & WrappedComponentProps> {
-  static displayName = 'HelpDialog';
+export interface HelpDialogProps {
+  pluginInjectionApi: ExtractInjectionAPI<typeof helpDialogPlugin> | undefined;
+  editorView: EditorView;
+  quickInsertEnabled?: boolean;
+}
 
-  private formatting: Format[] = [];
+const HelpDialog = ({
+  pluginInjectionApi,
+  editorView,
+  quickInsertEnabled,
+  intl,
+}: HelpDialogProps & WrappedComponentProps) => {
+  const { helpDialogState } = useSharedPluginState(pluginInjectionApi, [
+    'helpDialog',
+  ]);
 
-  closeDialog = () => {
+  const closeDialog = useCallback(() => {
     const {
       state: { tr },
       dispatch,
-    } = this.props.editorView;
+    } = editorView;
     closeHelpCommand(tr, dispatch);
-  };
+  }, [editorView]);
 
-  handleEsc = (e: KeyboardEvent) => {
-    if (e.key === 'Escape' && this.props.isVisible) {
-      this.closeDialog();
-    }
-  };
+  const handleEsc = useCallback(
+    (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && helpDialogState?.isVisible) {
+        closeDialog();
+      }
+    },
+    [closeDialog, helpDialogState?.isVisible],
+  );
 
-  componentDidMount() {
-    document.addEventListener('keydown', this.handleEsc);
-  }
+  useEffect(() => {
+    document.addEventListener('keydown', handleEsc);
 
-  componentWillUnmount() {
-    document.removeEventListener('keydown', this.handleEsc);
-  }
+    return () => {
+      document.removeEventListener('keydown', handleEsc);
+    };
+  }, [handleEsc]);
 
-  render() {
-    const { editorView, intl, imageEnabled, quickInsertEnabled } = this.props;
-    this.formatting = getSupportedFormatting(
-      editorView.state.schema,
-      intl,
-      imageEnabled,
-      quickInsertEnabled,
-    );
+  const formatting: Format[] = getSupportedFormatting(
+    editorView.state.schema,
+    intl,
+    helpDialogState?.imageEnabled,
+    quickInsertEnabled,
+  );
 
-    return (
-      <ModalTransition>
-        {this.props.isVisible ? (
-          <AkModalDialog
-            width="large"
-            onClose={this.closeDialog}
-            testId="help-modal-dialog"
-          >
-            <ModalHeader />
+  return (
+    <ModalTransition>
+      {helpDialogState?.isVisible ? (
+        <AkModalDialog
+          width="large"
+          onClose={closeDialog}
+          testId="help-modal-dialog"
+        >
+          <ModalHeader />
 
-            <div css={contentWrapper}>
+          <div css={contentWrapper}>
+            <div css={line} />
+            <div css={content}>
+              <div css={column}>
+                <h2 css={title}>
+                  <FormattedMessage {...messages.keyboardShortcuts} />
+                </h2>
+                <ul>
+                  {formatting
+                    .filter((form) => {
+                      const keymap = form.keymap && form.keymap();
+                      return keymap && keymap[browser.mac ? 'mac' : 'windows'];
+                    })
+                    .map((form) => (
+                      <li css={row} key={`textFormatting-${form.name}`}>
+                        <span>{form.name}</span>
+                        {getComponentFromKeymap(form.keymap!())}
+                      </li>
+                    ))}
+
+                  {formatting
+                    .filter(
+                      (form) =>
+                        shortcutNamesWithoutKeymap.indexOf(form.type) !== -1,
+                    )
+                    .filter((form) => form.autoFormatting)
+                    .map((form) => (
+                      <li css={row} key={`autoFormatting-${form.name}`}>
+                        <span>{form.name}</span>
+                        {form.autoFormatting!()}
+                      </li>
+                    ))}
+                </ul>
+              </div>
               <div css={line} />
-              <div css={content}>
-                <div css={column}>
-                  <h2 css={title}>
-                    <FormattedMessage {...messages.keyboardShortcuts} />
-                  </h2>
-                  <ul>
-                    {this.formatting
-                      .filter((form) => {
-                        const keymap = form.keymap && form.keymap(this.props);
-                        return (
-                          keymap && keymap[browser.mac ? 'mac' : 'windows']
-                        );
-                      })
-                      .map((form) => (
-                        <li css={row} key={`textFormatting-${form.name}`}>
-                          <span>{form.name}</span>
-                          {getComponentFromKeymap(form.keymap!())}
-                        </li>
-                      ))}
-
-                    {this.formatting
-                      .filter(
-                        (form) =>
-                          shortcutNamesWithoutKeymap.indexOf(form.type) !== -1,
-                      )
-                      .filter((form) => form.autoFormatting)
-                      .map((form) => (
-                        <li css={row} key={`autoFormatting-${form.name}`}>
-                          <span>{form.name}</span>
-                          {form.autoFormatting!()}
-                        </li>
-                      ))}
-                  </ul>
-                </div>
-                <div css={line} />
-                <div css={column}>
-                  <h2 css={title}>
-                    <FormattedMessage {...messages.markdown} />
-                  </h2>
-                  <ul>
-                    {this.formatting
-                      .filter(
-                        (form) =>
-                          shortcutNamesWithoutKeymap.indexOf(form.type) === -1,
-                      )
-                      .map(
-                        (form) =>
-                          form.autoFormatting && (
-                            <li key={`autoFormatting-${form.name}`} css={row}>
-                              <span>{form.name}</span>
-                              {form.autoFormatting()}
-                            </li>
-                          ),
-                      )}
-                  </ul>
-                </div>
+              <div css={column}>
+                <h2 css={title}>
+                  <FormattedMessage {...messages.markdown} />
+                </h2>
+                <ul>
+                  {formatting
+                    .filter(
+                      (form) =>
+                        shortcutNamesWithoutKeymap.indexOf(form.type) === -1,
+                    )
+                    .map(
+                      (form) =>
+                        form.autoFormatting && (
+                          <li key={`autoFormatting-${form.name}`} css={row}>
+                            <span>{form.name}</span>
+                            {form.autoFormatting()}
+                          </li>
+                        ),
+                    )}
+                </ul>
               </div>
             </div>
+          </div>
 
-            <ModalFooter />
-          </AkModalDialog>
-        ) : null}
-      </ModalTransition>
-    );
-  }
-}
+          <ModalFooter />
+        </AkModalDialog>
+      ) : null}
+    </ModalTransition>
+  );
+};
 
 export default injectIntl(HelpDialog);

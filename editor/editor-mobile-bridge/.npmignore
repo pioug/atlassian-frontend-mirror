@@ -3,3 +3,5 @@ examples/
 example-helpers/
 index.ts
 !dist
+tsconfig.app.json
+tsconfig.dev.json

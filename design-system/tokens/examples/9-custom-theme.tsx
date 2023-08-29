@@ -8,6 +8,7 @@ import Button, { ButtonGroup } from '@atlaskit/button';
 import Calendar from '@atlaskit/calendar';
 import Checkbox from '@atlaskit/checkbox';
 import Heading from '@atlaskit/heading';
+import InlineMessage from '@atlaskit/inline-message';
 import Lozenge from '@atlaskit/lozenge';
 import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
 import { Radio } from '@atlaskit/radio';
@@ -23,10 +24,12 @@ import {
 
 import Accordion from './contrast-checker-utils/components/accordion';
 import ContrastCard from './contrast-checker-utils/components/contrast-card';
+import CopyButton from './utils/copy-button';
 import {
   customThemeContrastChecker,
   CustomThemeContrastCheckResult,
 } from './utils/custom-theme-contrast-checker';
+import getFigmaVariableScript from './utils/get-figma-variable-script';
 
 const colorContainerStyles = css({
   boxSizing: 'border-box',
@@ -101,6 +104,27 @@ export default () => {
       brandColor,
     });
   }, 150);
+
+  const getCopiedValue = () => {
+    // Copy script to clipboard
+    const mappedLightTokens: { [index: string]: string } = {};
+    Object.keys(lightTokens).forEach((name) => {
+      const lightValue = lightTokens[name];
+      mappedLightTokens[name] =
+        typeof lightValue === 'number' ? themeRamp[lightValue] : lightValue;
+    });
+    const mappedDarkTokens: { [index: string]: string } = {};
+    Object.keys(darkTokens).forEach((name) => {
+      const darkValue = darkTokens[name];
+      mappedDarkTokens[name] =
+        typeof darkValue === 'number' ? themeRamp[darkValue] : darkValue;
+    });
+    return getFigmaVariableScript(
+      customTheme,
+      mappedLightTokens,
+      mappedDarkTokens,
+    );
+  };
 
   const onColorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     debouncedBrandColorChange(e.target.value as HEX);
@@ -209,6 +233,29 @@ export default () => {
                   setColorMode((e?.value as 'light' | 'dark') || 'light')
                 }
               />
+            </Inline>
+            <Inline space="space.100" alignBlock="center">
+              <CopyButton content={getCopiedValue} label="Copy Figma Script" />
+
+              <InlineMessage appearance="info">
+                <p>
+                  <strong>Create Figma variables for this custom theme</strong>
+                </p>
+                <p>
+                  To add these custom colors as Figma Variables, paste this
+                  script into the Figma console and press Enter to execute.
+                </p>
+                <p>
+                  You can open the console in Figma in the "Plugin" menu
+                  (Plugins &gt; Development &gt; Open Console), or use the
+                  shortcut ⌥⌘I.
+                </p>
+                <p>
+                  <a href="https://www.figma.com/plugin-docs/debugging/">
+                    Learn more in the Figma docs
+                  </a>
+                </p>
+              </InlineMessage>
             </Inline>
           </Stack>
         </Box>

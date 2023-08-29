@@ -5,21 +5,19 @@ import { createSignedArtifact } from '@atlassian/codegen';
 
 import { getTokenId } from '../../../src/utils/token-ids';
 import sortTokens from '../sort-tokens';
+import { getValue } from '../utilities';
 
 const formatter: Format['formatter'] = ({ dictionary }) => {
-  const tokens: Record<string, string> = {};
-
-  sortTokens(
+  const tokensDefaultKeyValues = sortTokens(
     dictionary.allTokens.filter(
       (token) => token.attributes?.group !== 'palette',
     ),
-  ).forEach((token) => {
-    const tokenName = getTokenId(token.path);
-    tokens[tokenName] = token.value;
-  });
-
-  const tokensDefaultKeyValues = Object.keys(tokens)
-    .map((name) => `  '${name}': '${tokens[name]}',`)
+  )
+    .map((token) => ({
+      name: getTokenId(token.path),
+      value: getValue(dictionary, token),
+    }))
+    .map(({ name, value }) => `  '${name}': '${value}',`)
     .join('\n');
 
   const source = prettier.format(

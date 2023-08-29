@@ -4,6 +4,8 @@ import {
   EditorTableModel,
   editorTestCase as test,
   expect,
+  fixTest,
+  BROWSERS,
 } from '@af/editor-libra';
 
 import { createSquareTable } from './__fixtures__/resize-documents';
@@ -28,6 +30,13 @@ test.describe('when a table a few min width columns', () => {
     });
 
     test('Should scale remaining columns', async ({ editor }) => {
+      fixTest({
+        jiraIssueId: 'ED-19724',
+        reason:
+          'FIXME: This test was automatically skipped due to failure on 24/08/2023: https://product-fabric.atlassian.net/browse/ED-19724',
+        browsers: [BROWSERS.webkit],
+      });
+
       const nodes = EditorNodeContainerModel.from(editor);
       const tableModel = EditorTableModel.from(nodes.table);
 

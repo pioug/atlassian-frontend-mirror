@@ -445,13 +445,25 @@ const getCSSPropStyleObject = (
   return styleObj;
 };
 
-export const validPrimitiveElements =
-  /^div|span|article|aside|dialog|footer|header|li|main|nav|ol|section|ul$/;
+export const validPrimitiveElements = new Set([
+  'div',
+  'span',
+  'article',
+  'aside',
+  'dialog',
+  'footer',
+  'header',
+  'li',
+  'main',
+  'nav',
+  'ol',
+  'section',
+  'ul',
+]);
 
 export const isValidPrimitiveElement = (node: JSXElement) => {
-  // For now we are only targeting div and span elements
-  return validPrimitiveElements.test(
-    (node.openingElement.name as JSXIdentifier).name,
+  return validPrimitiveElements.has(
+    (node.openingElement.name as JSXIdentifier).name.toLowerCase(),
   );
 };
 

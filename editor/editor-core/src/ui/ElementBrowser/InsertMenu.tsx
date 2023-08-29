@@ -90,25 +90,17 @@ const InsertMenu = ({
        * @see above transform function for more details.
        */
       if (query) {
-        pluginInjectionApi?.core.actions.execute(
-          pluginInjectionApi?.quickInsert?.commands.search({
+        result =
+          pluginInjectionApi?.quickInsert?.actions.getSuggestions({
             query,
             category,
-          }),
-        );
-        result =
-          pluginInjectionApi?.quickInsert?.sharedState.currentState()
-            ?.suggestions ?? [];
+          }) ?? [];
       } else {
-        pluginInjectionApi?.core.actions.execute(
-          pluginInjectionApi?.quickInsert?.commands.search({
+        const featuredQuickInsertSuggestions =
+          pluginInjectionApi?.quickInsert?.actions.getSuggestions({
             category,
             featuredItems: true,
-          }),
-        );
-        const featuredQuickInsertSuggestions =
-          pluginInjectionApi?.quickInsert?.sharedState.currentState()
-            ?.suggestions ?? [];
+          }) ?? [];
         result = quickInsertDropdownItems.concat(
           featuredQuickInsertSuggestions,
         ) as QuickInsertItem[];
@@ -116,12 +108,7 @@ const InsertMenu = ({
       setItemCount(result.length);
       return result;
     },
-    [
-      pluginInjectionApi?.core.actions,
-      pluginInjectionApi?.quickInsert?.commands,
-      pluginInjectionApi?.quickInsert?.sharedState,
-      quickInsertDropdownItems,
-    ],
+    [pluginInjectionApi?.quickInsert?.actions, quickInsertDropdownItems],
   );
 
   const emptyStateHandler =

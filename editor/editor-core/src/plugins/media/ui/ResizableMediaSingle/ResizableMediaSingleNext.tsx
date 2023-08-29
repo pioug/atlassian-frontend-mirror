@@ -416,7 +416,7 @@ class ResizableMediaSingleNext extends React.Component<
 
   private calcMaxWidth = memoizeOne(
     (contentWidth: number, containerWidth: number, fullWidthMode?: boolean) => {
-      if (this.isNestedNode() || fullWidthMode) {
+      if (fullWidthMode) {
         return contentWidth;
       }
 
@@ -648,11 +648,9 @@ class ResizableMediaSingleNext extends React.Component<
     );
     const resizerNextClassName = classnames(className, resizerStyles);
 
-    const maxWidth = this.calcMaxWidth(
-      lineLength,
-      containerWidth,
-      fullWidthMode,
-    );
+    const maxWidth = this.isNestedNode()
+      ? undefined // fall back to 'max-width: 100%'
+      : this.calcMaxWidth(lineLength, containerWidth, fullWidthMode);
 
     const minWidth = this.calcMinWidth(isVideoFile, lineLength);
 

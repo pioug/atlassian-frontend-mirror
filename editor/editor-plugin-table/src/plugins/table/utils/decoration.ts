@@ -1,3 +1,9 @@
+import { createElement } from 'react';
+
+import ReactDOM from 'react-dom';
+import { RawIntlProvider } from 'react-intl-next';
+import type { IntlShape } from 'react-intl-next';
+
 import type { CellAttributes } from '@atlaskit/adf-schema';
 import { nonNullable } from '@atlaskit/editor-common/utils';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
@@ -19,6 +25,7 @@ import {
 
 import type { Cell, CellColumnPositioning } from '../types';
 import { TableCssClassName as ClassName, TableDecorations } from '../types';
+import { ColumnResizeWidget } from '../ui/ColumnResizeWidget';
 
 const filterDecorationByKey = (
   key: TableDecorations,
@@ -238,7 +245,6 @@ export const updateDecorations = (
 ): DecorationSet => {
   const filteredDecorations = filterDecorationByKey(key, decorationSet);
   const decorationSetFiltered = decorationSet.remove(filteredDecorations);
-
   return decorationSetFiltered.add(node, decorations);
 };
 
@@ -327,6 +333,8 @@ export const createResizeHandleDecoration = (
   tr: Transaction | ReadonlyTransaction,
   rowIndexTarget: number,
   columnEndIndexTarget: Omit<CellColumnPositioning, 'left'>,
+  includeTooltip: boolean = false,
+  getIntl: () => IntlShape,
 ): [Decoration[], Decoration[]] => {
   const emptyResult: [Decoration[], Decoration[]] = [[], []];
   const table = findTable(tr.selection);
@@ -351,13 +359,27 @@ export const createResizeHandleDecoration = (
       position,
       () => {
         const element = document.createElement('div');
-        element.classList.add(ClassName.RESIZE_HANDLE_DECORATION);
-        element.dataset.startIndex = `${cellColumnPositioning.left}`;
-        element.dataset.endIndex = `${cellColumnPositioning.right}`;
+        ReactDOM.render(
+          createElement(
+            RawIntlProvider,
+            { value: getIntl() },
+            createElement(ColumnResizeWidget, {
+              startIndex: cellColumnPositioning.left,
+              endIndex: cellColumnPositioning.right,
+              includeTooltip,
+            }),
+          ),
+          element,
+        );
         return element;
       },
       {
-        key: `${TableDecorations.COLUMN_RESIZING_HANDLE}_${rowIndex}_${columnIndex}`,
+        key: `${
+          TableDecorations.COLUMN_RESIZING_HANDLE_WIDGET
+        }_${rowIndex}_${columnIndex}_${includeTooltip ? 'with' : 'no'}-tooltip`,
+        destroy: (node) => {
+          ReactDOM.unmountComponentAtNode(node as HTMLDivElement);
+        },
       },
     );
   };

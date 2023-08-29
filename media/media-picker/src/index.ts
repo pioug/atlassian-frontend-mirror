@@ -3,6 +3,7 @@ export { isImagePreview } from './domain/preview';
 export type {
   BrowserConfig,
   DropzoneConfig,
+  ClipboardConfig,
   UploadParams,
   UploadsStartEventPayload,
   UploadPreviewUpdateEventPayload,

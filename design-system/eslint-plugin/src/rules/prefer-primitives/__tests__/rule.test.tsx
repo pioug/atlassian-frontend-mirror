@@ -14,6 +14,12 @@ ruleTester.run('prefer-primitives', rule, {
     // it ignores empty Box
     '<Box></Box>',
 
+    // it ignores empty Inline
+    '<Inline></Inline>',
+
+    // it ignores fragments
+    '<></>',
+
     // it ignores elements with mixed JSX/non-JSX children
     '<div><Button>open</Button> dialog</div>',
 

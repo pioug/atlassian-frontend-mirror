@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-table
 
+## 2.11.0
+
+### Minor Changes
+
+- [`b08849ad727`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b08849ad727) - [ux] Added tooltip to table column resize handles, also added a tooltip to the custom table width table resizer handle
+
+### Patch Changes
+
+- [`8b78535f8bd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8b78535f8bd) - Fix sticky header not resize with table
+- Updated dependencies
+
 ## 2.10.8
 
 ### Patch Changes

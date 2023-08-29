@@ -215,7 +215,7 @@ describe('table event handlers', () => {
         );
         const { state, dispatch } = editorView;
 
-        addResizeHandleDecorations(0, 0)(state, dispatch);
+        addResizeHandleDecorations(0, 0, false)(state, dispatch);
 
         const firstCell = editorView.domAtPos(refs['<>']);
         const event = {

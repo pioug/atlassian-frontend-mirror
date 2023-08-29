@@ -22,8 +22,11 @@ import {
   unsupportedStyles,
 } from '@atlaskit/editor-common/styles';
 import {
+  akEditorSelectedNodeClassName,
   blockNodesVerticalMargin,
   editorFontSize,
+  getSelectionStyles,
+  SelectionStyle,
 } from '@atlaskit/editor-shared-styles';
 import { token } from '@atlaskit/tokens';
 
@@ -39,7 +42,6 @@ import { layoutStyles } from '../../plugins/layout/styles';
 import { panelStyles } from '../../plugins/panel/styles';
 import { fakeCursorStyles } from '../../plugins/fake-text-cursor/styles';
 import { mentionsStyles } from '../../plugins/mentions/styles';
-import { emojiStyles } from '../../plugins/emoji/styles';
 import { placeholderTextStyles } from '../../plugins/placeholder-text/styles';
 import { extensionStyles } from '../../plugins/extension/ui/styles';
 import { expandStyles } from '../../plugins/expand/ui/styles';
@@ -56,6 +58,7 @@ import {
   codeMarkSharedStyles,
 } from '@atlaskit/editor-common/styles';
 import { browser } from '@atlaskit/editor-common/utils';
+import { EmojiSharedCssClassName } from '@atlaskit/editor-common/emoji';
 
 export const linkStyles = css`
   .ProseMirror {
@@ -74,7 +77,7 @@ const listsStyles = css`
       position: relative;
 
       > p:not(:first-child) {
-        margin: 4px 0 0 0;
+        margin: ${token('space.050', '4px')} 0 0 0;
       }
 
       // In SSR the above rule will apply to all p tags because first-child would be a style tag.
@@ -87,6 +90,32 @@ const listsStyles = css`
 
     & :not([data-node-type='decisionList']) > li {
       ${browser.safari ? codeBlockInListSafariFix : ''}
+    }
+  }
+`;
+
+const emojiStyles = css`
+  .${EmojiSharedCssClassName.EMOJI_CONTAINER} {
+    display: inline-block;
+
+    .${EmojiSharedCssClassName.EMOJI_NODE} {
+      cursor: pointer;
+
+      &.${EmojiSharedCssClassName.EMOJI_IMAGE} > span {
+        /** needed for selection style to cover custom emoji image properly */
+        display: flex;
+      }
+    }
+
+    &.${akEditorSelectedNodeClassName} {
+      .${EmojiSharedCssClassName.EMOJI_SPRITE},
+        .${EmojiSharedCssClassName.EMOJI_IMAGE} {
+        border-radius: 2px;
+        ${getSelectionStyles([
+          SelectionStyle.Blanket,
+          SelectionStyle.BoxShadow,
+        ])}
+      }
     }
   }
 `;

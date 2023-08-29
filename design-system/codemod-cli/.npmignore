@@ -1,3 +1,5 @@
 build/
 src/
 tsconfig.json
+tsconfig.app.json
+tsconfig.dev.json

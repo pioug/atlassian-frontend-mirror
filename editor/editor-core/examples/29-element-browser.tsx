@@ -10,23 +10,14 @@ import ElementBrowser from '../src/ui/ElementBrowser';
 import { getCategories } from '../src/ui/ElementBrowser/categories';
 import { useDefaultQuickInsertGetItems } from '../example-helpers/use-default-quickinsert-get-items';
 
-export default () => {
-  const getItems = useDefaultQuickInsertGetItems();
-  const handleAnalytics = useCallback((event: AnalyticsEventPayload) => {
-    console.groupCollapsed('gasv3 event:', event.payload.action);
-    console.log(event.payload);
-    console.groupEnd();
-  }, []);
+const wrapper = css`
+  display: flex;
+  height: 100%;
+`;
 
-  return (
-    <AnalyticsListener channel="editor" onEvent={handleAnalytics}>
-      <IntlProvider locale="en">
-        <ElementBrowserWithIntl getItems={getItems} />
-      </IntlProvider>
-    </AnalyticsListener>
-  );
+const onInsertItem = (item: QuickInsertItem) => {
+  console.log('Inserting item ', item);
 };
-
 const RenderElementBrowser = (
   props: {
     getItems: (query?: string, category?: string) => QuickInsertItem[];
@@ -45,13 +36,23 @@ const RenderElementBrowser = (
   </div>
 );
 
-const wrapper = css`
-  display: flex;
-  height: 100%;
-`;
+const ElementBrowserWithIntl = injectIntl(RenderElementBrowser);
 
-const onInsertItem = (item: QuickInsertItem) => {
-  console.log('Inserting item ', item);
+const ElementBrowserComp = () => {
+  const getItems = useDefaultQuickInsertGetItems();
+  const handleAnalytics = useCallback((event: AnalyticsEventPayload) => {
+    console.groupCollapsed('gasv3 event:', event.payload.action);
+    console.log(event.payload);
+    console.groupEnd();
+  }, []);
+
+  return (
+    <AnalyticsListener channel="editor" onEvent={handleAnalytics}>
+      <IntlProvider locale="en">
+        <ElementBrowserWithIntl getItems={getItems} />
+      </IntlProvider>
+    </AnalyticsListener>
+  );
 };
 
-const ElementBrowserWithIntl = injectIntl(RenderElementBrowser);
+export default () => <ElementBrowserComp />;

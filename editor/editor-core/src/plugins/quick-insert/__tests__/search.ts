@@ -1,8 +1,6 @@
 import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
-import {
-  getQuickInsertSuggestions,
-  find,
-} from '@atlaskit/editor-common/quick-insert';
+import { find } from '@atlaskit/editor-common/quick-insert';
+import { getQuickInsertSuggestions } from '../search';
 
 const action = (): false => false;
 
@@ -149,12 +147,12 @@ describe('Quick Insert Search', () => {
 
   describe('getQuickInsertSuggestions - featured items', () => {
     it('should get featured items from quickInsertItems', () => {
-      const featuredItems = getQuickInsertSuggestions({
-        searchOptions: {
+      const featuredItems = getQuickInsertSuggestions(
+        {
           featuredItems: true,
         },
-        lazyDefaultItems: () => items,
-        providedItems: [
+        () => items,
+        [
           {
             priority: 9,
             title: 'Code inline',
@@ -168,7 +166,7 @@ describe('Quick Insert Search', () => {
             action,
           },
         ],
-      });
+      );
 
       expect(featuredItems).toStrictEqual([
         {
@@ -201,13 +199,13 @@ describe('Quick Insert Search', () => {
 
   describe('getQuickInsertSuggestions', () => {
     const search = (query?: string, category?: string): QuickInsertItem[] =>
-      getQuickInsertSuggestions({
-        searchOptions: {
+      getQuickInsertSuggestions(
+        {
           query,
           category,
         },
-        lazyDefaultItems: () => items,
-        providedItems: [
+        () => items,
+        [
           {
             priority: 9,
             title: 'Code inline',
@@ -221,7 +219,7 @@ describe('Quick Insert Search', () => {
             action,
           },
         ],
-      });
+      );
 
     it('should match items based on a search term', () => {
       expect(search('Date')[0].title).toBe('Date');

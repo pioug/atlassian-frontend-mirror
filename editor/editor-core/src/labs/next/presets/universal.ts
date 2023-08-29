@@ -6,7 +6,6 @@ import {
   collabEditPlugin,
   dataConsumerMarkPlugin,
   datePlugin,
-  emojiPlugin,
   extensionPlugin,
   fragmentMarkPlugin,
   helpDialogPlugin,
@@ -46,6 +45,7 @@ import {
   borderPlugin,
 } from '../../../plugins';
 
+import { emojiPlugin } from '@atlaskit/editor-plugin-emoji';
 import { listPlugin } from '@atlaskit/editor-plugin-list';
 import { imageUploadPlugin } from '@atlaskit/editor-plugin-image-upload';
 import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';

@@ -1,0 +1,112 @@
+{
+  "extends": "../../../tsconfig.base.json",
+  "include": [
+    "**/docs/**/*",
+    "**/__tests__/**/*",
+    "**/vr-tests/**/*",
+    "**/__perf__/**/*",
+    "**/*.test.*",
+    "**/test.*",
+    "**/test-*",
+    "**/examples.ts",
+    "**/examples.tsx",
+    "**/examples/*.ts",
+    "**/examples/*.tsx",
+    "**/examples/**/*.ts",
+    "**/examples/**/*.tsx",
+    "**/storybook/**/*",
+    "**/constellation/**/*",
+    ".storybook/*",
+    "./__fixtures__/**/*",
+    "./__generated__/**/*",
+    "./mocks/**/*",
+    "./__mocks__/**/*",
+    "**/mock.*",
+    "**/codemods/**/*.ts",
+    "**/codemods/**/*.tsx",
+    "./src/plugins/table/nodeviews/__mocks__/**/*"
+  ],
+  "exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
+  "compilerOptions": {
+    "baseUrl": "./",
+    "composite": true,
+    "outDir": "../../../tsDist/@atlaskit__editor-plugin-table/dev"
+  },
+  "references": [
+    {
+      "path": "tsconfig.app.json"
+    },
+    {
+      "path": "../adf-schema/tsconfig.app.json"
+    },
+    {
+      "path": "../../analytics/analytics-next/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/button/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-common/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-core/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-analytics/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-content-insertion/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-decorations/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-feature-flags/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-grid/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-guideline/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-width/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-prosemirror/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-shared-styles/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-tables/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-test-helpers/tsconfig.app.json"
+    },
+    {
+      "path": "../../linking-platform/link-provider/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/logo/tsconfig.app.json"
+    },
+    {
+      "path": "../../media/media-integration-test-helpers/tsconfig.app.json"
+    },
+    {
+      "path": "../synchrony-test-helpers/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/theme/tsconfig.app.json"
+    },
+    {
+      "path": "../../../build/test-tooling/visual-regression/tsconfig.app.json"
+    },
+    {
+      "path": "../../../build/test-tooling/webdriver-runner/tsconfig.app.json"
+    },
+    {
+      "path": "../../platform/feature-flags-test-utils/tsconfig.app.json"
+    }
+  ]
+}

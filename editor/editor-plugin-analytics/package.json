@@ -8,7 +8,7 @@
     "registry": "https://registry.npmjs.org/"
   },
   "atlassian": {
-    "team": "Editor",
+    "team": "Editor: Lego",
     "singleton": true,
     "releaseModel": "continuous"
   },
@@ -34,7 +34,7 @@
     "@atlaskit/adf-schema": "28.1.2",
     "@atlaskit/analytics-listeners": "^8.6.0",
     "@atlaskit/analytics-next": "^9.0.0",
-    "@atlaskit/editor-common": "^74.53.0",
+    "@atlaskit/editor-common": "^74.54.0",
     "@atlaskit/editor-plugin-feature-flags": "^0.1.0",
     "@atlaskit/editor-prosemirror": "1.1.0",
     "@atlaskit/editor-tables": "^2.2.0",

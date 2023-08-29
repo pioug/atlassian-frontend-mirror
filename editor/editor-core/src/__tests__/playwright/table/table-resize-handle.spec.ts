@@ -32,9 +32,9 @@ test.use({
 });
 
 const RESIZE_HANDLE_HEIGHT = {
-  MIN: '43px',
-  MEDIUM: '64px',
-  MAX: '96px',
+  MIN: 43,
+  MEDIUM: 64,
+  MAX: 96,
 };
 
 test.describe('resize handle height should depend on table height', () => {

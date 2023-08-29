@@ -1,0 +1,328 @@
+{
+  "extends": "../../../tsconfig.base.json",
+  "include": [
+    "**/docs/**/*",
+    "**/__tests__/**/*",
+    "**/vr-tests/**/*",
+    "**/__perf__/**/*",
+    "**/*.test.*",
+    "**/test.*",
+    "**/examples.ts",
+    "**/examples.tsx",
+    "**/examples/*.ts",
+    "**/examples/*.tsx",
+    "**/examples/**/*.ts",
+    "**/examples/**/*.tsx",
+    "**/storybook/**/*",
+    "**/constellation/**/*",
+    ".storybook/*",
+    "./__fixtures__/**/*",
+    "./__generated__/**/*",
+    "./mocks/**/*",
+    "./__mocks__/**/*",
+    "**/mock.*",
+    "**/codemods/**/*.ts",
+    "**/codemods/**/*.tsx",
+    "./example-helpers/**/*",
+    "./src/plugins/media/nodeviews/__mocks__/**/*"
+  ],
+  "exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
+  "compilerOptions": {
+    "baseUrl": "./",
+    "composite": true,
+    "outDir": "../../../tsDist/@atlaskit__editor-core/dev"
+  },
+  "references": [
+    {
+      "path": "tsconfig.app.json"
+    },
+    {
+      "path": "../libra/tsconfig.app.json"
+    },
+    {
+      "path": "../../../build/test-tooling/integration-testing/tsconfig.app.json"
+    },
+    {
+      "path": "../activity-provider/tsconfig.app.json"
+    },
+    {
+      "path": "../adf-schema/tsconfig.app.json"
+    },
+    {
+      "path": "../adf-utils/tsconfig.app.json"
+    },
+    {
+      "path": "../../analytics/analytics-gas-types/tsconfig.app.json"
+    },
+    {
+      "path": "../../analytics/analytics-listeners/tsconfig.app.json"
+    },
+    {
+      "path": "../../analytics/analytics-namespaced-context/tsconfig.app.json"
+    },
+    {
+      "path": "../../analytics/analytics-next/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/atlassian-navigation/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/breadcrumbs/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/button/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/calendar/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/checkbox/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/code/tsconfig.app.json"
+    },
+    {
+      "path": "../collab-provider/tsconfig.app.json"
+    },
+    {
+      "path": "../../../build/website/docs/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/drawer/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/dropdown-menu/tsconfig.app.json"
+    },
+    {
+      "path": "../../linking-platform/editor-card-provider/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-common/tsconfig.app.json"
+    },
+    {
+      "path": "../extension-dropbox/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-json-transformer/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-palette/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-analytics/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-card/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-composition/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-content-insertion/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-context-panel/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-decorations/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-editor-disabled/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-feature-flags/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-floating-toolbar/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-focus/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-grid/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-guideline/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-hyperlink/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-image-upload/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-list/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-table/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-text-formatting/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-width/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-prosemirror/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-shared-styles/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-tables/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-test-helpers/tsconfig.app.json"
+    },
+    {
+      "path": "../../elements/emoji/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/flag/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/form/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/icon/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/inline-dialog/tsconfig.app.json"
+    },
+    {
+      "path": "../../linking-platform/link-analytics/tsconfig.app.json"
+    },
+    {
+      "path": "../../linking-platform/link-picker/tsconfig.app.json"
+    },
+    {
+      "path": "../../linking-platform/link-provider/tsconfig.app.json"
+    },
+    {
+      "path": "../../linking-platform/link-test-helpers/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/logo/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/lozenge/tsconfig.app.json"
+    },
+    {
+      "path": "../../media/media-card/tsconfig.app.json"
+    },
+    {
+      "path": "../../media/media-client/tsconfig.app.json"
+    },
+    {
+      "path": "../../media/media-common/tsconfig.app.json"
+    },
+    {
+      "path": "../../media/media-core/tsconfig.app.json"
+    },
+    {
+      "path": "../../media/media-filmstrip/tsconfig.app.json"
+    },
+    {
+      "path": "../../media/media-integration-test-helpers/tsconfig.app.json"
+    },
+    {
+      "path": "../../media/media-picker/tsconfig.app.json"
+    },
+    {
+      "path": "../../media/media-test-helpers/tsconfig.app.json"
+    },
+    {
+      "path": "../../elements/mention/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/menu/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/modal-dialog/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/page-layout/tsconfig.app.json"
+    },
+    {
+      "path": "../../platform/feature-flags/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/radio/tsconfig.app.json"
+    },
+    {
+      "path": "../renderer/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/section-message/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/select/tsconfig.app.json"
+    },
+    {
+      "path": "../../elements/share/tsconfig.app.json"
+    },
+    {
+      "path": "../../linking-platform/smart-card/tsconfig.app.json"
+    },
+    {
+      "path": "../../smart-experiences/smart-user-picker/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/spinner/tsconfig.app.json"
+    },
+    {
+      "path": "../../elements/status/tsconfig.app.json"
+    },
+    {
+      "path": "../synchrony-test-helpers/tsconfig.app.json"
+    },
+    {
+      "path": "../../elements/task-decision/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/textarea/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/textfield/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/theme/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/toggle/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/tokens/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/tooltip/tsconfig.app.json"
+    },
+    {
+      "path": "../../data/ufo-external/tsconfig.app.json"
+    },
+    {
+      "path": "../../elements/util-data-test/tsconfig.app.json"
+    },
+    {
+      "path": "../../../build/test-tooling/visual-regression/tsconfig.app.json"
+    },
+    {
+      "path": "../../../build/test-tooling/webdriver-runner/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/width-detector/tsconfig.app.json"
+    },
+    {
+      "path": "../../platform/feature-flags-test-utils/tsconfig.app.json"
+    },
+    {
+      "path": "../../linking-platform/link-picker-plugins/tsconfig.app.json"
+    },
+    {
+      "path": "../search-provider/tsconfig.app.json"
+    },
+    {
+      "path": "../../data/ufo-internal/tsconfig.app.json"
+    }
+  ]
+}

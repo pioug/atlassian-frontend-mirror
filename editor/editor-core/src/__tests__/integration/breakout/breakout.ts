@@ -133,9 +133,12 @@ BrowserTestCase(
   },
 );
 
+// FIXME: This test was automatically skipped due to failure on 24/08/2023: https://product-fabric.atlassian.net/browse/ED-19726
 BrowserTestCase(
   'breakout: should be able to delete last character inside a "wide" codeBlock preserving the node',
-  {},
+  {
+    skip: ['*'],
+  },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 

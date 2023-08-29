@@ -9,3 +9,5 @@ tsconfig.json
 dist/figma/
 scripts/
 /index.js
+tsconfig.app.json
+tsconfig.dev.json

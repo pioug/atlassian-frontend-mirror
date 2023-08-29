@@ -33,3 +33,4 @@ export type HandleAlignmentMethod = 'center' | 'sticky';
 export type HandlePositioning = 'overlap' | 'adjacent';
 
 export type ResizerAppearance = 'danger';
+export type HandleHighlight = 'none' | 'shadow';

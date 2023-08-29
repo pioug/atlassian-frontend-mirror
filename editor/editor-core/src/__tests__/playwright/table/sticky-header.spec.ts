@@ -7,7 +7,10 @@ import {
   fixTest,
   BROWSERS,
 } from '@af/editor-libra';
-import { tableWithScoll } from './__fixtures__/base-adfs';
+import {
+  tableWithScoll,
+  simpleTableWithScroll,
+} from './__fixtures__/base-adfs';
 
 test.use({
   editorProps: {
@@ -147,6 +150,44 @@ test.describe('sticky header', () => {
       await columnControls.hover();
 
       expect(await columnControls.isInsertColumnButtonVisible()).toBeTruthy();
+    });
+  });
+
+  test.describe('sync width', () => {
+    test.use({
+      adf: simpleTableWithScroll,
+      platformFeatureFlags: { 'platform.editor.custom-table-width': true },
+    });
+    test.skip('should sync width with table while table is resizing', async ({
+      editor,
+    }) => {
+      const nodes = EditorNodeContainerModel.from(editor);
+      const tableModel = EditorTableModel.from(nodes.table);
+      const resizerModel = tableModel.resizer();
+
+      const bottom = await editor.page.getByText('Bottom');
+      bottom.scrollIntoViewIfNeeded();
+
+      const cell = await tableModel.cell(23);
+      await cell.click();
+
+      await resizerModel.resizeAndHold(
+        {
+          mouse: editor.page.mouse,
+          moveDistance: 100,
+        },
+        false,
+      );
+
+      const stickyModel = await tableModel.stickyHeader();
+      await stickyModel.waitForRowStable();
+
+      const tableBox = await nodes.table
+        .locator('table.pm-table-sticky')
+        .boundingBox();
+      const rowBox = await nodes.table.locator('tr.sticky').boundingBox();
+
+      expect(tableBox?.width).toEqual(rowBox?.width);
     });
   });
 });

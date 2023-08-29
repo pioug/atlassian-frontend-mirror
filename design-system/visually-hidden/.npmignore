@@ -7,3 +7,5 @@ build/
 __tests__/
 tsconfig.json
 constellation/
+tsconfig.app.json
+tsconfig.dev.json

@@ -15,3 +15,5 @@ scripts/
 constellation/
 
 dist/**/artifacts/generated-pairs
+tsconfig.app.json
+tsconfig.dev.json

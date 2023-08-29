@@ -44,7 +44,7 @@ describe('palette transformer', () => {
       value: 'Blue600',
     };
 
-    const actual = palette.transformer({ original: token } as any);
+    const actual = palette.transformer({ original: token } as any, {});
 
     expect(actual).toEqual('#1D7AFC');
   });
@@ -62,7 +62,7 @@ describe('palette transformer', () => {
       ],
     };
 
-    const actual = palette.transformer({ original: token } as any);
+    const actual = palette.transformer({ original: token } as any, {});
 
     expect(actual[0].color).toEqual('#E9F2FF');
   });
@@ -79,7 +79,7 @@ describe('palette transformer', () => {
       value: '#FEFEFE',
     };
 
-    const actual = palette.transformer({ original: token } as any);
+    const actual = palette.transformer({ original: token } as any, {});
 
     expect(actual).toEqual('#FEFEFE');
   });
@@ -96,7 +96,7 @@ describe('palette transformer', () => {
       value: 'transparent',
     };
 
-    const actual = palette.transformer({ original: token } as any);
+    const actual = palette.transformer({ original: token } as any, {});
 
     expect(actual).toEqual('#00000000');
   });
@@ -111,7 +111,7 @@ describe('palette transformer', () => {
       },
     };
 
-    expect(() => palette.transformer(token as any)).toThrowError(
+    expect(() => palette.transformer(token as any, {})).toThrowError(
       'Invalid color format "rgb(0,0,0)" provided to token: "color.background". Please use either a base token, hexadecimal or "transparent"',
     );
   });

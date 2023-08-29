@@ -14,7 +14,6 @@ import {
   openHelp,
   tooltip,
 } from '@atlaskit/editor-common/keymaps';
-import WithPluginState from '../../ui/WithPluginState';
 import { HelpDialogLoader } from './ui/HelpDialogLoader';
 import {
   ACTION,
@@ -52,6 +51,11 @@ export function createPlugin(dispatch: Function, imageEnabled: boolean) {
   });
 }
 
+interface HelpDialogSharedState {
+  isVisible: boolean;
+  imageEnabled: boolean;
+}
+
 const helpDialog: NextEditorPlugin<
   'helpDialog',
   {
@@ -60,6 +64,7 @@ const helpDialog: NextEditorPlugin<
       OptionalPlugin<typeof quickInsertPlugin>,
     ];
     pluginConfiguration: boolean;
+    sharedState: HelpDialogSharedState | null;
   }
 > = ({ config: imageUploadProviderExists = false, api }) => ({
   name: 'helpDialog',
@@ -106,20 +111,19 @@ const helpDialog: NextEditorPlugin<
 
   contentComponent({ editorView }) {
     return (
-      <WithPluginState
-        plugins={{
-          helpDialog: pluginKey,
-        }}
-        render={({ helpDialog = {} as any }) => (
-          <HelpDialogLoader
-            editorView={editorView}
-            isVisible={helpDialog.isVisible}
-            quickInsertEnabled={!!api?.quickInsert}
-            imageEnabled={helpDialog.imageEnabled}
-          />
-        )}
+      <HelpDialogLoader
+        pluginInjectionApi={api}
+        editorView={editorView}
+        quickInsertEnabled={!!api?.quickInsert}
       />
     );
+  },
+
+  getSharedState(editorState) {
+    if (!editorState) {
+      return null;
+    }
+    return pluginKey.getState(editorState) || null;
   },
 });
 

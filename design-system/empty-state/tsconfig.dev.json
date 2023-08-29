@@ -1,0 +1,63 @@
+{
+  "extends": "../../../tsconfig.base.json",
+  "include": [
+    "**/docs/**/*",
+    "**/__tests__/**/*",
+    "**/vr-tests/**/*",
+    "**/__perf__/**/*",
+    "**/*.test.*",
+    "**/test.*",
+    "**/test-*",
+    "**/examples.ts",
+    "**/examples.tsx",
+    "**/examples/*.ts",
+    "**/examples/*.tsx",
+    "**/examples/**/*.ts",
+    "**/examples/**/*.tsx",
+    "**/storybook/**/*",
+    "**/constellation/**/*",
+    ".storybook/*",
+    "./__fixtures__/**/*",
+    "./__generated__/**/*",
+    "./mocks/**/*",
+    "./__mocks__/**/*",
+    "**/mock.*",
+    "**/codemods/**/*.ts",
+    "**/codemods/**/*.tsx"
+  ],
+  "exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
+  "compilerOptions": {
+    "baseUrl": "./",
+    "composite": true,
+    "outDir": "../../../tsDist/@atlaskit__empty-state/dev"
+  },
+  "references": [
+    {
+      "path": "tsconfig.app.json"
+    },
+    {
+      "path": "../accessibility-testing/tsconfig.app.json"
+    },
+    {
+      "path": "../../../build/test-tooling/gemini-visual-regression/tsconfig.app.json"
+    },
+    {
+      "path": "../button/tsconfig.app.json"
+    },
+    {
+      "path": "../../../build/website/docs/tsconfig.app.json"
+    },
+    {
+      "path": "../ds-lib/tsconfig.app.json"
+    },
+    {
+      "path": "../../../build/test-tooling/ssr/tsconfig.app.json"
+    },
+    {
+      "path": "../theme/tsconfig.app.json"
+    },
+    {
+      "path": "../tokens/tsconfig.app.json"
+    }
+  ]
+}

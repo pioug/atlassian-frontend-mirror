@@ -156,6 +156,7 @@ type AssignedTo = {
 // @public
 type AssignedToGroup = {
   name: ElementName.AssignedToGroup;
+  showNamePrefix?: boolean;
 };
 
 // @public
@@ -166,6 +167,7 @@ type AttachmentCount = {
 // @public
 type AuthorGroup = {
   name: ElementName.AuthorGroup;
+  showNamePrefix?: boolean;
 };
 
 // @public
@@ -738,6 +740,7 @@ type OwnedBy = {
 // @public
 type OwnedByGroup = {
   name: ElementName.OwnedByGroup;
+  showNamePrefix?: boolean;
 };
 
 // @public

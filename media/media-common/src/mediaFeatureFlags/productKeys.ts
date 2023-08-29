@@ -8,12 +8,14 @@ const productKeys: ProductKeys = {
     captions: 'confluence.frontend.fabric.editor.media.captions',
     mediaInline: 'confluence.frontend.fabric.editor.media.inline',
     folderUploads: 'confluence.frontend.media.picker.folder.uploads',
+    securedClipboard: 'confluence.frontend.media.picker.secured.clipboard',
   },
   jira: {
     captions: 'issue.details.editor.media.captions',
     // Manged by Linking Platform. No Rollout plan found for Jira
     mediaInline: '',
     folderUploads: 'issue.details.media-picker-folder-upload',
+    securedClipboard: 'issue.details.media-picker-secured-clipboard',
   },
 };
 

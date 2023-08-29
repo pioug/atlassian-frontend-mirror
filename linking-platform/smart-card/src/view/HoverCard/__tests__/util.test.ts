@@ -191,6 +191,21 @@ describe('getSimulatedBetterMetadata', () => {
       expect(metadata.bottomMetadataBlock).toEqual(defaultBottomMetadata);
     });
   });
+
+  describe('for Slack objects', () => {
+    it('should return metadata elements for top primary only', () => {
+      const metadata = getSimulatedBetterMetadata(
+        'slack-object-provider',
+        mockBaseResponseWithPreview.data as JsonLd.Data.BaseData,
+      );
+      const topMetadataPrimary = [ElementName.AuthorGroup, ElementName.SentOn];
+      const bottomPrimary = [ElementName.ReactCount, ElementName.CommentCount];
+
+      expect(metadata.topMetadataBlock.primary).toEqual(topMetadataPrimary);
+      expect(metadata.bottomMetadataBlock.primary).toEqual(bottomPrimary);
+    });
+  });
+
   describe('for rest of providers != jira/Confluence/Atlas?Trello/BB', () => {
     it('should return metadata elements only for top primary', () => {
       const metadata = getSimulatedBetterMetadata(

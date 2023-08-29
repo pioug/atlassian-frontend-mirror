@@ -3,8 +3,7 @@ import memoizeOne from 'memoize-one';
 import type { IntlShape } from 'react-intl-next';
 
 import type { QuickInsertItem } from '../provider-factory';
-import type { QuickInsertHandler, QuickInsertSearchOptions } from '../types';
-import { dedupe } from '../utils';
+import type { QuickInsertHandler } from '../types';
 
 const processQuickInsertItems = (
   items: Array<QuickInsertHandler | QuickInsertItem>,
@@ -57,33 +56,3 @@ export function find(
 
   return fuse.search(query).map((result) => result.item);
 }
-
-export const getQuickInsertSuggestions = ({
-  searchOptions,
-  lazyDefaultItems = () => [],
-  providedItems,
-}: {
-  searchOptions: QuickInsertSearchOptions;
-  lazyDefaultItems?: () => QuickInsertItem[];
-  providedItems?: QuickInsertItem[];
-}): QuickInsertItem[] => {
-  const { query, category, disableDefaultItems, featuredItems } = searchOptions;
-  const defaultItems = disableDefaultItems ? [] : lazyDefaultItems();
-
-  const items = providedItems
-    ? dedupe([...defaultItems, ...providedItems], (item) => item.title)
-    : defaultItems;
-
-  if (featuredItems) {
-    return items.filter((item) => item.featured);
-  }
-
-  return find(
-    query || '',
-    category === 'all' || !category
-      ? items
-      : items.filter(
-          (item) => item.categories && item.categories.includes(category),
-        ),
-  );
-};

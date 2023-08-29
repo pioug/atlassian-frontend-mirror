@@ -23,7 +23,7 @@
   "sideEffects": false,
   "atlaskit:src": "src/index.ts",
   "atlassian": {
-    "team": "Editor",
+    "team": "Editor: ADF",
     "deprecatedAutoEntryPoints": true,
     "inPublicMirror": true,
     "releaseModel": "continuous",
@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "@atlaskit/adf-schema": "28.1.2",
-    "@atlaskit/editor-common": "^74.53.0",
+    "@atlaskit/editor-common": "^74.54.0",
     "@atlaskit/editor-prosemirror": "1.1.0",
     "@atlaskit/editor-shared-styles": "^2.6.0",
     "@babel/runtime": "^7.0.0",

@@ -21,7 +21,6 @@ jest.mock('@atlaskit/editor-common/quick-insert', () => ({
 
 describe('Quick-insert plugin state listener', () => {
   const quickInsertSharedStateMock: QuickInsertSharedState = {
-    suggestions: [],
     lazyDefaultItems: () => [],
   };
 

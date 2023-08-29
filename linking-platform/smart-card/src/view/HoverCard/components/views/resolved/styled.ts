@@ -40,7 +40,7 @@ export const footerBlockCss = css`
     'platform.linking-platform.smart-card.enable-better-metadata_iojwg',
   )
     ? `padding-top: 0.25rem;`
-    : ``}
+    : `height: 1.5rem;`}
 `;
 
 export const hiddenSnippetStyles = css`

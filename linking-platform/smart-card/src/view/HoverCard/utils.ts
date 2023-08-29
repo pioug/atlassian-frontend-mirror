@@ -246,6 +246,19 @@ export const getSimulatedBetterMetadata = (
           subtitle: [],
         },
       };
+    case 'slack-object-provider':
+      return {
+        topMetadataBlock: {
+          primary: [ElementName.AuthorGroup, ElementName.SentOn],
+          secondary: [],
+          subtitle: [],
+        },
+        bottomMetadataBlock: {
+          primary: [ElementName.ReactCount, ElementName.CommentCount],
+          secondary: [],
+          subtitle: [],
+        },
+      };
     case 'google-object-provider':
     case 'figma-object-provider':
       return {

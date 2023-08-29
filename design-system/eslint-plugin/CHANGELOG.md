@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 8.4.3
+
+### Patch Changes
+
+- [`96e35ec4b9d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/96e35ec4b9d) - Tweak `use-primitives` and `prefer-primitives` logic to stop false positives for component names that contain HTML element names.
+
 ## 8.4.2
 
 ### Patch Changes

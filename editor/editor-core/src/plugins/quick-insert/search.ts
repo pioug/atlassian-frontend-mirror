@@ -1,16 +1,36 @@
-import type {
-  EditorCommand,
-  QuickInsertSearchOptions,
-} from '@atlaskit/editor-common/types';
-import { pluginKey } from './plugin-key';
+import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
+import type { QuickInsertSearchOptions } from '@atlaskit/editor-common/types';
+import { dedupe } from '@atlaskit/editor-common/utils';
+import { find } from '@atlaskit/editor-common/quick-insert';
 
-export type QuickInsertSearch = (
+type GetQuickInsertSuggestions = (
   searchOptions: QuickInsertSearchOptions,
-) => EditorCommand;
+  lazyDefaultItems?: () => QuickInsertItem[],
+  providedItems?: QuickInsertItem[],
+) => QuickInsertItem[];
 
-export const search: QuickInsertSearch =
-  ({ query, category, disableDefaultItems, featuredItems }) =>
-  ({ tr }) =>
-    tr.setMeta(pluginKey, {
-      searchOptions: { query, category, disableDefaultItems, featuredItems },
-    });
+export const getQuickInsertSuggestions: GetQuickInsertSuggestions = (
+  searchOptions,
+  lazyDefaultItems = () => [],
+  providedItems,
+) => {
+  const { query, category, disableDefaultItems, featuredItems } = searchOptions;
+  const defaultItems = disableDefaultItems ? [] : lazyDefaultItems();
+
+  const items = providedItems
+    ? dedupe([...defaultItems, ...providedItems], (item) => item.title)
+    : defaultItems;
+
+  if (featuredItems) {
+    return items.filter((item) => item.featured);
+  }
+
+  return find(
+    query || '',
+    category === 'all' || !category
+      ? items
+      : items.filter(
+          (item) => item.categories && item.categories.includes(category),
+        ),
+  );
+};

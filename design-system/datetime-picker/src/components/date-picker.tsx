@@ -1,9 +1,7 @@
-/* eslint-disable @repo/internal/react/use-noop */
 /** @jsx jsx */
 import { Component, CSSProperties } from 'react';
 
 import { css, jsx } from '@emotion/react';
-// eslint-disable-next-line no-restricted-imports
 import { format, isValid, lastDayOfMonth, parseISO } from 'date-fns';
 import pick from 'lodash/pick';
 
@@ -46,7 +44,6 @@ import { convertTokens } from './utils';
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
-/* eslint-disable react/no-unused-prop-types */
 export interface DatePickerBaseProps extends WithAnalyticsEventsProps {
   /**
    * Set the appearance of the picker.
@@ -297,9 +294,13 @@ const datePickerDefaultProps = {
   isDisabled: false,
   isInvalid: false,
   name: '',
+  // These disables are here for proper typing when used as defaults. They
+  // should *not* use the `noop` function.
+  /* eslint-disable @repo/internal/react/use-noop */
   onBlur: (event: React.FocusEvent<HTMLInputElement>) => {},
   onChange: (value: string) => {},
   onFocus: (event: React.FocusEvent<HTMLInputElement>) => {},
+  /* eslint-enable @repo/internal/react/use-noop */
   selectProps: {},
   spacing: 'default' as Spacing,
   locale: 'en-US',

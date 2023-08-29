@@ -17,6 +17,7 @@ import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { getSelectionRect } from '@atlaskit/editor-tables/utils';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
+import { updateResizeHandleDecorations } from '../../commands/misc';
 import { updateColumnWidths } from '../../transforms';
 import { getSelectedColumnIndexes, updateResizeHandles } from '../../utils';
 
@@ -114,6 +115,10 @@ export const handleMouseDown = (
   );
 
   setDragging({ startX: event.clientX, startWidth: width })(state, dispatch);
+
+  // When we start resizing a column we need to ensure the underlying tooltip is removed from the decoration to avoid
+  // unnecessary tooltips being displayed during drag.
+  updateResizeHandleDecorations(undefined, undefined, false)(state, dispatch);
 
   function finish(event: MouseEvent) {
     window.removeEventListener('mouseup', finish);

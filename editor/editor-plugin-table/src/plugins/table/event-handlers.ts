@@ -11,14 +11,13 @@ import {
   isLastItemMediaGroup,
   setNodeSelection,
 } from '@atlaskit/editor-common/utils';
-import { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
-import {
+import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
+import type {
   EditorState,
-  Selection,
-  TextSelection,
   Transaction,
 } from '@atlaskit/editor-prosemirror/state';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import {
@@ -44,10 +43,8 @@ import {
 import { getPluginState } from './pm-plugins/plugin-factory';
 import { getPluginState as getResizePluginState } from './pm-plugins/table-resizing/plugin-factory';
 import { deleteColumns, deleteRows } from './transforms';
-import {
-  ElementContentRects,
-  RESIZE_HANDLE_AREA_DECORATION_GAP,
-} from './types';
+import type { ElementContentRects } from './types';
+import { RESIZE_HANDLE_AREA_DECORATION_GAP } from './types';
 import {
   getColumnOrRowIndex,
   getMousePositionHorizontalRelativeByElement,
@@ -375,6 +372,7 @@ export const handleMouseMove = (
           return addResizeHandleDecorations(
             rowIndexTarget,
             columnEndIndexTarget,
+            true,
           )(state, dispatch);
         }
       }
@@ -486,13 +484,10 @@ export const whenTableInFocus =
     elementContentRects?: ElementContentRects,
   ) =>
   (view: EditorView, mouseEvent: Event): boolean => {
-    const tableResizePluginState = getResizePluginState(view.state);
-    const tablePluginState = getPluginState(view.state);
-    const isDragging =
-      tableResizePluginState && !!tableResizePluginState.dragging;
-    const hasTableNode = tablePluginState && tablePluginState.tableNode;
-
-    if (!hasTableNode || isDragging) {
+    if (
+      !getPluginState(view.state)?.tableNode ||
+      !!getResizePluginState(view.state)?.dragging
+    ) {
       return false;
     }
 

@@ -53,8 +53,11 @@ const COMPONENT_NAME = 'clipboard';
 
 class ClipboardImpl {
   static instances: ClipboardImpl[] = [];
+
   constructor(
     private readonly uploadService: UploadService,
+    private container?: HTMLElement,
+    private onPaste?: (event: ClipboardEvent) => boolean | undefined,
     private readonly createAnalyticsEvent?: CreateUIAnalyticsEvent,
     public featureFlags?: MediaFeatureFlags,
   ) {}
@@ -66,21 +69,29 @@ class ClipboardImpl {
   public activate(): void {
     this.deactivate();
 
-    document.addEventListener('paste', ClipboardImpl.handleEvent);
-    ClipboardImpl.instances.push(this);
+    if (!this.container) {
+      document.addEventListener('paste', ClipboardImpl.legacyHandleEvent);
+      ClipboardImpl.instances.push(this);
+    } else {
+      this.container.addEventListener('paste', this.handleEvent);
+    }
   }
 
   public deactivate(): void {
-    const index = ClipboardImpl.instances.indexOf(this);
-    if (index > -1) {
-      ClipboardImpl.instances.splice(index, 1);
+    if (!this.container) {
+      const index = ClipboardImpl.instances.indexOf(this);
+      if (index > -1) {
+        ClipboardImpl.instances.splice(index, 1);
+      } else {
+        /**
+         * We want to remove the handleEvent only when there are no more instances.
+         * Since handleEvent is static, if we remove it right away, and there is still an active instance,
+         * we will loose the clipboard functionality.
+         */
+        document.removeEventListener('paste', ClipboardImpl.legacyHandleEvent);
+      }
     } else {
-      /**
-       * We want to remove the handleEvent only when there are no more instances.
-       * Since handleEvent is static, if we remove it right away, and there is still an active instance,
-       * we will loose the clipboard functionality.
-       */
-      document.removeEventListener('paste', ClipboardImpl.handleEvent);
+      this.container.removeEventListener('paste', this.handleEvent);
     }
   }
 
@@ -110,7 +121,10 @@ class ClipboardImpl {
     }
   }
 
-  static handleEvent = (event: ClipboardEvent): void => {
+  // The existing (semi)singleton (last in `instances`) event handler is proven to be problematic
+  // Replaced with the new mechanism in https://product-fabric.atlassian.net/browse/MEX-2454
+  // Remove after product adoption / rollout
+  static legacyHandleEvent = (event: ClipboardEvent): void => {
     // From https://product-fabric.atlassian.net/browse/MEX-1281 ,disable the handler if event target is input
     if (event.target instanceof HTMLInputElement) {
       return;
@@ -144,6 +158,32 @@ class ClipboardImpl {
       }
     }
   };
+
+  private handleEvent = (event: ClipboardEvent): void => {
+    const { clipboardData } = event;
+    if (this.onPaste?.(event)) {
+      return;
+    }
+
+    // From https://product-fabric.atlassian.net/browse/MEX-1281 ,disable the handler if event target is input
+    if (event.target instanceof HTMLInputElement) {
+      return;
+    }
+
+    if (clipboardData && clipboardData.files) {
+      const fileSource =
+        clipboardData.types.length === 1
+          ? LocalFileSource.PastedScreenshot
+          : LocalFileSource.PastedFile;
+
+      const filesArray: LocalFileWithSource[] = getFilesFromClipboard(
+        clipboardData.files,
+      ).map((file: File) => ({ file, source: fileSource }));
+      if (filesArray.length > 0) {
+        this.onFilesPasted(filesArray);
+      }
+    }
+  };
 }
 
 export class ClipboardBase extends LocalUploadComponentReact<ClipboardProps> {
@@ -154,6 +194,8 @@ export class ClipboardBase extends LocalUploadComponentReact<ClipboardProps> {
 
     this.clipboard = new ClipboardImpl(
       this.uploadService,
+      this.props.config.container,
+      this.props.config.onPaste,
       this.props.createAnalyticsEvent,
       props.featureFlags,
     );

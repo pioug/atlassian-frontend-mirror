@@ -1,4 +1,3 @@
-/* eslint-disable @repo/internal/react/use-noop */
 import React, { CSSProperties } from 'react';
 
 // eslint-disable-next-line no-restricted-imports
@@ -50,7 +49,6 @@ interface Option {
   value: string;
 }
 
-/* eslint-disable react/no-unused-prop-types */
 export interface TimePickerBaseProps extends WithAnalyticsEventsProps {
   /**
    * Set the appearance of the picker.
@@ -209,9 +207,13 @@ const timePickerDefaultProps = {
   isDisabled: false,
   isInvalid: false,
   name: '',
+  // These disables are here for proper typing when used as defaults. They
+  // should *not* use the `noop` function.
+  /* eslint-disable @repo/internal/react/use-noop */
   onBlur: (event: React.FocusEvent<HTMLInputElement>) => {},
   onChange: (value: string) => {},
   onFocus: (event: React.FocusEvent<HTMLInputElement>) => {},
+  /* eslint-enable @repo/internal/react/use-noop */
   parseInputValue: (time: string, timeFormat: string) => parseTime(time),
   selectProps: {},
   spacing: 'default' as Spacing,

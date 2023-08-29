@@ -5,3 +5,5 @@ index.ts
 proxy.ts
 local-config-template.ts
 .env-template
+tsconfig.app.json
+tsconfig.dev.json

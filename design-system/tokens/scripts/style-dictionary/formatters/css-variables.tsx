@@ -10,6 +10,7 @@ import themeConfig, { Themes } from '../../../src/theme-config';
 import { getCSSCustomProperty } from '../../../src/utils/token-ids';
 import sortTokens from '../sort-tokens';
 import { fontTokenToCSS } from '../transformers/web-font';
+import { getValue } from '../utilities';
 
 export const cssVariableFormatter: Format['formatter'] = ({
   dictionary,
@@ -69,7 +70,9 @@ export const cssVariableFormatter: Format['formatter'] = ({
   }
 
   tokens.forEach((token) => {
-    output += `  ${token.name}: ${token.value};\n`;
+    const tokenValue = getValue(dictionary, token);
+
+    output += `  ${token.name}: ${tokenValue};\n`;
   });
 
   output += `}\n`;

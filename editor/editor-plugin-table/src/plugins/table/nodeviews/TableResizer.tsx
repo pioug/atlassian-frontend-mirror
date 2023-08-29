@@ -2,6 +2,7 @@ import type { PropsWithChildren } from 'react';
 import React, { useCallback, useMemo, useRef, useState } from 'react';
 
 import rafSchd from 'raf-schd';
+import { defineMessages, useIntl } from 'react-intl-next';
 
 import type { TableEventPayload } from '@atlaskit/editor-common/analytics';
 import { getGuidelinesWithHighlights } from '@atlaskit/editor-common/guideline';
@@ -11,7 +12,6 @@ import type {
   HandleResize,
 } from '@atlaskit/editor-common/resizer';
 import { ResizerNext } from '@atlaskit/editor-common/resizer';
-import { resizerHandleShadowClassName } from '@atlaskit/editor-common/styles';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -52,6 +52,14 @@ interface TableResizerProps {
     payload: TableEventPayload,
   ) => ((tr: Transaction) => boolean) | undefined;
 }
+
+const messages = defineMessages({
+  resizeTable: {
+    id: 'fabric.editor.tables.resizeTable',
+    defaultMessage: 'Resize table',
+    description: 'Tooltip displayed on custom table width resize hande',
+  },
+});
 
 const handles = { right: true };
 const tableHandleMarginTop = 12;
@@ -129,6 +137,7 @@ export const TableResizer = ({
 }: PropsWithChildren<TableResizerProps>) => {
   const currentGap = useRef(0);
   const [snappingEnabled, setSnappingEnabled] = useState(false);
+  const { formatMessage } = useIntl();
 
   const resizerMinWidth = getResizerMinWidth(node);
   const handleHeightSize = getResizerHandleHeight(tableRef);
@@ -301,24 +310,6 @@ export const TableResizer = ({
     ],
   );
 
-  const handleComponent = useMemo(
-    () => ({
-      left: (
-        <div
-          className={resizerHandleShadowClassName}
-          style={{ height: 'calc(100% - 24px)' }}
-        />
-      ),
-      right: (
-        <div
-          className={resizerHandleShadowClassName}
-          style={{ height: 'calc(100% - 24px)' }}
-        />
-      ),
-    }),
-    [],
-  );
-
   return (
     <ResizerNext
       enable={handles}
@@ -337,8 +328,9 @@ export const TableResizer = ({
       handlePositioning="adjacent"
       innerPadding={tableHandlePosition}
       isHandleVisible={findTable(editorView.state?.selection)?.pos === getPos()}
-      handleComponent={handleComponent}
       appearance={isInDanger ? 'danger' : undefined}
+      handleHighlight="shadow"
+      handleTooltipContent={formatMessage(messages.resizeTable)}
     >
       {children}
     </ResizerNext>

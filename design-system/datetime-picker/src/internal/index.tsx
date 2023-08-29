@@ -1,5 +1,6 @@
-/* eslint-disable @repo/internal/react/require-jsdoc */
-
+/**
+ * This component is used to hide portions of Select component.
+ */
 export const EmptyComponent = () => null;
 
 // This date was chosen to clearly show date and time formats (day > 12)

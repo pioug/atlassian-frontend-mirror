@@ -60,4 +60,9 @@ export default defineMessages({
     defaultMessage: 'this element',
     description: 'The current element without preset name been selected',
   },
+  adjustColumns: {
+    id: 'fabric.editor.tables.adjustColumn',
+    defaultMessage: 'Adjust column',
+    description: 'Tooltip displayed on table column resize handle',
+  },
 });

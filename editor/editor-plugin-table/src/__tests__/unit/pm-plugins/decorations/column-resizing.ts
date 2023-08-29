@@ -91,6 +91,8 @@ describe('tables: column resizing decorations', () => {
           const nextDecorationSet = buildColumnResizingDecorations(
             rowEndIndex,
             columnEndIndex,
+            false,
+            () => ({} as any),
           )({
             decorationSet: DecorationSet.empty,
             tr: state.tr,

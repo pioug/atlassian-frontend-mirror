@@ -31,7 +31,6 @@ export type QuickInsertPluginState = {
   providedItems?: QuickInsertItem[];
   provider?: QuickInsertProvider;
   emptyStateHandler?: EmptyStateHandler;
-  suggestions?: QuickInsertItem[];
   searchOptions?: QuickInsertSearchOptions;
 };
 
@@ -46,7 +45,7 @@ export interface QuickInsertPluginOptions {
 }
 
 export type QuickInsertSharedState = {
-  suggestions: QuickInsertItem[];
   lazyDefaultItems: () => QuickInsertItem[];
   emptyStateHandler?: EmptyStateHandler;
+  providedItems?: QuickInsertItem[];
 };

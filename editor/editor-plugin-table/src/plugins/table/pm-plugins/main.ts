@@ -1,3 +1,5 @@
+import type { IntlShape } from 'react-intl-next';
+
 import {
   ACTION,
   ACTION_SUBJECT,
@@ -46,6 +48,7 @@ import {
   setTableRef,
 } from '../commands';
 import {
+  removeResizeHandleDecorations,
   transformSliceRemoveCellBackgroundColor,
   transformSliceToAddTableHeaders,
   transformSliceToRemoveColumnsWidths,
@@ -100,6 +103,7 @@ export const createPlugin = (
   pluginConfig: PluginConfig,
   getEditorContainerWidth: GetEditorContainerWidth,
   getEditorFeatureFlags: GetEditorFeatureFlags,
+  getIntl: () => IntlShape,
   breakoutEnabled?: boolean,
   fullWidthModeEnabled?: boolean,
   tableResizingEnabled?: boolean,
@@ -120,6 +124,7 @@ export const createPlugin = (
     isHeaderRowEnabled: !!pluginConfig.allowHeaderRow,
     isHeaderColumnEnabled: false,
     ...defaultTableSelection,
+    getIntl,
   });
 
   let elementContentRects: ElementContentRects = {};
@@ -211,7 +216,6 @@ export const createPlugin = (
           const pluginState = getPluginState(state);
           let tableRef: HTMLTableElement | undefined;
           let tableNode;
-
           if (pluginState.editorHasFocus) {
             const parent = findParentDomRefOfType(
               state.schema.nodes.table,
@@ -255,6 +259,8 @@ export const createPlugin = (
                 addBoldInEmptyHeaderCells(tableCellHeader)(state, dispatch);
               }
             }
+          } else if (pluginState.isResizeHandleWidgetAdded) {
+            removeResizeHandleDecorations()(state, dispatch);
           }
         },
         destroy: () => {

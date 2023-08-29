@@ -11,16 +11,17 @@ import {
   akEditorContextPanelWidth,
   ATLASSIAN_NAVIGATION_HEIGHT,
 } from '@atlaskit/editor-shared-styles';
-import { ContextPanelConsumer } from '@atlaskit/editor-common/ui';
+import { ContextPanelConsumer, WidthContext } from '@atlaskit/editor-common/ui';
 import WithPluginState from '../WithPluginState';
 import type { WidthPluginState } from '@atlaskit/editor-plugin-width';
 import WithEditorActions from '../WithEditorActions';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { getChildBreakoutModes } from '../../utils/document';
 import type { BreakoutMarkAttrs } from '@atlaskit/adf-schema';
 import { token } from '@atlaskit/tokens';
 import type EditorActions from '../../actions';
-import { WidthContext } from '@atlaskit/editor-common/ui';
+import { findChildrenByType } from '@atlaskit/editor-prosemirror/utils';
 
 export type Props = {
   visible: boolean;
@@ -44,9 +45,16 @@ const absolutePanelStyles = css`
   height: calc(100% - ${ATLASSIAN_NAVIGATION_HEIGHT});
 `;
 
+const checkTableExistsInDoc = (editorView: EditorView) => {
+  const tableNodeSchema = editorView.state.schema.nodes.table;
+  let findResult = findChildrenByType(editorView.state.doc, tableNodeSchema);
+  return findResult.length > 0;
+};
+
 export const shouldPanelBePositionedOverEditor = (
   editorWidth: EditorWidth,
   panelWidth: number,
+  editorView?: EditorView,
 ): boolean => {
   const { lineLength, containerWidth = 0, contentBreakoutModes } = editorWidth;
   const editorNotFullWidth = !(
@@ -59,10 +67,24 @@ export const shouldPanelBePositionedOverEditor = (
     !contentBreakoutModes.includes(FULLWIDTH_MODE) &&
     contentBreakoutModes.includes(WIDE_MODE) &&
     containerWidth >= panelWidth * 2 + WIDE_EDITOR_WIDTH;
-
-  return (
-    editorNotFullWidth && (hasSpaceForPanel || hasSpaceForWideBreakoutsAndPanel)
-  );
+  if (!getBooleanFF('platform.editor.custom-table-width') || !editorView) {
+    return (
+      editorNotFullWidth &&
+      (hasSpaceForPanel || hasSpaceForWideBreakoutsAndPanel)
+    );
+  } else {
+    // when custom table width feature flag is on,
+    // there are scenarios when a table has attr layout default, but width is in full-width or very wide
+    // but in this case we still want the shouldPanelBePositionedOverEditor return false
+    // previous logic is returning false when table layout default
+    // but when custom table width feature flag is one, we want to return false whenever there is a table in the doc
+    const isTableInDoc = checkTableExistsInDoc(editorView);
+    return (
+      editorNotFullWidth &&
+      (hasSpaceForPanel || hasSpaceForWideBreakoutsAndPanel) &&
+      !isTableInDoc
+    );
+  }
 };
 
 const panelHidden = css`
@@ -179,9 +201,8 @@ export class SwappableContentArea extends React.PureComponent<
   };
 
   render() {
-    const { editorWidth } = this.props;
+    const { editorWidth, editorView } = this.props;
     const width = akEditorContextPanelWidth;
-
     const userVisible = !!this.props.visible;
     const visible = userVisible || !!this.state.currentPluginContent;
 
@@ -190,7 +211,7 @@ export class SwappableContentArea extends React.PureComponent<
         {({ broadcastWidth, broadcastPosition, positionedOverEditor }) => {
           const contextPanelWidth = visible ? width : 0;
           const newPosition = editorWidth
-            ? shouldPanelBePositionedOverEditor(editorWidth, width)
+            ? shouldPanelBePositionedOverEditor(editorWidth, width, editorView)
             : false;
           broadcastWidth(contextPanelWidth);
           (newPosition && visible) !== positionedOverEditor &&
@@ -235,6 +256,7 @@ import type {
   PluginKey,
   EditorState,
 } from '@atlaskit/editor-prosemirror/state';
+
 // @ts-ignore
 const widthPluginKey = {
   key: 'widthPlugin$',

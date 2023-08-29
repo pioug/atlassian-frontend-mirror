@@ -3,3 +3,4 @@ export type {
   EmojiPluginOptions,
   EmojiPluginState,
 } from './types';
+export { emojiPlugin } from './plugin';

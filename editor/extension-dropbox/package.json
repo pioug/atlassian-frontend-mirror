@@ -23,7 +23,7 @@
   "sideEffects": false,
   "atlaskit:src": "src/index.ts",
   "atlassian": {
-    "team": "Editor",
+    "team": "Editor: Scarlet",
     "deprecatedAutoEntryPoints": true,
     "inPublicMirror": true,
     "releaseModel": "continuous",
@@ -34,7 +34,7 @@
   "dependencies": {
     "@atlaskit/adf-utils": "^19.0.0",
     "@atlaskit/button": "^16.9.0",
-    "@atlaskit/editor-common": "^74.53.0",
+    "@atlaskit/editor-common": "^74.54.0",
     "@atlaskit/icon": "^21.12.0",
     "@atlaskit/modal-dialog": "^12.6.0",
     "@babel/runtime": "^7.0.0",

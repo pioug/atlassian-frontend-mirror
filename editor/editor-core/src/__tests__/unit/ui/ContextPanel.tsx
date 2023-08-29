@@ -3,9 +3,19 @@ import React from 'react';
 import { mount, ReactWrapper } from 'enzyme';
 
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
+import {
+  doc,
+  p,
+  table,
+  tdEmpty,
+  thEmpty,
+  tr,
+} from '@atlaskit/editor-test-helpers/doc-builder';
 
-import ContextPanel, { SwappableContentArea } from '../../../ui/ContextPanel';
+import ContextPanel, {
+  shouldPanelBePositionedOverEditor,
+  SwappableContentArea,
+} from '../../../ui/ContextPanel';
 import EditorContext from '../../../ui/EditorContext';
 
 import {
@@ -26,6 +36,7 @@ import {
   isPushingEditorContent,
   editorWithWideBreakoutAndSidebarWidth,
 } from '@atlaskit/editor-test-helpers/page-objects/context-panel';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 const panelSelector = 'div[data-testid="context-panel-panel"]';
 
@@ -420,4 +431,67 @@ describe('ContextPanel', () => {
 
     await expect(editorFocusSpy).toHaveBeenCalled();
   });
+});
+
+describe('shouldPanelBePositionedOverEditor', () => {
+  const docCustomTableWidthEnabled = doc(
+    table({ localId: 'local-id', layout: 'default', width: 1800 })(
+      tr(thEmpty, thEmpty, thEmpty),
+      tr(tdEmpty, tdEmpty, tdEmpty),
+      tr(tdEmpty, tdEmpty, tdEmpty),
+    ),
+  );
+  const docCustomTableWidthDisabled = doc(
+    table({ localId: 'local-id', layout: 'full-width' })(
+      tr(thEmpty, thEmpty, thEmpty),
+      tr(tdEmpty, tdEmpty, tdEmpty),
+      tr(tdEmpty, tdEmpty, tdEmpty),
+    ),
+  );
+
+  const contextPanelWidth = 320;
+
+  ffTest(
+    'platform.editor.custom-table-width',
+    () => {
+      const editorTableWidthEnabled = editorFactory({
+        doc: docCustomTableWidthEnabled,
+        editorProps: {
+          allowTables: true,
+        },
+      });
+      const { editorView: view } = editorTableWidthEnabled;
+      const editorWidthEnabled = {
+        width: 1920,
+        containerWidth: 1920,
+        contentBreakoutModes: [],
+      };
+      const result = shouldPanelBePositionedOverEditor(
+        editorWidthEnabled,
+        contextPanelWidth,
+        view,
+      );
+      expect(result).toBeFalsy();
+    },
+    () => {
+      const editorTableWidthDisabled = editorFactory({
+        doc: docCustomTableWidthDisabled,
+        editorProps: {
+          allowTables: true,
+        },
+      });
+      const { editorView: view } = editorTableWidthDisabled;
+      const editorWidthDisabled = {
+        width: 1920,
+        containerWidth: 1920,
+        contentBreakoutModes: ['full-width'] as ('full-width' | 'wide')[],
+      };
+      const result = shouldPanelBePositionedOverEditor(
+        editorWidthDisabled,
+        contextPanelWidth,
+        view,
+      );
+      expect(result).toBeFalsy();
+    },
+  );
 });

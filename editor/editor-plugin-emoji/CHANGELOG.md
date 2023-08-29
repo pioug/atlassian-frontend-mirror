@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-emoji
 
+## 0.2.0
+
+### Minor Changes
+
+- [`113fcc02759`](https://bitbucket.org/atlassian/atlassian-frontend/commits/113fcc02759) - ED-19433 Extract Emoji Plugin to its own package
+
 ## 0.1.2
 
 ### Patch Changes

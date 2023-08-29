@@ -10,8 +10,6 @@ import { TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
 import type { Dispatch } from '../../event-dispatcher';
 import type { NextEditorPlugin, Command } from '../../types';
 import { pluginKey } from './plugin-key';
-import type { QuickInsertSearch } from './search';
-import { search } from './search';
 import type {
   QuickInsertPluginState,
   QuickInsertPluginStateKeys,
@@ -19,14 +17,13 @@ import type {
   QuickInsertSharedState,
   EditorCommand,
   QuickInsertHandler,
+  QuickInsertSearchOptions,
 } from '@atlaskit/editor-common/types';
 import type { EmptyStateHandler } from '../../types/empty-state-handler';
 import ModalElementBrowser from './ui/ModalElementBrowser';
 import { openElementBrowserModal, insertItem } from './commands';
-import {
-  memoProcessQuickInsertItems,
-  getQuickInsertSuggestions,
-} from '@atlaskit/editor-common/quick-insert';
+import { memoProcessQuickInsertItems } from '@atlaskit/editor-common/quick-insert';
+import { getQuickInsertSuggestions } from './search';
 
 export type { QuickInsertPluginOptions };
 
@@ -37,13 +34,15 @@ const quickInsertPlugin: NextEditorPlugin<
     sharedState: QuickInsertSharedState | null;
     actions: {
       insertItem: (item: QuickInsertItem) => Command;
+      getSuggestions: (
+        searchOptions: QuickInsertSearchOptions,
+      ) => QuickInsertItem[];
     };
     commands: {
-      search: QuickInsertSearch;
       openElementBrowserModal: EditorCommand;
     };
   }
-> = ({ config: options }) => ({
+> = ({ config: options, api }) => ({
   name: 'quickInsert',
 
   pmPlugins(defaultItems: Array<QuickInsertHandler>) {
@@ -71,14 +70,14 @@ const quickInsertPlugin: NextEditorPlugin<
         const quickInsertState = pluginKey.getState(editorState);
 
         return Promise.resolve(
-          getQuickInsertSuggestions({
-            searchOptions: {
+          getQuickInsertSuggestions(
+            {
               query,
               disableDefaultItems: options?.disableDefaultItems,
             },
-            lazyDefaultItems: quickInsertState?.lazyDefaultItems,
-            providedItems: quickInsertState?.providedItems,
-          }),
+            quickInsertState?.lazyDefaultItems,
+            quickInsertState?.providedItems,
+          ),
         );
       },
       selectItem: (state, item, insert) => {
@@ -109,18 +108,26 @@ const quickInsertPlugin: NextEditorPlugin<
       return null;
     }
     return {
-      suggestions: quickInsertState.suggestions ?? [],
       lazyDefaultItems: quickInsertState.lazyDefaultItems,
       emptyStateHandler: quickInsertState.emptyStateHandler,
+      providedItems: quickInsertState.providedItems,
     };
   },
 
   actions: {
     insertItem,
+    getSuggestions: (searchOptions) => {
+      const { lazyDefaultItems, providedItems } =
+        api?.quickInsert.sharedState.currentState() ?? {};
+      return getQuickInsertSuggestions(
+        searchOptions,
+        lazyDefaultItems,
+        providedItems,
+      );
+    },
   },
 
   commands: {
-    search,
     openElementBrowserModal,
   },
 });
@@ -155,21 +162,12 @@ function quickInsertPluginFactory(
           // getting confused when two editors exist within the same page.
           lazyDefaultItems: () =>
             memoProcessQuickInsertItems(defaultItems || [], getIntl()),
-          suggestions: [],
         };
       },
 
       apply(tr, pluginState) {
         const meta = tr.getMeta(pluginKey);
         if (meta) {
-          if ('searchOptions' in meta) {
-            meta.suggestions = getQuickInsertSuggestions({
-              searchOptions: meta.searchOptions,
-              lazyDefaultItems: pluginState.lazyDefaultItems,
-              providedItems: pluginState.providedItems,
-            });
-          }
-
           const keys = Object.keys(meta) as Array<QuickInsertPluginStateKeys>;
           const changed = keys.some((key) => {
             return pluginState[key] !== meta[key];

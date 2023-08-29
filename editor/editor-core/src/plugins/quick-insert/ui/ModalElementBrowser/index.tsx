@@ -8,7 +8,7 @@ import type { QuickInsertPluginState } from '@atlaskit/editor-common/types';
 import ModalElementBrowser from '../../../../ui/ElementBrowser/ModalElementBrowser';
 
 import { closeElementBrowserModal, insertItem } from '../../commands';
-import { getQuickInsertSuggestions } from '@atlaskit/editor-common/quick-insert';
+import { getQuickInsertSuggestions } from '../../search';
 
 type Props = {
   editorView: EditorView;
@@ -26,14 +26,14 @@ const Modal = ({
 }) => {
   const getItems = useCallback(
     (query?: string, category?: string) =>
-      getQuickInsertSuggestions({
-        searchOptions: {
+      getQuickInsertSuggestions(
+        {
           query,
           category,
         },
-        lazyDefaultItems: quickInsertState?.lazyDefaultItems,
-        providedItems: quickInsertState?.providedItems,
-      }),
+        quickInsertState?.lazyDefaultItems,
+        quickInsertState?.providedItems,
+      ),
     [quickInsertState?.lazyDefaultItems, quickInsertState?.providedItems],
   );
 

@@ -1,5 +1,5 @@
 import Loadable from 'react-loadable';
-import type { Props as HelpDialogProps } from './index';
+import type { HelpDialogProps } from './index';
 
 export const HelpDialogLoader = Loadable({
   loader: () =>

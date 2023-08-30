@@ -159,10 +159,12 @@ export const createToolbarCopyCommandForNode =
           );
         }
         // ED-17083 safari seems have bugs for extension copy because exntension do not have a child text(innerText) and it will not recognized as html in clipboard, this could be merge into one if this extension fixed children issue or safari fix the copy bug
+        // MEX-2528 safari has a bug related to the mediaSingle node with border or link. The image tag within the clipboard is not recognized as HTML when using the ClipboardItem API. To address this, we have to switch to ClipboardPolyfill
         if (
           browser.safari &&
           state.selection instanceof NodeSelection &&
-          state.selection.node.type === state.schema.nodes.extension
+          (state.selection.node.type === state.schema.nodes.extension ||
+            state.selection.node.type === state.schema.nodes.mediaSingle)
         ) {
           copyHTMLToClipboardPolyfill(div);
         } else {

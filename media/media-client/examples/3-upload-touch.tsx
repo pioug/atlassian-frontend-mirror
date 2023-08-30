@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from '@atlaskit/button/standard-button';
 import { MediaStore } from '../src';
-import { createUploadMediaClient } from '@atlaskit/media-test-helpers';
+import { createUploadMediaClient } from '../src/test-helpers';
 import uuid from 'uuid/v4';
 import {
   Response,

@@ -10,6 +10,7 @@ import PopupNestedExample from '../../examples/constellation/popup-nested';
 import PopupFocusExample from '../../examples/constellation/popup-focus';
 import PopupDisableAutofocusExample from '../../examples/constellation/popup-disable-autofocus';
 import PopupContentUpdateExample from '../../examples/constellation/popup-content-update';
+import PopupSurfaceDetectionExample from '../../examples/constellation/popup-surface-detection';
 
 ## Default
 
@@ -68,3 +69,12 @@ You can focus a specific element when opening the popup. The `content` render pr
 If an element is focused, setting the `autofocus` prop to `false` will ensure it keeps focus when the popup is opened.
 
 <Example Component={PopupDisableAutofocusExample} packageName="@atlaskit/popup" />
+
+## Surface detection
+The [current surface CSS variable](/components/tokens/code#current-surface-color) is set to the surface color of the popup.
+The `utility.elevation.surface.current` design token can be used to style children with the current surface color.
+
+<Example
+  Component={PopupSurfaceDetectionExample}
+  packageName="@atlaskit/popup"
+/>

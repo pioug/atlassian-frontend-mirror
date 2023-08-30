@@ -33,7 +33,6 @@ const typographyProperties = {
   },
 } as const;
 
-// @ts-expect-error
 const activeTokens: Token[] = tokens.map((t) => ({
   name: t.name,
   fallback: t.value,

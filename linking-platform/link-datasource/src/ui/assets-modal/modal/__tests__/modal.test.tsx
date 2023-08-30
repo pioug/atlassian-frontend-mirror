@@ -3,8 +3,10 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
+import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 
+import { EVENT_CHANNEL } from '../../../../analytics';
 import {
   useAssetsClient,
   UseAssetsClientState,
@@ -154,32 +156,40 @@ describe('AssetsConfigModal', () => {
 
     const onCancel = jest.fn();
     const onInsert = jest.fn();
+    const onAnalyticFireEvent = jest.fn();
 
     let renderFunction = render;
     const renderComponent = () =>
       renderFunction(
-        <IntlProvider locale="en">
-          <AssetsConfigModal
-            datasourceId={'some-assets-datasource-id'}
-            parameters={
-              Object.keys(args).includes('parameters')
-                ? args.parameters
-                : getDefaultParameters()
-            }
-            onCancel={onCancel}
-            onInsert={onInsert}
-            visibleColumnKeys={
-              Object.keys(args).includes('visibleColumnKeys')
-                ? args.visibleColumnKeys
-                : ['myColumn']
-            }
-          />
-        </IntlProvider>,
+        <AnalyticsListener
+          channel={EVENT_CHANNEL}
+          onEvent={onAnalyticFireEvent}
+        >
+          <IntlProvider locale="en">
+            <AssetsConfigModal
+              datasourceId={'some-assets-datasource-id'}
+              parameters={
+                Object.keys(args).includes('parameters')
+                  ? args.parameters
+                  : getDefaultParameters()
+              }
+              onCancel={onCancel}
+              onInsert={onInsert}
+              visibleColumnKeys={
+                Object.keys(args).includes('visibleColumnKeys')
+                  ? args.visibleColumnKeys
+                  : ['myColumn']
+              }
+            />
+          </IntlProvider>
+          ,
+        </AnalyticsListener>,
       );
     return {
       ...renderComponent(),
       onCancel,
       onInsert,
+      onAnalyticFireEvent,
     };
   };
 
@@ -210,6 +220,30 @@ describe('AssetsConfigModal', () => {
     expect(
       getByTestId('jira-jql-datasource-modal--loading-error'),
     ).toBeInTheDocument();
+  });
+
+  it('should fire screen viewed analytics event when config modal is shown', async () => {
+    const { onAnalyticFireEvent } = await setup();
+
+    expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+      {
+        payload: {
+          eventType: 'screen',
+          name: 'datasourceModalDialog',
+          action: 'viewed',
+          attributes: {},
+        },
+        context: [
+          {
+            packageName: '@atlaskit/fabric',
+            packageVersion: '0.0.0',
+            source: 'datasourceConfigModal',
+            attributes: { dataProvider: 'jsm-assets' },
+          },
+        ],
+      },
+      EVENT_CHANNEL,
+    );
   });
 
   describe('when there is no parameters yet', () => {

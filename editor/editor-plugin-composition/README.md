@@ -1,4 +1,4 @@
-# Editor Composition Plugin
+# Editor plugin composition
 
 Composition plugin for @atlaskit/editor-core
 

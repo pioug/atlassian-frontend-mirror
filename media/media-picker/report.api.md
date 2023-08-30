@@ -105,7 +105,12 @@ class Clipboard_2 extends React_2.PureComponent<
 export { Clipboard_2 as Clipboard };
 
 // @public (undocumented)
-interface ClipboardConfig extends LocalUploadConfig {}
+export interface ClipboardConfig extends LocalUploadConfig {
+  // (undocumented)
+  container?: HTMLElement;
+  // (undocumented)
+  onPaste?: (event: ClipboardEvent) => boolean | undefined;
+}
 
 // @public (undocumented)
 type ClipboardProps = LocalUploadComponentBaseProps & {

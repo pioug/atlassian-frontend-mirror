@@ -3,10 +3,10 @@ import { Fragment } from 'react';
 
 import { jsx } from '@emotion/react';
 
-import { UNSAFE_Box as Box } from '@atlaskit/ds-explorations';
+import { Box } from '@atlaskit/primitives';
 
 import { useTabPanel } from '../hooks';
-import { TabPanelProps } from '../types';
+import { TabPanelAttributesType, TabPanelProps } from '../types';
 
 // Note this is not being memoized as children is an unstable reference
 /**
@@ -19,12 +19,28 @@ import { TabPanelProps } from '../types';
  * - [Usage](https://atlassian.design/components/tabs/usage)
  */
 const TabPanel = ({ children, testId }: TabPanelProps) => {
-  const tabPanelAttributes = useTabPanel();
+  const {
+    role,
+    id,
+    hidden,
+    'aria-labelledby': ariaLabelledBy,
+    onMouseDown,
+    tabIndex,
+  }: TabPanelAttributesType = useTabPanel();
   return (
-    <Box testId={testId} as="div" {...tabPanelAttributes}>
+    <Box
+      testId={testId}
+      role={role}
+      id={id}
+      hidden={hidden}
+      aria-labelledby={ariaLabelledBy}
+      onMouseDown={onMouseDown}
+      tabIndex={tabIndex}
+    >
       {/* Fragment is a workaround as Box types don't allow ReactNode children */}
       <Fragment>{children}</Fragment>
     </Box>
   );
 };
+
 export default TabPanel;

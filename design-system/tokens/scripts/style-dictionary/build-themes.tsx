@@ -119,7 +119,7 @@ const createThemeConfig = (
         ],
       },
       raw: {
-        transforms: ['name/dot', 'color/palette', 'raw/pixel'],
+        transforms: ['name/dot', 'color/palette', 'raw/pixel', 'font/web'],
         buildPath: path.join(ARTIFACT_OUTPUT_DIR, 'tokens-raw/'),
         options: {
           themeName,

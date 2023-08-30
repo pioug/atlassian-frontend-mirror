@@ -1,5 +1,11 @@
 # @atlaskit/analytics-listeners
 
+## 8.7.5
+
+### Patch Changes
+
+- [`b954b88b600`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b954b88b600) - Enrol packages to push model
+
 ## 8.7.4
 
 ### Patch Changes

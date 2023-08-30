@@ -8,16 +8,22 @@ import {
   useMemo,
 } from 'react';
 
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 
-import { UNSAFE_Box as Box } from '@atlaskit/ds-explorations';
 import { useGlobalTheme } from '@atlaskit/theme/components';
+import { token } from '@atlaskit/tokens';
 
 import { useTabList } from '../hooks';
 import { TabContext } from '../internal/context';
 import { getTabListStyles } from '../internal/styles';
 import { onMouseDownBlur } from '../internal/utils';
 import { TabListProps } from '../types';
+
+const baseStyles = css({
+  display: 'flex',
+  padding: token('space.0', '0px'),
+  position: 'relative',
+});
 
 /**
  * __TabList__
@@ -28,8 +34,7 @@ import { TabListProps } from '../types';
  * - [Code](https://atlassian.design/components/tabs/code)
  * - [Usage](https://atlassian.design/components/tabs/usage)
  */
-const TabList = (props: TabListProps) => {
-  const { children } = props;
+const TabList = ({ children }: TabListProps) => {
   const { mode } = useGlobalTheme();
   const { tabsId, selected, onChange } = useTabList();
 
@@ -126,15 +131,11 @@ const TabList = (props: TabListProps) => {
     // The other styles applied through the CSS prop are there for styling children
     // through inheritance. This is important for custom cases that use the useTab(),
     // which applies accessibility atributes that we use as a styling hook.
-    <Box
-      as="div"
+    <div
       role="tablist"
-      display="flex"
-      position="relative"
-      padding="space.0"
       ref={ref}
       // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-      css={tabListStyles}
+      css={[baseStyles, tabListStyles]}
     >
       {childrenArray.map((child, index) =>
         getTabWithContext({
@@ -143,7 +144,7 @@ const TabList = (props: TabListProps) => {
           isSelected: index === selected,
         }),
       )}
-    </Box>
+    </div>
   );
 };
 

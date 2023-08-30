@@ -42,7 +42,7 @@ export type TextFormattingPlugin = NextEditorPlugin<
   }
 >;
 
-// @public (undocumented)
+// @public
 export const textFormattingPlugin: TextFormattingPlugin;
 
 // @public (undocumented)

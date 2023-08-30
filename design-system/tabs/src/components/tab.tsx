@@ -1,13 +1,11 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 
-import {
-  UNSAFE_Box as Box,
-  UNSAFE_Text as Text,
-} from '@atlaskit/ds-explorations';
+import { UNSAFE_Text as Text } from '@atlaskit/ds-explorations';
+import { Box } from '@atlaskit/primitives';
 
 import { useTab } from '../hooks';
-import { TabProps } from '../types';
+import { TabAttributesType, TabProps } from '../types';
 
 /**
  * __Tab__
@@ -19,9 +17,33 @@ import { TabProps } from '../types';
  * - [Usage](https://atlassian.design/components/tabs/usage)
  */
 export default function Tab({ children, testId }: TabProps) {
-  const tabAttributes = useTab();
+  const {
+    onClick,
+    id,
+    'aria-controls': ariaControls,
+    'aria-posinset': ariaPosinset,
+    'aria-selected': ariaSelected,
+    'aria-setsize': ariaSetsize,
+    onMouseDown,
+    onKeyDown,
+    role,
+    tabIndex,
+  }: TabAttributesType = useTab();
+
   return (
-    <Box as="div" testId={testId} {...tabAttributes}>
+    <Box
+      testId={testId}
+      onClick={onClick}
+      id={id}
+      aria-controls={ariaControls}
+      aria-posinset={ariaPosinset}
+      aria-selected={ariaSelected}
+      aria-setsize={ariaSetsize}
+      onMouseDown={onMouseDown}
+      onKeyDown={onKeyDown}
+      role={role}
+      tabIndex={tabIndex}
+    >
       <Text shouldTruncate UNSAFE_style={{ color: 'inherit' }}>
         {children}
       </Text>

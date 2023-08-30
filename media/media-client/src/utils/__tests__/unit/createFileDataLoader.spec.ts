@@ -5,8 +5,8 @@ import Dataloader from 'dataloader';
 import {
   asMock,
   asMockFunctionReturnValue,
-  fakeMediaClient,
-} from '@atlaskit/media-test-helpers';
+} from '@atlaskit/media-common/test-helpers';
+import { fakeMediaClient } from '../../../test-helpers';
 
 import {
   ItemsPayload,

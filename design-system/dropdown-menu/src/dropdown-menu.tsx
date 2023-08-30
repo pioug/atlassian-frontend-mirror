@@ -105,6 +105,7 @@ const DropdownMenu = <T extends HTMLElement = HTMLElement>(
     trigger,
     spacing,
     shouldFlip = true,
+    shouldRenderToParent = false,
     isLoading = false,
     autoFocus = false,
     testId,
@@ -212,7 +213,7 @@ const DropdownMenu = <T extends HTMLElement = HTMLElement>(
           getBooleanFF(
             'platform.design-system-team.render-popup-in-parent_f73ij',
           )
-            ? true
+            ? shouldRenderToParent
             : undefined
         }
         trigger={(triggerProps: TriggerProps) => {

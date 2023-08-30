@@ -32,7 +32,7 @@ export type ContentInsertionPlugin = NextEditorPlugin<
   }
 >;
 
-// @public (undocumented)
+// @public
 export const contentInsertionPlugin: ContentInsertionPlugin;
 
 // @public (undocumented)

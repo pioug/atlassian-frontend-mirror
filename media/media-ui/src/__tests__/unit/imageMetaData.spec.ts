@@ -1,7 +1,7 @@
 jest.mock('../../imageMetaData/metatags');
 jest.mock('../../imageMetaData/imageOrientationUtil');
 
-import { asMock } from '@atlaskit/media-test-helpers';
+import { asMock } from '@atlaskit/media-common/test-helpers';
 import * as util from '../../util';
 
 import {

@@ -1,5 +1,17 @@
 # @atlaskit/collab-provider
 
+## 9.12.1
+
+### Patch Changes
+
+- [`41f00a65fed`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41f00a65fed) - Add ClientId for CatchUp
+
+## 9.12.0
+
+### Minor Changes
+
+- [`d1cee97f581`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d1cee97f581) - removing stateless provider setup
+
 ## 9.11.1
 
 ### Patch Changes

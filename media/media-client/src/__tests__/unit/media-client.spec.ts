@@ -6,7 +6,7 @@ import {
   asMockFunction,
   asMockFunctionResolvedValue,
   flushPromises,
-} from '@atlaskit/media-test-helpers';
+} from '@atlaskit/media-common/test-helpers';
 import { Subscription } from 'rxjs/Subscription';
 
 import {

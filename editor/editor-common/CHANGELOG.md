@@ -1,5 +1,28 @@
 # @atlaskit/editor-common
 
+## 74.55.2
+
+### Patch Changes
+
+- [`58f6154cd7c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/58f6154cd7c) - Use color.icon.danger colour token for resizer danger state, rename the danger className to avoid collisions and ensure danger state is only applied to tables when the table is selected
+
+## 74.55.1
+
+### Patch Changes
+
+- [`6ca5d702ed5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6ca5d702ed5) - Cleaned up more barrel imports to be named imports for treeshaking purposes :)
+- Updated dependencies
+
+## 74.55.0
+
+### Minor Changes
+
+- [`7613b6b6a51`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7613b6b6a51) - [ED-19428] Decouple quick-insert plugin from editor-core
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 74.54.0
 
 ### Minor Changes

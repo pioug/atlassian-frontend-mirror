@@ -3,10 +3,10 @@ import {
   defaultCollectionName,
   createStorybookMediaClientConfig,
 } from '@atlaskit/media-test-helpers';
-import { Card } from '@atlaskit/media-card';
-import { Identifier } from '@atlaskit/media-client';
+import { Identifier, MediaClient } from '@atlaskit/media-client';
 import { ButtonList, Group, MainWrapper } from '../example-helpers/MainWrapper';
 import { emptyImage } from '../example-helpers';
+import { NativeMediaPreview } from '../example-helpers/NativeMediaPreview';
 import { MediaViewer } from '../src';
 import { I18NWrapper } from '@atlaskit/media-test-helpers';
 import { addGlobalEventEmitterListeners } from '@atlaskit/media-test-helpers';
@@ -14,6 +14,7 @@ import { addGlobalEventEmitterListeners } from '@atlaskit/media-test-helpers';
 addGlobalEventEmitterListeners();
 
 const mediaClientConfig = createStorybookMediaClientConfig();
+const mediaClient = new MediaClient(mediaClientConfig);
 
 export type State = {
   selectedIdentifier?: Identifier;
@@ -32,9 +33,9 @@ export default class Example extends React.Component<{}, State> {
     return (
       <div>
         <h4>{title}</h4>
-        <Card
+        <NativeMediaPreview
           identifier={identifier}
-          mediaClientConfig={mediaClientConfig}
+          mediaClient={mediaClient}
           onClick={onClick}
         />
       </div>

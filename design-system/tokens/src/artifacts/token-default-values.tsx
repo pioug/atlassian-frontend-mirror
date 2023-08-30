@@ -7,7 +7,7 @@
  * Token names mapped to their value in the default Atlassian themes ('light').
  * These default values are used by the Babel plugin to optionally provide automatic fallbacks.
  *
- * @codegen <<SignedSource::840fd992afdcf5c5441bb2f2c6c314e7>>
+ * @codegen <<SignedSource::2502bf5f723d604cd04596897e52d47f>>
  * @codegenCommand yarn build tokens
  */
 const defaultTokenValues = {
@@ -345,6 +345,8 @@ const defaultTokenValues = {
   'space.1000': '5rem',
   'font.body':
     'normal 400 0.875rem/1.25rem ui-sans-serif, "Segoe UI", system-ui, Ubuntu, "Helvetica Neue", sans-serif',
+  'font.body.lg':
+    'normal 400 1rem/1.5rem ui-sans-serif, "Segoe UI", system-ui, Ubuntu, "Helvetica Neue", sans-serif',
   'font.body.sm':
     'normal 400 0.6875rem/1.25rem ui-sans-serif, "Segoe UI", system-ui, Ubuntu, "Helvetica Neue", sans-serif',
   'font.code':
@@ -369,9 +371,9 @@ const defaultTokenValues = {
   'font.letterSpacing.300': '-0.008em',
   'font.letterSpacing.400': '-0.01em',
   'font.ui':
-    'normal 400 0.875rem/1rem ui-sans-serif, "Segoe UI", system-ui, Ubuntu, "Helvetica Neue", sans-serif',
+    'normal 400 0.875rem/1 ui-sans-serif, "Segoe UI", system-ui, Ubuntu, "Helvetica Neue", sans-serif',
   'font.ui.sm':
-    'normal 400 0.6875rem/1rem ui-sans-serif, "Segoe UI", system-ui, Ubuntu, "Helvetica Neue", sans-serif',
+    'normal 400 0.6875rem/1 ui-sans-serif, "Segoe UI", system-ui, Ubuntu, "Helvetica Neue", sans-serif',
   'font.family.code':
     'ui-monospace, Menlo, "Segoe UI Mono", "Ubuntu Mono", monospace',
   'font.family.monospace':

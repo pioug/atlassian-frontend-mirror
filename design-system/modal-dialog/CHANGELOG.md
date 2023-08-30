@@ -1,5 +1,11 @@
 # @atlaskit/modal-dialog
 
+## 12.6.9
+
+### Patch Changes
+
+- [`c8d28bd7519`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c8d28bd7519) - Adds role of region to modal dialog body when scrollable
+
 ## 12.6.8
 
 ### Patch Changes

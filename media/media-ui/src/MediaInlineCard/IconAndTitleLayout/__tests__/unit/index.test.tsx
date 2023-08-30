@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
+import { renderWithIntl } from '../../../../test-helpers';
 import { IconAndTitleLayout } from '../../index';
 
 jest.mock('react-render-image');

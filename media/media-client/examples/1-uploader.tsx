@@ -1,9 +1,7 @@
 import { Component, ChangeEvent } from 'react';
 import React from 'react';
-import {
-  defaultMediaPickerAuthProvider,
-  tallImage,
-} from '@atlaskit/media-test-helpers';
+import { defaultMediaPickerAuthProvider } from '../src/test-helpers';
+import { tallImage } from '@atlaskit/media-common/test-helpers';
 import uuid from 'uuid/v4';
 import {
   ImagePreview,

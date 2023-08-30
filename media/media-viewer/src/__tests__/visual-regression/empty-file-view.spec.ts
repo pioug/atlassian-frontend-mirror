@@ -16,7 +16,8 @@ describe('Empty file view', () => {
     const { page } = global;
     await page.goto(url);
     await page.waitForSelector(pageSelector);
-    await page.click('div[data-testid="media-file-card-view"]');
+    await page.waitForSelector('button[data-testid="media-native-preview"]');
+    await page.click('button[data-testid="media-native-preview"]');
     await page.waitForSelector('img');
     await page.hover('div[data-testid="media-viewer-error"]');
     await sleep(300);

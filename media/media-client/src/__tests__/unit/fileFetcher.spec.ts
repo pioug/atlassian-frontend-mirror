@@ -27,10 +27,10 @@ import {
   asMock,
   asMockFunction,
   asMockFunctionResolvedValue,
-  fakeMediaClient,
   sleep,
   timeoutPromise,
-} from '@atlaskit/media-test-helpers';
+} from '@atlaskit/media-common/test-helpers';
+import { fakeMediaClient } from '../../test-helpers';
 import { fromObservable, toPromise } from '../../utils/mediaSubscribable';
 import { isMimeTypeSupportedByServer } from '@atlaskit/media-common/mediaTypeUtils';
 import * as MediaStoreModule from '../../client/media-store';

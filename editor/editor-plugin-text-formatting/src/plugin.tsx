@@ -60,6 +60,10 @@ export type TextFormattingPlugin = NextEditorPlugin<
   }
 >;
 
+/**
+ * Text formatting plugin to be added to an `EditorPresetBuilder` and used with `ComposableEditor`
+ * from `@atlaskit/editor-core`.
+ */
 export const textFormattingPlugin: TextFormattingPlugin = ({
   config: options,
   api,

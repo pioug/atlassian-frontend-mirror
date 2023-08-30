@@ -37,7 +37,7 @@ export type AnalyticsPlugin = NextEditorPlugin<
   }
 >;
 
-// @public (undocumented)
+// @public
 export const analyticsPlugin: AnalyticsPlugin;
 
 // @public (undocumented)

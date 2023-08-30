@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useState } from 'react';
 import { Subject } from 'rxjs/Subject';
 import { takeUntil } from 'rxjs/operators/takeUntil';
-import { smallImage } from '@atlaskit/media-test-helpers';
+import { smallImage } from '@atlaskit/media-common/test-helpers';
 import { chunkinator, Chunk, ChunkinatorFile } from '../src';
 import config from '../example-helpers/config';
 

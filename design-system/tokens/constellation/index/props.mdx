@@ -476,10 +476,20 @@ The SSR server should attach the return value of this function as the `innerhtml
 />
 
 ## Current surface color
+
 The current surface is a dynamic color value implemented via CSS custom properties (CSS variables). Which allows UI to be styled with a color based on a parent element's surface color. This is useful when an element needs an opaque background based on a parent element's surface color. For example, when it needs to mask content.
 
 Some components in the Atlassian Design System will set the `CURRENT_SURFACE_CSS_VAR` when they set a surface color. The following components set the surface color CSS variable:
-- ModalDialog
+- [Drawer](/components/drawer)
+- [Dropdown menu](/components/dropdown-menu)
+- [Modal dialog](/components/modal-dialog)
+- [Popup](/components/popup)
+
+### Get the current suface color
+
+The current surface color can be used the same way as other [design tokens](/components/tokens/all-tokens) are used:
+- JavaScript syntax: `token('utility.elevation.surface.current')`
+- CSS syntax: `--ds-elevation-surface-current`
 
 #### Example usage with the ModalDialog component
 
@@ -499,6 +509,8 @@ function ExampleWithModal() {
   )
 }
 ```
+
+### Set the current suface color
 
 The `CURRENT_SURFACE_CSS_VAR` constant is the CSS custom property name for accessing the 'current surface' value. This is exported to enable the current surface CSS custom property to be set.
 

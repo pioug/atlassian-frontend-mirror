@@ -5,7 +5,7 @@ import {
   imageFileId,
   defaultCollectionName,
   defaultMediaPickerAuthProvider,
-} from '@atlaskit/media-test-helpers';
+} from '../src/test-helpers';
 import { MediaClientConfig } from '@atlaskit/media-core';
 import { MediaSubscribable } from '../src/utils/mediaSubscribable';
 import { FileState, MediaClient } from '../src';

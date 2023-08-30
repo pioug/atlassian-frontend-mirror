@@ -1,5 +1,6 @@
 import type {
   AllDragTypes,
+  CleanupFn,
   Input,
 } from '@atlaskit/pragmatic-drag-and-drop/types';
 
@@ -39,11 +40,6 @@ export type Spacing = {
 
 export type Edge = keyof Spacing;
 
-export type ScrollableEdge = {
-  edge: Edge;
-  hitbox: DOMRect;
-};
-
 export type EngagementHistoryEntry = {
   timeOfEngagementStart: number;
 };
@@ -60,18 +56,24 @@ type BaseConfig = {
 
 export type ScrollContainerConfig = BaseConfig;
 
+export type Behavior = {
+  onFrame: (args: {
+    element: Element;
+    input: Input;
+    timeSinceLastFrame: number;
+  }) => void;
+  cleanup: CleanupFn;
+};
+
 export type ScrollContainerArgs<DragType extends AllDragTypes> = {
   element: Element;
   canScroll?: (args: GetFeedbackArgs<DragType>) => boolean;
+  behavior?: Behavior[];
   // Per item configuration currently disabled for initial testing
   // getConfiguration?: (
   //   args: GetFeedbackArgs<DragType>,
   // ) => NestedPartial<ScrollContainerConfig>;
 };
-
-// type WindowConfig = BaseConfig & {
-//   behaviour: 'window-then-scroll-containers' | 'scroll-containers-then-window';
-// };
 
 export type WindowArgs<DragType extends AllDragTypes> = {
   canScroll?: (args: GetFeedbackArgs<DragType>) => boolean;
@@ -80,3 +82,6 @@ export type WindowArgs<DragType extends AllDragTypes> = {
   //   args: GetFeedbackArgs<DragType>,
   // ) => NestedPartial<WindowConfig>;
 };
+
+export type Side = 'start' | 'end';
+export type Axis = 'vertical' | 'horizontal';

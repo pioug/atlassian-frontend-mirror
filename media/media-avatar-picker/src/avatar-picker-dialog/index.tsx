@@ -104,7 +104,8 @@ export class AvatarPickerDialog extends PureComponent<
    */
   exportCroppedImage = (outputSize?: number) => '';
 
-  onSaveClick = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
+  onSave = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     const {
       onImagePicked,
       onImagePickedDataURI,
@@ -115,7 +116,6 @@ export class AvatarPickerDialog extends PureComponent<
     const { selectedImage, selectedAvatar } = this.state;
 
     if (!(imageSource || selectedImage || selectedAvatar)) {
-      event.preventDefault();
       this.setState({ isSubmitted: true });
       return;
     }
@@ -130,6 +130,8 @@ export class AvatarPickerDialog extends PureComponent<
       }
     } else if (selectedAvatar) {
       onAvatarPicked(selectedAvatar);
+    } else {
+      this.setState({ isSubmitted: true });
     }
   };
 
@@ -188,7 +190,7 @@ export class AvatarPickerDialog extends PureComponent<
 
         {this.state.isSubmitted && <SubmitErrorDialog />}
 
-        <form css={formStyles}>
+        <form noValidate onSubmit={this.onSave} css={formStyles}>
           <ModalBody>
             <div css={avatarPickerViewWrapperStyles}>{this.renderBody()}</div>
           </ModalBody>
@@ -215,7 +217,6 @@ export class AvatarPickerDialog extends PureComponent<
 
   footerContent = () => {
     const { primaryButtonText, onCancel, isLoading } = this.props;
-    const { onSaveClick } = this;
     return (
       <ModalFooter>
         <ButtonGroup>
@@ -224,7 +225,6 @@ export class AvatarPickerDialog extends PureComponent<
           </Button>
           <LoadingButton
             appearance="primary"
-            onClick={onSaveClick}
             isLoading={isLoading}
             type="submit"
           >

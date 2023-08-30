@@ -1,7 +1,7 @@
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import {
   B100,
-  B75,
+  B200,
   DN10,
   DN200,
   DN30,
@@ -55,8 +55,8 @@ export const defaultBorderColor = {
 };
 
 export const defaultBorderColorFocus = {
-  light: token('color.border.focused', B100),
-  dark: token('color.border.focused', B75),
+  light: token('color.border.focused', B200),
+  dark: token('color.border.focused', B100),
 };
 
 export const subtleBorderColorHover = {

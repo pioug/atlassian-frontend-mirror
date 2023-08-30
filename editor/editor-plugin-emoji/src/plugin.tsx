@@ -103,6 +103,10 @@ type EmojiProviderChangeHandler = {
 };
 const TRIGGER = ':';
 
+/**
+ * Emoji plugin to be added to an `EditorPresetBuilder` and used with `ComposableEditor`
+ * from `@atlaskit/editor-core`.
+ */
 export const emojiPlugin: EmojiPlugin = ({ config: options, api }) => {
   const typeAhead: TypeAheadHandler = {
     id: TypeAheadAvailableNodes.EMOJI,

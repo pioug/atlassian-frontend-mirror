@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 1.18.0
+
+### Minor Changes
+
+- [`c27587454bb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c27587454bb) - Update to include additional body token.
+
 ## 1.17.1
 
 ### Patch Changes

@@ -124,8 +124,10 @@ const ScrollContainer = forwardRef<HTMLElement | null, ScrollContainerProps>(
     return (
       <FocusRing isInset>
         <div
+          // tabindex is allowed here so that keyboard users can scroll content
           // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
           tabIndex={showContentFocus ? 0 : undefined}
+          role={showContentFocus ? 'region' : undefined}
           aria-label={showContentFocus ? 'Scrollable content' : undefined}
           data-testid={testId && `${testId}--scrollable`}
           ref={mergeRefs([ref, scrollableRef])}

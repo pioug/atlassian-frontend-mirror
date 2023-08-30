@@ -1,5 +1,12 @@
 # @atlaskit/media-viewer
 
+## 48.0.11
+
+### Patch Changes
+
+- [`ede6ee7aaab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ede6ee7aaab) - Updated tests, examples and moving towards /test-helper export in packages to prevent circular dependancies
+- Updated dependencies
+
 ## 48.0.10
 
 ### Patch Changes

@@ -96,15 +96,12 @@ export default function Label({
   children,
   isDisabled,
   testId,
-  onClick,
   label,
   id,
 }: LabelProps) {
   const { mode } = useGlobalTheme();
 
   return (
-    // TODO: Labels should not have click handlers (DSP-11750)
-    // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
     <label
       css={[
         labelStyles,
@@ -115,7 +112,6 @@ export default function Label({
       ]}
       data-testid={testId}
       data-disabled={isDisabled || undefined}
-      onClick={onClick}
       id={id}
     >
       {children}

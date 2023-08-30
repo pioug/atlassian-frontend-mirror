@@ -117,7 +117,7 @@ interface TablePluginOptions {
   wasFullWidthEnabled?: boolean;
 }
 
-// @public (undocumented)
+// @public
 export const tablesPlugin: TablePlugin;
 
 // (No @packageDocumentation comment for this package)

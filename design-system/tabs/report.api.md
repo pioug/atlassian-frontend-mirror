@@ -57,7 +57,7 @@ export interface TabData {
 }
 
 // @public
-export const TabList: (props: TabListProps) => jsx.JSX.Element;
+export const TabList: ({ children }: TabListProps) => jsx.JSX.Element;
 
 // @public (undocumented)
 export type TabListAttributesType = {

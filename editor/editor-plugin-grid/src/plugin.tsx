@@ -265,6 +265,10 @@ export type GridPlugin = NextEditorPlugin<
   }
 >;
 
+/**
+ * Grid plugin to be added to an `EditorPresetBuilder` and used with `ComposableEditor`
+ * from `@atlaskit/editor-core`.
+ */
 export const gridPlugin: GridPlugin = ({ config: options, api }) => {
   return {
     name: 'grid',

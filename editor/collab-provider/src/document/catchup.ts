@@ -33,7 +33,7 @@ export const catchup = async (opt: CatchupOptions) => {
       stepMaps: serverStepMaps,
       version: serverVersion,
       metadata,
-    } = await opt.fetchCatchup(opt.getCurrentPmVersion()));
+    } = await opt.fetchCatchup(opt.getCurrentPmVersion(), opt.clientId));
   } catch (error) {
     opt.analyticsHelper?.sendErrorEvent(
       error,

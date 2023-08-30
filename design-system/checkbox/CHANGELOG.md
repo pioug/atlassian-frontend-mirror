@@ -1,5 +1,11 @@
 # @atlaskit/checkbox
 
+## 12.6.11
+
+### Patch Changes
+
+- [`b580abfbc29`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b580abfbc29) - Remove onClick from checkbox label
+
 ## 12.6.10
 
 ### Patch Changes

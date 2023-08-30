@@ -1,5 +1,11 @@
 # @atlaskit/comment
 
+## 10.8.17
+
+### Patch Changes
+
+- [`cf6302f0150`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf6302f0150) - Accessibility changes. The default header has a `h3` tag. Heading level can be changed using the `headingLevel` prop.
+
 ## 10.8.16
 
 ### Patch Changes

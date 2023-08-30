@@ -1,5 +1,11 @@
 # @atlaskit/linking-common
 
+## 4.6.0
+
+### Minor Changes
+
+- [`3f12e00f046`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3f12e00f046) - [ux] EDM-7493 Link create Jira quick insert
+
 ## 4.5.0
 
 ### Minor Changes

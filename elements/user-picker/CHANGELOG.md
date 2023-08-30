@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 10.9.0
+
+### Minor Changes
+
+- [`f78b73387c6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f78b73387c6) - Add onKeyDown handler to props
+
 ## 10.8.0
 
 ### Minor Changes

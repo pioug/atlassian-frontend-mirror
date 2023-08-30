@@ -64,7 +64,7 @@ export type HyperlinkPlugin = NextEditorPlugin<
   }
 >;
 
-// @public (undocumented)
+// @public
 export const hyperlinkPlugin: HyperlinkPlugin;
 
 // @public (undocumented)

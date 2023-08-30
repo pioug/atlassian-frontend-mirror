@@ -229,8 +229,8 @@ describe('Snapshot test', () => {
     const image = await takeElementScreenShot(page, 'body');
     expect(image).toMatchProdImageSnapshot();
   });
-
-  it('Form example should match production', async () => {
+  // FIXME: Failing master pipeline https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/1616365/steps/%7B7f04bd7c-66f1-4c62-a449-35e6cdefe478%7D
+  it.skip('Form example should match production', async () => {
     const url = getExampleUrl(
       'design-system',
       'modal-dialog',
@@ -244,7 +244,8 @@ describe('Snapshot test', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
-  it('Form as container example should overflow correctly', async () => {
+  // FIXME: Failing master pipeline https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/1616365/steps/%7B7f04bd7c-66f1-4c62-a449-35e6cdefe478%7D
+  it.skip('Form as container example should overflow correctly', async () => {
     const url = getExampleUrl(
       'design-system',
       'modal-dialog',

@@ -32,7 +32,7 @@ export type GuidelinePlugin = NextEditorPlugin<
   }
 >;
 
-// @public (undocumented)
+// @public
 export const guidelinePlugin: GuidelinePlugin;
 
 // (No @packageDocumentation comment for this package)

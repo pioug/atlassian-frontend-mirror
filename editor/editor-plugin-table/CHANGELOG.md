@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-table
 
+## 2.12.1
+
+### Patch Changes
+
+- [`58f6154cd7c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/58f6154cd7c) - Use color.icon.danger colour token for resizer danger state, rename the danger className to avoid collisions and ensure danger state is only applied to tables when the table is selected
+
+## 2.12.0
+
+### Minor Changes
+
+- [`ad3c5c21079`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ad3c5c21079) - Updating all plugins with minor version to correct issue with semver.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.11.0
 
 ### Minor Changes

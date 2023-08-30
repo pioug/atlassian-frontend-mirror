@@ -66,10 +66,6 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
   // the feature flag is enabled and the initial draft fetched from NCS is also passed in the config.
   private isBufferingEnabled: boolean = false;
 
-  // isPreinitializating acts as a feature flag to determine when the provider has been initialized early
-  // and also contains the initial draft
-  private isPreinitializing: boolean = false;
-
   // SessionID is the unique socket-session.
   private sessionId?: string;
 
@@ -95,19 +91,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
    * @param data - Event data to emit to subscribers
    */
   private readonly emitCallback: (evt: keyof CollabEvents, data: any) => void =
-    (evt, data) => {
-      // When the provider is initialized early, we want to ensure the editor state exists after setup is called before emitting events
-      // to ensure that it is ready to listen to the events fired by NCS
-      if (this.isPreinitializing) {
-        this.onSetupPromise.then(() => this.emit(evt, data));
-      } else {
-        this.emit(evt, data);
-      }
-    };
-
-  private onSetupPromise: Promise<void>;
-  // resolves once setup is called with a defined getState param
-  resolveOnSetupPromise!: (value: void | PromiseLike<void>) => void;
+    (evt, data) => this.emit(evt, data);
 
   /**
    * Wrapper to update document and metadata.
@@ -154,7 +138,6 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
     this.initialDraft = this.config.initialDraft;
     this.isBufferingEnabled = Boolean(this.config.isBufferingEnabled);
     this.isProviderInitialized = false;
-    this.isPreinitializing = false;
     this.participantsService = new ParticipantsService(
       this.analyticsHelper,
       undefined,
@@ -183,9 +166,6 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
       this.config.enableErrorOnFailedDocumentApply,
       this.config.featureFlags,
     );
-    this.onSetupPromise = new Promise((resolve) => {
-      this.resolveOnSetupPromise = resolve;
-    });
     this.namespaceService = new NamespaceService();
   }
 
@@ -199,11 +179,9 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
         // if buffering is enabled and the provider is initialized before connection, call catchup
         // once setup resolves with the defined editor state
         if (this.isBufferingEnabled && this.isProviderInitialized) {
-          this.onSetupPromise.then(() => {
-            this.documentService.sendStepsFromCurrentState();
-          });
+          this.documentService.sendStepsFromCurrentState();
         }
-        this.emitCallback('connected', {
+        this.emit('connected', {
           sid,
           initial: !initialized,
         });
@@ -218,30 +196,11 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
           else {
             const { document, version, metadata }: InitialDraft =
               this.initialDraft;
-            if (this.isPreinitializing) {
-              // When the provider is initialized early, we wait until setup is called with a defined getState before the document is updated to ensure that the editor state exists
-              // The `isPreinitializing` check is an extra precaution behind a FF - if the state is already resolved, onSetupPromise will resolve immediately
-              this.onSetupPromise.then(() => {
-                this.updateDocumentAndMetadata({
-                  doc: document,
-                  version,
-                  metadata,
-                });
-              });
-            } else {
-              this.updateDocumentAndMetadata({
-                doc: document,
-                version,
-                metadata,
-              });
-            }
-            this.analyticsHelper?.sendActionEvent(
-              EVENT_ACTION.PROVIDER_INITIALIZED,
-              EVENT_STATUS.INFO,
-              {
-                isPreinitializing: this.isPreinitializing,
-              },
-            );
+            this.updateDocumentAndMetadata({
+              doc: document,
+              version,
+              metadata,
+            });
           }
         }
         // If already initialized, `connected` means reconnected
@@ -305,10 +264,6 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
   /**
    * Initialisation logic, called by the editor in the collab-edit plugin.
    *
-   * When getState is nullish and a initialDraft is provided the collab provider is in a state of pre-initialization,
-   * the provider starts to enable the connection to NCS, but the provider will not emit any events until this function
-   * is called again with a getState function, indicating that the editor is loaded and ready to receive the emits.
-   *
    * @param {Object} options ...
    * @param {Function} options.getState Function that returns the editor state, used to retrieve collab-edit properties and to interact with prosemirror-collab
    * @param {SyncUpErrorFunction} options.onSyncUpError (Optional) Function that gets called when the sync of steps fails after retrying 30 times, used by Editor to log to analytics
@@ -318,71 +273,45 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
     getState,
     onSyncUpError,
   }: {
-    getState?: () => EditorState;
+    getState: () => EditorState;
     onSyncUpError?: SyncUpErrorFunction;
   }): this {
     this.checkForCookies();
     try {
-      // if setup is called with no getState and the initial draft is already provided
-      // set a flag to mark early provider setup
-      if (!getState && this.initialDraft) {
-        this.isPreinitializing = true;
+      const collabPlugin = getState().plugins.find(
+        (p: any) => p.key === 'collab$',
+      );
+      if (collabPlugin === undefined) {
+        throw new ProviderInitialisationError(
+          'Collab provider attempted to initialise, but Editor state is missing collab plugin',
+        );
       }
+      this.clientId = (collabPlugin.spec as any).config.clientID;
 
-      if (this.initialDraft) {
+      this.documentService.setup({
+        getState,
+        onSyncUpError,
+        clientId: this.clientId,
+      });
+
+      if (
+        this.isBufferingEnabled &&
+        this.initialDraft &&
+        !this.isProviderInitialized
+      ) {
+        const { document, version, metadata }: InitialDraft = this.initialDraft;
+        this.updateDocumentAndMetadata({
+          doc: document,
+          version,
+          metadata,
+        });
         this.analyticsHelper?.sendActionEvent(
-          EVENT_ACTION.PROVIDER_SETUP,
+          EVENT_ACTION.PROVIDER_INITIALIZED,
           EVENT_STATUS.INFO,
           {
-            isPreinitializing: this.isPreinitializing,
-            hasState: Boolean(getState),
+            isBuffered: true,
           },
         );
-      }
-
-      if (getState) {
-        const collabPlugin = getState().plugins.find(
-          (p: any) => p.key === 'collab$',
-        );
-        if (collabPlugin === undefined) {
-          throw new ProviderInitialisationError(
-            'Collab provider attempted to initialise, but Editor state is missing collab plugin',
-          );
-        }
-        this.clientId = (collabPlugin.spec as any).config.clientID;
-
-        this.documentService.setup({
-          getState,
-          onSyncUpError,
-          clientId: this.clientId,
-        });
-
-        // if provider has already been initialized earlier, resolve the setup promise once setup has been called with
-        // a defined getState (ie editor state is ready) AND after documentService sets the editor state
-        if (this.isPreinitializing) {
-          this.resolveOnSetupPromise();
-          if (
-            this.isBufferingEnabled &&
-            this.initialDraft &&
-            !this.isProviderInitialized
-          ) {
-            const { document, version, metadata }: InitialDraft =
-              this.initialDraft;
-            this.updateDocumentAndMetadata({
-              doc: document,
-              version,
-              metadata,
-            });
-            this.analyticsHelper?.sendActionEvent(
-              EVENT_ACTION.PROVIDER_INITIALIZED,
-              EVENT_STATUS.INFO,
-              {
-                isPreinitializing: this.isPreinitializing,
-                isBuffered: true,
-              },
-            );
-          }
-        }
       }
 
       if (!this.isChannelInitialized) {
@@ -483,7 +412,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
       // Temporarily only emit errors to Confluence very intentionally because they will disconnect the collab provider
       if (mappedError) {
         this.analyticsHelper?.sendErrorEvent(mappedError, 'Error emitted');
-        this.emitCallback('error', mappedError);
+        this.emit('error', mappedError);
       }
     }
   };

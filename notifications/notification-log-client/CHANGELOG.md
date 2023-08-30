@@ -1,5 +1,11 @@
 # @atlaskit/notification-log-service
 
+## 6.1.5
+
+### Patch Changes
+
+- [`b954b88b600`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b954b88b600) - Enrol packages to push model
+
 ## 6.1.4
 
 ### Patch Changes

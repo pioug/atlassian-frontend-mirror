@@ -315,3 +315,14 @@ export const infoPanelWithTextBelowParagraph = {
     },
   ],
 };
+
+export const singleCodeBlock = {
+  version: 1,
+  type: 'doc',
+  content: [
+    {
+      type: 'codeBlock',
+      attrs: {},
+    },
+  ],
+};

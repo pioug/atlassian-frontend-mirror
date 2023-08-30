@@ -107,7 +107,7 @@ const renderScaleDownColgroup = (
   if (isTableResizingEnabled(rendererAppearance) && !tableResized) {
     if (
       getBooleanFF(
-        'platform.editor.custom-table-width-scale-down-undefined-column',
+        'platform.editor.custom-table-width-scale-down-undefined-column_nkyvx',
       )
     ) {
       // Code path executed when feature flag is on

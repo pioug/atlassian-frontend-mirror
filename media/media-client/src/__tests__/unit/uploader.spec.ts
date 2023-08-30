@@ -6,7 +6,7 @@ import { mapTo } from 'rxjs/operators/mapTo';
 import { chunkinator, ProbedBlob } from '@atlaskit/chunkinator';
 import { AuthProvider, MediaApiConfig } from '@atlaskit/media-core';
 import { uploadFile, UploadableFileUpfrontIds, MediaStore } from '../..';
-import { asMockFunction, nextTick } from '@atlaskit/media-test-helpers';
+import { asMockFunction, nextTick } from '@atlaskit/media-common/test-helpers';
 import * as calculateChunkSize from '../../uploader/calculateChunkSize';
 import * as getMediaFeatureFlag from '@atlaskit/media-common';
 import { UploaderError } from '../../uploader/error';

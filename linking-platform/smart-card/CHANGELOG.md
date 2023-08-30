@@ -1,5 +1,15 @@
 # @atlaskit/smart-card
 
+## 26.19.0
+
+### Minor Changes
+
+- [`1f25a043b3f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1f25a043b3f) - [ux] We are testing an improved display for BB hover cards behind a feature flag. If this update is successful it will be available in a later release.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 26.18.0
 
 ### Minor Changes

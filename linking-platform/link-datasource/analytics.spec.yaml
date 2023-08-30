@@ -16,7 +16,7 @@ context:
       description: The source where the event is fired from.
   AnalyticsContextAttributes: &AnalyticsContextAttributes
     dataProvider:
-      type: ["jira-issues"]
+      type: ["jira-issues", "jsm-assets"]
       description: Data provider that the configuration modal supports.
 
 events:

@@ -63,7 +63,7 @@ export type CardPlugin = NextEditorPlugin<
   }
 >;
 
-// @public (undocumented)
+// @public
 export const cardPlugin: CardPlugin;
 
 // @public (undocumented)

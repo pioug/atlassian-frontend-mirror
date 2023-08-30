@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-grid",
-  "version": "0.1.7",
+  "version": "0.2.0",
   "description": "Grid plugin for @atlaskit/editor-core",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -23,8 +23,8 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@atlaskit/editor-common": "^74.54.0",
-    "@atlaskit/editor-plugin-width": "^0.1.0",
+    "@atlaskit/editor-common": "^74.55.0",
+    "@atlaskit/editor-plugin-width": "^0.2.0",
     "@atlaskit/editor-prosemirror": "1.1.0",
     "@atlaskit/editor-shared-styles": "^2.6.0",
     "@babel/runtime": "^7.0.0",

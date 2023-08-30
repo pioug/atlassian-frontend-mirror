@@ -1,5 +1,34 @@
 # @atlaskit/media-common
 
+## 8.2.0
+
+### Minor Changes
+
+- [`ede6ee7aaab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ede6ee7aaab) - Updated tests, examples and moving towards /test-helper export in packages to prevent circular dependancies
+
+## 8.1.0
+
+### Minor Changes
+
+- [`b06cd74349c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b06cd74349c) - # Media Picker
+
+  Make Clipboard secured by adding `container` and `onPaste()` to `config` `prop`. These two params address customer dissatisfaction when attachments are pasted duplicated, or to unwanted Jira issues (https://product-fabric.atlassian.net/browse/MEX-2454).
+
+  Note for migration:
+  The added `container` parameter sets a boundary for copy-paste zone. This is to filter out noise from existing practice that is problematic. **To ensure the effectiveness of this fix, please avoid using global `document` as `container` in best effort; please avoid overlapped boundary in best effort**.
+
+  When `container` is not added, the behaviour falls back to legacy mechanism.
+
+  # Media Common
+
+  Add feature toggle (`securedClipboard` in `MediaFeatureFlags`) to control the rollout of Secured Clipboard (https://product-fabric.atlassian.net/browse/MEX-2454).
+
+  # Editor Core
+
+  Add support of the Secured Clipboard (https://product-fabric.atlassian.net/browse/MEX-2454).
+
+  Use feature flag `securedClipboard` to protect such change.
+
 ## 8.0.0
 
 ### Major Changes

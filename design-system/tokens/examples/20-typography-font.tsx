@@ -3,7 +3,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 
-import Stack from '@atlaskit/primitives/stack';
+import { Box, Stack } from '@atlaskit/primitives';
 
 import { token } from '../src';
 
@@ -18,6 +18,7 @@ const fonts = [
 ] as const;
 
 const body = [
+  'font.body.lg',
   'font.body',
   'font.body.sm',
   'font.ui',
@@ -27,7 +28,7 @@ const body = [
 
 export default () => {
   return (
-    <div data-testid="typography">
+    <Box testId="typography">
       <Stack space="space.100">
         {fonts.map((f) => (
           <span key={f} style={{ font: token(f) }}>
@@ -40,6 +41,6 @@ export default () => {
           </span>
         ))}
       </Stack>
-    </div>
+    </Box>
   );
 };

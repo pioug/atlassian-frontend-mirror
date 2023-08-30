@@ -299,21 +299,36 @@ describe('@atlaskit comments', () => {
       });
 
       describe('headingLevel prop', () => {
-        it('should add aria heading role and level', () => {
+        it('should change the heading level correctly', () => {
           render(
             <Comment
               avatar=""
-              headingLevel="3"
+              headingLevel="5"
               type="hello"
               author="DDC"
               testId="comment"
             />,
           );
 
-          const heading = screen.getByRole('heading');
+          const heading = screen.getByRole('heading', { level: 5 });
 
           expect(heading).toBeInTheDocument();
-          expect(heading).toHaveAttribute('aria-level', '3');
+        });
+
+        it('should reset the heading level to h3 if headingLevel < 1 || headingLevel > 6', () => {
+          render(
+            <Comment
+              avatar=""
+              headingLevel="7"
+              type="hello"
+              author="DDC"
+              testId="comment"
+            />,
+          );
+
+          const heading = screen.getByRole('heading', { level: 3 });
+
+          expect(heading).toBeInTheDocument();
         });
       });
 

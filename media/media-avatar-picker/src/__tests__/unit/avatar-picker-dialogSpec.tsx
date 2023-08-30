@@ -62,7 +62,7 @@ describe('Avatar Picker Dialog', () => {
     const croppedImgDataURI = 'data:image/meme;based64:w0w';
     component.instance()['exportCroppedImage'] = () => croppedImgDataURI;
 
-    component.find(ModalFooter).find('button[type="submit"]').simulate('click');
+    component.find('form').simulate('submit');
 
     expect(onImagePicked.mock.calls[0][1]).toEqual(fixedCrop);
   });
@@ -79,7 +79,7 @@ describe('Avatar Picker Dialog', () => {
     const croppedImgDataURI = 'data:image/meme;based64:w0w';
     component.instance()['exportCroppedImage'] = () => croppedImgDataURI;
 
-    component.find(ModalFooter).find('button[type="submit"]').simulate('click');
+    component.find('form').simulate('submit');
 
     expect(onImagePickedDataURI).toBeCalledWith(croppedImgDataURI);
   });
@@ -93,7 +93,7 @@ describe('Avatar Picker Dialog', () => {
     const { onAvatarSelected } = component.find(PredefinedAvatarList).props();
     onAvatarSelected(selectedAvatar);
 
-    component.find(ModalFooter).find('button[type="submit"]').simulate('click');
+    component.find('form').simulate('submit');
 
     expect(onAvatarPicked).toBeCalledWith(selectedAvatar);
   });
@@ -107,7 +107,7 @@ describe('Avatar Picker Dialog', () => {
       defaultSelectedAvatar: selectedAvatar,
       onAvatarPicked,
     });
-    component.find(ModalFooter).find('button[type="submit"]').simulate('click');
+    component.find('form').simulate('submit');
 
     expect(onAvatarPicked).toBeCalledWith(selectedAvatar);
   });
@@ -147,7 +147,7 @@ describe('Avatar Picker Dialog', () => {
       onImagePicked,
       onImagePickedDataURI,
     });
-    component.find(ModalFooter).find('button[type="submit"]').simulate('click');
+    component.find('form').simulate('submit');
     expect(onAvatarPicked).not.toHaveBeenCalled();
     expect(onImagePicked).not.toHaveBeenCalled();
     expect(onImagePickedDataURI).not.toHaveBeenCalled();
@@ -156,7 +156,7 @@ describe('Avatar Picker Dialog', () => {
   it('should alert when save button is clicked without selected image or selected avatar', () => {
     const component = renderWithProps({});
 
-    component.find(ModalFooter).find('button[type="submit"]').simulate('click');
+    component.find('form').simulate('submit');
     expect(component.find('#avatar-picker-error')).toHaveLength(1);
   });
 
@@ -164,7 +164,7 @@ describe('Avatar Picker Dialog', () => {
     const component = renderWithProps({});
 
     component.setState({ mode: Mode.PredefinedAvatars });
-    component.find(ModalFooter).find('button[type="submit"]').simulate('click');
+    component.find('form').simulate('submit');
     expect(component.find('#avatar-picker-error')).toHaveLength(1);
   });
 
@@ -175,7 +175,7 @@ describe('Avatar Picker Dialog', () => {
     const component = renderWithProps({
       imageSource: smallImage,
     });
-    component.find(ModalFooter).find('button[type="submit"]').simulate('click');
+    component.find('form').simulate('submit');
     expect(onAvatarPicked).not.toHaveBeenCalled();
     expect(onImagePicked).not.toHaveBeenCalled();
     expect(onImagePickedDataURI).not.toHaveBeenCalled();
@@ -341,13 +341,13 @@ describe('Avatar Picker Dialog', () => {
     const avatars = [selectedAvatar];
     const component = renderWithProps({ avatars });
 
-    component.find(ModalFooter).find('button[type="submit"]').simulate('click');
+    component.find('form').simulate('submit');
     expect(component.find('#avatar-picker-error')).toHaveLength(1);
 
     component.find('input[type="radio"]').simulate('change', {
       target: { value: selectedAvatar },
     });
-    component.find(ModalFooter).find('button[type="submit"]').simulate('click');
+    component.find('form').simulate('submit');
     expect(component.find('#avatar-picker-error')).toHaveLength(0);
   });
 
@@ -356,13 +356,13 @@ describe('Avatar Picker Dialog', () => {
     const avatars = [selectedAvatar];
     const component = renderWithProps({ avatars });
 
-    component.find(ModalFooter).find('button[type="submit"]').simulate('click');
+    component.find('form').simulate('submit');
     expect(component.find('#avatar-picker-error')).toHaveLength(1);
 
     component.find('input[type="radio"]').simulate('change', {
       target: { value: selectedAvatar },
     });
-    component.find(ModalFooter).find('button[type="submit"]').simulate('click');
+    component.find('form').simulate('submit');
     expect(component.find('#avatar-picker-error')).toHaveLength(0);
   });
 });

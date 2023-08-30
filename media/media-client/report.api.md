@@ -847,6 +847,12 @@ export interface MediaFileArtifacts {
   // (undocumented)
   'document.pdf'?: MediaFileArtifact;
   // (undocumented)
+  'image.jpg'?: MediaFileArtifact;
+  // (undocumented)
+  'image.png'?: MediaFileArtifact;
+  // (undocumented)
+  'thumb.jpg'?: MediaFileArtifact;
+  // (undocumented)
   'video_1280.mp4'?: MediaFileArtifact;
   // (undocumented)
   'video_640.mp4'?: MediaFileArtifact;
@@ -1671,6 +1677,7 @@ export type WithMediaClientFunction = <P extends WithMediaClient>(
 {
   "@atlaskit/media-core": "^34.1.2",
   "@emotion/react": "^11.7.1",
+  "enzyme": ">=3.10.0",
   "react": "^16.8.0"
 }
 ```

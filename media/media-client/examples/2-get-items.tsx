@@ -4,7 +4,7 @@ import {
   createStorybookMediaClient,
   imageFileId,
   audioFileId,
-} from '@atlaskit/media-test-helpers';
+} from '../src/test-helpers';
 import { MediaStore, ItemsPayload } from '../src';
 
 const mediaClient = createStorybookMediaClient();

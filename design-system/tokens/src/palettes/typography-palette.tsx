@@ -23,6 +23,7 @@ export type FontSizeScaleValues =
 
 export type LineHeightScaleValues =
   | 'LineHeight1'
+  | 'LineHeight050'
   | 'LineHeight100'
   | 'LineHeight200'
   | 'LineHeight300'
@@ -72,31 +73,31 @@ const letterSpacingScale: LetterSpacingScaleTokenSchema<LetterSpacingScaleValues
       LetterSpacing0: {
         value: '0',
         attributes: {
-          group: 'typography',
+          group: 'letterSpacing',
         },
       },
       LetterSpacing100: {
         value: '-0.003em',
         attributes: {
-          group: 'typography',
+          group: 'letterSpacing',
         },
       },
       LetterSpacing200: {
         value: '-0.006em',
         attributes: {
-          group: 'typography',
+          group: 'letterSpacing',
         },
       },
       LetterSpacing300: {
         value: '-0.008em',
         attributes: {
-          group: 'typography',
+          group: 'letterSpacing',
         },
       },
       LetterSpacing400: {
         value: '-0.01em',
         attributes: {
-          group: 'typography',
+          group: 'letterSpacing',
         },
       },
     },
@@ -110,49 +111,55 @@ const lineHeightScale: LineHeightScaleTokenSchema<LineHeightScaleValues> = {
     LineHeight1: {
       value: '1',
       attributes: {
-        group: 'typography',
+        group: 'lineHeight',
+      },
+    },
+    LineHeight050: {
+      value: 12,
+      attributes: {
+        group: 'lineHeight',
       },
     },
     LineHeight100: {
       value: 16,
       attributes: {
-        group: 'typography',
+        group: 'lineHeight',
       },
     },
     LineHeight200: {
       value: 20,
       attributes: {
-        group: 'typography',
+        group: 'lineHeight',
       },
     },
     LineHeight300: {
       value: 24,
       attributes: {
-        group: 'typography',
+        group: 'lineHeight',
       },
     },
     LineHeight400: {
       value: 28,
       attributes: {
-        group: 'typography',
+        group: 'lineHeight',
       },
     },
     LineHeight500: {
       value: 32,
       attributes: {
-        group: 'typography',
+        group: 'lineHeight',
       },
     },
     LineHeight600: {
       value: 36,
       attributes: {
-        group: 'typography',
+        group: 'lineHeight',
       },
     },
     LineHeight700: {
       value: 40,
       attributes: {
-        group: 'typography',
+        group: 'lineHeight',
       },
     },
   },
@@ -166,25 +173,25 @@ const fontWeightScale: FontWeightScaleTokenSchema<FontWeightScaleValues> = {
     FontWeight400: {
       value: '400',
       attributes: {
-        group: 'typography',
+        group: 'fontWeight',
       },
     },
     FontWeight500: {
       value: '500',
       attributes: {
-        group: 'typography',
+        group: 'fontWeight',
       },
     },
     FontWeight600: {
       value: '600',
       attributes: {
-        group: 'typography',
+        group: 'fontWeight',
       },
     },
     FontWeight700: {
       value: '700',
       attributes: {
-        group: 'typography',
+        group: 'fontWeight',
       },
     },
   },
@@ -199,13 +206,13 @@ const fontFamilyPalette: FontFamilyPaletteTokenSchema<FontFamilyPaletteValues> =
       FontFamilyCharlie: {
         value: 'Charlie Sans',
         attributes: {
-          group: 'typography',
+          group: 'fontFamily',
         },
       },
       LegacyFontFamilyWebSans: {
         value: `-apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Roboto\", \"Oxygen\", \"Ubuntu\", \"Fira Sans\", \"Droid Sans\", \"Helvetica Neue\", sans-serif`,
         attributes: {
-          group: 'typography',
+          group: 'fontFamily',
         },
       },
       /**
@@ -216,37 +223,37 @@ const fontFamilyPalette: FontFamilyPaletteTokenSchema<FontFamilyPaletteValues> =
       FontFamilyWebSans: {
         value: `ui-sans-serif, \"Segoe UI\", system-ui, Ubuntu, \"Helvetica Neue\", sans-serif`,
         attributes: {
-          group: 'typography',
+          group: 'fontFamily',
         },
       },
       FontFamilyiOSSans: {
         value: 'SF Pro',
         attributes: {
-          group: 'typography',
+          group: 'fontFamily',
         },
       },
       FontFamilyAndroidSans: {
         value: 'Roboto',
         attributes: {
-          group: 'typography',
+          group: 'fontFamily',
         },
       },
       FontFamilyWebMono: {
         value: `ui-monospace, Menlo, \"Segoe UI Mono\", \"Ubuntu Mono\", monospace`,
         attributes: {
-          group: 'typography',
+          group: 'fontFamily',
         },
       },
       FontFamilyiOSMono: {
         value: 'SF Mono',
         attributes: {
-          group: 'typography',
+          group: 'fontFamily',
         },
       },
       FontFamilyAndroidMono: {
         value: 'Roboto Mono',
         attributes: {
-          group: 'typography',
+          group: 'fontFamily',
         },
       },
     },
@@ -260,79 +267,79 @@ const fontSizeScale: FontSizeScaleTokenSchema<FontSizeScaleValues> = {
     FontSizeCode: {
       value: '0.875em',
       attributes: {
-        group: 'typography',
+        group: 'fontSize',
       },
     },
     LegacyFontSize11: {
       value: 11,
       attributes: {
-        group: 'typography',
+        group: 'fontSize',
       },
     },
     FontSize12: {
       value: 12,
       attributes: {
-        group: 'typography',
+        group: 'fontSize',
       },
     },
     FontSize14: {
       value: 14,
       attributes: {
-        group: 'typography',
+        group: 'fontSize',
       },
     },
     FontSize16: {
       value: 16,
       attributes: {
-        group: 'typography',
+        group: 'fontSize',
       },
     },
     FontSize20: {
       value: 20,
       attributes: {
-        group: 'typography',
+        group: 'fontSize',
       },
     },
     FontSize24: {
       value: 24,
       attributes: {
-        group: 'typography',
+        group: 'fontSize',
       },
     },
     FontSize28: {
       value: 28,
       attributes: {
-        group: 'typography',
+        group: 'fontSize',
       },
     },
     LegacyFontSize29: {
       value: 29,
       attributes: {
-        group: 'typography',
+        group: 'fontSize',
       },
     },
     FontSize32: {
       value: 32,
       attributes: {
-        group: 'typography',
+        group: 'fontSize',
       },
     },
     LegacyFontSize35: {
       value: 35,
       attributes: {
-        group: 'typography',
+        group: 'fontSize',
       },
     },
     FontSize36: {
       value: 36,
       attributes: {
-        group: 'typography',
+        group: 'fontSize',
       },
     },
     FontSize48: {
       value: 48,
       attributes: {
-        group: 'typography',
+        group: 'fontSize',
       },
     },
   },

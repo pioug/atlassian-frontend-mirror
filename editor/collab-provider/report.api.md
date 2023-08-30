@@ -231,8 +231,6 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
   getUnconfirmedSteps: () => readonly Step[] | undefined;
   // @deprecated
   initialize(getState: () => EditorState): this;
-  // (undocumented)
-  resolveOnSetupPromise: (value: PromiseLike<void> | void) => void;
   send(
     _tr: Transaction | null,
     _oldState: EditorState | null,
@@ -248,7 +246,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
     getState,
     onSyncUpError,
   }: {
-    getState?: () => EditorState;
+    getState: () => EditorState;
     onSyncUpError?: SyncUpErrorFunction;
   }): this;
   // @deprecated

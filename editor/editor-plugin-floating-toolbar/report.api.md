@@ -33,7 +33,7 @@ export type ConfigWithNodeInfo = {
   node: Node_2;
 };
 
-// @public (undocumented)
+// @public
 export type FloatingToolbarPlugin = NextEditorPlugin<
   'floatingToolbar',
   {

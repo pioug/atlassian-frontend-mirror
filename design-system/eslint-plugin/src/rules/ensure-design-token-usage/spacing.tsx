@@ -7,6 +7,7 @@ import {
   Property,
 } from 'eslint-codemod-utils';
 
+import type { RuleConfig } from './types';
 import {
   emToPixels,
   findTokenNameByPropertyValue,
@@ -20,8 +21,7 @@ import {
   isValidSpacingValue,
   isZero,
   splitShorthandValues,
-} from './spacing-utils';
-import type { RuleConfig } from './types';
+} from './utils';
 
 export const lintObjectForSpacing = (
   node: Property,

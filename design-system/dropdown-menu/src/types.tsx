@@ -140,6 +140,13 @@ export interface DropdownMenuProps<
   shouldFlip?: boolean;
 
   /**
+   * The root element where the DropdownMenu content should be rendered.
+   * `true` - rendering in the DOM node closest to the trigger. `false` - rendering in React.Portal.
+   * Defaults to `false`.
+   */
+  shouldRenderToParent?: boolean;
+
+  /**
    * Controls the spacing density of the menu.
    */
   spacing?: Extract<MenuGroupProps['spacing'], 'cozy' | 'compact'>;

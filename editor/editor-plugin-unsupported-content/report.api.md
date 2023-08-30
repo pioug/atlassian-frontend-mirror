@@ -17,7 +17,7 @@
 ```ts
 import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 
-// @public (undocumented)
+// @public
 export const unsupportedContentPlugin: NextEditorPlugin<'unsupportedContent'>;
 
 // (No @packageDocumentation comment for this package)

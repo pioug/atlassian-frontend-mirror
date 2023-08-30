@@ -3,6 +3,7 @@ import React from 'react';
 import { fireEvent, render } from '@testing-library/react';
 
 import {
+  resizerDangerClassName,
   resizerHandleClassName,
   resizerHandleThumbClassName,
   resizerHandleTrackClassName,
@@ -511,7 +512,9 @@ describe('Resizer', () => {
       </ResizerNext>,
     );
 
-    expect(container.querySelector('.danger')).toBeInTheDocument();
+    expect(
+      container.querySelector(`.${resizerDangerClassName}`),
+    ).toBeInTheDocument();
   });
 
   it('should not apply any appearance classes to resizer when appearance is unset', () => {
@@ -529,7 +532,9 @@ describe('Resizer', () => {
     );
 
     // NOTE: Check for all available appearance classes
-    expect(container.querySelector('.danger')).not.toBeInTheDocument();
+    expect(
+      container.querySelector(`.${resizerDangerClassName}`),
+    ).not.toBeInTheDocument();
   });
 
   it('should apply correct class name to resizer when handleAlignmentMethod not set', () => {

@@ -14,7 +14,7 @@ describe('Archive sidebar', () => {
     global.__BASEURL__,
   );
 
-  /* 
+  /*
     - ArchiveSidebarFolderWrapper has its `opacity` set to `0` and `transform` set to `translateY(-100%)` by default and relies on keyframe animation to turn it to `1` and `translateY(0)` respectively
     - However, we are disabling the animation side effects with loadPage() helper, therefore its opacity and transform will not change without the push from animation
     - To mitigate this, we "normalise" those properties to a snapshot-worthy values
@@ -38,7 +38,7 @@ describe('Archive sidebar', () => {
     await loadPage(page, url);
     await normaliseArchiveViewerFolderWrapperStyles(page);
     await page.waitForSelector(pageSelector);
-    await page.click('div[data-testid="media-file-card-view"]');
+    await page.click('button[data-testid="media-native-preview"]');
     await page.waitForSelector('span[aria-label="Folder"]');
   });
 

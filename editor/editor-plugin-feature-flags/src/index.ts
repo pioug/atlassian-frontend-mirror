@@ -14,6 +14,10 @@ export type FeatureFlagsPlugin = NextEditorPlugin<
   }
 >;
 
+/**
+ * Feature flags plugin to be added to an `EditorPresetBuilder` and used with `ComposableEditor`
+ * from `@atlaskit/editor-core`.
+ */
 const featureFlagsPlugin: FeatureFlagsPlugin = ({
   config: featureFlags = {},
 }) => ({

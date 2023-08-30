@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::959aae264b9713da4bc176284dc53ca5>>
+ * @codegen <<SignedSource::7dd648157e3329a0b94f96c5f039ac2d>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen link-datasource
  */
 export type PackageMetaDataType = {
@@ -14,7 +14,7 @@ export type AnalyticsContextType = {
   source: 'datasourceConfigModal' | 'datasourceConfluenceEditor';
 };
 export type AnalyticsContextAttributesType = {
-  dataProvider: 'jira-issues';
+  dataProvider: 'jira-issues' | 'jsm-assets';
 };
 
 export type DatasourceModalDialogViewedAttributesType = {};

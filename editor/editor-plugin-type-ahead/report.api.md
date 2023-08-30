@@ -38,7 +38,7 @@ export type TypeAheadInputMethod =
   | INPUT_METHOD.QUICK_INSERT
   | INPUT_METHOD.TOOLBAR;
 
-// @public (undocumented)
+// @public
 export type TypeAheadPlugin = NextEditorPlugin<
   'typeAhead',
   {

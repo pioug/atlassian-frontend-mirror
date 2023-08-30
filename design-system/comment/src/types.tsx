@@ -79,7 +79,7 @@ export interface CommentProps {
    */
   shouldRenderNestedCommentsInline?: boolean;
   /**
-   * A semantic heading level to display on this comment (1, 2, 3 etc).
+   * A semantic heading level to display on this comment (1, 2, 3, 4, 5, 6).
    */
   headingLevel?: string;
 }

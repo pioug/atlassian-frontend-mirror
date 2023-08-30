@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 
-import { akEditorDeleteBorder } from '@atlaskit/editor-shared-styles';
+import { akEditorDeleteIconColor } from '@atlaskit/editor-shared-styles';
 import { B200, B50, N60 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -13,6 +13,7 @@ export const resizerItemClassName = 'resizer-item';
 export const resizerHandleClassName = 'resizer-handle';
 export const resizerHandleTrackClassName = `${resizerHandleClassName}-track`;
 export const resizerHandleThumbClassName = `${resizerHandleClassName}-thumb`;
+export const resizerDangerClassName = `${resizerHandleClassName}-danger`;
 
 // akEditorSelectedNodeClassName from '@atlaskit/editor-shared-styles';
 const akEditorSelectedNodeClassName = 'ak-editor-selected-node';
@@ -37,10 +38,10 @@ export const resizerStyles = css`
       }
     }
 
-    &.danger {
+    &.${resizerDangerClassName} {
       & .${resizerHandleThumbClassName} {
         transition: none;
-        background: ${token('color.border.danger', akEditorDeleteBorder)};
+        background: ${token('color.icon.danger', akEditorDeleteIconColor)};
       }
     }
   }
@@ -56,7 +57,7 @@ export const resizerStyles = css`
     transition: visibility 0.2s, opacity 0.2s;
 
     /*
-      NOTE: The below style is targetted at the div element added by the tooltip. We don't have any means of injecting styles
+      NOTE: The below style is targeted at the div element added by the tooltip. We don't have any means of injecting styles
       into the tooltip
     */
     & div[role='presentation'] {

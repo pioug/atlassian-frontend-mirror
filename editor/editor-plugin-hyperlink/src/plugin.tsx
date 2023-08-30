@@ -81,6 +81,10 @@ export type HyperlinkPlugin = NextEditorPlugin<
   }
 >;
 
+/**
+ * Hyperlink plugin to be added to an `EditorPresetBuilder` and used with `ComposableEditor`
+ * from `@atlaskit/editor-core`.
+ */
 export const hyperlinkPlugin: HyperlinkPlugin = ({
   config: options = {},
   api,

@@ -9,6 +9,15 @@ export type TreeItem = {
   isOpen?: boolean;
 };
 
+export type TreeState = {
+  lastAction: TreeAction | null;
+  data: TreeItem[];
+};
+
+export function getInitialTreeState(): TreeState {
+  return { data: getInitialData(), lastAction: null };
+}
+
 export function getInitialData(): TreeItem[] {
   return [
     {
@@ -77,7 +86,8 @@ export type TreeAction =
   | {
       type: 'collapse';
       itemId: string;
-    };
+    }
+  | { type: 'modal-move'; itemId: string; targetId: string; index: number };
 
 export const tree = {
   remove(data: TreeItem[], id: string): TreeItem[] {
@@ -199,7 +209,17 @@ export const tree = {
   },
 };
 
-export const dataReducer = (data: TreeItem[], action: TreeAction) => {
+export function treeStateReducer(
+  state: TreeState,
+  action: TreeAction,
+): TreeState {
+  return {
+    data: dataReducer(state.data, action),
+    lastAction: action,
+  };
+}
+
+const dataReducer = (data: TreeItem[], action: TreeAction) => {
   console.log('action', action);
 
   const item = tree.find(data, action.itemId);
@@ -280,5 +300,56 @@ export const dataReducer = (data: TreeItem[], action: TreeAction) => {
     return data;
   }
 
+  if (action.type === 'modal-move') {
+    let result = tree.remove(data, item.id);
+
+    const siblingItems = getChildItems(result, action.targetId);
+
+    if (siblingItems.length === 0) {
+      if (action.targetId === '') {
+        /**
+         * If the target is the root level, and there are no siblings, then
+         * the item is the only thing in the root level.
+         */
+        result = [item];
+      } else {
+        /**
+         * Otherwise for deeper levels that have no children, we need to
+         * use `insertChild` instead of inserting relative to a sibling.
+         */
+        result = tree.insertChild(result, action.targetId, item);
+      }
+    } else if (action.index === siblingItems.length) {
+      const relativeTo = siblingItems[siblingItems.length - 1];
+      /**
+       * If the position selected is the end, we insert after the last item.
+       */
+      result = tree.insertAfter(result, relativeTo.id, item);
+    } else {
+      const relativeTo = siblingItems[action.index];
+      /**
+       * Otherwise we insert before the existing item in the given position.
+       * This results in the new item being in that position.
+       */
+      result = tree.insertBefore(result, relativeTo.id, item);
+    }
+
+    return result;
+  }
+
   return data;
 };
+
+function getChildItems(data: TreeItem[], targetId: string) {
+  /**
+   * An empty string is representing the root
+   */
+  if (targetId === '') {
+    return data;
+  }
+
+  const targetItem = tree.find(data, targetId);
+  invariant(targetItem);
+
+  return targetItem.children;
+}

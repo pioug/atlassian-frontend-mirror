@@ -1,16 +1,17 @@
-// TODO: export all drag types
 import type {
   AllDragTypes,
+  BaseEventPayload,
   CleanupFn,
   MonitorArgs,
 } from '@atlaskit/pragmatic-drag-and-drop/types';
-import { combine } from '@atlaskit/pragmatic-drag-and-drop/util/combine';
 
-import { addAttribute } from './add-attribute';
-import { scrollContainerDataAttr } from './data-attributes';
-import type { ScrollContainerArgs, WindowArgs } from './internal-types';
+import { clearHistory, clearUnusedEngagements } from './engagement-history';
+import type {
+  GetFeedbackArgs,
+  ScrollContainerArgs,
+  WindowArgs,
+} from './internal-types';
 import { scheduler } from './scheduler';
-import { makeScroller } from './scroller/make-scroller';
 
 export function makeApi<DragType extends AllDragTypes>({
   monitor,
@@ -18,12 +19,6 @@ export function makeApi<DragType extends AllDragTypes>({
   monitor: (args: MonitorArgs<DragType>) => CleanupFn;
 }) {
   const ledger: Map<Element, ScrollContainerArgs<DragType>> = new Map();
-
-  function findContainerEntry(
-    element: Element,
-  ): ScrollContainerArgs<DragType> | null {
-    return ledger.get(element) ?? null;
-  }
 
   function autoScroll(args: ScrollContainerArgs<DragType>): CleanupFn {
     ledger.set(args.element, args);
@@ -52,13 +47,7 @@ export function makeApi<DragType extends AllDragTypes>({
       }
     }
 
-    return combine(
-      addAttribute(args.element, {
-        attribute: scrollContainerDataAttr,
-        value: 'true',
-      }),
-      () => ledger.delete(args.element),
-    );
+    return () => ledger.delete(args.element);
   }
 
   function autoScrollWindow(args: WindowArgs<DragType>): CleanupFn {
@@ -67,16 +56,56 @@ export function makeApi<DragType extends AllDragTypes>({
       console.warn('window auto scrolling not yet implemented');
     }
 
+    // TODO
     return () => {};
   }
 
-  const scroller = makeScroller({ findContainerEntry });
+  // const scroller = makeScroller({ findContainerEntry });
+
+  function onFrame({
+    latestArgs,
+    timeSinceLastFrame,
+  }: {
+    latestArgs: BaseEventPayload<DragType>;
+    timeSinceLastFrame: number;
+  }) {
+    clearUnusedEngagements(() => {
+      ledger.forEach(entry => {
+        const input = latestArgs.location.current.input;
+        const feedback: GetFeedbackArgs<DragType> = {
+          input,
+          source: latestArgs.source,
+          element: entry.element,
+        };
+
+        const canScroll = Boolean(
+          entry.canScroll ? entry.canScroll(feedback) : true,
+        );
+
+        if (!canScroll) {
+          return;
+        }
+
+        entry.behavior?.forEach(behavior => {
+          behavior.onFrame({
+            element: entry.element,
+            input,
+            timeSinceLastFrame,
+          });
+        });
+      });
+    });
+  }
 
   // scheduler is never cleaned up
   scheduler({
     monitor,
-    onScroll: scroller.scroll,
-    onReset: scroller.reset,
+    onFrame,
+    // TODO: do we need a reset?
+    onReset() {
+      clearHistory();
+    },
+    // onReset: scroller.reset,
   });
 
   return {

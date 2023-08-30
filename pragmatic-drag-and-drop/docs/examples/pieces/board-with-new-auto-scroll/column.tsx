@@ -8,6 +8,7 @@ import invariant from 'tiny-invariant';
 import Heading from '@atlaskit/heading';
 import { easeInOut } from '@atlaskit/motion/curves';
 import { mediumDurationMs } from '@atlaskit/motion/durations';
+import { unsafeOverflow } from '@atlaskit/pragmatic-drag-and-drop-auto-scroll/behavior/unsafe-overflow';
 import { autoScrollForElements } from '@atlaskit/pragmatic-drag-and-drop-auto-scroll/element';
 import { autoScrollForFiles } from '@atlaskit/pragmatic-drag-and-drop-auto-scroll/file';
 import {
@@ -204,8 +205,38 @@ export const Column = memo(function Column({ column }: { column: ColumnType }) {
       }),
       autoScrollForElements({
         element: scrollContainerRef.current,
-        // only cards will auto scroll the card list
         canScroll: ({ source }) => source.data.type === 'card',
+        behavior: [
+          // standard(),
+          unsafeOverflow({
+            getHitboxSpacing: () => ({
+              top: {
+                top: 6000,
+                right: 0,
+                bottom: 220,
+                left: 0,
+              },
+              right: {
+                top: 0,
+                right: 0,
+                bottom: 0,
+                left: 0,
+              },
+              bottom: {
+                top: 220,
+                right: 0,
+                bottom: 6000,
+                left: 0,
+              },
+              left: {
+                top: 0,
+                right: 0,
+                bottom: 0,
+                left: 0,
+              },
+            }),
+          }),
+        ],
       }),
       autoScrollForFiles({
         element: scrollContainerRef.current,

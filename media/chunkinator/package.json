@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/chunkinator",
-  "version": "4.2.2",
+  "version": "4.2.3",
   "description": "Upload large files from the browser with ease",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -41,7 +41,7 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/media-test-helpers": "^33.0.0",
+    "@atlaskit/media-common": "^8.2.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "mockdate": "^3.0.5",
     "react": "^16.8.0",

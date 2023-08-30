@@ -23,6 +23,11 @@ export type ImageUploadPlugin = NextEditorPlugin<
     sharedState: ImageUploadSharedState | undefined;
   }
 >;
+
+/**
+ * Image upload plugin to be added to an `EditorPresetBuilder` and used with `ComposableEditor`
+ * from `@atlaskit/editor-core`.
+ */
 export const imageUploadPlugin: ImageUploadPlugin = () => {
   let uploadHandlerReference: UploadHandlerReference = {
     current: null,

@@ -7,7 +7,7 @@ import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { Popper } from '@atlaskit/popper';
 import { N0, N50A, N60A } from '@atlaskit/theme/colors';
 import { layers } from '@atlaskit/theme/constants';
-import { token } from '@atlaskit/tokens';
+import { CURRENT_SURFACE_CSS_VAR, token } from '@atlaskit/tokens';
 
 import { RepositionOnUpdate } from './reposition-on-update';
 import { PopperWrapperProps, PopupComponentProps } from './types';
@@ -26,6 +26,7 @@ const popupStyles = css(
       'elevation.shadow.overlay',
       `0 4px 8px -2px ${N50A}, 0 0 1px ${N60A}`,
     ),
+    [CURRENT_SURFACE_CSS_VAR]: token('elevation.surface.overlay', N0),
     ':focus': {
       outline: 'none',
     },

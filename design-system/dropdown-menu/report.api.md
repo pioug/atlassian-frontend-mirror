@@ -147,6 +147,7 @@ export interface DropdownMenuProps<
   onOpenChange?: (args: OnOpenChangeArgs) => void;
   placement?: Placement;
   shouldFlip?: boolean;
+  shouldRenderToParent?: boolean;
   spacing?: Extract<MenuGroupProps['spacing'], 'compact' | 'cozy'>;
   statusLabel?: string;
   testId?: string;

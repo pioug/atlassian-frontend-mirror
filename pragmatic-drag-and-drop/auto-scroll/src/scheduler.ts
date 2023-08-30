@@ -24,11 +24,11 @@ type State<DragType extends AllDragTypes> =
 
 export function scheduler<DragType extends AllDragTypes>({
   monitor,
-  onScroll,
+  onFrame,
   onReset,
 }: {
   monitor: (args: MonitorArgs<DragType>) => CleanupFn;
-  onScroll: ({
+  onFrame: ({
     latestArgs,
     timeSinceLastFrame,
   }: {
@@ -44,7 +44,7 @@ export function scheduler<DragType extends AllDragTypes>({
       return;
     }
     const timeSinceLastFrame = currentTime - state.timeOfLastFrame;
-    onScroll({ latestArgs: state.latestArgs, timeSinceLastFrame });
+    onFrame({ latestArgs: state.latestArgs, timeSinceLastFrame });
 
     state.timeOfLastFrame = currentTime;
     state.frameId = requestAnimationFrame(loop);

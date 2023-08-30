@@ -14,6 +14,10 @@ export type CompositionPlugin = NextEditorPlugin<
   }
 >;
 
+/**
+ * Composition plugin to be added to an `EditorPresetBuilder` and used with `ComposableEditor`
+ * from `@atlaskit/editor-core`.
+ */
 export const compositionPlugin: CompositionPlugin = () => {
   return {
     name: 'composition',

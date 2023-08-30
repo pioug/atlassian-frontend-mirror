@@ -18,6 +18,10 @@ export type DecorationsPlugin = NextEditorPlugin<
   }
 >;
 
+/**
+ * Decorations plugin to be added to an `EditorPresetBuilder` and used with `ComposableEditor`
+ * from `@atlaskit/editor-core`.
+ */
 export const decorationsPlugin: DecorationsPlugin = () => ({
   name: 'decorations',
 

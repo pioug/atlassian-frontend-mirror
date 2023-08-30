@@ -289,16 +289,15 @@ export function createWrapSelectionTransaction({
   nodeAttributes?: Record<string, any>;
 }) {
   let { tr } = state;
-  const { $from, $to } = state.selection;
   const { alignment, indentation } = state.schema.marks;
 
   /** Alignment or Indentation is not valid inside block types */
   const removeAlignTr = removeBlockMarks(state, [alignment, indentation]);
   tr = removeAlignTr || tr;
 
-  const range = $from.blockRange($to) as any;
-  const wrapping = range && (findWrapping(range, type, nodeAttributes) as any);
-  if (range && wrapping) {
+  /**Get range and wrapping needed for the selection*/
+  const { range, wrapping } = getWrappingOptions(state, type, nodeAttributes);
+  if (wrapping) {
     tr.wrap(range, wrapping).scrollIntoView();
   } else {
     /** We always want to append a block type */
@@ -308,6 +307,32 @@ export function createWrapSelectionTransaction({
   }
 
   return tr;
+}
+
+function getWrappingOptions(
+  state: EditorState,
+  type: NodeType,
+  nodeAttributes?: Record<string, any>,
+) {
+  const { $from, $to } = state.selection;
+  const range = $from.blockRange($to) as any;
+  let isAllowedChild = true;
+  /**
+   * Added a check to avoid wrapping codeblock
+   */
+  if (state.selection.empty) {
+    state.doc.nodesBetween($from.pos, $to.pos, (node) => {
+      if (!isAllowedChild) {
+        return false;
+      }
+      return (isAllowedChild = node.type !== state.schema.nodes.codeBlock);
+    });
+  }
+  const wrapping =
+    isAllowedChild &&
+    range &&
+    (findWrapping(range, type, nodeAttributes) as any);
+  return { range, wrapping };
 }
 
 /**

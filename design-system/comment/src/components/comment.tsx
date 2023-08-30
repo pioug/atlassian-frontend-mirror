@@ -34,7 +34,7 @@ const Comment: FC<CommentProps> = ({
   id,
   afterContent,
   shouldRenderNestedCommentsInline,
-  headingLevel,
+  headingLevel = '3',
 }) => {
   const headerProps = {
     author,

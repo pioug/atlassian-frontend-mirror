@@ -42,6 +42,8 @@ import { createTestExtensionProvider } from '../src/plugins/floating-toolbar/__t
 import { createExtensionFramesProvider } from '../src/__tests__/visual-regression/common/__helpers__/extensionFrameManifest';
 import { getConfluenceMacrosExtensionProvider } from './confluence-macros';
 import { mockDatasourceFetchRequests } from '@atlaskit/link-test-helpers/datasource';
+import { DefaultExtensionProvider } from '@atlaskit/editor-common/extensions';
+import { manifest as jiraCreate } from '@atlassian/editor-extension-link-create';
 
 const mediaMockServer = createEditorMediaMock();
 /**
@@ -103,6 +105,12 @@ function createEditorWindowBindings<T extends EditorProps>(
     }
 
     options.providers = mapPropsToProviders(options.providers, props);
+
+    // If extensions are allowed and withLinkCreateJira is allowed, enable extension providers
+    if (options.withLinkCreateJira) {
+      options.providers.extensionProviders = true;
+    }
+
     const providers = createProviders(options.providers, {
       editorProps: {},
       withTestExtensionProviders: options.withTestExtensionProviders,
@@ -290,8 +298,10 @@ function createProviders(
   }
 
   if (opts.extensionProviders) {
-    const extensionProvidersArr = [];
-
+    const extensionProvidersArr: (
+      | DefaultExtensionProvider<any>
+      | Promise<DefaultExtensionProvider<any>>
+    )[] = [];
     if (withTestExtensionProviders.extensionFrameManifest) {
       extensionProvidersArr.push(createExtensionFramesProvider());
     }
@@ -299,6 +309,11 @@ function createProviders(
       extensionProvidersArr.push(createTestExtensionProvider(() => {}));
     }
 
+    const jiraCreateExtensionProvider = new DefaultExtensionProvider<any>([
+      jiraCreate({ intlLocale: 'en', defaultCloudId: 'DUMMY-123' }),
+    ]);
+
+    extensionProvidersArr.push(jiraCreateExtensionProvider);
     providers.extensionProviders = extensionProvidersArr;
   }
 
@@ -527,6 +542,7 @@ export type MountEditorOptions = {
   withLinkPickerOptions?: boolean;
   withConfluenceMacrosExtensionProvider?: boolean;
   withTitleFocusHandler?: boolean;
+  withLinkCreateJira?: boolean;
   /** Api mock configurations */
   datasourceMocks?: {
     initialVisibleColumnKeys?: string[];

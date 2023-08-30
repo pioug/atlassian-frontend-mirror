@@ -1,5 +1,12 @@
 # @atlaskit/ds-explorations
 
+## 2.2.12
+
+### Patch Changes
+
+- [`437a056278c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/437a056278c) - Update to reflect latest tokens.
+- Updated dependencies
+
 ## 2.2.11
 
 ### Patch Changes

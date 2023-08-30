@@ -9,8 +9,12 @@ import {
 } from '../../../src/types';
 import { Browser } from '../../../src';
 import { MediaClient, FileIdentifier } from '@atlaskit/media-client';
-import { Card } from '@atlaskit/media-card';
 import { useState } from 'react';
+import { NativeMediaViewer } from '../../../example-helpers/NativeMediaViewer';
+
+const mediaClient = new MediaClient({
+  authProvider: defaultMediaPickerAuthProvider(),
+});
 
 const BrowserExample = () => {
   const [showDialog, setShowDialog] = useState<boolean>(false);
@@ -50,10 +54,6 @@ const BrowserExample = () => {
     uploadParams: {},
   };
 
-  const mediaClient = new MediaClient({
-    authProvider: defaultMediaPickerAuthProvider(),
-  });
-
   if (!browseConfig || !mediaClient) {
     return null;
   }
@@ -78,11 +78,8 @@ const BrowserExample = () => {
       />
       {uploadStart && <p>Upload started. Wait for it to finish !! </p>}
       {uploadEnd && (
-        <div>
-          <Card
-            mediaClientConfig={mediaClient.config}
-            identifier={identifier}
-          />
+        <div style={{ maxWidth: '300px', maxHeight: '250px' }}>
+          <NativeMediaViewer id={identifier.id} mediaClient={mediaClient} />
         </div>
       )}
     </div>

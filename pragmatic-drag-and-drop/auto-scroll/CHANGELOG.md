@@ -1,5 +1,11 @@
 # @atlaskit/pragmatic-drag-and-drop-auto-scroll
 
+## 0.4.0
+
+### Minor Changes
+
+- [`a6d9f3bb566`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a6d9f3bb566) - Adding optional overflow scrolling API. API information shared directly with Trello
+
 ## 0.3.2
 
 ### Patch Changes

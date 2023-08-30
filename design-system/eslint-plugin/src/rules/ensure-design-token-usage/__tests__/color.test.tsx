@@ -1,3 +1,5 @@
+import { CURRENT_SURFACE_CSS_VAR } from '@atlaskit/tokens';
+
 import { tester } from '../../__tests__/utils/_tester';
 import rule from '../../ensure-design-token-usage';
 
@@ -105,6 +107,9 @@ const colorTests: Tests = {
     },
     {
       code: `const GOLD_YEARLY = Products.Member.Gold.yearly;`,
+    },
+    {
+      code: `css({ [CURRENT_SURFACE_CSS_VAR]: token('elevation.surface.overlay') })`,
     },
     // Using config -> shouldEnforceFallbacks: true
     {
@@ -477,6 +482,14 @@ const colorTests: Tests = {
         { messageId: 'hardCodedColor' },
         { messageId: 'hardCodedColor' },
       ],
+    },
+    {
+      code: `css({ [CURRENT_SURFACE_CSS_VAR]: '#cccaaa' })`,
+      errors: [{ messageId: 'hardCodedColor' }],
+    },
+    {
+      code: `css({ '${CURRENT_SURFACE_CSS_VAR}': '#cccaaa' })`,
+      errors: [{ messageId: 'hardCodedColor' }],
     },
     {
       code: `css({ boxShadow: '0 0 0 2px white' })`,

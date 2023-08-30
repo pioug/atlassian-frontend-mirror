@@ -27,7 +27,7 @@ export type FeatureFlagsPlugin = NextEditorPlugin<
   }
 >;
 
-// @public (undocumented)
+// @public
 const featureFlagsPlugin: FeatureFlagsPlugin;
 export default featureFlagsPlugin;
 

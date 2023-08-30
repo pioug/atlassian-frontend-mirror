@@ -1,11 +1,12 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::ce2e1e115aa9ff0027981ef8ba658c64>>
+ * @codegen <<SignedSource::4523ed1ede9eb6edfe0926fd28d32efc>>
  * @codegenCommand yarn build tokens
  */
 export default `
 html[data-theme~="typography:typography"] {
   --ds-font-body: normal 400 0.875rem/1.25rem var(--ds-font-family-sans);
+  --ds-font-body-lg: normal 400 1rem/1.5rem var(--ds-font-family-sans);
   --ds-font-body-sm: normal 400 0.75rem/1.25rem var(--ds-font-family-sans);
   --ds-font-code: normal 400 0.875em/1 var(--ds-font-family-monospace);
   --ds-font-heading-lg: normal 700 1.5rem/1.75rem var(--ds-font-family-sans);

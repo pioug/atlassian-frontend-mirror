@@ -1,4 +1,4 @@
-import { nextTick } from '@atlaskit/media-test-helpers';
+import { nextTick } from '@atlaskit/media-common/test-helpers';
 
 import { request } from '..';
 import { isRequestError, RequestError } from '../errors';

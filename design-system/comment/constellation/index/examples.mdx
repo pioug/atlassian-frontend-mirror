@@ -9,6 +9,7 @@ import CommentSaving from '../../examples/constellation/comment-saving';
 import CommentEdited from '../../examples/constellation/comment-edited';
 import CommentRestricted from '../../examples/constellation/comment-restricted';
 import CommentHighlighted from '../../examples/constellation/comment-highlighted';
+import CommentCustomHeadingLevelExample from '../../examples/constellation/comment-custom-heading-level';
 
 ## Default
 
@@ -52,3 +53,9 @@ A message can be displayed in the comment header by using the `restrictedTo` pro
 A comment can be highlighted using the `highlighted` prop.
 
 <Example Component={CommentHighlighted} packageName="@atlaskit/comment" />
+
+## Custom heading level
+
+The default header has a `h3` tag. Heading level can be changed using the `headingLevel` prop.
+
+<Example Component={CommentCustomHeadingLevelExample} packageName="@atlaskit/comment" />

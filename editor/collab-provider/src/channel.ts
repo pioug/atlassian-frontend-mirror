@@ -523,7 +523,10 @@ export class Channel extends Emitter<ChannelEvent> {
     }
   };
 
-  fetchCatchup = async (fromVersion: number): Promise<CatchupResponse> => {
+  fetchCatchup = async (
+    fromVersion: number,
+    clientId: number | string | undefined,
+  ): Promise<CatchupResponse> => {
     try {
       const { doc, version, stepMaps, metadata } =
         await utils.requestService<any>(this.config, {
@@ -532,6 +535,7 @@ export class Channel extends Emitter<ChannelEvent> {
           )}/catchup`,
           queryParams: {
             version: fromVersion,
+            clientId: clientId,
           },
           requestInit: {
             headers: {

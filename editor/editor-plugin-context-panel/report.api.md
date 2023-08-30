@@ -34,7 +34,7 @@ export type ContextPanelPlugin = NextEditorPlugin<
   }
 >;
 
-// @public (undocumented)
+// @public
 export const contextPanelPlugin: ContextPanelPlugin;
 
 // (No @packageDocumentation comment for this package)

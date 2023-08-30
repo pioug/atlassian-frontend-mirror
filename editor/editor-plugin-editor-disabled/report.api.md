@@ -25,7 +25,7 @@ export type EditorDisabledPlugin = NextEditorPlugin<
   }
 >;
 
-// @public (undocumented)
+// @public
 export const editorDisabledPlugin: EditorDisabledPlugin;
 
 // @public (undocumented)

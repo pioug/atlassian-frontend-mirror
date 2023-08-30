@@ -32,7 +32,7 @@ export type DecorationsPlugin = NextEditorPlugin<
   }
 >;
 
-// @public (undocumented)
+// @public
 export const decorationsPlugin: DecorationsPlugin;
 
 // @public (undocumented)

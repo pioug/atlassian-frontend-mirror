@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::943b9b3b3139522a62a9775dcae78ed4>>
+ * @codegen <<SignedSource::7b7d53e8ee9563ef170026c46b344165>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -11,14 +11,7 @@ const tokens = [
       "introduced": "1.14.0",
       "description": "The default body font."
     },
-    "value": {
-      "fontSize": 14,
-      "fontStyle": "normal",
-      "fontWeight": "400",
-      "lineHeight": 20,
-      "fontFamily": "ui-sans-serif, \"Segoe UI\", system-ui, Ubuntu, \"Helvetica Neue\", sans-serif",
-      "letterSpacing": "0"
-    },
+    "value": "normal 400 14px/20px ui-sans-serif, \"Segoe UI\", system-ui, Ubuntu, \"Helvetica Neue\", sans-serif",
     "filePath": "src/tokens/atlassian-typography-minor3/theme.tsx",
     "isSource": true,
     "original": {
@@ -50,16 +43,43 @@ const tokens = [
       "group": "typography",
       "state": "experimental",
       "introduced": "1.14.0",
+      "description": "Larger body font or default body font for text rich experiences."
+    },
+    "value": "normal 400 16px/24px ui-sans-serif, \"Segoe UI\", system-ui, Ubuntu, \"Helvetica Neue\", sans-serif",
+    "filePath": "src/tokens/atlassian-typography-minor3/theme.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "typography",
+        "state": "experimental",
+        "introduced": "1.14.0",
+        "description": "Larger body font or default body font for text rich experiences."
+      },
+      "value": {
+        "fontWeight": "FontWeight400",
+        "fontSize": "FontSize16",
+        "lineHeight": "LineHeight300",
+        "fontFamily": "FontFamilyWebSans",
+        "fontStyle": "normal",
+        "letterSpacing": "LetterSpacing0"
+      }
+    },
+    "name": "font.body.lg",
+    "path": [
+      "font",
+      "body",
+      "lg"
+    ],
+    "cleanName": "font.body.lg"
+  },
+  {
+    "attributes": {
+      "group": "typography",
+      "state": "experimental",
+      "introduced": "1.14.0",
       "description": "Smaller body font."
     },
-    "value": {
-      "fontSize": 12,
-      "fontStyle": "normal",
-      "fontWeight": "400",
-      "lineHeight": 20,
-      "fontFamily": "ui-sans-serif, \"Segoe UI\", system-ui, Ubuntu, \"Helvetica Neue\", sans-serif",
-      "letterSpacing": "0"
-    },
+    "value": "normal 400 12px/20px ui-sans-serif, \"Segoe UI\", system-ui, Ubuntu, \"Helvetica Neue\", sans-serif",
     "filePath": "src/tokens/atlassian-typography-minor3/theme.tsx",
     "isSource": true,
     "original": {
@@ -93,14 +113,7 @@ const tokens = [
       "introduced": "1.14.0",
       "description": "Used for monospace and code."
     },
-    "value": {
-      "fontSize": "0.875em",
-      "fontStyle": "normal",
-      "fontWeight": "400",
-      "lineHeight": "1",
-      "fontFamily": "ui-monospace, Menlo, \"Segoe UI Mono\", \"Ubuntu Mono\", monospace",
-      "letterSpacing": "0"
-    },
+    "value": "normal 400 0.875em/1 ui-monospace, Menlo, \"Segoe UI Mono\", \"Ubuntu Mono\", monospace",
     "filePath": "src/tokens/atlassian-typography-minor3/theme.tsx",
     "isSource": true,
     "original": {
@@ -134,14 +147,7 @@ const tokens = [
       "introduced": "1.14.0",
       "description": "TBD"
     },
-    "value": {
-      "fontSize": 24,
-      "fontStyle": "normal",
-      "fontWeight": "700",
-      "lineHeight": 28,
-      "fontFamily": "ui-sans-serif, \"Segoe UI\", system-ui, Ubuntu, \"Helvetica Neue\", sans-serif",
-      "letterSpacing": "0"
-    },
+    "value": "normal 700 24px/28px ui-sans-serif, \"Segoe UI\", system-ui, Ubuntu, \"Helvetica Neue\", sans-serif",
     "filePath": "src/tokens/atlassian-typography-minor3/theme.tsx",
     "isSource": true,
     "original": {
@@ -175,14 +181,7 @@ const tokens = [
       "introduced": "1.14.0",
       "description": "TBD"
     },
-    "value": {
-      "fontSize": 20,
-      "fontStyle": "normal",
-      "fontWeight": "700",
-      "lineHeight": 24,
-      "fontFamily": "ui-sans-serif, \"Segoe UI\", system-ui, Ubuntu, \"Helvetica Neue\", sans-serif",
-      "letterSpacing": "0"
-    },
+    "value": "normal 700 20px/24px ui-sans-serif, \"Segoe UI\", system-ui, Ubuntu, \"Helvetica Neue\", sans-serif",
     "filePath": "src/tokens/atlassian-typography-minor3/theme.tsx",
     "isSource": true,
     "original": {
@@ -216,14 +215,7 @@ const tokens = [
       "introduced": "1.14.0",
       "description": "TBD"
     },
-    "value": {
-      "fontSize": 16,
-      "fontStyle": "normal",
-      "fontWeight": "700",
-      "lineHeight": 20,
-      "fontFamily": "ui-sans-serif, \"Segoe UI\", system-ui, Ubuntu, \"Helvetica Neue\", sans-serif",
-      "letterSpacing": "0"
-    },
+    "value": "normal 700 16px/20px ui-sans-serif, \"Segoe UI\", system-ui, Ubuntu, \"Helvetica Neue\", sans-serif",
     "filePath": "src/tokens/atlassian-typography-minor3/theme.tsx",
     "isSource": true,
     "original": {
@@ -257,14 +249,7 @@ const tokens = [
       "introduced": "1.14.0",
       "description": "TBD"
     },
-    "value": {
-      "fontSize": 28,
-      "fontStyle": "normal",
-      "fontWeight": "700",
-      "lineHeight": 32,
-      "fontFamily": "ui-sans-serif, \"Segoe UI\", system-ui, Ubuntu, \"Helvetica Neue\", sans-serif",
-      "letterSpacing": "0"
-    },
+    "value": "normal 700 28px/32px ui-sans-serif, \"Segoe UI\", system-ui, Ubuntu, \"Helvetica Neue\", sans-serif",
     "filePath": "src/tokens/atlassian-typography-minor3/theme.tsx",
     "isSource": true,
     "original": {
@@ -298,14 +283,7 @@ const tokens = [
       "introduced": "1.14.0",
       "description": "TBD"
     },
-    "value": {
-      "fontSize": 14,
-      "fontStyle": "normal",
-      "fontWeight": "700",
-      "lineHeight": 16,
-      "fontFamily": "ui-sans-serif, \"Segoe UI\", system-ui, Ubuntu, \"Helvetica Neue\", sans-serif",
-      "letterSpacing": "0"
-    },
+    "value": "normal 700 14px/16px ui-sans-serif, \"Segoe UI\", system-ui, Ubuntu, \"Helvetica Neue\", sans-serif",
     "filePath": "src/tokens/atlassian-typography-minor3/theme.tsx",
     "isSource": true,
     "original": {
@@ -339,14 +317,7 @@ const tokens = [
       "introduced": "1.14.0",
       "description": "TBD"
     },
-    "value": {
-      "fontSize": 32,
-      "fontStyle": "normal",
-      "fontWeight": "700",
-      "lineHeight": 36,
-      "fontFamily": "ui-sans-serif, \"Segoe UI\", system-ui, Ubuntu, \"Helvetica Neue\", sans-serif",
-      "letterSpacing": "0"
-    },
+    "value": "normal 700 32px/36px ui-sans-serif, \"Segoe UI\", system-ui, Ubuntu, \"Helvetica Neue\", sans-serif",
     "filePath": "src/tokens/atlassian-typography-minor3/theme.tsx",
     "isSource": true,
     "original": {
@@ -380,14 +351,7 @@ const tokens = [
       "introduced": "1.14.0",
       "description": "TBD"
     },
-    "value": {
-      "fontSize": 12,
-      "fontStyle": "normal",
-      "fontWeight": "700",
-      "lineHeight": 16,
-      "fontFamily": "ui-sans-serif, \"Segoe UI\", system-ui, Ubuntu, \"Helvetica Neue\", sans-serif",
-      "letterSpacing": "0"
-    },
+    "value": "normal 700 12px/16px ui-sans-serif, \"Segoe UI\", system-ui, Ubuntu, \"Helvetica Neue\", sans-serif",
     "filePath": "src/tokens/atlassian-typography-minor3/theme.tsx",
     "isSource": true,
     "original": {
@@ -556,14 +520,7 @@ const tokens = [
       "introduced": "1.14.0",
       "description": "Single-line non-wrapping text like that in a button."
     },
-    "value": {
-      "fontSize": 14,
-      "fontStyle": "normal",
-      "fontWeight": "400",
-      "lineHeight": "1",
-      "fontFamily": "ui-sans-serif, \"Segoe UI\", system-ui, Ubuntu, \"Helvetica Neue\", sans-serif",
-      "letterSpacing": "0"
-    },
+    "value": "normal 400 14px/1 ui-sans-serif, \"Segoe UI\", system-ui, Ubuntu, \"Helvetica Neue\", sans-serif",
     "filePath": "src/tokens/atlassian-typography-minor3/theme.tsx",
     "isSource": true,
     "original": {
@@ -597,14 +554,7 @@ const tokens = [
       "introduced": "1.14.0",
       "description": "Single-line non-wrapping supporting text like that in a smaller label."
     },
-    "value": {
-      "fontSize": 12,
-      "fontStyle": "normal",
-      "fontWeight": "400",
-      "lineHeight": "1",
-      "fontFamily": "ui-sans-serif, \"Segoe UI\", system-ui, Ubuntu, \"Helvetica Neue\", sans-serif",
-      "letterSpacing": "0"
-    },
+    "value": "normal 400 12px/1 ui-sans-serif, \"Segoe UI\", system-ui, Ubuntu, \"Helvetica Neue\", sans-serif",
     "filePath": "src/tokens/atlassian-typography-minor3/theme.tsx",
     "isSource": true,
     "original": {

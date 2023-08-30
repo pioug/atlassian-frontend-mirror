@@ -1,5 +1,12 @@
 # @atlaskit/popup
 
+## 1.9.3
+
+### Patch Changes
+
+- [`84442a93613`](https://bitbucket.org/atlassian/atlassian-frontend/commits/84442a93613) - Adds support for surface detection when using design tokens. Enabling children to be styled with the surface color of the popup when using the `utility.elevation.surface.current` design token.
+- Updated dependencies
+
 ## 1.9.2
 
 ### Patch Changes

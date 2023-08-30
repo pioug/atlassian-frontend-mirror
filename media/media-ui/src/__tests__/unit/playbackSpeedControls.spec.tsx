@@ -8,7 +8,7 @@ import PlaybackSpeedControls, {
   PlaybackSpeedControlsProps,
 } from '../../customMediaPlayer/playbackSpeedControls';
 import MediaButton from '../../MediaButton';
-import { mountWithIntlContext } from '@atlaskit/media-test-helpers';
+import { mountWithIntlContext } from '../../test-helpers/mountWithIntlContext';
 
 describe('<PlaybackSpeedControls />', () => {
   const mountSetup = (props: Partial<PlaybackSpeedControlsProps> = {}) => {

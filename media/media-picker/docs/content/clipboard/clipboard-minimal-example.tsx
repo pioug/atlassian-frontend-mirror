@@ -4,7 +4,11 @@ import { ClipboardConfig } from '@atlaskit/media-picker/types';
 import { Clipboard } from '@atlaskit/media-picker';
 import { MediaClient, FileIdentifier } from '@atlaskit/media-client';
 import { UploadEndEventPayload } from '../../../src/types';
-import { Card } from '@atlaskit/media-card';
+import { NativeMediaViewer } from '../../../example-helpers/NativeMediaViewer';
+
+const mediaClient = new MediaClient({
+  authProvider: defaultMediaPickerAuthProvider(),
+});
 
 const ClipBoardExample = () => {
   const [uploadEnd, setUploadEnd] = useState<boolean>(false);
@@ -15,10 +19,6 @@ const ClipBoardExample = () => {
   const clipboardConfig: ClipboardConfig = {
     uploadParams: {},
   };
-
-  const mediaClient = new MediaClient({
-    authProvider: defaultMediaPickerAuthProvider(),
-  });
 
   if (!clipboardConfig || !mediaClient) {
     return null;
@@ -48,7 +48,9 @@ const ClipBoardExample = () => {
         onEnd={onEnd}
       />
       {uploadEnd && (
-        <Card mediaClientConfig={mediaClient.config} identifier={identifier} />
+        <div style={{ maxWidth: '300px', maxHeight: '250px' }}>
+          <NativeMediaViewer id={identifier.id} mediaClient={mediaClient} />
+        </div>
       )}
     </div>
   );

@@ -33,17 +33,32 @@ With Pragmatic drag and drop, and the patterns we are using around it, we can sh
 
 One of the best things about `react-beautiful-dnd` is that it thought deeply about how accessibility could work for drag and drop operations.
 
+#### Problems with the `react-beautiful-dnd` pattern
+
 While the `react-beautiful-dnd` keyboard interaction pattern is _okay_, it has some problems:
 
-- `react-beautiful-dnd` requires [JAWS screen reader](https://www.freedomscientific.com/products/software/jaws/) users to change modes to use it
-- Directional arrow movement does not make a lot of sense when you cannot see the interface you are engaging with (eg what would a user expect "left" (<kbd>←</kbd>) to do on an interface they cannot see?)
-- Directional arrow movement does not work for all experiences (it really only works for lists and lists of lists)
-- `react-beautiful-dnd` does not support moving items between lists along the main axis (eg if two vertical lists are stacked vertically, a keyboard user cannot move items between the lists). Supporting directional movements for all use cases, even for lists, is extremely complex to achieve.
+##### Friction for assistive technology users
 
-For Pragmatic drag and drop, we encourage use of standard controls (eg an "action menu") to enable users of assistive technologies to quickly and easily achieve powerful tasks.
+- The pattern requires [JAWS screen reader](https://www.freedomscientific.com/products/software/jaws/) users to change screen reader mode to use it
+- Directional arrow movement does not make a lot of sense when you cannot see the interface you are engaging with (eg what would a user expect "left" (<kbd>←</kbd>) to do on an interface they cannot see?)
+
+- `react-beautiful-dnd` provides usage instructions on for drag and drop using the _accessible description_ on drag handles. Providing usage instructions in the description is an accessibility anti-pattern.
+
+##### Limitations
+
+- Directional arrow movement does not work for all experiences (it really only works for lists and lists of lists)
+- The pattern does not support moving items between lists along the main axis (eg if two vertical lists are stacked vertically, a keyboard user cannot move items between the lists). Supporting directional movements for all use cases, even for lists, is extremely complex to achieve
+
+##### Poor performance
+
+The pattern requires _a lot_ of code and complexity to get working well, which undercuts the performance we are trying to achieve with Pragmatic drag and drop.
+
+#### We want a better experience for assistive technology users
+
+For Pragmatic drag and drop we want to provide a best in class assisible experience for all use cases. We encourage use of standard controls (eg an "action menu") to enable users of assistive technologies to quickly and easily achieve powerful tasks.
 
 Advantages of this approach:
 
-- We can choose controls that work extremely well with assistive technologies (eg menus, selects, modals and so on)
+- We can choose controls that work extremely well with assistive technologies (eg menus, modals, selects and so on)
 - We can choose controls that make sense for a given experience (not all experiences have to have the same controls)
 - We can choose controls that are cheap and fast for clients

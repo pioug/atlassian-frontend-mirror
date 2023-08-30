@@ -889,6 +889,7 @@ type CSSTokenMap = {
   'space.800': 'var(--ds-space-800)';
   'space.1000': 'var(--ds-space-1000)';
   'font.body': 'var(--ds-font-body)';
+  'font.body.lg': 'var(--ds-font-body-lg)';
   'font.body.sm': 'var(--ds-font-body-sm)';
   'font.code': 'var(--ds-font-code)';
   'font.heading.lg': 'var(--ds-font-heading-lg)';
@@ -1973,6 +1974,7 @@ const tokens: {
   readonly 'space.800': '--ds-space-800';
   readonly 'space.1000': '--ds-space-1000';
   readonly 'font.body': '--ds-font-body';
+  readonly 'font.body.lg': '--ds-font-body-lg';
   readonly 'font.body.sm': '--ds-font-body-sm';
   readonly 'font.code': '--ds-font-code';
   readonly 'font.heading.lg': '--ds-font-heading-lg';

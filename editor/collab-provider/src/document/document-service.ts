@@ -85,7 +85,10 @@ export class DocumentService {
   constructor(
     private participantsService: ParticipantsService,
     private analyticsHelper: AnalyticsHelper | undefined,
-    private fetchCatchup: (fromVersion: number) => Promise<CatchupResponse>,
+    private fetchCatchup: (
+      fromVersion: number,
+      clientId: number | string | undefined,
+    ) => Promise<CatchupResponse>,
     private fetchReconcile: (
       currentStateDoc: string,
     ) => Promise<ReconcileResponse>,
@@ -136,6 +139,7 @@ export class DocumentService {
         updateDocument: this.updateDocument,
         updateMetadata: this.metadataService.updateMetadata,
         analyticsHelper: this.analyticsHelper,
+        clientId: this.clientId,
       });
       const latency = new Date().getTime() - start;
       this.analyticsHelper?.sendActionEvent(

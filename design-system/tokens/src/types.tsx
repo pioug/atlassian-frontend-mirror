@@ -197,7 +197,6 @@ export interface PaletteColorTokenSchema<PaletteValues extends string> {
 }
 
 type SpacingSchemaValue = BaseToken<number, 'spacing'>;
-type TypographySchemaValue = BaseToken<number | string, 'typography'>;
 type ShapeSchemaValue = BaseToken<number | string, 'shape'>;
 export interface SpacingScaleTokenSchema<ScaleValues extends string> {
   space: Record<ScaleValues, SpacingSchemaValue>;
@@ -214,23 +213,23 @@ export interface ShapeScaleTokenSchema<
 }
 
 export interface FontSizeScaleTokenSchema<ScaleValues extends string> {
-  fontSize: Record<ScaleValues, TypographySchemaValue>;
+  fontSize: Record<ScaleValues, BaseToken<string | number, 'fontSize'>>;
 }
 
 export interface FontWeightScaleTokenSchema<ScaleValues extends string> {
-  fontWeight: Record<ScaleValues, TypographySchemaValue>;
+  fontWeight: Record<ScaleValues, BaseToken<string, 'fontWeight'>>;
 }
 
 export interface FontFamilyPaletteTokenSchema<ScaleValues extends string> {
-  fontFamily: Record<ScaleValues, TypographySchemaValue>;
+  fontFamily: Record<ScaleValues, BaseToken<string, 'fontFamily'>>;
 }
 
 export interface LineHeightScaleTokenSchema<ScaleValues extends string> {
-  lineHeight: Record<ScaleValues, TypographySchemaValue>;
+  lineHeight: Record<ScaleValues, BaseToken<string | number, 'lineHeight'>>;
 }
 
 export interface LetterSpacingScaleTokenSchema<ScaleValues extends string> {
-  letterSpacing: Record<ScaleValues, TypographySchemaValue>;
+  letterSpacing: Record<ScaleValues, BaseToken<string, 'letterSpacing'>>;
 }
 
 export interface BackgroundColorTokenSchema<BaseToken> {
@@ -972,6 +971,7 @@ export interface TypographyTokenSchema<
     body: {
       '[default]': TypographyToken<TPalette>;
       sm: TypographyToken<TPalette>;
+      lg: TypographyToken<TPalette>;
     };
     code: {
       '[default]': TypographyToken<TPalette>;

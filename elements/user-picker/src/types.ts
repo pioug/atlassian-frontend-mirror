@@ -79,6 +79,8 @@ export type UserPickerProps = WithAnalyticsEventsProps & {
   onOpen?: OnPicker;
   /** Callback that is triggered when popup picker is closed */
   onClose?: OnPicker;
+  /** Callback that is trigger on key down in text input */
+  onKeyDown?: (event: React.KeyboardEvent) => void;
   /** Appearance of the user picker. */
   appearance?: Appearance;
   /** Display the picker with a subtle style. */

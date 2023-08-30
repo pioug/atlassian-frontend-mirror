@@ -58,7 +58,7 @@ export type ListPlugin = NextEditorPlugin<
   }
 >;
 
-// @public (undocumented)
+// @public
 export const listPlugin: ListPlugin;
 
 // @public (undocumented)

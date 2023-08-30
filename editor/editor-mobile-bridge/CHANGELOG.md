@@ -1,5 +1,33 @@
 # @atlaskit/editor-mobile-bridge
 
+## 187.34.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.34.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.34.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.33.0
+
+### Minor Changes
+
+- [`7613b6b6a51`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7613b6b6a51) - [ED-19428] Decouple quick-insert plugin from editor-core
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 187.32.8
 
 ### Patch Changes

@@ -1,5 +1,54 @@
 # @atlaskit/editor-core
 
+## 187.34.2
+
+### Patch Changes
+
+- [`5e0bef65120`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5e0bef65120) - [ux] Fix copy button for mediaSingle with link or border
+
+## 187.34.1
+
+### Patch Changes
+
+- [`55b4cc5ee36`](https://bitbucket.org/atlassian/atlassian-frontend/commits/55b4cc5ee36) - ED-18026 Fixing issue of adding panel in codeblock
+- Updated dependencies
+
+## 187.34.0
+
+### Minor Changes
+
+- [`3f12e00f046`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3f12e00f046) - [ux] EDM-7493 Link create Jira quick insert
+
+## 187.33.0
+
+### Minor Changes
+
+- [`7613b6b6a51`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7613b6b6a51) - [ED-19428] Decouple quick-insert plugin from editor-core
+
+### Patch Changes
+
+- [`b06cd74349c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b06cd74349c) - # Media Picker
+
+  Make Clipboard secured by adding `container` and `onPaste()` to `config` `prop`. These two params address customer dissatisfaction when attachments are pasted duplicated, or to unwanted Jira issues (https://product-fabric.atlassian.net/browse/MEX-2454).
+
+  Note for migration:
+  The added `container` parameter sets a boundary for copy-paste zone. This is to filter out noise from existing practice that is problematic. **To ensure the effectiveness of this fix, please avoid using global `document` as `container` in best effort; please avoid overlapped boundary in best effort**.
+
+  When `container` is not added, the behaviour falls back to legacy mechanism.
+
+  # Media Common
+
+  Add feature toggle (`securedClipboard` in `MediaFeatureFlags`) to control the rollout of Secured Clipboard (https://product-fabric.atlassian.net/browse/MEX-2454).
+
+  # Editor Core
+
+  Add support of the Secured Clipboard (https://product-fabric.atlassian.net/browse/MEX-2454).
+
+  Use feature flag `securedClipboard` to protect such change.
+
+- [`93b4b1394bf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/93b4b1394bf) - ED-19673: Updated shouldPanelBePositionedOverEditor to adapt to custom table width project
+- Updated dependencies
+
 ## 187.32.7
 
 ### Patch Changes

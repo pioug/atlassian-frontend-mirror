@@ -33,6 +33,10 @@ export type ForceFocusSelector = (
   selector: string | null,
 ) => (tr: Transaction) => Transaction;
 
+/**
+ * Floating toolbar plugin to be added to an `EditorPresetBuilder` and used with `ComposableEditor`
+ * from `@atlaskit/editor-core`.
+ */
 export type FloatingToolbarPlugin = NextEditorPlugin<
   'floatingToolbar',
   {

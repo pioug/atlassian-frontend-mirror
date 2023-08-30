@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.2.3
+
+### Patch Changes
+
+- [`ede6ee7aaab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ede6ee7aaab) - Updated tests, examples and moving towards /test-helper export in packages to prevent circular dependancies
+
 ## 4.2.2
 
 ### Patch Changes

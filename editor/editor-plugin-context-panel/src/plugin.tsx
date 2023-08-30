@@ -66,6 +66,10 @@ export type ContextPanelPlugin = NextEditorPlugin<
   { actions: { applyChange: typeof applyChange } }
 >;
 
+/**
+ * Context panel plugin to be added to an `EditorPresetBuilder` and used with `ComposableEditor`
+ * from `@atlaskit/editor-core`.
+ */
 export const contextPanelPlugin: ContextPanelPlugin = () => ({
   name: 'contextPanel',
 

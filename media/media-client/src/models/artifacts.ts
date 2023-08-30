@@ -10,6 +10,9 @@ export interface MediaFileArtifacts {
   'video_640.mp4'?: MediaFileArtifact;
   'document.pdf'?: MediaFileArtifact;
   'audio.mp3'?: MediaFileArtifact;
+  'thumb.jpg'?: MediaFileArtifact;
+  'image.png'?: MediaFileArtifact;
+  'image.jpg'?: MediaFileArtifact;
 }
 
 export const getArtifactUrl = (

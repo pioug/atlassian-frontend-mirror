@@ -107,6 +107,15 @@ const font: AttributeSchema<TypographyTokenSchema<any>> = {
       },
     },
     body: {
+      lg: {
+        attributes: {
+          group: 'typography',
+          state: 'experimental',
+          introduced: '1.14.0',
+          description:
+            'Larger body font or default body font for text rich experiences.',
+        },
+      },
       sm: {
         attributes: {
           group: 'typography',

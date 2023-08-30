@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/notification-log-client",
-  "version": "6.1.4",
+  "version": "6.1.5",
   "description": "Client APIs for notification-log service",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -23,6 +23,9 @@
   "atlassian": {
     "team": "Work Platform: Incoming Work",
     "releaseModel": "continuous",
+    "productPushConsumption": [
+      "jira"
+    ],
     "website": {
       "name": "Notification Log Client"
     }

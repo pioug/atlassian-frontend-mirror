@@ -27,9 +27,13 @@ describe('Catchup ', () => {
       updateMetadata: jest.fn(),
       applyLocalSteps: jest.fn(),
       analyticsHelper: new AnalyticsHelper('fake-document-ari'),
+      clientId: 'some-random-prosemirror-client-Id',
     };
     await catchup(options);
-    expect(options.fetchCatchup).toBeCalledWith(1);
+    expect(options.fetchCatchup).toBeCalledWith(
+      1,
+      'some-random-prosemirror-client-Id',
+    );
   });
 
   it('Should replace local document and version', async () => {
@@ -52,6 +56,7 @@ describe('Catchup ', () => {
       updateDocument: jest.fn(),
       updateMetadata: jest.fn(),
       analyticsHelper: new AnalyticsHelper('fake-document-ari'),
+      clientId: 'some-random-prosemirror-client-Id',
     };
 
     await catchup(options);
@@ -86,6 +91,7 @@ describe('Catchup ', () => {
       updateMetadata: jest.fn(),
       applyLocalSteps: jest.fn(),
       analyticsHelper: new AnalyticsHelper('fake-document-ari'),
+      clientId: 'some-random-prosemirror-client-Id',
     };
 
     await catchup(options);
@@ -123,6 +129,7 @@ describe('Catchup ', () => {
       updateMetadata: jest.fn(),
       applyLocalSteps: jest.fn(),
       analyticsHelper: new AnalyticsHelper('fake-document-ari'),
+      clientId: 'some-random-prosemirror-client-Id',
     };
 
     await catchup(options);
@@ -157,6 +164,7 @@ describe('Catchup ', () => {
       updateMetadata: jest.fn(),
       applyLocalSteps: jest.fn(),
       analyticsHelper: new AnalyticsHelper('fake-document-ari'),
+      clientId: 'some-random-prosemirror-client-Id',
     };
 
     const sendErrorEventSpy = jest.spyOn(
@@ -167,7 +175,10 @@ describe('Catchup ', () => {
     try {
       await catchup(options);
     } catch (err) {
-      expect(options.fetchCatchup).toBeCalledWith(1);
+      expect(options.fetchCatchup).toBeCalledWith(
+        1,
+        'some-random-prosemirror-client-Id',
+      );
       expect(sendErrorEventSpy).toBeCalledWith(
         error,
         'Error while fetching catchup from server',
@@ -203,6 +214,7 @@ describe('Catchup ', () => {
         throw error;
       }),
       analyticsHelper: new AnalyticsHelper('fake-document-ari'),
+      clientId: 'some-random-prosemirror-client-Id',
     };
 
     const sendErrorEventSpy = jest.spyOn(
@@ -213,7 +225,10 @@ describe('Catchup ', () => {
     try {
       await catchup(options);
     } catch (err) {
-      expect(options.fetchCatchup).toBeCalledWith(1);
+      expect(options.fetchCatchup).toBeCalledWith(
+        1,
+        'some-random-prosemirror-client-Id',
+      );
       expect(sendErrorEventSpy).toHaveBeenCalledWith(
         error,
         'Failed to apply catchup result in the editor',

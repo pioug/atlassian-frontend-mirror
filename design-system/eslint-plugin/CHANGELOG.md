@@ -1,5 +1,12 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 8.4.4
+
+### Patch Changes
+
+- [`f7a807adba2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f7a807adba2) - Update the `ensure-design-token-usage` rule to disallow setting the 'current surface' CSS variable (--ds-elevation-surface-current) to a hardcoded color.
+- Updated dependencies
+
 ## 8.4.3
 
 ### Patch Changes

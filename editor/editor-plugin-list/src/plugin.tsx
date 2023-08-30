@@ -38,6 +38,11 @@ import { isInsideListItem } from './utils/selection';
   Toolbar buttons to bullet and ordered list can be found in
   packages/editor/editor-core/src/plugins/toolbar-lists-indentation/ui/Toolbar.tsx
  */
+
+/**
+ * List plugin to be added to an `EditorPresetBuilder` and used with `ComposableEditor`
+ * from `@atlaskit/editor-core`.
+ */
 export const listPlugin: ListPlugin = ({ config: options, api }) => {
   const featureFlags = api?.featureFlags.sharedState.currentState() || {};
   const editorAnalyticsAPI = api?.analytics?.actions;

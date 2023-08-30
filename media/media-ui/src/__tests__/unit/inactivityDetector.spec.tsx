@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { InactivityDetector, WithShowControlMethodProp } from '../..';
-import { asMock } from '@atlaskit/media-test-helpers';
+import { asMock } from '@atlaskit/media-common/test-helpers';
 import { InactivityDetectorWrapper } from '../../inactivityDetector/styled';
 
 class DummyChild extends React.Component<WithShowControlMethodProp> {

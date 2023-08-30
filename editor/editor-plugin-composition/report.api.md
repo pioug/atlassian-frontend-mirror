@@ -25,7 +25,7 @@ export type CompositionPlugin = NextEditorPlugin<
   }
 >;
 
-// @public (undocumented)
+// @public
 export const compositionPlugin: CompositionPlugin;
 
 // @public (undocumented)

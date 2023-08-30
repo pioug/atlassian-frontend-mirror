@@ -3,7 +3,7 @@ import { Component, SyntheticEvent } from 'react';
 import {
   defaultCollectionName,
   defaultMediaPickerAuthProvider,
-} from '@atlaskit/media-test-helpers';
+} from '../src/test-helpers';
 import { MediaClientConfig } from '@atlaskit/media-core';
 import { FileState, MediaClient, UploadController } from '../src';
 import { FileWrapper } from '../example-helpers/stylesWrapper';

@@ -128,6 +128,10 @@ export type AnalyticsPlugin = NextEditorPlugin<
   }
 >;
 
+/**
+ * Analytics plugin to be added to an `EditorPresetBuilder` and used with `ComposableEditor`
+ * from `@atlaskit/editor-core`.
+ */
 const analyticsPlugin: AnalyticsPlugin = ({ config: options = {}, api }) => {
   const featureFlags = api?.featureFlags?.sharedState.currentState() || {};
 

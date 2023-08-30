@@ -16,16 +16,12 @@ import FullScreenIcon from '@atlaskit/icon/glyph/vid-full-screen-on';
 import VidHdCircleIcon from '@atlaskit/icon/glyph/vid-hd-circle';
 import VidPlayIcon from '@atlaskit/icon/glyph/vid-play';
 import VidPauseIcon from '@atlaskit/icon/glyph/vid-pause';
+import { asMock, asMockFunction } from '@atlaskit/media-common/test-helpers';
 import {
   SkipTenBackwardIcon,
   SkipTenForwardIcon,
 } from '../../../customMediaPlayer/icons';
-import {
-  asMock,
-  asMockFunction,
-  fakeIntl,
-  mountWithIntlContext,
-} from '@atlaskit/media-test-helpers';
+import { fakeIntl, mountWithIntlContext } from '../../../test-helpers';
 import Spinner from '@atlaskit/spinner';
 import { WidthObserver } from '@atlaskit/width-detector';
 import Tooltip from '@atlaskit/tooltip';

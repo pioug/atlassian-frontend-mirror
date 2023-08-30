@@ -1,5 +1,11 @@
 # @atlaskit/dropdown-menu
 
+## 11.12.0
+
+### Minor Changes
+
+- [`b66fdec7fd1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b66fdec7fd1) - Add a new prop `shouldRenderToParent` to allow render content into a DOM node within the parent DOM hierarchy instead of React portal.
+
 ## 11.11.6
 
 ### Patch Changes

@@ -10,6 +10,7 @@ import Tooltip from '@atlaskit/tooltip';
 import type { TooltipProps } from '@atlaskit/tooltip';
 
 import {
+  resizerDangerClassName,
   resizerHandleClassName,
   resizerHandleThumbClassName,
   resizerHandleTrackClassName,
@@ -221,15 +222,11 @@ export default function ResizerNext(
     },
   };
 
-  const resizerClassName = classnames(
-    className,
-    resizerItemClassName,
-    {
-      'is-resizing': isResizing,
-      'display-handle': isHandleVisible,
-    },
-    appearance,
-  );
+  const resizerClassName = classnames(className, resizerItemClassName, {
+    'is-resizing': isResizing,
+    'display-handle': isHandleVisible,
+    [resizerDangerClassName]: appearance === 'danger',
+  });
 
   const finalHandleComponent = useMemo(() => {
     if (

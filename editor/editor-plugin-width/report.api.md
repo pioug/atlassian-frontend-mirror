@@ -26,7 +26,7 @@ export type WidthPlugin = NextEditorPlugin<
   }
 >;
 
-// @public (undocumented)
+// @public
 export const widthPlugin: WidthPlugin;
 
 // @public (undocumented)

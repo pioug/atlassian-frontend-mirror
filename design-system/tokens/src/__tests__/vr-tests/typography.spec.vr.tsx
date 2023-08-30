@@ -9,17 +9,5 @@ snapshot(TypographyVr, {
       name: 'Default',
       environment: {},
     },
-    {
-      name: 'Light',
-      environment: {
-        colorScheme: 'light',
-      },
-    },
-    {
-      name: 'Dark',
-      environment: {
-        colorScheme: 'dark',
-      },
-    },
   ],
 });

@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
 
+import { withAnalyticsContext } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button/standard-button';
 import { Link } from '@atlaskit/linking-types';
 import Modal, {
@@ -14,6 +15,12 @@ import Modal, {
   ModalTransition,
 } from '@atlaskit/modal-dialog';
 
+import { useDatasourceAnalyticsEvents } from '../../../analytics';
+import type {
+  AnalyticsContextAttributesType,
+  AnalyticsContextType,
+  PackageMetaDataType,
+} from '../../../analytics/generated/analytics.types';
 import { useAssetsClient } from '../../../hooks/useAssetsClient';
 import { useDatasourceTableState } from '../../../hooks/useDatasourceTableState';
 import { ModalLoadingError } from '../../common/error-state/modal-loading-error';
@@ -39,7 +46,7 @@ const AssetsModalTitle = (
   </ModalTitle>
 );
 
-export const AssetsConfigModal = (props: AssetsConfigModalProps) => {
+const PlainAssetsConfigModal = (props: AssetsConfigModalProps) => {
   const {
     datasourceId,
     parameters: initialParameters,
@@ -53,6 +60,7 @@ export const AssetsConfigModal = (props: AssetsConfigModalProps) => {
     initialVisibleColumnKeys,
   );
   const [isNewSearch, setIsNewSearch] = useState<boolean>(false);
+  const { fireEvent } = useDatasourceAnalyticsEvents();
 
   // If a workspaceError occurs this is a critical error
   const { workspaceId, workspaceError, objectSchema, assetsClientLoading } =
@@ -109,6 +117,10 @@ export const AssetsConfigModal = (props: AssetsConfigModalProps) => {
     // Purposely not included 'visibleColumnKeys' as a dependency to prevent infinite loop
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [responseItems, isNewSearch]);
+
+  useEffect(() => {
+    fireEvent('screen.datasourceModalDialog.viewed', {});
+  }, [fireEvent]);
 
   const isDisabled =
     !!workspaceError ||
@@ -276,3 +288,24 @@ export const AssetsConfigModal = (props: AssetsConfigModalProps) => {
     </ModalTransition>
   );
 };
+
+const analyticsContextAttributes: AnalyticsContextAttributesType = {
+  dataProvider: 'jsm-assets',
+};
+
+const analyticsContextData: AnalyticsContextType & PackageMetaDataType = {
+  packageName: process.env._PACKAGE_NAME_,
+  packageVersion: process.env._PACKAGE_VERSION_,
+  source: 'datasourceConfigModal',
+};
+
+const contextData = {
+  ...analyticsContextData,
+  attributes: {
+    ...analyticsContextAttributes,
+  },
+};
+
+export const AssetsConfigModal = withAnalyticsContext(contextData)(
+  PlainAssetsConfigModal,
+);

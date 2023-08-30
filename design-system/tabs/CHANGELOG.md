@@ -1,5 +1,12 @@
 # @atlaskit/tabs
 
+## 13.4.5
+
+### Patch Changes
+
+- [`e7f99a81404`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e7f99a81404) - Update to use `xcss` where possible. There should be no difference in behaviour.
+- Updated dependencies
+
 ## 13.4.4
 
 ### Patch Changes

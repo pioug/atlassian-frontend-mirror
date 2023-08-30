@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { Identifier } from '@atlaskit/media-client';
-import { Card } from '@atlaskit/media-card';
+import { Identifier, MediaClient } from '@atlaskit/media-client';
 import {
   createStorybookMediaClientConfig,
   defaultCollectionName,
@@ -10,6 +9,7 @@ import {
 
 import { MediaViewer } from '../src';
 import { zipItem } from '../example-helpers';
+import { NativeMediaPreview } from '../example-helpers/NativeMediaPreview';
 import { ButtonList, Group, MainWrapper } from '../example-helpers/MainWrapper';
 
 interface State {
@@ -17,6 +17,7 @@ interface State {
 }
 
 const mediaClientConfig = createStorybookMediaClientConfig();
+const mediaClient = new MediaClient(mediaClientConfig);
 
 export default class Example extends React.Component<{}, State> {
   state: State = { selectedIdentifier: undefined };
@@ -25,9 +26,9 @@ export default class Example extends React.Component<{}, State> {
     return (
       <div>
         <h4>{title}</h4>
-        <Card
+        <NativeMediaPreview
           identifier={identifier}
-          mediaClientConfig={mediaClientConfig}
+          mediaClient={mediaClient}
           onClick={() => this.setState({ selectedIdentifier: identifier })}
         />
       </div>

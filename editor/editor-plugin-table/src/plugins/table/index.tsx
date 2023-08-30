@@ -104,6 +104,10 @@ export type TablePlugin = NextEditorPlugin<
   }
 >;
 
+/**
+ * Table plugin to be added to an `EditorPresetBuilder` and used with `ComposableEditor`
+ * from `@atlaskit/editor-core`.
+ */
 const tablesPlugin: TablePlugin = ({ config: options, api }) => {
   const editorViewRef: Record<'current', EditorView | null> = { current: null };
   const defaultGetEditorContainerWidth: GetEditorContainerWidth = () => {

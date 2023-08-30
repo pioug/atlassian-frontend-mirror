@@ -1,5 +1,12 @@
 # @atlaskit/renderer
 
+## 108.11.10
+
+### Patch Changes
+
+- [`b4b0b6fa972`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b4b0b6fa972) - Include hash when calling FF platform.editor.custom-table-width-scale-down-undefined-column_nkyvx
+- Updated dependencies
+
 ## 108.11.9
 
 ### Patch Changes

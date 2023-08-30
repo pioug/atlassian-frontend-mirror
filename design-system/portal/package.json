@@ -48,7 +48,7 @@
   "devDependencies": {
     "@af/accessibility-testing": "*",
     "@atlaskit/ssr": "*",
-    "@atlaskit/tokens": "^1.17.0",
+    "@atlaskit/tokens": "^1.18.0",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",

@@ -62,6 +62,10 @@ export type CardPlugin = NextEditorPlugin<
   }
 >;
 
+/**
+ * Card plugin to be added to an `EditorPresetBuilder` and used with `ComposableEditor`
+ * from `@atlaskit/editor-core`.
+ */
 export const cardPlugin: CardPlugin = ({ config: options, api }) => {
   const featureFlags = api?.featureFlags?.sharedState.currentState() || {};
 

@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { createUploadMediaClientConfig } from '@atlaskit/media-test-helpers';
 import { MediaClient, FileIdentifier } from '@atlaskit/media-client';
 import { DropzoneConfig, UploadEndEventPayload } from '../../../src/types';
-import { Card } from '@atlaskit/media-card';
+import { NativeMediaViewer } from '../../../example-helpers/NativeMediaViewer';
 import { Dropzone } from '../../../src';
 
 const mediaClientConfig = createUploadMediaClientConfig();
@@ -58,10 +58,12 @@ const DropzoneExample = () => {
         onDrop={onDrop}
       />
       {uploadEnd && (
-        <Card
-          mediaClientConfig={dropzoneMediaClient.config}
-          identifier={identifier}
-        />
+        <div style={{ maxWidth: '300px', maxHeight: '250px' }}>
+          <NativeMediaViewer
+            id={identifier.id}
+            mediaClient={dropzoneMediaClient}
+          />
+        </div>
       )}
     </div>
   );

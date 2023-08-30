@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { act } from 'react-dom/test-utils';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { FabricChannel } from '@atlaskit/analytics-listeners';
-import { asMock, mountWithIntlContext } from '@atlaskit/media-test-helpers';
+import { asMock } from '@atlaskit/media-common/test-helpers';
+import { mountWithIntlContext } from '../../../../test-helpers';
 import { WidthObserver } from '@atlaskit/width-detector';
 import MediaPlayer, { VideoProps, VideoState } from 'react-video-renderer';
 

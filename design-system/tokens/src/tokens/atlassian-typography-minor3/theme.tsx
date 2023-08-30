@@ -112,6 +112,16 @@ const typography: ValueSchema<
           letterSpacing: 'LetterSpacing0',
         },
       },
+      lg: {
+        value: {
+          fontWeight: 'FontWeight400',
+          fontSize: 'FontSize16',
+          lineHeight: 'LineHeight300',
+          fontFamily: 'FontFamilyWebSans',
+          fontStyle: 'normal',
+          letterSpacing: 'LetterSpacing0',
+        },
+      },
       sm: {
         value: {
           fontWeight: 'FontWeight400',

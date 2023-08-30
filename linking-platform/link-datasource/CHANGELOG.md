@@ -1,5 +1,25 @@
 # @atlaskit/link-datasource
 
+## 1.0.13
+
+### Patch Changes
+
+- [`46b2cb60ad0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/46b2cb60ad0) - Delete editor prosemirror from AFE Repo
+- Updated dependencies
+
+## 1.0.12
+
+### Patch Changes
+
+- [`1c2a3601900`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1c2a3601900) - Add analytics context to AssetsConfigModal
+- Updated dependencies
+
+## 1.0.11
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.0.10
 
 ### Patch Changes

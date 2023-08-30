@@ -45,7 +45,7 @@ export type EmojiPlugin = NextEditorPlugin<
   }
 >;
 
-// @public (undocumented)
+// @public
 export const emojiPlugin: EmojiPlugin;
 
 // @public (undocumented)

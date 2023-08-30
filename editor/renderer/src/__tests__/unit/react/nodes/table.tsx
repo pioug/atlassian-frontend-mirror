@@ -77,7 +77,7 @@ describe('Renderer - React/Nodes/Table', () => {
       'platform.editor.custom-table-width',
       (ff) =>
         ffTest(
-          'platform.editor.custom-table-width-scale-down-undefined-column',
+          'platform.editor.custom-table-width-scale-down-undefined-column_nkyvx',
           () => {
             const columnWidths: Array<number> = [];
             const table = mountBasicTable({
@@ -115,7 +115,7 @@ describe('Renderer - React/Nodes/Table', () => {
       'platform.editor.custom-table-width',
       (ff) =>
         ffTest(
-          'platform.editor.custom-table-width-scale-down-undefined-column',
+          'platform.editor.custom-table-width-scale-down-undefined-column_nkyvx',
           () => {
             const columnWidths: Array<number> = [0, 0, 0];
             const table = mountBasicTable({

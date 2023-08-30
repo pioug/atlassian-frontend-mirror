@@ -11,7 +11,17 @@ import {
   akLayoutGutterOffset,
   relativeFontSizeToBase16,
 } from '@atlaskit/editor-shared-styles';
-import * as colors from '@atlaskit/theme/colors';
+import {
+  B300,
+  DN50,
+  DN600,
+  N200A,
+  N300A,
+  N30A,
+  N40A,
+  N50A,
+  N90,
+} from '@atlaskit/theme/colors';
 import { themed } from '@atlaskit/theme/components';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { fontSize, gridSize } from '@atlaskit/theme/constants';
@@ -52,11 +62,11 @@ const EXPAND_SELECTED_BACKGROUND = themed({
   dark: token('elevation.surface', 'rgba(9, 10, 11, 0.29)'),
 });
 
-const EXPAND_FOCUSED_BORDER_COLOR = token('color.border.focused', colors.B300);
+const EXPAND_FOCUSED_BORDER_COLOR = token('color.border.focused', B300);
 const EXPAND_COLLAPSED_BORDER_COLOR = 'transparent';
 const EXPAND_EXPANDED_BORDER_COLOR = themed({
-  light: token('color.border', colors.N40A),
-  dark: token('color.border', colors.DN50),
+  light: token('color.border', N40A),
+  dark: token('color.border', DN50),
 });
 
 export interface StyleProps {
@@ -87,7 +97,7 @@ const expandIconWrapperStyle = (props: ThemeProps) => css`
   cursor: pointer;
   display: flex;
   color: ${themed({
-    light: token('color.icon', colors.N90),
+    light: token('color.icon', N90),
     dark: token('color.icon', '#d9dde3'),
   })(props)};
   border-radius: ${token('border.radius.100', '4px')};
@@ -95,10 +105,7 @@ const expandIconWrapperStyle = (props: ThemeProps) => css`
   height: 24px;
 
   &:hover {
-    background: ${token(
-      'color.background.neutral.subtle.hovered',
-      colors.N30A,
-    )};
+    background: ${token('color.background.neutral.subtle.hovered', N30A)};
   }
 
   svg {
@@ -165,8 +172,8 @@ const containerStyles = (styleProps: StyleProps) => {
       // https://product-fabric.atlassian.net/browse/DSP-4152
       border: 1px solid
         ${themed({
-          light: token('color.border', colors.N50A),
-          dark: token('color.border', colors.DN50),
+          light: token('color.border', N50A),
+          dark: token('color.border', DN50),
         })(themeProps)};
       background: ${EXPAND_SELECTED_BACKGROUND(themeProps)};
     }
@@ -220,8 +227,8 @@ const titleInputStyles = (props: ThemeProps) => css`
   line-height: ${akEditorLineHeight};
   font-weight: normal;
   color: ${themed({
-    light: token('color.text.subtlest', colors.N200A),
-    dark: token('color.text.subtlest', colors.DN600),
+    light: token('color.text.subtlest', N200A),
+    dark: token('color.text.subtlest', DN600),
   })(props)};
   background: transparent;
   display: flex;
@@ -232,8 +239,8 @@ const titleInputStyles = (props: ThemeProps) => css`
   &::placeholder {
     opacity: 0.6;
     color: ${themed({
-      light: token('color.text.subtlest', colors.N200A),
-      dark: token('color.text.subtlest', colors.DN600),
+      light: token('color.text.subtlest', N200A),
+      dark: token('color.text.subtlest', DN600),
     })(props)};
   }
 `;
@@ -247,8 +254,8 @@ const titleContainerStyles = (props: ThemeProps) => css`
   font-size: ${relativeFontSizeToBase16(fontSize())};
   width: 100%;
   color: ${themed({
-    light: token('color.text.subtle', colors.N300A),
-    dark: token('color.text.subtle', colors.DN600),
+    light: token('color.text.subtle', N300A),
+    dark: token('color.text.subtle', DN600),
   })(props)};
   overflow: hidden;
   cursor: pointer;

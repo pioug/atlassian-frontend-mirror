@@ -109,7 +109,7 @@ test.describe('quick-insert', () => {
   test('should insert an image after a paragraph nested inside a panel', async ({
     editor,
   }) => {
-    await editor.typeAhead.searchAndInsert('Panel');
+    await editor.typeAhead.searchAndInsert('Panel', 'Info Panel');
     await editor.keyboard.type('Hello ');
 
     await EditorUploadMediaModel.from(editor).upload({

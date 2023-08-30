@@ -6,6 +6,7 @@ import DrawerDefaultExample from '../../examples/constellation/drawer-default';
 import DrawerWidths from '../../examples/constellation/drawer-widths/index';
 import DrawerWidthsDescription from '../../examples/constellation/drawer-widths/description';
 import DrawerOverridesExample from '../../examples/constellation/drawer-overrides';
+import DrawerSurfaceDetection from '../../examples/constellation/drawer-surface-detection';
 
 import { widths } from '../../src/constants';
 
@@ -37,3 +38,12 @@ clear the state when the drawer is closed use `shouldUnmountOnExit`.
 The `overrides` prop allows granular customisation of the drawer. Both the sidebar and content components can be overridden.
 
 <Example Component={DrawerOverridesExample} packageName="@atlaskit/drawer" />
+
+## Surface detection
+The [current surface CSS variable](/components/tokens/code#current-surface-color) is set to the surface color of the drawer.
+The `utility.elevation.surface.current` design token can be used to style children with the current surface color.
+
+<Example
+  Component={DrawerSurfaceDetection}
+  packageName="@atlaskit/drawer"
+/>

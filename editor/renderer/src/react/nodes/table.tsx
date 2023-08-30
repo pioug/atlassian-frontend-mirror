@@ -609,7 +609,7 @@ const TableWithWidth: React.FunctionComponent<
       if (
         colWidthsSum ||
         (getBooleanFF(
-          'platform.editor.custom-table-width-scale-down-undefined-column',
+          'platform.editor.custom-table-width-scale-down-undefined-column_nkyvx',
         ) &&
           isTableResizingEnabled(props.rendererAppearance))
       ) {

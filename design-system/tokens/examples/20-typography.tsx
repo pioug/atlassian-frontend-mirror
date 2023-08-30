@@ -27,19 +27,17 @@ const body = [
 
 export default () => {
   return (
-    <div data-testid="typography">
-      <Stack space="space.100">
-        {fonts.map((f) => (
-          <span key={f} style={{ font: token(f) }}>
-            {f}
-          </span>
-        ))}
-        {body.map((f) => (
-          <span key={f} style={{ font: token(f) }}>
-            {f}
-          </span>
-        ))}
-      </Stack>
-    </div>
+    <Stack space="space.100" testId="typography">
+      {fonts.map((f) => (
+        <span key={f} style={{ font: token(f) }}>
+          {f}
+        </span>
+      ))}
+      {body.map((f) => (
+        <span key={f} style={{ font: token(f) }}>
+          {f}
+        </span>
+      ))}
+    </Stack>
   );
 };

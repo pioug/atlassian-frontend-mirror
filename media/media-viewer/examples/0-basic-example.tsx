@@ -3,12 +3,13 @@ import {
   createStorybookMediaClientConfig,
   defaultCollectionName,
 } from '@atlaskit/media-test-helpers';
-import { Card } from '@atlaskit/media-card';
-import { Identifier } from '@atlaskit/media-client';
+import { Identifier, MediaClient } from '@atlaskit/media-client';
+import { NativeMediaPreview } from '../example-helpers/NativeMediaPreview';
 import { imageItem } from '../example-helpers';
 import { MediaViewer } from '../src';
 
 const mediaClientConfig = createStorybookMediaClientConfig();
+const mediaClient = new MediaClient(mediaClientConfig);
 
 const Example = () => {
   const [selectedIdentifier, setSelectedIdentifier] = useState<
@@ -17,9 +18,9 @@ const Example = () => {
 
   return (
     <>
-      <Card
+      <NativeMediaPreview
         identifier={imageItem}
-        mediaClientConfig={mediaClientConfig}
+        mediaClient={mediaClient}
         onClick={() => setSelectedIdentifier(imageItem)}
       />
       {selectedIdentifier && (

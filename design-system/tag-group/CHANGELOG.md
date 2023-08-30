@@ -1,5 +1,11 @@
 # @atlaskit/tag-group
 
+## 10.2.5
+
+### Patch Changes
+
+- [`d01e1d4059c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d01e1d4059c) - Added this package into push model consumption.
+
 ## 10.2.4
 
 ### Patch Changes

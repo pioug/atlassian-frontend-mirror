@@ -7,7 +7,7 @@ import {
   gifFileId,
   defaultCollectionName,
   animatedFileId,
-} from '@atlaskit/media-test-helpers';
+} from '../src/test-helpers';
 import uuid from 'uuid/v4';
 import { FileState } from '../src';
 import { FileStateWrapper } from '../example-helpers/stylesWrapper';

@@ -13,6 +13,10 @@ export type ContentInsertionPlugin = NextEditorPlugin<
   }
 >;
 
+/**
+ * Content insertion plugin to be added to an `EditorPresetBuilder` and used with `ComposableEditor`
+ * from `@atlaskit/editor-core`.
+ */
 export const contentInsertionPlugin: ContentInsertionPlugin = ({ api }) => {
   return {
     name: 'contentInsertion',

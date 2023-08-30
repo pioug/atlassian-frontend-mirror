@@ -23,6 +23,7 @@ import {
 } from './color';
 import ruleMeta from './rule-meta';
 import { lintObjectForSpacing } from './spacing';
+import { RuleConfig } from './types';
 import {
   convertHyphenatedNameToCamelCase,
   emToPixels,
@@ -39,8 +40,7 @@ import {
   isZero,
   processCssNode,
   splitShorthandValues,
-} from './spacing-utils';
-import { RuleConfig } from './types';
+} from './utils';
 
 const defaultConfig: RuleConfig = {
   domains: ['color', 'spacing'],
@@ -107,12 +107,19 @@ const createWithConfig: (
             return node.value.properties.forEach(findObjectStyles);
           }
 
-          if (!isNodeOfType(node.key, 'Identifier')) {
+          if (
+            !isNodeOfType(node.key, 'Identifier') &&
+            !isNodeOfType(node.key, 'Literal')
+          ) {
             return;
           }
 
+          const propertyName = isNodeOfType(node.key, 'Identifier')
+            ? node.key.name
+            : String(node.key.value);
+
           // Returns which domains to lint against based on rule's config and current property
-          const domains = getDomainsForProperty(node.key.name, config.domains);
+          const domains = getDomainsForProperty(propertyName, config.domains);
 
           if (domains.length === 0 || isDecendantOfGlobalToken(node.value)) {
             return;

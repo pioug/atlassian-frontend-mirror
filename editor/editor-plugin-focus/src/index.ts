@@ -8,6 +8,11 @@ export type FocusPlugin = NextEditorPlugin<
   'focus',
   { sharedState: FocusState }
 >;
+
+/**
+ * Focus plugin to be added to an `EditorPresetBuilder` and used with `ComposableEditor`
+ * from `@atlaskit/editor-core`.
+ */
 const focusPlugin: FocusPlugin = ({ api }) => {
   return {
     name: 'focus',

@@ -127,6 +127,10 @@ export type GuidelinePlugin = NextEditorPlugin<
   }
 >;
 
+/**
+ * Guideline plugin to be added to an `EditorPresetBuilder` and used with `ComposableEditor`
+ * from `@atlaskit/editor-core`.
+ */
 export const guidelinePlugin: GuidelinePlugin = ({ config: options, api }) => ({
   name: 'guideline',
   getSharedState(editorState) {

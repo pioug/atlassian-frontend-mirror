@@ -266,7 +266,10 @@ export interface ReconcileResponse {
 // Catchup
 export interface CatchupOptions {
   getCurrentPmVersion: () => number;
-  fetchCatchup: (fromVersion: number) => Promise<CatchupResponse>;
+  fetchCatchup: (
+    fromVersion: number,
+    clientId: number | string | undefined,
+  ) => Promise<CatchupResponse>;
   filterQueue: (condition: (stepsPayload: StepsPayload) => boolean) => void;
   getUnconfirmedSteps: () => readonly Step[] | undefined;
   applyLocalSteps: (steps: Step[]) => void;
@@ -278,6 +281,7 @@ export interface CatchupOptions {
   }: CollabInitPayload) => void;
   updateMetadata: (metadata: Metadata | undefined) => void;
   analyticsHelper: AnalyticsHelper | undefined;
+  clientId: number | string | undefined;
 }
 
 export type ProductInformation = {

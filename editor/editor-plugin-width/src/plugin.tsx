@@ -52,6 +52,10 @@ export type WidthPlugin = NextEditorPlugin<
   }
 >;
 
+/**
+ * Width plugin to be added to an `EditorPresetBuilder` and used with `ComposableEditor`
+ * from `@atlaskit/editor-core`.
+ */
 export const widthPlugin: WidthPlugin = () => ({
   name: 'width',
 

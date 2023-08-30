@@ -1,5 +1,12 @@
 # @atlaskit/drawer
 
+## 7.5.5
+
+### Patch Changes
+
+- [`ddb06fae577`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ddb06fae577) - Adds support for surface detection when using design tokens. Enabling children to be styled with the surface color of the drawer when using the `utility.elevation.surface.current` design token.
+- Updated dependencies
+
 ## 7.5.4
 
 ### Patch Changes

@@ -1,12 +1,13 @@
 import React from 'react';
-import { PreviewImageWrapper, InfoWrapper } from './stylesWrapper';
+import { PreviewImageWrapper } from './stylesWrapper';
 import { PreviewData } from './types';
-import { Card } from '@atlaskit/media-card';
-import { FileIdentifier } from '@atlaskit/media-client';
+import { FileIdentifier, MediaClient } from '@atlaskit/media-client';
 import { createUploadMediaClientConfig } from '@atlaskit/media-test-helpers';
 import { Preview, ImagePreview } from '../src/types';
+import { NativeMediaViewer } from './NativeMediaViewer';
 
 const mediaClientConfig = createUploadMediaClientConfig();
+const mediaClient = new MediaClient(mediaClientConfig);
 
 export class UploadPreview extends React.Component<PreviewData> {
   getPreviewInfo(preview: Preview): string | null {
@@ -19,7 +20,7 @@ export class UploadPreview extends React.Component<PreviewData> {
   }
 
   render() {
-    const { fileId, preview } = this.props;
+    const { fileId } = this.props;
 
     const identifier: FileIdentifier = {
       id: fileId,
@@ -28,10 +29,7 @@ export class UploadPreview extends React.Component<PreviewData> {
 
     return (
       <PreviewImageWrapper>
-        <Card identifier={identifier} mediaClientConfig={mediaClientConfig} />
-        {preview ? (
-          <InfoWrapper>{this.getPreviewInfo(preview)}</InfoWrapper>
-        ) : null}
+        <NativeMediaViewer id={identifier.id} mediaClient={mediaClient} />
       </PreviewImageWrapper>
     );
   }

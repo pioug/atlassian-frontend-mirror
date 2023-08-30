@@ -14,9 +14,18 @@ import { css, jsx } from '@emotion/react';
 import ReactDOM from 'react-dom';
 import invariant from 'tiny-invariant';
 
+import Button from '@atlaskit/button';
+import DropdownMenu, {
+  DropdownItem,
+  DropdownItemGroup,
+} from '@atlaskit/dropdown-menu';
+// eslint-disable-next-line @atlaskit/design-system/no-banned-imports
+import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import FocusRing from '@atlaskit/focus-ring';
 import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
 import ChevronRightIcon from '@atlaskit/icon/glyph/chevron-right';
+import MoreIcon from '@atlaskit/icon/glyph/more';
+import { ModalTransition } from '@atlaskit/modal-dialog';
 import {
   Instruction,
   ItemMode,
@@ -35,6 +44,7 @@ import { token } from '@atlaskit/tokens';
 import { TreeItem as TreeItemType } from '../../data/tree';
 
 import { indentPerLevel } from './constants';
+import { MoveDialog } from './move-dialog';
 import { DependencyContext, TreeContext } from './tree-context';
 
 const iconColor = token('color.icon', '#44546F');
@@ -72,14 +82,14 @@ const outerButtonStyles = css({
   background: 'transparent',
   margin: 0,
   padding: 0,
+  borderRadius: 3,
+  cursor: 'pointer',
 });
 
 const outerHoverStyles = css({
+  borderRadius: 3,
+  cursor: 'pointer',
   ':hover': {
-    cursor: 'pointer',
-  },
-
-  ':hover > *': {
     background: token(
       'color.background.neutral.subtle.hovered',
       'rgba(9, 30, 66, 0.06)',
@@ -88,24 +98,17 @@ const outerHoverStyles = css({
 });
 
 const innerDraggingStyles = css({
-  opacity: 0.5,
-  background: token(
-    'color.background.neutral.subtle.hovered',
-    'rgba(9, 30, 66, 0.06)',
-  ),
+  opacity: 0.4,
 });
 
 const innerButtonStyles = css({
   padding: 'var(--grid)',
+  paddingRight: 40,
   alignItems: 'center',
-  // display: 'grid',
-  // gap: 4,
-  // gridTemplateColumns: 'auto 1fr auto',
   display: 'flex',
   flexDirection: 'row',
 
   background: token('color.background.neutral.subtle', 'transparent'),
-  // background: 'red',
   borderRadius: 3,
 });
 
@@ -190,12 +193,24 @@ const TreeItem = memo(function TreeItem({
   const [instruction, setInstruction] = useState<Instruction | null>(null);
   const cancelExpandRef = useRef<(() => void) | null>(null);
 
-  const { dispatch, uniqueContextId, getPathToItem } = useContext(TreeContext);
+  const { dispatch, uniqueContextId, getPathToItem, registerTreeItem } =
+    useContext(TreeContext);
   const { DropIndicator, attachInstruction, extractInstruction } =
     useContext(DependencyContext);
   const toggleOpen = useCallback(() => {
     dispatch({ type: 'toggle', itemId: item.id });
   }, [dispatch, item]);
+
+  const actionMenuTriggerRef = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    invariant(buttonRef.current);
+    invariant(actionMenuTriggerRef.current);
+    return registerTreeItem({
+      itemId: item.id,
+      element: buttonRef.current,
+      actionMenuTrigger: actionMenuTriggerRef.current,
+    });
+  }, [item.id, registerTreeItem]);
 
   const cancelExpand = useCallback(() => {
     cancelExpandRef.current?.();
@@ -382,41 +397,73 @@ const TreeItem = memo(function TreeItem({
     };
   })();
 
+  const [isMoveDialogOpen, setIsMoveDialogOpen] = useState(false);
+  const openMoveDialog = useCallback(() => {
+    setIsMoveDialogOpen(true);
+  }, []);
+  const closeMoveDialog = useCallback(() => {
+    setIsMoveDialogOpen(false);
+  }, []);
+
   return (
     <Fragment>
-      <FocusRing isInset>
-        <button
-          {...aria}
-          css={[
-            outerButtonStyles,
-            state === 'idle' ? outerHoverStyles : undefined,
-          ]}
-          id={`tree-item-${item.id}`}
-          onClick={toggleOpen}
-          ref={buttonRef}
-          type="button"
-          style={{ paddingLeft: level * indentPerLevel }}
-        >
-          <span
-            css={[
-              innerButtonStyles,
-              state === 'dragging'
-                ? innerDraggingStyles
-                : state === 'parent-of-instruction'
-                ? parentOfInstructionStyles
-                : undefined,
-            ]}
+      <div
+        css={[state === 'idle' ? outerHoverStyles : undefined]}
+        style={{ position: 'relative' }}
+      >
+        <FocusRing isInset>
+          <button
+            {...aria}
+            css={[outerButtonStyles]}
+            id={`tree-item-${item.id}`}
+            onClick={toggleOpen}
+            ref={buttonRef}
+            type="button"
+            style={{ paddingLeft: level * indentPerLevel }}
           >
-            <Icon item={item} />
-            <span css={labelStyles}>Item {item.id}</span>
-            <small css={idStyles}>
-              {item.isDraft ? <code>Draft</code> : null}
-              <code css={debugStyles}>({mode})</code>
-            </small>
-          </span>
-          {instruction ? <DropIndicator instruction={instruction} /> : null}
-        </button>
-      </FocusRing>
+            <span
+              css={[
+                innerButtonStyles,
+                state === 'dragging'
+                  ? innerDraggingStyles
+                  : state === 'parent-of-instruction'
+                  ? parentOfInstructionStyles
+                  : undefined,
+              ]}
+            >
+              <Icon item={item} />
+              <span css={labelStyles}>Item {item.id}</span>
+              <small css={idStyles}>
+                {item.isDraft ? <code>Draft</code> : null}
+                <code css={debugStyles}>({mode})</code>
+              </small>
+            </span>
+            {instruction ? <DropIndicator instruction={instruction} /> : null}
+          </button>
+        </FocusRing>
+        <DropdownMenu
+          trigger={({ triggerRef, ...triggerProps }) => (
+            <Button
+              ref={mergeRefs([triggerRef, actionMenuTriggerRef])}
+              iconBefore={
+                <MoreIcon
+                  label="Actions"
+                  size="small"
+                  primaryColor={token('color.icon.subtle', '#626F86')}
+                />
+              }
+              {...triggerProps}
+              spacing="compact"
+              style={{ position: 'absolute', top: 8, right: 8 }}
+              appearance="subtle"
+            />
+          )}
+        >
+          <DropdownItemGroup>
+            <DropdownItem onClick={openMoveDialog}>Move</DropdownItem>
+          </DropdownItemGroup>
+        </DropdownMenu>
+      </div>
       {item.children.length && item.isOpen ? (
         <div id={aria?.['aria-controls']}>
           {item.children.map((child, index, array) => {
@@ -442,7 +489,13 @@ const TreeItem = memo(function TreeItem({
           })}
         </div>
       ) : null}
+      <ModalTransition>
+        {isMoveDialogOpen && (
+          <MoveDialog onClose={closeMoveDialog} itemId={item.id} />
+        )}
+      </ModalTransition>
     </Fragment>
   );
 });
+
 export default TreeItem;

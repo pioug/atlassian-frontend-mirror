@@ -642,7 +642,7 @@ describe('Channel unit tests', () => {
     });
 
     const channel = getChannel(configuration);
-    await channel.fetchCatchup(1);
+    await channel.fetchCatchup(1, 'some-random-prosemirror-client-Id');
 
     expect(permissionTokenRefresh).toBeCalledTimes(2);
     expect(spy).toHaveBeenCalledTimes(1);
@@ -650,6 +650,7 @@ describe('Channel unit tests', () => {
       path: 'document/ari%3Acloud%3Aconfluence%3Aa436116f-02ce-4520-8fbb-7301462a1674%3Apage%2F1731046230/catchup',
       queryParams: {
         version: 1,
+        clientId: 'some-random-prosemirror-client-Id',
       },
       requestInit: {
         headers: {
@@ -876,7 +877,7 @@ describe('Channel unit tests', () => {
         metadata: 'meta',
       });
 
-      await channel.fetchCatchup(1);
+      await channel.fetchCatchup(1, 'some-random-prosemirror-client-Id');
       //making sure permissionTokenRefresh is not called a second time after it being called when setting up channel
       expect(permissionTokenRefresh).toBeCalledTimes(1);
       expect(spy).toBeCalledWith(
@@ -910,7 +911,7 @@ describe('Channel unit tests', () => {
       //using differet return to identify new token
       permissionTokenRefresh.mockResolvedValue('brand-new-token');
 
-      await channel.fetchCatchup(1);
+      await channel.fetchCatchup(1, 'some-random-prosemirror-client-Id');
       //making sure permissionTokenRefresh is called a second time in fetchCatchup
       expect(permissionTokenRefresh).toBeCalledTimes(2);
       expect(spy).toBeCalledWith(
@@ -933,7 +934,9 @@ describe('Channel unit tests', () => {
         code: 'err',
       });
 
-      await expect(channel.fetchCatchup(1)).rejects.toThrow();
+      await expect(
+        channel.fetchCatchup(1, 'some-random-prosemirror-client-Id'),
+      ).rejects.toThrow();
       //using cached token
       expect(permissionTokenRefresh).toBeCalledTimes(1);
       expect(channel.getToken()).toBeUndefined();
@@ -1160,13 +1163,14 @@ describe('Channel unit tests', () => {
         },
       };
       const channel = getChannel(configuration);
-      await channel.fetchCatchup(1);
+      await channel.fetchCatchup(1, 'some-random-prosemirror-client-Id');
 
       expect(spy).toHaveBeenCalledTimes(1);
       expect(spy).toHaveBeenCalledWith(expect.any(Object), {
         path: 'document/ari%3Acloud%3Aconfluence%3Aa436116f-02ce-4520-8fbb-7301462a1674%3Apage%2F1731046230/catchup',
         queryParams: {
           version: 1,
+          clientId: 'some-random-prosemirror-client-Id',
         },
         requestInit: {
           headers: {
@@ -1195,7 +1199,9 @@ describe('Channel unit tests', () => {
         done(err);
       }
     });
-    channel.fetchCatchup(1).then((data) => expect(data).toEqual({}));
+    channel
+      .fetchCatchup(1, 'some-random-prosemirror-client-Id')
+      .then((data) => expect(data).toEqual({}));
   });
 
   it('Should emit metadata events', () => {

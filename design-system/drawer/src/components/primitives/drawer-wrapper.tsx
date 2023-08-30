@@ -6,7 +6,7 @@ import { css, jsx } from '@emotion/react';
 import { useMergeRefs } from 'use-callback-ref';
 
 import { N0 } from '@atlaskit/theme/colors';
-import { token } from '@atlaskit/tokens';
+import { CURRENT_SURFACE_CSS_VAR, token } from '@atlaskit/tokens';
 
 import { DrawerPrimitiveProps, Widths } from '../types';
 
@@ -28,6 +28,7 @@ const wrapperStyles = css({
   top: 0,
   left: 0,
   backgroundColor: token('elevation.surface.overlay', N0),
+  [CURRENT_SURFACE_CSS_VAR]: token('elevation.surface.overlay', N0),
   overflow: 'hidden',
 });
 

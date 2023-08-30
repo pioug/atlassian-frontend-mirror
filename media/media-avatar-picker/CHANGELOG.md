@@ -1,5 +1,15 @@
 # @atlaskit/media-avatar-picker
 
+## 24.3.9
+
+### Patch Changes
+
+- [`c64e32714b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c64e32714b0) - [ux] Bug fix: Prevent Media Avatar Picker form from incorrectly causing a GET request on submit. Instead, the form should trigger the appropriate callbacks provided in the props (i.e. onImagePicked, onImagePickedDataURI, onAvatarPicked) on submit.
+
+  Additionally, if there are no selected inputs on submit, the form will render an error prompting the user to do so.
+
+- Updated dependencies
+
 ## 24.3.8
 
 ### Patch Changes

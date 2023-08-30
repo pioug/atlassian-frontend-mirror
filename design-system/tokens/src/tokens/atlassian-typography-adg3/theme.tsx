@@ -112,6 +112,16 @@ const typography: ValueSchema<
           letterSpacing: 'LetterSpacing0',
         },
       },
+      lg: {
+        value: {
+          fontWeight: 'FontWeight400',
+          fontSize: 'FontSize16',
+          lineHeight: 'LineHeight300',
+          fontFamily: 'FontFamilyWebSans',
+          fontStyle: 'normal',
+          letterSpacing: 'LetterSpacing0',
+        },
+      },
       sm: {
         value: {
           fontWeight: 'FontWeight400',
@@ -128,7 +138,7 @@ const typography: ValueSchema<
         value: {
           fontWeight: 'FontWeight400',
           fontSize: 'FontSize14',
-          lineHeight: 'LineHeight100',
+          lineHeight: 'LineHeight1',
           fontFamily: 'FontFamilyWebSans',
           fontStyle: 'normal',
           letterSpacing: 'LetterSpacing0',
@@ -138,7 +148,7 @@ const typography: ValueSchema<
         value: {
           fontWeight: 'FontWeight400',
           fontSize: 'LegacyFontSize11',
-          lineHeight: 'LineHeight100',
+          lineHeight: 'LineHeight1',
           fontFamily: 'FontFamilyWebSans',
           fontStyle: 'normal',
           letterSpacing: 'LetterSpacing0',

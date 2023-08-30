@@ -25,7 +25,7 @@ export type FocusPlugin = NextEditorPlugin<
   }
 >;
 
-// @public (undocumented)
+// @public
 export const focusPlugin: FocusPlugin;
 
 // @public (undocumented)

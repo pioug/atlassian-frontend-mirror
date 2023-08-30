@@ -32,7 +32,7 @@ export type ImageUploadPlugin = NextEditorPlugin<
   }
 >;
 
-// @public (undocumented)
+// @public
 export const imageUploadPlugin: ImageUploadPlugin;
 
 // @public (undocumented)

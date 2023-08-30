@@ -9,20 +9,49 @@ import {
 } from '@atlaskit/editor-shared-styles';
 import { akEditorCustomIconSize } from '@atlaskit/editor-shared-styles/consts';
 import { emojiImage, emojiSprite } from '@atlaskit/emoji';
-import * as colors from '@atlaskit/theme/colors';
+import {
+  B100,
+  B400,
+  B50,
+  B75,
+  G200,
+  G400,
+  G50,
+  G75,
+  N0,
+  N20,
+  N60,
+  P100,
+  P400,
+  P50,
+  P75,
+  R100,
+  R200,
+  R400,
+  R50,
+  R75,
+  T100,
+  T50,
+  T75,
+  Y100,
+  Y200,
+  Y400,
+  Y50,
+  Y75,
+} from '@atlaskit/theme/colors';
 import { themed } from '@atlaskit/theme/components';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { borderRadius, gridSize } from '@atlaskit/theme/constants';
-import { ThemeProps } from '@atlaskit/theme/types';
+import type { ThemeProps } from '@atlaskit/theme/types';
 import { token } from '@atlaskit/tokens';
 
 const lightPanelColors = {
-  info: colors.B50,
-  note: colors.P50,
-  tip: colors.G50,
-  success: colors.G50,
-  warning: colors.Y50,
-  error: colors.R50,
+  info: B50,
+  note: P50,
+  tip: G50,
+  success: G50,
+  warning: Y50,
+  error: R50,
 };
 
 export const darkPanelColors = {
@@ -103,21 +132,21 @@ export const darkPanelColors = {
 };
 
 const lightIconColor = {
-  info: token('color.icon.information', colors.B400),
-  note: token('color.icon.discovery', colors.P400),
-  tip: token('color.icon.success', colors.G400),
-  success: token('color.icon.success', colors.G400),
-  warning: token('color.icon.warning', colors.Y400),
-  error: token('color.icon.danger', colors.R400),
+  info: token('color.icon.information', B400),
+  note: token('color.icon.discovery', P400),
+  tip: token('color.icon.success', G400),
+  success: token('color.icon.success', G400),
+  warning: token('color.icon.warning', Y400),
+  error: token('color.icon.danger', R400),
 };
 
 const darkIconColor = {
-  info: token('color.icon.information', colors.B100),
-  note: token('color.icon.discovery', colors.P100),
-  tip: token('color.icon.success', colors.G200),
-  success: token('color.icon.success', colors.G200),
-  warning: token('color.icon.warning', colors.Y100),
-  error: token('color.icon.danger', colors.R200),
+  info: token('color.icon.information', B100),
+  note: token('color.icon.discovery', P100),
+  tip: token('color.icon.success', G200),
+  success: token('color.icon.success', G200),
+  warning: token('color.icon.warning', Y100),
+  error: token('color.icon.danger', R200),
 };
 
 const tokenDarkPanelColors = {
@@ -139,27 +168,27 @@ const panelEmojiImageVerticalAlignment = panelEmojiSpriteVerticalAlignment - 1;
 
 // TODO: https://product-fabric.atlassian.net/browse/DSP-4066
 const panelDarkModeColors = [
-  [colors.B50, darkPanelColors.B1200S],
-  [colors.B75, darkPanelColors.B900],
-  [colors.B100, darkPanelColors.B800S],
-  [colors.N0, darkPanelColors.LightGray],
-  [colors.N20, darkPanelColors.Gray],
-  [colors.N60, darkPanelColors.DarkGray],
-  [colors.T50, darkPanelColors.T1200S],
-  [colors.T75, darkPanelColors.T900],
-  [colors.T100, darkPanelColors.T900S],
-  [colors.G50, darkPanelColors.G1200S],
-  [colors.G75, darkPanelColors.G900],
-  [colors.G200, darkPanelColors.G900S],
-  [colors.Y50, darkPanelColors.Y1200S],
-  [colors.Y75, darkPanelColors.Y900],
-  [colors.Y200, darkPanelColors.Y800S],
-  [colors.R50, darkPanelColors.R1200S],
-  [colors.R75, darkPanelColors.R900],
-  [colors.R100, darkPanelColors.R800S],
-  [colors.P50, darkPanelColors.P1200S],
-  [colors.P75, darkPanelColors.P900],
-  [colors.P100, darkPanelColors.P800S],
+  [B50, darkPanelColors.B1200S],
+  [B75, darkPanelColors.B900],
+  [B100, darkPanelColors.B800S],
+  [N0, darkPanelColors.LightGray],
+  [N20, darkPanelColors.Gray],
+  [N60, darkPanelColors.DarkGray],
+  [T50, darkPanelColors.T1200S],
+  [T75, darkPanelColors.T900],
+  [T100, darkPanelColors.T900S],
+  [G50, darkPanelColors.G1200S],
+  [G75, darkPanelColors.G900],
+  [G200, darkPanelColors.G900S],
+  [Y50, darkPanelColors.Y1200S],
+  [Y75, darkPanelColors.Y900],
+  [Y200, darkPanelColors.Y800S],
+  [R50, darkPanelColors.R1200S],
+  [R75, darkPanelColors.R900],
+  [R100, darkPanelColors.R800S],
+  [P50, darkPanelColors.P1200S],
+  [P75, darkPanelColors.P900],
+  [P100, darkPanelColors.P800S],
 ];
 
 // used for custom panels

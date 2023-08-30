@@ -1,5 +1,15 @@
 # @atlaskit/media-client
 
+## 23.2.0
+
+### Minor Changes
+
+- [`ede6ee7aaab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ede6ee7aaab) - Updated tests, examples and moving towards /test-helper export in packages to prevent circular dependancies
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 23.1.3
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @atlaskit/textfield
 
+## 5.6.6
+
+### Patch Changes
+
+- [`29941aaea33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/29941aaea33) - update focused fallback color to meet contrast requirement
+
 ## 5.6.5
 
 ### Patch Changes

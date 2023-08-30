@@ -9,17 +9,25 @@ import {
   useState,
 } from 'react';
 
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 
 import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
-import { UNSAFE_Box as Box } from '@atlaskit/ds-explorations';
 import { useGlobalTheme } from '@atlaskit/theme/components';
 
 import { TabListContext, TabPanelContext } from '../internal/context';
 import { getTabsStyles } from '../internal/styles';
 import { onMouseDownBlur } from '../internal/utils';
 import { SelectedType, TabsProps } from '../types';
+
+const baseStyles = css({
+  display: 'flex',
+  maxWidth: '100%',
+  minHeight: '0%',
+  flexBasis: '100%',
+  flexDirection: 'column',
+  flexGrow: 1,
+});
 
 const analyticsAttributes = {
   componentName: 'tabs',
@@ -134,20 +142,11 @@ const Tabs = (props: TabsProps) => {
     // Only styles that affect the Tabs container itself have been applied via primitives.
     // The other styles applied through the CSS prop are there for styling children
     // through inheritance. This is important for custom cases that use the useTabPanel(),
-    // which applies accessibility atributes that we use as a styling hook.
-    <Box
-      as="div"
-      testId={testId}
-      display="flex"
-      flexDirection="column"
-      UNSAFE_style={{
-        maxWidth: '100%',
-        minHeight: '0%',
-        flexBasis: '100%',
-        flexGrow: 1,
-      }}
+    // which applies accessibility attributes that we use as a styling hook.
+    <div
+      data-testid={testId}
       // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-      css={tabsStyles}
+      css={[baseStyles, tabsStyles]}
     >
       <TabListContext.Provider
         value={{ selected, onChange: onChangeAnalytics, tabsId: id }}
@@ -156,7 +155,7 @@ const Tabs = (props: TabsProps) => {
       </TabListContext.Provider>
       {/* Fragment is a workaround as Box types don't allow ReactNode children */}
       <Fragment>{tabPanelsWithContext}</Fragment>
-    </Box>
+    </div>
   );
 };
 

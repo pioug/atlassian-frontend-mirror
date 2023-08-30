@@ -490,6 +490,7 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
           break;
       }
     }
+    this.props.onKeyDown && this.props.onKeyDown(event);
   };
 
   handleClearIndicatorHover = (hoveringClearIndicator: boolean) => {

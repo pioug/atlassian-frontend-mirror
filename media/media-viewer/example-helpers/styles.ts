@@ -37,3 +37,12 @@ export const mVSidebarHeaderStyles = css`
   width: 100%;
   justify-content: space-between;
 `;
+
+export const nativePreviewButtonStyles = css`
+  height: 125px;
+  width: 156px;
+  background: none;
+  overflow: hidden;
+  appearance: none;
+  padding: 0;
+`;

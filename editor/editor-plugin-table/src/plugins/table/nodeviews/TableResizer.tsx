@@ -310,6 +310,9 @@ export const TableResizer = ({
     ],
   );
 
+  const isTableSelected =
+    findTable(editorView.state?.selection)?.pos === getPos();
+
   return (
     <ResizerNext
       enable={handles}
@@ -327,8 +330,8 @@ export const TableResizer = ({
       snap={guidelineSnaps}
       handlePositioning="adjacent"
       innerPadding={tableHandlePosition}
-      isHandleVisible={findTable(editorView.state?.selection)?.pos === getPos()}
-      appearance={isInDanger ? 'danger' : undefined}
+      isHandleVisible={isTableSelected}
+      appearance={isInDanger && isTableSelected ? 'danger' : undefined}
       handleHighlight="shadow"
       handleTooltipContent={formatMessage(messages.resizeTable)}
     >

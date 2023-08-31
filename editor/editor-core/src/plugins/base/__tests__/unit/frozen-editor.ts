@@ -47,7 +47,7 @@ import {
   DEFAULT_FREEZE_THRESHOLD,
 } from '../../pm-plugins/frozen-editor';
 import * as utils from '../../utils/frozen-editor';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 
 describe('frozen editor', () => {
   const createEditor = createProsemirrorEditorFactory();

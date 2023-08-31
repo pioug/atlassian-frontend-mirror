@@ -3,7 +3,11 @@ import type { PanelAttributes } from '@atlaskit/adf-schema';
 import { panel, PanelType } from '@atlaskit/adf-schema';
 import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
+import type {
+  Command,
+  NextEditorPlugin,
+  OptionalPlugin,
+} from '@atlaskit/editor-common/types';
 import { createPlugin } from './pm-plugins/main';
 import { getToolbarConfig } from './toolbar';
 import keymap from './pm-plugins/keymaps';
@@ -22,22 +26,26 @@ import {
   IconPanelWarning,
   IconPanelError,
 } from '@atlaskit/editor-common/quick-insert';
+import { createWrapSelectionTransaction } from '@atlaskit/editor-common/utils';
 import { messages } from '../block-type/messages';
 import type { PanelPluginOptions } from './types';
 import { IconCustomPanel } from '@atlaskit/editor-common/quick-insert';
 import { T50 } from '@atlaskit/theme/colors';
 import type { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
-
-// Theres an existing interelationship between these files, where the imported function is being called for panel
-// Insertions via the drop down menu
-// tslint-ignore-next-line
-import { createWrapSelectionTransaction } from '../block-type/commands/block-type';
+import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { insertPanelWithAnalytics } from './actions';
 
 const panelPlugin: NextEditorPlugin<
   'panel',
   {
     pluginConfiguration: PanelPluginOptions | undefined;
-    dependencies: [typeof decorationsPlugin];
+    dependencies: [
+      typeof decorationsPlugin,
+      OptionalPlugin<typeof analyticsPlugin>,
+    ];
+    actions: {
+      insertPanel: (inputMethod: INPUT_METHOD) => Command;
+    };
   }
 > = ({ config: options = {}, api }) => ({
   name: 'panel',
@@ -60,6 +68,12 @@ const panelPlugin: NextEditorPlugin<
         plugin: () => keymap(),
       },
     ];
+  },
+
+  actions: {
+    insertPanel(inputMethod: INPUT_METHOD) {
+      return insertPanelWithAnalytics(inputMethod, api?.analytics?.actions);
+    },
   },
 
   pluginsOptions: {
@@ -209,3 +223,4 @@ function createPanelAction({
 }
 
 export default panelPlugin;
+export type PanelPlugin = typeof panelPlugin;

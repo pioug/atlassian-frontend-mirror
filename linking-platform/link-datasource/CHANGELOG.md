@@ -1,5 +1,17 @@
 # @atlaskit/link-datasource
 
+## 1.0.15
+
+### Patch Changes
+
+- [`50617191678`](https://bitbucket.org/atlassian/atlassian-frontend/commits/50617191678) - Added button clicked (sync) event into datasources
+
+## 1.0.14
+
+### Patch Changes
+
+- [`d2172ba6e25`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d2172ba6e25) - Updated analytics spec with ui events for datasources
+
 ## 1.0.13
 
 ### Patch Changes

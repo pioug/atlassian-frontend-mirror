@@ -107,6 +107,8 @@ describe('useDatasourceTableState', () => {
         hasNextPage: true,
         columns: [],
         defaultVisibleColumnKeys: [],
+        destinationObjectTypes: [],
+        extensionKey: undefined,
       });
     });
 
@@ -133,6 +135,8 @@ describe('useDatasourceTableState', () => {
         columns: [],
         defaultVisibleColumnKeys: [],
         totalCount: undefined,
+        destinationObjectTypes: [],
+        extensionKey: undefined,
       });
       await waitForNextUpdate();
     });
@@ -173,6 +177,32 @@ describe('useDatasourceTableState', () => {
       expect(result.current.columns).toEqual(expectedProperties);
       expect(result.current.defaultVisibleColumnKeys).toEqual(
         expectedDefaultProperties,
+      );
+    });
+
+    it('should populate extensionKey with the value received in meta after getDatasourceData call', async () => {
+      asMock(getDatasourceData).mockResolvedValue(
+        mockDatasourceDataResponseWithSchema,
+      );
+      const { waitForNextUpdate, result } = setup();
+      await waitForNextUpdate();
+
+      const expectedExtensionKey =
+        mockDatasourceDataResponseWithSchema.meta.extensionKey;
+      expect(result.current.extensionKey).toEqual(expectedExtensionKey);
+    });
+
+    it('should populate destinationObjectTypes with the value received in meta after getDatasourceData call', async () => {
+      asMock(getDatasourceData).mockResolvedValue(
+        mockDatasourceDataResponseWithSchema,
+      );
+      const { waitForNextUpdate, result } = setup();
+      await waitForNextUpdate();
+
+      const expectedDestinationObjectTypes =
+        mockDatasourceDataResponseWithSchema.meta.destinationObjectTypes;
+      expect(result.current.destinationObjectTypes).toEqual(
+        expectedDestinationObjectTypes,
       );
     });
 

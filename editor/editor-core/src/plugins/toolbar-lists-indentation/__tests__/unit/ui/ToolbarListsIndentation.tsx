@@ -22,7 +22,7 @@ import ToolbarListsIndentation from '../../../ui';
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 import { screen, fireEvent } from '@testing-library/react';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 
 async function clickToolbarOption(title: string) {
   const toolbarButton = await screen.findByTestId(title);

@@ -15,7 +15,7 @@ import {
 } from '../../pm-plugins/frozen-editor';
 import { basePlugin } from '../../';
 import { getTimeSince } from '@atlaskit/editor-common/utils';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 
 jest.mock('@atlaskit/editor-common/utils', () => ({
   ...jest.requireActual<Object>('@atlaskit/editor-common/utils'),

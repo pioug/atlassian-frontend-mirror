@@ -37,7 +37,7 @@ export function asExperiment(
   },
   LoadingComponent?: ComponentType,
 ): {
-  new (props: Readonly<Record<string, any>>): {
+  new (props: Readonly<Record<string, any>> | Record<string, any>): {
     state: {
       forceFallback: boolean;
       options: undefined;
@@ -61,7 +61,7 @@ export function asExperiment(
         | null,
       callback?: (() => void) | undefined,
     ): void;
-    forceUpdate(callBack?: (() => void) | undefined): void;
+    forceUpdate(callback?: (() => void) | undefined): void;
     readonly props: Readonly<Record<string, any>> &
       Readonly<{
         children?: React_2.ReactNode;
@@ -106,7 +106,7 @@ export function asExperiment(
       nextContext: any,
     ): void;
   };
-  new (props: Record<string, any>, context?: any): {
+  new (props: Record<string, any>, context: any): {
     state: {
       forceFallback: boolean;
       options: undefined;
@@ -130,7 +130,7 @@ export function asExperiment(
         | null,
       callback?: (() => void) | undefined,
     ): void;
-    forceUpdate(callBack?: (() => void) | undefined): void;
+    forceUpdate(callback?: (() => void) | undefined): void;
     readonly props: Readonly<Record<string, any>> &
       Readonly<{
         children?: React_2.ReactNode;

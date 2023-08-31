@@ -76,11 +76,13 @@ import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import { DropdownMenuWithKeyboardNavigation as DropdownMenu } from '@atlaskit/editor-common/ui-menu';
 import ToolbarButton from '../../../../../ui/ToolbarButton';
 import InsertMenu from '../../../../../ui/ElementBrowser/InsertMenu';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
+import { compositionPlugin } from '@atlaskit/editor-plugin-composition';
 
 import ReactEditorViewContext from '../../../../../create-editor/ReactEditorViewContext';
+import codeBlockPlugin from '../../../../../plugins/code-block';
 
 jest.mock('../../../../../ui/ElementBrowser/InsertMenu', () => () => <div />);
 
@@ -188,7 +190,9 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
       .add(hyperlinkPlugin)
       .add([quickInsertPlugin, { disableDefaultItems: true }])
       .add(datePlugin)
-      .add(emojiPlugin);
+      .add(emojiPlugin)
+      .add(compositionPlugin)
+      .add([codeBlockPlugin, {}]);
 
   let editorAPI: ExtractPublicEditorAPI<ReturnType<typeof createPreset>>;
 

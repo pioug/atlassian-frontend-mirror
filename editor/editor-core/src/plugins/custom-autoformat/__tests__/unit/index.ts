@@ -16,7 +16,7 @@ import { pluginKey } from '../../utils';
 import customAutoformatPlugin from '../../index';
 import { basePlugin } from '../../../base';
 import { listPlugin } from '@atlaskit/editor-plugin-list';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 
 describe('custom-autoformat', () => {

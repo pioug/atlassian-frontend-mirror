@@ -27,7 +27,7 @@ import {
   ACTION_SUBJECT,
   EVENT_TYPE,
 } from '../../../plugins/analytics/types';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
 import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
 

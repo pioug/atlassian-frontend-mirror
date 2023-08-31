@@ -27,8 +27,14 @@ export type SelectCellAEP = SelectAEP<
   { selectedCells: number; totalCells: number }
 >;
 
+export type SelectTableAEP = SelectAEP<
+  ACTION_SUBJECT_ID.TABLE,
+  { localId: string }
+>;
+
 export type SelectionEventPayload =
   | SelectNodeAEP
   | SelectRangeAEP
   | SelectAllAEP
-  | SelectCellAEP;
+  | SelectCellAEP
+  | SelectTableAEP;

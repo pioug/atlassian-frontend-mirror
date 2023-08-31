@@ -6,7 +6,7 @@ import {
   LightEditorPlugin,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { pluginKey } from '@atlaskit/editor-plugin-card/src/pm-plugins/main';
 import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';

@@ -126,7 +126,7 @@ export interface MediaSingleWrapperProps {
   layout: MediaSingleLayout;
   /**
    * @private
-   * @deprecated Use {@link MediaSingleWrapperProps.mediaSingleWidth} instead.
+   * @deprecated Use {@link MediaSingleWrapperProps["mediaSingleWidth"]} instead.
    * Cleanup ticket: https://product-fabric.atlassian.net/browse/ED-19076
    */
   pctWidth?: number;
@@ -148,18 +148,21 @@ export const MediaSingleDimensionHelper = ({
   layout,
   pctWidth,
   mediaSingleWidth,
-  width,
+  width, // original media width
   isExtendedResizeExperienceOn,
   isNestedNode = false,
 }: MediaSingleWrapperProps) => css`
   /* For nested rich media items, set max-width to 100% */
   tr &,
   [data-layout-column] &,
-  [data-node-type='expand'] & {
+  [data-node-type='expand'] &,
+  li & {
     max-width: 100%;
   }
 
-  width: ${mediaSingleWidth || pctWidth
+  width: ${isExtendedResizeExperienceOn
+    ? `${mediaSingleWidth || width}px`
+    : mediaSingleWidth || pctWidth
     ? calcResizedWidth(layout, width || 0, containerWidth)
     : calcLegacyWidth(
         layout,
@@ -169,10 +172,16 @@ export const MediaSingleDimensionHelper = ({
         isResized,
       )};
   ${layout === 'full-width' &&
+  /* This causes issues for new experience where we don't strip layout attributes
+   when copying top-level node and pasting into a table/layout,
+   because full-width layout will remain, causing node to be edge-to-edge */
+  !isExtendedResizeExperienceOn &&
   css`
     min-width: 100%;
   `}
-  max-width: ${calcMaxWidth(layout, containerWidth)};
+  max-width: ${isExtendedResizeExperienceOn
+    ? `${containerWidth}px`
+    : calcMaxWidth(layout, containerWidth)};
 
   ${isExtendedResizeExperienceOn &&
   `&[class*='is-resizing'] {
@@ -189,12 +198,14 @@ export const MediaSingleDimensionHelper = ({
   }`}
 
   &[class*='not-resizing'] {
-    ${!isNestedNode &&
-    `${
-      nonWrappedLayouts.includes(layout) &&
-      `margin-left: 50%;
-      transform: translateX(-50%);`
-    }`}
+    ${isNestedNode
+      ? /* Make nested node appear responsives when resizing table cell */
+        `max-width: 100%;`
+      : `${
+          nonWrappedLayouts.includes(layout) &&
+          `margin-left: 50%;
+          transform: translateX(-50%);`
+        }`}
   }
 
   float: ${float(layout)};

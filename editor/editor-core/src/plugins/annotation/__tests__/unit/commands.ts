@@ -40,7 +40,7 @@ import { inlineCommentProvider } from '../_utils';
 import type { AnnotationInfo } from '../..';
 import annotationPlugin from '../..';
 import { ACTIONS } from '../../pm-plugins/types';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 
 describe('commands', () => {
   let createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));

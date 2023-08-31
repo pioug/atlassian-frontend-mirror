@@ -1,5 +1,5 @@
-export { default } from '../loading-button';
+export { default } from '../old-button/loading-button';
 export type {
   LoadingButtonProps,
   LoadingButtonOwnProps,
-} from '../loading-button';
+} from '../old-button/loading-button';

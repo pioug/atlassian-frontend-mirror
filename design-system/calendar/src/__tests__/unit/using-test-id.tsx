@@ -2,8 +2,6 @@ import React from 'react';
 
 import { fireEvent, render } from '@testing-library/react';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils';
-
 import Calendar from '../../index';
 
 const testId = 'testing';
@@ -69,37 +67,19 @@ describe('Calendar should be found by data-testid', () => {
     expect(() => getAllByTestId(testIdDay)).toThrow();
   });
 
-  describe('Selected day is accessible via data-testid', () => {
-    ffTest(
-      'platform.design-system-team.calendar-keyboard-accessibility_967h1',
-      () => {
-        const { getAllByTestId, getByTestId } = render(
-          <Calendar testId={testId} />,
-        );
-
-        const weekContainer = getAllByTestId(testIdWeek);
-
-        expect(() => getByTestId(testIdSelectedDay)).toThrow();
-
-        // WeekDayGrid > role="gridcell" > button
-        fireEvent.click(weekContainer[0].children[0].children[0]);
-
-        expect(getByTestId(testIdSelectedDay)).toBeTruthy();
-      },
-      () => {
-        const { getAllByTestId, getByTestId } = render(
-          <Calendar testId={testId} />,
-        );
-
-        const weekContainer = getAllByTestId(testIdWeek);
-
-        expect(() => getByTestId(testIdSelectedDay)).toThrow();
-
-        fireEvent.click(weekContainer[0].children[0]);
-
-        expect(getByTestId(testIdSelectedDay)).toBeTruthy();
-      },
+  it('Selected day is accessible via data-testid', () => {
+    const { getAllByTestId, getByTestId } = render(
+      <Calendar testId={testId} />,
     );
+
+    const weekContainer = getAllByTestId(testIdWeek);
+
+    expect(() => getByTestId(testIdSelectedDay)).toThrow();
+
+    // WeekDayGrid > role="gridcell" > button
+    fireEvent.click(weekContainer[0].children[0].children[0]);
+
+    expect(getByTestId(testIdSelectedDay)).toBeTruthy();
   });
 
   it('Text containing current month and year is accessible via data-testid', () => {

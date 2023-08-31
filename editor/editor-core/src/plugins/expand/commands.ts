@@ -22,7 +22,7 @@ import { GapCursorSelection, Side } from '../selection/gap-cursor-selection';
 
 import { findExpand } from './utils';
 import { createCommand } from './pm-plugins/plugin-factory';
-import { createWrapSelectionTransaction } from '../block-type/commands/block-type';
+import { createWrapSelectionTransaction } from '@atlaskit/editor-common/utils';
 import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
 
 export const setExpandRef = (ref?: HTMLDivElement | null): Command =>

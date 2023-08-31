@@ -1,5 +1,6 @@
 import React from 'react';
-import { fireEvent, RenderResult } from '@testing-library/react';
+import type { RenderResult } from '@testing-library/react';
+import { fireEvent } from '@testing-library/react';
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 import DatePicker from '../../../ui/DatePicker';
 import type { WeekDay } from '@atlaskit/calendar/types';
@@ -178,6 +179,9 @@ describe('DatePicker with weekStartDay', () => {
   const element = document.createElement('span');
   let wrapper: RenderResult;
 
+  // This testId is provided to the consumed calendar within the component
+  const testId = 'datepicker';
+
   const mountDatePicker = (weekStartDay?: WeekDay) => {
     element.setAttribute('timestamp', '1585094400000');
     document.body.appendChild(element);
@@ -205,19 +209,19 @@ describe('DatePicker with weekStartDay', () => {
   describe('weekStartDay', () => {
     it('should have Friday as the first day in the calendar if weekStartDay is 5', () => {
       wrapper = mountDatePicker(5);
-      const result = wrapper.getAllByRole('columnheader')[0];
+      const result = wrapper.getAllByTestId(`${testId}--column-headers`)?.[0];
       expect(result).toHaveTextContent('Fri');
     });
 
     it('should have Monday as the first day in the calendar if weekStartDay is 1', () => {
       wrapper = mountDatePicker(1);
-      const result = wrapper.getAllByRole('columnheader')[0];
+      const result = wrapper.getAllByTestId(`${testId}--column-headers`)?.[0];
       expect(result).toHaveTextContent('Mon');
     });
 
     it('should have Sunday as the first day in the calendar when weekStartDay is not provided', () => {
       wrapper = mountDatePicker();
-      const result = wrapper.getAllByRole('columnheader')[0];
+      const result = wrapper.getAllByTestId(`${testId}--column-headers`)?.[0];
       expect(result).toHaveTextContent('Sun');
     });
   });

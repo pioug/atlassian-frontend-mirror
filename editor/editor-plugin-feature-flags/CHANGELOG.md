@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-feature-flags
 
+## 1.0.0
+
+### Major Changes
+
+- [`6acf9830b36`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6acf9830b36) - Update feature flags plugin
+  (@atlaskit/editor-plugin-feature-flags) to use a named export
+  rather than default export to match other plugins.
+
+  ```ts
+  // Before
+  import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+
+  // After
+  import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
+  ```
+
 ## 0.2.0
 
 ### Minor Changes

@@ -10,6 +10,7 @@ import { token } from '@atlaskit/tokens';
 */
 
 export const resizerItemClassName = 'resizer-item';
+export const resizerHoverZoneClassName = 'resizer-hover-zone';
 export const resizerHandleClassName = 'resizer-handle';
 export const resizerHandleTrackClassName = `${resizerHandleClassName}-track`;
 export const resizerHandleThumbClassName = `${resizerHandleClassName}-thumb`;
@@ -67,6 +68,7 @@ export const resizerStyles = css`
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      margin-top: -16px;
     }
 
     /*
@@ -136,7 +138,7 @@ export const resizerStyles = css`
     visibility: hidden;
     position: absolute;
     width: 7px;
-    height: calc(100% - 24px);
+    height: calc(100% - 42px);
     border-radius: 4px;
     opacity: 0;
     transition: background-color 0.2s, visibility 0.2s, opacity 0.2s;
@@ -154,5 +156,13 @@ export const resizerStyles = css`
     & .${resizerHandleThumbClassName} {
       background: ${token('color.border.focused', B200)};
     }
+  }
+
+  .${resizerHoverZoneClassName} {
+    padding: 0 ${token('space.150', '12px')};
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    left: -12px;
   }
 `;

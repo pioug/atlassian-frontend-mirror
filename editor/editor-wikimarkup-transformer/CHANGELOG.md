@@ -1,5 +1,11 @@
 # @atlaskit/editor-wikimarkup-transformer
 
+## 11.2.15
+
+### Patch Changes
+
+- [`0e484b0dfde`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0e484b0dfde) - Improved behaviour of formatting marks around macros
+
 ## 11.2.14
 
 ### Patch Changes

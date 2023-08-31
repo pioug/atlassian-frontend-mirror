@@ -34,7 +34,7 @@ import type { InlineCommentAnnotationProvider } from '../../../../annotation/typ
 import annotationPlugin from '../../../../annotation';
 import { inlineCommentPluginKey } from '../../../../annotation/utils';
 import betterTypeHistoryPlugin from '../../../../better-type-history';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { undo, redo } from '@atlaskit/editor-prosemirror/history';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';

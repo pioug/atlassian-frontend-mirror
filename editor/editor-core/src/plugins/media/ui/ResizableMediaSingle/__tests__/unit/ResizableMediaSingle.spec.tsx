@@ -18,7 +18,7 @@ import {
   mediaSingle,
   media,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import { focusPlugin } from '@atlaskit/editor-plugin-focus';
 
 jest.mock('@atlaskit/editor-prosemirror/utils', () => {

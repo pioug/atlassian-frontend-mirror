@@ -22,7 +22,7 @@ import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import { changeColor } from '../commands/change-color';
 import { toggleColor } from '../commands/toggle-color';
 import textColorPlugin from '../index';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { TextColorPluginState } from '../pm-plugins/main';
 import { pluginKey as textColorPluginKey } from '../pm-plugins/main';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';

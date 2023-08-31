@@ -268,10 +268,11 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
         },
         {
           name: 'tableWidth',
-          plugin: ({ dispatch }) =>
+          plugin: ({ dispatchAnalyticsEvent, dispatch }) =>
             options?.tableResizingEnabled
               ? createTableWidthPlugin(
                   dispatch,
+                  dispatchAnalyticsEvent,
                   options?.fullWidthEnabled ?? false,
                 )
               : undefined,

@@ -1,5 +1,11 @@
 # @atlaskit/calendar
 
+## 13.3.0
+
+### Minor Changes
+
+- [`26825f14d51`](https://bitbucket.org/atlassian/atlassian-frontend/commits/26825f14d51) - [ux] This adds greater keyboard accessibility to calendar, and removes the feature flag that gated this change.
+
 ## 13.2.2
 
 ### Patch Changes

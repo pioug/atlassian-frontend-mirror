@@ -17,7 +17,7 @@ import type {
   FeatureFlags,
   ExtractInjectionAPI,
 } from '@atlaskit/editor-common/types';
-import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { PerformanceTracking } from '../../types/performance-tracking';
 import type { analyticsPlugin as newAnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 
@@ -113,7 +113,7 @@ const analyticsPlugin: NextEditorPlugin<
   'deprecatedAnalytics',
   {
     pluginConfiguration: AnalyticsPluginOptions;
-    dependencies: [typeof featureFlagsPlugin, typeof newAnalyticsPlugin];
+    dependencies: [FeatureFlagsPlugin, typeof newAnalyticsPlugin];
   }
 > = ({ config: options, api }) => {
   const featureFlags = api?.featureFlags?.sharedState.currentState() || {};

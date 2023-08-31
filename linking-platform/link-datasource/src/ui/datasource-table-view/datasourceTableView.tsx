@@ -3,6 +3,10 @@ import { useCallback, useEffect, useRef } from 'react';
 
 import { jsx } from '@emotion/react';
 
+import { withAnalyticsContext } from '@atlaskit/analytics-next';
+
+import { useDatasourceAnalyticsEvents } from '../../analytics';
+import { PackageMetaDataType } from '../../analytics/generated/analytics.types';
 import { useDatasourceTableState } from '../../hooks/useDatasourceTableState';
 import { AccessRequired } from '../common/error-state/access-required';
 import { LoadingError } from '../common/error-state/loading-error';
@@ -13,7 +17,7 @@ import { TableFooter } from '../table-footer';
 
 import { DatasourceTableViewProps } from './types';
 
-export const DatasourceTableView = ({
+const DatasourceTableViewWithoutAnalytics = ({
   datasourceId,
   parameters,
   visibleColumnKeys,
@@ -29,11 +33,15 @@ export const DatasourceTableView = ({
     defaultVisibleColumnKeys,
     totalCount,
     loadDatasourceDetails,
+    extensionKey = null,
+    destinationObjectTypes,
   } = useDatasourceTableState({
     datasourceId,
     parameters,
     fieldKeys: visibleColumnKeys,
   });
+
+  const { fireEvent } = useDatasourceAnalyticsEvents();
 
   /*  Need this to make sure that the datasource in the editor gets updated new info if any edits are made in the modal
       But we don't want to call it on initial load. This screws up useDatasourceTableState's internal
@@ -58,8 +66,13 @@ export const DatasourceTableView = ({
   }, [visibleColumnKeys, defaultVisibleColumnKeys, onVisibleColumnKeysChange]);
 
   const forcedReset = useCallback(() => {
+    fireEvent('ui.button.clicked.sync', {
+      extensionKey,
+      destinationObjectTypes,
+    });
+
     reset({ shouldForceRequest: true });
-  }, [reset]);
+  }, [destinationObjectTypes, extensionKey, fireEvent, reset]);
 
   if (status === 'resolved' && !responseItems.length) {
     return <NoResults onRefresh={reset} />;
@@ -106,3 +119,12 @@ export const DatasourceTableView = ({
     </div>
   );
 };
+
+const analyticsContextData: PackageMetaDataType = {
+  packageName: process.env._PACKAGE_NAME_,
+  packageVersion: process.env._PACKAGE_VERSION_,
+};
+
+export const DatasourceTableView = withAnalyticsContext(analyticsContextData)(
+  DatasourceTableViewWithoutAnalytics,
+);

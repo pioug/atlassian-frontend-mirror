@@ -18,7 +18,7 @@ import typeAheadPlugin from '../../../type-ahead';
 import { unsupportedContentPlugin } from '@atlaskit/editor-plugin-unsupported-content';
 import { textFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';
 import { toggleMark } from '@atlaskit/editor-common/mark';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 
 const initializeCollab = (view: EditorView) =>
   view.dispatch(view.state.tr.setMeta('collabInitialised', true));

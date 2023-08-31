@@ -3,27 +3,27 @@ import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
 import { setNodeSelection } from '@atlaskit/editor-common/utils';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { uuid as tablesUuid } from '@atlaskit/editor-tables';
-import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
+import type { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import {
   selectColumn,
   selectRow,
   selectTable,
 } from '@atlaskit/editor-tables/utils';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
-  DocBuilder,
   media,
   mediaGroup,
   p,
@@ -49,7 +49,7 @@ import {
 } from '../../plugins/table/commands';
 import { getPluginState } from '../../plugins/table/pm-plugins/plugin-factory';
 import { pluginKey } from '../../plugins/table/pm-plugins/plugin-key';
-import { PluginConfig } from '../../plugins/table/types';
+import type { PluginConfig } from '../../plugins/table/types';
 import {
   checkIfHeaderColumnEnabled,
   checkIfHeaderRowEnabled,

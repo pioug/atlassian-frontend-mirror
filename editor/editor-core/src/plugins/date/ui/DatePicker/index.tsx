@@ -14,16 +14,17 @@ import { borderRadius } from '@atlaskit/theme/constants';
 import { N60A, N0 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import withOuterListeners from '../../../../ui/with-outer-listeners';
-import { DateType } from '../../types';
+import type { DateType } from '../../types';
 
 const PopupWithListeners = withOuterListeners(Popup);
 import { INPUT_METHOD } from '../../../analytics/types/enums';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
-import { injectIntl, WrappedComponentProps } from 'react-intl-next';
+import type { WrappedComponentProps } from 'react-intl-next';
+import { injectIntl } from 'react-intl-next';
 import DatePickerInput from './date-picker-input';
 
 const popupContentWrapper = css`
-  padding: 2px;
+  padding: ${token('space.025', '2px')};
   border-radius: ${borderRadius()}px;
   box-shadow: ${token(
     'elevation.shadow.overlay',
@@ -144,6 +145,7 @@ class DatePicker extends React.Component<Props & WrappedComponentProps, State> {
             selected={selected}
             ref={this.handleRef}
             weekStartDay={weekStartDay}
+            testId={'datepicker'}
           />
         </div>
       </PopupWithListeners>

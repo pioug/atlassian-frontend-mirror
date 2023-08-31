@@ -23,7 +23,7 @@ import {
 import type { CollabParticipant } from '@atlaskit/editor-common/collab';
 import { getValidPos } from '../../../plugin-state';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 
 const initializeCollab = (view: EditorView) =>
   view.dispatch(view.state.tr.setMeta('collabInitialised', true));

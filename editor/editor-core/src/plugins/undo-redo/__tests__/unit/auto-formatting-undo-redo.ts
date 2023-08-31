@@ -50,7 +50,7 @@ import { basePlugin } from '../../../base';
 import layoutPlugin from '../../../layout';
 import rulePlugin from '../../../rule';
 import alignmentPlugin from '../../../alignment';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 

@@ -67,8 +67,9 @@ const cardListStyles = css({
 
 const columnHeaderStyles = css({
   display: 'flex',
-  padding: 'calc(var(--grid) * 2) calc(var(--grid) * 2) calc(var(--grid) * 1)',
+  padding: 'var(--grid) calc(var(--grid) * 2) 0',
   justifyContent: 'space-between',
+  alignItems: 'center',
   flexDirection: 'row',
   color: token('color.text.subtlest', '#626F86'),
   userSelect: 'none',

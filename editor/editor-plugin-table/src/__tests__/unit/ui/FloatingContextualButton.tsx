@@ -3,23 +3,23 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import * as prosemirrorUtils from '@atlaskit/editor-prosemirror/utils';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
-  DocBuilder,
   table,
   tdCursor,
   tdEmpty,
@@ -28,9 +28,8 @@ import {
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import tablePlugin from '../../../plugins/table-plugin';
-import FloatingContextualButton, {
-  Props as FloatingContextualButtonProps,
-} from '../../../plugins/table/ui/FloatingContextualButton';
+import type { Props as FloatingContextualButtonProps } from '../../../plugins/table/ui/FloatingContextualButton';
+import FloatingContextualButton from '../../../plugins/table/ui/FloatingContextualButton';
 
 jest.mock('@atlaskit/editor-prosemirror/utils', () => {
   // Unblock prosemirror bump:

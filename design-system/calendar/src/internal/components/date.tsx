@@ -11,7 +11,6 @@ import {
 import { css, jsx } from '@emotion/react';
 
 import noop from '@atlaskit/ds-lib/noop';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { Grid } from '@atlaskit/primitives';
 import { ThemeModes } from '@atlaskit/theme/types';
 
@@ -74,14 +73,7 @@ const Date = memo(
     const focusRef = useRef(null);
 
     useEffect(() => {
-      if (
-        getBooleanFF(
-          'platform.design-system-team.calendar-keyboard-accessibility_967h1',
-        ) &&
-        isFocused &&
-        shouldSetFocus &&
-        focusRef.current
-      ) {
+      if (isFocused && shouldSetFocus && focusRef.current) {
         (focusRef.current as HTMLButtonElement).focus();
       }
     }, [isFocused, shouldSetFocus]);
@@ -105,9 +97,7 @@ const Date = memo(
 
     const dateCellStyles = useMemo(() => css(getDateCellStyles(mode)), [mode]);
 
-    return getBooleanFF(
-      'platform.design-system-team.calendar-keyboard-accessibility_967h1',
-    ) ? (
+    return (
       <Grid role="gridcell" alignItems="center">
         <button
           // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
@@ -134,28 +124,6 @@ const Date = memo(
           {day}
         </button>
       </Grid>
-    ) : (
-      <button
-        // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-        css={dateCellStyles}
-        aria-selected={isSelected ? 'true' : 'false'}
-        tabIndex={isSelected ? 0 : -1}
-        type="button"
-        role="gridcell"
-        onClick={handleClick}
-        ref={ref}
-        data-disabled={isDisabled || undefined}
-        data-focused={isFocused || undefined}
-        data-prev-selected={isPreviouslySelected || undefined}
-        data-selected={isSelected || undefined}
-        data-sibling={isSibling || undefined}
-        data-today={isToday || undefined}
-        data-testid={
-          testId && (isSelected ? `${testId}--selected-day` : `${testId}--day`)
-        }
-      >
-        {day}
-      </button>
     );
   }),
 );

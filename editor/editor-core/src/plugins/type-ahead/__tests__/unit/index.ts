@@ -44,7 +44,7 @@ import type {
 import { closeTypeAhead } from '../../transforms/close-type-ahead';
 import { insertTypeAheadItem } from '../../commands/insert-type-ahead-item';
 import panelPlugin from '../../../panel';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 let _queueMicrotask: any;

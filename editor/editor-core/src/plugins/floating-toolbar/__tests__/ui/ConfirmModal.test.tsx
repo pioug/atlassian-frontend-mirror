@@ -19,7 +19,7 @@ import floatingToolbarPlugin from '../../index';
 import Toolbar from '../../ui/Toolbar';
 import floatingToolbarMessages from '../../ui/messages';
 import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import { editorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 

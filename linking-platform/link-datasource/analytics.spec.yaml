@@ -12,12 +12,45 @@ context:
       description: version of the package the event was fired from.
   AnalyticsContext: &AnalyticsContext
     source:
-      type: ["datasourceConfigModal", "datasourceConfluenceEditor"]
+      type: ["datasourceConfigModal"]
       description: The source where the event is fired from.
   AnalyticsContextAttributes: &AnalyticsContextAttributes
     dataProvider:
       type: ["jira-issues", "jsm-assets"]
       description: Data provider that the configuration modal supports.
+
+attributes:
+  DestinationObjectTypes: &DestinationObjectTypes
+    destinationObjectTypes:
+      type: []
+      description: The type of object that the link links to ResourceType from datasource.
+  TotalItemCount: &TotalItemCount
+    totalItemCount:
+      type: "number"
+      description: The number of total count of objects returned from the query
+  DisplayedColumnCount: &DisplayedColumnCount
+    displayedColumnCount:
+      type: "number"
+      required: false
+      description: The number of display columns in a table.
+  SearchMethod: &SearchMethod
+    searchMethod:
+      type: [ "datasource_search_query", "datasource_basic_filter", "datasource_saved_filter" ]
+      required: false
+      description: The method used for the datasource to be searched in config modal
+  SearchCount: &SearchCount
+    searchCount:
+      type: "number"
+      description: How many times users search before insert or cancel.
+  ExtensionKey: &ExtensionKey
+    extensionKey:
+      type: "string"
+      required: false
+      description: The resolver that was used to resolve the link.
+  Display: &Display
+    display:
+      type: ["datasource_inline", "datasource_table", "inline"]
+      description: The view option the datasource shown as.
 
 events:
   # actionSubject action (actionSubjectId)
@@ -87,3 +120,126 @@ events:
         reason:
           type: ["network", "access"]
           description: The reason why datasource was not able to render.
+  - button clicked (sync):
+      type: ui
+      description: Fired when user clicks on datasource table sync button
+      attributes:
+        <<:
+          [
+            *PackageMetaDataContext,
+            *AnalyticsContext,
+            *AnalyticsContextAttributes,
+            *ExtensionKey,
+            *DestinationObjectTypes,
+          ]
+  - button clicked (insert):
+      type: ui
+      description: Fired on insert button click
+      attributes:
+        <<:
+          [
+            *PackageMetaDataContext,
+            *AnalyticsContext,
+            *AnalyticsContextAttributes,
+            *SearchCount,
+            *TotalItemCount,
+            *DisplayedColumnCount,
+            *Display,
+            *DestinationObjectTypes,
+            *SearchMethod,
+          ]
+  - button clicked (cancel):
+      type: ui
+      description: Fired on cancel button click
+      attributes:
+        <<:
+          [
+            *PackageMetaDataContext,
+            *AnalyticsContext,
+            *AnalyticsContextAttributes,
+            *SearchCount,
+          ]
+  - link clicked (singleItem):
+      type: ui
+      description: Fired when user clicks on datasource items
+      attributes:
+        <<:
+          [
+            *PackageMetaDataContext,
+            *AnalyticsContext,
+            *AnalyticsContextAttributes,
+            *ExtensionKey,
+            *DestinationObjectTypes,
+          ]
+  - datasource rendered:
+      type: ui
+      description: Fired when an inserted datasource resolves / renders.
+      attributes:
+        <<:
+          [
+            *PackageMetaDataContext,
+            *AnalyticsContext,
+            *AnalyticsContextAttributes,
+            *TotalItemCount,
+            *DestinationObjectTypes,
+            *DisplayedColumnCount,
+            *ExtensionKey,
+            *Display,
+          ]
+        status:
+          type: [ "resolved", "unauthorized", "forbidden", "not_found", "errored" ]
+          description: To track datasource render state
+  - nextItem loaded:
+      type: ui
+      description: Fired when user scrolls to the next page/list of the objects
+      attributes:
+        <<:
+          [
+            *PackageMetaDataContext,
+            *AnalyticsContext,
+            *AnalyticsContextAttributes,
+            *DestinationObjectTypes,
+            *ExtensionKey,
+          ]
+        loadedItemCount:
+          type: "number"
+          description: Total number of items loaded into display table
+  - table viewed (datasource):
+      type: ui
+      description: Fired when the datasource results are displayed as table
+      attributes:
+        <<:
+          [
+            *PackageMetaDataContext,
+            *AnalyticsContext,
+            *AnalyticsContextAttributes,
+            *DestinationObjectTypes,
+            *TotalItemCount,
+            *DisplayedColumnCount,
+            *SearchMethod
+          ]
+  - link viewed (singleItem):
+      type: ui
+      description: Fired when the datasource results are displayed as link(may be smart-link) for a single item
+      attributes:
+        <<:
+          [
+            *PackageMetaDataContext,
+            *AnalyticsContext,
+            *AnalyticsContextAttributes,
+            *DestinationObjectTypes,
+            *SearchMethod
+          ]
+  - link viewed (count):
+      type: ui
+      description: Fired when the datasource results are displayed as link( smart-link) in count mode.
+      attributes:
+        <<:
+          [
+            *PackageMetaDataContext,
+            *AnalyticsContext,
+            *AnalyticsContextAttributes,
+            *DestinationObjectTypes,
+            *SearchMethod,
+            *TotalItemCount
+          ]

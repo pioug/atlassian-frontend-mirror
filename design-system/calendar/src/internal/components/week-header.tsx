@@ -4,7 +4,6 @@ import { memo } from 'react';
 import { jsx } from '@emotion/react';
 
 import Text from '@atlaskit/ds-explorations/text';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { Box, xcss } from '@atlaskit/primitives';
 import type { ThemeModes } from '@atlaskit/theme/types';
 
@@ -32,13 +31,7 @@ const WeekHeader = memo<WeekHeaderProps>(function WeekHeader({
     <WeekDayGrid testId={testId && `${testId}--column-headers`}>
       {daysShort.map((shortDay) => (
         <Box
-          aria-hidden={
-            getBooleanFF(
-              'platform.design-system-team.calendar-keyboard-accessibility_967h1',
-            )
-              ? 'true'
-              : undefined
-          }
+          aria-hidden="true"
           padding="space.100"
           xcss={columnHeaderStyles}
           key={shortDay}

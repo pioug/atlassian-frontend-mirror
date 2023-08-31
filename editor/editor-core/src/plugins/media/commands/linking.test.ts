@@ -32,7 +32,7 @@ import { mediaLinkingPluginKey } from '../pm-plugins/linking';
 import * as linking from './linking';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import * as commands from '../../../commands';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import { focusPlugin } from '@atlaskit/editor-plugin-focus';

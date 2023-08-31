@@ -48,20 +48,30 @@ export { textColorPluginKey } from './plugins/text-color';
 export type { TextColorPluginState } from './plugins/text-color';
 export { changeColor } from './plugins/text-color/commands/change-color';
 export { insertHorizontalRule } from './plugins/rule/commands';
-export { blockPluginStateKey } from './plugins';
-export type { BlockTypeState } from './plugins';
+export type { BlockTypeState } from './plugins/block-type/pm-plugins/main';
+
+/**
+ * @private
+ * @deprecated DO NOT USE, temporary solution while decoupling plugins from editor-core
+ */
+export type { BlockTypePlugin } from './plugins/block-type';
+/**
+ * @private
+ * @deprecated DO NOT USE, temporary solution while decoupling plugins from editor-core
+ */
+export type { CodeBlockPlugin } from './plugins/code-block';
+/**
+ * @private
+ * @deprecated DO NOT USE, temporary solution while decoupling plugins from editor-core
+ */
+export type { PanelPlugin } from './plugins/panel';
+
 export { subscribeToToolbarAndPickerUpdates } from './plugins/view-update-subscription/subscribe/toolbarAndPickerUpdates';
 export { subscribeTypeAheadUpdates } from './plugins/view-update-subscription/subscribe/type-ahead-updates';
 export type {
   InputMethodToolbar as TextFormattingInputMethodToolbar,
   InputMethodBasic as TextFormattingInputMethodBasic,
 } from '@atlaskit/editor-common/types';
-export {
-  insertBlockType,
-  insertBlockTypesWithAnalytics,
-  setBlockType,
-  setBlockTypeWithAnalytics,
-} from './plugins/block-type/commands';
 export type { InputMethod as BlockTypeInputMethod } from './plugins/block-type/commands';
 export { createTable } from '@atlaskit/editor-plugin-table/commands';
 export { insertTaskDecisionCommand } from './plugins/tasks-and-decisions/commands';

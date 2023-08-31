@@ -22,9 +22,7 @@ import {
   commitStatusPicker,
   createTable,
   EditorActions,
-  insertBlockTypesWithAnalytics,
   insertTaskDecisionCommand,
-  setBlockTypeWithAnalytics,
   setKeyboardHeight,
   setMobilePaddingTop,
   setIsExpanded,
@@ -89,7 +87,6 @@ import type {
 } from '@atlaskit/media-client';
 import type { UploadPreviewUpdateEventPayload } from '@atlaskit/media-picker/types';
 import type NativeBridge from '../web-to-native/bridge';
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import type { mobileApiPlugin } from '../plugins/mobileApiPlugin';
 
 export const defaultSetList: QuickInsertItemId[] = [
@@ -178,7 +175,6 @@ export default class WebBridgeImpl
   private editorConfiguration: MobileEditorConfiguration;
   private resetProviders: () => void = () => {};
   private featureFlags: FeatureFlags = {};
-  private editorAnalyticsApi: EditorAnalyticsAPI | undefined = undefined;
   private storedContent: String | undefined;
   private pluginInjectionApi:
     | ExtractInjectionAPI<typeof mobileApiPlugin>
@@ -198,7 +194,6 @@ export default class WebBridgeImpl
     pluginInjectionApi: ExtractInjectionAPI<typeof mobileApiPlugin> | undefined,
   ) {
     this.pluginInjectionApi = pluginInjectionApi;
-    this.editorAnalyticsApi = pluginInjectionApi?.analytics?.actions;
   }
 
   getPluginInjectionApi() {
@@ -508,10 +503,9 @@ export default class WebBridgeImpl
   ) {
     if (this.editorView) {
       const { state, dispatch } = this.editorView;
-      setBlockTypeWithAnalytics(
+      this.pluginInjectionApi?.blockType.actions.setBlockType(
         blockType,
         inputMethod,
-        this.editorAnalyticsApi,
       )(state, dispatch);
     }
   }
@@ -606,25 +600,21 @@ export default class WebBridgeImpl
 
     switch (type) {
       case 'blockquote':
-        insertBlockTypesWithAnalytics(
-          'blockquote',
+        this.pluginInjectionApi?.blockType.actions.insertBlockQuote(
           inputMethod,
-          this.editorAnalyticsApi,
         )(state, dispatch);
         return;
       case 'codeblock':
-        insertBlockTypesWithAnalytics(
-          'codeblock',
-          inputMethod,
-          this.editorAnalyticsApi,
-        )(state, dispatch);
+        this.pluginInjectionApi?.codeBlock.actions.insertCodeBlock(inputMethod)(
+          state,
+          dispatch,
+        );
         return;
       case 'panel':
-        insertBlockTypesWithAnalytics(
-          'panel',
-          inputMethod,
-          this.editorAnalyticsApi,
-        )(state, dispatch);
+        this.pluginInjectionApi?.panel.actions.insertPanel(inputMethod)(
+          state,
+          dispatch,
+        );
         return;
       case 'action':
         insertTaskDecisionCommand(

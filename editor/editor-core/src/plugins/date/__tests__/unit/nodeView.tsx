@@ -26,7 +26,7 @@ import { editorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 import datePlugin from '../../index';
 import tasksAndDecisionsPlugin from '../../../tasks-and-decisions';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 
 const getDatePosition = (state: EditorState): number => {
   let datePos: number | undefined;

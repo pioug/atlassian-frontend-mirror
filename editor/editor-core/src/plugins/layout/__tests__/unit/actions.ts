@@ -31,7 +31,7 @@ import {
   NodeSelection,
 } from '@atlaskit/editor-prosemirror/state';
 import { selectNode } from '../../../../utils/commands';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 describe('layout actions', () => {

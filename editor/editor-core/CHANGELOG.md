@@ -1,5 +1,53 @@
 # @atlaskit/editor-core
 
+## 187.35.4
+
+### Patch Changes
+
+- [`10a82c0490c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/10a82c0490c) - ED-19792 disable guideline plugin for comment and mobile.
+
+## 187.35.3
+
+### Patch Changes
+
+- [`1a4a64498ae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1a4a64498ae) - fix media floating toolbar cut off issue on align right and wrap right
+
+## 187.35.2
+
+### Patch Changes
+
+- [`6acf9830b36`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6acf9830b36) - Update feature flags plugin
+  (@atlaskit/editor-plugin-feature-flags) to use a named export
+  rather than default export to match other plugins.
+
+  ```ts
+  // Before
+  import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+
+  // After
+  import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
+  ```
+
+- Updated dependencies
+
+## 187.35.1
+
+### Patch Changes
+
+- [`b1e03fb86a1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b1e03fb86a1) - Update layout and width calculation for resizing
+- [`6f85651b350`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6f85651b350) - Reduce the gap between handles when image is a nested node
+
+## 187.35.0
+
+### Minor Changes
+
+- [`3542bead318`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3542bead318) - Move block type commands to next editor plugin actions
+
+### Patch Changes
+
+- [`02e113fb1e4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/02e113fb1e4) - Update test fixtures for calendar update.
+- Updated dependencies
+
 ## 187.34.2
 
 ### Patch Changes

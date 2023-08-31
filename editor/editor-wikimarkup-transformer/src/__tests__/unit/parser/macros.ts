@@ -217,6 +217,10 @@ linebreaks{noformat}`,
       'ADFEXP-492: Code block renders correctly inside list',
       '# a \n{code} \nb \nzz c \nd \n{code}',
     ],
+    [
+      'ADFEXP-492: Code block renders correctly inside list - fewer newlines',
+      '# a {code} b \nzz c \nd {code}',
+    ],
   ];
 
   const context = {

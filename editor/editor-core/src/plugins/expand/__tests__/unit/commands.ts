@@ -11,7 +11,7 @@ import {
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { toggleExpandExpanded } from '../../commands';
 import expandPlugin from '../../index';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 describe('Expand Commands', () => {

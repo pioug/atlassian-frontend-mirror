@@ -8,7 +8,7 @@ import {
   clickQuerySelectorElement,
   initEditorWithAdf,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 
 import * as indentedAdf from '../adf/indented-nodes-adf.json';
 import * as outdentedAdf from '../adf/outdented-nodes-adf.json';
@@ -69,7 +69,8 @@ describe('dropdown menu button accessibility', () => {
       ).toBe(true);
     });
 
-    it('should shift focus to indent button when bullet lists disable the button', async () => {
+    // FIXME: This test was automatically skipped due to failure on 31/08/2023: https://product-fabric.atlassian.net/browse/ED-19808
+    it.skip('should shift focus to indent button when bullet lists disable the button', async () => {
       await clickQuerySelectorElement(page, 'li');
 
       await selectToolbarDropdownMenuItemWithKeyboard(

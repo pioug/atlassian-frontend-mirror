@@ -23,7 +23,7 @@ import {
   DocBuilder,
   BuilderContent,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 
 import { pluginKey as fragmentMarkPluginKey } from '../../plugin-key';

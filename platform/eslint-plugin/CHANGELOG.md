@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-platform
 
+## 0.2.6
+
+### Patch Changes
+
+- [`7efeb93141c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7efeb93141c) - Add a rule to ensure critical packages are resolved to the correct versions
+
 ## 0.2.5
 
 ### Patch Changes

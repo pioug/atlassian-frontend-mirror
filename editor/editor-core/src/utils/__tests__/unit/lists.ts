@@ -12,7 +12,7 @@ import {
 } from '../../../plugins';
 import { listPlugin } from '@atlaskit/editor-plugin-list';
 import { doesSelectionWhichStartsOrEndsInListContainEntireList } from '../../../plugins/paste/handlers';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 

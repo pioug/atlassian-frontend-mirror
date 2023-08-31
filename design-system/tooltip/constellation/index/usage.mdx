@@ -9,7 +9,7 @@ Use tooltips to identify or add a small amount of information to an element. Typ
 - help users understand the meaning or purpose of icons
 - show the full version of truncated text
 
-Tooltips replace standard browser tooltips when more emphasis is required. Tooltips do not receive input focus.
+Never put links or other interactable components in tooltips because this isn't accessible or usable. Tooltips should only include short informative text.
 
 ## Best practices
 
@@ -20,6 +20,8 @@ Tooltips replace standard browser tooltips when more emphasis is required. Toolt
 - Never put a tooltip on a disabled button. This is inaccessible and unsupported. 
 
 ## Behavior
+
+Tooltips replace standard browser tooltips when more emphasis is required. Tooltips do not receive input focus.
 
 The position of tooltips is flexible and will change depending on how close the element is to the edge of the screen.
 
@@ -33,6 +35,6 @@ Consult [AUI](https://docs.atlassian.com/aui/latest/docs/tooltips.html) for impl
 
 ## Related
 
-- When you need to add more than a single line of extra information, use an [inline dialog](/components/inline-dialog).
+- When you need to add more than a single line of extra information, use an [inline dialog](/components/inline-dialog) or [inline-message](/components/inline-message).
 - Use with [toggles](/components/toggle) to describe what happens when switched on or off.
 - See our [button usage guidelines](/components/button/usage#do-not-put-tooltips-on-disabled-buttons) for more information about why using a tooltip on a disabled button is not supported.

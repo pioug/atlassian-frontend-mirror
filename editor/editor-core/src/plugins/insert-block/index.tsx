@@ -4,11 +4,11 @@ import type {
   ToolbarUiComponentFactoryParams,
   ExtractInjectionAPI,
   FeatureFlags,
+  Command,
 } from '@atlaskit/editor-common/types';
 import { WithProviders } from '@atlaskit/editor-common/provider-factory';
 import type { Providers } from '@atlaskit/editor-common/provider-factory';
-import type { BlockTypeState } from '../block-type/pm-plugins/main';
-import { pluginKey as blockTypeStateKey } from '../block-type/pm-plugins/main';
+
 import { stateKey as mediaStateKey } from '../media/pm-plugins/plugin-key';
 import type { MediaPluginState } from '../media/pm-plugins/types';
 
@@ -21,7 +21,7 @@ import { insertMacroFromMacroBrowser } from '../macro';
 import WithPluginState from '../../ui/WithPluginState';
 import ToolbarInsertBlock from './ui/ToolbarInsertBlock';
 import { pluginKey as typeAheadPluginKey } from '../type-ahead/pm-plugins/key';
-import { insertBlockTypesWithAnalytics } from '../block-type/commands';
+import { BLOCK_QUOTE, CODE_BLOCK, PANEL } from '../block-type/types';
 import { INPUT_METHOD } from '../analytics';
 import { pluginKey as placeholderTextStateKey } from '../placeholder-text/plugin-key';
 import type { PluginState as PlaceholderTextPluginState } from '../placeholder-text/types';
@@ -30,6 +30,7 @@ import { ToolbarSize } from '../../ui/Toolbar/types';
 
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { InsertBlockPluginDependencies } from './types';
+import type { InputMethod as BlockTypeInputMethod } from '../block-type/commands';
 
 const toolbarSizeToButtons = (toolbarSize: ToolbarSize) => {
   switch (toolbarSize) {
@@ -55,6 +56,29 @@ export interface InsertBlockOptions {
   nativeStatusSupported?: boolean;
   replacePlusMenuWithElementBrowser?: boolean;
   showElementBrowserLink?: boolean;
+}
+
+/**
+ * Wrapper over insertBlockTypeWithAnalytics to autobind toolbar input method
+ * @param name Block name
+ */
+function handleInsertBlockType(
+  insertCodeBlock?: (input_method: INPUT_METHOD) => Command,
+  insertPanel?: (input_method: INPUT_METHOD) => Command,
+  insertBlockQuote?: (input_method: BlockTypeInputMethod) => Command,
+) {
+  return (name: string) => {
+    if (name === CODE_BLOCK.name && insertCodeBlock) {
+      return insertCodeBlock(INPUT_METHOD.TOOLBAR);
+    }
+    if (name === PANEL.name && insertPanel) {
+      return insertPanel(INPUT_METHOD.TOOLBAR);
+    }
+    if (name === BLOCK_QUOTE.name && insertBlockQuote) {
+      return insertBlockQuote(INPUT_METHOD.TOOLBAR);
+    }
+    return () => false;
+  };
 }
 
 const insertBlockPlugin: NextEditorPlugin<
@@ -87,43 +111,42 @@ const insertBlockPlugin: NextEditorPlugin<
         return (
           <WithPluginState
             plugins={{
-              typeAheadState: typeAheadPluginKey, // needed to check isTypeAheadAllowed in ToolbarInsertBlock
-              blockTypeState: blockTypeStateKey,
+              typeAheadState: typeAheadPluginKey,
               mediaState: mediaStateKey,
               macroState: macroStateKey,
               placeholderTextState: placeholderTextStateKey,
               layoutState: layoutStateKey,
             }}
             render={({
-              blockTypeState,
               mediaState,
               macroState = {} as MacroState,
               placeholderTextState,
               layoutState,
-            }) => (
-              <ToolbarInsertBlockWithInjectionApi
-                pluginInjectionApi={api}
-                editorView={editorView}
-                editorActions={editorActions}
-                dispatchAnalyticsEvent={dispatchAnalyticsEvent}
-                providerFactory={providerFactory}
-                popupsMountPoint={popupsMountPoint}
-                popupsBoundariesElement={popupsBoundariesElement}
-                popupsScrollableElement={popupsScrollableElement}
-                toolbarSize={toolbarSize}
-                disabled={disabled}
-                isToolbarReducedSpacing={isToolbarReducedSpacing}
-                isLastItem={isLastItem}
-                featureFlags={featureFlags}
-                blockTypeState={blockTypeState}
-                mediaState={mediaState}
-                macroState={macroState}
-                placeholderTextState={placeholderTextState}
-                layoutState={layoutState}
-                providers={providers}
-                options={options}
-              />
-            )}
+            }) => {
+              return (
+                <ToolbarInsertBlockWithInjectionApi
+                  pluginInjectionApi={api}
+                  editorView={editorView}
+                  editorActions={editorActions}
+                  dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+                  providerFactory={providerFactory}
+                  popupsMountPoint={popupsMountPoint}
+                  popupsBoundariesElement={popupsBoundariesElement}
+                  popupsScrollableElement={popupsScrollableElement}
+                  toolbarSize={toolbarSize}
+                  disabled={disabled}
+                  isToolbarReducedSpacing={isToolbarReducedSpacing}
+                  isLastItem={isLastItem}
+                  featureFlags={featureFlags}
+                  mediaState={mediaState}
+                  macroState={macroState}
+                  placeholderTextState={placeholderTextState}
+                  layoutState={layoutState}
+                  providers={providers}
+                  options={options}
+                />
+              );
+            }}
           />
         );
       };
@@ -150,7 +173,6 @@ interface ToolbarInsertBlockWithInjectionApiProps
   featureFlags: FeatureFlags;
   // As part of Scalability project we are removing plugin keys
   // As we do this these props below will disappear
-  blockTypeState: BlockTypeState | undefined;
   mediaState: MediaPluginState | undefined;
   macroState: MacroState;
   placeholderTextState: PlaceholderTextPluginState | undefined;
@@ -161,7 +183,6 @@ function ToolbarInsertBlockWithInjectionApi({
   editorView,
   editorActions,
   dispatchAnalyticsEvent,
-  providerFactory,
   popupsMountPoint,
   popupsBoundariesElement,
   popupsScrollableElement,
@@ -172,7 +193,6 @@ function ToolbarInsertBlockWithInjectionApi({
   providers,
   pluginInjectionApi,
   options,
-  blockTypeState,
   mediaState,
   macroState,
   placeholderTextState,
@@ -186,27 +206,15 @@ function ToolbarInsertBlockWithInjectionApi({
     imageUploadState,
     mentionState,
     emojiState,
+    blockTypeState,
   } = useSharedPluginState(pluginInjectionApi, [
     'hyperlink',
     'date',
     'imageUpload',
     'mention',
     'emoji',
+    'blockType',
   ]);
-
-  /**
-   * Wrapper over insertBlockTypeWithAnalytics to autobind toolbar input method
-   * @param name Block name
-   */
-  const handleInsertBlockType = React.useCallback(
-    (name: string) =>
-      insertBlockTypesWithAnalytics(
-        name,
-        INPUT_METHOD.TOOLBAR,
-        pluginInjectionApi?.analytics?.actions,
-      ),
-    [pluginInjectionApi?.analytics?.actions],
-  );
 
   return (
     <ToolbarInsertBlock
@@ -246,7 +254,11 @@ function ToolbarInsertBlockWithInjectionApi({
       emojiProvider={providers.emojiProvider}
       nativeStatusSupported={options.nativeStatusSupported}
       horizontalRuleEnabled={options.horizontalRuleEnabled}
-      onInsertBlockType={handleInsertBlockType}
+      onInsertBlockType={handleInsertBlockType(
+        pluginInjectionApi?.codeBlock?.actions.insertCodeBlock,
+        pluginInjectionApi?.panel?.actions.insertPanel,
+        pluginInjectionApi?.blockType?.actions.insertBlockQuote,
+      )}
       onInsertMacroFromMacroBrowser={insertMacroFromMacroBrowser}
       macroProvider={macroState.macroProvider}
       popupsMountPoint={popupsMountPoint}

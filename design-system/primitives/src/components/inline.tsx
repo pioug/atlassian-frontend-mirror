@@ -19,7 +19,13 @@ import { type Space } from '../xcss/style-maps.partial';
 import { xcss } from '../xcss/xcss';
 
 import Flex from './flex';
-import { BasePrimitiveProps } from './types';
+import type {
+  AlignBlock,
+  AlignInline,
+  BasePrimitiveProps,
+  Grow,
+  Spread,
+} from './types';
 
 export type InlineProps<T extends ElementType = 'div'> = {
   /**
@@ -77,11 +83,6 @@ export type InlineProps<T extends ElementType = 'div'> = {
    */
   ref?: React.ComponentPropsWithRef<T>['ref'];
 } & BasePrimitiveProps;
-
-export type AlignInline = 'start' | 'center' | 'end';
-export type AlignBlock = 'start' | 'center' | 'end' | 'baseline' | 'stretch';
-export type Spread = 'space-between';
-export type Grow = 'hug' | 'fill';
 
 const flexGrowMap = {
   hug: xcss({ flexGrow: 0 }),

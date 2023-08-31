@@ -33,7 +33,7 @@ import {
   cleanUpAtTheStartOfDocument,
   deleteAndMoveCursor,
   deleteBlockContent,
-  insertBlockTypesWithAnalytics,
+  insertBlockQuoteWithAnalytics,
 } from '../commands';
 import { isNodeAWrappingBlockNode } from '../utils';
 
@@ -76,11 +76,7 @@ export default function keymapPlugin(
   if (schema.nodes[blockTypes.BLOCK_QUOTE.nodeName]) {
     bindKeymapWithCommand(
       findShortcutByKeymap(toggleBlockQuote)!,
-      insertBlockTypesWithAnalytics(
-        blockTypes.BLOCK_QUOTE.name,
-        INPUT_METHOD.KEYBOARD,
-        editorAnalyticsApi,
-      ),
+      insertBlockQuoteWithAnalytics(INPUT_METHOD.KEYBOARD, editorAnalyticsApi),
       list,
     );
   }

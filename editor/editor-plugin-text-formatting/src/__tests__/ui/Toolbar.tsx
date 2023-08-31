@@ -14,7 +14,7 @@ import codeBlockPlugin from '@atlaskit/editor-core/src/plugins/code-block';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { compositionPlugin } from '@atlaskit/editor-plugin-composition';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,

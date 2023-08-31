@@ -8,7 +8,13 @@ import { type Space } from '../xcss/style-maps.partial';
 import { xcss } from '../xcss/xcss';
 
 import Flex from './flex';
-import type { BasePrimitiveProps } from './types';
+import type {
+  AlignBlock,
+  AlignInline,
+  BasePrimitiveProps,
+  Grow,
+  Spread,
+} from './types';
 
 export type StackProps<T extends ElementType = 'div'> = {
   /**
@@ -18,7 +24,7 @@ export type StackProps<T extends ElementType = 'div'> = {
   /**
    * Used to align children along the main axis.
    */
-  alignBlock?: AlignBlock;
+  alignBlock?: Exclude<AlignBlock, 'baseline'>;
 
   /**
    * Used to align children along the cross axis.
@@ -51,11 +57,6 @@ export type StackProps<T extends ElementType = 'div'> = {
   ref?: React.ComponentPropsWithRef<T>['ref'];
 } & BasePrimitiveProps;
 
-export type AlignInline = 'start' | 'center' | 'end';
-export type AlignBlock = 'start' | 'center' | 'end';
-export type Spread = 'space-between';
-export type Grow = 'hug' | 'fill';
-
 const flexGrowMap = {
   hug: xcss({ flexGrow: 0 }),
   fill: xcss({
@@ -84,7 +85,7 @@ const Stack = memo(
       {
         as,
         alignInline: alignItems,
-        alignBlock,
+        alignBlock = 'stretch',
         spread,
         grow,
         space,

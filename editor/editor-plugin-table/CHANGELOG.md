@@ -1,5 +1,33 @@
 # @atlaskit/editor-plugin-table
 
+## 2.12.4
+
+### Patch Changes
+
+- [`74cf8d56408`](https://bitbucket.org/atlassian/atlassian-frontend/commits/74cf8d56408) - ED-19748: dispatch analytics when a table is selected.
+
+## 2.12.3
+
+### Patch Changes
+
+- [`35242fb367a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/35242fb367a) - Add custom-table-width feature flag and add width to table node when inserted
+
+## 2.12.2
+
+### Patch Changes
+
+- [`6acf9830b36`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6acf9830b36) - Update feature flags plugin
+  (@atlaskit/editor-plugin-feature-flags) to use a named export
+  rather than default export to match other plugins.
+
+  ```ts
+  // Before
+  import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+
+  // After
+  import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
+  ```
+
 ## 2.12.1
 
 ### Patch Changes

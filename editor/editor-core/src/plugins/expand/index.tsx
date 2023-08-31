@@ -16,9 +16,9 @@ import { getToolbarConfig } from './toolbar';
 import { createExpandNode } from './commands';
 import { messages } from '../insert-block/ui/ToolbarInsertBlock/messages';
 import type { LongPressSelectionPluginOptions } from '@atlaskit/editor-common/types';
-import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
-import { createWrapSelectionTransaction } from '../block-type/commands/block-type';
+import { createWrapSelectionTransaction } from '@atlaskit/editor-common/utils';
 
 interface ExpandPluginOptions extends LongPressSelectionPluginOptions {
   allowInsertion?: boolean;
@@ -29,7 +29,7 @@ const expandPlugin: NextEditorPlugin<
   'expand',
   {
     pluginConfiguration: ExpandPluginOptions | undefined;
-    dependencies: [typeof featureFlagsPlugin, typeof decorationsPlugin];
+    dependencies: [FeatureFlagsPlugin, typeof decorationsPlugin];
   }
 > = ({ config: options = {}, api }) => {
   const featureFlags = api?.featureFlags?.sharedState.currentState() || {};

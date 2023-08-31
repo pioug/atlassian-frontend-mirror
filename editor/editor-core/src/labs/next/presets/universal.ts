@@ -101,6 +101,7 @@ export default function createUniversalPreset(
 ): EditorPresetBuilder<any, any> {
   const isMobile = appearance === 'mobile';
   const isComment = appearance === 'comment';
+  const isChromeless = appearance === 'chromeless';
   const isFullPage = fullPageCheck(appearance);
 
   const getEditorFeatureFlags = () => featureFlags;
@@ -180,6 +181,10 @@ export default function createUniversalPreset(
       return builder;
     })
     .maybeAdd(guidelinePlugin, (plugin, builder) => {
+      if (isMobile || isComment || isChromeless) {
+        return builder;
+      }
+
       if (props.media || props.allowTables) {
         return builder.add(plugin);
       }

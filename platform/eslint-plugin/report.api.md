@@ -51,6 +51,7 @@ export const rules: {
   'ensure-test-runner-arguments': Rule.RuleModule;
   'ensure-test-runner-nested-count': Rule.RuleModule;
   'ensure-atlassian-team': Rule.RuleModule;
+  'ensure-critical-dependency-resolutions': Rule.RuleModule;
   'no-invalid-feature-flag-usage': Rule.RuleModule;
   'no-pre-post-install-scripts': Rule.RuleModule;
   'no-invalid-storybook-decorator-usage': Rule.RuleModule;

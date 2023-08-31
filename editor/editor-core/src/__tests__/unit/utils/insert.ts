@@ -49,7 +49,7 @@ import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import mediaPlugin from '../../../plugins/media';
 import { listPlugin } from '@atlaskit/editor-plugin-list';
 import { focusPlugin } from '@atlaskit/editor-plugin-focus';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import { compositionPlugin } from '@atlaskit/editor-plugin-composition';
 import type {
   CreateUIAnalyticsEvent,

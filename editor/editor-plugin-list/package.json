@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-list",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "List plugin for @atlaskit/editor-core",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -32,9 +32,9 @@
   },
   "dependencies": {
     "@atlaskit/adf-schema": "28.1.2",
-    "@atlaskit/editor-common": "^74.55.0",
+    "@atlaskit/editor-common": "^74.56.0",
     "@atlaskit/editor-plugin-analytics": "^0.2.0",
-    "@atlaskit/editor-plugin-feature-flags": "^0.2.0",
+    "@atlaskit/editor-plugin-feature-flags": "^1.0.0",
     "@atlaskit/editor-prosemirror": "1.1.0",
     "@atlaskit/prosemirror-input-rules": "^2.4.0",
     "@babel/runtime": "^7.0.0"

@@ -22,7 +22,7 @@ import {
   decisionList,
   decisionItem,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { ExtractPublicEditorAPI } from '@atlaskit/editor-common/types';
 

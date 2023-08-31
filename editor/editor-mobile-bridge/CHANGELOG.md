@@ -1,5 +1,57 @@
 # @atlaskit/editor-mobile-bridge
 
+## 187.35.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.35.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.35.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.35.2
+
+### Patch Changes
+
+- [`6acf9830b36`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6acf9830b36) - Update feature flags plugin
+  (@atlaskit/editor-plugin-feature-flags) to use a named export
+  rather than default export to match other plugins.
+
+  ```ts
+  // Before
+  import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+
+  // After
+  import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
+  ```
+
+- Updated dependencies
+
+## 187.35.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.35.0
+
+### Minor Changes
+
+- [`3542bead318`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3542bead318) - Move block type commands to next editor plugin actions
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 187.34.2
 
 ### Patch Changes

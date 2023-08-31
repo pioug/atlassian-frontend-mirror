@@ -5,7 +5,7 @@ import type {
   AlignInline,
   Grow,
   Spread,
-} from '../src/components/inline';
+} from '../src/components/types';
 
 type Space =
   | 'space.0'

@@ -232,7 +232,6 @@ type TableResizePerfSamplingAEP = OperationalAEP<
   ResizePreviewInfo,
   undefined
 >;
-
 //#endregion
 
 export type TableEventPayload =

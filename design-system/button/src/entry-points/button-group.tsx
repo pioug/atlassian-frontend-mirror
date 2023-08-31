@@ -1,1 +1,1 @@
-export { default } from '../button-group';
+export { default } from '../containers/button-group';

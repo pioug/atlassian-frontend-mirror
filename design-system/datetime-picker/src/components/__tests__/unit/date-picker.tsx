@@ -8,6 +8,13 @@ import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { DatePickerWithoutAnalytics as DatePicker } from '../../date-picker';
 import { convertTokens } from '../../utils';
 
+const getAllDays = () =>
+  screen.getAllByRole(
+    (content, element) =>
+      content === 'button' &&
+      element!.parentElement?.getAttribute('role') === 'gridcell',
+  );
+
 describe('DatePicker', () => {
   describe('should call onChange only once when a date is selected and enter is pressed', () => {
     ffTest(
@@ -264,7 +271,7 @@ describe('DatePicker', () => {
         );
         fireEvent.click(screen.getByTestId('test--container'));
 
-        const days = screen.getAllByRole('gridcell');
+        const days = getAllDays();
         const selectedDay = screen.getByTestId('test--calendar--selected-day');
         const selectedIndex = days.findIndex((day) => day === selectedDay);
         const nextDay = days[selectedIndex + 1];
@@ -291,7 +298,7 @@ describe('DatePicker', () => {
         );
 
         fireEvent.click(screen.getByTestId('test--container'));
-        const days = screen.getAllByRole('gridcell');
+        const days = getAllDays();
         const selectedDay = screen.getByTestId('test--calendar--selected-day');
         const selectedIndex = days.findIndex((day) => day === selectedDay);
         const nextDay = days[selectedIndex + 1];
@@ -360,29 +367,30 @@ describe('DatePicker', () => {
     ffTest(
       'platform.design-system-team.date-picker-input-a11y-fix_cbbxs',
       () => {
+        const testId = 'test';
         const { rerender } = render(
           <DatePicker value="1970-01-01" testId="test" />,
         );
-        fireEvent.click(screen.getByTestId('test--container'));
 
-        // testId of DatePicker passes in `${testId}--calendar` and the
-        // Calendar uses `${testId}--calendar`, so you have it doubled
-        const calendar = screen.getByTestId('test--calendar--calendar');
-        expect(calendar).toHaveAccessibleDescription(
-          expect.stringContaining('Jan 01 1970'),
+        fireEvent.click(screen.getByTestId(`${testId}--container`));
+        let selectedDay = screen.getByTestId(
+          `${testId}--calendar--selected-day`,
+        );
+        expect(selectedDay).toHaveAccessibleName(
+          expect.stringContaining('1, Thursday January 1970'),
         );
 
         rerender(<DatePicker value="1990-02-02" testId="test" />);
-        // date doesn't update without focus
-        expect(calendar).toHaveAccessibleDescription(
-          expect.stringContaining('Jan 01 1970'),
-        );
 
+        // date doesn't update without focus
         const select = screen.getByRole('combobox');
         fireEvent.focus(select);
+
         // date update after focus
-        expect(calendar).toHaveAccessibleDescription(
-          expect.stringContaining('Feb 02 1990'),
+        fireEvent.click(screen.getByTestId(`${testId}--container`));
+        selectedDay = screen.getByTestId(`${testId}--calendar--selected-day`);
+        expect(selectedDay).toHaveAccessibleName(
+          expect.stringContaining('2, Friday February 1990'),
         );
       },
     );

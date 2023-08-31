@@ -1,24 +1,22 @@
+import type { PluginKey } from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import rafSchedule from 'raf-schd';
 import type {
-  BlockTypeState,
   EventDispatcher,
   HistoryPluginState,
   SelectionDataState,
   TextColorPluginState,
 } from '@atlaskit/editor-core';
 import {
-  blockPluginStateKey,
+  textColorPluginKey,
   historyPluginKey,
   selectionPluginKey,
-  textColorPluginKey,
 } from '@atlaskit/editor-core';
-import type { PluginKey } from '@atlaskit/editor-prosemirror/state';
-import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import rafSchedule from 'raf-schd';
+import type WebBridgeImpl from '../native-to-web';
+import { toNativeBridge } from '../web-to-native';
 import { createPromise } from '../../cross-platform-promise';
 import { getSelectionObserverEnabled } from '../../query-param-reader';
 import EditorConfiguration from '../editor-configuration';
-import type WebBridgeImpl from '../native-to-web';
-import { toNativeBridge } from '../web-to-native';
 
 interface BridgePluginListener<T> {
   bridge: string;
@@ -50,28 +48,6 @@ export const configFactory = (
   editorConfiguration: EditorConfiguration,
 ): Array<BridgePluginListener<any>> => {
   const configs: Array<BridgePluginListener<any>> = [
-    createListenerConfig<BlockTypeState>({
-      bridge: 'blockFormatBridge',
-      pluginKey: blockPluginStateKey,
-      updater: (pluginState) => {
-        /**
-         * Currently `updateBlockState` is on different bridges in native land.
-         * We have a ticket to align on the naming.
-         * @see https://product-fabric.atlassian.net/browse/FM-1341
-         */
-        if (window.webkit) {
-          // iOS
-          toNativeBridge.call('blockFormatBridge', 'updateBlockState', {
-            states: pluginState.currentBlockType.name,
-          });
-        } else {
-          // Android
-          toNativeBridge.call('textFormatBridge', 'updateBlockState', {
-            states: pluginState.currentBlockType.name,
-          });
-        }
-      },
-    }),
     createListenerConfig<TextColorPluginState>({
       bridge: 'textFormatBridge',
       pluginKey: textColorPluginKey,

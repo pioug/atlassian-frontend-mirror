@@ -1,16 +1,16 @@
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
-  DocBuilder,
   p,
   table,
   td,
@@ -20,7 +20,7 @@ import {
 
 import tablePlugin from '../../plugins/table-plugin';
 import { pluginKey as tablePluginKey } from '../../plugins/table/pm-plugins/plugin-key';
-import { PluginConfig } from '../../plugins/table/types';
+import type { PluginConfig } from '../../plugins/table/types';
 
 const TABLE_LOCAL_ID = 'test-table-local-id';
 

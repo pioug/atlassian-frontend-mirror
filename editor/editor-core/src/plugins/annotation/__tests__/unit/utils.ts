@@ -71,7 +71,7 @@ import type {
 } from '@atlaskit/editor-prosemirror/state';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import { Slice, Fragment } from '@atlaskit/editor-prosemirror/model';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 const annotationPreset = new Preset<LightEditorPlugin>()

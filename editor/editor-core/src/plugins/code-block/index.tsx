@@ -17,6 +17,7 @@ import type {
   PMPluginFactoryParams,
   NextEditorPlugin,
   OptionalPlugin,
+  Command,
 } from '@atlaskit/editor-common/types';
 import { messages } from '../block-type/messages';
 import type { CodeBlockOptions } from './types';
@@ -24,11 +25,12 @@ import refreshBrowserSelectionOnChange from './refresh-browser-selection';
 import type { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 
-// Theres an existing interelationship between these files, where the imported function is being called for code-block
-// Insertions via the drop down menu
-// tslint-ignore-next-line
-import { createInsertCodeBlockTransaction } from '../block-type/commands/block-type';
 import type { compositionPlugin } from '@atlaskit/editor-plugin-composition';
+import {
+  createInsertCodeBlockTransaction,
+  insertCodeBlockWithAnalytics,
+} from './actions';
+import { createCodeBlockInputRule } from './pm-plugins/input-rule';
 
 const codeBlockPlugin: NextEditorPlugin<
   'codeBlock',
@@ -39,6 +41,9 @@ const codeBlockPlugin: NextEditorPlugin<
       typeof compositionPlugin,
       OptionalPlugin<typeof analyticsPlugin>,
     ];
+    actions: {
+      insertCodeBlock: (inputMethod: INPUT_METHOD) => Command;
+    };
   }
 > = ({ config: options, api }) => ({
   name: 'codeBlock',
@@ -57,6 +62,12 @@ const codeBlockPlugin: NextEditorPlugin<
             getIntl,
             appearance: options?.appearance ?? 'comment',
           }),
+      },
+      {
+        name: 'codeBlockInputRule',
+        plugin: ({ schema }: PMPluginFactoryParams) => {
+          return createCodeBlockInputRule(schema, api?.analytics?.actions);
+        },
       },
       {
         name: 'codeBlockIDEKeyBindings',
@@ -82,6 +93,14 @@ const codeBlockPlugin: NextEditorPlugin<
     );
   },
 
+  actions: {
+    /*
+     * Function will insert code block at current selection if block is empty or below current selection and set focus on it.
+     */
+    insertCodeBlock: (inputMethod: INPUT_METHOD) =>
+      insertCodeBlockWithAnalytics(inputMethod, api?.analytics?.actions),
+  },
+
   pluginsOptions: {
     quickInsert: ({ formatMessage }) => [
       {
@@ -92,7 +111,7 @@ const codeBlockPlugin: NextEditorPlugin<
         priority: 700,
         keyshortcut: '```',
         icon: () => <IconCode />,
-        action(insert, state) {
+        action(_insert, state) {
           const tr = createInsertCodeBlockTransaction({ state });
           api?.analytics?.actions.attachAnalyticsEvent({
             action: ACTION.INSERTED,
@@ -113,3 +132,4 @@ const codeBlockPlugin: NextEditorPlugin<
 });
 
 export default codeBlockPlugin;
+export type CodeBlockPlugin = typeof codeBlockPlugin;

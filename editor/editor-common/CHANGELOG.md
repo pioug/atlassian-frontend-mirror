@@ -1,5 +1,24 @@
 # @atlaskit/editor-common
 
+## 74.56.2
+
+### Patch Changes
+
+- [`74cf8d56408`](https://bitbucket.org/atlassian/atlassian-frontend/commits/74cf8d56408) - ED-19748: dispatch analytics when a table is selected.
+- [`95225cb45ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/95225cb45ec) - increase mouse hover zone for resizer
+
+## 74.56.1
+
+### Patch Changes
+
+- [`2c12cd28cb8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2c12cd28cb8) - Enforce scale-down approach for wide media single node in renderer
+
+## 74.56.0
+
+### Minor Changes
+
+- [`3542bead318`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3542bead318) - Move block type commands to next editor plugin actions
+
 ## 74.55.2
 
 ### Patch Changes

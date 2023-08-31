@@ -13,6 +13,7 @@ import type {
   NextEditorPlugin,
   OptionalPlugin,
   HeadingLevels,
+  Command,
 } from '@atlaskit/editor-common/types';
 import { ToolbarSize } from '@atlaskit/editor-common/types';
 import { WithPluginState } from '@atlaskit/editor-common/with-plugin-state';
@@ -33,6 +34,7 @@ import {
 import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 
+import type { BlockTypeState } from './pm-plugins/main';
 import { createPlugin, pluginKey } from './pm-plugins/main';
 import keymapPlugin from './pm-plugins/keymap';
 import inputRulePlugin from './pm-plugins/input-rule';
@@ -40,6 +42,8 @@ import ToolbarBlockType from './ui/ToolbarBlockType';
 import { setBlockTypeWithAnalytics } from './commands';
 import type { BlockTypeNode, BlockTypePluginOptions } from './types';
 import { messages } from './messages';
+import type { InputMethod } from './commands/block-type';
+import { insertBlockQuoteWithAnalytics } from './commands/block-type';
 
 const headingPluginOptions = (
   { formatMessage }: IntlShape,
@@ -126,13 +130,20 @@ const blockquotePluginOptions = (
   ];
 };
 
-const blockTypePlugin: NextEditorPlugin<
+export type BlockTypePlugin = NextEditorPlugin<
   'blockType',
   {
     pluginConfiguration: BlockTypePluginOptions | undefined;
     dependencies: [OptionalPlugin<typeof analyticsPlugin>];
+    sharedState: BlockTypeState | undefined;
+    actions: {
+      insertBlockQuote: (inputMethod: InputMethod) => Command;
+      setBlockType: (name: string, inputMethod: InputMethod) => Command;
+    };
   }
-> = ({ config: options, api }) => ({
+>;
+
+const blockTypePlugin: BlockTypePlugin = ({ config: options, api }) => ({
   name: 'blockType',
 
   nodes() {
@@ -176,6 +187,29 @@ const blockTypePlugin: NextEditorPlugin<
           keymapPlugin(api?.analytics?.actions, schema, featureFlags),
       },
     ];
+  },
+
+  actions: {
+    insertBlockQuote(inputMethod: InputMethod) {
+      return insertBlockQuoteWithAnalytics(
+        inputMethod,
+        api?.analytics?.actions,
+      );
+    },
+    setBlockType(name: string, inputMethod: InputMethod) {
+      return setBlockTypeWithAnalytics(
+        name,
+        inputMethod,
+        api?.analytics?.actions,
+      );
+    },
+  },
+
+  getSharedState(editorState) {
+    if (!editorState) {
+      return;
+    }
+    return pluginKey.getState(editorState);
   },
 
   primaryToolbarComponent({

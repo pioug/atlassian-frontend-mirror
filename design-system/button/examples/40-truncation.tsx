@@ -1,39 +1,65 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/react';
+import React from 'react';
 
-import Expand from '@atlaskit/icon/glyph/arrow-down';
-import Question from '@atlaskit/icon/glyph/question';
+import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
+import { Box, xcss } from '@atlaskit/primitives';
 
-import Button from '../src';
+import variants from '../src/utils/variants';
 
-const narrowWrapperStyle = {
-  margin: '10px',
-  padding: '10px',
-  width: '190px',
-  border: '1px solid red',
-
-  '& > *': {
-    marginBottom: '10px',
-    '&:last-child': {
-      marginBottom: 0,
-    },
-  },
+const ContrainedWidthCell = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <td>
+      <Box
+        xcss={xcss({
+          width: 'size.600',
+        })}
+      >
+        {children}
+      </Box>
+    </td>
+  );
 };
 
-export default () => (
-  <div css={narrowWrapperStyle}>
-    <div>
-      <Button appearance="primary">I am wider than my parent</Button>
-    </div>
-    <div>
-      <Button appearance="primary" iconBefore={<Question label="" />}>
-        I am wider than my parent
-      </Button>
-    </div>
-    <div>
-      <Button appearance="primary" iconAfter={<Expand label="" />}>
-        I am wider than my parent
-      </Button>
-    </div>
-  </div>
-);
+const label = 'A really long text label';
+
+export default function TruncationExample() {
+  return (
+    <table>
+      <thead>
+        <tr>
+          <th>Variant</th>
+          <th>Default</th>
+          <th>Icon before</th>
+          <th>Icon after</th>
+        </tr>
+      </thead>
+      <tbody>
+        {variants.map(({ name, Component }) => (
+          <tr key={name}>
+            <th>{name}</th>
+            <ContrainedWidthCell>
+              <Component>{label}</Component>
+            </ContrainedWidthCell>
+            <ContrainedWidthCell>
+              <Component iconBefore={<ChevronDownIcon label="" />}>
+                {label}
+              </Component>
+            </ContrainedWidthCell>
+            <ContrainedWidthCell>
+              <Component iconAfter={<ChevronDownIcon label="" />}>
+                {label}
+              </Component>
+            </ContrainedWidthCell>
+            <ContrainedWidthCell>
+              <Component
+                iconBefore={<ChevronDownIcon label="" />}
+                iconAfter={<ChevronDownIcon label="" />}
+              >
+                {label}
+              </Component>
+            </ContrainedWidthCell>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
+}

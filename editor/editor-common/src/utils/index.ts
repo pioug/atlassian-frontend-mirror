@@ -445,3 +445,6 @@ export function isNodeEmpty(node?: PMNode): boolean {
 }
 
 export { dedupe } from './dedupe';
+
+export { createWrapSelectionTransaction } from './create-wrap-selection-transaction';
+export { wrapSelectionIn } from './wrap-selection-in';

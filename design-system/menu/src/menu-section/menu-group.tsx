@@ -1,7 +1,6 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 
-import { UNSAFE_Box as Box } from '@atlaskit/ds-explorations';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import {
@@ -9,6 +8,13 @@ import {
   SpacingContext,
 } from '../internal/components/menu-context';
 import type { MenuGroupProps } from '../types';
+
+const baseStyles = css({
+  display: 'flex',
+  position: 'static',
+  flexDirection: 'column',
+  overflow: 'auto',
+});
 
 /**
  * __Menu group__
@@ -35,19 +41,16 @@ const MenuGroup = ({
 }: MenuGroupProps) => (
   <SpacingContext.Provider value={spacing}>
     <SELECTION_STYLE_CONTEXT_DO_NOT_USE.Provider value="border">
-      <Box
-        UNSAFE_style={{
+      <div
+        style={{
           minWidth,
           maxWidth,
           minHeight,
           maxHeight,
         }}
-        display="flex"
-        flexDirection="column"
-        overflow="auto"
-        testId={testId}
+        css={baseStyles}
+        data-testid={testId}
         role={role}
-        position="static"
         className={
           getBooleanFF(
             'platform.design-system-team.unsafe-overrides-killswitch_c8j9m',

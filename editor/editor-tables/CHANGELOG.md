@@ -1,5 +1,11 @@
 # @atlaskit/editor-tables
 
+## 2.3.9
+
+### Patch Changes
+
+- [`35242fb367a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/35242fb367a) - Add custom-table-width feature flag and add width to table node when inserted
+
 ## 2.3.8
 
 ### Patch Changes

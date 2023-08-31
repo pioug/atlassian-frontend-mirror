@@ -11,7 +11,7 @@ import type { CollabSendableSelection } from '@atlaskit/editor-common/collab';
 import collabEditPlugin, { pluginKey } from '../../index';
 import { createMockCollabEditProvider } from '@atlaskit/synchrony-test-helpers';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 
 const findTelepointerBySessionId = (
   editorView: EditorView,

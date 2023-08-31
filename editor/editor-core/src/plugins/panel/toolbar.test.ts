@@ -30,7 +30,7 @@ import {
   EVENT_TYPE,
   ACTION_SUBJECT_ID,
 } from '../analytics';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { G75 } from '@atlaskit/theme/colors';
 import type { EmojiId } from '@atlaskit/emoji';

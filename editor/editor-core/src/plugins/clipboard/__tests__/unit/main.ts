@@ -35,7 +35,7 @@ import {
 import { __serializeForClipboard } from '@atlaskit/editor-prosemirror/view';
 import { selectRow } from '@atlaskit/editor-tables/src/utils';
 import type { TableAttributes } from '@atlaskit/adf-schema';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';

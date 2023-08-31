@@ -55,7 +55,7 @@ import selectionPlugin from '../../../selection';
 import floatingToolbarPlugin from '../../../floating-toolbar';
 
 import { hideCaretModifier } from '../../gap-cursor/styles';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 describe('gap-cursor', () => {

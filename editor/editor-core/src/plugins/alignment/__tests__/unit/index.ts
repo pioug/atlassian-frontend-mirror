@@ -20,7 +20,7 @@ import {
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import { pluginKey as alignmentPluginKey } from '../../pm-plugins/main';
 import { changeAlignment } from '../../commands';
-import { insertBlockType } from '../../../block-type/commands';
+import { wrapSelectionIn } from '@atlaskit/editor-common/utils';
 
 import alignmentPlugin from '../../';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
@@ -32,7 +32,7 @@ import codeBlockPlugin from '../../../code-block';
 import { compositionPlugin } from '@atlaskit/editor-plugin-composition';
 import blockTypePlugin from '../../../block-type';
 import type { AlignmentPluginState } from '../../pm-plugins/types';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
@@ -131,7 +131,7 @@ describe('alignment', () => {
         doc(alignmentMark({ align: 'end' })(p('hello{<>}'))),
       );
       const { dispatch, state } = editorView;
-      insertBlockType('panel')(state, dispatch);
+      wrapSelectionIn(state.schema.nodes.panel)(state, dispatch);
       expect(editorView.state.doc).toEqualDocument(
         doc(panel()(p('hello{<>}'))),
       );

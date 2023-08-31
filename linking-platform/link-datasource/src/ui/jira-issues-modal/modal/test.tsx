@@ -77,6 +77,8 @@ const getDefaultHookState: () => DatasourceTableState = () => ({
   ],
   defaultVisibleColumnKeys: ['myColumn', 'otherColumn'],
   totalCount: 3,
+  destinationObjectTypes: ['issue'],
+  extensionKey: 'jira-object-provider',
 });
 
 const getErrorHookState: () => DatasourceTableState = () => ({
@@ -89,6 +91,8 @@ const getErrorHookState: () => DatasourceTableState = () => ({
   loadDatasourceDetails: jest.fn(),
   reset: jest.fn(),
   totalCount: undefined,
+  destinationObjectTypes: ['issue'],
+  extensionKey: 'jira-object-provider',
 });
 
 const setup = async (
@@ -223,6 +227,8 @@ describe('JiraIssuesConfigModal', () => {
     loadDatasourceDetails: jest.fn(),
     reset: jest.fn(),
     totalCount: undefined,
+    destinationObjectTypes: [],
+    extensionKey: undefined,
   });
 
   const getLoadingHookState: () => DatasourceTableState = () => ({
@@ -234,6 +240,8 @@ describe('JiraIssuesConfigModal', () => {
     onNextPage: jest.fn(),
     loadDatasourceDetails: jest.fn(),
     reset: jest.fn(),
+    destinationObjectTypes: ['issue'],
+    extensionKey: 'jira-object-provider',
   });
 
   beforeEach(() => {

@@ -146,32 +146,7 @@ export const list: TokenParser = ({ input, position, schema, context }) => {
           break;
         }
         const token = parseToken(input, match.type, index, schema, context);
-        if (token.type === 'text') {
-          buffer.push(token.text);
-        } else {
-          // We found a macro in the list...
-          if (!builder) {
-            // Something is really wrong here
-            return fallback(input, position);
-          }
-          if (buffer.length > 0) {
-            /**
-             * Wrapup what is already in the string buffer and save it to
-             * contentBuffer
-             */
-            const content = parseString({
-              ignoreTokenTypes,
-              schema,
-              context,
-              input: buffer.join(''),
-              includeLeadingSpace: true,
-            });
-            contentBuffer.push(...sanitize(content, schema));
-            buffer = [];
-          }
-
-          contentBuffer.push(...sanitize(token.nodes, schema));
-        }
+        buffer.push(input.substr(index, token.length));
         index += token.length;
         state = processState.BUFFER;
         continue;

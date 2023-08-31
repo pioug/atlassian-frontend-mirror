@@ -30,6 +30,7 @@ test.use({
 test.describe('when there is a date inside a table', () => {
   const simpleTableWithDate = doc(
     table({ localId: 'localId' })(
+      // May 19, 2023
       tr(th()(p(date({ timestamp: '1684454400000' }), ' ')), thEmpty, thEmpty),
       tr(tdEmpty, tdEmpty, tdEmpty),
       tr(tdEmpty, tdEmpty, tdEmpty),
@@ -45,12 +46,13 @@ test.describe('when there is a date inside a table', () => {
     const dateModel = EditorDateModel.from(nodes.table.locator(nodes.date));
 
     const calendar = await dateModel.openCalendar(popupModel);
-    await calendar.clickAtNextDay();
+    await calendar.clickNextDay();
 
     await expect(editor).toHaveDocument(
       doc(
         table({ localId: 'localId' })(
           tr(
+            // May 20, 2023
             th()(p(date({ timestamp: '1684540800000' }), ' ')),
             thEmpty,
             thEmpty,

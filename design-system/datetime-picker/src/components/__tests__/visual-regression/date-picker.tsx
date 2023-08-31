@@ -5,13 +5,13 @@ import {
 } from '@atlaskit/visual-regression/helper';
 
 async function waitForCalendarPicker(page: PuppeteerPage, testId: string) {
-  await page.waitForSelector(`div[data-testid="${testId}--popper--container"]`);
+  await page.waitForSelector(`[data-testid="${testId}--popper--container"]`);
   await page.waitForSelector(
-    `div[data-testid="${testId}--calendar--current-month-year"]`,
+    `[data-testid="${testId}--calendar--current-month-year"]`,
   );
-  await page.waitForSelector(`div[data-testid="${testId}--calendar--month"]`);
+  await page.waitForSelector(`[data-testid="${testId}--calendar--month"]`);
   await page.waitForSelector(
-    `button[data-testid="${testId}--calendar--selected-day"]`,
+    `[data-testid="${testId}--calendar--selected-day"]`,
   );
 }
 

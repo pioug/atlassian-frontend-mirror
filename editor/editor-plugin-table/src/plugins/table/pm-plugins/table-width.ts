@@ -5,14 +5,23 @@
  */
 
 import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
-import { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
+import {
+  ACTION,
+  ACTION_SUBJECT,
+  ACTION_SUBJECT_ID,
+  EVENT_TYPE,
+} from '@atlaskit/editor-common/analytics';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 import {
+  akEditorDefaultLayoutWidth,
   akEditorFullWidthLayoutWidth,
   akEditorWideLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
+import { findTable } from '@atlaskit/editor-tables/utils';
 
 type __ReplaceStep = ReplaceStep & {
   // Properties `to` and `from` are private attributes of ReplaceStep.
@@ -28,7 +37,11 @@ export const pluginKey = new PluginKey<TableWidthPluginState>(
   'tableWidthPlugin',
 );
 
-const createPlugin = (dispatch: Dispatch, fullWidthEnabled: boolean) =>
+const createPlugin = (
+  dispatch: Dispatch,
+  dispatchAnalyticsEvent: DispatchAnalyticsEvent,
+  fullWidthEnabled: boolean,
+) =>
   new SafePlugin({
     key: pluginKey,
     state: {
@@ -49,7 +62,27 @@ const createPlugin = (dispatch: Dispatch, fullWidthEnabled: boolean) =>
         return pluginState;
       },
     },
-    appendTransaction: (transactions, _oldState, newState) => {
+    appendTransaction: (transactions, oldState, newState) => {
+      // do not fire select table analytics events when a table is being created or deleted
+      const selectedTableOldState = findTable(oldState.selection);
+      const selectedTableNewState = findTable(newState.selection);
+
+      /**
+       * Select table event
+       *   condition: 1
+       * When users selection changes to table
+       */
+      if (!selectedTableOldState && selectedTableNewState) {
+        dispatchAnalyticsEvent({
+          action: ACTION.SELECTED,
+          actionSubject: ACTION_SUBJECT.DOCUMENT,
+          actionSubjectId: ACTION_SUBJECT_ID.TABLE,
+          eventType: EVENT_TYPE.TRACK,
+          attributes: {
+            localId: selectedTableNewState.node.attrs.localId || '',
+          },
+        });
+      }
       // When document first load in Confluence, initially it is an empty document
       // and Collab service triggers a transaction to replace the empty document with the real document that should be rendered.
       // what we need to do is to add width attr to all tables in the real document
@@ -67,7 +100,7 @@ const createPlugin = (dispatch: Dispatch, fullWidthEnabled: boolean) =>
           const isStepReplacingFromDocStart =
             (step as __ReplaceStep).from === 0;
           const isStepReplacingUntilTheEndOfDocument =
-            (step as __ReplaceStep).to === _oldState.doc.content.size;
+            (step as __ReplaceStep).to === oldState.doc.content.size;
 
           if (
             !isStepReplacingFromDocStart ||
@@ -88,6 +121,23 @@ const createPlugin = (dispatch: Dispatch, fullWidthEnabled: boolean) =>
       const tr = newState.tr;
       const { table } = newState.schema.nodes;
 
+      /**
+       * Select table event
+       *   condition: 2
+       * Users selection defaults to table, if first node
+       */
+      if (selectedTableOldState) {
+        dispatchAnalyticsEvent({
+          action: ACTION.SELECTED,
+          actionSubject: ACTION_SUBJECT.DOCUMENT,
+          actionSubjectId: ACTION_SUBJECT_ID.TABLE,
+          eventType: EVENT_TYPE.TRACK,
+          attributes: {
+            localId: selectedTableOldState.node.attrs.localId || '',
+          },
+        });
+      }
+
       newState.doc.forEach((node, offset) => {
         if (node.type === table) {
           const width = node.attrs.width;
@@ -106,9 +156,10 @@ const createPlugin = (dispatch: Dispatch, fullWidthEnabled: boolean) =>
                 case 'full-width':
                   tableWidthCal = akEditorFullWidthLayoutWidth;
                   break;
-                // when in fix-width apprearance, no need to assign value to table width attr
+                // when in fix-width appearance, no need to assign value to table width attr
                 // as when table is created, width attr is null by default, table rendered using layout attr
                 default:
+                  tableWidthCal = akEditorDefaultLayoutWidth;
                   break;
               }
             }

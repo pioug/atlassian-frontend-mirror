@@ -33,6 +33,8 @@ export interface DatasourceTableState {
   columns: DatasourceResponseSchemaProperty[];
   defaultVisibleColumnKeys: string[];
   totalCount?: number;
+  destinationObjectTypes: string[];
+  extensionKey?: string;
 }
 
 export interface DatasourceTableStateProps {
@@ -63,6 +65,11 @@ export const useDatasourceTableState = ({
   const [totalCount, setTotalCount] =
     useState<DatasourceTableState['totalCount']>(undefined);
   const [shouldForceRequest, setShouldForceRequest] = useState<boolean>(false);
+  const [destinationObjectTypes, setDestinationObjectTypes] = useState<
+    DatasourceTableState['destinationObjectTypes']
+  >([]);
+  const [extensionKey, setExtensionKey] =
+    useState<DatasourceTableState['extensionKey']>();
 
   const { getDatasourceData, getDatasourceDetails } =
     useDatasourceClientExtension();
@@ -74,7 +81,7 @@ export const useDatasourceTableState = ({
 
     try {
       const {
-        meta: { access },
+        meta: { access, destinationObjectTypes, extensionKey },
         data: { schema },
       } = await getDatasourceDetails(datasourceId, {
         parameters,
@@ -84,6 +91,9 @@ export const useDatasourceTableState = ({
         setStatus('unauthorized');
         return;
       }
+
+      setExtensionKey(extensionKey);
+      setDestinationObjectTypes(destinationObjectTypes);
 
       const isColumnNotPresentInCurrentColumnsList = (
         col: DatasourceResponseSchemaProperty,
@@ -152,7 +162,7 @@ export const useDatasourceTableState = ({
 
       try {
         const {
-          meta: { access },
+          meta: { access, destinationObjectTypes, extensionKey },
           data: { items, nextPageCursor, totalCount, schema },
         } = await getDatasourceData(
           datasourceId,
@@ -165,6 +175,8 @@ export const useDatasourceTableState = ({
           return;
         }
 
+        setExtensionKey(extensionKey);
+        setDestinationObjectTypes(destinationObjectTypes);
         setTotalCount(totalCount);
         setNextCursor(nextPageCursor);
 
@@ -267,5 +279,7 @@ export const useDatasourceTableState = ({
     columns,
     defaultVisibleColumnKeys,
     totalCount,
+    extensionKey,
+    destinationObjectTypes,
   };
 };

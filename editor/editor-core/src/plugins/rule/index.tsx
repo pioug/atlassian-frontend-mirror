@@ -19,13 +19,13 @@ import { IconDivider } from '@atlaskit/editor-common/quick-insert';
 import inputRulePlugin from './pm-plugins/input-rule';
 import keymapPlugin from './pm-plugins/keymap';
 
-import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 
 const rulePlugin: NextEditorPlugin<
   'rule',
   {
     pluginConfiguration: undefined;
-    dependencies: [typeof featureFlagsPlugin];
+    dependencies: [FeatureFlagsPlugin];
   }
 > = ({ api }) => {
   const featureFlags = api?.featureFlags?.sharedState.currentState() || {};

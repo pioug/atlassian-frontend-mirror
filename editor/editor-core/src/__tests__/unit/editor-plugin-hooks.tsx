@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import EditorNext from '../../editor-next';
 import { render } from '@testing-library/react';
 import { basePlugin } from '../../plugins';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
 import type {
   NextEditorPlugin,

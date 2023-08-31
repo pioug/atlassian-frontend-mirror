@@ -2,7 +2,7 @@ import { expect, test } from '@af/integration-testing';
 
 test.describe('Button', () => {
   test('show alert on click', async ({ page }) => {
-    await page.visitExample('design-system', 'button', 'testing');
+    await page.visitExample('design-system', 'button', 'testing-old-button');
 
     const alertPromise = page.waitForEvent('dialog', async (alertDialog) => {
       await alertDialog.accept();

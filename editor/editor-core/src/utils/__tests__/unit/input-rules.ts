@@ -25,7 +25,7 @@ import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 
 import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import alignmentPlugin from '../../../plugins/alignment';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import { focusPlugin } from '@atlaskit/editor-plugin-focus';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';

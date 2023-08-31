@@ -24,7 +24,7 @@ import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { basePlugin } from '../../../base';
 import codeBlockPlugin from '../../';
 import { compositionPlugin } from '@atlaskit/editor-plugin-composition';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 const createIndentationAttributes = (

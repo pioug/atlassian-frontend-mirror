@@ -106,7 +106,7 @@ import { listPlugin } from '@atlaskit/editor-plugin-list';
 import codeBlockPlugin from '../../../code-block';
 import { compositionPlugin } from '@atlaskit/editor-plugin-composition';
 import { textFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import layoutPlugin from '../../../layout';
 import { contextPanelPlugin } from '@atlaskit/editor-plugin-context-panel';
 import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';

@@ -22,7 +22,7 @@ import betterTypeHistoryPlugin from '../../../better-type-history';
 
 import dispatchPasteEvent from '@atlaskit/editor-test-helpers/dispatch-paste-event';
 import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 
 const emojiProvider = getTestEmojiResource();

@@ -27,7 +27,7 @@ import { textFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';
 import blockTypePlugin from '../../../../block-type';
 import { listPlugin } from '@atlaskit/editor-plugin-list';
 import tasksAndDecisionsPlugin from '../../../../tasks-and-decisions';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 
 describe('Indentation buttons', () => {

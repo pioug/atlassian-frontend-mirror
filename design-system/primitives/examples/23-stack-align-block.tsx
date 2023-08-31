@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Box, Inline, Stack, xcss } from '../src';
 
-const alignBlockItems = ['start', 'center', 'end'] as const;
+const alignBlockItems = ['start', 'center', 'end', 'stretch'] as const;
 
 const containerStyles = xcss({
   display: 'flex',

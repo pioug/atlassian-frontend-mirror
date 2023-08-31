@@ -22,7 +22,7 @@ import { emojiPlugin } from '@atlaskit/editor-plugin-emoji';
 import deprecatedAnalyticsPlugin from '../../../../plugins/analytics';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { selectNode } from '../../../../utils/commands';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 describe('panel actions', () => {

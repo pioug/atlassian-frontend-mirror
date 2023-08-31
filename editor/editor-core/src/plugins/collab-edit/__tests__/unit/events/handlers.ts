@@ -14,7 +14,7 @@ import { applyRemoteData } from '../../../actions';
 import type { PrivateCollabEditOptions } from '../../../types';
 import type { MockCollabEditProvider } from '@atlaskit/synchrony-test-helpers/mock-collab-provider';
 import { EventEmitter } from 'events';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 
 const mockSynchronyEntityAnalyticsMock = jest.fn();
 jest.mock('../../../analytics', () => ({

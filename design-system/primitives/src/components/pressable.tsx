@@ -34,10 +34,6 @@ type PressableComponent = (
   displayName: string,
 ) => ReactElement | null;
 
-const defaultStyles = xcss({
-  cursor: 'pointer',
-});
-
 // TODO: Duplicated FocusRing styles due to lack of `xcss` support
 // and to prevent additional dependency
 const baseFocusRingStyles = {
@@ -95,7 +91,7 @@ const UNSAFE_PRESSABLE: PressableComponent = forwardRef(
   ) => {
     // Combine default styles with supplied styles. XCSS does not support deep nested arrays
     let styles: XCSS | Array<XCSS | false | undefined> = [
-      defaultStyles,
+      xcss({ cursor: isDisabled ? 'not-allowed' : 'pointer' }),
       focusRingStyles,
     ];
     styles = Array.isArray(xcssStyles)
@@ -103,8 +99,9 @@ const UNSAFE_PRESSABLE: PressableComponent = forwardRef(
       : [...styles, xcssStyles];
 
     return (
-      <Box<'button'>
+      <Box
         {...htmlAttributes}
+        as="button"
         ref={ref}
         testId={testId}
         type={type}
@@ -116,7 +113,6 @@ const UNSAFE_PRESSABLE: PressableComponent = forwardRef(
         paddingInline={paddingInline}
         paddingInlineStart={paddingInlineStart}
         paddingInlineEnd={paddingInlineEnd}
-        as="button"
         // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
         xcss={styles}
         disabled={isDisabled}

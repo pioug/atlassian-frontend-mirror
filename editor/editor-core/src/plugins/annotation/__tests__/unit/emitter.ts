@@ -22,7 +22,7 @@ import {
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
 } from '../../../analytics/types/enums';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 
 describe('annotation emitter', () => {
   let createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));

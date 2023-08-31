@@ -1,14 +1,12 @@
 /** @jsx jsx */
-import { forwardRef, memo, useMemo, useState } from 'react';
+import { forwardRef, memo, useState } from 'react';
 
 import { jsx } from '@emotion/react';
 
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
 import noop from '@atlaskit/ds-lib/noop';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { Box, Stack, xcss } from '@atlaskit/primitives';
 import GlobalTheme from '@atlaskit/theme/components';
-import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import Header from './internal/components/header';
 import WeekDaysComponent from './internal/components/week-days';
@@ -154,12 +152,6 @@ const CalendarWithMode = forwardRef<HTMLDivElement, CalendarProps>(
       weekStartDay,
     });
 
-    const announceId = useUniqueId('announce');
-    const announcerDate = useMemo(
-      () => new Date(yearValue, monthValue - 1, dayValue).toString(),
-      [dayValue, monthValue, yearValue],
-    );
-
     const getNextHeading = () => {
       // Next month is (currentMonth - 1) + 1, or just currentMonth in this
       // instance.
@@ -189,43 +181,13 @@ const CalendarWithMode = forwardRef<HTMLDivElement, CalendarProps>(
         style={style}
         onBlur={handleContainerBlur}
         onFocus={handleContainerFocus}
-        onKeyDown={
-          getBooleanFF(
-            'platform.design-system-team.calendar-keyboard-accessibility_967h1',
-          )
-            ? undefined
-            : handleContainerKeyDown
-        }
         data-testid={testId && `${testId}--container`}
         ref={ref}
       >
-        {getBooleanFF(
-          'platform.design-system-team.calendar-keyboard-accessibility_967h1',
-        ) ? null : (
-          <VisuallyHidden>
-            <span id={announceId} aria-live="assertive" aria-relevant="text">
-              {announcerDate}
-            </span>
-          </VisuallyHidden>
-        )}
         <Box
           xcss={boxStyles}
           padding="space.200"
-          aria-describedby={
-            getBooleanFF(
-              'platform.design-system-team.calendar-keyboard-accessibility_967h1',
-            )
-              ? undefined
-              : announceId
-          }
           aria-label="calendar"
-          tabIndex={
-            getBooleanFF(
-              'platform.design-system-team.calendar-keyboard-accessibility_967h1',
-            )
-              ? undefined
-              : tabIndex
-          }
           testId={testId && `${testId}--calendar`}
         >
           <Stack space="space.150">
@@ -242,38 +204,14 @@ const CalendarWithMode = forwardRef<HTMLDivElement, CalendarProps>(
               handleClickPrev={handleClickPrev}
               headerId={headerId}
               mode={mode}
-              tabIndex={
-                getBooleanFF(
-                  'platform.design-system-team.calendar-keyboard-accessibility_967h1',
-                )
-                  ? tabIndex
-                  : undefined
-              }
+              tabIndex={tabIndex}
               testId={testId}
             />
             <Box
               role="grid"
-              tabIndex={
-                getBooleanFF(
-                  'platform.design-system-team.calendar-keyboard-accessibility_967h1',
-                )
-                  ? tabIndex
-                  : undefined
-              }
-              onKeyDown={
-                getBooleanFF(
-                  'platform.design-system-team.calendar-keyboard-accessibility_967h1',
-                )
-                  ? handleContainerKeyDown
-                  : undefined
-              }
-              aria-labelledby={
-                getBooleanFF(
-                  'platform.design-system-team.calendar-keyboard-accessibility_967h1',
-                )
-                  ? headerId
-                  : undefined
-              }
+              tabIndex={tabIndex}
+              onKeyDown={handleContainerKeyDown}
+              aria-labelledby={headerId}
               testId={testId && `${testId}--calendar-dates`}
             >
               <WeekHeaderComponent

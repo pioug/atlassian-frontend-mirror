@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-core",
-  "version": "187.34.2",
+  "version": "187.35.4",
   "description": "A package contains Atlassian editor core functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -50,12 +50,12 @@
     "@atlaskit/avatar": "^21.3.0",
     "@atlaskit/avatar-group": "^9.4.0",
     "@atlaskit/button": "^16.9.0",
-    "@atlaskit/calendar": "^13.2.0",
+    "@atlaskit/calendar": "^13.3.0",
     "@atlaskit/checkbox": "^12.6.0",
     "@atlaskit/code": "^14.6.0",
     "@atlaskit/date": "^0.10.0",
     "@atlaskit/datetime-picker": "^12.8.0",
-    "@atlaskit/editor-common": "^74.55.0",
+    "@atlaskit/editor-common": "^74.56.0",
     "@atlaskit/editor-json-transformer": "^8.10.0",
     "@atlaskit/editor-markdown-transformer": "^5.2.5",
     "@atlaskit/editor-palette": "1.5.1",
@@ -67,7 +67,7 @@
     "@atlaskit/editor-plugin-decorations": "^0.2.0",
     "@atlaskit/editor-plugin-editor-disabled": "^0.2.0",
     "@atlaskit/editor-plugin-emoji": "^0.3.0",
-    "@atlaskit/editor-plugin-feature-flags": "^0.2.0",
+    "@atlaskit/editor-plugin-feature-flags": "^1.0.0",
     "@atlaskit/editor-plugin-floating-toolbar": "^0.4.0",
     "@atlaskit/editor-plugin-focus": "^0.2.0",
     "@atlaskit/editor-plugin-grid": "^0.2.0",

@@ -1,5 +1,11 @@
 # @atlaskit/focus-ring
 
+## 1.3.6
+
+### Patch Changes
+
+- [`1e90520801a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1e90520801a) - Added this package into push model consumption.
+
 ## 1.3.5
 
 ### Patch Changes

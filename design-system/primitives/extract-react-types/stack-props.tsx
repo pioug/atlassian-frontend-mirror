@@ -5,7 +5,7 @@ import type {
   AlignInline,
   Grow,
   Spread,
-} from '../src/components/stack';
+} from '../src/components/types';
 
 type Space =
   | 'space.0'
@@ -31,7 +31,7 @@ interface StackProps<T extends ElementType = 'div'> {
   /**
    * Used to align children along the main axis.
    */
-  alignBlock?: AlignBlock;
+  alignBlock?: Exclude<AlignBlock, 'baseline'>;
 
   /**
    * Used to align children along the cross axis.

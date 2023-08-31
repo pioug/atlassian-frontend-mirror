@@ -59,6 +59,8 @@ describe('AssetsConfigModal', () => {
       ],
       defaultVisibleColumnKeys: ['myDefaultColumn', 'otherDefaultColumn'],
       totalCount: 3,
+      destinationObjectTypes: ['issue'],
+      extensionKey: 'jira-object-provider',
     });
 
   const getSingleAssetHookState: () => DatasourceTableState = () => ({
@@ -84,6 +86,8 @@ describe('AssetsConfigModal', () => {
     loadDatasourceDetails: jest.fn(),
     reset: jest.fn(),
     totalCount: undefined,
+    destinationObjectTypes: [],
+    extensionKey: undefined,
   });
   const getErrorDatasourceTableHookState: () => DatasourceTableState = () => ({
     columns: [],
@@ -95,6 +99,8 @@ describe('AssetsConfigModal', () => {
     loadDatasourceDetails: jest.fn(),
     reset: jest.fn(),
     totalCount: undefined,
+    destinationObjectTypes: ['issue'],
+    extensionKey: 'jira-object-provider',
   });
   const getLoadingDatasourceTableHookState: () => DatasourceTableState =
     () => ({
@@ -106,6 +112,8 @@ describe('AssetsConfigModal', () => {
       onNextPage: jest.fn(),
       loadDatasourceDetails: jest.fn(),
       reset: jest.fn(),
+      destinationObjectTypes: ['issue'],
+      extensionKey: 'jira-object-provider',
     });
 
   const getObjectSchemasDefaultHookState: () => UseObjectSchemasState = () => ({

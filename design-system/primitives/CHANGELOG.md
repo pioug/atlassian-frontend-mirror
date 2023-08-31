@@ -1,5 +1,17 @@
 # @atlaskit/primitives
 
+## 1.2.3
+
+### Patch Changes
+
+- [`dfd014c15b3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dfd014c15b3) - [ux] Pressable primitive: Adds missing cursor style `not-allowed` for disabled buttons
+
+## 1.2.2
+
+### Patch Changes
+
+- [`9a3fd8455fb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9a3fd8455fb) - Stack `alignBlock` prop now accepts `'stretch'` which is also the default value for the `alignBlock` prop.
+
 ## 1.2.1
 
 ### Patch Changes

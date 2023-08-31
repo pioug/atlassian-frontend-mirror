@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-tables",
-  "version": "2.3.8",
+  "version": "2.3.9",
   "description": "A package that contains common classes and utility functions for editor tables",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "@atlaskit/editor-prosemirror": "1.1.0",
+    "@atlaskit/platform-feature-flags": "^0.2.4",
     "@babel/runtime": "^7.0.0"
   },
   "devDependencies": {
@@ -52,5 +53,10 @@
       ]
     }
   },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
+  "platform-feature-flags": {
+    "platform.editor.custom-table-width": {
+      "type": "boolean"
+    }
+  }
 }

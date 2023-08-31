@@ -1,6 +1,5 @@
 import { CSSObject } from '@emotion/react';
 
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import {
   B100,
   B200,
@@ -46,12 +45,6 @@ const borderColorFocused = {
   dark: token('color.border.focused', B100),
 };
 
-const focusBorderSelector = getBooleanFF(
-  'platform.design-system-team.calendar-keyboard-accessibility_967h1',
-)
-  ? '&:focus-visible'
-  : '&[data-focused]';
-
 export const dateCellStyles = (mode: ThemeModes = 'light'): CSSObject => ({
   all: 'unset',
   display: 'block',
@@ -94,7 +87,7 @@ export const dateCellStyles = (mode: ThemeModes = 'light'): CSSObject => ({
     color: token('color.text.disabled', N40),
     cursor: 'not-allowed',
   },
-  [focusBorderSelector]: {
+  '&:focus-visible': {
     border: `2px solid ${borderColorFocused[mode]}`,
   },
   '&:hover': {

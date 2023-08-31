@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^9.1.0",
-    "@atlaskit/calendar": "^13.2.0",
+    "@atlaskit/calendar": "^13.3.0",
     "@atlaskit/ds-lib": "^2.2.0",
     "@atlaskit/icon": "^21.12.0",
     "@atlaskit/locale": "^2.5.0",

@@ -107,3 +107,19 @@ export const calcNewLayout = (
 
   return isWrappedLayout && width !== contentWidth ? layout : 'center';
 };
+
+let maxToolbarFitWidth = 0;
+
+export const getMaxToolbarWidth = () => {
+  const toolbar = document.querySelector(
+    `div[aria-label="Media floating controls"]`,
+  ) as HTMLElement;
+  const toolbarWidth = toolbar?.getBoundingClientRect().width;
+  if (!toolbar) {
+    maxToolbarFitWidth = 0;
+  }
+  if (toolbarWidth && toolbarWidth > maxToolbarFitWidth) {
+    maxToolbarFitWidth = toolbarWidth;
+  }
+  return maxToolbarFitWidth;
+};

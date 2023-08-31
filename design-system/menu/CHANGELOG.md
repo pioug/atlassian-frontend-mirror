@@ -1,5 +1,11 @@
 # @atlaskit/menu
 
+## 1.10.1
+
+### Patch Changes
+
+- [`a962b1b24eb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a962b1b24eb) - The internal composition of this component has changed. There is no expected change in behavior.
+
 ## 1.10.0
 
 ### Minor Changes

@@ -14,7 +14,7 @@ import {
   getAnalyticsEventsFromTransaction,
 } from '../../../analytics';
 import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 
 describe('Collab Edit Analytics', () => {
   const createEditor = createProsemirrorEditorFactory();

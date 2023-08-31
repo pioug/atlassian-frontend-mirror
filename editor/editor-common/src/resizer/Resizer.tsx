@@ -15,6 +15,7 @@ import {
   resizerHandleThumbClassName,
   resizerHandleTrackClassName,
   resizerHandleZIndex,
+  resizerHoverZoneClassName,
   resizerItemClassName,
 } from '../styles/shared/resizer';
 
@@ -323,7 +324,7 @@ export default function ResizerNext(
       handleComponent={finalHandleComponent}
       {...otherProps}
     >
-      {children}
+      <span className={resizerHoverZoneClassName}>{children}</span>
     </Resizable>
   );
 }

@@ -5,14 +5,14 @@ import type {
 } from '@atlaskit/editor-common/types';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { Rect } from '@atlaskit/editor-tables/table-map';
 import { splitCell } from '@atlaskit/editor-tables/utils';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
@@ -35,7 +35,10 @@ import {
   getToolbarMenuConfig,
 } from '../../plugins/table/toolbar';
 import { canMergeCells } from '../../plugins/table/transforms';
-import { ToolbarMenuConfig, ToolbarMenuState } from '../../plugins/table/types';
+import type {
+  ToolbarMenuConfig,
+  ToolbarMenuState,
+} from '../../plugins/table/types';
 import { getMergedCellsPositions } from '../../plugins/table/utils';
 
 jest.mock('@atlaskit/editor-tables/utils');

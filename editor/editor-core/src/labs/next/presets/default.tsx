@@ -15,7 +15,7 @@ import { editorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 import typeAheadPlugin from '../../../plugins/type-ahead';
 import submitEditorPlugin from '../../../plugins/submit-editor';
 import fakeTextCursorPlugin from '../../../plugins/fake-text-cursor';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import floatingToolbarPlugin from '../../../plugins/floating-toolbar';
 import type { EditorProps } from '../../../types/editor-props';
 import type { EditorPresetProps } from './types';

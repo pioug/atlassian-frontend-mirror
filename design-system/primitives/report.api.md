@@ -35,9 +35,6 @@ import { SerializedStyles as SerializedStyles_2 } from '@emotion/react';
 type AlignBlock = 'baseline' | 'center' | 'end' | 'start' | 'stretch';
 
 // @public (undocumented)
-type AlignBlock_2 = 'center' | 'end' | 'start';
-
-// @public (undocumented)
 type AlignContent = keyof typeof alignContentMap;
 
 // @public (undocumented)
@@ -52,10 +49,7 @@ const alignContentMap: {
 };
 
 // @public (undocumented)
-type AlignInline = 'center' | 'end' | 'start';
-
-// @public (undocumented)
-type AlignInline_2 = 'center' | 'end' | 'start';
+type AlignInline = 'center' | 'end' | 'start' | 'stretch';
 
 // @public (undocumented)
 type AlignItems = keyof typeof alignItemsMap;
@@ -627,9 +621,6 @@ export type GridProps<T extends ElementType = 'div'> = {
 // @public (undocumented)
 type Grow = 'fill' | 'hug';
 
-// @public (undocumented)
-type Grow_2 = 'fill' | 'hug';
-
 // @public
 export const Inline: MemoExoticComponent<
   ForwardRefExoticComponent<
@@ -829,19 +820,16 @@ const spaceMap: {
 // @public (undocumented)
 type Spread = 'space-between';
 
-// @public (undocumented)
-type Spread_2 = 'space-between';
-
 // @public
 export const Stack: MemoExoticComponent<
   ForwardRefExoticComponent<
     Pick<
       {
         as?: 'div' | 'ol' | 'span' | 'ul' | undefined;
-        alignBlock?: AlignBlock_2 | undefined;
-        alignInline?: AlignInline_2 | undefined;
+        alignBlock?: 'center' | 'end' | 'start' | 'stretch' | undefined;
+        alignInline?: AlignInline | undefined;
         spread?: 'space-between' | undefined;
-        grow?: Grow_2 | undefined;
+        grow?: Grow | undefined;
         space?:
           | 'space.0'
           | 'space.025'
@@ -877,10 +865,10 @@ export const Stack: MemoExoticComponent<
 // @public (undocumented)
 export type StackProps<T extends ElementType = 'div'> = {
   as?: 'div' | 'ol' | 'span' | 'ul';
-  alignBlock?: AlignBlock_2;
-  alignInline?: AlignInline_2;
-  spread?: Spread_2;
-  grow?: Grow_2;
+  alignBlock?: Exclude<AlignBlock, 'baseline'>;
+  alignInline?: AlignInline;
+  spread?: Spread;
+  grow?: Grow;
   space?: Space;
   children: ReactNode;
   ref?: React.ComponentPropsWithRef<T>['ref'];

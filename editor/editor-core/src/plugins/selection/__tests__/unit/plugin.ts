@@ -25,7 +25,7 @@ import {
   setNodeSelection,
   setTextSelection,
 } from '../../../../utils/selection';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 
 describe('selection plugin', () => {
   const createEditor = createProsemirrorEditorFactory();

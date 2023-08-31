@@ -28,6 +28,7 @@ import type { AllowedBlockTypes } from '@atlaskit/editor-common/types';
 import { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
 import type { AnalyticsEventPayload as AnalyticsEventPayload_2 } from '@atlaskit/analytics-next/AnalyticsEvent';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { AnnotationTypes } from '@atlaskit/adf-schema';
 import { BrowserFreezetracking } from '@atlaskit/editor-common/types';
 import type { CardOptions } from '@atlaskit/editor-common/card';
@@ -37,6 +38,7 @@ import type { CollabEditOptions } from '@atlaskit/editor-common/collab';
 import { Color } from '@atlaskit/status/element';
 import { Command as Command_2 } from '@atlaskit/editor-common/types';
 import { ComponentType } from 'react';
+import type { compositionPlugin } from '@atlaskit/editor-plugin-composition';
 import type { ConfigWithNodeInfo } from '@atlaskit/editor-plugin-floating-toolbar';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
 import type { ContextUpdateHandler } from '@atlaskit/editor-common/types';
@@ -45,6 +47,7 @@ import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { darkModeStatusColorPalette } from '@atlaskit/editor-common/ui-color';
 import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';
+import type { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import { dedupe } from '@atlaskit/editor-common/utils';
 import { DEFAULT_BORDER_COLOR } from '@atlaskit/editor-common/ui-color';
 import type { DirectEditorProps } from '@atlaskit/editor-prosemirror/view';
@@ -271,9 +274,6 @@ type BeforeAndAfterToolbarComponents = {
 };
 
 // @public (undocumented)
-export const blockPluginStateKey: PluginKey<BlockTypeState>;
-
-// @public (undocumented)
 interface BlockType {
   // (undocumented)
   level?: HeadingLevelsAndNormalText;
@@ -294,6 +294,23 @@ export type BlockTypeInputMethod =
   | INPUT_METHOD.KEYBOARD
   | INPUT_METHOD.SHORTCUT
   | INPUT_METHOD.TOOLBAR;
+
+// @public (undocumented)
+export type BlockTypePlugin = NextEditorPlugin<
+  'blockType',
+  {
+    pluginConfiguration: BlockTypePluginOptions | undefined;
+    dependencies: [OptionalPlugin<typeof analyticsPlugin>];
+    sharedState: BlockTypeState | undefined;
+    actions: {
+      insertBlockQuote: (inputMethod: BlockTypeInputMethod) => Command_2;
+      setBlockType: (
+        name: string,
+        inputMethod: BlockTypeInputMethod,
+      ) => Command_2;
+    };
+  }
+>;
 
 // @public (undocumented)
 interface BlockTypePluginOptions {
@@ -347,6 +364,25 @@ interface CodeBlockOptions extends LongPressSelectionPluginOptions {
   // (undocumented)
   appearance?: EditorAppearance | undefined;
 }
+
+// @public (undocumented)
+export type CodeBlockPlugin = typeof codeBlockPlugin;
+
+// @public (undocumented)
+const codeBlockPlugin: NextEditorPlugin<
+  'codeBlock',
+  {
+    pluginConfiguration: CodeBlockOptions;
+    dependencies: [
+      typeof decorationsPlugin,
+      typeof compositionPlugin,
+      OptionalPlugin<typeof analyticsPlugin>,
+    ];
+    actions: {
+      insertCodeBlock: (inputMethod: INPUT_METHOD) => Command_2;
+    };
+  }
+>;
 
 // @public (undocumented)
 export class CollapsedEditor extends React_2.Component<Props, State> {
@@ -1098,16 +1134,6 @@ export type InsertBlockInputMethodToolbar =
   | INPUT_METHOD.TOOLBAR;
 
 // @public (undocumented)
-export function insertBlockType(name: string): Command_2;
-
-// @public (undocumented)
-export const insertBlockTypesWithAnalytics: (
-  name: string,
-  inputMethod: BlockTypeInputMethod,
-  editorAnalyticsApi: EditorAnalyticsAPI | undefined,
-) => Command_2;
-
-// @public (undocumented)
 export const insertDate: (
   date?: DateType,
   inputMethod?: InsertBlockInputMethodToolbar,
@@ -1558,12 +1584,35 @@ export const openDatePicker: () => Command;
 export { PaletteColor };
 
 // @public (undocumented)
+export type PanelPlugin = typeof panelPlugin;
+
+// @public (undocumented)
+const panelPlugin: NextEditorPlugin<
+  'panel',
+  {
+    pluginConfiguration: PanelPluginOptions | undefined;
+    dependencies: [
+      typeof decorationsPlugin,
+      OptionalPlugin<typeof analyticsPlugin>,
+    ];
+    actions: {
+      insertPanel: (inputMethod: INPUT_METHOD) => Command_2;
+    };
+  }
+>;
+
+// @public (undocumented)
 interface PanelPluginConfig {
   // (undocumented)
   allowCustomPanel?: boolean;
   // (undocumented)
   allowCustomPanelEdit?: boolean;
 }
+
+// @public (undocumented)
+interface PanelPluginOptions
+  extends LongPressSelectionPluginOptions,
+    PanelPluginConfig {}
 
 // @public (undocumented)
 type PastePluginOptions = {
@@ -1848,16 +1897,6 @@ export const selectionPluginKey: PluginKey<any>;
 
 // @public (undocumented)
 interface SelectionPluginOptions extends LongPressSelectionPluginOptions {}
-
-// @public (undocumented)
-export function setBlockType(name: string): Command_2;
-
-// @public (undocumented)
-export function setBlockTypeWithAnalytics(
-  name: string,
-  inputMethod: BlockTypeInputMethod,
-  editorAnalyticsApi: EditorAnalyticsAPI | undefined,
-): Command_2;
 
 // @public (undocumented)
 type SetEditorAPI = (editorApi: PublicPluginAPI<any>) => void;

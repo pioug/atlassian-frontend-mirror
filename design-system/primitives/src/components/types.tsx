@@ -24,3 +24,8 @@ export type BasePrimitiveProps = {
    */
   role?: string;
 };
+
+export type AlignInline = 'start' | 'center' | 'end' | 'stretch';
+export type AlignBlock = 'start' | 'center' | 'end' | 'baseline' | 'stretch';
+export type Spread = 'space-between';
+export type Grow = 'hug' | 'fill';

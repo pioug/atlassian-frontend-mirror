@@ -206,3 +206,5 @@ export function findCutBefore($pos: ResolvedPos): ResolvedPos | null {
 
   return null;
 }
+
+export { insertBlock } from './insert-block';

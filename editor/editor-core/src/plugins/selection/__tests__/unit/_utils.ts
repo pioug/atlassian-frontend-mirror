@@ -17,7 +17,7 @@ import { editorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 import selectionPlugin from '../../index';
 import type { SelectionPluginState } from '../../types';
 import { selectionPluginKey } from '../../types';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 

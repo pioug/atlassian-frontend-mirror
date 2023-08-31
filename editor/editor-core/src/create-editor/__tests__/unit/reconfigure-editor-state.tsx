@@ -5,6 +5,16 @@ import ReactEditorView from '../../ReactEditorView';
 import * as FeatureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { createPreset } from '../../create-preset';
 
+jest.mock('@atlaskit/editor-plugin-feature-flags', () => ({
+  ...jest.requireActual('@atlaskit/editor-plugin-feature-flags'),
+  featureFlagsPlugin: jest.fn(() => ({
+    name: 'featureFlags',
+    sharedState: {
+      currentState: () => ({}),
+    },
+  })),
+}));
+
 describe('ReactEditorView/reconfigureState', () => {
   const defaultProps = {
     providerFactory: ProviderFactory.create({}),
@@ -12,7 +22,10 @@ describe('ReactEditorView/reconfigureState', () => {
     onEditorCreated: () => {},
     onEditorDestroyed: () => {},
   };
-  const featureFlagsPluginSpy = jest.spyOn(FeatureFlagsPlugin, 'default');
+  const featureFlagsCurrentStateSpy = jest.spyOn(
+    FeatureFlagsPlugin,
+    'featureFlagsPlugin',
+  );
 
   afterEach(jest.clearAllMocks);
 
@@ -32,8 +45,8 @@ describe('ReactEditorView/reconfigureState', () => {
         />,
       );
 
-      expect(featureFlagsPluginSpy).toHaveBeenCalledTimes(1);
-      expect(featureFlagsPluginSpy).toHaveBeenCalledWith({
+      expect(featureFlagsCurrentStateSpy).toHaveBeenCalledTimes(1);
+      expect(featureFlagsCurrentStateSpy).toHaveBeenCalledWith({
         config: expect.objectContaining({ ufo: true }),
         api: expect.objectContaining({}),
       });
@@ -53,8 +66,8 @@ describe('ReactEditorView/reconfigureState', () => {
         />,
       );
 
-      expect(featureFlagsPluginSpy).toHaveBeenCalledTimes(1);
-      expect(featureFlagsPluginSpy).toHaveBeenCalledWith({
+      expect(featureFlagsCurrentStateSpy).toHaveBeenCalledTimes(1);
+      expect(featureFlagsCurrentStateSpy).toHaveBeenCalledWith({
         config: expect.objectContaining({ undoRedoButtons: false }),
         api: expect.objectContaining({}),
       });
@@ -70,8 +83,8 @@ describe('ReactEditorView/reconfigureState', () => {
         />,
       );
 
-      expect(featureFlagsPluginSpy).toHaveBeenCalledTimes(2);
-      expect(featureFlagsPluginSpy).toHaveBeenNthCalledWith(2, {
+      expect(featureFlagsCurrentStateSpy).toHaveBeenCalledTimes(2);
+      expect(featureFlagsCurrentStateSpy).toHaveBeenNthCalledWith(2, {
         config: expect.objectContaining({ undoRedoButtons: true }),
         api: expect.objectContaining({}),
       });
@@ -96,8 +109,8 @@ describe('ReactEditorView/reconfigureState', () => {
         />,
       );
 
-      expect(featureFlagsPluginSpy).toHaveBeenCalledTimes(1);
-      expect(featureFlagsPluginSpy).toHaveBeenCalledWith({
+      expect(featureFlagsCurrentStateSpy).toHaveBeenCalledTimes(1);
+      expect(featureFlagsCurrentStateSpy).toHaveBeenCalledWith({
         config: expect.objectContaining({ ufo: true }),
         api: expect.objectContaining({}),
       });
@@ -116,8 +129,8 @@ describe('ReactEditorView/reconfigureState', () => {
         />,
       );
 
-      expect(featureFlagsPluginSpy).toHaveBeenCalledTimes(2);
-      expect(featureFlagsPluginSpy).toHaveBeenNthCalledWith(2, {
+      expect(featureFlagsCurrentStateSpy).toHaveBeenCalledTimes(2);
+      expect(featureFlagsCurrentStateSpy).toHaveBeenNthCalledWith(2, {
         config: expect.objectContaining({ ufo: false }),
         api: expect.objectContaining({}),
       });

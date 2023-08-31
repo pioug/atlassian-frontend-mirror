@@ -7,7 +7,6 @@ import Button from '@atlaskit/button/standard-button';
 import Heading from '@atlaskit/heading';
 import ArrowleftIcon from '@atlaskit/icon/glyph/chevron-left-large';
 import ArrowrightIcon from '@atlaskit/icon/glyph/chevron-right-large';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { Box, Inline } from '@atlaskit/primitives';
 import { N700 } from '@atlaskit/theme/colors';
 import { ThemeModes } from '@atlaskit/theme/types';
@@ -34,11 +33,7 @@ interface HeaderProps {
 const Header = memo<HeaderProps>(function Header({
   monthLongTitle,
   year,
-  previousMonthLabel = getBooleanFF(
-    'platform.design-system-team.calendar-keyboard-accessibility_967h1',
-  )
-    ? 'Previous month'
-    : 'Last month',
+  previousMonthLabel = 'Previous month',
   previousHeading,
   nextMonthLabel = 'Next month',
   nextHeading,
@@ -74,103 +69,48 @@ const Header = memo<HeaderProps>(function Header({
     handleClickNext(e);
   };
 
-  const renderedHeading = (
-    <Heading
-      level="h400"
-      as={
-        getBooleanFF(
-          'platform.design-system-team.calendar-keyboard-accessibility_967h1',
-        )
-          ? 'h2'
-          : 'div'
-      }
-      id={
-        getBooleanFF(
-          'platform.design-system-team.calendar-keyboard-accessibility_967h1',
-        )
-          ? headerId
-          : undefined
-      }
-      testId={testId && `${testId}--current-month-year`}
-    >
-      {`${monthLongTitle} ${year}`}
-    </Heading>
-  );
-
   return (
-    <Box
-      paddingInline="space.100"
-      aria-hidden={
-        getBooleanFF(
-          'platform.design-system-team.calendar-keyboard-accessibility_967h1',
-        )
-          ? undefined
-          : 'true'
-      }
-    >
+    <Box paddingInline="space.100">
       <Inline space="space.0" alignBlock="center" spread="space-between">
         <Button
           appearance="subtle"
           spacing="none"
-          tabIndex={
-            getBooleanFF(
-              'platform.design-system-team.calendar-keyboard-accessibility_967h1',
-            )
-              ? tabIndex
-              : -1
-          }
+          tabIndex={tabIndex}
           onClick={handlePrevMonthInteraction}
           testId={testId && `${testId}--previous-month`}
           iconBefore={
             <ArrowleftIcon
-              label={
-                getBooleanFF(
-                  'platform.design-system-team.calendar-keyboard-accessibility_967h1',
-                )
-                  ? `${previousMonthLabel}, ${previousHeading}`
-                  : previousMonthLabel
-              }
+              label={`${previousMonthLabel}, ${previousHeading}`}
               size="medium"
               primaryColor={token('color.icon', N700)}
               testId={testId && `${testId}--previous-month-icon`}
             />
           }
         />
-        {getBooleanFF(
-          'platform.design-system-team.calendar-keyboard-accessibility_967h1',
-        ) ? (
-          // This is required to ensure that the new month/year is announced when the previous/next month buttons are activated
-          <Box
-            aria-live={hasInteractedWithMonth ? 'polite' : undefined}
-            id={announceId}
-            testId={testId && `${testId}--current-month-year--container`}
+        {/* This is required to ensure that the new month/year is announced when the previous/next month buttons are activated */}
+        <Box
+          aria-live={hasInteractedWithMonth ? 'polite' : undefined}
+          id={announceId}
+          testId={testId && `${testId}--current-month-year--container`}
+        >
+          <Heading
+            level="h400"
+            as="h2"
+            id={headerId}
+            testId={testId && `${testId}--current-month-year`}
           >
-            {renderedHeading}
-          </Box>
-        ) : (
-          renderedHeading
-        )}
+            {`${monthLongTitle} ${year}`}
+          </Heading>
+        </Box>
         <Button
           appearance="subtle"
           spacing="none"
-          tabIndex={
-            getBooleanFF(
-              'platform.design-system-team.calendar-keyboard-accessibility_967h1',
-            )
-              ? tabIndex
-              : -1
-          }
+          tabIndex={tabIndex}
           onClick={handleNextMonthInteraction}
           testId={testId && `${testId}--next-month`}
           iconBefore={
             <ArrowrightIcon
-              label={
-                getBooleanFF(
-                  'platform.design-system-team.calendar-keyboard-accessibility_967h1',
-                )
-                  ? `${nextMonthLabel}, ${nextHeading}`
-                  : nextMonthLabel
-              }
+              label={`${nextMonthLabel}, ${nextHeading}`}
               size="medium"
               primaryColor={token('color.icon', N700)}
               testId={testId && `${testId}--next-month-icon`}

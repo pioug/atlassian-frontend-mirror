@@ -1,6 +1,21 @@
 import { fireEvent, render } from '@testing-library/react';
 import React from 'react';
 
+jest.mock('@atlaskit/editor-common/guideline', () => {
+  const originalModule = jest.requireActual(
+    '@atlaskit/editor-common/guideline',
+  );
+  return {
+    ...originalModule,
+    getGuidelineSnaps: jest
+      .fn()
+      .mockImplementation(originalModule.getGuidelineSnaps),
+    getRelativeGuideSnaps: jest
+      .fn()
+      .mockImplementation(originalModule.getRelativeGuideSnaps),
+  };
+});
+
 import type {
   LightEditorPlugin,
   CreatePMEditorOptions,
@@ -16,7 +31,7 @@ import {
   media,
   p,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import { focusPlugin } from '@atlaskit/editor-plugin-focus';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
@@ -38,6 +53,11 @@ import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import { setNodeSelection } from '@atlaskit/editor-common/utils';
 
+import {
+  getGuidelineSnaps,
+  getRelativeGuideSnaps,
+} from '@atlaskit/editor-common/guideline';
+
 const mediaPos = 2;
 const defaultDocument: CreatePMEditorOptions['doc'] = doc(
   p(''),
@@ -50,15 +70,20 @@ const defaultDocument: CreatePMEditorOptions['doc'] = doc(
   ),
 );
 
-const getEditorView = (document: CreatePMEditorOptions['doc']) => {
+const getEditorView = (
+  document: CreatePMEditorOptions['doc'],
+  withGuidelinePlugin = true,
+) => {
   const createEditor = createProsemirrorEditorFactory();
 
   const preset = new Preset<LightEditorPlugin>()
     .add([featureFlagsPlugin, {}])
     .add(decorationsPlugin)
     .add(widthPlugin)
-    .add(guidelinePlugin)
     .add(gridPlugin)
+    .maybeAdd(guidelinePlugin, (plugin, builder) => {
+      return withGuidelinePlugin ? builder.add(plugin) : builder;
+    })
     .add(editorDisabledPlugin)
     .add(floatingToolbarPlugin)
     .add(focusPlugin)
@@ -97,8 +122,9 @@ const pluginInjectionApiMock = {
 const setup = (
   customProps?: Partial<Props>,
   document: CreatePMEditorOptions['doc'] = defaultDocument,
+  withGuidelinePlugin = true,
 ) => {
-  const { editorView } = getEditorView(document);
+  const { editorView } = getEditorView(document, withGuidelinePlugin);
   setNodeSelection(editorView, mediaPos);
 
   return render(
@@ -114,7 +140,9 @@ const setup = (
       height={1000}
       selected={true}
       dispatchAnalyticsEvent={dispatchAnalyticsEventMock}
-      pluginInjectionApi={pluginInjectionApiMock as any}
+      pluginInjectionApi={
+        withGuidelinePlugin ? (pluginInjectionApiMock as any) : ({} as any)
+      }
       {...customProps}
     >
       <div></div>
@@ -292,6 +320,11 @@ describe('Guidelines', () => {
     displayGuidelineMock.mockReset();
   });
 
+  afterEach(() => {
+    (getGuidelineSnaps as unknown as jest.Mock).mockReset();
+    (getRelativeGuideSnaps as unknown as jest.Mock).mockReset();
+  });
+
   it('should call displayGuideline with correct guidelineConfig list', () => {
     const { getByTestId, container } = setup({
       mediaSingleWidth: 600,
@@ -335,5 +368,31 @@ describe('Guidelines', () => {
     expect(displayGuidelineMock).toBeCalledWith({
       guidelines: [],
     });
+    expect(getGuidelineSnaps).toBeCalledTimes(1);
+    expect(getRelativeGuideSnaps).toBeCalledTimes(1);
+  });
+
+  it('should not have guideline and snaps when guideline plugin does not exist', () => {
+    const { getByTestId } = setup(
+      {
+        mediaSingleWidth: 600,
+        containerWidth: 400,
+        lineLength: 320,
+      },
+      undefined,
+      false,
+    );
+    const draggableElement = getByTestId('richMedia-resize-handle-right-elem');
+
+    fireEvent.mouseDown(draggableElement);
+    fireEvent.mouseMove(draggableElement, {
+      clientX: 16,
+      clientY: 0,
+    });
+
+    fireEvent.mouseUp(draggableElement);
+
+    expect(getGuidelineSnaps).toBeCalledTimes(0);
+    expect(getRelativeGuideSnaps).toBeCalledTimes(0);
   });
 });

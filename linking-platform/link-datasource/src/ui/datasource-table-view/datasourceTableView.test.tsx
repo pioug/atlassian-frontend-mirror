@@ -41,6 +41,8 @@ const setup = (overrides: Partial<DatasourceTableState> = {}) => {
       { key: 'id' },
     ],
     defaultVisibleColumnKeys: ['myColumn'],
+    extensionKey: 'jira-object-provider',
+    destinationObjectTypes: ['issue'],
     ...overrides,
   } as DatasourceTableState);
 
@@ -297,6 +299,34 @@ describe('Analytics: DatasourceTableView', () => {
           },
           eventType: 'ui',
         },
+      },
+      EVENT_CHANNEL,
+    );
+  });
+
+  it('should fire "ui.button.clicked.sync" event when refresh button is clicked', async () => {
+    setup();
+    const { getByRole } = renderComponent();
+
+    getByRole('button', { name: 'Refresh' }).click();
+    expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+      {
+        payload: {
+          eventType: 'ui',
+          actionSubject: 'button',
+          action: 'clicked',
+          actionSubjectId: 'sync',
+          attributes: {
+            extensionKey: 'jira-object-provider',
+            destinationObjectTypes: ['issue'],
+          },
+        },
+        context: [
+          {
+            packageName: '@atlaskit/fabric',
+            packageVersion: '0.0.0',
+          },
+        ],
       },
       EVENT_CHANNEL,
     );

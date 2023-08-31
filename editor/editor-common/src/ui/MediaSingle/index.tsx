@@ -132,6 +132,7 @@ export default function MediaSingle({
         containerWidth,
         mediaSingleWidth,
         fullWidthMode,
+        isExtendedResizeExperienceOn: isPixelWidth,
       })}
       data-layout={layout}
       data-width={mediaSingleWidth}

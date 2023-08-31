@@ -10,7 +10,7 @@ import {
 import { basePlugin } from '../../';
 import { GUTTER_SELECTOR } from '@atlaskit/editor-common/utils';
 import * as mobileDimensionsUtils from '../../../mobile-dimensions/utils';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 
 function createScrollContainer(height: number) {
   const scrollableContent = document.createElement('div');

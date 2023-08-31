@@ -7,19 +7,25 @@ import type datePlugin from '../date';
 import type { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import type { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 
-import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type mentionsPlugin from '../mentions';
 import type quickInsertPlugin from '../quick-insert';
+import type blockTypePlugin from '../block-type';
+import type codeBlockPlugin from '../code-block';
+import type panelPlugin from '../panel';
 
 export type InsertBlockPluginDependencies = [
-  typeof featureFlagsPlugin,
+  FeatureFlagsPlugin,
   OptionalPlugin<typeof tablesPlugin>,
   OptionalPlugin<typeof hyperlinkPlugin>,
   OptionalPlugin<typeof datePlugin>,
+  OptionalPlugin<typeof blockTypePlugin>,
   OptionalPlugin<typeof analyticsPlugin>,
   OptionalPlugin<ImageUploadPlugin>,
   OptionalPlugin<typeof mentionsPlugin>,
   OptionalPlugin<EmojiPlugin>,
   OptionalPlugin<typeof quickInsertPlugin>,
+  OptionalPlugin<typeof codeBlockPlugin>,
+  OptionalPlugin<typeof panelPlugin>,
 ];

@@ -85,6 +85,170 @@ code inside noformat
 }
 `;
 
+exports[`JIRA wiki markup - Lists ADFEXP-371 should have emphasis mark along with textColor 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "order": 1,
+      },
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "content": Array [
+                Object {
+                  "marks": Array [
+                    Object {
+                      "attrs": Object {
+                        "color": "#ff0000",
+                      },
+                      "type": "textColor",
+                    },
+                    Object {
+                      "type": "em",
+                    },
+                  ],
+                  "text": "test",
+                  "type": "text",
+                },
+              ],
+              "type": "paragraph",
+            },
+          ],
+          "type": "listItem",
+        },
+      ],
+      "type": "orderedList",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Lists ADFEXP-371 should have strikethrough mark along with textColor 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "order": 1,
+      },
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "content": Array [
+                Object {
+                  "marks": Array [
+                    Object {
+                      "attrs": Object {
+                        "color": "#ff0000",
+                      },
+                      "type": "textColor",
+                    },
+                    Object {
+                      "type": "strike",
+                    },
+                  ],
+                  "text": "test",
+                  "type": "text",
+                },
+              ],
+              "type": "paragraph",
+            },
+          ],
+          "type": "listItem",
+        },
+      ],
+      "type": "orderedList",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Lists ADFEXP-371 should have strikethrough mark along with textColor with inverted order 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "order": 1,
+      },
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "content": Array [
+                Object {
+                  "marks": Array [
+                    Object {
+                      "type": "strike",
+                    },
+                    Object {
+                      "attrs": Object {
+                        "color": "#ff0000",
+                      },
+                      "type": "textColor",
+                    },
+                  ],
+                  "text": "test",
+                  "type": "text",
+                },
+              ],
+              "type": "paragraph",
+            },
+          ],
+          "type": "listItem",
+        },
+      ],
+      "type": "orderedList",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Lists ADFEXP-371 should have strong mark along with textColor 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "order": 1,
+      },
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "content": Array [
+                Object {
+                  "marks": Array [
+                    Object {
+                      "attrs": Object {
+                        "color": "#ff0000",
+                      },
+                      "type": "textColor",
+                    },
+                    Object {
+                      "type": "strong",
+                    },
+                  ],
+                  "text": "test",
+                  "type": "text",
+                },
+              ],
+              "type": "paragraph",
+            },
+          ],
+          "type": "listItem",
+        },
+      ],
+      "type": "orderedList",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
 exports[`JIRA wiki markup - Lists ADFEXP-371 should parse codeblock inside a color 1`] = `
 Object {
   "content": Array [
@@ -147,6 +311,77 @@ Object {
         },
       ],
       "type": "bulletList",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Lists ADFEXP-371 should parse color and code macro with multiple line breaks and strikethroughs successfully 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "order": 1,
+      },
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "content": Array [
+                Object {
+                  "text": "test ",
+                  "type": "text",
+                },
+                Object {
+                  "marks": Array [
+                    Object {
+                      "attrs": Object {
+                        "color": "#ff0000",
+                      },
+                      "type": "textColor",
+                    },
+                    Object {
+                      "type": "strike",
+                    },
+                  ],
+                  "text": "one",
+                  "type": "text",
+                },
+                Object {
+                  "text": " test -",
+                  "type": "text",
+                },
+              ],
+              "type": "paragraph",
+            },
+            Object {
+              "attrs": Object {
+                "language": "java",
+                "uniqueId": null,
+              },
+              "content": Array [
+                Object {
+                  "text": "two",
+                  "type": "text",
+                },
+              ],
+              "type": "codeBlock",
+            },
+            Object {
+              "content": Array [
+                Object {
+                  "text": "-",
+                  "type": "text",
+                },
+              ],
+              "type": "paragraph",
+            },
+          ],
+          "type": "listItem",
+        },
+      ],
+      "type": "orderedList",
     },
   ],
   "type": "doc",

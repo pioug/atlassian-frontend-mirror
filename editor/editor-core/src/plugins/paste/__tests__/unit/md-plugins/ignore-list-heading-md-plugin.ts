@@ -16,7 +16,7 @@ import { textFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';
 import betterTypeHistoryPlugin from '../../../../better-type-history';
 
 import dispatchPasteEvent from '@atlaskit/editor-test-helpers/dispatch-paste-event';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 
 describe('Paste Markdown Plugins', () => {

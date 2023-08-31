@@ -6,6 +6,7 @@ import ensureTestRunnerNestedCount from './rules/ensure-test-runner-nested-count
 import ensureAtlassianTeam from './rules/ensure-atlassian-team';
 import noInvalidFeatureFlagUsage from './rules/no-invalid-feature-flag-usage';
 import ensureFeatureFlagPrefix from './rules/ensure-feature-flag-prefix';
+import ensureCriticalDependencyResolutions from './rules/ensure-critical-dependency-resolutions';
 import noInvalidStorybookDecoratorUsage from './rules/no-invalid-storybook-decorator-usage';
 import ensurePublishValid from './rules/ensure-publish-valid';
 
@@ -15,6 +16,7 @@ export const rules = {
   'ensure-test-runner-arguments': ensureTestRunnerArguments,
   'ensure-test-runner-nested-count': ensureTestRunnerNestedCount,
   'ensure-atlassian-team': ensureAtlassianTeam,
+  'ensure-critical-dependency-resolutions': ensureCriticalDependencyResolutions,
   'no-invalid-feature-flag-usage': noInvalidFeatureFlagUsage,
   'no-pre-post-install-scripts': noPreAndPostInstallScripts,
   'no-invalid-storybook-decorator-usage': noInvalidStorybookDecoratorUsage,

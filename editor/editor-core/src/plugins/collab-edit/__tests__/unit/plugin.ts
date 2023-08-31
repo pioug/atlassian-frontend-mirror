@@ -13,7 +13,7 @@ import collabEditPlugin from '../../';
 import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../../../analytics';
 import { EditorView } from '@atlaskit/editor-prosemirror/view';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { Schema } from '@atlaskit/editor-prosemirror/model';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';

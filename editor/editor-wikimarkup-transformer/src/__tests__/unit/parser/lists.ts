@@ -1,7 +1,6 @@
 import WikiMarkupTransformer from '../../../index';
 
 describe('JIRA wiki markup - Lists', () => {
-  // Test descriptions that include `[SKIP]` will be skipped
   const testCases: Array<[string, string]> = [
     [
       'should find unordered lists where items start with *',
@@ -202,10 +201,21 @@ abc
       -- b
     `,
     ],
-    // TODO: Should be unskipped and fixed as part of https://product-fabric.atlassian.net/browse/ADFEXP-512
     [
-      '[SKIP] ADFEXP-371 should have strikethrough mark along with textColor',
+      'ADFEXP-371 should have strikethrough mark along with textColor',
       `# -{color:red}test{color}-`,
+    ],
+    [
+      'ADFEXP-371 should have strong mark along with textColor',
+      `# *{color:red}test{color}*`,
+    ],
+    [
+      'ADFEXP-371 should have emphasis mark along with textColor',
+      `# _{color:red}test{color}_`,
+    ],
+    [
+      'ADFEXP-371 should have strikethrough mark along with textColor with inverted order',
+      `# {color:red}-test-{color}`,
     ],
     [
       'ADFEXP-371 should parse color and code macro with multiple line breaks successfully',
@@ -222,6 +232,22 @@ two
 
 
 {code}`,
+    ],
+    [
+      'ADFEXP-371 should parse color and code macro with multiple line breaks and strikethroughs successfully',
+      `# test -{color:red}
+one
+
+
+{color}- test -{code:java}
+
+two
+
+
+
+
+
+{code}-`,
     ],
     [
       'ADFEXP-371 should parse image macro inside a color macro',
@@ -278,9 +304,7 @@ code inside noformat
   };
 
   for (const [testCaseDescription, markup] of testCases) {
-    let testFn: jest.It = testCaseDescription.includes('[SKIP]') ? it.skip : it;
-
-    testFn(testCaseDescription, () => {
+    it(testCaseDescription, () => {
       const transformer = new WikiMarkupTransformer();
       expect(transformer.parse(markup, context)).toMatchSnapshot();
     });

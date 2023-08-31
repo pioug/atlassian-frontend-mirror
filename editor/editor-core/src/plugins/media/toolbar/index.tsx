@@ -46,6 +46,7 @@ import {
   removeMediaGroupNode,
   getPixelWidthOfElement,
   calcNewLayout,
+  getMaxToolbarWidth,
 } from './utils';
 import { isVideo } from '../utils/media-single';
 import {
@@ -620,6 +621,7 @@ export const floatingToolbar = (
     allowAltTextOnImages,
     providerFactory,
     allowMediaInline,
+    allowResizing,
     getEditorFeatureFlags,
   } = options;
   const mediaPluginState: MediaPluginState | undefined =
@@ -727,9 +729,21 @@ export const floatingToolbar = (
     );
   }
 
-  return {
+  const toolbarConfig = {
     ...baseToolbar,
     items,
     scrollable: true,
   };
+
+  if (
+    getBooleanFF('platform.editor.media.extended-resize-experience') &&
+    allowResizing
+  ) {
+    return {
+      ...toolbarConfig,
+      width: mediaPluginState.isResizing ? undefined : getMaxToolbarWidth(),
+    };
+  }
+
+  return toolbarConfig;
 };

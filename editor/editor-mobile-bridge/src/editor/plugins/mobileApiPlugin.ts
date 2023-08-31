@@ -1,4 +1,5 @@
 import { useLayoutEffect } from 'react';
+import type { IntlShape } from 'react-intl-next';
 import type {
   OptionalPlugin,
   NextEditorPlugin,
@@ -16,7 +17,12 @@ import { useHyperlinkListener } from './useHyperlinkListener';
 import { useTextFormattingListener } from './useTextFormattingListener';
 import { useListListener } from './useListListener';
 import { useQuickInsertListener } from './useQuickInsertListener';
-import type { IntlShape } from 'react-intl-next';
+import { useBlockTypeListener } from './useBlockTypeListener';
+import type {
+  PanelPlugin,
+  CodeBlockPlugin,
+  BlockTypePlugin,
+} from '@atlaskit/editor-core';
 
 const useListeners = (
   pluginInjectionApi: ExtractInjectionAPI<typeof mobileApiPlugin> | undefined,
@@ -24,18 +30,24 @@ const useListeners = (
   bridge: WebBridgeImpl,
   intl: IntlShape,
 ) => {
-  const { hyperlinkState, textFormattingState, listState, quickInsertState } =
-    useSharedPluginState(pluginInjectionApi, [
-      'hyperlink',
-      'textFormatting',
-      'list',
-      'quickInsert',
-    ]);
-
+  const {
+    hyperlinkState,
+    textFormattingState,
+    blockTypeState,
+    listState,
+    quickInsertState,
+  } = useSharedPluginState(pluginInjectionApi, [
+    'hyperlink',
+    'textFormatting',
+    'blockType',
+    'list',
+    'quickInsert',
+  ]);
   useHyperlinkListener(editorView, hyperlinkState);
   useTextFormattingListener(textFormattingState, bridge);
   useListListener(listState, bridge);
   useQuickInsertListener(quickInsertState, bridge, intl);
+  useBlockTypeListener(blockTypeState);
 };
 
 export const mobileApiPlugin: NextEditorPlugin<
@@ -44,6 +56,9 @@ export const mobileApiPlugin: NextEditorPlugin<
     dependencies: [
       OptionalPlugin<typeof analyticsPlugin>,
       typeof hyperlinkPlugin,
+      BlockTypePlugin,
+      CodeBlockPlugin,
+      PanelPlugin,
       TextFormattingPlugin,
       ListPlugin,
       OptionalPlugin<typeof quickInsertPlugin>,

@@ -16,10 +16,10 @@ export default {
     'Finn ut mer om å søke med AQL.',
   'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchDescription':
     'Begynn å skrive eller bruk AQL for å søke.',
-  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle':
-    'Søk etter objekter eller objekttyper',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle': 'Søk etter objekter',
   'linkDataSource.assets.configmodal.cancelButtonText': 'Avbryt',
-  'linkDataSource.assets.configmodal.insertIssuesButtonText': 'Sett inn objekter',
+  'linkDataSource.assets.configmodal.insertIssuesButtonText':
+    '{objectsCount, plural, one {Sett inn objekt} other {Sett inn objekter}}',
   'linkDataSource.assets.configmodal.insertObjectsTitle': 'Sett inn objekter fra',
   'linkDataSource.column-picker.search': 'Søk etter felt',
   'linkDataSource.jira-issues.accessInstructions': 'Kontakt administratoren for å be om tilgang.',

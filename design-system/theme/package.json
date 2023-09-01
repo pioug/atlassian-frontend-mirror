@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/theme",
-  "version": "12.5.6",
+  "version": "12.6.0",
   "description": "Theme contains solutions for global theming, colors, typography and other useful mixins.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

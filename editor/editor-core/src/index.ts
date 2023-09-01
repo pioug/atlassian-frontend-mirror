@@ -43,11 +43,9 @@ export type {
 } from './plugins/annotation';
 // Used in mobile bridge
 export { stateKey as mediaPluginKey } from './plugins/media/pm-plugins/main';
-export { mentionPluginKey } from './plugins/mentions';
 export { textColorPluginKey } from './plugins/text-color';
 export type { TextColorPluginState } from './plugins/text-color';
 export { changeColor } from './plugins/text-color/commands/change-color';
-export { insertHorizontalRule } from './plugins/rule/commands';
 export type { BlockTypeState } from './plugins/block-type/pm-plugins/main';
 
 /**

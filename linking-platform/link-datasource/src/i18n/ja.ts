@@ -16,10 +16,9 @@ export default {
     'AQL 検索の詳細をご確認ください。',
   'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchDescription':
     '語句を入力するか、AQL を使って検索できます。',
-  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle':
-    'オブジェクトまたはオブジェクト タイプの検索',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle': 'オブジェクトを検索する',
   'linkDataSource.assets.configmodal.cancelButtonText': 'キャンセル',
-  'linkDataSource.assets.configmodal.insertIssuesButtonText': 'オブジェクトを挿入',
+  'linkDataSource.assets.configmodal.insertIssuesButtonText': '{objectsCount, plural, other {オブジェクトを挿入}}',
   'linkDataSource.assets.configmodal.insertObjectsTitle': 'オブジェクトの挿入元',
   'linkDataSource.column-picker.search': 'フィールドを検索',
   'linkDataSource.jira-issues.accessInstructions': 'アクセスをリクエストするには、管理者にお問い合わせください。',

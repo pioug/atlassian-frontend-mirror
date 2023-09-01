@@ -16,10 +16,10 @@ export default {
     'További információ az AQL-lel történő keresésről',
   'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchDescription':
     'A kereséshez kezdj el gépelni vagy használj AQL-t.',
-  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle':
-    'Objektumok vagy objektumtípusok keresése',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle': 'Objektumok keresése',
   'linkDataSource.assets.configmodal.cancelButtonText': 'Mégse',
-  'linkDataSource.assets.configmodal.insertIssuesButtonText': 'Objektumok beszúrása',
+  'linkDataSource.assets.configmodal.insertIssuesButtonText':
+    '{objectsCount, plural, one {Objektum beszúrása} other {Objektumok beszúrása}}',
   'linkDataSource.assets.configmodal.insertObjectsTitle': 'Objektumok beszúrása innen:',
   'linkDataSource.column-picker.search': 'Mezők keresése',
   'linkDataSource.jira-issues.accessInstructions': 'Hozzáférés igényléséhez fordulj az adminisztrátorodhoz.',

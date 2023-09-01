@@ -91,19 +91,19 @@ export const GoBackItem: React_2.ForwardRefExoticComponent<
 >;
 
 // @public
-export const Header: React_2.ForwardRefExoticComponent<
-  HeaderProps & React_2.RefAttributes<HTMLElement>
+export const Header: ForwardRefExoticComponent<
+  HeaderProps & RefAttributes<HTMLElement>
 >;
 
 // @public (undocumented)
 export type HeaderProps = {
   cssFn?: CSSFn;
-  iconBefore?: React_2.ReactNode;
-  onClick?: (event: React_2.KeyboardEvent | React_2.MouseEvent) => void;
+  iconBefore?: React.ReactNode;
+  onClick?: (event: React.KeyboardEvent | React.MouseEvent) => void;
   description?: JSX.Element | string;
-  children?: React_2.ReactNode;
+  children?: React.ReactNode;
   testId?: string;
-  component?: React_2.ComponentType<CustomItemComponentProps>;
+  component?: React.ComponentType<CustomItemComponentProps>;
 };
 
 // @public
@@ -152,7 +152,7 @@ export interface NavigationContentProps {
 // @public
 export const NavigationFooter: ({
   children,
-}: NavigationFooterProps) => jsx.JSX.Element;
+}: NavigationFooterProps) => JSX.Element;
 
 // @public (undocumented)
 export interface NavigationFooterProps {

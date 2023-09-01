@@ -1,10 +1,7 @@
 import { JsonLd } from 'json-ld-types';
 import { ElementName } from '../../../../../constants';
 import { ElementItem } from '../../../../FlexibleCard/components/blocks/types';
-import {
-  extractOwnedBy,
-  extractAssignedTo,
-} from '../../../../../extractors/flexible/utils';
+import { extractOwnedBy } from '../../../../../extractors/flexible/utils';
 import { getExtensionKey } from '../../../../../state/helpers';
 
 const baseTopMetadata: ElementItem[] = [
@@ -53,9 +50,10 @@ export const getSimulatedBetterMetadata = (
         bottomMetadata: defaultBottomMetadata,
       };
     case 'jira-object-provider':
+      const isJiraTask = data['@type']?.includes('atlassian:Task') ?? false;
       return {
         titleMetadata: defaultTitleMetadata,
-        topMetadata: extractAssignedTo(data)
+        topMetadata: isJiraTask
           ? [
               { name: ElementName.AssignedToGroup },
               { name: ElementName.AssignedTo },

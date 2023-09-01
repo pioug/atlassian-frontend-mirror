@@ -16,10 +16,10 @@ export default {
     'Meer informatie over zoeken met AQL.',
   'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchDescription':
     'Begin met typen of gebruik een AQL om te zoeken.',
-  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle':
-    'Zoeken naar objecten en objecttypen',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle': 'Objecten zoeken',
   'linkDataSource.assets.configmodal.cancelButtonText': 'Annuleren',
-  'linkDataSource.assets.configmodal.insertIssuesButtonText': 'Objecten invoegen',
+  'linkDataSource.assets.configmodal.insertIssuesButtonText':
+    '{objectsCount, plural, one {Object invoegen} other {Objecten invoegen}}',
   'linkDataSource.assets.configmodal.insertObjectsTitle': 'Objecten invoegen van',
   'linkDataSource.column-picker.search': 'Zoek naar velden',
   'linkDataSource.jira-issues.accessInstructions': 'Neem contact op met je beheerder om toegang aan te vragen.',

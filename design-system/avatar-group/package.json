@@ -27,7 +27,7 @@
     "@atlaskit/ds-lib": "^2.1.0",
     "@atlaskit/menu": "^1.10.0",
     "@atlaskit/popup": "^1.9.0",
-    "@atlaskit/theme": "^12.5.0",
+    "@atlaskit/theme": "^12.6.0",
     "@atlaskit/tokens": "^1.18.0",
     "@atlaskit/tooltip": "^17.8.0",
     "@babel/runtime": "^7.0.0",

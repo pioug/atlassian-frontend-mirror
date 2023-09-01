@@ -46,7 +46,7 @@ const getPersonNameWithPrefix = (
   elementName: ElementName,
   personName: string,
   intl: IntlShape,
-): string | null => {
+): string => {
   switch (elementName) {
     case ElementName.AssignedToGroup:
       return getFormattedMessageAsString(
@@ -78,10 +78,24 @@ const AvatarGroup: React.FC<AvatarGroupProps> = ({
   size = SmartLinkSize.Medium,
   testId = 'smart-element-avatar-group',
   showNamePrefix = false,
+  showFallbackAvatar = true,
 }) => {
   const intl = useIntl();
 
   const data = useMemo(() => {
+    if (!items.length && showFallbackAvatar) {
+      switch (name) {
+        case ElementName.AssignedToGroup:
+          return [
+            {
+              name: getFormattedMessageAsString(intl, messages.unassigned),
+            },
+          ];
+        default:
+          return [];
+      }
+    }
+
     if (name && showNamePrefix) {
       return items.map((person) => {
         return {
@@ -90,8 +104,9 @@ const AvatarGroup: React.FC<AvatarGroupProps> = ({
         };
       });
     }
+
     return items;
-  }, [name, items, showNamePrefix, intl]);
+  }, [name, items, showNamePrefix, showFallbackAvatar, intl]);
 
   if (!data.length) {
     return null;

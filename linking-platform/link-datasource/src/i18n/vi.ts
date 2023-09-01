@@ -16,10 +16,9 @@ export default {
     'Tìm hiểu thêm về việc tìm kiếm bằng AQL.',
   'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchDescription':
     'Bắt đầu nhập hoặc sử dụng AQL để tìm kiếm.',
-  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle':
-    'Tìm kiếm đối tượng hoặc loại đối tượng',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle': 'Tìm kiếm các đối tượng',
   'linkDataSource.assets.configmodal.cancelButtonText': 'Hủy',
-  'linkDataSource.assets.configmodal.insertIssuesButtonText': 'Chèn đối tượng',
+  'linkDataSource.assets.configmodal.insertIssuesButtonText': '{objectsCount, plural, other {Chèn đối tượng}}',
   'linkDataSource.assets.configmodal.insertObjectsTitle': 'Chèn đối tượng từ',
   'linkDataSource.column-picker.search': 'Tìm kiếm trường',
   'linkDataSource.jira-issues.accessInstructions': 'Hãy liên hệ với quản trị viên để yêu cầu quyền truy cập.',

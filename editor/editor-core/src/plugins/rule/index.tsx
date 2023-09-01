@@ -4,30 +4,39 @@ import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import { rule } from '@atlaskit/adf-schema';
 
-import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
+import type {
+  NextEditorPlugin,
+  OptionalPlugin,
+} from '@atlaskit/editor-common/types';
 import {
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
-  addAnalytics,
   EVENT_TYPE,
   INPUT_METHOD,
-} from '../analytics';
-import { messages } from '../insert-block/ui/ToolbarInsertBlock/messages';
+} from '@atlaskit/editor-common/analytics';
+import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import { IconDivider } from '@atlaskit/editor-common/quick-insert';
 
 import inputRulePlugin from './pm-plugins/input-rule';
 import keymapPlugin from './pm-plugins/keymap';
+import { insertHorizontalRule } from './commands';
 
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 
-const rulePlugin: NextEditorPlugin<
+export type RulePlugin = NextEditorPlugin<
   'rule',
   {
     pluginConfiguration: undefined;
-    dependencies: [FeatureFlagsPlugin];
+    dependencies: [FeatureFlagsPlugin, OptionalPlugin<AnalyticsPlugin>];
+    actions: {
+      insertHorizontalRule: ReturnType<typeof insertHorizontalRule>;
+    };
   }
-> = ({ api }) => {
+>;
+
+const rulePlugin: RulePlugin = ({ api }) => {
   const featureFlags = api?.featureFlags?.sharedState.currentState() || {};
   return {
     name: 'rule',
@@ -36,15 +45,23 @@ const rulePlugin: NextEditorPlugin<
       return [{ name: 'rule', node: rule }];
     },
 
+    actions: {
+      insertHorizontalRule: insertHorizontalRule(
+        featureFlags,
+        api?.analytics?.actions,
+      ),
+    },
+
     pmPlugins() {
       return [
         {
           name: 'ruleInputRule',
-          plugin: ({ schema }) => inputRulePlugin(schema, featureFlags),
+          plugin: ({ schema }) =>
+            inputRulePlugin(schema, featureFlags, api?.analytics?.actions),
         },
         {
           name: 'ruleKeymap',
-          plugin: () => keymapPlugin(featureFlags),
+          plugin: () => keymapPlugin(featureFlags, api?.analytics?.actions),
         },
       ];
     },
@@ -64,13 +81,14 @@ const rulePlugin: NextEditorPlugin<
               state.schema.nodes.rule.createChecked(),
             );
 
-            return addAnalytics(state, tr, {
+            api?.analytics?.actions.attachAnalyticsEvent({
               action: ACTION.INSERTED,
               actionSubject: ACTION_SUBJECT.DOCUMENT,
               actionSubjectId: ACTION_SUBJECT_ID.DIVIDER,
               attributes: { inputMethod: INPUT_METHOD.QUICK_INSERT },
               eventType: EVENT_TYPE.TRACK,
-            });
+            })(tr);
+            return tr;
           },
         },
       ],

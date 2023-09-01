@@ -16,10 +16,10 @@ export default {
     'Dowiedz się więcej o wyszukiwaniu przy użyciu zapytań AQL.',
   'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchDescription':
     'Zacznij wpisywać lub użyj języka AQL, aby wyszukać.',
-  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle':
-    'Wyszukaj obiekty lub typy obiektów',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle': 'Wyszukaj obiekty',
   'linkDataSource.assets.configmodal.cancelButtonText': 'Anuluj',
-  'linkDataSource.assets.configmodal.insertIssuesButtonText': 'Wstaw obiekty',
+  'linkDataSource.assets.configmodal.insertIssuesButtonText':
+    '{objectsCount, plural, one {Wstaw obiekt} few {Wstaw obiekty} many {Wstaw obiekty} other {Wstaw obiekty}}',
   'linkDataSource.assets.configmodal.insertObjectsTitle': 'Wstawianie obiektów z',
   'linkDataSource.column-picker.search': 'Wyszukaj pola',
   'linkDataSource.jira-issues.accessInstructions': 'Aby poprosić o dostęp, skontaktuj się z administratorem.',

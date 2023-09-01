@@ -30,7 +30,6 @@ import {
   insertExpand,
   insertDate,
   dateToDateType,
-  insertHorizontalRule,
   createTypeAheadTools,
 } from '@atlaskit/editor-core';
 import type {
@@ -635,9 +634,8 @@ export default class WebBridgeImpl
         )(state, dispatch);
         return;
       case 'divider':
-        insertHorizontalRule(
+        this.pluginInjectionApi?.rule?.actions.insertHorizontalRule(
           inputMethod as InsertBlockInputMethodToolbar,
-          this.featureFlags,
         )(state, dispatch);
         return;
       case 'expand':

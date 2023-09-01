@@ -16,7 +16,7 @@ const onSelect = () => log('Select');
 
 export default () => (
   // Necessary to pass the SSR hydration test
-  <Box display="block">
+  <Box>
     <Calendar
       disabled={disabledArray}
       maxDate={'2020-12-25'}

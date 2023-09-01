@@ -15,10 +15,10 @@ export default {
   'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.learnMoreLink': 'Lue lisää AQL-hausta.',
   'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchDescription':
     'Aloita haku kirjoittamalla tai käyttämällä AQL:ää.',
-  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle':
-    'Hae objekteja tai objektityyppejä',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle': 'Hae objekteja',
   'linkDataSource.assets.configmodal.cancelButtonText': 'Peruuta',
-  'linkDataSource.assets.configmodal.insertIssuesButtonText': 'Lisää kohteet',
+  'linkDataSource.assets.configmodal.insertIssuesButtonText':
+    '{objectsCount, plural, one {Lisää kohde} other {Lisää kohteet}}',
   'linkDataSource.assets.configmodal.insertObjectsTitle': 'Lisää objekteja kohteesta',
   'linkDataSource.column-picker.search': 'Hae kenttiä',
   'linkDataSource.jira-issues.accessInstructions': 'Pyydä pääsyä ottamalla yhteys ylläpitäjään.',

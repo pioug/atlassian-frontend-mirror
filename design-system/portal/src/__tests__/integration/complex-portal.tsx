@@ -1,10 +1,11 @@
+import { layers } from '@atlaskit/theme/constants';
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import { getExampleUrl } from '@atlaskit/webdriver-runner/utils/example';
 import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 
 const urlPortal = getExampleUrl('design-system', 'portal', 'complex-layering');
 
-const tooltipZIndex = 800;
+const tooltipZIndex = layers.tooltip();
 const modalZIndex = 510;
 const spotlightZIndex = 701;
 

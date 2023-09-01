@@ -61,7 +61,6 @@ export default {
   'fabric.linking.open_link_in_a_new_tab': 'Otevřít odkaz na nové kartě',
   'fabric.linking.owned_by': 'Vlastník: {context}',
   'fabric.linking.pending_request': 'Vaše žádost o přístup čeká na vyřízení.',
-  'fabric.linking.preview': 'Zobrazení na celou obrazovku',
   'fabric.linking.preview_close': 'Zavřít náhled',
   'fabric.linking.preview_improved': 'Otevřít náhled',
   'fabric.linking.preview_max_size': 'Zobrazit na celé obrazovce',

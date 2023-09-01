@@ -17,7 +17,7 @@ export default {
   'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchDescription':
     '⁣⁢Start typing or use AQL to search.⁠⁠⁬‌⁠⁯⁯⁫⁡‌⁭‍⁪⁬؜‌⁡⁯⁪‍⁠⁮⁪؜⁣⁤',
   'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle':
-    '⁣⁢Search for objects or object types⁮؜⁯‌‌⁫⁬‍⁪⁡⁯⁮⁡⁮⁮⁠⁬⁡⁠⁡‍⁭⁣⁤',
+    '⁣⁢Search for objects⁬⁫‍⁪⁯⁫‍⁭‍⁮⁡⁬⁪⁬⁬⁮⁠⁠؜⁭⁮‍⁫⁣⁤',
   'linkDataSource.assets.configmodal.cancelButtonText': '⁣⁢Cancel⁯؜‌⁭⁮⁭‌⁡⁬⁮⁭⁭⁫⁮‌⁯⁭⁬؜⁫⁬⁠⁪⁠⁣⁤',
   'linkDataSource.assets.configmodal.insertIssuesButtonText':
     '{objectsCount, plural, one {⁣⁢Insert object؜⁪⁭‌؜‌⁯⁮؜⁭؜⁮⁪⁡⁬؜⁪⁫⁠⁪⁭⁪‌⁣⁤} other {⁣⁢Insert objects؜⁪⁭‌؜‌⁯⁮؜⁭؜⁮⁪⁡⁬؜⁪⁫⁠⁪⁭⁪‌⁣⁤}}',

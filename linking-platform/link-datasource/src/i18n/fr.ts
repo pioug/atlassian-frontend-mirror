@@ -16,10 +16,10 @@ export default {
     'En savoir plus sur la recherche AQL',
   'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchDescription':
     'Commencez à taper ou à utiliser AQL pour effectuer une recherche.',
-  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle':
-    "Rechercher des objets ou des types d'objet",
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle': "Recherche d'objets",
   'linkDataSource.assets.configmodal.cancelButtonText': 'Annuler',
-  'linkDataSource.assets.configmodal.insertIssuesButtonText': 'Insérer des objets',
+  'linkDataSource.assets.configmodal.insertIssuesButtonText':
+    '{objectsCount, plural, one {Insérer un objet} other {Insérer des objets}}',
   'linkDataSource.assets.configmodal.insertObjectsTitle': 'Insérer des objets à partir de',
   'linkDataSource.column-picker.search': 'Rechercher des champs',
   'linkDataSource.jira-issues.accessInstructions': "Pour demander l'accès, contactez votre administrateur.",

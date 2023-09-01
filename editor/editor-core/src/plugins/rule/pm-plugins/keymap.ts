@@ -6,16 +6,23 @@ import {
   insertRule,
   escape,
 } from '@atlaskit/editor-common/keymaps';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { insertHorizontalRule } from '../commands';
 import type { FeatureFlags } from '@atlaskit/editor-common/types';
 
-export function keymapPlugin(featureFlags: FeatureFlags): SafePlugin {
+export function keymapPlugin(
+  featureFlags: FeatureFlags,
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+): SafePlugin {
   const list = {};
 
   bindKeymapWithCommand(
     insertRule.common!,
-    insertHorizontalRule(INPUT_METHOD.SHORTCUT, featureFlags),
+    insertHorizontalRule(
+      featureFlags,
+      editorAnalyticsAPI,
+    )(INPUT_METHOD.SHORTCUT),
     list,
   );
 

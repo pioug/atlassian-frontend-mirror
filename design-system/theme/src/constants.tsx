@@ -69,7 +69,7 @@ export const layers: { [P in keyof Layers]: () => Layers[P] } = {
   modal: () => 510,
   flag: () => 600,
   spotlight: () => 700,
-  tooltip: () => 800,
+  tooltip: () => 9999,
 };
 
 // eslint-disable-next-line @atlaskit/design-system/use-visually-hidden

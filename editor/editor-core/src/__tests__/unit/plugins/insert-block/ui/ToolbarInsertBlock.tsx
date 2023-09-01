@@ -760,7 +760,10 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
 
       describe('click rule option', () => {
         it('should fire v3 analytics event', () => {
-          buildToolbarForMenu({ horizontalRuleEnabled: true });
+          buildToolbarForMenu({
+            horizontalRuleEnabled: true,
+            pluginInjectionApi: editorAPI,
+          });
           menu.clickButton(
             messages.horizontalRule.defaultMessage,
             toolbarOption,

@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 26.20.0
+
+### Minor Changes
+
+- [`f2cb6463788`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f2cb6463788) - We are testing a fallback avatar in Assigned Avatar Group in Flex UI behind a feature flag. If this update is successful it will be available in a later release.
+
 ## 26.19.0
 
 ### Minor Changes

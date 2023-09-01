@@ -1,5 +1,12 @@
 # @atlaskit/portal
 
+## 4.3.6
+
+### Patch Changes
+
+- [`f78ae454863`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f78ae454863) - Update tooltip z-index to 9999
+- Updated dependencies
+
 ## 4.3.5
 
 ### Patch Changes

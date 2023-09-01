@@ -78,6 +78,7 @@ export type MessageKey =
   | 'unauthorised_account_description_no_provider'
   | 'unauthorised_account_name'
   | 'unauthorised_account_name_no_provider'
+  | 'unassigned'
   | 'view'
   | 'viewIn'
   | 'viewOriginal'
@@ -561,6 +562,12 @@ export const messages: Messages = defineMessages({
     id: 'fabric.linking.unauthorised_account_name_no_provider',
     defaultMessage: "We can't display private pages",
     description: 'Shown when a user does not have access to a link.',
+  },
+  unassigned: {
+    id: 'fabric.linking.unassigned',
+    defaultMessage: 'Unassigned',
+    description:
+      'Shown as a tooltip text for a default unassigned fallback avatar',
   },
   unlink_account: {
     id: 'fabric.linking.unlink_account',

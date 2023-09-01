@@ -61,7 +61,6 @@ export default {
   'fabric.linking.open_link_in_a_new_tab': 'Avaa linkki uudessa välilehdessä',
   'fabric.linking.owned_by': 'Omistaja: {context}',
   'fabric.linking.pending_request': 'Käyttöoikeuspyyntösi on vireillä',
-  'fabric.linking.preview': 'Koko näytön näkymä',
   'fabric.linking.preview_close': 'Sulje esikatselu',
   'fabric.linking.preview_improved': 'Avaa esikatselu',
   'fabric.linking.preview_max_size': 'Näytä koko näytöllä',

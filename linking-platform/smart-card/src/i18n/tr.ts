@@ -61,7 +61,6 @@ export default {
   'fabric.linking.open_link_in_a_new_tab': 'Bağlantıyı yeni sekmede aç',
   'fabric.linking.owned_by': 'Sahibi: {context}',
   'fabric.linking.pending_request': 'Erişim talebiniz beklemede',
-  'fabric.linking.preview': 'Tam ekran görünümü',
   'fabric.linking.preview_close': 'Önizlemeyi kapat',
   'fabric.linking.preview_improved': 'Önizlemeyi aç',
   'fabric.linking.preview_max_size': 'Tam ekran görüntüle',

@@ -221,8 +221,22 @@ export default class TableView extends ReactNodeView<Props> {
           const isResizing = Boolean(
             tableResizingPluginState?.dragging || isTableResizing,
           );
+
+          /**
+           *  ED-19810
+           *  There is a getPos issue coming from this code. We need to apply this workaround for now and apply a patch
+           *  before CR6 lands in production
+           */
+          let tablePos: number | undefined;
+          try {
+            tablePos =
+              typeof props.getPos === 'function' ? props.getPos() : undefined;
+          } catch (e) {
+            tablePos = undefined;
+          }
+
           const tableActive =
-            props.getPos() === pluginState!.tablePos && !isTableResizing;
+            tablePos === pluginState!.tablePos && !isTableResizing;
 
           return (
             <TableComponent

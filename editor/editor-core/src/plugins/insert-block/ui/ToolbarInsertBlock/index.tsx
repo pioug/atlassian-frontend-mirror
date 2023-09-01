@@ -35,7 +35,6 @@ import { messages } from './messages';
 import type { Props, State, TOOLBAR_MENU_TYPE } from './types';
 import { createItems } from './create-items';
 import { BlockInsertMenu } from './block-insert-menu';
-import { insertHorizontalRule } from '../../../rule/commands';
 import withOuterListeners from '../../../../ui/with-outer-listeners';
 
 /**
@@ -439,10 +438,15 @@ export class ToolbarInsertBlock extends React.PureComponent<
   private insertHorizontalRule = (inputMethod: TOOLBAR_MENU_TYPE): boolean => {
     const {
       editorView: { state, dispatch },
-      featureFlags,
+      pluginInjectionApi,
     } = this.props;
 
-    return insertHorizontalRule(inputMethod, featureFlags)(state, dispatch);
+    return (
+      pluginInjectionApi?.rule?.actions.insertHorizontalRule(inputMethod)(
+        state,
+        dispatch,
+      ) ?? false
+    );
   };
 
   private insertExpand = (): boolean => {

@@ -61,7 +61,6 @@ export default {
   'fabric.linking.open_link_in_a_new_tab': 'Open de link in een nieuw tabblad',
   'fabric.linking.owned_by': 'Eigendom van {context}',
   'fabric.linking.pending_request': 'Je toegangsaanvraag wordt behandeld.',
-  'fabric.linking.preview': 'Volledig schermweergave',
   'fabric.linking.preview_close': 'Voorbeeldweergave sluiten',
   'fabric.linking.preview_improved': 'Voorbeeld openen',
   'fabric.linking.preview_max_size': 'Volledig scherm openen',

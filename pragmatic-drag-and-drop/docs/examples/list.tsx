@@ -68,6 +68,7 @@ type ItemData = {
 
 const listItemContainerStyles = xcss({
   position: 'relative',
+  backgroundColor: 'elevation.surface',
   borderWidth: 'border.width.0',
   borderBottomWidth: token('border.width', '1px'),
   borderStyle: 'solid',
@@ -80,7 +81,6 @@ const listItemContainerStyles = xcss({
 const listItemStyles = xcss({
   position: 'relative',
   padding: 'space.100',
-  background: 'elevation.surface',
 });
 
 const listItemDisabledStyles = xcss({ opacity: 0.4 });
@@ -324,7 +324,6 @@ const containerStyles = xcss({
   borderWidth: 'border.width',
   borderStyle: 'solid',
   borderColor: 'color.border',
-  margin: '48px',
 });
 
 type ListState = {

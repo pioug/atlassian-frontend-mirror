@@ -14,6 +14,7 @@ import type quickInsertPlugin from '../quick-insert';
 import type blockTypePlugin from '../block-type';
 import type codeBlockPlugin from '../code-block';
 import type panelPlugin from '../panel';
+import type { RulePlugin } from '../rule';
 
 export type InsertBlockPluginDependencies = [
   FeatureFlagsPlugin,
@@ -26,6 +27,7 @@ export type InsertBlockPluginDependencies = [
   OptionalPlugin<typeof mentionsPlugin>,
   OptionalPlugin<EmojiPlugin>,
   OptionalPlugin<typeof quickInsertPlugin>,
+  OptionalPlugin<RulePlugin>,
   OptionalPlugin<typeof codeBlockPlugin>,
   OptionalPlugin<typeof panelPlugin>,
 ];

@@ -60,7 +60,6 @@ export default {
   'fabric.linking.open_link_in_a_new_tab': 'Otwórz łącze na nowej karcie',
   'fabric.linking.owned_by': 'Właściciel: {context}',
   'fabric.linking.pending_request': 'Twój wniosek o dostęp oczekuje na rozpatrzenie',
-  'fabric.linking.preview': 'Widok pełnoekranowy',
   'fabric.linking.preview_close': 'Zamknij podgląd',
   'fabric.linking.preview_improved': 'Otwórz podgląd',
   'fabric.linking.preview_max_size': 'Wyświetl na pełnym ekranie',

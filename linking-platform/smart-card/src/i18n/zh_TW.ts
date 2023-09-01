@@ -55,7 +55,6 @@ export default {
   'fabric.linking.open_link_in_a_new_tab': '在新分頁中開啟連結',
   'fabric.linking.owned_by': '負責人：{context}',
   'fabric.linking.pending_request': '您的存取要求擱置中',
-  'fabric.linking.preview': '全螢幕檢視',
   'fabric.linking.preview_close': '關閉預覽',
   'fabric.linking.preview_improved': '開啟預覽',
   'fabric.linking.preview_max_size': '全螢幕檢視',

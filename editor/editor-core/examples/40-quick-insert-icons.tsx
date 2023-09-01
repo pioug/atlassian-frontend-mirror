@@ -3,6 +3,7 @@ import React from 'react';
 import {
   IconAction,
   IconCode,
+  IconCustomPanel,
   IconDate,
   IconDecision,
   IconDivider,
@@ -44,6 +45,7 @@ const QuickInsertIconsExample = () => {
   const icons = [
     IconAction,
     IconCode,
+    IconCustomPanel,
     IconDate,
     IconDecision,
     IconDivider,

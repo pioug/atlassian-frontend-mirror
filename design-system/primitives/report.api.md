@@ -21,7 +21,6 @@ import type * as CSS_2 from 'csstype';
 import type { CSSProperties } from 'react';
 import type { CSSPropertiesWithMultiValues } from '@emotion/serialize';
 import { ElementType } from 'react';
-import { FC } from 'react';
 import { ForwardRefExoticComponent } from 'react';
 import { jsx } from '@emotion/react';
 import { MemoExoticComponent } from 'react';
@@ -81,6 +80,9 @@ type AllMedia =
   | '@media (prefers-reduced-motion: reduce)'
   | '@media screen and (forced-colors: active), screen and (-ms-high-contrast: active)'
   | MediaQuery;
+
+// @public (undocumented)
+type AllowedElements = Exclude<keyof JSX.IntrinsicElements, SVGElements>;
 
 // @public (undocumented)
 type AtRulesWithoutMedia = Exclude<CSS_2.AtRules, '@media'>;
@@ -213,7 +215,7 @@ const backgroundColorMap: {
 };
 
 // @public (undocumented)
-type BaseBoxPropsFoundation<T extends ElementType> = {
+type BaseBoxProps<T extends CustomElementType> = {
   as?: T;
   children?: ReactNode;
   backgroundColor?: BackgroundColor;
@@ -314,18 +316,17 @@ const borderWidthMap: {
 export const Box: BoxComponent;
 
 // @public (undocumented)
-type BoxComponent<T extends ElementType = 'div'> = (<T extends ElementType>(
+type BoxComponent = <T extends CustomElementType>(
   props: BoxProps<T>,
-) => ReactElement | null) &
-  FC<BoxProps<T>>;
+) => ReactElement | null;
 
 // @public (undocumented)
-export type BoxProps<T extends ElementType> = Omit<
+export type BoxProps<T extends CustomElementType> = Omit<
   ComponentPropsWithoutRef<T>,
   'as' | 'className'
 > &
   BasePrimitiveProps &
-  BaseBoxPropsFoundation<T>;
+  BaseBoxProps<T>;
 
 // @public
 export type Breakpoint = 'lg' | 'md' | 'sm' | 'xl' | 'xs' | 'xxs';
@@ -347,6 +348,11 @@ type CSSMediaQueries = {
 type CSSPseudos = {
   [Pseudo in CSS_2.Pseudos]?: Omit<SafeCSSObject, AllMedia | CSS_2.Pseudos>;
 };
+
+// @public (undocumented)
+type CustomElementType<P = any> = {
+  [K in AllowedElements]: P extends JSX.IntrinsicElements[K] ? K : never;
+}[AllowedElements];
 
 // @public (undocumented)
 export type Dimension = keyof typeof dimensionMap;
@@ -873,6 +879,67 @@ export type StackProps<T extends ElementType = 'div'> = {
   children: ReactNode;
   ref?: React.ComponentPropsWithRef<T>['ref'];
 } & BasePrimitiveProps;
+
+// @public (undocumented)
+type SVGElements =
+  | 'animate'
+  | 'animateMotion'
+  | 'animateTransform'
+  | 'circle'
+  | 'clipPath'
+  | 'defs'
+  | 'desc'
+  | 'ellipse'
+  | 'feBlend'
+  | 'feColorMatrix'
+  | 'feComponentTransfer'
+  | 'feComposite'
+  | 'feConvolveMatrix'
+  | 'feDiffuseLighting'
+  | 'feDisplacementMap'
+  | 'feDistantLight'
+  | 'feDropShadow'
+  | 'feFlood'
+  | 'feFuncA'
+  | 'feFuncB'
+  | 'feFuncG'
+  | 'feFuncR'
+  | 'feGaussianBlur'
+  | 'feImage'
+  | 'feMerge'
+  | 'feMergeNode'
+  | 'feMorphology'
+  | 'feOffset'
+  | 'fePointLight'
+  | 'feSpecularLighting'
+  | 'feSpotLight'
+  | 'feTile'
+  | 'feTurbulence'
+  | 'filter'
+  | 'foreignObject'
+  | 'g'
+  | 'image'
+  | 'line'
+  | 'linearGradient'
+  | 'marker'
+  | 'mask'
+  | 'metadata'
+  | 'mpath'
+  | 'path'
+  | 'pattern'
+  | 'polygon'
+  | 'polyline'
+  | 'radialGradient'
+  | 'rect'
+  | 'stop'
+  | 'svg'
+  | 'switch'
+  | 'symbol'
+  | 'text'
+  | 'textPath'
+  | 'tspan'
+  | 'use'
+  | 'view';
 
 // @public (undocumented)
 export type TextColor = keyof typeof textColorMap;

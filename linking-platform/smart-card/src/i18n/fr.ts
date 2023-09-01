@@ -62,7 +62,6 @@ export default {
   'fabric.linking.open_link_in_a_new_tab': 'Ouvrir le lien dans un nouvel onglet',
   'fabric.linking.owned_by': 'Propriétaire : {context}',
   'fabric.linking.pending_request': "Votre demande d'accès est en attente",
-  'fabric.linking.preview': 'Affichage plein écran',
   'fabric.linking.preview_close': "Fermer l'aperçu",
   'fabric.linking.preview_improved': "Ouvrir l'aperçu",
   'fabric.linking.preview_max_size': 'Afficher le mode Plein écran',

@@ -60,7 +60,6 @@ export default {
   'fabric.linking.open_link_in_a_new_tab': 'เปิดลิงก์ในแถบใหม่',
   'fabric.linking.owned_by': 'เจ้าของคือ {context}',
   'fabric.linking.pending_request': 'คำขอการเข้าถึงของคุณกำลังรอดำเนินการ',
-  'fabric.linking.preview': 'มุมมองแบบเต็มหน้าจอ',
   'fabric.linking.preview_close': 'ปิดการแสดงตัวอย่าง',
   'fabric.linking.preview_improved': 'เปิดการแสดงตัวอย่าง',
   'fabric.linking.preview_max_size': 'ดูหน้าจอแบบเต็ม',

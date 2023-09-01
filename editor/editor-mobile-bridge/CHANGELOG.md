@@ -1,5 +1,42 @@
 # @atlaskit/editor-mobile-bridge
 
+## 187.37.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.37.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.36.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.36.0
+
+### Patch Changes
+
+- [`085d722e77f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/085d722e77f) - Decoupling the rule plugin and adding the insertHorizontalRule action to the rule plugin.
+- Updated dependencies
+
+## 187.35.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.35.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 187.35.5
 
 ### Patch Changes

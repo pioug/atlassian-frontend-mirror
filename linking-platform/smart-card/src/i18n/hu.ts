@@ -62,7 +62,6 @@ export default {
   'fabric.linking.open_link_in_a_new_tab': 'Link megnyitása új lapon',
   'fabric.linking.owned_by': 'Tulajdonos: {context}',
   'fabric.linking.pending_request': 'A hozzáférési kérelmed függőben van',
-  'fabric.linking.preview': 'Teljes képernyős nézet',
   'fabric.linking.preview_close': 'Előnézet bezárása',
   'fabric.linking.preview_improved': 'Előnézet megnyitása',
   'fabric.linking.preview_max_size': 'Megtekintés teljes képernyőn',

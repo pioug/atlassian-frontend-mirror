@@ -61,7 +61,6 @@ export default {
   'fabric.linking.open_link_in_a_new_tab': 'Link in neuer Registerkarte öffnen',
   'fabric.linking.owned_by': 'Besitzer: {context}',
   'fabric.linking.pending_request': 'Ihre Zugriffsanfrage ist ausstehend.',
-  'fabric.linking.preview': 'Vollbildansicht',
   'fabric.linking.preview_close': 'Vorschau beenden',
   'fabric.linking.preview_improved': 'Vorschau öffnen',
   'fabric.linking.preview_max_size': 'Vollbildansicht anzeigen',

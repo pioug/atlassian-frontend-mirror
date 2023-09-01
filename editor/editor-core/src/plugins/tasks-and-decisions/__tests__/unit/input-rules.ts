@@ -1,9 +1,10 @@
 import { uuid } from '@atlaskit/adf-schema';
-import {
+import type {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   blockquote,
   bodiedExtension,
@@ -26,7 +27,6 @@ import {
   thCursor,
   thEmpty,
   tr,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { compareSelection } from '@atlaskit/editor-test-helpers/selection';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
@@ -69,6 +69,14 @@ describe('tasks and decisions - input rules', () => {
       item: taskItem,
       listProps: { localId: 'local-uuid' },
       itemProps: { localId: 'local-uuid', state: 'TODO' },
+    },
+    {
+      name: 'checked action',
+      input: '[x] ',
+      list: taskList,
+      item: taskItem,
+      listProps: { localId: 'local-uuid' },
+      itemProps: { localId: 'local-uuid', state: 'DONE' },
     },
     {
       name: 'decision',
@@ -120,7 +128,13 @@ describe('tasks and decisions - input rules', () => {
           table({ localId: 'local-uuid' })(
             tr(thEmpty),
             tr(
-              td({})(list(listProps)(item({ localId: 'local-uuid' })('{<>}'))),
+              td({})(
+                list(listProps)(
+                  item({ localId: 'local-uuid', state: itemProps.state })(
+                    '{<>}',
+                  ),
+                ),
+              ),
             ),
             tr(tdEmpty),
           ),
@@ -277,12 +291,18 @@ describe('tasks and decisions - input rules', () => {
 
       it(`should fire v3 analytics event when ${name}List item added`, () => {
         const { editorView, sel } = editorFactory(doc(p('{<>}')));
+        let nameOfAction = name;
+
         insertText(editorView, input, sel);
+
+        if (name === 'checked action') {
+          nameOfAction = 'action';
+        }
 
         expect(createAnalyticsEvent).toBeCalledWith({
           action: 'inserted',
           actionSubject: 'document',
-          actionSubjectId: name,
+          actionSubjectId: nameOfAction,
           attributes: expect.objectContaining({
             inputMethod: 'autoformatting',
           }),

@@ -35,6 +35,7 @@ import { GapCursorSelection } from '../selection/gap-cursor-selection';
 import type { TOOLBAR_MENU_TYPE } from '../insert-block/ui/ToolbarInsertBlock/types';
 import { stateKey as taskDecisionStateKey } from './pm-plugins/plugin-key';
 import type {
+  AddItemAttrs,
   AddItemTransactionCreator,
   ContextData,
   TaskDecisionInputMethod,
@@ -123,6 +124,7 @@ export const insertTaskDecisionAction = (
   addItem?: AddItemTransactionCreator,
   listLocalId?: string,
   itemLocalId?: string,
+  itemAttrs?: AddItemAttrs,
 ): Transaction => {
   const { schema } = state;
   const addAndCreateList = ({
@@ -146,6 +148,7 @@ export const insertTaskDecisionAction = (
       state,
       listLocalId,
       itemLocalId,
+      itemAttrs,
     );
   const addToList = ({
     state,
@@ -175,6 +178,7 @@ export const insertTaskDecisionAction = (
     addToList,
     listLocalId,
     itemLocalId,
+    itemAttrs,
   );
 
   if (!tr) {
@@ -220,6 +224,7 @@ export const insertTaskDecisionWithAnalytics = (
   addToList?: AddItemTransactionCreator,
   listLocalId?: string,
   itemLocalId?: string,
+  itemAttrs?: AddItemAttrs,
 ): Transaction | null => {
   const { schema } = state;
   const { list, item } = getListTypes(listType, schema);
@@ -259,6 +264,7 @@ export const insertTaskDecisionWithAnalytics = (
       item,
       listLocalId,
       itemLocalId,
+      itemAttrs,
     });
     if (insertTr) {
       insertTr = addAnalytics(
@@ -303,6 +309,7 @@ export const createListAtSelection = (
   state: EditorState,
   listLocalId = uuid.generate(),
   itemLocalId = uuid.generate(),
+  itemAttrs?: AddItemAttrs,
 ): Transaction | null => {
   const { selection } = state;
   const { $from, $to } = selection;
@@ -325,7 +332,7 @@ export const createListAtSelection = (
   }
 
   const emptyList = list.create({ localId: listLocalId }, [
-    item.create({ localId: itemLocalId }),
+    item.create({ localId: itemLocalId, ...itemAttrs }),
   ]);
 
   // we don't take the content of a block node next to the gap cursor and always create an empty task

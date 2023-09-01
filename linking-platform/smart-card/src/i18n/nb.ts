@@ -61,7 +61,6 @@ export default {
   'fabric.linking.open_link_in_a_new_tab': 'Åpne kobling i en ny fane',
   'fabric.linking.owned_by': 'Eid av {context}',
   'fabric.linking.pending_request': 'Avventer svar på forespørselen din om tilgang',
-  'fabric.linking.preview': 'Fullskjermvisning',
   'fabric.linking.preview_close': 'Lukk forhåndsvisning',
   'fabric.linking.preview_improved': 'Åpne forhåndsvisning',
   'fabric.linking.preview_max_size': 'Vis fullskjerm',

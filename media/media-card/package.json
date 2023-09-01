@@ -45,7 +45,7 @@
     "@atlaskit/media-ui": "^24.0.0",
     "@atlaskit/media-viewer": "^48.0.0",
     "@atlaskit/spinner": "^15.5.0",
-    "@atlaskit/theme": "^12.5.0",
+    "@atlaskit/theme": "^12.6.0",
     "@atlaskit/tokens": "^1.18.0",
     "@atlaskit/tooltip": "^17.8.0",
     "@atlaskit/ufo": "^0.2.0",

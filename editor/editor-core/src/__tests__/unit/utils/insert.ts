@@ -31,7 +31,7 @@ import {
   temporaryFileId,
   testCollectionName,
 } from '../plugins/media/_utils';
-import { insertHorizontalRule } from '../../../plugins/rule/commands';
+import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
 
 import layoutPlugin from '../../../plugins/layout';
 import panelPlugin from '../../../plugins/panel';
@@ -214,13 +214,16 @@ describe('@atlaskit/editor-core/utils insert', () => {
       describe('horizontal rule', () => {
         const insertFromToolbar = ({
           editorView,
+          editorAPI,
         }: {
           editorView: EditorView;
+          editorAPI: PublicPluginAPI<[typeof rulePlugin]> | undefined;
         }) => {
           const { state, dispatch } = editorView;
-          insertHorizontalRule(INPUT_METHOD.TOOLBAR, {
-            newInsertionBehaviour: true,
-          })(state, dispatch);
+          editorAPI?.rule.actions?.insertHorizontalRule(INPUT_METHOD.TOOLBAR)(
+            state,
+            dispatch,
+          );
         };
         const insertFromQuickInsert = async ({
           typeAheadTool,

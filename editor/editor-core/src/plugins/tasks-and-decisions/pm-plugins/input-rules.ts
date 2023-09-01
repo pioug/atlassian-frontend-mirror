@@ -17,9 +17,17 @@ import {
   insertTaskDecisionAction,
   getListTypes,
 } from '../commands';
-import type { AddItemTransactionCreator, TaskDecisionListType } from '../types';
+import type {
+  AddItemAttrs,
+  AddItemTransactionCreator,
+  TaskDecisionListType,
+} from '../types';
 
-const createListRule = (regex: RegExp, listType: TaskDecisionListType) => {
+const createListRule = (
+  regex: RegExp,
+  listType: TaskDecisionListType,
+  itemAttrs?: AddItemAttrs,
+) => {
   return createRule(
     regex,
     (
@@ -46,6 +54,9 @@ const createListRule = (regex: RegExp, listType: TaskDecisionListType) => {
         listType,
         INPUT_METHOD.FORMATTING,
         addItem(start, end),
+        undefined,
+        undefined,
+        itemAttrs,
       );
 
       return insertTr;
@@ -55,7 +66,7 @@ const createListRule = (regex: RegExp, listType: TaskDecisionListType) => {
 
 const addItem =
   (start: number, end: number): AddItemTransactionCreator =>
-  ({ tr, state, list, item, listLocalId, itemLocalId }) => {
+  ({ tr, state, list, item, listLocalId, itemLocalId, itemAttrs }) => {
     const {
       selection: { $from },
       schema,
@@ -75,7 +86,7 @@ const addItem =
         $from.before(),
         $from.after(),
         list.create({ localId: listLocalId }, [
-          item.create({ localId: itemLocalId }, content),
+          item.create({ localId: itemLocalId, ...itemAttrs }, content),
         ]),
       )
         .delete(start + 1, end + 1)
@@ -87,7 +98,7 @@ const addItem =
         .replaceSelectionWith(
           list.create({ localId: listLocalId }, [
             item.create(
-              { localId: itemLocalId },
+              { localId: itemLocalId, ...itemAttrs },
               // TODO: [ts30] handle void and null properly
               (tr.doc.nodeAt($from.pos + 1) as Node).content,
             ),
@@ -123,6 +134,13 @@ export function inputRulePlugin(
       createListRule(
         new RegExp(`(^|${leafNodeReplacementCharacter})\\[\\]\\s$`),
         'taskList',
+      ),
+    );
+    rules.push(
+      createListRule(
+        new RegExp(`(^|${leafNodeReplacementCharacter})\\[x\\]\\s$`),
+        'taskList',
+        { state: 'DONE' },
       ),
     );
   }

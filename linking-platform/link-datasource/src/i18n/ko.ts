@@ -16,9 +16,9 @@ export default {
     'AQL을 사용한 검색에 대해 자세히 알아보세요.',
   'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchDescription':
     '입력을 시작하거나 AQL을 사용하여 검색합니다.',
-  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle': '개체 또는 개체 유형 검색',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle': '개체 검색',
   'linkDataSource.assets.configmodal.cancelButtonText': '취소',
-  'linkDataSource.assets.configmodal.insertIssuesButtonText': '개체 삽입',
+  'linkDataSource.assets.configmodal.insertIssuesButtonText': '{objectsCount, plural, other {개체 삽입}}',
   'linkDataSource.assets.configmodal.insertObjectsTitle': '다음의 개체 삽입',
   'linkDataSource.column-picker.search': '필드 검색',
   'linkDataSource.jira-issues.accessInstructions': '액세스를 요청하려면 관리자에게 문의하세요.',

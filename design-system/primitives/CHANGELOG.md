@@ -1,5 +1,11 @@
 # @atlaskit/primitives
 
+## 1.3.0
+
+### Minor Changes
+
+- [`abfe7585461`](https://bitbucket.org/atlassian/atlassian-frontend/commits/abfe7585461) - Improved type safety for Box.
+
 ## 1.2.3
 
 ### Patch Changes

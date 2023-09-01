@@ -62,7 +62,6 @@ export default {
   'fabric.linking.open_link_in_a_new_tab': 'Відкрити посилання в новій вкладці',
   'fabric.linking.owned_by': 'Власник: {context}',
   'fabric.linking.pending_request': 'Запит на надання доступу в очікуванні',
-  'fabric.linking.preview': 'Повноекранне подання',
   'fabric.linking.preview_close': 'Закрити вікно попереднього перегляду',
   'fabric.linking.preview_improved': 'Відкрити попередню версію',
   'fabric.linking.preview_max_size': 'Відкрити в повноекранному режимі',

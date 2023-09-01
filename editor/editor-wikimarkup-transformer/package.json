@@ -35,12 +35,12 @@
     "@atlaskit/adf-schema": "28.1.2",
     "@atlaskit/editor-json-transformer": "^8.10.0",
     "@atlaskit/editor-prosemirror": "1.1.0",
-    "@atlaskit/theme": "^12.5.0",
+    "@atlaskit/theme": "^12.6.0",
     "@babel/runtime": "^7.0.0"
   },
   "devDependencies": {
     "@atlaskit/activity": "^1.0.1",
-    "@atlaskit/editor-core": "^187.35.0",
+    "@atlaskit/editor-core": "^187.37.0",
     "@atlaskit/editor-test-helpers": "^18.11.0",
     "@atlaskit/util-data-test": "^17.8.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",

@@ -132,11 +132,13 @@ const getData = (
 
   const data = context[contextKey as keyof typeof context];
   switch (elementName) {
-    case ElementName.AuthorGroup:
     case ElementName.AssignedToGroup:
+    case ElementName.AuthorGroup:
     case ElementName.CollaboratorGroup:
     case ElementName.OwnedByGroup:
-      return toAvatarGroupProps(data as AvatarItemProps[]);
+      const AvatarGroupsWithFallback = [ElementName.AssignedToGroup];
+      const showFallbackAvatar = AvatarGroupsWithFallback.includes(elementName);
+      return toAvatarGroupProps(data as AvatarItemProps[], showFallbackAvatar);
     case ElementName.AttachmentCount:
     case ElementName.ChecklistProgress:
     case ElementName.CommentCount:
@@ -181,8 +183,9 @@ const getData = (
 
 const toAvatarGroupProps = (
   items?: AvatarItemProps[],
+  showFallbackAvatar?: boolean,
 ): Partial<AvatarGroupProps> | undefined => {
-  return items ? { items } : undefined;
+  return items ? { items } : showFallbackAvatar ? { items: [] } : undefined;
 };
 
 const toBadgeProps = (label?: string): Partial<BadgeProps> | undefined => {

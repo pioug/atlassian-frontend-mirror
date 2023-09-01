@@ -2,33 +2,99 @@
 import {
   ComponentPropsWithoutRef,
   ComponentPropsWithRef,
-  ElementType,
-  FC,
   forwardRef,
   ReactElement,
+  ReactNode,
 } from 'react';
 
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 
+import {
+  BackgroundColor,
+  backgroundColorStylesMap,
+  paddingStylesMap,
+  type Space,
+} from '../xcss/style-maps.partial';
 import { parseXcss } from '../xcss/xcss';
 
-import { BaseBox, BaseBoxPropsFoundation } from './internal/base-box';
-import { BasePrimitiveProps } from './types';
+import { SVGElements } from './internal/types';
+import type { BasePrimitiveProps } from './types';
 
-// Ideally we'd just Omit className from BaseBoxProps however that isn't working as expected
-// So, we're reconstructing the type: this should be the same as BaseBoxProps minus className
-// TODO: Merge Box and BaseBox so there is only one component. There's probably no need for BaseBox anymore.
-export type BoxProps<T extends ElementType> = Omit<
+// Can either Exclude or Extract - here we're excluding all SVG-related elements
+type AllowedElements = Exclude<keyof JSX.IntrinsicElements, SVGElements>;
+
+// Basically just ElementType but without ComponentType, it makes sense to keep the "Type" suffix
+// eslint-disable-next-line @repo/internal/react/consistent-types-definitions
+type CustomElementType<P = any> = {
+  [K in AllowedElements]: P extends JSX.IntrinsicElements[K] ? K : never;
+}[AllowedElements];
+
+export type BoxProps<T extends CustomElementType> = Omit<
   ComponentPropsWithoutRef<T>,
   'as' | 'className'
 > &
   BasePrimitiveProps &
-  BaseBoxPropsFoundation<T>;
+  BaseBoxProps<T>;
 
-type BoxComponent<T extends ElementType = 'div'> = (<T extends ElementType>(
+type BaseBoxProps<T extends CustomElementType> = {
+  /**
+   * The DOM element to render as the Box. Defaults to `div`.
+   */
+  as?: T;
+  /**
+   * Elements to be rendered inside the Box.
+   */
+  children?: ReactNode;
+  /**
+   * Token representing background color with a built-in fallback value.
+   */
+  backgroundColor?: BackgroundColor;
+  /**
+   * Tokens representing CSS shorthand for `paddingBlock` and `paddingInline` together.
+   *
+   * @see paddingBlock
+   * @see paddingInline
+   */
+  padding?: Space;
+  /**
+   * Tokens representing CSS shorthand `paddingBlock`.
+   *
+   * @see paddingBlockStart
+   * @see paddingBlockEnd
+   */
+  paddingBlock?: Space;
+  /**
+   * Tokens representing CSS `paddingBlockStart`.
+   */
+  paddingBlockStart?: Space;
+  /**
+   * Tokens representing CSS `paddingBlockEnd`.
+   */
+  paddingBlockEnd?: Space;
+  /**
+   * Tokens representing CSS shorthand `paddingInline`.
+   *
+   * @see paddingInlineStart
+   * @see paddingInlineEnd
+   */
+  paddingInline?: Space;
+  /**
+   * Tokens representing CSS `paddingInlineStart`.
+   */
+  paddingInlineStart?: Space;
+  /**
+   * Tokens representing CSS `paddingInlineEnd`.
+   */
+  paddingInlineEnd?: Space;
+  /**
+   * Forwarded ref
+   */
+  ref?: ComponentPropsWithRef<T>['ref'];
+};
+
+type BoxComponent = <T extends CustomElementType>(
   props: BoxProps<T>,
-) => ReactElement | null) &
-  FC<BoxProps<T>>;
+) => ReactElement | null;
 
 /**
  * __Box__
@@ -40,10 +106,10 @@ type BoxComponent<T extends ElementType = 'div'> = (<T extends ElementType>(
  * - [Code](https://atlassian.design/components/primitives/box/code)
  * - [Usage](https://atlassian.design/components/primitives/box/usage)
  */
-const Box: BoxComponent = forwardRef(
-  <T extends ElementType = 'div'>(
+export const Box: BoxComponent = forwardRef(
+  <T extends CustomElementType>(
     {
-      as,
+      as = 'div' as T,
       children,
       backgroundColor,
       padding,
@@ -58,35 +124,50 @@ const Box: BoxComponent = forwardRef(
       xcss,
       ...htmlAttributes
     }: BoxProps<T>,
-    ref?: ComponentPropsWithRef<T>['ref'],
+    ref: BoxProps<T>['ref'],
   ) => {
+    const Component = as;
     // This is to remove className from safeHtmlAttributes
+    // @ts-expect-error className doesn't exist in the prop definition but we want to ensure it cannot be applied even if types are bypassed
     const { className: _spreadClass, ...safeHtmlAttributes } = htmlAttributes;
     const className = xcss && parseXcss(xcss);
+
     return (
-      <BaseBox
-        as={as}
-        backgroundColor={backgroundColor}
-        padding={padding}
-        paddingBlock={paddingBlock}
-        paddingBlockStart={paddingBlockStart}
-        paddingBlockEnd={paddingBlockEnd}
-        paddingInline={paddingInline}
-        paddingInlineStart={paddingInlineStart}
-        paddingInlineEnd={paddingInlineEnd}
+      // @ts-expect-error Expression produces a union type that is too complex to represent. I think this is unavoidable
+      <Component
         style={style}
-        testId={testId}
+        // @ts-expect-error Expression produces a union type that is too complex to represent. We may be able to narrow the type here but unsure.
         ref={ref}
-        // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-        css={className}
+        // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
         {...safeHtmlAttributes}
+        css={[
+          baseStyles,
+          backgroundColor && backgroundColorStylesMap[backgroundColor],
+          padding && paddingStylesMap.padding[padding],
+          paddingBlock && paddingStylesMap.paddingBlock[paddingBlock],
+          paddingBlockStart &&
+            paddingStylesMap.paddingBlockStart[paddingBlockStart],
+          paddingBlockEnd && paddingStylesMap.paddingBlockEnd[paddingBlockEnd],
+          paddingInline && paddingStylesMap.paddingInline[paddingInline],
+          paddingInlineStart &&
+            paddingStylesMap.paddingInlineStart[paddingInlineStart],
+          paddingInlineEnd &&
+            paddingStylesMap.paddingInlineEnd[paddingInlineEnd],
+          // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+          className,
+        ]}
+        data-testid={testId}
       >
         {children}
-      </BaseBox>
+      </Component>
     );
   },
 );
 
-Box.displayName = 'Box';
-
 export default Box;
+
+const baseStyles = css({
+  boxSizing: 'border-box',
+  appearance: 'none',
+  border: 'none',
+});

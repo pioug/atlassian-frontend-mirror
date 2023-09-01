@@ -30,7 +30,7 @@ export const getFormattedMessageAsString = (
   context?: string,
 ) => {
   const { formatMessage } = intl;
-  return message ? formatMessage(message, { context }) : null;
+  return message ? formatMessage(message, { context }) : '';
 };
 
 const getIconDimensionStyles = (value: string): SerializedStyles => css`

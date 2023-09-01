@@ -45,6 +45,7 @@ import type { ContextUpdateHandler } from '@atlaskit/editor-common/types';
 import { createTable } from '@atlaskit/editor-plugin-table/commands';
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { darkModeStatusColorPalette } from '@atlaskit/editor-common/ui-color';
+import type { DecisionItemDefinition } from '@atlaskit/adf-schema';
 import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import type { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
@@ -148,6 +149,7 @@ import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 import { setTextSelection } from '@atlaskit/editor-common/utils';
 import type { SEVERITY } from '@atlaskit/editor-common/utils';
 import type { TaskDecisionProvider } from '@atlaskit/task-decision';
+import type { TaskItemDefinition } from '@atlaskit/adf-schema';
 import { TeamMentionResource } from '@atlaskit/mention/team-resource';
 import { InputMethodBasic as TextFormattingInputMethodBasic } from '@atlaskit/editor-common/types';
 import { InputMethodToolbar as TextFormattingInputMethodToolbar } from '@atlaskit/editor-common/types';
@@ -184,6 +186,11 @@ export { ACTION_SUBJECT };
 export { ACTION_SUBJECT_ID };
 
 // @public (undocumented)
+type AddItemAttrs =
+  | Partial<DecisionItemDefinition['attrs']>
+  | Partial<TaskItemDefinition['attrs']>;
+
+// @public (undocumented)
 type AddItemTransactionCreator = (opts: {
   state: EditorState;
   tr: Transaction;
@@ -191,6 +198,7 @@ type AddItemTransactionCreator = (opts: {
   item: NodeType;
   listLocalId: string;
   itemLocalId: string;
+  itemAttrs?: AddItemAttrs;
 }) => Transaction | null;
 
 // @public (undocumented)
@@ -1145,17 +1153,6 @@ export const insertDate: (
 export const insertExpand: Command;
 
 // @public (undocumented)
-export const insertHorizontalRule: (
-  inputMethod:
-    | INPUT_METHOD.FORMATTING
-    | INPUT_METHOD.INSERT_MENU
-    | INPUT_METHOD.QUICK_INSERT
-    | INPUT_METHOD.SHORTCUT
-    | INPUT_METHOD.TOOLBAR,
-  featureFlags: EditorFeatureFlags,
-) => Command;
-
-// @public (undocumented)
 type InsertItemProps = {
   contentItem: TypeAheadItem;
   query: string;
@@ -1525,9 +1522,6 @@ interface MentionPluginConfig {
   // (undocumented)
   insertDisplayName?: boolean;
 }
-
-// @public (undocumented)
-export const mentionPluginKey: PluginKey<MentionPluginState>;
 
 // @public (undocumented)
 export type MentionPluginState = {

@@ -16,8 +16,7 @@ export default {
     'Learn more about searching with AQL.',
   'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchDescription':
     'Start typing or use AQL to search.',
-  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle':
-    'Search for objects or object types',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle': 'Search for objects',
   'linkDataSource.assets.configmodal.cancelButtonText': 'Cancel',
   'linkDataSource.assets.configmodal.insertIssuesButtonText':
     'Insert {objectsCount, plural, one {object} other {objects}}',

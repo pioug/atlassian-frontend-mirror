@@ -16,10 +16,10 @@ export default {
     'AQL ile arama yapmak hakkında daha fazla bilgi edinin.',
   'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchDescription':
     'Aramak için yazmaya başlayın veya AQL kullanın.',
-  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle':
-    'Nesne veya nesne türleri arayın',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle': 'Nesne arayın',
   'linkDataSource.assets.configmodal.cancelButtonText': 'İptal',
-  'linkDataSource.assets.configmodal.insertIssuesButtonText': 'Nesne ekle',
+  'linkDataSource.assets.configmodal.insertIssuesButtonText':
+    '{objectsCount, plural, one {Nesne ekle} other {Nesne ekle}}',
   'linkDataSource.assets.configmodal.insertObjectsTitle': 'Şuradan nesne ekleyin:',
   'linkDataSource.column-picker.search': 'Alan arayın',
   'linkDataSource.jira-issues.accessInstructions': 'Erişim talep etmek için yöneticinizle iletişime geçin.',

@@ -37,7 +37,7 @@
   },
   "dependencies": {
     "@atlaskit/logo": "^13.14.0",
-    "@atlaskit/theme": "^12.5.0",
+    "@atlaskit/theme": "^12.6.0",
     "@atlaskit/tokens": "^1.18.0",
     "@babel/runtime": "^7.0.0",
     "json-ld-types": "3.8.0"

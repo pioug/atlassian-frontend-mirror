@@ -16,9 +16,9 @@ export default {
     'เรียนรู้เพิ่มเติมเกี่ยวกับการค้นหาด้วย AQL',
   'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchDescription':
     'เริ่มพิมพ์หรือใช้ AQL เพื่อค้นหา',
-  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle': 'ค้นหาเรื่องหรือประเภทเรื่อง',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle': 'ค้นหาวัตถุ',
   'linkDataSource.assets.configmodal.cancelButtonText': 'ยกเลิก',
-  'linkDataSource.assets.configmodal.insertIssuesButtonText': 'แทรกเรื่อง',
+  'linkDataSource.assets.configmodal.insertIssuesButtonText': '{objectsCount, plural, other {แทรกเรื่อง}}',
   'linkDataSource.assets.configmodal.insertObjectsTitle': 'แทรกเรื่องจาก',
   'linkDataSource.column-picker.search': 'ค้นหาฟิลด์',
   'linkDataSource.jira-issues.accessInstructions': 'หากต้องการส่งคำขอการเข้าถึง โปรดติดต่อผู้ดูแลของคุณ',

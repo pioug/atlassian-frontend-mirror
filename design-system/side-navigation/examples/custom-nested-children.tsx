@@ -16,7 +16,7 @@ import AppFrame from './common/app-frame';
 
 const IncorrectCustomLeafNodeComponent = () => {
   return (
-    <Box padding="space.100" display="block">
+    <Box padding="space.100">
       <Text
         fontWeight="medium"
         textTransform="uppercase"

@@ -662,7 +662,7 @@ interface Layers {
   // (undocumented)
   spotlight: 700;
   // (undocumented)
-  tooltip: 800;
+  tooltip: 9999;
 }
 
 // @public (undocumented)

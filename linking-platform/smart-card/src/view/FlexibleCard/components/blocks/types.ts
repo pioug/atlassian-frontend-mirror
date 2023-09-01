@@ -292,6 +292,10 @@ export type AssignedToGroup = {
    * Shows a name prefix Assigned To in the Avatar tooltip.
    */
   showNamePrefix?: boolean;
+  /**
+   * Shows a default unassigned fallback avatar when no person is assigned.
+   */
+  showFallbackAvatar?: boolean;
 };
 
 /**

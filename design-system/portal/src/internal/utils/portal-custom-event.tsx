@@ -10,7 +10,7 @@ const zIndexToName: ReversedLayers = {
   510: 'modal',
   600: 'flag',
   700: 'spotlight',
-  800: 'tooltip',
+  9999: 'tooltip',
 };
 
 /**

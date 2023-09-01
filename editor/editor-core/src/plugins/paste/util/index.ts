@@ -96,9 +96,9 @@ export function getPasteSource(event: ClipboardEvent): PasteSource {
 // @see https://github.com/markdown-it/markdown-it/issues/38
 export function escapeLinks(text: string) {
   return text.replace(
-    /(\[([^\]]+)\]\()?((https?|ftp|jamfselfservice):\/\/[^\s]+)/g,
+    /(\[([^\]]+)\]\()?((https?|ftp|jamfselfservice):\/\/[^\s"'>]+)/g,
     (str) => {
-      return str.match(/^(https?|ftp|jamfselfservice):\/\/[^\s]+$/)
+      return str.match(/^(https?|ftp|jamfselfservice):\/\/[^\s"'>]+$/)
         ? `<${str}>`
         : str;
     },

@@ -157,6 +157,7 @@ type AssignedTo = {
 type AssignedToGroup = {
   name: ElementName.AssignedToGroup;
   showNamePrefix?: boolean;
+  showFallbackAvatar?: boolean;
 };
 
 // @public

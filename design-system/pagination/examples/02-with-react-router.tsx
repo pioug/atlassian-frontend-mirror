@@ -3,7 +3,7 @@ import React from 'react';
 import { HashRouter, Link, Route, Switch } from 'react-router-dom';
 
 import Heading from '@atlaskit/heading';
-import { Box } from '@atlaskit/primitives';
+import { Box, Stack } from '@atlaskit/primitives';
 
 import Pagination from '../src';
 
@@ -23,22 +23,22 @@ const PAGES = [
 ];
 
 const Dashboard = () => (
-  <Box flexDirection="column">
+  <Stack>
     <Heading level="h800">Dashboard</Heading>
     <PaginationWithSelectPage pageSelected={0} />
-  </Box>
+  </Stack>
 );
 const About = () => (
-  <Box flexDirection="column">
+  <Stack>
     <Heading level="h800">About page</Heading>
     <PaginationWithSelectPage pageSelected={1} />
-  </Box>
+  </Stack>
 );
 const Contact = () => (
-  <Box flexDirection="column">
+  <Stack>
     <Heading level="h800">Contact page</Heading>
     <PaginationWithSelectPage pageSelected={2} />
-  </Box>
+  </Stack>
 );
 
 interface LinkProps {
@@ -67,7 +67,8 @@ function renderLink(pageType: string, selectedIndex: number) {
         selectedIndex < pages.length - 1 ? pages[selectedIndex + 1].href : '';
     }
     return isDisabled ? (
-      <Box UNSAFE_style={style} {...rest} />
+      // eslint-disable-next-line @atlaskit/design-system/use-primitives
+      <div style={style} {...rest} />
     ) : (
       <Link style={style} {...rest} to={href} />
     );

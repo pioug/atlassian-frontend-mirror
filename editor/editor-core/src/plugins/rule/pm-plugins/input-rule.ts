@@ -6,21 +6,24 @@ import type {
   EditorState,
   Transaction,
 } from '@atlaskit/editor-prosemirror/state';
-import type { FeatureFlags } from '../../../types/feature-flags';
+import type { FeatureFlags } from '@atlaskit/editor-common/types';
 
-import { createRule, createPlugin } from '@atlaskit/prosemirror-input-rules';
-import { leafNodeReplacementCharacter } from '@atlaskit/prosemirror-input-rules';
+import {
+  createRule,
+  createPlugin,
+  leafNodeReplacementCharacter,
+} from '@atlaskit/prosemirror-input-rules';
 import { safeInsert } from '@atlaskit/editor-common/insert';
 import { hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
-  addAnalytics,
   EVENT_TYPE,
   INPUT_METHOD,
-} from '../../analytics';
+} from '@atlaskit/editor-common/analytics';
 
 export const createHorizontalRule = (
   state: EditorState,
@@ -33,6 +36,7 @@ export const createHorizontalRule = (
     | INPUT_METHOD.INSERT_MENU
     | INPUT_METHOD.FORMATTING
     | INPUT_METHOD.SHORTCUT,
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
 ) => {
   if (!state.selection.empty) {
     return null;
@@ -60,13 +64,15 @@ export const createHorizontalRule = (
     );
   }
 
-  return addAnalytics(state, tr, {
+  editorAnalyticsAPI?.attachAnalyticsEvent({
     action: ACTION.INSERTED,
     actionSubject: ACTION_SUBJECT.DOCUMENT,
     actionSubjectId: ACTION_SUBJECT_ID.DIVIDER,
     attributes: { inputMethod },
     eventType: EVENT_TYPE.TRACK,
-  });
+  })(tr);
+
+  return tr;
 };
 
 const createHorizontalRuleAutoformat = (
@@ -74,6 +80,7 @@ const createHorizontalRuleAutoformat = (
   featureFlags: FeatureFlags,
   start: number,
   end: number,
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
 ) => {
   const { listItem } = state.schema.nodes;
 
@@ -87,12 +94,14 @@ const createHorizontalRuleAutoformat = (
     start,
     end,
     INPUT_METHOD.FORMATTING,
+    editorAnalyticsAPI,
   );
 };
 
 export function inputRulePlugin(
   schema: Schema,
   featureFlags: FeatureFlags,
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
 ): SafePlugin | undefined {
   const rules: Array<InputRuleWrapper> = [];
 
@@ -100,7 +109,13 @@ export function inputRulePlugin(
     // '---' and '***' for hr
     rules.push(
       createRule(/^(\-\-\-|\*\*\*)$/, (state, _match, start, end) =>
-        createHorizontalRuleAutoformat(state, featureFlags, start, end),
+        createHorizontalRuleAutoformat(
+          state,
+          featureFlags,
+          start,
+          end,
+          editorAnalyticsAPI,
+        ),
       ),
     );
 
@@ -118,6 +133,7 @@ export function inputRulePlugin(
             featureFlags,
             start,
             end,
+            editorAnalyticsAPI,
           );
         },
       ),

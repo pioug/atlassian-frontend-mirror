@@ -61,7 +61,6 @@ export default {
   'fabric.linking.open_link_in_a_new_tab': 'Mở liên kết trong tab mới',
   'fabric.linking.owned_by': 'Sở hữu bởi {context}',
   'fabric.linking.pending_request': 'Đang chờ xử lý yêu cầu quyền truy cập của bạn',
-  'fabric.linking.preview': 'Chế độ xem toàn màn hình',
   'fabric.linking.preview_close': 'Đóng bản xem trước',
   'fabric.linking.preview_improved': 'Mở bản xem trước',
   'fabric.linking.preview_max_size': 'Xem toàn màn hình',

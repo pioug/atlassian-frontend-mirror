@@ -60,7 +60,6 @@ export default {
   'fabric.linking.open_link_in_a_new_tab': 'リンクを新しいタブで開く',
   'fabric.linking.owned_by': '所有者: {context}',
   'fabric.linking.pending_request': 'アクセス リクエストは保留中です。',
-  'fabric.linking.preview': '全画面表示',
   'fabric.linking.preview_close': 'プレビューを閉じる',
   'fabric.linking.preview_improved': 'プレビューを開く',
   'fabric.linking.preview_max_size': '全画面表示',

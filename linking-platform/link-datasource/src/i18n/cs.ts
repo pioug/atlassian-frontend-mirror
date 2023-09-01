@@ -16,10 +16,10 @@ export default {
     'Další informace o vyhledávání pomocí AQL',
   'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchDescription':
     'Chcete-li vyhledávat, začněte psát nebo použijte dotaz AQL.',
-  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle':
-    'Vyhledat objekty nebo typy objektů',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle': 'Vyhledat objekty',
   'linkDataSource.assets.configmodal.cancelButtonText': 'Zrušit',
-  'linkDataSource.assets.configmodal.insertIssuesButtonText': 'Vložit objekty',
+  'linkDataSource.assets.configmodal.insertIssuesButtonText':
+    '{objectsCount, plural, one {Vložit objekt} few {Vložit objekty} many {Vložit objekty} other {Vložit objekty}}',
   'linkDataSource.assets.configmodal.insertObjectsTitle': 'Vložit objekty z:',
   'linkDataSource.column-picker.search': 'Vyhledat pole',
   'linkDataSource.jira-issues.accessInstructions': 'Chcete-li požádat o přístup, obraťte se na správce.',

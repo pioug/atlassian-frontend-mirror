@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-table
 
+## 2.12.5
+
+### Patch Changes
+
+- [`1da71810c5d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1da71810c5d) - [Regression] Fix Invalid getPos issue happening for Table nodeviews
+
 ## 2.12.4
 
 ### Patch Changes

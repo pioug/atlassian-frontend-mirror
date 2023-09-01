@@ -61,7 +61,6 @@ export default {
   'fabric.linking.open_link_in_a_new_tab': 'Öppna länk i en ny flik',
   'fabric.linking.owned_by': 'Ägs av {context}',
   'fabric.linking.pending_request': 'Din åtkomstförfrågan väntar på svar',
-  'fabric.linking.preview': 'Helskärmsvy',
   'fabric.linking.preview_close': 'Stäng förhandsvisning',
   'fabric.linking.preview_improved': 'Öppna förhandsgranskning',
   'fabric.linking.preview_max_size': 'Visa helskärm',

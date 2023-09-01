@@ -22,12 +22,16 @@ import {
   unsupportedStyles,
 } from '@atlaskit/editor-common/styles';
 import {
+  akEditorSelectedBorderSize,
+  akEditorDeleteBorder,
+  akEditorDeleteBackgroundWithOpacity,
   akEditorSelectedNodeClassName,
   blockNodesVerticalMargin,
   editorFontSize,
   getSelectionStyles,
   SelectionStyle,
 } from '@atlaskit/editor-shared-styles';
+import { MentionSharedCssClassName } from '@atlaskit/editor-common/mention';
 import { token } from '@atlaskit/tokens';
 
 import { telepointerStyle } from '../../plugins/collab-edit/styles';
@@ -41,7 +45,6 @@ import { mediaStyles } from '../../plugins/media/styles';
 import { layoutStyles } from '../../plugins/layout/styles';
 import { panelStyles } from '../../plugins/panel/styles';
 import { fakeCursorStyles } from '../../plugins/fake-text-cursor/styles';
-import { mentionsStyles } from '../../plugins/mentions/styles';
 import { placeholderTextStyles } from '../../plugins/placeholder-text/styles';
 import { extensionStyles } from '../../plugins/extension/ui/styles';
 import { expandStyles } from '../../plugins/expand/ui/styles';
@@ -60,6 +63,8 @@ import {
 import { browser } from '@atlaskit/editor-common/utils';
 import { EmojiSharedCssClassName } from '@atlaskit/editor-common/emoji';
 
+import { N500, N30A } from '@atlaskit/theme/colors';
+
 export const linkStyles = css`
   .ProseMirror {
     ${linkSharedStyle}
@@ -70,6 +75,38 @@ type ContentStylesProps = {
   theme?: any;
   featureFlags?: FeatureFlags;
 };
+
+const mentionsStyles = css`
+  .${MentionSharedCssClassName.MENTION_CONTAINER} {
+    &.${akEditorSelectedNodeClassName} [data-mention-id] > span {
+      ${getSelectionStyles([
+        SelectionStyle.BoxShadow,
+        SelectionStyle.Background,
+      ])}
+
+      /* need to specify dark text colour because personal mentions
+         (in dark blue) have white text by default */
+      color: ${token('color.text.subtle', N500)};
+    }
+  }
+
+  .danger {
+    .${MentionSharedCssClassName.MENTION_CONTAINER}.${akEditorSelectedNodeClassName}
+      > span
+      > span
+      > span {
+      box-shadow: 0 0 0 ${akEditorSelectedBorderSize}px ${akEditorDeleteBorder};
+      background-color: ${token(
+        'color.background.danger',
+        akEditorDeleteBackgroundWithOpacity,
+      )};
+    }
+    .${MentionSharedCssClassName.MENTION_CONTAINER} > span > span > span {
+      background-color: ${token('color.background.neutral', N30A)};
+      color: ${token('color.text.subtle', N500)};
+    }
+  }
+`;
 
 const listsStyles = css`
   .ProseMirror {

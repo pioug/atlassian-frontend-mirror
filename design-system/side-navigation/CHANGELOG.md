@@ -1,5 +1,18 @@
 # @atlaskit/side-navigation
 
+## 2.0.3
+
+### Patch Changes
+
+- [`e3b28897c5f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e3b28897c5f) - Internal code changes. There is no expected change in behaviour.
+- Updated dependencies
+
+## 2.0.2
+
+### Patch Changes
+
+- [`bff06efcf86`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bff06efcf86) - Fix a bug where `className` was not being applied to Header.
+
 ## 2.0.1
 
 ### Patch Changes

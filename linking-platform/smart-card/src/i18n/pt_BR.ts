@@ -61,7 +61,6 @@ export default {
   'fabric.linking.open_link_in_a_new_tab': 'Abrir link em uma nova guia',
   'fabric.linking.owned_by': 'Pertence a {context}',
   'fabric.linking.pending_request': 'A solicitação de acesso está pendente',
-  'fabric.linking.preview': 'Visualização em tela cheia',
   'fabric.linking.preview_close': 'Fechar pré-visualização',
   'fabric.linking.preview_improved': 'Abir pré-visualização',
   'fabric.linking.preview_max_size': 'Exibir em tela cheia',

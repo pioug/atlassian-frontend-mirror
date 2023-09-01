@@ -16,9 +16,9 @@ export default {
     '详细了解如何使用 AQL 进行搜索。',
   'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchDescription':
     '开始输入搜索内容或使用 AQL 进行搜索。',
-  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle': '搜索对象或对象类型',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle': '搜索对象',
   'linkDataSource.assets.configmodal.cancelButtonText': '取消',
-  'linkDataSource.assets.configmodal.insertIssuesButtonText': '插入对象',
+  'linkDataSource.assets.configmodal.insertIssuesButtonText': '{objectsCount, plural, other {插入对象}}',
   'linkDataSource.assets.configmodal.insertObjectsTitle': '插入以下来源的对象：',
   'linkDataSource.column-picker.search': '搜索字段',
   'linkDataSource.jira-issues.accessInstructions': '要申请访问权限，请联系您的管理员。',

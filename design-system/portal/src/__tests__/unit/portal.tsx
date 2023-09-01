@@ -258,10 +258,10 @@ describe('Portal container', () => {
       expect.objectContaining(getMountEventObject('spotlight', 700)),
     );
 
-    render(<Wrapper zIndex={800} />);
+    render(<Wrapper zIndex={9999} />);
 
     expect(onMountListener).toHaveBeenCalledWith(
-      expect.objectContaining(getMountEventObject('tooltip', 800)),
+      expect.objectContaining(getMountEventObject('tooltip', 9999)),
     );
 
     // case when z-index does not have corresponding layer name

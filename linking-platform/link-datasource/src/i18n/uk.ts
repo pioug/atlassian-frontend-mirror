@@ -16,10 +16,10 @@ export default {
     'Докладніше про пошук засобами AQL.',
   'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchDescription':
     'Почніть вводити запит або скористайтесь AQL для пошуку.',
-  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle':
-    "Пошук об’єктів або типів об'єктів",
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle': 'Пошук об’єктів',
   'linkDataSource.assets.configmodal.cancelButtonText': 'Скасувати',
-  'linkDataSource.assets.configmodal.insertIssuesButtonText': 'Вставити об’єкти',
+  'linkDataSource.assets.configmodal.insertIssuesButtonText':
+    '{objectsCount, plural, one {Вставити об’єкт(-и)} few {Вставити об’єкти} many {Вставити об’єкти} other {Вставити об’єкти}}',
   'linkDataSource.assets.configmodal.insertObjectsTitle': 'Вставка об’єктів з',
   'linkDataSource.column-picker.search': 'Пошук полів',
   'linkDataSource.jira-issues.accessInstructions': 'Щоб запитати доступ, зверніться до адміністратора.',

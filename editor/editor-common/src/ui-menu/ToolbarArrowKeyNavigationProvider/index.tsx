@@ -1,15 +1,17 @@
 /** @jsx jsx */
 /* eslint-disable no-console */
-import React, { ReactNode, useCallback, useLayoutEffect, useRef } from 'react';
+import type { ReactNode } from 'react';
+import React, { useCallback, useLayoutEffect, useRef } from 'react';
 
 import { css, jsx } from '@emotion/react';
-import { IntlShape } from 'react-intl-next/src/types';
+import type { IntlShape } from 'react-intl-next/src/types';
 
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { fullPageMessages as messages } from '../../messages';
-import { EditorAppearance } from '../../types';
-import { EDIT_AREA_ID, UseStickyToolbarType } from '../../ui';
+import type { EditorAppearance } from '../../types';
+import type { UseStickyToolbarType } from '../../ui';
+import { EDIT_AREA_ID } from '../../ui';
 
 export interface KeyDownHandlerContext {
   handleArrowLeft: () => void;
@@ -310,11 +312,17 @@ function getFilteredFocusableElements(
   rootNode: HTMLElement | null,
 ): Array<HTMLElement> {
   //The focusable elements from child components such as dropdown menus / popups are ignored
-  return getFocusableElements(rootNode).filter(
-    (elm) =>
+  return getFocusableElements(rootNode).filter((elm) => {
+    const style = window.getComputedStyle(elm);
+    // ignore invisible element to avoid losing focus
+    const isVisible = style.visibility !== 'hidden' && style.display !== 'none';
+
+    return (
       !elm.closest('[data-role="droplistContent"]') &&
       !elm.closest('[data-emoji-picker-container="true"]') &&
       !elm.closest('[data-test-id="color-picker-menu"]') &&
-      !elm.closest('.scroll-buttons'),
-  );
+      !elm.closest('.scroll-buttons') &&
+      isVisible
+    );
+  });
 }

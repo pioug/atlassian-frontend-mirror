@@ -12,7 +12,10 @@ import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import type { ListPlugin } from '@atlaskit/editor-plugin-list';
 import type { TextFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';
-import type { quickInsertPlugin } from '@atlaskit/editor-core/src/plugins';
+import type {
+  quickInsertPlugin,
+  rulePlugin,
+} from '@atlaskit/editor-core/src/plugins';
 import { useHyperlinkListener } from './useHyperlinkListener';
 import { useTextFormattingListener } from './useTextFormattingListener';
 import { useListListener } from './useListListener';
@@ -62,6 +65,7 @@ export const mobileApiPlugin: NextEditorPlugin<
       TextFormattingPlugin,
       ListPlugin,
       OptionalPlugin<typeof quickInsertPlugin>,
+      OptionalPlugin<typeof rulePlugin>,
     ];
     pluginConfiguration: { bridge: WebBridgeImpl; intl: IntlShape };
   }

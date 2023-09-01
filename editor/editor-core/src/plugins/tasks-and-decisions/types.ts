@@ -1,3 +1,7 @@
+import type {
+  DecisionItemDefinition,
+  TaskItemDefinition,
+} from '@atlaskit/adf-schema';
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import type {
   EditorState,
@@ -25,6 +29,10 @@ export type ContextData = {
   userContext: USER_CONTEXT;
 };
 
+export type AddItemAttrs =
+  | Partial<DecisionItemDefinition['attrs']>
+  | Partial<TaskItemDefinition['attrs']>;
+
 export type AddItemTransactionCreator = (opts: {
   state: EditorState;
   tr: Transaction;
@@ -32,6 +40,7 @@ export type AddItemTransactionCreator = (opts: {
   item: NodeType;
   listLocalId: string;
   itemLocalId: string;
+  itemAttrs?: AddItemAttrs;
 }) => Transaction | null;
 
 export interface TaskDecisionPluginOptions

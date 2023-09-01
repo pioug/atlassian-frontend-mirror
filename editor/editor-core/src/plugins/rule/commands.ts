@@ -1,9 +1,15 @@
-import { FeatureFlags } from '@atlaskit/editor-common/types';
-import { Command } from '../../types';
-import { INPUT_METHOD } from '../analytics';
+import type { FeatureFlags, Command } from '@atlaskit/editor-common/types';
+import type {
+  INPUT_METHOD,
+  EditorAnalyticsAPI,
+} from '@atlaskit/editor-common/analytics';
 import { createHorizontalRule } from './pm-plugins/input-rule';
 
 export const insertHorizontalRule =
+  (
+    featureFlags: FeatureFlags,
+    editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+  ) =>
   (
     inputMethod:
       | INPUT_METHOD.QUICK_INSERT
@@ -11,7 +17,6 @@ export const insertHorizontalRule =
       | INPUT_METHOD.INSERT_MENU
       | INPUT_METHOD.FORMATTING
       | INPUT_METHOD.SHORTCUT,
-    featureFlags: FeatureFlags,
   ): Command =>
   (state, dispatch) => {
     const tr = createHorizontalRule(
@@ -20,6 +25,7 @@ export const insertHorizontalRule =
       state.selection.from,
       state.selection.to,
       inputMethod,
+      editorAnalyticsAPI,
     );
     if (tr) {
       if (dispatch) {

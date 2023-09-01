@@ -1,5 +1,11 @@
 # @atlaskit/theme
 
+## 12.6.0
+
+### Minor Changes
+
+- [`ebefd4048ff`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ebefd4048ff) - Set tooltip zindex to 9999
+
 ## 12.5.6
 
 ### Patch Changes

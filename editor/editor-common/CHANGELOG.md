@@ -1,5 +1,12 @@
 # @atlaskit/editor-common
 
+## 74.56.3
+
+### Patch Changes
+
+- [`c4754a4e96f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c4754a4e96f) - Ignore invisible element for arrow key navigation to prevent focus loss
+- [`3b7bf91daa5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3b7bf91daa5) - [ux] ED-19785 Add dark mode icon for custom panel and update light mode icon with new colours.
+
 ## 74.56.2
 
 ### Patch Changes

@@ -1,5 +1,33 @@
 # @atlaskit/editor-core
 
+## 187.37.1
+
+### Patch Changes
+
+- [`9c066a01776`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9c066a01776) - ED-19445: Copied HTML is being reformatted when pasted into the editor
+
+## 187.37.0
+
+### Minor Changes
+
+- [`082b7cf0ea7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/082b7cf0ea7) - [ux] ECA11Y-1 Added new typeahead shortcut to create checked action item
+
+## 187.36.0
+
+### Minor Changes
+
+- [`085d722e77f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/085d722e77f) - Decoupling the rule plugin and adding the insertHorizontalRule action to the rule plugin.
+
+### Patch Changes
+
+- [`3b7bf91daa5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3b7bf91daa5) - [ux] ED-19785 Add dark mode icon for custom panel and update light mode icon with new colours.
+
+## 187.35.7
+
+### Patch Changes
+
+- [`c377886771f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c377886771f) - ED-19744 moved `mention` styles to `ContentStyles` as part of Scalability Project
+
 ## 187.35.4
 
 ### Patch Changes

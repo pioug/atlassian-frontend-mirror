@@ -16,9 +16,9 @@ export default {
     '進一步了解如何使用 JQL 進行搜尋。',
   'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchDescription':
     '開始輸入或使用 AQL 進行搜尋。',
-  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle': '搜尋物件或物件類型',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle': '搜尋物件',
   'linkDataSource.assets.configmodal.cancelButtonText': '取消',
-  'linkDataSource.assets.configmodal.insertIssuesButtonText': '插入物件',
+  'linkDataSource.assets.configmodal.insertIssuesButtonText': '{objectsCount, plural, other {插入物件}}',
   'linkDataSource.assets.configmodal.insertObjectsTitle': '插入物件來源：',
   'linkDataSource.column-picker.search': '搜尋欄位',
   'linkDataSource.jira-issues.accessInstructions': '若要要求存取權，請連絡您的管理員。',

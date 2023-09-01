@@ -46,5 +46,5 @@ export interface Layers {
   modal: 510;
   flag: 600;
   spotlight: 700;
-  tooltip: 800;
+  tooltip: 9999;
 }

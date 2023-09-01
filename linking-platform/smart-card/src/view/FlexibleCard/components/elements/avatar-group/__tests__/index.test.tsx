@@ -106,4 +106,50 @@ describe('Element: Avatar Group', () => {
       );
     },
   );
+
+  it('show Unassigned fallback by default if there are no assigned persons in Assigned Group', async () => {
+    const { getByTestId } = renderWithIntl(
+      <AvatarGroup items={[]} name={ElementName.AssignedToGroup} />,
+    );
+
+    const firstAvatarInGroup = await getByTestId(`${testId}--avatar-0`);
+    expect(firstAvatarInGroup).toBeTruthy();
+
+    fireEvent.mouseEnter(firstAvatarInGroup);
+
+    const nameTooltip = await waitFor(() =>
+      getByTestId(`${testId}--tooltip-0`),
+    );
+
+    expect(nameTooltip).toHaveTextContent('Unassigned');
+  });
+
+  it('hide Unassigned Fallback if there are no assigned persons in Assigned Group when showFallbackAvatar is false', async () => {
+    const { queryByTestId } = await renderWithIntl(
+      <AvatarGroup
+        items={[]}
+        name={ElementName.AssignedToGroup}
+        showFallbackAvatar={false}
+      />,
+    );
+    const AvatarGroupComponent = await queryByTestId(`${testId}--avatar-group`);
+    expect(AvatarGroupComponent).not.toBeInTheDocument();
+  });
+
+  it.each([
+    ElementName.OwnedByGroup,
+    ElementName.AuthorGroup,
+    ElementName.CollaboratorGroup,
+  ])(
+    'no Unassigned Fallback for %s element',
+    async (elementName: ElementName) => {
+      const { queryByTestId } = await renderWithIntl(
+        <AvatarGroup items={[]} name={elementName} />,
+      );
+      const AvatarGroupComponent = await queryByTestId(
+        `${testId}--avatar-group`,
+      );
+      expect(AvatarGroupComponent).not.toBeInTheDocument();
+    },
+  );
 });

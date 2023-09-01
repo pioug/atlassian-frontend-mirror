@@ -1,17 +1,14 @@
-/** @jsx jsx */
-import { ReactNode } from 'react';
-
-import { jsx } from '@emotion/react';
+import React, { ReactNode } from 'react';
 
 import { Box, xcss } from '@atlaskit/primitives';
-
-const navigationFooterStyles = xcss({
-  position: 'relative',
-});
 
 export interface NavigationFooterProps {
   children: ReactNode;
 }
+
+const navigationFooterStyles = xcss({
+  position: 'relative',
+});
 
 /**
  * __Navigation footer__

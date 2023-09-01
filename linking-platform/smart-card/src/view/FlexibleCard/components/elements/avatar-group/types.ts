@@ -26,4 +26,8 @@ export type AvatarGroupProps = ElementProps & {
    * Shows a name prefix in the Avatar tooltip (Created by, Assigned To, Owned by)
    */
   showNamePrefix?: boolean;
+  /**
+   * Shows a default fallback avatar if no persons in the AvatarGroup.
+   */
+  showFallbackAvatar?: boolean;
 };

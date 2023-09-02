@@ -341,5 +341,9 @@ export default function baseStyles<Option, IsMulti extends boolean>(
         fill: token('color.text.danger', '#000'),
       },
     }),
+    groupHeading: (css) => ({
+      ...css,
+      color: token('color.text.subtle', N200),
+    }),
   };
 }

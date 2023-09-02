@@ -1,5 +1,11 @@
 # @atlaskit/calendar
 
+## 13.3.1
+
+### Patch Changes
+
+- [`75b9f4664c6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/75b9f4664c6) - [ux] Hide weekday header row from assistive technologies.
+
 ## 13.3.0
 
 ### Minor Changes

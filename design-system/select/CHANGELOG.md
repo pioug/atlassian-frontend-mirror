@@ -1,5 +1,11 @@
 # @atlaskit/select
 
+## 16.5.12
+
+### Patch Changes
+
+- [`872a49e0bd8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/872a49e0bd8) - Fixed color contrast for grouped text label in the Select component
+
 ## 16.5.11
 
 ### Patch Changes

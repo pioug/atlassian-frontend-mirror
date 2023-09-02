@@ -1,5 +1,11 @@
 # @atlaskit/datetime-picker
 
+## 12.8.1
+
+### Patch Changes
+
+- [`ae2b28c599a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ae2b28c599a) - Remove unused state value.
+
 ## 12.8.0
 
 ### Minor Changes

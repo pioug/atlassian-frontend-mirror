@@ -156,7 +156,6 @@ type DateTimePickerProps = typeof dateTimePickerDefaultProps &
   DateTimePickerBaseProps;
 
 interface State {
-  active: 0 | 1 | 2;
   dateValue: string;
   isFocused: boolean;
   timeValue: string;
@@ -316,7 +315,6 @@ class DateTimePicker extends React.Component<DateTimePickerProps, State> {
   static defaultProps = dateTimePickerDefaultProps;
 
   state: State = {
-    active: 0,
     dateValue: '',
     isFocused: false,
     timeValue: '',

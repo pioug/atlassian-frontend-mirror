@@ -1,8 +1,46 @@
 import React from 'react';
+import { AriaOnFocus } from 'react-select';
 
 import { Label } from '@atlaskit/form';
 
 import Select, { OptionType, FormatOptionLabelMeta } from '../src';
+
+type CustomOption = {
+  label: string;
+  value: string;
+  description?: string;
+};
+
+const options: CustomOption[] = [
+  {
+    label: 'Adelaide',
+    value: 'adelaide',
+    description: 'A nice place to live',
+  },
+  {
+    label: 'Brisbane',
+    value: 'brisbane',
+    description: 'A boisterous and energetic city',
+  },
+  { label: 'Canberra', value: 'canberra', description: 'The capital' },
+  { label: 'Darwin', value: 'darwin' },
+  {
+    label: 'Hobart',
+    value: 'hobart',
+    description: 'Scenic, and serene',
+  },
+  {
+    label: 'Melbourne',
+    value: 'melbourne',
+    description: 'Charming, and cultured',
+  },
+  { label: 'Perth', value: 'perth', description: 'Lovely city' },
+  {
+    label: 'Sydney',
+    value: 'sydney',
+    description: 'Nothing good happens ever happens here',
+  },
+];
 
 const formatOptionLabel = (
   option: OptionType,
@@ -10,20 +48,10 @@ const formatOptionLabel = (
 ) => {
   if (context === 'menu') {
     return (
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-        }}
-      >
+      <div style={{ display: 'flex', flexDirection: 'column' }}>
         <div>{option.label}</div>
         {option.description ? (
-          <div
-            style={{
-              fontSize: 12,
-              fontStyle: 'italic',
-            }}
-          >
+          <div style={{ fontSize: 12, fontStyle: 'italic' }}>
             {option.description}
           </div>
         ) : null}
@@ -32,40 +60,22 @@ const formatOptionLabel = (
   }
   return option.label;
 };
-const OptionWithDescription = () => (
+
+const onFocus: AriaOnFocus<CustomOption> = ({ focused, isDisabled }): string =>
+  `You are currently focused on option ${focused.label}${
+    focused.description ? `, ${focused.description}` : ''
+  }${isDisabled ? ', disabled' : ''}`;
+
+const Example = () => (
   <>
     <Label htmlFor="option-w-desc-example">Which city do you live in?</Label>
     <Select
+      ariaLiveMessages={{ onFocus }}
       inputId="option-w-desc-example"
       formatOptionLabel={formatOptionLabel}
-      options={[
-        {
-          label: 'Adelaide',
-          value: 'adelaide',
-          description: 'A nice place to live',
-        },
-        {
-          label: 'Brisbane',
-          value: 'brisbane',
-          description: 'A boisterous and energetic city',
-        },
-        { label: 'Canberra', value: 'canberra', description: 'The capital' },
-        { label: 'Darwin', value: 'darwin' },
-        { label: 'Hobart', value: 'hobart', description: 'Scenic, and serene' },
-        {
-          label: 'Melbourne',
-          value: 'melbourne',
-          description: 'Charming, and cultured',
-        },
-        { label: 'Perth', value: 'perth', description: 'Lovely city' },
-        {
-          label: 'Sydney',
-          value: 'sydney',
-          description: 'Nothing good happens ever happens here',
-        },
-      ]}
+      options={options}
     />
   </>
 );
 
-export default OptionWithDescription;
+export default Example;

@@ -28,10 +28,9 @@ const WeekHeader = memo<WeekHeaderProps>(function WeekHeader({
   testId,
 }) {
   return (
-    <WeekDayGrid testId={testId && `${testId}--column-headers`}>
+    <WeekDayGrid isHidden testId={testId && `${testId}--column-headers`}>
       {daysShort.map((shortDay) => (
         <Box
-          aria-hidden="true"
           padding="space.100"
           xcss={columnHeaderStyles}
           key={shortDay}

@@ -26,5 +26,5 @@ export {
 } from './provider.confluence';
 export { TrelloBoard, TrelloCard } from './provider.trello';
 export { AtlasGoal, AtlasProject } from './provider.atlas';
-export { JiraIssue, JiraTasks } from './provider.jira';
+export { JiraIssue, JiraIssueAssigned, JiraTasks } from './provider.jira';
 export { SlackMessage, SlackChannel } from './provider.slack';

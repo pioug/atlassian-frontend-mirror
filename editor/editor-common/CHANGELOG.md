@@ -1,5 +1,11 @@
 # @atlaskit/editor-common
 
+## 74.56.4
+
+### Patch Changes
+
+- [`e31a001b8b8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e31a001b8b8) - Add pixel entry resize analytic event payload
+
 ## 74.56.3
 
 ### Patch Changes

@@ -730,6 +730,24 @@
       },
       "value": "#2A3818"
     },
+    "Dark/color.background.accent.lime.subtlest.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.lime.subtlest."
+      },
+      "value": "#37471F"
+    },
+    "Dark/color.background.accent.lime.subtlest.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.lime.subtlest."
+      },
+      "value": "#4C6B1F"
+    },
     "Dark/color.background.accent.lime.subtler": {
       "attributes": {
         "group": "paint",
@@ -738,6 +756,24 @@
         "description": "Use for for backgrounds when there is no meaning tied to the color, such as colored tags."
       },
       "value": "#37471F"
+    },
+    "Dark/color.background.accent.lime.subtler.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.lime.subtler."
+      },
+      "value": "#4C6B1F"
+    },
+    "Dark/color.background.accent.lime.subtler.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.lime.subtler."
+      },
+      "value": "#5B7F24"
     },
     "Dark/color.background.accent.lime.subtle": {
       "attributes": {
@@ -748,6 +784,24 @@
       },
       "value": "#4C6B1F"
     },
+    "Dark/color.background.accent.lime.subtle.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.lime.subtle."
+      },
+      "value": "#37471F"
+    },
+    "Dark/color.background.accent.lime.subtle.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.lime.subtle."
+      },
+      "value": "#2A3818"
+    },
     "Dark/color.background.accent.lime.bolder": {
       "attributes": {
         "group": "paint",
@@ -756,6 +810,24 @@
         "description": "Use for for backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
       },
       "value": "#94C748"
+    },
+    "Dark/color.background.accent.lime.bolder.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.lime.bolder."
+      },
+      "value": "#B3DF72"
+    },
+    "Dark/color.background.accent.lime.bolder.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.lime.bolder."
+      },
+      "value": "#D3F1A7"
     },
     "Dark/color.background.accent.red.subtlest": {
       "attributes": {
@@ -766,6 +838,24 @@
       },
       "value": "#4F1C16"
     },
+    "Dark/color.background.accent.red.subtlest.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.red.subtlest."
+      },
+      "value": "#601E16"
+    },
+    "Dark/color.background.accent.red.subtlest.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.red.subtlest."
+      },
+      "value": "#AE2A19"
+    },
     "Dark/color.background.accent.red.subtler": {
       "attributes": {
         "group": "paint",
@@ -774,6 +864,24 @@
         "description": "Use for red backgrounds when there is no meaning tied to the color, such as colored tags."
       },
       "value": "#601E16"
+    },
+    "Dark/color.background.accent.red.subtler.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.red.subtler."
+      },
+      "value": "#AE2A19"
+    },
+    "Dark/color.background.accent.red.subtler.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.red.subtler."
+      },
+      "value": "#CA3521"
     },
     "Dark/color.background.accent.red.subtle": {
       "attributes": {
@@ -784,6 +892,24 @@
       },
       "value": "#AE2A19"
     },
+    "Dark/color.background.accent.red.subtle.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.red.subtle."
+      },
+      "value": "#601E16"
+    },
+    "Dark/color.background.accent.red.subtle.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.red.subtle."
+      },
+      "value": "#4F1C16"
+    },
     "Dark/color.background.accent.red.bolder": {
       "attributes": {
         "group": "paint",
@@ -792,6 +918,24 @@
         "description": "Use for red backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
       },
       "value": "#F87462"
+    },
+    "Dark/color.background.accent.red.bolder.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.red.bolder."
+      },
+      "value": "#FF9C8F"
+    },
+    "Dark/color.background.accent.red.bolder.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.red.bolder."
+      },
+      "value": "#FFD2CC"
     },
     "Dark/color.background.accent.orange.subtlest": {
       "attributes": {
@@ -802,6 +946,24 @@
       },
       "value": "#4A2B0F"
     },
+    "Dark/color.background.accent.orange.subtlest.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.orange.subtlest."
+      },
+      "value": "#5F3811"
+    },
+    "Dark/color.background.accent.orange.subtlest.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.orange.subtlest."
+      },
+      "value": "#974F0C"
+    },
     "Dark/color.background.accent.orange.subtler": {
       "attributes": {
         "group": "paint",
@@ -810,6 +972,24 @@
         "description": "Use for orange backgrounds when there is no meaning tied to the color, such as colored tags."
       },
       "value": "#5F3811"
+    },
+    "Dark/color.background.accent.orange.subtler.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.orange.subtler."
+      },
+      "value": "#974F0C"
+    },
+    "Dark/color.background.accent.orange.subtler.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.orange.subtler."
+      },
+      "value": "#B65C02"
     },
     "Dark/color.background.accent.orange.subtle": {
       "attributes": {
@@ -820,6 +1000,24 @@
       },
       "value": "#974F0C"
     },
+    "Dark/color.background.accent.orange.subtle.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.orange.subtle."
+      },
+      "value": "#5F3811"
+    },
+    "Dark/color.background.accent.orange.subtle.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.orange.subtle."
+      },
+      "value": "#4A2B0F"
+    },
     "Dark/color.background.accent.orange.bolder": {
       "attributes": {
         "group": "paint",
@@ -828,6 +1026,24 @@
         "description": "Use for orange backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
       },
       "value": "#FAA53D"
+    },
+    "Dark/color.background.accent.orange.bolder.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.orange.bolder."
+      },
+      "value": "#FEC57B"
+    },
+    "Dark/color.background.accent.orange.bolder.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.orange.bolder."
+      },
+      "value": "#FFE2BD"
     },
     "Dark/color.background.accent.yellow.subtlest": {
       "attributes": {
@@ -838,6 +1054,24 @@
       },
       "value": "#3F3102"
     },
+    "Dark/color.background.accent.yellow.subtlest.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.yellow.subtlest."
+      },
+      "value": "#533F04"
+    },
+    "Dark/color.background.accent.yellow.subtlest.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.yellow.subtlest."
+      },
+      "value": "#7F5F01"
+    },
     "Dark/color.background.accent.yellow.subtler": {
       "attributes": {
         "group": "paint",
@@ -846,6 +1080,24 @@
         "description": "Use for yellow backgrounds when there is no meaning tied to the color, such as colored tags."
       },
       "value": "#533F04"
+    },
+    "Dark/color.background.accent.yellow.subtler.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.yellow.subtler."
+      },
+      "value": "#7F5F01"
+    },
+    "Dark/color.background.accent.yellow.subtler.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.yellow.subtler."
+      },
+      "value": "#946F00"
     },
     "Dark/color.background.accent.yellow.subtle": {
       "attributes": {
@@ -856,6 +1108,24 @@
       },
       "value": "#7F5F01"
     },
+    "Dark/color.background.accent.yellow.subtle.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.yellow.subtle."
+      },
+      "value": "#533F04"
+    },
+    "Dark/color.background.accent.yellow.subtle.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.yellow.subtle."
+      },
+      "value": "#3F3102"
+    },
     "Dark/color.background.accent.yellow.bolder": {
       "attributes": {
         "group": "paint",
@@ -864,6 +1134,24 @@
         "description": "Use for yellow backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
       },
       "value": "#E2B203"
+    },
+    "Dark/color.background.accent.yellow.bolder.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.yellow.bolder."
+      },
+      "value": "#F5CD47"
+    },
+    "Dark/color.background.accent.yellow.bolder.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.yellow.bolder."
+      },
+      "value": "#F8E6A0"
     },
     "Dark/color.background.accent.green.subtlest": {
       "attributes": {
@@ -874,6 +1162,24 @@
       },
       "value": "#143C2B"
     },
+    "Dark/color.background.accent.green.subtlest.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.green.subtlest."
+      },
+      "value": "#164B35"
+    },
+    "Dark/color.background.accent.green.subtlest.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.green.subtlest."
+      },
+      "value": "#216E4E"
+    },
     "Dark/color.background.accent.green.subtler": {
       "attributes": {
         "group": "paint",
@@ -882,6 +1188,24 @@
         "description": "Use for green backgrounds when there is no meaning tied to the color, such as colored tags."
       },
       "value": "#164B35"
+    },
+    "Dark/color.background.accent.green.subtler.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.green.subtler."
+      },
+      "value": "#216E4E"
+    },
+    "Dark/color.background.accent.green.subtler.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.green.subtler."
+      },
+      "value": "#1F845A"
     },
     "Dark/color.background.accent.green.subtle": {
       "attributes": {
@@ -892,6 +1216,24 @@
       },
       "value": "#216E4E"
     },
+    "Dark/color.background.accent.green.subtle.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.green.subtle."
+      },
+      "value": "#164B35"
+    },
+    "Dark/color.background.accent.green.subtle.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.green.subtle."
+      },
+      "value": "#143C2B"
+    },
     "Dark/color.background.accent.green.bolder": {
       "attributes": {
         "group": "paint",
@@ -900,6 +1242,24 @@
         "description": "Use for green backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
       },
       "value": "#4BCE97"
+    },
+    "Dark/color.background.accent.green.bolder.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.green.bolder."
+      },
+      "value": "#7EE2B8"
+    },
+    "Dark/color.background.accent.green.bolder.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.green.bolder."
+      },
+      "value": "#BAF3DB"
     },
     "Dark/color.background.accent.teal.subtlest": {
       "attributes": {
@@ -910,6 +1270,24 @@
       },
       "value": "#15373B"
     },
+    "Dark/color.background.accent.teal.subtlest.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.teal.subtlest."
+      },
+      "value": "#1D474C"
+    },
+    "Dark/color.background.accent.teal.subtlest.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.teal.subtlest."
+      },
+      "value": "#206B74"
+    },
     "Dark/color.background.accent.teal.subtler": {
       "attributes": {
         "group": "paint",
@@ -918,6 +1296,24 @@
         "description": "Use for teal backgrounds when there is no meaning tied to the color, such as colored tags."
       },
       "value": "#1D474C"
+    },
+    "Dark/color.background.accent.teal.subtler.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.teal.subtler."
+      },
+      "value": "#206B74"
+    },
+    "Dark/color.background.accent.teal.subtler.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.teal.subtler."
+      },
+      "value": "#1D7F8C"
     },
     "Dark/color.background.accent.teal.subtle": {
       "attributes": {
@@ -928,6 +1324,24 @@
       },
       "value": "#206B74"
     },
+    "Dark/color.background.accent.teal.subtle.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.teal.subtle."
+      },
+      "value": "#1D474C"
+    },
+    "Dark/color.background.accent.teal.subtle.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.teal.subtle."
+      },
+      "value": "#15373B"
+    },
     "Dark/color.background.accent.teal.bolder": {
       "attributes": {
         "group": "paint",
@@ -936,6 +1350,24 @@
         "description": "Use for teal backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
       },
       "value": "#60C6D2"
+    },
+    "Dark/color.background.accent.teal.bolder.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.teal.bolder."
+      },
+      "value": "#8BDBE5"
+    },
+    "Dark/color.background.accent.teal.bolder.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.teal.bolder."
+      },
+      "value": "#C1F0F5"
     },
     "Dark/color.background.accent.blue.subtlest": {
       "attributes": {
@@ -946,6 +1378,24 @@
       },
       "value": "#092957"
     },
+    "Dark/color.background.accent.blue.subtlest.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.blue.subtlest."
+      },
+      "value": "#09326C"
+    },
+    "Dark/color.background.accent.blue.subtlest.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.blue.subtlest."
+      },
+      "value": "#0055CC"
+    },
     "Dark/color.background.accent.blue.subtler": {
       "attributes": {
         "group": "paint",
@@ -954,6 +1404,24 @@
         "description": "Use for blue backgrounds when there is no meaning tied to the color, such as colored tags."
       },
       "value": "#09326C"
+    },
+    "Dark/color.background.accent.blue.subtler.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.blue.subtler."
+      },
+      "value": "#0055CC"
+    },
+    "Dark/color.background.accent.blue.subtler.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.blue.subtler."
+      },
+      "value": "#0C66E4"
     },
     "Dark/color.background.accent.blue.subtle": {
       "attributes": {
@@ -964,6 +1432,24 @@
       },
       "value": "#0055CC"
     },
+    "Dark/color.background.accent.blue.subtle.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.blue.subtle."
+      },
+      "value": "#09326C"
+    },
+    "Dark/color.background.accent.blue.subtle.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.blue.subtle."
+      },
+      "value": "#092957"
+    },
     "Dark/color.background.accent.blue.bolder": {
       "attributes": {
         "group": "paint",
@@ -972,6 +1458,24 @@
         "description": "Use for blue backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
       },
       "value": "#579DFF"
+    },
+    "Dark/color.background.accent.blue.bolder.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.blue.bolder."
+      },
+      "value": "#85B8FF"
+    },
+    "Dark/color.background.accent.blue.bolder.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.blue.bolder."
+      },
+      "value": "#CCE0FF"
     },
     "Dark/color.background.accent.purple.subtlest": {
       "attributes": {
@@ -982,6 +1486,24 @@
       },
       "value": "#2B2451"
     },
+    "Dark/color.background.accent.purple.subtlest.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.purple.subtlest."
+      },
+      "value": "#352C63"
+    },
+    "Dark/color.background.accent.purple.subtlest.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.purple.subtlest."
+      },
+      "value": "#5E4DB2"
+    },
     "Dark/color.background.accent.purple.subtler": {
       "attributes": {
         "group": "paint",
@@ -990,6 +1512,24 @@
         "description": "Use for purple backgrounds when there is no meaning tied to the color, such as colored tags."
       },
       "value": "#352C63"
+    },
+    "Dark/color.background.accent.purple.subtler.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.purple.subtler."
+      },
+      "value": "#5E4DB2"
+    },
+    "Dark/color.background.accent.purple.subtler.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.purple.subtler."
+      },
+      "value": "#6E5DC6"
     },
     "Dark/color.background.accent.purple.subtle": {
       "attributes": {
@@ -1000,6 +1540,24 @@
       },
       "value": "#5E4DB2"
     },
+    "Dark/color.background.accent.purple.subtle.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.purple.subtle."
+      },
+      "value": "#352C63"
+    },
+    "Dark/color.background.accent.purple.subtle.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.purple.subtle."
+      },
+      "value": "#2B2451"
+    },
     "Dark/color.background.accent.purple.bolder": {
       "attributes": {
         "group": "paint",
@@ -1008,6 +1566,24 @@
         "description": "Use for purple backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
       },
       "value": "#9F8FEF"
+    },
+    "Dark/color.background.accent.purple.bolder.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.purple.bolder."
+      },
+      "value": "#B8ACF6"
+    },
+    "Dark/color.background.accent.purple.bolder.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.purple.bolder."
+      },
+      "value": "#DFD8FD"
     },
     "Dark/color.background.accent.magenta.subtlest": {
       "attributes": {
@@ -1018,6 +1594,24 @@
       },
       "value": "#421F34"
     },
+    "Dark/color.background.accent.magenta.subtlest.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.magenta.subtlest."
+      },
+      "value": "#50253F"
+    },
+    "Dark/color.background.accent.magenta.subtlest.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.magenta.subtlest."
+      },
+      "value": "#943D73"
+    },
     "Dark/color.background.accent.magenta.subtler": {
       "attributes": {
         "group": "paint",
@@ -1026,6 +1620,24 @@
         "description": "Use for magenta backgrounds when there is no meaning tied to the color, such as colored tags."
       },
       "value": "#50253F"
+    },
+    "Dark/color.background.accent.magenta.subtler.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.magenta.subtler."
+      },
+      "value": "#943D73"
+    },
+    "Dark/color.background.accent.magenta.subtler.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.magenta.subtler."
+      },
+      "value": "#AE4787"
     },
     "Dark/color.background.accent.magenta.subtle": {
       "attributes": {
@@ -1036,6 +1648,24 @@
       },
       "value": "#943D73"
     },
+    "Dark/color.background.accent.magenta.subtle.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.magenta.subtle."
+      },
+      "value": "#50253F"
+    },
+    "Dark/color.background.accent.magenta.subtle.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.magenta.subtle."
+      },
+      "value": "#421F34"
+    },
     "Dark/color.background.accent.magenta.bolder": {
       "attributes": {
         "group": "paint",
@@ -1044,6 +1674,24 @@
         "description": "Use for magenta backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
       },
       "value": "#E774BB"
+    },
+    "Dark/color.background.accent.magenta.bolder.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.magenta.bolder."
+      },
+      "value": "#F797D2"
+    },
+    "Dark/color.background.accent.magenta.bolder.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.magenta.bolder."
+      },
+      "value": "#FDD0EC"
     },
     "Dark/color.background.accent.gray.subtlest": {
       "attributes": {
@@ -1054,6 +1702,24 @@
       },
       "value": "#2C333A"
     },
+    "Dark/color.background.accent.gray.subtlest.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.gray.subtlest."
+      },
+      "value": "#38414A"
+    },
+    "Dark/color.background.accent.gray.subtlest.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.gray.subtlest."
+      },
+      "value": "#454F59"
+    },
     "Dark/color.background.accent.gray.subtler": {
       "attributes": {
         "group": "paint",
@@ -1062,6 +1728,24 @@
         "description": "Use for gray backgrounds when there is no meaning tied to the color, such as colored tags."
       },
       "value": "#454F59"
+    },
+    "Dark/color.background.accent.gray.subtler.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.gray.subtler."
+      },
+      "value": "#596773"
+    },
+    "Dark/color.background.accent.gray.subtler.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.gray.subtler."
+      },
+      "value": "#738496"
     },
     "Dark/color.background.accent.gray.subtle": {
       "attributes": {
@@ -1072,6 +1756,24 @@
       },
       "value": "#596773"
     },
+    "Dark/color.background.accent.gray.subtle.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.gray.subtle."
+      },
+      "value": "#454F59"
+    },
+    "Dark/color.background.accent.gray.subtle.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.gray.subtle."
+      },
+      "value": "#38414A"
+    },
     "Dark/color.background.accent.gray.bolder": {
       "attributes": {
         "group": "paint",
@@ -1080,6 +1782,24 @@
         "description": "Use for gray backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
       },
       "value": "#8C9BAB"
+    },
+    "Dark/color.background.accent.gray.bolder.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.gray.bolder."
+      },
+      "value": "#9FADBC"
+    },
+    "Dark/color.background.accent.gray.bolder.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.gray.subtlest."
+      },
+      "value": "#B6C2CF"
     },
     "Dark/color.background.disabled": {
       "attributes": {

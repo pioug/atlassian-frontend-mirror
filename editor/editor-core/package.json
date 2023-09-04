@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-core",
-  "version": "187.37.1",
+  "version": "187.37.4",
   "description": "A package contains Atlassian editor core functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -67,6 +67,7 @@
     "@atlaskit/editor-plugin-decorations": "^0.2.0",
     "@atlaskit/editor-plugin-editor-disabled": "^0.2.0",
     "@atlaskit/editor-plugin-emoji": "^0.3.0",
+    "@atlaskit/editor-plugin-extension": "^0.1.0",
     "@atlaskit/editor-plugin-feature-flags": "^1.0.0",
     "@atlaskit/editor-plugin-floating-toolbar": "^0.4.0",
     "@atlaskit/editor-plugin-focus": "^0.2.0",
@@ -115,7 +116,7 @@
     "@atlaskit/textfield": "^5.6.0",
     "@atlaskit/theme": "^12.6.0",
     "@atlaskit/toggle": "^12.6.0",
-    "@atlaskit/tokens": "^1.18.0",
+    "@atlaskit/tokens": "^1.19.0",
     "@atlaskit/tooltip": "^17.8.0",
     "@atlaskit/width-detector": "^4.1.0",
     "@babel/runtime": "^7.0.0",

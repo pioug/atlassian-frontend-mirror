@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b3ea1da0f88da3d30d4cda12e93afc66>>
+ * @codegen <<SignedSource::9faa03010b915213b0e7b73c8c9a4264>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -2247,15 +2247,76 @@ const tokens = [
       },
       "value": "#EEFBDA"
     },
-    "name": "color.background.accent.lime.subtlest",
+    "name": "color.background.accent.lime.subtlest.[default]",
     "path": [
       "color",
       "background",
       "accent",
       "lime",
-      "subtlest"
+      "subtlest",
+      "[default]"
     ],
     "cleanName": "color.background.accent.lime.subtlest"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Hovered state of color.background.accent.lime.subtlest."
+    },
+    "value": "#D3F1A7",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.lime.subtlest."
+      },
+      "value": "#D3F1A7"
+    },
+    "name": "color.background.accent.lime.subtlest.hovered",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "lime",
+      "subtlest",
+      "hovered"
+    ],
+    "cleanName": "color.background.accent.lime.subtlest.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Pressed state of color.background.accent.lime.subtlest."
+    },
+    "value": "#B3DF72",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.lime.subtlest."
+      },
+      "value": "#B3DF72"
+    },
+    "name": "color.background.accent.lime.subtlest.pressed",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "lime",
+      "subtlest",
+      "pressed"
+    ],
+    "cleanName": "color.background.accent.lime.subtlest.pressed"
   },
   {
     "attributes": {
@@ -2276,15 +2337,76 @@ const tokens = [
       },
       "value": "#D3F1A7"
     },
-    "name": "color.background.accent.lime.subtler",
+    "name": "color.background.accent.lime.subtler.[default]",
     "path": [
       "color",
       "background",
       "accent",
       "lime",
-      "subtler"
+      "subtler",
+      "[default]"
     ],
     "cleanName": "color.background.accent.lime.subtler"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Hovered state of color.background.accent.lime.subtler."
+    },
+    "value": "#B3DF72",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.lime.subtler."
+      },
+      "value": "#B3DF72"
+    },
+    "name": "color.background.accent.lime.subtler.hovered",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "lime",
+      "subtler",
+      "hovered"
+    ],
+    "cleanName": "color.background.accent.lime.subtler.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Pressed state of color.background.accent.lime.subtler."
+    },
+    "value": "#94C748",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.lime.subtler."
+      },
+      "value": "#94C748"
+    },
+    "name": "color.background.accent.lime.subtler.pressed",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "lime",
+      "subtler",
+      "pressed"
+    ],
+    "cleanName": "color.background.accent.lime.subtler.pressed"
   },
   {
     "attributes": {
@@ -2305,15 +2427,76 @@ const tokens = [
       },
       "value": "#94C748"
     },
-    "name": "color.background.accent.lime.subtle",
+    "name": "color.background.accent.lime.subtle.[default]",
     "path": [
       "color",
       "background",
       "accent",
       "lime",
-      "subtle"
+      "subtle",
+      "[default]"
     ],
     "cleanName": "color.background.accent.lime.subtle"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Hovered state of color.background.accent.lime.subtle."
+    },
+    "value": "#B3DF72",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.lime.subtle."
+      },
+      "value": "#B3DF72"
+    },
+    "name": "color.background.accent.lime.subtle.hovered",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "lime",
+      "subtle",
+      "hovered"
+    ],
+    "cleanName": "color.background.accent.lime.subtle.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Pressed state of color.background.accent.lime.subtle."
+    },
+    "value": "#D3F1A7",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.lime.subtle."
+      },
+      "value": "#D3F1A7"
+    },
+    "name": "color.background.accent.lime.subtle.pressed",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "lime",
+      "subtle",
+      "pressed"
+    ],
+    "cleanName": "color.background.accent.lime.subtle.pressed"
   },
   {
     "attributes": {
@@ -2334,15 +2517,76 @@ const tokens = [
       },
       "value": "#5B7F24"
     },
-    "name": "color.background.accent.lime.bolder",
+    "name": "color.background.accent.lime.bolder.[default]",
     "path": [
       "color",
       "background",
       "accent",
       "lime",
-      "bolder"
+      "bolder",
+      "[default]"
     ],
     "cleanName": "color.background.accent.lime.bolder"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Hovered state of color.background.accent.lime.bolder."
+    },
+    "value": "#37471F",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.lime.bolder."
+      },
+      "value": "#37471F"
+    },
+    "name": "color.background.accent.lime.bolder.hovered",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "lime",
+      "bolder",
+      "hovered"
+    ],
+    "cleanName": "color.background.accent.lime.bolder.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Pressed state of color.background.accent.lime.bolder."
+    },
+    "value": "#37471F",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.lime.bolder."
+      },
+      "value": "#37471F"
+    },
+    "name": "color.background.accent.lime.bolder.pressed",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "lime",
+      "bolder",
+      "pressed"
+    ],
+    "cleanName": "color.background.accent.lime.bolder.pressed"
   },
   {
     "attributes": {
@@ -2363,15 +2607,76 @@ const tokens = [
       },
       "value": "R100"
     },
-    "name": "color.background.accent.red.subtlest",
+    "name": "color.background.accent.red.subtlest.[default]",
     "path": [
       "color",
       "background",
       "accent",
       "red",
-      "subtlest"
+      "subtlest",
+      "[default]"
     ],
     "cleanName": "color.background.accent.red.subtlest"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Hovered state of color.background.accent.red.subtlest."
+    },
+    "value": "#FF7452",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.red.subtlest."
+      },
+      "value": "R200"
+    },
+    "name": "color.background.accent.red.subtlest.hovered",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "red",
+      "subtlest",
+      "hovered"
+    ],
+    "cleanName": "color.background.accent.red.subtlest.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Pressed state of color.background.accent.red.subtlest."
+    },
+    "value": "#FF5630",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.red.subtlest."
+      },
+      "value": "R300"
+    },
+    "name": "color.background.accent.red.subtlest.pressed",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "red",
+      "subtlest",
+      "pressed"
+    ],
+    "cleanName": "color.background.accent.red.subtlest.pressed"
   },
   {
     "attributes": {
@@ -2392,15 +2697,76 @@ const tokens = [
       },
       "value": "R200"
     },
-    "name": "color.background.accent.red.subtler",
+    "name": "color.background.accent.red.subtler.[default]",
     "path": [
       "color",
       "background",
       "accent",
       "red",
-      "subtler"
+      "subtler",
+      "[default]"
     ],
     "cleanName": "color.background.accent.red.subtler"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Hovered state of color.background.accent.red.subtler."
+    },
+    "value": "#FF5630",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.red.subtler."
+      },
+      "value": "R300"
+    },
+    "name": "color.background.accent.red.subtler.hovered",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "red",
+      "subtler",
+      "hovered"
+    ],
+    "cleanName": "color.background.accent.red.subtler.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Pressed state of color.background.accent.red.subtler."
+    },
+    "value": "#DE350B",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.red.subtler."
+      },
+      "value": "R400"
+    },
+    "name": "color.background.accent.red.subtler.pressed",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "red",
+      "subtler",
+      "pressed"
+    ],
+    "cleanName": "color.background.accent.red.subtler.pressed"
   },
   {
     "attributes": {
@@ -2421,15 +2787,76 @@ const tokens = [
       },
       "value": "R400"
     },
-    "name": "color.background.accent.red.subtle",
+    "name": "color.background.accent.red.subtle.[default]",
     "path": [
       "color",
       "background",
       "accent",
       "red",
-      "subtle"
+      "subtle",
+      "[default]"
     ],
     "cleanName": "color.background.accent.red.subtle"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Hovered state of color.background.accent.red.subtle."
+    },
+    "value": "#FF5630",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.red.subtle."
+      },
+      "value": "R300"
+    },
+    "name": "color.background.accent.red.subtle.hovered",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "red",
+      "subtle",
+      "hovered"
+    ],
+    "cleanName": "color.background.accent.red.subtle.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Pressed state of color.background.accent.red.subtle."
+    },
+    "value": "#FF7452",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.red.subtle."
+      },
+      "value": "R200"
+    },
+    "name": "color.background.accent.red.subtle.pressed",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "red",
+      "subtle",
+      "pressed"
+    ],
+    "cleanName": "color.background.accent.red.subtle.pressed"
   },
   {
     "attributes": {
@@ -2450,15 +2877,76 @@ const tokens = [
       },
       "value": "R400"
     },
-    "name": "color.background.accent.red.bolder",
+    "name": "color.background.accent.red.bolder.[default]",
     "path": [
       "color",
       "background",
       "accent",
       "red",
-      "bolder"
+      "bolder",
+      "[default]"
     ],
     "cleanName": "color.background.accent.red.bolder"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Hovered state of color.background.accent.red.bolder."
+    },
+    "value": "#FF5630",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.red.bolder."
+      },
+      "value": "R300"
+    },
+    "name": "color.background.accent.red.bolder.hovered",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "red",
+      "bolder",
+      "hovered"
+    ],
+    "cleanName": "color.background.accent.red.bolder.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Pressed state of color.background.accent.red.bolder."
+    },
+    "value": "#FF7452",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.red.bolder."
+      },
+      "value": "R200"
+    },
+    "name": "color.background.accent.red.bolder.pressed",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "red",
+      "bolder",
+      "pressed"
+    ],
+    "cleanName": "color.background.accent.red.bolder.pressed"
   },
   {
     "attributes": {
@@ -2479,15 +2967,76 @@ const tokens = [
       },
       "value": "#F18D13"
     },
-    "name": "color.background.accent.orange.subtlest",
+    "name": "color.background.accent.orange.subtlest.[default]",
     "path": [
       "color",
       "background",
       "accent",
       "orange",
-      "subtlest"
+      "subtlest",
+      "[default]"
     ],
     "cleanName": "color.background.accent.orange.subtlest"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Hovered state of color.background.accent.orange.subtlest."
+    },
+    "value": "#FEC57B",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.orange.subtlest."
+      },
+      "value": "#FEC57B"
+    },
+    "name": "color.background.accent.orange.subtlest.hovered",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "orange",
+      "subtlest",
+      "hovered"
+    ],
+    "cleanName": "color.background.accent.orange.subtlest.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Pressed state of color.background.accent.orange.subtlest."
+    },
+    "value": "#FFE2BD",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.orange.subtlest."
+      },
+      "value": "#FFE2BD"
+    },
+    "name": "color.background.accent.orange.subtlest.pressed",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "orange",
+      "subtlest",
+      "pressed"
+    ],
+    "cleanName": "color.background.accent.orange.subtlest.pressed"
   },
   {
     "attributes": {
@@ -2508,15 +3057,76 @@ const tokens = [
       },
       "value": "#B65C02"
     },
-    "name": "color.background.accent.orange.subtler",
+    "name": "color.background.accent.orange.subtler.[default]",
     "path": [
       "color",
       "background",
       "accent",
       "orange",
-      "subtler"
+      "subtler",
+      "[default]"
     ],
     "cleanName": "color.background.accent.orange.subtler"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Hovered state of color.background.accent.orange.subtler."
+    },
+    "value": "#F18D13",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.orange.subtler."
+      },
+      "value": "#F18D13"
+    },
+    "name": "color.background.accent.orange.subtler.hovered",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "orange",
+      "subtler",
+      "hovered"
+    ],
+    "cleanName": "color.background.accent.orange.subtler.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Pressed state of color.background.accent.orange.subtler."
+    },
+    "value": "#FEC57B",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.orange.subtler."
+      },
+      "value": "#FEC57B"
+    },
+    "name": "color.background.accent.orange.subtler.pressed",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "orange",
+      "subtler",
+      "pressed"
+    ],
+    "cleanName": "color.background.accent.orange.subtler.pressed"
   },
   {
     "attributes": {
@@ -2537,15 +3147,76 @@ const tokens = [
       },
       "value": "#5F3811"
     },
-    "name": "color.background.accent.orange.subtle",
+    "name": "color.background.accent.orange.subtle.[default]",
     "path": [
       "color",
       "background",
       "accent",
       "orange",
-      "subtle"
+      "subtle",
+      "[default]"
     ],
     "cleanName": "color.background.accent.orange.subtle"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Hovered state of color.background.accent.orange.subtle."
+    },
+    "value": "#974F0C",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.orange.subtle."
+      },
+      "value": "#974F0C"
+    },
+    "name": "color.background.accent.orange.subtle.hovered",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "orange",
+      "subtle",
+      "hovered"
+    ],
+    "cleanName": "color.background.accent.orange.subtle.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Pressed state of color.background.accent.orange.subtle."
+    },
+    "value": "#B65C02",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.orange.subtle."
+      },
+      "value": "#B65C02"
+    },
+    "name": "color.background.accent.orange.subtle.pressed",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "orange",
+      "subtle",
+      "pressed"
+    ],
+    "cleanName": "color.background.accent.orange.subtle.pressed"
   },
   {
     "attributes": {
@@ -2566,15 +3237,76 @@ const tokens = [
       },
       "value": "#43290F"
     },
-    "name": "color.background.accent.orange.bolder",
+    "name": "color.background.accent.orange.bolder.[default]",
     "path": [
       "color",
       "background",
       "accent",
       "orange",
-      "bolder"
+      "bolder",
+      "[default]"
     ],
     "cleanName": "color.background.accent.orange.bolder"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Hovered state of color.background.accent.orange.bolder."
+    },
+    "value": "#5F3811",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.orange.bolder."
+      },
+      "value": "#5F3811"
+    },
+    "name": "color.background.accent.orange.bolder.hovered",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "orange",
+      "bolder",
+      "hovered"
+    ],
+    "cleanName": "color.background.accent.orange.bolder.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Pressed state of color.background.accent.orange.bolder."
+    },
+    "value": "#974F0C",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.orange.bolder."
+      },
+      "value": "#974F0C"
+    },
+    "name": "color.background.accent.orange.bolder.pressed",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "orange",
+      "bolder",
+      "pressed"
+    ],
+    "cleanName": "color.background.accent.orange.bolder.pressed"
   },
   {
     "attributes": {
@@ -2595,15 +3327,76 @@ const tokens = [
       },
       "value": "Y100"
     },
-    "name": "color.background.accent.yellow.subtlest",
+    "name": "color.background.accent.yellow.subtlest.[default]",
     "path": [
       "color",
       "background",
       "accent",
       "yellow",
-      "subtlest"
+      "subtlest",
+      "[default]"
     ],
     "cleanName": "color.background.accent.yellow.subtlest"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Hovered state of color.background.accent.yellow.subtlest."
+    },
+    "value": "#FFC400",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.yellow.subtlest."
+      },
+      "value": "Y200"
+    },
+    "name": "color.background.accent.yellow.subtlest.hovered",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "yellow",
+      "subtlest",
+      "hovered"
+    ],
+    "cleanName": "color.background.accent.yellow.subtlest.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Pressed state of color.background.accent.yellow.subtlest."
+    },
+    "value": "#FFAB00",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.yellow.subtlest."
+      },
+      "value": "Y300"
+    },
+    "name": "color.background.accent.yellow.subtlest.pressed",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "yellow",
+      "subtlest",
+      "pressed"
+    ],
+    "cleanName": "color.background.accent.yellow.subtlest.pressed"
   },
   {
     "attributes": {
@@ -2624,15 +3417,76 @@ const tokens = [
       },
       "value": "Y200"
     },
-    "name": "color.background.accent.yellow.subtler",
+    "name": "color.background.accent.yellow.subtler.[default]",
     "path": [
       "color",
       "background",
       "accent",
       "yellow",
-      "subtler"
+      "subtler",
+      "[default]"
     ],
     "cleanName": "color.background.accent.yellow.subtler"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Hovered state of color.background.accent.yellow.subtler."
+    },
+    "value": "#FFAB00",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.yellow.subtler."
+      },
+      "value": "Y300"
+    },
+    "name": "color.background.accent.yellow.subtler.hovered",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "yellow",
+      "subtler",
+      "hovered"
+    ],
+    "cleanName": "color.background.accent.yellow.subtler.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Pressed state of color.background.accent.yellow.subtler."
+    },
+    "value": "#FF991F",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.yellow.subtler."
+      },
+      "value": "Y400"
+    },
+    "name": "color.background.accent.yellow.subtler.pressed",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "yellow",
+      "subtler",
+      "pressed"
+    ],
+    "cleanName": "color.background.accent.yellow.subtler.pressed"
   },
   {
     "attributes": {
@@ -2653,15 +3507,76 @@ const tokens = [
       },
       "value": "Y400"
     },
-    "name": "color.background.accent.yellow.subtle",
+    "name": "color.background.accent.yellow.subtle.[default]",
     "path": [
       "color",
       "background",
       "accent",
       "yellow",
-      "subtle"
+      "subtle",
+      "[default]"
     ],
     "cleanName": "color.background.accent.yellow.subtle"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Hovered state of color.background.accent.yellow.subtle."
+    },
+    "value": "#FFAB00",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.yellow.subtle."
+      },
+      "value": "Y300"
+    },
+    "name": "color.background.accent.yellow.subtle.hovered",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "yellow",
+      "subtle",
+      "hovered"
+    ],
+    "cleanName": "color.background.accent.yellow.subtle.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Pressed state of color.background.accent.yellow.subtle."
+    },
+    "value": "#FFC400",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.yellow.subtle."
+      },
+      "value": "Y200"
+    },
+    "name": "color.background.accent.yellow.subtle.pressed",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "yellow",
+      "subtle",
+      "pressed"
+    ],
+    "cleanName": "color.background.accent.yellow.subtle.pressed"
   },
   {
     "attributes": {
@@ -2682,15 +3597,76 @@ const tokens = [
       },
       "value": "Y400"
     },
-    "name": "color.background.accent.yellow.bolder",
+    "name": "color.background.accent.yellow.bolder.[default]",
     "path": [
       "color",
       "background",
       "accent",
       "yellow",
-      "bolder"
+      "bolder",
+      "[default]"
     ],
     "cleanName": "color.background.accent.yellow.bolder"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Hovered state of color.background.accent.yellow.bolder."
+    },
+    "value": "#FFAB00",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.yellow.bolder."
+      },
+      "value": "Y300"
+    },
+    "name": "color.background.accent.yellow.bolder.hovered",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "yellow",
+      "bolder",
+      "hovered"
+    ],
+    "cleanName": "color.background.accent.yellow.bolder.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Pressed state of color.background.accent.yellow.bolder."
+    },
+    "value": "#FFC400",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.yellow.bolder."
+      },
+      "value": "Y200"
+    },
+    "name": "color.background.accent.yellow.bolder.pressed",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "yellow",
+      "bolder",
+      "pressed"
+    ],
+    "cleanName": "color.background.accent.yellow.bolder.pressed"
   },
   {
     "attributes": {
@@ -2711,15 +3687,76 @@ const tokens = [
       },
       "value": "G100"
     },
-    "name": "color.background.accent.green.subtlest",
+    "name": "color.background.accent.green.subtlest.[default]",
     "path": [
       "color",
       "background",
       "accent",
       "green",
-      "subtlest"
+      "subtlest",
+      "[default]"
     ],
     "cleanName": "color.background.accent.green.subtlest"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Hovered state of color.background.accent.green.subtlest."
+    },
+    "value": "#57D9A3",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.green.subtlest."
+      },
+      "value": "G200"
+    },
+    "name": "color.background.accent.green.subtlest.hovered",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "green",
+      "subtlest",
+      "hovered"
+    ],
+    "cleanName": "color.background.accent.green.subtlest.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Pressed state of color.background.accent.green.subtlest."
+    },
+    "value": "#36B37E",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.green.subtlest."
+      },
+      "value": "G300"
+    },
+    "name": "color.background.accent.green.subtlest.pressed",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "green",
+      "subtlest",
+      "pressed"
+    ],
+    "cleanName": "color.background.accent.green.subtlest.pressed"
   },
   {
     "attributes": {
@@ -2740,15 +3777,76 @@ const tokens = [
       },
       "value": "G200"
     },
-    "name": "color.background.accent.green.subtler",
+    "name": "color.background.accent.green.subtler.[default]",
     "path": [
       "color",
       "background",
       "accent",
       "green",
-      "subtler"
+      "subtler",
+      "[default]"
     ],
     "cleanName": "color.background.accent.green.subtler"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Hovered state of color.background.accent.green.subtler."
+    },
+    "value": "#36B37E",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.green.subtler."
+      },
+      "value": "G300"
+    },
+    "name": "color.background.accent.green.subtler.hovered",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "green",
+      "subtler",
+      "hovered"
+    ],
+    "cleanName": "color.background.accent.green.subtler.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Pressed state of color.background.accent.green.subtler."
+    },
+    "value": "#00875A",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.green.subtler."
+      },
+      "value": "G400"
+    },
+    "name": "color.background.accent.green.subtler.pressed",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "green",
+      "subtler",
+      "pressed"
+    ],
+    "cleanName": "color.background.accent.green.subtler.pressed"
   },
   {
     "attributes": {
@@ -2769,15 +3867,76 @@ const tokens = [
       },
       "value": "G400"
     },
-    "name": "color.background.accent.green.subtle",
+    "name": "color.background.accent.green.subtle.[default]",
     "path": [
       "color",
       "background",
       "accent",
       "green",
-      "subtle"
+      "subtle",
+      "[default]"
     ],
     "cleanName": "color.background.accent.green.subtle"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Hovered state of color.background.accent.green.subtle."
+    },
+    "value": "#36B37E",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.green.subtle."
+      },
+      "value": "G300"
+    },
+    "name": "color.background.accent.green.subtle.hovered",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "green",
+      "subtle",
+      "hovered"
+    ],
+    "cleanName": "color.background.accent.green.subtle.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Pressed state of color.background.accent.green.subtle."
+    },
+    "value": "#57D9A3",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.green.subtle."
+      },
+      "value": "G200"
+    },
+    "name": "color.background.accent.green.subtle.pressed",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "green",
+      "subtle",
+      "pressed"
+    ],
+    "cleanName": "color.background.accent.green.subtle.pressed"
   },
   {
     "attributes": {
@@ -2798,15 +3957,76 @@ const tokens = [
       },
       "value": "G400"
     },
-    "name": "color.background.accent.green.bolder",
+    "name": "color.background.accent.green.bolder.[default]",
     "path": [
       "color",
       "background",
       "accent",
       "green",
-      "bolder"
+      "bolder",
+      "[default]"
     ],
     "cleanName": "color.background.accent.green.bolder"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Hovered state of color.background.accent.green.bolder."
+    },
+    "value": "#36B37E",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.green.bolder."
+      },
+      "value": "G300"
+    },
+    "name": "color.background.accent.green.bolder.hovered",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "green",
+      "bolder",
+      "hovered"
+    ],
+    "cleanName": "color.background.accent.green.bolder.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Pressed state of color.background.accent.green.bolder."
+    },
+    "value": "#57D9A3",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.green.bolder."
+      },
+      "value": "G200"
+    },
+    "name": "color.background.accent.green.bolder.pressed",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "green",
+      "bolder",
+      "pressed"
+    ],
+    "cleanName": "color.background.accent.green.bolder.pressed"
   },
   {
     "attributes": {
@@ -2827,15 +4047,76 @@ const tokens = [
       },
       "value": "T100"
     },
-    "name": "color.background.accent.teal.subtlest",
+    "name": "color.background.accent.teal.subtlest.[default]",
     "path": [
       "color",
       "background",
       "accent",
       "teal",
-      "subtlest"
+      "subtlest",
+      "[default]"
     ],
     "cleanName": "color.background.accent.teal.subtlest"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Hovered state of color.background.accent.teal.subtlest."
+    },
+    "value": "#00C7E6",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.teal.subtlest."
+      },
+      "value": "T200"
+    },
+    "name": "color.background.accent.teal.subtlest.hovered",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "teal",
+      "subtlest",
+      "hovered"
+    ],
+    "cleanName": "color.background.accent.teal.subtlest.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Pressed state of color.background.accent.teal.subtlest."
+    },
+    "value": "#00B8D9",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.teal.subtlest."
+      },
+      "value": "T300"
+    },
+    "name": "color.background.accent.teal.subtlest.pressed",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "teal",
+      "subtlest",
+      "pressed"
+    ],
+    "cleanName": "color.background.accent.teal.subtlest.pressed"
   },
   {
     "attributes": {
@@ -2856,15 +4137,76 @@ const tokens = [
       },
       "value": "T200"
     },
-    "name": "color.background.accent.teal.subtler",
+    "name": "color.background.accent.teal.subtler.[default]",
     "path": [
       "color",
       "background",
       "accent",
       "teal",
-      "subtler"
+      "subtler",
+      "[default]"
     ],
     "cleanName": "color.background.accent.teal.subtler"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Hovered state of color.background.accent.teal.subtler."
+    },
+    "value": "#00B8D9",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.teal.subtler."
+      },
+      "value": "T300"
+    },
+    "name": "color.background.accent.teal.subtler.hovered",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "teal",
+      "subtler",
+      "hovered"
+    ],
+    "cleanName": "color.background.accent.teal.subtler.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Pressed state of color.background.accent.teal.subtler."
+    },
+    "value": "#00A3BF",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.teal.subtler."
+      },
+      "value": "T400"
+    },
+    "name": "color.background.accent.teal.subtler.pressed",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "teal",
+      "subtler",
+      "pressed"
+    ],
+    "cleanName": "color.background.accent.teal.subtler.pressed"
   },
   {
     "attributes": {
@@ -2885,15 +4227,76 @@ const tokens = [
       },
       "value": "T400"
     },
-    "name": "color.background.accent.teal.subtle",
+    "name": "color.background.accent.teal.subtle.[default]",
     "path": [
       "color",
       "background",
       "accent",
       "teal",
-      "subtle"
+      "subtle",
+      "[default]"
     ],
     "cleanName": "color.background.accent.teal.subtle"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Hovered state of color.background.accent.teal.subtle."
+    },
+    "value": "#00B8D9",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.teal.subtle."
+      },
+      "value": "T300"
+    },
+    "name": "color.background.accent.teal.subtle.hovered",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "teal",
+      "subtle",
+      "hovered"
+    ],
+    "cleanName": "color.background.accent.teal.subtle.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Pressed state of color.background.accent.teal.subtle."
+    },
+    "value": "#00C7E6",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.teal.subtle."
+      },
+      "value": "T200"
+    },
+    "name": "color.background.accent.teal.subtle.pressed",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "teal",
+      "subtle",
+      "pressed"
+    ],
+    "cleanName": "color.background.accent.teal.subtle.pressed"
   },
   {
     "attributes": {
@@ -2914,15 +4317,76 @@ const tokens = [
       },
       "value": "T400"
     },
-    "name": "color.background.accent.teal.bolder",
+    "name": "color.background.accent.teal.bolder.[default]",
     "path": [
       "color",
       "background",
       "accent",
       "teal",
-      "bolder"
+      "bolder",
+      "[default]"
     ],
     "cleanName": "color.background.accent.teal.bolder"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Hovered state of color.background.accent.teal.bolder."
+    },
+    "value": "#00B8D9",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.teal.bolder."
+      },
+      "value": "T300"
+    },
+    "name": "color.background.accent.teal.bolder.hovered",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "teal",
+      "bolder",
+      "hovered"
+    ],
+    "cleanName": "color.background.accent.teal.bolder.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Pressed state of color.background.accent.teal.bolder."
+    },
+    "value": "#00C7E6",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.teal.bolder."
+      },
+      "value": "T200"
+    },
+    "name": "color.background.accent.teal.bolder.pressed",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "teal",
+      "bolder",
+      "pressed"
+    ],
+    "cleanName": "color.background.accent.teal.bolder.pressed"
   },
   {
     "attributes": {
@@ -2943,15 +4407,76 @@ const tokens = [
       },
       "value": "B100"
     },
-    "name": "color.background.accent.blue.subtlest",
+    "name": "color.background.accent.blue.subtlest.[default]",
     "path": [
       "color",
       "background",
       "accent",
       "blue",
-      "subtlest"
+      "subtlest",
+      "[default]"
     ],
     "cleanName": "color.background.accent.blue.subtlest"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Hovered state of color.background.accent.blue.subtlest."
+    },
+    "value": "#2684FF",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.blue.subtlest."
+      },
+      "value": "B200"
+    },
+    "name": "color.background.accent.blue.subtlest.hovered",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "blue",
+      "subtlest",
+      "hovered"
+    ],
+    "cleanName": "color.background.accent.blue.subtlest.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Pressed state of color.background.accent.blue.subtlest."
+    },
+    "value": "#0065FF",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.blue.subtlest."
+      },
+      "value": "B300"
+    },
+    "name": "color.background.accent.blue.subtlest.pressed",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "blue",
+      "subtlest",
+      "pressed"
+    ],
+    "cleanName": "color.background.accent.blue.subtlest.pressed"
   },
   {
     "attributes": {
@@ -2972,15 +4497,76 @@ const tokens = [
       },
       "value": "B200"
     },
-    "name": "color.background.accent.blue.subtler",
+    "name": "color.background.accent.blue.subtler.[default]",
     "path": [
       "color",
       "background",
       "accent",
       "blue",
-      "subtler"
+      "subtler",
+      "[default]"
     ],
     "cleanName": "color.background.accent.blue.subtler"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Hovered state of color.background.accent.blue.subtler."
+    },
+    "value": "#0065FF",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.blue.subtler."
+      },
+      "value": "B300"
+    },
+    "name": "color.background.accent.blue.subtler.hovered",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "blue",
+      "subtler",
+      "hovered"
+    ],
+    "cleanName": "color.background.accent.blue.subtler.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Pressed state of color.background.accent.blue.subtler."
+    },
+    "value": "#0052CC",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.blue.subtler."
+      },
+      "value": "B400"
+    },
+    "name": "color.background.accent.blue.subtler.pressed",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "blue",
+      "subtler",
+      "pressed"
+    ],
+    "cleanName": "color.background.accent.blue.subtler.pressed"
   },
   {
     "attributes": {
@@ -3001,15 +4587,76 @@ const tokens = [
       },
       "value": "B400"
     },
-    "name": "color.background.accent.blue.subtle",
+    "name": "color.background.accent.blue.subtle.[default]",
     "path": [
       "color",
       "background",
       "accent",
       "blue",
-      "subtle"
+      "subtle",
+      "[default]"
     ],
     "cleanName": "color.background.accent.blue.subtle"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Hovered state of color.background.accent.blue.subtle."
+    },
+    "value": "#0065FF",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.blue.subtle."
+      },
+      "value": "B300"
+    },
+    "name": "color.background.accent.blue.subtle.hovered",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "blue",
+      "subtle",
+      "hovered"
+    ],
+    "cleanName": "color.background.accent.blue.subtle.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Pressed state of color.background.accent.blue.subtle."
+    },
+    "value": "#2684FF",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.blue.subtle."
+      },
+      "value": "B200"
+    },
+    "name": "color.background.accent.blue.subtle.pressed",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "blue",
+      "subtle",
+      "pressed"
+    ],
+    "cleanName": "color.background.accent.blue.subtle.pressed"
   },
   {
     "attributes": {
@@ -3030,15 +4677,76 @@ const tokens = [
       },
       "value": "B400"
     },
-    "name": "color.background.accent.blue.bolder",
+    "name": "color.background.accent.blue.bolder.[default]",
     "path": [
       "color",
       "background",
       "accent",
       "blue",
-      "bolder"
+      "bolder",
+      "[default]"
     ],
     "cleanName": "color.background.accent.blue.bolder"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Hovered state of color.background.accent.blue.bolder."
+    },
+    "value": "#0065FF",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.blue.bolder."
+      },
+      "value": "B300"
+    },
+    "name": "color.background.accent.blue.bolder.hovered",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "blue",
+      "bolder",
+      "hovered"
+    ],
+    "cleanName": "color.background.accent.blue.bolder.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Pressed state of color.background.accent.blue.bolder."
+    },
+    "value": "#2684FF",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.blue.bolder."
+      },
+      "value": "B200"
+    },
+    "name": "color.background.accent.blue.bolder.pressed",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "blue",
+      "bolder",
+      "pressed"
+    ],
+    "cleanName": "color.background.accent.blue.bolder.pressed"
   },
   {
     "attributes": {
@@ -3059,15 +4767,76 @@ const tokens = [
       },
       "value": "P100"
     },
-    "name": "color.background.accent.purple.subtlest",
+    "name": "color.background.accent.purple.subtlest.[default]",
     "path": [
       "color",
       "background",
       "accent",
       "purple",
-      "subtlest"
+      "subtlest",
+      "[default]"
     ],
     "cleanName": "color.background.accent.purple.subtlest"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Hovered state of color.background.accent.purple.subtlest."
+    },
+    "value": "#8777D9",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.purple.subtlest."
+      },
+      "value": "P200"
+    },
+    "name": "color.background.accent.purple.subtlest.hovered",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "purple",
+      "subtlest",
+      "hovered"
+    ],
+    "cleanName": "color.background.accent.purple.subtlest.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Pressed state of color.background.accent.purple.subtlest."
+    },
+    "value": "#6554C0",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.purple.subtlest."
+      },
+      "value": "P300"
+    },
+    "name": "color.background.accent.purple.subtlest.pressed",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "purple",
+      "subtlest",
+      "pressed"
+    ],
+    "cleanName": "color.background.accent.purple.subtlest.pressed"
   },
   {
     "attributes": {
@@ -3088,15 +4857,76 @@ const tokens = [
       },
       "value": "P200"
     },
-    "name": "color.background.accent.purple.subtler",
+    "name": "color.background.accent.purple.subtler.[default]",
     "path": [
       "color",
       "background",
       "accent",
       "purple",
-      "subtler"
+      "subtler",
+      "[default]"
     ],
     "cleanName": "color.background.accent.purple.subtler"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Hovered state of color.background.accent.purple.subtler."
+    },
+    "value": "#6554C0",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.purple.subtler."
+      },
+      "value": "P300"
+    },
+    "name": "color.background.accent.purple.subtler.hovered",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "purple",
+      "subtler",
+      "hovered"
+    ],
+    "cleanName": "color.background.accent.purple.subtler.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Pressed state of color.background.accent.purple.subtler."
+    },
+    "value": "#5243AA",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.purple.subtler."
+      },
+      "value": "P400"
+    },
+    "name": "color.background.accent.purple.subtler.pressed",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "purple",
+      "subtler",
+      "pressed"
+    ],
+    "cleanName": "color.background.accent.purple.subtler.pressed"
   },
   {
     "attributes": {
@@ -3117,15 +4947,76 @@ const tokens = [
       },
       "value": "P400"
     },
-    "name": "color.background.accent.purple.subtle",
+    "name": "color.background.accent.purple.subtle.[default]",
     "path": [
       "color",
       "background",
       "accent",
       "purple",
-      "subtle"
+      "subtle",
+      "[default]"
     ],
     "cleanName": "color.background.accent.purple.subtle"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Hovered state of color.background.accent.purple.subtle."
+    },
+    "value": "#6554C0",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.purple.subtle."
+      },
+      "value": "P300"
+    },
+    "name": "color.background.accent.purple.subtle.hovered",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "purple",
+      "subtle",
+      "hovered"
+    ],
+    "cleanName": "color.background.accent.purple.subtle.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Pressed state of color.background.accent.purple.subtle."
+    },
+    "value": "#8777D9",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.purple.subtle."
+      },
+      "value": "P200"
+    },
+    "name": "color.background.accent.purple.subtle.pressed",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "purple",
+      "subtle",
+      "pressed"
+    ],
+    "cleanName": "color.background.accent.purple.subtle.pressed"
   },
   {
     "attributes": {
@@ -3146,15 +5037,76 @@ const tokens = [
       },
       "value": "P400"
     },
-    "name": "color.background.accent.purple.bolder",
+    "name": "color.background.accent.purple.bolder.[default]",
     "path": [
       "color",
       "background",
       "accent",
       "purple",
-      "bolder"
+      "bolder",
+      "[default]"
     ],
     "cleanName": "color.background.accent.purple.bolder"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Hovered state of color.background.accent.purple.bolder."
+    },
+    "value": "#6554C0",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.purple.bolder."
+      },
+      "value": "P300"
+    },
+    "name": "color.background.accent.purple.bolder.hovered",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "purple",
+      "bolder",
+      "hovered"
+    ],
+    "cleanName": "color.background.accent.purple.bolder.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Pressed state of color.background.accent.purple.bolder."
+    },
+    "value": "#8777D9",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.purple.bolder."
+      },
+      "value": "P200"
+    },
+    "name": "color.background.accent.purple.bolder.pressed",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "purple",
+      "bolder",
+      "pressed"
+    ],
+    "cleanName": "color.background.accent.purple.bolder.pressed"
   },
   {
     "attributes": {
@@ -3163,7 +5115,7 @@ const tokens = [
       "introduced": "0.7.0",
       "description": "Use for magenta backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
     },
-    "value": "#E774BB",
+    "value": "#FFECF8",
     "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
     "isSource": true,
     "original": {
@@ -3173,17 +5125,78 @@ const tokens = [
         "introduced": "0.7.0",
         "description": "Use for magenta backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
       },
-      "value": "#E774BB"
+      "value": "#FFECF8"
     },
-    "name": "color.background.accent.magenta.subtlest",
+    "name": "color.background.accent.magenta.subtlest.[default]",
     "path": [
       "color",
       "background",
       "accent",
       "magenta",
-      "subtlest"
+      "subtlest",
+      "[default]"
     ],
     "cleanName": "color.background.accent.magenta.subtlest"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Hovered state of color.background.accent.magenta.subtlest."
+    },
+    "value": "#FDD0EC",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.magenta.subtlest."
+      },
+      "value": "#FDD0EC"
+    },
+    "name": "color.background.accent.magenta.subtlest.hovered",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "magenta",
+      "subtlest",
+      "hovered"
+    ],
+    "cleanName": "color.background.accent.magenta.subtlest.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Pressed state of color.background.accent.magenta.subtlest."
+    },
+    "value": "#F797D2",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.magenta.subtlest."
+      },
+      "value": "#F797D2"
+    },
+    "name": "color.background.accent.magenta.subtlest.pressed",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "magenta",
+      "subtlest",
+      "pressed"
+    ],
+    "cleanName": "color.background.accent.magenta.subtlest.pressed"
   },
   {
     "attributes": {
@@ -3192,7 +5205,7 @@ const tokens = [
       "introduced": "0.7.0",
       "description": "Use for magenta backgrounds when there is no meaning tied to the color, such as colored tags."
     },
-    "value": "#E774BB",
+    "value": "#FDD0EC",
     "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
     "isSource": true,
     "original": {
@@ -3202,17 +5215,78 @@ const tokens = [
         "introduced": "0.7.0",
         "description": "Use for magenta backgrounds when there is no meaning tied to the color, such as colored tags."
       },
-      "value": "#E774BB"
+      "value": "#FDD0EC"
     },
-    "name": "color.background.accent.magenta.subtler",
+    "name": "color.background.accent.magenta.subtler.[default]",
     "path": [
       "color",
       "background",
       "accent",
       "magenta",
-      "subtler"
+      "subtler",
+      "[default]"
     ],
     "cleanName": "color.background.accent.magenta.subtler"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Hovered state of color.background.accent.magenta.subtler."
+    },
+    "value": "#F797D2",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.magenta.subtler."
+      },
+      "value": "#F797D2"
+    },
+    "name": "color.background.accent.magenta.subtler.hovered",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "magenta",
+      "subtler",
+      "hovered"
+    ],
+    "cleanName": "color.background.accent.magenta.subtler.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Pressed state of color.background.accent.magenta.subtler."
+    },
+    "value": "#E774BB",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.magenta.subtler."
+      },
+      "value": "#E774BB"
+    },
+    "name": "color.background.accent.magenta.subtler.pressed",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "magenta",
+      "subtler",
+      "pressed"
+    ],
+    "cleanName": "color.background.accent.magenta.subtler.pressed"
   },
   {
     "attributes": {
@@ -3233,15 +5307,76 @@ const tokens = [
       },
       "value": "#E774BB"
     },
-    "name": "color.background.accent.magenta.subtle",
+    "name": "color.background.accent.magenta.subtle.[default]",
     "path": [
       "color",
       "background",
       "accent",
       "magenta",
-      "subtle"
+      "subtle",
+      "[default]"
     ],
     "cleanName": "color.background.accent.magenta.subtle"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Hovered state of color.background.accent.magenta.subtle."
+    },
+    "value": "#F797D2",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.magenta.subtle."
+      },
+      "value": "#F797D2"
+    },
+    "name": "color.background.accent.magenta.subtle.hovered",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "magenta",
+      "subtle",
+      "hovered"
+    ],
+    "cleanName": "color.background.accent.magenta.subtle.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Pressed state of color.background.accent.magenta.subtle."
+    },
+    "value": "#FDD0EC",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.magenta.subtle."
+      },
+      "value": "#FDD0EC"
+    },
+    "name": "color.background.accent.magenta.subtle.pressed",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "magenta",
+      "subtle",
+      "pressed"
+    ],
+    "cleanName": "color.background.accent.magenta.subtle.pressed"
   },
   {
     "attributes": {
@@ -3250,7 +5385,7 @@ const tokens = [
       "introduced": "0.7.0",
       "description": "Use for magenta backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
     },
-    "value": "#E774BB",
+    "value": "#AE4787",
     "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
     "isSource": true,
     "original": {
@@ -3260,17 +5395,78 @@ const tokens = [
         "introduced": "0.7.0",
         "description": "Use for magenta backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
       },
-      "value": "#E774BB"
+      "value": "#AE4787"
     },
-    "name": "color.background.accent.magenta.bolder",
+    "name": "color.background.accent.magenta.bolder.[default]",
     "path": [
       "color",
       "background",
       "accent",
       "magenta",
-      "bolder"
+      "bolder",
+      "[default]"
     ],
     "cleanName": "color.background.accent.magenta.bolder"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Hovered state of color.background.accent.magenta.bolder."
+    },
+    "value": "#943D73",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.magenta.bolder."
+      },
+      "value": "#943D73"
+    },
+    "name": "color.background.accent.magenta.bolder.hovered",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "magenta",
+      "bolder",
+      "hovered"
+    ],
+    "cleanName": "color.background.accent.magenta.bolder.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Pressed state of color.background.accent.magenta.bolder."
+    },
+    "value": "#50253F",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.magenta.bolder."
+      },
+      "value": "#50253F"
+    },
+    "name": "color.background.accent.magenta.bolder.pressed",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "magenta",
+      "bolder",
+      "pressed"
+    ],
+    "cleanName": "color.background.accent.magenta.bolder.pressed"
   },
   {
     "attributes": {
@@ -3291,15 +5487,76 @@ const tokens = [
       },
       "value": "N200"
     },
-    "name": "color.background.accent.gray.subtlest",
+    "name": "color.background.accent.gray.subtlest.[default]",
     "path": [
       "color",
       "background",
       "accent",
       "gray",
-      "subtlest"
+      "subtlest",
+      "[default]"
     ],
     "cleanName": "color.background.accent.gray.subtlest"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Hovered state of color.background.accent.gray.subtlest."
+    },
+    "value": "#5E6C84",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.gray.subtlest."
+      },
+      "value": "N300"
+    },
+    "name": "color.background.accent.gray.subtlest.hovered",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "gray",
+      "subtlest",
+      "hovered"
+    ],
+    "cleanName": "color.background.accent.gray.subtlest.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Pressed state of color.background.accent.gray.subtlest."
+    },
+    "value": "#505F79",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.gray.subtlest."
+      },
+      "value": "N400"
+    },
+    "name": "color.background.accent.gray.subtlest.pressed",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "gray",
+      "subtlest",
+      "pressed"
+    ],
+    "cleanName": "color.background.accent.gray.subtlest.pressed"
   },
   {
     "attributes": {
@@ -3320,13 +5577,14 @@ const tokens = [
       },
       "value": "N300"
     },
-    "name": "color.background.accent.gray.subtler",
+    "name": "color.background.accent.gray.subtler.[default]",
     "path": [
       "color",
       "background",
       "accent",
       "gray",
-      "subtler"
+      "subtler",
+      "[default]"
     ],
     "cleanName": "color.background.accent.gray.subtler"
   },
@@ -3334,8 +5592,38 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.7.0",
-      "description": "Use for vibrant gray backgrounds when there is no meaning tied to the color, such as colored tags."
+      "introduced": "1.19.0",
+      "description": "Hovered state of color.background.accent.gray.subtler."
+    },
+    "value": "#505F79",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.gray.subtler."
+      },
+      "value": "N400"
+    },
+    "name": "color.background.accent.gray.subtler.hovered",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "gray",
+      "subtler",
+      "hovered"
+    ],
+    "cleanName": "color.background.accent.gray.subtler.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Pressed state of color.background.accent.gray.subtler."
     },
     "value": "#42526E",
     "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
@@ -3344,27 +5632,28 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.7.0",
-        "description": "Use for vibrant gray backgrounds when there is no meaning tied to the color, such as colored tags."
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.gray.subtler."
       },
       "value": "N500"
     },
-    "name": "color.background.accent.gray.subtle",
+    "name": "color.background.accent.gray.subtler.pressed",
     "path": [
       "color",
       "background",
       "accent",
       "gray",
-      "subtle"
+      "subtler",
+      "pressed"
     ],
-    "cleanName": "color.background.accent.gray.subtle"
+    "cleanName": "color.background.accent.gray.subtler.pressed"
   },
   {
     "attributes": {
       "group": "paint",
       "state": "active",
       "introduced": "0.7.0",
-      "description": "Use for gray backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+      "description": "Use for vibrant gray backgrounds when there is no meaning tied to the color, such as colored tags."
     },
     "value": "#505F79",
     "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
@@ -3374,19 +5663,170 @@ const tokens = [
         "group": "paint",
         "state": "active",
         "introduced": "0.7.0",
-        "description": "Use for gray backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+        "description": "Use for vibrant gray backgrounds when there is no meaning tied to the color, such as colored tags."
       },
       "value": "N400"
     },
-    "name": "color.background.accent.gray.bolder",
+    "name": "color.background.accent.gray.subtle.[default]",
     "path": [
       "color",
       "background",
       "accent",
       "gray",
-      "bolder"
+      "subtle",
+      "[default]"
+    ],
+    "cleanName": "color.background.accent.gray.subtle"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Hovered state of color.background.accent.gray.subtle."
+    },
+    "value": "#5E6C84",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.gray.subtle."
+      },
+      "value": "N300"
+    },
+    "name": "color.background.accent.gray.subtle.hovered",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "gray",
+      "subtle",
+      "hovered"
+    ],
+    "cleanName": "color.background.accent.gray.subtle.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Pressed state of color.background.accent.gray.subtle."
+    },
+    "value": "#6B778C",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.gray.subtle."
+      },
+      "value": "N200"
+    },
+    "name": "color.background.accent.gray.subtle.pressed",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "gray",
+      "subtle",
+      "pressed"
+    ],
+    "cleanName": "color.background.accent.gray.subtle.pressed"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.7.0",
+      "description": "Use for gray backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+    },
+    "value": "#42526E",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for gray backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+      },
+      "value": "N500"
+    },
+    "name": "color.background.accent.gray.bolder.[default]",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "gray",
+      "bolder",
+      "[default]"
     ],
     "cleanName": "color.background.accent.gray.bolder"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Hovered state of color.background.accent.gray.bolder."
+    },
+    "value": "#344563",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.gray.bolder."
+      },
+      "value": "N600"
+    },
+    "name": "color.background.accent.gray.bolder.hovered",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "gray",
+      "bolder",
+      "hovered"
+    ],
+    "cleanName": "color.background.accent.gray.bolder.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.19.0",
+      "description": "Pressed state of color.background.accent.gray.subtlest."
+    },
+    "value": "#253858",
+    "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.gray.subtlest."
+      },
+      "value": "N700"
+    },
+    "name": "color.background.accent.gray.bolder.pressed",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "gray",
+      "bolder",
+      "pressed"
+    ],
+    "cleanName": "color.background.accent.gray.bolder.pressed"
   },
   {
     "attributes": {

@@ -265,3 +265,16 @@ export const JiraIssue = {
     ],
   },
 };
+
+export const JiraIssueAssigned = {
+  ...JiraIssue,
+  data: {
+    ...JiraIssue.data,
+    'atlassian:assignedTo': {
+      '@type': 'Person',
+      name: 'Eliza Pancake',
+      icon: avatar3,
+    },
+    url: 'https://issue-url/TST-1',
+  },
+};

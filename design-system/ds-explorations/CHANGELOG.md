@@ -1,5 +1,12 @@
 # @atlaskit/ds-explorations
 
+## 2.2.13
+
+### Patch Changes
+
+- [`88e4ac397ea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/88e4ac397ea) - Regenerates codegen artifacts as a result of introducting new accent interaction tokens.
+- Updated dependencies
+
 ## 2.2.12
 
 ### Patch Changes

@@ -70,13 +70,215 @@ export default InteractionSurface;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::01dc580099e9b8257da4c8f610e7874c>>
+ * @codegen <<SignedSource::03b3f0bf0d4f1326c6bfa087f92bef36>>
  * @codegenId interactions
  * @codegenCommand yarn codegen-styles
  * @codegenParams ["background"]
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::65311fc2a6a35bb34b99c859362ac840>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::815ddd719715ae06521cad06e1921e40>>
  */
 const backgroundActiveColorMap = {
+  'accent.lime.subtlest': css({
+    ':active': {
+      backgroundColor: token('color.background.accent.lime.subtlest.pressed'),
+    },
+  }),
+  'accent.lime.subtler': css({
+    ':active': {
+      backgroundColor: token('color.background.accent.lime.subtler.pressed'),
+    },
+  }),
+  'accent.lime.subtle': css({
+    ':active': {
+      backgroundColor: token('color.background.accent.lime.subtle.pressed'),
+    },
+  }),
+  'accent.lime.bolder': css({
+    ':active': {
+      backgroundColor: token('color.background.accent.lime.bolder.pressed'),
+    },
+  }),
+  'accent.red.subtlest': css({
+    ':active': {
+      backgroundColor: token('color.background.accent.red.subtlest.pressed'),
+    },
+  }),
+  'accent.red.subtler': css({
+    ':active': {
+      backgroundColor: token('color.background.accent.red.subtler.pressed'),
+    },
+  }),
+  'accent.red.subtle': css({
+    ':active': {
+      backgroundColor: token('color.background.accent.red.subtle.pressed'),
+    },
+  }),
+  'accent.red.bolder': css({
+    ':active': {
+      backgroundColor: token('color.background.accent.red.bolder.pressed'),
+    },
+  }),
+  'accent.orange.subtlest': css({
+    ':active': {
+      backgroundColor: token('color.background.accent.orange.subtlest.pressed'),
+    },
+  }),
+  'accent.orange.subtler': css({
+    ':active': {
+      backgroundColor: token('color.background.accent.orange.subtler.pressed'),
+    },
+  }),
+  'accent.orange.subtle': css({
+    ':active': {
+      backgroundColor: token('color.background.accent.orange.subtle.pressed'),
+    },
+  }),
+  'accent.orange.bolder': css({
+    ':active': {
+      backgroundColor: token('color.background.accent.orange.bolder.pressed'),
+    },
+  }),
+  'accent.yellow.subtlest': css({
+    ':active': {
+      backgroundColor: token('color.background.accent.yellow.subtlest.pressed'),
+    },
+  }),
+  'accent.yellow.subtler': css({
+    ':active': {
+      backgroundColor: token('color.background.accent.yellow.subtler.pressed'),
+    },
+  }),
+  'accent.yellow.subtle': css({
+    ':active': {
+      backgroundColor: token('color.background.accent.yellow.subtle.pressed'),
+    },
+  }),
+  'accent.yellow.bolder': css({
+    ':active': {
+      backgroundColor: token('color.background.accent.yellow.bolder.pressed'),
+    },
+  }),
+  'accent.green.subtlest': css({
+    ':active': {
+      backgroundColor: token('color.background.accent.green.subtlest.pressed'),
+    },
+  }),
+  'accent.green.subtler': css({
+    ':active': {
+      backgroundColor: token('color.background.accent.green.subtler.pressed'),
+    },
+  }),
+  'accent.green.subtle': css({
+    ':active': {
+      backgroundColor: token('color.background.accent.green.subtle.pressed'),
+    },
+  }),
+  'accent.green.bolder': css({
+    ':active': {
+      backgroundColor: token('color.background.accent.green.bolder.pressed'),
+    },
+  }),
+  'accent.teal.subtlest': css({
+    ':active': {
+      backgroundColor: token('color.background.accent.teal.subtlest.pressed'),
+    },
+  }),
+  'accent.teal.subtler': css({
+    ':active': {
+      backgroundColor: token('color.background.accent.teal.subtler.pressed'),
+    },
+  }),
+  'accent.teal.subtle': css({
+    ':active': {
+      backgroundColor: token('color.background.accent.teal.subtle.pressed'),
+    },
+  }),
+  'accent.teal.bolder': css({
+    ':active': {
+      backgroundColor: token('color.background.accent.teal.bolder.pressed'),
+    },
+  }),
+  'accent.blue.subtlest': css({
+    ':active': {
+      backgroundColor: token('color.background.accent.blue.subtlest.pressed'),
+    },
+  }),
+  'accent.blue.subtler': css({
+    ':active': {
+      backgroundColor: token('color.background.accent.blue.subtler.pressed'),
+    },
+  }),
+  'accent.blue.subtle': css({
+    ':active': {
+      backgroundColor: token('color.background.accent.blue.subtle.pressed'),
+    },
+  }),
+  'accent.blue.bolder': css({
+    ':active': {
+      backgroundColor: token('color.background.accent.blue.bolder.pressed'),
+    },
+  }),
+  'accent.purple.subtlest': css({
+    ':active': {
+      backgroundColor: token('color.background.accent.purple.subtlest.pressed'),
+    },
+  }),
+  'accent.purple.subtler': css({
+    ':active': {
+      backgroundColor: token('color.background.accent.purple.subtler.pressed'),
+    },
+  }),
+  'accent.purple.subtle': css({
+    ':active': {
+      backgroundColor: token('color.background.accent.purple.subtle.pressed'),
+    },
+  }),
+  'accent.purple.bolder': css({
+    ':active': {
+      backgroundColor: token('color.background.accent.purple.bolder.pressed'),
+    },
+  }),
+  'accent.magenta.subtlest': css({
+    ':active': {
+      backgroundColor: token(
+        'color.background.accent.magenta.subtlest.pressed',
+      ),
+    },
+  }),
+  'accent.magenta.subtler': css({
+    ':active': {
+      backgroundColor: token('color.background.accent.magenta.subtler.pressed'),
+    },
+  }),
+  'accent.magenta.subtle': css({
+    ':active': {
+      backgroundColor: token('color.background.accent.magenta.subtle.pressed'),
+    },
+  }),
+  'accent.magenta.bolder': css({
+    ':active': {
+      backgroundColor: token('color.background.accent.magenta.bolder.pressed'),
+    },
+  }),
+  'accent.gray.subtlest': css({
+    ':active': {
+      backgroundColor: token('color.background.accent.gray.subtlest.pressed'),
+    },
+  }),
+  'accent.gray.subtler': css({
+    ':active': {
+      backgroundColor: token('color.background.accent.gray.subtler.pressed'),
+    },
+  }),
+  'accent.gray.subtle': css({
+    ':active': {
+      backgroundColor: token('color.background.accent.gray.subtle.pressed'),
+    },
+  }),
+  'accent.gray.bolder': css({
+    ':active': {
+      backgroundColor: token('color.background.accent.gray.bolder.pressed'),
+    },
+  }),
   input: css({
     ':active': { backgroundColor: token('color.background.input.pressed') },
   }),
@@ -175,6 +377,208 @@ const backgroundActiveColorMap = {
 };
 
 const backgroundHoverColorMap = {
+  'accent.lime.subtlest': css({
+    ':hover': {
+      backgroundColor: token('color.background.accent.lime.subtlest.hovered'),
+    },
+  }),
+  'accent.lime.subtler': css({
+    ':hover': {
+      backgroundColor: token('color.background.accent.lime.subtler.hovered'),
+    },
+  }),
+  'accent.lime.subtle': css({
+    ':hover': {
+      backgroundColor: token('color.background.accent.lime.subtle.hovered'),
+    },
+  }),
+  'accent.lime.bolder': css({
+    ':hover': {
+      backgroundColor: token('color.background.accent.lime.bolder.hovered'),
+    },
+  }),
+  'accent.red.subtlest': css({
+    ':hover': {
+      backgroundColor: token('color.background.accent.red.subtlest.hovered'),
+    },
+  }),
+  'accent.red.subtler': css({
+    ':hover': {
+      backgroundColor: token('color.background.accent.red.subtler.hovered'),
+    },
+  }),
+  'accent.red.subtle': css({
+    ':hover': {
+      backgroundColor: token('color.background.accent.red.subtle.hovered'),
+    },
+  }),
+  'accent.red.bolder': css({
+    ':hover': {
+      backgroundColor: token('color.background.accent.red.bolder.hovered'),
+    },
+  }),
+  'accent.orange.subtlest': css({
+    ':hover': {
+      backgroundColor: token('color.background.accent.orange.subtlest.hovered'),
+    },
+  }),
+  'accent.orange.subtler': css({
+    ':hover': {
+      backgroundColor: token('color.background.accent.orange.subtler.hovered'),
+    },
+  }),
+  'accent.orange.subtle': css({
+    ':hover': {
+      backgroundColor: token('color.background.accent.orange.subtle.hovered'),
+    },
+  }),
+  'accent.orange.bolder': css({
+    ':hover': {
+      backgroundColor: token('color.background.accent.orange.bolder.hovered'),
+    },
+  }),
+  'accent.yellow.subtlest': css({
+    ':hover': {
+      backgroundColor: token('color.background.accent.yellow.subtlest.hovered'),
+    },
+  }),
+  'accent.yellow.subtler': css({
+    ':hover': {
+      backgroundColor: token('color.background.accent.yellow.subtler.hovered'),
+    },
+  }),
+  'accent.yellow.subtle': css({
+    ':hover': {
+      backgroundColor: token('color.background.accent.yellow.subtle.hovered'),
+    },
+  }),
+  'accent.yellow.bolder': css({
+    ':hover': {
+      backgroundColor: token('color.background.accent.yellow.bolder.hovered'),
+    },
+  }),
+  'accent.green.subtlest': css({
+    ':hover': {
+      backgroundColor: token('color.background.accent.green.subtlest.hovered'),
+    },
+  }),
+  'accent.green.subtler': css({
+    ':hover': {
+      backgroundColor: token('color.background.accent.green.subtler.hovered'),
+    },
+  }),
+  'accent.green.subtle': css({
+    ':hover': {
+      backgroundColor: token('color.background.accent.green.subtle.hovered'),
+    },
+  }),
+  'accent.green.bolder': css({
+    ':hover': {
+      backgroundColor: token('color.background.accent.green.bolder.hovered'),
+    },
+  }),
+  'accent.teal.subtlest': css({
+    ':hover': {
+      backgroundColor: token('color.background.accent.teal.subtlest.hovered'),
+    },
+  }),
+  'accent.teal.subtler': css({
+    ':hover': {
+      backgroundColor: token('color.background.accent.teal.subtler.hovered'),
+    },
+  }),
+  'accent.teal.subtle': css({
+    ':hover': {
+      backgroundColor: token('color.background.accent.teal.subtle.hovered'),
+    },
+  }),
+  'accent.teal.bolder': css({
+    ':hover': {
+      backgroundColor: token('color.background.accent.teal.bolder.hovered'),
+    },
+  }),
+  'accent.blue.subtlest': css({
+    ':hover': {
+      backgroundColor: token('color.background.accent.blue.subtlest.hovered'),
+    },
+  }),
+  'accent.blue.subtler': css({
+    ':hover': {
+      backgroundColor: token('color.background.accent.blue.subtler.hovered'),
+    },
+  }),
+  'accent.blue.subtle': css({
+    ':hover': {
+      backgroundColor: token('color.background.accent.blue.subtle.hovered'),
+    },
+  }),
+  'accent.blue.bolder': css({
+    ':hover': {
+      backgroundColor: token('color.background.accent.blue.bolder.hovered'),
+    },
+  }),
+  'accent.purple.subtlest': css({
+    ':hover': {
+      backgroundColor: token('color.background.accent.purple.subtlest.hovered'),
+    },
+  }),
+  'accent.purple.subtler': css({
+    ':hover': {
+      backgroundColor: token('color.background.accent.purple.subtler.hovered'),
+    },
+  }),
+  'accent.purple.subtle': css({
+    ':hover': {
+      backgroundColor: token('color.background.accent.purple.subtle.hovered'),
+    },
+  }),
+  'accent.purple.bolder': css({
+    ':hover': {
+      backgroundColor: token('color.background.accent.purple.bolder.hovered'),
+    },
+  }),
+  'accent.magenta.subtlest': css({
+    ':hover': {
+      backgroundColor: token(
+        'color.background.accent.magenta.subtlest.hovered',
+      ),
+    },
+  }),
+  'accent.magenta.subtler': css({
+    ':hover': {
+      backgroundColor: token('color.background.accent.magenta.subtler.hovered'),
+    },
+  }),
+  'accent.magenta.subtle': css({
+    ':hover': {
+      backgroundColor: token('color.background.accent.magenta.subtle.hovered'),
+    },
+  }),
+  'accent.magenta.bolder': css({
+    ':hover': {
+      backgroundColor: token('color.background.accent.magenta.bolder.hovered'),
+    },
+  }),
+  'accent.gray.subtlest': css({
+    ':hover': {
+      backgroundColor: token('color.background.accent.gray.subtlest.hovered'),
+    },
+  }),
+  'accent.gray.subtler': css({
+    ':hover': {
+      backgroundColor: token('color.background.accent.gray.subtler.hovered'),
+    },
+  }),
+  'accent.gray.subtle': css({
+    ':hover': {
+      backgroundColor: token('color.background.accent.gray.subtle.hovered'),
+    },
+  }),
+  'accent.gray.bolder': css({
+    ':hover': {
+      backgroundColor: token('color.background.accent.gray.bolder.hovered'),
+    },
+  }),
   input: css({
     ':hover': { backgroundColor: token('color.background.input.hovered') },
   }),

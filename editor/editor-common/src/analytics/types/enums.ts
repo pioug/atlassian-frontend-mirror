@@ -322,6 +322,7 @@ export enum ACTION_SUBJECT_ID {
   REACT_NODE_VIEW = 'reactNodeView',
   RECENT_ACTIVITIES = 'recentActivities',
   RESIZED = 'resized',
+  INPUT_RESIZED = 'input resized',
   RICH_MEDIA_LAYOUT = 'richMediaLayout',
   SAVE = 'save',
   SECTION = 'section',

@@ -7,9 +7,14 @@ import { Card, CardProps } from '@atlaskit/smart-card';
 type VRCardViewProps = {
   appearance: CardProps['appearance'];
   client: ProviderProps['client'];
+  url?: CardProps['url'];
 };
 
-const VRCardView: React.FC<VRCardViewProps> = ({ appearance, client }) => (
+const VRCardView: React.FC<VRCardViewProps> = ({
+  appearance,
+  client,
+  url = 'https://some.url',
+}) => (
   <VRTestWrapper>
     <SmartCardProvider
       client={client}
@@ -18,7 +23,7 @@ const VRCardView: React.FC<VRCardViewProps> = ({ appearance, client }) => (
       <Card
         appearance={appearance}
         showServerActions={true}
-        url="https://some.url"
+        url={url}
         /* Embed-specific props */
         frameStyle="show"
       />

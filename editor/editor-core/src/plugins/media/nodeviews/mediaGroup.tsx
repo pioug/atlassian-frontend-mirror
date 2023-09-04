@@ -61,7 +61,17 @@ export interface MediaGroupState {
 }
 
 const isMediaGroupSelectedFromProps = (props: MediaGroupProps) => {
-  const pos = props.getPos();
+  /**
+   *  ED-19831
+   *  There is a getPos issue coming from this code. We need to apply this workaround for now and apply a patch
+   *  directly to confluence since this bug is now iun production.
+   */
+  let pos: number | undefined;
+  try {
+    pos = typeof props.getPos === 'function' ? props.getPos() : undefined;
+  } catch (e) {
+    pos = undefined;
+  }
 
   if (typeof pos !== 'number') {
     return false;

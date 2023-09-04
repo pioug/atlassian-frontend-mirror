@@ -2,6 +2,8 @@ import { snapshot } from '@af/visual-regression';
 import HoverCard from '../../../examples/vr-hover-card/vr-hover-card-layout';
 import HoverCardWithPreview from '../../../examples/vr-hover-card/vr-hover-card-with-image-preview';
 import HoverCardForSlackMessage from '../../../examples/vr-hover-card/vr-hover-card-for-slack-message';
+import HoverCardConfluence from '../../../examples/vr-hover-card/vr-hover-card-confluence';
+import HoverCardJira from '../../../examples/vr-hover-card/vr-hover-card-jira';
 
 snapshot(HoverCard, {
   description: 'Standalone hover card deafult',
@@ -47,6 +49,32 @@ snapshot(HoverCardWithPreview, {
 //Same list of tests for refreshed hover card design & better metadata under the FF
 snapshot(HoverCardForSlackMessage, {
   description: 'Standalone hover card for Slack message',
+  states: [{ state: 'hovered', selector: { byRole: 'button' } }],
+  drawsOutsideBounds: true,
+  hooks: {
+    featureFlags: {
+      'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
+        true,
+      'platform.linking-platform.smart-card.enable-better-metadata_iojwg': true,
+    },
+  },
+});
+
+snapshot(HoverCardConfluence, {
+  description: 'Refreshed Standalone hover card for Confluence',
+  states: [{ state: 'hovered', selector: { byRole: 'button' } }],
+  drawsOutsideBounds: true,
+  hooks: {
+    featureFlags: {
+      'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
+        true,
+      'platform.linking-platform.smart-card.enable-better-metadata_iojwg': true,
+    },
+  },
+});
+
+snapshot(HoverCardJira, {
+  description: 'Refreshed Standalone hover card for Jira',
   states: [{ state: 'hovered', selector: { byRole: 'button' } }],
   drawsOutsideBounds: true,
   hooks: {

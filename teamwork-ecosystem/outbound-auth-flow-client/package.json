@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/outbound-auth-flow-client",
-  "version": "3.4.3",
+  "version": "3.4.4",
   "description": "Front-end library for starting outbound auth flows",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -24,7 +24,10 @@
   "atlassian": {
     "team": "Ecosystem Capabilities",
     "deprecatedAutoEntryPoints": true,
-    "releaseModel": "continuous"
+    "releaseModel": "continuous",
+    "productPushConsumption": [
+      "jira"
+    ]
   },
   "config": {
     "access": "public"

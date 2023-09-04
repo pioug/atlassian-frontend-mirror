@@ -71,6 +71,46 @@ const backgroundColorMap: {
 
 // @public (undocumented)
 const backgroundHoverColorMap: {
+  'accent.lime.subtlest': SerializedStyles;
+  'accent.lime.subtler': SerializedStyles;
+  'accent.lime.subtle': SerializedStyles;
+  'accent.lime.bolder': SerializedStyles;
+  'accent.red.subtlest': SerializedStyles;
+  'accent.red.subtler': SerializedStyles;
+  'accent.red.subtle': SerializedStyles;
+  'accent.red.bolder': SerializedStyles;
+  'accent.orange.subtlest': SerializedStyles;
+  'accent.orange.subtler': SerializedStyles;
+  'accent.orange.subtle': SerializedStyles;
+  'accent.orange.bolder': SerializedStyles;
+  'accent.yellow.subtlest': SerializedStyles;
+  'accent.yellow.subtler': SerializedStyles;
+  'accent.yellow.subtle': SerializedStyles;
+  'accent.yellow.bolder': SerializedStyles;
+  'accent.green.subtlest': SerializedStyles;
+  'accent.green.subtler': SerializedStyles;
+  'accent.green.subtle': SerializedStyles;
+  'accent.green.bolder': SerializedStyles;
+  'accent.teal.subtlest': SerializedStyles;
+  'accent.teal.subtler': SerializedStyles;
+  'accent.teal.subtle': SerializedStyles;
+  'accent.teal.bolder': SerializedStyles;
+  'accent.blue.subtlest': SerializedStyles;
+  'accent.blue.subtler': SerializedStyles;
+  'accent.blue.subtle': SerializedStyles;
+  'accent.blue.bolder': SerializedStyles;
+  'accent.purple.subtlest': SerializedStyles;
+  'accent.purple.subtler': SerializedStyles;
+  'accent.purple.subtle': SerializedStyles;
+  'accent.purple.bolder': SerializedStyles;
+  'accent.magenta.subtlest': SerializedStyles;
+  'accent.magenta.subtler': SerializedStyles;
+  'accent.magenta.subtle': SerializedStyles;
+  'accent.magenta.bolder': SerializedStyles;
+  'accent.gray.subtlest': SerializedStyles;
+  'accent.gray.subtler': SerializedStyles;
+  'accent.gray.subtle': SerializedStyles;
+  'accent.gray.bolder': SerializedStyles;
   input: SerializedStyles;
   'inverse.subtle': SerializedStyles;
   neutral: SerializedStyles;

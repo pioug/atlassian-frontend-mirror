@@ -1,5 +1,101 @@
 # @atlaskit/tokens
 
+## 1.19.0
+
+### Minor Changes
+
+- [`ff1a0d8dcfd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ff1a0d8dcfd) - Introduces 80 new accent interaction tokens:
+
+  - color.background.accent.blue.subtlest.hovered
+  - color.background.accent.blue.subtlest.pressed
+  - color.background.accent.blue.subtler.hovered
+  - color.background.accent.blue.subtler.pressed
+  - color.background.accent.blue.subtle.hovered
+  - color.background.accent.blue.subtle.pressed
+  - color.background.accent.blue.bolder.hovered
+  - color.background.accent.blue.bolder.pressed
+
+  - color.background.accent.lime.subtlest.hovered
+  - color.background.accent.lime.subtlest.pressed
+  - color.background.accent.lime.subtler.hovered
+  - color.background.accent.lime.subtler.pressed
+  - color.background.accent.lime.subtle.hovered
+  - color.background.accent.lime.subtle.pressed
+  - color.background.accent.lime.bolder.hovered
+  - color.background.accent.lime.bolder.pressed
+
+  - color.background.accent.red.subtlest.hovered
+  - color.background.accent.red.subtlest.pressed
+  - color.background.accent.red.subtler.hovered
+  - color.background.accent.red.subtler.pressed
+  - color.background.accent.red.subtle.hovered
+  - color.background.accent.red.subtle.pressed
+  - color.background.accent.red.bolder.hovered
+  - color.background.accent.red.bolder.pressed
+
+  - color.background.accent.orange.subtlest.hovered
+  - color.background.accent.orange.subtlest.pressed
+  - color.background.accent.orange.subtler.hovered
+  - color.background.accent.orange.subtler.pressed
+  - color.background.accent.orange.subtle.hovered
+  - color.background.accent.orange.subtle.pressed
+  - color.background.accent.orange.bolder.hovered
+  - color.background.accent.orange.bolder.pressed
+
+  - color.background.accent.yellow.subtlest.hovered
+  - color.background.accent.yellow.subtlest.pressed
+  - color.background.accent.yellow.subtler.hovered
+  - color.background.accent.yellow.subtler.pressed
+  - color.background.accent.yellow.subtle.hovered
+  - color.background.accent.yellow.subtle.pressed
+  - color.background.accent.yellow.bolder.hovered
+  - color.background.accent.yellow.bolder.pressed
+
+  - color.background.accent.green.subtlest.hovered
+  - color.background.accent.green.subtlest.pressed
+  - color.background.accent.green.subtler.hovered
+  - color.background.accent.green.subtler.pressed
+  - color.background.accent.green.subtle.hovered
+  - color.background.accent.green.subtle.pressed
+  - color.background.accent.green.bolder.hovered
+  - color.background.accent.green.bolder.pressed
+
+  - color.background.accent.teal.subtlest.hovered
+  - color.background.accent.teal.subtlest.pressed
+  - color.background.accent.teal.subtler.hovered
+  - color.background.accent.teal.subtler.pressed
+  - color.background.accent.teal.subtle.hovered
+  - color.background.accent.teal.subtle.pressed
+  - color.background.accent.teal.bolder.hovered
+  - color.background.accent.teal.bolder.pressed
+
+  - color.background.accent.purple.subtlest.hovered
+  - color.background.accent.purple.subtlest.pressed
+  - color.background.accent.purple.subtler.hovered
+  - color.background.accent.purple.subtler.pressed
+  - color.background.accent.purple.subtle.hovered
+  - color.background.accent.purple.subtle.pressed
+  - color.background.accent.purple.bolder.hovered
+  - color.background.accent.purple.bolder.pressed
+
+  - color.background.accent.magenta.subtlest.hovered
+  - color.background.accent.magenta.subtlest.pressed
+  - color.background.accent.magenta.subtler.hovered
+  - color.background.accent.magenta.subtler.pressed
+  - color.background.accent.magenta.subtle.hovered
+  - color.background.accent.magenta.subtle.pressed
+  - color.background.accent.magenta.bolder.hovered
+  - color.background.accent.magenta.bolder.pressed
+
+  - color.background.accent.gray.subtlest.hovered
+  - color.background.accent.gray.subtlest.pressed
+  - color.background.accent.gray.subtler.hovered
+  - color.background.accent.gray.subtler.pressed
+  - color.background.accent.gray.subtle.hovered
+  - color.background.accent.gray.subtle.pressed
+  - color.background.accent.gray.bolder.hovered
+  - color.background.accent.gray.bolder.pressed
+
 ## 1.18.0
 
 ### Minor Changes

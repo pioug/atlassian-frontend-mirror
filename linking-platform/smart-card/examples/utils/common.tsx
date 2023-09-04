@@ -5,7 +5,6 @@ import { JsonLd } from 'json-ld-types';
 import Page from '@atlaskit/page';
 import { token } from '@atlaskit/tokens';
 import { iconGoogleDrive } from '../images';
-
 interface VRTestCaseOpts {
   title: string;
   children: () => JSX.Element;

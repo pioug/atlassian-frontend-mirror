@@ -5,12 +5,22 @@ import BlockCardForbidden from '../../../examples/vr-block-card/vr-block-card-fo
 import BlockCardNotFound from '../../../examples/vr-block-card/vr-block-card-not-found';
 import BlockCardUnauthorised from '../../../examples/vr-block-card/vr-block-card-unauthorised';
 import BlockCardUnauthorisedNoAuth from '../../../examples/vr-block-card/vr-block-card-unauthorised-no-auth';
+import BlockCardResolvedJira from '../../../examples/vr-block-card/vr-block-card-resolved-jira';
+import BlockCardResolvedConfluencePage from '../../../examples/vr-block-card/vr-block-card-resolved-confluence';
+import BlockCardResolvedTrelloWithImagePreview from '../../../examples/vr-block-card/vr-block-card-resolved-trello-image-preview';
+import BlockCardResolvedAtlas from '../../../examples/vr-block-card/vr-block-card-resolved-atlas';
+import BlockCardResolvedBitbucket from '../../../examples/vr-block-card/vr-block-card-resolved-bitbucket';
 
 snapshot(BlockCardError);
 snapshot(BlockCardForbidden);
 snapshot(BlockCardNotFound);
 snapshot(BlockCardUnauthorised);
 snapshot(BlockCardUnauthorisedNoAuth);
+snapshot(BlockCardResolvedJira);
+snapshot(BlockCardResolvedConfluencePage);
+snapshot(BlockCardResolvedTrelloWithImagePreview);
+snapshot(BlockCardResolvedAtlas);
+snapshot(BlockCardResolvedBitbucket);
 
 // //Same list of tests for refreshed block card design under the FF
 // //TODO: Delete during the 'platform.linking-platform.smart-card.show-smart-links-refreshed-design' FF clean up
@@ -57,6 +67,60 @@ snapshot(BlockCardUnauthorisedNoAuth, {
     featureFlags: {
       'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
         true,
+    },
+  },
+});
+snapshot(BlockCardResolvedJira, {
+  description: 'refreshed & updated metadata jira block card',
+  hooks: {
+    featureFlags: {
+      'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
+        true,
+      'platform.linking-platform.smart-card.enable-better-metadata_iojwg': true,
+    },
+  },
+});
+
+snapshot(BlockCardResolvedConfluencePage, {
+  description: 'refreshed & updated metadata block card confluence ',
+  hooks: {
+    featureFlags: {
+      'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
+        true,
+      'platform.linking-platform.smart-card.enable-better-metadata_iojwg': true,
+    },
+  },
+});
+
+snapshot(BlockCardResolvedTrelloWithImagePreview, {
+  description: 'refreshed & updated metadata block card trello ',
+  hooks: {
+    featureFlags: {
+      'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
+        true,
+      'platform.linking-platform.smart-card.enable-better-metadata_iojwg': true,
+    },
+  },
+});
+
+snapshot(BlockCardResolvedAtlas, {
+  description: 'refreshed & updated metadata block card atlas ',
+  hooks: {
+    featureFlags: {
+      'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
+        true,
+      'platform.linking-platform.smart-card.enable-better-metadata_iojwg': true,
+    },
+  },
+});
+
+snapshot(BlockCardResolvedBitbucket, {
+  description: 'refreshed & updated metadata block card BB ',
+  hooks: {
+    featureFlags: {
+      'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
+        true,
+      'platform.linking-platform.smart-card.enable-better-metadata_iojwg': true,
     },
   },
 });

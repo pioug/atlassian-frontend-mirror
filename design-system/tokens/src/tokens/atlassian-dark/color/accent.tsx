@@ -78,64 +78,384 @@ const color: ValueSchema<AccentColorTokenSchema<BaseToken>> = {
     background: {
       accent: {
         blue: {
-          subtlest: { value: 'Blue1000' },
-          subtler: { value: 'Blue900' },
-          subtle: { value: 'Blue800' },
-          bolder: { value: 'Blue400' },
+          subtlest: {
+            '[default]': { value: 'Blue1000' },
+            hovered: {
+              value: 'Blue900',
+            },
+            pressed: {
+              value: 'Blue800',
+            },
+          },
+          subtler: {
+            '[default]': { value: 'Blue900' },
+            hovered: {
+              value: 'Blue800',
+            },
+            pressed: {
+              value: 'Blue700',
+            },
+          },
+          subtle: {
+            '[default]': { value: 'Blue800' },
+            hovered: {
+              value: 'Blue900',
+            },
+            pressed: {
+              value: 'Blue1000',
+            },
+          },
+          bolder: {
+            '[default]': { value: 'Blue400' },
+            hovered: {
+              value: 'Blue300',
+            },
+            pressed: {
+              value: 'Blue200',
+            },
+          },
         },
         red: {
-          subtlest: { value: 'Red1000' },
-          subtler: { value: 'Red900' },
-          subtle: { value: 'Red800' },
-          bolder: { value: 'Red400' },
+          subtlest: {
+            '[default]': { value: 'Red1000' },
+            hovered: {
+              value: 'Red900',
+            },
+            pressed: {
+              value: 'Red800',
+            },
+          },
+          subtler: {
+            '[default]': { value: 'Red900' },
+            hovered: {
+              value: 'Red800',
+            },
+            pressed: {
+              value: 'Red700',
+            },
+          },
+          subtle: {
+            '[default]': { value: 'Red800' },
+            hovered: {
+              value: 'Red900',
+            },
+            pressed: {
+              value: 'Red1000',
+            },
+          },
+          bolder: {
+            '[default]': { value: 'Red400' },
+            hovered: {
+              value: 'Red300',
+            },
+            pressed: {
+              value: 'Red200',
+            },
+          },
         },
         orange: {
-          subtlest: { value: 'Orange1000' },
-          subtler: { value: 'Orange900' },
-          subtle: { value: 'Orange800' },
-          bolder: { value: 'Orange400' },
+          subtlest: {
+            '[default]': { value: 'Orange1000' },
+            hovered: {
+              value: 'Orange900',
+            },
+            pressed: {
+              value: 'Orange800',
+            },
+          },
+          subtler: {
+            '[default]': { value: 'Orange900' },
+            hovered: {
+              value: 'Orange800',
+            },
+            pressed: {
+              value: 'Orange700',
+            },
+          },
+          subtle: {
+            '[default]': { value: 'Orange800' },
+            hovered: {
+              value: 'Orange900',
+            },
+            pressed: {
+              value: 'Orange1000',
+            },
+          },
+          bolder: {
+            '[default]': { value: 'Orange400' },
+            hovered: {
+              value: 'Orange300',
+            },
+            pressed: {
+              value: 'Orange200',
+            },
+          },
         },
         yellow: {
-          subtlest: { value: 'Yellow1000' },
-          subtler: { value: 'Yellow900' },
-          subtle: { value: 'Yellow800' },
-          bolder: { value: 'Yellow400' },
+          subtlest: {
+            '[default]': { value: 'Yellow1000' },
+            hovered: {
+              value: 'Yellow900',
+            },
+            pressed: {
+              value: 'Yellow800',
+            },
+          },
+          subtler: {
+            '[default]': { value: 'Yellow900' },
+            hovered: {
+              value: 'Yellow800',
+            },
+            pressed: {
+              value: 'Yellow700',
+            },
+          },
+          subtle: {
+            '[default]': { value: 'Yellow800' },
+            hovered: {
+              value: 'Yellow900',
+            },
+            pressed: {
+              value: 'Yellow1000',
+            },
+          },
+          bolder: {
+            '[default]': { value: 'Yellow400' },
+            hovered: {
+              value: 'Yellow300',
+            },
+            pressed: {
+              value: 'Yellow200',
+            },
+          },
         },
         green: {
-          subtlest: { value: 'Green1000' },
-          subtler: { value: 'Green900' },
-          subtle: { value: 'Green800' },
-          bolder: { value: 'Green400' },
+          subtlest: {
+            '[default]': { value: 'Green1000' },
+            hovered: {
+              value: 'Green900',
+            },
+            pressed: {
+              value: 'Green800',
+            },
+          },
+          subtler: {
+            '[default]': { value: 'Green900' },
+            hovered: {
+              value: 'Green800',
+            },
+            pressed: {
+              value: 'Green700',
+            },
+          },
+          subtle: {
+            '[default]': { value: 'Green800' },
+            hovered: {
+              value: 'Green900',
+            },
+            pressed: {
+              value: 'Green1000',
+            },
+          },
+          bolder: {
+            '[default]': { value: 'Green400' },
+            hovered: {
+              value: 'Green300',
+            },
+            pressed: {
+              value: 'Green200',
+            },
+          },
         },
         purple: {
-          subtlest: { value: 'Purple1000' },
-          subtler: { value: 'Purple900' },
-          subtle: { value: 'Purple800' },
-          bolder: { value: 'Purple400' },
+          subtlest: {
+            '[default]': { value: 'Purple1000' },
+            hovered: {
+              value: 'Purple900',
+            },
+            pressed: {
+              value: 'Purple800',
+            },
+          },
+          subtler: {
+            '[default]': { value: 'Purple900' },
+            hovered: {
+              value: 'Purple800',
+            },
+            pressed: {
+              value: 'Purple700',
+            },
+          },
+          subtle: {
+            '[default]': { value: 'Purple800' },
+            hovered: {
+              value: 'Purple900',
+            },
+            pressed: {
+              value: 'Purple1000',
+            },
+          },
+          bolder: {
+            '[default]': { value: 'Purple400' },
+            hovered: {
+              value: 'Purple300',
+            },
+            pressed: {
+              value: 'Purple200',
+            },
+          },
         },
         teal: {
-          subtlest: { value: 'Teal1000' },
-          subtler: { value: 'Teal900' },
-          subtle: { value: 'Teal800' },
-          bolder: { value: 'Teal400' },
+          subtlest: {
+            '[default]': { value: 'Teal1000' },
+            hovered: {
+              value: 'Teal900',
+            },
+            pressed: {
+              value: 'Teal800',
+            },
+          },
+          subtler: {
+            '[default]': { value: 'Teal900' },
+            hovered: {
+              value: 'Teal800',
+            },
+            pressed: {
+              value: 'Teal700',
+            },
+          },
+          subtle: {
+            '[default]': { value: 'Teal800' },
+            hovered: {
+              value: 'Teal900',
+            },
+            pressed: {
+              value: 'Teal1000',
+            },
+          },
+          bolder: {
+            '[default]': { value: 'Teal400' },
+            hovered: {
+              value: 'Teal300',
+            },
+            pressed: {
+              value: 'Teal200',
+            },
+          },
         },
         magenta: {
-          subtlest: { value: 'Magenta1000' },
-          subtler: { value: 'Magenta900' },
-          subtle: { value: 'Magenta800' },
-          bolder: { value: 'Magenta400' },
+          subtlest: {
+            '[default]': { value: 'Magenta1000' },
+            hovered: {
+              value: 'Magenta900',
+            },
+            pressed: {
+              value: 'Magenta800',
+            },
+          },
+          subtler: {
+            '[default]': { value: 'Magenta900' },
+            hovered: {
+              value: 'Magenta800',
+            },
+            pressed: {
+              value: 'Magenta700',
+            },
+          },
+          subtle: {
+            '[default]': { value: 'Magenta800' },
+            hovered: {
+              value: 'Magenta900',
+            },
+            pressed: {
+              value: 'Magenta1000',
+            },
+          },
+          bolder: {
+            '[default]': { value: 'Magenta400' },
+            hovered: {
+              value: 'Magenta300',
+            },
+            pressed: {
+              value: 'Magenta200',
+            },
+          },
         },
         lime: {
-          subtlest: { value: 'Lime1000' },
-          subtler: { value: 'Lime900' },
-          subtle: { value: 'Lime800' },
-          bolder: { value: 'Lime400' },
+          subtlest: {
+            '[default]': { value: 'Lime1000' },
+            hovered: {
+              value: 'Lime900',
+            },
+            pressed: {
+              value: 'Lime800',
+            },
+          },
+          subtler: {
+            '[default]': { value: 'Lime900' },
+            hovered: {
+              value: 'Lime800',
+            },
+            pressed: {
+              value: 'Lime700',
+            },
+          },
+          subtle: {
+            '[default]': { value: 'Lime800' },
+            hovered: {
+              value: 'Lime900',
+            },
+            pressed: {
+              value: 'Lime1000',
+            },
+          },
+          bolder: {
+            '[default]': { value: 'Lime400' },
+            hovered: {
+              value: 'Lime300',
+            },
+            pressed: {
+              value: 'Lime200',
+            },
+          },
         },
         gray: {
-          subtlest: { value: 'DarkNeutral300' },
-          subtler: { value: 'DarkNeutral400' },
-          subtle: { value: 'DarkNeutral500' },
-          bolder: { value: 'DarkNeutral700' },
+          subtlest: {
+            '[default]': { value: 'DarkNeutral300' },
+            hovered: {
+              value: 'DarkNeutral350',
+            },
+            pressed: {
+              value: 'DarkNeutral400',
+            },
+          },
+          subtler: {
+            '[default]': { value: 'DarkNeutral400' },
+            hovered: {
+              value: 'DarkNeutral500',
+            },
+            pressed: {
+              value: 'DarkNeutral600',
+            },
+          },
+          subtle: {
+            '[default]': { value: 'DarkNeutral500' },
+            hovered: {
+              value: 'DarkNeutral400',
+            },
+            pressed: {
+              value: 'DarkNeutral350',
+            },
+          },
+          bolder: {
+            '[default]': { value: 'DarkNeutral700' },
+            hovered: {
+              value: 'DarkNeutral800',
+            },
+            pressed: {
+              value: 'DarkNeutral900',
+            },
+          },
         },
       },
     },

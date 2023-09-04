@@ -73,7 +73,7 @@
     "@atlaskit/mention": "22.1.4",
     "@atlaskit/profilecard": "^19.5.0",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.18.0",
+    "@atlaskit/tokens": "^1.19.0",
     "@atlaskit/user-picker": "10.9.0",
     "@atlaskit/util-service-support": "^6.2.0",
     "@babel/runtime": "^7.0.0",

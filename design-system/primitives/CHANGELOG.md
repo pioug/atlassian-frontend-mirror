@@ -1,5 +1,12 @@
 # @atlaskit/primitives
 
+## 1.3.1
+
+### Patch Changes
+
+- [`88e4ac397ea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/88e4ac397ea) - Regenerates codegen artifacts as a result of introducting new accent interaction tokens.
+- Updated dependencies
+
 ## 1.3.0
 
 ### Minor Changes

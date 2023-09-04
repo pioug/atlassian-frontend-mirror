@@ -50,6 +50,8 @@ export type UseButtonBaseArgs<TagName extends HTMLElement> = {
    */
   buttonType: 'button' | 'link';
   isIconButton?: boolean;
+  hasIconBefore?: boolean;
+  hasIconAfter?: boolean;
   shouldFitContainer?: boolean;
 } & Pick<
   CommonButtonProps<TagName>,
@@ -95,6 +97,9 @@ const useButtonBase = <TagName extends HTMLElement>({
   isSelected = false,
   // TODO: Separate Icon Button styling from button base
   isIconButton = false,
+  // TODO: Separate icon slot styling from button base
+  hasIconBefore = false,
+  hasIconAfter = false,
   children,
   onClick: providedOnClick = noop,
   onMouseDownCapture,
@@ -167,6 +172,8 @@ const useButtonBase = <TagName extends HTMLElement>({
         isIconButton,
         hasOverlay: Boolean(overlay),
         isLink: buttonType === 'link',
+        hasIconBefore,
+        hasIconAfter,
       }),
     [
       appearance,
@@ -177,6 +184,8 @@ const useButtonBase = <TagName extends HTMLElement>({
       isIconButton,
       shouldFitContainer,
       overlay,
+      hasIconBefore,
+      hasIconAfter,
     ],
   );
 

@@ -508,10 +508,23 @@ class MediaSingleNodeView extends ReactNodeView<MediaSingleNodeViewProps> {
   checkAndUpdateSelectionType = () => {
     const getPos = this.getPos as getPosHandlerNode;
     const { selection } = this.view.state;
+
+    /**
+     *  ED-19831
+     *  There is a getPos issue coming from this code. We need to apply this workaround for now and apply a patch
+     *  directly to confluence since this bug is now iun production.
+     */
+    let pos: number | undefined;
+    try {
+      pos = typeof getPos === 'function' ? getPos() : undefined;
+    } catch (e) {
+      pos = undefined;
+    }
+
     const isNodeSelected = isNodeSelectedOrInRange(
       selection.$anchor.pos,
       selection.$head.pos,
-      getPos(),
+      pos,
       this.node.nodeSize,
     );
 

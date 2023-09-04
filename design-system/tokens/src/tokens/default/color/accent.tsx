@@ -398,381 +398,1181 @@ const color: AttributeSchema<AccentColorTokenSchema<BaseToken>> = {
       accent: {
         blue: {
           subtlest: {
-            attributes: {
-              group: 'paint',
-              state: 'active',
-              introduced: '0.7.0',
-              description:
-                'Use for blue backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color.',
+            '[default]': {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '0.7.0',
+                description:
+                  'Use for blue backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color.',
+              },
+            },
+            hovered: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Hovered state of color.background.accent.blue.subtlest.',
+              },
+            },
+            pressed: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Pressed state of color.background.accent.blue.subtlest.',
+              },
             },
           },
           subtler: {
-            attributes: {
-              group: 'paint',
-              state: 'active',
-              introduced: '0.7.0',
-              description:
-                'Use for blue backgrounds when there is no meaning tied to the color, such as colored tags.',
+            '[default]': {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '0.7.0',
+                description:
+                  'Use for blue backgrounds when there is no meaning tied to the color, such as colored tags.',
+              },
+            },
+            hovered: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Hovered state of color.background.accent.blue.subtler.',
+              },
+            },
+            pressed: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Pressed state of color.background.accent.blue.subtler.',
+              },
             },
           },
           subtle: {
-            attributes: {
-              group: 'paint',
-              state: 'active',
-              introduced: '0.7.0',
-              description:
-                'Use for vibrant blue backgrounds when there is no meaning tied to the color, such as colored tags.',
+            '[default]': {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '0.7.0',
+                description:
+                  'Use for vibrant blue backgrounds when there is no meaning tied to the color, such as colored tags.',
+              },
+            },
+            hovered: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Hovered state of color.background.accent.blue.subtle.',
+              },
+            },
+            pressed: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Pressed state of color.background.accent.blue.subtle.',
+              },
             },
           },
           bolder: {
-            attributes: {
-              group: 'paint',
-              state: 'active',
-              introduced: '0.7.0',
-              description:
-                'Use for blue backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements.',
+            '[default]': {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '0.7.0',
+                description:
+                  'Use for blue backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements.',
+              },
+            },
+            hovered: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Hovered state of color.background.accent.blue.bolder.',
+              },
+            },
+            pressed: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Pressed state of color.background.accent.blue.bolder.',
+              },
             },
           },
         },
         red: {
           subtlest: {
-            attributes: {
-              group: 'paint',
-              state: 'active',
-              introduced: '0.7.0',
-              description:
-                'Use for red backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color.',
+            '[default]': {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '0.7.0',
+                description:
+                  'Use for red backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color.',
+              },
+            },
+            hovered: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Hovered state of color.background.accent.red.subtlest.',
+              },
+            },
+            pressed: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Pressed state of color.background.accent.red.subtlest.',
+              },
             },
           },
           subtler: {
-            attributes: {
-              group: 'paint',
-              state: 'active',
-              introduced: '0.7.0',
-              description:
-                'Use for red backgrounds when there is no meaning tied to the color, such as colored tags.',
+            '[default]': {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '0.7.0',
+                description:
+                  'Use for red backgrounds when there is no meaning tied to the color, such as colored tags.',
+              },
+            },
+            hovered: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Hovered state of color.background.accent.red.subtler.',
+              },
+            },
+            pressed: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Pressed state of color.background.accent.red.subtler.',
+              },
             },
           },
           subtle: {
-            attributes: {
-              group: 'paint',
-              state: 'active',
-              introduced: '0.7.0',
-              description:
-                'Use for vibrant red backgrounds when there is no meaning tied to the color, such as colored tags.',
+            '[default]': {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '0.7.0',
+                description:
+                  'Use for vibrant red backgrounds when there is no meaning tied to the color, such as colored tags.',
+              },
+            },
+            hovered: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Hovered state of color.background.accent.red.subtle.',
+              },
+            },
+            pressed: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Pressed state of color.background.accent.red.subtle.',
+              },
             },
           },
           bolder: {
-            attributes: {
-              group: 'paint',
-              state: 'active',
-              introduced: '0.7.0',
-              description:
-                'Use for red backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements.',
+            '[default]': {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '0.7.0',
+                description:
+                  'Use for red backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements.',
+              },
+            },
+            hovered: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Hovered state of color.background.accent.red.bolder.',
+              },
+            },
+            pressed: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Pressed state of color.background.accent.red.bolder.',
+              },
             },
           },
         },
         orange: {
           subtlest: {
-            attributes: {
-              group: 'paint',
-              state: 'active',
-              introduced: '0.7.0',
-              description:
-                'Use for orange backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color.',
+            '[default]': {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '0.7.0',
+                description:
+                  'Use for orange backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color.',
+              },
+            },
+            hovered: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Hovered state of color.background.accent.orange.subtlest.',
+              },
+            },
+            pressed: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Pressed state of color.background.accent.orange.subtlest.',
+              },
             },
           },
           subtler: {
-            attributes: {
-              group: 'paint',
-              state: 'active',
-              introduced: '0.7.0',
-              description:
-                'Use for orange backgrounds when there is no meaning tied to the color, such as colored tags.',
+            '[default]': {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '0.7.0',
+                description:
+                  'Use for orange backgrounds when there is no meaning tied to the color, such as colored tags.',
+              },
+            },
+            hovered: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Hovered state of color.background.accent.orange.subtler.',
+              },
+            },
+            pressed: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Pressed state of color.background.accent.orange.subtler.',
+              },
             },
           },
           subtle: {
-            attributes: {
-              group: 'paint',
-              state: 'active',
-              introduced: '0.7.0',
-              description:
-                'Use for vibrant orange backgrounds when there is no meaning tied to the color, such as colored tags.',
+            '[default]': {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '0.7.0',
+                description:
+                  'Use for vibrant orange backgrounds when there is no meaning tied to the color, such as colored tags.',
+              },
+            },
+            hovered: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Hovered state of color.background.accent.orange.subtle.',
+              },
+            },
+            pressed: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Pressed state of color.background.accent.orange.subtle.',
+              },
             },
           },
           bolder: {
-            attributes: {
-              group: 'paint',
-              state: 'active',
-              introduced: '0.7.0',
-              description:
-                'Use for orange backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements.',
+            '[default]': {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '0.7.0',
+                description:
+                  'Use for orange backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements.',
+              },
+            },
+            hovered: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Hovered state of color.background.accent.orange.bolder.',
+              },
+            },
+            pressed: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Pressed state of color.background.accent.orange.bolder.',
+              },
             },
           },
         },
         yellow: {
           subtlest: {
-            attributes: {
-              group: 'paint',
-              state: 'active',
-              introduced: '0.7.0',
-              description:
-                'Use for yellow backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color.',
+            '[default]': {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '0.7.0',
+                description:
+                  'Use for yellow backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color.',
+              },
+            },
+            hovered: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Hovered state of color.background.accent.yellow.subtlest.',
+              },
+            },
+            pressed: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Pressed state of color.background.accent.yellow.subtlest.',
+              },
             },
           },
           subtler: {
-            attributes: {
-              group: 'paint',
-              state: 'active',
-              introduced: '0.7.0',
-              description:
-                'Use for yellow backgrounds when there is no meaning tied to the color, such as colored tags.',
+            '[default]': {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '0.7.0',
+                description:
+                  'Use for yellow backgrounds when there is no meaning tied to the color, such as colored tags.',
+              },
+            },
+            hovered: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Hovered state of color.background.accent.yellow.subtler.',
+              },
+            },
+            pressed: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Pressed state of color.background.accent.yellow.subtler.',
+              },
             },
           },
           subtle: {
-            attributes: {
-              group: 'paint',
-              state: 'active',
-              introduced: '0.7.0',
-              description:
-                'Use for vibrant yellow backgrounds when there is no meaning tied to the color, such as colored tags.',
+            '[default]': {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '0.7.0',
+                description:
+                  'Use for vibrant yellow backgrounds when there is no meaning tied to the color, such as colored tags.',
+              },
+            },
+            hovered: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Hovered state of color.background.accent.yellow.subtle.',
+              },
+            },
+            pressed: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Pressed state of color.background.accent.yellow.subtle.',
+              },
             },
           },
           bolder: {
-            attributes: {
-              group: 'paint',
-              state: 'active',
-              introduced: '0.7.0',
-              description:
-                'Use for yellow backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements.',
+            '[default]': {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '0.7.0',
+                description:
+                  'Use for yellow backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements.',
+              },
+            },
+            hovered: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Hovered state of color.background.accent.yellow.bolder.',
+              },
+            },
+            pressed: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Pressed state of color.background.accent.yellow.bolder.',
+              },
             },
           },
         },
         green: {
           subtlest: {
-            attributes: {
-              group: 'paint',
-              state: 'active',
-              introduced: '0.7.0',
-              description:
-                'Use for green backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color.',
+            '[default]': {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '0.7.0',
+                description:
+                  'Use for green backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color.',
+              },
+            },
+            hovered: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Hovered state of color.background.accent.green.subtlest.',
+              },
+            },
+            pressed: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Pressed state of color.background.accent.green.subtlest.',
+              },
             },
           },
           subtler: {
-            attributes: {
-              group: 'paint',
-              state: 'active',
-              introduced: '0.7.0',
-              description:
-                'Use for green backgrounds when there is no meaning tied to the color, such as colored tags.',
+            '[default]': {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '0.7.0',
+                description:
+                  'Use for green backgrounds when there is no meaning tied to the color, such as colored tags.',
+              },
+            },
+            hovered: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Hovered state of color.background.accent.green.subtler.',
+              },
+            },
+            pressed: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Pressed state of color.background.accent.green.subtler.',
+              },
             },
           },
           subtle: {
-            attributes: {
-              group: 'paint',
-              state: 'active',
-              introduced: '0.7.0',
-              description:
-                'Use for vibrant green backgrounds when there is no meaning tied to the color, such as colored tags.',
+            '[default]': {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '0.7.0',
+                description:
+                  'Use for vibrant green backgrounds when there is no meaning tied to the color, such as colored tags.',
+              },
+            },
+            hovered: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Hovered state of color.background.accent.green.subtle.',
+              },
+            },
+            pressed: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Pressed state of color.background.accent.green.subtle.',
+              },
             },
           },
           bolder: {
-            attributes: {
-              group: 'paint',
-              state: 'active',
-              introduced: '0.7.0',
-              description:
-                'Use for green backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements.',
+            '[default]': {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '0.7.0',
+                description:
+                  'Use for green backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements.',
+              },
+            },
+            hovered: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Hovered state of color.background.accent.green.bolder.',
+              },
+            },
+            pressed: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Pressed state of color.background.accent.green.bolder.',
+              },
             },
           },
         },
         teal: {
           subtlest: {
-            attributes: {
-              group: 'paint',
-              state: 'active',
-              introduced: '0.7.0',
-              description:
-                'Use for teal backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color.',
+            '[default]': {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '0.7.0',
+                description:
+                  'Use for teal backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color.',
+              },
+            },
+            hovered: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Hovered state of color.background.accent.teal.subtlest.',
+              },
+            },
+            pressed: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Pressed state of color.background.accent.teal.subtlest.',
+              },
             },
           },
           subtler: {
-            attributes: {
-              group: 'paint',
-              state: 'active',
-              introduced: '0.7.0',
-              description:
-                'Use for teal backgrounds when there is no meaning tied to the color, such as colored tags.',
+            '[default]': {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '0.7.0',
+                description:
+                  'Use for teal backgrounds when there is no meaning tied to the color, such as colored tags.',
+              },
+            },
+            hovered: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Hovered state of color.background.accent.teal.subtler.',
+              },
+            },
+            pressed: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Pressed state of color.background.accent.teal.subtler.',
+              },
             },
           },
           subtle: {
-            attributes: {
-              group: 'paint',
-              state: 'active',
-              introduced: '0.7.0',
-              description:
-                'Use for vibrant teal backgrounds when there is no meaning tied to the color, such as colored tags.',
+            '[default]': {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '0.7.0',
+                description:
+                  'Use for vibrant teal backgrounds when there is no meaning tied to the color, such as colored tags.',
+              },
+            },
+            hovered: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Hovered state of color.background.accent.teal.subtle.',
+              },
+            },
+            pressed: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Pressed state of color.background.accent.teal.subtle.',
+              },
             },
           },
           bolder: {
-            attributes: {
-              group: 'paint',
-              state: 'active',
-              introduced: '0.7.0',
-              description:
-                'Use for teal backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements.',
+            '[default]': {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '0.7.0',
+                description:
+                  'Use for teal backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements.',
+              },
+            },
+            hovered: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Hovered state of color.background.accent.teal.bolder.',
+              },
+            },
+            pressed: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Pressed state of color.background.accent.teal.bolder.',
+              },
             },
           },
         },
         purple: {
           subtlest: {
-            attributes: {
-              group: 'paint',
-              state: 'active',
-              introduced: '0.7.0',
-              description:
-                'Use for purple backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color.',
+            '[default]': {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '0.7.0',
+                description:
+                  'Use for purple backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color.',
+              },
+            },
+            hovered: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Hovered state of color.background.accent.purple.subtlest.',
+              },
+            },
+            pressed: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Pressed state of color.background.accent.purple.subtlest.',
+              },
             },
           },
           subtler: {
-            attributes: {
-              group: 'paint',
-              state: 'active',
-              introduced: '0.7.0',
-              description:
-                'Use for purple backgrounds when there is no meaning tied to the color, such as colored tags.',
+            '[default]': {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '0.7.0',
+                description:
+                  'Use for purple backgrounds when there is no meaning tied to the color, such as colored tags.',
+              },
+            },
+            hovered: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Hovered state of color.background.accent.purple.subtler.',
+              },
+            },
+            pressed: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Pressed state of color.background.accent.purple.subtler.',
+              },
             },
           },
           subtle: {
-            attributes: {
-              group: 'paint',
-              state: 'active',
-              introduced: '0.7.0',
-              description:
-                'Use for vibrant purple backgrounds when there is no meaning tied to the color, such as colored tags.',
+            '[default]': {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '0.7.0',
+                description:
+                  'Use for vibrant purple backgrounds when there is no meaning tied to the color, such as colored tags.',
+              },
+            },
+            hovered: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Hovered state of color.background.accent.purple.subtle.',
+              },
+            },
+            pressed: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Pressed state of color.background.accent.purple.subtle.',
+              },
             },
           },
           bolder: {
-            attributes: {
-              group: 'paint',
-              state: 'active',
-              introduced: '0.7.0',
-              description:
-                'Use for purple backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements.',
+            '[default]': {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '0.7.0',
+                description:
+                  'Use for purple backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements.',
+              },
+            },
+            hovered: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Hovered state of color.background.accent.purple.bolder.',
+              },
+            },
+            pressed: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Pressed state of color.background.accent.purple.bolder.',
+              },
             },
           },
         },
         magenta: {
           subtlest: {
-            attributes: {
-              group: 'paint',
-              state: 'active',
-              introduced: '0.7.0',
-              description:
-                'Use for magenta backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color.',
+            '[default]': {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '0.7.0',
+                description:
+                  'Use for magenta backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color.',
+              },
+            },
+            hovered: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Hovered state of color.background.accent.magenta.subtlest.',
+              },
+            },
+            pressed: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Pressed state of color.background.accent.magenta.subtlest.',
+              },
             },
           },
           subtler: {
-            attributes: {
-              group: 'paint',
-              state: 'active',
-              introduced: '0.7.0',
-              description:
-                'Use for magenta backgrounds when there is no meaning tied to the color, such as colored tags.',
+            '[default]': {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '0.7.0',
+                description:
+                  'Use for magenta backgrounds when there is no meaning tied to the color, such as colored tags.',
+              },
+            },
+            hovered: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Hovered state of color.background.accent.magenta.subtler.',
+              },
+            },
+            pressed: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Pressed state of color.background.accent.magenta.subtler.',
+              },
             },
           },
           subtle: {
-            attributes: {
-              group: 'paint',
-              state: 'active',
-              introduced: '0.7.0',
-              description:
-                'Use for vibrant magenta backgrounds when there is no meaning tied to the color, such as colored tags.',
+            '[default]': {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '0.7.0',
+                description:
+                  'Use for vibrant magenta backgrounds when there is no meaning tied to the color, such as colored tags.',
+              },
+            },
+            hovered: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Hovered state of color.background.accent.magenta.subtle.',
+              },
+            },
+            pressed: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Pressed state of color.background.accent.magenta.subtle.',
+              },
             },
           },
           bolder: {
-            attributes: {
-              group: 'paint',
-              state: 'active',
-              introduced: '0.7.0',
-              description:
-                'Use for magenta backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements.',
+            '[default]': {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '0.7.0',
+                description:
+                  'Use for magenta backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements.',
+              },
+            },
+            hovered: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Hovered state of color.background.accent.magenta.bolder.',
+              },
+            },
+            pressed: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Pressed state of color.background.accent.magenta.bolder.',
+              },
             },
           },
         },
         lime: {
           subtlest: {
-            attributes: {
-              group: 'paint',
-              state: 'active',
-              introduced: '1.6.0',
-              description:
-                'Use for for backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color.',
+            '[default]': {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.6.0',
+                description:
+                  'Use for for backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color.',
+              },
+            },
+            hovered: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Hovered state of color.background.accent.lime.subtlest.',
+              },
+            },
+            pressed: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Pressed state of color.background.accent.lime.subtlest.',
+              },
             },
           },
           subtler: {
-            attributes: {
-              group: 'paint',
-              state: 'active',
-              introduced: '1.6.0',
-              description:
-                'Use for for backgrounds when there is no meaning tied to the color, such as colored tags.',
+            '[default]': {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.6.0',
+                description:
+                  'Use for for backgrounds when there is no meaning tied to the color, such as colored tags.',
+              },
+            },
+            hovered: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Hovered state of color.background.accent.lime.subtler.',
+              },
+            },
+            pressed: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Pressed state of color.background.accent.lime.subtler.',
+              },
             },
           },
           subtle: {
-            attributes: {
-              group: 'paint',
-              state: 'active',
-              introduced: '1.6.0',
-              description:
-                'Use for vibrant for backgrounds when there is no meaning tied to the color, such as colored tags.',
+            '[default]': {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.6.0',
+                description:
+                  'Use for vibrant for backgrounds when there is no meaning tied to the color, such as colored tags.',
+              },
+            },
+            hovered: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Hovered state of color.background.accent.lime.subtle.',
+              },
+            },
+            pressed: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Pressed state of color.background.accent.lime.subtle.',
+              },
             },
           },
           bolder: {
-            attributes: {
-              group: 'paint',
-              state: 'active',
-              introduced: '1.6.0',
-              description:
-                'Use for for backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements.',
+            '[default]': {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.6.0',
+                description:
+                  'Use for for backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements.',
+              },
+            },
+            hovered: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Hovered state of color.background.accent.lime.bolder.',
+              },
+            },
+            pressed: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Pressed state of color.background.accent.lime.bolder.',
+              },
             },
           },
         },
         gray: {
           subtlest: {
-            attributes: {
-              group: 'paint',
-              state: 'active',
-              introduced: '0.7.0',
-              description:
-                'Use for gray backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color.',
+            '[default]': {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '0.7.0',
+                description:
+                  'Use for gray backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color.',
+              },
+            },
+            hovered: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Hovered state of color.background.accent.gray.subtlest.',
+              },
+            },
+            pressed: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Pressed state of color.background.accent.gray.subtlest.',
+              },
             },
           },
           subtler: {
-            attributes: {
-              group: 'paint',
-              state: 'active',
-              introduced: '0.7.0',
-              description:
-                'Use for gray backgrounds when there is no meaning tied to the color, such as colored tags.',
+            '[default]': {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '0.7.0',
+                description:
+                  'Use for gray backgrounds when there is no meaning tied to the color, such as colored tags.',
+              },
+            },
+            hovered: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Hovered state of color.background.accent.gray.subtler.',
+              },
+            },
+            pressed: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Pressed state of color.background.accent.gray.subtler.',
+              },
             },
           },
           subtle: {
-            attributes: {
-              group: 'paint',
-              state: 'active',
-              introduced: '0.7.0',
-              description:
-                'Use for vibrant gray backgrounds when there is no meaning tied to the color, such as colored tags.',
+            '[default]': {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '0.7.0',
+                description:
+                  'Use for vibrant gray backgrounds when there is no meaning tied to the color, such as colored tags.',
+              },
+            },
+            hovered: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Hovered state of color.background.accent.gray.subtle.',
+              },
+            },
+            pressed: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Pressed state of color.background.accent.gray.subtle.',
+              },
             },
           },
           bolder: {
-            attributes: {
-              group: 'paint',
-              state: 'active',
-              introduced: '0.7.0',
-              description:
-                'Use for gray backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements.',
+            '[default]': {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '0.7.0',
+                description:
+                  'Use for gray backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements.',
+              },
+            },
+            hovered: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Hovered state of color.background.accent.gray.bolder.',
+              },
+            },
+            pressed: {
+              attributes: {
+                group: 'paint',
+                state: 'active',
+                introduced: '1.19.0',
+                description:
+                  'Pressed state of color.background.accent.gray.subtlest.',
+              },
             },
           },
         },

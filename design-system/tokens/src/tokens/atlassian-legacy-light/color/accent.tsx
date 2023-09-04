@@ -90,76 +90,420 @@ const color: ValueSchema<AccentColorTokenSchema<BaseToken>> = {
     background: {
       accent: {
         blue: {
-          subtlest: { value: 'B100' },
-          subtler: { value: 'B200' },
-          subtle: { value: 'B400' },
-          bolder: { value: 'B400' },
+          subtlest: {
+            '[default]': { value: 'B100' },
+            hovered: {
+              value: 'B200',
+            },
+            pressed: {
+              value: 'B300',
+            },
+          },
+          subtler: {
+            '[default]': { value: 'B200' },
+            hovered: {
+              value: 'B300',
+            },
+            pressed: {
+              value: 'B400',
+            },
+          },
+          subtle: {
+            '[default]': { value: 'B400' },
+            hovered: {
+              value: 'B300',
+            },
+            pressed: {
+              value: 'B200',
+            },
+          },
+          bolder: {
+            '[default]': { value: 'B400' },
+            hovered: {
+              value: 'B300',
+            },
+            pressed: {
+              value: 'B200',
+            },
+          },
         },
         red: {
-          subtlest: { value: 'R100' },
-          subtler: { value: 'R200' },
-          subtle: { value: 'R400' },
-          bolder: { value: 'R400' },
+          subtlest: {
+            '[default]': { value: 'R100' },
+            hovered: {
+              value: 'R200',
+            },
+            pressed: {
+              value: 'R300',
+            },
+          },
+          subtler: {
+            '[default]': { value: 'R200' },
+            hovered: {
+              value: 'R300',
+            },
+            pressed: {
+              value: 'R400',
+            },
+          },
+          subtle: {
+            '[default]': { value: 'R400' },
+            hovered: {
+              value: 'R300',
+            },
+            pressed: {
+              value: 'R200',
+            },
+          },
+          bolder: {
+            '[default]': { value: 'R400' },
+            hovered: {
+              value: 'R300',
+            },
+            pressed: {
+              value: 'R200',
+            },
+          },
         },
         orange: {
-          // @ts-expect-error
-          subtlest: { value: '#F18D13' },
-          // @ts-expect-error
-          subtler: { value: '#B65C02' },
-          // @ts-expect-error
-          subtle: { value: '#5F3811' },
-          // @ts-expect-error
-          bolder: { value: '#43290F' },
+          subtlest: {
+            // @ts-expect-error
+            '[default]': { value: '#F18D13' },
+            hovered: {
+              // @ts-expect-error
+              value: '#FEC57B',
+            },
+            pressed: {
+              // @ts-expect-error
+              value: '#FFE2BD',
+            },
+          },
+          subtler: {
+            // @ts-expect-error
+            '[default]': { value: '#B65C02' },
+            hovered: {
+              // @ts-expect-error
+              value: '#F18D13',
+            },
+            pressed: {
+              // @ts-expect-error
+              value: '#FEC57B',
+            },
+          },
+          subtle: {
+            // @ts-expect-error
+            '[default]': { value: '#5F3811' },
+            hovered: {
+              // @ts-expect-error
+              value: '#974F0C',
+            },
+            pressed: {
+              // @ts-expect-error
+              value: '#B65C02',
+            },
+          },
+          bolder: {
+            // @ts-expect-error
+            '[default]': { value: '#43290F' },
+            hovered: {
+              // @ts-expect-error
+              value: '#5F3811',
+            },
+            pressed: {
+              // @ts-expect-error
+              value: '#974F0C',
+            },
+          },
         },
         yellow: {
-          subtlest: { value: 'Y100' },
-          subtler: { value: 'Y200' },
-          subtle: { value: 'Y400' },
-          bolder: { value: 'Y400' },
+          subtlest: {
+            '[default]': { value: 'Y100' },
+            hovered: {
+              value: 'Y200',
+            },
+            pressed: {
+              value: 'Y300',
+            },
+          },
+          subtler: {
+            '[default]': { value: 'Y200' },
+            hovered: {
+              value: 'Y300',
+            },
+            pressed: {
+              value: 'Y400',
+            },
+          },
+          subtle: {
+            '[default]': { value: 'Y400' },
+            hovered: {
+              value: 'Y300',
+            },
+            pressed: {
+              value: 'Y200',
+            },
+          },
+          bolder: {
+            '[default]': { value: 'Y400' },
+            hovered: {
+              value: 'Y300',
+            },
+            pressed: {
+              value: 'Y200',
+            },
+          },
         },
         green: {
-          subtlest: { value: 'G100' },
-          subtler: { value: 'G200' },
-          subtle: { value: 'G400' },
-          bolder: { value: 'G400' },
+          subtlest: {
+            '[default]': { value: 'G100' },
+            hovered: {
+              value: 'G200',
+            },
+            pressed: {
+              value: 'G300',
+            },
+          },
+          subtler: {
+            '[default]': { value: 'G200' },
+            hovered: {
+              value: 'G300',
+            },
+            pressed: {
+              value: 'G400',
+            },
+          },
+          subtle: {
+            '[default]': { value: 'G400' },
+            hovered: {
+              value: 'G300',
+            },
+            pressed: {
+              value: 'G200',
+            },
+          },
+          bolder: {
+            '[default]': { value: 'G400' },
+            hovered: {
+              value: 'G300',
+            },
+            pressed: {
+              value: 'G200',
+            },
+          },
         },
         purple: {
-          subtlest: { value: 'P100' },
-          subtler: { value: 'P200' },
-          subtle: { value: 'P400' },
-          bolder: { value: 'P400' },
+          subtlest: {
+            '[default]': { value: 'P100' },
+            hovered: {
+              value: 'P200',
+            },
+            pressed: {
+              value: 'P300',
+            },
+          },
+          subtler: {
+            '[default]': { value: 'P200' },
+            hovered: {
+              value: 'P300',
+            },
+            pressed: {
+              value: 'P400',
+            },
+          },
+          subtle: {
+            '[default]': { value: 'P400' },
+            hovered: {
+              value: 'P300',
+            },
+            pressed: {
+              value: 'P200',
+            },
+          },
+          bolder: {
+            '[default]': { value: 'P400' },
+            hovered: {
+              value: 'P300',
+            },
+            pressed: {
+              value: 'P200',
+            },
+          },
         },
         teal: {
-          subtlest: { value: 'T100' },
-          subtler: { value: 'T200' },
-          subtle: { value: 'T400' },
-          bolder: { value: 'T400' },
+          subtlest: {
+            '[default]': { value: 'T100' },
+            hovered: {
+              value: 'T200',
+            },
+            pressed: {
+              value: 'T300',
+            },
+          },
+          subtler: {
+            '[default]': { value: 'T200' },
+            hovered: {
+              value: 'T300',
+            },
+            pressed: {
+              value: 'T400',
+            },
+          },
+          subtle: {
+            '[default]': { value: 'T400' },
+            hovered: {
+              value: 'T300',
+            },
+            pressed: {
+              value: 'T200',
+            },
+          },
+          bolder: {
+            '[default]': { value: 'T400' },
+            hovered: {
+              value: 'T300',
+            },
+            pressed: {
+              value: 'T200',
+            },
+          },
         },
         magenta: {
-          // @ts-expect-error
-          subtlest: { value: '#E774BB' },
-          // @ts-expect-error
-          subtler: { value: '#E774BB' },
-          // @ts-expect-error
-          subtle: { value: '#E774BB' },
-          // @ts-expect-error
-          bolder: { value: '#E774BB' },
+          subtlest: {
+            // @ts-expect-error
+            '[default]': { value: '#FFECF8' },
+            hovered: {
+              // @ts-expect-error
+              value: '#FDD0EC',
+            },
+            pressed: {
+              // @ts-expect-error
+              value: '#F797D2',
+            },
+          },
+          subtler: {
+            // @ts-expect-error
+            '[default]': { value: '#FDD0EC' },
+            hovered: {
+              // @ts-expect-error
+              value: '#F797D2',
+            },
+            pressed: {
+              // @ts-expect-error
+              value: '#E774BB',
+            },
+          },
+          subtle: {
+            // @ts-expect-error
+            '[default]': { value: '#E774BB' },
+            hovered: {
+              // @ts-expect-error
+              value: '#F797D2',
+            },
+            pressed: {
+              // @ts-expect-error
+              value: '#FDD0EC',
+            },
+          },
+          bolder: {
+            // @ts-expect-error
+            '[default]': { value: '#AE4787' },
+            hovered: {
+              // @ts-expect-error
+              value: '#943D73',
+            },
+            pressed: {
+              // @ts-expect-error
+              value: '#50253F',
+            },
+          },
         },
         lime: {
-          // @ts-expect-error
-          subtlest: { value: '#EEFBDA' },
-          // @ts-expect-error
-          subtler: { value: '#D3F1A7' },
-          // @ts-expect-error
-          subtle: { value: '#94C748' },
-          // @ts-expect-error
-          bolder: { value: '#5B7F24' },
+          subtlest: {
+            // @ts-expect-error
+            '[default]': { value: '#EEFBDA' },
+            hovered: {
+              // @ts-expect-error
+              value: '#D3F1A7',
+            },
+            pressed: {
+              // @ts-expect-error
+              value: '#B3DF72',
+            },
+          },
+          subtler: {
+            // @ts-expect-error
+            '[default]': { value: '#D3F1A7' },
+            hovered: {
+              // @ts-expect-error
+              value: '#B3DF72',
+            },
+            pressed: {
+              // @ts-expect-error
+              value: '#94C748',
+            },
+          },
+          subtle: {
+            // @ts-expect-error
+            '[default]': { value: '#94C748' },
+            hovered: {
+              // @ts-expect-error
+              value: '#B3DF72',
+            },
+            pressed: {
+              // @ts-expect-error
+              value: '#D3F1A7',
+            },
+          },
+          bolder: {
+            // @ts-expect-error
+            '[default]': { value: '#5B7F24' },
+            hovered: {
+              // @ts-expect-error
+              value: '#37471F',
+            },
+            pressed: {
+              // @ts-expect-error
+              value: '#37471F',
+            },
+          },
         },
         gray: {
-          subtlest: { value: 'N200' },
-          subtler: { value: 'N300' },
-          subtle: { value: 'N500' },
-          bolder: { value: 'N400' },
+          subtlest: {
+            '[default]': { value: 'N200' },
+            hovered: {
+              value: 'N300',
+            },
+            pressed: {
+              value: 'N400',
+            },
+          },
+          subtler: {
+            '[default]': { value: 'N300' },
+            hovered: {
+              value: 'N400',
+            },
+            pressed: {
+              value: 'N500',
+            },
+          },
+          subtle: {
+            '[default]': { value: 'N400' },
+            hovered: {
+              value: 'N300',
+            },
+            pressed: {
+              value: 'N200',
+            },
+          },
+          bolder: {
+            '[default]': { value: 'N500' },
+            hovered: {
+              value: 'N600',
+            },
+            pressed: {
+              value: 'N700',
+            },
+          },
         },
       },
     },

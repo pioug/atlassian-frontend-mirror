@@ -18,10 +18,24 @@ const heights: { [key in Spacing]: string } = {
   none: 'auto',
 };
 
-const paddingInline: { [key in Spacing]: Space } = {
-  default: 'space.150',
-  compact: 'space.150',
-  none: 'space.0',
+const paddingInline: {
+  [key in Spacing]: {
+    default: Space;
+    withIcon: Space;
+  };
+} = {
+  default: {
+    default: 'space.150',
+    withIcon: 'space.100',
+  },
+  compact: {
+    default: 'space.150',
+    withIcon: 'space.100',
+  },
+  none: {
+    default: 'space.0',
+    withIcon: 'space.0',
+  },
 };
 
 const gap: { [key in Spacing]: Space } = {
@@ -89,6 +103,8 @@ export type GetXCSSArgs = {
   shouldFitContainer: boolean;
   hasOverlay: boolean;
   isIconButton: boolean;
+  hasIconBefore: boolean;
+  hasIconAfter: boolean;
   /**
    * If the button is a LinkButton
    */
@@ -104,6 +120,8 @@ export function getXCSS({
   shouldFitContainer,
   isLink,
   hasOverlay,
+  hasIconBefore,
+  hasIconAfter,
 }: GetXCSSArgs): ReturnType<typeof xcss> {
   const baseColors = getColors({
     appearance,
@@ -126,6 +144,11 @@ export function getXCSS({
   let width = shouldFitContainer ? '100%' : 'auto';
   width = isIconButton ? height : width;
 
+  const paddingInlineStart =
+    paddingInline[spacing][hasIconBefore ? 'withIcon' : 'default'];
+  const paddingInlineEnd =
+    paddingInline[spacing][hasIconAfter ? 'withIcon' : 'default'];
+
   return xcss({
     alignItems: 'center',
     borderWidth: 'border.width.0',
@@ -145,7 +168,8 @@ export function getXCSS({
     whiteSpace: 'nowrap',
     height,
     paddingBlock: 'space.0',
-    paddingInline: isIconButton ? 'space.0' : paddingInline[spacing],
+    paddingInlineStart: isIconButton ? 'space.0' : paddingInlineStart,
+    paddingInlineEnd: isIconButton ? 'space.0' : paddingInlineEnd,
     columnGap: gap[spacing],
     verticalAlign: verticalAlign[spacing],
     width,

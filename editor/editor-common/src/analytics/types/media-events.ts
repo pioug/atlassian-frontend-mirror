@@ -1,3 +1,5 @@
+import type { RichMediaLayout } from '@atlaskit/adf-schema';
+
 import type { GuidelineTypes, WidthTypes } from '../../guideline/types';
 
 import type { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID } from './enums';
@@ -64,9 +66,24 @@ type MediaResizeAttributes = {
 
 export type MediaResizeTrackAction = UIAEP<
   ACTION.EDITED,
-  ACTION_SUBJECT.MEDIA_SINGLE,
+  ACTION_SUBJECT.MEDIA_SINGLE | ACTION_SUBJECT.EMBEDS,
   ACTION_SUBJECT_ID.RESIZED,
   MediaResizeAttributes,
+  undefined
+>;
+
+type MediaInputResizeAttributes = {
+  width: number;
+  layout: RichMediaLayout;
+  validation: 'valid' | 'greater-than-max' | 'less-than-min';
+  parentNode?: string;
+};
+
+export type MediaInputResizeTrackAction = UIAEP<
+  ACTION.EDITED,
+  ACTION_SUBJECT.MEDIA_SINGLE | ACTION_SUBJECT.EMBEDS,
+  ACTION_SUBJECT_ID.INPUT_RESIZED,
+  MediaInputResizeAttributes,
   undefined
 >;
 
@@ -94,6 +111,7 @@ export type MediaEventPayload =
   | MediaAltTextAction
   | MediaUIAction
   | MediaResizeTrackAction
+  | MediaInputResizeTrackAction
   | MediaBorderTrackAction
   | CaptionTrackAction
   | ChangeMediaAEP;

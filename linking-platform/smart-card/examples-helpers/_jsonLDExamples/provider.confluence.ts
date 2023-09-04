@@ -1,3 +1,4 @@
+import { avatar3 } from '../../examples/images';
 export const ConfluenceBlogPost = {
   meta: {
     visibility: 'restricted',
@@ -6,11 +7,21 @@ export const ConfluenceBlogPost = {
     key: 'confluence-object-provider',
   },
   data: {
+    '@context': {
+      '@vocab': 'https://www.w3.org/ns/activitystreams#',
+      atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
+      schema: 'http://schema.org/',
+    },
     '@type': 'schema:BlogPosting',
     generator: {
       '@type': 'Application',
       '@id': 'https://www.atlassian.com/#Confluence',
       name: 'Confluence',
+    },
+    attributedTo: {
+      '@type': 'Person',
+      name: 'Eliza Pancake',
+      icon: avatar3,
     },
     url: 'https://extranet.atlassian.com/pages/viewpage.action?pageId=3088533424',
     name: 'Founder Update 76: Hello, Trello!',
@@ -27,6 +38,11 @@ export const ConfluencePage = {
     key: 'confluence-object-provider',
   },
   data: {
+    '@context': {
+      '@vocab': 'https://www.w3.org/ns/activitystreams#',
+      atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
+      schema: 'http://schema.org/',
+    },
     '@type': 'schema:TextDigitalDocument',
     generator: {
       '@type': 'Application',
@@ -37,6 +53,14 @@ export const ConfluencePage = {
     name: 'Tesla & Atlassian',
     summary:
       "Recently, we've been talking to Tesla about how they use JIRA. Read on!",
+    'atlassian:ownedBy': {
+      '@type': 'Person',
+      name: 'Eliza Pancake',
+      icon: avatar3,
+    },
+    'atlassian:reactCount': 7,
+    'schema:commentCount': 12,
+    updated: '2022-11-22T15:30:49.140+1100',
   },
 };
 
@@ -48,6 +72,11 @@ export const ConfluenceTemplate = {
     key: 'confluence-object-provider',
   },
   data: {
+    '@context': {
+      '@vocab': 'https://www.w3.org/ns/activitystreams#',
+      atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
+      schema: 'http://schema.org/',
+    },
     '@type': 'atlassian:Template',
     generator: {
       '@type': 'Application',
@@ -68,6 +97,11 @@ export const ConfluenceSpace = {
     key: 'confluence-object-provider',
   },
   data: {
+    '@context': {
+      '@vocab': 'https://www.w3.org/ns/activitystreams#',
+      atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
+      schema: 'http://schema.org/',
+    },
     '@type': 'atlassian:Project',
     generator: {
       '@type': 'Application',

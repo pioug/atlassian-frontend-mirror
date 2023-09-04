@@ -1,5 +1,11 @@
 # @atlaskit/outbound-auth-flow-client
 
+## 3.4.4
+
+### Patch Changes
+
+- [`3b1e84fa050`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3b1e84fa050) - Enrol components on push-model consumpion in Jira Frontend.
+
 ## 3.4.3
 
 ### Patch Changes

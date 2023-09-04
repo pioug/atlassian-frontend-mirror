@@ -33,7 +33,18 @@ Some packages need this reset to ensure styles are rendered consistently as unde
 ```
 npm i @atlaskit/css-reset
 ```
+
 For setup instructions please [view the CSS reset documentation](https://atlaskit.atlassian.com/packages/css-packs/css-reset).
+
+#### Supported environment
+
+Currently packages in this repository support the following versions of tools:
+
+- npm: >= 9.0.0
+- yarn: >= 1.23.0
+- Node: >= 16
+- Webpack: >=4.0.0 && <= 5.0.0
+- Parcel: >= 2.8
 
 ### Usage
 
@@ -53,9 +64,8 @@ import Button from '@atlaskit/button';
 
 Atlassian Frontend supports all [supported browsers for Atlassian cloud products](https://confluence.atlassian.com/cloud/supported-browsers-744721663.html).
 
-
-|          ![chrome](imgs/chrome.png)          |        ![safari](imgs/safari.png)        | ![firefox](imgs/firefox.png) | ![edge](imgs/edge.png) |
-|:--------------------------------------------:|:----------------------------------------:|:----------------------------:|:----------------------:|
+|       ![chrome](imgs/chrome.png)       |      ![safari](imgs/safari.png)       | ![firefox](imgs/firefox.png) | ![edge](imgs/edge.png) |
+| :------------------------------------: | :-----------------------------------: | :--------------------------: | :--------------------: |
 | Latest ✔ Latest Android ✔ Latest iOS ✔ | Latest on latest macOS ✔ Latest iOS ✔ |           Latest ✔           |        Latest ✔        |
 
 ### Contributing

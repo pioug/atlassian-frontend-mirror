@@ -510,11 +510,11 @@ export type PaddingInline = keyof typeof paddingInlineMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::3c02977212ac78f3a0f9de93e0a253c2>>
+ * @codegen <<SignedSource::fe1f557b04d44d23dfae5c9494ccddcc>>
  * @codegenId colors
  * @codegenCommand yarn codegen-styles
  * @codegenParams ["border", "background", "shadow"]
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::65311fc2a6a35bb34b99c859362ac840>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::815ddd719715ae06521cad06e1921e40>>
  */
 const borderColorMap = {
   'color.border': css({

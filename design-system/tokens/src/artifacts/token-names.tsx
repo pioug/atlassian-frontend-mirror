@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d529715bd079c269a29aaf75bad507ea>>
+ * @codegen <<SignedSource::5688852b9c5bb12cbce375967cb93ef5>>
  * @codegenCommand yarn build tokens
  */
 const tokens = {
@@ -86,66 +86,226 @@ const tokens = {
   'color.border.bold': '--ds-border-bold',
   'color.background.accent.lime.subtlest':
     '--ds-background-accent-lime-subtlest',
+  'color.background.accent.lime.subtlest.hovered':
+    '--ds-background-accent-lime-subtlest-hovered',
+  'color.background.accent.lime.subtlest.pressed':
+    '--ds-background-accent-lime-subtlest-pressed',
   'color.background.accent.lime.subtler': '--ds-background-accent-lime-subtler',
+  'color.background.accent.lime.subtler.hovered':
+    '--ds-background-accent-lime-subtler-hovered',
+  'color.background.accent.lime.subtler.pressed':
+    '--ds-background-accent-lime-subtler-pressed',
   'color.background.accent.lime.subtle': '--ds-background-accent-lime-subtle',
+  'color.background.accent.lime.subtle.hovered':
+    '--ds-background-accent-lime-subtle-hovered',
+  'color.background.accent.lime.subtle.pressed':
+    '--ds-background-accent-lime-subtle-pressed',
   'color.background.accent.lime.bolder': '--ds-background-accent-lime-bolder',
+  'color.background.accent.lime.bolder.hovered':
+    '--ds-background-accent-lime-bolder-hovered',
+  'color.background.accent.lime.bolder.pressed':
+    '--ds-background-accent-lime-bolder-pressed',
   'color.background.accent.red.subtlest': '--ds-background-accent-red-subtlest',
+  'color.background.accent.red.subtlest.hovered':
+    '--ds-background-accent-red-subtlest-hovered',
+  'color.background.accent.red.subtlest.pressed':
+    '--ds-background-accent-red-subtlest-pressed',
   'color.background.accent.red.subtler': '--ds-background-accent-red-subtler',
+  'color.background.accent.red.subtler.hovered':
+    '--ds-background-accent-red-subtler-hovered',
+  'color.background.accent.red.subtler.pressed':
+    '--ds-background-accent-red-subtler-pressed',
   'color.background.accent.red.subtle': '--ds-background-accent-red-subtle',
+  'color.background.accent.red.subtle.hovered':
+    '--ds-background-accent-red-subtle-hovered',
+  'color.background.accent.red.subtle.pressed':
+    '--ds-background-accent-red-subtle-pressed',
   'color.background.accent.red.bolder': '--ds-background-accent-red-bolder',
+  'color.background.accent.red.bolder.hovered':
+    '--ds-background-accent-red-bolder-hovered',
+  'color.background.accent.red.bolder.pressed':
+    '--ds-background-accent-red-bolder-pressed',
   'color.background.accent.orange.subtlest':
     '--ds-background-accent-orange-subtlest',
+  'color.background.accent.orange.subtlest.hovered':
+    '--ds-background-accent-orange-subtlest-hovered',
+  'color.background.accent.orange.subtlest.pressed':
+    '--ds-background-accent-orange-subtlest-pressed',
   'color.background.accent.orange.subtler':
     '--ds-background-accent-orange-subtler',
+  'color.background.accent.orange.subtler.hovered':
+    '--ds-background-accent-orange-subtler-hovered',
+  'color.background.accent.orange.subtler.pressed':
+    '--ds-background-accent-orange-subtler-pressed',
   'color.background.accent.orange.subtle':
     '--ds-background-accent-orange-subtle',
+  'color.background.accent.orange.subtle.hovered':
+    '--ds-background-accent-orange-subtle-hovered',
+  'color.background.accent.orange.subtle.pressed':
+    '--ds-background-accent-orange-subtle-pressed',
   'color.background.accent.orange.bolder':
     '--ds-background-accent-orange-bolder',
+  'color.background.accent.orange.bolder.hovered':
+    '--ds-background-accent-orange-bolder-hovered',
+  'color.background.accent.orange.bolder.pressed':
+    '--ds-background-accent-orange-bolder-pressed',
   'color.background.accent.yellow.subtlest':
     '--ds-background-accent-yellow-subtlest',
+  'color.background.accent.yellow.subtlest.hovered':
+    '--ds-background-accent-yellow-subtlest-hovered',
+  'color.background.accent.yellow.subtlest.pressed':
+    '--ds-background-accent-yellow-subtlest-pressed',
   'color.background.accent.yellow.subtler':
     '--ds-background-accent-yellow-subtler',
+  'color.background.accent.yellow.subtler.hovered':
+    '--ds-background-accent-yellow-subtler-hovered',
+  'color.background.accent.yellow.subtler.pressed':
+    '--ds-background-accent-yellow-subtler-pressed',
   'color.background.accent.yellow.subtle':
     '--ds-background-accent-yellow-subtle',
+  'color.background.accent.yellow.subtle.hovered':
+    '--ds-background-accent-yellow-subtle-hovered',
+  'color.background.accent.yellow.subtle.pressed':
+    '--ds-background-accent-yellow-subtle-pressed',
   'color.background.accent.yellow.bolder':
     '--ds-background-accent-yellow-bolder',
+  'color.background.accent.yellow.bolder.hovered':
+    '--ds-background-accent-yellow-bolder-hovered',
+  'color.background.accent.yellow.bolder.pressed':
+    '--ds-background-accent-yellow-bolder-pressed',
   'color.background.accent.green.subtlest':
     '--ds-background-accent-green-subtlest',
+  'color.background.accent.green.subtlest.hovered':
+    '--ds-background-accent-green-subtlest-hovered',
+  'color.background.accent.green.subtlest.pressed':
+    '--ds-background-accent-green-subtlest-pressed',
   'color.background.accent.green.subtler':
     '--ds-background-accent-green-subtler',
+  'color.background.accent.green.subtler.hovered':
+    '--ds-background-accent-green-subtler-hovered',
+  'color.background.accent.green.subtler.pressed':
+    '--ds-background-accent-green-subtler-pressed',
   'color.background.accent.green.subtle': '--ds-background-accent-green-subtle',
+  'color.background.accent.green.subtle.hovered':
+    '--ds-background-accent-green-subtle-hovered',
+  'color.background.accent.green.subtle.pressed':
+    '--ds-background-accent-green-subtle-pressed',
   'color.background.accent.green.bolder': '--ds-background-accent-green-bolder',
+  'color.background.accent.green.bolder.hovered':
+    '--ds-background-accent-green-bolder-hovered',
+  'color.background.accent.green.bolder.pressed':
+    '--ds-background-accent-green-bolder-pressed',
   'color.background.accent.teal.subtlest':
     '--ds-background-accent-teal-subtlest',
+  'color.background.accent.teal.subtlest.hovered':
+    '--ds-background-accent-teal-subtlest-hovered',
+  'color.background.accent.teal.subtlest.pressed':
+    '--ds-background-accent-teal-subtlest-pressed',
   'color.background.accent.teal.subtler': '--ds-background-accent-teal-subtler',
+  'color.background.accent.teal.subtler.hovered':
+    '--ds-background-accent-teal-subtler-hovered',
+  'color.background.accent.teal.subtler.pressed':
+    '--ds-background-accent-teal-subtler-pressed',
   'color.background.accent.teal.subtle': '--ds-background-accent-teal-subtle',
+  'color.background.accent.teal.subtle.hovered':
+    '--ds-background-accent-teal-subtle-hovered',
+  'color.background.accent.teal.subtle.pressed':
+    '--ds-background-accent-teal-subtle-pressed',
   'color.background.accent.teal.bolder': '--ds-background-accent-teal-bolder',
+  'color.background.accent.teal.bolder.hovered':
+    '--ds-background-accent-teal-bolder-hovered',
+  'color.background.accent.teal.bolder.pressed':
+    '--ds-background-accent-teal-bolder-pressed',
   'color.background.accent.blue.subtlest':
     '--ds-background-accent-blue-subtlest',
+  'color.background.accent.blue.subtlest.hovered':
+    '--ds-background-accent-blue-subtlest-hovered',
+  'color.background.accent.blue.subtlest.pressed':
+    '--ds-background-accent-blue-subtlest-pressed',
   'color.background.accent.blue.subtler': '--ds-background-accent-blue-subtler',
+  'color.background.accent.blue.subtler.hovered':
+    '--ds-background-accent-blue-subtler-hovered',
+  'color.background.accent.blue.subtler.pressed':
+    '--ds-background-accent-blue-subtler-pressed',
   'color.background.accent.blue.subtle': '--ds-background-accent-blue-subtle',
+  'color.background.accent.blue.subtle.hovered':
+    '--ds-background-accent-blue-subtle-hovered',
+  'color.background.accent.blue.subtle.pressed':
+    '--ds-background-accent-blue-subtle-pressed',
   'color.background.accent.blue.bolder': '--ds-background-accent-blue-bolder',
+  'color.background.accent.blue.bolder.hovered':
+    '--ds-background-accent-blue-bolder-hovered',
+  'color.background.accent.blue.bolder.pressed':
+    '--ds-background-accent-blue-bolder-pressed',
   'color.background.accent.purple.subtlest':
     '--ds-background-accent-purple-subtlest',
+  'color.background.accent.purple.subtlest.hovered':
+    '--ds-background-accent-purple-subtlest-hovered',
+  'color.background.accent.purple.subtlest.pressed':
+    '--ds-background-accent-purple-subtlest-pressed',
   'color.background.accent.purple.subtler':
     '--ds-background-accent-purple-subtler',
+  'color.background.accent.purple.subtler.hovered':
+    '--ds-background-accent-purple-subtler-hovered',
+  'color.background.accent.purple.subtler.pressed':
+    '--ds-background-accent-purple-subtler-pressed',
   'color.background.accent.purple.subtle':
     '--ds-background-accent-purple-subtle',
+  'color.background.accent.purple.subtle.hovered':
+    '--ds-background-accent-purple-subtle-hovered',
+  'color.background.accent.purple.subtle.pressed':
+    '--ds-background-accent-purple-subtle-pressed',
   'color.background.accent.purple.bolder':
     '--ds-background-accent-purple-bolder',
+  'color.background.accent.purple.bolder.hovered':
+    '--ds-background-accent-purple-bolder-hovered',
+  'color.background.accent.purple.bolder.pressed':
+    '--ds-background-accent-purple-bolder-pressed',
   'color.background.accent.magenta.subtlest':
     '--ds-background-accent-magenta-subtlest',
+  'color.background.accent.magenta.subtlest.hovered':
+    '--ds-background-accent-magenta-subtlest-hovered',
+  'color.background.accent.magenta.subtlest.pressed':
+    '--ds-background-accent-magenta-subtlest-pressed',
   'color.background.accent.magenta.subtler':
     '--ds-background-accent-magenta-subtler',
+  'color.background.accent.magenta.subtler.hovered':
+    '--ds-background-accent-magenta-subtler-hovered',
+  'color.background.accent.magenta.subtler.pressed':
+    '--ds-background-accent-magenta-subtler-pressed',
   'color.background.accent.magenta.subtle':
     '--ds-background-accent-magenta-subtle',
+  'color.background.accent.magenta.subtle.hovered':
+    '--ds-background-accent-magenta-subtle-hovered',
+  'color.background.accent.magenta.subtle.pressed':
+    '--ds-background-accent-magenta-subtle-pressed',
   'color.background.accent.magenta.bolder':
     '--ds-background-accent-magenta-bolder',
+  'color.background.accent.magenta.bolder.hovered':
+    '--ds-background-accent-magenta-bolder-hovered',
+  'color.background.accent.magenta.bolder.pressed':
+    '--ds-background-accent-magenta-bolder-pressed',
   'color.background.accent.gray.subtlest':
     '--ds-background-accent-gray-subtlest',
+  'color.background.accent.gray.subtlest.hovered':
+    '--ds-background-accent-gray-subtlest-hovered',
+  'color.background.accent.gray.subtlest.pressed':
+    '--ds-background-accent-gray-subtlest-pressed',
   'color.background.accent.gray.subtler': '--ds-background-accent-gray-subtler',
+  'color.background.accent.gray.subtler.hovered':
+    '--ds-background-accent-gray-subtler-hovered',
+  'color.background.accent.gray.subtler.pressed':
+    '--ds-background-accent-gray-subtler-pressed',
   'color.background.accent.gray.subtle': '--ds-background-accent-gray-subtle',
+  'color.background.accent.gray.subtle.hovered':
+    '--ds-background-accent-gray-subtle-hovered',
+  'color.background.accent.gray.subtle.pressed':
+    '--ds-background-accent-gray-subtle-pressed',
   'color.background.accent.gray.bolder': '--ds-background-accent-gray-bolder',
+  'color.background.accent.gray.bolder.hovered':
+    '--ds-background-accent-gray-bolder-hovered',
+  'color.background.accent.gray.bolder.pressed':
+    '--ds-background-accent-gray-bolder-pressed',
   'color.background.disabled': '--ds-background-disabled',
   'color.background.input': '--ds-background-input',
   'color.background.input.hovered': '--ds-background-input-hovered',
@@ -504,45 +664,125 @@ export type CSSTokenMap = {
   'color.border.information': 'var(--ds-border-information)';
   'color.border.bold': 'var(--ds-border-bold)';
   'color.background.accent.lime.subtlest': 'var(--ds-background-accent-lime-subtlest)';
+  'color.background.accent.lime.subtlest.hovered': 'var(--ds-background-accent-lime-subtlest-hovered)';
+  'color.background.accent.lime.subtlest.pressed': 'var(--ds-background-accent-lime-subtlest-pressed)';
   'color.background.accent.lime.subtler': 'var(--ds-background-accent-lime-subtler)';
+  'color.background.accent.lime.subtler.hovered': 'var(--ds-background-accent-lime-subtler-hovered)';
+  'color.background.accent.lime.subtler.pressed': 'var(--ds-background-accent-lime-subtler-pressed)';
   'color.background.accent.lime.subtle': 'var(--ds-background-accent-lime-subtle)';
+  'color.background.accent.lime.subtle.hovered': 'var(--ds-background-accent-lime-subtle-hovered)';
+  'color.background.accent.lime.subtle.pressed': 'var(--ds-background-accent-lime-subtle-pressed)';
   'color.background.accent.lime.bolder': 'var(--ds-background-accent-lime-bolder)';
+  'color.background.accent.lime.bolder.hovered': 'var(--ds-background-accent-lime-bolder-hovered)';
+  'color.background.accent.lime.bolder.pressed': 'var(--ds-background-accent-lime-bolder-pressed)';
   'color.background.accent.red.subtlest': 'var(--ds-background-accent-red-subtlest)';
+  'color.background.accent.red.subtlest.hovered': 'var(--ds-background-accent-red-subtlest-hovered)';
+  'color.background.accent.red.subtlest.pressed': 'var(--ds-background-accent-red-subtlest-pressed)';
   'color.background.accent.red.subtler': 'var(--ds-background-accent-red-subtler)';
+  'color.background.accent.red.subtler.hovered': 'var(--ds-background-accent-red-subtler-hovered)';
+  'color.background.accent.red.subtler.pressed': 'var(--ds-background-accent-red-subtler-pressed)';
   'color.background.accent.red.subtle': 'var(--ds-background-accent-red-subtle)';
+  'color.background.accent.red.subtle.hovered': 'var(--ds-background-accent-red-subtle-hovered)';
+  'color.background.accent.red.subtle.pressed': 'var(--ds-background-accent-red-subtle-pressed)';
   'color.background.accent.red.bolder': 'var(--ds-background-accent-red-bolder)';
+  'color.background.accent.red.bolder.hovered': 'var(--ds-background-accent-red-bolder-hovered)';
+  'color.background.accent.red.bolder.pressed': 'var(--ds-background-accent-red-bolder-pressed)';
   'color.background.accent.orange.subtlest': 'var(--ds-background-accent-orange-subtlest)';
+  'color.background.accent.orange.subtlest.hovered': 'var(--ds-background-accent-orange-subtlest-hovered)';
+  'color.background.accent.orange.subtlest.pressed': 'var(--ds-background-accent-orange-subtlest-pressed)';
   'color.background.accent.orange.subtler': 'var(--ds-background-accent-orange-subtler)';
+  'color.background.accent.orange.subtler.hovered': 'var(--ds-background-accent-orange-subtler-hovered)';
+  'color.background.accent.orange.subtler.pressed': 'var(--ds-background-accent-orange-subtler-pressed)';
   'color.background.accent.orange.subtle': 'var(--ds-background-accent-orange-subtle)';
+  'color.background.accent.orange.subtle.hovered': 'var(--ds-background-accent-orange-subtle-hovered)';
+  'color.background.accent.orange.subtle.pressed': 'var(--ds-background-accent-orange-subtle-pressed)';
   'color.background.accent.orange.bolder': 'var(--ds-background-accent-orange-bolder)';
+  'color.background.accent.orange.bolder.hovered': 'var(--ds-background-accent-orange-bolder-hovered)';
+  'color.background.accent.orange.bolder.pressed': 'var(--ds-background-accent-orange-bolder-pressed)';
   'color.background.accent.yellow.subtlest': 'var(--ds-background-accent-yellow-subtlest)';
+  'color.background.accent.yellow.subtlest.hovered': 'var(--ds-background-accent-yellow-subtlest-hovered)';
+  'color.background.accent.yellow.subtlest.pressed': 'var(--ds-background-accent-yellow-subtlest-pressed)';
   'color.background.accent.yellow.subtler': 'var(--ds-background-accent-yellow-subtler)';
+  'color.background.accent.yellow.subtler.hovered': 'var(--ds-background-accent-yellow-subtler-hovered)';
+  'color.background.accent.yellow.subtler.pressed': 'var(--ds-background-accent-yellow-subtler-pressed)';
   'color.background.accent.yellow.subtle': 'var(--ds-background-accent-yellow-subtle)';
+  'color.background.accent.yellow.subtle.hovered': 'var(--ds-background-accent-yellow-subtle-hovered)';
+  'color.background.accent.yellow.subtle.pressed': 'var(--ds-background-accent-yellow-subtle-pressed)';
   'color.background.accent.yellow.bolder': 'var(--ds-background-accent-yellow-bolder)';
+  'color.background.accent.yellow.bolder.hovered': 'var(--ds-background-accent-yellow-bolder-hovered)';
+  'color.background.accent.yellow.bolder.pressed': 'var(--ds-background-accent-yellow-bolder-pressed)';
   'color.background.accent.green.subtlest': 'var(--ds-background-accent-green-subtlest)';
+  'color.background.accent.green.subtlest.hovered': 'var(--ds-background-accent-green-subtlest-hovered)';
+  'color.background.accent.green.subtlest.pressed': 'var(--ds-background-accent-green-subtlest-pressed)';
   'color.background.accent.green.subtler': 'var(--ds-background-accent-green-subtler)';
+  'color.background.accent.green.subtler.hovered': 'var(--ds-background-accent-green-subtler-hovered)';
+  'color.background.accent.green.subtler.pressed': 'var(--ds-background-accent-green-subtler-pressed)';
   'color.background.accent.green.subtle': 'var(--ds-background-accent-green-subtle)';
+  'color.background.accent.green.subtle.hovered': 'var(--ds-background-accent-green-subtle-hovered)';
+  'color.background.accent.green.subtle.pressed': 'var(--ds-background-accent-green-subtle-pressed)';
   'color.background.accent.green.bolder': 'var(--ds-background-accent-green-bolder)';
+  'color.background.accent.green.bolder.hovered': 'var(--ds-background-accent-green-bolder-hovered)';
+  'color.background.accent.green.bolder.pressed': 'var(--ds-background-accent-green-bolder-pressed)';
   'color.background.accent.teal.subtlest': 'var(--ds-background-accent-teal-subtlest)';
+  'color.background.accent.teal.subtlest.hovered': 'var(--ds-background-accent-teal-subtlest-hovered)';
+  'color.background.accent.teal.subtlest.pressed': 'var(--ds-background-accent-teal-subtlest-pressed)';
   'color.background.accent.teal.subtler': 'var(--ds-background-accent-teal-subtler)';
+  'color.background.accent.teal.subtler.hovered': 'var(--ds-background-accent-teal-subtler-hovered)';
+  'color.background.accent.teal.subtler.pressed': 'var(--ds-background-accent-teal-subtler-pressed)';
   'color.background.accent.teal.subtle': 'var(--ds-background-accent-teal-subtle)';
+  'color.background.accent.teal.subtle.hovered': 'var(--ds-background-accent-teal-subtle-hovered)';
+  'color.background.accent.teal.subtle.pressed': 'var(--ds-background-accent-teal-subtle-pressed)';
   'color.background.accent.teal.bolder': 'var(--ds-background-accent-teal-bolder)';
+  'color.background.accent.teal.bolder.hovered': 'var(--ds-background-accent-teal-bolder-hovered)';
+  'color.background.accent.teal.bolder.pressed': 'var(--ds-background-accent-teal-bolder-pressed)';
   'color.background.accent.blue.subtlest': 'var(--ds-background-accent-blue-subtlest)';
+  'color.background.accent.blue.subtlest.hovered': 'var(--ds-background-accent-blue-subtlest-hovered)';
+  'color.background.accent.blue.subtlest.pressed': 'var(--ds-background-accent-blue-subtlest-pressed)';
   'color.background.accent.blue.subtler': 'var(--ds-background-accent-blue-subtler)';
+  'color.background.accent.blue.subtler.hovered': 'var(--ds-background-accent-blue-subtler-hovered)';
+  'color.background.accent.blue.subtler.pressed': 'var(--ds-background-accent-blue-subtler-pressed)';
   'color.background.accent.blue.subtle': 'var(--ds-background-accent-blue-subtle)';
+  'color.background.accent.blue.subtle.hovered': 'var(--ds-background-accent-blue-subtle-hovered)';
+  'color.background.accent.blue.subtle.pressed': 'var(--ds-background-accent-blue-subtle-pressed)';
   'color.background.accent.blue.bolder': 'var(--ds-background-accent-blue-bolder)';
+  'color.background.accent.blue.bolder.hovered': 'var(--ds-background-accent-blue-bolder-hovered)';
+  'color.background.accent.blue.bolder.pressed': 'var(--ds-background-accent-blue-bolder-pressed)';
   'color.background.accent.purple.subtlest': 'var(--ds-background-accent-purple-subtlest)';
+  'color.background.accent.purple.subtlest.hovered': 'var(--ds-background-accent-purple-subtlest-hovered)';
+  'color.background.accent.purple.subtlest.pressed': 'var(--ds-background-accent-purple-subtlest-pressed)';
   'color.background.accent.purple.subtler': 'var(--ds-background-accent-purple-subtler)';
+  'color.background.accent.purple.subtler.hovered': 'var(--ds-background-accent-purple-subtler-hovered)';
+  'color.background.accent.purple.subtler.pressed': 'var(--ds-background-accent-purple-subtler-pressed)';
   'color.background.accent.purple.subtle': 'var(--ds-background-accent-purple-subtle)';
+  'color.background.accent.purple.subtle.hovered': 'var(--ds-background-accent-purple-subtle-hovered)';
+  'color.background.accent.purple.subtle.pressed': 'var(--ds-background-accent-purple-subtle-pressed)';
   'color.background.accent.purple.bolder': 'var(--ds-background-accent-purple-bolder)';
+  'color.background.accent.purple.bolder.hovered': 'var(--ds-background-accent-purple-bolder-hovered)';
+  'color.background.accent.purple.bolder.pressed': 'var(--ds-background-accent-purple-bolder-pressed)';
   'color.background.accent.magenta.subtlest': 'var(--ds-background-accent-magenta-subtlest)';
+  'color.background.accent.magenta.subtlest.hovered': 'var(--ds-background-accent-magenta-subtlest-hovered)';
+  'color.background.accent.magenta.subtlest.pressed': 'var(--ds-background-accent-magenta-subtlest-pressed)';
   'color.background.accent.magenta.subtler': 'var(--ds-background-accent-magenta-subtler)';
+  'color.background.accent.magenta.subtler.hovered': 'var(--ds-background-accent-magenta-subtler-hovered)';
+  'color.background.accent.magenta.subtler.pressed': 'var(--ds-background-accent-magenta-subtler-pressed)';
   'color.background.accent.magenta.subtle': 'var(--ds-background-accent-magenta-subtle)';
+  'color.background.accent.magenta.subtle.hovered': 'var(--ds-background-accent-magenta-subtle-hovered)';
+  'color.background.accent.magenta.subtle.pressed': 'var(--ds-background-accent-magenta-subtle-pressed)';
   'color.background.accent.magenta.bolder': 'var(--ds-background-accent-magenta-bolder)';
+  'color.background.accent.magenta.bolder.hovered': 'var(--ds-background-accent-magenta-bolder-hovered)';
+  'color.background.accent.magenta.bolder.pressed': 'var(--ds-background-accent-magenta-bolder-pressed)';
   'color.background.accent.gray.subtlest': 'var(--ds-background-accent-gray-subtlest)';
+  'color.background.accent.gray.subtlest.hovered': 'var(--ds-background-accent-gray-subtlest-hovered)';
+  'color.background.accent.gray.subtlest.pressed': 'var(--ds-background-accent-gray-subtlest-pressed)';
   'color.background.accent.gray.subtler': 'var(--ds-background-accent-gray-subtler)';
+  'color.background.accent.gray.subtler.hovered': 'var(--ds-background-accent-gray-subtler-hovered)';
+  'color.background.accent.gray.subtler.pressed': 'var(--ds-background-accent-gray-subtler-pressed)';
   'color.background.accent.gray.subtle': 'var(--ds-background-accent-gray-subtle)';
+  'color.background.accent.gray.subtle.hovered': 'var(--ds-background-accent-gray-subtle-hovered)';
+  'color.background.accent.gray.subtle.pressed': 'var(--ds-background-accent-gray-subtle-pressed)';
   'color.background.accent.gray.bolder': 'var(--ds-background-accent-gray-bolder)';
+  'color.background.accent.gray.bolder.hovered': 'var(--ds-background-accent-gray-bolder-hovered)';
+  'color.background.accent.gray.bolder.pressed': 'var(--ds-background-accent-gray-bolder-pressed)';
   'color.background.disabled': 'var(--ds-background-disabled)';
   'color.background.input': 'var(--ds-background-input)';
   'color.background.input.hovered': 'var(--ds-background-input-hovered)';

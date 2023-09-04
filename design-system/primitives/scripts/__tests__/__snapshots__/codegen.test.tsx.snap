@@ -6,161 +6,481 @@ exports[`@atlaskit/primitives bg styles are generated correctly 1`] = `
     'color.background.accent.lime.subtlest',
     '#EEFBDA',
   ),
+  'color.background.accent.lime.subtlest.hovered': token(
+    'color.background.accent.lime.subtlest.hovered',
+    '#D3F1A7',
+  ),
+  'color.background.accent.lime.subtlest.pressed': token(
+    'color.background.accent.lime.subtlest.pressed',
+    '#B3DF72',
+  ),
   'color.background.accent.lime.subtler': token(
     'color.background.accent.lime.subtler',
     '#D3F1A7',
+  ),
+  'color.background.accent.lime.subtler.hovered': token(
+    'color.background.accent.lime.subtler.hovered',
+    '#B3DF72',
+  ),
+  'color.background.accent.lime.subtler.pressed': token(
+    'color.background.accent.lime.subtler.pressed',
+    '#94C748',
   ),
   'color.background.accent.lime.subtle': token(
     'color.background.accent.lime.subtle',
     '#94C748',
   ),
+  'color.background.accent.lime.subtle.hovered': token(
+    'color.background.accent.lime.subtle.hovered',
+    '#B3DF72',
+  ),
+  'color.background.accent.lime.subtle.pressed': token(
+    'color.background.accent.lime.subtle.pressed',
+    '#D3F1A7',
+  ),
   'color.background.accent.lime.bolder': token(
     'color.background.accent.lime.bolder',
     '#5B7F24',
+  ),
+  'color.background.accent.lime.bolder.hovered': token(
+    'color.background.accent.lime.bolder.hovered',
+    '#37471F',
+  ),
+  'color.background.accent.lime.bolder.pressed': token(
+    'color.background.accent.lime.bolder.pressed',
+    '#37471F',
   ),
   'color.background.accent.red.subtlest': token(
     'color.background.accent.red.subtlest',
     '#FF8F73',
   ),
+  'color.background.accent.red.subtlest.hovered': token(
+    'color.background.accent.red.subtlest.hovered',
+    '#FF7452',
+  ),
+  'color.background.accent.red.subtlest.pressed': token(
+    'color.background.accent.red.subtlest.pressed',
+    '#FF5630',
+  ),
   'color.background.accent.red.subtler': token(
     'color.background.accent.red.subtler',
     '#FF7452',
+  ),
+  'color.background.accent.red.subtler.hovered': token(
+    'color.background.accent.red.subtler.hovered',
+    '#FF5630',
+  ),
+  'color.background.accent.red.subtler.pressed': token(
+    'color.background.accent.red.subtler.pressed',
+    '#DE350B',
   ),
   'color.background.accent.red.subtle': token(
     'color.background.accent.red.subtle',
     '#DE350B',
   ),
+  'color.background.accent.red.subtle.hovered': token(
+    'color.background.accent.red.subtle.hovered',
+    '#FF5630',
+  ),
+  'color.background.accent.red.subtle.pressed': token(
+    'color.background.accent.red.subtle.pressed',
+    '#FF7452',
+  ),
   'color.background.accent.red.bolder': token(
     'color.background.accent.red.bolder',
     '#DE350B',
+  ),
+  'color.background.accent.red.bolder.hovered': token(
+    'color.background.accent.red.bolder.hovered',
+    '#FF5630',
+  ),
+  'color.background.accent.red.bolder.pressed': token(
+    'color.background.accent.red.bolder.pressed',
+    '#FF7452',
   ),
   'color.background.accent.orange.subtlest': token(
     'color.background.accent.orange.subtlest',
     '#F18D13',
   ),
+  'color.background.accent.orange.subtlest.hovered': token(
+    'color.background.accent.orange.subtlest.hovered',
+    '#FEC57B',
+  ),
+  'color.background.accent.orange.subtlest.pressed': token(
+    'color.background.accent.orange.subtlest.pressed',
+    '#FFE2BD',
+  ),
   'color.background.accent.orange.subtler': token(
     'color.background.accent.orange.subtler',
     '#B65C02',
+  ),
+  'color.background.accent.orange.subtler.hovered': token(
+    'color.background.accent.orange.subtler.hovered',
+    '#F18D13',
+  ),
+  'color.background.accent.orange.subtler.pressed': token(
+    'color.background.accent.orange.subtler.pressed',
+    '#FEC57B',
   ),
   'color.background.accent.orange.subtle': token(
     'color.background.accent.orange.subtle',
     '#5F3811',
   ),
+  'color.background.accent.orange.subtle.hovered': token(
+    'color.background.accent.orange.subtle.hovered',
+    '#974F0C',
+  ),
+  'color.background.accent.orange.subtle.pressed': token(
+    'color.background.accent.orange.subtle.pressed',
+    '#B65C02',
+  ),
   'color.background.accent.orange.bolder': token(
     'color.background.accent.orange.bolder',
     '#43290F',
+  ),
+  'color.background.accent.orange.bolder.hovered': token(
+    'color.background.accent.orange.bolder.hovered',
+    '#5F3811',
+  ),
+  'color.background.accent.orange.bolder.pressed': token(
+    'color.background.accent.orange.bolder.pressed',
+    '#974F0C',
   ),
   'color.background.accent.yellow.subtlest': token(
     'color.background.accent.yellow.subtlest',
     '#FFE380',
   ),
+  'color.background.accent.yellow.subtlest.hovered': token(
+    'color.background.accent.yellow.subtlest.hovered',
+    '#FFC400',
+  ),
+  'color.background.accent.yellow.subtlest.pressed': token(
+    'color.background.accent.yellow.subtlest.pressed',
+    '#FFAB00',
+  ),
   'color.background.accent.yellow.subtler': token(
     'color.background.accent.yellow.subtler',
     '#FFC400',
+  ),
+  'color.background.accent.yellow.subtler.hovered': token(
+    'color.background.accent.yellow.subtler.hovered',
+    '#FFAB00',
+  ),
+  'color.background.accent.yellow.subtler.pressed': token(
+    'color.background.accent.yellow.subtler.pressed',
+    '#FF991F',
   ),
   'color.background.accent.yellow.subtle': token(
     'color.background.accent.yellow.subtle',
     '#FF991F',
   ),
+  'color.background.accent.yellow.subtle.hovered': token(
+    'color.background.accent.yellow.subtle.hovered',
+    '#FFAB00',
+  ),
+  'color.background.accent.yellow.subtle.pressed': token(
+    'color.background.accent.yellow.subtle.pressed',
+    '#FFC400',
+  ),
   'color.background.accent.yellow.bolder': token(
     'color.background.accent.yellow.bolder',
     '#FF991F',
+  ),
+  'color.background.accent.yellow.bolder.hovered': token(
+    'color.background.accent.yellow.bolder.hovered',
+    '#FFAB00',
+  ),
+  'color.background.accent.yellow.bolder.pressed': token(
+    'color.background.accent.yellow.bolder.pressed',
+    '#FFC400',
   ),
   'color.background.accent.green.subtlest': token(
     'color.background.accent.green.subtlest',
     '#79F2C0',
   ),
+  'color.background.accent.green.subtlest.hovered': token(
+    'color.background.accent.green.subtlest.hovered',
+    '#57D9A3',
+  ),
+  'color.background.accent.green.subtlest.pressed': token(
+    'color.background.accent.green.subtlest.pressed',
+    '#36B37E',
+  ),
   'color.background.accent.green.subtler': token(
     'color.background.accent.green.subtler',
     '#57D9A3',
+  ),
+  'color.background.accent.green.subtler.hovered': token(
+    'color.background.accent.green.subtler.hovered',
+    '#36B37E',
+  ),
+  'color.background.accent.green.subtler.pressed': token(
+    'color.background.accent.green.subtler.pressed',
+    '#00875A',
   ),
   'color.background.accent.green.subtle': token(
     'color.background.accent.green.subtle',
     '#00875A',
   ),
+  'color.background.accent.green.subtle.hovered': token(
+    'color.background.accent.green.subtle.hovered',
+    '#36B37E',
+  ),
+  'color.background.accent.green.subtle.pressed': token(
+    'color.background.accent.green.subtle.pressed',
+    '#57D9A3',
+  ),
   'color.background.accent.green.bolder': token(
     'color.background.accent.green.bolder',
     '#00875A',
+  ),
+  'color.background.accent.green.bolder.hovered': token(
+    'color.background.accent.green.bolder.hovered',
+    '#36B37E',
+  ),
+  'color.background.accent.green.bolder.pressed': token(
+    'color.background.accent.green.bolder.pressed',
+    '#57D9A3',
   ),
   'color.background.accent.teal.subtlest': token(
     'color.background.accent.teal.subtlest',
     '#79E2F2',
   ),
+  'color.background.accent.teal.subtlest.hovered': token(
+    'color.background.accent.teal.subtlest.hovered',
+    '#00C7E6',
+  ),
+  'color.background.accent.teal.subtlest.pressed': token(
+    'color.background.accent.teal.subtlest.pressed',
+    '#00B8D9',
+  ),
   'color.background.accent.teal.subtler': token(
     'color.background.accent.teal.subtler',
     '#00C7E6',
+  ),
+  'color.background.accent.teal.subtler.hovered': token(
+    'color.background.accent.teal.subtler.hovered',
+    '#00B8D9',
+  ),
+  'color.background.accent.teal.subtler.pressed': token(
+    'color.background.accent.teal.subtler.pressed',
+    '#00A3BF',
   ),
   'color.background.accent.teal.subtle': token(
     'color.background.accent.teal.subtle',
     '#00A3BF',
   ),
+  'color.background.accent.teal.subtle.hovered': token(
+    'color.background.accent.teal.subtle.hovered',
+    '#00B8D9',
+  ),
+  'color.background.accent.teal.subtle.pressed': token(
+    'color.background.accent.teal.subtle.pressed',
+    '#00C7E6',
+  ),
   'color.background.accent.teal.bolder': token(
     'color.background.accent.teal.bolder',
     '#00A3BF',
+  ),
+  'color.background.accent.teal.bolder.hovered': token(
+    'color.background.accent.teal.bolder.hovered',
+    '#00B8D9',
+  ),
+  'color.background.accent.teal.bolder.pressed': token(
+    'color.background.accent.teal.bolder.pressed',
+    '#00C7E6',
   ),
   'color.background.accent.blue.subtlest': token(
     'color.background.accent.blue.subtlest',
     '#4C9AFF',
   ),
+  'color.background.accent.blue.subtlest.hovered': token(
+    'color.background.accent.blue.subtlest.hovered',
+    '#2684FF',
+  ),
+  'color.background.accent.blue.subtlest.pressed': token(
+    'color.background.accent.blue.subtlest.pressed',
+    '#0065FF',
+  ),
   'color.background.accent.blue.subtler': token(
     'color.background.accent.blue.subtler',
     '#2684FF',
+  ),
+  'color.background.accent.blue.subtler.hovered': token(
+    'color.background.accent.blue.subtler.hovered',
+    '#0065FF',
+  ),
+  'color.background.accent.blue.subtler.pressed': token(
+    'color.background.accent.blue.subtler.pressed',
+    '#0052CC',
   ),
   'color.background.accent.blue.subtle': token(
     'color.background.accent.blue.subtle',
     '#0052CC',
   ),
+  'color.background.accent.blue.subtle.hovered': token(
+    'color.background.accent.blue.subtle.hovered',
+    '#0065FF',
+  ),
+  'color.background.accent.blue.subtle.pressed': token(
+    'color.background.accent.blue.subtle.pressed',
+    '#2684FF',
+  ),
   'color.background.accent.blue.bolder': token(
     'color.background.accent.blue.bolder',
     '#0052CC',
+  ),
+  'color.background.accent.blue.bolder.hovered': token(
+    'color.background.accent.blue.bolder.hovered',
+    '#0065FF',
+  ),
+  'color.background.accent.blue.bolder.pressed': token(
+    'color.background.accent.blue.bolder.pressed',
+    '#2684FF',
   ),
   'color.background.accent.purple.subtlest': token(
     'color.background.accent.purple.subtlest',
     '#998DD9',
   ),
+  'color.background.accent.purple.subtlest.hovered': token(
+    'color.background.accent.purple.subtlest.hovered',
+    '#8777D9',
+  ),
+  'color.background.accent.purple.subtlest.pressed': token(
+    'color.background.accent.purple.subtlest.pressed',
+    '#6554C0',
+  ),
   'color.background.accent.purple.subtler': token(
     'color.background.accent.purple.subtler',
     '#8777D9',
+  ),
+  'color.background.accent.purple.subtler.hovered': token(
+    'color.background.accent.purple.subtler.hovered',
+    '#6554C0',
+  ),
+  'color.background.accent.purple.subtler.pressed': token(
+    'color.background.accent.purple.subtler.pressed',
+    '#5243AA',
   ),
   'color.background.accent.purple.subtle': token(
     'color.background.accent.purple.subtle',
     '#5243AA',
   ),
+  'color.background.accent.purple.subtle.hovered': token(
+    'color.background.accent.purple.subtle.hovered',
+    '#6554C0',
+  ),
+  'color.background.accent.purple.subtle.pressed': token(
+    'color.background.accent.purple.subtle.pressed',
+    '#8777D9',
+  ),
   'color.background.accent.purple.bolder': token(
     'color.background.accent.purple.bolder',
     '#5243AA',
   ),
+  'color.background.accent.purple.bolder.hovered': token(
+    'color.background.accent.purple.bolder.hovered',
+    '#6554C0',
+  ),
+  'color.background.accent.purple.bolder.pressed': token(
+    'color.background.accent.purple.bolder.pressed',
+    '#8777D9',
+  ),
   'color.background.accent.magenta.subtlest': token(
     'color.background.accent.magenta.subtlest',
-    '#E774BB',
+    '#FFECF8',
+  ),
+  'color.background.accent.magenta.subtlest.hovered': token(
+    'color.background.accent.magenta.subtlest.hovered',
+    '#FDD0EC',
+  ),
+  'color.background.accent.magenta.subtlest.pressed': token(
+    'color.background.accent.magenta.subtlest.pressed',
+    '#F797D2',
   ),
   'color.background.accent.magenta.subtler': token(
     'color.background.accent.magenta.subtler',
+    '#FDD0EC',
+  ),
+  'color.background.accent.magenta.subtler.hovered': token(
+    'color.background.accent.magenta.subtler.hovered',
+    '#F797D2',
+  ),
+  'color.background.accent.magenta.subtler.pressed': token(
+    'color.background.accent.magenta.subtler.pressed',
     '#E774BB',
   ),
   'color.background.accent.magenta.subtle': token(
     'color.background.accent.magenta.subtle',
     '#E774BB',
   ),
+  'color.background.accent.magenta.subtle.hovered': token(
+    'color.background.accent.magenta.subtle.hovered',
+    '#F797D2',
+  ),
+  'color.background.accent.magenta.subtle.pressed': token(
+    'color.background.accent.magenta.subtle.pressed',
+    '#FDD0EC',
+  ),
   'color.background.accent.magenta.bolder': token(
     'color.background.accent.magenta.bolder',
-    '#E774BB',
+    '#AE4787',
+  ),
+  'color.background.accent.magenta.bolder.hovered': token(
+    'color.background.accent.magenta.bolder.hovered',
+    '#943D73',
+  ),
+  'color.background.accent.magenta.bolder.pressed': token(
+    'color.background.accent.magenta.bolder.pressed',
+    '#50253F',
   ),
   'color.background.accent.gray.subtlest': token(
     'color.background.accent.gray.subtlest',
     '#6B778C',
   ),
+  'color.background.accent.gray.subtlest.hovered': token(
+    'color.background.accent.gray.subtlest.hovered',
+    '#5E6C84',
+  ),
+  'color.background.accent.gray.subtlest.pressed': token(
+    'color.background.accent.gray.subtlest.pressed',
+    '#505F79',
+  ),
   'color.background.accent.gray.subtler': token(
     'color.background.accent.gray.subtler',
     '#5E6C84',
   ),
+  'color.background.accent.gray.subtler.hovered': token(
+    'color.background.accent.gray.subtler.hovered',
+    '#505F79',
+  ),
+  'color.background.accent.gray.subtler.pressed': token(
+    'color.background.accent.gray.subtler.pressed',
+    '#42526E',
+  ),
   'color.background.accent.gray.subtle': token(
     'color.background.accent.gray.subtle',
-    '#42526E',
+    '#505F79',
+  ),
+  'color.background.accent.gray.subtle.hovered': token(
+    'color.background.accent.gray.subtle.hovered',
+    '#5E6C84',
+  ),
+  'color.background.accent.gray.subtle.pressed': token(
+    'color.background.accent.gray.subtle.pressed',
+    '#6B778C',
   ),
   'color.background.accent.gray.bolder': token(
     'color.background.accent.gray.bolder',
-    '#505F79',
+    '#42526E',
+  ),
+  'color.background.accent.gray.bolder.hovered': token(
+    'color.background.accent.gray.bolder.hovered',
+    '#344563',
+  ),
+  'color.background.accent.gray.bolder.pressed': token(
+    'color.background.accent.gray.bolder.pressed',
+    '#253858',
   ),
   'color.background.disabled': token('color.background.disabled', '#091e4289'),
   'color.background.input': token('color.background.input', '#FAFBFC'),

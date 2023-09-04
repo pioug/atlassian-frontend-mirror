@@ -37,6 +37,7 @@ import {
 import type { NodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import { setTextSelection } from '@atlaskit/editor-prosemirror/utils';
 import type { ApplyChangeHandler } from '@atlaskit/editor-plugin-context-panel';
+import type { CreateExtensionAPI } from '@atlaskit/editor-plugin-extension';
 
 interface EditInLegacyMacroBrowserArgs {
   view: EditorView;
@@ -84,9 +85,9 @@ const extensionAPICallPayload = (
   eventType: EVENT_TYPE.TRACK,
 });
 
-export const createExtensionAPI = (
+export const createExtensionAPI: CreateExtensionAPI = (
   options: CreateExtensionAPIOptions,
-): ExtensionAPI => {
+) => {
   const {
     editorView: {
       state: { schema },

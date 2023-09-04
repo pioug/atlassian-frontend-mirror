@@ -507,64 +507,224 @@ export interface AccentColorTokenSchema<BaseToken> {
     background: {
       accent: {
         blue: {
-          subtlest: PaintToken<BaseToken>;
-          subtler: PaintToken<BaseToken>;
-          subtle: PaintToken<BaseToken>;
-          bolder: PaintToken<BaseToken>;
+          subtlest: {
+            '[default]': PaintToken<BaseToken>;
+            hovered: PaintToken<BaseToken>;
+            pressed: PaintToken<BaseToken>;
+          };
+          subtler: {
+            '[default]': PaintToken<BaseToken>;
+            hovered: PaintToken<BaseToken>;
+            pressed: PaintToken<BaseToken>;
+          };
+          subtle: {
+            '[default]': PaintToken<BaseToken>;
+            hovered: PaintToken<BaseToken>;
+            pressed: PaintToken<BaseToken>;
+          };
+          bolder: {
+            '[default]': PaintToken<BaseToken>;
+            hovered: PaintToken<BaseToken>;
+            pressed: PaintToken<BaseToken>;
+          };
         };
         red: {
-          subtlest: PaintToken<BaseToken>;
-          subtler: PaintToken<BaseToken>;
-          subtle: PaintToken<BaseToken>;
-          bolder: PaintToken<BaseToken>;
+          subtlest: {
+            '[default]': PaintToken<BaseToken>;
+            hovered: PaintToken<BaseToken>;
+            pressed: PaintToken<BaseToken>;
+          };
+          subtler: {
+            '[default]': PaintToken<BaseToken>;
+            hovered: PaintToken<BaseToken>;
+            pressed: PaintToken<BaseToken>;
+          };
+          subtle: {
+            '[default]': PaintToken<BaseToken>;
+            hovered: PaintToken<BaseToken>;
+            pressed: PaintToken<BaseToken>;
+          };
+          bolder: {
+            '[default]': PaintToken<BaseToken>;
+            hovered: PaintToken<BaseToken>;
+            pressed: PaintToken<BaseToken>;
+          };
         };
         orange: {
-          subtlest: PaintToken<BaseToken>;
-          subtler: PaintToken<BaseToken>;
-          subtle: PaintToken<BaseToken>;
-          bolder: PaintToken<BaseToken>;
+          subtlest: {
+            '[default]': PaintToken<BaseToken>;
+            hovered: PaintToken<BaseToken>;
+            pressed: PaintToken<BaseToken>;
+          };
+          subtler: {
+            '[default]': PaintToken<BaseToken>;
+            hovered: PaintToken<BaseToken>;
+            pressed: PaintToken<BaseToken>;
+          };
+          subtle: {
+            '[default]': PaintToken<BaseToken>;
+            hovered: PaintToken<BaseToken>;
+            pressed: PaintToken<BaseToken>;
+          };
+          bolder: {
+            '[default]': PaintToken<BaseToken>;
+            hovered: PaintToken<BaseToken>;
+            pressed: PaintToken<BaseToken>;
+          };
         };
         yellow: {
-          subtlest: PaintToken<BaseToken>;
-          subtler: PaintToken<BaseToken>;
-          subtle: PaintToken<BaseToken>;
-          bolder: PaintToken<BaseToken>;
+          subtlest: {
+            '[default]': PaintToken<BaseToken>;
+            hovered: PaintToken<BaseToken>;
+            pressed: PaintToken<BaseToken>;
+          };
+          subtler: {
+            '[default]': PaintToken<BaseToken>;
+            hovered: PaintToken<BaseToken>;
+            pressed: PaintToken<BaseToken>;
+          };
+          subtle: {
+            '[default]': PaintToken<BaseToken>;
+            hovered: PaintToken<BaseToken>;
+            pressed: PaintToken<BaseToken>;
+          };
+          bolder: {
+            '[default]': PaintToken<BaseToken>;
+            hovered: PaintToken<BaseToken>;
+            pressed: PaintToken<BaseToken>;
+          };
         };
         green: {
-          subtlest: PaintToken<BaseToken>;
-          subtler: PaintToken<BaseToken>;
-          subtle: PaintToken<BaseToken>;
-          bolder: PaintToken<BaseToken>;
+          subtlest: {
+            '[default]': PaintToken<BaseToken>;
+            hovered: PaintToken<BaseToken>;
+            pressed: PaintToken<BaseToken>;
+          };
+          subtler: {
+            '[default]': PaintToken<BaseToken>;
+            hovered: PaintToken<BaseToken>;
+            pressed: PaintToken<BaseToken>;
+          };
+          subtle: {
+            '[default]': PaintToken<BaseToken>;
+            hovered: PaintToken<BaseToken>;
+            pressed: PaintToken<BaseToken>;
+          };
+          bolder: {
+            '[default]': PaintToken<BaseToken>;
+            hovered: PaintToken<BaseToken>;
+            pressed: PaintToken<BaseToken>;
+          };
         };
         teal: {
-          subtlest: PaintToken<BaseToken>;
-          subtler: PaintToken<BaseToken>;
-          subtle: PaintToken<BaseToken>;
-          bolder: PaintToken<BaseToken>;
+          subtlest: {
+            '[default]': PaintToken<BaseToken>;
+            hovered: PaintToken<BaseToken>;
+            pressed: PaintToken<BaseToken>;
+          };
+          subtler: {
+            '[default]': PaintToken<BaseToken>;
+            hovered: PaintToken<BaseToken>;
+            pressed: PaintToken<BaseToken>;
+          };
+          subtle: {
+            '[default]': PaintToken<BaseToken>;
+            hovered: PaintToken<BaseToken>;
+            pressed: PaintToken<BaseToken>;
+          };
+          bolder: {
+            '[default]': PaintToken<BaseToken>;
+            hovered: PaintToken<BaseToken>;
+            pressed: PaintToken<BaseToken>;
+          };
         };
         purple: {
-          subtlest: PaintToken<BaseToken>;
-          subtler: PaintToken<BaseToken>;
-          subtle: PaintToken<BaseToken>;
-          bolder: PaintToken<BaseToken>;
+          subtlest: {
+            '[default]': PaintToken<BaseToken>;
+            hovered: PaintToken<BaseToken>;
+            pressed: PaintToken<BaseToken>;
+          };
+          subtler: {
+            '[default]': PaintToken<BaseToken>;
+            hovered: PaintToken<BaseToken>;
+            pressed: PaintToken<BaseToken>;
+          };
+          subtle: {
+            '[default]': PaintToken<BaseToken>;
+            hovered: PaintToken<BaseToken>;
+            pressed: PaintToken<BaseToken>;
+          };
+          bolder: {
+            '[default]': PaintToken<BaseToken>;
+            hovered: PaintToken<BaseToken>;
+            pressed: PaintToken<BaseToken>;
+          };
         };
         magenta: {
-          subtlest: PaintToken<BaseToken>;
-          subtler: PaintToken<BaseToken>;
-          subtle: PaintToken<BaseToken>;
-          bolder: PaintToken<BaseToken>;
+          subtlest: {
+            '[default]': PaintToken<BaseToken>;
+            hovered: PaintToken<BaseToken>;
+            pressed: PaintToken<BaseToken>;
+          };
+          subtler: {
+            '[default]': PaintToken<BaseToken>;
+            hovered: PaintToken<BaseToken>;
+            pressed: PaintToken<BaseToken>;
+          };
+          subtle: {
+            '[default]': PaintToken<BaseToken>;
+            hovered: PaintToken<BaseToken>;
+            pressed: PaintToken<BaseToken>;
+          };
+          bolder: {
+            '[default]': PaintToken<BaseToken>;
+            hovered: PaintToken<BaseToken>;
+            pressed: PaintToken<BaseToken>;
+          };
         };
         lime: {
-          subtlest: PaintToken<BaseToken>;
-          subtler: PaintToken<BaseToken>;
-          subtle: PaintToken<BaseToken>;
-          bolder: PaintToken<BaseToken>;
+          subtlest: {
+            '[default]': PaintToken<BaseToken>;
+            hovered: PaintToken<BaseToken>;
+            pressed: PaintToken<BaseToken>;
+          };
+          subtler: {
+            '[default]': PaintToken<BaseToken>;
+            hovered: PaintToken<BaseToken>;
+            pressed: PaintToken<BaseToken>;
+          };
+          subtle: {
+            '[default]': PaintToken<BaseToken>;
+            hovered: PaintToken<BaseToken>;
+            pressed: PaintToken<BaseToken>;
+          };
+          bolder: {
+            '[default]': PaintToken<BaseToken>;
+            hovered: PaintToken<BaseToken>;
+            pressed: PaintToken<BaseToken>;
+          };
         };
         gray: {
-          subtlest: PaintToken<BaseToken>;
-          subtler: PaintToken<BaseToken>;
-          subtle: PaintToken<BaseToken>;
-          bolder: PaintToken<BaseToken>;
+          subtlest: {
+            '[default]': PaintToken<BaseToken>;
+            hovered: PaintToken<BaseToken>;
+            pressed: PaintToken<BaseToken>;
+          };
+          subtler: {
+            '[default]': PaintToken<BaseToken>;
+            hovered: PaintToken<BaseToken>;
+            pressed: PaintToken<BaseToken>;
+          };
+          subtle: {
+            '[default]': PaintToken<BaseToken>;
+            hovered: PaintToken<BaseToken>;
+            pressed: PaintToken<BaseToken>;
+          };
+          bolder: {
+            '[default]': PaintToken<BaseToken>;
+            hovered: PaintToken<BaseToken>;
+            pressed: PaintToken<BaseToken>;
+          };
         };
       };
     };

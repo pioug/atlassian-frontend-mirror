@@ -1,5 +1,11 @@
 # @atlaskit/prs-locale-mapper
 
+## 1.1.4
+
+### Patch Changes
+
+- [`3b1e84fa050`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3b1e84fa050) - Enrol components on push-model consumpion in Jira Frontend.
+
 ## 1.1.3
 
 ### Patch Changes

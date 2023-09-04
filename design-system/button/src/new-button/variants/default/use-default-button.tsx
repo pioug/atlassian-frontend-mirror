@@ -94,6 +94,8 @@ const useDefaultButton = <TagName extends HTMLElement>({
     ref,
     shouldFitContainer,
     spacing,
+    hasIconBefore: Boolean(iconBefore),
+    hasIconAfter: Boolean(iconAfter),
   });
 
   return baseProps;

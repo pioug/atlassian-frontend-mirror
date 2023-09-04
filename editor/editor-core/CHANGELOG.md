@@ -1,5 +1,24 @@
 # @atlaskit/editor-core
 
+## 187.37.4
+
+### Patch Changes
+
+- [`e31a001b8b8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e31a001b8b8) - Add pixel entry resize analytic event payload
+
+## 187.37.3
+
+### Patch Changes
+
+- [`e0f15f5af8a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e0f15f5af8a) - Fix invalid getPos issue happening for Media and Media group nodeviews
+
+## 187.37.2
+
+### Patch Changes
+
+- [`39fcb436aba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/39fcb436aba) - ED-19617 Create editor-plugin-extension scaffold
+- Updated dependencies
+
 ## 187.37.1
 
 ### Patch Changes

@@ -76,6 +76,7 @@ export type {
   MediaEventPayload,
   MediaLinkAEP,
   MediaResizeTrackAction,
+  MediaInputResizeTrackAction,
   NodeCount,
   NodeEventPayload,
   OperationalAEP,

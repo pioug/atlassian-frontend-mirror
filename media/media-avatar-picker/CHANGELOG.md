@@ -1,5 +1,11 @@
 # @atlaskit/media-avatar-picker
 
+## 24.3.10
+
+### Patch Changes
+
+- [`3322bd8d915`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3322bd8d915) - fix the atlaskit:src path
+
 ## 24.3.9
 
 ### Patch Changes

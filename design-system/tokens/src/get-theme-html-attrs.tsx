@@ -1,5 +1,3 @@
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
-
 import {
   COLOR_MODE_ATTRIBUTE,
   CUSTOM_THEME_ATTRIBUTE,
@@ -39,22 +37,10 @@ const getThemeHtmlAttrs = ({
     dark,
     light,
     shape,
-    spacing,
+    // Load spacing by default
+    spacing: spacing || 'spacing',
     typography,
   };
-
-  // Load spacing by default, currently behind a feature flag
-  if (
-    getBooleanFF('platform.design-system-team.space-and-shape-tokens_q5me6')
-  ) {
-    themePreferences = {
-      dark,
-      light,
-      shape,
-      spacing: 'spacing',
-      typography,
-    };
-  }
 
   const themeAttribute = themeObjectToString(themePreferences);
 

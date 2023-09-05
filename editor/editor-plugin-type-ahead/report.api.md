@@ -17,6 +17,7 @@
 ```ts
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import type { EditorCommand } from '@atlaskit/editor-common/types';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import type { TypeAheadHandler } from '@atlaskit/editor-common/types';
@@ -43,6 +44,9 @@ export type TypeAheadPlugin = NextEditorPlugin<
   'typeAhead',
   {
     pluginConfiguration: TypeAheadPluginOptions | undefined;
+    actions: {
+      isOpen: (editorState: EditorState) => boolean;
+    };
     commands: {
       openTypeAheadAtCursor: OpenTypeAheadAtCursorType;
     };

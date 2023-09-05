@@ -11,6 +11,9 @@ import { focusPlugin } from '@atlaskit/editor-plugin-focus';
 import placeholderPlugin, { placeholderTestId } from '../../';
 import { compositionPlugin } from '@atlaskit/editor-plugin-composition';
 import typeAheadPlugin from '../../../type-ahead';
+import type { TypeAheadHandler } from '@atlaskit/editor-common/types';
+import { TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 
 function expectNoPlaceholder(editorView: EditorView) {
   const placeholder = editorView.dom.querySelector(
@@ -42,8 +45,8 @@ describe('placeholder', () => {
         preset: new Preset<LightEditorPlugin>()
           .add(focusPlugin)
           .add(compositionPlugin)
-          .add([placeholderPlugin, { placeholder: defaultPlaceholder }])
-          .add(typeAheadPlugin),
+          .add(typeAheadPlugin)
+          .add([placeholderPlugin, { placeholder: defaultPlaceholder }]),
       });
 
     it('renders a placeholder on a blank document', async () => {
@@ -60,6 +63,26 @@ describe('placeholder', () => {
 
       expectNoPlaceholder(editorView);
     });
+
+    it('disappears when type-ahead handler is opened', async () => {
+      const { editorView, editorAPI } = await emptyPlaceholderEditor(doc(p()));
+      const fakeTriggerHandler: TypeAheadHandler = {
+        id: TypeAheadAvailableNodes.QUICK_INSERT,
+        trigger: '/',
+        getItems: () => Promise.resolve([]),
+        selectItem: () => false,
+      };
+      expectPlaceHolderWithText(editorView, defaultPlaceholder);
+
+      editorAPI.core.actions.execute(
+        editorAPI.typeAhead.commands.openTypeAheadAtCursor({
+          triggerHandler: fakeTriggerHandler,
+          inputMethod: INPUT_METHOD.KEYBOARD,
+        }),
+      );
+
+      expectNoPlaceholder(editorView);
+    });
   });
 
   describe('Default and Hint placeholder', () => {
@@ -69,6 +92,7 @@ describe('placeholder', () => {
         preset: new Preset<LightEditorPlugin>()
           .add(focusPlugin)
           .add(compositionPlugin)
+          .add(typeAheadPlugin)
           .add([
             placeholderPlugin,
             {

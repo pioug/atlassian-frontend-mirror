@@ -74,7 +74,7 @@ import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import { listPlugin } from '@atlaskit/editor-plugin-list';
 import extensionPlugin from '../../../extension';
-import rulePlugin from '../../../rule';
+import { rulePlugin } from '@atlaskit/editor-plugin-rule';
 import floatingToolbarPlugin from '../../../floating-toolbar';
 import codeBlockPlugin from '../../../code-block';
 import { compositionPlugin } from '@atlaskit/editor-plugin-composition';

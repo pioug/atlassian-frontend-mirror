@@ -1,4 +1,4 @@
-import { FileState } from '../../models/file-state';
+import { FileState } from '@atlaskit/media-state';
 
 export type MediaSubscription = {
   unsubscribe: () => void;

@@ -21,7 +21,7 @@ import { typeAheadQuery } from '@atlaskit/adf-schema';
 import { pluginKey as typeAheadPluginKey } from './pm-plugins/key';
 import { inputRulePlugin } from './pm-plugins/input-rules';
 import { TypeAheadPopup } from './ui/TypeAheadPopup';
-import { getPluginState } from './utils';
+import { getPluginState, isTypeAheadOpen } from './utils';
 import { useItemInsert } from './ui/hooks/use-item-insert';
 import { updateSelectedIndex } from './commands/update-selected-index';
 import { StatsModifier } from './stats-modifier';
@@ -201,6 +201,10 @@ const typeAheadPlugin: TypeAheadPlugin = ({ config: options }) => {
 
     commands: {
       openTypeAheadAtCursor,
+    },
+
+    actions: {
+      isOpen: isTypeAheadOpen,
     },
 
     contentComponent({

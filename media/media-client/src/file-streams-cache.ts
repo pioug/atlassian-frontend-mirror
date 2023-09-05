@@ -1,6 +1,6 @@
 import { LRUMap } from 'lru_map';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
-import { FileState } from './models/file-state';
+import { FileState } from '@atlaskit/media-state';
 export class StreamsCache<T> {
   constructor(private readonly streams: LRUMap<string, ReplaySubject<T>>) {}
 

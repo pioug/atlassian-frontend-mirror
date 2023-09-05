@@ -1,14 +1,15 @@
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import { CardOptions } from '@atlaskit/editor-common/card';
-import {
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { CardOptions } from '@atlaskit/editor-common/card';
+import type {
   CardAdf,
   CardProvider,
   DatasourceAdf,
 } from '@atlaskit/editor-common/provider-factory';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { canRenderDatasource } from '@atlaskit/editor-common/utils';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import { Request } from '../../types';
+import type { Request } from '../../types';
 import { setProvider } from '../actions';
 import { handleFallbackWithAnalytics, replaceQueuedUrlWithCard } from '../doc';
 
@@ -51,20 +52,24 @@ const updateCardType = (
   resolvedCard: CardAdf | DatasourceAdf,
   options: CardOptions,
 ) => {
-  const isDatasource =
-    resolvedCard.type === 'blockCard' && 'datasource' in resolvedCard.attrs;
+  if (resolvedCard.type === 'blockCard' && 'datasource' in resolvedCard.attrs) {
+    const datasourceId = resolvedCard.attrs.datasource.id;
+
+    if (!options.allowDatasource || !canRenderDatasource(datasourceId)) {
+      delete (resolvedCard.attrs as Partial<DatasourceAdf['attrs']>).datasource;
+      (resolvedCard as CardAdf).type = 'inlineCard';
+      return;
+    }
+  }
 
   if (
     (resolvedCard?.type === 'blockCard' && !options.allowBlockCards) ||
-    (resolvedCard?.type === 'embedCard' && !options.allowEmbeds) ||
-    (isDatasource && !options.allowDatasource)
+    (resolvedCard?.type === 'embedCard' && !options.allowEmbeds)
   ) {
     // clean out the 'layout' attr from an embedCard type that should be transformed into the inlineCard type.
     if (resolvedCard.type === 'embedCard') {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       delete (resolvedCard as any).attrs.layout;
-    } else if (isDatasource) {
-      delete (resolvedCard.attrs as Partial<DatasourceAdf['attrs']>).datasource;
     }
     (resolvedCard as CardAdf).type = 'inlineCard';
   }

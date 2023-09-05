@@ -64,6 +64,10 @@ const containerStyles = xcss({
   gridTemplateColumns: 'auto 1fr auto',
   gap: 'space.100',
   alignItems: 'center',
+  cursor: 'grab',
+  ':hover': {
+    backgroundColor: 'elevation.surface.hovered',
+  },
 });
 const draggingStyles = xcss({
   opacity: 0.6,

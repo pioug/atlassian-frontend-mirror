@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::62501952dd8f62a9009c28acb74a64b4>>
+ * @codegen <<SignedSource::cebde8a5da8d6359c36559622f48971b>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen link-datasource
  */
 export type PackageMetaDataType = {
@@ -127,7 +127,7 @@ export type AnalyticsEventAttributes = {
   'ui.datasource.rendered': DatasourceRenderedAttributesType;
   /**
    * Fired when user scrolls to the next page/list of the objects */
-  'ui.nextItem.loaded': NextItemLoadedAttributesType;
+  'track.nextItem.loaded': NextItemLoadedAttributesType;
   /**
    * Fired when the datasource results are displayed as table */
   'ui.table.viewed.datasource': TableViewedDatasourceAttributesType;

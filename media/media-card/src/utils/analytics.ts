@@ -29,6 +29,8 @@ import {
   isMediaCardError,
   MediaCardError,
   MediaCardErrorPrimaryReason,
+  getFileStateErrorReason,
+  isMediaFileStateError,
 } from '../errors';
 import { CardPreviewSource, CardDimensions, CardStatus } from '../types';
 
@@ -318,7 +320,9 @@ export const getRenderErrorErrorReason = (
   error: MediaCardError,
 ): MediaClientErrorReason | 'nativeError' => {
   if (isMediaCardError(error) && error.secondaryError) {
-    const mediaClientReason = getMediaClientErrorReason(error.secondaryError);
+    const mediaClientReason = isMediaFileStateError(error.secondaryError)
+      ? getFileStateErrorReason(error.secondaryError)
+      : getMediaClientErrorReason(error.secondaryError);
     if (mediaClientReason !== 'unknown') {
       return mediaClientReason;
     }
@@ -337,24 +341,24 @@ export const getRenderErrorErrorDetail = (error: MediaCardError): string => {
 export const getErrorTraceContext = (
   error: MediaCardError,
 ): MediaTraceContext | undefined => {
-  if (
-    isMediaCardError(error) &&
-    !!error.secondaryError &&
-    isRequestError(error.secondaryError)
-  ) {
-    return error.secondaryError.metadata?.traceContext;
+  if (isMediaCardError(error) && !!error.secondaryError) {
+    if (isRequestError(error.secondaryError)) {
+      return error.secondaryError.metadata?.traceContext;
+    } else if (isMediaFileStateError(error.secondaryError)) {
+      return error.secondaryError.details?.metadata?.traceContext;
+    }
   }
 };
 
 export const getRenderErrorRequestMetadata = (
   error: MediaCardError,
 ): RequestMetadata | undefined => {
-  if (
-    isMediaCardError(error) &&
-    !!error.secondaryError &&
-    isRequestError(error.secondaryError)
-  ) {
-    return error.secondaryError.metadata;
+  if (isMediaCardError(error) && !!error.secondaryError) {
+    if (isRequestError(error.secondaryError)) {
+      return error.secondaryError.metadata;
+    } else if (isMediaFileStateError(error.secondaryError)) {
+      return error.secondaryError.details?.metadata;
+    }
   }
 };
 

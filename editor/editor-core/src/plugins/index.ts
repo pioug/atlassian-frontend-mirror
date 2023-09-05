@@ -20,7 +20,6 @@ export { default as panelPlugin } from './panel';
 export { default as pastePlugin } from './paste';
 export { default as placeholderPlugin } from './placeholder';
 export { default as placeholderTextPlugin } from './placeholder-text';
-export { default as rulePlugin } from './rule';
 export { default as quickInsertPlugin } from './quick-insert';
 export { default as saveOnEnterPlugin } from './save-on-enter';
 export { default as submitEditorPlugin } from './submit-editor';

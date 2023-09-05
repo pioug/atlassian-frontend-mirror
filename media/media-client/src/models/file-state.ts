@@ -1,105 +1,29 @@
-import {
-  FileStatus as CommonFileStatus,
-  MediaTraceContext,
-} from '@atlaskit/media-common';
+import { FileStatus as CommonFileStatus } from '@atlaskit/media-common';
 import { MediaStoreResponse } from '../client/media-store';
-import { MediaFileArtifacts } from './artifacts';
-import {
-  MediaItemDetails,
-  MediaFile,
-  MediaRepresentations,
-  MediaType,
-} from './media';
+import { MediaItemDetails, MediaFile } from './media';
 
-export type BaseFileState = {
-  metadataTraceContext?: MediaTraceContext;
-};
+import {
+  FilePreview,
+  FileState,
+  ErrorFileState,
+  UploadingFileState,
+  ProcessingFileState,
+  ProcessedFileState,
+  ProcessingFailedState,
+} from '@atlaskit/media-state';
 
 export type FileStatus = CommonFileStatus;
 
-export interface FilePreview {
-  value: Blob | string;
-  origin?: 'local' | 'remote';
-  originalDimensions?: {
-    width: number;
-    height: number;
-  };
-}
 export interface PreviewOptions {}
 export interface GetFileOptions {
   preview?: PreviewOptions;
   collectionName?: string;
   occurrenceKey?: string;
 }
-export interface UploadingFileState extends BaseFileState {
-  status: 'uploading';
-  id: string;
-  occurrenceKey?: string;
-  name: string;
-  size: number;
-  progress: number;
-  mediaType: MediaType;
-  mimeType: string;
-  preview?: FilePreview | Promise<FilePreview>;
-  createdAt?: number;
-}
 
 export interface PreviewableFileState {
   preview: FilePreview | Promise<FilePreview>;
 }
-
-export interface ProcessingFileState extends BaseFileState {
-  status: 'processing';
-  id: string;
-  occurrenceKey?: string;
-  name: string;
-  size: number;
-  artifacts?: MediaFileArtifacts;
-  mediaType: MediaType;
-  mimeType: string;
-  preview?: FilePreview | Promise<FilePreview>;
-  representations?: MediaRepresentations;
-  createdAt?: number;
-}
-
-export interface ProcessedFileState extends BaseFileState {
-  status: 'processed';
-  id: string;
-  occurrenceKey?: string;
-  name: string;
-  size: number;
-  artifacts: MediaFileArtifacts;
-  mediaType: MediaType;
-  mimeType: string;
-  preview?: FilePreview | Promise<FilePreview>;
-  representations?: MediaRepresentations;
-  createdAt?: number;
-}
-export interface ProcessingFailedState extends BaseFileState {
-  status: 'failed-processing';
-  id: string;
-  occurrenceKey?: string;
-  name: string;
-  size: number;
-  artifacts: Object;
-  mediaType: MediaType;
-  mimeType: string;
-  preview?: FilePreview | Promise<FilePreview>;
-  representations?: MediaRepresentations;
-  createdAt?: number;
-}
-export interface ErrorFileState extends BaseFileState {
-  status: 'error';
-  id: string;
-  occurrenceKey?: string;
-  message?: string;
-}
-export type FileState =
-  | UploadingFileState
-  | ProcessingFileState
-  | ProcessedFileState
-  | ErrorFileState
-  | ProcessingFailedState;
 
 export type NonErrorFileState = Exclude<FileState, ErrorFileState>;
 

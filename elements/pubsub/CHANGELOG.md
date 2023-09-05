@@ -1,5 +1,11 @@
 # @atlaskit/pubsub
 
+## 6.6.2
+
+### Patch Changes
+
+- [`9888768ec7a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9888768ec7a) - Use more conservative retry configuration
+
 ## 6.6.1
 
 ### Patch Changes

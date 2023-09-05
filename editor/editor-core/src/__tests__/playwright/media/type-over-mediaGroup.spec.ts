@@ -97,13 +97,12 @@ test.describe('media-group with three media nodes inside', () => {
       });
       test('should replace the last media with the new text', async ({
         editor,
-        browserName,
       }) => {
         fixTest({
           jiraIssueId: 'UTEST-707',
           reason:
             'This test does not work when we try to click in the media node (it can be done by setting ProseMirror selection manually)',
-          condition: browserName === BROWSERS.firefox,
+          browsers: [BROWSERS.firefox],
         });
 
         fixTest({

@@ -342,7 +342,19 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
         ({ visibility: visible ? 'visible' : 'hidden' } as CSSProperties),
     );
 
-    const isNested = isTableNested(view.state, getPos());
+    /**
+     *  ED-19838
+     *  There is a getPos issue coming from this code. We need to apply this workaround for now and apply a patch
+     *  before CR6 lands in production
+     */
+    let tablePos: number | undefined;
+    try {
+      tablePos = getPos ? getPos() : undefined;
+    } catch (e) {
+      tablePos = undefined;
+    }
+
+    const isNested = isTableNested(view.state, tablePos);
 
     return (
       <TableContainer

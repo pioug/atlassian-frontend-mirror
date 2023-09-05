@@ -51,7 +51,7 @@ describe('Element: Avatar Group', () => {
     [ElementName.AuthorGroup, false, undefined],
     [ElementName.CollaboratorGroup, false, undefined],
   ])(
-    'correct prefix for a name in %s element tooltip',
+    'correct prefix for a name in %s element tooltip if there is only one person',
     async (
       elementName: ElementName,
       showNamePrefix: boolean,
@@ -60,7 +60,7 @@ describe('Element: Avatar Group', () => {
       const { getByTestId } = renderWithIntl(
         <AvatarGroup
           name={elementName}
-          items={authorsWithNoImages}
+          items={[{ name: 'Bob' }]}
           showNamePrefix={showNamePrefix}
         />,
       );
@@ -82,25 +82,57 @@ describe('Element: Avatar Group', () => {
     },
   );
 
+  it('no prefix for a name in element tooltip by default if there is only one person', async () => {
+    const { getByTestId } = renderWithIntl(
+      <AvatarGroup items={[{ name: 'Bob' }]} />,
+    );
+
+    const firstAvatarInGroup = await getByTestId(`${testId}--avatar-0`);
+
+    fireEvent.mouseEnter(firstAvatarInGroup);
+
+    const nameTooltip = await waitFor(() =>
+      getByTestId(`${testId}--tooltip-0`),
+    );
+
+    expect(nameTooltip).toHaveTextContent('Bob');
+  });
+
+  it('no prefix for a name in element tooltip by default if there is more than one person', async () => {
+    const { getByTestId } = renderWithIntl(
+      <AvatarGroup items={[{ name: 'Bob' }]} />,
+    );
+
+    const firstAvatarInGroup = await getByTestId(`${testId}--avatar-0`);
+
+    fireEvent.mouseEnter(firstAvatarInGroup);
+
+    const nameTooltip = await waitFor(() =>
+      getByTestId(`${testId}--tooltip-0`),
+    );
+
+    expect(nameTooltip).toHaveTextContent('Bob');
+  });
+
   it.each(
     authorsWithNoImages.map((author, index) => ({ name: author.name, index })),
   )(
-    'no prefix for a name in element tooltip by default',
+    'no prefix for a name in element tooltip if there are more than one person',
     async (author: { name: string; index: number }) => {
       const { getByTestId } = renderWithIntl(
-        <AvatarGroup items={authorsWithNoImages} />,
+        <AvatarGroup
+          name={ElementName.AssignedToGroup}
+          items={authorsWithNoImages}
+          showNamePrefix={true}
+        />,
       );
-
-      const firstAvatarInGroup = await getByTestId(
+      const avatarInGroup = await getByTestId(
         `${testId}--avatar-${author.index}`,
       );
-
-      fireEvent.mouseEnter(firstAvatarInGroup);
-
+      fireEvent.mouseEnter(avatarInGroup);
       const nameTooltip = await waitFor(() =>
         getByTestId(`${testId}--tooltip-${author.index}`),
       );
-
       expect(nameTooltip).toHaveTextContent(
         authorsWithNoImages[author.index].name,
       );

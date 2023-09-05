@@ -173,4 +173,5 @@ export interface CardState {
   isBannedLocalPreview: boolean;
   previewDidRender: boolean;
   wasResolvedUpfrontPreview: boolean;
+  shouldUpdateStateForIdentifier?: boolean;
 }

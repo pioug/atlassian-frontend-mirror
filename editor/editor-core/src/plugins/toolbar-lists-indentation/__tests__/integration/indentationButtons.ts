@@ -1,12 +1,12 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
-import { BrowserObject } from '@atlaskit/webdriver-runner/wd-wrapper';
+import type { BrowserObject } from '@atlaskit/webdriver-runner/wd-wrapper';
 import {
   getDocFromElement,
   fullpage,
   editable,
   setProseMirrorTextSelection,
 } from '@atlaskit/editor-test-helpers/integration/helpers';
-import { WebDriverPage } from '@atlaskit/editor-test-helpers/page-objects/types';
+import type { WebDriverPage } from '@atlaskit/editor-test-helpers/page-objects/types';
 import {
   goToEditorTestingWDExample,
   mountEditor,
@@ -38,9 +38,7 @@ describe('Editor toolbar indentation buttons: ', () => {
         defaultValue: adf,
         allowTextAlignment: true,
         allowIndentation: true,
-        featureFlags: {
-          indentationButtonsInTheToolbar: true,
-        },
+        showIndentationButtons: true,
       },
       undefined,
       // Prevent occasionally creating a GapCursor which is incompatible with

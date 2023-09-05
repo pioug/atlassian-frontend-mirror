@@ -23,6 +23,7 @@ export const TitleBoxWrapper = (props: TitleBoxWrapperProps) => {
   return (
     <div
       id="titleBoxWrapper"
+      data-testid="media-title-box"
       css={titleBoxWrapperStyles({
         breakpoint: breakpoint,
         titleBoxBgColor: titleBoxBgColor,

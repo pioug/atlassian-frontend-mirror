@@ -782,18 +782,20 @@ export function FullPageExample(props: ExampleProps) {
             }
           />
         ) : (
-          <Renderer
-            document={localDraft || doc}
-            setMode={setMode}
-            extensionProviders={
-              typeof editorProps.extensionProviders === 'function'
-                ? editorProps.extensionProviders()
-                : editorProps.extensionProviders
-            }
-            allowCustomPanel={allowCustomPanel}
-            clickToEdit={props.clickToEdit}
-            mediaFeatureFlags={mediaProps}
-          />
+          <div style={{ padding: '16px 32px' }}>
+            <Renderer
+              document={localDraft || doc}
+              setMode={setMode}
+              extensionProviders={
+                typeof editorProps.extensionProviders === 'function'
+                  ? editorProps.extensionProviders()
+                  : editorProps.extensionProviders
+              }
+              allowCustomPanel={allowCustomPanel}
+              clickToEdit={props.clickToEdit}
+              mediaFeatureFlags={mediaProps}
+            />
+          </div>
         )}
       </div>
     </EditorContext>

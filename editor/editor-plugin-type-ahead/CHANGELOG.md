@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 0.3.0
+
+### Minor Changes
+
+- [`ef0c2a89c72`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ef0c2a89c72) - Add isTypeAheadOpen action to type-ahead plugin. Decouple placeholder plugin from editor-core.
+
 ## 0.2.0
 
 ### Minor Changes

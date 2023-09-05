@@ -11,6 +11,8 @@ export const mockDatasourceDataResponse: DatasourceDataResponse = {
     definitionId: 'object-resolver-service',
     product: 'jira',
     visibility: 'restricted',
+    extensionKey: 'jira-object-provider',
+    destinationObjectTypes: ['issue'],
   },
   data: {
     totalCount: 1234,
@@ -95,6 +97,8 @@ export const mockDatasourceDetailsResponse: DatasourceDetailsResponse = {
     definitionId: 'object-resolver-service',
     product: 'jira',
     visibility: 'restricted',
+    extensionKey: 'jira-object-provider',
+    destinationObjectTypes: ['issue'],
   },
   data: {
     ari: 'ari:cloud:linking-platform:datasource/12e74246-a3f1-46c1-9fd9-8d952aa9f12f',

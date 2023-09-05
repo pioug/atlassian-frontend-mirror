@@ -91,7 +91,7 @@ export const RenderMediaInline: React.FC<RenderMediaInlineProps> = ({
 
   const updateFileState = useCallback(
     async (id: string, mediaClientConfig: MediaClientConfig) => {
-      const mediaClient = getMediaClient(mediaClientConfig, featureFlags);
+      const mediaClient = getMediaClient(mediaClientConfig);
       const options = {
         collectionName,
       };
@@ -102,7 +102,7 @@ export const RenderMediaInline: React.FC<RenderMediaInlineProps> = ({
         // do not set state on error
       }
     },
-    [collectionName, featureFlags],
+    [collectionName],
   );
 
   useEffect(() => {

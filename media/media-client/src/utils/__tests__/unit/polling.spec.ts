@@ -1,4 +1,3 @@
-import {} from '@atlaskit/media-common/mediaFeatureFlags';
 import {
   defaultPollingOptions,
   PollingFunction,

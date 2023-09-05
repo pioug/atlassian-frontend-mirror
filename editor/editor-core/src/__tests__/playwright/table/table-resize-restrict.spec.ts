@@ -3,6 +3,8 @@ import {
   EditorTableModel,
   editorTestCase as test,
   expect,
+  fixTest,
+  BROWSERS,
 } from '@af/editor-libra';
 import { tablesWithDifferentColumns } from './__fixtures__/base-adfs';
 
@@ -50,6 +52,13 @@ test.describe('resizing a table', () => {
   test('should limit minimum width if resizing in 2 column', async ({
     editor,
   }) => {
+    fixTest({
+      jiraIssueId: 'ED-19850',
+      reason:
+        'FIXME: This test was automatically skipped due to failure on 04/09/2023: https://product-fabric.atlassian.net/browse/ED-19850',
+      browsers: [BROWSERS.webkit],
+    });
+
     const nodes = EditorNodeContainerModel.from(editor);
     const tableLocator = nodes.table.nth(1);
     const twoColumnTable = EditorTableModel.from(tableLocator);

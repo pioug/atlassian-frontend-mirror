@@ -5,6 +5,7 @@ import type {
   NextEditorPlugin,
   TypeAheadHandler,
 } from '@atlaskit/editor-common/types';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 
 export type TypeAheadInputMethod =
   | INPUT_METHOD.INSERT_MENU
@@ -33,6 +34,9 @@ export type TypeAheadPlugin = NextEditorPlugin<
   'typeAhead',
   {
     pluginConfiguration: TypeAheadPluginOptions | undefined;
+    actions: {
+      isOpen: (editorState: EditorState) => boolean;
+    };
     commands: {
       openTypeAheadAtCursor: OpenTypeAheadAtCursorType;
     };

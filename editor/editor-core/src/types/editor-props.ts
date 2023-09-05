@@ -376,6 +376,9 @@ export interface EditorPluginFeatureProps {
   // Enable indentation support for `heading` and `paragraph`
   allowIndentation?: boolean;
 
+  // Enable showing of indentaion buttons in editor toolbar
+  showIndentationButtons?: boolean;
+
   /**
    * This enables new insertion behaviour only for horizontal rule and media single in certain conditions.
    * The idea of this new behaviour is to have a consistent outcome regardless of the insertion method.

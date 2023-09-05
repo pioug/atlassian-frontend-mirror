@@ -1,5 +1,12 @@
 # @atlaskit/smart-card
 
+## 26.20.1
+
+### Patch Changes
+
+- [`335ad945d2f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/335ad945d2f) - Update for an avatar’s name prefix in Avatar Group Flex UI behind a feature flag. If this update is successful it will be available in a later release.
+- Updated dependencies
+
 ## 26.20.0
 
 ### Minor Changes

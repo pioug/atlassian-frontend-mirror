@@ -8,14 +8,12 @@ import type {
 import type WebBridgeImpl from '../native-to-web';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import type { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { HyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import type { ListPlugin } from '@atlaskit/editor-plugin-list';
 import type { TextFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';
-import type {
-  quickInsertPlugin,
-  rulePlugin,
-} from '@atlaskit/editor-core/src/plugins';
+import type { RulePlugin } from '@atlaskit/editor-plugin-rule';
+import type { quickInsertPlugin } from '@atlaskit/editor-core/src/plugins';
 import { useHyperlinkListener } from './useHyperlinkListener';
 import { useTextFormattingListener } from './useTextFormattingListener';
 import { useListListener } from './useListListener';
@@ -57,15 +55,15 @@ export const mobileApiPlugin: NextEditorPlugin<
   'mobile',
   {
     dependencies: [
-      OptionalPlugin<typeof analyticsPlugin>,
-      typeof hyperlinkPlugin,
+      OptionalPlugin<AnalyticsPlugin>,
+      HyperlinkPlugin,
       BlockTypePlugin,
       CodeBlockPlugin,
       PanelPlugin,
       TextFormattingPlugin,
       ListPlugin,
       OptionalPlugin<typeof quickInsertPlugin>,
-      OptionalPlugin<typeof rulePlugin>,
+      OptionalPlugin<RulePlugin>,
     ];
     pluginConfiguration: { bridge: WebBridgeImpl; intl: IntlShape };
   }

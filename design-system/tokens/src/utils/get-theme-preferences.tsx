@@ -24,13 +24,9 @@ export const getThemePreferences = (
     );
   }
 
-  // Load shape and spacing by default, currently behind a feature flag
-  if (
-    getBooleanFF('platform.design-system-team.space-and-shape-tokens_q5me6')
-  ) {
-    if (!themePreferences.includes('spacing')) {
-      themePreferences.push('spacing');
-    }
+  // Load spacing by default
+  if (!themePreferences.includes('spacing')) {
+    themePreferences.push('spacing');
   }
 
   return [...new Set(themePreferences)];

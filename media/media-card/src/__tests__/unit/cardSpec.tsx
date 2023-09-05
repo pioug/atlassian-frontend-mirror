@@ -81,6 +81,8 @@ import {
   expectFunctionToHaveBeenCalledWith,
   asMockFunction,
   expectToEqual,
+  createRateLimitedError,
+  createPollingMaxAttemptsError,
 } from '@atlaskit/media-test-helpers';
 
 import { CardProps, CardState, CardPreview } from '../../types';
@@ -1275,6 +1277,68 @@ describe('Card', () => {
         );
       });
 
+      it('should complete the UFO experience when a serverRateLimited error occurs', () => {
+        const mediaClient = fakeMediaClient();
+        const errorThrown = createRateLimitedError({});
+        asMockReturnValue(
+          mediaClient.file.getFileState,
+          createMediaSubscribable(errorThrown),
+        );
+        const { component } = setup(mediaClient, { createAnalyticsEvent });
+
+        expect(component.state('status')).toEqual('error');
+
+        expect(completeUfoExperience).toBeCalledTimes(1);
+        expect(completeUfoExperience).toHaveBeenLastCalledWith(
+          expect.any(String),
+          'error',
+          {
+            fileMediatype: undefined,
+            fileMimetype: undefined,
+            fileId: defaultFileId,
+            fileSize: undefined,
+            fileStatus: undefined,
+          },
+          { wasStatusUploading: false, wasStatusProcessing: false },
+          expect.any(Object),
+          new MediaCardError('metadata-fetch', errorThrown),
+        );
+        expect(
+          (fireOperationalEvent as jest.Mock).mock.calls[0][5].secondaryError,
+        ).toEqual(errorThrown);
+      });
+
+      it('should complete the UFO experience when a pollingMaxAttemptsExceeded error occurs', () => {
+        const mediaClient = fakeMediaClient();
+        const errorThrown = createPollingMaxAttemptsError(2);
+        asMockReturnValue(
+          mediaClient.file.getFileState,
+          createMediaSubscribable(errorThrown),
+        );
+        const { component } = setup(mediaClient, { createAnalyticsEvent });
+
+        expect(component.state('status')).toEqual('error');
+
+        expect(completeUfoExperience).toBeCalledTimes(1);
+        expect(completeUfoExperience).toHaveBeenLastCalledWith(
+          expect.any(String),
+          'error',
+          {
+            fileMediatype: undefined,
+            fileMimetype: undefined,
+            fileId: defaultFileId,
+            fileSize: undefined,
+            fileStatus: undefined,
+          },
+          { wasStatusUploading: false, wasStatusProcessing: false },
+          expect.any(Object),
+          new MediaCardError('metadata-fetch', errorThrown),
+        );
+        expect(
+          (fireOperationalEvent as jest.Mock).mock.calls[0][5].secondaryError,
+        ).toEqual(errorThrown);
+      });
+
       it('should fire an operational event on card status change', () => {
         const { component } = setup(fakeMediaClient(), {
           createAnalyticsEvent,
@@ -1331,6 +1395,86 @@ describe('Card', () => {
           },
           undefined,
         );
+      });
+
+      it('should fire an operational event when a serverRateLimited error occurs', () => {
+        const mediaClient = fakeMediaClient();
+        const errorThrown = createRateLimitedError({});
+        asMockReturnValue(
+          mediaClient.file.getFileState,
+          createMediaSubscribable(errorThrown),
+        );
+        const { component } = setup(mediaClient, { createAnalyticsEvent });
+
+        expect(component.state('status')).toEqual('error');
+
+        expect(fireOperationalEvent).toBeCalledTimes(1);
+        expect(fireOperationalEvent).toHaveBeenLastCalledWith(
+          createAnalyticsEvent,
+          'error',
+          {
+            fileMediatype: undefined,
+            fileMimetype: undefined,
+            fileId: defaultFileId,
+            fileSize: undefined,
+            fileStatus: undefined,
+          },
+          {
+            overall: {
+              durationSinceCommenced: 0,
+              durationSincePageStart: 1000,
+            },
+          },
+          { client: { status: 'unknown' }, server: { status: 'unknown' } },
+          new MediaCardError('metadata-fetch', errorThrown),
+          {
+            traceId: expect.any(String),
+          },
+          undefined,
+        );
+        expect(
+          (fireOperationalEvent as jest.Mock).mock.calls[0][5].secondaryError,
+        ).toEqual(errorThrown);
+      });
+
+      it('should fire an operational event when a pollingMaxAttemptsExceeded error occurs', () => {
+        const mediaClient = fakeMediaClient();
+        const errorThrown = createPollingMaxAttemptsError(2);
+        asMockReturnValue(
+          mediaClient.file.getFileState,
+          createMediaSubscribable(errorThrown),
+        );
+        const { component } = setup(mediaClient, { createAnalyticsEvent });
+
+        expect(component.state('status')).toEqual('error');
+
+        expect(fireOperationalEvent).toBeCalledTimes(1);
+        expect(fireOperationalEvent).toHaveBeenLastCalledWith(
+          createAnalyticsEvent,
+          'error',
+          {
+            fileMediatype: undefined,
+            fileMimetype: undefined,
+            fileId: defaultFileId,
+            fileSize: undefined,
+            fileStatus: undefined,
+          },
+          {
+            overall: {
+              durationSinceCommenced: 0,
+              durationSincePageStart: 1000,
+            },
+          },
+          { client: { status: 'unknown' }, server: { status: 'unknown' } },
+          new MediaCardError('metadata-fetch', errorThrown),
+          {
+            traceId: expect.any(String),
+          },
+          undefined,
+        );
+        expect(
+          (fireOperationalEvent as jest.Mock).mock.calls[0][5].secondaryError,
+        ).toEqual(errorThrown);
       });
     });
 

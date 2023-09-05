@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-card
 
+## 0.5.2
+
+### Patch Changes
+
+- [`386b8378aeb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/386b8378aeb) - Datasource ADF no longer included when feature flag call from canRenderDatasource returns false
+
 ## 0.5.1
 
 ### Patch Changes

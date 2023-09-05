@@ -68,12 +68,11 @@ test.describe('media inline', () => {
   // This test is dependent on the prior test running as it uses the stored clipboard
   test('copies and pastes mediaInline between different Editor instances', async ({
     editor,
-    browserName,
   }) => {
     fixTest({
       jiraIssueId: 'UTEST-660',
       reason: 'Copy HTML element does not work on Firefox headless at all.',
-      condition: browserName === BROWSERS.firefox,
+      browsers: [BROWSERS.firefox],
     });
 
     const nodes = EditorNodeContainerModel.from(editor);

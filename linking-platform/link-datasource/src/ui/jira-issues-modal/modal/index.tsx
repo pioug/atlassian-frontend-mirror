@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 import { FormattedMessage, FormattedNumber, useIntl } from 'react-intl-next';
@@ -24,6 +24,7 @@ import type {
   AnalyticsContextType,
   PackageMetaDataType,
 } from '../../../analytics/generated/analytics.types';
+import type { JiraSearchMethod } from '../../../common/types';
 import { useDatasourceTableState } from '../../../hooks/useDatasourceTableState';
 import {
   getAvailableJiraSites,
@@ -34,7 +35,10 @@ import { ModalLoadingError } from '../../common/error-state/modal-loading-error'
 import { NoResults } from '../../common/error-state/no-results';
 import { EmptyState, IssueLikeDataTableView } from '../../issue-like-table';
 import LinkRenderType from '../../issue-like-table/render-type/link';
-import { JiraSearchContainer } from '../jira-search-container';
+import {
+  getInitialSearchMethod,
+  JiraSearchContainer,
+} from '../jira-search-container';
 import { ModeSwitcher } from '../mode-switcher';
 import { JiraSiteSelector } from '../site-selector';
 import {
@@ -132,6 +136,9 @@ export const PlainJiraIssuesConfigModal = (
     fieldKeys: visibleColumnKeys,
   });
 
+  const lastSearchMethodRef = useRef<JiraSearchMethod>(
+    getInitialSearchMethod(parameters?.jql),
+  );
   const { formatMessage } = useIntl();
   const { fireEvent } = useDatasourceAnalyticsEvents();
 
@@ -191,7 +198,11 @@ export const PlainJiraIssuesConfigModal = (
   }, [cloudId, selectedJiraSite]);
 
   const onSearch = useCallback(
-    (newParameters: JiraIssueDatasourceParametersQuery) => {
+    (
+      newParameters: JiraIssueDatasourceParametersQuery,
+      searchMethod: JiraSearchMethod,
+    ) => {
+      lastSearchMethodRef.current = searchMethod;
       setJql(newParameters.jql);
       reset({ shouldForceRequest: true });
     },

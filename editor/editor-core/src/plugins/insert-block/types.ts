@@ -14,7 +14,7 @@ import type quickInsertPlugin from '../quick-insert';
 import type blockTypePlugin from '../block-type';
 import type codeBlockPlugin from '../code-block';
 import type panelPlugin from '../panel';
-import type { RulePlugin } from '../rule';
+import type { RulePlugin } from '@atlaskit/editor-plugin-rule';
 
 export type InsertBlockPluginDependencies = [
   FeatureFlagsPlugin,

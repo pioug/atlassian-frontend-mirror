@@ -32,7 +32,7 @@ import { uuid } from '@atlaskit/adf-schema';
 import layoutPlugin from '../../../../../plugins/layout';
 import blockTypePlugin from '../../../../../plugins/block-type';
 import panelPlugin from '../../../../../plugins/panel';
-import rulePlugin from '../../../../../plugins/rule';
+import { rulePlugin } from '@atlaskit/editor-plugin-rule';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import statusPlugin from '../../../../../plugins/status';
 import expandPlugin from '../../../../../plugins/expand';

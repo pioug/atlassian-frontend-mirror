@@ -9,7 +9,7 @@ export const reconnectBackoffOptions = () => {
     delayFirstAttempt: true,
     startingDelay: 500 + Math.random() * 3 * 60 * 1000,
     timeMultiple: 2,
-    numOfAttempts: Infinity,
+    numOfAttempts: 5,
     maxDelay: 60 * 5 * 1000,
   };
 };
@@ -24,8 +24,8 @@ export const firstConnectBackoffOptions = (isFallback: boolean) => {
     delayFirstAttempt: false,
     startingDelay: 200,
     timeMultiple: 2,
-    numOfAttempts: isFallback ? Infinity : 3,
-    maxDelay: 60 * 1 * 1000,
+    numOfAttempts: isFallback ? 5 : 3,
+    maxDelay: 60 * 10 * 1000,
   };
 };
 

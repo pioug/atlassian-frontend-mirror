@@ -1,6 +1,5 @@
 import React from 'react';
 import { MediaClientConfig } from '@atlaskit/media-core';
-import { MediaFeatureFlags } from '@atlaskit/media-common';
 import { MediaClient } from '../client/media-client';
 import { Identifier } from '../identifier';
 
@@ -13,34 +12,22 @@ export interface WithMediaClient {
   identifier?: Identifier;
 }
 
-const NO_FLAGS = 'NO_FLAGS';
-type SubMap = Map<MediaFeatureFlags | typeof NO_FLAGS, MediaClient>;
-const mediaClientsMap = new Map<MediaClientConfig, SubMap>();
+const mediaClientsMap = new Map<MediaClientConfig, MediaClient>();
 
 export const getMediaClient = (
   mediaClientConfig: MediaClientConfig,
-  featureFlags?: MediaFeatureFlags,
 ): MediaClient => {
-  const flagsMapKey = featureFlags || NO_FLAGS;
-  let mediaClient: MediaClient | undefined = mediaClientsMap
-    .get(mediaClientConfig)
-    ?.get(flagsMapKey);
+  let mediaClient: MediaClient | undefined =
+    mediaClientsMap.get(mediaClientConfig);
 
   if (!mediaClient) {
-    let subMap = mediaClientsMap.get(mediaClientConfig);
-    if (!subMap) {
-      subMap = new Map();
-      mediaClientsMap.set(mediaClientConfig, subMap);
-    }
-    mediaClient = new MediaClient(mediaClientConfig, featureFlags);
-    subMap.set(flagsMapKey, mediaClient);
+    mediaClient = new MediaClient(mediaClientConfig);
+    mediaClientsMap.set(mediaClientConfig, mediaClient);
   }
   return mediaClient;
 };
 
-const createEmptyMediaClient = (
-  featureFlags?: MediaFeatureFlags,
-): MediaClient => {
+const createEmptyMediaClient = (): MediaClient => {
   const emptyConfig: MediaClientConfig = {
     authProvider: () =>
       Promise.resolve({
@@ -50,7 +37,7 @@ const createEmptyMediaClient = (
       }),
   };
 
-  return new MediaClient(emptyConfig, featureFlags);
+  return new MediaClient(emptyConfig);
 };
 
 export type WithMediaClientConfigProps<P extends WithMediaClient> = Omit<
@@ -61,22 +48,20 @@ export type WithMediaClientConfigProps<P extends WithMediaClient> = Omit<
 
 export type WithMediaClientFunction = <P extends WithMediaClient>(
   Component: React.ComponentType<P>,
-  featureFlags?: MediaFeatureFlags,
 ) => React.ComponentType<WithMediaClientConfigProps<P>>;
 
 export const withMediaClient: WithMediaClientFunction = <
   P extends WithMediaClient,
 >(
   Component: React.ComponentType<P>,
-  featureFlags?: MediaFeatureFlags,
 ) => {
   return class extends React.Component<WithMediaClientConfigProps<P>> {
     render() {
       // TODO MPT-315: clean up after we move mediaClientConfig into FileIdentifier
       const { mediaClientConfig, ...otherProps } = this.props;
       const mediaClient: MediaClient = !mediaClientConfig
-        ? createEmptyMediaClient(featureFlags)
-        : getMediaClient(mediaClientConfig, featureFlags);
+        ? createEmptyMediaClient()
+        : getMediaClient(mediaClientConfig);
 
       return <Component {...(otherProps as any)} mediaClient={mediaClient} />;
     }

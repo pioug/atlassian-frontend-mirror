@@ -93,34 +93,37 @@ const renderScaleDownColgroup = (
     rendererAppearance,
   } = props;
 
-  let tableContainerWidth: number;
-
   if (!columnWidths) {
     return [];
   }
 
-  const columnAmount = columnWidths.length;
+  let tableContainerWidth: number;
 
   const tableResized = isTableResized(columnWidths);
-
+  const noOfColumns = columnWidths.length;
   let targetWidths;
+
+  if (isTableResizingEnabled(rendererAppearance) && tableNode) {
+    tableContainerWidth = getTableContainerWidth(tableNode);
+  } else {
+    tableContainerWidth = getTableLayoutWidth(layout);
+  }
+
   if (isTableResizingEnabled(rendererAppearance) && !tableResized) {
     if (
       getBooleanFF(
         'platform.editor.custom-table-width-scale-down-undefined-column_nkyvx',
       )
     ) {
-      // Code path executed when feature flag is on
-      const tableDefaultWidth = isNumberColumnEnabled
-        ? akEditorDefaultLayoutWidth - akEditorTableNumberColumnWidth
-        : akEditorDefaultLayoutWidth;
-      // take off 1 px for border incase column width wider than table width
-      const defaultColumnWidth = Math.floor(
-        (tableDefaultWidth - 1) / columnAmount,
-      );
-      targetWidths = new Array(columnAmount).fill(defaultColumnWidth);
+      // for tables with no column widths defined, assume that the real table width
+      // is defined by node.attrs.width
+      const tableWidth = isNumberColumnEnabled
+        ? tableContainerWidth - akEditorTableNumberColumnWidth
+        : tableContainerWidth;
+      const defaultColumnWidth = Math.floor(tableWidth / noOfColumns);
+      targetWidths = new Array(noOfColumns).fill(defaultColumnWidth);
     } else {
-      return new Array(columnAmount).fill({
+      return new Array(noOfColumns).fill({
         minWidth: `${tableCellMinWidth}px`,
       });
     }
@@ -129,12 +132,6 @@ const renderScaleDownColgroup = (
   }
 
   targetWidths = targetWidths || columnWidths;
-
-  if (isTableResizingEnabled(rendererAppearance) && tableNode) {
-    tableContainerWidth = getTableContainerWidth(tableNode);
-  } else {
-    tableContainerWidth = getTableLayoutWidth(layout);
-  }
 
   // @see ED-6056
   const maxTableWidth =

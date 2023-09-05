@@ -1,1 +1,1 @@
-export { default as Card } from './cardLoader';
+export { default as Card } from './cardSwitcher';

@@ -1,8 +1,8 @@
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
   p,
-  DocBuilder,
   h1,
   indentation,
   ul,
@@ -22,9 +22,7 @@ describe('Indentation buttons state', () => {
     return createEditor({
       doc,
       editorProps: {
-        featureFlags: {
-          indentationButtonsInTheToolbar: true,
-        },
+        showIndentationButtons: true,
         allowIndentation: true,
         allowTextAlignment: true,
         allowTasksAndDecisions: true,

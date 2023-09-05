@@ -1,4 +1,5 @@
-import { FileState, isErrorFileState } from '../models/file-state';
+import { isErrorFileState } from '../models/file-state';
+import { FileState } from '@atlaskit/media-state';
 import { MediaType } from '../models/media';
 
 export const overrideMediaTypeIfUnknown = (

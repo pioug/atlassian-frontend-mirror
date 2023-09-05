@@ -5,7 +5,7 @@ import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
 import { simpleMockProfilecardClient } from '@atlaskit/util-data-test/get-mock-profilecard-client';
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
-import { CardEvent, InlineCardEvent } from '@atlaskit/media-card';
+import type { CardEvent, InlineCardEvent } from '@atlaskit/media-card';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
@@ -23,22 +23,20 @@ import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-hel
 import Clock from 'react-live-clock';
 
 import { document as storyDataDocument } from './story-data';
-import {
-  default as Renderer,
-  Props as RendererProps,
-} from '../../src/ui/Renderer';
+import type { Props as RendererProps } from '../../src/ui/Renderer';
+import { default as Renderer } from '../../src/ui/Renderer';
 
 import { renderDocument, TextSerializer } from '../../src';
 
 import Sidebar, { getDefaultShowSidebarState } from './NavigationNext';
-import {
+import type {
   RendererAppearance,
   HeadingAnchorLinksProps,
 } from '../../src/ui/Renderer/types';
 import { CodeBlock } from '@atlaskit/code';
-import { MentionProvider } from '@atlaskit/mention/types';
-import { Schema } from '@atlaskit/editor-prosemirror/model';
-import { MediaOptions } from '@atlaskit/editor-core';
+import type { MentionProvider } from '@atlaskit/mention/types';
+import type { Schema } from '@atlaskit/editor-prosemirror/model';
+import type { MediaOptions } from '@atlaskit/editor-core';
 
 import { token } from '@atlaskit/tokens';
 
@@ -319,9 +317,17 @@ export default class RendererDemo extends React.Component<
     try {
       let props: RendererProps = {
         document: JSON.parse(this.state.input),
-        adfStage: this.props.adfStage,
-        schema: this.props.schema ? this.props.schema : defaultSchema,
       };
+
+      // Order of importance
+      // 1. schema
+      // 2. adfStage
+      // 3. default to adfStage = 'stage0'
+      if (this.props.schema) {
+        props.schema = this.props.schema;
+      } else {
+        props.adfStage = this.props.adfStage ?? 'stage0';
+      }
 
       if (this.props.withProviders) {
         props.eventHandlers = shouldUseEventHandlers

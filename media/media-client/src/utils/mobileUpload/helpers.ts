@@ -4,7 +4,8 @@ import { from } from 'rxjs/observable/from';
 import { map } from 'rxjs/operators/map';
 import { Interpreter } from 'xstate';
 
-import { FileState, mapMediaItemToFileState } from '../../models/file-state';
+import { mapMediaItemToFileState } from '../../models/file-state';
+import { FileState } from '@atlaskit/media-state';
 import { DataloaderKey, DataloaderResult } from '../createFileDataLoader';
 import { createMediaSubject } from '../createMediaSubject';
 import { isEmptyFile } from '../detectEmptyFile';

@@ -1,5 +1,36 @@
 # @atlaskit/editor-core
 
+## 187.38.1
+
+### Patch Changes
+
+- [`7b6a2c6671b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7b6a2c6671b) - Introducing 'media-state' for handling media internal file state.
+  Introducing 'media-client-react' to provide hooks for seamless media-client integration with React.
+  Introducing 'MediaCardV2' with a feature flag to replace rxjs based fileState subscription with 'useFileState' hook.
+  Removed unused feature flags APIs from 'media-client' and its helper functions from 'media-common'.
+- Updated dependencies
+
+## 187.38.0
+
+### Minor Changes
+
+- [`0724d0a9d82`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0724d0a9d82) - ED-15466 Adding prop showIndentationButtons for indentation buttons.
+
+## 187.37.6
+
+### Patch Changes
+
+- [`ef0c2a89c72`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ef0c2a89c72) - Add isTypeAheadOpen action to type-ahead plugin. Decouple placeholder plugin from editor-core.
+- Updated dependencies
+
+## 187.37.5
+
+### Patch Changes
+
+- [`1f6e908f2bd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1f6e908f2bd) - Workaround invalid getPos error occuring for TableComponent
+- [`94662d7c5af`](https://bitbucket.org/atlassian/atlassian-frontend/commits/94662d7c5af) - Extracted rule plugin from editor-core to editor-plugin-rule.
+- Updated dependencies
+
 ## 187.37.4
 
 ### Patch Changes

@@ -7,6 +7,7 @@ import { useIntl } from 'react-intl-next';
 import { token } from '@atlaskit/tokens';
 
 import { useDatasourceAnalyticsEvents } from '../../../analytics';
+import type { JiraSearchMethod } from '../../../common/types';
 import { BasicSearchInput } from '../basic-search-input';
 import { JiraJQLEditor } from '../jql-editor';
 import { ModeSwitcher } from '../mode-switcher';
@@ -25,13 +26,23 @@ const inputContainerStyles = css({
   minHeight: '60px',
 });
 
+const DEFAULT_JQL_QUERY = 'created >= -30d order by created DESC';
+
+const JiraSearchMethodSwitcher = ModeSwitcher<JiraSearchMethod>;
 export interface SearchContainerProps {
   isSearching?: boolean;
-  onSearch: (query: JiraIssueDatasourceParametersQuery) => void;
+  onSearch: (
+    query: JiraIssueDatasourceParametersQuery,
+    searchMethod: JiraSearchMethod,
+  ) => void;
   parameters?: JiraIssueDatasourceParameters;
 }
 
-const DEFAULT_JQL_QUERY = 'created >= -30d order by created DESC';
+export const getInitialSearchMethod = (
+  initialJql?: string,
+): JiraSearchMethod => {
+  return initialJql ? 'jql' : 'basic';
+};
 
 export const JiraSearchContainer = (props: SearchContainerProps) => {
   const { isSearching, parameters, onSearch } = props;
@@ -39,20 +50,16 @@ export const JiraSearchContainer = (props: SearchContainerProps) => {
 
   const { formatMessage } = useIntl();
 
-  const basicModeValue = 'basic';
-  const jqlModeValue = 'jql';
-
   const [basicSearchTerm, setBasicSearchTerm] = useState('');
-  const [currentSearchMode, setCurrentSearchMode] = useState<string>(
-    initialJql ? jqlModeValue : basicModeValue,
-  );
+  const [currentSearchMethod, setCurrentSearchMethod] =
+    useState<JiraSearchMethod>(getInitialSearchMethod(initialJql));
   const [jql, setJql] = useState(initialJql || DEFAULT_JQL_QUERY);
   const [orderKey, setOrderKey] = useState<string | undefined>();
   const [orderDirection, setOrderDirection] = useState<string | undefined>();
   const { fireEvent } = useDatasourceAnalyticsEvents();
 
-  const onSearchModeChange = (searchMode: string) => {
-    setCurrentSearchMode(searchMode);
+  const onSearchModeChange = (searchMode: JiraSearchMethod) => {
+    setCurrentSearchMethod(searchMode);
   };
 
   const handleBasicSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -83,18 +90,18 @@ export const JiraSearchContainer = (props: SearchContainerProps) => {
   };
 
   const handleSearch = () => {
-    onSearch({ jql });
+    onSearch({ jql }, currentSearchMethod);
 
-    if (currentSearchMode === basicModeValue) {
+    if (currentSearchMethod === 'basic') {
       fireEvent('ui.form.submitted.basicSearch', {});
-    } else if (currentSearchMode === jqlModeValue) {
+    } else if (currentSearchMethod === 'jql') {
       fireEvent('ui.jqlEditor.searched', {});
     }
   };
 
   return (
     <div css={inputContainerStyles}>
-      {currentSearchMode === basicModeValue && (
+      {currentSearchMethod === 'basic' && (
         <BasicSearchInput
           isSearching={isSearching}
           onChange={handleBasicSearchChange}
@@ -102,7 +109,7 @@ export const JiraSearchContainer = (props: SearchContainerProps) => {
           searchTerm={basicSearchTerm}
         />
       )}
-      {currentSearchMode === jqlModeValue && (
+      {currentSearchMethod === 'jql' && (
         <JiraJQLEditor
           cloudId={cloudId || ''}
           isSearching={isSearching}
@@ -111,15 +118,15 @@ export const JiraSearchContainer = (props: SearchContainerProps) => {
           query={jql}
         />
       )}
-      <ModeSwitcher
+      <JiraSearchMethodSwitcher
         onOptionValueChange={onSearchModeChange}
-        selectedOptionValue={currentSearchMode}
+        selectedOptionValue={currentSearchMethod}
         options={[
           {
             label: formatMessage(modeSwitcherMessages.basicTextSearchLabel),
-            value: basicModeValue,
+            value: 'basic',
           },
-          { label: 'JQL', value: jqlModeValue },
+          { label: 'JQL', value: 'jql' },
         ]}
       />
     </div>

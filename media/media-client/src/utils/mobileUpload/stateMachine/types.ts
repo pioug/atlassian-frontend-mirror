@@ -7,7 +7,7 @@ import {
   ProcessedFileState,
   ErrorFileState,
   ProcessingFailedState,
-} from '../../../models/file-state';
+} from '@atlaskit/media-state';
 
 export type StateMachineContext = { currentFileState: FileState };
 

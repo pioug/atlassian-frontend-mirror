@@ -3,7 +3,6 @@ import type {
   WithMediaClientConfigProps,
   WithMediaClientFunction,
 } from '@atlaskit/media-client';
-import { useMemoizeFeatureFlags } from '@atlaskit/media-common';
 import Loadable from 'react-loadable';
 import { CardLoading } from '../utils/lightCards/cardLoading';
 import type { CardBaseProps } from './card';
@@ -53,11 +52,10 @@ const CardWithMediaClient: React.FC<
     withMediaClient: WithMediaClientFunction;
   }
 > = (props) => {
-  const { withMediaClient, dimensions, featureFlags, onClick } = props;
-  const memoizedFeatureFlags = useMemoizeFeatureFlags(featureFlags);
+  const { withMediaClient, dimensions, onClick } = props;
   const Card = React.useMemo(() => {
-    return withMediaClient(MediaCard, memoizedFeatureFlags);
-  }, [withMediaClient, memoizedFeatureFlags]);
+    return withMediaClient(MediaCard);
+  }, [withMediaClient]);
   return (
     // onClick is passed into MediaCardErrorBoundary so MediaGroup items can get the toolbar menu in Editor
     <MediaCardErrorBoundary dimensions={dimensions} onClick={onClick}>

@@ -54,15 +54,12 @@ test.describe('list', () => {
     },
     adf: getMediaListAdf('bulletList'),
   });
-  test('insert a media single inside a bullet list', async ({
-    editor,
-    browserName,
-  }) => {
+  test('insert a media single inside a bullet list', async ({ editor }) => {
     fixTest({
       jiraIssueId: 'DTR-1764',
       reason:
         'Copy and pasting Media image is not populating __mediaTraceId - Firefox Browser (Libra)',
-      condition: browserName === BROWSERS.firefox,
+      browsers: [BROWSERS.firefox],
     });
 
     let nodes = EditorNodeContainerModel.from(editor);

@@ -3,6 +3,7 @@ import {
   EditorNodeContainerModel,
   expect,
   fixTest,
+  BROWSERS,
 } from '@af/editor-libra';
 import {
   table,
@@ -32,8 +33,7 @@ test.describe('wrapped media', () => {
       jiraIssueId: 'DTR-1609',
       reason:
         'There is an actual bug when trying to click in the gap between the wrapped image and the table cell',
-
-      condition: browserName === 'firefox',
+      condition: browserName === BROWSERS.firefox,
     });
   });
 

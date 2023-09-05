@@ -165,10 +165,10 @@ export default class WebsocketTransport extends AbstractApsTransport {
       this.activeChannels.clear();
     }
 
+    this.closedByClient = true;
     this.lastSeenSequenceNumber = null;
     this.websocketClient?.close();
     this.websocketClient = undefined;
-    this.closedByClient = true;
     this.state = State.CLOSED;
   }
 

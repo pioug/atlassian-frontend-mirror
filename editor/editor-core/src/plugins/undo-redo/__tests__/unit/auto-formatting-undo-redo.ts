@@ -48,7 +48,7 @@ import { textFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';
 import { emojiPlugin } from '@atlaskit/editor-plugin-emoji';
 import { basePlugin } from '../../../base';
 import layoutPlugin from '../../../layout';
-import rulePlugin from '../../../rule';
+import { rulePlugin } from '@atlaskit/editor-plugin-rule';
 import alignmentPlugin from '../../../alignment';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';

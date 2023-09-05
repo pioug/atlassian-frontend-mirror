@@ -6,6 +6,7 @@ import {
   RenderHookOptions,
 } from '@testing-library/react-hooks';
 
+import { AnalyticsListener } from '@atlaskit/analytics-next';
 import {
   mockDatasourceDataResponse,
   mockDatasourceDataResponseWithSchema,
@@ -16,6 +17,7 @@ import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
 import { flushPromises } from '@atlaskit/link-test-helpers';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 
+import { EVENT_CHANNEL } from '../../analytics';
 import {
   DatasourceTableStateProps,
   useDatasourceTableState,
@@ -24,9 +26,12 @@ import {
 const [mockDatasourceId]: string = '12e74246-a3f1-46c1-9fd9-8d952aa9f12f';
 const mockParameterValue: string = 'project=EDM';
 const mockCloudId = 'DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b';
+const onAnalyticFireEvent = jest.fn();
 
 const wrapper: RenderHookOptions<{}>['wrapper'] = ({ children }) => (
-  <SmartCardProvider client={new CardClient()}>{children}</SmartCardProvider>
+  <AnalyticsListener channel={EVENT_CHANNEL} onEvent={onAnalyticFireEvent}>
+    <SmartCardProvider client={new CardClient()}>{children}</SmartCardProvider>
+  </AnalyticsListener>
 );
 
 jest.mock('@atlaskit/link-client-extension', () => {
@@ -77,6 +82,10 @@ describe('useDatasourceTableState', () => {
       .fn()
       .mockResolvedValue(mockDatasourceDetailsResponse);
     getDatasourceData = jest.fn().mockResolvedValue(mockDatasourceDataResponse);
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
   });
 
   describe('without parameters', () => {
@@ -261,6 +270,13 @@ describe('useDatasourceTableState', () => {
 
       expect(result.current.hasNextPage).toBe(true);
     });
+
+    it('should not fire analytics event "ui.nextItem.loaded" on initial load', async () => {
+      const { waitForNextUpdate } = setup();
+      await waitForNextUpdate();
+
+      expect(onAnalyticFireEvent).not.toHaveBeenCalled();
+    });
   });
 
   describe('#onNextPage()', () => {
@@ -377,6 +393,48 @@ describe('useDatasourceTableState', () => {
         await waitForNextUpdate();
 
         expect(result.current.columns).toEqual(expectedProperties);
+      });
+
+      it('should fire analytics event "ui.nextItem.loaded" when next page is loaded', async () => {
+        const { result, waitForNextUpdate } = setup();
+        await waitForNextUpdate();
+
+        act(() => {
+          result.current.onNextPage();
+        });
+
+        await waitForNextUpdate();
+        expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+          {
+            payload: {
+              action: 'loaded',
+              actionSubject: 'nextItem',
+              eventType: 'track',
+              attributes: {
+                extensionKey: 'jira-object-provider',
+                destinationObjectTypes: ['issue'],
+                loadedItemCount: 8,
+              },
+            },
+          },
+          EVENT_CHANNEL,
+        );
+      });
+
+      it('should not fire analytics event "ui.nextItem.loaded" when the number of columns changed', async () => {
+        asMock(getDatasourceData).mockResolvedValue(
+          mockDatasourceDataResponseWithSchema,
+        );
+        const { rerender, waitForNextUpdate } = setup();
+        await waitForNextUpdate();
+
+        rerender({
+          fieldKeys: ['issued'],
+        });
+
+        await waitForNextUpdate();
+
+        expect(onAnalyticFireEvent).not.toHaveBeenCalled();
       });
     });
 
@@ -627,6 +685,23 @@ describe('useDatasourceTableState', () => {
         }),
         false,
       );
+    });
+
+    it('should not fire analytics event "ui.nextItem.loaded" when reset() is called', async () => {
+      const { result, waitForNextUpdate } = setup();
+      await waitForNextUpdate();
+
+      asMock(getDatasourceData).mockReset();
+      asMock(getDatasourceData).mockResolvedValue(
+        mockDatasourceDataResponseWithSchema,
+      );
+      act(() => {
+        result.current.reset();
+      });
+      await waitForNextUpdate();
+
+      expect(result.current.status).toBe('resolved');
+      expect(onAnalyticFireEvent).not.toHaveBeenCalled();
     });
   });
 });

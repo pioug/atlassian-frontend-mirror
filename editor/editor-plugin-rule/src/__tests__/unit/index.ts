@@ -1,23 +1,24 @@
-import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import { bodiedExtensionData } from '@atlaskit/editor-test-helpers/mock-extension-data';
-import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
-import {
-  doc,
-  hr,
-  p,
-  bodiedExtension,
-  panel,
-  ul,
-  li,
-  ol,
-} from '@atlaskit/editor-test-helpers/doc-builder';
-import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import type {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
-import { INPUT_METHOD } from '../../../../plugins/analytics';
-import { insertHorizontalRule } from '../../../../plugins/rule/commands';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import {
+  bodiedExtension,
+  doc,
+  hr,
+  li,
+  ol,
+  p,
+  panel,
+  ul,
+} from '@atlaskit/editor-test-helpers/doc-builder';
+import { bodiedExtensionData } from '@atlaskit/editor-test-helpers/mock-extension-data';
+import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
+
+import { insertHorizontalRule } from '../../commands';
 
 describe('rule', () => {
   const createEditor = createEditorFactory();

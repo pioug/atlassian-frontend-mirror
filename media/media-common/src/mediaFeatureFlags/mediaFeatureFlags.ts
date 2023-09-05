@@ -1,4 +1,3 @@
-import { useRef } from 'react';
 import {
   RequiredMediaFeatureFlags,
   MediaFeatureFlags,
@@ -7,26 +6,6 @@ import {
 
 import { getProductKeys } from './productKeys';
 import { getGenericFeatureFlag } from './genericFeatureFlag';
-
-export const areEqualFeatureFlags = (
-  ffA?: MediaFeatureFlags,
-  ffB?: MediaFeatureFlags,
-): boolean => {
-  if (!ffA && !ffB) {
-    return true;
-  }
-  if (!ffA || !ffB) {
-    return false;
-  }
-
-  const results: RequiredMediaFeatureFlags = {
-    captions: ffA.captions === ffB.captions,
-    mediaInline: ffA.mediaInline === ffB.mediaInline,
-    folderUploads: ffA.folderUploads === ffB.folderUploads,
-    securedClipboard: ffA.securedClipboard === ffB.securedClipboard,
-  };
-  return Object.values(results).every((result) => result);
-};
 
 export const filterFeatureFlagNames = (
   flags: RequiredMediaFeatureFlags,
@@ -94,11 +73,3 @@ export function getMediaFeatureFlag<T = boolean>(
     Required<MediaFeatureFlags>
   >(flagName, defaultMediaFeatureFlags, featureFlags);
 }
-
-export const useMemoizeFeatureFlags = (featureFlags?: MediaFeatureFlags) => {
-  const ref = useRef<MediaFeatureFlags>();
-  if (!areEqualFeatureFlags(featureFlags, ref.current)) {
-    ref.current = featureFlags;
-  }
-  return ref.current;
-};

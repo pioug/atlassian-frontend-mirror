@@ -1,8 +1,8 @@
 import { EventEmitter2 } from 'eventemitter2';
 import { MediaClientConfig } from '@atlaskit/media-core';
-import { MediaFeatureFlags, MediaTraceContext } from '@atlaskit/media-common';
+import { MediaTraceContext } from '@atlaskit/media-common';
 import {
-  MediaStore,
+  MediaStore as MediaApi,
   MediaStoreGetFileImageParams,
   ImageMetadata,
 } from './media-store';
@@ -11,8 +11,10 @@ import { UploadEventPayloadMap, EventPayloadListener } from './events';
 import { StargateClient } from './stargate-client';
 import { MobileUpload } from '../models/mobile-upload';
 
+import { mediaStore, MediaStore } from '@atlaskit/media-state';
+
 export class MediaClient {
-  public readonly mediaStore: MediaStore;
+  public readonly mediaStore: MediaApi;
   public readonly file: FileFetcher;
   public readonly stargate: StargateClient;
   private readonly eventEmitter: EventEmitter2;
@@ -23,19 +25,26 @@ export class MediaClient {
 
   constructor(
     readonly mediaClientConfig: MediaClientConfig,
-    readonly featureFlags?: MediaFeatureFlags,
+    private readonly store: MediaStore = mediaStore,
+    mediaApi?: MediaApi,
   ) {
-    this.mediaStore = new MediaStore(
-      {
+    this.mediaStore =
+      mediaApi ??
+      new MediaApi({
         authProvider: mediaClientConfig.authProvider,
         initialAuth: mediaClientConfig.initialAuth,
-      },
-      featureFlags,
-    );
+      });
     this.config = mediaClientConfig;
-    this.file = new FileFetcherImpl(this.mediaStore);
+    this.file = new FileFetcherImpl(this.mediaStore, this.store);
     this.eventEmitter = new EventEmitter2();
     this.stargate = new StargateClient(mediaClientConfig.stargateBaseUrl);
+  }
+
+  /**
+   * @internal
+   */
+  public __DO_NOT_USE__getMediaStore(): MediaStore {
+    return this.store;
   }
 
   public getImage(
@@ -84,7 +93,10 @@ export class MediaClient {
       /* webpackChunkName: "@atlaskit-internal_media-client-mobile-upload" */ './mobile-upload'
     );
 
-    this.mobileUpload = new module.MobileUploadImpl(this.mediaStore);
+    this.mobileUpload = new module.MobileUploadImpl(
+      this.mediaStore,
+      this.store,
+    );
     return this.mobileUpload;
   }
 

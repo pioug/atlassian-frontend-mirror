@@ -1,17 +1,17 @@
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
-  doc,
-  hr,
-  p,
-  ol,
-  li,
-  code_block,
-  hardBreak,
   blockquote,
-  DocBuilder,
+  code_block,
+  doc,
+  hardBreak,
+  hr,
+  li,
+  ol,
+  p,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 describe('inputrules', () => {
   const createEditor = createEditorFactory();

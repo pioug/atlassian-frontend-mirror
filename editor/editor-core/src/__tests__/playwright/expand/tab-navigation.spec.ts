@@ -21,12 +21,11 @@ test.describe('expand', () => {
   ['Enter', 'Space'].forEach((key) => {
     test(`when press tab + ${key}, should collapse the expand, press ${key} again, should expand the expand`, async ({
       editor,
-      browserName,
     }) => {
       fixTest({
         jiraIssueId: 'DTR-1687',
         reason: 'Press tab does not focus on expand icon in safari',
-        condition: browserName === BROWSERS.webkit,
+        browsers: [BROWSERS.webkit],
       });
       const nodes = EditorNodeContainerModel.from(editor);
       const expandModel = EditorExpandModel.from(nodes.expand);

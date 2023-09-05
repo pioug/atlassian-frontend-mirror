@@ -8,23 +8,22 @@ import 'setimmediate';
 import Dataloader from 'dataloader';
 import { AuthProvider, authToOwner } from '@atlaskit/media-core';
 import { downloadUrl } from '@atlaskit/media-common/downloadUrl';
+import { MediaFileArtifacts } from '@atlaskit/media-state';
+
 import {
-  MediaStore,
+  MediaStore as MediaApi,
   MediaStoreCopyFileWithTokenBody,
   MediaStoreCopyFileWithTokenParams,
   TouchedFiles,
   TouchFileDescriptor,
 } from '../media-store';
 import {
-  FilePreview,
-  FileState,
   GetFileOptions,
   isErrorFileState,
   isFinalFileState,
   isProcessingFileState,
   mapMediaFileToFileState,
   mapMediaItemToFileState,
-  ProcessingFileState,
 } from '../../models/file-state';
 import { MediaFile } from '../../models/media';
 import { FileFetcherError } from './error';
@@ -33,7 +32,6 @@ import {
   UploadableFileUpfrontIds,
   uploadFile,
 } from '../../uploader';
-import { MediaFileArtifacts } from '../../models/artifacts';
 import { UploadController } from '../../upload-controller';
 import { getFileStreamsCache } from '../../file-streams-cache';
 import { globalMediaEventEmitter } from '../../globalMediaEventEmitter';
@@ -65,6 +63,15 @@ import { shouldFetchRemoteFileStates } from '../../utils/shouldFetchRemoteFileSt
 import { PollingFunction } from '../../utils/polling';
 import { isEmptyFile } from '../../utils/detectEmptyFile';
 import { MediaTraceContext } from '@atlaskit/media-common';
+import {
+  ErrorFileState,
+  UploadingFileState,
+  FilePreview,
+  FileState,
+  ProcessingFileState,
+  MediaStore,
+  mediaStore,
+} from '@atlaskit/media-state';
 
 export type {
   FileFetcherErrorAttributes,
@@ -80,7 +87,7 @@ export interface CopySourceFile {
 
 export interface CopyDestination extends MediaStoreCopyFileWithTokenParams {
   authProvider: AuthProvider;
-  mediaStore?: MediaStore;
+  mediaStore?: MediaApi;
 }
 
 export interface CopyFileOptions {
@@ -134,32 +141,85 @@ export interface FileFetcher {
 export class FileFetcherImpl implements FileFetcher {
   private readonly dataloader: Dataloader<DataloaderKey, DataloaderResult>;
 
-  constructor(private readonly mediaStore: MediaStore) {
-    this.dataloader = createFileDataloader(mediaStore);
+  constructor(
+    private readonly mediaApi: MediaApi,
+    private readonly store: MediaStore = mediaStore,
+  ) {
+    this.dataloader = createFileDataloader(mediaApi);
   }
+
+  private getErrorFileState = (
+    error: any,
+    id: string,
+    occurrenceKey?: string,
+  ): ErrorFileState =>
+    typeof error === 'string'
+      ? {
+          status: 'error',
+          id,
+          reason: error,
+          occurrenceKey,
+          message: error,
+        }
+      : {
+          status: 'error',
+          id,
+          reason: error?.reason,
+          details: error?.attributes,
+          occurrenceKey,
+          message: error?.message,
+        };
+
+  private setFileState = (id: string, fileState: FileState) => {
+    this.store.setState((state) => {
+      state.files[id] = fileState;
+    });
+  };
 
   public getFileState(
     id: string,
     options: GetFileOptions = {},
   ): MediaSubscribable {
     const { collectionName, occurrenceKey } = options;
-
     if (!isValidId(id)) {
       const subject = createMediaSubject<FileState>();
-      subject.error(
-        new FileFetcherError('invalidFileId', id, {
-          collectionName,
-          occurrenceKey,
-        }),
-      );
+      const err = new FileFetcherError('invalidFileId', id, {
+        collectionName,
+        occurrenceKey,
+      });
+      const errorFileState: ErrorFileState = {
+        status: 'error',
+        id,
+        reason: err?.reason,
+        message: err?.message,
+        occurrenceKey,
+        details: err?.attributes,
+      };
+
+      subject.error(err);
+
+      this.setFileState(id, errorFileState);
 
       return fromObservable(subject);
     }
-
     return fromObservable(
-      getFileStreamsCache().getOrInsert(id, () =>
-        this.createDownloadFileStream(id, collectionName),
-      ),
+      getFileStreamsCache().getOrInsert(id, () => {
+        const subject = this.createDownloadFileStream(id, collectionName);
+        subject.subscribe({
+          next: (fileState) => {
+            this.setFileState(id, fileState);
+          },
+          error: (err) => {
+            const errorFileState: ErrorFileState = this.getErrorFileState(
+              err,
+              id,
+              occurrenceKey,
+            );
+            this.setFileState(id, errorFileState);
+          },
+        });
+        return subject;
+      }),
     );
   }
 
@@ -172,7 +232,7 @@ export class FileFetcherImpl implements FileFetcher {
     artifactName: keyof MediaFileArtifacts,
     collectionName?: string,
   ): Promise<string> {
-    return this.mediaStore.getArtifactURL(
+    return this.mediaApi.getArtifactURL(
       artifacts,
       artifactName,
       collectionName,
@@ -180,7 +240,7 @@ export class FileFetcherImpl implements FileFetcher {
   }
 
   getFileBinaryURL(id: string, collectionName?: string): Promise<string> {
-    return this.mediaStore.getFileBinaryURL(id, collectionName);
+    return this.mediaApi.getFileBinaryURL(id, collectionName);
   }
 
   // TODO: ----- ADD TICKET TO PASS TRACE ID to this.dataloader.load
@@ -217,7 +277,6 @@ export class FileFetcherImpl implements FileFetcher {
 
       const fileState = mapMediaItemToFileState(id, response);
       subject.next(fileState);
-
       switch (fileState.status) {
         case 'processing':
           // the only case for continuing polling, otherwise this function is run once only
@@ -237,7 +296,7 @@ export class FileFetcherImpl implements FileFetcher {
     collection?: string,
     traceContext?: MediaTraceContext,
   ): Promise<TouchedFiles> {
-    return this.mediaStore
+    return this.mediaApi
       .touchFiles({ descriptors }, { collection }, traceContext)
       .then(({ data }) => data);
   }
@@ -305,6 +364,7 @@ export class FileFetcherImpl implements FileFetcher {
     subject.next(fileState);
     // we save it into the cache as soon as possible, in case someone subscribes
     getFileStreamsCache().set(id, subject);
+    this.setFileState(id, fileState);
 
     return new Promise<ExternalUploadPayload>(async (resolve, reject) => {
       const blob = await deferredBlob;
@@ -403,17 +463,26 @@ export class FileFetcherImpl implements FileFetcher {
     getFileStreamsCache().set(id, subject);
 
     const onProgress = (progress: number) => {
-      subject.next({
+      const fileState: UploadingFileState = {
         status: 'uploading',
         ...stateBase,
         progress,
-      });
+      };
+
+      subject.next(fileState);
+      this.setFileState(id, fileState);
     };
 
     let processingSubscription: Subscription = new Subscription();
 
     const onUploadFinish = (error?: any) => {
       if (error) {
+        const errorFileState: ErrorFileState = this.getErrorFileState(
+          error,
+          id,
+          occurrenceKey,
+        );
+        this.setFileState(id, errorFileState);
         return subject.error(error);
       }
       processingSubscription = this.createDownloadFileStream(
@@ -429,12 +498,27 @@ export class FileFetcherImpl implements FileFetcher {
             ...overrideMediaTypeIfUnknown(remoteFileState, stateBase.mediaType),
           })),
         )
-        .subscribe(subject);
+        .subscribe({
+          next: (fileState: FileState) => {
+            subject.next(fileState);
+            this.setFileState(id, fileState);
+          },
+          error: (err) => {
+            const errorFileState: ErrorFileState = this.getErrorFileState(
+              err,
+              id,
+              occurrenceKey,
+            );
+            subject.error(err);
+            this.setFileState(id, errorFileState);
+          },
+          complete: subject.complete,
+        });
     };
 
     const { cancel } = uploadFile(
       file,
-      this.mediaStore,
+      this.mediaApi,
       upfrontId,
       {
         onUploadFinish,
@@ -457,13 +541,12 @@ export class FileFetcherImpl implements FileFetcher {
     return fromObservable(subject);
   }
 
-  // TODO: ----- ADD TICKET
   public async downloadBinary(
     id: string,
     name: string = 'download',
     collectionName?: string,
   ) {
-    const url = await this.mediaStore.getFileBinaryURL(id, collectionName);
+    const url = await this.mediaApi.getFileBinaryURL(id, collectionName);
     downloadUrl(url, { name });
 
     globalMediaEventEmitter.emit('media-viewed', {
@@ -489,7 +572,7 @@ export class FileFetcherImpl implements FileFetcher {
     const { preview, mimeType } = options;
     const mediaStore =
       destination.mediaStore ||
-      new MediaStore({
+      new MediaApi({
         authProvider: destinationAuthProvider,
       });
     const owner = authToOwner(
@@ -552,31 +635,48 @@ export class FileFetcherImpl implements FileFetcher {
         copiedMimeType &&
         (await shouldFetchRemoteFileStates(mediaType, copiedMimeType, preview))
       ) {
-        subject.next({
+        const fileState: FileState = {
           ...copiedFileState,
           ...overrideMediaTypeIfUnknown(copiedFileState, mediaType),
           ...previewOverride,
-        });
+        };
+
+        subject.next(fileState);
+        this.setFileState(copiedId, fileState);
 
         processingSubscription = this.createDownloadFileStream(
           copiedId,
           destinationCollectionName,
           occurrenceKey,
         ).subscribe({
-          next: (remoteFileState) =>
-            subject.next({
+          next: (remoteFileState) => {
+            const fileState = {
               ...remoteFileState,
               ...overrideMediaTypeIfUnknown(remoteFileState, mediaType),
               ...(!isErrorFileState(remoteFileState) && previewOverride),
-            }),
-          error: (err) => subject.error(err),
+            };
+
+            this.setFileState(copiedId, fileState);
+            return subject.next(fileState);
+          },
+          error: (err) => {
+            const errorFileState: ErrorFileState = this.getErrorFileState(
+              err,
+              id,
+              occurrenceKey,
+            );
+            this.setFileState(copiedId, errorFileState);
+            return subject.error(err);
+          },
           complete: () => subject.complete(),
         });
       } else if (!isProcessingFileState(copiedFileState)) {
-        subject.next({
+        const fileState = {
           ...copiedFileState,
           ...(!isErrorFileState(copiedFileState) && previewOverride),
-        });
+        };
+        subject.next(fileState);
+        this.setFileState(copiedId, fileState);
       }
 
       if (!cache.has(copiedId)) {
@@ -591,6 +691,7 @@ export class FileFetcherImpl implements FileFetcher {
 
       if (replaceFileId) {
         const fileCache = cache.get(replaceFileId);
+        const replaceFileState = this.store.getState().files[replaceFileId];
 
         if (fileCache) {
           fileCache.error(error);
@@ -598,6 +699,16 @@ export class FileFetcherImpl implements FileFetcher {
           // Create a new subject with the error state for new subscriptions
           cache.set(id, createMediaSubject<FileState>(error as Error));
         }
+
+        const key = replaceFileState ? replaceFileId : id;
+
+        const errorFileState: ErrorFileState = this.getErrorFileState(
+          error,
+          id,
+          occurrenceKey,
+        );
+
+        this.setFileState(key, errorFileState);
       }
 
       throw error;

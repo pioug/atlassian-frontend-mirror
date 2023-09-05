@@ -1,4 +1,3 @@
-// TODO: remove this once ESLint rule has been fixed
 /* eslint-disable @atlaskit/design-system/no-unsafe-design-token-usage */
 /** @jsx jsx */
 import { jsx } from '@emotion/react';

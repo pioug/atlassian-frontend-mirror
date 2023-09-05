@@ -65,13 +65,12 @@ test.describe('sticky header', () => {
   test.describe('sync width', () => {
     test('should sync width with table when parent scroll container is resized', async ({
       editor,
-      browserName,
     }) => {
       fixTest({
         jiraIssueId: 'ED-19015',
         reason:
           'Test timeout of 30000ms exceeded. locator.hover: Target closed',
-        condition: browserName === BROWSERS.webkit,
+        browsers: [BROWSERS.webkit],
       });
       const nodes = EditorNodeContainerModel.from(editor);
       const tableModel = EditorTableModel.from(nodes.table);
@@ -158,9 +157,15 @@ test.describe('sticky header', () => {
       adf: simpleTableWithScroll,
       platformFeatureFlags: { 'platform.editor.custom-table-width': true },
     });
-    test.skip('should sync width with table while table is resizing', async ({
+    test('should sync width with table while table is resizing', async ({
       editor,
     }) => {
+      fixTest({
+        jiraIssueId: 'ED-19805',
+        reason: 'Flaky test on firefox',
+        browsers: [BROWSERS.firefox],
+      });
+
       const nodes = EditorNodeContainerModel.from(editor);
       const tableModel = EditorTableModel.from(nodes.table);
       const resizerModel = tableModel.resizer();

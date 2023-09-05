@@ -19,7 +19,7 @@ import {
   th,
   td,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import rulePlugin from '../../../rule';
+import { rulePlugin } from '@atlaskit/editor-plugin-rule';
 import layoutPlugin from '../../../layout';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import clipboardPlugin from '../../index';

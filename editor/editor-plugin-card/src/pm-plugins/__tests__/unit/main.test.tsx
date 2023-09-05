@@ -1,38 +1,30 @@
 import React from 'react';
 
-import { DatasourceAttributes } from '@atlaskit/adf-schema/schema';
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import { CardOptions } from '@atlaskit/editor-common/card';
+import type { DatasourceAttributes } from '@atlaskit/adf-schema/schema';
+import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { CardOptions } from '@atlaskit/editor-common/card';
 import { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
-import {
-  CardAdf,
-  CardAppearance,
-  CardProvider,
-  ProviderFactory,
-} from '@atlaskit/editor-common/provider-factory';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { DATASOURCE_INNER_CONTAINER_CLASSNAME } from '@atlaskit/editor-common/styles';
-import { EditorAppearance } from '@atlaskit/editor-common/types';
+import type { EditorAppearance } from '@atlaskit/editor-common/types';
 import { setNodeSelection } from '@atlaskit/editor-common/utils';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   a,
   datasourceBlockCard,
   doc,
-  DocBuilder,
   inlineCard,
   p,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 import { JIRA_LIST_OF_LINKS_DATASOURCE_ID } from '@atlaskit/link-datasource';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
-import { CardProps } from '@atlaskit/smart-card';
+import type { CardProps } from '@atlaskit/smart-card';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { createEventsQueue } from '../../../analytics/create-events-queue';
-import { Request } from '../../../types';
 import { pluginKey } from '../../plugin-key';
-import { resolveWithProvider } from '../../util/resolve';
 import { getPluginState } from '../../util/state';
 
 jest.mock('@atlaskit/link-datasource', () => ({
@@ -80,148 +72,6 @@ jest.mock('@atlaskit/smart-card', () => {
 jest.mock('../../../analytics/create-events-queue', () => ({
   createEventsQueue: jest.fn(),
 }));
-
-describe('resolveWithProvider()', () => {
-  const createEditor = createEditorFactory();
-  const providerFactory = new ProviderFactory();
-  const editor = (doc: DocBuilder) => {
-    return createEditor({
-      doc,
-      providerFactory,
-      editorProps: {
-        allowPanel: true,
-        smartLinks: {},
-      },
-      pluginKey,
-    });
-  };
-
-  class TestCardProvider implements CardProvider {
-    resolve = jest.fn().mockReturnValue(Promise.resolve({}));
-    async findPattern(): Promise<boolean> {
-      return true;
-    }
-  }
-
-  let cardProvider: CardProvider;
-
-  beforeEach(() => {
-    cardProvider = new TestCardProvider();
-  });
-
-  it('should resolve with the right request appearance', async () => {
-    const url = 'https://docs.google.com/spreadsheets/d/168c/edit?usp=sharing';
-    const request: Request = {
-      appearance: 'block',
-      compareLinkText: false,
-      pos: 0,
-      source: INPUT_METHOD.MANUAL,
-      shouldReplaceLink: true,
-      url,
-    };
-    const { editorView } = editor(
-      doc(
-        p(
-          '{<node>}',
-          inlineCard({
-            url,
-          })(),
-        ),
-      ),
-    );
-    const options = { allowBlockCards: true };
-    await resolveWithProvider(
-      editorView,
-      cardProvider,
-      request,
-      options,
-      undefined,
-      undefined,
-    );
-    expect(cardProvider.resolve).toHaveBeenCalledTimes(1);
-    expect(cardProvider.resolve).toBeCalledWith(url, 'block', true);
-  });
-
-  it('should set shouldForceAppearance as false in case input source is Manual, but shouldReplaceLink flag is false', async () => {
-    const url = 'https://docs.google.com/spreadsheets/d/168c/edit?usp=sharing';
-    const request: Request = {
-      appearance: 'block',
-      compareLinkText: false,
-      pos: 0,
-      source: INPUT_METHOD.MANUAL,
-      shouldReplaceLink: false,
-      url,
-    };
-    const { editorView } = editor(
-      doc(
-        p(
-          '{<node>}',
-          inlineCard({
-            url,
-          })(),
-        ),
-      ),
-    );
-    const options = { allowBlockCards: true };
-    await resolveWithProvider(
-      editorView,
-      cardProvider,
-      request,
-      options,
-      undefined,
-      undefined,
-    );
-    expect(cardProvider.resolve).toHaveBeenCalledTimes(1);
-    expect(cardProvider.resolve).toBeCalledWith(url, 'block', false);
-  });
-
-  describe('Allowed card type', () => {
-    it.each([
-      ['block', 'blockCard', false, true],
-      ['embed', 'embedCard', true, false],
-    ])(
-      'resolves fallback to inline if %s card is not allowed',
-      async (appearance, type, allowBlockCards, allowEmbeds) => {
-        const url = 'https://atlassian.slack.com/archives/CR54/p123456';
-
-        const testCardProvider = new TestCardProvider();
-        const spy = jest.spyOn(testCardProvider, 'resolve').mockResolvedValue({
-          type,
-          attrs: { url, ...(type === 'embedCard' && { layout: 'wide' }) },
-        });
-
-        const request: Request = {
-          appearance: appearance as CardAppearance,
-          compareLinkText: false,
-          pos: 0,
-          source: INPUT_METHOD.MANUAL,
-          url,
-        };
-        const { editorView } = editor(
-          doc(p('{<node>}', inlineCard({ url })())),
-        );
-        const options = { allowBlockCards, allowEmbeds };
-        const cardAdf = (await resolveWithProvider(
-          editorView,
-          testCardProvider,
-          request,
-          options,
-          undefined,
-          undefined,
-        )) as CardAdf;
-
-        expect(testCardProvider.resolve).toBeCalledWith(url, appearance, false);
-        expect(cardAdf.type).toEqual('inlineCard');
-
-        if (type === 'embedCard' && !allowEmbeds) {
-          expect(cardAdf.attrs).not.toHaveProperty('layout');
-        }
-
-        spy.mockRestore();
-      },
-    );
-  });
-});
 
 describe('datasource', () => {
   const createEditor = createEditorFactory();

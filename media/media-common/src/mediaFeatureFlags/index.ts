@@ -1,8 +1,6 @@
 export {
   getMediaFeatureFlag,
-  useMemoizeFeatureFlags,
   defaultMediaFeatureFlags,
-  areEqualFeatureFlags,
   filterFeatureFlagNames,
   getFeatureFlagKeysAllProducts,
 } from './mediaFeatureFlags';

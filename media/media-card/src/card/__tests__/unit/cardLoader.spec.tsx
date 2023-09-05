@@ -7,11 +7,9 @@ import { CardLoading } from '../../../utils/lightCards/cardLoading';
 import CardLoader, { CardWithMediaClientConfigProps } from '../../cardLoader';
 
 const mediaClient = fakeMediaClient();
-import { useMemoizeFeatureFlags } from '@atlaskit/media-common';
 
 jest.mock('@atlaskit/media-common', () => ({
   ...jest.requireActual<Object>('@atlaskit/media-common'),
-  useMemoizeFeatureFlags: jest.fn(),
 }));
 
 const identifier: FileIdentifier = {
@@ -126,19 +124,6 @@ describe('Async Card Loader', () => {
       const wrapper = mount(<CardLoader {...props} />);
       expect(wrapper.find('CardWithMediaClient').prop('featureFlags')).toEqual({
         captions: true,
-      });
-    });
-
-    it('it should call useMemoizeFeatureFlags when props get updated', () => {
-      const wrapper = mount(<CardLoader {...props} />);
-      wrapper.setProps({ featureFlags: { captions: false } });
-
-      expect(useMemoizeFeatureFlags).toHaveBeenCalledTimes(2);
-      expect(useMemoizeFeatureFlags).toHaveBeenNthCalledWith(1, {
-        captions: true,
-      });
-      expect(useMemoizeFeatureFlags).toHaveBeenNthCalledWith(2, {
-        captions: false,
       });
     });
   });

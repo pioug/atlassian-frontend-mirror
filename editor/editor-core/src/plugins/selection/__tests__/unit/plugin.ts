@@ -16,7 +16,7 @@ import { doc, hr, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import { akEditorSelectedNodeClassName } from '@atlaskit/editor-shared-styles';
 
-import rulePlugin from '../../../rule';
+import { rulePlugin } from '@atlaskit/editor-plugin-rule';
 import selectionPlugin from '../../index';
 import { getPluginState } from '../../plugin-factory';
 import type { SelectionPluginState } from '../../types';

@@ -1,4 +1,4 @@
-import { FileState } from '../../../../models/file-state';
+import { FileState } from '@atlaskit/media-state';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
 import { Subscription } from 'rxjs/Subscription';

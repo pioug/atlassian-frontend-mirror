@@ -21,14 +21,24 @@ import { AuthContext } from '@atlaskit/media-core';
 import { AuthProvider } from '@atlaskit/media-core';
 import { ChunkinatorFile } from '@atlaskit/chunkinator';
 import { ClientAltBasedAuth } from '@atlaskit/media-core';
+import { ErrorFileState } from '@atlaskit/media-state';
+import { FilePreview } from '@atlaskit/media-state';
+import { FileState } from '@atlaskit/media-state';
 import { FileStatus as FileStatus_2 } from '@atlaskit/media-common';
+import { LRUMap } from 'lru_map';
 import { MediaApiConfig } from '@atlaskit/media-core';
 import { MediaClientConfig } from '@atlaskit/media-core';
-import { MediaFeatureFlags } from '@atlaskit/media-common';
+import { MediaFileArtifact } from '@atlaskit/media-state';
+import { MediaFileArtifacts } from '@atlaskit/media-state';
+import { MediaStore as MediaStore_2 } from '@atlaskit/media-state';
 import { MediaTraceContext } from '@atlaskit/media-common';
 import { MediaType } from '@atlaskit/media-common';
+import { ProcessedFileState } from '@atlaskit/media-state';
+import { ProcessingFailedState } from '@atlaskit/media-state';
+import { ProcessingFileState } from '@atlaskit/media-state';
 import { default as React_2 } from 'react';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
+import { UploadingFileState } from '@atlaskit/media-state';
 
 // @public (undocumented)
 export type AbortFunction = () => void;
@@ -49,11 +59,6 @@ export type AppendChunksToUploadRequestBody = {
 // @public (undocumented)
 export type Artifacts = {
   [name: string]: MediaArtifact;
-};
-
-// @public (undocumented)
-type BaseFileState = {
-  metadataTraceContext?: MediaTraceContext;
 };
 
 // @public
@@ -170,17 +175,7 @@ export interface EmptyFile {
   readonly id: string;
 }
 
-// @public (undocumented)
-export interface ErrorFileState extends BaseFileState {
-  // (undocumented)
-  id: string;
-  // (undocumented)
-  message?: string;
-  // (undocumented)
-  occurrenceKey?: string;
-  // (undocumented)
-  status: 'error';
-}
+export { ErrorFileState };
 
 // @public (undocumented)
 type ErrorObserver = PartialObserver & Required<Pick<PartialObserver, 'error'>>;
@@ -337,7 +332,7 @@ export type FileFetcherErrorReason =
 
 // @public (undocumented)
 export class FileFetcherImpl implements FileFetcher {
-  constructor(mediaStore: MediaStore);
+  constructor(mediaApi: MediaStore, store?: MediaStore_2);
   // (undocumented)
   copyFile(
     source: CopySourceFile,
@@ -404,18 +399,7 @@ export interface FileItem {
   type: 'file';
 }
 
-// @public (undocumented)
-export interface FilePreview {
-  // (undocumented)
-  origin?: 'local' | 'remote';
-  // (undocumented)
-  originalDimensions?: {
-    width: number;
-    height: number;
-  };
-  // (undocumented)
-  value: Blob | string;
-}
+export { FilePreview };
 
 // @public (undocumented)
 export type FileProcessingStatus =
@@ -424,13 +408,7 @@ export type FileProcessingStatus =
   | 'running'
   | 'succeeded';
 
-// @public (undocumented)
-export type FileState =
-  | ErrorFileState
-  | ProcessedFileState
-  | ProcessingFailedState
-  | ProcessingFileState
-  | UploadingFileState;
+export { FileState };
 
 // @public (undocumented)
 export type FileStatus = FileStatus_2;
@@ -468,9 +446,11 @@ export interface GetFileOptions {
 }
 
 // @public (undocumented)
+export const getFileStreamsCache: () => StreamsCache<FileState>;
+
+// @public (undocumented)
 export const getMediaClient: (
   mediaClientConfig: MediaClientConfig,
-  featureFlags?: MediaFeatureFlags,
 ) => MediaClient;
 
 // @public (undocumented)
@@ -720,8 +700,11 @@ export type MediaChunksProbe = {
 export class MediaClient {
   constructor(
     mediaClientConfig: MediaClientConfig,
-    featureFlags?: MediaFeatureFlags | undefined,
+    store?: MediaStore_2,
+    mediaApi?: MediaStore,
   );
+  // @internal (undocumented)
+  __DO_NOT_USE__getMediaStore(): MediaStore_2;
   // (undocumented)
   readonly config: MediaClientConfig;
   // (undocumented)
@@ -729,8 +712,6 @@ export class MediaClient {
     event: E,
     payload: UploadEventPayloadMap[E],
   ): boolean;
-  // (undocumented)
-  readonly featureFlags?: MediaFeatureFlags | undefined;
   // (undocumented)
   readonly file: FileFetcher;
   // (undocumented)
@@ -779,6 +760,8 @@ export class MediaClient {
   // (undocumented)
   readonly stargate: StargateClient;
 }
+
+export { MediaClientConfig };
 
 // @public
 export interface MediaClientError<Attributes extends MediaClientErrorAttributes>
@@ -834,29 +817,9 @@ export type MediaFile = {
   readonly metadataTraceContext?: MediaTraceContext;
 };
 
-// @public (undocumented)
-export type MediaFileArtifact = {
-  readonly url: string;
-  readonly processingStatus: MediaFileProcessingStatus;
-};
+export { MediaFileArtifact };
 
-// @public (undocumented)
-export interface MediaFileArtifacts {
-  // (undocumented)
-  'audio.mp3'?: MediaFileArtifact;
-  // (undocumented)
-  'document.pdf'?: MediaFileArtifact;
-  // (undocumented)
-  'image.jpg'?: MediaFileArtifact;
-  // (undocumented)
-  'image.png'?: MediaFileArtifact;
-  // (undocumented)
-  'thumb.jpg'?: MediaFileArtifact;
-  // (undocumented)
-  'video_1280.mp4'?: MediaFileArtifact;
-  // (undocumented)
-  'video_640.mp4'?: MediaFileArtifact;
-}
+export { MediaFileArtifacts };
 
 // @public (undocumented)
 export type MediaFileProcessingStatus = 'failed' | 'pending' | 'succeeded';
@@ -891,10 +854,7 @@ export type MediaRepresentations = {
 
 // @public (undocumented)
 export class MediaStore {
-  constructor(
-    config: MediaApiConfig,
-    featureFlags?: MediaFeatureFlags | undefined,
-  );
+  constructor(config: MediaApiConfig);
   // (undocumented)
   appendChunksToUpload(
     uploadId: string,
@@ -920,8 +880,6 @@ export class MediaStore {
     collectionName?: string,
     traceContext?: MediaTraceContext,
   ): Promise<MediaStoreResponse<MediaUpload[]>>;
-  // (undocumented)
-  readonly featureFlags?: MediaFeatureFlags | undefined;
   // (undocumented)
   getArtifactURL(
     artifacts: MediaFileArtifacts,
@@ -1298,83 +1256,11 @@ export interface PreviewableFileState {
 // @public (undocumented)
 export interface PreviewOptions {}
 
-// @public (undocumented)
-export interface ProcessedFileState extends BaseFileState {
-  // (undocumented)
-  artifacts: MediaFileArtifacts;
-  // (undocumented)
-  createdAt?: number;
-  // (undocumented)
-  id: string;
-  // (undocumented)
-  mediaType: MediaType;
-  // (undocumented)
-  mimeType: string;
-  // (undocumented)
-  name: string;
-  // (undocumented)
-  occurrenceKey?: string;
-  // (undocumented)
-  preview?: FilePreview | Promise<FilePreview>;
-  // (undocumented)
-  representations?: MediaRepresentations;
-  // (undocumented)
-  size: number;
-  // (undocumented)
-  status: 'processed';
-}
+export { ProcessedFileState };
 
-// @public (undocumented)
-export interface ProcessingFailedState extends BaseFileState {
-  // (undocumented)
-  artifacts: Object;
-  // (undocumented)
-  createdAt?: number;
-  // (undocumented)
-  id: string;
-  // (undocumented)
-  mediaType: MediaType;
-  // (undocumented)
-  mimeType: string;
-  // (undocumented)
-  name: string;
-  // (undocumented)
-  occurrenceKey?: string;
-  // (undocumented)
-  preview?: FilePreview | Promise<FilePreview>;
-  // (undocumented)
-  representations?: MediaRepresentations;
-  // (undocumented)
-  size: number;
-  // (undocumented)
-  status: 'failed-processing';
-}
+export { ProcessingFailedState };
 
-// @public (undocumented)
-export interface ProcessingFileState extends BaseFileState {
-  // (undocumented)
-  artifacts?: MediaFileArtifacts;
-  // (undocumented)
-  createdAt?: number;
-  // (undocumented)
-  id: string;
-  // (undocumented)
-  mediaType: MediaType;
-  // (undocumented)
-  mimeType: string;
-  // (undocumented)
-  name: string;
-  // (undocumented)
-  occurrenceKey?: string;
-  // (undocumented)
-  preview?: FilePreview | Promise<FilePreview>;
-  // (undocumented)
-  representations?: MediaRepresentations;
-  // (undocumented)
-  size: number;
-  // (undocumented)
-  status: 'processing';
-}
+export { ProcessingFileState };
 
 // @public (undocumented)
 export const RECENTS_COLLECTION = 'recents';
@@ -1535,6 +1421,25 @@ export class StargateClient {
 }
 
 // @public (undocumented)
+class StreamsCache<T> {
+  constructor(streams: LRUMap<string, ReplaySubject<T>>);
+  // (undocumented)
+  get(id: string): ReplaySubject<T> | undefined;
+  // (undocumented)
+  getOrInsert(id: string, callback: () => ReplaySubject<T>): ReplaySubject<T>;
+  // (undocumented)
+  has(id: string): boolean;
+  // (undocumented)
+  remove(id: string): void;
+  // (undocumented)
+  removeAll(): void;
+  // (undocumented)
+  set(id: string, stream: ReplaySubject<T>): void;
+  // (undocumented)
+  get size(): number;
+}
+
+// @public (undocumented)
 export type TouchedFiles = {
   created: CreatedTouchedFile[];
   rejected?: RejectedTouchFile[];
@@ -1610,29 +1515,7 @@ export interface UploadFileResult {
   cancel: () => void;
 }
 
-// @public (undocumented)
-export interface UploadingFileState extends BaseFileState {
-  // (undocumented)
-  createdAt?: number;
-  // (undocumented)
-  id: string;
-  // (undocumented)
-  mediaType: MediaType;
-  // (undocumented)
-  mimeType: string;
-  // (undocumented)
-  name: string;
-  // (undocumented)
-  occurrenceKey?: string;
-  // (undocumented)
-  preview?: FilePreview | Promise<FilePreview>;
-  // (undocumented)
-  progress: number;
-  // (undocumented)
-  size: number;
-  // (undocumented)
-  status: 'uploading';
-}
+export { UploadingFileState };
 
 // @public (undocumented)
 export interface WithMediaClient {
@@ -1661,7 +1544,6 @@ export type WithMediaClientConfigProps<P extends WithMediaClient> = Omit<
 // @public (undocumented)
 export type WithMediaClientFunction = <P extends WithMediaClient>(
   Component: React_2.ComponentType<P>,
-  featureFlags?: MediaFeatureFlags,
 ) => React_2.ComponentType<WithMediaClientConfigProps<P>>;
 
 // (No @packageDocumentation comment for this package)
@@ -1676,6 +1558,7 @@ export type WithMediaClientFunction = <P extends WithMediaClient>(
 ```json
 {
   "@atlaskit/media-core": "^34.1.2",
+  "@atlaskit/media-state": "^1.0.0",
   "@emotion/react": "^11.7.1",
   "enzyme": ">=3.10.0",
   "react": "^16.8.0"

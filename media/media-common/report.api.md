@@ -22,12 +22,6 @@ import { default as React_2 } from 'react';
 export const ANALYTICS_MEDIA_CHANNEL = 'media';
 
 // @public (undocumented)
-export const areEqualFeatureFlags: (
-  ffA?: MediaFeatureFlags,
-  ffB?: MediaFeatureFlags,
-) => boolean;
-
-// @public (undocumented)
 type BaseAttributes = {};
 
 // @public (undocumented)
@@ -304,11 +298,6 @@ export type UIEventPayload<
   actionSubject: ActionSubject;
   actionSubjectId?: string;
 };
-
-// @public (undocumented)
-export const useMemoizeFeatureFlags: (
-  featureFlags?: MediaFeatureFlags,
-) => MediaFeatureFlags | undefined;
 
 // @public (undocumented)
 export type WithFileAttributes = {

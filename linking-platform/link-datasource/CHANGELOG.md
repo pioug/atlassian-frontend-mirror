@@ -1,5 +1,12 @@
 # @atlaskit/link-datasource
 
+## 1.0.16
+
+### Patch Changes
+
+- [`7b3f96b38f9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7b3f96b38f9) - Added nextItem loaded analytics event
+- [`ecf7019c632`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ecf7019c632) - Added analytics mapper to populate searchMethod analytic attribute, but it is not exposed to consumers yet.
+
 ## 1.0.15
 
 ### Patch Changes

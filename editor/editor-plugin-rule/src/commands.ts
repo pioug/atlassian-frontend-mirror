@@ -1,8 +1,9 @@
-import type { FeatureFlags, Command } from '@atlaskit/editor-common/types';
 import type {
-  INPUT_METHOD,
   EditorAnalyticsAPI,
+  INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
+import type { Command, FeatureFlags } from '@atlaskit/editor-common/types';
+
 import { createHorizontalRule } from './pm-plugins/input-rule';
 
 export const insertHorizontalRule =

@@ -35,7 +35,7 @@ import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
 
 import layoutPlugin from '../../../plugins/layout';
 import panelPlugin from '../../../plugins/panel';
-import rulePlugin from '../../../plugins/rule';
+import { rulePlugin } from '@atlaskit/editor-plugin-rule';
 import typeAheadPlugin from '../../../plugins/type-ahead';
 import quickInsertPlugin from '../../../plugins/quick-insert';
 import { editorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';

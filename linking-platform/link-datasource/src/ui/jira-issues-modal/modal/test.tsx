@@ -35,6 +35,7 @@ jest.mock('../../../services/getAvailableJiraSites', () => ({
 }));
 
 jest.mock('../jira-search-container', () => ({
+  getInitialSearchMethod: jest.fn(() => 'basic'),
   JiraSearchContainer: jest.fn(() => null),
 }));
 
@@ -352,9 +353,12 @@ describe('JiraIssuesConfigModal', () => {
       // We need to do generate jql, since insert button won't active without it.
       const { onSearch } = getLatestJiraSearchContainerProps();
       act(() => {
-        onSearch({
-          jql: 'some-query',
-        });
+        onSearch(
+          {
+            jql: 'some-query',
+          },
+          'basic',
+        );
       });
 
       assertInsertResult({
@@ -395,9 +399,12 @@ describe('JiraIssuesConfigModal', () => {
         await setup();
       const { onSearch } = getLatestJiraSearchContainerProps();
       act(() => {
-        onSearch({
-          jql: 'different-query',
-        });
+        onSearch(
+          {
+            jql: 'different-query',
+          },
+          'basic',
+        );
       });
 
       assertInsertResult({
@@ -413,9 +420,12 @@ describe('JiraIssuesConfigModal', () => {
       });
       const { onSearch } = getLatestJiraSearchContainerProps();
       act(() => {
-        onSearch({
-          jql: 'different-query',
-        });
+        onSearch(
+          {
+            jql: 'different-query',
+          },
+          'basic',
+        );
       });
 
       expect(hookState.reset).toHaveBeenCalledWith({
@@ -432,9 +442,12 @@ describe('JiraIssuesConfigModal', () => {
       } = await setup();
       const { onSearch } = getLatestJiraSearchContainerProps();
       act(() => {
-        onSearch({
-          jql: 'different-query',
-        });
+        onSearch(
+          {
+            jql: 'different-query',
+          },
+          'basic',
+        );
       });
 
       getByLabelText('Count view').click();
@@ -457,9 +470,12 @@ describe('JiraIssuesConfigModal', () => {
       } = await setup();
       const { onSearch } = getLatestJiraSearchContainerProps();
       act(() => {
-        onSearch({
-          jql: 'different-query',
-        });
+        onSearch(
+          {
+            jql: 'different-query',
+          },
+          'basic',
+        );
       });
 
       getByLabelText('Count view').click();

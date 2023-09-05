@@ -111,7 +111,7 @@ describe('setGlobalTheme', () => {
     const htmlElement = document.getElementsByTagName('html')[0];
     expect(htmlElement).toHaveAttribute(
       THEME_DATA_ATTRIBUTE,
-      'dark:dark light:light',
+      'dark:dark light:light spacing:spacing',
     );
     expect(htmlElement).toHaveAttribute(COLOR_MODE_ATTRIBUTE, 'light');
   });
@@ -190,7 +190,7 @@ describe('setGlobalTheme', () => {
       const styleElements = document.querySelectorAll(
         `style[${THEME_DATA_ATTRIBUTE}]`,
       );
-      expect(styleElements).toHaveLength(4);
+      expect(styleElements).toHaveLength(5);
 
       const customStyleElements = document.querySelectorAll(
         `style[${CUSTOM_THEME_ATTRIBUTE}]`,
@@ -211,6 +211,7 @@ describe('setGlobalTheme', () => {
     expect(dataThemes).toEqual([
       'light',
       'dark',
+      'spacing',
       'custom-light',
       'custom-dark',
     ]);
@@ -310,34 +311,6 @@ describe('setGlobalTheme', () => {
     ]);
   });
 
-  it('should not load the spacing theme on the page by default when the feature flag is not enabled', async () => {
-    (getBooleanFF as jest.Mock).mockImplementation(
-      (name) => name === 'platform.design-system-team.something-else',
-    );
-
-    await setGlobalTheme({
-      dark: 'dark',
-      light: 'light',
-      typography: 'typography',
-    });
-
-    // Wait for styles to be added to the page
-    await waitFor(() => {
-      const styleElements = document.querySelectorAll(
-        `style[${THEME_DATA_ATTRIBUTE}]`,
-      );
-      expect(styleElements).toHaveLength(3);
-    });
-
-    // Validate that the data-theme attributes match the expected values
-    const styleElements = document.querySelectorAll('style');
-    const dataThemes = Array.from(styleElements).map((el) =>
-      el.getAttribute('data-theme'),
-    );
-
-    expect(dataThemes.sort()).toEqual(['dark', 'light', 'typography']);
-  });
-
   it('should set the correct themes and color mode when a theme loader is provided', async () => {
     await setGlobalTheme(
       {
@@ -378,40 +351,6 @@ describe('setGlobalTheme', () => {
       );
       expect(styleElements).toHaveLength(0);
     });
-  });
-
-  it('should load the spacing theme on the page when the feature flag is enabled', async () => {
-    (getBooleanFF as jest.Mock).mockImplementation(
-      (name) =>
-        name === 'platform.design-system-team.space-and-shape-tokens_q5me6',
-    );
-
-    await setGlobalTheme({
-      dark: 'dark',
-      light: 'light',
-      typography: 'typography',
-    });
-
-    // Wait for styles to be added to the page
-    await waitFor(() => {
-      const styleElements = document.querySelectorAll(
-        `style[${THEME_DATA_ATTRIBUTE}]`,
-      );
-      expect(styleElements).toHaveLength(4);
-    });
-
-    // Validate that the data-theme attributes match the expected values
-    const styleElements = document.querySelectorAll('style');
-    const dataThemes = Array.from(styleElements).map((el) =>
-      el.getAttribute('data-theme'),
-    );
-
-    expect(dataThemes.sort()).toEqual([
-      'dark',
-      'light',
-      'spacing',
-      'typography',
-    ]);
   });
 
   it('should use the provided theme loader to load styles', async () => {

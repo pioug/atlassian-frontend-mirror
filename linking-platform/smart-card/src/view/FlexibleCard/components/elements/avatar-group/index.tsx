@@ -96,7 +96,8 @@ const AvatarGroup: React.FC<AvatarGroupProps> = ({
       }
     }
 
-    if (name && showNamePrefix) {
+    //show a name prefix if there is one Avatar in a group only
+    if (name && items.length === 1 && showNamePrefix) {
       return items.map((person) => {
         return {
           ...person,

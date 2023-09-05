@@ -9,6 +9,8 @@ import {
   DatasourceTableStatusType,
 } from '@atlaskit/linking-types';
 
+import { useDatasourceAnalyticsEvents } from '../analytics';
+
 export interface onNextPageProps {
   isSchemaFromData?: boolean;
   shouldRequestFirstPage?: boolean;
@@ -48,6 +50,8 @@ export const useDatasourceTableState = ({
   parameters,
   fieldKeys = [],
 }: DatasourceTableStateProps): DatasourceTableState => {
+  const { fireEvent } = useDatasourceAnalyticsEvents();
+
   const [defaultVisibleColumnKeys, setDefaultVisibleColumnKeys] = useState<
     DatasourceTableState['defaultVisibleColumnKeys']
   >([]);
@@ -197,6 +201,19 @@ export const useDatasourceTableState = ({
         if (isSchemaFromData && schema && items.length > 0) {
           applySchemaProperties(schema.properties);
         }
+
+        const isUserLoadingNextPage =
+          responseItems?.length !== 0 && !shouldRequestFirstPage;
+        if (isUserLoadingNextPage) {
+          const currentLoadedItemCount = responseItems?.length || 0;
+          const newlyLoadedItemCount = items?.length || 0;
+
+          fireEvent('track.nextItem.loaded', {
+            extensionKey,
+            destinationObjectTypes,
+            loadedItemCount: currentLoadedItemCount + newlyLoadedItemCount,
+          });
+        }
       } catch (e: any) {
         setStatus('rejected');
       }
@@ -204,10 +221,12 @@ export const useDatasourceTableState = ({
     [
       parameters,
       fieldKeys,
+      nextCursor,
       getDatasourceData,
       datasourceId,
-      nextCursor,
+      responseItems?.length,
       applySchemaProperties,
+      fireEvent,
     ],
   );
 
@@ -224,7 +243,7 @@ export const useDatasourceTableState = ({
     }
   }, []);
 
-  // this takes care of requesting /data initally
+  // this takes care of requesting /data initially
   useEffect(() => {
     const isEmptyState =
       Object.keys(parameters || {}).length > 0 &&

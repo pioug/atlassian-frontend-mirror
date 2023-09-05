@@ -94,12 +94,11 @@ test.describe('hyperlink toolbar', () => {
 
   test('inserts a link when tabbing through hyperlink toolbar', async ({
     editor,
-    browserName,
   }) => {
     fixTest({
       jiraIssueId: 'DTR-1554',
       reason: 'Clear button is not selectable on Safari by Tab',
-      condition: browserName === BROWSERS.webkit,
+      browsers: [BROWSERS.webkit],
     });
     const smartLinkToolbarModel = EditorLinkFloatingToolbarModel.from(editor);
 

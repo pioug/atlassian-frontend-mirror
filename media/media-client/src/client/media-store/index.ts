@@ -5,13 +5,11 @@ import {
   MediaApiConfig,
   Auth,
 } from '@atlaskit/media-core';
-import {
-  getRandomHex,
-  MediaFeatureFlags,
-  MediaTraceContext,
-} from '@atlaskit/media-common';
+import { getRandomHex, MediaTraceContext } from '@atlaskit/media-common';
+import { MediaFileArtifacts } from '@atlaskit/media-state';
+
 import { FILE_CACHE_MAX_AGE, MAX_RESOLUTION } from '../../constants';
-import { getArtifactUrl, MediaFileArtifacts } from '../../models/artifacts';
+import { getArtifactUrl } from '../../models/artifacts';
 import {
   MediaChunksProbe,
   MediaItemDetails,
@@ -63,10 +61,7 @@ const jsonHeaders = {
 };
 
 export class MediaStore {
-  constructor(
-    private readonly config: MediaApiConfig,
-    readonly featureFlags?: MediaFeatureFlags,
-  ) {}
+  constructor(private readonly config: MediaApiConfig) {}
 
   async removeCollectionFile(
     id: string,

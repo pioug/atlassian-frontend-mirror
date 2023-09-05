@@ -12,6 +12,7 @@ export type JiraIssueDatasourceParametersQuery = XOR<
   { jql: string },
   { filter: string }
 >;
+
 export type JiraIssueDatasourceParameters = {
   cloudId: string;
 } & JiraIssueDatasourceParametersQuery;

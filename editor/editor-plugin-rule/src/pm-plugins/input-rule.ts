@@ -1,21 +1,3 @@
-import type { InputRuleWrapper } from '@atlaskit/prosemirror-input-rules';
-import type { Schema } from '@atlaskit/editor-prosemirror/model';
-import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
-import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type {
-  EditorState,
-  Transaction,
-} from '@atlaskit/editor-prosemirror/state';
-import type { FeatureFlags } from '@atlaskit/editor-common/types';
-
-import {
-  createRule,
-  createPlugin,
-  leafNodeReplacementCharacter,
-} from '@atlaskit/prosemirror-input-rules';
-import { safeInsert } from '@atlaskit/editor-common/insert';
-import { hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
-
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
   ACTION,
@@ -24,6 +6,22 @@ import {
   EVENT_TYPE,
   INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
+import { safeInsert } from '@atlaskit/editor-common/insert';
+import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type { FeatureFlags } from '@atlaskit/editor-common/types';
+import type { Schema } from '@atlaskit/editor-prosemirror/model';
+import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
+import type {
+  EditorState,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
+import { hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
+import {
+  createPlugin,
+  createRule,
+  leafNodeReplacementCharacter,
+} from '@atlaskit/prosemirror-input-rules';
+import type { InputRuleWrapper } from '@atlaskit/prosemirror-input-rules';
 
 export const createHorizontalRule = (
   state: EditorState,

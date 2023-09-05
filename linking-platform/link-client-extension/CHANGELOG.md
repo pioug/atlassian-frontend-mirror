@@ -1,5 +1,11 @@
 # @atlaskit/link-client-extension
 
+## 1.6.1
+
+### Patch Changes
+
+- [`a21cffb7b23`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a21cffb7b23) - Extended mock response returned for datasources
+
 ## 1.6.0
 
 ### Minor Changes

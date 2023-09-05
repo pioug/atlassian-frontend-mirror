@@ -512,11 +512,11 @@ class MediaSingleNodeView extends ReactNodeView<MediaSingleNodeViewProps> {
     /**
      *  ED-19831
      *  There is a getPos issue coming from this code. We need to apply this workaround for now and apply a patch
-     *  directly to confluence since this bug is now iun production.
+     *  directly to confluence since this bug is now in production.
      */
     let pos: number | undefined;
     try {
-      pos = typeof getPos === 'function' ? getPos() : undefined;
+      pos = getPos ? getPos() : undefined;
     } catch (e) {
       pos = undefined;
     }

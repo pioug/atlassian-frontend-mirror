@@ -1,3 +1,9 @@
+import {
+  MediaClientErrorReason,
+  isPollingError as isMediaClientPollingError,
+  isRateLimitedError as isMediaClientRateLimitedError,
+  PollingErrorReason,
+} from '@atlaskit/media-client';
 import { CardPreview } from './types';
 
 /**
@@ -41,6 +47,63 @@ export type SsrPreviewPrimaryReason =
   | 'ssr-client-load'
   | 'ssr-server-uri'
   | 'ssr-server-load';
+
+export class MediaFileStateError extends Error {
+  constructor(
+    readonly id: string,
+    readonly reason?: string,
+    readonly message: string = '',
+    readonly details?: Record<string, any>,
+  ) {
+    super(reason);
+    // https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#support-for-newtarget
+    Object.setPrototypeOf(this, new.target.prototype);
+
+    // https://v8.dev/docs/stack-trace-api
+    if ('captureStackTrace' in Error) {
+      Error.captureStackTrace(this, new.target);
+    }
+  }
+}
+
+export function isMediaFileStateError(err: Error): err is MediaFileStateError {
+  return err instanceof MediaFileStateError;
+}
+
+export function getFileStateErrorReason(
+  err: MediaFileStateError,
+): MediaClientErrorReason | 'unknown' {
+  return err.details?.reason ?? 'unknown';
+}
+
+const POLLING_REASON: PollingErrorReason = 'pollingMaxAttemptsExceeded';
+
+export function isPollingError(err?: Error) {
+  if (!err) {
+    return false;
+  }
+
+  return (
+    isMediaClientPollingError(err) ||
+    (isMediaFileStateError(err) && err.reason === POLLING_REASON)
+  );
+}
+
+export function isRateLimitedError(error?: Error) {
+  if (!error) {
+    return false;
+  }
+
+  if (isMediaClientRateLimitedError(error)) {
+    return true;
+  }
+
+  if (isMediaFileStateError(error)) {
+    return error.details?.statusCode === 429 || error.message?.includes('429');
+  }
+
+  return false;
+}
 
 export class MediaCardError extends Error {
   constructor(

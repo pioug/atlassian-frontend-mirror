@@ -47,7 +47,6 @@ export class DropzoneLoader extends React.PureComponent<
 
         DropzoneLoader.Dropzone = mediaClient.withMediaClient(
           dropzoneModule.Dropzone,
-          this.props.featureFlags,
         );
 
         DropzoneLoader.MediaPickerErrorBoundary =

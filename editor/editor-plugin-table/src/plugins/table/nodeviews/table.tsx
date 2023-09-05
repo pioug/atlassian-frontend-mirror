@@ -225,12 +225,11 @@ export default class TableView extends ReactNodeView<Props> {
           /**
            *  ED-19810
            *  There is a getPos issue coming from this code. We need to apply this workaround for now and apply a patch
-           *  before CR6 lands in production
+           *  directly to confluence since this bug is now in production.
            */
           let tablePos: number | undefined;
           try {
-            tablePos =
-              typeof props.getPos === 'function' ? props.getPos() : undefined;
+            tablePos = props.getPos ? props.getPos() : undefined;
           } catch (e) {
             tablePos = undefined;
           }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import {
   deviceViewPorts,
   Device,
@@ -465,9 +465,7 @@ describe('Toolbar: Dropdown behaviours', () => {
       appearance: Appearance.fullPage,
       viewport: { width: 500, height: 500 },
       editorProps: {
-        featureFlags: {
-          indentationButtonsInTheToolbar: true,
-        },
+        showIndentationButtons: true,
       },
     });
     await page.waitForSelector("[data-testid='ak-editor-main-toolbar']");

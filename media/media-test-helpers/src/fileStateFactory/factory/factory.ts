@@ -31,7 +31,7 @@ export class MediaClientMock extends MediaClient {
     featureFlags?: MediaFeatureFlags,
     private options: MediaClientMockOptions = {},
   ) {
-    super(mediaClientConfig, featureFlags);
+    super(mediaClientConfig);
     this.mockFileFetcher();
     this.setHasPreview(!!options.hasPreview);
   }

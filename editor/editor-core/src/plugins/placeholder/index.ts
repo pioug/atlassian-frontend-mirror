@@ -11,11 +11,11 @@ import type {
   NextEditorPlugin,
   ExtractInjectionAPI,
 } from '@atlaskit/editor-common/types';
-import type { focusPlugin } from '@atlaskit/editor-plugin-focus';
+import type { FocusPlugin } from '@atlaskit/editor-plugin-focus';
+import type { TypeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
 
 export const pluginKey = new PluginKey('placeholderPlugin');
-import { isTypeAheadOpen } from '../type-ahead/utils';
-import type { compositionPlugin } from '@atlaskit/editor-plugin-composition';
+import type { CompositionPlugin } from '@atlaskit/editor-plugin-composition';
 
 interface PlaceHolderState {
   hasPlaceholder: boolean;
@@ -85,10 +85,11 @@ const emptyPlaceholder: PlaceHolderState = { hasPlaceholder: false };
 function createPlaceHolderStateFrom(
   isEditorFocused: boolean,
   editorState: EditorState,
+  isTypeAheadOpen: ((editorState: EditorState) => boolean) | undefined,
   defaultPlaceholderText?: string,
   bracketPlaceholderText?: string,
 ): PlaceHolderState {
-  if (isTypeAheadOpen(editorState)) {
+  if (isTypeAheadOpen?.(editorState)) {
     return emptyPlaceholder;
   }
 
@@ -108,7 +109,7 @@ function createPlaceHolderStateFrom(
 export function createPlugin(
   defaultPlaceholderText?: string,
   bracketPlaceholderText?: string,
-  api?: ExtractInjectionAPI<typeof placeholderPlugin>,
+  api?: ExtractInjectionAPI<PlaceholderPlugin>,
 ): SafePlugin | undefined {
   if (!defaultPlaceholderText && !bracketPlaceholderText) {
     return;
@@ -121,6 +122,7 @@ export function createPlugin(
         createPlaceHolderStateFrom(
           Boolean(api?.focus?.sharedState.currentState()?.hasFocus),
           state,
+          api?.typeAhead.actions.isOpen,
           defaultPlaceholderText,
           bracketPlaceholderText,
         ),
@@ -139,6 +141,7 @@ export function createPlugin(
             return createPlaceHolderStateFrom(
               isEditorFocused,
               newEditorState,
+              api?.typeAhead.actions.isOpen,
               defaultPlaceholderText,
               bracketPlaceholderText,
             );
@@ -148,6 +151,7 @@ export function createPlugin(
         return createPlaceHolderStateFrom(
           isEditorFocused,
           newEditorState,
+          api?.typeAhead.actions.isOpen,
           defaultPlaceholderText,
           bracketPlaceholderText,
         );
@@ -179,13 +183,15 @@ export interface PlaceholderPluginOptions {
   placeholderBracketHint?: string;
 }
 
-const placeholderPlugin: NextEditorPlugin<
+type PlaceholderPlugin = NextEditorPlugin<
   'placeholder',
   {
     pluginConfiguration: PlaceholderPluginOptions | undefined;
-    dependencies: [typeof focusPlugin, typeof compositionPlugin];
+    dependencies: [FocusPlugin, CompositionPlugin, TypeAheadPlugin];
   }
-> = ({ config: options, api }) => ({
+>;
+
+const placeholderPlugin: PlaceholderPlugin = ({ config: options, api }) => ({
   name: 'placeholder',
 
   pmPlugins() {

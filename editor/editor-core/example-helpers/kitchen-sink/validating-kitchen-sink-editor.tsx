@@ -206,12 +206,12 @@ export class ValidatingKitchenSinkEditor extends React.Component<
           onChange={() => this.onEditorChanged(actions)}
           popupsMountPoint={popupMountPoint}
           primaryToolbarComponents={primaryToolbarComponents}
+          showIndentationButtons={true}
           featureFlags={{
             'safer-dispatched-transactions': true,
             'floating-toolbar-copy-button': true,
             'restart-numbered-lists': true,
             'use-editor-next': true,
-            indentationButtonsInTheToolbar: true,
             ...this.props.featureFlags,
           }}
           dangerouslyAppendPlugins={{

@@ -3,7 +3,7 @@ import { asMockFunction } from '@atlaskit/media-common/test-helpers';
 import { shouldFetchRemoteFileStates } from '../../shouldFetchRemoteFileStates';
 
 import { getVideoDimensionsFromBlob } from '../../getVideoDimensionsFromBlob';
-import { FilePreview } from '../../../models/file-state';
+import { FilePreview } from '@atlaskit/media-state';
 
 jest.mock('../../getVideoDimensionsFromBlob');
 

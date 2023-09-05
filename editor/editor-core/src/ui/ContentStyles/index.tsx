@@ -21,6 +21,8 @@ import {
   codeBlockInListSafariFix,
   unsupportedStyles,
 } from '@atlaskit/editor-common/styles';
+import type { ThemeProps } from '@atlaskit/theme/types';
+
 import {
   akEditorSelectedBorderSize,
   akEditorDeleteBorder,
@@ -30,6 +32,8 @@ import {
   editorFontSize,
   getSelectionStyles,
   SelectionStyle,
+  akEditorLineHeight,
+  akEditorSelectedBorderColor,
 } from '@atlaskit/editor-shared-styles';
 import { MentionSharedCssClassName } from '@atlaskit/editor-common/mention';
 import { token } from '@atlaskit/tokens';
@@ -37,10 +41,8 @@ import { token } from '@atlaskit/tokens';
 import { telepointerStyle } from '../../plugins/collab-edit/styles';
 import { gapCursorStyles } from '../../plugins/selection/gap-cursor/styles';
 import { tableStyles } from '@atlaskit/editor-plugin-table/ui/common-styles';
-import { placeholderStyles } from '../../plugins/placeholder/styles';
 import { blocktypeStyles } from '../../plugins/block-type/styles';
 import { codeBlockStyles } from '../../plugins/code-block/styles';
-import { ruleStyles } from '../../plugins/rule/styles';
 import { mediaStyles } from '../../plugins/media/styles';
 import { layoutStyles } from '../../plugins/layout/styles';
 import { panelStyles } from '../../plugins/panel/styles';
@@ -55,15 +57,15 @@ import { statusStyles } from '../../plugins/status/styles';
 import { dateStyles } from '../../plugins/date/styles';
 import type { FeatureFlags } from '../../types/feature-flags';
 import { InlineNodeViewSharedStyles } from '../../nodeviews/getInlineNodeViewProducer.styles';
-
 import {
   linkSharedStyle,
   codeMarkSharedStyles,
+  ruleSharedStyles,
 } from '@atlaskit/editor-common/styles';
 import { browser } from '@atlaskit/editor-common/utils';
 import { EmojiSharedCssClassName } from '@atlaskit/editor-common/emoji';
 
-import { N500, N30A } from '@atlaskit/theme/colors';
+import { N500, N30A, N200 } from '@atlaskit/theme/colors';
 
 export const linkStyles = css`
   .ProseMirror {
@@ -75,6 +77,27 @@ type ContentStylesProps = {
   theme?: any;
   featureFlags?: FeatureFlags;
 };
+
+const ruleStyles = (props: ThemeProps) => css`
+  .ProseMirror {
+    ${ruleSharedStyles(props)};
+
+    hr {
+      cursor: pointer;
+      padding: ${token('space.050', '4px')} 0;
+      margin: calc(${akEditorLineHeight}em - 4px) 0;
+      background-clip: content-box;
+
+      &.${akEditorSelectedNodeClassName} {
+        outline: none;
+        background-color: ${token(
+          'color.border.selected',
+          akEditorSelectedBorderColor,
+        )};
+      }
+    }
+  }
+`;
 
 const mentionsStyles = css`
   .${MentionSharedCssClassName.MENTION_CONTAINER} {
@@ -153,6 +176,22 @@ const emojiStyles = css`
           SelectionStyle.BoxShadow,
         ])}
       }
+    }
+  }
+`;
+
+export const placeholderStyles = css`
+  .ProseMirror .placeholder-decoration {
+    color: ${token('color.text.subtlest', N200)};
+    width: 100%;
+    pointer-events: none;
+    user-select: none;
+
+    .placeholder-android {
+      pointer-events: none;
+      outline: none;
+      user-select: none;
+      position: absolute;
     }
   }
 `;

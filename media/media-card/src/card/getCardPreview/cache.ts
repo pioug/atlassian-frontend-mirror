@@ -18,6 +18,7 @@ export interface CardPreviewCache {
   get(id: string, mode: Mode): CardPreview | undefined;
   set(id: string, mode: Mode, cardPreview: CardPreview): void;
   remove(id: string, mode: Mode): void;
+  clear(): void;
 }
 
 export class CardPreviewCacheImpl implements CardPreviewCache {
@@ -36,6 +37,10 @@ export class CardPreviewCacheImpl implements CardPreviewCache {
   remove = (id: string, mode: Mode) => {
     const cacheKey = getCacheKey(id, mode);
     this.previewCache.remove(cacheKey);
+  };
+
+  clear = () => {
+    this.previewCache.clear();
   };
 }
 

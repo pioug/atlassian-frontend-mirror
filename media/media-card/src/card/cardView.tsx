@@ -13,7 +13,6 @@ import { MimeTypeIcon } from '@atlaskit/media-ui/mime-type-icon';
 import SpinnerIcon from '@atlaskit/spinner';
 import Tooltip from '@atlaskit/tooltip';
 import { messages } from '@atlaskit/media-ui';
-import { isRateLimitedError, isPollingError } from '@atlaskit/media-client';
 
 import { SharedCardProps, CardStatus } from '../types';
 import { defaultImageCardDimensions } from '../utils/cardDimensions';
@@ -39,7 +38,12 @@ import {
   PreviewCurrentlyUnavailable,
   FailedToLoad,
 } from './ui/iconMessage';
-import { isUploadError, MediaCardError } from '../errors';
+import {
+  isUploadError,
+  isRateLimitedError,
+  isPollingError,
+  MediaCardError,
+} from '../errors';
 import { CardPreview } from '../types';
 import { MediaCardCursor } from '../types';
 import { Wrapper } from './ui/wrapper';

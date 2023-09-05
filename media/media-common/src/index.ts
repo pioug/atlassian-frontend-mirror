@@ -20,8 +20,6 @@ export type FileStatus =
 export {
   getMediaFeatureFlag,
   defaultMediaFeatureFlags,
-  areEqualFeatureFlags,
-  useMemoizeFeatureFlags,
   filterFeatureFlagNames,
   getFeatureFlagKeysAllProducts,
 } from './mediaFeatureFlags';

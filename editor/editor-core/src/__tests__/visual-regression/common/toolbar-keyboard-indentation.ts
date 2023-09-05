@@ -1,4 +1,4 @@
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import {
   Appearance,
   editorSelector,
@@ -27,9 +27,7 @@ describe('toolbar accessbility', () => {
         viewport: { width: 1000, height: 500 },
         adf: indentedAdf,
         editorProps: {
-          featureFlags: {
-            indentationButtonsInTheToolbar: true,
-          },
+          showIndentationButtons: true,
         },
       });
       await page.waitForSelector(buttonSelectors.outdent);
@@ -81,9 +79,7 @@ describe('toolbar accessbility', () => {
         viewport: { width: 1000, height: 500 },
         adf: outdentedAdf,
         editorProps: {
-          featureFlags: {
-            indentationButtonsInTheToolbar: true,
-          },
+          showIndentationButtons: true,
         },
       });
       await page.waitForSelector(buttonSelectors.outdent);

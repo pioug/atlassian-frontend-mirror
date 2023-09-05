@@ -2,10 +2,8 @@ import DataLoader from 'dataloader';
 import { map } from 'rxjs/operators/map';
 import { createMachine, interpret, Interpreter, StateMachine } from 'xstate';
 
-import {
-  isProcessingFileState,
-  UploadingFileState,
-} from '../../../models/file-state';
+import { isProcessingFileState } from '../../../models/file-state';
+import { UploadingFileState } from '@atlaskit/media-state';
 import { DataloaderKey, DataloaderResult } from '../../createFileDataLoader';
 import { shouldFetchRemoteFileStates } from '../../shouldFetchRemoteFileStates';
 import { createMobileDownloadFileStream } from '../helpers';

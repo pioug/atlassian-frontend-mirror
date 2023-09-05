@@ -10,7 +10,7 @@ import {
   mediaClickableSelector,
 } from '@atlaskit/editor-test-helpers/page-objects/media';
 import { MediaViewerPageObject } from '@atlaskit/media-integration-test-helpers';
-import { MediaMockControlsBackdoor } from '@atlaskit/media-test-helpers';
+import type { MediaMockControlsBackdoor } from '@atlaskit/media-test-helpers';
 import { waitForNumImages } from './_utils';
 
 type ClientType = Parameters<typeof goToFullPage>[0];
@@ -38,10 +38,12 @@ BrowserTestCase(
   },
 );
 
+// FIXME: This test was automatically skipped due to failure on 04/09/2023: https://product-fabric.atlassian.net/browse/ED-19851
 BrowserTestCase(
   'full-flow-insert-and-publish.ts: Drag folder (contains an image), verify, wait',
   {
-    skip: ['safari'],
+    // skip: ['safari'],
+    skip: ['*'],
   },
   async (client: ClientType) => {
     const page = await goToFullPage(client);

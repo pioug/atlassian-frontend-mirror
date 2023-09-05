@@ -6,11 +6,11 @@ import { css, jsx } from '@emotion/react';
 import { N0, N20, N30A, N700 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-export interface ModeSwitcherProps {
+export interface ModeSwitcherProps<T extends string = string> {
   isCompact?: boolean;
   isDisabled?: boolean;
-  options: { label: string; value: string }[];
-  onOptionValueChange: (selectedOptionValue: string) => void;
+  options: { label: string; value: T }[];
+  onOptionValueChange: (selectedOptionValue: T) => void;
   selectedOptionValue?: string;
 }
 
@@ -74,7 +74,9 @@ const compactModeSwitcherLabelStyles = css({
   padding: `${token('space.025', '2px')} ${token('space.050', '4px')}`,
 });
 
-export const ModeSwitcher = (props: ModeSwitcherProps) => {
+export const ModeSwitcher = <T extends string = string>(
+  props: ModeSwitcherProps<T>,
+) => {
   const {
     isCompact,
     isDisabled,
@@ -84,7 +86,7 @@ export const ModeSwitcher = (props: ModeSwitcherProps) => {
   } = props;
 
   const handleModeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    onOptionValueChange(event.currentTarget.value);
+    onOptionValueChange(event.currentTarget.value as T);
   };
 
   return options.length > 0 ? (

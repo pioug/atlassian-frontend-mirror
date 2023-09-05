@@ -1,5 +1,22 @@
 # @atlaskit/renderer
 
+## 108.11.12
+
+### Patch Changes
+
+- [`7b6a2c6671b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7b6a2c6671b) - Introducing 'media-state' for handling media internal file state.
+  Introducing 'media-client-react' to provide hooks for seamless media-client integration with React.
+  Introducing 'MediaCardV2' with a feature flag to replace rxjs based fileState subscription with 'useFileState' hook.
+  Removed unused feature flags APIs from 'media-client' and its helper functions from 'media-common'.
+- Updated dependencies
+
+## 108.11.11
+
+### Patch Changes
+
+- [`e0de9e09b5f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e0de9e09b5f) - Use table container width when calculating column widths to scale down, in renderer. Behind feature flag platform.editor.custom-table-width-scale-down-undefined-column_nkyvx
+- Updated dependencies
+
 ## 108.11.10
 
 ### Patch Changes

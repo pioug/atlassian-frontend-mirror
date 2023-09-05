@@ -1,5 +1,11 @@
 # @atlaskit/image
 
+## 1.1.6
+
+### Patch Changes
+
+- [`b2da5b33468`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b2da5b33468) - Documents that props like `css` and `className` are unsafe and will be deprecated in the future.
+
 ## 1.1.5
 
 ### Patch Changes

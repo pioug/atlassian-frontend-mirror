@@ -49,6 +49,12 @@ const columnStyles = css({
   borderRadius: 'calc(var(--grid) * 2)',
   transition: `background ${mediumDurationMs}ms ${easeInOut}`,
   position: 'relative',
+  cursor: 'grab',
+  /**
+   * TODO: figure out hover color.
+   * There is no `elevation.surface.sunken.hovered` token,
+   * so leaving this for now.
+   */
 });
 
 const scrollContainerStyles = css({
@@ -75,23 +81,34 @@ const columnHeaderStyles = css({
   userSelect: 'none',
 });
 
-type State =
-  | { type: 'idle' }
+type IdleState = { type: 'idle' };
+
+type DropTargetState =
+  | IdleState
   | { type: 'is-card-over' }
-  | { type: 'generate-safari-column-preview'; container: HTMLElement }
-  | { type: 'generate-column-preview' }
   | { type: 'is-column-over'; closestEdge: Edge | null };
 
-// preventing re-renders
-const idle: State = { type: 'idle' };
-const isCardOver: State = { type: 'is-card-over' };
+type DraggableState =
+  | IdleState
+  | { type: 'generate-safari-column-preview'; container: HTMLElement }
+  | { type: 'generate-column-preview' }
+  | { type: 'is-dragging' };
 
-const stateStyles: { [key in State['type']]: SerializedStyles | undefined } = {
-  idle: undefined,
-  'is-column-over': undefined,
-  'is-card-over': css({
-    background: token('color.background.selected.hovered', '#CCE0FF'),
-  }),
+// preventing re-renders
+const idle: IdleState = { type: 'idle' };
+const isCardOver: DropTargetState = { type: 'is-card-over' };
+const isDraggingState: DraggableState = { type: 'is-dragging' };
+
+const stateStyles: Partial<Record<DropTargetState['type'], SerializedStyles>> =
+  {
+    'is-card-over': css({
+      background: token('color.background.selected.hovered', '#CCE0FF'),
+    }),
+  };
+
+const draggableStateStyles: Partial<
+  Record<DraggableState['type'], SerializedStyles>
+> = {
   /**
    * **Browser bug workaround**
    *
@@ -113,6 +130,9 @@ const stateStyles: { [key in State['type']]: SerializedStyles | undefined } = {
     isolation: 'isolate',
   }),
   'generate-safari-column-preview': undefined,
+  'is-dragging': css({
+    opacity: 0.6,
+  }),
 };
 
 export const Column = memo(function Column({ column }: { column: ColumnType }) {
@@ -120,7 +140,8 @@ export const Column = memo(function Column({ column }: { column: ColumnType }) {
   const columnRef = useRef<HTMLDivElement | null>(null);
   const headerRef = useRef<HTMLDivElement | null>(null);
   const cardListRef = useRef<HTMLDivElement | null>(null);
-  const [state, setState] = useState<State>(idle);
+  const [dropTargetState, setDropTargetState] = useState<DropTargetState>(idle);
+  const [draggableState, setDraggableState] = useState<DraggableState>(idle);
 
   useEffect(() => {
     invariant(columnRef.current);
@@ -137,20 +158,26 @@ export const Column = memo(function Column({ column }: { column: ColumnType }) {
             !navigator.userAgent.includes('Chrome');
 
           if (!isSafari) {
-            setState({ type: 'generate-column-preview' });
+            setDraggableState({ type: 'generate-column-preview' });
             return;
           }
           setCustomNativeDragPreview({
             getOffset: centerUnderPointer,
             render: ({ container }) => {
-              setState({ type: 'generate-safari-column-preview', container });
-              return () => setState(idle);
+              setDraggableState({
+                type: 'generate-safari-column-preview',
+                container,
+              });
+              return () => setDraggableState(idle);
             },
             nativeSetDragImage,
           });
         },
         onDragStart: () => {
-          setState(idle);
+          setDraggableState(isDraggingState);
+        },
+        onDrop() {
+          setDraggableState(idle);
         },
       }),
       dropTargetForElements({
@@ -158,10 +185,10 @@ export const Column = memo(function Column({ column }: { column: ColumnType }) {
         getData: () => ({ columnId }),
         canDrop: args => args.source.data.type === 'card',
         getIsSticky: () => true,
-        onDragEnter: () => setState(isCardOver),
-        onDragLeave: () => setState(idle),
-        onDragStart: () => setState(isCardOver),
-        onDrop: () => setState(idle),
+        onDragEnter: () => setDropTargetState(isCardOver),
+        onDragLeave: () => setDropTargetState(idle),
+        onDragStart: () => setDropTargetState(isCardOver),
+        onDrop: () => setDropTargetState(idle),
       }),
       dropTargetForElements({
         element: columnRef.current,
@@ -178,14 +205,14 @@ export const Column = memo(function Column({ column }: { column: ColumnType }) {
           });
         },
         onDragEnter: args => {
-          setState({
+          setDropTargetState({
             type: 'is-column-over',
             closestEdge: extractClosestEdge(args.self.data),
           });
         },
         onDrag: args => {
           // skip react re-render if edge is not changing
-          setState(current => {
+          setDropTargetState(current => {
             const closestEdge: Edge | null = extractClosestEdge(args.self.data);
             if (
               current.type === 'is-column-over' &&
@@ -200,10 +227,10 @@ export const Column = memo(function Column({ column }: { column: ColumnType }) {
           });
         },
         onDragLeave: () => {
-          setState(idle);
+          setDropTargetState(idle);
         },
         onDrop: () => {
-          setState(idle);
+          setDropTargetState(idle);
         },
       }),
     );
@@ -228,7 +255,14 @@ export const Column = memo(function Column({ column }: { column: ColumnType }) {
 
   return (
     <ColumnContext.Provider value={contextValue}>
-      <div css={[columnStyles, stateStyles[state.type]]} ref={columnRef}>
+      <div
+        css={[
+          columnStyles,
+          stateStyles[dropTargetState.type],
+          draggableStateStyles[draggableState.type],
+        ]}
+        ref={columnRef}
+      >
         <div
           css={columnHeaderStyles}
           ref={headerRef}
@@ -246,12 +280,19 @@ export const Column = memo(function Column({ column }: { column: ColumnType }) {
             ))}
           </div>
         </div>
-        {state.type === 'is-column-over' && state.closestEdge && (
-          <DropIndicator edge={state.closestEdge} gap={`${columnGap}px`} />
-        )}
+        {dropTargetState.type === 'is-column-over' &&
+          dropTargetState.closestEdge && (
+            <DropIndicator
+              edge={dropTargetState.closestEdge}
+              gap={`${columnGap}px`}
+            />
+          )}
       </div>
-      {state.type === 'generate-safari-column-preview'
-        ? createPortal(<SafariColumnPreview column={column} />, state.container)
+      {draggableState.type === 'generate-safari-column-preview'
+        ? createPortal(
+            <SafariColumnPreview column={column} />,
+            draggableState.container,
+          )
         : null}
     </ColumnContext.Provider>
   );

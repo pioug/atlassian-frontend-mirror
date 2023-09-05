@@ -51,6 +51,10 @@ export class ObjectURLCache {
     const removed = this.cache.delete(key);
     removed && URL.revokeObjectURL(removed.dataURI);
   }
+
+  clear() {
+    this.cache.clear();
+  }
 }
 
 export const createObjectURLCache = () =>

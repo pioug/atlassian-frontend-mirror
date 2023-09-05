@@ -117,7 +117,6 @@ export function createDefaultPreset(
       return builder;
     })
     .add([blockTypePlugin, options.blockType])
-    .add([placeholderPlugin, options.placeholder])
     .add(clearMarksOnChangeToEmptyDocumentPlugin)
     .maybeAdd(annotationPlugin, (p, builder) => {
       if (options.annotationProviders) {
@@ -135,6 +134,7 @@ export function createDefaultPreset(
         createAnalyticsEvent: options.createAnalyticsEvent,
       },
     ])
+    .add([placeholderPlugin, options.placeholder])
     .add(unsupportedContentPlugin)
     .add(editorDisabledPlugin)
     .add([submitEditorPlugin, options.submitEditor])

@@ -1,5 +1,4 @@
 import { authToOwner, AuthProvider } from '@atlaskit/media-core';
-import { MediaFeatureFlags } from '@atlaskit/media-common';
 import fetchMock from 'fetch-mock/cjs/client';
 import {
   ResponseFileItem,
@@ -14,7 +13,6 @@ import {
   UploadController,
   FilePreview,
   isPreviewableFileState,
-  isErrorFileState,
   isFileFetcherError,
   FileFetcherError,
 } from '../..';
@@ -34,6 +32,7 @@ import { fakeMediaClient } from '../../test-helpers';
 import { fromObservable, toPromise } from '../../utils/mediaSubscribable';
 import { isMimeTypeSupportedByServer } from '@atlaskit/media-common/mediaTypeUtils';
 import * as MediaStoreModule from '../../client/media-store';
+import { mediaStore as fileStateStore } from '@atlaskit/media-state';
 
 jest.mock('../../utils/getDimensionsFromBlob', () => {
   return {
@@ -51,7 +50,7 @@ describe('FileFetcher', () => {
   const fileName = 'some-name';
   const binaryUrl = 'http://some-binary-url.com/';
 
-  const setup = (featureFlags?: MediaFeatureFlags) => {
+  const setup = () => {
     getFileStreamsCache().removeAll();
 
     const items: ResponseFileItem[] = [
@@ -170,7 +169,7 @@ describe('FileFetcher', () => {
       touchFiles,
     } as jest.Mocked<MediaStore>;
 
-    const fileFetcher = new FileFetcherImpl(mediaStore);
+    const fileFetcher = new FileFetcherImpl(mediaStore, fileStateStore);
 
     (fileFetcher as any).generateUploadableFileUpfrontIds = jest
       .fn()
@@ -300,7 +299,6 @@ describe('FileFetcher', () => {
         } catch {
           expect(globalMediaEventEmitter.emit).toHaveBeenCalledTimes(0);
         }
-        expect.assertions(1);
       });
 
       it('should call getFileBinaryURL', () => {
@@ -356,6 +354,13 @@ describe('FileFetcher', () => {
     it('should return an errored observable if we pass an invalid file id', (done) => {
       const { fileFetcher } = setup();
 
+      const expectedErrorAttributes = {
+        reason: 'invalidFileId',
+        id: 'invalid-id',
+        collectionName: 'collection',
+        occurrenceKey: 'occurrence-key',
+      };
+
       fileFetcher
         .getFileState('invalid-id', {
           collectionName: 'collection',
@@ -363,18 +368,14 @@ describe('FileFetcher', () => {
         })
         .subscribe({
           error(error) {
-            if (!isFileFetcherError(error)) {
-              return expect(isFileFetcherError(error)).toBeTruthy();
-            }
-            expect(error.attributes).toEqual({
-              reason: 'invalidFileId',
-              id: 'invalid-id',
-              collectionName: 'collection',
-              occurrenceKey: 'occurrence-key',
-            });
+            expect(isFileFetcherError(error)).toBeTruthy();
+            expect(error.attributes).toEqual(expectedErrorAttributes);
             done();
           },
         });
+      const storedFileState: any =
+        fileStateStore.getState().files['invalid-id'];
+      expect(storedFileState.details).toEqual(expectedErrorAttributes);
     });
 
     it('should split calls to /items by collection name', (done) => {
@@ -415,6 +416,29 @@ describe('FileFetcher', () => {
           ]);
           done();
         });
+
+      setImmediate(() => {
+        const { files } = fileStateStore.getState();
+        expect(files[items[0].id]).toEqual(
+          expect.objectContaining({
+            id: items[0].id,
+            name: 'file-1',
+          }),
+        );
+        expect(files[items[1].id]).toEqual(
+          expect.objectContaining({
+            id: items[1].id,
+            name: 'file-2',
+          }),
+        );
+        expect(files[items[2].id]).toEqual(
+          expect.objectContaining({
+            id: items[2].id,
+            name: 'file-3',
+          }),
+        );
+        done();
+      });
     });
 
     it('should group ids without collection in the same call to /items', (done) => {
@@ -447,6 +471,29 @@ describe('FileFetcher', () => {
           undefined,
           expect.any(Object),
         ]);
+        done();
+      });
+
+      setImmediate(() => {
+        const { files } = fileStateStore.getState();
+        expect(files[items[0].id]).toEqual(
+          expect.objectContaining({
+            id: items[0].id,
+            name: 'file-1',
+          }),
+        );
+        expect(files[items[1].id]).toEqual(
+          expect.objectContaining({
+            id: items[1].id,
+            name: 'file-2',
+          }),
+        );
+        expect(files[items[2].id]).toEqual(
+          expect.objectContaining({
+            id: items[2].id,
+            name: 'file-3',
+          }),
+        );
         done();
       });
     });
@@ -484,11 +531,7 @@ describe('FileFetcher', () => {
         });
 
       setImmediate(() => {
-        expect(error).toBeCalledTimes(1);
-        expect(next).toBeCalledTimes(1);
-        expect(mediaStore.getItems).toHaveBeenCalledTimes(2);
-        expect(error).toBeCalledWith(expect.any(Error));
-        expect(next).toBeCalledWith({
+        const expectedFileState = {
           id: items[2].id,
           status: 'processing',
           name: 'file-3',
@@ -498,8 +541,14 @@ describe('FileFetcher', () => {
           artifacts: {},
           representations: {},
           metadataTraceContext: expect.any(Object),
-        });
-
+        };
+        expect(error).toBeCalledTimes(1);
+        expect(next).toBeCalledTimes(1);
+        expect(mediaStore.getItems).toHaveBeenCalledTimes(2);
+        expect(error).toBeCalledWith(expect.any(Error));
+        expect(next).toBeCalledWith(expectedFileState);
+        const storedFileState = fileStateStore.getState().files[items[2].id];
+        expect(storedFileState).toEqual(expectedFileState);
         done();
       });
     });
@@ -523,17 +572,47 @@ describe('FileFetcher', () => {
             expect(err.attributes.reason).toEqual('emptyItems');
             expect(err.attributes.id).toEqual(items[0].id);
             expect(err.attributes.collectionName).toEqual(items[0].collection);
+
+            const expectedErrorAttributes = {
+              collectionName: 'collection-1',
+              id: items[0].id,
+              occurrenceKey: undefined,
+              reason: 'emptyItems',
+            };
+
+            const expectedFileState = {
+              details: expectedErrorAttributes,
+              id: items[0].id,
+              message: 'emptyItems',
+              occurrenceKey: undefined,
+              reason: 'emptyItems',
+              status: 'error',
+            };
+
+            const storedFileState =
+              fileStateStore.getState().files[items[0].id];
+            expect(storedFileState).toEqual(expectedFileState);
             done();
           },
         });
-
-      expect.assertions(4);
     });
 
     it('should return processing file state for empty files', async (done) => {
       const { fileFetcher, mediaStore, items } = setup();
       const next = jest.fn();
       const error = jest.fn();
+
+      const expectedFileState = {
+        id: items[0].id,
+        status: 'processing',
+        name: 'file-1',
+        mimeType: 'image/jpeg',
+        mediaType: 'image',
+        size: 0,
+        artifacts: {},
+        representations: {},
+        metadataTraceContext: expect.any(Object),
+      };
 
       asMockFunctionResolvedValue(mediaStore.getItems, {
         data: {
@@ -566,18 +645,9 @@ describe('FileFetcher', () => {
       setImmediate(() => {
         expect(next).toBeCalledTimes(1);
         expect(error).toBeCalledTimes(0);
-        expect(next).toBeCalledWith({
-          id: items[0].id,
-          status: 'processing',
-          name: 'file-1',
-          mimeType: 'image/jpeg',
-          mediaType: 'image',
-          size: 0,
-          artifacts: {},
-          representations: {},
-          metadataTraceContext: expect.any(Object),
-        });
-
+        expect(next).toBeCalledWith(expectedFileState);
+        const storedFileState = fileStateStore.getState().files[items[0].id];
+        expect(storedFileState).toEqual(expectedFileState);
         done();
       });
     });
@@ -660,7 +730,7 @@ describe('FileFetcher', () => {
       const copiedFileState = await toPromise(
         fromObservable(copiedFileObservable),
       );
-      expect(copiedFileState).toEqual({
+      const expectedFileState = {
         id: 'copied-file-id',
         name: 'copied-file-name',
         status: 'processed',
@@ -670,7 +740,11 @@ describe('FileFetcher', () => {
         representations: {},
         size: 1,
         createdAt: -1,
-      });
+      };
+      expect(copiedFileState).toEqual(expectedFileState);
+
+      const storedFileState = fileStateStore.getState().files['copied-file-id'];
+      expect(storedFileState).toEqual(expectedFileState);
     });
 
     it('should populate cache when copied file "processingStatus" is failed', async () => {
@@ -711,7 +785,7 @@ describe('FileFetcher', () => {
       const copiedFileState = await toPromise(
         fromObservable(copiedFileObservable),
       );
-      expect(copiedFileState).toEqual({
+      const expectedFileState = {
         id: 'copied-file-id',
         name: 'copied-file-name',
         status: 'failed-processing',
@@ -721,7 +795,11 @@ describe('FileFetcher', () => {
         representations: {},
         size: 1,
         createdAt: -1,
-      });
+      };
+      expect(copiedFileState).toEqual(expectedFileState);
+
+      const storedFileState = fileStateStore.getState().files['copied-file-id'];
+      expect(storedFileState).toEqual(expectedFileState);
     });
 
     it('should populate cache when copied file "processingStatus" is pending', async () => {
@@ -772,7 +850,6 @@ describe('FileFetcher', () => {
           'There should be no emission from copiedFileObservable',
         );
       }
-      expect.assertions(1);
     });
 
     it('should update cache in case of an error', async () => {
@@ -810,7 +887,8 @@ describe('FileFetcher', () => {
         }
       }
 
-      expect.assertions(2);
+      const storedFileState = fileStateStore.getState().files['copied-file-id'];
+      expect(storedFileState).toEqual(expect.objectContaining(error));
     });
 
     it('should override preview when provided', async () => {
@@ -859,8 +937,14 @@ describe('FileFetcher', () => {
       if (!isPreviewableFileState(copiedFileState)) {
         return expect(isPreviewableFileState(copiedFileState)).toBeTruthy();
       }
-
       expect(copiedFileState.preview).toEqual(copyOptions.preview);
+
+      const storedFileState = fileStateStore.getState().files['copied-file-id'];
+      if (!isPreviewableFileState(storedFileState)) {
+        return expect(isPreviewableFileState(storedFileState)).toBeTruthy();
+      }
+
+      expect(storedFileState.preview).toEqual(copiedFileState.preview);
     });
 
     it('should override mimeType when provided', async () => {
@@ -912,6 +996,12 @@ describe('FileFetcher', () => {
       }
 
       expect(copiedFileState.mimeType).toEqual(copyOptions.mimeType);
+
+      const storedFileState = fileStateStore.getState().files['copied-file-id'];
+      if (!isPreviewableFileState(storedFileState)) {
+        return expect(isPreviewableFileState(storedFileState)).toBeTruthy();
+      }
+      expect(storedFileState.preview).toEqual(copyOptions.preview);
     });
 
     it('should not override mimeType when not provided', async () => {
@@ -962,6 +1052,14 @@ describe('FileFetcher', () => {
       }
 
       expect(copiedFileState.mimeType).toEqual(copiedFile.mimeType);
+
+      const storedFileState = fileStateStore.getState().files['copied-file-id'];
+
+      if (!isPreviewableFileState(storedFileState)) {
+        return expect(isPreviewableFileState(storedFileState)).toBeTruthy();
+      }
+
+      expect(storedFileState.mimeType).toEqual(copiedFileState.mimeType);
     });
 
     it('should fetch remote processing states for files requiring remote preview', async () => {
@@ -993,7 +1091,10 @@ describe('FileFetcher', () => {
       };
       await fileFetcher.copyFile(source, destination);
       expect(copyFileWithTokenMock).toHaveBeenCalledTimes(1);
-
+      const { files } = fileStateStore.getState();
+      expect(files['copied-file-id']).toEqual(
+        expect.objectContaining(copiedFile),
+      );
       await sleep(0);
       expect(mediaStore.getItems).toHaveBeenCalledTimes(1);
       expect(mediaStore.getItems).toHaveBeenCalledWith(
@@ -1093,23 +1194,25 @@ describe('FileFetcher', () => {
         return expect(fileObservable).toBeDefined();
       }
 
+      const expectedFileState = expect.objectContaining({
+        status: 'processing',
+        name: 'logo.png',
+        size: 0,
+        mediaType: 'unknown',
+        mimeType: '',
+        id: 'upfront-id',
+        occurrenceKey: 'upfront-occurrence-key',
+      });
+
       const fileState = await toPromise(fromObservable(fileObservable));
-      expect(fileState).toEqual(
-        expect.objectContaining({
-          status: 'processing',
-          name: 'logo.png',
-          size: 0,
-          mediaType: 'unknown',
-          mimeType: '',
-          id: 'upfront-id',
-          occurrenceKey: 'upfront-occurrence-key',
-        }),
-      );
+      expect(fileState).toEqual(expectedFileState);
+
+      const storedFileState = fileStateStore.getState().files['upfront-id'];
+      expect(storedFileState).toEqual(expectedFileState);
     });
 
     it('should set preview on cache for that file', async () => {
       const { fileFetcher } = setup();
-
       fetchMock.mock(
         url,
         {
@@ -1126,16 +1229,17 @@ describe('FileFetcher', () => {
         return expect(fileObservable).toBeDefined();
       }
 
-      const fileState = await toPromise(fromObservable(fileObservable));
-      if (isErrorFileState(fileState)) {
-        return expect(fileState.status).not.toBe('error');
-      }
-
-      if (!fileState.preview) {
-        return expect(fileState.preview).toBeDefined();
-      }
+      const fileState: any = await toPromise(fromObservable(fileObservable));
+      expect(fileState.status).not.toBe('error');
+      expect(fileState.preview).toBeDefined();
 
       expect((await fileState.preview).value).toBeInstanceOf(Blob);
+
+      const storedFileState: any =
+        fileStateStore.getState().files['upfront-id'];
+
+      expect(storedFileState.status).not.toBe('error');
+      expect(storedFileState.preview).toBeDefined();
     });
 
     it('should use collection name', async () => {
@@ -1194,7 +1298,6 @@ describe('FileFetcher', () => {
 
     it('should set the right mediaType', async () => {
       const { fileFetcher } = setup();
-
       fetchMock.mock(
         url,
         {
@@ -1211,11 +1314,15 @@ describe('FileFetcher', () => {
         return expect(fileObservable).toBeDefined();
       }
 
+      const expectedFileState = expect.objectContaining({
+        mediaType: 'image',
+      });
+
       const fileState = await toPromise(fromObservable(fileObservable));
-      expect(fileState).toEqual(
-        expect.objectContaining({
-          mediaType: 'image',
-        }),
+      expect(fileState).toEqual(expectedFileState);
+
+      expect(fileStateStore.getState().files['upfront-id']).toEqual(
+        expectedFileState,
       );
     });
   });
@@ -1224,7 +1331,6 @@ describe('FileFetcher', () => {
     it('should populate cache before upload finishes', async () => {
       const { fileFetcher, createUploadableFile, uploadFileUpfrontIds } =
         setup();
-
       fileFetcher.upload(
         createUploadableFile('logo.png', 'image/png'),
         undefined,
@@ -1235,6 +1341,16 @@ describe('FileFetcher', () => {
       if (!fileObservable) {
         return expect(fileObservable).toBeDefined();
       }
+
+      const expectedFileState = expect.objectContaining({
+        status: 'uploading',
+        name: 'logo.png',
+        size: 0,
+        mediaType: 'image',
+        mimeType: 'image/png',
+        id: 'upfront-id',
+        occurrenceKey: 'upfront-occurrence-key',
+      });
 
       const fileState = await toPromise(fromObservable(fileObservable));
       expect(fileState).toEqual(
@@ -1248,12 +1364,14 @@ describe('FileFetcher', () => {
           occurrenceKey: 'upfront-occurrence-key',
         }),
       );
+
+      const storedFileState = fileStateStore.getState().files['upfront-id'];
+      expect(storedFileState).toEqual(expectedFileState);
     });
 
     it('should be abortable', async () => {
       const { fileFetcher, createUploadableFile, uploadFileUpfrontIds } =
         setup();
-
       const uploadController = new UploadController();
 
       asMockFunction(uploadFile).mockImplementation(
@@ -1277,7 +1395,6 @@ describe('FileFetcher', () => {
           };
         },
       );
-
       fileFetcher.upload(
         createUploadableFile('logo.png', 'image/png'),
         uploadController,
@@ -1290,20 +1407,22 @@ describe('FileFetcher', () => {
       if (!fileObservable) {
         return expect(fileObservable).toBeDefined();
       }
+      const expectedFileState = expect.objectContaining({
+        status: 'uploading',
+        progress: 0,
+        name: 'logo.png',
+        size: 0,
+        mediaType: 'image',
+        mimeType: 'image/png',
+        id: 'upfront-id',
+        occurrenceKey: 'upfront-occurrence-key',
+      });
 
       const fileState = await toPromise(fromObservable(fileObservable));
-      expect(fileState).toEqual(
-        expect.objectContaining({
-          status: 'uploading',
-          progress: 0,
-          name: 'logo.png',
-          size: 0,
-          mediaType: 'image',
-          mimeType: 'image/png',
-          id: 'upfront-id',
-          occurrenceKey: 'upfront-occurrence-key',
-        }),
-      );
+      expect(fileState).toEqual(expectedFileState);
+
+      const storedFileState = fileStateStore.getState().files['upfront-id'];
+      expect(storedFileState).toEqual(expectedFileState);
     });
 
     it('should set preview on cache for that file', async () => {
@@ -1321,10 +1440,7 @@ describe('FileFetcher', () => {
         return expect(fileObservable).toBeDefined();
       }
 
-      const fileState = await toPromise(fromObservable(fileObservable));
-      if (isErrorFileState(fileState)) {
-        return expect(fileState.status).not.toBe('error');
-      }
+      const fileState: any = await toPromise(fromObservable(fileObservable));
 
       const filePreview = fileState.preview;
       if (!filePreview) {
@@ -1332,6 +1448,10 @@ describe('FileFetcher', () => {
       }
 
       expect((await filePreview).value).toBeInstanceOf(Blob);
+
+      const storedFileState: any =
+        fileStateStore.getState().files['upfront-id'];
+      expect(storedFileState.preview).toBeDefined();
     });
 
     it('should set the right mediaType', async () => {
@@ -1349,12 +1469,15 @@ describe('FileFetcher', () => {
         return expect(fileObservable).toBeDefined();
       }
 
+      const expectedFileState = expect.objectContaining({
+        mediaType: 'image',
+      });
+
       const fileState = await toPromise(fromObservable(fileObservable));
-      expect(fileState).toEqual(
-        expect.objectContaining({
-          mediaType: 'image',
-        }),
-      );
+      expect(fileState).toEqual(expectedFileState);
+
+      const storedFileState = fileStateStore.getState().files['upfront-id'];
+      expect(storedFileState).toEqual(expectedFileState);
     });
 
     it('should emit @atlaskit/chunkinator errors through ReplaySubject', async () => {
@@ -1396,8 +1519,8 @@ describe('FileFetcher', () => {
       } catch (err) {
         expect(err).toEqual(error);
       }
-
-      expect.assertions(1);
+      const storedFileState = fileStateStore.getState().files['upfront-id'];
+      expect(storedFileState).toEqual(expect.objectContaining(error));
     });
 
     it('should fetch remote processing states for files requiring remote preview', (done) => {

@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-table
 
+## 2.12.6
+
+### Patch Changes
+
+- [`1f6e908f2bd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1f6e908f2bd) - Workaround invalid getPos error occuring for TableComponent
+
 ## 2.12.5
 
 ### Patch Changes

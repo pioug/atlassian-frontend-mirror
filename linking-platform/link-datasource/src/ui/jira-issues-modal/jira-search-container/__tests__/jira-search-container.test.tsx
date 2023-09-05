@@ -128,9 +128,12 @@ describe('JiraSearchContainer', () => {
       query: undefined,
     });
 
-    expect(mockOnSearch).toHaveBeenCalledWith({
-      jql: 'some-query',
-    });
+    expect(mockOnSearch).toHaveBeenCalledWith(
+      {
+        jql: 'some-query',
+      },
+      'jql',
+    );
   });
 
   it('calls onSearch with JQL', () => {
@@ -143,9 +146,12 @@ describe('JiraSearchContainer', () => {
       getByTestId('jira-jql-datasource-modal--basic-search-button'),
     );
 
-    expect(mockOnSearch).toHaveBeenCalledWith({
-      jql: '(text ~ "testing*" OR summary ~ "testing*") order by created DESC',
-    });
+    expect(mockOnSearch).toHaveBeenCalledWith(
+      {
+        jql: '(text ~ "testing*" OR summary ~ "testing*") order by created DESC',
+      },
+      'basic',
+    );
   });
 
   it('persists basic text search on toggle', () => {

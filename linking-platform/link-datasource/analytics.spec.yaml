@@ -190,7 +190,7 @@ events:
           type: [ "resolved", "unauthorized", "forbidden", "not_found", "errored" ]
           description: To track datasource render state
   - nextItem loaded:
-      type: ui
+      type: track
       description: Fired when user scrolls to the next page/list of the objects
       attributes:
         <<:

@@ -18,13 +18,12 @@ test.use({
 
 test('ED-14152: pressing arrow down above table should move cursor into first row', async ({
   editor,
-  browserName,
 }) => {
   fixTest({
     jiraIssueId: 'DTR-155',
     reason:
       'Pressing ArrowDown before a table in Firefox does not move the cursor into the table',
-    condition: browserName === BROWSERS.firefox,
+    browsers: [BROWSERS.firefox],
   });
   await editor.selection.set({ anchor: 4, head: 4 });
 

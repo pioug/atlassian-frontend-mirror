@@ -885,6 +885,8 @@ interface EditorPluginFeatureProps {
   mentionInsertDisplayName?: boolean;
   // (undocumented)
   saveOnEnter?: boolean;
+  // (undocumented)
+  showIndentationButtons?: boolean;
   // @deprecated (undocumented)
   smartLinks?: CardOptions;
   // (undocumented)

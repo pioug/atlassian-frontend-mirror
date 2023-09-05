@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-core",
-  "version": "187.37.4",
+  "version": "187.38.1",
   "description": "A package contains Atlassian editor core functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -76,9 +76,10 @@
     "@atlaskit/editor-plugin-hyperlink": "^0.4.0",
     "@atlaskit/editor-plugin-image-upload": "^0.2.0",
     "@atlaskit/editor-plugin-list": "^1.2.0",
+    "@atlaskit/editor-plugin-rule": "^0.1.0",
     "@atlaskit/editor-plugin-table": "^2.12.0",
     "@atlaskit/editor-plugin-text-formatting": "^0.4.0",
-    "@atlaskit/editor-plugin-type-ahead": "^0.2.0",
+    "@atlaskit/editor-plugin-type-ahead": "^0.3.0",
     "@atlaskit/editor-plugin-unsupported-content": "^0.2.0",
     "@atlaskit/editor-plugin-width": "^0.2.0",
     "@atlaskit/editor-prosemirror": "1.1.0",
@@ -90,9 +91,9 @@
     "@atlaskit/icon": "^21.12.0",
     "@atlaskit/locale": "^2.5.0",
     "@atlaskit/logo": "^13.14.0",
-    "@atlaskit/media-card": "^76.1.0",
-    "@atlaskit/media-client": "^23.2.0",
-    "@atlaskit/media-common": "^8.2.0",
+    "@atlaskit/media-card": "^76.2.0",
+    "@atlaskit/media-client": "^24.0.0",
+    "@atlaskit/media-common": "^9.0.0",
     "@atlaskit/media-filmstrip": "^47.0.0",
     "@atlaskit/media-picker": "^66.2.0",
     "@atlaskit/media-ui": "^24.0.0",
@@ -116,7 +117,7 @@
     "@atlaskit/textfield": "^5.6.0",
     "@atlaskit/theme": "^12.6.0",
     "@atlaskit/toggle": "^12.6.0",
-    "@atlaskit/tokens": "^1.19.0",
+    "@atlaskit/tokens": "^1.20.0",
     "@atlaskit/tooltip": "^17.8.0",
     "@atlaskit/width-detector": "^4.1.0",
     "@babel/runtime": "^7.0.0",
@@ -269,6 +270,10 @@
     },
     "platform.linking-platform.editor.toolbar-viewed-event": {
       "type": "boolean"
+    },
+    "platform.media-experience.cardv2_7zann": {
+      "type": "boolean",
+      "referenceOnly": "true"
     }
   }
 }

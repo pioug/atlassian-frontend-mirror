@@ -24,13 +24,12 @@ test.describe('media-card', () => {
 
   test('should lazy render media cards after scrolling down', async ({
     editor,
-    browserName,
   }) => {
     fixTest({
       jiraIssueId: 'UTEST-708',
       reason:
         'This test fails on firefox due to a playwright+firefox issue where the network request for the image is not present',
-      condition: browserName === BROWSERS.firefox,
+      browsers: [BROWSERS.firefox],
     });
 
     let wasBlobRequested = false;

@@ -1,5 +1,30 @@
 # @atlaskit/editor-mobile-bridge
 
+## 187.38.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.38.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.37.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.37.5
+
+### Patch Changes
+
+- [`94662d7c5af`](https://bitbucket.org/atlassian/atlassian-frontend/commits/94662d7c5af) - Extracted rule plugin from editor-core to editor-plugin-rule.
+- Updated dependencies
+
 ## 187.37.4
 
 ### Patch Changes

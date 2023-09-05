@@ -31,9 +31,7 @@ describe('dropdown menu button accessibility', () => {
         viewport: { width: 500, height: 500 },
         adf: indentedAdf,
         editorProps: {
-          featureFlags: {
-            indentationButtonsInTheToolbar: true,
-          },
+          showIndentationButtons: true,
         },
       });
       await page.waitForSelector(buttonSelectors.dropdown);
@@ -109,9 +107,7 @@ describe('dropdown menu button accessibility', () => {
         viewport: { width: 500, height: 500 },
         adf: outdentedAdf,
         editorProps: {
-          featureFlags: {
-            indentationButtonsInTheToolbar: true,
-          },
+          showIndentationButtons: true,
         },
       });
       await page.waitForSelector(buttonSelectors.dropdown);

@@ -57,7 +57,6 @@ export type {
 } from './models/media';
 
 export { getArtifactUrl } from './models/artifacts';
-export type { MediaFileArtifact, MediaFileArtifacts } from './models/artifacts';
 
 export { isMediaClientError, getMediaClientErrorReason } from './models/errors';
 export type {
@@ -79,18 +78,23 @@ export {
 } from './models/file-state';
 export type {
   FileStatus,
-  FilePreview,
   PreviewOptions,
   GetFileOptions,
+  NonErrorFileState,
+  PreviewableFileState,
+} from './models/file-state';
+
+export type {
+  FileState,
+  FilePreview,
+  ErrorFileState,
   UploadingFileState,
   ProcessingFileState,
   ProcessedFileState,
   ProcessingFailedState,
-  ErrorFileState,
-  NonErrorFileState,
-  PreviewableFileState,
-  FileState,
-} from './models/file-state';
+  MediaFileArtifact,
+  MediaFileArtifacts,
+} from '@atlaskit/media-state';
 
 export type {
   MobileUpload,
@@ -204,6 +208,8 @@ export type {
   WithMediaClient,
 } from './utils/with-media-client-hoc';
 
+export type { MediaClientConfig } from '@atlaskit/media-core';
+
 export { globalMediaEventEmitter } from './globalMediaEventEmitter';
 
 export {
@@ -226,6 +232,8 @@ export type {
 } from './utils/mediaSubscribable';
 
 export { RECENTS_COLLECTION, MAX_RESOLUTION } from './constants';
+
+export { getFileStreamsCache } from './file-streams-cache';
 
 // TODO MEX-659 Remove these exports when all the usages from media-client are replaced with media-common.
 

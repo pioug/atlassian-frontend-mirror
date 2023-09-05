@@ -3,7 +3,14 @@ import Dataloader from 'dataloader';
 import { LRUMap } from 'lru_map';
 import { Interpreter } from 'xstate';
 
-import { UploadingFileState } from '../models/file-state';
+import {
+  MediaStore,
+  mediaStore,
+  ErrorFileState,
+  FileState,
+  UploadingFileState,
+} from '@atlaskit/media-state';
+
 import {
   MobileUpload,
   MobileUploadStartEvent,
@@ -27,7 +34,7 @@ import {
   StateMachineEvent,
   StateMachineTypestate,
 } from '../utils/mobileUpload';
-import { MediaStore } from './media-store';
+import { MediaStore as MediaApi } from './media-store';
 export class MobileUploadImpl implements MobileUpload {
   private readonly dataloader: Dataloader<DataloaderKey, DataloaderResult>;
   private readonly servicesCache: LRUMap<
@@ -40,8 +47,11 @@ export class MobileUploadImpl implements MobileUpload {
     >
   >;
 
-  constructor(mediaStore: MediaStore) {
-    this.dataloader = createFileDataloader(mediaStore);
+  constructor(
+    mediaApi: MediaApi,
+    private readonly store: MediaStore = mediaStore,
+  ) {
+    this.dataloader = createFileDataloader(mediaApi);
     this.servicesCache = createServicesCache();
   }
 
@@ -82,6 +92,20 @@ export class MobileUploadImpl implements MobileUpload {
 
     const subject = createMobileFileStateSubject(service);
 
+    subject.subscribe({
+      next: (fileState: FileState) => {
+        this.setFileState(fileId, fileState);
+      },
+      error: (err) => {
+        const errorFileState: ErrorFileState = this.getErrorFileState(
+          err,
+          fileId,
+          occurrenceKey,
+        );
+        this.setFileState(fileId, errorFileState);
+      },
+    });
+
     this.servicesCache.set(fileId, service);
     getFileStreamsCache().set(fileId, subject);
   }
@@ -112,4 +136,32 @@ export class MobileUploadImpl implements MobileUpload {
       service.send('UPLOAD_ERROR', { message });
     }
   }
+
+  private getErrorFileState = (
+    error: any,
+    id: string,
+    occurrenceKey?: string,
+  ): ErrorFileState =>
+    typeof error === 'string'
+      ? {
+          status: 'error',
+          id,
+          reason: error,
+          occurrenceKey,
+          message: error,
+        }
+      : {
+          status: 'error',
+          id,
+          reason: error?.reason,
+          details: error?.attributes,
+          occurrenceKey,
+          message: error?.message,
+        };
+
+  private setFileState = (id: string, fileState: FileState) => {
+    this.store.setState((state) => {
+      state.files[id] = fileState;
+    });
+  };
 }

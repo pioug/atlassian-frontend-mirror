@@ -58,6 +58,7 @@ describe('getThemeStyles', () => {
     expect(getThemeData(results)).toEqual([
       { id: 'light', attrs: { 'data-theme': 'light' } },
       { id: 'dark', attrs: { 'data-theme': 'dark' } },
+      { id: 'spacing', attrs: { 'data-theme': 'spacing' } },
     ]);
   });
   it('returns an array of ThemeStyles that includes custom themes when theme options provided', async () => {
@@ -104,6 +105,7 @@ describe('getThemeStyles', () => {
     expect(getThemeData(results)).toEqual([
       { id: 'light', attrs: { 'data-theme': 'light' } },
       { id: 'dark', attrs: { 'data-theme': 'dark' } },
+      { id: 'spacing', attrs: { 'data-theme': 'spacing' } },
     ]);
   });
 
@@ -129,27 +131,6 @@ describe('getThemeStyles', () => {
         id: 'dark-new-input-border',
         attrs: { 'data-theme': 'dark-new-input-border' },
       },
-    ]);
-  });
-
-  it('returns an array of ThemeStyles that includes `spacing` when the feature flag is enabled', async () => {
-    (getBooleanFF as jest.Mock).mockImplementation(
-      (name) =>
-        name === 'platform.design-system-team.space-and-shape-tokens_q5me6',
-    );
-
-    let results = await getThemeStyles({
-      colorMode: 'auto',
-      dark: 'dark',
-      light: 'light',
-      typography: 'typography',
-    });
-
-    expect(getThemeData(results)).toEqual([
-      { id: 'light', attrs: { 'data-theme': 'light' } },
-      { id: 'dark', attrs: { 'data-theme': 'dark' } },
-      { id: 'typography', attrs: { 'data-theme': 'typography' } },
-      { id: 'spacing', attrs: { 'data-theme': 'spacing' } },
     ]);
   });
 
@@ -193,6 +174,7 @@ describe('getThemeStyles', () => {
 
     expect(getThemeData(results)).toEqual([
       { id: 'light', attrs: { 'data-theme': 'light' } },
+      { id: 'spacing', attrs: { 'data-theme': 'spacing' } },
     ]);
   });
 

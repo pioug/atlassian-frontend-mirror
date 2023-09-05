@@ -9,6 +9,7 @@ export const StyledBar = (props: StyledBarProps) => {
   return (
     <div
       id="styledBar"
+      data-testid="media-progress-bar"
       css={styledBarStyles({
         progress,
         breakpoint,

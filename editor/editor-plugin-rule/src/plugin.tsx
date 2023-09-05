@@ -1,13 +1,6 @@
 import React from 'react';
 
-import type { Transaction } from '@atlaskit/editor-prosemirror/state';
-
 import { rule } from '@atlaskit/adf-schema';
-
-import type {
-  NextEditorPlugin,
-  OptionalPlugin,
-} from '@atlaskit/editor-common/types';
 import {
   ACTION,
   ACTION_SUBJECT,
@@ -17,13 +10,17 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import { IconDivider } from '@atlaskit/editor-common/quick-insert';
+import type {
+  NextEditorPlugin,
+  OptionalPlugin,
+} from '@atlaskit/editor-common/types';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
+import { insertHorizontalRule } from './commands';
 import inputRulePlugin from './pm-plugins/input-rule';
 import keymapPlugin from './pm-plugins/keymap';
-import { insertHorizontalRule } from './commands';
-
-import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
-import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 
 export type RulePlugin = NextEditorPlugin<
   'rule',
@@ -36,7 +33,7 @@ export type RulePlugin = NextEditorPlugin<
   }
 >;
 
-const rulePlugin: RulePlugin = ({ api }) => {
+export const rulePlugin: RulePlugin = ({ api }) => {
   const featureFlags = api?.featureFlags?.sharedState.currentState() || {};
   return {
     name: 'rule',
@@ -95,5 +92,3 @@ const rulePlugin: RulePlugin = ({ api }) => {
     },
   };
 };
-
-export default rulePlugin;

@@ -19,7 +19,6 @@ import {
   mentionsPlugin,
   panelPlugin,
   placeholderTextPlugin,
-  rulePlugin,
   saveOnEnterPlugin,
   tasksAndDecisionsPlugin,
   textColorPlugin,
@@ -44,7 +43,7 @@ import {
   copyButtonPlugin,
   borderPlugin,
 } from '../../../plugins';
-
+import { rulePlugin } from '@atlaskit/editor-plugin-rule';
 import { emojiPlugin } from '@atlaskit/editor-plugin-emoji';
 import { listPlugin } from '@atlaskit/editor-plugin-list';
 import { imageUploadPlugin } from '@atlaskit/editor-plugin-image-upload';

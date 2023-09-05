@@ -18,6 +18,7 @@
 /// <reference types="react" />
 
 import { Component } from 'react';
+import { FC } from 'react';
 import { FileDetails } from '@atlaskit/media-client';
 import { FileIdentifier } from '@atlaskit/media-client';
 import { FileItem } from '@atlaskit/media-client';
@@ -37,7 +38,7 @@ import { WithMediaClientConfigProps } from '@atlaskit/media-client';
 import { WrappedComponentProps } from 'react-intl-next';
 
 // @public (undocumented)
-export const Card: React_2.FC<CardWithMediaClientConfigProps>;
+export const Card: FC<CardWithMediaClientConfigProps>;
 
 // @public (undocumented)
 export interface CardAction {
@@ -185,6 +186,8 @@ export interface CardState {
   progress?: number;
   // (undocumented)
   shouldAutoplay?: boolean;
+  // (undocumented)
+  shouldUpdateStateForIdentifier?: boolean;
   // (undocumented)
   status: CardStatus;
   // (undocumented)

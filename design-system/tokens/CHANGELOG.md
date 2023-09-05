@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 1.20.0
+
+### Minor Changes
+
+- [`0a95595cd3e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0a95595cd3e) - Space tokens are now enabled by default whenever `setGlobalTheme` is called.
+
 ## 1.19.0
 
 ### Minor Changes

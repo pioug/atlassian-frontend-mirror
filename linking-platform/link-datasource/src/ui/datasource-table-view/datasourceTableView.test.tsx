@@ -11,10 +11,12 @@ import {
   DatasourceTableState,
   useDatasourceTableState,
 } from '../../hooks/useDatasourceTableState';
+import { useIsOnScreen } from '../issue-like-table/useIsOnScreen';
 
-import { DatasourceTableView } from './datasourceTableView'; // Using async one to test lazy integration at the same time
+import { DatasourceTableView } from './datasourceTableView';
 
 jest.mock('../../hooks/useDatasourceTableState');
+jest.mock('../issue-like-table/useIsOnScreen');
 
 const onAnalyticFireEvent = jest.fn();
 
@@ -208,6 +210,28 @@ describe('DatasourceTableView', () => {
     expect(mockReset).toHaveBeenCalledTimes(1);
     expect(mockReset).toHaveBeenCalledWith({ shouldForceRequest: true });
   });
+
+  it.each([
+    ['should', true, true],
+    ['should not', true, false],
+    ['should not', false, true],
+    ['should not', false, false],
+  ])(
+    `%p call onNextPage when hasNextPage is %p and isLastItemVisible is %p`,
+    (outcome, hasNextPage, isLastItemVisible) => {
+      asMock(useIsOnScreen).mockReturnValue(isLastItemVisible);
+      const onNextPage = jest.fn();
+
+      setup({ hasNextPage, onNextPage });
+      renderComponent();
+
+      if (outcome === 'should') {
+        expect(onNextPage).toHaveBeenCalled();
+      } else {
+        expect(onNextPage).not.toHaveBeenCalled();
+      }
+    },
+  );
 
   describe('when results are not returned', () => {
     it('should show no results if no responseItems are returned', () => {

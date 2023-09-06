@@ -23,7 +23,7 @@ export const DEFAULT_BORDER_COLOR = '#091e4224';
 export const DEFAULT_BORDER_SIZE = 2;
 
 export const changeInlineToMediaCard =
-  (editorAnalyticsAPI?: EditorAnalyticsAPI | undefined): Command =>
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined): Command =>
   (state, dispatch) => {
     const { media, mediaInline, mediaGroup } = state.schema.nodes;
     const selectedNode =
@@ -67,7 +67,7 @@ export const changeInlineToMediaCard =
   };
 
 export const changeMediaCardToInline =
-  (editorAnalyticsAPI?: EditorAnalyticsAPI | undefined): Command =>
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined): Command =>
   (state, dispatch) => {
     const { media, mediaInline, paragraph } = state.schema.nodes;
     const selectedNode =
@@ -118,7 +118,7 @@ export const removeInlineCard: Command = (state, dispatch) => {
 };
 
 export const toggleBorderMark =
-  (editorAnalyticsAPI?: EditorAnalyticsAPI | undefined): Command =>
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined): Command =>
   (state, dispatch) => {
     const nodeWithPos = currentMediaNodeWithPos(state);
     if (!nodeWithPos) {
@@ -179,7 +179,7 @@ export const toggleBorderMark =
   };
 
 export const setBorderMark =
-  (editorAnalyticsAPI?: EditorAnalyticsAPI | undefined) =>
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
   (attrs: Partial<BorderMarkAttributes>): Command =>
   (state, dispatch) => {
     const nodeWithPos = currentMediaNodeWithPos(state);

@@ -1,5 +1,12 @@
 # @atlaskit/link-datasource
 
+## 1.0.17
+
+### Patch Changes
+
+- [`882e4e88358`](https://bitbucket.org/atlassian/atlassian-frontend/commits/882e4e88358) - Add playwright tests and add test ids to find elements
+- Updated dependencies
+
 ## 1.0.16
 
 ### Patch Changes

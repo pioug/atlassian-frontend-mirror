@@ -18,14 +18,16 @@ import {
   mediaProvider,
   LOCALSTORAGE_defaultDocKey,
 } from '../../examples/5-full-page';
-import { EditorAppearance, EditorPlugin } from '../../src/types';
-import { EditorActions, ContextPanel } from '../../src';
+import type { EditorAppearance, EditorPlugin } from '../../src/types';
+import type { EditorActions } from '../../src';
+import { ContextPanel } from '../../src';
 
 import * as ADFUrl from '../adf-url';
 import * as FeatureFlagUrl from '../feature-flag-url';
 
 import { copy } from '../copy';
-import { Error, ErrorReport } from '../ErrorReport';
+import type { Error } from '../ErrorReport';
+import { ErrorReport } from '../ErrorReport';
 import { KitchenSinkControls } from './kitchen-sink-controls';
 import { KitchenSinkAdfInput } from './kitchen-sink-adf-input';
 import { container, editorColumn, column, rail } from './kitchen-sink-styles';
@@ -35,10 +37,14 @@ import { isEmptyDocument } from '@atlaskit/editor-common/utils';
 import { getExampleExtensionProviders } from '../get-example-extension-providers';
 import { exampleSelectionDebugger } from '../example-editor-plugins';
 import { getTranslations } from '../../example-helpers/get-translations';
-import { mockDatasourceFetchRequests } from '@atlaskit/link-test-helpers/datasource';
+import {
+  mockDatasourceFetchRequests,
+  mockAssetsClientFetchRequests,
+} from '@atlaskit/link-test-helpers/datasource';
 
 addGlobalEventEmitterListeners();
 mockDatasourceFetchRequests();
+mockAssetsClientFetchRequests();
 
 const appearanceOptions = [
   {

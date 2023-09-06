@@ -27,8 +27,8 @@ import {
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 
 export function keymapPlugin(
-  options?: MediaOptions,
-  editorAnalyticsAPI?: EditorAnalyticsAPI | undefined,
+  options: MediaOptions | undefined,
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
 ): SafePlugin {
   const list = {};
   const { featureFlags } = options || {};
@@ -76,7 +76,7 @@ const splitMediaGroup: Command = (state) => {
 };
 
 const insertAndSelectCaption =
-  (editorAnalyticsAPI?: EditorAnalyticsAPI | undefined): Command =>
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined): Command =>
   (state, dispatch) => {
     const { selection, schema } = state;
     if (

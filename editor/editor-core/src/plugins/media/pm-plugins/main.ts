@@ -147,15 +147,15 @@ export class MediaPluginStateImplementation implements MediaPluginState {
   showEditingDialog?: boolean;
   mediaOptions?: MediaOptions;
   dispatch?: Dispatch;
-  pluginInjectionApi?: ExtractInjectionAPI<typeof mediaPlugin>;
+  pluginInjectionApi: ExtractInjectionAPI<typeof mediaPlugin> | undefined;
 
   constructor(
     state: EditorState,
     options: MediaPluginOptions,
-    mediaOptions?: MediaOptions,
-    newInsertionBehaviour?: boolean,
-    dispatch?: Dispatch,
-    pluginInjectionApi?: ExtractInjectionAPI<typeof mediaPlugin>,
+    mediaOptions: MediaOptions | undefined,
+    newInsertionBehaviour: boolean | undefined,
+    dispatch: Dispatch | undefined,
+    pluginInjectionApi: ExtractInjectionAPI<typeof mediaPlugin> | undefined,
   ) {
     this.options = options;
     this.mediaOptions = mediaOptions;
@@ -342,9 +342,9 @@ export class MediaPluginStateImplementation implements MediaPluginState {
     mediaState: MediaState,
     onMediaStateChanged: MediaStateEventSubscriber,
     pickerType?: string,
-    pluginInjectionApi?: ExtractInjectionAPI<typeof mediaPlugin> | undefined,
   ) => {
     const { state } = this.view;
+    const editorAnalyticsAPI = this.pluginInjectionApi?.analytics?.actions;
 
     const mediaStateWithContext: MediaState = {
       ...mediaState,
@@ -378,7 +378,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
         this.mediaOptions && this.mediaOptions.alignLeftOnInsert,
         this.newInsertionBehaviour,
         widthPluginState,
-        pluginInjectionApi?.analytics?.actions,
+        editorAnalyticsAPI,
       );
     } else if (
       getMediaFeatureFlag('mediaInline', this.mediaOptions?.featureFlags) &&
@@ -386,14 +386,14 @@ export class MediaPluginStateImplementation implements MediaPluginState {
       (!isInsidePotentialEmptyParagraph(state) || isInListItem(state)) &&
       canInsertMediaInline(state)
     ) {
-      insertMediaInlineNode(pluginInjectionApi?.analytics?.actions)(
+      insertMediaInlineNode(editorAnalyticsAPI)(
         this.view,
         mediaStateWithContext,
         collection,
         this.getInputMethod(pickerType),
       );
     } else {
-      insertMediaGroupNode(pluginInjectionApi?.analytics?.actions)(
+      insertMediaGroupNode(editorAnalyticsAPI)(
         this.view,
         [mediaStateWithContext],
         collection,
@@ -738,10 +738,10 @@ export const createPlugin = (
   options: MediaPluginOptions,
   reactContext: () => {},
   getIntl: () => IntlShape,
+  pluginInjectionApi: ExtractInjectionAPI<typeof mediaPlugin> | undefined,
   dispatch?: Dispatch,
   mediaOptions?: MediaOptions,
   newInsertionBehaviour?: boolean,
-  pluginInjectionApi?: ExtractInjectionAPI<typeof mediaPlugin>,
 ) => {
   const intl = getIntl();
 

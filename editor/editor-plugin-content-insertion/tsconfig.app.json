@@ -37,9 +37,6 @@
     },
     {
       "path": "../editor-plugin-analytics/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-prosemirror/tsconfig.app.json"
     }
   ]
 }

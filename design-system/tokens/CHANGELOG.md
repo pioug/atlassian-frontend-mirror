@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 1.20.1
+
+### Patch Changes
+
+- [`4be033a9cb5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4be033a9cb5) - Update types
+
 ## 1.20.0
 
 ### Minor Changes

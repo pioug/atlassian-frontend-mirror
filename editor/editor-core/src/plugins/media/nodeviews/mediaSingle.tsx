@@ -619,9 +619,9 @@ export const ReactMediaSingleNode =
     portalProviderAPI: PortalProviderAPI,
     eventDispatcher: EventDispatcher,
     providerFactory: ProviderFactory,
+    pluginInjectionApi: ExtractInjectionAPI<typeof mediaPlugin> | undefined,
     dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
     mediaOptions: MediaOptions = {},
-    pluginInjectionApi?: ExtractInjectionAPI<typeof mediaPlugin>,
   ) =>
   (node: PMNode, view: EditorView, getPos: getPosHandler) => {
     const hasIntlContext = true;

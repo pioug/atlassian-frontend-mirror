@@ -84,11 +84,11 @@ export const getLinkingToolbar = (
                   }
                   onBack={(href, meta) => {
                     if (href.trim() && meta.inputMethod) {
-                      setUrlToMedia(href, meta.inputMethod)(
-                        view.state,
-                        view.dispatch,
-                        view,
-                      );
+                      setUrlToMedia(
+                        href,
+                        meta.inputMethod,
+                        pluginInjectionApi?.analytics?.actions,
+                      )(view.state, view.dispatch, view);
                     }
                     hideLinkingToolbar(view.state, view.dispatch, view);
                   }}
@@ -107,11 +107,11 @@ export const getLinkingToolbar = (
                     dispatch(tr);
                   }}
                   onSubmit={(href, meta) => {
-                    setUrlToMedia(href, meta.inputMethod)(
-                      view.state,
-                      view.dispatch,
-                      view,
-                    );
+                    setUrlToMedia(
+                      href,
+                      meta.inputMethod,
+                      pluginInjectionApi?.analytics?.actions,
+                    )(view.state, view.dispatch, view);
                     hideLinkingToolbar(view.state, view.dispatch, view);
                   }}
                   onBlur={() => {

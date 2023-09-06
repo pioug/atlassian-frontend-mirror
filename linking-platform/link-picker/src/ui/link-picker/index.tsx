@@ -108,6 +108,8 @@ export interface LinkPickerProps {
   >;
   /** Hides the link picker display text field if set to true. */
   hideDisplayText?: boolean;
+  /** Disables the default width containing the link picker */
+  disableWidth?: boolean;
   featureFlags?: Record<string, unknown>;
 }
 

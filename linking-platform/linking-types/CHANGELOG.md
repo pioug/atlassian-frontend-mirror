@@ -1,5 +1,11 @@
 # @atlaskit/linking-types
 
+## 8.3.0
+
+### Minor Changes
+
+- [`5a5d1886592`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5a5d1886592) - Add follow and unfollow action type
+
 ## 8.2.0
 
 ### Minor Changes

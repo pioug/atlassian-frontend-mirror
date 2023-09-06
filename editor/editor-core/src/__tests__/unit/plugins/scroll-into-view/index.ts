@@ -23,7 +23,7 @@ describe('ScrollIntoView plugin', () => {
   let dispatch: CommandDispatch;
   let plugin: any;
   let appendTrSpy: jest.SpyInstance;
-  let editorAPI: ExtractPublicEditorAPI<any>;
+  let editorAPI: ExtractPublicEditorAPI<any> | undefined;
 
   const getAppendedTr = () =>
     appendTrSpy.mock.results[appendTrSpy.mock.results.length - 1].value;
@@ -53,7 +53,7 @@ describe('ScrollIntoView plugin', () => {
 
   it('scrolls into view when transaction updates stored marks', () => {
     const { strong } = state.schema.marks;
-    editorAPI.core.actions.execute(toggleMark(strong));
+    editorAPI?.core.actions.execute(toggleMark(strong));
     expect(getAppendedTr().scrolledIntoView).toEqual(true);
   });
 

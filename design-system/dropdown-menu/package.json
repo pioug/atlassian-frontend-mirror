@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/dropdown-menu",
-  "version": "11.12.0",
+  "version": "11.13.0",
   "description": "A dropdown menu displays a list of actions or options to a user.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -109,6 +109,13 @@
     },
     "platform.design-system-team.border-checkbox_nyoiu": {
       "type": "boolean"
+    },
+    "platform.design-system-team.new-button-adoption-in-dropdown_p8sn4": {
+      "type": "boolean"
+    },
+    "platform.design-system-team.icon-button-spacing-fix_o1zc5": {
+      "type": "boolean",
+      "referenceOnly": "true"
     }
   },
   "homepage": "https://atlassian.design/components/dropdown-menu/",

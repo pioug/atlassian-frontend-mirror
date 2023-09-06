@@ -1,5 +1,11 @@
 # @atlaskit/dropdown-menu
 
+## 11.13.0
+
+### Minor Changes
+
+- [`4f211dbe626`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4f211dbe626) - [ux] We are adopting a new Button component behind a feature flag. This is necessary for the implementation of the SplitButton component. If this adoption is successful, it will be available in a later release.
+
 ## 11.12.0
 
 ### Minor Changes

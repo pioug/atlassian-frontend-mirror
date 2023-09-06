@@ -10,6 +10,7 @@ import {
   StatusType,
 } from '@atlaskit/linking-types';
 
+import { mockAssetsClientFetchRequests } from './assets';
 import {
   mockAutoCompleteData,
   mockJiraData,
@@ -17,7 +18,13 @@ import {
   mockSuggestionData,
 } from './data';
 
-export { mockAutoCompleteData, mockJiraData, mockSiteData, mockSuggestionData };
+export {
+  mockAutoCompleteData,
+  mockJiraData,
+  mockSiteData,
+  mockSuggestionData,
+  mockAssetsClientFetchRequests,
+};
 
 fetchMock.config.fallbackToNetwork = true;
 

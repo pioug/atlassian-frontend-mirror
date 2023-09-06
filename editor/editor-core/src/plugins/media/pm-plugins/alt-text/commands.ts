@@ -33,7 +33,7 @@ const createCommandWithAnalytics = (
   ) => false | OpenMediaAltTextMenu | CloseMediaAltTextMenu | UpdateAltText,
   transform?: (tr: Transaction, state: EditorState) => Transaction,
 ) => {
-  return (editorAnalyticsAPI?: EditorAnalyticsAPI | undefined) =>
+  return (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
     withAnalytics(editorAnalyticsAPI, {
       action: actionType,
       actionSubject: ACTION_SUBJECT.MEDIA,

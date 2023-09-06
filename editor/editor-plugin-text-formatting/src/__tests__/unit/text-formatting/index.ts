@@ -364,7 +364,7 @@ describe('text-formatting', () => {
 
       const { editorAPI } = editor(doc(p('{<}t{>}ext')));
 
-      editorAPI.core?.actions?.execute(
+      editorAPI?.core?.actions?.execute(
         toggleCodeWithAnalytics(mockEditorAnalyticsAPI)(inputMethod),
       );
 
@@ -373,9 +373,9 @@ describe('text-formatting', () => {
 
     it('should be able to toggle code on a character', () => {
       const { editorView, editorAPI } = editor(doc(p('{<}t{>}ext')));
-      editorAPI.core?.actions?.execute(toggleCode);
+      editorAPI?.core?.actions?.execute(toggleCode);
       expect(editorView.state.doc).toEqualDocument(doc(p(code('t'), 'ext')));
-      editorAPI.core?.actions?.execute(toggleCode);
+      editorAPI?.core?.actions?.execute(toggleCode);
       expect(editorView.state.doc).toEqualDocument(doc(p('text')));
     });
 
@@ -408,11 +408,11 @@ describe('text-formatting', () => {
     it('should convert smart characters to normal ascii', () => {
       const { editorView, editorAPI } = editor(doc(p('{<}… → ← – “ ” ‘ ’{>}')));
 
-      editorAPI.core?.actions?.execute(toggleCode);
+      editorAPI?.core?.actions?.execute(toggleCode);
       expect(editorView.state.doc).toEqualDocument(
         doc(p(code('... -> <- -- " " \' \''))),
       );
-      editorAPI.core?.actions?.execute(toggleCode);
+      editorAPI?.core?.actions?.execute(toggleCode);
       expect(editorView.state.doc).toEqualDocument(
         doc(p('... -> <- -- " " \' \'')),
       );
@@ -423,11 +423,11 @@ describe('text-formatting', () => {
         doc(p(''), p('{<}hello … → ← – “ ” ‘ ’ world{>}')),
       );
 
-      editorAPI.core?.actions?.execute(toggleCode);
+      editorAPI?.core?.actions?.execute(toggleCode);
       expect(editorView.state.doc).toEqualDocument(
         doc(p(''), p(code('hello ... -> <- -- " " \' \' world'))),
       );
-      editorAPI.core?.actions?.execute(toggleCode);
+      editorAPI?.core?.actions?.execute(toggleCode);
       expect(editorView.state.doc).toEqualDocument(
         doc(p(''), p('hello ... -> <- -- " " \' \' world')),
       );
@@ -437,7 +437,7 @@ describe('text-formatting', () => {
       const { editorView, editorAPI } = editor(
         doc(p(''), p(''), p(''), p(''), p('{<}hello … → ← – “ ” ‘ ’ world{>}')),
       );
-      editorAPI.core?.actions?.execute(toggleCode);
+      editorAPI?.core?.actions?.execute(toggleCode);
       expect(editorView.state.doc).toEqualDocument(
         doc(
           p(''),
@@ -447,7 +447,7 @@ describe('text-formatting', () => {
           p(code('hello ... -> <- -- " " \' \' world')),
         ),
       );
-      editorAPI.core?.actions?.execute(toggleCode);
+      editorAPI?.core?.actions?.execute(toggleCode);
       expect(editorView.state.doc).toEqualDocument(
         doc(
           p(''),
@@ -463,7 +463,7 @@ describe('text-formatting', () => {
       const { editorView, editorAPI } = editor(
         doc(p(''), p(''), p('he{<}llo … → ← – “ ” ‘ ’ wor{>}ld')),
       );
-      editorAPI.core?.actions?.execute(toggleCode);
+      editorAPI?.core?.actions?.execute(toggleCode);
       expect(editorView.state.doc).toEqualDocument(
         doc(
           p(''),
@@ -471,7 +471,7 @@ describe('text-formatting', () => {
           p('he', code('llo ... -> <- -- " " \' \' wor'), 'ld'),
         ),
       );
-      editorAPI.core?.actions?.execute(toggleCode);
+      editorAPI?.core?.actions?.execute(toggleCode);
       expect(editorView.state.doc).toEqualDocument(
         doc(p(''), p(''), p('hello ... -> <- -- " " \' \' world')),
       );
@@ -498,7 +498,7 @@ describe('text-formatting', () => {
 
       const { editorAPI } = editor(doc(p('{<}t{>}ext')));
 
-      editorAPI.core?.actions?.execute(
+      editorAPI?.core?.actions?.execute(
         toggleEmWithAnalytics(mockEditorAnalyticsAPI)(inputMethod),
       );
 
@@ -507,9 +507,9 @@ describe('text-formatting', () => {
 
     it('should be able to toggle em on a character', () => {
       const { editorView, editorAPI } = editor(doc(p('{<}t{>}ext')));
-      editorAPI.core?.actions?.execute(toggleEm);
+      editorAPI?.core?.actions?.execute(toggleEm);
       expect(editorView.state.doc).toEqualDocument(doc(p(em('t'), 'ext')));
-      editorAPI.core?.actions?.execute(toggleEm);
+      editorAPI?.core?.actions?.execute(toggleEm);
       expect(editorView.state.doc).toEqualDocument(doc(p('text')));
     });
 
@@ -553,7 +553,7 @@ describe('text-formatting', () => {
 
       const { editorAPI } = editor(doc(p('{<}t{>}ext')));
 
-      editorAPI.core?.actions?.execute(
+      editorAPI?.core?.actions?.execute(
         toggleStrongWithAnalytics(mockEditorAnalyticsAPI)(inputMethod),
       );
 
@@ -562,9 +562,9 @@ describe('text-formatting', () => {
 
     it('should be able to toggle strong on a character', () => {
       const { editorView, editorAPI } = editor(doc(p('{<}t{>}ext')));
-      editorAPI.core?.actions?.execute(toggleStrong);
+      editorAPI?.core?.actions?.execute(toggleStrong);
       expect(editorView.state.doc).toEqualDocument(doc(p(strong('t'), 'ext')));
-      editorAPI.core?.actions?.execute(toggleStrong);
+      editorAPI?.core?.actions?.execute(toggleStrong);
       expect(editorView.state.doc).toEqualDocument(doc(p('text')));
     });
 
@@ -607,7 +607,7 @@ describe('text-formatting', () => {
       };
       const { editorAPI } = editor(doc(p('{<}t{>}ext')));
 
-      editorAPI.core?.actions?.execute(
+      editorAPI?.core?.actions?.execute(
         toggleUnderlineWithAnalytics(mockEditorAnalyticsAPI)(inputMethod),
       );
 
@@ -616,11 +616,11 @@ describe('text-formatting', () => {
 
     it('should be able to toggle underline on a character', () => {
       const { editorView, editorAPI } = editor(doc(p('{<}t{>}ext')));
-      editorAPI.core?.actions?.execute(toggleUnderline);
+      editorAPI?.core?.actions?.execute(toggleUnderline);
       expect(editorView.state.doc).toEqualDocument(
         doc(p(underline('t'), 'ext')),
       );
-      editorAPI.core?.actions?.execute(toggleUnderline);
+      editorAPI?.core?.actions?.execute(toggleUnderline);
       expect(editorView.state.doc).toEqualDocument(doc(p('text')));
     });
 
@@ -663,7 +663,7 @@ describe('text-formatting', () => {
       };
       const { editorAPI } = editor(doc(p('{<}t{>}ext')));
 
-      editorAPI.core?.actions?.execute(
+      editorAPI?.core?.actions?.execute(
         toggleStrikeWithAnalytics(mockEditorAnalyticsAPI)(inputMethod),
       );
 
@@ -672,9 +672,9 @@ describe('text-formatting', () => {
 
     it('should be able to toggle strike on a character', () => {
       const { editorView, editorAPI } = editor(doc(p('{<}t{>}ext')));
-      editorAPI.core?.actions?.execute(toggleStrike);
+      editorAPI?.core?.actions?.execute(toggleStrike);
       expect(editorView.state.doc).toEqualDocument(doc(p(strike('t'), 'ext')));
-      editorAPI.core?.actions?.execute(toggleStrike);
+      editorAPI?.core?.actions?.execute(toggleStrike);
       expect(editorView.state.doc).toEqualDocument(doc(p('text')));
     });
 
@@ -717,7 +717,7 @@ describe('text-formatting', () => {
       };
       const { editorAPI } = editor(doc(p('{<}t{>}ext')));
 
-      editorAPI.core?.actions?.execute(
+      editorAPI?.core?.actions?.execute(
         toggleSubscriptWithAnalytics(mockEditorAnalyticsAPI)(inputMethod),
       );
 
@@ -727,11 +727,11 @@ describe('text-formatting', () => {
 
     it('should be able to toggle subscript on a character', () => {
       const { editorView, editorAPI } = editor(doc(p('{<}t{>}ext')));
-      editorAPI.core?.actions?.execute(toggleSubscript);
+      editorAPI?.core?.actions?.execute(toggleSubscript);
       expect(editorView.state.doc).toEqualDocument(
         doc(p(subsup({ type: 'sub' })('t'), 'ext')),
       );
-      editorAPI.core?.actions?.execute(toggleSubscript);
+      editorAPI?.core?.actions?.execute(toggleSubscript);
       expect(editorView.state.doc).toEqualDocument(doc(p('text')));
     });
 
@@ -792,7 +792,7 @@ describe('text-formatting', () => {
       };
       const { editorAPI } = editor(doc(p('{<}t{>}ext')));
 
-      editorAPI.core?.actions?.execute(
+      editorAPI?.core?.actions?.execute(
         toggleSuperscriptWithAnalytics(mockEditorAnalyticsAPI)(inputMethod),
       );
 
@@ -802,11 +802,11 @@ describe('text-formatting', () => {
     it('should be able to toggle superscript on a character', () => {
       const { editorView, editorAPI } = editor(doc(p('{<}t{>}ext')));
 
-      editorAPI.core?.actions?.execute(toggleSuperscript);
+      editorAPI?.core?.actions?.execute(toggleSuperscript);
       expect(editorView.state.doc).toEqualDocument(
         doc(p(subsup({ type: 'sup' })('t'), 'ext')),
       );
-      editorAPI.core?.actions?.execute(toggleSuperscript);
+      editorAPI?.core?.actions?.execute(toggleSuperscript);
       expect(editorView.state.doc).toEqualDocument(doc(p('text')));
     });
 
@@ -836,15 +836,15 @@ describe('text-formatting', () => {
 
     it('deactives subscript after toggling superscript for an empty selection', () => {
       const { editorAPI, pluginState } = editor(doc(p('te{<>}xt')));
-      editorAPI.core?.actions?.execute(toggleSubscript);
-      editorAPI.core?.actions?.execute(toggleSuperscript);
+      editorAPI?.core?.actions?.execute(toggleSubscript);
+      editorAPI?.core?.actions?.execute(toggleSuperscript);
       expect(pluginState.subscriptActive).toBe(false);
     });
 
     it('deactives subscript after toggling superscript for selected text', () => {
       const { editorAPI, pluginState } = editor(doc(p('t{<}e{>}xt')));
-      editorAPI.core?.actions?.execute(toggleSubscript);
-      editorAPI.core?.actions?.execute(toggleSuperscript);
+      editorAPI?.core?.actions?.execute(toggleSubscript);
+      editorAPI?.core?.actions?.execute(toggleSuperscript);
       expect(pluginState.subscriptActive).toBe(false);
     });
 
@@ -874,7 +874,7 @@ describe('text-formatting', () => {
       };
       const { editorAPI } = editor(doc(p('{<}t{>}ext')));
 
-      editorAPI.core?.actions?.execute(
+      editorAPI?.core?.actions?.execute(
         toggleCodeWithAnalytics(mockEditorAnalyticsAPI)(inputMethod),
       );
 

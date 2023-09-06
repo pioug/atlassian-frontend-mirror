@@ -31,9 +31,5 @@
     "composite": true,
     "outDir": "../../../tsDist/@atlaskit__prosemirror-collab/app"
   },
-  "references": [
-    {
-      "path": "../editor-prosemirror/tsconfig.app.json"
-    }
-  ]
+  "references": []
 }

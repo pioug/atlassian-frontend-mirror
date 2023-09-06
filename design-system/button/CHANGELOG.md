@@ -1,5 +1,11 @@
 # @atlaskit/button
 
+## 16.9.4
+
+### Patch Changes
+
+- [`f204e4e0e55`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f204e4e0e55) - Expose temporary "unsafe" entry point for internal work. It will be removed soon. PLEASE DO NOT USE.
+
 ## 16.9.3
 
 ### Patch Changes

@@ -8,12 +8,15 @@ import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { focusPlugin } from '@atlaskit/editor-plugin-focus';
-import placeholderPlugin, { placeholderTestId } from '../../';
+import { placeholderPlugin } from '@atlaskit/editor-plugin-placeholder';
 import { compositionPlugin } from '@atlaskit/editor-plugin-composition';
+// ONCE WE DECOUPLE TYPE-AHEAD LET'S MOVE THIS TEST INTO @atlaskit/editor-plugin-placeholder
 import typeAheadPlugin from '../../../type-ahead';
 import type { TypeAheadHandler } from '@atlaskit/editor-common/types';
 import { TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+
+const placeholderTestId = 'placeholder-test-id';
 
 function expectNoPlaceholder(editorView: EditorView) {
   const placeholder = editorView.dom.querySelector(

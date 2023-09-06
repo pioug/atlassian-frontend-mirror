@@ -33,7 +33,7 @@ describe('Quick Insert Commands', () => {
   describe('openElementBrowserModal', () => {
     it('should set isElementBrowserModalOpen to true', () => {
       const { editorView, editorAPI } = createEditor({});
-      editorAPI.core?.actions?.execute(openElementBrowserModal);
+      editorAPI?.core?.actions?.execute(openElementBrowserModal);
 
       const quickInsertState = pluginKey.getState(editorView.state);
 

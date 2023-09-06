@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/button",
-  "version": "16.9.3",
+  "version": "16.9.4",
   "description": "A button triggers an event or action. They let users know what will happen next.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -35,6 +35,7 @@
     "./custom-theme-button": "./src/entry-points/custom-theme-button.tsx",
     "./loading-button": "./src/entry-points/loading-button.tsx",
     "./standard-button": "./src/entry-points/standard-button.tsx",
+    "./unsafe": "./src/entry-points/unsafe.tsx",
     "./types": "./src/entry-points/types.tsx",
     ".": "./src/index.tsx"
   },

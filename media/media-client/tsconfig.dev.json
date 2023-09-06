@@ -53,7 +53,7 @@
       "path": "../media-core/tsconfig.app.json"
     },
     {
-      "path": "../media-test-helpers/tsconfig.app.json"
+      "path": "../media-state/tsconfig.app.json"
     },
     {
       "path": "../../../build/test-tooling/ssr/tsconfig.app.json"

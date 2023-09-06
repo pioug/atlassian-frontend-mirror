@@ -1,5 +1,12 @@
 # @atlaskit/link-test-helpers
 
+## 6.0.5
+
+### Patch Changes
+
+- [`882e4e88358`](https://bitbucket.org/atlassian/atlassian-frontend/commits/882e4e88358) - Add playwright tests and add test ids to find elements
+- Updated dependencies
+
 ## 6.0.4
 
 ### Patch Changes

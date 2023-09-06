@@ -58,9 +58,6 @@
       "path": "../../design-system/flag/tsconfig.app.json"
     },
     {
-      "path": "../media-card/tsconfig.app.json"
-    },
-    {
       "path": "../media-client/tsconfig.app.json"
     },
     {

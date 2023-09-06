@@ -14,5 +14,11 @@ module.exports = {
         'import/no-default-export': ['off'],
       },
     },
+    {
+      files: ['src/**/index.vr.{js,ts,tsx}'],
+      rules: {
+        '@atlassian/tangerine/import/no-parent-imports': ['off'],
+      },
+    },
   ],
 };

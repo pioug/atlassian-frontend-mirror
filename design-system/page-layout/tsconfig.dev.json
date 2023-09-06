@@ -36,6 +36,9 @@
       "path": "tsconfig.app.json"
     },
     {
+      "path": "../accessibility-testing/tsconfig.app.json"
+    },
+    {
       "path": "../atlassian-navigation/tsconfig.app.json"
     },
     {

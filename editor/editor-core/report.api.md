@@ -100,9 +100,9 @@ import type { LongPressSelectionPluginOptions } from '@atlaskit/editor-common/ty
 import { MacroAttributes } from '@atlaskit/editor-common/provider-factory';
 import { MacroProvider } from '@atlaskit/editor-common/provider-factory';
 import { MarkConfig } from '@atlaskit/editor-common/types';
-import { MediaClientConfig } from '@atlaskit/media-core';
+import type { MediaClientConfig } from '@atlaskit/media-core';
 import type { MediaFeatureFlags } from '@atlaskit/media-common';
-import { MediaFeatureFlags as MediaFeatureFlags_2 } from '@atlaskit/media-common/mediaFeatureFlags';
+import type { MediaFeatureFlags as MediaFeatureFlags_2 } from '@atlaskit/media-common/mediaFeatureFlags';
 import type { MediaFile } from '@atlaskit/media-picker/types';
 import type { MediaProvider as MediaProvider_2 } from '@atlaskit/editor-common/provider-factory';
 import type { MentionDescription } from '@atlaskit/mention';
@@ -120,6 +120,7 @@ import type { NodeView } from '@atlaskit/editor-prosemirror/view';
 import type { OptionalPlugin } from '@atlaskit/editor-common/types';
 import { PaletteColor } from '@atlaskit/editor-common/ui-color';
 import { PerformanceTracking } from '@atlaskit/editor-common/types';
+import type { PlaceholderPluginOptions } from '@atlaskit/editor-plugin-placeholder';
 import type { PluginConfig } from '@atlaskit/editor-plugin-table/types';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { PMPlugin } from '@atlaskit/editor-common/types';
@@ -165,10 +166,10 @@ import type { TypeAheadItem as TypeAheadItem_2 } from '@atlaskit/editor-common/t
 import type { TypeAheadPluginOptions } from '@atlaskit/editor-plugin-type-ahead';
 import type { TypeAheadStats } from '@atlaskit/editor-common/types';
 import { UIComponentFactory } from '@atlaskit/editor-common/types';
-import { UploadEndEventPayload } from '@atlaskit/media-picker/types';
-import { UploadErrorEventPayload } from '@atlaskit/media-picker/types';
-import { UploadParams } from '@atlaskit/media-picker/types';
-import { UploadPreviewUpdateEventPayload } from '@atlaskit/media-picker/types';
+import type { UploadEndEventPayload } from '@atlaskit/media-picker/types';
+import type { UploadErrorEventPayload } from '@atlaskit/media-picker/types';
+import type { UploadParams } from '@atlaskit/media-picker/types';
+import type { UploadPreviewUpdateEventPayload } from '@atlaskit/media-picker/types';
 import type { UseStickyToolbarType } from '@atlaskit/editor-common/ui';
 import type { WeekDay } from '@atlaskit/calendar/types';
 import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
@@ -1663,14 +1664,6 @@ type PickerFacadeConfig = {
 
 // @public (undocumented)
 type PickerType = 'clipboard' | 'customMediaPicker' | 'dropzone';
-
-// @public (undocumented)
-interface PlaceholderPluginOptions {
-  // (undocumented)
-  placeholder?: string;
-  // (undocumented)
-  placeholderBracketHint?: string;
-}
 
 // @public (undocumented)
 interface PlaceholderTextOptions {

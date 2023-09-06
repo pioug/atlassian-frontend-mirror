@@ -42,6 +42,9 @@
       "path": "../../analytics/analytics-next/tsconfig.app.json"
     },
     {
+      "path": "../../../build/website/docs/tsconfig.app.json"
+    },
+    {
       "path": "../editor-common/tsconfig.app.json"
     },
     {
@@ -60,10 +63,10 @@
       "path": "../editor-plugin-feature-flags/tsconfig.app.json"
     },
     {
-      "path": "../editor-prosemirror/tsconfig.app.json"
+      "path": "../editor-test-helpers/tsconfig.app.json"
     },
     {
-      "path": "../editor-test-helpers/tsconfig.app.json"
+      "path": "../../design-system/tokens/tsconfig.app.json"
     }
   ]
 }

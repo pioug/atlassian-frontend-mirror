@@ -1,4 +1,5 @@
 src/
+src/performance/examples.tsx
 examples-utils/
 examples/
 index.ts

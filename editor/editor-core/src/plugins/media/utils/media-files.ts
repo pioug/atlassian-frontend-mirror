@@ -150,7 +150,7 @@ function shouldAppendParagraph(
  * @param collection Collection for the media to be added
  */
 export const insertMediaInlineNode =
-  (editorAnalyticsAPI?: EditorAnalyticsAPI | undefined) =>
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
   (
     view: EditorView,
     mediaState: MediaState,
@@ -201,7 +201,7 @@ export const insertMediaInlineNode =
  * @param collection Collection for the media to be added
  */
 export const insertMediaGroupNode =
-  (editorAnalyticsAPI?: EditorAnalyticsAPI | undefined) =>
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
   (
     view: EditorView,
     mediaStates: MediaState[],

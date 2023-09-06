@@ -97,7 +97,7 @@ const generateMediaCardFloatingToolbar = (
   intl: IntlShape,
   mediaPluginState: MediaPluginState,
   hoverDecoration: HoverDecorationHandler | undefined,
-  editorAnalyticsAPI?: EditorAnalyticsAPI | undefined,
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
 ) => {
   const { mediaGroup } = state.schema.nodes;
   const items: FloatingToolbarItem<Command>[] = [
@@ -189,7 +189,7 @@ const generateMediaInlineFloatingToolbar = (
   intl: IntlShape,
   mediaPluginState: MediaPluginState,
   hoverDecoration: HoverDecorationHandler | undefined,
-  editorAnalyticsAPI?: EditorAnalyticsAPI | undefined,
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
 ) => {
   const { mediaInline } = state.schema.nodes;
   const items: FloatingToolbarItem<Command>[] = [

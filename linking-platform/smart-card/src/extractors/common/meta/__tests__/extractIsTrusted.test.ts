@@ -1,4 +1,7 @@
 import { JsonLd } from 'json-ld-types';
+
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+
 import { extractIsTrusted } from '../extractIsTrusted';
 
 describe('extractIsTrusted', () => {
@@ -7,6 +10,7 @@ describe('extractIsTrusted', () => {
     [true, 'jira-object-provider'],
     [true, 'miro-object-provider'],
     [false, 'iframely-object-provider'],
+    [true, 'public-object-provider'],
     [false, ''],
     [false, null],
     [false, undefined],
@@ -18,5 +22,58 @@ describe('extractIsTrusted', () => {
     } as JsonLd.Meta.BaseMeta;
 
     expect(extractIsTrusted(meta)).toBe(expected);
+  });
+
+  describe('should consider public object provider and iframely object provider as untrusted', () => {
+    const meta = {
+      access: 'granted',
+      visibility: 'public',
+    } as JsonLd.Meta.BaseMeta;
+
+    ffTest(
+      'platform.linking-platform.smart-card.fix-is-trusted-pop',
+      () => {
+        expect(
+          extractIsTrusted({ ...meta, key: 'public-object-provider' }),
+        ).toBe(false);
+      },
+      () => {
+        expect(
+          extractIsTrusted({ ...meta, key: 'public-object-provider' }),
+        ).toBe(true);
+      },
+    );
+  });
+
+  describe('should consider our 1Ps and 2Ps as trusted', () => {
+    const meta = {
+      access: 'granted',
+      visibility: 'public',
+    } as JsonLd.Meta.BaseMeta;
+
+    ffTest('platform.linking-platform.smart-card.fix-is-trusted-pop', () => {
+      expect(
+        extractIsTrusted({ ...meta, key: 'confluence-object-provider' }),
+      ).toBe(true);
+      expect(extractIsTrusted({ ...meta, key: 'jira-object-provider' })).toBe(
+        true,
+      );
+      expect(extractIsTrusted({ ...meta, key: 'miro-object-provider' })).toBe(
+        true,
+      );
+    });
+  });
+
+  describe('should handle missing or empty values as untrusted', () => {
+    const meta = {
+      access: 'granted',
+      visibility: 'public',
+    } as JsonLd.Meta.BaseMeta;
+
+    ffTest('platform.linking-platform.smart-card.fix-is-trusted-pop', () => {
+      expect(extractIsTrusted({ ...meta, key: '' })).toBe(false);
+      expect(extractIsTrusted({ ...meta, key: null })).toBe(false);
+      expect(extractIsTrusted({ ...meta, key: undefined })).toBe(false);
+    });
   });
 });

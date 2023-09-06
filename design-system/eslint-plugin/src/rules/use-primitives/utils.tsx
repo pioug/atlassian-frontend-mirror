@@ -463,7 +463,7 @@ export const validPrimitiveElements = new Set([
 
 export const isValidPrimitiveElement = (node: JSXElement) => {
   return validPrimitiveElements.has(
-    (node.openingElement.name as JSXIdentifier).name.toLowerCase(),
+    (node.openingElement.name as JSXIdentifier).name,
   );
 };
 

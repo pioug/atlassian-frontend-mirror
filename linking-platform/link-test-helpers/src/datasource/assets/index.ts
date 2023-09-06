@@ -45,11 +45,22 @@ const objectSchemaListResponse = {
 
 const delay = 150;
 
-export const mockAssetsClientFetchRequests = () => {
+interface MockOptions {
+  delayedResponse?: boolean;
+}
+
+export const mockAssetsClientFetchRequests = ({
+  delayedResponse = true,
+}: MockOptions = {}) => {
+  // Playwright VR tests do not like setTimeout
+  const setTimeoutConfigured = delayedResponse
+    ? setTimeout
+    : (cb: Function, _: number) => cb();
+
   const workspaceId = '123';
   fetchMock.get('/rest/servicedesk/cmdb/latest/workspace', async () => {
     return new Promise(resolve => {
-      setTimeout(() => {
+      setTimeoutConfigured(() => {
         resolve({
           results: [
             {
@@ -67,7 +78,7 @@ export const mockAssetsClientFetchRequests = () => {
       const urlParams = new URLSearchParams(url);
       const query = urlParams.get('query');
       return new Promise(resolve => {
-        setTimeout(() => {
+        setTimeoutConfigured(() => {
           if (query) {
             const filteredValues = objectSchemaListResponse.values.filter(
               objectSchema =>
@@ -88,7 +99,7 @@ export const mockAssetsClientFetchRequests = () => {
     async (url: string) => {
       const id = url.split('/').pop();
       return new Promise((resolve, reject) => {
-        setTimeout(() => {
+        setTimeoutConfigured(() => {
           const objectSchema = objectSchemaListResponse.values.find(
             objectSchema => objectSchema.id === id,
           );
@@ -107,7 +118,7 @@ export const mockAssetsClientFetchRequests = () => {
     async (_: string, request: FetchMockRequestDetails) => {
       const requestJson = JSON.parse(request.body) as AqlValidateRequest;
       return new Promise(resolve => {
-        setTimeout(() => {
+        setTimeoutConfigured(() => {
           const isValid = requestJson.qlQuery.includes('invalid')
             ? false
             : true;

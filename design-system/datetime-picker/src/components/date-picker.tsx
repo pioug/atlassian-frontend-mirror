@@ -208,6 +208,7 @@ interface State {
   calendarValue: string;
   selectInputValue: string;
   l10n: LocalizationProvider;
+  locale: string;
 }
 
 function getValidDate(iso: string) {
@@ -327,14 +328,21 @@ class DatePicker extends Component<DatePickerProps, State> {
         this.props.defaultValue ||
         getShortISOString(new Date()),
       l10n: createLocalizationProvider(this.props.locale),
+      locale: this.props.locale,
     };
   }
 
-  UNSAFE_componentWillReceiveProps(nextProps: Readonly<DatePickerProps>): void {
-    if (this.props.locale !== nextProps.locale) {
-      this.setState({
+  static getDerivedStateFromProps(
+    nextProps: Readonly<DatePickerProps>,
+    prevState: State,
+  ) {
+    if (nextProps.locale !== prevState.locale) {
+      return {
         l10n: createLocalizationProvider(nextProps.locale),
-      });
+        locale: nextProps.locale,
+      };
+    } else {
+      return null;
     }
   }
 

@@ -60,6 +60,9 @@
       "path": "../../design-system/focus-ring/tsconfig.app.json"
     },
     {
+      "path": "../../design-system/form/tsconfig.app.json"
+    },
+    {
       "path": "../../design-system/grid/tsconfig.app.json"
     },
     {
@@ -73,6 +76,9 @@
     },
     {
       "path": "../../design-system/menu/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/modal-dialog/tsconfig.app.json"
     },
     {
       "path": "../../design-system/motion/tsconfig.app.json"
@@ -106,6 +112,9 @@
     },
     {
       "path": "../../design-system/primitives/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/select/tsconfig.app.json"
     },
     {
       "path": "../../design-system/tabs/tsconfig.app.json"

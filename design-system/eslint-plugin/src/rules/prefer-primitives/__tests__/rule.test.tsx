@@ -17,6 +17,9 @@ ruleTester.run('prefer-primitives', rule, {
     // it ignores empty Inline
     '<Inline></Inline>',
 
+    // it ignores React components with the same name as a valid HTML element
+    '<Section></Section>',
+
     // it ignores fragments
     '<></>',
 

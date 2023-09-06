@@ -130,6 +130,9 @@
       "path": "../editor-plugin-editor-disabled/tsconfig.app.json"
     },
     {
+      "path": "../editor-plugin-emoji/tsconfig.app.json"
+    },
+    {
       "path": "../editor-plugin-feature-flags/tsconfig.app.json"
     },
     {
@@ -154,16 +157,22 @@
       "path": "../editor-plugin-list/tsconfig.app.json"
     },
     {
+      "path": "../editor-plugin-placeholder/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-rule/tsconfig.app.json"
+    },
+    {
       "path": "../editor-plugin-table/tsconfig.app.json"
     },
     {
       "path": "../editor-plugin-text-formatting/tsconfig.app.json"
     },
     {
-      "path": "../editor-plugin-width/tsconfig.app.json"
+      "path": "../editor-plugin-unsupported-content/tsconfig.app.json"
     },
     {
-      "path": "../editor-prosemirror/tsconfig.app.json"
+      "path": "../editor-plugin-width/tsconfig.app.json"
     },
     {
       "path": "../editor-shared-styles/tsconfig.app.json"
@@ -230,6 +239,9 @@
     },
     {
       "path": "../../media/media-test-helpers/tsconfig.app.json"
+    },
+    {
+      "path": "../../media/media-ui/tsconfig.app.json"
     },
     {
       "path": "../../elements/mention/tsconfig.app.json"
@@ -311,6 +323,9 @@
     },
     {
       "path": "../../design-system/width-detector/tsconfig.app.json"
+    },
+    {
+      "path": "../../linking-platform/editor-extension-link-create/tsconfig.app.json"
     },
     {
       "path": "../../platform/feature-flags-test-utils/tsconfig.app.json"

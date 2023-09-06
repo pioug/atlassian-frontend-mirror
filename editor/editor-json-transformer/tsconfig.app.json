@@ -37,9 +37,6 @@
     },
     {
       "path": "../adf-utils/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-prosemirror/tsconfig.app.json"
     }
   ]
 }

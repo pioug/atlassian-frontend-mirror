@@ -5,11 +5,11 @@ import type {
 import enableGoogleDrive from './enable-googledrive';
 import { inlineCard } from '@atlaskit/adf-utils/builders';
 import type { InlineCardDefinition } from '@atlaskit/adf-schema';
+
 declare global {
   interface Window {
     appKey?: string;
     clientID?: string;
-    gapi: any;
     google: any;
     GooglePicker: {
       token_client: any;

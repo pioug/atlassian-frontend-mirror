@@ -144,9 +144,9 @@ const mediaPlugin: MediaNextEditorPluginType = ({
                     portalProviderAPI,
                     eventDispatcher,
                     providerFactory,
+                    api,
                     dispatchAnalyticsEvent,
                     options,
-                    api,
                   ),
                   media: ReactMediaNode(
                     portalProviderAPI,
@@ -172,10 +172,10 @@ const mediaPlugin: MediaNextEditorPluginType = ({
               },
               reactContext,
               getIntl,
+              api,
               dispatch,
               options,
               featureFlags.newInsertionBehaviour,
-              api,
             );
           },
         },

@@ -176,7 +176,7 @@ const fireAnalyticForMediaLink = <T extends MediaLinkAEP>(
   tr: Transaction,
   action: T['action'],
   attributes: T['attributes'] = undefined,
-  editorAnalyticsAPI?: EditorAnalyticsAPI | undefined,
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
 ) => {
   editorAnalyticsAPI?.attachAnalyticsEvent({
     action,
@@ -188,7 +188,7 @@ const fireAnalyticForMediaLink = <T extends MediaLinkAEP>(
   return tr;
 };
 
-export const unlink = (editorAnalyticsAPI?: EditorAnalyticsAPI | undefined) =>
+export const unlink = (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
   createMediaLinkingCommand(
     {
       type: MediaLinkingActionsTypes.unlink,
@@ -217,7 +217,7 @@ const getAction = (newUrl: string, state: EditorState) => {
 export const setUrlToMedia = (
   url: string,
   inputMethod: INPUT_METHOD.TYPEAHEAD | INPUT_METHOD.MANUAL,
-  editorAnalyticsAPI?: EditorAnalyticsAPI | undefined,
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
 ) =>
   createMediaLinkingCommand(
     {

@@ -1,6 +1,6 @@
-import { MediaClientConfig } from '@atlaskit/media-core';
+import type { MediaClientConfig } from '@atlaskit/media-core';
 import { StoryBookAuthProvider } from '@atlaskit/media-test-helpers';
-import { MediaError, MediaFile } from '@atlaskit/media-picker/types';
+import type { MediaError, MediaFile } from '@atlaskit/media-picker/types';
 
 import PickerFacade from '../../../../plugins/media/picker-facade';
 import type { ErrorReportingHandler } from '@atlaskit/editor-common/utils';

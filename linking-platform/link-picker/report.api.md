@@ -72,6 +72,7 @@ export interface LinkPickerProps {
       children: React.ReactElement;
     }
   >;
+  disableWidth?: boolean;
   displayText?: null | string;
   // (undocumented)
   featureFlags?: Record<string, unknown>;

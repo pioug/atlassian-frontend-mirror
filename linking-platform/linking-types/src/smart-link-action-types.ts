@@ -2,8 +2,10 @@
  * The enum that describes Smart Link action types
  */
 export enum SmartLinkActionType {
-  StatusUpdateAction = 'StatusUpdateAction',
+  FollowEntityAction = 'FollowEntityAction',
   GetStatusTransitionsAction = 'GetStatusTransitionsAction',
+  StatusUpdateAction = 'StatusUpdateAction',
+  UnfollowEntityAction = 'UnfollowEntityAction',
 }
 
 /**

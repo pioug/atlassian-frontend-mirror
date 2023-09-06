@@ -46,9 +46,6 @@
     },
     {
       "path": "../editor-plugin-feature-flags/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-prosemirror/tsconfig.app.json"
     }
   ]
 }

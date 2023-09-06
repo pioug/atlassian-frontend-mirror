@@ -280,9 +280,13 @@ export interface RichTextType {
 // @public
 export enum SmartLinkActionType {
   // (undocumented)
+  FollowEntityAction = 'FollowEntityAction',
+  // (undocumented)
   GetStatusTransitionsAction = 'GetStatusTransitionsAction',
   // (undocumented)
   StatusUpdateAction = 'StatusUpdateAction',
+  // (undocumented)
+  UnfollowEntityAction = 'UnfollowEntityAction',
 }
 
 // @public (undocumented)

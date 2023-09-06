@@ -33,10 +33,19 @@
   },
   "references": [
     {
-      "path": "../../design-system/theme/tsconfig.app.json"
+      "path": "../adf-schema/tsconfig.app.json"
     },
     {
-      "path": "../../design-system/tokens/tsconfig.app.json"
+      "path": "../editor-common/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-analytics/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-feature-flags/tsconfig.app.json"
+    },
+    {
+      "path": "../input-rules/tsconfig.app.json"
     }
   ]
 }

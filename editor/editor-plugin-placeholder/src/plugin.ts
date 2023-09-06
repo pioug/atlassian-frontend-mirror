@@ -1,21 +1,21 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type {
+  ExtractInjectionAPI,
+  NextEditorPlugin,
+} from '@atlaskit/editor-common/types';
 import {
+  bracketTyped,
   browser,
   isEmptyDocument,
-  bracketTyped,
 } from '@atlaskit/editor-common/utils';
-import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import { PluginKey } from '@atlaskit/editor-prosemirror/state';
-import { DecorationSet, Decoration } from '@atlaskit/editor-prosemirror/view';
-import type {
-  NextEditorPlugin,
-  ExtractInjectionAPI,
-} from '@atlaskit/editor-common/types';
+import type { CompositionPlugin } from '@atlaskit/editor-plugin-composition';
 import type { FocusPlugin } from '@atlaskit/editor-plugin-focus';
 import type { TypeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { PluginKey } from '@atlaskit/editor-prosemirror/state';
+import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
 export const pluginKey = new PluginKey('placeholderPlugin');
-import type { CompositionPlugin } from '@atlaskit/editor-plugin-composition';
 
 interface PlaceHolderState {
   hasPlaceholder: boolean;
@@ -183,7 +183,7 @@ export interface PlaceholderPluginOptions {
   placeholderBracketHint?: string;
 }
 
-type PlaceholderPlugin = NextEditorPlugin<
+export type PlaceholderPlugin = NextEditorPlugin<
   'placeholder',
   {
     pluginConfiguration: PlaceholderPluginOptions | undefined;
@@ -191,7 +191,10 @@ type PlaceholderPlugin = NextEditorPlugin<
   }
 >;
 
-const placeholderPlugin: PlaceholderPlugin = ({ config: options, api }) => ({
+export const placeholderPlugin: PlaceholderPlugin = ({
+  config: options,
+  api,
+}) => ({
   name: 'placeholder',
 
   pmPlugins() {
@@ -208,5 +211,3 @@ const placeholderPlugin: PlaceholderPlugin = ({ config: options, api }) => ({
     ];
   },
 });
-
-export default placeholderPlugin;

@@ -58,9 +58,6 @@
       "path": "../media-common/tsconfig.app.json"
     },
     {
-      "path": "../media-test-helpers/tsconfig.app.json"
-    },
-    {
       "path": "../../design-system/page/tsconfig.app.json"
     },
     {

@@ -44,6 +44,7 @@ import type {
   FloatingToolbarConfig,
   FloatingToolbarCustom,
   FloatingToolbarItem,
+  ExtractInjectionAPI,
 } from '@atlaskit/editor-common/types';
 import type { MediaOptions } from '../../../../../plugins/media/types';
 import type { MediaLinkingState } from '../../../../../plugins/media/pm-plugins/linking';
@@ -66,12 +67,19 @@ import { getToolbarItems } from '../../../../../plugins/floating-toolbar/__tests
 import type { MediaFloatingToolbarOptions } from '../../../../../plugins/media/types';
 import { PanelTextInput } from '@atlaskit/editor-common/ui';
 import type { MediaPluginState } from '../../../../../plugins/media/pm-plugins/types';
+import type { MediaNextEditorPluginType } from '../../../../../plugins/media/next-plugin-type';
 
 interface LinkingActions {
   [key: string]: React.MouseEventHandler | undefined;
 }
+
+type MediaInjectionAPI =
+  | ExtractInjectionAPI<MediaNextEditorPluginType>
+  | undefined;
+
 interface ToolbarWrapper {
   editorView: EditorView;
+  editorAPI: MediaInjectionAPI;
   toolbar: FloatingToolbarConfig | undefined;
   actions: LinkingActions;
   linkToolbarAppearance: ReactElement<LinkingToolbarProps> | undefined;
@@ -189,7 +197,7 @@ describe('media', () => {
     pos: number = 0,
   ): Promise<ToolbarWrapper> {
     // Setup editor
-    const { editorView, pluginState } = editor(doc, {
+    const { editorView, pluginState, editorAPI } = editor(doc, {
       allowLinking: true,
     });
     await pluginState.setMediaProvider(getFreshMediaProvider());
@@ -241,6 +249,7 @@ describe('media', () => {
         openLink: onOpenLink,
       },
       linkToolbarAppearance,
+      editorAPI: editorAPI as MediaInjectionAPI,
     };
   }
 
@@ -250,7 +259,7 @@ describe('media', () => {
     items: Array<ActivityItem>,
   ) {
     const mouseEvent = new MouseEvent('click', { bubbles: true });
-    const { editorView, actions } = wrapper;
+    const { editorView, actions, editorAPI } = wrapper;
     const action = type === 'edit' ? actions.editLink : actions.addLink;
     if (action) {
       action(mouseEvent as any);
@@ -266,7 +275,7 @@ describe('media', () => {
           activityProvider: activityProviderFactory(items),
         }),
       },
-      undefined,
+      editorAPI,
     );
 
     const linkingToolbarComponent = getToolbarItems(toolbar!, editorView).find(
@@ -404,9 +413,11 @@ describe('media', () => {
 
         describe('Linking Toolbar', () => {
           let linkingToolbar: ReactWrapper<LinkAddToolbarProps>;
+          let editorAPI: MediaInjectionAPI;
           let mediaLinkingState: MediaLinkingState;
 
           beforeEach(() => {
+            ({ editorAPI } = toolbarWrapper);
             ({ linkingToolbar } = clickOnToolbarButton(toolbarWrapper, 'add', [
               recentItem1,
             ]));
@@ -440,6 +451,28 @@ describe('media', () => {
             linkingToolbar.props().onBack('', {});
 
             expect(getMediaLinkingState(editorView.state).visible).toBe(false);
+          });
+
+          it('should callAnalytics when I go back', () => {
+            const attachSpy = editorAPI?.analytics?.actions
+              ? jest.spyOn(
+                  editorAPI?.analytics?.actions,
+                  'attachAnalyticsEvent',
+                )
+              : undefined;
+            // @ts-ignore
+            linkingToolbar.props().onBack('blahh', { inputMethod: 'test' });
+            expect(attachSpy).toBeCalledWith({
+              action: 'added',
+              actionSubject: 'media',
+              actionSubjectId: 'link',
+              attributes: {
+                inputMethod: 'test',
+                nodeLocation: 'mediaSingle',
+                selectionType: 'node',
+              },
+              eventType: 'track',
+            });
           });
 
           it('should hide toolbar on blur', () => {
@@ -526,6 +559,7 @@ describe('media', () => {
       describe('With mark on mediaSingle - toggles mark only on media', () => {
         let linkingToolbar: ReactWrapper<LinkAddToolbarProps>;
         let linkingToolbarAppearanceWrapper: ReactWrapper<any>;
+        let editorAPI: MediaInjectionAPI;
         beforeEach(async () => {
           toolbarWrapper = await setupToolbar(
             doc(temporaryMediaSingle('mediaSingleMark')),
@@ -538,7 +572,7 @@ describe('media', () => {
             recentItem1,
           ]));
 
-          ({ editorView, linkToolbarAppearance } = toolbarWrapper);
+          ({ editorView, linkToolbarAppearance, editorAPI } = toolbarWrapper);
           linkingToolbarAppearanceWrapper = mountWithIntl(
             linkToolbarAppearance!,
           );
@@ -555,6 +589,23 @@ describe('media', () => {
           expect(editorView.state.doc).toEqualDocument(
             doc(temporaryMediaSingle('doubleMark')),
           );
+        });
+
+        it('should fire analytics when adding link on the media node', () => {
+          const attachSpy = editorAPI?.analytics?.actions
+            ? jest.spyOn(editorAPI?.analytics?.actions, 'attachAnalyticsEvent')
+            : undefined;
+          linkingToolbar
+            .props()
+            .onSubmit(googleUrl, { inputMethod: INPUT_METHOD.MANUAL });
+
+          expect(attachSpy).toHaveBeenCalledWith({
+            action: 'edited',
+            actionSubject: 'media',
+            actionSubjectId: 'link',
+            attributes: undefined,
+            eventType: 'track',
+          });
         });
 
         it('should remove the link only from media node', () => {

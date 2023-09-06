@@ -265,6 +265,7 @@ describe('nodeviews/mediaSingle', () => {
         eventDispatcher,
         providerFactory,
         undefined,
+        undefined,
         mediaOptions,
       )(node, view, getPos);
 
@@ -280,6 +281,7 @@ describe('nodeviews/mediaSingle', () => {
         portalProviderAPI,
         eventDispatcher,
         providerFactory,
+        undefined,
         undefined,
         mediaOptions,
       )(node, view, getPos);
@@ -307,6 +309,7 @@ describe('nodeviews/mediaSingle', () => {
         eventDispatcher,
         providerFactory,
         undefined,
+        undefined,
         mediaOptions,
       )(node, view, getPos);
 
@@ -321,6 +324,7 @@ describe('nodeviews/mediaSingle', () => {
         portalProviderAPI,
         eventDispatcher,
         providerFactory,
+        undefined,
         undefined,
         mediaOptions,
       )(node, view, getPos);
@@ -485,6 +489,7 @@ describe('nodeviews/mediaSingle', () => {
         eventDispatcher,
         providerFactory,
         undefined,
+        undefined,
         mediaOptions,
       )(node, testView, getPos);
 
@@ -498,6 +503,7 @@ describe('nodeviews/mediaSingle', () => {
         portalProviderAPI,
         eventDispatcher,
         providerFactory,
+        undefined,
         undefined,
         mediaOptions,
       )(node, testView, getPos);
@@ -513,6 +519,7 @@ describe('nodeviews/mediaSingle', () => {
         eventDispatcher,
         providerFactory,
         undefined,
+        undefined,
         mediaOptions,
       )(node, testView, getPos);
 
@@ -525,6 +532,7 @@ describe('nodeviews/mediaSingle', () => {
         portalProviderAPI,
         eventDispatcher,
         providerFactory,
+        undefined,
         undefined,
         mediaOptions,
       )(node, testView, getPos);

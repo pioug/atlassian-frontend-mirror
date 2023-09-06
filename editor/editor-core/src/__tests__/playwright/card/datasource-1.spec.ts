@@ -19,6 +19,12 @@ test.use({
       allowDatasource: true,
     },
   },
+  editorMountOptions: {
+    datasourceMocks: {
+      shouldMockAssets: true,
+      shouldMockORSBatch: true,
+    },
+  },
   platformFeatureFlags: {
     'platform.linking-platform.datasource-jira_issues': true,
     'platform.linking-platform.datasource-assets_objects': true,
@@ -72,12 +78,120 @@ const expectedDatasourceBlockCard = datasourceBlockCard({
   },
 });
 
+const expectedAssetsDatasourceBlockCard = datasourceBlockCard({
+  datasource: {
+    id: '361d618a-3c04-40ad-9b27-3c8ea6927020',
+    parameters: {
+      workspaceId: '123',
+      schemaId: '1',
+      aql: 'Name LIKE A',
+    },
+    views: [
+      {
+        type: 'table',
+        properties: {
+          columns: [
+            {
+              key: 'key',
+            },
+            {
+              key: 'type',
+            },
+            {
+              key: 'summary',
+            },
+            {
+              key: 'description',
+            },
+            {
+              key: 'assignee',
+            },
+            {
+              key: 'priority',
+            },
+            {
+              key: 'labels',
+            },
+            {
+              key: 'status',
+            },
+            {
+              key: 'created',
+            },
+            {
+              key: 'due',
+            },
+          ],
+        },
+      },
+    ],
+  },
+});
+
+const expectedEditedAssetsDatasourceBlockCard = datasourceBlockCard({
+  datasource: {
+    id: '361d618a-3c04-40ad-9b27-3c8ea6927020',
+    parameters: {
+      workspaceId: '123',
+      schemaId: '2',
+      aql: 'Name LIKE A',
+    },
+    views: [
+      {
+        type: 'table',
+        properties: {
+          columns: [
+            {
+              key: 'id',
+            },
+            {
+              key: 'type',
+            },
+            {
+              key: 'key',
+            },
+            {
+              key: 'description',
+            },
+            {
+              key: 'summary',
+            },
+            {
+              key: 'assignee',
+            },
+            {
+              key: 'priority',
+            },
+            {
+              key: 'status',
+            },
+            {
+              key: 'created',
+            },
+            {
+              key: 'due',
+            },
+            {
+              key: 'labels',
+            },
+          ],
+        },
+      },
+    ],
+  },
+});
+
 const datasourceTestIdPrefix = 'jira-jql-datasource-modal--';
 const modalInputTestId = `${datasourceTestIdPrefix}basic-search-input`;
 const modalSearchButtonTestId = `${datasourceTestIdPrefix}basic-search-button`;
 const modalInsertButtonTestId = `${datasourceTestIdPrefix}insert-button`;
 
 const assetModalTestId = 'asset-datasource-modal';
+const assetsDatasourceTestIdPrefix = 'assets-datasource-modal--';
+const assetsModalSearchInputTestId = `${assetsDatasourceTestIdPrefix}aql-search-input`;
+const assetsValidAQLIconTestId = `${assetsDatasourceTestIdPrefix}aql-valid`;
+const assetsModalSearchButtonTestId = `${assetsDatasourceTestIdPrefix}aql-search-button`;
+const assetsModalInsertButtonTestId = `${assetsDatasourceTestIdPrefix}insert-button`;
 
 test.describe('blockCard:datasource', () => {
   test('should insert datasource from the /jira command', async ({
@@ -111,10 +225,140 @@ test.describe('blockCard:datasource', () => {
     );
   });
 
-  test('should pop modal from the /assets command', async ({ editor }) => {
+  // Skipping this test due to timeout issue in the pipeline (Flaky test)
+  // Example of one of the failed build
+  // https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/1645009
+  // https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/1645066/steps/%7Bc5ae0969-c92a-4d0b-b06b-73a81894a8a2%7D/test-report
+
+  // Exmaple of flaky pipeline where test passed
+  // https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/1644787/steps/%7Bf2057197-1aa2-47b3-832d-4383c4c220f2%7D
+
+  // For more information
+  // https://atlassian.slack.com/archives/CPUEVD9MY/p1693981197715629
+  test.skip('should insert datasource from the /assets command', async ({
+    editor,
+  }) => {
+    const nodes = EditorNodeContainerModel.from(editor);
+    const blockCardModel = EditorBlockCardModel.from(nodes.blockCard);
+
     await editor.keyboard.type('/assets');
     await editor.keyboard.press('Enter');
 
     await expect(await editor.page.getByTestId(assetModalTestId)).toBeVisible();
+
+    // Find Assets schema select box and select a schema
+    const select = editor.page.getByRole('combobox');
+    await (await select.elementHandle())?.waitForElementState('stable');
+    editor.keyboard.press('ArrowDown');
+    await expect(
+      await editor.page.getByText('objSchema1').last(),
+    ).toBeVisible();
+    await editor.keyboard.press('Enter');
+
+    // Find search input and insert a query
+    const aql = editor.page.getByTestId(assetsModalSearchInputTestId);
+    await (await aql.elementHandle())?.waitForElementState('stable');
+    await aql.click();
+    await editor.keyboard.type('Name LIKE A');
+
+    // Check to make sure query is valid before clicking search button
+    const valid = editor.page.getByTestId(assetsValidAQLIconTestId);
+    await (await valid.elementHandle())?.waitForElementState('visible');
+
+    // Find search button and click it
+    const searchButton = editor.page.getByTestId(assetsModalSearchButtonTestId);
+    await (await searchButton.elementHandle())?.waitForElementState('stable');
+    searchButton.click();
+
+    // Check to see if datasource table has rendered successfully
+    const table = editor.page.getByTestId('asset-datasource-table');
+    await (await table.elementHandle())?.waitForElementState('stable');
+
+    // Assert columns exist before editing them
+    await expect(
+      await editor.page.getByTestId('key-column-heading'),
+    ).toBeVisible();
+
+    // Expect this column not to be visible before adding it in
+    await expect(
+      await editor.page.getByTestId('due-column-heading'),
+    ).toBeHidden();
+
+    // Find column picker and select the 'Due Date' column
+    const columnsButton = editor.page.getByTestId(
+      'column-picker-trigger-button',
+    );
+    await (await columnsButton.elementHandle())?.waitForElementState('stable');
+    await columnsButton.click();
+    await editor.keyboard.type('Due Date');
+    await editor.keyboard.press('Enter');
+
+    // Assert that new column has been added
+    const dueColumn = editor.page.getByTestId('due-column-heading');
+    await (await dueColumn.elementHandle())?.waitForElementState('stable');
+    await expect(dueColumn).toBeVisible();
+
+    // Find the insert button and click it
+    const modalInsertButton = editor.page.getByTestId(
+      assetsModalInsertButtonTestId,
+    );
+    await (
+      await modalInsertButton.elementHandle()
+    )?.waitForElementState('stable');
+    modalInsertButton.click();
+
+    // Assert that modal has been closed after inserting
+    await expect(await editor.page.getByTestId(assetModalTestId)).toBeHidden();
+
+    // Assert that inserted ADF is correct
+    await blockCardModel.waitForStable();
+    await expect(editor).toMatchDocument(
+      doc(p(), expectedAssetsDatasourceBlockCard()),
+    );
+
+    // Click on table to get edit controls
+    const tableFooter = editor.page.getByTestId('table-footer');
+    await (await tableFooter.elementHandle())?.waitForElementState('stable');
+    tableFooter.click();
+
+    await expect(
+      await editor.page.getByTestId('floating-toolbar-items'),
+    ).toBeVisible();
+
+    // Click on 'edit' button
+    const editButton = editor.page.getByTestId('datasource-edit-button');
+    await (await editButton.elementHandle())?.waitForElementState('stable');
+    editButton.click();
+
+    // Wait for drawing of modal to be complete and check if visible
+    await editor.waitForEditorStable();
+    await expect(await editor.page.getByTestId(assetModalTestId)).toBeVisible();
+
+    // Find Assets schema select box and select a different schema
+    await (await select.elementHandle())?.waitForElementState('stable');
+    editor.keyboard.press('ArrowDown');
+    // select second option
+    editor.keyboard.press('ArrowDown');
+    await expect(
+      await editor.page.getByText('objSchema2').last(),
+    ).toBeVisible();
+    await editor.keyboard.press('Enter');
+
+    // Click on search button to get new objects
+    await (await searchButton.elementHandle())?.waitForElementState('stable');
+    searchButton.click();
+
+    // click on the insert button
+    await (
+      await modalInsertButton.elementHandle()
+    )?.waitForElementState('stable');
+    modalInsertButton.click();
+
+    // Assert that updated ADF is correct
+    await blockCardModel.waitForStable();
+    await editor.waitForEditorStable();
+    await expect(editor).toMatchDocument(
+      doc(p(), expectedEditedAssetsDatasourceBlockCard()),
+    );
   });
 });

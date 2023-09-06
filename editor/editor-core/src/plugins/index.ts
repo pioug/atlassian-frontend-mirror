@@ -18,7 +18,6 @@ export { default as mediaPlugin } from './media';
 export { default as mentionsPlugin } from './mentions';
 export { default as panelPlugin } from './panel';
 export { default as pastePlugin } from './paste';
-export { default as placeholderPlugin } from './placeholder';
 export { default as placeholderTextPlugin } from './placeholder-text';
 export { default as quickInsertPlugin } from './quick-insert';
 export { default as saveOnEnterPlugin } from './save-on-enter';

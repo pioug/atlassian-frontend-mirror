@@ -26,7 +26,7 @@ const testId = 'alt-text-edit-button';
 export const altTextButton = (
   intl: IntlShape,
   state: EditorState,
-  editorAnalyticsAPI?: EditorAnalyticsAPI | undefined,
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
 ): FloatingToolbarButton<Command> => {
   const mediaNode = getMediaNodeFromSelection(state);
   const message =

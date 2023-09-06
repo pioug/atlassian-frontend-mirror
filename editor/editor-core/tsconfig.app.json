@@ -115,6 +115,9 @@
       "path": "../editor-plugin-emoji/tsconfig.app.json"
     },
     {
+      "path": "../editor-plugin-extension/tsconfig.app.json"
+    },
+    {
       "path": "../editor-plugin-feature-flags/tsconfig.app.json"
     },
     {
@@ -139,6 +142,12 @@
       "path": "../editor-plugin-list/tsconfig.app.json"
     },
     {
+      "path": "../editor-plugin-placeholder/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-rule/tsconfig.app.json"
+    },
+    {
       "path": "../editor-plugin-table/tsconfig.app.json"
     },
     {
@@ -148,10 +157,10 @@
       "path": "../editor-plugin-type-ahead/tsconfig.app.json"
     },
     {
-      "path": "../editor-plugin-width/tsconfig.app.json"
+      "path": "../editor-plugin-unsupported-content/tsconfig.app.json"
     },
     {
-      "path": "../editor-prosemirror/tsconfig.app.json"
+      "path": "../editor-plugin-width/tsconfig.app.json"
     },
     {
       "path": "../editor-shared-styles/tsconfig.app.json"

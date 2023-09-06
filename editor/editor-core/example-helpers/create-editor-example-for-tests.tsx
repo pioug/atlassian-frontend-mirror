@@ -41,7 +41,10 @@ import type { EditorProps } from '../src';
 import { createTestExtensionProvider } from '../src/plugins/floating-toolbar/__tests__/_helpers';
 import { createExtensionFramesProvider } from '../src/__tests__/visual-regression/common/__helpers__/extensionFrameManifest';
 import { getConfluenceMacrosExtensionProvider } from './confluence-macros';
-import { mockDatasourceFetchRequests } from '@atlaskit/link-test-helpers/datasource';
+import {
+  mockAssetsClientFetchRequests,
+  mockDatasourceFetchRequests,
+} from '@atlaskit/link-test-helpers/datasource';
 import { DefaultExtensionProvider } from '@atlaskit/editor-common/extensions';
 import { manifest as jiraCreate } from '@atlassian/editor-extension-link-create';
 
@@ -91,6 +94,9 @@ function createEditorWindowBindings<T extends EditorProps>(
         shouldMockORSBatch: options.datasourceMocks.shouldMockORSBatch,
         delayedResponse: false,
       });
+      if (options.datasourceMocks.shouldMockAssets) {
+        mockAssetsClientFetchRequests({ delayedResponse: false });
+      }
     }
 
     const target = document.getElementById('editor-container');
@@ -547,5 +553,6 @@ export type MountEditorOptions = {
   datasourceMocks?: {
     initialVisibleColumnKeys?: string[];
     shouldMockORSBatch?: boolean;
+    shouldMockAssets?: boolean;
   };
 };

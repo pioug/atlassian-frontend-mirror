@@ -1,8 +1,10 @@
 import React from 'react';
 
-import { fireEvent, render } from '@testing-library/react';
+import { render } from '@testing-library/react';
+import cases from 'jest-in-case';
 
 import Calendar from '../../index';
+import dateToString from '../../internal/utils/date-to-string';
 
 const testId = 'testing';
 const testIdNextMonth = `${testId}--next-month`;
@@ -17,105 +19,45 @@ const testIdContainer = `${testId}--container`;
 const testIdColumnHeader = `${testId}--column-header`;
 
 describe('Calendar should be found by data-testid', () => {
-  it('Next month button is accessible via data-testid', () => {
-    const { getByTestId, rerender } = render(<Calendar testId={testId} />);
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = today.getMonth();
 
-    expect(getByTestId(testIdNextMonth)).toBeTruthy();
-
-    rerender(<Calendar />);
-
-    expect(() => getByTestId(testIdNextMonth)).toThrow();
+  const iso = dateToString({
+    year,
+    month,
+    day: today.getDate(),
   });
 
-  it('Previous month button is accessible via data-testid', () => {
-    const { getByTestId, rerender } = render(<Calendar testId={testId} />);
+  cases(
+    'should be accessible via data-testid',
+    ({ selector }: { selector: string }) => {
+      const { queryAllByTestId, rerender, unmount } = render(
+        <Calendar
+          defaultSelected={[iso]}
+          month={month}
+          year={year}
+          testId={testId}
+        />,
+      );
+      expect(queryAllByTestId(selector).length).toBeGreaterThan(0);
 
-    expect(getByTestId(testIdPrevMonth)).toBeTruthy();
+      rerender(<Calendar defaultSelected={[iso]} month={month} year={year} />);
+      expect(queryAllByTestId(selector).length).toBe(0);
 
-    rerender(<Calendar />);
-
-    expect(() => getByTestId(testIdPrevMonth)).toThrow();
-  });
-
-  it('Month container is accessible via data-testid', () => {
-    const { getByTestId, rerender } = render(<Calendar testId={testId} />);
-
-    expect(getByTestId(testIdMonth)).toBeTruthy();
-
-    rerender(<Calendar />);
-
-    expect(() => getByTestId(testIdMonth)).toThrow();
-  });
-
-  it('Week container is accessible via data-testid', () => {
-    const { getAllByTestId, rerender } = render(<Calendar testId={testId} />);
-
-    expect(getAllByTestId(testIdWeek)).toBeTruthy();
-
-    rerender(<Calendar />);
-
-    expect(() => getAllByTestId(testIdWeek)).toThrow();
-  });
-
-  it('Day is accessible via data-testid', () => {
-    const { getAllByTestId, rerender } = render(<Calendar testId={testId} />);
-
-    expect(getAllByTestId(testIdDay).length).toBeGreaterThan(0);
-
-    rerender(<Calendar />);
-
-    expect(() => getAllByTestId(testIdDay)).toThrow();
-  });
-
-  it('Selected day is accessible via data-testid', () => {
-    const { getAllByTestId, getByTestId } = render(
-      <Calendar testId={testId} />,
-    );
-
-    const weekContainer = getAllByTestId(testIdWeek);
-
-    expect(() => getByTestId(testIdSelectedDay)).toThrow();
-
-    // WeekDayGrid > role="gridcell" > button
-    fireEvent.click(weekContainer[0].children[0].children[0]);
-
-    expect(getByTestId(testIdSelectedDay)).toBeTruthy();
-  });
-
-  it('Text containing current month and year is accessible via data-testid', () => {
-    const { getByTestId, rerender } = render(<Calendar testId={testId} />);
-
-    expect(getByTestId(testIdCurrentMonthYear)).toBeTruthy();
-
-    rerender(<Calendar />);
-
-    expect(() => getByTestId(testIdCurrentMonthYear)).toThrow();
-  });
-
-  it('Calendar dates container is accessible via data-testid', () => {
-    const { getByTestId, rerender } = render(<Calendar testId={testId} />);
-
-    expect(getByTestId(testIdCalendarDates)).toBeTruthy();
-
-    rerender(<Calendar />);
-
-    expect(() => getByTestId(testIdCalendarDates)).toThrow();
-  });
-
-  it('Container is accessible via data-testid', () => {
-    const { getByTestId, rerender } = render(<Calendar testId={testId} />);
-
-    expect(getByTestId(testIdContainer)).toBeTruthy();
-
-    rerender(<Calendar />);
-
-    expect(() => getByTestId(testIdContainer)).toThrow();
-  });
-
-  it('Column header is accessible via data-testid', () => {
-    const { getAllByTestId, rerender } = render(<Calendar testId={testId} />);
-    expect(getAllByTestId(testIdColumnHeader)).toBeTruthy();
-    rerender(<Calendar />);
-    expect(() => getAllByTestId(testIdColumnHeader)).toThrow();
-  });
+      unmount();
+    },
+    [
+      { name: 'Previous month button', selector: testIdPrevMonth },
+      { name: 'Next month button', selector: testIdNextMonth },
+      { name: 'Month', selector: testIdMonth },
+      { name: 'Weeks', selector: testIdWeek },
+      { name: 'Days', selector: testIdDay },
+      { name: 'Selected day', selector: testIdSelectedDay },
+      { name: 'Calendar dates', selector: testIdCalendarDates },
+      { name: 'Current month and year', selector: testIdCurrentMonthYear },
+      { name: 'Container', selector: testIdContainer },
+      { name: 'Column headers', selector: testIdColumnHeader },
+    ],
+  );
 });

@@ -52,6 +52,7 @@ export default function plugin() {
             };
           },
         ) {
+          // @ts-expect-error TS2339: Property 'file' does not exist on type 'Hub'
           const sourceFile = path.hub.file.opts.filename;
           if (sourceFile && sourceFile.includes('node_modules')) {
             return;

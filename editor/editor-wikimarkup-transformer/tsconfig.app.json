@@ -42,9 +42,6 @@
       "path": "../editor-json-transformer/tsconfig.app.json"
     },
     {
-      "path": "../editor-prosemirror/tsconfig.app.json"
-    },
-    {
       "path": "../../design-system/theme/tsconfig.app.json"
     }
   ]

@@ -1,5 +1,11 @@
 # @atlaskit/editor-extension-googledrive
 
+## 0.2.5
+
+### Patch Changes
+
+- [`0e2edced629`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0e2edced629) - Adding gapi dependency
+
 ## 0.2.4
 
 ### Patch Changes

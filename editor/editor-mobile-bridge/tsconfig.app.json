@@ -78,10 +78,10 @@
       "path": "../editor-plugin-list/tsconfig.app.json"
     },
     {
-      "path": "../editor-plugin-text-formatting/tsconfig.app.json"
+      "path": "../editor-plugin-rule/tsconfig.app.json"
     },
     {
-      "path": "../editor-prosemirror/tsconfig.app.json"
+      "path": "../editor-plugin-text-formatting/tsconfig.app.json"
     },
     {
       "path": "../../elements/emoji/tsconfig.app.json"

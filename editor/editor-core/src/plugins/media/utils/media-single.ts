@@ -83,7 +83,7 @@ function insertNodesWithOptionalParagraph(
     inputMethod?: InputMethodInsertMedia;
     fileExtension?: string;
   } = {},
-  editorAnalyticsAPI?: EditorAnalyticsAPI | undefined,
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
 ): Command {
   return function (state, dispatch) {
     const { tr, schema } = state;
@@ -117,7 +117,7 @@ export const insertMediaAsMediaSingle = (
   view: EditorView,
   node: PMNode,
   inputMethod: InputMethodInsertMedia,
-  editorAnalyticsAPI?: EditorAnalyticsAPI | undefined,
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
 ): boolean => {
   const { state, dispatch } = view;
   const { mediaSingle, media } = state.schema.nodes;

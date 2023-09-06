@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-text-formatting
 
+## 0.4.2
+
+### Patch Changes
+
+- [`1b66c23221e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1b66c23221e) - Fix missing analytics parameter in media plugin.
+
 ## 0.4.1
 
 ### Patch Changes

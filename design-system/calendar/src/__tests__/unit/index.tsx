@@ -1,11 +1,6 @@
 import React from 'react';
 
-import {
-  fireEvent,
-  queryByAttribute,
-  render,
-  RenderResult,
-} from '@testing-library/react';
+import { fireEvent, render, RenderResult } from '@testing-library/react';
 // eslint-disable-next-line no-restricted-imports
 import { parseISO } from 'date-fns';
 import cases from 'jest-in-case';
@@ -18,15 +13,30 @@ jest.mock('react-uid', () => ({
   useUIDSeed: () => () => 'react-uid',
 }));
 
-const getById = queryByAttribute.bind(null, 'id');
+const makeHandlerObject = ({
+  day,
+  month,
+  year,
+  ...rest
+}: {
+  day: number;
+  month: number;
+  year: number;
+  [property: string]: any;
+}) => {
+  return {
+    day,
+    month,
+    year,
+    iso: dateToString({ day, month, year }),
+    ...rest,
+  };
+};
 
-const getAnnouncerElementTextContent = (container: HTMLElement) =>
-  getById(container, 'announce-react-uid')?.textContent;
-
-const getDayElementButton = (renderResult: RenderResult, textContent: string) =>
+const getDayElement = (renderResult: RenderResult, textContent: number) =>
   renderResult.getAllByRole(
     (content, element) =>
-      content === 'button' && element?.textContent === textContent,
+      content === 'button' && element?.textContent === String(textContent),
   )[0];
 
 const getSelectedDay = (renderResult: RenderResult) =>
@@ -97,20 +107,13 @@ describe('Calendar', () => {
     };
   };
 
-  it('should render announcer date', () => {
-    const { renderResult } = setup();
-    expect(
-      getAnnouncerElementTextContent(renderResult.container),
-    ).toBeUndefined();
-  });
-
   describe('Heading', () => {
     it('should render the title', () => {
       const { renderResult } = setup();
 
       const heading = renderResult.getByRole('heading');
       expect(heading).toBeInTheDocument();
-      expect(heading).toHaveTextContent('December 2019');
+      expect(heading).toHaveTextContent(`${defaultMonthName} ${defaultYear}`);
     });
 
     it('should render month/year section as a live region only after user has interacted with either previous/next month buttons', () => {
@@ -179,10 +182,15 @@ describe('Calendar', () => {
 
       expect(
         renderResult.getByTestId(`${testId}--current-month-year`),
-      ).toHaveTextContent('November 2019');
+      ).toHaveTextContent(`November ${defaultYear}`);
 
       expect(props.onChange).toHaveBeenCalledWith(
-        { day: 1, iso: '2019-11-01', month: 11, type: 'prev', year: 2019 },
+        makeHandlerObject({
+          day: defaultDay,
+          month: defaultMonth - 1,
+          year: defaultYear,
+          type: 'prev',
+        }),
         expect.anything(),
       );
     });
@@ -194,10 +202,15 @@ describe('Calendar', () => {
 
       expect(
         renderResult.getByTestId(`${testId}--current-month-year`),
-      ).toHaveTextContent('January 2020');
+      ).toHaveTextContent(`January ${defaultYear + 1}`);
 
       expect(props.onChange).toHaveBeenCalledWith(
-        { day: 1, iso: '2020-01-01', month: 1, type: 'next', year: 2020 },
+        makeHandlerObject({
+          day: defaultDay,
+          month: (defaultMonth + 1) % 12,
+          type: 'next',
+          year: 2020,
+        }),
         expect.anything(),
       );
     });
@@ -286,10 +299,7 @@ describe('Calendar', () => {
 
       expect(selectedDay).toHaveAttribute('aria-pressed', 'true');
 
-      const unselectedDay = getDayElementButton(
-        renderResult,
-        String(dayAfterSelectedDay),
-      );
+      const unselectedDay = getDayElement(renderResult, dayAfterSelectedDay);
 
       expect(unselectedDay).toHaveAttribute('aria-pressed', 'false');
 
@@ -297,16 +307,11 @@ describe('Calendar', () => {
 
       expect(unselectedDay).toHaveAttribute('aria-pressed', 'true');
       expect(props.onSelect).toHaveBeenCalledWith(
-        {
+        makeHandlerObject({
           day: dayAfterSelectedDay,
-          iso: dateToString({
-            day: dayAfterSelectedDay,
-            month: defaultMonth,
-            year: defaultYear,
-          }),
           month: defaultMonth,
           year: defaultYear,
-        },
+        }),
         expect.anything(),
       );
     });
@@ -314,13 +319,13 @@ describe('Calendar', () => {
     it('should be correctly disabled via disabled array props', () => {
       const { renderResult } = setup();
 
-      const disabledDayElement = getDayElementButton(
+      const disabledDayElement = getDayElement(
         renderResult,
-        String(defaultDisabledDay),
+        defaultDisabledDay,
       );
-      const notDisabledDayElement = getDayElementButton(
+      const notDisabledDayElement = getDayElement(
         renderResult,
-        String(defaultDisabledDay + 1),
+        defaultDisabledDay + 1,
       );
 
       expect(disabledDayElement).toHaveAttribute('aria-disabled', 'true');
@@ -330,20 +335,33 @@ describe('Calendar', () => {
     });
 
     it('should be correctly disabled via minDate and maxDate props', () => {
+      const disabledDayStart = 2;
+      const disabledDayEnd = 20;
+
       const { renderResult } = setup({
-        minDate: '2019-12-03',
-        maxDate: '2019-12-19',
+        minDate: dateToString({
+          day: disabledDayStart,
+          month: defaultMonth,
+          year: defaultYear,
+        }),
+        maxDate: dateToString({
+          day: disabledDayEnd,
+          month: defaultMonth,
+          year: defaultYear,
+        }),
       });
 
-      const outOfRangeDates = ['2', '20'];
+      const outOfRangeDates = [disabledDayStart - 1, disabledDayEnd + 1];
+
       outOfRangeDates.forEach((date) => {
-        const disabledDayElement = getDayElementButton(renderResult, date);
+        const disabledDayElement = getDayElement(renderResult, date);
         expect(disabledDayElement).toHaveAttribute('data-disabled', 'true');
       });
 
-      const inRangeDates = ['3', '19'];
+      const inRangeDates = [disabledDayStart, disabledDayEnd];
+
       inRangeDates.forEach((date) => {
-        const disabledDayElement = getDayElementButton(renderResult, date);
+        const disabledDayElement = getDayElement(renderResult, date);
         expect(disabledDayElement).not.toHaveAttribute('data-disabled', 'true');
       });
     });
@@ -353,15 +371,15 @@ describe('Calendar', () => {
         disabledDateFilter: weekendFilter,
       });
 
-      const disabledDayElement = getDayElementButton(renderResult, '14');
+      const disabledDayElement = getDayElement(renderResult, defaultDay);
       expect(disabledDayElement).toHaveAttribute('data-disabled', 'true');
     });
 
     it('should not select day if disabled', () => {
       const { renderResult, props } = setup();
-      const disabledDayElement = getDayElementButton(
+      const disabledDayElement = getDayElement(
         renderResult,
-        String(defaultDisabledDay),
+        defaultDisabledDay,
       );
       fireEvent.click(disabledDayElement);
       expect(props.onSelect).not.toHaveBeenCalled();
@@ -371,13 +389,13 @@ describe('Calendar', () => {
   describe('Date cell cursor', () => {
     it('show cursor pointer', () => {
       const { renderResult } = setup();
-      const cell = getDayElementButton(renderResult, '15');
+      const cell = getDayElement(renderResult, defaultDay + 1);
       expect(cell).toHaveStyle('cursor: pointer');
     });
 
     it('cursor not-allowed when disabled', () => {
       const { renderResult } = setup();
-      const disabledCell = getDayElementButton(renderResult, '4');
+      const disabledCell = getDayElement(renderResult, defaultDisabledDay);
       expect(disabledCell).toHaveStyle('cursor: not-allowed');
     });
   });
@@ -414,14 +432,8 @@ describe('Calendar', () => {
   it('should set appropriate attributes on focus', () => {
     const { renderResult } = setup();
 
-    const focusedDayElement = getDayElementButton(
-      renderResult,
-      String(defaultDay),
-    );
-    const unfocusedDayElement = getDayElementButton(
-      renderResult,
-      String(defaultDay + 1),
-    );
+    const focusedDayElement = getDayElement(renderResult, defaultDay);
+    const unfocusedDayElement = getDayElement(renderResult, defaultDay + 1);
 
     expect(focusedDayElement).toHaveAttribute('data-focused', 'true');
     expect(unfocusedDayElement).not.toHaveAttribute('data-focused');
@@ -436,14 +448,8 @@ describe('Calendar', () => {
       year: today.getFullYear(),
     });
 
-    const todayElement = getDayElementButton(
-      renderResult,
-      String(today.getDate()),
-    );
-    const notTodayElement = getDayElementButton(
-      renderResult,
-      String(today.getDate() + 1),
-    );
+    const todayElement = getDayElement(renderResult, today.getDate());
+    const notTodayElement = getDayElement(renderResult, today.getDate() + 1);
 
     expect(todayElement).toHaveAttribute('aria-current', 'date');
     expect(notTodayElement).not.toHaveAttribute('aria-current');
@@ -492,12 +498,11 @@ describe('Calendar', () => {
 
       expect(isPrevented).toBe(false);
       expect(props.onSelect).toHaveBeenCalledWith(
-        {
+        makeHandlerObject({
           day: 10,
-          iso: '2019-12-10',
-          month: 12,
-          year: 2019,
-        },
+          month: defaultMonth,
+          year: defaultYear,
+        }),
         expect.anything(),
       );
     },
@@ -507,86 +512,89 @@ describe('Calendar', () => {
     ],
   );
 
-  cases(
-    'should highlight day when following keys are pressed',
-    ({
-      key,
-      code,
-      date,
-    }: {
-      key: string;
-      code: string;
-      date: {
-        day: number;
-        iso: string;
-        month: number;
-        year: number;
-      };
-    }) => {
-      const { renderResult, props } = setup({
-        defaultDay: 15,
-      });
-
-      const calendarGrid = renderResult.getByTestId(testIdMonth);
-      const isPrevented = fireEvent.keyDown(calendarGrid as HTMLDivElement, {
+  describe('Key interactions', () => {
+    const defaultDayForKeyInteractions = 15;
+    cases(
+      'should highlight day when following keys are pressed',
+      ({
         key,
         code,
-      });
+        handlerObject,
+      }: {
+        key: string;
+        code: string;
+        handlerObject: {
+          day: number;
+          iso: string;
+          month: number;
+          year: number;
+          type: string;
+        };
+      }) => {
+        const { renderResult, props } = setup({
+          defaultDay: defaultDayForKeyInteractions,
+        });
 
-      expect(isPrevented).toBe(false);
-      expect(props.onChange).toHaveBeenCalledWith(date, expect.anything());
-    },
-    [
-      {
-        name: 'ArrowDown',
-        key: 'ArrowDown',
-        code: 'ArrowDown',
-        date: {
-          day: 22,
-          iso: '2019-12-22',
-          month: 12,
-          year: 2019,
-          type: 'down',
-        },
+        const calendarGrid = renderResult.getByTestId(testIdMonth);
+        const isPrevented = fireEvent.keyDown(calendarGrid as HTMLDivElement, {
+          key,
+          code,
+        });
+
+        expect(isPrevented).toBe(false);
+        expect(props.onChange).toHaveBeenCalledWith(
+          handlerObject,
+          expect.anything(),
+        );
       },
-      {
-        name: 'ArrowLeft',
-        key: 'ArrowLeft',
-        code: 'ArrowLeft',
-        date: {
-          day: 14,
-          iso: '2019-12-14',
-          month: 12,
-          year: 2019,
-          type: 'left',
+      [
+        {
+          name: 'ArrowDown',
+          key: 'ArrowDown',
+          code: 'ArrowDown',
+          handlerObject: makeHandlerObject({
+            day: defaultDayForKeyInteractions + 7,
+            month: defaultMonth,
+            year: defaultYear,
+            type: 'down',
+          }),
         },
-      },
-      {
-        name: 'ArrowRight',
-        key: 'ArrowRight',
-        code: 'ArrowRight',
-        date: {
-          day: 16,
-          iso: '2019-12-16',
-          month: 12,
-          year: 2019,
-          type: 'right',
+        {
+          name: 'ArrowLeft',
+          key: 'ArrowLeft',
+          code: 'ArrowLeft',
+          handlerObject: makeHandlerObject({
+            day: defaultDayForKeyInteractions - 1,
+            month: defaultMonth,
+            year: defaultYear,
+            type: 'left',
+          }),
         },
-      },
-      {
-        name: 'ArrowUp',
-        key: 'ArrowUp',
-        code: 'ArrowUp',
-        date: {
-          day: 8,
-          iso: '2019-12-08',
-          month: 12,
-          year: 2019,
-          type: 'up',
+        {
+          name: 'ArrowRight',
+          key: 'ArrowRight',
+          code: 'ArrowRight',
+          handlerObject: makeHandlerObject({
+            day: defaultDayForKeyInteractions + 1,
+            month: defaultMonth,
+            year: defaultYear,
+            type: 'right',
+          }),
         },
-      },
-    ],
-  );
+        {
+          name: 'ArrowUp',
+          key: 'ArrowUp',
+          code: 'ArrowUp',
+          handlerObject: makeHandlerObject({
+            day: defaultDayForKeyInteractions - 7,
+            month: defaultMonth,
+            year: defaultYear,
+            type: 'up',
+          }),
+        },
+      ],
+    );
+  });
 
   it('should switch to previous month and highlight the day when navigated through arrow keys at the edge', () => {
     const { renderResult, props } = setup({
@@ -601,13 +609,12 @@ describe('Calendar', () => {
 
     expect(isPrevented).toBe(false);
     expect(props.onChange).toHaveBeenCalledWith(
-      {
+      makeHandlerObject({
         day: 24,
-        iso: '2019-11-24',
-        month: 11,
-        year: 2019,
+        month: defaultMonth - 1,
+        year: defaultYear,
         type: 'up',
-      },
+      }),
       expect.anything(),
     );
   });

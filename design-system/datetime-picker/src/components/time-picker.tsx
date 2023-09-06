@@ -170,7 +170,6 @@ interface State {
   clearingFromIcon: boolean;
   value: string;
   isFocused: boolean;
-  l10n: LocalizationProvider;
 }
 
 const menuStyles: CSSProperties = {
@@ -233,14 +232,7 @@ class TimePicker extends React.Component<TimePickerProps, State> {
     clearingFromIcon: false,
     value: this.props.defaultValue,
     isFocused: false,
-    l10n: createLocalizationProvider(this.props.locale),
   };
-
-  UNSAFE_componentWillReceiveProps(nextProps: TimePickerProps): void {
-    if (this.props.locale !== nextProps.locale) {
-      this.setState({ l10n: createLocalizationProvider(nextProps.locale) });
-    }
-  }
 
   // All state needs to be accessed via this function so that the state is mapped from props
   // correctly to allow controlled/uncontrolled usage.
@@ -250,15 +242,6 @@ class TimePicker extends React.Component<TimePickerProps, State> {
       ...pick(this.props, ['value', 'isOpen']),
     };
   };
-
-  getOptions(): Array<Option> {
-    return this.props.times.map((time: string): Option => {
-      return {
-        label: this.formatTime(time),
-        value: time,
-      };
-    });
-  }
 
   onChange = (
     newValue: ValueType<OptionType> | string,
@@ -355,71 +338,73 @@ class TimePicker extends React.Component<TimePickerProps, State> {
     }
   };
 
-  /**
-   * There are multiple props that can change how the time is formatted.
-   * The priority of props used is:
-   *   1. formatDisplayLabel
-   *   2. timeFormat
-   *   3. locale
-   */
-  formatTime = (time: string): string => {
-    const { formatDisplayLabel, timeFormat } = this.props;
-    const { l10n } = this.getSafeState();
-
-    if (formatDisplayLabel) {
-      return formatDisplayLabel(time, timeFormat || defaultTimeFormat);
-    }
-
-    const date = parseTime(time);
-
-    if (!(date instanceof Date)) {
-      return '';
-    }
-
-    if (!isValid(date)) {
-      return time;
-    }
-
-    if (timeFormat) {
-      return format(date, convertTokens(timeFormat));
-    }
-
-    return l10n.formatTime(date);
-  };
-
-  getPlaceholder = () => {
-    const { placeholder } = this.props;
-    if (placeholder) {
-      return placeholder;
-    }
-
-    const { l10n } = this.getSafeState();
-    return l10n.formatTime(placeholderDatetime);
-  };
-
   render() {
     const {
+      appearance,
       autoFocus,
+      formatDisplayLabel,
       hideIcon,
       id,
       innerProps,
       isDisabled,
+      locale,
       name,
+      placeholder,
       selectProps,
       spacing,
       testId,
       isInvalid,
       timeIsEditable,
+      timeFormat,
+      times,
     } = this.props;
     const ICON_PADDING = 2;
+
+    const l10n: LocalizationProvider = createLocalizationProvider(locale);
 
     const { value = '', isOpen } = this.getSafeState();
 
     const { styles: selectStyles = {}, ...otherSelectProps } = selectProps;
     const SelectComponent = timeIsEditable ? CreatableSelect : Select;
 
+    /**
+     * There are multiple props that can change how the time is formatted.
+     * The priority of props used is:
+     *   1. formatDisplayLabel
+     *   2. timeFormat
+     *   3. locale
+     */
+    const formatTime = (time: string): string => {
+      if (formatDisplayLabel) {
+        return formatDisplayLabel(time, timeFormat || defaultTimeFormat);
+      }
+
+      const date = parseTime(time);
+
+      if (!(date instanceof Date)) {
+        return '';
+      }
+
+      if (!isValid(date)) {
+        return time;
+      }
+
+      if (timeFormat) {
+        return format(date, convertTokens(timeFormat));
+      }
+
+      return l10n.formatTime(date);
+    };
+
+    const options: Array<Option> = times.map((time: string): Option => {
+      return {
+        label: formatTime(time),
+        value: time,
+      };
+    });
+
     const labelAndValue = value && {
-      label: this.formatTime(value),
+      label: formatTime(value),
       value,
     };
 
@@ -468,7 +453,7 @@ class TimePicker extends React.Component<TimePickerProps, State> {
           onKeyDown={this.onSelectKeyDown}
         />
         <SelectComponent
-          appearance={this.props.appearance}
+          appearance={appearance}
           autoFocus={autoFocus}
           components={selectComponents}
           instanceId={id}
@@ -480,11 +465,11 @@ class TimePicker extends React.Component<TimePickerProps, State> {
           onBlur={this.onBlur}
           onCreateOption={this.onCreateOption}
           onChange={this.onChange}
-          options={this.getOptions()}
+          options={options}
           onFocus={this.onFocus}
           onMenuOpen={this.onMenuOpen}
           onMenuClose={this.onMenuClose}
-          placeholder={this.getPlaceholder()}
+          placeholder={placeholder || l10n.formatTime(placeholderDatetime)}
           styles={mergedStyles}
           value={labelAndValue}
           spacing={spacing}

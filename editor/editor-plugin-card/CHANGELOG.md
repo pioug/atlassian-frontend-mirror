@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-card
 
+## 0.5.3
+
+### Patch Changes
+
+- [`882e4e88358`](https://bitbucket.org/atlassian/atlassian-frontend/commits/882e4e88358) - Add playwright tests and add test ids to find elements
+
 ## 0.5.2
 
 ### Patch Changes

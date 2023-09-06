@@ -1,5 +1,11 @@
 # @atlaskit/media-viewer
 
+## 48.0.13
+
+### Patch Changes
+
+- [`d6081fc0e01`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6081fc0e01) - [ux] Bug Fix: Prevent scrolling to the top of the page after closing MediaViewer. In doing so, MediaViewer will no longer return the focus to its initial position onced MediaViewer is closed.
+
 ## 48.0.12
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @atlaskit/datetime-picker
 
+## 12.8.2
+
+### Patch Changes
+
+- [`829d92bcf37`](https://bitbucket.org/atlassian/atlassian-frontend/commits/829d92bcf37) - Remove out of date lifecycle methods in favor of up to date methods.
+
 ## 12.8.1
 
 ### Patch Changes

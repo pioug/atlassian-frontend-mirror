@@ -38,9 +38,6 @@
     },
     {
       "path": "../editor-common/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-prosemirror/tsconfig.app.json"
     }
   ]
 }

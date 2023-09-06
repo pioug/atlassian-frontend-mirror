@@ -37,6 +37,9 @@
     },
     {
       "path": "../core/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/primitives/tsconfig.app.json"
     }
   ]
 }

@@ -6,6 +6,7 @@ import { css, jsx } from '@emotion/react';
 import { PageWrapper } from '../example-helpers/common';
 import { LinkPicker } from '../src';
 import { MockLinkPickerPromisePlugin } from '../src/__tests__/__helpers/mock-plugins';
+import { LINK_PICKER_WIDTH_IN_PX } from '../src/common/constants';
 import { LoaderFallback } from '../src/ui/loader-fallback';
 import { fixedWidthContainerStyles } from '../src/ui/styled';
 
@@ -77,7 +78,13 @@ const borderStyle = css`
 `;
 
 export const BorderWrapper = ({ children }: { children: ReactNode }) => (
-  <div css={borderStyle} data-testid="link-picker-debug-border">
+  <div
+    style={{
+      ['--link-picker-width' as string]: `${LINK_PICKER_WIDTH_IN_PX}px`,
+    }}
+    css={borderStyle}
+    data-testid="link-picker-debug-border"
+  >
     {children}
   </div>
 );

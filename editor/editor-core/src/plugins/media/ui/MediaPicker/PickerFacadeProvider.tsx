@@ -1,15 +1,15 @@
 import React from 'react';
-import {
+import type {
   ClipboardConfig,
   BrowserConfig,
   DropzoneConfig,
 } from '@atlaskit/media-picker/types';
-import { MediaClientConfig } from '@atlaskit/media-core';
+import type { MediaClientConfig } from '@atlaskit/media-core';
 import { ErrorReporter } from '@atlaskit/editor-common/utils';
-import { MediaProvider } from '@atlaskit/editor-common/provider-factory';
+import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
 import PickerFacade from '../../picker-facade';
-import { CustomMediaPicker } from '../../types';
-import { MediaPluginState } from '../../pm-plugins/types';
+import type { CustomMediaPicker } from '../../types';
+import type { MediaPluginState } from '../../pm-plugins/types';
 
 export interface ChildrenProps {
   config: ClipboardConfig | BrowserConfig | DropzoneConfig;

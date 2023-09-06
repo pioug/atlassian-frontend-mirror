@@ -9,6 +9,7 @@ import React, {
 import { bind } from 'bind-event-listener';
 
 import Button from '@atlaskit/button/standard-button';
+import { UNSAFE_BUTTON } from '@atlaskit/button/unsafe';
 import { KEY_DOWN } from '@atlaskit/ds-lib/keycodes';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import noop from '@atlaskit/ds-lib/noop';
@@ -230,7 +231,28 @@ const DropdownMenu = <T extends HTMLElement = HTMLElement>(
             });
           }
 
-          return (
+          return getBooleanFF(
+            'platform.design-system-team.new-button-adoption-in-dropdown_p8sn4',
+          ) ? (
+            <UNSAFE_BUTTON
+              iconAfter={<ExpandIcon size="medium" label="" />}
+              onFocus={bindFocus.onFocus}
+              onBlur={bindFocus.onBlur}
+              ref={
+                isNested
+                  ? mergeRefs([triggerProps.ref, itemRef])
+                  : triggerProps.ref
+              }
+              aria-controls={triggerProps['aria-controls']}
+              aria-expanded={triggerProps['aria-expanded']}
+              aria-haspopup={triggerProps['aria-haspopup']}
+              isSelected={isLocalOpen}
+              onClick={handleTriggerClicked}
+              testId={testId && `${testId}--trigger`}
+            >
+              {trigger}
+            </UNSAFE_BUTTON>
+          ) : (
             <Button
               {...bindFocus}
               ref={

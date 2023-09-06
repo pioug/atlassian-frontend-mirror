@@ -1,7 +1,6 @@
 import { COLOR_MODE_ATTRIBUTE, CUSTOM_THEME_ATTRIBUTE } from './constants';
 import { ThemeStyles } from './get-theme-styles';
 import {
-  ThemeIds,
   ThemeOptionsSchema,
   ThemeState,
   themeStateDefaults,
@@ -46,7 +45,7 @@ export async function getCustomThemeStyles(
   const themeRamp = generateColors(brandColor).ramp;
 
   // outputs object to generate to CSS from
-  const themes = [];
+  const themes: ThemeStyles[] = [];
 
   const tokenMaps = generateTokenMapWithContrastCheck(
     brandColor,
@@ -57,7 +56,7 @@ export async function getCustomThemeStyles(
   if ((mode === 'light' || mode === 'auto') && tokenMaps.light) {
     // Light mode theming
     themes.push({
-      id: 'light' as ThemeIds,
+      id: 'light',
       attrs: { 'data-theme': 'light', 'data-custom-theme': uniqueId },
       css: `
 html[${CUSTOM_THEME_ATTRIBUTE}="${uniqueId}"][${COLOR_MODE_ATTRIBUTE}="light"][data-theme~="light:light"] {
@@ -70,7 +69,7 @@ html[${CUSTOM_THEME_ATTRIBUTE}="${uniqueId}"][${COLOR_MODE_ATTRIBUTE}="light"][d
   if ((mode === 'dark' || mode === 'auto') && tokenMaps.dark) {
     // Dark mode theming
     themes.push({
-      id: 'dark' as ThemeIds,
+      id: 'dark',
       attrs: { 'data-theme': 'dark', 'data-custom-theme': uniqueId },
       css: `
 html[${CUSTOM_THEME_ATTRIBUTE}="${uniqueId}"][${COLOR_MODE_ATTRIBUTE}="dark"][data-theme~="dark:dark"] {

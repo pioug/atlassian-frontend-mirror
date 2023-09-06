@@ -49,9 +49,6 @@
       "path": "../../design-system/dropdown-menu/tsconfig.app.json"
     },
     {
-      "path": "../../editor/editor-prosemirror/tsconfig.app.json"
-    },
-    {
       "path": "../../design-system/empty-state/tsconfig.app.json"
     },
     {

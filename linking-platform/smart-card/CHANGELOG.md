@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 26.21.0
+
+### Minor Changes
+
+- [`b2ea37e78dc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b2ea37e78dc) - We are testing a fix for internal conditional logic that determines when the sandbox attribute is applied to smart link embeds behind the feature flag "platform.linking-platform.smart-card.fix-is-trusted-pop". If this is successful it will be changed permanently in a future release.
+
 ## 26.20.1
 
 ### Patch Changes

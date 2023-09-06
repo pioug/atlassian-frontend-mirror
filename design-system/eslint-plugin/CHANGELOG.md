@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 8.4.5
+
+### Patch Changes
+
+- [`d37dcab0fc4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d37dcab0fc4) - Stop `prefer-primitives` from reporting on React components.
+
 ## 8.4.4
 
 ### Patch Changes

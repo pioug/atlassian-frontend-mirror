@@ -1,5 +1,11 @@
 # @atlaskit/link-picker
 
+## 1.29.0
+
+### Minor Changes
+
+- [`96287a9f42a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/96287a9f42a) - Adds disableWidth prop to component to allow the link picker to fill the available space (width: 100%)
+
 ## 1.28.3
 
 ### Patch Changes

@@ -561,6 +561,7 @@ const getDatasourceButtonGroup = (
       className: 'datasource-edit',
       title: intl.formatMessage(linkToolbarMessages.editDatasource),
       onClick: editDatasource(node, editorAnalyticsApi),
+      testId: 'datasource-edit-button',
     },
   ];
 

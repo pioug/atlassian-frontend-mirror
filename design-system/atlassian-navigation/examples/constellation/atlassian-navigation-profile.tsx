@@ -13,7 +13,13 @@ const onClick = (...args: any[]) => {
 
 const DefaultProfile = () => (
   <Profile
-    icon={<Avatar size="small" src={avatarUrl} />}
+    icon={
+      <Avatar
+        size="small"
+        src={avatarUrl}
+        name="Atlassian account: Emil Rottmayer"
+      />
+    }
     onClick={onClick}
     tooltip="Your profile and settings"
   />

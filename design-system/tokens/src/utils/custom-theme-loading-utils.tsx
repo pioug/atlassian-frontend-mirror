@@ -32,8 +32,10 @@ export function findMissingCustomStyleElements(
 
 export function limitSizeOfCustomStyleElements(sizeThreshold: number): void {
   const styleTags = [
-    ...document.head.querySelectorAll(
-      `style[${CUSTOM_THEME_ATTRIBUTE}][${THEME_DATA_ATTRIBUTE}]`,
+    ...Array.from(
+      document.head.querySelectorAll(
+        `style[${CUSTOM_THEME_ATTRIBUTE}][${THEME_DATA_ATTRIBUTE}]`,
+      ),
     ),
   ];
 

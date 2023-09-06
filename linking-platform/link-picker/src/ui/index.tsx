@@ -7,7 +7,7 @@ import { lazyForPaint, LazySuspense } from 'react-loosely-lazy';
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
-import { COMPONENT_NAME } from '../common/constants';
+import { COMPONENT_NAME, LINK_PICKER_WIDTH_IN_PX } from '../common/constants';
 import { PackageMetaDataType } from '../common/utils/analytics/analytics.codegen';
 import { LinkPickerSessionProvider } from '../controllers/session-provider';
 
@@ -70,25 +70,36 @@ export const ComposedLinkPicker = memo((props: LinkPickerProps) => {
     <AnalyticsContext data={PACKAGE_DATA}>
       <LinkPickerSessionProvider>
         <MessagesProvider>
-          <RootFixedWidthContainer>
-            <ErrorBoundary>
-              <LazySuspense
-                fallback={
-                  <LoaderFallbackContainer>
-                    <LoaderFallback
-                      hideDisplayText={props.hideDisplayText}
-                      isLoadingPlugins={props.isLoadingPlugins}
-                      plugins={props.plugins}
-                    />
-                  </LoaderFallbackContainer>
-                }
-              >
-                <RootComponent {...props} data-testid={testIds.linkPickerRoot}>
-                  <LazyLinkPicker {...props} />
-                </RootComponent>
-              </LazySuspense>
-            </ErrorBoundary>
-          </RootFixedWidthContainer>
+          <div
+            style={{
+              ['--link-picker-width' as string]: props.disableWidth
+                ? '100%'
+                : `${LINK_PICKER_WIDTH_IN_PX}px`,
+            }}
+          >
+            <RootFixedWidthContainer>
+              <ErrorBoundary>
+                <LazySuspense
+                  fallback={
+                    <LoaderFallbackContainer>
+                      <LoaderFallback
+                        hideDisplayText={props.hideDisplayText}
+                        isLoadingPlugins={props.isLoadingPlugins}
+                        plugins={props.plugins}
+                      />
+                    </LoaderFallbackContainer>
+                  }
+                >
+                  <RootComponent
+                    {...props}
+                    data-testid={testIds.linkPickerRoot}
+                  >
+                    <LazyLinkPicker {...props} />
+                  </RootComponent>
+                </LazySuspense>
+              </ErrorBoundary>
+            </RootFixedWidthContainer>
+          </div>
         </MessagesProvider>
       </LinkPickerSessionProvider>
     </AnalyticsContext>

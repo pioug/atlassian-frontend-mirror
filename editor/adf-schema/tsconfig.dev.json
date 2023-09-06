@@ -34,15 +34,6 @@
   "references": [
     {
       "path": "tsconfig.app.json"
-    },
-    {
-      "path": "../../monorepo-tooling/codemod-utils/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-prosemirror/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-test-helpers/tsconfig.app.json"
     }
   ]
 }

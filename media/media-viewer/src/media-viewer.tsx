@@ -182,7 +182,7 @@ const MediaViewerWithRef = React.forwardRef<
 
 const MediaViewerWithScrollLock = (props: Props & WrappedComponentProps) => {
   return (
-    <FocusLock autoFocus returnFocus>
+    <FocusLock autoFocus>
       <ScrollLock />
 
       <MediaViewerWithRef {...props} />

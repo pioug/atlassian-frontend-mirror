@@ -274,7 +274,7 @@ const PlainAssetsConfigModal = (props: AssetsConfigModalProps) => {
             appearance="primary"
             onClick={onInsertPressed}
             isDisabled={isDisabled}
-            testId={'asset-datasource-modal--insert-button'}
+            testId={'assets-datasource-modal--insert-button'}
           >
             <FormattedMessage
               {...modalMessages.insertIssuesButtonText}

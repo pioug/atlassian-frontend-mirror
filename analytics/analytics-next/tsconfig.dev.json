@@ -24,7 +24,7 @@
     "**/mock.*",
     "**/codemods/**/*.ts",
     "**/codemods/**/*.tsx",
-    "./src/test-utils/**/*",
+    "./src/test-utils/**/*"
   ],
   "exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
   "compilerOptions": {

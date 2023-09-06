@@ -7,7 +7,6 @@ import {
   LoadingResultsWithTabs,
   NoResults,
   ShowingResultsWhileLoadingResults,
-  // eslint-disable-next-line @atlassian/tangerine/import/no-parent-imports
 } from '../../examples';
 
 type OptionsType = Parameters<typeof snapshot>[1];

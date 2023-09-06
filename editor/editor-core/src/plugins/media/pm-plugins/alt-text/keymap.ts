@@ -11,7 +11,7 @@ import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 
 export default function keymapPlugin(
   schema: Schema,
-  editorAnalyticsAPI?: EditorAnalyticsAPI | undefined,
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
 ): SafePlugin {
   const list = {};
 

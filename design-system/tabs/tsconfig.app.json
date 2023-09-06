@@ -39,6 +39,9 @@
       "path": "../ds-explorations/tsconfig.app.json"
     },
     {
+      "path": "../primitives/tsconfig.app.json"
+    },
+    {
       "path": "../theme/tsconfig.app.json"
     },
     {

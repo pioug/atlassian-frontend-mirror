@@ -1,5 +1,19 @@
 # @atlaskit/editor-core
 
+## 187.38.3
+
+### Patch Changes
+
+- [`1b66c23221e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1b66c23221e) - Fix missing analytics parameter in media plugin.
+- [`da2d3589ba4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/da2d3589ba4) - Extract placeholder plugin from editor-core to "@atlaskit/editor-plugin-placeholder"
+- Updated dependencies
+
+## 187.38.2
+
+### Patch Changes
+
+- [`882e4e88358`](https://bitbucket.org/atlassian/atlassian-frontend/commits/882e4e88358) - Add playwright tests and add test ids to find elements
+
 ## 187.38.1
 
 ### Patch Changes

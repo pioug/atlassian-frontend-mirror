@@ -1,6 +1,5 @@
 import { snapshot } from '@af/visual-regression';
 
-// eslint-disable-next-line @atlassian/tangerine/import/no-parent-imports
 import { DefaultExample, SelectedExample } from '../../examples';
 
 snapshot(DefaultExample, {

@@ -55,9 +55,6 @@
       "path": "../icon-file-type/tsconfig.app.json"
     },
     {
-      "path": "../media-card/tsconfig.app.json"
-    },
-    {
       "path": "../media-client/tsconfig.app.json"
     },
     {

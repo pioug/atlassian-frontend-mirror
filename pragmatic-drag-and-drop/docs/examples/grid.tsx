@@ -1,5 +1,12 @@
 /** @jsx jsx */
-import { Fragment, memo, useEffect, useRef, useState } from 'react';
+import {
+  createContext,
+  memo,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 
 import { css, jsx, SerializedStyles } from '@emotion/react';
 import invariant from 'tiny-invariant';
@@ -21,6 +28,12 @@ import ui from './icons/ui.png';
 import wallet from './icons/wallet.png';
 import yeti from './icons/yeti.png';
 import { GlobalStyles } from './util/global-styles';
+
+function getInstanceId() {
+  return Symbol('instance-id');
+}
+
+const InstanceIdContext = createContext<symbol | null>(null);
 
 const itemStyles = css({
   objectFit: 'cover',
@@ -56,6 +69,8 @@ const Item = memo(function Item({ src }: { src: string }) {
   const ref = useRef<HTMLImageElement | null>(null);
   const [state, setState] = useState<State>('idle');
 
+  const instanceId = useContext(InstanceIdContext);
+
   useEffect(() => {
     const el = ref.current;
     invariant(el);
@@ -63,7 +78,7 @@ const Item = memo(function Item({ src }: { src: string }) {
     return combine(
       draggable({
         element: el,
-        getInitialData: () => ({ type: 'grid-item', src }),
+        getInitialData: () => ({ type: 'grid-item', src, instanceId }),
         onDragStart: () => setState('dragging'),
         onDrop: () => setState('idle'),
       }),
@@ -72,13 +87,15 @@ const Item = memo(function Item({ src }: { src: string }) {
         getData: () => ({ src }),
         getDropEffect: () => 'link',
         canDrop: ({ source }) =>
-          source.data.type === 'grid-item' && source.data.src !== src,
+          source.data.instanceId === instanceId &&
+          source.data.type === 'grid-item' &&
+          source.data.src !== src,
         onDragEnter: () => setState('over'),
         onDragLeave: () => setState('idle'),
         onDrop: () => setState('idle'),
       }),
     );
-  }, [src]);
+  }, [instanceId, src]);
 
   return <img css={[itemStyles, itemStateStyles[state]]} ref={ref} src={src} />;
 });
@@ -99,8 +116,13 @@ export default function Grid() {
     yeti,
   ]);
 
+  const [instanceId] = useState(getInstanceId);
+
   useEffect(() => {
     return monitorForElements({
+      canMonitor({ source }) {
+        return source.data.instanceId === instanceId;
+      },
       onDrop({ source, location }) {
         const destination = location.current.dropTargets[0];
         if (!destination) {
@@ -125,16 +147,16 @@ export default function Grid() {
         setItems(updated);
       },
     });
-  }, [items]);
+  }, [instanceId, items]);
 
   return (
-    <Fragment>
+    <InstanceIdContext.Provider value={instanceId}>
       <GlobalStyles />
       <div css={gridStyles}>
         {items.map(src => (
           <Item src={src} key={src} />
         ))}
       </div>
-    </Fragment>
+    </InstanceIdContext.Provider>
   );
 }

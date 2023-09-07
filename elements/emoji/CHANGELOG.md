@@ -1,5 +1,15 @@
 # @atlaskit/emoji
 
+## 67.5.0
+
+### Minor Changes
+
+- [`630ece558fe`](https://bitbucket.org/atlassian/atlassian-frontend/commits/630ece558fe) - Added onlyFetchOnDemand config to disable fetching by default in EmojiCommonProvider
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 67.4.10
 
 ### Patch Changes

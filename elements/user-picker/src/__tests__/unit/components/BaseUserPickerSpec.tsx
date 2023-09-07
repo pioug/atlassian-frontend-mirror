@@ -355,7 +355,11 @@ describe('BaseUserPicker', () => {
 
     await selectEvent.select(getByLabelText(labelText), options[0].name);
 
-    expect(onSelection).toHaveBeenCalledWith(options[0], 'random-session-id');
+    expect(onSelection).toHaveBeenCalledWith(
+      options[0],
+      'random-session-id',
+      expect.any(BaseUserPickerWithoutAnalytics),
+    );
   });
 
   it('should trigger props.onClear if onChange with clear action', async () => {
@@ -478,6 +482,7 @@ describe('BaseUserPicker', () => {
       expect(onSelection).toHaveBeenCalledWith(
         [options[0], options[1]],
         'random-session-id',
+        expect.any(BaseUserPickerWithoutAnalytics),
       );
     });
 
@@ -788,6 +793,7 @@ describe('BaseUserPicker', () => {
         expect(onSelection).toHaveBeenCalledWith(
           'user-id',
           'random-session-id',
+          expect.any(BaseUserPickerWithoutAnalytics),
         );
       });
 

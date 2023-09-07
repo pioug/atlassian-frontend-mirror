@@ -81,7 +81,7 @@ const properties = [
 export type ProcessedCSSLines = [string, string][];
 
 const spacingValueToToken = Object.fromEntries(
-  spacingScale.map((token) => [token.value, token.name]),
+  spacingScale.map((token) => [token.value, token.cleanName]),
 );
 
 export function insertTokensImport(fixer: Rule.RuleFixer) {

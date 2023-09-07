@@ -3,11 +3,11 @@ import parserTypeScript from 'prettier/parser-typescript';
 
 import { spacing as tokens } from '@atlaskit/tokens/tokens-raw';
 
-const onlySpaceTokens = tokens.filter((token) =>
-  token.name.startsWith('space.'),
-);
+const onlySpaceTokens = tokens
+  .filter((token) => token.name.startsWith('space.'))
+  .filter((token) => !token.name.includes('.negative'));
 
-const activeTokens = onlySpaceTokens.map((t) => `'${t.name}'`);
+const activeTokens = onlySpaceTokens.map((t) => `'${t.cleanName}'`);
 
 export const createSpacingScaleTemplate = () => {
   return prettier.format(

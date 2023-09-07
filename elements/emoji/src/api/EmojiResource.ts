@@ -40,6 +40,7 @@ import SiteEmojiResource from './media/SiteEmojiResource';
 import {
   EmojiLoaderConfig,
   OptimisticImageApiLoaderConfig,
+  Options,
   SingleEmojiApiLoaderConfig,
 } from './EmojiUtils';
 import {
@@ -70,6 +71,12 @@ export interface EmojiResourceConfig {
    * providers when performing shortName based look up.
    */
   providers: ServiceConfig[];
+
+  /**
+   * Additional configuration:
+   * * On-demand Fetching - Useful for when a product may prefer manually controlling when providers are fetched
+   */
+  options?: Options;
 
   /**
    * Must be set to true to enable upload support in the emoji components.
@@ -155,6 +162,7 @@ export class EmojiResource
   protected selectedTone: ToneSelection;
   protected currentUser?: User;
   protected isInitialised: boolean = false;
+  protected fetchOnDemand: boolean = false;
   protected emojiResponses: EmojiResponse[];
   public emojiProviderConfig: EmojiResourceConfig;
 
@@ -172,6 +180,7 @@ export class EmojiResource
       throw new Error('No providers specified');
     }
 
+    this.fetchOnDemand = !!config.options && !!config.options.onlyFetchOnDemand;
     this.initialLoaders = this.emojiProviderConfig.providers.length;
     this.activeLoaders = this.emojiProviderConfig.providers.length;
     this.emojiResponses = [];
@@ -182,7 +191,7 @@ export class EmojiResource
    * @returns Promise<EmojiProvider>
    */
   public async getEmojiProvider(
-    options: GetEmojiProviderOptions = { fetchAtStart: true },
+    options: GetEmojiProviderOptions = { fetchAtStart: !this.fetchOnDemand },
   ): Promise<EmojiProvider> {
     if (options.fetchAtStart) {
       try {
@@ -254,6 +263,10 @@ export class EmojiResource
       );
     }
     return Promise.resolve(this.emojiRepository);
+  }
+
+  public onlyFetchOnDemand(): boolean {
+    return this.fetchOnDemand;
   }
 
   public async fetchByEmojiId(

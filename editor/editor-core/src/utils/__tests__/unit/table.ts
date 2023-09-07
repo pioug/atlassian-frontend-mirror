@@ -1,3 +1,4 @@
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
   p,
@@ -5,13 +6,13 @@ import {
   tr,
   td,
   tdEmpty,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { isPositionNearTableRow } from '../../table';
+import selectionPlugin from '../../../plugins/selection';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
   Preset,
-  LightEditorPlugin,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
@@ -29,6 +30,7 @@ const editorFactory = (doc: DocBuilder) => {
       .add(contentInsertionPlugin)
       .add(widthPlugin)
       .add(guidelinePlugin)
+      .add(selectionPlugin)
       .add(tablesPlugin),
   });
   const { state } = editor.editorView;

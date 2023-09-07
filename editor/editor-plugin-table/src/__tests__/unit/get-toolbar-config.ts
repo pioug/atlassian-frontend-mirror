@@ -4,6 +4,7 @@ import type {
   FloatingToolbarItem,
   GetEditorFeatureFlags,
 } from '@atlaskit/editor-common/types';
+import selectionPlugin from '@atlaskit/editor-core/src/plugins/selection';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
@@ -80,6 +81,7 @@ describe('getToolbarConfig', () => {
         .add(decorationsPlugin)
         .add(widthPlugin)
         .add(guidelinePlugin)
+        .add(selectionPlugin)
         .add(tablePlugin),
     });
 

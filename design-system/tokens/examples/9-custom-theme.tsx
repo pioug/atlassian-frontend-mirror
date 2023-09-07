@@ -278,7 +278,7 @@ export default () => {
                     as="p"
                     xcss={xcss({
                       width: '100%',
-                      paddingTop: 8,
+                      paddingTop: 'space.100',
                       position: 'absolute',
                       top: 'space.0',
                       transition: 'all 0.2s',

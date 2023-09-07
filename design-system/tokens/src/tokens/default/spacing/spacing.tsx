@@ -134,6 +134,106 @@ const spacing: AttributeSchema<SpacingTokenSchema> = {
           'Use for the largest pieces of UI and for layout elements.',
       },
     },
+    negative: {
+      '025': {
+        attributes: {
+          group: 'spacing',
+          state: 'active',
+          suggest: ['-1px', '-3px'],
+          introduced: '1.21.0',
+          description:
+            'Use to negate parent whitespace or overlap small pieces of UI.',
+        },
+      },
+      '050': {
+        attributes: {
+          group: 'spacing',
+          state: 'active',
+          suggest: ['-3px', '-5px'],
+          introduced: '1.21.0',
+          description:
+            'Use to negate parent whitespace or overlap small pieces of UI.',
+        },
+      },
+      '075': {
+        attributes: {
+          group: 'spacing',
+          state: 'active',
+          suggest: ['-5px', '-7px'],
+          introduced: '1.21.0',
+          description:
+            'Use to negate parent whitespace or overlap small pieces of UI.',
+        },
+      },
+      '100': {
+        attributes: {
+          group: 'spacing',
+          state: 'active',
+          suggest: ['-7px', '-9px'],
+          introduced: '1.21.0',
+          description:
+            'Use to negate parent whitespace or overlap small pieces of UI.',
+        },
+      },
+      '150': {
+        attributes: {
+          group: 'spacing',
+          state: 'active',
+          suggest: ['-10px', '-11px', '-13px', '-14px'],
+          introduced: '1.21.0',
+          description:
+            'Use to negate parent whitespace or overlap larger pieces of UI.',
+        },
+      },
+      '200': {
+        attributes: {
+          group: 'spacing',
+          state: 'active',
+          suggest: ['-14px', '-15px', '-17px', '-18px'],
+          introduced: '1.21.0',
+          description:
+            'Use to negate parent whitespace or overlap larger pieces of UI.',
+        },
+      },
+      '250': {
+        attributes: {
+          group: 'spacing',
+          state: 'active',
+          suggest: ['-19px', '-21px', '-22px', '-23px'],
+          introduced: '1.21.0',
+          description:
+            'Use to negate parent whitespace or overlap larger pieces of UI.',
+        },
+      },
+      '300': {
+        attributes: {
+          group: 'spacing',
+          state: 'active',
+          suggest: ['-23px', '-25px', '-26px', '-27px', '-28px'],
+          introduced: '1.21.0',
+          description:
+            'Use to negate parent whitespace or overlap larger pieces of UI.',
+        },
+      },
+      '400': {
+        attributes: {
+          group: 'spacing',
+          state: 'active',
+          suggest: [
+            '-28px',
+            '-29px',
+            '-30px',
+            '-31px',
+            '-33px',
+            '-34px',
+            '-35px',
+          ],
+          introduced: '1.21.0',
+          description:
+            'Use to negate parent whitespace or overlap the largest pieces of UI.',
+        },
+      },
+    },
   },
 };
 export default spacing;

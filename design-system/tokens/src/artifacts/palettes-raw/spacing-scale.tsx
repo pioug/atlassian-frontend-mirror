@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::4cad6a8b4b676f9379fa2d4fca019b0e>>
+ * @codegen <<SignedSource::f1c7eb6fca38275b61cb71127efc2f1a>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -268,6 +268,177 @@ const tokens = [
     "path": [
       "space",
       "Space800"
+    ]
+  },
+  {
+    "value": "-2px",
+    "attributes": {
+      "group": "spacing"
+    },
+    "filePath": "src/palettes/spacing-scale.tsx",
+    "isSource": true,
+    "original": {
+      "value": -2,
+      "attributes": {
+        "group": "spacing"
+      }
+    },
+    "name": "space.SpaceNegative025",
+    "path": [
+      "space",
+      "SpaceNegative025"
+    ]
+  },
+  {
+    "value": "-4px",
+    "attributes": {
+      "group": "spacing"
+    },
+    "filePath": "src/palettes/spacing-scale.tsx",
+    "isSource": true,
+    "original": {
+      "value": -4,
+      "attributes": {
+        "group": "spacing"
+      }
+    },
+    "name": "space.SpaceNegative050",
+    "path": [
+      "space",
+      "SpaceNegative050"
+    ]
+  },
+  {
+    "value": "-6px",
+    "attributes": {
+      "group": "spacing"
+    },
+    "filePath": "src/palettes/spacing-scale.tsx",
+    "isSource": true,
+    "original": {
+      "value": -6,
+      "attributes": {
+        "group": "spacing"
+      }
+    },
+    "name": "space.SpaceNegative075",
+    "path": [
+      "space",
+      "SpaceNegative075"
+    ]
+  },
+  {
+    "value": "-8px",
+    "attributes": {
+      "group": "spacing"
+    },
+    "filePath": "src/palettes/spacing-scale.tsx",
+    "isSource": true,
+    "original": {
+      "value": -8,
+      "attributes": {
+        "group": "spacing"
+      }
+    },
+    "name": "space.SpaceNegative100",
+    "path": [
+      "space",
+      "SpaceNegative100"
+    ]
+  },
+  {
+    "value": "-12px",
+    "attributes": {
+      "group": "spacing"
+    },
+    "filePath": "src/palettes/spacing-scale.tsx",
+    "isSource": true,
+    "original": {
+      "value": -12,
+      "attributes": {
+        "group": "spacing"
+      }
+    },
+    "name": "space.SpaceNegative150",
+    "path": [
+      "space",
+      "SpaceNegative150"
+    ]
+  },
+  {
+    "value": "-16px",
+    "attributes": {
+      "group": "spacing"
+    },
+    "filePath": "src/palettes/spacing-scale.tsx",
+    "isSource": true,
+    "original": {
+      "value": -16,
+      "attributes": {
+        "group": "spacing"
+      }
+    },
+    "name": "space.SpaceNegative200",
+    "path": [
+      "space",
+      "SpaceNegative200"
+    ]
+  },
+  {
+    "value": "-20px",
+    "attributes": {
+      "group": "spacing"
+    },
+    "filePath": "src/palettes/spacing-scale.tsx",
+    "isSource": true,
+    "original": {
+      "value": -20,
+      "attributes": {
+        "group": "spacing"
+      }
+    },
+    "name": "space.SpaceNegative250",
+    "path": [
+      "space",
+      "SpaceNegative250"
+    ]
+  },
+  {
+    "value": "-24px",
+    "attributes": {
+      "group": "spacing"
+    },
+    "filePath": "src/palettes/spacing-scale.tsx",
+    "isSource": true,
+    "original": {
+      "value": -24,
+      "attributes": {
+        "group": "spacing"
+      }
+    },
+    "name": "space.SpaceNegative300",
+    "path": [
+      "space",
+      "SpaceNegative300"
+    ]
+  },
+  {
+    "value": "-32px",
+    "attributes": {
+      "group": "spacing"
+    },
+    "filePath": "src/palettes/spacing-scale.tsx",
+    "isSource": true,
+    "original": {
+      "value": -32,
+      "attributes": {
+        "group": "spacing"
+      }
+    },
+    "name": "space.SpaceNegative400",
+    "path": [
+      "space",
+      "SpaceNegative400"
     ]
   }
 ];

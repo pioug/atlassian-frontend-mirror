@@ -24,7 +24,15 @@ export const EmojiContextProvider: FC<EmojiContextProviderType> = ({
         debug('fetchEmojiProvider error catched from outside', error);
       }
     }
-    fetchEmojiProvider();
+    if (memoizedEmojiContextValue?.emoji.emojiProvider.onlyFetchOnDemand) {
+      const isFetchingOnDemand =
+        memoizedEmojiContextValue?.emoji.emojiProvider.onlyFetchOnDemand();
+      if (!isFetchingOnDemand) {
+        fetchEmojiProvider();
+      }
+    } else {
+      fetchEmojiProvider();
+    }
   }, [memoizedEmojiContextValue]);
 
   return (

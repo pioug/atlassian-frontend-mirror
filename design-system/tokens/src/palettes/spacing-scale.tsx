@@ -90,6 +90,60 @@ const baseSpacingTokens = {
       group: 'spacing',
     },
   },
+  SpaceNegative025: {
+    value: -2,
+    attributes: {
+      group: 'spacing',
+    },
+  },
+  SpaceNegative050: {
+    value: -4,
+    attributes: {
+      group: 'spacing',
+    },
+  },
+  SpaceNegative075: {
+    value: -6,
+    attributes: {
+      group: 'spacing',
+    },
+  },
+  SpaceNegative100: {
+    value: -8,
+    attributes: {
+      group: 'spacing',
+    },
+  },
+  SpaceNegative150: {
+    value: -12,
+    attributes: {
+      group: 'spacing',
+    },
+  },
+  SpaceNegative200: {
+    value: -16,
+    attributes: {
+      group: 'spacing',
+    },
+  },
+  SpaceNegative250: {
+    value: -20,
+    attributes: {
+      group: 'spacing',
+    },
+  },
+  SpaceNegative300: {
+    value: -24,
+    attributes: {
+      group: 'spacing',
+    },
+  },
+  SpaceNegative400: {
+    value: -32,
+    attributes: {
+      group: 'spacing',
+    },
+  },
 } as const;
 
 const spacingPalette: SpacingScaleTokenSchema<SpacingPaletteToken> = {

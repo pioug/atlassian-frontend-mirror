@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::93b85a1d24e82271f0bc792e089efef5>>
+ * @codegen <<SignedSource::54cdec07bc1ce255f26b8254ca514b76>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -467,6 +467,349 @@ const tokens = [
       "1000"
     ],
     "cleanName": "space.1000"
+  },
+  {
+    "attributes": {
+      "group": "spacing",
+      "state": "active",
+      "suggest": [
+        "-1px",
+        "-3px"
+      ],
+      "introduced": "1.21.0",
+      "description": "Use to negate parent whitespace or overlap small pieces of UI."
+    },
+    "value": "-2px",
+    "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "spacing",
+        "state": "active",
+        "suggest": [
+          "-1px",
+          "-3px"
+        ],
+        "introduced": "1.21.0",
+        "description": "Use to negate parent whitespace or overlap small pieces of UI."
+      },
+      "value": "SpaceNegative025"
+    },
+    "name": "space.negative.025",
+    "path": [
+      "space",
+      "negative",
+      "025"
+    ],
+    "cleanName": "space.negative.025"
+  },
+  {
+    "attributes": {
+      "group": "spacing",
+      "state": "active",
+      "suggest": [
+        "-3px",
+        "-5px"
+      ],
+      "introduced": "1.21.0",
+      "description": "Use to negate parent whitespace or overlap small pieces of UI."
+    },
+    "value": "-4px",
+    "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "spacing",
+        "state": "active",
+        "suggest": [
+          "-3px",
+          "-5px"
+        ],
+        "introduced": "1.21.0",
+        "description": "Use to negate parent whitespace or overlap small pieces of UI."
+      },
+      "value": "SpaceNegative050"
+    },
+    "name": "space.negative.050",
+    "path": [
+      "space",
+      "negative",
+      "050"
+    ],
+    "cleanName": "space.negative.050"
+  },
+  {
+    "attributes": {
+      "group": "spacing",
+      "state": "active",
+      "suggest": [
+        "-5px",
+        "-7px"
+      ],
+      "introduced": "1.21.0",
+      "description": "Use to negate parent whitespace or overlap small pieces of UI."
+    },
+    "value": "-6px",
+    "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "spacing",
+        "state": "active",
+        "suggest": [
+          "-5px",
+          "-7px"
+        ],
+        "introduced": "1.21.0",
+        "description": "Use to negate parent whitespace or overlap small pieces of UI."
+      },
+      "value": "SpaceNegative075"
+    },
+    "name": "space.negative.075",
+    "path": [
+      "space",
+      "negative",
+      "075"
+    ],
+    "cleanName": "space.negative.075"
+  },
+  {
+    "attributes": {
+      "group": "spacing",
+      "state": "active",
+      "suggest": [
+        "-7px",
+        "-9px"
+      ],
+      "introduced": "1.21.0",
+      "description": "Use to negate parent whitespace or overlap small pieces of UI."
+    },
+    "value": "-8px",
+    "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "spacing",
+        "state": "active",
+        "suggest": [
+          "-7px",
+          "-9px"
+        ],
+        "introduced": "1.21.0",
+        "description": "Use to negate parent whitespace or overlap small pieces of UI."
+      },
+      "value": "SpaceNegative100"
+    },
+    "name": "space.negative.100",
+    "path": [
+      "space",
+      "negative",
+      "100"
+    ],
+    "cleanName": "space.negative.100"
+  },
+  {
+    "attributes": {
+      "group": "spacing",
+      "state": "active",
+      "suggest": [
+        "-10px",
+        "-11px",
+        "-13px",
+        "-14px"
+      ],
+      "introduced": "1.21.0",
+      "description": "Use to negate parent whitespace or overlap larger pieces of UI."
+    },
+    "value": "-12px",
+    "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "spacing",
+        "state": "active",
+        "suggest": [
+          "-10px",
+          "-11px",
+          "-13px",
+          "-14px"
+        ],
+        "introduced": "1.21.0",
+        "description": "Use to negate parent whitespace or overlap larger pieces of UI."
+      },
+      "value": "SpaceNegative150"
+    },
+    "name": "space.negative.150",
+    "path": [
+      "space",
+      "negative",
+      "150"
+    ],
+    "cleanName": "space.negative.150"
+  },
+  {
+    "attributes": {
+      "group": "spacing",
+      "state": "active",
+      "suggest": [
+        "-14px",
+        "-15px",
+        "-17px",
+        "-18px"
+      ],
+      "introduced": "1.21.0",
+      "description": "Use to negate parent whitespace or overlap larger pieces of UI."
+    },
+    "value": "-16px",
+    "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "spacing",
+        "state": "active",
+        "suggest": [
+          "-14px",
+          "-15px",
+          "-17px",
+          "-18px"
+        ],
+        "introduced": "1.21.0",
+        "description": "Use to negate parent whitespace or overlap larger pieces of UI."
+      },
+      "value": "SpaceNegative200"
+    },
+    "name": "space.negative.200",
+    "path": [
+      "space",
+      "negative",
+      "200"
+    ],
+    "cleanName": "space.negative.200"
+  },
+  {
+    "attributes": {
+      "group": "spacing",
+      "state": "active",
+      "suggest": [
+        "-19px",
+        "-21px",
+        "-22px",
+        "-23px"
+      ],
+      "introduced": "1.21.0",
+      "description": "Use to negate parent whitespace or overlap larger pieces of UI."
+    },
+    "value": "-20px",
+    "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "spacing",
+        "state": "active",
+        "suggest": [
+          "-19px",
+          "-21px",
+          "-22px",
+          "-23px"
+        ],
+        "introduced": "1.21.0",
+        "description": "Use to negate parent whitespace or overlap larger pieces of UI."
+      },
+      "value": "SpaceNegative250"
+    },
+    "name": "space.negative.250",
+    "path": [
+      "space",
+      "negative",
+      "250"
+    ],
+    "cleanName": "space.negative.250"
+  },
+  {
+    "attributes": {
+      "group": "spacing",
+      "state": "active",
+      "suggest": [
+        "-23px",
+        "-25px",
+        "-26px",
+        "-27px",
+        "-28px"
+      ],
+      "introduced": "1.21.0",
+      "description": "Use to negate parent whitespace or overlap larger pieces of UI."
+    },
+    "value": "-24px",
+    "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "spacing",
+        "state": "active",
+        "suggest": [
+          "-23px",
+          "-25px",
+          "-26px",
+          "-27px",
+          "-28px"
+        ],
+        "introduced": "1.21.0",
+        "description": "Use to negate parent whitespace or overlap larger pieces of UI."
+      },
+      "value": "SpaceNegative300"
+    },
+    "name": "space.negative.300",
+    "path": [
+      "space",
+      "negative",
+      "300"
+    ],
+    "cleanName": "space.negative.300"
+  },
+  {
+    "attributes": {
+      "group": "spacing",
+      "state": "active",
+      "suggest": [
+        "-28px",
+        "-29px",
+        "-30px",
+        "-31px",
+        "-33px",
+        "-34px",
+        "-35px"
+      ],
+      "introduced": "1.21.0",
+      "description": "Use to negate parent whitespace or overlap the largest pieces of UI."
+    },
+    "value": "-32px",
+    "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "spacing",
+        "state": "active",
+        "suggest": [
+          "-28px",
+          "-29px",
+          "-30px",
+          "-31px",
+          "-33px",
+          "-34px",
+          "-35px"
+        ],
+        "introduced": "1.21.0",
+        "description": "Use to negate parent whitespace or overlap the largest pieces of UI."
+      },
+      "value": "SpaceNegative400"
+    },
+    "name": "space.negative.400",
+    "path": [
+      "space",
+      "negative",
+      "400"
+    ],
+    "cleanName": "space.negative.400"
   }
 ];
 

@@ -25,6 +25,7 @@ import type {
 import { basePlugin } from '../../';
 import { emojiPlugin } from '@atlaskit/editor-plugin-emoji';
 import typeAheadPlugin from '../../../type-ahead';
+import selectionPlugin from '../../../selection';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
@@ -55,6 +56,7 @@ describe('Inline cursor target', () => {
     .add(emojiPlugin)
     .add(widthPlugin)
     .add(guidelinePlugin)
+    .add(selectionPlugin)
     .add(tablesPlugin);
 
   const editorFactory = (doc: DocBuilder) =>

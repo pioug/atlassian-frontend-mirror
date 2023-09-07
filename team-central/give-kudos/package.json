@@ -40,13 +40,13 @@
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^9.1.0",
-    "@atlaskit/button": "^16.9.0",
+    "@atlaskit/button": "^16.10.0",
     "@atlaskit/drawer": "^7.5.0",
     "@atlaskit/icon": "^21.12.0",
     "@atlaskit/modal-dialog": "^12.6.0",
     "@atlaskit/portal": "^4.3.0",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.20.0",
+    "@atlaskit/tokens": "^1.21.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
     "react-intl-next": "npm:react-intl@^5.18.1"
@@ -56,7 +56,7 @@
   },
   "devDependencies": {
     "@atlaskit/ssr": "*",
-    "@atlaskit/tokens": "^1.20.0",
+    "@atlaskit/tokens": "^1.21.0",
     "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@testing-library/react": "^12.1.5",

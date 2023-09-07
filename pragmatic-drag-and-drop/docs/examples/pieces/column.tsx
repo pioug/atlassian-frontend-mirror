@@ -143,6 +143,8 @@ export const Column = memo(function Column({ column }: { column: ColumnType }) {
   const [dropTargetState, setDropTargetState] = useState<DropTargetState>(idle);
   const [draggableState, setDraggableState] = useState<DraggableState>(idle);
 
+  const { instanceId } = useBoardContext();
+
   useEffect(() => {
     invariant(columnRef.current);
     invariant(headerRef.current);
@@ -151,7 +153,7 @@ export const Column = memo(function Column({ column }: { column: ColumnType }) {
       draggable({
         element: columnRef.current,
         dragHandle: headerRef.current,
-        getInitialData: () => ({ columnId, type: 'column' }),
+        getInitialData: () => ({ columnId, type: 'column', instanceId }),
         onGenerateDragPreview: ({ nativeSetDragImage }) => {
           const isSafari: boolean =
             navigator.userAgent.includes('AppleWebKit') &&
@@ -183,7 +185,11 @@ export const Column = memo(function Column({ column }: { column: ColumnType }) {
       dropTargetForElements({
         element: cardListRef.current,
         getData: () => ({ columnId }),
-        canDrop: args => args.source.data.type === 'card',
+        canDrop: ({ source }) => {
+          return (
+            source.data.instanceId === instanceId && source.data.type === 'card'
+          );
+        },
         getIsSticky: () => true,
         onDragEnter: () => setDropTargetState(isCardOver),
         onDragLeave: () => setDropTargetState(idle),
@@ -192,7 +198,12 @@ export const Column = memo(function Column({ column }: { column: ColumnType }) {
       }),
       dropTargetForElements({
         element: columnRef.current,
-        canDrop: args => args.source.data.type === 'column',
+        canDrop: ({ source }) => {
+          return (
+            source.data.instanceId === instanceId &&
+            source.data.type === 'column'
+          );
+        },
         getIsSticky: () => true,
         getData: ({ input, element }) => {
           const data = {
@@ -234,7 +245,7 @@ export const Column = memo(function Column({ column }: { column: ColumnType }) {
         },
       }),
     );
-  }, [columnId]);
+  }, [columnId, instanceId]);
 
   const stableItems = useRef(column.items);
   useEffect(() => {

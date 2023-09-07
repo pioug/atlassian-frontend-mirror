@@ -136,6 +136,17 @@ export const ResizableTableContainer = ({
     [pluginInjectionApi],
   );
 
+  const displayGapCursor = useCallback(
+    (toggle) => {
+      return (
+        pluginInjectionApi?.core?.actions.execute(
+          pluginInjectionApi?.selection?.commands.displayGapCursor(toggle),
+        ) ?? false
+      );
+    },
+    [pluginInjectionApi],
+  );
+
   const tableWidth = getTableContainerWidth(node);
   // 76 is currently an accepted padding value considering the spacing for resizer handle
   const responsiveContainerWidth = containerWidth - 76;
@@ -167,6 +178,7 @@ export const ResizableTableContainer = ({
         tableRef={tableRef}
         displayGuideline={displayGuideline}
         attachAnalyticsEvent={attachAnalyticsEvent}
+        displayGapCursor={displayGapCursor}
       >
         <InnerContainer className={className} node={node}>
           {children}

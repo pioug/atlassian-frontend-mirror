@@ -6,6 +6,7 @@ import createStub from 'raf-stub';
 
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { findOverflowScrollParent } from '@atlaskit/editor-common/ui';
+import selectionPlugin from '@atlaskit/editor-core/src/plugins/selection';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
@@ -67,6 +68,7 @@ describe('TableRowNodeView', () => {
         .add(contentInsertionPlugin)
         .add(widthPlugin)
         .add(guidelinePlugin)
+        .add(selectionPlugin)
         .add(tablePlugin),
       pluginKey,
       attachTo: document.body,
@@ -100,6 +102,7 @@ describe('TableRowNodeView', () => {
             .add(contentInsertionPlugin)
             .add(widthPlugin)
             .add(guidelinePlugin)
+            .add(selectionPlugin)
             .add(tablePlugin),
           pluginKey,
         });

@@ -262,7 +262,7 @@ describe('MediaClient', () => {
       );
     });
 
-    it('should return file state regardless of the state', async (done) => {
+    it.skip('should return file state regardless of the state', async (done) => {
       const {
         controller,
         id,

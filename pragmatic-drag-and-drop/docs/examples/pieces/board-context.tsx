@@ -26,6 +26,8 @@ export type BoardContextProps = {
     cardId: string;
     actionMenuTrigger: HTMLElement;
   }) => void;
+
+  instanceId: symbol;
 };
 
 export const BoardContext = createContext<BoardContextProps | null>(null);

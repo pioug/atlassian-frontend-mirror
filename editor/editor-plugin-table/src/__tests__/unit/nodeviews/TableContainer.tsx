@@ -280,4 +280,62 @@ describe('table -> nodeviews -> TableContainer.tsx', () => {
       expect(mockEndMeasure).toHaveBeenCalled();
     });
   });
+
+  describe('selection', () => {
+    const selectionActionMock = jest.fn().mockReturnValue(() => {});
+
+    const buildContainer = (attrs: TableAttributes) => {
+      const { table, editorView } = createNode(attrs);
+
+      const { container } = render(
+        <ResizableTableContainer
+          containerWidth={1800}
+          lineLength={720}
+          node={table}
+          className={''}
+          editorView={editorView}
+          getPos={() => 0}
+          tableRef={
+            {
+              querySelector: () => null,
+              insertBefore: () => {},
+              style: {},
+            } as any
+          }
+          pluginInjectionApi={
+            {
+              selection: {
+                commands: { displayGapCursor: selectionActionMock },
+              },
+              // mock core so the selection command will execute
+              core: { actions: { execute: jest.fn() } },
+            } as any
+          }
+        />,
+      );
+
+      return { container, selectionActionMock };
+    };
+
+    afterEach(() => {
+      selectionActionMock.mockRestore();
+    });
+
+    it('fires selection action to hide gap cursor when present', () => {
+      const { container, selectionActionMock } = buildContainer({
+        layout: 'wide',
+      });
+
+      fireEvent.mouseDown(container.querySelector('.resizer-handle.right')!);
+      fireEvent.mouseMove(container.querySelector('.resizer-handle.right')!);
+      fireEvent.mouseMove(container.querySelector('.resizer-handle.right')!);
+      fireEvent.mouseMove(container.querySelector('.resizer-handle.right')!);
+      fireEvent.mouseUp(container.querySelector('.resizer-handle.right')!);
+
+      // when resize starts - call to hide gap cursor
+      expect(selectionActionMock).toHaveBeenNthCalledWith(1, false);
+      // when resize finishes - call to display gap cursor
+      expect(selectionActionMock).toHaveBeenNthCalledWith(2, true);
+    });
+  });
 });

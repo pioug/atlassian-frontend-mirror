@@ -1,4 +1,5 @@
 import type { TableLayout } from '@atlaskit/adf-schema';
+import selectionPlugin from '@atlaskit/editor-core/src/plugins/selection';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
@@ -46,6 +47,7 @@ describe('table toolbar', () => {
     .add(decorationsPlugin)
     .add(widthPlugin)
     .add(guidelinePlugin)
+    .add(selectionPlugin)
     .add([tablePlugin, { tableOptions }]);
 
   const editor = (doc: DocBuilder) => {

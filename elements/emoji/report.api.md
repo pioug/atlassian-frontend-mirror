@@ -291,6 +291,7 @@ export interface EmojiProvider
     emoji: EmojiDescription,
     useAlt?: boolean,
   ): OptionalEmojiDescription | Promise<OptionalEmojiDescription>;
+  onlyFetchOnDemand?(): boolean;
   optimisticMediaRendering(emoji: EmojiDescription, useAlt?: boolean): boolean;
   recordSelection?(emoji: EmojiDescription): Promise<any>;
   setSelectedTone(tone: ToneSelection): void;
@@ -384,6 +385,8 @@ class EmojiResource_2
   // (undocumented)
   fetchEmojiProvider(force?: boolean): Promise<EmojiRepository | undefined>;
   // (undocumented)
+  protected fetchOnDemand: boolean;
+  // (undocumented)
   filter(query?: string, options?: SearchOptions): void;
   // (undocumented)
   findByEmojiId(
@@ -438,6 +441,8 @@ class EmojiResource_2
   // (undocumented)
   protected notifyResult(result: EmojiSearchResult): void;
   // (undocumented)
+  onlyFetchOnDemand(): boolean;
+  // (undocumented)
   optimisticMediaRendering(emoji: EmojiDescription, useAlt?: boolean): boolean;
   // (undocumented)
   protected recordConfig?: ServiceConfig;
@@ -461,6 +466,7 @@ export interface EmojiResourceConfig {
   allowUpload?: boolean;
   currentUser?: User;
   optimisticImageApi?: OptimisticImageApiLoaderConfig;
+  options?: Options;
   providers: ServiceConfig[];
   recordConfig?: ServiceConfig;
   singleEmojiApi?: SingleEmojiApiLoaderConfig;
@@ -977,6 +983,12 @@ export type OptionalEmojiDescriptionWithVariations =
 
 // @public (undocumented)
 export type OptionalUser = User | undefined;
+
+// @public (undocumented)
+interface Options {
+  // (undocumented)
+  onlyFetchOnDemand?: boolean;
+}
 
 // @public (undocumented)
 interface PickerRefHandler {

@@ -18,6 +18,7 @@ import {
 
 import blockTypePlugin from '../../block-type';
 import panelPlugin from '../../panel';
+import selectionPlugin from '../../selection';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import { changeColor } from '../commands/change-color';
 import { toggleColor } from '../commands/toggle-color';
@@ -44,6 +45,7 @@ describe('text color commands', () => {
     .add(textColorPlugin)
     .add(widthPlugin)
     .add(guidelinePlugin)
+    .add(selectionPlugin)
     .add(tablesPlugin)
     .add(blockTypePlugin)
     .add(panelPlugin);

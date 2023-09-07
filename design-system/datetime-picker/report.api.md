@@ -23,7 +23,7 @@ import { GroupType } from '@atlaskit/select';
 import { OptionType } from '@atlaskit/select';
 import { default as React_2 } from 'react';
 import { RefAttributes } from 'react';
-import { SelectProps as SelectProps_2 } from '@atlaskit/select';
+import { SelectProps } from '@atlaskit/select';
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { WithContextProps } from '@atlaskit/analytics-next';
 
@@ -192,7 +192,7 @@ export interface DatePickerProps extends WithAnalyticsEventsProps {
   parseInputValue?: (date: string, dateFormat: string) => Date;
   placeholder?: string;
   previousMonthLabel?: string;
-  selectProps?: SelectProps;
+  selectProps?: SelectProps<any>;
   spacing?: Spacing;
   testId?: string;
   value?: string;
@@ -320,7 +320,7 @@ export interface DateTimePickerProps extends WithAnalyticsEventsProps {
   autoFocus?: boolean;
   dateFormat?: string;
   datePickerProps?: DatePickerProps;
-  datePickerSelectProps?: SelectProps_2<any>;
+  datePickerSelectProps?: SelectProps<any>;
   defaultValue?: string;
   id?: string;
   innerProps?: React_2.AllHTMLAttributes<HTMLElement>;
@@ -346,7 +346,7 @@ export interface DateTimePickerProps extends WithAnalyticsEventsProps {
   timeFormat?: string;
   timeIsEditable?: boolean;
   timePickerProps?: TimePickerProps;
-  timePickerSelectProps?: SelectProps_2<any>;
+  timePickerSelectProps?: SelectProps<any>;
   times?: Array<string>;
   value?: string;
 }
@@ -354,9 +354,6 @@ export interface DateTimePickerProps extends WithAnalyticsEventsProps {
 // @public (undocumented)
 type DateTimePickerProps_2 = typeof dateTimePickerDefaultProps &
   DateTimePickerProps;
-
-// @public (undocumented)
-type SelectProps = any;
 
 // @public (undocumented)
 export type Spacing = 'compact' | 'default';
@@ -503,7 +500,7 @@ export interface TimePickerProps extends WithAnalyticsEventsProps {
   // (undocumented)
   parseInputValue?: (time: string, timeFormat: string) => Date | string;
   placeholder?: string;
-  selectProps?: SelectProps_2<any>;
+  selectProps?: SelectProps<any>;
   spacing?: Spacing;
   testId?: string;
   timeFormat?: string;

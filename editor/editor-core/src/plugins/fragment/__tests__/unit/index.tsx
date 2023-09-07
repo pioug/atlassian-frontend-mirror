@@ -1,10 +1,14 @@
 import { fragment } from '@atlaskit/adf-schema';
 import { defaultSchemaConfig } from '@atlaskit/adf-schema/schema-default';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+import type {
+  DocBuilder,
+  BuilderContent,
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
   p,
@@ -20,8 +24,6 @@ import {
   panel,
   expand,
   bodiedExtension,
-  DocBuilder,
-  BuilderContent,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
@@ -33,6 +35,7 @@ import extensionPlugin from '../../../extension';
 import layoutPlugin from '../../../layout';
 import expandPlugin from '../../../expand';
 import panelPlugin from '../../../panel';
+import selectionPlugin from '../../../selection';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
@@ -97,6 +100,7 @@ describe('fragment plugin', () => {
       .add(widthPlugin)
       .add(guidelinePlugin)
       .add(fragmentMarkPlugin)
+      .add(selectionPlugin)
       .add([tablesPlugin, { tableOptions: {} }])
       .add(contextPanelPlugin)
       .add(extensionPlugin)

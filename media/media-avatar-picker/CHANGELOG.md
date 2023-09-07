@@ -1,5 +1,12 @@
 # @atlaskit/media-avatar-picker
 
+## 24.3.11
+
+### Patch Changes
+
+- [`f64b71e6a69`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f64b71e6a69) - [ux] [MEX-2586] Bug fix: prevent the entire page from scrolling when opening the list of predefined avatars from media avatar picker
+- Updated dependencies
+
 ## 24.3.10
 
 ### Patch Changes

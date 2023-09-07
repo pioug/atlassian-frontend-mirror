@@ -73,7 +73,7 @@ const baseStyles = css({
 });
 
 const dividerStyles = css({
-  margin: '0 -2px',
+  margin: `0 ${token('space.negative.025', '-2px')}`,
   color: token('color.text.subtle', '#42526E'),
   pointerEvents: 'none',
   userSelect: 'none',
@@ -160,11 +160,11 @@ export default Inline;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::253507949de085f00146762f8cd80723>>
+ * @codegen <<SignedSource::63747c8b92ba373ad2259fa1fff3f434>>
  * @codegenId spacing
  * @codegenCommand yarn codegen-styles
  * @codegenParams ["columnGap"]
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-spacing.tsx <<SignedSource::68f6bde7e6b186964ee53458284bbb90>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-spacing.tsx <<SignedSource::298080e8024fb3eb37589721413e0156>>
  */
 const columnGapMap = {
   'space.0': css({

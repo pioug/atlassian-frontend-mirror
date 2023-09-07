@@ -1,5 +1,19 @@
 # @atlaskit/editor-common
 
+## 74.56.8
+
+### Patch Changes
+
+- [`0dd8a45fd35`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0dd8a45fd35) - Add test for mouse hover zone in resizer and adjust the handle track height
+
+## 74.56.7
+
+### Patch Changes
+
+- [`dfb663969a0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dfb663969a0) - ED-19820: Fix for table scroll when insert media node when extended-resize-experience is off
+- [`d1bd1be0923`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d1bd1be0923) - Updated shared resizer style
+- Updated dependencies
+
 ## 74.56.6
 
 ### Patch Changes

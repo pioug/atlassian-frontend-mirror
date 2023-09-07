@@ -26,12 +26,12 @@ const spacingProperties = {
   },
 } as const;
 
-const onlySpaceTokens = tokens.filter((token) =>
-  token.name.startsWith('space.'),
-);
+const onlySpaceTokens = tokens
+  .filter((token) => token.name.startsWith('space.'))
+  .filter((token) => !token.name.includes('.negative'));
 
 const activeTokens = onlySpaceTokens.map((t) => ({
-  name: t.name,
+  name: t.cleanName,
   fallback: t.value,
 }));
 

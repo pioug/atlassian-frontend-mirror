@@ -143,6 +143,29 @@ There are lots of platform gotchas when working with custom native drag previews
 
 </SectionMessage>
 
+<SectionMessage appearance="warning" title="Super low opacity on large previews for Windows">
+
+Unfortunately, for all browsers on Windows, when a native drag previews is wider than `280px` or taller than `280px`, then the preview opacity is significantly lowered, to the point where the preview is almost invisible. Therefore, we recommend that you make your native previews smaller than `280px`x`280px`.
+
+You can also have smaller native previews just for Windows users if you like:
+
+```ts
+const preview = document.createElement('div');
+
+if(navigator.platform.includes('Win32')) {
+  preview.style.maxWidth = '280px';
+  preview.style.maxHeight = '280px';
+}
+```
+
+Tested on Windows 11:
+
+- `Edge@116`
+- `Chrome@116`
+- `Firefox@117`
+
+</SectionMessage>
+
 ##### Mounting a new element with `setCustomNativeDragPreview`
 
 You can use `setCustomNativeDragPreview` to mount a new element to the page to be used as the drag preview. `setCustomNativeDragPreview` will call your `cleanup` function to remove the preview element from the page after the browser has taken a photo of the element. `setCustomNativeDragPreview` adds the `container` `Element` to the `document.body` and will remove the `container` `Element` after your `cleanup` function is called.

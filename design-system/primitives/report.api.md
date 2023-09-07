@@ -840,6 +840,9 @@ const layerMap: {
   readonly tooltip: 800;
 };
 
+// @public (undocumented)
+type MarginSpace = 'auto' | Space;
+
 // @public
 export const media: {
   readonly above: {
@@ -1085,6 +1088,17 @@ type TokenisedProps = {
   insetInlineEnd?: Space;
   insetInlineStart?: Space;
   left?: AutoComplete<Space>;
+  margin?: AutoComplete<MarginSpace>;
+  marginBlock?: AutoComplete<MarginSpace>;
+  marginBlockEnd?: AutoComplete<MarginSpace>;
+  marginBlockStart?: AutoComplete<MarginSpace>;
+  marginBottom?: AutoComplete<MarginSpace>;
+  marginInline?: AutoComplete<MarginSpace>;
+  marginInlineEnd?: AutoComplete<MarginSpace>;
+  marginInlineStart?: AutoComplete<MarginSpace>;
+  marginLeft?: AutoComplete<MarginSpace>;
+  marginRight?: AutoComplete<MarginSpace>;
+  marginTop?: AutoComplete<MarginSpace>;
   maxBlockSize?: AutoComplete<Dimension>;
   maxHeight?: AutoComplete<Dimension>;
   maxInlineSize?: AutoComplete<Dimension>;
@@ -1103,6 +1117,10 @@ type TokenisedProps = {
   paddingInline?: Space;
   paddingInlineEnd?: Space;
   paddingInlineStart?: Space;
+  paddingBottom?: AutoComplete<Space>;
+  paddingLeft?: AutoComplete<Space>;
+  paddingRight?: AutoComplete<Space>;
+  paddingTop?: AutoComplete<Space>;
   right?: AutoComplete<Space>;
   rowGap?: Space;
   top?: AutoComplete<Space>;

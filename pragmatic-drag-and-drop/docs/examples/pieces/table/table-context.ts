@@ -12,6 +12,7 @@ export type ItemContextValue = {
   reorderColumn: ReorderFunction;
   reorderItem: ReorderFunction;
   register: (args: ItemRegistration) => UnregisterFn;
+  instanceId: symbol | null;
 };
 export const TableContext = createContext<ItemContextValue>({
   getItemsForColumnPreview: () => ({ items: [], isMoreItems: false }),
@@ -20,4 +21,5 @@ export const TableContext = createContext<ItemContextValue>({
   register: function register() {
     return function unregister() {};
   },
+  instanceId: null,
 });

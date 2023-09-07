@@ -179,6 +179,7 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
             onSelection,
             extractOptionValue(value),
             this.getSessionId(),
+            this,
           );
         }
         this.fireEvent(selectEvent, isMulti ? option : value);

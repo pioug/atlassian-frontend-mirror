@@ -51,6 +51,7 @@ type ListContextProps = {
     indexOfTarget: number;
     closestEdgeOfTarget: Edge | null;
   }) => void;
+  instanceId: symbol;
 };
 
 const ListContext = createContext<ListContextProps | null>(null);
@@ -112,7 +113,7 @@ const itemLabelStyles = xcss({
 });
 
 function ListItem({ itemData }: { itemData: ItemData }) {
-  const { getItemIndex, registerItem } = useListContext();
+  const { getItemIndex, registerItem, instanceId } = useListContext();
 
   const ref = useRef<HTMLDivElement>(null);
   const [closestEdge, setClosestEdge] = useState<Edge | null>(null);
@@ -128,7 +129,7 @@ function ListItem({ itemData }: { itemData: ItemData }) {
 
     const element = ref.current;
 
-    const dragData = { id: itemData.id };
+    const dragData = { id: itemData.id, instanceId };
 
     return combine(
       registerItem({ id: itemData.id, element }),
@@ -161,6 +162,9 @@ function ListItem({ itemData }: { itemData: ItemData }) {
       }),
       dropTargetForElements({
         element,
+        canDrop({ source }) {
+          return source.data.instanceId === instanceId;
+        },
         getData({ input }) {
           return attachClosestEdge(dragData, {
             element,
@@ -204,7 +208,7 @@ function ListItem({ itemData }: { itemData: ItemData }) {
         },
       }),
     );
-  }, [getItemIndex, itemData, registerItem]);
+  }, [getItemIndex, instanceId, itemData, registerItem]);
 
   return (
     <Fragment>
@@ -434,8 +438,13 @@ export default function ListExample() {
     [],
   );
 
+  const [instanceId] = useState(() => Symbol('instance-id'));
+
   useEffect(() => {
     return monitorForElements({
+      canMonitor({ source }) {
+        return source.data.instanceId === instanceId;
+      },
       onDrop({ location, source }) {
         const target = location.current.dropTargets[0];
         if (!target) {
@@ -461,7 +470,7 @@ export default function ListExample() {
         reorderItem({ startIndex, indexOfTarget, closestEdgeOfTarget });
       },
     });
-  }, [reorderItem]);
+  }, [instanceId, reorderItem]);
 
   const getItemPosition = useCallback((itemData: ItemData) => {
     const items = stableItemsRef.current;
@@ -487,8 +496,14 @@ export default function ListExample() {
   }, []);
 
   const contextValue = useMemo(() => {
-    return { getItemIndex, getItemPosition, registerItem, reorderItem };
-  }, [getItemIndex, getItemPosition, registerItem, reorderItem]);
+    return {
+      getItemIndex,
+      getItemPosition,
+      registerItem,
+      reorderItem,
+      instanceId,
+    };
+  }, [getItemIndex, getItemPosition, registerItem, reorderItem, instanceId]);
 
   return (
     <ListContext.Provider value={contextValue}>

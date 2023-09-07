@@ -1,0 +1,18 @@
+{
+  "extends": "../../../tsconfig.json",
+  "include": [
+    "__perf__",
+    "./src/**/*.ts",
+    "./src/**/*.tsx",
+    "./docs/**/*.ts",
+    "./docs/**/*.tsx",
+    "./examples/**/*.ts",
+    "./examples/**/*.tsx",
+    "./example-helpers/**/*.ts",
+    "./example-helpers/**/*.tsx",
+    "./codemods/**/*.tsx"
+  ],
+  "compilerOptions": {
+    "baseUrl": "./"
+  }
+}

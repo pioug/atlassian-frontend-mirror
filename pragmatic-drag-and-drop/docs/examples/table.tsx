@@ -85,12 +85,13 @@ type Operation =
 
 export default function Table() {
   // Data
-  const [items, setItems] = useState(() => getItems({ amount: 100 }));
+  const [items, setItems] = useState(() => getItems({ amount: 20 }));
   const [columns, setColumns] = useState<(keyof Item)[]>([
     'status',
     'description',
     'assignee',
   ]);
+  const [instanceId] = useState(() => Symbol('instance-id'));
 
   const [lastOperation, setLastOperation] = useState<Operation | null>(null);
 
@@ -175,6 +176,9 @@ export default function Table() {
 
   useEffect(() => {
     return monitorForElements({
+      canMonitor({ source }) {
+        return source.data.instanceId === instanceId;
+      },
       onDragStart({ location, source }) {
         // Only enabling auto scrolling when scrolling rows
         // - resizing: we don't want auto scrolling
@@ -228,7 +232,7 @@ export default function Table() {
         }
       },
     });
-  }, [reorderColumn, reorderItem]);
+  }, [instanceId, reorderColumn, reorderItem]);
 
   // Elements
   const tableRef = useRef<HTMLTableElement | null>(null);
@@ -280,8 +284,20 @@ export default function Table() {
   }, []);
 
   const contextValue: ItemContextValue = useMemo(() => {
-    return { getItemsForColumnPreview, reorderColumn, reorderItem, register };
-  }, [getItemsForColumnPreview, reorderColumn, reorderItem, register]);
+    return {
+      getItemsForColumnPreview,
+      reorderColumn,
+      reorderItem,
+      register,
+      instanceId,
+    };
+  }, [
+    getItemsForColumnPreview,
+    reorderColumn,
+    reorderItem,
+    register,
+    instanceId,
+  ]);
 
   // Storing the height of the table in a CSS variable
   // This is used by our header resizer and drop target

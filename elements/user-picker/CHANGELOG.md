@@ -1,5 +1,21 @@
 # @atlaskit/user-picker
 
+## 10.10.0
+
+### Minor Changes
+
+- [`faccaf9aac7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/faccaf9aac7) - Added baseUserPicker as an argument to the onSelection callback
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.9.1
+
+### Patch Changes
+
+- [`fc67a1928e7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fc67a1928e7) - [ux] Added z-index of 400 to menu list for user picker as per design system popup guidelines
+
 ## 10.9.0
 
 ### Minor Changes

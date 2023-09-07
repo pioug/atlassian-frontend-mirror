@@ -208,7 +208,7 @@ export const Card = memo(function Card({ item }: { item: Person }) {
   const [state, setState] = useState<DraggableState>(idleState);
 
   const actionMenuTriggerRef = useRef<HTMLButtonElement>(null);
-  const { registerCard } = useBoardContext();
+  const { instanceId, registerCard } = useBoardContext();
   useEffect(() => {
     if (!actionMenuTriggerRef.current) {
       return;
@@ -225,7 +225,7 @@ export const Card = memo(function Card({ item }: { item: Person }) {
     return combine(
       draggable({
         element: ref.current,
-        getInitialData: () => ({ type: 'card', itemId: userId }),
+        getInitialData: () => ({ type: 'card', itemId: userId, instanceId }),
         onGenerateDragPreview: ({ location, source, nativeSetDragImage }) => {
           const rect = source.element.getBoundingClientRect();
 
@@ -258,7 +258,11 @@ export const Card = memo(function Card({ item }: { item: Person }) {
       }),
       dropTargetForElements({
         element: ref.current,
-        canDrop: args => args.source.data.type === 'card',
+        canDrop: ({ source }) => {
+          return (
+            source.data.instanceId === instanceId && source.data.type === 'card'
+          );
+        },
         getIsSticky: () => true,
         getData: ({ input, element }) => {
           const data = { type: 'card', itemId: userId };
@@ -287,7 +291,7 @@ export const Card = memo(function Card({ item }: { item: Person }) {
         },
       }),
     );
-  }, [item, userId]);
+  }, [instanceId, item, userId]);
 
   return (
     <Fragment>

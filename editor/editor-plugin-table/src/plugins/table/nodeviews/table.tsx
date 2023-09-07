@@ -331,7 +331,6 @@ export default class TableView extends ReactNodeView<Props> {
     }
 
     this.eventDispatcher?.emit('TABLE_DELETED', this.node);
-
     super.destroy();
   }
 }

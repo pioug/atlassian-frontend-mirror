@@ -1,3 +1,4 @@
+import selectionPlugin from '@atlaskit/editor-core/src/plugins/selection';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
@@ -40,6 +41,7 @@ describe('table width', () => {
         .add(contentInsertionPlugin)
         .add(widthPlugin)
         .add(guidelinePlugin)
+        .add(selectionPlugin)
         .add([
           tablePlugin,
           {

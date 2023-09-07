@@ -1,5 +1,11 @@
 # @atlaskit/stylelint-design-system
 
+## 1.0.2
+
+### Patch Changes
+
+- [`8f20e7f6031`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f20e7f6031) - Stylelint is now enrolled into the product push model for Jira.
+
 ## 1.0.1
 
 ### Patch Changes

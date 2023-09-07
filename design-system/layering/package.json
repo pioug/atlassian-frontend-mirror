@@ -1,0 +1,82 @@
+{
+  "name": "@atlaskit/layering",
+  "version": "0.1.2",
+  "description": "Layering provides consistent and accessible layered experience",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "atlassian": {
+    "team": "Design System Team",
+    "inPublicMirror": false,
+    "releaseModel": "continuous"
+  },
+  "author": "Atlassian Pty Ltd",
+  "license": "Apache-2.0",
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "module:es2019": "dist/es2019/index.js",
+  "types": "dist/types/index.d.ts",
+  "sideEffects": false,
+  "atlaskit:src": "src/index.tsx",
+  "af:exports": {
+    ".": "./src/index.tsx"
+  },
+  "dependencies": {
+    "@atlaskit/ds-lib": "^2.2.0",
+    "@atlaskit/platform-feature-flags": "^0.2.0",
+    "@babel/runtime": "^7.0.0"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0"
+  },
+  "devDependencies": {
+    "@atlaskit/ssr": "*",
+    "@atlaskit/visual-regression": "*",
+    "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
+    "@testing-library/react": "^12.1.5",
+    "@testing-library/react-hooks": "^8.0.1",
+    "prettier": "^2.8.0",
+    "typescript": "~4.9.5"
+  },
+  "techstack": {
+    "@atlassian/frontend": {
+      "import-structure": [
+        "atlassian-conventions"
+      ],
+      "circular-dependencies": "file-and-folder-level"
+    },
+    "@repo/internal": {
+      "design-system": "v1",
+      "dom-events": "use-bind-event-listener",
+      "analytics": "analytics-next",
+      "ui-components": [
+        "lite-mode"
+      ],
+      "deprecation": "no-deprecated-imports",
+      "styling": [
+        "static",
+        "emotion"
+      ],
+      "design-tokens": [
+        "color",
+        "spacing"
+      ]
+    }
+  },
+  "homepage": "https://atlassian.design/components",
+  "typesVersions": {
+    ">=4.5 <4.9": {
+      "*": [
+        "dist/types-ts4.5/*",
+        "dist/types-ts4.5/index.d.ts"
+      ]
+    }
+  },
+  "platform-feature-flags": {
+    "platform.design-system-team.layering_qmiw3": {
+      "type": "boolean"
+    }
+  },
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
+}

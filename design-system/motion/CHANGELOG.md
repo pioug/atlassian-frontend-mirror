@@ -1,5 +1,11 @@
 # @atlaskit/motion
 
+## 1.4.5
+
+### Patch Changes
+
+- [`1f371d41ccb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1f371d41ccb) - Motion is now enrolled into the product push model for Jira.
+
 ## 1.4.4
 
 ### Patch Changes

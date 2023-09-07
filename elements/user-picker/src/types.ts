@@ -4,6 +4,7 @@ import { Placement } from '@atlaskit/popper';
 
 import { EmailValidator } from './components/emailValidation';
 import { StylesConfig } from '@atlaskit/select';
+import { BaseUserPickerWithoutAnalytics } from './components/BaseUserPicker';
 
 export type UserPickerProps = WithAnalyticsEventsProps & {
   /**
@@ -352,7 +353,11 @@ export type OnInputChange = (query?: string, sessionId?: string) => void;
 
 export type OnPicker = (sessionId?: string) => void;
 
-export type OnOption = (value: Value, sessionId?: string) => void;
+export type OnOption = (
+  value: Value,
+  sessionId?: string,
+  baseUserPicker?: BaseUserPickerWithoutAnalytics,
+) => void;
 
 export type Option<Data = OptionData> = {
   data: Data;

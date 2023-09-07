@@ -1,6 +1,7 @@
 import { uuid } from '@atlaskit/adf-schema';
 import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
 import { setNodeSelection } from '@atlaskit/editor-common/utils';
+import selectionPlugin from '@atlaskit/editor-core/src/plugins/selection';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
@@ -90,6 +91,7 @@ describe('table plugin', () => {
       .add(guidelinePlugin)
       .add(gridPlugin)
       .add(contentInsertionPlugin)
+      .add(selectionPlugin)
       .add([tablePlugin, { tableOptions }]);
 
     return createEditor({

@@ -5,7 +5,6 @@ import { findParentNodeOfTypeClosestToPos } from '@atlaskit/editor-prosemirror/u
 import type { RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
 import type { MediaClientConfig } from '@atlaskit/media-core';
 import { getMediaClient } from '@atlaskit/media-client';
-import { token } from '@atlaskit/tokens';
 import {
   calcPctFromPx,
   wrappedLayouts,
@@ -41,7 +40,6 @@ import {
   MEDIA_SINGLE_VIDEO_MIN_PIXEL_WIDTH,
   MEDIA_SINGLE_SNAP_GAP,
   MEDIA_SINGLE_RESIZE_THROTTLE_TIME,
-  calculateOffsetLeft,
   DEFAULT_IMAGE_WIDTH,
   calcMediaSingleMaxWidth,
 } from '@atlaskit/editor-common/media-single';
@@ -69,7 +67,6 @@ import {
 } from '../../pm-plugins/main';
 
 type State = {
-  offsetLeft: number;
   isVideoFile: boolean;
   resizedPctWidth?: number;
   isResizing: boolean;
@@ -79,31 +76,15 @@ type State = {
   guidelines: GuidelineConfig[];
 };
 
-export const resizerNextTestId = 'mediaSingle.resizerNext.testid';
-
 type ResizableMediaSingleNextProps = Props;
 
-const handleComponent = {
-  left: (
-    <div
-      data-testid="richMedia-resize-handle-left-elem"
-      contentEditable={false}
-    />
-  ),
-  right: (
-    <div
-      data-testid="richMedia-resize-handle-right-elem"
-      contentEditable={false}
-    />
-  ),
-};
+export const resizerNextTestId = 'mediaSingle.resizerNext.testid';
 
 class ResizableMediaSingleNext extends React.Component<
   ResizableMediaSingleNextProps,
   State
 > {
   private lastSnappedGuidelineKeys: string[] = [];
-  private wrapper?: HTMLElement;
 
   constructor(props: ResizableMediaSingleNextProps) {
     super(props);
@@ -111,13 +92,6 @@ class ResizableMediaSingleNext extends React.Component<
     const initialWidth = props.mediaSingleWidth || DEFAULT_IMAGE_WIDTH;
 
     this.state = {
-      offsetLeft: calculateOffsetLeft(
-        this.insideInlineLike,
-        this.insideLayout,
-        this.props.view.dom,
-        undefined,
-      ),
-      // We default to true until we resolve the file type
       isVideoFile: true,
       isResizing: false,
       size: {
@@ -131,16 +105,6 @@ class ResizableMediaSingleNext extends React.Component<
   }
 
   componentDidUpdate(prevProps: Props) {
-    const offsetLeft = calculateOffsetLeft(
-      this.insideInlineLike,
-      this.insideLayout,
-      this.props.view.dom,
-      this.wrapper,
-    );
-    if (offsetLeft !== this.state.offsetLeft && offsetLeft >= 0) {
-      this.setState({ offsetLeft });
-    }
-
     // Handle undo, when the actual pctWidth changed,
     // we sync up with the internal state.
     if (prevProps.pctWidth !== this.props.pctWidth) {
@@ -371,8 +335,6 @@ class ResizableMediaSingleNext extends React.Component<
     const { width = newWidth, height } = this.props;
     return Math.round((height / width) * newWidth);
   };
-
-  private saveWrapper = (wrapper: HTMLDivElement) => (this.wrapper = wrapper);
 
   private displayGuideline = (guidelines: GuidelineConfig[]) =>
     this.props.pluginInjectionApi?.guideline?.actions?.displayGuideline(
@@ -644,35 +606,25 @@ class ResizableMediaSingleNext extends React.Component<
       },
     );
     const resizerNextClassName = classnames(className, resizerStyles);
+    const isNestedNode = this.isNestedNode();
 
     const maxWidth =
-      !isResizing && this.isNestedNode()
+      !isResizing && isNestedNode
         ? // set undefined to fall back to 100%
           undefined
         : this.calcMaxWidth(lineLength, containerWidth, fullWidthMode);
 
     const minWidth = this.calcMinWidth(isVideoFile, lineLength);
 
-    const nestedHandleStyles = (isNestedNode: boolean) => {
-      if (!isNestedNode) {
-        return;
-      }
-      return {
-        left: { left: `calc(${token('space.075', '0.375em')} * -1)` },
-        right: { right: `calc(${token('space.075', '0.375em')} * -1)` },
-      };
-    };
-
     return (
       <div
-        ref={this.saveWrapper}
         css={wrapperStyle({
           layout,
           isResized: !!pctWidth,
           containerWidth: containerWidth || origWidth,
           fullWidthMode,
           mediaSingleWidth: this.state.size.width,
-          isNestedNode: this.isNestedNode(),
+          isNestedNode,
           isExtendedResizeExperienceOn: true,
         })}
       >
@@ -688,10 +640,10 @@ class ResizableMediaSingleNext extends React.Component<
           handleResizeStop={this.handleResizeStop}
           snap={this.state.snaps}
           resizeRatio={nonWrappedLayouts.includes(layout) ? 2 : 1}
-          handleComponent={handleComponent}
           data-testid={resizerNextTestId}
           isHandleVisible={selected}
-          handleStyles={nestedHandleStyles(this.isNestedNode())}
+          handlePositioning={isNestedNode ? 'adjacent' : undefined}
+          handleHighlight="full-height"
         >
           {children}
         </ResizerNext>

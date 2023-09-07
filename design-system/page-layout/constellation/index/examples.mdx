@@ -21,17 +21,17 @@ import PageLayoutLeftSidebarWithKeyboardExpand from '../../examples/constellatio
 
 `PageLayout` wraps an entire app view and helps split the viewport into sections where you can render components in slots, such as `TopNavigation`, `Main`, `LeftSidebar`, and more.
 
-<Example Component={PageLayoutBasic} showcaseVisible={false} packageName="@atlaskit/page-layout" />
+<Example Component={PageLayoutBasic} appearance="source-only" packageName="@atlaskit/page-layout" />
 
 Here is a customisable and more interactive example to demonstrate the page layout slots.
 
-<Example Component={PageLayoutInteractive} showcaseVisible={false} packageName="@atlaskit/page-layout" />
+<Example Component={PageLayoutInteractive} appearance="source-only" packageName="@atlaskit/page-layout" />
 
 ## Integrated
 
 `PageLayout` is designed to work in tandem with our other navigation components, `@atlaskit/atlassian-navigation` and `@atlaskit/side-navigation`. Here we have an example where these components are used together.
 
-<Example Component={PageLayoutIntegration} showcaseVisible={false} packageName="@atlaskit/page-layout" />
+<Example Component={PageLayoutIntegration} appearance="source-only" packageName="@atlaskit/page-layout" />
 
 ## Left sidebar
 
@@ -45,13 +45,13 @@ The left sidebar:
 
 You can see the left sidebar can be resized and even collapsed to give more screen space to the main content:
 
-<Example Component={PageLayoutResizeSidebar} showcaseVisible={false} packageName="@atlaskit/page-layout" />
+<Example Component={PageLayoutResizeSidebar} appearance="source-only" packageName="@atlaskit/page-layout" />
 
 ### Locking the sidebar open
 
 In some circumstances you may want to prevent the sidebar flyout from collapsing, such as when a pop-up menu has been opened inside the sidebar. The `useLeftSidebarFlyoutLock` hook is purpose-made for this situation.
 
-<Example Component={PageLayoutLockedSidebar} showcaseVisible={false} packageName="@atlaskit/page-layout" />
+<Example Component={PageLayoutLockedSidebar} appearance="source-only" packageName="@atlaskit/page-layout" />
 
 ### Left sidebar without resize
 
@@ -67,10 +67,10 @@ These are the supported options exposed via context:
  - `expandLeftSidebar()` to show the left sidebar visible
  - `isLeftSidebarCollapsed` whether or not the left sidebar is currently hidden
 
-<Example Component={ExpandLeftSidebarKeyboardShortcut} showcaseVisible={false} packageName="@atlaskit/page-layout" />
+<Example Component={ExpandLeftSidebarKeyboardShortcut} appearance="source-only" packageName="@atlaskit/page-layout" />
 
 The context is only available within the `LeftSidebar` component, so ensure your logic exists as a child for these to be available, example:
-<Example Component={PageLayoutLeftSidebarWithKeyboardExpand} showcaseVisible={false} packageName="@atlaskit/page-layout" />
+<Example Component={PageLayoutLeftSidebarWithKeyboardExpand} appearance="source-only" packageName="@atlaskit/page-layout" />
 
 
 ## Skip links
@@ -93,7 +93,7 @@ To modify the "Skip to:" text, set the `skipLinksLabel` prop in PageLayout.
 
 On first tab into the example below, you should see the skip link menu appear:
 
-<Example Component={PageLayoutBasic} showcaseVisible={false} packageName="@atlaskit/page-layout" />
+<Example Component={PageLayoutBasic} appearance="source-only" packageName="@atlaskit/page-layout" />
 
 
 
@@ -105,7 +105,7 @@ You can choose the position the link will show up in the menu by using the optio
 
 **Note:** Although `useCustomSkipLink` can link to DOM elements outside of `PageLayout` using the HTML `id`, it needs to be called from within `PageLayout`, since it relies on the context provider that wraps `PageLayout`.
 
-<Example Component={PageLayoutCustomSkipLinks} showcaseVisible={false} packageName="@atlaskit/page-layout" />
+<Example Component={PageLayoutCustomSkipLinks} appearance="source-only" packageName="@atlaskit/page-layout" />
 
 ### Accessibility
 
@@ -123,7 +123,7 @@ All skip link text needs to be translated for different locales. This includes s
 
 Here is an example of a server-rendered page.
 
-<Example Component={PageLayoutServerRendered} showcaseVisible={false} packageName="@atlaskit/page-layout" />
+<Example Component={PageLayoutServerRendered} appearance="source-only" packageName="@atlaskit/page-layout" />
 
 
 ## Using CSS variables

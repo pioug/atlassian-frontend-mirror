@@ -3,6 +3,7 @@ import {
   EVENT_TYPE,
   TABLE_ACTION,
 } from '@atlaskit/editor-common/analytics';
+import selectionPlugin from '@atlaskit/editor-core/src/plugins/selection';
 import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
@@ -59,6 +60,7 @@ describe('table-resizing/event-handlers', () => {
           .add(decorationsPlugin)
           .add(widthPlugin)
           .add(guidelinePlugin)
+          .add(selectionPlugin)
           .add([
             tablePlugin,
             {

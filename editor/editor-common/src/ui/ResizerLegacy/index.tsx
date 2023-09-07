@@ -1,23 +1,31 @@
-import React, { RefObject } from 'react';
+import type { RefObject } from 'react';
+import React from 'react';
 
 import classnames from 'classnames';
-import { HandleComponent, Resizable, ResizeDirection } from 're-resizable';
+import type { HandleComponent, ResizeDirection } from 're-resizable';
+import { Resizable } from 're-resizable';
 
-import { RichMediaLayout } from '@atlaskit/adf-schema';
+import type { RichMediaLayout } from '@atlaskit/adf-schema';
 import { akRichMediaResizeZIndex } from '@atlaskit/editor-shared-styles';
 
+import type {
+  DispatchAnalyticsEvent,
+  MediaEventPayload,
+} from '../../analytics';
 import {
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
-  DispatchAnalyticsEvent,
   EVENT_TYPE,
-  MediaEventPayload,
 } from '../../analytics';
+import type { HandleStyles } from '../../resizer/types';
 import { richMediaClassName } from '../../styles';
 import { gridTypeForLayout } from '../../utils';
 
-import { EnabledHandles, Props as ResizableMediaSingleProps } from './types';
+import type {
+  EnabledHandles,
+  Props as ResizableMediaSingleProps,
+} from './types';
 import { handleSides, snapTo } from './utils';
 
 const getResizeAnalyticsEvent = (
@@ -64,6 +72,7 @@ export type ResizerProps = Omit<
   width: number;
   ratio?: string;
   handleComponentFunc?: (side: string) => React.ReactElement<any> | undefined;
+  handleStyles?: HandleStyles;
 };
 
 export type ResizerState = {
@@ -207,7 +216,7 @@ export default class Resizer extends React.Component<
   };
 
   render() {
-    const handleStyles: Record<string, {}> = {};
+    const baseHandleStyles: Record<string, {}> = {};
     const handles: Record<string, string> = {};
     const handleComponent: HandleComponent = {};
 
@@ -221,11 +230,13 @@ export default class Resizer extends React.Component<
       children,
       ratio,
       handleComponentFunc,
+      handleStyles,
     } = this.props;
     const { isResizing } = this.state;
+
     handleSides.forEach((side) => {
       handles[side] = `richMedia-resize-handle-${side}`;
-      handleStyles[side] = {
+      baseHandleStyles[side] = {
         width: '24px',
         [side]: `${-13 - innerPadding}px`,
         zIndex: akRichMediaResizeZIndex,
@@ -238,6 +249,18 @@ export default class Resizer extends React.Component<
         handleComponent[side] = sideHandleComponent;
       }
     });
+
+    const updatedHandleStyles: HandleStyles = {
+      left: {
+        ...baseHandleStyles.left,
+        ...handleStyles?.left,
+      },
+      right: {
+        ...baseHandleStyles.right,
+        ...handleStyles?.right,
+      },
+    };
+
     const className = classnames(
       richMediaClassName,
       `image-${layout}`,
@@ -272,7 +295,7 @@ export default class Resizer extends React.Component<
         }}
         className={className}
         handleClasses={handles}
-        handleStyles={handleStyles}
+        handleStyles={updatedHandleStyles}
         handleWrapperStyle={handleWrapperStyle}
         handleComponent={handleComponent}
         enable={enable}

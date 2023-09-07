@@ -31,6 +31,10 @@ export interface EmojiLoaderConfig extends ServiceConfig {
   getRatio?: () => number;
 }
 
+export interface Options {
+  onlyFetchOnDemand?: boolean;
+}
+
 export interface SingleEmojiApiLoaderConfig extends Omit<ServiceConfig, 'url'> {
   getUrl: (emojiId: EmojiId) => string;
 }

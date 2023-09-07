@@ -38,6 +38,7 @@ import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import betterTypeHistoryPlugin from '../../../better-type-history';
+import selectionPlugin from '../../../selection';
 
 describe('paste plugin: third-party', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -61,6 +62,7 @@ describe('paste plugin: third-party', () => {
         .add([codeBlockPlugin, { appearance: 'full-page' }])
         .add(widthPlugin)
         .add(guidelinePlugin)
+        .add(selectionPlugin)
         .add([
           tablesPlugin,
           {

@@ -35,6 +35,7 @@ import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import expandPlugin from '../../../expand';
 import layoutPlugin from '../../../layout';
 import panelPlugin from '../../../panel';
+import selectionPlugin from '../../../selection';
 import blockTypePlugin from '../../../block-type';
 import { listPlugin } from '@atlaskit/editor-plugin-list';
 import extensionPlugin from '../../../extension';
@@ -1512,6 +1513,7 @@ describe('pasting into an ordered list when restartNumberedLists FF is true', ()
       .add(expandPlugin)
       .add(contextPanelPlugin)
       .add(extensionPlugin)
+      .add(selectionPlugin)
       .add(tablesPlugin)
       .add(layoutPlugin)
       .add(compositionPlugin)

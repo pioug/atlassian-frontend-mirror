@@ -24,10 +24,12 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { EditorSelectionAPI } from '@atlaskit/editor-common/selection';
 import type {
   Command,
+  EditorCommand,
   EditorPlugin,
   GetEditorContainerWidth,
   GetEditorFeatureFlags,
   NextEditorPlugin,
+  OptionalPlugin,
 } from '@atlaskit/editor-common/types';
 import { browser } from '@atlaskit/editor-common/utils';
 import { WithPluginState } from '@atlaskit/editor-common/with-plugin-state';
@@ -86,6 +88,16 @@ interface TablePluginOptions {
 
 type InsertTableAction = (analyticsPayload: AnalyticsEventPayload) => Command;
 
+// TODO: duplicated SelectionPlugin type as it's still in editor-core, doing this avoid
+// circular dependencies
+type SelectionPlugin = NextEditorPlugin<
+  'selection',
+  {
+    pluginConfiguration: unknown;
+    commands: { displayGapCursor: (toggle: boolean) => EditorCommand };
+  }
+>;
+
 const defaultGetEditorFeatureFlags = () => ({});
 
 export type TablePlugin = NextEditorPlugin<
@@ -100,6 +112,7 @@ export type TablePlugin = NextEditorPlugin<
       ContentInsertionPlugin,
       WidthPlugin,
       GuidelinePlugin,
+      OptionalPlugin<SelectionPlugin>,
     ];
   }
 >;

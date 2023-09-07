@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-card
 
+## 0.5.4
+
+### Patch Changes
+
+- [`dfb663969a0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dfb663969a0) - ED-19820: Fix for table scroll when insert media node when extended-resize-experience is off
+
 ## 0.5.3
 
 ### Patch Changes

@@ -79,9 +79,6 @@ export default () => {
         >
           <FocusRing isInset>
             <input
-              // TODO: Remove autoFocus from example (DSP-11748)
-              // eslint-disable-next-line jsx-a11y/no-autofocus
-              autoFocus
               type="text"
               readOnly
               value={searchTerm[`s${num}`]}

@@ -41,6 +41,7 @@ import extensionPlugin from '../../../../extension';
 import layoutPlugin from '../../../../layout';
 import expandPlugin from '../../../../expand';
 import panelPlugin from '../../../../panel';
+import selectionPlugin from '../../../../selection';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
@@ -74,6 +75,7 @@ describe('fragment mark consistency plugin', () => {
       .add(guidelinePlugin)
       .add(fragmentMarkPlugin)
       .add(contextPanelPlugin)
+      .add(selectionPlugin)
       .add([tablesPlugin, { tableOptions: {} }])
       .add(extensionPlugin)
       .add(layoutPlugin)

@@ -44,6 +44,7 @@ import typeAheadPlugin from '../../../../../plugins/type-ahead';
 import quickInsertPlugin from '../../../../../plugins/quick-insert';
 import taskDecisionPlugin from '../../../../../plugins/tasks-and-decisions';
 import mentionsPlugin from '../../../../../plugins/mentions';
+import selectionPlugin from '../../../../../plugins/selection';
 import { emojiPlugin } from '@atlaskit/editor-plugin-emoji';
 import datePlugin from '../../../../../plugins/date';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
@@ -180,6 +181,7 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
       .add(layoutPlugin)
       .add(panelPlugin)
       .add(rulePlugin)
+      .add(selectionPlugin)
       .add(tablesPlugin)
       .add(imageUploadPlugin)
       .add([statusPlugin, { menuDisabled: true }])

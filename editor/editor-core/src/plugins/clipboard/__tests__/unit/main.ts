@@ -21,6 +21,7 @@ import {
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { rulePlugin } from '@atlaskit/editor-plugin-rule';
 import layoutPlugin from '../../../layout';
+import selectionPlugin from '../../../selection';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import clipboardPlugin from '../../index';
 import { sendClipboardAnalytics } from '../../pm-plugins/main';
@@ -56,6 +57,7 @@ describe('clipboard plugin', () => {
     .add(layoutPlugin)
     .add(widthPlugin)
     .add(guidelinePlugin)
+    .add(selectionPlugin)
     .add([
       tablesPlugin,
       {

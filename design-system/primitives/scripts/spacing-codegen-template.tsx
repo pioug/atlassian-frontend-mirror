@@ -6,10 +6,12 @@ import { spacing as tokens } from '@atlaskit/tokens/tokens-raw';
 import { constructTokenFunctionCall } from './utils';
 
 const spacingTokenPrefix = 'space.';
+const negativeSuffix = '.negative';
 const spaceTokens = tokens
   .filter(token => token.name.startsWith(spacingTokenPrefix))
+  .filter(token => !token.name.includes(negativeSuffix))
   .map(t => ({
-    name: t.name,
+    name: t.cleanName, // Need to use cleanName to avoid getting '[default]' in the token names
     fallback: t.value,
   }));
 

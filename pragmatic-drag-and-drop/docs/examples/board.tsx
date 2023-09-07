@@ -292,9 +292,14 @@ export default function BoardExample() {
     [],
   );
 
+  const [instanceId] = useState(() => Symbol('instance-id'));
+
   useEffect(() => {
     return combine(
       monitorForElements({
+        canMonitor({ source }) {
+          return source.data.instanceId === instanceId;
+        },
         onDrop(args) {
           const { location, source } = args;
           // didn't drop on anything
@@ -422,7 +427,7 @@ export default function BoardExample() {
         },
       }),
     );
-  }, [data, moveCard, reorderCard, reorderColumn]);
+  }, [data, instanceId, moveCard, reorderCard, reorderColumn]);
 
   const contextValue: BoardContextProps = useMemo(() => {
     return {
@@ -431,8 +436,16 @@ export default function BoardExample() {
       reorderCard,
       moveCard,
       registerCard,
+      instanceId,
     };
-  }, [getColumns, reorderColumn, reorderCard, moveCard, registerCard]);
+  }, [
+    getColumns,
+    reorderColumn,
+    reorderCard,
+    moveCard,
+    registerCard,
+    instanceId,
+  ]);
 
   return (
     <BoardContext.Provider value={contextValue}>

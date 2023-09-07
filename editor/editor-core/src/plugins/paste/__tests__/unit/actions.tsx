@@ -44,6 +44,7 @@ import layoutPlugin from '../../../layout';
 import panelPlugin from '../../../panel';
 import mediaPlugin from '../../../media';
 import captionPlugin from '../../../caption';
+import selectionPlugin from '../../../selection';
 import { listPlugin } from '@atlaskit/editor-plugin-list';
 import floatingToolbarPlugin from '../../../floating-toolbar';
 import betterTypeHistoryPlugin from '../../../better-type-history';
@@ -108,6 +109,7 @@ describe('action paste handler', () => {
         .add(hyperlinkPlugin)
         .add([statusPlugin, { menuDisabled: false }])
         .add(contextPanelPlugin)
+        .add(selectionPlugin)
         .add(tablesPlugin)
         .add(expandPlugin)
         .add(datePlugin)

@@ -47,37 +47,37 @@ type Space =
 
 const blockBleedMap = {
   'space.025': css({
-    marginBlock: `calc(-1 * ${token('space.050', '2px')})`,
+    marginBlock: token('space.negative.025', '-0.125rem'),
   }),
   'space.050': css({
-    marginBlock: `calc(-1 * ${token('space.050', '4px')})`,
+    marginBlock: token('space.negative.050', '-0.25rem'),
   }),
   'space.100': css({
-    marginBlock: `calc(-1 * ${token('space.100', '8px')})`,
-  }),
-  'space.200': css({
-    marginBlock: `calc(-1 * ${token('space.200', '16px')})`,
+    marginBlock: token('space.negative.100', '-0.5rem'),
   }),
   'space.150': css({
-    marginBlock: `calc(-1 * ${token('space.150', '12px')})`,
+    marginBlock: token('space.negative.150', '-0.75rem'),
+  }),
+  'space.200': css({
+    marginBlock: token('space.negative.200', '-1rem'),
   }),
 } as const;
 
 const inlineBleedMap = {
   'space.025': css({
-    marginInline: `calc(-1 * ${token('space.025', '2px')})`,
+    marginInline: token('space.negative.025', '-0.125rem'),
   }),
   'space.050': css({
-    marginInline: `calc(-1 * ${token('space.050', '4px')})`,
+    marginInline: token('space.negative.050', '-0.25rem'),
   }),
   'space.100': css({
-    marginInline: `calc(-1 * ${token('space.100', '8px')})`,
-  }),
-  'space.200': css({
-    marginInline: `calc(-1 * ${token('space.200', '16px')})`,
+    marginInline: token('space.negative.100', '-0.5rem'),
   }),
   'space.150': css({
-    marginInline: `calc(-1 * ${token('space.150', '12px')})`,
+    marginInline: token('space.negative.150', '-0.75rem'),
+  }),
+  'space.200': css({
+    marginInline: token('space.negative.200', '-1rem'),
   }),
 } as const;
 

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/motion",
-  "version": "1.4.4",
+  "version": "1.4.5",
   "description": "A set of utilities to apply motion in your application.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -37,6 +37,9 @@
   "atlaskit:src": "src/index.tsx",
   "atlassian": {
     "team": "Design System Team",
+    "productPushConsumption": [
+      "jira"
+    ],
     "releaseModel": "continuous",
     "website": {
       "name": "Motion",

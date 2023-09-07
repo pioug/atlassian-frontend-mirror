@@ -48,6 +48,62 @@ export type AtlasKitSelectChange = (
 export type AtlaskitSelectValue = Array<Option_2> | Option_2 | null | undefined;
 
 // @public (undocumented)
+type BaseUserPickerProps = UserPickerProps & {
+  SelectComponent: React_2.ComponentClass<any>;
+  pickerProps?: any;
+  styles: any;
+  components: any;
+  width: number | string;
+  name?: string;
+};
+
+// @public (undocumented)
+class BaseUserPickerWithoutAnalytics extends React_2.Component<
+  BaseUserPickerProps,
+  UserPickerState
+> {
+  constructor(props: BaseUserPickerProps);
+  // (undocumented)
+  abortOptionsShownUfoExperience: () => void;
+  // (undocumented)
+  get ariaProps(): {};
+  // (undocumented)
+  blur: () => void;
+  // (undocumented)
+  componentDidMount(): void;
+  // (undocumented)
+  componentDidUpdate(_: UserPickerProps, prevState: UserPickerState): void;
+  // (undocumented)
+  static defaultProps: {
+    isMulti: boolean;
+    subtle: boolean;
+    noBorder: boolean;
+    textFieldBackgroundColor: boolean;
+    isClearable: boolean;
+    loadOptionsErrorMessage: () => JSX.Element;
+  };
+  // (undocumented)
+  focus: () => void;
+  // (undocumented)
+  static getDerivedStateFromProps(
+    nextProps: Partial<UserPickerProps>,
+    prevState: UserPickerState,
+  ): Partial<UserPickerState>;
+  // (undocumented)
+  handleClearIndicatorHover: (hoveringClearIndicator: boolean) => void;
+  // (undocumented)
+  nextOption: () => void;
+  // (undocumented)
+  previousOption: () => void;
+  // (undocumented)
+  render(): JSX.Element;
+  // (undocumented)
+  selectOption: () => void;
+  // (undocumented)
+  startOptionsShownUfoExperience: () => void;
+}
+
+// @public (undocumented)
 type BoundariesElement = 'scrollParent' | 'viewport' | 'window' | HTMLElement;
 
 // @public (undocumented)
@@ -196,7 +252,11 @@ export type OnChange = (value: Value, action: ActionTypes) => void;
 export type OnInputChange = (query?: string, sessionId?: string) => void;
 
 // @public (undocumented)
-export type OnOption = (value: Value, sessionId?: string) => void;
+export type OnOption = (
+  value: Value,
+  sessionId?: string,
+  baseUserPicker?: BaseUserPickerWithoutAnalytics,
+) => void;
 
 // @public (undocumented)
 export type OnPicker = (sessionId?: string) => void;

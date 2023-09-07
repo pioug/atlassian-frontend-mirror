@@ -34,6 +34,7 @@ import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import { basePlugin } from '../../../base';
 import typeAheadPlugin from '../../../type-ahead';
 import quickInsertPlugin from '../../../quick-insert';
+import selectionPlugin from '../../../selection';
 import deprecatedAnalyticsPlugin from '../../../analytics';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { getToolbarConfig } from '../../toolbar';
@@ -62,6 +63,7 @@ describe('code-block', () => {
       .add([codeBlockPlugin, { appearance: 'full-page' }])
       .add(widthPlugin)
       .add(guidelinePlugin)
+      .add(selectionPlugin)
       .add(tablesPlugin)
       .add(typeAheadPlugin)
       .add(quickInsertPlugin)

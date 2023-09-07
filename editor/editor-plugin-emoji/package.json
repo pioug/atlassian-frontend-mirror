@@ -25,7 +25,7 @@
     "@atlaskit/editor-plugin-analytics": "^0.2.0",
     "@atlaskit/editor-plugin-type-ahead": "^0.3.0",
     "@atlaskit/editor-prosemirror": "1.1.0",
-    "@atlaskit/emoji": "^67.4.0",
+    "@atlaskit/emoji": "^67.5.0",
     "@atlaskit/prosemirror-input-rules": "^2.4.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",

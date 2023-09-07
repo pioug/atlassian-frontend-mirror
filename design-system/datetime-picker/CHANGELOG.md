@@ -1,5 +1,11 @@
 # @atlaskit/datetime-picker
 
+## 12.9.0
+
+### Minor Changes
+
+- [`4afff68f652`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4afff68f652) - Make typing more complete and accurate for date picker.
+
 ## 12.8.2
 
 ### Patch Changes

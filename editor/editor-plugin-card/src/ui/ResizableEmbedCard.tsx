@@ -3,18 +3,17 @@ import React from 'react';
 
 import { jsx } from '@emotion/react';
 
-import { RichMediaLayout } from '@atlaskit/adf-schema';
+import type { RichMediaLayout } from '@atlaskit/adf-schema';
 import { embedSpacingStyles } from '@atlaskit/editor-common/styles';
+import type { EnabledHandles, ResizerProps } from '@atlaskit/editor-common/ui';
 import {
   calcColumnsFromPx,
   calcMediaPxWidth,
   calcPctFromPx,
   calcPxFromColumns,
-  EnabledHandles,
   handleSides,
   imageAlignmentMap,
   Resizer,
-  ResizerProps,
   snapTo,
   wrappedLayouts,
   wrapperStyle,
@@ -32,6 +31,7 @@ import {
   DEFAULT_EMBED_CARD_WIDTH,
 } from '@atlaskit/editor-shared-styles';
 import { embedHeaderHeight } from '@atlaskit/smart-card';
+import { token } from '@atlaskit/tokens';
 
 type State = {
   offsetLeft: number;
@@ -187,6 +187,15 @@ export default class ResizableEmbedCard extends React.Component<Props, State> {
     } else {
       return akEditorWideLayoutWidth;
     }
+  }
+
+  // check if is inside of a table
+  isNestedInTable() {
+    const { table } = this.props.view.state.schema.nodes;
+    if (!this.$pos) {
+      return false;
+    }
+    return !!findParentNodeOfTypeClosestToPos(this.$pos, table);
   }
 
   calcSnapPoints() {
@@ -379,6 +388,22 @@ export default class ResizableEmbedCard extends React.Component<Props, State> {
       }
     });
 
+    const nestedInTableHandleStyles = (isNestedInTable: Boolean) => {
+      if (!isNestedInTable) {
+        return;
+      }
+      return {
+        left: {
+          left: `calc(${token('space.025', '0.125em')} * -0.5)`,
+          paddingLeft: '0px',
+        },
+        right: {
+          right: `calc(${token('space.025', '0.125em')} * -0.5)`,
+          paddingRight: '0px',
+        },
+      };
+    };
+
     /* eslint-disable  @atlaskit/design-system/consistent-css-prop-usage */
     return (
       <div css={embedSpacingStyles} data-testid="resizable-embed-card-spacing">
@@ -400,6 +425,7 @@ export default class ResizableEmbedCard extends React.Component<Props, State> {
             highlights={this.highlights}
             innerPadding={akEditorMediaResizeHandlerPaddingWide}
             nodeType="embed"
+            handleStyles={nestedInTableHandleStyles(this.isNestedInTable())}
           >
             {children}
             {this.getHeightDefiningComponent()}

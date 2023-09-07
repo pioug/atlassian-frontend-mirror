@@ -305,6 +305,33 @@ describe('EmojiResource', () => {
     });
   });
 
+  describe('#onlyFetchOnDemand', () => {
+    it('only fetch on demand should return false by default if no config set', () => {
+      const resource = new EmojiResource(defaultApiConfig);
+      expect(resource.onlyFetchOnDemand()).toEqual(false);
+    });
+    it('only fetch on demand should return true if config is set true', () => {
+      const config = {
+        ...defaultApiConfig,
+        options: {
+          onlyFetchOnDemand: true,
+        },
+      };
+      const resource = new EmojiResource(config);
+      expect(resource.onlyFetchOnDemand()).toEqual(true);
+    });
+    it('only fetch on demand should return false if config is set false', () => {
+      const config = {
+        ...defaultApiConfig,
+        options: {
+          onlyFetchOnDemand: false,
+        },
+      };
+      const resource = new EmojiResource(config);
+      expect(resource.onlyFetchOnDemand()).toEqual(false);
+    });
+  });
+
   describe('#filter', () => {
     it('no providers', () => {
       const config = {

@@ -116,4 +116,78 @@ test.describe('Media tables', () => {
       );
     });
   });
+
+  test.describe('Full Page when custom-table-width is enabled', () => {
+    test.use({
+      adf: table3x3,
+      editorProps: {
+        appearance: 'full-page',
+        allowTables: {
+          advanced: true,
+        },
+        media: {
+          allowMediaSingle: true,
+          allowMediaGroup: true,
+        },
+      },
+      platformFeatureFlags: {
+        'platform.editor.custom-table-width': true,
+      },
+    });
+
+    test('should not overflow table when insert media in last table cell', async ({
+      editor,
+    }) => {
+      const nodes = EditorNodeContainerModel.from(editor);
+      const tableModel = EditorTableModel.from(nodes.table);
+
+      const cell = await tableModel.cell(5);
+      await cell.click();
+
+      await EditorUploadMediaModel.from(editor).upload({
+        actionToTriggerUpload: async () => {
+          await editor.typeAhead.searchAndInsert('Image');
+        },
+      });
+
+      expect(await tableModel.hasOverflowed()).toBeFalsy();
+    });
+  });
+  test.describe('Full Page when custom-table-width is enabled, extended-resize-experience is enabled ', () => {
+    test.use({
+      adf: table3x3,
+      editorProps: {
+        appearance: 'full-page',
+        allowTables: {
+          advanced: true,
+        },
+        media: {
+          allowMediaSingle: true,
+          allowMediaGroup: true,
+        },
+      },
+      platformFeatureFlags: {
+        'platform.editor.custom-table-width': true,
+        'platform.editor.media.extended-resize-experience': true,
+      },
+    });
+
+    test('should not overflow table when insert media in last table cell', async ({
+      editor,
+    }) => {
+      const nodes = EditorNodeContainerModel.from(editor);
+      const tableModel = EditorTableModel.from(nodes.table);
+
+      const cell = await tableModel.cell(5);
+      await cell.click();
+
+      await EditorUploadMediaModel.from(editor).upload({
+        actionToTriggerUpload: async () => {
+          await editor.typeAhead.searchAndInsert('Image');
+        },
+      });
+
+      expect(await tableModel.hasOverflowed()).toBeFalsy();
+    });
+  });
 });

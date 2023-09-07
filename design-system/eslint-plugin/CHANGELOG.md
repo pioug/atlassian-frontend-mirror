@@ -1,5 +1,21 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 8.6.0
+
+### Minor Changes
+
+- [`192ba90d75b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/192ba90d75b) - The `ensure-design-token-usage` rules now support auto-fixing negative values to negative space tokens.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.5.0
+
+### Minor Changes
+
+- [`4eab52ffd1c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4eab52ffd1c) - Add `@atlaskit/button/unsafe` to 'no-banned-imports' lint rule
+
 ## 8.4.5
 
 ### Patch Changes

@@ -11,6 +11,7 @@ import {
   simpleTableWithOneRowWithText,
   simpleTableWithTwoRows,
   tablesWithDifferentColumns,
+  simpleTableWithScroll,
 } from './__fixtures__/base-adfs';
 import { createSquareTable } from './__fixtures__/resize-documents';
 
@@ -119,6 +120,27 @@ test.describe('resize handle should be visible on hover', () => {
     await test.step('is scrolled up', async () => {
       await editor.page.mouse.wheel(0, -4000);
       await tableModel.hoverBody();
+      expect(await resizerModel.waitForHandleToBeVisible()).toBeTruthy();
+    });
+  });
+});
+
+test.describe('resize handle should be visible on hover', () => {
+  test.use({
+    adf: simpleTableWithScroll,
+  });
+  test('outside the table but within the hover zone', async ({ editor }) => {
+    const nodes = EditorNodeContainerModel.from(editor);
+    const tableModel = EditorTableModel.from(nodes.table);
+    const resizerModel = tableModel.resizer();
+
+    await test.step('handle should not be visible', async () => {
+      expect(await resizerModel.waitForHandleToBeHidden()).toBeTruthy();
+    });
+
+    await tableModel.hoverZone.hover({ position: { x: 1, y: 1 } });
+
+    await test.step('handle should  be visible', async () => {
       expect(await resizerModel.waitForHandleToBeVisible()).toBeTruthy();
     });
   });

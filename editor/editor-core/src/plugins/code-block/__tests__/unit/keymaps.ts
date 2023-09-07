@@ -24,6 +24,7 @@ import { compositionPlugin } from '@atlaskit/editor-plugin-composition';
 import layoutPlugin from '../../../layout';
 import blockTypePlugin from '../../../block-type';
 import { basePlugin } from '../../../base';
+import selectionPlugin from '../../../selection';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import breakoutPlugin from '../../../breakout';
@@ -53,6 +54,7 @@ describe('codeBlock - keymaps', () => {
         .add(listPlugin)
         .add(widthPlugin)
         .add(guidelinePlugin)
+        .add(selectionPlugin)
         .add([
           tablesPlugin,
           {

@@ -38,6 +38,18 @@ export const textColors = {
     light: token('color.text.accent.purple.bolder', colors.N800),
     dark: token('color.text.accent.purple.bolder', colors.N800),
   },
+  lime: {
+    light: token('color.text.accent.lime.bolder', '#37471F'),
+    dark: token('color.text.accent.lime.bolder', '#D3F1A7'),
+  },
+  magenta: {
+    light: token('color.text.accent.magenta.bolder', '#50253F'),
+    dark: token('color.text.accent.magenta.bolder', '#FDD0EC'),
+  },
+  orange: {
+    light: token('color.text.accent.orange.bolder', '#5F3811'),
+    dark: token('color.text.accent.orange.bolder', '#FFE2BD'),
+  },
   grey: {
     light: token('color.text.accent.gray.bolder', colors.N0),
     dark: token('color.text.accent.gray.bolder', colors.N0),
@@ -65,6 +77,18 @@ export const textColors = {
   purpleLight: {
     light: token('color.text.accent.purple', colors.P500),
     dark: token('color.text.accent.purple', colors.P500),
+  },
+  limeLight: {
+    light: token('color.text.accent.lime', '#4C6B1F'),
+    dark: token('color.text.accent.lime', '#B3DF72'),
+  },
+  magentaLight: {
+    light: token('color.text.accent.magenta', '#943D73'),
+    dark: token('color.text.accent.magenta', '#F797D2'),
+  },
+  orangeLight: {
+    light: token('color.text.accent.orange', '#974F0C'),
+    dark: token('color.text.accent.orange', '#FEC57B'),
   },
   greyLight: {
     light: token('color.text.accent.gray', colors.N500),
@@ -107,6 +131,18 @@ export const textHoverColors = {
     light: token('color.text.accent.purple.bolder', colors.N800),
     dark: token('color.text.accent.purple.bolder', colors.N800),
   },
+  lime: {
+    light: token('color.text.accent.lime.bolder', '#37471F'),
+    dark: token('color.text.accent.lime.bolder', '#D3F1A7'),
+  },
+  magenta: {
+    light: token('color.text.accent.magenta.bolder', '#50253F'),
+    dark: token('color.text.accent.magenta.bolder', '#FDD0EC'),
+  },
+  orange: {
+    light: token('color.text.accent.orange.bolder', '#5F3811'),
+    dark: token('color.text.accent.orange.bolder', '#FFE2BD'),
+  },
   grey: {
     light: token('color.text.accent.gray.bolder', colors.N0),
     dark: token('color.text.accent.gray.bolder', colors.N0),
@@ -134,6 +170,18 @@ export const textHoverColors = {
   purpleLight: {
     light: token('color.text.accent.purple', colors.P500),
     dark: token('color.text.accent.purple', colors.P500),
+  },
+  limeLight: {
+    light: token('color.text.accent.lime', '#4C6B1F'),
+    dark: token('color.text.accent.lime', '#B3DF72'),
+  },
+  magentaLight: {
+    light: token('color.text.accent.magenta', '#943D73'),
+    dark: token('color.text.accent.magenta', '#F797D2'),
+  },
+  orangeLight: {
+    light: token('color.text.accent.orange', '#974F0C'),
+    dark: token('color.text.accent.orange', '#FEC57B'),
   },
   greyLight: {
     light: token('color.text.accent.gray', colors.N500),
@@ -170,6 +218,18 @@ export const textActiveColors = {
     light: token('color.text.accent.purple', colors.N800),
     dark: token('color.text.accent.purple', colors.N800),
   },
+  lime: {
+    light: token('color.text.accent.lime', '#4C6B1F'),
+    dark: token('color.text.accent.lime', '#B3DF72'),
+  },
+  magenta: {
+    light: token('color.text.accent.magenta', '#943D73'),
+    dark: token('color.text.accent.magenta', '#F797D2'),
+  },
+  orange: {
+    light: token('color.text.accent.orange', '#974F0C'),
+    dark: token('color.text.accent.orange', '#FEC57B'),
+  },
   grey: {
     light: token('color.text.accent.gray', colors.N0),
     dark: token('color.text.accent.gray', colors.N0),
@@ -197,6 +257,18 @@ export const textActiveColors = {
   purpleLight: {
     light: token('color.text.accent.purple.bolder', colors.P500),
     dark: token('color.text.accent.purple.bolder', colors.P500),
+  },
+  limeLight: {
+    light: token('color.text.accent.lime.bolder', '#37471F'),
+    dark: token('color.text.accent.lime.bolder', '#D3F1A7'),
+  },
+  magentaLight: {
+    light: token('color.text.accent.magenta.bolder', '#50253F'),
+    dark: token('color.text.accent.magenta.bolder', '#FDD0EC'),
+  },
+  orangeLight: {
+    light: token('color.text.accent.orange.bolder', '#5F3811'),
+    dark: token('color.text.accent.orange.bolder', '#FFE2BD'),
   },
   greyLight: {
     light: token('color.text.accent.gray.bolder', colors.N500),
@@ -234,6 +306,18 @@ export const backgroundColors = {
     light: token('color.background.accent.purple.subtle', colors.P100),
     dark: token('color.background.accent.purple.subtle', colors.P100),
   },
+  lime: {
+    light: token('color.background.accent.lime.subtle', '#94C748'),
+    dark: token('color.background.accent.lime.subtle', '#4C6B1F'),
+  },
+  magenta: {
+    light: token('color.background.accent.magenta.subtle', '#E774BB'),
+    dark: token('color.background.accent.magenta.subtle', '#943D73'),
+  },
+  orange: {
+    light: token('color.background.accent.orange.subtle', '#FAA53D'),
+    dark: token('color.background.accent.orange.subtle', '#974F0C'),
+  },
   grey: {
     light: token('color.background.accent.gray.subtle', colors.N500),
     dark: token('color.background.accent.gray.subtle', colors.N500),
@@ -262,6 +346,18 @@ export const backgroundColors = {
     light: token('color.background.accent.purple.subtler', colors.P75),
     dark: token('color.background.accent.purple.subtler', colors.P75),
   },
+  limeLight: {
+    light: token('color.background.accent.lime.subtler', '#D3F1A7'),
+    dark: token('color.background.accent.lime.subtler', '#37471F'),
+  },
+  magentaLight: {
+    light: token('color.background.accent.magenta.subtler', '#FDD0EC'),
+    dark: token('color.background.accent.magenta.subtler', '#50253F'),
+  },
+  orangeLight: {
+    light: token('color.background.accent.orange.subtler', '#FFE2BD'),
+    dark: token('color.background.accent.orange.subtler', '#5F3811'),
+  },
   greyLight: {
     light: token('color.background.accent.gray.subtler', colors.N30),
     dark: token('color.background.accent.gray.subtler', colors.N30),
@@ -274,60 +370,84 @@ export const linkHoverBackgroundColors = {
     dark: token('color.background.neutral.hovered', colors.DN60),
   },
   blue: {
-    light: token('color.background.accent.blue.subtler', colors.B75),
-    dark: token('color.background.accent.blue.subtler', colors.DN60),
+    light: token('color.background.accent.blue.subtle.hovered', colors.B75),
+    dark: token('color.background.accent.blue.subtle.hovered', colors.DN60),
   },
   red: {
-    light: token('color.background.accent.red.subtler', colors.R75),
-    dark: token('color.background.accent.red.subtler', colors.DN60),
+    light: token('color.background.accent.red.subtle.hovered', colors.R75),
+    dark: token('color.background.accent.red.subtle.hovered', colors.DN60),
   },
   yellow: {
-    light: token('color.background.accent.yellow.subtler', colors.Y100),
-    dark: token('color.background.accent.yellow.subtler', colors.DN60),
+    light: token('color.background.accent.yellow.subtle.hovered', colors.Y100),
+    dark: token('color.background.accent.yellow.subtle.hovered', colors.DN60),
   },
   green: {
-    light: token('color.background.accent.green.subtler', colors.G100),
-    dark: token('color.background.accent.green.subtler', colors.DN60),
+    light: token('color.background.accent.green.subtle.hovered', colors.G100),
+    dark: token('color.background.accent.green.subtle.hovered', colors.DN60),
   },
   teal: {
-    light: token('color.background.accent.teal.subtler', colors.T100),
-    dark: token('color.background.accent.teal.subtler', colors.DN60),
+    light: token('color.background.accent.teal.subtle.hovered', colors.T100),
+    dark: token('color.background.accent.teal.subtle.hovered', colors.DN60),
   },
   purple: {
-    light: token('color.background.accent.purple.subtler', colors.P75),
-    dark: token('color.background.accent.purple.subtler', colors.DN60),
+    light: token('color.background.accent.purple.subtle.hovered', colors.P75),
+    dark: token('color.background.accent.purple.subtle.hovered', colors.DN60),
+  },
+  lime: {
+    light: token('color.background.accent.lime.subtle.hovered', '#B3DF72'),
+    dark: token('color.background.accent.lime.subtle.hovered', '#37471F'),
+  },
+  magenta: {
+    light: token('color.background.accent.magenta.subtle.hovered', '#F797D2'),
+    dark: token('color.background.accent.magenta.subtle.hovered', '#50253F'),
+  },
+  orange: {
+    light: token('color.background.accent.orange.subtle.hovered', '#FEC57B'),
+    dark: token('color.background.accent.orange.subtle.hovered', '#37471F'),
   },
   grey: {
-    light: token('color.background.accent.gray.subtler', colors.N400),
-    dark: token('color.background.accent.gray.subtler', colors.N500),
+    light: token('color.background.accent.gray.subtle.hovered', colors.N400),
+    dark: token('color.background.accent.gray.subtle.hovered', colors.N500),
   },
   blueLight: {
-    light: token('color.background.accent.blue.subtlest', colors.B50),
-    dark: token('color.background.accent.blue.subtlest', colors.DN60),
+    light: token('color.background.accent.blue.subtler.hovered', colors.B50),
+    dark: token('color.background.accent.blue.subtler.hovered', colors.DN60),
   },
   redLight: {
-    light: token('color.background.accent.red.subtlest', colors.R50),
-    dark: token('color.background.accent.red.subtlest', colors.DN60),
+    light: token('color.background.accent.red.subtler.hovered', colors.R50),
+    dark: token('color.background.accent.red.subtler.hovered', colors.DN60),
   },
   yellowLight: {
-    light: token('color.background.accent.yellow.subtlest', colors.Y75),
-    dark: token('color.background.accent.yellow.subtlest', colors.DN60),
+    light: token('color.background.accent.yellow.subtler.hovered', colors.Y75),
+    dark: token('color.background.accent.yellow.subtler.hovered', colors.DN60),
   },
   greenLight: {
-    light: token('color.background.accent.green.subtlest', colors.G75),
-    dark: token('color.background.accent.green.subtlest', colors.DN60),
+    light: token('color.background.accent.green.subtler.hovered', colors.G75),
+    dark: token('color.background.accent.green.subtler.hovered', colors.DN60),
   },
   tealLight: {
-    light: token('color.background.accent.teal.subtlest', colors.T75),
-    dark: token('color.background.accent.teal.subtlest', colors.DN60),
+    light: token('color.background.accent.teal.subtler.hovered', colors.T75),
+    dark: token('color.background.accent.teal.subtler.hovered', colors.DN60),
   },
   purpleLight: {
-    light: token('color.background.accent.purple.subtlest', colors.P50),
-    dark: token('color.background.accent.purple.subtlest', colors.DN60),
+    light: token('color.background.accent.purple.subtler.hovered', colors.P50),
+    dark: token('color.background.accent.purple.subtler.hovered', colors.DN60),
+  },
+  limeLight: {
+    light: token('color.background.accent.lime.subtler.hovered', '#B3DF72'),
+    dark: token('color.background.accent.lime.subtler.hovered', '#4C6B1F'),
+  },
+  magentaLight: {
+    light: token('color.background.accent.magenta.subtler.hovered', '#F797D2'),
+    dark: token('color.background.accent.magenta.subtler.hovered', '#943D73'),
+  },
+  orangeLight: {
+    light: token('color.background.accent.orange.subtler.hovered', '#FEC57B'),
+    dark: token('color.background.accent.orange.subtler.hovered', '#974F0C'),
   },
   greyLight: {
-    light: token('color.background.accent.gray.subtlest', colors.N40),
-    dark: token('color.background.accent.gray.subtlest', colors.DN60),
+    light: token('color.background.accent.gray.subtler.hovered', colors.N40),
+    dark: token('color.background.accent.gray.subtler.hovered', colors.DN60),
   },
 };
 
@@ -337,60 +457,84 @@ export const linkActiveBackgroundColors = {
     dark: token('color.background.neutral.pressed', colors.DN600),
   },
   blue: {
-    light: token('color.background.accent.blue.subtlest', colors.B50),
-    dark: token('color.background.accent.blue.subtlest', colors.DN600),
+    light: token('color.background.accent.blue.subtle.pressed', colors.B50),
+    dark: token('color.background.accent.blue.subtle.pressed', colors.DN600),
   },
   red: {
-    light: token('color.background.accent.red.subtlest', colors.R50),
-    dark: token('color.background.accent.red.subtlest', colors.DN600),
+    light: token('color.background.accent.red.subtle.pressed', colors.R50),
+    dark: token('color.background.accent.red.subtle.pressed', colors.DN600),
   },
   yellow: {
-    light: token('color.background.accent.yellow.subtlest', colors.Y75),
-    dark: token('color.background.accent.yellow.subtlest', colors.DN600),
+    light: token('color.background.accent.yellow.subtle.pressed', colors.Y75),
+    dark: token('color.background.accent.yellow.subtle.pressed', colors.DN600),
   },
   green: {
-    light: token('color.background.accent.green.subtlest', colors.G75),
-    dark: token('color.background.accent.green.subtlest', colors.DN600),
+    light: token('color.background.accent.green.subtle.pressed', colors.G75),
+    dark: token('color.background.accent.green.subtle.pressed', colors.DN600),
   },
   teal: {
-    light: token('color.background.accent.teal.subtlest', colors.T75),
-    dark: token('color.background.accent.teal.subtlest', colors.DN600),
+    light: token('color.background.accent.teal.subtle.pressed', colors.T75),
+    dark: token('color.background.accent.teal.subtle.pressed', colors.DN600),
   },
   purple: {
-    light: token('color.background.accent.purple.subtlest', colors.P50),
-    dark: token('color.background.accent.purple.subtlest', colors.DN600),
+    light: token('color.background.accent.purple.subtle.pressed', colors.P50),
+    dark: token('color.background.accent.purple.subtle.pressed', colors.DN600),
   },
   grey: {
-    light: token('color.background.accent.gray.subtlest', colors.N300),
-    dark: token('color.background.accent.gray.subtlest', colors.DN600),
+    light: token('color.background.accent.gray.subtle.pressed', colors.N300),
+    dark: token('color.background.accent.gray.subtle.pressed', colors.DN600),
+  },
+  lime: {
+    light: token('color.background.accent.lime.subtle.pressed', '#D3F1A7'),
+    dark: token('color.background.accent.lime.subtle.pressed', '#2A3818'),
+  },
+  magenta: {
+    light: token('color.background.accent.magenta.subtle.pressed', '#FDD0EC'),
+    dark: token('color.background.accent.magenta.subtle.pressed', '#421F34'),
+  },
+  orange: {
+    light: token('color.background.accent.orange.subtle.pressed', '#FFE2BD'),
+    dark: token('color.background.accent.orange.subtle.pressed', '#4A2B0F'),
   },
   blueLight: {
-    light: token('color.background.accent.blue.subtle', colors.B100),
-    dark: token('color.background.accent.blue.subtle', colors.DN600),
+    light: token('color.background.accent.blue.subtler.pressed', colors.B100),
+    dark: token('color.background.accent.blue.subtler.pressed', colors.DN600),
   },
   redLight: {
-    light: token('color.background.accent.red.subtle', colors.R100),
-    dark: token('color.background.accent.red.subtle', colors.DN600),
+    light: token('color.background.accent.red.subtler.pressed', colors.R100),
+    dark: token('color.background.accent.red.subtler.pressed', colors.DN600),
   },
   yellowLight: {
-    light: token('color.background.accent.yellow.subtle', colors.Y200),
-    dark: token('color.background.accent.yellow.subtle', colors.DN600),
+    light: token('color.background.accent.yellow.subtler.pressed', colors.Y200),
+    dark: token('color.background.accent.yellow.subtler.pressed', colors.DN600),
   },
   greenLight: {
-    light: token('color.background.accent.green.subtle', colors.G200),
-    dark: token('color.background.accent.green.subtle', colors.DN600),
+    light: token('color.background.accent.green.subtler.pressed', colors.G200),
+    dark: token('color.background.accent.green.subtler.pressed', colors.DN600),
   },
   tealLight: {
-    light: token('color.background.accent.teal.subtle', colors.T200),
-    dark: token('color.background.accent.teal.subtle', colors.DN600),
+    light: token('color.background.accent.teal.subtler.pressed', colors.T200),
+    dark: token('color.background.accent.teal.subtler.pressed', colors.DN600),
   },
   purpleLight: {
-    light: token('color.background.accent.purple.subtle', colors.P100),
-    dark: token('color.background.accent.purple.subtle', colors.DN600),
+    light: token('color.background.accent.purple.subtler.pressed', colors.P100),
+    dark: token('color.background.accent.purple.subtler.pressed', colors.DN600),
+  },
+  limeLight: {
+    light: token('color.background.accent.lime.subtler.pressed', '#94C748'),
+    dark: token('color.background.accent.lime.subtler.pressed', '#5B7F24'),
+  },
+  magentaLight: {
+    light: token('color.background.accent.magenta.subtler.pressed', '#E774BB'),
+    dark: token('color.background.accent.magenta.subtler.pressed', '#AE4787'),
+  },
+  orangeLight: {
+    light: token('color.background.accent.orange.subtler.pressed', '#FAA53D'),
+    dark: token('color.background.accent.orange.subtler.pressed', '#B65C02'),
   },
   greyLight: {
-    light: token('color.background.accent.gray.subtle', colors.N50),
-    dark: token('color.background.accent.gray.subtle', colors.DN600),
+    light: token('color.background.accent.gray.subtler.pressed', colors.N50),
+    dark: token('color.background.accent.gray.subtler.pressed', colors.DN600),
   },
 };
 
@@ -434,6 +578,9 @@ export const removeButtonColors = {
   green: token('color.text.accent.green.bolder', colors.N500),
   teal: token('color.text.accent.teal.bolder', colors.N500),
   purple: token('color.text.accent.purple.bolder', colors.N500),
+  lime: token('color.text.accent.lime.bolder', colors.N500),
+  magenta: token('color.text.accent.magenta.bolder', colors.N500),
+  orange: token('color.text.accent.orange.bolder', colors.N500),
   grey: token('color.text.accent.gray.bolder', colors.N500),
   blueLight: token('color.text.accent.blue', colors.N500),
   redLight: token('color.text.accent.red', colors.N500),
@@ -441,6 +588,9 @@ export const removeButtonColors = {
   greenLight: token('color.text.accent.green', colors.N500),
   tealLight: token('color.text.accent.teal', colors.N500),
   purpleLight: token('color.text.accent.purple', colors.N500),
+  limeLight: token('color.text.accent.lime', colors.N500),
+  magentaLight: token('color.text.accent.magenta', colors.N500),
+  orangeLight: token('color.text.accent.orange', colors.N500),
   greyLight: token('color.text.accent.gray', colors.N500),
 };
 
@@ -477,6 +627,18 @@ export const removeButtonHoverColors = {
     light: token('color.text.danger', colors.N800),
     dark: token('color.text.danger', colors.N800),
   },
+  lime: {
+    light: token('color.text.danger', colors.N800),
+    dark: token('color.text.danger', colors.N800),
+  },
+  magenta: {
+    light: token('color.text.danger', colors.N800),
+    dark: token('color.text.danger', colors.N800),
+  },
+  orange: {
+    light: token('color.text.danger', colors.N800),
+    dark: token('color.text.danger', colors.N800),
+  },
   grey: {
     light: token('color.text.danger', colors.N0),
     dark: token('color.text.danger', colors.N0),
@@ -502,6 +664,18 @@ export const removeButtonHoverColors = {
     dark: token('color.text.danger', colors.N500),
   },
   purpleLight: {
+    light: token('color.text.danger', colors.P500),
+    dark: token('color.text.danger', colors.P500),
+  },
+  limeLight: {
+    light: token('color.text.danger', colors.P500),
+    dark: token('color.text.danger', colors.P500),
+  },
+  magentaLight: {
+    light: token('color.text.danger', colors.P500),
+    dark: token('color.text.danger', colors.P500),
+  },
+  orangeLight: {
     light: token('color.text.danger', colors.P500),
     dark: token('color.text.danger', colors.P500),
   },

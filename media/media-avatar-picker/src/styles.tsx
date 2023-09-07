@@ -10,7 +10,7 @@ export const visuallyHiddenRadioStyles = `
   width: 1px;
   height: 1px;
   padding: 0;
-  position: absolute;
+  position: fixed;
   border: 0;
   clip: rect(1px, 1px, 1px, 1px);
   overflow: hidden;

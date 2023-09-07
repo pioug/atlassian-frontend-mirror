@@ -460,6 +460,15 @@ export type ActiveTokens =
   | 'space.500'
   | 'space.600'
   | 'space.800'
+  | 'space.negative.025'
+  | 'space.negative.050'
+  | 'space.negative.075'
+  | 'space.negative.100'
+  | 'space.negative.150'
+  | 'space.negative.200'
+  | 'space.negative.250'
+  | 'space.negative.300'
+  | 'space.negative.400'
   | 'utility.UNSAFE.transparent'
   | 'utility.elevation.surface.current';
 
@@ -622,6 +631,60 @@ const baseSpacingTokens: {
   };
   readonly Space1000: {
     readonly value: 80;
+    readonly attributes: {
+      readonly group: 'spacing';
+    };
+  };
+  readonly SpaceNegative025: {
+    readonly value: -2;
+    readonly attributes: {
+      readonly group: 'spacing';
+    };
+  };
+  readonly SpaceNegative050: {
+    readonly value: -4;
+    readonly attributes: {
+      readonly group: 'spacing';
+    };
+  };
+  readonly SpaceNegative075: {
+    readonly value: -6;
+    readonly attributes: {
+      readonly group: 'spacing';
+    };
+  };
+  readonly SpaceNegative100: {
+    readonly value: -8;
+    readonly attributes: {
+      readonly group: 'spacing';
+    };
+  };
+  readonly SpaceNegative150: {
+    readonly value: -12;
+    readonly attributes: {
+      readonly group: 'spacing';
+    };
+  };
+  readonly SpaceNegative200: {
+    readonly value: -16;
+    readonly attributes: {
+      readonly group: 'spacing';
+    };
+  };
+  readonly SpaceNegative250: {
+    readonly value: -20;
+    readonly attributes: {
+      readonly group: 'spacing';
+    };
+  };
+  readonly SpaceNegative300: {
+    readonly value: -24;
+    readonly attributes: {
+      readonly group: 'spacing';
+    };
+  };
+  readonly SpaceNegative400: {
+    readonly value: -32;
     readonly attributes: {
       readonly group: 'spacing';
     };
@@ -1048,6 +1111,15 @@ type CSSTokenMap = {
   'space.600': 'var(--ds-space-600)';
   'space.800': 'var(--ds-space-800)';
   'space.1000': 'var(--ds-space-1000)';
+  'space.negative.025': 'var(--ds-space-negative-025)';
+  'space.negative.050': 'var(--ds-space-negative-050)';
+  'space.negative.075': 'var(--ds-space-negative-075)';
+  'space.negative.100': 'var(--ds-space-negative-100)';
+  'space.negative.150': 'var(--ds-space-negative-150)';
+  'space.negative.200': 'var(--ds-space-negative-200)';
+  'space.negative.250': 'var(--ds-space-negative-250)';
+  'space.negative.300': 'var(--ds-space-negative-300)';
+  'space.negative.400': 'var(--ds-space-negative-400)';
   'font.body': 'var(--ds-font-body)';
   'font.body.lg': 'var(--ds-font-body-lg)';
   'font.body.sm': 'var(--ds-font-body-sm)';
@@ -1638,6 +1710,15 @@ type InternalTokenIds =
   | 'space.500'
   | 'space.600'
   | 'space.800'
+  | 'space.negative.025'
+  | 'space.negative.050'
+  | 'space.negative.075'
+  | 'space.negative.100'
+  | 'space.negative.150'
+  | 'space.negative.200'
+  | 'space.negative.250'
+  | 'space.negative.300'
+  | 'space.negative.400'
   | 'utility.UNSAFE.transparent'
   | 'utility.elevation.surface.current';
 
@@ -2293,6 +2374,15 @@ const tokens: {
   readonly 'space.600': '--ds-space-600';
   readonly 'space.800': '--ds-space-800';
   readonly 'space.1000': '--ds-space-1000';
+  readonly 'space.negative.025': '--ds-space-negative-025';
+  readonly 'space.negative.050': '--ds-space-negative-050';
+  readonly 'space.negative.075': '--ds-space-negative-075';
+  readonly 'space.negative.100': '--ds-space-negative-100';
+  readonly 'space.negative.150': '--ds-space-negative-150';
+  readonly 'space.negative.200': '--ds-space-negative-200';
+  readonly 'space.negative.250': '--ds-space-negative-250';
+  readonly 'space.negative.300': '--ds-space-negative-300';
+  readonly 'space.negative.400': '--ds-space-negative-400';
   readonly 'font.body': '--ds-font-body';
   readonly 'font.body.lg': '--ds-font-body-lg';
   readonly 'font.body.sm': '--ds-font-body-sm';

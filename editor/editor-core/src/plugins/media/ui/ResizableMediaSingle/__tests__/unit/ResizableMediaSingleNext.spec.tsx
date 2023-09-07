@@ -326,15 +326,16 @@ describe('Guidelines', () => {
   });
 
   it('should call displayGuideline with correct guidelineConfig list', () => {
-    const { getByTestId, container } = setup({
+    const { container } = setup({
       mediaSingleWidth: 600,
       containerWidth: 400,
       lineLength: 320,
     });
-    const draggableElement = getByTestId('richMedia-resize-handle-right-elem');
 
-    fireEvent.mouseDown(draggableElement);
-    fireEvent.mouseMove(draggableElement, {
+    const draggableElement = container.querySelector('.resizer-handle.right');
+
+    fireEvent.mouseDown(draggableElement as Element);
+    fireEvent.mouseMove(draggableElement as Element, {
       clientX: 16,
       clientY: 0,
     });
@@ -362,7 +363,7 @@ describe('Guidelines', () => {
     });
 
     expect(container.getElementsByClassName('is-resizing').length).toBe(1);
-    fireEvent.mouseUp(draggableElement);
+    fireEvent.mouseUp(draggableElement as Element);
 
     expect(container.getElementsByClassName('is-resizing').length).toBe(0);
     expect(displayGuidelineMock).toBeCalledWith({
@@ -373,7 +374,7 @@ describe('Guidelines', () => {
   });
 
   it('should not have guideline and snaps when guideline plugin does not exist', () => {
-    const { getByTestId } = setup(
+    const { container } = setup(
       {
         mediaSingleWidth: 600,
         containerWidth: 400,
@@ -382,15 +383,18 @@ describe('Guidelines', () => {
       undefined,
       false,
     );
-    const draggableElement = getByTestId('richMedia-resize-handle-right-elem');
 
-    fireEvent.mouseDown(draggableElement);
-    fireEvent.mouseMove(draggableElement, {
+    const draggableElement = container.querySelector('.resizer-handle.right');
+
+    expect(draggableElement).not.toBeNull();
+
+    fireEvent.mouseDown(draggableElement as Element);
+    fireEvent.mouseMove(draggableElement as Element, {
       clientX: 16,
       clientY: 0,
     });
 
-    fireEvent.mouseUp(draggableElement);
+    fireEvent.mouseUp(draggableElement as Element);
 
     expect(getGuidelineSnaps).toBeCalledTimes(0);
     expect(getRelativeGuideSnaps).toBeCalledTimes(0);

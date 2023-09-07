@@ -114,6 +114,7 @@ import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
 import { setupProvider } from '@atlaskit/editor-plugin-card/src/__tests__/unit/_helpers';
 import type { InlineCommentAnnotationProvider } from '../../../annotation/types';
 import annotationPlugin from '../../../annotation';
+import selectionPlugin from '../../../selection';
 import type {
   InlineCommentPluginState,
   InlineCommentMap,
@@ -253,6 +254,7 @@ describe('paste plugins', () => {
         .add([codeBlockPlugin, { appearance: 'full-page' }])
         .add(panelPlugin)
         .add([tasksAndDecisionsPlugin])
+        .add(selectionPlugin)
         .add([
           tablesPlugin,
           {

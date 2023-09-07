@@ -25,9 +25,22 @@ import { gapCursorPluginKey } from './gap-cursor-plugin-key';
 const plugin = new SafePlugin({
   key: gapCursorPluginKey,
   state: {
-    init: () => false,
-    apply: (_tr, _pluginState, _oldState, newState) => {
-      return newState.selection instanceof GapCursorSelection;
+    init: () => ({
+      selectionIsGapCursor: false,
+      displayGapCursor: true,
+    }),
+    apply: (tr, pluginState, _oldState, newState) => {
+      const meta = tr.getMeta(gapCursorPluginKey);
+      const selectionIsGapCursor =
+        newState.selection instanceof GapCursorSelection;
+
+      return {
+        selectionIsGapCursor,
+        // only attempt to hide gap cursor if selection is gap cursor
+        displayGapCursor: selectionIsGapCursor
+          ? meta?.displayGapCursor ?? pluginState.displayGapCursor
+          : true,
+      };
     },
   },
   view: (view) => {
@@ -54,9 +67,11 @@ const plugin = new SafePlugin({
     }
     return {
       update(view) {
-        const pluginState = gapCursorPluginKey.getState(view.state);
+        const { selectionIsGapCursor } = gapCursorPluginKey.getState(
+          view.state,
+        );
         /**
-         * Starting with prosemirror-view 1.19.4, cursor wrapper that previousely was hiding cursor doesn't exist:
+         * Starting with prosemirror-view 1.19.4, cursor wrapper that previously was hiding cursor doesn't exist:
          * https://github.com/ProseMirror/prosemirror-view/commit/4a56bc7b7e61e96ef879d1dae1014ede0fc09e43
          *
          * Because it was causing issues with RTL: https://github.com/ProseMirror/prosemirror/issues/948
@@ -66,14 +81,16 @@ const plugin = new SafePlugin({
          *
          * Browser support is pretty good: https://caniuse.com/#feat=css-caret-color
          */
-        view.dom.classList.toggle(hideCaretModifier, pluginState);
+        view.dom.classList.toggle(hideCaretModifier, selectionIsGapCursor);
       },
     };
   },
 
   props: {
-    decorations: ({ doc, selection }: EditorState) => {
-      if (selection instanceof GapCursorSelection) {
+    decorations: (editorState: EditorState) => {
+      const { doc, selection } = editorState;
+      const { displayGapCursor } = gapCursorPluginKey.getState(editorState);
+      if (selection instanceof GapCursorSelection && displayGapCursor) {
         const { $from, side } = selection;
 
         // render decoration DOM node always to the left of the target node even if selection points to the right

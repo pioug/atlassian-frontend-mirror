@@ -21,8 +21,11 @@ import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import Select, {
   ActionMeta,
   DropdownIndicatorProps,
+  InputActionMeta,
+  MenuProps,
   mergeStyles,
   OptionType,
+  SelectProps,
   ValueType,
 } from '@atlaskit/select';
 import { N0, N50A, N60A } from '@atlaskit/theme/colors';
@@ -37,7 +40,7 @@ import {
 } from '../internal';
 import FixedLayer from '../internal/fixed-layer';
 import { makeSingleValue } from '../internal/single-value';
-import { Appearance, SelectProps, Spacing } from '../types';
+import { Appearance, Spacing } from '../types';
 
 import { convertTokens } from './utils';
 
@@ -142,7 +145,7 @@ export interface DatePickerBaseProps extends WithAnalyticsEventsProps {
    * Props to apply to the select. This can be used to set options such as placeholder text.
    *  See [the `Select` documentation for further information](/components/select).
    */
-  selectProps?: SelectProps;
+  selectProps?: SelectProps<any>;
   /**
    * The spacing for the select control.
    *
@@ -237,13 +240,7 @@ const menuStyles = css({
   overflow: 'hidden',
 });
 
-const Menu = ({
-  selectProps,
-  innerProps,
-}: {
-  selectProps: SelectProps;
-  innerProps: React.AllHTMLAttributes<HTMLElement>;
-}) => (
+const Menu = ({ selectProps, innerProps }: MenuProps<any>) => (
   <FixedLayer
     inputValue={selectProps.inputValue}
     containerRef={selectProps.calendarContainerRef}
@@ -321,7 +318,7 @@ class DatePicker extends Component<DatePickerProps, State> {
       isOpen: this.props.defaultIsOpen,
       isFocused: false,
       clearingFromIcon: false,
-      selectInputValue: this.props.selectProps.inputValue,
+      selectInputValue: this.props.selectProps.inputValue || '',
       value: this.props.value || this.props.defaultValue,
       calendarValue:
         this.props.value ||
@@ -587,7 +584,10 @@ class DatePicker extends Component<DatePickerProps, State> {
     this.calendarRef = ref;
   };
 
-  handleSelectInputChange = (selectInputValue: string, actionMeta: {}) => {
+  handleSelectInputChange = (
+    selectInputValue: string,
+    actionMeta: InputActionMeta,
+  ) => {
     const { onInputChange } = this.props.selectProps;
     if (onInputChange) {
       onInputChange(selectInputValue, actionMeta);
@@ -739,8 +739,8 @@ class DatePicker extends Component<DatePickerProps, State> {
     };
 
     return (
-      // TODO: Remove role="presentation", since div's have no semantics anyway
-      // (DSP-11587)
+      // These event handlers must be on this element because the events come
+      // from different child elements.
       <div
         {...innerProps}
         role="presentation"

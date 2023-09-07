@@ -1,6 +1,8 @@
 import React, {
+  createContext,
   ReactNode,
   useCallback,
+  useContext,
   useEffect,
   useRef,
   useState,
@@ -90,8 +92,15 @@ const initialState: State = {
   chosenTeam: 'blue',
 };
 
+function getInstanceId() {
+  return Symbol('instance-id');
+}
+
+const InstanceIdContext = createContext<symbol | null>(null);
+
 export default function ManualFocusRestoration() {
   const [state, setState] = useState(initialState);
+  const [instanceId] = useState(getInstanceId);
 
   const buttonRef = useRef<HTMLButtonElement>(null);
   const shouldRestoreFocusToButton = useRef(false);
@@ -123,6 +132,9 @@ export default function ManualFocusRestoration() {
 
   useEffect(() => {
     return monitorForElements({
+      canMonitor({ source }) {
+        return source.data.instanceId === instanceId;
+      },
       onDrop({ location }) {
         const dropTarget = location.current.dropTargets[0];
 
@@ -142,35 +154,42 @@ export default function ManualFocusRestoration() {
         });
       },
     });
-  }, []);
+  }, [instanceId]);
 
   return (
-    <Inline>
-      {Object.entries(state.teams).map(([teamId, teamEntry]) => (
-        <TeamArea teamId={teamId as TeamId} label={teamEntry.label}>
-          {state.chosenTeam === teamId && (
-            <Stack alignBlock="center" space="space.100" alignInline="center">
-              <Player />
-              <Button ref={buttonRef} onClick={swapTeam} appearance="primary">
-                Swap team
-              </Button>
-            </Stack>
-          )}
-        </TeamArea>
-      ))}
-    </Inline>
+    <InstanceIdContext.Provider value={instanceId}>
+      <Inline>
+        {Object.entries(state.teams).map(([teamId, teamEntry]) => (
+          <TeamArea teamId={teamId as TeamId} label={teamEntry.label}>
+            {state.chosenTeam === teamId && (
+              <Stack alignBlock="center" space="space.100" alignInline="center">
+                <Player />
+                <Button ref={buttonRef} onClick={swapTeam} appearance="primary">
+                  Swap team
+                </Button>
+              </Stack>
+            )}
+          </TeamArea>
+        ))}
+      </Inline>
+    </InstanceIdContext.Provider>
   );
 }
 
 function Player() {
+  const instanceId = useContext(InstanceIdContext);
+
   const avatarRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     invariant(avatarRef.current);
     invariant(avatarRef.current.firstElementChild instanceof HTMLElement);
     return draggable({
       element: avatarRef.current.firstElementChild,
+      getInitialData() {
+        return { instanceId };
+      },
     });
-  }, []);
+  }, [instanceId]);
 
   return (
     <div ref={avatarRef}>

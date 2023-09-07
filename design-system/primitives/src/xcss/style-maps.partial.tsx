@@ -28,10 +28,10 @@ export type Dimension = keyof typeof dimensionMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::429dca3ce1fa6d723cb98e2468802267>>
+ * @codegen <<SignedSource::8cc3cccc1c75ae85af885aaf8a1f69b8>>
  * @codegenId spacing
  * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-spacing.tsx <<SignedSource::68f6bde7e6b186964ee53458284bbb90>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-spacing.tsx <<SignedSource::298080e8024fb3eb37589721413e0156>>
  */
 export const spaceMap = {
   'space.0': token('space.0', '0px'),
@@ -1010,6 +1010,7 @@ export type BorderRadius = keyof typeof borderRadiusMap;
  * @codegenEnd
  */
 
+type MarginSpace = Space | 'auto';
 type AutoComplete<T extends string> = T | Omit<string, T>;
 
 export type TokenisedProps = {
@@ -1033,6 +1034,17 @@ export type TokenisedProps = {
   insetInlineEnd?: Space;
   insetInlineStart?: Space;
   left?: AutoComplete<Space>;
+  margin?: AutoComplete<MarginSpace>;
+  marginBlock?: AutoComplete<MarginSpace>;
+  marginBlockEnd?: AutoComplete<MarginSpace>;
+  marginBlockStart?: AutoComplete<MarginSpace>;
+  marginBottom?: AutoComplete<MarginSpace>;
+  marginInline?: AutoComplete<MarginSpace>;
+  marginInlineEnd?: AutoComplete<MarginSpace>;
+  marginInlineStart?: AutoComplete<MarginSpace>;
+  marginLeft?: AutoComplete<MarginSpace>;
+  marginRight?: AutoComplete<MarginSpace>;
+  marginTop?: AutoComplete<MarginSpace>;
   maxBlockSize?: AutoComplete<Dimension>;
   maxHeight?: AutoComplete<Dimension>;
   maxInlineSize?: AutoComplete<Dimension>;
@@ -1051,6 +1063,13 @@ export type TokenisedProps = {
   paddingInline?: Space;
   paddingInlineEnd?: Space;
   paddingInlineStart?: Space;
+  // visual properties for padding ... ideally they would be as restrictive as logical properties above
+  // but we noticed this only after some product adoption, so it's a breaking change to force usage to only tokens now...
+  // we may find a way to reconcile usages in the future but for now having at least autocomplete is good enough
+  paddingBottom?: AutoComplete<Space>;
+  paddingLeft?: AutoComplete<Space>;
+  paddingRight?: AutoComplete<Space>;
+  paddingTop?: AutoComplete<Space>;
   right?: AutoComplete<Space>;
   rowGap?: Space;
   top?: AutoComplete<Space>;

@@ -1076,6 +1076,17 @@ export interface SpacingTokenSchema {
     '600': SpacingToken;
     '800': SpacingToken;
     '1000': SpacingToken;
+    negative: {
+      '025': SpacingToken;
+      '050': SpacingToken;
+      '075': SpacingToken;
+      '100': SpacingToken;
+      '150': SpacingToken;
+      '200': SpacingToken;
+      '250': SpacingToken;
+      '300': SpacingToken;
+      '400': SpacingToken;
+    };
   };
 }
 

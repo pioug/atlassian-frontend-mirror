@@ -16,7 +16,6 @@ import { mergeStyles, StylesConfig } from '@atlaskit/select';
 export const BORDER_PADDING = 6;
 export const AVATAR_PADDING = 6;
 export const INDICATOR_WIDTH = 39;
-const TAG_MARGIN_WIDTH = 4;
 
 export const getStyles = memoizeOne(
   (
@@ -30,6 +29,10 @@ export const getStyles = memoizeOne(
         ...css,
         width,
         minWidth: state.selectProps.menuMinWidth,
+      }),
+      menuList: (css: any) => ({
+        ...css,
+        zIndex: '400',
       }),
       control: (css: any, state: any) => {
         const isMulti = state.selectProps.isMulti;
@@ -103,7 +106,7 @@ export const getStyles = memoizeOne(
       }),
       indicatorsContainer: (css: any) => ({
         ...css,
-        paddingRight: 4,
+        paddingRight: token('space.050', '4px'),
       }),
       valueContainer: (
         { paddingTop, paddingBottom, position, ...css }: any,
@@ -172,7 +175,7 @@ export const getStyles = memoizeOne(
         gridTemplateColumns:
           isMulti && state.placeholder ? '0 123px' : css.gridTemplateColumns,
         /* Necessary to make input height and tag height the same. */
-        margin: `${TAG_MARGIN_WIDTH}px 0`,
+        margin: `${token('space.050', '4px')} 0`,
         /* Padding top and bottom of 2 is set by default. */
         paddingTop: 0,
         paddingBottom: 0,

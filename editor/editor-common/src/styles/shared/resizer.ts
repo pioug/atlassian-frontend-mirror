@@ -69,6 +69,7 @@ export const resizerStyles = css`
       justify-content: center;
       align-items: center;
       margin-top: -16px;
+      white-space: normal;
     }
 
     /*
@@ -127,10 +128,12 @@ export const resizerStyles = css`
     content: ' ';
     display: flex;
     width: 3px;
+    margin: 0 ${token('space.025', '2px')};
     height: 64px;
     transition: background-color 0.2s;
     border-radius: 6px;
 
+    min-height: 24px;
     background: ${token('color.border', N60)};
   }
 
@@ -138,7 +141,7 @@ export const resizerStyles = css`
     visibility: hidden;
     position: absolute;
     width: 7px;
-    height: calc(100% - 42px);
+    height: calc(100% - 40px);
     border-radius: 4px;
     opacity: 0;
     transition: background-color 0.2s, visibility 0.2s, opacity 0.2s;
@@ -149,6 +152,12 @@ export const resizerStyles = css`
 
     &.shadow {
       background: ${token('color.background.selected', B50)};
+    }
+
+    &.full-height {
+      background: ${token('color.background.selected', B50)};
+      height: 100%;
+      min-height: 36px;
     }
   }
 
@@ -164,5 +173,11 @@ export const resizerStyles = css`
     display: inline-block;
     width: 100%;
     left: -12px;
+  }
+
+  // This below style is here to make sure the image width is correct when nested in a table
+  table .${resizerHoverZoneClassName} {
+    padding: unset;
+    left: unset;
   }
 `;

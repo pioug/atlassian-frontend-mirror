@@ -1,5 +1,11 @@
 # @atlaskit/interaction-context
 
+## 2.1.3
+
+### Patch Changes
+
+- [`e2cad1162d6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e2cad1162d6) - Enrol packages on push model consumption
+
 ## 2.1.2
 
 ### Patch Changes

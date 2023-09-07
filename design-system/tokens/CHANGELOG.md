@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 1.21.0
+
+### Minor Changes
+
+- [`9eee297c402`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9eee297c402) - Added negative space tokens from -2px to -32px (space.negative.025 to space.negative.400).
+
 ## 1.20.1
 
 ### Patch Changes

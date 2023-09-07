@@ -1999,9 +1999,7 @@ export const tableWithActionItemInTopCellOfLastColumn = {
 export const simpleTableWithScroll = {
   type: 'doc',
   content: [
-    {
-      type: 'paragraph',
-    },
+    { type: 'paragraph', content: [{ type: 'text', text: 'Top' }] },
     {
       type: 'table',
       attrs: {

@@ -4,6 +4,20 @@ import { token } from '@atlaskit/tokens';
 
 import RemovableTag from '../src/tag/removable-tag';
 import Tag from '../src/tag/simple-tag';
+import type { TagColor } from '../src/types';
+
+const colors: TagColor[] = [
+  'blue',
+  'red',
+  'yellow',
+  'green',
+  'teal',
+  'purple',
+  'orange',
+  'magenta',
+  'lime',
+  'grey',
+];
 
 export default () => (
   <div data-testid="wrapper">
@@ -12,66 +26,34 @@ export default () => (
       <tr>
         <th></th>
         <th>Standard</th>
-        <th>Blue</th>
-        <th>Red</th>
-        <th>Yellow</th>
-        <th>Green</th>
-        <th>Teal</th>
-        <th>Purple</th>
-        <th>Grey</th>
+        {colors.map((color) => (
+          <th key={color}>
+            {color!.charAt(0).toUpperCase() + color!.slice(1)}
+          </th>
+        ))}
       </tr>
       <tr>
         <th>Default</th>
         <td>
           <Tag text="Tag" color="standard" testId="nonInteractiveStandard" />
         </td>
-        <td>
-          <Tag text="Tag" color="blue" />
-        </td>
-        <td>
-          <Tag text="Tag" color="red" />
-        </td>
-        <td>
-          <Tag text="Tag" color="yellow" />
-        </td>
-        <td>
-          <Tag text="Tag" color="green" />
-        </td>
-        <td>
-          <Tag text="Tag" color="teal" />
-        </td>
-        <td>
-          <Tag text="Tag" color="purple" />
-        </td>
-        <td>
-          <Tag text="Tag" color="grey" />
-        </td>
+
+        {colors.map((color) => (
+          <td key={`${color}-default`}>
+            <Tag text="Tag" color={color} />
+          </td>
+        ))}
         <td></td>
       </tr>
       <tr>
         <th>Light</th>
         <td></td>
-        <td>
-          <Tag text="Tag" color="blueLight" />
-        </td>
-        <td>
-          <Tag text="Tag" color="redLight" />
-        </td>
-        <td>
-          <Tag text="Tag" color="yellowLight" />
-        </td>
-        <td>
-          <Tag text="Tag" color="greenLight" />
-        </td>
-        <td>
-          <Tag text="Tag" color="tealLight" />
-        </td>
-        <td>
-          <Tag text="Tag" color="purpleLight" />
-        </td>
-        <td>
-          <Tag text="Tag" color="greyLight" />
-        </td>
+
+        {colors.map((color) => (
+          <td key={`${color}-light-default`}>
+            <Tag text="Tag" color={`${color}Light` as TagColor} />
+          </td>
+        ))}
       </tr>
     </table>
 
@@ -80,13 +62,11 @@ export default () => (
       <tr>
         <th></th>
         <th>Standard</th>
-        <th>Blue</th>
-        <th>Red</th>
-        <th>Yellow</th>
-        <th>Green</th>
-        <th>Teal</th>
-        <th>Purple</th>
-        <th>Grey</th>
+        {colors.map((color) => (
+          <th key={`${color}-link-title`}>
+            {color!.charAt(0).toUpperCase() + color!.slice(1)}
+          </th>
+        ))}
       </tr>
       <tr>
         <th>Default</th>
@@ -98,109 +78,31 @@ export default () => (
             testId="linkStandard"
           />
         </td>
-        <td>
-          <Tag
-            href="https://www.atlassian.com/search?query=Carrot%20cake"
-            text="Tag"
-            color="blue"
-          />
-        </td>
-        <td>
-          <Tag
-            href="https://www.atlassian.com/search?query=Carrot%20cake"
-            text="Tag"
-            color="red"
-          />
-        </td>
-        <td>
-          <Tag
-            href="https://www.atlassian.com/search?query=Carrot%20cake"
-            text="Tag"
-            color="yellow"
-          />
-        </td>
-        <td>
-          <Tag
-            href="https://www.atlassian.com/search?query=Carrot%20cake"
-            text="Tag"
-            color="green"
-          />
-        </td>
-        <td>
-          <Tag
-            href="https://www.atlassian.com/search?query=Carrot%20cake"
-            text="Tag"
-            color="teal"
-          />
-        </td>
-        <td>
-          <Tag
-            href="https://www.atlassian.com/search?query=Carrot%20cake"
-            text="Tag"
-            color="purple"
-          />
-        </td>
-        <td>
-          <Tag
-            href="https://www.atlassian.com/search?query=Carrot%20cake"
-            text="Tag"
-            color="grey"
-          />
-        </td>
+
+        {colors.map((color) => (
+          <td key={`${color}-link`}>
+            <Tag
+              href="https://www.atlassian.com/search?query=Carrot%20cake"
+              text="Tag"
+              color={color}
+            />
+          </td>
+        ))}
         <td></td>
       </tr>
       <tr>
         <th>Light</th>
         <td></td>
-        <td>
-          <Tag
-            href="https://www.atlassian.com/search?query=Carrot%20cake"
-            text="Tag"
-            color="blueLight"
-          />
-        </td>
-        <td>
-          <Tag
-            href="https://www.atlassian.com/search?query=Carrot%20cake"
-            text="Tag"
-            color="redLight"
-          />
-        </td>
-        <td>
-          <Tag
-            href="https://www.atlassian.com/search?query=Carrot%20cake"
-            text="Tag"
-            color="yellowLight"
-          />
-        </td>
-        <td>
-          <Tag
-            href="https://www.atlassian.com/search?query=Carrot%20cake"
-            text="Tag"
-            color="greenLight"
-          />
-        </td>
-        <td>
-          <Tag
-            href="https://www.atlassian.com/search?query=Carrot%20cake"
-            text="Tag"
-            color="tealLight"
-          />
-        </td>
-        <td>
-          <Tag
-            href="https://www.atlassian.com/search?query=Carrot%20cake"
-            text="Tag"
-            color="purpleLight"
-          />
-        </td>
-        <td>
-          <Tag
-            href="https://www.atlassian.com/search?query=Carrot%20cake"
-            text="Tag"
-            color="greyLight"
-          />
-        </td>
+
+        {colors.map((color) => (
+          <td key={`${color}-light-link`}>
+            <Tag
+              href="https://www.atlassian.com/search?query=Carrot%20cake"
+              text="Tag"
+              color={`${color}Light` as TagColor}
+            />
+          </td>
+        ))}
       </tr>
     </table>
 
@@ -209,13 +111,11 @@ export default () => (
       <tr>
         <th></th>
         <th>Standard</th>
-        <th>Blue</th>
-        <th>Red</th>
-        <th>Yellow</th>
-        <th>Green</th>
-        <th>Teal</th>
-        <th>Purple</th>
-        <th>Grey</th>
+        {colors.map((color) => (
+          <th key={`${color}-removable-title`}>
+            {color!.charAt(0).toUpperCase() + color!.slice(1)}
+          </th>
+        ))}
       </tr>
       <tr>
         <th>Default</th>
@@ -226,81 +126,27 @@ export default () => (
             color="standard"
           />
         </td>
-        <td>
-          <RemovableTag removeButtonLabel="Remove" text="Tag" color="blue" />
-        </td>
-        <td>
-          <RemovableTag removeButtonLabel="Remove" text="Tag" color="red" />
-        </td>
-        <td>
-          <RemovableTag removeButtonLabel="Remove" text="Tag" color="yellow" />
-        </td>
-        <td>
-          <RemovableTag removeButtonLabel="Remove" text="Tag" color="green" />
-        </td>
-        <td>
-          <RemovableTag removeButtonLabel="Remove" text="Tag" color="teal" />
-        </td>
-        <td>
-          <RemovableTag removeButtonLabel="Remove" text="Tag" color="purple" />
-        </td>
-        <td>
-          <RemovableTag removeButtonLabel="Remove" text="Tag" color="grey" />
-        </td>
+
+        {colors.map((color) => (
+          <td key={`${color}-removable`}>
+            <RemovableTag removeButtonLabel="Remove" text="Tag" color={color} />
+          </td>
+        ))}
         <td></td>
       </tr>
       <tr>
         <th>Light</th>
         <td></td>
-        <td>
-          <RemovableTag
-            removeButtonLabel="Remove"
-            text="Tag"
-            color="blueLight"
-          />
-        </td>
-        <td>
-          <RemovableTag
-            removeButtonLabel="Remove"
-            text="Tag"
-            color="redLight"
-          />
-        </td>
-        <td>
-          <RemovableTag
-            removeButtonLabel="Remove"
-            text="Tag"
-            color="yellowLight"
-          />
-        </td>
-        <td>
-          <RemovableTag
-            removeButtonLabel="Remove"
-            text="Tag"
-            color="greenLight"
-          />
-        </td>
-        <td>
-          <RemovableTag
-            removeButtonLabel="Remove"
-            text="Tag"
-            color="tealLight"
-          />
-        </td>
-        <td>
-          <RemovableTag
-            removeButtonLabel="Remove"
-            text="Tag"
-            color="purpleLight"
-          />
-        </td>
-        <td>
-          <RemovableTag
-            removeButtonLabel="Remove"
-            text="Tag"
-            color="greyLight"
-          />
-        </td>
+
+        {colors.map((color) => (
+          <td key={`${color}-removable-light`}>
+            <RemovableTag
+              removeButtonLabel="Remove"
+              text="Tag"
+              color={`${color}Light` as TagColor}
+            />
+          </td>
+        ))}
       </tr>
     </table>
 
@@ -309,13 +155,11 @@ export default () => (
       <tr>
         <th></th>
         <th>Standard</th>
-        <th>Blue</th>
-        <th>Red</th>
-        <th>Yellow</th>
-        <th>Green</th>
-        <th>Teal</th>
-        <th>Purple</th>
-        <th>Grey</th>
+        {colors.map((color) => (
+          <th key={`${color}-removable-link-title`}>
+            {color!.charAt(0).toUpperCase() + color!.slice(1)}
+          </th>
+        ))}
       </tr>
       <tr>
         <th>Default</th>
@@ -327,123 +171,33 @@ export default () => (
             color="standard"
           />
         </td>
-        <td>
-          <RemovableTag
-            removeButtonLabel="Remove"
-            href="https://www.atlassian.com/search?query=Carrot%20cake"
-            text="Tag"
-            color="blue"
-          />
-        </td>
-        <td>
-          <RemovableTag
-            removeButtonLabel="Remove"
-            href="https://www.atlassian.com/search?query=Carrot%20cake"
-            text="Tag"
-            color="red"
-          />
-        </td>
-        <td>
-          <RemovableTag
-            removeButtonLabel="Remove"
-            href="https://www.atlassian.com/search?query=Carrot%20cake"
-            text="Tag"
-            color="yellow"
-          />
-        </td>
-        <td>
-          <RemovableTag
-            removeButtonLabel="Remove"
-            href="https://www.atlassian.com/search?query=Carrot%20cake"
-            text="Tag"
-            color="green"
-          />
-        </td>
-        <td>
-          <RemovableTag
-            removeButtonLabel="Remove"
-            href="https://www.atlassian.com/search?query=Carrot%20cake"
-            text="Tag"
-            color="teal"
-          />
-        </td>
-        <td>
-          <RemovableTag
-            removeButtonLabel="Remove"
-            href="https://www.atlassian.com/search?query=Carrot%20cake"
-            text="Tag"
-            color="purple"
-          />
-        </td>
-        <td>
-          <RemovableTag
-            removeButtonLabel="Remove"
-            href="https://www.atlassian.com/search?query=Carrot%20cake"
-            text="Tag"
-            color="grey"
-          />
-        </td>
+
+        {colors.map((color) => (
+          <td key={`${color}-removable-link`}>
+            <RemovableTag
+              removeButtonLabel="Remove"
+              href="https://www.atlassian.com/search?query=Carrot%20cake"
+              text="Tag"
+              color={color}
+            />
+          </td>
+        ))}
         <td></td>
       </tr>
       <tr>
         <th>Light</th>
         <td></td>
-        <td>
-          <RemovableTag
-            removeButtonLabel="Remove"
-            href="https://www.atlassian.com/search?query=Carrot%20cake"
-            text="Tag"
-            color="blueLight"
-          />
-        </td>
-        <td>
-          <RemovableTag
-            removeButtonLabel="Remove"
-            href="https://www.atlassian.com/search?query=Carrot%20cake"
-            text="Tag"
-            color="redLight"
-          />
-        </td>
-        <td>
-          <RemovableTag
-            removeButtonLabel="Remove"
-            href="https://www.atlassian.com/search?query=Carrot%20cake"
-            text="Tag"
-            color="yellowLight"
-          />
-        </td>
-        <td>
-          <RemovableTag
-            removeButtonLabel="Remove"
-            href="https://www.atlassian.com/search?query=Carrot%20cake"
-            text="Tag"
-            color="greenLight"
-          />
-        </td>
-        <td>
-          <RemovableTag
-            removeButtonLabel="Remove"
-            href="https://www.atlassian.com/search?query=Carrot%20cake"
-            text="Tag"
-            color="tealLight"
-          />
-        </td>
-        <td>
-          <RemovableTag
-            removeButtonLabel="Remove"
-            href="https://www.atlassian.com/search?query=Carrot%20cake"
-            text="Tag"
-            color="purpleLight"
-          />
-        </td>
-        <td>
-          <RemovableTag
-            removeButtonLabel="Remove"
-            href="https://www.atlassian.com/search?query=Carrot%20cake"
-            text="Tag"
-            color="greyLight"
-          />
-        </td>
+
+        {colors.map((color) => (
+          <td key={`${color}-removable-link-light`}>
+            <RemovableTag
+              removeButtonLabel="Remove"
+              href="https://www.atlassian.com/search?query=Carrot%20cake"
+              text="Tag"
+              color={`${color}Light` as TagColor}
+            />
+          </td>
+        ))}
       </tr>
     </table>
 
@@ -452,13 +206,11 @@ export default () => (
       <tr>
         <th></th>
         <th>Standard</th>
-        <th>Blue</th>
-        <th>Red</th>
-        <th>Yellow</th>
-        <th>Green</th>
-        <th>Teal</th>
-        <th>Purple</th>
-        <th>Grey</th>
+        {colors.map((color) => (
+          <th key={`${color}-link-element-before-title`}>
+            {color!.charAt(0).toUpperCase() + color!.slice(1)}
+          </th>
+        ))}
       </tr>
       <tr>
         <th>Default</th>
@@ -473,151 +225,41 @@ export default () => (
             testId="elemBeforeBlue"
           />
         </td>
-        <td>
-          <Tag
-            elemBefore={
-              <span style={{ paddingLeft: token('space.075', '6px') }}>#</span>
-            }
-            href="https://www.atlassian.com/search?query=Carrot%20cake"
-            text="Tag"
-            color="blue"
-          />
-        </td>
-        <td>
-          <Tag
-            elemBefore={
-              <span style={{ paddingLeft: token('space.075', '6px') }}>#</span>
-            }
-            href="https://www.atlassian.com/search?query=Carrot%20cake"
-            text="Tag"
-            color="red"
-          />
-        </td>
-        <td>
-          <Tag
-            elemBefore={
-              <span style={{ paddingLeft: token('space.075', '6px') }}>#</span>
-            }
-            href="https://www.atlassian.com/search?query=Carrot%20cake"
-            text="Tag"
-            color="yellow"
-          />
-        </td>
-        <td>
-          <Tag
-            elemBefore={
-              <span style={{ paddingLeft: token('space.075', '6px') }}>#</span>
-            }
-            href="https://www.atlassian.com/search?query=Carrot%20cake"
-            text="Tag"
-            color="green"
-          />
-        </td>
-        <td>
-          <Tag
-            elemBefore={
-              <span style={{ paddingLeft: token('space.075', '6px') }}>#</span>
-            }
-            href="https://www.atlassian.com/search?query=Carrot%20cake"
-            text="Tag"
-            color="teal"
-          />
-        </td>
-        <td>
-          <Tag
-            elemBefore={
-              <span style={{ paddingLeft: token('space.075', '6px') }}>#</span>
-            }
-            href="https://www.atlassian.com/search?query=Carrot%20cake"
-            text="Tag"
-            color="purple"
-          />
-        </td>
-        <td>
-          <Tag
-            elemBefore={
-              <span style={{ paddingLeft: token('space.075', '6px') }}>#</span>
-            }
-            href="https://www.atlassian.com/search?query=Carrot%20cake"
-            text="Tag"
-            color="grey"
-          />
-        </td>
+
+        {colors.map((color) => (
+          <td key={`${color}-link-element-before`}>
+            <RemovableTag
+              elemBefore={
+                <span style={{ paddingLeft: token('space.075', '6px') }}>
+                  #
+                </span>
+              }
+              href="https://www.atlassian.com/search?query=Carrot%20cake"
+              text="Tag"
+              color={color}
+            />
+          </td>
+        ))}
         <td></td>
       </tr>
       <tr>
         <th>Light</th>
         <td></td>
-        <td>
-          <Tag
-            elemBefore={
-              <span style={{ paddingLeft: token('space.075', '6px') }}>#</span>
-            }
-            href="https://www.atlassian.com/search?query=Carrot%20cake"
-            text="Tag"
-            color="blueLight"
-          />
-        </td>
-        <td>
-          <Tag
-            elemBefore={
-              <span style={{ paddingLeft: token('space.075', '6px') }}>#</span>
-            }
-            href="https://www.atlassian.com/search?query=Carrot%20cake"
-            text="Tag"
-            color="redLight"
-          />
-        </td>
-        <td>
-          <Tag
-            elemBefore={
-              <span style={{ paddingLeft: token('space.075', '6px') }}>#</span>
-            }
-            href="https://www.atlassian.com/search?query=Carrot%20cake"
-            text="Tag"
-            color="yellowLight"
-          />
-        </td>
-        <td>
-          <Tag
-            elemBefore={
-              <span style={{ paddingLeft: token('space.075', '6px') }}>#</span>
-            }
-            href="https://www.atlassian.com/search?query=Carrot%20cake"
-            text="Tag"
-            color="greenLight"
-          />
-        </td>
-        <td>
-          <Tag
-            elemBefore={
-              <span style={{ paddingLeft: token('space.075', '6px') }}>#</span>
-            }
-            href="https://www.atlassian.com/search?query=Carrot%20cake"
-            text="Tag"
-            color="tealLight"
-          />
-        </td>
-        <td>
-          <Tag
-            elemBefore={
-              <span style={{ paddingLeft: token('space.075', '6px') }}>#</span>
-            }
-            href="https://www.atlassian.com/search?query=Carrot%20cake"
-            text="Tag"
-            color="purpleLight"
-          />
-        </td>
-        <td>
-          <Tag
-            elemBefore={
-              <span style={{ paddingLeft: token('space.075', '6px') }}>#</span>
-            }
-            href="https://www.atlassian.com/search?query=Carrot%20cake"
-            text="Tag"
-            color="greyLight"
-          />
-        </td>
+
+        {colors.map((color) => (
+          <td key={`${color}-link-element-before-light`}>
+            <RemovableTag
+              elemBefore={
+                <span style={{ paddingLeft: token('space.075', '6px') }}>
+                  #
+                </span>
+              }
+              href="https://www.atlassian.com/search?query=Carrot%20cake"
+              text="Tag"
+              color={`${color}Light` as TagColor}
+            />
+          </td>
+        ))}
       </tr>
     </table>
 
@@ -626,13 +268,11 @@ export default () => (
       <tr>
         <th></th>
         <th>Standard</th>
-        <th>Blue</th>
-        <th>Red</th>
-        <th>Yellow</th>
-        <th>Green</th>
-        <th>Teal</th>
-        <th>Purple</th>
-        <th>Grey</th>
+        {colors.map((color) => (
+          <th key={`${color}-removable-link-element-before-title`}>
+            {color!.charAt(0).toUpperCase() + color!.slice(1)}
+          </th>
+        ))}
       </tr>
       <tr>
         <th>Default</th>
@@ -647,151 +287,41 @@ export default () => (
             testId="elemBeforeBlue"
           />
         </td>
-        <td>
-          <RemovableTag
-            elemBefore={
-              <span style={{ paddingLeft: token('space.075', '6px') }}>#</span>
-            }
-            href="https://www.atlassian.com/search?query=Carrot%20cake"
-            text="Tag"
-            color="blue"
-          />
-        </td>
-        <td>
-          <RemovableTag
-            elemBefore={
-              <span style={{ paddingLeft: token('space.075', '6px') }}>#</span>
-            }
-            href="https://www.atlassian.com/search?query=Carrot%20cake"
-            text="Tag"
-            color="red"
-          />
-        </td>
-        <td>
-          <RemovableTag
-            elemBefore={
-              <span style={{ paddingLeft: token('space.075', '6px') }}>#</span>
-            }
-            href="https://www.atlassian.com/search?query=Carrot%20cake"
-            text="Tag"
-            color="yellow"
-          />
-        </td>
-        <td>
-          <RemovableTag
-            elemBefore={
-              <span style={{ paddingLeft: token('space.075', '6px') }}>#</span>
-            }
-            href="https://www.atlassian.com/search?query=Carrot%20cake"
-            text="Tag"
-            color="green"
-          />
-        </td>
-        <td>
-          <RemovableTag
-            elemBefore={
-              <span style={{ paddingLeft: token('space.075', '6px') }}>#</span>
-            }
-            href="https://www.atlassian.com/search?query=Carrot%20cake"
-            text="Tag"
-            color="teal"
-          />
-        </td>
-        <td>
-          <RemovableTag
-            elemBefore={
-              <span style={{ paddingLeft: token('space.075', '6px') }}>#</span>
-            }
-            href="https://www.atlassian.com/search?query=Carrot%20cake"
-            text="Tag"
-            color="purple"
-          />
-        </td>
-        <td>
-          <RemovableTag
-            elemBefore={
-              <span style={{ paddingLeft: token('space.075', '6px') }}>#</span>
-            }
-            href="https://www.atlassian.com/search?query=Carrot%20cake"
-            text="Tag"
-            color="grey"
-          />
-        </td>
+
+        {colors.map((color) => (
+          <td key={`${color}-removable-link-element-before`}>
+            <RemovableTag
+              elemBefore={
+                <span style={{ paddingLeft: token('space.075', '6px') }}>
+                  #
+                </span>
+              }
+              href="https://www.atlassian.com/search?query=Carrot%20cake"
+              text="Tag"
+              color={color}
+            />
+          </td>
+        ))}
         <td></td>
       </tr>
       <tr>
         <th>Light</th>
         <td></td>
-        <td>
-          <RemovableTag
-            elemBefore={
-              <span style={{ paddingLeft: token('space.075', '6px') }}>#</span>
-            }
-            href="https://www.atlassian.com/search?query=Carrot%20cake"
-            text="Tag"
-            color="blueLight"
-          />
-        </td>
-        <td>
-          <RemovableTag
-            elemBefore={
-              <span style={{ paddingLeft: token('space.075', '6px') }}>#</span>
-            }
-            href="https://www.atlassian.com/search?query=Carrot%20cake"
-            text="Tag"
-            color="redLight"
-          />
-        </td>
-        <td>
-          <RemovableTag
-            elemBefore={
-              <span style={{ paddingLeft: token('space.075', '6px') }}>#</span>
-            }
-            href="https://www.atlassian.com/search?query=Carrot%20cake"
-            text="Tag"
-            color="yellowLight"
-          />
-        </td>
-        <td>
-          <RemovableTag
-            elemBefore={
-              <span style={{ paddingLeft: token('space.075', '6px') }}>#</span>
-            }
-            href="https://www.atlassian.com/search?query=Carrot%20cake"
-            text="Tag"
-            color="greenLight"
-          />
-        </td>
-        <td>
-          <RemovableTag
-            elemBefore={
-              <span style={{ paddingLeft: token('space.075', '6px') }}>#</span>
-            }
-            href="https://www.atlassian.com/search?query=Carrot%20cake"
-            text="Tag"
-            color="tealLight"
-          />
-        </td>
-        <td>
-          <RemovableTag
-            elemBefore={
-              <span style={{ paddingLeft: token('space.075', '6px') }}>#</span>
-            }
-            href="https://www.atlassian.com/search?query=Carrot%20cake"
-            text="Tag"
-            color="purpleLight"
-          />
-        </td>
-        <td>
-          <RemovableTag
-            elemBefore={
-              <span style={{ paddingLeft: token('space.075', '6px') }}>#</span>
-            }
-            href="https://www.atlassian.com/search?query=Carrot%20cake"
-            text="Tag"
-            color="greyLight"
-          />
-        </td>
+
+        {colors.map((color) => (
+          <td key={`${color}-removable-link-element-before-light`}>
+            <RemovableTag
+              elemBefore={
+                <span style={{ paddingLeft: token('space.075', '6px') }}>
+                  #
+                </span>
+              }
+              href="https://www.atlassian.com/search?query=Carrot%20cake"
+              text="Tag"
+              color={`${color}Light` as TagColor}
+            />
+          </td>
+        ))}
       </tr>
     </table>
   </div>

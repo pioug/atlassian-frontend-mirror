@@ -77,7 +77,7 @@ export const Row = memo(function Row({
 }) {
   const ref = useRef<HTMLTableRowElement | null>(null);
   const dragHandleRef = useRef<HTMLButtonElement>(null);
-  const { register } = useContext(TableContext);
+  const { register, instanceId } = useContext(TableContext);
   const [state, setState] = useState<State>({ type: 'idle' });
 
   useEffect(() => {
@@ -98,7 +98,7 @@ export const Row = memo(function Row({
         element,
         dragHandle,
         getInitialData() {
-          return { type: 'item-row', item, index };
+          return { type: 'item-row', item, index, instanceId };
         },
         onGenerateDragPreview({ nativeSetDragImage }) {
           // We need to make sure that the element not obfuscated by the sticky header
@@ -117,10 +117,11 @@ export const Row = memo(function Row({
       }),
       dropTargetForElements({
         element,
-        canDrop(args) {
+        canDrop({ source }) {
           return (
-            args.source.data.type === 'item-row' &&
-            args.source.data.item !== item
+            source.data.instanceId === instanceId &&
+            source.data.type === 'item-row' &&
+            source.data.item !== item
           );
         },
         getData({ input, element }) {
@@ -178,7 +179,7 @@ export const Row = memo(function Row({
      * Using the cell-based approach could be preferable if you have stricter
      * performance needs, and would allow for optimizations such as memoization.
      */
-  }, [item, index, properties]);
+  }, [instanceId, item, index, properties]);
 
   return (
     <Fragment>

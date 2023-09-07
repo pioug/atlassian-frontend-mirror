@@ -666,10 +666,9 @@ export const spacingTests: Tests = {
       code: `const someValue = gridSize();\nconst styles = css({
         padding: -someValue,
       });`,
-      // No fix
-      // output: `const someValue = gridSize();\nconst styles = css({
-      //   padding: token('', '-8px'),
-      // });`,
+      output: `const someValue = gridSize();\nconst styles = css({
+        padding: token('space.negative.100', '-8px'),
+      });`,
       errors: [
         {
           message:
@@ -1303,7 +1302,7 @@ export const StickyWrapper = styled.div\`
         background: \${token('elevation.surface', colors.N0)};
         z-index: \${stickyHeaderBreadcrumbsZIndex};
         padding-left: \${token('space.100', '8px')}; //this is a test comment
-        margin-left: -\${stickyLineExtraLengthLeft}px;
+        margin-left: \${token('space.negative.100', '-8px')};
         padding-top: \${-extraTopOffset}px; /* not to cut out button border etc. because of negative extraTopOffset */
         top: \${(props) => props.topOffset + extraTopOffset}px;
     }

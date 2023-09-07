@@ -158,6 +158,13 @@ export interface EmojiProvider
    * Returns a constructed URL to fetch emoji media asset if 'optimisticImageApi' config has been provided
    */
   getOptimisticImageURL(emojiId: EmojiId): string | undefined;
+
+  /**
+   * @return a boolean indicating whether providers should be fetched on-demand only, and automatic fetches prevented
+   *
+   * Optional.
+   */
+  onlyFetchOnDemand?(): boolean;
 }
 
 export interface UploadingEmojiProvider extends EmojiProvider {

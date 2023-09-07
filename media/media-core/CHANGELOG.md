@@ -1,5 +1,11 @@
 # @atlaskit/media-core
 
+## 34.1.4
+
+### Patch Changes
+
+- [`e2cad1162d6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e2cad1162d6) - Enrol packages on push model consumption
+
 ## 34.1.3
 
 ### Patch Changes

@@ -25,6 +25,7 @@ import type { GridType, SnapPointsProps } from '@atlaskit/editor-common/types';
 import { calculateOffsetLeft } from '@atlaskit/editor-common/media-single';
 import type { Highlights } from '@atlaskit/editor-plugin-grid';
 import { calculateSnapPoints } from '@atlaskit/editor-common/utils';
+import { token } from '@atlaskit/tokens';
 
 type State = {
   offsetLeft: number;
@@ -84,6 +85,15 @@ export default class ResizableMediaSingle extends React.Component<
 
   get wrappedLayout() {
     return wrappedLayouts.indexOf(this.props.layout) > -1;
+  }
+
+  // check if is inside of a table
+  isNestedInTable() {
+    const { table } = this.props.view.state.schema.nodes;
+    if (!this.$pos) {
+      return false;
+    }
+    return !!findParentNodeOfTypeClosestToPos(this.$pos, table);
   }
 
   async componentDidMount() {
@@ -372,6 +382,22 @@ export default class ResizableMediaSingle extends React.Component<
       wrappedLayout: this.wrappedLayout,
     };
 
+    const nestedInTableHandleStyles = (isNestedInTable: Boolean) => {
+      if (!isNestedInTable) {
+        return;
+      }
+      return {
+        left: {
+          left: `calc(${token('space.025', '0.125em')} * -0.5)`,
+          paddingLeft: '0px',
+        },
+        right: {
+          right: `calc(${token('space.025', '0.125em')} * -0.5)`,
+          paddingRight: '0px',
+        },
+      };
+    };
+
     return (
       <div
         ref={this.saveWrapper}
@@ -399,6 +425,7 @@ export default class ResizableMediaSingle extends React.Component<
           // press “Up“ key will result cursor focus on an invalid position, (on the resize handler)
           // This workaround adds an empty div inside the resize handler to prevent the issue.
           handleComponentFunc={() => <div contentEditable={false} />}
+          handleStyles={nestedInTableHandleStyles(this.isNestedInTable())}
         >
           {children}
         </Resizer>

@@ -23,6 +23,17 @@ const spacing: ValueSchema<SpacingTokenSchema> = {
     '600': { value: 'Space600' },
     '800': { value: 'Space800' },
     '1000': { value: 'Space1000' },
+    negative: {
+      '025': { value: 'SpaceNegative025' },
+      '050': { value: 'SpaceNegative050' },
+      '075': { value: 'SpaceNegative075' },
+      '100': { value: 'SpaceNegative100' },
+      '150': { value: 'SpaceNegative150' },
+      '200': { value: 'SpaceNegative200' },
+      '250': { value: 'SpaceNegative250' },
+      '300': { value: 'SpaceNegative300' },
+      '400': { value: 'SpaceNegative400' },
+    },
   },
 };
 

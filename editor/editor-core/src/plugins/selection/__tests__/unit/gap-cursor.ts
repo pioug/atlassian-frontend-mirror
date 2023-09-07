@@ -57,6 +57,7 @@ import floatingToolbarPlugin from '../../../floating-toolbar';
 import { hideCaretModifier } from '../../gap-cursor/styles';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
+// import type { EditorCommand } from '@atlaskit/editor-common/types';
 
 describe('gap-cursor', () => {
   const createEditor = createEditorFactory();
@@ -600,4 +601,47 @@ describe('gap-cursor', () => {
       expect(editorView.dom.classList.contains(hideCaretModifier)).toBe(false);
     });
   });
+
+  // TODO: fix unit tests - command is not 'flipping' plugin state
+  // describe('on calling gap cursor action', () => {
+  //   it('should display and hide gap cursor', () => {
+  //     const { pluginState, editorAPI } = editor(
+  //       doc(code_block({})('1\n2\n3\n4\n5\n6\n'), '{<|gap>}'),
+  //     );
+
+  //     expect(pluginState).toStrictEqual({
+  //       selectionIsGapCursor: true,
+  //       displayGapCursor: true,
+  //     });
+
+  //     console.log('debug', editorAPI?.selection?.commands?.displayGapCursor);
+  //     editorAPI?.core.actions.execute(
+  //       (
+  //         editorAPI?.selection?.commands?.displayGapCursor as (
+  //           toggle: boolean,
+  //         ) => EditorCommand
+  //       )(false),
+  //     );
+
+  //     // hide
+  //     expect(pluginState).toStrictEqual({
+  //       selectionIsGapCursor: true,
+  //       displayGapCursor: false,
+  //     });
+
+  //     editorAPI?.core.actions.execute(
+  //       (
+  //         editorAPI?.selection?.commands?.displayGapCursor as (
+  //           toggle: boolean,
+  //         ) => EditorCommand
+  //       )(true),
+  //     );
+
+  //     // display
+  //     expect(pluginState).toStrictEqual({
+  //       selectionIsGapCursor: true,
+  //       displayGapCursor: true,
+  //     });
+  //   });
+  // });
 });

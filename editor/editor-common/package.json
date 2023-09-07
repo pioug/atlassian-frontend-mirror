@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-common",
-  "version": "74.56.6",
+  "version": "74.56.8",
   "description": "A package that contains common classes and components for editor and renderer",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -87,7 +87,7 @@
     "@atlaskit/analytics-namespaced-context": "^6.7.0",
     "@atlaskit/analytics-next": "^9.1.0",
     "@atlaskit/analytics-next-stable-react-context": "1.0.1",
-    "@atlaskit/button": "^16.9.0",
+    "@atlaskit/button": "^16.10.0",
     "@atlaskit/code": "^14.6.0",
     "@atlaskit/codemod-utils": "^4.2.0",
     "@atlaskit/editor-json-transformer": "^8.10.0",
@@ -95,7 +95,7 @@
     "@atlaskit/editor-prosemirror": "1.1.0",
     "@atlaskit/editor-shared-styles": "^2.6.0",
     "@atlaskit/editor-tables": "^2.3.0",
-    "@atlaskit/emoji": "^67.4.0",
+    "@atlaskit/emoji": "^67.5.0",
     "@atlaskit/icon": "^21.12.0",
     "@atlaskit/icon-object": "^6.3.0",
     "@atlaskit/in-product-testing": "^0.2.0",
@@ -112,7 +112,7 @@
     "@atlaskit/spinner": "^15.5.0",
     "@atlaskit/task-decision": "^17.7.0",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.20.0",
+    "@atlaskit/tokens": "^1.21.0",
     "@atlaskit/tooltip": "^17.8.0",
     "@atlaskit/ufo": "^0.2.0",
     "@atlaskit/width-detector": "^4.1.0",

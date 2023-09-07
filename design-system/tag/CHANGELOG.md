@@ -1,5 +1,11 @@
 # @atlaskit/tag
 
+## 11.6.0
+
+### Minor Changes
+
+- [`a8ad544c90a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a8ad544c90a) - [ux] Updates background in interaction states to use new interaction accent tokens. Introduces three new color variants: Lime, Orange and Magenta.
+
 ## 11.5.7
 
 ### Patch Changes

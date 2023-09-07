@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-table
 
+## 2.13.0
+
+### Minor Changes
+
+- [`a5f5786f39b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a5f5786f39b) - Use selection plugin to hide gap cursor when table is resized
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.12.6
 
 ### Patch Changes

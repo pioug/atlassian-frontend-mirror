@@ -1,5 +1,11 @@
 import type { PropsWithChildren } from 'react';
-import React, { useCallback, useMemo, useRef, useState } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 
 import rafSchd from 'raf-schd';
 import { defineMessages, useIntl } from 'react-intl-next';
@@ -51,6 +57,7 @@ interface TableResizerProps {
   attachAnalyticsEvent: (
     payload: TableEventPayload,
   ) => ((tr: Transaction) => boolean) | undefined;
+  displayGapCursor: (toggle: boolean) => boolean;
 }
 
 const messages = defineMessages({
@@ -134,8 +141,11 @@ export const TableResizer = ({
   tableRef,
   displayGuideline,
   attachAnalyticsEvent,
+  displayGapCursor,
 }: PropsWithChildren<TableResizerProps>) => {
   const currentGap = useRef(0);
+  // track resizing state - use ref over state to avoid re-render
+  const isResizing = useRef(false);
   const [snappingEnabled, setSnappingEnabled] = useState(false);
   const { formatMessage } = useIntl();
 
@@ -176,22 +186,41 @@ export const TableResizer = ({
     [snappingEnabled],
   );
 
+  useEffect(() => {
+    return () => {
+      // only bring back the cursor if this table was deleted - i.e. if a user was resizing, then another
+      // deleted this table
+      if (isResizing.current) {
+        displayGapCursor(true);
+        displayGuideline([]);
+      }
+    };
+  }, [displayGuideline, displayGapCursor]);
+
   const handleResizeStart = useCallback(() => {
     startMeasure();
-
+    isResizing.current = true;
     const {
       dispatch,
       state: { tr },
     } = editorView;
+    tr.setMeta(tableWidthPluginKey, { resizing: true });
+    displayGapCursor(false);
 
-    dispatch(tr.setMeta(tableWidthPluginKey, { resizing: true }));
+    dispatch(tr);
 
     const visibleGuidelines = getVisibleGuidelines(
       defaultGuidelines,
       containerWidth,
     );
     setSnappingEnabled(displayGuideline(visibleGuidelines));
-  }, [displayGuideline, editorView, startMeasure, containerWidth]);
+  }, [
+    displayGapCursor,
+    displayGuideline,
+    editorView,
+    startMeasure,
+    containerWidth,
+  ]);
 
   const handleResize = useCallback(
     (originalState, delta) => {
@@ -242,6 +271,7 @@ export const TableResizer = ({
 
   const handleResizeStop = useCallback<HandleResize>(
     (originalState, delta) => {
+      isResizing.current = false;
       const newWidth = originalState.width + delta.width;
       const { state, dispatch } = editorView;
       const pos = getPos();
@@ -287,7 +317,7 @@ export const TableResizer = ({
           }),
         )?.(tr);
       }
-
+      displayGapCursor(true);
       dispatch(tr);
 
       // Hide guidelines when resizing stops
@@ -298,6 +328,7 @@ export const TableResizer = ({
       return newWidth;
     },
     [
+      displayGapCursor,
       updateWidth,
       editorView,
       getPos,

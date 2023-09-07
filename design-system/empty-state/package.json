@@ -26,10 +26,10 @@
     }
   },
   "dependencies": {
-    "@atlaskit/button": "^16.9.0",
+    "@atlaskit/button": "^16.10.0",
     "@atlaskit/spinner": "^15.5.0",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.20.0",
+    "@atlaskit/tokens": "^1.21.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1"
   },

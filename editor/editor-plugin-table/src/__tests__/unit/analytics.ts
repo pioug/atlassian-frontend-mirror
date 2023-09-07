@@ -1,5 +1,6 @@
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import selectionPlugin from '@atlaskit/editor-core/src/plugins/selection';
 import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
@@ -99,6 +100,7 @@ describe('Table analytic events', () => {
         .add(contentInsertionPlugin)
         .add(widthPlugin)
         .add(guidelinePlugin)
+        .add(selectionPlugin)
         .add([tablePlugin, { tableOptions }]),
       pluginKey,
     });

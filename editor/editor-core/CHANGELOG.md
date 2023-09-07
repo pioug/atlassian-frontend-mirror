@@ -1,5 +1,23 @@
 # @atlaskit/editor-core
 
+## 187.39.0
+
+### Minor Changes
+
+- [`985ecca5c88`](https://bitbucket.org/atlassian/atlassian-frontend/commits/985ecca5c88) - Add new editor plugin action for the selection plugin, which allows other plugins to control the visibility of the gap cursor
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.38.5
+
+### Patch Changes
+
+- [`d1bd1be0923`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d1bd1be0923) - [ux] ED-19794 updated media resize handle style
+- [`dfb663969a0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dfb663969a0) - ED-19820: Fix for table scroll when insert media node when extended-resize-experience is off
+- Updated dependencies
+
 ## 187.38.3
 
 ### Patch Changes

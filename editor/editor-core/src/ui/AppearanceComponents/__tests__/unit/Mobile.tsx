@@ -1,19 +1,20 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { MobileAppearance } from '../../Mobile';
+import selectionPlugin from '../../../../plugins/selection';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
   p,
   table,
   td,
   tr,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { pluginKey } from '@atlaskit/editor-plugin-table/plugin-key';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
@@ -33,6 +34,7 @@ describe('Mobile Appearance Component', () => {
         .add(contentInsertionPlugin)
         .add(widthPlugin)
         .add(guidelinePlugin)
+        .add(selectionPlugin)
         .add(tablesPlugin),
       pluginKey,
     });

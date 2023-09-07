@@ -19,6 +19,7 @@ import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import { setCellSelection } from '../../../utils/selection';
 import { setGapCursorSelection } from '@atlaskit/editor-common/selection';
 
+import selectionPlugin from '../../../plugins/selection';
 import { Side as GapCursorSide } from '../../../plugins/selection/gap-cursor-selection';
 import { rulePlugin } from '@atlaskit/editor-plugin-rule';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
@@ -39,6 +40,7 @@ describe('toEqualDocumentAndSelection matches', () => {
     .add(rulePlugin)
     .add(widthPlugin)
     .add(guidelinePlugin)
+    .add(selectionPlugin)
     .add(tablesPlugin);
 
   const editor = (doc: DocBuilder) =>

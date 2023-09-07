@@ -1,5 +1,20 @@
 # @atlaskit/primitives
 
+## 1.4.1
+
+### Patch Changes
+
+- [`da792e55f6f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/da792e55f6f) - - Bleed now uses negative space tokens under the hood.
+  - Fixed an issue where the wrong token would apply for space.025 in Bleed's `block` prop.
+  - Fallback values for Bleed `block` and `inline` props now use rem instead of px - this is only applied if space tokens are not available on the page. Space tokens already use rem under the hood.
+- Updated dependencies
+
+## 1.4.0
+
+### Minor Changes
+
+- [`9ac38d5c3e9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9ac38d5c3e9) - All margin and padding properties now support autocomplete and token values in xcss.
+
 ## 1.3.1
 
 ### Patch Changes

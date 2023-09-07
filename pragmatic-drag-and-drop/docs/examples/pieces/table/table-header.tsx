@@ -225,11 +225,14 @@ export function TableHeader({
   const [state, setState] = useState<HeaderState>(idleState);
   const columnType: ColumnType = getColumnType({ index, amountOfHeaders });
 
+  const { instanceId } = useContext(TableContext);
+
   // detect whether we should show a full height drop target
   useEffect(() => {
     return monitorForElements({
       canMonitor({ source }) {
         return (
+          source.data.instanceId === instanceId &&
           source.data.type === 'table-header' &&
           source.data.property !== property
         );
@@ -247,7 +250,7 @@ export function TableHeader({
         setState(idleState);
       },
     });
-  }, [property]);
+  }, [instanceId, property]);
 
   // Creating a drop target to power reordering the column headers
   // We are dynamically creating the drop targets after the drag starts
@@ -270,10 +273,11 @@ export function TableHeader({
           allowedEdges: ['left', 'right'],
         });
       },
-      canDrop(args) {
+      canDrop({ source }) {
         return (
-          args.source.data.type === 'table-header' &&
-          args.source.data.property !== property
+          source.data.instanceId === instanceId &&
+          source.data.type === 'table-header' &&
+          source.data.property !== property
         );
       },
       onDrag(args) {
@@ -308,7 +312,7 @@ export function TableHeader({
         setState(idleState);
       },
     });
-  }, [state.type, property, index]);
+  }, [state.type, property, index, instanceId]);
 
   // Setting up the draggable header
   useEffect(() => {
@@ -322,7 +326,7 @@ export function TableHeader({
       element: el,
       dragHandle,
       getInitialData() {
-        return { type: 'table-header', property, index };
+        return { type: 'table-header', property, index, instanceId };
       },
       onGenerateDragPreview({ nativeSetDragImage }) {
         setCustomNativeDragPreview({
@@ -348,7 +352,7 @@ export function TableHeader({
         setState(idleState);
       },
     });
-  }, [property, index]);
+  }, [property, index, instanceId]);
 
   const renderResizeHandle: boolean =
     (state.type === 'idle' || state.type === 'resizing') &&
@@ -371,7 +375,7 @@ export function TableHeader({
     return draggable({
       element: handle,
       getInitialData() {
-        return { type: 'column-resize', property, index };
+        return { type: 'column-resize', property, index, instanceId };
       },
       onGenerateDragPreview({ nativeSetDragImage }) {
         disableNativeDragPreview({ nativeSetDragImage });
@@ -435,7 +439,7 @@ export function TableHeader({
         setState(idleState);
       },
     });
-  }, [renderResizeHandle, index, property, state]);
+  }, [renderResizeHandle, index, property, state, instanceId]);
 
   const label = getProperty(property);
 

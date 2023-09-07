@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::5688852b9c5bb12cbce375967cb93ef5>>
+ * @codegen <<SignedSource::487e60f0791ae39572ec7cc90e77eb13>>
  * @codegenCommand yarn build tokens
  */
 const tokens = {
@@ -538,6 +538,15 @@ const tokens = {
   'space.600': '--ds-space-600',
   'space.800': '--ds-space-800',
   'space.1000': '--ds-space-1000',
+  'space.negative.025': '--ds-space-negative-025',
+  'space.negative.050': '--ds-space-negative-050',
+  'space.negative.075': '--ds-space-negative-075',
+  'space.negative.100': '--ds-space-negative-100',
+  'space.negative.150': '--ds-space-negative-150',
+  'space.negative.200': '--ds-space-negative-200',
+  'space.negative.250': '--ds-space-negative-250',
+  'space.negative.300': '--ds-space-negative-300',
+  'space.negative.400': '--ds-space-negative-400',
   'font.body': '--ds-font-body',
   'font.body.lg': '--ds-font-body-lg',
   'font.body.sm': '--ds-font-body-sm',
@@ -995,6 +1004,15 @@ export type CSSTokenMap = {
   'space.600': 'var(--ds-space-600)';
   'space.800': 'var(--ds-space-800)';
   'space.1000': 'var(--ds-space-1000)';
+  'space.negative.025': 'var(--ds-space-negative-025)';
+  'space.negative.050': 'var(--ds-space-negative-050)';
+  'space.negative.075': 'var(--ds-space-negative-075)';
+  'space.negative.100': 'var(--ds-space-negative-100)';
+  'space.negative.150': 'var(--ds-space-negative-150)';
+  'space.negative.200': 'var(--ds-space-negative-200)';
+  'space.negative.250': 'var(--ds-space-negative-250)';
+  'space.negative.300': 'var(--ds-space-negative-300)';
+  'space.negative.400': 'var(--ds-space-negative-400)';
   'font.body': 'var(--ds-font-body)';
   'font.body.lg': 'var(--ds-font-body-lg)';
   'font.body.sm': 'var(--ds-font-body-sm)';

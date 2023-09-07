@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/interaction-context",
-  "version": "2.1.2",
+  "version": "2.1.3",
   "description": "Interaction context for handling tracing",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -11,6 +11,9 @@
     "team": "UFO - Vulcans",
     "inPublicMirror": false,
     "releaseModel": "continuous",
+    "productPushConsumption": [
+      "jira"
+    ],
     "website": {
       "name": "InteractionContext"
     }

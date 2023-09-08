@@ -274,16 +274,6 @@ export type FeatureFlags = {
 
   /**
    * @description
-   * Show copy buttons in the Floating toolbar
-   *
-   * @see https://product-fabric.atlassian.net/wiki/spaces/E/pages/3237609689/Cubone+Mini+project+-+Copy+button+in+the+floating+toolbar
-   * @see https://product-fabric.atlassian.net/browse/ED-15090
-   * @default false
-   */
-  floatingToolbarCopyButton?: boolean;
-
-  /**
-   * @description
    * Use the linking platform link picker for link insertion and edit
    *
    * @see https://product-fabric.atlassian.net/wiki/spaces/EM/pages/3158246501/PP+Link+Picker+-+Standalone

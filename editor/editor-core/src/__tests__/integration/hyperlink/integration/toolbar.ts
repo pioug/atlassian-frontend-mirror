@@ -51,10 +51,10 @@ describe('with feature flag: lp-link-picker', () => {
       // Shift tab should bring us to last item in toolbar
       await page.keys(['Shift', 'Tab', 'Shift'], true);
 
-      await page.waitForSelector(hyperlinkSelectors.unlinkBtn);
-      const unlinkButton = await page.$(hyperlinkSelectors.unlinkBtn);
+      await page.waitForSelector(hyperlinkSelectors.copyBtn);
+      const copyButton = await page.$(hyperlinkSelectors.copyBtn);
       expect(await editor.isFocused()).toBe(false);
-      expect(await unlinkButton.isFocused()).toBe(true);
+      expect(await copyButton.isFocused()).toBe(true);
 
       await page.pause(100);
 

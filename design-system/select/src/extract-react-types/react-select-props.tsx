@@ -37,6 +37,8 @@ interface NativeReactSelectProps<
   'aria-label'?: string;
   /** HTML ID of an element that should be used as the label (for assistive tech) */
   'aria-labelledby'?: string;
+  /** Identifies the element (or elements) that describes the object. By default this is associated with the placeholder. The value in this prop is additional to the label, not replacing the default. Use this to give additional information, hints, or examples about how to complete a field (for assistive tech). */
+  'aria-describedby'?: string;
   /** Used to set the priority with which screen reader should treat updates to live regions. The possible settings are?: off, polite (default) or assertive */
   'aria-live'?: 'off' | 'polite' | 'assertive';
   /** Customize the messages used by the aria-live component. See react-select v5.4.0 documentation for full details */

@@ -311,8 +311,8 @@ function ContentComponent({
     ? (toolbarItems[confirmDialogForItem] as FloatingToolbarButton<Function>)
     : undefined;
 
-  const scrollable =
-    featureFlags.floatingToolbarCopyButton && config.scrollable;
+  const scrollable = config.scrollable;
+
   const confirmDialogOptions =
     typeof confirmButtonItem?.confirmDialog === 'function'
       ? confirmButtonItem?.confirmDialog()

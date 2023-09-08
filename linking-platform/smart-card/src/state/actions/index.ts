@@ -16,11 +16,11 @@ import {
 } from '../helpers';
 
 import { InvokeServerOpts, InvokeClientOpts } from '../../model/invoke-opts';
-import * as measure from '../../utils/performance';
 import { AnalyticsFacade } from '../analytics';
 import { CardInnerAppearance } from '../../view/Card/types';
 import { SmartLinkStatus } from '../../constants';
 import useResolve from '../hooks/use-resolve';
+import useInvokeClientAction from '../hooks/use-invoke-client-action';
 
 export const useSmartCardActions = (
   id: string,
@@ -28,7 +28,9 @@ export const useSmartCardActions = (
   analytics: AnalyticsFacade,
 ) => {
   const resolveUrl = useResolve();
-  const { store, connections } = useSmartLinkContext();
+  const invokeClientAction = useInvokeClientAction({ analytics });
+
+  const { store } = useSmartLinkContext();
   const { getState, dispatch } = store;
 
   const getSmartLinkState = useCallback(() => {
@@ -159,46 +161,16 @@ export const useSmartCardActions = (
     ): Promise<JsonLd.Response | void> => {
       const { key, action } = opts;
       const source = opts.source || appearance;
-      const markName = `${id}-${action.type}`;
-      // Begin performance instrumentation.
-      measure.mark(markName, 'pending');
-      try {
-        // Begin analytics instrumentation.
-        analytics.ui.actionClickedEvent({
-          id,
-          extensionKey: key,
+      if (opts.type === 'client') {
+        return await invokeClientAction({
+          actionFn: opts.action.promise,
           actionType: action.type,
           display: source,
-          invokeType: opts.type,
-        });
-        // Invoke action - either client-side or server-side.
-        let response: JsonLd.Response | void;
-        if (opts.type === 'client') {
-          response = await opts.action.promise();
-        } else {
-          response = await connections.client.postData(opts);
-        }
-        measure.mark(markName, 'resolved');
-        analytics.operational.invokeSucceededEvent({
-          id,
           extensionKey: key,
-          actionType: action.type,
-          display: source,
         });
-        return response;
-      } catch (err) {
-        measure.mark(markName, 'errored');
-        analytics.operational.invokeFailedEvent({
-          id,
-          extensionKey: key,
-          actionType: action.type,
-          display: source,
-          reason: (err as any).message,
-        });
-        throw err;
       }
     },
-    [id, analytics.ui, analytics.operational, connections.client],
+    [invokeClientAction],
   );
 
   return useMemo(

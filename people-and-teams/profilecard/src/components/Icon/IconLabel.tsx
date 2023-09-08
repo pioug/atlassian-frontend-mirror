@@ -36,7 +36,7 @@ export default class IconLabel extends React.PureComponent<Props> {
     // @ts-ignore
     const IconElement = this.props.icon && icons[this.props.icon];
     const displayIcon = IconElement ? (
-      <IconElement label={`icon ${this.props.icon}`} size="small" />
+      <IconElement label={`${this.props.icon}`} size="small" />
     ) : null;
 
     return (

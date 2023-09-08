@@ -30,9 +30,6 @@
     "singleton": true,
     "inPublicMirror": true,
     "releaseModel": "continuous",
-    "productPushConsumption": [
-      "jira"
-    ],
     "website": {
       "name": "Media Core"
     }

@@ -56,3 +56,16 @@ export type ActionProps = {
    */
   testId?: string;
 };
+
+/**
+ * The internal props that should only be controlled by internal components
+ * and/or used by experiment. If there is a use case where these props/feature
+ * should be available as part of smart-card, please move them to ActionProps.
+ */
+export type InternalActionProps = {
+  /**
+   * Conditionally show a spinner over the top of a button or disable a dropdown item
+   * while server action is executing.
+   */
+  isLoading?: boolean;
+};

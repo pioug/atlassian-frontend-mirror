@@ -89,8 +89,13 @@ export const messages = defineMessages({
   },
   selectionOptionDefaultLabel: {
     id: 'feedback-collector.option.default.label',
-    defaultMessage: 'I want to...',
-    description: 'The feedback dropdown list placeholder title',
+    defaultMessage: 'Select feedback',
+    description: 'The feedback dropdown list label',
+  },
+  selectionOptionDefaultPlaceholder: {
+    id: 'feedback-collector.option.default.placeholder',
+    defaultMessage: 'Choose one',
+    description: 'The feedback dropdown list placeholder',
   },
   feedbackIconLabel: {
     id: 'proforma-form-builder.feedback-icon-label',

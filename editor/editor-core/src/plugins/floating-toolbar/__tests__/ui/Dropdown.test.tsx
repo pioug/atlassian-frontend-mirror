@@ -36,7 +36,7 @@ describe('Dropdown', () => {
 
       const dropdownList = container.querySelector('#dropdownId-dropdownList');
 
-      expect(dropdownList?.getAttribute('role')).toBe('menu');
+      expect(dropdownList?.getAttribute('role')).toBe('presentation');
     });
 
     it('should tell when dropdown menu is expanded', () => {

@@ -50,6 +50,7 @@ import {
   redo,
   pastePlainText,
   addInlineComment,
+  toggleTaskItemCheckbox,
   toggleCode,
   openHelp,
   toggleBulletList,
@@ -96,6 +97,11 @@ const messages = defineMessages({
     id: 'fabric.editor.pastePlainText',
     defaultMessage: 'Paste plain text',
     description: '',
+  },
+  CheckUncheckActionItem: {
+    id: 'fabric.editor.checkUncheckActionItem',
+    defaultMessage: 'Toggle action item',
+    description: 'For Check/Uncheck Action item use shortcut',
   },
   altText: {
     id: 'fabric.editor.altText',
@@ -413,6 +419,11 @@ const otherFormatting: (intl: IntlShape) => Format[] = ({ formatMessage }) => [
     type: 'annotation',
     keymap: () => addInlineComment,
   },
+  {
+    name: formatMessage(messages.CheckUncheckActionItem),
+    type: 'checkbox',
+    keymap: () => toggleTaskItemCheckbox,
+  },
 ];
 
 const imageAutoFormat: Format = {
@@ -492,6 +503,12 @@ export const getComponentFromKeymap = (keymap: Keymap) => {
           return (
             <span css={codeLg} key={`${keyParts}-${index}`}>
               {part}
+            </span>
+          );
+        } else if (part.toLowerCase() === 'enter') {
+          return (
+            <span css={codeSm} key={`${keyParts}-${index}`}>
+              {'⏎'}
             </span>
           );
         }

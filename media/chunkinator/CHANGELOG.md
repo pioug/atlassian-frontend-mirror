@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.2.4
+
+### Patch Changes
+
+- [`5e6b83662b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5e6b83662b2) - reverting a change that wrongly updated chunkinator to use SHA2 before the Media Platform API supports it
+
 ## 4.2.3
 
 ### Patch Changes

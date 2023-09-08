@@ -57,7 +57,6 @@ async function initEditor(options?: InitOptions) {
     editorProps: {
       ...editorProps,
       featureFlags: {
-        floatingToolbarCopyButton: true,
         ...featureFlags,
       },
     },

@@ -46,6 +46,7 @@
     "@babel/runtime": "^7.0.0"
   },
   "devDependencies": {
+    "@atlassian/adf-schema-json": "^1.0.7",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "jscodeshift": "^0.13.0",
     "react": "^16.8.0",

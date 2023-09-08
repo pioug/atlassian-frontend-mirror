@@ -1,5 +1,27 @@
 # @atlaskit/smart-card
 
+## 26.23.0
+
+### Minor Changes
+
+- [`253d4604c50`](https://bitbucket.org/atlassian/atlassian-frontend/commits/253d4604c50) - We are testing support for allow-storage-access-by-user-activation sandbox permission on untrusted embeds behind the "platform.linking-platform.smart-card.iframes-allow-storage-access-by-user-activation" feature flag. If this is successful it will always be enabled for unstrusted embeds in a future release.
+
+### Patch Changes
+
+- [`f85b3744521`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f85b3744521) - Add async action base component to flexible smart links (internal)
+
+## 26.22.1
+
+### Patch Changes
+
+- [`419f14321f3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/419f14321f3) - Adds a JiraTask check when getting a metadata for hovercard. The change is behind a FF. If this update is successful it will be available in a later release.
+
+## 26.22.0
+
+### Minor Changes
+
+- [`b3f9c544faa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b3f9c544faa) - Refactor client action hook.
+
 ## 26.21.0
 
 ### Minor Changes

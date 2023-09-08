@@ -38,9 +38,6 @@ export async function _getCopyButtonTestSuite({
         appearance: Appearance.fullPage,
         viewport: { width: 1040, height: 400 },
         editorProps: {
-          featureFlags: {
-            floatingToolbarCopyButton: true,
-          },
           ...editorOptions,
         },
       });

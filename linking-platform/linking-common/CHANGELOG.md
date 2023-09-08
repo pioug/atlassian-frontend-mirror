@@ -1,5 +1,11 @@
 # @atlaskit/linking-common
 
+## 4.6.1
+
+### Patch Changes
+
+- [`d4dc55d027c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d4dc55d027c) - Update available-sites-result icons to be base64 images so we can use mockAvailableSites in Gemini VR tests
+
 ## 4.6.0
 
 ### Minor Changes

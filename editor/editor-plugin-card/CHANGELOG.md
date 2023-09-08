@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-card
 
+## 0.5.5
+
+### Patch Changes
+
+- [`7ff427bb457`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7ff427bb457) - Add datasources to macro menu categories
+
 ## 0.5.4
 
 ### Patch Changes

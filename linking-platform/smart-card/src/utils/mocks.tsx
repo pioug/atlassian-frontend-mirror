@@ -59,11 +59,12 @@ export const mocks = {
       name: 'I love cheese',
       summary: 'Here is your serving of cheese: 🧀',
       'schema:potentialAction': {
-        '@id': 'comment',
-        '@type': 'CommentAction',
+        '@id': 'download',
+        '@type': 'DownloadAction',
         identifier: 'object-provider',
-        name: 'Comment',
+        name: 'Download',
       },
+      'atlassian:downloadUrl': 'https://some-download.url',
       preview: {
         href: 'https://www.ilovecheese.com',
       },
@@ -227,12 +228,16 @@ export const waitFor = (time = 1) =>
 
 export const mockAnalytics = {
   ui: {
+    actionClickedEvent: () => {},
     buttonClickedEvent: () => {},
     modalClosedEvent: () => {},
     renderSuccessEvent: () => {},
     renderFailedEvent: () => {},
   },
-  operational: {},
+  operational: {
+    invokeSucceededEvent: () => {},
+    invokeFailedEvent: () => {},
+  },
   track: {},
   screen: {
     modalViewedEvent: () => {},

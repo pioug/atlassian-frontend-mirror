@@ -34,13 +34,13 @@ export type UnresolvedEventProps = CommonEventProps & {
 export type InvokeSucceededEventProps = CommonEventProps & {
   id: string;
   actionType: string;
-  display: CardInnerAppearance;
+  display?: CardInnerAppearance;
 };
 
 export type InvokeFailedEventProps = CommonEventProps & {
   id: string;
   actionType: string;
-  display: CardInnerAppearance;
+  display?: CardInnerAppearance;
   reason: string;
 };
 
@@ -87,7 +87,7 @@ export type UiIframeFocusedEventProps = CommonEventProps & {
 
 export type UiActionClickedEventProps = CommonEventProps & {
   id: string;
-  display: CardInnerAppearance;
+  display?: CardInnerAppearance;
   actionType: string;
   invokeType?: InvokeType;
 };

@@ -1,5 +1,11 @@
 # @atlaskit/select
 
+## 16.5.13
+
+### Patch Changes
+
+- [`a22d71ff733`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a22d71ff733) - [ux] Select component now respects explicitly passed value set to aria-describedby attribute.
+
 ## 16.5.12
 
 ### Patch Changes

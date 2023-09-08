@@ -330,3 +330,25 @@ describe('Select', () => {
   });
   /* eslint-enable jest/no-disabled-tests */
 });
+
+describe('Select input', () => {
+  it('should respect explicit aria-described attribute value', () => {
+    const errorId = 'error';
+
+    render(
+      <AtlaskitSelect
+        options={OPTIONS}
+        aria-invalid={true}
+        aria-describedby={errorId}
+      />,
+    );
+
+    screen.getByRole('combobox').focus();
+    screen.getByRole('combobox').blur();
+
+    expect(screen.getByRole('combobox')).toHaveAttribute(
+      'aria-describedby',
+      expect.stringContaining(`${errorId}`),
+    );
+  });
+});

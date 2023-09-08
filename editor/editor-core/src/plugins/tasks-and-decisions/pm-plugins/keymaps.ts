@@ -6,12 +6,13 @@ import type {
   Schema,
 } from '@atlaskit/editor-prosemirror/model';
 import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
-import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type {
   EditorState,
   Transaction,
 } from '@atlaskit/editor-prosemirror/state';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
+import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
+import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import {
   findParentNodeOfType,
   findParentNodeOfTypeClosestToPos,
@@ -57,6 +58,7 @@ import {
   isTable,
 } from './helpers';
 import { normalizeTaskItemsSelection } from '../utils';
+import { toggleTaskItemCheckbox } from '../../../keymaps';
 
 type IndentationInputMethod = INPUT_METHOD.KEYBOARD | INPUT_METHOD.TOOLBAR;
 const indentationAnalytics = (
@@ -481,6 +483,31 @@ const enter: Command = filter(
   ),
 );
 
+const cmdOptEnter: Command = filter(
+  isInsideTaskOrDecisionItem,
+  (state, dispatch) => {
+    const { selection, schema } = state;
+    const { taskItem } = schema.nodes;
+    const { $from } = selection;
+    const node = $from.node($from.depth);
+    const nodeType = node && node.type;
+    const nodePos = $from.before($from.depth);
+    if (nodeType === taskItem) {
+      const tr = state.tr;
+      tr.step(
+        new SetAttrsStep(nodePos, {
+          state: node.attrs.state === 'TODO' ? 'DONE' : 'TODO',
+          localId: node.attrs.localId,
+        }),
+      );
+      if (tr && dispatch) {
+        dispatch(tr);
+      }
+    }
+    return true;
+  },
+);
+
 export function keymapPlugin(
   schema: Schema,
   allowNestedTasks?: boolean,
@@ -520,6 +547,7 @@ export function keymapPlugin(
     'Ctrl-d': deleteForwards,
 
     Enter: enter,
+    [toggleTaskItemCheckbox.common!]: cmdOptEnter,
 
     ...(allowNestedTasks ? indentHandlers : defaultHandlers),
   };

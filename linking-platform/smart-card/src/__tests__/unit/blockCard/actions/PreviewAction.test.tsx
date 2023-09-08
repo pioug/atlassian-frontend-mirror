@@ -7,9 +7,8 @@ jest.mock('../../../../view/EmbedModal', () => ({
   default: (...args: any) => mockModalRender(...args),
 }));
 
-import PreviewAction, {
-  previewFunction,
-} from '../../../../view/BlockCard/actions/PreviewAction';
+import PreviewAction from '../../../../view/BlockCard/actions/PreviewAction';
+import { openEmbedModal } from '../../../../view/EmbedModal/utils';
 import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
 import { mockAnalytics } from '../../../../utils/mocks';
 
@@ -51,14 +50,13 @@ describe('PreviewAction', () => {
     );
   });
 
-  it('renders correctly using the previewFunction', async () => {
+  it('renders correctly using the openEmbedModal', async () => {
     const mockOnClose = jest.fn();
     const mockPopupMountPointId = 'twp-editor-preview-iframe';
 
     const PreviewWrapper = () => {
       useEffect(() => {
-        previewFunction({
-          popupMountPointId: mockPopupMountPointId,
+        openEmbedModal({
           onClose: mockOnClose,
           iframeName: 'my-iframe',
           analytics: mockAnalytics,

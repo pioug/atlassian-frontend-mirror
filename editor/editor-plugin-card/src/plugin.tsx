@@ -193,6 +193,7 @@ export const cardPlugin: CardPlugin = ({ config: options, api }) => {
             id: 'datasource',
             title: formatMessage(messages.datasourceJiraIssue),
             description: formatMessage(messages.datasourceJiraIssueDescription),
+            categories: ['external-content', 'development'],
             keywords: ['jira'],
             icon: () => <IconDatasourceJiraIssue />,
             action(insert) {
@@ -210,6 +211,7 @@ export const cardPlugin: CardPlugin = ({ config: options, api }) => {
             description: formatMessage(
               messages.datasourceAssetsObjectsDescription,
             ),
+            categories: ['external-content', 'development'],
             keywords: ['assets'],
             icon: () => <IconDatasourceAssetsObjects />,
             action(insert) {

@@ -26,7 +26,7 @@ export function measureTTI(
     startTime: start,
     duration: 0,
   };
-  let cancelAfterMs = cancelAfter * 1000;
+  const cancelAfterMs = cancelAfter * 1000;
   const observer = new (PerfObserver || PerformanceObserver)((list) => {
     const entries = list.getEntries();
     if (entries.length) {
@@ -49,19 +49,20 @@ export function measureTTI(
     const prevEnd = prevLongTask
       ? prevLongTask.startTime + prevLongTask.duration
       : lastEnd;
+    const elapsedTimeMs = now - start;
+    const canceled = elapsedTimeMs > cancelAfterMs;
 
     if (!prevLongTask) {
       observer.disconnect();
       return onMeasureComplete(prevEnd, 0, false);
     } else if (lastLongTask.startTime - prevEnd >= idleThreshold) {
       observer.disconnect();
-      return onMeasureComplete(prevEnd, prevEnd - start, cancelAfterMs <= 0);
-    } else if (now - lastEnd >= idleThreshold || cancelAfterMs <= 0) {
+      return onMeasureComplete(prevEnd, prevEnd - start, canceled);
+    } else if (now - lastEnd >= idleThreshold || canceled) {
       observer.disconnect();
-      return onMeasureComplete(lastEnd, lastEnd - start, cancelAfterMs <= 0);
+      return onMeasureComplete(lastEnd, lastEnd - start, canceled);
     }
 
-    cancelAfterMs = Math.max(0, cancelAfterMs - (now - start));
     return setTimeout(checkIdle, idleThreshold);
   };
 
@@ -81,13 +82,13 @@ export const TTI_FROM_INVOCATION_SEVERITY_THRESHOLD_DEFAULTS = {
 export function getTTISeverity(
   tti: number,
   ttiFromInvocation: number,
-  ttiSeverityNormalTheshold?: number,
+  ttiSeverityNormalThreshold?: number,
   ttiSeverityDegradedThreshold?: number,
   ttiFromInvocationSeverityNormalThreshold?: number,
   ttiFromInvocationSeverityDegradedThreshold?: number,
 ): { ttiSeverity: SEVERITY; ttiFromInvocationSeverity: SEVERITY } {
   const ttiNormalThreshold =
-    ttiSeverityNormalTheshold || TTI_SEVERITY_THRESHOLD_DEFAULTS.NORMAL;
+    ttiSeverityNormalThreshold || TTI_SEVERITY_THRESHOLD_DEFAULTS.NORMAL;
   const ttiDegradedThreshold =
     ttiSeverityDegradedThreshold || TTI_SEVERITY_THRESHOLD_DEFAULTS.DEGRADED;
   let ttiSeverity: SEVERITY;

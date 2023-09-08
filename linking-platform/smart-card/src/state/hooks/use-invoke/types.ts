@@ -21,10 +21,25 @@ export type CardDetails = {
 };
 
 /**
+ * Additional details to reload smart links
+ */
+export type InvokeReloadDetails = {
+  /**
+   * An identifier for Smart Link analytics
+   */
+  id?: string;
+  /**
+   * The URL of the Smart Link
+   */
+  url?: string;
+};
+
+/**
  * Invoke request with additional details for the component
  */
 export type InvokeRequestWithCardDetails = InvokeRequest & {
   details?: CardDetails;
+  reload?: InvokeReloadDetails;
 };
 
 /**

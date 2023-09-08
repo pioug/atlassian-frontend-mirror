@@ -188,7 +188,11 @@ export const AsyncCreatableSelect: {
     spacing: string;
     onClickPreventDefault: boolean;
     tabSelectsValue: boolean;
-    components: {};
+    components: {
+      Input: (
+        props: InputProps<unknown, boolean, GroupType<unknown>>,
+      ) => JSX.Element;
+    };
     styles: {};
   };
   contextType?: Context<any> | undefined;
@@ -303,7 +307,11 @@ export const AsyncSelect: {
     spacing: string;
     onClickPreventDefault: boolean;
     tabSelectsValue: boolean;
-    components: {};
+    components: {
+      Input: (
+        props: InputProps<unknown, boolean, GroupType<unknown>>,
+      ) => JSX.Element;
+    };
     styles: {};
   };
   contextType?: Context<any> | undefined;
@@ -461,7 +469,11 @@ export const CreatableSelect: {
     spacing: string;
     onClickPreventDefault: boolean;
     tabSelectsValue: boolean;
-    components: {};
+    components: {
+      Input: (
+        props: InputProps<unknown, boolean, GroupType<unknown>>,
+      ) => JSX.Element;
+    };
     styles: {};
   };
   contextType?: Context<any> | undefined;
@@ -593,7 +605,11 @@ const _default: {
     spacing: string;
     onClickPreventDefault: boolean;
     tabSelectsValue: boolean;
-    components: {};
+    components: {
+      Input: (
+        props: InputProps<unknown, boolean, GroupType<unknown>>,
+      ) => JSX.Element;
+    };
     styles: {};
   };
   contextType?: Context<any> | undefined;
@@ -1299,7 +1315,11 @@ export const SelectWithoutAnalytics: {
     spacing: string;
     onClickPreventDefault: boolean;
     tabSelectsValue: boolean;
-    components: {};
+    components: {
+      Input: (
+        props: InputProps<unknown, boolean, GroupType<unknown>>,
+      ) => JSX.Element;
+    };
     styles: {};
   };
   contextType?: Context<any> | undefined;

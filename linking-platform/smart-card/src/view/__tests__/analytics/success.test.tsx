@@ -1,5 +1,6 @@
 jest.mock('../../../utils', () => ({
   ...jest.requireActual<Object>('../../../utils'),
+  downloadUrl: jest.fn(),
   isSpecialEvent: jest.fn(() => false),
 }));
 
@@ -17,7 +18,7 @@ import 'jest-extended';
 import { JestFunction, asMock } from '@atlaskit/media-test-helpers';
 import uuid from 'uuid';
 import { IntlProvider } from 'react-intl-next';
-import { isSpecialEvent } from '../../../utils';
+import { downloadUrl, isSpecialEvent } from '../../../utils';
 import * as cardWithUrlContent from '../../CardWithUrl/component';
 import { act } from '@testing-library/react';
 
@@ -454,7 +455,8 @@ describe('smart-card: success analytics', () => {
         </Provider>
       </IntlProvider>,
     );
-    const downloadActionButton = await findByTestId('button-comment');
+
+    const downloadActionButton = await findByTestId('button-download-content');
     const resolvedView = await findByTestId('resolvedCardWithActionsProcessed');
     expect(resolvedView).toBeTruthy();
     expect(downloadActionButton).toBeTruthy();
@@ -464,6 +466,7 @@ describe('smart-card: success analytics', () => {
     // order of only action invocation experience.
     mockStartUfoExperience.mockClear();
     mockSucceedUfoExperience.mockClear();
+    mockUuid.mockReset().mockReturnValueOnce('action-experience-uuid-1');
 
     fireEvent.click(downloadActionButton);
     await waitFor(() => {
@@ -473,18 +476,18 @@ describe('smart-card: success analytics', () => {
 
     expect(mockStartUfoExperience).toBeCalledWith(
       'smart-link-action-invocation',
-      'some-uuid-1',
+      'action-experience-uuid-1',
       {
-        actionType: 'CommentAction',
+        actionType: 'DownloadAction',
         display: 'block',
         extensionKey: 'object-provider',
-        invokeType: 'server',
+        invokeType: 'client',
       },
     );
 
     expect(mockSucceedUfoExperience).toBeCalledWith(
       'smart-link-action-invocation',
-      'some-uuid-1',
+      'action-experience-uuid-1',
     );
 
     expect(mockStartUfoExperience).toHaveBeenCalledBefore(
@@ -493,20 +496,14 @@ describe('smart-card: success analytics', () => {
   });
 
   it('block: should fire invokeFailed event when an action is clicked & fails', async () => {
-    let mockFailPostData = jest
-      .fn()
-      .mockImplementationOnce(async () =>
-        Promise.reject(new Error('something happened')),
-      );
+    asMock(downloadUrl).mockImplementationOnce(async () =>
+      Promise.reject(new Error('something happened')),
+    );
 
-    let mockFailClient: CardClient = new (fakeFactory(
-      mockFetch,
-      mockFailPostData,
-    ))();
     const mockUrl = 'https://this.is.the.eigth.url';
     const { findByTestId } = render(
       <IntlProvider locale="en">
-        <Provider client={mockFailClient}>
+        <Provider client={mockClient}>
           <Card
             testId="resolvedCardWithActionsFailure"
             appearance="block"
@@ -515,7 +512,7 @@ describe('smart-card: success analytics', () => {
         </Provider>
       </IntlProvider>,
     );
-    const commentActionButton = await findByTestId('button-comment');
+    const commentActionButton = await findByTestId('button-download-content');
     const resolvedView = await findByTestId('resolvedCardWithActionsFailure');
     expect(resolvedView).toBeTruthy();
     expect(commentActionButton).toBeTruthy();
@@ -525,6 +522,7 @@ describe('smart-card: success analytics', () => {
     // order of only action invocation experience.
     mockStartUfoExperience.mockClear();
     mockSucceedUfoExperience.mockClear();
+    mockUuid.mockReset().mockReturnValueOnce('action-experience-uuid-1');
 
     fireEvent.click(commentActionButton);
     expect(analytics.uiActionClickedEvent).toHaveBeenCalledTimes(1);
@@ -532,24 +530,24 @@ describe('smart-card: success analytics', () => {
       expect(analytics.invokeFailedEvent).toHaveBeenCalledTimes(1);
       expect(analytics.invokeFailedEvent).toHaveBeenCalledWith({
         id: expect.any(String),
-        actionType: 'CommentAction',
+        actionType: 'DownloadAction',
         display: 'block',
         reason: 'something happened',
         extensionKey: 'object-provider',
       });
       expect(mockStartUfoExperience).toBeCalledWith(
         'smart-link-action-invocation',
-        'some-uuid-1',
+        'action-experience-uuid-1',
         {
-          actionType: 'CommentAction',
+          actionType: 'DownloadAction',
           display: 'block',
           extensionKey: 'object-provider',
-          invokeType: 'server',
+          invokeType: 'client',
         },
       );
       expect(mockFailUfoExperience).toBeCalledWith(
         'smart-link-action-invocation',
-        'some-uuid-1',
+        'action-experience-uuid-1',
       );
 
       expect(mockStartUfoExperience).toHaveBeenCalledBefore(
@@ -581,6 +579,7 @@ describe('smart-card: success analytics', () => {
     // order of only action invocation experience.
     mockStartUfoExperience.mockClear();
     mockSucceedUfoExperience.mockClear();
+    mockUuid.mockReset().mockReturnValueOnce('action-experience-uuid-1');
 
     fireEvent.click(previewActionButton);
     // Analytics tied to block card should be fired.
@@ -597,7 +596,7 @@ describe('smart-card: success analytics', () => {
 
     expect(mockStartUfoExperience).toBeCalledWith(
       'smart-link-action-invocation',
-      'some-uuid-1',
+      'action-experience-uuid-1',
       {
         actionType: 'PreviewAction',
         display: 'block',
@@ -608,7 +607,7 @@ describe('smart-card: success analytics', () => {
 
     expect(mockSucceedUfoExperience).toBeCalledWith(
       'smart-link-action-invocation',
-      'some-uuid-1',
+      'action-experience-uuid-1',
     );
 
     expect(mockStartUfoExperience).toHaveBeenCalledBefore(

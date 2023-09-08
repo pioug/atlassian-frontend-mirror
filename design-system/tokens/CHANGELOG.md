@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 1.21.1
+
+### Patch Changes
+
+- [`12c0a5a6f2e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/12c0a5a6f2e) - The tokens Babel plugin will now add opacity to shadow token values if they don't already contain them.
+
 ## 1.21.0
 
 ### Minor Changes

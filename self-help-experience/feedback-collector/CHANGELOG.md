@@ -1,5 +1,11 @@
 # @atlaskit/feedback-collector
 
+## 13.0.6
+
+### Patch Changes
+
+- [`9ab9f14f503`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9ab9f14f503) - [ux] Adding linked label to the feedback topics select dropdown
+
 ## 13.0.5
 
 ### Patch Changes

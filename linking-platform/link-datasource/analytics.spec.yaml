@@ -51,6 +51,10 @@ attributes:
     display:
       type: ["datasource_inline", "datasource_table", "inline"]
       description: The view option the datasource shown as.
+  Actions: &Actions
+    actions:
+      type: []
+      description: The type of update made to datasource config.
 
 events:
   # actionSubject action (actionSubjectId)
@@ -147,6 +151,8 @@ events:
             *Display,
             *DestinationObjectTypes,
             *SearchMethod,
+            *ExtensionKey,
+            *Actions,
           ]
   - button clicked (cancel):
       type: ui
@@ -158,6 +164,9 @@ events:
             *AnalyticsContext,
             *AnalyticsContextAttributes,
             *SearchCount,
+            *DestinationObjectTypes,
+            *ExtensionKey,
+            *Actions,
           ]
   - link clicked (singleItem):
       type: ui

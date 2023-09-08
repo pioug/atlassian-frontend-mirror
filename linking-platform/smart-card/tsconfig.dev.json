@@ -44,6 +44,9 @@
       "path": "../../../build/test-tooling/gemini-visual-regression/tsconfig.app.json"
     },
     {
+      "path": "../../analytics/analytics-listeners/tsconfig.app.json"
+    },
+    {
       "path": "../../analytics/analytics-next/tsconfig.app.json"
     },
     {

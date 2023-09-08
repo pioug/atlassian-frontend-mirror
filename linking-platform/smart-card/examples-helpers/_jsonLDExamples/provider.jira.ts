@@ -278,3 +278,38 @@ export const JiraIssueAssigned = {
     url: 'https://issue-url/TST-1',
   },
 };
+
+export const JiraProject = {
+  meta: {
+    auth: [],
+    definitionId: 'jira-object-provider',
+    product: 'jira',
+    visibility: 'restricted',
+    access: 'granted',
+    key: 'jira-object-provider',
+  },
+  data: {
+    '@context': {
+      '@vocab': 'https://www.w3.org/ns/activitystreams#',
+      atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
+      schema: 'http://schema.org/',
+    },
+    generator: {
+      '@type': 'Application',
+      '@id': 'https://www.atlassian.com/#Jira',
+      name: 'Jira',
+      icon: {
+        '@type': 'Image',
+        url: 'https://cdn.bfldr.com/K3MHR9G8/at/nw9qpmqv3g2j75qvk8sjcw/jira-mark-gradient-blue.svg?auto=webp&format=png',
+      },
+    },
+    '@type': ['Object', 'atlassian:Project'],
+    url: 'https://jira-project-url',
+    name: 'Linking Platform',
+    summary: '',
+    icon: {
+      '@type': 'Image',
+      url: icon,
+    },
+  },
+};

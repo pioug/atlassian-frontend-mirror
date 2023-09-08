@@ -9,7 +9,7 @@ export const messages = defineMessages({
   datasourceJiraIssueDescription: {
     id: 'fabric.editor.datasource.jiraIssue.description',
     defaultMessage:
-      'Insert issues from Jira Cloud with enhanced search, filtering, and configuration',
+      'Insert Jira issues from Jira Cloud with enhanced search, filtering, and configuration.',
     description: 'Insert a jira datasource table',
   },
   datasourceAssetsObjects: {

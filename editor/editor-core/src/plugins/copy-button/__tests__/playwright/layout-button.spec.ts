@@ -36,9 +36,6 @@ test.describe('when our layout has breakout and copy button enabled', () => {
   test.use({
     editorProps: {
       appearance: 'full-page',
-      featureFlags: {
-        floatingToolbarCopyButton: true,
-      },
       allowLayouts: true,
       allowBreakout: true,
     },

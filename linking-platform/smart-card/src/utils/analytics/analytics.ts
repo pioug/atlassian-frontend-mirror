@@ -138,7 +138,7 @@ export const invokeSucceededEvent = ({
   destinationSubproduct,
   location,
 }: InvokeSucceededEventProps): AnalyticsPayload => {
-  const measure = getMeasure(id, 'resolved') || { duration: undefined };
+  const measure = id ? getMeasure(id, 'resolved') : undefined;
   return {
     action: 'resolved',
     actionSubject: 'smartLinkAction',
@@ -153,7 +153,7 @@ export const invokeSucceededEvent = ({
       destinationSubproduct,
       location,
       extensionKey,
-      duration: measure.duration,
+      duration: measure?.duration,
     },
   };
 };
@@ -169,7 +169,7 @@ export const invokeFailedEvent = ({
   destinationSubproduct,
   location,
 }: InvokeFailedEventProps): AnalyticsPayload => {
-  const measure = getMeasure(id, 'errored') || { duration: undefined };
+  const measure = id ? getMeasure(id, 'errored') : undefined;
   return {
     action: 'unresolved',
     actionSubject: 'smartLinkAction',
@@ -184,7 +184,7 @@ export const invokeFailedEvent = ({
       destinationProduct,
       destinationSubproduct,
       location,
-      duration: measure.duration,
+      duration: measure?.duration,
       reason,
     },
   };

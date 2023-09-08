@@ -1,5 +1,11 @@
 # @atlaskit/radio
 
+## 5.6.10
+
+### Patch Changes
+
+- [`d6eab5e857c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6eab5e857c) - Fix loose inequality check in determining if a radio button is checked or not.
+
 ## 5.6.9
 
 ### Patch Changes

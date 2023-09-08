@@ -19,6 +19,7 @@ export {
   toggleHeading5,
   toggleHeading6,
   toggleOrderedList,
+  toggleTaskItemCheckbox,
   ctrlBackSpace,
   toggleBulletList,
   toggleBlockQuote,

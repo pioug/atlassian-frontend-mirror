@@ -19,8 +19,8 @@ export function getDistortedDurationMonitor() {
   // which have been fired in the background are not useful -- and lead to other events
   // being hard to draw conclusions from.
   //
-  // To mitigate this -- we detect this state -- and fire a seperate callback when the
-  // measurement has occured when the render was in the backgroun
+  // To mitigate this -- we detect this state -- and fire a separate callback when the
+  // measurement has occurred when the render was in the background
   let distortedDuration = document.visibilityState !== 'visible';
 
   function handleVisibilityChange() {

@@ -42,10 +42,11 @@ export const Action = ({
           promise()
             .then(() => {
               setState('success');
-              setTimeout(() => setState('init'), spinnerDelay);
             })
             .catch(() => {
               setState('failure');
+            })
+            .finally(() => {
               setTimeout(() => setState('init'), spinnerDelay);
             });
         }

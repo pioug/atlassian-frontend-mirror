@@ -25,7 +25,7 @@ function blobToArrayBuffer(blob: Blob): Promise<ArrayBuffer> {
 
 export const defaultHasher: HashingFunction = (blob) => {
   return blobToArrayBuffer(blob)
-    .then((arrayBuffer) => crypto.subtle.digest('SHA-256', arrayBuffer))
+    .then((arrayBuffer) => crypto.subtle.digest('SHA-1', arrayBuffer))
     .then(arrayBufferToHex);
 };
 

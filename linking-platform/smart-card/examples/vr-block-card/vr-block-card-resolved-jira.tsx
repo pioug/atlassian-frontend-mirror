@@ -5,11 +5,13 @@ import VRCardView from '../utils/vr-card-view';
 import {
   JiraIssue,
   JiraIssueAssigned,
+  JiraProject,
 } from '../../examples-helpers/_jsonLDExamples';
 
 const examples = {
   [JiraIssue.data.url]: JiraIssue,
   [JiraIssueAssigned.data.url]: JiraIssueAssigned,
+  [JiraProject.data.url]: JiraProject,
 };
 class CustomClient extends Client {
   fetchData(url: string) {
@@ -31,6 +33,12 @@ export default () => (
       appearance="block"
       client={new CustomClient()}
       url={JiraIssueAssigned.data.url}
+    />
+    <h4>Jira Project</h4>
+    <VRCardView
+      appearance="block"
+      client={new CustomClient()}
+      url={JiraProject.data.url}
     />
   </div>
 );

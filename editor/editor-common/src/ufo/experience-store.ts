@@ -16,7 +16,7 @@ export enum EditorExperience {
   loadEditor = 'load',
   typing = 'type',
   interaction = 'interact',
-  editSession = 'editSession',
+  editSession = 'edit-session',
 }
 
 export const RELIABILITY_INTERVAL = 30000;

@@ -1,5 +1,11 @@
 # @atlaskit/stylelint-design-system
 
+## 1.0.3
+
+### Patch Changes
+
+- [`8ba9b8924c3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8ba9b8924c3) - Changes published files (allowlist)
+
 ## 1.0.2
 
 ### Patch Changes

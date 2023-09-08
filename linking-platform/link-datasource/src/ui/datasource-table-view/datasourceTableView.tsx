@@ -6,7 +6,7 @@ import { jsx } from '@emotion/react';
 import { withAnalyticsContext } from '@atlaskit/analytics-next';
 
 import { useDatasourceAnalyticsEvents } from '../../analytics';
-import { PackageMetaDataType } from '../../analytics/generated/analytics.types';
+import { packageMetaData } from '../../analytics/constants';
 import { useDatasourceTableState } from '../../hooks/useDatasourceTableState';
 import { AccessRequired } from '../common/error-state/access-required';
 import { LoadingError } from '../common/error-state/loading-error';
@@ -120,11 +120,6 @@ const DatasourceTableViewWithoutAnalytics = ({
   );
 };
 
-const analyticsContextData: PackageMetaDataType = {
-  packageName: process.env._PACKAGE_NAME_,
-  packageVersion: process.env._PACKAGE_VERSION_,
-};
-
-export const DatasourceTableView = withAnalyticsContext(analyticsContextData)(
+export const DatasourceTableView = withAnalyticsContext(packageMetaData)(
   DatasourceTableViewWithoutAnalytics,
 );

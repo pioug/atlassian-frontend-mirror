@@ -7,12 +7,14 @@ const ActionDropdownItem: React.FC<ActionDropdownItemProps> = ({
   content,
   iconAfter,
   iconBefore,
+  isLoading,
   onClick,
   testId,
 }) => (
   <DropdownItem
     elemAfter={iconAfter}
     elemBefore={iconBefore}
+    isDisabled={isLoading}
     onClick={handleOnClick(onClick)}
     testId={testId}
   >

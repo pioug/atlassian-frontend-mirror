@@ -97,7 +97,7 @@ describe('Measure TTI utility', () => {
       const cb = jest.fn();
       const now = performance.now();
 
-      measureTTI(cb, 100, 1, MockPerformanceObserver);
+      measureTTI(cb, 100, 2, MockPerformanceObserver);
 
       trigger({ startTime: now, duration: 2000 });
       time += 2000;

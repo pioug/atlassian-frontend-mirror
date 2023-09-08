@@ -2,6 +2,8 @@
 import React, { useCallback } from 'react';
 import { css, jsx } from '@emotion/react';
 import Button from '@atlaskit/button/custom-theme-button';
+import { LoadingButton } from '@atlaskit/button';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import Tooltip from '@atlaskit/tooltip';
 import { SmartLinkSize } from '../../../../../../constants';
 import { ActionButtonProps } from './types';
@@ -55,6 +57,7 @@ const ActionButton: React.FC<ActionButtonProps> = ({
   content,
   iconAfter,
   iconBefore,
+  isLoading,
   onClick,
   overrideCss,
   size,
@@ -81,16 +84,30 @@ const ActionButton: React.FC<ActionButtonProps> = ({
         hideTooltipOnClick={true}
         testId={`${testId}-tooltip`}
       >
-        <Button
-          appearance={appearance}
-          iconAfter={iconAfter}
-          iconBefore={iconBefore}
-          onClick={onButtonClick(onClick)}
-          spacing={sizeToButtonSpacing[size]}
-          testId={testId}
-        >
-          {content}
-        </Button>
+        {getBooleanFF('platform.linking-platform.smart-card.follow-button') ? (
+          <LoadingButton
+            appearance={appearance}
+            iconAfter={iconAfter}
+            iconBefore={iconBefore}
+            isLoading={isLoading}
+            onClick={onButtonClick(onClick)}
+            spacing={sizeToButtonSpacing[size]}
+            testId={testId}
+          >
+            {content}
+          </LoadingButton>
+        ) : (
+          <Button
+            appearance={appearance}
+            iconAfter={iconAfter}
+            iconBefore={iconBefore}
+            onClick={onButtonClick(onClick)}
+            spacing={sizeToButtonSpacing[size]}
+            testId={testId}
+          >
+            {content}
+          </Button>
+        )}
       </Tooltip>
     </div>
   );

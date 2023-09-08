@@ -127,7 +127,8 @@ export const ScrollButtons = ({
     const scrollContainerRefCurrent = scrollContainerRef.current;
     if (scrollContainerRefCurrent) {
       // reset scroll position when switching from one node with toolbar to another
-      scrollContainerRefCurrent.scrollTo({
+      // scroll to made optional as it may not be rendered in testing env
+      scrollContainerRefCurrent.scrollTo?.({
         left: 0,
       });
     }

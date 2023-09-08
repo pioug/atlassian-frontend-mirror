@@ -102,7 +102,7 @@ export default function RadioGroup(props: RadioGroupProps) {
         if (typeof isDisabled !== 'undefined') {
           optionProps.isDisabled = isDisabled;
         }
-        const isChecked = value != null && optionProps.value === value;
+        const isChecked = value !== null && optionProps.value === value;
         return (
           <Radio
             {...optionProps}

@@ -214,6 +214,10 @@ abc
       `# _{color:red}test{color}_`,
     ],
     [
+      'ADFEXP-371 should not have emphasis mark along with code macro',
+      `# _{code}test{code}_`,
+    ],
+    [
       'ADFEXP-371 should have strikethrough mark along with textColor with inverted order',
       `# {color:red}-test-{color}`,
     ],

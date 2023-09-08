@@ -1,12 +1,14 @@
 import type { JiraSearchMethod } from '../common/types';
 
-export const mapSearchMethod = (searchMethod: JiraSearchMethod) => {
+import { DatasourceSearchMethod } from './types';
+
+export const mapSearchMethod = (searchMethod: JiraSearchMethod | null) => {
   switch (searchMethod) {
     case 'basic':
-      return 'datasource_basic_filter';
+      return DatasourceSearchMethod.DATASOURCE_BASIC_FILTER;
     case 'jql':
-      return 'datasource_search_query';
+      return DatasourceSearchMethod.DATASOURCE_SEARCH_QUERY;
     default:
-      return 'unknown';
+      return null;
   }
 };

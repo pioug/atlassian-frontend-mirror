@@ -663,13 +663,7 @@ export default function createUniversalPreset(
         appearance,
       },
     ])
-    .maybeAdd(copyButtonPlugin, (plugin, builder) => {
-      if (featureFlags.floatingToolbarCopyButton) {
-        return builder.add(plugin);
-      }
-
-      return builder;
-    });
+    .add(copyButtonPlugin);
 
   return finalPreset;
 }

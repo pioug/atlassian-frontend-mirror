@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/smart-card",
-  "version": "26.21.0",
+  "version": "26.23.0",
   "description": "Smart card component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -72,6 +72,7 @@
   },
   "devDependencies": {
     "@af/visual-regression": "*",
+    "@atlaskit/analytics-listeners": "^8.7.0",
     "@atlaskit/avatar": "^21.3.0",
     "@atlaskit/css-reset": "^6.5.0",
     "@atlaskit/link-test-helpers": "^6.0.0",
@@ -136,6 +137,9 @@
     "platform.linking-platform.smart-card.enable-block-card-clicks-opening-in-same-tab": {
       "type": "boolean"
     },
+    "platform.linking-platform.smart-card.follow-button": {
+      "type": "boolean"
+    },
     "platform.linking-platform.smart-card.should-call-onclick-in-warning-modal-only-when-safe": {
       "type": "boolean"
     },
@@ -146,6 +150,9 @@
       "type": "boolean"
     },
     "platform.linking-platform.smart-card.fix-is-trusted-pop": {
+      "type": "boolean"
+    },
+    "platform.linking-platform.smart-card.iframes-allow-storage-access-by-user-activation": {
       "type": "boolean"
     }
   },

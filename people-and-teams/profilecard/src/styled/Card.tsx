@@ -169,16 +169,21 @@ export const DisabledInfo = styled.div`
   line-height: ${token('font.lineHeight.100', '16px')};
 `;
 
-export const FullNameLabel = styled.span`
+export const FullNameLabel = styled.h2`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 
   font-size: 18px;
+  font-weight: 400;
+  letter-spacing: normal;
   color: ${(props: FullNameLabelProps) =>
     props.isDisabledAccount ? headerTextColorInactive : headerTextColor};
   margin: ${(props: FullNameLabelProps) => getFullNameMargin(props)};
   line-height: ${24 / 18}em;
+  :first-child {
+    margin: ${(props: FullNameLabelProps) => getFullNameMargin(props)};
+  }
 `;
 
 export const LozengeWrapper = styled.div`

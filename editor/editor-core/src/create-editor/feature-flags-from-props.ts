@@ -166,14 +166,6 @@ export function createFeatureFlagsFromProps(props: EditorProps): FeatureFlags {
                 : false),
           ),
 
-    floatingToolbarCopyButton: Boolean(
-      (typeof normalizedFeatureFlags.floatingToolbarCopyButton === 'boolean' &&
-        !!normalizedFeatureFlags.floatingToolbarCopyButton) ||
-        (typeof props.featureFlags?.floatingToolbarCopyButton === 'boolean'
-          ? !!props.featureFlags?.floatingToolbarCopyButton
-          : false),
-    ),
-
     floatingToolbarLinkSettingsButton:
       typeof props.featureFlags?.['floating-toolbar-link-settings-button'] ===
       'string'

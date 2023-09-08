@@ -12,6 +12,7 @@ import { InlineCardAdf } from '@atlaskit/linking-common/types';
 
 import SmartLinkClient from '../../../../examples-helpers/smartLinkCustomClient';
 import { EVENT_CHANNEL } from '../../../analytics';
+import { JiraSearchMethod } from '../../../common/types';
 import {
   DatasourceTableState,
   useDatasourceTableState,
@@ -194,6 +195,58 @@ const setup = async (
     } as JiraIssuesDatasourceAdf);
   };
 
+  const selectNewJiraInstanceSite = async () => {
+    const { findByTestId, getAllByRole } = component;
+    const siteSelectorTrigger = await findByTestId(
+      'jira-jql-datasource-modal--site-selector--trigger',
+    );
+    siteSelectorTrigger.click();
+    const availableJiraSiteDropdownItems = getAllByRole('menuitem');
+
+    act(() => {
+      availableJiraSiteDropdownItems[0].click();
+    });
+  };
+
+  const searchWithNewJql = (
+    jql = 'different-query',
+    searchMethod: JiraSearchMethod = 'basic',
+  ) => {
+    const { onSearch } = getLatestJiraSearchContainerProps();
+    act(() => {
+      onSearch(
+        {
+          jql,
+        },
+        searchMethod,
+      );
+    });
+  };
+
+  const assertAnalyticsAfterButtonClick = async (
+    buttonName: string,
+    payload: any,
+  ) => {
+    const { findByRole } = component;
+    (await findByRole('button', { name: buttonName })).click();
+
+    expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+      payload,
+      EVENT_CHANNEL,
+    );
+  };
+
+  const updateVisibleColumnList = (newVisibleColumns: string[]) => {
+    const { onVisibleColumnKeysChange: tableOnVisibleColumnKeysChange } =
+      getLatestIssueLikeTableProps();
+
+    if (!tableOnVisibleColumnKeysChange) {
+      return expect(tableOnVisibleColumnKeysChange).toBeDefined();
+    }
+
+    tableOnVisibleColumnKeysChange(newVisibleColumns);
+  };
+
   return {
     ...component,
     renderComponent,
@@ -203,6 +256,10 @@ const setup = async (
     assertInsertResult,
     getLatestJiraSearchContainerProps,
     getLatestIssueLikeTableProps,
+    selectNewJiraInstanceSite,
+    searchWithNewJql,
+    assertAnalyticsAfterButtonClick,
+    updateVisibleColumnList,
   };
 };
 
@@ -281,34 +338,20 @@ describe('JiraIssuesConfigModal', () => {
   describe('when selecting a different jira site', () => {
     it('should reset hooks state', async () => {
       const hookState = getDefaultHookState();
-      const { findByTestId, getAllByRole } = await setup({ hookState });
+      const { selectNewJiraInstanceSite } = await setup({ hookState });
 
-      const siteSelectorTrigger = await findByTestId(
-        'jira-jql-datasource-modal--site-selector--trigger',
-      );
+      await selectNewJiraInstanceSite();
 
-      siteSelectorTrigger.click();
-
-      const availableJiraSiteDropdownItems = getAllByRole('menuitem');
-
-      availableJiraSiteDropdownItems[0].click();
       expect(hookState.reset).toHaveBeenCalledWith({
         shouldForceRequest: true,
       });
     });
 
     it('should produce ADF with new cloudId', async () => {
-      const { findByTestId, getAllByRole, assertInsertResult } = await setup();
+      const { assertInsertResult, selectNewJiraInstanceSite } = await setup();
 
-      const siteSelectorTrigger = await findByTestId(
-        'jira-jql-datasource-modal--site-selector--trigger',
-      );
-      siteSelectorTrigger.click();
-      const availableJiraSiteDropdownItems = getAllByRole('menuitem');
+      await selectNewJiraInstanceSite();
 
-      act(() => {
-        availableJiraSiteDropdownItems[0].click();
-      });
       assertInsertResult({
         cloudId: '12345',
         jqlUrl: 'https://test1.atlassian.net/issues/?jql=some-query',
@@ -341,25 +384,12 @@ describe('JiraIssuesConfigModal', () => {
 
   describe('when cloudId is not present', () => {
     it('should produce ADF with first cloudId from the list', async () => {
-      const {
-        findByText,
-        getLatestJiraSearchContainerProps,
-        assertInsertResult,
-      } = await setup({
+      const { findByText, searchWithNewJql, assertInsertResult } = await setup({
         parameters: undefined,
       });
       await findByText('Insert Jira issues from test1');
 
-      // We need to do generate jql, since insert button won't active without it.
-      const { onSearch } = getLatestJiraSearchContainerProps();
-      act(() => {
-        onSearch(
-          {
-            jql: 'some-query',
-          },
-          'basic',
-        );
-      });
+      searchWithNewJql('some-query', 'basic');
 
       assertInsertResult({
         cloudId: '12345',
@@ -395,17 +425,9 @@ describe('JiraIssuesConfigModal', () => {
 
   describe('when onSearch is called from JiraSearchContainer', () => {
     it('should call onInsert with new JQL', async () => {
-      const { getLatestJiraSearchContainerProps, assertInsertResult } =
-        await setup();
-      const { onSearch } = getLatestJiraSearchContainerProps();
-      act(() => {
-        onSearch(
-          {
-            jql: 'different-query',
-          },
-          'basic',
-        );
-      });
+      const { assertInsertResult, searchWithNewJql } = await setup();
+
+      searchWithNewJql('different-query', 'basic');
 
       assertInsertResult({
         jql: 'different-query',
@@ -415,18 +437,11 @@ describe('JiraIssuesConfigModal', () => {
 
     it('should reset hooks state', async () => {
       const hookState = getDefaultHookState();
-      const { getLatestJiraSearchContainerProps } = await setup({
+      const { searchWithNewJql } = await setup({
         hookState,
       });
-      const { onSearch } = getLatestJiraSearchContainerProps();
-      act(() => {
-        onSearch(
-          {
-            jql: 'different-query',
-          },
-          'basic',
-        );
-      });
+
+      searchWithNewJql('different-query', 'basic');
 
       expect(hookState.reset).toHaveBeenCalledWith({
         shouldForceRequest: true,
@@ -434,21 +449,10 @@ describe('JiraIssuesConfigModal', () => {
     });
 
     it('should show a smart link in count view', async () => {
-      const {
-        getLatestJiraSearchContainerProps,
-        getByLabelText,
-        queryByTestId,
-        findByText,
-      } = await setup();
-      const { onSearch } = getLatestJiraSearchContainerProps();
-      act(() => {
-        onSearch(
-          {
-            jql: 'different-query',
-          },
-          'basic',
-        );
-      });
+      const { searchWithNewJql, getByLabelText, queryByTestId, findByText } =
+        await setup();
+
+      searchWithNewJql('different-query', 'basic');
 
       getByLabelText('Count view').click();
       expect(await findByText('55 Issues')).toBeTruthy();
@@ -462,21 +466,10 @@ describe('JiraIssuesConfigModal', () => {
     });
 
     it('should not show footer issue count in count view', async () => {
-      const {
-        getLatestJiraSearchContainerProps,
-        getByLabelText,
-        queryByTestId,
-        findByText,
-      } = await setup();
-      const { onSearch } = getLatestJiraSearchContainerProps();
-      act(() => {
-        onSearch(
-          {
-            jql: 'different-query',
-          },
-          'basic',
-        );
-      });
+      const { searchWithNewJql, getByLabelText, queryByTestId, findByText } =
+        await setup();
+
+      searchWithNewJql('different-query', 'basic');
 
       getByLabelText('Count view').click();
       expect(await findByText('55 Issues')).toBeTruthy();
@@ -737,7 +730,7 @@ describe('JiraIssuesConfigModal', () => {
             },
           ],
           visibleColumnKeys: ['myColumn'],
-          onNextPage: hookState.onNextPage,
+          onNextPage: expect.any(Function),
           onLoadDatasourceDetails: hookState.loadDatasourceDetails,
           onVisibleColumnKeysChange: expect.any(Function),
         } as IssueLikeDataTableViewProps,
@@ -830,11 +823,9 @@ describe('JiraIssuesConfigModal', () => {
 
   describe('when user changes visible columns from within IssueLikeTable', () => {
     it('should use new columnKeyList in resulting ADF', async () => {
-      const { getLatestIssueLikeTableProps, assertInsertResult } =
-        await setup();
-      const { onVisibleColumnKeysChange: tableOnVisibleColumnKeysChange } =
-        getLatestIssueLikeTableProps();
-      tableOnVisibleColumnKeysChange!(['someColumn']);
+      const { updateVisibleColumnList, assertInsertResult } = await setup();
+
+      updateVisibleColumnList(['someColumn']);
 
       assertInsertResult({
         columnKeys: ['someColumn'],
@@ -1079,5 +1070,392 @@ describe('Analytics: JiraIssuesConfigModal', () => {
       },
       EVENT_CHANNEL,
     );
+  });
+
+  describe('button clicked events', () => {
+    const getEventPayload = (
+      actionSubjectId: 'insert' | 'cancel',
+      defaultAttributes = {},
+      overrideAttributes = {},
+    ) => ({
+      payload: {
+        eventType: 'ui',
+        actionSubject: 'button',
+        action: 'clicked',
+        actionSubjectId: actionSubjectId,
+        attributes: {
+          ...defaultAttributes,
+          ...overrideAttributes,
+        },
+      },
+      context: [
+        {
+          packageName: '@atlaskit/fabric',
+          packageVersion: '0.0.0',
+          source: 'datasourceConfigModal',
+          attributes: { dataProvider: 'jira-issues' },
+        },
+      ],
+    });
+
+    const actionAttributeTests = (
+      actionSubjectId: 'insert' | 'cancel',
+      buttonName: 'Insert issues' | 'Cancel',
+      defaultAttributes: any,
+    ) => {
+      describe('with "actions" attribute', () => {
+        const getExpectedPayload = (overrideAttributes = {}) => {
+          return getEventPayload(
+            actionSubjectId,
+            defaultAttributes,
+            overrideAttributes,
+          );
+        };
+
+        it(`should fire "ui.button.clicked.${actionSubjectId}" with action = "instance updated" when user selected a new site and then clicked the ${buttonName} button`, async () => {
+          const { selectNewJiraInstanceSite, assertAnalyticsAfterButtonClick } =
+            await setup();
+
+          await selectNewJiraInstanceSite();
+
+          await assertAnalyticsAfterButtonClick(
+            buttonName,
+            getExpectedPayload({
+              actions: new Set(['instance updated']),
+            }),
+          );
+        });
+
+        it(`should fire "ui.button.clicked.${actionSubjectId}" with action = "query updated" when user searched with a new query and then clicked the ${buttonName} button`, async () => {
+          const { searchWithNewJql, assertAnalyticsAfterButtonClick } =
+            await setup();
+
+          await searchWithNewJql();
+
+          await assertAnalyticsAfterButtonClick(
+            buttonName,
+            getExpectedPayload({
+              actions: new Set(['query updated']),
+              searchCount: 1,
+            }),
+          );
+        });
+
+        it(`should fire "ui.button.clicked.${actionSubjectId}" with action = "display view changed" and display = "datasource_inline" when user changed the view and then clicked the ${buttonName} button`, async () => {
+          const { getByLabelText, assertAnalyticsAfterButtonClick } =
+            await setup();
+
+          getByLabelText('Count view').click();
+
+          await assertAnalyticsAfterButtonClick(
+            buttonName,
+            getExpectedPayload({
+              actions: new Set(['display view changed']),
+            }),
+          );
+        });
+
+        it(`should fire "ui.button.clicked.${actionSubjectId}" with action = "page scrolled" when the user scrolled to the next page and then clicked the ${buttonName} button`, async () => {
+          const {
+            getLatestIssueLikeTableProps,
+            assertAnalyticsAfterButtonClick,
+          } = await setup({
+            hookState: { ...getDefaultHookState(), hasNextPage: true },
+          });
+
+          const { onNextPage } = getLatestIssueLikeTableProps();
+          onNextPage();
+
+          await assertAnalyticsAfterButtonClick(
+            buttonName,
+            getExpectedPayload({
+              actions: new Set(['next page scrolled']),
+            }),
+          );
+        });
+
+        it(`should fire "ui.button.clicked.${actionSubjectId}" with action = "column added" when the user added a new column and then clicked the ${buttonName} button`, async () => {
+          const {
+            getLatestIssueLikeTableProps,
+            updateVisibleColumnList,
+            assertAnalyticsAfterButtonClick,
+          } = await setup();
+
+          const { visibleColumnKeys } = getLatestIssueLikeTableProps();
+
+          updateVisibleColumnList([...visibleColumnKeys, 'additionalColumn']);
+
+          await assertAnalyticsAfterButtonClick(
+            buttonName,
+            getExpectedPayload({
+              actions: new Set(['column added']),
+            }),
+          );
+        });
+
+        it(`should fire "ui.button.clicked.${actionSubjectId}" with action = "column removed" when the user removed one column and then clicked the ${buttonName} button`, async () => {
+          const { assertAnalyticsAfterButtonClick, updateVisibleColumnList } =
+            await setup({ visibleColumnKeys: ['myColumn', 'otherColumn'] });
+
+          updateVisibleColumnList(['myColumn']);
+
+          await assertAnalyticsAfterButtonClick(
+            buttonName,
+            getExpectedPayload({
+              actions: new Set(['column removed']),
+            }),
+          );
+        });
+
+        it(`should fire "ui.button.clicked.${actionSubjectId}" with action = "column reordered" when the user reorders one column and then clicked the ${buttonName} button`, async () => {
+          const { assertAnalyticsAfterButtonClick, updateVisibleColumnList } =
+            await setup({ visibleColumnKeys: ['myColumn', 'secondColumn'] });
+
+          updateVisibleColumnList(['myColumn', 'otherColumn']);
+          updateVisibleColumnList(['otherColumn', 'myColumn']);
+
+          await assertAnalyticsAfterButtonClick(
+            buttonName,
+            getExpectedPayload({
+              actions: new Set(['column reordered']),
+            }),
+          );
+        });
+      });
+    };
+
+    describe('insert', () => {
+      const INSERT_BUTTON_NAME = 'Insert issues';
+      const INSERT_ACTION_SUBJECT_ID = 'insert';
+      let defaultAttributes = {};
+
+      beforeEach(() => {
+        defaultAttributes = {
+          extensionKey: 'jira-object-provider',
+          destinationObjectTypes: ['issue'],
+          searchCount: 0,
+          totalItemCount: 3,
+          actions: new Set(),
+        };
+      });
+
+      actionAttributeTests(
+        INSERT_ACTION_SUBJECT_ID,
+        INSERT_BUTTON_NAME,
+        defaultAttributes,
+      );
+
+      describe('with "display" attribute', () => {
+        it('should fire "ui.button.clicked.insert" with display "datasource_table" when the insert button is clicked and results are presented as a table for more than 1 issue', async () => {
+          const { assertAnalyticsAfterButtonClick } = await setup();
+          await assertAnalyticsAfterButtonClick(
+            INSERT_BUTTON_NAME,
+            getEventPayload('insert', defaultAttributes),
+          );
+        });
+
+        it('should fire "ui.button.clicked.insert" with display "inline" when the insert button is clicked and results are presented as a single issue', async () => {
+          const expectedPayload = getEventPayload('insert', defaultAttributes, {
+            totalItemCount: 1,
+            display: 'inline',
+          });
+
+          const { assertAnalyticsAfterButtonClick } = await setup({
+            hookState: {
+              ...getDefaultHookState(),
+              responseItems: [
+                {
+                  myColumn: { data: 'some-value' },
+                  otherColumn: { data: 'other-column-value' },
+                  myId: { data: 'some-id1' },
+                },
+              ],
+              totalCount: 1,
+            },
+          });
+
+          await assertAnalyticsAfterButtonClick(
+            INSERT_BUTTON_NAME,
+            expectedPayload,
+          );
+        });
+
+        it('should fire "ui.button.clicked.insert" with display "datasource_inline" when the insert button is clicked and results are presented as a count issue', async () => {
+          const expectedPayload = getEventPayload('insert', defaultAttributes, {
+            actions: new Set(['display view changed']),
+            display: 'datasource_inline',
+          });
+
+          const { assertAnalyticsAfterButtonClick, getByLabelText } =
+            await setup();
+
+          getByLabelText('Count view').click();
+
+          await assertAnalyticsAfterButtonClick(
+            INSERT_BUTTON_NAME,
+            expectedPayload,
+          );
+        });
+      });
+
+      describe('with search attributes', () => {
+        it('should fire the event with searchMethod = null and searchCount = 0 if a user did not search', async () => {
+          const expectedPayload = getEventPayload('insert', defaultAttributes, {
+            actions: new Set(),
+            searchMethod: null,
+            searchCount: 0,
+          });
+
+          const { assertAnalyticsAfterButtonClick } = await setup();
+
+          await assertAnalyticsAfterButtonClick(
+            INSERT_BUTTON_NAME,
+            expectedPayload,
+          );
+        });
+
+        it('should fire the event with searchMethod = "datasource_basic_filter" when the user searched using basic search and set searchCount to 1', async () => {
+          const expectedPayload = getEventPayload('insert', defaultAttributes, {
+            actions: new Set(['query updated']),
+            searchMethod: 'datasource_basic_filter',
+            searchCount: 1,
+          });
+
+          const { assertAnalyticsAfterButtonClick, searchWithNewJql } =
+            await setup();
+
+          await searchWithNewJql('new_search', 'basic');
+          await assertAnalyticsAfterButtonClick(
+            INSERT_BUTTON_NAME,
+            expectedPayload,
+          );
+        });
+
+        it('should fire the event with searchMethod = "datasource_search_query" when the user searched using jql search and set searchCount to 1', async () => {
+          const expectedPayload = getEventPayload('insert', defaultAttributes, {
+            actions: new Set(['query updated']),
+            searchMethod: 'datasource_search_query',
+            searchCount: 1,
+          });
+
+          const { assertAnalyticsAfterButtonClick, searchWithNewJql } =
+            await setup();
+
+          await searchWithNewJql('new_search', 'jql');
+          await assertAnalyticsAfterButtonClick(
+            INSERT_BUTTON_NAME,
+            expectedPayload,
+          );
+        });
+
+        it('should fire the event with the last used searchMethod if user searched multiple times and update the searchCount accordingly', async () => {
+          const expectedPayload = getEventPayload('insert', defaultAttributes, {
+            actions: new Set(['query updated']),
+            searchMethod: 'datasource_search_query',
+            searchCount: 4,
+          });
+
+          const { assertAnalyticsAfterButtonClick, searchWithNewJql } =
+            await setup();
+
+          await searchWithNewJql('basic_search', 'basic');
+          await searchWithNewJql('basic_search_2', 'basic');
+          await searchWithNewJql('basic_search_3', 'basic');
+          await searchWithNewJql('jql_search', 'jql');
+
+          await assertAnalyticsAfterButtonClick(
+            INSERT_BUTTON_NAME,
+            expectedPayload,
+          );
+        });
+      });
+
+      describe('with displayedColumnCount attribute', () => {
+        it('should fire "ui.button.clicked.insert" with the latest displayedColumnCount', async () => {
+          const expectedPayload = getEventPayload('insert', defaultAttributes, {
+            actions: new Set(['column added']),
+            displayedColumnCount: 3,
+          });
+
+          // initial number of column = 2
+          const { assertAnalyticsAfterButtonClick, updateVisibleColumnList } =
+            await setup({ visibleColumnKeys: ['myColumn', 'secondColumn'] });
+
+          // updating the number of columns to 3
+          updateVisibleColumnList(['myColumn', 'secondColumn', 'other column']);
+
+          await assertAnalyticsAfterButtonClick(
+            INSERT_BUTTON_NAME,
+            expectedPayload,
+          );
+        });
+      });
+    });
+
+    describe('cancel', () => {
+      const CANCEL_BUTTON_NAME = 'Cancel';
+      const CANCEL_BUTTON_ACTION_SUBJECT_ID = 'cancel';
+      let defaultAttributes = {};
+
+      beforeEach(() => {
+        defaultAttributes = {
+          extensionKey: 'jira-object-provider',
+          destinationObjectTypes: ['issue'],
+          actions: new Set(),
+          searchCount: 0,
+        };
+      });
+
+      actionAttributeTests(
+        CANCEL_BUTTON_ACTION_SUBJECT_ID,
+        CANCEL_BUTTON_NAME,
+        defaultAttributes,
+      );
+
+      describe('with search count attribute', () => {
+        it('should fire "ui.button.clicked.cancel" with searchCount = 0 if a user did not search', async () => {
+          const { assertAnalyticsAfterButtonClick } = await setup();
+          await assertAnalyticsAfterButtonClick(
+            CANCEL_BUTTON_NAME,
+            getEventPayload('cancel', defaultAttributes),
+          );
+        });
+
+        it.each(['jql', 'basic'])(
+          'should fire "ui.button.clicked.cancel" with correct searchCount if a user searched using %p search multiple times',
+          async searchMode => {
+            const expectedPayload = getEventPayload(
+              'cancel',
+              defaultAttributes,
+              {
+                actions: new Set(['query updated']),
+                searchCount: 3,
+              },
+            );
+
+            const { assertAnalyticsAfterButtonClick, searchWithNewJql } =
+              await setup();
+
+            await searchWithNewJql(
+              'new_search',
+              searchMode as JiraSearchMethod,
+            );
+            await searchWithNewJql(
+              'new_search2',
+              searchMode as JiraSearchMethod,
+            );
+            await searchWithNewJql(
+              'new_search3',
+              searchMode as JiraSearchMethod,
+            );
+
+            await assertAnalyticsAfterButtonClick(
+              CANCEL_BUTTON_NAME,
+              expectedPayload,
+            );
+          },
+        );
+      });
+    });
   });
 });

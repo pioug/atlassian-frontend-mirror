@@ -51,7 +51,4 @@ export const customOptionsData: OptionType[] = [
   },
 ];
 
-export const emptyOptionData: OptionType = {
-  label: 'empty select option label',
-  value: 'empty',
-};
+export const emptyOptionData = 'empty select option label';

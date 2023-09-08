@@ -125,6 +125,10 @@ export const altPaste = makeKeyMapWithCommon('Paste', 'Mod-Shift-v');
 export const find = makeKeyMapWithCommon('Find', 'Mod-f');
 
 export const alignLeft = makeKeyMapWithCommon('Align Left', 'Mod-Shift-l');
+export const toggleTaskItemCheckbox = makeKeyMapWithCommon(
+  'Toggles task item',
+  'Mod-Alt-Enter',
+);
 
 const arrowKeysMap: Record<string, string> = {
   // for reference: https://wincent.com/wiki/Unicode_representations_of_modifier_keys

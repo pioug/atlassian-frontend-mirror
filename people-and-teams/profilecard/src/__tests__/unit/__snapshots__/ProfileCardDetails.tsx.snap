@@ -2,12 +2,12 @@
 
 exports[`ProfileCardDetails reportingLines property should match snapshot when no reporting lines are specified 1`] = `
 <Styled(div)>
-  <Styled(span)
+  <Styled(h2)
     data-testid="profilecard-name"
     noMeta={true}
   >
     full name test (jscrazy) 
-  </Styled(span)>
+  </Styled(h2)>
   <CustomLozenges />
   <IconLabel
     icon="email"
@@ -31,12 +31,12 @@ exports[`ProfileCardDetails reportingLines property should match snapshot when n
 
 exports[`ProfileCardDetails reportingLines property should match snapshot when no reporting lines are specified 2`] = `
 <Styled(div)>
-  <Styled(span)
+  <Styled(h2)
     data-testid="profilecard-name"
     noMeta={true}
   >
     full name test (jscrazy) 
-  </Styled(span)>
+  </Styled(h2)>
   <CustomLozenges />
   <IconLabel
     icon="email"
@@ -61,12 +61,12 @@ exports[`ProfileCardDetails reportingLines property should match snapshot when n
 
 exports[`ProfileCardDetails reportingLines property should match snapshot when no reporting lines are specified 3`] = `
 <Styled(div)>
-  <Styled(span)
+  <Styled(h2)
     data-testid="profilecard-name"
     noMeta={true}
   >
     full name test (jscrazy) 
-  </Styled(span)>
+  </Styled(h2)>
   <CustomLozenges />
   <IconLabel
     icon="email"
@@ -96,12 +96,12 @@ exports[`ProfileCardDetails reportingLines property should match snapshot when n
 
 exports[`ProfileCardDetails reportingLines property should match snapshot when reporting lines are specified 1`] = `
 <Styled(div)>
-  <Styled(span)
+  <Styled(h2)
     data-testid="profilecard-name"
     noMeta={true}
   >
     full name test (jscrazy) 
-  </Styled(span)>
+  </Styled(h2)>
   <CustomLozenges />
   <IconLabel
     icon="email"

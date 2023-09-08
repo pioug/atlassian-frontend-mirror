@@ -509,7 +509,7 @@ describe('Feedback Collector unit tests', () => {
           feedbackGroupLabels: customFieldRecords,
         });
 
-        const { options, defaultValue } = wrapper.find(Select).props();
+        const { options, placeholder } = wrapper.find(Select).props();
         const feedbackFormWrapper = wrapper.find(FeedbackForm);
 
         expect(wrapper.find('button')).toBeTruthy();
@@ -522,7 +522,7 @@ describe('Feedback Collector unit tests', () => {
           });
 
         expect(wrapper.find(Select)).toBeTruthy();
-        expect(defaultValue).toEqual(emptyOptionData);
+        expect(placeholder).toEqual(emptyOptionData);
         expect(options).toEqual(customOptionsData);
         for (const [key, value] of Object.entries(customFieldRecords)) {
           if (key !== 'empty') {
@@ -530,7 +530,7 @@ describe('Feedback Collector unit tests', () => {
               feedbackFormWrapper.find(Select).props().onChange({ value: key });
             });
             feedbackFormWrapper.update();
-            expect(wrapper.find(Field).at(0).props().label).toBe(
+            expect(wrapper.find(Field).at(1).props().label).toBe(
               value.fieldLabel,
             );
             expect(wrapper.find('#test-preamble-content').text()).toEqual(
@@ -549,7 +549,7 @@ describe('Feedback Collector unit tests', () => {
           feedbackGroupLabels: customFieldRecords,
         });
 
-        const { options, defaultValue } = wrapper.find(Select).props();
+        const { options, placeholder } = wrapper.find(Select).props();
         const feedbackFormWrapper = wrapper.find(FeedbackForm);
 
         expect(wrapper.find('button')).toBeTruthy();
@@ -562,7 +562,7 @@ describe('Feedback Collector unit tests', () => {
           });
 
         expect(wrapper.find(Select)).toBeTruthy();
-        expect(defaultValue).toEqual(emptyOptionData);
+        expect(placeholder).toEqual(emptyOptionData);
         expect(options).toEqual(customOptionsData);
         for (const [key, value] of Object.entries(customFieldRecords)) {
           if (key !== 'empty') {
@@ -570,7 +570,7 @@ describe('Feedback Collector unit tests', () => {
               feedbackFormWrapper.find(Select).props().onChange({ value: key });
             });
             feedbackFormWrapper.update();
-            expect(wrapper.find(Field).at(0).props().label).toBe(
+            expect(wrapper.find(Field).at(1).props().label).toBe(
               value.fieldLabel,
             );
             expect(wrapper.find('#test-preamble-content').text()).toEqual(
@@ -876,7 +876,7 @@ describe('Feedback Collector unit tests', () => {
       wrapper.update();
       expect(wrapper.find(Select)).toHaveLength(1);
       expect(wrapper.find('textarea')).toHaveLength(1);
-      expect(wrapper.find(Field).at(1).props().name).toBe('anonymousFeedback');
+      expect(wrapper.find(Field).at(2).props().name).toBe('anonymousFeedback');
     });
 
     test('should render a field label based on type', () => {
@@ -890,7 +890,7 @@ describe('Feedback Collector unit tests', () => {
             wrapper.find(Select).props().onChange({ value: key });
           });
           wrapper.update();
-          expect(wrapper.find(Field).at(0).props().label).toBe(
+          expect(wrapper.find(Field).at(1).props().label).toBe(
             value.fieldLabel,
           );
         }

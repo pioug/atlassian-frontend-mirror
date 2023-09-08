@@ -18,12 +18,18 @@ import Modal, {
 import { B400, N0, N40, N800 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-import { useDatasourceAnalyticsEvents } from '../../../analytics';
+import {
+  EVENT_CHANNEL,
+  useDatasourceAnalyticsEvents,
+} from '../../../analytics';
+import { packageMetaData } from '../../../analytics/constants';
 import type {
   AnalyticsContextAttributesType,
   AnalyticsContextType,
   PackageMetaDataType,
 } from '../../../analytics/generated/analytics.types';
+import { DatasourceAction, DatasourceDisplay } from '../../../analytics/types';
+import { mapSearchMethod } from '../../../analytics/utils';
 import type { JiraSearchMethod } from '../../../common/types';
 import { useDatasourceTableState } from '../../../hooks/useDatasourceTableState';
 import {
@@ -35,10 +41,7 @@ import { ModalLoadingError } from '../../common/error-state/modal-loading-error'
 import { NoResults } from '../../common/error-state/no-results';
 import { EmptyState, IssueLikeDataTableView } from '../../issue-like-table';
 import LinkRenderType from '../../issue-like-table/render-type/link';
-import {
-  getInitialSearchMethod,
-  JiraSearchContainer,
-} from '../jira-search-container';
+import { JiraSearchContainer } from '../jira-search-container';
 import { ModeSwitcher } from '../mode-switcher';
 import { JiraSiteSelector } from '../site-selector';
 import {
@@ -85,6 +88,38 @@ const smartLinkContainerStyles = css({
   paddingLeft: '1px',
 });
 
+const getDisplayValue = (
+  currentViewMode: JiraIssueViewModes,
+  itemCount: number,
+) => {
+  if (currentViewMode === 'count') {
+    return DatasourceDisplay.DATASOURCE_INLINE;
+  }
+  return itemCount > 1
+    ? DatasourceDisplay.DATASOURCE_TABLE
+    : DatasourceDisplay.INLINE;
+};
+
+/**
+ * This method should be called when one atomic action is performed on columns: adding new item, removing one item, changing items order.
+ * The assumption is that since only one action is changed at each time, we don't have to verify the actual contents of the lists.
+ */
+export const getColumnAction = (
+  oldVisibleColumnKeys: string[],
+  newVisibleColumnKeys: string[],
+): DatasourceAction => {
+  const newColumnSize = newVisibleColumnKeys.length;
+  const oldColumnSize = oldVisibleColumnKeys.length;
+
+  if (newColumnSize > oldColumnSize) {
+    return DatasourceAction.COLUMN_ADDED;
+  } else if (newColumnSize < oldColumnSize) {
+    return DatasourceAction.COLUMN_REMOVED;
+  } else {
+    return DatasourceAction.COLUMN_REORDERED;
+  }
+};
+
 export const PlainJiraIssuesConfigModal = (
   props: JiraIssuesConfigModalProps,
 ) => {
@@ -99,11 +134,16 @@ export const PlainJiraIssuesConfigModal = (
   const [availableSites, setAvailableSites] = useState<Site[]>([]);
   const [currentViewMode, setCurrentViewMode] =
     useState<JiraIssueViewModes>('issue');
-
   const [cloudId, setCloudId] = useState(initialParameters?.cloudId);
   const [jql, setJql] = useState(initialParameters?.jql);
+  const [visibleColumnKeys, setVisibleColumnKeys] = useState(
+    initialVisibleColumnKeys,
+  );
 
-  const isParametersSet = !!(jql && cloudId);
+  // analytics related parameters
+  const searchCount = useRef(0);
+  const userInteractionActions = useRef<Set<DatasourceAction>>(new Set());
+  const lastSearchMethodRef = useRef<JiraSearchMethod | null>(null);
 
   const parameters = useMemo<JiraIssueDatasourceParameters | undefined>(
     () =>
@@ -116,9 +156,7 @@ export const PlainJiraIssuesConfigModal = (
     [cloudId, jql],
   );
 
-  const [visibleColumnKeys, setVisibleColumnKeys] = useState(
-    initialVisibleColumnKeys,
-  );
+  const isParametersSet = !!(jql && cloudId);
 
   const {
     reset,
@@ -130,15 +168,14 @@ export const PlainJiraIssuesConfigModal = (
     defaultVisibleColumnKeys,
     loadDatasourceDetails,
     totalCount,
+    extensionKey = null,
+    destinationObjectTypes,
   } = useDatasourceTableState({
     datasourceId,
     parameters: isParametersSet ? parameters : undefined,
     fieldKeys: visibleColumnKeys,
   });
 
-  const lastSearchMethodRef = useRef<JiraSearchMethod>(
-    getInitialSearchMethod(parameters?.jql),
-  );
   const { formatMessage } = useIntl();
   const { fireEvent } = useDatasourceAnalyticsEvents();
 
@@ -148,6 +185,14 @@ export const PlainJiraIssuesConfigModal = (
       availableSites[0],
     [availableSites, cloudId],
   );
+
+  const buttonClickedAnalyticsPayload = useMemo(() => {
+    return {
+      extensionKey: extensionKey,
+      destinationObjectTypes: destinationObjectTypes,
+      actions: userInteractionActions.current,
+    };
+  }, [destinationObjectTypes, extensionKey]);
 
   const resolvedWithNoResults = status === 'resolved' && !responseItems.length;
   const jqlUrl =
@@ -202,15 +247,41 @@ export const PlainJiraIssuesConfigModal = (
       newParameters: JiraIssueDatasourceParametersQuery,
       searchMethod: JiraSearchMethod,
     ) => {
+      searchCount.current++;
       lastSearchMethodRef.current = searchMethod;
+
+      if (jql !== newParameters.jql) {
+        userInteractionActions.current.add(DatasourceAction.QUERY_UPDATED);
+      }
+
       setJql(newParameters.jql);
       reset({ shouldForceRequest: true });
     },
-    [reset],
+    [jql, reset],
+  );
+
+  const onCancelClick = useCallback(
+    (e, analyticEvent) => {
+      analyticEvent
+        .update({
+          eventType: 'ui',
+          actionSubjectId: 'cancel',
+          attributes: {
+            ...buttonClickedAnalyticsPayload,
+            searchCount: searchCount.current,
+          },
+        })
+        .fire(EVENT_CHANNEL);
+
+      onCancel();
+    },
+    [buttonClickedAnalyticsPayload, onCancel],
   );
 
   const onSiteSelection = useCallback(
     (site: Site) => {
+      userInteractionActions.current.add(DatasourceAction.INSTANCE_UPDATED);
+
       setCloudId(site.cloudId);
       reset({ shouldForceRequest: true });
     },
@@ -219,71 +290,108 @@ export const PlainJiraIssuesConfigModal = (
 
   const retrieveUrlForSmartCardRender = useCallback(() => {
     const [data] = responseItems;
-    // agrement with BE that we will use `key` for rendering smartlink
+    // agreement with BE that we will use `key` for rendering smartlink
     return (data?.key?.data as Link)?.url;
   }, [responseItems]);
 
-  const onInsertPressed = useCallback(() => {
-    if (!isParametersSet || !jql || !selectedJiraSite) {
-      return;
-    }
+  const onInsertPressed = useCallback(
+    (e, analyticEvent) => {
+      if (!isParametersSet || !jql || !selectedJiraSite) {
+        return;
+      }
 
-    const firstIssueUrl = retrieveUrlForSmartCardRender();
+      const insertButtonClickedEvent = analyticEvent.update({
+        actionSubjectId: 'insert',
+        attributes: {
+          ...buttonClickedAnalyticsPayload,
+          totalItemCount: totalCount || 0,
+          displayedColumnCount: visibleColumnKeys?.length || 0,
+          display: getDisplayValue(currentViewMode, totalCount || 0),
+          searchCount: searchCount.current,
+          searchMethod: mapSearchMethod(lastSearchMethodRef.current),
+        },
+        eventType: 'ui',
+      });
+      insertButtonClickedEvent.fire(EVENT_CHANNEL);
 
-    if (currentViewMode === 'count') {
-      onInsert({
-        type: 'inlineCard',
-        attrs: {
-          url: jqlUrl,
-        },
-      } as InlineCardAdf);
-    } else if (responseItems.length === 1 && firstIssueUrl) {
-      onInsert({
-        type: 'inlineCard',
-        attrs: {
-          url: firstIssueUrl,
-        },
-      } as InlineCardAdf);
-    } else {
-      onInsert({
-        type: 'blockCard',
-        attrs: {
-          url: jqlUrl,
-          datasource: {
-            id: datasourceId,
-            parameters: {
-              cloudId,
-              jql, // TODO support non JQL type
-            },
-            views: [
-              {
-                type: 'table',
-                properties: {
-                  columns: visibleColumnKeys?.map(key => ({ key })),
-                },
-              },
-            ],
+      const firstIssueUrl = retrieveUrlForSmartCardRender();
+      if (currentViewMode === 'count') {
+        onInsert({
+          type: 'inlineCard',
+          attrs: {
+            url: jqlUrl,
           },
-        },
-      } as JiraIssuesDatasourceAdf);
-    }
-  }, [
-    isParametersSet,
-    jql,
-    jqlUrl,
-    selectedJiraSite,
-    retrieveUrlForSmartCardRender,
-    currentViewMode,
-    responseItems.length,
-    onInsert,
-    datasourceId,
-    cloudId,
-    visibleColumnKeys,
-  ]);
+        } as InlineCardAdf);
+      } else if (responseItems.length === 1 && firstIssueUrl) {
+        onInsert({
+          type: 'inlineCard',
+          attrs: {
+            url: firstIssueUrl,
+          },
+        } as InlineCardAdf);
+      } else {
+        onInsert({
+          type: 'blockCard',
+          attrs: {
+            url: jqlUrl,
+            datasource: {
+              id: datasourceId,
+              parameters: {
+                cloudId,
+                jql, // TODO support non JQL type
+              },
+              views: [
+                {
+                  type: 'table',
+                  properties: {
+                    columns: visibleColumnKeys?.map(key => ({ key })),
+                  },
+                },
+              ],
+            },
+          },
+        } as JiraIssuesDatasourceAdf);
+      }
+    },
+    [
+      isParametersSet,
+      jql,
+      selectedJiraSite,
+      buttonClickedAnalyticsPayload,
+      totalCount,
+      visibleColumnKeys,
+      currentViewMode,
+      retrieveUrlForSmartCardRender,
+      responseItems.length,
+      onInsert,
+      jqlUrl,
+      datasourceId,
+      cloudId,
+    ],
+  );
 
   const handleViewModeChange = (selectedMode: string) => {
+    userInteractionActions.current.add(DatasourceAction.DISPLAY_VIEW_CHANGED);
     setCurrentViewMode(selectedMode as JiraIssueViewModes);
   };
+
+  const handleOnNextPage = useCallback(() => {
+    userInteractionActions.current.add(DatasourceAction.NEXT_PAGE_SCROLLED);
+    onNextPage();
+  }, [onNextPage]);
+
+  const handleVisibleColumnKeysChange = useCallback(
+    (newVisibleColumnKeys: string[] = []) => {
+      const columnAction = getColumnAction(
+        visibleColumnKeys || [],
+        newVisibleColumnKeys,
+      );
+      userInteractionActions.current.add(columnAction);
+
+      setVisibleColumnKeys(newVisibleColumnKeys);
+    },
+    [visibleColumnKeys],
+  );
 
   const issueLikeDataTableView = useMemo(
     () => (
@@ -295,9 +403,9 @@ export const PlainJiraIssuesConfigModal = (
           items={responseItems}
           hasNextPage={hasNextPage}
           visibleColumnKeys={visibleColumnKeys || defaultVisibleColumnKeys}
-          onNextPage={onNextPage}
+          onNextPage={handleOnNextPage}
           onLoadDatasourceDetails={loadDatasourceDetails}
-          onVisibleColumnKeysChange={setVisibleColumnKeys}
+          onVisibleColumnKeysChange={handleVisibleColumnKeysChange}
         />
       </div>
     ),
@@ -305,8 +413,9 @@ export const PlainJiraIssuesConfigModal = (
       columns,
       defaultVisibleColumnKeys,
       hasNextPage,
+      handleVisibleColumnKeysChange,
       loadDatasourceDetails,
-      onNextPage,
+      handleOnNextPage,
       responseItems,
       status,
       visibleColumnKeys,
@@ -443,7 +552,7 @@ export const PlainJiraIssuesConfigModal = (
               />
             </div>
           )}
-          <Button appearance="default" onClick={onCancel}>
+          <Button appearance="default" onClick={onCancelClick}>
             <FormattedMessage {...modalMessages.cancelButtonText} />
           </Button>
           <Button
@@ -465,8 +574,7 @@ const analyticsContextAttributes: AnalyticsContextAttributesType = {
 };
 
 const analyticsContextData: AnalyticsContextType & PackageMetaDataType = {
-  packageName: process.env._PACKAGE_NAME_,
-  packageVersion: process.env._PACKAGE_VERSION_,
+  ...packageMetaData,
   source: 'datasourceConfigModal',
 };
 

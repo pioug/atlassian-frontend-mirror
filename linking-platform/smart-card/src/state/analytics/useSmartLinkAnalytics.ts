@@ -383,18 +383,19 @@ export const useSmartLinkAnalytics = (
        * @returns
        */
       actionClickedEvent: ({
-        id,
+        id: experienceId,
         actionType,
         display,
         invokeType,
-        extensionKey,
+        extensionKey: overrideExtensionKey,
         definitionId,
         resourceType,
         destinationProduct,
         destinationSubproduct,
         location,
       }: UiActionClickedEventProps) => {
-        startUfoExperience('smart-link-action-invocation', id, {
+        const extensionKey = overrideExtensionKey ?? extractedExtensionKey;
+        startUfoExperience('smart-link-action-invocation', experienceId, {
           actionType,
           display,
           extensionKey,
@@ -403,7 +404,7 @@ export const useSmartLinkAnalytics = (
         dispatchAnalytics(
           applyCommonAttributes(
             uiActionClickedEvent({
-              id,
+              id: defaultId,
               actionType,
               display,
               extensionKey,
@@ -714,7 +715,7 @@ export const useSmartLinkAnalytics = (
           ),
         ),
     }),
-    [defaultId, commonAttributes, dispatchAnalytics],
+    [dispatchAnalytics, commonAttributes, defaultId, extractedExtensionKey],
   );
 
   /** Contains all operational analytics events */
@@ -728,7 +729,7 @@ export const useSmartLinkAnalytics = (
        * @param display Whether the card was an Inline, Block, Embed or Flexible UI.
        */
       invokeSucceededEvent: ({
-        id,
+        id: experienceId,
         actionType,
         display,
         extensionKey,
@@ -738,11 +739,11 @@ export const useSmartLinkAnalytics = (
         destinationSubproduct,
         location,
       }: InvokeSucceededEventProps) => {
-        succeedUfoExperience('smart-link-action-invocation', id);
+        succeedUfoExperience('smart-link-action-invocation', experienceId);
         dispatchAnalytics(
           applyCommonAttributes(
             invokeSucceededEvent({
-              id,
+              id: defaultId,
               actionType,
               display,
               extensionKey,
@@ -765,7 +766,7 @@ export const useSmartLinkAnalytics = (
        * @param reason The reason the invocation failed.
        */
       invokeFailedEvent: ({
-        id,
+        id: experienceId,
         actionType,
         display,
         reason,
@@ -776,11 +777,11 @@ export const useSmartLinkAnalytics = (
         destinationSubproduct,
         location,
       }: InvokeFailedEventProps) => {
-        failUfoExperience('smart-link-action-invocation', id);
+        failUfoExperience('smart-link-action-invocation', experienceId);
         dispatchAnalytics(
           applyCommonAttributes(
             invokeFailedEvent({
-              id,
+              id: defaultId,
               actionType,
               display,
               reason,

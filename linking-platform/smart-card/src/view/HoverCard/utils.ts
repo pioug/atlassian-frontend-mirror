@@ -185,18 +185,22 @@ export const getSimulatedBetterMetadata = (
         },
       };
     case 'jira-object-provider':
+      const isJiraTask = data['@type']?.includes('atlassian:Task') ?? false;
+
       return {
         ...defaultMetadata,
-        topMetadataBlock: {
-          primary: [
-            ElementName.AssignedToGroup,
-            ElementName.State,
-            ElementName.StoryPoints,
-            ElementName.Priority,
-          ],
-          secondary: [],
-          subtitle: [],
-        },
+        ...(isJiraTask && {
+          topMetadataBlock: {
+            primary: [
+              ElementName.AssignedToGroup,
+              ElementName.State,
+              ElementName.StoryPoints,
+              ElementName.Priority,
+            ],
+            secondary: [],
+            subtitle: [],
+          },
+        }),
       };
 
     case 'trello-object-provider':

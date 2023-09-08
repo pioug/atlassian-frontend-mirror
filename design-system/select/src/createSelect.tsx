@@ -3,6 +3,7 @@ import { mergeStyles, OptionsOrGroups } from 'react-select';
 import BaseSelect from 'react-select/base';
 import memoizeOne from 'memoize-one';
 import isEqual from 'react-fast-compare';
+import { Input } from './components/input-aria-describedby';
 
 import {
   SelectProps,
@@ -47,7 +48,7 @@ export default function createSelect(WrappedComponent: ComponentType<any>) {
       spacing: 'default',
       onClickPreventDefault: true,
       tabSelectsValue: false,
-      components: {},
+      components: { Input },
       styles: {},
     };
 

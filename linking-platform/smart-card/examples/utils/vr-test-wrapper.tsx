@@ -36,8 +36,8 @@ const VRTestWrapper: React.FC = ({ children }) => {
   }, []);
 
   return (
-    <IntlProvider locale={'en'}>
-      <div css={styles} onLoad={onLoad}>
+    <IntlProvider locale="en">
+      <div className="vr-test-wrapper" css={styles} onLoad={onLoad}>
         {global}
         {children}
       </div>

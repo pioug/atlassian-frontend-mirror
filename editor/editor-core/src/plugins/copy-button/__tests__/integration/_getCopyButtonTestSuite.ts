@@ -67,9 +67,6 @@ export const _getCopyButtonTestSuite: DynamicBrowserTestSuite<
         const page = await goToEditorTestingWDExample(client);
         await mountEditor(page, {
           appearance: fullpage.appearance,
-          featureFlags: {
-            floatingToolbarCopyButton: true,
-          },
           ...editorOptions,
         });
 

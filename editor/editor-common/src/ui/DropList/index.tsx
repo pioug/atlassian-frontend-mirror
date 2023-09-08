@@ -1,18 +1,19 @@
 /** @jsx jsx */
-import { Component, ReactNode } from 'react';
+import type { ReactNode } from 'react';
+import { Component } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
+import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import {
   createAndFireEvent,
   withAnalyticsContext,
   withAnalyticsEvents,
-  WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
 import { DN50, DN600, N0, N50A, N60A, N900 } from '@atlaskit/theme/colors';
 import { themed } from '@atlaskit/theme/components';
 import { borderRadius } from '@atlaskit/theme/constants';
-import { ThemeProps } from '@atlaskit/theme/types';
+import type { ThemeProps } from '@atlaskit/theme/types';
 import { token } from '@atlaskit/tokens';
 
 import Layer from '../Layer';
@@ -180,7 +181,7 @@ class DropList extends Component<Props> {
         data-testid={testId && `${testId}--content`}
         ref={this.handleContentRef}
         id={id}
-        role="menu"
+        role="presentation"
       >
         {children}
       </div>

@@ -1,5 +1,11 @@
 # @atlaskit/link-datasource
 
+## 1.0.18
+
+### Patch Changes
+
+- [`e682c758801`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e682c758801) - Added button clicked (cancel) and button clicked (insert) UI events
+
 ## 1.0.17
 
 ### Patch Changes

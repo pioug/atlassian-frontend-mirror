@@ -22,7 +22,23 @@ const getThemeValues = (theme: DefaultTheme): { [x: string]: string } => {
       // If it's a box shadow, it'll be an array of values that needs to be
       // formatted to look like '0px 0px 8px #091e4229, 0px 0px 1px #091e421F'
       value = rawToken.value.reduce((prev, curr, index) => {
-        let value = `${curr.offset.x}px ${curr.offset.y}px ${curr.radius}px ${curr.color}`;
+        let color = curr.color;
+
+        // Opacity needs to be added to hex values that don't already contain it.
+        // If it contained opacity, the length would be 9 instead of 7.
+        if (color.length === 7 && curr.opacity) {
+          const opacityAsHex = curr.opacity.toString(16); // 0.4f5c28f5c28f5c
+          let shortenedHex = opacityAsHex.slice(2, 4); // 4f
+
+          // The hex value has to have a length of 2. If it's shorter, a "0" needs to be added.
+          if (shortenedHex.length === 1) {
+            shortenedHex += '0';
+          }
+
+          color += shortenedHex;
+        }
+
+        let value = `${curr.offset.x}px ${curr.offset.y}px ${curr.radius}px ${color}`;
 
         if (index === 0) {
           value += `, `;

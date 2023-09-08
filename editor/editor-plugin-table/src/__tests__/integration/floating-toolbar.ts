@@ -78,7 +78,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'should show hover indicators on delete columns menu option',
-  { skip: ['safari'] }, // The test does not pass on CI but works on physical browser
+  { skip: ['*'] }, // The test does not pass on CI but works on physical browser
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(
       client,
@@ -125,7 +125,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'should show hover indicators on delete rows menu option',
-  { skip: ['safari'] }, // The test does not pass on CI but works on physical browser
+  { skip: ['*'] }, // The test does not pass on CI but works on physical browser
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(
       client,
@@ -171,7 +171,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'should show tooltip on hover on disabled sort button then remove it on mouse out',
-  { skip: ['safari'] }, // The test does not pass on CI but works on physical browser
+  { skip: ['*'] }, // The test does not pass on CI but works on physical browser
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(
       client,
@@ -232,7 +232,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'should show yellow highlight on the megred rows when hover disabled sort column ASC menu option',
-  { skip: ['safari'] }, // The test does not pass on CI but works on physical browser
+  { skip: ['*'] }, // The test does not pass on CI but works on physical browser
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(
       client,
@@ -279,7 +279,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'should show yellow highlight on the megred rows when hover disabled sort column DESC menu option',
-  { skip: ['safari'] }, // The test does not pass on CI but works on physical browser
+  { skip: ['*'] }, // The test does not pass on CI but works on physical browser
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(
       client,

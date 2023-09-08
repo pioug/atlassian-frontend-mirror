@@ -18,11 +18,14 @@ const containerStyles = css({ display: 'block', position: 'relative' });
  *
  * A container for Header and Footer that safely handles props to the child component
  */
-export const Container = ({ children, ...props }: CustomItemComponentProps) => {
+export const Container = ({
+  children,
+  'data-testid': testId,
+  ...props
+}: CustomItemComponentProps) => {
   // https://stackoverflow.com/a/39333479
   const safeProps = (({
     className,
-    'data-testid': testId,
     onClick,
     onMouseDown,
     onDragStart,
@@ -32,7 +35,6 @@ export const Container = ({ children, ...props }: CustomItemComponentProps) => {
     disabled,
   }) => ({
     className,
-    testId,
     onClick,
     onMouseDown,
     onDragStart,
@@ -42,7 +44,7 @@ export const Container = ({ children, ...props }: CustomItemComponentProps) => {
     disabled,
   }))(props);
   return (
-    <div css={containerStyles} {...safeProps}>
+    <div data-testid={testId} css={containerStyles} {...safeProps}>
       {children}
     </div>
   );

@@ -13,9 +13,6 @@ test.use({
     allowTables: {
       advanced: true,
     },
-    featureFlags: {
-      floatingToolbarCopyButton: true,
-    },
   },
   adf: simpleTable,
 });

@@ -10,6 +10,7 @@ jest.mock('../../artifacts/token-names', () => {
       'test-token': '--test-token',
       'test-token-escape': '--test-token \\u{54} ${ ` \' " \u{54}',
       'test-token-shadow': '--test-token-shadow',
+      'test-token-shadow-no-opacity': '--test-token-shadow-no-opacity',
     },
   };
 });
@@ -41,6 +42,23 @@ jest.mock('../../artifacts/tokens-raw/atlassian-light', () => ({
         },
       ],
       cleanName: 'test-token-shadow',
+    },
+    {
+      value: [
+        {
+          radius: 8,
+          offset: { x: 0, y: 0 },
+          color: '#091e42',
+          opacity: 0.25,
+        },
+        {
+          radius: 1,
+          offset: { x: 0, y: 0 },
+          color: '#091e42',
+          opacity: 0.31,
+        },
+      ],
+      cleanName: 'test-token-shadow-no-opacity',
     },
   ],
 }));
@@ -339,7 +357,7 @@ const getStyles = css => css\`
       `);
   });
 
-  it('formats box shadow fallback styles correctly', () => {
+  it('formats box shadow fallback styles correctly when opacity is included in hex value', () => {
     const actual = transform(true)`
         import { token } from '@atlaskit/tokens';
         token('test-token-shadow');
@@ -347,6 +365,17 @@ const getStyles = css => css\`
 
     expect(actual).toMatchInlineSnapshot(
       '"\\"var(--test-token-shadow, 0px 0px 8px #091e423f, 0px 0px 1px #091e424f)\\";"',
+    );
+  });
+
+  it('formats box shadow fallback styles correctly when opacity is NOT included in hex value', () => {
+    const actual = transform(true)`
+        import { token } from '@atlaskit/tokens';
+        token('test-token-shadow-no-opacity');
+      `;
+
+    expect(actual).toMatchInlineSnapshot(
+      '"\\"var(--test-token-shadow-no-opacity, 0px 0px 8px #091e4240, 0px 0px 1px #091e424f)\\";"',
     );
   });
 });

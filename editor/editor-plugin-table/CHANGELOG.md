@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-table
 
+## 2.13.1
+
+### Patch Changes
+
+- [`dca155209d9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dca155209d9) - ED-15094 Feature flag clean up for copy button
+
 ## 2.13.0
 
 ### Minor Changes

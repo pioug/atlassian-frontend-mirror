@@ -2,7 +2,7 @@
 import React from 'react';
 import { jsx } from '@emotion/react';
 import { SmartLinkSize } from '../../../../../constants';
-import { ActionProps } from './types';
+import { ActionProps, InternalActionProps } from './types';
 import ActionButton from './action-button';
 import ActionDropdownItem from './action-dropdown-item';
 import ActionIcon from './action-icon';
@@ -15,9 +15,10 @@ import ActionIcon from './action-icon';
  * @see EditAction
  * @see CustomAction
  */
-const Action: React.FC<ActionProps> = ({
+const Action: React.FC<ActionProps & InternalActionProps> = ({
   appearance = 'subtle',
   content,
+  isLoading = false,
   onClick,
   size = SmartLinkSize.Medium,
   testId = 'smart-action',
@@ -26,7 +27,7 @@ const Action: React.FC<ActionProps> = ({
   tooltipMessage,
   asDropDownItem,
   overrideCss,
-}: ActionProps) => {
+}) => {
   if (!onClick) {
     return null;
   }
@@ -43,6 +44,7 @@ const Action: React.FC<ActionProps> = ({
         content={content}
         iconAfter={iconAfter}
         iconBefore={iconBefore}
+        isLoading={isLoading}
         onClick={onClick}
         testId={testId}
       />
@@ -54,6 +56,7 @@ const Action: React.FC<ActionProps> = ({
         content={content}
         iconAfter={iconAfter}
         iconBefore={iconBefore}
+        isLoading={isLoading}
         onClick={onClick}
         overrideCss={overrideCss}
         size={size}

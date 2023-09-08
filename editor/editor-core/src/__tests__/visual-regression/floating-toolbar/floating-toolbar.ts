@@ -274,7 +274,6 @@ describe('Table Floating Toolbar with Cell options', () => {
       editorProps: {
         ...editorProps,
         featureFlags: {
-          floatingToolbarCopyButton: true,
           ...featureFlags,
         },
       },

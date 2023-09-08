@@ -317,7 +317,7 @@ describe('datasource', () => {
           expect.objectContaining({
             title: 'Jira Issues',
             description:
-              'Insert issues from Jira Cloud with enhanced search, filtering, and configuration',
+              'Insert Jira issues from Jira Cloud with enhanced search, filtering, and configuration.',
           }),
         );
 

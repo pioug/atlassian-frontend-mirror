@@ -140,14 +140,11 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
     },
   ];
 
-  const getDefaultSelectValue = (
+  const getDefaultPlaceholder = (
     record?: Record<SelectValue, SelectOptionDetails>,
-  ): OptionType => ({
-    label:
-      record?.empty.selectOptionLabel ||
-      formatMessage(messages.selectionOptionDefaultLabel),
-    value: 'empty',
-  });
+  ) =>
+    record?.empty.selectOptionLabel ||
+    formatMessage(messages.selectionOptionDefaultPlaceholder);
 
   const focusRef = useRef<HTMLElement>();
 
@@ -195,25 +192,33 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
               {feedbackTitleDetails}
               {customContent}
               {showTypeField ? (
-                <Select<OptionType>
-                  onChange={(option) => {
-                    if (!option || option instanceof Array) {
-                      return;
-                    }
-                    setType(option.value);
-                  }}
-                  menuPortalTarget={document.body}
-                  styles={{
-                    menuPortal: (base) => ({
-                      ...base,
-                      zIndex: 9999,
-                    }),
-                  }}
-                  defaultValue={getDefaultSelectValue(feedbackGroupLabels)}
-                  options={getSelectOptions(feedbackGroupLabels)}
-                  // @ts-ignore
-                  ref={focusRef}
-                />
+                <Field
+                  name="topic"
+                  label={formatMessage(messages.selectionOptionDefaultLabel)}
+                >
+                  {({ fieldProps }) => (
+                    <Select<OptionType>
+                      {...fieldProps}
+                      onChange={(option) => {
+                        if (!option || option instanceof Array) {
+                          return;
+                        }
+                        setType(option.value);
+                      }}
+                      menuPortalTarget={document.body}
+                      styles={{
+                        menuPortal: (base) => ({
+                          ...base,
+                          zIndex: 9999,
+                        }),
+                      }}
+                      options={getSelectOptions(feedbackGroupLabels)}
+                      // @ts-ignore
+                      ref={focusRef}
+                      placeholder={getDefaultPlaceholder(feedbackGroupLabels)}
+                    />
+                  )}
+                </Field>
               ) : null}
               {showDefaultTextFields && canShowTextField && (
                 <>

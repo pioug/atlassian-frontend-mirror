@@ -1,5 +1,17 @@
 # @atlaskit/editor-common
 
+## 74.56.10
+
+### Patch Changes
+
+- [`dca155209d9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dca155209d9) - ED-15094 Feature flag clean up for copy button
+
+## 74.56.9
+
+### Patch Changes
+
+- [`a9552aaea4e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a9552aaea4e) - NO-ISSUE Fixed minor issue with TTI measurement that made it cancel before 60s
+
 ## 74.56.8
 
 ### Patch Changes

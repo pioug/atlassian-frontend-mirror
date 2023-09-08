@@ -1,5 +1,11 @@
 # @atlaskit/side-navigation
 
+## 2.0.4
+
+### Patch Changes
+
+- [`879275819ed`](https://bitbucket.org/atlassian/atlassian-frontend/commits/879275819ed) - Fix for `data-testid` not being applied to Header.
+
 ## 2.0.3
 
 ### Patch Changes

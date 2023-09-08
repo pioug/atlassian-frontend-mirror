@@ -209,7 +209,6 @@ export class ValidatingKitchenSinkEditor extends React.Component<
           showIndentationButtons={true}
           featureFlags={{
             'safer-dispatched-transactions': true,
-            'floating-toolbar-copy-button': true,
             'restart-numbered-lists': true,
             'use-editor-next': true,
             ...this.props.featureFlags,

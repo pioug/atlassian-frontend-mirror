@@ -22,9 +22,6 @@ describe(`test copy extension in Safari`, () => {
       const page = await goToEditorTestingWDExample(client);
       await mountEditor(page, {
         appearance: fullpage.appearance,
-        featureFlags: {
-          floatingToolbarCopyButton: true,
-        },
         allowExtension: true,
         defaultValue: JSON.stringify(Adf),
       });

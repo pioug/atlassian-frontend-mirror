@@ -9,6 +9,7 @@ import { EmbedCardUnauthorisedView } from '../views/UnauthorisedView';
 import { EmbedCardForbiddenView } from '../views/ForbiddenView';
 import { EmbedCardNotFoundView } from '../views/NotFoundView';
 import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { EmbedCardErroredView } from '../../../view/EmbedCard/views/ErroredView';
 import { mockAnalytics, mocks } from '../../../utils/mocks';
 
@@ -136,9 +137,41 @@ describe('EmbedCard Views', () => {
       const { container } = render(
         <EmbedCardResolvedView testId="embed-card-resolved-view" {...props} />,
       );
-      const iframeEl = await container.querySelector('iframe');
+      const iframeEl = container.querySelector('iframe');
       expect(iframeEl?.getAttribute('sandbox')).toBe(
         'allow-downloads allow-forms allow-popups allow-popups-to-escape-sandbox allow-presentation allow-same-origin allow-scripts',
+      );
+    });
+
+    describe('sandbox prop on <iframe> element on untrusted link', () => {
+      ffTest(
+        'platform.linking-platform.smart-card.iframes-allow-storage-access-by-user-activation',
+        () => {
+          const props = getResolvedProps({ isTrusted: false });
+          const { container } = render(
+            <EmbedCardResolvedView
+              testId="embed-card-resolved-view"
+              {...props}
+            />,
+          );
+          const iframeEl = container.querySelector('iframe');
+          expect(iframeEl?.getAttribute('sandbox')).toBe(
+            'allow-downloads allow-forms allow-popups allow-popups-to-escape-sandbox allow-presentation allow-same-origin allow-scripts allow-storage-access-by-user-activation',
+          );
+        },
+        () => {
+          const props = getResolvedProps({ isTrusted: false });
+          const { container } = render(
+            <EmbedCardResolvedView
+              testId="embed-card-resolved-view"
+              {...props}
+            />,
+          );
+          const iframeEl = container.querySelector('iframe');
+          expect(iframeEl?.getAttribute('sandbox')).toBe(
+            'allow-downloads allow-forms allow-popups allow-popups-to-escape-sandbox allow-presentation allow-same-origin allow-scripts',
+          );
+        },
       );
     });
 
@@ -147,7 +180,7 @@ describe('EmbedCard Views', () => {
       const { container } = render(
         <EmbedCardResolvedView testId="embed-card-resolved-view" {...props} />,
       );
-      const iframeEl = await container.querySelector('iframe');
+      const iframeEl = container.querySelector('iframe');
       expect(iframeEl?.getAttribute('sandbox')).toBeNull();
     });
 

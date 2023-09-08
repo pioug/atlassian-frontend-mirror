@@ -1,5 +1,11 @@
 # @atlaskit/primitives
 
+## 1.4.2
+
+### Patch Changes
+
+- [`89ce462b216`](https://bitbucket.org/atlassian/atlassian-frontend/commits/89ce462b216) - Fix for margin properties not being mapped to values correctly.
+
 ## 1.4.1
 
 ### Patch Changes

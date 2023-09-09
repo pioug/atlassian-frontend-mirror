@@ -1,5 +1,16 @@
 # @atlaskit/editor-common
 
+## 74.57.0
+
+### Minor Changes
+
+- [`705d8ec0641`](https://bitbucket.org/atlassian/atlassian-frontend/commits/705d8ec0641) - [ux] Added a new shortcut (⌘ + Opt + ⏎) for Check/Uncheck Action item
+
+### Patch Changes
+
+- [`a6c0a2dcf2e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a6c0a2dcf2e) - [ux] [ECA11Y-68] Changed in the wrapper to change role="menu" to role="presentation"
+- Updated dependencies
+
 ## 74.56.10
 
 ### Patch Changes

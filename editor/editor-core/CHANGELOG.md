@@ -1,5 +1,15 @@
 # @atlaskit/editor-core
 
+## 187.40.0
+
+### Minor Changes
+
+- [`705d8ec0641`](https://bitbucket.org/atlassian/atlassian-frontend/commits/705d8ec0641) - [ux] Added a new shortcut (⌘ + Opt + ⏎) for Check/Uncheck Action item
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 187.39.4
 
 ### Patch Changes

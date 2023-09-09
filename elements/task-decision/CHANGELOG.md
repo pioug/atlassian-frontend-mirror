@@ -1,5 +1,11 @@
 # @atlaskit/task-decision
 
+## 17.8.0
+
+### Minor Changes
+
+- [`705d8ec0641`](https://bitbucket.org/atlassian/atlassian-frontend/commits/705d8ec0641) - [ux] Added a new shortcut (⌘ + Opt + ⏎) for Check/Uncheck Action item
+
 ## 17.7.1
 
 ### Patch Changes

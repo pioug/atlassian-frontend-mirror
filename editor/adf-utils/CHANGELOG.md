@@ -1,5 +1,11 @@
 # @atlaskit/adf-utils
 
+## 19.0.6
+
+### Patch Changes
+
+- [`818087ca71e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/818087ca71e) - ADFEXP-542: fix validate test
+
 ## 19.0.5
 
 ### Patch Changes

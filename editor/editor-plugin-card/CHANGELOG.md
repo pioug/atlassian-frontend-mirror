@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-card
 
+## 0.5.6
+
+### Patch Changes
+
+- [`d5c28c4c0df`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d5c28c4c0df) - Updated jira issues quick insert menu description.
+- Updated dependencies
+
 ## 0.5.5
 
 ### Patch Changes

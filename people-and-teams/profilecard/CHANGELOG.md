@@ -1,5 +1,12 @@
 # @atlaskit/profilecard
 
+## 19.5.9
+
+### Patch Changes
+
+- [`c18f1580f12`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c18f1580f12) - [ux] [ECA11Y-33] Remove unncessary prefix from mention icons aria-label attribute
+- [`e9c9a4ea79f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e9c9a4ea79f) - [ux] [ECA11Y-34] Replaced profile name span element with h2 tag
+
 ## 19.5.8
 
 ### Patch Changes

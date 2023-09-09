@@ -1,5 +1,12 @@
 # @atlaskit/editor-extension-googledrive
 
+## 0.2.6
+
+### Patch Changes
+
+- [`f192ab6e231`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f192ab6e231) - Downgrade versioning of package due to conflicts
+- Updated dependencies
+
 ## 0.2.5
 
 ### Patch Changes

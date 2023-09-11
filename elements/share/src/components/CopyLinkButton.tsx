@@ -23,7 +23,8 @@ export const AUTO_DISMISS_MS = AUTO_DISMISS_SECONDS * 1000;
 export const messageContainerStyle = css`
   display: flex;
   align-items: center;
-  margin: -8px -16px;
+  margin: ${token('space.negative.100', '-8px')}
+    ${token('space.negative.200', '-16px')};
 `;
 
 const messageTextStyle = css`

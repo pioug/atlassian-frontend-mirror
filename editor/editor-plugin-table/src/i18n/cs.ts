@@ -34,7 +34,9 @@ export default {
   'fabric.editor.sortColumnDESC': 'Seřadit sloupec Z → A',
   'fabric.editor.splitCell': 'Rozdělit buňky',
   'fabric.editor.tableOptions': 'Možnosti tabulky',
+  'fabric.editor.tables.adjustColumn': 'Upravit sloupec',
   'fabric.editor.tables.confirmDeleteLinkedModalMessage':
     'Odstranění uzlu {nodeName} způsobí, že všechny k němu připojené položky přestanou fungovat.',
   'fabric.editor.tables.confirmDeleteLinkedModalOKButton': 'Odstranit',
+  'fabric.editor.tables.resizeTable': 'Změnit velikost tabulky',
 };

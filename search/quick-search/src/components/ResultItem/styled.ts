@@ -4,7 +4,7 @@ import { token } from '@atlaskit/tokens';
 
 export const ResultItemGroupHeader = styled.div`
   display: flex;
-  margin-left: calc(-1 * ${token('space.150', '12px')});
+  margin-left: ${token('space.negative.150', '-12px')};
   margin-top: ${token('space.150', '12px')};
 `;
 

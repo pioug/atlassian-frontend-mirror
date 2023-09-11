@@ -125,13 +125,10 @@ function LazyShareForm(props: LazyShareFormProps) {
       {customFooter && selectedIntegration === null && (
         <div
           css={{
-            margin: `0 calc(-1 * ${token(
-              'space.300',
-              '24px',
-            )}) calc(-1 * ${token('space.200', '16px')}) calc(-1 * ${token(
-              'space.300',
-              '24px',
-            )})`,
+            margin: `0 ${token('space.negative.300', '-24px')} ${token(
+              'space.negative.200',
+              '-16px',
+            )} ${token('space.negative.300', '-24px')}`,
           }}
         >
           {customFooter}

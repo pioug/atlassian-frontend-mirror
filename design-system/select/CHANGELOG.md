@@ -1531,21 +1531,21 @@
 
 ## 6.1.4
 
-- [patch][6ab8e95" d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6ab8e95"
+- [patch][6ab8e95](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6ab8e95"
   d):
 
   - Removed wrapping div from around selects as it is no longer needed when using the latest inline-dialog component.
 
 ## 6.1.3
 
-- [patch][dab963b" d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/dab963b"
+- [patch][dab963b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/dab963b"
   d):
 
   - Make sure portal binds to DOM only
 
 ## 6.1.2
 
-- [patch][0782e03" d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0782e03"
+- [patch][0782e03](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0782e03"
   d):
 
   - bumped react-select to 2.1.1 minor bug fixes including mirroring the logic for the backspace key to delete, and stripping theme props from Input and GroupHeading dom elements. See https://github.com/JedWatson/react-select/releases/tag/v2.1.1 for details

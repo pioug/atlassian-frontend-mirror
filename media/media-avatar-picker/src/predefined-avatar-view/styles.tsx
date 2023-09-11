@@ -9,8 +9,8 @@ import { avatarImageStyles } from '../styles';
 
 export const largeAvatarImageStyles = css`
   ${avatarImageStyles}
-  width: calc(${token('space.100', '8px')} * 9);
-  height: calc(${token('space.100', '8px')} * 9);
+  width: 72px;
+  height: 72px;
 `;
 
 export const predefinedAvatarViewWrapperStyles = css`

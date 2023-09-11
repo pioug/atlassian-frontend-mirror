@@ -29,6 +29,8 @@ export default {
   'fabric.editor.sortColumnDESC': 'Sắp xếp cột Z → A',
   'fabric.editor.splitCell': 'Tách ô',
   'fabric.editor.tableOptions': 'Tùy chọn bảng',
+  'fabric.editor.tables.adjustColumn': 'Điều chỉnh cột',
   'fabric.editor.tables.confirmDeleteLinkedModalMessage': 'Việc xóa {nodeName} sẽ ngắt mọi nội dung được kết nối.',
   'fabric.editor.tables.confirmDeleteLinkedModalOKButton': 'Xóa',
+  'fabric.editor.tables.resizeTable': 'Thay đổi kích cỡ bảng',
 };

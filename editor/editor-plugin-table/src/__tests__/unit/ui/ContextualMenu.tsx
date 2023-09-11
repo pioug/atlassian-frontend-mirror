@@ -30,7 +30,6 @@ import { ContextualMenu } from '../../../plugins/table/ui/FloatingContextualMenu
 
 describe('ContextualMenu', () => {
   const getEditorContainerWidth = () => ({ width: 500 });
-  const getEditorFeatureFlags = () => ({});
   const createEditor = createProsemirrorEditorFactory();
   describe('with right table cell position in plugin state', () => {
     let editorView: EditorView;
@@ -57,7 +56,6 @@ describe('ContextualMenu', () => {
           isOpen
           selectionRect={{ bottom: 0, left: 0, right: 0, top: 0 }}
           getEditorContainerWidth={getEditorContainerWidth}
-          getEditorFeatureFlags={getEditorFeatureFlags}
         />,
       );
 

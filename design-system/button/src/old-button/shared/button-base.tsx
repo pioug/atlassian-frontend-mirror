@@ -44,11 +44,11 @@ type ButtonBaseProps = BaseProps & {
 };
 
 const iconBeforeSpacingFixStyle = css({
-  marginLeft: '-2px',
+  marginLeft: token('space.negative.025', '-2px'),
 });
 
 const iconAfterSpacingFixStyle = css({
-  marginRight: '-2px',
+  marginRight: token('space.negative.025', '-2px'),
 });
 
 const getSpacingFix = (

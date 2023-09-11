@@ -38,14 +38,14 @@ const Error = styled.span`
 const ErrorMessage = styled.span`
   color: ${token('color.text.subtlest', colors.N90)};
   padding-left: ${token('space.050', '4px')};
-  margin-top: calc(-1 * ${token('space.050', '4px')});
+  margin-top: ${token('space.negative.050', '-4px')};
   word-break: break-word;
 `;
 
 const SecondaryAction = styled.span`
   flex-basis: 100%;
   padding-left: ${token('space.150', '12px')};
-  margin-top: calc(-1 * ${token('space.100', '8px')});
+  margin-top: ${token('space.negative.100', '-8px')};
 `;
 
 const Icon = styled.span`

@@ -7,7 +7,7 @@
  * Token names mapped to their value in the default Atlassian themes ('light').
  * These default values are used by the Babel plugin to optionally provide automatic fallbacks.
  *
- * @codegen <<SignedSource::89d57f1ac024661bf2b7ee3c1e74dfa9>>
+ * @codegen <<SignedSource::2ed9c3b5219514c1dd5c348fb4647ed3>>
  * @codegenCommand yarn build tokens
  */
 const defaultTokenValues = {
@@ -396,6 +396,7 @@ const defaultTokenValues = {
   'elevation.shadow.raised': '0px 1px 1px #091E4240, 0px 0px 1px #091E424F',
   'opacity.disabled': '0.4',
   'opacity.loading': '0.2',
+  'utility.UNSAFE.textTransformUppercase': 'uppercase',
   'utility.UNSAFE.transparent': 'transparent',
   'utility.elevation.surface.current': '#FFFFFF',
   'border.radius.050': '0.125rem',
@@ -432,43 +433,33 @@ const defaultTokenValues = {
   'space.negative.250': '-1.25rem',
   'space.negative.300': '-1.5rem',
   'space.negative.400': '-2rem',
-  'font.body':
-    'normal 400 0.875rem/1.25rem ui-sans-serif, "Segoe UI", system-ui, Ubuntu, "Helvetica Neue", sans-serif',
-  'font.body.lg':
-    'normal 400 1rem/1.5rem ui-sans-serif, "Segoe UI", system-ui, Ubuntu, "Helvetica Neue", sans-serif',
-  'font.body.sm':
-    'normal 400 0.6875rem/1.25rem ui-sans-serif, "Segoe UI", system-ui, Ubuntu, "Helvetica Neue", sans-serif',
-  'font.code':
-    'normal 400 0.875em/1 ui-monospace, Menlo, "Segoe UI Mono", "Ubuntu Mono", monospace',
-  'font.heading.lg':
-    'normal 500 1.5rem/1.75rem ui-sans-serif, "Segoe UI", system-ui, Ubuntu, "Helvetica Neue", sans-serif',
-  'font.heading.md':
-    'normal 500 1.25rem/1.5rem ui-sans-serif, "Segoe UI", system-ui, Ubuntu, "Helvetica Neue", sans-serif',
-  'font.heading.sm':
-    'normal 600 1rem/1.25rem ui-sans-serif, "Segoe UI", system-ui, Ubuntu, "Helvetica Neue", sans-serif',
-  'font.heading.xl':
-    'normal 600 1.8125rem/2rem ui-sans-serif, "Segoe UI", system-ui, Ubuntu, "Helvetica Neue", sans-serif',
-  'font.heading.xs':
-    'normal 600 0.875rem/1rem ui-sans-serif, "Segoe UI", system-ui, Ubuntu, "Helvetica Neue", sans-serif',
+  'font.body': 'normal 400 0.875rem/1.25rem var(--ds-font-family-body)',
+  'font.body.lg': 'normal 400 1rem/1.5rem var(--ds-font-family-body)',
+  'font.body.sm': 'normal 400 0.6875rem/1.25rem var(--ds-font-family-body)',
+  'font.code': 'normal 400 0.875em/1 var(--ds-font-family-code)',
+  'font.heading.lg': 'normal 500 1.5rem/1.75rem var(--ds-font-family-heading)',
+  'font.heading.md': 'normal 500 1.25rem/1.5rem var(--ds-font-family-heading)',
+  'font.heading.sm': 'normal 600 1rem/1.25rem var(--ds-font-family-heading)',
+  'font.heading.xl': 'normal 600 1.8125rem/2rem var(--ds-font-family-heading)',
+  'font.heading.xs': 'normal 600 0.875rem/1rem var(--ds-font-family-heading)',
   'font.heading.xxl':
-    'normal 500 2.1875rem/2.5rem ui-sans-serif, "Segoe UI", system-ui, Ubuntu, "Helvetica Neue", sans-serif',
-  'font.heading.xxs':
-    'normal 600 0.75rem/1rem ui-sans-serif, "Segoe UI", system-ui, Ubuntu, "Helvetica Neue", sans-serif',
+    'normal 500 2.1875rem/2.5rem var(--ds-font-family-heading)',
+  'font.heading.xxs': 'normal 600 0.75rem/1rem var(--ds-font-family-heading)',
   'font.letterSpacing.0': '0',
   'font.letterSpacing.100': '-0.003em',
   'font.letterSpacing.200': '-0.006em',
   'font.letterSpacing.300': '-0.008em',
   'font.letterSpacing.400': '-0.01em',
-  'font.ui':
-    'normal 400 0.875rem/1 ui-sans-serif, "Segoe UI", system-ui, Ubuntu, "Helvetica Neue", sans-serif',
-  'font.ui.sm':
-    'normal 400 0.6875rem/1 ui-sans-serif, "Segoe UI", system-ui, Ubuntu, "Helvetica Neue", sans-serif',
+  'font.ui': 'normal 400 0.875rem/1 var(--ds-font-family-body)',
+  'font.ui.sm': 'normal 400 0.6875rem/1 var(--ds-font-family-body)',
+  'font.family.body':
+    'ui-sans-serif, "Segoe UI", system-ui, Ubuntu, "Helvetica Neue", sans-serif',
   'font.family.code':
     'ui-monospace, Menlo, "Segoe UI Mono", "Ubuntu Mono", monospace',
+  'font.family.heading':
+    'ui-sans-serif, "Segoe UI", system-ui, Ubuntu, "Helvetica Neue", sans-serif',
   'font.family.monospace':
     'ui-monospace, Menlo, "Segoe UI Mono", "Ubuntu Mono", monospace',
-  'font.family.product':
-    'ui-sans-serif, "Segoe UI", system-ui, Ubuntu, "Helvetica Neue", sans-serif',
   'font.family.sans':
     '-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif',
   'font.family.brand': 'Charlie Sans',

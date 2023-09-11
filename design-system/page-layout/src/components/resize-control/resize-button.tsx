@@ -17,10 +17,10 @@ import { ResizeButtonProps } from './types';
 
 const increaseHitAreaStyles = css({
   position: 'absolute',
-  top: `calc(-1 * ${token('space.100', '8px')})`,
-  right: `calc(-1 * ${token('space.150', '12px')})`,
-  bottom: `calc(-1 * ${token('space.100', '8px')})`,
-  left: `calc(-1 * ${token('space.100', '8px')})`,
+  top: `${token('space.negative.100', '-8px')}`,
+  right: `${token('space.negative.150', '-12px')}`,
+  bottom: `${token('space.negative.100', '-8px')}`,
+  left: `${token('space.negative.100', '-8px')}`,
 });
 
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- With a feature flag, this does not apply

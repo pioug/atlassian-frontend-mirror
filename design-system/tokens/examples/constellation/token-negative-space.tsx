@@ -15,7 +15,7 @@ import { token } from '@atlaskit/tokens';
 paddingInline: token('space.200', '16px'),
 
 // Divider styles
-marginInline: \`calc(-1 * \${token('space.200', '16px')}\`,
+marginInline: token('space.negative.200', '-16px'),
 `;
 
 const containerStyles = css({

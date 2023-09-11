@@ -894,6 +894,12 @@ export const getValidMark = (
           attrs,
         };
       }
+      case 'border': {
+        return {
+          type,
+          attrs,
+        };
+      }
     }
   }
 

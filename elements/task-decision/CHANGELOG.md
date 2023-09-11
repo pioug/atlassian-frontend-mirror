@@ -1,5 +1,11 @@
 # @atlaskit/task-decision
 
+## 17.8.1
+
+### Patch Changes
+
+- [`6900f89eb0e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6900f89eb0e) - Internal changes to use space tokens. There is no expected visual or behaviour change.
+
 ## 17.8.0
 
 ### Minor Changes

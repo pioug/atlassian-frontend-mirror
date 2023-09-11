@@ -22,7 +22,7 @@ export const triggerStyle = ({ miniMode = false, disabled = false }) =>
     lineHeight: '16px',
     ...(miniMode && {
       minWidth: '24px',
-      padding: '4px',
+      padding: token('space.050', '4px'),
       border: 'none',
       borderRadius: `${borderRadius()}px`,
     }),

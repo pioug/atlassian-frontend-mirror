@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 0.4.2
+
+### Patch Changes
+
+- [`da629b62ef9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/da629b62ef9) - ED-19617 Refactor actions to remove createExtenstionAPI and call it instead during initialisation
+
 ## 0.4.1
 
 ### Patch Changes

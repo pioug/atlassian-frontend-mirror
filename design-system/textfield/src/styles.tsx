@@ -211,11 +211,11 @@ export const inputStyles = (mode: ThemeModes) =>
       fontFamily: codeFontFamily(),
     },
     '&[data-compact]': {
-      padding: `${gridSize / 2}px ${gridSize - 2}px`,
+      padding: `${token('space.050', '4px')} ${token('space.075', '6px')}`,
       height: `${((gridSize * 3.5) / fontSize).toFixed(2)}em`,
     },
     '&:not([data-compact])': {
-      padding: `${gridSize}px ${gridSize - 2}px`,
+      padding: `${token('space.100', '8px')} ${token('space.075', '6px')}`,
       height: `${((gridSize * 4.5) / fontSize).toFixed(2)}em`,
     },
     '&[disabled]': {

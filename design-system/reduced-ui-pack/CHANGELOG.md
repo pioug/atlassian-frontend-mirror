@@ -384,7 +384,7 @@
 
 ## 10.2.0
 
-- [minor][fe3c283" d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/fe3c283"
+- [minor][fe3c283](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/fe3c283"
   d):
 
   - ED-5600: add icons for new table ux

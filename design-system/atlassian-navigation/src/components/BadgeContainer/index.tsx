@@ -7,8 +7,8 @@ import { BadgeProps } from './types';
 
 const badgeContainerStyles = css({
   position: 'absolute',
-  top: `calc(-1 * ${token('space.050', '4px')})`,
-  right: `calc(-1 * ${token('space.025', '2px')})`,
+  top: `${token('space.negative.050', '-4px')}`,
+  right: `${token('space.negative.025', '-2px')}`,
   pointerEvents: 'none',
 });
 

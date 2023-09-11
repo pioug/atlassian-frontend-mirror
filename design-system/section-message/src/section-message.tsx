@@ -15,7 +15,7 @@ const sectionMessageStyles = xcss({
 
 const bleedStyles = xcss({
   display: 'flex',
-  marginBlock: `calc(-1 * ${token('space.025', '2px')})`,
+  marginBlock: `${token('space.negative.025', '-2px')}`,
 });
 
 /**

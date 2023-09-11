@@ -50,11 +50,9 @@ snapshot(HoverCard, {
   description: 'Refreshed standalone hover card deafult',
   states: [{ state: 'hovered', selector: { byRole: 'button' } }],
   drawsOutsideBounds: true,
-  hooks: {
-    featureFlags: {
-      'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
-        true,
-    },
+  featureFlags: {
+    'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
+      true,
   },
 });
 
@@ -62,12 +60,10 @@ snapshot(HoverCardWithPreview, {
   description: 'Redesigned Standalone hover card with image Preview',
   states: [{ state: 'hovered', selector: { byRole: 'button' } }],
   drawsOutsideBounds: true,
-  hooks: {
-    featureFlags: {
-      'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
-        true,
-      'platform.linking-platform.smart-card.enable-better-metadata_iojwg': true,
-    },
+  featureFlags: {
+    'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
+      true,
+    'platform.linking-platform.smart-card.enable-better-metadata_iojwg': true,
   },
 });
 
@@ -75,12 +71,10 @@ snapshot(HoverCardForSlackMessage, {
   description: 'Refreshed Standalone hover card for Slack message',
   states: [{ state: 'hovered', selector: { byRole: 'button' } }],
   drawsOutsideBounds: true,
-  hooks: {
-    featureFlags: {
-      'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
-        true,
-      'platform.linking-platform.smart-card.enable-better-metadata_iojwg': true,
-    },
+  featureFlags: {
+    'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
+      true,
+    'platform.linking-platform.smart-card.enable-better-metadata_iojwg': true,
   },
 });
 
@@ -88,12 +82,10 @@ snapshot(HoverCardConfluence, {
   description: 'Refreshed Standalone hover card for Confluence',
   states: [{ state: 'hovered', selector: { byRole: 'button' } }],
   drawsOutsideBounds: true,
-  hooks: {
-    featureFlags: {
-      'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
-        true,
-      'platform.linking-platform.smart-card.enable-better-metadata_iojwg': true,
-    },
+  featureFlags: {
+    'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
+      true,
+    'platform.linking-platform.smart-card.enable-better-metadata_iojwg': true,
   },
 });
 
@@ -101,12 +93,10 @@ snapshot(HoverCardAssignedJiraIssue, {
   description: 'Refreshed Standalone hover card for Assigned Jira Issie',
   states: [{ state: 'hovered', selector: { byRole: 'button' } }],
   drawsOutsideBounds: true,
-  hooks: {
-    featureFlags: {
-      'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
-        true,
-      'platform.linking-platform.smart-card.enable-better-metadata_iojwg': true,
-    },
+  featureFlags: {
+    'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
+      true,
+    'platform.linking-platform.smart-card.enable-better-metadata_iojwg': true,
   },
 });
 
@@ -114,12 +104,10 @@ snapshot(HoverCardUnassignedJiraIssue, {
   description: 'Refreshed Standalone hover card for Unassigned Jira Issie',
   states: [{ state: 'hovered', selector: { byRole: 'button' } }],
   drawsOutsideBounds: true,
-  hooks: {
-    featureFlags: {
-      'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
-        true,
-      'platform.linking-platform.smart-card.enable-better-metadata_iojwg': true,
-    },
+  featureFlags: {
+    'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
+      true,
+    'platform.linking-platform.smart-card.enable-better-metadata_iojwg': true,
   },
 });
 
@@ -127,11 +115,9 @@ snapshot(HoverCardJiraProject, {
   description: 'Refreshed Standalone hover card for Jira Project',
   states: [{ state: 'hovered', selector: { byRole: 'button' } }],
   drawsOutsideBounds: true,
-  hooks: {
-    featureFlags: {
-      'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
-        true,
-      'platform.linking-platform.smart-card.enable-better-metadata_iojwg': true,
-    },
+  featureFlags: {
+    'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
+      true,
+    'platform.linking-platform.smart-card.enable-better-metadata_iojwg': true,
   },
 });

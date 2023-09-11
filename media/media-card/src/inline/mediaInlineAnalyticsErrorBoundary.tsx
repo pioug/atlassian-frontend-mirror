@@ -56,8 +56,8 @@ const ErrorBoundaryComponent: React.FC<ErrorBoundaryProps> = ({
 
   const style: React.CSSProperties = {
     lineHeight: '16px',
-    padding: '2px 4px',
-    marginRight: '-2px',
+    padding: `${token('space.025', '2px')} ${token('space.050', '4px')}`,
+    marginRight: token('space.negative.025', '-2px'),
     WebkitBoxDecorationBreak: 'clone',
     display: 'inline',
     borderRadius: '3px',

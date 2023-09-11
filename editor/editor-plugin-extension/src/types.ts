@@ -25,7 +25,8 @@ export type CreateExtensionAPI = (
   options: CreateExtensionAPIOptions,
 ) => ExtensionAPI;
 
-interface ExtensionPluginOptions extends LongPressSelectionPluginOptions {
+export interface ExtensionPluginOptions
+  extends LongPressSelectionPluginOptions {
   allowAutoSave?: boolean;
   breakoutEnabled?: boolean;
   extensionHandlers?: ExtensionHandlers;
@@ -42,6 +43,6 @@ export type ExtensionPlugin = NextEditorPlugin<
       DecorationsPlugin,
       OptionalPlugin<ContextPanelPlugin>,
     ];
-    actions: { createExtensionAPI: CreateExtensionAPI };
+    actions: { api: () => ExtensionAPI };
   }
 >;

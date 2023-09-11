@@ -33,9 +33,9 @@ export const triggerLozengeStyles = css`
   display: flex;
 
   span[role='img'] {
-    margin: calc(-1 * ${token('space.050', '4px')})
-      calc(-1 * ${token('space.100', '8px')})
-      calc(-1 * ${token('space.050', '4px')}) -1px;
+    margin: ${token('space.negative.050', '-4px')}
+      ${token('space.negative.100', '-8px')}
+      ${token('space.negative.050', '-4px')} -1px;
   }
 `;
 

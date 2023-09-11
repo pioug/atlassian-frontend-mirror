@@ -15,6 +15,7 @@ import {
   code_block,
   li,
   ul,
+  hr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { onCreateSelectionBetween } from '../../create-selection-between';
 
@@ -22,6 +23,25 @@ describe('#onCreateSelectionBetween', () => {
   describe('when head and anchor are targetting the same position', () => {
     it('should return null', () => {
       const fakeDoc = doc(p('Hello{anchor}{head}'))(sampleSchema);
+      const fakeView: any = { state: { doc: fakeDoc } };
+      const $anchor = fakeDoc.resolve(fakeDoc.refs.anchor);
+      const $head = fakeDoc.resolve(fakeDoc.refs.head);
+
+      const result = onCreateSelectionBetween(fakeView, $anchor, $head);
+      expect(result).toBeNull();
+    });
+  });
+
+  describe('when head and anchor are targetting nested lists below an atom', () => {
+    it('should return null', () => {
+      const fakeDoc = doc(
+        hr(),
+        ul(
+          li(p('List Item 1')),
+          li(p('List{head} Item 2')),
+          li(p('List{anchor} Item 3')),
+        ),
+      )(sampleSchema);
       const fakeView: any = { state: { doc: fakeDoc } };
       const $anchor = fakeDoc.resolve(fakeDoc.refs.anchor);
       const $head = fakeDoc.resolve(fakeDoc.refs.head);
@@ -378,37 +398,6 @@ describe('#onCreateSelectionBetween', () => {
         ),
       },
       {
-        description: 'from depth 1 to empty table (table is the first node)',
-        docBuilder: doc(
-          '{nextHeadNodePosition}',
-          table()(
-            tr(
-              // prettier-disable
-              tdEmpty,
-              tdEmpty,
-              td()(p('{head}')),
-            ),
-          ),
-          p('{anchor}'),
-        ),
-      },
-      {
-        description: 'from depth 1 to empty table (table is the second node)',
-        docBuilder: doc(
-          p('Hello'),
-          '{nextHeadNodePosition}',
-          table()(
-            tr(
-              // prettier-disable
-              tdEmpty,
-              tdEmpty,
-              td()(p('{head}')),
-            ),
-          ),
-          p('{anchor}'),
-        ),
-      },
-      {
         description: 'from rght before the empty table to inside it ',
         docBuilder: doc(
           p('Hello{anchor}'),
@@ -457,6 +446,57 @@ describe('#onCreateSelectionBetween', () => {
               );
             });
           });
+        });
+      });
+    });
+
+    describe('and when head is targeting a simple empty block node', () => {
+      describe('from depth 1 to empty table (table is the first node)', () => {
+        it('should return null', () => {
+          const fakeDoc = doc(
+            '{nextHeadNodePosition}',
+            table()(
+              tr(
+                // prettier-disable
+                tdEmpty,
+                tdEmpty,
+                td()(p('{head}')),
+              ),
+            ),
+            p('{anchor}'),
+          )(sampleSchema);
+
+          const fakeView: any = { state: { doc: fakeDoc } };
+          const $anchor = fakeDoc.resolve(fakeDoc.refs.anchor);
+          const $head = fakeDoc.resolve(fakeDoc.refs.head);
+
+          const result = onCreateSelectionBetween(fakeView, $anchor, $head);
+          expect(result).toBeNull();
+        });
+      });
+
+      describe('from depth 1 to empty table (table is the second node)', () => {
+        it('should return null', () => {
+          const fakeDoc = doc(
+            p('Hello'),
+            '{nextHeadNodePosition}',
+            table()(
+              tr(
+                // prettier-disable
+                tdEmpty,
+                tdEmpty,
+                td()(p('{head}')),
+              ),
+            ),
+            p('{anchor}'),
+          )(sampleSchema);
+
+          const fakeView: any = { state: { doc: fakeDoc } };
+          const $anchor = fakeDoc.resolve(fakeDoc.refs.anchor);
+          const $head = fakeDoc.resolve(fakeDoc.refs.head);
+
+          const result = onCreateSelectionBetween(fakeView, $anchor, $head);
+          expect(result).toBeNull();
         });
       });
     });

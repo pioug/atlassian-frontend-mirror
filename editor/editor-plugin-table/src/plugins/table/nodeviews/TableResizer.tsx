@@ -226,7 +226,12 @@ export const TableResizer = ({
     (originalState, delta) => {
       countFrames();
       const newWidth = originalState.width + delta.width;
-      const pos = getPos();
+      let pos: number | undefined;
+      try {
+        pos = getPos();
+      } catch (e) {
+        return;
+      }
       if (typeof pos !== 'number') {
         return;
       }

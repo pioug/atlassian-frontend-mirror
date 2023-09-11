@@ -39,7 +39,7 @@
   "dependencies": {
     "@atlaskit/primitives": "^1.4.0",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.21.0",
+    "@atlaskit/tokens": "^1.22.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1"
   },

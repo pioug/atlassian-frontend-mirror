@@ -29,7 +29,9 @@ export default {
   'fabric.editor.sortColumnDESC': 'Sortera kolumn Ö → A',
   'fabric.editor.splitCell': 'Dela cell',
   'fabric.editor.tableOptions': 'Tabellalternativ',
+  'fabric.editor.tables.adjustColumn': 'Justera kolumn',
   'fabric.editor.tables.confirmDeleteLinkedModalMessage':
     'Om du raderar {nodeName} bryts allt som är kopplat till den.',
   'fabric.editor.tables.confirmDeleteLinkedModalOKButton': 'Radera',
+  'fabric.editor.tables.resizeTable': 'Ändra storlek på tabell',
 };

@@ -1,5 +1,38 @@
 # @atlaskit/legacy-mobile-macros
 
+## 2.4.173
+
+### Patch Changes
+
+- [`6900f89eb0e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6900f89eb0e) - Internal changes to use space tokens. There is no expected visual or behaviour change.
+- Updated dependencies
+
+## 2.4.172
+
+### Patch Changes
+
+- [`aeb5c9a01e8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aeb5c9a01e8) - Delete adf-schema from AFE and rely on npm package for adf-schema
+- [`4b4dcfe0bba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4b4dcfe0bba) - Delete adf-schema, use published version
+- Updated dependencies
+
+## 2.4.171
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.170
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.169
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.4.168
 
 ### Patch Changes

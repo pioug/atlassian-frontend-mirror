@@ -20,21 +20,20 @@ import { messages } from '../insert-block/ui/ToolbarInsertBlock/messages';
 import { pluginKey } from './pm-plugins/plugin-key';
 import type { LayoutState } from './pm-plugins/types';
 import type { LayoutPluginOptions } from './types';
-import type { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
-import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 
 export { pluginKey };
 
-const layoutPlugin: NextEditorPlugin<
+export type LayoutPlugin = NextEditorPlugin<
   'layout',
   {
     pluginConfiguration: LayoutPluginOptions | undefined;
-    dependencies: [
-      typeof decorationsPlugin,
-      OptionalPlugin<typeof analyticsPlugin>,
-    ];
+    dependencies: [DecorationsPlugin, OptionalPlugin<AnalyticsPlugin>];
   }
-> = ({ config: options = {}, api }) => ({
+>;
+
+const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => ({
   name: 'layout',
 
   nodes() {

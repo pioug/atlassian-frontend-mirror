@@ -13,8 +13,11 @@ export const moreButtonStyle = css({
   border: 0,
   borderRadius: `${borderRadius()}px`,
   cursor: 'pointer',
-  margin: '4px 4px 4px 0',
-  padding: '4px',
+  margin: `${token('space.050', '4px')} ${token('space.050', '4px')} ${token(
+    'space.050',
+    '4px',
+  )} 0`,
+  padding: token('space.050', '4px'),
   width: '38px',
   verticalAlign: 'top',
 
@@ -25,7 +28,10 @@ export const moreButtonStyle = css({
 
 export const separatorStyle = css({
   backgroundColor: token('color.border', N30A),
-  margin: '8px 8px 8px 4px',
+  margin: `${token('space.100', '8px')} ${token('space.100', '8px')} ${token(
+    'space.100',
+    '8px',
+  )} ${token('space.050', '4px')}`,
   width: '1px',
   height: '60%',
   display: 'inline-block',

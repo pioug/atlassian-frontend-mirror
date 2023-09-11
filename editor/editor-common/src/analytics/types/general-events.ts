@@ -1,7 +1,7 @@
 import type { RichMediaLayout } from '@atlaskit/adf-schema';
 
 import type { FeatureFlagKey } from '../../types/feature-flags';
-import { PropsDifference, ShallowPropsDifference } from '../../utils';
+import type { PropsDifference, ShallowPropsDifference } from '../../utils';
 import type { SEVERITY } from '../../utils/analytics';
 
 import type {
@@ -105,6 +105,7 @@ type EditorTTIAEP = OperationalAEP<
     canceled: boolean;
     ttiSeverity?: SEVERITY;
     ttiFromInvocationSeverity?: SEVERITY;
+    distortedDuration: boolean;
   },
   undefined
 >;

@@ -21,11 +21,14 @@ import {
   IconQuote,
   IconStatus,
 } from '@atlaskit/editor-common/quick-insert';
-import withOuterListeners from '../with-outer-listeners';
-import ElementBrowser from './components/ElementBrowserLoader';
+import { withReactEditorViewOuterListeners as withOuterListeners } from '@atlaskit/editor-common/ui-react';
+
+import {
+  ElementBrowser,
+  ELEMENT_ITEM_HEIGHT,
+} from '@atlaskit/editor-common/element-browser';
 
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
-import { ELEMENT_ITEM_HEIGHT } from './constants';
 import type { InsertMenuProps, SvgGetterParams } from './types';
 import { token } from '@atlaskit/tokens';
 

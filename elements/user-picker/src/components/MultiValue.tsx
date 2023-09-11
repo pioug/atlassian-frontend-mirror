@@ -2,6 +2,7 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl-next';
 import { components, OptionType } from '@atlaskit/select';
+import { token } from '@atlaskit/tokens';
 import { css, jsx } from '@emotion/react';
 import { AddOptionAvatar } from './AddOptionAvatar';
 import { SizeableAvatar } from './SizeableAvatar';
@@ -28,7 +29,7 @@ export const scrollToValue = (
 };
 
 const groupTagContainer = css({
-  paddingLeft: '2px',
+  paddingLeft: token('space.025', '2px'),
 });
 
 const nameWrapper = css({

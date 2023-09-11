@@ -3,7 +3,6 @@ import React from 'react';
 import { textColor } from '@atlaskit/adf-schema';
 
 import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
-import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import WithPluginState from '../../ui/WithPluginState';
 
 import type {
@@ -31,11 +30,9 @@ const textColorPlugin: NextEditorPlugin<
   'textColor',
   {
     pluginConfiguration: Config | undefined;
-    dependencies: [FeatureFlagsPlugin];
+    dependencies: [];
   }
-> = ({ config: textColorConfig, api }) => {
-  const featureFlags = api?.featureFlags?.sharedState.currentState() || {};
-
+> = ({ config: textColorConfig }) => {
   return {
     name: 'textColor',
 
@@ -77,7 +74,6 @@ const textColorPlugin: NextEditorPlugin<
               popupsScrollableElement={popupsScrollableElement}
               dispatchAnalyticsEvent={dispatchAnalyticsEvent}
               disabled={disabled}
-              featureFlags={featureFlags}
             />
           )}
         />

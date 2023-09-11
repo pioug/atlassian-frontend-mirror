@@ -332,7 +332,8 @@
 
 ### Major Changes
 
-In this version, we made `Checkbox` dramatically faster and more lightweight 😍
+- [`ee02ee0aaa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ee02ee0aaa)
+  In this version, we made `Checkbox` dramatically faster and more lightweight 😍
 
 ### Changes
 

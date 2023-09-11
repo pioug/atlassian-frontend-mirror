@@ -10,7 +10,7 @@ export const inviteTeamWrapper = css`
   background: ${token('color.background.neutral', N20)};
   border-radius: 50%;
   min-width: ${token('space.400', '32px')};
-  margin-left: calc(-1 * ${token('space.050', '4px')});
+  margin-left: ${token('space.negative.050', '-4px')};
 `;
 
 export const avatarContainer = css`
@@ -29,7 +29,7 @@ export const avatarContainer = css`
     border-radius: 50%;
     height: 32px;
     width: 32px;
-    padding: 2px;
+    padding: ${token('space.025', '2px')};
   }
 `;
 

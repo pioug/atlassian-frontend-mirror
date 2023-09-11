@@ -1,6 +1,15 @@
 {
   "name": "Typography minor3",
   "tokens": {
+    "Typography minor3/font.family.body": {
+      "attributes": {
+        "group": "fontFamily",
+        "state": "experimental",
+        "introduced": "1.14.0",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "ui-sans-serif, \"Segoe UI\", system-ui, Ubuntu, \"Helvetica Neue\", sans-serif"
+    },
     "Typography minor3/font.family.code": {
       "attributes": {
         "group": "fontFamily",
@@ -10,6 +19,15 @@
       },
       "value": "ui-monospace, Menlo, \"Segoe UI Mono\", \"Ubuntu Mono\", monospace"
     },
+    "Typography minor3/font.family.heading": {
+      "attributes": {
+        "group": "fontFamily",
+        "state": "experimental",
+        "introduced": "1.14.0",
+        "description": "Helpful guidance goes here"
+      },
+      "value": "ui-sans-serif, \"Segoe UI\", system-ui, Ubuntu, \"Helvetica Neue\", sans-serif"
+    },
     "Typography minor3/font.family.monospace": {
       "attributes": {
         "group": "fontFamily",
@@ -18,15 +36,6 @@
         "description": "Helpful guidance goes here"
       },
       "value": "ui-monospace, Menlo, \"Segoe UI Mono\", \"Ubuntu Mono\", monospace"
-    },
-    "Typography minor3/font.family.product": {
-      "attributes": {
-        "group": "fontFamily",
-        "state": "experimental",
-        "introduced": "1.14.0",
-        "description": "Helpful guidance goes here"
-      },
-      "value": "ui-sans-serif, \"Segoe UI\", system-ui, Ubuntu, \"Helvetica Neue\", sans-serif"
     },
     "Typography minor3/font.family.sans": {
       "attributes": {

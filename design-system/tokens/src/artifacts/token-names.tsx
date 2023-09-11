@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::487e60f0791ae39572ec7cc90e77eb13>>
+ * @codegen <<SignedSource::9b8fdc7df9d7269fb27f22c5e06d7743>>
  * @codegenCommand yarn build tokens
  */
 const tokens = {
@@ -511,6 +511,7 @@ const tokens = {
   'elevation.shadow.raised': '--ds-shadow-raised',
   'opacity.disabled': '--ds-opacity-disabled',
   'opacity.loading': '--ds-opacity-loading',
+  'utility.UNSAFE.textTransformUppercase': '--ds-UNSAFE-textTransformUppercase',
   'utility.UNSAFE.transparent': '--ds-UNSAFE-transparent',
   'utility.elevation.surface.current': '--ds-elevation-surface-current',
   'border.radius.050': '--ds-border-radius-050',
@@ -565,9 +566,10 @@ const tokens = {
   'font.letterSpacing.400': '--ds-font-letterSpacing-400',
   'font.ui': '--ds-font-ui',
   'font.ui.sm': '--ds-font-ui-sm',
+  'font.family.body': '--ds-font-family-body',
   'font.family.code': '--ds-font-family-code',
+  'font.family.heading': '--ds-font-family-heading',
   'font.family.monospace': '--ds-font-family-monospace',
-  'font.family.product': '--ds-font-family-product',
   'font.family.sans': '--ds-font-family-sans',
   'font.family.brand': '--ds-font-family-brand',
   'font.size.050': '--ds-font-size-050',
@@ -977,6 +979,7 @@ export type CSSTokenMap = {
   'elevation.shadow.raised': 'var(--ds-shadow-raised)';
   'opacity.disabled': 'var(--ds-opacity-disabled)';
   'opacity.loading': 'var(--ds-opacity-loading)';
+  'utility.UNSAFE.textTransformUppercase': 'var(--ds-UNSAFE-textTransformUppercase)';
   'utility.UNSAFE.transparent': 'var(--ds-UNSAFE-transparent)';
   'utility.elevation.surface.current': 'var(--ds-elevation-surface-current)';
   'border.radius.050': 'var(--ds-border-radius-050)';
@@ -1031,9 +1034,10 @@ export type CSSTokenMap = {
   'font.letterSpacing.400': 'var(--ds-font-letterSpacing-400)';
   'font.ui': 'var(--ds-font-ui)';
   'font.ui.sm': 'var(--ds-font-ui-sm)';
+  'font.family.body': 'var(--ds-font-family-body)';
   'font.family.code': 'var(--ds-font-family-code)';
+  'font.family.heading': 'var(--ds-font-family-heading)';
   'font.family.monospace': 'var(--ds-font-family-monospace)';
-  'font.family.product': 'var(--ds-font-family-product)';
   'font.family.sans': 'var(--ds-font-family-sans)';
   'font.family.brand': 'var(--ds-font-family-brand)';
   'font.size.050': 'var(--ds-font-size-050)';

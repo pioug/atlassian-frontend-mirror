@@ -36,8 +36,7 @@ const shadowStyles = css({
 
 const draggingStyles = css({
   width: 6,
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-  left: -6,
+  left: token('space.negative.075', '-6px'),
   background: token(
     'color.background.neutral.subtle',
     `linear-gradient(${direction}, ${colorStops})`,

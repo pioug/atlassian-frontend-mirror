@@ -48,4 +48,5 @@ export type QuickInsertSharedState = {
   lazyDefaultItems: () => QuickInsertItem[];
   emptyStateHandler?: EmptyStateHandler;
   providedItems?: QuickInsertItem[];
+  isElementBrowserModalOpen: boolean;
 };

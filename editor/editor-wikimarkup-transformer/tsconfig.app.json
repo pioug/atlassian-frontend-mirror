@@ -36,9 +36,6 @@
   },
   "references": [
     {
-      "path": "../adf-schema/tsconfig.app.json"
-    },
-    {
       "path": "../editor-json-transformer/tsconfig.app.json"
     },
     {

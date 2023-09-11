@@ -7,7 +7,6 @@ const LINK_COLOR_DARK = '#4794FF';
 
 // By default buttons will hide overflow and ellipsis content instead of wrapping.
 // This basically turns the button back into inline content
-// There is a workaround for negative token spacing suggested by the design system team. calc(${token} * -1)
 export const IconStyledButton = styled.span`
   &&& {
     text-align: initial;

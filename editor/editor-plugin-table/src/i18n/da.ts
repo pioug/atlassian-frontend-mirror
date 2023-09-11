@@ -29,7 +29,9 @@ export default {
   'fabric.editor.sortColumnDESC': 'Sorter kolonnen fra Å → A',
   'fabric.editor.splitCell': 'Opdel celle',
   'fabric.editor.tableOptions': 'Egenskaber for tabel',
+  'fabric.editor.tables.adjustColumn': 'Tilpas kolonne',
   'fabric.editor.tables.confirmDeleteLinkedModalMessage':
     'Hvis du sletter {nodeName}, brydes forbindelsen til alt, der er forbundet til den.',
   'fabric.editor.tables.confirmDeleteLinkedModalOKButton': 'Slet',
+  'fabric.editor.tables.resizeTable': 'Tilpas størrelsen på tabellen',
 };

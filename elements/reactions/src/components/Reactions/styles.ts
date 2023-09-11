@@ -1,9 +1,10 @@
 /** @jsx jsx */
 import { css } from '@emotion/react';
+import { token } from '@atlaskit/tokens';
 
 export const reactionPickerStyle = css({
   display: 'inline-block',
-  marginTop: '4px',
+  marginTop: token('space.050', '4px'),
 });
 
 export const seeWhoReacted = css({
@@ -11,8 +12,8 @@ export const seeWhoReacted = css({
   lineHeight: '24px',
   paddingLeft: 0,
   paddingRight: 0,
-  marginTop: '4px',
-  marginLeft: '4px',
+  marginTop: token('space.050', '4px'),
+  marginLeft: token('space.050', '4px'),
 });
 
 export const wrapperStyle = css({
@@ -21,6 +22,6 @@ export const wrapperStyle = css({
   position: 'relative',
   alignItems: 'center',
   borderRadius: '15px',
-  marginTop: '-4px',
+  marginTop: token('space.negative.050', '-4px'),
   '> :first-of-type > :first-of-type': { marginLeft: 0 },
 });

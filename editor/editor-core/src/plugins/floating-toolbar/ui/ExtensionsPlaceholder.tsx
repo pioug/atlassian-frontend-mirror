@@ -12,7 +12,6 @@ import { getContextualToolbarItemsFromModule } from '@atlaskit/editor-common/ext
 import ButtonGroup from '@atlaskit/button/button-group';
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import { nodeToJSON } from '../../../utils';
-import { createExtensionAPI } from '../../extension/extension-api';
 import { FloatingToolbarButton as Button } from '@atlaskit/editor-common/ui';
 import type { ApplyChangeHandler } from '@atlaskit/editor-plugin-context-panel';
 
@@ -24,6 +23,7 @@ interface Props {
   editorView: EditorView;
   separator?: 'start' | 'end' | 'both';
   applyChangeToContextPanel: ApplyChangeHandler | undefined;
+  extensionApi: ExtensionAPI | undefined;
 }
 
 type ExtensionButtonProps = {
@@ -31,6 +31,7 @@ type ExtensionButtonProps = {
   editorView: EditorView;
   node: PMNode;
   applyChangeToContextPanel: ApplyChangeHandler | undefined;
+  extensionApi: ExtensionAPI | undefined;
 };
 
 type ExtensionIconModule = ExtensionToolbarButton['icon'];
@@ -52,7 +53,7 @@ const resolveExtensionIcon = async (getIcon: ExtensionIconModule) => {
 };
 
 const ExtensionButton = (props: ExtensionButtonProps) => {
-  const { item, node, editorView, applyChangeToContextPanel } = props;
+  const { item, node, extensionApi } = props;
 
   const ButtonIcon = React.useMemo(
     () =>
@@ -73,12 +74,7 @@ const ExtensionButton = (props: ExtensionButtonProps) => {
     }
 
     const targetNodeAdf: ADFEntity = nodeToJSON(node);
-    const api: ExtensionAPI = createExtensionAPI({
-      editorView,
-      applyChange: applyChangeToContextPanel,
-    });
-
-    item.action(targetNodeAdf, api);
+    item.action(targetNodeAdf, extensionApi!);
   };
 
   return (
@@ -102,6 +98,7 @@ export const ExtensionsPlaceholder = (props: Props) => {
     extensionProvider,
     separator,
     applyChangeToContextPanel,
+    extensionApi,
   } = props;
   const [extensions, setExtensions] = useState<ExtensionManifest<any>[]>([]);
 
@@ -123,12 +120,9 @@ export const ExtensionsPlaceholder = (props: Props) => {
     return getContextualToolbarItemsFromModule(
       extensions,
       nodeAdf,
-      createExtensionAPI({
-        editorView,
-        applyChange: applyChangeToContextPanel,
-      }),
+      extensionApi!,
     );
-  }, [extensions, nodeAdf, editorView, applyChangeToContextPanel]);
+  }, [extensions, nodeAdf, extensionApi]);
 
   if (!extensionItems.length) {
     return null;
@@ -147,6 +141,7 @@ export const ExtensionsPlaceholder = (props: Props) => {
         item={item}
         editorView={editorView}
         applyChangeToContextPanel={applyChangeToContextPanel}
+        extensionApi={extensionApi}
       />,
     );
     if (index < extensionItems.length - 1) {

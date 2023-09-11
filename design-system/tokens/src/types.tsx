@@ -109,6 +109,21 @@ export interface DesignToken<TValue, Group extends Groups>
       };
 }
 
+/**
+ * @example
+ * ```ts
+ * const object = { font: { heading: { h900: { value: 'hello' } }}}
+ * // -> `font.heading.h900`
+ * ```
+ */
+type FlattenKeys<T, Prefix extends string = ''> = {
+  [Key in keyof T]: T[Key] extends object
+    ? T[Key] extends { value: string }
+      ? `${Prefix}${Key & string}`
+      : `${Prefix}${Key & string}.${FlattenKeys<T[Key]>}`
+    : `${Prefix}.${Key & string}`;
+}[keyof T];
+
 type OmitDistributive<T, K extends PropertyKey> = T extends any
   ? T extends object
     ? Id<DeepOmit<T, K>>
@@ -999,6 +1014,7 @@ export interface UtilTokenSchema<BaseToken> {
   };
   UNSAFE: {
     transparent: RawToken;
+    textTransformUppercase?: RawToken;
   };
 }
 
@@ -1105,7 +1121,7 @@ export type TypographyToken<
   {
     fontStyle: 'normal';
     fontWeight: TPalette['fontWeight'];
-    fontFamily: TPalette['fontFamily'];
+    fontFamily: FlattenKeys<FontFamilyTokenSchema<any>>;
     fontSize: TPalette['fontSize'];
     lineHeight: TPalette['lineHeight'];
     letterSpacing: TPalette['letterSpacing'];
@@ -1217,7 +1233,8 @@ export interface FontFamilyTokenSchema<BaseToken> {
        * @deprecated
        */
       monospace: DeprecatedTypographyToken<BaseToken>;
-      product: DeprecatedTypographyToken<BaseToken>;
+      body: DeprecatedTypographyToken<BaseToken>;
+      heading: DeprecatedTypographyToken<BaseToken>;
       brand: DeprecatedTypographyToken<BaseToken>;
       code: DeprecatedTypographyToken<BaseToken>;
     };

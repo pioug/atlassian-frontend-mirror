@@ -13,10 +13,7 @@ import {
   R300,
   R400,
 } from '@atlaskit/theme/colors';
-import {
-  fontFamily as getFontFamily,
-  gridSize as getGridSize,
-} from '@atlaskit/theme/constants';
+import { fontFamily as getFontFamily } from '@atlaskit/theme/constants';
 
 export const commonSelectedStyles = 'emoji-common-selected';
 export const selectOnHoverStyles = 'emoji-common-select-on-hover';
@@ -32,8 +29,8 @@ export const deleteButton = css({
   visibility: 'hidden',
   display: 'flex',
   position: 'absolute',
-  top: '-8px',
-  right: '-8px',
+  top: token('space.negative.100', '-8px'),
+  right: token('space.negative.100', '-8px'),
   zIndex: 1,
 });
 
@@ -165,7 +162,7 @@ export const emojiButton = css({
   },
 
   '&>span': {
-    padding: '6px',
+    padding: token('space.075', '6px'),
 
     // Scale sprite to fit regardless of default emoji size
     [`&>.${emojiSprite}`]: {
@@ -210,7 +207,7 @@ export const previewText = css({
   display: 'flex',
   flexDirection: 'column',
   alignSelf: 'center',
-  marginTop: '-2px',
+  marginTop: token('space.negative.025', '-2px'),
   marginLeft: '10px',
   maxWidth: '285px',
   width: '285px' /* IE */,
@@ -234,9 +231,9 @@ export const emojiShortName = css({
   color: token('color.text.subtle', N200),
   fontSize: '12px',
   lineHeight: 1,
-  marginBottom: '-2px',
+  marginBottom: token('space.negative.025', '-2px'),
   overflow: 'hidden',
-  paddingBottom: '2px',
+  paddingBottom: token('space.025', '2px'),
   textOverflow: 'ellipsis',
   whiteSpace: 'nowrap',
 
@@ -367,7 +364,7 @@ export const uploadPreview = css({
 export const uploadPreviewText = css({
   h5: {
     color: token('color.text.subtle', N300),
-    paddingBottom: '4px',
+    paddingBottom: token('space.050', '4px'),
     fontSize: '12px',
   },
   img: {
@@ -377,7 +374,7 @@ export const uploadPreviewText = css({
 });
 
 export const bigEmojiPreview = css({
-  paddingLeft: '4px',
+  paddingLeft: token('space.050', '4px'),
   img: {
     maxHeight: '40px',
     maxWidth: '100px',
@@ -429,7 +426,7 @@ export const headingH5 = css({
 });
 
 export const requiredSymbol = css({
-  paddingLeft: `${getGridSize() / 4}px`,
+  paddingLeft: token('space.025', '2px'),
   color: token('color.text.danger', R400),
   fontFamily: getFontFamily(),
 });
@@ -453,7 +450,7 @@ export const deleteFooter = css({
   [`.${submitDelete}`]: {
     width: '84px',
     fontWeight: 'bold',
-    marginRight: '4px',
+    marginRight: token('space.050', '4px'),
   },
 });
 
@@ -462,7 +459,7 @@ export const emojiDeleteErrorMessage = css({
   color: token('color.text.danger', R400),
   alignItems: 'center',
   justifyContent: 'flex-end',
-  paddingRight: '4px',
+  paddingRight: token('space.050', '4px'),
 });
 
 export const emojiChooseFileErrorMessage = css({
@@ -488,7 +485,7 @@ export const uploadRetryButton = css({
   maxWidth: '172px',
   justifyContent: 'center',
   fontWeight: 'bold',
-  marginRight: '4px',
+  marginRight: token('space.050', '4px'),
   div: {
     display: 'flex',
   },
@@ -497,7 +494,7 @@ export const uploadRetryButton = css({
 export const uploadEmojiButton = css({
   maxWidth: '187px',
   justifyContent: 'center',
-  marginRight: '4px',
+  marginRight: token('space.050', '4px'),
 
   div: {
     display: 'flex',
@@ -522,7 +519,7 @@ export const emojiActionsWrapper = css({
 export const tooltipShortcutStyle = css({
   borderRadius: '3px',
   backgroundColor: token('color.background.inverse.subtle', N400),
-  padding: '0 2px',
+  padding: `0 ${token('space.025', '2px')}`,
   /* TODO: fix in develop: https://atlassian.slack.com/archives/CFG3PSQ9E/p1647395052443259?thread_ts=1647394572.556029&cid=CFG3PSQ9E */
   /* stylelint-disable-next-line */
   label: 'tooltip-shortcut',

@@ -34,7 +34,9 @@ export default {
   'fabric.editor.sortColumnDESC': 'Сортировать столбцы (Я–А)',
   'fabric.editor.splitCell': 'Разделить ячейки',
   'fabric.editor.tableOptions': 'Параметры таблицы',
+  'fabric.editor.tables.adjustColumn': 'Скорректировать ширину столбца',
   'fabric.editor.tables.confirmDeleteLinkedModalMessage':
     'При удалении элемента «{nodeName}» нарушится работа всего, что с ним связано.',
   'fabric.editor.tables.confirmDeleteLinkedModalOKButton': 'Удалить',
+  'fabric.editor.tables.resizeTable': 'Изменить размер таблицы',
 };

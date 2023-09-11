@@ -19,6 +19,8 @@ export const resizerDangerClassName = `${resizerHandleClassName}-danger`;
 // akEditorSelectedNodeClassName from '@atlaskit/editor-shared-styles';
 const akEditorSelectedNodeClassName = 'ak-editor-selected-node';
 
+export const handleWrapperClass = 'resizer-handle-wrapper';
+
 export const resizerHandleZIndex = 99;
 
 export const resizerStyles = css`
@@ -27,7 +29,7 @@ export const resizerStyles = css`
 
     &:hover,
     &.display-handle {
-      & .${resizerHandleClassName} {
+      & > .${handleWrapperClass} > .${resizerHandleClassName} {
         visibility: visible;
         opacity: 1;
       }
@@ -68,7 +70,7 @@ export const resizerStyles = css`
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      margin-top: -16px;
+      margin-top: ${token('space.negative.200', '-16px')};
       white-space: normal;
     }
 
@@ -172,7 +174,7 @@ export const resizerStyles = css`
     position: relative;
     display: inline-block;
     width: 100%;
-    left: -12px;
+    left: ${token('space.negative.150', '-12px')};
   }
 
   // This below style is here to make sure the image width is correct when nested in a table

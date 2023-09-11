@@ -37,12 +37,10 @@ import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import cloneDeep from 'lodash/cloneDeep';
 
-import { DatasourceAttributeProperties } from '@atlaskit/adf-schema/schema';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
-import {
-  datasourceBlockCard,
-  RefsNode,
-} from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DatasourceAttributeProperties } from '@atlaskit/adf-schema/schema';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { RefsNode } from '@atlaskit/editor-test-helpers/doc-builder';
+import { datasourceBlockCard } from '@atlaskit/editor-test-helpers/doc-builder';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 
 import { DatasourceComponent } from '../../../nodeviews/datasource';
@@ -147,6 +145,8 @@ describe('blockCard with datasource attrs', () => {
       undefined,
       newNodeAttrs,
     );
+    expect(mockTr.setMeta).toHaveBeenCalledWith('addToHistory', false);
+    expect(mockTr.setMeta).toHaveBeenCalledWith('scrollIntoView', false);
     expect(mockEditorView.dispatch).toHaveBeenCalledWith(mockTr);
   });
 });

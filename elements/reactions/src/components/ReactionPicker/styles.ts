@@ -30,7 +30,7 @@ export const popupStyle = css({
   ),
   '&> div': {
     boxShadow: undefined,
-    marginTop: '4px',
-    marginBottom: '4px',
+    marginTop: token('space.050', '4px'),
+    marginBottom: token('space.050', '4px'),
   },
 });

@@ -140,7 +140,7 @@ export const hdIconGroupWrapperStyles = css`
 export const hdIconWrapperStyles = css`
   display: inline-block;
   vertical-align: top;
-  margin-left: calc(-1 * ${token('space.300', '24px')});
+  margin-left: ${token('space.negative.300', '-24px')};
 `;
 
 export const errorMessageWrapperStyles = css`

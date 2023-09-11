@@ -34,7 +34,9 @@ export default {
   'fabric.editor.sortColumnDESC': 'Sortuj kolumnę Z → A',
   'fabric.editor.splitCell': 'Podziel komórki',
   'fabric.editor.tableOptions': 'Opcje tabeli',
+  'fabric.editor.tables.adjustColumn': 'Dostosuj szerokość kolumny',
   'fabric.editor.tables.confirmDeleteLinkedModalMessage':
     'Usunięcie rozszerzenia {nodeName} spowoduje uszkodzenie wszystkiego, co jest z nim połączone.',
   'fabric.editor.tables.confirmDeleteLinkedModalOKButton': 'Usuń',
+  'fabric.editor.tables.resizeTable': 'Zmień rozmiar tabeli',
 };

@@ -1166,7 +1166,7 @@
 
 ## 6.1.20
 
-- [patch][fe943bb" d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/fe943bb"
+- [patch][fe943bb](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/fe943bb"
   d):
 
   - Make sure we check userAgent only if we have a DOM

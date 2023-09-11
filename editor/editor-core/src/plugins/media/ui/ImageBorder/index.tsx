@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import { IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl-next';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
 import { DropdownMenuSharedCssClassName } from '@atlaskit/editor-common/styles';
 import { BorderIcon } from '@atlaskit/editor-common/icons';
@@ -11,11 +11,11 @@ import {
 } from '@atlaskit/editor-common/ui-color';
 import { hexToEditorBorderPaletteColor } from '@atlaskit/editor-palette';
 import { borderColorPalette } from '@atlaskit/editor-common/ui-color';
-import { BorderMarkAttributes } from '@atlaskit/adf-schema';
+import type { BorderMarkAttributes } from '@atlaskit/adf-schema';
+import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import {
   ArrowKeyNavigationType,
   DropdownMenu,
-  MenuItem,
 } from '@atlaskit/editor-common/ui-menu';
 import Tooltip from '@atlaskit/tooltip';
 import { Popup } from '@atlaskit/editor-common/ui';
@@ -37,14 +37,12 @@ export interface ImageBorderProps {
   intl: IntlShape;
   toggleBorder: () => void;
   borderMark?: BorderMarkAttributes;
-  showSomewhatSemanticTooltips?: boolean;
   setBorder: (attrs: Partial<BorderMarkAttributes>) => void;
 }
 
 const ImageBorder = ({
   intl: { formatMessage },
   toggleBorder,
-  showSomewhatSemanticTooltips,
   borderMark,
   setBorder,
 }: ImageBorderProps) => {
@@ -104,7 +102,6 @@ const ImageBorder = ({
                   palette: borderColorPalette,
                   paletteColorTooltipMessages: borderPaletteTooltipMessages,
                   hexToPaletteColor: hexToEditorBorderPaletteColor,
-                  showSomewhatSemanticTooltips,
                 }}
               />
             </div>

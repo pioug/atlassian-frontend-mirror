@@ -34,9 +34,5 @@
     "composite": true,
     "outDir": "../../../tsDist/@atlaskit__email-renderer/app"
   },
-  "references": [
-    {
-      "path": "../adf-schema/tsconfig.app.json"
-    }
-  ]
+  "references": []
 }

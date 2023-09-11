@@ -1,5 +1,12 @@
 # @atlaskit/ds-explorations
 
+## 2.2.15
+
+### Patch Changes
+
+- [`6b3e7af515d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6b3e7af515d) - Updates based on new codgen for tokens (no API change).
+- Updated dependencies
+
 ## 2.2.14
 
 ### Patch Changes

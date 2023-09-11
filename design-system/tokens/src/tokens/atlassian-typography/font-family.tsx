@@ -6,7 +6,8 @@ const font: ValueSchema<FontFamilyTokenSchema<BaseToken>> = {
     family: {
       sans: { value: 'FontFamilyWebSans' },
       monospace: { value: 'FontFamilyWebMono' },
-      product: { value: 'FontFamilyWebSans' },
+      heading: { value: 'FontFamilyWebSans' },
+      body: { value: 'FontFamilyWebSans' },
       brand: { value: 'FontFamilyCharlie' },
       code: { value: 'FontFamilyWebMono' },
     },

@@ -13,11 +13,11 @@ import { messages } from '../i18n';
 import { HighlightText } from '../HighlightText';
 
 export const groupOptionIconWrapper = css({
-  padding: '2px',
+  padding: token('space.025', '2px'),
   '> span': {
     backgroundColor: token('color.background.neutral', N20),
     borderRadius: '50%',
-    padding: '4px',
+    padding: token('space.050', '4px'),
   },
 });
 

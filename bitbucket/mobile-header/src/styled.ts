@@ -4,14 +4,12 @@ import styled from '@emotion/styled';
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import {
-  gridSize as akGridSize,
   layers as akLayers,
   colors,
   themed,
   typography,
 } from '@atlaskit/theme';
-
-const gridSize = akGridSize();
+import { token } from '@atlaskit/tokens';
 
 // @atlaskit/navigation has a specific z-index, so we need to layer the header
 // components relative to that.
@@ -62,7 +60,7 @@ export const MobilePageHeaderContent = styled.div<{
   box-sizing: border-box;
   display: flex;
   height: ${mobileHeaderHeight}px;
-  padding: ${gridSize}px;
+  padding: ${token('space.100', '8px')};
   position: fixed;
   top: ${(props) => props.topOffset}px;
   width: 100%;
@@ -97,7 +95,7 @@ export const FakeBlanket = styled.div<{
 // use proper h1 and header styles but for mobile we don't want a top margin
 export const PageHeading = styled.h1`
   flex-grow: 1;
-  margin-left: ${gridSize}px;
+  margin-left: ${token('space.100', '8px')};
   ${typography.h500};
   && {
     margin-top: 0;

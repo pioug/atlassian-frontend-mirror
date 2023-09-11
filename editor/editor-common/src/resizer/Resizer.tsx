@@ -10,6 +10,7 @@ import Tooltip from '@atlaskit/tooltip';
 import type { TooltipProps } from '@atlaskit/tooltip';
 
 import {
+  handleWrapperClass,
   resizerDangerClassName,
   resizerHandleClassName,
   resizerHandleThumbClassName,
@@ -314,6 +315,7 @@ export default function ResizerNext(
       }}
       className={resizerClassName}
       handleClasses={handles}
+      handleWrapperClass={handleWrapperClass}
       handleStyles={nextHandleStyles}
       onResizeStart={onResizeStart}
       onResize={onResize}

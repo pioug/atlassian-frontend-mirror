@@ -3,21 +3,16 @@ import { Children, FC, ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import { gridSize as getGridSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
-const gridSize = getGridSize();
-const gutter = gridSize / 2;
+const gutter = token('space.negative.050', '-4px');
 
 const listStyles = css({
   // removes default ul styles. Needs !important to override contextual styles in product.
   display: 'flex',
   margin: token('space.0', '0px'),
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-  marginRight: -gutter,
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-  marginLeft: -gutter,
+  marginRight: gutter,
+  marginLeft: gutter,
   padding: token('space.0', '0px'),
   justifyContent: 'flex-start',
   flexWrap: 'wrap',

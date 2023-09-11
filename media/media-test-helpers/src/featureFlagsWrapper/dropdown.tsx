@@ -29,7 +29,9 @@ const Container = styled.div`
 `;
 
 const ItemWrapper: React.FC = ({ children }) => (
-  <div style={{ padding: '10px 20px' }}>{children}</div>
+  <div style={{ padding: `10px ${token('space.250', '20px')}` }}>
+    {children}
+  </div>
 );
 
 const CheckboxItem: React.FC<{

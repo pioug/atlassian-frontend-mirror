@@ -33,6 +33,10 @@ const transform = (palette: Record<string, any>): Transform => {
         | OpacityToken
         | RawToken;
 
+      if (!originalToken) {
+        return token.value;
+      }
+
       if (
         originalToken.attributes.group === 'paint' &&
         !palette.color.palette[originalToken.value]
@@ -112,7 +116,7 @@ const transform = (palette: Record<string, any>): Transform => {
           fontWeight: palette.typography.fontWeight[fontWeight].value,
           lineHeight: palette.typography.lineHeight[lineHeight].value,
           // should we try and get fontFamily metadata out here
-          fontFamily: palette.typography.fontFamily[fontFamily].value,
+          fontFamily: fontFamily,
           letterSpacing: palette.typography.letterSpacing[letterSpacing].value,
         };
       }

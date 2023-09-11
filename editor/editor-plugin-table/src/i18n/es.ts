@@ -29,7 +29,9 @@ export default {
   'fabric.editor.sortColumnDESC': 'Ordenar columna Z → A',
   'fabric.editor.splitCell': 'Dividir celda',
   'fabric.editor.tableOptions': 'Opciones de tabla',
+  'fabric.editor.tables.adjustColumn': 'Ajustar columna',
   'fabric.editor.tables.confirmDeleteLinkedModalMessage':
     'Al eliminar la extensión {nodeName}, se interrumpirá todo lo que se haya conectado a ella.',
   'fabric.editor.tables.confirmDeleteLinkedModalOKButton': 'Eliminar',
+  'fabric.editor.tables.resizeTable': 'Cambiar tamaño de tabla',
 };

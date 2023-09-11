@@ -5,14 +5,15 @@ import {
   DevPreviewWarning,
   md,
 } from '@atlaskit/docs';
+import { token } from '@atlaskit/tokens';
 
 export default md`
 ${(
   <>
-    <div style={{ marginBottom: 8 }}>
+    <div style={{ marginBottom: token('space.100', '8px') }}>
       <AtlassianInternalWarning />
     </div>
-    <div style={{ marginTop: 8 }}>
+    <div style={{ marginTop: token('space.100', '8px') }}>
       <DevPreviewWarning />
     </div>
   </>

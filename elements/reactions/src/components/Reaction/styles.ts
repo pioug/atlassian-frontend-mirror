@@ -17,7 +17,10 @@ const akHeight = 24;
 export const emojiStyle = css({
   transformOrigin: 'center center 0',
   lineHeight: '12px',
-  padding: '4px 4px 4px 8px',
+  padding: `${token('space.050', '4px')} ${token('space.050', '4px')} ${token(
+    'space.050',
+    '4px',
+  )} ${token('space.100', '8px')}`,
 });
 
 export const reactionStyle = css({
@@ -32,7 +35,7 @@ export const reactionStyle = css({
   borderRadius: '20px',
   color: `${token('color.text.subtle', N400)}`,
   cursor: 'pointer',
-  margin: '4px 4px 0 0',
+  margin: `${token('space.050', '4px')} ${token('space.050', '4px')} 0 0`,
   padding: 0,
   transition: '200ms ease-in-out',
   '&:hover': {

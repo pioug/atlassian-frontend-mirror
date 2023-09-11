@@ -1,5 +1,11 @@
 # @atlaskit/media-viewer
 
+## 48.0.14
+
+### Patch Changes
+
+- [`6900f89eb0e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6900f89eb0e) - Internal changes to use space tokens. There is no expected visual or behaviour change.
+
 ## 48.0.13
 
 ### Patch Changes
@@ -2119,21 +2125,21 @@ withAnalyticsEvents<Props>()(Button);
 
 ## 25.0.0
 
-- [major][023cb45" d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/023cb45"
+- [major][023cb45](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/023cb45"
   d):
 
   - Add i18n support to MediaViewer
 
 ## 24.1.11
 
-- [patch][12afe80" d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/12afe80"
+- [patch][12afe80](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/12afe80"
   d):
 
   - Move mocks directory structure to fix dist build issues
 
 ## 24.1.10
 
-- [patch][4b84e8b" d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/4b84e8b"
+- [patch][4b84e8b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/4b84e8b"
   d):
 
   - Avoid unnecessary render cycle in ItemViewer

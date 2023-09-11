@@ -29,6 +29,8 @@ export default {
   'fabric.editor.sortColumnDESC': '열 정렬: 내림차순',
   'fabric.editor.splitCell': '셀 나누기',
   'fabric.editor.tableOptions': '표 옵션',
+  'fabric.editor.tables.adjustColumn': '열 조정',
   'fabric.editor.tables.confirmDeleteLinkedModalMessage': '{nodeName}을(를) 삭제하면 연결된 모든 것이 작동 중지됩니다.',
   'fabric.editor.tables.confirmDeleteLinkedModalOKButton': '삭제',
+  'fabric.editor.tables.resizeTable': '표 크기 조정',
 };

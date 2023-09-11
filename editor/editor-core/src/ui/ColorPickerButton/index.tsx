@@ -44,7 +44,7 @@ const colorPickerButtonWrapper = css`
 `;
 
 const colorPickerExpandContainer = css`
-  margin: 0px -4px;
+  margin: 0px ${token('space.negative.050', '-4px')};
 `;
 
 // Control the size of color picker buttons and preview
@@ -57,7 +57,7 @@ const colorPickerWrapper = (theme: ThemeProps) => css`
     dark: token('elevation.surface.overlay', DN50),
   })(theme)};
   box-shadow: 0 4px 8px -2px ${N60A}, 0 0 1px ${N60A};
-  padding: 8px 0px;
+  padding: ${token('space.100', '8px')} 0px;
 `;
 /* eslint-enable @atlaskit/design-system/ensure-design-token-usage */
 
@@ -76,7 +76,6 @@ type Props = WithAnalyticsEventsProps & {
   mountPoint?: HTMLElement;
   setDisableParentScroll?: (disable: boolean) => void;
   hexToPaletteColor?: (hexColor: string) => string | undefined;
-  showSomewhatSemanticTooltips?: boolean;
   paletteColorTooltipMessages?: PaletteTooltipMessages;
 
   /**
@@ -220,8 +219,6 @@ const ColorPickerButton = (props: Props) => {
               paletteOptions={{
                 palette: props.colorPalette,
                 hexToPaletteColor: props.hexToPaletteColor,
-                showSomewhatSemanticTooltips:
-                  props.showSomewhatSemanticTooltips,
                 paletteColorTooltipMessages: props.paletteColorTooltipMessages,
               }}
             />

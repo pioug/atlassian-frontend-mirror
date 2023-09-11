@@ -110,11 +110,9 @@ snapshot(InlineCardDefault, {
       jiraIssueId: 'TODO-1',
     },
   ],
-  hooks: {
-    featureFlags: {
-      'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
-        true,
-    },
+  featureFlags: {
+    'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
+      true,
   },
 });
 snapshot(InlineCardDefault, {
@@ -127,11 +125,9 @@ snapshot(InlineCardDefault, {
       jiraIssueId: 'TODO-1',
     },
   ],
-  hooks: {
-    featureFlags: {
-      'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
-        true,
-    },
+  featureFlags: {
+    'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
+      true,
   },
   states: [
     { state: 'hovered', selector: { byTestId: 'inline-card-resolved-view' } },
@@ -147,30 +143,24 @@ snapshot(InlineCardTextWrap, {
       jiraIssueId: 'TODO-1',
     },
   ],
-  hooks: {
-    featureFlags: {
-      'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
-        true,
-    },
+  featureFlags: {
+    'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
+      true,
   },
 });
 snapshot(InlineCardError, {
   description: 'refreshed inline card error view',
-  hooks: {
-    featureFlags: {
-      'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
-        true,
-    },
+  featureFlags: {
+    'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
+      true,
   },
 });
 snapshot(InlineCardError, {
   description:
     'refreshed inline card error view renders correctly when hovering over url in errored view',
-  hooks: {
-    featureFlags: {
-      'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
-        true,
-    },
+  featureFlags: {
+    'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
+      true,
   },
   states: [
     { state: 'hovered', selector: { byTestId: 'inline-card-errored-view' } },
@@ -178,21 +168,17 @@ snapshot(InlineCardError, {
 });
 snapshot(InlineCardForbidden, {
   description: 'refreshed inline card forbidden view',
-  hooks: {
-    featureFlags: {
-      'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
-        true,
-    },
+  featureFlags: {
+    'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
+      true,
   },
 });
 snapshot(InlineCardForbidden, {
   description:
     'refreshed inline card forbidden view renders correctly when hovering over url in forbidden view',
-  hooks: {
-    featureFlags: {
-      'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
-        true,
-    },
+  featureFlags: {
+    'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
+      true,
   },
   states: [
     { state: 'hovered', selector: { byTestId: 'inline-card-forbidden-view' } },
@@ -200,21 +186,17 @@ snapshot(InlineCardForbidden, {
 });
 snapshot(InlineCardNotFound, {
   description: `refreshed inline card can't find link view`,
-  hooks: {
-    featureFlags: {
-      'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
-        true,
-    },
+  featureFlags: {
+    'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
+      true,
   },
 });
 snapshot(InlineCardNotFound, {
   description:
     'refreshed inline card not found view renders correctly when hovering over url in not-found view',
-  hooks: {
-    featureFlags: {
-      'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
-        true,
-    },
+  featureFlags: {
+    'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
+      true,
   },
   states: [
     { state: 'hovered', selector: { byTestId: 'inline-card-not-found-view' } },
@@ -222,21 +204,17 @@ snapshot(InlineCardNotFound, {
 });
 snapshot(InlineCardUnauthorised, {
   description: `refreshed inline card unauthorised view`,
-  hooks: {
-    featureFlags: {
-      'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
-        true,
-    },
+  featureFlags: {
+    'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
+      true,
   },
 });
 snapshot(InlineCardUnauthorised, {
   description:
     'refreshed inline card unauthorised view renders correctly when hovering over url in unauthorized view',
-  hooks: {
-    featureFlags: {
-      'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
-        true,
-    },
+  featureFlags: {
+    'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
+      true,
   },
   states: [
     {
@@ -248,11 +226,9 @@ snapshot(InlineCardUnauthorised, {
 snapshot(InlineCardUnauthorised, {
   description:
     'refreshed inline card unauthorised view renders correctly when hovering over connect account',
-  hooks: {
-    featureFlags: {
-      'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
-        true,
-    },
+  featureFlags: {
+    'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
+      true,
   },
   states: [
     { state: 'hovered', selector: { byTestId: 'button-connect-account' } },
@@ -260,10 +236,8 @@ snapshot(InlineCardUnauthorised, {
 });
 snapshot(InlineCardUnauthorisedNoAuth, {
   description: `refreshed inline card unauthorised view with no auth`,
-  hooks: {
-    featureFlags: {
-      'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
-        true,
-    },
+  featureFlags: {
+    'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
+      true,
   },
 });

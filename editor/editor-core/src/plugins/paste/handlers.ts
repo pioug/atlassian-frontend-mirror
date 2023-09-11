@@ -957,9 +957,11 @@ export function handleMarkdown(
       tr.replaceSelection(markdownSlice);
     }
 
-    tr.setSelection(
-      TextSelection.near(tr.doc.resolve(pastesFrom + markdownSlice.size), -1),
+    const textPosition = tr.doc.resolve(
+      Math.min(pastesFrom + markdownSlice.size, tr.doc.content.size),
     );
+
+    tr.setSelection(TextSelection.near(textPosition, -1));
 
     queueCardsFromChangedTr?.(state, tr, INPUT_METHOD.CLIPBOARD);
     if (dispatch) {

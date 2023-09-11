@@ -3012,4 +3012,44 @@ describe('handleMarkdown', () => {
       expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
     });
   });
+
+  describe('pasting outside of document range', () => {
+    it('should not throw RangeError when pastesFrom is above doc size', () => {
+      const createEditor = createProsemirrorEditorFactory();
+      const editor = (doc: any) => {
+        const preset = new Preset<LightEditorPlugin>()
+          .add([featureFlagsPlugin, {}])
+          .add([analyticsPlugin, {}])
+          .add(contentInsertionPlugin)
+          .add(betterTypeHistoryPlugin)
+          .add([pastePlugin, {}])
+          .add(widthPlugin)
+          .add(guidelinePlugin)
+          .add(selectionPlugin)
+          .add(tablesPlugin)
+          .add(listPlugin);
+
+        return createEditor({
+          doc,
+          preset,
+        });
+      };
+
+      const destinationDocument = doc(p('some'), p('content'));
+      const { editorView } = editor(destinationDocument);
+      const pasteSlice = new Slice(
+        doc(p('pasted content'))(defaultSchema).content,
+        1,
+        1,
+      );
+
+      expect(() =>
+        handleMarkdown(
+          pasteSlice,
+          undefined,
+          100,
+        )(editorView.state, editorView.dispatch),
+      ).not.toThrow();
+    });
+  });
 });

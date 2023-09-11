@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 1.22.0
+
+### Minor Changes
+
+- [`3d5c5dbe08c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3d5c5dbe08c) - Adds UNSAFE_textTransformUppercase token. This token should not be used directly unless to aid a migration.
+
 ## 1.21.1
 
 ### Patch Changes

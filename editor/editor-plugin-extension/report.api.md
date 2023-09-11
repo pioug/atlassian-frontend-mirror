@@ -55,13 +55,14 @@ export type ExtensionPlugin = NextEditorPlugin<
       OptionalPlugin<ContextPanelPlugin>,
     ];
     actions: {
-      createExtensionAPI: CreateExtensionAPI;
+      api: () => ExtensionAPI;
     };
   }
 >;
 
 // @public (undocumented)
-interface ExtensionPluginOptions extends LongPressSelectionPluginOptions {
+export interface ExtensionPluginOptions
+  extends LongPressSelectionPluginOptions {
   // (undocumented)
   allowAutoSave?: boolean;
   // (undocumented)

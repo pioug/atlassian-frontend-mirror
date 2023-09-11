@@ -839,7 +839,7 @@
 
 ## 9.0.9
 
-- [patch][d296df8" d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d296df8"
+- [patch][d296df8](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d296df8"
   d):
 
   - Inline-dialog now has useCapture: true for the outside click event listeners to avoid closing when clicking on child content that might disappear, such as a select or dropdown-menu

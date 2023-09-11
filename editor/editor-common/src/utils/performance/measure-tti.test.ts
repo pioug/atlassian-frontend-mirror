@@ -24,7 +24,7 @@ describe('Measure TTI utility', () => {
       measureTTI(cb, 100, 1, MockPerformanceObserver);
       time += 100;
       jest.advanceTimersByTime(100);
-      expect(cb).toBeCalledWith(100, 0, false);
+      expect(cb).toBeCalledWith(100, 0, false, false);
     });
   });
 
@@ -44,7 +44,7 @@ describe('Measure TTI utility', () => {
       time += 100;
       jest.advanceTimersByTime(100);
 
-      expect(cb).toBeCalledWith(200, 100, false);
+      expect(cb).toBeCalledWith(200, 100, false, false);
     });
   });
 
@@ -66,7 +66,7 @@ describe('Measure TTI utility', () => {
       time += 100;
       jest.advanceTimersByTime(100);
 
-      expect(cb).toBeCalledWith(250, 150, false);
+      expect(cb).toBeCalledWith(250, 150, false, false);
     });
 
     it('should return end time of a long task with sufficient idle time', () => {
@@ -86,7 +86,7 @@ describe('Measure TTI utility', () => {
       time += 100;
       jest.advanceTimersByTime(100);
 
-      expect(cb).toBeCalledWith(now + 50, 50, false);
+      expect(cb).toBeCalledWith(now + 50, 50, false, false);
     });
   });
 
@@ -107,7 +107,7 @@ describe('Measure TTI utility', () => {
       time += 100;
       jest.advanceTimersByTime(100);
 
-      expect(cb).toBeCalledWith(now + 2000 + 50, 2050, true);
+      expect(cb).toBeCalledWith(now + 2000 + 50, 2050, true, false);
     });
   });
 });

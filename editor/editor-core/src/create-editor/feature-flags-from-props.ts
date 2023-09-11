@@ -181,16 +181,6 @@ export function createFeatureFlagsFromProps(props: EditorProps): FeatureFlags {
       normalizedFeatureFlags.restartNumberedLists === true ||
       props.featureFlags?.restartNumberedLists === true,
 
-    useSomewhatSemanticTextColorNames: Boolean(
-      (typeof normalizedFeatureFlags.useSomewhatSemanticTextColorNames ===
-        'boolean' &&
-        !!normalizedFeatureFlags.useSomewhatSemanticTextColorNames) ||
-        (typeof props.featureFlags?.useSomewhatSemanticTextColorNames ===
-        'boolean'
-          ? !!props.featureFlags?.useSomewhatSemanticTextColorNames
-          : false),
-    ),
-
     lpLinkPickerFocusTrap: Boolean(
       normalizedFeatureFlags.lpLinkPickerFocusTrap,
     ),

@@ -1,5 +1,62 @@
 # @atlaskit/editor-mobile-bridge
 
+## 187.41.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.41.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.41.4
+
+### Patch Changes
+
+- [`aeb5c9a01e8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aeb5c9a01e8) - Delete adf-schema from AFE and rely on npm package for adf-schema
+- [`4b4dcfe0bba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4b4dcfe0bba) - Delete adf-schema, use published version
+- Updated dependencies
+
+## 187.41.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.41.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.41.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.41.0
+
+### Patch Changes
+
+- [`d4cbb84052d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d4cbb84052d) - Move element-browser to `editor-common` to decouple quick-insert plugin.
+- Updated dependencies
+
+## 187.40.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.40.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 187.40.0
 
 ### Patch Changes
@@ -8814,7 +8871,7 @@ Bumped dependencies.
 
 ## 5.0.4
 
-- [patch][e5e040c" d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/e5e040c"
+- [patch][e5e040c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/e5e040c"
   d):
 
   - Fixes passing null to renderer before we have content. ED-5587

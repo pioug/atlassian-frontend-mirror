@@ -1,5 +1,12 @@
 # @atlaskit/adf-utils
 
+## 19.0.7
+
+### Patch Changes
+
+- [`aeb5c9a01e8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aeb5c9a01e8) - Delete adf-schema from AFE and rely on npm package for adf-schema
+- [`4b4dcfe0bba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4b4dcfe0bba) - Delete adf-schema, use published version
+
 ## 19.0.6
 
 ### Patch Changes
@@ -1440,7 +1447,7 @@ Bumped dependencies.
 
 ## 4.0.2
 
-- [patch][6201223" d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6201223"
+- [patch][6201223](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6201223"
   d):
 
   - Add examples.

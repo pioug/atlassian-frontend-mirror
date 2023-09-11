@@ -165,6 +165,11 @@ const tableWrapperStyles = () => {
         overflow: auto;
         overflow-y: hidden;
         position: relative;
+
+        > table[data-number-column='true'] {
+          margin-left: 1px;
+          width: calc(100% - 1px);
+        }
       }
     `;
   } else {
@@ -506,7 +511,9 @@ export const tableStyles = (
 
     .${ClassName.TABLE_CONTAINER}[data-number-column='true'] {
       .${ClassName.CORNER_CONTROLS}, .${ClassName.CONTROLS_CORNER_BUTTON} {
-        width: ${akEditorTableToolbarSize + akEditorTableNumberColumnWidth}px;
+        width: ${getBooleanFF('platform.editor.custom-table-width')
+          ? akEditorTableToolbarSize + akEditorTableNumberColumnWidth + 1
+          : akEditorTableToolbarSize + akEditorTableNumberColumnWidth}px;
       }
       .${ClassName.ROW_CONTROLS} .${ClassName.CONTROLS_BUTTON} {
         border-right-width: 0;
@@ -589,7 +596,9 @@ export const tableStyles = (
     .${ClassName.NUMBERED_COLUMN} {
       position: relative;
       float: right;
-      margin-left: ${akEditorTableToolbarSize - 1}px;
+      margin-left: ${getBooleanFF('platform.editor.custom-table-width')
+        ? akEditorTableToolbarSize
+        : akEditorTableToolbarSize - 1}px;
       top: ${akEditorTableToolbarSize}px;
       width: ${akEditorTableNumberColumnWidth + 1}px;
       box-sizing: border-box;
@@ -621,7 +630,10 @@ export const tableStyles = (
         display: block;
       }
       .${ClassName.NUMBERED_COLUMN} {
-        padding-left: 1px;
+        padding-left: ${getBooleanFF('platform.editor.custom-table-width')
+          ? 0
+          : 1}px;
+
         .${ClassName.NUMBERED_COLUMN_BUTTON} {
           border-left: 0 none;
         }

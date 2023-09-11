@@ -1,1 +1,1 @@
-export { default as ElementBrowser } from './ui/ElementBrowser';
+export { ElementBrowser } from '@atlaskit/editor-common/element-browser';

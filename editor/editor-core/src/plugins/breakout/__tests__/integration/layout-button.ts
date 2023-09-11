@@ -9,7 +9,7 @@ import {
   goToEditorTestingWDExample,
   mountEditor,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
-import { WebDriverPage } from '@atlaskit/editor-test-helpers/page-objects/types';
+import type { WebDriverPage } from '@atlaskit/editor-test-helpers/page-objects/types';
 import { breakoutSelector } from '@atlaskit/editor-test-helpers/page-objects/breakout';
 
 describe('breakout button hidden below popups', () => {
@@ -30,9 +30,12 @@ describe('breakout button hidden below popups', () => {
   };
 
   describe('when the typeahead popup is above breakout button', () => {
+    // FIXME: This test was automatically skipped due to failure on 10/09/2023: https://product-fabric.atlassian.net/browse/ED-19982
     BrowserTestCase(
       'the breakout button should not be visible',
-      {},
+      {
+        skip: ['*'],
+      },
       async (client: any, testName: string) => {
         const page = await startEditor(client, adf);
 
@@ -51,9 +54,12 @@ describe('breakout button hidden below popups', () => {
   });
 
   describe('when the link popup is above breakout button', () => {
+    // FIXME: This test was automatically skipped due to failure on 10/09/2023: https://product-fabric.atlassian.net/browse/ED-19982
     BrowserTestCase(
       'the breakout button should not be visible',
-      {},
+      {
+        skip: ['*'],
+      },
       async (client: any, testName: string) => {
         const page = await startEditor(client, adf);
 

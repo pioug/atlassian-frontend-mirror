@@ -4,8 +4,8 @@ import { token } from '@atlaskit/tokens';
 
 export const tabsWrapperStyles = css`
   margin-top: ${token('space.150', '12px')};
-  margin-left: calc(-1 * ${token('space.100', '8px')});
-  margin-right: calc(-1 * ${token('space.100', '8px')});
+  margin-left: ${token('space.negative.100', '-8px')};
+  margin-right: ${token('space.negative.100', '-8px')};
 `;
 
 export const spinnerContainerStyles = css`

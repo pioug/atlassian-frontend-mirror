@@ -23,6 +23,7 @@ import {
   removeInlineCard,
   setBorderMark,
   toggleBorderMark,
+  updateMediaSingleWidth,
 } from '../../commands';
 
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
@@ -362,6 +363,58 @@ describe('commands', () => {
         size: 1,
       })(editorView.state, editorView.dispatch);
       expect(result).toEqual(false);
+    });
+  });
+
+  describe('updateMediaSingleWidth', () => {
+    const mediaSingleNode = mediaSingle({
+      layout: 'center',
+      widthType: 'pixel',
+      width: 600,
+    })(media({ ...attrs })());
+
+    it('should update media single node with the given width', async () => {
+      const { editorView } = await setup(mediaSingleNode);
+
+      const { state, dispatch } = editorView;
+
+      updateMediaSingleWidth(mockEditorAnalyticsAPI)(800, 'valid', 'center')(
+        state,
+        dispatch,
+      );
+
+      expect(editorView.state).toEqualDocumentAndSelection(
+        doc(
+          mediaSingle({ layout: 'center', widthType: 'pixel', width: 800 })(
+            media({ ...attrs })(),
+          ),
+        ),
+      );
+    });
+
+    it('should trigger analytics event when updating media single width', async () => {
+      const { editorView } = await setup(mediaSingleNode);
+
+      const { state, dispatch } = editorView;
+
+      updateMediaSingleWidth(mockEditorAnalyticsAPI)(1000, 'valid', 'center')(
+        state,
+        dispatch,
+      );
+
+      expect(attachAnalyticsEvent).toBeCalled();
+      expect(attachAnalyticsEvent).toHaveBeenCalledWith({
+        action: 'edited',
+        actionSubject: 'mediaSingle',
+        actionSubjectId: 'resized',
+        eventType: 'ui',
+        attributes: {
+          width: 1000,
+          layout: 'center',
+          validation: 'valid',
+          parentNode: 'doc',
+        },
+      });
     });
   });
 });

@@ -70,7 +70,7 @@ const containerStyles = xcss({
   },
 });
 const draggingStyles = xcss({
-  opacity: 0.6,
+  opacity: 0.4,
 });
 
 type CardPrimitiveProps = {

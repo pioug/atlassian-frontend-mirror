@@ -31,7 +31,9 @@ export default {
   'fabric.editor.sortColumnDESC': "Sütunu Z'den A'ya sırala",
   'fabric.editor.splitCell': 'Hücreyi ayır',
   'fabric.editor.tableOptions': 'Tablo seçenekleri',
+  'fabric.editor.tables.adjustColumn': 'Sütunu ayarla',
   'fabric.editor.tables.confirmDeleteLinkedModalMessage':
     '{nodeName} düğümünün silinmesi, bu düğüme bağlı her şeyin bozulmasına neden olur.',
   'fabric.editor.tables.confirmDeleteLinkedModalOKButton': 'Sil',
+  'fabric.editor.tables.resizeTable': 'Tabloyu yeniden boyutlandır',
 };

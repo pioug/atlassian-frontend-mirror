@@ -1,12 +1,14 @@
 import { SEVERITY } from '../analytics';
 
 import { isPerformanceObserverLongTaskAvailable } from './is-performance-api-available';
+import { getDistortedDurationMonitor } from './measure-render';
 
 export function measureTTI(
   onMeasureComplete: (
     tti: number,
     ttiFromInvocation: number,
     canceled: boolean,
+    distortedDuration: boolean,
   ) => void,
   idleThreshold: number = 1000,
   cancelAfter: number = 60,
@@ -19,6 +21,9 @@ export function measureTTI(
   }
 
   const start = performance.now();
+  // Keeping track of users moving away from the tab, which distorts the TTI measurement
+  const distortedDurationMonitor = getDistortedDurationMonitor();
+
   let prevLongTask:
     | Pick<PerformanceEntry, 'startTime' | 'duration'>
     | undefined;
@@ -54,13 +59,31 @@ export function measureTTI(
 
     if (!prevLongTask) {
       observer.disconnect();
-      return onMeasureComplete(prevEnd, 0, false);
+      distortedDurationMonitor.cleanup();
+      return onMeasureComplete(
+        prevEnd,
+        0,
+        false,
+        distortedDurationMonitor.distortedDuration,
+      );
     } else if (lastLongTask.startTime - prevEnd >= idleThreshold) {
       observer.disconnect();
-      return onMeasureComplete(prevEnd, prevEnd - start, canceled);
+      distortedDurationMonitor.cleanup();
+      return onMeasureComplete(
+        prevEnd,
+        prevEnd - start,
+        canceled,
+        distortedDurationMonitor.distortedDuration,
+      );
     } else if (now - lastEnd >= idleThreshold || canceled) {
       observer.disconnect();
-      return onMeasureComplete(lastEnd, lastEnd - start, canceled);
+      distortedDurationMonitor.cleanup();
+      return onMeasureComplete(
+        lastEnd,
+        lastEnd - start,
+        canceled,
+        distortedDurationMonitor.distortedDuration,
+      );
     }
 
     return setTimeout(checkIdle, idleThreshold);

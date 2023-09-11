@@ -4,6 +4,7 @@ import { useIntl } from 'react-intl-next';
 import { jsx } from '@emotion/react';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { EmojiProvider, ResourcedEmoji, EmojiId } from '@atlaskit/emoji';
+import { token } from '@atlaskit/tokens';
 import { Analytics } from '../../analytics';
 import {
   ReactionSummary,
@@ -175,7 +176,12 @@ export const Reaction: React.FC<ReactionProps> = ({
           <div
             css={[
               styles.emojiStyle,
-              reaction.count === 0 && { padding: '4px 2px 4px 10px' },
+              reaction.count === 0 && {
+                padding: `${token('space.050', '4px')} ${token(
+                  'space.025',
+                  '2px',
+                )} ${token('space.050', '4px')} 10px`,
+              },
             ]}
           >
             <ResourcedEmoji

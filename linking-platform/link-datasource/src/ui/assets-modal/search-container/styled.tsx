@@ -20,7 +20,7 @@ export const FormContainer = styled.form`
 // Override the top margin of fields
 export const FieldContainer = styled.div`
   flex: 1;
-  margin-top: calc(-1 * ${token('space.100', '8px')});
+  margin-top: ${token('space.negative.100', '-8px')};
 `;
 
 export const SchemaSelectContainer = styled.div`

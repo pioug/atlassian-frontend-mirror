@@ -1,5 +1,11 @@
 # @atlaskit/quick-search
 
+## 8.1.4
+
+### Patch Changes
+
+- [`6900f89eb0e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6900f89eb0e) - Internal changes to use space tokens. There is no expected visual or behaviour change.
+
 ## 8.1.3
 
 ### Patch Changes

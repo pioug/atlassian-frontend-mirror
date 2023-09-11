@@ -7,8 +7,8 @@ import { AnalyticsListener } from '@atlaskit/analytics-next';
 import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
 import Button from '@atlaskit/button/standard-button';
 import InlineDialog from '@atlaskit/inline-dialog/src/InlineDialog';
-import ElementBrowser from '../src/ui/ElementBrowser';
-import ModalElementBrowser from '../src/ui/ElementBrowser/ModalElementBrowser';
+import { ElementBrowser } from '@atlaskit/editor-common/element-browser';
+import ModalElementBrowser from '../src/plugins/quick-insert/ui/ModalElementBrowser/ModalElementBrowser';
 import { useDefaultQuickInsertGetItems } from '../example-helpers/use-default-quickinsert-get-items';
 
 const modalExampleWrapper = css`

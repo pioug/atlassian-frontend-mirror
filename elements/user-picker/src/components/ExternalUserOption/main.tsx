@@ -25,7 +25,7 @@ import { SourcesTooltipContent } from './SourcesTooltipContent';
 export const imageContainer = css({
   height: '16px',
   width: '16px',
-  paddingRight: '4px',
+  paddingRight: token('space.050', '4px'),
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',

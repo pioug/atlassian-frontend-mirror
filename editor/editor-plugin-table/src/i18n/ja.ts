@@ -31,7 +31,9 @@ export default {
   'fabric.editor.sortColumnDESC': '列の並べ替え: 降順',
   'fabric.editor.splitCell': 'セルを分割',
   'fabric.editor.tableOptions': '表のオプション',
+  'fabric.editor.tables.adjustColumn': '列を調整する',
   'fabric.editor.tables.confirmDeleteLinkedModalMessage':
     '{nodeName} を削除すると、接続されているすべてが破棄されます。',
   'fabric.editor.tables.confirmDeleteLinkedModalOKButton': '削除',
+  'fabric.editor.tables.resizeTable': 'テーブルのサイズを変更する',
 };

@@ -24,7 +24,7 @@ const iconStyles = (showPlaceholder: boolean | undefined) => (theme: Theme) => {
           dark: token('color.icon.success', G200),
         })({ theme }),
     '> span': {
-      margin: '-8px',
+      margin: token('space.negative.100', '-8px'),
     },
   });
 };

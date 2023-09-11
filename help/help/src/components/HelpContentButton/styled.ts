@@ -74,6 +74,6 @@ export const HelpContentButtonExternalLinkIcon = styled.div`
 export const HelpContentButtonExternalNotificationIcon = styled.div`
   display: inline-block;
   vertical-align: middle;
-  margin-top: calc(-1 * ${token('space.050', '4px')});
+  margin-top: ${token('space.negative.050', '-4px')};
   padding-left: ${token('space.050', '4px')};
 `;

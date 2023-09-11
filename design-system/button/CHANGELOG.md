@@ -1,5 +1,11 @@
 # @atlaskit/button
 
+## 16.10.1
+
+### Patch Changes
+
+- [`6900f89eb0e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6900f89eb0e) - Internal changes to use space tokens. There is no expected visual or behaviour change.
+
 ## 16.10.0
 
 ### Minor Changes
@@ -446,7 +452,7 @@
 
 ### Major Changes
 
-[`f75fedbf16`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f75fedbf16) - In this version we made button dramatically faster and lighter and improved buttons internal spacing 🤩
+- [`f75fedbf16`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f75fedbf16) - In this version we made button dramatically faster and lighter and improved buttons internal spacing 🤩
 
 There are now 3 button variants. We highly recommend you only install button through entry points to ensure minimum kbs. Our codemod will automatically shift you over to the entry point format
 

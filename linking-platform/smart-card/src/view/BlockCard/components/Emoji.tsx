@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import React from 'react';
+import { token } from '@atlaskit/tokens';
 import { gs } from '../../common/utils';
 
 export interface EmojiProps {
@@ -17,7 +18,7 @@ export const Emoji = ({ emoji }: EmojiProps) => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: '-2px',
+        marginTop: token('space.negative.025', '-2px'),
       }}
     >
       {emoji}

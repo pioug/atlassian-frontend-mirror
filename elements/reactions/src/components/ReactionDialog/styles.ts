@@ -104,6 +104,7 @@ export const customTabWrapper = (
     justifyContent: 'center',
     minWidth: `${REACTIONS_CONTAINER_WIDTH}px`,
     minHeight: `${REACTION_CONTAINER_HEIGHT}px`,
+    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
     marginRight: `${REACTION_RIGHT_MARGIN}px`,
     boxSizing: 'border-box',
     position: 'relative',
@@ -144,12 +145,12 @@ export const customTabWrapper = (
 export const navigationContainerStyle = css({
   '> button': { cursor: 'pointer' },
   'button:last-child': {
-    marginLeft: '16px',
+    marginLeft: token('space.200', '16px'),
   },
 });
 
 export const reactionViewStyle = css({
-  marginTop: '24px',
+  marginTop: token('space.300', '24px'),
   display: 'flex',
   flexDirection: 'column',
   p: {
@@ -160,14 +161,14 @@ export const reactionViewStyle = css({
     fontSize: 16,
     lineHeight: '20px',
     '> span': {
-      marginRight: 8,
+      marginRight: token('space.100', '8px'),
     },
   },
 });
 
 export const userListStyle = css({
   listStyle: 'none',
-  marginTop: 16,
+  marginTop: token('space.200', '16px'),
   padding: 0,
   textAlign: 'left',
   li: {
@@ -179,9 +180,9 @@ export const userListStyle = css({
 export const userStyle = css({
   display: 'flex',
   alignItems: 'center',
-  padding: '8px 0px 8px 0px',
+  padding: `${token('space.100', '8px')} 0px ${token('space.100', '8px')} 0px`,
   '> span': {
-    marginLeft: 16,
+    marginLeft: token('space.200', '16px'),
   },
 });
 
@@ -189,7 +190,7 @@ export const customTabListStyles = css({
   overflow: 'auto',
   scrollBehavior: 'smooth',
   display: 'flex',
-  paddingBottom: 4,
+  paddingBottom: token('space.050', '4px'),
   'div[role=tablist]': {
     flexGrow: 1,
   },

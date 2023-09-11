@@ -220,11 +220,9 @@ const ColorPicker = (props: Props) => {
     onFieldChange(name, currentColor !== colorValue);
   };
 
-  const { useSomewhatSemanticTextColorNames, expandedChartColors } =
-    featureFlags ?? {
-      useSomewhatSemanticTextColorNames: false,
-      expandedChartColors: false,
-    };
+  const { expandedChartColors } = featureFlags ?? {
+    expandedChartColors: false,
+  };
 
   return expandedChartColors ? (
     <ColorPickerButton
@@ -233,13 +231,6 @@ const ColorPicker = (props: Props) => {
       onChange={onColorChange}
       colorPalette={extendedColorPalette}
       paletteColorTooltipMessages={chartsColorPaletteTooltipMessages}
-      // We did not want to create new FF or update
-      //  useSomewhatSemanticTextColorNames name
-      //  because it is temporary and require extra work.
-      // So even though it says text color names,
-      //  we are going to use for all color pickers
-      //  such as text, background and table charts.
-      showSomewhatSemanticTooltips={useSomewhatSemanticTextColorNames}
       cols={EXPANDED_COLOR_PICKER_COLUMNS}
       alignX="right"
       placement="ConfigPanel"

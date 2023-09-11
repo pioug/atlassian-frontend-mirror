@@ -1,12 +1,12 @@
 /** @jsx jsx */
 
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { useConstructor } from '@atlaskit/editor-common/hooks';
-import { ExperienceStore } from '@atlaskit/editor-common/ufo';
+import type { ExperienceStore } from '@atlaskit/editor-common/ufo';
 import { measureTTI, startMeasure } from '@atlaskit/editor-common/utils';
 
-import { EditorProps } from '../../types/editor-props';
-import { PerformanceTracking } from '../../types/performance-tracking';
+import type { EditorProps } from '../../types/editor-props';
+import type { PerformanceTracking } from '../../types/performance-tracking';
 import measurements from '../../utils/performance/measure-enum';
 import editorMeasureTTICallback from '../utils/editorMeasureTTICallback';
 
@@ -32,11 +32,12 @@ export default function useEditorConstructor(
 
     if (performanceTracking?.ttiTracking?.enabled || featureFlags?.ufo) {
       measureTTI(
-        (tti, ttiFromInvocation, canceled) => {
+        (tti, ttiFromInvocation, canceled, distortedDuration) => {
           editorMeasureTTICallback(
             tti,
             ttiFromInvocation,
             canceled,
+            distortedDuration,
             performanceTracking,
             featureFlags,
             createAnalyticsEvent,

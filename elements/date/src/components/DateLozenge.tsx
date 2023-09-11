@@ -123,7 +123,7 @@ export const DateLozenge = (props: Props) => {
     <span
       css={{
         borderRadius: borderRadius(),
-        padding: '2px 4px',
+        padding: `${token('space.025', '2px')} ${token('space.050', '4px')}`,
         margin: '0 1px',
         position: 'relative',
         transition: 'background 0.3s',

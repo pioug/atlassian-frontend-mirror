@@ -5,16 +5,22 @@ import {
   removeSelectedNode,
   safeInsert,
 } from '@atlaskit/editor-prosemirror/utils';
-import type { BorderMarkAttributes } from '@atlaskit/adf-schema';
+import type {
+  BorderMarkAttributes,
+  RichMediaLayout,
+} from '@atlaskit/adf-schema';
 
 import type { Command } from '../../../types';
+import { getMediaInputResizeAnalyticsEvent } from '../utils/analytics';
+import type { PixelEntryValidation } from '../ui/PixelEntry/types';
+
 import {
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
-import { removeMediaGroupNode } from './utils';
+import { removeMediaGroupNode, getSelectedMediaSingle } from './utils';
 import { currentMediaNodeWithPos } from '../utils/current-media-node';
 
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
@@ -218,6 +224,49 @@ export const setBorderMark =
           newSize: size,
         },
       })(tr);
+      dispatch(tr);
+    }
+
+    return true;
+  };
+
+export const updateMediaSingleWidth =
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
+  (
+    width: number,
+    validation: PixelEntryValidation,
+    layout: RichMediaLayout,
+  ): Command =>
+  (state, dispatch) => {
+    const selectedMediaSingleNode = getSelectedMediaSingle(state);
+    if (!selectedMediaSingleNode) {
+      return false;
+    }
+
+    const tr = state.tr.setNodeMarkup(selectedMediaSingleNode.pos, undefined, {
+      ...selectedMediaSingleNode.node.attrs,
+      width,
+      widthType: 'pixel',
+      layout,
+    });
+    tr.setMeta('scrollIntoView', false);
+    tr.setSelection(NodeSelection.create(tr.doc, selectedMediaSingleNode.pos));
+
+    const $pos = state.doc.resolve(selectedMediaSingleNode.pos);
+    const parentNodeType = $pos ? $pos.parent.type.name : undefined;
+
+    const payload = getMediaInputResizeAnalyticsEvent('mediaSingle', {
+      width,
+      layout,
+      validation,
+      parentNode: parentNodeType,
+    });
+
+    if (payload) {
+      editorAnalyticsAPI?.attachAnalyticsEvent(payload)(tr);
+    }
+
+    if (dispatch) {
       dispatch(tr);
     }
 

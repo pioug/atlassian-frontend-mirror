@@ -33,9 +33,6 @@
   },
   "references": [
     {
-      "path": "../adf-schema/tsconfig.app.json"
-    },
-    {
       "path": "../../analytics/analytics-next/tsconfig.app.json"
     },
     {

@@ -499,7 +499,7 @@
 
 ## 4.0.6
 
-- [patch][c525423" d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/c525423"
+- [patch][c525423](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/c525423"
   d):
 
   - Remove unnecessary sufix in import

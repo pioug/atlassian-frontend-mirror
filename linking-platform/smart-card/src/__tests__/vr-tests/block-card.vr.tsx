@@ -27,100 +27,80 @@ snapshot(BlockCardResolvedBitbucket);
 
 snapshot(BlockCardError, {
   description: 'refreshed block card error view',
-  hooks: {
-    featureFlags: {
-      'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
-        true,
-    },
+  featureFlags: {
+    'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
+      true,
   },
 });
 snapshot(BlockCardForbidden, {
   description: 'refreshed block card forbidden view',
-  hooks: {
-    featureFlags: {
-      'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
-        true,
-    },
+  featureFlags: {
+    'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
+      true,
   },
 });
 snapshot(BlockCardNotFound, {
   description: 'refreshed block card link not found',
-  hooks: {
-    featureFlags: {
-      'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
-        true,
-    },
+  featureFlags: {
+    'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
+      true,
   },
 });
 snapshot(BlockCardUnauthorised, {
   description: 'refreshed block card unauthorised view',
-  hooks: {
-    featureFlags: {
-      'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
-        true,
-    },
+  featureFlags: {
+    'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
+      true,
   },
 });
 snapshot(BlockCardUnauthorisedNoAuth, {
   description: 'refreshed block card unauthorised view with no auth',
-  hooks: {
-    featureFlags: {
-      'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
-        true,
-    },
+  featureFlags: {
+    'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
+      true,
   },
 });
 snapshot(BlockCardResolvedJira, {
   description: 'refreshed & updated metadata jira block card',
-  hooks: {
-    featureFlags: {
-      'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
-        true,
-      'platform.linking-platform.smart-card.enable-better-metadata_iojwg': true,
-    },
+  featureFlags: {
+    'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
+      true,
+    'platform.linking-platform.smart-card.enable-better-metadata_iojwg': true,
   },
 });
 
 snapshot(BlockCardResolvedConfluencePage, {
   description: 'refreshed & updated metadata block card confluence ',
-  hooks: {
-    featureFlags: {
-      'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
-        true,
-      'platform.linking-platform.smart-card.enable-better-metadata_iojwg': true,
-    },
+  featureFlags: {
+    'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
+      true,
+    'platform.linking-platform.smart-card.enable-better-metadata_iojwg': true,
   },
 });
 
 snapshot(BlockCardResolvedTrelloWithImagePreview, {
   description: 'refreshed & updated metadata block card trello ',
-  hooks: {
-    featureFlags: {
-      'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
-        true,
-      'platform.linking-platform.smart-card.enable-better-metadata_iojwg': true,
-    },
+  featureFlags: {
+    'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
+      true,
+    'platform.linking-platform.smart-card.enable-better-metadata_iojwg': true,
   },
 });
 
 snapshot(BlockCardResolvedAtlas, {
   description: 'refreshed & updated metadata block card atlas ',
-  hooks: {
-    featureFlags: {
-      'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
-        true,
-      'platform.linking-platform.smart-card.enable-better-metadata_iojwg': true,
-    },
+  featureFlags: {
+    'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
+      true,
+    'platform.linking-platform.smart-card.enable-better-metadata_iojwg': true,
   },
 });
 
 snapshot(BlockCardResolvedBitbucket, {
   description: 'refreshed & updated metadata block card BB ',
-  hooks: {
-    featureFlags: {
-      'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
-        true,
-      'platform.linking-platform.smart-card.enable-better-metadata_iojwg': true,
-    },
+  featureFlags: {
+    'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
+      true,
+    'platform.linking-platform.smart-card.enable-better-metadata_iojwg': true,
   },
 });

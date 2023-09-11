@@ -6,8 +6,8 @@ import { IntlProvider, injectIntl } from 'react-intl-next';
 import type { AnalyticsEventPayload } from '@atlaskit/analytics-next';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
-import ElementBrowser from '../src/ui/ElementBrowser';
-import { getCategories } from '../src/ui/ElementBrowser/categories';
+import { ElementBrowser } from '@atlaskit/editor-common/element-browser';
+import { getCategories } from '../src/plugins/quick-insert/ui/ModalElementBrowser/categories';
 import { useDefaultQuickInsertGetItems } from '../example-helpers/use-default-quickinsert-get-items';
 
 const wrapper = css`

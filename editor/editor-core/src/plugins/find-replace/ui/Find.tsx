@@ -2,11 +2,11 @@
 import React from 'react';
 import { jsx } from '@emotion/react';
 
-import {
-  defineMessages,
-  WrappedComponentProps,
-  injectIntl,
-} from 'react-intl-next';
+import type { WrappedComponentProps } from 'react-intl-next';
+import { defineMessages, injectIntl } from 'react-intl-next';
+
+import debounce from 'lodash/debounce';
+
 import EditorCloseIcon from '@atlaskit/icon/glyph/editor/close';
 import ChevronDownIcon from '@atlaskit/icon/glyph/hipchat/chevron-down';
 import ChevronUpIcon from '@atlaskit/icon/glyph/hipchat/chevron-up';
@@ -15,7 +15,10 @@ import Textfield from '@atlaskit/textfield';
 import { countStyles, sectionWrapperStyles } from './styles';
 import { TRIGGER_METHOD } from '../../analytics/types';
 import { FindReplaceTooltipButton } from './FindReplaceTooltipButton';
-import { MatchCaseProps } from '../types';
+import type { MatchCaseProps } from '../types';
+import rafSchd from 'raf-schd';
+
+export const FIND_DEBOUNCE_MS = 100;
 
 export type FindProps = {
   findText?: string;
@@ -136,16 +139,40 @@ class Find extends React.Component<FindProps & WrappedComponentProps, State> {
 
   componentDidMount() {
     this.props.onFindTextfieldRefSet(this.findTextfieldRef);
-    this.focusFindTextfield();
-    this.syncFindText();
+
+    // focus initially on dialog mount if there is no find text provided
+    if (!this.props.findText) {
+      this.focusFindTextfield();
+    }
+    this.syncFindText(() => {
+      // focus after input is synced if find text provided
+      if (this.props.findText) {
+        this.focusFindTextfield();
+      }
+    });
   }
 
-  componentDidUpdate() {
-    this.focusFindTextfield();
-    this.syncFindText();
+  componentDidUpdate(prevProps: FindProps) {
+    // focus on update if find text did not change
+    if (this.props.findText === this.state?.localFindText) {
+      this.focusFindTextfield();
+    }
+    if (this.props.findText !== prevProps.findText) {
+      this.syncFindText(() => {
+        // focus after input is synced if find text provided
+        if (this.props.findText) {
+          this.focusFindTextfield();
+        }
+      });
+    }
   }
 
-  syncFindText = () => {
+  componentWillUnmount() {
+    this.debouncedFind.cancel();
+    this.handleFindKeyDownThrottled.cancel();
+  }
+
+  syncFindText = (onSynced?: Function) => {
     // If the external prop findText changes and we aren't in a composition we should update to
     // use the external prop value.
     //
@@ -155,15 +182,8 @@ class Find extends React.Component<FindProps & WrappedComponentProps, State> {
       !this.isComposing &&
       this.props.findText !== this.state?.localFindText
     ) {
-      this.updateFindValue(this.props.findText || '');
+      this.updateFindValue(this.props.findText || '', onSynced);
     }
-  };
-
-  skipWhileComposing = (fn: Function) => {
-    if (this.isComposing) {
-      return;
-    }
-    fn();
   };
 
   focusFindTextfield = () => {
@@ -177,16 +197,25 @@ class Find extends React.Component<FindProps & WrappedComponentProps, State> {
     this.updateFindValue(event.target.value);
   };
 
-  updateFindValue = (value: string) => {
-    this.setState({ localFindText: value });
+  // debounce (vs throttle) to not block typing inside find input while onFind runs
+  private debouncedFind = debounce((value) => {
+    this.props.onFind(value);
+  }, FIND_DEBOUNCE_MS);
 
-    this.skipWhileComposing(() => {
-      this.props.onFind(value);
+  updateFindValue = (value: string, onSynced?: Function) => {
+    this.setState({ localFindText: value }, () => {
+      if (this.isComposing) {
+        return;
+      }
+      onSynced && onSynced();
+      this.debouncedFind(value);
     });
   };
 
-  handleFindKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) =>
-    this.skipWhileComposing(() => {
+  // throtlle between animation frames gives better experience on Enter compared to arbitrary value
+  // it adjusts based on performance (and document size)
+  private handleFindKeyDownThrottled = rafSchd(
+    (event: React.KeyboardEvent<HTMLInputElement>) => {
       if (event.key === 'Enter') {
         if (event.shiftKey) {
           this.props.onFindPrev({ triggerMethod: TRIGGER_METHOD.KEYBOARD });
@@ -197,17 +226,34 @@ class Find extends React.Component<FindProps & WrappedComponentProps, State> {
         // we want to move focus between find & replace texfields when user hits up/down arrows
         this.props.onArrowDown();
       }
-    });
+    },
+  );
 
-  handleFindNextClick = (ref: React.RefObject<HTMLElement>) =>
-    this.skipWhileComposing(() => {
-      this.props.onFindNext({ triggerMethod: TRIGGER_METHOD.BUTTON });
-    });
+  handleFindKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (this.isComposing) {
+      return;
+    }
+    event.persist();
+    this.handleFindKeyDownThrottled(event);
+  };
 
-  handleFindPrevClick = (ref: React.RefObject<HTMLElement>) =>
-    this.skipWhileComposing(() => {
-      this.props.onFindPrev({ triggerMethod: TRIGGER_METHOD.BUTTON });
-    });
+  handleFindKeyUp = () => {
+    this.handleFindKeyDownThrottled.cancel();
+  };
+
+  handleFindNextClick = (ref: React.RefObject<HTMLElement>) => {
+    if (this.isComposing) {
+      return;
+    }
+    this.props.onFindNext({ triggerMethod: TRIGGER_METHOD.BUTTON });
+  };
+
+  handleFindPrevClick = (ref: React.RefObject<HTMLElement>) => {
+    if (this.isComposing) {
+      return;
+    }
+    this.props.onFindPrev({ triggerMethod: TRIGGER_METHOD.BUTTON });
+  };
 
   handleCompositionStart = () => {
     this.isComposing = true;
@@ -255,6 +301,7 @@ class Find extends React.Component<FindProps & WrappedComponentProps, State> {
           autoComplete="off"
           onChange={this.handleFindChange}
           onKeyDown={this.handleFindKeyDown}
+          onKeyUp={this.handleFindKeyUp}
           onBlur={this.props.onFindBlur}
           onCompositionStart={this.handleCompositionStart}
           onCompositionEnd={this.handleCompositionEnd}

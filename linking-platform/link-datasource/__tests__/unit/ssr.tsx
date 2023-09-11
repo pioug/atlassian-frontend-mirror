@@ -14,9 +14,11 @@ afterEach(() => {
 });
 
 test('should ssr then hydrate example component correctly', async () => {
-  const [, example] = await getExamplesFor('link-datasource');
-  const Example = require(example.filePath).default; // eslint-disable-line import/no-dynamic-require
-
+  const examples = await getExamplesFor('link-datasource');
+  const filepath = examples.find(example =>
+    example.filePath.endsWith('examples/issue-like-table-couple-boxed.tsx'),
+  )!.filePath;
+  const Example = require(filepath).default; // eslint-disable-line import/no-dynamic-require
   const elem = document.createElement('div');
   elem.innerHTML = ReactDOMServer.renderToString(React.createElement(Example));
 

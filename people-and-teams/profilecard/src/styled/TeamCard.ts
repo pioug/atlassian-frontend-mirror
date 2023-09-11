@@ -64,7 +64,7 @@ export const MemberCount = styled.div`
 
 export const AvatarSection = styled.div`
   margin-top: ${token('space.200', '16px')};
-  margin-left: calc(-1 * ${token('space.025', '2px')});
+  margin-left: ${token('space.negative.025', '-2px')};
 `;
 
 export const DescriptionWrapper = styled.div`
@@ -85,8 +85,8 @@ export const ActionButtons = styled.div`
   width: calc(100% + 8px);
   display: flex;
   justify-content: space-between;
-  margin: ${token('space.300', '24px')} calc(-1 * ${token('space.300', '24px')})
-    0 calc(-1 * ${token('space.100', '8px')});
+  margin: ${token('space.300', '24px')} ${token('space.negative.300', '-24px')}
+    0 ${token('space.negative.100', '-8px')};
   background-color: ${token(
     'elevation.surface.overlay',
     'hsla(0, 100%, 100%, 0.2)',

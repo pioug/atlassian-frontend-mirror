@@ -22,6 +22,7 @@ BrowserTestCase(
       defaultValue: replaceAdf,
       allowFindReplace: true,
     });
+    await page.teardownMockDate();
 
     await page.click(findReplaceSelectors.toolbarButton);
 

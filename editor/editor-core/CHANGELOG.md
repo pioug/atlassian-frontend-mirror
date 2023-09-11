@@ -1,5 +1,60 @@
 # @atlaskit/editor-core
 
+## 187.41.5
+
+### Patch Changes
+
+- [`1e26db8ffd0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1e26db8ffd0) - ED-18264: Clean up useSomewhatSemanticTextColorNames - default behaviour will be same as when FF was on.
+- [`6900f89eb0e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6900f89eb0e) - Internal changes to use space tokens. There is no expected visual or behaviour change.
+- [`69857bbbff0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/69857bbbff0) - [ED-20004] Capture errors in getPos due to prosemirror-view bump
+- [`ba95f6c1fd5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ba95f6c1fd5) - handleMarkdown no longer throws RangeError when 'from' argument exceeds document length, resolving bug where pasting a Jira issue datasource node at the end of a document would result in the legacy Jira issue macro being rendered instead
+- Updated dependencies
+
+## 187.41.4
+
+### Patch Changes
+
+- [`aeb5c9a01e8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aeb5c9a01e8) - Delete adf-schema from AFE and rely on npm package for adf-schema
+- [`111ff4f4f1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/111ff4f4f1f) - Add input resizing event analytics
+- [`da629b62ef9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/da629b62ef9) - ED-19617 Refactor actions to remove createExtenstionAPI and call it instead during initialisation
+- [`4b4dcfe0bba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4b4dcfe0bba) - Delete adf-schema, use published version
+- Updated dependencies
+
+## 187.41.3
+
+### Patch Changes
+
+- [`85b6a5da67a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/85b6a5da67a) - [ux] Fix [Regression] keyboard selections within actions are unpredictable
+
+## 187.41.1
+
+### Patch Changes
+
+- [`9c76ed81343`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9c76ed81343) - [ED-16733] Purge WithPluginState from media plugin
+
+## 187.41.0
+
+### Minor Changes
+
+- [`c06bb97591a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c06bb97591a) - [ED-19023] Add distorted duration to TTI event (tracking tab visibility)
+
+### Patch Changes
+
+- [`d4cbb84052d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d4cbb84052d) - Move element-browser to `editor-common` to decouple quick-insert plugin.
+- Updated dependencies
+
+## 187.40.2
+
+### Patch Changes
+
+- [`dd2ce170f94`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dd2ce170f94) - ED-17959 improve typing performance in find replace input field
+
+## 187.40.1
+
+### Patch Changes
+
+- [`da6dac74c66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/da6dac74c66) - Fix libra testing.
+
 ## 187.40.0
 
 ### Minor Changes
@@ -15046,105 +15101,105 @@ Remove applicationCard node and action mark
 
 ## 87.6.1
 
-- [patch][bdc9961" d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/bdc9961"
+- [patch][bdc9961](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/bdc9961"
   d):
 
   - Fixes the codeblock insert rules
 
 ## 87.6.0
 
-- [minor][bb3336a" d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/bb3336a"
+- [minor][bb3336a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/bb3336a"
   d):
 
   - Make text formatting toolbar account for different item titles legnths
 
 ## 87.5.0
 
-- [minor][d182ad9" d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d182ad9"
+- [minor][d182ad9](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d182ad9"
   d):
 
   - Add <-> to ↔︎ convertion rule
 
 ## 87.4.3
 
-- [patch][8fb4b1e" d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/8fb4b1e"
+- [patch][8fb4b1e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/8fb4b1e"
   d):
 
   - ED-5274 Fixes tables have excessive margin above
 
 ## 87.4.2
 
-- [patch][4cc767e" d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/4cc767e"
+- [patch][4cc767e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/4cc767e"
   d):
 
   - ED-5030: Fixed gap-cursor on nodeviews in breakout mode.
 
 ## 87.4.1
 
-- [patch][abd19cd" d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/abd19cd"
+- [patch][abd19cd](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/abd19cd"
   d):
 
   - ED-5616: fix inline cursor navigation
 
 ## 87.4.0
 
-- [minor][5981cec" d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/5981cec"
+- [minor][5981cec](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/5981cec"
   d):
 
   - TypeAhead to preserve marks
 
 ## 87.3.2
 
-- [patch][14d581b" d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/14d581b"
+- [patch][14d581b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/14d581b"
   d):
 
   - Disable clear formatting menu when there is no formatting
 
 ## 87.3.1
 
-- [patch][52f5b51" d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/52f5b51"
+- [patch][52f5b51](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/52f5b51"
   d):
 
   - ED-4366: fix text selection inside table cell on triple click
 
 ## 87.3.0
 
-- [minor][b911028" d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b911028"
+- [minor][b911028](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b911028"
   d):
 
   - Show selected color in a table contextual menu
 
 ## 87.2.0
 
-- [minor][746c927" d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/746c927"
+- [minor][746c927](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/746c927"
   d):
 
   - Add buffer to the bottom fullpage editor
 
 ## 87.1.13
 
-- [patch][f3d067d" d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/f3d067d"
+- [patch][f3d067d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/f3d067d"
   d):
 
   - Fix font size for numbered column in tables with dynamic text sizing
 
 ## 87.1.12
 
-- [patch][534f6ab" d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/534f6ab"
+- [patch][534f6ab](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/534f6ab"
   d):
 
   - ED-5615: Fix block element padding inside table cells.
 
 ## 87.1.11
 
-- [patch][cb4168f" d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/cb4168f"
+- [patch][cb4168f](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/cb4168f"
   d):
 
   - ED-5307: make text white for selected heading menu item
 
 ## 87.1.10
 
-- [patch][db65837" d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/db65837"
+- [patch][db65837](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/db65837"
   d):
 
   - ED-3762: fix setting text cursor when clicking on editor gutter
@@ -15157,7 +15212,7 @@ Remove applicationCard node and action mark
 
 ## 87.1.8
 
-- [patch][3c505aa" d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3c505aa"
+- [patch][3c505aa](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3c505aa"
   d):
 
   - Adds Danish and Romanian translations
@@ -15170,14 +15225,14 @@ Remove applicationCard node and action mark
 
 ## 87.1.6
 
-- [patch][6201223" d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6201223"
+- [patch][6201223](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6201223"
   d):
 
   - Add examples.
 
 ## 87.1.5
 
-- [patch][1662ae0" d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1662ae0"
+- [patch][1662ae0](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1662ae0"
   d):
 
   - ED-5440 convert sections to use percentages

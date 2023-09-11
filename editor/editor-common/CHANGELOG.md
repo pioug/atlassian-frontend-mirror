@@ -1,5 +1,38 @@
 # @atlaskit/editor-common
 
+## 74.58.4
+
+### Patch Changes
+
+- [`1e26db8ffd0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1e26db8ffd0) - ED-18264: Clean up useSomewhatSemanticTextColorNames - default behaviour will be same as when FF was on.
+
+## 74.58.3
+
+### Patch Changes
+
+- [`aeb5c9a01e8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aeb5c9a01e8) - Delete adf-schema from AFE and rely on npm package for adf-schema
+- [`111ff4f4f1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/111ff4f4f1f) - Add input resizing event analytics
+- [`4b4dcfe0bba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4b4dcfe0bba) - Delete adf-schema, use published version
+
+## 74.58.2
+
+### Patch Changes
+
+- [`546c2038081`](https://bitbucket.org/atlassian/atlassian-frontend/commits/546c2038081) - ED-19888 fix handler styles
+
+## 74.58.1
+
+### Patch Changes
+
+- [`521b2b088ed`](https://bitbucket.org/atlassian/atlassian-frontend/commits/521b2b088ed) - fix border mark issue for legacy validator
+
+## 74.58.0
+
+### Minor Changes
+
+- [`c06bb97591a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c06bb97591a) - [ED-19023] Add distorted duration to TTI event (tracking tab visibility)
+- [`d4cbb84052d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d4cbb84052d) - Move element-browser to `editor-common` to decouple quick-insert plugin.
+
 ## 74.57.0
 
 ### Minor Changes
@@ -5283,42 +5316,42 @@ Bumped dependencies.
 
 ## 20.2.3
 
-- [patch][8fb4b1e" d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/8fb4b1e"
+- [patch][8fb4b1e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/8fb4b1e"
   d):
 
   - ED-5274 Fixes tables have excessive margin above
 
 ## 20.2.2
 
-- [patch][67325ee" d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/67325ee"
+- [patch][67325ee](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/67325ee"
   d):
 
   - fixing image size inside tables
 
 ## 20.2.1
 
-- [patch][534f6ab" d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/534f6ab"
+- [patch][534f6ab](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/534f6ab"
   d):
 
   - ED-5615: Fix block element padding inside table cells.
 
 ## 20.2.0
 
-- [minor][03947b2" d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/03947b2"
+- [minor][03947b2](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/03947b2"
   d):
 
   - Change selected state for horizontal rule
 
 ## 20.1.9
 
-- [patch][ef26075" d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ef26075"
+- [patch][ef26075](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ef26075"
   d):
 
   - ED-5622: fix table selection when adding columns/rows very fast
 
 ## 20.1.8
 
-- [patch][08e6a0c" d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/08e6a0c"
+- [patch][08e6a0c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/08e6a0c"
   d):
 
   - Fix panel icon shrinking when a lot of text in a panel
@@ -5331,7 +5364,7 @@ Bumped dependencies.
 
 ## 20.1.6
 
-- [patch][1662ae0" d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1662ae0"
+- [patch][1662ae0](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1662ae0"
   d):
 
   - ED-5440 convert sections to use percentages

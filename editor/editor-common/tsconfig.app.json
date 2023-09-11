@@ -36,9 +36,6 @@
       "path": "../activity-provider/tsconfig.app.json"
     },
     {
-      "path": "../adf-schema/tsconfig.app.json"
-    },
-    {
       "path": "../adf-utils/tsconfig.app.json"
     },
     {
@@ -55,6 +52,9 @@
     },
     {
       "path": "../../design-system/code/tsconfig.app.json"
+    },
+    {
+      "path": "../../monorepo-tooling/codemod-utils/tsconfig.app.json"
     },
     {
       "path": "../editor-json-transformer/tsconfig.app.json"
@@ -121,6 +121,9 @@
     },
     {
       "path": "../../elements/task-decision/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/textfield/tsconfig.app.json"
     },
     {
       "path": "../../design-system/theme/tsconfig.app.json"

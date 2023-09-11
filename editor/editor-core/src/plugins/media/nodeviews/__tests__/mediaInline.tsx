@@ -96,6 +96,7 @@ describe('MediaInline ReactNodeView', () => {
       eventDispatcher,
       {
         providerFactory,
+        api: undefined,
       },
     ).init();
     expect(mediaInlineNodeView.createDomRef().contentEditable).toEqual('false');
@@ -113,6 +114,7 @@ describe('MediaInline ReactNodeView', () => {
       eventDispatcher,
       {
         providerFactory,
+        api: undefined,
       },
     ).init();
     expect(mediaInlineNodeView.createDomRef().nodeName).toEqual('SPAN');

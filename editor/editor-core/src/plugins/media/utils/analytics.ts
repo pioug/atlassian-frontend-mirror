@@ -54,7 +54,7 @@ export const getMediaInputResizeAnalyticsEvent = <
   return {
     action: ACTION.EDITED,
     actionSubject,
-    actionSubjectId: ACTION_SUBJECT_ID.INPUT_RESIZED,
+    actionSubjectId: ACTION_SUBJECT_ID.RESIZED,
     attributes: {
       width,
       layout,

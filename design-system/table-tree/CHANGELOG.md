@@ -740,7 +740,7 @@ _WRONG RELEASE TYPE - DON'T USE_
 
 ## 5.0.0
 
-- [major][90109e9" d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/90109e9"
+- [major][90109e9](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/90109e9"
   d):
 
   - added isDefaultExpanded flag to control default expansion state

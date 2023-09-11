@@ -5,7 +5,7 @@ import styled, { css } from 'styled-components';
 
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
-import { colors, gridSize } from '@atlaskit/theme';
+import { colors } from '@atlaskit/theme';
 import { token } from '@atlaskit/tokens';
 
 const transition = css`
@@ -41,7 +41,7 @@ export const PanelHeader: FC<
   background-color: ${(props) => props.isFocused && colors.N20};
   border-radius: ${token('border.radius.100', '3px')};
   display: flex;
-  left: -${gridSize() * 3}px;
+  left: ${token('space.negative.300', '-24px')};
   margin-bottom: ${token('space.100', '8px')};
   margin-top: ${token('space.200', '16px')};
   padding: ${token('space.025', '2px')} ${token('space.0', '0px')}

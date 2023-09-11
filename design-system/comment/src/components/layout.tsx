@@ -29,7 +29,7 @@ const highlightOverlayStyles = xcss({
   padding: 'space.100',
   position: 'absolute',
   // @ts-expect-error needs negative tokens
-  inset: `calc(-1 * ${token('space.100', '8px')})`,
+  inset: `${token('space.negative.100', '-8px')}`,
   // @ts-expect-error needs background-color to be on new theme
   backgroundColor: token('color.background.neutral', N20A),
   gridArea: '1 / 1 / 2 / 3',

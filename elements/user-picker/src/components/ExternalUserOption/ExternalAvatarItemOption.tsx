@@ -23,7 +23,7 @@ const detailsWrapper = css({
   minWidth: 0,
   flex: '1 1 100%',
   lineHeight: 1.4,
-  paddingLeft: '8px',
+  paddingLeft: token('space.100', '8px'),
   alignItems: 'center',
 });
 

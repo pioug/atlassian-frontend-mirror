@@ -1085,14 +1085,14 @@
 
 ## 6.1.2
 
-- [patch][2482922" d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/2482922"
+- [patch][2482922](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/2482922"
   d):
 
   - Remove unecessary alt text for modal image to avoid redundancy for screenreaders
 
 ## 6.1.1
 
-- [patch][0c7a57d" d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0c7a57d"
+- [patch][0c7a57d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0c7a57d"
   d):
 
   - Fixes layering of blanket and spotlight components in IE11 and Edge

@@ -5,6 +5,7 @@ import { css, jsx } from '@emotion/react';
 
 import { AtlassianIcon, ConfluenceIcon, JiraIcon } from '@atlaskit/logo';
 import Spinner from '@atlaskit/spinner/spinner';
+import { token } from '@atlaskit/tokens';
 
 import { SlackIcon } from '../assets/slack';
 import { GoogleIcon } from '../assets/google';
@@ -16,12 +17,12 @@ import { ExternalUserSourcesData } from '../ExternalUserSourcesContainer';
 import { imageContainer } from './main';
 
 export const sourcesTooltipContainer = css({
-  paddingBottom: '4px',
-  paddingRight: '4px',
+  paddingBottom: token('space.050', '4px'),
+  paddingRight: token('space.050', '4px'),
 });
 
 export const sourceWrapper = css({
-  paddingTop: '4px',
+  paddingTop: token('space.050', '4px'),
   display: 'flex',
   alignItems: 'center',
 });

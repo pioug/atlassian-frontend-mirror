@@ -16,7 +16,7 @@ type CardDragState = 'idle' | 'preview' | 'dragging';
 
 const cardDragStateStyles: Partial<Record<CardDragState, SerializedStyles>> = {
   dragging: css({
-    opacity: 0.3,
+    opacity: 0.4,
   }),
 };
 

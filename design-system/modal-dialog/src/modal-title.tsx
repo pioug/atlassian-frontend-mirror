@@ -64,9 +64,9 @@ const truncatedTextStyles = css({
     overflowX: 'clip',
   },
   '@supports not (overflow-x: clip)': {
-    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/design-system/ensure-design-token-usage/preview
     marginTop: `${lineHeightOffset / 2}px`,
-    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/design-system/ensure-design-token-usage/preview
     marginBottom: `${lineHeightOffset / 2}px`,
     lineHeight: adjustedLineHeight,
     overflow: 'hidden',
@@ -75,7 +75,7 @@ const truncatedTextStyles = css({
 
 const truncatedTextIconStyles = css({
   '@supports not (overflow-x: clip)': {
-    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/design-system/ensure-design-token-usage/preview
     marginBottom: `${lineHeightOffset / 2}px`,
     lineHeight: 1.2,
   },

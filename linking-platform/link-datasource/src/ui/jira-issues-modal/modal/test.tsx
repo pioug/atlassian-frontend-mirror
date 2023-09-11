@@ -492,13 +492,13 @@ describe('JiraIssuesConfigModal', () => {
   });
 
   describe('when there is no parameters yet', () => {
-    it('should display EmptyState', async () => {
+    it('should display InitialState', async () => {
       const { queryByTestId } = await setup({
         hookState: getEmptyHookState(),
         parameters: undefined,
       });
       expect(
-        queryByTestId('jira-jql-datasource-modal--empty-state'),
+        queryByTestId('jlol-datasource-modal--initial-state-view'),
       ).toBeTruthy();
     });
 
@@ -561,6 +561,19 @@ describe('JiraIssuesConfigModal', () => {
       });
 
       expect(hookState.onNextPage).not.toHaveBeenCalled();
+    });
+
+    it('should display EmptyState', async () => {
+      const { queryByTestId } = await setup({
+        hookState: getEmptyHookState(),
+        parameters: {
+          cloudId: 'some-cloud-id',
+          jql: 'some-jql',
+        },
+      });
+      expect(
+        queryByTestId('jira-jql-datasource-modal--empty-state'),
+      ).toBeTruthy();
     });
   });
 

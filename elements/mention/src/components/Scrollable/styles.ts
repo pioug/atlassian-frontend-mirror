@@ -8,7 +8,7 @@ export const ScrollableStyle = styled.div`
   overflow-x: hidden;
   overflow-y: auto;
 
-  padding: 4px 0;
+  padding: ${token('space.050', '4px')} 0;
   margin: 0;
 
   background: ${token('elevation.surface', 'white')};

@@ -8,7 +8,10 @@ export const countStyle = css({
   color: token('color.text.subtlest', N90),
   overflow: 'hidden',
   position: 'relative',
-  padding: '4px 8px 4px 0',
+  padding: `${token('space.050', '4px')} ${token('space.100', '8px')} ${token(
+    'space.050',
+    '4px',
+  )} 0`,
   lineHeight: '14px',
 });
 

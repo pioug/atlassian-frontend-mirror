@@ -162,9 +162,11 @@ export const mediaStyles = css`
         ${token('color.border.danger', akEditorDeleteIconColor)} !important;
     }
     /* Media resize handlers */
-    .richMedia-resize-handle-right::after,
-    .richMedia-resize-handle-left::after {
-      background: ${token('color.icon.danger', akEditorDeleteIconColor)};
+    .resizer-handle-thumb {
+      background: ${token(
+        'color.icon.danger',
+        akEditorDeleteIconColor,
+      )} !important;
     }
 
     /* Smart cards */
@@ -196,8 +198,7 @@ export const mediaStyles = css`
       box-shadow: 0 0 0 1px ${token('color.border.warning', Y500)} !important;
     }
 
-    .resizer-handle-left::after,
-    .resizer-handle-right::after {
+    .resizer-handle-thumb {
       background: ${token('color.icon.warning', Y500)} !important;
     }
   }

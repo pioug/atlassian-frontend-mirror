@@ -131,7 +131,7 @@ const draggableStateStyles: Partial<
   }),
   'generate-safari-column-preview': undefined,
   'is-dragging': css({
-    opacity: 0.6,
+    opacity: 0.4,
   }),
 };
 

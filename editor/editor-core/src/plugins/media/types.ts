@@ -8,7 +8,12 @@ import type { MediaFeatureFlags } from '@atlaskit/media-common';
 import type { UploadParams, MediaFile } from '@atlaskit/media-picker/types';
 import type { EditorSelectionAPI } from '@atlaskit/editor-common/selection';
 import type { GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
-import type { PlaceholderTextOptions } from '../../plugins/placeholder-text/types';
+// FIXME: Once we extract the placeholder-text we should import this type again
+//import type { PlaceholderTextOptions } from '../../plugins/placeholder-text/types';
+
+interface PlaceholderTextOptions {
+  allowInserting?: boolean;
+}
 
 export type MediaStateStatus =
   | 'unknown'
@@ -125,3 +130,12 @@ export type MediaDecorationSpec = {
   type: 'media';
   selected: boolean;
 };
+
+export type getPosHandler = getPosHandlerNode;
+export type getPosHandlerNode = () => number | undefined;
+
+export interface ReactNodeProps {
+  selected: boolean;
+}
+
+export type ForwardRef = (node: HTMLElement | null) => void;

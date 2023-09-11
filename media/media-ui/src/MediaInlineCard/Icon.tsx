@@ -22,5 +22,5 @@ export const Icon = styled.img`
 // are less than that in height/width.
 // TODO: Replace this override with proper AtlasKit solution.
 export const AKIconWrapper = styled.span`
-  margin-right: calc(-1 * ${token('space.025', '2px')});
+  margin-right: ${token('space.negative.025', '-2px')};
 `;

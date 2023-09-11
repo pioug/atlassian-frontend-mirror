@@ -24,7 +24,7 @@ export const RowStyle = styled.div`
   flex-direction: row;
   flex-wrap: wrap;
   overflow: hidden;
-  padding: 6px 14px;
+  padding: ${token('space.075', '6px')} 14px;
   text-overflow: ellipsis;
   vertical-align: middle;
 `;
@@ -59,13 +59,13 @@ export const InfoSectionStyle = styled.div<InfoSectionStyleProps>`
   & {
     /* Lozenge */
     & > span {
-      margin-bottom: 2px;
+      margin-bottom: ${token('space.025', '2px')};
     }
   }
 `;
 
 export const TimeStyle = styled.div`
-  margin-left: 20px;
+  margin-left: ${token('space.250', '20px')};
   flex: none;
   color: ${token('color.text.subtlest', N100)};
   font-size: 12px;

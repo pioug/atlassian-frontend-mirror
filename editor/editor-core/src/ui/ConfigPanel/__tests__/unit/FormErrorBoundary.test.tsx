@@ -1,9 +1,9 @@
 import React from 'react';
-import { mount } from 'enzyme';
-import { IntlProvider } from 'react-intl-next';
+import { screen } from '@testing-library/react';
+import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 import FormContent from '../../FormContent';
 import { createFakeExtensionManifest } from '@atlaskit/editor-test-helpers/extensions';
-import { FieldDefinition } from '@atlaskit/editor-common/extensions';
+import type { FieldDefinition } from '@atlaskit/editor-common/extensions';
 
 import { messages } from '../../messages';
 
@@ -20,15 +20,13 @@ describe('FormErrorBoundary', () => {
     ],
   });
 
-  const mountFormContent = (fields: FieldDefinition[]) => {
-    return mount(
-      <IntlProvider locale="en">
-        <FormContent
-          fields={fields}
-          extensionManifest={extensionManifest}
-          onFieldChange={() => {}}
-        />
-      </IntlProvider>,
+  const renderFormContent = (fields: FieldDefinition[]) => {
+    return renderWithIntl(
+      <FormContent
+        fields={fields}
+        extensionManifest={extensionManifest}
+        onFieldChange={() => {}}
+      />,
     );
   };
 
@@ -42,35 +40,20 @@ describe('FormErrorBoundary', () => {
   ];
 
   it('should show error boundary if FormContent crashes unexpectedly', () => {
-    const wrapper = mountFormContent(brokenFieldDefinition);
-
-    expect(wrapper.find('FormContent').exists()).toBeTruthy();
-    expect(wrapper.find('FormErrorBoundary').exists()).toBeTruthy();
-    expect(wrapper.find('SectionMessage').exists()).toBeTruthy();
-
-    const heading = wrapper.find('h2');
-    expect(heading.exists()).toBeTruthy();
-    expect(heading.text()).toEqual(messages.errorBoundaryTitle.defaultMessage);
+    renderFormContent(brokenFieldDefinition);
 
     expect(
-      wrapper
-        .findWhere(
-          (el) =>
-            el.name() === 'p' &&
-            el.text() === messages.errorBoundaryNote.defaultMessage,
-        )
-        .exists(),
-    ).toBeTruthy();
-
+      screen
+        .getByText(messages.errorBoundaryTitle.defaultMessage)
+        .closest('h2'),
+    ).toBeInTheDocument();
     expect(
-      wrapper
-        .findWhere(
-          (el) =>
-            el.name() === 'i' &&
-            el.text() ===
-              `Cannot read properties of undefined (reading 'provider')`,
-        )
-        .exists(),
-    ).toBeTruthy();
+      screen.getByText(messages.errorBoundaryNote.defaultMessage).closest('p'),
+    ).toBeInTheDocument();
+    expect(
+      screen
+        .getByText(`Cannot read properties of undefined (reading 'provider')`)
+        .closest('i'),
+    ).toBeInTheDocument();
   });
 });

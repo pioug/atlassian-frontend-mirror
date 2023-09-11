@@ -52,6 +52,7 @@ import type {
 } from '@atlaskit/editor-common/types';
 import type { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import type { contextPanelPlugin } from '@atlaskit/editor-plugin-context-panel';
+import type { ExtensionPlugin } from '@atlaskit/editor-plugin-extension';
 
 export type Item = FloatingToolbarItem<Function>;
 
@@ -73,7 +74,11 @@ export interface Props {
   featureFlags: FeatureFlags;
   api:
     | PluginInjectionAPIWithDependencies<
-        [typeof decorationsPlugin, OptionalPlugin<typeof contextPanelPlugin>]
+        [
+          typeof decorationsPlugin,
+          OptionalPlugin<typeof contextPanelPlugin>,
+          OptionalPlugin<ExtensionPlugin>,
+        ]
       >
     | undefined;
 }
@@ -106,10 +111,6 @@ const ToolbarItems = React.memo(
         editorView?.dom.closest('.ak-editor-content-area') ||
         undefined
       : popupsMountPoint;
-
-    const { useSomewhatSemanticTextColorNames } = featureFlags || {
-      useSomewhatSemanticTextColorNames: false,
-    };
 
     return (
       <ButtonGroup>
@@ -258,15 +259,6 @@ const ToolbarItems = React.memo(
                       paletteColorTooltipMessages={
                         backgroundPaletteTooltipMessages
                       }
-                      // We did not want to create new FF or update
-                      //  useSomewhatSemanticTextColorNames name
-                      //  because it is temporary and require extra work.
-                      // So even though it says text color names,
-                      //  we are going to use for all color pickers
-                      //  such as text, background and table charts.
-                      showSomewhatSemanticTooltips={
-                        useSomewhatSemanticTextColorNames
-                      }
                     />
                   );
                 }
@@ -309,6 +301,7 @@ const ToolbarItems = React.memo(
                     applyChangeToContextPanel={
                       api?.contextPanel?.actions.applyChange
                     }
+                    extensionApi={api?.extension?.actions.api()}
                   />
                 );
               case 'separator':

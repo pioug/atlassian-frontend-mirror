@@ -12,10 +12,10 @@ export const emojiUploadWidget = css({
   background: token('elevation.surface.overlay', 'white'),
   height: `120px`,
   width: `${emojiPickerWidth}px`,
-  marginBottom: '8px',
+  marginBottom: token('space.100', '8px'),
   minWidth: `${emojiPickerWidth}px`,
   margin: '-10px',
-  marginTop: '-16px',
+  marginTop: token('space.negative.200', '-16px'),
 });
 
 /// Footer

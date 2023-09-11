@@ -95,10 +95,8 @@ export class Renderer extends PureComponent<RendererProps> {
    * This is used in measuring the Renderer Mount time and is then
    * deleted once that measurement occurs.
    */
-  private renderedMeasurementDistortedDurationMonitor?: {
-    distortedDuration: boolean;
-    cleanup: () => void;
-  } = getDistortedDurationMonitor();
+  private renderedMeasurementDistortedDurationMonitor? =
+    getDistortedDurationMonitor();
 
   constructor(props: RendererProps) {
     super(props);

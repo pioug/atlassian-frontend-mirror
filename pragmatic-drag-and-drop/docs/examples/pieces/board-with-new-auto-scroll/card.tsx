@@ -54,7 +54,7 @@ const stateStyles: {
   [Key in DraggableState['type']]?: ReturnType<typeof xcss> | undefined;
 } = {
   dragging: xcss({
-    opacity: 0.6,
+    opacity: 0.4,
   }),
   'is-file-over': xcss({
     backgroundColor: 'color.background.selected.hovered',

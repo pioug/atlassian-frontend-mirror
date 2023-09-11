@@ -143,6 +143,21 @@ There are lots of platform gotchas when working with custom native drag previews
 
 </SectionMessage>
 
+<SectionMessage appearance="discovery" title="Built in browser preview styles">
+
+  Web browsers apply their own styles to native drag previews that cannot be controled:
+
+  - The opacity of the drag preview is slightly lowered (approximately `opacity:0.8`)
+  - A box shadow is applied to the drag preview
+
+  <!-- adding the new line for better spacing -->
+  <br/>
+
+
+  These styles are applied for all native drag and drop operations on the web, so users will be familiar with these affordances.
+
+</SectionMessage>
+
 <SectionMessage appearance="warning" title="Low opacity on large previews for Windows">
 
 Unfortunately, for all browsers on Windows, when a native drag previews is wider than `280px` or taller than `280px`, then the preview opacity is significantly lowered. If you would not like your previews dimmed on Windows, then you will need to make your native previews smaller than `280px`x`280px`.

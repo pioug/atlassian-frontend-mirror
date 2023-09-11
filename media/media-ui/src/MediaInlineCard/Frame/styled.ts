@@ -49,7 +49,8 @@ const isSelected = ({ isSelected }: WrapperProps) => {
 // NB: `box-decoration-break` required for retaining properties (border-radius) on wrap.
 export const Wrapper = styled.span<WrapperProps>`
   line-height: 16px;
-  padding: 2px 4px 2px 4px;
+  padding: ${token('space.025', '2px')} ${token('space.050', '4px')}
+    ${token('space.025', '2px')} ${token('space.050', '4px')};
   box-decoration-break: clone;
   display: inline;
   border-radius: ${akBorderRadius()}px;

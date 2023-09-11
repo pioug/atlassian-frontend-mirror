@@ -31,8 +31,20 @@ const isBodiedExtension = (node: PMNode | null | undefined): boolean => {
   return Boolean(node && ['bodiedExtension'].includes(node.type.name));
 };
 
+/**
+ * ED-19861 - [Regression] keyboard selections within action items are unpredicatable
+ * Table was added to the list of problematic nodes because the desired behaviour when Shift+Up from outside the
+ * table is to select the table node itself, rather than the table cell content. Previously this behaviour was handled
+ * in `packages/editor/editor-core/src/plugins/selection/pm-plugins/events/create-selection-between.ts` but there was
+ * a bug in `create-selection-between` which after fixing the bug that code was no longer handling table selection
+ * correctly, so to fix that table was added here.
+ */
+const isTable = (node: PMNode | null | undefined): boolean => {
+  return Boolean(node && ['table'].includes(node.type.name));
+};
+
 const isProblematicNode = (node: PMNode | null | undefined): boolean => {
-  return isCollpasedExpand(node) || isBodiedExtension(node);
+  return isCollpasedExpand(node) || isBodiedExtension(node) || isTable(node);
 };
 
 const findFixedProblematicNodePosition = (

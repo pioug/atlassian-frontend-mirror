@@ -1,8 +1,5 @@
 import React, { useEffect, useMemo } from 'react';
 
-import { useFeatureFlag } from '@atlaskit/link-provider';
-import type { LinkingPlatformFeatureFlags } from '@atlaskit/linking-common';
-
 import { FlexibleCardProps } from './types';
 import { SmartLinkStatus } from '../../constants';
 import Container from './components/container';
@@ -39,24 +36,17 @@ const FlexibleCard: React.FC<FlexibleCardProps> = ({
   const { status: cardType, details } = cardState;
   const status = cardType as SmartLinkStatus;
 
-  const useLozengeAction = useFeatureFlag('useLozengeAction') as string;
-  const featureFlags = useMemo(
-    (): Partial<LinkingPlatformFeatureFlags> => ({ useLozengeAction }),
-    [useLozengeAction],
-  );
-
   const context = useMemo(
     () =>
       getContextByStatus({
         response: details,
-        featureFlags,
         id,
         renderers,
         showServerActions,
         status,
         url,
       }),
-    [details, featureFlags, id, renderers, showServerActions, status, url],
+    [details, id, renderers, showServerActions, status, url],
   );
   const retry = getRetryOptions(url, status, details, onAuthorize);
   const { title } = context || {};

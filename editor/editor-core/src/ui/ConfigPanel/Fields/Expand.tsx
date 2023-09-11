@@ -1,14 +1,15 @@
 /** @jsx jsx */
 import React, { useState } from 'react';
 import { css, jsx } from '@emotion/react';
-import { WrappedComponentProps, injectIntl } from 'react-intl-next';
+import type { WrappedComponentProps } from 'react-intl-next';
+import { injectIntl } from 'react-intl-next';
 
 import { N40 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
 import ChevronRightIcon from '@atlaskit/icon/glyph/chevron-right';
 import Button from '@atlaskit/button';
-import { FieldDefinition } from '@atlaskit/editor-common/extensions';
+import type { FieldDefinition } from '@atlaskit/editor-common/extensions';
 import { messages } from '../messages';
 
 export const expandContainer = css`
@@ -41,7 +42,7 @@ const labelContainer = css`
 
 const expandContentContainer = (isHidden: boolean) => css`
   display: ${isHidden ? 'none' : 'block'};
-  margin-top: calc(-1 * ${token('space.100', '8px')});
+  margin-top: ${token('space.negative.100', '-8px')};
 `;
 
 type Props = {

@@ -75,7 +75,7 @@ export const adfEmojiItems: AdfEmojiItems = {
   'atlassian-info': {
     id: 'atlassian-info',
     shortName: ':info:',
-    text: ':info',
+    text: ':info:',
   },
   'atlassian-check_mark': {
     id: 'atlassian-check_mark',

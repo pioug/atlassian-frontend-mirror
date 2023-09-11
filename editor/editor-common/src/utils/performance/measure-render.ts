@@ -1,11 +1,16 @@
 import { isPerformanceAPIAvailable } from './is-performance-api-available';
 
+type DistortedDurationMonitor = {
+  distortedDuration: boolean;
+  cleanup: () => void;
+};
+
 /**
  * Monitors if a pages enters a visibility state which will lead to
  * distorted duration measurements (where the measurement uses the
  * requestAnimationFrame api).
  */
-export function getDistortedDurationMonitor() {
+export const getDistortedDurationMonitor = (): DistortedDurationMonitor => {
   if (typeof document === 'undefined') {
     return {
       distortedDuration: false,
@@ -40,7 +45,7 @@ export function getDistortedDurationMonitor() {
       document.removeEventListener('visibilitychange', handleVisibilityChange);
     },
   };
-}
+};
 
 /**
  * Measures time it takes to render a frame including -> style, paint, layout and composition.

@@ -7,10 +7,11 @@ import type {
   ProviderFactory,
 } from '@atlaskit/editor-common/provider-factory';
 import { TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
-import type { Dispatch } from '../../event-dispatcher';
-import type { NextEditorPlugin, Command } from '../../types';
+import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { pluginKey } from './plugin-key';
 import type {
+  NextEditorPlugin,
+  Command,
   QuickInsertPluginState,
   QuickInsertPluginStateKeys,
   QuickInsertPluginOptions,
@@ -18,8 +19,8 @@ import type {
   EditorCommand,
   QuickInsertHandler,
   QuickInsertSearchOptions,
+  EmptyStateHandler,
 } from '@atlaskit/editor-common/types';
-import type { EmptyStateHandler } from '../../types/empty-state-handler';
 import ModalElementBrowser from './ui/ModalElementBrowser';
 import { openElementBrowserModal, insertItem } from './commands';
 import { memoProcessQuickInsertItems } from '@atlaskit/editor-common/quick-insert';
@@ -27,7 +28,7 @@ import { getQuickInsertSuggestions } from './search';
 
 export type { QuickInsertPluginOptions };
 
-const quickInsertPlugin: NextEditorPlugin<
+export type QuickInsertPlugin = NextEditorPlugin<
   'quickInsert',
   {
     pluginConfiguration: QuickInsertPluginOptions | undefined;
@@ -42,7 +43,9 @@ const quickInsertPlugin: NextEditorPlugin<
       openElementBrowserModal: EditorCommand;
     };
   }
-> = ({ config: options, api }) => ({
+>;
+
+const quickInsertPlugin: QuickInsertPlugin = ({ config: options, api }) => ({
   name: 'quickInsert',
 
   pmPlugins(defaultItems: Array<QuickInsertHandler>) {
@@ -92,6 +95,7 @@ const quickInsertPlugin: NextEditorPlugin<
         <ModalElementBrowser
           editorView={editorView}
           helpUrl={options?.elementBrowserHelpUrl}
+          pluginInjectionAPI={api}
         />
       );
     }
@@ -111,6 +115,7 @@ const quickInsertPlugin: NextEditorPlugin<
       lazyDefaultItems: quickInsertState.lazyDefaultItems,
       emptyStateHandler: quickInsertState.emptyStateHandler,
       providedItems: quickInsertState.providedItems,
+      isElementBrowserModalOpen: quickInsertState.isElementBrowserModalOpen,
     };
   },
 

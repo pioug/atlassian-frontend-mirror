@@ -37,9 +37,6 @@
       "path": "../activity-provider/tsconfig.app.json"
     },
     {
-      "path": "../adf-schema/tsconfig.app.json"
-    },
-    {
       "path": "../adf-utils/tsconfig.app.json"
     },
     {

@@ -31,7 +31,9 @@ export default {
   'fabric.editor.sortColumnDESC': 'Rangschik kolom van Z → A',
   'fabric.editor.splitCell': 'Deel cel op',
   'fabric.editor.tableOptions': 'Tabelopties',
+  'fabric.editor.tables.adjustColumn': 'Kolom aanpassen',
   'fabric.editor.tables.confirmDeleteLinkedModalMessage':
     'Als je {nodeName} verwijdert, worden alle koppelingen ernaar verbroken.',
   'fabric.editor.tables.confirmDeleteLinkedModalOKButton': 'Verwijderen',
+  'fabric.editor.tables.resizeTable': 'Formaat van tabel wijzigen',
 };

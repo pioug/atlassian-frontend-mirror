@@ -29,7 +29,9 @@ export default {
   'fabric.editor.sortColumnDESC': 'Lajittele sarake laskevassa järjestyksessä',
   'fabric.editor.splitCell': 'Jaettu solu',
   'fabric.editor.tableOptions': 'Taulukkovaihtoehdot',
+  'fabric.editor.tables.adjustColumn': 'Säädä saraketta',
   'fabric.editor.tables.confirmDeleteLinkedModalMessage':
     'Solmun {nodeName} poistaminen rikkoo kaiken siihen yhdistetyn.',
   'fabric.editor.tables.confirmDeleteLinkedModalOKButton': 'Poista',
+  'fabric.editor.tables.resizeTable': 'Muuta taulukon kokoa',
 };

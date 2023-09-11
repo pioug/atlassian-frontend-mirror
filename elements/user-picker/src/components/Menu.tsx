@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import React from 'react';
 import { components } from '@atlaskit/select';
+import { token } from '@atlaskit/tokens';
 import { UserPickerProps } from '../types';
 import { css, jsx } from '@emotion/react';
 
@@ -10,7 +11,7 @@ export type Props = {
 
 const getFooterStyle = () => {
   return css({
-    padding: '8px 16px',
+    padding: `${token('space.100', '8px')} ${token('space.200', '16px')}`,
   });
 };
 

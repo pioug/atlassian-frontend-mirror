@@ -170,8 +170,7 @@ export type FlexibleUiOptions = {
 export type ServerActionOptions = {
   /**
    * DO NOT USE: This prop is part of an experiment. It will be removed once
-   * the experiment is completed. To be cleaned up on
-   * https://product-fabric.atlassian.net/browse/EDM-5795
+   * the experiment is completed.
    * @see https://team.atlassian.com/project/ATLAS-13099/about
    * @internal
    * @deprecated

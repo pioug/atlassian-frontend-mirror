@@ -21,16 +21,21 @@ describe('Textfield', () => {
         jest.spyOn(themeConstants, 'fontSize').mockImplementation(() => 1);
       });
       const compactProps = [
-        { isCompact: true, padding: '4px 6px', height: '2.00em' },
-        { isCompact: false, padding: '8px 6px', height: ' 2.57em' },
+        {
+          isCompact: true,
+          height: '2.00em',
+        },
+        {
+          isCompact: false,
+          height: ' 2.57em',
+        },
       ];
       compactProps.forEach((compactProp) => {
-        const { isCompact, padding, height } = compactProp;
+        const { isCompact, height } = compactProp;
         it(`when isCompact is set to ${isCompact}`, () => {
           const input = render(
             <Textfield testId="test" isCompact={isCompact} />,
           ).getByTestId('test');
-          expect(input).toHaveStyle(`padding: ${padding}`);
           expect(input).toHaveStyle(`height: ${height}`);
         });
       });

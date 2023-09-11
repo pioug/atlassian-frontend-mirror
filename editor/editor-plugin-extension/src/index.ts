@@ -1,1 +1,5 @@
-export type { CreateExtensionAPI, ExtensionPlugin } from './types';
+export type {
+  CreateExtensionAPI,
+  ExtensionPlugin,
+  ExtensionPluginOptions,
+} from './types';

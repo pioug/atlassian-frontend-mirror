@@ -49,12 +49,14 @@ import {
   getMaxToolbarWidth,
 } from './utils';
 import { isVideo } from '../utils/media-single';
+
 import {
   changeInlineToMediaCard,
   changeMediaCardToInline,
   removeInlineCard,
   setBorderMark,
   toggleBorderMark,
+  updateMediaSingleWidth,
 } from './commands';
 import {
   MediaInlineNodeSelector,
@@ -321,9 +323,6 @@ const generateMediaSingleFloatingToolbar = (
                 dispatch,
               );
             }}
-            showSomewhatSemanticTooltips={
-              getEditorFeatureFlags?.().useSomewhatSemanticTextColorNames
-            }
             borderMark={borderMark}
             intl={intl}
           />
@@ -452,27 +451,19 @@ const generateMediaSingleFloatingToolbar = (
                   );
                 }
               }}
-              onSubmit={({ width }) => {
-                const tr = state.tr.setNodeMarkup(
-                  selectedMediaSingleNode.pos,
-                  undefined,
-                  {
-                    ...selectedMediaSingleNode.node.attrs,
-                    width,
-                    widthType: 'pixel',
-                    layout: calcNewLayout(
-                      width,
-                      layout,
-                      contentWidth,
-                      options.fullWidthEnabled,
-                    ),
-                  },
+              onSubmit={({ width, validation }) => {
+                const newLayout = calcNewLayout(
+                  width,
+                  layout,
+                  contentWidth,
+                  options.fullWidthEnabled,
                 );
-                tr.setMeta('scrollIntoView', false);
-                tr.setSelection(
-                  NodeSelection.create(tr.doc, selectedMediaSingleNode.pos),
-                );
-                dispatch(tr);
+
+                updateMediaSingleWidth(pluginInjectionApi?.analytics?.actions)(
+                  width,
+                  validation,
+                  newLayout,
+                )(state, dispatch);
               }}
               onMigrate={() => {
                 const tr = state.tr.setNodeMarkup(

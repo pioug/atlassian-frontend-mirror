@@ -1,5 +1,28 @@
 # @atlaskit/editor-plugin-table
 
+## 2.14.0
+
+### Minor Changes
+
+- [`6ccd72d2fe0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6ccd72d2fe0) - ED-18264: Clean up useSomewhatSemanticTextColorNames - default behaviour will be same as when FF was on.
+
+### Patch Changes
+
+- [`69857bbbff0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/69857bbbff0) - [ED-20004] Capture errors in getPos due to prosemirror-view bump
+
+## 2.13.3
+
+### Patch Changes
+
+- [`aeb5c9a01e8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aeb5c9a01e8) - Delete adf-schema from AFE and rely on npm package for adf-schema
+- [`4b4dcfe0bba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4b4dcfe0bba) - Delete adf-schema, use published version
+
+## 2.13.2
+
+### Patch Changes
+
+- [`ddb171ba2d5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ddb171ba2d5) - Fix the table alignment issue with guideline snapping when numbered columnis enabled
+
 ## 2.13.1
 
 ### Patch Changes

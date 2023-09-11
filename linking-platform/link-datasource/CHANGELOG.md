@@ -1,5 +1,25 @@
 # @atlaskit/link-datasource
 
+## 1.0.21
+
+### Patch Changes
+
+- [`6900f89eb0e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6900f89eb0e) - Internal changes to use space tokens. There is no expected visual or behaviour change.
+- Updated dependencies
+
+## 1.0.20
+
+### Patch Changes
+
+- [`aeb5c9a01e8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aeb5c9a01e8) - Delete adf-schema from AFE and rely on npm package for adf-schema
+- [`4b4dcfe0bba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4b4dcfe0bba) - Delete adf-schema, use published version
+
+## 1.0.19
+
+### Patch Changes
+
+- [`dffd59c5534`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dffd59c5534) - [ux] The initial Jira datasource modal now renders a search icon with a helpful prompt
+
 ## 1.0.18
 
 ### Patch Changes

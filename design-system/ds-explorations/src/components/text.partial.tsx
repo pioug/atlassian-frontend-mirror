@@ -195,11 +195,11 @@ export default Text;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d3b73d63fef16f1f12ad8ec39520497e>>
+ * @codegen <<SignedSource::de3943f17f27e9d5895c249c30c12802>>
  * @codegenId typography
  * @codegenCommand yarn codegen-styles
  * @codegenParams ["fontSize", "fontWeight", "fontFamily", "lineHeight"]
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-typography.tsx <<SignedSource::0e11bb3b13c1850386ae45bae589a46a>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-typography.tsx <<SignedSource::85d34d11efbf90832fccaf960c2ea033>>
  */
 const fontSizeMap = {
   'size.050': css({
@@ -248,6 +248,12 @@ const fontWeightMap = {
 export type FontWeight = keyof typeof fontWeightMap;
 
 const fontFamilyMap = {
+  body: css({
+    fontFamily: token(
+      'font.family.body',
+      'ui-sans-serif, "Segoe UI", system-ui, Ubuntu, "Helvetica Neue", sans-serif',
+    ),
+  }),
   brand: css({
     fontFamily: token('font.family.brand', 'Charlie Sans'),
   }),
@@ -257,16 +263,16 @@ const fontFamilyMap = {
       'ui-monospace, Menlo, "Segoe UI Mono", "Ubuntu Mono", monospace',
     ),
   }),
+  heading: css({
+    fontFamily: token(
+      'font.family.heading',
+      'ui-sans-serif, "Segoe UI", system-ui, Ubuntu, "Helvetica Neue", sans-serif',
+    ),
+  }),
   monospace: css({
     fontFamily: token(
       'font.family.monospace',
       'ui-monospace, Menlo, "Segoe UI Mono", "Ubuntu Mono", monospace',
-    ),
-  }),
-  product: css({
-    fontFamily: token(
-      'font.family.product',
-      'ui-sans-serif, "Segoe UI", system-ui, Ubuntu, "Helvetica Neue", sans-serif',
     ),
   }),
   sans: css({

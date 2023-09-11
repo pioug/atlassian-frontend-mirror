@@ -4,7 +4,7 @@ exports[`User mention description should render User Mention description compone
 .emotion-0 {
   color: var(--ds-text-subtlest, #7A869A);
   font-size: 12px;
-  margin-top: 2px;
+  margin-top: var(--ds-space-025, 2px);
   display: block;
   overflow: hidden;
   text-overflow: ellipsis;

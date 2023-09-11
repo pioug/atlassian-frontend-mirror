@@ -1,21 +1,23 @@
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
 import {
   ACTION,
   ACTION_SUBJECT,
-  AnalyticsEventPayload,
   EVENT_TYPE,
   fireAnalyticsEvent,
 } from '@atlaskit/editor-common/analytics';
-import { EditorExperience, ExperienceStore } from '@atlaskit/editor-common/ufo';
+import type { ExperienceStore } from '@atlaskit/editor-common/ufo';
+import { EditorExperience } from '@atlaskit/editor-common/ufo';
 import { getTTISeverity } from '@atlaskit/editor-common/utils';
 
-import { EditorProps } from '../../types/editor-props';
-import { PerformanceTracking } from '../../types/performance-tracking';
+import type { EditorProps } from '../../types/editor-props';
+import type { PerformanceTracking } from '../../types/performance-tracking';
 
 export default function editorMeasureTTICallback(
   tti: number,
   ttiFromInvocation: number,
   canceled: boolean,
+  distortedDuration: boolean,
   performanceTracking: PerformanceTracking | undefined,
   featureFlags: EditorProps['featureFlags'],
   createAnalyticsEvent?: CreateUIAnalyticsEvent,
@@ -26,7 +28,7 @@ export default function editorMeasureTTICallback(
       payload: {
         action: ACTION.EDITOR_TTI,
         actionSubject: ACTION_SUBJECT.EDITOR,
-        attributes: { tti, ttiFromInvocation, canceled },
+        attributes: { tti, ttiFromInvocation, canceled, distortedDuration },
         eventType: EVENT_TYPE.OPERATIONAL,
       },
     };

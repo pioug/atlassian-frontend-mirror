@@ -4,6 +4,7 @@ import React from 'react';
 import { css, jsx } from '@emotion/react';
 
 import { h500 } from '@atlaskit/theme/typography';
+import { token } from '@atlaskit/tokens';
 
 import { IntegrationContentProps } from '../types';
 
@@ -27,12 +28,12 @@ export const formWrapperStyle = css`
 
   [class^='FormFooter__FormFooterWrapper'] {
     justify-content: space-between;
-    margin-top: 12px;
-    margin-bottom: 24px;
+    margin-top: ${token('space.150', '12px')};
+    margin-bottom: ${token('space.300', '24px')};
   }
 
   [class^='Field__FieldWrapper']:not(:first-child) {
-    margin-top: 12px;
+    margin-top: ${token('space.150', '12px')};
   }
 `;
 

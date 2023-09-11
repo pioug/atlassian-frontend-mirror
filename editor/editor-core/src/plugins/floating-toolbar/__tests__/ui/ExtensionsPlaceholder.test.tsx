@@ -158,11 +158,13 @@ describe('ExtensionsPlaceholder', () => {
   });
 
   it('should execute action on click toolbar item', async () => {
-    const { editorView, action } = setupEditor();
+    const { editorView, action, editorAPI } = setupEditor();
     const wrapper = setupExtensionPlaceholder(
       editorView.state.doc.firstChild!,
       editorView,
       action,
+      null,
+      editorAPI,
     );
 
     await flushPromises();
@@ -202,7 +204,7 @@ describe('ExtensionsPlaceholder', () => {
       ),
     );
 
-    const { editorView, refs } = createEditor({
+    const { editorView, refs, editorAPI } = createEditor({
       doc: docNode || defaultDocNode,
       editorProps: {
         allowTables: true,
@@ -219,7 +221,7 @@ describe('ExtensionsPlaceholder', () => {
         ),
       );
 
-    return { editorView, refs, action };
+    return { editorView, refs, action, editorAPI };
   }
 
   function setupExtensionPlaceholder(
@@ -227,6 +229,7 @@ describe('ExtensionsPlaceholder', () => {
     editorView: EditorView,
     action: any,
     testContext?: any,
+    editorAPI?: any,
   ): ReactWrapper {
     const defaultContext = {
       type: 'node',
@@ -248,6 +251,7 @@ describe('ExtensionsPlaceholder', () => {
           },
         ])}
         applyChangeToContextPanel={undefined}
+        extensionApi={editorAPI?.extension.actions?.api()}
       />,
     );
   }

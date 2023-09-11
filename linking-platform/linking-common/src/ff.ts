@@ -35,6 +35,7 @@ export interface LinkingPlatformFeatureFlags {
    * component.
    * The allowed values are: 'not-enrolled', 'control', 'experiment'.
    * See https://team.atlassian.com/project/ATLAS-13099
+   * @deprecated Implementation removed in EDM-5795
    */
   useLozengeAction?: string;
   /**

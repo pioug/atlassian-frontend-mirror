@@ -12,6 +12,15 @@ const utility: AttributeSchema<UtilTokenSchema<BaseToken>> = {
           'Transparent token used for backwards compatibility between new and old theming solutions',
       },
     },
+    textTransformUppercase: {
+      attributes: {
+        group: 'raw',
+        state: 'active',
+        introduced: '1.20.1',
+        description:
+          'Text transform uppercase token used for backwards compatibility between new and old theming solutions',
+      },
+    },
   },
   elevation: {
     surface: {

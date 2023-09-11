@@ -2,11 +2,8 @@
 import { Component } from 'react';
 
 import { jsx } from '@emotion/react';
-import {
-  defineMessages,
-  injectIntl,
-  WrappedComponentProps,
-} from 'react-intl-next';
+import type { WrappedComponentProps } from 'react-intl-next';
+import { defineMessages, injectIntl } from 'react-intl-next';
 
 type DropdownItem = MenuItem & {
   value: {
@@ -24,10 +21,7 @@ import {
   tooltip,
 } from '@atlaskit/editor-common/keymaps';
 import { DropdownMenuSharedCssClassName } from '@atlaskit/editor-common/styles';
-import type {
-  GetEditorContainerWidth,
-  GetEditorFeatureFlags,
-} from '@atlaskit/editor-common/types';
+import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
 import {
   backgroundPaletteTooltipMessages,
   cellBackgroundColorPalette,
@@ -40,9 +34,9 @@ import {
 } from '@atlaskit/editor-common/ui-menu';
 import { closestElement } from '@atlaskit/editor-common/utils';
 import { hexToEditorBackgroundPaletteColor } from '@atlaskit/editor-palette';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
-import { Rect } from '@atlaskit/editor-tables/table-map';
+import type { Rect } from '@atlaskit/editor-tables/table-map';
 import { splitCell } from '@atlaskit/editor-tables/utils';
 
 import {
@@ -135,7 +129,6 @@ export interface Props {
   offset?: Array<number>;
   editorAnalyticsAPI?: EditorAnalyticsAPI;
   getEditorContainerWidth: GetEditorContainerWidth;
-  getEditorFeatureFlags: GetEditorFeatureFlags;
 }
 
 export interface State {
@@ -215,11 +208,9 @@ export class ContextualMenu extends Component<
       selectionRect,
       intl: { formatMessage },
       editorView,
-      getEditorFeatureFlags,
     } = this.props;
     const items: any[] = [];
     const { isSubmenuOpen } = this.state;
-    const { useSomewhatSemanticTextColorNames } = getEditorFeatureFlags();
     // TargetCellPosition could be outdated: https://product-fabric.atlassian.net/browse/ED-8129
     const {
       targetCellPosition,
@@ -256,14 +247,6 @@ export class ContextualMenu extends Component<
                     paletteColorTooltipMessages:
                       backgroundPaletteTooltipMessages,
                     hexToPaletteColor: hexToEditorBackgroundPaletteColor,
-                    // We did not want to create new FF or update
-                    //  useSomewhatSemanticTextColorNames name
-                    //  because it is temporary and require extra work.
-                    // So even though it says text color names,
-                    //  we are going to use for all color pickers
-                    //  such as text, background and table charts.
-                    showSomewhatSemanticTooltips:
-                      useSomewhatSemanticTextColorNames,
                   }}
                 />
               </div>

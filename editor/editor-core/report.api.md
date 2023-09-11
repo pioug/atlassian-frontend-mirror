@@ -1287,7 +1287,7 @@ export interface MediaOptions {
   // (undocumented)
   allowResizingInTables?: boolean;
   // (undocumented)
-  allowTemplatePlaceholders?: PlaceholderTextOptions | boolean;
+  allowTemplatePlaceholders?: PlaceholderTextOptions_2 | boolean;
   // (undocumented)
   altTextValidator?: (value: string) => string[];
   // (undocumented)
@@ -1667,6 +1667,12 @@ type PickerType = 'clipboard' | 'customMediaPicker' | 'dropzone';
 
 // @public (undocumented)
 interface PlaceholderTextOptions {
+  // (undocumented)
+  allowInserting?: boolean;
+}
+
+// @public (undocumented)
+interface PlaceholderTextOptions_2 {
   // (undocumented)
   allowInserting?: boolean;
 }

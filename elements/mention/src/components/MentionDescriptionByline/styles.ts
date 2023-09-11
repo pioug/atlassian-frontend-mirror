@@ -6,7 +6,7 @@ export const DescriptionBylineStyle = styled.span`
   color: ${token('color.text.subtlest', N100)};
   font-size: 12px;
 
-  margin-top: 2px;
+  margin-top: ${token('space.025', '2px')};
 
   display: block;
   overflow: hidden;

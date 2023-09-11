@@ -469,6 +469,7 @@ export type ActiveTokens =
   | 'space.negative.250'
   | 'space.negative.300'
   | 'space.negative.400'
+  | 'utility.UNSAFE.textTransformUppercase'
   | 'utility.UNSAFE.transparent'
   | 'utility.elevation.surface.current';
 
@@ -1084,6 +1085,7 @@ type CSSTokenMap = {
   'elevation.shadow.raised': 'var(--ds-shadow-raised)';
   'opacity.disabled': 'var(--ds-opacity-disabled)';
   'opacity.loading': 'var(--ds-opacity-loading)';
+  'utility.UNSAFE.textTransformUppercase': 'var(--ds-UNSAFE-textTransformUppercase)';
   'utility.UNSAFE.transparent': 'var(--ds-UNSAFE-transparent)';
   'utility.elevation.surface.current': 'var(--ds-elevation-surface-current)';
   'border.radius.050': 'var(--ds-border-radius-050)';
@@ -1138,9 +1140,10 @@ type CSSTokenMap = {
   'font.letterSpacing.400': 'var(--ds-font-letterSpacing-400)';
   'font.ui': 'var(--ds-font-ui)';
   'font.ui.sm': 'var(--ds-font-ui-sm)';
+  'font.family.body': 'var(--ds-font-family-body)';
   'font.family.code': 'var(--ds-font-family-code)';
+  'font.family.heading': 'var(--ds-font-family-heading)';
   'font.family.monospace': 'var(--ds-font-family-monospace)';
-  'font.family.product': 'var(--ds-font-family-product)';
   'font.family.sans': 'var(--ds-font-family-sans)';
   'font.family.brand': 'var(--ds-font-family-brand)';
   'font.size.050': 'var(--ds-font-size-050)';
@@ -1175,6 +1178,12 @@ type DeletedTokenState = 'deleted';
 
 // @public (undocumented)
 type DeprecatedTokenState = 'deprecated';
+
+// @public (undocumented)
+type DeprecatedTypographyToken<BaseToken> = DesignToken<
+  BaseToken,
+  'fontFamily' | 'fontSize' | 'fontWeight' | 'letterSpacing' | 'lineHeight'
+>;
 
 // @public
 interface DesignToken<TValue, Group extends Groups>
@@ -1223,6 +1232,32 @@ type ExperimentalTokenState = 'experimental';
 
 // @public
 type ExtensionThemeId = ThemeIds;
+
+// @public (undocumented)
+type FlattenKeys<T, Prefix extends string = ''> = {
+  [Key in keyof T]: T[Key] extends object
+    ? T[Key] extends {
+        value: string;
+      }
+      ? `${Prefix}${Key & string}`
+      : `${Prefix}${Key & string}.${FlattenKeys<T[Key]>}`
+    : `${Prefix}.${Key & string}`;
+}[keyof T];
+
+// @public (undocumented)
+interface FontFamilyTokenSchema<BaseToken> {
+  // (undocumented)
+  font: {
+    family: {
+      sans: DeprecatedTypographyToken<BaseToken>;
+      monospace: DeprecatedTypographyToken<BaseToken>;
+      body: DeprecatedTypographyToken<BaseToken>;
+      heading: DeprecatedTypographyToken<BaseToken>;
+      brand: DeprecatedTypographyToken<BaseToken>;
+      code: DeprecatedTypographyToken<BaseToken>;
+    };
+  };
+}
 
 // @public (undocumented)
 export const getGlobalTheme: () => Partial<ActiveThemeState>;
@@ -1719,6 +1754,7 @@ type InternalTokenIds =
   | 'space.negative.250'
   | 'space.negative.300'
   | 'space.negative.400'
+  | 'utility.UNSAFE.textTransformUppercase'
   | 'utility.UNSAFE.transparent'
   | 'utility.elevation.surface.current';
 
@@ -2347,6 +2383,7 @@ const tokens: {
   readonly 'elevation.shadow.raised': '--ds-shadow-raised';
   readonly 'opacity.disabled': '--ds-opacity-disabled';
   readonly 'opacity.loading': '--ds-opacity-loading';
+  readonly 'utility.UNSAFE.textTransformUppercase': '--ds-UNSAFE-textTransformUppercase';
   readonly 'utility.UNSAFE.transparent': '--ds-UNSAFE-transparent';
   readonly 'utility.elevation.surface.current': '--ds-elevation-surface-current';
   readonly 'border.radius.050': '--ds-border-radius-050';
@@ -2401,9 +2438,10 @@ const tokens: {
   readonly 'font.letterSpacing.400': '--ds-font-letterSpacing-400';
   readonly 'font.ui': '--ds-font-ui';
   readonly 'font.ui.sm': '--ds-font-ui-sm';
+  readonly 'font.family.body': '--ds-font-family-body';
   readonly 'font.family.code': '--ds-font-family-code';
+  readonly 'font.family.heading': '--ds-font-family-heading';
   readonly 'font.family.monospace': '--ds-font-family-monospace';
-  readonly 'font.family.product': '--ds-font-family-product';
   readonly 'font.family.sans': '--ds-font-family-sans';
   readonly 'font.family.brand': '--ds-font-family-brand';
   readonly 'font.size.050': '--ds-font-size-050';
@@ -2450,7 +2488,7 @@ export type TypographyToken<
   {
     fontStyle: 'normal';
     fontWeight: TPalette['fontWeight'];
-    fontFamily: TPalette['fontFamily'];
+    fontFamily: FlattenKeys<FontFamilyTokenSchema<any>>;
     fontSize: TPalette['fontSize'];
     lineHeight: TPalette['lineHeight'];
     letterSpacing: TPalette['letterSpacing'];

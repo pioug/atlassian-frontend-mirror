@@ -1,4 +1,6 @@
 import React from 'react';
+
+import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import { PluginKey, NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
@@ -8,7 +10,10 @@ import {
   mediaInline,
   mediaSingleSpec,
 } from '@atlaskit/adf-schema';
+
 import type {
+  EditorAppearance,
+  ExtractInjectionAPI,
   PMPlugin,
   PMPluginFactoryParams,
 } from '@atlaskit/editor-common/types';
@@ -34,19 +39,43 @@ import {
   ACTION_SUBJECT_ID,
 } from '@atlaskit/editor-common/analytics';
 import { IconImages } from '@atlaskit/editor-common/quick-insert';
-import WithPluginState from '../../ui/WithPluginState';
 import { MediaPickerComponents } from './ui/MediaPicker';
-import { messages } from '../insert-block/ui/ToolbarInsertBlock/messages';
+import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import { ReactMediaNode } from './nodeviews/mediaNodeView';
 import { ReactMediaInlineNode } from './nodeviews/mediaInline';
 
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { stateKey } from './pm-plugins/plugin-key';
 
-import type { MediaNextEditorPluginType } from './next-plugin-type';
-
 export type { MediaState, MediaProvider, CustomMediaPicker };
 export { insertMediaSingleNode } from './utils/media-single';
+import type { MediaNextEditorPluginType } from './next-plugin-type';
+
+type MediaPickerFunctionalComponentProps = {
+  editorDomElement: Element;
+  appearance: EditorAppearance;
+  api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined;
+};
+const MediaPickerFunctionalComponent = ({
+  api,
+  editorDomElement,
+  appearance,
+}: MediaPickerFunctionalComponentProps) => {
+  const { mediaState } = useSharedPluginState(api, ['media']);
+
+  if (!mediaState) {
+    return null;
+  }
+
+  return (
+    <MediaPickerComponents
+      editorDomElement={editorDomElement}
+      mediaState={mediaState}
+      appearance={appearance}
+      api={api}
+    />
+  );
+};
 
 const mediaPlugin: MediaNextEditorPluginType = ({
   config: options = {},
@@ -155,6 +184,7 @@ const mediaPlugin: MediaNextEditorPluginType = ({
                     options,
                     api,
                   ),
+                  // @ts-expect-error
                   mediaInline: ReactMediaInlineNode(
                     portalProviderAPI,
                     eventDispatcher,
@@ -257,34 +287,17 @@ const mediaPlugin: MediaNextEditorPluginType = ({
 
     contentComponent({ editorView, appearance }) {
       return (
-        <>
-          <WithPluginState
-            editorView={editorView}
-            plugins={{
-              mediaState: pluginKey,
-            }}
-            render={({ mediaState }) => (
-              <MediaPickerComponents
-                editorDomElement={editorView.dom}
-                mediaState={mediaState!}
-                appearance={appearance}
-                api={api}
-              />
-            )}
-          />
-        </>
+        <MediaPickerFunctionalComponent
+          editorDomElement={editorView.dom}
+          appearance={appearance}
+          api={api}
+        />
       );
     },
 
     secondaryToolbarComponent({ editorView, eventDispatcher, disabled }) {
       return (
-        <ToolbarMedia
-          editorView={editorView}
-          eventDispatcher={eventDispatcher}
-          pluginKey={pluginKey}
-          isDisabled={disabled}
-          isReducedSpacing={true}
-        />
+        <ToolbarMedia isDisabled={disabled} isReducedSpacing={true} api={api} />
       );
     },
 

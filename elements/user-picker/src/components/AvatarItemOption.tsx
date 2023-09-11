@@ -1,6 +1,5 @@
 /** @jsx jsx */
 import React, { ReactNode } from 'react';
-import { gridSize } from '@atlaskit/theme/constants';
 import { css, jsx } from '@emotion/react';
 import Lozenge from '@atlaskit/lozenge';
 import { token } from '@atlaskit/tokens';
@@ -36,7 +35,7 @@ const optionWrapper = css({
   minWidth: 0,
   flex: '1 1 100%',
   lineHeight: '1.4',
-  paddingLeft: `${gridSize()}px`,
+  paddingLeft: token('space.100', '8px'),
 });
 
 const getTextStyle = (isSecondary?: boolean) => {

@@ -14,7 +14,7 @@ const integrationButtonCopyWrapperStyle = css`
 `;
 
 const integrationIconWrapperStyle = css`
-  margin: 1px 8px 0 0;
+  margin: 1px ${token('space.100', '8px')} 0 0;
 `;
 
 type Props = CustomThemeButtonProps & {

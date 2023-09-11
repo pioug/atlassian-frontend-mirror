@@ -26,64 +26,50 @@ snapshot.skip(EmbedCardUnauthorisedNoAuth);
 
 snapshot(EmbedCardError, {
   description: 'refreshed embed card error view',
-  hooks: {
-    featureFlags: {
-      'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
-        true,
-    },
+  featureFlags: {
+    'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
+      true,
   },
 });
 snapshot.skip(EmbedCardForbidden, {
   description: 'refreshed embed card forbidden view',
-  hooks: {
-    featureFlags: {
-      'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
-        true,
-    },
+  featureFlags: {
+    'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
+      true,
   },
 });
 snapshot.skip(EmbedCardNotFound, {
   description: 'refreshed embed card link not found',
-  hooks: {
-    featureFlags: {
-      'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
-        true,
-    },
+  featureFlags: {
+    'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
+      true,
   },
 });
 snapshot(EmbedCardResolved, {
   description: 'refreshed embed card resolved view',
-  hooks: {
-    featureFlags: {
-      'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
-        true,
-    },
+  featureFlags: {
+    'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
+      true,
   },
 });
 snapshot.skip(EmbedCardUnauthorised, {
   description: 'refreshed embed card unathorised view',
-  hooks: {
-    featureFlags: {
-      'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
-        true,
-    },
+  featureFlags: {
+    'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
+      true,
   },
 });
 snapshot(EmbedCardUnauthorisedWithProviderImage, {
   description: 'refreshed embed card unathorised view with provider image',
-  hooks: {
-    featureFlags: {
-      'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
-        true,
-    },
+  featureFlags: {
+    'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
+      true,
   },
 });
 snapshot.skip(EmbedCardUnauthorisedNoAuth, {
   description: 'refreshed embed card unathorised view with no auth',
-  hooks: {
-    featureFlags: {
-      'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
-        true,
-    },
+  featureFlags: {
+    'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
+      true,
   },
 });

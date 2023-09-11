@@ -24,7 +24,7 @@ const buttonStyles = css`
 
 const buttonWrapperStyles = css`
   border: 1px solid transparent;
-  margin: 0 2px;
+  margin: 0 ${token('space.025', '2px')};
   font-size: 0;
   display: flex;
   align-items: center;

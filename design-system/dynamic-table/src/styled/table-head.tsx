@@ -5,8 +5,6 @@ import { FC, forwardRef, HTMLProps, ReactNode } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import { B100, N30A } from '@atlaskit/theme/colors';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import { gridSize as getGridSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 import { ASC, DESC } from '../internal/constants';
@@ -21,8 +19,6 @@ import {
   TruncateStyleProps,
   truncationWidthStyles,
 } from './constants';
-
-const gridSize = getGridSize();
 
 interface HeadProps {
   isRanking?: boolean;
@@ -101,13 +97,13 @@ const baseStyles = css({
       height: 0,
       position: 'absolute',
       // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-      right: `-${gridSize}px`,
+      right: token('space.negative.100', '-8px'),
       border: '3px solid transparent',
       content: '""',
     },
     '&::before': {
       // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-      bottom: '8px',
+      bottom: token('space.100', '8px'),
       borderBottom: `3px solid ${arrow.defaultColor}`,
     },
     '&::after': {

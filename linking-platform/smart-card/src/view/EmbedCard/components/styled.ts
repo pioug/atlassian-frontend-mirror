@@ -158,7 +158,7 @@ const wrapperStyles = (props: WrapperProps) => `
     position: absolute;
     width: calc(100% + ${token('space.200', '16px')});
     height: calc(100% + ${token('space.100', '8px')});
-    left: calc(-1 * ${token('space.100', '8px')});
+    left: ${token('space.negative.100', '-8px')};
     ${
       getBooleanFF(
         'platform.linking-platform.smart-card.show-smart-links-refreshed-design',

@@ -1,18 +1,22 @@
 import React, { useCallback } from 'react';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import WithPluginState from '../../../../ui/WithPluginState';
-import { pluginKey } from '../../plugin-key';
-import type { QuickInsertPluginState } from '@atlaskit/editor-common/types';
+import type {
+  QuickInsertSharedState,
+  ExtractInjectionAPI,
+} from '@atlaskit/editor-common/types';
 
-import ModalElementBrowser from '../../../../ui/ElementBrowser/ModalElementBrowser';
+import ModalElementBrowser from './ModalElementBrowser';
 
 import { closeElementBrowserModal, insertItem } from '../../commands';
 import { getQuickInsertSuggestions } from '../../search';
+import type { QuickInsertPlugin } from '../../';
+import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 
 type Props = {
   editorView: EditorView;
   helpUrl: string | undefined;
+  pluginInjectionAPI: ExtractInjectionAPI<QuickInsertPlugin> | undefined;
 };
 
 const Modal = ({
@@ -21,7 +25,7 @@ const Modal = ({
   helpUrl,
 }: {
   editorView: EditorView;
-  quickInsertState: QuickInsertPluginState | undefined;
+  quickInsertState: QuickInsertSharedState | undefined;
   helpUrl?: string;
 }) => {
   const getItems = useCallback(
@@ -69,22 +73,16 @@ const Modal = ({
   );
 };
 
-export default ({ editorView, helpUrl }: Props) => {
-  const render = useCallback(
-    ({ quickInsertState }) => (
-      <Modal
-        quickInsertState={quickInsertState}
-        editorView={editorView}
-        helpUrl={helpUrl}
-      />
-    ),
-    [editorView, helpUrl],
-  );
+export default ({ editorView, helpUrl, pluginInjectionAPI }: Props) => {
+  const { quickInsertState } = useSharedPluginState(pluginInjectionAPI, [
+    'quickInsert',
+  ]);
 
   return (
-    <WithPluginState
-      plugins={{ quickInsertState: pluginKey }}
-      render={render}
+    <Modal
+      quickInsertState={quickInsertState ?? undefined}
+      editorView={editorView}
+      helpUrl={helpUrl}
     />
   );
 };

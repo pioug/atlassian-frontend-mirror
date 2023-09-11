@@ -269,34 +269,6 @@ describe('Feature Flags from Props', () => {
     });
   });
 
-  describe('useSomewhatSemanticTextColorNames', () => {
-    it('should add the FF value', () => {
-      expect(
-        createFeatureFlagsFromProps({
-          featureFlags: {
-            'use-somewhat-semantic-text-color-names': true,
-          },
-        }),
-      ).toEqual(
-        expect.objectContaining({
-          useSomewhatSemanticTextColorNames: true,
-        }),
-      );
-    });
-
-    it('should default to false if nothing passed in', () => {
-      expect(
-        createFeatureFlagsFromProps({
-          featureFlags: {},
-        }),
-      ).toEqual(
-        expect.objectContaining({
-          useSomewhatSemanticTextColorNames: false,
-        }),
-      );
-    });
-  });
-
   describe('floating toolbar link settings button', () => {
     it('should add the FF value', () => {
       expect(

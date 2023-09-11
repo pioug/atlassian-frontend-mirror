@@ -162,6 +162,7 @@ describe('PixelEntry floating bar component', () => {
     expect(onSubmitMock).toHaveBeenCalled();
     expect(onSubmitMock).toHaveBeenCalledWith({
       width: 1000,
+      validation: 'valid',
     });
   });
   test('calls submit handler when uses presses enter in inputWidth with invalid input (smaller than minimum width)', async () => {
@@ -178,6 +179,7 @@ describe('PixelEntry floating bar component', () => {
     expect(onSubmitMock).toHaveBeenCalled();
     expect(onSubmitMock).toHaveBeenCalledWith({
       width: 24,
+      validation: 'less-than-min',
     });
   });
   test('calls submit handler when uses presses enter in inputWidth with invalid input (greater than maximum width)', async () => {
@@ -194,6 +196,7 @@ describe('PixelEntry floating bar component', () => {
     expect(onSubmitMock).toHaveBeenCalled();
     expect(onSubmitMock).toHaveBeenCalledWith({
       width: 1800,
+      validation: 'greater-than-max',
     });
   });
   test('calls submit handler when user presses enter in inputHeight with valid input', async () => {
@@ -210,6 +213,7 @@ describe('PixelEntry floating bar component', () => {
     expect(onSubmitMock).toHaveBeenCalled();
     expect(onSubmitMock).toHaveBeenCalledWith({
       width: 750,
+      validation: 'valid',
     });
   });
   test('calls submit handler when uses presses enter in inputHeight with invalid input (smaller than minimum width)', async () => {
@@ -226,6 +230,7 @@ describe('PixelEntry floating bar component', () => {
     expect(onSubmitMock).toHaveBeenCalled();
     expect(onSubmitMock).toHaveBeenCalledWith({
       width: 24,
+      validation: 'less-than-min',
     });
   });
   test('calls submit handler when uses presses enter in inputHeight with invalid input (greater than maximum width)', async () => {
@@ -242,6 +247,7 @@ describe('PixelEntry floating bar component', () => {
     expect(onSubmitMock).toHaveBeenCalled();
     expect(onSubmitMock).toHaveBeenCalledWith({
       width: 1800,
+      validation: 'greater-than-max',
     });
   });
 

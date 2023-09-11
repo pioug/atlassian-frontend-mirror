@@ -21,7 +21,7 @@ const globalStyles = css`
     margin-top: ${token('space.800', '64px')};
     margin-bottom: ${token('space.800', '64px')};
     .page {
-      margin: 1px auto -8px auto;
+      margin: 1px auto ${token('space.negative.100', '-8px')} auto;
       border: 9px solid transparent;
       position: relative;
 

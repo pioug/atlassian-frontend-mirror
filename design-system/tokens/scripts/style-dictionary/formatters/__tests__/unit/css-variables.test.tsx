@@ -391,7 +391,7 @@ describe('formatter', () => {
               fontWeight: 'bold',
               fontStyle: 'normal',
               fontSize: '16px',
-              fontFamily: 'sans-serif',
+              fontFamily: 'typog.ffbase',
               lineHeight: '24px',
             },
             original: {

@@ -1,5 +1,18 @@
 # @atlaskit/editor-wikimarkup-transformer
 
+## 11.2.17
+
+### Patch Changes
+
+- [`aeb5c9a01e8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aeb5c9a01e8) - Delete adf-schema from AFE and rely on npm package for adf-schema
+- [`4b4dcfe0bba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4b4dcfe0bba) - Delete adf-schema, use published version
+
+## 11.2.16
+
+### Patch Changes
+
+- [`15aeec90e88`](https://bitbucket.org/atlassian/atlassian-frontend/commits/15aeec90e88) - Fixed text of atlassian-info emoji
+
 ## 11.2.15
 
 ### Patch Changes
@@ -2126,7 +2139,7 @@ Bumped dependencies.
 
 ## 2.1.21
 
-- [patch][c6763e2" d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/c6763e2"
+- [patch][c6763e2](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/c6763e2"
   d):
 
   - new pattern for mention

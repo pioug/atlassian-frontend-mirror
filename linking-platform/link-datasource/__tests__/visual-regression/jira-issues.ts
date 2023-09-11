@@ -10,8 +10,8 @@ import {
 const basicSearchButtonSelector =
   '[data-testid="jira-jql-datasource-modal--basic-search-button"]';
 const countModeToggleSelector = '[data-testid="mode-toggle-count"]';
-const emptyStateTable =
-  '[data-testid="jira-jql-datasource-modal--empty-state"]';
+const initialTableState =
+  '[data-testid="jlol-datasource-modal--initial-state-view"]';
 const jiraModal = '[data-testid="jira-jql-datasource-modal"]';
 const jiraModalSiteSelector =
   '[data-testid="jira-jql-datasource-modal--site-selector--trigger"]';
@@ -44,7 +44,7 @@ describe('Modal', () => {
     });
 
     await loadPage(page, url);
-    await page.waitForSelector(emptyStateTable);
+    await page.waitForSelector(initialTableState);
   });
 
   describe('without initial jql', () => {

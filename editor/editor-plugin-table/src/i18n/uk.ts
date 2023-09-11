@@ -34,7 +34,9 @@ export default {
   'fabric.editor.sortColumnDESC': 'Сортувати стовпці від Я до А',
   'fabric.editor.splitCell': 'Розділити клітинки',
   'fabric.editor.tableOptions': 'Параметри таблиці',
+  'fabric.editor.tables.adjustColumn': 'Налаштувати стовпець',
   'fabric.editor.tables.confirmDeleteLinkedModalMessage':
     'Видалення розширення {nodeName} порушить роботу всього, що з ним пов’язано.',
   'fabric.editor.tables.confirmDeleteLinkedModalOKButton': 'Видалити',
+  'fabric.editor.tables.resizeTable': 'Змінити розмір таблиці',
 };

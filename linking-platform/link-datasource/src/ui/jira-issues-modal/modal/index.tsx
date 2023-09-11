@@ -41,6 +41,7 @@ import { ModalLoadingError } from '../../common/error-state/modal-loading-error'
 import { NoResults } from '../../common/error-state/no-results';
 import { EmptyState, IssueLikeDataTableView } from '../../issue-like-table';
 import LinkRenderType from '../../issue-like-table/render-type/link';
+import { InitialStateView } from '../initial-state-view';
 import { JiraSearchContainer } from '../jira-search-container';
 import { ModeSwitcher } from '../mode-switcher';
 import { JiraSiteSelector } from '../site-selector';
@@ -460,7 +461,14 @@ export const PlainJiraIssuesConfigModal = (
       // persist the empty state when making the initial /data request which contains the columns
       return (
         <div css={contentContainerStyles}>
-          <EmptyState testId={`jira-jql-datasource-modal--empty-state`} />
+          {!!jql ? (
+            <EmptyState
+              testId={`jira-jql-datasource-modal--empty-state`}
+              isLoading={true}
+            />
+          ) : (
+            <InitialStateView />
+          )}
         </div>
       );
     }
@@ -477,13 +485,14 @@ export const PlainJiraIssuesConfigModal = (
     return issueLikeDataTableView;
   }, [
     status,
-    columns.length,
-    resolvedWithNoResults,
     jqlUrl,
+    resolvedWithNoResults,
+    columns.length,
     retrieveUrlForSmartCardRender,
     responseItems.length,
     issueLikeDataTableView,
     selectedJiraSite?.displayName,
+    jql,
   ]);
 
   return (

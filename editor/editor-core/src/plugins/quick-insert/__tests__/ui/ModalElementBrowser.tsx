@@ -4,7 +4,7 @@ import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import type { TypeAheadInsert } from '../../../type-ahead/types';
 import quickInsertPlugin from '../..';
-import type { Props } from '../../../../ui/ElementBrowser/ModalElementBrowser';
+import type { Props } from '../../ui/ModalElementBrowser/ModalElementBrowser';
 import { closeElementBrowserModal, insertItem } from '../../commands';
 import { getQuickInsertSuggestions } from '../../search';
 

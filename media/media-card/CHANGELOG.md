@@ -1,5 +1,11 @@
 # @atlaskit/media-card
 
+## 76.2.1
+
+### Patch Changes
+
+- [`6900f89eb0e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6900f89eb0e) - Internal changes to use space tokens. There is no expected visual or behaviour change.
+
 ## 76.2.0
 
 ### Minor Changes
@@ -2734,7 +2740,7 @@ withAnalyticsEvents<Props>()(Button);
 
 ## 41.2.0
 
-- [minor][439dde6" d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/439dde6"
+- [minor][439dde6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/439dde6"
   d):
 
   - rotate local image preview in cards based on the file orientation

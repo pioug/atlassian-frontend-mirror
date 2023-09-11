@@ -31,7 +31,9 @@ export default {
   'fabric.editor.sortColumnDESC': 'Oszlop rendezése: Z → A',
   'fabric.editor.splitCell': 'Cella felosztása',
   'fabric.editor.tableOptions': 'Táblázatbeállítások',
+  'fabric.editor.tables.adjustColumn': 'Oszlop igazítása',
   'fabric.editor.tables.confirmDeleteLinkedModalMessage':
     'Ha törlöd a(z) {nodeName} csomópontot, a hozzá kapcsolódó elemek sem fognak működni.',
   'fabric.editor.tables.confirmDeleteLinkedModalOKButton': 'Törlés',
+  'fabric.editor.tables.resizeTable': 'Táblázat átméretezése',
 };

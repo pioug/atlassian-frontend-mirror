@@ -159,6 +159,6 @@ export const sliderWrapperStyles = css`
 
   .zoom_button svg {
     position: relative;
-    left: calc(-1 * ${token('space.025', '2px')});
+    left: ${token('space.negative.025', '-2px')};
   }
 `;

@@ -1,5 +1,11 @@
 # @atlaskit/linking-common
 
+## 4.7.0
+
+### Minor Changes
+
+- [`fcc19d02d34`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fcc19d02d34) - Deprecate useLozengeAction feature flag
+
 ## 4.6.1
 
 ### Patch Changes

@@ -1,5 +1,18 @@
 # @atlaskit/smart-card
 
+## 26.23.2
+
+### Patch Changes
+
+- [`4c919248f12`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4c919248f12) - cleanup: remove usages of useLozengeAction feature flag
+- Updated dependencies
+
+## 26.23.1
+
+### Patch Changes
+
+- [`6900f89eb0e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6900f89eb0e) - Internal changes to use space tokens. There is no expected visual or behaviour change.
+
 ## 26.23.0
 
 ### Minor Changes

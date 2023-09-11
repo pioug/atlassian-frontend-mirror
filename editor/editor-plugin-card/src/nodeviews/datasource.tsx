@@ -30,6 +30,7 @@ import { DatasourceErrorBoundary } from '../datasourceErrorBoundary';
 import type { cardPlugin } from '../index';
 import type { LinkNodes } from '../pm-plugins/doc';
 import { getLinkNodeType } from '../pm-plugins/doc';
+import { EditorAnalyticsContext } from '../ui/EditorAnalyticsContext';
 
 const getPosSafely = (pos: getPosHandler) => {
   if (!pos || typeof pos === 'boolean') {
@@ -98,6 +99,9 @@ export class DatasourceComponent extends React.PureComponent<DatasourceComponent
         views,
       },
     });
+
+    // Ensures dispatch does not contribute to undo history (otherwise user requires three undo's to revert table)
+    tr.setMeta('addToHistory', false);
     tr.setMeta('scrollIntoView', false);
     dispatch(tr);
   };
@@ -123,14 +127,16 @@ export class DatasourceComponent extends React.PureComponent<DatasourceComponent
       // [WS-2307]: we only render card wrapped into a Provider when the value is ready
       if (cardContext && cardContext.value) {
         return (
-          <cardContext.Provider value={cardContext.value}>
-            <DatasourceTableView
-              datasourceId={datasource.id}
-              parameters={datasource.parameters}
-              visibleColumnKeys={visibleColumnKeys}
-              onVisibleColumnKeysChange={this.handleColumnChange}
-            />
-          </cardContext.Provider>
+          <EditorAnalyticsContext editorView={this.props.view}>
+            <cardContext.Provider value={cardContext.value}>
+              <DatasourceTableView
+                datasourceId={datasource.id}
+                parameters={datasource.parameters}
+                visibleColumnKeys={visibleColumnKeys}
+                onVisibleColumnKeysChange={this.handleColumnChange}
+              />
+            </cardContext.Provider>
+          </EditorAnalyticsContext>
         );
       }
     }

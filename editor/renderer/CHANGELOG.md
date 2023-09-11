@@ -1,5 +1,19 @@
 # @atlaskit/renderer
 
+## 108.11.14
+
+### Patch Changes
+
+- [`aeb5c9a01e8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aeb5c9a01e8) - Delete adf-schema from AFE and rely on npm package for adf-schema
+- [`4b4dcfe0bba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4b4dcfe0bba) - Delete adf-schema, use published version
+
+## 108.11.13
+
+### Patch Changes
+
+- [`c06bb97591a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c06bb97591a) - [ED-19023] Add distorted duration to TTI event (tracking tab visibility)
+- Updated dependencies
+
 ## 108.11.12
 
 ### Patch Changes
@@ -4920,14 +4934,14 @@ Remove applicationCard node and action mark
 
 ## 29.2.2
 
-- [patch][f3d067d" d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/f3d067d"
+- [patch][f3d067d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/f3d067d"
   d):
 
   - Fix font size for numbered column in tables with dynamic text sizing
 
 ## 29.2.1
 
-- [patch][8636991" d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/8636991"
+- [patch][8636991](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/8636991"
   d):
 
   - ED-5518: fix numbered column with merged rows

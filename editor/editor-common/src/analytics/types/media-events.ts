@@ -82,7 +82,7 @@ type MediaInputResizeAttributes = {
 export type MediaInputResizeTrackAction = UIAEP<
   ACTION.EDITED,
   ACTION_SUBJECT.MEDIA_SINGLE | ACTION_SUBJECT.EMBEDS,
-  ACTION_SUBJECT_ID.INPUT_RESIZED,
+  ACTION_SUBJECT_ID.RESIZED,
   MediaInputResizeAttributes,
   undefined
 >;

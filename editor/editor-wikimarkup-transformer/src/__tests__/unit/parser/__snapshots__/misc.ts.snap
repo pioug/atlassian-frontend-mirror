@@ -70,7 +70,7 @@ Object {
           "attrs": Object {
             "id": "atlassian-info",
             "shortName": ":info:",
-            "text": ":info",
+            "text": ":info:",
           },
           "type": "emoji",
         },

@@ -32,5 +32,5 @@ export const ManagerName = styled.span`
 export const OffsetWrapper = styled.div`
   margin-top: ${token('space.050', '4px')};
   // Offset left margin so the avatar aligns with the heading
-  margin-left: calc(-1 * ${token('space.050', '4px')});
+  margin-left: ${token('space.negative.050', '-4px')};
 `;

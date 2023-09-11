@@ -1,3 +1,4 @@
+import { BaseToken } from '../../palettes/palette';
 import type {
   FontFamilyBaseToken,
   FontSizeBaseToken,
@@ -5,7 +6,20 @@ import type {
   LetterSpacingBaseToken,
   LineHeightBaseToken,
 } from '../../palettes/typography-palette';
-import type { TypographyTokenSchema, ValueSchema } from '../../types';
+import type {
+  TypographyTokenSchema,
+  UtilTokenSchema,
+  ValueSchema,
+} from '../../types';
+
+const utility: ValueSchema<UtilTokenSchema<BaseToken>> = {
+  // @ts-expect-error in complete utility theme
+  UNSAFE: {
+    textTransformUppercase: {
+      value: 'uppercase',
+    },
+  },
+};
 
 const typography: ValueSchema<
   TypographyTokenSchema<{
@@ -23,7 +37,7 @@ const typography: ValueSchema<
           fontWeight: 'FontWeight700',
           fontSize: 'FontSize32',
           lineHeight: 'LineHeight600',
-          fontFamily: 'FontFamilyWebSans',
+          fontFamily: 'font.family.heading',
           fontStyle: 'normal',
           letterSpacing: 'LetterSpacing0',
         },
@@ -33,7 +47,7 @@ const typography: ValueSchema<
           fontWeight: 'FontWeight700',
           fontSize: 'FontSize28',
           lineHeight: 'LineHeight500',
-          fontFamily: 'FontFamilyWebSans',
+          fontFamily: 'font.family.heading',
           fontStyle: 'normal',
           letterSpacing: 'LetterSpacing0',
         },
@@ -43,7 +57,7 @@ const typography: ValueSchema<
           fontWeight: 'FontWeight700',
           fontSize: 'FontSize24',
           lineHeight: 'LineHeight400',
-          fontFamily: 'FontFamilyWebSans',
+          fontFamily: 'font.family.heading',
           fontStyle: 'normal',
           letterSpacing: 'LetterSpacing0',
         },
@@ -53,7 +67,7 @@ const typography: ValueSchema<
           fontWeight: 'FontWeight700',
           fontSize: 'FontSize20',
           lineHeight: 'LineHeight300',
-          fontFamily: 'FontFamilyWebSans',
+          fontFamily: 'font.family.heading',
           fontStyle: 'normal',
           letterSpacing: 'LetterSpacing0',
         },
@@ -63,7 +77,7 @@ const typography: ValueSchema<
           fontWeight: 'FontWeight700',
           fontSize: 'FontSize16',
           lineHeight: 'LineHeight200',
-          fontFamily: 'FontFamilyWebSans',
+          fontFamily: 'font.family.heading',
           fontStyle: 'normal',
           letterSpacing: 'LetterSpacing0',
         },
@@ -73,7 +87,7 @@ const typography: ValueSchema<
           fontWeight: 'FontWeight700',
           fontSize: 'FontSize14',
           lineHeight: 'LineHeight100',
-          fontFamily: 'FontFamilyWebSans',
+          fontFamily: 'font.family.heading',
           fontStyle: 'normal',
           letterSpacing: 'LetterSpacing0',
         },
@@ -83,7 +97,7 @@ const typography: ValueSchema<
           fontWeight: 'FontWeight700',
           fontSize: 'FontSize12',
           lineHeight: 'LineHeight100',
-          fontFamily: 'FontFamilyWebSans',
+          fontFamily: 'font.family.heading',
           fontStyle: 'normal',
           letterSpacing: 'LetterSpacing0',
         },
@@ -95,7 +109,7 @@ const typography: ValueSchema<
           fontWeight: 'FontWeight400',
           fontSize: 'FontSizeCode',
           lineHeight: 'LineHeight1',
-          fontFamily: 'FontFamilyWebMono',
+          fontFamily: 'font.family.code',
           fontStyle: 'normal',
           letterSpacing: 'LetterSpacing0',
         },
@@ -107,7 +121,7 @@ const typography: ValueSchema<
           fontWeight: 'FontWeight400',
           fontSize: 'FontSize14',
           lineHeight: 'LineHeight200',
-          fontFamily: 'FontFamilyWebSans',
+          fontFamily: 'font.family.body',
           fontStyle: 'normal',
           letterSpacing: 'LetterSpacing0',
         },
@@ -117,7 +131,7 @@ const typography: ValueSchema<
           fontWeight: 'FontWeight400',
           fontSize: 'FontSize16',
           lineHeight: 'LineHeight300',
-          fontFamily: 'FontFamilyWebSans',
+          fontFamily: 'font.family.body',
           fontStyle: 'normal',
           letterSpacing: 'LetterSpacing0',
         },
@@ -127,7 +141,7 @@ const typography: ValueSchema<
           fontWeight: 'FontWeight400',
           fontSize: 'FontSize12',
           lineHeight: 'LineHeight200',
-          fontFamily: 'FontFamilyWebSans',
+          fontFamily: 'font.family.body',
           fontStyle: 'normal',
           letterSpacing: 'LetterSpacing0',
         },
@@ -139,7 +153,7 @@ const typography: ValueSchema<
           fontWeight: 'FontWeight400',
           fontSize: 'FontSize14',
           lineHeight: 'LineHeight1',
-          fontFamily: 'FontFamilyWebSans',
+          fontFamily: 'font.family.body',
           fontStyle: 'normal',
           letterSpacing: 'LetterSpacing0',
         },
@@ -149,7 +163,7 @@ const typography: ValueSchema<
           fontWeight: 'FontWeight400',
           fontSize: 'FontSize12',
           lineHeight: 'LineHeight1',
-          fontFamily: 'FontFamilyWebSans',
+          fontFamily: 'font.family.body',
           fontStyle: 'normal',
           letterSpacing: 'LetterSpacing0',
         },
@@ -158,4 +172,7 @@ const typography: ValueSchema<
   },
 };
 
-export default typography;
+export default {
+  font: typography.font,
+  utility,
+};

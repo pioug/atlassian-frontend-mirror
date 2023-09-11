@@ -31,6 +31,8 @@ export default {
   'fabric.editor.sortColumnDESC': '对列 Z → A 进行排序',
   'fabric.editor.splitCell': '拆分单元格',
   'fabric.editor.tableOptions': '表格选项',
+  'fabric.editor.tables.adjustColumn': '调整列',
   'fabric.editor.tables.confirmDeleteLinkedModalMessage': '删除 {nodeName} 将断开与其连接的所有内容。',
   'fabric.editor.tables.confirmDeleteLinkedModalOKButton': '删除',
+  'fabric.editor.tables.resizeTable': '调整表格大小',
 };

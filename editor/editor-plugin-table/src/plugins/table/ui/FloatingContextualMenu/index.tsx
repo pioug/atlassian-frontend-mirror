@@ -8,7 +8,7 @@ import type {
 } from '@atlaskit/editor-common/types';
 import { Popup } from '@atlaskit/editor-common/ui';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
   akEditorFloatingDialogZIndex,
   akEditorFloatingOverlapPanelZIndex,
@@ -20,7 +20,7 @@ import {
 } from '@atlaskit/editor-tables/utils';
 
 import { getPluginState } from '../../pm-plugins/plugin-factory';
-import { PluginConfig } from '../../types';
+import type { PluginConfig } from '../../types';
 import {
   contextualMenuDropdownWidth,
   contextualMenuTriggerSize,
@@ -33,7 +33,7 @@ export interface Props {
   editorView: EditorView;
   isOpen: boolean;
   getEditorContainerWidth: GetEditorContainerWidth;
-  getEditorFeatureFlags: GetEditorFeatureFlags;
+  getEditorFeatureFlags?: GetEditorFeatureFlags;
   targetCellPosition?: number;
   mountPoint?: HTMLElement;
   boundariesElement?: HTMLElement;
@@ -51,7 +51,6 @@ const FloatingContextualMenu = ({
   pluginConfig,
   editorAnalyticsAPI,
   getEditorContainerWidth,
-  getEditorFeatureFlags,
 }: Props) => {
   // TargetCellPosition could be outdated: https://product-fabric.atlassian.net/browse/ED-8129
   const { targetCellPosition } = getPluginState(editorView.state);
@@ -115,7 +114,6 @@ const FloatingContextualMenu = ({
           boundariesElement={boundariesElement}
           editorAnalyticsAPI={editorAnalyticsAPI}
           getEditorContainerWidth={getEditorContainerWidth}
-          getEditorFeatureFlags={getEditorFeatureFlags}
         />
       </div>
     </Popup>

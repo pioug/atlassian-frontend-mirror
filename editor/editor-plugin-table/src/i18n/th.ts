@@ -29,6 +29,8 @@ export default {
   'fabric.editor.sortColumnDESC': 'จัดเรียงคอลัมน์ Z → A',
   'fabric.editor.splitCell': 'แยกช่องข้อมูล',
   'fabric.editor.tableOptions': 'ตัวเลือกตาราง',
+  'fabric.editor.tables.adjustColumn': 'ปรับเปลี่ยนคอลัมน์',
   'fabric.editor.tables.confirmDeleteLinkedModalMessage': 'การลบ {nodeName} จะยุติทุกอย่างที่เชื่อมโยงอยู่',
   'fabric.editor.tables.confirmDeleteLinkedModalOKButton': 'ลบ',
+  'fabric.editor.tables.resizeTable': 'ปรับขนาดตาราง',
 };

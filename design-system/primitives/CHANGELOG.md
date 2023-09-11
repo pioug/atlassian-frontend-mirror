@@ -1,5 +1,11 @@
 # @atlaskit/primitives
 
+## 1.4.3
+
+### Patch Changes
+
+- [`6900f89eb0e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6900f89eb0e) - Internal changes to use space tokens. There is no expected visual or behaviour change.
+
 ## 1.4.2
 
 ### Patch Changes

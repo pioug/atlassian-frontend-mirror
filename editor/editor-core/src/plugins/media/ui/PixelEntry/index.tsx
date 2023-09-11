@@ -17,7 +17,11 @@ import {
   pixelEntryHiddenSubmit,
   pixelSizingFullWidthLabelStyles,
 } from './styles';
-import type { PixelEntryFormValues, PixelEntryProps } from './types';
+import type {
+  PixelEntryFormValues,
+  PixelEntryProps,
+  PixelEntryValidation,
+} from './types';
 import { messages } from './messages';
 import { PIXELENTRY_MIGRATION_BUTTON_TESTID } from './constants';
 
@@ -60,27 +64,27 @@ export const PixelEntry = ({
 
     if (onSubmit) {
       let widthToBeSumitted = data.inputWidth;
-      let isInvalidInput = false;
+      let validation: PixelEntryValidation = 'valid';
 
       if (data.inputWidth < minWidth) {
         widthToBeSumitted = minWidth;
-        isInvalidInput = true;
+        validation = 'less-than-min';
       }
 
       if (data.inputWidth > maxWidth) {
         widthToBeSumitted = maxWidth;
-        isInvalidInput = true;
+        validation = 'greater-than-max';
       }
 
       // If user keeps submitting an invalid input, node width attribute will be updated with the same value
       // and won't upadte the state in useEffect (since width is the same)
       // Thus, we set the state here to always display the correct dimension
-      if (isInvalidInput) {
+      if (validation !== 'valid') {
         setComputedWidth(widthToBeSumitted);
         setComputedHeight(Math.round(ratioWidth * widthToBeSumitted));
       }
 
-      onSubmit({ width: widthToBeSumitted });
+      onSubmit({ width: widthToBeSumitted, validation });
     }
   };
 

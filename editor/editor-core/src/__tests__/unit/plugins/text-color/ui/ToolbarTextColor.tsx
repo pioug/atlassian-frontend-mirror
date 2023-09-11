@@ -120,7 +120,6 @@ describe('ToolbarTextColor', () => {
             pluginState={pluginState}
             editorView={editorView}
             dispatchAnalyticsEvent={mockDispatchAnalytics}
-            featureFlags={{}}
           />
         </ReactEditorViewContext.Provider>,
       );
@@ -274,7 +273,6 @@ describe('ToolbarTextColor', () => {
           pluginState={pluginState}
           editorView={editorView}
           dispatchAnalyticsEvent={mockDispatchAnalytics}
-          featureFlags={{}}
         />,
       );
     });

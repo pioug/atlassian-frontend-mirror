@@ -31,6 +31,8 @@ export default {
   'fabric.editor.sortColumnDESC': 'Sort column Z → A',
   'fabric.editor.splitCell': 'Split cell',
   'fabric.editor.tableOptions': 'Table options',
+  'fabric.editor.tables.adjustColumn': 'Adjust column',
   'fabric.editor.tables.confirmDeleteLinkedModalMessage': 'Deleting {nodeName} will break anything connected to it.',
   'fabric.editor.tables.confirmDeleteLinkedModalOKButton': 'Delete',
+  'fabric.editor.tables.resizeTable': 'Resize table',
 };

@@ -47,12 +47,6 @@ interface Props {
      *  be using paletteColorTooltipMessages option.
      */
     paletteColorTooltipMessages?: PaletteTooltipMessages;
-    /**
-     * If true then color tooltips in the color picker for all color palettes
-     * such as text, background and table charts will show semantic names.
-     * @default false
-     */
-    showSomewhatSemanticTooltips?: boolean;
   };
 }
 
@@ -97,12 +91,8 @@ const ColorPalette = (props: Props & WrappedComponentProps) => {
     intl: { formatMessage },
     paletteOptions,
   } = props;
-  const {
-    palette,
-    hexToPaletteColor,
-    showSomewhatSemanticTooltips = false,
-    paletteColorTooltipMessages,
-  } = paletteOptions;
+  const { palette, hexToPaletteColor, paletteColorTooltipMessages } =
+    paletteOptions;
 
   const { colorMode: tokenTheme } = useThemeObserver();
   const useIconToken = !!hexToPaletteColor;
@@ -121,7 +111,7 @@ const ColorPalette = (props: Props & WrappedComponentProps) => {
           role="radiogroup"
         >
           {row.map(({ value, label, border, message }) => {
-            if (showSomewhatSemanticTooltips && paletteColorTooltipMessages) {
+            if (paletteColorTooltipMessages) {
               if (tokenTheme === 'dark') {
                 message = getColorMessage(
                   paletteColorTooltipMessages.dark,

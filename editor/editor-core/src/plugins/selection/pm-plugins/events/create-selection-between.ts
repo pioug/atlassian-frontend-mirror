@@ -18,7 +18,7 @@ function findEmptySelectableParentNodePosition(
     return null;
   }
 
-  if ($pos.depth === 0) {
+  if ($pos.nodeBefore !== null) {
     if (isValidPosition($pos)) {
       return $pos;
     }

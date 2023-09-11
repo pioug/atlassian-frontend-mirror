@@ -5,8 +5,9 @@ import {
   editorSelector,
   pmSelector,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import { evaluateTeardownMockDate } from '@atlaskit/visual-regression/helper';
 import {
-  PuppeteerPage,
   waitForLoadedBackgroundImages,
   waitForElementCount,
 } from '@atlaskit/visual-regression/helper';
@@ -19,7 +20,7 @@ import {
   ToolbarMenuItem,
   toolbarMenuItemsSelectors,
 } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
-import { FindReplaceOptions } from '../../../plugins/find-replace/types';
+import type { FindReplaceOptions } from '../../../plugins/find-replace/types';
 import { selectAtPosWithProseMirror } from '@atlaskit/editor-test-helpers/page-objects/editor';
 
 describe('Find/replace:', () => {
@@ -37,6 +38,8 @@ describe('Find/replace:', () => {
       viewport,
       editorProps: { allowFindReplace: options },
     });
+
+    await evaluateTeardownMockDate(page);
     await page.waitForSelector(findReplaceSelectors.toolbarButton);
     await page.click(findReplaceSelectors.toolbarButton);
   };

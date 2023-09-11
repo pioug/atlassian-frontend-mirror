@@ -46,7 +46,6 @@ import { extractViewAction } from './actions/extract-view-action';
 import { ExtractFlexibleUiDataContextParams } from '../../view/FlexibleCard/types';
 
 const extractFlexibleUiContext = ({
-  featureFlags,
   id,
   renderers,
   showServerActions,
@@ -59,8 +58,6 @@ const extractFlexibleUiContext = ({
   }
   const data = response.data as JsonLd.Data.BaseData;
   const url = extractLink(data);
-
-  const showLozengeAction = featureFlags?.useLozengeAction === 'experiment';
 
   return {
     assignedToGroup: extractPersonAssignedToAsArray(
@@ -98,7 +95,7 @@ const extractFlexibleUiContext = ({
     sourceBranch: extractSourceBranch(
       data as JsonLd.Data.SourceCodePullRequest,
     ),
-    state: extractState(response, showServerActions || showLozengeAction, id),
+    state: extractState(response, showServerActions, id),
     subscriberCount: extractSubscriberCount(data),
     subTasksProgress: extractSubTasksProgress(data),
     storyPoints: extractStoryPoints(data),

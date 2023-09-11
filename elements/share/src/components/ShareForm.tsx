@@ -61,7 +61,7 @@ export const formFooterStyles = css`
 `;
 
 const formFieldStyles = css`
-  margin-bottom: 12px;
+  margin-bottom: ${token('space.150', '12px')};
 `;
 
 const integrationWrapperStyles = css`
@@ -70,7 +70,7 @@ const integrationWrapperStyles = css`
 `;
 
 const integrationIconWrapperStyles = css`
-  margin-bottom: -6px;
+  margin-bottom: ${token('space.negative.075', '-6px')};
   margin-right: 5px;
 `;
 

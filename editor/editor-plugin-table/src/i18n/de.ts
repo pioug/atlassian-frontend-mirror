@@ -29,7 +29,9 @@ export default {
   'fabric.editor.sortColumnDESC': 'Spalte sortieren: Z → A',
   'fabric.editor.splitCell': 'Zelle teilen',
   'fabric.editor.tableOptions': 'Tabellenoptionen',
+  'fabric.editor.tables.adjustColumn': 'Spalte anpassen',
   'fabric.editor.tables.confirmDeleteLinkedModalMessage':
     'Durch das Löschen von {nodeName} werden alle damit verbundenen Elemente unbrauchbar.',
   'fabric.editor.tables.confirmDeleteLinkedModalOKButton': 'Löschen',
+  'fabric.editor.tables.resizeTable': 'Tabellengröße ändern',
 };

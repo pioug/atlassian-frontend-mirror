@@ -5,6 +5,8 @@ import { PreviewActionProps } from './action/preview-action/types';
 import { ViewActionProps } from './action/view-action/types';
 import { DownloadActionProps } from './action/download-action/types';
 
+export { default as FollowAction } from './follow-action';
+
 // Attention: Keep the export name and action name the same.
 // This will help reducing the code for mapping action inside
 // createAction and renderActionItems

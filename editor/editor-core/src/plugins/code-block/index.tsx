@@ -19,7 +19,7 @@ import type {
   OptionalPlugin,
   Command,
 } from '@atlaskit/editor-common/types';
-import { messages } from '../block-type/messages';
+import { messages } from '@atlaskit/editor-plugin-block-type/messages';
 import type { CodeBlockOptions } from './types';
 import refreshBrowserSelectionOnChange from './refresh-browser-selection';
 import type { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';

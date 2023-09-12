@@ -20,7 +20,7 @@ import {
   placeholder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import betterTypeHistoryPlugin from '../../';
-import blockTypePlugin from '../../../block-type';
+import { blockTypePlugin } from '@atlaskit/editor-plugin-block-type';
 import panelPlugin from '../../../panel';
 import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import pastePlugin from '../../../paste';

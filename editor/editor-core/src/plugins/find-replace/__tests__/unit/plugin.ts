@@ -17,7 +17,7 @@ import {
   getFindReplacePreset,
 } from './_utils';
 import { getPluginState } from '../../plugin';
-import blockTypePlugin from '../../../block-type';
+import { blockTypePlugin } from '@atlaskit/editor-plugin-block-type';
 import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
 
 describe('find/replace plugin', () => {

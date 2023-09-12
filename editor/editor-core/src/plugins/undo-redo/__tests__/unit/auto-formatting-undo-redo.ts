@@ -37,7 +37,7 @@ import {
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
-import blockTypePlugin from '../../../block-type';
+import { blockTypePlugin } from '@atlaskit/editor-plugin-block-type';
 import typeAheadPlugin from '../../../type-ahead';
 import codeBlockPlugin from '../../../code-block';
 import { compositionPlugin } from '@atlaskit/editor-plugin-composition';

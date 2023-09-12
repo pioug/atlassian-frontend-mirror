@@ -11,7 +11,7 @@ import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type mentionsPlugin from '../mentions';
 import type quickInsertPlugin from '../quick-insert';
-import type blockTypePlugin from '../block-type';
+import type { BlockTypePlugin } from '@atlaskit/editor-plugin-block-type';
 import type codeBlockPlugin from '../code-block';
 import type panelPlugin from '../panel';
 import type { RulePlugin } from '@atlaskit/editor-plugin-rule';
@@ -21,7 +21,7 @@ export type InsertBlockPluginDependencies = [
   OptionalPlugin<typeof tablesPlugin>,
   OptionalPlugin<typeof hyperlinkPlugin>,
   OptionalPlugin<typeof datePlugin>,
-  OptionalPlugin<typeof blockTypePlugin>,
+  OptionalPlugin<BlockTypePlugin>,
   OptionalPlugin<typeof analyticsPlugin>,
   OptionalPlugin<ImageUploadPlugin>,
   OptionalPlugin<typeof mentionsPlugin>,

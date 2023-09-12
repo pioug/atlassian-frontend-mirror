@@ -7,9 +7,9 @@ import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import type { EmojiProvider } from '@atlaskit/emoji/resource';
 
 import { messages } from './messages';
-import { messages as blockTypeMessages } from '../../../block-type/messages';
+import { messages as blockTypeMessages } from '@atlaskit/editor-plugin-block-type/messages';
+import type { BlockType } from '@atlaskit/editor-plugin-block-type';
 
-import type { BlockType } from '../../../block-type/types';
 import { ToolTipContent } from '../../../../keymaps';
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import type { MacroProvider } from '../../../macro';

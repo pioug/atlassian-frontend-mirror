@@ -3,7 +3,7 @@ import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { setHeading } from '../../../../plugins/block-type/commands';
+import { setHeading } from '@atlaskit/editor-common/commands';
 import {
   INPUT_METHOD,
   ACTION,

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-core",
-  "version": "187.41.5",
+  "version": "187.42.0",
   "description": "A package contains Atlassian editor core functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -55,11 +55,12 @@
     "@atlaskit/code": "^14.6.0",
     "@atlaskit/date": "^0.10.0",
     "@atlaskit/datetime-picker": "^12.9.0",
-    "@atlaskit/editor-common": "^74.58.0",
+    "@atlaskit/editor-common": "^74.59.0",
     "@atlaskit/editor-json-transformer": "^8.10.0",
     "@atlaskit/editor-markdown-transformer": "^5.2.5",
     "@atlaskit/editor-palette": "1.5.1",
     "@atlaskit/editor-plugin-analytics": "^0.2.0",
+    "@atlaskit/editor-plugin-block-type": "^1.0.0",
     "@atlaskit/editor-plugin-card": "^0.5.0",
     "@atlaskit/editor-plugin-composition": "^0.1.0",
     "@atlaskit/editor-plugin-content-insertion": "^0.1.0",
@@ -108,7 +109,7 @@
     "@atlaskit/radio": "^5.6.0",
     "@atlaskit/section-message": "^6.4.0",
     "@atlaskit/select": "^16.5.0",
-    "@atlaskit/smart-card": "^26.23.0",
+    "@atlaskit/smart-card": "^26.25.0",
     "@atlaskit/smart-user-picker": "^6.3.0",
     "@atlaskit/spinner": "^15.5.0",
     "@atlaskit/status": "^1.3.0",
@@ -147,7 +148,9 @@
     "react-intl-next": "npm:react-intl@^5.18.1"
   },
   "devDependencies": {
+    "@af/editor-libra": "*",
     "@af/integration-testing": "*",
+    "@af/visual-regression": "*",
     "@atlaskit/code": "^14.6.0",
     "@atlaskit/collab-provider": "9.12.2",
     "@atlaskit/dropdown-menu": "^11.13.0",
@@ -158,7 +161,7 @@
     "@atlaskit/inline-dialog": "^13.6.0",
     "@atlaskit/link-analytics": "^8.2.0",
     "@atlaskit/link-provider": "^1.6.0",
-    "@atlaskit/link-test-helpers": "^6.0.0",
+    "@atlaskit/link-test-helpers": "^6.1.0",
     "@atlaskit/media-core": "^34.1.0",
     "@atlaskit/media-integration-test-helpers": "^3.0.0",
     "@atlaskit/media-test-helpers": "^33.0.0",

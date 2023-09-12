@@ -9,7 +9,7 @@ import Tooltip from '@atlaskit/tooltip';
 import { ActionGroupProps } from './types';
 import DropdownMenu from '@atlaskit/dropdown-menu';
 
-import { ActionName, SmartLinkSize } from '../../../../../constants';
+import { SmartLinkSize } from '../../../../../constants';
 import Button from '@atlaskit/button/standard-button';
 import MoreIcon from '@atlaskit/icon/glyph/more';
 import { sizeToButtonSpacing } from '../../utils';
@@ -19,8 +19,8 @@ import {
   useFlexibleUiContext,
   useFlexibleUiOptionContext,
 } from '../../../../../state/flexible-ui-context';
-import { FlexibleUiDataContext } from '../../../../../state/flexible-ui-context/types';
 import ActionGroupItem from './action-group-item';
+import { filterActionItems } from '../utils';
 
 const styles = css`
   display: inline-flex;
@@ -56,26 +56,6 @@ const renderActionItems = (
       onActionItemClick={onActionItemClick}
     />
   ));
-
-const filterActionItems = (
-  items: ActionItem[] = [],
-  context?: FlexibleUiDataContext,
-) => {
-  return items.filter((item) => {
-    switch (item.name) {
-      // Action that require data from the data context to render.
-      case ActionName.DownloadAction:
-        return Boolean(context?.downloadAction);
-      case ActionName.PreviewAction:
-        return Boolean(context?.previewAction);
-      case ActionName.ViewAction:
-        return Boolean(context?.viewAction);
-      default:
-        // Named and custom actions that user defines.
-        return Boolean(ActionName[item.name]);
-    }
-  });
-};
 
 /**
  * Creates a group of Action components. Accepts an array of Actions, in addition to some styling

@@ -1,7 +1,7 @@
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { JsonLd } from 'json-ld-types';
 
-import extractFlexibleUiContext from '../index';
-
+import AtlasProject from '../../../__fixtures__/atlas-project';
 import BitbucketPullRequest from '../../../__fixtures__/bitbucket-pull-request';
 import ConfluenceBlog from '../../../__fixtures__/confluence-blog';
 import ConfluencePage from '../../../__fixtures__/confluence-page';
@@ -9,9 +9,10 @@ import ConfluenceSpace from '../../../__fixtures__/confluence-space';
 import ConfluenceTemplate from '../../../__fixtures__/confluence-template';
 import Figma from '../../../__fixtures__/figma';
 import JiraRoadMap from '../../../__fixtures__/jira-roadmap';
-import JiraTimeline from '../../../__fixtures__/jira-timeline';
 import JiraTask from '../../../__fixtures__/jira-task';
+import JiraTimeline from '../../../__fixtures__/jira-timeline';
 import YouTubeVideo from '../../../__fixtures__/youtube-video';
+import extractFlexibleUiContext from '../index';
 
 describe('extractFlexibleUiContext', () => {
   const expectedConfluenceProvider = {
@@ -235,6 +236,119 @@ describe('extractFlexibleUiContext', () => {
         url: 'https://jira-url/projects/project-id/boards/board-id/timeline',
       },
     });
+  });
+
+  describe('returns flexible ui context for atlas project', () => {
+    ffTest(
+      'platform.linking-platform.smart-card.follow-button',
+      () => {
+        const data = extractFlexibleUiContext({
+          response: AtlasProject as JsonLd.Response,
+          showServerActions: true,
+        });
+
+        expect(data).toEqual({
+          authorGroup: [
+            {
+              name: 'Lois Lane',
+              src: 'https://person-url',
+            },
+          ],
+          commentCount: 1,
+          createdBy: 'Lois Lane',
+          dueOn: '2030-12-31',
+          followAction: {
+            action: {
+              action: {
+                actionType: 'FollowEntityAction',
+                resourceIdentifiers: {
+                  ari: 'some-id',
+                },
+              },
+              providerKey: 'watermelon-object-provider',
+              reload: {
+                url: 'https://link-url',
+              },
+            },
+            value: true,
+          },
+          linkIcon: {
+            label: 'The Superman Project',
+            url: 'https://icon-url',
+          },
+          modifiedOn: '2023-03-05T08:00:00.861423',
+          previewAction: {
+            isSupportTheming: true,
+            linkIcon: {
+              label: 'The Superman Project',
+              url: 'https://icon-url',
+            },
+            providerName: 'Atlas',
+            src: 'https://preview-url',
+            title: 'The Superman Project',
+            url: 'https://link-url',
+          },
+          provider: {
+            label: 'Atlas',
+            url: 'https://icon-url',
+          },
+          snippet: 'The journey to discover the real identity of Superman?',
+          state: {
+            appearance: 'success',
+            text: 'On track',
+          },
+          subscriberCount: 109,
+          title: 'The Superman Project',
+          url: 'https://link-url',
+        });
+      },
+      () => {
+        const data = extractFlexibleUiContext({
+          response: AtlasProject as JsonLd.Response,
+          showServerActions: true,
+        });
+
+        expect(data).toEqual({
+          authorGroup: [
+            {
+              name: 'Lois Lane',
+              src: 'https://person-url',
+            },
+          ],
+          commentCount: 1,
+          createdBy: 'Lois Lane',
+          dueOn: '2030-12-31',
+          linkIcon: {
+            label: 'The Superman Project',
+            url: 'https://icon-url',
+          },
+          modifiedOn: '2023-03-05T08:00:00.861423',
+          previewAction: {
+            isSupportTheming: true,
+            linkIcon: {
+              label: 'The Superman Project',
+              url: 'https://icon-url',
+            },
+            providerName: 'Atlas',
+            src: 'https://preview-url',
+            title: 'The Superman Project',
+            url: 'https://link-url',
+          },
+          provider: {
+            label: 'Atlas',
+            url: 'https://icon-url',
+          },
+          snippet: 'The journey to discover the real identity of Superman?',
+          state: {
+            appearance: 'success',
+            text: 'On track',
+          },
+          subscriberCount: 109,
+          title: 'The Superman Project',
+          url: 'https://link-url',
+        });
+      },
+    );
   });
 
   it('returns flexible ui context for figma', () => {

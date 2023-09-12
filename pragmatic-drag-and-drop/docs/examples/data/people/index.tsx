@@ -151,6 +151,5 @@ export function getInitialData(
   return {
     columnMap,
     orderedColumnIds,
-    lastOperation: null,
   };
 }

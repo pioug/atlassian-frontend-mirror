@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/link-datasource",
-  "version": "1.0.21",
+  "version": "1.1.1",
   "description": "UI Components to support linking platform dataset feature",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -42,7 +42,7 @@
     "@atlaskit/icon": "^21.12.0",
     "@atlaskit/icon-object": "^6.3.0",
     "@atlaskit/image": "^1.1.0",
-    "@atlaskit/jql-editor-autocomplete-rest": "^1.0.0",
+    "@atlaskit/jql-editor-autocomplete-rest": "^2.0.0",
     "@atlaskit/link-client-extension": "^1.6.0",
     "@atlaskit/linking-common": "^4.7.0",
     "@atlaskit/linking-types": "^8.3.0",
@@ -53,7 +53,7 @@
     "@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-autoscroll": "^0.6.0",
     "@atlaskit/pragmatic-drag-and-drop-react-indicator": "^0.16.0",
     "@atlaskit/select": "^16.5.0",
-    "@atlaskit/smart-card": "^26.23.0",
+    "@atlaskit/smart-card": "^26.25.0",
     "@atlaskit/spinner": "^15.5.0",
     "@atlaskit/tag": "^11.6.0",
     "@atlaskit/textfield": "5.6.7",
@@ -75,7 +75,7 @@
   "devDependencies": {
     "@af/visual-regression": "*",
     "@atlaskit/link-provider": "^1.6.0",
-    "@atlaskit/link-test-helpers": "^6.0.0",
+    "@atlaskit/link-test-helpers": "^6.1.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",

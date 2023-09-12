@@ -2,6 +2,7 @@ import React from 'react';
 
 import { fireEvent, render, screen } from '@testing-library/react';
 import { format, parseISO } from 'date-fns';
+import cases from 'jest-in-case';
 
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
@@ -239,22 +240,37 @@ describe('DatePicker', () => {
     );
   });
 
-  it('should apply `lang` attribute to inner input field', () => {
+  describe('locale', () => {
     const formattedDate = new Date('06/08/2018');
+    const year = formattedDate.getFullYear();
+    const month = formattedDate.getMonth() + 1;
+    const day = formattedDate.getDate();
     const dateValue = formattedDate.toISOString();
-    const lang = 'en-US';
 
-    const { getByText } = render(
-      <DatePicker locale={lang} value={dateValue} testId="test" />,
+    it('should apply `lang` attribute to inner input field', () => {
+      const lang = 'en-US';
+
+      const { getByText } = render(
+        <DatePicker locale={lang} value={dateValue} testId="test" />,
+      );
+
+      const value = getByText(`${month}/${day}/${year}`);
+
+      expect(value).toHaveAttribute('lang', expect.stringContaining(lang));
+    });
+
+    cases(
+      'should format date using provided locale',
+      ({ locale, result }: { locale: string; result: string }) => {
+        render(<DatePicker locale={locale} value={dateValue} />);
+
+        expect(screen.getByText(result)).toBeInTheDocument();
+      },
+      [
+        { locale: 'en-US', result: `${month}/${day}/${year}` },
+        { locale: 'id', result: `${day}/${month}/${year}` },
+      ],
     );
-
-    const value = getByText(
-      `${
-        formattedDate.getMonth() + 1
-      }/${formattedDate.getDate()}/${formattedDate.getFullYear()}`,
-    );
-
-    expect(value).toHaveAttribute('lang', expect.stringContaining(lang));
   });
 
   describe('should call onChange when a new date is selected', () => {

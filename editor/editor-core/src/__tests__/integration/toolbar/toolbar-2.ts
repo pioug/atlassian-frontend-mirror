@@ -4,12 +4,12 @@ import {
   fullpage,
   editable,
 } from '@atlaskit/editor-test-helpers/integration/helpers';
-import { toolbarMessages as blockTypeMessages } from '../../../plugins/block-type/ui/ToolbarBlockType/toolbar-messages';
+import { toolbarMessages as blockTypeMessages } from '@atlaskit/editor-plugin-block-type/messages';
 import {
   goToEditorTestingWDExample,
   mountEditor,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
-import { messages } from '../../../plugins/block-type/messages';
+import { messages } from '@atlaskit/editor-plugin-block-type/messages';
 
 const changeFormatting = `[aria-label="${blockTypeMessages.textStyles.defaultMessage}"]`;
 const input = 'helloworld';

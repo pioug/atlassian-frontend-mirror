@@ -120,7 +120,6 @@ export const LozengeActionWithPreviewExample = {
       id: 'some-link-id',
       url: 'some-link-url',
       previewData: {
-        download: 'https://download-url',
         providerName: 'Jira',
         title: 'This is a visual regression test for embed modal',
         src: overrideEmbedContent,

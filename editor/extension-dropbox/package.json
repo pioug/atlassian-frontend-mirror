@@ -34,7 +34,7 @@
   "dependencies": {
     "@atlaskit/adf-utils": "^19.0.0",
     "@atlaskit/button": "^16.10.0",
-    "@atlaskit/editor-common": "^74.58.0",
+    "@atlaskit/editor-common": "^74.59.0",
     "@atlaskit/icon": "^21.12.0",
     "@atlaskit/modal-dialog": "^12.6.0",
     "@babel/runtime": "^7.0.0",

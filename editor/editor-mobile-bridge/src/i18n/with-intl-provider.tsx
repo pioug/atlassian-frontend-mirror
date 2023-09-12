@@ -5,7 +5,7 @@ import { useTranslations } from './use-translations';
 
 type geti18NMessagesType = (localeFileName: string) => Promise<Object>;
 
-interface WithIntlProviderProps {
+export interface WithIntlProviderProps {
   locale: string;
   onLocaleChanged?: () => void;
   onWillLocaleChange?: () => void;

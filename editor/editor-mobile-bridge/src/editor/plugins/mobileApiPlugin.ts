@@ -19,11 +19,8 @@ import { useTextFormattingListener } from './useTextFormattingListener';
 import { useListListener } from './useListListener';
 import { useQuickInsertListener } from './useQuickInsertListener';
 import { useBlockTypeListener } from './useBlockTypeListener';
-import type {
-  PanelPlugin,
-  CodeBlockPlugin,
-  BlockTypePlugin,
-} from '@atlaskit/editor-core';
+import type { PanelPlugin, CodeBlockPlugin } from '@atlaskit/editor-core';
+import { BlockTypePlugin } from '@atlaskit/editor-plugin-block-type';
 
 const useListeners = (
   pluginInjectionApi: ExtractInjectionAPI<typeof mobileApiPlugin> | undefined,

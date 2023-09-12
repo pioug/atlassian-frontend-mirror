@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { css, SerializedStyles } from '@emotion/react';
 import { FooterBlockProps } from './types';
 import {
@@ -12,6 +12,8 @@ import Block from '../block';
 import ElementGroup from '../element-group';
 import { Provider } from '../../elements';
 import ActionGroup from '../action-group';
+import { filterActionItems } from '../utils';
+import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context';
 
 const getActionGroupStyles = (
   size: SmartLinkSize,
@@ -42,6 +44,13 @@ const FooterBlock: React.FC<FooterBlockProps> = (props) => {
     onActionMenuOpenChange,
   } = props;
 
+  const context = useFlexibleUiContext();
+
+  const hasActions = useMemo(
+    () => filterActionItems(actions, context)?.length > 0,
+    [actions, context],
+  );
+
   const onDropdownOpenChange = useCallback(
     (isOpen) => {
       if (onActionMenuOpenChange) {
@@ -58,7 +67,7 @@ const FooterBlock: React.FC<FooterBlockProps> = (props) => {
   return (
     <Block {...props} testId={`${testId}-resolved-view`}>
       <Provider testId={`${testId}-provider`} />
-      {actions && actions.length > 0 ? (
+      {actions && hasActions ? (
         <ElementGroup
           testId="smart-element-group-actions"
           align={SmartLinkAlignment.Right}

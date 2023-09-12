@@ -120,7 +120,11 @@ const pluginInjectionApiMock = {
 };
 
 const setup = (
-  customProps?: Partial<Props>,
+  customProps?: Partial<
+    Props & {
+      showLegacyNotification?: boolean;
+    }
+  >,
   document: CreatePMEditorOptions['doc'] = defaultDocument,
   withGuidelinePlugin = true,
 ) => {
@@ -398,5 +402,39 @@ describe('Guidelines', () => {
 
     expect(getGuidelineSnaps).toBeCalledTimes(0);
     expect(getRelativeGuideSnaps).toBeCalledTimes(0);
+  });
+});
+
+describe('legacy notification', () => {
+  test('should display when showLegacyNotification is true', () => {
+    const { getByTestId } = setup({
+      mediaSingleWidth: 600,
+      containerWidth: 400,
+      lineLength: 320,
+      showLegacyNotification: true,
+    });
+
+    expect(
+      getByTestId('resizable-media-migration-notification'),
+    ).toBeInTheDocument();
+  });
+  test('should not display when showLegacyNotification is false', () => {
+    const { queryByTestId } = setup({
+      mediaSingleWidth: 600,
+      containerWidth: 400,
+      lineLength: 320,
+      showLegacyNotification: false,
+    });
+
+    expect(queryByTestId('resizable-media-migration-notification')).toBeNull();
+  });
+  test('should not display when showLegacyNotification is undefined', () => {
+    const { queryByTestId } = setup({
+      mediaSingleWidth: 600,
+      containerWidth: 400,
+      lineLength: 320,
+    });
+
+    expect(queryByTestId('resizable-media-migration-notification')).toBeNull();
   });
 });

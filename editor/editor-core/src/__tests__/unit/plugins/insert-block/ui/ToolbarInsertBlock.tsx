@@ -30,7 +30,7 @@ import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { ExtractPublicEditorAPI } from '@atlaskit/editor-common/types';
 import { uuid } from '@atlaskit/adf-schema';
 import layoutPlugin from '../../../../../plugins/layout';
-import blockTypePlugin from '../../../../../plugins/block-type';
+import { blockTypePlugin } from '@atlaskit/editor-plugin-block-type';
 import panelPlugin from '../../../../../plugins/panel';
 import { rulePlugin } from '@atlaskit/editor-plugin-rule';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
@@ -52,12 +52,11 @@ import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import { imageUploadPlugin } from '@atlaskit/editor-plugin-image-upload';
 import { editorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 
-import { pluginKey as blockTypePluginKey } from '../../../../../plugins/block-type/pm-plugins/main';
 import {
   CODE_BLOCK,
   PANEL,
   BLOCK_QUOTE,
-} from '../../../../../plugins/block-type/types';
+} from '@atlaskit/editor-plugin-block-type/consts';
 import ToolbarInsertBlock, {
   ToolbarInsertBlock as BaseToolbarInsertBlock,
 } from '../../../../../plugins/insert-block/ui/ToolbarInsertBlock';
@@ -70,7 +69,7 @@ import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import type { DispatchAnalyticsEvent } from '../../../../../plugins/analytics';
 
 import { messages } from '../../../../../plugins/insert-block/ui/ToolbarInsertBlock/messages';
-import { messages as blockTypeMessages } from '../../../../../plugins/block-type/messages';
+import { messages as blockTypeMessages } from '@atlaskit/editor-plugin-block-type/messages';
 import type { Props as ToolbarInsertBlockProps } from '../../../../../plugins/insert-block/ui/ToolbarInsertBlock/types';
 
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
@@ -152,7 +151,6 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
   const createEditor = createProsemirrorEditorFactory();
 
   let editorView: EditorView;
-  let pluginState: any;
   let toolbarOption: ToolbarOptionWrapper;
   let baseToolbarOption: ReactWrapper<
     ToolbarInsertBlockProps & WrappedComponentProps
@@ -202,7 +200,6 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
     createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
     return createEditor({
       doc,
-      pluginKey: blockTypePluginKey,
       preset: createPreset(createAnalyticsEvent),
       providerFactory,
     });
@@ -233,7 +230,7 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     dispatchAnalyticsSpy = jest.fn();
-    ({ editorView, pluginState, editorAPI } = editor(doc(p('text'))));
+    ({ editorView, editorAPI } = editor(doc(p('text'))));
     dispatchSpy = jest.spyOn(editorView, 'dispatch');
   });
 
@@ -249,9 +246,10 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
   });
 
   it('should disable toolbar buttons if isDisabled is true', () => {
+    const pluginState = editorAPI.blockType.sharedState.currentState();
     buildToolbar({
       isDisabled: true,
-      availableWrapperBlockTypes: pluginState.availableWrapperBlockTypes,
+      availableWrapperBlockTypes: pluginState!.availableWrapperBlockTypes,
     });
     expect(toolbarOption.find(ToolbarButton).prop('disabled')).toEqual(true);
   });

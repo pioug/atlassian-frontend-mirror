@@ -147,6 +147,7 @@ const HoverCardContent: React.FC<HoverCardContentProps> = ({
   };
 
   const flexibleCardProps: FlexibleCardProps = {
+    appearance: CardDisplay.HoverCardPreview,
     cardState: cardState,
     onClick: onClick,
     onResolve: onResolve,

@@ -58,7 +58,7 @@ export const mocks = {
         name: 'Task',
         icon: {
           '@type': 'Image',
-          url: 'https://product-fabric.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium',
+          url: Image.task,
         },
       },
       url: 'https://product-fabric.atlassian.net/browse/EDM-5941',

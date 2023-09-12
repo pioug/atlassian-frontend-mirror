@@ -19,10 +19,10 @@ export const mockBaseResponse = {
     name: 'I love cheese',
     summary: 'Here is your serving of cheese',
     'schema:potentialAction': {
-      '@id': 'comment',
-      '@type': 'CommentAction',
+      '@id': 'download',
+      '@type': 'DownloadAction',
       identifier: 'test-object-provider',
-      name: 'Comment',
+      name: 'Download',
     },
     attributedTo: {
       '@type': 'Person',

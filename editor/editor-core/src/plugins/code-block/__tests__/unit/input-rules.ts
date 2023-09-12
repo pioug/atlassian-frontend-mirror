@@ -14,7 +14,7 @@ import {
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
-import blockTypePlugin from '../../../block-type';
+import { blockTypePlugin } from '@atlaskit/editor-plugin-block-type';
 import codeBlockPlugin from '../../';
 import { compositionPlugin } from '@atlaskit/editor-plugin-composition';
 import panelPlugin from '../../../panel';

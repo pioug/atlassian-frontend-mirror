@@ -1,5 +1,11 @@
 # @atlaskit/link-test-helpers
 
+## 6.1.0
+
+### Minor Changes
+
+- [`3f30d999d86`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3f30d999d86) - Updating VR tests and helpers that use external resources to local ones for Gemini migration
+
 ## 6.0.5
 
 ### Patch Changes

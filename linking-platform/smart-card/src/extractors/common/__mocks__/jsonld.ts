@@ -1,4 +1,5 @@
 import { JsonLd } from 'json-ld-types';
+import { SmartLinkActionType } from '@atlaskit/linking-types';
 export const TEST_URL = 'https://my.url.com';
 export const TEST_VISIT_URL = 'https://visit.url.com';
 export const TEST_NAME = 'my name';
@@ -94,6 +95,7 @@ export const TEST_META_DATA: JsonLd.Meta.BaseMeta = {
 export const TEST_RESOLVED_META_DATA: JsonLd.Meta.BaseMeta = {
   access: 'granted',
   visibility: 'restricted',
+  key: 'object-provider',
 };
 
 export const TEST_DOCUMENT: JsonLd.Data.Document = {
@@ -132,19 +134,56 @@ export const TEST_ASSIGN_ACTION: JsonLd.Data.BaseData['schema:potentialAction'] 
     name: 'assign',
   };
 
-export const TEST_NO_ID_ACTION: JsonLd.Data.BaseData['schema:potentialAction'] =
-  {
-    '@type': 'DeleteAction',
-    identifier: 'dropbox-object-provider',
-    name: 'delete',
-  };
-
 export const TEST_VIEW_ACTION: JsonLd.Data.BaseData['schema:potentialAction'] =
   {
     '@type': 'ViewAction',
     identifier: 'dropbox-object-provider',
     name: 'view',
   };
+
+export const TEST_FOLLOW_ACTION: JsonLd.Primitives.UpdateAction = {
+  '@type': 'UpdateAction',
+  name: 'UpdateAction',
+  dataUpdateAction: {
+    '@type': 'UpdateAction',
+    name: 'FollowEntityAction',
+  },
+  resourceIdentifiers: {
+    ari: 'some-resource-identifier',
+  },
+  refField: 'button',
+};
+
+export const TEST_UNFOLLOW_ACTION: JsonLd.Primitives.UpdateAction = {
+  '@type': 'UpdateAction',
+  name: 'UpdateAction',
+  dataUpdateAction: {
+    '@type': 'UpdateAction',
+    name: 'UnfollowEntityAction',
+  },
+  resourceIdentifiers: {
+    ari: 'some-resource-identifier',
+  },
+  refField: 'button',
+};
+
+export const TEST_STATUS_UPDATE_ACTION: JsonLd.Primitives.UpdateAction = {
+  '@type': 'UpdateAction',
+  name: 'UpdateAction',
+  dataRetrievalAction: {
+    '@type': 'ReadAction',
+    name: SmartLinkActionType.GetStatusTransitionsAction,
+  },
+  dataUpdateAction: {
+    '@type': 'UpdateAction',
+    name: SmartLinkActionType.StatusUpdateAction,
+  },
+  refField: 'tag',
+  resourceIdentifiers: {
+    issueKey: 'some-id',
+    hostname: 'some-hostname',
+  },
+};
 
 export const TEST_DOCUMENT_WITH_ACTIONS: JsonLd.Data.BaseData = {
   ...TEST_DOCUMENT,

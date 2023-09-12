@@ -48,6 +48,9 @@ While the `react-beautiful-dnd` keyboard interaction pattern is _okay_, it has s
 
 - Directional arrow movement does not work for all experiences (it really only works for lists and lists of lists)
 - The pattern does not support moving items between lists along the main axis (eg if two vertical lists are stacked vertically, a keyboard user cannot move items between the lists). Supporting directional movements for all use cases, even for lists, is extremely complex to achieve
+- The pattern does not support scrolling a scroll container (or the window) to make room for a draggable wanting to move on the cross axis.
+
+_These limitations exist because it is super complex to get the `react-beautiful-dnd` keyboard pattern working in all cases (even for lists and lists of lists)_
 
 ##### Poor performance
 

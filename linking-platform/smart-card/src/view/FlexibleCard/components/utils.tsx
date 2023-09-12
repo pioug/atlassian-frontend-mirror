@@ -6,9 +6,9 @@ import { SmartLinkSize } from '../../../constants';
 import { MessageProps } from './types';
 import Icon from './elements/icon';
 import { openEmbedModal } from '../../EmbedModal/utils';
-import { AnalyticsFacade } from '../../../state/analytics';
 import { PreviewActionData } from '../../../state/flexible-ui-context/types';
 import { IntlShape, MessageDescriptor } from 'react-intl-next';
+import { EmbedModalProps } from '../../EmbedModal/types';
 
 export const sizeToButtonSpacing: Record<SmartLinkSize, Spacing> = {
   [SmartLinkSize.Small]: 'none',
@@ -166,36 +166,19 @@ export const hasWhiteSpace = (str: string): boolean => {
 };
 
 export const openEmbedModalWithFlexibleUiIcon = ({
-  analytics,
-  downloadUrl,
   linkIcon,
-  onClose,
-  providerName,
-  src,
-  title,
-  url,
-  isSupportTheming,
-}: PreviewActionData & {
-  analytics?: AnalyticsFacade;
-  onClose?: () => void;
-}) => {
+  ...props
+}: Partial<EmbedModalProps> & Pick<PreviewActionData, 'linkIcon'>) => {
   const icon = {
     icon: <Icon {...linkIcon} size={SmartLinkSize.Large} />,
     isFlexibleUi: true,
   };
   return openEmbedModal({
-    analytics,
-    download: downloadUrl,
+    ...props,
     icon,
     // Flex should not send origin as block card. It should be able to support
     // its internal parent components like hover card, block card and
     // itself as a standalone. To be investigated and fix in EDM-7520.
     origin: 'smartLinkCard',
-    providerName,
-    onClose,
-    src,
-    title,
-    url,
-    isSupportTheming,
   });
 };

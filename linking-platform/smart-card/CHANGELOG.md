@@ -1,5 +1,25 @@
 # @atlaskit/smart-card
 
+## 26.25.0
+
+### Minor Changes
+
+- [`dc3345f4b47`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dc3345f4b47) - Refactor flexible card to use client action hook. (Minor due to the change to the deprecated hook.)
+
+### Patch Changes
+
+- [`2c8b781fd3a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2c8b781fd3a) - cleanup: remove server actions from actions extractor
+
+## 26.24.0
+
+### Minor Changes
+
+- [`cb6f1d7a319`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb6f1d7a319) - Add Follow/Unfollow action to flexible smart links (behind feature flag)
+
+### Patch Changes
+
+- [`93888ff40ba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/93888ff40ba) - [ux] Style updates for refreshed smart cards behind a feature flag. If this update is successful it will be available in a later release.
+
 ## 26.23.2
 
 ### Patch Changes

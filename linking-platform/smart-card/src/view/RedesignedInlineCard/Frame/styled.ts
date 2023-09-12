@@ -77,7 +77,7 @@ const baseWrapperStyle = (props: WrapperProps) => `
   ${props.withoutBackground ? `padding-left: 0; margin-left:-2px;` : ''}
   display: inline;
   box-decoration-break: clone;
-  border-radius: ${token('border.radius.100', '3px')};
+  border-radius: ${token('border.radius.100', '4px')};
   color: ${themed({
     light: token('color.link', B400),
     dark: token('color.link', '#4794FF'),

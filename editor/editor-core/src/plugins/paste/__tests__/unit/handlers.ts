@@ -66,7 +66,7 @@ import layoutPlugin from '../../../layout';
 import panelPlugin from '../../../panel';
 import selectionPlugin from '../../../selection';
 import { emojiPlugin } from '@atlaskit/editor-plugin-emoji';
-import blockTypePlugin from '../../../block-type';
+import { blockTypePlugin } from '@atlaskit/editor-plugin-block-type';
 import captionPlugin from '../../../caption';
 import mediaPlugin from '../../../media';
 import { editorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';

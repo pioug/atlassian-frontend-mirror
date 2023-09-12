@@ -1,5 +1,6 @@
 import { FlexibleUiDataContext } from '../state/flexible-ui-context/types';
 import { IconType, MediaType } from '../constants';
+import { SmartLinkActionType } from '@atlaskit/linking-types';
 
 const context: FlexibleUiDataContext = {
   attachmentCount: 3,
@@ -16,6 +17,16 @@ const context: FlexibleUiDataContext = {
     downloadUrl: 'https://www.link-url.com',
   },
   dueOn: '2022-02-22T12:40:12.353+0800',
+  followAction: {
+    action: {
+      action: {
+        actionType: SmartLinkActionType.FollowEntityAction,
+        resourceIdentifiers: {},
+      },
+      providerKey: 'object-provider',
+    },
+    value: true,
+  },
   latestCommit: '03e6a82',
   linkIcon: {
     icon: 'BitBucket:Project' as IconType,

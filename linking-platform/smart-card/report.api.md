@@ -67,6 +67,8 @@ export enum ActionName {
   // (undocumented)
   EditAction = 'EditAction',
   // (undocumented)
+  FollowAction = 'FollowAction',
+  // (undocumented)
   PreviewAction = 'PreviewAction',
   // (undocumented)
   ViewAction = 'ViewAction',
@@ -635,7 +637,7 @@ type InstrumentEventProps = CommonEventProps & {
 
 // @public (undocumented)
 type InvokeFailedEventProps = CommonEventProps & {
-  id: string;
+  id?: string;
   actionType: string;
   display?: CardInnerAppearance;
   reason: string;
@@ -643,7 +645,7 @@ type InvokeFailedEventProps = CommonEventProps & {
 
 // @public (undocumented)
 type InvokeSucceededEventProps = CommonEventProps & {
-  id: string;
+  id?: string;
   actionType: string;
   display?: CardInnerAppearance;
 };
@@ -710,6 +712,7 @@ type NamedActionItem = BaseActionItem & {
 type NamedDataActionItem = BaseDataActionItem & {
   name:
     | ActionName.DownloadAction
+    | ActionName.FollowAction
     | ActionName.PreviewAction
     | ActionName.ViewAction;
 };
@@ -983,7 +986,7 @@ enum TrackQuickActionType {
 
 // @public (undocumented)
 type UiActionClickedEventProps = CommonEventProps & {
-  id: string;
+  id?: string;
   display?: CardInnerAppearance;
   actionType: string;
   invokeType?: InvokeType;
@@ -1129,7 +1132,7 @@ export const useSmartLinkAnalytics: (
       destinationSubproduct,
     }: UiIframeFocusedEventProps) => void;
     actionClickedEvent: ({
-      id: experienceId,
+      id,
       actionType,
       display,
       invokeType,
@@ -1218,7 +1221,7 @@ export const useSmartLinkAnalytics: (
   };
   operational: {
     invokeSucceededEvent: ({
-      id: experienceId,
+      id,
       actionType,
       display,
       extensionKey,
@@ -1229,7 +1232,7 @@ export const useSmartLinkAnalytics: (
       location,
     }: InvokeSucceededEventProps) => void;
     invokeFailedEvent: ({
-      id: experienceId,
+      id,
       actionType,
       display,
       reason,

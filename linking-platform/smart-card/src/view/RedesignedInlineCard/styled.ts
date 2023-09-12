@@ -12,7 +12,7 @@ export const IconStyledButton = styled.span`
     text-align: initial;
     display: inline;
     vertical-align: baseline;
-    border-radius: ${token('border.radius.100', '2px')};
+    border-radius: ${token('border.radius.100', '4px')};
     border-top-left-radius: 0px;
     border-bottom-left-radius: 0px;
     padding: ${token('space.025', '2px')} ${token('space.075', '6px')};

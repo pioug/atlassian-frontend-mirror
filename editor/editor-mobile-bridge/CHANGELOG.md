@@ -1,5 +1,33 @@
 # @atlaskit/editor-mobile-bridge
 
+## 187.42.0
+
+### Minor Changes
+
+- [`8441acc0e0c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8441acc0e0c) - Extract block-type plugin into @atlaskit/editor-plugin-block-type
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.41.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.41.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.41.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 187.41.6
 
 ### Patch Changes

@@ -3,14 +3,11 @@ import {
   initEditorWithAdf,
   snapshot,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
-import gapcursor from './__fixtures__/gap-cursor-adf.json';
-import gapCursorLayout from './__fixtures__/gap-cursor-layout-adf.json';
 import gapCursorTable from './__fixtures__/gap-cursor-table-adf.json';
 import paragraph from './__fixtures__/paragraph-of-text.adf.json';
 import { selectors } from '@atlaskit/editor-test-helpers/page-objects/editor';
 import { pressKey } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
-import { clickOnStatus } from '@atlaskit/editor-test-helpers/page-objects/status';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 
 let page: PuppeteerPage;
 
@@ -21,89 +18,6 @@ const initEditor = async (adf?: Object) => {
     appearance: Appearance.fullPage,
   });
 };
-
-describe('Gap cursor:', () => {
-  beforeEach(async () => {
-    page = global.page;
-    await initEditor(gapcursor);
-  });
-
-  afterEach(async () => {
-    await snapshot(page);
-  });
-
-  it('should render gap cursor for code when ArrowRight', async () => {
-    await page.click(selectors.codeContent);
-    await pressKey(page, 'ArrowRight');
-    await pressKey(page, 'ArrowRight');
-    await page.waitForSelector(selectors.gapCursor);
-  });
-
-  it('should render gap cursor on panel when ArrowLeft', async () => {
-    await page.click(selectors.panelContent);
-    await pressKey(page, 'ArrowLeft');
-    await pressKey(page, 'ArrowLeft');
-    await page.waitForSelector(selectors.gapCursor);
-  });
-
-  it('should render gap cursor on table on ArrowUp', async () => {
-    await page.click(selectors.panelContent);
-    await pressKey(page, 'ArrowLeft');
-    await pressKey(page, 'ArrowLeft');
-    await pressKey(page, 'ArrowUp');
-    await page.waitForSelector(selectors.gapCursor);
-  });
-
-  it('should render gap cursor on table on ArrowDown', async () => {
-    await page.click(selectors.codeContent);
-    await pressKey(page, 'ArrowRight');
-    await pressKey(page, 'ArrowRight');
-    await pressKey(page, 'ArrowDown');
-    await page.waitForSelector(selectors.gapCursor);
-  });
-});
-
-describe('Gap cursor: layout', () => {
-  beforeEach(async () => {
-    page = global.page;
-    await initEditor(gapCursorLayout);
-  });
-
-  it('should render gap cursor on action inside a layout on ArrowRight', async () => {
-    await clickOnStatus(page);
-    await pressKey(page, ['ArrowRight', 'ArrowRight']);
-    await page.waitForSelector(selectors.gapCursor);
-    await snapshot(page, undefined, '[data-layout-section]');
-  });
-
-  it('should the gap-cursor before the top divider element to have zero margin top', async () => {
-    await page.click('hr:first-child');
-    await pressKey(page, ['ArrowLeft']);
-    await page.waitForSelector(selectors.gapCursor);
-    await snapshot(page);
-  });
-
-  it('should the gap-cursor after the top divider element to have zero margin top', async () => {
-    await page.click('hr:first-child');
-    await pressKey(page, ['ArrowRight']);
-    await page.waitForSelector(selectors.gapCursor);
-    await snapshot(page);
-  });
-
-  it('should the gap-cursor before the bottom divider element remains the same margin on both top and bottom', async () => {
-    await page.click('hr:last-of-type');
-    await pressKey(page, ['ArrowLeft']);
-    await page.waitForSelector(selectors.gapCursor);
-    await snapshot(page);
-  });
-
-  it('should the gap-cursor after the bottom divider element remains the same margin on both top and bottom', async () => {
-    await page.click('hr:last-of-type');
-    await pressKey(page, ['ArrowRight']);
-    await page.waitForSelector(selectors.gapCursor);
-    await snapshot(page);
-  });
-});
 
 describe('Gap cursor: table', () => {
   beforeEach(async () => {

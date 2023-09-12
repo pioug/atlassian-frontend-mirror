@@ -39,6 +39,7 @@ const FlexibleErroredView = ({
 
   return (
     <FlexibleCard
+      appearance="block"
       cardState={cardState}
       onAuthorize={onAuthorize}
       onClick={onClick}

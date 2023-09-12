@@ -11,7 +11,7 @@ import {
 
 import commonMessages from '../../../messages';
 import adf from './__fixtures__/breakout-columns-with-iframe.adf.json';
-import { messages } from '../../../plugins/block-type/messages';
+import { messages } from '@atlaskit/editor-plugin-block-type/messages';
 
 const wideBreakoutButtonQuery = `div[aria-label="${commonMessages.layoutWide.defaultMessage}"]`;
 const fullWidthBreakoutButtonQuery = `div[aria-label="${commonMessages.layoutFullWidth.defaultMessage}"]`;

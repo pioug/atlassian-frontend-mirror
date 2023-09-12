@@ -12,6 +12,7 @@ import type {
 import { Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 
+import type { HeadingLevelsAndNormalText } from '../types/block-type';
 import type { Command } from '../types/command';
 
 type AlignmentState = 'start' | 'end' | 'center';
@@ -205,6 +206,25 @@ export function findCutBefore($pos: ResolvedPos): ResolvedPos | null {
   }
 
   return null;
+}
+
+export function setHeading(level: HeadingLevelsAndNormalText): Command {
+  return function (state, dispatch) {
+    const { selection, schema, tr } = state;
+    const ranges =
+      selection instanceof CellSelection ? selection.ranges : [selection];
+    ranges.forEach(({ $from, $to }) => {
+      tr.setBlockType($from.pos, $to.pos, schema.nodes.heading, {
+        level,
+      });
+    });
+
+    if (dispatch) {
+      dispatch(tr);
+    }
+
+    return true;
+  };
 }
 
 export { insertBlock } from './insert-block';

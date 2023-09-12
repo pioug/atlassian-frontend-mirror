@@ -21,7 +21,7 @@ import Board from './pieces/board';
 import { BoardContext, BoardContextProps } from './pieces/board-context';
 import { Column } from './pieces/column';
 
-type Operation =
+type KeyboardOperation =
   | {
       type: 'column-reorder';
       columnId: string;
@@ -44,7 +44,7 @@ type Operation =
 type BoardState = {
   columnMap: ColumnMap;
   orderedColumnIds: string[];
-  lastOperation: Operation | null;
+  lastKeyboardOperation: KeyboardOperation | null;
 };
 
 /**
@@ -73,7 +73,13 @@ function createRegistry() {
 }
 
 export default function BoardExample() {
-  const [data, setData] = useState<BoardState>(getInitialData);
+  const [data, setData] = useState<BoardState>(() => {
+    const base = getInitialData();
+    return {
+      ...base,
+      lastKeyboardOperation: null,
+    };
+  });
 
   const stableData = useRef(data);
   useEffect(() => {
@@ -82,14 +88,19 @@ export default function BoardExample() {
 
   const [{ registry, registerCard }] = useState(createRegistry);
 
-  const { lastOperation } = data;
+  const { lastKeyboardOperation } = data;
+
+  // In this effect we are performing two post accessible operation actions:
+  // 1. Tell the user what occurred with a screen reader announcement
+  // 2. Restore focus to the relevant control so that the user
+  //    can continue to quickly interact with the item
   useEffect(() => {
-    if (lastOperation === null) {
+    if (lastKeyboardOperation === null) {
       return;
     }
 
-    if (lastOperation.type === 'column-reorder') {
-      const { startIndex, finishIndex } = lastOperation;
+    if (lastKeyboardOperation.type === 'column-reorder') {
+      const { startIndex, finishIndex } = lastKeyboardOperation;
 
       const { columnMap, orderedColumnIds } = stableData.current;
       const sourceColumn = columnMap[orderedColumnIds[finishIndex]];
@@ -103,8 +114,8 @@ export default function BoardExample() {
       return;
     }
 
-    if (lastOperation.type === 'card-reorder') {
-      const { columnId, startIndex, finishIndex } = lastOperation;
+    if (lastKeyboardOperation.type === 'card-reorder') {
+      const { columnId, startIndex, finishIndex } = lastKeyboardOperation;
 
       const { columnMap } = stableData.current;
       const column = columnMap[columnId];
@@ -121,12 +132,12 @@ export default function BoardExample() {
       return;
     }
 
-    if (lastOperation.type === 'card-move') {
+    if (lastKeyboardOperation.type === 'card-move') {
       const {
         finishColumnId,
         itemIndexInStartColumn,
         itemIndexInFinishColumn,
-      } = lastOperation;
+      } = lastKeyboardOperation;
 
       const data = stableData.current;
       const destinationColumn = data.columnMap[finishColumnId];
@@ -155,7 +166,7 @@ export default function BoardExample() {
 
       return;
     }
-  }, [lastOperation, registry]);
+  }, [lastKeyboardOperation, registry]);
 
   useEffect(() => {
     return liveRegion.cleanup();
@@ -170,11 +181,23 @@ export default function BoardExample() {
     ({
       startIndex,
       finishIndex,
+      source = 'keyboard',
     }: {
       startIndex: number;
       finishIndex: number;
+      source?: 'keyboard' | 'pointer';
     }) => {
       setData(data => {
+        const operation: KeyboardOperation | null =
+          source === 'keyboard'
+            ? {
+                type: 'column-reorder',
+                columnId: data.orderedColumnIds[startIndex],
+                startIndex,
+                finishIndex,
+              }
+            : null;
+
         return {
           ...data,
           orderedColumnIds: reorder({
@@ -182,12 +205,7 @@ export default function BoardExample() {
             startIndex,
             finishIndex,
           }),
-          lastOperation: {
-            type: 'column-reorder',
-            columnId: data.orderedColumnIds[startIndex],
-            startIndex,
-            finishIndex,
-          },
+          lastKeyboardOperation: operation,
         };
       });
     },
@@ -199,10 +217,12 @@ export default function BoardExample() {
       columnId,
       startIndex,
       finishIndex,
+      source = 'keyboard',
     }: {
       columnId: string;
       startIndex: number;
       finishIndex: number;
+      source?: 'keyboard' | 'pointer';
     }) => {
       setData(data => {
         const sourceColumn = data.columnMap[columnId];
@@ -222,15 +242,20 @@ export default function BoardExample() {
           [columnId]: updatedSourceColumn,
         };
 
+        const operation: KeyboardOperation | null =
+          source === 'keyboard'
+            ? {
+                type: 'card-reorder',
+                columnId,
+                startIndex,
+                finishIndex,
+              }
+            : null;
+
         return {
           ...data,
           columnMap: updatedMap,
-          lastOperation: {
-            type: 'card-reorder',
-            columnId,
-            startIndex,
-            finishIndex,
-          },
+          lastKeyboardOperation: operation,
         };
       });
     },
@@ -243,11 +268,13 @@ export default function BoardExample() {
       finishColumnId,
       itemIndexInStartColumn,
       itemIndexInFinishColumn,
+      source = 'keyboard',
     }: {
       startColumnId: string;
       finishColumnId: string;
       itemIndexInStartColumn: number;
       itemIndexInFinishColumn?: number;
+      source?: 'pointer' | 'keyboard';
     }) => {
       setData(data => {
         const sourceColumn = data.columnMap[startColumnId];
@@ -273,19 +300,23 @@ export default function BoardExample() {
           },
         };
 
+        const operation: KeyboardOperation | null =
+          source === 'keyboard'
+            ? {
+                type: 'card-move',
+                finishColumnId,
+                itemIndexInStartColumn,
+                itemIndexInFinishColumn:
+                  typeof itemIndexInFinishColumn === 'number'
+                    ? itemIndexInFinishColumn
+                    : destinationItems.length - 1,
+              }
+            : null;
+
         return {
           ...data,
           columnMap: updatedMap,
-          lastOperation: {
-            type: 'card-move',
-            startColumnId,
-            finishColumnId,
-            itemIndexInStartColumn,
-            itemIndexInFinishColumn:
-              typeof itemIndexInFinishColumn === 'number'
-                ? itemIndexInFinishColumn
-                : destinationItems.length - 1,
-          },
+          lastKeyboardOperation: operation,
         };
       });
     },
@@ -331,7 +362,7 @@ export default function BoardExample() {
               axis: 'horizontal',
             });
 
-            reorderColumn({ startIndex, finishIndex });
+            reorderColumn({ startIndex, finishIndex, source: 'pointer' });
           }
           // Dragging a card
           if (source.data.type === 'card') {
@@ -365,6 +396,7 @@ export default function BoardExample() {
                   columnId: sourceColumn.columnId,
                   startIndex: itemIndex,
                   finishIndex: destinationIndex,
+                  source: 'pointer',
                 });
                 return;
               }
@@ -374,6 +406,7 @@ export default function BoardExample() {
                 itemIndexInStartColumn: itemIndex,
                 startColumnId: sourceColumn.columnId,
                 finishColumnId: destinationColumn.columnId,
+                source: 'pointer',
               });
               return;
             }
@@ -405,6 +438,7 @@ export default function BoardExample() {
                   columnId: sourceColumn.columnId,
                   startIndex: itemIndex,
                   finishIndex: destinationIndex,
+                  source: 'pointer',
                 });
                 return;
               }
@@ -421,6 +455,7 @@ export default function BoardExample() {
                 startColumnId: sourceColumn.columnId,
                 finishColumnId: destinationColumn.columnId,
                 itemIndexInFinishColumn: destinationIndex,
+                source: 'pointer',
               });
             }
           }

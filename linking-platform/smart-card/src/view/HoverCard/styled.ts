@@ -83,7 +83,7 @@ export const getTransitionStyles = (snippetHeight: number) => css`
 `;
 
 export const popupContainerStyles = css`
-  border-radius: ${token('border.radius.300', '12px')};
+  border-radius: ${token('border.radius.200', '8px')};
   background-color: ${themed({
     light: token('elevation.surface.raised', 'white'),
     dark: token('elevation.surface.raised', '#262B31'),
@@ -105,8 +105,8 @@ export const getPreviewBlockStyles = (snippetHeight: number) => css`
   ${getBooleanFF(
     'platform.linking-platform.smart-card.show-smart-links-refreshed-design',
   )
-    ? `  border-top-left-radius: ${token('border.radius.300', '12px')};
-         border-top-right-radius: ${token('border.radius.300', '12px')};
+    ? `  border-top-left-radius: ${token('border.radius.200', '8px')};
+         border-top-right-radius: ${token('border.radius.200', '8px')};
          margin-bottom: ${blockGap};
         }`
     : ``}

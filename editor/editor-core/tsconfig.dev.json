@@ -43,6 +43,9 @@
       "path": "../../../build/test-tooling/integration-testing/tsconfig.app.json"
     },
     {
+      "path": "../../../build/test-tooling/gemini-visual-regression/tsconfig.app.json"
+    },
+    {
       "path": "../activity-provider/tsconfig.app.json"
     },
     {
@@ -107,6 +110,9 @@
     },
     {
       "path": "../editor-plugin-analytics/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-block-type/tsconfig.app.json"
     },
     {
       "path": "../editor-plugin-card/tsconfig.app.json"

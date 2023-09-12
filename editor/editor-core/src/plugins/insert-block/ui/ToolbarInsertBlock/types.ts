@@ -11,7 +11,7 @@ import type {
   PluginInjectionAPIWithDependencies,
 } from '@atlaskit/editor-common/types';
 import type { EmojiProvider } from '@atlaskit/emoji';
-import type { BlockType } from '../../../block-type/types';
+import type { BlockType } from '@atlaskit/editor-plugin-block-type';
 import type { MacroProvider } from '@atlaskit/editor-common/provider-factory';
 
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';

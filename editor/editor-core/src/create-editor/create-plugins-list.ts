@@ -2,7 +2,7 @@ import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import type { EditorPlugin, EditorProps } from '../types';
 import type { EditorPluginFeatureProps } from '../types/editor-props';
 
-import type { BlockTypePluginOptions } from '../plugins/block-type/types';
+import type { BlockTypePluginOptions } from '@atlaskit/editor-plugin-block-type';
 import type { ScrollGutterPluginOptions } from '../plugins/base/pm-plugins/scroll-gutter';
 import { GUTTER_SIZE_MOBILE_IN_PX } from '@atlaskit/editor-common/utils';
 import type { DefaultPresetPluginOptions } from '../labs/next/presets/default';

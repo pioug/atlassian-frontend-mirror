@@ -33,6 +33,15 @@ export const titleBlockCss = css`
 
 export const footerBlockCss = css`
   height: 1.5rem;
+
+  .actions-button-group {
+    button,
+    button:hover,
+    button:focus,
+    button:active {
+      font-size: 0.875rem;
+    }
+  }
 `;
 
 const flexibleBlockCardElevationStyle = css`
@@ -43,7 +52,7 @@ const flexibleBlockCardElevationStyle = css`
 
 const refreshedFlexibleBlockCardStyle = css`
   & > div {
-    border-radius: ${token('border.radius.300', '12px')};
+    border-radius: ${token('border.radius.200', '8px')};
     border: 1px solid ${token('color.border.input', N40)};
   }
 `;

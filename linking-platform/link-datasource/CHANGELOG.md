@@ -1,5 +1,17 @@
 # @atlaskit/link-datasource
 
+## 1.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.1.0
+
+### Minor Changes
+
+- [`3f30d999d86`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3f30d999d86) - Updating VR tests and helpers that use external resources to local ones for Gemini migration
+
 ## 1.0.21
 
 ### Patch Changes

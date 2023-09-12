@@ -2,7 +2,7 @@
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import type { PastePluginOptions } from '../../../plugins/paste';
 import pastePlugin from '../../../plugins/paste';
-import blockTypePlugin from '../../../plugins/block-type';
+import { blockTypePlugin } from '@atlaskit/editor-plugin-block-type';
 import clearMarksOnChangeToEmptyDocumentPlugin from '../../../plugins/clear-marks-on-change-to-empty-document';
 import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import { textFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';
@@ -22,7 +22,7 @@ import type { EditorPresetProps } from './types';
 import clipboardPlugin from '../../../plugins/clipboard';
 import { analyticsPlugin as deprecatedAnalyticsPlugin } from '../../../plugins';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import type { BlockTypePluginOptions } from '../../../plugins/block-type/types';
+import type { BlockTypePluginOptions } from '@atlaskit/editor-plugin-block-type';
 import type { PlaceholderPluginOptions } from '@atlaskit/editor-plugin-placeholder';
 import { placeholderPlugin } from '@atlaskit/editor-plugin-placeholder';
 import type { AnnotationProviders } from '../../../plugins/annotation';

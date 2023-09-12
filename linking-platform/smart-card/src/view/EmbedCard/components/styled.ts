@@ -29,11 +29,11 @@ export const borderRadius = `
 const BACKGROUND_COLOR_DARK = '#262B31';
 
 const wrapperBorderRadius = `
-  border-radius: ${token('border.radius.400', '16px')};
+  border-radius: ${token('border.radius.200', '8px')};
 `;
 
 const contentBorderRadius = `
-  border-radius: ${token('border.radius.300', '12px')};
+  border-radius: ${token('border.radius.100', '4px')};
 `;
 
 export const ellipsis = (maxWidth: string | number = '100%') => {

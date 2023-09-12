@@ -237,3 +237,5 @@ export type {
   QuickInsertSharedState,
   QuickInsertHandler,
 } from './quick-insert';
+
+export type { position, Refs, RefsNode, DocBuilder } from './doc-builder';

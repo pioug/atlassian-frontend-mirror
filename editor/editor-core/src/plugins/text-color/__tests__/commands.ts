@@ -16,7 +16,7 @@ import {
   tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
-import blockTypePlugin from '../../block-type';
+import { blockTypePlugin } from '@atlaskit/editor-plugin-block-type';
 import panelPlugin from '../../panel';
 import selectionPlugin from '../../selection';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';

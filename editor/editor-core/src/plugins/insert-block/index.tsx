@@ -21,7 +21,11 @@ import { insertMacroFromMacroBrowser } from '../macro';
 import WithPluginState from '../../ui/WithPluginState';
 import ToolbarInsertBlock from './ui/ToolbarInsertBlock';
 import { pluginKey as typeAheadPluginKey } from '../type-ahead/pm-plugins/key';
-import { BLOCK_QUOTE, CODE_BLOCK, PANEL } from '../block-type/types';
+import {
+  BLOCK_QUOTE,
+  CODE_BLOCK,
+  PANEL,
+} from '@atlaskit/editor-plugin-block-type/consts';
 import { INPUT_METHOD } from '../analytics';
 import { pluginKey as placeholderTextStateKey } from '../placeholder-text/plugin-key';
 import type { PluginState as PlaceholderTextPluginState } from '../placeholder-text/types';
@@ -30,7 +34,7 @@ import { ToolbarSize } from '../../ui/Toolbar/types';
 
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { InsertBlockPluginDependencies } from './types';
-import type { InputMethod as BlockTypeInputMethod } from '../block-type/commands';
+import type { InputMethod as BlockTypeInputMethod } from '@atlaskit/editor-plugin-block-type';
 
 const toolbarSizeToButtons = (toolbarSize: ToolbarSize) => {
   switch (toolbarSize) {

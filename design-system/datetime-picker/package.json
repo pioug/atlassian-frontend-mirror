@@ -71,6 +71,7 @@
     "@testing-library/react": "^12.1.5",
     "@testing-library/user-event": "^14.4.3",
     "@types/testing-library__jest-dom": "^5.14.5",
+    "jest-in-case": "^1.0.2",
     "moment": "^2.29.2",
     "react-dom": "^16.8.0",
     "react-lorem-component": "^0.13.0",

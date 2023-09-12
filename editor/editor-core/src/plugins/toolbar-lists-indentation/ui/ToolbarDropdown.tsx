@@ -11,7 +11,7 @@ import {
   outdent as toggleOutdentKeymap,
   tooltip,
 } from '../../../keymaps';
-import type { DropdownItem } from '../../block-type/ui/ToolbarBlockType';
+import type { DropdownItem } from '@atlaskit/editor-plugin-block-type';
 import { DropdownMenuWithKeyboardNavigation as DropdownMenu } from '@atlaskit/editor-common/ui-menu';
 import ToolbarButton from '../../../ui/ToolbarButton';
 import { expandIconWrapperStyle, shortcutStyle } from '../../../ui/styles';

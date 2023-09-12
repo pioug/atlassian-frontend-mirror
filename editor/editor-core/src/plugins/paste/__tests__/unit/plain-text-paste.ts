@@ -16,7 +16,7 @@ import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-re
 import deprecatedAnalyticsPlugin from '../../../analytics';
 import pastePlugin from '../../';
 import { basePlugin } from '../../../base';
-import blockTypePlugin from '../../../block-type';
+import { blockTypePlugin } from '@atlaskit/editor-plugin-block-type';
 import { textFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';
 import betterTypeHistoryPlugin from '../../../better-type-history';
 

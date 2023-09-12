@@ -1,3 +1,17 @@
+import {
+  blocker,
+  bug,
+  epic,
+  high,
+  low,
+  major,
+  medium,
+  profile,
+  questionMark,
+  story,
+  task,
+  trivial,
+} from '../images';
 // It is not in a particular format. IT is transformed into expected format when consumed.
 export const mockJiraData = {
   nextPageCursor: 'c3RhcnRBdD01',
@@ -6,19 +20,17 @@ export const mockJiraData = {
     {
       type: {
         label: 'task',
-        source:
-          'https://product-fabric.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium',
+        source: task,
       },
       issueNumber: 'DONUT-1172',
       summary: 'FIRST! This level contains five Dragon coins',
       assignee: {
         displayName: 'Scott Farquhar',
-        source:
-          'https://pbs.twimg.com/profile_images/803832195970433027/aaoG6PJI_400x400.jpg',
+        source: profile,
       },
       priority: {
         label: 'major',
-        source: 'https://static.thenounproject.com/png/60319-200.png',
+        source: questionMark,
       },
       status: {
         text: 'To do',
@@ -34,15 +46,14 @@ export const mockJiraData = {
     {
       type: {
         label: 'story',
-        source: 'https://static.thenounproject.com/png/60319-200.png',
+        source: questionMark,
       },
       issueNumber: 'DONUT-1173',
       summary: "Audio in meeting room K909 doesn't work",
       assignee: undefined,
       priority: {
         label: 'high',
-        source:
-          'https://product-fabric.atlassian.net/images/icons/priorities/high.svg',
+        source: high,
       },
       status: {
         text: 'In progress',
@@ -57,16 +68,14 @@ export const mockJiraData = {
     {
       type: {
         label: 'bug',
-        source:
-          'https://product-fabric.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10303?size=medium',
+        source: bug,
       },
       issueNumber: 'DONUT-1174',
       summary: 'In the underground area, under three Rotating spheres',
       assignee: undefined,
       priority: {
         label: 'medium',
-        source:
-          'https://product-fabric.atlassian.net/images/icons/priorities/medium.svg',
+        source: medium,
       },
       status: {
         text: 'Done',
@@ -81,16 +90,14 @@ export const mockJiraData = {
     {
       type: {
         label: 'task',
-        source:
-          'https://product-fabric.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium',
+        source: task,
       },
       issueNumber: 'DONUT-1175',
       summary: 'This level is hard',
       assignee: undefined,
       priority: {
         label: 'low',
-        source:
-          'https://product-fabric.atlassian.net/images/icons/priorities/low.svg',
+        source: low,
       },
       status: {
         text: 'Closed',
@@ -105,21 +112,18 @@ export const mockJiraData = {
     {
       type: {
         label: 'story',
-        source:
-          'https://product-fabric.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10315?size=medium',
+        source: story,
       },
       issueNumber: 'DONUT-1176',
       summary:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ultricies accumsan justo, eget pretium quam aliquet semper.',
       assignee: {
         displayName: 'Scott Farquhar',
-        source:
-          'https://pbs.twimg.com/profile_images/803832195970433027/aaoG6PJI_400x400.jpg',
+        source: profile,
       },
       priority: {
         label: 'trivial',
-        source:
-          'https://product-fabric.atlassian.net/images/icons/priorities/trivial.svg',
+        source: trivial,
       },
       status: {
         text: 'To do',
@@ -134,16 +138,14 @@ export const mockJiraData = {
     {
       type: {
         label: 'epic',
-        source:
-          'https://product-fabric.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium',
+        source: epic,
       },
       issueNumber: 'DONUT-1177',
       summary: 'This level is hard',
       assignee: undefined,
       priority: {
         label: 'blocker',
-        source:
-          'https://product-fabric.atlassian.net/images/icons/priorities/blocker.svg',
+        source: blocker,
       },
       status: {
         text: 'To do',
@@ -158,16 +160,14 @@ export const mockJiraData = {
     {
       type: {
         label: 'task',
-        source:
-          'https://product-fabric.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium',
+        source: task,
       },
       issueNumber: 'DONUT-1178',
       summary: 'This level is hard',
       assignee: undefined,
       priority: {
         label: 'high',
-        source:
-          'https://product-fabric.atlassian.net/images/icons/priorities/high.svg',
+        source: high,
       },
       status: {
         text: 'To do',
@@ -182,20 +182,17 @@ export const mockJiraData = {
     {
       type: {
         label: 'epic',
-        source:
-          'https://product-fabric.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium',
+        source: epic,
       },
       issueNumber: 'DONUT-1179',
       summary: 'This level is hard',
       assignee: {
         displayName: 'Scott Farquhar',
-        source:
-          'https://pbs.twimg.com/profile_images/803832195970433027/aaoG6PJI_400x400.jpg',
+        source: profile,
       },
       priority: {
         label: 'high',
-        source:
-          'https://product-fabric.atlassian.net/images/icons/priorities/high.svg',
+        source: high,
       },
       status: {
         text: 'To do',
@@ -210,16 +207,14 @@ export const mockJiraData = {
     {
       type: {
         label: 'story',
-        source:
-          'https://product-fabric.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10315?size=medium',
+        source: story,
       },
       issueNumber: 'DONUT-1180',
       summary: 'This level is hard',
       assignee: undefined,
       priority: {
         label: 'high',
-        source:
-          'https://product-fabric.atlassian.net/images/icons/priorities/high.svg',
+        source: high,
       },
       status: {
         text: 'To do',
@@ -234,16 +229,14 @@ export const mockJiraData = {
     {
       type: {
         label: 'task',
-        source:
-          'https://product-fabric.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium',
+        source: task,
       },
       issueNumber: 'DONUT-1181',
       summary: 'This level is hard',
       assignee: undefined,
       priority: {
         label: 'high',
-        source:
-          'https://product-fabric.atlassian.net/images/icons/priorities/high.svg',
+        source: high,
       },
       status: {
         text: 'To do',
@@ -258,20 +251,17 @@ export const mockJiraData = {
     {
       type: {
         label: 'task',
-        source:
-          'https://product-fabric.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium',
+        source: task,
       },
       issueNumber: 'DONUT-1182',
       summary: 'This level is hard',
       assignee: {
         displayName: 'Scott Farquhar',
-        source:
-          'https://pbs.twimg.com/profile_images/803832195970433027/aaoG6PJI_400x400.jpg',
+        source: profile,
       },
       priority: {
         label: 'high',
-        source:
-          'https://product-fabric.atlassian.net/images/icons/priorities/high.svg',
+        source: high,
       },
       status: {
         text: 'Closed',
@@ -286,20 +276,17 @@ export const mockJiraData = {
     {
       type: {
         label: 'task',
-        source:
-          'https://product-fabric.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium',
+        source: task,
       },
       issueNumber: 'DONUT-1183',
       summary: 'This level contains five Dragon coins',
       assignee: {
         displayName: 'Scott Farquhar',
-        source:
-          'https://pbs.twimg.com/profile_images/803832195970433027/aaoG6PJI_400x400.jpg',
+        source: profile,
       },
       priority: {
         label: 'major',
-        source:
-          'https://product-fabric.atlassian.net/images/icons/priorities/major.svg',
+        source: major,
       },
       status: {
         text: 'To do',
@@ -314,16 +301,14 @@ export const mockJiraData = {
     {
       type: {
         label: 'story',
-        source:
-          'https://product-fabric.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10315?size=medium',
+        source: story,
       },
       issueNumber: 'DONUT-1184',
       summary: "Audio in meeting room K909 doesn't work",
       assignee: undefined,
       priority: {
         label: 'high',
-        source:
-          'https://product-fabric.atlassian.net/images/icons/priorities/high.svg',
+        source: high,
       },
       status: {
         text: 'In progress',
@@ -338,16 +323,14 @@ export const mockJiraData = {
     {
       type: {
         label: 'task',
-        source:
-          'https://product-fabric.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium',
+        source: task,
       },
       issueNumber: 'DONUT-1185',
       summary: 'This level is hard',
       assignee: undefined,
       priority: {
         label: 'low',
-        source:
-          'https://product-fabric.atlassian.net/images/icons/priorities/low.svg',
+        source: low,
       },
       status: {
         text: 'Closed',
@@ -362,21 +345,18 @@ export const mockJiraData = {
     {
       type: {
         label: 'story',
-        source:
-          'https://product-fabric.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10315?size=medium',
+        source: story,
       },
       issueNumber: 'DONUT-1186',
       summary:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ultricies accumsan justo, eget pretium quam aliquet semper.',
       assignee: {
         displayName: 'Scott Farquhar',
-        source:
-          'https://pbs.twimg.com/profile_images/803832195970433027/aaoG6PJI_400x400.jpg',
+        source: profile,
       },
       priority: {
         label: 'trivial',
-        source:
-          'https://product-fabric.atlassian.net/images/icons/priorities/trivial.svg',
+        source: trivial,
       },
       status: {
         text: 'To do',
@@ -391,16 +371,14 @@ export const mockJiraData = {
     {
       type: {
         label: 'task',
-        source:
-          'https://product-fabric.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium',
+        source: task,
       },
       issueNumber: 'DONUT-1187',
       summary: 'This level is hard',
       assignee: undefined,
       priority: {
         label: 'blocker',
-        source:
-          'https://product-fabric.atlassian.net/images/icons/priorities/blocker.svg',
+        source: blocker,
       },
       status: {
         text: 'To do',
@@ -415,16 +393,14 @@ export const mockJiraData = {
     {
       type: {
         label: 'task',
-        source:
-          'https://product-fabric.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium',
+        source: task,
       },
       issueNumber: 'DONUT-1188',
       summary: 'This level is hard',
       assignee: undefined,
       priority: {
         label: 'high',
-        source:
-          'https://product-fabric.atlassian.net/images/icons/priorities/high.svg',
+        source: high,
       },
       status: {
         text: 'To do',
@@ -439,20 +415,17 @@ export const mockJiraData = {
     {
       type: {
         label: 'task',
-        source:
-          'https://product-fabric.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium',
+        source: task,
       },
       issueNumber: 'DONUT-1189',
       summary: 'This level is hard',
       assignee: {
         displayName: 'Scott Farquhar',
-        source:
-          'https://pbs.twimg.com/profile_images/803832195970433027/aaoG6PJI_400x400.jpg',
+        source: profile,
       },
       priority: {
         label: 'high',
-        source:
-          'https://product-fabric.atlassian.net/images/icons/priorities/high.svg',
+        source: high,
       },
       status: {
         text: 'To do',
@@ -467,16 +440,14 @@ export const mockJiraData = {
     {
       type: {
         label: 'story',
-        source:
-          'https://product-fabric.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10315?size=medium',
+        source: story,
       },
       issueNumber: 'DONUT-1190',
       summary: 'This level is hard',
       assignee: undefined,
       priority: {
         label: 'high',
-        source:
-          'https://product-fabric.atlassian.net/images/icons/priorities/high.svg',
+        source: high,
       },
       status: {
         text: 'To do',
@@ -491,16 +462,14 @@ export const mockJiraData = {
     {
       type: {
         label: 'epic',
-        source:
-          'https://product-fabric.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium',
+        source: epic,
       },
       issueNumber: 'DONUT-1191',
       summary: 'This level is hard',
       assignee: undefined,
       priority: {
         label: 'high',
-        source:
-          'https://product-fabric.atlassian.net/images/icons/priorities/high.svg',
+        source: high,
       },
       status: {
         text: 'To do',
@@ -515,20 +484,17 @@ export const mockJiraData = {
     {
       type: {
         label: 'task',
-        source:
-          'https://product-fabric.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium',
+        source: task,
       },
       issueNumber: 'DONUT-1192',
       summary: 'This level is hard',
       assignee: {
         displayName: 'Scott Farquhar',
-        source:
-          'https://pbs.twimg.com/profile_images/803832195970433027/aaoG6PJI_400x400.jpg',
+        source: profile,
       },
       priority: {
         label: 'high',
-        source:
-          'https://product-fabric.atlassian.net/images/icons/priorities/high.svg',
+        source: high,
       },
       status: {
         text: 'Closed',

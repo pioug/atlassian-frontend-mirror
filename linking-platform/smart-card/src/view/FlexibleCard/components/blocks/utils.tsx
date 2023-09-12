@@ -1,8 +1,9 @@
 import React from 'react';
 import { css, SerializedStyles } from '@emotion/react';
 
-import { ElementItem } from './types';
+import { ActionItem, ElementItem } from './types';
 import {
+  ActionName,
   ElementName,
   SmartLinkDirection,
   SmartLinkSize,
@@ -11,6 +12,7 @@ import * as Elements from '../elements';
 import { isFlexibleUiElement } from '../../../../utils/flexible';
 import ActionGroup from './action-group';
 import ElementGroup from './element-group';
+import type { FlexibleUiDataContext } from '../../../../state/flexible-ui-context/types';
 
 // Determine whether the element can be display as inline/block.
 export type ElementDisplaySchemaType = 'inline' | 'block';
@@ -137,6 +139,28 @@ export const isJSXElementNull = (children: JSX.Element) => {
 const isElementOrElementGroup = (node: React.ReactNode) =>
   React.isValidElement(node) &&
   (isFlexibleUiElement(node) || node.type === ElementGroup);
+
+export const filterActionItems = (
+  items: ActionItem[] = [],
+  context?: FlexibleUiDataContext,
+) => {
+  return items.filter((item) => {
+    switch (item.name) {
+      // Action that require data from the data context to render.
+      case ActionName.DownloadAction:
+        return Boolean(context?.downloadAction);
+      case ActionName.FollowAction:
+        return Boolean(context?.followAction);
+      case ActionName.PreviewAction:
+        return Boolean(context?.previewAction);
+      case ActionName.ViewAction:
+        return Boolean(context?.viewAction);
+      default:
+        // Named and custom actions that user defines.
+        return Boolean(ActionName[item.name]);
+    }
+  });
+};
 
 export const renderChildren = (
   children: React.ReactNode,

@@ -36,7 +36,7 @@ import expandPlugin from '../../../expand';
 import layoutPlugin from '../../../layout';
 import panelPlugin from '../../../panel';
 import selectionPlugin from '../../../selection';
-import blockTypePlugin from '../../../block-type';
+import { blockTypePlugin } from '@atlaskit/editor-plugin-block-type';
 import { listPlugin } from '@atlaskit/editor-plugin-list';
 import extensionPlugin from '../../../extension';
 import codeBlockPlugin from '../../../code-block';

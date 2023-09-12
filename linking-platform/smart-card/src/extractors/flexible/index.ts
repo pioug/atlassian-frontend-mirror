@@ -1,6 +1,8 @@
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { JsonLd } from 'json-ld-types';
 import { FlexibleUiDataContext } from '../../state/flexible-ui-context/types';
 import { extractSummary } from '../common/primitives';
+import extractFollowAction from './actions/extract-follow-action';
 import { extractLinkIcon } from './icon';
 import {
   extractAttachmentCount,
@@ -77,6 +79,11 @@ const extractFlexibleUiContext = ({
     assignedTo: extractAssignedTo(data),
     createdOn: extractDateCreated(data as LinkTypeCreated),
     dueOn: extractDueOn(data),
+    followAction: getBooleanFF(
+      'platform.linking-platform.smart-card.follow-button',
+    )
+      ? extractFollowAction(response, showServerActions, id)
+      : undefined,
     previewAction: extractPreviewAction(response),
     viewAction: extractViewAction(data),
     downloadAction: extractDownloadAction(data),

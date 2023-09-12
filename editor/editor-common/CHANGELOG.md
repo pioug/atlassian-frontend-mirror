@@ -1,5 +1,18 @@
 # @atlaskit/editor-common
 
+## 74.59.0
+
+### Minor Changes
+
+- [`8441acc0e0c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8441acc0e0c) - Extract block-type plugin into @atlaskit/editor-plugin-block-type
+
+## 74.58.5
+
+### Patch Changes
+
+- [`66e75974428`](https://bitbucket.org/atlassian/atlassian-frontend/commits/66e75974428) - [ux] Selection style for the block smart cards updated behind a feature flag. If this update is successful it will be available in a later release.
+- [`890ab8d6307`](https://bitbucket.org/atlassian/atlassian-frontend/commits/890ab8d6307) - NO-ISSUE Move doc builder types to editor-common to break circular dependencies
+
 ## 74.58.4
 
 ### Patch Changes

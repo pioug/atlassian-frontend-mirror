@@ -28,6 +28,7 @@
     "./src/plugins/media/nodeviews/__mocks__/**/*"
   ],
   "compilerOptions": {
+    "types": ["@emotion/react/types/css-prop"],
     "baseUrl": "./",
     "composite": true,
     "outDir": "../../../tsDist/@atlaskit__editor-core/app"
@@ -89,6 +90,9 @@
     },
     {
       "path": "../editor-plugin-analytics/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-block-type/tsconfig.app.json"
     },
     {
       "path": "../editor-plugin-card/tsconfig.app.json"

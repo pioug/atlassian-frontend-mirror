@@ -28,7 +28,7 @@ import {
 } from '@atlaskit/link-extractors';
 import { extractByline } from '../common/byline/extractByline';
 import { extractTitlePrefix } from '../common/title-prefix/extractTitlePrefix';
-import { extractActions } from '../common/actions/extractActions';
+import { extractClientActions } from '../common/actions/extractActions';
 import { ExtractBlockOpts } from './types';
 import { extractPreviewAction } from '../common/actions/extractPreviewAction';
 import { extractIsTrusted } from '../common/meta/extractIsTrusted';
@@ -64,7 +64,7 @@ export const extractBlockActions = (
 ): ActionProps[] => {
   if (opts) {
     const { handleInvoke } = opts;
-    const actions = extractActions(jsonLd, handleInvoke);
+    const actions = extractClientActions(jsonLd, handleInvoke);
     const previewAction = extractPreviewAction({
       ...opts,
       viewProps: props,

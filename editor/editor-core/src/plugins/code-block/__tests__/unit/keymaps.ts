@@ -22,7 +22,7 @@ import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import codeBlockPlugin from '../../';
 import { compositionPlugin } from '@atlaskit/editor-plugin-composition';
 import layoutPlugin from '../../../layout';
-import blockTypePlugin from '../../../block-type';
+import { blockTypePlugin } from '@atlaskit/editor-plugin-block-type';
 import { basePlugin } from '../../../base';
 import selectionPlugin from '../../../selection';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';

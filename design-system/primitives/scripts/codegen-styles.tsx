@@ -8,6 +8,7 @@ import { createBorderStylesFromTemplate } from './border-codegen-template';
 import { createColorStylesFromTemplate } from './color-codegen-template';
 import { createStylesFromFileTemplate } from './misc-codegen-template';
 import { createSpacingStylesFromTemplate } from './spacing-codegen-template';
+import { createTypographyStylesFromTemplate } from './typography-codegen-template';
 
 const colorTokensDependencyPath = require.resolve(
   '../../tokens/src/artifacts/tokens-raw/atlassian-light',
@@ -85,6 +86,17 @@ const sourceFns = [
       'yarn workspace @atlaskit/primitives codegen-styles',
       {
         id: 'misc',
+        absoluteFilePath: targetPath,
+        dependencies: templateFiles,
+      },
+    ),
+  // font*, lineheight
+  () =>
+    createPartialSignedArtifact(
+      options => options.map(createTypographyStylesFromTemplate).join('\n'),
+      'yarn workspace @atlaskit/primitives codegen-styles',
+      {
+        id: 'typography',
         absoluteFilePath: targetPath,
         dependencies: templateFiles,
       },

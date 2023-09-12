@@ -18,6 +18,7 @@ import { getContextByStatus, getRetryOptions } from './utils';
  */
 const FlexibleCard: React.FC<FlexibleCardProps> = ({
   analytics,
+  appearance = 'flexible',
   cardState,
   children,
   id,
@@ -51,6 +52,18 @@ const FlexibleCard: React.FC<FlexibleCardProps> = ({
   const retry = getRetryOptions(url, status, details, onAuthorize);
   const { title } = context || {};
 
+  const analyticsContext = useMemo(
+    () =>
+      analytics
+        ? {
+            ...analytics,
+            display: appearance,
+            extensionKey: details?.meta?.key,
+          }
+        : undefined,
+    [analytics, appearance, details?.meta?.key],
+  );
+
   useEffect(() => {
     switch (status) {
       case SmartLinkStatus.Resolved:
@@ -69,8 +82,9 @@ const FlexibleCard: React.FC<FlexibleCardProps> = ({
         break;
     }
   }, [onError, onResolve, status, title, url]);
+
   return (
-    <FlexibleUiAnalyticsContext.Provider value={analytics}>
+    <FlexibleUiAnalyticsContext.Provider value={analyticsContext}>
       <FlexibleUiOptionContext.Provider value={ui}>
         <FlexibleUiContext.Provider value={context}>
           <Container

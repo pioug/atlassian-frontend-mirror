@@ -14,10 +14,9 @@ import ShortcutIcon from '@atlaskit/icon/glyph/shortcut';
 import DownloadAction from './action/download-action';
 import DownloadIcon from '@atlaskit/icon/glyph/download';
 
-const actionMappings: Record<
-  ActionName,
-  { component: React.FC<any> | undefined; props?: any }
-> = {
+const actionMappings: {
+  [key in ActionName]?: { component: React.FC<any> | undefined; props?: any };
+} = {
   [ActionName.CustomAction]: {
     component: Action,
     props: {},

@@ -25,7 +25,7 @@ import { smallImage, dataURItoBlob } from '@atlaskit/media-test-helpers';
 import pastePlugin from '../../index';
 import textColorPlugin from '../../../text-color';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
-import blockTypePlugin from '../../../block-type';
+import { blockTypePlugin } from '@atlaskit/editor-plugin-block-type';
 import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import { textFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';
 import { listPlugin } from '@atlaskit/editor-plugin-list';

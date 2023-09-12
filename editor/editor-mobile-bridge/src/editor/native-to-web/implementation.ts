@@ -1,6 +1,4 @@
 import type {
-  BlockTypeInputMethod,
-  BlockTypeState,
   CustomMediaPicker,
   InsertBlockInputMethodToolbar,
   MentionPluginState,
@@ -11,6 +9,10 @@ import type {
   ListState,
   InputMethod as ListInputMethod,
 } from '@atlaskit/editor-plugin-list';
+import type {
+  BlockTypeState,
+  InputMethod as BlockTypeInputMethod,
+} from '@atlaskit/editor-plugin-block-type';
 import type {
   QuickInsertItem,
   QuickInsertItemId,

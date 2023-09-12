@@ -14,7 +14,7 @@ import deprecatedAnalyticsPlugin from '../../../../analytics';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import toolbarListsIndentationPlugin from '../../../';
 import indentationPlugin from '../../../../indentation';
-import blockTypePlugin from '../../../../block-type';
+import { blockTypePlugin } from '@atlaskit/editor-plugin-block-type';
 import { listPlugin } from '@atlaskit/editor-plugin-list';
 import { textFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';
 import type { Props as ToolbarListsIndentationProps } from '../../../ui';

@@ -24,12 +24,12 @@ import { ACTION_SUBJECT } from '@atlaskit/editor-common/analytics';
 import { ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics';
 import type { ActivityProvider } from '@atlaskit/activity-provider';
 import type { AllEditorPresetPluginTypes } from '@atlaskit/editor-common/types';
-import type { AllowedBlockTypes } from '@atlaskit/editor-common/types';
 import { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
 import type { AnalyticsEventPayload as AnalyticsEventPayload_2 } from '@atlaskit/analytics-next/AnalyticsEvent';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { AnnotationTypes } from '@atlaskit/adf-schema';
+import type { BlockTypePluginOptions } from '@atlaskit/editor-plugin-block-type';
 import { BrowserFreezetracking } from '@atlaskit/editor-common/types';
 import type { CardOptions } from '@atlaskit/editor-common/card';
 import { CardProvider } from '@atlaskit/editor-common/provider-factory';
@@ -87,7 +87,6 @@ import { Side as GapCursorSide } from '@atlaskit/editor-common/selection';
 import type { GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
 import type { GridPlugin } from '@atlaskit/editor-plugin-grid';
 import type { GuidelinePlugin } from '@atlaskit/editor-plugin-guideline';
-import type { HeadingLevelsAndNormalText } from '@atlaskit/editor-common/types';
 import type { HyperlinkPluginOptions } from '@atlaskit/editor-common/types';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { InputMethodInsertMedia } from '@atlaskit/editor-common/analytics';
@@ -110,7 +109,6 @@ import { MentionProvider } from '@atlaskit/mention/resource';
 import type { MentionProvider as MentionProvider_2 } from '@atlaskit/mention';
 import { MentionResource } from '@atlaskit/mention/resource';
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
-import type { MessageDescriptor } from 'react-intl-next';
 import { default as messages } from '@atlaskit/editor-common/messages';
 import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import { Node as Node_2 } from '@atlaskit/editor-prosemirror/model';
@@ -280,65 +278,6 @@ export class BaseReactEditorView<T = {}> extends ReactEditorView_2<T> {}
 type BeforeAndAfterToolbarComponents = {
   before: ReactComponents;
   after: ReactComponents;
-};
-
-// @public (undocumented)
-interface BlockType {
-  // (undocumented)
-  level?: HeadingLevelsAndNormalText;
-  // (undocumented)
-  name: string;
-  // (undocumented)
-  nodeName: string;
-  // (undocumented)
-  tagName?: string;
-  // (undocumented)
-  title: MessageDescriptor;
-}
-
-// @public (undocumented)
-export type BlockTypeInputMethod =
-  | INPUT_METHOD.FORMATTING
-  | INPUT_METHOD.INSERT_MENU
-  | INPUT_METHOD.KEYBOARD
-  | INPUT_METHOD.SHORTCUT
-  | INPUT_METHOD.TOOLBAR;
-
-// @public (undocumented)
-export type BlockTypePlugin = NextEditorPlugin<
-  'blockType',
-  {
-    pluginConfiguration: BlockTypePluginOptions | undefined;
-    dependencies: [OptionalPlugin<typeof analyticsPlugin>];
-    sharedState: BlockTypeState | undefined;
-    actions: {
-      insertBlockQuote: (inputMethod: BlockTypeInputMethod) => Command_2;
-      setBlockType: (
-        name: string,
-        inputMethod: BlockTypeInputMethod,
-      ) => Command_2;
-    };
-  }
->;
-
-// @public (undocumented)
-interface BlockTypePluginOptions {
-  // (undocumented)
-  allowBlockType?: {
-    exclude?: Array<AllowedBlockTypes>;
-  };
-  // (undocumented)
-  isUndoRedoButtonsEnabled?: boolean;
-  // (undocumented)
-  lastNodeMustBeParagraph?: boolean;
-}
-
-// @public (undocumented)
-export type BlockTypeState = {
-  currentBlockType: BlockType;
-  blockTypesDisabled: boolean;
-  availableBlockTypes: BlockType[];
-  availableWrapperBlockTypes: BlockType[];
 };
 
 export { CardProvider };

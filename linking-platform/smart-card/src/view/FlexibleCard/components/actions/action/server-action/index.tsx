@@ -24,11 +24,11 @@ const ServerAction: React.FC<ServerActionProps> = ({
         const request = createInvokeRequest(action);
         await invoke(request);
 
-        setIsLoading(false);
-
         if (action.reload && action.reload.url) {
           await reload(action.reload.url, true, undefined, action.reload.id);
         }
+
+        setIsLoading(false);
 
         if (onClick) {
           onClick();

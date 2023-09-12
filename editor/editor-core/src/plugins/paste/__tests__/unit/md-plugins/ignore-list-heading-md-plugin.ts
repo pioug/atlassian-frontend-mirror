@@ -9,7 +9,7 @@ import {
 // Editor Plugins
 import pastePlugin from '../../..';
 import { basePlugin } from '../../../../base';
-import blockTypePlugin from '../../../../block-type';
+import { blockTypePlugin } from '@atlaskit/editor-plugin-block-type';
 import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import { listPlugin } from '@atlaskit/editor-plugin-list';
 import { textFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';

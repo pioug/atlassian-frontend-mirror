@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 0.4.3
+
+### Patch Changes
+
+- [`308ead2410b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/308ead2410b) - add missing dependency to @atlaskit/editor-plugin-floating-toolbar
+
 ## 0.4.2
 
 ### Patch Changes

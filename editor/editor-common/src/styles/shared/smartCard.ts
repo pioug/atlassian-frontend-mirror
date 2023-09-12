@@ -84,7 +84,7 @@ export const smartCardStyles = css`
       ${getBooleanFF(
         'platform.linking-platform.smart-card.show-smart-links-refreshed-design',
       )
-        ? `border-radius: ${token('border.radius.300', '12px')};`
+        ? `border-radius: ${token('border.radius.200', '8px')};`
         : ''}
     }
 

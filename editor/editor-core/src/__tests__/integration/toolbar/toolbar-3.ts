@@ -10,7 +10,7 @@ import {
   goToEditorTestingWDExample,
   mountEditor,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
-import { messages as blockTypeMessages } from '../../../plugins/block-type/messages';
+import { messages as blockTypeMessages } from '@atlaskit/editor-plugin-block-type/messages';
 import colorPaletteMessages from '../../../ui/ColorPalette/Palettes/paletteMessages';
 import {
   toolbarMenuItemsSelectors,

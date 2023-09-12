@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { fireEvent, render, screen } from '@testing-library/react';
+import cases from 'jest-in-case';
 import moment from 'moment';
 
 import { CreatableSelect, OptionsType } from '@atlaskit/select';
@@ -53,17 +54,36 @@ describe('TimePicker', () => {
     jest.resetAllMocks();
   });
 
-  it('should apply `lang` attribute to inner input field', () => {
-    const timeValue = '3:00 PM';
-    const lang = 'en-US';
+  describe('locale', () => {
+    const time = new Date('2000-01-01T15:30:00.000');
+    const hour = time.getHours();
+    const minute = time.getMinutes();
+    const timeValue = `${hour}:${minute}`;
 
-    const { getByText } = render(
-      <TimePicker locale={lang} value={timeValue} testId="test" />,
+    it('should apply `lang` attribute to inner input field', () => {
+      const lang = 'en-GB';
+
+      const { getByText } = render(
+        <TimePicker locale={lang} value={timeValue} testId="test" />,
+      );
+
+      const value = getByText(timeValue);
+
+      expect(value).toHaveAttribute('lang', expect.stringContaining(lang));
+    });
+
+    cases(
+      'should format time using provided locale',
+      ({ locale, result }: { locale: string; result: string }) => {
+        render(<TimePicker locale={locale} value={timeValue} />);
+
+        expect(screen.getByText(result)).toBeInTheDocument();
+      },
+      [
+        { locale: 'en-GB', result: `${hour}:${minute}` },
+        { locale: 'id', result: `${hour}.${minute}` },
+      ],
     );
-
-    const value = getByText(timeValue);
-
-    expect(value).toHaveAttribute('lang', expect.stringContaining(lang));
   });
 
   it('should render the time in a custom timeFormat', () => {

@@ -46,13 +46,6 @@ export { stateKey as mediaPluginKey } from './plugins/media/pm-plugins/main';
 export { textColorPluginKey } from './plugins/text-color';
 export type { TextColorPluginState } from './plugins/text-color';
 export { changeColor } from './plugins/text-color/commands/change-color';
-export type { BlockTypeState } from './plugins/block-type/pm-plugins/main';
-
-/**
- * @private
- * @deprecated DO NOT USE, temporary solution while decoupling plugins from editor-core
- */
-export type { BlockTypePlugin } from './plugins/block-type';
 /**
  * @private
  * @deprecated DO NOT USE, temporary solution while decoupling plugins from editor-core
@@ -70,7 +63,6 @@ export type {
   InputMethodToolbar as TextFormattingInputMethodToolbar,
   InputMethodBasic as TextFormattingInputMethodBasic,
 } from '@atlaskit/editor-common/types';
-export type { InputMethod as BlockTypeInputMethod } from './plugins/block-type/commands';
 export { createTable } from '@atlaskit/editor-plugin-table/commands';
 export { insertTaskDecisionCommand } from './plugins/tasks-and-decisions/commands';
 export type { TaskDecisionInputMethod } from './plugins/tasks-and-decisions/types';

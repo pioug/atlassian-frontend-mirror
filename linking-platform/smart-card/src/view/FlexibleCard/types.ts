@@ -10,8 +10,7 @@ import {
   SmartLinkStatus,
   SmartLinkTheme,
 } from '../../constants';
-import { CardAppearance } from '../../view/Card';
-import { OnResolveCallback } from '../Card/types';
+import { CardInnerAppearance, OnResolveCallback } from '../Card/types';
 import { OnErrorCallback } from '../types';
 import { AnalyticsFacade } from '../../state/analytics';
 
@@ -31,7 +30,7 @@ export type FlexibleCardProps = {
    * Determines the appearance of the Smart Link.
    * @internal
    */
-  appearance?: CardAppearance;
+  appearance?: CardInnerAppearance;
 
   /**
    * Determines the status and data of the Smart Link.

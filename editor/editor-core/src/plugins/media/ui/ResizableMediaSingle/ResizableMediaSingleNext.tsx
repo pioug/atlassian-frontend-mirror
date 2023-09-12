@@ -65,6 +65,7 @@ import {
   MEDIA_PLUGIN_IS_RESIZING_KEY,
   MEDIA_PLUGIN_RESIZING_WIDTH_KEY,
 } from '../../pm-plugins/main';
+import { ResizableMediaMigrationNotification } from './ResizableMediaMigrationNotification';
 
 type State = {
   isVideoFile: boolean;
@@ -76,9 +77,11 @@ type State = {
   guidelines: GuidelineConfig[];
 };
 
-type ResizableMediaSingleNextProps = Props;
-
 export const resizerNextTestId = 'mediaSingle.resizerNext.testid';
+
+type ResizableMediaSingleNextProps = Props & {
+  showLegacyNotification?: boolean;
+};
 
 class ResizableMediaSingleNext extends React.Component<
   ResizableMediaSingleNextProps,
@@ -573,6 +576,7 @@ class ResizableMediaSingleNext extends React.Component<
       selected,
       children,
       lineLength,
+      showLegacyNotification,
     } = this.props;
 
     const { isResizing, size, isVideoFile } = this.state;
@@ -646,6 +650,7 @@ class ResizableMediaSingleNext extends React.Component<
           handleHighlight="full-height"
         >
           {children}
+          {showLegacyNotification && <ResizableMediaMigrationNotification />}
         </ResizerNext>
       </div>
     );

@@ -35,12 +35,6 @@
   "references": [
     {
       "path": "../../design-system/logo/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/theme/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/tokens/tsconfig.app.json"
     }
   ]
 }

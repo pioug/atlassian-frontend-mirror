@@ -178,6 +178,7 @@ export type BaseDataActionItem = {
  */
 export type NamedDataActionItem = BaseDataActionItem & {
   name:
+    | ActionName.FollowAction
     | ActionName.PreviewAction
     | ActionName.DownloadAction
     | ActionName.ViewAction;

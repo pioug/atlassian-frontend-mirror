@@ -63,7 +63,7 @@ import {
   listMessages,
 } from '@atlaskit/editor-common/messages';
 import { messages as insertBlockMessages } from '../../insert-block/ui/ToolbarInsertBlock/messages';
-import { messages as blockTypeMessages } from '../../block-type/messages';
+import { messages as blockTypeMessages } from '@atlaskit/editor-plugin-block-type/messages';
 import { messages as undoRedoMessages } from '../../undo-redo/messages';
 import { alignmentMessages } from '../../../ui/Alignment/messages';
 import { closeHelpCommand } from '../commands';

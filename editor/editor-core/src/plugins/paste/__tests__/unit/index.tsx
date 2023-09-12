@@ -100,7 +100,7 @@ import { cardPlugin } from '@atlaskit/editor-plugin-card';
 import pastePlugin from '../../index';
 import mediaPlugin from '../../../media';
 import type { PluginConfig as TablePluginConfig } from '@atlaskit/editor-plugin-table/types';
-import blockTypePlugin from '../../../block-type';
+import { blockTypePlugin } from '@atlaskit/editor-plugin-block-type';
 import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import { listPlugin } from '@atlaskit/editor-plugin-list';
 import codeBlockPlugin from '../../../code-block';
@@ -155,11 +155,13 @@ jest.mock('../../pm-plugins/analytics', () => ({
 }));
 
 replaceRaf();
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const requestAnimationFrame = window.requestAnimationFrame as any;
 
 describe('paste plugins', () => {
   const createEditor = createProsemirrorEditorFactory();
   let providerFactory: ProviderFactory;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let createAnalyticsEvent: jest.MockInstance<UIAnalyticsEvent, any>;
 
   interface PluginsOptions {
@@ -224,6 +226,7 @@ describe('paste plugins', () => {
         .add([
           analyticsPlugin,
           {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             createAnalyticsEvent: createAnalyticsEvent as any,
             performanceTracking: {
               pasteTracking: {
@@ -235,6 +238,7 @@ describe('paste plugins', () => {
         .add([
           deprecatedAnalyticsPlugin,
           {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             createAnalyticsEvent: createAnalyticsEvent as any,
             performanceTracking: {
               pasteTracking: {
@@ -1885,6 +1889,7 @@ describe('paste plugins', () => {
       [assanaMacroWithAutoConvert],
     );
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const createEditorWithExtensionProviders = async (document: any) => {
       const { editorView } = editor(document, {
         extensionProvider: combineExtensionProviders([

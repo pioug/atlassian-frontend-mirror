@@ -1,6 +1,9 @@
 import { LinkLozenge } from '../../extractors/common/lozenge/types';
 import { LinkPerson } from '@atlaskit/link-extractors';
 import { IconType, MediaType } from '../../constants';
+import { InvokeRequestWithCardDetails } from '../hooks/use-invoke/types';
+import type { CardInnerAppearance } from '../../view/Card/types';
+import type { AnalyticsFacade } from '../analytics';
 
 /**
  * This provides the data that will be used by Smart Links Flexible UI to populate it's
@@ -47,6 +50,12 @@ export type FlexibleUiDataContext = {
    * @see DueOn
    */
   dueOn?: string;
+  /**
+   * Contains data needed to perform follow action.
+   * @type PreviewActionData
+   * @see FollowAction
+   */
+  followAction?: ServerActionProp<boolean>;
   /**
    * Contains the number of views of the linked resource.
    * @type number
@@ -274,4 +283,16 @@ export type ViewActionData = {
 export type DownloadActionData = {
   /* A URL that will be download upon clicking download actions */
   downloadUrl?: string;
+};
+
+export type FlexibleAnalyticsContextType = AnalyticsFacade & {
+  display?: CardInnerAppearance;
+  extensionKey?: string;
+};
+
+export type ServerActionProp<TValue> = {
+  /* A server action data used for invoke endpoint */
+  action: InvokeRequestWithCardDetails;
+  /* A toggle value */
+  value?: TValue;
 };

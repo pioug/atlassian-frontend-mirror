@@ -23,6 +23,7 @@ export type MessageKey =
   | 'copy_url_to_clipboard'
   | 'could_not_load_link'
   | 'download'
+  | 'follow'
   | 'go_back'
   | 'invalid_permissions'
   | 'invalid_permissions_description'
@@ -79,6 +80,7 @@ export type MessageKey =
   | 'unauthorised_account_name'
   | 'unauthorised_account_name_no_provider'
   | 'unassigned'
+  | 'unfollow'
   | 'view'
   | 'viewIn'
   | 'viewOriginal'
@@ -257,6 +259,11 @@ export const messages: Messages = defineMessages({
     id: 'fabric.linking.edit',
     defaultMessage: 'Edit',
     description: 'Allow a user to edit a link',
+  },
+  follow: {
+    id: 'fabric.linking.follow',
+    defaultMessage: 'Follow',
+    description: 'Click to follow a project.',
   },
   forbidden_description: {
     id: 'fabric.linking.forbidden_description',
@@ -568,6 +575,11 @@ export const messages: Messages = defineMessages({
     defaultMessage: 'Unassigned',
     description:
       'Shown as a tooltip text for a default unassigned fallback avatar',
+  },
+  unfollow: {
+    id: 'fabric.linking.unfollow',
+    defaultMessage: 'Unfollow',
+    description: 'Click to unfollow a project.',
   },
   unlink_account: {
     id: 'fabric.linking.unlink_account',

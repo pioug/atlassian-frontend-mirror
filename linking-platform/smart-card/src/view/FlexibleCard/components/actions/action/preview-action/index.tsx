@@ -2,10 +2,11 @@ import React from 'react';
 import { PreviewActionProps } from './types';
 import Action from '../index';
 import { useFlexibleUiAnalyticsContext } from '../../../../../../state/flexible-ui-context';
-import { useSmartLinkAnalytics } from '../../../../../../state';
 import { FormattedMessage } from 'react-intl-next';
 import { messages } from '../../../../../../messages';
 import { openEmbedModalWithFlexibleUiIcon } from '../../../utils';
+import useInvokeClientAction from '../../../../../../state/hooks/use-invoke-client-action';
+import { ActionName } from '../../../../../../constants';
 
 const PreviewAction: React.FC<PreviewActionProps> = (
   props: PreviewActionProps,
@@ -24,25 +25,33 @@ const PreviewAction: React.FC<PreviewActionProps> = (
     isSupportTheming,
   } = props;
 
-  const defaultAnalytics = useSmartLinkAnalytics(url, () => {});
-  const analytics = useFlexibleUiAnalyticsContext() || defaultAnalytics;
+  const analytics = useFlexibleUiAnalyticsContext();
+  const invoke = useInvokeClientAction({ analytics });
 
   if (src && url) {
-    const embedModal = () =>
+    const actionFn = async () =>
       openEmbedModalWithFlexibleUiIcon({
+        download: downloadUrl,
         title,
         providerName,
-        downloadUrl,
         isSupportTheming,
         analytics,
         linkIcon,
         src,
+        url,
       });
 
     const action = {
       ...props,
       onClick: () => {
-        embedModal();
+        invoke({
+          actionType: ActionName.PreviewAction,
+          actionFn,
+          // These values have already been set in analytics context.
+          // We only pass these here for ufo experience.
+          display: analytics?.display,
+          extensionKey: analytics?.extensionKey,
+        });
         if (onClick) {
           onClick();
         }

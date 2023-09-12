@@ -1,5 +1,11 @@
 # @atlaskit/primitives
 
+## 1.4.4
+
+### Patch Changes
+
+- [`4e58672502e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4e58672502e) - Create text component.
+
 ## 1.4.3
 
 ### Patch Changes

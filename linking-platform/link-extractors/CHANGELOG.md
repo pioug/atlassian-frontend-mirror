@@ -1,5 +1,11 @@
 # @atlaskit/link-extractors
 
+## 1.1.2
+
+### Patch Changes
+
+- [`cadbf4706f5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cadbf4706f5) - Remove deprecated props in usages of @atlaskit/logo, replace with appearance prop.
+
 ## 1.1.1
 
 ### Patch Changes

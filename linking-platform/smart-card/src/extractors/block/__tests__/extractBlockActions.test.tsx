@@ -39,11 +39,6 @@ describe('extractors.block.extractBlockActions', () => {
         promise: expect.any(Function),
         text: expect.any(Object),
       },
-      {
-        id: 'assign',
-        promise: expect.any(Function),
-        text: 'assign',
-      },
     ]);
     render(<IntlProvider locale="en">{props[0].text}</IntlProvider>);
     expect(await screen.findByText('Download')).toBeVisible();

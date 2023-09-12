@@ -17,7 +17,7 @@ import {
   waitForFloatingControl,
   retryUntilStablePosition,
 } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { layoutToolbarTitle } from '../../../plugins/layout/toolbar';
 
 describe('Columns:', () => {
@@ -25,19 +25,6 @@ describe('Columns:', () => {
   beforeEach(async () => {
     page = global.page;
     await initFullPageEditorWithAdf(page, adf, Device.LaptopHiDPI);
-  });
-
-  it('should show breakout', async () => {
-    const columnNumber = 1;
-    await retryUntilStablePosition(
-      page,
-      () => clickOnLayoutColumn(page, columnNumber),
-      `[aria-label*="${layoutToolbarTitle}"]`,
-      1000,
-    );
-    await waitForFloatingControl(page, layoutToolbarTitle);
-    await waitForFloatingControl(page, 'Go wide', undefined, false);
-    await snapshot(page);
   });
 
   // FIXME: This test was automatically skipped due to failure on 01/07/2023: https://product-fabric.atlassian.net/browse/ED-18940

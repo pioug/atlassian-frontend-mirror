@@ -72,6 +72,13 @@ test.describe('resizing a table', () => {
   test('should resize to correct width and centre when dragging handle smaller', async ({
     editor,
   }) => {
+    fixTest({
+      jiraIssueId: 'ED-20006',
+      reason:
+        'FIXME: This test was automatically skipped due to failure on 11/09/2023: https://product-fabric.atlassian.net/browse/ED-20006',
+      browsers: [BROWSERS.webkit],
+    });
+
     const nodes = EditorNodeContainerModel.from(editor);
     const tableModel = EditorTableModel.from(nodes.table);
     const resizerModel = tableModel.resizer();

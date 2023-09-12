@@ -4,8 +4,8 @@ import {
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import { doc, p, ol, li } from '@atlaskit/editor-test-helpers/doc-builder';
+import { blockTypePlugin } from '@atlaskit/editor-plugin-block-type';
 import {
-  blockTypePlugin,
   panelPlugin,
   pastePlugin,
   betterTypeHistoryPlugin,

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/jql-ast",
-  "version": "1.0.0",
+  "version": "3.0.0",
   "description": "JQL Abstract Syntax Tree",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -35,7 +35,7 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@atlaskit/jql-parser": "^1.0.0",
+    "@atlaskit/jql-parser": "^2.0.0",
     "@babel/runtime": "^7.0.0",
     "antlr4ts": "0.5.0-alpha.4",
     "lodash": "^4.17.21",

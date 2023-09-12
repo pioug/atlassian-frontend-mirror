@@ -9,7 +9,7 @@ import {
   goToEditorTestingWDExample,
   mountEditor,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
-import { messages } from '../../../plugins/block-type/messages';
+import { messages } from '@atlaskit/editor-plugin-block-type/messages';
 import { runEscapeKeydownSuite } from '@atlaskit/editor-test-helpers/integration/escape-keydown';
 import {
   clickToolbarMenu,

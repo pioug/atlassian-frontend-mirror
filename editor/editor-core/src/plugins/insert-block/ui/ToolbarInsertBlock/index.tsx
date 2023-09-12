@@ -29,7 +29,7 @@ import {
   EVENT_TYPE,
   INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
-import type { DropdownItem } from '../../../block-type/ui/ToolbarBlockType';
+import type { DropdownItem } from '@atlaskit/editor-plugin-block-type';
 import type { OnInsert } from '../../../../ui/ElementBrowser/types';
 import { messages } from './messages';
 import type { Props, State, TOOLBAR_MENU_TYPE } from './types';

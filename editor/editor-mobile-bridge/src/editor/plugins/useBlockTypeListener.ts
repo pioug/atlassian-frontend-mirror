@@ -1,5 +1,5 @@
 // eslint-disable-next-line @atlaskit/editor/warn-no-restricted-imports
-import type { BlockTypeState } from '@atlaskit/editor-core';
+import type { BlockTypeState } from '@atlaskit/editor-plugin-block-type';
 import { toNativeBridge } from '../web-to-native';
 import { useListener } from './useListener';
 

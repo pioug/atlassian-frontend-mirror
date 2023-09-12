@@ -1,9 +1,17 @@
 import { renderHook } from '@testing-library/react-hooks';
+import uuid from 'uuid';
 
 import useInvokeClientAction from '../index';
 import * as measure from '../../../../utils/performance';
 import { mockAnalytics } from '../../../../utils/mocks';
 import type { AnalyticsFacade } from '../../../analytics';
+import * as ufo from '../../../analytics/ufoExperiences';
+
+jest.mock('uuid', () => ({
+  ...jest.requireActual('uuid'),
+  __esModule: true,
+  default: jest.fn().mockReturnValue('some-uuid-1'),
+}));
 
 describe('useInvokeClientAction', () => {
   const actionType = 'PreviewAction';
@@ -44,9 +52,6 @@ describe('useInvokeClientAction', () => {
     expect(analyticsSpy).toHaveBeenCalledWith({
       actionType,
       display,
-      extensionKey,
-      id: expect.any(String),
-      invokeType: 'client',
     });
   });
 
@@ -61,8 +66,6 @@ describe('useInvokeClientAction', () => {
     expect(analyticsSpy).toHaveBeenCalledWith({
       actionType,
       display,
-      extensionKey,
-      id: expect.any(String),
     });
   });
 
@@ -80,10 +83,60 @@ describe('useInvokeClientAction', () => {
     expect(analyticsSpy).toHaveBeenCalledWith({
       actionType,
       display,
-      extensionKey,
-      id: expect.any(String),
       reason,
     });
+  });
+
+  it('sends ufo succeeded experience events', async () => {
+    uuid.mockReturnValueOnce('ufo-experience-id');
+    const ufoStartSpy = jest.spyOn(ufo, 'startUfoExperience');
+    const ufoSucceedSpy = jest.spyOn(ufo, 'succeedUfoExperience');
+    const actionFn = jest.fn().mockResolvedValue(undefined);
+
+    await setup(mockAnalytics, actionFn);
+
+    expect(ufoStartSpy).toBeCalledTimes(1);
+    expect(ufoStartSpy).toBeCalledWith(
+      'smart-link-action-invocation',
+      'ufo-experience-id',
+      {
+        actionType,
+        display,
+        extensionKey: 'spaghetti-key',
+        invokeType: 'client',
+      },
+    );
+    expect(ufoSucceedSpy).toBeCalledTimes(1);
+    expect(ufoSucceedSpy).toBeCalledWith(
+      'smart-link-action-invocation',
+      'ufo-experience-id',
+    );
+  });
+
+  it('sends ufo failed experience events', async () => {
+    uuid.mockReturnValueOnce('ufo-experience-id');
+    const ufoStartSpy = jest.spyOn(ufo, 'startUfoExperience');
+    const ufoFailSpy = jest.spyOn(ufo, 'failUfoExperience');
+    const actionFn = jest.fn().mockRejectedValue(new Error());
+
+    await setup(mockAnalytics, actionFn);
+
+    expect(ufoStartSpy).toBeCalledTimes(1);
+    expect(ufoStartSpy).toBeCalledWith(
+      'smart-link-action-invocation',
+      'ufo-experience-id',
+      {
+        actionType,
+        display,
+        extensionKey: 'spaghetti-key',
+        invokeType: 'client',
+      },
+    );
+    expect(ufoFailSpy).toBeCalledTimes(1);
+    expect(ufoFailSpy).toBeCalledWith(
+      'smart-link-action-invocation',
+      'ufo-experience-id',
+    );
   });
 
   it('mark measure resolved performance', async () => {

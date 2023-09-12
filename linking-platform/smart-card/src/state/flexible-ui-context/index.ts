@@ -1,6 +1,8 @@
 import { useContext, createContext } from 'react';
-import { AnalyticsFacade } from '../analytics';
-import { FlexibleUiDataContext } from './types';
+import type {
+  FlexibleAnalyticsContextType,
+  FlexibleUiDataContext,
+} from './types';
 import { FlexibleUiOptions } from '../../view/FlexibleCard/types';
 
 /**
@@ -18,7 +20,7 @@ export const useFlexibleUiContext = () => useContext(FlexibleUiContext);
  * underlying elements.
  */
 export const FlexibleUiAnalyticsContext = createContext<
-  AnalyticsFacade | undefined
+  FlexibleAnalyticsContextType | undefined
 >(undefined);
 
 export const useFlexibleUiAnalyticsContext = () =>

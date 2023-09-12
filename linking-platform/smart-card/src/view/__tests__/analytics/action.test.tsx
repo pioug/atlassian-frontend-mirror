@@ -12,7 +12,7 @@ import type { ProviderProps } from '@atlaskit/link-provider';
 import { CardClient } from '@atlaskit/link-provider';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 
-import { Card, Provider } from '../../../index';
+import { ActionName, Card, Provider, TitleBlock } from '../../../index';
 import { fakeFactory } from '../../../utils/mocks';
 import * as utils from '../../../utils';
 import * as analytics from '../../../utils/analytics/analytics';
@@ -161,7 +161,34 @@ describe('actions', () => {
 
   describe.each([
     ['block card', { display: 'block' }],
+    [
+      'flexible block card',
+      {
+        display: 'block',
+        featureFlags: { enableFlexibleBlockCard: true },
+        isFlexibleComponent: true,
+      },
+    ],
+    [
+      'flexible card',
+      {
+        display: 'flexible',
+        isFlexibleComponent: true,
+        props: {
+          children: (
+            <TitleBlock
+              actions={[
+                { name: ActionName.DownloadAction },
+                { name: ActionName.PreviewAction },
+                { name: ActionName.ViewAction },
+              ]}
+            />
+          ),
+        },
+      },
+    ],
     // For hover card, @see packages/linking-platform/smart-card/src/view/HoverCard/__tests__/index.test.tsx
+    // For embed modal, @see packages/linking-platform/smart-card/src/view/EmbedModal/__tests__/index.test.tsx
   ])(
     '%s',
     (

@@ -8,7 +8,7 @@ import {
   mountEditor,
   goToEditorTestingWDExample,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
-import { messages } from '../../../block-type/messages';
+import { messages } from '@atlaskit/editor-plugin-block-type/messages';
 import { codeBlockSelectors } from '@atlaskit/editor-test-helpers/page-objects/code-block';
 
 const floatingToolbarLanguageSelector = 'div[aria-label="Floating Toolbar"]';

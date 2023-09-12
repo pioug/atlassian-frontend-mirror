@@ -1,6 +1,6 @@
 import { JsonLd } from 'json-ld-types';
 import { InvokeHandler } from '../../../model/invoke-handler';
-import { InvokeClientOpts, InvokeServerOpts } from '../../../model/invoke-opts';
+import { InvokeClientOpts } from '../../../model/invoke-opts';
 import { ActionProps } from '../../../view/BlockCard/components/Action';
 import { ViewAction } from '../../../view/BlockCard/actions/ViewAction';
 import { DownloadAction } from '../../../view/BlockCard/actions/DownloadAction';
@@ -39,30 +39,6 @@ const getClientActionProps = (
   return { ...clientAction, promise: () => handler(clientActionInvokeOpts) };
 };
 
-const getServerActionProps = (
-  jsonLd: JsonLd.Data.BaseData,
-  action: JsonLd.Primitives.ServerAction,
-  handler: InvokeHandler,
-): ActionProps => {
-  const id = (action['@id'] as string) || action['@type'];
-  const data: InvokeServerOpts = {
-    type: 'server' as const,
-    key: action.identifier as string,
-    action: {
-      type: action['@type'],
-      payload: {
-        id,
-        context: jsonLd.context,
-      },
-    },
-  };
-  return {
-    id,
-    text: action.name as string,
-    promise: () => handler(data),
-  };
-};
-
 export const getActionsFromJsonLd = (
   jsonLd: JsonLd.Data.BaseData,
 ): JsonLd.Primitives.Action[] => {
@@ -76,13 +52,12 @@ export const getActionsFromJsonLd = (
   return actions;
 };
 
-export function extractActions(
+export function extractClientActions(
   jsonLd: JsonLd.Data.BaseData,
   handler: InvokeHandler,
 ): ActionProps[] {
   const actions = getActionsFromJsonLd(jsonLd);
   const clientActions = actions.filter(isClientAction);
-  const serverActions = actions.filter((action) => !isClientAction(action));
   const clientActionImpls = clientActions.map((action) =>
     getClientActionProps(
       jsonLd,
@@ -90,12 +65,5 @@ export function extractActions(
       handler,
     ),
   );
-  const serverActionImpls = serverActions.map((action) =>
-    getServerActionProps(
-      jsonLd,
-      action as JsonLd.Primitives.ServerAction,
-      handler,
-    ),
-  );
-  return [...clientActionImpls, ...serverActionImpls];
+  return clientActionImpls;
 }

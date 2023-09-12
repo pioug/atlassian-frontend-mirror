@@ -55,7 +55,7 @@ describe('Editable Issue Like Table', () => {
 
   // FIXME: This test was skipped manually my @sasha because it is failing in CI, and only in CI
   // https://product-fabric.atlassian.net/browse/EDM-7035
-  it.skip('should able to drag column', async () => {
+  it('should able to drag column', async () => {
     // Allowing capturing of drag events
     // https://pub.dev/documentation/puppeteer/latest/puppeteer/Page/setDragInterception.html
     await page.setViewport({
@@ -81,10 +81,10 @@ describe('Editable Issue Like Table', () => {
     );
     invariant(dropTarget, `drop target not found`);
 
-    await page.waitFor(2000);
+    await page.waitForTimeout(2000);
 
     await dragHandle.dragAndDrop(dropTarget);
-    await page.waitFor(2000);
+    await page.waitForTimeout(2000);
 
     const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();

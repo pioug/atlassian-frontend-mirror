@@ -27,7 +27,7 @@ import {
   IconPanelError,
 } from '@atlaskit/editor-common/quick-insert';
 import { createWrapSelectionTransaction } from '@atlaskit/editor-common/utils';
-import { messages } from '../block-type/messages';
+import { messages } from '@atlaskit/editor-plugin-block-type/messages';
 import type { PanelPluginOptions } from './types';
 import { IconCustomPanel } from '@atlaskit/editor-common/quick-insert';
 import { T50 } from '@atlaskit/theme/colors';

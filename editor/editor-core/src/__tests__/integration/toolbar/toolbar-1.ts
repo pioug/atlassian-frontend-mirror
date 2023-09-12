@@ -6,12 +6,12 @@ import {
   editable,
 } from '@atlaskit/editor-test-helpers/integration/helpers';
 import { toolbarMessages as textFormattingMessages } from '@atlaskit/editor-common/messages';
-import { toolbarMessages as blockTypeToolbarMessages } from '../../../plugins/block-type/ui/ToolbarBlockType/toolbar-messages';
+import { toolbarMessages as blockTypeToolbarMessages } from '@atlaskit/editor-plugin-block-type/messages';
 import {
   goToEditorTestingWDExample,
   mountEditor,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
-import { messages as blockTypeMessages } from '../../../plugins/block-type/messages';
+import { messages as blockTypeMessages } from '@atlaskit/editor-plugin-block-type/messages';
 
 const input = 'helloworld ';
 // https://product-fabric.atlassian.net/browse/ED-4531

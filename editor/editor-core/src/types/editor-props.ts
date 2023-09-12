@@ -29,7 +29,7 @@ import type { TaskDecisionProvider } from '@atlaskit/task-decision';
 
 import type EditorActions from '../actions';
 import type { AnnotationProviders } from '../plugins/annotation/types';
-import type { BlockTypePluginOptions } from '../plugins/block-type/types';
+import type { BlockTypePluginOptions } from '@atlaskit/editor-plugin-block-type';
 import type { CodeBlockOptions } from '../plugins/code-block/types';
 import type { CollabEditOptions } from '@atlaskit/editor-common/collab';
 import type { DatePluginConfig } from '../plugins/date/types';

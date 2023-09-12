@@ -27,7 +27,7 @@ import type { PastePluginOptions } from '../../../index';
 import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import pastePlugin from '../../../index';
-import blockTypePlugin from '../../../../block-type';
+import { blockTypePlugin } from '@atlaskit/editor-plugin-block-type';
 import { textFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';
 import layoutPlugin from '../../../../layout';
 import type { InlineCommentAnnotationProvider } from '../../../../annotation/types';

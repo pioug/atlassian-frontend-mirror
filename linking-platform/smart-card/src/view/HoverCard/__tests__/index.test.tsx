@@ -572,20 +572,10 @@ describe('HoverCard', () => {
     it('should render smartlink actions', async () => {
       const { findByTestId } = await setup();
       jest.runAllTimers();
-      const commentButton = await findByTestId('comment');
+      const downloadButton = await findByTestId('download-content');
       const previewButton = await findByTestId('preview-content');
 
-      expect(commentButton.textContent).toBe('Comment');
-      expect(previewButton.textContent).toBe('Open preview');
-    });
-
-    it('should render smartlink actions with improved preview action feature flag', async () => {
-      const { findByTestId } = await setup();
-      jest.runAllTimers();
-      const commentButton = await findByTestId('comment');
-      const previewButton = await findByTestId('preview-content');
-
-      expect(commentButton.textContent).toBe('Comment');
+      expect(downloadButton.textContent).toBe('Download');
       expect(previewButton.textContent).toBe('Open preview');
     });
 
@@ -1490,7 +1480,7 @@ describe('HoverCard', () => {
         expect(titleBlock.textContent?.trim()).toBe('I love cheese');
         expect(snippetBlock.textContent).toBe('Here is your serving of cheese');
         expect(footerBlock.textContent?.trim()).toBe(
-          'ConfluenceCommentOpen preview',
+          'ConfluenceDownloadOpen preview',
         );
       });
 
@@ -1794,7 +1784,7 @@ describe('HoverCard', () => {
       expect(titleBlock.textContent?.trim()).toBe('I love cheese');
       expect(snippetBlock.textContent).toBe('Here is your serving of cheese');
       expect(footerBlock.textContent?.trim()).toBe(
-        'ConfluenceCommentOpen preview',
+        'ConfluenceDownloadOpen preview',
       );
     });
 

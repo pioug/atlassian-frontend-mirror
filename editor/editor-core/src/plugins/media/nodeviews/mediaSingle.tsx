@@ -388,7 +388,10 @@ export default class MediaSingleNode extends Component<
     );
     return canResize ? (
       getBooleanFF('platform.editor.media.extended-resize-experience') ? (
-        <ResizableMediaSingleNext {...resizableMediaSingleProps}>
+        <ResizableMediaSingleNext
+          {...resizableMediaSingleProps}
+          showLegacyNotification={widthType !== 'pixel'}
+        >
           {MediaChildren}
         </ResizableMediaSingleNext>
       ) : (

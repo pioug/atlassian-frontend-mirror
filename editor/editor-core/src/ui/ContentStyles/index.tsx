@@ -41,7 +41,7 @@ import { token } from '@atlaskit/tokens';
 import { telepointerStyle } from '../../plugins/collab-edit/styles';
 import { gapCursorStyles } from '../../plugins/selection/gap-cursor/styles';
 import { tableStyles } from '@atlaskit/editor-plugin-table/ui/common-styles';
-import { blocktypeStyles } from '../../plugins/block-type/styles';
+import { blocktypeStyles } from '@atlaskit/editor-plugin-block-type/styles';
 import { codeBlockStyles } from '../../plugins/code-block/styles';
 import { mediaStyles } from '../../plugins/media/styles';
 import { layoutStyles } from '../../plugins/layout/styles';

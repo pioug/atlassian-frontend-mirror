@@ -4,8 +4,6 @@ import { JsonLd } from 'json-ld-types';
 
 import { ConfluenceIcon } from '@atlaskit/logo/confluence-icon';
 import { JiraIcon } from '@atlaskit/logo/jira-icon';
-import { B200, B400, N700 } from '@atlaskit/theme/colors';
-import { token } from '@atlaskit/tokens';
 
 import { CONFLUENCE_GENERATOR_ID, JIRA_GENERATOR_ID } from '../constants';
 import { extractUrlFromIconJsonLd, extractUrlFromLinkJsonLd } from '../url';
@@ -50,12 +48,7 @@ const extractProviderIcon = (
     if (id === CONFLUENCE_GENERATOR_ID) {
       return (
         <ConfluenceIcon
-          // eslint-disable-next-line @atlaskit/design-system/no-deprecated-apis
-          textColor={token('color.text.subtle', N700)}
-          /* eslint-disable @atlaskit/design-system/ensure-design-token-usage, @atlaskit/design-system/no-deprecated-apis */
-          iconColor={B200}
-          iconGradientStart={B400}
-          iconGradientStop={B200}
+          appearance="brand"
           /* eslint-enable @atlaskit/design-system/ensure-design-token-usage, @atlaskit/design-system/no-deprecated-apis */
           size="xsmall"
         />
@@ -63,11 +56,7 @@ const extractProviderIcon = (
     } else if (id === JIRA_GENERATOR_ID) {
       return (
         <JiraIcon
-          textColor={token('color.text.subtle', N700)}
-          /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
-          iconColor={B200}
-          iconGradientStart={B400}
-          iconGradientStop={B200}
+          appearance="brand"
           /* eslint-enable @atlaskit/design-system/ensure-design-token-usage */
           size="xsmall"
         />

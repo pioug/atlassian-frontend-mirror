@@ -1,5 +1,28 @@
 # @atlaskit/editor-core
 
+## 187.42.0
+
+### Minor Changes
+
+- [`8441acc0e0c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8441acc0e0c) - Extract block-type plugin into @atlaskit/editor-plugin-block-type
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.41.8
+
+### Patch Changes
+
+- [`890ab8d6307`](https://bitbucket.org/atlassian/atlassian-frontend/commits/890ab8d6307) - NO-ISSUE Move doc builder types to editor-common to break circular dependencies
+- Updated dependencies
+
+## 187.41.7
+
+### Patch Changes
+
+- [`64c9a1be1b1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/64c9a1be1b1) - [ux] Show notification dot when image is sized using percentage or legacy
+
 ## 187.41.5
 
 ### Patch Changes

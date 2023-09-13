@@ -1,5 +1,11 @@
 # @atlaskit/heading
 
+## 1.3.8
+
+### Patch Changes
+
+- [`ff79902b24c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ff79902b24c) - This package is now onboarded onto the product push model.
+
 ## 1.3.7
 
 ### Patch Changes

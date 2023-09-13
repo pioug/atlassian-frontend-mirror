@@ -4,6 +4,7 @@ import { render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
 import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import selectionPlugin from '@atlaskit/editor-core/src/plugins/selection';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
@@ -18,7 +19,6 @@ import {
   createProsemirrorEditorFactory,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
   table,

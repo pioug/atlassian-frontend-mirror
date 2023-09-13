@@ -7,9 +7,9 @@ import {
   table,
   tr,
   td,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import {
+import type { DocBuilder } from '@atlaskit/editor-common/types';
+import type {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';

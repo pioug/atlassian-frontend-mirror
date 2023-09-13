@@ -14,12 +14,14 @@ import {
   akEditorDefaultLayoutWidth,
   akEditorMobileBreakoutPoint,
 } from '@atlaskit/editor-shared-styles';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { TABLE_MAX_WIDTH } from '../pm-plugins/table-resizing/utils';
 import type { PluginInjectionAPI } from '../types';
 import { TableCssClassName as ClassName } from '../types';
 
 import { TableResizer } from './TableResizer';
+import type { TableResizerImprovementProps } from './TableResizer';
 
 const getMarginLeft = (lineLength: number, tableWidth: number | 'inherit') => {
   let marginLeft;
@@ -88,6 +90,54 @@ export const ResizableTableContainer = ({
   const containerRef = useRef<HTMLDivElement | null>(null);
   const marginLeftRef = useRef<number | undefined>(0);
   const tableWidthRef = useRef<number>(akEditorDefaultLayoutWidth);
+
+  const updateContainerHeight = useCallback((height: number | 'auto') => {
+    // current StickyHeader State is not stable to be fetch.
+    // we need to update stickyHeader plugin to make sure state can be
+    //    consistently fetch and refactor below
+    const stickyHeaders =
+      containerRef.current?.getElementsByClassName('pm-table-sticky');
+    if (!stickyHeaders || stickyHeaders.length < 1) {
+      // when starting to drag, we need to keep the original space,
+      // -- When sticky header not appear, margin top(24px) and margin bottom(16px), should be 40px,
+      //    1px is border width but collapse make it 0.5.
+      // -- When sticky header appear, we should add first row height but reduce
+      //    collapsed border
+      containerRef.current?.style.setProperty(
+        'height',
+        typeof height === 'number' ? `${height + 40.5}px` : 'auto',
+      );
+    } else {
+      const stickyHeaderHeight =
+        containerRef.current
+          ?.getElementsByTagName('th')[0]
+          .getBoundingClientRect().height || 0;
+      containerRef.current?.style.setProperty(
+        'height',
+        typeof height === 'number'
+          ? `${height + stickyHeaderHeight + 39.5}px`
+          : 'auto',
+      );
+    }
+  }, []);
+
+  const resizeObserverRef = useRef(
+    new ResizeObserver((entries) => {
+      updateContainerHeight(entries[entries.length - 1].contentRect.height);
+    }),
+  );
+
+  const onResizeStart = useCallback(() => {
+    if (tableRef) {
+      resizeObserverRef.current.observe(tableRef);
+    }
+  }, [tableRef]);
+
+  const onResizeStop = useCallback(() => {
+    updateContainerHeight('auto');
+
+    resizeObserverRef.current.disconnect();
+  }, [updateContainerHeight]);
 
   const updateWidth = useCallback(
     (width: number) => {
@@ -158,6 +208,28 @@ export const ResizableTableContainer = ({
   }
   const maxResizerWidth = Math.min(responsiveContainerWidth, TABLE_MAX_WIDTH);
 
+  let tableResizerProps: TableResizerImprovementProps = {
+    width,
+    maxWidth: maxResizerWidth,
+    containerWidth,
+    updateWidth,
+    editorView,
+    getPos,
+    node,
+    tableRef,
+    displayGuideline,
+    attachAnalyticsEvent,
+    displayGapCursor,
+  };
+
+  if (getBooleanFF('platform.editor.resizing-table-height-improvement')) {
+    tableResizerProps = {
+      ...tableResizerProps,
+      onResizeStart: onResizeStart,
+      onResizeStop: onResizeStop,
+    };
+  }
+
   return (
     <div
       style={{
@@ -167,19 +239,7 @@ export const ResizableTableContainer = ({
       className={ClassName.TABLE_RESIZER_CONTAINER}
       ref={containerRef}
     >
-      <TableResizer
-        width={width}
-        maxWidth={maxResizerWidth}
-        containerWidth={containerWidth}
-        updateWidth={updateWidth}
-        editorView={editorView}
-        getPos={getPos}
-        node={node}
-        tableRef={tableRef}
-        displayGuideline={displayGuideline}
-        attachAnalyticsEvent={attachAnalyticsEvent}
-        displayGapCursor={displayGapCursor}
-      >
+      <TableResizer {...tableResizerProps}>
         <InnerContainer className={className} node={node}>
           {children}
         </InnerContainer>

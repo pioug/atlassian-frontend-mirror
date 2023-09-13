@@ -1,5 +1,5 @@
 import { uuid } from '@atlaskit/adf-schema';
-import {
+import type {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
@@ -15,8 +15,8 @@ import {
   tdCursor,
   tdEmpty,
   tr,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { testKeymap } from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { MockMentionResource } from '@atlaskit/util-data-test/mock-mention-resource';
 

@@ -12,8 +12,10 @@ import { css, jsx } from '@emotion/react';
 import {
   BackgroundColor,
   backgroundColorStylesMap,
+  isSurfaceColorToken,
   paddingStylesMap,
   type Space,
+  surfaceColorStylesMap,
 } from '../xcss/style-maps.partial';
 import { parseXcss } from '../xcss/xcss';
 
@@ -143,6 +145,8 @@ export const Box: BoxComponent = forwardRef(
         css={[
           baseStyles,
           backgroundColor && backgroundColorStylesMap[backgroundColor],
+          isSurfaceColorToken(backgroundColor) &&
+            surfaceColorStylesMap[backgroundColor],
           padding && paddingStylesMap.padding[padding],
           paddingBlock && paddingStylesMap.paddingBlock[paddingBlock],
           paddingBlockStart &&

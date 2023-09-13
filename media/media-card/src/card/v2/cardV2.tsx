@@ -996,7 +996,6 @@ export class CardV2Base extends Component<CardV2BaseProps, CardState> {
       useInlinePlayer,
       shouldOpenMediaViewer,
       shouldHideTooltip,
-      expandByPixel,
     } = this.props;
     const { mediaItemType } = identifier;
     const { status, progress, cardPreview, error, cardRef, isCardVisible } =
@@ -1023,7 +1022,6 @@ export class CardV2Base extends Component<CardV2BaseProps, CardState> {
 
     const card = (
       <CardView
-        expandByPixel={expandByPixel}
         status={cardStatusOverride || status}
         error={error}
         mediaItemType={mediaItemType}

@@ -1,4 +1,3 @@
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import { getExampleUrl } from '@atlaskit/webdriver-runner/utils/example';
 import Page from '@atlaskit/webdriver-runner/wd-wrapper';
@@ -18,9 +17,9 @@ const datePicker = '[data-testid="datepicker-1--container"]';
 const calendar = `[aria-label='calendar']`;
 const previousMonthButton = 'button[data-testid$="previous-month"]';
 const nextMonthButton = 'button[data-testid$="next-month"]';
+const calendarDates = '[data-testid$="calendar-dates"]';
 const date = '[role=gridcell]:nth-child(6)';
-// The path to the defaultValue date
-const focusedDate = '[role="row"]:nth-child(4) > [role=gridcell]';
+const focusedDate = '[data-focused="true"]';
 const input = 'input#react-select-datepicker-1-input';
 const tabcheckDatePickerInputOutsidePopup = 'input#react-select-custom-input';
 const tabcheckDatePickerInputInsidePopup = 'input#react-select-value1-input';
@@ -83,9 +82,7 @@ BrowserTestCase(
 
     await page.click(datePicker);
 
-    getBooleanFF(
-      'platform.design-system-team.accessible-datetime-picker_691ec',
-    ) && (await page.keys(['Tab']));
+    await page.keys(['Tab']);
     await page.keys(['ArrowLeft']);
     await page.keys(['ArrowLeft']);
     await page.keys(['Enter']);
@@ -124,137 +121,61 @@ BrowserTestCase(
 );
 
 BrowserTestCase(
-  'Tabbing through input component with datepicker and in popup panel should be able tab to next input after datepicker',
+  'Should tab through all interactive elements inside datepicker',
   {},
   async (client: any) => {
-    if (
-      getBooleanFF(
-        'platform.design-system-team.accessible-datetime-picker_691ec',
-      )
-    ) {
-      const page = new Page(client);
-      await page.goto(urlDatePickerTabCheck);
+    const page = new Page(client);
+    await page.goto(urlDatePickerTabCheck);
 
-      await page.click('input#text1');
+    await page.click('input#text1');
 
-      await page.keys('Tab');
-      expect(
-        await page.waitForSelector(tabcheckDatePickerInputOutsidePopup),
-      ).toBe(true);
-      expect(await page.hasFocus(tabcheckDatePickerInputOutsidePopup)).toBe(
-        true,
-      );
+    await page.keys('Tab');
+    expect(
+      await page.waitForSelector(tabcheckDatePickerInputOutsidePopup),
+    ).toBe(true);
+    expect(await page.hasFocus(tabcheckDatePickerInputOutsidePopup)).toBe(true);
 
-      await page.keys('Tab');
-      expect(await page.waitForSelector(calendar)).toBe(true);
-      expect(await page.hasFocus(previousMonthButton)).toBe(false);
-      expect(await page.hasFocus(nextMonthButton)).toBe(false);
-      expect(await page.hasFocus(calendar)).toBe(true);
+    await page.keys('Tab');
+    expect(await page.hasFocus(previousMonthButton)).toBe(true);
+    await page.keys('Tab');
+    expect(await page.hasFocus(nextMonthButton)).toBe(true);
+    await page.keys('Tab');
+    expect(await page.hasFocus(calendarDates)).toBe(true);
+    await page.keys('Tab');
+    expect(await page.hasFocus(focusedDate)).toBe(true);
 
-      await page.keys('Tab');
-      expect(await page.hasFocus(focusedDate)).toBe(true);
-
-      await page.keys('Tab');
-      expect(await page.hasFocus('input#text2')).toBe(true);
-
-      await page.click('button#popup-trigger');
-      await page.click('input#text3');
-      await page.keys('Tab');
-
-      expect(await page.waitForSelector(calendar)).toBe(true);
-
-      await page.keys('Tab');
-      expect(await page.hasFocus(previousMonthButton)).toBe(true);
-
-      await page.keys('Tab');
-      expect(await page.hasFocus(nextMonthButton)).toBe(true);
-
-      await page.keys('Tab');
-      expect(await page.hasFocus(focusedDate)).toBe(true);
-
-      await page.keys('Tab');
-      expect(await page.hasFocus('input#text4')).toBe(true);
-    } else {
-      const page = new Page(client);
-      await page.goto(urlDatePickerTabCheck);
-
-      await page.click('input#text1');
-
-      await page.keys('Tab');
-      expect(await page.waitForSelector(calendar)).toBe(true);
-
-      await page.keys('Tab');
-      expect(await page.hasFocus('input#text2')).toBe(true);
-
-      await page.click('button#popup-trigger');
-      await page.click('input#text3');
-      await page.keys('Tab');
-
-      expect(await page.waitForSelector(calendar)).toBe(true);
-
-      await page.keys('Tab');
-      expect(await page.hasFocus('input#text4')).toBe(true);
-    }
+    await page.keys('Tab');
+    expect(await page.hasFocus('input#text2')).toBe(true);
   },
 );
 
 BrowserTestCase(
-  'Should tab through all interactive elements inside datepicker',
+  'Should tab from input component to datepicker to next input in popup',
   {},
   async (client: any) => {
-    if (
-      getBooleanFF(
-        'platform.design-system-team.accessible-datetime-picker_691ec',
-      )
-    ) {
-      const page = new Page(client);
-      await page.goto(urlDatePickerTabCheck);
+    const page = new Page(client);
+    await page.goto(urlDatePickerTabCheck);
 
-      await page.click('input#text1');
+    await page.click('button#popup-trigger');
+    await page.click('input#text3');
 
-      await page.keys('Tab');
-      expect(
-        await page.waitForSelector(tabcheckDatePickerInputOutsidePopup),
-      ).toBe(true);
-      expect(await page.hasFocus(tabcheckDatePickerInputOutsidePopup)).toBe(
-        true,
-      );
+    await page.keys('Tab');
+    expect(await page.waitForSelector(tabcheckDatePickerInputInsidePopup)).toBe(
+      true,
+    );
+    expect(await page.hasFocus(tabcheckDatePickerInputInsidePopup)).toBe(true);
 
-      await page.keys('Tab');
-      expect(await page.waitForSelector(calendar)).toBe(true);
-      expect(await page.hasFocus(previousMonthButton)).toBe(false);
-      expect(await page.hasFocus(nextMonthButton)).toBe(false);
-      expect(await page.hasFocus(calendar)).toBe(true);
+    await page.keys('Tab');
+    expect(await page.hasFocus(previousMonthButton)).toBe(true);
+    await page.keys('Tab');
+    expect(await page.hasFocus(nextMonthButton)).toBe(true);
+    await page.keys('Tab');
+    expect(await page.hasFocus(calendarDates)).toBe(true);
+    await page.keys('Tab');
+    expect(await page.hasFocus(focusedDate)).toBe(true);
 
-      await page.keys('Tab');
-      expect(await page.hasFocus(focusedDate)).toBe(true);
-
-      await page.keys('Tab');
-      expect(await page.hasFocus('input#text2')).toBe(true);
-
-      await page.click('button#popup-trigger');
-      await page.click('input#text3');
-
-      await page.keys('Tab');
-      expect(
-        await page.waitForSelector(tabcheckDatePickerInputInsidePopup),
-      ).toBe(true);
-      expect(await page.hasFocus(tabcheckDatePickerInputInsidePopup)).toBe(
-        true,
-      );
-
-      await page.keys('Tab');
-      expect(await page.waitForSelector(calendar)).toBe(true);
-      expect(await page.hasFocus(previousMonthButton)).toBe(false);
-      expect(await page.hasFocus(nextMonthButton)).toBe(false);
-      expect(await page.hasFocus(calendar)).toBe(true);
-
-      await page.keys('Tab');
-      expect(await page.hasFocus(focusedDate)).toBe(true);
-
-      await page.keys('Tab');
-      expect(await page.hasFocus('input#text4')).toBe(true);
-    }
+    await page.keys('Tab');
+    expect(await page.hasFocus('input#text4')).toBe(true);
   },
 );
 

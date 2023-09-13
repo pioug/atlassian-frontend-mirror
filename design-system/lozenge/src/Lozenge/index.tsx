@@ -4,9 +4,16 @@
 
 import React, { CSSProperties, memo, ReactNode } from 'react';
 
-import Box, { BoxProps } from '@atlaskit/ds-explorations/box';
 import Text, { TextProps } from '@atlaskit/ds-explorations/text';
+import { type BackgroundColor, Box, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
+
+const baseStyles = xcss({
+  display: 'inline-flex',
+  borderRadius: 'border.radius',
+  position: 'static',
+  overflow: 'hidden',
+});
 
 export type ThemeAppearance =
   | 'default'
@@ -71,24 +78,23 @@ const Lozenge = memo(
     const appearanceStyle = isBold ? 'bold' : 'subtle';
     const appearanceType =
       appearance in backgroundColors[appearanceStyle] ? appearance : 'default';
+
     const maxWidthValue =
       typeof maxWidth === 'string' ? maxWidth : `${maxWidth}px`;
+
     const maxWidthIsPc = typeof maxWidth === 'string' && /%$/.test(maxWidth);
 
     return (
       <Box
         as="span"
-        display="inlineFlex"
         backgroundColor={backgroundColors[appearanceStyle][appearanceType]}
-        borderRadius="normal"
-        paddingInline="space.050"
-        position="static"
-        testId={testId}
-        overflow="hidden"
-        UNSAFE_style={{
+        style={{
           backgroundColor: style?.backgroundColor,
           maxWidth: maxWidthIsPc ? maxWidth : '100%',
         }}
+        paddingInline="space.050"
+        xcss={baseStyles}
+        testId={testId}
       >
         <Text
           fontSize="size.050"
@@ -120,23 +126,23 @@ export default Lozenge;
 // Lozenge colors
 const backgroundColors: Record<
   'bold' | 'subtle',
-  Record<ThemeAppearance, BoxProps['backgroundColor']>
+  Record<ThemeAppearance, BackgroundColor>
 > = {
   bold: {
-    default: 'neutral.bold',
-    inprogress: 'information.bold',
-    moved: 'warning.bold',
-    new: 'discovery.bold',
-    removed: 'danger.bold',
-    success: 'success.bold',
+    default: 'color.background.neutral.bold',
+    inprogress: 'color.background.information.bold',
+    moved: 'color.background.warning.bold',
+    new: 'color.background.discovery.bold',
+    removed: 'color.background.danger.bold',
+    success: 'color.background.success.bold',
   },
   subtle: {
-    default: 'neutral',
-    inprogress: 'information',
-    moved: 'warning',
-    new: 'discovery',
-    removed: 'danger',
-    success: 'success',
+    default: 'color.background.neutral',
+    inprogress: 'color.background.information',
+    moved: 'color.background.warning',
+    new: 'color.background.discovery',
+    removed: 'color.background.danger',
+    success: 'color.background.success',
   },
 };
 

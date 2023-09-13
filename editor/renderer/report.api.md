@@ -30,7 +30,7 @@ import type { EventHandlers } from '@atlaskit/editor-common/ui';
 import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import { jsx } from '@emotion/react';
-import { Mark } from '@atlaskit/editor-prosemirror/model';
+import type { Mark } from '@atlaskit/editor-prosemirror/model';
 import { MediaClientConfig } from '@atlaskit/media-core';
 import { MediaFeatureFlags } from '@atlaskit/media-common';
 import { Node as Node_2 } from '@atlaskit/editor-prosemirror/model';

@@ -10,11 +10,11 @@ import {
   CONTENT_COMPONENT,
   EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { findParentNodeOfTypeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
 import * as prosemirrorUtils from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
   table,

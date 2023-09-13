@@ -5,15 +5,17 @@ import {
   h1,
   blockquote,
   indentation,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 
 import * as indentationCommands from '../../../../plugins/indentation/commands';
-import {
-  getPrevIndentLevel,
+import type {
   PrevAttributes,
   NewAttributes,
+} from '../../../../plugins/indentation/commands/utils';
+import {
+  getPrevIndentLevel,
   getNewIndentLevel,
 } from '../../../../plugins/indentation/commands/utils';
 

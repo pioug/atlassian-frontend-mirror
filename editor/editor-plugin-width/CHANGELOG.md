@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-width
 
+## 0.2.2
+
+### Patch Changes
+
+- [`37c62369dae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/37c62369dae) - NO-ISSUE Import doc builder types from editor-common
+
+## 0.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.2.0
 
 ### Minor Changes

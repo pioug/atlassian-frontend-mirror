@@ -1,5 +1,11 @@
 # @atlaskit/media-ui
 
+## 25.0.0
+
+### Major Changes
+
+- [`e6122bf1c9a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e6122bf1c9a) - MEX-2481 revert and re-introduce a new fix for media border gap issue
+
 ## 24.0.3
 
 ### Patch Changes

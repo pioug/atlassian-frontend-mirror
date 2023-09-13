@@ -2,7 +2,7 @@
 import React from 'react';
 import { css, jsx } from '@emotion/react';
 import type { NumericalCardDimensions } from '@atlaskit/media-card';
-import { IMAGE_AND_BORDER_ADJUSTMENT } from '@atlaskit/editor-common/ui';
+import { MediaBorderGapFiller } from '@atlaskit/editor-common/ui';
 
 export const MediaInlineNodeSelector = 'media-inline-node';
 export const MediaSingleNodeSelector = 'media-single-node';
@@ -47,14 +47,6 @@ export const MediaCardWrapper = ({
         borderWidth: `${calculatedBorderWidth}px`,
         borderStyle: 'solid',
         borderRadius: `${calculatedBorderWidth * 2}px`,
-        width:
-          calculatedBorderWidth > 0
-            ? `calc(100% - ${IMAGE_AND_BORDER_ADJUSTMENT}px)`
-            : undefined,
-        height:
-          calculatedBorderWidth > 0
-            ? `calc(100% - ${IMAGE_AND_BORDER_ADJUSTMENT}px)`
-            : undefined,
       }}
     >
       <div
@@ -64,6 +56,9 @@ export const MediaCardWrapper = ({
         }}
         onContextMenuCapture={onContextMenu}
       >
+        {borderWidth > 0 && (
+          <MediaBorderGapFiller borderColor={`var(--custom-palette-color)`} />
+        )}
         <div css={absoluteDiv}>{children}</div>
       </div>
     </div>

@@ -5,10 +5,8 @@ import { IntlProvider } from 'react-intl-next';
 import { mount, ReactWrapper } from 'enzyme';
 
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import type {
-  BuilderContent,
-  DocBuilder,
-} from '@atlaskit/editor-test-helpers/doc-builder';
+import type { BuilderContent } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { doc } from '@atlaskit/editor-test-helpers/doc-builder';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type {

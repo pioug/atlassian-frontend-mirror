@@ -1,6 +1,6 @@
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import createStub from 'raf-stub';
-import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import type {
   CreateUIAnalyticsEvent,

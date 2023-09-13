@@ -1,6 +1,6 @@
 import { sendKeyToPm } from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import type { RefsNode } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { RefsNode } from '@atlaskit/editor-common/types';
 import {
   caption,
   doc,

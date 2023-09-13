@@ -2,32 +2,30 @@ import React, { Component } from 'react';
 
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import { filter } from '@atlaskit/adf-utils/traverse';
-import {
+import type {
   CardAppearance,
   CardDimensions,
-  Card,
-  CardLoading,
-  CardError,
   CardOnClickCallback,
   NumericalCardDimensions,
 } from '@atlaskit/media-card';
-import { MediaClientConfig } from '@atlaskit/media-core';
-import {
+import { Card, CardLoading, CardError } from '@atlaskit/media-card';
+import type { MediaClientConfig } from '@atlaskit/media-core';
+import type {
   ImageResizeMode,
   FileIdentifier,
   ExternalImageIdentifier,
   Identifier,
-  getMediaClient,
   FileState,
 } from '@atlaskit/media-client';
-import { MediaType } from '@atlaskit/adf-schema';
+import { getMediaClient } from '@atlaskit/media-client';
+import type { MediaType } from '@atlaskit/adf-schema';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
 import { withImageLoader } from '@atlaskit/editor-common/utils';
 import type { ImageStatus } from '@atlaskit/editor-common/utils';
-import { MediaFeatureFlags } from '@atlaskit/media-common';
-import { RendererAppearance } from './Renderer/types';
-import { RendererContext } from '../react/types';
-import { MediaSSR } from '../types/mediaOptions';
+import type { MediaFeatureFlags } from '@atlaskit/media-common';
+import type { RendererAppearance } from './Renderer/types';
+import type { RendererContext } from '../react/types';
+import type { MediaSSR } from '../types/mediaOptions';
 
 export type MediaProvider = {
   viewMediaClientConfig: MediaClientConfig;
@@ -60,8 +58,6 @@ export interface MediaCardProps {
   featureFlags?: MediaFeatureFlags;
   shouldEnableDownloadButton?: boolean;
   ssr?: MediaSSR;
-  // Expands the width and height of the image. Read more: https://product-fabric.atlassian.net/browse/MEX-2481
-  expandByPixel?: number;
 }
 
 export interface State {
@@ -204,7 +200,6 @@ export class MediaCardInternal extends Component<MediaCardProps, State> {
       featureFlags,
       ssr,
       rendererAppearance,
-      expandByPixel,
     } = this.props;
 
     if (imageStatus === 'loading' || !url) {
@@ -222,7 +217,6 @@ export class MediaCardInternal extends Component<MediaCardProps, State> {
         // TODO MPT-315: clean up after we move mediaClientConfig into FileIdentifier
         // context is not really used when the type is external and we want to render the component asap
         mediaClientConfig={mediaClientConfig!}
-        expandByPixel={expandByPixel}
         alt={alt}
         identifier={identifier}
         dimensions={cardDimensions}
@@ -288,7 +282,6 @@ export class MediaCardInternal extends Component<MediaCardProps, State> {
       featureFlags,
       shouldEnableDownloadButton,
       ssr,
-      expandByPixel,
     } = this.props;
     const isMobile = rendererAppearance === 'mobile';
     const shouldPlayInline =
@@ -342,7 +335,6 @@ export class MediaCardInternal extends Component<MediaCardProps, State> {
         })}
       >
         <Card
-          expandByPixel={expandByPixel}
           identifier={identifier}
           alt={alt}
           contextId={contextId}

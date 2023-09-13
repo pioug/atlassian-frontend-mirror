@@ -7,12 +7,10 @@ import {
   a,
   strong,
   panel,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import {
-  TextColorPluginState,
-  pluginKey as textColorPluginKey,
-} from '../../../../plugins/text-color/pm-plugins/main';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
+import type { TextColorPluginState } from '../../../../plugins/text-color/pm-plugins/main';
+import { pluginKey as textColorPluginKey } from '../../../../plugins/text-color/pm-plugins/main';
 
 describe('text-color', () => {
   const createEditor = createEditorFactory<TextColorPluginState>();

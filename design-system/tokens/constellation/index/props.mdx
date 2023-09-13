@@ -480,6 +480,7 @@ The SSR server should attach the return value of this function as the `innerhtml
 The current surface is a dynamic color value implemented via CSS custom properties (CSS variables). Which allows UI to be styled with a color based on a parent element's surface color. This is useful when an element needs an opaque background based on a parent element's surface color. For example, when it needs to mask content.
 
 Some components in the Atlassian Design System will set the `CURRENT_SURFACE_CSS_VAR` when they set a surface color. The following components set the surface color CSS variable:
+- [Box](/components/primitives/box)
 - [Drawer](/components/drawer)
 - [Dropdown menu](/components/dropdown-menu)
 - [Modal dialog](/components/modal-dialog)
@@ -512,7 +513,28 @@ function ExampleWithModal() {
 
 ### Set the current suface color
 
-The `CURRENT_SURFACE_CSS_VAR` constant is the CSS custom property name for accessing the 'current surface' value. This is exported to enable the current surface CSS custom property to be set.
+The simplest way to set the current surface color is by using the Box primitive. When the background color of a `Box` is set to a [surface token](/components/tokens/all-tokens#elevation-surface),
+internally it will set the current surface color to that token for its children to utilise.
+
+#### Example usage with the Box component
+
+```tsx
+import { Box } from '@atlaskit/primitives';
+import { token } from '@atlaskit/tokens';
+
+function ExampleWithBox() {
+  return (
+    <Box backgroundColor="elevation.surface.raised">
+      <div style={{ backgroundColor: token('utility.elevation.surface.current') }}>
+        This div's background color will be set to the background color of the parent Box.
+      </div>
+    </Box>
+  )
+}
+```
+
+For cases where the Box component cannot be used (for example, in non-react apps), the `CURRENT_SURFACE_CSS_VAR` constant can be used to set the current surface color.
+The `CURRENT_SURFACE_CSS_VAR` constant is the CSS custom property name for accessing the 'current surface' value.
 
 #### Example usage
 

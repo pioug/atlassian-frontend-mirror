@@ -1,5 +1,5 @@
 import { Slice, Fragment } from '@atlaskit/editor-prosemirror/model';
-import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import {
   doc,
   p,

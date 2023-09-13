@@ -26,7 +26,7 @@
     }
   },
   "dependencies": {
-    "@atlaskit/primitives": "^1.4.0",
+    "@atlaskit/primitives": "^1.5.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
     "tiny-invariant": "^1.2.0"
@@ -36,7 +36,7 @@
   },
   "devDependencies": {
     "@af/visual-regression": "*",
-    "@atlaskit/primitives": "^1.4.0",
+    "@atlaskit/primitives": "^1.5.0",
     "@atlaskit/table": "*",
     "@atlaskit/visual-regression": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",

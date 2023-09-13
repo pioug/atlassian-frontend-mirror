@@ -1,5 +1,28 @@
 # @atlaskit/editor-common
 
+## 75.0.2
+
+### Patch Changes
+
+- [`37c62369dae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/37c62369dae) - NO-ISSUE Import doc builder types from editor-common
+
+## 75.0.1
+
+### Patch Changes
+
+- [`1c085549bd9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1c085549bd9) - clean up pctWidth used in new image resize experience
+
+## 75.0.0
+
+### Major Changes
+
+- [`e6122bf1c9a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e6122bf1c9a) - MEX-2481 revert and re-introduce a new fix for media border gap issue
+
+### Patch Changes
+
+- [`9d3236f1b2d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d3236f1b2d) - Add comments for getParentWidthForNestedMediaSingleNode function
+- Updated dependencies
+
 ## 74.59.0
 
 ### Minor Changes

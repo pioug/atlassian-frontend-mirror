@@ -5,7 +5,7 @@ import {
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import type { MediaADFAttrs } from '@atlaskit/adf-schema';
 import dispatchPasteEvent from '@atlaskit/editor-test-helpers/dispatch-paste-event';
-import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import {
   doc,
   bodiedExtension,

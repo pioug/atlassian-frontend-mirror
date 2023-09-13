@@ -1,6 +1,6 @@
 import { css, SerializedStyles } from '@emotion/react';
 
-import { token } from '@atlaskit/tokens';
+import { CURRENT_SURFACE_CSS_VAR, token } from '@atlaskit/tokens';
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
@@ -57,10 +57,10 @@ export type Space = keyof typeof spaceMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::3f4d926ce14cda107d25c697f3a0c200>>
+ * @codegen <<SignedSource::3db44f53b728773bb3ba1473d4567724>>
  * @codegenId colors
  * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
- * @codegenParams ["border", "background", "shadow", "text", "fill"]
+ * @codegenParams ["border", "background", "shadow", "text", "fill", "surface"]
  * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::815ddd719715ae06521cad06e1921e40>>
  */
 export const borderColorMap = {
@@ -820,6 +820,10 @@ export const backgroundColorMap = {
     '#F4F5F7',
   ),
   'elevation.surface.sunken': token('elevation.surface.sunken', '#F4F5F7'),
+  'utility.elevation.surface.current': token(
+    'utility.elevation.surface.current',
+    '#FFFFFF',
+  ),
 } as const;
 
 export type BackgroundColor = keyof typeof backgroundColorMap;
@@ -945,6 +949,33 @@ export const fillMap = {
 } as const;
 
 export type Fill = keyof typeof fillMap;
+
+export const surfaceColorMap = {
+  'elevation.surface': token('elevation.surface', '#FFFFFF'),
+  'elevation.surface.hovered': token('elevation.surface.hovered', '#FAFBFC'),
+  'elevation.surface.pressed': token('elevation.surface.pressed', '#F4F5F7'),
+  'elevation.surface.overlay': token('elevation.surface.overlay', '#FFFFFF'),
+  'elevation.surface.overlay.hovered': token(
+    'elevation.surface.overlay.hovered',
+    '#FAFBFC',
+  ),
+  'elevation.surface.overlay.pressed': token(
+    'elevation.surface.overlay.pressed',
+    '#F4F5F7',
+  ),
+  'elevation.surface.raised': token('elevation.surface.raised', '#FFFFFF'),
+  'elevation.surface.raised.hovered': token(
+    'elevation.surface.raised.hovered',
+    '#FAFBFC',
+  ),
+  'elevation.surface.raised.pressed': token(
+    'elevation.surface.raised.pressed',
+    '#F4F5F7',
+  ),
+  'elevation.surface.sunken': token('elevation.surface.sunken', '#F4F5F7'),
+} as const;
+
+export type SurfaceColor = keyof typeof surfaceColorMap;
 
 /**
  * @codegenEnd
@@ -1229,7 +1260,8 @@ type TokenMappableProperty =
   | 'fontFamily'
   | 'lineHeight'
   | 'color'
-  | 'font';
+  | 'font'
+  | typeof CURRENT_SURFACE_CSS_VAR;
 type PropsToken =
   | SpacingToken
   | BackgroundColorToken
@@ -1258,6 +1290,7 @@ const getSerializedStylesMap = (
 };
 type SpacingToken = keyof typeof spaceMap;
 type BackgroundColorToken = keyof typeof backgroundColorMap;
+type SurfaceColorToken = keyof typeof surfaceColorMap;
 type TextColorToken = keyof typeof textColorMap;
 type FontSizeToken = keyof typeof fontSizeMap;
 type FontWeightToken = keyof typeof fontWeightMap;
@@ -1271,6 +1304,7 @@ type SpacingStyleMap = Record<
   Record<SpacingToken, SerializedStyles>
 >;
 type BackgroundColorStyleMap = Record<BackgroundColorToken, SerializedStyles>;
+type SurfaceColorStyleMap = Record<SurfaceColorToken, SerializedStyles>;
 type TextColorStyleMap = Record<TextColorToken, SerializedStyles>;
 type FontSizeStyleMap = Record<FontSizeToken, SerializedStyles>;
 type FontWeightStyleMap = Record<FontWeightToken, SerializedStyles>;
@@ -1306,6 +1340,7 @@ export const spaceStylesMap: SpacingStyleMap = spacingProperties.reduce(
 
 export const backgroundColorStylesMap: BackgroundColorStyleMap =
   getSerializedStylesMap('backgroundColor', backgroundColorMap);
+
 export const textColorStylesMap: TextColorStyleMap = getSerializedStylesMap(
   'color',
   textColorMap,
@@ -1338,3 +1373,11 @@ export const uiTextStylesMap: UITextStyleMap = getSerializedStylesMap(
   'font',
   uiTextMap,
 );
+
+export const surfaceColorStylesMap: SurfaceColorStyleMap =
+  getSerializedStylesMap(CURRENT_SURFACE_CSS_VAR, surfaceColorMap);
+
+export const isSurfaceColorToken = (
+  color: unknown,
+): color is SurfaceColorToken =>
+  surfaceColorMap[color as SurfaceColorToken] !== undefined;

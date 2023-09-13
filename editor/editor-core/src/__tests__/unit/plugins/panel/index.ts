@@ -1,13 +1,9 @@
 import { pluginKey } from '../../../../plugins/panel/types';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import {
-  doc,
-  panel,
-  p,
-  DocBuilder,
-} from '@atlaskit/editor-test-helpers/doc-builder';
+import { doc, panel, p } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
-import {
+import type {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';

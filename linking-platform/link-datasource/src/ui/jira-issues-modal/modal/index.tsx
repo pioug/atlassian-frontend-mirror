@@ -243,6 +243,43 @@ export const PlainJiraIssuesConfigModal = (
     }
   }, [cloudId, selectedJiraSite]);
 
+  const fireSingleItemViewedEvent = useCallback(() => {
+    fireEvent('ui.link.viewed.singleItem', {
+      destinationObjectTypes: destinationObjectTypes,
+      searchMethod: mapSearchMethod(lastSearchMethodRef.current),
+      extensionKey: extensionKey,
+    });
+  }, [extensionKey, fireEvent, destinationObjectTypes]);
+
+  const fireCountViewedEvent = useCallback(() => {
+    fireEvent('ui.link.viewed.count', {
+      destinationObjectTypes: destinationObjectTypes,
+      searchMethod: mapSearchMethod(lastSearchMethodRef.current),
+      extensionKey: extensionKey,
+      totalItemCount: totalCount || 0,
+    });
+  }, [extensionKey, fireEvent, totalCount, destinationObjectTypes]);
+
+  useEffect(() => {
+    const isResolved = status === 'resolved';
+    const isSingleItemViewed = currentViewMode === 'issue' && totalCount === 1;
+    const isCountViewed = currentViewMode === 'count';
+
+    if (isResolved) {
+      if (isSingleItemViewed) {
+        fireSingleItemViewedEvent();
+      } else if (isCountViewed && totalCount) {
+        fireCountViewedEvent();
+      }
+    }
+  }, [
+    currentViewMode,
+    totalCount,
+    status,
+    fireSingleItemViewedEvent,
+    fireCountViewedEvent,
+  ]);
+
   const onSearch = useCallback(
     (
       newParameters: JiraIssueDatasourceParametersQuery,

@@ -3,7 +3,7 @@ import {
   createProsemirrorEditorFactory,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { p, ul, li, doc } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   undo as pmHistoryUndo,

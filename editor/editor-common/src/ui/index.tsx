@@ -1,15 +1,15 @@
 export { default as Caption } from './Caption';
-export {
-  default as MediaSingle,
-  IMAGE_AND_BORDER_ADJUSTMENT,
-} from './MediaSingle';
+export { default as MediaSingle } from './MediaSingle';
 export type {
   Props as MediaSingleProps,
   MediaSingleWidthType,
   MediaSingleSize,
 } from './MediaSingle';
 
-export { MediaSingleDimensionHelper } from './MediaSingle/styled';
+export {
+  MediaSingleDimensionHelper,
+  MediaBorderGapFiller,
+} from './MediaSingle/styled';
 export type { MediaSingleWrapperProps as MediaSingleDimensionHelperProps } from './MediaSingle/styled';
 
 export {

@@ -3,6 +3,7 @@ import type {
   EditorPlugin,
   NextEditorPlugin,
 } from '@atlaskit/editor-common/types';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
@@ -10,7 +11,7 @@ import {
   createProsemirrorEditorFactory,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import { doc, DocBuilder, p } from '@atlaskit/editor-test-helpers/doc-builder';
+import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import { contentInsertionPlugin } from '../../plugin';
 import { handleInsertContent } from '../../plugin/insert-content-handlers';

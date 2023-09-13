@@ -1,5 +1,6 @@
 import { uuid } from '@atlaskit/adf-schema';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import {
   doc,
   p,
@@ -7,7 +8,6 @@ import {
   taskList,
   decisionList,
   decisionItem,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { testKeymap } from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { MockMentionResource } from '@atlaskit/util-data-test/mock-mention-resource';

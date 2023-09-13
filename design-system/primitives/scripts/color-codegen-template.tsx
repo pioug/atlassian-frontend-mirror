@@ -1,6 +1,7 @@
 import prettier from 'prettier';
 import parserTypeScript from 'prettier/parser-typescript';
 
+import { CURRENT_SURFACE_CSS_VAR } from '@atlaskit/tokens';
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import legacyTokens from '@atlaskit/tokens/src/artifacts/tokens-raw/atlassian-legacy-light';
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
@@ -35,6 +36,7 @@ const tokenStyles = {
     filterFn: <T extends Token>(t: T) =>
       t.token.startsWith(tokenStyles.background.prefix) ||
       t.token.startsWith('elevation.surface') ||
+      t.token.startsWith('utility.elevation.surface') ||
       t.token.startsWith('color.blanket'),
   },
   border: {
@@ -57,6 +59,13 @@ const tokenStyles = {
     cssProperty: 'fill',
     filterFn: <T extends Token>(t: T) =>
       t.token.startsWith(tokenStyles.fill.prefix),
+  },
+  surface: {
+    objectName: 'surfaceColor',
+    prefix: 'elevation.surface.',
+    cssProperty: CURRENT_SURFACE_CSS_VAR,
+    filterFn: <T extends Token>(t: T) =>
+      t.token.startsWith(tokenStyles.surface.prefix),
   },
 } as const;
 

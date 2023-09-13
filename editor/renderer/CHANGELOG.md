@@ -1,5 +1,30 @@
 # @atlaskit/renderer
 
+## 108.11.18
+
+### Patch Changes
+
+- [`37c62369dae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/37c62369dae) - NO-ISSUE Import doc builder types from editor-common
+
+## 108.11.17
+
+### Patch Changes
+
+- [`e6122bf1c9a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e6122bf1c9a) - MEX-2481 revert and re-introduce a new fix for media border gap issue
+- Updated dependencies
+
+## 108.11.16
+
+### Patch Changes
+
+- [`b821b2d7ac1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b821b2d7ac1) - Fix issue where tables with no column widths would render at their layout value when nested inside another node, render tables with no column widths in this scenario so they scale with the parent node.
+
+## 108.11.15
+
+### Patch Changes
+
+- [`2325dd0eb57`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2325dd0eb57) - fix width issue on initial load
+
 ## 108.11.14
 
 ### Patch Changes

@@ -1,4 +1,4 @@
-import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { p, ul, li, doc } from '@atlaskit/editor-test-helpers/doc-builder';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';

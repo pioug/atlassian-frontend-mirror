@@ -1,9 +1,9 @@
-import { CardOptions } from '@atlaskit/editor-common/card';
+import type { CardOptions } from '@atlaskit/editor-common/card';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { isRichMediaInsideOfBlockNode } from '@atlaskit/editor-common/utils';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import {
   doc,
-  DocBuilder,
   embedCard,
   layoutColumn,
   layoutSection,

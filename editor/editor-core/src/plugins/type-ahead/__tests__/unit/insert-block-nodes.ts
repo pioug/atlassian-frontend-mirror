@@ -10,7 +10,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
-import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import {
   doc,
   p,

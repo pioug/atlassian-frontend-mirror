@@ -1,12 +1,8 @@
-import { Fragment, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { RefsNode } from '@atlaskit/editor-common/types';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import { EditorState } from '@atlaskit/editor-prosemirror/state';
-import {
-  p,
-  RefsNode,
-  table,
-  td,
-  tr,
-} from '@atlaskit/editor-test-helpers/doc-builder';
+import { p, table, td, tr } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import {
   c,

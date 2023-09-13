@@ -9,7 +9,7 @@ import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import floatingToolbarPlugin from '../../floating-toolbar';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import captionPlugin from '../';
-import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import {
   caption,
   doc,

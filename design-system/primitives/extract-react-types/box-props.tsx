@@ -69,7 +69,9 @@ export default function Box(
 
     /**
      * A token alias for background color. See:<br>
-     * [https://atlassian.design/components/tokens/all-tokens#color-background](https://atlassian.design/components/tokens/all-tokens#color-background)
+     * [https://atlassian.design/components/tokens/all-tokens#color-background](https://atlassian.design/components/tokens/all-tokens#color-background)<br>
+     * When the background color is set to a [surface token](/components/tokens/all-tokens#elevation-surface),
+     * the [current surface](/components/tokens/code#current-surface-color) CSS variable will also be set to this value in the Box styles.
      */
     backgroundColor?: Token.BackgroundColor;
 

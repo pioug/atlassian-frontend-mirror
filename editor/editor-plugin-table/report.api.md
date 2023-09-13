@@ -63,23 +63,11 @@ interface PluginConfig {
   // (undocumented)
   allowNumberColumn?: boolean;
   // (undocumented)
-  initialRenderOptimization?: boolean;
-  // (undocumented)
   isHeaderRowRequired?: boolean;
-  // (undocumented)
-  mouseMoveOptimization?: boolean;
   // (undocumented)
   permittedLayouts?: PermittedLayoutsDescriptor;
   // (undocumented)
   stickyHeaders?: boolean;
-  // (undocumented)
-  stickyHeadersOptimization?: boolean;
-  // (undocumented)
-  tableCellOptimization?: boolean;
-  // (undocumented)
-  tableOverflowShadowsOptimization?: boolean;
-  // (undocumented)
-  tableRenderOptimization?: boolean;
 }
 
 // @public (undocumented)

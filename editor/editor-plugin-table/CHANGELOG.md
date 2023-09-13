@@ -1,5 +1,29 @@
 # @atlaskit/editor-plugin-table
 
+## 3.0.2
+
+### Patch Changes
+
+- [`37c62369dae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/37c62369dae) - NO-ISSUE Import doc builder types from editor-common
+
+## 3.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.0
+
+### Major Changes
+
+- [`18e8e6cc9c8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/18e8e6cc9c8) - ED-19782: Clean up feature flag types from table optimisation related feature flags.
+
+## 2.14.1
+
+### Patch Changes
+
+- [`b6525ba4703`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b6525ba4703) - [ux] Reimplement inline height for table when resizing
+
 ## 2.14.0
 
 ### Minor Changes

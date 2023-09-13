@@ -7,10 +7,7 @@ import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import { Slice } from '@atlaskit/editor-prosemirror/model';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import type {
-  RefsNode,
-  DocBuilder,
-} from '@atlaskit/editor-test-helpers/doc-builder';
+import type { RefsNode, DocBuilder } from '@atlaskit/editor-common/types';
 import {
   layoutSection,
   layoutColumn,

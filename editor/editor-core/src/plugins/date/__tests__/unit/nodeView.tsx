@@ -2,7 +2,7 @@ import React from 'react';
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { ReactWrapper } from 'enzyme';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import {
   doc,
   date,

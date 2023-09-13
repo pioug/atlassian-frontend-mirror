@@ -55,13 +55,6 @@ export interface PluginConfig {
   stickyHeaders?: boolean;
   allowCellOptionsInFloatingToolbar?: boolean;
   allowDistributeColumns?: boolean;
-  // to be cleaned up in ED-19477 after confluence no longer consumes table optimisation flags
-  tableCellOptimization?: boolean;
-  tableRenderOptimization?: boolean;
-  stickyHeadersOptimization?: boolean;
-  initialRenderOptimization?: boolean;
-  mouseMoveOptimization?: boolean;
-  tableOverflowShadowsOptimization?: boolean;
 }
 
 export type { ColumnResizingPluginState } from '@atlaskit/editor-common/types';

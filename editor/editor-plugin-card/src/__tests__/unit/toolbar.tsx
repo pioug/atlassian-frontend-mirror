@@ -12,13 +12,13 @@ import commonMessages, {
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type {
   Command,
+  DocBuilder,
   FloatingToolbarButton,
   FloatingToolbarConfig,
 } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   blockCard,
   datasourceBlockCard,

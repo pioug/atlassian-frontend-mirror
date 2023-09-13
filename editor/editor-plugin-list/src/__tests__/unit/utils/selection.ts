@@ -1,11 +1,8 @@
 import { normalizeListItemsSelection } from '@atlaskit/editor-common/lists';
+import type { DocBuilder, RefsNode } from '@atlaskit/editor-common/types';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
-import type {
-  DocBuilder,
-  RefsNode,
-} from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   code_block,
   doc,

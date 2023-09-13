@@ -5,8 +5,8 @@ import {
   AnalyticsListener,
   useAnalyticsEvents,
 } from '@atlaskit/analytics-next';
+import type { RefsNode } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import type { RefsNode } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   datasourceBlockCard,
   embedCard,

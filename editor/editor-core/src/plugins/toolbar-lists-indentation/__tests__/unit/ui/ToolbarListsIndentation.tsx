@@ -6,7 +6,7 @@ import {
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
-import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { doc, p, indentation } from '@atlaskit/editor-test-helpers/doc-builder';
 import { listMessages } from '@atlaskit/editor-common/messages';
 import { basePlugin } from '../../../../base';

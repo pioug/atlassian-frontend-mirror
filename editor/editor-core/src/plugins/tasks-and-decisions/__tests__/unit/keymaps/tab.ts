@@ -1,5 +1,5 @@
 import { uuid } from '@atlaskit/adf-schema';
-import {
+import type {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
@@ -14,8 +14,8 @@ import {
   taskList,
   td,
   tr,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import {
   buildKeyEvent,
   testKeymap,

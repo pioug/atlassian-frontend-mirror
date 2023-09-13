@@ -238,4 +238,4 @@ export type {
   QuickInsertHandler,
 } from './quick-insert';
 
-export type { position, Refs, RefsNode, DocBuilder } from './doc-builder';
+export type { Refs, RefsNode, DocBuilder } from './doc-builder';

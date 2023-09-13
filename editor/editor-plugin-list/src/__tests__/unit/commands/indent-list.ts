@@ -2,6 +2,7 @@ import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { editorCommandToPMCommand } from '@atlaskit/editor-common/preset';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import {
@@ -10,7 +11,6 @@ import {
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import { doc, li, ol, p, ul } from '@atlaskit/editor-test-helpers/doc-builder';
-import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import { indentList } from '../../../commands';
 import { listPlugin } from '../../../index';

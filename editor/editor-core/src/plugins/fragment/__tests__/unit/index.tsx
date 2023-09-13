@@ -5,10 +5,8 @@ import {
   createProsemirrorEditorFactory,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import type {
-  DocBuilder,
-  BuilderContent,
-} from '@atlaskit/editor-test-helpers/doc-builder';
+import type { BuilderContent } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import {
   doc,
   p,

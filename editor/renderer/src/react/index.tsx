@@ -1,50 +1,46 @@
 import React from 'react';
-import { ComponentType } from 'react';
-import {
-  Fragment,
-  Mark,
-  MarkType,
-  Node,
-} from '@atlaskit/editor-prosemirror/model';
-import { Serializer } from '../';
-import {
+import type { ComponentType } from 'react';
+import type { Fragment, Mark, Node } from '@atlaskit/editor-prosemirror/model';
+import { MarkType } from '@atlaskit/editor-prosemirror/model';
+import type { Serializer } from '../';
+import type {
   RendererAppearance,
   StickyHeaderConfig,
   HeadingAnchorLinksProps,
   NodeComponentsProps,
 } from '../ui/Renderer/types';
 import { isNestedHeaderLinksEnabled } from './utils/links';
-import { AnalyticsEventPayload } from '../analytics/events';
+import type { AnalyticsEventPayload } from '../analytics/events';
+import type { TextWrapper } from './nodes';
 import {
   Doc,
   DocWithSelectAllTrap,
   mergeTextNodes,
   isTextWrapper,
   isTextNode,
-  TextWrapper,
   toReact,
 } from './nodes';
 import TextWrapperComponent from './nodes/text-wrapper';
 
 import { toReact as markToReact, isAnnotationMark } from './marks';
 import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { getMarksByOrder, isSameMark } from '@atlaskit/editor-common/validator';
 import type { EventHandlers } from '@atlaskit/editor-common/ui';
 import { calcTableColumnWidths } from '@atlaskit/editor-common/utils';
 import { getText } from '../utils';
 import { findChildrenByType } from '@atlaskit/editor-prosemirror/utils';
-import {
+import type {
   RendererContext,
   NodeMeta,
   MarkMeta,
   AnnotationMarkMeta,
 } from './types';
-import { insideBreakoutLayout } from './renderer-node';
-import { MediaOptions } from '../types/mediaOptions';
-import { SmartLinksOptions } from '../types/smartLinksOptions';
+import { insideBlockNode, insideBreakoutLayout } from './renderer-node';
+import type { MediaOptions } from '../types/mediaOptions';
+import type { SmartLinksOptions } from '../types/smartLinksOptions';
 import { isCodeMark } from './marks/code';
-import { EmojiResourceConfig } from '@atlaskit/emoji/resource';
+import type { EmojiResourceConfig } from '@atlaskit/emoji/resource';
 export interface ReactSerializerInit {
   providers?: ProviderFactory;
   eventHandlers?: EventHandlers;
@@ -452,12 +448,15 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
       ? this.stickyHeaders
       : undefined;
 
+    const isInsideOfBlockNode = insideBlockNode(path, node.type.schema);
+
     return {
       ...this.getProps(node),
       allowColumnSorting: this.allowColumnSorting,
       columnWidths: calcTableColumnWidths(node),
       tableNode: node,
       stickyHeaders,
+      isInsideOfBlockNode,
     };
   }
 
@@ -473,15 +472,9 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 
   private getMediaSingleProps(node: Node, path: Array<Node> = []) {
     const {
-      nodes: { expand, nestedExpand, layoutColumn },
       marks: { link },
     } = node.type.schema;
-    const blockNodeNames = [expand, nestedExpand, layoutColumn]
-      .filter((node) => Boolean(node)) // Check if the node exist first
-      .map((node) => node.name);
-    const isInsideOfBlockNode =
-      path &&
-      path.some((n) => n.type && blockNodeNames.indexOf(n.type.name) > -1);
+    const isInsideOfBlockNode = insideBlockNode(path, node.type.schema);
     const isLinkMark = (mark: Mark) => mark.type === link;
     const childHasLink =
       node.firstChild &&
@@ -532,15 +525,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
   }
 
   private getEmbedCardProps(node: Node, path: Array<Node> = []) {
-    const {
-      nodes: { expand, nestedExpand, layoutColumn },
-    } = node.type.schema;
-    const blockNodeNames = [expand, nestedExpand, layoutColumn]
-      .filter((node) => Boolean(node)) // Check if the node exist first
-      .map((node) => node.name);
-    const isInsideOfBlockNode =
-      path &&
-      path.some((n) => n.type && blockNodeNames.indexOf(n.type.name) > -1);
+    const isInsideOfBlockNode = insideBlockNode(path, node.type.schema);
     return {
       ...this.getProps(node),
       isInsideOfBlockNode,

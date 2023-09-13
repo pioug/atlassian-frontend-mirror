@@ -1,12 +1,8 @@
 import React from 'react';
 import { act } from 'react-dom/test-utils';
 import { mount, ReactWrapper, shallow, ShallowWrapper } from 'enzyme';
-import {
-  AnnotationMarkStates,
-  AnnotationTypes,
-  AnnotationId,
-  DocNode,
-} from '@atlaskit/adf-schema';
+import type { AnnotationId, DocNode } from '@atlaskit/adf-schema';
+import { AnnotationMarkStates, AnnotationTypes } from '@atlaskit/adf-schema';
 import { AnnotationUpdateEmitter } from '@atlaskit/editor-common/types';
 import type {
   AnnotationState,
@@ -23,7 +19,7 @@ import {
   UNSUPPORTED_CONTENT_LEVEL_SEVERITY_THRESHOLD_DEFAULTS,
 } from '@atlaskit/editor-common/utils';
 
-import {
+import type {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
@@ -32,7 +28,7 @@ import RendererDefaultComponent, {
   NORMAL_SEVERITY_THRESHOLD,
   DEGRADED_SEVERITY_THRESHOLD,
 } from '../../';
-import { RendererAppearance } from '../../types';
+import type { RendererAppearance } from '../../types';
 import { SelectionComponentWrapper } from '../../../annotations/selection';
 import { Paragraph } from '../../../../react/nodes';
 
@@ -137,6 +133,18 @@ describe('Renderer', () => {
         updateSubscriber: new AnnotationUpdateEmitter(),
       },
     };
+  });
+
+  describe('RendererWrapper', () => {
+    it('should have a class describing the appearance', () => {
+      let wrapper: ReactWrapper;
+      act(() => {
+        wrapper = mount(<Renderer document={adf} appearance="full-page" />);
+      });
+      expect(
+        wrapper!.find('div.ak-renderer-wrapper.is-full-page'),
+      ).toHaveLength(1);
+    });
   });
 
   describe('annotationProvider', () => {

@@ -5,7 +5,7 @@ import { getFreshMediaProvider } from '@atlaskit/editor-test-helpers/media-provi
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { EditorInstanceWithPlugin } from '@atlaskit/editor-test-helpers/create-editor';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import type { RefsNode } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { RefsNode } from '@atlaskit/editor-common/types';
 import {
   doc,
   media,

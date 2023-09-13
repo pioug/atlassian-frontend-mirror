@@ -1,10 +1,10 @@
 // TODO: ensure this works as I have removed sinon here
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import {
   doc,
-  DocBuilder,
   p,
   table,
   tdCursor,
@@ -14,7 +14,7 @@ import {
 
 import TableView from '../../plugins/table/nodeviews/table';
 import { pluginKey } from '../../plugins/table/pm-plugins/plugin-key';
-import { PluginConfig, TablePluginState } from '../../plugins/table/types';
+import type { PluginConfig, TablePluginState } from '../../plugins/table/types';
 
 // TODO: this doesn't work
 describe.skip('TableView', () => {

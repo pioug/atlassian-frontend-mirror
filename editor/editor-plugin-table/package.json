@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-table",
-  "version": "2.14.0",
+  "version": "3.0.2",
   "description": "Table plugin for the @atlaskit/editor",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "@atlaskit/adf-schema": "^29.1.0",
-    "@atlaskit/editor-common": "^74.59.0",
+    "@atlaskit/editor-common": "^75.0.0",
     "@atlaskit/editor-palette": "1.5.1",
     "@atlaskit/editor-plugin-analytics": "^0.2.0",
     "@atlaskit/editor-plugin-content-insertion": "^0.1.0",
@@ -103,6 +103,9 @@
       "type": "boolean"
     },
     "platform.editor.update-table-cell-width-via-step": {
+      "type": "boolean"
+    },
+    "platform.editor.resizing-table-height-improvement": {
       "type": "boolean"
     },
     "platform.editor.table-remove-update-resize-handles_djvab": {

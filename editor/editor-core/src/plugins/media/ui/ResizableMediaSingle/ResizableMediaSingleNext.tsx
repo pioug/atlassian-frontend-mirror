@@ -69,7 +69,6 @@ import { ResizableMediaMigrationNotification } from './ResizableMediaMigrationNo
 
 type State = {
   isVideoFile: boolean;
-  resizedPctWidth?: number;
   isResizing: boolean;
   size: Dimensions;
   snaps: Snap;
@@ -108,12 +107,6 @@ class ResizableMediaSingleNext extends React.Component<
   }
 
   componentDidUpdate(prevProps: Props) {
-    // Handle undo, when the actual pctWidth changed,
-    // we sync up with the internal state.
-    if (prevProps.pctWidth !== this.props.pctWidth) {
-      this.setState({ resizedPctWidth: this.props.pctWidth });
-    }
-
     if (
       prevProps.mediaSingleWidth !== this.props.mediaSingleWidth &&
       this.props.mediaSingleWidth
@@ -268,31 +261,23 @@ class ResizableMediaSingleNext extends React.Component<
     }
   }
 
-  calcNewSize = (newWidth: number, stop: boolean) => {
+  calcNewLayout = (newWidth: number, stop: boolean) => {
     const { layout, containerWidth, lineLength, fullWidthMode } = this.props;
 
     const newPct = calcPctFromPx(newWidth, lineLength) * 100;
-    this.setState({ resizedPctWidth: newPct });
 
-    let newLayout: MediaSingleLayout = this.calcUnwrappedLayout(
+    if (newPct <= 100 && this.wrappedLayout) {
+      if (!stop || newPct !== 100) {
+        return layout;
+      }
+    }
+    return this.calcUnwrappedLayout(
       newWidth,
       containerWidth,
       lineLength,
       fullWidthMode,
       this.isNestedNode(),
     );
-    if (newPct <= 100) {
-      if (this.wrappedLayout && (stop ? newPct !== 100 : true)) {
-        newLayout = layout;
-      }
-      return {
-        layout: newLayout,
-      };
-    } else {
-      return {
-        layout: newLayout,
-      };
-    }
   };
 
   calcUnwrappedLayout = (
@@ -444,7 +429,7 @@ class ResizableMediaSingleNext extends React.Component<
     onResizeStop: boolean = false,
   ) => {
     const calculatedWidth = Math.round(size.width + delta.width);
-    const calculatedWidthWithLayout = this.calcNewSize(
+    const calculatedWidthWithLayout = this.calcNewLayout(
       calculatedWidth,
       onResizeStop,
     );
@@ -452,7 +437,7 @@ class ResizableMediaSingleNext extends React.Component<
     return {
       width: calculatedWidth,
       height: calculatedWidth / this.aspectRatio,
-      calculatedWidthWithLayout,
+      layout: calculatedWidthWithLayout,
     };
   };
 
@@ -478,8 +463,11 @@ class ResizableMediaSingleNext extends React.Component<
 
   handleResize: HandleResize = (size, delta) => {
     const { layout, updateSize, lineLength } = this.props;
-    const { width, height, calculatedWidthWithLayout } =
-      this.calculateSizeState(size, delta);
+    const {
+      width,
+      height,
+      layout: newLayout,
+    } = this.calculateSizeState(size, delta);
 
     if (this.isGuidelineEnabled) {
       const guidelineSnaps = getGuidelineSnaps(
@@ -515,21 +503,24 @@ class ResizableMediaSingleNext extends React.Component<
 
     this.updateSizeInPluginState(width);
 
-    if (calculatedWidthWithLayout.layout !== layout) {
-      updateSize(width, calculatedWidthWithLayout.layout);
+    if (newLayout !== layout) {
+      updateSize(width, newLayout);
     }
   };
 
   handleResizeStop: HandleResize = (size, delta) => {
     const { updateSize, dispatchAnalyticsEvent, nodeType } = this.props;
-    const { width, height, calculatedWidthWithLayout } =
-      this.calculateSizeState(size, delta, true);
+    const {
+      width,
+      height,
+      layout: newLayout,
+    } = this.calculateSizeState(size, delta, true);
 
     if (dispatchAnalyticsEvent) {
       const $pos = this.$pos;
       const event = getMediaResizeAnalyticsEvent(nodeType || 'mediaSingle', {
         width,
-        layout: calculatedWidthWithLayout.layout,
+        layout: newLayout,
         widthType: 'pixel',
         snapType: getGuidelineTypeFromKey(
           this.lastSnappedGuidelineKeys,
@@ -546,7 +537,7 @@ class ResizableMediaSingleNext extends React.Component<
     this.displayGuideline([]);
 
     let newWidth = width;
-    if (calculatedWidthWithLayout.layout === 'full-width') {
+    if (newLayout === 'full-width') {
       // When a node reaches full width in current viewport,
       // update its width with 1800 to align with pixel entry
       newWidth = akEditorFullWidthLayoutWidth;
@@ -561,7 +552,7 @@ class ResizableMediaSingleNext extends React.Component<
         },
       },
       () => {
-        updateSize(newWidth, calculatedWidthWithLayout.layout);
+        updateSize(newWidth, newLayout);
       },
     );
   };
@@ -570,7 +561,6 @@ class ResizableMediaSingleNext extends React.Component<
     const {
       width: origWidth,
       layout,
-      pctWidth,
       containerWidth,
       fullWidthMode,
       selected,
@@ -604,7 +594,6 @@ class ResizableMediaSingleNext extends React.Component<
       isResizing ? 'is-resizing' : 'not-resizing',
       this.props.className,
       {
-        'not-resized': !pctWidth,
         'richMedia-selected': selected,
         'rich-media-wrapped': layout === 'wrap-left' || layout === 'wrap-right',
       },
@@ -624,7 +613,6 @@ class ResizableMediaSingleNext extends React.Component<
       <div
         css={wrapperStyle({
           layout,
-          isResized: !!pctWidth,
           containerWidth: containerWidth || origWidth,
           fullWidthMode,
           mediaSingleWidth: this.state.size.width,

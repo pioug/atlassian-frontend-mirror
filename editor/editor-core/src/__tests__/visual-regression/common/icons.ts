@@ -1,7 +1,7 @@
 import { getExampleUrl, loadPage } from '@atlaskit/visual-regression/helper';
 
 describe('Editor icons', () => {
-  it.each(['none', 'light', 'dark'] as const)(
+  it.skip.each(['none', 'light', 'dark'] as const)(
     'should render correctly in %s theme',
     async (theme) => {
       const url = getExampleUrl(

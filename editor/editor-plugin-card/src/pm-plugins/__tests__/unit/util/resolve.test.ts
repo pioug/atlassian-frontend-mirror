@@ -5,9 +5,9 @@ import type {
   CardProvider,
 } from '@atlaskit/editor-common/provider-factory';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import type { Request } from '@atlaskit/editor-plugin-card';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import { doc, inlineCard, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import * as ffPackage from '@atlaskit/platform-feature-flags';
 import { ffTest } from '@atlassian/feature-flags-test-utils';

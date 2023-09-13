@@ -12,6 +12,10 @@ describe('@atlaskit/primitives', () => {
     expect(createColorStylesFromTemplate('border')).toMatchSnapshot();
   });
 
+  test('surface styles are generated correctly', () => {
+    expect(createColorStylesFromTemplate('surface')).toMatchSnapshot();
+  });
+
   test('incorrect config throws', () => {
     expect(() =>
       createColorStylesFromTemplate('fizzbuzz' as any),

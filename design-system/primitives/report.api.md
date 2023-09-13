@@ -292,6 +292,7 @@ const backgroundColorMap: {
   readonly 'elevation.surface.raised.hovered': 'var(--ds-surface-raised-hovered)';
   readonly 'elevation.surface.raised.pressed': 'var(--ds-surface-raised-pressed)';
   readonly 'elevation.surface.sunken': 'var(--ds-surface-sunken)';
+  readonly 'utility.elevation.surface.current': 'var(--ds-elevation-surface-current)';
 };
 
 // @public (undocumented)

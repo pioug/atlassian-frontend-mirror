@@ -16,13 +16,6 @@ import { shouldAddDefaultWrappedWidth } from '../../utils/rich-media-utils';
 
 import { MediaSingleDimensionHelper, MediaWrapper } from './styled';
 import type { MediaSingleSize, MediaSingleWidthType } from './types';
-
-/*
-    This constant is used to proportionally adjust the image and its border to avoid any gaps. i.e. The value will simultaneously expand the width and height of the image by 2 pixels; and similarly contract the border by 2 pixels.
-    Read more: https://product-fabric.atlassian.net/browse/MEX-2481
-*/
-export const IMAGE_AND_BORDER_ADJUSTMENT = 2;
-
 export interface Props {
   children: React.ReactNode;
   layout: MediaSingleLayout;

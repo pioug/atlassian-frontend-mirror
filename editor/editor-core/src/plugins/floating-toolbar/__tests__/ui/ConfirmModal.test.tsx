@@ -2,7 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { mountWithIntl } from '../../../../__tests__/__helpers/enzyme';
 import { IntlProvider } from 'react-intl-next';
-import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import { createProsemirrorEditorFactory } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 

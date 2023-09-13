@@ -1,19 +1,19 @@
-import { replaceRaf, Stub } from 'raf-stub';
+import type { Stub } from 'raf-stub';
+import { replaceRaf } from 'raf-stub';
 
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { DocBuilder, Refs } from '@atlaskit/editor-common/types';
 import { setNodeSelection } from '@atlaskit/editor-common/utils';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { EditorTestCardProvider } from '@atlaskit/editor-test-helpers/card-provider';
 import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import {
   blockCard,
   doc,
-  DocBuilder,
   inlineCard,
   p,
-  Refs,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import { queueCards, resolveCard, setProvider } from '../../pm-plugins/actions';

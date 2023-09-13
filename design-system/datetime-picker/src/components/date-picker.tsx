@@ -262,13 +262,6 @@ const Menu = ({ selectProps, innerProps }: MenuProps<any>) => (
           locale={selectProps.calendarLocale}
           testId={selectProps.testId && `${selectProps.testId}--calendar`}
           weekStartDay={selectProps.calendarWeekStartDay}
-          tabIndex={
-            getBooleanFF(
-              'platform.design-system-team.accessible-datetime-picker_691ec',
-            )
-              ? undefined
-              : -1
-          }
         />
       </div>
     }
@@ -468,45 +461,8 @@ class DatePicker extends Component<DatePickerProps, State> {
 
     const keyPressed = event.key.toLowerCase();
     switch (keyPressed) {
-      case 'arrowup':
-      case 'arrowdown':
-        if (
-          !getBooleanFF(
-            'platform.design-system-team.accessible-datetime-picker_691ec',
-          )
-        ) {
-          if (this.calendarRef) {
-            event.preventDefault();
-            const key = keyPressed === 'arrowup' ? 'up' : 'down';
-            this.calendarRef.navigate(key);
-          }
-          this.setState({ isOpen: true });
-        }
-        break;
-      case 'arrowleft':
-      case 'arrowright':
-        if (
-          !getBooleanFF(
-            'platform.design-system-team.accessible-datetime-picker_691ec',
-          ) &&
-          this.calendarRef
-        ) {
-          event.preventDefault();
-          const key = keyPressed === 'arrowleft' ? 'left' : 'right';
-          this.calendarRef.navigate(key);
-        }
-        break;
       case 'escape':
         this.setState({ isOpen: false });
-        break;
-      case 'tab':
-        if (
-          !getBooleanFF(
-            'platform.design-system-team.accessible-datetime-picker_691ec',
-          )
-        ) {
-          this.setState({ isOpen: false });
-        }
         break;
       case 'backspace':
       case 'delete': {
@@ -744,13 +700,7 @@ class DatePicker extends Component<DatePickerProps, State> {
       <div
         {...innerProps}
         role="presentation"
-        onBlur={
-          getBooleanFF(
-            'platform.design-system-team.accessible-datetime-picker_691ec',
-          )
-            ? this.onContainerBlur
-            : undefined
-        }
+        onBlur={this.onContainerBlur}
         onClick={this.onInputClick}
         onInput={this.onTextInput}
         onKeyDown={this.onInputKeyDown}

@@ -212,6 +212,43 @@ test.describe('resizing a table', () => {
   });
 });
 
+test.describe('resizing with inline height value', () => {
+  test.use({
+    platformFeatureFlags: {
+      'platform.editor.custom-table-width': true,
+      'platform.editor.resizing-table-height-improvement': true,
+    },
+  });
+  test('it should set height of container during resize and unset after resize', async ({
+    editor,
+  }) => {
+    const nodes = EditorNodeContainerModel.from(editor);
+    const tableModel = EditorTableModel.from(nodes.table);
+    const resizerModel = tableModel.resizer();
+
+    // We don't expect height to be set before resize
+    expect(await resizerModel.container.getAttribute('style')).not.toContain(
+      'height',
+    );
+
+    await resizerModel.resizeAndHold({
+      mouse: editor.page.mouse,
+      moveDistance: 100,
+    });
+
+    //
+    expect(await resizerModel.container.getAttribute('style')).toMatch(
+      /height: \d*\.?\d*px/,
+    );
+
+    await editor.page.mouse.up();
+
+    expect(await resizerModel.container.getAttribute('style')).toContain(
+      'height: auto',
+    );
+  });
+});
+
 test.describe('rendering table width', () => {
   test.use({
     editorProps: {

@@ -1,10 +1,7 @@
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { Options as CreateEditorOptions } from '@atlaskit/editor-test-helpers/create-editor';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import type {
-  Refs,
-  DocBuilder,
-} from '@atlaskit/editor-test-helpers/doc-builder';
+import type { Refs, DocBuilder } from '@atlaskit/editor-common/types';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
   doc,

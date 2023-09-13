@@ -1,7 +1,8 @@
 import React from 'react';
 import { render, fireEvent, screen } from '@testing-library/react';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import { doc, p, DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { ClickAreaBlock } from '../../../../ui/Addon';
 import * as ClickAreaHelper from '../../../../ui/Addon/click-area-helper';
 

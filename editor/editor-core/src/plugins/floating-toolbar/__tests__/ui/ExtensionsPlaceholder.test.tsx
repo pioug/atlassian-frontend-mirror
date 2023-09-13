@@ -6,7 +6,7 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import type { RefsNode } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { RefsNode } from '@atlaskit/editor-common/types';
 import {
   doc,
   table,

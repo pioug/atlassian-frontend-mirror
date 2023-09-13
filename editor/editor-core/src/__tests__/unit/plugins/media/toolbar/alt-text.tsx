@@ -1,7 +1,7 @@
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import {
   doc,
   media,

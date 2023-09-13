@@ -1,6 +1,6 @@
 import { RESOLVE_METHOD } from './../../../analytics/types/inline-comment-events';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { doc, p, annotation } from '@atlaskit/editor-test-helpers/doc-builder';
 import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {

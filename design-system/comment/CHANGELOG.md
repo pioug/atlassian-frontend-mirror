@@ -1,5 +1,11 @@
 # @atlaskit/comment
 
+## 10.8.19
+
+### Patch Changes
+
+- [`aa7449bf16f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aa7449bf16f) - Minor accessibility improvements
+
 ## 10.8.18
 
 ### Patch Changes

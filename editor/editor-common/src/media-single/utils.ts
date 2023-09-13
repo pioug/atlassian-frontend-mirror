@@ -260,6 +260,12 @@ export const getMaxWidthForNestedNodeNext = (
   return null;
 };
 
+/**
+ * Get parent content width for nested media single node
+ * @param resolvedPos resolved Position of the node
+ * @param view editor view
+ * @returns parent content width for nested node
+ */
 export const getParentWidthForNestedMediaSingleNode = (
   resolvedPos: ResolvedPos,
   view: EditorView,

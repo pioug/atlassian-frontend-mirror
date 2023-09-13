@@ -1,5 +1,6 @@
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import type {
+  DocBuilder,
   FloatingToolbarButton,
   FloatingToolbarItem,
   GetEditorFeatureFlags,
@@ -17,7 +18,6 @@ import {
   createProsemirrorEditorFactory,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
   p,

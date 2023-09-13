@@ -35,8 +35,7 @@ describe('Snapshot Test: remove media', () => {
     afterEach(async () => {
       await snapshot(page);
     });
-    // FIXME: This test was automatically skipped due to failure on 22/06/2023: https://product-fabric.atlassian.net/browse/ED-18913
-    it.skip('receives focus should highlight an element', async () => {
+    it('receives focus should highlight an element', async () => {
       await initEditor(page);
       await retryUntilStablePosition(
         page,
@@ -45,6 +44,16 @@ describe('Snapshot Test: remove media', () => {
         2000,
       );
       await page.focus('button[aria-label="Remove"]');
+    });
+    it('receives hover should highlight an element', async () => {
+      await initEditor(page);
+      await retryUntilStablePosition(
+        page,
+        async () => await page.click('[data-testid="media-file-card-view"]'),
+        '[aria-label="Media floating controls"] [aria-label="Floating Toolbar"]',
+        2000,
+      );
+      await page.hover('button[aria-label="Remove"]');
     });
     it('lost focus highlight should disappear', async () => {
       await initEditor(page);

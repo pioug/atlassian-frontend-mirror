@@ -2,7 +2,7 @@ import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-hel
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import createEvent from '@atlaskit/editor-test-helpers/create-event';
 import dispatchPasteEvent from '@atlaskit/editor-test-helpers/dispatch-paste-event';
-import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import {
   caption,
   doc,

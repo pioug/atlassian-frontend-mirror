@@ -6,16 +6,16 @@ import {
   doc,
   mediaSingle,
   media,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { stateKey as mediaPluginKey } from '../../../../../plugins/media/pm-plugins/main';
 import { getFreshMediaProvider, testCollectionName } from '../_utils';
-import { MediaAttributes } from '@atlaskit/adf-schema';
+import type { MediaAttributes } from '@atlaskit/adf-schema';
 import {
   updateAllMediaSingleNodesAttrs,
   updateMediaSingleNodeAttrs,
 } from '../../../../../plugins/media/commands/helpers';
-import { MediaPluginState } from '../../../../../plugins/media/pm-plugins/types';
+import type { MediaPluginState } from '../../../../../plugins/media/pm-plugins/types';
 
 describe('Media plugin commands', () => {
   const createEditor = createEditorFactory<MediaPluginState>();

@@ -36,7 +36,7 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import { SEVERITY, getTimeSince } from '@atlaskit/editor-common/utils';
 import { EditorExperience } from '@atlaskit/editor-common/ufo';
-import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import type { BasePluginOptions } from '../../';
 import { basePlugin } from '../../';

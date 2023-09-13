@@ -1,5 +1,6 @@
 import { renderHook } from '@testing-library/react-hooks';
-import { doc, p, DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { createProsemirrorEditorFactory } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import { EditorActions, EventDispatcher } from '@atlaskit/editor-core';
 import WebBridgeImpl from '../../../native-to-web';

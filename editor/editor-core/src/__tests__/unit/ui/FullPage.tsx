@@ -1,15 +1,11 @@
 import React from 'react';
-import { ReactWrapper } from 'enzyme';
+import type { ReactWrapper } from 'enzyme';
 
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 import { fireEvent, screen } from '@testing-library/react';
-import {
-  doc,
-  p,
-  extension,
-  DocBuilder,
-} from '@atlaskit/editor-test-helpers/doc-builder';
+import { doc, p, extension } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 
 import FullPage from '../../../ui/Appearance/FullPage';
 import EditorContext from '../../../ui/EditorContext';

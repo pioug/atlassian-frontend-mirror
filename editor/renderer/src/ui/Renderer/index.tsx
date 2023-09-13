@@ -642,7 +642,10 @@ const RendererWrapper = React.memo((props: RendererWrapperProps) => {
   } = props;
 
   return (
-    <WidthProvider className="ak-renderer-wrapper">
+    <WidthProvider
+      className={`ak-renderer-wrapper is-${appearance}`}
+      data-appearance={appearance}
+    >
       <BaseTheme
         baseFontSize={
           appearance && appearance !== 'comment'

@@ -8,6 +8,7 @@ import type {
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
 import { ToolbarSize } from '@atlaskit/editor-common/types';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { ReactEditorViewContext } from '@atlaskit/editor-common/ui-react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import codeBlockPlugin from '@atlaskit/editor-core/src/plugins/code-block';
@@ -20,7 +21,6 @@ import {
   createProsemirrorEditorFactory,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   code_block as codeBlock,
   doc,

@@ -1,13 +1,13 @@
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import {
   doc,
-  DocBuilder,
   fragmentMark,
   p,
   table,
   td,
   tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { findNodePosByFragmentLocalIds } from '../../nodes-by-localIds';
 
 describe('findNodePosByFragmentLocalIds', () => {

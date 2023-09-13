@@ -3,18 +3,18 @@ import {
   p,
   media,
   mediaSingle,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { MediaAttributes } from '@atlaskit/adf-schema';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
+import type { MediaAttributes } from '@atlaskit/adf-schema';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
-import { EditorSelectionAPI } from '@atlaskit/editor-common/selection';
+import type { EditorSelectionAPI } from '@atlaskit/editor-common/selection';
 import { createEditorSelectionAPI } from '@atlaskit/editor-core/src/selection-api/api';
 
 import { getFreshMediaProvider } from '../../../../../__tests__/unit/plugins/media/_utils';
 import { stateKey } from '../../main';
-import { MediaPluginState } from '../../types';
+import type { MediaPluginState } from '../../types';
 import { sendArrowLeftKey, sendArrowRightKey } from './_utils';
 
 const createEditor = createEditorFactory<MediaPluginState>();

@@ -1,17 +1,13 @@
 import React from 'react';
 
-import { ReactWrapper } from 'enzyme';
-import {
-  IntlProvider,
-  IntlShape,
-  WrappedComponentProps,
-} from 'react-intl-next';
+import type { ReactWrapper } from 'enzyme';
+import type { IntlShape, WrappedComponentProps } from 'react-intl-next';
+import { IntlProvider } from 'react-intl-next';
 
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import {
   doc,
-  DocBuilder,
   p,
   unsupportedBlock,
   unsupportedInline,
@@ -20,6 +16,7 @@ import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import Tooltip from '@atlaskit/tooltip';
 
 import { ACTION_SUBJECT_ID } from '../../../analytics';
+import type { DocBuilder } from '../../../types';
 import * as Hooks from '../../../ui/unsupported-content-helper';
 import UnsupportedBlockNode from '../../../ui/UnsupportedBlock';
 import UnsupportedInlineNode from '../../../ui/UnsupportedInline';

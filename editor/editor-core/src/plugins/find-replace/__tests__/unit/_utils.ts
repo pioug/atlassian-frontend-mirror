@@ -20,7 +20,7 @@ import { selectedSearchMatchClass } from '../../styles';
 import deprecatedAnalyticsPlugin from '../../../analytics/plugin';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { textFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';
-import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 
 export const createEditor = createProsemirrorEditorFactory();

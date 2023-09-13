@@ -10,7 +10,9 @@ import {
 } from '@atlaskit/editor-test-helpers/page-objects/media';
 import { animationFrame } from '@atlaskit/editor-test-helpers/page-objects/editor';
 import borderADF from './__fixtures__/media-border.adf.json';
-import { EditorProps } from '../../../types';
+import borderADFWithLink from './__fixtures__/media-border-with-link.adf.json';
+import borderADFWithinTable from './__fixtures__/media-border-within-table.adf.json';
+import type { EditorProps } from '../../../types';
 
 describe('Snapshot Test: Media Border Mark', () => {
   let page: PuppeteerPage;
@@ -75,10 +77,89 @@ describe('Snapshot Test: Media Border Mark', () => {
         await page.waitForSelector('div[data-mark-type="border"]', {
           visible: true,
         });
+      });
+    });
+
+    describe('with link', () => {
+      beforeEach(async () => {
+        await initEditor(
+          Appearance.fullPage,
+          { width: 800, height: 700 },
+          borderADFWithLink,
+          {
+            UNSAFE_allowBorderMark: true,
+            media: { allowMediaSingle: true, allowLinking: true },
+          },
+        );
+      });
+
+      afterEach(async () => {
         await animationFrame(page);
         await scrollToMedia(page);
         await animationFrame(page);
         await snapshot(page);
+      });
+
+      it('should render media single with border mark', async () => {
+        await waitForMediaToBeLoaded(page);
+        await page.waitForSelector('div[data-mark-type="border"]', {
+          visible: true,
+        });
+      });
+
+      it('should render media single with selection ring and border mark', async () => {
+        await waitForMediaToBeLoaded(page);
+        await page.waitForSelector('div[data-mark-type="border"]', {
+          visible: true,
+        });
+        await clickMediaInPosition(page, 0);
+      });
+    });
+
+    describe('within table', () => {
+      beforeEach(async () => {
+        await initEditor(
+          Appearance.fullPage,
+          { width: 800, height: 900 },
+          borderADFWithinTable,
+          {
+            UNSAFE_allowBorderMark: true,
+            media: { allowMediaSingle: true, allowLinking: true },
+            allowTables: {
+              advanced: true,
+            },
+          },
+        );
+      });
+
+      afterEach(async () => {
+        await animationFrame(page);
+        await scrollToMedia(page);
+        await animationFrame(page);
+        await snapshot(page);
+      });
+
+      it('should render multiple media singles with border mark', async () => {
+        await waitForMediaToBeLoaded(page);
+        await page.waitForSelector('div[data-mark-type="border"]', {
+          visible: true,
+        });
+      });
+
+      it('should render media single with selection ring and border mark', async () => {
+        await waitForMediaToBeLoaded(page);
+        await page.waitForSelector('div[data-mark-type="border"]', {
+          visible: true,
+        });
+        await clickMediaInPosition(page, 0);
+      });
+
+      it('should render media single with selection ring and border and link mark', async () => {
+        await waitForMediaToBeLoaded(page);
+        await page.waitForSelector('div[data-mark-type="border"]', {
+          visible: true,
+        });
+        await clickMediaInPosition(page, 1);
       });
     });
   });

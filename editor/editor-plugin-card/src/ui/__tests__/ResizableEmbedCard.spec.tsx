@@ -3,17 +3,13 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
-import { CardOptions } from '@atlaskit/editor-common/card';
+import type { CardOptions } from '@atlaskit/editor-common/card';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import {
-  doc,
-  DocBuilder,
-  embedCard,
-} from '@atlaskit/editor-test-helpers/doc-builder';
+import { doc, embedCard } from '@atlaskit/editor-test-helpers/doc-builder';
 
-import ResizableEmbedCard, {
-  Props as ResizableEmbedCardProps,
-} from '../ResizableEmbedCard';
+import type { Props as ResizableEmbedCardProps } from '../ResizableEmbedCard';
+import ResizableEmbedCard from '../ResizableEmbedCard';
 
 describe('ResizableEmbedCard', () => {
   const createEditor = createEditorFactory();

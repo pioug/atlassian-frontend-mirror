@@ -1,8 +1,8 @@
-import { Transaction } from '@atlaskit/editor-prosemirror/state';
+import type { RefsNode } from '@atlaskit/editor-common/types';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import {
   doc,
   p,
-  RefsNode,
   tr as row,
   table,
   td,

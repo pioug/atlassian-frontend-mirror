@@ -4,26 +4,20 @@ jest.mock('raf-schd', () => (cb: Function) => {
 });
 
 import React from 'react';
-
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { mount, ReactWrapper } from 'enzyme';
 
-import { EmbedCardAttributes } from '@atlaskit/adf-schema';
-import { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
-import { CardOptions } from '@atlaskit/editor-common/card';
+import type { EmbedCardAttributes } from '@atlaskit/adf-schema';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+import type { CardOptions } from '@atlaskit/editor-common/card';
 import { MediaSingle as RichMediaWrapper } from '@atlaskit/editor-common/ui';
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { setDragging } from '@atlaskit/editor-plugin-table/src/plugins/table/pm-plugins/table-resizing/commands';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import {
-  doc,
-  DocBuilder,
-  embedCard,
-} from '@atlaskit/editor-test-helpers/doc-builder';
-import {
-  Card,
-  CardProps,
-  EmbedResizeMessageListener,
-} from '@atlaskit/smart-card';
+import { doc, embedCard } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
+import type { CardProps } from '@atlaskit/smart-card';
+import { Card, EmbedResizeMessageListener } from '@atlaskit/smart-card';
 import { IntlProvider } from 'react-intl-next';
 
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points

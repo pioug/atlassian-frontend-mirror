@@ -5,7 +5,7 @@ import type { ReactWrapper } from 'enzyme';
 import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { mountWithIntl } from '../../../../__helpers/enzyme';
-import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { doc, code_block, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { hexToEditorTextPaletteColor } from '@atlaskit/editor-palette';

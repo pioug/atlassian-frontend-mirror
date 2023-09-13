@@ -10,6 +10,7 @@ import type {
 import { ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { ToolbarSize } from '@atlaskit/editor-common/types';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { ReactEditorViewContext } from '@atlaskit/editor-common/ui-react';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
@@ -21,7 +22,6 @@ import {
   createProsemirrorEditorFactory,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   code,
   doc,

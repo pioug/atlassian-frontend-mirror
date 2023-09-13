@@ -1,5 +1,5 @@
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 

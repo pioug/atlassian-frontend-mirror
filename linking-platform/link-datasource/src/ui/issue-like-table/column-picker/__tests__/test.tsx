@@ -7,6 +7,7 @@ import invariant from 'tiny-invariant';
 
 import { DatasourceResponseSchemaProperty } from '@atlaskit/linking-types';
 
+import { SELECT_ITEMS_MAXIMUM_THRESHOLD } from '../concatenated-menu-list';
 import { ColumnPicker } from '../index';
 
 const CSS_PREFIX = 'column-picker-popup';
@@ -252,6 +253,74 @@ describe('Column picker', () => {
       openPopUpMenu();
 
       expect(getByRole('combobox')).toHaveFocus();
+    });
+  });
+
+  const generateBunchOfItems = (
+    numOfItems: number,
+  ): DatasourceResponseSchemaProperty[] => [
+    {
+      key: 'matt',
+      type: 'icon',
+      title: 'Matt',
+    },
+    {
+      key: 'john',
+      type: 'string',
+      title: 'John',
+    },
+    ...Array(numOfItems - 2)
+      .fill(null)
+      .map<DatasourceResponseSchemaProperty>((_, i) => ({
+        key: `option_${
+          i +
+          2 /* Default ones at the front */ +
+          1 /* To make counting start with 1 instead of 0 */
+        }`,
+        type: 'string',
+        title: `Option ${i + 2 + 1}`,
+      })),
+  ];
+
+  it(`should not show limit reached explaination if less than ${SELECT_ITEMS_MAXIMUM_THRESHOLD} items are listed`, async () => {
+    const columns = generateBunchOfItems(SELECT_ITEMS_MAXIMUM_THRESHOLD - 1);
+
+    const { openPopUpMenu, findByText } = renderColumnPicker(columns, []);
+
+    await waitFor(async () => {
+      openPopUpMenu();
+
+      const popupList = (await findByText('Matt')).closest(OPTION_LIST_CLASS);
+      invariant(popupList);
+      expect(popupList.children).toHaveLength(
+        SELECT_ITEMS_MAXIMUM_THRESHOLD - 1,
+      );
+      expect(
+        (popupList.children[popupList.children.length - 1] as HTMLElement)
+          .innerText,
+      ).toBe(`Option ${SELECT_ITEMS_MAXIMUM_THRESHOLD - 1}`);
+    });
+  });
+
+  it(`should list only first ${SELECT_ITEMS_MAXIMUM_THRESHOLD} items and explanation at the end`, async () => {
+    const columns = generateBunchOfItems(SELECT_ITEMS_MAXIMUM_THRESHOLD + 20);
+
+    const { openPopUpMenu, findByText } = renderColumnPicker(columns, []);
+
+    await waitFor(async () => {
+      openPopUpMenu();
+
+      const popupList = (await findByText('Matt')).closest(OPTION_LIST_CLASS);
+      invariant(popupList);
+      expect(popupList.children).toHaveLength(
+        SELECT_ITEMS_MAXIMUM_THRESHOLD + 1,
+      );
+      expect(
+        (popupList.children[popupList.children.length - 1] as HTMLElement)
+          .innerText,
+      ).toBe(
+        'Your search returned too many results.Try again with more specific keywords.',
+      );
     });
   });
 });

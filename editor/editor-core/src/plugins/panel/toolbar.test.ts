@@ -18,7 +18,7 @@ import {
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import panelPlugin from '.';
-import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { doc, p, panel } from '@atlaskit/editor-test-helpers/doc-builder';
 import { PanelType } from '@atlaskit/adf-schema';
 import deprecatedAnalyticsPlugin from '../analytics';

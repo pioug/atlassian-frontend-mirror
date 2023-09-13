@@ -1,6 +1,7 @@
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import { doc, p, DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { act } from '@testing-library/react';
 
 describe('placeholder text', () => {

@@ -6,10 +6,12 @@ import type { CardOptions } from '@atlaskit/editor-common/card';
 import { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { DATASOURCE_INNER_CONTAINER_CLASSNAME } from '@atlaskit/editor-common/styles';
-import type { EditorAppearance } from '@atlaskit/editor-common/types';
+import type {
+  DocBuilder,
+  EditorAppearance,
+} from '@atlaskit/editor-common/types';
 import { setNodeSelection } from '@atlaskit/editor-common/utils';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   a,
   datasourceBlockCard,

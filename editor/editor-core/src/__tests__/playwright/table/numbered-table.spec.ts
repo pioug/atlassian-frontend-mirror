@@ -5,7 +5,10 @@ import {
   EditorTableModel,
   EditorNodeContainerModel,
 } from '@af/editor-libra';
-import { simpleTable } from '../table/__fixtures__/base-adfs';
+import {
+  simpleTable,
+  simpleTableAndNumberedTable,
+} from '../table/__fixtures__/base-adfs';
 import {
   resizedColumnWithDefaultWidth,
   resizedTableWithDefaultColumn,
@@ -98,5 +101,34 @@ testCases.forEach(({ title, adf, expectation }) => {
         expect(hasOverflowed).toBe(expectation.off);
       });
     });
+  });
+});
+
+test.describe('table alignment', () => {
+  test.use({
+    adf: simpleTableAndNumberedTable,
+  });
+  test('should align to the x position of non-numbered table and match the same width', async ({
+    editor,
+  }) => {
+    const nodes = EditorNodeContainerModel.from(editor);
+    const tableModel = EditorTableModel.from(nodes.table);
+    const numberedTable = await tableModel.tableElement.nth(0).boundingBox();
+    const standardTable = await tableModel.tableElement.nth(1).boundingBox();
+
+    const numberedColumnBox = await tableModel.numberedColumnBox();
+    expect(numberedColumnBox?.x).toBe(standardTable?.x);
+
+    // using control width + table width instead of the tableModel.containerWidth() or resizerModel.containerWidth()
+    // as the border is on the control and table which is visually to user while containers width already match so can't detect the reported issue in ED-19759
+    const numberedTableWidth =
+      numberedTable!.width + numberedColumnBox!.width - 1;
+
+    //assert the rendered numbered table width in browser is the same as the table without numbered column enabled
+    expect(numberedTableWidth).toBe(standardTable?.width);
+    //assert the rendered width in browser is the same as stored on the ADF node
+    expect(numberedTableWidth).toBe(
+      simpleTableAndNumberedTable?.content[0]?.attrs?.width,
+    );
   });
 });

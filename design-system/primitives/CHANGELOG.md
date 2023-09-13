@@ -1,5 +1,15 @@
 # @atlaskit/primitives
 
+## 1.5.0
+
+### Minor Changes
+
+- [`fa6c592fdb2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fa6c592fdb2) - Introduce `Heading` into package in immediate alpha state. This is more or less a port of `@atlaskit/heading`. Component is not yet stable and implementation is likely to change.
+- [`c2e55a9b782`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c2e55a9b782) - Adds surface detection support to the Box primitive:
+
+  - Enable a `Box` background colour to be set to the `utility.elevation.surface.current` token.
+  - Internally set the current surface CSS variable value when the background color of a Box is set to a surface token (e.g. `elevation.surface.raised`).
+
 ## 1.4.4
 
 ### Patch Changes

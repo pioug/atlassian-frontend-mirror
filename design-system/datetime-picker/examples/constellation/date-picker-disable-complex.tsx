@@ -2,6 +2,8 @@ import React from 'react';
 
 import { parseISO } from 'date-fns';
 
+import { Label } from '@atlaskit/form';
+
 import { DatePicker } from '../../src';
 
 const weekendFilter = (date: string) => {
@@ -10,7 +12,14 @@ const weekendFilter = (date: string) => {
 };
 
 const DatePickerDisableComplexExample = () => (
-  <DatePicker defaultValue="2020-12-15" disabledDateFilter={weekendFilter} />
+  <>
+    <Label htmlFor="datepicker-disable-complex">Disabled Dates (Complex)</Label>
+    <DatePicker
+      defaultValue="2020-12-15"
+      disabledDateFilter={weekendFilter}
+      selectProps={{ inputId: 'datepicker-disable-complex' }}
+    />
+  </>
 );
 
 export default DatePickerDisableComplexExample;

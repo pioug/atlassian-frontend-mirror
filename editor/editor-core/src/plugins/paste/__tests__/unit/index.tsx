@@ -16,7 +16,7 @@ import {
 } from '@atlaskit/editor-test-helpers/mock-macro-provider';
 import type { CardProvider } from '@atlaskit/editor-common/provider-factory';
 
-import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import {
   code_block,
   strong,

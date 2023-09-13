@@ -1,7 +1,7 @@
 import { LIST_TEXT_SCENARIOS } from '@atlaskit/editor-common/analytics';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { walkNextNode } from '@atlaskit/editor-common/utils';
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
-import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import { doc, li, p, ul } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import { calcJoinListScenario } from '../../../actions/join-list-items-forward';

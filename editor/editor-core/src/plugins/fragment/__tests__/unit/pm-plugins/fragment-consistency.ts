@@ -19,7 +19,7 @@ import { handleCut } from '@atlaskit/editor-plugin-table/src/plugins/table/event
 import fragmentMarkPlugin from '../../../index';
 import { pluginKey as fragmentMarkPluginKey } from '../../../plugin-key';
 
-import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import {
   doc,
   p,

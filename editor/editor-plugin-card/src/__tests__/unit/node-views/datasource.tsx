@@ -38,8 +38,8 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import cloneDeep from 'lodash/cloneDeep';
 
 import type { DatasourceAttributeProperties } from '@atlaskit/adf-schema/schema';
+import type { RefsNode } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import type { RefsNode } from '@atlaskit/editor-test-helpers/doc-builder';
 import { datasourceBlockCard } from '@atlaskit/editor-test-helpers/doc-builder';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 

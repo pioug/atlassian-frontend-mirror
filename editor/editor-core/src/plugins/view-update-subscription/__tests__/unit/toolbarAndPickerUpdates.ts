@@ -1,6 +1,6 @@
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
-import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import {
   doc,
   p,

@@ -1,4 +1,5 @@
-import { CardOptions } from '@atlaskit/editor-common/card';
+import type { CardOptions } from '@atlaskit/editor-common/card';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { EditorTestCardProvider } from '@atlaskit/editor-test-helpers/card-provider';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import dispatchPasteEvent from '@atlaskit/editor-test-helpers/dispatch-paste-event';
@@ -6,7 +7,6 @@ import {
   blockCard,
   blockquote,
   doc,
-  DocBuilder,
   embedCard,
   inlineCard,
   p,

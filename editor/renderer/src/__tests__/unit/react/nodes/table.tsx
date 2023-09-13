@@ -29,12 +29,14 @@ const mountBasicTable = ({
   renderWidth = akEditorDefaultLayoutWidth,
   layout = 'default',
   rendererAppearance = 'full-page',
+  isInsideOfBlockNode = false,
 }: {
   columnWidths?: number[];
   isNumberColumnEnabled?: boolean;
   renderWidth?: number;
   layout?: TableLayout;
   rendererAppearance?: RendererAppearance;
+  isInsideOfBlockNode?: boolean;
 } = {}) => {
   return mountWithIntl(
     <Table
@@ -43,6 +45,7 @@ const mountBasicTable = ({
       columnWidths={columnWidths}
       renderWidth={renderWidth}
       rendererAppearance={rendererAppearance}
+      isInsideOfBlockNode={isInsideOfBlockNode}
     >
       <TableRow>
         <TableCell />
@@ -1049,6 +1052,7 @@ describe('Renderer - React/Nodes/Table', () => {
       rendererWidth: number,
       columnWidths?: number[],
       appearance: RendererAppearance = 'full-page',
+      isInsideOfBlockNode = false,
     ) => {
       return mountWithIntl(
         <Table
@@ -1058,6 +1062,7 @@ describe('Renderer - React/Nodes/Table', () => {
           isNumberColumnEnabled={false}
           tableNode={node}
           columnWidths={columnWidths}
+          isInsideOfBlockNode={isInsideOfBlockNode}
         >
           <TableRow>
             <TableHeader />
@@ -1090,6 +1095,12 @@ describe('Renderer - React/Nodes/Table', () => {
         expect(col.prop('style')!.minWidth).toBe(
           `${expectedColWidths[index]}px`,
         );
+      });
+    };
+
+    const checkColWidthsUndefined = (table: ReactWrapper) => {
+      table.find('col').forEach((col, index) => {
+        expect(col.prop('style')!.width).toBe(undefined);
       });
     };
 
@@ -1287,77 +1298,138 @@ describe('Renderer - React/Nodes/Table', () => {
       );
     });
 
-    describe('table scales columns when table width is smaller than fixed-width line length - column widths undefined', () => {
-      const tableWidth = 500;
-      const scale = 0.6;
-      const tableNode = createTable(tableWidth, 'default');
-      const rendererWidth = tableWidth * scale;
-      // column widths 0 as they're undefined
-      const colWidths = [0, 0, 0];
-      const expectedWidths = (computedColWidths: Array<number>) =>
-        computedColWidths.map((w) => Math.floor(w * 0.7));
+    describe('column widths undefined', () => {
+      describe('table scales columns when table width is smaller than fixed-width line length - column widths undefined', () => {
+        const tableWidth = 500;
+        const scale = 0.6;
+        const tableNode = createTable(tableWidth, 'default');
+        const rendererWidth = tableWidth * scale;
+        // column widths 0 as they're undefined
+        const colWidths = [0, 0, 0];
+        const expectedWidths = (computedColWidths: Array<number>) =>
+          computedColWidths.map((w) => Math.floor(w * 0.7));
 
-      ffTest('platform.editor.custom-table-width', (ff) =>
+        ffTest('platform.editor.custom-table-width', (ff) =>
+          ffTest(
+            'platform.editor.custom-table-width-scale-down-undefined-column_nkyvx',
+            () => {
+              // expected to scale down
+              const wrap = mountTable(tableNode, rendererWidth, colWidths);
+              const tableContainer = wrap.find(
+                `.${TableSharedCssClassName.TABLE_CONTAINER}`,
+              );
+
+              checkColWidths(tableContainer, expectedWidths([166, 166, 166]));
+            },
+            () => {
+              // should not scale down e.g. widths will be min width 48px
+              // expected to scale down
+              const wrap = mountTable(tableNode, rendererWidth, colWidths);
+              const tableContainer = wrap.find(
+                `.${TableSharedCssClassName.TABLE_CONTAINER}`,
+              );
+
+              checkColMinWidths(tableContainer, [48, 48, 48]);
+            },
+            ff,
+          ),
+        );
+      });
+
+      describe('should scale columns when table width is larger than fixed-width line length', () => {
+        const tableWidth = 1200;
+        const scale = 0.6;
+        const tableNode = createTable(tableWidth, 'default');
+        const rendererWidth = tableWidth * scale;
+        // column widths 0 as they're undefined
+        const colWidths = [0, 0, 0];
+        const expectedWidths = (computedColWidths: Array<number>) =>
+          computedColWidths.map((w) => Math.floor(w * 0.7));
+
+        ffTest('platform.editor.custom-table-width', (ff) =>
+          ffTest(
+            'platform.editor.custom-table-width-scale-down-undefined-column_nkyvx',
+            () => {
+              // expected to scale down
+              const wrap = mountTable(tableNode, rendererWidth, colWidths);
+              const tableContainer = wrap.find(
+                `.${TableSharedCssClassName.TABLE_CONTAINER}`,
+              );
+              checkColWidths(tableContainer, expectedWidths([399, 399, 399]));
+            },
+            () => {
+              // expected to scale down
+              const wrap = mountTable(tableNode, rendererWidth, colWidths);
+              const tableContainer = wrap.find(
+                `.${TableSharedCssClassName.TABLE_CONTAINER}`,
+              );
+
+              checkColMinWidths(tableContainer, [48, 48, 48]);
+            },
+            ff,
+          ),
+        );
+      });
+
+      describe('should render table columns as undefined when nested in a block node', () => {
+        const tableWidth = 500;
+        const scale = 0.6;
+        const tableNode = createTable(tableWidth, 'default');
+        const rendererWidth = tableWidth * scale;
+        // column widths 0 as they're undefined
+        const colWidths = [0, 0, 0];
+
         ffTest(
-          'platform.editor.custom-table-width-scale-down-undefined-column_nkyvx',
+          'platform.editor.custom-table-width',
+          (ff) =>
+            ffTest(
+              'platform.editor.custom-table-width-scale-down-undefined-column_nkyvx',
+              () => {
+                const wrap = mountTable(
+                  tableNode,
+                  rendererWidth,
+                  colWidths,
+                  undefined,
+                  true,
+                );
+                const tableContainer = wrap.find(
+                  `.${TableSharedCssClassName.TABLE_CONTAINER}`,
+                );
+
+                checkColWidthsUndefined(tableContainer);
+              },
+              () => {
+                const wrap = mountTable(
+                  tableNode,
+                  rendererWidth,
+                  colWidths,
+                  undefined,
+                  true,
+                );
+                const tableContainer = wrap.find(
+                  `.${TableSharedCssClassName.TABLE_CONTAINER}`,
+                );
+
+                checkColWidthsUndefined(tableContainer);
+              },
+              ff,
+            ),
           () => {
-            // expected to scale down
-            const wrap = mountTable(tableNode, rendererWidth, colWidths);
+            const wrap = mountTable(
+              tableNode,
+              rendererWidth,
+              colWidths,
+              undefined,
+              true,
+            );
             const tableContainer = wrap.find(
               `.${TableSharedCssClassName.TABLE_CONTAINER}`,
             );
 
-            checkColWidths(tableContainer, expectedWidths([166, 166, 166]));
+            checkColWidthsUndefined(tableContainer);
           },
-          () => {
-            // should not scale down e.g. widths will be min width 48px
-            // expected to scale down
-            const wrap = mountTable(tableNode, rendererWidth, colWidths);
-            const tableContainer = wrap.find(
-              `.${TableSharedCssClassName.TABLE_CONTAINER}`,
-            );
-
-            checkColMinWidths(tableContainer, [48, 48, 48]);
-          },
-          ff,
-        ),
-      );
-    });
-
-    describe('table scales columns when table width is larger than fixed-width line length - column widths undefined', () => {
-      const tableWidth = 1200;
-      const scale = 0.6;
-      const tableNode = createTable(tableWidth, 'default');
-      const rendererWidth = tableWidth * scale;
-      // column widths 0 as they're undefined
-      const colWidths = [0, 0, 0];
-      const expectedWidths = (computedColWidths: Array<number>) =>
-        computedColWidths.map((w) => Math.ceil(w * 0.7));
-
-      ffTest('platform.editor.custom-table-width', (ff) =>
-        ffTest(
-          'platform.editor.custom-table-width-scale-down-undefined-column_nkyvx',
-          () => {
-            // expected to scale down
-            const wrap = mountTable(tableNode, rendererWidth, colWidths);
-            const tableContainer = wrap.find(
-              `.${TableSharedCssClassName.TABLE_CONTAINER}`,
-            );
-
-            checkColWidths(tableContainer, expectedWidths([399, 399, 399]));
-          },
-          () => {
-            // expected to scale down
-            const wrap = mountTable(tableNode, rendererWidth, colWidths);
-            const tableContainer = wrap.find(
-              `.${TableSharedCssClassName.TABLE_CONTAINER}`,
-            );
-
-            checkColMinWidths(tableContainer, [48, 48, 48]);
-          },
-          ff,
-        ),
-      );
+        );
+      });
     });
 
     describe('table column not scales down when renderer width is bigger than table width', () => {

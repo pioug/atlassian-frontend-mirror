@@ -999,7 +999,6 @@ export class CardBase extends Component<CardBaseProps, CardState> {
       useInlinePlayer,
       shouldOpenMediaViewer,
       shouldHideTooltip,
-      expandByPixel,
     } = this.props;
     const { mediaItemType } = identifier;
     const { status, progress, cardPreview, error, cardRef, isCardVisible } =
@@ -1026,7 +1025,6 @@ export class CardBase extends Component<CardBaseProps, CardState> {
 
     const card = (
       <CardView
-        expandByPixel={expandByPixel}
         status={cardStatusOverride || status}
         error={error}
         mediaItemType={mediaItemType}

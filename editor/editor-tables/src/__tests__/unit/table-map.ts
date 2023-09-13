@@ -1,10 +1,5 @@
-import {
-  p,
-  RefsNode,
-  table,
-  td,
-  tr,
-} from '@atlaskit/editor-test-helpers/doc-builder';
+import type { RefsNode } from '@atlaskit/editor-common/types';
+import { p, table, td, tr } from '@atlaskit/editor-test-helpers/doc-builder';
 import { defaultSchema } from '@atlaskit/editor-test-helpers/schema';
 
 import { TableMap } from '../../table-map';

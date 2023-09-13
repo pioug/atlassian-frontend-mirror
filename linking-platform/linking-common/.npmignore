@@ -5,6 +5,7 @@ index.ts
 docs/
 build/
 __tests__/
+analytics.spec.yaml
 tsconfig.json
 tsconfig.app.json
 tsconfig.dev.json

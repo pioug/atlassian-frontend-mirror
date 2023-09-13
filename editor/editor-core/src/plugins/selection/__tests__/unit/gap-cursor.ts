@@ -1,7 +1,7 @@
 import type { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import {
   doc,
   p,
@@ -57,7 +57,7 @@ import floatingToolbarPlugin from '../../../floating-toolbar';
 import { hideCaretModifier } from '../../gap-cursor/styles';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
-// import type { EditorCommand } from '@atlaskit/editor-common/types';
+import type { EditorCommand } from '@atlaskit/editor-common/types';
 
 describe('gap-cursor', () => {
   const createEditor = createEditorFactory();
@@ -602,46 +602,77 @@ describe('gap-cursor', () => {
     });
   });
 
-  // TODO: fix unit tests - command is not 'flipping' plugin state
-  // describe('on calling gap cursor action', () => {
-  //   it('should display and hide gap cursor', () => {
-  //     const { pluginState, editorAPI } = editor(
-  //       doc(code_block({})('1\n2\n3\n4\n5\n6\n'), '{<|gap>}'),
-  //     );
+  describe('on calling gap cursor actions', () => {
+    describe('displayGapCursor', () => {
+      const testDocument = doc(
+        code_block({})('1\n2\n3\n4\n5\n6\n'),
+        '{<|gap>}',
+      );
+      it('should toggle plugin state correctly when called', () => {
+        const { editorAPI, editorView } = editor(testDocument);
 
-  //     expect(pluginState).toStrictEqual({
-  //       selectionIsGapCursor: true,
-  //       displayGapCursor: true,
-  //     });
+        expect(gapCursorPluginKey.getState(editorView.state)).toStrictEqual({
+          selectionIsGapCursor: true,
+          displayGapCursor: true,
+        });
 
-  //     console.log('debug', editorAPI?.selection?.commands?.displayGapCursor);
-  //     editorAPI?.core.actions.execute(
-  //       (
-  //         editorAPI?.selection?.commands?.displayGapCursor as (
-  //           toggle: boolean,
-  //         ) => EditorCommand
-  //       )(false),
-  //     );
+        // hide cursor
+        editorAPI?.core.actions.execute(
+          (
+            editorAPI?.selection?.commands?.displayGapCursor as (
+              toggle: boolean,
+            ) => EditorCommand
+          )(false),
+        );
 
-  //     // hide
-  //     expect(pluginState).toStrictEqual({
-  //       selectionIsGapCursor: true,
-  //       displayGapCursor: false,
-  //     });
+        expect(gapCursorPluginKey.getState(editorView.state)).toStrictEqual({
+          selectionIsGapCursor: true,
+          displayGapCursor: false,
+        });
 
-  //     editorAPI?.core.actions.execute(
-  //       (
-  //         editorAPI?.selection?.commands?.displayGapCursor as (
-  //           toggle: boolean,
-  //         ) => EditorCommand
-  //       )(true),
-  //     );
+        editorAPI?.core.actions.execute(
+          (
+            editorAPI?.selection?.commands?.displayGapCursor as (
+              toggle: boolean,
+            ) => EditorCommand
+          )(true),
+        );
 
-  //     // display
-  //     expect(pluginState).toStrictEqual({
-  //       selectionIsGapCursor: true,
-  //       displayGapCursor: true,
-  //     });
-  //   });
-  // });
+        expect(gapCursorPluginKey.getState(editorView.state)).toStrictEqual({
+          selectionIsGapCursor: true,
+          displayGapCursor: true,
+        });
+      });
+
+      it('should keep current selection when hiding gap cursor', () => {
+        const { editorAPI, editorView } = editor(testDocument);
+        expect(gapCursorPluginKey.getState(editorView.state)).toStrictEqual({
+          selectionIsGapCursor: true,
+          displayGapCursor: true,
+        });
+
+        expect(editorView.state).toEqualDocumentAndSelection(testDocument);
+
+        // hide cursor
+        editorAPI?.core.actions.execute(
+          (
+            editorAPI?.selection?.commands?.displayGapCursor as (
+              toggle: boolean,
+            ) => EditorCommand
+          )(false),
+        );
+
+        expect(gapCursorPluginKey.getState(editorView.state)).toStrictEqual({
+          selectionIsGapCursor: true,
+          displayGapCursor: false,
+        });
+
+        expect(
+          editorView.state.selection instanceof GapCursorSelection,
+        ).toBeTruthy();
+
+        expect(editorView.state).toEqualDocumentAndSelection(testDocument);
+      });
+    });
+  });
 });

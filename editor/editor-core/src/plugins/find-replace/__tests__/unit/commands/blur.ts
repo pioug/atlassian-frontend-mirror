@@ -1,5 +1,5 @@
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import { activate, blur } from '../../../commands';
 import { editor } from '../_utils';

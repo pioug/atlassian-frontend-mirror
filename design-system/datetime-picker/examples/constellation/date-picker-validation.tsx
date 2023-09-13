@@ -21,7 +21,7 @@ const DatePickerValidationExample = () => (
     {({ formProps }) => (
       <form {...formProps}>
         <Field
-          name="datetime-picker"
+          name="datepicker-validation"
           label="Start day"
           validate={validateField}
           isRequired

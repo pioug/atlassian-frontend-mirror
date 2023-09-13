@@ -1,14 +1,10 @@
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   Preset,
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import {
-  doc,
-  p,
-  expand,
-  DocBuilder,
-} from '@atlaskit/editor-test-helpers/doc-builder';
+import { doc, p, expand } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { toggleExpandExpanded } from '../../commands';
 import expandPlugin from '../../index';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';

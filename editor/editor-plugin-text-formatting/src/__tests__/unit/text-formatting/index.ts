@@ -11,10 +11,12 @@ import {
   INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
 import { anyMarkActive } from '@atlaskit/editor-common/mark';
-import type { TextFormattingState } from '@atlaskit/editor-common/types';
+import type {
+  DocBuilder,
+  TextFormattingState,
+} from '@atlaskit/editor-common/types';
 import { browser } from '@atlaskit/editor-common/utils';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   code,
   code_block,

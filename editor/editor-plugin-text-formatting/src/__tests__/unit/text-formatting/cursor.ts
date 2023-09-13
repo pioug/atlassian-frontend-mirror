@@ -1,7 +1,7 @@
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   code,
   doc,

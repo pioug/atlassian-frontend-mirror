@@ -14,8 +14,6 @@ export type ImageRendererProps = {
   readonly onImageLoad?: (cardPreview: CardPreview) => void;
   readonly nativeLazyLoad?: boolean;
   readonly forceSyncDisplay?: boolean;
-  // Expands the width and height of the image. Read more: https://product-fabric.atlassian.net/browse/MEX-2481
-  readonly expandByPixel?: number;
 };
 
 export const ImageRenderer: React.FC<ImageRendererProps> = ({
@@ -28,7 +26,6 @@ export const ImageRenderer: React.FC<ImageRendererProps> = ({
   mediaType,
   nativeLazyLoad,
   forceSyncDisplay,
-  expandByPixel,
 }) => {
   useEffect(() => {
     // TODO: trigger accordingly with the succeeded event. This could be a breaking change
@@ -54,7 +51,6 @@ export const ImageRenderer: React.FC<ImageRendererProps> = ({
       onImageError={onError}
       loading={nativeLazyLoad ? 'lazy' : undefined}
       forceSyncDisplay={forceSyncDisplay}
-      expandByPixel={expandByPixel}
       {...resizeModeToMediaImageProps(resizeMode)}
     />
   );

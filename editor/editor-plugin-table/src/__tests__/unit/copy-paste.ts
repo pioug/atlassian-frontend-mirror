@@ -2,6 +2,7 @@
 
 import { uuid } from '@atlaskit/adf-schema';
 import { transformSliceToRemoveOpenExpand } from '@atlaskit/editor-common/transforms';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import selectionPlugin from '@atlaskit/editor-core/src/plugins/selection';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
@@ -32,7 +33,6 @@ import {
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import dispatchPasteEvent from '@atlaskit/editor-test-helpers/dispatch-paste-event';
-import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   br,
   code_block,

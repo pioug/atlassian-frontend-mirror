@@ -1,4 +1,5 @@
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import selectionPlugin from '@atlaskit/editor-core/src/plugins/selection';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
@@ -11,7 +12,6 @@ import {
   createProsemirrorEditorFactory,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
   p,

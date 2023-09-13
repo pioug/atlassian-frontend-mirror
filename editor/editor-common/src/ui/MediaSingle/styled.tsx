@@ -146,7 +146,6 @@ export const MediaSingleDimensionHelper = ({
   fullWidthMode,
   isResized,
   layout,
-  pctWidth,
   mediaSingleWidth,
   width, // original media width
   isExtendedResizeExperienceOn,
@@ -162,7 +161,7 @@ export const MediaSingleDimensionHelper = ({
 
   width: ${isExtendedResizeExperienceOn
     ? `${mediaSingleWidth || width}px`
-    : mediaSingleWidth || pctWidth
+    : mediaSingleWidth
     ? calcResizedWidth(layout, width || 0, containerWidth)
     : calcLegacyWidth(
         layout,
@@ -290,3 +289,29 @@ export const MediaWrapper = ({
 );
 
 MediaWrapper.displayName = 'WrapperMediaSingle';
+
+/*
+  There was an issue with a small, intermittent white gap appearing between the images due to a small pixel difference in browser rendering.
+
+  The solution implemented below was adapted from: https://stackoverflow.com/a/68885576
+  It suggests adding an absolute div on top which matches the width and height and setting the border on that div.
+*/
+
+type MediaBorderGapFillerProps = {
+  borderColor: string;
+};
+
+export const MediaBorderGapFiller: React.FC<MediaBorderGapFillerProps> = ({
+  borderColor,
+}) => {
+  return (
+    <div
+      style={{
+        position: 'absolute',
+        inset: '0px',
+        border: `0.5px solid ${borderColor}`,
+        borderRadius: '1px',
+      }}
+    />
+  );
+};

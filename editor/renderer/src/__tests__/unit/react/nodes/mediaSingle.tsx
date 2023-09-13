@@ -1,10 +1,11 @@
 import React from 'react';
 import { imageFileId } from '@atlaskit/media-test-helpers';
-import { MediaFeatureFlags } from '@atlaskit/media-common';
-import Media, { MediaProps } from '../../../../react/nodes/media';
+import type { MediaFeatureFlags } from '@atlaskit/media-common';
+import type { MediaProps } from '../../../../react/nodes/media';
+import Media from '../../../../react/nodes/media';
+import type { Props as MediaSingleProps } from '../../../../react/nodes/mediaSingle';
 import MediaSingle, {
   getMediaContainerWidth,
-  Props as MediaSingleProps,
 } from '../../../../react/nodes/mediaSingle';
 import Caption from '../../../../react/nodes/caption';
 import { MediaCardInternal } from '../../../../ui/MediaCard';
@@ -14,8 +15,8 @@ import {
   WidthProvider,
 } from '@atlaskit/editor-common/ui';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
-import { ReactWrapper } from 'enzyme';
-import { WrappedComponentProps } from 'react-intl-next';
+import type { ReactWrapper } from 'enzyme';
+import type { WrappedComponentProps } from 'react-intl-next';
 
 describe('MediaSingle', () => {
   const editorWidth = 123;
@@ -290,13 +291,12 @@ describe('MediaSingle', () => {
     it('renders media with border correctly', () => {
       const border = mediaSingle.find('div[data-mark-type="border"]');
       expect(border).toHaveLength(1);
-      expect(getComputedStyle(border.getDOMNode())).toHaveProperty(
-        'borderWidth',
-        '3px',
-      );
+      expect(
+        getComputedStyle(border.getDOMNode()).getPropertyValue('box-shadow'),
+      ).toContain('3px');
       expect(getComputedStyle(border.getDOMNode())).toHaveProperty(
         'borderRadius',
-        '6px',
+        '3px',
       );
     });
   });

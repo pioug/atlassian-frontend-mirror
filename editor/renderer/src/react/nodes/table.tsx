@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
-import type { UrlType } from '@atlaskit/adf-schema';
+import type { TableLayout, UrlType } from '@atlaskit/adf-schema';
 import {
   calcTableWidth,
   TableSharedCssClassName,
@@ -18,10 +18,12 @@ import {
   compose,
 } from '@atlaskit/editor-common/utils';
 import { SortOrder } from '@atlaskit/editor-common/types';
-import { akEditorDefaultLayoutWidth } from '@atlaskit/editor-shared-styles';
+import {
+  akEditorDefaultLayoutWidth,
+  akEditorFullWidthLayoutWidth,
+} from '@atlaskit/editor-shared-styles';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
-import { akEditorFullWidthLayoutWidth } from '@atlaskit/editor-shared-styles';
 
 import type {
   RendererAppearance,
@@ -379,6 +381,7 @@ export class TableContainer extends React.Component<
       stickyHeaders,
       tableNode,
       rendererAppearance,
+      isInsideOfBlockNode,
     } = this.props;
 
     const { stickyMode } = this.state;
@@ -386,14 +389,28 @@ export class TableContainer extends React.Component<
     const lineLength = akEditorDefaultLayoutWidth;
     let tableWidth: number | 'inherit';
     let left: number | undefined;
+    let updatedLayout: TableLayout | 'custom';
+
+    // The tableWidth and left offset logic below must stay aligned with the `breakout-ssr.tsx` logic
+    // Please consider changes below carefully to not negatively impact SSR
+    // `renderWidth` cannot be depended on during SSR
+    const isRenderWidthValid = !!renderWidth && renderWidth > 0;
 
     const calcDefaultLayoutWidthByAppearance = (
       tableNode: PMNode,
       rendererAppearance: RendererAppearance,
     ) => {
-      return rendererAppearance === 'full-width' && !tableNode.attrs.width
-        ? Math.min(akEditorFullWidthLayoutWidth, renderWidth)
-        : Math.min(getTableContainerWidth(tableNode), renderWidth);
+      if (rendererAppearance === 'full-width' && !tableNode.attrs.width) {
+        return isRenderWidthValid
+          ? Math.min(akEditorFullWidthLayoutWidth, renderWidth)
+          : akEditorFullWidthLayoutWidth;
+      } else {
+        // custom width, or width mapped to breakpoint
+        const tableContainerWidth = getTableContainerWidth(tableNode);
+        return isRenderWidthValid
+          ? Math.min(tableContainerWidth, renderWidth)
+          : tableContainerWidth;
+      }
     };
 
     if (isTableResizingEnabled(rendererAppearance) && tableNode) {
@@ -414,6 +431,23 @@ export class TableContainer extends React.Component<
     }
 
     const children = React.Children.toArray(this.props.children);
+
+    // Historically, tables in the full-width renderer had their layout set to 'default' which is deceiving.
+    // This check caters for those tables and helps with SSR logic
+    const isFullWidth =
+      !tableNode?.attrs.width &&
+      rendererAppearance === 'full-width' &&
+      layout !== 'full-width';
+
+    const hasCustomWidth =
+      isTableResizingEnabled(rendererAppearance) && tableNode?.attrs.width;
+    if (isFullWidth) {
+      updatedLayout = 'full-width';
+    } else if (hasCustomWidth) {
+      updatedLayout = 'custom';
+    } else {
+      updatedLayout = layout;
+    }
 
     return (
       <>
@@ -443,7 +477,7 @@ export class TableContainer extends React.Component<
           className={`${TableSharedCssClassName.TABLE_CONTAINER} ${
             this.props.shadowClassNames || ''
           }`}
-          data-layout={layout}
+          data-layout={updatedLayout}
           ref={this.props.handleRef}
           style={{
             width: tableWidth,
@@ -485,6 +519,7 @@ export class TableContainer extends React.Component<
               renderWidth={renderWidth}
               tableNode={tableNode}
               rendererAppearance={rendererAppearance}
+              isInsideOfBlockNode={isInsideOfBlockNode}
             >
               {this.grabFirstRowRef(children)}
             </Table>
@@ -598,6 +633,7 @@ const TableWithWidth: React.FunctionComponent<
     renderWidth?: number;
   } & Omit<React.ComponentProps<typeof TableWithShadows>, 'renderWidth'>
 > = (props) => (
+  // Remember, `width` will be 0 during SSR
   <WidthConsumer>
     {({ width }) => {
       const renderWidth =

@@ -1,9 +1,6 @@
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import {
-  doc,
-  DocBuilder,
-  p as paragraph,
-} from '@atlaskit/editor-test-helpers/doc-builder';
+import { doc, p as paragraph } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import { pluginKey } from '../../plugin-key';
 

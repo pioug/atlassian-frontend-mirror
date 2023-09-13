@@ -1,9 +1,6 @@
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
-import type {
-  RefsNode,
-  DocBuilder,
-} from '@atlaskit/editor-test-helpers/doc-builder';
+import type { RefsNode, DocBuilder } from '@atlaskit/editor-common/types';
 import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
 import {

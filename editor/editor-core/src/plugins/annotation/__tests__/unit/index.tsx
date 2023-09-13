@@ -7,10 +7,7 @@ import { AnnotationTypes } from '@atlaskit/adf-schema';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import * as prosemirrorUtils from '@atlaskit/editor-prosemirror/utils';
 
-import type {
-  Refs,
-  DocBuilder,
-} from '@atlaskit/editor-test-helpers/doc-builder';
+import type { Refs, DocBuilder } from '@atlaskit/editor-common/types';
 import {
   annotation,
   code_block,

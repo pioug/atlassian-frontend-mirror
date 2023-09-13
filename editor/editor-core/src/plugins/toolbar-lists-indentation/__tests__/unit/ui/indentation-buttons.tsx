@@ -2,7 +2,7 @@ import React from 'react';
 import { uuid } from '@atlaskit/adf-schema';
 import { IntlProvider } from 'react-intl-next';
 import { render, fireEvent } from '@testing-library/react';
-import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import {
   doc,
   p,

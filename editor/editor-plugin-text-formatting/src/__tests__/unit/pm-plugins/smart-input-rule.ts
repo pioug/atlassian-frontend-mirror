@@ -1,3 +1,4 @@
+import type { DocBuilder, Refs } from '@atlaskit/editor-common/types';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
@@ -7,10 +8,6 @@ import {
   createProsemirrorEditorFactory,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import type {
-  DocBuilder,
-  Refs,
-} from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   code,
   doc,

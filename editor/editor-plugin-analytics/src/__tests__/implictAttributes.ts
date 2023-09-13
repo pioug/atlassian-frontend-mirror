@@ -1,14 +1,14 @@
+import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
 import {
   ACTION,
   ACTION_SUBJECT,
-  AnalyticsEventPayload,
   EVENT_TYPE,
   INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import {
   doc,
-  DocBuilder,
   expand,
   mediaSingle,
   p,

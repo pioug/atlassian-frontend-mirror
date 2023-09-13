@@ -1,9 +1,10 @@
 import dispatchPasteEvent from '@atlaskit/editor-test-helpers/dispatch-paste-event';
-import { doc, p, DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
   Preset,
-  LightEditorPlugin,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 
 import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';

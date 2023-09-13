@@ -52,7 +52,7 @@ export const breakoutInlineScriptContext = `
 
 function applyBreakoutAfterSSR(id: string, breakoutConsts: any) {
   const MEDIA_NODE_TYPE = 'mediaSingle';
-  const WIDE_LAYOUT_MODES = ['full-width', 'wide'];
+  const WIDE_LAYOUT_MODES = ['full-width', 'wide', 'custom'];
 
   function findUp(
     element: HTMLElement | null,
@@ -89,6 +89,7 @@ function applyBreakoutAfterSSR(id: string, breakoutConsts: any) {
         (item.target as HTMLElement).classList.contains('ak-renderer-document')
       ) {
         item.addedNodes.forEach((maybeNode) => {
+          let width;
           const node = maybeNode as HTMLElement;
           const mode = node.dataset.mode || node.dataset.layout || '';
 
@@ -96,10 +97,20 @@ function applyBreakoutAfterSSR(id: string, breakoutConsts: any) {
             return;
           }
 
-          const width = breakoutConsts.calcBreakoutWidth(
-            mode,
-            renderer!.offsetWidth,
-          );
+          if (
+            node.classList.contains('pm-table-container') &&
+            mode === 'custom'
+          ) {
+            const effectiveWidth =
+              renderer!.offsetWidth - breakoutConsts.padding;
+            width = `${Math.min(parseInt(node.style.width), effectiveWidth)}px`;
+          } else {
+            width = breakoutConsts.calcBreakoutWidth(
+              mode,
+              renderer!.offsetWidth,
+            );
+          }
+
           if (node.style.width === width) {
             return;
           }
@@ -108,11 +119,16 @@ function applyBreakoutAfterSSR(id: string, breakoutConsts: any) {
           // Tables require some special logic, as they are not using common css transform approach,
           // because it breaks with sticky headers. This logic is copied from a table node:
           // https://bitbucket.org/atlassian/atlassian-frontend/src/77938aee0c140d02ff99b98a03849be1236865b4/packages/editor/renderer/src/react/nodes/table.tsx#table.tsx-235:245
-          if (node.classList.contains('pm-table-container')) {
+          if (
+            node.classList.contains('pm-table-container') &&
+            !renderer!.classList.contains('is-full-width')
+          ) {
             const lineLength = breakoutConsts.calcLineLength();
             const left = lineLength / 2 - parseInt(width) / 2;
-            if (left < 0) {
+            if (left < 0 && parseInt(width) > lineLength) {
               node.style.left = left + 'px';
+            } else {
+              node.style.left = '';
             }
           }
         });

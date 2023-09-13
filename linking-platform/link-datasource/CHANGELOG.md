@@ -1,5 +1,17 @@
 # @atlaskit/link-datasource
 
+## 1.1.3
+
+### Patch Changes
+
+- [`96c9b7127b1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/96c9b7127b1) - Do not load more then 200 fields in dropdown, instead show message explaining limitation and how to move forward
+
+## 1.1.2
+
+### Patch Changes
+
+- [`2378739fad6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2378739fad6) - Added link-datasource link viewed ui analytics events
+
 ## 1.1.1
 
 ### Patch Changes

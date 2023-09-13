@@ -1,0 +1,28 @@
+---
+title: Heading
+description: A heading is a typography component used to display text in different sizes and formats.
+order: 0
+---
+
+import HeadingDefault from '../../examples/constellation/heading/heading-default';
+import HeadingInverse from '../../examples/constellation/heading/heading-inverse';
+
+## Basic
+
+Implements the [Atlassian typography set](/foundations/typography/) as a component.
+
+A selected `level` will affect the final HTML element rendered in the DOM.
+It's important to note that the final DOM may be impacted by the parent heading level context
+because of inferred accessibility level correction. Therefore, it is recommended to check the final
+DOM to confirm the actual rendered HTML element.
+
+The typography `level` can be configured to one of the following types.
+
+<Example Component={HeadingDefault} packageName="@atlaskit/heading" />
+
+## Inverse
+
+Set `color` to change the text color of the heading. Use `color="inverse"` for headings placed on a dark
+surface for better color contrast.
+
+<Example Component={HeadingInverse} packageName="@atlaskit/heading" />

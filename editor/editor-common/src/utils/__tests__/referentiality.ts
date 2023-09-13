@@ -1,4 +1,4 @@
-import { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import {
   findParentNodeOfType,
   findSelectedNodeOfType,
@@ -7,12 +7,12 @@ import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor
 import {
   dataConsumer,
   doc,
-  DocBuilder,
   extension,
   fragmentMark,
   p,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
+import type { DocBuilder } from '../../types';
 import { setNodeSelection } from '../index';
 import {
   getChildrenInfo,

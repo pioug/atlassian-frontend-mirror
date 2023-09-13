@@ -1,8 +1,8 @@
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import dispatchPasteEvent from '@atlaskit/editor-test-helpers/dispatch-paste-event';
 import {
   doc,
-  DocBuilder,
   p,
   table,
   td,

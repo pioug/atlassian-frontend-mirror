@@ -22,6 +22,7 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { findTable } from '@atlaskit/editor-tables/utils';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { getPluginState } from '../pm-plugins/plugin-factory';
 import {
@@ -58,6 +59,11 @@ interface TableResizerProps {
     payload: TableEventPayload,
   ) => ((tr: Transaction) => boolean) | undefined;
   displayGapCursor: (toggle: boolean) => boolean;
+}
+
+export interface TableResizerImprovementProps extends TableResizerProps {
+  onResizeStop?: () => void;
+  onResizeStart?: () => void;
 }
 
 const messages = defineMessages({
@@ -135,6 +141,8 @@ export const TableResizer = ({
   maxWidth,
   containerWidth,
   updateWidth,
+  onResizeStop,
+  onResizeStart,
   editorView,
   getPos,
   node,
@@ -142,7 +150,7 @@ export const TableResizer = ({
   displayGuideline,
   attachAnalyticsEvent,
   displayGapCursor,
-}: PropsWithChildren<TableResizerProps>) => {
+}: PropsWithChildren<TableResizerImprovementProps>) => {
   const currentGap = useRef(0);
   // track resizing state - use ref over state to avoid re-render
   const isResizing = useRef(false);
@@ -214,11 +222,18 @@ export const TableResizer = ({
       containerWidth,
     );
     setSnappingEnabled(displayGuideline(visibleGuidelines));
+    if (
+      getBooleanFF('platform.editor.resizing-table-height-improvement') &&
+      onResizeStart
+    ) {
+      onResizeStart();
+    }
   }, [
     displayGapCursor,
     displayGuideline,
     editorView,
     startMeasure,
+    onResizeStart,
     containerWidth,
   ]);
 
@@ -330,6 +345,13 @@ export const TableResizer = ({
       updateWidth(newWidth);
       scheduleResize.cancel();
 
+      if (
+        getBooleanFF('platform.editor.resizing-table-height-improvement') &&
+        onResizeStop
+      ) {
+        onResizeStop();
+      }
+
       return newWidth;
     },
     [
@@ -343,6 +365,7 @@ export const TableResizer = ({
       displayGuideline,
       attachAnalyticsEvent,
       endMeasure,
+      onResizeStop,
     ],
   );
 

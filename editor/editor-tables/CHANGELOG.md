@@ -1,5 +1,11 @@
 # @atlaskit/editor-tables
 
+## 2.3.10
+
+### Patch Changes
+
+- [`37c62369dae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/37c62369dae) - NO-ISSUE Import doc builder types from editor-common
+
 ## 2.3.9
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @atlaskit/linking-common
 
+## 4.8.0
+
+### Minor Changes
+
+- [`bffcaa68d09`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bffcaa68d09) - EDM-7530: fixes mockAvailableSites error where available-sites-result export was not available in versions @4.6.1 and @4.7.0
+
 ## 4.7.0
 
 ### Minor Changes

@@ -16,8 +16,8 @@ import {
   alignment,
   td,
   th,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 
 describe('alignment', () => {

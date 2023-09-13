@@ -1,6 +1,5 @@
 import { schema } from '@atlaskit/editor-test-helpers/adf-schema';
 import {
-  DocBuilder,
   code_block,
   doc,
   hardBreak,
@@ -14,6 +13,7 @@ import {
   th,
   tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { countMatches, getIndexMatch } from '../../matches-utils';
 
 describe('RendererActions matches', () => {

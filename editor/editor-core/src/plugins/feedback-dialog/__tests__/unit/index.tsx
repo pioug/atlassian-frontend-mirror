@@ -1,11 +1,12 @@
-import { doc, p, DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
-  LightEditorPlugin,
   Preset,
   createProsemirrorEditorFactory,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 
-import {
+import type {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';

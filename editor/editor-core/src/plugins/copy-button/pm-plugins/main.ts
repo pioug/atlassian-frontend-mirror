@@ -16,18 +16,18 @@ function getMarkSelectionDecorationStartAndEnd({
   markType: MarkType;
   transaction: ReadonlyTransaction;
 }) {
-  const headHesolvedPos = transaction.selection.$head;
+  const headResolvedPos = transaction.selection.$head;
   const textNodeIndex = transaction.selection.$head.index();
-  const textNode = headHesolvedPos.parent.maybeChild(textNodeIndex)!;
+  const textNode = headResolvedPos.parent.maybeChild(textNodeIndex)!;
 
   let textNodeOffset = 0;
-  headHesolvedPos.parent.forEach((_node, nodeOffset, index) => {
+  headResolvedPos.parent.forEach((_node, nodeOffset, index) => {
     if (index === textNodeIndex) {
       textNodeOffset = nodeOffset;
     }
   });
 
-  const start = headHesolvedPos.start(headHesolvedPos.depth) + textNodeOffset;
+  const start = headResolvedPos.start(headResolvedPos.depth) + textNodeOffset;
   const end = start + textNode.text!.length;
 
   return { start, end, markType };

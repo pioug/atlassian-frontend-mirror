@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Colgroup } from './colgroup';
-import { SharedTableProps } from './types';
+import type { SharedTableProps } from './types';
 
 export type TableProps = SharedTableProps & {
   innerRef?: React.RefObject<HTMLTableElement>;
@@ -18,6 +18,7 @@ export const Table = React.memo(
     children,
     tableNode,
     rendererAppearance,
+    isInsideOfBlockNode,
   }: TableProps) => {
     return (
       <table
@@ -32,6 +33,7 @@ export const Table = React.memo(
           renderWidth={renderWidth}
           tableNode={tableNode}
           rendererAppearance={rendererAppearance}
+          isInsideOfBlockNode={isInsideOfBlockNode}
         />
         <tbody>{children}</tbody>
       </table>

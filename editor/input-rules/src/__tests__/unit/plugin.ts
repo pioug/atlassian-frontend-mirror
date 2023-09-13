@@ -1,8 +1,9 @@
-import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
-import { doc, DocBuilder, p } from '@atlaskit/editor-test-helpers/doc-builder';
+import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import { createInputRulePlugin } from '../../plugin';
 

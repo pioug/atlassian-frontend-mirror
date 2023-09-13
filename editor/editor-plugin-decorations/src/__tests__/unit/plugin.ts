@@ -1,4 +1,7 @@
-import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
+import type {
+  DocBuilder,
+  NextEditorPlugin,
+} from '@atlaskit/editor-common/types';
 // TODO: These should be updated once we extract these plugins to separate packages
 // eslint-disable-next-line import/no-extraneous-dependencies
 import layoutPlugin from '@atlaskit/editor-core/src/plugins/layout';
@@ -15,7 +18,6 @@ import {
   createProsemirrorEditorFactory,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
   layoutColumn,

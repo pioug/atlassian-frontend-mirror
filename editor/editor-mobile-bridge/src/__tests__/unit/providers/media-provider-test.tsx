@@ -1,34 +1,34 @@
 jest.mock('@atlaskit/media-client');
 import React from 'react';
-import {
-  ProviderFactory,
-  ContextIdentifierProvider,
-} from '@atlaskit/editor-common/provider-factory';
-import {
-  insertMediaSingleNode,
-  mediaPluginKey,
+import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type {
   MediaOptions,
   MediaState,
   MediaProvider,
 } from '@atlaskit/editor-core';
+import { insertMediaSingleNode, mediaPluginKey } from '@atlaskit/editor-core';
 
 import {
   doc,
   p,
   mediaSingle,
   media,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { randomId } from '@atlaskit/editor-test-helpers/random-id';
 import { sleep } from '@atlaskit/editor-test-helpers/sleep';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 
-import { Auth, AuthProvider, MediaClientConfig } from '@atlaskit/media-core';
+import type {
+  Auth,
+  AuthProvider,
+  MediaClientConfig,
+} from '@atlaskit/media-core';
+import type { MediaClient, ProcessedFileState } from '@atlaskit/media-client';
 import {
   getMediaClient,
   withMediaClient,
-  MediaClient,
-  ProcessedFileState,
   isFileIdentifier,
   createMediaSubscribable,
 } from '@atlaskit/media-client';

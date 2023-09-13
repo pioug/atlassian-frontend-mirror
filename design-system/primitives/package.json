@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/primitives",
-  "version": "1.4.4",
+  "version": "1.5.0",
   "description": "Primitives are token-backed low-level building blocks.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -108,6 +108,15 @@
           "status": {
             "type": "beta"
           }
+        },
+        {
+          "title": "Heading",
+          "folder": "heading",
+          "slug": "primitives/heading",
+          "id": "@atlaskit/primitives/heading",
+          "status": {
+            "type": "alpha"
+          }
         }
       ]
     }
@@ -127,6 +136,7 @@
     "react": "^16.8.0 || ^17.0.0 || ^18.0.0"
   },
   "devDependencies": {
+    "@af/accessibility-testing": "*",
     "@atlaskit/ds-lib": "*",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
@@ -181,6 +191,8 @@
     "./stack": "./src/components/stack.tsx",
     "./inline": "./src/components/inline.tsx",
     "./pressable": "./src/components/pressable.tsx",
+    "./heading": "./src/components/heading.tsx",
+    "./heading-context": "./src/components/heading-context.tsx",
     "./responsive": "./src/responsive/index.tsx"
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"

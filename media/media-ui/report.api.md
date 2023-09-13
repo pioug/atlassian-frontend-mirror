@@ -439,8 +439,6 @@ export interface MediaImageProps {
   // (undocumented)
   dataURI: string;
   // (undocumented)
-  expandByPixel?: number;
-  // (undocumented)
   forceSyncDisplay?: boolean;
   // (undocumented)
   loading?: 'eager' | 'lazy';

@@ -1,5 +1,11 @@
 # @atlaskit/datetime-picker
 
+## 12.10.0
+
+### Minor Changes
+
+- [`6c0c0407eb1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c0c0407eb1) - This cleans up the feature flag references for the keyboard accessibility changes, making them fully available for all users.
+
 ## 12.9.0
 
 ### Minor Changes

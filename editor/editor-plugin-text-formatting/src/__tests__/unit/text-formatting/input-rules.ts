@@ -1,12 +1,10 @@
 import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import type {
-  BuilderContent,
-  DocBuilder,
-} from '@atlaskit/editor-test-helpers/doc-builder';
+import type { BuilderContent } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   code,
   code_block,

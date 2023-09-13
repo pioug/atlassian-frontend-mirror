@@ -1,4 +1,5 @@
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { setNodeSelection } from '@atlaskit/editor-common/utils';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import createEvent from '@atlaskit/editor-test-helpers/create-event';
@@ -10,7 +11,6 @@ import {
   mediaSingle,
   p,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import { insertExternalImage } from '../../pm-plugins/commands';
 import { stateKey as imageUploadPluginKey } from '../../pm-plugins/plugin-key';

@@ -1,7 +1,7 @@
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import type { AutoformattingProvider } from '@atlaskit/editor-common/provider-factory';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { doc, p, ul, li } from '@atlaskit/editor-test-helpers/doc-builder';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';

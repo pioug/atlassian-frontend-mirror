@@ -1,5 +1,6 @@
 import React from 'react';
-import { doc, p, DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { sleep } from '@atlaskit/editor-test-helpers/sleep';
 import { mountWithIntl } from '../../../../__tests__/__helpers/enzyme';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
@@ -7,10 +8,10 @@ import Comment from '../../Comment';
 import { getDefaultMediaClientConfig } from '@atlaskit/media-test-helpers/fakeMediaClient';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { getMediaPluginState } from '../../../../plugins/media/pm-plugins/main';
-import { ReactWrapper } from 'enzyme';
+import type { ReactWrapper } from 'enzyme';
 import EditorContext from '../../../EditorContext';
 import EditorActions from '../../../../actions';
-import { MediaOptions } from '../../../../plugins/media/types';
+import type { MediaOptions } from '../../../../plugins/media/types';
 
 describe('comment editor', () => {
   afterEach(() => {

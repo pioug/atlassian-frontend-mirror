@@ -3,6 +3,7 @@
 import { uuid } from '@atlaskit/adf-schema';
 import { confluenceSchema } from '@atlaskit/adf-schema/schema-confluence';
 import * as AdfSchemaDefault from '@atlaskit/adf-schema/schema-default';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 // eslint-disable-next-line no-duplicate-imports
@@ -51,7 +52,6 @@ import {
   unsupportedNodeAttribute,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 // eslint-disable-next-line no-duplicate-imports
-import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import { JSONTransformer, SchemaStage } from '../../index';
 // eslint-disable-next-line no-duplicate-imports

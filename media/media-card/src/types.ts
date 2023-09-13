@@ -112,8 +112,6 @@ export interface SharedCardProps {
   readonly titleBoxBgColor?: string;
   // Sets the title box icon.
   readonly titleBoxIcon?: TitleBoxIcon;
-  // Expands the width and height of the image. Read more: https://product-fabric.atlassian.net/browse/MEX-2481
-  readonly expandByPixel?: number;
 }
 
 export interface CardOnClickCallback {

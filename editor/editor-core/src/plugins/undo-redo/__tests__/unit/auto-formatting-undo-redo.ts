@@ -1,7 +1,4 @@
-import type {
-  DocBuilder,
-  BuilderContent,
-} from '@atlaskit/editor-test-helpers/doc-builder';
+import type { BuilderContent } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   blockquote,
   code_block,
@@ -26,6 +23,7 @@ import {
   layoutColumn,
   alignment,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { uuid } from '@atlaskit/adf-schema';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';

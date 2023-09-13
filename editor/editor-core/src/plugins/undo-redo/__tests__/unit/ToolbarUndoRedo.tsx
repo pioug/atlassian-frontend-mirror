@@ -2,12 +2,13 @@ import React from 'react';
 import { FabricChannel } from '@atlaskit/analytics-listeners';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { render, fireEvent } from '@testing-library/react';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import { p, doc, DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import { p, doc } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 
 import historyPlugin from '../../../history';
 import { historyPluginKey } from '../../../history';

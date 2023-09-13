@@ -8,21 +8,19 @@ jest.mock('raf-schd', () =>
 import rafSchd from 'raf-schd';
 
 jest.mock('../../shouldReplaceLink');
-import { DatasourceAttributes } from '@atlaskit/adf-schema/schema';
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
-import {
-  EditorAnalyticsAPI,
-  INPUT_METHOD,
-} from '@atlaskit/editor-common/analytics';
-import { CardProvider } from '@atlaskit/editor-common/provider-factory';
+import type { DatasourceAttributes } from '@atlaskit/adf-schema/schema';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import type { CardProvider } from '@atlaskit/editor-common/provider-factory';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { setTextSelection } from '@atlaskit/editor-common/utils';
-import { Fragment, Node, Slice } from '@atlaskit/editor-prosemirror/model';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { Node } from '@atlaskit/editor-prosemirror/model';
+import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
-import {
-  createEditorFactory,
-  EditorInstanceWithPlugin,
-} from '@atlaskit/editor-test-helpers/create-editor';
+import type { EditorInstanceWithPlugin } from '@atlaskit/editor-test-helpers/create-editor';
+import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import {
   a,
   blockCard,
@@ -34,7 +32,6 @@ import {
   decisionItem,
   decisionList,
   doc,
-  DocBuilder,
   embedCard,
   inlineCard,
   li,
@@ -53,13 +50,13 @@ import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import { asMock } from '@atlaskit/media-test-helpers';
 import type { DatasourceAdf, InlineCardAdf } from '@atlaskit/smart-card';
 
+import type { ProviderWrapper } from '../../../__tests__/unit/_helpers';
 import {
   createCardRequest,
-  ProviderWrapper,
   setupProvider,
 } from '../../../__tests__/unit/_helpers';
-import { CardPluginState } from '../../../types';
-import { DatasourceTableLayout } from '../../../ui/LayoutButton/types';
+import type { CardPluginState } from '../../../types';
+import type { DatasourceTableLayout } from '../../../ui/LayoutButton/types';
 import {
   queueCards,
   registerSmartCardEvents,

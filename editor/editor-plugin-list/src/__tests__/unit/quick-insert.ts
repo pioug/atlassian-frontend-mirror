@@ -2,9 +2,9 @@ import type {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import { doc, li, ol, p, ul } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import { pluginKey } from '../../pm-plugins/main';

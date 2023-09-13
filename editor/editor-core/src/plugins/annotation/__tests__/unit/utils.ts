@@ -1,9 +1,6 @@
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { AnnotationSharedClassNames } from '@atlaskit/editor-common/styles';
-import type {
-  RefsNode,
-  DocBuilder,
-} from '@atlaskit/editor-test-helpers/doc-builder';
+import type { RefsNode, DocBuilder } from '@atlaskit/editor-common/types';
 import {
   annotation,
   doc,

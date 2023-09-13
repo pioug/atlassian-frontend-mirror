@@ -1,5 +1,31 @@
 # @atlaskit/editor-core
 
+## 187.42.6
+
+### Patch Changes
+
+- [`37c62369dae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/37c62369dae) - NO-ISSUE Import doc builder types from editor-common
+
+## 187.42.5
+
+### Patch Changes
+
+- [`1c085549bd9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1c085549bd9) - clean up pctWidth used in new image resize experience
+
+## 187.42.4
+
+### Patch Changes
+
+- [`e6122bf1c9a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e6122bf1c9a) - MEX-2481 revert and re-introduce a new fix for media border gap issue
+- [`a29f4f2d43c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a29f4f2d43c) - Fix legacy resizer handle is not highlighted on delete button hover
+- Updated dependencies
+
+## 187.42.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 187.42.0
 
 ### Minor Changes

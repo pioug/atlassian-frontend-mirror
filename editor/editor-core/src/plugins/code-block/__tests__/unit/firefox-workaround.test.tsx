@@ -11,7 +11,7 @@ jest.mock('@atlaskit/editor-common/utils', () => ({
 }));
 import codeBlockPlugin from '../..';
 
-import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { doc, code_block } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import { pluginKey } from '../../plugin-key';

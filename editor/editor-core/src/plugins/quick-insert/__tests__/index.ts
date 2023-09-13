@@ -1,6 +1,6 @@
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { doc, p, panel } from '@atlaskit/editor-test-helpers/doc-builder';
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { pluginKey as quickInsertPluginKey } from '../plugin-key';

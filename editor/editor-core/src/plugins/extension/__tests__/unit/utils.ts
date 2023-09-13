@@ -11,7 +11,7 @@ import {
 } from '../../utils';
 import { EditorState, NodeSelection } from '@atlaskit/editor-prosemirror/state';
 
-import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import {
   doc,
   p,

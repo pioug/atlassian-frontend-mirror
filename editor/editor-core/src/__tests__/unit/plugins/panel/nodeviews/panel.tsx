@@ -1,20 +1,17 @@
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { shallow, ShallowWrapper } from 'enzyme';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { PanelSharedCssClassName } from '@atlaskit/editor-common/panel';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import { PanelType } from '@atlaskit/adf-schema';
-import {
-  doc,
-  DocBuilder,
-  p,
-  panel,
-} from '@atlaskit/editor-test-helpers/doc-builder';
+import { doc, p, panel } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 import { Emoji } from '@atlaskit/editor-common/emoji';
 import { ResourcedEmoji } from '@atlaskit/emoji/element';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import React from 'react';
@@ -22,7 +19,7 @@ import {
   getPanelNodeView,
   panelIcons,
 } from '../../../../../plugins/panel/nodeviews/panel';
-import { PanelPluginOptions } from '../../../../../plugins/panel/types';
+import type { PanelPluginOptions } from '../../../../../plugins/panel/types';
 import { PanelIcon } from './../../../../../plugins/panel/nodeviews/panel';
 import panelPlugin from '../../../../../plugins/panel';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';

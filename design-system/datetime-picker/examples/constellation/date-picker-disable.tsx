@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { Label } from '@atlaskit/form';
+
 import { DatePicker } from '../../src';
 
 const disabledDates = [
@@ -12,7 +14,14 @@ const disabledDates = [
 ];
 
 const DatePickerDisabledExample = () => (
-  <DatePicker defaultValue="2020-12-15" disabled={disabledDates} />
+  <>
+    <Label htmlFor="datepicker-disabled">Disabled Dates</Label>
+    <DatePicker
+      defaultValue="2020-12-15"
+      disabled={disabledDates}
+      selectProps={{ inputId: 'datepicker-disabled' }}
+    />
+  </>
 );
 
 export default DatePickerDisabledExample;

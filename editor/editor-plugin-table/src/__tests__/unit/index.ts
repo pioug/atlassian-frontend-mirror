@@ -1,5 +1,8 @@
 import { uuid } from '@atlaskit/adf-schema';
-import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
+import type {
+  DocBuilder,
+  GetEditorContainerWidth,
+} from '@atlaskit/editor-common/types';
 import { setNodeSelection } from '@atlaskit/editor-common/utils';
 import selectionPlugin from '@atlaskit/editor-core/src/plugins/selection';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
@@ -22,7 +25,6 @@ import {
   createProsemirrorEditorFactory,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
   media,

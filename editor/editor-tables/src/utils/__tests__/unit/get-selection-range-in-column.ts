@@ -1,7 +1,7 @@
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { EditorState } from '@atlaskit/editor-prosemirror/state';
 import {
   doc,
-  DocBuilder,
   p,
   tr as row,
   table,

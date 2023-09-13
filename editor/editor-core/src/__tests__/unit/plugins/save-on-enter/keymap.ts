@@ -6,10 +6,10 @@ import {
   decisionItem,
   taskList,
   taskItem,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 describe('save on enter', () => {
   const createEditor = createEditorFactory();

@@ -2,7 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { MobileAppearance } from '../../Mobile';
 import selectionPlugin from '../../../../plugins/selection';
-import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import {
   doc,
   p,

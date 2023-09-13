@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-card
 
+## 0.5.11
+
+### Patch Changes
+
+- [`37c62369dae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/37c62369dae) - NO-ISSUE Import doc builder types from editor-common
+
+## 0.5.10
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.5.9
 
 ### Patch Changes

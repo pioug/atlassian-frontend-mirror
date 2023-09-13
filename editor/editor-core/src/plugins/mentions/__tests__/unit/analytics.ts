@@ -1,8 +1,9 @@
-import { DocBuilder, doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
+import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 // import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { act } from '@testing-library/react';
 // import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 

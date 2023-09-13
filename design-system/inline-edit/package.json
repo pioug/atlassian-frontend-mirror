@@ -49,7 +49,7 @@
   },
   "devDependencies": {
     "@af/accessibility-testing": "*",
-    "@atlaskit/datetime-picker": "^12.9.0",
+    "@atlaskit/datetime-picker": "^12.10.0",
     "@atlaskit/docs": "*",
     "@atlaskit/section-message": "^6.4.0",
     "@atlaskit/select": "^16.5.0",

@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-analytics
 
+## 0.2.4
+
+### Patch Changes
+
+- [`37c62369dae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/37c62369dae) - NO-ISSUE Import doc builder types from editor-common
+
+## 0.2.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.2.2
 
 ### Patch Changes

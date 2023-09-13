@@ -1,6 +1,6 @@
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   blockquote,
   code_block,

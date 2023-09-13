@@ -1,5 +1,12 @@
 # @atlaskit/lozenge
 
+## 11.4.4
+
+### Patch Changes
+
+- [`3b97837c528`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3b97837c528) - The internal composition of this component has changed. There is no expected change in behavior.
+- Updated dependencies
+
 ## 11.4.3
 
 ### Patch Changes

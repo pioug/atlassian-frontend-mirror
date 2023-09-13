@@ -7,7 +7,7 @@ import {
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import type { TypeAheadItem } from '@atlaskit/editor-common/provider-factory';
 import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
-import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import typeAheadPlugin from '../../../';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';

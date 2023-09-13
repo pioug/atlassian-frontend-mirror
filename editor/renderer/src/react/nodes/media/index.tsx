@@ -1,20 +1,21 @@
 /** @jsx jsx */
-import React, { SyntheticEvent } from 'react';
+import type { SyntheticEvent } from 'react';
+import React from 'react';
 import { PureComponent } from 'react';
 import { jsx } from '@emotion/react';
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 import { MEDIA_CONTEXT } from '@atlaskit/analytics-namespaced-context';
 import { WithProviders } from '@atlaskit/editor-common/provider-factory';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
-import { IMAGE_AND_BORDER_ADJUSTMENT } from '@atlaskit/editor-common/ui';
 import type { EventHandlers } from '@atlaskit/editor-common/ui';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import {
-  MediaCard,
-  MediaCardProps,
-  MediaProvider,
-} from '../../../ui/MediaCard';
-import { LinkDefinition, BorderMarkDefinition } from '@atlaskit/adf-schema';
+import { MediaBorderGapFiller } from '@atlaskit/editor-common/ui';
+import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { MediaCardProps, MediaProvider } from '../../../ui/MediaCard';
+import { MediaCard } from '../../../ui/MediaCard';
+import type {
+  LinkDefinition,
+  BorderMarkDefinition,
+} from '@atlaskit/adf-schema';
 import type { MediaFeatureFlags } from '@atlaskit/media-common';
 import { hexToEditorBorderPaletteColor } from '@atlaskit/editor-palette';
 
@@ -26,11 +27,8 @@ import {
   EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
 
-import {
-  AnalyticsEventPayload,
-  MODE,
-  PLATFORM,
-} from '../../../analytics/events';
+import type { AnalyticsEventPayload } from '../../../analytics/events';
+import { MODE, PLATFORM } from '../../../analytics/events';
 import { linkStyle, borderStyle } from './styles';
 
 export type MediaProps = MediaCardProps & {
@@ -84,7 +82,6 @@ export default class Media extends PureComponent<MediaProps, {}> {
         }}
       >
         <MediaCard
-          expandByPixel={borderMark && IMAGE_AND_BORDER_ADJUSTMENT}
           mediaProvider={mediaProvider}
           contextIdentifierProvider={contextIdentifierProvider}
           {...this.props}
@@ -106,8 +103,9 @@ export default class Media extends PureComponent<MediaProps, {}> {
         data-mark-type="border"
         data-color={borderColor}
         data-size={borderWidth}
-        css={borderStyle(!!linkHref, paletteColorValue, borderWidth)}
+        css={borderStyle(paletteColorValue, borderWidth)}
       >
+        <MediaBorderGapFiller borderColor={borderColor} />
         {mediaComponent}
       </div>
     ) : (
@@ -120,7 +118,7 @@ export default class Media extends PureComponent<MediaProps, {}> {
         rel="noreferrer noopener"
         onClick={this.handleMediaLinkClick}
         data-block-link={linkHref}
-        css={linkStyle(!!borderMark)}
+        css={linkStyle}
       >
         {mediaComponentWithBorder}
       </a>

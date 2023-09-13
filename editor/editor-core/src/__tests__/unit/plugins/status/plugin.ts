@@ -9,7 +9,7 @@ import { findChildrenByType } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { StatusLocalIdRegex } from '@atlaskit/editor-test-helpers/constants';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { doc, p, status } from '@atlaskit/editor-test-helpers/doc-builder';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import {

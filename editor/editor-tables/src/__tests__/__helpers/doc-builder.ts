@@ -1,10 +1,9 @@
+import type { DocBuilder, RefsNode } from '@atlaskit/editor-common/types';
 import { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { BuilderContent } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
-  BuilderContent,
   doc,
-  DocBuilder,
   p,
-  RefsNode,
   table,
   td,
   th,

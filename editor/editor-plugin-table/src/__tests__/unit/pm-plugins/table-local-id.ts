@@ -3,6 +3,7 @@ import { replaceRaf } from 'raf-stub';
 
 import { uuid } from '@atlaskit/adf-schema';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import {
   NodeSelection,
   TextSelection,
@@ -14,7 +15,6 @@ import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor
 import dispatchPasteEvent from '@atlaskit/editor-test-helpers/dispatch-paste-event';
 import {
   doc,
-  DocBuilder,
   expand,
   layoutColumn,
   layoutSection,
@@ -28,7 +28,10 @@ import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 
 import { handleCut } from '../../../plugins/table/event-handlers';
 import { pluginKey as tablePluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
-import { PluginConfig, TablePluginState } from '../../../plugins/table/types';
+import type {
+  PluginConfig,
+  TablePluginState,
+} from '../../../plugins/table/types';
 
 replaceRaf();
 const requestAnimationFrame = window.requestAnimationFrame as any;

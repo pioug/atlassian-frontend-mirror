@@ -4,7 +4,7 @@ import type {
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import {
   blockquote,
   bodiedExtension,

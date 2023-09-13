@@ -727,6 +727,10 @@ exports[`@atlaskit/primitives bg styles are generated correctly 1`] = `
     '#F4F5F7',
   ),
   'elevation.surface.sunken': token('elevation.surface.sunken', '#F4F5F7'),
+  'utility.elevation.surface.current': token(
+    'utility.elevation.surface.current',
+    '#FFFFFF',
+  ),
 } as const;
 
 export type BackgroundColor = keyof typeof backgroundColorMap;
@@ -764,6 +768,36 @@ exports[`@atlaskit/primitives border styles are generated correctly 1`] = `
 } as const;
 
 export type BorderColor = keyof typeof borderColorMap;
+"
+`;
+
+exports[`@atlaskit/primitives surface styles are generated correctly 1`] = `
+"export const surfaceColorMap = {
+  'elevation.surface': token('elevation.surface', '#FFFFFF'),
+  'elevation.surface.hovered': token('elevation.surface.hovered', '#FAFBFC'),
+  'elevation.surface.pressed': token('elevation.surface.pressed', '#F4F5F7'),
+  'elevation.surface.overlay': token('elevation.surface.overlay', '#FFFFFF'),
+  'elevation.surface.overlay.hovered': token(
+    'elevation.surface.overlay.hovered',
+    '#FAFBFC',
+  ),
+  'elevation.surface.overlay.pressed': token(
+    'elevation.surface.overlay.pressed',
+    '#F4F5F7',
+  ),
+  'elevation.surface.raised': token('elevation.surface.raised', '#FFFFFF'),
+  'elevation.surface.raised.hovered': token(
+    'elevation.surface.raised.hovered',
+    '#FAFBFC',
+  ),
+  'elevation.surface.raised.pressed': token(
+    'elevation.surface.raised.pressed',
+    '#F4F5F7',
+  ),
+  'elevation.surface.sunken': token('elevation.surface.sunken', '#F4F5F7'),
+} as const;
+
+export type SurfaceColor = keyof typeof surfaceColorMap;
 "
 `;
 

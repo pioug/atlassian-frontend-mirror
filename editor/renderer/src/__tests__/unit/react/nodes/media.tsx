@@ -2,14 +2,13 @@ import * as mocks from './media.mock';
 import React from 'react';
 import { mount } from 'enzyme';
 
-import { MediaType } from '@atlaskit/adf-schema';
-import { Card, CardEvent } from '@atlaskit/media-card';
+import type { MediaType } from '@atlaskit/adf-schema';
+import type { CardEvent } from '@atlaskit/media-card';
+import { Card } from '@atlaskit/media-card';
 import { sleep, nextTick } from '@atlaskit/media-test-helpers';
-import {
+import type {
   FileIdentifier,
   ExternalImageIdentifier,
-  // @ts-ignore
-  getMediaClient,
 } from '@atlaskit/media-client';
 
 import Media from '../../../../react/nodes/media';
@@ -19,8 +18,8 @@ import {
   getListOfIdentifiersFromDoc,
   getClipboardAttrs,
 } from '../../../../ui/MediaCard';
-import { MediaSSR } from '../../../../types/mediaOptions';
-import { MediaClientConfig } from '@atlaskit/media-core';
+import type { MediaSSR } from '../../../../types/mediaOptions';
+import type { MediaClientConfig } from '@atlaskit/media-core';
 
 const doc = require('../../../../../examples/helper/media-layout.adf.json');
 
@@ -1049,13 +1048,12 @@ describe('Media', () => {
 
       const border = mediaComponent.find('div[data-mark-type="border"]');
       expect(border).toHaveLength(1);
-      expect(getComputedStyle(border.getDOMNode())).toHaveProperty(
-        'borderWidth',
-        '3px',
-      );
+      expect(
+        getComputedStyle(border.getDOMNode()).getPropertyValue('box-shadow'),
+      ).toContain('3px');
       expect(getComputedStyle(border.getDOMNode())).toHaveProperty(
         'borderRadius',
-        '6px',
+        '3px',
       );
     });
   });

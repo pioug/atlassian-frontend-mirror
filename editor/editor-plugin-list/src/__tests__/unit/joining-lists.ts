@@ -1,4 +1,5 @@
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
@@ -6,7 +7,6 @@ import {
   createProsemirrorEditorFactory,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import { doc, li, ol, p, ul } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import { listPlugin } from '../../index';

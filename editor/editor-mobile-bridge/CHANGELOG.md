@@ -1,5 +1,42 @@
 # @atlaskit/editor-mobile-bridge
 
+## 187.42.6
+
+### Patch Changes
+
+- [`37c62369dae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/37c62369dae) - NO-ISSUE Import doc builder types from editor-common
+- Updated dependencies
+
+## 187.42.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.42.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.42.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.42.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.42.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 187.42.0
 
 ### Minor Changes

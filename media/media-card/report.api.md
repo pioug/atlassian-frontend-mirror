@@ -369,8 +369,6 @@ export interface SharedCardProps {
   // (undocumented)
   readonly disableOverlay?: boolean;
   // (undocumented)
-  readonly expandByPixel?: number;
-  // (undocumented)
   readonly featureFlags?: MediaFeatureFlags;
   // (undocumented)
   readonly originalDimensions?: NumericalCardDimensions;

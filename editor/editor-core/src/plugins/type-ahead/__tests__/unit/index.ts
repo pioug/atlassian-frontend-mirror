@@ -12,7 +12,7 @@ import type {
 } from '@atlaskit/editor-prosemirror/state';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
-import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { doc, p, panel } from '@atlaskit/editor-test-helpers/doc-builder';
 import { TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
 import { undo, redo } from '@atlaskit/editor-prosemirror/history';

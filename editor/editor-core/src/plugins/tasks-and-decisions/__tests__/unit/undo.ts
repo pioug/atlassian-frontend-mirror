@@ -1,4 +1,5 @@
-import { doc, DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import { doc } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { uuid } from '@atlaskit/adf-schema';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { taskItem, taskList } from '@atlaskit/editor-test-helpers/doc-builder';

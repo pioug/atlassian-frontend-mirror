@@ -1,5 +1,5 @@
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
-import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   code_block,
   doc,

@@ -33,7 +33,7 @@ const waitForStateUpdate = async () => {
 
 import type { MediaLinkingState } from '../../../pm-plugins/linking';
 
-import type { RefsNode } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { RefsNode } from '@atlaskit/editor-common/types';
 import {
   doc,
   mediaSingle,

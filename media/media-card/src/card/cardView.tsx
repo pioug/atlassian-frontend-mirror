@@ -75,8 +75,6 @@ export interface CardViewOwnProps extends SharedCardProps {
   // Used to disable animation for testing purposes
   disableAnimation?: boolean;
   shouldHideTooltip?: boolean;
-  // Expands the width and height of the image. Read more: https://product-fabric.atlassian.net/browse/MEX-2481
-  expandByPixel?: number;
 }
 
 export interface CardViewState {
@@ -258,13 +256,11 @@ export class CardViewBase extends React.Component<
       onDisplayImage,
       nativeLazyLoad,
       forceSyncDisplay,
-      expandByPixel,
     } = this.props;
 
     return (
       !!cardPreview && (
         <ImageRenderer
-          expandByPixel={expandByPixel}
           cardPreview={cardPreview}
           mediaType={mediaType}
           alt={alt}

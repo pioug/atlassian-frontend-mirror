@@ -23,8 +23,7 @@ import {
   MockMacroProvider,
 } from '@atlaskit/editor-test-helpers/mock-macro-provider';
 import randomId from '@atlaskit/editor-test-helpers/random-id';
-
-import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import {
   doc,
   p as paragraph,

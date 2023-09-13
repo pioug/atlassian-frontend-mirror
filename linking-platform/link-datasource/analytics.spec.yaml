@@ -237,7 +237,8 @@ events:
             *AnalyticsContext,
             *AnalyticsContextAttributes,
             *DestinationObjectTypes,
-            *SearchMethod
+            *SearchMethod,
+            *ExtensionKey
           ]
   - link viewed (count):
       type: ui
@@ -250,5 +251,6 @@ events:
             *AnalyticsContextAttributes,
             *DestinationObjectTypes,
             *SearchMethod,
-            *TotalItemCount
+            *TotalItemCount,
+            *ExtensionKey
           ]

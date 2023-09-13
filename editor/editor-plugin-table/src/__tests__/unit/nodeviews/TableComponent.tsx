@@ -4,7 +4,7 @@ import { render } from '@testing-library/react';
 import { replaceRaf } from 'raf-stub';
 
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
-import type { Command } from '@atlaskit/editor-common/types';
+import type { Command, DocBuilder } from '@atlaskit/editor-common/types';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { selectTableClosestToPos } from '@atlaskit/editor-tables/src/utils/select-nodes';
@@ -14,7 +14,6 @@ import {
   selectTable,
 } from '@atlaskit/editor-tables/utils';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
   p,

@@ -161,7 +161,15 @@ export const mediaStyles = css`
       box-shadow: 0 0 0 1px
         ${token('color.border.danger', akEditorDeleteIconColor)} !important;
     }
-    /* Media resize handlers */
+    /* Media resize legacy handlers */
+    .richMedia-resize-handle-right::after,
+    .richMedia-resize-handle-left::after {
+      background: ${token(
+        'color.icon.danger',
+        akEditorDeleteIconColor,
+      )} !important;
+    }
+    /* Media resize new handlers */
     .resizer-handle-thumb {
       background: ${token(
         'color.icon.danger',

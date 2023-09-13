@@ -1,5 +1,6 @@
+import type { RefsNode } from '@atlaskit/editor-common/types';
 import { EditorState } from '@atlaskit/editor-prosemirror/state';
-import { p, RefsNode, td, tr } from '@atlaskit/editor-test-helpers/doc-builder';
+import { p, td, tr } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import {
   c,

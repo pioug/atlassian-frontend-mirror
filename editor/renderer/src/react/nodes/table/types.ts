@@ -1,6 +1,6 @@
-import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { TableLayout } from '@atlaskit/adf-schema';
-import { RendererAppearance } from '../../../ui/Renderer/types';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { TableLayout } from '@atlaskit/adf-schema';
+import type { RendererAppearance } from '../../../ui/Renderer/types';
 
 export type SharedTableProps = {
   columnWidths?: Array<number>;
@@ -9,4 +9,5 @@ export type SharedTableProps = {
   renderWidth: number;
   tableNode?: PMNode;
   rendererAppearance: RendererAppearance;
+  isInsideOfBlockNode?: boolean;
 };

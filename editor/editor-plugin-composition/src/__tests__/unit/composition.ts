@@ -1,3 +1,4 @@
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/utils';
 import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
@@ -5,7 +6,6 @@ import {
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
-import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 
 import { compositionPlugin } from '../../index';

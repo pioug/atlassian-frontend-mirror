@@ -4,7 +4,7 @@ import type { Node } from '@atlaskit/editor-prosemirror/model';
 /**
  * Represents a ProseMirror "position" in a document.
  */
-export type position = number;
+type position = number;
 
 /**
  * A useful feature of the builder is being able to declaratively mark positions

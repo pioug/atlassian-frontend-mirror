@@ -3,10 +3,10 @@ import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { getCellsInColumn, selectTable } from '@atlaskit/editor-tables/utils';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
   table,

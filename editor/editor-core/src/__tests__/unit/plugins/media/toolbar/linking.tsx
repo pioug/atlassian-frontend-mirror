@@ -13,8 +13,7 @@ import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-hel
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { mountWithIntl } from '../../../../__helpers/enzyme';
 import { render, fireEvent } from '@testing-library/react';
-
-import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import {
   a,
   doc,

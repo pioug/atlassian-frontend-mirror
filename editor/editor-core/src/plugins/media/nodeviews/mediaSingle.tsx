@@ -321,7 +321,6 @@ export default class MediaSingleNode extends Component<
       height,
       containerWidth: containerWidth,
       lineLength: contentWidth,
-      pctWidth: mediaSingleWidthAttribute,
       fullWidthMode,
       hasFallbackContainer: false,
       mediaSingleWidth: calcMediaSinglePixelWidth({
@@ -398,12 +397,15 @@ export default class MediaSingleNode extends Component<
         <ResizableMediaSingle
           {...resizableMediaSingleProps}
           lineLength={contentWidthForLegacyExperience}
+          pctWidth={mediaSingleWidthAttribute}
         >
           {MediaChildren}
         </ResizableMediaSingle>
       )
     ) : (
-      <MediaSingle {...mediaSingleProps}>{MediaChildren}</MediaSingle>
+      <MediaSingle {...mediaSingleProps} pctWidth={mediaSingleWidthAttribute}>
+        {MediaChildren}
+      </MediaSingle>
     );
   }
 

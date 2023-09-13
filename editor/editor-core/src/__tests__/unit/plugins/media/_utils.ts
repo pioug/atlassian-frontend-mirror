@@ -9,7 +9,7 @@ import {
   temporaryMediaAttrs,
   temporaryMedia,
 } from '@atlaskit/editor-test-helpers/media-provider';
-import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { media } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import { stateKey as mediaPluginKey } from '../../../../plugins/media/pm-plugins/plugin-key';

@@ -2,11 +2,11 @@ import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor
 import {
   code,
   doc,
-  DocBuilder,
   hardBreak,
   p,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
+import type { DocBuilder } from '../../types';
 import { insertNewLine } from '../commands';
 
 describe('commands', () => {

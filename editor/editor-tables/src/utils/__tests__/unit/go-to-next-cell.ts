@@ -1,12 +1,9 @@
-import {
-  EditorState,
-  Selection,
-  TextSelection,
-} from '@atlaskit/editor-prosemirror/state';
+import type { RefsNode } from '@atlaskit/editor-common/types';
+import type { Selection } from '@atlaskit/editor-prosemirror/state';
+import { EditorState, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import {
   doc,
   p,
-  RefsNode,
   table,
   td,
   th,
@@ -22,7 +19,7 @@ import {
   createTableWithDoc,
 } from '../../../__tests__/__helpers/doc-builder';
 import { selectionFor } from '../../../__tests__/__helpers/selection-for';
-import { Command } from '../../../types';
+import type { Command } from '../../../types';
 import { goToNextCell } from '../../go-to-next-cell';
 
 function testCommandSelection(

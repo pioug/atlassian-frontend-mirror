@@ -3,10 +3,10 @@ import { createIntl } from 'react-intl-next';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import {
   doc,
-  DocBuilder,
   unsupportedBlock,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
+import type { DocBuilder } from '../../../types';
 import { getUnsupportedContent } from '../../../ui/unsupported-content-helper';
 
 describe('getUnsupportedContent', () => {

@@ -5,6 +5,7 @@ import type { Stub } from 'raf-stub';
 import createStub from 'raf-stub';
 
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { findOverflowScrollParent } from '@atlaskit/editor-common/ui';
 import selectionPlugin from '@atlaskit/editor-core/src/plugins/selection';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
@@ -19,7 +20,6 @@ import {
   createProsemirrorEditorFactory,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
   table,

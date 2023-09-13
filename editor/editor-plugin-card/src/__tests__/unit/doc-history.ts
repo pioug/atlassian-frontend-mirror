@@ -10,15 +10,11 @@ jest.mock('@atlaskit/link-datasource');
 import rafSchd from 'raf-schd';
 
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import { CardProvider } from '@atlaskit/editor-common/provider-factory';
+import type { CardProvider } from '@atlaskit/editor-common/provider-factory';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { closeHistory } from '@atlaskit/editor-prosemirror/history';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import {
-  a,
-  doc,
-  DocBuilder,
-  p,
-} from '@atlaskit/editor-test-helpers/doc-builder';
+import { a, doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import { queueCards, setProvider } from '../../pm-plugins/actions';
 import { pluginKey } from '../../pm-plugins/main';

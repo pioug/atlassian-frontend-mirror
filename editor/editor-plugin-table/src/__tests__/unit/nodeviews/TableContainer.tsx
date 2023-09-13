@@ -8,10 +8,10 @@ import {
   EVENT_TYPE,
   TABLE_ACTION,
 } from '@atlaskit/editor-common/analytics';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { akEditorWideLayoutWidth } from '@atlaskit/editor-shared-styles';
 import { findTable } from '@atlaskit/editor-tables/utils';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
   p,
@@ -336,6 +336,75 @@ describe('table -> nodeviews -> TableContainer.tsx', () => {
       expect(selectionActionMock).toHaveBeenNthCalledWith(1, false);
       // when resize finishes - call to display gap cursor
       expect(selectionActionMock).toHaveBeenNthCalledWith(2, true);
+    });
+  });
+
+  describe('deletion', () => {
+    const selectionActionMock = jest.fn().mockReturnValue(() => {});
+    const actualGuidelineMock = jest.fn();
+    const guidelineActionMock = jest.fn().mockReturnValue(actualGuidelineMock);
+    const buildContainer = (attrs: TableAttributes) => {
+      const { table, editorView } = createNode(attrs);
+
+      const { container, unmount } = render(
+        <ResizableTableContainer
+          containerWidth={1800}
+          lineLength={720}
+          node={table}
+          className={''}
+          editorView={editorView}
+          getPos={() => 0}
+          tableRef={
+            {
+              querySelector: () => null,
+              insertBefore: () => {},
+              style: {},
+            } as any
+          }
+          pluginInjectionApi={
+            {
+              selection: {
+                commands: { displayGapCursor: selectionActionMock },
+              },
+              guideline: {
+                actions: { displayGuideline: guidelineActionMock },
+              },
+              // mock core so the selection command will execute
+              core: { actions: { execute: jest.fn() } },
+            } as any
+          }
+        />,
+      );
+
+      return { container, unmount, selectionActionMock, actualGuidelineMock };
+    };
+
+    afterEach(() => {
+      selectionActionMock.mockClear();
+      actualGuidelineMock.mockClear();
+      guidelineActionMock.mockClear();
+    });
+
+    // this is testing logic inside TableResizer, targeting the clean up in the useEffect
+    it('should call selection plugin action to display gapcursor when removed', () => {
+      const { container, unmount, selectionActionMock } = buildContainer({});
+
+      fireEvent.mouseDown(container.querySelector('.resizer-handle.right')!);
+      fireEvent.mouseMove(container.querySelector('.resizer-handle.right')!);
+
+      unmount();
+      expect(selectionActionMock).toHaveBeenCalledWith(true);
+    });
+
+    // this is testing logic inside TableResizer, targeting the clean up in the useEffect
+    it('should call guideline plugin action to remove guidelines when removed', () => {
+      const { container, unmount, actualGuidelineMock } = buildContainer({});
+
+      fireEvent.mouseDown(container.querySelector('.resizer-handle.right')!);
+      fireEvent.mouseMove(container.querySelector('.resizer-handle.right')!);
+
+      unmount();
+      expect(actualGuidelineMock).toHaveBeenCalledWith({ guidelines: [] });
     });
   });
 });

@@ -1,7 +1,7 @@
+import type { RefsNode } from '@atlaskit/editor-common/types';
 import { EditorState } from '@atlaskit/editor-prosemirror/state';
-import { RefsNode } from '@atlaskit/editor-test-helpers/doc-builder';
 
-import { Command } from '../../types';
+import type { Command } from '../../types';
 
 import { selectionFor } from './selection-for';
 

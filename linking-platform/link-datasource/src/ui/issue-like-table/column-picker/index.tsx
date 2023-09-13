@@ -10,11 +10,13 @@ import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
 import { DatasourceResponseSchemaProperty } from '@atlaskit/linking-types';
 import {
   CheckboxOption,
+  createFilter,
   ModifierList,
   OptionType,
   PopupSelect,
 } from '@atlaskit/select';
 
+import { ConcatenatedMenuList } from './concatenated-menu-list';
 import { columnPickerMessages } from './messages';
 import { ColumnPickerProps } from './types';
 
@@ -112,7 +114,8 @@ export const ColumnPicker = ({
     <PopupSelect
       classNamePrefix={'column-picker-popup'}
       testId={'column-picker-popup'}
-      components={{ Option: CheckboxOption }}
+      components={{ Option: CheckboxOption, MenuList: ConcatenatedMenuList }}
+      filterOption={createFilter({ ignoreAccents: false })}
       options={allOptions}
       value={selectedOptions}
       onOpen={handleOpen}

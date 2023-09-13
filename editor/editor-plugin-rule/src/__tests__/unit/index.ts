@@ -3,8 +3,8 @@ import type {
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   bodiedExtension,
   doc,

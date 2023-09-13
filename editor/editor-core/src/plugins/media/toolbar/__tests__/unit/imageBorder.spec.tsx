@@ -1,11 +1,11 @@
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import {
   media,
-  DocBuilder,
   mediaSingle,
   doc,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { MediaAttributes } from '@atlaskit/adf-schema';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
+import type { MediaAttributes } from '@atlaskit/adf-schema';
 import {
   temporaryFileId,
   testCollectionName,

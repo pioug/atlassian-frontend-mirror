@@ -9,7 +9,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Image } from '@atlaskit/editor-test-helpers/jsdom-fixtures';
 import { fakeMediaProvider } from '@atlaskit/editor-test-helpers/media-provider';
 import randomId from '@atlaskit/editor-test-helpers/random-id';
-import type { RefsNode } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { RefsNode } from '@atlaskit/editor-common/types';
 import {
   mediaSingle,
   media,

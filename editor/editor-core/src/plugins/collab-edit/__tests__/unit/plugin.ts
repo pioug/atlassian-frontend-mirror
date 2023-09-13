@@ -1,5 +1,5 @@
 import type { CollabEditProvider } from '@atlaskit/editor-common/collab';
-import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { nextTick } from '@atlaskit/editor-test-helpers/next-tick';

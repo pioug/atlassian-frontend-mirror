@@ -1,5 +1,6 @@
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import { doc, DocBuilder, p } from '@atlaskit/editor-test-helpers/doc-builder';
+import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 
 import { createParagraphAtEnd } from '../../index';
 describe('Editor commands', () => {

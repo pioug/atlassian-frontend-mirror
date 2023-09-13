@@ -2,11 +2,11 @@ import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor
 import {
   dataConsumer,
   doc,
-  DocBuilder,
   extension,
   fragmentMark,
   p,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 
 import { getSelectedExtension } from '../../../../plugins/extension/utils';
 import { removeDescendantNodes } from '../../../../plugins/extension/commands';

@@ -1,6 +1,6 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import fetchMock from 'fetch-mock/cjs/client';
-import { mockedAvailableSitesResult } from './__fixtures__/available-sites-result';
+import { mockedAvailableSitesResult } from './available-sites-result';
 
 export const mockAvailableSites = () => {
   const fetchAvailableSiteEndpoint = /\/gateway\/api\/available-sites/;

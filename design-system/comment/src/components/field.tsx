@@ -59,9 +59,16 @@ const Field: FC<CommentFieldProps> = ({
       {children}
     </a>
   ) : (
-    // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
     <span
       css={[textStyles, hasAuthor && hasAuthorStyles]}
+      /**
+       * It is not normally acceptable to add key handlers to non-interactive elements
+       * as this is an accessibility anti-pattern. However, because this instance is
+       * to add support for analtyics instead of creating an inaccessible
+       * custom element, we can add role="presentation" so that there are no negative
+       * impacts to assistive technologies.
+       */
+      role="presentation"
       onClick={onClick}
       onFocus={onFocus}
       onMouseOver={onMouseOver}

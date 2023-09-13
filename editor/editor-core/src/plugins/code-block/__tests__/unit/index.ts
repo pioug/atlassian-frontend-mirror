@@ -2,7 +2,7 @@ import { createIntl } from 'react-intl-next';
 import type { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { isNodeSelection } from '@atlaskit/editor-prosemirror/utils';
-import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import {
   code_block,
   doc,

@@ -1,4 +1,4 @@
-import { Provider as CollabProvider } from '@atlaskit/collab-provider';
+import type { Provider as CollabProvider } from '@atlaskit/collab-provider';
 import {
   EditorActions,
   EventDispatcher,
@@ -6,19 +6,20 @@ import {
   insertDate,
   dateToDateType,
 } from '@atlaskit/editor-core';
-import { DocBuilder, doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
+import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { createProsemirrorEditorFactory } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
-import { EditorViewWithComposition } from '../../../../types';
+import type { EditorViewWithComposition } from '../../../../types';
 import MobileEditorConfiguration from '../../../editor-configuration';
-import NativeBridge from '../../../web-to-native/bridge';
+import type NativeBridge from '../../../web-to-native/bridge';
 import WebBridgeImpl, {
   MediaBridge,
   defaultSetList,
 } from '../../implementation';
 import * as BridgeUtils from '../../../../utils/bridge';
-import { JSONDocNode } from '@atlaskit/editor-json-transformer';
-import { TypeAheadHandler } from '@atlaskit/editor-core/src/plugins/type-ahead/types';
+import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
+import type { TypeAheadHandler } from '@atlaskit/editor-core/src/plugins/type-ahead/types';
 import { getEmptyADF } from '@atlaskit/adf-utils/empty-adf';
 import * as crossPlatformPromise from '../../../../cross-platform-promise';
 import { flushPromises } from '../../../../__tests__/__helpers/_flush-promises';

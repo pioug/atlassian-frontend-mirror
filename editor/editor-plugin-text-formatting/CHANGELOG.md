@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-text-formatting
 
+## 0.4.5
+
+### Patch Changes
+
+- [`37c62369dae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/37c62369dae) - NO-ISSUE Import doc builder types from editor-common
+
+## 0.4.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.4.3
 
 ### Patch Changes

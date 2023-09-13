@@ -4,12 +4,12 @@ import { screen } from '@testing-library/dom';
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import {
   a,
   blockCard,
   doc,
-  DocBuilder,
   inlineCard,
   li,
   p,
@@ -25,10 +25,8 @@ import {
   setSelectedCardAppearance,
 } from '../../pm-plugins/doc';
 import { pluginKey } from '../../pm-plugins/main';
-import {
-  LinkToolbarAppearance,
-  LinkToolbarAppearanceProps,
-} from '../LinkToolbarAppearance';
+import type { LinkToolbarAppearanceProps } from '../LinkToolbarAppearance';
+import { LinkToolbarAppearance } from '../LinkToolbarAppearance';
 
 import {
   cardContext,

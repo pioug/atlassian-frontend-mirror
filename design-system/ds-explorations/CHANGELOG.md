@@ -1,5 +1,13 @@
 # @atlaskit/ds-explorations
 
+## 2.3.0
+
+### Minor Changes
+
+- [`933fd5192d6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/933fd5192d6) - - Removes UNSAFE_Box component.
+  - Removes UNSAFE_Inline component.
+  - Removes UNSAFE_Stack component.
+
 ## 2.2.15
 
 ### Patch Changes

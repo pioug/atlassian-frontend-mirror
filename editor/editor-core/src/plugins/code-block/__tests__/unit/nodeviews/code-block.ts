@@ -1,5 +1,5 @@
 import createStub from 'raf-stub';
-import type { RefsNode } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { RefsNode } from '@atlaskit/editor-common/types';
 import { code_block, doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {

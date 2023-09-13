@@ -2,10 +2,11 @@ import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 import randomId from '@atlaskit/editor-test-helpers/random-id';
-import { doc, p, DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 
 import { stateKey as mediaPluginKey } from '../../../../plugins/media/pm-plugins/main';
-import { MediaPluginState } from '../../../../plugins/media/pm-plugins/types';
+import type { MediaPluginState } from '../../../../plugins/media/pm-plugins/types';
 
 const testCollectionName = `media-plugin-mock-collection-${randomId()}`;
 

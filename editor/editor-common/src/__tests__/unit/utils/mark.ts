@@ -1,6 +1,5 @@
 import { uuid } from '@atlaskit/adf-schema';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   code,
   doc,
@@ -23,6 +22,7 @@ import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 
 import { toggleMark } from '../../../mark';
 import { ProviderFactory } from '../../../provider-factory';
+import type { DocBuilder } from '../../../types';
 
 const TABLE_LOCAL_ID = 'test-table-local-id';
 

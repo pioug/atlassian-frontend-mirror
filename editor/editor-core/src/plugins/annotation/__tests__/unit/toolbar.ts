@@ -1,6 +1,6 @@
 import { getPluginState, inlineCommentPluginKey } from './../../utils';
 import { createIntl } from 'react-intl-next';
-import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import {
   doc,
   emoji,

@@ -1,10 +1,11 @@
 import { uuid } from '@atlaskit/adf-schema';
-import {
+import type {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import { doc, p, DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { compareSelection } from '@atlaskit/editor-test-helpers/selection';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { MockMentionResource } from '@atlaskit/util-data-test/mock-mention-resource';

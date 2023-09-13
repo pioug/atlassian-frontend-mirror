@@ -83,6 +83,59 @@ const getDefaultHookState: () => DatasourceTableState = () => ({
   extensionKey: 'jira-object-provider',
 });
 
+const getSingleIssueHookState: () => DatasourceTableState = () => ({
+  ...getDefaultHookState(),
+  responseItems: [
+    {
+      key: {
+        data: { url: 'https://product-fabric.atlassian.net/browse/EDM-5941' },
+      },
+    },
+  ],
+  totalCount: 1,
+});
+
+const getUnauthorisedHookState: () => DatasourceTableState = () => ({
+  columns: [],
+  status: 'empty',
+  responseItems: [],
+  hasNextPage: true,
+  defaultVisibleColumnKeys: [],
+  onNextPage: jest.fn(),
+  loadDatasourceDetails: jest.fn(),
+  reset: jest.fn(),
+  totalCount: undefined,
+  destinationObjectTypes: [],
+  extensionKey: undefined,
+});
+
+const getEmptyHookState: () => DatasourceTableState = () => ({
+  columns: [],
+  status: 'empty',
+  responseItems: [],
+  hasNextPage: true,
+  defaultVisibleColumnKeys: [],
+  onNextPage: jest.fn(),
+  loadDatasourceDetails: jest.fn(),
+  reset: jest.fn(),
+  totalCount: undefined,
+  destinationObjectTypes: [],
+  extensionKey: undefined,
+});
+
+const getLoadingHookState: () => DatasourceTableState = () => ({
+  columns: [],
+  status: 'loading',
+  responseItems: [],
+  hasNextPage: true,
+  defaultVisibleColumnKeys: [],
+  onNextPage: jest.fn(),
+  loadDatasourceDetails: jest.fn(),
+  reset: jest.fn(),
+  destinationObjectTypes: ['issue'],
+  extensionKey: 'jira-object-provider',
+});
+
 const getErrorHookState: () => DatasourceTableState = () => ({
   columns: [],
   status: 'rejected',
@@ -264,44 +317,6 @@ const setup = async (
 };
 
 describe('JiraIssuesConfigModal', () => {
-  const getSingleIssueHookState: () => DatasourceTableState = () => ({
-    ...getDefaultHookState(),
-    responseItems: [
-      {
-        key: {
-          data: { url: 'https://product-fabric.atlassian.net/browse/EDM-5941' },
-        },
-      },
-    ],
-  });
-
-  const getEmptyHookState: () => DatasourceTableState = () => ({
-    columns: [],
-    status: 'empty',
-    responseItems: [],
-    hasNextPage: true,
-    defaultVisibleColumnKeys: [],
-    onNextPage: jest.fn(),
-    loadDatasourceDetails: jest.fn(),
-    reset: jest.fn(),
-    totalCount: undefined,
-    destinationObjectTypes: [],
-    extensionKey: undefined,
-  });
-
-  const getLoadingHookState: () => DatasourceTableState = () => ({
-    columns: [],
-    status: 'loading',
-    responseItems: [],
-    hasNextPage: true,
-    defaultVisibleColumnKeys: [],
-    onNextPage: jest.fn(),
-    loadDatasourceDetails: jest.fn(),
-    reset: jest.fn(),
-    destinationObjectTypes: ['issue'],
-    extensionKey: 'jira-object-provider',
-  });
-
   beforeEach(() => {
     jest.clearAllMocks();
   });
@@ -1470,5 +1485,200 @@ describe('Analytics: JiraIssuesConfigModal', () => {
         );
       });
     });
+  });
+
+  it('should fire "ui.link.viewed.singleItem" event once when a single issue is viewed', async () => {
+    const hookstate = getSingleIssueHookState();
+    const { onAnalyticFireEvent } = await setup({
+      hookState: hookstate,
+    });
+
+    expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+      {
+        payload: {
+          eventType: 'ui',
+          actionSubject: 'link',
+          action: 'viewed',
+          actionSubjectId: 'singleItem',
+          attributes: {
+            destinationObjectTypes: ['issue'],
+            searchMethod: null,
+            extensionKey: 'jira-object-provider',
+          },
+        },
+        context: [
+          {
+            packageName: '@atlaskit/fabric',
+            packageVersion: '0.0.0',
+            source: 'datasourceConfigModal',
+            attributes: { dataProvider: 'jira-issues' },
+          },
+        ],
+      },
+      EVENT_CHANNEL,
+    );
+  });
+
+  it('should not fire "ui.link.viewed.singleItem" when status is unauthorized', async () => {
+    const hookstate = getUnauthorisedHookState();
+    const { onAnalyticFireEvent } = await setup({
+      hookState: hookstate,
+    });
+
+    expect(onAnalyticFireEvent).not.toBeFiredWithAnalyticEventOnce(
+      {
+        payload: {
+          eventType: 'ui',
+          actionSubject: 'link',
+          action: 'viewed',
+          actionSubjectId: 'singleItem',
+          attributes: {
+            destinationObjectTypes: ['issue'],
+            searchMethod: null,
+            extensionKey: 'jira-object-provider',
+          },
+        },
+        context: [
+          {
+            packageName: '@atlaskit/fabric',
+            packageVersion: '0.0.0',
+            source: 'datasourceConfigModal',
+            attributes: { dataProvider: 'jira-issues' },
+          },
+        ],
+      },
+      EVENT_CHANNEL,
+    );
+  });
+
+  it('should not fire "ui.link.viewed.singleItem" when status is empty', async () => {
+    const hookstate = getEmptyHookState();
+    const { onAnalyticFireEvent } = await setup({
+      hookState: hookstate,
+    });
+
+    expect(onAnalyticFireEvent).not.toBeFiredWithAnalyticEventOnce(
+      {
+        payload: {
+          eventType: 'ui',
+          actionSubject: 'link',
+          action: 'viewed',
+          actionSubjectId: 'singleItem',
+          attributes: {
+            destinationObjectTypes: ['issue'],
+            searchMethod: null,
+            extensionKey: 'jira-object-provider',
+          },
+        },
+        context: [
+          {
+            packageName: '@atlaskit/fabric',
+            packageVersion: '0.0.0',
+            source: 'datasourceConfigModal',
+            attributes: { dataProvider: 'jira-issues' },
+          },
+        ],
+      },
+      EVENT_CHANNEL,
+    );
+  });
+
+  it('should fire "ui.link.viewed.count" event once when a issue count viewed', async () => {
+    const { getByLabelText, onAnalyticFireEvent } = await setup();
+
+    getByLabelText('Count view').click();
+    expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+      {
+        payload: {
+          eventType: 'ui',
+          actionSubject: 'link',
+          action: 'viewed',
+          actionSubjectId: 'count',
+          attributes: {
+            destinationObjectTypes: ['issue'],
+            searchMethod: null,
+            totalItemCount: 3,
+            extensionKey: 'jira-object-provider',
+          },
+        },
+        context: [
+          {
+            packageName: '@atlaskit/fabric',
+            packageVersion: '0.0.0',
+            source: 'datasourceConfigModal',
+            attributes: { dataProvider: 'jira-issues' },
+          },
+        ],
+      },
+      EVENT_CHANNEL,
+    );
+  });
+
+  it('should not fire "ui.link.viewed.count" when status is unauthorized', async () => {
+    const hookstate = getUnauthorisedHookState();
+    const { getByLabelText, onAnalyticFireEvent } = await setup({
+      hookState: hookstate,
+    });
+
+    getByLabelText('Count view').click();
+    expect(onAnalyticFireEvent).not.toBeFiredWithAnalyticEventOnce(
+      {
+        payload: {
+          eventType: 'ui',
+          actionSubject: 'link',
+          action: 'viewed',
+          actionSubjectId: 'count',
+          attributes: {
+            destinationObjectTypes: ['issue'],
+            searchMethod: null,
+            totalItemCount: 3,
+            extensionKey: 'jira-object-provider',
+          },
+        },
+        context: [
+          {
+            packageName: '@atlaskit/fabric',
+            packageVersion: '0.0.0',
+            source: 'datasourceConfigModal',
+            attributes: { dataProvider: 'jira-issues' },
+          },
+        ],
+      },
+      EVENT_CHANNEL,
+    );
+  });
+
+  it('should not fire "ui.link.viewed.count" when status is empty', async () => {
+    const hookstate = getEmptyHookState();
+    const { getByLabelText, onAnalyticFireEvent } = await setup({
+      hookState: hookstate,
+    });
+
+    getByLabelText('Count view').click();
+    expect(onAnalyticFireEvent).not.toBeFiredWithAnalyticEventOnce(
+      {
+        payload: {
+          eventType: 'ui',
+          actionSubject: 'link',
+          action: 'viewed',
+          actionSubjectId: 'count',
+          attributes: {
+            destinationObjectTypes: ['issue'],
+            searchMethod: null,
+            totalItemCount: 3,
+            extensionKey: 'jira-object-provider',
+          },
+        },
+        context: [
+          {
+            packageName: '@atlaskit/fabric',
+            packageVersion: '0.0.0',
+            source: 'datasourceConfigModal',
+            attributes: { dataProvider: 'jira-issues' },
+          },
+        ],
+      },
+      EVENT_CHANNEL,
+    );
   });
 });

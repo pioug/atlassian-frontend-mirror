@@ -91,6 +91,7 @@ const renderScaleDownColgroup = (
     renderWidth,
     tableNode,
     rendererAppearance,
+    isInsideOfBlockNode,
   } = props;
 
   if (!columnWidths) {
@@ -109,7 +110,11 @@ const renderScaleDownColgroup = (
     tableContainerWidth = getTableLayoutWidth(layout);
   }
 
-  if (isTableResizingEnabled(rendererAppearance) && !tableResized) {
+  if (
+    isTableResizingEnabled(rendererAppearance) &&
+    !isInsideOfBlockNode &&
+    !tableResized
+  ) {
     if (
       getBooleanFF(
         'platform.editor.custom-table-width-scale-down-undefined-column_nkyvx',
@@ -117,10 +122,12 @@ const renderScaleDownColgroup = (
     ) {
       // for tables with no column widths defined, assume that the real table width
       // is defined by node.attrs.width
-      const tableWidth = isNumberColumnEnabled
-        ? tableContainerWidth - akEditorTableNumberColumnWidth
-        : tableContainerWidth;
-      const defaultColumnWidth = Math.floor(tableWidth / noOfColumns);
+      const tableWidth =
+        (isNumberColumnEnabled
+          ? tableContainerWidth - akEditorTableNumberColumnWidth
+          : tableContainerWidth) - 1;
+
+      const defaultColumnWidth = tableWidth / noOfColumns;
       targetWidths = new Array(noOfColumns).fill(defaultColumnWidth);
     } else {
       return new Array(noOfColumns).fill({

@@ -11,8 +11,8 @@ import {
   td,
   underline,
   strong,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import schema from '@atlaskit/editor-test-helpers/schema';
 import { getDocStructure } from '../../../utils/document-logger';
 

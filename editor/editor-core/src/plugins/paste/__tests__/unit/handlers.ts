@@ -2,7 +2,7 @@ import { Slice } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { MediaADFAttrs } from '@atlaskit/adf-schema';
-import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import {
   doc,
   p,

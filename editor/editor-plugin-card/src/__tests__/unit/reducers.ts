@@ -1,10 +1,11 @@
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { cardProvider } from '@atlaskit/editor-test-helpers/card-provider';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import { doc, DocBuilder, p } from '@atlaskit/editor-test-helpers/doc-builder';
+import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import { pluginKey } from '../../pm-plugins/main';
 import reduce from '../../pm-plugins/reducers';
-import { CardPluginState } from '../../types';
+import type { CardPluginState } from '../../types';
 
 import { createCardRequest } from './_helpers';
 

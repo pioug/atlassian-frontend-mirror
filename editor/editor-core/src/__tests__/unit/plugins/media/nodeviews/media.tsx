@@ -2,6 +2,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import type { NumericalCardDimensions } from '@atlaskit/media-card';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { media, border } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   defaultSchema,
@@ -13,6 +14,7 @@ import type { MediaFeatureFlags } from '@atlaskit/media-common';
 import Media from '../../../../../plugins/media/nodeviews/mediaNodeView/media';
 import { stateKey as mediaStateKey } from '../../../../../plugins/media/pm-plugins/main';
 import type { MediaPluginState } from '../../../../../plugins/media/pm-plugins/types';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { fakeMediaProvider } from '@atlaskit/editor-test-helpers/media-provider';
 import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
 import type { ProsemirrorGetPosHandler } from '../../../../../nodeviews/types';

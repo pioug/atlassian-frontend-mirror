@@ -47,6 +47,7 @@ jest.mock('../../document/catchup', () => {
 
 jest.mock('lodash/throttle', () => jest.fn((fn) => fn));
 
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { nextTick } from '@atlaskit/editor-test-helpers/next-tick';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';

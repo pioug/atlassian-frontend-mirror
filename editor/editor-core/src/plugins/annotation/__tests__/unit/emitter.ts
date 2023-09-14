@@ -1,8 +1,10 @@
 import { RESOLVE_METHOD } from './../../../analytics/types/inline-comment-events';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { DocBuilder } from '@atlaskit/editor-common/types';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { doc, p, annotation } from '@atlaskit/editor-test-helpers/doc-builder';
 import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   createProsemirrorEditorFactory,
   Preset,
@@ -11,6 +13,7 @@ import { AnnotationTypes } from '@atlaskit/adf-schema';
 import { inlineCommentPluginKey, getPluginState } from '../../utils';
 import { inlineCommentProvider } from '../_utils';
 import annotationPlugin, { AnnotationUpdateEmitter } from '../..';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
 import deprecatedAnalyticsPlugin from '../../../analytics/plugin';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';

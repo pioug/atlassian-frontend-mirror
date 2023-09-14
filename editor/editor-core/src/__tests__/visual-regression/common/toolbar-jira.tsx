@@ -1,9 +1,10 @@
+/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
 import {
   snapshot,
   initEditorWithAdf,
   Appearance,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { VIEWPORT_SIZES } from '@atlaskit/editor-shared-styles';
 import {
   mainToolbarSelector,
@@ -11,6 +12,7 @@ import {
   ToolbarMenuItem,
 } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 import { timeouts } from '@atlaskit/editor-test-helpers/page-objects/editor';
+/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
 
 describe('Toolbar: Jira configurarion', () => {
   let page: PuppeteerPage;

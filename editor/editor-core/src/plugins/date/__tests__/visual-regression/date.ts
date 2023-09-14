@@ -1,25 +1,30 @@
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   Appearance,
   initEditorWithAdf,
   snapshot,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import adf from './__fixtures__/date-adf.json';
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   clickOnDate,
   dateSelectors,
   waitForDatePicker,
   waitForNoDatePicker,
 } from '@atlaskit/editor-test-helpers/page-objects/date';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   pressKey,
   pressKeyCombo,
 } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   animationFrame,
   typeInEditorAtEndOfDocument,
   selectors,
 } from '@atlaskit/editor-test-helpers/page-objects/editor';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { quickInsert } from '@atlaskit/editor-test-helpers/page-objects/extensions';
 import { standardDateMockMillisUnixTime } from '@atlaskit/visual-regression/helper/mock-date';
 import { THEME_MODES } from '@atlaskit/theme/constants';

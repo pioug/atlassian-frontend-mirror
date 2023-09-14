@@ -1,16 +1,20 @@
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { EditorTestCardProvider } from '@atlaskit/editor-test-helpers/card-provider';
 import { waitForResolvedInlineCard } from '@atlaskit/media-integration-test-helpers';
 
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   snapshot,
   initEditorWithAdf,
   Appearance,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   tableSelectors,
   clickFirstCell,
 } from '@atlaskit/editor-test-helpers/page-objects/table';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { animationFrame } from '@atlaskit/editor-test-helpers/page-objects/editor';
 import adf from './__fixtures__/nested-elements.adf.json';
 

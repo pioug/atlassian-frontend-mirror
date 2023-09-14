@@ -14,6 +14,7 @@ import TableRow from '../../../../react/nodes/tableRow';
 import { Context as SmartCardStorageContext } from '../../../../ui/SmartCardStorage';
 import type { RendererAppearance } from '../../../../ui/Renderer/types';
 import { SortOrder } from '@atlaskit/editor-common/types';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { shadowObserverClassNames } from '@atlaskit/editor-common/ui';
 import { ffTest } from '@atlassian/feature-flags-test-utils';

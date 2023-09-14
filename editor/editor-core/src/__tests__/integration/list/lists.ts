@@ -1,6 +1,7 @@
 import { Node } from '@atlaskit/editor-prosemirror/model';
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import type Page from '@atlaskit/webdriver-runner/wd-wrapper';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   getDocFromElement,
   fullpage,
@@ -10,16 +11,20 @@ import {
   setProseMirrorTextSelection,
   animationFrame,
 } from '@atlaskit/editor-test-helpers/integration/helpers';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   goToEditorTestingWDExample,
   mountEditor,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { KEY } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
 
 import floatsAdf from './__fixtures__/lists-adjacent-floats.adf.json';
 import listsAdf from './__fixtures__/lists-indentation-paragraphs.json';
 import listInTableAdf from './__fixtures__/list-in-table-adf.json';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import sampleSchema from '@atlaskit/editor-test-helpers/schema';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { clickFirstCell } from '@atlaskit/editor-test-helpers/page-objects/table';
 
 const PM_FOCUS_SELECTOR = '.ProseMirror-focused';

@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { MockIntersectionObserver } from '@atlaskit/editor-test-helpers/mock-intersection-observer';
 
 import { OverflowShadowsObserver } from '../../../plugins/table/nodeviews/OverflowShadowsObserver';

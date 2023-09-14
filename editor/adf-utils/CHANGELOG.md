@@ -1,5 +1,11 @@
 # @atlaskit/adf-utils
 
+## 19.0.8
+
+### Patch Changes
+
+- [`02417310e08`](https://bitbucket.org/atlassian/atlassian-frontend/commits/02417310e08) - Fix broken generate:spec in adf-utils
+
 ## 19.0.7
 
 ### Patch Changes

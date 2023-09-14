@@ -1,14 +1,17 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   getDocFromElement,
   editable,
 } from '@atlaskit/editor-test-helpers/integration/helpers';
-import { EditorAppearance } from '../../../../types';
+import type { EditorAppearance } from '../../../../types';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   mountEditor,
   goToEditorTestingWDExample,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
 import { messages } from '@atlaskit/editor-plugin-block-type/messages';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { codeBlockSelectors } from '@atlaskit/editor-test-helpers/page-objects/code-block';
 
 const floatingToolbarLanguageSelector = 'div[aria-label="Floating Toolbar"]';

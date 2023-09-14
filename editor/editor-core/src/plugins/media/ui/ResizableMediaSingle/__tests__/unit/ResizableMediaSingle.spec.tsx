@@ -5,11 +5,13 @@ import type {
   LightEditorPlugin,
   CreatePMEditorOptions,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   createProsemirrorEditorFactory,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   doc,
   p,
@@ -64,6 +66,8 @@ import { Resizer } from '@atlaskit/editor-common/ui';
 import layoutPlugin from '../../../../../../plugins/layout';
 import mediaPlugin from '../../../../../../plugins/media';
 import floatingToolbarPlugin from '../../../../../../plugins/floating-toolbar';
+import captionPlugin from '../../../../../../plugins/caption';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 
 import { editorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
@@ -94,9 +98,11 @@ const defaultDocument: CreatePMEditorOptions['doc'] = doc(
 
 const getEditorView = (document: CreatePMEditorOptions['doc']) => {
   const createEditor = createProsemirrorEditorFactory();
+  const createAnalyticsEvent = jest.fn();
 
   const preset = new Preset<LightEditorPlugin>()
     .add([featureFlagsPlugin, {}])
+    .add([analyticsPlugin, { createAnalyticsEvent }])
     .add(decorationsPlugin)
     .add(widthPlugin)
     .add(guidelinePlugin)
@@ -105,7 +111,8 @@ const getEditorView = (document: CreatePMEditorOptions['doc']) => {
     .add(floatingToolbarPlugin)
     .add(focusPlugin)
     .add([mediaPlugin, { allowMediaSingle: true }])
-    .add(layoutPlugin);
+    .add(layoutPlugin)
+    .add(captionPlugin);
 
   const mediaProvider = Promise.resolve({
     viewMediaClientConfig: getDefaultMediaClientConfig(),

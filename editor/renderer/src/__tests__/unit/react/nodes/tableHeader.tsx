@@ -1,8 +1,8 @@
 import React from 'react';
+import type { CellWithSortingProps } from '../../../../react/nodes/tableCell';
 import {
   TableHeader,
   withSortableColumn,
-  CellWithSortingProps,
 } from '../../../../react/nodes/tableCell';
 import { MODE, PLATFORM } from '../../../../analytics/events';
 import {
@@ -12,6 +12,7 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import { RendererCssClassName } from '../../../../consts';
 import { SortOrder } from '@atlaskit/editor-common/types';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 
 const MOCK_SORTING_ICON_ID = 'mock-sort-icon';

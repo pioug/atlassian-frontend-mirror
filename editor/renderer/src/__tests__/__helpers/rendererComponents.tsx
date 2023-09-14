@@ -4,16 +4,18 @@ import { SmartCardProvider, CardClient } from '@atlaskit/link-provider';
 import { mockDatasourceFetchRequests } from '@atlaskit/link-test-helpers/datasource';
 
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { fakeMediaProvider } from '@atlaskit/editor-test-helpers/media-provider';
 import pixelWidthMedia from '../__fixtures__/media-pixel-size.adf.json';
 import pixelWidthMediaNested from '../__fixtures__/media-pixel-size-nested.adf.json';
 import datasourceWithRichtext from '../__fixtures__/datasource-with-richtext.adf.json';
 
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
 import { IntlProvider } from 'react-intl-next';
 import { Renderer } from '../../ui';
-import { RendererProps } from '../..';
+import type { RendererProps } from '../..';
 
 const mediaProvider = fakeMediaProvider();
 const contextIdentifierProvider = storyContextIdentifierProviderFactory();
@@ -26,7 +28,7 @@ const defaultBaseRendererProps: Omit<RendererProps, 'document'> = {
   adfStage: 'stage0',
   dataProviders: providerFactory,
   schema: getSchemaBasedOnStage('stage0'),
-  media: { featureFlags: { captions: true }, allowLinking: true },
+  media: { allowLinking: true, allowCaptions: true },
 };
 
 export const generateRendererComponent = (

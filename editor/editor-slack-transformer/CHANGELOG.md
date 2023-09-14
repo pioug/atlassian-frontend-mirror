@@ -1,5 +1,11 @@
 # @atlaskit/editor-slack-transformer
 
+## 3.2.8
+
+### Patch Changes
+
+- [`ec4867e1376`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ec4867e1376) - Removed captions flag and replaced with a new media prop `allowCaptions`. `allowCaptions` is set to `false` by default and products will need to opt in to be able to use captions from now on.
+
 ## 3.2.7
 
 ### Patch Changes

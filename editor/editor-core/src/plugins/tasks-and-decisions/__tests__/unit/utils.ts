@@ -1,6 +1,8 @@
 import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
 
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   decisionItem,
   decisionList,

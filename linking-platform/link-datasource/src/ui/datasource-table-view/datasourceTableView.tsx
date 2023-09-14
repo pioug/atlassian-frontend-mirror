@@ -112,7 +112,7 @@ const DatasourceTableViewWithoutAnalytics = ({
         />
       )}
       <TableFooter
-        issueCount={isDataReady ? totalCount : undefined}
+        itemCount={isDataReady ? totalCount : undefined}
         onRefresh={forcedReset}
         isLoading={!isDataReady || status === 'loading'}
       />

@@ -16,8 +16,11 @@ import { act } from '@testing-library/react';
 import type { ReactWrapper } from 'enzyme';
 import { replaceRaf } from 'raf-stub';
 
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { mockCreateAnalyticsEvent } from '@atlaskit/editor-test-helpers/mock-analytics-next';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { elementBrowserSelectors } from '@atlaskit/editor-test-helpers/page-objects/element-browser';
 
 import { DEVICE_BREAKPOINT_NUMBERS } from '../../../constants';

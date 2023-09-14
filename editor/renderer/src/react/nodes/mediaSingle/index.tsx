@@ -1,12 +1,16 @@
 /** @jsx jsx */
-import { default as React, Fragment, ReactElement } from 'react';
+import type { ReactElement } from 'react';
+import { default as React, Fragment } from 'react';
 import { jsx } from '@emotion/react';
-import { WrappedComponentProps, injectIntl } from 'react-intl-next';
-import {
+import type { WrappedComponentProps } from 'react-intl-next';
+import { injectIntl } from 'react-intl-next';
+import type {
   MediaADFAttrs,
   RichMediaLayout as MediaSingleLayout,
 } from '@atlaskit/adf-schema';
-import { MediaFeatureFlags, getMediaFeatureFlag } from '@atlaskit/media-common';
+import { getMediaFeatureFlag } from '@atlaskit/media-common';
+
+import type { MediaFeatureFlags } from '@atlaskit/media-common';
 import {
   MediaSingle as UIMediaSingle,
   WidthConsumer,
@@ -21,10 +25,10 @@ import {
   akEditorFullWidthLayoutWidth,
   akEditorDefaultLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
-import { AnalyticsEventPayload } from '../../../analytics/events';
+import type { AnalyticsEventPayload } from '../../../analytics/events';
 import { FullPagePadding } from '../../../ui/Renderer/style';
-import { RendererAppearance } from '../../../ui/Renderer/types';
-import { MediaProps } from '../media';
+import type { RendererAppearance } from '../../../ui/Renderer/types';
+import type { MediaProps } from '../media';
 import { uiMediaSingleBaseStyles, uiMediaSingleLayoutStyles } from './styles';
 
 export interface Props {
@@ -37,6 +41,7 @@ export interface Props {
   rendererAppearance: RendererAppearance;
   fireAnalyticsEvent?: (event: AnalyticsEventPayload) => void;
   featureFlags?: MediaFeatureFlags;
+  allowCaptions?: boolean;
 }
 
 const DEFAULT_WIDTH = 250;
@@ -88,8 +93,10 @@ const MediaSingle = (props: Props & WrappedComponentProps) => {
     children,
     width: widthAttr,
     widthType,
+    allowCaptions = false,
   } = props;
   const isCaptionsFlaggedOn = getMediaFeatureFlag('captions', featureFlags);
+  const showCaptions = allowCaptions ? allowCaptions : isCaptionsFlaggedOn;
   const [externalImageDimensions, setExternalImageDimensions] = React.useState({
     width: 0,
     height: 0,
@@ -218,7 +225,7 @@ const MediaSingle = (props: Props & WrappedComponentProps) => {
         fullWidthMode={isFullWidth}
       >
         <Fragment>{mediaComponent}</Fragment>
-        {isCaptionsFlaggedOn && caption}
+        {showCaptions && caption}
       </UIMediaSingle>
     );
   };

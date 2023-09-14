@@ -1,5 +1,17 @@
 # @atlaskit/link-datasource
 
+## 1.1.5
+
+### Patch Changes
+
+- [`cd31900dba6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cd31900dba6) - [ux] Renaming 'issues' to 'items' to be more generic
+
+## 1.1.4
+
+### Patch Changes
+
+- [`067fe62a1dc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/067fe62a1dc) - [ux] Updated logic for site selector to default to current site
+
 ## 1.1.3
 
 ### Patch Changes

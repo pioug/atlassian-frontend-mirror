@@ -7,6 +7,7 @@ import {
   expect,
 } from '@af/editor-libra';
 import { embedCardAdf } from './embed-1-ff-lp-link-picker.spec.ts-fixtures/adf';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { p, a, doc } from '@atlaskit/editor-test-helpers/doc-builder';
 
 test.use({

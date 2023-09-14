@@ -1,11 +1,14 @@
 import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   snapshot,
   initEditorWithAdf,
   Appearance,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { unsupportedNodeSelectors } from '@atlaskit/editor-test-helpers/page-objects/unsupported';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { panelSelectors } from '@atlaskit/editor-test-helpers/page-objects/panel';
 import unsupportedBlockAdf from '../../__fixtures__/unsupported-block-adf.json';
 import unsupportedInlineAdf from '../../__fixtures__/unsupported-inline-adf.json';

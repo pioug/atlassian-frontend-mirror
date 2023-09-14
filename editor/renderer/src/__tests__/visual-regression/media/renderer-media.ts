@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   deviceViewPorts,
   Device,
@@ -20,10 +21,10 @@ import mediaGroupAdf from './__fixtures__/renderer-mediaGroup.adf.json';
 
 import { waitForAllMedia } from '../../__helpers/page-objects/_media';
 import { selectors as rendererSelectors } from '../../__helpers/page-objects/_renderer';
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import type { RendererAppearance } from '../../../ui/Renderer/types';
 import type { MediaOptions } from '../../../types/mediaOptions';
-import { BoundingBox } from 'puppeteer';
+import type { BoundingBox } from 'puppeteer';
 
 const devices = [
   Device.LaptopHiDPI,

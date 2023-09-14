@@ -1,16 +1,20 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   goToEditorTestingWDExample,
   mountEditor,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { codeBlockSelectors } from '@atlaskit/editor-test-helpers/page-objects/code-block';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   fullpage,
   getProsemirrorSelection,
 } from '@atlaskit/editor-test-helpers/integration/helpers';
 
 import { basicCodeBlock } from '../__fixtures__/basic-code-block';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { calcUserDragAndDropFromMidPoint } from '@atlaskit/editor-test-helpers/e2e-helpers';
 
 BrowserTestCase(

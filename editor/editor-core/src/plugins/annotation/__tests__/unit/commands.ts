@@ -3,6 +3,7 @@ import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import type { RefsNode, DocBuilder } from '@atlaskit/editor-common/types';
 import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   doc,
   p,
@@ -10,6 +11,7 @@ import {
   strong,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   createProsemirrorEditorFactory,
   Preset,

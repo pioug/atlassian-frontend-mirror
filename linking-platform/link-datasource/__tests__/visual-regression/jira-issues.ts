@@ -15,7 +15,6 @@ const initialTableState =
 const jiraModal = '[data-testid="jira-jql-datasource-modal"]';
 const jiraModalSiteSelector =
   '[data-testid="jira-jql-datasource-modal--site-selector--trigger"]';
-const datasourceTableView = '[data-testid="datasource-table-view"]';
 const jqlOptionSelector = '[data-testid="mode-toggle-jql"]';
 const jqlEditorInputSelector = '[data-testid="jql-editor-input"]';
 const jqlEditorBasicInputSelector =
@@ -336,32 +335,5 @@ describe('Modal', () => {
     await page.keyboard.press('Escape');
 
     expect(await page.screenshot()).toMatchProdImageSnapshot();
-  });
-});
-
-describe('Jira: IssuesTableView', () => {
-  let page: PuppeteerPage;
-  beforeEach(async () => {
-    page = global.page;
-    const url = getExampleUrl(
-      'linking-platform',
-      'link-datasource',
-      'jira-issues-table',
-      __BASEURL__,
-    );
-
-    await page.setViewport({
-      width: 1350,
-      height: 800,
-    });
-
-    await loadPage(page, url);
-    await page.waitForSelector(datasourceTableView);
-  });
-
-  it('should match the snapshot after loading data', async () => {
-    const image = await page.screenshot();
-
-    expect(image).toMatchProdImageSnapshot();
   });
 });

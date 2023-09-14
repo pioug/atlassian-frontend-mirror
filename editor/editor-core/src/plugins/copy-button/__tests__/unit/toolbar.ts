@@ -1,5 +1,6 @@
 import { processCopyButtonItems } from '../../../copy-button/toolbar';
 import { copyButtonPluginKey } from '../../pm-plugins/plugin-key';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { defaultSchema } from '@atlaskit/editor-test-helpers/schema';
 import { createIntl } from 'react-intl-next';
 import type {

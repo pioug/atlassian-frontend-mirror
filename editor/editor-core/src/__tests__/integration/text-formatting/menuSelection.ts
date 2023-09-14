@@ -1,9 +1,11 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/lib/runner/runner';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   goToEditorTestingWDExample,
   mountEditor,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
-import { BrowserObject } from '@atlaskit/webdriver-runner/wd-wrapper';
+import type { BrowserObject } from '@atlaskit/webdriver-runner/wd-wrapper';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { fullpage } from '@atlaskit/editor-test-helpers/integration/helpers';
 
 const moreFormatting = '[aria-label="More formatting"]';

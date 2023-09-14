@@ -1,11 +1,14 @@
 import createStub from 'raf-stub';
 import type { RefsNode } from '@atlaskit/editor-common/types';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { code_block, doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   createProsemirrorEditorFactory,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import codeBlockPlugin from '../../../';
 import { pluginKey as codeBlockPluginKey } from '../../../plugin-key';

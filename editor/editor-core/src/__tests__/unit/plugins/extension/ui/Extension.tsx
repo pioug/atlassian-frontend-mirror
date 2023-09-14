@@ -6,8 +6,11 @@ import type {
   ExtensionParams,
 } from '@atlaskit/editor-common/extensions';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { extensionData } from '@atlaskit/editor-test-helpers/mock-extension-data';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { macroProvider } from '@atlaskit/editor-test-helpers/mock-macro-provider';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createFakeExtensionProvider } from '@atlaskit/editor-test-helpers/extensions';
 
 import Extension from '../../../../../plugins/extension/ui/Extension';

@@ -1,6 +1,7 @@
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import createStub from 'raf-stub';
 import type { DocBuilder } from '@atlaskit/editor-common/types';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { doc, p, em } from '@atlaskit/editor-test-helpers/doc-builder';
 import type {
   CreateUIAnalyticsEvent,
@@ -15,6 +16,7 @@ import {
   getContainerElement,
 } from '../_utils';
 import { getPluginState } from '../../../plugin';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
 
 const containerElement = getContainerElement();

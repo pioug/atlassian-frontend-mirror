@@ -1,5 +1,11 @@
 # @atlaskit/renderer
 
+## 108.12.0
+
+### Minor Changes
+
+- [`ec4867e1376`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ec4867e1376) - Removed captions flag and replaced with a new media prop `allowCaptions`. `allowCaptions` is set to `false` by default and products will need to opt in to be able to use captions from now on.
+
 ## 108.11.18
 
 ### Patch Changes

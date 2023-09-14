@@ -13,7 +13,9 @@ import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { CardProvider } from '@atlaskit/editor-common/provider-factory';
 import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { closeHistory } from '@atlaskit/editor-prosemirror/history';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { a, doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import { queueCards, setProvider } from '../../pm-plugins/actions';

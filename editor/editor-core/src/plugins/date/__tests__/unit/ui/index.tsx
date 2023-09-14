@@ -1,6 +1,7 @@
 import React from 'react';
 import type { RenderResult } from '@testing-library/react';
 import { fireEvent } from '@testing-library/react';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 import DatePicker from '../../../ui/DatePicker';
 import type { WeekDay } from '@atlaskit/calendar/types';

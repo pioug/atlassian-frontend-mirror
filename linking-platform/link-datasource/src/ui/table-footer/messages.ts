@@ -1,10 +1,10 @@
 import { defineMessages } from 'react-intl-next';
 
 export const footerMessages = defineMessages({
-  issueText: {
-    id: 'linkDataSource.table-footer.issue',
-    description: 'Text that appears after issue count number.',
-    defaultMessage: '{issueCount, plural, one {issue} other {issues}}',
+  itemText: {
+    id: 'linkDataSource.table-footer.item',
+    description: 'Text that appears after item count number.',
+    defaultMessage: '{itemCount, plural, one {item} other {items}}',
   },
   loadingText: {
     id: 'linkDataSource.table-footer.loading',

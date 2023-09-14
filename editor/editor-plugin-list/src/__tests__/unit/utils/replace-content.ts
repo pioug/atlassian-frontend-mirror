@@ -1,5 +1,6 @@
 import { moveTargetIntoList } from '@atlaskit/editor-common/lists';
 import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   code_block,
   doc,
@@ -10,7 +11,9 @@ import {
   p,
   //  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import randomId from '@atlaskit/editor-test-helpers/random-id';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 
 describe('plugins/lists/backspace: move content inside lists', () => {

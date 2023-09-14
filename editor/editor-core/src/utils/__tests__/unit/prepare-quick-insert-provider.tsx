@@ -1,7 +1,8 @@
 import React from 'react';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createFakeExtensionProvider } from '@atlaskit/editor-test-helpers/extensions';
 import prepareQuickInsertProvider from '../../prepare-quick-insert-provider';
-import { QuickInsertProvider } from '@atlaskit/editor-common/provider-factory';
+import type { QuickInsertProvider } from '@atlaskit/editor-common/provider-factory';
 import EditorActions from '../../../actions';
 import * as extensionUtils from '../../extensions';
 

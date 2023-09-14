@@ -1,9 +1,12 @@
-import { BrowserObject } from '@atlaskit/webdriver-runner/lib/wrapper/wd-wrapper';
-import { WebDriverPage } from '@atlaskit/editor-test-helpers/integration/types';
+import type { BrowserObject } from '@atlaskit/webdriver-runner/lib/wrapper/wd-wrapper';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import type { WebDriverPage } from '@atlaskit/editor-test-helpers/integration/types';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   goToEditorTestingWDExample,
   mountEditor,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { fullpage } from '@atlaskit/editor-test-helpers/integration/helpers';
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/lib/runner/runner';
 import mentionDoc from './__fixtures__/mention.json';

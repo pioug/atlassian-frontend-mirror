@@ -1,13 +1,15 @@
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   fullpage,
   tableSelectors,
 } from '@atlaskit/editor-test-helpers/integration/helpers';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   goToEditorTestingWDExample,
   mountEditor,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
-import WebdriverPage from '@atlaskit/webdriver-runner/wd-wrapper';
+import type WebdriverPage from '@atlaskit/webdriver-runner/wd-wrapper';
 
 import stickyTable from './__fixtures__/large-table-with-sticky-header';
 

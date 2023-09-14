@@ -13,17 +13,22 @@ import type {
 import { combineExtensionProviders } from '@atlaskit/editor-common/extensions';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { REACT_INTL_ERROR_MESSAGE } from '@atlaskit/editor-common/ui';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   inlineExtensionData,
   bodiedExtensionData,
 } from '@atlaskit/editor-test-helpers/mock-extension-data';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   macroProvider,
   MockMacroProvider,
 } from '@atlaskit/editor-test-helpers/mock-macro-provider';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import randomId from '@atlaskit/editor-test-helpers/random-id';
 import type { DocBuilder } from '@atlaskit/editor-common/types';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   doc,
   p as paragraph,
@@ -36,7 +41,9 @@ import {
   underline,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createFakeExtensionProvider } from '@atlaskit/editor-test-helpers/extensions';
 
 import { editExtension } from '../../../../plugins/extension/actions';
@@ -47,6 +54,7 @@ import {
 import { getPluginState } from '../../../../plugins/extension/pm-plugins/main';
 import { getSelectedExtension } from '../../../../plugins/extension/utils';
 import { setNodeSelection } from '../../../../utils';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   waitForProvider,
   flushPromises,

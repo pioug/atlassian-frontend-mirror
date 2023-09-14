@@ -1,5 +1,29 @@
 # @atlaskit/editor-common
 
+## 75.0.6
+
+### Patch Changes
+
+- [`4549a57cc67`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4549a57cc67) - Remove unused leftover API - shouldAllowMultilineItems
+
+## 75.0.5
+
+### Patch Changes
+
+- [`12843a6f104`](https://bitbucket.org/atlassian/atlassian-frontend/commits/12843a6f104) - ED-19617 - Initial creation of editor-plugin-copy-button package
+
+## 75.0.4
+
+### Patch Changes
+
+- [`aa106a614df`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aa106a614df) - Dummy change to test CI pipeline
+
+## 75.0.3
+
+### Patch Changes
+
+- [`ec4867e1376`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ec4867e1376) - Removed captions flag and replaced with a new media prop `allowCaptions`. `allowCaptions` is set to `false` by default and products will need to opt in to be able to use captions from now on.
+
 ## 75.0.2
 
 ### Patch Changes

@@ -1,12 +1,16 @@
-import React, { RefObject } from 'react';
+import type { RefObject } from 'react';
+import React from 'react';
 
 import { shallow } from 'enzyme';
 import { Resizable } from 're-resizable';
 
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 
-import Resizer, { ResizableNumberSize, ResizerProps } from '../../index';
+import type { ResizableNumberSize, ResizerProps } from '../../index';
+import Resizer from '../../index';
 
 describe('<Resizer />', () => {
   const setup = (props: Partial<ResizerProps> = {}) => {

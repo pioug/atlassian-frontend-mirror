@@ -1,12 +1,15 @@
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   initFullPageEditorWithAdf,
   snapshot,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { getBoundingClientRect } from '@atlaskit/editor-test-helpers/vr-utils/bounding-client-rect';
 import * as panel from './__fixtures__/panel-adf.json';
 import * as basicPanel from './__fixtures__/basic-panel-adf.json';
 import * as customPanel from './__fixtures__/custom-panel-adf.json';
 import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   waitForFloatingControl,
   retryUntilStablePosition,
@@ -15,8 +18,11 @@ import {
   PanelSharedCssClassName,
   PanelSharedSelectors,
 } from '@atlaskit/editor-common/panel';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { panelSelectors } from '@atlaskit/editor-test-helpers/page-objects/panel';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { waitForEmojisToLoad } from '@atlaskit/editor-test-helpers/page-objects/emoji';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   pressKey,
   pressWithKeyModifier,

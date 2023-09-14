@@ -1,5 +1,7 @@
 import type { DocBuilder } from '@atlaskit/editor-common/types';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   code_block,
   doc,
@@ -10,6 +12,7 @@ import {
   panel,
   ul,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import sampleSchema from '@atlaskit/editor-test-helpers/schema';
 
 import { indentListItemsSelected } from '../../../actions/indent-list-items-selected';

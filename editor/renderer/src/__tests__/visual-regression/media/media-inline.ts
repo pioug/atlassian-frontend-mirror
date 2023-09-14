@@ -1,4 +1,5 @@
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
 import { snapshot, initRendererWithADF } from '../_utils';
 import type { ADFStage } from '@atlaskit/editor-common/validator';

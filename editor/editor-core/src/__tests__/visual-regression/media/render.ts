@@ -1,10 +1,13 @@
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   snapshot,
   initFullPageEditorWithAdf,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import * as layoutsAndWidths from './__fixtures__/layouts-and-widths-adf.json';
 import * as nestedMedia from './__fixtures__/nested-media.adf.json';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { waitForMediaToBeLoaded } from '@atlaskit/editor-test-helpers/page-objects/media';
 
 describe('Snapshot Test: Media', () => {

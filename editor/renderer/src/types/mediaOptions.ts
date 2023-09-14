@@ -1,5 +1,5 @@
-import { MediaClientConfig } from '@atlaskit/media-core';
-import { MediaFeatureFlags, SSR } from '@atlaskit/media-common';
+import type { MediaClientConfig } from '@atlaskit/media-core';
+import type { MediaFeatureFlags, SSR } from '@atlaskit/media-common';
 
 export type MediaSSR = { mode: SSR; config: MediaClientConfig };
 
@@ -8,4 +8,5 @@ export interface MediaOptions {
   enableDownloadButton?: boolean;
   featureFlags?: MediaFeatureFlags;
   ssr?: MediaSSR;
+  allowCaptions?: boolean;
 }

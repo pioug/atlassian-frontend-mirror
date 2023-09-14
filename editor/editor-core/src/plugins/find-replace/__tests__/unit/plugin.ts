@@ -3,12 +3,16 @@ import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import type { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import createStub from 'raf-stub';
 import type { DocBuilder } from '@atlaskit/editor-common/types';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   insertText,
   deleteText,
 } from '@atlaskit/editor-test-helpers/transactions';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import dispatchPasteEvent from '@atlaskit/editor-test-helpers/dispatch-paste-event';
 import { find, findPrevious, replace, replaceAll } from '../../commands';
 import {
@@ -18,6 +22,7 @@ import {
 } from './_utils';
 import { getPluginState } from '../../plugin';
 import { blockTypePlugin } from '@atlaskit/editor-plugin-block-type';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
 
 describe('find/replace plugin', () => {

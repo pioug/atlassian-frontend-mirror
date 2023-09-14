@@ -1,8 +1,11 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import { Node } from '@atlaskit/editor-prosemirror/model';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import sampleSchema from '@atlaskit/editor-test-helpers/schema';
 
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   fullpage,
   quickInsert,
@@ -11,6 +14,7 @@ import {
   getDocFromElement,
   setProseMirrorTextSelection,
 } from '@atlaskit/editor-test-helpers/integration/helpers';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   goToEditorTestingWDExample,
   mountEditor,

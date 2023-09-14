@@ -40,7 +40,9 @@ import cloneDeep from 'lodash/cloneDeep';
 import type { DatasourceAttributeProperties } from '@atlaskit/adf-schema/schema';
 import type { RefsNode } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { datasourceBlockCard } from '@atlaskit/editor-test-helpers/doc-builder';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 
 import { DatasourceComponent } from '../../../nodeviews/datasource';

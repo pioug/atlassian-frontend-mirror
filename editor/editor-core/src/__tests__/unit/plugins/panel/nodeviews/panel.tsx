@@ -2,14 +2,17 @@
 import { shallow, ShallowWrapper } from 'enzyme';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { PanelSharedCssClassName } from '@atlaskit/editor-common/panel';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import { PanelType } from '@atlaskit/adf-schema';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { doc, p, panel } from '@atlaskit/editor-test-helpers/doc-builder';
 import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 import { Emoji } from '@atlaskit/editor-common/emoji';
 import { ResourcedEmoji } from '@atlaskit/emoji/element';
 import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   createProsemirrorEditorFactory,
   Preset,

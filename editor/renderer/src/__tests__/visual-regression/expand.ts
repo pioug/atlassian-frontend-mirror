@@ -1,9 +1,10 @@
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
 import { animationFrame, snapshot, initRendererWithADF } from './_utils';
 import { selectors } from '../__helpers/page-objects/_expand';
 import { expandADF } from '../__fixtures__/expand-adf';
-import { ThemeModes } from '@atlaskit/theme/types';
+import type { ThemeModes } from '@atlaskit/theme/types';
 
 const themes: ThemeModes[] = ['light', 'dark'];
 

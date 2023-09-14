@@ -8,12 +8,16 @@ jest.mock('../../../../../plugins/media/utils/check-media-type', () => ({
 import type { ActivityItem } from '@atlaskit/activity-provider';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { ErrorMessage } from '@atlaskit/editor-common/ui';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { activityProviderFactory } from '@atlaskit/editor-test-helpers/mock-activity-provider';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { mountWithIntl } from '../../../../__helpers/enzyme';
 import { render, fireEvent } from '@testing-library/react';
 import type { DocBuilder } from '@atlaskit/editor-common/types';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   a,
   doc,

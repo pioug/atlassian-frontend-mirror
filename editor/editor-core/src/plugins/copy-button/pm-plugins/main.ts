@@ -2,12 +2,8 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { MarkType } from '@atlaskit/editor-prosemirror/model';
 import type { ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import type { CopyButtonPluginState } from '@atlaskit/editor-plugin-copy-button';
 import { copyButtonPluginKey } from './plugin-key';
-
-type CopyButtonPluginState = {
-  copied: boolean;
-  markSelection?: { start: number; end: number; markType: MarkType };
-};
 
 function getMarkSelectionDecorationStartAndEnd({
   markType,

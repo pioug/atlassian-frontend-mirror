@@ -6,8 +6,13 @@ import { SmartLinkActionType } from '@atlaskit/linking-types/smart-link-actions'
 
 import * as useInvoke from '../../../../../../../state/hooks/use-invoke';
 import * as useResolve from '../../../../../../../state/hooks/use-resolve';
+import { mockAnalytics } from '../../../../../../../utils/mocks';
 import ServerAction from '../index';
 import { ServerActionProps } from '../types';
+
+jest.mock('../../../../../../../state/flexible-ui-context', () => ({
+  useFlexibleUiAnalyticsContext: jest.fn().mockReturnValue(mockAnalytics),
+}));
 
 describe('ServerAction', () => {
   const testId = 'server-action-test-id';
@@ -130,5 +135,68 @@ describe('ServerAction', () => {
     await flushPromises();
 
     expect(mockResolve).not.toHaveBeenCalled();
+  });
+
+  // @see packages/linking-platform/smart-card/src/view/__tests__/analytics/action.test.tsx
+  // for a more comprehensive analytics tests
+  describe('analytics', () => {
+    it('fires analytics events on action success', async () => {
+      const uiSpy = jest.spyOn(
+        mockAnalytics.ui,
+        'smartLinkServerActionClickedEvent',
+      );
+      const trackStartedSpy = jest.spyOn(
+        mockAnalytics.track,
+        'smartLinkQuickActionStarted',
+      );
+      const trackSuccessSpy = jest.spyOn(
+        mockAnalytics.track,
+        'smartLinkQuickActionSuccess',
+      );
+
+      const action = getAction();
+      const { findByTestId } = renderComponent({ action });
+
+      const element = await findByTestId(testId);
+      act(() => {
+        fireEvent.click(element);
+      });
+      await flushPromises();
+
+      expect(uiSpy).toHaveBeenCalled();
+      expect(trackStartedSpy).toHaveBeenCalled();
+      expect(trackSuccessSpy).toHaveBeenCalled();
+    });
+
+    it('fires analytics events on action fails', async () => {
+      const uiSpy = jest.spyOn(
+        mockAnalytics.ui,
+        'smartLinkServerActionClickedEvent',
+      );
+      const trackStartedSpy = jest.spyOn(
+        mockAnalytics.track,
+        'smartLinkQuickActionStarted',
+      );
+      const trackFailedSpy = jest.spyOn(
+        mockAnalytics.track,
+        'smartLinkQuickActionFailed',
+      );
+
+      const action = getAction();
+      const mockInvoke = jest
+        .fn()
+        .mockImplementationOnce(() => Promise.reject());
+      const { findByTestId } = renderComponent({ action }, mockInvoke);
+
+      const element = await findByTestId(testId);
+      act(() => {
+        fireEvent.click(element);
+      });
+      await flushPromises();
+
+      expect(uiSpy).toHaveBeenCalled();
+      expect(trackStartedSpy).toHaveBeenCalled();
+      expect(trackFailedSpy).toHaveBeenCalled();
+    });
   });
 });

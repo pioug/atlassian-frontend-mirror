@@ -5,6 +5,7 @@ import {
   EditorNodeContainerModel,
 } from '@af/editor-libra';
 import { PanelType } from '@atlaskit/adf-schema';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   doc,
   code_block,

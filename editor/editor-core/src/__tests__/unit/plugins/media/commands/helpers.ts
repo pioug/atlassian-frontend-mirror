@@ -1,7 +1,9 @@
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   testMediaSingle,
   testMediaGroup,
 } from '@atlaskit/editor-test-helpers/media-mock';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   doc,
   media,
@@ -13,7 +15,7 @@ import {
   findAllMediaSingleNodes,
 } from '../../../../../plugins/media/commands/helpers';
 import { mediaEditor, testCollectionName } from '../_utils';
-import { MediaPluginState } from '../../../../../plugins/media/pm-plugins/types';
+import type { MediaPluginState } from '../../../../../plugins/media/pm-plugins/types';
 
 const mediaImageSingle = media({
   id: testMediaSingle.id,

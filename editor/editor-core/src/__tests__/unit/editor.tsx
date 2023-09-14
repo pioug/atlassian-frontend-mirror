@@ -48,7 +48,9 @@ import type { RenderResult } from '@testing-library/react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import React from 'react';
 import Editor from '../../editor';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { analyticsClient } from '@atlaskit/editor-test-helpers/analytics-client-mock';
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import FabricAnalyticsListeners from '@atlaskit/analytics-listeners';
@@ -71,6 +73,7 @@ import {
 import type { MediaOptions } from '../..';
 import { EditorActions, EditorContext } from '../..';
 import { asMock } from '@atlaskit/media-test-helpers';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
 import { EditorExperience } from '@atlaskit/editor-common/ufo';
 

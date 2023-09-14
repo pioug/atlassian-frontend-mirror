@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { mockCreateAnalyticsEvent } from '@atlaskit/editor-test-helpers/mock-analytics-next';
 
 import React from 'react';
@@ -17,6 +18,7 @@ import type {
 } from '@atlaskit/editor-common/extensions';
 import SmartUserPicker from '@atlaskit/smart-user-picker';
 
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
 
 import { FieldTypeError, ValidationError } from '../../../ui/ConfigPanel/types';

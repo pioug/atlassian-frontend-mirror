@@ -1951,7 +1951,7 @@ export interface ThemeState {
   // (undocumented)
   shape?: Extract<ThemeIds, 'shape'>;
   // (undocumented)
-  spacing?: Extract<ThemeIds, 'spacing'>;
+  spacing: Extract<ThemeIds, 'spacing'>;
   // (undocumented)
   typography?: Extract<
     ThemeIds,

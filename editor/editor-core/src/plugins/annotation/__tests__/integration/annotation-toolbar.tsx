@@ -1,8 +1,10 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   mountEditor,
   goToEditorTestingWDExample,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   fullpage,
   setProseMirrorTextSelection,
@@ -11,7 +13,7 @@ import {
 import * as paragraphWithEmoji from '../__fixtures__/paragraph-with-emoji.adf.json';
 import * as paragraphADF from '../__fixtures__/paragraph.adf.json';
 import { annotationSelectors } from '../_utils';
-import { BrowserObject } from '@atlaskit/webdriver-runner/wd-wrapper';
+import type { BrowserObject } from '@atlaskit/webdriver-runner/wd-wrapper';
 
 // FIXME: This test was automatically skipped due to failure on 10/06/2023: https://product-fabric.atlassian.net/browse/ED-18763
 BrowserTestCase(

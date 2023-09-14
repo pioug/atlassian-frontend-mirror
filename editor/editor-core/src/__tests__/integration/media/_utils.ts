@@ -1,12 +1,16 @@
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { mountEditor } from '@atlaskit/editor-test-helpers/testing-example-page';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { fullpage } from '@atlaskit/editor-test-helpers/integration/helpers';
+/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
+import type { ResizeMediaSingleResult } from '@atlaskit/editor-test-helpers/page-objects/media';
 import {
-  ResizeMediaSingleResult,
   mediaFileIconSelector,
   mediaImageSelector,
   mediaClickableSelector,
 } from '@atlaskit/editor-test-helpers/page-objects/media';
-import Page from '@atlaskit/webdriver-runner/wd-wrapper';
+/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
+import type Page from '@atlaskit/webdriver-runner/wd-wrapper';
 import { withInRangeMatchers } from './_matchers';
 
 expect.extend(withInRangeMatchers);

@@ -4,7 +4,9 @@ import type {
 } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, Plugin } from '@atlaskit/editor-prosemirror/state';
 
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import { UNSAFE_PROPERTY_SET_ERROR } from '../../../utils/performance/safer-transactions';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../../../plugins/analytics';

@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
 import {
   snapshot,
   initEditorWithAdf,
@@ -25,6 +26,7 @@ import {
   pressKeyCombo,
 } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
 import { waitForNoTooltip } from '@atlaskit/visual-regression/helper';
+/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
 
 async function focusToolbar() {
   await pressKeyCombo(page, ['Alt', 'F10']);

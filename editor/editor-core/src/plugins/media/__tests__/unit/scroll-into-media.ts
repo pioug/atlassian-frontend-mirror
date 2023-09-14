@@ -1,11 +1,14 @@
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { getFreshMediaProvider } from '@atlaskit/editor-test-helpers/media-provider';
 
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { EditorInstanceWithPlugin } from '@atlaskit/editor-test-helpers/create-editor';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import type { RefsNode } from '@atlaskit/editor-common/types';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   doc,
   media,
@@ -29,7 +32,7 @@ describe('media scroll', () => {
         createEditor({
           doc,
           editorProps: {
-            media: { allowMediaSingle: true, featureFlags: { captions: true } },
+            media: { allowMediaSingle: true, allowCaptions: true },
           },
           providerFactory,
         });
@@ -75,7 +78,7 @@ describe('media scroll', () => {
         createEditor({
           doc,
           editorProps: {
-            media: { allowMediaSingle: true, featureFlags: { captions: true } },
+            media: { allowMediaSingle: true, allowCaptions: true },
           },
         });
     });

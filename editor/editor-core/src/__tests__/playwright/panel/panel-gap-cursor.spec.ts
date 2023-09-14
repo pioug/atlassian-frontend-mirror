@@ -6,6 +6,7 @@ import {
   EditorNodeContainerModel,
 } from '@af/editor-libra';
 import { singleInfoPanel } from './__fixtures__/adf-documents-panel';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   doc,
   panel,

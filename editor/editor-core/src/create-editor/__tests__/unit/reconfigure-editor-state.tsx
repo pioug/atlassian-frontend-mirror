@@ -1,5 +1,6 @@
 import React from 'react';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 import ReactEditorView from '../../ReactEditorView';
 import * as FeatureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';

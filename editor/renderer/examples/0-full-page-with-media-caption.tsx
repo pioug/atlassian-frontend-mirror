@@ -1,12 +1,9 @@
 import React from 'react';
 import RendererDemo from './helper/RendererDemo';
-import { MediaOptions } from '@atlaskit/editor-core';
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 import adf from './helper/media-with-caption.adf.json';
 
 const Example = () => {
-  const mediaOptions: MediaOptions = { featureFlags: { captions: true } };
-
   return (
     <RendererDemo
       appearance="full-page"
@@ -16,7 +13,7 @@ const Example = () => {
       useSpecBasedValidator={true}
       adfStage={'stage0'}
       schema={getSchemaBasedOnStage('stage0')}
-      mediaOptions={mediaOptions}
+      mediaOptions={{ allowCaptions: true }}
       document={adf}
     />
   );

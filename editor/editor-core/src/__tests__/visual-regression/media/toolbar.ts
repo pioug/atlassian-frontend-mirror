@@ -1,21 +1,26 @@
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   Appearance,
   initEditorWithAdf,
   snapshot,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   clickMediaInPosition,
   mediaImageSelector,
   waitForActivityItems,
   waitForMediaToBeLoaded,
 } from '@atlaskit/editor-test-helpers/page-objects/media';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { pressKey } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
 import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import mediaSingleVideoAlignmentAdf from './__fixtures__/mediaSingle-video-alignment.adf.json';
 import mediaSingleVideoWrapAdf from './__fixtures__/mediaSingle-video-wrap.adf.json';
 import videoInsideExpandAdf from './__fixtures__/video-inside-expand-toolbar.adf.json';
 import mediaSingleAdf from './__fixtures__/mediaSingle-image.adf.json';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { retryUntilStablePosition } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { scrollToBottom } from '@atlaskit/editor-test-helpers/page-objects/editor';
 
 describe('Snapshot Test: Media', () => {

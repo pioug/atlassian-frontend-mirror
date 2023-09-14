@@ -4,10 +4,13 @@ import {
   TextSelection,
   NodeSelection,
 } from '@atlaskit/editor-prosemirror/state';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import dispatchPasteEvent from '@atlaskit/editor-test-helpers/dispatch-paste-event';
 import { mountWithIntl } from '../../../../__helpers/enzyme';
 import type { DocBuilder } from '@atlaskit/editor-common/types';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { doc, p, status } from '@atlaskit/editor-test-helpers/doc-builder';
 import { Status } from '@atlaskit/status/element';
 import type { ContainerProps } from '../../../../../plugins/status/nodeviews/status';

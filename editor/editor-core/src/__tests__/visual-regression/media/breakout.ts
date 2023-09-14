@@ -1,4 +1,5 @@
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
 import {
   snapshot,
   initEditorWithAdf,
@@ -10,6 +11,7 @@ import {
 } from '@atlaskit/editor-test-helpers/page-objects/media';
 import { insertExpand } from '@atlaskit/editor-test-helpers/page-objects/expand';
 import { toggleBreakout } from '@atlaskit/editor-test-helpers/page-objects/layouts';
+/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
 import adf from './__fixtures__/breakout-nodes-with-media.adf.json';
 
 describe('Snapshot Test: Media inside of breakout nodes', () => {

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-core",
-  "version": "187.42.6",
+  "version": "187.43.3",
   "description": "A package contains Atlassian editor core functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -65,6 +65,7 @@
     "@atlaskit/editor-plugin-composition": "^0.1.0",
     "@atlaskit/editor-plugin-content-insertion": "^0.1.0",
     "@atlaskit/editor-plugin-context-panel": "^0.2.0",
+    "@atlaskit/editor-plugin-copy-button": "^0.1.0",
     "@atlaskit/editor-plugin-decorations": "^0.2.0",
     "@atlaskit/editor-plugin-editor-disabled": "^0.2.0",
     "@atlaskit/editor-plugin-emoji": "^0.3.0",
@@ -109,7 +110,7 @@
     "@atlaskit/radio": "^5.6.0",
     "@atlaskit/section-message": "^6.4.0",
     "@atlaskit/select": "^16.5.0",
-    "@atlaskit/smart-card": "^26.25.0",
+    "@atlaskit/smart-card": "^26.26.0",
     "@atlaskit/smart-user-picker": "^6.3.0",
     "@atlaskit/spinner": "^15.5.0",
     "@atlaskit/status": "^1.3.0",
@@ -167,7 +168,7 @@
     "@atlaskit/media-test-helpers": "^33.0.0",
     "@atlaskit/menu": "^1.10.0",
     "@atlaskit/platform-feature-flags": "^0.2.0",
-    "@atlaskit/renderer": "^108.11.0",
+    "@atlaskit/renderer": "^108.12.0",
     "@atlaskit/section-message": "^6.4.0",
     "@atlaskit/smart-user-picker": "^6.3.0",
     "@atlaskit/synchrony-test-helpers": "^2.3.0",

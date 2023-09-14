@@ -1,6 +1,7 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 import { getExampleUrl } from '@atlaskit/webdriver-runner/utils/example';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { fullpage } from '@atlaskit/editor-test-helpers/integration/helpers';
 
 const fullPageEditor = getExampleUrl('editor', 'editor-core', 'full-page');

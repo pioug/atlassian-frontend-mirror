@@ -1,15 +1,18 @@
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   snapshot,
   initEditorWithAdf,
   Appearance,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { clickEditableContent } from '@atlaskit/editor-test-helpers/page-objects/editor';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   waitForMediaToBeLoaded,
   resizeMediaInPosition,
 } from '@atlaskit/editor-test-helpers/page-objects/media';
 import * as panelList from './__fixtures__/panel-list-adf.json';
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import bulletListAdf from './__fixtures__/mediaSingle-in-buttetList.adf.json';
 import numberListAdf from './__fixtures__/mediaSingle-in-numberList.adf.json';
 

@@ -1,8 +1,9 @@
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
+import type { ViewportSize } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
 import {
   deviceViewPorts,
   Device,
-  ViewportSize,
 } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
 
 import {
@@ -38,6 +39,7 @@ import {
   scrollToBottom,
 } from '@atlaskit/editor-test-helpers/page-objects/editor';
 import { EditorTestCardProvider } from '@atlaskit/editor-test-helpers/card-provider';
+/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
 import { waitForResolvedInlineCard } from '@atlaskit/media-integration-test-helpers';
 
 describe('Lists', () => {

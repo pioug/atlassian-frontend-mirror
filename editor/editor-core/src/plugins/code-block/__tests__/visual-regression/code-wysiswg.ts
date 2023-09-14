@@ -1,4 +1,5 @@
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { initWysiwygTest } from '@atlaskit/editor-test-helpers/wysiwyg-helpers';
 import { tableCode } from '../__fixtures__/table-code';
 import { basicCode } from '../__fixtures__/basic-code';

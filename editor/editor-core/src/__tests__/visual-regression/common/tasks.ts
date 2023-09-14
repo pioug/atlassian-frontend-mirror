@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
 import {
   snapshot,
   initEditorWithAdf,
@@ -9,6 +10,7 @@ import {
   waitForTaskList,
   LIST_SELECTOR,
 } from '@atlaskit/editor-test-helpers/page-objects/task';
+/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
 
 describe('Tasks', () => {
   it('Can check a task with status as the first element', async () => {

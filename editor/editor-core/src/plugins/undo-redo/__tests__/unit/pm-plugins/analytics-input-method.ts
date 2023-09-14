@@ -1,14 +1,17 @@
 import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   createProsemirrorEditorFactory,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import type { DocBuilder } from '@atlaskit/editor-common/types';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { p, ul, li, doc } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   undo as pmHistoryUndo,
   redo as pmHistoryRedo,
 } from '@atlaskit/editor-prosemirror/history';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import undoPlugin from '../../..';
 import panelPlugin from '../../../../panel';

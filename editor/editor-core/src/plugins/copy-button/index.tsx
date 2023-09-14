@@ -1,7 +1,7 @@
-import { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import createPlugin from './pm-plugins/main';
+import type { CopyButtonPlugin } from '@atlaskit/editor-plugin-copy-button';
 
-const copyButtonPlugin: NextEditorPlugin<'copyButton'> = () => ({
+const copyButtonPlugin: CopyButtonPlugin = () => ({
   name: 'copyButton',
   pmPlugins() {
     return [

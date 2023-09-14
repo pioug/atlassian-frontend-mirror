@@ -6,6 +6,7 @@ import {
   editorTestCase as test,
   expect,
 } from '@af/editor-libra';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import { connectedExtensionAdf } from './__fixtures__/adf-documents';

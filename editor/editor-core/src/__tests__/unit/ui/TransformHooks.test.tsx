@@ -1,9 +1,11 @@
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { extension } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import { pluginKey } from '../../../plugins/extension/plugin-key';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
 import { setupConfigPanel } from '../_setup-config-panel';
-import { Parameters } from '@atlaskit/editor-common/extensions';
+import type { Parameters } from '@atlaskit/editor-common/extensions';
 
 describe('TransformHooks', () => {
   it('should not close the config panel after save if autosave is on', async () => {

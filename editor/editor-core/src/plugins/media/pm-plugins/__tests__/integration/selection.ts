@@ -2,22 +2,26 @@ import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 import { waitForNumImages } from '../../../../../__tests__/integration/media/_utils';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   setProseMirrorTextSelection,
   editable,
   getDocFromElement,
   sendKeyNumTimes,
 } from '@atlaskit/editor-test-helpers/integration/helpers';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   goToEditorTestingWDExample,
   mountEditor,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   doc,
   p,
   mediaSingle,
   media,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import sampleSchema from '@atlaskit/editor-test-helpers/schema';
 import * as paragraphMediaAdf from './__fixtures__/paragraph-and-media.adf.json';
 
@@ -37,9 +41,7 @@ BrowserTestCase(
         defaultValue: JSON.stringify(paragraphMediaAdf),
         media: {
           allowMediaSingle: true,
-          featureFlags: {
-            captions: true,
-          },
+          allowCaptions: true,
         },
       },
       undefined,
@@ -101,9 +103,7 @@ BrowserTestCase(
         defaultValue: JSON.stringify(paragraphMediaAdf),
         media: {
           allowMediaSingle: true,
-          featureFlags: {
-            captions: true,
-          },
+          allowCaptions: true,
         },
       },
       undefined,

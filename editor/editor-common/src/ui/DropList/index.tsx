@@ -36,10 +36,6 @@ interface Props extends WithAnalyticsEventsProps {
   id?: string;
 }
 
-type childContextTypes = {
-  shouldAllowMultilineItems: boolean;
-};
-
 export type OpenChangedEvent = {
   isOpen: boolean;
   event: MouseEvent | KeyboardEvent;
@@ -88,10 +84,6 @@ class DropList extends Component<Props> {
     `;
   };
   /* eslint-enable @atlaskit/design-system/ensure-design-token-usage */
-
-  getChildContext(): childContextTypes {
-    return { shouldAllowMultilineItems: false };
-  }
 
   componentDidMount = () => {
     this.setContentWidth();

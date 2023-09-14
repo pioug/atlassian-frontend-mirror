@@ -1,7 +1,8 @@
-import { ReactWrapper } from 'enzyme';
+import type { ReactWrapper } from 'enzyme';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
-import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { ReactSerializer } from '../../../index';
 import TextWrapperComponent from '../../nodes/text-wrapper';
 import { complexDocument as doc } from './__fixtures__/documents';

@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
 import {
   Appearance,
   initEditorWithAdf,
@@ -9,6 +10,7 @@ import {
   clickMediaInPosition,
 } from '@atlaskit/editor-test-helpers/page-objects/media';
 import { animationFrame } from '@atlaskit/editor-test-helpers/page-objects/editor';
+/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
 import borderADF from './__fixtures__/media-border.adf.json';
 import borderADFWithLink from './__fixtures__/media-border-with-link.adf.json';
 import borderADFWithinTable from './__fixtures__/media-border-within-table.adf.json';

@@ -2,9 +2,12 @@ import type { Browser } from '@atlaskit/webdriver-runner/runner';
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 
 import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import sampleSchema from '@atlaskit/editor-test-helpers/schema';
 
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { doc, p, status } from '@atlaskit/editor-test-helpers/doc-builder';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   editable,
   fullpage,
@@ -12,16 +15,19 @@ import {
   setProseMirrorTextSelection,
   getDocFromElement,
 } from '@atlaskit/editor-test-helpers/integration/helpers';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   goToEditorTestingWDExample,
   mountEditor,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
 import type { WebDriverPage } from '@atlaskit/editor-test-helpers/page-objects/types';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { clickFirstParagraph } from '@atlaskit/editor-test-helpers/page-objects/editor';
 import {
   textAndStatusAtFirstParagraph,
   onlyOneChar,
 } from './__fixtures__/base-adfs';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { runEscapeKeydownSuite } from '@atlaskit/editor-test-helpers/integration/escape-keydown';
 
 describe('typeahead: editor focus', () => {

@@ -1,4 +1,5 @@
-import { WebDriverPage } from '@atlaskit/editor-test-helpers/page-objects/types';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import type { WebDriverPage } from '@atlaskit/editor-test-helpers/page-objects/types';
 import { waitForResolvedInlineCard } from '@atlaskit/media-integration-test-helpers';
 
 import { runInlineNodeViewTestSuite } from '../../../../nodeviews/__tests__/integration/_getInlineNodeViewProducerTestSuite';

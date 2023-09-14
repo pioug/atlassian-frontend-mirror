@@ -6,6 +6,7 @@ import {
   EditorFloatingToolbarModel,
   expect,
 } from '@af/editor-libra';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { p, inlineCard, doc } from '@atlaskit/editor-test-helpers/doc-builder';
 import { blockCardAdf } from './block-to-inline.spec.ts-fixtures/adf';
 

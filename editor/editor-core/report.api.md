@@ -1206,6 +1206,8 @@ export interface MediaOptions {
   // (undocumented)
   allowBreakoutSnapPoints?: boolean;
   // (undocumented)
+  allowCaptions?: boolean;
+  // (undocumented)
   allowDropzoneDropLine?: boolean;
   // (undocumented)
   allowLazyLoading?: boolean;

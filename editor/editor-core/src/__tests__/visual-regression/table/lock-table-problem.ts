@@ -1,17 +1,20 @@
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   initEditorWithAdf,
   Appearance,
   snapshot,
   applyRemoteStep,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   clickFirstCell,
   grabAndMoveColumnResing,
   tableSelectors,
 } from '@atlaskit/editor-test-helpers/page-objects/table';
-import { EditorProps } from '../../../types';
+import type { EditorProps } from '../../../types';
 import adf from './__fixtures__/default-table.adf.json';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { animationFrame } from '@atlaskit/editor-test-helpers/page-objects/editor';
 
 describe('Table lock problems', () => {

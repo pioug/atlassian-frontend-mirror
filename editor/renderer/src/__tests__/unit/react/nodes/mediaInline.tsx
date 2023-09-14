@@ -1,16 +1,18 @@
 import React from 'react';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
-import { ReactWrapper } from 'enzyme';
-import { WrappedComponentProps } from 'react-intl-next';
+import type { ReactWrapper } from 'enzyme';
+import type { WrappedComponentProps } from 'react-intl-next';
+import type { MediaInlineProps } from '../../../../react/nodes/mediaInline';
 import MediaInline, {
-  MediaInlineProps,
   RenderMediaInline,
 } from '../../../../react/nodes/mediaInline';
-import { FileDetails, FileIdentifier } from '@atlaskit/media-client';
+import type { FileDetails, FileIdentifier } from '@atlaskit/media-client';
 import { getDefaultMediaClientConfig } from '@atlaskit/media-test-helpers';
-import { InlineCardEvent, MediaInlineCard } from '@atlaskit/media-card';
+import type { InlineCardEvent } from '@atlaskit/media-card';
+import { MediaInlineCard } from '@atlaskit/media-card';
 import type { EventHandlers } from '@atlaskit/editor-common/ui';
 
 describe('MediaInline', () => {

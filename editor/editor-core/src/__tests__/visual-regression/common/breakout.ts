@@ -1,18 +1,23 @@
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   initFullPageEditorWithAdf,
   snapshot,
   updateEditorProps,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
 import adf from './__fixtures__/columns.adf.json';
 import layoutEmptyAdf from './__fixtures__/layout-empty.adf.json';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   clickOnLayoutColumn,
   scrollToLayoutColumn,
   toggleBreakout,
   layoutSelectors,
 } from '@atlaskit/editor-test-helpers/page-objects/layouts';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { clickFirstParagraph } from '@atlaskit/editor-test-helpers/page-objects/editor';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   waitForFloatingControl,
   retryUntilStablePosition,

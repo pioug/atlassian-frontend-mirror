@@ -1,4 +1,5 @@
 import React from 'react';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import CodeBlock from '../../../../react/nodes/codeBlock/codeBlock';
 import { CodeBlock as AkCodeBlock } from '@atlaskit/code';

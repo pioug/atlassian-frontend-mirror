@@ -1,5 +1,6 @@
 import { editorTestCase as test, expect } from '@af/editor-libra';
 import { PanelType } from '@atlaskit/adf-schema';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   doc,
   panel,

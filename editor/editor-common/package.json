@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-common",
-  "version": "75.0.2",
+  "version": "75.0.6",
   "description": "A package that contains common classes and components for editor and renderer",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -149,7 +149,7 @@
   "devDependencies": {
     "@atlaskit/media-core": "^34.1.0",
     "@atlaskit/media-test-helpers": "^33.0.0",
-    "@atlaskit/smart-card": "^26.25.0",
+    "@atlaskit/smart-card": "^26.26.0",
     "@atlaskit/util-data-test": "^17.8.0",
     "@atlaskit/visual-regression": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",

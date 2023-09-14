@@ -1,4 +1,5 @@
 import type { DocBuilder } from '@atlaskit/editor-common/types';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   doc,
   ul,
@@ -9,6 +10,7 @@ import {
   a as link,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   createProsemirrorEditorFactory,
   Preset,
@@ -26,6 +28,7 @@ import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import alignmentPlugin from '../../../plugins/alignment';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
+import captionPlugin from '../../../plugins/caption';
 import { focusPlugin } from '@atlaskit/editor-plugin-focus';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
@@ -51,6 +54,7 @@ describe('createWrappingJoinRule()', () => {
         .add(gridPlugin)
         .add(floatingToolbarPlugin)
         .add(focusPlugin)
+        .add(captionPlugin)
         .add([mediaPlugin, { allowMediaSingle: true }]),
     });
     return editorTemp;

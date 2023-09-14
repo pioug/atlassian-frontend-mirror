@@ -3,6 +3,7 @@ import { mediaPlugin } from '../../../../plugins';
 import type { EditorPlugin } from '../../../../types';
 import { mediaSingleWithCaption, mediaSingle } from '@atlaskit/adf-schema';
 
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   doc,
   mediaGroup,
@@ -10,6 +11,7 @@ import {
   unsupportedBlock,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { processRawValue } from '@atlaskit/editor-common/utils';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import schema from '@atlaskit/editor-test-helpers/schema';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
@@ -55,7 +57,11 @@ describe(name, () => {
 
     it('mediaSingle should be a mediaSingle when captions is off by default', () => {
       const plugin = mediaPlugin({
-        config: { provider: Promise.resolve() as any, allowMediaSingle: true },
+        config: {
+          provider: Promise.resolve() as any,
+          allowMediaSingle: true,
+          allowCaptions: false,
+        },
       });
       expect(getNode(plugin, 'mediaSingle')!.node).toEqual(
         expect.objectContaining({
@@ -65,16 +71,14 @@ describe(name, () => {
         }),
       );
     });
-
     it('mediaSingle should be a mediaSingleWithCaption when captions is enabled', () => {
       const plugin = mediaPlugin({
         config: {
           provider: Promise.resolve() as any,
           allowMediaSingle: true,
-          featureFlags: { captions: true },
+          allowCaptions: true,
         },
       });
-
       expect(getNode(plugin, 'mediaSingle')!.node).toEqual(
         expect.objectContaining({
           ...mediaSingleWithCaption,

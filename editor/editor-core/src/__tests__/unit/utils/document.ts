@@ -1,6 +1,7 @@
 import { PanelType } from '@atlaskit/adf-schema';
 import { name } from '../../../version-wrapper';
 
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   doc,
   p,
@@ -17,6 +18,7 @@ import {
   panel,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import schema from '@atlaskit/editor-test-helpers/schema';
 import { isNodeEmpty, processRawFragmentValue } from '../../../utils/document';
 import { hasVisibleContent } from '@atlaskit/editor-common/utils';

@@ -1,5 +1,7 @@
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import type { RefsNode } from '@atlaskit/editor-common/types';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   caption,
   doc,
@@ -23,7 +25,7 @@ const editor = (doc: (schema: Schema<any, any>) => RefsNode) =>
   createEditorTestingLibrary({
     doc,
     editorProps: {
-      media: { allowMediaSingle: true, featureFlags: { captions: true } },
+      media: { allowMediaSingle: true, allowCaptions: true },
     },
   });
 

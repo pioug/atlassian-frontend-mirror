@@ -8,7 +8,9 @@ jest.mock('../../../../react/utils/clipboard', () => {
 });
 
 import React from 'react';
-import Heading, { HeadingLevels } from '../../../../react/nodes/heading';
+import type { HeadingLevels } from '../../../../react/nodes/heading';
+import Heading from '../../../../react/nodes/heading';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import AnalyticsContext from '../../../../analytics/analyticsContext';
 import HeadingAnchor from '../../../../react/nodes/heading-anchor';

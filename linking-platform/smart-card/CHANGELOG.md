@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 26.26.0
+
+### Minor Changes
+
+- [`d3e04f50bbc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3e04f50bbc) - Add follow action analytics (behind feature flag)
+
 ## 26.25.0
 
 ### Minor Changes

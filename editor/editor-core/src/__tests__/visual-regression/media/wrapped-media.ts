@@ -1,4 +1,5 @@
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   snapshot,
   initFullPageEditorWithAdf,
@@ -11,12 +12,14 @@ import * as wrappedMediaTextAdf from './__fixtures__/wrapped-media-text.adf.json
 import * as wrappedMediaTextSplitAdf from './__fixtures__/wrapped-media-text-split.adf.json';
 import * as wrappedMediaTextLayoutAdf from './__fixtures__/wrapped-media-text-layout.adf.json';
 import * as wrappedMediaTextLayoutSplitAdf from './__fixtures__/wrapped-media-text-layout-split.adf.json';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   waitForMediaToBeLoaded,
   mediaImageSelector,
   mediaResizeSelectors,
 } from '@atlaskit/editor-test-helpers/page-objects/media';
 import * as nonResizableMedia from './__fixtures__/non-resizable-media.adf.json';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { pressKey } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
 
 describe('Snapshot Test: Wrapped media', () => {

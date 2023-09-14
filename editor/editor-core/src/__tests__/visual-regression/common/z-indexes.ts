@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
 import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
 import {
   initFullPageEditorWithAdf,
@@ -12,9 +13,10 @@ import { selectors } from '@atlaskit/editor-test-helpers/page-objects/editor';
 import { tableSelectors } from '@atlaskit/editor-test-helpers/page-objects/table';
 import { insertTable } from '@atlaskit/editor-test-helpers/page-objects/table';
 import { emojiSelectors } from '@atlaskit/editor-test-helpers/page-objects/emoji';
+/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
 import { waitForLoadedBackgroundImages } from '@atlaskit/visual-regression/helper';
 import adf from './__fixtures__/noData-adf.json';
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 
 describe('z-indexes:', () => {
   let page: PuppeteerPage;

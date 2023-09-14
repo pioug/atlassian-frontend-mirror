@@ -25,7 +25,6 @@ const props = {
   },
   mediaClientConfig: mediaClient.config,
   identifier,
-  featureFlags: { captions: true },
 };
 
 describe('Async Card Loader', () => {
@@ -121,7 +120,9 @@ describe('Async Card Loader', () => {
 
   describe('feature flags', () => {
     it('passes featureFlags to CardWithMediaClient', () => {
-      const wrapper = mount(<CardLoader {...props} />);
+      const wrapper = mount(
+        <CardLoader {...props} featureFlags={{ captions: true }} />,
+      );
       expect(wrapper.find('CardWithMediaClient').prop('featureFlags')).toEqual({
         captions: true,
       });

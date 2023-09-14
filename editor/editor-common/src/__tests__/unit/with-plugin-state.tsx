@@ -4,7 +4,9 @@ import { render as mount } from '@testing-library/react';
 import PropTypes from 'prop-types';
 
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import type { Dispatch } from '../../event-dispatcher';

@@ -1,4 +1,5 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   getDocFromElement,
   comment,
@@ -6,12 +7,14 @@ import {
   editable,
 } from '@atlaskit/editor-test-helpers/integration/helpers';
 import { toolbarMessages } from '@atlaskit/editor-common/messages';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   goToEditorTestingWDExample,
   mountEditor,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
 import { messages as blockTypeMessages } from '@atlaskit/editor-plugin-block-type/messages';
 import colorPaletteMessages from '../../../ui/ColorPalette/Palettes/paletteMessages';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   toolbarMenuItemsSelectors,
   ToolbarMenuItem,

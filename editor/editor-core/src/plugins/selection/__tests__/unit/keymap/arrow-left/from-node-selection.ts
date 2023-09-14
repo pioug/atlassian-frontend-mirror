@@ -1,5 +1,6 @@
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   doc,
   p,
@@ -10,6 +11,7 @@ import {
   layoutSection,
   layoutColumn,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 
 import { setNodeSelection } from '../../../../../../utils/selection';

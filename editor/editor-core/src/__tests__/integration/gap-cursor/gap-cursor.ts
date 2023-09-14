@@ -1,4 +1,5 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   mountEditor,
   goToEditorTestingWDExample,
@@ -7,9 +8,13 @@ import type { EditorAppearance } from '../../../types';
 import type { BrowserObject } from '@atlaskit/webdriver-runner/wd-wrapper';
 import * as infoPanelAdf from './__fixtures__/info-panel.adf.json';
 import * as listWithCodeBlockAdf from './__fixtures__/list-with-code-block.adf.json';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { panelSelectors } from '@atlaskit/editor-test-helpers/page-objects/panel';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { selectors } from '@atlaskit/editor-test-helpers/page-objects/editor';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { listSelectors } from '@atlaskit/editor-test-helpers/page-objects/list';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   simulateProsemirrorClick,
   setProseMirrorTextSelection,

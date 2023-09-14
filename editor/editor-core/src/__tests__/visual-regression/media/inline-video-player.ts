@@ -1,4 +1,5 @@
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
 import { waitForMediaToBeLoaded } from '@atlaskit/editor-test-helpers/page-objects/media';
 import {
   snapshot,
@@ -6,6 +7,7 @@ import {
   Appearance,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import mediaSingleVideoAdf from '../table/__fixtures__/mediasingle-video.adf.json';
+/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
 import { retryUntilStablePosition } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 
 describe('Snapshot Test: Media inline video player', () => {

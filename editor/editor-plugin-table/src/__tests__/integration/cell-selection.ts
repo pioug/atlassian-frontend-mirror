@@ -1,11 +1,14 @@
 import isEqual from 'lodash/isEqual';
 
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { fullpage } from '@atlaskit/editor-test-helpers/integration/helpers';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   multiCellTableSelectionBottomRightToFirstCell,
   multiCellTableSelectionBottomRightToMiddleTopCell,
   multiCellTableSelectionTopLeftToBottomRight,
 } from '@atlaskit/editor-test-helpers/page-objects/table';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   goToEditorTestingWDExample,
   mountEditor,

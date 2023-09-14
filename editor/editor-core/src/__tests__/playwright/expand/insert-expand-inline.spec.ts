@@ -4,6 +4,7 @@ import {
   EditorMainToolbarModel,
 } from '@af/editor-libra';
 import { emptyAdf } from './insert-expand-inline.spec.ts-fixtures/adf';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { p, doc, expand } from '@atlaskit/editor-test-helpers/doc-builder';
 
 test.use({

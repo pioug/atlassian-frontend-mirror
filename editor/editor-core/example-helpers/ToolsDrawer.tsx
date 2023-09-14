@@ -17,8 +17,11 @@ import imageUploadHandler from './imageUpload';
 
 import { TeamMentionResource, MentionResource, EmojiResource } from '../src';
 import { toJSON } from '../src/utils';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorMediaMock } from '@atlaskit/editor-test-helpers/media-mock';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';

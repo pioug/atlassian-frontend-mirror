@@ -3,6 +3,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import Loadable from 'react-loadable';
 
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createFakeExtensionManifest } from '@atlaskit/editor-test-helpers/extensions';
 
 import combineExtensionProviders from '../../combine-extension-providers';
@@ -11,7 +12,7 @@ import {
   getExtensionModuleNode,
   getNodeRenderer,
 } from '../../extension-handlers';
-import { ExtensionProvider } from '../../types';
+import type { ExtensionProvider } from '../../types';
 
 describe('extension-handlers', () => {
   let extensionProvider: ExtensionProvider;

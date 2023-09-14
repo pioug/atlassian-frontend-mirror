@@ -1,10 +1,13 @@
 import { selectors } from '@atlaskit/renderer/src/__tests__/__helpers/page-objects/_media';
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { waitForNumImages } from '@atlaskit/editor-test-helpers/integration/media';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   editable,
   getDocFromElement,
 } from '@atlaskit/editor-test-helpers/integration/helpers';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   goToEditorTestingWDExample,
   mountEditor,
@@ -23,9 +26,7 @@ BrowserTestCase(
       defaultValue: JSON.stringify(adf),
       media: {
         allowMediaSingle: true,
-        featureFlags: {
-          captions: true,
-        },
+        allowCaptions: true,
       },
     });
 

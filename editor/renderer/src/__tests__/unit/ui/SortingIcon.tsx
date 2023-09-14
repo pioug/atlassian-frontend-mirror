@@ -2,6 +2,7 @@ import React from 'react';
 import { SortOrder } from '@atlaskit/editor-common/types';
 
 import SortingIcon from '../../../ui/SortingIcon';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 
 describe('Renderer - SortingIcon', () => {

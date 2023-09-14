@@ -5,6 +5,7 @@ import { fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { replaceRaf } from 'raf-stub';
 
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { renderWithIntl as render } from '@atlaskit/media-test-helpers/renderWithIntl';
 

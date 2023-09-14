@@ -1,14 +1,14 @@
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   initEditorWithAdf,
   Appearance,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
-import {
-  getExampleUrl,
-  loadPage,
-  PuppeteerPage,
-} from '@atlaskit/visual-regression/helper';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import { getExampleUrl, loadPage } from '@atlaskit/visual-regression/helper';
 import mentionAdf from './__fixtures__/mention-adf.json';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { mentionSelectors } from '@atlaskit/editor-test-helpers/page-objects/mention';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { getElementComputedStyle } from '@atlaskit/editor-test-helpers/vr-utils/get-computed-style';
 import { normalizeHexColor } from '@atlaskit/adf-schema';
 import { B50, DN80 } from '@atlaskit/theme/colors';

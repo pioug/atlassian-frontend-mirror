@@ -1,5 +1,6 @@
 import React from 'react';
 import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
 import {
   deviceViewPorts,
   Device,
@@ -31,8 +32,9 @@ import {
   scrollToBottom,
 } from '@atlaskit/editor-test-helpers/page-objects/editor';
 import * as parapgrahADF from './__fixtures__/paragraph-of-text.adf.json';
-
 import { getElementComputedStyle } from '@atlaskit/editor-test-helpers/vr-utils/get-computed-style';
+/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
+
 import { N700 } from '@atlaskit/theme/colors';
 import { normalizeHexColor } from '@atlaskit/adf-schema';
 

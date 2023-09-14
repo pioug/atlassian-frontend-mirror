@@ -1,5 +1,6 @@
 import { editorTestCase as test, expect } from '@af/editor-libra';
 import { embedCardAdf } from './embed-4.spec.ts-fixtures/adf';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { p, doc, embedCard } from '@atlaskit/editor-test-helpers/doc-builder';
 
 test.use({

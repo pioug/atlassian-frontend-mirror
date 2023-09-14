@@ -4,9 +4,10 @@ import { act } from 'react-dom/test-utils';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
 import type { InlineCommentSelectionComponentProps } from '@atlaskit/editor-common/types';
 import { SelectionInlineCommentMounter } from '../../mounter';
-import { Position } from '../../../types';
-import { ApplyAnnotation } from '../../../../../actions/index';
+import type { Position } from '../../../types';
+import type { ApplyAnnotation } from '../../../../../actions/index';
 import * as DraftMock from '../../../draft';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
 import {
   ACTION,

@@ -1,16 +1,20 @@
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   doc,
   p,
   code_block,
   typeAheadQuery,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { insertText, insert } from '@atlaskit/editor-test-helpers/transactions';
 import { createTypeAheadPlugin } from './_create-type-ahead-plugin';
 import { insertTypeAheadItem } from '../../../commands/insert-type-ahead-item';
 import { pluginKey as typeAheadPluginKey } from '../../../pm-plugins/key';
-import { TypeAheadItem } from '../../../types';
+import type { TypeAheadItem } from '../../../types';
 
 // TODO: to fix and unskip here: https://product-fabric.atlassian.net/jira/servicedesk/projects/DTR/queues/issue/DTR-1357
 describe.skip('typeAhead main plugin', () => {

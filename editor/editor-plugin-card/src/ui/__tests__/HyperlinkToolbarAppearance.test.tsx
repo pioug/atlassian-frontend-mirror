@@ -2,16 +2,17 @@ import React from 'react';
 
 import { render, screen } from '@testing-library/react';
 
-import { CardOptions } from '@atlaskit/editor-common/card';
-import {
-  CardProvider,
-  ProviderFactory,
-} from '@atlaskit/editor-common/provider-factory';
+import type { CardOptions } from '@atlaskit/editor-common/card';
+import type { CardProvider } from '@atlaskit/editor-common/provider-factory';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { doc, inlineCard, p } from '@atlaskit/editor-test-helpers/doc-builder';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { nextTick } from '@atlaskit/editor-test-helpers/next-tick';
 import { asMock, fakeIntl } from '@atlaskit/media-test-helpers';
-import { CardPlatform } from '@atlaskit/smart-card';
+import type { CardPlatform } from '@atlaskit/smart-card';
 
 import { HyperlinkToolbarAppearance } from '../HyperlinkToolbarAppearance';
 

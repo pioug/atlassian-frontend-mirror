@@ -1,7 +1,9 @@
 import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import type { EditorProps } from '../../../../types/editor-props';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { waitForMediaToBeLoaded } from '@atlaskit/editor-test-helpers/page-objects/media';
 
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   snapshot,
   initEditorWithAdf,

@@ -1,8 +1,12 @@
 import React from 'react';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { ResourcedMention } from '@atlaskit/mention/element';
 import MentionNode from '../../../../react/nodes/mention';
-import { EventHandlers, MentionEventHandler } from '@atlaskit/editor-common/ui';
+import type {
+  EventHandlers,
+  MentionEventHandler,
+} from '@atlaskit/editor-common/ui';
 import { Mention } from '@atlaskit/editor-common/mention';
 
 const mentionHandler: MentionEventHandler = (_mentionId, _text, _event?) => {};

@@ -1,6 +1,7 @@
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { AnnotationSharedClassNames } from '@atlaskit/editor-common/styles';
 import type { RefsNode, DocBuilder } from '@atlaskit/editor-common/types';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   annotation,
   doc,
@@ -15,11 +16,13 @@ import {
   panel,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   createProsemirrorEditorFactory,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import { focusPlugin } from '@atlaskit/editor-plugin-focus';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';

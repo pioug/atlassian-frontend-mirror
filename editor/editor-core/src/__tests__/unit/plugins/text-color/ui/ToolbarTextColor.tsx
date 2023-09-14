@@ -2,10 +2,13 @@ import React from 'react';
 import { createIntl } from 'react-intl-next';
 import type { ReactWrapper } from 'enzyme';
 
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { mountWithIntl } from '../../../../__helpers/enzyme';
 import type { DocBuilder } from '@atlaskit/editor-common/types';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { doc, code_block, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { hexToEditorTextPaletteColor } from '@atlaskit/editor-palette';

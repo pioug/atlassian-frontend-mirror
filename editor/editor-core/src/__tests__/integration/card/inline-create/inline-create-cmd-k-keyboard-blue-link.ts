@@ -1,9 +1,11 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import type Page from '@atlaskit/webdriver-runner/wd-wrapper';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   goToEditorTestingWDExample,
   mountEditor,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   getDocFromElement,
   editable,
@@ -13,6 +15,7 @@ import {
   fullpage,
 } from '@atlaskit/editor-test-helpers/integration/helpers';
 import { messages } from '../../../../plugins/insert-block/ui/ToolbarInsertBlock/messages';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { linkPickerSelectors } from '@atlaskit/editor-test-helpers/page-objects/hyperlink';
 
 // FIXME: This test was automatically skipped due to failure on 09/08/2023: https://product-fabric.atlassian.net/browse/ED-19412

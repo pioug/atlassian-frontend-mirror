@@ -1,15 +1,18 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import type Page from '@atlaskit/webdriver-runner/wd-wrapper';
 
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   fullpage,
   editable,
   getDocFromElement,
 } from '@atlaskit/editor-test-helpers/integration/helpers';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   goToEditorTestingWDExample,
   mountEditor,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { unsupportedNodeSelectors } from '@atlaskit/editor-test-helpers/page-objects/unsupported';
 import unsupportedBlockAdf from '../../__fixtures__/unsupported-block-adf.json';
 import unsupportedInlineAdf from '../../__fixtures__/unsupported-inline-adf.json';

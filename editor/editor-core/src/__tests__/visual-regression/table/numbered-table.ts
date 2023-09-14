@@ -1,8 +1,11 @@
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   clickFirstCell,
   tableSelectors,
 } from '@atlaskit/editor-test-helpers/page-objects/table';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   editorCommentContentSelector,
   initCommentEditorWithAdf,
@@ -12,8 +15,9 @@ import {
 import adf from './__fixtures__/numbered-table.adf.json';
 import tableWithContentAdf from './__fixtures__/numbered-table-with-content.adf.json';
 import multipleTablesAdf from './__fixtures__/numbered-table-multiple.adf.json';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { waitForFloatingControl } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { THEME_MODES } from '@atlaskit/theme/constants';
 import { isElementBySelectorInDocument } from '../../../test-utils';
 

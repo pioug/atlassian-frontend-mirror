@@ -13,7 +13,9 @@ import type { CardOptions } from '@atlaskit/editor-common/card';
 import { MediaSingle as RichMediaWrapper } from '@atlaskit/editor-common/ui';
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { setDragging } from '@atlaskit/editor-plugin-table/src/plugins/table/pm-plugins/table-resizing/commands';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { doc, embedCard } from '@atlaskit/editor-test-helpers/doc-builder';
 import type { DocBuilder } from '@atlaskit/editor-common/types';
 import type { CardProps } from '@atlaskit/smart-card';

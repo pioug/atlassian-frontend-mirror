@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   snapshot,
   initFullPageEditorWithAdf,
@@ -8,6 +9,7 @@ import adfTableWithMergedCellsOnFirstRow from './__fixtures__/table-with-merged-
 import adfTableWithManyRows from './__fixtures__/table-with-many-rows.adf.json';
 import adfTableWithMergedCells from './__fixtures__/table-with-merged-cells.adf.json';
 import adf from '../common/__fixtures__/noData-adf.json';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   deleteColumn,
   resizeColumn,
@@ -19,10 +21,12 @@ import {
   unselectTable,
   tableSelectors,
 } from '@atlaskit/editor-test-helpers/page-objects/table';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   animationFrame,
   scrollToBottom,
 } from '@atlaskit/editor-test-helpers/page-objects/editor';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { retryUntilStablePosition } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { TableCssClassName as ClassName } from '@atlaskit/editor-plugin-table/types';

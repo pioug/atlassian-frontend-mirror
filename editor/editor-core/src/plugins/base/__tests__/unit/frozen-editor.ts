@@ -23,6 +23,7 @@ jest.mock('@atlaskit/editor-common/ufo', () => ({
 }));
 
 import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   Preset,
   createProsemirrorEditorFactory,
@@ -37,6 +38,7 @@ import {
 import { SEVERITY, getTimeSince } from '@atlaskit/editor-common/utils';
 import { EditorExperience } from '@atlaskit/editor-common/ufo';
 import type { DocBuilder } from '@atlaskit/editor-common/types';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import type { BasePluginOptions } from '../../';
 import { basePlugin } from '../../';

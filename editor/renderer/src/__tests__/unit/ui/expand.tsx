@@ -1,5 +1,6 @@
 import React from 'react';
 import ExpandWithInt from '../../../ui/Expand';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 
 describe('Expand', () => {

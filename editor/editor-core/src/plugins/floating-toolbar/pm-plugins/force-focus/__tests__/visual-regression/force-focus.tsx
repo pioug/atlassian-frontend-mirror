@@ -1,18 +1,24 @@
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   initEditorWithAdf,
   Appearance,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import mediaAdf from './__fixtures__/toolbar-adf-with-media.json';
 import linkAdf from './__fixtures__/toolbar-adf-with-link.json';
-import { EditorProps } from '../../../../../../types/editor-props';
-import { PuppeteerPage } from '@atlaskit/editor-test-helpers/page-objects/types';
+import type { EditorProps } from '../../../../../../types/editor-props';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import type { PuppeteerPage } from '@atlaskit/editor-test-helpers/page-objects/types';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { pressKey } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
 import {
   waitForInlineCardSelection,
   waitForResolvedInlineCard,
 } from '@atlaskit/media-integration-test-helpers';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { waitForCardToolbar } from '@atlaskit/editor-test-helpers/page-objects/smart-links';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { hyperlinkSelectors } from '@atlaskit/editor-test-helpers/page-objects/hyperlink';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   clickOnToolbarButton,
   LinkToolbarSelectors,

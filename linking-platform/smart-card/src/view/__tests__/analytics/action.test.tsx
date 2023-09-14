@@ -1,18 +1,24 @@
 import 'jest-extended';
 import React from 'react';
 import { JsonLd } from 'json-ld-types';
-import { fireEvent, render, waitFor } from '@testing-library/react';
+import { act, fireEvent, render, waitFor } from '@testing-library/react';
 import uuid from 'uuid';
 
 import '@atlaskit/link-test-helpers/jest';
 import FabricAnalyticsListeners, {
   type AnalyticsWebClient,
 } from '@atlaskit/analytics-listeners';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 import type { ProviderProps } from '@atlaskit/link-provider';
+import { SmartLinkActionType } from '@atlaskit/linking-types';
 import { CardClient } from '@atlaskit/link-provider';
-import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
+import {
+  flushPromises,
+  mockSimpleIntersectionObserver,
+} from '@atlaskit/link-test-helpers';
 
 import { ActionName, Card, Provider, TitleBlock } from '../../../index';
+import * as useInvoke from '../../../state/hooks/use-invoke';
 import { fakeFactory } from '../../../utils/mocks';
 import * as utils from '../../../utils';
 import * as analytics from '../../../utils/analytics/analytics';
@@ -40,6 +46,12 @@ jest.mock('@atlaskit/linking-common/user-agent', () => ({
 const TEST_ID = 'some-id';
 const EXPERIENCE_TEST_ID = 'smart-link-action-invocation';
 
+// These values are set by media analytic channel
+const EXPECTED_CHANNEL_CONTEXT = {
+  source: 'unknown',
+  tags: ['media'],
+};
+
 // These values are replaced by process.env
 // @see packages/linking-platform/smart-card/src/utils/analytics/analytics.ts
 const EXPECTED_PACKAGE_CONTEXT = {
@@ -62,6 +74,14 @@ const EXPECTED_RESOLVED_CONTEXT = {
   extensionKey: 'object-provider',
   status: 'resolved',
   statusDetails: null,
+};
+
+const EXPECTED_COMMON_ATTRIBUTES = {
+  ...EXPECTED_PACKAGE_CONTEXT,
+  ...EXPECTED_RESOLVED_CONTEXT,
+  // These values are set in commonAttributes in useSmartLinkAnalytics.ts
+  definitionId: 'd1',
+  resourceType: 'sharedFile',
 };
 
 describe('actions', () => {
@@ -303,38 +323,30 @@ describe('actions', () => {
             expect(actionFnSpy).toHaveBeenCalledTimes(1);
 
             expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith({
+              ...EXPECTED_CHANNEL_CONTEXT,
               action: 'clicked',
               actionSubject: 'button',
               actionSubjectId,
               attributes: expect.objectContaining({
-                ...EXPECTED_PACKAGE_CONTEXT,
-                ...EXPECTED_RESOLVED_CONTEXT,
+                ...EXPECTED_COMMON_ATTRIBUTES,
                 actionType,
-                definitionId: 'd1',
                 display,
                 id: TEST_ID,
-                resourceType: 'sharedFile',
               }),
-              source: 'unknown',
-              tags: ['media'],
             });
 
             expect(
               mockAnalyticsClient.sendOperationalEvent,
             ).toHaveBeenCalledWith({
+              ...EXPECTED_CHANNEL_CONTEXT,
               action: 'resolved',
               actionSubject: 'smartLinkAction',
               attributes: expect.objectContaining({
-                ...EXPECTED_PACKAGE_CONTEXT,
-                ...EXPECTED_RESOLVED_CONTEXT,
+                ...EXPECTED_COMMON_ATTRIBUTES,
                 actionType,
-                definitionId: 'd1',
                 display,
                 id: TEST_ID,
-                resourceType: 'sharedFile',
               }),
-              source: 'unknown',
-              tags: ['media'],
             });
 
             expect(ufoStartSpy).toBeCalledWith(
@@ -389,39 +401,31 @@ describe('actions', () => {
             expect(actionFnSpy).toHaveBeenCalledTimes(1);
 
             expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith({
+              ...EXPECTED_CHANNEL_CONTEXT,
               action: 'clicked',
               actionSubject: 'button',
               actionSubjectId,
               attributes: expect.objectContaining({
-                ...EXPECTED_PACKAGE_CONTEXT,
-                ...EXPECTED_RESOLVED_CONTEXT,
+                ...EXPECTED_COMMON_ATTRIBUTES,
                 actionType,
-                definitionId: 'd1',
                 display,
                 id: TEST_ID,
-                resourceType: 'sharedFile',
               }),
-              source: 'unknown',
-              tags: ['media'],
             });
 
             expect(
               mockAnalyticsClient.sendOperationalEvent,
             ).toHaveBeenCalledWith({
+              ...EXPECTED_CHANNEL_CONTEXT,
               action: 'unresolved',
               actionSubject: 'smartLinkAction',
               attributes: expect.objectContaining({
-                ...EXPECTED_PACKAGE_CONTEXT,
-                ...EXPECTED_RESOLVED_CONTEXT,
+                ...EXPECTED_COMMON_ATTRIBUTES,
                 actionType,
-                definitionId: 'd1',
                 display,
                 id: TEST_ID,
                 reason: 'something went wrong',
-                resourceType: 'sharedFile',
               }),
-              source: 'unknown',
-              tags: ['media'],
             });
 
             expect(ufoStartSpy).toBeCalledWith(
@@ -446,4 +450,210 @@ describe('actions', () => {
       );
     },
   );
+
+  describe('server actions: flexible card', () => {
+    const viewTestId = 'smart-block-title-resolved-view';
+    const display = 'flexible';
+
+    describe.each([
+      [
+        'follow',
+        {
+          actionSubjectId: 'smartLinkFollowButton',
+          actionType: 'Follow',
+          response: toJsonLdResponse({
+            'atlassian:serverAction': [
+              {
+                '@type': 'UpdateAction',
+                name: 'UpdateAction',
+                dataUpdateAction: {
+                  '@type': 'UpdateAction',
+                  name: SmartLinkActionType.FollowEntityAction,
+                },
+                resourceIdentifiers: { ari: 'some-id' },
+                refField: 'button',
+              },
+            ],
+          }),
+          testId: 'smart-action-follow-action',
+        },
+      ],
+      [
+        'unfollow',
+        {
+          actionSubjectId: 'smartLinkFollowButton',
+          actionType: 'Unfollow',
+          response: toJsonLdResponse({
+            'atlassian:serverAction': [
+              {
+                '@type': 'UpdateAction',
+                name: 'UpdateAction',
+                dataUpdateAction: {
+                  '@type': 'UpdateAction',
+                  name: SmartLinkActionType.UnfollowEntityAction,
+                },
+                resourceIdentifiers: { ari: 'some-id' },
+                refField: 'button',
+              },
+            ],
+          }),
+          testId: 'smart-action-follow-action',
+        },
+      ],
+    ])(
+      '%s action',
+      (
+        actionName: string,
+        testOptions: {
+          actionSubjectId: string;
+          actionType: string;
+          response: JsonLd.Response;
+          testId: string;
+        },
+      ) => {
+        const { actionSubjectId, actionType, response, testId } = testOptions;
+
+        const setupOptions = {
+          props: {
+            children: (
+              <TitleBlock actions={[{ name: ActionName.FollowAction }]} />
+            ),
+            showServerActions: true,
+          },
+          response,
+        };
+
+        describe('fires button click and track success', () => {
+          ffTest(
+            'platform.linking-platform.smart-card.follow-button',
+            async () => {
+              jest.spyOn(useInvoke, 'default').mockReturnValue(jest.fn());
+
+              const { findByTestId, mockAnalyticsClient } = setup(setupOptions);
+
+              await findByTestId(viewTestId);
+              const button = await findByTestId(testId);
+              act(() => {
+                fireEvent.click(button);
+              });
+              await flushPromises();
+
+              expect(mockAnalyticsClient.sendUIEvent).toHaveBeenLastCalledWith({
+                ...EXPECTED_CHANNEL_CONTEXT,
+                action: 'clicked',
+                actionSubject: 'button',
+                actionSubjectId,
+                attributes: expect.objectContaining({
+                  ...EXPECTED_COMMON_ATTRIBUTES,
+                  display,
+                  id: TEST_ID,
+                }),
+              });
+
+              expect(
+                mockAnalyticsClient.sendTrackEvent,
+              ).toHaveBeenNthCalledWith(1, {
+                ...EXPECTED_CHANNEL_CONTEXT,
+                action: 'started',
+                actionSubject: 'smartLinkQuickAction',
+                attributes: expect.objectContaining({
+                  ...EXPECTED_COMMON_ATTRIBUTES,
+                  display,
+                  id: TEST_ID,
+                  smartLinkActionType: actionType,
+                }),
+              });
+
+              expect(
+                mockAnalyticsClient.sendTrackEvent,
+              ).toHaveBeenNthCalledWith(2, {
+                ...EXPECTED_CHANNEL_CONTEXT,
+                action: 'success',
+                actionSubject: 'smartLinkQuickAction',
+                attributes: expect.objectContaining({
+                  ...EXPECTED_COMMON_ATTRIBUTES,
+                  display,
+                  id: TEST_ID,
+                  smartLinkActionType: actionType,
+                }),
+              });
+            },
+            async () => {
+              const { findByTestId, queryByTestId } = setup(setupOptions);
+              await findByTestId(viewTestId);
+              const button = queryByTestId(testId);
+              expect(button).not.toBeInTheDocument();
+            },
+          );
+        });
+
+        describe('fires button click and track failed', () => {
+          ffTest(
+            'platform.linking-platform.smart-card.follow-button',
+            async () => {
+              const mockInvoke = jest.fn().mockImplementationOnce(() => {
+                throw new Error();
+              });
+              jest.spyOn(useInvoke, 'default').mockReturnValue(mockInvoke);
+
+              const { findByTestId, mockAnalyticsClient } = setup(setupOptions);
+
+              const button = await findByTestId(testId);
+              act(() => {
+                fireEvent.click(button);
+              });
+              await flushPromises();
+
+              expect(mockAnalyticsClient.sendUIEvent).toHaveBeenLastCalledWith({
+                ...EXPECTED_CHANNEL_CONTEXT,
+                action: 'clicked',
+                actionSubject: 'button',
+                actionSubjectId,
+                attributes: expect.objectContaining({
+                  ...EXPECTED_COMMON_ATTRIBUTES,
+                  display,
+                  id: TEST_ID,
+                }),
+              });
+
+              expect(
+                mockAnalyticsClient.sendTrackEvent,
+              ).toHaveBeenNthCalledWith(1, {
+                ...EXPECTED_CHANNEL_CONTEXT,
+                action: 'started',
+                actionSubject: 'smartLinkQuickAction',
+                attributes: expect.objectContaining({
+                  ...EXPECTED_COMMON_ATTRIBUTES,
+                  display,
+                  id: TEST_ID,
+                  smartLinkActionType: actionType,
+                }),
+              });
+
+              expect(
+                mockAnalyticsClient.sendTrackEvent,
+              ).toHaveBeenNthCalledWith(2, {
+                ...EXPECTED_CHANNEL_CONTEXT,
+                action: 'failed',
+                actionSubject: 'smartLinkQuickAction',
+                actionSubjectId: undefined,
+                attributes: expect.objectContaining({
+                  ...EXPECTED_COMMON_ATTRIBUTES,
+                  display,
+                  id: TEST_ID,
+                  smartLinkActionType: actionType,
+                }),
+              });
+            },
+            async () => {
+              const { findByTestId, queryByTestId } = setup(setupOptions);
+              await findByTestId(viewTestId);
+              const button = queryByTestId(testId);
+              expect(button).not.toBeInTheDocument();
+            },
+          );
+        });
+      },
+    );
+  });
 });

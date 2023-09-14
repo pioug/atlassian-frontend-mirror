@@ -1,4 +1,6 @@
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { MockPerformanceEntry } from '@atlaskit/editor-test-helpers/mock-performance-entry';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { MockPerformanceObserverEntryList } from '@atlaskit/editor-test-helpers/mock-performance-observer-entry-list';
 import { PluginPerformanceReport } from '../../plugin-performance-report';
 import {

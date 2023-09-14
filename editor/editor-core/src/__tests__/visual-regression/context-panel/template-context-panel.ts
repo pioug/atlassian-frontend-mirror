@@ -1,8 +1,6 @@
-import {
-  getExampleUrl,
-  loadPage,
-  PuppeteerPage,
-} from '@atlaskit/visual-regression/helper';
+/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import { getExampleUrl, loadPage } from '@atlaskit/visual-regression/helper';
 import {
   insertTable,
   tableSelectors,
@@ -14,7 +12,7 @@ import {
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import { retryUntilStablePosition } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 import { animationFrame } from '@atlaskit/editor-test-helpers/page-objects/editor';
-
+/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
 export async function goToFullPageWithTemplateContextPanel() {
   const url = getExampleUrl(
     'editor',

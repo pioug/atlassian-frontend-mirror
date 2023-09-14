@@ -24,10 +24,5 @@ export const getThemePreferences = (
     );
   }
 
-  // Load spacing by default
-  if (!themePreferences.includes('spacing')) {
-    themePreferences.push('spacing');
-  }
-
   return [...new Set(themePreferences)];
 };

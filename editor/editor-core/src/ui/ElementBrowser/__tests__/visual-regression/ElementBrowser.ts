@@ -1,8 +1,10 @@
 import { getExampleUrl, loadPage } from '@atlaskit/visual-regression/helper';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   elementBrowserSelectors,
   waitForBrowseMenuIcons,
 } from '@atlaskit/editor-test-helpers/page-objects/element-browser';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { retryUntilStablePosition } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 
 describe('ElementBrowser', () => {

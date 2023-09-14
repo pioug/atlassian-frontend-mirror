@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
 import {
   animationFrame,
   selectors,
@@ -18,9 +19,10 @@ import {
   initEditorWithAdf,
   snapshot,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
+/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import {
   evaluateTeardownMockDate,
-  PuppeteerPage,
   waitForLoadedImageElements,
 } from '@atlaskit/visual-regression/helper';
 
@@ -124,9 +126,7 @@ describe('Hyperlink', () => {
           editorProps: {
             media: {
               allowMediaSingle: true,
-              featureFlags: {
-                captions: true,
-              },
+              allowCaptions: true,
             },
           },
         });
@@ -186,9 +186,7 @@ describe('Hyperlink', () => {
             },
             media: {
               allowMediaSingle: true,
-              featureFlags: {
-                captions: true,
-              },
+              allowCaptions: true,
             },
           },
           withLinkPickerOptions: true,

@@ -1,11 +1,14 @@
 import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   Preset,
   createProsemirrorEditorFactory,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import type { MediaADFAttrs } from '@atlaskit/adf-schema';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import dispatchPasteEvent from '@atlaskit/editor-test-helpers/dispatch-paste-event';
 import type { DocBuilder } from '@atlaskit/editor-common/types';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   doc,
   bodiedExtension,
@@ -101,10 +104,7 @@ describe('action paste handler', () => {
         .add(gridPlugin)
         .add(floatingToolbarPlugin)
         .add(focusPlugin)
-        .add([
-          mediaPlugin,
-          { allowMediaSingle: true, featureFlags: { captions: true } },
-        ])
+        .add([mediaPlugin, { allowMediaSingle: true, allowCaptions: true }])
         .add(listPlugin)
         .add(hyperlinkPlugin)
         .add([statusPlugin, { menuDisabled: false }])

@@ -1,6 +1,9 @@
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { bodiedExtensionData } from '@atlaskit/editor-test-helpers/mock-extension-data';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import randomId from '@atlaskit/editor-test-helpers/random-id';
 
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   p,
   code_block,

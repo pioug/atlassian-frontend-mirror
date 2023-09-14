@@ -1,4 +1,5 @@
-import { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { p, td, th, tr } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import {
@@ -12,9 +13,10 @@ import {
   hEmpty,
 } from '../../../__tests__/__helpers/doc-builder';
 import { testCommand } from '../../../__tests__/__helpers/test-command';
-import { Command } from '../../../types';
+import type { Command } from '../../../types';
 import { splitCell } from '../../../utils/split-cell';
-import { GetCellTypeArgs, splitCellWithType } from '../../split-cell-with-type';
+import type { GetCellTypeArgs } from '../../split-cell-with-type';
+import { splitCellWithType } from '../../split-cell-with-type';
 
 describe('splitCell', () => {
   it('does nothing when cursor is inside of a cell with attributes colspan = 1 and rowspan = 1', () => {

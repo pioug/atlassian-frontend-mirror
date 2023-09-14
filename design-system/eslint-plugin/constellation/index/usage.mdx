@@ -23,6 +23,7 @@ This plugin contains rules that should be used when working with the [Atlassian 
 | <a href="#no-deprecated-imports">no-deprecated-imports</a>                         | Disallow importing deprecated modules.                                                                                                                                           | Yes         |         |             |
 | <a href="#no-margin">no-margin</a>                                                 | Disallow using the margin CSS property.                                                                                                                                          |             |         |             |
 | <a href="#no-nested-styles">no-nested-styles</a>                                   | Disallows use of nested styles in `css` functions.                                                                                                                               | Yes         |         |             |
+| <a href="#no-physical-properties">no-physical-properties</a>                       | Disallow physical properties and values in `css` function calls.                                                                                                                 |             | Yes     |             |
 | <a href="#no-unsafe-design-token-usage">no-unsafe-design-token-usage</a>           | Enforces design token usage is statically and locally analyzable.                                                                                                                | Yes         | Yes     |             |
 | <a href="#prefer-primitives">prefer-primitives</a>                                 | Increase awareness of primitive components via code hints. Strictly used for education purposes and discoverability. To enforce usage please refer to the `use-primitives` rule. |             |         |             |
 | <a href="#use-primitives">use-primitives</a>                                       | Encourage the usage of primitives components.                                                                                                                                    |             | Yes     | Yes         |
@@ -498,6 +499,60 @@ css({
   [media.above.xs]: {
     color: 'red',
   },
+});
+```
+
+## no-physical-properties
+
+Disallows using physical properties. Physical properties
+prevent correct support for different reading modes and languages and
+should be avoided. Rule will autofix applicable physical properties
+to instead use [logical properties](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_logical_properties_and_values/Basic_concepts_of_logical_properties_and_values).
+
+<h3>Examples</h3>
+
+This rule checks for physical property usage inside of `css` function calls.
+
+#### Incorrect
+
+```js
+css({
+  left: 0,
+  right: 0,
+  top: 0,
+  bottom: 0,
+});
+```
+
+```js
+css({
+  marginLeft: 0,
+});
+```
+
+```js
+css({
+  textAlign: 'left',
+});
+```
+
+#### Correct
+
+```js
+css({
+  inset: 0,
+});
+```
+
+```js
+css({
+  marginInlineStart: 0,
+});
+```
+
+```js
+css({
+  textAlign: 'start',
 });
 ```
 

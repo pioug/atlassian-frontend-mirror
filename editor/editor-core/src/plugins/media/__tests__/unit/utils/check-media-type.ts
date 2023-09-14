@@ -19,6 +19,7 @@ jest.mock('@atlaskit/media-client', () => {
   };
 });
 
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { mediaSingle, media } from '@atlaskit/editor-test-helpers/doc-builder';
 import type { MediaADFAttrs } from '@atlaskit/adf-schema';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';

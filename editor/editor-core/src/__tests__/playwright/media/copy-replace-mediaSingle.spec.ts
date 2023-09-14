@@ -5,6 +5,7 @@ import {
   EditorMediaSingleModel,
 } from '@af/editor-libra';
 import { threeImages, oneImage } from './__fixtures__/adf-documents';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { doc, p, mediaSingle } from '@atlaskit/editor-test-helpers/doc-builder';
 
 test.use({

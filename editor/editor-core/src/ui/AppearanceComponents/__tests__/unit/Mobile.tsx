@@ -3,6 +3,7 @@ import { mount } from 'enzyme';
 import { MobileAppearance } from '../../Mobile';
 import selectionPlugin from '../../../../plugins/selection';
 import type { DocBuilder } from '@atlaskit/editor-common/types';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   doc,
   p,
@@ -13,6 +14,7 @@ import {
 import { pluginKey } from '@atlaskit/editor-plugin-table/plugin-key';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   createProsemirrorEditorFactory,
   Preset,

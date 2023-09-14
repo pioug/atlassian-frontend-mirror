@@ -1,10 +1,12 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   fullpage,
   setProseMirrorTextSelection,
   animationFrame,
 } from '@atlaskit/editor-test-helpers/integration/helpers';
 import { expandClassNames } from '../../ui/class-names';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   goToEditorTestingWDExample,
   mountEditor,

@@ -1,8 +1,10 @@
 import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   ExampleCreateInlineCommentComponent,
   ExampleViewInlineCommentComponent,
 } from '@atlaskit/editor-test-helpers/example-inline-comment-component';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   evaluateCoordinates,
   scrollToBottom,
@@ -10,6 +12,7 @@ import {
   getBoundingRect,
   selectAtPosWithProseMirror,
 } from '@atlaskit/editor-test-helpers/page-objects/editor';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   snapshot,
   initFullPageEditorWithAdf,
@@ -17,12 +20,14 @@ import {
 import adf from '../__fixtures__/toolbar-position.adf.json';
 import adfWithTable from '../__fixtures__/toolbar-position-table.adf.json';
 import { annotationSelectors, getState } from '../_utils';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   clickFirstCell,
   selectColumn,
   selectRow,
   tableSelectors,
 } from '@atlaskit/editor-test-helpers/page-objects/table';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { retryUntilStablePosition } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 
 const init = async (page: PuppeteerPage, adf: Object) => {

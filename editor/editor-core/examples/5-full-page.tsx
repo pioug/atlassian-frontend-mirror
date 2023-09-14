@@ -144,7 +144,6 @@ const SAVE_ACTION = () => console.log('Save');
 
 const defaultMediaFeatureFlags: MediaFeatureFlags = {
   ...exampleMediaFeatureFlags,
-  captions: true,
   mediaInline: true,
 };
 
@@ -410,6 +409,7 @@ export class ExampleEditorComponent extends React.Component<
                     }
                     return errors;
                   },
+                  allowCaptions: true,
                   featureFlags: mediaEditorProps,
                 }}
                 allowHelpDialog

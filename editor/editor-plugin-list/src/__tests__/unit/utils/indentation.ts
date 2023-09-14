@@ -1,5 +1,7 @@
 import { hasValidListIndentationLevel } from '@atlaskit/editor-common/lists';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { doc, li, ol, p } from '@atlaskit/editor-test-helpers/doc-builder';
 
 describe('utils', () => {

@@ -13,6 +13,7 @@ import {
   tableNestedInExpandFullWidth,
 } from './__fixtures__/resize-documents';
 
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import sampleSchema from '@atlaskit/editor-test-helpers/schema';
 
 import { tableNewColumnMinWidth } from '@atlaskit/editor-common/styles';

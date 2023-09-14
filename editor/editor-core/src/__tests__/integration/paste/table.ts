@@ -2,17 +2,22 @@ import type { Browser } from '@atlaskit/webdriver-runner/runner';
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   fullpage,
   setProseMirrorTextSelection,
   getDocFromElement,
 } from '@atlaskit/editor-test-helpers/integration/helpers';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   goToEditorTestingWDExample,
   mountEditor,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { ConfluenceCardProvider } from '@atlaskit/editor-test-helpers/confluence-card-provider';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { selectors as editorSelectors } from '@atlaskit/editor-test-helpers/page-objects/editor';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { tableSelectors } from '@atlaskit/editor-test-helpers/page-objects/table';
 import {
   documentWithTextAndSimpleTable,
@@ -21,7 +26,7 @@ import {
   documentWithComplexTableAndText,
   documentWithParagraphsInTableCell,
 } from './__fixtures__/document-with-text-and-table';
-import Page from '@atlaskit/webdriver-runner/lib/wrapper/wd-wrapper';
+import type Page from '@atlaskit/webdriver-runner/lib/wrapper/wd-wrapper';
 
 const testCases: {
   test: string;

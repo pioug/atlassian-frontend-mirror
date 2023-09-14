@@ -1,4 +1,5 @@
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   initFullPageEditorWithAdf,
   snapshot,
@@ -7,8 +8,10 @@ import {
   waitForInlineCardSelection,
   waitForResolvedInlineCard,
 } from '@atlaskit/media-integration-test-helpers';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { typeInEditor } from '@atlaskit/editor-test-helpers/page-objects/editor';
 
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   clickToolbarMenu,
   ToolbarMenuItem,

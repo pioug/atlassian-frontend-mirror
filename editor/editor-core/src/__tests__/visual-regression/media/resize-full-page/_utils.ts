@@ -1,5 +1,5 @@
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
-
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
 import {
   initFullPageEditorWithAdf,
   snapshot,
@@ -8,22 +8,23 @@ import {
   getEditorWidth,
   animationFrame,
 } from '@atlaskit/editor-test-helpers/page-objects/editor';
+import type { TestPageConfig } from '@atlaskit/editor-test-helpers/page-objects/media';
 import {
   resizeMediaInPositionWithSnapshot,
   clickMediaInPosition,
   changeMediaLayout,
   MediaLayout,
   MediaResizeSide,
-  TestPageConfig,
   scrollToMedia,
   isLayoutAvailable,
   waitForMediaToBeLoaded,
 } from '@atlaskit/editor-test-helpers/page-objects/media';
 import { selectors } from '@atlaskit/editor-test-helpers/page-objects/editor';
+/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
 import * as layout2Col from './../__fixtures__/mediaSingle-in-column.adf.json';
 import mediaSelectionAdf from './../__fixtures__/mediaSingle-image.adf.json';
 import bulletListAdf from './../__fixtures__/mediaSingle-in-buttetList.adf.json';
-import { EditorProps } from '../../../../types';
+import type { EditorProps } from '../../../../types';
 
 export function createResizeFullPageForConfig(config: TestPageConfig) {
   const initEditor = async (

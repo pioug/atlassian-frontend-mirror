@@ -15,8 +15,8 @@ const Example = () => {
         useSpecBasedValidator={true}
         adfStage={'stage0'}
         schema={getSchemaBasedOnStage('stage0')}
-        mediaOptions={{ featureFlags: { captions: true } }}
         document={adf}
+        mediaOptions={{ allowCaptions: true }}
         withProviders
       />
     </IntlProvider>

@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { testMediaSingle } from '@atlaskit/editor-test-helpers/media-mock';
 
 export default {

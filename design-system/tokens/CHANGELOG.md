@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 1.22.1
+
+### Patch Changes
+
+- [`7b6548e6ad0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7b6548e6ad0) - Internally moves the logic which applies spacing as a defaulty enabled theme to be more inline with other themes.
+
 ## 1.22.0
 
 ### Minor Changes

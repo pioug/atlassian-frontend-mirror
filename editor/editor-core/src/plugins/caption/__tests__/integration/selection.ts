@@ -1,9 +1,11 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import { waitForNumImages } from '../../../../__tests__/integration/media/_utils';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   editable,
   getDocFromElement,
 } from '@atlaskit/editor-test-helpers/integration/helpers';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   goToEditorTestingWDExample,
   mountEditor,
@@ -22,9 +24,7 @@ BrowserTestCase(
       defaultValue: JSON.stringify(adf),
       media: {
         allowMediaSingle: true,
-        featureFlags: {
-          captions: true,
-        },
+        allowCaptions: true,
       },
     });
 

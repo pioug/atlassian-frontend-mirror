@@ -1,24 +1,31 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
-import WebdriverPage from '@atlaskit/webdriver-runner/wd-wrapper';
+import type WebdriverPage from '@atlaskit/webdriver-runner/wd-wrapper';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   goToEditorTestingWDExample,
   mountEditor,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   clickFirstCell,
   tableSelectors,
 } from '@atlaskit/editor-test-helpers/page-objects/table';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   expectToMatchSelection,
   editable,
   getDocFromElement,
   animationFrame,
 } from '@atlaskit/editor-test-helpers/integration/helpers';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { clickTaskNth } from '@atlaskit/editor-test-helpers/page-objects/task';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { clickNthDecision } from '@atlaskit/editor-test-helpers/page-objects/decision';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { fullpage } from '@atlaskit/editor-test-helpers/integration/helpers';
 import taskListTableAdf from '../__fixtures__/tasklist-in-table-adf.json';
 import decisionListInTableAdf from '../__fixtures__/decisionlist-in-table-adf.json';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { retryUntilStablePosition } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 
 const initEditor = async (page: WebdriverPage, adf: Object) =>

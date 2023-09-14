@@ -34,6 +34,7 @@ export const configs: {
       '@atlaskit/design-system/no-deprecated-imports': string;
       '@atlaskit/design-system/no-margin': string;
       '@atlaskit/design-system/no-nested-styles': string;
+      '@atlaskit/design-system/no-physical-properties': string;
       '@atlaskit/design-system/no-unsafe-design-token-usage': string;
       '@atlaskit/design-system/prefer-primitives': string;
       '@atlaskit/design-system/use-primitives': string;
@@ -120,6 +121,7 @@ export const rules: {
   >;
   'no-margin': Rule.RuleModule;
   'no-nested-styles': Rule.RuleModule;
+  'no-physical-properties': Rule.RuleModule;
   'no-unsafe-design-token-usage': Rule.RuleModule;
   'prefer-primitives': Rule.RuleModule;
   'use-primitives': Rule.RuleModule;

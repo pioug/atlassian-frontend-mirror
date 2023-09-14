@@ -2,13 +2,15 @@ import React from 'react';
 
 import { screen } from '@testing-library/react';
 
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
-import { MentionProvider } from '@atlaskit/mention';
+import type { MentionProvider } from '@atlaskit/mention';
 import { ResourcedMention } from '@atlaskit/mention/element';
 
 import { ProviderFactory } from '../../../provider-factory';
-import { ProfilecardProvider } from '../../../provider-factory/profile-card-provider';
+import type { ProfilecardProvider } from '../../../provider-factory/profile-card-provider';
 import Mention from '../../../ui/Mention';
 // avoid polluting test logs with error message in console
 // please ensure you fix it if you expect console.error to be thrown

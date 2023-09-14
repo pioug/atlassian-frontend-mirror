@@ -1,4 +1,5 @@
-import { PuppeteerElementHandle } from '@atlaskit/visual-regression/helper';
+import type { PuppeteerElementHandle } from '@atlaskit/visual-regression/helper';
+/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
 import {
   snapshot,
   Appearance,
@@ -16,8 +17,9 @@ import {
   scrollToBottom,
 } from '@atlaskit/editor-test-helpers/page-objects/editor';
 import { pressKeyCombo } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
-import { EditorProps } from '../../../types';
+/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import type { EditorProps } from '../../../types';
 import mediaSingleAdf from './__fixtures__/mediaSingle-image.adf.json';
 
 describe('Snapshot Test: Media with alt text', () => {

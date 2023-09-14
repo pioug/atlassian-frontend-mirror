@@ -4,6 +4,7 @@ import {
   AnalyticsListener,
   useAnalyticsEvents,
 } from '@atlaskit/analytics-next';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { LinkPicker } from '@atlaskit/link-picker';
 import { renderWithIntl as render } from '@atlaskit/media-test-helpers/renderWithIntl';

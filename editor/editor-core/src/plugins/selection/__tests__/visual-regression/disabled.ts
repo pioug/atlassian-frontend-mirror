@@ -1,4 +1,5 @@
 import kitchenSinkAdf from './__fixtures__/kitchen-sink-4.adf.json';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   initEditorWithAdf,
   Appearance,
@@ -6,6 +7,7 @@ import {
   snapshot,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { selectAtPos } from '@atlaskit/editor-test-helpers/page-objects/editor';
 
 describe('Selection:', () => {

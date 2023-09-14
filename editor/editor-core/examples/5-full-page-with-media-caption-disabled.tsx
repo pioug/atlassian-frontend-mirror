@@ -8,27 +8,20 @@ import {
   SaveAndCancelButtons,
 } from './5-full-page';
 import LanguagePicker from '../example-helpers/LanguagePicker';
-import { MediaOptions } from '../src';
-import { MediaFeatureFlags } from '@atlaskit/media-common';
+import type { MediaOptions } from '../src';
 import adf from '../example-helpers/templates/media-without-caption.adf.json';
 import { getTranslations } from '../example-helpers/get-translations';
-
 export type Props = {};
 export type State = { locale: string; messages: { [key: string]: string } };
-
 export default class ExampleEditor extends React.Component<Props, State> {
   state: State = { locale: 'en', messages: enMessages };
-
   render() {
     const { locale, messages } = this.state;
-    const mediaFeatureFlags: MediaFeatureFlags = {
-      captions: false,
-    };
+
     const mediaOptions: MediaOptions = {
       allowMediaSingle: true,
-      featureFlags: mediaFeatureFlags,
+      allowCaptions: false,
     };
-
     return (
       <IntlProvider
         locale={this.getProperLanguageKey(locale)}
@@ -58,11 +51,9 @@ export default class ExampleEditor extends React.Component<Props, State> {
       </IntlProvider>
     );
   }
-
   private loadLocale = async (locale: string) => {
     const messages = await getTranslations(locale);
     this.setState({ locale, messages });
   };
-
   private getProperLanguageKey = (locale: string) => locale.replace('_', '-');
 }

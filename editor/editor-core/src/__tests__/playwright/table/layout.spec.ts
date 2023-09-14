@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import sampleSchema from '@atlaskit/editor-test-helpers/schema';
 import {
   EditorNodeContainerModel,
@@ -11,6 +12,7 @@ import {
 } from '@af/editor-libra';
 import { createSquareTable } from './__fixtures__/resize-documents';
 import { nestedInExtension, nestedInLayout } from './__fixtures__/base-adfs';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   doc,
   table,

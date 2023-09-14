@@ -1,10 +1,13 @@
 import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   Preset,
   createProsemirrorEditorFactory,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import dispatchPasteEvent from '@atlaskit/editor-test-helpers/dispatch-paste-event';
 import type { DocBuilder } from '@atlaskit/editor-common/types';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   doc,
   h1,
@@ -50,6 +53,7 @@ import panelPlugin from '../../../../panel';
 import selectionPlugin from '../../../../selection';
 import floatingToolbarPlugin from '../../../../floating-toolbar';
 import betterTypeHistoryPlugin from '../../../../better-type-history';
+import captionPlugin from '../../../../caption';
 
 import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
@@ -87,6 +91,7 @@ describe('paste paragraph edge cases', () => {
         .add(compositionPlugin)
         .add([codeBlockPlugin, { appearance: 'full-page' }])
         .add([mediaPlugin, { allowMediaSingle: true }])
+        .add(captionPlugin)
         .add(panelPlugin),
     });
 

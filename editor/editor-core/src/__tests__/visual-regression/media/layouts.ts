@@ -1,10 +1,11 @@
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
 import {
   snapshot,
   initEditorWithAdf,
   Appearance,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
-import { EditorProps } from '../../../types';
+import type { EditorProps } from '../../../types';
 
 import {
   changeMediaLayout,
@@ -17,6 +18,7 @@ import {
   clickEditableContent,
   animationFrame,
 } from '@atlaskit/editor-test-helpers/page-objects/editor';
+/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
 import { pressKey } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
 import * as singleCellTable from './__fixtures__/single-cell-table-adf.json';
 import columnLayoutAdf from './__fixtures__/3-column-layout-with-image.adf.json';

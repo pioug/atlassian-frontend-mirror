@@ -44,11 +44,11 @@ export const loadingErrorMessages = defineMessages({
       'Button text to allow the user to refresh the table to see results',
     defaultMessage: 'Refresh',
   },
-  unableToLoadIssues: {
-    id: 'linkDataSource.jira-issues.unableToLoadIssues',
+  unableToLoadItems: {
+    id: 'linkDataSource.jira-issues.unableToLoadItems',
     description:
-      'Error state message letting the user know we were unable the load the requested list of issues',
-    defaultMessage: 'Unable to load issues',
+      'Error state message letting the user know we were unable the load the requested list of items',
+    defaultMessage: 'Unable to load items',
   },
   unableToLoadResults: {
     id: 'linkDataSource.jira-issues.unableToLoadResults',

@@ -1,4 +1,5 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   goToEditorTestingWDExample,
   mountEditor,
@@ -8,6 +9,7 @@ import {
   waitForEmbedCardSelection,
   waitForResolvedEmbedCard,
 } from '@atlaskit/media-integration-test-helpers';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { ConfluenceCardProvider } from '@atlaskit/editor-test-helpers/confluence-card-provider';
 
 type ClientType = Parameters<typeof goToEditorTestingWDExample>[0];

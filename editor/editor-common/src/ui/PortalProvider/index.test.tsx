@@ -12,12 +12,14 @@ import {
   AnalyticsListener,
   useAnalyticsEvents,
 } from '@atlaskit/analytics-next';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 
 // eslint-disable-next-line
 import { ContextAdapter } from '../../../../editor-core/src/nodeviews/context-adapter';
 
-import { PortalProvider, PortalProviderAPI, PortalRenderer } from './index';
+import type { PortalProviderAPI } from './index';
+import { PortalProvider, PortalRenderer } from './index';
 const Component = () => <div className="component">My component</div>;
 const Component2 = () => {
   const { createAnalyticsEvent } = useAnalyticsEvents();

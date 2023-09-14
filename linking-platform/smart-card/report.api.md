@@ -1066,6 +1066,11 @@ type UiRenderSuccessEventProps = CommonEventProps & {
   status: CardType;
 };
 
+// @public (undocumented)
+type UiServerActionClickedEventProps = CommonEventProps & {
+  smartLinkActionType: SmartLinkActionType;
+};
+
 // @public @deprecated
 export const useSmartLinkAnalytics: (
   url: string,
@@ -1218,6 +1223,9 @@ export const useSmartLinkAnalytics: (
     smartLinkLozengeActionClickedEvent: () => void;
     smartLinkLozengeActionListItemClickedEvent: () => void;
     smartLinkLozengeActionErrorOpenPreviewClickedEvent: () => void;
+    smartLinkServerActionClickedEvent: (
+      props: UiServerActionClickedEventProps,
+    ) => void;
   };
   operational: {
     invokeSucceededEvent: ({

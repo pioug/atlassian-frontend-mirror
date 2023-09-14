@@ -89,9 +89,9 @@ export default function EditorWithFeedback(props: Props) {
                     provider: mediaProvider,
                     allowMediaSingle: true,
                     allowMediaGroup: true,
+                    allowCaptions: true,
                     featureFlags: {
                       mediaInline: true,
-                      captions: true,
                     },
                   }}
                   onChange={onChange}

@@ -1,4 +1,6 @@
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { nextTick } from '@atlaskit/editor-test-helpers/next-tick';
 import { shallow, ReactWrapper } from 'enzyme';
 import { ReactSerializer } from '../../../index';
@@ -22,7 +24,7 @@ import {
   InlineExtension,
 } from '../../../react/nodes';
 import { DataConsumer } from '../../../react/marks';
-import { MediaSSR } from '../../../types/mediaOptions';
+import type { MediaSSR } from '../../../types/mediaOptions';
 
 import * as doc from '../../__fixtures__/hello-world.adf.json';
 import * as dataConsumerDoc from '../../__fixtures__/data-consumer.adf.json';
@@ -36,8 +38,8 @@ import * as expandWithMedia from '../../__fixtures__/expand-with-media.adf.json'
 import * as nestedExpandWithMedia from '../../__fixtures__/nested-expand-with-media.json';
 import * as layoutWithMedia from '../../__fixtures__/layout-with-media.json';
 import * as tableWithMedia from '../../__fixtures__/table-with-media.json';
-import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { AnalyticsEventPayload } from '../../../analytics/events';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { AnalyticsEventPayload } from '../../../analytics/events';
 const docFromSchema = schema.nodeFromJSON(doc);
 const headingDocFromSchema = schema.nodeFromJSON(headingDoc);
 const stage0schema = getSchemaBasedOnStage('stage0');

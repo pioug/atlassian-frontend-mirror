@@ -1,17 +1,19 @@
+/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
+import type { ViewportSize } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
 import {
   deviceViewPorts,
   Device,
-  ViewportSize,
 } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
 import {
   initFullPageEditorWithAdf,
   snapshot,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import tableIn2ColAdf from './__fixtures__/table-in-2-col-layout.adf.json';
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { toolbarMessages } from '../../../plugins/layout/toolbar-messages';
 import { clickFirstCell } from '@atlaskit/editor-test-helpers/page-objects/table';
 import { animationFrame } from '@atlaskit/editor-test-helpers/page-objects/editor';
+/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
 import {
   toggleBreakout,
   waitForLayoutChange,

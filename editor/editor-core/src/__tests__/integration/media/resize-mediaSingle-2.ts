@@ -1,14 +1,19 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
-import Page, { BrowserObject } from '@atlaskit/webdriver-runner/wd-wrapper';
+import type { BrowserObject } from '@atlaskit/webdriver-runner/wd-wrapper';
+import type Page from '@atlaskit/webdriver-runner/wd-wrapper';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { goToEditorTestingWDExample } from '@atlaskit/editor-test-helpers/testing-example-page';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { testMediaSingle } from '@atlaskit/editor-test-helpers/media-mock';
 
 import defaultTableAdfAndMedia from './_fixtures_/defaultTableAdfAndMedia';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   navigateToTableCell,
   selectTable,
   setTableLayout,
 } from '@atlaskit/editor-test-helpers/page-objects/table';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { resizeMediaSingle } from '@atlaskit/editor-test-helpers/page-objects/media';
 import {
   assertWidthBeforeAndAfter,

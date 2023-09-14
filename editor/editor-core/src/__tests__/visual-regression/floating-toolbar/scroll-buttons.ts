@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
 import {
   snapshot,
   initEditorWithAdf,
@@ -27,6 +28,7 @@ import {
 import toolbarAdf from './__fixtures__/toolbar-adf.json';
 import toolbarCustomPanelAdf from './__fixtures__/toolbar-adf-with-custom-panel.json';
 import type { EditorProps } from '../../../types';
+/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
 
 const scrollRightButtonSelector = 'button[aria-label="Scroll right"]';
 

@@ -12,6 +12,7 @@ import { ReactRenderer } from '@atlaskit/renderer';
 import { content } from './styles';
 import { toJSON } from '../src/utils';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
 
 const emojiProvider = getEmojiProvider({

@@ -1,6 +1,8 @@
 import React from 'react';
 import { mountWithIntl } from '../../../../__tests__/__helpers/enzyme';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   doc,
   table,
@@ -9,6 +11,7 @@ import {
   tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
 import type { Item } from '../../ui/Toolbar';
 import Toolbar, { areSameItems, isSameItem } from '../../ui/Toolbar';

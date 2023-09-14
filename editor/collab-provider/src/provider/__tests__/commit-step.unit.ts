@@ -1,8 +1,10 @@
 import { commitStep, throttledCommitStep } from '../commit-step';
 import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
-import { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { createSocketIOCollabProvider } from '../../socket-io-provider';
 import { Slice } from '@atlaskit/editor-prosemirror/model';
 import { AcknowledgementResponseTypes } from '../../types';

@@ -6,6 +6,7 @@ import {
   EditorInlineCardModel,
 } from '@af/editor-libra';
 import { inlineCardAdf } from './inline-edit-view-switcher.spec.ts-fixtures/adf';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { p, doc, blockCard } from '@atlaskit/editor-test-helpers/doc-builder';
 
 test.use({

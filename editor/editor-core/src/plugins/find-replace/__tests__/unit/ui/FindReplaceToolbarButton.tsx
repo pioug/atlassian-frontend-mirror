@@ -1,12 +1,12 @@
 import React from 'react';
-import { WrappedComponentProps } from 'react-intl-next';
-import { ReactWrapper } from 'enzyme';
+import type { WrappedComponentProps } from 'react-intl-next';
+import type { ReactWrapper } from 'enzyme';
 import { mountWithIntl } from '../../../../../__tests__/__helpers/enzyme';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { mockAddEventListener } from '@atlaskit/editor-test-helpers/mock-add-event-listener';
 
-import FindReplaceToolbarButton, {
-  FindReplaceToolbarButtonProps,
-} from '../../../ui/FindReplaceToolbarButton';
+import type { FindReplaceToolbarButtonProps } from '../../../ui/FindReplaceToolbarButton';
+import FindReplaceToolbarButton from '../../../ui/FindReplaceToolbarButton';
 import FindReplace from '../../../ui/FindReplace';
 import ReactEditorViewContext from '../../../../../create-editor/ReactEditorViewContext';
 

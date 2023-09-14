@@ -6,10 +6,14 @@ import { MediaNodeUpdater } from '../../../../../../plugins/media/nodeviews/medi
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { mount, shallow, ReactWrapper } from 'enzyme';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { Image } from '@atlaskit/editor-test-helpers/jsdom-fixtures';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { fakeMediaProvider } from '@atlaskit/editor-test-helpers/media-provider';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import randomId from '@atlaskit/editor-test-helpers/random-id';
 import type { RefsNode } from '@atlaskit/editor-common/types';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   mediaSingle,
   media,
@@ -38,6 +42,7 @@ import {
 } from '@atlaskit/media-test-helpers';
 import type { MediaPluginState } from '../../../../../../plugins/media/pm-plugins/types';
 import type { MediaSingleNodeViewProps } from '../../../../../../plugins/media/nodeviews/types';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
 
 const testCollectionName = `media-plugin-mock-collection-${randomId()}`;

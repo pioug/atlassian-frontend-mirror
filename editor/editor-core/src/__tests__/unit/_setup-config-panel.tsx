@@ -4,9 +4,11 @@ import { IntlProvider } from 'react-intl-next';
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { mount, ReactWrapper } from 'enzyme';
 
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import type { BuilderContent } from '@atlaskit/editor-test-helpers/doc-builder';
 import type { DocBuilder } from '@atlaskit/editor-common/types';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { doc } from '@atlaskit/editor-test-helpers/doc-builder';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type {
@@ -16,10 +18,12 @@ import type {
 } from '@atlaskit/editor-common/extensions';
 import { combineExtensionProviders } from '@atlaskit/editor-common/extensions';
 import type { NodeConfig } from '@atlaskit/editor-test-helpers/extensions';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createFakeExtensionProvider } from '@atlaskit/editor-test-helpers/extensions';
 
 import type { EditorProps } from '../../types';
 import { pluginKey } from '../../plugins/extension/plugin-key';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   flushPromises,
   waitForProvider,

@@ -1,4 +1,5 @@
 import { Slice } from '@atlaskit/editor-prosemirror/model';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   doc,
   p,
@@ -21,6 +22,7 @@ const inlineCardAdf = {
   attrs: cardAdfAttrs,
 };
 
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 
 describe('clipboardTextSerializer', () => {

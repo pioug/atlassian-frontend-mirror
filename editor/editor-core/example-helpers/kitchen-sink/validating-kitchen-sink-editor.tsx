@@ -3,7 +3,9 @@ import type { Schema } from '@atlaskit/editor-prosemirror/model';
 
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { customInsertMenuItems } from '@atlaskit/editor-test-helpers/mock-insert-menu';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import { exampleMediaFeatureFlags } from '@atlaskit/media-test-helpers/exampleMediaFeatureFlags';
 import type {
@@ -17,7 +19,9 @@ import {
   mentionResourceProviderWithResolver,
   mentionResourceProvider,
 } from '@atlaskit/util-data-test/mention-story-data';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { ConfluenceCardClient } from '@atlaskit/editor-test-helpers/confluence-card-client';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { ConfluenceCardProvider } from '@atlaskit/editor-test-helpers/confluence-card-provider';
 import { Editor } from '../../src';
 import type {
@@ -190,9 +194,9 @@ export class ValidatingKitchenSinkEditor extends React.Component<
             allowLinking: true,
             allowResizingInTables: true,
             allowAltTextOnImages: true,
+            allowCaptions: true,
             featureFlags: {
               ...exampleMediaFeatureFlags,
-              captions: true,
               mediaInline: true,
             },
           }}

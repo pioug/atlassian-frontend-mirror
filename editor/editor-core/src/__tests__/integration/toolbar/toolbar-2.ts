@@ -1,10 +1,12 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   comment,
   fullpage,
   editable,
 } from '@atlaskit/editor-test-helpers/integration/helpers';
 import { toolbarMessages as blockTypeMessages } from '@atlaskit/editor-plugin-block-type/messages';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   goToEditorTestingWDExample,
   mountEditor,

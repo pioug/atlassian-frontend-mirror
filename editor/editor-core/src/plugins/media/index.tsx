@@ -97,24 +97,31 @@ const mediaPlugin: MediaNextEditorPluginType = ({
       const {
         allowMediaGroup = true,
         allowMediaSingle = false,
+        allowCaptions,
         featureFlags: mediaFeatureFlags,
       } = options || {};
 
-      const captions = getMediaFeatureFlag('captions', mediaFeatureFlags);
       const allowMediaInline = getMediaFeatureFlag(
         'mediaInline',
         mediaFeatureFlags,
       );
 
+      const withCaption = getMediaFeatureFlag('captions', mediaFeatureFlags);
+
+      // temporary mapping - we will support captions feature flag until
+      // confluence removes the feature flag support in their code base and
+      // utilizes allowCaptions media prop instead
+      const mappedAllowCaptions = allowCaptions ? allowCaptions : withCaption;
+
       const mediaSingleOption = getBooleanFF(
         'platform.editor.media.extended-resize-experience',
       )
         ? {
-            withCaption: captions,
+            withCaption: mappedAllowCaptions,
             withExtendedWidthTypes: true,
           }
         : {
-            withCaption: captions,
+            withCaption: mappedAllowCaptions,
             withExtendedWidthTypes: false,
           };
 

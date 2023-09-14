@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   snapshot,
   initEditorWithAdf,
@@ -6,9 +7,11 @@ import {
 
 import adfWithMixedContent from './__fixtures__/content.adf.json';
 import adfWithNoBreakoutContent from './__fixtures__/content-nobreakout.adf.json';
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { scrollToTop } from '@atlaskit/editor-test-helpers/page-objects/editor';
 import { CONTENT_AREA_TEST_ID } from '../../../ui/Appearance/FullPage/FullPageContentArea';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { contextPanelSelectors } from '@atlaskit/editor-test-helpers/page-objects/context-panel';
 
 describe('Context panel', () => {

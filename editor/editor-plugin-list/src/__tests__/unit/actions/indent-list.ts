@@ -1,6 +1,8 @@
 import type { RefsNode } from '@atlaskit/editor-common/types';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { doc, li, ol, p, ul } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import { indentList } from '../../../actions/indent-list';

@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   p,
   tr as row,
@@ -5,6 +6,7 @@ import {
   td,
   th,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { defaultSchema } from '@atlaskit/editor-test-helpers/schema';
 
 import { cEmpty, hEmpty } from '../../../__tests__/__helpers/doc-builder';

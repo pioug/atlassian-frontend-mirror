@@ -1,10 +1,10 @@
 import { combineProviders } from '../provider-helpers';
 
-import { ExtensionKey, ExtensionProvider, ExtensionType } from './types';
+import type { ExtensionKey, ExtensionProvider, ExtensionType } from './types';
 
 /**
  * Allow to run methods from the `ExtensionProvider` interface across all providers seamlessly.
- * Handles promise racing and discards rejected promises safely.
+ * This handles promise racing and discards rejected promises safely.
  */
 export default (
   extensionProviders: (ExtensionProvider | Promise<ExtensionProvider>)[],

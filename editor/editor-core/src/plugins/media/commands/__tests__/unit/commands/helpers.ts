@@ -7,9 +7,11 @@ import {
 import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
 import { stateKey as mediaPluginKey } from '../../../../pm-plugins/plugin-key';
 import type { MediaPluginState } from '../../../../pm-plugins/types';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { DocBuilder } from '@atlaskit/editor-common/types';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   doc,
   p,
@@ -18,6 +20,7 @@ import {
   mediaSingle,
   mediaGroup,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
 import {
   getFreshMediaProvider,

@@ -1,8 +1,10 @@
 jest.mock('../../plugin/insert-node-helpers', () => ({
   insertProseMirrorContent: jest.fn(),
 }));
-import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { text } from '@atlaskit/editor-test-helpers/doc-builder';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 
 import { handleInsertContent } from '../../plugin/insert-content-handlers';

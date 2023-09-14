@@ -4,7 +4,9 @@ import type {
 } from '@atlaskit/analytics-next';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { DocBuilder } from '@atlaskit/editor-common/types';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   bodiedExtension,
   doc,
@@ -15,7 +17,9 @@ import {
   panel,
   ul,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { bodiedExtensionData } from '@atlaskit/editor-test-helpers/mock-extension-data';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 
 import { insertHorizontalRule } from '../../commands';

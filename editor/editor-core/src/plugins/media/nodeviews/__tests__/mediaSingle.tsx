@@ -2,6 +2,7 @@ import * as mocks from './mediaSingle.mock';
 import React from 'react';
 import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { mediaSingle, media } from '@atlaskit/editor-test-helpers/doc-builder';
 import type {
   ExternalMediaAttributes,
@@ -10,6 +11,7 @@ import type {
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import MediaSingleNode from '../mediaSingle';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
 import type { MediaPluginState } from '../../pm-plugins/types';
 import { fireEvent, render } from '@testing-library/react';
@@ -158,7 +160,7 @@ describe('mediaSingle', () => {
       <MediaSingleNode
         {...{
           ...getMediaSingleProps(),
-          mediaOptions: { featureFlags: { captions: true } },
+          mediaOptions: { allowCaptions: true },
           node,
           selected: jest.fn().mockReturnValue(true),
           view: {

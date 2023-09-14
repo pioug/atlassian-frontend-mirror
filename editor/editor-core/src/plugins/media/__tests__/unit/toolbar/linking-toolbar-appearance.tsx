@@ -34,6 +34,7 @@ const waitForStateUpdate = async () => {
 import type { MediaLinkingState } from '../../../pm-plugins/linking';
 
 import type { RefsNode } from '@atlaskit/editor-common/types';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   doc,
   mediaSingle,

@@ -1,8 +1,9 @@
 import React from 'react';
 import Form from '@atlaskit/form';
 import userEvent from '@testing-library/user-event';
-import { ReactWrapper, shallow } from 'enzyme';
+import { shallow, ReactWrapper } from 'enzyme';
 import { mountWithIntl } from '../../../../__tests__/__helpers/enzyme';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 import { FieldComponent } from '../../FormContent';
 import ColorPickerField, {

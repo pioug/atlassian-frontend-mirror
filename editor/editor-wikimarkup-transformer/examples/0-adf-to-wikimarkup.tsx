@@ -5,7 +5,8 @@ import { IntlProvider } from 'react-intl-next';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 import { Editor, EditorContext, CollapsedEditor } from '@atlaskit/editor-core';
-import ToolsDrawer, { RenderEditorProps } from '../example-helpers/ToolsDrawer';
+import type { RenderEditorProps } from '../example-helpers/ToolsDrawer';
+import ToolsDrawer from '../example-helpers/ToolsDrawer';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 
 const SAVE_ACTION = () => console.log('Save');
@@ -75,8 +76,8 @@ export default class EditorWithFeedback extends React.Component<Props, State> {
                         provider: mediaProvider,
                         allowMediaSingle: true,
                         allowLinking: true,
+                        allowCaptions: true,
                         featureFlags: {
-                          captions: true,
                           mediaInline: true,
                         },
                       }}

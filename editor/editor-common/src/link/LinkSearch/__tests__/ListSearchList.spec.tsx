@@ -1,11 +1,11 @@
 import React from 'react';
 
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import Spinner from '@atlaskit/spinner';
 
-import LinkSearchList, {
-  Props as LinkSearchListProps,
-} from '../LinkSearchList';
+import type { Props as LinkSearchListProps } from '../LinkSearchList';
+import LinkSearchList from '../LinkSearchList';
 import LinkSearchListItem from '../LinkSearchListItem';
 
 import { getDefaultItems } from './__helpers';

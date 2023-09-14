@@ -1,15 +1,18 @@
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import {
   PanelSharedCssClassName,
   PanelSharedSelectors,
 } from '@atlaskit/editor-common/panel';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   snapshot,
   initEditorWithAdf,
   Appearance,
   retryUntil,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { mentionSelectors } from '@atlaskit/editor-test-helpers/page-objects/mention';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { animationFrame } from '@atlaskit/editor-test-helpers/page-objects/editor';
 import selectionPanelAdf from './__fixtures__/panel.adf.json';
 import { akEditorSelectedNodeClassName } from '@atlaskit/editor-shared-styles';

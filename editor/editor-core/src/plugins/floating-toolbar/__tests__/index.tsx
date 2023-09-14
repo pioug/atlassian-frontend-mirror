@@ -1,5 +1,7 @@
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 import type { FloatingToolbarConfig } from '@atlaskit/editor-common/types';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { doc, p, panel } from '@atlaskit/editor-test-helpers/doc-builder';
 import { AllSelection } from '@atlaskit/editor-prosemirror/state';
 import type { Node } from '@atlaskit/editor-prosemirror/model';

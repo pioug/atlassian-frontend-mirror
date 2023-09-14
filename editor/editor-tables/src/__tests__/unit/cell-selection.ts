@@ -1,16 +1,18 @@
-import { Node as PMNode, Slice } from '@atlaskit/editor-prosemirror/model';
-import {
-  EditorState,
-  NodeSelection,
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { Slice } from '@atlaskit/editor-prosemirror/model';
+import type {
   Selection,
   Transaction,
 } from '@atlaskit/editor-prosemirror/state';
+import { EditorState, NodeSelection } from '@atlaskit/editor-prosemirror/state';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { p, table, td, tr } from '@atlaskit/editor-test-helpers/doc-builder';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { defaultSchema } from '@atlaskit/editor-test-helpers/schema';
 
 import { CellSelection } from '../../cell-selection';
 import { tableEditing } from '../../pm-plugins/table-editing';
-import { Command } from '../../types';
+import type { Command } from '../../types';
 import {
   addColumnAfter,
   addColumnBefore,

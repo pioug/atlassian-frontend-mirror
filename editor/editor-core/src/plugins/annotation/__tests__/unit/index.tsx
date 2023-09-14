@@ -4,10 +4,12 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { TextSelection, Selection } from '@atlaskit/editor-prosemirror/state';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import * as prosemirrorUtils from '@atlaskit/editor-prosemirror/utils';
 
 import type { Refs, DocBuilder } from '@atlaskit/editor-common/types';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   annotation,
   code_block,
@@ -34,6 +36,7 @@ import {
   ACTION_SUBJECT_ID,
   CONTENT_COMPONENT,
 } from '../../../analytics/types/enums';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
 import { RESOLVE_METHOD } from '../../../analytics/types/inline-comment-events';
 import * as commands from '../../commands/index';

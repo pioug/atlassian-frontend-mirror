@@ -1,9 +1,10 @@
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   layoutSection,
   layoutColumn,
   p,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { PresetLayout } from '../../types';
+import type { PresetLayout } from '../../types';
 
 export const layouts: { name: PresetLayout; widths: number[] }[] = [
   { name: 'two_equal', widths: [50, 50] },

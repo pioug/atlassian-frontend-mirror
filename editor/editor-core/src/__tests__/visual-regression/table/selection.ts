@@ -1,4 +1,6 @@
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   snapshot,
   initFullPageEditorWithAdf,
@@ -6,6 +8,7 @@ import {
 import complexTableWithMergedCells from './__fixtures__/complex-table-with-merged-cells.adf.json';
 import lastColumnMergedTable from './__fixtures__/last-column-merged-table.adf.json';
 import tableWithNumberedColumn from './__fixtures__/table-with-numbered-column.adf.json';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   selectRow,
   selectColumn,
@@ -14,12 +17,14 @@ import {
   clickFirstCell,
   tableSelectors,
 } from '@atlaskit/editor-test-helpers/page-objects/table';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { retryUntilStablePosition } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   selectors,
   animationFrame,
 } from '@atlaskit/editor-test-helpers/page-objects/editor';
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 
 describe('Snapshot Test: Table selection', () => {
   let page: PuppeteerPage;

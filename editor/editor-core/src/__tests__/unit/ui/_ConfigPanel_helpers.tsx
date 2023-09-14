@@ -5,8 +5,7 @@ import retry from 'async-retry';
 import merge from 'lodash/merge';
 
 import ConfigPanel from '../../../ui/ConfigPanel';
-import {
-  DefaultExtensionProvider,
+import type {
   ExtensionManifest,
   ExtensionModule,
   ExtensionModuleNodes,
@@ -14,9 +13,13 @@ import {
   Option,
   Parameters,
   UserFieldContext,
-  combineExtensionProviders,
   UpdateExtension,
 } from '@atlaskit/editor-common/extensions';
+import {
+  DefaultExtensionProvider,
+  combineExtensionProviders,
+} from '@atlaskit/editor-common/extensions';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
 import ReactEditorViewContext from '../../../create-editor/ReactEditorViewContext';
 

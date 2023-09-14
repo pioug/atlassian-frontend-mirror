@@ -1,5 +1,6 @@
 import { shallow } from 'enzyme';
 import React from 'react';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { HardBreak } from '../../../../react/nodes';
 import Expand from '../../../../ui/Expand';

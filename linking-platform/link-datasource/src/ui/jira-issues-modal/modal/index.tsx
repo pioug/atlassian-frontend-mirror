@@ -180,12 +180,23 @@ export const PlainJiraIssuesConfigModal = (
   const { formatMessage } = useIntl();
   const { fireEvent } = useDatasourceAnalyticsEvents();
 
-  const selectedJiraSite = useMemo<Site | undefined>(
-    () =>
-      availableSites.find(jiraSite => jiraSite.cloudId === cloudId) ||
-      availableSites[0],
-    [availableSites, cloudId],
-  );
+  const selectedJiraSite = useMemo<Site>(() => {
+    if (cloudId) {
+      // if the cloud id we're editing isn't in available sites then user is likely unauthorized for that site
+      // TODO: unauthorized to edit flow https://product-fabric.atlassian.net/browse/EDM-7216
+      return (
+        availableSites.find(jiraSite => jiraSite.cloudId === cloudId) ||
+        availableSites[0]
+      );
+    } else {
+      const currentlyLoggedInSiteUrl = window.location.origin;
+      return (
+        availableSites.find(
+          jiraSite => jiraSite.url === currentlyLoggedInSiteUrl,
+        ) || availableSites[0]
+      );
+    }
+  }, [availableSites, cloudId]);
 
   const buttonClickedAnalyticsPayload = useMemo(() => {
     return {
@@ -238,7 +249,10 @@ export const PlainJiraIssuesConfigModal = (
   }, [fireEvent]);
 
   useEffect(() => {
-    if (!cloudId && selectedJiraSite) {
+    if (
+      selectedJiraSite &&
+      (!cloudId || cloudId !== selectedJiraSite.cloudId)
+    ) {
       setCloudId(selectedJiraSite.cloudId);
     }
   }, [cloudId, selectedJiraSite]);

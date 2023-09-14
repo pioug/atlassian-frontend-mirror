@@ -1,4 +1,5 @@
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   snapshot,
   Appearance,
@@ -6,17 +7,20 @@ import {
   editorCommentContentSelector,
   editorSelector,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
-import { EditorProps } from '../../../types';
+import type { EditorProps } from '../../../types';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   changeMediaLayout,
   MediaLayout,
   scrollToMedia,
   waitForMediaToBeLoaded,
 } from '@atlaskit/editor-test-helpers/page-objects/media';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   clickEditableContent,
   animationFrame,
 } from '@atlaskit/editor-test-helpers/page-objects/editor';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { pressKey } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
 import mediaGroupAdf from './__fixtures__/media-group-multiple-cards.adf.json';
 import mediaSelectionAdf from './__fixtures__/media-selection.adf.json';

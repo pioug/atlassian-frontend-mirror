@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   createFakeAutoConvertModule,
   createFakeExtensionManifest,
@@ -6,7 +7,7 @@ import {
 import combineExtensionProviders from '../../combine-extension-providers';
 import DefaultExtensionProvider from '../../default-extension-provider';
 import { createAutoConverterRunner } from '../../module-helpers';
-import { ExtensionProvider } from '../../types';
+import type { ExtensionProvider } from '../../types';
 
 describe('combine-extension-providers', () => {
   const confluenceAwesomeMacro = createFakeExtensionManifest({

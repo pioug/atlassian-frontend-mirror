@@ -1,4 +1,5 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   getDocFromElement,
   comment,
@@ -7,6 +8,7 @@ import {
 } from '@atlaskit/editor-test-helpers/integration/helpers';
 import { toolbarMessages as textFormattingMessages } from '@atlaskit/editor-common/messages';
 import { toolbarMessages as blockTypeToolbarMessages } from '@atlaskit/editor-plugin-block-type/messages';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   goToEditorTestingWDExample,
   mountEditor,

@@ -8,8 +8,7 @@ import {
   SaveAndCancelButtons,
 } from './5-full-page';
 import LanguagePicker from '../example-helpers/LanguagePicker';
-import { MediaOptions } from '../src';
-import { MediaFeatureFlags } from '@atlaskit/media-common';
+import type { MediaOptions } from '../src';
 import adf from '../example-helpers/templates/media-with-caption.adf.json';
 import { getTranslations } from '../example-helpers/get-translations';
 
@@ -21,12 +20,9 @@ export default class ExampleEditor extends React.Component<Props, State> {
 
   render() {
     const { locale, messages } = this.state;
-    const mediaFeatureFlags: MediaFeatureFlags = {
-      captions: true,
-    };
     const mediaOptions: MediaOptions = {
       allowMediaSingle: true,
-      featureFlags: mediaFeatureFlags,
+      allowCaptions: true,
     };
 
     return (

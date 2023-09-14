@@ -17,17 +17,15 @@ jest.mock('@atlaskit/editor-common/utils', () => ({
 import React from 'react';
 import { mount, ReactWrapper } from 'enzyme';
 
-import FabricAnalyticsListeners, {
-  AnalyticsWebClient,
-} from '@atlaskit/analytics-listeners';
+import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
+import FabricAnalyticsListeners from '@atlaskit/analytics-listeners';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { analyticsClient } from '@atlaskit/editor-test-helpers/analytics-client-mock';
 import { a, b, doc, heading, p, text } from '@atlaskit/adf-utils/builders';
 import { EDITOR_APPEARANCE_CONTEXT } from '@atlaskit/analytics-namespaced-context';
-import Renderer, {
-  Renderer as BaseRenderer,
-  Props,
-} from '../../../ui/Renderer';
-import { RendererAppearance } from '../../../ui/Renderer/types';
+import type { Props } from '../../../ui/Renderer';
+import Renderer, { Renderer as BaseRenderer } from '../../../ui/Renderer';
+import type { RendererAppearance } from '../../../ui/Renderer/types';
 import Loadable from 'react-loadable';
 import { initialDoc } from '../../__fixtures__/initial-doc';
 import { invalidDoc } from '../../__fixtures__/invalid-doc';
@@ -37,7 +35,7 @@ import * as linkDoc from '../../__fixtures__/links.adf.json';
 import { Media } from '../../../react/nodes';
 import { IntlProvider } from 'react-intl-next';
 import { measureTTI } from '@atlaskit/editor-common/utils';
-import {
+import type {
   GasPurePayload,
   GasPureScreenEventPayload,
 } from '@atlaskit/analytics-gas-types';

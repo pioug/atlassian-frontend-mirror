@@ -1,4 +1,5 @@
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
 import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
 import {
   snapshot,
@@ -7,6 +8,7 @@ import {
   pmSelector,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import textListADF from './__fixtures__/text-and-list.adf.json';
+/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
 
 async function initEditor(page: PuppeteerPage, adf: Object) {
   await initFullPageEditorWithAdf(page, adf, Device.LaptopMDPI, undefined, {});

@@ -2,14 +2,19 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import { replaceRaf } from 'raf-stub';
 
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
 import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   Preset,
   createProsemirrorEditorFactory,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import dispatchPasteEvent from '@atlaskit/editor-test-helpers/dispatch-paste-event';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   macroProvider,
   MockMacroProvider,
@@ -17,6 +22,7 @@ import {
 import type { CardProvider } from '@atlaskit/editor-common/provider-factory';
 
 import type { DocBuilder } from '@atlaskit/editor-common/types';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   code_block,
   strong,
@@ -52,11 +58,13 @@ import {
   inlineCard,
   annotation,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   createFakeExtensionManifest,
   createFakeAutoConvertModule,
 } from '@atlaskit/editor-test-helpers/extensions';
 
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import {
   DefaultExtensionProvider,
@@ -109,6 +117,7 @@ import { textFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import layoutPlugin from '../../../layout';
 import { contextPanelPlugin } from '@atlaskit/editor-plugin-context-panel';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { setupProvider } from '@atlaskit/editor-plugin-card/src/__tests__/unit/_helpers';

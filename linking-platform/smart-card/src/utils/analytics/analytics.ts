@@ -24,6 +24,7 @@ import {
   UiIframeFocusedEventProps,
   UiRenderFailedEventProps,
   UiRenderSuccessEventProps,
+  UiServerActionClickedEventProps,
   UnresolvedEventProps,
 } from './types';
 import { SmartLinkActionType } from '@atlaskit/linking-types';
@@ -44,6 +45,17 @@ export enum TrackQuickActionFailureReason {
   ValidationError = 'ValidationError',
   UnknownError = 'UnknownError',
 }
+
+export const SmartLinkActionTypeTrackingEventMapper: Record<string, string> = {
+  [SmartLinkActionType.FollowEntityAction]: 'Follow',
+  [SmartLinkActionType.StatusUpdateAction]: 'StatusUpdate',
+  [SmartLinkActionType.UnfollowEntityAction]: 'Unfollow',
+};
+
+export const SmartLinkActionTypeUiEventMapper: Record<string, string> = {
+  [SmartLinkActionType.FollowEntityAction]: 'smartLinkFollowButton',
+  [SmartLinkActionType.UnfollowEntityAction]: 'smartLinkFollowButton',
+};
 
 const uiActionSubjectIds: Record<string, string> = {
   DownloadAction: 'downloadDocument',
@@ -279,7 +291,9 @@ export const trackSmartLinkQuickActionStarted = ({
   attributes: {
     ...context,
     ...attributes,
-    smartLinkActionType,
+    smartLinkActionType:
+      SmartLinkActionTypeTrackingEventMapper[smartLinkActionType] ??
+      smartLinkActionType,
   },
 });
 
@@ -295,7 +309,9 @@ export const trackSmartLinkQuickActionSuccess = ({
   attributes: {
     ...context,
     ...attributes,
-    smartLinkActionType,
+    smartLinkActionType:
+      SmartLinkActionTypeTrackingEventMapper[smartLinkActionType] ??
+      smartLinkActionType,
   },
 });
 
@@ -311,7 +327,9 @@ export const trackSmartLinkQuickActionFailed = ({
   attributes: {
     ...context,
     ...attributes,
-    smartLinkActionType,
+    smartLinkActionType:
+      SmartLinkActionTypeTrackingEventMapper[smartLinkActionType] ??
+      smartLinkActionType,
   },
 });
 
@@ -730,3 +748,17 @@ export const uiSmartLinkStatusOpenPreviewButtonClicked =
       ...context,
     },
   });
+
+export const uiServerActionClicked = ({
+  smartLinkActionType,
+}: UiServerActionClickedEventProps): AnalyticsPayload => ({
+  action: 'clicked',
+  actionSubject: 'button',
+  actionSubjectId:
+    SmartLinkActionTypeUiEventMapper[smartLinkActionType] ??
+    smartLinkActionType,
+  eventType: 'ui',
+  attributes: {
+    ...context,
+  },
+});

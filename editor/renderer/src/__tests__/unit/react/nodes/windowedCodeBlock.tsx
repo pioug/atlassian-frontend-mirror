@@ -2,7 +2,9 @@ import React from 'react';
 import { render as renderToDOM } from 'react-dom';
 import { IntlProvider } from 'react-intl-next';
 
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { nextTick as flushLazyModuleFetching } from '@atlaskit/editor-test-helpers/next-tick';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { MockIntersectionObserver } from '@atlaskit/editor-test-helpers/mock-intersection-observer';
 
 import WindowedCodeBlock from '../../../../react/nodes/codeBlock/windowedCodeBlock';

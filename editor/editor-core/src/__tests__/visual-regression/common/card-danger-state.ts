@@ -1,7 +1,5 @@
-import {
-  PuppeteerPage,
-  evaluateTeardownMockDate,
-} from '@atlaskit/visual-regression/helper';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import { evaluateTeardownMockDate } from '@atlaskit/visual-regression/helper';
 import {
   waitForResolvedInlineCard,
   waitForResolvedBlockCard,
@@ -11,10 +9,12 @@ import {
   waitForInlineCardSelection,
 } from '@atlaskit/media-integration-test-helpers';
 import cardSelectionAdf from './__fixtures__/card-selection-adf.json';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   initFullPageEditorWithAdf,
   snapshot,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { waitForFloatingControl } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 
 describe('Card danger states', () => {

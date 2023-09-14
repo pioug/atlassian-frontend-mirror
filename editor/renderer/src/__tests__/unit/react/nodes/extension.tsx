@@ -1,11 +1,12 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import Extension from '../../../../react/nodes/extension';
-import { RendererContext } from '../../../../react/types';
+import type { RendererContext } from '../../../../react/types';
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 import { combineExtensionProviders } from '@atlaskit/editor-common/extensions';
 import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createFakeExtensionProvider } from '@atlaskit/editor-test-helpers/extensions';
 import Loadable from 'react-loadable';
 

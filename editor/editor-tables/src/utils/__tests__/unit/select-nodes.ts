@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   doc,
   p,
@@ -10,7 +11,7 @@ import {
   cEmpty,
   createEditorState,
 } from '../../../__tests__/__helpers/doc-builder';
-import { CellSelection } from '../../../cell-selection';
+import type { CellSelection } from '../../../cell-selection';
 import { selectColumn, selectRow, selectTable } from '../../select-nodes';
 
 describe('selectColumn', () => {

@@ -14,6 +14,7 @@ import {
   UnsupportedBlock,
   WidthProvider,
 } from '@atlaskit/editor-common/ui';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import type { ReactWrapper } from 'enzyme';
 import type { WrappedComponentProps } from 'react-intl-next';
@@ -145,7 +146,7 @@ describe('MediaSingle', () => {
 
   it('passes feature flags down to media node', () => {
     const featureFlags: MediaFeatureFlags = {
-      captions: false,
+      mediaInline: false,
     };
     const mediaSingle = mountMediaSingle({ featureFlags });
 
@@ -162,36 +163,8 @@ describe('MediaSingle', () => {
   });
 
   describe('Captions', () => {
-    it("don't show caption if feature flag turned off", () => {
-      const mediaSingle = mountMediaSingle({
-        featureFlags: { captions: false },
-      });
-
-      expect(mediaSingle.find(Caption)).toHaveLength(0);
-      mediaSingle.unmount();
-    });
-    it("don't show caption if feature flags aren't provided", () => {
-      const mediaSingle = mountMediaSingle({ featureFlags: undefined });
-
-      expect(mediaSingle.find(Caption)).toHaveLength(0);
-      mediaSingle.unmount();
-    });
-    it('show caption if feature flag is toggle on', () => {
-      const mediaSingle = mountMediaSingle({
-        featureFlags: { captions: true },
-      });
-
-      expect(mediaSingle.find(Caption)).toHaveLength(1);
-      mediaSingle.unmount();
-    });
     it('still render media if caption is not provided', () => {
-      const mediaSingle = mountMediaSingle(
-        {
-          featureFlags: { captions: true },
-        },
-        {},
-        false,
-      );
+      const mediaSingle = mountMediaSingle({}, {}, false);
 
       expect(mediaSingle.find(Caption)).toHaveLength(0);
       expect(mediaSingle.find(Media)).toHaveLength(1);

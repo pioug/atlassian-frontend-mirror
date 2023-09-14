@@ -7,12 +7,13 @@ import { token } from '@atlaskit/tokens';
 import { colors } from '@atlaskit/theme';
 import { DEFAULT_BORDER_COLOR } from '../ColorPalette/Palettes';
 import { panelBackgroundPalette } from '../ColorPalette/Palettes/panelBackgroundPalette';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   mockCreateAnalyticsEvent,
   mockFire,
 } from '@atlaskit/editor-test-helpers/mock-analytics-next';
 import ColorPickerButton from './index';
-import { ReactWrapper } from 'enzyme';
+import type { ReactWrapper } from 'enzyme';
 import { act } from 'react-dom/test-utils';
 
 import {

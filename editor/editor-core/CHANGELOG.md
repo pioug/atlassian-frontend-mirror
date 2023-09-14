@@ -1,5 +1,18 @@
 # @atlaskit/editor-core
 
+## 187.43.3
+
+### Patch Changes
+
+- [`12843a6f104`](https://bitbucket.org/atlassian/atlassian-frontend/commits/12843a6f104) - ED-19617 - Initial creation of editor-plugin-copy-button package
+- Updated dependencies
+
+## 187.43.0
+
+### Minor Changes
+
+- [`ec4867e1376`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ec4867e1376) - Removed captions flag and replaced with a new media prop `allowCaptions`. `allowCaptions` is set to `false` by default and products will need to opt in to be able to use captions from now on.
+
 ## 187.42.6
 
 ### Patch Changes

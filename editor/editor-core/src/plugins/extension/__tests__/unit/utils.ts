@@ -1,5 +1,6 @@
 import * as pmUtils from '@atlaskit/editor-prosemirror/utils';
 import { Node as PMNode, Mark } from '@atlaskit/editor-prosemirror/model';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 
 import {
@@ -12,6 +13,7 @@ import {
 import { EditorState, NodeSelection } from '@atlaskit/editor-prosemirror/state';
 
 import type { DocBuilder } from '@atlaskit/editor-common/types';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   doc,
   p,
@@ -19,6 +21,7 @@ import {
   td,
   tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 
 jest.mock('@atlaskit/editor-prosemirror/utils', () => {

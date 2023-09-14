@@ -1,8 +1,9 @@
 import { renderHook } from '@testing-library/react-hooks';
 
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { ExperienceStore } from '@atlaskit/editor-common/ufo';
+import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { ExperienceStore } from '@atlaskit/editor-common/ufo';
 import * as utils from '@atlaskit/editor-common/utils';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
 
 import measurements from '../../../../utils/performance/measure-enum';

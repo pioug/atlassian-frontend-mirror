@@ -1,4 +1,5 @@
 import { APIError, CardType } from '@atlaskit/linking-common';
+import { SmartLinkActionType } from '@atlaskit/linking-types';
 import {
   PreviewDisplay,
   PreviewInvokeMethod,
@@ -90,6 +91,10 @@ export type UiActionClickedEventProps = CommonEventProps & {
   display?: CardInnerAppearance;
   actionType: string;
   invokeType?: InvokeType;
+};
+
+export type UiServerActionClickedEventProps = CommonEventProps & {
+  smartLinkActionType: SmartLinkActionType;
 };
 
 export type ScreenAuthPopupEventProps = CommonEventProps;

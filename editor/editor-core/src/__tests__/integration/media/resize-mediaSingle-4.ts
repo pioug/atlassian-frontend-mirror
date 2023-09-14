@@ -1,7 +1,10 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
-import Page, { BrowserObject } from '@atlaskit/webdriver-runner/wd-wrapper';
+import type { BrowserObject } from '@atlaskit/webdriver-runner/wd-wrapper';
+import type Page from '@atlaskit/webdriver-runner/wd-wrapper';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { goToEditorTestingWDExample } from '@atlaskit/editor-test-helpers/testing-example-page';
 import mediaSingleInsideListWithinLayoutAdf from './_fixtures_/media-single-inside-list-within-layout.adf.json';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { resizeMediaSingle } from '@atlaskit/editor-test-helpers/page-objects/media';
 import { assertWidthBeforeAndAfter, setupEditor } from './_utils';
 

@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   doc,
   p,
@@ -6,8 +7,10 @@ import {
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import type { DocBuilder } from '@atlaskit/editor-common/types';
 import type { MediaAttributes } from '@atlaskit/adf-schema';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
 import type { EditorSelectionAPI } from '@atlaskit/editor-common/selection';
 import { createEditorSelectionAPI } from '@atlaskit/editor-core/src/selection-api/api';
@@ -33,10 +36,8 @@ const editor = (doc: DocBuilder) =>
       media: {
         provider: mediaProvider,
         allowMediaSingle: true,
+        allowCaptions: true,
         allowLinking: true,
-        featureFlags: {
-          captions: true,
-        },
         editorSelectionAPI,
       },
     },

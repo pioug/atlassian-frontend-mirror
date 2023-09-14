@@ -1,10 +1,11 @@
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 import React from 'react';
 import { ReactEditorView } from '../../create-editor/ReactEditorViewInternal';
 import Editor from '../../editor';
 
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { EditorPlugin } from '@atlaskit/editor-common/types';
+import type { EditorPlugin } from '@atlaskit/editor-common/types';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 
 describe('reconfigure state', () => {

@@ -5,8 +5,10 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import type { RefsNode } from '@atlaskit/editor-common/types';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   doc,
   table,
@@ -18,6 +20,7 @@ import {
   inlineExtension,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import type { Schema } from '@atlaskit/editor-test-helpers/schema';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
 import { ExtensionsPlaceholder } from '../../ui/ExtensionsPlaceholder';
 import { createTestExtensionProvider } from '../_helpers';

@@ -35,7 +35,8 @@ export function keymapPlugin(
 
   bindKeymapWithCommand(undo.common!, ignoreLinksInSteps, list);
   bindKeymapWithCommand(enter.common!, splitMediaGroup, list);
-  if (getMediaFeatureFlag('captions', featureFlags)) {
+
+  if (options?.allowCaptions || getMediaFeatureFlag('captions', featureFlags)) {
     bindKeymapWithCommand(
       moveDown.common!,
       insertAndSelectCaption(editorAnalyticsAPI),

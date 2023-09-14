@@ -3,11 +3,13 @@ import React from 'react';
 import { render } from '@testing-library/react';
 
 import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
+/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
 
 import { analyticsPlugin } from '../plugin';
 import { analyticsPluginKey } from '../plugin-key';

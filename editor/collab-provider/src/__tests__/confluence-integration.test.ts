@@ -1,8 +1,10 @@
-import { Config, PresencePayload } from '../types';
+import type { Config, PresencePayload } from '../types';
 import type { CollabTelepointerPayload } from '@atlaskit/editor-common/collab';
 import { createSocketIOCollabProvider } from '../socket-io-provider';
 import { collab } from '@atlaskit/prosemirror-collab';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 import type { Provider } from '../provider';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';

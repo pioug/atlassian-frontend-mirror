@@ -1,7 +1,9 @@
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   bodiedExtension,
   p as paragraph,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   createFakeAutoConvertModule,
   createFakeExtensionManifest,
@@ -16,13 +18,13 @@ import {
   getContextualToolbarItemsFromModule,
   getQuickInsertItemsFromModule,
 } from '../../module-helpers';
-import {
+import type {
   ContextualToolbar,
   ExtensionAPI,
   ExtensionManifest,
   MenuItem,
 } from '../../types';
-import {
+import type {
   ToolbarButton,
   ToolbarItem,
 } from '../../types/extension-manifest-toolbar-item';

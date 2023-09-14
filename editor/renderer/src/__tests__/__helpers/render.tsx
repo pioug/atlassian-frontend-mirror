@@ -4,15 +4,16 @@ import { IntlProvider } from 'react-intl-next';
 import { render as renderToDOM, unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
 
-import { render, RenderResult } from '@testing-library/react';
+import type { RenderResult } from '@testing-library/react';
+import { render } from '@testing-library/react';
 
-import FabricAnalyticsListeners, {
-  AnalyticsWebClient,
-} from '@atlaskit/analytics-listeners';
-import {
+import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
+import FabricAnalyticsListeners from '@atlaskit/analytics-listeners';
+import type {
   GasPurePayload,
   GasPureScreenEventPayload,
 } from '@atlaskit/analytics-gas-types';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { analyticsClient } from '@atlaskit/editor-test-helpers/analytics-client-mock';
 
 export const renderWithIntl = (component: React.ReactNode): RenderResult => {

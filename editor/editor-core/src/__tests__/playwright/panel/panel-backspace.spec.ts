@@ -5,6 +5,7 @@ import {
   infoPanelWithTextBelowTable,
   infoPanelWithTextBelowParagraph,
 } from './__fixtures__/adf-documents-panel';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   doc,
   panel,

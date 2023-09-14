@@ -1,4 +1,5 @@
 import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   createProsemirrorEditorFactory,
   Preset,
@@ -13,6 +14,7 @@ import {
   ACTION_SUBJECT,
   getAnalyticsEventsFromTransaction,
 } from '../../../analytics';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 

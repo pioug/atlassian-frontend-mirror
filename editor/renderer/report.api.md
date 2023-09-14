@@ -31,8 +31,8 @@ import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import { jsx } from '@emotion/react';
 import type { Mark } from '@atlaskit/editor-prosemirror/model';
-import { MediaClientConfig } from '@atlaskit/media-core';
-import { MediaFeatureFlags } from '@atlaskit/media-common';
+import type { MediaClientConfig } from '@atlaskit/media-core';
+import type { MediaFeatureFlags } from '@atlaskit/media-common';
 import { Node as Node_2 } from '@atlaskit/editor-prosemirror/model';
 import { OperationalAEP } from '@atlaskit/editor-common/analytics';
 import { PropsDifference } from '@atlaskit/editor-common/utils';
@@ -41,7 +41,7 @@ import { Schema } from '@atlaskit/editor-prosemirror/model';
 import { SEVERITY } from '@atlaskit/editor-common/utils';
 import { ShallowPropsDifference } from '@atlaskit/editor-common/utils';
 import { SortOrder } from '@atlaskit/editor-common/types';
-import { SSR } from '@atlaskit/media-common';
+import type { SSR } from '@atlaskit/media-common';
 import type { Transformer as Transformer_2 } from '@atlaskit/editor-common/types';
 import { UNSUPPORTED_CONTENT_LEVEL_SEVERITY } from '@atlaskit/editor-common/utils';
 import type { UnsupportedContentLevelsTracking } from '@atlaskit/editor-common/utils';
@@ -236,6 +236,8 @@ type MediaLnkTransformedAEP = AEP<
 
 // @public (undocumented)
 interface MediaOptions {
+  // (undocumented)
+  allowCaptions?: boolean;
   // (undocumented)
   allowLinking?: boolean;
   // (undocumented)

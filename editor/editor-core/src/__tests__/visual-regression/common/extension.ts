@@ -1,18 +1,22 @@
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   snapshot,
   initEditorWithAdf,
   Appearance,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   ToolbarMenuItem,
   toolbarMenuItemsSelectors,
   retryUntilStablePosition,
 } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   clickBlockMenuItem,
   BlockMenuItem,
 } from '@atlaskit/editor-test-helpers/page-objects/blocks';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   clickOnExtension,
   extensionSelectors,
@@ -22,7 +26,7 @@ import {
 import adf from './__fixtures__/extension-wide.adf.json';
 import defaultBodiedAdf from './__fixtures__/bodied-extension-default.adf.json';
 import extensionLayouts from './__fixtures__/extension-layouts.adf.json';
-import { EditorProps } from '../../../types/editor-props';
+import type { EditorProps } from '../../../types/editor-props';
 
 describe('Extension:', () => {
   const initEditor = async (

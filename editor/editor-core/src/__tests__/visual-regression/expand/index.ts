@@ -1,13 +1,12 @@
+/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
 import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
 import { getBoundingClientRect } from '@atlaskit/editor-test-helpers/vr-utils/bounding-client-rect';
 import {
   initFullPageEditorWithAdf,
   snapshot,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
-import {
-  PuppeteerPage,
-  waitForLoadedBackgroundImages,
-} from '@atlaskit/visual-regression/helper';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import { waitForLoadedBackgroundImages } from '@atlaskit/visual-regression/helper';
 import {
   expandADF,
   mediaInExpandADF,
@@ -39,6 +38,7 @@ import nestedExpandAdf from './__fixtures__/nested-expand.adf.json';
 import { waitForFloatingControl } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 import { toggleBreakout } from '@atlaskit/editor-test-helpers/page-objects/layouts';
 import { selectionSelectors } from '@atlaskit/editor-test-helpers/page-objects/selection';
+/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
 
 const themes = ['light', 'dark'];
 

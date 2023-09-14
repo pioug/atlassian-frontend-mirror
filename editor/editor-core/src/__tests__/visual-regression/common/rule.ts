@@ -1,11 +1,12 @@
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import * as rule from './__fixtures__/rule-adf.json';
+/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
 import {
   snapshot,
   initFullPageEditorWithAdf,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import { getBoundingClientRect } from '@atlaskit/editor-test-helpers/vr-utils/bounding-client-rect';
-
+/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
 const ruleSelector = 'hr';
 
 describe('Rule', () => {

@@ -239,7 +239,8 @@ export default function createUniversalPreset(
       // EDM-799: inside caption plugin we do the feature flag in enabling the plugin
       if (
         props.media &&
-        getMediaFeatureFlag('captions', props.media.featureFlags)
+        (props.media.allowCaptions ||
+          getMediaFeatureFlag('captions', props.media.featureFlags))
       ) {
         return builder.add(plugin);
       }

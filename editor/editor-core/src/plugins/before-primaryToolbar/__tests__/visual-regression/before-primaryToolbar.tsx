@@ -1,10 +1,11 @@
 import React from 'react';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   snapshot,
   initEditorWithAdf,
   Appearance,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import adf from '../../../../__tests__/visual-regression/common/__fixtures__/with-content.json';
 
 const BEFORE_PRIMARY_TOOLBAR_SELECTOR =

@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   snapshot,
   initEditorWithAdf,
@@ -5,12 +6,13 @@ import {
   editorSelector,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import adf from './__fixtures__/noData-adf.json';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   clickToolbarMenu,
   ToolbarMenuItem,
   toolbarMenuItemsSelectors as selectors,
 } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 
 describe('Placeholder', () => {
   let page: PuppeteerPage;

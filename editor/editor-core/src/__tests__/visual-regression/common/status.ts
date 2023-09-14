@@ -1,9 +1,10 @@
+/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
 import {
   snapshot,
   initEditorWithAdf,
   Appearance,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import {
   clickOnStatus,
   waitForStatusToolbar,
@@ -22,6 +23,7 @@ import {
   insertTaskFromMenu,
   ITEM_SELECTOR,
 } from '@atlaskit/editor-test-helpers/page-objects/task';
+/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
 
 describe('Status:', () => {
   let page: PuppeteerPage;

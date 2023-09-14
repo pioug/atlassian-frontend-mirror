@@ -131,8 +131,8 @@ export function MobileEditor(props: MobileEditorProps) {
     ...useMedia(mediaProvider),
     allowResizing: getMediaImageResize(),
     allowResizingInTables: getMediaImageResize(),
+    allowCaptions: getAllowCaptions(),
     featureFlags: {
-      captions: getAllowCaptions(),
       mediaInline: getAllowMediaInline(),
     },
     alignLeftOnInsert: true,

@@ -5,9 +5,12 @@ import * as fs from 'fs';
 import * as path from 'path';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import patchEditorViewForJSDOM from '@atlaskit/editor-test-helpers/jsdom-fixtures';
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { cardProvider } from '@atlaskit/editor-test-helpers/card-provider';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 import { getEmojiProvider } from '@atlaskit/util-data-test/get-emoji-provider';
@@ -47,8 +50,9 @@ function mountEditorWithAdfDoc({ adfDoc }: { adfDoc: any }) {
         media={{
           provider: mediaProvider,
           allowMediaSingle: true,
-          featureFlags: { captions: true, mediaInline: true },
+          featureFlags: { mediaInline: true },
           allowMediaGroup: true,
+          allowCaptions: true,
         }}
         smartLinks={{
           provider: smartCardProvider,

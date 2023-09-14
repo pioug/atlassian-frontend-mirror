@@ -1,19 +1,21 @@
 /* eslint-disable no-console */
 import React, { useCallback, useEffect, useRef } from 'react';
-import { AnnotationProviders } from '@atlaskit/editor-common/types';
-import {
+import type { AnnotationProviders } from '@atlaskit/editor-common/types';
+import type {
   ExtensionHandlers,
   ExtensionProvider,
 } from '@atlaskit/editor-common/extensions';
 import { WithCreateAnalyticsEvent } from '@atlaskit/editor-common/ui';
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { MentionProvider } from '@atlaskit/mention/types';
-import { MediaProvider as MediaProviderType } from '@atlaskit/editor-common/provider-factory';
-import { ReactRenderer, RendererProps } from '@atlaskit/renderer';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { MentionProvider } from '@atlaskit/mention/types';
+import type { MediaProvider as MediaProviderType } from '@atlaskit/editor-common/provider-factory';
+import type { RendererProps } from '@atlaskit/renderer';
+import { ReactRenderer } from '@atlaskit/renderer';
 import FabricAnalyticsListeners from '@atlaskit/analytics-listeners';
 import { toNativeBridge } from './web-to-native/implementation';
-import { SmartCardProvider, CardClient } from '@atlaskit/link-provider';
-import { EmojiResource } from '@atlaskit/emoji/resource';
+import type { CardClient } from '@atlaskit/link-provider';
+import { SmartCardProvider } from '@atlaskit/link-provider';
+import type { EmojiResource } from '@atlaskit/emoji/resource';
 import {
   getEnableLightDarkTheming,
   getAllowCaptions,
@@ -33,10 +35,11 @@ import { isApple } from '../utils/is-apple';
 import { useRendererReflowDetected } from './hooks/use-renderer-reflow-detected';
 
 import { withIntlProvider } from '../i18n/with-intl-provider';
-import { injectIntl, IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl-next';
+import { injectIntl } from 'react-intl-next';
 import { geti18NMessages } from './renderer-localisation-provider';
 import { withSystemTheme } from '../WithSystemTheme';
-import RendererBridgeImplementation from './native-to-web/implementation';
+import type RendererBridgeImplementation from './native-to-web/implementation';
 import type { DocNode } from '@atlaskit/adf-schema';
 import { setGlobalTheme } from '@atlaskit/tokens';
 
@@ -144,9 +147,7 @@ const BasicRenderer: React.FC<WithCreateAnalyticsEventProps> = ({
       allowAltTextOnImages
       media={{
         allowLinking: !disableMediaLinking,
-        featureFlags: {
-          captions: getAllowCaptions(),
-        },
+        allowCaptions: getAllowCaptions(),
       }}
       allowHeadingAnchorLinks={headingAnchorLinksConfig}
       rendererContext={rendererContext}

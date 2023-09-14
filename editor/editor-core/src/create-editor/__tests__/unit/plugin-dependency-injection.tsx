@@ -5,6 +5,7 @@ import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { ReactEditorView } from '../../ReactEditorView';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 import { createIntl } from 'react-intl-next';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';

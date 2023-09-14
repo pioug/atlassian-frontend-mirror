@@ -1,20 +1,24 @@
+/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
+import type {
+  PuppeteerPage,
+  PuppeteerScreenshotOptions,
+  SideEffectOptions,
+} from '@atlaskit/visual-regression/helper';
 import {
   compareScreenshot,
   disableAllSideEffects,
   getExampleUrl,
   navigateToUrl,
-  PuppeteerPage,
-  PuppeteerScreenshotOptions,
-  SideEffectOptions,
 } from '@atlaskit/visual-regression/helper';
-import { ThemeModes } from '@atlaskit/theme/types';
-import { RendererAppearance } from '../../ui/Renderer/types';
-import { RendererPropsOverrides } from '../__helpers/testing-example-helpers';
+import type { ThemeModes } from '@atlaskit/theme/types';
+import type { RendererAppearance } from '../../ui/Renderer/types';
+import type { RendererPropsOverrides } from '../__helpers/testing-example-helpers';
+import type { ViewportSize } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
 import {
   deviceViewPorts,
   Device,
-  ViewportSize,
 } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
+/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
 
 type WindowOverride = Window & {
   __mountRenderer: (props?: RendererPropsOverrides, adf?: Object) => void;

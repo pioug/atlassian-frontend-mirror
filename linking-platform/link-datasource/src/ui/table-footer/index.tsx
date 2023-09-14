@@ -15,7 +15,7 @@ import { footerMessages } from './messages';
 import { SyncInfo } from './sync-info';
 
 export type TableFooterProps = {
-  issueCount?: number;
+  itemCount?: number;
   onRefresh?: () => void;
   isLoading: boolean;
 };
@@ -34,7 +34,7 @@ const TopBorderWrapper = styled.div`
   border-top: 2px solid ${token('color.background.accent.gray.subtler', N40)};
 `;
 
-const IssueCounterWrapper = styled.div`
+const ItemCounterWrapper = styled.div`
   display: flex;
   align-self: center;
   color: ${token('color.text.accent.gray', N800)};
@@ -52,15 +52,15 @@ const SyncTextWrapper = styled.div`
 `;
 
 export const TableFooter = ({
-  issueCount,
+  itemCount,
   onRefresh,
   isLoading,
 }: TableFooterProps) => {
   const intl = useIntl();
   const [lastSyncTime, setLastSyncTime] = useState(new Date());
 
-  const showIssueCount =
-    issueCount && issueCount > 0 ? true : issueCount === 0 ? !isLoading : false;
+  const showItemCount =
+    itemCount && itemCount > 0 ? true : itemCount === 0 ? !isLoading : false;
 
   useEffect(() => {
     if (isLoading) {
@@ -70,20 +70,20 @@ export const TableFooter = ({
 
   // If only one of the two is passed in, still show the other one (Note: We keep the div encapsulating the one not shown to
   // ensure correct positioning since 'justify-content: space-between' is used).
-  return onRefresh || showIssueCount ? (
+  return onRefresh || showItemCount ? (
     <FooterWrapper data-testid="table-footer">
       <TopBorderWrapper>
-        <IssueCounterWrapper data-testid={'issue-count-wrapper'}>
-          {showIssueCount && (
-            <Heading testId="issue-count" level="h200">
-              <FormattedNumber value={issueCount as number} />{' '}
+        <ItemCounterWrapper data-testid={'item-count-wrapper'}>
+          {showItemCount && (
+            <Heading testId="item-count" level="h200">
+              <FormattedNumber value={itemCount as number} />{' '}
               <FormattedMessage
-                {...footerMessages.issueText}
-                values={{ issueCount }}
+                {...footerMessages.itemText}
+                values={{ itemCount }}
               />
             </Heading>
           )}
-        </IssueCounterWrapper>
+        </ItemCounterWrapper>
         <SyncWrapper>
           {onRefresh && (
             <Fragment>

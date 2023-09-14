@@ -3,6 +3,7 @@ import { uuid } from '@atlaskit/adf-schema';
 import { IntlProvider } from 'react-intl-next';
 import { render, fireEvent } from '@testing-library/react';
 import type { DocBuilder } from '@atlaskit/editor-common/types';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   doc,
   p,
@@ -18,6 +19,7 @@ import ToolbarListsIndentation from '../../../ui';
 import toolbarListsIndentationPlugin from '../../../';
 import indentationPlugin from '../../../../indentation';
 import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   createProsemirrorEditorFactory,
   Preset,

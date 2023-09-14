@@ -142,7 +142,7 @@ export const matches: (srcObj: Object) => (obj: Object) => boolean;
 
 // @public (undocumented)
 export interface MediaFeatureFlags {
-  // (undocumented)
+  // @deprecated (undocumented)
   captions?: boolean;
   // (undocumented)
   folderUploads?: boolean;

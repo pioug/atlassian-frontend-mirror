@@ -6,6 +6,7 @@ import type {
   ExtensionProvider,
 } from '@atlaskit/editor-common/extensions';
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createFakeExtensionManifest } from '@atlaskit/editor-test-helpers/extensions';
 
 import { extensionProviderToQuickInsertProvider } from '../../extensions';

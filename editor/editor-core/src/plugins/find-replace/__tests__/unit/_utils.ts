@@ -2,6 +2,7 @@ import type {
   LightEditorPlugin,
   CreatePMEditorOptions,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   createProsemirrorEditorFactory,
   Preset,

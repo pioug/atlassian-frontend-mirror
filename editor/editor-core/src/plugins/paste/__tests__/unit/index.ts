@@ -1,8 +1,10 @@
 import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   Preset,
   createProsemirrorEditorFactory,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import dispatchPasteEvent from '@atlaskit/editor-test-helpers/dispatch-paste-event';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { toggleMark } from '@atlaskit/editor-common/mark';
@@ -11,8 +13,10 @@ import { blockTypePlugin } from '@atlaskit/editor-plugin-block-type';
 import betterTypeHistoryPlugin from '../../../better-type-history';
 import { textFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';
 import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import type { DocBuilder } from '@atlaskit/editor-common/types';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   doc,
   p,

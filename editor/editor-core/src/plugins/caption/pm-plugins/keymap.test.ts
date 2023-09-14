@@ -1,6 +1,9 @@
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { sendKeyToPm } from '@atlaskit/editor-test-helpers/send-key-to-pm';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import type { RefsNode } from '@atlaskit/editor-common/types';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   caption,
   doc,
@@ -23,7 +26,7 @@ const editor = (doc: (schema: Schema<any, any>) => RefsNode) =>
     doc,
     editorProps: {
       allowPanel: true,
-      media: { allowMediaSingle: true, featureFlags: { captions: true } },
+      media: { allowMediaSingle: true, allowCaptions: true },
     },
   });
 

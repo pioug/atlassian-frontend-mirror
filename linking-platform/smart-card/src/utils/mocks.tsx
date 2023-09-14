@@ -233,12 +233,17 @@ export const mockAnalytics = {
     modalClosedEvent: () => {},
     renderSuccessEvent: () => {},
     renderFailedEvent: () => {},
+    smartLinkServerActionClickedEvent: () => {},
   },
   operational: {
     invokeSucceededEvent: () => {},
     invokeFailedEvent: () => {},
   },
-  track: {},
+  track: {
+    smartLinkQuickActionFailed: () => {},
+    smartLinkQuickActionStarted: () => {},
+    smartLinkQuickActionSuccess: () => {},
+  },
   screen: {
     modalViewedEvent: () => {},
   },

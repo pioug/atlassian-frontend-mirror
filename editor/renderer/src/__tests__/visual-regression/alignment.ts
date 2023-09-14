@@ -1,5 +1,6 @@
 import { initRendererWithADF } from './_utils';
 
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { getElementComputedStyle } from '@atlaskit/editor-test-helpers/vr-utils/get-computed-style';
 import {
   threeNormalParagraphs,
@@ -8,6 +9,7 @@ import {
   thirdParagraphCentered,
   mixAlignmentParagraph,
 } from '../__fixtures__/alignment-examples';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   doc,
   p,

@@ -1,14 +1,17 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/lib/runner/runner';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   goToEditorTestingWDExample,
   mountEditor,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
 import dateInTaskAdf from '../__fixtures__/date-in-task-adf.json';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   animationFrame,
   expectToMatchSelection,
   fullpage,
 } from '@atlaskit/editor-test-helpers/integration/helpers';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { clickTaskNth } from '@atlaskit/editor-test-helpers/page-objects/task';
 
 BrowserTestCase(

@@ -25,11 +25,12 @@ describe('themeObjectToString', () => {
       colorMode: 'auto',
       dark: 'dark',
       light: 'legacy-light',
+      spacing: 'spacing',
       UNSAFE_themeOptions: { brandColor: '#ff0000' },
     };
 
     const expected =
-      'colorMode:auto dark:dark light:legacy-light UNSAFE_themeOptions:{"brandColor":"#ff0000"}';
+      'colorMode:auto dark:dark light:legacy-light spacing:spacing UNSAFE_themeOptions:{"brandColor":"#ff0000"}';
 
     expect(themeObjectToString(themeState)).toBe(expected);
   });
@@ -39,12 +40,13 @@ describe('themeObjectToString', () => {
       colorMode: 'auto',
       dark: 'dark',
       light: 'light',
+      spacing: 'spacing',
       UNSAFE_themeOptions: { brandColor: '#ff0000' },
     };
     const themeStateString = themeObjectToString(themeState);
 
     const expectedEncodedURI =
-      'colorMode%3Aauto%20dark%3Adark%20light%3Alight%20UNSAFE_themeOptions%3A%7B%22brandColor%22%3A%22%23ff0000%22%7D';
+      'colorMode%3Aauto%20dark%3Adark%20light%3Alight%20spacing%3Aspacing%20UNSAFE_themeOptions%3A%7B%22brandColor%22%3A%22%23ff0000%22%7D';
 
     expect(encodeURIComponent(themeStateString)).toBe(expectedEncodedURI);
     expect(decodeURIComponent(expectedEncodedURI)).toBe(themeStateString);

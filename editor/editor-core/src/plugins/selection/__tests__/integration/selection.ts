@@ -1,17 +1,18 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
-
 import type { BrowserObject } from 'webdriverio';
+/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
+import type { SelectionMatch } from '@atlaskit/editor-test-helpers/integration/helpers';
 import {
   expectToMatchSelection,
   fullpage,
-  SelectionMatch,
   setProseMirrorTextSelection,
 } from '@atlaskit/editor-test-helpers/integration/helpers';
 import {
   goToEditorTestingWDExample,
   mountEditor,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
-import { WebDriverPage } from '@atlaskit/editor-test-helpers/page-objects/types';
+import type { WebDriverPage } from '@atlaskit/editor-test-helpers/page-objects/types';
+/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
 import selectionAdf from './__fixtures__/selectable-nodes-adf.json';
 import blockNodesAdf from './__fixtures__/block-react-node-views.adf.json';
 

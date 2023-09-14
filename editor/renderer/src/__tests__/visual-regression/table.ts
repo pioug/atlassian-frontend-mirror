@@ -1,8 +1,6 @@
 import { THEME_MODES } from '@atlaskit/theme/constants';
-import {
-  PuppeteerPage,
-  waitForLoadedBackgroundImages,
-} from '@atlaskit/visual-regression/helper';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import { waitForLoadedBackgroundImages } from '@atlaskit/visual-regression/helper';
 
 import {
   animationFrame,
@@ -10,13 +8,14 @@ import {
   snapshot,
   waitForText,
 } from './_utils';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { getBoundingClientRect } from '@atlaskit/editor-test-helpers/vr-utils/bounding-client-rect';
 import * as wideTableResized from '../__fixtures__/table-wide-resized.adf.json';
 import * as tableWithShadowAdf from '../__fixtures__/table-with-shadow.adf.json';
 import * as tableWithWrappedNodesAdf from './__fixtures__/table-with-wrapped-nodes.adf.json';
 import * as tableComplexSelectionsAdf from './__fixtures__/table-complex-selections.adf.json';
 import * as tableEmpty from '../__fixtures__/table-empty.adf.json';
-import { RendererAppearance } from '../../ui/Renderer/types';
+import type { RendererAppearance } from '../../ui/Renderer/types';
 import { selectors as expandSelectors } from '../__helpers/page-objects/_expand';
 import { selectors as statusSelectors } from '../__helpers/page-objects/_status';
 import { selectors as decisionSelectors } from '../__helpers/page-objects/_decision';

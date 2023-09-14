@@ -1,15 +1,18 @@
 import adf from './__fixtures__/layout-with-empty-paragraphs.json';
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   fullpage,
   quickInsert,
   setProseMirrorTextSelection,
 } from '@atlaskit/editor-test-helpers/integration/helpers';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   goToEditorTestingWDExample,
   mountEditor,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
 import type { WebDriverPage } from '@atlaskit/editor-test-helpers/page-objects/types';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { breakoutSelector } from '@atlaskit/editor-test-helpers/page-objects/breakout';
 
 describe('breakout button hidden below popups', () => {

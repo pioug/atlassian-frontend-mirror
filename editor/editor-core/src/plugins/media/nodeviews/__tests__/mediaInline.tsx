@@ -1,7 +1,9 @@
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import type { MediaAttributes } from '@atlaskit/adf-schema';
 import { createSchema } from '@atlaskit/adf-schema';
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { mediaInline } from '@atlaskit/editor-test-helpers/doc-builder';
 import { getDefaultMediaClientConfig } from '@atlaskit/media-test-helpers';
 import type { MediaProvider } from '../../pm-plugins/main';
@@ -18,6 +20,7 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { MediaPluginState } from '../../pm-plugins/types';
 import type { FileIdentifier } from '@atlaskit/media-client';
 import React from 'react';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
 import { mountWithIntl } from '../../../../__tests__/__helpers/enzyme';
 import { MediaNodeUpdater } from '../mediaNodeUpdater';

@@ -4,7 +4,9 @@ import {
   EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
 import { getStepRange } from '@atlaskit/editor-common/utils';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import { attachPayloadIntoTransaction } from '../../attach-payload-into-transaction';

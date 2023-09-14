@@ -18,7 +18,7 @@ import createStatusUpdateRequest from '../../../../../../utils/actions/create-st
 import useResolve from '../../../../../../state/hooks/use-resolve';
 import { MessageProps } from '../../../types';
 import { LozengeActionErrorMessages } from './lozenge-action-error/types';
-import { InvokeError } from '@atlaskit/linking-types/smart-link-actions';
+import { isInvokeCustomError } from '../../../../../../state/hooks/use-invoke/utils';
 import { useFlexibleUiAnalyticsContext } from '../../../../../../state/flexible-ui-context';
 import type { LozengeActionTriggerProps } from './lozenge-action-trigger/type';
 import { TrackQuickActionType } from '../../../../../../utils/analytics/analytics';
@@ -35,10 +35,6 @@ const validateItems = (
 ): LozengeItem[] => {
   return items.filter((item) => item.text !== text);
 };
-
-const isInvokeCustomError = (err: InvokeError | Error): err is InvokeError =>
-  (err as InvokeError).message !== undefined &&
-  (err as InvokeError).errorCode !== undefined;
 
 const LozengeAction: FC<LozengeActionProps> = ({
   action,

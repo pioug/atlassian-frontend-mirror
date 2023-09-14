@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
 import {
   getExampleUrl,
   loadPage,
@@ -5,6 +6,7 @@ import {
 } from '@atlaskit/visual-regression/helper';
 import { getBoundingClientRect } from '@atlaskit/editor-test-helpers/vr-utils/bounding-client-rect';
 import { extensionSelectors } from '@atlaskit/editor-test-helpers/page-objects/extensions';
+/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
 
 export async function goToConfigPanelWithParameters() {
   const url = getExampleUrl(

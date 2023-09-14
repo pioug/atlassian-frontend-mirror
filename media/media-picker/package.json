@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-picker",
-  "version": "66.2.3",
+  "version": "66.2.4",
   "description": "Library for handling file uploads",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -69,7 +69,7 @@
     "@atlassian/ufo": "^0.2.0",
     "@babel/plugin-proposal-numeric-separator": "^7.18.6",
     "@emotion/react": "^11.7.1",
-    "@types/enzyme": "^3.1.15",
+    "@types/enzyme": "3.1.15",
     "@types/react": "^16.8.0",
     "enzyme": "^3.10.0",
     "fetch-mock": "^8.0.0",

@@ -3,6 +3,7 @@ import ToolbarFeedback from '../../../ui/ToolbarFeedback';
 import { openFeedbackDialog } from '../../../plugins/feedback-dialog';
 import { analyticsEventKey } from '../../../plugins/analytics/consts';
 import type { basePlugin } from '../../../plugins/base';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';

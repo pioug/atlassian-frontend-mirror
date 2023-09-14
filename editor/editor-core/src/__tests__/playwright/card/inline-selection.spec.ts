@@ -1,5 +1,6 @@
 import { editorTestCase as test, expect, BROWSERS } from '@af/editor-libra';
 import { inlineCardAdf } from './inline-selection.spec.ts-fixtures/adf';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { p, doc } from '@atlaskit/editor-test-helpers/doc-builder';
 
 test.use({

@@ -1,9 +1,11 @@
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import {
-  PuppeteerPage,
   waitForElementCount,
   waitForTooltip,
 } from '@atlaskit/visual-regression/helper';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   initFullPageEditorWithAdf,
   snapshot,
@@ -19,10 +21,12 @@ import {
   inlineCardSelector,
 } from '@atlaskit/media-integration-test-helpers';
 import { contexts } from './__helpers__/card-utils';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   waitForCardToolbar,
   toolbarAppearanceSelectors,
 } from '@atlaskit/editor-test-helpers/page-objects/smart-links';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { hyperlinkSelectors } from '@atlaskit/editor-test-helpers/page-objects/hyperlink';
 
 describe('Cards with icons toolbar', () => {

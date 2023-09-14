@@ -2,7 +2,9 @@ import React from 'react';
 import { waitFor, within } from '@testing-library/dom';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
 import DropdownMenu from '../../ui/DropdownMenu';
 import type { DropdownOptionT } from '@atlaskit/editor-common/types';

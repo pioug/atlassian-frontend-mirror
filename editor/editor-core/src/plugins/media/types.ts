@@ -55,6 +55,7 @@ export interface MediaOptions {
   editorSelectionAPI?: EditorSelectionAPI;
   featureFlags?: MediaFeatureFlags;
   getEditorFeatureFlags?: GetEditorFeatureFlags;
+  allowCaptions?: boolean;
 }
 
 export interface MediaSingleOptions {

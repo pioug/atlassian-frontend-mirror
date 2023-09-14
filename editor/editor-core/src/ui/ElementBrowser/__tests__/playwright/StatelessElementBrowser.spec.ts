@@ -3,6 +3,7 @@ import {
   expect,
   EditorMainToolbarModel,
 } from '@af/editor-libra';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { doc, code_block } from '@atlaskit/editor-test-helpers/doc-builder';
 
 test.use({

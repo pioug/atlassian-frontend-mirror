@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { runBlockNodeSelectionTestSuite } from '@atlaskit/editor-test-helpers/integration/selection';
 import { mockDatasourceFetchRequests } from '@atlaskit/link-test-helpers/datasource';
 

@@ -1,11 +1,13 @@
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { TypeAheadTool } from '@atlaskit/editor-test-helpers/create-editor';
 import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   createProsemirrorEditorFactory,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import type { DocBuilder } from '@atlaskit/editor-common/types';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   doc,
   p,
@@ -19,6 +21,7 @@ import {
   mediaSingle,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 
 import { safeInsert } from '@atlaskit/editor-common/insert';
@@ -50,6 +53,7 @@ import { listPlugin } from '@atlaskit/editor-plugin-list';
 import { focusPlugin } from '@atlaskit/editor-plugin-focus';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import { compositionPlugin } from '@atlaskit/editor-plugin-composition';
+import captionPlugin from '@atlaskit/editor-core/src/plugins/caption';
 import type {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
@@ -81,6 +85,7 @@ describe('@atlaskit/editor-core/utils insert', () => {
         .add([mediaPlugin, { allowMediaSingle: true }])
         .add(listPlugin)
         .add([quickInsertPlugin, {}])
+        .add(captionPlugin)
         .add([codeBlockPlugin, { appearance: 'full-page' }]),
     });
   };

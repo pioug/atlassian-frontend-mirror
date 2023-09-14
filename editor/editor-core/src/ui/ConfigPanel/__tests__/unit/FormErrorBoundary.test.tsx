@@ -1,7 +1,9 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 import FormContent from '../../FormContent';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createFakeExtensionManifest } from '@atlaskit/editor-test-helpers/extensions';
 import type { FieldDefinition } from '@atlaskit/editor-common/extensions';
 

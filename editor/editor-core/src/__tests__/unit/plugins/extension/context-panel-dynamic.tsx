@@ -4,13 +4,15 @@ import { matchers } from '@emotion/jest';
 import { mount, ReactWrapper } from 'enzyme';
 import { IntlProvider } from 'react-intl-next';
 
-import type { Parameters } from '@atlaskit/editor-common/extensions';
-import {
-  DefaultExtensionProvider,
+import type {
+  Parameters,
   FieldDefinition,
 } from '@atlaskit/editor-common/extensions';
+import { DefaultExtensionProvider } from '@atlaskit/editor-common/extensions';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createFakeExtensionManifest } from '@atlaskit/editor-test-helpers/extensions';
 
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
 import ConfigPanelFieldsLoader from '../../../../ui/ConfigPanel/ConfigPanelFieldsLoader';
 

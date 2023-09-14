@@ -3,6 +3,7 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { MediaADFAttrs } from '@atlaskit/adf-schema';
 import type { DocBuilder } from '@atlaskit/editor-common/types';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   doc,
   p,
@@ -36,9 +37,12 @@ import {
   thEmpty,
   tdEmpty,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   createProsemirrorEditorFactory,
   Preset,
@@ -2119,10 +2123,7 @@ describe('handlePasteIntoCaption', () => {
         .add(guidelinePlugin)
         .add(floatingToolbarPlugin)
         .add(focusPlugin)
-        .add([
-          mediaPlugin,
-          { allowMediaSingle: true, featureFlags: { captions: true } },
-        ]);
+        .add([mediaPlugin, { allowMediaSingle: true, allowCaptions: true }]);
 
       return createEditor({
         doc,

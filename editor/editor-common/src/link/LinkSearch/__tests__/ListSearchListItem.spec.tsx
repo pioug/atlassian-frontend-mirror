@@ -1,12 +1,12 @@
 import React from 'react';
 
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import MoreIcon from '@atlaskit/icon/glyph/more';
 import { expectFunctionToHaveBeenCalledWith } from '@atlaskit/media-test-helpers';
 
-import LinkSearchListItem, {
-  Props as LinkSearchListItemProps,
-} from '../LinkSearchListItem';
+import type { Props as LinkSearchListItemProps } from '../LinkSearchListItem';
+import LinkSearchListItem from '../LinkSearchListItem';
 
 import { getDefaultItems } from './__helpers';
 

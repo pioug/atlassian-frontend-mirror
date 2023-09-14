@@ -1,11 +1,12 @@
+import type { EditorPageInterface } from '@af/editor-libra';
 import {
-  type EditorPageInterface,
   editorTestCase as test,
   EditorNodeContainerModel,
   EditorMediaSingleModel,
   EditorBreakoutModel,
   expect,
 } from '@af/editor-libra';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   doc,
   table,

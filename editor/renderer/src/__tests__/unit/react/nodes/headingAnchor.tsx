@@ -1,5 +1,6 @@
 import React from 'react';
 import HeadingAnchor from '../../../../react/nodes/heading-anchor';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import Tooltip from '@atlaskit/tooltip';
 

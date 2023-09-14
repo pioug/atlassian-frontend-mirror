@@ -1,10 +1,9 @@
-import {
-  EditorState,
-  PluginKey,
-  Transaction,
-} from '@atlaskit/editor-prosemirror/state';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+import { EditorState, PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { EditorView } from '@atlaskit/editor-prosemirror/view';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { code_block, doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import { createInputEventHandler } from '../../handler';

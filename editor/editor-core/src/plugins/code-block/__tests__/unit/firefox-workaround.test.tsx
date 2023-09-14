@@ -1,4 +1,5 @@
 import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   createProsemirrorEditorFactory,
   Preset,
@@ -12,10 +13,12 @@ jest.mock('@atlaskit/editor-common/utils', () => ({
 import codeBlockPlugin from '../..';
 
 import type { DocBuilder } from '@atlaskit/editor-common/types';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { doc, code_block } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import { pluginKey } from '../../plugin-key';
 import { Slice } from '@atlaskit/editor-prosemirror/model';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import { compositionPlugin } from '@atlaskit/editor-plugin-composition';

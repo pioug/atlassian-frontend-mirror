@@ -1,14 +1,16 @@
-import { ADNode } from '@atlaskit/editor-common/validator';
+import type { ADNode } from '@atlaskit/editor-common/validator';
+/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
+import type { BuilderContent } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   bodiedExtension,
   extension,
   inlineExtension,
   p as paragraph,
-  BuilderContent,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import { pluginKey } from '../../../../plugins/extension/plugin-key';
 import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
+/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
 import { setupConfigPanel } from '../../_setup-config-panel';
 
 // there are many warnings due to hooks usage and async code that will be solved with the next react update.

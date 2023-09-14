@@ -33,16 +33,13 @@ const getThemeHtmlAttrs = ({
   typography = themeStateDefaults['typography'],
   UNSAFE_themeOptions = themeStateDefaults['UNSAFE_themeOptions'],
 }: Partial<ThemeState> = {}): Record<string, string> => {
-  let themePreferences: Partial<ThemeState> = {
+  const themeAttribute = themeObjectToString({
     dark,
     light,
     shape,
-    // Load spacing by default
-    spacing: spacing || 'spacing',
+    spacing,
     typography,
-  };
-
-  const themeAttribute = themeObjectToString(themePreferences);
+  });
 
   const result: Record<string, string> = {
     [THEME_DATA_ATTRIBUTE]: themeAttribute,

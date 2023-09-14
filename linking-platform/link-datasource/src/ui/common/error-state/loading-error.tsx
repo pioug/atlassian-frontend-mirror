@@ -55,7 +55,7 @@ export const LoadingError = ({ onRefresh }: LoadingErrorProps) => {
       <LoadingErrorSVG />
       <div css={errorMessageContainerStyles}>
         <span css={errorMessageStyles}>
-          <FormattedMessage {...loadingErrorMessages.unableToLoadIssues} />
+          <FormattedMessage {...loadingErrorMessages.unableToLoadItems} />
         </span>
         <p css={errorDescriptionStyles}>
           <FormattedMessage {...loadingErrorMessages.checkConnection} />

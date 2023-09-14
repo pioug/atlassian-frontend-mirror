@@ -1,7 +1,9 @@
 jest.mock('lodash/throttle', () => jest.fn((fn) => fn));
 import type { TypeAheadTool } from '@atlaskit/editor-test-helpers/create-editor';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { doc, p, mention, a } from '@atlaskit/editor-test-helpers/doc-builder';
 import type { MockMentionConfig } from '@atlaskit/util-data-test/mock-mention-resource';
 import { MockMentionResource } from '@atlaskit/util-data-test/mock-mention-resource';

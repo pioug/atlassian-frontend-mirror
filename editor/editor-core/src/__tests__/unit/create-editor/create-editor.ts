@@ -1,6 +1,7 @@
 import { name } from '../../../version-wrapper';
 import { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import {
   sortByRank,

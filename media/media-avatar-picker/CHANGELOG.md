@@ -1,5 +1,11 @@
 # @atlaskit/media-avatar-picker
 
+## 24.3.14
+
+### Patch Changes
+
+- [`dcef48fcb56`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dcef48fcb56) - Dependency for @types/enzyme set as static as the following patch version contains a breaking change
+
 ## 24.3.13
 
 ### Patch Changes

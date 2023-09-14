@@ -1,6 +1,9 @@
-import { WebDriverPage } from '@atlaskit/editor-test-helpers/page-objects/types';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import type { WebDriverPage } from '@atlaskit/editor-test-helpers/page-objects/types';
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { goToEditorExampleWDExample } from '@atlaskit/editor-test-helpers/testing-example-page';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { quickInsert } from '@atlaskit/editor-test-helpers/integration/helpers';
 
 describe('Sticky Toolbar', () => {

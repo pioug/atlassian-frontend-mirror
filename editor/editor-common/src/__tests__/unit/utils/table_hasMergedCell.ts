@@ -1,4 +1,5 @@
 import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   p,
   tr as row,

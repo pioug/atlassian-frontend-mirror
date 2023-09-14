@@ -1,7 +1,8 @@
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 import DatePickerInput from '../../../ui/DatePicker/date-picker-input';
 import React from 'react';
-import { DateType } from '../../../types';
+import type { DateType } from '../../../types';
 
 describe('DatePickerInput', () => {
   describe('autofocus', () => {

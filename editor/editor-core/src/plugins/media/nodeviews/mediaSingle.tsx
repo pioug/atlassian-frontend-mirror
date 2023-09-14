@@ -334,6 +334,7 @@ export default class MediaSingleNode extends Component<
         containerWidth,
         gutterOffset: MEDIA_SINGLE_GUTTER_SIZE,
       }),
+      allowCaptions: mediaOptions.allowCaptions,
     };
 
     const resizableMediaSingleProps = {
@@ -364,7 +365,8 @@ export default class MediaSingleNode extends Component<
     }
 
     const shouldShowPlaceholder =
-      getMediaFeatureFlag('captions', mediaOptions.featureFlags) &&
+      (mediaOptions.allowCaptions ||
+        getMediaFeatureFlag('captions', mediaOptions.featureFlags)) &&
       node.childCount !== 2 &&
       isSelected &&
       state.selection instanceof NodeSelection;

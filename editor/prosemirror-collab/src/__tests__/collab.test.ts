@@ -5,15 +5,15 @@ import {
   redo,
   undo,
 } from '@atlaskit/editor-prosemirror/history';
-import { Node, Slice } from '@atlaskit/editor-prosemirror/model';
-import {
-  EditorState,
-  Plugin,
-  Selection,
-  Transaction,
-} from '@atlaskit/editor-prosemirror/state';
-import { ReplaceStep, Step } from '@atlaskit/editor-prosemirror/transform';
+import type { Node } from '@atlaskit/editor-prosemirror/model';
+import { Slice } from '@atlaskit/editor-prosemirror/model';
+import type { Plugin, Transaction } from '@atlaskit/editor-prosemirror/state';
+import { EditorState, Selection } from '@atlaskit/editor-prosemirror/state';
+import type { Step } from '@atlaskit/editor-prosemirror/transform';
+import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { defaultSchema as schema } from '@atlaskit/editor-test-helpers/schema';
 
 import { collab, receiveTransaction, sendableSteps } from '../index';

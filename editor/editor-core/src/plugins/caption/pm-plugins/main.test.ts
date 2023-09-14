@@ -1,4 +1,5 @@
 import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   createProsemirrorEditorFactory,
   Preset,
@@ -10,6 +11,7 @@ import floatingToolbarPlugin from '../../floating-toolbar';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import captionPlugin from '../';
 import type { DocBuilder } from '@atlaskit/editor-common/types';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   caption,
   doc,
@@ -45,10 +47,7 @@ describe('Caption plugin', () => {
         .add(gridPlugin)
         .add(floatingToolbarPlugin)
         .add(focusPlugin)
-        .add([
-          mediaPlugin,
-          { allowMediaSingle: true, featureFlags: { captions: true } },
-        ])
+        .add([mediaPlugin, { allowMediaSingle: true, allowCaptions: true }])
         .add(captionPlugin),
     });
 

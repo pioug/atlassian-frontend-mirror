@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   snapshot,
   initEditorWithAdf,
@@ -14,13 +15,17 @@ import {
 import findReplaceAdf from './__fixtures__/with-content.json';
 import borderRadiusAdf from './__fixtures__/find-replace-border-radius-adf.json';
 import matchCaseAdf from './__fixtures__/find-replace-match-case-adf.json';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { emojiSelectors } from '@atlaskit/editor-test-helpers/page-objects/emoji';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { findReplaceSelectors } from '@atlaskit/editor-test-helpers/page-objects/find-replace';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   ToolbarMenuItem,
   toolbarMenuItemsSelectors,
 } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 import type { FindReplaceOptions } from '../../../plugins/find-replace/types';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { selectAtPosWithProseMirror } from '@atlaskit/editor-test-helpers/page-objects/editor';
 
 describe('Find/replace:', () => {

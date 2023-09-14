@@ -1,7 +1,6 @@
-import {
-  PuppeteerPage,
-  waitForLoadedBackgroundImages,
-} from '@atlaskit/visual-regression/helper';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import { waitForLoadedBackgroundImages } from '@atlaskit/visual-regression/helper';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
 import { snapshot, initRendererWithADF } from '../_utils';
 import * as captionAdf from './__fixtures__/caption.adf.json';
@@ -18,7 +17,7 @@ const initRenderer = (page: PuppeteerPage, adf: any) => {
     device: Device.LaptopMDPI,
     rendererProps: {
       adfStage: 'stage0',
-      media: { featureFlags: { captions: true } },
+      media: { allowCaptions: true },
     },
     adf,
   });

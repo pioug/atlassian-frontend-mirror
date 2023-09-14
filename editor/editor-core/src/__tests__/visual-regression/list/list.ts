@@ -1,9 +1,11 @@
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
 import {
   snapshot,
   Appearance,
   initEditorWithAdf,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
+/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
 import listsWithCodeBlocksADF from './__fixtures__/lists-with-codeblocks.adf.json';
 
 describe('Snapshot Test: lists', () => {

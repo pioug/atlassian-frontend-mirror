@@ -6,6 +6,7 @@ import {
 } from '@af/editor-libra';
 
 import { simpleTable } from './__fixtures__/base-adfs';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   doc,
   strong,

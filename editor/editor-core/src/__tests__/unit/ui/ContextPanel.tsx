@@ -2,7 +2,9 @@ import React from 'react';
 // eslint-disable-next-line
 import { mount, ReactWrapper } from 'enzyme';
 
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   doc,
   p,
@@ -32,6 +34,7 @@ import {
   ContextPanelWidthProvider,
 } from '@atlaskit/editor-common/ui';
 
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   isPushingEditorContent,
   editorWithWideBreakoutAndSidebarWidth,

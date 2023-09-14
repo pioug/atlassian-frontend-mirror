@@ -1,20 +1,17 @@
 import React from 'react';
 
-import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import {
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type {
   Decoration,
   DecorationSource,
   EditorView,
   NodeView,
 } from '@atlaskit/editor-prosemirror/view';
 
-import {
-  ACTION_SUBJECT,
-  ACTION_SUBJECT_ID,
-  AnalyticsDispatch,
-  AnalyticsEventPayload,
-} from '../analytics';
-import { createDispatch, EventDispatcher } from '../event-dispatcher';
+import type { AnalyticsDispatch, AnalyticsEventPayload } from '../analytics';
+import { ACTION_SUBJECT, ACTION_SUBJECT_ID } from '../analytics';
+import type { EventDispatcher } from '../event-dispatcher';
+import { createDispatch } from '../event-dispatcher';
 import { ErrorBoundary } from '../ui/ErrorBoundary';
 import type { PortalProviderAPI } from '../ui/PortalProvider';
 import {
@@ -24,7 +21,7 @@ import {
 } from '../utils';
 import { analyticsEventKey } from '../utils/analytics';
 
-import {
+import type {
   ForwardRef,
   getPosHandler,
   ReactComponentProps,

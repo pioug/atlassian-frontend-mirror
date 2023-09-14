@@ -1,5 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   doc,
   layoutColumn,

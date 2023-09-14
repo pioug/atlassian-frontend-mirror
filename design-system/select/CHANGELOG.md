@@ -1,5 +1,11 @@
 # @atlaskit/select
 
+## 16.5.14
+
+### Patch Changes
+
+- [`aee1bdd977d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aee1bdd977d) - Update select checkbox and radio icon to have 1px border under FF
+
 ## 16.5.13
 
 ### Patch Changes

@@ -1,19 +1,21 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   getDocFromElement,
   editable,
 } from '@atlaskit/editor-test-helpers/integration/helpers';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   goToEditorTestingWDExample,
   mountEditor,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
 import * as cardLazyAdf from './_fixtures_/inline-card-lazy.adf.json';
+import type { SmartLinkTestWindow } from '@atlaskit/media-integration-test-helpers';
 import {
   waitForLazyRenderedCard,
   waitForResolvedInlineCard,
   inlineCardSelector,
   lazyCardSelector,
-  SmartLinkTestWindow,
   getRequestedCards,
 } from '@atlaskit/media-integration-test-helpers';
 

@@ -250,7 +250,7 @@ describe('DatasourceTableView', () => {
       const { mockReset } = setup({ status: 'rejected' });
       const { getByRole, getByText } = renderComponent();
 
-      expect(getByText('Unable to load issues')).toBeInTheDocument();
+      expect(getByText('Unable to load items')).toBeInTheDocument();
 
       getByRole('button', { name: 'Refresh' }).click();
       expect(mockReset).toHaveBeenCalledTimes(1);

@@ -66,6 +66,7 @@ import {
   UiIframeFocusedEventProps,
   UiRenderFailedEventProps,
   UiRenderSuccessEventProps,
+  UiServerActionClickedEventProps,
 } from '../../utils/analytics/types';
 import { useSmartLinkContext } from '@atlaskit/link-provider';
 import {
@@ -77,6 +78,7 @@ import {
   trackSmartLinkQuickActionSuccess,
   uiIframeDwelledEvent,
   uiIframeFocusedEvent,
+  uiServerActionClicked,
 } from '../../utils/analytics/analytics';
 import { useDispatchAnalytics } from './useDispatchAnalytics';
 import { SmartLinkActionType } from '@atlaskit/linking-types';
@@ -707,6 +709,12 @@ export const useSmartLinkAnalytics = (
             uiSmartLinkStatusOpenPreviewButtonClicked(),
             commonAttributes,
           ),
+        ),
+      smartLinkServerActionClickedEvent: (
+        props: UiServerActionClickedEventProps,
+      ) =>
+        dispatchAnalytics(
+          applyCommonAttributes(uiServerActionClicked(props), commonAttributes),
         ),
     }),
     [dispatchAnalytics, commonAttributes, defaultId, extractedExtensionKey],

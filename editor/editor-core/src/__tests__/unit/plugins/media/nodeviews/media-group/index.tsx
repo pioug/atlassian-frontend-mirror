@@ -1,7 +1,10 @@
 // NOTE: for the purposes of this test we are mocking MediaNodeUpdater using __mocks__ version
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { nextTick } from '@atlaskit/editor-test-helpers/next-tick';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { fakeMediaProvider } from '@atlaskit/editor-test-helpers/media-provider';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { media, mediaGroup } from '@atlaskit/editor-test-helpers/doc-builder';
 import { mountWithIntl } from '../../../../../__helpers/enzyme';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';

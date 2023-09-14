@@ -1,5 +1,9 @@
 // Media feature flags - type and defaults defined here in one source of truth
 export interface MediaFeatureFlags {
+  /**
+   * @private
+   * @deprecated Use media option `allowCaptions` instead.
+   */
   captions?: boolean;
   mediaInline?: boolean;
   // We can't yet switch this feature on

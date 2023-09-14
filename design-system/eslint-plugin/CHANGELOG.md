@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 8.7.0
+
+### Minor Changes
+
+- [`859ef96da96`](https://bitbucket.org/atlassian/atlassian-frontend/commits/859ef96da96) - Adds additional rule encouraging the use of CSS logical properties. This rule comes with a fix for code that uses object syntax (via css, styled or xcss) for styles.
+
 ## 8.6.0
 
 ### Minor Changes

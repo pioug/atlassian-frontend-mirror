@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   a,
   doc,
@@ -9,10 +10,12 @@ import {
   getDefaultMediaClientConfig,
 } from '@atlaskit/media-test-helpers';
 import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   createProsemirrorEditorFactory,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 
@@ -22,6 +25,7 @@ import { widthPlugin } from '@atlaskit/editor-plugin-width';
 
 import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
+import captionPlugin from '@atlaskit/editor-core/src/plugins/caption';
 import mediaPlugin from '../';
 import floatingToolbarPlugin from '../../floating-toolbar';
 import { editorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
@@ -74,6 +78,7 @@ describe('image linking', () => {
         .add(floatingToolbarPlugin)
         .add(focusPlugin)
         .add([mediaPlugin, { allowMediaSingle: true, allowLinking: true }])
+        .add(captionPlugin)
         .add(hyperlinkPlugin),
       providerFactory,
     });

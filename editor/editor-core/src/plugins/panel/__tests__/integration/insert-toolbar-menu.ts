@@ -1,5 +1,6 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   editable,
   getDocFromElement,
@@ -7,6 +8,7 @@ import {
   insertBlockMenuItem,
 } from '@atlaskit/editor-test-helpers/integration/helpers';
 import { selectors } from './_utils';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   mountEditor,
   goToEditorTestingWDExample,

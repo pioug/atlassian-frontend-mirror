@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   snapshot,
   initEditorWithAdf,
@@ -6,11 +7,12 @@ import {
 import adf from './__fixtures__/full-width-table.adf.json';
 import tableWithFirstColumnMerged from './__fixtures__/table-3x3-with-two-cells-merged-on-first-row.adf.json';
 import tableWithBottomRightColMerged from './__fixtures__/table-3x3-with-two-cells-merged-bottom-right-column.json';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   tableSelectors,
   clickFirstCell,
 } from '@atlaskit/editor-test-helpers/page-objects/table';
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 
 describe('Delete in table:', () => {
   let page: PuppeteerPage;

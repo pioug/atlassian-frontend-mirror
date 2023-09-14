@@ -1,15 +1,17 @@
 import React from 'react';
-import { TableLayout } from '@atlaskit/adf-schema';
+import type { TableLayout } from '@atlaskit/adf-schema';
 import { akEditorDefaultLayoutWidth } from '@atlaskit/editor-shared-styles';
 import Table from '../../../../react/nodes/table';
 import { TableHeader } from '../../../../react/nodes/tableCell';
 import TableRow from '../../../../react/nodes/tableRow';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { p, table, th, tr } from '@atlaskit/adf-utils/builders';
 import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
-import Heading, { HeadingLevels } from '../../../../react/nodes/heading';
+import type { HeadingLevels } from '../../../../react/nodes/heading';
+import Heading from '../../../../react/nodes/heading';
 import ReactSerializer from '../../../../react';
-import { RendererAppearance } from '../../../../ui/Renderer/types';
+import type { RendererAppearance } from '../../../../ui/Renderer/types';
 
 const renderWidth = akEditorDefaultLayoutWidth;
 let serialiser = new ReactSerializer({});

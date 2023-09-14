@@ -243,7 +243,7 @@ export interface ThemeState {
   dark: Extract<ThemeIds, 'light' | 'dark' | 'legacy-dark' | 'legacy-light'>;
   colorMode: ThemeColorModes;
   shape?: Extract<ThemeIds, 'shape'>;
-  spacing?: Extract<ThemeIds, 'spacing'>;
+  spacing: Extract<ThemeIds, 'spacing'>;
   typography?: Extract<
     ThemeIds,
     'typography' | 'typography-adg3' | 'typography-minor3'
@@ -259,7 +259,7 @@ export const themeStateDefaults: ThemeState = {
   dark: 'dark',
   light: 'light',
   shape: undefined,
-  spacing: undefined,
+  spacing: 'spacing',
   typography: undefined,
   UNSAFE_themeOptions: undefined,
 };

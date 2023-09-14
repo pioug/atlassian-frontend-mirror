@@ -47,6 +47,12 @@ jest.mock('../../issue-like-table', () => ({
   IssueLikeDataTableView: jest.fn(() => null),
 }));
 
+Object.defineProperty(window, 'location', {
+  configurable: true,
+  enumerable: true,
+  value: new URL('https://hello.atlassian.net'),
+});
+
 mockSimpleIntersectionObserver(); // for smart link rendering
 
 const getDefaultParameters: () => JiraIssueDatasourceParameters = () => ({
@@ -156,9 +162,16 @@ const setup = async (
     hookState?: DatasourceTableState;
     visibleColumnKeys?: string[];
     dontWaitForSitesToLoad?: boolean;
+    mockSiteDataOverride?: {
+      cloudId: string;
+      url: string;
+      displayName: string;
+    }[];
   } = {},
 ) => {
-  asMock(getAvailableJiraSites).mockResolvedValue(mockSiteData);
+  asMock(getAvailableJiraSites).mockResolvedValue(
+    args.mockSiteDataOverride || mockSiteData,
+  );
   asMock(useDatasourceTableState).mockReturnValue(
     args.hookState || getDefaultHookState(),
   );
@@ -397,18 +410,89 @@ describe('JiraIssuesConfigModal', () => {
     expect(modalTitle2.innerText).toEqual('Insert Jira issues from test1');
   });
 
-  describe('when cloudId is not present', () => {
-    it('should produce ADF with first cloudId from the list', async () => {
-      const { findByText, searchWithNewJql, assertInsertResult } = await setup({
-        parameters: undefined,
+  describe('when cloudId', () => {
+    describe('is not present', () => {
+      it('should produce ADF with cloudId for the site which user is browsing from', async () => {
+        const {
+          findByText,
+          getLatestJiraSearchContainerProps,
+          assertInsertResult,
+        } = await setup({
+          parameters: undefined,
+        });
+        await findByText('Insert Jira issues from hello');
+
+        // We need to do generate jql, since insert button won't active without it.
+        const { onSearch } = getLatestJiraSearchContainerProps();
+        act(() => {
+          onSearch(
+            {
+              jql: 'some-query',
+            },
+            'basic',
+          );
+        });
+
+        assertInsertResult({
+          cloudId: '67899',
+          jqlUrl: 'https://hello.atlassian.net/issues/?jql=some-query',
+        });
       });
-      await findByText('Insert Jira issues from test1');
 
-      searchWithNewJql('some-query', 'basic');
+      it('should default to first cloudId if no URL match is found', async () => {
+        const {
+          findByText,
+          getLatestJiraSearchContainerProps,
+          assertInsertResult,
+        } = await setup({
+          parameters: undefined,
+          mockSiteDataOverride: mockSiteData.slice(0, 2),
+        });
+        await findByText('Insert Jira issues from test1');
 
-      assertInsertResult({
-        cloudId: '12345',
-        jqlUrl: 'https://test1.atlassian.net/issues/?jql=some-query',
+        const { onSearch } = getLatestJiraSearchContainerProps();
+        act(() => {
+          onSearch(
+            {
+              jql: 'some-query',
+            },
+            'basic',
+          );
+        });
+
+        assertInsertResult({
+          cloudId: '12345',
+          jqlUrl: 'https://test1.atlassian.net/issues/?jql=some-query',
+        });
+      });
+    });
+
+    describe('is present', () => {
+      it('should default to first cloudId if no URL match is found (unauthorized to edit)', async () => {
+        const {
+          findByText,
+          getLatestJiraSearchContainerProps,
+          assertInsertResult,
+        } = await setup({
+          mockSiteDataOverride: mockSiteData.slice(0, 2),
+        });
+
+        await findByText('Insert Jira issues from test1');
+
+        const { onSearch } = getLatestJiraSearchContainerProps();
+        act(() => {
+          onSearch(
+            {
+              jql: 'some-query',
+            },
+            'basic',
+          );
+        });
+
+        assertInsertResult({
+          cloudId: '12345',
+          jqlUrl: 'https://test1.atlassian.net/issues/?jql=some-query',
+        });
       });
     });
   });

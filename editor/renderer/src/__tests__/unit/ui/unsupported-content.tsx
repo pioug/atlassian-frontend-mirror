@@ -1,10 +1,13 @@
 import React from 'react';
 import { initialDoc } from '../../__fixtures__/initial-doc';
-import Renderer, { Props } from '../../../ui/Renderer';
-import { IntlProvider, WrappedComponentProps } from 'react-intl-next';
+import type { Props } from '../../../ui/Renderer';
+import Renderer from '../../../ui/Renderer';
+import type { WrappedComponentProps } from 'react-intl-next';
+import { IntlProvider } from 'react-intl-next';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import Tooltip from '@atlaskit/tooltip';
-import { ReactWrapper } from 'enzyme';
+import type { ReactWrapper } from 'enzyme';
 
 describe('Unsupported Content', () => {
   describe('Block Node', () => {

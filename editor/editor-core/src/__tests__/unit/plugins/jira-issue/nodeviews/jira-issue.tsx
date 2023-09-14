@@ -2,7 +2,9 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { JiraIcon } from '@atlaskit/logo/jira-icon';
 import ReactJIRAIssueNode from '../../../../../plugins/jira-issue/nodeviews/jira-issue';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { confluenceJiraIssue } from '@atlaskit/editor-test-helpers/doc-builder';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 
 describe('jiraIssue - React component', () => {

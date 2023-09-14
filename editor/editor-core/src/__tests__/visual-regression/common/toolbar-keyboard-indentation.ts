@@ -1,4 +1,5 @@
 import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
 import {
   Appearance,
   editorSelector,
@@ -7,6 +8,7 @@ import {
   snapshot,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import { selectToolbarMenuWithKeyboard } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
+/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
 import { pressKey } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
 import * as indentedAdf from './__fixtures__/indented-nodes-adf.json';
 import * as outdentedAdf from './__fixtures__/outdented-nodes-adf.json';

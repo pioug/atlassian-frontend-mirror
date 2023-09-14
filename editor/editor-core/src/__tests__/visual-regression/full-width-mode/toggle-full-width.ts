@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
 import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
 import {
   initFullPageEditorWithAdf,
@@ -22,6 +23,7 @@ import { clickFirstCell } from '@atlaskit/editor-test-helpers/page-objects/table
 import { waitForMediaToBeLoaded } from '@atlaskit/editor-test-helpers/page-objects/media';
 import { panelSelectors } from '@atlaskit/editor-test-helpers/page-objects/panel';
 import { layoutSelectors } from '@atlaskit/editor-test-helpers/page-objects/layouts';
+/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
 
 type ToggleFullWidthOptions = {
   // Focus is lost after toggling full width mode so if your test

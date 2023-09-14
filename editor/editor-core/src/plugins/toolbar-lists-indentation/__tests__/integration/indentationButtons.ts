@@ -1,5 +1,6 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import type { BrowserObject } from '@atlaskit/webdriver-runner/wd-wrapper';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   getDocFromElement,
   fullpage,
@@ -7,6 +8,7 @@ import {
   setProseMirrorTextSelection,
 } from '@atlaskit/editor-test-helpers/integration/helpers';
 import type { WebDriverPage } from '@atlaskit/editor-test-helpers/page-objects/types';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   goToEditorTestingWDExample,
   mountEditor,

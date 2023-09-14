@@ -31,9 +31,5 @@
     "composite": true,
     "outDir": "../../../tsDist/@atlaskit__adf-utils/app"
   },
-  "references": [
-    {
-      "path": "../../monorepo-tooling/codemod-utils/tsconfig.app.json"
-    }
-  ]
+  "references": []
 }

@@ -16,17 +16,24 @@ import { SmartCardProvider } from '@atlaskit/link-provider';
 import { useSmartLinkLifecycleAnalytics } from '@atlaskit/link-analytics';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { cardClient } from '@atlaskit/media-integration-test-helpers/card-client';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { EditorTestCardProvider } from '@atlaskit/editor-test-helpers/card-provider';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   createFakeExtensionManifest,
   extensionHandlers,
 } from '@atlaskit/editor-test-helpers/extensions';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import dispatchPasteEvent from '@atlaskit/editor-test-helpers/dispatch-paste-event';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { MockMacroProvider } from '@atlaskit/editor-test-helpers/mock-macro-provider';
 import { setNodeSelection } from '@atlaskit/editor-common/utils';
 import {
@@ -34,6 +41,7 @@ import {
   combineExtensionProviders,
 } from '@atlaskit/editor-common/extensions';
 import type { DocBuilder } from '@atlaskit/editor-common/types';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   doc,
   p,

@@ -6,6 +6,7 @@ import {
   EditorMediaInlineModel,
   BROWSERS,
 } from '@af/editor-libra';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { doc, p, mediaInline } from '@atlaskit/editor-test-helpers/doc-builder';
 import { mediaInlineAdf } from './copy-mediaInline.spec.ts-fixtures/adf-mediaInline';
 

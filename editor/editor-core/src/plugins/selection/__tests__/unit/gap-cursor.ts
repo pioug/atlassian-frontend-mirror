@@ -1,7 +1,9 @@
 import type { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import type { DocBuilder } from '@atlaskit/editor-common/types';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   doc,
   p,
@@ -16,7 +18,9 @@ import {
   media,
   panelNote,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 
 import { setTextSelection } from '../../../../index';
@@ -41,6 +45,7 @@ import { uuid } from '@atlaskit/adf-schema';
 import { gapCursorPluginKey } from '../../pm-plugins/gap-cursor-plugin-key';
 import createStub from 'raf-stub';
 import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   createProsemirrorEditorFactory,
   Preset,
@@ -51,6 +56,8 @@ import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { focusPlugin } from '@atlaskit/editor-plugin-focus';
 import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import captionPlugin from '@atlaskit/editor-core/src/plugins/caption';
 import selectionPlugin from '../../../selection';
 import floatingToolbarPlugin from '../../../floating-toolbar';
 
@@ -515,6 +522,7 @@ describe('gap-cursor', () => {
     let rafSpy: any;
     const preset = new Preset<LightEditorPlugin>()
       .add([featureFlagsPlugin, {}])
+      .add([analyticsPlugin, {}])
       .add(decorationsPlugin)
       .add(editorDisabledPlugin)
       .add(widthPlugin)
@@ -522,6 +530,7 @@ describe('gap-cursor', () => {
       .add(gridPlugin)
       .add(floatingToolbarPlugin)
       .add(focusPlugin)
+      .add(captionPlugin)
       .add([mediaPlugin, { allowMediaSingle: true }])
       .add(selectionPlugin);
 

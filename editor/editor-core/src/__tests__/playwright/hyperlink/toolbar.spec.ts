@@ -6,6 +6,7 @@ import {
   expect,
 } from '@af/editor-libra';
 import { basicHyperlinkAdf } from './__fixtures__/basic-hyperlink-adf';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { p, a, doc } from '@atlaskit/editor-test-helpers/doc-builder';
 
 test.use({

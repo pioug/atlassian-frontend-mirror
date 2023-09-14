@@ -1,5 +1,6 @@
 import { tableNewColumnMinWidth } from '@atlaskit/editor-common/styles';
-import { PluginKey } from '@atlaskit/editor-prosemirror/state';
+import type { PluginKey } from '@atlaskit/editor-prosemirror/state';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   editable,
   fullpage,
@@ -8,11 +9,13 @@ import {
   selectColumns,
   updateEditorProps,
 } from '@atlaskit/editor-test-helpers/integration/helpers';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   clickFirstCell,
   insertColumn,
   selectTable,
 } from '@atlaskit/editor-test-helpers/page-objects/table';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   goToEditorTestingWDExample,
   mountEditor,

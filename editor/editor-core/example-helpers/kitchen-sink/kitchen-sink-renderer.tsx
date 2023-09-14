@@ -4,9 +4,10 @@ import { jsx } from '@emotion/react';
 import React from 'react';
 import { SmartCardProvider, CardClient } from '@atlaskit/link-provider';
 import { ReactRenderer } from '@atlaskit/renderer';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import { rendererPadding } from './kitchen-sink-styles';
-import { EditorAppearance } from '../../src/types';
+import type { EditorAppearance } from '../../src/types';
 import { exampleMediaFeatureFlags } from '@atlaskit/media-test-helpers/exampleMediaFeatureFlags';
 
 export interface KitchenSinkRendererProps {
@@ -38,8 +39,9 @@ export const KitchenSinkRenderer: React.StatelessComponent<KitchenSinkRendererPr
             allowAltTextOnImages={true}
             extensionHandlers={extensionHandlers}
             media={{
-              featureFlags: { ...exampleMediaFeatureFlags, captions: true },
+              featureFlags: { ...exampleMediaFeatureFlags },
               allowLinking: true,
+              allowCaptions: true,
               enableDownloadButton: true,
             }}
             allowCopyToClipboard={true}

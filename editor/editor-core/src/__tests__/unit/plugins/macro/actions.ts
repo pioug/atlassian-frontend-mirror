@@ -1,4 +1,6 @@
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   doc,
   p,
@@ -6,7 +8,7 @@ import {
   extension,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { insertMacroFromMacroBrowser } from '../../../../plugins/macro';
-import {
+import type {
   MacroAttributes,
   MacroProvider,
 } from '@atlaskit/editor-common/provider-factory';

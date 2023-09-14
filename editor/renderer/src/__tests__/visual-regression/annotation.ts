@@ -2,16 +2,18 @@ import {
   setSelection,
   selectors as rendererSelectors,
 } from './../__helpers/page-objects/_renderer';
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   deviceViewPorts,
   Device,
 } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
-import { snapshot, initRendererWithADF, ViewPortOptions } from './_utils';
+import type { ViewPortOptions } from './_utils';
+import { snapshot, initRendererWithADF } from './_utils';
 import { selectors } from '../__helpers/page-objects/_annotation';
 import * as annotationAdf from '../__fixtures__/annotation-adf.json';
-import { ThemeModes } from '@atlaskit/theme/types';
-import { RendererAppearance } from '../../ui/Renderer/types';
+import type { ThemeModes } from '@atlaskit/theme/types';
+import type { RendererAppearance } from '../../ui/Renderer/types';
 
 const initRenderer = async (
   page: PuppeteerPage,

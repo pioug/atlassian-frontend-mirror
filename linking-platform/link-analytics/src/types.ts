@@ -27,10 +27,27 @@ export interface LinkDetails {
   smartLinkId?: string;
 }
 
+export interface DatasourceDetails {
+  url?: string;
+  datasourceId: string;
+  parameters: object;
+}
+
 export interface LinkLifecycleEventCallback {
   (
     /** The link data including the url */
     details: LinkDetails,
+    /** A source analytic event that represents the trigger for creating the link */
+    sourceEvent?: UIAnalyticsEvent | null,
+    /** Custom attributes to decorate the event with */
+    attributes?: LinkAnalyticsAttributes,
+  ): void;
+}
+
+export interface DatasourceLifecycleEventCallback {
+  (
+    /** The link data including the url */
+    details: DatasourceDetails,
     /** A source analytic event that represents the trigger for creating the link */
     sourceEvent?: UIAnalyticsEvent | null,
     /** Custom attributes to decorate the event with */
@@ -60,4 +77,10 @@ export interface SmartLinkLifecycleMethods {
    * @param attributes(OPTIONAL)  Custom attributes to decorate the event with
    */
   linkDeleted: LinkLifecycleEventCallback;
+}
+
+export interface DatasourceLifecycleMethods {
+  datasourceCreated: DatasourceLifecycleEventCallback;
+  datasourceUpdated: DatasourceLifecycleEventCallback;
+  datasourceDeleted: DatasourceLifecycleEventCallback;
 }

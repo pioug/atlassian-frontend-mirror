@@ -1,5 +1,11 @@
 # @atlaskit/inline-edit
 
+## 12.4.3
+
+### Patch Changes
+
+- [`b59892e4807`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b59892e4807) - "Clean up some small accessibility issues"
+
 ## 12.4.2
 
 ### Patch Changes

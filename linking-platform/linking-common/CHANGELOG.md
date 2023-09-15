@@ -1,5 +1,17 @@
 # @atlaskit/linking-common
 
+## 4.9.1
+
+### Patch Changes
+
+- [`2cd7af71b63`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2cd7af71b63) - Bump json-ld-types 3.8.0 -> 3.9.1
+
+## 4.9.0
+
+### Minor Changes
+
+- [`8b8a309cb62`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8b8a309cb62) - Modified the `getStatus` arg type to be less restrictive and only require the field it uses, `meta`, instead of the entire Json response type.
+
 ## 4.8.0
 
 ### Minor Changes

@@ -30,7 +30,7 @@
     "@atlaskit/icon-file-type": "^6.4.0",
     "@atlaskit/locale": "^2.5.0",
     "@atlaskit/media-common": "^9.0.0",
-    "@atlaskit/select": "^16.5.0",
+    "@atlaskit/select": "^16.6.0",
     "@atlaskit/spinner": "^15.5.0",
     "@atlaskit/theme": "^12.6.0",
     "@atlaskit/tokens": "^1.22.0",

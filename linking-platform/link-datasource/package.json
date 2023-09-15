@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/link-datasource",
-  "version": "1.1.5",
+  "version": "1.1.7",
   "description": "UI Components to support linking platform dataset feature",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -43,8 +43,8 @@
     "@atlaskit/icon-object": "^6.3.0",
     "@atlaskit/image": "^1.1.0",
     "@atlaskit/jql-editor-autocomplete-rest": "^2.0.0",
-    "@atlaskit/link-client-extension": "^1.6.0",
-    "@atlaskit/linking-common": "^4.8.0",
+    "@atlaskit/link-client-extension": "^1.7.0",
+    "@atlaskit/linking-common": "^4.9.0",
     "@atlaskit/linking-types": "^8.3.0",
     "@atlaskit/lozenge": "^11.4.0",
     "@atlaskit/modal-dialog": "^12.6.0",
@@ -52,7 +52,7 @@
     "@atlaskit/pragmatic-drag-and-drop-hitbox": "^0.11.0",
     "@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-autoscroll": "^0.6.0",
     "@atlaskit/pragmatic-drag-and-drop-react-indicator": "^0.16.0",
-    "@atlaskit/select": "^16.5.0",
+    "@atlaskit/select": "^16.6.0",
     "@atlaskit/smart-card": "^26.26.0",
     "@atlaskit/spinner": "^15.5.0",
     "@atlaskit/tag": "^11.6.0",
@@ -86,7 +86,7 @@
     "@testing-library/user-event": "^14.4.3",
     "fetch-mock": "^8.0.0",
     "jest-fetch-mock": "^3.0.3",
-    "json-ld-types": "3.8.0",
+    "json-ld-types": "3.9.1",
     "typescript": "~4.9.5",
     "uuid": "^3.1.0",
     "wait-for-expect": "^1.2.0"

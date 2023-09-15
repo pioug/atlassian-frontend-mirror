@@ -842,7 +842,7 @@ const layerMap: {
 };
 
 // @public (undocumented)
-type MarginSpace = 'auto' | Space;
+type MarginSpace = 'auto' | NegativeSpace | Space;
 
 // @public
 export const media: {
@@ -858,6 +858,22 @@ export const media: {
 
 // @public
 type MediaQuery = (typeof media.above)[Breakpoint];
+
+// @public (undocumented)
+type NegativeSpace = keyof typeof negativeSpaceMap;
+
+// @public (undocumented)
+const negativeSpaceMap: {
+  'space.negative.025': 'var(--ds-space-negative-025)';
+  'space.negative.050': 'var(--ds-space-negative-050)';
+  'space.negative.075': 'var(--ds-space-negative-075)';
+  'space.negative.100': 'var(--ds-space-negative-100)';
+  'space.negative.150': 'var(--ds-space-negative-150)';
+  'space.negative.200': 'var(--ds-space-negative-200)';
+  'space.negative.250': 'var(--ds-space-negative-250)';
+  'space.negative.300': 'var(--ds-space-negative-300)';
+  'space.negative.400': 'var(--ds-space-negative-400)';
+};
 
 // @public (undocumented)
 type SafeCSSObject = CSSPseudos &

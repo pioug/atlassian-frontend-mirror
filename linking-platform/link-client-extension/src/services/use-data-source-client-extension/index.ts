@@ -25,6 +25,8 @@ export const datasourceDataResponsePromiseCache = new LRUMap<
   Promise<DatasourceDataResponse>
 >(URL_RESPONSE_CACHE_SIZE);
 
+export const DEFAULT_GET_DATASOURCE_DATA_PAGE_SIZE = 20;
+
 export const useDatasourceClientExtension = () => {
   const {
     connections: { client },

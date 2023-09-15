@@ -1,5 +1,11 @@
 # @atlaskit/primitives
 
+## 1.6.0
+
+### Minor Changes
+
+- [`9cd356f858a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9cd356f858a) - Negative space tokens can now be applied to margin properties via `xcss`.
+
 ## 1.5.0
 
 ### Minor Changes

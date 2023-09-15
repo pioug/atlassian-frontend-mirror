@@ -50,13 +50,16 @@ export default function Example() {
   return (
     <Inline space="space.200">
       <Stack grow="fill">
-        <Heading level="h600">padding</Heading>
+        <Heading level="h600" id="box-padding">
+          padding
+        </Heading>
         <Box>{spacingValues[padding]}</Box>
         <Range
           max={spacingValues.length - 1}
           step={1}
           value={padding}
           onChange={padding => setPadding(padding)}
+          aria-labelledby="box-padding"
         />
 
         <Flex>
@@ -71,22 +74,28 @@ export default function Example() {
       </Stack>
 
       <Stack grow="fill">
-        <Heading level="h600">paddingInline</Heading>
+        <Heading level="h600" id="box-padding-inline">
+          paddingInline
+        </Heading>
         <Box>{spacingValues[paddingInline]}</Box>
         <Range
           max={spacingValues.length - 1}
           step={1}
           value={paddingInline}
           onChange={paddingInline => setPaddingInline(paddingInline)}
+          aria-labelledby="box-padding-inline"
         />
 
-        <Heading level="h600">paddingBlock</Heading>
+        <Heading level="h600" id="box-padding-block">
+          paddingBlock
+        </Heading>
         <Box>{spacingValues[paddingBlock]}</Box>
         <Range
           max={spacingValues.length - 1}
           step={1}
           value={paddingBlock}
           onChange={paddingBlock => setPaddingBlock(paddingBlock)}
+          aria-labelledby="box-padding-block"
         />
 
         <Flex>
@@ -102,7 +111,9 @@ export default function Example() {
       </Stack>
 
       <Stack grow="fill">
-        <Heading level="h600">paddingInlineStart</Heading>
+        <Heading level="h600" id="box-padding-inline-start">
+          paddingInlineStart
+        </Heading>
         <Box>{spacingValues[paddingInlineStart]}</Box>
         <Range
           max={spacingValues.length - 1}
@@ -111,18 +122,24 @@ export default function Example() {
           onChange={paddingInlineStart =>
             setPaddingInlineStart(paddingInlineStart)
           }
+          aria-labelledby="box-padding-inline-start"
         />
 
-        <Heading level="h600">paddingInlineEnd</Heading>
+        <Heading level="h600" id="box-padding-inline-end">
+          paddingInlineEnd
+        </Heading>
         <Box>{spacingValues[paddingInlineEnd]}</Box>
         <Range
           max={spacingValues.length - 1}
           step={1}
           value={paddingInlineEnd}
           onChange={paddingInlineEnd => setPaddingInlineEnd(paddingInlineEnd)}
+          aria-labelledby="box-padding-inline-end"
         />
 
-        <Heading level="h600">paddingBlockStart</Heading>
+        <Heading level="h600" id="box-padding-block-start">
+          paddingBlockStart
+        </Heading>
         <Box>{spacingValues[paddingBlockStart]}</Box>
         <Range
           max={spacingValues.length - 1}
@@ -131,15 +148,19 @@ export default function Example() {
           onChange={paddingBlockStart =>
             setPaddingBlockStart(paddingBlockStart)
           }
+          aria-labelledby="box-padding-block-start"
         />
 
-        <Heading level="h600">paddingBlockEnd</Heading>
+        <Heading level="h600" id="box-padding-block-end">
+          paddingBlockEnd
+        </Heading>
         <Box>{spacingValues[paddingBlockEnd]}</Box>
         <Range
           max={spacingValues.length - 1}
           step={1}
           value={paddingBlockEnd}
           onChange={paddingBlockEnd => setPaddingBlockEnd(paddingBlockEnd)}
+          aria-labelledby="box-padding-block-end"
         />
 
         <Flex>

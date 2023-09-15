@@ -1,9 +1,20 @@
 import React from 'react';
 
+import { Label } from '@atlaskit/form';
+
 import { TimePicker } from '../../src';
 
 const TimePickerFormattingExample = () => (
-  <TimePicker timeFormat="HH:mm" placeholder="13:30" />
+  <>
+    <Label htmlFor="timepicker-custom-format">Custom Time Format</Label>
+    <TimePicker
+      timeFormat="HH:mm"
+      placeholder="13:30"
+      selectProps={{
+        inputId: 'timepicker-custom-format',
+      }}
+    />
+  </>
 );
 
 export default TimePickerFormattingExample;

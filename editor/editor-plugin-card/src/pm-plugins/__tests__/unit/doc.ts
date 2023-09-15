@@ -1353,6 +1353,7 @@ describe('card', () => {
           datasourceNode,
           originalDatasourceAdf,
           editorView,
+          undefined,
         );
 
         expect(editorView.state.doc).toEqualDocument(
@@ -1368,6 +1369,7 @@ describe('card', () => {
           datasourceNode,
           getNewDatasourceAdf(mockJqlUrl1),
           editorView,
+          undefined,
         );
 
         expect(editorView.state.doc).toEqualDocument(
@@ -1385,6 +1387,7 @@ describe('card', () => {
           wideDatasourceNode,
           getNewDatasourceAdf(mockJqlUrl1),
           editorView,
+          undefined,
         );
 
         expect(editorView.state.doc).toEqualDocument(
@@ -1405,6 +1408,7 @@ describe('card', () => {
           datasourceNode,
           getNewDatasourceAdf(mockJqlUrl2),
           editorView,
+          undefined,
         );
 
         expect(editorView.state.doc).toEqualDocument(
@@ -1423,6 +1427,7 @@ describe('card', () => {
           datasourceNode,
           jqlInlineCardAdf,
           editorView,
+          undefined,
         );
 
         expect(editorView.state.doc).toEqualDocument(
@@ -1439,6 +1444,7 @@ describe('card', () => {
           editorView.state,
           originalDatasourceAdf as any,
           editorView,
+          undefined,
         );
 
         expect(editorView.state.doc).toEqualDocument(
@@ -1449,7 +1455,12 @@ describe('card', () => {
       it('should insert a smart card when adf type is "inlineCard"', () => {
         const { editorView } = editor(doc(p()));
 
-        insertDatasource(editorView.state, inlineCardAdf as any, editorView);
+        insertDatasource(
+          editorView.state,
+          inlineCardAdf as any,
+          editorView,
+          undefined,
+        );
 
         expect(editorView.state.doc).toEqualDocument(
           doc(p(inlineCard(getCardAdfAttrs())())),

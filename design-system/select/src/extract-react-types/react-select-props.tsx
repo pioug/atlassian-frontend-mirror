@@ -70,13 +70,9 @@ interface NativeReactSelectProps<
    */
   closeMenuOnScroll?: boolean | EventListener;
   /**
-   * This complex object includes all the compositional components that are used
-   * in `react-select`. If you wish to overwrite a component, pass in an object
-   * with the appropriate namespace.
-   *
-   * If you only wish to restyle a component, we recommend using the `styles` prop
-   * instead. For a list of the components that can be passed in, and the shape
-   * that will be passed to them, see [the components docs](/components)
+   This complex object includes all the compositional components that are used in `react-select`. If you wish to overwrite a component, pass in an object with the appropriate namespace.
+
+   If you only wish to restyle a component, we recommend using the `styles` prop instead. For a list of the components that can be passed in, and the shape that will be passed to them, see [the components docs](/components).
    */
   components?: SelectComponentsConfig<Option, IsMulti, Group>;
   /** Whether the value of the select, e.g. SingleValue, should be displayed in the control. */
@@ -89,11 +85,7 @@ interface NativeReactSelectProps<
   filterOption?:
     | ((option?: FilterOptionOption<Option>, inputValue?: string) => boolean)
     | null;
-  /**
-   * Formats group labels in the menu as React components
-   *
-   * An example can be found in the [Replacing builtins](/advanced#replacing-builtins) documentation.
-   */
+  /** Formats group labels in the menu as React components. [Custom label example](/components/select/examples#customization). */
   formatGroupLabel?: (group?: Group) => ReactNode;
   /** Formats option labels in the menu and control as React components */
   formatOptionLabel?: (
@@ -101,10 +93,9 @@ interface NativeReactSelectProps<
     formatOptionLabelMeta?: FormatOptionLabelMeta<Option>,
   ) => ReactNode;
   /**
-   * Resolves option data to a string to be displayed as the label by components
-   *
-   * Note?: Failure to resolve to a string type can interfere with filtering and
-   * screen reader support.
+   Resolves option data to a string to be displayed as the label by components.
+
+   Note?: Failure to resolve to a string type can interfere with filtering and screen reader support.
    */
   getOptionLabel?: GetOptionLabel<Option>;
   /** Resolves option data to a string to compare options and specify value attributes */
@@ -126,9 +117,7 @@ interface NativeReactSelectProps<
   /** Is the select in a state of loading (async) */
   isLoading?: boolean;
   /**
-   * Override the built-in logic to detect whether an option is disabled
-   *
-   * An example can be found in the [Replacing builtins](/advanced#replacing-builtins) documentation.
+   Override the built-in logic to detect whether an option is disabled.
    */
   isOptionDisabled?: (
     option?: Option,
@@ -153,18 +142,11 @@ interface NativeReactSelectProps<
   maxMenuHeight?: number;
   /** Whether the menu is open */
   menuIsOpen?: boolean;
-  /**
-   * Default placement of the menu in relation to the control. 'auto' will flip
-   * when there isn't enough space below the control.
-   */
+  /** Default placement of the menu in relation to the control. 'auto' will flip when there isn't enough space below the control. */
   menuPlacement?: MenuPlacement;
   /** The CSS position value of the menu, when "fixed" extra layout management is required */
   menuPosition?: MenuPosition;
-  /**
-   * Whether the menu should use a portal, and where it should attach
-   *
-   * An example can be found in the [Portaling](/advanced#portaling) documentation
-   */
+  /** Whether the menu should use a portal, and where it should attach. */
   menuPortalTarget?: HTMLElement | null;
   /** Whether to block scroll events when the menu is open */
   menuShouldBlockScroll?: boolean;
@@ -207,11 +189,7 @@ interface NativeReactSelectProps<
   placeholder?: ReactNode;
   /** Status to relay to screen readers */
   screenReaderStatus?: (obj?: { count?: number }) => string;
-  /**
-   * Style modifier methods
-   *
-   * A basic example can be found at the bottom of the [Replacing builtins](/advanced#replacing-builtins) documentation.
-   */
+  /** Style modifier methods. */
   styles?: StylesConfig;
   /** Theme modifier method */
   theme?: ThemeConfig;

@@ -20,6 +20,7 @@ interface MenuDialogProps {
   style: CSSProperties;
   children: ReactNode;
   id: string;
+  testId?: string;
 }
 
 const menuDialogStyles = css({
@@ -38,6 +39,7 @@ export const MenuDialog: FC<MenuDialogProps> = ({
   children,
   id,
   style,
+  testId,
 }) => (
   <div
     css={[
@@ -52,6 +54,7 @@ export const MenuDialog: FC<MenuDialogProps> = ({
     ]}
     style={style}
     id={id}
+    data-testid={testId && `${testId}--menu`}
   >
     {children}
   </div>

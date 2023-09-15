@@ -1,7 +1,19 @@
 import React from 'react';
 
+import { Label } from '@atlaskit/form';
+
 import { TimePicker } from '../../src';
 
 export default function App() {
-  return <TimePicker timeIsEditable />;
+  return (
+    <>
+      <Label htmlFor="timepicker-editable-time">Editable Time Example</Label>
+      <TimePicker
+        timeIsEditable
+        selectProps={{
+          inputId: 'timepicker-editable-time',
+        }}
+      />
+    </>
+  );
 }

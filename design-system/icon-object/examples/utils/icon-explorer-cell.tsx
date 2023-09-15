@@ -102,13 +102,13 @@ const IconExplorerCell: FC<IconExplorerCellProps> = ({
         {componentName}
       </IconModalHeader>
       <ModalBody>
-        {/* TODO: Remove role="presentation", since div's have no semantics anyway (DSP-11587) */}
-        <div
-          onClick={() => inputEl && inputEl.current!.select()}
-          role="presentation"
-        >
-          <Textfield isReadOnly value={importStatement} ref={inputEl} />
-        </div>
+        {/* Add onClick handler to select the value from read only input */}
+        <Textfield
+          isReadOnly
+          value={importStatement}
+          ref={inputEl}
+          onClick={() => inputEl.current!.select()}
+        />
       </ModalBody>
       <ModalFooter>
         <Button onClick={closeModal} appearance="subtle">

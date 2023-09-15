@@ -14,9 +14,8 @@ const cleanTickInlineSvg: string = tickInlineSvg.replace(/"/g, '');
 
 const Tick = () => (
   <img
-    alt="tick"
+    alt=""
     src={cleanTickInlineSvg}
-    role="presentation"
     style={{ height: '100%', width: '100%' }}
   />
 );

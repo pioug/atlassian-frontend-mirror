@@ -1,4 +1,5 @@
-import { LinkMetaStep, LinkStepMetadata } from '@atlaskit/adf-schema/steps';
+import type { LinkStepMetadata } from '@atlaskit/adf-schema/steps';
+import { LinkMetaStep } from '@atlaskit/adf-schema/steps';
 import type {
   EditorState,
   ReadonlyTransaction,

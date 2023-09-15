@@ -1,9 +1,19 @@
 import React from 'react';
 
+import { Label } from '@atlaskit/form';
+
 import TextArea from '../../src';
 
 export default function TextAreaAppearanceStandard() {
   return (
-    <TextArea appearance="standard" placeholder="Enter your details here" />
+    <>
+      <Label htmlFor="standard-appearance">Standard Appearance</Label>
+      <TextArea
+        appearance="standard"
+        id="standard-appearance"
+        name="standard-appearance"
+        placeholder="Enter your details here"
+      />
+    </>
   );
 }

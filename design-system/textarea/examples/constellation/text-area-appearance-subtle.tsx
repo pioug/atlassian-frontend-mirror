@@ -1,7 +1,19 @@
 import React from 'react';
 
+import { Label } from '@atlaskit/form';
+
 import TextArea from '../../src';
 
 export default function TextAreaAppearanceSubtle() {
-  return <TextArea appearance="subtle" placeholder="Enter your details here" />;
+  return (
+    <>
+      <Label htmlFor="appearance-subtle">Subtle Appearance</Label>
+      <TextArea
+        appearance="subtle"
+        id="appearance-subtle"
+        name="appearance-subtle"
+        placeholder="Enter your details here"
+      />
+    </>
+  );
 }

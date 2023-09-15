@@ -228,7 +228,11 @@ export const getResolverUrl: (
 ) => string;
 
 // @public (undocumented)
-export const getStatus: ({ meta }: JsonLd.Response) => CardType;
+export const getStatus: ({
+  meta,
+}: {
+  meta: JsonLd.Response['meta'];
+}) => CardType;
 
 // @public (undocumented)
 export const getUrl: (store: Store<CardStore>, url: string) => CardState;

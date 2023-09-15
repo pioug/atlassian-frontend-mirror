@@ -15,6 +15,14 @@ const spaceTokens = tokens
     fallback: t.value,
   }));
 
+const negativeSpaceTokens = tokens
+  .filter(token => token.name.startsWith(spacingTokenPrefix))
+  .filter(token => token.name.includes(negativeSuffix))
+  .map(t => ({
+    name: t.cleanName,
+    fallback: t.value,
+  }));
+
 export const createSpacingStylesFromTemplate = () => {
   const output = [
     `export const spaceMap = {\n${spaceTokens
@@ -24,6 +32,13 @@ export const createSpacingStylesFromTemplate = () => {
       )
       .join('\n')}}`,
     `export type Space = keyof typeof spaceMap;\n`,
+    `export const negativeSpaceMap = {\n${negativeSpaceTokens
+      .map(
+        ({ name, fallback }) =>
+          `'${name}': ${constructTokenFunctionCall(name, fallback)},`,
+      )
+      .join('\n')}}`,
+    `export type NegativeSpace = keyof typeof negativeSpaceMap;\n`,
   ].join('\n');
 
   return prettier.format(output, {

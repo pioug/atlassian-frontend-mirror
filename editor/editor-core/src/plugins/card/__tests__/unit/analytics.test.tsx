@@ -6,6 +6,28 @@ import type { Stub } from 'raf-stub';
 import { replaceRaf } from 'raf-stub';
 
 import '@atlaskit/link-test-helpers/jest';
+import { createIntl } from 'react-intl-next';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import { resolveWithProvider } from '@atlaskit/editor-plugin-card/src/pm-plugins/util/resolve';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import { queueCards } from '@atlaskit/editor-plugin-card/src/pm-plugins/actions';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import { floatingToolbar } from '@atlaskit/editor-plugin-card/src/toolbar';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import {
+  insertDatasource,
+  updateExistingDatasource,
+} from '@atlaskit/editor-plugin-card/src/pm-plugins/doc';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import { createCardRequest } from '@atlaskit/editor-plugin-card/src/__tests__/unit/_helpers';
+import type { Node } from '@atlaskit/editor-prosemirror/model';
+import type {
+  Command,
+  FloatingToolbarConfig,
+  FloatingToolbarButton,
+} from '@atlaskit/editor-common/types';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import commonMessages from '@atlaskit/editor-common/messages';
 
 import {
   AnalyticsListener,
@@ -16,6 +38,8 @@ import { SmartCardProvider } from '@atlaskit/link-provider';
 import { useSmartLinkLifecycleAnalytics } from '@atlaskit/link-analytics';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { cardClient } from '@atlaskit/media-integration-test-helpers/card-client';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { defaultSchema } from '@atlaskit/editor-test-helpers/schema';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
@@ -46,9 +70,11 @@ import {
   doc,
   p,
   a,
+  datasourceBlockCard,
   inlineCard,
   blockCard,
   embedCard,
+  clean,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import { ContextAdapter } from '../../../../nodeviews/context-adapter';
@@ -56,6 +82,8 @@ import PluginSlot from '../../../../ui/PluginSlot';
 import EditorContext from '../../../../ui/EditorContext';
 import EditorActions from '../../../../actions';
 import type { EditorProps } from '../../../../types';
+import type { DatasourceAdf } from '@atlaskit/smart-card';
+import { datasourceDataResponse as mockGatasourceDataResponse } from './__fixtures__/datasourceDataResponse';
 
 replaceRaf();
 const requestAnimationFrame = window.requestAnimationFrame as any;
@@ -65,6 +93,18 @@ const asStub = (raf: typeof requestAnimationFrame) => raf as unknown as Stub;
 const mockLinkCreated = jest.fn();
 const mockLinkUpdated = jest.fn();
 const mockLinkDeleted = jest.fn();
+
+const mockGetDatasourceData = jest.fn(() => {
+  return Promise.resolve(mockGatasourceDataResponse);
+});
+
+jest.mock('@atlaskit/link-client-extension', () => {
+  return {
+    useDatasourceClientExtension: () => ({
+      getDatasourceData: mockGetDatasourceData,
+    }),
+  };
+});
 
 jest.mock('@atlaskit/smart-card', () => {
   const originalModule = jest.requireActual('@atlaskit/smart-card');
@@ -77,8 +117,46 @@ jest.mock('@atlaskit/smart-card', () => {
 });
 
 jest.mock('@atlaskit/link-analytics', () => ({
+  ...jest.requireActual('@atlaskit/link-analytics'),
   useSmartLinkLifecycleAnalytics: jest.fn(),
 }));
+
+const jqlUrl =
+  'https://test1.atlassian.net/issues/?jql=(text%20~%20%22something*%22%20OR%20summary%20~%20%22something*%22)%20order%20by%20created%20DESC';
+
+const datasourceAttributes: DatasourceAdf['attrs'] = {
+  url: jqlUrl,
+  datasource: {
+    id: 'd8b75300-dfda-4519-b6cd-e49abbd50401',
+    parameters: {
+      cloudId: '12345',
+      jql: '(text ~ "something*" OR summary ~ "something*") order by created DESC',
+    },
+    views: [
+      {
+        type: 'table',
+        properties: {
+          columns: [
+            {
+              key: 'key',
+            },
+            {
+              key: 'type',
+            },
+            {
+              key: 'summary',
+            },
+          ],
+        },
+      },
+    ],
+  },
+};
+
+const originalDatasourceAdf: DatasourceAdf = {
+  type: 'blockCard',
+  attrs: datasourceAttributes,
+};
 
 describe('Analytics key events', () => {
   const toDisplayButtonName = (display: string) => {
@@ -101,12 +179,13 @@ describe('Analytics key events', () => {
       linkDeleted: mockLinkDeleted,
     };
   });
+
   const renderEditor = createEditorFactory();
 
   const flushPromises = () => new Promise((resolve) => setImmediate(resolve));
   const raf: Stub = asStub(requestAnimationFrame);
 
-  const jsonLd = (url: string) =>
+  const smartCardJsonLd = (url: string) =>
     ({
       '@context': {
         '@vocab': 'https://www.w3.org/ns/activitystreams#',
@@ -130,14 +209,14 @@ describe('Analytics key events', () => {
       const hasPattern = await this.findPattern(url);
 
       if (!hasPattern) {
-        return Promise.reject(undefined);
+        return Promise.reject(new Error('Unit test pattern not found'));
       }
 
       return {
         type: `${appearance}Card`,
         attrs: {
           url,
-          data: jsonLd,
+          data: smartCardJsonLd,
         },
       };
     }
@@ -153,6 +232,45 @@ describe('Analytics key events', () => {
     }
   }
 
+  class DatasourceCardProvider extends EditorTestCardProvider {
+    async resolve(
+      ...args: Parameters<EditorTestCardProvider['resolve']>
+    ): ReturnType<EditorTestCardProvider['resolve']> {
+      const [url] = args;
+
+      const hasPattern = this.isSupportedDatasourceUrl(url);
+
+      if (!hasPattern) {
+        return Promise.reject(
+          new Error(`${url} is not supported in the unit test`),
+        );
+      }
+
+      return {
+        type: 'blockCard',
+        attrs: {
+          url: 'https://atl-jb-atjong-1.jira-dev.com/issues/?jql=created%20%3E%3D%20-30d%20order%20by%20created%20DESC',
+          datasource: {
+            id: 'd8b75300-dfda-4519-b6cd-e49abbd50401',
+            parameters: {
+              jql: 'created >= -30d order by created DESC',
+              cloudId: '3c621e59-faba-4f7c-b258-103383b63f45',
+            },
+            views: [
+              {
+                type: 'table',
+              },
+            ],
+          },
+        },
+      };
+    }
+
+    isSupportedDatasourceUrl(url: string) {
+      return new URL(url).search.includes('jql=');
+    }
+  }
+
   beforeEach(() => {
     raf.reset();
     jest.clearAllMocks();
@@ -160,21 +278,24 @@ describe('Analytics key events', () => {
 
   const setup = async (options?: {
     doc?: DocBuilder;
+    cardProvider?: typeof EditorTestCardProvider;
     editorProps?: (
       props: EditorProps,
       providerFactory: ProviderFactory,
     ) => EditorProps;
   }) => {
-    const analyticsSpy = jest.fn();
     const providerFactory = new ProviderFactory();
     const editorActions = new EditorActions();
+    const analyticsSpy = jest.fn();
+    const CardProviderClass = options?.cardProvider ?? CardProvider;
 
-    const cardProvider = Promise.resolve(new CardProvider());
+    const cardProviderInstance = new CardProviderClass();
+    const cardProvider = Promise.resolve(cardProviderInstance);
     providerFactory.setProvider('cardProvider', cardProvider);
 
     const defaultEditorPropsFilter = (props: EditorProps) => props;
 
-    const { editorView, refs, sel } = renderEditor({
+    const { editorView, editorProps, refs, sel } = renderEditor({
       doc: options?.doc,
       editorProps: (options?.editorProps ?? defaultEditorPropsFilter)(
         {
@@ -188,6 +309,7 @@ describe('Analytics key events', () => {
               provider: cardProvider,
               allowBlockCards: true,
               allowEmbeds: true,
+              allowDatasource: true,
             },
           },
         },
@@ -223,7 +345,7 @@ describe('Analytics key events', () => {
                         visibility: 'restricted',
                         key: 'atlassian-provider',
                       },
-                      data: jsonLd('https://atlassian.com'),
+                      data: smartCardJsonLd('https://atlassian.com'),
                     },
                   },
                 },
@@ -245,10 +367,12 @@ describe('Analytics key events', () => {
     const redo = () => sendKeyToPm(editorView, 'Ctrl-y');
 
     return {
+      cardProviderInstance,
       refs,
       sel,
       analyticsSpy,
       editor,
+      editorProps,
       editorView,
       undo,
       redo,
@@ -2129,6 +2253,465 @@ describe('Analytics key events', () => {
         deleteMethod: 'redo',
         display: 'inline',
         nodeContext: 'doc',
+      });
+    });
+  });
+
+  describe('datasource created', () => {
+    describe('should fire when an anchor link is converted into a datasource if FF is true', () => {
+      ffTest(
+        'platform.linking-platform.datasource-jira_issues',
+        async () => {
+          const jqlUrl =
+            'https://atl-jb-atjong-1.jira-dev.com/issues/?jql=created%20%3E%3D%20-30d%20order%20by%20created%20DESC';
+
+          const {
+            analyticsSpy,
+            cardProviderInstance,
+            editorView,
+            editorProps,
+          } = await setup({
+            doc: doc(p(a({ href: jqlUrl })(jqlUrl), ' ')),
+            cardProvider: DatasourceCardProvider,
+          });
+          const cardRequestOne = createCardRequest(jqlUrl, 1);
+
+          await resolveWithProvider(
+            editorView,
+            cardProviderInstance as DatasourceCardProvider,
+            cardRequestOne,
+            editorProps.linking!.smartLinks!,
+            undefined,
+            undefined,
+          );
+
+          editorView.dispatch(
+            queueCards([cardRequestOne])(editorView.state.tr),
+          );
+
+          raf.flush();
+          requestAnimationFrame.step();
+          await flushPromises();
+          requestAnimationFrame.step();
+          await flushPromises();
+
+          const datasourceCreatedCalls = analyticsSpy.mock.calls.filter(
+            ([evt]) =>
+              evt.payload.actionSubject === 'datasource' &&
+              evt.payload.action === 'created',
+          );
+          expect(datasourceCreatedCalls.length).toEqual(1);
+          expect(datasourceCreatedCalls[0][0].payload).toEqual({
+            eventType: 'track',
+            actionSubject: 'datasource',
+            actionSubjectId: undefined,
+            action: 'created',
+            attributes: {
+              actions: [],
+              sourceEvent: null,
+              creationMethod: 'editor_paste',
+              display: 'table',
+              nodeContext: 'doc',
+              searchMethod: '',
+              displayedColumnCount: 0,
+              extensionKey: 'jira-object-provider',
+              status: 'resolved',
+              destinationObjectTypes: ['issue'],
+              totalItemCount: 4,
+              smartLinkId: undefined,
+            },
+            nonPrivacySafeAttributes: {
+              domainName: 'atl-jb-atjong-1.jira-dev.com',
+            },
+          });
+        },
+        async () => {
+          const jqlUrl =
+            'https://atl-jb-atjong-1.jira-dev.com/issues/?jql=created%20%3E%3D%20-30d%20order%20by%20created%20DESC';
+
+          const {
+            analyticsSpy,
+            cardProviderInstance,
+            editorView,
+            editorProps,
+          } = await setup({
+            doc: doc(p(a({ href: jqlUrl })(jqlUrl), ' ')),
+            cardProvider: DatasourceCardProvider,
+          });
+          const cardRequestOne = createCardRequest(jqlUrl, 1);
+
+          await resolveWithProvider(
+            editorView,
+            cardProviderInstance as DatasourceCardProvider,
+            cardRequestOne,
+            editorProps.linking!.smartLinks!,
+            undefined,
+            undefined,
+          );
+
+          editorView.dispatch(
+            queueCards([cardRequestOne])(editorView.state.tr),
+          );
+
+          raf.flush();
+          requestAnimationFrame.step();
+          await flushPromises();
+          requestAnimationFrame.step();
+          await flushPromises();
+
+          const datasourceCreatedCalls = analyticsSpy.mock.calls.filter(
+            ([evt]) =>
+              evt.payload.actionSubject === 'datasource' &&
+              evt.payload.action === 'created',
+          );
+          expect(datasourceCreatedCalls.length).toEqual(0);
+        },
+      );
+    });
+
+    test('should fire when a datasource is inserted via a dispatch transaction with a source analytic event (ex. jira issues config modal) when FF is true', async () => {
+      const { analyticsSpy, editorView } = await setup({
+        doc: doc(p('')),
+        cardProvider: DatasourceCardProvider,
+      });
+
+      insertDatasource(
+        editorView.state,
+        originalDatasourceAdf,
+        editorView,
+        new UIAnalyticsEvent({
+          payload: {
+            searchMethod: 'datasource_basic_filter',
+            inputMethod: 'datasource_config',
+            actions: ['columns added'],
+          },
+        }),
+      );
+
+      raf.flush();
+      requestAnimationFrame.step();
+      await flushPromises();
+
+      const datasourceCreatedCalls = analyticsSpy.mock.calls.filter(
+        ([evt]) =>
+          evt.payload.actionSubject === 'datasource' &&
+          evt.payload.action === 'created',
+      );
+      expect(datasourceCreatedCalls.length).toEqual(1);
+      expect(datasourceCreatedCalls[0][0].payload).toEqual({
+        eventType: 'track',
+        actionSubject: 'datasource',
+        actionSubjectId: undefined,
+        action: 'created',
+        attributes: {
+          actions: ['columns added'],
+          creationMethod: 'datasource_config',
+          destinationObjectTypes: ['issue'],
+          display: 'table',
+          displayedColumnCount: 3,
+          extensionKey: 'jira-object-provider',
+          nodeContext: 'doc',
+          searchMethod: 'datasource_basic_filter',
+          smartLinkId: undefined,
+          sourceEvent: null,
+          status: 'resolved',
+          totalItemCount: 4,
+        },
+        nonPrivacySafeAttributes: { domainName: 'test1.atlassian.net' },
+      });
+    });
+
+    it('should fire when a datasource is inserted via a dispatch transaction without a source analytic event', async () => {
+      const { analyticsSpy, editorView } = await setup({
+        doc: doc(p('')),
+        cardProvider: DatasourceCardProvider,
+      });
+
+      insertDatasource(
+        editorView.state,
+        originalDatasourceAdf,
+        editorView,
+        undefined,
+      );
+
+      raf.flush();
+      requestAnimationFrame.step();
+      await flushPromises();
+
+      const datasourceCreatedCalls = analyticsSpy.mock.calls.filter(
+        ([evt]) =>
+          evt.payload.actionSubject === 'datasource' &&
+          evt.payload.action === 'created',
+      );
+      expect(datasourceCreatedCalls.length).toEqual(1);
+      expect(datasourceCreatedCalls[0][0].payload).toEqual({
+        eventType: 'track',
+        actionSubject: 'datasource',
+        actionSubjectId: undefined,
+        action: 'created',
+        attributes: {
+          actions: [],
+          sourceEvent: null,
+          creationMethod: '',
+          display: 'table',
+          nodeContext: 'doc',
+          searchMethod: 'unknown',
+          displayedColumnCount: 3,
+          extensionKey: 'jira-object-provider',
+          status: 'resolved',
+          destinationObjectTypes: ['issue'],
+          totalItemCount: 4,
+          smartLinkId: undefined,
+        },
+        nonPrivacySafeAttributes: { domainName: 'test1.atlassian.net' },
+      });
+    });
+  });
+
+  describe('datasource updated', () => {
+    it('should be fired when updating a datasource with a source event', async () => {
+      const datasourceRefsNode = datasourceBlockCard(datasourceAttributes)();
+      const datasourceNode = clean(datasourceRefsNode)(defaultSchema) as Node;
+
+      const { analyticsSpy, editorView } = await setup({
+        doc: doc('{<node>}', datasourceRefsNode),
+      });
+
+      updateExistingDatasource(
+        editorView.state,
+        datasourceNode,
+        {
+          ...originalDatasourceAdf,
+          attrs: {
+            ...originalDatasourceAdf.attrs,
+            url: jqlUrl.replace('DESC', 'ASC'),
+          },
+        },
+        editorView,
+        new UIAnalyticsEvent({
+          payload: {
+            inputMethod: 'datasource_config',
+            searchMethod: 'datasource_basic_filter',
+            actions: ['columns added'],
+          },
+        }),
+      );
+
+      raf.flush();
+      requestAnimationFrame.step();
+      await flushPromises();
+
+      const datasourceCreatedCalls = analyticsSpy.mock.calls.filter(
+        ([evt]) =>
+          evt.payload.actionSubject === 'datasource' &&
+          evt.payload.action === 'updated',
+      );
+      expect(datasourceCreatedCalls.length).toEqual(1);
+      expect(datasourceCreatedCalls[0][0].payload).toEqual({
+        eventType: 'track',
+        actionSubject: 'datasource',
+        actionSubjectId: undefined,
+        action: 'updated',
+        attributes: {
+          actions: ['columns added'],
+          updateMethod: 'datasource_config',
+          destinationObjectTypes: ['issue'],
+          display: 'table',
+          displayedColumnCount: 3,
+          extensionKey: 'jira-object-provider',
+          nodeContext: 'doc',
+          searchMethod: 'datasource_basic_filter',
+          smartLinkId: undefined,
+          sourceEvent: null,
+          status: 'resolved',
+          totalItemCount: 4,
+        },
+        nonPrivacySafeAttributes: { domainName: 'test1.atlassian.net' },
+      });
+    });
+
+    it('should be fired when updating a datasource without a source event', async () => {
+      const datasourceRefsNode = datasourceBlockCard(datasourceAttributes)();
+      const datasourceNode = clean(datasourceRefsNode)(defaultSchema) as Node;
+
+      const { analyticsSpy, editorView } = await setup({
+        doc: doc('{<node>}', datasourceRefsNode),
+      });
+
+      updateExistingDatasource(
+        editorView.state,
+        datasourceNode,
+        {
+          ...originalDatasourceAdf,
+          attrs: {
+            ...originalDatasourceAdf.attrs,
+            url: jqlUrl.replace('DESC', 'ASC'),
+          },
+        },
+        editorView,
+        undefined,
+      );
+
+      raf.flush();
+      requestAnimationFrame.step();
+      await flushPromises();
+
+      const datasourceUpdatedCalls = analyticsSpy.mock.calls.filter(
+        ([evt]) =>
+          evt.payload.actionSubject === 'datasource' &&
+          evt.payload.action === 'updated',
+      );
+      expect(datasourceUpdatedCalls.length).toEqual(1);
+      expect(datasourceUpdatedCalls[0][0].payload).toEqual({
+        eventType: 'track',
+        actionSubject: 'datasource',
+        actionSubjectId: undefined,
+        action: 'updated',
+        attributes: {
+          actions: [],
+          destinationObjectTypes: ['issue'],
+          display: 'table',
+          displayedColumnCount: 3,
+          extensionKey: 'jira-object-provider',
+          nodeContext: 'doc',
+          searchMethod: 'unknown',
+          smartLinkId: undefined,
+          updateMethod: '',
+          sourceEvent: null,
+          status: 'resolved',
+          totalItemCount: 4,
+        },
+        nonPrivacySafeAttributes: { domainName: 'test1.atlassian.net' },
+      });
+    });
+  });
+
+  describe('datasource deleted', () => {
+    it('should be fired when the user deletes content by sending a delete hotkey', async () => {
+      const { analyticsSpy, editorView } = await setup({
+        doc: doc('{<node>}', datasourceBlockCard(datasourceAttributes)()),
+      });
+
+      sendKeyToPm(editorView, 'Mod-a');
+      sendKeyToPm(editorView, 'Delete');
+
+      raf.flush();
+      requestAnimationFrame.step();
+      await flushPromises();
+
+      const datasourceCreatedCalls = analyticsSpy.mock.calls.filter(
+        ([evt]) =>
+          evt.payload.actionSubject === 'datasource' &&
+          evt.payload.action === 'deleted',
+      );
+      expect(datasourceCreatedCalls.length).toEqual(1);
+      expect(datasourceCreatedCalls[0][0].payload).toEqual({
+        eventType: 'track',
+        actionSubject: 'datasource',
+        actionSubjectId: undefined,
+        action: 'deleted',
+        attributes: {
+          sourceEvent: null,
+          deleteMethod: '',
+          display: 'table',
+          nodeContext: 'doc',
+          searchMethod: 'unknown',
+          displayedColumnCount: 3,
+          extensionKey: 'jira-object-provider',
+          status: 'resolved',
+          destinationObjectTypes: ['issue'],
+          totalItemCount: 4,
+          smartLinkId: undefined,
+        },
+        nonPrivacySafeAttributes: { domainName: 'test1.atlassian.net' },
+      });
+    });
+
+    it('should be fired when a datasource is deleted via a toolbar', async () => {
+      const providerFactory = new ProviderFactory();
+      const featureFlagsMock = {};
+      const intl = createIntl({ locale: 'en' });
+
+      const getToolbarItems = (
+        toolbar: FloatingToolbarConfig,
+        editorView: EditorView,
+      ) => {
+        const node = editorView.state.doc.nodeAt(
+          editorView.state.selection.from,
+        )!;
+
+        const items = Array.isArray(toolbar.items)
+          ? toolbar.items
+          : toolbar.items(node);
+        return items.filter((item) => item.type !== 'copy-button');
+      };
+
+      const getToolbarButtonByTitle = (
+        toolbar: FloatingToolbarConfig,
+        editorView: EditorView,
+        title: string,
+      ) => {
+        return getToolbarItems(toolbar!, editorView).find(
+          (item) => item.type === 'button' && item.title === title,
+        ) as FloatingToolbarButton<Command>;
+      };
+
+      const { analyticsSpy, editorView } = await setup({
+        doc: doc(
+          p('ab'),
+          '{<node>}',
+          datasourceBlockCard(datasourceAttributes)(),
+          p('cd'),
+        ),
+      });
+      const removeTitle = intl.formatMessage(commonMessages.remove);
+      const toolbar = floatingToolbar(
+        { allowDatasource: true },
+        featureFlagsMock,
+      )(editorView.state, intl, providerFactory);
+
+      if (!toolbar) {
+        return expect(toolbar).toBeTruthy();
+      }
+
+      const removeButton = getToolbarButtonByTitle(
+        toolbar,
+        editorView,
+        removeTitle,
+      );
+
+      removeButton.onClick(editorView.state, editorView.dispatch);
+      expect(editorView.state.doc).toEqualDocument(doc(p('ab'), p('cd')));
+
+      raf.flush();
+      requestAnimationFrame.step();
+      await flushPromises();
+
+      const datasourceDeletedCalls = analyticsSpy.mock.calls.filter(
+        ([evt]) =>
+          evt.payload.actionSubject === 'datasource' &&
+          evt.payload.action === 'deleted',
+      );
+      expect(datasourceDeletedCalls.length).toEqual(1);
+      expect(datasourceDeletedCalls[0][0].payload).toEqual({
+        eventType: 'track',
+        actionSubject: 'datasource',
+        actionSubjectId: undefined,
+        action: 'deleted',
+        attributes: {
+          sourceEvent: null,
+          deleteMethod: 'editor_floatingToolbar',
+          display: 'table',
+          nodeContext: 'doc',
+          searchMethod: 'unknown',
+          displayedColumnCount: 3,
+          extensionKey: 'jira-object-provider',
+          status: 'resolved',
+          destinationObjectTypes: ['issue'],
+          totalItemCount: 4,
+          smartLinkId: undefined,
+        },
+        nonPrivacySafeAttributes: { domainName: 'test1.atlassian.net' },
       });
     });
   });

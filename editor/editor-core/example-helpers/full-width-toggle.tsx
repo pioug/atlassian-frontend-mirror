@@ -8,7 +8,7 @@ import {
   FULL_WIDTH_MODE,
   DEFAULT_MODE,
 } from './example-constants';
-import { EditorAppearance } from '../src/types';
+import type { EditorAppearance } from '../src/types';
 
 const toggleWrapper = css`
   cursor: pointer;
@@ -60,11 +60,19 @@ export default class FullWidthToggle extends React.Component<Props, State> {
 
   render() {
     return (
-      <button css={toggleWrapper} onClick={this.toggleFullWidthMode}>
+      <button
+        css={toggleWrapper}
+        onClick={this.toggleFullWidthMode}
+        aria-label={
+          this.state.fullWidthMode
+            ? 'Make page fixed-width'
+            : 'Make page full-width'
+        }
+      >
         {this.state.fullWidthMode ? (
-          <EditorCollapseIcon label="Make page fixed-width" />
+          <EditorCollapseIcon label="" />
         ) : (
-          <EditorExpandIcon label="Make page full-width" />
+          <EditorExpandIcon label="" />
         )}
       </button>
     );

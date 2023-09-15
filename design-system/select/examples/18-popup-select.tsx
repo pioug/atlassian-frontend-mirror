@@ -47,10 +47,15 @@ const PopupSelectExample = () => (
         {...defaults}
         value={regions[0].options[0]}
         target={({ isOpen, ...triggerProps }) => (
-          <Button isSelected={isOpen} {...triggerProps}>
+          <Button
+            isSelected={isOpen}
+            {...triggerProps}
+            testId="button-for-testing"
+          >
             Target
           </Button>
         )}
+        testId="select-for-testing"
       />
       <PopupSelect
         {...defaults}

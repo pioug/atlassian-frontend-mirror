@@ -49,7 +49,7 @@ export default class extends Component<{}> {
       >
         <Form onSubmit={this.handleSubmit}>
           {({ formProps, submitting }) => (
-            <form {...formProps}>
+            <form noValidate {...formProps}>
               <FormHeader title="Log In">
                 <p aria-hidden="true">
                   Required fields are marked with an asterisk{' '}

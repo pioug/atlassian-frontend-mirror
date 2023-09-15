@@ -36,6 +36,9 @@ export type DatasourceResolveResponse = {
 };
 
 // @public (undocumented)
+export const DEFAULT_GET_DATASOURCE_DATA_PAGE_SIZE = 20;
+
+// @public (undocumented)
 export interface JsonLdDatasourceResponse extends JsonLd.Response {
   // (undocumented)
   datasources?: DatasourceResolveResponse[];

@@ -14,7 +14,7 @@ const onlyTokenisedStyles = xcss({
   paddingRight: 'space.100',
   margin: 'space.100',
   marginInlineStart: 'space.100',
-  marginLeft: 'space.200',
+  marginLeft: 'space.negative.200',
   marginRight: 'space.100',
 });
 
@@ -34,7 +34,7 @@ const rawValuesStyles = xcss({
   margin: '8px',
   marginInlineStart: '8px',
   marginLeft: 'auto',
-  marginRight: '8px',
+  marginRight: '-8px',
 });
 
 export default function Basic() {

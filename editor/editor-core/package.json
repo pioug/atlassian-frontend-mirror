@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-core",
-  "version": "187.43.3",
+  "version": "187.43.5",
   "description": "A package contains Atlassian editor core functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -61,7 +61,7 @@
     "@atlaskit/editor-palette": "1.5.1",
     "@atlaskit/editor-plugin-analytics": "^0.2.0",
     "@atlaskit/editor-plugin-block-type": "^1.0.0",
-    "@atlaskit/editor-plugin-card": "^0.5.0",
+    "@atlaskit/editor-plugin-card": "^0.6.0",
     "@atlaskit/editor-plugin-composition": "^0.1.0",
     "@atlaskit/editor-plugin-content-insertion": "^0.1.0",
     "@atlaskit/editor-plugin-context-panel": "^0.2.0",
@@ -109,7 +109,7 @@
     "@atlaskit/prosemirror-input-rules": "^2.4.0",
     "@atlaskit/radio": "^5.6.0",
     "@atlaskit/section-message": "^6.4.0",
-    "@atlaskit/select": "^16.5.0",
+    "@atlaskit/select": "^16.6.0",
     "@atlaskit/smart-card": "^26.26.0",
     "@atlaskit/smart-user-picker": "^6.3.0",
     "@atlaskit/spinner": "^15.5.0",
@@ -160,7 +160,7 @@
     "@atlaskit/flag": "^15.2.0",
     "@atlaskit/icon-object": "^6.3.0",
     "@atlaskit/inline-dialog": "^13.6.0",
-    "@atlaskit/link-analytics": "^8.2.0",
+    "@atlaskit/link-analytics": "^8.3.0",
     "@atlaskit/link-provider": "^1.6.0",
     "@atlaskit/link-test-helpers": "^6.1.0",
     "@atlaskit/media-core": "^34.1.0",
@@ -266,8 +266,7 @@
       "type": "boolean"
     },
     "platform.linking-platform.datasource-jira_issues": {
-      "type": "boolean",
-      "referenceOnly": "true"
+      "type": "boolean"
     },
     "platform.linking-platform.datasource-assets_objects": {
       "type": "boolean",

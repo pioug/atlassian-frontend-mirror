@@ -71,6 +71,7 @@ describe('<PlaybackSpeedControls />', () => {
       const elementFunc = target({
         ref: myRef,
         isOpen,
+        onKeyDown: () => {},
         'aria-haspopup': 'true',
         'aria-expanded': isOpen,
       });

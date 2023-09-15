@@ -110,6 +110,36 @@ events:
             The inputMethod that caused the link to be deleted.
         <<: [*ExternalContext, *ResolvedAttributes, *LifecycleEventAttributes]
 
+  - datasource created:
+      type: track
+      description: fired when a datasource is created
+      attributes:
+        creationMethod:
+          type: string
+          description: |
+            The inputMethod that caused the datasource to be created.
+        <<: [*ExternalContext, *ResolvedAttributes, *LifecycleEventAttributes]
+
+  - datasource updated:
+      type: track
+      description: fired when a datasource is updated
+      attributes:
+        updateMethod:
+          type: string
+          description: |
+            The inputMethod that caused the datasource to be updated.
+        <<: [*ExternalContext, *ResolvedAttributes, *LifecycleEventAttributes]
+
+  - datasource deleted:
+      type: track
+      description: fired when a datasource is deleted
+      attributes:
+        deleteMethod:
+          type: string
+          description: |
+            The inputMethod that caused the datasource to be deleted.
+        <<: [*ExternalContext, *ResolvedAttributes, *LifecycleEventAttributes]
+
   - fireAnalyticEvent commenced:
       type: operational
       description: fired when there is an attempt to fire an fireAnalyticEvent

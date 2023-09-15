@@ -1,5 +1,21 @@
 # @atlaskit/link-client-extension
 
+## 1.7.1
+
+### Patch Changes
+
+- [`2cd7af71b63`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2cd7af71b63) - Bump json-ld-types 3.8.0 -> 3.9.1
+
+## 1.7.0
+
+### Minor Changes
+
+- [`8b8a309cb62`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8b8a309cb62) - Added a `DEFAULT_GET_DATA_PAGE_SIZE` constant for default page size on data calls.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.6.1
 
 ### Patch Changes

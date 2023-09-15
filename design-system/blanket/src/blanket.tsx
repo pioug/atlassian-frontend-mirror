@@ -97,7 +97,13 @@ const Blanket = memo(
     }, []);
 
     return (
-      // TODO: Remove role="presentation", since div's have no semantics anyway (DSP-11587)
+      /**
+       * It is not normally acceptable to add click and key handlers to non-interactive
+       * elements as this is an accessibility anti-pattern. However, because this
+       * instance is to enable light dismiss functionality instead of creating an
+       * inaccessible custom element, we can add role="presentation" so that there
+       * are no negative impacts to assistive technologies.
+       */
       <div
         role="presentation"
         css={[

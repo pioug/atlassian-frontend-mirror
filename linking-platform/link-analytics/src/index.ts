@@ -1,1 +1,4 @@
-export { useSmartLinkLifecycleAnalytics } from './lifecycle';
+export {
+  useSmartLinkLifecycleAnalytics,
+  useDatasourceLifecycleAnalytics,
+} from './lifecycle';

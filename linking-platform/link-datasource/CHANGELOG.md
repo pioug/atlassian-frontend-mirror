@@ -1,5 +1,18 @@
 # @atlaskit/link-datasource
 
+## 1.1.7
+
+### Patch Changes
+
+- [`2cd7af71b63`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2cd7af71b63) - Bump json-ld-types 3.8.0 -> 3.9.1
+
+## 1.1.6
+
+### Patch Changes
+
+- [`8b8a309cb62`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8b8a309cb62) - Making use of exported default page size from link-client-extensions
+- Updated dependencies
+
 ## 1.1.5
 
 ### Patch Changes

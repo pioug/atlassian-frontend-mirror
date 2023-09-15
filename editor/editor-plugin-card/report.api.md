@@ -31,7 +31,7 @@ import type { GridPlugin } from '@atlaskit/editor-plugin-grid';
 import type { HyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import type { LinkPickerOptions } from '@atlaskit/editor-common/types';
 import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
-import { Node as Node_2 } from '@atlaskit/editor-prosemirror/model';
+import type { Node as Node_2 } from '@atlaskit/editor-prosemirror/model';
 import type { OptionalPlugin } from '@atlaskit/editor-common/types';
 import { SmartLinkEvents } from '@atlaskit/smart-card';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';

@@ -28,7 +28,7 @@ export type Dimension = keyof typeof dimensionMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::8cc3cccc1c75ae85af885aaf8a1f69b8>>
+ * @codegen <<SignedSource::6a1c1c7a326eab1fd8f07e923e26f784>>
  * @codegenId spacing
  * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
  * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-spacing.tsx <<SignedSource::298080e8024fb3eb37589721413e0156>>
@@ -50,6 +50,19 @@ export const spaceMap = {
   'space.1000': token('space.1000', '80px'),
 };
 export type Space = keyof typeof spaceMap;
+
+export const negativeSpaceMap = {
+  'space.negative.025': token('space.negative.025', '-2px'),
+  'space.negative.050': token('space.negative.050', '-4px'),
+  'space.negative.075': token('space.negative.075', '-6px'),
+  'space.negative.100': token('space.negative.100', '-8px'),
+  'space.negative.150': token('space.negative.150', '-12px'),
+  'space.negative.200': token('space.negative.200', '-16px'),
+  'space.negative.250': token('space.negative.250', '-20px'),
+  'space.negative.300': token('space.negative.300', '-24px'),
+  'space.negative.400': token('space.negative.400', '-32px'),
+};
+export type NegativeSpace = keyof typeof negativeSpaceMap;
 
 /**
  * @codegenEnd
@@ -1168,7 +1181,7 @@ export type UiText = keyof typeof uiTextMap;
  * @codegenEnd
  */
 
-type MarginSpace = Space | 'auto';
+type MarginSpace = Space | NegativeSpace | 'auto';
 type AutoComplete<T extends string> = T | Omit<string, T>;
 
 export type TokenisedProps = {

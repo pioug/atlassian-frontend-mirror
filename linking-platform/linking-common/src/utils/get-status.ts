@@ -10,7 +10,11 @@ const getStatusForNotFoundVisibility = (meta: JsonLd.Meta.BaseMeta) => {
   return 'forbidden';
 };
 
-export const getStatus = ({ meta }: JsonLd.Response): CardType => {
+export const getStatus = ({
+  meta,
+}: {
+  meta: JsonLd.Response['meta'];
+}): CardType => {
   const { access, visibility } = meta;
 
   switch (access) {

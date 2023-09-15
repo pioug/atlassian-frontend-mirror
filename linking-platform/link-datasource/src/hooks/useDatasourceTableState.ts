@@ -1,6 +1,9 @@
 import { useCallback, useEffect, useState } from 'react';
 
-import { useDatasourceClientExtension } from '@atlaskit/link-client-extension';
+import {
+  DEFAULT_GET_DATASOURCE_DATA_PAGE_SIZE,
+  useDatasourceClientExtension,
+} from '@atlaskit/link-client-extension';
 import {
   DatasourceDataRequest,
   DatasourceDataResponseItem,
@@ -156,7 +159,7 @@ export const useDatasourceTableState = ({
       sortedFieldKeys.sort();
       const datasourceDataRequest: DatasourceDataRequest = {
         parameters,
-        pageSize: 20,
+        pageSize: DEFAULT_GET_DATASOURCE_DATA_PAGE_SIZE,
         pageCursor: shouldRequestFirstPage ? undefined : nextCursor,
         fields: sortedFieldKeys,
         includeSchema: isSchemaFromData,

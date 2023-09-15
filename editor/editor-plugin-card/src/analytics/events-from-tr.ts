@@ -2,8 +2,8 @@ import { LinkMetaStep, TableSortStep } from '@atlaskit/adf-schema/steps';
 import { ACTION } from '@atlaskit/editor-common/analytics';
 import { getLinkMetadataFromTransaction } from '@atlaskit/editor-common/card';
 import { isLinkMark, pmHistoryPluginKey } from '@atlaskit/editor-common/utils';
-import { Mark } from '@atlaskit/editor-prosemirror/model';
-import {
+import type { Mark } from '@atlaskit/editor-prosemirror/model';
+import type {
   EditorState,
   ReadonlyTransaction,
   Transaction,
@@ -17,7 +17,8 @@ import { pluginKey } from '../pm-plugins/plugin-key';
 import { getPluginState } from '../pm-plugins/util/state';
 import type { Queue, Resolve } from '../types';
 
-import { CardPluginEvent, Entity, EVENT } from './types';
+import type { CardPluginEvent, Entity } from './types';
+import { EVENT } from './types';
 import {
   appearanceForLink,
   areSameNodes,
@@ -82,7 +83,6 @@ export const findChanged = (
         from: number;
         mark: Mark;
       };
-
       if (isLinkMark(addMarkStep.mark, schema)) {
         const node = after.nodeAt(addMarkStep.from);
 
@@ -182,6 +182,7 @@ export const findChanged = (
 
   if (!isUpdate) {
     const { inputMethod } = getLinkMetadataFromTransaction(tr);
+
     /**
      * If there is no identifiable input method, and the links inserted and removed appear to be the same,
      * then this transaction likely is not intended to be consided to be the insertion and removal of links

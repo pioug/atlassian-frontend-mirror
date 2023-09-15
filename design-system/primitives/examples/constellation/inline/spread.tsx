@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from 'react';
 
+import { Label } from '@atlaskit/form';
 import { Inline, Stack } from '@atlaskit/primitives';
 import Toggle from '@atlaskit/toggle';
 
@@ -14,8 +15,8 @@ export default function Example() {
   return (
     <Stack alignInline="start" space="space.500">
       <Inline alignBlock="center">
-        Toggle spread
-        <Toggle onChange={toggleSpread} />
+        <Label htmlFor="inline-toggle-spread">Toggle spread</Label>
+        <Toggle id="inline-toggle-spread" onChange={toggleSpread} />
       </Inline>
       <Inline space="space.100" grow="fill" spread={spread}>
         <ExampleBox />

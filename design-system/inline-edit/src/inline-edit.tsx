@@ -22,10 +22,6 @@ const fieldStyles = css({
   position: 'relative',
 });
 
-const buttonStyles = css({
-  display: 'none',
-});
-
 const analyticsAttributes = {
   componentName: 'inlineEdit',
   packageName: process.env._PACKAGE_NAME_ as string,
@@ -193,8 +189,15 @@ const InnerInlineEdit = <FieldValue extends unknown>(
         onSubmit={(data: { inlineEdit: any }) => onConfirm(data.inlineEdit)}
       >
         {({ formProps: { onKeyDown, onSubmit, ref: formRef } }) => (
-          /* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */
           <form
+            /**
+             * It is not normally acceptable to add key handlers to non-interactive elements
+             * as this is an accessibility anti-pattern. However, because this instance is
+             * to add support for keyboard functionality instead of creating an inaccessible
+             * custom element, we can add role="presentation" so that there is no negative
+             * impacts to assistive technologies.
+             */
+            role="presentation"
             onKeyDown={(e) => {
               onKeyDown(e);
               if (e.key === 'Esc' || e.key === 'Escape') {
@@ -244,7 +247,7 @@ const InnerInlineEdit = <FieldValue extends unknown>(
                     />
                   ) : (
                     /** This is to allow Ctrl + Enter to submit without action buttons */
-                    <button css={buttonStyles} type="submit" />
+                    <button hidden type="submit" aria-label="Submit" />
                   )}
                 </div>
               )}

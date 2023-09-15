@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 
+import { Label } from '@atlaskit/form';
 import { Inline, Stack } from '@atlaskit/primitives';
 import Toggle from '@atlaskit/toggle';
 
@@ -14,8 +15,8 @@ export default function Example() {
   return (
     <Stack alignInline="start" space="space.500">
       <Inline alignBlock="center">
-        Toggle space between rows
-        <Toggle onChange={toggleSpace} />
+        <Label htmlFor="toggle-space">Toggle space between rows</Label>
+        <Toggle id="toggle-space" onChange={toggleSpace} />
       </Inline>
       <Inline space="space.200" rowSpace={rowSpace} shouldWrap>
         {[...Array(24).keys()].map(i => (

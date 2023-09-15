@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 
+import { Label } from '@atlaskit/form';
 import { Box, xcss } from '@atlaskit/primitives';
 
 import TextArea from '../../src';
@@ -11,19 +12,39 @@ const wrapperStyles = xcss({
 
 export default () => (
   <Box id="resize" xcss={wrapperStyles}>
-    <p>Resize: auto</p>
-    <TextArea resize="auto" name="area" testId="autoResizeTextArea" />
-    <p>Resize: vertical</p>
-    <TextArea resize="vertical" name="area" testId="verticalResizeTextArea" />
-    <p>Resize: horizontal</p>
+    <Label htmlFor="resize-auto">Resize: auto</Label>
+    <TextArea
+      resize="auto"
+      name="resize-auto"
+      id="resize-auto"
+      testId="autoResizeTextArea"
+    />
+    <Label htmlFor="resize-vertical">Resize: vertical</Label>
+    <TextArea
+      resize="vertical"
+      name="resize-vertical"
+      id="resize-vertical"
+      testId="verticalResizeTextArea"
+    />
+    <Label htmlFor="resize-horizontal">Resize: horizontal</Label>
     <TextArea
       resize="horizontal"
-      name="area"
+      name="resize-horizontal"
+      id="resize-horizontal"
       testId="horizontalResizeTextArea"
     />
-    <p>Resize: smart (default)</p>
-    <TextArea name="area" testId="smartResizeTextArea" />
-    <p>Resize: none</p>
-    <TextArea resize="none" name="area" testId="noneResizeTextArea" />
+    <Label htmlFor="resize-smart">Resize: smart (default)</Label>
+    <TextArea
+      name="resize-smart"
+      id="resize-smart"
+      testId="smartResizeTextArea"
+    />
+    <Label htmlFor="resize-none">Resize: none</Label>
+    <TextArea
+      resize="none"
+      name="resize-none"
+      id="resize-none"
+      testId="noneResizeTextArea"
+    />
   </Box>
 );

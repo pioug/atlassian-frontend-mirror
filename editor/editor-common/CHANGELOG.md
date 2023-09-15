@@ -1,5 +1,17 @@
 # @atlaskit/editor-common
 
+## 75.0.8
+
+### Patch Changes
+
+- [`06afa5b7aec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/06afa5b7aec) - Increasing the Toolbar S breakpoint from 370 to 410 to resolve squishy Insert Block
+
+## 75.0.7
+
+### Patch Changes
+
+- [`8b8a309cb62`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8b8a309cb62) - This changeset exists because a PR's confluence integrator step needs to pre-release the latest editor-common for the build to not fail.
+
 ## 75.0.6
 
 ### Patch Changes

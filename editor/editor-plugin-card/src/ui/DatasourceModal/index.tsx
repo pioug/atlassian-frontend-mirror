@@ -1,13 +1,13 @@
 import React, { useCallback } from 'react';
 
-import { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import { DatasourceModalType } from '@atlaskit/editor-common/types';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { DatasourceModalType } from '@atlaskit/editor-common/types';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { DatasourceAdfView } from '@atlaskit/link-datasource';
 import {
   ASSETS_LIST_OF_LINKS_DATASOURCE_ID,
   AssetsConfigModal,
-  DatasourceAdfView,
   JIRA_LIST_OF_LINKS_DATASOURCE_ID,
   JiraIssuesConfigModal,
 } from '@atlaskit/link-datasource';

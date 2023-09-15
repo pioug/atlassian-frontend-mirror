@@ -90,7 +90,6 @@ const ReadView = ({
     }
   };
 
-  /* eslint-disable jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions,jsx-a11y/no-noninteractive-element-interactions */
   return (
     <div css={readViewContainerStyles}>
       <button
@@ -105,6 +104,15 @@ const ReadView = ({
           readViewWrapperStyles,
           readViewFitContainerWidth && readViewFitContainerWidthStyles,
         ]}
+        /**
+         * It is not normally acceptable to add click handlers to non-interactive elements
+         * as this is an accessibility anti-pattern. However, because this instance is
+         * account for clicking on links that may be embedded within inline-edit and not
+         * creating an inaccessible custom element, we can add role="presentation" so that
+         * there is no negative impacts to assistive technologies.
+         * (Why links are embeeded in inline-edit is for another day...)
+         */
+        role="presentation"
         onClick={onReadViewClick}
         onMouseDown={(e) => {
           startX.current = e.clientX;
@@ -116,7 +124,6 @@ const ReadView = ({
       </div>
     </div>
   );
-  /* eslint-enable jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions,jsx-a11y/no-noninteractive-element-interactions */
 };
 
 export default ReadView;

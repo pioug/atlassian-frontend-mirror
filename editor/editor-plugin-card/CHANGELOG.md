@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-card
 
+## 0.6.0
+
+### Minor Changes
+
+- [`8b8a309cb62`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8b8a309cb62) - Added datasource analytic CRUD events
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.5.11
 
 ### Patch Changes

@@ -40,10 +40,16 @@
       "path": "../../analytics/analytics-next/tsconfig.app.json"
     },
     {
+      "path": "../link-client-extension/tsconfig.app.json"
+    },
+    {
       "path": "../link-provider/tsconfig.app.json"
     },
     {
       "path": "../linking-common/tsconfig.app.json"
+    },
+    {
+      "path": "../linking-types/tsconfig.app.json"
     }
   ]
 }

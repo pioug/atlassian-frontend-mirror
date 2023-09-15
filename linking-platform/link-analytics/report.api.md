@@ -18,6 +18,36 @@
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 // @public (undocumented)
+interface DatasourceDetails {
+  // (undocumented)
+  datasourceId: string;
+  // (undocumented)
+  parameters: object;
+  // (undocumented)
+  url?: string;
+}
+
+// @public (undocumented)
+interface DatasourceLifecycleEventCallback {
+  // (undocumented)
+  (
+    details: DatasourceDetails,
+    sourceEvent?: UIAnalyticsEvent | null,
+    attributes?: LinkAnalyticsAttributes,
+  ): void;
+}
+
+// @public (undocumented)
+interface DatasourceLifecycleMethods {
+  // (undocumented)
+  datasourceCreated: DatasourceLifecycleEventCallback;
+  // (undocumented)
+  datasourceDeleted: DatasourceLifecycleEventCallback;
+  // (undocumented)
+  datasourceUpdated: DatasourceLifecycleEventCallback;
+}
+
+// @public (undocumented)
 type LinkAnalyticsAttributes = Record<string, any>;
 
 // @public (undocumented)
@@ -43,6 +73,9 @@ interface SmartLinkLifecycleMethods {
   linkDeleted: LinkLifecycleEventCallback;
   linkUpdated: LinkLifecycleEventCallback;
 }
+
+// @public (undocumented)
+export const useDatasourceLifecycleAnalytics: () => DatasourceLifecycleMethods;
 
 // @public
 export const useSmartLinkLifecycleAnalytics: () => SmartLinkLifecycleMethods;

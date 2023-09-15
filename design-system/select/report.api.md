@@ -42,6 +42,7 @@ import { IndicatorSeparatorProps } from 'react-select';
 import { InputActionMeta } from 'react-select';
 import { InputProps } from 'react-select';
 import { jsx } from '@emotion/react';
+import { KeyboardEventHandler } from 'react';
 import { LoadingIndicatorProps } from 'react-select';
 import { MemoizedFn } from 'memoize-one';
 import { MenuListProps } from 'react-select';
@@ -1081,6 +1082,8 @@ export class PopupSelect<
     actionMeta: ActionMeta<Option>,
   ) => void;
   // (undocumented)
+  handleTargetKeyDown: (event: React_2.KeyboardEvent) => void;
+  // (undocumented)
   isOpenControlled: boolean;
   // (undocumented)
   menuRef: HTMLElement | null;
@@ -1179,6 +1182,8 @@ interface PopupSelectTriggerProps {
   'aria-expanded': boolean;
   // (undocumented)
   'aria-haspopup': 'true';
+  // (undocumented)
+  onKeyDown: KeyboardEventHandler<HTMLElement>;
   // (undocumented)
   ref: any;
 }

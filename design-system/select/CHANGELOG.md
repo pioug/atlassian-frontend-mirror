@@ -1,5 +1,11 @@
 # @atlaskit/select
 
+## 16.6.0
+
+### Minor Changes
+
+- [`f03e630c03e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f03e630c03e) - [ux] Adds keydown handler to target spread props for better accessibility for keyboard users.
+
 ## 16.5.14
 
 ### Patch Changes

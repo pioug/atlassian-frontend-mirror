@@ -1,4 +1,4 @@
-import React, { PureComponent, ReactNode } from 'react';
+import React, { KeyboardEventHandler, PureComponent, ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import FocusLock from 'react-focus-lock';
 import Select, {
@@ -59,6 +59,7 @@ type PopperPropsNoChildren<Modifiers> = Omit<
 
 interface PopupSelectTriggerProps {
   ref: any;
+  onKeyDown: KeyboardEventHandler<HTMLElement>;
   'aria-haspopup': 'true';
   'aria-expanded': boolean;
   'aria-controls'?: string;
@@ -126,6 +127,7 @@ export interface PopupSelectProps<
     - `isOpen`: The current state of the popup.
         Use this to change the appearance of your target based on the state of your component
     - `ref`: Pass this ref to the element the Popup should be attached to
+    - `onKeyDown`: Pass this keydown handler to the element to allow keyboard users to access the element.
     - `aria-haspopup`, `aria-expanded`, `aria-controls`: Spread these onto a target element to
         ensure your experience is accessible
    */
@@ -305,6 +307,15 @@ export default class PopupSelect<
 
   // Event Handlers
   // ==============================
+
+  handleTargetKeyDown = (event: React.KeyboardEvent) => {
+    switch (event.key) {
+      case 'ArrowDown':
+        this.open();
+        break;
+      default:
+    }
+  };
 
   handleKeyDown = (event: KeyboardEvent) => {
     switch (event.key) {
@@ -543,7 +554,8 @@ export default class PopupSelect<
   // ==============================
 
   renderSelect = () => {
-    const { footer, maxMenuWidth, minMenuWidth, target, ...props } = this.props;
+    const { footer, maxMenuWidth, minMenuWidth, target, testId, ...props } =
+      this.props;
     // TODO: If `platform.design-system-team.popup-select-render-perf_i0s6m` is kept, `focusLockEnabled` should be fully removed as we're preferring `isReferenceHidden`
     const { focusLockEnabled, isOpen, mergedComponents, mergedPopperProps } =
       this.state;
@@ -607,6 +619,7 @@ export default class PopupSelect<
                 minWidth={minMenuWidth}
                 maxWidth={maxMenuWidth}
                 id={this.popperWrapperId}
+                testId={testId}
               >
                 <FocusLock
                   /*
@@ -667,6 +680,7 @@ export default class PopupSelect<
             target &&
             target({
               isOpen,
+              onKeyDown: this.handleTargetKeyDown,
               ref: this.resolveTargetRef(ref),
               'aria-haspopup': 'true',
               'aria-expanded': isOpen,

@@ -5,22 +5,24 @@ import type {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
+import type {
+  AnalyticsEventPayload,
+  EditorAnalyticsAPI,
+  SmartLinkNodeContext,
+  UnlinkToolbarAEP,
+} from '@atlaskit/editor-common/analytics';
 import {
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
-  AnalyticsEventPayload,
-  EditorAnalyticsAPI,
   EVENT_TYPE,
   INPUT_METHOD,
   SMART_LINK_TYPE,
-  SmartLinkNodeContext,
   unlinkPayload,
-  UnlinkToolbarAEP,
 } from '@atlaskit/editor-common/analytics';
 import { addLinkMetadata } from '@atlaskit/editor-common/card';
 import type { CardReplacementInputMethod } from '@atlaskit/editor-common/card';
-import {
+import type {
   CardAdf,
   CardAppearance,
   DatasourceAdf,
@@ -33,17 +35,23 @@ import {
   processRawValue,
 } from '@atlaskit/editor-common/utils';
 import { closeHistory } from '@atlaskit/editor-prosemirror/history';
-import { Node, NodeType, Schema } from '@atlaskit/editor-prosemirror/model';
-import {
+import type {
+  Node,
+  NodeType,
+  Schema,
+} from '@atlaskit/editor-prosemirror/model';
+import type {
   EditorState,
-  NodeSelection,
-  TextSelection,
   Transaction,
 } from '@atlaskit/editor-prosemirror/state';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import {
+  NodeSelection,
+  TextSelection,
+} from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { DatasourceAdfView, InlineCardAdf } from '@atlaskit/smart-card';
 
-import { CardPluginState, Request } from '../types';
+import type { CardPluginState, Request } from '../types';
 import { appearanceForNodeType, selectedCardAppearance } from '../utils';
 
 import { hideDatasourceModal, queueCards, resolveCard } from './actions';
@@ -608,6 +616,7 @@ export const updateExistingDatasource = (
   node: Node,
   newAdf: DatasourceAdf | InlineCardAdf,
   view: EditorView,
+  sourceEvent?: UIAnalyticsEvent,
 ) => {
   const {
     tr,
@@ -643,11 +652,16 @@ export const updateExistingDatasource = (
       });
       addLinkMetadata(state.selection, tr, {
         action: ACTION.UPDATED,
+        sourceEvent,
       });
     }
   } else if (newAdf.type === 'inlineCard') {
     // datasource to inline
     tr.setNodeMarkup(from, schemaNodes.inlineCard, newAdf.attrs);
+    addLinkMetadata(state.selection, tr, {
+      action: ACTION.UPDATED,
+      sourceEvent,
+    });
   }
 
   hideDatasourceModal(tr);
@@ -658,6 +672,7 @@ export const insertDatasource = (
   state: EditorState,
   adf: DatasourceAdf | InlineCardAdf,
   view: EditorView,
+  sourceEvent?: UIAnalyticsEvent,
 ) => {
   const {
     tr,
@@ -675,5 +690,9 @@ export const insertDatasource = (
   newNode && tr.insert(from, newNode);
 
   hideDatasourceModal(tr);
+  addLinkMetadata(state.selection, tr, {
+    action: ACTION.INSERTED,
+    sourceEvent,
+  });
   view.dispatch(tr.scrollIntoView());
 };

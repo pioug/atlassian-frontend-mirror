@@ -39,7 +39,7 @@
     "@atlaskit/locale": "^2.5.0",
     "@atlaskit/platform-feature-flags": "^0.2.0",
     "@atlaskit/popper": "^5.5.0",
-    "@atlaskit/select": "^16.5.0",
+    "@atlaskit/select": "^16.6.0",
     "@atlaskit/theme": "^12.6.0",
     "@atlaskit/tokens": "^1.22.0",
     "@babel/runtime": "^7.0.0",

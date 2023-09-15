@@ -16,7 +16,7 @@ export enum ToolbarWidths {
   XL = 540,
   L = 460,
   M = 450,
-  S = 370,
+  S = 410,
 }
 
 export enum ToolbarWidthsFullPage {

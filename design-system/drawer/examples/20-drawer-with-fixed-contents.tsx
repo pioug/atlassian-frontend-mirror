@@ -38,6 +38,7 @@ export default class DrawersExample extends Component<{}, State> {
           onClose={this.closeDrawer}
           isOpen={this.state.isDrawerOpen}
           width="wide"
+          label="Drawer with fixed contents"
         >
           <div id="drawer-contents">
             <p id="paragraph">

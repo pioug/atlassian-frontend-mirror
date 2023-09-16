@@ -29,7 +29,11 @@ export default class DrawersExample extends Component<{}, State> {
 
   render() {
     return (
-      <Drawer isOpen width={this.state.width}>
+      <Drawer
+        isOpen
+        width={this.state.width}
+        label="Drawer with width controls"
+      >
         <div>
           <code>{this.state.width} width</code>
         </div>

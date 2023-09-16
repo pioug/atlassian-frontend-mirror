@@ -1,5 +1,11 @@
 # @atlaskit/embedded-confluence
 
+## 2.6.0
+
+### Minor Changes
+
+- [`3617e1eeb67`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3617e1eeb67) - Adding internal common content component
+
 ## 2.5.0
 
 ### Minor Changes

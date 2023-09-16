@@ -65,6 +65,7 @@ const _default: React_2.ForwardRefExoticComponent<
       | 'shouldUnmountOnExit'
       | 'testId'
       | 'zIndex'
+      | keyof DrawerLabel
     > &
       Partial<
         Pick<
@@ -102,6 +103,7 @@ const _default: React_2.ForwardRefExoticComponent<
     | 'testId'
     | 'width'
     | 'zIndex'
+    | keyof DrawerLabel
     | keyof FocusLockSettings
   > &
     React_2.RefAttributes<any>
@@ -121,6 +123,12 @@ export type DefaultsType = {
 };
 
 // @public (undocumented)
+interface DrawerLabel {
+  label?: string;
+  titleId?: string;
+}
+
+// @public (undocumented)
 export type DrawerPrimitiveDefaults = Pick<DefaultsType, 'Content' | 'Sidebar'>;
 
 // @public (undocumented)
@@ -130,7 +138,10 @@ export type DrawerPrimitiveOverrides = Pick<
 >;
 
 // @public (undocumented)
-export interface DrawerPrimitiveProps extends BaseProps, FocusLockSettings {
+export interface DrawerPrimitiveProps
+  extends BaseProps,
+    FocusLockSettings,
+    DrawerLabel {
   // (undocumented)
   in: boolean;
   // (undocumented)
@@ -140,7 +151,8 @@ export interface DrawerPrimitiveProps extends BaseProps, FocusLockSettings {
 // @public (undocumented)
 export type DrawerProps = BaseProps &
   FocusLockSettings &
-  WithAnalyticsEventsProps & {
+  WithAnalyticsEventsProps &
+  DrawerLabel & {
     onKeyDown?: (event: SyntheticEvent) => void;
     onClose?: (event: SyntheticEvent<HTMLElement>, analyticsEvent: any) => void;
     isOpen: boolean;

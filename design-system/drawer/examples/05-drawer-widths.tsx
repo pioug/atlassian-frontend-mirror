@@ -35,8 +35,10 @@ const DrawersExample = () => {
         onClose={closeDrawer}
         isOpen={isDrawerOpen}
         width={width}
+        label={`Drawer ${width}`}
       >
         <code
+          id="drawerContents"
           style={{
             textTransform: 'capitalize',
           }}

@@ -11,7 +11,13 @@ const DrawerWidths = () => {
 
   return (
     <>
-      <Drawer width={drawerWidth} onClose={() => setOpen(false)} isOpen={open}>
+      <Drawer
+        testId="drawer"
+        width={drawerWidth}
+        onClose={() => setOpen(false)}
+        isOpen={open}
+        label={`Drawer ${drawerWidth}`}
+      >
         {widths.map((width) => (
           <p>
             <Button

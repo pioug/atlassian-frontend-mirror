@@ -61,6 +61,7 @@ export default class DrawersExample extends Component<{}, State> {
           onCloseComplete={this.onCloseComplete}
           isOpen={this.state.isDrawerOpen}
           width="narrow"
+          label="Drawer with nested drawer"
         >
           <code>Drawer contents</code>
           <div css={spacingStyles}>
@@ -78,8 +79,9 @@ export default class DrawersExample extends Component<{}, State> {
               onCloseComplete={this.onNestedCloseComplete}
               isOpen={this.state.isNestedDrawerOpen}
               width="extended"
+              label="Nested drawer"
             >
-              <code>Nested Drawer contents</code>
+              <code>Nested Drawer Content</code>
             </Drawer>
           </div>
         </Drawer>

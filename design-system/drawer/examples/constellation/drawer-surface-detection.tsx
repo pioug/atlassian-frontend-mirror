@@ -36,10 +36,14 @@ const DrawerSurfaceDetectionExample = () => {
 
   return (
     <Fragment>
-      <Drawer onClose={() => setOpen(false)} isOpen={open}>
+      <Drawer
+        onClose={() => setOpen(false)}
+        isOpen={open}
+        titleId="drawerTitle"
+      >
         <div css={wrapperStyles}>
           <div css={headerStyles}>
-            <h2>Header overlay</h2>
+            <h1 id="drawerTitle">Header overlay</h1>
           </div>
           <div css={contentStyles}>
             <Lorem count={10} />

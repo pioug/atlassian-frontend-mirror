@@ -81,6 +81,7 @@ export default class DrawersExample extends Component<{}, State> {
           onCloseComplete={this.onCloseComplete}
           isOpen={this.state.isDrawerOpen}
           width="full"
+          label="Drawer with css custom overrides"
           // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
           overrides={{
             Sidebar: {

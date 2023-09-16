@@ -4,24 +4,29 @@ import Lorem from 'react-lorem-component';
 
 import Button from '@atlaskit/button/standard-button';
 
-import Drawer from '../../src';
+import Drawer from '../src';
 
 const DrawerDefaultExample = () => {
-  const [open, setOpen] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   return (
-    <>
+    <div style={{ padding: '2rem' }}>
       <Drawer
         label="Default drawer"
-        onClose={() => setOpen(false)}
-        isOpen={open}
+        testId="drawer-default"
+        onClose={() => setIsOpen(false)}
+        isOpen={isOpen}
       >
         <Lorem count={10} />
       </Drawer>
-      <Button appearance="primary" onClick={() => setOpen(true)}>
+      <Button
+        testId="drawer-trigger"
+        type="button"
+        onClick={() => setIsOpen(true)}
+      >
         Open drawer
       </Button>
-    </>
+    </div>
   );
 };
 

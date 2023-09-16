@@ -39,6 +39,9 @@
       "path": "../accessibility-testing/tsconfig.app.json"
     },
     {
+      "path": "../../../build/test-tooling/integration-testing/tsconfig.app.json"
+    },
+    {
       "path": "../../../build/test-tooling/gemini-visual-regression/tsconfig.app.json"
     },
     {
@@ -90,7 +93,7 @@
       "path": "../../../build/test-tooling/visual-regression/tsconfig.app.json"
     },
     {
-      "path": "../../../build/test-tooling/webdriver-runner/tsconfig.app.json"
+      "path": "../../platform/feature-flags-test-utils/tsconfig.app.json"
     }
   ]
 }

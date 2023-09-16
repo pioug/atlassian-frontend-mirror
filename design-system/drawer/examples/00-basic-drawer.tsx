@@ -41,6 +41,7 @@ export default class DrawersExample extends Component<{}, State> {
           onOpenComplete={this.onOpenComplete}
           isOpen={this.state.isDrawerOpen}
           width="wide"
+          label="Basic drawer"
         >
           <code>Content</code>
         </Drawer>

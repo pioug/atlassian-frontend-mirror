@@ -42,6 +42,7 @@ export default class DrawersExample extends Component<{}, State> {
           isOpen={this.state.isDrawerOpen}
           width="wide"
           shouldUnmountOnExit={this.state.shouldUnmountOnExit}
+          label="Drawer with retainable content"
         >
           <label htmlFor="textbox" style={{ display: 'block' }}>
             Type something in the textarea below and see if it is retained

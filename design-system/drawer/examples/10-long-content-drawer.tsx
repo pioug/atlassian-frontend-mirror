@@ -34,7 +34,9 @@ export default class DrawersExample extends Component<{}, State> {
           onClose={this.closeDrawer}
           isOpen={this.state.isDrawerOpen}
           width="wide"
+          titleId="drawerTitle"
         >
+          <h2 id="drawerTitle">Long content drawer</h2>
           <Lorem count={100} />
         </Drawer>
         <Button type="button" onClick={this.openDrawer}>

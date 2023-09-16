@@ -18,7 +18,12 @@ const DrawerExample = () => {
         Show drawer
       </Button>
       <Portal zIndex="unset">
-        <DrawerPrimitive testId="drawer" in={isOpen} onClose={hideDrawer} />
+        <DrawerPrimitive
+          testId="drawer"
+          in={isOpen}
+          onClose={hideDrawer}
+          label="Testing drawer primitive"
+        />
       </Portal>
     </>
   );

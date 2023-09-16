@@ -1,10 +1,10 @@
 /** @jsx jsx */
-
 import { forwardRef, ReactElement, Ref, useCallback } from 'react';
 
 import { css, jsx } from '@emotion/react';
 import { useMergeRefs } from 'use-callback-ref';
 
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { N0 } from '@atlaskit/theme/colors';
 import { CURRENT_SURFACE_CSS_VAR, token } from '@atlaskit/tokens';
 
@@ -33,7 +33,7 @@ const wrapperStyles = css({
 });
 
 interface FocusLockRefTargetProps
-  extends Pick<DrawerPrimitiveProps, 'width' | 'testId'> {
+  extends Pick<DrawerPrimitiveProps, 'width' | 'testId' | 'label' | 'titleId'> {
   /**
    * This must have two children explicitly as we target the second child as the Content.
    */
@@ -52,7 +52,18 @@ interface FocusLockRefTargetProps
  * A wrapper that controls the styling of the drawer with a few hacks with refs to get our Touch±Scroll locks working.
  */
 const DrawerWrapper = forwardRef<HTMLElement, FocusLockRefTargetProps>(
-  ({ children, className, width = 'narrow', testId, drawerRef }, scrollRef) => {
+  (
+    {
+      children,
+      className,
+      width = 'narrow',
+      testId,
+      drawerRef,
+      label,
+      titleId,
+    },
+    scrollRef,
+  ) => {
     /**
      * We use a callback ref to assign the `<Content />` component to the forwarded `scrollRef`.
      * This ref comes from `react-scrolllock` to allow touch scrolling, eg.: `<ScrollLock><TouchScrollable>{children}</TouchScrollable><ScrollLock>`
@@ -74,6 +85,15 @@ const DrawerWrapper = forwardRef<HTMLElement, FocusLockRefTargetProps>(
 
     usePreventProgrammaticScroll();
 
+    const modalDialogAttributes = getBooleanFF(
+      'platform.design-system-team.drawer-screen-reader-focus-trap-refactor_hfuxc',
+    ) && {
+      'aria-modal': true,
+      role: 'dialog',
+      'aria-label': label,
+      'aria-labelledby': titleId,
+    };
+
     return (
       <div
         css={wrapperStyles}
@@ -81,6 +101,7 @@ const DrawerWrapper = forwardRef<HTMLElement, FocusLockRefTargetProps>(
         className={className}
         data-testid={testId}
         ref={ref}
+        {...modalDialogAttributes}
       >
         {children}
       </div>

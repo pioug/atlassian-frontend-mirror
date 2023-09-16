@@ -78,6 +78,8 @@ const DrawerPrimitive = ({
   autoFocusFirstElem,
   isFocusLockEnabled,
   width,
+  label,
+  titleId,
 }: DrawerPrimitiveProps) => {
   const getOverrides = createExtender<
     DrawerPrimitiveDefaults,
@@ -118,6 +120,8 @@ const DrawerPrimitive = ({
                 width={width}
                 testId={testId}
                 drawerRef={drawerRef}
+                label={label}
+                titleId={titleId}
               >
                 <Sidebar {...sideBarOverrides}>
                   <IconButton

@@ -42,7 +42,11 @@ const DrawersExample = () => {
         </Button>
       </div>
 
-      <Drawer onClose={closeDrawer} isOpen={isOpen}>
+      <Drawer
+        onClose={closeDrawer}
+        isOpen={isOpen}
+        label="Drawer with scrollable content"
+      >
         {/* Strictly used to target the content drawer for programmatic scrolling… */}
         <div data-testid="content-inner" />
         <Lorem count={100} />

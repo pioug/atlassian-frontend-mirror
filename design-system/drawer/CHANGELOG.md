@@ -1,5 +1,11 @@
 # @atlaskit/drawer
 
+## 7.6.0
+
+### Minor Changes
+
+- [`288b53175c0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/288b53175c0) - [ux] We are testing focus trap behavior for drawer in screen reader mode behind a feature flag. Now focus is set to first element and does not go beyond the content of the modal dialog. If this fix is successful, it will be available in a later release.
+
 ## 7.5.5
 
 ### Patch Changes

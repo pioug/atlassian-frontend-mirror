@@ -51,6 +51,19 @@ export interface BaseProps {
   overrides?: OverridesType;
 }
 
+export interface DrawerLabel {
+  /**
+   * Refers to an aria-label attribute. Sets an accessible name for drawer wrapper to announce it to users of assistive technology.
+   * Usage of either this, or the `titleId` attribute is strongly recommended.
+   */
+  label?: string;
+  /**
+   * Id referenced by the drawer wrapper's aria-labelledby attribute. This id should be assigned to the drawer title element.
+   * Usage of either this, or the `label` attribute is strongly recommended.
+   */
+  titleId?: string;
+}
+
 // eslint-disable-next-line @repo/internal/react/consistent-types-definitions
 export type DefaultsType = {
   Sidebar: {
@@ -107,7 +120,10 @@ export interface ContentProps extends React.HTMLProps<HTMLDivElement> {
 
 export type ContentCSSProps = Omit<ContentProps, 'cssFn'>;
 
-export interface DrawerPrimitiveProps extends BaseProps, FocusLockSettings {
+export interface DrawerPrimitiveProps
+  extends BaseProps,
+    FocusLockSettings,
+    DrawerLabel {
   // eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
   in: boolean;
   onClose: (event: SyntheticEvent<HTMLElement>) => void;
@@ -115,7 +131,8 @@ export interface DrawerPrimitiveProps extends BaseProps, FocusLockSettings {
 
 export type DrawerProps = BaseProps &
   FocusLockSettings &
-  WithAnalyticsEventsProps & {
+  WithAnalyticsEventsProps &
+  DrawerLabel & {
     /**
      * Callback function called while the drawer is displayed and `keydown` event is triggered.
      */
@@ -138,7 +155,7 @@ export type DrawerProps = BaseProps &
 
 export interface FocusLockSettings {
   /**
-   * Controls whether to focus the first tabbable element inside the focus lock.
+   * Controls whether to focus the first tabbable element inside the focus lock. Set to `true` by default.
    */
   autoFocusFirstElem?: boolean | (() => HTMLElement | null);
   /**
@@ -146,7 +163,7 @@ export interface FocusLockSettings {
    */
   isFocusLockEnabled?: boolean;
   /**
-   * Whether to return the focus to the previous active element on closing the drawer.
+   * Controls whether to return the focus to the previous active element on closing the drawer. Set to `true` by default.
    */
   shouldReturnFocus?: boolean;
 }
@@ -154,7 +171,7 @@ export interface FocusLockSettings {
 export interface FocusLockProps extends FocusLockSettings {
   /**
    * Content inside the focus lock.
-   * Must strictly be a ReactElement and it *must* be implemented to take a `ref` passed from `react-scrolllock` to enable Touch Scrolling.
+   * Must strictly be a ReactElement and it *must* be implemented to take a `ref` passed from `react-scrollock` to enable Touch Scrolling.
    */
   children?: ReactElement;
 }

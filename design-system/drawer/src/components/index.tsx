@@ -124,6 +124,8 @@ export class DrawerBase extends Component<
       shouldReturnFocus,
       overrides,
       zIndex = 'unset',
+      label,
+      titleId,
     } = this.props;
 
     return (
@@ -141,6 +143,8 @@ export class DrawerBase extends Component<
           onCloseComplete={onCloseComplete}
           onOpenComplete={onOpenComplete}
           width={width}
+          label={label}
+          titleId={titleId}
           shouldUnmountOnExit={shouldUnmountOnExit}
           // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
           overrides={overrides}

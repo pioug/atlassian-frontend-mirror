@@ -56,6 +56,7 @@ export default class DrawersExample extends Component<{}, State> {
           isOpen={this.state.isDrawerOpen}
           width="wide"
           testId="drawer"
+          label="Drawer focus trap"
         >
           <code>Content</code>
         </Drawer>

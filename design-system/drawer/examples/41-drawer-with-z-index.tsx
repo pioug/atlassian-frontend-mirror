@@ -47,6 +47,7 @@ export default class DrawersExample extends Component<{}, State> {
             isOpen={this.state.isDrawerOpen}
             width="wide"
             zIndex={layers.modal()}
+            label="Drawer layer precedence"
           >
             <code>Content</code>
           </Drawer>

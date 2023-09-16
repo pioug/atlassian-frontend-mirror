@@ -1,13 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 
+import Button from '@atlaskit/button/standard-button';
 import { ButtonItem, MenuGroup, Section } from '@atlaskit/menu';
 
 import Drawer from '../src';
 
 export default () => {
+  const [isOpen, setIsOpen] = useState(true);
   return (
     <div>
-      <Drawer testId="menu" isOpen={true}>
+      <Drawer
+        onClose={() => setIsOpen(false)}
+        testId="menu"
+        isOpen={isOpen}
+        label="Navigation menu"
+      >
         <div>
           <MenuGroup>
             <Section title="Starred">
@@ -42,6 +49,9 @@ export default () => {
           </MenuGroup>
         </div>
       </Drawer>
+      <Button appearance="primary" onClick={() => setIsOpen(true)}>
+        Open drawer
+      </Button>
     </div>
   );
 };

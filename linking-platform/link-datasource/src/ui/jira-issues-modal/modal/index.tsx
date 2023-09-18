@@ -3,8 +3,12 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 import { FormattedMessage, FormattedNumber, useIntl } from 'react-intl-next';
+import { v4 as uuidv4 } from 'uuid';
 
-import { withAnalyticsContext } from '@atlaskit/analytics-next';
+import {
+  UIAnalyticsEvent,
+  withAnalyticsContext,
+} from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button/standard-button';
 import { InlineCardAdf } from '@atlaskit/linking-common/types';
 import { Link } from '@atlaskit/linking-types';
@@ -29,6 +33,8 @@ import type {
   PackageMetaDataType,
 } from '../../../analytics/generated/analytics.types';
 import { DatasourceAction, DatasourceDisplay } from '../../../analytics/types';
+import { startUfoExperience } from '../../../analytics/ufoExperiences';
+import { useDataRenderedUfoExperience } from '../../../analytics/ufoExperiences/useDataRenderedUfoExperience';
 import { mapSearchMethod } from '../../../analytics/utils';
 import type { JiraSearchMethod } from '../../../common/types';
 import { useDatasourceTableState } from '../../../hooks/useDatasourceTableState';
@@ -179,6 +185,7 @@ export const PlainJiraIssuesConfigModal = (
 
   const { formatMessage } = useIntl();
   const { fireEvent } = useDatasourceAnalyticsEvents();
+  const { current: modalRenderInstanceId } = useRef(uuidv4());
 
   const selectedJiraSite = useMemo<Site>(() => {
     if (cloudId) {
@@ -202,7 +209,6 @@ export const PlainJiraIssuesConfigModal = (
     return {
       extensionKey: extensionKey,
       destinationObjectTypes: destinationObjectTypes,
-      actions: userInteractionActions.current,
     };
   }, [destinationObjectTypes, extensionKey]);
 
@@ -221,6 +227,27 @@ export const PlainJiraIssuesConfigModal = (
 
   const shouldShowIssueCount =
     !!totalCount && totalCount !== 1 && currentViewMode === 'issue';
+
+  useEffect(() => {
+    const shouldStartUfoExperience = status === 'loading';
+
+    if (shouldStartUfoExperience) {
+      startUfoExperience(
+        {
+          name: 'datasource-rendered',
+        },
+        modalRenderInstanceId,
+      );
+    }
+  }, [modalRenderInstanceId, status]);
+
+  useDataRenderedUfoExperience({
+    status,
+    experienceId: modalRenderInstanceId,
+    itemCount: responseItems.length,
+    canBeLink: currentViewMode === 'count',
+    extensionKey,
+  });
 
   useEffect(() => {
     fireEvent('screen.datasourceModalDialog.viewed', {});
@@ -320,6 +347,7 @@ export const PlainJiraIssuesConfigModal = (
           actionSubjectId: 'cancel',
           attributes: {
             ...buttonClickedAnalyticsPayload,
+            actions: Array.from(userInteractionActions.current),
             searchCount: searchCount.current,
           },
         })
@@ -347,15 +375,16 @@ export const PlainJiraIssuesConfigModal = (
   }, [responseItems]);
 
   const onInsertPressed = useCallback(
-    (e, analyticEvent) => {
+    (e: React.MouseEvent<HTMLElement>, analyticsEvent: UIAnalyticsEvent) => {
       if (!isParametersSet || !jql || !selectedJiraSite) {
         return;
       }
 
-      const insertButtonClickedEvent = analyticEvent.update({
+      const insertButtonClickedEvent = analyticsEvent.update({
         actionSubjectId: 'insert',
         attributes: {
           ...buttonClickedAnalyticsPayload,
+          actions: Array.from(userInteractionActions.current),
           totalItemCount: totalCount || 0,
           displayedColumnCount: visibleColumnKeys?.length || 0,
           display: getDisplayValue(currentViewMode, totalCount || 0),
@@ -364,45 +393,56 @@ export const PlainJiraIssuesConfigModal = (
         },
         eventType: 'ui',
       });
+      const consumerEvent = insertButtonClickedEvent.clone() ?? undefined;
       insertButtonClickedEvent.fire(EVENT_CHANNEL);
 
       const firstIssueUrl = retrieveUrlForSmartCardRender();
+
       if (currentViewMode === 'count') {
-        onInsert({
-          type: 'inlineCard',
-          attrs: {
-            url: jqlUrl,
-          },
-        } as InlineCardAdf);
-      } else if (responseItems.length === 1 && firstIssueUrl) {
-        onInsert({
-          type: 'inlineCard',
-          attrs: {
-            url: firstIssueUrl,
-          },
-        } as InlineCardAdf);
-      } else {
-        onInsert({
-          type: 'blockCard',
-          attrs: {
-            url: jqlUrl,
-            datasource: {
-              id: datasourceId,
-              parameters: {
-                cloudId,
-                jql, // TODO support non JQL type
-              },
-              views: [
-                {
-                  type: 'table',
-                  properties: {
-                    columns: visibleColumnKeys?.map(key => ({ key })),
-                  },
-                },
-              ],
+        onInsert(
+          {
+            type: 'inlineCard',
+            attrs: {
+              url: jqlUrl,
             },
-          },
-        } as JiraIssuesDatasourceAdf);
+          } as InlineCardAdf,
+          consumerEvent,
+        );
+      } else if (responseItems.length === 1 && firstIssueUrl) {
+        onInsert(
+          {
+            type: 'inlineCard',
+            attrs: {
+              url: firstIssueUrl,
+            },
+          } as InlineCardAdf,
+          consumerEvent,
+        );
+      } else {
+        onInsert(
+          {
+            type: 'blockCard',
+            attrs: {
+              url: jqlUrl,
+              datasource: {
+                id: datasourceId,
+                parameters: {
+                  cloudId,
+                  jql, // TODO support non JQL type
+                },
+                views: [
+                  {
+                    type: 'table',
+                    properties: {
+                      columns: visibleColumnKeys?.map(key => ({ key })),
+                    },
+                  },
+                ],
+              },
+            },
+          } as JiraIssuesDatasourceAdf,
+          consumerEvent,
+        );
       }
     },
     [
@@ -458,16 +498,18 @@ export const PlainJiraIssuesConfigModal = (
           onNextPage={handleOnNextPage}
           onLoadDatasourceDetails={loadDatasourceDetails}
           onVisibleColumnKeysChange={handleVisibleColumnKeysChange}
+          parentContainerRenderInstanceId={modalRenderInstanceId}
         />
       </div>
     ),
     [
       columns,
       defaultVisibleColumnKeys,
-      hasNextPage,
-      handleVisibleColumnKeysChange,
-      loadDatasourceDetails,
       handleOnNextPage,
+      handleVisibleColumnKeysChange,
+      hasNextPage,
+      loadDatasourceDetails,
+      modalRenderInstanceId,
       responseItems,
       status,
       visibleColumnKeys,

@@ -56,6 +56,11 @@ export const cardContext = {
       subscribe: jest.fn(),
       replaceReducer: jest.fn(),
     },
+    connections: {
+      client: {
+        fetchData: jest.fn(),
+      },
+    },
   },
 } as unknown as ContextWrapper<CardContextType | undefined>;
 
@@ -73,4 +78,10 @@ export const mockPreview = (preview?: string) => {
  */
 export const mockCardContextState = (state: {} = {}) => {
   asMock(cardContext!.value!.store.getState).mockReturnValue(state);
+};
+
+export const mockFetchData = (response: object) => {
+  asMock(cardContext!.value!.connections.client.fetchData).mockReturnValue(
+    response,
+  );
 };

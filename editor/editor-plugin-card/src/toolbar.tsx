@@ -40,6 +40,7 @@ import type {
   LinkPickerOptions,
   PluginDependenciesAPI,
 } from '@atlaskit/editor-common/types';
+import { SmallerEditIcon } from '@atlaskit/editor-common/ui';
 import { canRenderDatasource } from '@atlaskit/editor-common/utils';
 import type { HoverDecorationHandler } from '@atlaskit/editor-plugin-decorations';
 import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
@@ -61,13 +62,15 @@ import { changeSelectedCardToText } from './pm-plugins/doc';
 import { pluginKey } from './pm-plugins/main';
 import type { CardPluginState } from './types';
 import {
-  buildEditLinkToolbar,
   editDatasource,
+  EditDatasourceButton,
+} from './ui/EditDatasourceButton';
+import {
+  buildEditLinkToolbar,
   editLink,
   editLinkToolbarConfig,
 } from './ui/EditLinkToolbar';
 import { LinkToolbarAppearance } from './ui/LinkToolbarAppearance';
-import { SmallerEditIcon } from './ui/SmallerEditIcon';
 import { ToolbarViewedEvent } from './ui/ToolbarViewedEvent';
 import {
   appearanceForNodeType,
@@ -378,12 +381,12 @@ const generateToolbarItems =
       ];
     } else if (shouldRenderDatasourceToolbar) {
       return getDatasourceButtonGroup(
-        state,
         metadata,
         intl,
         editorAnalyticsApi,
         node,
         hoverDecoration,
+        node.attrs.datasource.id,
       );
     } else {
       const { inlineCard } = state.schema.nodes;
@@ -463,7 +466,7 @@ const generateToolbarItems =
         }
         toolbarItems.unshift(...alignmentOptions);
       }
-      const { allowBlockCards, allowEmbeds } = cardOptions;
+      const { allowBlockCards, allowEmbeds, allowDatasource } = cardOptions;
 
       // This code will be executed only for appearances such as "inline", "block" & "embed"
       // For url appearance, please see HyperlinkToolbarAppearanceProps
@@ -493,6 +496,25 @@ const generateToolbarItems =
             type: 'separator',
           },
         );
+      }
+
+      const shouldShowDatasourceEditButton =
+        platform !== 'mobile' && allowDatasource;
+
+      if (shouldShowDatasourceEditButton) {
+        toolbarItems.unshift({
+          type: 'custom',
+          fallback: [],
+          render: editorView => (
+            <EditDatasourceButton
+              intl={intl}
+              editorAnalyticsApi={editorAnalyticsApi}
+              url={url}
+              editorView={editorView}
+              editorState={state}
+            />
+          ),
+        });
       }
 
       return toolbarItems;
@@ -545,12 +567,12 @@ const getSettingsButtonGroup = (
 };
 
 const getDatasourceButtonGroup = (
-  state: EditorState,
   metadata: { url: string; title: string } | {},
   intl: IntlShape,
   editorAnalyticsApi: EditorAnalyticsAPI | undefined,
   node: Node,
   hoverDecoration: HoverDecorationHandler | undefined,
+  datasourceId: string,
 ): FloatingToolbarItem<Command>[] => {
   const toolbarItems: Array<FloatingToolbarItem<Command>> = [
     {
@@ -560,7 +582,7 @@ const getDatasourceButtonGroup = (
       metadata: metadata,
       className: 'datasource-edit',
       title: intl.formatMessage(linkToolbarMessages.editDatasource),
-      onClick: editDatasource(node, editorAnalyticsApi),
+      onClick: editDatasource(datasourceId, editorAnalyticsApi),
       testId: 'datasource-edit-button',
     },
   ];

@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 26.26.2
+
+### Patch Changes
+
+- [`da7fcd582e2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/da7fcd582e2) - Fixed embed modal go to url and download button inconsitent behaviour when triggered from hover preview and block card
+
 ## 26.26.1
 
 ### Patch Changes

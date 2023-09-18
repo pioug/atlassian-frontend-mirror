@@ -5,7 +5,9 @@ import core, {
   ImportDeclaration,
   ImportSpecifier,
   JSCodeshift,
+  JSXAttribute,
   JSXElement,
+  ObjectProperty,
 } from 'jscodeshift';
 import { Collection } from 'jscodeshift/src/Collection';
 
@@ -174,7 +176,7 @@ export function getJSXAttributesByName(
   j: JSCodeshift,
   jsxElementPath: ASTPath<JSXElement>,
   attributeName: string,
-) {
+): Collection<JSXAttribute> {
   return j(jsxElementPath)
     .find(j.JSXOpeningElement)
     .find(j.JSXAttribute)
@@ -192,7 +194,7 @@ export function getJSXSpreadIdentifierAttributesByName(
   collection: Collection<any>,
   jsxElementPath: ASTPath<JSXElement>,
   attributeName: string,
-) {
+): Collection<ObjectProperty> | null {
   const identifierCollection = j(jsxElementPath)
     .find(j.JSXOpeningElement)
     .find(j.JSXSpreadAttribute)

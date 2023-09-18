@@ -45,6 +45,7 @@ const LinkCreate = withLinkCreateFormContext(
     onCreate,
     onFailure,
     onCancel,
+    triggeredFrom,
     ...restProps
   }: LinkCreateProps) => {
     const { setFormErrorMessage } = useFormContext();

@@ -93,15 +93,7 @@ export const spacingTests: Tests = {
       options: [{ domains: ['spacing'], applyImport: false }],
       code: `
           const wrapperStyles = css({
-            padding: \`calc(100vh - \${token('space.300', '24px')})\`,
-          });`,
-    },
-    // object calc with hardcoded value
-    {
-      options: [{ domains: ['spacing'], applyImport: false }],
-      code: `
-          const wrapperStyles = css({
-            padding: 'calc(100vh - 200px)',
+            width: \`calc(100vh - \${token('space.300', '24px')})\`,
           });`,
     },
     // object single value, 0
@@ -151,7 +143,7 @@ export const spacingTests: Tests = {
       code: `
         styled(Button)\`
           width: 50%;
-          margin-top: calc(-1 * \${token('space.150', '12px')}) \${token('space.100', '8px')} calc(-1 * \${token('space.200', '16px')});
+          margin-top: \${token('space.150', '12px')} \${token('space.100', '8px')} \${token('space.200', '16px')};
           height: 40px;
           align-items: center;
           text-align: left;
@@ -529,6 +521,63 @@ export const spacingTests: Tests = {
         {
           message:
             'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:8>>',
+        },
+      ],
+    },
+    // object - calc
+    {
+      options: [{ domains: ['spacing'], applyImport: false }],
+      code: `const styles = css({
+        // invalid
+        padding: \`calc(2 * \${token('space.100', '8px')})\`,
+        gap: \`calc(100px - \${token('space.100', '8px')})\`,
+        margin: \`calc(-1 * \${token('space.100', '8px')}) calc(-1 * \${token('space.100', '8px')})\`, // only 1 report due to how we handle templates
+        // valid
+        width: \`calc(100vh - \${token('space.100', '8px')})\`,
+      })`,
+      errors: [
+        {
+          message:
+            'The use of space tokens is preferred over using the CSS calc function. If using a value that is not aligned to the spacing scale, consider aligning to the scale and using tokens instead.',
+        },
+        {
+          message:
+            'The use of space tokens is preferred over using the CSS calc function. If using a value that is not aligned to the spacing scale, consider aligning to the scale and using tokens instead.',
+        },
+        {
+          message:
+            'The use of space tokens is preferred over using the CSS calc function. If using a value that is not aligned to the spacing scale, consider aligning to the scale and using tokens instead.',
+        },
+      ],
+    },
+    // template - calc
+    {
+      options: [{ domains: ['spacing'], applyImport: false }],
+      code: `
+    styled.div\`
+      // invalid
+      padding: calc(2 * \${token('space.100', '8px')});
+      gap: calc(100px - \${token('space.100', '8px')});
+      margin: calc(-1 * \${token('space.100', '8px')}) calc(-1 * \${token('space.100', '8px')}); // 2 reports
+      // valid
+      width: calc(100vh - \${token('space.100', '8px')});
+    \``,
+      errors: [
+        {
+          message:
+            'The use of space tokens is preferred over using the CSS calc function. If using a value that is not aligned to the spacing scale, consider aligning to the scale and using tokens instead.',
+        },
+        {
+          message:
+            'The use of space tokens is preferred over using the CSS calc function. If using a value that is not aligned to the spacing scale, consider aligning to the scale and using tokens instead.',
+        },
+        {
+          message:
+            'The use of space tokens is preferred over using the CSS calc function. If using a value that is not aligned to the spacing scale, consider aligning to the scale and using tokens instead.',
+        },
+        {
+          message:
+            'The use of space tokens is preferred over using the CSS calc function. If using a value that is not aligned to the spacing scale, consider aligning to the scale and using tokens instead.',
         },
       ],
     },

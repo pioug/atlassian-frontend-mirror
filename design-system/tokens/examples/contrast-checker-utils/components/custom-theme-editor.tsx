@@ -193,7 +193,7 @@ const TokenSelect = ({
             <TextField
               value={colorFieldValue}
               isCompact={true}
-              width={100}
+              width={120}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 const result = e?.target.value;
                 handleCustomValueChange(result);

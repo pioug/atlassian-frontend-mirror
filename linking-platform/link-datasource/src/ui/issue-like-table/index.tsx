@@ -20,6 +20,8 @@ import { N40 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
+import { succeedUfoExperience } from '../../analytics/ufoExperiences';
+
 import { ColumnPicker } from './column-picker';
 import { DragColumnPreview } from './drag-column-preview';
 import { DraggableTableHeading } from './draggable-table-heading';
@@ -28,7 +30,6 @@ import { fallbackRenderType } from './render-type';
 import { Table, TableHeading } from './styled';
 import { IssueLikeDataTableViewProps } from './types';
 import { useIsOnScreen } from './useIsOnScreen';
-
 const tableSidePadding = token('space.200', '16px');
 
 const tableHeadStyles = css({
@@ -163,6 +164,7 @@ export const IssueLikeDataTableView = ({
   status,
   hasNextPage,
   scrollableContainerHeight,
+  parentContainerRenderInstanceId,
 }: IssueLikeDataTableViewProps) => {
   const tableId = useMemo(() => Symbol('unique-id'), []);
 
@@ -180,6 +182,17 @@ export const IssueLikeDataTableView = ({
   useEffect(() => {
     setOrderedColumns(orderColumns([...columns], [...visibleColumnKeys]));
   }, [columns, visibleColumnKeys]);
+
+  useEffect(() => {
+    if (parentContainerRenderInstanceId && status === 'resolved') {
+      succeedUfoExperience(
+        {
+          name: 'datasource-rendered',
+        },
+        parentContainerRenderInstanceId,
+      );
+    }
+  }, [parentContainerRenderInstanceId, status]);
 
   const visibleSortedColumns = useMemo(
     () =>

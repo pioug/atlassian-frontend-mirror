@@ -44,13 +44,19 @@ export const lintObjectForSpacing = (
     return;
   }
 
-  // Don't report on CSS calc function
-  if (isNodeOfType(node.value, 'Literal') && isCalc(node.value.value)) {
-    return;
-  }
-
   const propertyName = (node.key as Identifier).name;
   const isFontFamily = /fontFamily/.test(propertyName);
+
+  // Report on CSS calc function for strings
+  if (isNodeOfType(node.value, 'Literal') && isCalc(node.value.value)) {
+    return context.report({
+      node,
+      messageId: 'noCalcUsage',
+      data: {
+        payload: `${propertyName}`,
+      },
+    });
+  }
 
   const value = getValue(node.value, context);
 
@@ -123,6 +129,15 @@ export const lintObjectForSpacing = (
    * { padding: '8px 0px' }
    */
   valuesForProperty.forEach((val) => {
+    if (isCalc(val)) {
+      return context.report({
+        node,
+        messageId: 'noCalcUsage',
+        data: {
+          payload: `${propertyName}:${val}`,
+        },
+      });
+    }
     const pixelValue = emToPixels(val, fontSize);
 
     // Do not report or suggest a token to replace 0 or auto

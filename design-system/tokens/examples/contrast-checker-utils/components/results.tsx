@@ -7,14 +7,18 @@ import { VariableSizeList as List } from 'react-window';
 import Button from '@atlaskit/button';
 import { Checkbox } from '@atlaskit/checkbox';
 import Heading from '@atlaskit/heading';
+import SearchIcon from '@atlaskit/icon/glyph/search';
 import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
 import SectionMessage from '@atlaskit/section-message';
+import TextField from '@atlaskit/textfield';
 
 import rawTokensDark from '../../../src/artifacts/tokens-raw/atlassian-dark';
 import rawTokensLight from '../../../src/artifacts/tokens-raw/atlassian-light';
 import checkThemePairContrasts, {
   darkResults,
+  darkResultsAAA,
   lightResults,
+  lightResultsAAA,
 } from '../utils/check-pair-contrasts';
 import { downloadResultsAsCSV } from '../utils/csv-generator';
 import { ColorMode, Theme, TokenName } from '../utils/types';
@@ -53,8 +57,22 @@ const ResultsAccordion = ({
   resultsBaseTheme: typeof lightResults;
   resultsCustom: typeof lightResults;
 }) => {
+  const [filterValue, setFilterValue] = useState<string>('');
+
+  const filteredResultsList = useMemo(() => {
+    return resultList.filter((pairing) => {
+      const { foreground, middleLayer, background } =
+        resultsCustom.fullResults[pairing];
+      return (
+        foreground.includes(filterValue) ||
+        middleLayer?.includes(filterValue) ||
+        background.includes(filterValue)
+      );
+    });
+  }, [filterValue, resultList, resultsCustom.fullResults]);
+
   const PairingCard = ({ index, style }: { index: number; style: any }) => {
-    const pairing = resultList[index];
+    const pairing = filteredResultsList[index];
     const { foreground, middleLayer, background } =
       resultsBaseTheme.fullResults[pairing];
     return (
@@ -90,7 +108,7 @@ const ResultsAccordion = ({
   };
 
   function getItemSize(index: number) {
-    return resultsBaseTheme.fullResults[resultList[index]].middleLayer
+    return resultsBaseTheme.fullResults[filteredResultsList[index]].middleLayer
       ? TRANSPARENT_RESULT_HEIGHT
       : STANDARD_RESULT_HEIGHT;
   }
@@ -98,23 +116,79 @@ const ResultsAccordion = ({
     <Accordion
       appearance={appearance}
       description={description}
-      size={resultList.length}
+      size={filteredResultsList.length}
     >
-      <List
-        height={Math.min(
-          TRANSPARENT_RESULT_HEIGHT * resultList.length,
-          ACCORDION_MAX_HEIGHT,
-        )}
-        innerElementType="ul" // TODO is this the right semantics for a virtual list?
-        itemCount={resultList.length}
-        itemSize={getItemSize}
-        width="100%"
-      >
-        {PairingCard}
-      </List>
+      <Stack space="space.100">
+        <TextField
+          aria-label="Filter results"
+          elemBeforeInput={
+            <Inline xcss={xcss({ paddingInline: 'space.100' })}>
+              <SearchIcon label="" />
+            </Inline>
+          }
+          value={filterValue}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setFilterValue(e.target.value)
+          }
+          onKeyPress={(e) => {
+            // clear field on escape
+            if (e.key === 'Escape') {
+              setFilterValue('');
+            }
+          }}
+        />
+
+        <List
+          height={Math.min(
+            TRANSPARENT_RESULT_HEIGHT * filteredResultsList.length,
+            ACCORDION_MAX_HEIGHT,
+          )}
+          innerElementType="ul" // TODO is this the right semantics for a virtual list?
+          itemCount={filteredResultsList.length}
+          itemSize={getItemSize}
+          width="100%"
+          style={{ overflowX: 'hidden' }}
+          overscanCount={2}
+        >
+          {PairingCard}
+        </List>
+      </Stack>
     </Accordion>
   );
 };
+
+export function getCustomTheme(
+  customTheme: Theme,
+  customBaseTokens: typeof baseTokens,
+  baseThemeType: ColorMode,
+) {
+  const baseRawTokens =
+    baseThemeType === 'light' ? rawTokensLight : rawTokensDark;
+  const rawTokens: typeof rawTokensLight = JSON.parse(
+    JSON.stringify(baseRawTokens),
+  );
+  rawTokens.forEach((token) => {
+    // set metadata based on custom theme value (base token or raw hex)
+    const index = customTheme.findIndex((t) => t?.name === token?.cleanName);
+    if (index !== -1) {
+      // If a base token has been chosen, update metadata
+      if (Object.keys(baseTokens).includes(customTheme[index].value)) {
+        token.original.value = customTheme[index].value;
+        token.value = baseTokens[customTheme[index].value as string];
+      } else {
+        token.value = customTheme[index].value;
+      }
+    }
+    // Update value if the chosen base token has been customized
+    if (token.attributes.group === 'paint') {
+      const baseTokenValue = customBaseTokens[token?.original?.value as string];
+      if (baseTokenValue) {
+        token.value = baseTokenValue;
+      }
+    }
+  });
+  return rawTokens;
+}
 
 /**
  * A contrast checker, and results display.
@@ -134,51 +208,35 @@ const Results = ({
   const [includeTransparencies, setIncludeTransparencies] =
     useState<boolean>(false);
   const [includeInteractions, setIncludeInteractions] = useState<boolean>(true);
+  const [useAAA, setUseAAA] = useState<boolean>(false);
 
-  const baseRawTokens =
-    baseThemeType === 'light' ? rawTokensLight : rawTokensDark;
-  const resultsBaseTheme =
-    baseThemeType === 'light' ? lightResults : darkResults;
+  const resultsBaseMap = {
+    light: { AAA: lightResultsAAA, AA: lightResults },
+    dark: { AAA: darkResultsAAA, AA: darkResults },
+  };
+  let resultsBaseTheme = resultsBaseMap[baseThemeType][useAAA ? 'AAA' : 'AA'];
 
   // Generate custom theme from input
-  const rawTokensCustom = useMemo(() => {
-    const rawTokens: typeof rawTokensLight = JSON.parse(
-      JSON.stringify(baseRawTokens),
-    );
-    rawTokens.forEach((token) => {
-      // set metadata based on custom theme value (base token or raw hex)
-      const index = customTheme.findIndex((t) => t?.name === token?.cleanName);
-      if (index !== -1) {
-        // If a base token has been chosen, update metadata
-        if (Object.keys(baseTokens).includes(customTheme[index].value)) {
-          token.original.value = customTheme[index].value;
-          token.value = baseTokens[customTheme[index].value as string];
-        } else {
-          token.value = customTheme[index].value;
-        }
-      }
-      // Update value if the chosen base token has been customized
-      if (token.attributes.group === 'paint') {
-        const baseTokenValue =
-          customBaseTokens[token?.original?.value as string];
-        if (baseTokenValue) {
-          token.value = baseTokenValue;
-        }
-      }
-    });
-    return rawTokens;
-  }, [customTheme, customBaseTokens, baseRawTokens]);
+  const rawTokensCustom = useMemo(
+    () => getCustomTheme(customTheme, customBaseTokens, baseThemeType),
+    [customTheme, customBaseTokens, baseThemeType],
+  );
 
   // Generate results (should be debounced)
   const resultsCustom = useMemo(() => {
     var results: typeof lightResults | undefined;
     try {
-      results = checkThemePairContrasts(rawTokensCustom, 'custom');
+      results = checkThemePairContrasts(
+        rawTokensCustom,
+        'custom',
+        false,
+        useAAA,
+      );
     } catch (e) {
       console.error(e);
     }
     return results;
-  }, [rawTokensCustom]);
+  }, [rawTokensCustom, useAAA]);
 
   // Generate list of new violations in custom theme
   const betterContrast: string[] = [];
@@ -262,7 +320,12 @@ const Results = ({
           onClick={() => {
             const fullCustomResults =
               customTheme.length > 0
-                ? checkThemePairContrasts(rawTokensCustom, 'custom', true)
+                ? checkThemePairContrasts(
+                    rawTokensCustom,
+                    'custom',
+                    true,
+                    useAAA,
+                  )
                 : undefined;
             downloadResultsAsCSV(fullCustomResults?.fullResults);
           }}
@@ -292,6 +355,13 @@ const Results = ({
           label="Include transparent tokens"
           isChecked={includeTransparencies}
           onChange={(e) => setIncludeTransparencies(e.target.checked)}
+          name="include_transparencies"
+        />
+        <Checkbox
+          value="AAA"
+          label="Use AAA contrast thresholds"
+          isChecked={useAAA}
+          onChange={(e) => setUseAAA(e.target.checked)}
           name="include_transparencies"
         />
       </Inline>

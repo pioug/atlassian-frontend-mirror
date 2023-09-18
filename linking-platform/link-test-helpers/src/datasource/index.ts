@@ -695,10 +695,11 @@ export const defaultInitialVisibleColumnKeys: string[] = [
 
 const defaultDetailsResponse: DatasourceDetailsResponse = {
   meta: {
-    key: 'jira-object-provider',
     access: 'granted',
     auth: [],
     definitionId: 'object-resolver-service',
+    destinationObjectTypes: ['issue'],
+    key: 'jira-object-provider',
     product: 'jira',
     visibility: 'restricted',
   },
@@ -787,10 +788,11 @@ const generateDataResponse = ({
 
   return {
     meta: {
-      key: 'jira-object-provider',
       access: isUnauthorized ? 'unauthorized' : 'granted',
       auth: [],
       definitionId: 'object-resolver-service',
+      destinationObjectTypes: ['issue'],
+      key: 'jira-object-provider',
       product: 'jira',
       visibility: 'restricted',
     },

@@ -30,7 +30,7 @@ const tableContainerStyles = css({
 });
 
 export default () => {
-  forceBaseUrl('https://jdog.jira-dev.com');
+  forceBaseUrl('https://pug.jira-dev.com');
   const [generatedAdf, setGeneratedAdf] = useState<
     InlineCardAdf | JiraIssuesDatasourceAdf | null
   >(null);

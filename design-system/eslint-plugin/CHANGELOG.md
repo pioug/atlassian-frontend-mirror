@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 8.7.1
+
+### Patch Changes
+
+- [`d6845989896`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6845989896) - Configuration added to consistent-css-prop-usage where it is now possible to specify what function names the rule should lint against, and what position is recommended for styles (top or bottom).
+
 ## 8.7.0
 
 ### Minor Changes

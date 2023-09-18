@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react';
 
+import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import type { DatasourceModalType } from '@atlaskit/editor-common/types';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
@@ -16,7 +17,7 @@ import type { DatasourceAdf, InlineCardAdf } from '@atlaskit/smart-card';
 import { hideDatasourceModal } from '../../pm-plugins/actions';
 import {
   insertDatasource,
-  updateExistingDatasource,
+  updateCardFromDatasourceModal,
 } from '../../pm-plugins/doc';
 
 type DatasourceModalProps = {
@@ -36,11 +37,29 @@ export const DatasourceModal = ({ view, modalType }: DatasourceModalProps) => {
   }, [dispatch, state.tr]);
 
   const onInsert = useCallback(
-    (newAdf: DatasourceAdf | InlineCardAdf) => {
+    (
+      newAdf: DatasourceAdf | InlineCardAdf,
+      analyticEvent?: UIAnalyticsEvent,
+    ) => {
+      if (analyticEvent) {
+        analyticEvent.update(payload => ({
+          ...payload,
+          attributes: {
+            ...payload.attributes,
+            inputMethod: 'datasource_config',
+          },
+        }));
+      }
       if (existingNode) {
-        updateExistingDatasource(state, existingNode, newAdf, view);
+        updateCardFromDatasourceModal(
+          state,
+          existingNode,
+          newAdf,
+          view,
+          analyticEvent,
+        );
       } else {
-        insertDatasource(state, newAdf, view);
+        insertDatasource(state, newAdf, view, analyticEvent);
       }
     },
     [existingNode, state, view],

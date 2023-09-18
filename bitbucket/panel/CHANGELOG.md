@@ -1,5 +1,11 @@
 # @atlaskit/panel
 
+## 0.9.5
+
+### Patch Changes
+
+- [`42f281b48b8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/42f281b48b8) - Update hover state style to support dark theme.
+
 ## 0.9.4
 
 ### Patch Changes

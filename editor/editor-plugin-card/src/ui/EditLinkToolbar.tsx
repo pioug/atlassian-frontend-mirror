@@ -15,10 +15,7 @@ import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { HyperlinkAddToolbarProps } from '@atlaskit/editor-common/link';
 import { HyperlinkAddToolbar as HyperlinkToolbar } from '@atlaskit/editor-common/link';
 import { linkToolbarMessages } from '@atlaskit/editor-common/messages';
-import type {
-  DatasourceAdf,
-  ProviderFactory,
-} from '@atlaskit/editor-common/provider-factory';
+import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type {
   Command,
   ExtractInjectionAPI,
@@ -33,18 +30,13 @@ import {
   RECENT_SEARCH_HEIGHT_IN_PX,
   RECENT_SEARCH_WIDTH_IN_PX,
 } from '@atlaskit/editor-common/ui';
-import { getDatasourceType } from '@atlaskit/editor-common/utils';
 import type { ForceFocusSelector } from '@atlaskit/editor-plugin-floating-toolbar';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { cardPlugin } from '../plugin';
-import {
-  hideLinkToolbar,
-  showDatasourceModal,
-  showLinkToolbar,
-} from '../pm-plugins/actions';
+import { hideLinkToolbar, showLinkToolbar } from '../pm-plugins/actions';
 import { changeSelectedCardToLink, updateCard } from '../pm-plugins/doc';
 import { displayInfoForCard, findCardInfo } from '../utils';
 
@@ -297,26 +289,3 @@ export const editLinkToolbarConfig = (
       }
     : {};
 };
-
-export const editDatasource =
-  (node: Node, editorAnalyticsApi: EditorAnalyticsAPI | undefined): Command =>
-  (state, dispatch) => {
-    const modalType = getDatasourceType(
-      (node.attrs as DatasourceAdf['attrs'])?.datasource.id,
-    );
-    if (dispatch && modalType) {
-      const { tr } = state;
-      showDatasourceModal(modalType)(tr);
-      // editorAnalyticsApi?.attachAnalyticsEvent(
-      //   buildEditLinkPayload(
-      //     type as
-      //       | ACTION_SUBJECT_ID.CARD_INLINE
-      //       | ACTION_SUBJECT_ID.CARD_BLOCK
-      //       | ACTION_SUBJECT_ID.EMBEDS,
-      //   ),
-      // )(tr);
-      dispatch(tr);
-      return true;
-    }
-    return false;
-  };

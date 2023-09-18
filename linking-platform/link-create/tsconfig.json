@@ -11,6 +11,8 @@
     "src/**/*.tsx"
   ],
   "compilerOptions": {
-    "baseUrl": ""
+    "baseUrl": "",
+    "strictNullChecks": true,
+    "noUncheckedIndexedAccess": true
   }
 }

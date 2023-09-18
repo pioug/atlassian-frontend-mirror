@@ -3,6 +3,7 @@ import React from 'react';
 import { render, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
+import { AnalyticsListener } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button/standard-button';
 
 import { LinkCreatePlugin, LinkCreateWithModalProps } from '../common/types';
@@ -51,6 +52,7 @@ describe('<LinkCreate />', () => {
   let onCreateMock: jest.Mock;
   let onFailureMock: jest.Mock;
   let onCloseMock: jest.Mock;
+  let onAnalyticsEventMock: jest.Mock;
 
   const testId = 'link-create';
 
@@ -58,6 +60,7 @@ describe('<LinkCreate />', () => {
     onCreateMock = jest.fn();
     onFailureMock = jest.fn();
     onCloseMock = jest.fn();
+    onAnalyticsEventMock = jest.fn();
   });
 
   afterAll(() => {
@@ -83,16 +86,18 @@ describe('<LinkCreate />', () => {
   const setUpLinkCreate = (props?: Partial<LinkCreateWithModalProps>) => {
     return render(
       <IntlProvider locale="en">
-        <LinkCreate
-          testId={testId}
-          plugins={[plugin]}
-          entityKey={'entity-key'}
-          active={true}
-          {...props}
-          onCreate={onCreateMock}
-          onFailure={onFailureMock}
-          onCancel={onCloseMock}
-        />
+        <AnalyticsListener channel={'media'} onEvent={onAnalyticsEventMock}>
+          <LinkCreate
+            testId={testId}
+            plugins={[plugin]}
+            entityKey={'entity-key'}
+            active={true}
+            {...props}
+            onCreate={onCreateMock}
+            onFailure={onFailureMock}
+            onCancel={onCloseMock}
+          />
+        </AnalyticsListener>
       </IntlProvider>,
     );
   };
@@ -100,6 +105,24 @@ describe('<LinkCreate />', () => {
   it("should find LinkCreate by its testid when it's active", async () => {
     const { getByTestId } = setUpLinkCreate();
     expect(getByTestId(testId)).toBeTruthy();
+  });
+
+  it('should fire screen viewed analytics event when it opens', async () => {
+    const { getByTestId } = setUpLinkCreate();
+
+    expect(getByTestId(testId)).toBeTruthy();
+
+    expect(onAnalyticsEventMock).toBeCalled();
+    const mockCall = onAnalyticsEventMock.mock.calls[0];
+    expect(mockCall[0]).toMatchObject({
+      payload: {
+        eventType: 'screen',
+        name: 'linkCreateScreen',
+        action: 'viewed',
+        // Attributes from AnalyticsContext will not yet show up here
+        attributes: expect.any(Object),
+      },
+    });
   });
 
   it("should NOT find LinkCreate by its testid when it's NOT active", async () => {

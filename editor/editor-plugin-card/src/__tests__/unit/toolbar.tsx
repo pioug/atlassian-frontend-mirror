@@ -15,7 +15,10 @@ import type {
   DocBuilder,
   FloatingToolbarButton,
   FloatingToolbarConfig,
+  FloatingToolbarCustom,
+  FloatingToolbarItem,
 } from '@atlaskit/editor-common/types';
+import { SmallerEditIcon } from '@atlaskit/editor-common/ui';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
@@ -54,9 +57,14 @@ import {
   mockPreview,
 } from '../../ui/__tests__/_utils/mock-card-context';
 // eslint-disable-next-line @atlassian/tangerine/import/no-relative-package-imports
-import { SmallerEditIcon } from '../../ui/SmallerEditIcon';
-// eslint-disable-next-line @atlassian/tangerine/import/no-relative-package-imports
 import * as CardUtils from '../../utils';
+
+jest.mock('../../ui/EditDatasourceButton', () => ({
+  ...jest.requireActual('../../ui/EditDatasourceButton'),
+  EditDatasourceButton: () => (
+    <div data-testid={'card-edit-datasource-button'}> Datasource Button </div>
+  ),
+}));
 
 const attachAnalyticsEvent = jest.fn().mockImplementation(() => () => {});
 
@@ -144,6 +152,31 @@ const getToolbarButtonByTitle = (
   return getToolbarItems(toolbar!, editorView).find(
     item => item.type === 'button' && item.title === title,
   ) as FloatingToolbarButton<Command>;
+};
+
+const checkEditDatasourceButtonDoesNotExist = (
+  toolbarItems: FloatingToolbarItem<Command>[],
+) => {
+  const customItemsArray: any = toolbarItems.filter(
+    item => item.type === 'custom',
+  );
+  // It will find custom items since this will be the LinkToolbarAppearance items.
+  // However, we check that it's not the datasource edit button via test id.
+  if (!customItemsArray) {
+    return expect(customItemsArray).toBeTruthy();
+  }
+
+  customItemsArray.map((item: FloatingToolbarCustom<Command>) => {
+    const { queryByTestId } = render(
+      <MockCardContextAdapter card={cardContext}>
+        {item.render()}
+      </MockCardContextAdapter>,
+    );
+
+    expect(
+      queryByTestId('card-edit-datasource-button'),
+    ).not.toBeInTheDocument();
+  });
 };
 
 describe('card', () => {
@@ -1440,6 +1473,275 @@ describe('card', () => {
             expect(editButton).toBeDefined();
           },
         );
+      });
+
+      describe('inline card toolbar: datasource edit button', () => {
+        it('has datasource edit button as first item in toolbar when the link can be viewed as a datasource', () => {
+          const { editorView } = editor(
+            doc(
+              p(
+                '{<node>}',
+                inlineCard({
+                  url: 'http://www.somelink.com/?jql=EDM',
+                })(),
+              ),
+            ),
+          );
+          const toolbar = floatingToolbar(
+            { allowDatasource: true },
+            featureFlagsMock,
+          )(editorView.state, intl, providerFactory);
+
+          if (!toolbar) {
+            return expect(toolbar).toBeTruthy();
+          }
+
+          const toolbarItems = getToolbarItems(toolbar!, editorView);
+          const customItemsArray: any = toolbarItems.filter(
+            item => item.type === 'custom',
+          );
+
+          if (!customItemsArray) {
+            return expect(customItemsArray).toBeTruthy();
+          }
+
+          const { getByTestId } = render(
+            <MockCardContextAdapter card={cardContext}>
+              {customItemsArray[0].render()}
+            </MockCardContextAdapter>,
+          );
+
+          expect(
+            getByTestId('card-edit-datasource-button'),
+          ).toBeInTheDocument();
+        });
+
+        it('does not have datasource edit button when the link cannot be viewed as a datasource', () => {
+          const { editorView } = editor(
+            doc(
+              p(
+                '{<node>}',
+                inlineCard({
+                  url: 'http://www.somelink.com/?jql=EDM',
+                })(),
+              ),
+            ),
+          );
+          const toolbar = floatingToolbar(
+            { allowDatasource: false },
+            featureFlagsMock,
+          )(editorView.state, intl, providerFactory);
+
+          if (!toolbar) {
+            return expect(toolbar).toBeTruthy();
+          }
+
+          const toolbarItems = getToolbarItems(toolbar!, editorView);
+
+          checkEditDatasourceButtonDoesNotExist(toolbarItems);
+        });
+
+        it('does not have datasource edit button when the platform is mobile', () => {
+          const { editorView } = editor(
+            doc(
+              p(
+                '{<node>}',
+                inlineCard({
+                  url: 'http://www.somelink.com/?jql=EDM',
+                })(),
+              ),
+            ),
+          );
+          const toolbar = floatingToolbar(
+            { allowDatasource: true },
+            featureFlagsMock,
+            'mobile',
+          )(editorView.state, intl, providerFactory);
+
+          if (!toolbar) {
+            return expect(toolbar).toBeTruthy();
+          }
+
+          const toolbarItems = getToolbarItems(toolbar!, editorView);
+          checkEditDatasourceButtonDoesNotExist(toolbarItems);
+        });
+      });
+
+      describe('block card toolbar: datasource edit button', () => {
+        it('has datasource edit button as first item in toolbar when the link can be viewed as a datasource', () => {
+          const { editorView } = editor(
+            doc(
+              '{<node>}',
+              blockCard({
+                url: 'http://www.somelink.com/?jql=EDM',
+              })(),
+            ),
+          );
+
+          const toolbar = floatingToolbar(
+            { allowDatasource: true },
+            featureFlagsMock,
+          )(editorView.state, intl, providerFactory);
+
+          if (!toolbar) {
+            return expect(toolbar).toBeTruthy();
+          }
+
+          const toolbarItems = getToolbarItems(toolbar!, editorView);
+          const customItemsArray: any = toolbarItems.filter(
+            item => item.type === 'custom',
+          );
+
+          if (!customItemsArray) {
+            return expect(customItemsArray).toBeTruthy();
+          }
+
+          const { getByTestId } = render(
+            <MockCardContextAdapter card={cardContext}>
+              {customItemsArray[0].render()}
+            </MockCardContextAdapter>,
+          );
+
+          expect(
+            getByTestId('card-edit-datasource-button'),
+          ).toBeInTheDocument();
+        });
+
+        it('does not have datasource edit button when the link cannot be viewed as a datasource', () => {
+          const { editorView } = editor(
+            doc(
+              '{<node>}',
+              blockCard({
+                url: 'http://www.somelink.com/?jql=EDM',
+              })(),
+            ),
+          );
+          const toolbar = floatingToolbar(
+            { allowDatasource: false },
+            featureFlagsMock,
+          )(editorView.state, intl, providerFactory);
+
+          if (!toolbar) {
+            return expect(toolbar).toBeTruthy();
+          }
+
+          const toolbarItems = getToolbarItems(toolbar!, editorView);
+
+          checkEditDatasourceButtonDoesNotExist(toolbarItems);
+        });
+
+        it('does not have datasource edit button when the platform is mobile', () => {
+          const { editorView } = editor(
+            doc(
+              '{<node>}',
+              blockCard({
+                url: 'http://www.somelink.com/?jql=EDM',
+              })(),
+            ),
+          );
+          const toolbar = floatingToolbar(
+            { allowDatasource: true },
+            featureFlagsMock,
+            'mobile',
+          )(editorView.state, intl, providerFactory);
+
+          if (!toolbar) {
+            return expect(toolbar).toBeTruthy();
+          }
+
+          const toolbarItems = getToolbarItems(toolbar!, editorView);
+
+          checkEditDatasourceButtonDoesNotExist(toolbarItems);
+        });
+      });
+
+      describe('embed card toolbar: datasource edit button', () => {
+        it('has datasource edit button as first item in toolbar when the link can be viewed as a datasource', () => {
+          const { editorView } = editor(
+            doc(
+              '{<node>}',
+              embedCard({
+                url: 'http://www.somelink.com/?jql=EDM',
+                layout: 'center',
+              })(),
+            ),
+          );
+
+          const toolbar = floatingToolbar(
+            { allowDatasource: true },
+            featureFlagsMock,
+          )(editorView.state, intl, providerFactory);
+
+          if (!toolbar) {
+            return expect(toolbar).toBeTruthy();
+          }
+
+          const toolbarItems = getToolbarItems(toolbar!, editorView);
+          const customItem: any = toolbarItems.find(
+            item => item.type === 'custom',
+          );
+
+          const { getByTestId } =
+            customItem &&
+            render(
+              <MockCardContextAdapter card={cardContext}>
+                {customItem.render()}
+              </MockCardContextAdapter>,
+            );
+
+          expect(
+            getByTestId('card-edit-datasource-button'),
+          ).toBeInTheDocument();
+        });
+
+        it('does not have datasource edit button when the link cannot be viewed as a datasource', () => {
+          const { editorView } = editor(
+            doc(
+              '{<node>}',
+              embedCard({
+                url: 'http://www.somelink.com/?jql=EDM',
+                layout: 'center',
+              })(),
+            ),
+          );
+
+          const toolbar = floatingToolbar(
+            { allowDatasource: false },
+            featureFlagsMock,
+          )(editorView.state, intl, providerFactory);
+
+          if (!toolbar) {
+            return expect(toolbar).toBeTruthy();
+          }
+
+          const toolbarItems = getToolbarItems(toolbar!, editorView);
+          checkEditDatasourceButtonDoesNotExist(toolbarItems);
+        });
+
+        it('does not have datasource edit button when the platform is mobile', () => {
+          const { editorView } = editor(
+            doc(
+              '{<node>}',
+              embedCard({
+                url: 'http://www.somelink.com/?jql=EDM',
+                layout: 'center',
+              })(),
+            ),
+          );
+
+          const toolbar = floatingToolbar(
+            { allowDatasource: true },
+            featureFlagsMock,
+            'mobile',
+          )(editorView.state, intl, providerFactory);
+
+          if (!toolbar) {
+            return expect(toolbar).toBeTruthy();
+          }
+
+          const toolbarItems = getToolbarItems(toolbar!, editorView);
+          checkEditDatasourceButtonDoesNotExist(toolbarItems);
+        });
       });
     });
   });

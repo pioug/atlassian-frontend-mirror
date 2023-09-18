@@ -5,6 +5,7 @@ import core, {
   Identifier,
   ImportDeclaration,
   ImportSpecifier,
+  JSXAttribute,
   Options,
   Program,
 } from 'jscodeshift';
@@ -58,7 +59,7 @@ export function getJSXAttributesByName(
   j: core.JSCodeshift,
   element: ASTPath<any>,
   attributeName: string,
-) {
+): Collection<JSXAttribute> {
   return j(element)
     .find(j.JSXOpeningElement)
     .find(j.JSXAttribute)

@@ -1,4 +1,9 @@
-import core, { ASTPath, ImportDeclaration, Program } from 'jscodeshift';
+import core, {
+  ASTPath,
+  ImportDeclaration,
+  JSXAttribute,
+  Program,
+} from 'jscodeshift';
 import { Collection } from 'jscodeshift/src/Collection';
 
 function addCommentBefore({
@@ -50,7 +55,7 @@ function getJSXAttributesByName(
   j: core.JSCodeshift,
   element: ASTPath<any>,
   attributeName: string,
-) {
+): Collection<JSXAttribute> {
   return j(element)
     .find(j.JSXOpeningElement)
     .find(j.JSXAttribute)

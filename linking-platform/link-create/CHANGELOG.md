@@ -1,5 +1,11 @@
 # @atlaskit/link-create
 
+## 1.1.0
+
+### Minor Changes
+
+- [`d3b95d820f7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3b95d820f7) - EDM-7280 Add analytics for Jira link create
+
 ## 1.0.3
 
 ### Patch Changes

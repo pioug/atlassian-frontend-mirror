@@ -72,11 +72,7 @@ export {
   FLOATING_TOOLBAR_LINKPICKER_CLASSNAME,
   DATASOURCE_INNER_CONTAINER_CLASSNAME,
 } from './shared/smartCard';
-export {
-  embedCardStyles,
-  embedSpacingStyles,
-  editIconStyles,
-} from './shared/embedCard';
+export { embedCardStyles, embedSpacingStyles } from './shared/embedCard';
 export {
   buttonGroupStyle,
   separatorStyles,

@@ -1,3 +1,4 @@
+import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { DatasourceAdf, InlineCardAdf } from '@atlaskit/linking-common/types';
 
 type XOR<T1, T2> =
@@ -42,5 +43,8 @@ export interface JiraIssuesConfigModalProps {
   visibleColumnKeys?: string[];
   parameters?: JiraIssueDatasourceParameters;
   onCancel: () => void;
-  onInsert: (adf: InlineCardAdf | JiraIssuesDatasourceAdf) => void;
+  onInsert: (
+    adf: InlineCardAdf | JiraIssuesDatasourceAdf,
+    analyticsEvent?: UIAnalyticsEvent,
+  ) => void;
 }

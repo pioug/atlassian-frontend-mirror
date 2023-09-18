@@ -16,7 +16,7 @@ import { floatingToolbar } from '@atlaskit/editor-plugin-card/src/toolbar';
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import {
   insertDatasource,
-  updateExistingDatasource,
+  updateCardFromDatasourceModal,
 } from '@atlaskit/editor-plugin-card/src/pm-plugins/doc';
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { createCardRequest } from '@atlaskit/editor-plugin-card/src/__tests__/unit/_helpers';
@@ -2381,9 +2381,11 @@ describe('Analytics key events', () => {
         editorView,
         new UIAnalyticsEvent({
           payload: {
-            searchMethod: 'datasource_basic_filter',
-            inputMethod: 'datasource_config',
-            actions: ['columns added'],
+            attributes: {
+              actions: ['columns added'],
+              inputMethod: 'datasource_config',
+              searchMethod: 'datasource_basic_filter',
+            },
           },
         }),
       );
@@ -2477,7 +2479,7 @@ describe('Analytics key events', () => {
         doc: doc('{<node>}', datasourceRefsNode),
       });
 
-      updateExistingDatasource(
+      updateCardFromDatasourceModal(
         editorView.state,
         datasourceNode,
         {
@@ -2490,9 +2492,11 @@ describe('Analytics key events', () => {
         editorView,
         new UIAnalyticsEvent({
           payload: {
-            inputMethod: 'datasource_config',
-            searchMethod: 'datasource_basic_filter',
-            actions: ['columns added'],
+            attributes: {
+              actions: ['columns added'],
+              inputMethod: 'datasource_config',
+              searchMethod: 'datasource_basic_filter',
+            },
           },
         }),
       );
@@ -2538,7 +2542,7 @@ describe('Analytics key events', () => {
         doc: doc('{<node>}', datasourceRefsNode),
       });
 
-      updateExistingDatasource(
+      updateCardFromDatasourceModal(
         editorView.state,
         datasourceNode,
         {

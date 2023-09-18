@@ -8,20 +8,26 @@ import {
   ObjectExpression,
   SpreadElement,
 } from 'eslint-codemod-utils';
+import assign from 'lodash/assign';
 
 import { createLintRule } from '../utils/create-rule';
+
+import { RuleConfig } from './types';
 
 const declarationSuffix = 'Styles';
 
 type IdentifierWithParent = Scope.Reference['identifier'] &
   Rule.NodeParentExtension;
 
-function isCssCallExpression(node: EslintNode): node is CallExpression {
+function isCssCallExpression(
+  node: EslintNode,
+  cssFunctions: string[],
+): node is CallExpression {
   return !!(
     isNodeOfType(node, 'CallExpression') &&
     node.callee &&
     node.callee.type === 'Identifier' &&
-    (node.callee.name === 'css' || node.callee.name === 'xcss') &&
+    cssFunctions.includes(node.callee.name) &&
     node.arguments.length &&
     node.arguments[0].type === 'ObjectExpression'
   );
@@ -40,6 +46,7 @@ function findSpreadProperties(node: ObjectExpression): SpreadElement[] {
 function analyzeIdentifier(
   context: Rule.RuleContext,
   sourceIdentifier: Scope.Reference['identifier'],
+  configuration: Required<RuleConfig>,
 ) {
   const scope = context.getScope();
   const [identifier] =
@@ -63,7 +70,10 @@ function analyzeIdentifier(
     // When variable is declared inside the component
     context.report({
       node: sourceIdentifier,
-      messageId: 'cssOnTopOfModule',
+      messageId:
+        configuration.stylesPlacement === 'bottom'
+          ? 'cssAtBottomOfModule'
+          : 'cssOnTopOfModule',
     });
     return;
   }
@@ -71,7 +81,7 @@ function analyzeIdentifier(
   if (
     identifier.parent &&
     identifier.parent.init &&
-    !isCssCallExpression(identifier.parent.init)
+    !isCssCallExpression(identifier.parent.init, configuration.cssFunctions)
   ) {
     // When variable value is not of type css({})
     context.report({
@@ -97,80 +107,98 @@ function analyzeIdentifier(
   }
 }
 
-function traverseExpression(
+const traverseExpressionWithConfig = (
   context: Rule.RuleContext,
   expression: Expression | SpreadElement,
-) {
-  switch (expression.type) {
-    case 'Identifier':
-      // {styles}
-      // We've found an identifier - time to analyze it!
-      analyzeIdentifier(context, expression);
-      break;
+  configuration: Required<RuleConfig>,
+) => {
+  function traverseExpression(expression: Expression | SpreadElement) {
+    switch (expression.type) {
+      case 'Identifier':
+        // {styles}
+        // We've found an identifier - time to analyze it!
+        analyzeIdentifier(context, expression, configuration);
+        break;
 
-    case 'ArrayExpression':
-      // {[styles, moreStyles]}
-      // We've found an array expression - let's traverse again over each element individually.
-      expression.elements.forEach((element) =>
-        traverseExpression(context, element!),
-      );
-      break;
+      case 'ArrayExpression':
+        // {[styles, moreStyles]}
+        // We've found an array expression - let's traverse again over each element individually.
+        expression.elements.forEach((element) => traverseExpression(element!));
+        break;
 
-    case 'LogicalExpression':
-      // {isEnabled && styles}
-      // We've found a logical expression - we're only interested in the right expression so
-      // let's traverse that and see what it is!
-      traverseExpression(context, expression.right);
-      break;
+      case 'LogicalExpression':
+        // {isEnabled && styles}
+        // We've found a logical expression - we're only interested in the right expression so
+        // let's traverse that and see what it is!
+        traverseExpression(expression.right);
+        break;
 
-    case 'ConditionalExpression':
-      // {isEnabled ? styles : null}
-      // We've found a conditional expression - we're only interested in the consequent and
-      // alternate (styles : null)
-      traverseExpression(context, expression.consequent);
-      traverseExpression(context, expression.alternate);
-      break;
+      case 'ConditionalExpression':
+        // {isEnabled ? styles : null}
+        // We've found a conditional expression - we're only interested in the consequent and
+        // alternate (styles : null)
+        traverseExpression(expression.consequent);
+        traverseExpression(expression.alternate);
+        break;
 
-    case 'CallExpression':
-    case 'ObjectExpression':
-    case 'TaggedTemplateExpression':
-    case 'TemplateLiteral':
-      // We've found elements that shouldn't be here! Report an error.
-      context.report({
-        node: expression,
-        messageId: 'cssOnTopOfModule',
-      });
-      break;
+      case 'CallExpression':
+      case 'ObjectExpression':
+      case 'TaggedTemplateExpression':
+      case 'TemplateLiteral':
+        // We've found elements that shouldn't be here! Report an error.
+        context.report({
+          node: expression,
+          messageId:
+            configuration.stylesPlacement === 'bottom'
+              ? 'cssAtBottomOfModule'
+              : 'cssOnTopOfModule',
+        });
+        break;
 
-    default:
-      // Do nothing!
-      break;
+      default:
+        // Do nothing!
+        break;
+    }
   }
-}
+  traverseExpression(expression);
+};
+
+const defaultConfig: RuleConfig = {
+  cssFunctions: ['css', 'xcss'],
+  stylesPlacement: 'top',
+};
 
 const rule = createLintRule({
   meta: {
     name: 'consistent-css-prop-usage',
     docs: {
-      description: 'Ensures consistency with CSS and xcss prop usages',
+      description: 'Ensures consistency with `css` and `xcss` prop usages',
       url: 'https://developer.atlassian.com/cloud/framework/atlassian-frontend/development/styling',
       recommended: true,
       severity: 'error',
     },
     fixable: 'code',
     messages: {
-      cssOnTopOfModule: `Create styles at the top of the module scope using the css function.`,
+      cssOnTopOfModule: `Create styles at the top of the module scope using the respective css function.`,
+      cssAtBottomOfModule: `Create styles at the bottom of the module scope using the respective css function.`,
       cssObjectTypeOnly: `Create styles using objects passed to the css function.`,
       cssInModule: `Imported styles should not be used, instead define in the module, import a component, or use a design token.`,
-      cssArrayStylesOnly: `Compose styles with an array on the CSS prop instead of using object spread.`,
+      cssArrayStylesOnly: `Compose styles with an array on the css prop instead of using object spread.`,
       shouldEndInStyles: 'Declared styles should end in "styles".',
     },
   },
-  create(context) {
+  create(context: Rule.RuleContext) {
+    const mergedConfig: Required<RuleConfig> = assign(
+      {},
+      defaultConfig,
+      context.options[0],
+    );
+
+    const callSelector = mergedConfig.cssFunctions
+      .map((fn) => `CallExpression[callee.name=${fn}]`)
+      .join(',');
     return {
-      'CallExpression[callee.name=css], CallExpression[callee.name=xcss]': (
-        node: Rule.Node,
-      ) => {
+      [callSelector]: (node: Rule.Node) => {
         if (node.parent.type !== 'VariableDeclarator') {
           // We aren't interested in these that don't have a parent.
           return;
@@ -221,19 +249,22 @@ const rule = createLintRule({
 
         if (
           name.type === 'JSXIdentifier' &&
-          (name.name === 'css' || name.name === 'xcss')
+          mergedConfig.cssFunctions.includes(name.name)
         ) {
           // When not a jsx expression. For eg. css=""
           if (value?.type !== 'JSXExpressionContainer') {
             context.report({
               node: value,
-              messageId: 'cssOnTopOfModule',
+              messageId:
+                mergedConfig.stylesPlacement === 'bottom'
+                  ? 'cssAtBottomOfModule'
+                  : 'cssOnTopOfModule',
             });
 
             return;
           }
 
-          traverseExpression(context, value.expression);
+          traverseExpressionWithConfig(context, value.expression, mergedConfig);
         }
       },
     };

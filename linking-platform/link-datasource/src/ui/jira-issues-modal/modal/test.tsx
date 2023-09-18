@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { act, fireEvent, render, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
@@ -9,9 +9,11 @@ import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 import { mockSiteData } from '@atlaskit/link-test-helpers/datasource';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 import { InlineCardAdf } from '@atlaskit/linking-common/types';
+import { ConcurrentExperience } from '@atlaskit/ufo';
 
 import SmartLinkClient from '../../../../examples-helpers/smartLinkCustomClient';
 import { EVENT_CHANNEL } from '../../../analytics';
+import { succeedUfoExperience } from '../../../analytics/ufoExperiences';
 import { JiraSearchMethod } from '../../../common/types';
 import {
   DatasourceTableState,
@@ -42,9 +44,38 @@ jest.mock('../jira-search-container', () => ({
 
 jest.mock('../../../hooks/useDatasourceTableState');
 
+const MockIssueLikeTable = () => {
+  useEffect(() => {
+    succeedUfoExperience(
+      {
+        name: 'datasource-rendered',
+      },
+      '123',
+    );
+  }, []);
+  return null;
+};
 jest.mock('../../issue-like-table', () => ({
   ...jest.requireActual('../../issue-like-table'),
-  IssueLikeDataTableView: jest.fn(() => null),
+  IssueLikeDataTableView: jest.fn(() => <MockIssueLikeTable />),
+}));
+
+const mockUfoStart = jest.fn();
+const mockUfoSuccess = jest.fn();
+const mockUfoFailure = jest.fn();
+const mockUfoAddMetadata = jest.fn();
+
+jest.mock('@atlaskit/ufo', () => ({
+  __esModule: true,
+  ...jest.requireActual<Object>('@atlaskit/ufo'),
+  ConcurrentExperience: (): Partial<ConcurrentExperience> => ({
+    getInstance: jest.fn().mockImplementation(() => ({
+      start: mockUfoStart,
+      success: mockUfoSuccess,
+      failure: mockUfoFailure,
+      addMetadata: mockUfoAddMetadata,
+    })),
+  }),
 }));
 
 Object.defineProperty(window, 'location', {
@@ -156,6 +187,37 @@ const getErrorHookState: () => DatasourceTableState = () => ({
   extensionKey: 'jira-object-provider',
 });
 
+type AnalyticsPayloadOverride = {
+  attributes?: object;
+};
+
+const getInsertAnalyticPayload = <
+  T extends AnalyticsPayloadOverride | undefined,
+>(
+  override: T,
+) => {
+  return {
+    payload: {
+      action: 'clicked',
+      actionSubject: 'button',
+      actionSubjectId: 'insert',
+      eventType: 'ui',
+      ...override,
+      attributes: {
+        actions: [],
+        destinationObjectTypes: ['issue'],
+        display: 'datasource_table',
+        displayedColumnCount: 1,
+        extensionKey: 'jira-object-provider',
+        searchCount: 0,
+        searchMethod: null,
+        totalItemCount: 3,
+        ...override?.attributes,
+      },
+    },
+  };
+};
+
 const setup = async (
   args: {
     parameters?: JiraIssueDatasourceParameters;
@@ -226,39 +288,45 @@ const setup = async (
     );
   }
 
-  const assertInsertResult = (
+  const assertInsertResult = <T extends { attributes?: object } | undefined>(
     args: {
       cloudId?: string;
       jql?: string;
       columnKeys?: string[];
       jqlUrl?: string;
     } = {},
+    analyticsExpectedOverride: T,
   ) => {
     const button = component.getByRole('button', { name: 'Insert issues' });
     button.click();
-    expect(onInsert).toHaveBeenCalledWith({
-      type: 'blockCard',
-      attrs: {
-        url: args?.jqlUrl,
-        datasource: {
-          id: 'some-jira-jql-datasource-id',
-          parameters: {
-            cloudId: args.cloudId || '67899',
-            jql: args.jql || 'some-query',
-          },
-          views: [
-            {
-              type: 'table',
-              properties: {
-                columns: Object.keys(args).includes('columnKeys')
-                  ? args.columnKeys?.map(key => ({ key }))
-                  : [{ key: 'myColumn' }],
-              },
+    expect(onInsert).toHaveBeenCalledWith(
+      {
+        type: 'blockCard',
+        attrs: {
+          url: args?.jqlUrl,
+          datasource: {
+            id: 'some-jira-jql-datasource-id',
+            parameters: {
+              cloudId: args.cloudId || '67899',
+              jql: args.jql || 'some-query',
             },
-          ],
+            views: [
+              {
+                type: 'table',
+                properties: {
+                  columns: Object.keys(args).includes('columnKeys')
+                    ? args.columnKeys?.map(key => ({ key }))
+                    : [{ key: 'myColumn' }],
+                },
+              },
+            ],
+          },
         },
-      },
-    } as JiraIssuesDatasourceAdf);
+      } as JiraIssuesDatasourceAdf,
+      expect.objectContaining(
+        getInsertAnalyticPayload(analyticsExpectedOverride),
+      ),
+    );
   };
 
   const selectNewJiraInstanceSite = async () => {
@@ -380,10 +448,18 @@ describe('JiraIssuesConfigModal', () => {
 
       await selectNewJiraInstanceSite();
 
-      assertInsertResult({
-        cloudId: '12345',
-        jqlUrl: 'https://test1.atlassian.net/issues/?jql=some-query',
-      });
+      assertInsertResult(
+        {
+          cloudId: '12345',
+          jqlUrl: 'https://test1.atlassian.net/issues/?jql=some-query',
+        },
+        {
+          attributes: {
+            actions: ['instance updated'],
+            searchCount: 0,
+          },
+        },
+      );
     });
   });
 
@@ -433,10 +509,19 @@ describe('JiraIssuesConfigModal', () => {
           );
         });
 
-        assertInsertResult({
-          cloudId: '67899',
-          jqlUrl: 'https://hello.atlassian.net/issues/?jql=some-query',
-        });
+        assertInsertResult(
+          {
+            cloudId: '67899',
+            jqlUrl: 'https://hello.atlassian.net/issues/?jql=some-query',
+          },
+          {
+            attributes: {
+              actions: ['query updated'],
+              searchCount: 1,
+              searchMethod: 'datasource_basic_filter',
+            },
+          },
+        );
       });
 
       it('should default to first cloudId if no URL match is found', async () => {
@@ -460,10 +545,19 @@ describe('JiraIssuesConfigModal', () => {
           );
         });
 
-        assertInsertResult({
-          cloudId: '12345',
-          jqlUrl: 'https://test1.atlassian.net/issues/?jql=some-query',
-        });
+        assertInsertResult(
+          {
+            cloudId: '12345',
+            jqlUrl: 'https://test1.atlassian.net/issues/?jql=some-query',
+          },
+          {
+            attributes: {
+              actions: ['query updated'],
+              searchCount: 1,
+              searchMethod: 'datasource_basic_filter',
+            },
+          },
+        );
       });
     });
 
@@ -489,10 +583,18 @@ describe('JiraIssuesConfigModal', () => {
           );
         });
 
-        assertInsertResult({
-          cloudId: '12345',
-          jqlUrl: 'https://test1.atlassian.net/issues/?jql=some-query',
-        });
+        assertInsertResult(
+          {
+            cloudId: '12345',
+            jqlUrl: 'https://test1.atlassian.net/issues/?jql=some-query',
+          },
+          {
+            attributes: {
+              searchCount: 1,
+              searchMethod: 'datasource_basic_filter',
+            },
+          },
+        );
       });
     });
   });
@@ -528,10 +630,19 @@ describe('JiraIssuesConfigModal', () => {
 
       searchWithNewJql('different-query', 'basic');
 
-      assertInsertResult({
-        jql: 'different-query',
-        jqlUrl: 'https://hello.atlassian.net/issues/?jql=different-query',
-      });
+      assertInsertResult(
+        {
+          jql: 'different-query',
+          jqlUrl: 'https://hello.atlassian.net/issues/?jql=different-query',
+        },
+        {
+          attributes: {
+            actions: ['query updated'],
+            searchCount: 1,
+            searchMethod: 'datasource_basic_filter',
+          },
+        },
+      );
     });
 
     it('should reset hooks state', async () => {
@@ -764,12 +875,22 @@ describe('JiraIssuesConfigModal', () => {
         button.click();
       });
 
-      expect(onInsert).toHaveBeenCalledWith({
-        type: 'inlineCard',
-        attrs: {
-          url: 'https://product-fabric.atlassian.net/browse/EDM-5941',
+      expect(onInsert).toHaveBeenCalledWith(
+        {
+          type: 'inlineCard',
+          attrs: {
+            url: 'https://product-fabric.atlassian.net/browse/EDM-5941',
+          },
         },
-      });
+        expect.objectContaining(
+          getInsertAnalyticPayload({
+            attributes: {
+              display: 'inline',
+              totalItemCount: 1,
+            },
+          }),
+        ),
+      );
     });
 
     it('should call onInsert with datasource ADF when no valid url is available', async () => {
@@ -792,6 +913,14 @@ describe('JiraIssuesConfigModal', () => {
         expect.objectContaining({
           type: 'blockCard',
         }),
+        expect.objectContaining(
+          getInsertAnalyticPayload({
+            attributes: {
+              display: 'inline',
+              totalItemCount: 1,
+            },
+          }),
+        ),
       );
     });
 
@@ -809,6 +938,14 @@ describe('JiraIssuesConfigModal', () => {
         expect.objectContaining({
           type: 'blockCard',
         }),
+        expect.objectContaining(
+          getInsertAnalyticPayload({
+            attributes: {
+              display: 'inline',
+              totalItemCount: 1,
+            },
+          }),
+        ),
       );
     });
   });
@@ -845,6 +982,7 @@ describe('JiraIssuesConfigModal', () => {
           onNextPage: expect.any(Function),
           onLoadDatasourceDetails: hookState.loadDatasourceDetails,
           onVisibleColumnKeysChange: expect.any(Function),
+          parentContainerRenderInstanceId: expect.any(String),
         } as IssueLikeDataTableViewProps,
         expect.anything(),
       );
@@ -870,27 +1008,30 @@ describe('JiraIssuesConfigModal', () => {
       const { onInsert, getByRole } = await setup();
       const button = getByRole('button', { name: 'Insert issues' });
       button.click();
-      expect(onInsert).toHaveBeenCalledWith({
-        type: 'blockCard',
-        attrs: {
-          url: 'https://hello.atlassian.net/issues/?jql=some-query',
-          datasource: {
-            id: 'some-jira-jql-datasource-id',
-            parameters: {
-              cloudId: '67899',
-              jql: 'some-query',
-            },
-            views: [
-              {
-                type: 'table',
-                properties: {
-                  columns: [{ key: 'myColumn' }],
-                },
+      expect(onInsert).toHaveBeenCalledWith(
+        {
+          type: 'blockCard',
+          attrs: {
+            url: 'https://hello.atlassian.net/issues/?jql=some-query',
+            datasource: {
+              id: 'some-jira-jql-datasource-id',
+              parameters: {
+                cloudId: '67899',
+                jql: 'some-query',
               },
-            ],
+              views: [
+                {
+                  type: 'table',
+                  properties: {
+                    columns: [{ key: 'myColumn' }],
+                  },
+                },
+              ],
+            },
           },
-        },
-      } as JiraIssuesDatasourceAdf);
+        } as JiraIssuesDatasourceAdf,
+        expect.objectContaining(getInsertAnalyticPayload({})),
+      );
     });
 
     it('should call onInsert with inlineCard ADF upon Insert button press in count view mode', async () => {
@@ -903,12 +1044,22 @@ describe('JiraIssuesConfigModal', () => {
       });
       insertIssuesButton.click();
 
-      expect(onInsert).toHaveBeenCalledWith({
-        type: 'inlineCard',
-        attrs: {
-          url: 'https://hello.atlassian.net/issues/?jql=some-query',
-        },
-      } as InlineCardAdf);
+      expect(onInsert).toHaveBeenCalledWith(
+        {
+          type: 'inlineCard',
+          attrs: {
+            url: 'https://hello.atlassian.net/issues/?jql=some-query',
+          },
+        } as InlineCardAdf,
+        expect.objectContaining(
+          getInsertAnalyticPayload({
+            attributes: {
+              actions: ['display view changed'],
+              display: 'datasource_inline',
+            },
+          }),
+        ),
+      );
     });
 
     it('should not call onNextPage automatically', async () => {
@@ -926,10 +1077,13 @@ describe('JiraIssuesConfigModal', () => {
         visibleColumnKeys: ['myColumn'],
       });
 
-      assertInsertResult({
-        columnKeys: ['myColumn'],
-        jqlUrl: 'https://hello.atlassian.net/issues/?jql=some-query',
-      });
+      assertInsertResult(
+        {
+          columnKeys: ['myColumn'],
+          jqlUrl: 'https://hello.atlassian.net/issues/?jql=some-query',
+        },
+        {},
+      );
     });
   });
 
@@ -939,10 +1093,17 @@ describe('JiraIssuesConfigModal', () => {
 
       updateVisibleColumnList(['someColumn']);
 
-      assertInsertResult({
-        columnKeys: ['someColumn'],
-        jqlUrl: 'https://hello.atlassian.net/issues/?jql=some-query',
-      });
+      assertInsertResult(
+        {
+          columnKeys: ['someColumn'],
+          jqlUrl: 'https://hello.atlassian.net/issues/?jql=some-query',
+        },
+        {
+          attributes: {
+            actions: ['column reordered'],
+          },
+        },
+      );
     });
   });
 
@@ -958,10 +1119,17 @@ describe('JiraIssuesConfigModal', () => {
         expect.anything(),
       );
 
-      assertInsertResult({
-        columnKeys: ['myColumn', 'otherColumn'],
-        jqlUrl: 'https://hello.atlassian.net/issues/?jql=some-query',
-      });
+      assertInsertResult(
+        {
+          columnKeys: ['myColumn', 'otherColumn'],
+          jqlUrl: 'https://hello.atlassian.net/issues/?jql=some-query',
+        },
+        {
+          attributes: {
+            displayedColumnCount: 2,
+          },
+        },
+      );
     });
 
     describe("but hook state hasn't loaded default column keys yet", () => {
@@ -975,10 +1143,17 @@ describe('JiraIssuesConfigModal', () => {
 
         renderComponent();
 
-        assertInsertResult({
-          columnKeys: ['myColumn', 'otherColumn'],
-          jqlUrl: 'https://hello.atlassian.net/issues/?jql=some-query',
-        });
+        assertInsertResult(
+          {
+            columnKeys: ['myColumn', 'otherColumn'],
+            jqlUrl: 'https://hello.atlassian.net/issues/?jql=some-query',
+          },
+          {
+            attributes: {
+              displayedColumnCount: 2,
+            },
+          },
+        );
       });
     });
   });
@@ -1233,7 +1408,7 @@ describe('Analytics: JiraIssuesConfigModal', () => {
           await assertAnalyticsAfterButtonClick(
             buttonName,
             getExpectedPayload({
-              actions: new Set(['instance updated']),
+              actions: ['instance updated'],
             }),
           );
         });
@@ -1247,7 +1422,7 @@ describe('Analytics: JiraIssuesConfigModal', () => {
           await assertAnalyticsAfterButtonClick(
             buttonName,
             getExpectedPayload({
-              actions: new Set(['query updated']),
+              actions: ['query updated'],
               searchCount: 1,
             }),
           );
@@ -1262,7 +1437,7 @@ describe('Analytics: JiraIssuesConfigModal', () => {
           await assertAnalyticsAfterButtonClick(
             buttonName,
             getExpectedPayload({
-              actions: new Set(['display view changed']),
+              actions: ['display view changed'],
             }),
           );
         });
@@ -1281,7 +1456,7 @@ describe('Analytics: JiraIssuesConfigModal', () => {
           await assertAnalyticsAfterButtonClick(
             buttonName,
             getExpectedPayload({
-              actions: new Set(['next page scrolled']),
+              actions: ['next page scrolled'],
             }),
           );
         });
@@ -1300,7 +1475,7 @@ describe('Analytics: JiraIssuesConfigModal', () => {
           await assertAnalyticsAfterButtonClick(
             buttonName,
             getExpectedPayload({
-              actions: new Set(['column added']),
+              actions: ['column added'],
             }),
           );
         });
@@ -1314,7 +1489,7 @@ describe('Analytics: JiraIssuesConfigModal', () => {
           await assertAnalyticsAfterButtonClick(
             buttonName,
             getExpectedPayload({
-              actions: new Set(['column removed']),
+              actions: ['column removed'],
             }),
           );
         });
@@ -1329,7 +1504,7 @@ describe('Analytics: JiraIssuesConfigModal', () => {
           await assertAnalyticsAfterButtonClick(
             buttonName,
             getExpectedPayload({
-              actions: new Set(['column reordered']),
+              actions: ['column reordered'],
             }),
           );
         });
@@ -1347,7 +1522,7 @@ describe('Analytics: JiraIssuesConfigModal', () => {
           destinationObjectTypes: ['issue'],
           searchCount: 0,
           totalItemCount: 3,
-          actions: new Set(),
+          actions: [],
         };
       });
 
@@ -1394,7 +1569,7 @@ describe('Analytics: JiraIssuesConfigModal', () => {
 
         it('should fire "ui.button.clicked.insert" with display "datasource_inline" when the insert button is clicked and results are presented as a count issue', async () => {
           const expectedPayload = getEventPayload('insert', defaultAttributes, {
-            actions: new Set(['display view changed']),
+            actions: ['display view changed'],
             display: 'datasource_inline',
           });
 
@@ -1413,7 +1588,7 @@ describe('Analytics: JiraIssuesConfigModal', () => {
       describe('with search attributes', () => {
         it('should fire the event with searchMethod = null and searchCount = 0 if a user did not search', async () => {
           const expectedPayload = getEventPayload('insert', defaultAttributes, {
-            actions: new Set(),
+            actions: [],
             searchMethod: null,
             searchCount: 0,
           });
@@ -1428,7 +1603,7 @@ describe('Analytics: JiraIssuesConfigModal', () => {
 
         it('should fire the event with searchMethod = "datasource_basic_filter" when the user searched using basic search and set searchCount to 1', async () => {
           const expectedPayload = getEventPayload('insert', defaultAttributes, {
-            actions: new Set(['query updated']),
+            actions: ['query updated'],
             searchMethod: 'datasource_basic_filter',
             searchCount: 1,
           });
@@ -1445,7 +1620,7 @@ describe('Analytics: JiraIssuesConfigModal', () => {
 
         it('should fire the event with searchMethod = "datasource_search_query" when the user searched using jql search and set searchCount to 1', async () => {
           const expectedPayload = getEventPayload('insert', defaultAttributes, {
-            actions: new Set(['query updated']),
+            actions: ['query updated'],
             searchMethod: 'datasource_search_query',
             searchCount: 1,
           });
@@ -1462,7 +1637,7 @@ describe('Analytics: JiraIssuesConfigModal', () => {
 
         it('should fire the event with the last used searchMethod if user searched multiple times and update the searchCount accordingly', async () => {
           const expectedPayload = getEventPayload('insert', defaultAttributes, {
-            actions: new Set(['query updated']),
+            actions: ['query updated'],
             searchMethod: 'datasource_search_query',
             searchCount: 4,
           });
@@ -1485,7 +1660,7 @@ describe('Analytics: JiraIssuesConfigModal', () => {
       describe('with displayedColumnCount attribute', () => {
         it('should fire "ui.button.clicked.insert" with the latest displayedColumnCount', async () => {
           const expectedPayload = getEventPayload('insert', defaultAttributes, {
-            actions: new Set(['column added']),
+            actions: ['column added'],
             displayedColumnCount: 3,
           });
 
@@ -1513,7 +1688,7 @@ describe('Analytics: JiraIssuesConfigModal', () => {
         defaultAttributes = {
           extensionKey: 'jira-object-provider',
           destinationObjectTypes: ['issue'],
-          actions: new Set(),
+          actions: [],
           searchCount: 0,
         };
       });
@@ -1540,7 +1715,7 @@ describe('Analytics: JiraIssuesConfigModal', () => {
               'cancel',
               defaultAttributes,
               {
-                actions: new Set(['query updated']),
+                actions: ['query updated'],
                 searchCount: 3,
               },
             );
@@ -1764,5 +1939,89 @@ describe('Analytics: JiraIssuesConfigModal', () => {
       },
       EVENT_CHANNEL,
     );
+  });
+});
+
+describe('UFO metrics: JiraIssuesConfigModal', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('should start ufo experience when JiraIssuesConfigModal status is loading', async () => {
+    await setup({
+      hookState: { ...getDefaultHookState(), status: 'loading' },
+    });
+
+    expect(mockUfoStart).toHaveBeenCalledTimes(1);
+  });
+
+  it('should start ufo experience and set extensionKey metadata when JiraIssuesConfigModal status is loading', async () => {
+    await setup({
+      hookState: { ...getDefaultHookState(), status: 'loading' },
+    });
+
+    expect(mockUfoStart).toHaveBeenCalledTimes(1);
+
+    expect(mockUfoAddMetadata).toHaveBeenCalledTimes(1);
+    expect(mockUfoAddMetadata).toHaveBeenCalledWith({
+      extensionKey: 'jira-object-provider',
+    });
+  });
+
+  it('should mark as a successful experience when JiraIssuesConfigModal results are resolved', async () => {
+    await setup();
+
+    expect(mockUfoSuccess).toHaveBeenCalledTimes(1);
+
+    expect(mockUfoFailure).not.toHaveBeenCalled();
+  });
+
+  it('should mark as a successful when JiraIssuesConfigModal data request returns unauthorized response', async () => {
+    await setup({
+      hookState: { ...getErrorHookState(), status: 'unauthorized' },
+    });
+
+    expect(mockUfoSuccess).toHaveBeenCalledTimes(1);
+
+    expect(mockUfoFailure).not.toHaveBeenCalled();
+  });
+
+  it('should mark as a successful experience when JiraIssuesConfigModal results are empty', async () => {
+    await setup({
+      hookState: { ...getEmptyHookState(), status: 'resolved' },
+    });
+
+    expect(mockUfoSuccess).toHaveBeenCalledTimes(1);
+
+    expect(mockUfoFailure).not.toHaveBeenCalled();
+  });
+
+  it('should mark as a successful experience when JiraIssuesConfigModal result has only one item', async () => {
+    await setup({
+      hookState: {
+        ...getDefaultHookState(),
+        responseItems: [
+          {
+            key: {
+              data: {
+                url: 'www.atlassian.com',
+              },
+            },
+          },
+        ],
+      },
+    });
+
+    expect(mockUfoSuccess).toHaveBeenCalled();
+
+    expect(mockUfoFailure).not.toHaveBeenCalled();
+  });
+
+  it('should mark as a failed experience when JiraIssuesConfigModal request fails', async () => {
+    await setup({ hookState: { ...getErrorHookState() } });
+
+    expect(mockUfoFailure).toHaveBeenCalledTimes(1);
+
+    expect(mockUfoSuccess).not.toHaveBeenCalled();
   });
 });

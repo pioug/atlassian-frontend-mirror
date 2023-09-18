@@ -1,3 +1,5 @@
+import 'jest-extended';
+import { flushPromises } from '@atlaskit/link-test-helpers';
 import React, { useEffect } from 'react';
 import { IntlProvider } from 'react-intl-next';
 import {
@@ -8,18 +10,42 @@ import {
 } from '@testing-library/react';
 import { renderHook } from '@testing-library/react-hooks';
 import userEvent from '@testing-library/user-event';
+import uuid from 'uuid';
 import { messages } from '../../../messages';
 import { MAX_MODAL_SIZE } from '../constants';
-import { AnalyticsFacade } from '../../../state/analytics';
+import type { AnalyticsFacade } from '../../../state/analytics';
 import { mockAnalytics, mocks } from '../../../utils/mocks';
 import { useSmartLinkAnalytics } from '../../../state/analytics/useSmartLinkAnalytics';
 import EmbedModal from '../index';
+import * as utils from '../../../utils';
+import * as ufo from '../../../state/analytics/ufoExperiences';
 
+jest.mock('uuid', () => ({
+  ...jest.requireActual('uuid'),
+  __esModule: true,
+  default: jest.fn().mockReturnValue('some-uuid-1'),
+}));
 jest.mock('@atlaskit/link-provider', () => ({
   useSmartLinkContext: () => ({
     store: { getState: () => ({ 'test-url': mocks.analytics }) },
   }),
 }));
+
+const EXPERIENCE_TEST_ID = 'smart-link-action-invocation';
+
+// These values should have been set in analytics context
+const EXPECTED_COMMON_ATTRIBUTES = {
+  componentName: 'smart-cards',
+  definitionId: 'spaghetti-id',
+  destinationProduct: 'spaghetti-product',
+  destinationSubproduct: 'spaghetti-subproduct',
+  extensionKey: 'spaghetti-key',
+  location: 'test-location',
+  packageName: '@atlaskit/fabric',
+  packageVersion: '0.0.0',
+  resourceType: 'spaghetti-resource',
+  destinationObjectType: 'spaghetti-resource',
+};
 
 const ThrowError: React.FC = () => {
   useEffect(() => {
@@ -30,6 +56,7 @@ const ThrowError: React.FC = () => {
 
 describe('EmbedModal', () => {
   const testId = 'embed-modal';
+  let mockWindowOpen: jest.Mock;
 
   const renderEmbedModal = (
     props?: Partial<React.ComponentProps<typeof EmbedModal>>,
@@ -38,6 +65,7 @@ describe('EmbedModal', () => {
       <IntlProvider locale="en">
         <EmbedModal
           analytics={mockAnalytics}
+          extensionKey="object-provider"
           iframeName="iframe-name"
           onClose={() => {}}
           showModal={true}
@@ -64,6 +92,12 @@ describe('EmbedModal', () => {
 
   beforeEach(() => {
     user = userEvent.setup();
+    mockWindowOpen = jest.fn();
+    global.open = mockWindowOpen;
+  });
+
+  afterEach(() => {
+    jest.restoreAllMocks();
   });
 
   it('renders embed modal', async () => {
@@ -221,15 +255,16 @@ describe('EmbedModal', () => {
         expect(tooltip.textContent).toBe('View in Confluence');
       });
 
-      it('triggers view action callback when clicking url button', async () => {
-        const onViewActionClick = jest.fn();
+      it('trigger open url when clicking url button', async () => {
+        const openUrlSpy = jest.spyOn(utils, 'openUrl');
         const { findByTestId } = renderEmbedModal({
-          onViewActionClick,
           url: 'https://link-url',
         });
         const button = await findByTestId(`${testId}-url-button`);
         await user.click(button);
-        expect(onViewActionClick).toHaveBeenCalledTimes(1);
+        await flushPromises();
+
+        expect(openUrlSpy).toHaveBeenCalledTimes(1);
       });
 
       it('does not render url button when url is not provided', () => {
@@ -263,12 +298,11 @@ describe('EmbedModal', () => {
         expect(tooltip.textContent).toBe(messages.download.defaultMessage);
       });
 
-      it('triggers download action callback when clicking download button', async () => {
-        const onDownloadActionClick = jest.fn();
+      it('triggers download when clicking download button', async () => {
+        const downloadUrlSpy = jest.spyOn(utils, 'downloadUrl');
         const url = 'https://download-url';
         const { getByTestId, findByTestId } = renderEmbedModal({
           download: url,
-          onDownloadActionClick,
         });
         const button = await findByTestId(`${testId}-download-button`);
 
@@ -287,11 +321,10 @@ describe('EmbedModal', () => {
         const tooltip = await findByTestId(`${testId}-download-tooltip`);
         expect(tooltip.textContent).toBe(messages.download.defaultMessage);
 
-        expect(button.getAttribute('target')).toEqual('_blank');
-        expect(button.getAttribute('href')).toEqual(url);
-
         await user.click(button);
-        expect(onDownloadActionClick).toHaveBeenCalledTimes(1);
+        await flushPromises();
+
+        expect(downloadUrlSpy).toHaveBeenCalledTimes(1);
       });
 
       it('does not render download button when download url is not provided', () => {
@@ -326,6 +359,7 @@ describe('EmbedModal', () => {
 
     afterEach(() => {
       jest.clearAllMocks();
+      jest.restoreAllMocks();
     });
 
     it('dispatches analytics event on modal open', async () => {
@@ -345,18 +379,9 @@ describe('EmbedModal', () => {
         actionSubject: 'embedPreviewModal',
         name: 'embedPreviewModal',
         attributes: {
+          ...EXPECTED_COMMON_ATTRIBUTES,
           id,
-          componentName: 'smart-cards',
-          definitionId: 'spaghetti-id',
-          destinationProduct: 'spaghetti-product',
-          destinationSubproduct: 'spaghetti-subproduct',
-          extensionKey: 'spaghetti-key',
-          location,
           origin: 'smartLinkPreviewHoverCard',
-          packageName: expect.any(String),
-          packageVersion: expect.any(String),
-          resourceType: 'spaghetti-resource',
-          destinationObjectType: 'spaghetti-resource',
           size: 'large',
         },
         eventType: 'screen',
@@ -396,20 +421,11 @@ describe('EmbedModal', () => {
         action: 'renderFailed',
         actionSubject: 'smartLink',
         attributes: {
+          ...EXPECTED_COMMON_ATTRIBUTES,
           id,
-          componentName: 'smart-cards',
-          definitionId: 'spaghetti-id',
-          destinationProduct: 'spaghetti-product',
-          destinationSubproduct: 'spaghetti-subproduct',
           display: 'embedPreview',
           error: expect.any(Object),
           errorInfo: expect.any(Object),
-          extensionKey: 'spaghetti-key',
-          location,
-          packageName: expect.any(String),
-          packageVersion: expect.any(String),
-          resourceType: 'spaghetti-resource',
-          destinationObjectType: 'spaghetti-resource',
         },
         eventType: 'ui',
       });
@@ -435,19 +451,10 @@ describe('EmbedModal', () => {
         actionSubject: 'modal',
         actionSubjectId: 'embedPreview',
         attributes: {
+          ...EXPECTED_COMMON_ATTRIBUTES,
           id,
-          componentName: 'smart-cards',
-          definitionId: 'spaghetti-id',
-          destinationProduct: 'spaghetti-product',
-          destinationSubproduct: 'spaghetti-subproduct',
-          extensionKey: 'spaghetti-key',
-          location,
           origin: 'smartLinkCard',
-          packageName: expect.any(String),
-          packageVersion: expect.any(String),
           previewTime: expect.any(Number),
-          resourceType: 'spaghetti-resource',
-          destinationObjectType: 'spaghetti-resource',
           size: 'large',
         },
         eventType: 'ui',
@@ -470,24 +477,125 @@ describe('EmbedModal', () => {
         actionSubject: 'button',
         actionSubjectId: 'embedPreviewResize',
         attributes: {
+          ...EXPECTED_COMMON_ATTRIBUTES,
           id,
-          componentName: 'smart-cards',
-          definitionId: 'spaghetti-id',
-          destinationProduct: 'spaghetti-product',
-          destinationSubproduct: 'spaghetti-subproduct',
-          extensionKey: 'spaghetti-key',
-          location,
           newSize: 'small',
           origin: 'smartLinkCard',
-          packageName: expect.any(String),
-          packageVersion: expect.any(String),
           previousSize: 'large',
-          resourceType: 'spaghetti-resource',
-          destinationObjectType: 'spaghetti-resource',
         },
         eventType: 'ui',
       });
       expect(onResize).toHaveBeenCalledTimes(1);
+    });
+
+    it('dispatches analytics event on open url on a new tab', async () => {
+      const ufoStartSpy = jest.spyOn(ufo, 'startUfoExperience');
+      const ufoSucceedSpy = jest.spyOn(ufo, 'succeedUfoExperience');
+      uuid.mockReturnValueOnce(EXPERIENCE_TEST_ID);
+
+      const { findByTestId } = renderEmbedModal({
+        analytics,
+        url: 'https://link-url',
+      });
+      const button = await findByTestId(`${testId}-url-button`);
+      await user.click(button);
+      await flushPromises();
+
+      expect(dispatchAnalytics).toHaveBeenCalledWith({
+        action: 'clicked',
+        actionSubject: 'button',
+        actionSubjectId: 'shortcutGoToLink',
+        attributes: {
+          ...EXPECTED_COMMON_ATTRIBUTES,
+          id,
+          actionType: 'ViewAction',
+          display: 'embedPreview',
+        },
+        eventType: 'ui',
+      });
+      expect(dispatchAnalytics).toHaveBeenCalledWith({
+        action: 'resolved',
+        actionSubject: 'smartLinkAction',
+        attributes: {
+          ...EXPECTED_COMMON_ATTRIBUTES,
+          id,
+          actionType: 'ViewAction',
+          display: 'embedPreview',
+        },
+        eventType: 'operational',
+      });
+
+      expect(ufoStartSpy).toBeCalledWith(
+        'smart-link-action-invocation',
+        EXPERIENCE_TEST_ID,
+        {
+          actionType: 'ViewAction',
+          display: 'embedPreview',
+          extensionKey: 'object-provider',
+          invokeType: 'client',
+        },
+      );
+      expect(ufoSucceedSpy).toBeCalledWith(
+        'smart-link-action-invocation',
+        EXPERIENCE_TEST_ID,
+      );
+      expect(ufoStartSpy).toHaveBeenCalledBefore(ufoSucceedSpy as jest.Mock);
+    });
+
+    it('dispatches analytics event on download url', async () => {
+      const ufoStartSpy = jest.spyOn(ufo, 'startUfoExperience');
+      const ufoSucceedSpy = jest.spyOn(ufo, 'succeedUfoExperience');
+      uuid.mockReturnValueOnce(EXPERIENCE_TEST_ID);
+      const url = 'https://download-url';
+
+      const { findByTestId } = renderEmbedModal({
+        analytics,
+        download: url,
+      });
+      const button = await findByTestId(`${testId}-download-button`);
+      await user.click(button);
+      await flushPromises();
+
+      expect(dispatchAnalytics).toHaveBeenCalledWith({
+        action: 'clicked',
+        actionSubject: 'button',
+        actionSubjectId: 'downloadDocument',
+        attributes: {
+          ...EXPECTED_COMMON_ATTRIBUTES,
+          id,
+          actionType: 'DownloadAction',
+          display: 'embedPreview',
+        },
+        eventType: 'ui',
+      });
+      expect(dispatchAnalytics).toHaveBeenCalledWith({
+        action: 'resolved',
+        actionSubject: 'smartLinkAction',
+        attributes: {
+          ...EXPECTED_COMMON_ATTRIBUTES,
+          id,
+          actionType: 'DownloadAction',
+          display: 'embedPreview',
+        },
+        eventType: 'operational',
+      });
+      expect(ufoStartSpy).toHaveBeenCalledTimes(1);
+      expect(ufoStartSpy).toBeCalledWith(
+        'smart-link-action-invocation',
+        EXPERIENCE_TEST_ID,
+        {
+          actionType: 'DownloadAction',
+          display: 'embedPreview',
+          extensionKey: 'object-provider',
+          invokeType: 'client',
+        },
+      );
+      expect(ufoSucceedSpy).toHaveBeenCalledTimes(1);
+      expect(ufoSucceedSpy).toBeCalledWith(
+        'smart-link-action-invocation',
+        EXPERIENCE_TEST_ID,
+      );
+      expect(ufoStartSpy).toHaveBeenCalledBefore(ufoSucceedSpy as jest.Mock);
     });
   });
 });

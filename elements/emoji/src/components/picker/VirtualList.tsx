@@ -222,10 +222,7 @@ export const VirtualList = React.forwardRef<ListRef, Props>((props, ref) => {
   const scrollToRowAndFocusEmoji = useCallback(
     (emojiToFocus: EmojiFocusInfo | null) => {
       if (emojiToFocus) {
-        rowVirtualizer.scrollToIndex(emojiToFocus.rowIndex, {
-          align: 'auto',
-          smoothScroll: false,
-        });
+        rowVirtualizer.scrollToIndex(emojiToFocus.rowIndex);
         emojiToFocus.element?.focus({ preventScroll: true });
         setEmojisFocus({
           rowIndex: emojiToFocus.rowIndex,
@@ -246,10 +243,7 @@ export const VirtualList = React.forwardRef<ListRef, Props>((props, ref) => {
       if (waitForScrollFinish) {
         // scroll to target rowIndex first to ensure the row is rendered in list.
         // used in page up/down, ctrl+Home, ctrl+End
-        rowVirtualizer.scrollToIndex(rIndex, {
-          align: 'auto',
-          smoothScroll: false,
-        });
+        rowVirtualizer.scrollToIndex(rIndex);
 
         setTimeout(() => {
           const emojiToFocus = findNextEmoji(rIndex, cIndex, direction);
@@ -377,7 +371,6 @@ export const VirtualList = React.forwardRef<ListRef, Props>((props, ref) => {
             });
             rowVirtualizer.scrollToIndex(index, {
               align: scrollToAlignment,
-              smoothScroll: false,
             });
           }
         },

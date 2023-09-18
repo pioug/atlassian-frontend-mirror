@@ -5,8 +5,9 @@ import { Fragment, useState } from 'react';
 import { jsx } from '@emotion/react';
 
 import Heading from '@atlaskit/heading';
+import ChevronRightLargeIcon from '@atlaskit/icon/glyph/chevron-right-large';
 import Lozenge from '@atlaskit/lozenge';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box, Flex, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
 /**
@@ -51,17 +52,24 @@ export default function Accordion({
           }}
         >
           <summary
-            css={{
-              margin: '0em -0.5em 0',
-              padding: '1em',
-              cursor: 'pointer',
-              ':hover': {
-                background: token('color.background.neutral.subtle.hovered'),
+            css={[
+              {
+                margin: '0em -0.5em 0',
+                padding: '1em',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                '&::-webkit-details-marker': {
+                  display: 'none',
+                },
+                ':hover': {
+                  background: token('color.background.neutral.subtle.hovered'),
+                },
+                ':active': {
+                  background: token('color.background.neutral.subtle.pressed'),
+                },
               },
-              ':active': {
-                background: token('color.background.neutral.subtle.pressed'),
-              },
-            }}
+            ]}
           >
             <Box
               xcss={xcss({
@@ -71,6 +79,15 @@ export default function Accordion({
               })}
               as="span"
             >
+              <Flex
+                xcss={xcss({
+                  transform: isOpen ? 'rotate(90deg)' : 'rotate(0deg)',
+                  transition: 'transform 0.2s ease-out',
+                  alignItems: 'center',
+                })}
+              >
+                <ChevronRightLargeIcon label={isOpen ? 'Close' : 'Open'} />
+              </Flex>
               <Heading level="h600">{description}</Heading>
               {size !== undefined && (
                 <Lozenge

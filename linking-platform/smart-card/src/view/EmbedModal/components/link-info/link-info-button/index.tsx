@@ -18,7 +18,6 @@ const LinkInfoButton: React.FC<LinkInfoButtonProps> = ({
     <Tooltip
       content={content}
       hideTooltipOnClick={true}
-      position="top"
       tag="span"
       testId={`${testId}-tooltip`}
     >

@@ -2,11 +2,14 @@
 import { useCallback, useEffect, useRef } from 'react';
 
 import { jsx } from '@emotion/react';
+import { v4 as uuidv4 } from 'uuid';
 
 import { withAnalyticsContext } from '@atlaskit/analytics-next';
 
 import { useDatasourceAnalyticsEvents } from '../../analytics';
 import { packageMetaData } from '../../analytics/constants';
+import { startUfoExperience } from '../../analytics/ufoExperiences';
+import { useDataRenderedUfoExperience } from '../../analytics/ufoExperiences/useDataRenderedUfoExperience';
 import { useDatasourceTableState } from '../../hooks/useDatasourceTableState';
 import { AccessRequired } from '../common/error-state/access-required';
 import { LoadingError } from '../common/error-state/loading-error';
@@ -16,7 +19,6 @@ import EmptyState from '../issue-like-table/empty-state';
 import { TableFooter } from '../table-footer';
 
 import { DatasourceTableViewProps } from './types';
-
 const DatasourceTableViewWithoutAnalytics = ({
   datasourceId,
   parameters,
@@ -42,6 +44,7 @@ const DatasourceTableViewWithoutAnalytics = ({
   });
 
   const { fireEvent } = useDatasourceAnalyticsEvents();
+  const { current: tableRenderInstanceId } = useRef(uuidv4());
 
   /*  Need this to make sure that the datasource in the editor gets updated new info if any edits are made in the modal
       But we don't want to call it on initial load. This screws up useDatasourceTableState's internal
@@ -64,6 +67,33 @@ const DatasourceTableViewWithoutAnalytics = ({
       onVisibleColumnKeysChange(defaultVisibleColumnKeys);
     }
   }, [visibleColumnKeys, defaultVisibleColumnKeys, onVisibleColumnKeysChange]);
+
+  useEffect(() => {
+    const shouldStartUfoExperience =
+      datasourceId && parameters && visibleColumnKeys && status === 'loading';
+
+    if (shouldStartUfoExperience) {
+      startUfoExperience(
+        {
+          name: 'datasource-rendered',
+        },
+        tableRenderInstanceId,
+      );
+    }
+  }, [
+    datasourceId,
+    parameters,
+    status,
+    tableRenderInstanceId,
+    visibleColumnKeys,
+  ]);
+
+  useDataRenderedUfoExperience({
+    status,
+    experienceId: tableRenderInstanceId,
+    itemCount: responseItems.length,
+    extensionKey,
+  });
 
   const forcedReset = useCallback(() => {
     fireEvent('ui.button.clicked.sync', {
@@ -103,6 +133,7 @@ const DatasourceTableViewWithoutAnalytics = ({
           visibleColumnKeys={visibleColumnKeys || defaultVisibleColumnKeys}
           onVisibleColumnKeysChange={onVisibleColumnKeysChange}
           scrollableContainerHeight={590}
+          parentContainerRenderInstanceId={tableRenderInstanceId}
         />
       ) : (
         <EmptyState

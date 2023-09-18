@@ -91,6 +91,9 @@
       "path": "../../platform/feature-flags/tsconfig.app.json"
     },
     {
+      "path": "../popup/tsconfig.app.json"
+    },
+    {
       "path": "../primitives/tsconfig.app.json"
     },
     {
@@ -104,6 +107,9 @@
     },
     {
       "path": "../tag/tsconfig.app.json"
+    },
+    {
+      "path": "../textarea/tsconfig.app.json"
     },
     {
       "path": "../textfield/tsconfig.app.json"

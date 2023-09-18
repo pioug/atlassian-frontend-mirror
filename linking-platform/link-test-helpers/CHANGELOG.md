@@ -1,5 +1,11 @@
 # @atlaskit/link-test-helpers
 
+## 6.1.2
+
+### Patch Changes
+
+- [`6ca45119002`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6ca45119002) - Added destination object types to meta responses.
+
 ## 6.1.1
 
 ### Patch Changes

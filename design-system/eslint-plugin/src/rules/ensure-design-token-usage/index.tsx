@@ -32,9 +32,11 @@ import {
   getFontSizeValueInScope,
   getTokenReplacement,
   getValueFromShorthand,
+  getValueFromTemplateLiteralRaw,
   includesTokenString,
   insertTokensImport,
   isAuto,
+  isCalc,
   isTokenValueString,
   isValidSpacingValue,
   isZero,
@@ -125,11 +127,22 @@ const createWithConfig: (
             return;
           }
 
-          if (
-            isNodeOfType(node.value, 'TemplateLiteral') &&
-            node.value.expressions.some(isDecendantOfGlobalToken)
-          ) {
-            return;
+          if (isNodeOfType(node.value, 'TemplateLiteral')) {
+            const value = getValueFromTemplateLiteralRaw(node.value, context);
+
+            if (Array.isArray(value) && value.some(isCalc)) {
+              return context.report({
+                node,
+                messageId: 'noCalcUsage',
+                data: {
+                  payload: `${propertyName}`,
+                },
+              });
+            }
+
+            if (node.value.expressions.some(isDecendantOfGlobalToken)) {
+              return;
+            }
           }
 
           if (domains.includes('color')) {
@@ -242,6 +255,17 @@ const createWithConfig: (
                   ])
                   .map(([numericOrNanValue, pxValue, originalValue]) => {
                     if (!originalValue) {
+                      return originalValue;
+                    }
+
+                    if (isCalc(originalValue)) {
+                      context.report({
+                        node,
+                        messageId: 'noCalcUsage',
+                        data: {
+                          payload: `${propertyName}`,
+                        },
+                      });
                       return originalValue;
                     }
 

@@ -9,11 +9,17 @@ import {
   UnsupportedBlock,
 } from '@atlaskit/editor-common/ui';
 import { browser } from '@atlaskit/editor-common/utils';
+import type { Node } from '@atlaskit/editor-prosemirror/model';
+import type {
+  Decoration,
+  DecorationSource,
+} from '@atlaskit/editor-prosemirror/view';
 import { Card as SmartCard } from '@atlaskit/smart-card';
 
 import { registerCard } from '../pm-plugins/actions';
 
-import { Card, SmartCardProps } from './genericCard';
+import type { SmartCardProps } from './genericCard';
+import { Card } from './genericCard';
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export class BlockCardComponent extends React.PureComponent<SmartCardProps> {
@@ -130,6 +136,25 @@ export class BlockCard extends ReactNodeView<BlockCardNodeViewProps> {
       domRef.setAttribute('spellcheck', 'false');
     }
     return domRef;
+  }
+
+  // Need this function to check if the datasource attribute was added or not to a blockCard.
+  // If so, we return false so we can get the node to re-render properly as a datasource node instead.
+  // Otherwise, the node view will still consider the node as a blockCard and render a regular blockCard.
+  validUpdate(currentNode: Node, newNode: Node) {
+    const isCurrentNodeBlockCard = !currentNode.attrs?.datasource;
+    const isNewNodeDatasource = newNode.attrs?.datasource;
+
+    // need to return falsy to update node
+    return !(isCurrentNodeBlockCard && isNewNodeDatasource);
+  }
+
+  update(
+    node: Node,
+    decorations: ReadonlyArray<Decoration>,
+    _innerDecorations?: DecorationSource,
+  ) {
+    return super.update(node, decorations, _innerDecorations, this.validUpdate);
   }
 
   render() {

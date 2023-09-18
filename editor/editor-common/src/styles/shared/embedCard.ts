@@ -24,7 +24,3 @@ export const embedCardStyles = css`
 export const embedSpacingStyles = css`
   margin: 0 10px;
 `;
-
-export const editIconStyles = css`
-  width: 20px;
-`;

@@ -1,4 +1,4 @@
-import { Validator, ValidatorMap } from '../../../common/types';
+import { ValidatorMap } from '../../../common/types';
 
 /** Map of field names to errors for that field (or undefined if no error for that field) */
 export type ValidatorResults = {
@@ -20,8 +20,15 @@ export function validateFormData({
   const map: ValidatorResults = {};
 
   for (const fieldName of Object.keys(validators)) {
-    for (let i = 0; i < validators[fieldName].length; i++) {
-      const currentValidator: Validator = validators[fieldName][i];
+    const fieldValidators = validators[fieldName];
+    if (fieldValidators === undefined) {
+      continue;
+    }
+    for (let i = 0; i < fieldValidators.length; i++) {
+      const currentValidator = fieldValidators[i];
+      if (currentValidator === undefined) {
+        continue;
+      }
 
       // If we already have an error for this field, skip any new validations on this field
       if (map[fieldName] !== undefined) {

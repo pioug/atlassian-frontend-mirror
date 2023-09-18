@@ -10,6 +10,9 @@ import { EmbedModalProps, EmbedModalSize } from './types';
 import withErrorBoundary from './components/error-boundary';
 import withAnalytics from './components/analytics';
 import { useThemeObserver } from '@atlaskit/tokens';
+import useInvokeClientAction from '../../state/hooks/use-invoke-client-action';
+import { ActionName, CardDisplay } from '../../constants';
+import { downloadUrl, openUrl } from '../../utils';
 
 const toSize = (width: string) =>
   width === MAX_MODAL_SIZE ? EmbedModalSize.Large : EmbedModalSize.Small;
@@ -18,15 +21,16 @@ const toWidth = (size: EmbedModalSize) =>
   size === EmbedModalSize.Large ? MAX_MODAL_SIZE : MIN_MODAL_SIZE;
 
 const EmbedModal: React.FC<EmbedModalProps> = ({
-  download: downloadUrl,
+  analytics,
+  download,
+  extensionKey,
   icon,
   iframeName,
+  isSupportTheming,
   isTrusted = false,
   onClose,
-  onDownloadActionClick,
   onOpen,
   onResize,
-  onViewActionClick,
   providerName,
   showModal,
   size = EmbedModalSize.Large,
@@ -34,12 +38,13 @@ const EmbedModal: React.FC<EmbedModalProps> = ({
   testId = 'smart-embed-preview-modal',
   title,
   url,
-  isSupportTheming,
 }) => {
   const defaultWidth = toWidth(size);
   const [isOpen, setIsOpen] = useState(showModal);
   const [width, setWidth] = useState(defaultWidth);
   const openAt = useRef<number>();
+
+  const invoke = useInvokeClientAction({ analytics });
 
   const handleOnOpenComplete = useCallback(() => {
     openAt.current = Date.now();
@@ -69,6 +74,24 @@ const EmbedModal: React.FC<EmbedModalProps> = ({
   const { colorMode } = useThemeObserver();
   let previewUrl = src;
 
+  const handleOnViewActionClick = useCallback(() => {
+    invoke({
+      actionType: ActionName.ViewAction,
+      actionFn: async () => openUrl(url),
+      display: CardDisplay.EmbedPreview,
+      extensionKey,
+    });
+  }, [extensionKey, invoke, url]);
+
+  const handleOnDownloadActionClick = useCallback(() => {
+    invoke({
+      actionType: ActionName.DownloadAction,
+      actionFn: async () => downloadUrl(download),
+      display: CardDisplay.EmbedPreview,
+      extensionKey,
+    });
+  }, [download, extensionKey, invoke]);
+
   if (previewUrl && isSupportTheming && colorMode) {
     previewUrl = `${previewUrl}${
       previewUrl.includes('?') ? '&' : '?'
@@ -87,16 +110,16 @@ const EmbedModal: React.FC<EmbedModalProps> = ({
           width={width}
         >
           <LinkInfo
-            downloadUrl={downloadUrl}
             icon={icon}
             providerName={providerName}
-            onViewButtonClick={onViewActionClick}
-            onDownloadButtonClick={onDownloadActionClick}
+            onViewButtonClick={url ? handleOnViewActionClick : undefined}
+            onDownloadButtonClick={
+              download ? handleOnDownloadActionClick : undefined
+            }
             onResizeButtonClick={handleOnResizeClick}
             size={width}
             title={title}
             testId={testId}
-            url={url}
           />
           <ModalBody>
             <EmbedContent

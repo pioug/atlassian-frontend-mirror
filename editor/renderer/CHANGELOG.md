@@ -1,5 +1,15 @@
 # @atlaskit/renderer
 
+## 108.13.0
+
+### Minor Changes
+
+- [`3d5a4dfddba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3d5a4dfddba) - Make Smart Card frameStyle for embeds configurable via `@atlaskit/renderer`
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 108.12.0
 
 ### Minor Changes

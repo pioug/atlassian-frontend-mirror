@@ -32,6 +32,7 @@ const PreviewAction: React.FC<PreviewActionProps> = (
     const actionFn = async () =>
       openEmbedModalWithFlexibleUiIcon({
         download: downloadUrl,
+        extensionKey: analytics?.extensionKey,
         title,
         providerName,
         isSupportTheming,

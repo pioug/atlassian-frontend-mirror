@@ -1,18 +1,19 @@
 import debounce from 'lodash/debounce';
 import throttle from 'lodash/throttle';
 
-import { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
+import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { findOverflowScrollParent } from '@atlaskit/editor-common/ui';
-import { mapChildren } from '@atlaskit/editor-common/utils';
-import { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
-import { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
+import { browser, mapChildren } from '@atlaskit/editor-common/utils';
+import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
+import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 
+import type { TablePluginState } from '../../../types';
 import {
   TableCssClassName as ClassName,
   TableCssClassName,
-  TablePluginState,
 } from '../../../types';
 import {
+  STICKY_HEADER_TOGGLE_TOLERANCE_MS,
   stickyHeaderBorderBottomWidth,
   stickyRowOffsetTop,
   tableControlsSpacing,
@@ -25,7 +26,8 @@ import {
 } from '../../table-resizing/utils/dom';
 import { updateStickyState } from '../commands';
 
-import { getTop, getTree, TableDOMElements } from './dom';
+import type { TableDOMElements } from './dom';
+import { getTop, getTree } from './dom';
 
 // limit scroll event calls
 const HEADER_ROW_SCROLL_THROTTLE_TIMEOUT = 200;
@@ -73,6 +75,7 @@ export class TableRowNodeView implements NodeView {
   focused = false;
   topPosEditorElement = 0;
   isSticky: boolean;
+  lastStickyTimestamp: number | undefined;
   lastTimePainted: number;
 
   private intersectionObserver?: IntersectionObserver;
@@ -104,6 +107,7 @@ export class TableRowNodeView implements NodeView {
     this.lastTimePainted = 0;
     this.isHeaderRow = supportedHeaderRow(node);
     this.isSticky = false;
+    this.lastStickyTimestamp = undefined;
 
     if (this.isHeaderRow) {
       this.dom.setAttribute('data-header-row', 'true');
@@ -257,6 +261,7 @@ export class TableRowNodeView implements NodeView {
             this.sentinels.bottom.style.bottom = `${
               tableScrollbarOffset + stickyRowOffsetTop + newHeight
             }px`;
+
             updateTableMargin(table);
           }
         }
@@ -293,6 +298,7 @@ export class TableRowNodeView implements NodeView {
             if (!entry.isIntersecting && !sentinelIsBelowScrollArea) {
               this.tree &&
                 this.makeHeaderRowSticky(this.tree, entry.rootBounds?.top);
+              this.lastStickyTimestamp = Date.now();
             } else {
               table && this.makeRowHeaderNotSticky(table);
             }
@@ -306,12 +312,25 @@ export class TableRowNodeView implements NodeView {
               (entry.rootBounds?.top || 0);
 
             if (table && !entry.isIntersecting && sentinelIsAboveScrollArea) {
-              this.makeRowHeaderNotSticky(table);
+              // Not a perfect solution, but need to this code specific for FireFox ED-19177
+              if (browser.gecko) {
+                if (
+                  this.lastStickyTimestamp &&
+                  Date.now() - this.lastStickyTimestamp >
+                    STICKY_HEADER_TOGGLE_TOLERANCE_MS
+                ) {
+                  this.makeRowHeaderNotSticky(table);
+                }
+              } else {
+                this.makeRowHeaderNotSticky(table);
+              }
             } else if (entry.isIntersecting && sentinelIsAboveScrollArea) {
               this.tree &&
                 this.makeHeaderRowSticky(this.tree, entry?.rootBounds?.top);
+              this.lastStickyTimestamp = Date.now();
             }
           }
+          return;
         });
       },
       { root: this.editorScrollableElement as Element },

@@ -40,14 +40,13 @@ export default function ContrastCard({
         backgroundColor="color.background.neutral"
         xcss={xcss({
           flex: '1',
-          width: '100%',
           borderRadius: 'border.radius.200',
+          overflowX: 'auto',
         })}
       >
         <Box
           xcss={xcss({
             minWidth: 'size.100',
-            overflowX: 'auto',
           })}
         >
           <Inline space="space.150">

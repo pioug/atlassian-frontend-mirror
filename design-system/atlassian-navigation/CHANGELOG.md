@@ -1,5 +1,11 @@
 # @atlaskit/atlassian-navigation
 
+## 2.7.0
+
+### Minor Changes
+
+- [`f2eb005a30d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f2eb005a30d) - [ux] Bottom border is now displayed when color tokens are not present, with a fallback color of N30 being used. The shadow styles that were previously visible when tokens were not present have been removed.
+
 ## 2.6.19
 
 ### Patch Changes

@@ -21,6 +21,7 @@ import { DatasourceAdf } from '@atlaskit/linking-common/types';
 import { DatasourceAdfTableView } from '@atlaskit/linking-common/types';
 import { DatasourceAdfView } from '@atlaskit/linking-common/types';
 import { InlineCardAdf } from '@atlaskit/linking-common/types';
+import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 // @public (undocumented)
 export const ASSETS_LIST_OF_LINKS_DATASOURCE_ID =
@@ -126,7 +127,10 @@ interface JiraIssuesConfigModalProps {
   // (undocumented)
   onCancel: () => void;
   // (undocumented)
-  onInsert: (adf: InlineCardAdf | JiraIssuesDatasourceAdf) => void;
+  onInsert: (
+    adf: InlineCardAdf | JiraIssuesDatasourceAdf,
+    analyticsEvent?: UIAnalyticsEvent,
+  ) => void;
   // (undocumented)
   parameters?: JiraIssueDatasourceParameters;
   // (undocumented)

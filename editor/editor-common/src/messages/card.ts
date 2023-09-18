@@ -89,4 +89,9 @@ export const messages = defineMessages({
     description:
       'Description for option to display link as an embedded object.',
   },
+  datasourceTitle: {
+    id: 'fabric.editor.datasourceTitle',
+    defaultMessage: 'Edit search query',
+    description: 'Tooltip of button to edit a card into a datasource',
+  },
 });

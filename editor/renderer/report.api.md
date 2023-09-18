@@ -22,6 +22,7 @@ import { ACTION_SUBJECT } from '@atlaskit/editor-common/analytics';
 import { ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics';
 import type { ADFStage } from '@atlaskit/editor-common/validator';
 import type { AnnotationProviders } from '@atlaskit/editor-common/types';
+import type { CardProps } from '@atlaskit/smart-card';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { DocNode } from '@atlaskit/adf-schema';
 import { EmojiResourceConfig } from '@atlaskit/emoji/resource';
@@ -645,6 +646,8 @@ export interface Serializer<T> {
 
 // @public (undocumented)
 interface SmartLinksOptions {
+  // (undocumented)
+  frameStyle?: CardProps['frameStyle'];
   // (undocumented)
   showAuthTooltip?: boolean;
   // (undocumented)

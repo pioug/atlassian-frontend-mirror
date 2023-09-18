@@ -610,8 +610,8 @@ export const getLinkNodeType = (
   }
 };
 
-// Apply an update to a datasource (aka blockCard) node
-export const updateExistingDatasource = (
+// Apply an update made from the datasource edit modal to a card
+export const updateCardFromDatasourceModal = (
   state: EditorState,
   node: Node,
   newAdf: DatasourceAdf | InlineCardAdf,
@@ -624,39 +624,40 @@ export const updateExistingDatasource = (
     schema: { nodes: schemaNodes },
   } = state;
 
-  // datasource to datasource
-  if (
-    newAdf.type === 'blockCard' &&
-    newAdf.attrs.datasource &&
-    node.attrs.datasource
-  ) {
-    const [newViews] =
-      (newAdf.attrs.datasource.views as DatasourceAdfView[]) ?? [];
-    const [oldViews] =
-      (node.attrs.datasource.views as DatasourceAdfView[]) ?? [];
+  if (newAdf.type === 'blockCard') {
+    if (node.attrs?.datasource && newAdf.attrs?.datasource) {
+      // datasource to datasource
+      const [newViews] =
+        (newAdf.attrs.datasource.views as DatasourceAdfView[]) ?? [];
+      const [oldViews] =
+        (node.attrs.datasource.views as DatasourceAdfView[]) ?? [];
 
-    const newColumnKeys = newViews?.properties?.columns.map(
-      column => column.key,
-    );
-    const oldColumnKeys = oldViews?.properties?.columns.map(
-      column => column.key,
-    );
+      const newColumnKeys = newViews?.properties?.columns.map(
+        column => column.key,
+      );
+      const oldColumnKeys = oldViews?.properties?.columns.map(
+        column => column.key,
+      );
 
-    const isColumnChange = !isEqual(oldColumnKeys, newColumnKeys);
-    const isUrlChange = newAdf.attrs?.url !== node.attrs?.url;
+      const isColumnChange = !isEqual(oldColumnKeys, newColumnKeys);
+      const isUrlChange = newAdf.attrs?.url !== node.attrs?.url;
 
-    if (isColumnChange || isUrlChange) {
-      tr.setNodeMarkup(from, schemaNodes.blockCard, {
-        ...node.attrs,
-        ...newAdf.attrs,
-      });
-      addLinkMetadata(state.selection, tr, {
-        action: ACTION.UPDATED,
-        sourceEvent,
-      });
+      if (isColumnChange || isUrlChange) {
+        tr.setNodeMarkup(from, schemaNodes.blockCard, {
+          ...node.attrs,
+          ...newAdf.attrs,
+        });
+        addLinkMetadata(state.selection, tr, {
+          action: ACTION.UPDATED,
+          sourceEvent,
+        });
+      }
+    } else {
+      // inline or blockCard to datasource
+      tr.setNodeMarkup(from, schemaNodes.blockCard, newAdf.attrs);
     }
   } else if (newAdf.type === 'inlineCard') {
-    // datasource to inline
+    // card type to inlineCard
     tr.setNodeMarkup(from, schemaNodes.inlineCard, newAdf.attrs);
     addLinkMetadata(state.selection, tr, {
       action: ACTION.UPDATED,

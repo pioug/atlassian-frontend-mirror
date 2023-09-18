@@ -52,6 +52,60 @@ const containerStyles = css({
 
     <div css={[isPrimary ? containerStyles : null]} />
       `,
+    {
+      // this looks invalid but because we are saying we only want to target `xcss` no error is raised
+      options: [{ cssFunctions: ['xcss'] }],
+      code: `
+          const container = css({});
+  
+          <div css={container} />
+        `,
+    },
+    {
+      // this looks invalid but because we are saying we only want to target `css` no error is raised
+      options: [{ cssFunctions: ['css'] }],
+      code: `
+          const container = xcss({});
+  
+          <div xcss={container} />
+        `,
+    },
+    {
+      // this looks invalid but because we are saying we only want to target `xcss` no error is raised
+      options: [{ cssFunctions: ['xcss'] }],
+      code: `
+        <div css={isPrimary && {}} />
+        `,
+    },
+    {
+      // this looks invalid but because we are saying we only want to target `css` no error is raised
+      options: [{ cssFunctions: ['css'] }],
+      code: `
+        <div xcss={isPrimary && {}} />
+        `,
+    },
+    {
+      // this looks invalid but because we are saying we only want to target `xcss` no error is raised
+      options: [{ cssFunctions: ['xcss'] }],
+      code: `
+      import { containerStyles } from './styles';
+
+      function Button({children}) {
+        return <button css={containerStyles}>{children}</button>;
+      }
+    `,
+    },
+    {
+      // this looks invalid but because we are saying we only want to target `css` no error is raised
+      options: [{ cssFunctions: ['css'] }],
+      code: `
+      import { containerStyles } from './styles';
+
+      function Button({children}) {
+        return <Box xcss={containerStyles}>{children}</Box>;
+      }
+    `,
+    },
   ],
   invalid: [
     {
@@ -523,5 +577,166 @@ const containerStyles = css({
         ],
       },
     ]),
+
+    // config for stylesPlacement: 'bottom' ⬇️
+    {
+      options: [{ stylesPlacement: 'bottom' }],
+      code: `
+      <div css={isPrimary && {}} />
+         `,
+      errors: [
+        {
+          messageId: 'cssAtBottomOfModule',
+        },
+      ],
+    },
+    {
+      options: [{ stylesPlacement: 'bottom' }],
+      code: `
+      const containerStyles = css({
+        padding: 8,
+      });
+
+      <div css={[isPrimary ? {} : {}]} />
+         `,
+      errors: [
+        {
+          messageId: 'cssAtBottomOfModule',
+        },
+        {
+          messageId: 'cssAtBottomOfModule',
+        },
+      ],
+    },
+    {
+      options: [{ stylesPlacement: 'bottom' }],
+      code: 'function Button({children}) { return <button css={css``}>{children}</button>; }',
+      errors: [
+        {
+          messageId: 'cssAtBottomOfModule',
+        },
+      ],
+    },
+    {
+      options: [{ stylesPlacement: 'bottom' }],
+      code: 'function Button({children}) { return <button css={{}}>{children}</button>; }',
+      errors: [
+        {
+          messageId: 'cssAtBottomOfModule',
+        },
+      ],
+    },
+    {
+      options: [{ stylesPlacement: 'bottom' }],
+      code: 'function Button({children}) { return <button css={``}>{children}</button>; }',
+      errors: [
+        {
+          messageId: 'cssAtBottomOfModule',
+        },
+      ],
+    },
+    {
+      options: [{ stylesPlacement: 'bottom' }],
+      code: `
+        function Button({children}) {
+          const containerStyles = {
+            padding: 8,
+          };
+
+          return <button css={containerStyles}>{children}</button>;
+        }
+      `,
+      errors: [
+        {
+          messageId: 'cssAtBottomOfModule',
+        },
+      ],
+    },
+    {
+      options: [{ stylesPlacement: 'bottom' }],
+      code: `
+        function Button({children}) {
+          const containerStyles = css({
+            padding: 8,
+          });
+
+          return <button css={containerStyles}>{children}</button>;
+        }
+      `,
+      errors: [
+        {
+          messageId: 'cssAtBottomOfModule',
+        },
+      ],
+    },
+    {
+      options: [{ stylesPlacement: 'bottom' }],
+      code: `
+        function Button({children}) {
+          const containerStyles = css({
+            padding: 8,
+          });
+
+          return (
+            <Component>
+              {
+                () =>  <button css={containerStyles}>{children}</button>
+              }
+            </Component>
+          );
+        }
+      `,
+      errors: [
+        {
+          messageId: 'cssAtBottomOfModule',
+        },
+      ],
+    },
+    {
+      options: [{ stylesPlacement: 'bottom' }],
+      code: `
+        function Button({children}) {
+          const getStyles = () => ({
+            padding: 8,
+          });
+
+          return <button css={getStyles()}>{children}</button>;
+        }
+      `,
+      errors: [
+        {
+          messageId: 'cssAtBottomOfModule',
+        },
+      ],
+    },
+    {
+      options: [{ stylesPlacement: 'bottom' }],
+      code: 'function Button({children}) { return <button css="">{children}</button>; }',
+      errors: [
+        {
+          messageId: 'cssAtBottomOfModule',
+        },
+      ],
+    },
+
+    // config for cssFunctions ⬇️
+    {
+      options: [{ cssFunctions: ['css'] }],
+      code: `
+        const container = css({});
+
+        <div css={container} />
+      `,
+      output: `
+        const containerStyles = css({});
+
+        <div css={containerStyles} />
+      `,
+      errors: [
+        {
+          messageId: 'shouldEndInStyles',
+        },
+      ],
+    },
   ],
 });

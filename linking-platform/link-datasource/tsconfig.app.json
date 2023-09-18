@@ -119,6 +119,9 @@
     },
     {
       "path": "../../design-system/tooltip/tsconfig.app.json"
+    },
+    {
+      "path": "../../data/ufo-external/tsconfig.app.json"
     }
   ]
 }

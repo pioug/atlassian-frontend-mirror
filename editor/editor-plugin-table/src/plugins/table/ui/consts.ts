@@ -135,3 +135,4 @@ export const tableOverflowShadowWidth = 8;
 export const TABLE_SNAP_GAP = 9;
 export const TABLE_HIGHLIGHT_GAP = 10;
 export const TABLE_HIGHLIGHT_TOLERANCE = 2;
+export const STICKY_HEADER_TOGGLE_TOLERANCE_MS = 5;

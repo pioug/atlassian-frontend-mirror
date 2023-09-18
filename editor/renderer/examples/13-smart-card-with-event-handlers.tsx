@@ -1,13 +1,13 @@
 import React from 'react';
 
-import { SmartCardProvider } from '@atlaskit/link-provider';
+import { SmartCardProvider, CardClient } from '@atlaskit/link-provider';
 
 import { default as Renderer } from '../src/ui/Renderer';
 import document from './helper/smart-card.adf.json';
 
 export default function Example() {
   return (
-    <SmartCardProvider>
+    <SmartCardProvider client={new CardClient('stg')}>
       <Renderer
         document={document}
         appearance="full-page"

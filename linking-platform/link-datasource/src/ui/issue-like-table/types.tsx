@@ -14,6 +14,10 @@ export type TableViewPropsRenderType = (
 export interface IssueLikeDataTableViewProps {
   testId?: string;
   /**
+   * Unique ID to indicate parent component instance to be used for UFO experiences
+   */
+  parentContainerRenderInstanceId?: string;
+  /**
    * All available columns/properties.
    * Consumer should not reorder these columns to align with `visibleColumnKeys`.
    * UI will display them according to `visibleColumnKeys`

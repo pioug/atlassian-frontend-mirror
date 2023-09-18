@@ -16,7 +16,6 @@ import LinkInfoButton from './link-info-button';
 import { actionCss, containerStyles, iconCss, titleCss } from './styled';
 
 const LinkInfo: React.FC<LinkInfoProps> = ({
-  downloadUrl,
   icon,
   providerName,
   onDownloadButtonClick,
@@ -25,29 +24,26 @@ const LinkInfo: React.FC<LinkInfoProps> = ({
   size,
   testId,
   title,
-  url,
 }) => {
   const { onClose } = useModal();
 
   const downloadButton = useMemo(() => {
-    if (downloadUrl) {
+    if (onDownloadButtonClick) {
       return (
         <LinkInfoButton
           content={<FormattedMessage {...messages.download} />}
-          href={downloadUrl}
           icon={
             <DownloadIcon label={messages.download.defaultMessage as string} />
           }
           onClick={onDownloadButtonClick}
           testId={`${testId}-download`}
-          target="_blank"
         />
       );
     }
-  }, [downloadUrl, onDownloadButtonClick, testId]);
+  }, [onDownloadButtonClick, testId]);
 
   const urlButton = useMemo(() => {
-    if (url) {
+    if (onViewButtonClick) {
       const content = providerName ? (
         <React.Fragment>
           <FormattedMessage {...messages.viewIn} /> {providerName}
@@ -59,19 +55,17 @@ const LinkInfo: React.FC<LinkInfoProps> = ({
       return (
         <LinkInfoButton
           content={content}
-          href={url}
           icon={
             <ShortcutIcon
               label={messages.viewOriginal.defaultMessage as string}
             />
           }
           onClick={onViewButtonClick}
-          target="_blank"
           testId={`${testId}-url`}
         />
       );
     }
-  }, [onViewButtonClick, providerName, testId, url]);
+  }, [onViewButtonClick, providerName, testId]);
 
   const sizeButton = useMemo(() => {
     const isFullScreen = size === MAX_MODAL_SIZE;

@@ -1,5 +1,11 @@
 # @atlaskit/editor-common
 
+## 75.1.0
+
+### Minor Changes
+
+- [`50b3bf73ed3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/50b3bf73ed3) - [ux] Add edit datasource button to toolbar for cards which can resolve into datasources
+
 ## 75.0.8
 
 ### Patch Changes

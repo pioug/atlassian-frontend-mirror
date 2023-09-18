@@ -4,26 +4,31 @@ import { useEffect, useState } from 'react';
 import { jsx } from '@emotion/react';
 
 import Button, { ButtonGroup } from '@atlaskit/button';
+import DropdownMenu, { DropdownItem } from '@atlaskit/dropdown-menu';
 import Grid, { GridItem } from '@atlaskit/grid';
 import Heading from '@atlaskit/heading';
-import CopyIcon from '@atlaskit/icon/glyph/copy';
 import LinkIcon from '@atlaskit/icon/glyph/link';
 import TrashIcon from '@atlaskit/icon/glyph/trash';
+import { Popup } from '@atlaskit/popup';
 import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
 import SectionMessage, {
   SectionMessageAction,
 } from '@atlaskit/section-message';
 import Select from '@atlaskit/select';
+import TextArea from '@atlaskit/textarea';
 import Tooltip from '@atlaskit/tooltip';
 
 import { setGlobalTheme } from '../src';
+import { getCSSCustomProperty } from '../src/utils/token-ids';
 
 import Accordion from './contrast-checker-utils/components/accordion';
 import BaseTokenEditor, {
   baseTokens,
 } from './contrast-checker-utils/components/base-token-editor';
 import CustomThemeEditor from './contrast-checker-utils/components/custom-theme-editor';
-import Results from './contrast-checker-utils/components/results';
+import Results, {
+  getCustomTheme,
+} from './contrast-checker-utils/components/results';
 import { defaultCustomTheme } from './contrast-checker-utils/utils/default-custom-themes';
 import {
   getSearchParams,
@@ -40,6 +45,12 @@ function setFocusToIframe() {
   }
   iframe.contentWindow?.focus();
 }
+
+function copyString(string: string) {
+  setFocusToIframe();
+  navigator.clipboard.writeText(string);
+}
+
 /**
  * A select that chooses between themes (currently, light or dark)
  */
@@ -71,38 +82,133 @@ const ThemePicker = ({
   );
 };
 
+function getThemeCSS(
+  customTheme: Theme,
+  customBaseTokens: typeof baseTokens,
+  baseThemeType: ColorMode,
+) {
+  const customThemeValues = getCustomTheme(
+    customTheme,
+    customBaseTokens,
+    baseThemeType,
+  );
+  return customThemeValues.reduce((acc, value) => {
+    // turn into CSS
+    const cssName = getCSSCustomProperty(value.path);
+    if (!cssName || typeof value.value !== 'string') {
+      return acc;
+    }
+    return `${acc}\n${cssName}: ${value.value};`;
+  }, '');
+}
+
+/**
+ * An import dialog for importing a custom theme
+ */
+const ImportPopup = ({
+  onImport,
+}: {
+  onImport: (theme: ThemeExportFormat) => void;
+}) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [importValue, setImportValue] = useState('');
+
+  return (
+    <Popup
+      isOpen={isOpen}
+      onClose={() => setIsOpen(false)}
+      placement="bottom-start"
+      content={() => (
+        <Stack
+          space="space.100"
+          xcss={xcss({ padding: 'space.200', maxWidth: '400px' })}
+        >
+          <Heading level="h600">Import a custom theme</Heading>
+          <p>
+            Paste in a JSON string of a custom theme to import it. This will
+            overwrite your current custom theme.
+          </p>
+          <TextArea
+            onChange={(e) => setImportValue(e.target.value)}
+            value={importValue}
+          />
+          <Button
+            onClick={() => {
+              try {
+                const parsed = JSON.parse(importValue);
+                onImport(parsed);
+                setIsOpen(false);
+              } catch (e) {
+                alert('Invalid JSON');
+              }
+            }}
+          >
+            Import
+          </Button>
+        </Stack>
+      )}
+      trigger={(triggerProps) => (
+        <Button
+          {...triggerProps}
+          isSelected={isOpen}
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          Import
+        </Button>
+      )}
+    />
+  );
+};
+
+interface ThemeExportFormat {
+  customBaseTokens: typeof baseTokens;
+  customTokens: Theme;
+}
+
 /**
  * A bar of buttons that perform actions based on the provided theme
  */
 const CustomThemeActions = ({
   customBaseTokens,
   customTheme,
+  baseThemeType,
   onClear,
+  onImport,
 }: {
   customBaseTokens: typeof baseTokens;
   customTheme: Theme;
+  baseThemeType: ColorMode;
   onClear: () => void;
+  onImport: (Theme: ThemeExportFormat) => void;
 }) => (
   <ButtonGroup>
-    <Tooltip content="Copy custom theme to clipboard">
-      <Button
-        iconBefore={<CopyIcon label="Copy custom theme" />}
-        appearance="subtle"
-        onClick={() => {
-          setFocusToIframe();
-          navigator.clipboard.writeText(
+    <ImportPopup onImport={onImport} />
+    <DropdownMenu trigger="Export" placement="bottom-start">
+      <DropdownItem
+        description="Format for import, and engineering handoff"
+        onClick={() =>
+          copyString(
             JSON.stringify({
               customBaseTokens: customBaseTokens,
               customTokens: customTheme,
             }),
-          );
-        }}
-      />
-    </Tooltip>
-    <Tooltip content="Share custom theme">
+          )
+        }
+      >
+        Copy as JSON
+      </DropdownItem>
+      <DropdownItem
+        onClick={() =>
+          copyString(getThemeCSS(customTheme, customBaseTokens, baseThemeType))
+        }
+        description="Compatible with the theming browser extension"
+      >
+        Copy as CSS
+      </DropdownItem>
+    </DropdownMenu>
+    <Tooltip content="Copy link to custom theme">
       <Button
         iconBefore={<LinkIcon label="Share link to custom theme" />}
-        appearance="subtle"
         onClick={() => {
           setFocusToIframe();
           navigator.clipboard.writeText(location.href);
@@ -112,7 +218,6 @@ const CustomThemeActions = ({
     <Tooltip content="Delete custom theme">
       <Button
         iconBefore={<TrashIcon label="Remove custom theme" />}
-        appearance="subtle"
         onClick={onClear}
       />
     </Tooltip>
@@ -181,6 +286,11 @@ export default function ContrastChecker() {
               <CustomThemeActions
                 customTheme={customTheme}
                 customBaseTokens={customBaseTokens}
+                baseThemeType={baseThemeType}
+                onImport={(theme) => {
+                  setCustomTheme(theme.customTokens);
+                  setCustomBaseTokens(theme.customBaseTokens);
+                }}
                 onClear={() => {
                   setCustomTheme([]);
                 }}

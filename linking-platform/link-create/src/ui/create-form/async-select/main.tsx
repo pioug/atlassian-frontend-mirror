@@ -57,7 +57,9 @@ export function AsyncSelect<T = OptionType>({
          * If we are fetching default options, clear the
          * value the user has set
          */
-        mutators.setField(name, null);
+        if (mutators.setField) {
+          mutators.setField(name, null);
+        }
         setIsLoadingDefaultOptions(true);
         setDefaultOptions([]);
         const options = await loadOptions(query);
@@ -92,7 +94,10 @@ export function AsyncSelect<T = OptionType>({
      */
     if (!defaultValue && propsDefaultValue) {
       setDefaultValue(propsDefaultValue);
-      mutators.setField(name, propsDefaultValue);
+
+      if (mutators.setField) {
+        mutators.setField(name, propsDefaultValue);
+      }
     }
   }, [defaultValue, propsDefaultValue, name, mutators]);
 

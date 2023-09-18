@@ -323,7 +323,11 @@ function createProviders(
     }
 
     const jiraCreateExtensionProvider = new DefaultExtensionProvider<any>([
-      jiraCreate({ intlLocale: 'en', defaultCloudId: 'DUMMY-123' }),
+      jiraCreate({
+        intlLocale: 'en',
+        defaultCloudId: 'DUMMY-123',
+        location: 'confluence-page',
+      }),
     ]);
 
     extensionProvidersArr.push(jiraCreateExtensionProvider);

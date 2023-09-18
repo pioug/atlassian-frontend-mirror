@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-card
 
+## 0.7.1
+
+### Patch Changes
+
+- [`bab3ac9e64e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bab3ac9e64e) - Passing analytic events with attributes from link-datasource modal to editor.
+- Updated dependencies
+
+## 0.7.0
+
+### Minor Changes
+
+- [`50b3bf73ed3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/50b3bf73ed3) - [ux] Add edit datasource button to toolbar for cards which can resolve into datasources
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.6.0
 
 ### Minor Changes

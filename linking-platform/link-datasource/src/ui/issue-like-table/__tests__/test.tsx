@@ -14,12 +14,25 @@ import {
   DatasourceDataResponseItem,
   DatasourceResponseSchemaProperty,
 } from '@atlaskit/linking-types/datasource';
+import { ConcurrentExperience } from '@atlaskit/ufo';
 
 import { IssueLikeDataTableView } from '../index';
 import {
   IssueLikeDataTableViewProps,
   TableViewPropsRenderType,
 } from '../types';
+
+const mockUfoSuccess = jest.fn();
+
+jest.mock('@atlaskit/ufo', () => ({
+  __esModule: true,
+  ...jest.requireActual<Object>('@atlaskit/ufo'),
+  ConcurrentExperience: (): Partial<ConcurrentExperience> => ({
+    getInstance: jest.fn().mockImplementation(() => ({
+      success: mockUfoSuccess,
+    })),
+  }),
+}));
 
 const dragAndDrop = async (source: HTMLElement, destination: HTMLElement) => {
   fireEvent.dragStart(source);
@@ -30,6 +43,36 @@ const dragAndDrop = async (source: HTMLElement, destination: HTMLElement) => {
   });
   fireEvent.dragEnter(destination);
   fireEvent.drop(destination);
+};
+
+const setup = (props: Partial<IssueLikeDataTableViewProps>) => {
+  const onNextPage = jest.fn(() => {});
+  const onLoadDatasourceDetails = jest.fn(() => {});
+  const onVisibleColumnKeysChange = jest.fn(() => {});
+
+  const renderResult = render(
+    <IntlProvider locale="en">
+      <IssueLikeDataTableView
+        testId="sometable"
+        status={'resolved'}
+        onNextPage={onNextPage}
+        onLoadDatasourceDetails={onLoadDatasourceDetails}
+        hasNextPage={false}
+        onVisibleColumnKeysChange={onVisibleColumnKeysChange}
+        items={[]}
+        columns={[]}
+        visibleColumnKeys={['id']}
+        {...props}
+      />
+    </IntlProvider>,
+  );
+
+  return {
+    ...renderResult,
+    onNextPage,
+    onLoadDatasourceDetails,
+    onVisibleColumnKeysChange,
+  };
 };
 
 describe('IssueLikeDataTableView', () => {
@@ -53,36 +96,6 @@ describe('IssueLikeDataTableView', () => {
       mockIntersectionObserverOpts,
     );
   });
-
-  const setup = (props: Partial<IssueLikeDataTableViewProps>) => {
-    const onNextPage = jest.fn(() => {});
-    const onLoadDatasourceDetails = jest.fn(() => {});
-    const onVisibleColumnKeysChange = jest.fn(() => {});
-
-    const renderResult = render(
-      <IntlProvider locale="en">
-        <IssueLikeDataTableView
-          testId="sometable"
-          status={'resolved'}
-          onNextPage={onNextPage}
-          onLoadDatasourceDetails={onLoadDatasourceDetails}
-          hasNextPage={false}
-          onVisibleColumnKeysChange={onVisibleColumnKeysChange}
-          items={[]}
-          columns={[]}
-          visibleColumnKeys={['id']}
-          {...props}
-        />
-      </IntlProvider>,
-    );
-
-    return {
-      ...renderResult,
-      onNextPage,
-      onLoadDatasourceDetails,
-      onVisibleColumnKeysChange,
-    };
-  };
 
   const getSimpleItems = (amount: number = 3): DatasourceDataResponseItem[] =>
     Array(amount)
@@ -920,5 +933,56 @@ describe('IssueLikeDataTableView', () => {
       const styles = getComputedStyle(tableCell!);
       expect(styles.textOverflow).toBe('ellipsis');
     });
+  });
+});
+
+describe('UFO metrics: IssueLikeDataTableView', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('should mark Ufo experience as successful when data is loaded', async () => {
+    const items: DatasourceDataResponseItem[] = [
+      { id: { data: 'id1' } },
+      {
+        id: {
+          data: 'id2',
+        },
+      },
+      {
+        id: {
+          data: 'id3',
+        },
+      },
+    ];
+
+    const columns: DatasourceResponseSchemaProperty[] = [
+      {
+        key: 'id',
+        title: 'ID',
+        type: 'string',
+      },
+    ];
+
+    setup({
+      items,
+      columns,
+      parentContainerRenderInstanceId: '123',
+    });
+
+    expect(mockUfoSuccess).toHaveBeenCalled();
+  });
+
+  it('should not mark Ufo experience as successful when data is loading', async () => {
+    setup({
+      status: 'loading',
+      parentContainerRenderInstanceId: '123',
+    });
+
+    expect(mockUfoSuccess).not.toHaveBeenCalled();
+  });
+
+  it('should not mark Ufo experience as successful when data is resolved but no parent instance id is passed', async () => {
+    expect(mockUfoSuccess).not.toHaveBeenCalled();
   });
 });

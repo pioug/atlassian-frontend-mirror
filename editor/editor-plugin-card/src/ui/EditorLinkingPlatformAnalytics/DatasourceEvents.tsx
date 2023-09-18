@@ -40,7 +40,7 @@ function getSearchMethod(
   const { sourceEvent } = metadata;
   if (sourceEvent instanceof UIAnalyticsEvent) {
     const event = sourceEvent as UIAnalyticsEvent;
-    return event.payload.searchMethod;
+    return event.payload.attributes?.searchMethod;
   }
   return 'unknown';
 }
@@ -59,8 +59,8 @@ function getAnalyticAttributesFromNode(
   if (metadata.inputMethod) {
     inputMethod = getMethod({ inputMethod: metadata.inputMethod }) ?? '';
   } else if (metadata.sourceEvent instanceof UIAnalyticsEvent) {
-    inputMethod = metadata.sourceEvent.payload.inputMethod;
-    actions = metadata.sourceEvent.payload.actions;
+    inputMethod = metadata.sourceEvent.payload.attributes?.inputMethod;
+    actions = metadata.sourceEvent.payload.attributes?.actions;
   }
   const displayedColumnCount = getDisplayedColumnCount(datasourceAttrs);
   const searchMethod = getSearchMethod(inputMethod, metadata);

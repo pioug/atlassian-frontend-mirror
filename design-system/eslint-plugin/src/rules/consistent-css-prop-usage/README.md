@@ -13,7 +13,9 @@ This rule checks for the following cases:
 - When styles are coming from outside of the module i.e. using imports.
 - When styles are spread inside another styles and not using array composition.
 
-This rule has no options.
+All the above can also work for custom `css` functions, such as `xcss` (https://atlassian.design/components/primitives/xcss/).
+
+This rule has options - see below.
 
 ## Examples
 
@@ -89,3 +91,16 @@ function Button({ children }) {
   );
 }
 ```
+
+## Options
+
+This rule comes with options to support different repository configurations.
+
+### cssFunctions
+
+An array of function names the linting rule should target. Defaults to `['css', 'xcss']`.
+
+### stylesPlacement
+
+The rule prevents inline styles from being created. This option defines what the error message should say: "(...) styles at the top (...)" or "(...) styles at the bottom (...)".
+Defaults to `top`.

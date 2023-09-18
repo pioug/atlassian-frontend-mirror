@@ -1,5 +1,11 @@
 # @atlaskit/link-datasource
 
+## 1.2.0
+
+### Minor Changes
+
+- [`bab3ac9e64e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bab3ac9e64e) - Passing analytic events with attributes from link-datasource modal to editor.
+
 ## 1.1.7
 
 ### Patch Changes

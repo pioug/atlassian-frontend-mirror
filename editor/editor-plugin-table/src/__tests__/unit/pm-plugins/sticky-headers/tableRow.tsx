@@ -523,7 +523,7 @@ describe('TableRowNodeView', () => {
         );
       });
 
-      it('updates sticky header when sentinel is above scroll area', () => {
+      it('updates sticky header when sentinel is above scroll area', async () => {
         renderTableComponent();
         const sentinelBottom = screen.getByTestId('sticky-sentinel-bottom');
 
@@ -541,6 +541,7 @@ describe('TableRowNodeView', () => {
             sticky: true,
           }),
         );
+        await new Promise((r) => setTimeout(r, 100));
 
         (updateStickyState as jest.Mock).mockClear();
         triggerElementIntersect({

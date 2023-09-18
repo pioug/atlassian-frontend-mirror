@@ -87,14 +87,9 @@ export const extractPreviewAction = ({
     const previewAction = PreviewAction({
       ...metadata,
       analytics,
+      extensionKey,
       origin,
       testId,
-      onDownloadActionClick: () => {
-        handleInvoke(getInvokeOpts(key, 'DownloadAction'));
-      },
-      onViewActionClick: () => {
-        handleInvoke(getInvokeOpts(key, 'ViewAction'));
-      },
       isSupportTheming: extractIsSupportTheming(meta),
     });
     // Setup props to go through proper Redux 'invocation' flow

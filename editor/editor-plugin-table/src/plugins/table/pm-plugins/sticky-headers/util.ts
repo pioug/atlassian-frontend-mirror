@@ -1,4 +1,4 @@
-import { StickyPluginState } from './types';
+import type { StickyPluginState } from './types';
 
 // only worry about the first row for now
 export const findStickyHeaderForTable = (

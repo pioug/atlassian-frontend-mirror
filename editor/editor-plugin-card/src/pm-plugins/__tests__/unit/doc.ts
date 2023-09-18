@@ -75,7 +75,7 @@ import {
   queueCardsFromChangedTr,
   setSelectedCardAppearance,
   updateCard,
-  updateExistingDatasource,
+  updateCardFromDatasourceModal,
 } from '../../doc';
 import { pluginKey } from '../../main';
 import { shouldReplaceLink } from '../../shouldReplaceLink';
@@ -169,6 +169,12 @@ const wideDatasourceRefsNode = datasourceBlockCard(
   originalDatasourceWideAdfAttrs,
 )();
 const wideDatasourceNode = clean(wideDatasourceRefsNode)(defaultSchema) as Node;
+
+const blockCardRefsNode = blockCard(getJqlCardAdfAttrs())();
+const blockCardNode = clean(blockCardRefsNode)(defaultSchema) as Node;
+
+const inlineCardRefsNode = inlineCard(getJqlCardAdfAttrs())();
+const inlineCardNode = clean(inlineCardRefsNode)(defaultSchema) as Node;
 
 describe('card', () => {
   const createEditor = createEditorFactory();
@@ -1344,11 +1350,11 @@ describe('card', () => {
       });
     });
 
-    describe('updateExistingDatasource()', () => {
-      it('should not update datasource if nothing gets updated', () => {
+    describe('updateCardFromDatasourceModal()', () => {
+      it('should not update if original node is datasource and nothing gets updated', () => {
         const { editorView } = editor(doc('{<node>}', datasourceRefsNode));
 
-        updateExistingDatasource(
+        updateCardFromDatasourceModal(
           editorView.state,
           datasourceNode,
           originalDatasourceAdf,
@@ -1361,10 +1367,10 @@ describe('card', () => {
         );
       });
 
-      it('should correctly update datasource if columns gets updated', () => {
+      it('should correctly update datasource if its columns get updated', () => {
         const { editorView } = editor(doc('{<node>}', datasourceRefsNode));
 
-        updateExistingDatasource(
+        updateCardFromDatasourceModal(
           editorView.state,
           datasourceNode,
           getNewDatasourceAdf(mockJqlUrl1),
@@ -1382,7 +1388,7 @@ describe('card', () => {
 
       it('should correctly update wide layout datasource if columns gets updated and keep the wide layout', () => {
         const { editorView } = editor(doc('{<node>}', wideDatasourceRefsNode));
-        updateExistingDatasource(
+        updateCardFromDatasourceModal(
           editorView.state,
           wideDatasourceNode,
           getNewDatasourceAdf(mockJqlUrl1),
@@ -1403,7 +1409,7 @@ describe('card', () => {
       it('should correctly update datasource if url gets updated', () => {
         const { editorView } = editor(doc('{<node>}', datasourceRefsNode));
 
-        updateExistingDatasource(
+        updateCardFromDatasourceModal(
           editorView.state,
           datasourceNode,
           getNewDatasourceAdf(mockJqlUrl2),
@@ -1422,12 +1428,60 @@ describe('card', () => {
       it('should correctly update datasource to inline card', () => {
         const { editorView } = editor(doc('{<node>}', datasourceRefsNode));
 
-        updateExistingDatasource(
+        updateCardFromDatasourceModal(
           editorView.state,
           datasourceNode,
           jqlInlineCardAdf,
           editorView,
           undefined,
+        );
+
+        expect(editorView.state.doc).toEqualDocument(
+          doc(p('{<node>}', inlineCard(getJqlCardAdfAttrs())())),
+        );
+      });
+
+      it('should correctly update blockCard to datasource', () => {
+        const { editorView } = editor(doc('{<node>}', blockCardRefsNode));
+
+        updateCardFromDatasourceModal(
+          editorView.state,
+          blockCardNode,
+          getNewDatasourceAdf(mockJqlUrl1),
+          editorView,
+        );
+
+        expect(editorView.state.doc).toEqualDocument(
+          doc(
+            '{<node>}',
+            datasourceBlockCard(getNewDatasourceAdfAttrs(mockJqlUrl1))(),
+          ),
+        );
+      });
+
+      it('should correctly update inlineCard to datasource', () => {
+        const { editorView } = editor(doc(p('{<node>}', inlineCardRefsNode)));
+
+        updateCardFromDatasourceModal(
+          editorView.state,
+          inlineCardNode,
+          originalDatasourceAdf,
+          editorView,
+        );
+
+        expect(editorView.state.doc).toEqualDocument(
+          doc(p(), datasourceRefsNode),
+        );
+      });
+
+      it('should correctly update blockCard to inlineCard', () => {
+        const { editorView } = editor(doc('{<node>}', blockCardRefsNode));
+
+        updateCardFromDatasourceModal(
+          editorView.state,
+          blockCardNode,
+          jqlInlineCardAdf,
+          editorView,
         );
 
         expect(editorView.state.doc).toEqualDocument(

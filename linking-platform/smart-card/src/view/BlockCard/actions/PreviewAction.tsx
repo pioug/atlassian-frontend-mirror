@@ -30,6 +30,7 @@ type PreviewInfo = {
   analytics: AnalyticsFacade;
   origin?: AnalyticsOrigin;
   isSupportTheming?: boolean;
+  extensionKey?: string;
 };
 
 export default ({ details, ...rest }: PreviewInfo): ActionProps => ({

@@ -3,11 +3,11 @@ import { css, jsx } from '@emotion/react';
 
 import { NavigationAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
-import { N30A, N40A, N900 } from '@atlaskit/theme/colors';
+import { N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { HORIZONTAL_GLOBAL_NAV_HEIGHT } from '../../common/constants';
-import { defaultTheme, hexToRGBA, ThemeProvider } from '../../theme';
+import { defaultTheme, ThemeProvider } from '../../theme';
 import { PrimaryItemsContainer } from '../PrimaryItemsContainer';
 import { PrimaryItemsContainer as PrimaryItemsContainerV2 } from '../PrimaryItemsContainerV2';
 
@@ -23,32 +23,7 @@ const containerStyles = css({
   alignItems: 'center',
   justifyContent: 'space-between',
   flexShrink: 0,
-  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
-  '[data-color-mode="light"] &, [data-color-mode="dark"] &': {
-    // eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
-    borderBottom: `1px solid ${token('color.border')}`,
-
-    // TODO: (DSP-2087) Remove the below once tokens have launched
-    '&::after': {
-      content: 'none',
-    },
-  },
-  // TODO: (DSP-2087) Remove the below once tokens have launched
-  '&::after': {
-    height: token('space.050', '4px'),
-    position: 'absolute',
-    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-    top: '100%',
-    right: 0,
-    left: 0,
-    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-    background: `linear-gradient(180deg, ${N40A} 0, ${N40A} 1px, ${N30A} 1px, ${hexToRGBA(
-      // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-      N900,
-      0,
-    )} 4px)`,
-    content: '""',
-  },
+  borderBottom: `1px solid ${token('color.border', N30)}`,
 });
 
 const leftStyles = css({

@@ -61,7 +61,8 @@ describe('Comment with sticky toolbar', () => {
       );
     });
 
-    test('with scroll', async () => {
+    // FIXME: tests have been flaky on master : https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/1689855/steps/%7Bf65cee1c-c612-497d-8e55-cccb858e56f8%7D/test-report
+    test.skip('with scroll', async () => {
       const url = getExampleUrl('editor', 'editor-core', 'jira-clone');
       const { page } = global;
 
@@ -73,7 +74,8 @@ describe('Comment with sticky toolbar', () => {
       await animationFrame(page);
     });
 
-    test('offsetTop can set offset of sticky toolbar', async () => {
+    // FIXME: tests have been flaky on master : https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/1689855/steps/%7Bf65cee1c-c612-497d-8e55-cccb858e56f8%7D/test-report
+    test.skip('offsetTop can set offset of sticky toolbar', async () => {
       const url = getExampleUrl(
         'editor',
         'editor-core',

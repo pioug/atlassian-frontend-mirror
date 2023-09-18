@@ -496,7 +496,7 @@ const previewStyles = xcss({
 const previewHeaderStyles = xcss({
   fontWeight: token('font.weight.bold', 'bold'),
   borderBottom: `2px solid ${token('color.border', 'red')}`,
-  lineHeight: token('font.lineHeight.500', '500'),
+  lineHeight: token('font.lineHeight.500', '32px'),
 });
 
 function ColumnPreview({ property }: { property: keyof Item }) {

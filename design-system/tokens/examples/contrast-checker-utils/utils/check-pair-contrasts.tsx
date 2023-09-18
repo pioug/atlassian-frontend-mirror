@@ -103,6 +103,7 @@ export default function checkThemePairContrasts(
   rawTokenSet: typeof rawTokensDark,
   theme: string,
   checkAll = false,
+  isAAA = false,
 ) {
   9;
   const fullResults: {
@@ -178,10 +179,15 @@ export default function checkThemePairContrasts(
           background.match(/(hovered|pressed)/)
         );
 
+        let adjustedDesiredContrast = desiredContrast;
+        if (isAAA && desiredContrast) {
+          adjustedDesiredContrast = desiredContrast === 4.5 ? 7 : 4.5;
+        }
+
         // Account for color space blending differences for transparent tokens with a buffer
         const meetsContrastRequirement = layeredToken
-          ? contrast - desiredContrast > 0.05
-          : contrast >= desiredContrast;
+          ? contrast - adjustedDesiredContrast > 0.05
+          : contrast >= adjustedDesiredContrast;
 
         const pairingKey = layeredToken
           ? `${foreground}-${layeredToken}-${background}`
@@ -194,7 +200,7 @@ export default function checkThemePairContrasts(
           foreground: foreground,
           middleLayer: layeredToken,
           background: background,
-          meetsRequiredContrast: desiredContrast
+          meetsRequiredContrast: adjustedDesiredContrast
             ? meetsContrastRequirement
               ? 'PASS'
               : 'FAIL'
@@ -215,5 +221,16 @@ export default function checkThemePairContrasts(
 }
 
 export const lightResults = checkThemePairContrasts(rawTokensLight, 'light');
-
+export const lightResultsAAA = checkThemePairContrasts(
+  rawTokensLight,
+  'light',
+  false,
+  true,
+);
 export const darkResults = checkThemePairContrasts(rawTokensDark, 'dark');
+export const darkResultsAAA = checkThemePairContrasts(
+  rawTokensLight,
+  'light',
+  false,
+  true,
+);

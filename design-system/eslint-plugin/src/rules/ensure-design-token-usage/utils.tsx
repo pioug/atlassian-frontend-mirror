@@ -332,10 +332,10 @@ const getValueFromUnaryExpression = (
  * // results in [2, 4, 0]
  * ```
  */
-const getValueFromTemplateLiteral = (
+export const getValueFromTemplateLiteralRaw = (
   node: EslintNode,
   context: Rule.RuleContext,
-): number | number[] | string | null => {
+): string[] | string | null => {
   if (!isNodeOfType(node, `TemplateLiteral`)) {
     return null;
   }
@@ -354,7 +354,16 @@ const getValueFromTemplateLiteral = (
     return combinedString;
   }
 
-  return combinedString.split(' ').map(removePixelSuffix) as any[];
+  return combinedString.split(' ');
+};
+
+const getValueFromTemplateLiteral = (
+  node: EslintNode,
+  context: Rule.RuleContext,
+): number[] | string[] | string | null => {
+  const value = getValueFromTemplateLiteralRaw(node, context);
+
+  return Array.isArray(value) ? (value.map(removePixelSuffix) as any[]) : value;
 };
 
 const getValueFromBinaryExpression = (
@@ -401,7 +410,10 @@ export const emToPixels = <T extends unknown>(
 const percentageOrEmOrAuto = /(%$)|(\d+em$)|(auto$)/;
 
 export const removePixelSuffix = (value: string | number) => {
-  if (typeof value === 'string' && percentageOrEmOrAuto.test(value)) {
+  if (
+    typeof value === 'string' &&
+    (percentageOrEmOrAuto.test(value) || isCalc(value))
+  ) {
     return value;
   }
 

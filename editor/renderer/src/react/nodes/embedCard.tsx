@@ -3,6 +3,7 @@ import { css, jsx } from '@emotion/react';
 import { useMemo, useContext, useState, useRef } from 'react';
 import { Card, EmbedResizeMessageListener } from '@atlaskit/smart-card';
 import { SmartCardContext } from '@atlaskit/link-provider';
+import type { SmartLinksOptions } from '../../types/smartLinksOptions';
 
 import {
   WidthConsumer,
@@ -17,12 +18,12 @@ import {
   DEFAULT_EMBED_CARD_HEIGHT,
   DEFAULT_EMBED_CARD_WIDTH,
 } from '@atlaskit/editor-shared-styles';
-import { RichMediaLayout } from '@atlaskit/adf-schema';
+import type { RichMediaLayout } from '@atlaskit/adf-schema';
 
 import { getPlatform } from '../../utils';
 import { CardErrorBoundary } from './fallback';
 
-import { RendererAppearance } from '../../ui/Renderer/types';
+import type { RendererAppearance } from '../../ui/Renderer/types';
 import { FullPagePadding } from '../../ui/Renderer/style';
 import { getCardClickHandler } from '../utils/getCardClickHandler';
 import { AnalyticsContext } from '@atlaskit/analytics-next';
@@ -58,6 +59,7 @@ export default function EmbedCard(props: {
   layout: RichMediaLayout;
   rendererAppearance?: RendererAppearance;
   isInsideOfBlockNode?: boolean;
+  smartLinks?: SmartLinksOptions;
 }) {
   const {
     url,
@@ -68,6 +70,7 @@ export default function EmbedCard(props: {
     width,
     isInsideOfBlockNode,
     rendererAppearance,
+    smartLinks,
   } = props;
   const embedIframeRef = useRef(null);
   const onClick = getCardClickHandler(eventHandlers, url);
@@ -83,6 +86,7 @@ export default function EmbedCard(props: {
     container: portal,
     platform,
     showActions: platform === 'web',
+    frameStyle: smartLinks?.frameStyle,
   };
 
   const [liveHeight, setLiveHeight] = useState<number | null>(null);

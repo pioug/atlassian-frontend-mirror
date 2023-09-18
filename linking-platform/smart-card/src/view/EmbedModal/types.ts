@@ -25,8 +25,6 @@ export type EmbedModalProps = {
   isSupportTheming?: boolean;
   /* Add responses to the modal being closed */
   onClose: (context: EmbedModalContext) => void;
-  /* Hook for when primary action is clicked */
-  onDownloadActionClick?: () => void;
   /* Called once the modal has finished opening - things such as dropbox want
    * an iframe with an `iframeName` that they will add src to. You should likely
    * only have src OR onOpen */
@@ -35,8 +33,6 @@ export type EmbedModalProps = {
   onOpenFailed?: (error: Error, errorInfo: ErrorInfo) => void;
   /* Hook for when resize button is clicked */
   onResize?: (context: EmbedModalContext) => void;
-  /* Hook for when secondary action is clicked */
-  onViewActionClick?: () => void;
   /* Name of the provider, used in the link out to the document. */
   providerName?: string;
   /* Toggle whether to show the modal or not */

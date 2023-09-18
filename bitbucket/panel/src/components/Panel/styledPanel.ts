@@ -38,7 +38,8 @@ export const PanelHeader: FC<
   HTMLProps<HTMLDivElement> & { isFocused?: boolean }
 > = withFocusWithin(styled.div`
   align-items: center;
-  background-color: ${(props) => props.isFocused && colors.N20};
+  background-color: ${(props) =>
+    props.isFocused && token('elevation.surface.hovered', colors.N20)};
   border-radius: ${token('border.radius.100', '3px')};
   display: flex;
   left: ${token('space.negative.300', '-24px')};
@@ -55,7 +56,7 @@ export const PanelHeader: FC<
   }
 
   &:hover {
-    background-color: ${colors.N20};
+    background-color: ${token('elevation.surface.hovered', colors.N20)};
     cursor: pointer;
 
     ${ButtonWrapper} {

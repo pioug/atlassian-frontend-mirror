@@ -180,7 +180,7 @@ events:
             *ExtensionKey,
             *DestinationObjectTypes,
           ]
-  - datasource rendered:
+  - datasource renderSuccess:
       type: ui
       description: Fired when an inserted datasource resolves / renders.
       attributes:
@@ -193,11 +193,10 @@ events:
             *DestinationObjectTypes,
             *DisplayedColumnCount,
             *ExtensionKey,
-            *Display,
           ]
-        status:
-          type: [ "resolved", "unauthorized", "forbidden", "not_found", "errored" ]
-          description: To track datasource render state
+        display:
+          type: ['table']
+          description: Indicates what view option the datasource is shown as
   - nextItem loaded:
       type: track
       description: Fired when user scrolls to the next page/list of the objects
@@ -213,9 +212,9 @@ events:
         loadedItemCount:
           type: "number"
           description: Total number of items loaded into display table
-  - table viewed (datasource):
+  - table viewed (datasourceConfigModal):
       type: ui
-      description: Fired when the datasource results are displayed as table
+      description: Fired when the datasource results are displayed as table inside of datasource configuration modal
       attributes:
         <<:
           [
@@ -225,7 +224,8 @@ events:
             *DestinationObjectTypes,
             *TotalItemCount,
             *DisplayedColumnCount,
-            *SearchMethod
+            *SearchMethod,
+            *ExtensionKey,
           ]
   - link viewed (singleItem):
       type: ui

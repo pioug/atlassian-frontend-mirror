@@ -50,6 +50,7 @@ describe('Popup Select', () => {
     global.window.removeEventListener.mockRestore();
   });
 
+  // If this isn't the first test, it will fail. Don't know why ¯\_(ツ)_/¯
   it('should maintain focus in select element after tabbing when open', async () => {
     const onChangeMock = jest.fn();
     render(
@@ -309,6 +310,60 @@ describe('Popup Select', () => {
     />
   );
 
+  describe('accessible name for the input field', () => {
+    it('should have an accessible name that references the label prop', async () => {
+      const label = 'label';
+
+      render(
+        <PopupSelect
+          options={OPTIONS}
+          value={OPTIONS[0]}
+          label={label}
+          testId={'PopupSelect'}
+          target={({ ref }) => (
+            <button ref={ref} data-testid="select-trigger">
+              Target
+            </button>
+          )}
+        />,
+      );
+
+      const selectTrigger = screen.getByText('Target');
+
+      await user.click(selectTrigger);
+
+      const input = screen.getByRole('combobox');
+
+      expect(input).toHaveAccessibleName(label);
+    });
+
+    it('should have an accessible name that references the placeholder prop if the label prop is not provided', async () => {
+      const placeholder = 'placeholder';
+
+      render(
+        <PopupSelect
+          options={OPTIONS}
+          value={OPTIONS[0]}
+          placeholder={placeholder}
+          testId={'PopupSelect'}
+          target={({ ref }) => (
+            <button ref={ref} data-testid="select-trigger">
+              Target
+            </button>
+          )}
+        />,
+      );
+
+      const selectTrigger = screen.getByText('Target');
+
+      await user.click(selectTrigger);
+
+      const input = screen.getByRole('combobox');
+
+      expect(input).toHaveAccessibleName(placeholder);
+    });
+  });
+
   describe('isOpen prop', () => {
     it('should open and close the menu', async () => {
       const { container, rerender } = render(<PopupSelectOpenTest />);
@@ -451,23 +506,23 @@ describe('Popup Select', () => {
 
     it('should have aria-haspopup attribute', () => {
       const { trigger } = renderPopupSelect();
-      expect(trigger.getAttribute('aria-haspopup')).toBe('true');
+      expect(trigger).toHaveAttribute('aria-haspopup', 'true');
     });
 
     it('should have aria-expanded attribute', async () => {
       const { trigger } = renderPopupSelect();
 
-      expect(trigger.getAttribute('aria-expanded')).toBe('false');
+      expect(trigger).toHaveAttribute('aria-expanded', 'false');
 
       await user.click(trigger);
 
-      expect(trigger.getAttribute('aria-expanded')).toBe('true');
+      expect(trigger).toHaveAttribute('aria-expanded', 'true');
     });
 
     it('when open, should have aria-controls attribute which is equal to the popup container id', async () => {
       const { trigger, container } = renderPopupSelect();
 
-      expect(trigger.getAttribute('aria-controls')).toBeNull();
+      expect(trigger).not.toHaveAttribute('aria-controls');
       // opens popup
       await user.click(trigger);
 

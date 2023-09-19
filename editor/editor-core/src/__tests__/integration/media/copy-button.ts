@@ -1,4 +1,4 @@
-import { _getCopyButtonTestSuite } from '../../../plugins/copy-button/__tests__/integration/_getCopyButtonTestSuite';
+import { _getCopyButtonTestSuite } from '../../integration/copy-button/_getCopyButtonTestSuite';
 const mediaAdf = {
   version: 1,
   type: 'doc',

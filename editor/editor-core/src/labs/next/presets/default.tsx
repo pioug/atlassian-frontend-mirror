@@ -16,6 +16,7 @@ import typeAheadPlugin from '../../../plugins/type-ahead';
 import submitEditorPlugin from '../../../plugins/submit-editor';
 import fakeTextCursorPlugin from '../../../plugins/fake-text-cursor';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
+import { copyButtonPlugin } from '@atlaskit/editor-plugin-copy-button';
 import floatingToolbarPlugin from '../../../plugins/floating-toolbar';
 import type { EditorProps } from '../../../types/editor-props';
 import type { EditorPresetProps } from './types';
@@ -33,7 +34,7 @@ import type {
   HyperlinkPluginOptions,
   QuickInsertPluginOptions,
 } from '@atlaskit/editor-common/types';
-import quickInsertPlugin from '../../../plugins/quick-insert';
+import { quickInsertPlugin } from '@atlaskit/editor-plugin-quick-insert';
 import selectionPlugin from '../../../plugins/selection';
 import codeBlockPlugin from '../../../plugins/code-block';
 import type { CodeBlockOptions } from '../../../plugins/code-block/types';
@@ -139,6 +140,7 @@ export function createDefaultPreset(
     .add(editorDisabledPlugin)
     .add([submitEditorPlugin, options.submitEditor])
     .add(fakeTextCursorPlugin)
+    .add(copyButtonPlugin)
     .add(floatingToolbarPlugin)
     .add([selectionPlugin, options.selection])
     .add([codeBlockPlugin, options.codeBlock || { appearance: 'full-page' }]);

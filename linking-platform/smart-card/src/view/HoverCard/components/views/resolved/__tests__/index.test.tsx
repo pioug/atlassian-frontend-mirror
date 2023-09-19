@@ -31,6 +31,7 @@ import { LinkAction } from '../../../../../../state/hooks-external/useSmartLinkA
 import { CardState } from '@atlaskit/linking-common';
 import { useSmartCardState } from '../../../../../../state/store';
 import { extractBlockProps } from '../../../../../../extractors/block';
+import MockAtlasProject from '../../../../../../__fixtures__/atlas-project';
 
 jest.mock('../../../../../../state/actions', () => ({
   useSmartCardActions: jest.fn(),
@@ -94,6 +95,7 @@ describe('HoverCardResolvedView', () => {
           flexibleCardProps={{
             cardState: cardState,
             children: {},
+            showServerActions: true,
             url: url,
           }}
           onActionClick={jest.fn()}
@@ -109,10 +111,13 @@ describe('HoverCardResolvedView', () => {
   };
 
   describe('hover card blocks', () => {
-    const mockWithActions = () => {
+    const mockWithActions = (response?: JsonLd.Response) => {
       const handler = jest.fn().mockResolvedValue(true);
 
-      const state: CardState = { details: mocks.success, status: 'resolved' };
+      const state: CardState = {
+        details: response ?? mocks.success,
+        status: 'resolved',
+      };
       const props = {
         icon: {},
         actions: [
@@ -206,6 +211,46 @@ describe('HoverCardResolvedView', () => {
       const previewAction = await findByTestId('preview-content');
       expect(previewAction).toBeDefined();
       expect(previewAction.textContent).toBe('Open preview');
+    });
+
+    describe('renders FollowAction', () => {
+      ffTest(
+        'platform.linking-platform.smart-card.follow-button',
+        async () => {
+          mockWithActions(MockAtlasProject);
+          const { result } = renderHook(() =>
+            useSmartLinkActions({
+              url,
+              appearance: CardDisplay.HoverCardPreview,
+            }),
+          );
+          const { findByTestId } = await setup({
+            cardActions: result.current,
+            mockResponse: MockAtlasProject,
+          });
+          await findByTestId('smart-element-group-actions');
+
+          const action = await findByTestId('smart-action-follow-action');
+          expect(action?.textContent).toEqual('Follow');
+        },
+        async () => {
+          mockWithActions(MockAtlasProject);
+          const { result } = renderHook(() =>
+            useSmartLinkActions({
+              url,
+              appearance: CardDisplay.HoverCardPreview,
+            }),
+          );
+          const { findByTestId, queryByTestId } = await setup({
+            cardActions: result.current,
+            mockResponse: MockAtlasProject,
+          });
+          await findByTestId('smart-element-group-actions');
+
+          const action = queryByTestId('smart-action-follow-action');
+          expect(action).not.toBeInTheDocument();
+        },
+      );
     });
   });
 

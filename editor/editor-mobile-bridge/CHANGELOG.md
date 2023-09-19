@@ -1,5 +1,30 @@
 # @atlaskit/editor-mobile-bridge
 
+## 187.43.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.43.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.43.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.43.11
+
+### Patch Changes
+
+- [`9131a0a2ffa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9131a0a2ffa) - Extract quick-insert plugin from @atlaskit/editor-core to @atlaskit/editor-plugin-quick-insert.
+- Updated dependencies
+
 ## 187.43.10
 
 ### Patch Changes

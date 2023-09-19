@@ -316,6 +316,15 @@
       },
       "value": "#0055CC"
     },
+    "Light/color.link.visited": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.23.0",
+        "description": "Use for links in a visited state."
+      },
+      "value": "#5E4DB2"
+    },
     "Light/color.icon": {
       "attributes": {
         "group": "paint",

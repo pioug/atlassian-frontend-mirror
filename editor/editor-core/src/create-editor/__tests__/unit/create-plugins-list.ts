@@ -5,7 +5,7 @@ jest.mock('../../../plugins/selection');
 jest.mock('../../../plugins/code-block');
 jest.mock('../../../plugins/fake-text-cursor');
 jest.mock('../../../plugins/submit-editor');
-jest.mock('../../../plugins/quick-insert');
+jest.mock('@atlaskit/editor-plugin-quick-insert');
 jest.mock('@atlaskit/editor-plugin-card');
 jest.mock('@atlaskit/editor-plugin-table');
 jest.mock('@atlaskit/editor-plugin-context-panel');
@@ -35,7 +35,7 @@ import selectionPlugin from '../../../plugins/selection';
 import codeBlockPlugin from '../../../plugins/code-block';
 import fakeTextCursorPlugin from '../../../plugins/fake-text-cursor';
 import submitEditorPlugin from '../../../plugins/submit-editor';
-import quickInsertPlugin from '../../../plugins/quick-insert';
+import { quickInsertPlugin } from '@atlaskit/editor-plugin-quick-insert';
 
 import createPluginsListBase, {
   getScrollGutterOptions,

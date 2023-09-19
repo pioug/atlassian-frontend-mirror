@@ -30,14 +30,14 @@ export const CUSTOM_STYLE_ELEMENTS_SIZE_THRESHOLD = 10;
  * @param {string} themeState.colorMode Determines which color theme is applied
  * @param {Object} themeState.UNSAFE_themeOptions The custom branding options to be used for custom theme generation
  *
- * @returns A Promise of an object array, containing theme IDs, data-attributes to attach to the theme, and the theme CSS.
+ * @returns An object array, containing theme IDs, data-attributes to attach to the theme, and the theme CSS.
  * If an error is encountered while loading themes, the themes array will be empty.
  */
-export async function getCustomThemeStyles(
+export function getCustomThemeStyles(
   themeState: Partial<ThemeState> & {
     UNSAFE_themeOptions: ThemeOptionsSchema;
   },
-): Promise<ThemeStyles[]> {
+): ThemeStyles[] {
   const brandColor = themeState?.UNSAFE_themeOptions?.brandColor;
   const mode = themeState?.colorMode || themeStateDefaults['colorMode'];
   const optionString = JSON.stringify(themeState?.UNSAFE_themeOptions);
@@ -82,12 +82,12 @@ html[${CUSTOM_THEME_ATTRIBUTE}="${uniqueId}"][${COLOR_MODE_ATTRIBUTE}="dark"][da
   return themes;
 }
 
-export async function loadAndAppendCustomThemeCss(
+export function loadAndAppendCustomThemeCss(
   themeState: Partial<ThemeState> & {
     UNSAFE_themeOptions: ThemeOptionsSchema;
   },
 ) {
-  const themes = await getCustomThemeStyles(themeState);
+  const themes = getCustomThemeStyles(themeState);
 
   limitSizeOfCustomStyleElements(CUSTOM_STYLE_ELEMENTS_SIZE_THRESHOLD);
   themes.map((theme) => {

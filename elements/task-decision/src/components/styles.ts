@@ -254,6 +254,23 @@ export const checkboxStyles =
           })({ theme })};
         }
 
+        &:focus + span > svg rect:first-of-type {
+          stroke: ${themed({
+            light: checkboxTheme.light.boxColor.checked,
+            dark: checkboxTheme.dark.boxColor.checked,
+          })({ theme })};
+        }
+        &:checked:focus + span {
+          & > svg {
+            rect:first-of-type {
+              stroke: ${themed({
+                light: checkboxTheme.light.borderColor.focused,
+                dark: checkboxTheme.dark.borderColor.focused,
+              })({ theme })};
+            }
+          }
+        }
+
         ${isRenderer
           ? css`
               &:focus + span > svg,

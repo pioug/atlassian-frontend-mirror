@@ -158,8 +158,6 @@ function classifyTokenPair(
     backgroundToken.name.includes('disabled') ||
     foregroundToken.name.includes('disabled');
 
-  // TODO can we test opacities?
-  // Skip tokens with opacity
   const isTransparent =
     typeof backgroundToken.value === 'string' &&
     typeof foregroundToken.value === 'string' &&
@@ -286,7 +284,7 @@ export const typescriptTokenPairingsFormatter: Format['formatter'] = ({
        * metadata about a token's role, emphasis etc (even in raw format).
        * We have to make some educated guesses based on the token's path.
        */
-      const validInteractions = ['hovered', 'pressed'];
+      const validInteractions = ['hovered', 'pressed', 'visited'];
       const validEmphasis = [
         'subtlest',
         'subtler',

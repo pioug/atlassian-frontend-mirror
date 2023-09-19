@@ -15,6 +15,7 @@ export interface Props {
   taskId: string;
   isDone?: boolean;
   isRenderer?: boolean;
+  isFocused?: boolean;
   onChange?: (taskId: string, isChecked: boolean) => void;
   contentRef?: ContentRef;
   children?: any;
@@ -158,6 +159,7 @@ export default class ResourcedTaskItem extends PureComponent<Props, State> {
       disabled,
       dataAttributes,
       isRenderer,
+      isFocused,
     } = this.props;
 
     return (
@@ -169,6 +171,7 @@ export default class ResourcedTaskItem extends PureComponent<Props, State> {
         <TaskItem
           isDone={isDone}
           isRenderer={isRenderer}
+          isFocused={isFocused}
           taskId={taskId}
           onChange={this.handleOnChange}
           appearance={appearance}

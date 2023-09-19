@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { hyperlinkSelectors } from '@atlaskit/editor-test-helpers/page-objects/hyperlink';
 
-import { _getCopyButtonTestSuite } from '../../../../plugins/copy-button/__tests__/integration/_getCopyButtonTestSuite';
+import { _getCopyButtonTestSuite } from '../../../../../src/__tests__/integration/copy-button/_getCopyButtonTestSuite';
 import hyperlinkCopyButtonExample from '../__fixtures__/hyperlink-copy-button-example.adf.json';
 
 _getCopyButtonTestSuite({

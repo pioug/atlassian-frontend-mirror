@@ -154,7 +154,7 @@ const ProgressDots: FC<ProgressDotsProps> = ({
             />
           ) : (
             <PresentationalIndicator
-              data-testid={testId && `${testId}-ind-${index}`}
+              testId={testId && `${testId}-ind-${index}`}
               key={index}
               style={{ backgroundColor }}
             />

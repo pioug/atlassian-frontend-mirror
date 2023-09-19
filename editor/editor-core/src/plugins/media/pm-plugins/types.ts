@@ -39,6 +39,7 @@ export interface MediaPluginState {
   mediaOptions?: MediaOptions;
   isResizing: boolean;
   resizingWidth: number;
+  currentMaxWidth?: number;
   dispatch?: Dispatch;
   onContextIdentifierProvider: (
     _name: string,

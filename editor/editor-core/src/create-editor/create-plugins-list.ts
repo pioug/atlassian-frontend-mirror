@@ -141,6 +141,5 @@ export default function createPluginsList(
   if (!isCodeBlockAllowed({ allowBlockType: props.allowBlockType })) {
     excludes.add('codeBlock');
   }
-
   return preset.build({ pluginInjectionAPI, excludePlugins: excludes });
 }

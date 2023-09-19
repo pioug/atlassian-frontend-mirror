@@ -8,6 +8,8 @@ import {
   akEditorTableBorderSelected,
   akEditorTableCellBlanketDeleted,
   akEditorTableCellBlanketSelected,
+  akEditorTableHeaderCellBackground,
+  akEditorTableHeaderCellBackgroundDark,
   akEditorTableToolbar,
   akEditorTableToolbarDark,
   akEditorTableToolbarSize,
@@ -42,10 +44,18 @@ export const tableCellBackgroundColor = themed({
   light: token('elevation.surface', N0),
   dark: token('elevation.surface', DN30),
 });
+
 export const tableHeaderCellBackgroundColor = themed({
-  light: token('color.background.neutral', akEditorTableToolbar),
-  dark: token('color.background.neutral', akEditorTableToolbarDark),
+  light: token(
+    'color.background.accent.gray.subtlest',
+    akEditorTableHeaderCellBackground,
+  ),
+  dark: token(
+    'color.background.accent.gray.subtlest',
+    akEditorTableHeaderCellBackgroundDark,
+  ),
 });
+
 export const tableToolbarColor = themed({
   light: token('color.background.neutral.subtle', akEditorTableToolbar),
   dark: token('color.background.neutral.subtle', akEditorTableToolbarDark),

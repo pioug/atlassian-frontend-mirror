@@ -54,6 +54,7 @@ import mediaPlugin from '../../../media';
 import codeBlockPlugin from '../../../code-block';
 import { compositionPlugin } from '@atlaskit/editor-plugin-composition';
 import { blockTypePlugin } from '@atlaskit/editor-plugin-block-type';
+import { copyButtonPlugin } from '@atlaskit/editor-plugin-copy-button';
 import floatingToolbarPlugin from '../../../floating-toolbar';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
@@ -92,6 +93,7 @@ const annotationPreset = new Preset<LightEditorPlugin>()
   .add(guidelinePlugin)
   .add(gridPlugin)
   .add(editorDisabledPlugin)
+  .add(copyButtonPlugin)
   .add(floatingToolbarPlugin)
   .add(focusPlugin)
   .add([

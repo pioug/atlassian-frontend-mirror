@@ -33,6 +33,7 @@ color.text.subtlest, "Use for tertiary text, such as meta-data, breadcrumbs, inp
 color.text.subtle, "Use for secondary text, such as navigation, subtle button links, input field labels, and all caps subheadings."
 color.link, "Use for links in a default or hovered state. Add an underline for hovered states."
 color.link.pressed, "Use for links in a pressed state."
+color.link.visited, "Use for links in a visited state."
 color.icon, "Use for icon-only buttons, or icons paired with color.text"
 color.icon.accent.lime, "Use for lime icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
 color.icon.accent.red, "Use for red icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."

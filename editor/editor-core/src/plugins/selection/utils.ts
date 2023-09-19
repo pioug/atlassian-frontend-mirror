@@ -15,8 +15,6 @@ import type {
   Node as PmNode,
   ResolvedPos,
 } from '@atlaskit/editor-prosemirror/model';
-import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
-import { selectedRect } from '@atlaskit/editor-tables/utils';
 import type {
   ContentNodeWithPos,
   NodeWithPos,
@@ -32,16 +30,16 @@ import {
 
 import { selectNode } from '../../utils/commands';
 import { isEmptyParagraph } from '@atlaskit/editor-common/utils';
-import type { AnalyticsEventPayload } from '../analytics';
-import {
-  ACTION,
-  ACTION_SUBJECT,
-  ACTION_SUBJECT_ID,
-  EVENT_TYPE,
-} from '../analytics';
 import { isIgnored as isIgnoredByGapCursor } from '../selection/gap-cursor/utils/is-ignored';
 
 import { selectionPluginKey } from './types';
+
+import {
+  getNodeSelectionAnalyticsPayload,
+  getAllSelectionAnalyticsPayload,
+  getRangeSelectionAnalyticsPayload,
+  getCellSelectionAnalyticsPayload,
+} from '@atlaskit/editor-common/selection';
 
 export function createSelectionClickHandler(
   nodes: string[],
@@ -105,53 +103,6 @@ export const getDecorations = (
   return DecorationSet.empty;
 };
 
-export function getNodeSelectionAnalyticsPayload(
-  selection: Selection,
-): AnalyticsEventPayload | undefined {
-  if (selection instanceof NodeSelection) {
-    return {
-      action: ACTION.SELECTED,
-      actionSubject: ACTION_SUBJECT.DOCUMENT,
-      actionSubjectId: ACTION_SUBJECT_ID.NODE,
-      eventType: EVENT_TYPE.TRACK,
-      attributes: { node: selection.node.type.name },
-    };
-  }
-}
-
-export function getAllSelectionAnalyticsPayload(
-  selection: Selection,
-): AnalyticsEventPayload | undefined {
-  if (selection instanceof AllSelection) {
-    return {
-      action: ACTION.SELECTED,
-      actionSubject: ACTION_SUBJECT.DOCUMENT,
-      actionSubjectId: ACTION_SUBJECT_ID.ALL,
-      eventType: EVENT_TYPE.TRACK,
-    };
-  }
-}
-
-export function getCellSelectionAnalyticsPayload(
-  state: EditorState,
-): AnalyticsEventPayload | undefined {
-  if (state.selection instanceof CellSelection) {
-    const rect = selectedRect(state);
-    const selectedCells = rect.map.cellsInRect(rect).length;
-    const totalCells = rect.map.map.length;
-    return {
-      action: ACTION.SELECTED,
-      actionSubject: ACTION_SUBJECT.DOCUMENT,
-      actionSubjectId: ACTION_SUBJECT_ID.CELL,
-      eventType: EVENT_TYPE.TRACK,
-      attributes: {
-        selectedCells,
-        totalCells,
-      },
-    };
-  }
-}
-
 const topLevelBlockNodesThatHaveSelectionStyles = [
   'table',
   'panel',
@@ -211,37 +162,6 @@ export const getNodesToDecorateFromSelection = (
   }
   return nodes;
 };
-
-export function getRangeSelectionAnalyticsPayload(
-  selection: Selection,
-  doc: PmNode,
-): AnalyticsEventPayload | undefined {
-  if (selection instanceof TextSelection && selection.from !== selection.to) {
-    const { from, to, anchor, head } = selection;
-
-    const nodes: string[] = [];
-    doc.nodesBetween(from, to, (node, pos) => {
-      // We want to send top-level nodes only, ie. the nodes that would have the selection styling
-      // We allow text nodes that are not fully covered as they are a special case
-      if (node.isText || (pos >= from && pos + node.nodeSize <= to)) {
-        nodes.push(node.type.name);
-        return false;
-      }
-    });
-
-    return {
-      action: ACTION.SELECTED,
-      actionSubject: ACTION_SUBJECT.DOCUMENT,
-      actionSubjectId: ACTION_SUBJECT_ID.RANGE,
-      eventType: EVENT_TYPE.TRACK,
-      attributes: {
-        from: anchor,
-        to: head,
-        nodes,
-      },
-    };
-  }
-}
 
 export function shouldRecalcDecorations({
   oldEditorState,
@@ -443,3 +363,10 @@ export const isSelectionAtEndOfParentNode = (
   $pos: ResolvedPos,
   selection: Selection,
 ) => isSelectionAtEndOfNode($pos, findSelectableContainerParent(selection));
+
+export {
+  getNodeSelectionAnalyticsPayload,
+  getAllSelectionAnalyticsPayload,
+  getRangeSelectionAnalyticsPayload,
+  getCellSelectionAnalyticsPayload,
+};

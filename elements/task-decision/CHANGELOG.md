@@ -1,5 +1,11 @@
 # @atlaskit/task-decision
 
+## 17.9.0
+
+### Minor Changes
+
+- [`96f4e9fe6de`](https://bitbucket.org/atlassian/atlassian-frontend/commits/96f4e9fe6de) - [ux] ECA11Y-1 Added keyboard support to focus checkbox, check or uncheck, inside action item
+
 ## 17.8.1
 
 ### Patch Changes

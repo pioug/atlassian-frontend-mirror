@@ -1,5 +1,12 @@
 # @atlaskit/renderer
 
+## 108.13.1
+
+### Patch Changes
+
+- [`c7f60374a72`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c7f60374a72) - The ReactSerializer will now re-render when the passed extensionHandlers changes. This is avoid SSR pages with dynamic macros breaking when re-renders is reduced. Add safety catch tests to avoid future breakages.
+- Updated dependencies
+
 ## 108.13.0
 
 ### Minor Changes

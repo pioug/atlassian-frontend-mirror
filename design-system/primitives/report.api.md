@@ -1081,6 +1081,7 @@ const textColorMap: {
   readonly 'color.text.subtle': 'var(--ds-text-subtle)';
   readonly 'color.link': 'var(--ds-link)';
   readonly 'color.link.pressed': 'var(--ds-link-pressed)';
+  readonly 'color.link.visited': 'var(--ds-link-visited)';
 };
 
 // @public (undocumented)

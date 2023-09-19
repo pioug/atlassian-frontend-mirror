@@ -1,32 +1,15 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { PMPluginFactoryParams } from '../../../types';
 import { clipboardPluginKey } from '../plugin-key';
 import type { DispatchAnalyticsEvent } from '../../analytics/types/dispatch-analytics-event';
-import type { AnalyticsEventPayload } from '../../../plugins/analytics';
-import {
-  getNodeSelectionAnalyticsPayload,
-  getAllSelectionAnalyticsPayload,
-  getRangeSelectionAnalyticsPayload,
-  getCellSelectionAnalyticsPayload,
-} from '../../selection/utils';
-import {
-  EVENT_TYPE,
-  ACTION,
-  ACTION_SUBJECT,
-  ACTION_SUBJECT_ID,
-} from '../../analytics/types/enums';
-import type {
-  SelectNodeAEP,
-  SelectRangeAEP,
-  SelectCellAEP,
-} from '../../analytics/types/selection-events';
+
+import { ACTION } from '../../analytics/types/enums';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { NodeType, Schema } from '@atlaskit/editor-prosemirror/model';
+import { getAnalyticsPayload } from '@atlaskit/editor-common/clipboard';
 
 export const createPlugin = ({
   dispatchAnalyticsEvent,
@@ -147,62 +130,4 @@ export const sendClipboardAnalytics = (
   return false;
 };
 
-export const getAnalyticsPayload = (
-  state: EditorState,
-  action: ACTION.CUT | ACTION.COPIED,
-): AnalyticsEventPayload | undefined => {
-  const { selection, doc } = state;
-  const selectionAnalyticsPayload =
-    getNodeSelectionAnalyticsPayload(selection) ||
-    getRangeSelectionAnalyticsPayload(selection, doc) ||
-    getAllSelectionAnalyticsPayload(selection) ||
-    getCellSelectionAnalyticsPayload(state);
-
-  if (selectionAnalyticsPayload) {
-    const { actionSubjectId: selectionActionSubjectId } =
-      selectionAnalyticsPayload;
-
-    let content: string[] = [];
-    switch (selectionActionSubjectId) {
-      case ACTION_SUBJECT_ID.NODE:
-        content.push(
-          (selectionAnalyticsPayload as SelectNodeAEP).attributes!.node,
-        );
-        break;
-      case ACTION_SUBJECT_ID.RANGE:
-        content.push(
-          ...(selectionAnalyticsPayload as SelectRangeAEP).attributes!.nodes,
-        );
-        break;
-      case ACTION_SUBJECT_ID.ALL:
-        content.push('all');
-        break;
-      case ACTION_SUBJECT_ID.CELL: {
-        const { selectedCells } = (selectionAnalyticsPayload as SelectCellAEP)
-          .attributes!;
-        content.push(...Array(selectedCells).fill('tableCell'));
-        break;
-      }
-    }
-
-    return {
-      eventType: EVENT_TYPE.TRACK,
-      action,
-      actionSubject: ACTION_SUBJECT.DOCUMENT,
-      attributes: {
-        content,
-      },
-    };
-  }
-
-  if (selection instanceof TextSelection && selection.$cursor) {
-    return {
-      eventType: EVENT_TYPE.TRACK,
-      action,
-      actionSubject: ACTION_SUBJECT.DOCUMENT,
-      attributes: {
-        content: ['caret'],
-      },
-    };
-  }
-};
+export { getAnalyticsPayload };

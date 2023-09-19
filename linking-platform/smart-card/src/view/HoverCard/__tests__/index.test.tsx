@@ -17,6 +17,7 @@ jest.mock('react-render-image', () => ({ src, errored, onError }: any) => {
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 import '@atlaskit/link-test-helpers/jest';
 import {
+  flushPromises,
   MockIntersectionObserverFactory,
   MockIntersectionObserverOpts,
 } from '@atlaskit/link-test-helpers';
@@ -59,6 +60,7 @@ import {
 import { HoverCardInternalProps } from '../types';
 import { PROVIDER_KEYS_WITH_THEMING } from '../../../extractors/constants';
 import { setGlobalTheme } from '@atlaskit/tokens';
+import MockAtlasProject from '../../../__fixtures__/atlas-project';
 
 const mockUrl = 'https://some.url';
 
@@ -935,6 +937,66 @@ describe('HoverCard', () => {
           },
           eventType: 'ui',
         });
+      });
+
+      describe('should fire clicked event when follow button is clicked', () => {
+        ffTest(
+          'platform.linking-platform.smart-card.follow-button',
+          async () => {
+            const { analyticsSpy, findByTestId } = await setup({
+              extraCardProps: { showServerActions: true },
+              mock: MockAtlasProject,
+            });
+            jest.runAllTimers();
+
+            await findByTestId('smart-block-title-resolved-view');
+            const button = await findByTestId('smart-action-follow-action');
+
+            fireEvent.click(button);
+            await flushPromises();
+
+            expect(analyticsSpy).toBeFiredWithAnalyticEventOnce(
+              {
+                payload: {
+                  action: 'clicked',
+                  actionSubject: 'button',
+                  actionSubjectId: 'smartLinkFollowButton',
+                },
+              },
+              analytics.ANALYTICS_CHANNEL,
+            );
+            expect(analyticsSpy).toBeFiredWithAnalyticEventOnce(
+              {
+                payload: {
+                  action: 'started',
+                  actionSubject: 'smartLinkQuickAction',
+                },
+              },
+              analytics.ANALYTICS_CHANNEL,
+            );
+            expect(analyticsSpy).toBeFiredWithAnalyticEventOnce(
+              {
+                payload: {
+                  action: 'success',
+                  actionSubject: 'smartLinkQuickAction',
+                },
+              },
+              analytics.ANALYTICS_CHANNEL,
+            );
+          },
+          async () => {
+            const { findByTestId, queryByTestId } = await setup({
+              extraCardProps: { showServerActions: true },
+              mock: MockAtlasProject,
+            });
+            jest.runAllTimers();
+
+            await findByTestId('smart-block-title-resolved-view');
+            const button = queryByTestId('smart-action-follow-action');
+
+            expect(button).not.toBeInTheDocument();
+          },
+        );
       });
 
       it('should fire render failed event when hover card errors during render', async () => {

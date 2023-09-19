@@ -39,6 +39,9 @@
       "path": "../editor-plugin-context-panel/tsconfig.app.json"
     },
     {
+      "path": "../editor-plugin-copy-button/tsconfig.app.json"
+    },
+    {
       "path": "../editor-plugin-decorations/tsconfig.app.json"
     },
     {

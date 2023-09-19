@@ -187,6 +187,7 @@ describe('actions', () => {
         display: 'block',
         featureFlags: { enableFlexibleBlockCard: true },
         isFlexibleComponent: true,
+        props: { showServerActions: true },
       },
     ],
     [
@@ -198,12 +199,14 @@ describe('actions', () => {
           children: (
             <TitleBlock
               actions={[
+                { name: ActionName.FollowAction },
                 { name: ActionName.DownloadAction },
                 { name: ActionName.PreviewAction },
                 { name: ActionName.ViewAction },
               ]}
             />
           ),
+          showServerActions: true,
         },
       },
     ],
@@ -218,10 +221,16 @@ describe('actions', () => {
         featureFlags?: Partial<ProviderProps['featureFlags']>;
         isFlexibleComponent?: boolean;
         props?: Partial<React.ComponentProps<typeof Card>>;
+        resolvedTestId?: string;
       },
     ) => {
-      const { display, featureFlags, isFlexibleComponent, props } =
-        componentOptions;
+      const {
+        display,
+        featureFlags,
+        isFlexibleComponent,
+        props,
+        resolvedTestId = 'smart-block-title-resolved-view',
+      } = componentOptions;
 
       describe.each([
         [
@@ -279,7 +288,7 @@ describe('actions', () => {
           },
         ],
       ])(
-        'action: %s',
+        'client action: %s',
         (
           actionName: string,
           testOptions: {
@@ -448,212 +457,207 @@ describe('actions', () => {
           });
         },
       );
+
+      if (props?.showServerActions) {
+        describe.each([
+          [
+            'follow',
+            {
+              actionSubjectId: 'smartLinkFollowButton',
+              actionType: 'Follow',
+              response: toJsonLdResponse({
+                'atlassian:serverAction': [
+                  {
+                    '@type': 'UpdateAction',
+                    name: 'UpdateAction',
+                    dataUpdateAction: {
+                      '@type': 'UpdateAction',
+                      name: SmartLinkActionType.FollowEntityAction,
+                    },
+                    resourceIdentifiers: { ari: 'some-id' },
+                    refField: 'button',
+                  },
+                ],
+              }),
+              testId: 'smart-action-follow-action',
+            },
+          ],
+          [
+            'unfollow',
+            {
+              actionSubjectId: 'smartLinkFollowButton',
+              actionType: 'Unfollow',
+              response: toJsonLdResponse({
+                'atlassian:serverAction': [
+                  {
+                    '@type': 'UpdateAction',
+                    name: 'UpdateAction',
+                    dataUpdateAction: {
+                      '@type': 'UpdateAction',
+                      name: SmartLinkActionType.UnfollowEntityAction,
+                    },
+                    resourceIdentifiers: { ari: 'some-id' },
+                    refField: 'button',
+                  },
+                ],
+              }),
+              testId: 'smart-action-follow-action',
+            },
+          ],
+        ])(
+          'server action: %s',
+          (
+            actionName,
+            testOptions: {
+              actionSubjectId: string;
+              actionType: string;
+              response: JsonLd.Response;
+              testId: string;
+            },
+          ) => {
+            const { actionSubjectId, actionType, response, testId } =
+              testOptions;
+            const setupOptions = { featureFlags, props, response };
+
+            describe('fires button click and track success', () => {
+              ffTest(
+                'platform.linking-platform.smart-card.follow-button',
+                async () => {
+                  jest.spyOn(useInvoke, 'default').mockReturnValue(jest.fn());
+
+                  const { findByTestId, mockAnalyticsClient } =
+                    setup(setupOptions);
+
+                  await findByTestId(resolvedTestId);
+                  const button = await findByTestId(testId);
+                  act(() => {
+                    fireEvent.click(button);
+                  });
+                  await flushPromises();
+
+                  expect(
+                    mockAnalyticsClient.sendUIEvent,
+                  ).toHaveBeenLastCalledWith({
+                    ...EXPECTED_CHANNEL_CONTEXT,
+                    action: 'clicked',
+                    actionSubject: 'button',
+                    actionSubjectId,
+                    attributes: expect.objectContaining({
+                      ...EXPECTED_COMMON_ATTRIBUTES,
+                      display,
+                      id: TEST_ID,
+                    }),
+                  });
+
+                  expect(
+                    mockAnalyticsClient.sendTrackEvent,
+                  ).toHaveBeenNthCalledWith(1, {
+                    ...EXPECTED_CHANNEL_CONTEXT,
+                    action: 'started',
+                    actionSubject: 'smartLinkQuickAction',
+                    attributes: expect.objectContaining({
+                      ...EXPECTED_COMMON_ATTRIBUTES,
+                      display,
+                      id: TEST_ID,
+                      smartLinkActionType: actionType,
+                    }),
+                  });
+
+                  expect(
+                    mockAnalyticsClient.sendTrackEvent,
+                  ).toHaveBeenNthCalledWith(2, {
+                    ...EXPECTED_CHANNEL_CONTEXT,
+                    action: 'success',
+                    actionSubject: 'smartLinkQuickAction',
+                    attributes: expect.objectContaining({
+                      ...EXPECTED_COMMON_ATTRIBUTES,
+                      display,
+                      id: TEST_ID,
+                      smartLinkActionType: actionType,
+                    }),
+                  });
+                },
+                async () => {
+                  const { findByTestId, queryByTestId } = setup(setupOptions);
+                  await findByTestId(resolvedTestId);
+                  const button = queryByTestId(testId);
+                  expect(button).not.toBeInTheDocument();
+                },
+              );
+            });
+
+            describe('fires button click and track failed', () => {
+              ffTest(
+                'platform.linking-platform.smart-card.follow-button',
+                async () => {
+                  const mockInvoke = jest.fn().mockImplementationOnce(() => {
+                    throw new Error();
+                  });
+                  jest.spyOn(useInvoke, 'default').mockReturnValue(mockInvoke);
+
+                  const { findByTestId, mockAnalyticsClient } =
+                    setup(setupOptions);
+
+                  const button = await findByTestId(testId);
+                  act(() => {
+                    fireEvent.click(button);
+                  });
+                  await flushPromises();
+
+                  expect(
+                    mockAnalyticsClient.sendUIEvent,
+                  ).toHaveBeenLastCalledWith({
+                    ...EXPECTED_CHANNEL_CONTEXT,
+                    action: 'clicked',
+                    actionSubject: 'button',
+                    actionSubjectId,
+                    attributes: expect.objectContaining({
+                      ...EXPECTED_COMMON_ATTRIBUTES,
+                      display,
+                      id: TEST_ID,
+                    }),
+                  });
+
+                  expect(
+                    mockAnalyticsClient.sendTrackEvent,
+                  ).toHaveBeenNthCalledWith(1, {
+                    ...EXPECTED_CHANNEL_CONTEXT,
+                    action: 'started',
+                    actionSubject: 'smartLinkQuickAction',
+                    attributes: expect.objectContaining({
+                      ...EXPECTED_COMMON_ATTRIBUTES,
+                      display,
+                      id: TEST_ID,
+                      smartLinkActionType: actionType,
+                    }),
+                  });
+
+                  expect(
+                    mockAnalyticsClient.sendTrackEvent,
+                  ).toHaveBeenNthCalledWith(2, {
+                    ...EXPECTED_CHANNEL_CONTEXT,
+                    action: 'failed',
+                    actionSubject: 'smartLinkQuickAction',
+                    actionSubjectId: undefined,
+                    attributes: expect.objectContaining({
+                      ...EXPECTED_COMMON_ATTRIBUTES,
+                      display,
+                      id: TEST_ID,
+                      smartLinkActionType: actionType,
+                    }),
+                  });
+                },
+                async () => {
+                  const { findByTestId, queryByTestId } = setup(setupOptions);
+                  await findByTestId(resolvedTestId);
+                  const button = queryByTestId(testId);
+                  expect(button).not.toBeInTheDocument();
+                },
+              );
+            });
+          },
+        );
+      }
     },
   );
-
-  describe('server actions: flexible card', () => {
-    const viewTestId = 'smart-block-title-resolved-view';
-    const display = 'flexible';
-
-    describe.each([
-      [
-        'follow',
-        {
-          actionSubjectId: 'smartLinkFollowButton',
-          actionType: 'Follow',
-          response: toJsonLdResponse({
-            'atlassian:serverAction': [
-              {
-                '@type': 'UpdateAction',
-                name: 'UpdateAction',
-                dataUpdateAction: {
-                  '@type': 'UpdateAction',
-                  name: SmartLinkActionType.FollowEntityAction,
-                },
-                resourceIdentifiers: { ari: 'some-id' },
-                refField: 'button',
-              },
-            ],
-          }),
-          testId: 'smart-action-follow-action',
-        },
-      ],
-      [
-        'unfollow',
-        {
-          actionSubjectId: 'smartLinkFollowButton',
-          actionType: 'Unfollow',
-          response: toJsonLdResponse({
-            'atlassian:serverAction': [
-              {
-                '@type': 'UpdateAction',
-                name: 'UpdateAction',
-                dataUpdateAction: {
-                  '@type': 'UpdateAction',
-                  name: SmartLinkActionType.UnfollowEntityAction,
-                },
-                resourceIdentifiers: { ari: 'some-id' },
-                refField: 'button',
-              },
-            ],
-          }),
-          testId: 'smart-action-follow-action',
-        },
-      ],
-    ])(
-      '%s action',
-      (
-        actionName: string,
-        testOptions: {
-          actionSubjectId: string;
-          actionType: string;
-          response: JsonLd.Response;
-          testId: string;
-        },
-      ) => {
-        const { actionSubjectId, actionType, response, testId } = testOptions;
-
-        const setupOptions = {
-          props: {
-            children: (
-              <TitleBlock actions={[{ name: ActionName.FollowAction }]} />
-            ),
-            showServerActions: true,
-          },
-          response,
-        };
-
-        describe('fires button click and track success', () => {
-          ffTest(
-            'platform.linking-platform.smart-card.follow-button',
-            async () => {
-              jest.spyOn(useInvoke, 'default').mockReturnValue(jest.fn());
-
-              const { findByTestId, mockAnalyticsClient } = setup(setupOptions);
-
-              await findByTestId(viewTestId);
-              const button = await findByTestId(testId);
-              act(() => {
-                fireEvent.click(button);
-              });
-              await flushPromises();
-
-              expect(mockAnalyticsClient.sendUIEvent).toHaveBeenLastCalledWith({
-                ...EXPECTED_CHANNEL_CONTEXT,
-                action: 'clicked',
-                actionSubject: 'button',
-                actionSubjectId,
-                attributes: expect.objectContaining({
-                  ...EXPECTED_COMMON_ATTRIBUTES,
-                  display,
-                  id: TEST_ID,
-                }),
-              });
-
-              expect(
-                mockAnalyticsClient.sendTrackEvent,
-              ).toHaveBeenNthCalledWith(1, {
-                ...EXPECTED_CHANNEL_CONTEXT,
-                action: 'started',
-                actionSubject: 'smartLinkQuickAction',
-                attributes: expect.objectContaining({
-                  ...EXPECTED_COMMON_ATTRIBUTES,
-                  display,
-                  id: TEST_ID,
-                  smartLinkActionType: actionType,
-                }),
-              });
-
-              expect(
-                mockAnalyticsClient.sendTrackEvent,
-              ).toHaveBeenNthCalledWith(2, {
-                ...EXPECTED_CHANNEL_CONTEXT,
-                action: 'success',
-                actionSubject: 'smartLinkQuickAction',
-                attributes: expect.objectContaining({
-                  ...EXPECTED_COMMON_ATTRIBUTES,
-                  display,
-                  id: TEST_ID,
-                  smartLinkActionType: actionType,
-                }),
-              });
-            },
-            async () => {
-              const { findByTestId, queryByTestId } = setup(setupOptions);
-              await findByTestId(viewTestId);
-              const button = queryByTestId(testId);
-              expect(button).not.toBeInTheDocument();
-            },
-          );
-        });
-
-        describe('fires button click and track failed', () => {
-          ffTest(
-            'platform.linking-platform.smart-card.follow-button',
-            async () => {
-              const mockInvoke = jest.fn().mockImplementationOnce(() => {
-                throw new Error();
-              });
-              jest.spyOn(useInvoke, 'default').mockReturnValue(mockInvoke);
-
-              const { findByTestId, mockAnalyticsClient } = setup(setupOptions);
-
-              const button = await findByTestId(testId);
-              act(() => {
-                fireEvent.click(button);
-              });
-              await flushPromises();
-
-              expect(mockAnalyticsClient.sendUIEvent).toHaveBeenLastCalledWith({
-                ...EXPECTED_CHANNEL_CONTEXT,
-                action: 'clicked',
-                actionSubject: 'button',
-                actionSubjectId,
-                attributes: expect.objectContaining({
-                  ...EXPECTED_COMMON_ATTRIBUTES,
-                  display,
-                  id: TEST_ID,
-                }),
-              });
-
-              expect(
-                mockAnalyticsClient.sendTrackEvent,
-              ).toHaveBeenNthCalledWith(1, {
-                ...EXPECTED_CHANNEL_CONTEXT,
-                action: 'started',
-                actionSubject: 'smartLinkQuickAction',
-                attributes: expect.objectContaining({
-                  ...EXPECTED_COMMON_ATTRIBUTES,
-                  display,
-                  id: TEST_ID,
-                  smartLinkActionType: actionType,
-                }),
-              });
-
-              expect(
-                mockAnalyticsClient.sendTrackEvent,
-              ).toHaveBeenNthCalledWith(2, {
-                ...EXPECTED_CHANNEL_CONTEXT,
-                action: 'failed',
-                actionSubject: 'smartLinkQuickAction',
-                actionSubjectId: undefined,
-                attributes: expect.objectContaining({
-                  ...EXPECTED_COMMON_ATTRIBUTES,
-                  display,
-                  id: TEST_ID,
-                  smartLinkActionType: actionType,
-                }),
-              });
-            },
-            async () => {
-              const { findByTestId, queryByTestId } = setup(setupOptions);
-              await findByTestId(viewTestId);
-              const button = queryByTestId(testId);
-              expect(button).not.toBeInTheDocument();
-            },
-          );
-        });
-      },
-    );
-  });
 });

@@ -1,4 +1,4 @@
-import {
+import type {
   Node as PMNode,
   ResolvedPos,
 } from '@atlaskit/editor-prosemirror/model';
@@ -23,6 +23,7 @@ export const numberNestedLists = (resolvedPos: ResolvedPos) => {
 };
 
 export const getListItemAttributes = ($pos: ResolvedPos) => {
+  // Get level for the correct indent of nesting
   const indentLevel = numberNestedLists($pos) - 1;
 
   const itemAtPos = findParentNodeClosestToPos($pos, isListItemNode);

@@ -27,6 +27,7 @@ const messages = defineMessages({
 export interface TaskProps {
   taskId: string;
   isDone: boolean;
+  isFocused?: boolean;
   contentRef?: ContentRef;
   onChange?: (taskId: string, isChecked: boolean) => void;
   showPlaceholder?: boolean;

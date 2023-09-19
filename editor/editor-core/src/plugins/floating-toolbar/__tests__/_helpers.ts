@@ -7,7 +7,7 @@ import type {
   Command,
   FloatingToolbarCustom,
 } from '@atlaskit/editor-common/types';
-import { processCopyButtonItems } from '../../copy-button/toolbar';
+import { processCopyButtonItems } from '@atlaskit/editor-plugin-copy-button/toolbar';
 
 import { DefaultExtensionProvider } from '@atlaskit/editor-common/extensions';
 import type {
@@ -21,7 +21,7 @@ export const getToolbarItems = (
 ) => {
   const node = view.state.doc.nodeAt(view.state.selection.from)!;
 
-  return processCopyButtonItems(view.state)(
+  return processCopyButtonItems(undefined)(view.state)(
     Array.isArray(toolbar.items) ? toolbar.items : toolbar.items(node),
     undefined,
   );

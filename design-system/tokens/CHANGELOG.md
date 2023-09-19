@@ -1,5 +1,20 @@
 # @atlaskit/tokens
 
+## 1.24.0
+
+### Minor Changes
+
+- [`0c2e2baec38`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0c2e2baec38) - Added new `color.link.visited` token.
+
+## 1.23.0
+
+### Minor Changes
+
+- [`5a967ac2397`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5a967ac2397) - Adds two new synchronous theme configuration utilities:
+
+  - `enableGlobalTheme` is a synchronous version of `setGlobalTheme` that sets data attributes on the page and takes a themeLoader
+  - `UNSAFE_loadCustomThemeStyles` provides a synchronous way to generate and apply custom theme styles to the page. It can be accessed from a new entrypoint, `@atlaskit/tokens/custom-themes`
+
 ## 1.22.1
 
 ### Patch Changes

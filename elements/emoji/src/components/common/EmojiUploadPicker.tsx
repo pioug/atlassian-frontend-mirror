@@ -1,7 +1,6 @@
 /** @jsx jsx */
 import {
   FC,
-  Fragment,
   KeyboardEventHandler,
   useEffect,
   useLayoutEffect,
@@ -27,9 +26,7 @@ import { EmojiUpload, Message } from '../../types';
 import * as ImageUtil from '../../util/image';
 import debug from '../../util/logger';
 import { messages } from '../i18n';
-import EmojiErrorMessage, {
-  emojiErrorScreenreaderTestId,
-} from './EmojiErrorMessage';
+import EmojiErrorMessage from './EmojiErrorMessage';
 import EmojiUploadPreview from './EmojiUploadPreview';
 import FileChooser from './FileChooser';
 import { UploadStatus } from './internal-types';
@@ -62,9 +59,6 @@ export interface Props {
   errorMessage?: Message;
   initialUploadName?: string;
 }
-
-const addCustomEmojiChooseFileScreenreaderId =
-  'fabric.emoji.choose.file.label.id';
 
 const disallowedReplacementsMap = new Map([
   [':', ''],
@@ -184,29 +178,20 @@ const ChooseEmojiFile: FC<ChooseEmojiFilePropsType> = memo((props) => {
           <FormattedMessage
             {...messages.emojiChooseFileScreenReaderDescription}
           >
-            {(screenReaderDescription) => (
-              <Fragment>
-                <span hidden id={fileChooserButtonDescriptionId}>
-                  {screenReaderDescription}
-                </span>
-                <span hidden id={addCustomEmojiChooseFileScreenreaderId}>
-                  {emojiChooseFileTitle}
-                </span>
-                <FileChooser
-                  label={emojiChooseFileTitle}
-                  onChange={onChooseFile}
-                  onClick={onClick}
-                  accept="image/png,image/jpeg,image/gif"
-                  ariaDescribedBy={fileChooserButtonDescriptionId}
-                  ariaLabelledBy={`${emojiErrorScreenreaderTestId} ${addCustomEmojiChooseFileScreenreaderId}`}
-                  isDisabled={disableChooser}
-                />
-              </Fragment>
+            {() => (
+              <FileChooser
+                label={emojiChooseFileTitle}
+                onChange={onChooseFile}
+                onClick={onClick}
+                accept="image/png,image/jpeg,image/gif"
+                ariaDescribedBy={fileChooserButtonDescriptionId}
+                isDisabled={disableChooser}
+              />
             )}
           </FormattedMessage>
         </span>
       </div>
-      <div css={emojiUploadBottom}>
+      <div css={emojiUploadBottom} id={fileChooserButtonDescriptionId}>
         {!errorMessage ? (
           <p>
             <FormattedMessage {...messages.emojiImageRequirements} />

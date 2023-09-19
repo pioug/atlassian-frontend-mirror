@@ -1,4 +1,4 @@
-import { _getCopyButtonTestSuite } from '../../../copy-button/__tests__/visual-regression/_getCopyButtonTestSuite';
+import { _getCopyButtonTestSuite } from '../../../../../src/__tests__/visual-regression/copy-button/_getCopyButtonTestSuite';
 
 _getCopyButtonTestSuite({
   nodeName: 'Layout',

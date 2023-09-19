@@ -1,5 +1,11 @@
 # @atlaskit/progress-indicator
 
+## 9.5.16
+
+### Patch Changes
+
+- [`1ce8020278e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1ce8020278e) - Remove role presentation on div indicator
+
 ## 9.5.15
 
 ### Patch Changes

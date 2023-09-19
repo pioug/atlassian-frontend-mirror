@@ -51,6 +51,7 @@ import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import layoutPlugin from '../../../../layout';
 import panelPlugin from '../../../../panel';
 import selectionPlugin from '../../../../selection';
+import { copyButtonPlugin } from '@atlaskit/editor-plugin-copy-button';
 import floatingToolbarPlugin from '../../../../floating-toolbar';
 import betterTypeHistoryPlugin from '../../../../better-type-history';
 import captionPlugin from '../../../../caption';
@@ -86,6 +87,7 @@ describe('paste paragraph edge cases', () => {
         .add(tablesPlugin)
         .add(layoutPlugin)
         .add(gridPlugin)
+        .add(copyButtonPlugin)
         .add(floatingToolbarPlugin)
         .add(focusPlugin)
         .add(compositionPlugin)

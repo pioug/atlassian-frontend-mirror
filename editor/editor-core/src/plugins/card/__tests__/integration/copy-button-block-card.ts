@@ -1,5 +1,5 @@
-import { _getCopyButtonTestSuite } from '../../../copy-button/__tests__/integration/_getCopyButtonTestSuite';
-import { default as WebDriverPage } from '@atlaskit/webdriver-runner/wd-wrapper';
+import { _getCopyButtonTestSuite } from '../../../../../src/__tests__/integration/copy-button/_getCopyButtonTestSuite';
+import type { default as WebDriverPage } from '@atlaskit/webdriver-runner/wd-wrapper';
 import * as blockCardAdf from '../../../../__tests__/integration/card/_fixtures_/block-card.adf.json';
 import { waitForBlockCardSelection } from '@atlaskit/media-integration-test-helpers';
 

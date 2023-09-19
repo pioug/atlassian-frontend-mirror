@@ -1,4 +1,4 @@
-import { _getCopyButtonTestSuite } from '../../../copy-button/__tests__/integration/_getCopyButtonTestSuite';
+import { _getCopyButtonTestSuite } from '../../../../../src/__tests__/integration/copy-button/_getCopyButtonTestSuite';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { panelSelectors } from '@atlaskit/editor-test-helpers/page-objects/panel';
 import panelAdf from '../__fixtures__/basic-panel-adf.json';

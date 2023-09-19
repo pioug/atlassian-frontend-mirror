@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-table
 
+## 3.0.3
+
+### Patch Changes
+
+- [`65b155b2787`](https://bitbucket.org/atlassian/atlassian-frontend/commits/65b155b2787) - [ux] ED-19172: Updated tableHeaderCellBackgroundColor to use non-transparent token."
+- [`cd06919038d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cd06919038d) - [ux] Fix Firefox scrolling stuck in some certain height when scroll up from bottom
+- [`0b1f816e4fa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0b1f816e4fa) - [ux] Added akEditorTableHeaderCellBackground to store fallback.
+- Updated dependencies
+
 ## 3.0.2
 
 ### Patch Changes

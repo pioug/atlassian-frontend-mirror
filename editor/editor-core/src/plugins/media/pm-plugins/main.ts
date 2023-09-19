@@ -71,6 +71,8 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import type mediaPlugin from '../index';
 
+import { getMaxWidthForNestedNodeNext } from '@atlaskit/editor-common/media-single';
+
 export type { MediaState, MediaProvider, MediaStateStatus };
 export { stateKey } from './plugin-key';
 
@@ -125,6 +127,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
   newInsertionBehaviour?: boolean;
   isResizing: boolean = false;
   resizingWidth: number = 0;
+  currentMaxWidth?: number;
 
   private view!: EditorView;
   private destroyed = false;
@@ -296,7 +299,18 @@ export class MediaPluginStateImplementation implements MediaPluginState {
       newElement = this.getDomElement(this.view.domAtPos.bind(this.view)) as
         | HTMLElement
         | undefined;
+
+      if (selectedContainer.type === this.view.state.schema.nodes.mediaSingle) {
+        this.currentMaxWidth =
+          getMaxWidthForNestedNodeNext(
+            this.view,
+            this.view.state.selection.$anchor.pos,
+          ) || undefined;
+      } else {
+        this.currentMaxWidth = undefined;
+      }
     }
+
     if (this.element !== newElement) {
       this.element = newElement;
     }

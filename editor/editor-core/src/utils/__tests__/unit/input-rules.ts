@@ -18,6 +18,7 @@ import {
 import { listPlugin } from '@atlaskit/editor-plugin-list';
 import { basePlugin } from '../../../plugins/base';
 import mediaPlugin from '../../../plugins/media';
+import { copyButtonPlugin } from '@atlaskit/editor-plugin-copy-button';
 import floatingToolbarPlugin from '../../../plugins/floating-toolbar';
 
 import { editorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
@@ -52,6 +53,7 @@ describe('createWrappingJoinRule()', () => {
         .add(widthPlugin)
         .add(guidelinePlugin)
         .add(gridPlugin)
+        .add(copyButtonPlugin)
         .add(floatingToolbarPlugin)
         .add(focusPlugin)
         .add(captionPlugin)

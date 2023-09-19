@@ -510,7 +510,7 @@ export const resizeHandle = (props: ThemeProps) => css`
     td.${ClassName.WITH_RESIZE_LINE}::before {
       content: ' ';
       position: absolute;
-      left: -2px;
+      left: ${token('space.negative.025', '-2px')};
       top: -1px;
       width: ${resizeLineWidth}px;
       height: calc(100% + 2px);
@@ -520,7 +520,7 @@ export const resizeHandle = (props: ThemeProps) => css`
 
     th.${ClassName.WITH_RESIZE_LINE}::before {
       content: ' ';
-      left: -2px;
+      left: ${token('space.negative.025', '-2px')};
       position: absolute;
       width: ${resizeLineWidth}px;
       height: calc(100% + ${tableToolbarSize + tableCellBorderWidth}px);

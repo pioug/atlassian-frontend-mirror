@@ -142,6 +142,8 @@ export interface PopupSelectProps<
   validationState?: ValidationState;
   /** This prop indicates if the component is in an error state */
   isInvalid?: boolean;
+  /** This gives an accessible name to the input for users of assistive technologies */
+  label?: string;
   testId?: string;
 }
 
@@ -554,8 +556,16 @@ export default class PopupSelect<
   // ==============================
 
   renderSelect = () => {
-    const { footer, maxMenuWidth, minMenuWidth, target, testId, ...props } =
-      this.props;
+    const {
+      footer,
+      label,
+      maxMenuWidth,
+      minMenuWidth,
+      placeholder,
+      target,
+      testId,
+      ...props
+    } = this.props;
     // TODO: If `platform.design-system-team.popup-select-render-perf_i0s6m` is kept, `focusLockEnabled` should be fully removed as we're preferring `isReferenceHidden`
     const { focusLockEnabled, isOpen, mergedComponents, mergedPopperProps } =
       this.state;
@@ -582,6 +592,14 @@ export default class PopupSelect<
           ...mergedComponents,
           Control: showSearchControl ? mergedComponents.Control : DummyControl,
         } as Partial<SelectComponents>);
+
+    const getLabel: () => string | undefined = () => {
+      if (label) {
+        return label;
+      } else if (typeof placeholder === 'string') {
+        return placeholder;
+      }
+    };
 
     const popper = (
       <Popper
@@ -641,11 +659,13 @@ export default class PopupSelect<
                 >
                   {readyToRenderSelect && (
                     <Select<Option, IsMulti>
+                      aria-label={getLabel()}
                       backspaceRemovesValue={false}
                       controlShouldRenderValue={false}
                       isClearable={false}
                       tabSelectsValue={false}
                       menuIsOpen
+                      placeholder={placeholder}
                       ref={this.getSelectRef}
                       {...props}
                       isSearchable={showSearchControl}

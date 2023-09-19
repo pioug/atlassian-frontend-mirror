@@ -17,10 +17,10 @@
 ```ts
 import { UnbindFn } from 'bind-event-listener';
 
-// @public (undocumented)
+// @public
 interface ActiveThemeState extends ThemeState {
   // (undocumented)
-  colorMode: Exclude<ThemeColorModes, 'auto'>;
+  colorMode: DataColorModes;
 }
 
 // @public
@@ -368,6 +368,7 @@ export type ActiveTokens =
   | 'color.interaction.pressed'
   | 'color.link'
   | 'color.link.pressed'
+  | 'color.link.visited'
   | 'color.skeleton'
   | 'color.skeleton.subtle'
   | 'color.text'
@@ -735,6 +736,7 @@ type CSSTokenMap = {
   'color.text.subtle': 'var(--ds-text-subtle)';
   'color.link': 'var(--ds-link)';
   'color.link.pressed': 'var(--ds-link-pressed)';
+  'color.link.visited': 'var(--ds-link-visited)';
   'color.icon': 'var(--ds-icon)';
   'color.icon.accent.lime': 'var(--ds-icon-accent-lime)';
   'color.icon.accent.red': 'var(--ds-icon-accent-red)';
@@ -1224,6 +1226,20 @@ interface DesignToken<TValue, Group extends Groups>
       };
 }
 
+// @public
+export const enableGlobalTheme: (
+  {
+    colorMode,
+    dark,
+    light,
+    shape,
+    spacing,
+    typography,
+    UNSAFE_themeOptions,
+  }?: Partial<ThemeState>,
+  themeLoader?: ((id: ThemeIdsWithOverrides) => void) | undefined,
+) => UnbindFn;
+
 // @public (undocumented)
 type ExperimentalReplacement = InternalTokenIds | InternalTokenIds[] | string;
 
@@ -1653,6 +1669,7 @@ type InternalTokenIds =
   | 'color.interaction.pressed'
   | 'color.link.[default]'
   | 'color.link.pressed'
+  | 'color.link.visited'
   | 'color.skeleton.[default]'
   | 'color.skeleton.subtle'
   | 'color.text.[default]'
@@ -2033,6 +2050,7 @@ const tokens: {
   readonly 'color.text.subtle': '--ds-text-subtle';
   readonly 'color.link': '--ds-link';
   readonly 'color.link.pressed': '--ds-link-pressed';
+  readonly 'color.link.visited': '--ds-link-visited';
   readonly 'color.icon': '--ds-icon';
   readonly 'color.icon.accent.lime': '--ds-icon-accent-lime';
   readonly 'color.icon.accent.red': '--ds-icon-accent-red';

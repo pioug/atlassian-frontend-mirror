@@ -1,3 +1,5 @@
+import { JsonLd } from 'json-ld-types';
+
 export default {
   meta: {
     auth: [],
@@ -70,4 +72,4 @@ export default {
       },
     ],
   },
-};
+} as JsonLd.Response;

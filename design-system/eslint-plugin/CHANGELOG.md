@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 8.8.0
+
+### Minor Changes
+
+- [`6c149f3e71d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c149f3e71d) - The `ensure-design-token-usage` rules now report on use of the CSS `calc` function when used with padding, margin, and gap properties.
+
 ## 8.7.1
 
 ### Patch Changes

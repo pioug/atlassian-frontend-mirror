@@ -39,10 +39,11 @@ import layoutPlugin from '../../../plugins/layout';
 import panelPlugin from '../../../plugins/panel';
 import { rulePlugin } from '@atlaskit/editor-plugin-rule';
 import typeAheadPlugin from '../../../plugins/type-ahead';
-import quickInsertPlugin from '../../../plugins/quick-insert';
+import { quickInsertPlugin } from '@atlaskit/editor-plugin-quick-insert';
 import { editorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 import floatingToolbarPlugin from '../../../plugins/floating-toolbar';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
+import { copyButtonPlugin } from '@atlaskit/editor-plugin-copy-button';
 import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
@@ -74,6 +75,7 @@ describe('@atlaskit/editor-core/utils insert', () => {
         .add(guidelinePlugin)
         .add(gridPlugin)
         .add(decorationsPlugin)
+        .add(copyButtonPlugin)
         .add(floatingToolbarPlugin)
         .add(focusPlugin)
         .add(compositionPlugin)

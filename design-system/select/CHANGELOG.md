@@ -1,5 +1,11 @@
 # @atlaskit/select
 
+## 16.7.0
+
+### Minor Changes
+
+- [`31496cc7c8a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/31496cc7c8a) - [ux] Adds accessible name to the search input for popup select components via new `label` prop or `placeholder` prop if `label` is not provided.
+
 ## 16.6.0
 
 ### Minor Changes

@@ -1,45 +1,15 @@
-import { bind, UnbindFn } from 'bind-event-listener';
+import { UnbindFn } from 'bind-event-listener';
 
-import noop from '@atlaskit/ds-lib/noop';
-
-import { COLOR_MODE_ATTRIBUTE } from './constants';
-import getThemeHtmlAttrs from './get-theme-html-attrs';
 import {
-  ThemeColorModes,
   ThemeIdsWithOverrides,
   ThemeState,
   themeStateDefaults,
 } from './theme-config';
 import { isValidBrandHex } from './utils/color-utils';
+import configurePage from './utils/configure-page';
 import { findMissingCustomStyleElements } from './utils/custom-theme-loading-utils';
 import { getThemePreferences } from './utils/get-theme-preferences';
-import {
-  darkModeMediaQuery,
-  loadAndAppendThemeCss,
-} from './utils/theme-loading';
-
-// Represents theme state once mounted to the page (auto is hidden from observers)
-export interface ActiveThemeState extends ThemeState {
-  colorMode: Exclude<ThemeColorModes, 'auto'>;
-}
-
-const isMatchMediaAvailable =
-  typeof window !== 'undefined' && 'matchMedia' in window;
-
-const darkModeMql =
-  isMatchMediaAvailable && window.matchMedia(darkModeMediaQuery);
-
-let unbindThemeChangeListener: UnbindFn = noop;
-
-/**
- * Updates the current theme when the system theme changes. Should be bound
- * to an event listener listening on the '(prefers-color-scheme: dark)' query
- * @param e The event representing a change in system theme.
- */
-const checkNativeListener = function (e: MediaQueryListEvent) {
-  const element = document.documentElement;
-  element.setAttribute(COLOR_MODE_ATTRIBUTE, e.matches ? 'dark' : 'light');
-};
+import { loadAndAppendThemeCss } from './utils/theme-loading';
 
 /**
  * Sets the theme globally at runtime. This updates the `data-theme` and `data-color-mode` attributes on your page's <html> tag.
@@ -73,64 +43,7 @@ const setGlobalTheme = async (
   }: Partial<ThemeState> = {},
   themeLoader?: (id: ThemeIdsWithOverrides) => void | Promise<void>,
 ): Promise<UnbindFn> => {
-  const themePreferences = getThemePreferences({
-    colorMode,
-    dark,
-    light,
-    shape,
-    spacing,
-    typography,
-  });
-
-  const loadingStrategy = themeLoader ? themeLoader : loadAndAppendThemeCss;
-
-  await Promise.all([
-    ...themePreferences.map(async (themeId) => await loadingStrategy(themeId)),
-    (async () => {
-      if (
-        !themeLoader &&
-        UNSAFE_themeOptions &&
-        isValidBrandHex(UNSAFE_themeOptions?.brandColor)
-      ) {
-        const mode = colorMode || themeStateDefaults['colorMode'];
-        const attrOfMissingCustomStyles = findMissingCustomStyleElements(
-          UNSAFE_themeOptions,
-          mode,
-        );
-
-        if (attrOfMissingCustomStyles.length === 0) {
-          return false;
-        }
-
-        const { loadAndAppendCustomThemeCss } = await import(
-          /* webpackChunkName: "@atlaskit-internal_atlassian-custom-theme" */
-          './custom-theme'
-        );
-        await loadAndAppendCustomThemeCss({
-          colorMode:
-            attrOfMissingCustomStyles.length === 2
-              ? 'auto'
-              : // only load the missing custom theme styles
-                attrOfMissingCustomStyles[0],
-          UNSAFE_themeOptions,
-        });
-      }
-    })(),
-  ]);
-
-  if (colorMode === 'auto' && darkModeMql) {
-    colorMode = darkModeMql.matches ? 'dark' : 'light';
-    // Add an event listener for changes to the system theme.
-    // If the function exists, it will not be added again.
-    unbindThemeChangeListener = bind(darkModeMql, {
-      type: 'change',
-      listener: checkNativeListener,
-    });
-  } else {
-    unbindThemeChangeListener();
-  }
-
-  const themeAttributes = getThemeHtmlAttrs({
+  const themeState = {
     colorMode,
     dark,
     light,
@@ -138,13 +51,52 @@ const setGlobalTheme = async (
     spacing,
     typography,
     UNSAFE_themeOptions: themeLoader ? undefined : UNSAFE_themeOptions,
-  });
+  };
 
-  Object.entries(themeAttributes).forEach(([key, value]) => {
-    document.documentElement.setAttribute(key, value);
-  });
+  // Determine what to load and loading strategy
+  const themePreferences = getThemePreferences(themeState);
+  const loadingStrategy = themeLoader ? themeLoader : loadAndAppendThemeCss;
 
-  return unbindThemeChangeListener;
+  // Load standard themes
+  const loadingTasks = themePreferences.map(
+    async (themeId) => await loadingStrategy(themeId),
+  );
+
+  // Load custom themes if needed
+  if (
+    !themeLoader &&
+    UNSAFE_themeOptions &&
+    isValidBrandHex(UNSAFE_themeOptions?.brandColor)
+  ) {
+    const mode = colorMode || themeStateDefaults['colorMode'];
+    const attrOfMissingCustomStyles = findMissingCustomStyleElements(
+      UNSAFE_themeOptions,
+      mode,
+    );
+    if (attrOfMissingCustomStyles.length > 0) {
+      // Load custom theme styles
+      loadingTasks.push(
+        (async () => {
+          const { loadAndAppendCustomThemeCss } = await import(
+            /* webpackChunkName: "@atlaskit-internal_atlassian-custom-theme" */
+            './custom-theme'
+          );
+          loadAndAppendCustomThemeCss({
+            colorMode:
+              attrOfMissingCustomStyles.length === 2
+                ? 'auto'
+                : // only load the missing custom theme styles
+                  attrOfMissingCustomStyles[0],
+            UNSAFE_themeOptions,
+          });
+        })(),
+      );
+    }
+  }
+  await Promise.all(loadingTasks);
+
+  const autoUnbind = configurePage(themeState);
+  return autoUnbind;
 };
 
 export default setGlobalTheme;

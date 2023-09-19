@@ -1,5 +1,25 @@
 # @atlaskit/editor-common
 
+## 75.2.0
+
+### Minor Changes
+
+- [`9f2365fabcc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9f2365fabcc) - ED-19617 - Initial creation of editor-plugin-copy-button package
+
+## 75.1.2
+
+### Patch Changes
+
+- [`621b904a076`](https://bitbucket.org/atlassian/atlassian-frontend/commits/621b904a076) - Updated a JS doc comment.
+
+## 75.1.1
+
+### Patch Changes
+
+- [`9eec18457a6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9eec18457a6) - This changeset exists because a PR's confluence integrator step needs to pre-release the latest editor-common for the build to not fail.
+- [`9131a0a2ffa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9131a0a2ffa) - Extract quick-insert plugin from @atlaskit/editor-core to @atlaskit/editor-plugin-quick-insert.
+- Updated dependencies
+
 ## 75.1.0
 
 ### Minor Changes

@@ -30,7 +30,7 @@ import {
 } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
-import { EditorTheme } from './types';
+import type { EditorTheme } from './types';
 
 export const akEditorFullPageDefaultFontSize = 16;
 export const akEditorCodeFontFamily = codeFontFamily();
@@ -94,6 +94,8 @@ export const akEditorTableToolbar = N20;
 export const akEditorTableToolbarDark = DN50;
 export const akEditorTableFloatingControls = N20;
 export const akEditorTableCellSelected = B75;
+export const akEditorTableHeaderCellBackground = '#F1F2F4';
+export const akEditorTableHeaderCellBackgroundDark = '#2C333A';
 export const akEditorTableToolbarSelected = B100;
 export const akEditorTableBorderSelected = B300;
 export const akEditorTableCellDelete = R50;

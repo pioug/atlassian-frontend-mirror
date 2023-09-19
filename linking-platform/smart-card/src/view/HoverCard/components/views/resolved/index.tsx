@@ -1,6 +1,9 @@
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { JsonLd } from 'json-ld-types';
-import { ActionItem } from '../../../../FlexibleCard/components/blocks/types';
+import {
+  ActionItem,
+  NamedDataActionItem,
+} from '../../../../FlexibleCard/components/blocks/types';
 import {
   ActionName,
   CardDisplay,
@@ -39,7 +42,12 @@ export const toFooterActions = (
   cardActions: LinkAction[],
   onActionClick?: (actionId: string) => void,
 ): ActionItem[] => {
-  return cardActions.map((action: LinkAction) => {
+  const followAction: NamedDataActionItem = {
+    hideIcon: true,
+    name: ActionName.FollowAction,
+  };
+
+  const actions = cardActions.map((action: LinkAction) => {
     if (action.id === 'preview-content') {
       return {
         content: <FormattedMessage {...messages.preview_improved} />,
@@ -67,6 +75,8 @@ export const toFooterActions = (
       testId: action.id,
     } as CustomActionItem;
   });
+
+  return [followAction, ...actions];
 };
 
 const HoverCardResolvedView: React.FC<HoverCardResolvedProps> = ({

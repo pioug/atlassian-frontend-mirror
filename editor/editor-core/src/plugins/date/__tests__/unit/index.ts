@@ -38,7 +38,7 @@ import {
 import deprecatedAnalyticsPlugin, { INPUT_METHOD } from '../../../analytics';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import datePlugin from '../../index';
-import quickInsertPlugin from '../../../quick-insert';
+import { quickInsertPlugin } from '@atlaskit/editor-plugin-quick-insert';
 import typeAheadPlugin from '../../../type-ahead';
 import codeBlockPlugin from '../../../code-block';
 import selectionPlugin from '../../../selection';

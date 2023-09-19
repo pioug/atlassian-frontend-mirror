@@ -23,6 +23,7 @@ import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import layoutPlugin from '../../../../layout';
 import panelPlugin from '../../../../panel';
 import { cardPlugin } from '@atlaskit/editor-plugin-card';
+import { copyButtonPlugin } from '@atlaskit/editor-plugin-copy-button';
 import floatingToolbarPlugin from '../../../../floating-toolbar';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
@@ -51,6 +52,7 @@ describe('paste paragraph edge cases', () => {
         .add(layoutPlugin)
         .add(panelPlugin)
         .add(editorDisabledPlugin)
+        .add(copyButtonPlugin)
         .add(floatingToolbarPlugin)
         .add([cardPlugin, { allowBlockCards: true, platform: 'web' }]),
     });

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-copy-button",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "editor-plugin-copy-button for @atlaskit/editor-core",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -28,17 +28,23 @@
   "sideEffects": false,
   "atlaskit:src": "src/index.ts",
   "af:exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.ts",
+    "./toolbar": "./src/toolbar.ts",
+    "./utils": "./src/utils.ts"
   },
   "dependencies": {
-    "@atlaskit/editor-common": "^75.1.0",
+    "@atlaskit/editor-common": "^75.2.0",
+    "@atlaskit/editor-plugin-analytics": "^0.2.0",
+    "@atlaskit/editor-plugin-decorations": "^0.2.0",
     "@atlaskit/editor-prosemirror": "1.1.0",
+    "@atlaskit/icon": "^21.12.0",
     "@babel/runtime": "^7.0.0"
   },
   "peerDependencies": {
     "react": "^16.8.0"
   },
   "devDependencies": {
+    "@atlaskit/analytics-next": "^9.1.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@testing-library/react": "^12.1.5",
     "react-dom": "^16.8.0",

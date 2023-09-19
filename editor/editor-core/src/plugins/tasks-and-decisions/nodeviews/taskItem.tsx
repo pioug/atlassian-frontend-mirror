@@ -124,13 +124,16 @@ class Task extends ReactNodeView<Props> {
           plugins={{
             taskDecisionPlugin: taskPluginKey,
           }}
-          render={() => {
+          render={({ taskDecisionPlugin }) => {
             return (
               <TaskItem
                 taskId={localId}
                 contentRef={forwardRef}
                 isDone={state === 'DONE'}
                 onChange={this.handleOnChange}
+                isFocused={
+                  taskDecisionPlugin?.focusedTaskItemLocalId === localId
+                }
                 showPlaceholder={
                   this.isContentEmpty(this.node) &&
                   !isTypeAheadOpen(this.view.state)

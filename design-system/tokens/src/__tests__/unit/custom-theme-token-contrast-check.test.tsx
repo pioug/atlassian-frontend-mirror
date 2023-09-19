@@ -31,6 +31,32 @@ const baseColors: CSSColor[] = [
   '#DCDFE4', //neutral
 ];
 
+const expectedFailedLightPairs = [
+  ['color.background.brand.bold.hovered', 'color.background.selected.pressed'],
+  [
+    'color.background.brand.bold.hovered',
+    'color.background.brand.subtlest.pressed',
+  ],
+  [
+    'color.background.selected.bold.hovered',
+    'color.background.selected.pressed',
+  ],
+  [
+    'color.background.selected.bold.hovered',
+    'color.background.brand.subtlest.pressed',
+  ],
+  [
+    'color.background.brand.boldest.pressed',
+    'color.background.brand.subtlest.pressed',
+  ],
+  ['color.link.pressed', 'color.background.brand.subtlest.hovered'],
+  ['color.link.pressed', 'color.background.selected.hovered'],
+  ['color.link.visited', 'color.background.brand.subtlest.hovered'],
+  ['color.link.visited', 'color.background.selected.hovered'],
+  ['color.chart.brand', 'elevation.surface.hovered'],
+  ['color.chart.brand', 'elevation.surface.raised.hovered'],
+];
+
 describe('tokenRampAdjustment', () => {
   it('should darken tokens by one base token in light mode', () => {
     const originalTokenMap = generateTokenMap(brandColor, 'light').light!;
@@ -91,13 +117,10 @@ describe('customTheme', () => {
 
         if (newBreachesLight.length > 0) {
           newBreachesLight.forEach((pair) => {
-            expect([
-              'color.background.brand.bold.hovered',
-              'color.background.selected.bold.hovered',
-              'color.background.brand.boldest.pressed',
-              'color.link.pressed',
-              'color.chart.brand',
-            ]).toContain(pair.foreground.tokenName);
+            expect(expectedFailedLightPairs).toContainEqual([
+              pair.foreground.tokenName,
+              pair.background.tokenName,
+            ]);
           });
           lightResult.push({
             newBreachesCount: newBreachesLight.length,

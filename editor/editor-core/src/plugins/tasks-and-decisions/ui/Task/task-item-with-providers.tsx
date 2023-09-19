@@ -11,6 +11,7 @@ import {
 export interface Props {
   taskId: string;
   isDone: boolean;
+  isFocused?: boolean;
   contentRef?: ContentRef;
   onChange?: (taskId: string, isChecked: boolean) => void;
   showPlaceholder?: boolean;

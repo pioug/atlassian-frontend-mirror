@@ -329,7 +329,7 @@ export default class MediaSingleNode extends Component<
         origWidth: width,
         layout,
         // This will only be used when calculating legacy media single width
-        // thus we use the legecy value (exclude table as container node)
+        // thus we use the legacy value (exclude table as container node)
         contentWidth: contentWidthForLegacyExperience,
         containerWidth,
         gutterOffset: MEDIA_SINGLE_GUTTER_SIZE,

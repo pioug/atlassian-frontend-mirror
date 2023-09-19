@@ -7,6 +7,7 @@ import {
 import mediaPlugin from '../../media';
 import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
+import { copyButtonPlugin } from '@atlaskit/editor-plugin-copy-button';
 import floatingToolbarPlugin from '../../floating-toolbar';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import captionPlugin from '../';
@@ -45,6 +46,7 @@ describe('Caption plugin', () => {
         .add(widthPlugin)
         .add(guidelinePlugin)
         .add(gridPlugin)
+        .add(copyButtonPlugin)
         .add(floatingToolbarPlugin)
         .add(focusPlugin)
         .add([mediaPlugin, { allowMediaSingle: true, allowCaptions: true }])

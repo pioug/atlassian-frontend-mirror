@@ -316,6 +316,15 @@
       },
       "value": "#0065FF"
     },
+    "Legacy dark/color.link.visited": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.23.0",
+        "description": "Use for links in a visited state."
+      },
+      "value": "#6554C0"
+    },
     "Legacy dark/color.icon": {
       "attributes": {
         "group": "paint",

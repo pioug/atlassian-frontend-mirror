@@ -15,8 +15,8 @@ const baseStyles = css({
   boxSizing: 'border-box',
   maxWidth: '240px',
   padding: `${token('space.025', '2px')} ${token('space.075', '6px')}`,
-  top: token('space.0', '0px'),
-  left: token('space.0', '0px'),
+  insetBlockStart: token('space.0', '0px'),
+  insetInlineStart: token('space.0', '0px'),
   borderRadius: token('border.radius', '3px'),
   fontSize: token('font.size.075', '12px'),
   lineHeight: 1.3,
@@ -65,7 +65,6 @@ const TooltipContainer = forwardRef<HTMLDivElement, TooltipContainerProps>(
     return (
       <GlobalTheme.Consumer>
         {({ mode }) => (
-          // eslint-disable-next-line jsx-a11y/mouse-events-have-key-events
           <TooltipPrimitive
             ref={ref}
             style={style}

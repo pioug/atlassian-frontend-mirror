@@ -1,5 +1,11 @@
 # @atlaskit/editor-shared-styles
 
+## 2.7.0
+
+### Minor Changes
+
+- [`0b1f816e4fa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0b1f816e4fa) - [ux] Added akEditorTableHeaderCellBackground to store fallback.
+
 ## 2.6.1
 
 ### Patch Changes

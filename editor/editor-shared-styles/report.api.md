@@ -222,6 +222,12 @@ export const akEditorTableCellSelected = '#B3D4FF';
 export const akEditorTableFloatingControls = '#F4F5F7';
 
 // @public (undocumented)
+export const akEditorTableHeaderCellBackground = '#F1F2F4';
+
+// @public (undocumented)
+export const akEditorTableHeaderCellBackgroundDark = '#2C333A';
+
+// @public (undocumented)
 export const akEditorTableLegacyCellMinWidth = 128;
 
 // @public (undocumented)

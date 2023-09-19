@@ -4,7 +4,6 @@ import AkButton from '@atlaskit/button/standard-button';
 
 export interface Props {
   label: string;
-  ariaLabelledBy?: string;
   ariaDescribedBy?: string;
   onChange?: ChangeEventHandler<any>;
   onClick?: () => void;
@@ -16,15 +15,8 @@ export const chooseFileButtonTestId = 'choose-file-button';
 export const fileUploadInputTestId = 'file-upload';
 
 const FileChooser: FC<Props> = (props) => {
-  const {
-    accept,
-    ariaDescribedBy,
-    ariaLabelledBy,
-    isDisabled,
-    label,
-    onChange,
-    onClick,
-  } = props;
+  const { accept, ariaDescribedBy, isDisabled, label, onChange, onClick } =
+    props;
   const filePickerRef = useRef<HTMLInputElement>(null);
   const fileButtonRef = useRef<HTMLButtonElement>(null);
 
@@ -46,7 +38,6 @@ const FileChooser: FC<Props> = (props) => {
         onClick={handleOnChooseFile}
         isDisabled={isDisabled}
         aria-describedby={ariaDescribedBy}
-        aria-labelledby={ariaLabelledBy}
         testId={chooseFileButtonTestId}
         ref={fileButtonRef}
       >

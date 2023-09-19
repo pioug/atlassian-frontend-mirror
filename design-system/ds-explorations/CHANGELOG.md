@@ -1,5 +1,12 @@
 # @atlaskit/ds-explorations
 
+## 2.3.1
+
+### Patch Changes
+
+- [`83cd2ae7c5a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/83cd2ae7c5a) - Regenerates codegen artifacts as a result of introducting new visited link token.
+- Updated dependencies
+
 ## 2.3.0
 
 ### Minor Changes

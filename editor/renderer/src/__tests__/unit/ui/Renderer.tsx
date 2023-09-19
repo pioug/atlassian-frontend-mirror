@@ -15,6 +15,7 @@ jest.mock('@atlaskit/editor-common/utils', () => ({
 }));
 
 import React from 'react';
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { mount, ReactWrapper } from 'enzyme';
 
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
@@ -23,9 +24,11 @@ import FabricAnalyticsListeners from '@atlaskit/analytics-listeners';
 import { analyticsClient } from '@atlaskit/editor-test-helpers/analytics-client-mock';
 import { a, b, doc, heading, p, text } from '@atlaskit/adf-utils/builders';
 import { EDITOR_APPEARANCE_CONTEXT } from '@atlaskit/analytics-namespaced-context';
+import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
 import type { Props } from '../../../ui/Renderer';
 import Renderer, { Renderer as BaseRenderer } from '../../../ui/Renderer';
 import type { RendererAppearance } from '../../../ui/Renderer/types';
+import * as renderDocumentModule from '../../../render-document';
 import Loadable from 'react-loadable';
 import { initialDoc } from '../../__fixtures__/initial-doc';
 import { invalidDoc } from '../../__fixtures__/invalid-doc';
@@ -61,6 +64,7 @@ describe('@atlaskit/renderer/ui/Renderer', () => {
     if (renderer && renderer.length) {
       renderer.unmount();
     }
+    jest.restoreAllMocks();
   });
 
   it('should re-render when appearance changes', () => {
@@ -617,6 +621,57 @@ describe('@atlaskit/renderer/ui/Renderer', () => {
       const renderer = initRenderer(tableLayout);
       expect(renderer.find(table)).toHaveLength(0);
       expect(renderer.find('table')).toHaveLength(12);
+    });
+  });
+
+  describe('Extension Handlers', () => {
+    // IMPORTANT: This test is needed to avoid SSR pages with extensions breaking. This test should only be changed when the
+    // ReactSerializer has been update to be more targetted in it updates.
+    it('should re-render when extensionHandlers changes', () => {
+      renderer = initRenderer();
+      const renderSpy = jest.spyOn(
+        renderer.find(BaseRenderer).instance() as any,
+        'render',
+      );
+      const renderDocumentSpy = jest.spyOn(
+        renderDocumentModule,
+        'renderDocument',
+      );
+
+      renderer.setProps({ extensionHandlers: {} });
+      renderer.setProps({ extensionHandlers: {} });
+
+      expect(renderSpy).toHaveBeenCalledTimes(2);
+      expect(renderDocumentSpy).toHaveBeenCalledTimes(2);
+
+      // IMPORTANT: 2 renders have occured both times being passed 2 different extension handler objects
+      // This means the serializer passed to the renderDocument should have changed and NOT be the same serialzer instance
+      // Which was passed the first time.
+      // This is due to a HOT created in an attempt to reduce re-renders, which broken dynamic extensions on SSR pages
+      // PIR Action - https://product-fabric.atlassian.net/browse/ED-19393
+      // https://product-fabric.atlassian.net/wiki/spaces/E/pages/3656254243/PIR-15961+HOT-104596+-+Macros+are+not+loaded+on+SSR+enabled+views
+      expect(renderDocumentSpy.mock.calls[0][1]).not.toEqual(
+        renderDocumentSpy.mock.calls[1][1],
+      );
+    });
+
+    it('should not re-render when extensionHandlers has not change', () => {
+      renderer = initRenderer();
+      const renderSpy = jest.spyOn(
+        renderer.find(BaseRenderer).instance() as any,
+        'render',
+      );
+      const renderDocumentSpy = jest.spyOn(
+        renderDocumentModule,
+        'renderDocument',
+      );
+
+      const emptyExtensionHandlers: ExtensionHandlers = {};
+      renderer.setProps({ extensionHandlers: emptyExtensionHandlers });
+      renderer.setProps({ extensionHandlers: emptyExtensionHandlers });
+
+      expect(renderSpy).toHaveBeenCalledTimes(1);
+      expect(renderDocumentSpy).toHaveBeenCalledTimes(1);
     });
   });
 });

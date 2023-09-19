@@ -1,11 +1,10 @@
 /** @jsx jsx */
-import { FC, Fragment } from 'react';
+import { FC } from 'react';
 import { jsx, SerializedStyles } from '@emotion/react';
 import Tooltip from '@atlaskit/tooltip';
 import ErrorIcon from '@atlaskit/icon/glyph/error';
 import { Message } from '../../types';
-import VisuallyHidden from '@atlaskit/visually-hidden';
-import { FormattedMessage, useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl-next';
 
 import { messages } from '../i18n';
 
@@ -46,20 +45,7 @@ const EmojiErrorMessage: FC<Props> = (props) => {
     </div>
   );
 
-  return (
-    <Fragment>
-      <VisuallyHidden id={emojiErrorScreenreaderTestId}>
-        <FormattedMessage {...messages.error}>
-          {(errMsg) => (
-            <span>
-              {errMsg} {message}.
-            </span>
-          )}
-        </FormattedMessage>
-      </VisuallyHidden>
-      {visualContent}
-    </Fragment>
-  );
+  return visualContent;
 };
 
 export default EmojiErrorMessage;

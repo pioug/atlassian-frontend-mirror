@@ -7,11 +7,12 @@ import __noop from '@atlaskit/ds-lib/noop';
 
 import ProgressDots from '../../progress-dots';
 
+const defaultValues = ['one', 'two', 'three'];
 // NOTE: "StubComponent" saves duplicating required props; avoids errors in the logs
 const StubComponent: FC<{ onSelect?: () => any }> = ({ onSelect }) => (
   <ProgressDots
     selectedIndex={0}
-    values={['one', 'two', 'three']}
+    values={defaultValues}
     onSelect={onSelect}
     testId="progress-dots"
   />
@@ -26,35 +27,57 @@ describe('Progress Indicator', () => {
 
   describe('values property', () => {
     it('should render the correct number of indicators', () => {
+      const values = ['one', 'two', 'three', 'four', 'five'];
       render(
         <ProgressDots
+          testId="progress-dots"
           selectedIndex={0}
-          values={['one', 'two', 'three', 'four', 'five']}
+          values={values}
         />,
       );
 
       expect(screen.getByRole('tablist')).toBeInTheDocument();
-      expect(screen.getAllByRole('presentation')).toHaveLength(5);
+      values.forEach((_, index) => {
+        expect(
+          screen.getByTestId(`progress-dots-ind-${index}`),
+        ).toBeInTheDocument();
+      });
     });
 
     describe('should accept an array of any value types', () => {
       it('should accept numbers', () => {
-        render(<ProgressDots selectedIndex={0} values={[1, 2, 3]} />);
-
-        expect(screen.getByRole('tablist')).toBeInTheDocument();
-        expect(screen.getAllByRole('presentation')).toHaveLength(3);
-      });
-
-      it('should accept objects', () => {
         render(
           <ProgressDots
+            testId="progress-dots"
             selectedIndex={0}
-            values={[{ key: 'value' }, { key: 'value' }, { key: 'value' }]}
+            values={defaultValues}
           />,
         );
 
         expect(screen.getByRole('tablist')).toBeInTheDocument();
-        expect(screen.getAllByRole('presentation')).toHaveLength(3);
+        defaultValues.forEach((_, index) => {
+          expect(
+            screen.getByTestId(`progress-dots-ind-${index}`),
+          ).toBeInTheDocument();
+        });
+      });
+
+      it('should accept objects', () => {
+        const values = [{ key: 'value' }, { key: 'value' }, { key: 'value' }];
+        render(
+          <ProgressDots
+            testId="progress-dots"
+            selectedIndex={0}
+            values={values}
+          />,
+        );
+
+        expect(screen.getByRole('tablist')).toBeInTheDocument();
+        values.forEach((_, index) => {
+          expect(
+            screen.getByTestId(`progress-dots-ind-${index}`),
+          ).toBeInTheDocument();
+        });
       });
     });
   });
@@ -67,7 +90,11 @@ describe('Progress Indicator', () => {
     it('should return an <PresentationalIndicator /> when NOT specified', () => {
       render(<StubComponent />);
 
-      expect(screen.getAllByRole('presentation')).toHaveLength(3);
+      defaultValues.map((_, i) => {
+        expect(
+          screen.getByTestId(`progress-dots-ind-${i}`),
+        ).toBeInTheDocument();
+      });
     });
 
     it('should return an <ButtonIndicator /> when specified', () => {
@@ -97,9 +124,8 @@ describe('Progress Indicator', () => {
     it('should return a "selected" <Indicator* /> at the correct index', () => {
       render(<StubComponent />);
 
-      const progressDots = screen.getAllByRole('presentation');
-      const firstDotSelected = progressDots[0];
-      const secondDotNotSelected = progressDots[1];
+      const firstDotSelected = screen.getByTestId('progress-dots-ind-0');
+      const secondDotNotSelected = screen.getByTestId('progress-dots-ind-1');
 
       expect(firstDotSelected).toHaveStyle({
         backgroundColor: 'var(--ds-icon, #091E42)',

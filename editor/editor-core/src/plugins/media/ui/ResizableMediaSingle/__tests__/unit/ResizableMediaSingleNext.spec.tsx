@@ -46,6 +46,7 @@ import type { Props } from '../../types';
 
 import layoutPlugin from '../../../../../../plugins/layout';
 import mediaPlugin from '../../../../../../plugins/media';
+import { copyButtonPlugin } from '@atlaskit/editor-plugin-copy-button';
 import floatingToolbarPlugin from '../../../../../../plugins/floating-toolbar';
 import captionPlugin from '../../../../../../plugins/caption';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
@@ -91,6 +92,7 @@ const getEditorView = (
       return withGuidelinePlugin ? builder.add(plugin) : builder;
     })
     .add(editorDisabledPlugin)
+    .add(copyButtonPlugin)
     .add(floatingToolbarPlugin)
     .add(focusPlugin)
     .add([mediaPlugin, { allowMediaSingle: true }])

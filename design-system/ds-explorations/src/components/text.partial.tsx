@@ -317,11 +317,11 @@ export type LineHeight = keyof typeof lineHeightMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d2da3ae653a14d48ae7649d16e323e40>>
+ * @codegen <<SignedSource::2e1a574ee1c58d7f4f1167778503c704>>
  * @codegenId colors
  * @codegenCommand yarn codegen-styles
  * @codegenParams ["text"]
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::815ddd719715ae06521cad06e1921e40>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::f6a616f7ea03ec40c148fc83050d073b>>
  */
 const textColorMap = {
   'color.text': css({

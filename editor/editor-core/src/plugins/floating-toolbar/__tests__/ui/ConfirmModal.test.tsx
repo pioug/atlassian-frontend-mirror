@@ -18,6 +18,7 @@ import { pluginKey as toolbarDataPluginKey } from '../../pm-plugins/toolbar-data
 import type { FloatingToolbarPluginData } from '@atlaskit/editor-plugin-floating-toolbar';
 import * as commands from '../../pm-plugins/toolbar-data/commands';
 import { ConfirmationModal } from '../../ui/ConfirmationModal';
+import { copyButtonPlugin } from '@atlaskit/editor-plugin-copy-button';
 import floatingToolbarPlugin from '../../index';
 import Toolbar from '../../ui/Toolbar';
 import floatingToolbarMessages from '../../ui/messages';
@@ -37,6 +38,7 @@ describe('toolbar-data', () => {
         .add([featureFlagsPlugin, {}])
         .add(decorationsPlugin)
         .add(editorDisabledPlugin)
+        .add(copyButtonPlugin)
         .add(floatingToolbarPlugin),
     });
   };
@@ -81,6 +83,7 @@ describe('<Toolbar />', () => {
         .add([featureFlagsPlugin, {}])
         .add(decorationsPlugin)
         .add(editorDisabledPlugin)
+        .add(copyButtonPlugin)
         .add(floatingToolbarPlugin),
     });
   };

@@ -78,6 +78,7 @@ export default () => {
       UNSAFE_themeOptions: customTheme,
       spacing: 'spacing',
     });
+
     const themeRamp = generateColors(customTheme.brandColor).ramp;
     setThemeRamp(themeRamp);
 

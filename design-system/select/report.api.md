@@ -1048,6 +1048,11 @@ export class PopupSelect<
       noOptionsMessage?:
         | StylesConfigFunction<NoticeProps<Option, IsMulti, GroupType<Option>>>
         | undefined;
+      /**
+       * TODO: This type should be cleaned up with `platform.design-system-team.popup-select-render-perf_i0s6m`.
+       *  - If discarded, revert to `focusLockEnabled: boolean`
+       *  - If kept, delete this type.
+       */
       option?:
         | StylesConfigFunction<
             OptionProps_2<Option, IsMulti, GroupType<Option>>
@@ -1158,6 +1163,7 @@ export interface PopupSelectProps<
   // (undocumented)
   isOpen?: boolean;
   isSearchable?: boolean;
+  label?: string;
   maxMenuWidth?: number | string;
   minMenuWidth?: number | string;
   popperProps?: PopperPropsNoChildren<Modifiers>;

@@ -40,7 +40,6 @@ import {
   viewUpdateSubscriptionPlugin,
   beforePrimaryToolbarPlugin,
   codeBidiWarningPlugin,
-  copyButtonPlugin,
   borderPlugin,
 } from '../../../plugins';
 import { rulePlugin } from '@atlaskit/editor-plugin-rule';
@@ -663,8 +662,7 @@ export default function createUniversalPreset(
       {
         appearance,
       },
-    ])
-    .add(copyButtonPlugin);
+    ]);
 
   return finalPreset;
 }

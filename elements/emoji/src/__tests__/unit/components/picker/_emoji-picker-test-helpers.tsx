@@ -2,7 +2,6 @@ import { mountWithIntl } from '../../_enzyme';
 import { waitUntil } from '@atlaskit/elements-test-helpers';
 import { ReactWrapper } from 'enzyme';
 import React from 'react';
-import VisuallyHidden from '@atlaskit/visually-hidden';
 import Emoji from '../../../../components/common/Emoji';
 import EmojiDeletePreview from '../../../../components/common/EmojiDeletePreview';
 import EmojiErrorMessage from '../../../../components/common/EmojiErrorMessage';
@@ -262,11 +261,6 @@ export const tooltipErrorMessageMatches = async (
       component.update() &&
       component.find(EmojiErrorMessage).find(FormattedMessage).length > 0,
   );
-
-  // screenreader message
-  expect(
-    component.find(EmojiErrorMessage).find(VisuallyHidden).text(),
-  ).toContain(message.defaultMessage);
 
   // tooltip message
   expect(

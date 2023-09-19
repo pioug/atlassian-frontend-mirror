@@ -339,12 +339,15 @@ const generateMediaSingleFloatingToolbar = (
     if (getBooleanFF('platform.editor.media.extended-resize-experience')) {
       const contentWidth = widthPlugin?.sharedState.currentState()?.lineLength;
       const selectedNode = getSelectedMediaSingle(state);
-      if (selectedNode && contentWidth) {
-        const { width } = selectedNode.node.attrs;
 
-        if (width >= contentWidth) {
-          isChangingLayoutDisabled = true;
-        }
+      const selectedNodeMaxWidth = pluginState.currentMaxWidth || contentWidth;
+
+      if (
+        selectedNode &&
+        selectedNodeMaxWidth &&
+        selectedNode.node.attrs.width >= selectedNodeMaxWidth
+      ) {
+        isChangingLayoutDisabled = true;
       }
     }
 

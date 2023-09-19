@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import FlexibleCard from '../../../FlexibleCard';
-import TitleBlock from '../../../FlexibleCard/components/blocks/title-block';
 import {
   FooterBlock,
   MetadataBlock,
   PreviewBlock,
   SnippetBlock,
+  TitleBlock,
 } from '../../../FlexibleCard/components/blocks';
 import { metadataBlockCss, footerBlockCss } from './styled';
 import {
@@ -18,6 +18,7 @@ import { FlexibleBlockCardProps } from './types';
 import { getSimulatedMetadata, getSimulatedBetterMetadata } from './utils';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { withFlexibleUIBlockCardStyle } from './utils/withFlexibleUIBlockCardStyle';
+import type { ActionItem } from '../../../FlexibleCard/components/blocks/types';
 
 /**
  * This view represents a Block card that has an 'Resolved' status.
@@ -49,6 +50,16 @@ const FlexibleResolvedView = ({
   )
     ? getSimulatedBetterMetadata(cardState.details)
     : getSimulatedMetadata(cardState.details);
+
+  const footerActions: ActionItem[] = useMemo(
+    () => [
+      { name: ActionName.FollowAction, hideIcon: true },
+      { name: ActionName.PreviewAction, hideIcon: true },
+      { name: ActionName.ViewAction, hideIcon: true },
+      { name: ActionName.DownloadAction, hideIcon: true },
+    ],
+    [],
+  );
 
   return (
     <FlexibleCard
@@ -104,11 +115,7 @@ const FlexibleResolvedView = ({
         {...(getBooleanFF(
           'platform.linking-platform.smart-card.enable-better-metadata_iojwg',
         ) && { overrideCss: footerBlockCss })}
-        actions={[
-          { name: ActionName.PreviewAction, hideIcon: true },
-          { name: ActionName.ViewAction, hideIcon: true },
-          { name: ActionName.DownloadAction, hideIcon: true },
-        ]}
+        actions={footerActions}
       />
     </FlexibleCard>
   );

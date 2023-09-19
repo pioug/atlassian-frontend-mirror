@@ -1,8 +1,8 @@
-import React from 'react';
+import type React from 'react';
 
 import Loadable from 'react-loadable';
 
-import { IconProps } from '../types';
+import type { IconProps } from '../types';
 
 export { PanelInfoIcon } from './shared/PanelInfoIcon';
 export { PanelWarningIcon } from './shared/PanelWarningIcon';

@@ -22,13 +22,13 @@ import {
   EVENT_TYPE,
   INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
-import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import QuestionCircleIcon from '@atlaskit/icon/glyph/question-circle';
 import { messages } from '../insert-block/ui/ToolbarInsertBlock/messages';
 import { openHelpCommand } from './commands';
 import { pluginKey } from './plugin-key';
-import type quickInsertPlugin from '../quick-insert';
+import type { QuickInsertPlugin } from '@atlaskit/editor-plugin-quick-insert';
 
 export function createPlugin(dispatch: Function, imageEnabled: boolean) {
   return new SafePlugin({
@@ -60,8 +60,8 @@ const helpDialog: NextEditorPlugin<
   'helpDialog',
   {
     dependencies: [
-      OptionalPlugin<typeof analyticsPlugin>,
-      OptionalPlugin<typeof quickInsertPlugin>,
+      OptionalPlugin<AnalyticsPlugin>,
+      OptionalPlugin<QuickInsertPlugin>,
     ];
     pluginConfiguration: boolean;
     sharedState: HelpDialogSharedState | null;

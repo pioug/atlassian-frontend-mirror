@@ -45,7 +45,6 @@ import type {
 import { findNode } from './utils';
 import { ErrorBoundary } from '../../ui/ErrorBoundary';
 import type { IntlShape } from 'react-intl-next';
-import { processCopyButtonItems } from '../copy-button/toolbar';
 import forceFocusPlugin, { forceFocusSelector } from './pm-plugins/force-focus';
 import type {
   FloatingToolbarPlugin,
@@ -291,10 +290,13 @@ function ContentComponent({
   }
 
   let customPositionCalculation;
-  const toolbarItems = processCopyButtonItems(editorView.state)(
-    Array.isArray(items) ? items : items(node),
-    pluginInjectionApi?.decorations.actions.hoverDecoration,
-  );
+  const toolbarItems =
+    pluginInjectionApi?.copyButton.actions.processCopyButtonItems(
+      editorView.state,
+    )(
+      Array.isArray(items) ? items : items(node),
+      pluginInjectionApi?.decorations.actions.hoverDecoration,
+    );
 
   if (onPositionCalculated) {
     customPositionCalculation = (nextPos: Position): Position => {
@@ -308,7 +310,7 @@ function ContentComponent({
   // Confirm dialog
   const { confirmDialogForItem } = floatingToolbarData || {};
   const confirmButtonItem = confirmDialogForItem
-    ? (toolbarItems[confirmDialogForItem] as FloatingToolbarButton<Function>)
+    ? (toolbarItems![confirmDialogForItem] as FloatingToolbarButton<Function>)
     : undefined;
 
   const scrollable = config.scrollable;
@@ -351,7 +353,7 @@ function ContentComponent({
             return (
               <ToolbarLoader
                 target={targetRef}
-                items={toolbarItems}
+                items={toolbarItems!}
                 node={node}
                 dispatchCommand={dispatchCommand}
                 editorView={editorView}

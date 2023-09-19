@@ -9,10 +9,16 @@ import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 import { mockSiteData } from '@atlaskit/link-test-helpers/datasource';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 import { InlineCardAdf } from '@atlaskit/linking-common/types';
+import { DatasourceTableStatusType } from '@atlaskit/linking-types';
 import { ConcurrentExperience } from '@atlaskit/ufo';
 
 import SmartLinkClient from '../../../../examples-helpers/smartLinkCustomClient';
 import { EVENT_CHANNEL } from '../../../analytics';
+import {
+  LinkViewedCountAttributesType,
+  LinkViewedSingleItemAttributesType,
+  TableViewedDatasourceConfigModalAttributesType,
+} from '../../../analytics/generated/analytics.types';
 import { succeedUfoExperience } from '../../../analytics/ufoExperiences';
 import { JiraSearchMethod } from '../../../common/types';
 import {
@@ -134,7 +140,7 @@ const getSingleIssueHookState: () => DatasourceTableState = () => ({
 
 const getUnauthorisedHookState: () => DatasourceTableState = () => ({
   columns: [],
-  status: 'empty',
+  status: 'unauthorized',
   responseItems: [],
   hasNextPage: true,
   defaultVisibleColumnKeys: [],
@@ -1746,199 +1752,337 @@ describe('Analytics: JiraIssuesConfigModal', () => {
     });
   });
 
-  it('should fire "ui.link.viewed.singleItem" event once when a single issue is viewed', async () => {
-    const hookstate = getSingleIssueHookState();
-    const { onAnalyticFireEvent } = await setup({
-      hookState: hookstate,
+  describe('viewed events', () => {
+    const linkActionSubject = 'link';
+    const tableActionSubject = 'table';
+
+    const unresolvedTestCases: [
+      DatasourceTableStatusType,
+      DatasourceTableState,
+    ][] = [
+      ['unauthorized', getUnauthorisedHookState()],
+      ['empty', getEmptyHookState()],
+      ['loading', getLoadingHookState()],
+    ];
+
+    const getEventPayload = (
+      actionSubject: 'link' | 'table',
+      actionSubjectId: 'singleItem' | 'count' | 'datasourceConfigModal',
+      overrideAttributes: Partial<
+        | TableViewedDatasourceConfigModalAttributesType
+        | LinkViewedSingleItemAttributesType
+        | LinkViewedCountAttributesType
+      > = {},
+    ) => ({
+      payload: {
+        eventType: 'ui',
+        actionSubject: actionSubject,
+        action: 'viewed',
+        actionSubjectId: actionSubjectId,
+        attributes: {
+          extensionKey: 'jira-object-provider',
+          destinationObjectTypes: ['issue'],
+          searchMethod: null,
+          ...overrideAttributes,
+        },
+      },
+      context: [
+        {
+          packageName: '@atlaskit/fabric',
+          packageVersion: '0.0.0',
+          source: 'datasourceConfigModal',
+          attributes: { dataProvider: 'jira-issues' },
+        },
+      ],
     });
 
-    expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
-      {
-        payload: {
-          eventType: 'ui',
-          actionSubject: 'link',
-          action: 'viewed',
-          actionSubjectId: 'singleItem',
-          attributes: {
-            destinationObjectTypes: ['issue'],
-            searchMethod: null,
-            extensionKey: 'jira-object-provider',
-          },
-        },
-        context: [
-          {
-            packageName: '@atlaskit/fabric',
-            packageVersion: '0.0.0',
-            source: 'datasourceConfigModal',
-            attributes: { dataProvider: 'jira-issues' },
-          },
-        ],
-      },
-      EVENT_CHANNEL,
-    );
-  });
+    describe('link viewed singleItem', () => {
+      const singleItemActionSubjectId = 'singleItem';
 
-  it('should not fire "ui.link.viewed.singleItem" when status is unauthorized', async () => {
-    const hookstate = getUnauthorisedHookState();
-    const { onAnalyticFireEvent } = await setup({
-      hookState: hookstate,
+      it('should fire "ui.link.viewed.singleItem" event once when a single issue is viewed', async () => {
+        const hookState = getSingleIssueHookState();
+        const { onAnalyticFireEvent } = await setup({
+          hookState: hookState,
+        });
+
+        expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+          getEventPayload(linkActionSubject, singleItemActionSubjectId),
+          EVENT_CHANNEL,
+        );
+      });
+
+      it.each(unresolvedTestCases)(
+        `should not fire "ui.link.viewed.singleItem" when status is %s`,
+        async (status, hookState) => {
+          const { onAnalyticFireEvent } = await setup({
+            hookState,
+          });
+
+          expect(onAnalyticFireEvent).not.toBeFiredWithAnalyticEventOnce(
+            getEventPayload(linkActionSubject, singleItemActionSubjectId),
+            EVENT_CHANNEL,
+          );
+        },
+      );
     });
 
-    expect(onAnalyticFireEvent).not.toBeFiredWithAnalyticEventOnce(
-      {
-        payload: {
-          eventType: 'ui',
-          actionSubject: 'link',
-          action: 'viewed',
-          actionSubjectId: 'singleItem',
-          attributes: {
-            destinationObjectTypes: ['issue'],
-            searchMethod: null,
-            extensionKey: 'jira-object-provider',
-          },
-        },
-        context: [
-          {
-            packageName: '@atlaskit/fabric',
-            packageVersion: '0.0.0',
-            source: 'datasourceConfigModal',
-            attributes: { dataProvider: 'jira-issues' },
-          },
-        ],
-      },
-      EVENT_CHANNEL,
-    );
-  });
+    describe('link viewed count', () => {
+      const countActionSubjectId = 'count';
 
-  it('should not fire "ui.link.viewed.singleItem" when status is empty', async () => {
-    const hookstate = getEmptyHookState();
-    const { onAnalyticFireEvent } = await setup({
-      hookState: hookstate,
+      const defaultAttributes = {
+        totalItemCount: 3,
+      };
+
+      it('should fire "ui.link.viewed.count" event once when a issue count viewed', async () => {
+        const { getByLabelText, onAnalyticFireEvent } = await setup();
+
+        getByLabelText('Count view').click();
+        expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+          getEventPayload(
+            linkActionSubject,
+            countActionSubjectId,
+            defaultAttributes,
+          ),
+          EVENT_CHANNEL,
+        );
+      });
+
+      it.each(unresolvedTestCases)(
+        'should not fire "ui.link.viewed.count" when status is %s',
+        async (status, hookState) => {
+          const { getByLabelText, onAnalyticFireEvent } = await setup({
+            hookState,
+          });
+
+          getByLabelText('Count view').click();
+          expect(onAnalyticFireEvent).not.toBeFiredWithAnalyticEventOnce(
+            getEventPayload(
+              linkActionSubject,
+              countActionSubjectId,
+              defaultAttributes,
+            ),
+            EVENT_CHANNEL,
+          );
+        },
+      );
     });
 
-    expect(onAnalyticFireEvent).not.toBeFiredWithAnalyticEventOnce(
-      {
-        payload: {
-          eventType: 'ui',
-          actionSubject: 'link',
-          action: 'viewed',
-          actionSubjectId: 'singleItem',
-          attributes: {
-            destinationObjectTypes: ['issue'],
-            searchMethod: null,
-            extensionKey: 'jira-object-provider',
+    describe('table viewed', () => {
+      const datasourceConfigModalActionSubjectId = 'datasourceConfigModal';
+
+      const defaultAttributes = {
+        totalItemCount: 3,
+        displayedColumnCount: 1,
+      };
+
+      it('should fire "ui.table.viewed.datasourceConfigModal" event when status is resolved, issue mode is on and there is more than 1 issue', async () => {
+        const { onAnalyticFireEvent } = await setup();
+
+        expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+          getEventPayload(
+            tableActionSubject,
+            datasourceConfigModalActionSubjectId,
+            defaultAttributes,
+          ),
+          EVENT_CHANNEL,
+        );
+      });
+
+      it('should fire "ui.table.viewed.datasourceConfigModal" event with defaultDisplayedColumns when status is resolved and there are no visibleColumnKeys passed with props', async () => {
+        const { onAnalyticFireEvent } = await setup({
+          visibleColumnKeys: [],
+          hookState: {
+            ...getDefaultHookState(),
+            defaultVisibleColumnKeys: [
+              'myColumn',
+              'otherColumn',
+              'someOtherColumn',
+              'andOneMore',
+            ],
           },
+        });
+
+        expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+          getEventPayload(
+            tableActionSubject,
+            datasourceConfigModalActionSubjectId,
+            {
+              ...defaultAttributes,
+              displayedColumnCount: 4,
+            },
+          ),
+          EVENT_CHANNEL,
+        );
+      });
+
+      it('should not fire "ui.table.viewed.datasourceConfigModal" event when issue mode is on and there is less than 2 issues', async () => {
+        const { onAnalyticFireEvent } = await setup({
+          hookState: getSingleIssueHookState(),
+        });
+
+        expect(onAnalyticFireEvent).not.toBeFiredWithAnalyticEventOnce(
+          getEventPayload(
+            tableActionSubject,
+            datasourceConfigModalActionSubjectId,
+            defaultAttributes,
+          ),
+          EVENT_CHANNEL,
+        );
+      });
+
+      it.each(unresolvedTestCases)(
+        'should not fire "ui.table.viewed.datasourceConfigModal" event when status is %s',
+        async (status, hookState) => {
+          const { onAnalyticFireEvent } = await setup({
+            hookState: hookState,
+          });
+
+          expect(onAnalyticFireEvent).not.toBeFiredWithAnalyticEventOnce(
+            getEventPayload(
+              tableActionSubject,
+              datasourceConfigModalActionSubjectId,
+              defaultAttributes,
+            ),
+            EVENT_CHANNEL,
+          );
         },
-        context: [
-          {
-            packageName: '@atlaskit/fabric',
-            packageVersion: '0.0.0',
-            source: 'datasourceConfigModal',
-            attributes: { dataProvider: 'jira-issues' },
-          },
-        ],
-      },
-      EVENT_CHANNEL,
-    );
-  });
+      );
 
-  it('should fire "ui.link.viewed.count" event once when a issue count viewed', async () => {
-    const { getByLabelText, onAnalyticFireEvent } = await setup();
-
-    getByLabelText('Count view').click();
-    expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
-      {
-        payload: {
-          eventType: 'ui',
-          actionSubject: 'link',
-          action: 'viewed',
-          actionSubjectId: 'count',
-          attributes: {
-            destinationObjectTypes: ['issue'],
-            searchMethod: null,
-            totalItemCount: 3,
-            extensionKey: 'jira-object-provider',
+      it('should not fire "ui.table.viewed.datasourceConfigModal" event when totalCount is undefined', async () => {
+        const { onAnalyticFireEvent } = await setup({
+          hookState: {
+            ...getDefaultHookState(),
+            totalCount: undefined,
           },
-        },
-        context: [
-          {
-            packageName: '@atlaskit/fabric',
-            packageVersion: '0.0.0',
-            source: 'datasourceConfigModal',
-            attributes: { dataProvider: 'jira-issues' },
-          },
-        ],
-      },
-      EVENT_CHANNEL,
-    );
-  });
+        });
 
-  it('should not fire "ui.link.viewed.count" when status is unauthorized', async () => {
-    const hookstate = getUnauthorisedHookState();
-    const { getByLabelText, onAnalyticFireEvent } = await setup({
-      hookState: hookstate,
+        expect(onAnalyticFireEvent).not.toBeFiredWithAnalyticEventOnce(
+          getEventPayload(
+            tableActionSubject,
+            datasourceConfigModalActionSubjectId,
+            defaultAttributes,
+          ),
+          EVENT_CHANNEL,
+        );
+      });
+
+      it('should not fire when user changes visibleColumnKeys', async () => {
+        // initial number of column = 2
+        const { updateVisibleColumnList, onAnalyticFireEvent } = await setup({
+          visibleColumnKeys: ['myColumn', 'secondColumn'],
+        });
+
+        expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+          getEventPayload(
+            tableActionSubject,
+            datasourceConfigModalActionSubjectId,
+            {
+              ...defaultAttributes,
+              displayedColumnCount: 2,
+            },
+          ),
+          EVENT_CHANNEL,
+        );
+        expect(onAnalyticFireEvent).toHaveBeenCalledTimes(3);
+
+        // adding a new column
+        updateVisibleColumnList(['myColumn', 'secondColumn', 'other column']);
+        expect(onAnalyticFireEvent).toHaveBeenCalledTimes(3);
+        expect(onAnalyticFireEvent).not.toBeFiredWithAnalyticEventOnce(
+          getEventPayload(
+            tableActionSubject,
+            datasourceConfigModalActionSubjectId,
+            {
+              ...defaultAttributes,
+              displayedColumnCount: 3,
+            },
+          ),
+          EVENT_CHANNEL,
+        );
+
+        // re-arranging the columns
+        updateVisibleColumnList(['secondColumn', 'myColumn', 'other column']);
+        expect(onAnalyticFireEvent).toHaveBeenCalledTimes(3);
+        expect(onAnalyticFireEvent).not.toBeFiredWithAnalyticEventOnce(
+          getEventPayload(
+            tableActionSubject,
+            datasourceConfigModalActionSubjectId,
+            {
+              ...defaultAttributes,
+              displayedColumnCount: 3,
+            },
+          ),
+          EVENT_CHANNEL,
+        );
+
+        // removing 2 columns
+        updateVisibleColumnList(['secondColumn']);
+        expect(onAnalyticFireEvent).toHaveBeenCalledTimes(3);
+        expect(onAnalyticFireEvent).not.toBeFiredWithAnalyticEventOnce(
+          getEventPayload(
+            tableActionSubject,
+            datasourceConfigModalActionSubjectId,
+            {
+              ...defaultAttributes,
+              displayedColumnCount: 1,
+            },
+          ),
+          EVENT_CHANNEL,
+        );
+      });
+
+      it('should fire "ui.table.viewed.datasourceConfigModal" event with correct displayedColumnCount when user searches from empty modal for the first time', async () => {
+        // first render, mimicking an empty state when a user opens a modal config for the first time with no data
+        const { onAnalyticFireEvent, renderComponent } = await setup({
+          hookState: getEmptyHookState(),
+          visibleColumnKeys: [],
+        });
+
+        expect(onAnalyticFireEvent).not.toBeFiredWithAnalyticEventOnce(
+          getEventPayload(
+            tableActionSubject,
+            datasourceConfigModalActionSubjectId,
+            defaultAttributes,
+          ),
+          EVENT_CHANNEL,
+        );
+
+        // second render, mimicking a case when the BE response is received and we set resolved state, but haven't updated visible columns yet
+        asMock(useDatasourceTableState).mockReturnValue({
+          ...getDefaultHookState(),
+          defaultVisibleColumnKeys: [],
+        });
+        renderComponent();
+
+        expect(onAnalyticFireEvent).not.toBeFiredWithAnalyticEventOnce(
+          getEventPayload(
+            tableActionSubject,
+            datasourceConfigModalActionSubjectId,
+            {
+              ...defaultAttributes,
+              displayedColumnCount: 0,
+            },
+          ),
+          EVENT_CHANNEL,
+        );
+
+        // third render, mimicking a case when the BE response is received and we set all data into state
+        asMock(useDatasourceTableState).mockReturnValue(getDefaultHookState());
+        renderComponent();
+
+        expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+          getEventPayload(
+            tableActionSubject,
+            datasourceConfigModalActionSubjectId,
+            {
+              ...defaultAttributes,
+              displayedColumnCount: 2,
+            },
+          ),
+          EVENT_CHANNEL,
+        );
+      });
     });
-
-    getByLabelText('Count view').click();
-    expect(onAnalyticFireEvent).not.toBeFiredWithAnalyticEventOnce(
-      {
-        payload: {
-          eventType: 'ui',
-          actionSubject: 'link',
-          action: 'viewed',
-          actionSubjectId: 'count',
-          attributes: {
-            destinationObjectTypes: ['issue'],
-            searchMethod: null,
-            totalItemCount: 3,
-            extensionKey: 'jira-object-provider',
-          },
-        },
-        context: [
-          {
-            packageName: '@atlaskit/fabric',
-            packageVersion: '0.0.0',
-            source: 'datasourceConfigModal',
-            attributes: { dataProvider: 'jira-issues' },
-          },
-        ],
-      },
-      EVENT_CHANNEL,
-    );
-  });
-
-  it('should not fire "ui.link.viewed.count" when status is empty', async () => {
-    const hookstate = getEmptyHookState();
-    const { getByLabelText, onAnalyticFireEvent } = await setup({
-      hookState: hookstate,
-    });
-
-    getByLabelText('Count view').click();
-    expect(onAnalyticFireEvent).not.toBeFiredWithAnalyticEventOnce(
-      {
-        payload: {
-          eventType: 'ui',
-          actionSubject: 'link',
-          action: 'viewed',
-          actionSubjectId: 'count',
-          attributes: {
-            destinationObjectTypes: ['issue'],
-            searchMethod: null,
-            totalItemCount: 3,
-            extensionKey: 'jira-object-provider',
-          },
-        },
-        context: [
-          {
-            packageName: '@atlaskit/fabric',
-            packageVersion: '0.0.0',
-            source: 'datasourceConfigModal',
-            attributes: { dataProvider: 'jira-issues' },
-          },
-        ],
-      },
-      EVENT_CHANNEL,
-    );
   });
 });
 

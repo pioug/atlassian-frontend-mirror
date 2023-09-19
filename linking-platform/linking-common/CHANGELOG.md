@@ -1,5 +1,11 @@
 # @atlaskit/linking-common
 
+## 4.10.0
+
+### Minor Changes
+
+- [`c9aa6fd6c38`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c9aa6fd6c38) - Newly exported filterSiteProducts that allows filtering of site products, used by jira/confluence create forms
+
 ## 4.9.1
 
 ### Patch Changes

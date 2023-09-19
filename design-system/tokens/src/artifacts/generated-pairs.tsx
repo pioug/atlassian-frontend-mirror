@@ -4,7 +4,7 @@
  * Auto-generated list of token pairings that may need to have sufficient contrast.
  * Not currently used by tests, but is used by the custom theme contrast checker example
  *
- * @codegen <<SignedSource::6a140d2e92786ecff49ad59157bff3f4>>
+ * @codegen <<SignedSource::f9a739fee346961a6a7efda6c143437c>>
  * @codegenCommand yarn build tokens
  */
 export const generatedPairs = [
@@ -4552,6 +4552,642 @@ export const generatedPairs = [
   },
   {
     foreground: 'color.link.pressed',
+    background: 'color.background.information.pressed',
+    desiredContrast: 4.5,
+    layeredTokens: [
+      'color.background.neutral.subtle',
+      'color.background.neutral',
+    ],
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.accent.lime.subtlest',
+    desiredContrast: 4.5,
+    layeredTokens: [
+      'color.background.neutral.subtle',
+      'color.background.neutral',
+    ],
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.accent.lime.subtlest.hovered',
+    desiredContrast: 4.5,
+    layeredTokens: [
+      'color.background.neutral.subtle',
+      'color.background.neutral',
+    ],
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.accent.lime.subtlest.pressed',
+    desiredContrast: 4.5,
+    layeredTokens: [
+      'color.background.neutral.subtle',
+      'color.background.neutral',
+    ],
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.accent.lime.subtler',
+    desiredContrast: 4.5,
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.accent.lime.subtler.hovered',
+    desiredContrast: 4.5,
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.accent.lime.subtler.pressed',
+    desiredContrast: 4.5,
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.accent.red.subtlest',
+    desiredContrast: 4.5,
+    layeredTokens: [
+      'color.background.neutral.subtle',
+      'color.background.neutral',
+    ],
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.accent.red.subtlest.hovered',
+    desiredContrast: 4.5,
+    layeredTokens: [
+      'color.background.neutral.subtle',
+      'color.background.neutral',
+    ],
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.accent.red.subtlest.pressed',
+    desiredContrast: 4.5,
+    layeredTokens: [
+      'color.background.neutral.subtle',
+      'color.background.neutral',
+    ],
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.accent.red.subtler',
+    desiredContrast: 4.5,
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.accent.red.subtler.hovered',
+    desiredContrast: 4.5,
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.accent.red.subtler.pressed',
+    desiredContrast: 4.5,
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.accent.orange.subtlest',
+    desiredContrast: 4.5,
+    layeredTokens: [
+      'color.background.neutral.subtle',
+      'color.background.neutral',
+    ],
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.accent.orange.subtlest.hovered',
+    desiredContrast: 4.5,
+    layeredTokens: [
+      'color.background.neutral.subtle',
+      'color.background.neutral',
+    ],
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.accent.orange.subtlest.pressed',
+    desiredContrast: 4.5,
+    layeredTokens: [
+      'color.background.neutral.subtle',
+      'color.background.neutral',
+    ],
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.accent.orange.subtler',
+    desiredContrast: 4.5,
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.accent.orange.subtler.hovered',
+    desiredContrast: 4.5,
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.accent.orange.subtler.pressed',
+    desiredContrast: 4.5,
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.accent.yellow.subtlest',
+    desiredContrast: 4.5,
+    layeredTokens: [
+      'color.background.neutral.subtle',
+      'color.background.neutral',
+    ],
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.accent.yellow.subtlest.hovered',
+    desiredContrast: 4.5,
+    layeredTokens: [
+      'color.background.neutral.subtle',
+      'color.background.neutral',
+    ],
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.accent.yellow.subtlest.pressed',
+    desiredContrast: 4.5,
+    layeredTokens: [
+      'color.background.neutral.subtle',
+      'color.background.neutral',
+    ],
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.accent.yellow.subtler',
+    desiredContrast: 4.5,
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.accent.yellow.subtler.hovered',
+    desiredContrast: 4.5,
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.accent.yellow.subtler.pressed',
+    desiredContrast: 4.5,
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.accent.green.subtlest',
+    desiredContrast: 4.5,
+    layeredTokens: [
+      'color.background.neutral.subtle',
+      'color.background.neutral',
+    ],
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.accent.green.subtlest.hovered',
+    desiredContrast: 4.5,
+    layeredTokens: [
+      'color.background.neutral.subtle',
+      'color.background.neutral',
+    ],
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.accent.green.subtlest.pressed',
+    desiredContrast: 4.5,
+    layeredTokens: [
+      'color.background.neutral.subtle',
+      'color.background.neutral',
+    ],
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.accent.green.subtler',
+    desiredContrast: 4.5,
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.accent.green.subtler.hovered',
+    desiredContrast: 4.5,
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.accent.green.subtler.pressed',
+    desiredContrast: 4.5,
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.accent.teal.subtlest',
+    desiredContrast: 4.5,
+    layeredTokens: [
+      'color.background.neutral.subtle',
+      'color.background.neutral',
+    ],
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.accent.teal.subtlest.hovered',
+    desiredContrast: 4.5,
+    layeredTokens: [
+      'color.background.neutral.subtle',
+      'color.background.neutral',
+    ],
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.accent.teal.subtlest.pressed',
+    desiredContrast: 4.5,
+    layeredTokens: [
+      'color.background.neutral.subtle',
+      'color.background.neutral',
+    ],
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.accent.teal.subtler',
+    desiredContrast: 4.5,
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.accent.teal.subtler.hovered',
+    desiredContrast: 4.5,
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.accent.teal.subtler.pressed',
+    desiredContrast: 4.5,
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.accent.blue.subtlest',
+    desiredContrast: 4.5,
+    layeredTokens: [
+      'color.background.neutral.subtle',
+      'color.background.neutral',
+    ],
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.accent.blue.subtlest.hovered',
+    desiredContrast: 4.5,
+    layeredTokens: [
+      'color.background.neutral.subtle',
+      'color.background.neutral',
+    ],
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.accent.blue.subtlest.pressed',
+    desiredContrast: 4.5,
+    layeredTokens: [
+      'color.background.neutral.subtle',
+      'color.background.neutral',
+    ],
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.accent.blue.subtler',
+    desiredContrast: 4.5,
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.accent.blue.subtler.hovered',
+    desiredContrast: 4.5,
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.accent.blue.subtler.pressed',
+    desiredContrast: 4.5,
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.accent.purple.subtlest',
+    desiredContrast: 4.5,
+    layeredTokens: [
+      'color.background.neutral.subtle',
+      'color.background.neutral',
+    ],
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.accent.purple.subtlest.hovered',
+    desiredContrast: 4.5,
+    layeredTokens: [
+      'color.background.neutral.subtle',
+      'color.background.neutral',
+    ],
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.accent.purple.subtlest.pressed',
+    desiredContrast: 4.5,
+    layeredTokens: [
+      'color.background.neutral.subtle',
+      'color.background.neutral',
+    ],
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.accent.purple.subtler',
+    desiredContrast: 4.5,
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.accent.purple.subtler.hovered',
+    desiredContrast: 4.5,
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.accent.purple.subtler.pressed',
+    desiredContrast: 4.5,
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.accent.magenta.subtlest',
+    desiredContrast: 4.5,
+    layeredTokens: [
+      'color.background.neutral.subtle',
+      'color.background.neutral',
+    ],
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.accent.magenta.subtlest.hovered',
+    desiredContrast: 4.5,
+    layeredTokens: [
+      'color.background.neutral.subtle',
+      'color.background.neutral',
+    ],
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.accent.magenta.subtlest.pressed',
+    desiredContrast: 4.5,
+    layeredTokens: [
+      'color.background.neutral.subtle',
+      'color.background.neutral',
+    ],
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.accent.magenta.subtler',
+    desiredContrast: 4.5,
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.accent.magenta.subtler.hovered',
+    desiredContrast: 4.5,
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.accent.magenta.subtler.pressed',
+    desiredContrast: 4.5,
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.accent.gray.subtlest',
+    desiredContrast: 4.5,
+    layeredTokens: [
+      'color.background.neutral.subtle',
+      'color.background.neutral',
+    ],
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.accent.gray.subtlest.hovered',
+    desiredContrast: 4.5,
+    layeredTokens: [
+      'color.background.neutral.subtle',
+      'color.background.neutral',
+    ],
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.accent.gray.subtlest.pressed',
+    desiredContrast: 4.5,
+    layeredTokens: [
+      'color.background.neutral.subtle',
+      'color.background.neutral',
+    ],
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.accent.gray.subtler',
+    desiredContrast: 4.5,
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.accent.gray.subtler.hovered',
+    desiredContrast: 4.5,
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.accent.gray.subtler.pressed',
+    desiredContrast: 4.5,
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.input',
+    desiredContrast: 4.5,
+    layeredTokens: [
+      'color.background.neutral.subtle',
+      'color.background.neutral',
+    ],
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.input.hovered',
+    desiredContrast: 4.5,
+    layeredTokens: [
+      'color.background.neutral.subtle',
+      'color.background.neutral',
+    ],
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.input.pressed',
+    desiredContrast: 4.5,
+    layeredTokens: [
+      'color.background.neutral.subtle',
+      'color.background.neutral',
+    ],
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.selected',
+    desiredContrast: 4.5,
+    layeredTokens: [
+      'color.background.neutral.subtle',
+      'color.background.neutral',
+    ],
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.selected.hovered',
+    desiredContrast: 4.5,
+    layeredTokens: [
+      'color.background.neutral.subtle',
+      'color.background.neutral',
+    ],
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.selected.pressed',
+    desiredContrast: 4.5,
+    layeredTokens: [
+      'color.background.neutral.subtle',
+      'color.background.neutral',
+    ],
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.brand.subtlest',
+    desiredContrast: 4.5,
+    layeredTokens: [
+      'color.background.neutral.subtle',
+      'color.background.neutral',
+    ],
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.brand.subtlest.hovered',
+    desiredContrast: 4.5,
+    layeredTokens: [
+      'color.background.neutral.subtle',
+      'color.background.neutral',
+    ],
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.brand.subtlest.pressed',
+    desiredContrast: 4.5,
+    layeredTokens: [
+      'color.background.neutral.subtle',
+      'color.background.neutral',
+    ],
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.danger',
+    desiredContrast: 4.5,
+    layeredTokens: [
+      'color.background.neutral.subtle',
+      'color.background.neutral',
+    ],
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.danger.hovered',
+    desiredContrast: 4.5,
+    layeredTokens: [
+      'color.background.neutral.subtle',
+      'color.background.neutral',
+    ],
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.danger.pressed',
+    desiredContrast: 4.5,
+    layeredTokens: [
+      'color.background.neutral.subtle',
+      'color.background.neutral',
+    ],
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.warning',
+    desiredContrast: 4.5,
+    layeredTokens: [
+      'color.background.neutral.subtle',
+      'color.background.neutral',
+    ],
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.warning.hovered',
+    desiredContrast: 4.5,
+    layeredTokens: [
+      'color.background.neutral.subtle',
+      'color.background.neutral',
+    ],
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.warning.pressed',
+    desiredContrast: 4.5,
+    layeredTokens: [
+      'color.background.neutral.subtle',
+      'color.background.neutral',
+    ],
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.success',
+    desiredContrast: 4.5,
+    layeredTokens: [
+      'color.background.neutral.subtle',
+      'color.background.neutral',
+    ],
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.success.hovered',
+    desiredContrast: 4.5,
+    layeredTokens: [
+      'color.background.neutral.subtle',
+      'color.background.neutral',
+    ],
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.success.pressed',
+    desiredContrast: 4.5,
+    layeredTokens: [
+      'color.background.neutral.subtle',
+      'color.background.neutral',
+    ],
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.discovery',
+    desiredContrast: 4.5,
+    layeredTokens: [
+      'color.background.neutral.subtle',
+      'color.background.neutral',
+    ],
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.discovery.hovered',
+    desiredContrast: 4.5,
+    layeredTokens: [
+      'color.background.neutral.subtle',
+      'color.background.neutral',
+    ],
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.discovery.pressed',
+    desiredContrast: 4.5,
+    layeredTokens: [
+      'color.background.neutral.subtle',
+      'color.background.neutral',
+    ],
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.information',
+    desiredContrast: 4.5,
+    layeredTokens: [
+      'color.background.neutral.subtle',
+      'color.background.neutral',
+    ],
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'color.background.information.hovered',
+    desiredContrast: 4.5,
+    layeredTokens: [
+      'color.background.neutral.subtle',
+      'color.background.neutral',
+    ],
+  },
+  {
+    foreground: 'color.link.visited',
     background: 'color.background.information.pressed',
     desiredContrast: 4.5,
     layeredTokens: [
@@ -16678,6 +17314,78 @@ export const generatedPairs = [
   },
   {
     foreground: 'color.link.pressed',
+    background: 'elevation.surface.sunken',
+    desiredContrast: 4.5,
+    layeredTokens: [
+      'color.background.neutral.subtle',
+      'color.background.neutral',
+    ],
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'elevation.surface',
+    desiredContrast: 4.5,
+    layeredTokens: [
+      'color.background.neutral.subtle',
+      'color.background.neutral',
+    ],
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'elevation.surface.hovered',
+    desiredContrast: 4.5,
+    layeredTokens: [
+      'color.background.neutral.subtle',
+      'color.background.neutral',
+    ],
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'elevation.surface.pressed',
+    desiredContrast: 4.5,
+    layeredTokens: [
+      'color.background.neutral.subtle',
+      'color.background.neutral',
+    ],
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'elevation.surface.overlay',
+    desiredContrast: 4.5,
+    layeredTokens: [
+      'color.background.neutral.subtle',
+      'color.background.neutral',
+    ],
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'elevation.surface.raised',
+    desiredContrast: 4.5,
+    layeredTokens: [
+      'color.background.neutral.subtle',
+      'color.background.neutral',
+    ],
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'elevation.surface.raised.hovered',
+    desiredContrast: 4.5,
+    layeredTokens: [
+      'color.background.neutral.subtle',
+      'color.background.neutral',
+    ],
+  },
+  {
+    foreground: 'color.link.visited',
+    background: 'elevation.surface.raised.pressed',
+    desiredContrast: 4.5,
+    layeredTokens: [
+      'color.background.neutral.subtle',
+      'color.background.neutral',
+    ],
+  },
+  {
+    foreground: 'color.link.visited',
     background: 'elevation.surface.sunken',
     desiredContrast: 4.5,
     layeredTokens: [

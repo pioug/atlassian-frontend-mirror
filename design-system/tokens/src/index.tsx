@@ -3,6 +3,7 @@ export { default as themeConfig } from './theme-config';
 export { default as token } from './get-token';
 export { default as getTokenValue } from './get-token-value';
 export { default as setGlobalTheme } from './set-global-theme';
+export { default as enableGlobalTheme } from './enable-global-theme';
 export { default as getThemeStyles } from './get-theme-styles';
 export { default as getThemeHtmlAttrs } from './get-theme-html-attrs';
 export { default as getSSRAutoScript } from './get-ssr-auto-script';

@@ -53,6 +53,9 @@ const color: ValueSchema<TextColorTokenSchema<BaseToken>> = {
       pressed: {
         value: 'Blue300',
       },
+      visited: {
+        value: 'Purple300',
+      },
     },
   },
 };

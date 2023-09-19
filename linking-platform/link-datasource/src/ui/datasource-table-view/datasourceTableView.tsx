@@ -46,11 +46,20 @@ const DatasourceTableViewWithoutAnalytics = ({
   const { fireEvent } = useDatasourceAnalyticsEvents();
   const { current: tableRenderInstanceId } = useRef(uuidv4());
 
+  const visibleColumnCount = useRef(visibleColumnKeys?.length || 0);
+
   /*  Need this to make sure that the datasource in the editor gets updated new info if any edits are made in the modal
       But we don't want to call it on initial load. This screws up useDatasourceTableState's internal
       mechanism of initial loading. Use of ref here makes it basically work as a `componentDidUpdate` but not `componentDidMount`
    */
   const isInitialRender = useRef(true);
+  const isDataReady =
+    columns.length > 0 &&
+    responseItems.length > 0 &&
+    totalCount &&
+    totalCount > 0;
+  visibleColumnCount.current = visibleColumnKeys?.length || 0;
+
   useEffect(() => {
     if (!isInitialRender.current) {
       reset();
@@ -67,6 +76,27 @@ const DatasourceTableViewWithoutAnalytics = ({
       onVisibleColumnKeysChange(defaultVisibleColumnKeys);
     }
   }, [visibleColumnKeys, defaultVisibleColumnKeys, onVisibleColumnKeysChange]);
+
+  useEffect(() => {
+    const isTableViewRenderedWithData = status === 'resolved' && isDataReady;
+
+    if (isTableViewRenderedWithData) {
+      fireEvent('ui.datasource.renderSuccess', {
+        extensionKey,
+        destinationObjectTypes,
+        totalItemCount: totalCount,
+        displayedColumnCount: visibleColumnCount.current,
+        display: 'table',
+      });
+    }
+  }, [
+    totalCount,
+    fireEvent,
+    status,
+    extensionKey,
+    destinationObjectTypes,
+    isDataReady,
+  ]);
 
   useEffect(() => {
     const shouldStartUfoExperience =
@@ -115,8 +145,6 @@ const DatasourceTableViewWithoutAnalytics = ({
   if (status === 'rejected') {
     return <LoadingError onRefresh={reset} />;
   }
-
-  const isDataReady = columns.length > 0;
 
   return (
     // datasource-table classname is to exclude all children from being commentable - exclude list is in CFE

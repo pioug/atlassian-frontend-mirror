@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/ds-explorations",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "description": "An experimental package for exploration and validation of spacing / typography foundations.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -26,7 +26,7 @@
   },
   "dependencies": {
     "@atlaskit/primitives": "^1.6.0",
-    "@atlaskit/tokens": "^1.22.0",
+    "@atlaskit/tokens": "^1.24.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
     "tiny-invariant": "^1.2.0"

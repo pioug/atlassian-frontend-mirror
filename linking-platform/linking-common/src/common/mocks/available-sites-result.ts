@@ -134,7 +134,7 @@ export const mockedAvailableSitesResult = {
     },
     {
       cloudId: 'DUMMY-a5a01d21-1cc3-4f29-9565-f2bb8cd969f5',
-      products: ['confluence.ondemand'],
+      products: ['confluence.ondemand', 'jira-software.ondemand'],
       url: 'https://pug.jira-dev.com',
       displayName: 'pug',
       avatarUrl: icon.flag.base64,
@@ -162,7 +162,7 @@ export const mockedAvailableSitesResult = {
     },
     {
       cloudId: 'adabbd0c-91c5-4229-9eb2-9915aa3abe49',
-      products: ['confluence.ondemand', 'jira-software.ondemand'],
+      products: ['confluence.ondemand'],
       url: 'https://wneto-forge.jira-dev.com',
       displayName: 'wneto-forge',
       avatarUrl: icon.rings.base64,

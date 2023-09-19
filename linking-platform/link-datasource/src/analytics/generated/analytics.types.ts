@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::bbcd049ca0675b0360080a987c26f6e9>>
+ * @codegen <<SignedSource::0262ba66242472aeffce99eacc538f23>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen link-datasource
  */
 export type PackageMetaDataType = {
@@ -55,20 +55,19 @@ export type LinkClickedSingleItemAttributesType = {
   extensionKey: string | null;
   destinationObjectTypes: unknown[];
 };
-export type DatasourceRenderedAttributesType = {
+export type DatasourceRenderSuccessAttributesType = {
   totalItemCount: number;
   destinationObjectTypes: unknown[];
   displayedColumnCount: number | null;
   extensionKey: string | null;
-  display: 'datasource_inline' | 'datasource_table' | 'inline';
-  status: 'resolved' | 'unauthorized' | 'forbidden' | 'not_found' | 'errored';
+  display: 'table';
 };
 export type NextItemLoadedAttributesType = {
   destinationObjectTypes: unknown[];
   extensionKey: string | null;
   loadedItemCount: number;
 };
-export type TableViewedDatasourceAttributesType = {
+export type TableViewedDatasourceConfigModalAttributesType = {
   destinationObjectTypes: unknown[];
   totalItemCount: number;
   displayedColumnCount: number | null;
@@ -77,6 +76,7 @@ export type TableViewedDatasourceAttributesType = {
     | 'datasource_basic_filter'
     | 'datasource_saved_filter'
     | null;
+  extensionKey: string | null;
 };
 export type LinkViewedSingleItemAttributesType = {
   destinationObjectTypes: unknown[];
@@ -131,13 +131,13 @@ export type AnalyticsEventAttributes = {
   'ui.link.clicked.singleItem': LinkClickedSingleItemAttributesType;
   /**
    * Fired when an inserted datasource resolves / renders. */
-  'ui.datasource.rendered': DatasourceRenderedAttributesType;
+  'ui.datasource.renderSuccess': DatasourceRenderSuccessAttributesType;
   /**
    * Fired when user scrolls to the next page/list of the objects */
   'track.nextItem.loaded': NextItemLoadedAttributesType;
   /**
-   * Fired when the datasource results are displayed as table */
-  'ui.table.viewed.datasource': TableViewedDatasourceAttributesType;
+   * Fired when the datasource results are displayed as table inside of datasource configuration modal */
+  'ui.table.viewed.datasourceConfigModal': TableViewedDatasourceConfigModalAttributesType;
   /**
    * Fired when the datasource results are displayed as link(may be smart-link) for a single item */
   'ui.link.viewed.singleItem': LinkViewedSingleItemAttributesType;

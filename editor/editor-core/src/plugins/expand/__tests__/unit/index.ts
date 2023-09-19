@@ -27,7 +27,7 @@ import expandPlugin from '../../index';
 import deprecatedAnalyticsPlugin from '../../../analytics';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import typeAheadPlugin from '../../../type-ahead';
-import quickInsertPlugin from '../../../quick-insert';
+import { quickInsertPlugin } from '@atlaskit/editor-plugin-quick-insert';
 import selectionPlugin from '../../../selection';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';

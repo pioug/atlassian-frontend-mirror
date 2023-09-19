@@ -70,11 +70,11 @@ export type NegativeSpace = keyof typeof negativeSpaceMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::3db44f53b728773bb3ba1473d4567724>>
+ * @codegen <<SignedSource::2d67e9258c01e48d564a26a1e4400b94>>
  * @codegenId colors
  * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
  * @codegenParams ["border", "background", "shadow", "text", "fill", "surface"]
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::815ddd719715ae06521cad06e1921e40>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::f6a616f7ea03ec40c148fc83050d073b>>
  */
 export const borderColorMap = {
   'color.border': token('color.border', '#091e4221'),
@@ -932,6 +932,7 @@ export const textColorMap = {
   'color.text.subtle': token('color.text.subtle', '#42526E'),
   'color.link': token('color.link', '#0052CC'),
   'color.link.pressed': token('color.link.pressed', '#0747A6'),
+  'color.link.visited': token('color.link.visited', '#403294'),
 } as const;
 
 export type TextColor = keyof typeof textColorMap;

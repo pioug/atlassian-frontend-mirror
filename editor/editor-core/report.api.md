@@ -1290,6 +1290,8 @@ interface MediaPluginState {
   // (undocumented)
   allUploadsFinished: boolean;
   // (undocumented)
+  currentMaxWidth?: number;
+  // (undocumented)
   destroy(): void;
   // (undocumented)
   dispatch?: Dispatch;

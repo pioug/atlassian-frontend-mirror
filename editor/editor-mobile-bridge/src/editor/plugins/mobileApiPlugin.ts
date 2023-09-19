@@ -13,7 +13,7 @@ import type { HyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import type { ListPlugin } from '@atlaskit/editor-plugin-list';
 import type { TextFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';
 import type { RulePlugin } from '@atlaskit/editor-plugin-rule';
-import type { quickInsertPlugin } from '@atlaskit/editor-core/src/plugins';
+import type { QuickInsertPlugin } from '@atlaskit/editor-plugin-quick-insert';
 import { useHyperlinkListener } from './useHyperlinkListener';
 import { useTextFormattingListener } from './useTextFormattingListener';
 import { useListListener } from './useListListener';
@@ -60,7 +60,7 @@ export const mobileApiPlugin: NextEditorPlugin<
       PanelPlugin,
       TextFormattingPlugin,
       ListPlugin,
-      OptionalPlugin<typeof quickInsertPlugin>,
+      OptionalPlugin<QuickInsertPlugin>,
       OptionalPlugin<RulePlugin>,
     ];
     pluginConfiguration: { bridge: WebBridgeImpl; intl: IntlShape };

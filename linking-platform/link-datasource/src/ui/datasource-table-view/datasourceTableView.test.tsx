@@ -5,9 +5,11 @@ import { IntlProvider } from 'react-intl-next';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
+import { DatasourceTableStatusType } from '@atlaskit/linking-types';
 import { ConcurrentExperience } from '@atlaskit/ufo';
 
 import { EVENT_CHANNEL } from '../../analytics';
+import { DatasourceRenderSuccessAttributesType } from '../../analytics/generated/analytics.types';
 import {
   DatasourceTableState,
   useDatasourceTableState,
@@ -64,6 +66,7 @@ const setup = (
         },
       },
     ],
+    totalCount: 2,
     columns: [
       { key: 'myColumn', title: 'My Column', type: 'string' },
       { key: 'id' },
@@ -74,7 +77,7 @@ const setup = (
     ...(overrides || {}),
   } as DatasourceTableState);
 
-  const rendeResult = render(
+  const renderResult = render(
     <AnalyticsListener channel={EVENT_CHANNEL} onEvent={onAnalyticFireEvent}>
       <IntlProvider locale="en">
         <DatasourceTableView
@@ -98,7 +101,7 @@ const setup = (
     </AnalyticsListener>,
   );
 
-  return { mockReset, ...rendeResult };
+  return { mockReset, ...renderResult };
 };
 
 describe('DatasourceTableView', () => {
@@ -360,6 +363,74 @@ describe('Analytics: DatasourceTableView', () => {
         ],
       },
       EVENT_CHANNEL,
+    );
+  });
+
+  describe('"ui.datasource.renderSuccess" event', () => {
+    const getEventPayload = (
+      overrideAttributes: Partial<DatasourceRenderSuccessAttributesType> = {},
+    ) => ({
+      payload: {
+        action: 'renderSuccess',
+        actionSubject: 'datasource',
+        attributes: {
+          extensionKey: 'jira-object-provider',
+          destinationObjectTypes: ['issue'],
+          displayedColumnCount: 2,
+          display: 'table',
+          ...overrideAttributes,
+        },
+        eventType: 'ui',
+      },
+      context: [
+        {
+          packageName: '@atlaskit/fabric',
+          packageVersion: '0.0.0',
+        },
+      ],
+    });
+
+    it('should fire "ui.datasource.renderSuccess" event with display = "table" when the data is present and status is resolved', () => {
+      setup();
+
+      expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+        getEventPayload({ totalItemCount: 2 }),
+        EVENT_CHANNEL,
+      );
+    });
+
+    it.each(['unauthorized', 'empty', 'rejected'])(
+      'should not fire "ui.datasource.renderSuccess" event with display = "table" when the status is %s',
+      status => {
+        setup({ status: status as DatasourceTableStatusType });
+
+        expect(onAnalyticFireEvent).not.toBeFiredWithAnalyticEventOnce(
+          getEventPayload(),
+          EVENT_CHANNEL,
+        );
+      },
+    );
+
+    it.each([
+      {
+        columns: [],
+      },
+      {
+        responseItems: [],
+      },
+      {
+        totalCount: 0,
+      },
+    ])(
+      'should not fire "ui.datasource.renderSuccess" event with display = "table" when status is resolved, but %s',
+      override => {
+        setup({ status: 'resolved', ...override });
+
+        expect(onAnalyticFireEvent).not.toBeFiredWithAnalyticEventOnce(
+          getEventPayload(),
+          EVENT_CHANNEL,
+        );
+      },
     );
   });
 });

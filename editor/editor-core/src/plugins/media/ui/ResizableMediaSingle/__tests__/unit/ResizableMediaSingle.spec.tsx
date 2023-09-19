@@ -21,6 +21,7 @@ import {
   media,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
+import { copyButtonPlugin } from '@atlaskit/editor-plugin-copy-button';
 import { focusPlugin } from '@atlaskit/editor-plugin-focus';
 
 jest.mock('@atlaskit/editor-prosemirror/utils', () => {
@@ -108,6 +109,7 @@ const getEditorView = (document: CreatePMEditorOptions['doc']) => {
     .add(guidelinePlugin)
     .add(gridPlugin)
     .add(editorDisabledPlugin)
+    .add(copyButtonPlugin)
     .add(floatingToolbarPlugin)
     .add(focusPlugin)
     .add([mediaPlugin, { allowMediaSingle: true }])

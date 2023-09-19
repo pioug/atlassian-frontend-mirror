@@ -68,6 +68,52 @@ export class APIError extends Error {
 export type APIErrorKind = 'auth' | 'error' | 'fallback' | 'fatal';
 
 // @public (undocumented)
+interface AvailableSite {
+  // (undocumented)
+  avatarUrl: string;
+  // (undocumented)
+  cloudId: string;
+  // (undocumented)
+  displayName: string;
+  // (undocumented)
+  isVertigo: boolean;
+  // (undocumented)
+  products: AvailableSitesProductType[];
+  // (undocumented)
+  url: string;
+}
+
+// @public (undocumented)
+enum AvailableSitesProductType {
+  // (undocumented)
+  ATLAS = 'townsquare',
+  // (undocumented)
+  BEACON = 'beacon',
+  // (undocumented)
+  COMPASS = 'compass',
+  // (undocumented)
+  CONFLUENCE = 'confluence.ondemand',
+  // (undocumented)
+  JIRA_BUSINESS = 'jira-core.ondemand',
+  // (undocumented)
+  JIRA_INCIDENT_MANAGER = 'jira-incident-manager.ondemand',
+  // (undocumented)
+  JIRA_PRODUCT_DISCOVERY = 'jira-product-discovery',
+  // (undocumented)
+  JIRA_SERVICE_DESK = 'jira-servicedesk.ondemand',
+  // (undocumented)
+  JIRA_SOFTWARE = 'jira-software.ondemand',
+  // (undocumented)
+  MERCURY = 'mercury',
+  // (undocumented)
+  OPSGENIE = 'opsgenie',
+  // (undocumented)
+  STATUS_PAGE = 'statuspage',
+  // (undocumented)
+  WHITEBOARD = 'atlassian-whiteboard',
+}
+
+// @public (undocumented)
 export const BaseUrls: {
   dev: string;
   development: string;
@@ -217,6 +263,11 @@ export type EnvironmentsKeys = keyof typeof BaseUrls;
 
 // @public (undocumented)
 export type ErrorType = 'UnexpectedError' | ServerErrorType;
+
+// @public
+export const filterSiteProducts: (
+  availableSitesProducts: AvailableSitesProductType[],
+) => (site: AvailableSite) => boolean;
 
 // @public (undocumented)
 export const getBaseUrl: (envKey?: keyof typeof BaseUrls) => string;

@@ -475,6 +475,135 @@ The SSR server should attach the return value of this function as the `innerhtml
   typing={`string`}
 />
 
+## Loading and applying themes on the client
+
+If your app is unable to configure data-attributes or styles on the server at request time, it may be necessary to load and apply themes on the client instead.
+This can be necessary for static sites or apps that store the user's theme preferences on the client (such as in `localStorage`).
+
+For these cases, the `@atlaskit/tokens` package provides synchronous alternative functions to `setGlobalTheme` that can synchronously configure the page on first render.
+
+On the server, use the SSR utilities above to generate the theme assets and bundle them with your application:
+
+```ts
+// webpack.config.js
+const webpack = require('webpack');
+const generate = require('generate-file-webpack-plugin');
+const { getThemeStyles } = require('@atlaskit/tokens');
+
+module.exports = async (env) => {
+  const themeStyles = await getThemeStyles();
+
+  return {
+    // ...
+    plugins: [
+      ...themeStyles.map(({ id, css }) =>
+        generate({
+          file: `themes/atlaskit-tokens_${id}.css`,
+          content: css
+        })
+      )
+    ]
+  };
+};
+```
+
+At build time, add all required themes as `<link>`s or `<styles>` in your document template.
+To ensure all recommended themes are included, we recommend generating the list at build time using `getThemeStyles`.
+
+```html
+<!-- Index.html -->
+<html>
+  <head>
+    <link rel="stylesheet" href="path/to/atlaskit-tokens_<theme-name-1>.css" />
+    <link rel="stylesheet" href="path/to/atlaskit-tokens_<theme-name-2>.css" />
+    <!-- Generate links for all required styles using getThemeStyles ...   -->
+  </head>
+  <body></body>
+</html>
+```
+
+On the client, call `enableGlobalTheme` and `UNSAFE_loadCustomThemeStyles` to configure the page.
+
+```ts
+// App.ts
+import { setGlobalTheme } from '@atlaskit/tokens';
+import { UNSAFE_loadCustomThemeStyles } from `@atlaskit/tokens/custom-themes`
+
+enableGlobalTheme(themePreferences);
+UNSAFE_loadCustomThemeStyles(themePreferences);
+```
+
+<SectionMessage title="Client-side configuration of themes can cause a flash of unthemed content" appearance="warning">
+  <p>
+    Styles and data-attributes added to the document via client-side Javascript will <strong>not</strong> block first paint;
+    depending on how your app renders, your users may see a flash of unthemed content.
+  </p>
+  <p>
+    Where possible, we recommend configuring themes on the server instead.
+  </p>
+</SectionMessage>
+
+
+More details on these two utilities are included below:
+
+### enableGlobalTheme(themeState)
+
+The `enableGlobalTheme` function is a synchronous alternative to `setGlobalTheme`, that can be used to configure the theme before first paint.
+It should only be used in cases where the document cannot be configured by the server. Depending on when it is called, it may still result in a flash of un-themed content.
+
+Similar to `setGlobalTheme`, it updates data-attributes and adds listeners to the page for automatic theme switching.
+
+Unlike `setGlobalTheme`, `enableGlobalTheme` does not load CSS onto the page; instead themes should be loaded manually, by extracting and bundling themes from `getThemeStyles` at build time.
+Custom theme styles can be generated at runtime using `UNSAFE_loadCustomThemeStyles` (see below).
+
+<TokenPropsTable
+  propName={'themeState'}
+  description={'Used to specify which themes the site is currently using. Omitted properties will fall back to the default value.'}
+  typing={`{
+  colorMode?: ColorMode<"light", "dark", "auto">,
+  light?: ThemeIds,
+  dark?: ThemeIds,
+  spacing?: ThemeIds,
+  typography?: ThemeIds,
+  UNSAFE_themeOptions?: CustomThemeSchema // { brandColor: HexColor }
+}`}
+  defaultValue={'{ colorMode: "auto", dark: "dark", light: "light", spacing: "spacing", typography: "typography" }'}
+/>
+
+<TokenPropsTable
+  propName={'themeLoader'}
+  description={'A callback function that can be used to override the default theme loading functionality. It will run the function for each required theme ID instead of creating `<style>` elements. For example, this can be used to add `<link>` elements for each theme.'}
+  typing={'(id: ThemeIds) => void'}
+/>
+
+<TokenPropsTable
+  propName={'return value'}
+  description={'A function, that can be used to stop listening for changes to system theme.'}
+  typing={'() => void'}/>
+
+### UNSAFE_loadCustomThemeStyles(themeState)
+
+The `UNSAFE_loadCustomThemeStyles` function provides a synchronous way of generating and setting custom theme styles on the page.
+It should only be used in cases where the styles cannot be generated and set by the server. Depending on when it is called, it may still result in a flash of un-themed content.
+The generated styles are activated by a `data-custom-theme` attribute on the `<html>` element, which is set by `setGlobalTheme` or `enableGlobalTheme`.
+
+It can be accessed from the entrypoint `@atlaskit/tokens/custom-themes`/
+
+<TokenPropsTable
+  propName={'themeState'}
+  description={'Used to specify which themes the site is currently using. Omitted properties will fall back to the default value.'}
+  typing={`{
+  colorMode?: ColorMode<"light", "dark", "auto">,
+  light?: ThemeIds,
+  dark?: ThemeIds,
+  spacing?: ThemeIds,
+  typography?: ThemeIds,
+  UNSAFE_themeOptions?: CustomThemeSchema // { brandColor: HexColor }
+}`}
+  defaultValue={'{ colorMode: "auto", dark: "dark", light: "light", spacing: "spacing", typography: "typography" }'}
+/>
+
+
 ## Current surface color
 
 The current surface is a dynamic color value implemented via CSS custom properties (CSS variables). Which allows UI to be styled with a color based on a parent element's surface color. This is useful when an element needs an opaque background based on a parent element's surface color. For example, when it needs to mask content.

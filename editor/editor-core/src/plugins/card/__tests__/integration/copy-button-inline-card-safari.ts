@@ -1,4 +1,4 @@
-import { _getCopyButtonTestSuite } from '../../../copy-button/__tests__/integration/_getCopyButtonTestSuite';
+import { _getCopyButtonTestSuite } from '../../../../../src/__tests__/integration/copy-button/_getCopyButtonTestSuite';
 import type { default as WebDriverPage } from '@atlaskit/webdriver-runner/wd-wrapper';
 import * as inlineCardAdf from '../../../../__tests__/integration/card/_fixtures_/inline-card-selection.adf.json';
 import { waitForInlineCardSelection } from '@atlaskit/media-integration-test-helpers';

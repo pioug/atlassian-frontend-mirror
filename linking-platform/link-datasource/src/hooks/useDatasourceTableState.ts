@@ -88,7 +88,7 @@ export const useDatasourceTableState = ({
 
     try {
       const {
-        meta: { access, destinationObjectTypes, extensionKey },
+        meta: { access },
         data: { schema },
       } = await getDatasourceDetails(datasourceId, {
         parameters,
@@ -98,9 +98,6 @@ export const useDatasourceTableState = ({
         setStatus('unauthorized');
         return;
       }
-
-      setExtensionKey(extensionKey);
-      setDestinationObjectTypes(destinationObjectTypes);
 
       const isColumnNotPresentInCurrentColumnsList = (
         col: DatasourceResponseSchemaProperty,
@@ -194,7 +191,6 @@ export const useDatasourceTableState = ({
           return [...currentResponseItems, ...items];
         });
 
-        setStatus('resolved');
         setHasNextPage(Boolean(nextPageCursor));
 
         if (fieldKeys.length > 0) {
@@ -217,6 +213,7 @@ export const useDatasourceTableState = ({
             loadedItemCount: currentLoadedItemCount + newlyLoadedItemCount,
           });
         }
+        setStatus('resolved');
       } catch (e: any) {
         setStatus('rejected');
       }

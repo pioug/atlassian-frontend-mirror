@@ -1,4 +1,4 @@
-import { _getCopyButtonTestSuite } from '../../../copy-button/__tests__/visual-regression/_getCopyButtonTestSuite';
+import { _getCopyButtonTestSuite } from '../../../../../src/__tests__/visual-regression/copy-button/_getCopyButtonTestSuite';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { codeBlockSelectors } from '@atlaskit/editor-test-helpers/page-objects/code-block';
 import { basicCodeBlock } from '../__fixtures__/basic-code-block';

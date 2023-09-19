@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/tokens",
-  "version": "1.22.1",
+  "version": "1.24.0",
   "description": "Design tokens are the single source of truth to name and store design decisions.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -30,7 +30,7 @@
   "scripts": {
     "ak-postbuild": "(cd $(npx repo-root) && yarn build @atlassian/codegen -d cjs,esm,es2019) && yarn workspace @atlaskit/tokens codegen-tokens && yarn workspace @atlaskit/tokens check-clean-git",
     "check-clean-git": "git diff --exit-code -- packages/design-system/tokens/ || (echo 'tokens are out of date, run yarn build tokens' && false)",
-    "codegen-tokens": "ts-node --project $(npx repo-root)/tsconfig.node.json ./scripts/style-dictionary/build && cd $(npx repo-root)/packages/design-system/primitives && yarn codegen-styles"
+    "codegen-tokens": "ts-node --project $(npx repo-root)/tsconfig.node.json ./scripts/style-dictionary/build && cd $(npx repo-root)/packages/design-system/primitives && yarn codegen-styles && cd $(npx repo-root)/packages/design-system/ds-explorations && yarn codegen-styles"
   },
   "dependencies": {
     "@atlaskit/ds-lib": "^2.2.0",
@@ -97,6 +97,7 @@
   },
   "af:exports": {
     ".": "./src/index.tsx",
+    "./custom-themes": "./src/entry-points/custom-themes.tsx",
     "./figma/atlassian-light.json": "./figma/atlassian-light.json",
     "./figma/atlassian-dark.json": "./figma/atlassian-dark.json",
     "./palettes-raw": "./src/entry-points/palettes-raw.tsx",

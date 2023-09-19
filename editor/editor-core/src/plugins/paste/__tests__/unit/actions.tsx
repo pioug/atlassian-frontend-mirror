@@ -49,6 +49,7 @@ import mediaPlugin from '../../../media';
 import captionPlugin from '../../../caption';
 import selectionPlugin from '../../../selection';
 import { listPlugin } from '@atlaskit/editor-plugin-list';
+import { copyButtonPlugin } from '@atlaskit/editor-plugin-copy-button';
 import floatingToolbarPlugin from '../../../floating-toolbar';
 import betterTypeHistoryPlugin from '../../../better-type-history';
 
@@ -102,6 +103,7 @@ describe('action paste handler', () => {
         .add(widthPlugin)
         .add(guidelinePlugin)
         .add(gridPlugin)
+        .add(copyButtonPlugin)
         .add(floatingToolbarPlugin)
         .add(focusPlugin)
         .add([mediaPlugin, { allowMediaSingle: true, allowCaptions: true }])

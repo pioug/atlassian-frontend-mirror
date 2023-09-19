@@ -59,6 +59,7 @@ import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import captionPlugin from '@atlaskit/editor-core/src/plugins/caption';
 import selectionPlugin from '../../../selection';
+import { copyButtonPlugin } from '@atlaskit/editor-plugin-copy-button';
 import floatingToolbarPlugin from '../../../floating-toolbar';
 
 import { hideCaretModifier } from '../../gap-cursor/styles';
@@ -153,6 +154,10 @@ describe('gap-cursor', () => {
                   const { editorView } = editor(
                     doc((blockNodes[nodeName] as any)()),
                   );
+                  sendKeyToPm(editorView, direction);
+                  // added new one ArrowLeft key pressing becasue we have added functionality
+                  // for the focusing checkbox input at the action item, and for now need
+                  // 2 times press ArrowLeft to move cursor out of list
                   sendKeyToPm(editorView, direction);
                   expect(
                     editorView.state.selection instanceof GapCursorSelection,
@@ -330,6 +335,10 @@ describe('gap-cursor', () => {
                   doc((blockNodes[nodeName] as any)()),
                 );
                 sendKeyToPm(editorView, 'ArrowLeft');
+                // added new one ArrowLeft key pressing becasue we have added functionality
+                // for the focusing checkbox input at the action item, and for now need
+                // 2 times press ArrowLeft to move cursor out of list
+                sendKeyToPm(editorView, 'ArrowLeft');
                 expect(
                   editorView.state.selection instanceof GapCursorSelection,
                 ).toBe(true);
@@ -457,6 +466,10 @@ describe('gap-cursor', () => {
         ),
       );
       sendKeyToPm(editorView, 'ArrowLeft');
+      // added new one ArrowLeft key pressing becasue we have added functionality
+      // for the focusing checkbox input at the action item, and for now need
+      // 2 times press ArrowLeft to move cursor out of list
+      sendKeyToPm(editorView, 'ArrowLeft');
       expect(editorView.state.selection instanceof GapCursorSelection).toBe(
         true,
       );
@@ -528,6 +541,7 @@ describe('gap-cursor', () => {
       .add(widthPlugin)
       .add(guidelinePlugin)
       .add(gridPlugin)
+      .add(copyButtonPlugin)
       .add(floatingToolbarPlugin)
       .add(focusPlugin)
       .add(captionPlugin)

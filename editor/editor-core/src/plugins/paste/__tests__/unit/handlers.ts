@@ -80,6 +80,7 @@ import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import { listPlugin } from '@atlaskit/editor-plugin-list';
 import extensionPlugin from '../../../extension';
 import { rulePlugin } from '@atlaskit/editor-plugin-rule';
+import { copyButtonPlugin } from '@atlaskit/editor-plugin-copy-button';
 import floatingToolbarPlugin from '../../../floating-toolbar';
 import codeBlockPlugin from '../../../code-block';
 import { compositionPlugin } from '@atlaskit/editor-plugin-composition';
@@ -2121,6 +2122,7 @@ describe('handlePasteIntoCaption', () => {
         .add(widthPlugin)
         .add(gridPlugin)
         .add(guidelinePlugin)
+        .add(copyButtonPlugin)
         .add(floatingToolbarPlugin)
         .add(focusPlugin)
         .add([mediaPlugin, { allowMediaSingle: true, allowCaptions: true }]);

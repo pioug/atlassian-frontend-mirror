@@ -29,11 +29,20 @@
   "compilerOptions": {
     "baseUrl": "",
     "composite": true,
-    "outDir": "../../../tsDist/@af__editor-plugin-copy-button/app"
+    "outDir": "../../../tsDist/@atlaskit__editor-plugin-copy-button/app"
   },
   "references": [
     {
       "path": "../editor-common/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-analytics/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-decorations/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/icon/tsconfig.app.json"
     }
   ]
 }

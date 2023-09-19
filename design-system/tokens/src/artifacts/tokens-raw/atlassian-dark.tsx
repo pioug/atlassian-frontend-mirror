@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a80d8cbd5dd6567623aa21c92718805d>>
+ * @codegen <<SignedSource::53fe3ce214e188eaafa0c96c9d57e282>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -990,6 +990,33 @@ const tokens = [
       "pressed"
     ],
     "cleanName": "color.link.pressed"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.23.0",
+      "description": "Use for links in a visited state."
+    },
+    "value": "#B8ACF6",
+    "filePath": "src/tokens/atlassian-dark/color/text.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.23.0",
+        "description": "Use for links in a visited state."
+      },
+      "value": "Purple300"
+    },
+    "name": "color.link.visited",
+    "path": [
+      "color",
+      "link",
+      "visited"
+    ],
+    "cleanName": "color.link.visited"
   },
   {
     "attributes": {

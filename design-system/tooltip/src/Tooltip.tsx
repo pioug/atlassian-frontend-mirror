@@ -446,7 +446,6 @@ function Tooltip({
                       }
                     >
                       {({ className }) => (
-                        // eslint-disable-next-line jsx-a11y/mouse-events-have-key-events
                         <Container
                           ref={ref}
                           /**

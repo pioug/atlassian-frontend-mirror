@@ -1,12 +1,9 @@
-import React, {
-  ComponentClass,
-  PureComponent,
-  StatelessComponent,
-} from 'react';
+import type { ComponentClass, StatelessComponent } from 'react';
+import React, { PureComponent } from 'react';
 
 import ReactDOM from 'react-dom';
 
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import ReactEditorViewContext from './ReactEditorViewContext';
 
@@ -35,6 +32,7 @@ class WithOutsideClick extends PureComponent<
     }
 
     if (this.props.handleEscapeKeydown) {
+      //
       //Attached event to the menu so that 'ESC' events from the opened menu also will be handled.
       (
         this.props.editorRef?.current ||

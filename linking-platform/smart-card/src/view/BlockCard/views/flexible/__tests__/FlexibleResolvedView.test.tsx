@@ -6,6 +6,7 @@ import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
 import FlexibleResolvedView from '../FlexibleResolvedView';
 import { mockAnalytics } from '../../../../../utils/mocks';
 import { mockConfluenceResponse } from './__mocks__/blockCardMocks';
+import MockAtlasProject from '../../../../../__fixtures__/atlas-project';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 describe('FlexibleResolvedView', () => {
@@ -87,6 +88,39 @@ describe('FlexibleResolvedView', () => {
           commentCount.parentElement,
         );
         expect(metadataElements[0]).toContainElement(reactCount.parentElement);
+      },
+    );
+  });
+
+  describe('renders server actions', () => {
+    ffTest(
+      'platform.linking-platform.smart-card.follow-button',
+      async () => {
+        const { findByTestId } = renderComponent({
+          cardState: {
+            status: 'resolved',
+            details: MockAtlasProject,
+          } as CardState,
+          showServerActions: true,
+        });
+        await findByTestId('smart-footer-block-resolved-view');
+
+        const followAction = await findByTestId('smart-action-follow-action');
+        expect(followAction).toBeInTheDocument();
+        expect(followAction.textContent).toEqual('Follow');
+      },
+      async () => {
+        const { findByTestId, queryByTestId } = renderComponent({
+          cardState: {
+            status: 'resolved',
+            details: MockAtlasProject,
+          } as CardState,
+          showServerActions: true,
+        });
+        await findByTestId('smart-footer-block-resolved-view');
+
+        const followAction = queryByTestId('smart-action-follow-action');
+        expect(followAction).not.toBeInTheDocument();
       },
     );
   });

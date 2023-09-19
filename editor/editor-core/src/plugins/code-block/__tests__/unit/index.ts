@@ -37,7 +37,7 @@ import { compositionPlugin } from '@atlaskit/editor-plugin-composition';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import { basePlugin } from '../../../base';
 import typeAheadPlugin from '../../../type-ahead';
-import quickInsertPlugin from '../../../quick-insert';
+import { quickInsertPlugin } from '@atlaskit/editor-plugin-quick-insert';
 import selectionPlugin from '../../../selection';
 import deprecatedAnalyticsPlugin from '../../../analytics';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';

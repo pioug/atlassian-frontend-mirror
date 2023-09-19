@@ -164,6 +164,8 @@ interface Props_3 {
   // (undocumented)
   isDone?: boolean;
   // (undocumented)
+  isFocused?: boolean;
+  // (undocumented)
   isRenderer?: boolean;
   // (undocumented)
   objectAri?: string;
@@ -195,6 +197,8 @@ interface Props_4 {
   disabled?: boolean;
   // (undocumented)
   isDone?: boolean;
+  // (undocumented)
+  isFocused?: boolean;
   // (undocumented)
   isRenderer?: boolean;
   // (undocumented)

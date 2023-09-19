@@ -1,7 +1,26 @@
-import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type {
+  NextEditorPlugin,
+  OptionalPlugin,
+} from '@atlaskit/editor-common/types';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { MarkType } from '@atlaskit/editor-prosemirror/model';
 
-export type CopyButtonPlugin = NextEditorPlugin<'copyButton'>;
+import { processCopyButtonItems } from './toolbar';
+
+const editorAnalyticsApi: EditorAnalyticsAPI | undefined = undefined;
+const processCopyButtonItemsWithAnalytics =
+  processCopyButtonItems(editorAnalyticsApi);
+
+export type CopyButtonPlugin = NextEditorPlugin<
+  'copyButton',
+  {
+    dependencies: [OptionalPlugin<AnalyticsPlugin>];
+    actions: {
+      processCopyButtonItems: typeof processCopyButtonItemsWithAnalytics;
+    };
+  }
+>;
 
 export type CopyButtonPluginState = {
   copied: boolean;

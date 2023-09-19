@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, { useMemo } from 'react';
+import React, { useMemo, useRef } from 'react';
 import { jsx } from '@emotion/react';
 import CheckboxIcon from '@atlaskit/icon/glyph/checkbox';
 import Item from './Item';
@@ -15,6 +15,7 @@ import { checkboxStyles } from './styles';
 export interface Props {
   taskId: string;
   isDone?: boolean;
+  isFocused?: boolean;
   isRenderer?: boolean;
   onChange?: (taskId: string, isChecked: boolean) => void;
   contentRef?: ContentRef;
@@ -33,6 +34,7 @@ const TaskItem = (props: Props & WithAnalyticsEventsProps) => {
   const {
     appearance,
     isDone,
+    isFocused,
     isRenderer,
     contentRef,
     children,
@@ -77,6 +79,7 @@ const TaskItem = (props: Props & WithAnalyticsEventsProps) => {
     [handleOnChange],
   );
 
+  const inputRef = useRef<HTMLInputElement>(null);
   const icon = (
     <span css={checkboxStyles(isRenderer)(theme)} contentEditable={false}>
       <input
@@ -89,10 +92,21 @@ const TaskItem = (props: Props & WithAnalyticsEventsProps) => {
         disabled={!!disabled}
         suppressHydrationWarning={true}
         onKeyPress={handleOnKeyPress}
+        ref={inputRef}
       />
       <CheckboxIcon label="" />
     </span>
   );
+
+  React.useEffect(() => {
+    if (isFocused && inputRef.current) {
+      inputRef.current?.focus();
+      inputRef.current?.blur();
+      setTimeout(() => {
+        inputRef.current?.focus();
+      }, 100);
+    }
+  }, [isFocused]);
 
   return (
     <Item

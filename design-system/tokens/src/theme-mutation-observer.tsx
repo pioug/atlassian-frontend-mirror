@@ -1,6 +1,6 @@
 import { COLOR_MODE_ATTRIBUTE, THEME_DATA_ATTRIBUTE } from './constants';
 import getGlobalTheme from './get-global-theme';
-import { ActiveThemeState } from './set-global-theme';
+import { ActiveThemeState } from './theme-config';
 
 /**
  * A MutationObserver which watches the `<html>` element for changes to the theme.

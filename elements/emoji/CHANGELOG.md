@@ -1,5 +1,17 @@
 # @atlaskit/emoji
 
+## 67.5.3
+
+### Patch Changes
+
+- [`aa456f60b3d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aa456f60b3d) - [ux] [ECA11Y-31] Refactored Upload own emoji component accessibility
+
+## 67.5.2
+
+### Patch Changes
+
+- [`07e2883caee`](https://bitbucket.org/atlassian/atlassian-frontend/commits/07e2883caee) - upgrade @tanstack/react-virtual
+
 ## 67.5.1
 
 ### Patch Changes

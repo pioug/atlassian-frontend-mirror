@@ -59,6 +59,8 @@ export {
   akEditorTableCellOnStickyHeaderZIndex,
   akEditorTableCellSelected,
   akEditorTableFloatingControls,
+  akEditorTableHeaderCellBackground,
+  akEditorTableHeaderCellBackgroundDark,
   akEditorTableLegacyCellMinWidth,
   akEditorTableNumberColumnWidth,
   akEditorTableToolbar,

@@ -43,7 +43,7 @@ import deprecatedAnalyticsPlugin, {
 } from '../../../../../plugins/analytics';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import typeAheadPlugin from '../../../../../plugins/type-ahead';
-import quickInsertPlugin from '../../../../../plugins/quick-insert';
+import { quickInsertPlugin } from '@atlaskit/editor-plugin-quick-insert';
 import taskDecisionPlugin from '../../../../../plugins/tasks-and-decisions';
 import mentionsPlugin from '../../../../../plugins/mentions';
 import selectionPlugin from '../../../../../plugins/selection';

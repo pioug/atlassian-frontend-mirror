@@ -16,6 +16,7 @@
 
 ```ts
 import type { ContextPanelPlugin } from '@atlaskit/editor-plugin-context-panel';
+import type { CopyButtonPlugin } from '@atlaskit/editor-plugin-copy-button';
 import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
@@ -43,6 +44,7 @@ export type FloatingToolbarPlugin = NextEditorPlugin<
       DecorationsPlugin,
       OptionalPlugin<ContextPanelPlugin>,
       OptionalPlugin<ExtensionPlugin>,
+      CopyButtonPlugin,
       EditorDisabledPlugin,
     ];
     actions: {

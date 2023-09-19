@@ -16,9 +16,14 @@ import { taskItemNodeViewFactory } from '../nodeviews/taskItem';
 
 import { stateKey } from './plugin-key';
 
-enum ACTIONS {
-  SET_CONTEXT_PROVIDER,
-}
+import {
+  getTaskItemDataToFocus,
+  getTaskItemDataAtPos,
+  focusCheckboxAndUpdateSelection,
+  removeCheckboxFocus,
+} from './helpers';
+import { GapCursorSelection } from '@atlaskit/editor-common/selection';
+import { ACTIONS } from './types';
 
 const setContextIdentifierProvider =
   (provider: ContextIdentifierProvider | undefined): Command =>
@@ -87,6 +92,121 @@ export function createPlugin(
           target.getAttribute('aria-label') === 'Decision',
         { useLongPressSelection },
       ),
+      handleKeyDown: (view: EditorView, event: KeyboardEvent) => {
+        const { state, dispatch } = view;
+        const { selection, schema } = state;
+        const { $from, $to } = selection;
+        const parentOffset = $from.parentOffset;
+        const isInTaskItem = $from.node().type === schema.nodes.taskItem;
+
+        const focusedTaskItemLocalId =
+          stateKey.getState(state).focusedTaskItemLocalId;
+
+        const currentTaskItemData = getTaskItemDataAtPos(view);
+
+        const currentTaskItemFocused =
+          focusedTaskItemLocalId === currentTaskItemData?.localId;
+
+        // if task item checkbox not focused and arrow key is not pressed
+        //  then we don't want to handle event.
+        if (
+          !['ArrowUp', 'ArrowDown', 'ArrowRight', 'ArrowLeft'].includes(
+            event.key,
+          )
+        ) {
+          return false;
+        }
+
+        // We want to handle arrow up, down and left key only
+        //  when selection is inside task item and no text is selected.
+        if (
+          ['ArrowUp', 'ArrowDown', 'ArrowLeft'].includes(event.key) &&
+          (!isInTaskItem || $from.pos !== $to.pos)
+        ) {
+          return false;
+        }
+
+        // Arrow keys are pressed and shift, ctrl or meta is pressed as well.
+        //  along with arrow keys and task item checkbox is focused
+        //  then first move focus to view and proceed with default event handling.
+        if (event.shiftKey || event.ctrlKey || event.metaKey) {
+          currentTaskItemFocused && removeCheckboxFocus(view);
+          return false;
+        }
+
+        // task item checkbox is already focused
+        if (focusedTaskItemLocalId) {
+          if (event.key === 'ArrowLeft') {
+            // Move focus to view and proceed with default keyboard handler.
+            // Which will move cursor to previous position.
+            removeCheckboxFocus(view);
+            return false;
+          }
+          if (event.key === 'ArrowRight') {
+            // Move focus to view and DON'T proceed with default handler.
+            // We have assumed that selection is already before first character of task item.
+            removeCheckboxFocus(view);
+            return true;
+          }
+          if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+            const taskItemData = getTaskItemDataToFocus(
+              view,
+              event.key === 'ArrowUp' ? 'previous' : 'next',
+            );
+            if (taskItemData) {
+              focusCheckboxAndUpdateSelection(view, taskItemData);
+              return true;
+            } else {
+              // If any how checkbox input not found, then move focus to view
+              //  and proceed with default keyboard handler.
+              removeCheckboxFocus(view);
+              return false;
+            }
+          }
+        }
+
+        // If left arrow key is pressed and cursor is at first position in task-item
+        //  then focus checkbox and DON'T proceed with default keyboard handler
+        if (event.key === 'ArrowLeft' && parentOffset === 0) {
+          // here we are not using focusCheckboxAndUpdateSelection() method
+          // because it is working incorretly when we are placing is inside the nested items
+          dispatch(
+            state.tr.setMeta(stateKey, {
+              action: ACTIONS.FOCUS_BY_LOCALID,
+              data: currentTaskItemData?.localId,
+            }),
+          );
+          return true;
+        }
+
+        if (event.key === 'ArrowRight') {
+          // If gap cursor is just before task list then focus first task item in list.
+          if (
+            selection instanceof GapCursorSelection &&
+            selection.side === 'left' &&
+            $from.nodeAfter?.type === schema.nodes.taskList
+          ) {
+            const taskList = $from.nodeAfter;
+            const firstTaskItemNode = taskList.child(0);
+            const taskItemPos = $from.pos + 1;
+            focusCheckboxAndUpdateSelection(view, {
+              pos: taskItemPos,
+              localId: firstTaskItemNode.attrs.localId,
+            });
+            return true;
+          }
+          // if cursor is at then end of task item text then focus next task item checkbox
+          else if (isInTaskItem && $from.node().content.size === parentOffset) {
+            const nextTaskItemData = getTaskItemDataToFocus(view, 'next');
+            if (nextTaskItemData) {
+              focusCheckboxAndUpdateSelection(view, nextTaskItemData);
+              return true;
+            }
+          } else {
+            return false;
+          }
+        }
+      },
     },
     state: {
       init() {
@@ -104,6 +224,12 @@ export function createPlugin(
             newPluginState = {
               ...pluginState,
               contextIdentifierProvider: data,
+            };
+            break;
+          case ACTIONS.FOCUS_BY_LOCALID:
+            newPluginState = {
+              ...pluginState,
+              focusedTaskItemLocalId: data,
             };
             break;
         }

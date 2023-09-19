@@ -1,5 +1,27 @@
 # @atlaskit/editor-core
 
+## 187.43.13
+
+### Patch Changes
+
+- [`9f2365fabcc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9f2365fabcc) - ED-19617 - Initial creation of editor-plugin-copy-button package
+- Updated dependencies
+
+## 187.43.12
+
+### Patch Changes
+
+- [`621b904a076`](https://bitbucket.org/atlassian/atlassian-frontend/commits/621b904a076) - ED-19729 fix behaviour of image floating toolbar layout
+
+## 187.43.11
+
+### Patch Changes
+
+- [`65b155b2787`](https://bitbucket.org/atlassian/atlassian-frontend/commits/65b155b2787) - [ux] ED-19172: Updated tableHeaderCellBackgroundColor to use non-transparent token."
+- [`96f4e9fe6de`](https://bitbucket.org/atlassian/atlassian-frontend/commits/96f4e9fe6de) - [ux] ECA11Y-1 Added keyboard support to focus checkbox, check or uncheck, inside action item
+- [`9131a0a2ffa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9131a0a2ffa) - Extract quick-insert plugin from @atlaskit/editor-core to @atlaskit/editor-plugin-quick-insert.
+- Updated dependencies
+
 ## 187.43.8
 
 ### Patch Changes

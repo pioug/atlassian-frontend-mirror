@@ -27,6 +27,7 @@ import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import captionPlugin from '@atlaskit/editor-core/src/plugins/caption';
 import mediaPlugin from '../';
+import { copyButtonPlugin } from '@atlaskit/editor-plugin-copy-button';
 import floatingToolbarPlugin from '../../floating-toolbar';
 import { editorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 
@@ -75,6 +76,7 @@ describe('image linking', () => {
         .add(guidelinePlugin)
         .add(gridPlugin)
         .add(editorDisabledPlugin)
+        .add(copyButtonPlugin)
         .add(floatingToolbarPlugin)
         .add(focusPlugin)
         .add([mediaPlugin, { allowMediaSingle: true, allowLinking: true }])

@@ -1,5 +1,25 @@
 # @atlaskit/link-datasource
 
+## 1.2.3
+
+### Patch Changes
+
+- [`de4dddb97d4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/de4dddb97d4) - Added 'ui.datasource.renderSuccess' event with display = 'table'
+
+## 1.2.2
+
+### Patch Changes
+
+- [`ce3de76af77`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ce3de76af77) - Added ui.table.viewed event
+- Updated dependencies
+
+## 1.2.1
+
+### Patch Changes
+
+- [`103618b094f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/103618b094f) - Add UFO metrics to measure datasource rendering performance.
+- Updated dependencies
+
 ## 1.2.0
 
 ### Minor Changes

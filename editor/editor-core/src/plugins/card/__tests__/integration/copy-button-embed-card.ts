@@ -1,4 +1,4 @@
-import { _getCopyButtonTestSuite } from '../../../copy-button/__tests__/integration/_getCopyButtonTestSuite';
+import { _getCopyButtonTestSuite } from '../../../../../src/__tests__/integration/copy-button/_getCopyButtonTestSuite';
 import type { default as WebDriverPage } from '@atlaskit/webdriver-runner/wd-wrapper';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { ConfluenceCardProvider } from '@atlaskit/editor-test-helpers/confluence-card-provider';

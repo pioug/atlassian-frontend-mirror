@@ -151,6 +151,7 @@ export const PlainJiraIssuesConfigModal = (
   const searchCount = useRef(0);
   const userInteractionActions = useRef<Set<DatasourceAction>>(new Set());
   const lastSearchMethodRef = useRef<JiraSearchMethod | null>(null);
+  const visibleColumnCount = useRef(visibleColumnKeys?.length || 0);
 
   const parameters = useMemo<JiraIssueDatasourceParameters | undefined>(
     () =>
@@ -205,7 +206,7 @@ export const PlainJiraIssuesConfigModal = (
     }
   }, [availableSites, cloudId]);
 
-  const buttonClickedAnalyticsPayload = useMemo(() => {
+  const analyticsPayload = useMemo(() => {
     return {
       extensionKey: extensionKey,
       destinationObjectTypes: destinationObjectTypes,
@@ -227,6 +228,8 @@ export const PlainJiraIssuesConfigModal = (
 
   const shouldShowIssueCount =
     !!totalCount && totalCount !== 1 && currentViewMode === 'issue';
+
+  const isDataReady = (visibleColumnKeys || []).length > 0;
 
   useEffect(() => {
     const shouldStartUfoExperience = status === 'loading';
@@ -259,6 +262,7 @@ export const PlainJiraIssuesConfigModal = (
         ? defaultVisibleColumnKeys
         : initialVisibleColumnKeys;
 
+    visibleColumnCount.current = newVisibleColumnKeys.length;
     setVisibleColumnKeys(newVisibleColumnKeys);
   }, [initialVisibleColumnKeys, defaultVisibleColumnKeys]);
 
@@ -286,40 +290,57 @@ export const PlainJiraIssuesConfigModal = (
 
   const fireSingleItemViewedEvent = useCallback(() => {
     fireEvent('ui.link.viewed.singleItem', {
-      destinationObjectTypes: destinationObjectTypes,
+      ...analyticsPayload,
       searchMethod: mapSearchMethod(lastSearchMethodRef.current),
-      extensionKey: extensionKey,
     });
-  }, [extensionKey, fireEvent, destinationObjectTypes]);
+  }, [analyticsPayload, fireEvent]);
 
   const fireCountViewedEvent = useCallback(() => {
     fireEvent('ui.link.viewed.count', {
-      destinationObjectTypes: destinationObjectTypes,
+      ...analyticsPayload,
       searchMethod: mapSearchMethod(lastSearchMethodRef.current),
-      extensionKey: extensionKey,
       totalItemCount: totalCount || 0,
     });
-  }, [extensionKey, fireEvent, totalCount, destinationObjectTypes]);
+  }, [analyticsPayload, fireEvent, totalCount]);
+
+  const fireTableViewedEvent = useCallback(() => {
+    if (isDataReady) {
+      fireEvent('ui.table.viewed.datasourceConfigModal', {
+        ...analyticsPayload,
+        totalItemCount: totalCount || 0,
+        searchMethod: mapSearchMethod(lastSearchMethodRef.current),
+        displayedColumnCount: visibleColumnCount.current,
+      });
+    }
+  }, [analyticsPayload, fireEvent, totalCount, isDataReady]);
+
+  const fireIssueViewAnalytics = useCallback(() => {
+    if (!totalCount) {
+      return;
+    }
+
+    if (totalCount > 1) {
+      fireTableViewedEvent();
+    } else if (totalCount === 1) {
+      fireSingleItemViewedEvent();
+    }
+  }, [fireSingleItemViewedEvent, fireTableViewedEvent, totalCount]);
 
   useEffect(() => {
     const isResolved = status === 'resolved';
-    const isSingleItemViewed = currentViewMode === 'issue' && totalCount === 1;
-    const isCountViewed = currentViewMode === 'count';
+    const isIssueViewMode = currentViewMode === 'issue';
+    const isCountViewMode = currentViewMode === 'count';
 
-    if (isResolved) {
-      if (isSingleItemViewed) {
-        fireSingleItemViewedEvent();
-      } else if (isCountViewed && totalCount) {
-        fireCountViewedEvent();
-      }
+    if (!isResolved) {
+      return;
     }
-  }, [
-    currentViewMode,
-    totalCount,
-    status,
-    fireSingleItemViewedEvent,
-    fireCountViewedEvent,
-  ]);
+
+    if (isIssueViewMode) {
+      fireIssueViewAnalytics();
+    } else if (isCountViewMode) {
+      fireCountViewedEvent();
+    }
+  }, [currentViewMode, status, fireIssueViewAnalytics, fireCountViewedEvent]);
 
   const onSearch = useCallback(
     (
@@ -346,16 +367,16 @@ export const PlainJiraIssuesConfigModal = (
           eventType: 'ui',
           actionSubjectId: 'cancel',
           attributes: {
-            ...buttonClickedAnalyticsPayload,
-            actions: Array.from(userInteractionActions.current),
+            ...analyticsPayload,
             searchCount: searchCount.current,
+            actions: Array.from(userInteractionActions.current),
           },
         })
         .fire(EVENT_CHANNEL);
 
       onCancel();
     },
-    [buttonClickedAnalyticsPayload, onCancel],
+    [analyticsPayload, onCancel],
   );
 
   const onSiteSelection = useCallback(
@@ -383,13 +404,13 @@ export const PlainJiraIssuesConfigModal = (
       const insertButtonClickedEvent = analyticsEvent.update({
         actionSubjectId: 'insert',
         attributes: {
-          ...buttonClickedAnalyticsPayload,
-          actions: Array.from(userInteractionActions.current),
+          ...analyticsPayload,
           totalItemCount: totalCount || 0,
-          displayedColumnCount: visibleColumnKeys?.length || 0,
+          displayedColumnCount: visibleColumnCount.current,
           display: getDisplayValue(currentViewMode, totalCount || 0),
           searchCount: searchCount.current,
           searchMethod: mapSearchMethod(lastSearchMethodRef.current),
+          actions: Array.from(userInteractionActions.current),
         },
         eventType: 'ui',
       });
@@ -449,7 +470,7 @@ export const PlainJiraIssuesConfigModal = (
       isParametersSet,
       jql,
       selectedJiraSite,
-      buttonClickedAnalyticsPayload,
+      analyticsPayload,
       totalCount,
       visibleColumnKeys,
       currentViewMode,
@@ -479,6 +500,7 @@ export const PlainJiraIssuesConfigModal = (
         newVisibleColumnKeys,
       );
       userInteractionActions.current.add(columnAction);
+      visibleColumnCount.current = newVisibleColumnKeys.length;
 
       setVisibleColumnKeys(newVisibleColumnKeys);
     },

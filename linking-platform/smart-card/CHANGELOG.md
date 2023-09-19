@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 26.27.0
+
+### Minor Changes
+
+- [`12f9e6886ed`](https://bitbucket.org/atlassian/atlassian-frontend/commits/12f9e6886ed) - [ux] Add follow/unfollow button to card and hover preview (behind feature flag).
+
 ## 26.26.2
 
 ### Patch Changes

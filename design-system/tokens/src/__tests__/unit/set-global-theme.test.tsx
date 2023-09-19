@@ -8,7 +8,9 @@ import {
   CUSTOM_THEME_ATTRIBUTE,
   THEME_DATA_ATTRIBUTE,
 } from '../../constants';
+import * as customThemeUtils from '../../custom-theme';
 // This import is just to get types
+import * as enableGlobalThemeTypes from '../../enable-global-theme';
 import * as setGlobalThemeTypes from '../../set-global-theme';
 import { ThemeOptionsSchema } from '../../theme-config';
 import { hash } from '../../utils/hash';
@@ -31,6 +33,9 @@ Object.defineProperty(window, 'matchMedia', {
 });
 
 // Imported using `require` to allow us to mock matchMedia before importing
+const {
+  default: enableGlobalTheme,
+}: typeof enableGlobalThemeTypes = require('../../enable-global-theme');
 const {
   default: setGlobalTheme,
 }: typeof setGlobalThemeTypes = require('../../set-global-theme');
@@ -65,87 +70,10 @@ const cleanDOM = () => {
   setMatchMedia(false);
 };
 
-describe('setGlobalTheme', () => {
+describe('setGlobalTheme style loading', () => {
   beforeEach(cleanDOM);
-  it('should set the correct themes and color mode', async () => {
-    await setGlobalTheme({
-      light: 'legacy-light',
-      dark: 'legacy-dark',
-      shape: 'shape',
-      spacing: 'spacing',
-      typography: 'typography',
-      colorMode: 'light',
-    });
-    const htmlElement = document.getElementsByTagName('html')[0];
-    expect(htmlElement).toHaveAttribute(
-      THEME_DATA_ATTRIBUTE,
-      'dark:legacy-dark light:legacy-light shape:shape spacing:spacing typography:typography',
-    );
-    expect(htmlElement).toHaveAttribute(COLOR_MODE_ATTRIBUTE, 'light');
-  });
-
-  it('should set the correct custom theme attribute and color mode when customTheme specified', async () => {
-    await setGlobalTheme({
-      light: 'legacy-light',
-      dark: 'legacy-dark',
-      shape: 'shape',
-      spacing: 'spacing',
-      typography: 'typography',
-      colorMode: 'light',
-      UNSAFE_themeOptions,
-    });
-    const htmlElement = document.getElementsByTagName('html')[0];
-    expect(htmlElement).toHaveAttribute(
-      THEME_DATA_ATTRIBUTE,
-      'dark:legacy-dark light:legacy-light shape:shape spacing:spacing typography:typography',
-    );
-    expect(htmlElement).toHaveAttribute(COLOR_MODE_ATTRIBUTE, 'light');
-    expect(htmlElement).toHaveAttribute(
-      CUSTOM_THEME_ATTRIBUTE,
-      customStyleHashId,
-    );
-  });
-
-  it('should set the default themes and color mode when they are not specified', async () => {
-    await setGlobalTheme();
-    const htmlElement = document.getElementsByTagName('html')[0];
-    expect(htmlElement).toHaveAttribute(
-      THEME_DATA_ATTRIBUTE,
-      'dark:dark light:light spacing:spacing',
-    );
-    expect(htmlElement).toHaveAttribute(COLOR_MODE_ATTRIBUTE, 'light');
-  });
-
-  it('should automatically switch theme by default', async () => {
-    setMatchMedia(true);
-
-    await setGlobalTheme({ light: 'light' });
-    const htmlElement = document.getElementsByTagName('html')[0];
-    await waitFor(() => {
-      return expect(htmlElement).toHaveAttribute(COLOR_MODE_ATTRIBUTE, 'dark');
-    });
-  });
-
-  it('should switch theme correctly when colorMode set to "auto" (light mode)', async () => {
-    await setGlobalTheme({ colorMode: 'auto' });
-    const htmlElement = document.getElementsByTagName('html')[0];
-    await waitFor(() => {
-      return expect(htmlElement).toHaveAttribute(COLOR_MODE_ATTRIBUTE, 'light');
-    });
-  });
-
-  it('should switch theme correctly when colorMode set to "auto" (dark mode)', async () => {
-    setMatchMedia(true);
-
-    await setGlobalTheme({ colorMode: 'auto' });
-    const htmlElement = document.getElementsByTagName('html')[0];
-    await waitFor(() => {
-      return expect(htmlElement).toHaveAttribute(COLOR_MODE_ATTRIBUTE, 'dark');
-    });
-  });
 
   it('should load theme CSS on the page when specified', async () => {
-    // prompt a duplication of
     await setGlobalTheme({
       dark: 'dark',
       light: 'light',
@@ -178,7 +106,7 @@ describe('setGlobalTheme', () => {
   });
 
   it('should load custom theme CSS on the page when specified', async () => {
-    // prompt a duplication of
+    // prompt a duplication of styles
     await setGlobalTheme({
       dark: 'dark',
       light: 'light',
@@ -209,11 +137,11 @@ describe('setGlobalTheme', () => {
 
     // Validate that the custom style elements come after other style element
     expect(dataThemes).toEqual([
+      'custom-light',
+      'custom-dark',
       'light',
       'dark',
       'spacing',
-      'custom-light',
-      'custom-dark',
     ]);
   });
 
@@ -250,7 +178,7 @@ describe('setGlobalTheme', () => {
   });
 
   it('should load theme CSS on the page without duplicates', async () => {
-    // prompt a duplication of
+    // prompt a duplication of styles
     await setGlobalTheme({
       light: 'dark',
       dark: 'dark',
@@ -431,5 +359,183 @@ describe('setGlobalTheme', () => {
 
     const htmlElement = document.getElementsByTagName('html')[0];
     expect(htmlElement).not.toHaveAttribute(CUSTOM_THEME_ATTRIBUTE);
+  });
+});
+
+it('should load only necessary color modes on repeat calls', async () => {
+  const themeOptions = {
+    brandColor: '#ff0000',
+  } as const;
+
+  // Call once with light mode
+  await setGlobalTheme({
+    colorMode: 'dark',
+    UNSAFE_themeOptions: themeOptions,
+  });
+
+  var customStyleElements = document.querySelectorAll(
+    `style[${CUSTOM_THEME_ATTRIBUTE}]`,
+  );
+  expect(customStyleElements).toHaveLength(1);
+  expect(customStyleElements[0]).toHaveAttribute(THEME_DATA_ATTRIBUTE, 'dark');
+
+  // Mock theme loader
+  const customThemeSpy = jest.spyOn(
+    customThemeUtils,
+    'loadAndAppendCustomThemeCss',
+  );
+
+  // Second "auto" call should only load "dark" theme.
+  await setGlobalTheme({
+    colorMode: 'auto',
+    UNSAFE_themeOptions: themeOptions,
+  });
+
+  expect(customThemeSpy).toHaveBeenCalledWith({
+    colorMode: 'light',
+    UNSAFE_themeOptions: themeOptions,
+  });
+  customThemeSpy.mockRestore();
+});
+
+(
+  [
+    [setGlobalTheme, 'setGlobalTheme'],
+    [enableGlobalTheme, 'enableGlobalTheme'],
+  ] as const
+).forEach(([themeSetter, name]) => {
+  describe(name, () => {
+    beforeEach(cleanDOM);
+    it('should set the correct themes and color mode', async () => {
+      await themeSetter({
+        light: 'legacy-light',
+        dark: 'legacy-dark',
+        shape: 'shape',
+        spacing: 'spacing',
+        typography: 'typography',
+        colorMode: 'light',
+      });
+      const htmlElement = document.getElementsByTagName('html')[0];
+      expect(htmlElement).toHaveAttribute(
+        THEME_DATA_ATTRIBUTE,
+        'dark:legacy-dark light:legacy-light shape:shape spacing:spacing typography:typography',
+      );
+      expect(htmlElement).toHaveAttribute(COLOR_MODE_ATTRIBUTE, 'light');
+    });
+
+    it('should set the correct custom theme attribute and color mode when customTheme specified', async () => {
+      await themeSetter({
+        light: 'legacy-light',
+        dark: 'legacy-dark',
+        shape: 'shape',
+        spacing: 'spacing',
+        typography: 'typography',
+        colorMode: 'light',
+        UNSAFE_themeOptions,
+      });
+      const htmlElement = document.getElementsByTagName('html')[0];
+      expect(htmlElement).toHaveAttribute(
+        THEME_DATA_ATTRIBUTE,
+        'dark:legacy-dark light:legacy-light shape:shape spacing:spacing typography:typography',
+      );
+      expect(htmlElement).toHaveAttribute(COLOR_MODE_ATTRIBUTE, 'light');
+      expect(htmlElement).toHaveAttribute(
+        CUSTOM_THEME_ATTRIBUTE,
+        customStyleHashId,
+      );
+    });
+
+    it('should set the default themes and color mode when they are not specified', async () => {
+      await themeSetter();
+      const htmlElement = document.getElementsByTagName('html')[0];
+      expect(htmlElement).toHaveAttribute(
+        THEME_DATA_ATTRIBUTE,
+        'dark:dark light:light spacing:spacing',
+      );
+      expect(htmlElement).toHaveAttribute(COLOR_MODE_ATTRIBUTE, 'light');
+    });
+
+    it('should automatically switch theme by default', async () => {
+      setMatchMedia(true);
+
+      await themeSetter({ light: 'light' });
+      const htmlElement = document.getElementsByTagName('html')[0];
+      await waitFor(() => {
+        return expect(htmlElement).toHaveAttribute(
+          COLOR_MODE_ATTRIBUTE,
+          'dark',
+        );
+      });
+    });
+
+    it('should switch theme correctly when colorMode set to "auto" (light mode)', async () => {
+      await themeSetter({ colorMode: 'auto' });
+      const htmlElement = document.getElementsByTagName('html')[0];
+      await waitFor(() => {
+        return expect(htmlElement).toHaveAttribute(
+          COLOR_MODE_ATTRIBUTE,
+          'light',
+        );
+      });
+    });
+
+    it('should switch theme correctly when colorMode set to "auto" (dark mode)', async () => {
+      setMatchMedia(true);
+
+      await themeSetter({ colorMode: 'auto' });
+      const htmlElement = document.getElementsByTagName('html')[0];
+      await waitFor(() => {
+        return expect(htmlElement).toHaveAttribute(
+          COLOR_MODE_ATTRIBUTE,
+          'dark',
+        );
+      });
+    });
+
+    it('should set the correct themes and color mode when a theme loader is provided', async () => {
+      await themeSetter(
+        {
+          light: 'legacy-light',
+          dark: 'legacy-dark',
+          spacing: 'spacing',
+          typography: 'typography',
+          colorMode: 'light',
+        },
+        __noop,
+      );
+
+      const htmlElement = document.getElementsByTagName('html')[0];
+
+      expect(htmlElement).toHaveAttribute(
+        THEME_DATA_ATTRIBUTE,
+        'dark:legacy-dark light:legacy-light spacing:spacing typography:typography',
+      );
+
+      expect(htmlElement).toHaveAttribute(COLOR_MODE_ATTRIBUTE, 'light');
+    });
+
+    it('should use the provided theme loader to load styles', async () => {
+      const themeLoaderMock = jest.fn();
+
+      await themeSetter(
+        {
+          light: 'light',
+          dark: 'dark',
+          spacing: 'spacing',
+          typography: 'typography',
+          colorMode: 'light',
+        },
+        themeLoaderMock,
+      );
+
+      // Should be called for each theme it injects (light, spacing, typography)
+      expect(themeLoaderMock).toBeCalledTimes(3);
+
+      await waitFor(() => {
+        // There should be no style elements since the default theme loader should not be called
+        const styleElements = document.getElementsByTagName('style');
+        expect(styleElements.length).toBe(0);
+      });
+    });
   });
 });

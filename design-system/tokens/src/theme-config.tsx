@@ -264,4 +264,12 @@ export const themeStateDefaults: ThemeState = {
   UNSAFE_themeOptions: undefined,
 };
 
+/**
+ * Represents theme state once mounted to the page
+ * (the page doesn't have an "auto" color mode, it's either light or dark)
+ */
+export interface ActiveThemeState extends ThemeState {
+  colorMode: DataColorModes;
+}
+
 export default themeConfig;

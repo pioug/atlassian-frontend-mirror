@@ -15,11 +15,28 @@
 <!--SECTION START: Main Entry Types-->
 
 ```ts
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { Command } from '@atlaskit/editor-common/types';
+import { EditorState } from 'prosemirror-state';
+import { FloatingToolbarItem } from '@atlaskit/editor-common/types';
 import type { MarkType } from '@atlaskit/editor-prosemirror/model';
 import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
+import { NodeType } from 'prosemirror-model';
+import type { OptionalPlugin } from '@atlaskit/editor-common/types';
 
 // @public (undocumented)
-export type CopyButtonPlugin = NextEditorPlugin<'copyButton'>;
+export type CopyButtonPlugin = NextEditorPlugin<
+  'copyButton',
+  {
+    dependencies: [OptionalPlugin<AnalyticsPlugin>];
+    actions: {
+      processCopyButtonItems: typeof processCopyButtonItemsWithAnalytics;
+    };
+  }
+>;
+
+// @public (undocumented)
+export const copyButtonPlugin: CopyButtonPlugin;
 
 // @public (undocumented)
 export type CopyButtonPluginState = {
@@ -30,6 +47,20 @@ export type CopyButtonPluginState = {
     markType: MarkType;
   };
 };
+
+// @public (undocumented)
+const processCopyButtonItemsWithAnalytics: (
+  state: EditorState,
+) => (
+  items: FloatingToolbarItem<Command>[],
+  hoverDecoration:
+    | ((
+        nodeType: NodeType | NodeType[],
+        add: boolean,
+        className?: string | undefined,
+      ) => Command)
+    | undefined,
+) => FloatingToolbarItem<Command>[];
 
 // (No @packageDocumentation comment for this package)
 ```

@@ -28,7 +28,7 @@ import type { TypeAheadHandler } from '../../types';
 import { getPluginState } from '../../utils';
 import deprecatedAnalyticsPlugin from '../../../analytics';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import quickInsertPlugin from '../../../quick-insert';
+import { quickInsertPlugin } from '@atlaskit/editor-plugin-quick-insert';
 import mentionsPlugin from '../../../mentions';
 import { emojiPlugin } from '@atlaskit/editor-plugin-emoji';
 import typeAheadPlugin from '../../../type-ahead';

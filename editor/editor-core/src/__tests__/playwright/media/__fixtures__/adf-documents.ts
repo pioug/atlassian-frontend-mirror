@@ -198,6 +198,37 @@ export const oneImage = {
   ],
 };
 
+export const oneImagesNext = {
+  version: 1,
+  type: 'doc',
+  content: [
+    {
+      type: 'mediaSingle',
+      attrs: {
+        layout: 'center',
+        width: 300,
+        widthType: 'pixel',
+      },
+      content: [
+        {
+          type: 'media',
+          attrs: {
+            id: 'a559980d-cd47-43e2-8377-27359fcb905f',
+            type: 'file',
+            collection: 'MediaServicesSample',
+            width: 500,
+            height: 500,
+          },
+        },
+      ],
+    },
+    {
+      type: 'paragraph',
+      content: [],
+    },
+  ],
+};
+
 export const threeImages = {
   version: 1,
   type: 'doc',

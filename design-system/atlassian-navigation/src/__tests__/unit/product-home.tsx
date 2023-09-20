@@ -1,11 +1,12 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import { CustomProductHome, ProductHome } from '../../../src';
 
 const testId = 'product-home';
 const logoTestId = `${testId}-logo`;
+const containerTestId = `${testId}-container`;
 
 /**
  * Gets the var from the logo's parent.
@@ -13,8 +14,10 @@ const logoTestId = `${testId}-logo`;
  * It is set on the logo's parent instead of the logo so it can be shared
  * easily with the icon as well.
  */
-const getLogoMaxWidthCSSVar = (logoElement: HTMLElement) =>
-  logoElement.parentElement?.style.getPropertyValue('--logo-max-width');
+const getLogoMaxWidthCSSVar = () =>
+  screen
+    .getByTestId(containerTestId)
+    ?.style.getPropertyValue('--logo-max-width');
 
 describe('<ProductHome />', () => {
   const icon = jest.fn(() => null);
@@ -22,7 +25,7 @@ describe('<ProductHome />', () => {
 
   describe('logoMaxWidth', () => {
     it('should set CSS variable with the provided value', () => {
-      const { getByTestId } = render(
+      render(
         <ProductHome
           icon={icon}
           logo={logo}
@@ -30,16 +33,12 @@ describe('<ProductHome />', () => {
           logoMaxWidth={100}
         />,
       );
-      const logoElement = getByTestId(logoTestId);
-      expect(getLogoMaxWidthCSSVar(logoElement)).toBe('100px');
+      expect(getLogoMaxWidthCSSVar()).toBe('100px');
     });
 
     it('should be 260px by default', () => {
-      const { getByTestId } = render(
-        <ProductHome icon={icon} logo={logo} testId={testId} />,
-      );
-      const logoElement = getByTestId(logoTestId);
-      expect(getLogoMaxWidthCSSVar(logoElement)).toBe('260px');
+      render(<ProductHome icon={icon} logo={logo} testId={testId} />);
+      expect(getLogoMaxWidthCSSVar()).toBe('260px');
     });
   });
 });
@@ -50,7 +49,7 @@ describe('<CustomProductHome />', () => {
 
   describe('logoMaxWidth', () => {
     it('should set max-width with the provided value', () => {
-      const { getByTestId } = render(
+      render(
         <CustomProductHome
           iconUrl={iconUrl}
           iconAlt=""
@@ -60,12 +59,12 @@ describe('<CustomProductHome />', () => {
           logoMaxWidth={100}
         />,
       );
-      const logoElement = getByTestId(logoTestId);
-      expect(logoElement.style.maxWidth).toEqual('100px');
+      const logoElement = screen.getByTestId(logoTestId);
+      expect(logoElement).toHaveStyle({ maxWidth: '100px' });
     });
 
     it('should be 260px by default', () => {
-      const { getByTestId } = render(
+      render(
         <CustomProductHome
           iconUrl={iconUrl}
           iconAlt=""
@@ -74,8 +73,8 @@ describe('<CustomProductHome />', () => {
           testId={testId}
         />,
       );
-      const logoElement = getByTestId(logoTestId);
-      expect(logoElement.style.maxWidth).toEqual('260px');
+      const logoElement = screen.getByTestId(logoTestId);
+      expect(logoElement).toHaveStyle({ maxWidth: '260px' });
     });
   });
 });

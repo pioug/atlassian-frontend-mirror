@@ -20,7 +20,7 @@ const selected = `
     text-decoration: none;
   }
   &:hover {
-    border: 1px solid ${token('color.border.input', N40)};
+    border: 1px solid ${token('color.border', N40)};
   }
 `;
 
@@ -98,8 +98,8 @@ const baseWrapperStyle = (props: WrapperProps) => `
     props.withoutBackground
       ? ''
       : themed({
-          light: `border: 1px solid ${token('color.border.input', N40)};`,
-          dark: `border: 1px solid ${token('color.border.input', N500)};`,
+          light: `border: 1px solid ${token('color.border', N40)};`,
+          dark: `border: 1px solid ${token('color.border', N500)};`,
         })(props)
   }
   &:hover {

@@ -34,7 +34,8 @@ import type {
 } from '../../../analytics/generated/analytics.types';
 import { DatasourceAction, DatasourceDisplay } from '../../../analytics/types';
 import { startUfoExperience } from '../../../analytics/ufoExperiences';
-import { useDataRenderedUfoExperience } from '../../../analytics/ufoExperiences/useDataRenderedUfoExperience';
+import { useColumnPickerRenderedFailedUfoExperience } from '../../../analytics/ufoExperiences/hooks/useColumnPickerRenderedFailedUfoExperience';
+import { useDataRenderedUfoExperience } from '../../../analytics/ufoExperiences/hooks/useDataRenderedUfoExperience';
 import { mapSearchMethod } from '../../../analytics/utils';
 import type { JiraSearchMethod } from '../../../common/types';
 import { useDatasourceTableState } from '../../../hooks/useDatasourceTableState';
@@ -342,6 +343,8 @@ export const PlainJiraIssuesConfigModal = (
     }
   }, [currentViewMode, status, fireIssueViewAnalytics, fireCountViewedEvent]);
 
+  useColumnPickerRenderedFailedUfoExperience(status, modalRenderInstanceId);
+
   const onSearch = useCallback(
     (
       newParameters: JiraIssueDatasourceParametersQuery,
@@ -521,6 +524,7 @@ export const PlainJiraIssuesConfigModal = (
           onLoadDatasourceDetails={loadDatasourceDetails}
           onVisibleColumnKeysChange={handleVisibleColumnKeysChange}
           parentContainerRenderInstanceId={modalRenderInstanceId}
+          extensionKey={extensionKey}
         />
       </div>
     ),
@@ -535,6 +539,7 @@ export const PlainJiraIssuesConfigModal = (
       responseItems,
       status,
       visibleColumnKeys,
+      extensionKey,
     ],
   );
 

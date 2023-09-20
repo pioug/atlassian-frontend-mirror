@@ -210,8 +210,7 @@ export const EXPANDED_COLOR_PICKER_COLUMNS = 9;
 export const ORIGINAL_COLOR_PICKER_COLUMNS = 5;
 
 const ColorPicker = (props: Props) => {
-  const { name, title, currentColor, onChange, onFieldChange, featureFlags } =
-    props;
+  const { name, title, currentColor, onChange, onFieldChange } = props;
 
   const onColorChange = (color: PaletteColor) => {
     const colorValue = color.value;
@@ -220,11 +219,7 @@ const ColorPicker = (props: Props) => {
     onFieldChange(name, currentColor !== colorValue);
   };
 
-  const { expandedChartColors } = featureFlags ?? {
-    expandedChartColors: false,
-  };
-
-  return expandedChartColors ? (
+  return (
     <ColorPickerButton
       title={title}
       currentColor={currentColor}
@@ -232,20 +227,6 @@ const ColorPicker = (props: Props) => {
       colorPalette={extendedColorPalette}
       paletteColorTooltipMessages={chartsColorPaletteTooltipMessages}
       cols={EXPANDED_COLOR_PICKER_COLUMNS}
-      alignX="right"
-      placement="ConfigPanel"
-      size={{
-        width: token('space.300', '24px'),
-        height: token('space.300', '24px'),
-      }}
-    />
-  ) : (
-    <ColorPickerButton
-      title={title}
-      currentColor={currentColor}
-      onChange={onColorChange}
-      colorPalette={colorPalette}
-      cols={ORIGINAL_COLOR_PICKER_COLUMNS}
       alignX="right"
       placement="ConfigPanel"
       size={{

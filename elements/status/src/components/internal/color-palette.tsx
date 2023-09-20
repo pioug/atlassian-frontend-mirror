@@ -51,6 +51,7 @@ const palette: [
 ];
 
 const colorPaletteWrapperStyles = css`
+  padding-left: 0px;
   margin: ${token('space.100', '8px')} ${token('space.100', '8px')} 0
     ${token('space.100', '8px')};
   /* Firefox bug fix: https://product-fabric.atlassian.net/browse/ED-1789 */
@@ -135,10 +136,9 @@ export default ({
       Task added in https://product-fabric.atlassian.net/wiki/spaces/E/pages/3182068181/Potential+improvements#Moderate-changes.
      */
     // eslint-disable-next-line jsx-a11y/interactive-supports-focus
-    <div
+    <ul
       css={colorPaletteWrapperStyles}
       className={className}
-      role="radiogroup"
       style={{ maxWidth: cols * 32 }}
       onKeyDown={memoizedHandleKeyDown}
     >
@@ -154,12 +154,12 @@ export default ({
               onClick={onClick}
               onHover={onHover}
               isSelected={colorValue === selectedColor}
-              tabIndex={colorValue === selectedColor ? 0 : -1}
+              tabIndex={i === 0 ? 0 : -1}
               setRef={(el) => (colorRefs.current[i] = el)}
             />
           );
         },
       )}
-    </div>
+    </ul>
   );
 };

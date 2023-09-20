@@ -6,7 +6,19 @@ import {
   GUTTER_SIZE_IN_PX,
   isEmptyDocument,
 } from '@atlaskit/editor-common/utils';
-import { getMobileDimensionsPluginState } from '../../mobile-dimensions/utils';
+import {
+  getScrollGutterPluginState,
+  scrollGutterPluginKey,
+} from './plugin-key';
+
+export const getKeyboardHeight = (state?: EditorState) => {
+  if (state) {
+    const scrollGutterPluginState = getScrollGutterPluginState(state);
+    return scrollGutterPluginState
+      ? scrollGutterPluginState.keyboardHeight
+      : undefined;
+  }
+};
 
 const MIN_TAP_SIZE_IN_PX = 40;
 
@@ -197,6 +209,16 @@ export default (pluginOptions: ScrollGutterPluginOptions = {}) => {
   let scrollElement: HTMLElement | null = null; // | undefined;
 
   return new SafePlugin({
+    key: scrollGutterPluginKey,
+    state: {
+      init: () => ({}),
+      apply: (tr, pluginState) => {
+        if (tr.getMeta(scrollGutterPluginKey)) {
+          return tr.getMeta(scrollGutterPluginKey);
+        }
+        return pluginState;
+      },
+    },
     props: {
       // Determines the distance (in pixels) between the cursor and the end of the visible viewport at which point,
       // when scrolling the cursor into view, scrolling takes place.
@@ -265,14 +287,8 @@ export default (pluginOptions: ScrollGutterPluginOptions = {}) => {
             return;
           }
           // Determine whether we need to consider Keyboard Height
-          const mobileDimensionsPluginState =
-            getMobileDimensionsPluginState(state);
-          const viewportHeight =
-            scrollElement.offsetHeight -
-            (mobileDimensionsPluginState &&
-            mobileDimensionsPluginState.keyboardHeight
-              ? mobileDimensionsPluginState.keyboardHeight
-              : 0);
+          const keyboardHeight = getKeyboardHeight(state) ?? 0;
+          const viewportHeight = scrollElement.offsetHeight - keyboardHeight;
           const contentHeight =
             editorParentElement.offsetHeight - (gutterMounted ? gutterSize : 0);
 

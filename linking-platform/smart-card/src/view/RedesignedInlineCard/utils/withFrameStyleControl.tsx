@@ -13,8 +13,8 @@ export default (Button: any, frameRef: React.RefObject<HTMLSpanElement>) =>
   (props: any) => {
     const setBorderStyle = () => {
       const borderColor = themed({
-        light: `${token('color.border.input', N40)}`,
-        dark: `${token('color.border.input', N500)}`,
+        light: `${token('color.border', N40)}`,
+        dark: `${token('color.border', N500)}`,
       })();
 
       const frameNode = frameRef.current;

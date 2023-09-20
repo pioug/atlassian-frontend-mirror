@@ -7,7 +7,7 @@ import type {
 } from '@atlaskit/editor-prosemirror/state';
 
 import type { CloseSelectionOptions } from './constants';
-import type { UiComponentFactoryParams } from '../../types/ui-components';
+import type { UiComponentFactoryParams } from '@atlaskit/editor-common/types';
 import type { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 
 import type {

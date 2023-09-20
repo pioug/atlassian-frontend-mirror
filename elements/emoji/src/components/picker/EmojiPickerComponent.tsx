@@ -443,13 +443,16 @@ const EmojiPickerComponent = ({
       };
       if (searchQuery !== query) {
         setQuery(searchQuery);
-        // scroll to top when search, which is search results section
-        scrollToTopOfList();
       }
 
       updateEmojis(searchQuery, options);
+
+      if (filteredEmojis.length > 0) {
+        // scroll to top when search, which is search results section
+        scrollToTopOfList();
+      }
     },
-    [query, selectedTone, updateEmojis, scrollToTopOfList],
+    [query, filteredEmojis, selectedTone, updateEmojis, scrollToTopOfList],
   );
 
   const onOpenUpload = useCallback(() => {

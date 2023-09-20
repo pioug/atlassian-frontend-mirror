@@ -1,5 +1,11 @@
 # @atlaskit/task-decision
 
+## 17.9.1
+
+### Patch Changes
+
+- [`c820226ec08`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c820226ec08) - Update feature flag name for checkbox and radio border update
+
 ## 17.9.0
 
 ### Minor Changes

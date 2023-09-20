@@ -1,5 +1,33 @@
 # @atlaskit/editor-core
 
+## 187.44.0
+
+### Minor Changes
+
+- [`11861bb36d4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/11861bb36d4) - [ux] [ECA11Y-44] [ECA11Y-22] [ECA11Y-19] Change the focus order in the status popup to improve accessibility.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.43.19
+
+### Patch Changes
+
+- [`2a6a2518852`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2a6a2518852) - Reverse dependencies for mobile dimensions plugin & base plugin
+
+## 187.43.18
+
+### Patch Changes
+
+- [`eaa9770d475`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eaa9770d475) - [ED-18264] Remove feature flag for chart colors
+
+## 187.43.17
+
+### Patch Changes
+
+- [`3323edc01b9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3323edc01b9) - ED-20003 decoupled type-ahead plugin from editor-core
+
 ## 187.43.13
 
 ### Patch Changes

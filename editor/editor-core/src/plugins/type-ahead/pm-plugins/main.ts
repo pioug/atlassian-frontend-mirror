@@ -8,7 +8,7 @@ import { InsertTypeAheadStep } from '@atlaskit/adf-schema/steps';
 import type { IntlShape } from 'react-intl-next';
 
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
-import type { Dispatch } from '../../../event-dispatcher';
+import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import type {
   PopupMountPointReference,
   TypeAheadHandler,
@@ -17,7 +17,7 @@ import type {
 import { TYPE_AHEAD_DECORATION_DATA_ATTRIBUTE } from '../constants';
 import { ACTIONS } from './actions';
 import { pluginKey } from './key';
-import { closest } from '../../../utils/dom';
+import { closest } from '@atlaskit/editor-common/utils';
 import { createReducer } from './reducer';
 import { factoryDecorations } from './decorations';
 import { isInsertionTransaction } from './utils';

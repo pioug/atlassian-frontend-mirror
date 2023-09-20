@@ -488,7 +488,8 @@ describe('EmbedModal', () => {
       expect(onResize).toHaveBeenCalledTimes(1);
     });
 
-    it('dispatches analytics event on open url on a new tab', async () => {
+    // FIXME: tests have been flaky on master : https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/1699306/steps/%7B471b866c-c4ba-4b44-8da1-03fdb6d863a4%7D/test-report
+    it.skip('dispatches analytics event on open url on a new tab', async () => {
       const ufoStartSpy = jest.spyOn(ufo, 'startUfoExperience');
       const ufoSucceedSpy = jest.spyOn(ufo, 'succeedUfoExperience');
       uuid.mockReturnValueOnce(EXPERIENCE_TEST_ID);

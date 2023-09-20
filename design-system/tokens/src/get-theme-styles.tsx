@@ -5,7 +5,10 @@ import {
   themeStateDefaults,
 } from './theme-config';
 import { isValidBrandHex } from './utils/color-utils';
-import { getThemePreferences } from './utils/get-theme-preferences';
+import {
+  getThemeOverridePreferences,
+  getThemePreferences,
+} from './utils/get-theme-preferences';
 import { loadThemeCss } from './utils/theme-loading';
 
 export interface ThemeStyles {
@@ -34,22 +37,25 @@ const getThemeStyles = async (
   preferences?: Partial<ThemeState> | 'all',
 ): Promise<ThemeStyles[]> => {
   let themePreferences: ThemeIdsWithOverrides[] | typeof themeIdsWithOverrides;
+  let themeOverridePreferences: ThemeIdsWithOverrides[] = [];
 
   if (preferences === 'all') {
     themePreferences = themeIdsWithOverrides;
   } else {
-    themePreferences = getThemePreferences({
+    const themeState = {
       colorMode: preferences?.colorMode || themeStateDefaults['colorMode'],
       dark: preferences?.dark || themeStateDefaults['dark'],
       light: preferences?.light || themeStateDefaults['light'],
       shape: preferences?.shape || themeStateDefaults['shape'],
       spacing: preferences?.spacing || themeStateDefaults['spacing'],
       typography: preferences?.typography || themeStateDefaults['typography'],
-    });
+    };
+    themePreferences = getThemePreferences(themeState);
+    themeOverridePreferences = getThemeOverridePreferences(themeState);
   }
 
   const results = await Promise.all([
-    ...themePreferences.map(
+    ...[...themePreferences, ...themeOverridePreferences].map(
       async (themeId): Promise<ThemeStyles | undefined> => {
         try {
           const css = await loadThemeCss(themeId);

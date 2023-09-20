@@ -61,7 +61,7 @@ export default class Color extends PureComponent<ColorProps> {
       setRef,
     } = this.props;
     return (
-      <span css={buttonWrapperStyles}>
+      <li css={buttonWrapperStyles}>
         <FormattedMessage
           {...messages[`${value}Color` as keyof typeof messages]}
         >
@@ -95,7 +95,7 @@ export default class Color extends PureComponent<ColorProps> {
             </button>
           )}
         </FormattedMessage>
-      </span>
+      </li>
     );
   }
 

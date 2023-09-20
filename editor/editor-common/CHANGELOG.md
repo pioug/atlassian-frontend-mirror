@@ -1,5 +1,23 @@
 # @atlaskit/editor-common
 
+## 75.2.3
+
+### Patch Changes
+
+- [`8f4d47470d8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f4d47470d8) - Dummy changeset for Product Integrator
+
+## 75.2.2
+
+### Patch Changes
+
+- [`eaa9770d475`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eaa9770d475) - [ED-18264] Remove feature flag for chart colors
+
+## 75.2.1
+
+### Patch Changes
+
+- [`8081046adff`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8081046adff) - patch version bump to trigger updated version in Confluence for editor-common
+
 ## 75.2.0
 
 ### Minor Changes

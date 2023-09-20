@@ -34,7 +34,7 @@ import {
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
 import typeAheadPlugin from '../..';
-import type { EditorPlugin } from '../../../../types/editor-plugin';
+import type { EditorPlugin } from '@atlaskit/editor-common/types';
 import { getPluginState } from '../../utils';
 import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import deprecatedAnalyticsPlugin from '../../../analytics';

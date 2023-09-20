@@ -9,6 +9,7 @@ import defaultPalette from '../../src/palettes/palette';
 import shapePalette from '../../src/palettes/shape-palette';
 import spacingScale from '../../src/palettes/spacing-scale';
 import typographyPalette from '../../src/palettes/typography-palette';
+import updatedSaturatedPalette from '../../src/palettes/updated-saturated-palette';
 import themeConfig, { Palettes, ThemeFileNames } from '../../src/theme-config';
 
 import {
@@ -38,6 +39,8 @@ const getPalette = (paletteId: Palettes) => {
       return legacyPalette;
     case 'shapePalette':
       return shapePalette;
+    case 'updatedSaturatedPalette':
+      return updatedSaturatedPalette;
     case 'defaultPalette':
     default:
       return defaultPalette;
@@ -49,9 +52,11 @@ const getPalette = (paletteId: Palettes) => {
  */
 const getBaseThemes = (themeName: ThemeFileNames): string[] => {
   let baseTheme;
-  if (themeConfig[themeName].attributes.extends) {
+  const extendedTheme =
+    themeConfig[themeName].extends || themeConfig[themeName].attributes.extends;
+  if (extendedTheme) {
     baseTheme = Object.entries(themeConfig).find(
-      ([, { id }]) => id === themeConfig[themeName].attributes.extends,
+      ([, { id }]) => id === extendedTheme,
     )?.[0];
   }
 

@@ -1,12 +1,11 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { Dispatch } from '../../event-dispatcher';
-import { NextEditorPlugin } from '@atlaskit/editor-common/types';
+import type { Dispatch } from '../../event-dispatcher';
+import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import { setWindowHeight } from './commands';
-import { MobileDimensionsPluginState } from './types';
+import type { MobileDimensionsPluginState } from './types';
 import { createPluginState, mobileDimensionsPluginKey } from './plugin-factory';
 
 const getInitialState = (): MobileDimensionsPluginState => ({
-  keyboardHeight: -1,
   mobilePaddingTop: 0,
   windowHeight: window.innerHeight,
   isExpanded: false,

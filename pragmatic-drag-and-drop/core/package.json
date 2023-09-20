@@ -32,6 +32,12 @@
       "status": {
         "type": "alpha"
       }
+    },
+    "integrationTests": {
+      "additionalBrowsers": [
+        "desktop-firefox",
+        "desktop-webkit"
+      ]
     }
   },
   "af:exports": {
@@ -57,6 +63,7 @@
     "raf-schd": "^4.0.3"
   },
   "devDependencies": {
+    "@af/integration-testing": "*",
     "@atlaskit/visual-regression": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@emotion/react": "^11.7.1",

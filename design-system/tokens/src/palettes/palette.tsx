@@ -1,6 +1,6 @@
 import type { PaletteColorTokenSchema } from '../types';
 
-type PaletteValues =
+export type PaletteValues =
   | 'Blue100'
   | 'Blue200'
   | 'Blue300'

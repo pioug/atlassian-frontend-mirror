@@ -114,6 +114,9 @@
       "path": "../../design-system/primitives/tsconfig.app.json"
     },
     {
+      "path": "../../design-system/radio/tsconfig.app.json"
+    },
+    {
       "path": "../../design-system/select/tsconfig.app.json"
     },
     {

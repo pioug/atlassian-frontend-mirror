@@ -23,13 +23,17 @@ const checkboxTheme = {
     borderColor: {
       rest: token(
         'color.border.input',
-        getBooleanFF('platform.design-system-team.border-checkbox_nyoiu')
+        getBooleanFF(
+          'platform.design-system-team.update-border-radio-checkbox_7askv',
+        )
           ? N100
           : N40,
       ),
       hovered: token(
         'color.border.input',
-        getBooleanFF('platform.design-system-team.border-checkbox_nyoiu')
+        getBooleanFF(
+          'platform.design-system-team.update-border-radio-checkbox_7askv',
+        )
           ? N100
           : N40,
       ),
@@ -63,7 +67,9 @@ const checkboxTheme = {
     borderColor: {
       rest: token(
         'color.border.input',
-        getBooleanFF('platform.design-system-team.border-checkbox_nyoiu')
+        getBooleanFF(
+          'platform.design-system-team.update-border-radio-checkbox_7askv',
+        )
           ? DN200
           : '#A6C5E229',
       ),

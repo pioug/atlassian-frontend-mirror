@@ -380,34 +380,4 @@ describe('Feature Flags from Props', () => {
       );
     });
   });
-
-  describe('expanded chart colors', () => {
-    it('should add the FF value', () => {
-      expect(
-        createFeatureFlagsFromProps({
-          featureFlags: {
-            'expanded-chart-colors': true,
-          },
-        }),
-      ).toEqual(
-        expect.objectContaining({
-          expandedChartColors: true,
-        }),
-      );
-    });
-
-    it('should not exist in featureFlags if not set in props', () => {
-      const featureFlags = createFeatureFlagsFromProps({
-        featureFlags: {},
-      });
-      expect(featureFlags.expandedChartColors).toBeUndefined();
-    });
-
-    it('should not exist in feaureFlags if not set to boolean value', () => {
-      const featureFlags = createFeatureFlagsFromProps({
-        featureFlags: { 'expanded-chart-colors': 'somethingInvalid' },
-      });
-      expect(featureFlags.expandedChartColors).toBeUndefined();
-    });
-  });
 });

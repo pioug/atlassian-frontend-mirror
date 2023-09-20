@@ -283,6 +283,7 @@ function Uploader() {
     <div css={appStyles}>
       <div
         ref={ref}
+        data-testid="drop-target"
         css={[
           fileStyles,
           state === 'over'

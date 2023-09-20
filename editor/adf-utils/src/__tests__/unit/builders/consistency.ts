@@ -93,22 +93,20 @@ const marksBuildersPath = path.join(
   'marks',
 );
 
-// TODO: https://product-fabric.atlassian.net/browse/ADFEXP-524
-describe('bypass empty test suite', () => {
-  it('should bypass empty test suite', () => {
-    expect(true).toBe(true);
-  });
-});
-describe.skip('adf-utils <-> adf-schema/schema consistency', () => {
+function except(array: string[], excludes: string[]) {
+  return array.filter((item: string) => !excludes.includes(item));
+}
+
+describe('adf-utils <-> adf-schema/schema consistency', () => {
   it('should have builders for all nodes from adf-schema/schema/nodes', () => {
     const nodes = buildFilesList(adfSchemaNodesPath, ignoredPaths);
     const builders = buildFilesList(nodeBuildersPath, ignoredPaths);
-    expect(builders).toEqual(nodes);
+    expect(builders).toEqual(except(nodes, ignoredPaths));
   });
 
   it('should have builders for all marks from adf-schema/schema/marks', () => {
     const marks = buildFilesList(adfSchemaMarksPath, ignoredMarks);
     const builders = buildFilesList(marksBuildersPath);
-    expect(builders).toEqual(marks);
+    expect(builders).toEqual(except(marks, ignoredMarks));
   });
 });

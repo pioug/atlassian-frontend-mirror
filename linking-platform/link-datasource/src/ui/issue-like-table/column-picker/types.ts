@@ -5,4 +5,5 @@ export type ColumnPickerProps = {
   selectedColumnKeys: string[];
   onSelectedColumnKeysChange: (selectedColumnKeys: string[]) => void;
   onOpen?: () => void;
+  parentContainerRenderInstanceId?: string;
 };

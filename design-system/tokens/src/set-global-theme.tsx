@@ -8,7 +8,10 @@ import {
 import { isValidBrandHex } from './utils/color-utils';
 import configurePage from './utils/configure-page';
 import { findMissingCustomStyleElements } from './utils/custom-theme-loading-utils';
-import { getThemePreferences } from './utils/get-theme-preferences';
+import {
+  getThemeOverridePreferences,
+  getThemePreferences,
+} from './utils/get-theme-preferences';
 import { loadAndAppendThemeCss } from './utils/theme-loading';
 
 /**
@@ -54,7 +57,8 @@ const setGlobalTheme = async (
   };
 
   // Determine what to load and loading strategy
-  const themePreferences = getThemePreferences(themeState);
+  let themePreferences = getThemePreferences(themeState);
+
   const loadingStrategy = themeLoader ? themeLoader : loadAndAppendThemeCss;
 
   // Load standard themes
@@ -94,6 +98,12 @@ const setGlobalTheme = async (
     }
   }
   await Promise.all(loadingTasks);
+
+  // Load override themes after standard themes
+  const themeOverridePreferences = getThemeOverridePreferences(themeState);
+  for (const themeId of themeOverridePreferences) {
+    await loadingStrategy(themeId);
+  }
 
   const autoUnbind = configurePage(themeState);
   return autoUnbind;

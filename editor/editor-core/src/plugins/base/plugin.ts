@@ -14,7 +14,7 @@ import contextIdentifierPlugin, {
 import newlinePreserveMarksPlugin from './pm-plugins/newline-preserve-marks';
 import inlineCursorTargetPlugin from './pm-plugins/inline-cursor-target';
 import type { ScrollGutterPluginOptions } from './pm-plugins/scroll-gutter';
-import scrollGutter from './pm-plugins/scroll-gutter';
+import scrollGutter, { getKeyboardHeight } from './pm-plugins/scroll-gutter';
 import { keymap } from '@atlaskit/editor-common/keymaps';
 import frozenEditor from './pm-plugins/frozen-editor';
 import type {
@@ -34,6 +34,8 @@ export interface BasePluginOptions {
 
 export type BasePluginState = {
   contextIdentifier: ContextIdentifierProvider | undefined;
+  /** Current height of keyboard (+ custom toolbar) in iOS app */
+  keyboardHeight: number | undefined;
 };
 
 export type BasePlugin = NextEditorPlugin<
@@ -58,6 +60,7 @@ const basePlugin: BasePlugin = ({ config: options, api }) => {
     getSharedState(editorState) {
       return {
         contextIdentifier: getContextIdentifier(editorState),
+        keyboardHeight: getKeyboardHeight(editorState),
       };
     },
 

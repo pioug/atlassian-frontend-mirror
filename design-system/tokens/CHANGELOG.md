@@ -1,5 +1,13 @@
 # @atlaskit/tokens
 
+## 1.25.0
+
+### Minor Changes
+
+- [`6125697f0b4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6125697f0b4) - We are testing adjustments to our color palette and design tokens behind a feature flag. These changes make certain colors more distinguishable, improves the visual appearance of warning and yellow accent backgrounds, and reduces saturation for subtle backgrounds in dark mode.
+
+  These changes are available behind a feature flag; if this test is successful it will be available in an upcoming minor release.
+
 ## 1.24.0
 
 ### Minor Changes

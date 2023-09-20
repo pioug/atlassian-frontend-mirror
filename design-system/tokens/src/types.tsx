@@ -135,7 +135,7 @@ type DeepOmit<T extends any, K extends PropertyKey> = Omit<
   K
 >;
 
-type DeepPartial<T> = T extends object
+export type DeepPartial<T> = T extends object
   ? {
       [P in keyof T]?: DeepPartial<T[P]>;
     }

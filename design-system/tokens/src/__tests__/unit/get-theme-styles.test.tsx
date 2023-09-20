@@ -128,6 +128,10 @@ describe('getThemeStyles', () => {
       { id: 'spacing', attrs: { 'data-theme': 'spacing' } },
       { id: 'typography', attrs: { 'data-theme': 'typography' } },
       {
+        id: 'light-new-input-border',
+        attrs: { 'data-theme': 'light-new-input-border' },
+      },
+      {
         id: 'dark-new-input-border',
         attrs: { 'data-theme': 'dark-new-input-border' },
       },
@@ -203,6 +207,14 @@ describe('getThemeStyles', () => {
       {
         id: 'dark-new-input-border',
         attrs: { 'data-theme': 'dark-new-input-border' },
+      },
+      {
+        id: 'light-saturated-palette-changes',
+        attrs: { 'data-theme': 'light-saturated-palette-changes' },
+      },
+      {
+        id: 'dark-saturated-palette-changes',
+        attrs: { 'data-theme': 'dark-saturated-palette-changes' },
       },
     ]);
   });

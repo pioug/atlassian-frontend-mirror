@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import React, { useCallback, forwardRef } from 'react';
 import { css, jsx } from '@emotion/react';
+import type { BasePluginState } from '../../plugins/base';
 import type { MaxContentSizePluginState } from '../../plugins/max-content-size';
 import { pluginKey as maxContentSizePluginKey } from '../../plugins/max-content-size';
 import type { MobileDimensionsPluginState } from '../../plugins/mobile-dimensions/types';
@@ -11,6 +12,7 @@ import { createEditorContentStyle } from '../ContentStyles';
 import { ClickAreaMobile as ClickArea } from '../Addon';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { FeatureFlags } from '../../types/feature-flags';
+import { usePresetContext } from '../../presets/context';
 
 const mobileEditor = css`
   min-height: 30px;
@@ -46,6 +48,8 @@ export const MobileAppearance = forwardRef<
   { editorView, persistScrollGutter, children, editorDisabled, featureFlags },
   ref,
 ) {
+  const api = usePresetContext();
+
   const render = useCallback(
     ({
       maxContentSize,
@@ -61,8 +65,12 @@ export const MobileAppearance = forwardRef<
       let minHeight = 100;
       let currentIsExpanded = true; // isExpanded prop should always be true for Hybrid Editor
       if (mobileDimensions) {
-        const { keyboardHeight, windowHeight, mobilePaddingTop, isExpanded } =
-          mobileDimensions;
+        const { windowHeight, mobilePaddingTop, isExpanded } = mobileDimensions;
+        const basePluginState = api?.base?.sharedState.currentState() as
+          | BasePluginState
+          | undefined;
+        const keyboardHeight = basePluginState?.keyboardHeight ?? -1;
+
         /*
           We calculate the min-height based on the windowHeight - keyboardHeight - paddingTop.
           This is needed due to scrolling issues when there is no content to scroll (like, only having 1 paragraph),
@@ -106,6 +114,7 @@ export const MobileAppearance = forwardRef<
       editorDisabled,
       ref,
       featureFlags,
+      api?.base?.sharedState,
     ],
   );
 

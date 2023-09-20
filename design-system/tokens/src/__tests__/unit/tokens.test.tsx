@@ -5,7 +5,9 @@ import type { Themes } from '../../index';
 import themeConfig from '../../theme-config';
 
 const extensionThemes = Object.keys(themeConfig).filter(
-  (fileName) => themeConfig[fileName as Themes].attributes.extends,
+  (fileName) =>
+    themeConfig[fileName as Themes].extends ||
+    themeConfig[fileName as Themes].attributes.extends,
 );
 
 const themeOverrides = Object.keys(themeConfig).filter(

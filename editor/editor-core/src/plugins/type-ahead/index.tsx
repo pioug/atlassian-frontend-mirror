@@ -16,7 +16,7 @@ import type {
 } from './types';
 import { createPlugin } from './pm-plugins/main';
 import { createPlugin as createInsertItemPlugin } from './pm-plugins/insert-item-plugin';
-import WithPluginState from '../../ui/WithPluginState';
+import { WithPluginState } from '@atlaskit/editor-common/with-plugin-state';
 import { typeAheadQuery } from '@atlaskit/adf-schema';
 import { pluginKey as typeAheadPluginKey } from './pm-plugins/key';
 import { inputRulePlugin } from './pm-plugins/input-rules';

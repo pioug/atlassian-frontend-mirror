@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render, waitFor } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 
 import { NotificationIndicator } from '@atlaskit/notification-indicator';
 import { NotificationLogClient } from '@atlaskit/notification-log-client';
@@ -36,16 +36,14 @@ describe('Help', () => {
       />
     );
 
-    const { queryByText } = render(
-      <Help tooltip={`Help button`} badge={NotificationsBadge} />,
-    );
+    render(<Help tooltip={`Help button`} badge={NotificationsBadge} />);
 
     await waitFor(() => notificationLogProvider);
 
-    const notificationCounterElm = queryByText(
+    const notificationCounterElm = screen.queryByText(
       `${MAX_NUMBER_OF_NOTIFICATIONS}+`,
     );
-    expect(notificationCounterElm).not.toBeNull();
+    expect(notificationCounterElm).toBeInTheDocument();
   });
 
   it('Should not display badge if the "badge" prop is defined and the number of notification is === 0', async () => {
@@ -61,22 +59,22 @@ describe('Help', () => {
       />
     );
 
-    const { queryByText } = render(
-      <Help tooltip={`Help button`} badge={NotificationsBadge} />,
-    );
+    render(<Help tooltip={`Help button`} badge={NotificationsBadge} />);
 
     await waitFor(() => notificationLogProvider);
 
-    const notificationCounterElm = queryByText(`${numberOfNotifications}`);
-    expect(notificationCounterElm).toBeNull();
+    const notificationCounterElm = screen.queryByText(
+      `${numberOfNotifications}`,
+    );
+    expect(notificationCounterElm).not.toBeInTheDocument();
   });
 
   it('Should not display badge if is not passed as a prop', async () => {
-    const { queryByText } = render(<Help tooltip={`Help button`} />);
+    render(<Help tooltip={`Help button`} />);
 
-    const notificationCounterElm = queryByText(
+    const notificationCounterElm = screen.queryByText(
       `${MAX_NUMBER_OF_NOTIFICATIONS}+`,
     );
-    expect(notificationCounterElm).toBeNull();
+    expect(notificationCounterElm).not.toBeInTheDocument();
   });
 });

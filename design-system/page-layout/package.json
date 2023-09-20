@@ -39,7 +39,7 @@
     "@atlaskit/platform-feature-flags": "^0.2.0",
     "@atlaskit/primitives": "^1.6.0",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.24.0",
+    "@atlaskit/tokens": "^1.25.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
     "bind-event-listener": "^2.1.1",

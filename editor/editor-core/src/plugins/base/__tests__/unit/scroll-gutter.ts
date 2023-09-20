@@ -11,7 +11,7 @@ import {
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import { basePlugin } from '../../';
 import { GUTTER_SELECTOR } from '@atlaskit/editor-common/utils';
-import * as mobileDimensionsUtils from '../../../mobile-dimensions/utils';
+import * as scrollGutterPluginKey from '../../pm-plugins/scroll-gutter/plugin-key';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 
 function createScrollContainer(height: number) {
@@ -154,12 +154,9 @@ describe('Mobile scenarios', () => {
 
   it('should not add the scroll gutter when the content is not inserted', () => {
     jest
-      .spyOn(mobileDimensionsUtils, 'getMobileDimensionsPluginState')
+      .spyOn(scrollGutterPluginKey, 'getScrollGutterPluginState')
       .mockReturnValue({
         keyboardHeight: 345,
-        heightDiff: -1,
-        windowHeight: 770,
-        mobilePaddingTop: 5,
       });
     const scrollableContent = createScrollContainer(770);
     const contentContainer = createScrollContainer(400);
@@ -183,12 +180,9 @@ describe('Mobile scenarios', () => {
 
   it('should add the scroll gutter when the content is inserted just above the keyboard', () => {
     jest
-      .spyOn(mobileDimensionsUtils, 'getMobileDimensionsPluginState')
+      .spyOn(scrollGutterPluginKey, 'getScrollGutterPluginState')
       .mockReturnValue({
         keyboardHeight: 345,
-        heightDiff: -1,
-        windowHeight: 770,
-        mobilePaddingTop: 5,
       });
     const scrollableContent = createScrollContainer(770);
     const contentContainer = createScrollContainer(400);
@@ -213,12 +207,9 @@ describe('Mobile scenarios', () => {
 
   it('should add gutter when content is added, when persistScrollGutter is true', () => {
     jest
-      .spyOn(mobileDimensionsUtils, 'getMobileDimensionsPluginState')
+      .spyOn(scrollGutterPluginKey, 'getScrollGutterPluginState')
       .mockReturnValue({
         keyboardHeight: 345,
-        heightDiff: -1,
-        windowHeight: 770,
-        mobilePaddingTop: 5,
       });
     const scrollableContent = createScrollContainer(10);
     const contentContainer = createScrollContainer(50);
@@ -243,12 +234,9 @@ describe('Mobile scenarios', () => {
 
   it('should not add the gutter when content is empty, when persistScrollGutter is true', () => {
     jest
-      .spyOn(mobileDimensionsUtils, 'getMobileDimensionsPluginState')
+      .spyOn(scrollGutterPluginKey, 'getScrollGutterPluginState')
       .mockReturnValue({
         keyboardHeight: 345,
-        heightDiff: -1,
-        windowHeight: 770,
-        mobilePaddingTop: 5,
       });
     const scrollableContent = createScrollContainer(50);
     const contentContainer = createScrollContainer(100);

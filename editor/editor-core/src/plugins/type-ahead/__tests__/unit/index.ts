@@ -24,7 +24,7 @@ import {
   InsertTypeAheadStages,
 } from '@atlaskit/adf-schema/steps';
 import typeAheadPlugin from '../..';
-import type { EditorPlugin } from '../../../../types/editor-plugin';
+import type { EditorPlugin } from '@atlaskit/editor-common/types';
 import { getPluginState, isTypeAheadOpen } from '../../utils';
 import type {
   CreateUIAnalyticsEvent,

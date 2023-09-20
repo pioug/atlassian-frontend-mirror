@@ -20,7 +20,10 @@ import { N40 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
-import { succeedUfoExperience } from '../../analytics/ufoExperiences';
+import {
+  startUfoExperience,
+  succeedUfoExperience,
+} from '../../analytics/ufoExperiences';
 
 import { ColumnPicker } from './column-picker';
 import { DragColumnPreview } from './drag-column-preview';
@@ -165,6 +168,7 @@ export const IssueLikeDataTableView = ({
   hasNextPage,
   scrollableContainerHeight,
   parentContainerRenderInstanceId,
+  extensionKey,
 }: IssueLikeDataTableViewProps) => {
   const tableId = useMemo(() => Symbol('unique-id'), []);
 
@@ -375,13 +379,28 @@ export const IssueLikeDataTableView = ({
       return;
     }
 
+    if (parentContainerRenderInstanceId) {
+      startUfoExperience(
+        {
+          name: 'column-picker-rendered',
+          metadata: { extensionKey: extensionKey ?? undefined },
+        },
+        parentContainerRenderInstanceId,
+      );
+    }
+
     try {
       await onLoadDatasourceDetails();
       setHasFullSchema(true);
     } catch (e) {
       setHasFullSchema(false);
     }
-  }, [hasFullSchema, onLoadDatasourceDetails]);
+  }, [
+    parentContainerRenderInstanceId,
+    extensionKey,
+    hasFullSchema,
+    onLoadDatasourceDetails,
+  ]);
 
   return (
     <div
@@ -463,6 +482,9 @@ export const IssueLikeDataTableView = ({
                   selectedColumnKeys={hasFullSchema ? visibleColumnKeys : []}
                   onSelectedColumnKeysChange={onSelectedColumnKeysChange}
                   onOpen={handlePickerOpen}
+                  parentContainerRenderInstanceId={
+                    parentContainerRenderInstanceId
+                  }
                 />
               </ColumnPickerHeader>
             )}

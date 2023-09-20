@@ -1,12 +1,12 @@
-import { mountWithIntl } from '../../helpers/_enzyme';
-import EditorDoneIcon from '@atlaskit/icon/glyph/editor/done';
 import React from 'react';
 import { ANALYTICS_HOVER_DELAY } from '../../../../components/constants';
 import Color from '../../../../components/internal/color';
+import { renderWithIntl } from '../../helpers/_testing-library';
+import { fireEvent, screen } from '@testing-library/react';
 
 describe('Color', () => {
   it('should render color button', () => {
-    const component = mountWithIntl(
+    renderWithIntl(
       <Color
         value={'red'}
         onClick={jest.fn()}
@@ -16,11 +16,25 @@ describe('Color', () => {
       />,
     );
 
-    expect(component.find('button').length).toBe(1);
+    expect(screen.getAllByRole('button').length).toBe(1);
+  });
+
+  it('should be a list item', () => {
+    renderWithIntl(
+      <Color
+        value={'red'}
+        onClick={jest.fn()}
+        backgroundColor={'backgroundColor'}
+        borderColor={'borderColor'}
+        iconColor={'iconColor'}
+      />,
+    );
+
+    expect(screen.getAllByRole('listitem').length).toBe(1);
   });
 
   it('should render done icon when selected', () => {
-    const component = mountWithIntl(
+    renderWithIntl(
       <Color
         value={'red'}
         onClick={jest.fn()}
@@ -31,11 +45,11 @@ describe('Color', () => {
       />,
     );
 
-    expect(component.find(EditorDoneIcon).length).toBe(1);
+    expect(screen.getAllByRole('img').length).toBe(1);
   });
 
   it('should not render done icon when not selected', () => {
-    const component = mountWithIntl(
+    renderWithIntl(
       <Color
         value={'red'}
         onClick={jest.fn()}
@@ -46,13 +60,13 @@ describe('Color', () => {
       />,
     );
 
-    expect(component.find(EditorDoneIcon).length).toBe(0);
+    expect(screen.queryByRole('img')).toBe(null);
   });
 
   it('should call onClick handler prop on click', () => {
     const onClick = jest.fn();
     const value = 'red';
-    const component = mountWithIntl(
+    renderWithIntl(
       <Color
         value={value}
         onClick={onClick}
@@ -62,8 +76,9 @@ describe('Color', () => {
         isSelected={false}
       />,
     );
-
-    component.find('button').simulate('click');
+    const button = screen.getByRole('button');
+    expect(button).toBeInTheDocument();
+    fireEvent.click(button);
     expect(onClick).toHaveBeenCalledWith(value);
   });
 
@@ -85,7 +100,7 @@ describe('Color', () => {
       const now = realDateNow();
       const onHover = jest.fn();
       const value = 'purple';
-      const component = mountWithIntl(
+      renderWithIntl(
         <Color
           value={value}
           onClick={jest.fn()}
@@ -96,12 +111,14 @@ describe('Color', () => {
           isSelected={false}
         />,
       );
+      const button = screen.getByRole('button');
+      expect(button).toBeInTheDocument();
 
       dateNowStub.mockReturnValue(now);
-      component.find('button').simulate('mouseenter');
+      fireEvent.mouseEnter(button);
 
       dateNowStub.mockReturnValue(now + ANALYTICS_HOVER_DELAY + 10);
-      component.find('button').simulate('mouseleave');
+      fireEvent.mouseLeave(button);
 
       expect(onHover).toHaveBeenCalledWith(value);
     });

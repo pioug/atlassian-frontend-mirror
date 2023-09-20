@@ -1,5 +1,11 @@
 # @atlaskit/adf-utils
 
+## 19.0.9
+
+### Patch Changes
+
+- [`f040aac6bd1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f040aac6bd1) - ADFEXP-524: unskip consistency.ts in adf-utils
+
 ## 19.0.8
 
 ### Patch Changes

@@ -22,7 +22,7 @@ import { closeTypeAhead } from './transforms/close-type-ahead';
 import { updateQuery } from './commands/update-query';
 import { insertTypeAheadItem } from './commands/insert-type-ahead-item';
 import type { TypeAheadHandler } from './types';
-import type { Command } from '../../types/command';
+import type { Command } from '@atlaskit/editor-common/types';
 
 type CommonProps = {
   editorView: EditorView;

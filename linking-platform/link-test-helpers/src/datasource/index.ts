@@ -699,7 +699,7 @@ const defaultDetailsResponse: DatasourceDetailsResponse = {
     auth: [],
     definitionId: 'object-resolver-service',
     destinationObjectTypes: ['issue'],
-    key: 'jira-object-provider',
+    extensionKey: 'jira-object-provider',
     product: 'jira',
     visibility: 'restricted',
   },

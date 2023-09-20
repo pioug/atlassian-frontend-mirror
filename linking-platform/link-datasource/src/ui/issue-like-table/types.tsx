@@ -18,6 +18,10 @@ export interface IssueLikeDataTableViewProps {
    */
   parentContainerRenderInstanceId?: string;
   /**
+   * Datasource extension key. Optional as value may not have been returned yet
+   */
+  extensionKey?: string | null;
+  /**
    * All available columns/properties.
    * Consumer should not reorder these columns to align with `visibleColumnKeys`.
    * UI will display them according to `visibleColumnKeys`

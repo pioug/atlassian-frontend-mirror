@@ -1,5 +1,11 @@
 # @atlaskit/emoji
 
+## 67.5.4
+
+### Patch Changes
+
+- [`eb2a6ac5031`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eb2a6ac5031) - fix regression issue in emoji picker search after react-virtual deps bump
+
 ## 67.5.3
 
 ### Patch Changes

@@ -729,6 +729,45 @@ describe('<EmojiPicker />', () => {
       });
     });
 
+    it('clear searching should show un-filtered emojis', async () => {
+      let initialEmojisCount = 0;
+
+      helperTestingLibrary.renderPicker();
+      await waitFor(() => {
+        expect(helperTestingLibrary.getVirtualList()).toBeInTheDocument();
+        expect(helperTestingLibrary.getEmojiSearchInput()).toBeInTheDocument();
+        const emojis = within(
+          helperTestingLibrary.getVirtualList(),
+        ).getAllByRole('button');
+        initialEmojisCount = emojis.length;
+      });
+
+      // search an un-existed emoji
+      helperTestingLibrary.searchEmoji('empty');
+      await waitFor(() => {
+        const emojis = within(
+          helperTestingLibrary.getVirtualList(),
+        ).queryAllByRole('button');
+        expect(emojis.length).toEqual(0);
+        expect(
+          helperTestingLibrary.queryCategorySelector(emojiCategoryIds.FLAGS),
+        ).toHaveAttribute('disabled');
+      });
+
+      // clear out emoji search
+      helperTestingLibrary.searchEmoji('');
+      await waitFor(() => {
+        const emojis = within(
+          helperTestingLibrary.getVirtualList(),
+        ).getAllByRole('button');
+
+        expect(emojis.length).toEqual(initialEmojisCount);
+        expect(
+          helperTestingLibrary.queryCategorySelector(emojiCategoryIds.FLAGS),
+        ).not.toHaveAttribute('disabled');
+      });
+    });
+
     it('searching should fire analytics', async () => {
       helperTestingLibrary.renderPicker(undefined, undefined, onEvent);
 

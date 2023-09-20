@@ -1,5 +1,11 @@
 # @atlaskit/embedded-confluence
 
+## 2.7.0
+
+### Minor Changes
+
+- [`07104a824ce`](https://bitbucket.org/atlassian/atlassian-frontend/commits/07104a824ce) - [ux] Add embedded whiteboard component
+
 ## 2.6.0
 
 ### Minor Changes

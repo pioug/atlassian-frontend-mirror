@@ -1,5 +1,11 @@
 # @atlaskit/link-test-helpers
 
+## 6.1.3
+
+### Patch Changes
+
+- [`13af8af3ff4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/13af8af3ff4) - Updating mock to include 'extensionKey' instead of 'key'
+
 ## 6.1.2
 
 ### Patch Changes

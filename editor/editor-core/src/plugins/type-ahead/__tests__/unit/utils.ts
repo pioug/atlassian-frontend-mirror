@@ -12,7 +12,7 @@ import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import { TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
 import typeAheadPlugin from '../..';
-import type { EditorPlugin } from '../../../../types/editor-plugin';
+import type { EditorPlugin } from '@atlaskit/editor-common/types';
 import { isTypeAheadAllowed } from '../../utils';
 import type {
   CreateUIAnalyticsEvent,

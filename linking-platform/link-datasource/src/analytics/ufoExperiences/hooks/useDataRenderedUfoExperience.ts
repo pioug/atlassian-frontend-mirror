@@ -6,7 +6,7 @@ import {
   addMetadataToExperience,
   failUfoExperience,
   succeedUfoExperience,
-} from './index';
+} from '../index';
 
 interface DataRenderedUfoExperienceProps {
   status: DatasourceTableStatusType;

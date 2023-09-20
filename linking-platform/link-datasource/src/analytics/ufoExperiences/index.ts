@@ -13,10 +13,20 @@ const datasourcePageSegmentLoadExperienceConfig = {
   performanceType: ExperiencePerformanceTypes.PageSegmentLoad,
 };
 
+const columnPickerCustomExperienceConfig = {
+  platform: { component: 'datasource' },
+  type: ExperienceTypes.Operation,
+  performanceType: ExperiencePerformanceTypes.Custom,
+};
+
 const ufoExperiences: Record<UfoExperience['name'], ConcurrentExperience> = {
   'datasource-rendered': new ConcurrentExperience(
     'datasource-rendered',
     datasourcePageSegmentLoadExperienceConfig,
+  ),
+  'column-picker-rendered': new ConcurrentExperience(
+    'column-picker-rendered',
+    columnPickerCustomExperienceConfig,
   ),
 };
 

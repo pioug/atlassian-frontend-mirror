@@ -53,7 +53,7 @@ const flexibleBlockCardElevationStyle = css`
 const refreshedFlexibleBlockCardStyle = css`
   & > div {
     border-radius: ${token('border.radius.200', '8px')};
-    border: 1px solid ${token('color.border.input', N40)};
+    border: 1px solid ${token('color.border', N40)};
   }
 `;
 

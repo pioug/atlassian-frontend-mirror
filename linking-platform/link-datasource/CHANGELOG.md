@@ -1,5 +1,11 @@
 # @atlaskit/link-datasource
 
+## 1.2.4
+
+### Patch Changes
+
+- [`172f52c6df8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/172f52c6df8) - Add UFO metrics to measure column picker performance
+
 ## 1.2.3
 
 ### Patch Changes

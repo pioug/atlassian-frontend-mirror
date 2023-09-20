@@ -1,5 +1,4 @@
 export enum MobileDimensionsActionTypes {
-  SET_KEYBOARD_HEIGHT = 'SET_KEYBOARD_HEIGHT',
   SET_WINDOW_HEIGHT = 'SET_WINDOW_HEIGHT',
   SET_MOBILE_PADDING_TOP = 'SET_MOBILE_PADDING_TOP',
   SET_IS_EXPANDED = 'SET_IS_EXPANDED',
@@ -8,10 +7,6 @@ export enum MobileDimensionsActionTypes {
 export interface SetMobilePaddingTop {
   type: MobileDimensionsActionTypes.SET_MOBILE_PADDING_TOP;
   paddingTop: number;
-}
-export interface SetKeyboardHeight {
-  type: MobileDimensionsActionTypes.SET_KEYBOARD_HEIGHT;
-  keyboardHeight: number;
 }
 
 export interface SetWindowHeight {
@@ -25,7 +20,6 @@ export interface SetIsExpanded {
 }
 
 export type MobileDimensionsAction =
-  | SetKeyboardHeight
   | SetWindowHeight
   | SetMobilePaddingTop
   | SetIsExpanded;

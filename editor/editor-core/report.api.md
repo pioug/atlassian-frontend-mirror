@@ -300,7 +300,7 @@ export { clearEditorContent };
 // @public (undocumented)
 type CloseOptions = {
   insertCurrentQueryAsRawText: boolean;
-  attachCommand?: Command;
+  attachCommand?: Command_2;
 };
 
 // @public (undocumented)

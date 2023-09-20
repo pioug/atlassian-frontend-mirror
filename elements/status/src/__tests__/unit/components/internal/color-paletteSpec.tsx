@@ -1,14 +1,13 @@
-import { mountWithIntl } from '../../helpers/_enzyme';
-import { ReactWrapper } from 'enzyme';
 import React from 'react';
-import Color from '../../../../components/internal/color';
 import ColorPalette from '../../../../components/internal/color-palette';
+import { renderWithIntl } from '../../helpers/_testing-library';
+import { fireEvent, screen } from '@testing-library/react';
 
 describe('ColorPalette', () => {
   it('should render 6 colors', () => {
     const onClick = jest.fn();
     const onHover = jest.fn();
-    const component = mountWithIntl(
+    renderWithIntl(
       <ColorPalette
         onClick={onClick}
         onHover={onHover}
@@ -16,70 +15,86 @@ describe('ColorPalette', () => {
       />,
     );
 
-    const colorComponent = component.find(Color);
-    expect(colorComponent.length).toBe(6);
-    expect(colorComponent.first().props().onClick).toBe(onClick);
-    expect(colorComponent.first().props().onHover).toBe(onHover);
+    const colorComponents = screen.getAllByRole('button');
+    expect(colorComponents.length).toBe(6);
+    expect(colorComponents[0]).toHaveAttribute('tabindex', '0');
+  });
+
+  it('should have role list', () => {
+    const onClick = jest.fn();
+    const onHover = jest.fn();
+    renderWithIntl(
+      <ColorPalette
+        onClick={onClick}
+        onHover={onHover}
+        selectedColor={'red'}
+      />,
+    );
+
+    const colorComponentsList = screen.queryAllByRole('list');
+    expect(colorComponentsList.length).toBe(1);
   });
 
   it('should select selected color', () => {
-    const component = mountWithIntl(
-      <ColorPalette onClick={jest.fn()} selectedColor={'red'} />,
-    );
+    renderWithIntl(<ColorPalette onClick={jest.fn()} selectedColor={'red'} />);
 
-    expect(
-      component.findWhere(
-        (n: ReactWrapper) => n.is(Color) && n.prop('isSelected'),
-      ).length,
-    ).toBe(1);
+    const selectedButton = screen.getByRole('button', { pressed: true });
+    expect(selectedButton.classList.contains('selected')).toBe(true);
+    expect(selectedButton).toHaveAttribute('tabindex', '-1');
+    expect(selectedButton).toHaveAttribute('title', 'Red');
   });
 
   it('should not select if no selected color', () => {
-    const component = mountWithIntl(<ColorPalette onClick={jest.fn()} />);
-
-    expect(
-      component.findWhere((n: any) => n.is(Color) && n.prop('isSelected'))
-        .length,
-    ).toBe(0);
+    renderWithIntl(<ColorPalette onClick={jest.fn()} />);
+    const selectedButton = screen.queryByRole('button', { pressed: true });
+    expect(selectedButton).toBe(null);
   });
 });
 
 describe('ColorPalette keyboard navigation', () => {
-  it('should select next color on tab', () => {
-    const onClick = jest.fn();
-    const component = mountWithIntl(
-      <ColorPalette onClick={onClick} selectedColor={'neutral'} />,
+  it('should focus next color on right arrow', async () => {
+    renderWithIntl(
+      <ColorPalette onClick={jest.fn()} selectedColor={'neutral'} />,
     );
+    // Simulate pressing of right arrow. Colors order defined internally in color-palette.tsx
+    const list = screen.getByRole('list');
+    fireEvent.keyDown(list, {
+      key: 'ArrowRight',
+      code: 'ArrowRight',
+      keyCode: 39,
+    });
 
-    // Simulate pressing of TAB key. Colors order defined internally in color-palette.tsx
-    component.find('div').simulate('keydown', { keyCode: 9 });
-    expect(onClick).toHaveBeenCalledWith('purple');
+    const colorButtons = screen.getAllByRole('button');
+    expect(colorButtons[1]).toHaveFocus(); // Purple
   });
 
-  it('should select first color on tab at last color', () => {
-    const onClick = jest.fn();
-    const component = mountWithIntl(
-      <ColorPalette onClick={onClick} selectedColor={'green'} />,
+  it('should select first color on when reaches the last one', () => {
+    renderWithIntl(
+      <ColorPalette onClick={jest.fn()} selectedColor={'green'} />,
     );
-    component.find('div').simulate('keydown', { keyCode: 9 });
-    expect(onClick).toHaveBeenCalledWith('neutral');
+    const list = screen.getByRole('list');
+    for (let i = 0; i < 6; i++) {
+      fireEvent.keyDown(list, {
+        key: 'ArrowRight',
+        code: 'ArrowRight',
+        keyCode: 39,
+      });
+    }
+    const colorButtons = screen.getAllByRole('button');
+    expect(colorButtons[0]).toHaveFocus(); // Grey
   });
 
-  it('should select previous color on shift-tab', () => {
-    const onClick = jest.fn();
-    const component = mountWithIntl(
-      <ColorPalette onClick={onClick} selectedColor={'purple'} />,
+  it('should select last color on leftArrow press at first color', () => {
+    renderWithIntl(
+      <ColorPalette onClick={jest.fn()} selectedColor={'neutral'} />,
     );
-    component.find('div').simulate('keydown', { keyCode: 9, shiftKey: true });
-    expect(onClick).toHaveBeenCalledWith('neutral');
-  });
-
-  it('should select last color on shift-tab at first color', () => {
-    const onClick = jest.fn();
-    const component = mountWithIntl(
-      <ColorPalette onClick={onClick} selectedColor={'neutral'} />,
-    );
-    component.find('div').simulate('keydown', { keyCode: 9, shiftKey: true });
-    expect(onClick).toHaveBeenCalledWith('green');
+    const list = screen.getByRole('list');
+    fireEvent.keyDown(list, {
+      key: 'ArrowLeft',
+      code: 'ArrowLeft',
+      keyCode: 37,
+    });
+    const colorButtons = screen.getAllByRole('button');
+    expect(colorButtons[5]).toHaveFocus(); //green
   });
 });

@@ -9,7 +9,8 @@ import { withAnalyticsContext } from '@atlaskit/analytics-next';
 import { useDatasourceAnalyticsEvents } from '../../analytics';
 import { packageMetaData } from '../../analytics/constants';
 import { startUfoExperience } from '../../analytics/ufoExperiences';
-import { useDataRenderedUfoExperience } from '../../analytics/ufoExperiences/useDataRenderedUfoExperience';
+import { useColumnPickerRenderedFailedUfoExperience } from '../../analytics/ufoExperiences/hooks/useColumnPickerRenderedFailedUfoExperience';
+import { useDataRenderedUfoExperience } from '../../analytics/ufoExperiences/hooks/useDataRenderedUfoExperience';
 import { useDatasourceTableState } from '../../hooks/useDatasourceTableState';
 import { AccessRequired } from '../common/error-state/access-required';
 import { LoadingError } from '../common/error-state/loading-error';
@@ -118,6 +119,8 @@ const DatasourceTableViewWithoutAnalytics = ({
     visibleColumnKeys,
   ]);
 
+  useColumnPickerRenderedFailedUfoExperience(status, tableRenderInstanceId);
+
   useDataRenderedUfoExperience({
     status,
     experienceId: tableRenderInstanceId,
@@ -162,6 +165,7 @@ const DatasourceTableViewWithoutAnalytics = ({
           onVisibleColumnKeysChange={onVisibleColumnKeysChange}
           scrollableContainerHeight={590}
           parentContainerRenderInstanceId={tableRenderInstanceId}
+          extensionKey={extensionKey}
         />
       ) : (
         <EmptyState

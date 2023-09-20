@@ -21,21 +21,35 @@ import { DatasourceTableView } from './datasourceTableView';
 jest.mock('../../hooks/useDatasourceTableState');
 jest.mock('../issue-like-table/useIsOnScreen');
 
-const mockUfoStart = jest.fn();
-const mockUfoSuccess = jest.fn();
-const mockUfoFailure = jest.fn();
-const mockUfoAddMetadata = jest.fn();
+const mockTableRenderUfoStart = jest.fn();
+const mockTableRenderUfoSuccess = jest.fn();
+const mockTableRenderUfoFailure = jest.fn();
+const mockTableRenderUfoAddMetadata = jest.fn();
+
+const mockColumnPickerRenderUfoFailure = jest.fn();
 
 jest.mock('@atlaskit/ufo', () => ({
   __esModule: true,
   ...jest.requireActual<Object>('@atlaskit/ufo'),
-  ConcurrentExperience: (): Partial<ConcurrentExperience> => ({
-    getInstance: jest.fn().mockImplementation(() => ({
-      start: mockUfoStart,
-      success: mockUfoSuccess,
-      failure: mockUfoFailure,
-      addMetadata: mockUfoAddMetadata,
-    })),
+  ConcurrentExperience: (
+    experienceId: string,
+  ): Partial<ConcurrentExperience> => ({
+    experienceId: experienceId,
+    getInstance: jest.fn().mockImplementation(() => {
+      if (experienceId === 'datasource-rendered') {
+        return {
+          start: mockTableRenderUfoStart,
+          success: mockTableRenderUfoSuccess,
+          failure: mockTableRenderUfoFailure,
+          addMetadata: mockTableRenderUfoAddMetadata,
+        };
+      }
+      if (experienceId === 'column-picker-rendered') {
+        return {
+          failure: mockColumnPickerRenderUfoFailure,
+        };
+      }
+    }),
   }),
 }));
 
@@ -440,131 +454,149 @@ describe('UFO metrics: DatasourceTableView', () => {
     jest.clearAllMocks();
   });
 
-  it('should start ufo experience when DatasourceTableView is initialised', async () => {
-    setup({
-      status: 'loading',
+  describe('TableRendered', async () => {
+    it('should start ufo experience when DatasourceTableView is initialised', async () => {
+      setup({
+        status: 'loading',
+      });
+
+      expect(mockTableRenderUfoStart).toHaveBeenCalledTimes(1);
+
+      expect(mockTableRenderUfoSuccess).not.toHaveBeenCalled();
+      expect(mockTableRenderUfoFailure).not.toHaveBeenCalled();
     });
 
-    expect(mockUfoStart).toHaveBeenCalledTimes(1);
+    it('should add extensionKey metadata to ufo experience when DatasourceTableView is initialised', async () => {
+      setup({
+        status: 'loading',
+      });
 
-    expect(mockUfoSuccess).not.toHaveBeenCalled();
-    expect(mockUfoFailure).not.toHaveBeenCalled();
-  });
-
-  it('should add extensionKey metadata to ufo experience when DatasourceTableView is initialised', async () => {
-    setup({
-      status: 'loading',
+      expect(mockTableRenderUfoAddMetadata).toHaveBeenCalledTimes(1);
+      expect(mockTableRenderUfoAddMetadata).toHaveBeenCalledWith({
+        extensionKey: 'jira-object-provider',
+      });
     });
 
-    expect(mockUfoAddMetadata).toHaveBeenCalledTimes(1);
-    expect(mockUfoAddMetadata).toHaveBeenCalledWith({
-      extensionKey: 'jira-object-provider',
-    });
-  });
-
-  it('should mark as a successful experience when DatasourceTableView results are resolved', async () => {
-    setup({
-      responseItems: [
-        {
-          id: {
-            data: 'some-id1',
+    it('should mark as a successful experience when DatasourceTableView results are resolved', async () => {
+      setup({
+        responseItems: [
+          {
+            id: {
+              data: 'some-id1',
+            },
           },
-        },
-        {
-          id: {
-            data: 'some-id2',
+          {
+            id: {
+              data: 'some-id2',
+            },
           },
-        },
-      ],
+        ],
+      });
+
+      expect(mockTableRenderUfoSuccess).toHaveBeenCalledTimes(1);
+
+      expect(mockTableRenderUfoFailure).not.toHaveBeenCalled();
     });
 
-    expect(mockUfoSuccess).toHaveBeenCalledTimes(1);
+    it('should start experience when DatasourceTableView gets re-rendered', async () => {
+      const { rerender } = setup({
+        status: 'loading',
+      });
 
-    expect(mockUfoFailure).not.toHaveBeenCalled();
+      const newParameters = {
+        cloudId: 'new-cloud-id',
+        jql: 'some-jql-query',
+      };
+
+      rerender(
+        <IntlProvider locale="en">
+          <DatasourceTableView
+            datasourceId={'some-datasource-id'}
+            parameters={newParameters}
+            visibleColumnKeys={[
+              'visible-column-1',
+              'visible-column-2',
+              'visible-column-3',
+            ]}
+          />
+        </IntlProvider>,
+      );
+
+      expect(mockTableRenderUfoStart).toHaveBeenCalledTimes(2);
+    });
+
+    it('should not start experience when DatasourceTableView gets re-rendered but hook status is resolved', async () => {
+      const { rerender } = setup({
+        status: 'loading',
+      });
+
+      const newParameters = {
+        cloudId: 'new-cloud-id',
+        jql: 'some-jql-query',
+      };
+
+      setup();
+
+      rerender(
+        <IntlProvider locale="en">
+          <DatasourceTableView
+            datasourceId={'some-datasource-id'}
+            parameters={newParameters}
+            visibleColumnKeys={['visible-column-1']}
+          />
+        </IntlProvider>,
+      );
+
+      expect(mockTableRenderUfoStart).toHaveBeenCalledTimes(1);
+    });
+
+    it('should mark as a failed experience when DatasourceTableView request fails', async () => {
+      setup({
+        status: 'rejected',
+      });
+
+      expect(mockTableRenderUfoFailure).toHaveBeenCalled();
+      expect(mockTableRenderUfoFailure).toHaveBeenCalledTimes(1);
+
+      expect(mockTableRenderUfoSuccess).not.toHaveBeenCalled();
+    });
+
+    it('should mark as a failed experience when DatasourceTableView data request returns unauthorised response', async () => {
+      setup({
+        status: 'unauthorized',
+      });
+
+      expect(mockTableRenderUfoSuccess).toHaveBeenCalled();
+      expect(mockTableRenderUfoSuccess).toHaveBeenCalledTimes(1);
+
+      expect(mockTableRenderUfoFailure).not.toHaveBeenCalled();
+    });
+
+    it('should abort the experience when DatasourceTableView results are empty', async () => {
+      setup({
+        responseItems: [],
+      });
+
+      expect(mockTableRenderUfoSuccess).toHaveBeenCalled();
+      expect(mockTableRenderUfoSuccess).toHaveBeenCalledTimes(1);
+
+      expect(mockTableRenderUfoFailure).not.toHaveBeenCalled();
+    });
   });
 
-  it('should start experience when DatasourceTableView gets re-rendered', async () => {
-    const { rerender } = setup({
-      status: 'loading',
+  describe('ColumnPickerRendered', async () => {
+    it('should not mark as a failed experience when status is resolved', async () => {
+      setup();
+
+      expect(mockColumnPickerRenderUfoFailure).not.toHaveBeenCalled();
     });
 
-    const newParameters = {
-      cloudId: 'new-cloud-id',
-      jql: 'some-jql-query',
-    };
+    it('should mark as a failed experience when status is rejected', async () => {
+      setup({
+        status: 'rejected',
+      });
 
-    rerender(
-      <IntlProvider locale="en">
-        <DatasourceTableView
-          datasourceId={'some-datasource-id'}
-          parameters={newParameters}
-          visibleColumnKeys={[
-            'visible-column-1',
-            'visible-column-2',
-            'visible-column-3',
-          ]}
-        />
-      </IntlProvider>,
-    );
-
-    expect(mockUfoStart).toHaveBeenCalledTimes(2);
-  });
-
-  it('should not start experience when DatasourceTableView gets re-rendered but hook status is resolved', async () => {
-    const { rerender } = setup({
-      status: 'loading',
+      expect(mockColumnPickerRenderUfoFailure).toHaveBeenCalledTimes(1);
     });
-
-    const newParameters = {
-      cloudId: 'new-cloud-id',
-      jql: 'some-jql-query',
-    };
-
-    setup();
-
-    rerender(
-      <IntlProvider locale="en">
-        <DatasourceTableView
-          datasourceId={'some-datasource-id'}
-          parameters={newParameters}
-          visibleColumnKeys={['visible-column-1']}
-        />
-      </IntlProvider>,
-    );
-
-    expect(mockUfoStart).toHaveBeenCalledTimes(1);
-  });
-
-  it('should mark as a failed experience when DatasourceTableView request fails', async () => {
-    setup({
-      status: 'rejected',
-    });
-
-    expect(mockUfoFailure).toHaveBeenCalled();
-    expect(mockUfoFailure).toHaveBeenCalledTimes(1);
-
-    expect(mockUfoSuccess).not.toHaveBeenCalled();
-  });
-
-  it('should mark as a failed experience when DatasourceTableView data request returns unauthorised response', async () => {
-    setup({
-      status: 'unauthorized',
-    });
-
-    expect(mockUfoSuccess).toHaveBeenCalled();
-    expect(mockUfoSuccess).toHaveBeenCalledTimes(1);
-
-    expect(mockUfoFailure).not.toHaveBeenCalled();
-  });
-
-  it('should abort the experience when DatasourceTableView results are empty', async () => {
-    setup({
-      responseItems: [],
-    });
-
-    expect(mockUfoSuccess).toHaveBeenCalled();
-    expect(mockUfoSuccess).toHaveBeenCalledTimes(1);
-
-    expect(mockUfoFailure).not.toHaveBeenCalled();
   });
 });

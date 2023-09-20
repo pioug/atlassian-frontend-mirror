@@ -131,7 +131,7 @@ export const checkboxStyles =
               dark: checkboxTheme.dark.borderColor.rest,
             })({ theme })};
             stroke-width: ${getBooleanFF(
-              'platform.design-system-team.border-checkbox_nyoiu',
+              'platform.design-system-team.update-border-radio-checkbox_7askv',
             )
               ? 1
               : 2};

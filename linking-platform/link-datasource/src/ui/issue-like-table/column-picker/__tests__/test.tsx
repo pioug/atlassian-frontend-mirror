@@ -1,11 +1,12 @@
 import React from 'react';
 
 import { fireEvent, waitFor } from '@testing-library/dom';
-import { render } from '@testing-library/react';
+import { act, render } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 import invariant from 'tiny-invariant';
 
 import { DatasourceResponseSchemaProperty } from '@atlaskit/linking-types';
+import { ConcurrentExperience } from '@atlaskit/ufo';
 
 import { SELECT_ITEMS_MAXIMUM_THRESHOLD } from '../concatenated-menu-list';
 import { ColumnPicker } from '../index';
@@ -15,6 +16,21 @@ const OPTION_CLASS = `.${CSS_PREFIX}__option`;
 const OPTION_LIST_CLASS = `.${CSS_PREFIX}__menu-list`;
 const OPTION_SELECTED_CLASS = `${OPTION_CLASS}--is-selected`;
 const mockOnChange = jest.fn();
+
+const mockUfoStart = jest.fn();
+const mockUfoSuccess = jest.fn();
+
+jest.mock('@atlaskit/ufo', () => ({
+  __esModule: true,
+  ...jest.requireActual<Object>('@atlaskit/ufo'),
+  ConcurrentExperience: (): Partial<ConcurrentExperience> => ({
+    getInstance: jest.fn().mockImplementation(() => ({
+      start: mockUfoStart,
+      success: mockUfoSuccess,
+    })),
+  }),
+}));
+
 const renderColumnPicker = (
   columns: DatasourceResponseSchemaProperty[],
   selectedColumnKeys: string[],
@@ -25,6 +41,7 @@ const renderColumnPicker = (
         columns={columns}
         onSelectedColumnKeysChange={mockOnChange}
         selectedColumnKeys={selectedColumnKeys}
+        parentContainerRenderInstanceId={'hey!'}
       />
     </IntlProvider>,
   );
@@ -321,6 +338,56 @@ describe('Column picker', () => {
       ).toBe(
         'Your search returned too many results.Try again with more specific keywords.',
       );
+    });
+  });
+
+  describe('UFO metrics: ColumnPicker', async () => {
+    beforeEach(() => {
+      jest.clearAllMocks();
+    });
+
+    it('should mark UFO experience as successful when columns are loaded', async () => {
+      const columns: DatasourceResponseSchemaProperty[] = [
+        {
+          key: 'matt',
+          type: 'icon',
+          title: 'Matt',
+        },
+        {
+          key: 'tom',
+          type: 'string',
+          title: 'Tom',
+        },
+        {
+          key: 'bob',
+          type: 'string',
+          title: 'Bob',
+        },
+        {
+          key: 'john',
+          type: 'string',
+          title: 'John',
+        },
+      ];
+
+      const selectedColumnKeys: string[] = ['tom', 'john'];
+      const { openPopUpMenu } = renderColumnPicker(columns, selectedColumnKeys);
+
+      await act(() => {
+        openPopUpMenu();
+      });
+
+      expect(mockUfoSuccess).toHaveBeenCalled();
+    });
+
+    it('should not mark UFO experience as successful when columns are not loaded', async () => {
+      const { openPopUpMenu } = renderColumnPicker([], []);
+
+      await act(() => {
+        openPopUpMenu();
+      });
+
+      expect(mockUfoSuccess).not.toHaveBeenCalled();
     });
   });
 });

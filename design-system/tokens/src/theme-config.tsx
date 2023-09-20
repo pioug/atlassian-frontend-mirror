@@ -27,7 +27,9 @@ export type ThemeFileNames = Themes;
  */
 export type ThemeOverrides =
   | 'atlassian-light-new-input-border'
-  | 'atlassian-dark-new-input-border';
+  | 'atlassian-dark-new-input-border'
+  | 'atlassian-light-saturated-palette-changes'
+  | 'atlassian-dark-saturated-palette-changes';
 
 /**
  * Theme kinds: The type of theme.
@@ -73,6 +75,8 @@ export type ThemeIds = (typeof themeIds)[number];
 export const themeOverrideIds = [
   'light-new-input-border',
   'dark-new-input-border',
+  'light-saturated-palette-changes',
+  'dark-saturated-palette-changes',
 ] as const;
 
 export type ThemeOverrideIds = (typeof themeOverrideIds)[number];
@@ -98,6 +102,7 @@ export type ExtensionThemeId = ThemeIds;
  */
 export type Palettes =
   | 'defaultPalette'
+  | 'updatedSaturatedPalette'
   | 'legacyPalette'
   | 'spacingScale'
   | 'shapePalette'
@@ -121,8 +126,14 @@ interface ThemeConfig {
         type: Extract<ThemeKinds, 'spacing' | 'typography' | 'shape'>;
       }
   ) & {
+    /* eslint-disable @repo/internal/deprecations/deprecation-ticket-required */
+    /**
+     * @deprecated Use top-level `extends` property instead
+     */
     extends?: ExtensionThemeId;
+    /* eslint-enable @repo/internal/deprecations/deprecation-ticket-required */
   };
+  extends?: ExtensionThemeId;
   override?: ThemeIds;
 }
 
@@ -205,6 +216,30 @@ const themeConfig: Record<Themes | ThemeOverrides, ThemeConfig> = {
     attributes: {
       type: 'color',
       mode: 'dark',
+    },
+  },
+  'atlassian-light-saturated-palette-changes': {
+    id: 'light-saturated-palette-changes',
+    displayName: 'Light Theme Saturated Palette Change',
+    palette: 'updatedSaturatedPalette',
+    override: 'light',
+    extends: 'light',
+    attributes: {
+      type: 'color',
+      mode: 'light',
+      extends: 'light',
+    },
+  },
+  'atlassian-dark-saturated-palette-changes': {
+    id: 'dark-saturated-palette-changes',
+    displayName: 'Dark Theme Saturated Palette Change',
+    palette: 'updatedSaturatedPalette',
+    override: 'dark',
+    extends: 'dark',
+    attributes: {
+      type: 'color',
+      mode: 'dark',
+      extends: 'dark',
     },
   },
   'atlassian-typography': {

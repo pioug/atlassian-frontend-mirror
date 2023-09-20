@@ -5,4 +5,11 @@ interface DatasourceRendered {
   };
 }
 
-export type UfoExperience = DatasourceRendered;
+interface ColumnPickerRendered {
+  name: 'column-picker-rendered'; // platform.fe.custom.datasource.column-picker-rendered
+  metadata?: {
+    extensionKey?: string;
+  };
+}
+
+export type UfoExperience = DatasourceRendered | ColumnPickerRendered;

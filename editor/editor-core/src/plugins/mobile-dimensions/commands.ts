@@ -1,12 +1,6 @@
 import { MobileDimensionsActionTypes } from './actions';
 import { createCommand } from './plugin-factory';
 
-export const setKeyboardHeight = (keyboardHeight: number) =>
-  createCommand({
-    type: MobileDimensionsActionTypes.SET_KEYBOARD_HEIGHT,
-    keyboardHeight,
-  });
-
 export const setWindowHeight = (windowHeight: number) =>
   createCommand({
     type: MobileDimensionsActionTypes.SET_WINDOW_HEIGHT,

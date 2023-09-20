@@ -1,17 +1,12 @@
-import { MobileDimensionsAction, MobileDimensionsActionTypes } from './actions';
-import { MobileDimensionsPluginState } from './types';
+import type { MobileDimensionsAction } from './actions';
+import { MobileDimensionsActionTypes } from './actions';
+import type { MobileDimensionsPluginState } from './types';
 
 export default function (
   state: MobileDimensionsPluginState,
   action: MobileDimensionsAction,
 ): MobileDimensionsPluginState {
   switch (action.type) {
-    case MobileDimensionsActionTypes.SET_KEYBOARD_HEIGHT:
-      return {
-        ...state,
-        keyboardHeight: action.keyboardHeight,
-      };
-
     case MobileDimensionsActionTypes.SET_WINDOW_HEIGHT:
       return {
         ...state,

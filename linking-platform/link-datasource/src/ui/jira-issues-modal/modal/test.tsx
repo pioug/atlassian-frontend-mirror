@@ -66,21 +66,42 @@ jest.mock('../../issue-like-table', () => ({
   IssueLikeDataTableView: jest.fn(() => <MockIssueLikeTable />),
 }));
 
-const mockUfoStart = jest.fn();
-const mockUfoSuccess = jest.fn();
-const mockUfoFailure = jest.fn();
-const mockUfoAddMetadata = jest.fn();
+const mockTableRenderUfoStart = jest.fn();
+const mockTableRenderUfoSuccess = jest.fn();
+const mockTableRenderUfoFailure = jest.fn();
+const mockTableRenderUfoAddMetadata = jest.fn();
+
+const mockColumnPickerRenderUfoFailure = jest.fn();
 
 jest.mock('@atlaskit/ufo', () => ({
   __esModule: true,
   ...jest.requireActual<Object>('@atlaskit/ufo'),
-  ConcurrentExperience: (): Partial<ConcurrentExperience> => ({
-    getInstance: jest.fn().mockImplementation(() => ({
-      start: mockUfoStart,
-      success: mockUfoSuccess,
-      failure: mockUfoFailure,
-      addMetadata: mockUfoAddMetadata,
-    })),
+  ConcurrentExperience: (
+    experienceId: string,
+  ): Partial<ConcurrentExperience> => ({
+    experienceId: experienceId,
+    getInstance: jest.fn().mockImplementation(() => {
+      if (experienceId === 'datasource-rendered') {
+        return {
+          start: mockTableRenderUfoStart,
+          success: mockTableRenderUfoSuccess,
+          failure: mockTableRenderUfoFailure,
+          addMetadata: mockTableRenderUfoAddMetadata,
+        };
+      }
+      if (experienceId === 'column-picker-rendered') {
+        return {
+          failure: mockColumnPickerRenderUfoFailure,
+        };
+      }
+      return {
+        // there are other experiences outside this tests scope that reference atlaskit/ufo
+        start: jest.fn(),
+        success: jest.fn(),
+        failure: jest.fn(),
+        addMetadata: jest.fn(),
+      };
+    }),
   }),
 }));
 
@@ -989,6 +1010,7 @@ describe('JiraIssuesConfigModal', () => {
           onLoadDatasourceDetails: hookState.loadDatasourceDetails,
           onVisibleColumnKeysChange: expect.any(Function),
           parentContainerRenderInstanceId: expect.any(String),
+          extensionKey: expect.any(String),
         } as IssueLikeDataTableViewProps,
         expect.anything(),
       );
@@ -2091,81 +2113,97 @@ describe('UFO metrics: JiraIssuesConfigModal', () => {
     jest.clearAllMocks();
   });
 
-  it('should start ufo experience when JiraIssuesConfigModal status is loading', async () => {
-    await setup({
-      hookState: { ...getDefaultHookState(), status: 'loading' },
+  describe('TableRendered', async () => {
+    it('should start ufo experience when JiraIssuesConfigModal status is loading', async () => {
+      await setup({
+        hookState: { ...getDefaultHookState(), status: 'loading' },
+      });
+
+      expect(mockTableRenderUfoStart).toHaveBeenCalledTimes(1);
     });
 
-    expect(mockUfoStart).toHaveBeenCalledTimes(1);
-  });
+    it('should start ufo experience and set extensionKey metadata when JiraIssuesConfigModal status is loading', async () => {
+      await setup({
+        hookState: { ...getDefaultHookState(), status: 'loading' },
+      });
 
-  it('should start ufo experience and set extensionKey metadata when JiraIssuesConfigModal status is loading', async () => {
-    await setup({
-      hookState: { ...getDefaultHookState(), status: 'loading' },
+      expect(mockTableRenderUfoStart).toHaveBeenCalledTimes(1);
+
+      expect(mockTableRenderUfoAddMetadata).toHaveBeenCalledTimes(1);
+      expect(mockTableRenderUfoAddMetadata).toHaveBeenCalledWith({
+        extensionKey: 'jira-object-provider',
+      });
     });
 
-    expect(mockUfoStart).toHaveBeenCalledTimes(1);
+    it('should mark as a successful experience when JiraIssuesConfigModal results are resolved', async () => {
+      await setup();
 
-    expect(mockUfoAddMetadata).toHaveBeenCalledTimes(1);
-    expect(mockUfoAddMetadata).toHaveBeenCalledWith({
-      extensionKey: 'jira-object-provider',
-    });
-  });
+      expect(mockTableRenderUfoSuccess).toHaveBeenCalledTimes(1);
 
-  it('should mark as a successful experience when JiraIssuesConfigModal results are resolved', async () => {
-    await setup();
-
-    expect(mockUfoSuccess).toHaveBeenCalledTimes(1);
-
-    expect(mockUfoFailure).not.toHaveBeenCalled();
-  });
-
-  it('should mark as a successful when JiraIssuesConfigModal data request returns unauthorized response', async () => {
-    await setup({
-      hookState: { ...getErrorHookState(), status: 'unauthorized' },
+      expect(mockTableRenderUfoFailure).not.toHaveBeenCalled();
     });
 
-    expect(mockUfoSuccess).toHaveBeenCalledTimes(1);
+    it('should mark as a successful when JiraIssuesConfigModal data request returns unauthorized response', async () => {
+      await setup({
+        hookState: { ...getErrorHookState(), status: 'unauthorized' },
+      });
 
-    expect(mockUfoFailure).not.toHaveBeenCalled();
-  });
+      expect(mockTableRenderUfoSuccess).toHaveBeenCalledTimes(1);
 
-  it('should mark as a successful experience when JiraIssuesConfigModal results are empty', async () => {
-    await setup({
-      hookState: { ...getEmptyHookState(), status: 'resolved' },
+      expect(mockTableRenderUfoFailure).not.toHaveBeenCalled();
     });
 
-    expect(mockUfoSuccess).toHaveBeenCalledTimes(1);
+    it('should mark as a successful experience when JiraIssuesConfigModal results are empty', async () => {
+      await setup({
+        hookState: { ...getEmptyHookState(), status: 'resolved' },
+      });
 
-    expect(mockUfoFailure).not.toHaveBeenCalled();
-  });
+      expect(mockTableRenderUfoSuccess).toHaveBeenCalledTimes(1);
 
-  it('should mark as a successful experience when JiraIssuesConfigModal result has only one item', async () => {
-    await setup({
-      hookState: {
-        ...getDefaultHookState(),
-        responseItems: [
-          {
-            key: {
-              data: {
-                url: 'www.atlassian.com',
+      expect(mockTableRenderUfoFailure).not.toHaveBeenCalled();
+    });
+
+    it('should mark as a successful experience when JiraIssuesConfigModal result has only one item', async () => {
+      await setup({
+        hookState: {
+          ...getDefaultHookState(),
+          responseItems: [
+            {
+              key: {
+                data: {
+                  url: 'www.atlassian.com',
+                },
               },
             },
-          },
-        ],
-      },
+          ],
+        },
+      });
+
+      expect(mockTableRenderUfoSuccess).toHaveBeenCalled();
+
+      expect(mockTableRenderUfoFailure).not.toHaveBeenCalled();
     });
 
-    expect(mockUfoSuccess).toHaveBeenCalled();
+    it('should mark as a failed experience when JiraIssuesConfigModal request fails', async () => {
+      await setup({ hookState: { ...getErrorHookState() } });
 
-    expect(mockUfoFailure).not.toHaveBeenCalled();
+      expect(mockTableRenderUfoFailure).toHaveBeenCalledTimes(1);
+
+      expect(mockTableRenderUfoSuccess).not.toHaveBeenCalled();
+    });
   });
 
-  it('should mark as a failed experience when JiraIssuesConfigModal request fails', async () => {
-    await setup({ hookState: { ...getErrorHookState() } });
+  describe('ColumnPickerRendered', async () => {
+    it('should not mark as a failed experience when status is OK', async () => {
+      await setup();
 
-    expect(mockUfoFailure).toHaveBeenCalledTimes(1);
+      expect(mockColumnPickerRenderUfoFailure).not.toHaveBeenCalled();
+    });
 
-    expect(mockUfoSuccess).not.toHaveBeenCalled();
+    it('should mark as a failed experience when status is rejected', async () => {
+      await setup({ hookState: { ...getErrorHookState() } });
+
+      expect(mockColumnPickerRenderUfoFailure).toHaveBeenCalledTimes(1);
+    });
   });
 });

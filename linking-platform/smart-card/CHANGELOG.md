@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 26.27.1
+
+### Patch Changes
+
+- [`3c60160da56`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3c60160da56) - Update usages of token color.border.input to color.input
+
 ## 26.27.0
 
 ### Minor Changes

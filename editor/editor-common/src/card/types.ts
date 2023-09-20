@@ -1,11 +1,11 @@
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type {
   EditorState,
   Transaction,
 } from '@atlaskit/editor-prosemirror/state';
 
-import { ACTION, EditorAnalyticsAPI, INPUT_METHOD } from '../analytics';
+import type { ACTION, EditorAnalyticsAPI, INPUT_METHOD } from '../analytics';
 import type { CardAppearance } from '../provider-factory';
 import type { Command } from '../types';
 

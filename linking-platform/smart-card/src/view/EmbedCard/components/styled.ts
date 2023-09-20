@@ -187,7 +187,7 @@ const visibleStyles = `
       getBooleanFF(
         'platform.linking-platform.smart-card.show-smart-links-refreshed-design',
       )
-        ? `border: 1px solid ${token('color.border.input', N40)};
+        ? `border: 1px solid ${token('color.border', N40)};
            background-color: ${themed({
              light: token('elevation.surface.raised', 'white'),
              dark: token('elevation.surface.raised', BACKGROUND_COLOR_DARK),
@@ -281,7 +281,7 @@ export const Content = styled.div`
     'platform.linking-platform.smart-card.show-smart-links-refreshed-design',
   )
     ? `${contentBorderRadius};
-       border: 1px solid ${token('color.border.input', N40)};`
+       border: 1px solid ${token('color.border', N40)};`
     : borderRadius}
   background-color: ${token('elevation.surface.raised', 'white')};
   position: absolute;

@@ -1,4 +1,4 @@
-import { waitFor } from '@testing-library/dom';
+import { waitFor } from '@testing-library/react';
 
 import __noop from '@atlaskit/ds-lib/noop';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
@@ -204,16 +204,17 @@ describe('setGlobalTheme style loading', () => {
     expect(dataThemes.sort()).toEqual(['dark', 'spacing', 'typography']);
   });
 
-  it('should load the border theme override CSS on the page when the feature flag is enabled', async () => {
-    (getBooleanFF as jest.Mock).mockImplementation(
-      (name) => name === 'platform.design-system-team.border-checkbox_nyoiu',
+  it('should load all feature flagged themes in the expected order', async () => {
+    (getBooleanFF as jest.Mock).mockImplementation((name) =>
+      [
+        'platform.design-system-team.saturated-palette-changes_asoro',
+        'platform.design-system-team.border-checkbox_nyoiu',
+      ].includes(name),
     );
 
     await setGlobalTheme({
       dark: 'dark',
       light: 'light',
-      spacing: 'spacing',
-      typography: 'typography',
     });
 
     // Wait for styles to be added to the page
@@ -230,12 +231,95 @@ describe('setGlobalTheme style loading', () => {
       el.getAttribute('data-theme'),
     );
 
-    expect(dataThemes.sort()).toEqual([
-      'dark',
-      'dark-new-input-border',
-      'light',
+    expect(dataThemes).toEqual([
+      // 'light', // Replaced with saturated palette
+      // 'dark',  // Replaced with saturated palette
+      'light-saturated-palette-changes',
+      'dark-saturated-palette-changes',
       'spacing',
-      'typography',
+      'light-new-input-border',
+      'dark-new-input-border',
+    ]);
+  });
+
+  it('should load all feature flagged themes in the expected order when switching color modes', async () => {
+    (getBooleanFF as jest.Mock).mockImplementation((name) =>
+      [
+        'platform.design-system-team.saturated-palette-changes_asoro',
+        'platform.design-system-team.border-checkbox_nyoiu',
+      ].includes(name),
+    );
+
+    await setGlobalTheme({
+      colorMode: 'light',
+    });
+
+    await setGlobalTheme({
+      colorMode: 'dark',
+    });
+
+    // Wait for styles to be added to the page
+    await waitFor(() => {
+      const styleElements = document.querySelectorAll(
+        `style[${THEME_DATA_ATTRIBUTE}]`,
+      );
+      expect(styleElements).toHaveLength(5);
+    });
+
+    // Validate that the data-theme attributes match the expected values
+    const styleElements = document.querySelectorAll('style');
+    const dataThemes = Array.from(styleElements).map((el) =>
+      el.getAttribute('data-theme'),
+    );
+
+    expect(dataThemes).toEqual([
+      //'light', // Replaced with saturated palette
+      'light-saturated-palette-changes',
+      'spacing',
+      'light-new-input-border',
+      //'dark', // Replaced with saturated palette
+      'dark-saturated-palette-changes',
+      'dark-new-input-border',
+    ]);
+  });
+
+  it('should load all feature flagged themes in the expected order when switching feature flags', async () => {
+    (getBooleanFF as jest.Mock).mockImplementation((name) =>
+      ['platform.design-system-team.saturated-palette-changes_asoro'].includes(
+        name,
+      ),
+    );
+
+    await setGlobalTheme({});
+
+    (getBooleanFF as jest.Mock).mockImplementation((name) =>
+      ['platform.design-system-team.border-checkbox_nyoiu'].includes(name),
+    );
+
+    await setGlobalTheme({});
+
+    // Wait for styles to be added to the page
+    await waitFor(() => {
+      const styleElements = document.querySelectorAll(
+        `style[${THEME_DATA_ATTRIBUTE}]`,
+      );
+      expect(styleElements).toHaveLength(7);
+    });
+
+    // Validate that the data-theme attributes match the expected values
+    const styleElements = document.querySelectorAll('style');
+    const dataThemes = Array.from(styleElements).map((el) =>
+      el.getAttribute('data-theme'),
+    );
+
+    expect(dataThemes).toEqual([
+      'light-saturated-palette-changes',
+      'dark-saturated-palette-changes',
+      'spacing',
+      'light',
+      'dark',
+      'light-new-input-border',
+      'dark-new-input-border',
     ]);
   });
 

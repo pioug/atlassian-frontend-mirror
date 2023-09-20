@@ -333,19 +333,6 @@ export type FeatureFlags = {
 
   /**
    * @description
-   * Expanded chart color options from 20 to 36, uses design tokens to enable light/dark mode colors.
-   *
-   * @see https://product-fabric.atlassian.net/wiki/spaces/EUXQ/pages/3472785427/EXTERNAL+MAKE+PP+COMMIT-5233+Enable+Themed+rendering+of+remaining+UGC+Editor+content+tables+custom+panels+and+extension+color+palettes
-   * @see https://product-fabric.atlassian.net/browse/ED-17086
-   * @see https://product-fabric.atlassian.net/browse/ED-17132
-   * DUE DATE: June 2023
-   *
-   * @default false
-   */
-  expandedChartColors?: boolean | undefined;
-
-  /**
-   * @description
    * Enable the new editor media resize experience.
    *
    * @see https://product-fabric.atlassian.net/browse/ED-18316

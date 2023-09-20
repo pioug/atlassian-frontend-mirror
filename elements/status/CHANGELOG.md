@@ -1,5 +1,11 @@
 # @atlaskit/status
 
+## 1.4.0
+
+### Minor Changes
+
+- [`11861bb36d4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/11861bb36d4) - [ux] [ECA11Y-44] [ECA11Y-22] [ECA11Y-19] Change the focus order in the status popup to improve accessibility.
+
 ## 1.3.7
 
 ### Patch Changes

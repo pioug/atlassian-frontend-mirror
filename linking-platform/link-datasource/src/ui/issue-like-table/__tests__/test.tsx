@@ -22,15 +22,30 @@ import {
   TableViewPropsRenderType,
 } from '../types';
 
-const mockUfoSuccess = jest.fn();
+const mockColumnPickerUfoStart = jest.fn();
+const mockColumnPickerUfoAddMetadata = jest.fn();
+const mockTableRenderUfoSuccess = jest.fn();
 
 jest.mock('@atlaskit/ufo', () => ({
   __esModule: true,
   ...jest.requireActual<Object>('@atlaskit/ufo'),
-  ConcurrentExperience: (): Partial<ConcurrentExperience> => ({
-    getInstance: jest.fn().mockImplementation(() => ({
-      success: mockUfoSuccess,
-    })),
+  ConcurrentExperience: (
+    experienceId: string,
+  ): Partial<ConcurrentExperience> => ({
+    experienceId: experienceId,
+    getInstance: jest.fn().mockImplementation(() => {
+      if (experienceId === 'datasource-rendered') {
+        return {
+          success: mockTableRenderUfoSuccess,
+        };
+      }
+      if (experienceId === 'column-picker-rendered') {
+        return {
+          start: mockColumnPickerUfoStart,
+          addMetadata: mockColumnPickerUfoAddMetadata,
+        };
+      }
+    }),
   }),
 }));
 
@@ -941,48 +956,93 @@ describe('UFO metrics: IssueLikeDataTableView', () => {
     jest.clearAllMocks();
   });
 
-  it('should mark Ufo experience as successful when data is loaded', async () => {
-    const items: DatasourceDataResponseItem[] = [
-      { id: { data: 'id1' } },
-      {
-        id: {
-          data: 'id2',
+  describe('TableRendered', async () => {
+    it('should mark Ufo experience as successful when data is loaded', async () => {
+      const items: DatasourceDataResponseItem[] = [
+        { id: { data: 'id1' } },
+        {
+          id: {
+            data: 'id2',
+          },
         },
-      },
-      {
-        id: {
-          data: 'id3',
+        {
+          id: {
+            data: 'id3',
+          },
         },
-      },
-    ];
+      ];
 
-    const columns: DatasourceResponseSchemaProperty[] = [
-      {
-        key: 'id',
-        title: 'ID',
-        type: 'string',
-      },
-    ];
+      const columns: DatasourceResponseSchemaProperty[] = [
+        {
+          key: 'id',
+          title: 'ID',
+          type: 'string',
+        },
+      ];
 
-    setup({
-      items,
-      columns,
-      parentContainerRenderInstanceId: '123',
+      setup({
+        items,
+        columns,
+        parentContainerRenderInstanceId: '123',
+      });
+
+      expect(mockTableRenderUfoSuccess).toHaveBeenCalled();
     });
 
-    expect(mockUfoSuccess).toHaveBeenCalled();
-  });
+    it('should not mark Ufo experience as successful when data is loading', async () => {
+      setup({
+        status: 'loading',
+        parentContainerRenderInstanceId: '123',
+      });
 
-  it('should not mark Ufo experience as successful when data is loading', async () => {
-    setup({
-      status: 'loading',
-      parentContainerRenderInstanceId: '123',
+      expect(mockTableRenderUfoSuccess).not.toHaveBeenCalled();
     });
 
-    expect(mockUfoSuccess).not.toHaveBeenCalled();
+    it('should not mark Ufo experience as successful when data is resolved but no parent instance id is passed', async () => {
+      expect(mockTableRenderUfoSuccess).not.toHaveBeenCalled();
+    });
   });
 
-  it('should not mark Ufo experience as successful when data is resolved but no parent instance id is passed', async () => {
-    expect(mockUfoSuccess).not.toHaveBeenCalled();
+  describe('ColumnPickerRendered', async () => {
+    it('should mark Ufo experience as started when column picker is opened', async () => {
+      const items: DatasourceDataResponseItem[] = [
+        { id: { data: 'id1' } },
+        {
+          id: {
+            data: 'id2',
+          },
+        },
+        {
+          id: {
+            data: 'id3',
+          },
+        },
+      ];
+
+      const columns: DatasourceResponseSchemaProperty[] = [
+        {
+          key: 'id',
+          title: 'ID',
+          type: 'string',
+        },
+      ];
+
+      jest.useFakeTimers();
+
+      const { getByTestId } = setup({
+        items,
+        columns,
+        parentContainerRenderInstanceId: 'abc',
+      });
+
+      const triggerButton = getByTestId('column-picker-trigger-button');
+      invariant(triggerButton);
+
+      // open popup
+      fireEvent.click(triggerButton);
+
+      expect(mockColumnPickerUfoStart).toHaveBeenCalledTimes(1);
+      expect(mockColumnPickerUfoAddMetadata).toHaveBeenCalledTimes(1);
+    });
   });
 });

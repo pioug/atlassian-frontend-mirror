@@ -39,3 +39,8 @@ export interface MediaViewerProps {
   // Retrieve auth based on a given context.
   readonly contextId?: string;
 }
+
+export type MediaMessage = {
+  source: 'media';
+  event: 'mediaViewerOpened' | 'mediaViewerClosed';
+};

@@ -6,6 +6,7 @@ import { lazyForPaint, LazySuspense } from 'react-loosely-lazy';
 
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { token } from '@atlaskit/tokens';
 
 import { COMPONENT_NAME, LINK_PICKER_WIDTH_IN_PX } from '../common/constants';
 import { PackageMetaDataType } from '../common/utils/analytics/analytics.codegen';
@@ -46,7 +47,7 @@ const FixedWidthContainer = (props: React.HTMLAttributes<HTMLDivElement>) => {
   return <div css={fixedWidthContainerStyles} {...props} />;
 };
 
-export const ComposedLinkPicker = memo((props: LinkPickerProps) => {
+const ComposedLinkPicker = memo((props: LinkPickerProps) => {
   const { component } = props;
   const RootComponent = component ?? DefaultRootComponent;
 
@@ -75,6 +76,14 @@ export const ComposedLinkPicker = memo((props: LinkPickerProps) => {
               ['--link-picker-width' as string]: props.disableWidth
                 ? '100%'
                 : `${LINK_PICKER_WIDTH_IN_PX}px`,
+              ['--link-picker-padding-left' as string]:
+                props.paddingLeft ?? token('space.200', '16px'),
+              ['--link-picker-padding-right' as string]:
+                props.paddingRight ?? token('space.200', '16px'),
+              ['--link-picker-padding-top' as string]:
+                props.paddingTop ?? token('space.200', '16px'),
+              ['--link-picker-padding-bottom' as string]:
+                props.paddingBottom ?? token('space.200', '16px'),
             }}
           >
             <RootFixedWidthContainer>
@@ -105,3 +114,7 @@ export const ComposedLinkPicker = memo((props: LinkPickerProps) => {
     </AnalyticsContext>
   );
 });
+
+// Must be a default export to be able to support prop docs
+// eslint-disable-next-line import/no-default-export
+export default ComposedLinkPicker;

@@ -1,5 +1,54 @@
 # @atlaskit/editor-core
 
+## 187.44.8
+
+### Patch Changes
+
+- [`966f90e1edf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/966f90e1edf) - [ux] [ECA11Y-44] Adjust 'Popup' component so that it doesn't always have to have 'aria-label' attribute displayed
+
+## 187.44.7
+
+### Patch Changes
+
+- [`beb32df5147`](https://bitbucket.org/atlassian/atlassian-frontend/commits/beb32df5147) - [ECA11Y-45] [ECA11Y-22] Change the tab key handling the status popup to improve accessibility.
+- Updated dependencies
+
+## 187.44.6
+
+### Patch Changes
+
+- [`21305ee6254`](https://bitbucket.org/atlassian/atlassian-frontend/commits/21305ee6254) - ED-19874 Align the dropdown with the floating toolbar if there is a single button in the toolbar
+- [`f7f51be4eac`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f7f51be4eac) - [ux] ED-19784: Adjust logic in onCreateSelectionBetween logic to prevent premature selections on multi-line selections inside block nodes.
+- Updated dependencies
+
+## 187.44.4
+
+### Patch Changes
+
+- [`fa39c6ce044`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fa39c6ce044) - [ED-19775] Decouple selection plugin from the editor-core code
+- [`6b0dd092ac1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6b0dd092ac1) - ED-19729 media single performance optimization
+- Updated dependencies
+
+## 187.44.3
+
+### Patch Changes
+
+- [`bb3d72ef732`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bb3d72ef732) - ED-20041 added check for external media
+
+## 187.44.2
+
+### Patch Changes
+
+- [`66fc865caaf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/66fc865caaf) - Added handling for case when mediaSingle childNode is null
+- [`f98f51cda72`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f98f51cda72) - Fixed typo in comment
+- Updated dependencies
+
+## 187.44.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 187.44.0
 
 ### Minor Changes

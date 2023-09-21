@@ -1,5 +1,6 @@
 import { overrideEmbedContent } from '../../../../../examples/utils/common';
 import { SmartLinkActionType } from '@atlaskit/linking-types';
+import { JsonLd } from 'json-ld-types';
 
 export const mockBaseResponse = {
   meta: {
@@ -131,6 +132,23 @@ export const mockJiraResponse = {
   },
 };
 
+export const mockJiraResponseWithDatasources = {
+  ...mockJiraResponse,
+  datasources: [
+    {
+      key: 'datasource-jira-issues',
+      parameters: {
+        jql: '(text ~ "test*" OR summary ~ "test*") order by created DESC',
+        cloudId: '16f8b71e',
+      },
+      id: '1234-test-id-321',
+      ari: 'ari:cloud:linking-platform::datasource/1234-test-id-321',
+      description: 'For extracting a list of Jira issues using JQL',
+      name: 'Jira issues',
+    },
+  ],
+};
+
 export const mockIframelyResponse = {
   meta: {
     ...mockBaseResponse.meta,
@@ -240,7 +258,7 @@ export const mockSSRResponse = {
   },
 };
 
-export const mockUnauthorisedResponse = {
+export const mockUnauthorisedResponse: JsonLd.Response = {
   meta: {
     access: 'unauthorized',
     visibility: 'restricted',

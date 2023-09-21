@@ -1,9 +1,14 @@
-import { CellAttributes } from '@atlaskit/adf-schema';
+import type { CellAttributes } from '@atlaskit/adf-schema';
 import { AddColumnStep } from '@atlaskit/adf-schema/steps';
-import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { Selection, Transaction } from '@atlaskit/editor-prosemirror/state';
-import { Rect, TableMap } from '@atlaskit/editor-tables/table-map';
+import { TABLE_OVERFLOW_CHANGE_TRIGGER } from '@atlaskit/editor-common/analytics';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+import { Selection } from '@atlaskit/editor-prosemirror/state';
+import type { Rect } from '@atlaskit/editor-tables/table-map';
+import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { findTable } from '@atlaskit/editor-tables/utils';
+
+import { META_KEYS } from '../pm-plugins/table-analytics';
 
 import { splitCellsInColumns } from './split';
 
@@ -244,6 +249,9 @@ function fixRowSpans(table: PMNode): PMNode | null {
 export const deleteColumns =
   (rect: Rect, allowAddColumnCustomStep = false) =>
   (tr: Transaction): Transaction => {
+    tr.setMeta(META_KEYS.OVERFLOW_TRIGGER, {
+      name: TABLE_OVERFLOW_CHANGE_TRIGGER.DELETED_COLUMN,
+    });
     if (allowAddColumnCustomStep) {
       return deleteColumnsCustomStep(rect)(tr);
     }

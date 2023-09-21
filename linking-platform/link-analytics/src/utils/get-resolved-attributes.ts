@@ -1,6 +1,7 @@
 import { JsonLd } from 'json-ld-types';
 
 import { CardType, getStatus } from '@atlaskit/linking-common';
+import { JsonLdDatasourceResponse } from '@atlaskit/link-client-extension';
 
 import { ResolvedAttributesType } from '../common/utils/analytics/analytics.codegen';
 import { getDisplayCategory } from './get-display-category';
@@ -33,5 +34,7 @@ export const getResolvedAttributes = (
     destinationSubproduct: details?.meta?.subproduct ?? null,
     destinationObjectId: details?.meta?.objectId ?? null,
     destinationObjectType: details?.meta?.resourceType ?? null,
+    canBeDatasource:
+      ((details as JsonLdDatasourceResponse)?.datasources || []).length > 0,
   };
 };

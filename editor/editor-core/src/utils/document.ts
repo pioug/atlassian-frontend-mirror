@@ -24,42 +24,6 @@ import {
 
 export { findFarthestParentNode } from '@atlaskit/editor-common/utils';
 
-/**
- * Checks if a node has any content. Ignores node that only contain empty block nodes.
- */
-export function isNodeEmpty(node?: Node): boolean {
-  if (node && node.textContent) {
-    return false;
-  }
-
-  if (
-    !node ||
-    !node.childCount ||
-    (node.childCount === 1 && isEmptyParagraph(node.firstChild))
-  ) {
-    return true;
-  }
-
-  const block: Node[] = [];
-  const nonBlock: Node[] = [];
-
-  node.forEach((child) => {
-    child.isInline ? nonBlock.push(child) : block.push(child);
-  });
-
-  return (
-    !nonBlock.length &&
-    !block.filter(
-      (childNode) =>
-        (!!childNode.childCount &&
-          !(
-            childNode.childCount === 1 && isEmptyParagraph(childNode.firstChild)
-          )) ||
-        childNode.isAtom,
-    ).length
-  );
-}
-
 export function isInEmptyLine(state: EditorState) {
   const { selection } = state;
   const { $cursor, $anchor } = selection as TextSelection;

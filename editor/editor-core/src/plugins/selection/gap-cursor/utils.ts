@@ -8,7 +8,7 @@ import {
   UnsupportedSharedCssClassName,
 } from '@atlaskit/editor-common/styles';
 import { Side } from './selection';
-import { CAPTION_PLACEHOLDER_ID } from '../../media/ui/CaptionPlaceholder';
+import { CAPTION_PLACEHOLDER_ID } from '@atlaskit/editor-common/media-single';
 
 export const isLeftCursor = (side: Side): side is Side.LEFT =>
   side === Side.LEFT;
@@ -177,7 +177,7 @@ export const isIgnoredClick = (elem: HTMLElement) => {
   return false;
 };
 
-/* 
+/*
   Calculates custom style for breakout mode
   Mainly to handle table width to include the numbered column width as well
 */

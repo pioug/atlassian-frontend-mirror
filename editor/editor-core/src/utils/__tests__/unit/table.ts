@@ -1,27 +1,28 @@
-import type { DocBuilder } from '@atlaskit/editor-common/types';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import {
-  doc,
-  p,
-  table,
-  tr,
-  td,
-  tdEmpty,
-} from '@atlaskit/editor-test-helpers/doc-builder';
-import { isPositionNearTableRow } from '../../table';
-import selectionPlugin from '../../../plugins/selection';
-import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
+import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
+import { tablesPlugin } from '@atlaskit/editor-plugin-table';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   createProsemirrorEditorFactory,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import { tablesPlugin } from '@atlaskit/editor-plugin-table';
-import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
-import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
-import { widthPlugin } from '@atlaskit/editor-plugin-width';
-import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import {
+  doc,
+  p,
+  table,
+  td,
+  tdEmpty,
+  tr,
+} from '@atlaskit/editor-test-helpers/doc-builder';
+
+import type { DocBuilder } from '@atlaskit/editor-common/types';
+import { isPositionNearTableRow } from '@atlaskit/editor-common/utils';
 
 const editorFactory = (doc: DocBuilder) => {
   const editor = createProsemirrorEditorFactory()({
@@ -32,7 +33,6 @@ const editorFactory = (doc: DocBuilder) => {
       .add(contentInsertionPlugin)
       .add(widthPlugin)
       .add(guidelinePlugin)
-      .add(selectionPlugin)
       .add(tablesPlugin),
   });
   const { state } = editor.editorView;

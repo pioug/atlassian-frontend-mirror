@@ -11,7 +11,7 @@
     "./docs/**/*.tsx",
     "test-helpers/**/*.ts",
     "test-helpers/**/*.tsx"
-  ],
+, "../editor-core/src/utils/__tests__/unit/table.ts"  ],
   "exclude": [
     "node_modules",
     "src/json-schema",

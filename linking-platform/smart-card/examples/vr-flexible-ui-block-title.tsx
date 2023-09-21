@@ -40,13 +40,15 @@ const renderResolvedView = ({
   theme,
 }: TitleBlockProps) => {
   const cardState = getCardState({
-    '@type': 'atlassian:Project',
-    'atlassian:state': 'open',
-    attributedTo: [
-      { '@type': 'Person', name: 'Atlassian A' },
-      { '@type': 'Person', name: 'Atlassian B' },
-      { '@type': 'Person', name: 'Atlassian C' },
-    ],
+    data: {
+      '@type': 'atlassian:Project',
+      'atlassian:state': 'open',
+      attributedTo: [
+        { '@type': 'Person', name: 'Atlassian A' },
+        { '@type': 'Person', name: 'Atlassian B' },
+        { '@type': 'Person', name: 'Atlassian C' },
+      ],
+    },
   });
   return (
     <FlexibleCard cardState={cardState} ui={{ size, theme }} url="link-url">
@@ -82,7 +84,7 @@ const renderErroredView = (
   size: SmartLinkSize = SmartLinkSize.Medium,
   data = {},
 ) => {
-  const cardState = getCardState(data, meta, status);
+  const cardState = getCardState({ data, meta, status });
   return (
     <FlexibleCard
       cardState={cardState}

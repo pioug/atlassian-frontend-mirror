@@ -1,5 +1,28 @@
 # @atlaskit/editor-plugin-table
 
+## 3.1.0
+
+### Minor Changes
+
+- [`20d1964ba9d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/20d1964ba9d) - Adds a new table-analytics plugin to collect payload information and dispatch a new tableOverflowChanged event
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.5
+
+### Patch Changes
+
+- [`45f669fac0c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/45f669fac0c) - Reduce the width of the last column resizer handle to 5px, this was previously 10px and would interfer with the table cell menu button and other nodes that that also had resize handles
+- Updated dependencies
+
+## 3.0.4
+
+### Patch Changes
+
+- [`9e36c4aec5c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9e36c4aec5c) - Fixed a bug in the local id plugin where it was deferred dispatching a transaction created from and old state causing the "Applying a mismatched transaction" runtime error to occur.
+
 ## 3.0.3
 
 ### Patch Changes

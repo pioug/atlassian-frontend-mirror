@@ -48,21 +48,21 @@ export class EditorPresetBuilder<
     );
   }
 
-  //hasPlugin<Plugin extends NextEditorPlugin<any, any>>(
-  //  pluginToAdd: Plugin,
-  //): this is TryCastEditorPresetBuilderByCheckingPlugins<this, Plugin> {
-  //  const hasPluginQueryExists = this.data.find((pluginEntry) => {
-  //    const pluginFunction: NextEditorPlugin<any, any> = !Array.isArray(
-  //      pluginEntry,
-  //    )
-  //      ? pluginEntry
-  //      : pluginEntry[0];
+  // hasPlugin<Plugin extends NextEditorPlugin<any, any>>(
+  //   pluginToAdd: Plugin,
+  // ): this is TryCastEditorPresetBuilderByCheckingPlugins<this, Plugin> {
+  //   const hasPluginQueryExists = this.data.find((pluginEntry) => {
+  //     const pluginFunction: NextEditorPlugin<any, any> = !Array.isArray(
+  //       pluginEntry,
+  //     )
+  //       ? pluginEntry
+  //       : pluginEntry[0];
 
-  //    return pluginFunction === pluginToAdd;
-  //  });
+  //     return pluginFunction === pluginToAdd;
+  //   });
 
-  //  return Boolean(hasPluginQueryExists);
-  //}
+  //   return Boolean(hasPluginQueryExists);
+  // }
 
   maybeAdd<
     MaybePlugin extends NextEditorPlugin<any, any>,
@@ -183,39 +183,39 @@ export class EditorPresetBuilder<
     Array.isArray(plugin) ? plugin : [plugin, undefined];
 
   // TODO: ED-17023 - Bring back type safety to the EditorPresetBuilder.add preset
-  //import type {
-  //  ExtractPluginDependencies,
-  //} from '../types/next-editor-plugin';
-  //type TryCastEditorPresetBuilderByCheckingDependencies<MaybeEditorPresetBuilder, Plugin> =
-  //  MaybeEditorPresetBuilder extends EditorPresetBuilder<any, infer StackPlugins>
-  //    ? Plugin extends NextEditorPlugin<any, any>
-  //      ? ExtractPluginDependencies<Plugin>[number] extends StackPlugins[number]
-  //        ? MaybeEditorPresetBuilder
-  //        : never
-  //      : never
-  //    : never;
-  // Because how our plugins are added in the preset, we can't use the type safe system
-  // in the EditorPresetBuilder.
-  // TODO: ED-17023 - Bring back type safety to the EditorPresetBuilder.add preset
-  //maybeAdd<
-  //  MaybePlugin extends NextEditorPlugin<any, any>,
-  //  MaybePluginNames extends string[],
-  //  MaybeStackPlugins extends AllEditorPresetPluginTypes[],
-  //  MaybeEditorPresetBuilder extends EditorPresetBuilder<
-  //    MaybePluginNames,
-  //    MaybeStackPlugins
-  //  >,
-  //>(
-  //  pluginToAdd: MaybePlugin,
-  //   add: (
-  //     pluginToAdd: MaybePlugin,
-  //     maybeEditorPresetBuilder: TryCastEditorPresetBuilderByCheckingDependencies<this, MaybePlugin>,
-  //   ) => MaybeEditorPresetBuilder,
-  //): MaybeEditorPresetBuilder | this {
-  //  return add(
-  //    pluginToAdd,
-  //    //  @ts-ignore
-  //    this as any,
-  //  );
-  //}
+  // import type {
+  //   ExtractPluginDependencies,
+  // } from '../types/next-editor-plugin';
+  // type TryCastEditorPresetBuilderByCheckingDependencies<MaybeEditorPresetBuilder, Plugin> =
+  //   MaybeEditorPresetBuilder extends EditorPresetBuilder<any, infer StackPlugins>
+  //     ? Plugin extends NextEditorPlugin<any, any>
+  //       ? ExtractPluginDependencies<Plugin>[number] extends StackPlugins[number]
+  //         ? MaybeEditorPresetBuilder
+  //         : never
+  //       : never
+  //     : never;
+  //  Because how our plugins are added in the preset, we can't use the type safe system
+  //  in the EditorPresetBuilder.
+  //  TODO: ED-17023 - Bring back type safety to the EditorPresetBuilder.add preset
+  // maybeAdd<
+  //   MaybePlugin extends NextEditorPlugin<any, any>,
+  //   MaybePluginNames extends string[],
+  //   MaybeStackPlugins extends AllEditorPresetPluginTypes[],
+  //   MaybeEditorPresetBuilder extends EditorPresetBuilder<
+  //     MaybePluginNames,
+  //     MaybeStackPlugins
+  //   >,
+  // >(
+  //   pluginToAdd: MaybePlugin,
+  //    add: (
+  //      pluginToAdd: MaybePlugin,
+  //      maybeEditorPresetBuilder: TryCastEditorPresetBuilderByCheckingDependencies<this, MaybePlugin>,
+  //    ) => MaybeEditorPresetBuilder,
+  // ): MaybeEditorPresetBuilder | this {
+  //   return add(
+  //     pluginToAdd,
+  //     //  @ts-ignore
+  //     this as any,
+  //   );
+  // }
 }

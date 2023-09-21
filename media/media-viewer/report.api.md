@@ -31,6 +31,12 @@ interface AsyncMediaViewerState {
 }
 
 // @public (undocumented)
+export type MediaMessage = {
+  source: 'media';
+  event: 'mediaViewerClosed' | 'mediaViewerOpened';
+};
+
+// @public (undocumented)
 export class MediaViewer extends React_2.PureComponent<
   MediaViewerWithMediaClientConfigProps,
   AsyncMediaViewerState

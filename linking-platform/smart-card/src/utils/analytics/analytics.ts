@@ -555,6 +555,7 @@ export const uiRenderSuccessEvent = ({
   destinationProduct,
   destinationSubproduct,
   location,
+  canBeDatasource,
 }: UiRenderSuccessEventProps): AnalyticsPayload => ({
   action: 'renderSuccess',
   actionSubject: 'smartLink',
@@ -568,6 +569,7 @@ export const uiRenderSuccessEvent = ({
     destinationSubproduct,
     location,
     display,
+    canBeDatasource,
   },
 });
 

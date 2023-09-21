@@ -40,6 +40,32 @@ export const mockByUrl = (url: string) => {
   } as JsonLd.Response;
 };
 
+const errorResponseData = {
+  '@context': {
+    '@vocab': 'https://www.w3.org/ns/activitystreams#',
+    atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
+    schema: 'http://schema.org/',
+  },
+  '@type': 'Object',
+  name: 'I love cheese',
+  url: 'https://some.url',
+};
+
+const successfulResponseData = {
+  ...errorResponseData,
+  summary: 'Here is your serving of cheese: 🧀',
+  'schema:potentialAction': {
+    '@id': 'download',
+    '@type': 'DownloadAction',
+    identifier: 'object-provider',
+    name: 'Download',
+  },
+  'atlassian:downloadUrl': 'https://some-download.url',
+  preview: {
+    href: 'https://www.ilovecheese.com',
+  },
+};
+
 export const mocks = {
   success: {
     meta: {
@@ -49,27 +75,7 @@ export const mocks = {
       definitionId: 'd1',
       key: 'object-provider',
     },
-    data: {
-      '@context': {
-        '@vocab': 'https://www.w3.org/ns/activitystreams#',
-        atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
-        schema: 'http://schema.org/',
-      },
-      '@type': 'Object',
-      name: 'I love cheese',
-      summary: 'Here is your serving of cheese: 🧀',
-      'schema:potentialAction': {
-        '@id': 'download',
-        '@type': 'DownloadAction',
-        identifier: 'object-provider',
-        name: 'Download',
-      },
-      'atlassian:downloadUrl': 'https://some-download.url',
-      preview: {
-        href: 'https://www.ilovecheese.com',
-      },
-      url: 'https://some.url',
-    },
+    data: successfulResponseData,
   } as JsonLd.Response,
   notFound: {
     meta: {
@@ -79,16 +85,7 @@ export const mocks = {
       definitionId: 'd1',
       key: 'object-provider',
     },
-    data: {
-      '@context': {
-        '@vocab': 'https://www.w3.org/ns/activitystreams#',
-        atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
-        schema: 'http://schema.org/',
-      },
-      '@type': 'Object',
-      name: 'I love cheese',
-      url: 'https://some.url',
-    },
+    data: errorResponseData,
   } as JsonLd.Response,
   forbidden: {
     meta: {
@@ -104,16 +101,7 @@ export const mocks = {
       definitionId: 'd1',
       key: 'object-provider',
     },
-    data: {
-      '@context': {
-        '@vocab': 'https://www.w3.org/ns/activitystreams#',
-        atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
-        schema: 'http://schema.org/',
-      },
-      '@type': 'Object',
-      name: 'I love cheese',
-      url: 'https://some.url',
-    },
+    data: errorResponseData,
   } as JsonLd.Response,
   forbiddenWithNoAuth: {
     meta: {
@@ -123,16 +111,7 @@ export const mocks = {
       definitionId: 'd1',
       key: 'object-provider',
     },
-    data: {
-      '@context': {
-        '@vocab': 'https://www.w3.org/ns/activitystreams#',
-        atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
-        schema: 'http://schema.org/',
-      },
-      '@type': 'Object',
-      name: 'I love cheese',
-      url: 'https://some.url',
-    },
+    data: errorResponseData,
   } as JsonLd.Response,
   unauthorized: {
     meta: {
@@ -148,16 +127,7 @@ export const mocks = {
       definitionId: 'd1',
       key: 'object-provider',
     },
-    data: {
-      '@context': {
-        '@vocab': 'https://www.w3.org/ns/activitystreams#',
-        atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
-        schema: 'http://schema.org/',
-      },
-      '@type': 'Object',
-      name: 'I love cheese',
-      url: 'https://some.url',
-    },
+    data: errorResponseData,
   } as JsonLd.Response,
   unauthorizedWithNoAuth: {
     meta: {
@@ -167,16 +137,7 @@ export const mocks = {
       definitionId: 'd1',
       key: 'object-provider',
     },
-    data: {
-      '@context': {
-        '@vocab': 'https://www.w3.org/ns/activitystreams#',
-        atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
-        schema: 'http://schema.org/',
-      },
-      '@type': 'Object',
-      name: 'I love cheese',
-      url: 'https://some.url',
-    },
+    data: errorResponseData,
   } as JsonLd.Response,
   actionSuccess: {
     meta: {
@@ -200,6 +161,29 @@ export const mocks = {
         product: 'spaghetti-product',
       },
     },
+  },
+  withDatasource: {
+    meta: {
+      visibility: 'public',
+      access: 'granted',
+      auth: [],
+      definitionId: 'd1',
+      key: 'object-provider',
+    },
+    data: successfulResponseData,
+    datasources: [
+      {
+        key: 'datasource-jira-issues',
+        parameters: {
+          jql: '(text ~ "test*" OR summary ~ "test*") order by created DESC',
+          cloudId: '16f8b71e',
+        },
+        id: '1234-test-id-321',
+        ari: 'ari:cloud:linking-platform::datasource/1234-test-id-321',
+        description: 'For extracting a list of Jira issues using JQL',
+        name: 'Jira issues',
+      },
+    ],
   },
 };
 export const fakeResponse = () => Promise.resolve(mocks.success);

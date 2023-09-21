@@ -18,7 +18,18 @@ export const relativeFontSizeToBase16 = (px: number | string) => {
 
 const listItemBaseStyles = css`
   display: flex;
-  padding: ${token('space.100', '8px')} ${token('space.200', '16px')};
+  padding-top: ${token('space.100', '8px')};
+  padding-bottom: ${token('space.100', '8px')};
+  padding-left: clamp(
+    ${token('space.100', '8px')},
+    var(--link-picker-padding-left),
+    100%
+  );
+  padding-right: clamp(
+    ${token('space.100', '8px')},
+    var(--link-picker-padding-right),
+    100%
+  );
   margin: 0;
   cursor: pointer;
 `;

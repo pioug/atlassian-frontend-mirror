@@ -387,16 +387,6 @@ describe('link-picker', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
-  it('Should provide an error message when an error is caught in the error boundary', async () => {
-    const url = getURL('root-error-boundary');
-    const page = await setup(url);
-
-    testSelector = '[data-testid="link-picker-root-error-boundary-ui"]';
-    await page.waitForSelector(testSelector);
-    const image = await takeElementScreenShot(page, testSelector);
-    expect(image).toMatchProdImageSnapshot();
-  });
-
   it('Should provide an error message when an error is thrown by a plugin', async () => {
     const url = getURL('vr-handle-plugin-error');
     const page = await setup(url);
@@ -414,17 +404,6 @@ describe('link-picker', () => {
     await page.click('#link-picker-tabs-2');
 
     const image = await takeElementScreenShot(page, testSelector);
-    expect(image).toMatchProdImageSnapshot();
-  });
-
-  it('should have the same height as the skeleton whether or not the displayText field is shown', async () => {
-    const url = getURL('vr-lazy-load-height');
-    const page = await setup(url);
-
-    const image = await takeElementScreenShot(
-      page,
-      '[data-testid="link-picker-lazy-load-height"]',
-    );
     expect(image).toMatchProdImageSnapshot();
   });
 
@@ -454,33 +433,6 @@ describe('link-picker', () => {
       const page = await setup(url);
 
       const image = await takeElementScreenShot(page, testSelector);
-      expect(image).toMatchProdImageSnapshot();
-    },
-  );
-
-  ffTest(
-    'platform.linking-platform.link-picker.fixed-height-search-results',
-    async () => {
-      const url = getURL('root-error-boundary');
-      const page = await setup(url);
-
-      testSelector = '[data-testid="link-picker-root-error-boundary-ui"]';
-      await page.waitForSelector(testSelector);
-      const image = await takeElementScreenShot(page, testSelector);
-      expect(image).toMatchProdImageSnapshot();
-    },
-  );
-
-  ffTest(
-    'platform.linking-platform.link-picker.fixed-height-search-results',
-    async () => {
-      const url = getURL('vr-lazy-load-height');
-      const page = await setup(url);
-
-      const image = await takeElementScreenShot(
-        page,
-        '[data-testid="link-picker-lazy-load-height"]',
-      );
       expect(image).toMatchProdImageSnapshot();
     },
   );

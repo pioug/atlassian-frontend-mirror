@@ -1,10 +1,10 @@
-import {
+import type {
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
   INPUT_METHOD,
 } from './enums';
-import { TrackAEP } from './utils';
+import type { TrackAEP } from './utils';
 
 export type AnnotationActionType =
   | ACTION.INSERTED
@@ -31,7 +31,7 @@ export type AnnotationAEPAttributes =
 
 export type AnnotationDraftAEPAttributes = {
   inputMethod: INPUT_METHOD.TOOLBAR | INPUT_METHOD.SHORTCUT;
-  //overlap is how many other annotations are within or overlapping with the new selection
+  // overlap is how many other annotations are within or overlapping with the new selection
   overlap: number;
 };
 

@@ -4,6 +4,7 @@ import { act, fireEvent, render } from '@testing-library/react';
 import { replaceRaf, Stub } from 'raf-stub';
 
 import { KEY_DOWN, KEY_END, KEY_HOME, KEY_UP } from '@atlaskit/ds-lib/keycodes';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../../index';
 
@@ -435,21 +436,16 @@ describe('dropdown menu keyboard navigation', () => {
     expect(getByText('Move').closest('button')).toHaveFocus();
 
     // Bring the focus to the last element
-    act(() => {
-      fireEvent.keyDown(getByTestId('dropdown--trigger'), {
-        key: KEY_END,
-        code: KEY_END,
-      });
+    fireEvent.keyDown(getByTestId('dropdown--trigger'), {
+      key: KEY_END,
+      code: KEY_END,
     });
     requestAnimationFrame.step();
 
-    act(() => {
-      fireEvent.keyDown(getByTestId('dropdown--trigger'), {
-        key: KEY_DOWN,
-        code: KEY_DOWN,
-      });
+    fireEvent.keyDown(getByTestId('dropdown--trigger'), {
+      key: KEY_DOWN,
+      code: KEY_DOWN,
     });
-
     // Assert that the focus hasn't looped over to the first element
     expect(getByText('Delete').closest('button')).toHaveFocus();
   });
@@ -503,44 +499,51 @@ describe('dropdown menu keyboard navigation', () => {
         </DropdownMenu>
       );
     };
-    it('should have arrow navigation work', async () => {
-      const { getByTestId } = render(<NestedDropdown />);
-      let level = 0;
-      while (level < 3) {
-        // test nested dropdown can be opened correctly
+    ffTest(
+      'platform.design-system-team.layering_qmiw3',
+      // Test when true
+      () => {
+        const { getByTestId } = render(<NestedDropdown />);
+        let level = 0;
+        while (level < 3) {
+          // test nested dropdown can be opened correctly
+          const nestedTrigger = getByTestId(`nested-${level}--trigger`);
+          expect(nestedTrigger).toBeInTheDocument();
+          openDropdownWithKeydown(nestedTrigger);
+          level += 1;
+        }
         const nestedTrigger = getByTestId(`nested-${level}--trigger`);
-        expect(nestedTrigger).toBeInTheDocument();
-        openDropdownWithKeydown(nestedTrigger);
-        level += 1;
-      }
-      const nestedTrigger = getByTestId(`nested-${level}--trigger`);
-      expect(nestedTrigger.closest('button')).toHaveFocus();
-      // test on arrow navigation
-      act(() => {
+        expect(nestedTrigger.closest('button')).toHaveFocus();
+        // test on arrow navigation
         fireEvent.keyDown(window, {
           key: KEY_DOWN,
           code: KEY_DOWN,
         });
-      });
-      const nestedItem1 = getByTestId(`nested-item1-${level}`);
-      expect(nestedItem1.closest('button')).toHaveFocus();
+        const nestedItem1 = getByTestId(`nested-item1-${level}`);
+        expect(nestedItem1.closest('button')).toHaveFocus();
 
-      act(() => {
         fireEvent.keyDown(window, {
           key: KEY_DOWN,
           code: KEY_DOWN,
         });
-      });
-      const nestedItem2 = getByTestId(`nested-item2-${level}`);
-      expect(nestedItem2.closest('button')).toHaveFocus();
+        const nestedItem2 = getByTestId(`nested-item2-${level}`);
+        expect(nestedItem2.closest('button')).toHaveFocus();
 
-      act(() => {
         fireEvent.keyDown(window, {
           key: KEY_UP,
           code: KEY_UP,
         });
-      });
-      expect(nestedItem1.closest('button')).toHaveFocus();
-    });
+        expect(nestedItem1.closest('button')).toHaveFocus();
+      },
+      () => {
+        const { getByTestId } = render(<NestedDropdown />);
+        // test nested dropdown can be opened correctly
+        const nestedTrigger = getByTestId('nested-0--trigger');
+        expect(nestedTrigger).toBeInTheDocument();
+        openDropdownWithKeydown(nestedTrigger);
+        const nestedItem1 = getByTestId('nested-1--trigger');
+        expect(nestedItem1.closest('button')).toHaveFocus();
+      },
+    );
   });
 });

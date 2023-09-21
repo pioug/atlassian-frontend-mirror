@@ -1,15 +1,16 @@
 // This file is copied to `packages/editor/editor-plugin-ai/src/ui/components/AtlassianIntelligenceToolbarButton/ToolbarButton/index.tsx`
 // If you make any change here, copy it to above file as well
-//  and notify about the change in #team-fc-editor-ai-dev channel.
+// and notify about the change in #team-fc-editor-ai-dev channel.
 /** @jsx jsx */
 import React, { useCallback } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
 import { FabricChannel } from '@atlaskit/analytics-listeners';
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { ButtonProps } from '@atlaskit/button/types';
-import Tooltip, { PositionType } from '@atlaskit/tooltip';
+import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { ButtonProps } from '@atlaskit/button/types';
+import type { PositionType } from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip';
 
 import {
   ACTION,
@@ -17,7 +18,7 @@ import {
   EVENT_TYPE,
   TOOLBAR_ACTION_SUBJECT_ID,
 } from '../../analytics';
-import { MenuItem } from '../DropdownMenu';
+import type { MenuItem } from '../DropdownMenu';
 
 import Button from './styles';
 

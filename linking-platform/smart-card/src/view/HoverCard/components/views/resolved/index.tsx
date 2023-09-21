@@ -37,6 +37,7 @@ import { HoverCardResolvedProps } from './types';
 import { messages } from '../../../../../messages';
 import { FormattedMessage } from 'react-intl-next';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { getCanBeDatasource } from '../../../../../state/helpers';
 
 export const toFooterActions = (
   cardActions: LinkAction[],
@@ -90,14 +91,17 @@ const HoverCardResolvedView: React.FC<HoverCardResolvedProps> = ({
   onActionClick,
   extensionKey,
 }) => {
+  const canBeDatasource = getCanBeDatasource(cardState.details);
+
   useEffect(() => {
     // Since this hover view is only rendered on resolved status,
     // there is no need to check for statuses.
     analytics.ui.renderSuccessEvent({
       display: CardDisplay.HoverCardPreview,
       status: cardState.status,
+      canBeDatasource,
     });
-  }, [analytics.ui, cardState.status]);
+  }, [analytics.ui, cardState.status, canBeDatasource]);
 
   const footerActions = useMemo(
     () => toFooterActions(cardActions, onActionClick),

@@ -27,7 +27,10 @@ export default () => {
           <div style={{ padding: '30px' }}>
             <h5>Default Forbidden view </h5>
             <BlockCard
-              cardState={getCardState({ url: 'some-url' }, {}, 'forbidden')}
+              cardState={getCardState({
+                data: { url: 'some-url' },
+                status: 'forbidden',
+              })}
               url="some.url"
               handleAuthorize={() => {}}
               analytics={mockAnalytics}
@@ -40,11 +43,11 @@ export default () => {
             />
             <h5>Forbidden view with 'DIRECT_ACCESS' </h5>
             <BlockCard
-              cardState={getCardState(
-                { url: 'some-url' },
-                getMetadata('DIRECT_ACCESS'),
-                'forbidden',
-              )}
+              cardState={getCardState({
+                data: { url: 'some-url' },
+                meta: getMetadata('DIRECT_ACCESS'),
+                status: 'forbidden',
+              })}
               url="some.url"
               handleAuthorize={() => {}}
               analytics={mockAnalytics}
@@ -57,11 +60,11 @@ export default () => {
             />
             <h5>Forbidden view with 'REQUEST_ACCESS' </h5>
             <BlockCard
-              cardState={getCardState(
-                { url: 'some-url' },
-                getMetadata('REQUEST_ACCESS'),
-                'forbidden',
-              )}
+              cardState={getCardState({
+                data: { url: 'some-url' },
+                meta: getMetadata('REQUEST_ACCESS'),
+                status: 'forbidden',
+              })}
               url="some.url"
               handleAuthorize={() => {}}
               analytics={mockAnalytics}
@@ -74,11 +77,11 @@ export default () => {
             />
             <h5>Forbidden view with 'PENDING_REQUEST_EXISTS' </h5>
             <BlockCard
-              cardState={getCardState(
-                { url: 'some-url' },
-                getMetadata('PENDING_REQUEST_EXISTS'),
-                'forbidden',
-              )}
+              cardState={getCardState({
+                data: { url: 'some-url' },
+                meta: getMetadata('PENDING_REQUEST_EXISTS'),
+                status: 'forbidden',
+              })}
               url="some.url"
               handleAuthorize={() => {}}
               analytics={mockAnalytics}
@@ -91,11 +94,11 @@ export default () => {
             />
             <h5>Forbidden view with 'FORBIDDEN' </h5>
             <BlockCard
-              cardState={getCardState(
-                { url: 'some-url' },
-                getMetadata('FORBIDDEN'),
-                'forbidden',
-              )}
+              cardState={getCardState({
+                data: { url: 'some-url' },
+                meta: getMetadata('FORBIDDEN'),
+                status: 'forbidden',
+              })}
               url="some.url"
               handleAuthorize={() => {}}
               analytics={mockAnalytics}
@@ -108,11 +111,11 @@ export default () => {
             />
             <h5>Forbidden view with 'DENIED_REQUEST_EXISTS' </h5>
             <BlockCard
-              cardState={getCardState(
-                { url: 'some-url' },
-                getMetadata('DENIED_REQUEST_EXISTS'),
-                'forbidden',
-              )}
+              cardState={getCardState({
+                data: { url: 'some-url' },
+                meta: getMetadata('DENIED_REQUEST_EXISTS'),
+                status: 'forbidden',
+              })}
               url="some.url"
               handleAuthorize={() => {}}
               analytics={mockAnalytics}

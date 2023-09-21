@@ -22,7 +22,7 @@ import { expandClassNames } from '../ui/class-names';
 import { deleteExpand, focusTitle } from '../commands';
 import { getPluginState as getSelectionPluginState } from '../../selection/plugin-factory';
 import { RelativeSelectionPos } from '../../selection/types';
-import { isPositionNearTableRow } from '../../../utils/table';
+import { isPositionNearTableRow } from '@atlaskit/editor-common/utils';
 
 const isExpandNode = (node: PMNode) => {
   return node?.type.name === 'expand' || node?.type.name === 'nestedExpand';

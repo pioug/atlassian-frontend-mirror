@@ -27,6 +27,8 @@ const createExample = (
         style={{
           border: '1px solid red',
           width: `${LINK_PICKER_WIDTH_IN_PX}px`,
+          ['--link-picker-padding-left' as string]: '16px',
+          ['--link-picker-padding-right' as string]: '16px',
         }}
       >
         <SearchResults

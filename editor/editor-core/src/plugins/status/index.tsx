@@ -19,6 +19,7 @@ import { IconStatus } from '@atlaskit/editor-common/quick-insert';
 
 import { commitStatusPicker, createStatus, updateStatus } from './actions';
 import { keymapPlugin } from './keymap';
+import type { ClosingPayload } from './plugin';
 import createStatusPlugin from './plugin';
 import { pluginKey } from './plugin-key';
 import type { StatusPluginOptions, StatusState, StatusType } from './types';
@@ -95,8 +96,8 @@ const baseStatusPlugin: NextEditorPlugin<
               onTextChanged={(status: StatusType) => {
                 updateStatus(status)(editorView.state, editorView.dispatch);
               }}
-              closeStatusPicker={() => {
-                commitStatusPicker()(editorView);
+              closeStatusPicker={(closingPayload?: ClosingPayload) => {
+                commitStatusPicker(closingPayload)(editorView);
               }}
               onEnter={() => {
                 commitStatusPicker()(editorView);

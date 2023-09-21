@@ -15,18 +15,34 @@
 <!--SECTION START: Main Entry Types-->
 
 ```ts
+/// <reference types="react" />
+
 import { FC } from 'react';
-import { default as React_2 } from 'react';
+import { MutableRefObject } from 'react';
 
 // @public
 export const UNSAFE_LAYERING: FC;
 
 // @public
-export const UNSAFE_useLayering: () => {
+export function UNSAFE_useLayering(): {
   currentLevel: number;
-  topLevelRef: React_2.MutableRefObject<null | number>;
-  checkIfTopLayer: () => boolean;
+  topLevelRef: MutableRefObject<null | number>;
+  isLayerDisabled: () => boolean;
 };
+
+// @public
+export function useCloseOnEscapePress({
+  onClose,
+  isDisabled,
+}: UseCloseOnEscapePressOpts): void;
+
+// @public (undocumented)
+interface UseCloseOnEscapePressOpts {
+  // (undocumented)
+  isDisabled?: boolean;
+  // (undocumented)
+  onClose: (e: KeyboardEvent) => void;
+}
 
 // (No @packageDocumentation comment for this package)
 ```

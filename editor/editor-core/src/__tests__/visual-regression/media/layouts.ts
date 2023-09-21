@@ -18,6 +18,10 @@ import {
   clickEditableContent,
   animationFrame,
 } from '@atlaskit/editor-test-helpers/page-objects/editor';
+
+/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
+import { waitForFloatingControl } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
+
 /* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
 import { pressKey } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
 import * as singleCellTable from './__fixtures__/single-cell-table-adf.json';
@@ -104,6 +108,8 @@ describe('Snapshot Test: Media', () => {
         // click the *second one* so the toolbar appears
         await changeMediaLayout(page, layout);
         await animationFrame(page);
+
+        await waitForFloatingControl(page, 'Media floating controls');
 
         await snapshot(page, undefined, undefined, {
           captureBeyondViewport: false,

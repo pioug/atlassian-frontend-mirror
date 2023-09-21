@@ -9,6 +9,7 @@ export {
   DEFAULT_IMAGE_WIDTH,
   DEFAULT_IMAGE_HEIGHT,
   wrappedLayouts,
+  CAPTION_PLACEHOLDER_ID,
 } from './constants';
 export {
   getMediaSinglePixelWidth,

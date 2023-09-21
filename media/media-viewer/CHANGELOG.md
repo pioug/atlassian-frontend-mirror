@@ -1,5 +1,18 @@
 # @atlaskit/media-viewer
 
+## 48.1.0
+
+### Minor Changes
+
+- [`be5adc1c861`](https://bitbucket.org/atlassian/atlassian-frontend/commits/be5adc1c861) - MEX-2566 New feature: Enable cross-origin communication for when media viewer is opened and closed via a [MessageEvent](https://developer.mozilla.org/en-US/docs/Web/API/MessageEvent). The message data sent will be of type `MediaMessage`, which follows the below format.
+
+  ```
+  {
+    source: 'media';
+    event: 'mediaViewerOpened' | 'mediaViewerClosed';
+  }
+  ```
+
 ## 48.0.16
 
 ### Patch Changes

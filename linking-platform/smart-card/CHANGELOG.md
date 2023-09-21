@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 26.27.2
+
+### Patch Changes
+
+- [`cecab8d279d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cecab8d279d) - Added an attribute 'canBeDatasource' to 'smartLink renderSuccess' event to indicate which smart links can be converted to datasources
+
 ## 26.27.1
 
 ### Patch Changes

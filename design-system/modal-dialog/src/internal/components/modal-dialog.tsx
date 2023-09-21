@@ -7,12 +7,13 @@ import { useUID } from 'react-uid';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import useAutoFocus from '@atlaskit/ds-lib/use-auto-focus';
 import FocusRing from '@atlaskit/focus-ring';
+import { useCloseOnEscapePress } from '@atlaskit/layering';
 import FadeIn from '@atlaskit/motion/fade-in';
 import { media } from '@atlaskit/primitives';
 import { N0, N30A, N60A } from '@atlaskit/theme/colors';
 import { CURRENT_SURFACE_CSS_VAR, token } from '@atlaskit/tokens';
 
-import type { ModalDialogProps } from '../../types';
+import type { KeyboardOrMouseEvent, ModalDialogProps } from '../../types';
 import { borderRadius, textColor } from '../constants';
 import { ModalContext, ScrollContext } from '../context';
 import useOnMotionFinish from '../hooks/use-on-motion-finish';
@@ -88,10 +89,13 @@ const bodyScrollStyles = css({
   },
 });
 
-const ModalDialog = (props: ModalDialogProps) => {
+const ModalDialog = (
+  props: ModalDialogProps & { onClose: (value: KeyboardOrMouseEvent) => void },
+) => {
   const {
     width = 'medium',
     shouldScrollInViewport = false,
+    shouldCloseOnEscapePress,
     autoFocus,
     stackIndex,
     onClose,
@@ -121,6 +125,11 @@ const ModalDialog = (props: ModalDialogProps) => {
     () => ({ testId, titleId, onClose }),
     [testId, titleId, onClose],
   );
+
+  useCloseOnEscapePress({
+    onClose,
+    isDisabled: !shouldCloseOnEscapePress,
+  });
 
   return (
     <Positioner

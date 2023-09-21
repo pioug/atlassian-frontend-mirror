@@ -27,7 +27,9 @@ import { resizerNextTestId } from '../../ui/ResizableMediaSingle/ResizableMediaS
 export const createMediaProvider = async (): Promise<MediaProvider> =>
   ({} as MediaProvider);
 
-export const getMediaSingleProps: () => Partial<MediaSingleNodeProps> = () => ({
+export const getMediaSingleProps: (
+  overrideProps?: Partial<MediaSingleNodeProps>,
+) => Partial<MediaSingleNodeProps> = (overrideProps) => ({
   view: new EditorView(null, {
     state: EditorState.create({ schema: defaultSchema }),
   }),
@@ -37,6 +39,7 @@ export const getMediaSingleProps: () => Partial<MediaSingleNodeProps> = () => ({
   selected: jest.fn(),
   getPos: jest.fn(() => 0),
   forwardRef: jest.fn(),
+  ...overrideProps,
 });
 
 describe('mediaSingle', () => {
@@ -48,6 +51,25 @@ describe('mediaSingle', () => {
     const { MediaNodeUpdater } = await import('../mediaNodeUpdater');
     render(<MediaSingleNode {...getMediaSingleProps()} />);
     expect(MediaNodeUpdater).toHaveBeenCalledTimes(1);
+  });
+
+  test('can handle cases where node.firstChild is not defined', async () => {
+    let caughtError = null;
+    try {
+      render(
+        <MediaSingleNode
+          {...getMediaSingleProps({
+            node: { attrs: {}, firstChild: null } as PMNode,
+          })}
+        />,
+      );
+    } catch (e) {
+      if (e instanceof Error) {
+        caughtError = e;
+      }
+    }
+
+    expect(caughtError).toBe(null);
   });
 
   test('updates file attrs for props change', async () => {

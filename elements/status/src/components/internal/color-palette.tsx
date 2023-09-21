@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import * as colors from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
-import React, { useEffect, useRef, useCallback } from 'react';
+import React, { useEffect, useRef, useCallback, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 import { Color as ColorType } from '../Status';
 import Color from './color';
@@ -81,21 +81,22 @@ export default ({
   onHover,
 }: ColorPaletteProps) => {
   const colorRefs: React.MutableRefObject<HTMLButtonElement[]> = useRef([]);
-
+  const [currentFocusedColor, setCurrentFocusedColor] = useState(0);
   useEffect(() => {
     colorRefs.current = colorRefs.current.slice(0, palette.length);
   }, []);
 
   const memoizedHandleKeyDown = useCallback(
     (e: React.KeyboardEvent) => {
-      const colorIndex = palette.findIndex(
-        ([colorValue]) => colorValue === selectedColor,
-      );
       let newColorIndex = null;
       const nextColor = () =>
-        colorIndex + 1 > palette.length - 1 ? 0 : colorIndex + 1;
+        currentFocusedColor + 1 > palette.length - 1
+          ? 0
+          : currentFocusedColor + 1;
       const previousColor = () =>
-        colorIndex - 1 < 0 ? palette.length - 1 : colorIndex - 1;
+        currentFocusedColor - 1 < 0
+          ? palette.length - 1
+          : currentFocusedColor - 1;
 
       switch (e.keyCode) {
         case VK_RIGHT:
@@ -109,23 +110,17 @@ export default ({
           newColorIndex = previousColor();
           break;
         case VK_TAB:
-          e.preventDefault();
-          if (e.shiftKey) {
-            newColorIndex = previousColor();
-          } else {
-            newColorIndex = nextColor();
-          }
+          setCurrentFocusedColor(0);
           break;
       }
       if (newColorIndex === null) {
         return;
       }
-      const newColorValue = palette[newColorIndex][0];
+      setCurrentFocusedColor(newColorIndex);
       const newRef = colorRefs.current[newColorIndex];
       newRef?.focus();
-      onClick(newColorValue);
     },
-    [selectedColor, onClick, colorRefs],
+    [currentFocusedColor, setCurrentFocusedColor, colorRefs],
   );
 
   return (

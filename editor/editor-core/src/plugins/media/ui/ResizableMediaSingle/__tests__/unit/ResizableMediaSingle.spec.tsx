@@ -54,9 +54,8 @@ jest.mock('@atlaskit/media-client', () => ({
   __esModule: true,
   ...jest.requireActual<Object>('@atlaskit/media-client'),
 }));
-import * as MediaClientModule from '@atlaskit/media-client';
+
 import {
-  asMockReturnValue,
   fakeMediaClient,
   getDefaultMediaClientConfig,
   nextTick,
@@ -76,6 +75,12 @@ import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import type { MediaClientConfig } from '@atlaskit/media-core';
+
+jest.mock('../../../../utils/check-media-type', () => ({
+  checkMediaType: jest.fn(),
+}));
+
+import { checkMediaType } from '../../../../utils/check-media-type';
 
 const getMediaClient = () => {
   const mediaClientConfig = getDefaultMediaClientConfig();
@@ -183,23 +188,60 @@ describe('<ResizableMediaSingle />', () => {
     ]);
   });
 
-  it('should default to isVideoFile=false in case of a media error', async () => {
-    const { mediaClient } = getMediaClient();
+  describe('isVideo check', () => {
+    afterEach(() => {
+      (checkMediaType as jest.Mock).mockReset();
+    });
 
-    asMockReturnValue(
-      mediaClient.file.getCurrentState,
-      Promise.reject(new Error('an error')),
-    );
+    it('should set isVideoFile=false if media check returns "external"', async () => {
+      const { mediaClient } = getMediaClient();
 
-    jest
-      .spyOn(MediaClientModule, 'getMediaClient')
-      .mockReturnValue(mediaClient);
+      (checkMediaType as jest.Mock).mockReturnValue(
+        Promise.resolve('external'),
+      );
 
-    const { resizableMediaSingle } = setup(mediaClient.config);
+      const { resizableMediaSingle } = setup(mediaClient.config);
 
-    await nextTick(); // mediaClient.file.getCurrentState()
+      await nextTick();
 
-    expect(resizableMediaSingle.state('isVideoFile')).toBeFalsy();
+      expect(resizableMediaSingle.state('isVideoFile')).toBe(false);
+    });
+
+    it('should set isVideoFile=false if media check returns "image"', async () => {
+      const { mediaClient } = getMediaClient();
+
+      (checkMediaType as jest.Mock).mockReturnValue(Promise.resolve('image'));
+
+      const { resizableMediaSingle } = setup(mediaClient.config);
+
+      await nextTick();
+
+      expect(resizableMediaSingle.state('isVideoFile')).toBe(false);
+    });
+
+    it('should set isVideoFile=true if media check returns "undefined"', async () => {
+      const { mediaClient } = getMediaClient();
+
+      (checkMediaType as jest.Mock).mockReturnValue(Promise.resolve(undefined));
+
+      const { resizableMediaSingle } = setup(mediaClient.config);
+
+      await nextTick();
+
+      expect(resizableMediaSingle.state('isVideoFile')).toBe(true);
+    });
+
+    it('should set isVideoFile=true if media check returns "video"', async () => {
+      const { mediaClient } = getMediaClient();
+
+      (checkMediaType as jest.Mock).mockReturnValue(Promise.resolve('video'));
+
+      const { resizableMediaSingle } = setup(mediaClient.config);
+
+      await nextTick();
+
+      expect(resizableMediaSingle.state('isVideoFile')).toBe(true);
+    });
   });
 
   it('should pass ratio to Resizer', () => {

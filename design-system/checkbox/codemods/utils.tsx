@@ -5,8 +5,10 @@ import core, {
   ImportDeclaration,
   ImportDefaultSpecifier,
   ImportSpecifier,
+  JSXAttribute,
   Options,
   Program,
+  VariableDeclaration,
 } from 'jscodeshift';
 import { Collection } from 'jscodeshift/src/Collection';
 
@@ -40,7 +42,7 @@ export function getJSXAttributesByName(
   j: core.JSCodeshift,
   element: ASTPath<any>,
   attributeName: string,
-) {
+): Collection<JSXAttribute> {
   return j(element)
     .find(j.JSXOpeningElement)
     .find(j.JSXAttribute)
@@ -98,7 +100,7 @@ export function hasVariableAssignment(
   j: core.JSCodeshift,
   source: ReturnType<typeof j>,
   identifierName: string,
-) {
+): Collection<VariableDeclaration> | boolean {
   const occurance = source.find(j.VariableDeclaration).filter((path) => {
     return !!j(path.node)
       .find(j.VariableDeclarator)
@@ -241,20 +243,22 @@ export const createRenameFuncFor =
 
     let variable = hasVariableAssignment(j, source, specifier);
     if (variable) {
-      variable.find(j.VariableDeclarator).forEach((declarator) => {
-        j(declarator)
-          .find(j.Identifier)
-          .filter((identifier) => identifier.name === 'id')
-          .forEach((ids) => {
-            findIdentifierAndReplaceAttribute(
-              j,
-              source,
-              ids.node.name,
-              from,
-              to,
-            );
-          });
-      });
+      (variable as Collection<VariableDeclaration>)
+        .find(j.VariableDeclarator)
+        .forEach((declarator) => {
+          j(declarator)
+            .find(j.Identifier)
+            .filter((identifier) => identifier.name === 'id')
+            .forEach((ids) => {
+              findIdentifierAndReplaceAttribute(
+                j,
+                source,
+                ids.node.name,
+                from,
+                to,
+              );
+            });
+        });
     }
   };
 

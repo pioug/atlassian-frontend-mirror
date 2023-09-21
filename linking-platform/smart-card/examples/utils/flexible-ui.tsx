@@ -13,6 +13,7 @@ import {
   NamedActionItem,
   NamedDataActionItem,
 } from '../../src/view/FlexibleCard/components/blocks/types';
+import { DatasourceResolveResponse } from '@atlaskit/link-client-extension';
 
 export const getJsonLdResponse = (url: string, meta = {}, data = {}) =>
   ({
@@ -37,23 +38,32 @@ export const getJsonLdResponse = (url: string, meta = {}, data = {}) =>
     },
   } as JsonLd.Response);
 
-export const getCardState = (
+export const getCardState = ({
   data = {},
   meta = {},
+  datasources = undefined,
   status = 'resolved' as CardType,
-): CardState => ({
+}: {
+  data?: any;
+  meta?: Partial<JsonLd.Meta.BaseMeta>;
+  datasources?: DatasourceResolveResponse[];
+  status?: CardType;
+} = {}): CardState => ({
   status,
-  details: getJsonLdResponse('link-url', meta, {
-    '@type': 'Object',
-    generator: {
+  details: {
+    ...getJsonLdResponse('link-url', meta, {
       '@type': 'Object',
-      '@id': 'https://www.atlassian.com/#Confluence',
-      name: 'Confluence',
-    },
-    url: 'link-url',
-    name: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non elementum augue. Donec porttitor purus ut lacus blandit, quis hendrerit turpis pharetra. Etiam commodo lorem metus, eu eleifend tellus mattis sed. Suspendisse potenti. Duis metus quam, lacinia dapibus faucibus quis, laoreet quis turpis. Curabitur iaculis suscipit ligula ac commodo. Cras in metus enim. Duis sit amet turpis suscipit, ultricies odio sit amet, bibendum sem. Nunc consectetur diam vel elit pulvinar posuere. Maecenas neque mauris, tempor nec dolor nec, mollis laoreet nibh. Fusce mauris ante, scelerisque in tristique ut, ultrices sed eros. Cras imperdiet tellus nisl, in efficitur nibh rhoncus eget.',
-    ...data,
-  }),
+      generator: {
+        '@type': 'Object',
+        '@id': 'https://www.atlassian.com/#Confluence',
+        name: 'Confluence',
+      },
+      url: 'link-url',
+      name: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non elementum augue. Donec porttitor purus ut lacus blandit, quis hendrerit turpis pharetra. Etiam commodo lorem metus, eu eleifend tellus mattis sed. Suspendisse potenti. Duis metus quam, lacinia dapibus faucibus quis, laoreet quis turpis. Curabitur iaculis suscipit ligula ac commodo. Cras in metus enim. Duis sit amet turpis suscipit, ultricies odio sit amet, bibendum sem. Nunc consectetur diam vel elit pulvinar posuere. Maecenas neque mauris, tempor nec dolor nec, mollis laoreet nibh. Fusce mauris ante, scelerisque in tristique ut, ultrices sed eros. Cras imperdiet tellus nisl, in efficitur nibh rhoncus eget.',
+      ...data,
+    }),
+    ...(datasources ? { datasources } : {}),
+  },
 });
 
 export const getContext = (

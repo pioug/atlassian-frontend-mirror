@@ -28,3 +28,5 @@ export const wrappedLayouts: RichMediaLayout[] = [
 ];
 
 export const DEFAULT_ROUNDING_INTERVAL = 0.5;
+
+export const CAPTION_PLACEHOLDER_ID = 'caption-placeholder';

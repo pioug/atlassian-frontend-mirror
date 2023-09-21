@@ -1,7 +1,10 @@
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-
-import { bindKeymapWithCommand, moveRight, moveLeft } from '../../../keymaps';
+import {
+  bindKeymapWithCommand,
+  moveRight,
+  moveLeft,
+} from '@atlaskit/editor-common/keymaps';
 import { arrowRight, arrowLeft } from '../commands';
 
 function keymapPlugin() {

@@ -239,6 +239,7 @@ const calcParentPadding = (view: EditorView, resolvedPos: ResolvedPos) => {
 
 /**
  * Get parent width for a nested media single node for new experience
+ * We don't check for mediaSingle selection in this function.
  * @param view Editor view
  * @param pos node position
  * @param forInsertion for insertion
@@ -262,7 +263,7 @@ export const getMaxWidthForNestedNodeNext = (
 };
 
 /**
- * Get parent content width for nested media single node
+ * Get parent content width for nested media single node.
  * @param resolvedPos resolved Position of the node
  * @param view editor view
  * @returns parent content width for nested node

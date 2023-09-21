@@ -124,6 +124,7 @@ class DatePicker extends React.Component<Props & WrappedComponentProps, State> {
         mountTo={mountTo}
         boundariesElement={boundariesElement}
         scrollableElement={scrollableElement}
+        ariaLabel={null}
       >
         <div css={popupContentWrapper}>
           <DatePickerInput

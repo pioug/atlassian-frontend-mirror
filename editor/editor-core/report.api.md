@@ -35,7 +35,7 @@ import type { CardOptions } from '@atlaskit/editor-common/card';
 import { CardProvider } from '@atlaskit/editor-common/provider-factory';
 import { clearEditorContent } from '@atlaskit/editor-common/commands';
 import type { CollabEditOptions } from '@atlaskit/editor-common/collab';
-import { Color } from '@atlaskit/status/element';
+import type { Color } from '@atlaskit/status/element';
 import { Command as Command_2 } from '@atlaskit/editor-common/types';
 import { ComponentType } from 'react';
 import type { compositionPlugin } from '@atlaskit/editor-plugin-composition';
@@ -304,6 +304,19 @@ type CloseOptions = {
 };
 
 // @public (undocumented)
+enum closingMethods {
+  // (undocumented)
+  ArrowLeft = 'arrowLeft',
+  // (undocumented)
+  ArrowRight = 'arrowRight',
+}
+
+// @public (undocumented)
+type ClosingPayload = {
+  closingMethod: closingMethods;
+};
+
+// @public (undocumented)
 interface CodeBlockOptions extends LongPressSelectionPluginOptions {
   // (undocumented)
   allowCompositionInputOverride?: boolean;
@@ -359,7 +372,9 @@ export type Command = (
 export type CommandDispatch = (tr: Transaction) => void;
 
 // @public (undocumented)
-export const commitStatusPicker: () => (editorView: EditorView) => void;
+export const commitStatusPicker: (
+  closingPayload?: ClosingPayload,
+) => (editorView: EditorView) => void;
 
 // @public (undocumented)
 export function ContextPanel(props: Props_4): jsx.JSX.Element;

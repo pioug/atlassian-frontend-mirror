@@ -6,7 +6,7 @@ import React, {
   useState,
 } from 'react';
 
-import { MenuArrowKeyNavigationProviderProps } from '../types';
+import type { MenuArrowKeyNavigationProviderProps } from '../types';
 
 /**
  * This component is a wrapper of vertical menus which listens to keydown events of children
@@ -93,14 +93,14 @@ export const MenuArrowKeyNavigationProvider: React.FC<
     const handleKeyDown = (event: KeyboardEvent): void => {
       const targetElement = event.target as HTMLElement;
 
-      //Tab key on menu items can be handled in the parent components of dropdown menus with KeydownHandlerContext
+      // Tab key on menu items can be handled in the parent components of dropdown menus with KeydownHandlerContext
       if (event.key === 'Tab' && closeOnTab) {
         handleClose!(event);
         keyDownHandlerContext?.handleTab();
         return;
       }
 
-      //To trap the focus inside the toolbar using left and right arrow keys
+      // To trap the focus inside the toolbar using left and right arrow keys
       const focusableElements = getFocusableElements(wrapperRef?.current);
       if (!focusableElements || focusableElements?.length === 0) {
         return;
@@ -125,10 +125,10 @@ export const MenuArrowKeyNavigationProvider: React.FC<
           break;
         }
 
-        //ArrowLeft/Right on the menu should close the menus
-        //then logic to retain the focus can be handled in the parent components with KeydownHandlerContext
+        // ArrowLeft/Right on the menu should close the menus
+        // then logic to retain the focus can be handled in the parent components with KeydownHandlerContext
         case 'ArrowLeft':
-          //Filter out the events from outside the menu
+          // Filter out the events from outside the menu
           if (!targetElement.closest('.custom-key-handler-wrapper')) {
             return;
           }
@@ -141,7 +141,7 @@ export const MenuArrowKeyNavigationProvider: React.FC<
           break;
 
         case 'ArrowRight':
-          //Filter out the events from outside the menu
+          // Filter out the events from outside the menu
           if (!targetElement.closest('.custom-key-handler-wrapper')) {
             return;
           }

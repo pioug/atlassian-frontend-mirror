@@ -32,8 +32,7 @@ class WithOutsideClick extends PureComponent<
     }
 
     if (this.props.handleEscapeKeydown) {
-      //
-      //Attached event to the menu so that 'ESC' events from the opened menu also will be handled.
+      // Attached event to the menu so that 'ESC' events from the opened menu also will be handled.
       (
         this.props.editorRef?.current ||
         this.props.targetRef ||
@@ -67,7 +66,7 @@ class WithOutsideClick extends PureComponent<
     ) {
       if (this.props.handleClickOutside) {
         this.props.handleClickOutside(evt);
-        //When the menus are closed by clicking outside the focus is set on editor.
+        // When the menus are closed by clicking outside the focus is set on editor.
         if (!this.props.editorView?.hasFocus()) {
           this.props.editorView?.focus();
         }
@@ -84,7 +83,7 @@ class WithOutsideClick extends PureComponent<
       evt.stopPropagation();
 
       this.props.handleEscapeKeydown(evt);
-      //on 'Esc', Focus is handled in 'handleEscapeKeydown'.
+      // on 'Esc', Focus is handled in 'handleEscapeKeydown'.
       return false;
     } else if (evt.code === 'Enter' && this.props.handleEnterKeydown) {
       this.props.handleEnterKeydown(evt);
@@ -93,7 +92,7 @@ class WithOutsideClick extends PureComponent<
       this.props.handleEscapeKeydown &&
       this.props.closeOnTab
     ) {
-      //The menus should be closed when the tab is pressed as it takes the focus out of the menu
+      // The menus should be closed when the tab is pressed as it takes the focus out of the menu
       this.props.handleEscapeKeydown(evt);
     }
   };

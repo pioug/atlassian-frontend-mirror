@@ -1,8 +1,10 @@
 import React from 'react';
 
+import { token } from '@atlaskit/tokens';
+
 import { MockLinkPickerPromisePlugin } from '../__tests__/__helpers/mock-plugins';
 
-import { ComposedLinkPicker as LinkPicker } from './index';
+import { default as LinkPicker } from './index';
 
 const NOOP = () => {};
 
@@ -25,6 +27,7 @@ const createExample = (
       style={{
         border: '1px solid red',
         boxSizing: 'border-box',
+        display: 'inline-block',
       }}
     >
       <LinkPicker onSubmit={NOOP} onCancel={NOOP} {...props} />
@@ -32,16 +35,29 @@ const createExample = (
   );
 };
 
-export const DefaultExample = () => (
-  <LinkPicker onSubmit={NOOP} onCancel={NOOP} />
-);
+const createWidthExample = (
+  props?: Partial<React.ComponentProps<typeof LinkPicker>>,
+) => {
+  return () => (
+    <div
+      style={{
+        border: '1px solid red',
+        boxSizing: 'border-box',
+      }}
+    >
+      <LinkPicker onSubmit={NOOP} onCancel={NOOP} {...props} />
+    </div>
+  );
+};
 
-export const DisableWidthExample = createExample({
+export const DefaultExample = createExample();
+
+export const DisableWidthExample = createWidthExample({
   plugins: undefined,
   disableWidth: true,
 });
 
-export const DisableWidthWithPluginsExample = createExample({
+export const DisableWidthWithPluginsExample = createWidthExample({
   plugins,
   disableWidth: true,
 });
@@ -69,3 +85,31 @@ export const DisableWidth300Example = () => {
     </div>
   );
 };
+
+export const ZeroPaddingExample = createExample({
+  plugins,
+  paddingLeft: '0',
+  paddingRight: '0',
+  paddingBottom: '0',
+  paddingTop: '0',
+});
+
+export const LargePaddingUsingTokensExample = createExample({
+  plugins,
+  paddingLeft: token('space.400', '24px'),
+  paddingRight: token('space.800', '48px'),
+  paddingTop: token('space.200', '12px'),
+  paddingBottom: token('space.300', '18px'),
+});
+
+export const VaryingPaddingsExample = createExample({
+  plugins,
+  paddingLeft: '5rem',
+  paddingRight: '2rem',
+  paddingTop: '3rem',
+  paddingBottom: '4rem',
+});
+
+export const ErrorBoundaryExample = createExample({
+  url: 112323 as any, // typecast to trigger an error
+});

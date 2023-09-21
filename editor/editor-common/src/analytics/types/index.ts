@@ -48,7 +48,11 @@ export type {
   InputMethodInsertMedia,
   InsertEventPayload,
 } from './insert-events';
-export { TABLE_ACTION, TABLE_BREAKOUT } from './table-events';
+export {
+  TABLE_ACTION,
+  TABLE_BREAKOUT,
+  TABLE_OVERFLOW_CHANGE_TRIGGER,
+} from './table-events';
 export type { TableEventPayload } from './table-events';
 export { PasteContents, PasteSources, PasteTypes } from './paste-events';
 export type {

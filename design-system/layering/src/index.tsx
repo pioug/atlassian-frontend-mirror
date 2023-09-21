@@ -1,1 +1,2 @@
-export { UNSAFE_LAYERING, UNSAFE_useLayering } from './components/context';
+export { UNSAFE_LAYERING } from './components/context';
+export { useCloseOnEscapePress, UNSAFE_useLayering } from './hooks/index';

@@ -1,5 +1,11 @@
 # @atlaskit/link-analytics
 
+## 8.3.2
+
+### Patch Changes
+
+- [`d925ab8abef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d925ab8abef) - Added a new attribute 'canBeDatasource' to link created/updated/deleted events
+
 ## 8.3.1
 
 ### Patch Changes

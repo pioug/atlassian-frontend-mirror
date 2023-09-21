@@ -84,6 +84,10 @@ export interface LinkPickerProps {
     arg: OnSubmitParameter,
     analytic?: UIAnalyticsEvent | null,
   ) => void;
+  paddingBottom?: string;
+  paddingLeft?: string;
+  paddingRight?: string;
+  paddingTop?: string;
   plugins?: LinkPickerPlugin[];
   url?: string;
 }

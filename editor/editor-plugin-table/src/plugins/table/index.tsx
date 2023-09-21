@@ -41,6 +41,7 @@ import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { tableEditing } from '@atlaskit/editor-tables/pm-plugins';
 import { createTable } from '@atlaskit/editor-tables/utils';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { pluginConfig } from './create-plugin-config';
 import { createPlugin as createDecorationsPlugin } from './pm-plugins/decorations/plugin';
@@ -53,6 +54,10 @@ import {
   findStickyHeaderForTable,
   pluginKey as stickyHeadersPluginKey,
 } from './pm-plugins/sticky-headers';
+import {
+  createPlugin as createTableAnalyticsPlugin,
+  pluginKey as tableAnalyticsPluginKey,
+} from './pm-plugins/table-analytics';
 import { createPlugin as createTableLocalIdPlugin } from './pm-plugins/table-local-id';
 import {
   createPlugin as createFlexiResizingPlugin,
@@ -290,7 +295,17 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
                 )
               : undefined,
         },
-
+        {
+          name: 'tableAnalyticsPlugin',
+          plugin: ({ dispatch, dispatchAnalyticsEvent }) =>
+            getBooleanFF('platform.editor.table.overflow-state-analytics')
+              ? createTableAnalyticsPlugin(
+                  dispatch,
+                  dispatchAnalyticsEvent,
+                  options?.tableResizingEnabled ?? false,
+                )
+              : undefined,
+        },
         {
           name: 'tableGetEditorViewReferencePlugin',
           plugin: () => {
@@ -337,6 +352,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
         >
           <WithPluginState
             plugins={{
+              tableAnalyticsPluginState: tableAnalyticsPluginKey,
               tablePluginState: pluginKey,
               tableWidthPluginState: tableWidthPluginKey,
               tableResizingPluginState: tableResizingPluginKey,

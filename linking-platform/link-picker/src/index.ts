@@ -1,4 +1,4 @@
-export { ComposedLinkPicker as LinkPicker } from './ui';
+export { default as LinkPicker } from './ui';
 export type { LinkPickerProps } from './ui/link-picker';
 export type {
   LinkInputType,

@@ -6,14 +6,25 @@ import memoizeOne from 'memoize-one';
 import rafSchedule from 'raf-schd';
 
 import type { TableColumnOrdering } from '@atlaskit/adf-schema/steps';
+import {
+  ACTION_SUBJECT,
+  EVENT_TYPE,
+  TABLE_ACTION,
+} from '@atlaskit/editor-common/analytics';
+import type { AnalyticsDispatch } from '@atlaskit/editor-common/analytics';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
+import { createDispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { getParentNodeWidth } from '@atlaskit/editor-common/node-width';
 import { tableMarginSides } from '@atlaskit/editor-common/styles';
 import type {
   EditorContainerWidth,
   GetEditorFeatureFlags,
 } from '@atlaskit/editor-common/types';
-import { browser, isValidPosition } from '@atlaskit/editor-common/utils';
+import {
+  analyticsEventKey,
+  browser,
+  isValidPosition,
+} from '@atlaskit/editor-common/utils';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorTableToolbarSize as tableToolbarSize } from '@atlaskit/editor-shared-styles';
@@ -30,6 +41,7 @@ import {
   findStickyHeaderForTable,
   pluginKey as stickyHeadersPluginKey,
 } from '../pm-plugins/sticky-headers';
+import { META_KEYS } from '../pm-plugins/table-analytics';
 import {
   getLayoutSize,
   insertColgroupFromNode as recreateResizeColsByNode,
@@ -53,6 +65,10 @@ import { TableContainer } from './TableContainer';
 import type { TableOptions } from './types';
 
 const isIE11 = browser.ie_version === 11;
+// When table is inserted via paste, keyboard shortcut or quickInsert,
+// componentDidUpdate is called multiple times. The isOverflowing value is correct only on the last update.
+// To make sure we capture the last update, we use setTimeout.
+const initialOverflowCaptureTimeroutDelay = 300;
 export interface ComponentProps {
   view: EditorView;
   getNode: () => PmNode;
@@ -81,6 +97,7 @@ interface TableState {
   [ShadowEvent.SHOW_BEFORE_SHADOW]: boolean;
   [ShadowEvent.SHOW_AFTER_SHADOW]: boolean;
 }
+
 class TableComponent extends React.Component<ComponentProps, TableState> {
   static displayName = 'TableComponent';
 
@@ -98,11 +115,15 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
   private layoutSize?: number;
   private overflowShadowsObserver?: OverflowShadowsObserver;
 
+  private isInitialOverflowSent: boolean;
+  private initialOverflowCaptureTimerId?: ReturnType<typeof setTimeout>;
+
   constructor(props: ComponentProps) {
     super(props);
     const { options, containerWidth, getNode } = props;
     this.node = getNode();
     this.containerWidth = containerWidth;
+    this.isInitialOverflowSent = false;
 
     // store table size using previous full-width mode so can detect if it has changed
     const isFullWidthModeEnabled = options
@@ -153,6 +174,14 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
     }
 
     eventDispatcher.on((stickyHeadersPluginKey as any).key, this.onStickyState);
+
+    if (getBooleanFF('platform.editor.table.overflow-state-analytics')) {
+      const initialIsOveflowing =
+        this.state[ShadowEvent.SHOW_BEFORE_SHADOW] ||
+        this.state[ShadowEvent.SHOW_AFTER_SHADOW];
+
+      this.setTimerToSendInitialOverflowCaptured(initialIsOveflowing);
+    }
   }
 
   componentWillUnmount() {
@@ -181,9 +210,13 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
       (stickyHeadersPluginKey as any).key,
       this.onStickyState,
     );
+
+    if (this.initialOverflowCaptureTimerId) {
+      clearTimeout(this.initialOverflowCaptureTimerId);
+    }
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(_: any, prevState: TableState) {
     const {
       view,
       getNode,
@@ -248,6 +281,44 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
       }
 
       this.handleTableResizingDebounced();
+    }
+
+    if (getBooleanFF('platform.editor.table.overflow-state-analytics')) {
+      const newIsOverflowing =
+        this.state[ShadowEvent.SHOW_BEFORE_SHADOW] ||
+        this.state[ShadowEvent.SHOW_AFTER_SHADOW];
+
+      const prevIsOverflowing =
+        prevState[ShadowEvent.SHOW_BEFORE_SHADOW] ||
+        prevState[ShadowEvent.SHOW_AFTER_SHADOW];
+
+      if (this.initialOverflowCaptureTimerId) {
+        clearTimeout(this.initialOverflowCaptureTimerId);
+      }
+
+      if (!this.isInitialOverflowSent) {
+        this.setTimerToSendInitialOverflowCaptured(newIsOverflowing);
+      }
+
+      if (
+        this.isInitialOverflowSent &&
+        prevIsOverflowing !== newIsOverflowing
+      ) {
+        const {
+          dispatch,
+          state: { tr },
+        } = this.props.view;
+
+        dispatch(
+          tr.setMeta(META_KEYS.OVERFLOW_STATE_CHANGED, {
+            isOverflowing: newIsOverflowing,
+            wasOverflowing: prevIsOverflowing,
+            editorWidth: this.props.containerWidth.width || 0,
+            width: this.node.attrs.width || 0,
+            parentWidth: this.state?.parentWidth || 0,
+          }),
+        );
+      }
     }
   }
 
@@ -575,6 +646,32 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
     )(state.tr);
 
     dispatch(tr);
+  };
+
+  private setTimerToSendInitialOverflowCaptured = (isOverflowing: boolean) => {
+    const { eventDispatcher, containerWidth, options } = this.props;
+    const dispatch: AnalyticsDispatch = createDispatch(eventDispatcher);
+    const parentWidth = this.state?.parentWidth || 0;
+
+    this.initialOverflowCaptureTimerId = setTimeout(() => {
+      dispatch(analyticsEventKey, {
+        payload: {
+          action: TABLE_ACTION.INITIAL_OVERFLOW_CAPTURED,
+          actionSubject: ACTION_SUBJECT.TABLE,
+          actionSubjectId: null,
+          eventType: EVENT_TYPE.TRACK,
+          attributes: {
+            editorWidth: containerWidth.width || 0,
+            isOverflowing,
+            tableResizingEnabled: options?.isTableResizingEnabled || false,
+            width: this.node.attrs.width || 0,
+            parentWidth,
+          },
+        },
+      });
+
+      this.isInitialOverflowSent = true;
+    }, initialOverflowCaptureTimeroutDelay);
   };
 
   private handleAutoSize = () => {

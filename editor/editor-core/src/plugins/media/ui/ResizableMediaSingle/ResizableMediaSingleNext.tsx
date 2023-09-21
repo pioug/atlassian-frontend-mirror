@@ -4,7 +4,6 @@ import { jsx } from '@emotion/react';
 import { findParentNodeOfTypeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
 import type { RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
 import type { MediaClientConfig } from '@atlaskit/media-core';
-import { getMediaClient } from '@atlaskit/media-client';
 import {
   calcPctFromPx,
   wrappedLayouts,
@@ -66,6 +65,7 @@ import {
   MEDIA_PLUGIN_RESIZING_WIDTH_KEY,
 } from '../../pm-plugins/main';
 import { ResizableMediaMigrationNotification } from './ResizableMediaMigrationNotification';
+import { checkMediaType } from '../../utils/check-media-type';
 
 type State = {
   isVideoFile: boolean;
@@ -240,24 +240,14 @@ class ResizableMediaSingleNext extends React.Component<
     }
 
     const mediaNode = this.props.view.state.doc.nodeAt(this.pos + 1);
-    if (!mediaNode || !mediaNode.attrs.id) {
-      return;
-    }
+    const mediaType = mediaNode
+      ? await checkMediaType(mediaNode, viewMediaClientConfig)
+      : undefined;
 
-    const mediaClient = getMediaClient(viewMediaClientConfig);
-    try {
-      const state = await mediaClient.file.getCurrentState(mediaNode.attrs.id, {
-        collectionName: mediaNode.attrs.collection,
-      });
-      if (state && state.status !== 'error' && state.mediaType === 'image') {
-        this.setState({
-          isVideoFile: false,
-        });
-      }
-    } catch (err) {
-      this.setState({
-        isVideoFile: false,
-      });
+    const isVideoFile = mediaType !== 'external' && mediaType !== 'image';
+
+    if (this.state.isVideoFile !== isVideoFile) {
+      this.setState({ isVideoFile });
     }
   }
 

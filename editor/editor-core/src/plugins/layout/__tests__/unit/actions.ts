@@ -32,7 +32,7 @@ import {
   TextSelection,
   NodeSelection,
 } from '@atlaskit/editor-prosemirror/state';
-import { selectNode } from '../../../../utils/commands';
+import { selectNode } from '@atlaskit/editor-common/selection';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 

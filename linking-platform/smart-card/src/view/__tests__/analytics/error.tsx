@@ -329,6 +329,7 @@ describe('smart-card: error analytics', () => {
       status: 'resolved',
       definitionId: 'd1',
       extensionKey: 'object-provider',
+      canBeDatasource: false,
     });
   });
 

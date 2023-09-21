@@ -1,20 +1,19 @@
 /** @jsx jsx */
-import React, { MouseEventHandler, PureComponent, useContext } from 'react';
+import type { MouseEventHandler } from 'react';
+import React, { PureComponent, useContext } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
 import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
-import {
-  CustomItem,
-  CustomItemComponentProps,
-  MenuGroup,
-} from '@atlaskit/menu';
+import type { CustomItemComponentProps } from '@atlaskit/menu';
+import { CustomItem, MenuGroup } from '@atlaskit/menu';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { B100, DN600, DN80, N70, N900 } from '@atlaskit/theme/colors';
 import { themed } from '@atlaskit/theme/components';
-import { ThemeProps } from '@atlaskit/theme/types';
+import type { ThemeProps } from '@atlaskit/theme/types';
 import { token } from '@atlaskit/tokens';
-import Tooltip, { PositionType } from '@atlaskit/tooltip';
+import type { PositionType } from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip';
 
 import { DropdownMenuSharedCssClassName } from '../../styles';
 import { KeyDownHandlerContext } from '../../ui-menu/ToolbarArrowKeyNavigationProvider';
@@ -24,7 +23,7 @@ import Popup from '../../ui/Popup';
 import { ArrowKeyNavigationProvider } from '../ArrowKeyNavigationProvider';
 import { ArrowKeyNavigationType } from '../ArrowKeyNavigationProvider/types';
 
-import { MenuItem, Props, State } from './types';
+import type { MenuItem, Props, State } from './types';
 
 export type { MenuItem } from './types';
 
@@ -390,8 +389,8 @@ function DropdownMenuItem({
 export const DropdownMenuWithKeyboardNavigation: React.FC<any> = React.memo(
   ({ ...props }) => {
     const keyDownHandlerContext = useContext(KeyDownHandlerContext);
-    //This context is to handle the tab, Arrow Right/Left key events for dropdown.
-    //Default context has the void callbacks for above key events
+    // This context is to handle the tab, Arrow Right/Left key events for dropdown.
+    // Default context has the void callbacks for above key events
     return (
       <DropdownMenuWrapper
         arrowKeyNavigationProviderOptions={{

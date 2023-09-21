@@ -20,6 +20,9 @@ import {
   waitForMediaToBeLoaded,
 } from '@atlaskit/editor-test-helpers/page-objects/media';
 import { selectors } from '@atlaskit/editor-test-helpers/page-objects/editor';
+
+/* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
+import { waitForFloatingControl } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 /* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
 import * as layout2Col from './../__fixtures__/mediaSingle-in-column.adf.json';
 import mediaSelectionAdf from './../__fixtures__/mediaSingle-image.adf.json';
@@ -93,6 +96,7 @@ export function createResizeFullPageForConfig(config: TestPageConfig) {
             await changeMediaLayout(page, MediaLayout.fullWidth);
             await animationFrame(page);
             await clickMediaInPosition(page, 0);
+            await waitForFloatingControl(page, 'Media floating controls');
             await scrollToMedia(page);
             await animationFrame(page);
             await snapshot(page);

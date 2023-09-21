@@ -13,11 +13,12 @@
 import rafSchedule from 'raf-schd';
 
 import { uuid } from '@atlaskit/adf-schema';
-import { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
+import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { stepHasSlice } from '@atlaskit/editor-common/utils';
-import { Node as ProsemirrorNode } from '@atlaskit/editor-prosemirror/model';
-import { EditorState, PluginKey } from '@atlaskit/editor-prosemirror/state';
+import type { Node as ProsemirrorNode } from '@atlaskit/editor-prosemirror/model';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 
 interface TableLocalIdPluginState {
   // One time parse for initial load with existing tables without localIds
@@ -95,7 +96,7 @@ const createPlugin = (dispatch: Dispatch) =>
 
           const { table } = state.schema.nodes;
           rafSchedule(() => {
-            const tr = state.tr;
+            const tr = editorView.state.tr;
             let tableIdWasAdded = false;
             editorView.state.doc.descendants((node, pos) => {
               const isTable = node.type === table;

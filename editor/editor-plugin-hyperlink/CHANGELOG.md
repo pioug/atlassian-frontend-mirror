@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-hyperlink
 
+## 0.5.0
+
+### Minor Changes
+
+- [`9a62c110c14`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9a62c110c14) - [ux] ECA11Y-65: Removed aria-pressed from the Hyperlink floating controls toolbar buttons
+
 ## 0.4.3
 
 ### Patch Changes

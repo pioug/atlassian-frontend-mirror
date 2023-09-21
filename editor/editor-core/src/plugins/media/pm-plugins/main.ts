@@ -63,15 +63,16 @@ import type { MediaNodeWithPosHandler, MediaPluginState } from './types';
 import { isInEmptyLine } from '../../../utils/document';
 import { getMediaFeatureFlag } from '@atlaskit/media-common';
 import { isInListItem } from '../../../utils';
-import { CAPTION_PLACEHOLDER_ID } from '../ui/CaptionPlaceholder';
 import type { IntlShape } from 'react-intl-next';
 import { RawIntlProvider } from 'react-intl-next';
 import { MediaTaskManager } from './mediaTaskManager';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import type mediaPlugin from '../index';
-
-import { getMaxWidthForNestedNodeNext } from '@atlaskit/editor-common/media-single';
+import {
+  getMaxWidthForNestedNodeNext,
+  CAPTION_PLACEHOLDER_ID,
+} from '@atlaskit/editor-common/media-single';
 
 export type { MediaState, MediaProvider, MediaStateStatus };
 export { stateKey } from './plugin-key';

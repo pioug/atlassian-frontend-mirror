@@ -24,7 +24,10 @@ export const spinnerContainerStyles = css`
 
 export const listStyles = css`
   padding: 0;
-  margin: 0 ${token('space.negative.200', '-16px')};
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-left: calc(-1 * var(--link-picker-padding-left));
+  margin-right: calc(-1 * var(--link-picker-padding-right));
   list-style: none;
 `;
 

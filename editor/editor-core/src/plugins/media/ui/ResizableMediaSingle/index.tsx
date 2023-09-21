@@ -7,7 +7,6 @@ import {
 } from '@atlaskit/editor-prosemirror/utils';
 import type { RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
 import type { MediaClientConfig } from '@atlaskit/media-core';
-import { getMediaClient } from '@atlaskit/media-client';
 import {
   calcPctFromPx,
   calcColumnsFromPx,
@@ -26,6 +25,7 @@ import { calculateOffsetLeft } from '@atlaskit/editor-common/media-single';
 import type { Highlights } from '@atlaskit/editor-plugin-grid';
 import { calculateSnapPoints } from '@atlaskit/editor-common/utils';
 import { token } from '@atlaskit/tokens';
+import { checkMediaType } from '../../utils/check-media-type';
 
 type State = {
   offsetLeft: number;
@@ -120,24 +120,14 @@ export default class ResizableMediaSingle extends React.Component<
     }
 
     const mediaNode = this.props.view.state.doc.nodeAt($pos.pos + 1);
-    if (!mediaNode || !mediaNode.attrs.id) {
-      return;
-    }
+    const mediaType = mediaNode
+      ? await checkMediaType(mediaNode, viewMediaClientConfig)
+      : undefined;
 
-    const mediaClient = getMediaClient(viewMediaClientConfig);
-    try {
-      const state = await mediaClient.file.getCurrentState(mediaNode.attrs.id, {
-        collectionName: mediaNode.attrs.collection,
-      });
-      if (state && state.status !== 'error' && state.mediaType === 'image') {
-        this.setState({
-          isVideoFile: false,
-        });
-      }
-    } catch (err) {
-      this.setState({
-        isVideoFile: false,
-      });
+    const isVideoFile = mediaType !== 'external' && mediaType !== 'image';
+
+    if (this.state.isVideoFile !== isVideoFile) {
+      this.setState({ isVideoFile });
     }
   }
 

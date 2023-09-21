@@ -15,6 +15,7 @@ import {
   getExtensionKey,
   getSubproduct,
   getProduct,
+  getCanBeDatasource,
 } from '../../state/helpers';
 import { useSmartLink } from '../../state';
 import { BlockCard } from '../BlockCard';
@@ -73,6 +74,7 @@ function Component({
   const product = getProduct(state.details);
   const subproduct = getSubproduct(state.details);
   const services = getServices(state.details);
+  const canBeDatasource = getCanBeDatasource(state.details);
 
   let isFlexibleUi = useMemo(() => isFlexibleUiCard(children), [children]);
 
@@ -189,6 +191,7 @@ function Component({
         id,
         definitionId,
         extensionKey,
+        canBeDatasource,
       });
     }
   }, [
@@ -200,6 +203,7 @@ function Component({
     extensionKey,
     analytics.ui,
     id,
+    canBeDatasource,
   ]);
 
   const onIframeDwell = useCallback(

@@ -30,7 +30,7 @@
   "compilerOptions": {
     "baseUrl": "./",
     "composite": true,
-    "outDir": "../../../tsDist/@af__layering/dev"
+    "outDir": "../../../tsDist/@atlaskit__layering/dev"
   },
   "references": [
     {

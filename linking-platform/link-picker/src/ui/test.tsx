@@ -16,8 +16,7 @@ describe('<ComposedLinkPicker />', () => {
     scrollingTabs,
   }: Partial<LinkPickerProps> & { scrollingTabs?: boolean } = {}) => {
     jest.isolateModules(() => {
-      const LinkPicker: typeof LinkPickerType =
-        require('./index').ComposedLinkPicker;
+      const LinkPicker: typeof LinkPickerType = require('./index').default;
       render(
         <LinkPicker
           component={component}

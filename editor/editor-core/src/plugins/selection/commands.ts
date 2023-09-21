@@ -7,14 +7,10 @@ import type {
   Node as PmNode,
   ResolvedPos,
 } from '@atlaskit/editor-prosemirror/model';
-
 import { GapCursorSelection, Side } from './gap-cursor-selection';
 import { isIgnored as isIgnoredByGapCursor } from '../selection/gap-cursor/utils/is-ignored';
-import { isNodeEmpty } from '../../utils/document';
-import { isEmptyParagraph } from '@atlaskit/editor-common/utils';
-
-import type { Command } from '../../types';
-
+import { isNodeEmpty, isEmptyParagraph } from '@atlaskit/editor-common/utils';
+import type { Command } from '@atlaskit/editor-common/types';
 import { SelectionActionTypes } from './actions';
 import { createCommand, getPluginState } from './plugin-factory';
 import {

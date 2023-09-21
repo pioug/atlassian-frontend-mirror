@@ -505,6 +505,7 @@ export const useSmartLinkAnalytics = (
        * @param id The unique ID for this Smart Link.
        * @param definitionId The definitionId of the Smart Link resolver invoked.
        * @param extensionKey The extensionKey of the Smart Link resovler invoked.
+       * @param canBeDatasource An indicator that shows that a smart link can be converted to a datasource
        */
       renderSuccessEvent: ({
         display,
@@ -516,6 +517,7 @@ export const useSmartLinkAnalytics = (
         destinationProduct,
         destinationSubproduct,
         location,
+        canBeDatasource = false,
       }: UiRenderSuccessEventProps) => {
         const experienceId = id ? id : defaultId;
         succeedUfoExperience('smart-link-rendered', experienceId, {
@@ -539,6 +541,7 @@ export const useSmartLinkAnalytics = (
               destinationProduct,
               destinationSubproduct,
               location,
+              canBeDatasource,
             }),
             commonAttributes,
           ),

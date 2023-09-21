@@ -29,7 +29,7 @@ import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 
 import { insertTaskDecisionCommand } from '../../../../plugins/tasks-and-decisions/commands';
 import type { TaskDecisionListType } from '../../../../plugins/tasks-and-decisions/types';
-import { selectNode } from '../../../../utils/commands';
+import { selectNode } from '@atlaskit/editor-common/selection';
 
 describe('tasks and decisions - commands', () => {
   const createEditor = createEditorFactory();

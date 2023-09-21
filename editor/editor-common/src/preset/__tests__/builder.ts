@@ -363,7 +363,7 @@ describe('EditorEditorPresetBuilder', () => {
       expect(() => {
         new EditorPresetBuilder()
           .add(PluginDog)
-          //.add(PluginBark)
+          // .add(PluginBark)
           // @ts-expect-error
           .add(PluginBarkLoud);
       }).not.toThrow();

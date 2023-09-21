@@ -1,11 +1,13 @@
 //#region Imports
 
-import { TableLayout } from '@atlaskit/adf-schema';
-import { Command } from '@atlaskit/editor-common/types';
-import { Transaction } from '@atlaskit/editor-prosemirror/state';
+import type { TableLayout } from '@atlaskit/adf-schema';
+import { TABLE_OVERFLOW_CHANGE_TRIGGER } from '@atlaskit/editor-common/analytics';
+import type { Command } from '@atlaskit/editor-common/types';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { findTable, toggleHeader } from '@atlaskit/editor-tables/utils';
 
 import { createCommand } from '../pm-plugins/plugin-factory';
+import { META_KEYS } from '../pm-plugins/table-analytics';
 //#endregion
 
 // #region Utils
@@ -45,12 +47,20 @@ export const toggleHeaderColumn: Command = (state, dispatch): boolean =>
 export const toggleNumberColumn: Command = (state, dispatch) => {
   const { tr } = state;
   const { node, pos } = findTable(state.selection)!;
+  const isNumberedColumnEnabled = node.attrs.isNumberColumnEnabled;
 
   tr.setNodeMarkup(pos, state.schema.nodes.table, {
     ...node.attrs,
-    isNumberColumnEnabled: !node.attrs.isNumberColumnEnabled,
+    isNumberColumnEnabled: !isNumberedColumnEnabled,
   });
   tr.setMeta('scrollIntoView', false);
+
+  const tableOverflowChangeTriggerName = isNumberedColumnEnabled
+    ? TABLE_OVERFLOW_CHANGE_TRIGGER.DISABLED_NUMBERED_COLUMN
+    : TABLE_OVERFLOW_CHANGE_TRIGGER.ENABLED_NUMBERED_COLUMN;
+  tr.setMeta(META_KEYS.OVERFLOW_TRIGGER, {
+    name: tableOverflowChangeTriggerName,
+  });
 
   if (dispatch) {
     dispatch(tr);
@@ -76,6 +86,9 @@ export const toggleTableLayout: Command = (state, dispatch): boolean => {
       tr.setNodeMarkup(table.pos, state.schema.nodes.table, {
         ...table.node.attrs,
         layout,
+      });
+      tr.setMeta(META_KEYS.OVERFLOW_TRIGGER, {
+        name: TABLE_OVERFLOW_CHANGE_TRIGGER.RESIZED,
       });
       return tr.setMeta('scrollIntoView', false);
     },

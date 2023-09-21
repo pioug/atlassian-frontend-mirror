@@ -8,23 +8,28 @@ import FlexibleCard from '../src/view/FlexibleCard';
 import { ElementName, SmartLinkTheme, TitleBlock } from '../src/index';
 
 const cardState = getCardState({
-  '@type': 'atlassian:Template',
-  'atlassian:mergeSource': { '@type': 'Link', name: 'lp-flexible-smart-links' },
-  'atlassian:mergeDestination': { '@type': 'Link', name: 'master' },
-  'atlassian:state': 'open',
-  'atlassian:updatedBy': { '@type': 'Person', name: 'Tweak' },
-  attributedTo: [
-    { '@type': 'Person', name: 'Fluffy' },
-    { '@type': 'Person', name: 'Kirara' },
-    { '@type': 'Person', name: 'Tweak' },
-  ],
-  'schema:commentCount': 20,
-  'schema:dateCreated': '2020-02-04T12:40:12.353+0800',
-  'schema:programmingLanguage': 'Javascript',
-  updated: '2022-01-23T16:44:00.000+1000',
-  location: {
-    name: 'Location title',
-    url: 'https://www.locationMcLocationton.com/foo',
+  data: {
+    '@type': 'atlassian:Template',
+    'atlassian:mergeSource': {
+      '@type': 'Link',
+      name: 'lp-flexible-smart-links',
+    },
+    'atlassian:mergeDestination': { '@type': 'Link', name: 'master' },
+    'atlassian:state': 'open',
+    'atlassian:updatedBy': { '@type': 'Person', name: 'Tweak' },
+    attributedTo: [
+      { '@type': 'Person', name: 'Fluffy' },
+      { '@type': 'Person', name: 'Kirara' },
+      { '@type': 'Person', name: 'Tweak' },
+    ],
+    'schema:commentCount': 20,
+    'schema:dateCreated': '2020-02-04T12:40:12.353+0800',
+    'schema:programmingLanguage': 'Javascript',
+    updated: '2022-01-23T16:44:00.000+1000',
+    location: {
+      name: 'Location title',
+      url: 'https://www.locationMcLocationton.com/foo',
+    },
   },
 });
 

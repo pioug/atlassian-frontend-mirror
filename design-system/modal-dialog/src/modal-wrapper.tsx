@@ -9,7 +9,7 @@ import ScrollLock, { TouchScrollable } from 'react-scrolllock';
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
 import Blanket from '@atlaskit/blanket';
 import noop from '@atlaskit/ds-lib/noop';
-import useCloseOnEscapePress from '@atlaskit/ds-lib/use-close-on-escape-press';
+import { UNSAFE_LAYERING } from '@atlaskit/layering';
 import FadeIn from '@atlaskit/motion/fade-in';
 import Portal from '@atlaskit/portal';
 import { layers } from '@atlaskit/theme/constants';
@@ -94,11 +94,6 @@ const ModalWrapper = (props: ModalDialogProps) => {
 
   usePreventProgrammaticScroll();
 
-  useCloseOnEscapePress({
-    onClose: onCloseHandler,
-    isDisabled: !shouldCloseOnEscapePress || !isForeground,
-  });
-
   const modalDialogWithBlanket = (
     <Blanket
       isTinted={!isBlanketHidden}
@@ -111,6 +106,7 @@ const ModalWrapper = (props: ModalDialogProps) => {
         autoFocus={autoFocus}
         stackIndex={stackIndex}
         onClose={onCloseHandler}
+        shouldCloseOnEscapePress={shouldCloseOnEscapePress && isForeground}
         shouldScrollInViewport={shouldScrollInViewport}
         height={height}
         width={width}
@@ -123,33 +119,35 @@ const ModalWrapper = (props: ModalDialogProps) => {
   );
 
   return (
-    <Portal zIndex={layers.modal()}>
-      <FadeIn>
-        {(fadeInProps) => (
-          <div
-            {...fadeInProps}
-            css={fillScreenStyles}
-            aria-hidden={!isForeground}
-          >
-            <FocusLock
-              autoFocus={autoFocusLock}
-              disabled={!isForeground}
-              returnFocus
-              whiteList={whiteListElements}
+    <UNSAFE_LAYERING>
+      <Portal zIndex={layers.modal()}>
+        <FadeIn>
+          {(fadeInProps) => (
+            <div
+              {...fadeInProps}
+              css={fillScreenStyles}
+              aria-hidden={!isForeground}
             >
-              {/* Ensures scroll events are blocked on the document body and locked */}
-              <ScrollLock />
-              {/* TouchScrollable makes the whole modal dialog scrollable when scroll boundary is set to viewport. */}
-              {shouldScrollInViewport ? (
-                <TouchScrollable>{modalDialogWithBlanket}</TouchScrollable>
-              ) : (
-                modalDialogWithBlanket
-              )}
-            </FocusLock>
-          </div>
-        )}
-      </FadeIn>
-    </Portal>
+              <FocusLock
+                autoFocus={autoFocusLock}
+                disabled={!isForeground}
+                returnFocus
+                whiteList={whiteListElements}
+              >
+                {/* Ensures scroll events are blocked on the document body and locked */}
+                <ScrollLock />
+                {/* TouchScrollable makes the whole modal dialog scrollable when scroll boundary is set to viewport. */}
+                {shouldScrollInViewport ? (
+                  <TouchScrollable>{modalDialogWithBlanket}</TouchScrollable>
+                ) : (
+                  modalDialogWithBlanket
+                )}
+              </FocusLock>
+            </div>
+          )}
+        </FadeIn>
+      </Portal>
+    </UNSAFE_LAYERING>
   );
 };
 

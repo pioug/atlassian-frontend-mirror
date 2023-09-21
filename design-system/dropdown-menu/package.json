@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/dropdown-menu",
-  "version": "11.13.0",
+  "version": "11.14.0",
   "description": "A dropdown menu displays a list of actions or options to a user.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -35,9 +35,10 @@
     "@atlaskit/codemod-utils": "^4.2.0",
     "@atlaskit/ds-lib": "^2.2.0",
     "@atlaskit/icon": "^21.12.0",
+    "@atlaskit/layering": "^0.2.0",
     "@atlaskit/menu": "^1.10.0",
     "@atlaskit/platform-feature-flags": "^0.2.2",
-    "@atlaskit/popup": "^1.9.0",
+    "@atlaskit/popup": "^1.10.0",
     "@atlaskit/primitives": "^1.6.0",
     "@atlaskit/spinner": "^15.5.0",
     "@atlaskit/theme": "^12.6.0",
@@ -116,6 +117,9 @@
     "platform.design-system-team.icon-button-spacing-fix_o1zc5": {
       "type": "boolean",
       "referenceOnly": "true"
+    },
+    "platform.design-system-team.layering_qmiw3": {
+      "type": "boolean"
     }
   },
   "homepage": "https://atlassian.design/components/dropdown-menu/",

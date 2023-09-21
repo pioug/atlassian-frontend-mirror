@@ -1,5 +1,4 @@
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type {
   Command,
@@ -40,25 +39,4 @@ const withScrollIntoView: HigherOrderCommand =
       view,
     );
 
-/**
- * Insert content, delete a range and create a new selection
- * This function automatically handles the mapping of positions for insertion and deletion.
- * The new selection is handled as a function since it may not always be necessary to resolve a position to the transactions mapping
- *
- * @param getSelectionResolvedPos get the resolved position to create a new selection
- * @param insertions content to insert at the specified position
- * @param deletions the ranges to delete
- */
-
-const selectNode =
-  (pos: number): Command =>
-  (state, dispatch) => {
-    if (dispatch) {
-      dispatch(
-        state.tr.setSelection(new NodeSelection(state.doc.resolve(pos))),
-      );
-    }
-    return true;
-  };
-
-export { isNthParentOfType, withScrollIntoView, selectNode };
+export { isNthParentOfType, withScrollIntoView };

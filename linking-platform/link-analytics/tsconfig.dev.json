@@ -46,6 +46,9 @@
       "path": "../../../build/website/docs/tsconfig.app.json"
     },
     {
+      "path": "../link-client-extension/tsconfig.app.json"
+    },
+    {
       "path": "../link-picker/tsconfig.app.json"
     },
     {

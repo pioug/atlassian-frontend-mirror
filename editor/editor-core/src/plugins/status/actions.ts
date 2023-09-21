@@ -19,7 +19,7 @@ import {
 import type { TOOLBAR_MENU_TYPE } from '../insert-block/ui/ToolbarInsertBlock/types';
 
 import { pluginKey } from './plugin-key';
-import type { StatusType } from './types';
+import type { StatusType, ClosingPayload } from './types';
 import { canInsert } from '@atlaskit/editor-prosemirror/utils';
 
 export const DEFAULT_STATUS: StatusType = {
@@ -155,39 +155,60 @@ export const removeStatus =
     return true;
   };
 
-export const commitStatusPicker = () => (editorView: EditorView) => {
-  const { state, dispatch } = editorView;
-  const { showStatusPickerAt } = pluginKey.getState(state) || {};
-
-  if (!showStatusPickerAt) {
-    return;
+const handleClosingByArrows = (
+  closingMethod: string,
+  state: EditorState,
+  showStatusPickerAt: number,
+  tr: Transaction,
+) => {
+  if (closingMethod === 'arrowLeft') {
+    // put cursor right before status Lozenge
+    tr = tr.setSelection(
+      Selection.near(state.tr.doc.resolve(showStatusPickerAt), -1),
+    );
+  } else if (closingMethod === 'arrowRight') {
+    // put cursor right after status Lozenge
+    tr = tr.setSelection(
+      Selection.near(state.tr.doc.resolve(showStatusPickerAt + 1)),
+    );
   }
-
-  const statusNode = state.tr.doc.nodeAt(showStatusPickerAt);
-
-  if (!statusNode) {
-    return;
-  }
-
-  let tr = state.tr;
-  tr = tr.setMeta(pluginKey, {
-    showStatusPickerAt: null,
-    isNew: false,
-  });
-
-  if (statusNode.attrs.text) {
-    // still has content - keep content
-    // move selection after status if selection did not change
-    if (tr.selection.from === showStatusPickerAt) {
-      tr = tr.setSelection(
-        Selection.near(state.tr.doc.resolve(showStatusPickerAt + 2)),
-      );
-    }
-  } else {
-    // no content - remove node
-    tr = tr.delete(showStatusPickerAt, showStatusPickerAt + 1);
-  }
-
-  dispatch(tr);
-  editorView.focus();
 };
+export const commitStatusPicker =
+  (closingPayload?: ClosingPayload) => (editorView: EditorView) => {
+    const { state, dispatch } = editorView;
+    const { showStatusPickerAt } = pluginKey.getState(state) || {};
+    const { closingMethod } = closingPayload || {};
+    if (!showStatusPickerAt) {
+      return;
+    }
+
+    const statusNode = state.tr.doc.nodeAt(showStatusPickerAt);
+
+    if (!statusNode) {
+      return;
+    }
+
+    let tr = state.tr;
+    tr = tr.setMeta(pluginKey, {
+      showStatusPickerAt: null,
+      isNew: false,
+    });
+
+    if (closingMethod) {
+      handleClosingByArrows(closingMethod, state, showStatusPickerAt, tr);
+    } else if (statusNode.attrs.text) {
+      // still has content - keep content
+      // move selection after status if selection did not change
+      if (tr.selection.from === showStatusPickerAt) {
+        tr = tr.setSelection(
+          Selection.near(state.tr.doc.resolve(showStatusPickerAt + 2)),
+        );
+      }
+    } else {
+      // no content - remove node
+      tr = tr.delete(showStatusPickerAt, showStatusPickerAt + 1);
+    }
+
+    dispatch(tr);
+    editorView.focus();
+  };

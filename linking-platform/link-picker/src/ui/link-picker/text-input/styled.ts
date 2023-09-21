@@ -12,7 +12,14 @@ export const clearTextButtonStyles = css`
   cursor: pointer;
 `;
 
+/**
+ * Overidding text input margin top which design system provides as a default spacer
+ * but it gets in the way of our layout
+ */
 export const fieldStyles = css`
+  > div {
+    margin-top: 0;
+  }
   & + & {
     margin-top: ${token('space.200', '16px')};
   }

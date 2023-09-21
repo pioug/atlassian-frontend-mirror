@@ -1,6 +1,7 @@
 import { JsonLd } from 'json-ld-types';
 import { CardClient } from '@atlaskit/link-provider';
 import { ServerErrorType } from '@atlaskit/linking-common';
+import { JsonLdDatasourceResponse } from '@atlaskit/link-client-extension';
 
 // Copied from smart-card
 export interface ErrorResponseBody {
@@ -137,4 +138,50 @@ export const mocks = {
     status: 404,
     type: 'ResolveUnsupportedError',
   } as ErrorResponseBody,
+  withDatasources: {
+    meta: {
+      visibility: 'public',
+      access: 'granted',
+      auth: [],
+      definitionId: 'd1',
+      key: 'object-provider',
+      tenantId: 'tenantId',
+      subproduct: 'core',
+      product: 'jira',
+      category: 'object',
+    },
+    data: {
+      '@context': {
+        '@vocab': 'https://www.w3.org/ns/activitystreams#',
+        atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
+        schema: 'http://schema.org/',
+      },
+      '@type': 'Object',
+      name: 'I love cheese',
+      summary: 'Here is your serving of cheese: 🧀',
+      'schema:potentialAction': {
+        '@id': 'comment',
+        '@type': 'CommentAction',
+        identifier: 'object-provider',
+        name: 'Comment',
+      },
+      preview: {
+        href: 'https://www.ilovecheese.com',
+      },
+      url: 'https://some.url',
+    },
+    datasources: [
+      {
+        key: 'datasource-jira-issues',
+        parameters: {
+          jql: '(text ~ "test*" OR summary ~ "test*") order by created DESC',
+          cloudId: '16f8b71e',
+        },
+        id: '1234-test-id-321',
+        ari: 'ari:cloud:linking-platform::datasource/1234-test-id-321',
+        description: 'For extracting a list of Jira issues using JQL',
+        name: 'Jira issues',
+      },
+    ],
+  } as JsonLdDatasourceResponse,
 };

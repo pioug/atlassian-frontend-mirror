@@ -1,10 +1,10 @@
 import type React from 'react';
 
-import { IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl-next';
 
-import { Node, NodeType } from '@atlaskit/editor-prosemirror/model';
+import type { Node, NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { EmojiId } from '@atlaskit/emoji/types';
 
 import type { DispatchAnalyticsEvent } from '../analytics/types/dispatch-analytics-event';
@@ -79,7 +79,7 @@ export interface ConfirmDialogOptions {
   message: string;
   okButtonLabel?: string; // Defaults to "OK"
   cancelButtonLabel?: string; // Defaults to "Cancel"
-  isReferentialityDialog?: boolean; //option for extra content
+  isReferentialityDialog?: boolean; // option for extra content
   checkboxLabel?: string;
   messagePrefix?: string;
   getChildrenInfo?: () => ConfirmDialogChildInfo[];
@@ -137,7 +137,7 @@ export type FloatingToolbarButton<T extends {}> = {
     | 'grid'
     | undefined;
   tabIndex?: number | null | undefined;
-  focusEditoronEnter?: boolean; //To focus the editor when button is pressed default value - false
+  focusEditoronEnter?: boolean; // To focus the editor when button is pressed default value - false
 };
 
 export type FloatingToolbarInput<T extends {}> = {
@@ -238,6 +238,8 @@ export type FloatingToolbarDropdown<T extends {}> = {
   tooltip?: string;
   dropdownWidth?: number;
   showSelected?: boolean;
+  // A prop to align the dropdown with the floating toolbar instead of the toolbar item
+  alignDropdownWithToolbar?: boolean;
 };
 
 type FloatingToolbarExtensionsPlaceholder = {

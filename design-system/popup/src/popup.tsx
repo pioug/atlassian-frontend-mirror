@@ -4,6 +4,7 @@ import { FC, memo, useState } from 'react';
 
 import { jsx } from '@emotion/react';
 
+import { UNSAFE_LAYERING } from '@atlaskit/layering';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { Manager, Reference } from '@atlaskit/popper';
 import Portal from '@atlaskit/portal';
@@ -37,23 +38,25 @@ export const Popup: FC<PopupProps> = memo(
     const [triggerRef, setTriggerRef] = useState<HTMLElement | null>(null);
 
     const renderPopperWrapper = (
-      <PopperWrapper
-        content={content}
-        isOpen={isOpen}
-        placement={placement}
-        fallbackPlacements={fallbackPlacements}
-        boundary={boundary}
-        rootBoundary={rootBoundary}
-        shouldFlip={shouldFlip}
-        offset={offset}
-        popupComponent={PopupContainer}
-        id={id}
-        testId={testId}
-        onClose={onClose}
-        autoFocus={autoFocus}
-        shouldUseCaptureOnOutsideClick={shouldUseCaptureOnOutsideClick}
-        triggerRef={triggerRef}
-      />
+      <UNSAFE_LAYERING>
+        <PopperWrapper
+          content={content}
+          isOpen={isOpen}
+          placement={placement}
+          fallbackPlacements={fallbackPlacements}
+          boundary={boundary}
+          rootBoundary={rootBoundary}
+          shouldFlip={shouldFlip}
+          offset={offset}
+          popupComponent={PopupContainer}
+          id={id}
+          testId={testId}
+          onClose={onClose}
+          autoFocus={autoFocus}
+          shouldUseCaptureOnOutsideClick={shouldUseCaptureOnOutsideClick}
+          triggerRef={triggerRef}
+        />
+      </UNSAFE_LAYERING>
     );
 
     return (

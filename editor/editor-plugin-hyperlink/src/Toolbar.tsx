@@ -264,9 +264,9 @@ export const getToolbarConfig =
                 ?.items(state, intl, providerFactory, link) ?? []),
               {
                 id: 'editor.link.edit',
+                testId: 'editor.link.edit',
                 type: 'button',
                 onClick: editInsertedLink(editorAnalyticsApi),
-                selected: false,
                 title: editLink,
                 showTitle: true,
                 metadata: metadata,
@@ -276,12 +276,12 @@ export const getToolbarConfig =
               },
               {
                 id: 'editor.link.openLink',
+                testId: 'editor.link.openLink',
                 type: 'button',
                 disabled: !isValidUrl,
                 target: '_blank',
                 href: isValidUrl ? link : undefined,
                 onClick: visitHyperlink(editorAnalyticsApi),
-                selected: false,
                 title: labelOpenLink,
                 icon: OpenIcon,
                 className: 'hyperlink-open-link',
@@ -293,6 +293,7 @@ export const getToolbarConfig =
               },
               {
                 id: 'editor.link.unlink',
+                testId: 'editor.link.unlink',
                 type: 'button',
                 onClick: commandWithMetadata(
                   removeLink(pos, editorAnalyticsApi),
@@ -300,7 +301,6 @@ export const getToolbarConfig =
                     inputMethod: INPUT_METHOD.FLOATING_TB,
                   },
                 ),
-                selected: false,
                 title: labelUnlink,
                 icon: UnlinkIcon,
                 tabIndex: null,

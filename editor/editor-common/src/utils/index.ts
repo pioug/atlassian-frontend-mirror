@@ -141,6 +141,7 @@ export {
   hasMergedCell,
   calcTableColumnWidths,
   convertProsemirrorTableNodeToArrayOfRows,
+  isPositionNearTableRow,
 } from './table';
 export { createCompareNodes } from './compareNodes';
 export { compose } from './compose';

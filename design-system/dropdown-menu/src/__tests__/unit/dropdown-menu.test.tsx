@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { act, fireEvent, render } from '@testing-library/react';
 
 import Button from '@atlaskit/button/standard-button';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../../index';
 
@@ -114,29 +115,39 @@ describe('dropdown menu', () => {
         </DropdownMenu>
       );
     };
-    it('should render nested dropdown on the page', async () => {
-      const { getByTestId, queryByTestId } = render(<NestedDropdown />);
-      let level = 0;
-      while (level < 5) {
-        // test nested dropdown can be opened correctly
-        const nestedTrigger = getByTestId(`nested-${level}--trigger`);
-        expect(nestedTrigger).toBeInTheDocument();
-        act(() => {
+    ffTest(
+      'platform.design-system-team.layering_qmiw3',
+      // Test when true
+      () => {
+        const { getByTestId, queryByTestId } = render(<NestedDropdown />);
+        let level = 0;
+        while (level < 5) {
+          // test nested dropdown can be opened correctly
+          const nestedTrigger = getByTestId(`nested-${level}--trigger`);
+          expect(nestedTrigger).toBeInTheDocument();
           fireEvent.click(nestedTrigger);
-        });
-        level += 1;
-      }
-      act(() => {
-        // close the dropdown by pressing Escape
-        fireEvent.keyDown(document, { key: 'Escape', code: 'Escape' });
-      });
-      while (level > 0) {
-        // test if all nested dropdown are closed
-        const nestedTrigger = queryByTestId(`nested-${level}--trigger`);
-        expect(nestedTrigger).not.toBeInTheDocument();
-        level -= 1;
-      }
-    });
+          level += 1;
+        }
+        while (level > 0) {
+          // close the dropdown by pressing Escape
+          fireEvent.keyDown(document, { key: 'Escape', code: 'Escape' });
+          // test if top level of nested dropdown is closed
+          const nestedTrigger = queryByTestId(`nested-${level}--trigger`);
+          expect(nestedTrigger).not.toBeInTheDocument();
+          level -= 1;
+          expect(queryByTestId(`nested-${level}--trigger`)).toBeInTheDocument();
+        }
+      },
+      () => {
+        const { getByTestId } = render(<NestedDropdown />);
+        // test nested dropdown can be opened correctly
+        const nestedTrigger = getByTestId('nested-0--trigger');
+        expect(nestedTrigger).toBeInTheDocument();
+        fireEvent.click(nestedTrigger);
+        const nestedItem1 = getByTestId('nested-1--trigger');
+        expect(nestedItem1.closest('button')).not.toHaveFocus();
+      },
+    );
   });
 
   describe('customised trigger', () => {

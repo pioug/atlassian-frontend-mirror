@@ -1,5 +1,11 @@
 # @atlaskit/layering
 
+## 0.2.0
+
+### Minor Changes
+
+- [`f355884a4aa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f355884a4aa) - [ux] Support to press escape key and only close the top layer
+
 ## 0.1.2
 
 ### Patch Changes

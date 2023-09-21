@@ -365,6 +365,7 @@ describe('smart-card: unauthorized analytics', () => {
         status: 'unauthorized',
         definitionId: 'd1',
         extensionKey: 'object-provider',
+        canBeDatasource: false,
       });
     });
 

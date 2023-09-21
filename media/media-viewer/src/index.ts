@@ -3,4 +3,5 @@ export type {
   MediaViewerExtensions,
   MediaViewerExtensionsActions,
   MediaViewerProps,
+  MediaMessage,
 } from './components/types';

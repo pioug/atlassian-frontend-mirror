@@ -18,6 +18,7 @@ import {
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
 } from '../analytics';
+import type { Command } from '../types';
 
 export { RelativeSelectionPos } from './types';
 export type { SelectionPluginState, EditorSelectionAPI } from './types';
@@ -120,3 +121,24 @@ export function getRangeSelectionAnalyticsPayload(
     };
   }
 }
+
+/**
+ * Insert content, delete a range and create a new selection
+ * This function automatically handles the mapping of positions for insertion and deletion.
+ * The new selection is handled as a function since it may not always be necessary to resolve a position to the transactions mapping
+ *
+ * @param getSelectionResolvedPos get the resolved position to create a new selection
+ * @param insertions content to insert at the specified position
+ * @param deletions the ranges to delete
+ */
+
+export const selectNode =
+  (pos: number): Command =>
+  (state, dispatch) => {
+    if (dispatch) {
+      dispatch(
+        state.tr.setSelection(new NodeSelection(state.doc.resolve(pos))),
+      );
+    }
+    return true;
+  };

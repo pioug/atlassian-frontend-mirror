@@ -5,6 +5,10 @@ import {
   DestinationProduct,
   DestinationSubproduct,
 } from '../utils/analytics/types';
+import {
+  DatasourceResolveResponse,
+  JsonLdDatasourceResponse,
+} from '@atlaskit/link-client-extension';
 
 export const getByDefinitionId = (
   definitionId: string | undefined,
@@ -71,4 +75,15 @@ export const isFinalState = (status: CardType): boolean => {
       status,
     ) > -1
   );
+};
+
+export const getDatasources = (
+  details?: JsonLdDatasourceResponse,
+): DatasourceResolveResponse[] | undefined => details?.datasources;
+
+export const getCanBeDatasource = (
+  details?: JsonLdDatasourceResponse,
+): boolean => {
+  const datasources = getDatasources(details);
+  return !!datasources && datasources.length > 0;
 };

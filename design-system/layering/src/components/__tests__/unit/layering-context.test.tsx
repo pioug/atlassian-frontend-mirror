@@ -4,7 +4,7 @@ import { render, screen } from '@testing-library/react';
 
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
-import { UNSAFE_LAYERING, UNSAFE_useLayering } from '../../context';
+import { UNSAFE_LAYERING, UNSAFE_useLayering } from '../../../index';
 
 jest.mock('@atlaskit/platform-feature-flags', () => ({
   getBooleanFF: jest.fn().mockImplementation(() => false),

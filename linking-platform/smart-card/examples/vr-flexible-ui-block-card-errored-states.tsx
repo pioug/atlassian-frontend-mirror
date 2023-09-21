@@ -24,28 +24,40 @@ export default () => {
           <div style={{ padding: '30px' }}>
             <h5>Errored view</h5>
             <FlexibleErroredView
-              cardState={getCardState({ url: 'some-url' }, {}, 'errored')}
+              cardState={getCardState({
+                data: { url: 'some-url' },
+                status: 'errored',
+              })}
               url="some.url"
               onAuthorize={() => {}}
               analytics={mockAnalytics}
             />
             <h5> Unauthorised view</h5>
             <FlexibleUnauthorisedView
-              cardState={getCardState({ url: 'some-url' }, {}, 'unauthorized')}
+              cardState={getCardState({
+                data: { url: 'some-url' },
+                status: 'unauthorized',
+              })}
               url="some.url"
               onAuthorize={() => {}}
               analytics={mockAnalytics}
             />
             <h5>Forbidden view </h5>
             <FlexibleForbiddenView
-              cardState={getCardState({ url: 'some-url' }, {}, 'forbidden')}
+              cardState={getCardState({
+                data: { url: 'some-url' },
+                status: 'forbidden',
+              })}
               url="some.url"
               onAuthorize={() => {}}
               analytics={mockAnalytics}
             />
             <h5>Not Found </h5>
             <FlexibleNotFoundView
-              cardState={getCardState({ url: 'some-url' }, {}, 'not_found')}
+              cardState={getCardState({
+                data: { url: 'some-url' },
+                status: 'not_found',
+              })}
               url="some.url"
               analytics={mockAnalytics}
             />

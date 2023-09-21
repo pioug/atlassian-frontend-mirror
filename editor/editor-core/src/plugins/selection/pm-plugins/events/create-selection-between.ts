@@ -8,6 +8,10 @@ import type {
 } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
+function isNodeContentEmpty(maybeNode?: PMNode): boolean {
+  return maybeNode?.content.size === 0 || maybeNode?.textContent === '';
+}
+
 function findEmptySelectableParentNodePosition(
   $pos: ResolvedPos,
   isValidPosition: ($pos: ResolvedPos) => boolean,
@@ -60,9 +64,7 @@ const checkPositionNode = ($pos: ResolvedPos): boolean => {
     return true;
   }
 
-  const isParentEmpty =
-    maybeNode.content.size === 0 || maybeNode.textContent === '';
-  return isParentEmpty && NodeSelection.isSelectable(maybeNode);
+  return isNodeContentEmpty(maybeNode) && NodeSelection.isSelectable(maybeNode);
 };
 
 function findNextSelectionPosition({
@@ -111,6 +113,15 @@ export const onCreateSelectionBetween = (
 
   // If the head is targeting a paragraph on root, then let ProseMirror handle the text selection
   if ($head.depth === 1 && $head.parent?.type.name === 'paragraph') {
+    return null;
+  }
+
+  // If head is at the beginning of a non-empty textblock, let ProseMirror handle the text selection
+  if (
+    $head.parent?.isTextblock &&
+    !isNodeContentEmpty($head.parent) &&
+    $head.parentOffset === 0
+  ) {
     return null;
   }
 

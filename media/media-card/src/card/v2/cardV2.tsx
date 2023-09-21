@@ -313,6 +313,17 @@ export class CardV2Base extends Component<CardV2BaseProps, CardState> {
       });
     }
     if (
+      cardPreview &&
+      turnedVisible &&
+      isFileIdentifier(identifier) &&
+      isSSRDataPreview(cardPreview) &&
+      isBigger(this.ssrData?.dimensions, dimensions)
+    ) {
+      // If dimensions from Server have changed and are bigger,
+      // we need to refetch
+      this.refetchSSRPreview(identifier);
+    }
+    if (
       isFileIdentifier(identifier) &&
       (turnedVisible ||
         (!!this.subscription && (isNewMediaClient || isDiffIdentifier)))

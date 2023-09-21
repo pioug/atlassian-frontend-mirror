@@ -72,7 +72,6 @@ import {
   DEFAULT_IMAGE_WIDTH,
   DEFAULT_IMAGE_HEIGHT,
   calcMinWidth,
-  getMaxWidthForNestedNodeNext,
 } from '@atlaskit/editor-common/media-single';
 import {
   akEditorDefaultLayoutWidth,
@@ -403,10 +402,10 @@ const generateMediaSingleFloatingToolbar = (
           const { width: mediaWidth, height: mediaHeight } =
             selectedMediaNode.attrs;
 
-          const maxWidthForNestedNode = getMaxWidthForNestedNodeNext(
-            editorView,
-            selectedMediaSingleNode.pos,
-          );
+          const maxWidthForNestedNode =
+            pluginInjectionApi?.media.sharedState.currentState()
+              ?.currentMaxWidth;
+
           const maxWidth =
             maxWidthForNestedNode || akEditorFullWidthLayoutWidth;
           const isVideoFile = isVideo(selectedMediaNode.attrs.__fileMimeType);

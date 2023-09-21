@@ -481,7 +481,7 @@ const getLastColumnResizerOverrides = () => {
           .${ClassName.RESIZE_HANDLE_DECORATION} {
           background-color: transparent;
           position: absolute;
-          width: ${resizeHandlerAreaWidth}px;
+          width: ${resizeHandlerAreaWidth / 2}px;
           height: 100%;
           top: 0;
           right: 0;

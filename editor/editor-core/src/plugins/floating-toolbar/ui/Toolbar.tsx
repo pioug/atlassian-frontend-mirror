@@ -200,6 +200,7 @@ const ToolbarItems = React.memo(
                       scrollable ? setDisableScroll : undefined
                     }
                     dropdownListId={item?.id && `${item.id}-dropdownList`}
+                    alignDropdownWithToolbar={items.length === 1}
                   />
                 );
 

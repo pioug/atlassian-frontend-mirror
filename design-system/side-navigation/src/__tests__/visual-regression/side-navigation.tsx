@@ -170,8 +170,7 @@ describe('<SideNavigation /> integration tests', () => {
     ).toMatchProdImageSnapshot();
   });
 
-  // Skipped because it's blocking master https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/1692958/steps/%7B7bf5f035-060c-49e4-97d4-bb1c84c8d4dd%7D#line=5-352
-  it.skip('should match customised component example', async () => {
+  it('should match customised component example', async () => {
     await openExamplesAndWaitFor('customised-components', sideNavigation);
 
     expect(

@@ -1,4 +1,5 @@
-import { Color as ColorType } from '@atlaskit/status/element';
+import type { Color as ColorType } from '@atlaskit/status/element';
+import type { closingMethods } from './ui/statusPicker';
 
 export type StatusType = {
   color: ColorType;
@@ -15,3 +16,7 @@ export interface StatusPluginOptions {
   menuDisabled: boolean;
   allowZeroWidthSpaceAfter?: boolean;
 }
+
+export type ClosingPayload = {
+  closingMethod: closingMethods;
+};

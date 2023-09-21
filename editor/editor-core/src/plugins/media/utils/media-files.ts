@@ -37,10 +37,11 @@ import {
   atTheEndOfDoc,
   endPositionOfParent,
   startPositionOfParent,
-} from '../../../utils/prosemirror/position';
+} from '@atlaskit/editor-common/selection';
 import type {
   InsertEventPayload,
   InputMethodInsertMedia,
+  EditorAnalyticsAPI,
 } from '@atlaskit/editor-common/analytics';
 import {
   ACTION,
@@ -48,7 +49,6 @@ import {
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 
 export interface Range {
   start: number;

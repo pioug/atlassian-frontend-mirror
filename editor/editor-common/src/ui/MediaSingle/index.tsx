@@ -70,7 +70,7 @@ export default function MediaSingle({
   }
   // When width is not set we have an absolute height for a given embed.
   // When both width and height are set we use them to determine ratio and use that to define
-  // embed height in relation to whatever width of an dom element is in runtime
+  // embed height in relation to whatever width of an dom element is in runtime.
   const isHeightOnly = width === undefined;
   if (mediaSingleWidth) {
     const pxWidth = getMediaSinglePixelWidth(

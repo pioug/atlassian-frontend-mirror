@@ -1,5 +1,11 @@
 # @atlaskit/media-card
 
+## 77.0.2
+
+### Patch Changes
+
+- [`78b51d6134c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/78b51d6134c) - Fixed issue with media card lazy loading not working during SSR hydration
+
 ## 77.0.1
 
 ### Patch Changes

@@ -1,13 +1,16 @@
+import { TABLE_OVERFLOW_CHANGE_TRIGGER } from '@atlaskit/editor-common/analytics';
 import type { Command } from '@atlaskit/editor-common/types';
-import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { Transaction } from '@atlaskit/editor-prosemirror/state';
-import { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import { isTableSelected } from '@atlaskit/editor-tables/utils';
 
 import { updateColumnWidths } from '../../transforms';
+import { META_KEYS } from '../table-analytics';
 
 import { createCommand, getPluginState } from './plugin-factory';
-import { evenAllColumnsWidths, isClickNear, ResizeState } from './utils';
+import type { ResizeState } from './utils';
+import { evenAllColumnsWidths, isClickNear } from './utils';
 
 export const evenColumns =
   ({
@@ -60,6 +63,9 @@ export const distributeColumnsWidths =
         table.node,
         table.start,
       )(state.tr);
+      tr.setMeta(META_KEYS.OVERFLOW_TRIGGER, {
+        name: TABLE_OVERFLOW_CHANGE_TRIGGER.DISTRIBUTED_COLUMNS,
+      });
       stopResizing(tr)(state, dispatch);
     }
 

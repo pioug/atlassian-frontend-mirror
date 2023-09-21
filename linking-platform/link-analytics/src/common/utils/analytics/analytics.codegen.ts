@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::ab7189fc5cae06df917a747c7d50a839>>
+ * @codegen <<SignedSource::096d930f46556a8e77a6362f6a333ab1>>
  * @codegenCommand yarn workspace @atlaskit/link-analytics run codegen-analytics
  */
 export type ExternalContextType = {
@@ -31,6 +31,7 @@ export type ResolvedAttributesType = {
   destinationObjectType: string | null;
   destinationContainerId: string | null;
   destinationTenantId: string | null;
+  canBeDatasource: boolean | null;
 };
 export type LinkCreatedAttributesType = {
   creationMethod: string;

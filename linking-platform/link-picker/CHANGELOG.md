@@ -1,5 +1,11 @@
 # @atlaskit/link-picker
 
+## 1.30.0
+
+### Minor Changes
+
+- [`1e70dc014bf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1e70dc014bf) - Adds support for `paddingLeft`, `paddingRight`, `paddingTop` and `paddingBottom` props that enable overriding the internal padding of the link picker.
+
 ## 1.29.1
 
 ### Patch Changes

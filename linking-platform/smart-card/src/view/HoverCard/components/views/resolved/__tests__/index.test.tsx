@@ -12,6 +12,7 @@ import {
   mockConfluenceResponse,
   mockIframelyResponse,
   mockJiraResponse,
+  mockJiraResponseWithDatasources,
 } from '../../../../__tests__/__mocks__/mocks';
 import { getCardState } from '../../../../../../../examples/utils/flexible-ui';
 import HoverCardResolvedView from '../index';
@@ -26,12 +27,13 @@ import {
   SmartLinkPosition,
   SmartLinkSize,
 } from '../../../../../../constants';
-import { useSmartLinkActions } from '@atlaskit/smart-card/hooks';
+import { useSmartLinkActions } from '../../../../../../state/hooks-external/useSmartLinkActions';
 import { LinkAction } from '../../../../../../state/hooks-external/useSmartLinkActions';
 import { CardState } from '@atlaskit/linking-common';
 import { useSmartCardState } from '../../../../../../state/store';
 import { extractBlockProps } from '../../../../../../extractors/block';
 import MockAtlasProject from '../../../../../../__fixtures__/atlas-project';
+import { JsonLdDatasourceResponse } from '@atlaskit/link-client-extension';
 
 jest.mock('../../../../../../state/actions', () => ({
   useSmartCardActions: jest.fn(),
@@ -81,10 +83,15 @@ describe('HoverCardResolvedView', () => {
   });
 
   const setup = async ({
-    mockResponse = mockConfluenceResponse as JsonLd.Response,
+    mockResponse = mockConfluenceResponse as JsonLdDatasourceResponse,
     cardActions = [],
   }: { mockResponse?: JsonLd.Response; cardActions?: LinkAction[] } = {}) => {
-    const cardState = getCardState(mockResponse.data, mockResponse.meta);
+    const cardState = getCardState({
+      data: mockResponse.data,
+      meta: mockResponse.meta,
+      status: 'resolved',
+      datasources: (mockResponse as JsonLdDatasourceResponse).datasources,
+    });
 
     const { queryByTestId, findByTestId, findByText, findAllByTestId } = render(
       <IntlProvider locale="en">
@@ -365,30 +372,48 @@ describe('HoverCardResolvedView', () => {
   });
 
   describe('analytics', () => {
+    const getExpectedRenderSuccessEventPayload = (
+      canBeDatasource: boolean,
+    ) => ({
+      action: 'renderSuccess',
+      actionSubject: 'smartLink',
+      attributes: {
+        id: expect.any(String),
+        componentName: 'smart-cards',
+        definitionId: 'spaghetti-id',
+        display: 'hoverCardPreview',
+        destinationObjectType: 'spaghetti-resource',
+        destinationProduct: 'spaghetti-product',
+        destinationSubproduct: 'spaghetti-subproduct',
+        extensionKey: 'spaghetti-key',
+        location: 'resolved-test-location',
+        packageName: expect.any(String),
+        packageVersion: expect.any(String),
+        resourceType: 'spaghetti-resource',
+        status: 'resolved',
+        canBeDatasource: canBeDatasource,
+      },
+      eventType: 'ui',
+    });
+
     it('should fire render success event when hover card is rendered', async () => {
       const { findByTestId } = await setup();
       await findByTestId('smart-block-title-resolved-view');
 
-      expect(dispatchAnalytics).toHaveBeenCalledWith({
-        action: 'renderSuccess',
-        actionSubject: 'smartLink',
-        attributes: {
-          id: expect.any(String),
-          componentName: 'smart-cards',
-          definitionId: 'spaghetti-id',
-          display: 'hoverCardPreview',
-          destinationObjectType: 'spaghetti-resource',
-          destinationProduct: 'spaghetti-product',
-          destinationSubproduct: 'spaghetti-subproduct',
-          extensionKey: 'spaghetti-key',
-          location: 'resolved-test-location',
-          packageName: expect.any(String),
-          packageVersion: expect.any(String),
-          resourceType: 'spaghetti-resource',
-          status: 'resolved',
-        },
-        eventType: 'ui',
+      expect(dispatchAnalytics).toHaveBeenCalledWith(
+        getExpectedRenderSuccessEventPayload(false),
+      );
+    });
+
+    it('should fire render success event with canBeDatasource = true when hover card is rendered and state has datasources data', async () => {
+      const { findByTestId } = await setup({
+        mockResponse: mockJiraResponseWithDatasources as JsonLd.Response,
       });
+      await findByTestId('smart-block-title-resolved-view');
+
+      expect(dispatchAnalytics).toHaveBeenCalledWith(
+        getExpectedRenderSuccessEventPayload(true),
+      );
     });
   });
 });

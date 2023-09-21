@@ -6,11 +6,15 @@ import {
   DisableWidth500Example,
   DisableWidthExample,
   DisableWidthWithPluginsExample,
+  ErrorBoundaryExample,
+  LargePaddingUsingTokensExample,
+  VaryingPaddingsExample,
+  ZeroPaddingExample,
 } from '../../examples';
 
 type OptionsType = Parameters<typeof snapshot>[1];
 
-const options: OptionsType = {
+const allVariantsOptions: OptionsType = {
   variants: [
     {
       name: 'default',
@@ -31,8 +35,39 @@ const options: OptionsType = {
   ],
 };
 
-snapshot(DefaultExample, options);
-snapshot(DisableWidthExample, options);
-snapshot(DisableWidthWithPluginsExample, options);
-snapshot(DisableWidth500Example, options);
-snapshot(DisableWidth300Example, options);
+snapshot(DefaultExample, allVariantsOptions);
+snapshot(ErrorBoundaryExample, {
+  ...allVariantsOptions,
+  featureFlags: {
+    'platform.linking-platform.link-picker.fixed-height-search-results': [
+      true,
+      false,
+    ],
+  },
+});
+
+/** Width examples */
+snapshot(DisableWidthExample);
+snapshot(DisableWidthWithPluginsExample);
+snapshot(DisableWidth500Example);
+snapshot(DisableWidth300Example);
+
+/** Padding examples */
+snapshot(ZeroPaddingExample);
+snapshot(LargePaddingUsingTokensExample, {
+  variants: [
+    {
+      name: 'light mode',
+      environment: {
+        colorScheme: 'light',
+      },
+    },
+    {
+      name: 'dark mode',
+      environment: {
+        colorScheme: 'dark',
+      },
+    },
+  ],
+});
+snapshot(VaryingPaddingsExample);

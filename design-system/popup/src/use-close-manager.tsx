@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { bindAll } from 'bind-event-listener';
 
 import noop from '@atlaskit/ds-lib/noop';
+import { UNSAFE_useLayering } from '@atlaskit/layering';
 
 import { CloseManagerHook } from './types';
 
@@ -13,6 +14,8 @@ export const useCloseManager = ({
   triggerRef,
   shouldUseCaptureOnOutsideClick: capture,
 }: CloseManagerHook): void => {
+  const { isLayerDisabled } = UNSAFE_useLayering();
+
   useEffect(() => {
     if (!isOpen || !popupRef) {
       return noop;
@@ -51,6 +54,9 @@ export const useCloseManager = ({
     };
 
     const onKeyDown = (event: KeyboardEvent | React.KeyboardEvent) => {
+      if (isLayerDisabled()) {
+        return;
+      }
       const { key } = event;
       if (key === 'Escape' || key === 'Esc') {
         closePopup(event);
@@ -69,5 +75,5 @@ export const useCloseManager = ({
       },
     ]);
     return unbind;
-  }, [isOpen, onClose, popupRef, triggerRef, capture]);
+  }, [isOpen, onClose, popupRef, triggerRef, capture, isLayerDisabled]);
 };

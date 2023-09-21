@@ -34,7 +34,7 @@ const renderFooter = (size?: SmartLinkSize, actions?: ActionItem[]) => {
       { '@type': 'ViewAction', name: 'View' },
     ],
   };
-  const cardState = getCardState(actionData);
+  const cardState = getCardState({ data: actionData });
   return (
     <FlexibleCard cardState={cardState} ui={{ size }} url="link-url">
       <FooterBlock size={size} actions={actions} />

@@ -7,7 +7,13 @@ const NOOP = () => {};
 const createExample = (props: Partial<LinkSearchListItemProps> = {}) => {
   return function Example() {
     return (
-      <div style={{ maxWidth: 400 }}>
+      <div
+        style={{
+          maxWidth: 400,
+          ['--link-picker-padding-left' as string]: '16px',
+          ['--link-picker-padding-right' as string]: '16px',
+        }}
+      >
         <LinkSearchListItem
           item={{
             objectId: 'id',

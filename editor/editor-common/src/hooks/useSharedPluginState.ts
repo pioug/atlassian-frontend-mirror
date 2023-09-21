@@ -1,4 +1,6 @@
-import { useLayoutEffect, useMemo, useState } from 'react';
+import { useLayoutEffect, useMemo, useRef, useState } from 'react';
+
+import debounce from 'lodash/debounce';
 
 import type {
   ExtractPluginSharedState,
@@ -76,6 +78,35 @@ function useStaticPlugins<T>(plugins: T[]): T[] {
 
 /**
  *
+ * ⚠️⚠️⚠️ This is a debounced hook ⚠️⚠️⚠️
+ * If the plugins you are listening to generate multiple shared states while the user is typing,
+ * your React Component will get only the last one.
+ *
+ * Usually, for UI updates, you may need only the last state. But, if you have a specific scenario requiring you to access all states,
+ * do not use this hook. Instead, you can subscribe directly to the plugin sharedState API:
+ *
+ * ```typescript
+ *
+ * function ExampleSpecialCase({ api }: Props) {
+ *   const [dogState, setDogState] = React.useState(null);
+ *   useEffect(() => {
+ *     const unsub = api.dog.sharedState.onChange(({ nextSharedState, prevSharedState }) => {
+ *        setDogState(nextSharedState);
+ *     });
+ *
+ *     return unsub;
+ *   }, [api]);
+ *
+ *   useEffect(() => {
+ *    someCriticalAndWeirdUseCase(dogState);
+ *
+ *   }, [dogState]);
+ *
+ *   return null;
+ * }
+ *
+ * ```
+ *
  * Used to return the current plugin state of
  * input dependencies
  *
@@ -137,8 +168,15 @@ function useSharedPluginStateInternal<P extends NamedPluginKeys>(
   const [pluginStates, setPluginState] = useState<NamedPluginStates<P>>(
     mapValues(externalPlugins, (value) => value?.sharedState.currentState()),
   );
+  const refStates = useRef<Record<string, unknown>>({});
 
   useLayoutEffect(() => {
+    const debouncedPluginStateUpdate = debounce(() => {
+      setPluginState((currentPluginStates) => ({
+        ...currentPluginStates,
+        ...refStates.current,
+      }));
+    });
     const unsubs = Object.entries(externalPlugins).map(
       ([pluginKey, externalPlugin]) => {
         return externalPlugin?.sharedState.onChange(
@@ -146,16 +184,15 @@ function useSharedPluginStateInternal<P extends NamedPluginKeys>(
             if (prevSharedState === nextSharedState) {
               return;
             }
-            setPluginState((currentPluginStates) => ({
-              ...currentPluginStates,
-              [pluginKey]: nextSharedState,
-            }));
+            refStates.current[pluginKey] = nextSharedState;
+            debouncedPluginStateUpdate();
           },
         );
       },
     );
 
     return () => {
+      refStates.current = {};
       unsubs.forEach((cb) => cb?.());
     };
     // Do not re-render due to state changes, we only need to check this when

@@ -9,8 +9,8 @@ import type {
 import type {
   EditorState,
   Selection,
+  TextSelection,
 } from '@atlaskit/editor-prosemirror/state';
-import type { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { JSONDocNode, JSONNode } from '@atlaskit/editor-json-transformer';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer';
 import { FakeTextCursorSelection } from '../plugins/fake-text-cursor/cursor';
@@ -27,7 +27,6 @@ export {
 export { insideTable } from '@atlaskit/editor-common/core-utils';
 
 export {
-  isNodeEmpty,
   findFarthestParentNode,
   nodesBetweenChanged,
   getNodesCount,

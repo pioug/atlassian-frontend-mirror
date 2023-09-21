@@ -1,5 +1,53 @@
 # @atlaskit/editor-common
 
+## 75.5.1
+
+### Patch Changes
+
+- [`966f90e1edf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/966f90e1edf) - [ux] [ECA11Y-44] Adjust 'Popup' component so that it doesn't always have to have 'aria-label' attribute displayed
+
+## 75.5.0
+
+### Minor Changes
+
+- [`20d1964ba9d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/20d1964ba9d) - Adds two new table analytics events: an initialOverflowCaptured event to detect initial oveflow state when the page is with a table is loaded or a new table is inserted/pasted and an overflowChanged event used to detect overflow state changes that occur as a result of different table actions.
+
+### Patch Changes
+
+- [`68dc5afa8f3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/68dc5afa8f3) - Add line before test cases
+
+## 75.4.0
+
+### Minor Changes
+
+- [`21305ee6254`](https://bitbucket.org/atlassian/atlassian-frontend/commits/21305ee6254) - ED-19874 Align the dropdown with the floating toolbar if there is a single button in the toolbar
+
+### Patch Changes
+
+- [`b092b2cb3b7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b092b2cb3b7) - Dummy change as workaround for product integrator pipeline. This change fixes comment spacing.
+
+## 75.3.1
+
+### Patch Changes
+
+- [`32e751116bb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/32e751116bb) - [ED-20088] Debounce updates into the useSharedPluginState to avoid blocking the main thread with unnecessary UI updates
+
+## 75.3.0
+
+### Minor Changes
+
+- [`fa39c6ce044`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fa39c6ce044) - [ED-19775] Decouple selection plugin from the editor-core code
+
+### Patch Changes
+
+- [`ced80eee086`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ced80eee086) - Updated notes for getMaxWidthForNestedNodeNext
+
+## 75.2.4
+
+### Patch Changes
+
+- [`ca001e68a96`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ca001e68a96) - Fixed typos in comments
+
 ## 75.2.3
 
 ### Patch Changes

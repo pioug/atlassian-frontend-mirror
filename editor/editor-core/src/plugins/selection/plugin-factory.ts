@@ -2,9 +2,7 @@ import type { ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
-
-import { pluginFactory } from '../../utils/plugin-state-factory';
-
+import { pluginFactory } from '@atlaskit/editor-common/utils';
 import { reducer } from './reducer';
 import type { SelectionPluginState } from './types';
 import { selectionPluginKey } from './types';

@@ -105,24 +105,34 @@ export default function VariationsExample() {
       <Textfield testId="compact" id="compact" isCompact />
 
       <label htmlFor="subtle">Subtle</label>
-      <Textfield testId="subtle" id="compact" appearance="subtle" />
+      <Textfield testId="subtle" id="subtle" appearance="subtle" />
 
-      <label htmlFor="subtle">Subtle, disabled</label>
-      <Textfield testId="subtle" id="compact" appearance="subtle" isDisabled />
+      <label htmlFor="subtle-disabled">Subtle, disabled</label>
+      <Textfield
+        testId="subtle-disabled"
+        id="subtle-disabled"
+        appearance="subtle"
+        isDisabled
+      />
 
       <label htmlFor="subtle-error">Subtle error</label>
       <Textfield
         testId="subtle-error"
-        id="compact"
+        id="subtle-error"
         isInvalid
         appearance="subtle"
       />
 
       <label htmlFor="none">None</label>
-      <Textfield testId="none" id="compact" appearance="none" />
+      <Textfield testId="none" id="none" appearance="none" />
 
-      <label htmlFor="none">None, disabled</label>
-      <Textfield testId="none" id="compact" appearance="none" isDisabled />
+      <label htmlFor="none-disabled">None, disabled</label>
+      <Textfield
+        testId="none-disabled"
+        id="none-disabled"
+        appearance="none"
+        isDisabled
+      />
     </div>
   );
 }

@@ -3,17 +3,16 @@ import { css } from '@emotion/react';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
-/**
- * Half padding on the top as the form field has a `gridSize()` margin top that cannot be overridden
- */
 export const rootContainerStyles = css`
   width: ${getBooleanFF(
     'platform.linking-platform.link-picker.fixed-height-search-results',
   )
     ? undefined
     : 'var(--link-picker-width)'};
-  padding: ${token('space.100', '8px')} ${token('space.200', '16px')}
-    ${token('space.200', '16px')};
+  padding-left: var(--link-picker-padding-left);
+  padding-right: var(--link-picker-padding-right);
+  padding-top: var(--link-picker-padding-top);
+  padding-bottom: var(--link-picker-padding-bottom);
   box-sizing: border-box;
   line-height: initial;
 `;

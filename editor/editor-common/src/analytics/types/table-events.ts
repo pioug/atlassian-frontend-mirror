@@ -28,6 +28,8 @@ export enum TABLE_ACTION {
   FIXED = 'fixed',
   RESIZED = 'resized',
   RESIZE_PERF_SAMPLING = 'resizePerfSampling',
+  OVERFLOW_CHANGED = 'overflowChanged',
+  INITIAL_OVERFLOW_CAPTURED = 'initialOverflowCaptured',
 }
 
 export enum TABLE_BREAKOUT {
@@ -36,6 +38,17 @@ export enum TABLE_BREAKOUT {
   NORMAL = 'normal',
 }
 //#endregion
+
+export enum TABLE_OVERFLOW_CHANGE_TRIGGER {
+  EXTERNAL = 'external',
+  ADDED_COLUMN = 'addedColumn',
+  DELETED_COLUMN = 'deletedColumn',
+  RESIZED_COLUMN = 'resizedColumn',
+  ENABLED_NUMBERED_COLUMN = 'enabledNumberedColumn',
+  DISABLED_NUMBERED_COLUMN = 'disabledNumberedColumn',
+  DISTRIBUTED_COLUMNS = 'distributedColumnsWidths',
+  RESIZED = 'resizedTable',
+}
 
 //#region Type Helpers
 interface SortColumn {
@@ -78,6 +91,14 @@ type ResizePreviewInfo = {
   isInitialSample: boolean;
   docSize: number;
   nodeSize: number;
+};
+
+type OverflowStateInfo = {
+  editorWidth: number;
+  isOverflowing: boolean;
+  tableResizingEnabled: boolean;
+  width: number;
+  parentWidth: number;
 };
 
 //#region Analytic Event Payloads
@@ -223,6 +244,21 @@ type TableFixedAEP = TableAEP<
   undefined
 >;
 
+type TableOverflowChangedAEP = TableAEP<
+  TABLE_ACTION.OVERFLOW_CHANGED,
+  {
+    wasOverflowing: boolean;
+    trigger: TABLE_OVERFLOW_CHANGE_TRIGGER;
+  } & OverflowStateInfo,
+  undefined
+>;
+
+type TableInitialOverflowCapturedAEP = TableAEP<
+  TABLE_ACTION.INITIAL_OVERFLOW_CAPTURED,
+  OverflowStateInfo,
+  undefined
+>;
+
 type TableResizedAEP = TableAEP<TABLE_ACTION.RESIZED, ResizedInfo, undefined>;
 
 type TableResizePerfSamplingAEP = OperationalAEP<
@@ -250,5 +286,7 @@ export type TableEventPayload =
   | TableDistributeColumnsWidthsAEP
   | TableCollapsedAEP
   | TableFixedAEP
+  | TableOverflowChangedAEP
+  | TableInitialOverflowCapturedAEP
   | TableResizedAEP
   | TableResizePerfSamplingAEP;

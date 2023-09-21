@@ -102,14 +102,22 @@ export interface LinkPickerProps {
   plugins?: LinkPickerPlugin[];
   /** If set true, Link picker will show the loading spinner where the tabs and results will show. */
   isLoadingPlugins?: boolean;
+  /** Hides the link picker display text field if set to true. */
+  hideDisplayText?: boolean;
+  /** Disables the default width containing the link picker. */
+  disableWidth?: boolean;
+  /** Override the default left padding. */
+  paddingLeft?: string;
+  /** Override the default right padding. */
+  paddingRight?: string;
+  /** Override the default top padding. */
+  paddingTop?: string;
+  /** Override the default bottom padding. */
+  paddingBottom?: string;
   /** Customise the link picker root component */
   component?: React.ComponentType<
     Partial<LinkPickerProps> & { children: React.ReactElement }
   >;
-  /** Hides the link picker display text field if set to true. */
-  hideDisplayText?: boolean;
-  /** Disables the default width containing the link picker */
-  disableWidth?: boolean;
   featureFlags?: Record<string, unknown>;
 }
 

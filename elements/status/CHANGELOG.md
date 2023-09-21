@@ -1,5 +1,11 @@
 # @atlaskit/status
 
+## 1.4.1
+
+### Patch Changes
+
+- [`beb32df5147`](https://bitbucket.org/atlassian/atlassian-frontend/commits/beb32df5147) - [ECA11Y-45] [ECA11Y-22] Change the tab key handling the status popup to improve accessibility.
+
 ## 1.4.0
 
 ### Minor Changes

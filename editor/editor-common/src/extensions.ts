@@ -84,7 +84,7 @@ export type {
   TransformBefore,
   TransformAfter,
   ReferenceEntity,
-  //DEPRECATED
+  // DEPRECATED
   ParametersGetter,
   AsyncParametersGetter,
 } from './extensions/index';

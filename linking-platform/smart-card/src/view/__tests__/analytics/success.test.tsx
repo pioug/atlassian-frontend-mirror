@@ -8,7 +8,7 @@ import './success.test.mock';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 import { CardClient } from '@atlaskit/link-provider';
 import React from 'react';
-import { Card } from '../../Card';
+import { Card, CardAppearance } from '../../Card';
 import { Provider, TitleBlock } from '../../..';
 import { fakeFactory, mocks } from '../../../utils/mocks';
 import { render, fireEvent, cleanup, waitFor } from '@testing-library/react';
@@ -93,6 +93,7 @@ describe('smart-card: success analytics', () => {
           status: 'resolved',
           definitionId: 'd1',
           extensionKey: 'object-provider',
+          canBeDatasource: false,
         });
 
         const resolvedViewFrame = await findByTestId(
@@ -140,6 +141,7 @@ describe('smart-card: success analytics', () => {
         status: 'resolved',
         definitionId: 'd1',
         extensionKey: 'object-provider',
+        canBeDatasource: false,
       });
 
       expect(mockStartUfoExperience).toBeCalledWith(
@@ -439,6 +441,45 @@ describe('smart-card: success analytics', () => {
 
       expect(onError).toHaveBeenCalledTimes(1);
       spy.mockRestore();
+    });
+
+    describe('with datasources', () => {
+      beforeEach(() => {
+        mockFetch = jest.fn(async () => mocks.withDatasource);
+        mockClient = new (fakeFactory(mockFetch, mockPostData))();
+      });
+
+      it.each([
+        ['inline' as CardAppearance, 'resolvedCard1-resolved-view'],
+        ['block' as CardAppearance, 'resolvedCard1'],
+        ['embed' as CardAppearance, 'resolvedCard1'],
+      ])(
+        'should fire the renderSuccess analytics event with canBeDatasource = true when the url was resolved and display is %s',
+        async (appearance, testId) => {
+          const mockUrl = 'https://this.is.the.sixth.url';
+          const { findByTestId } = render(
+            <IntlProvider locale="en">
+              <Provider client={mockClient}>
+                <Card
+                  testId="resolvedCard1"
+                  appearance={appearance}
+                  url={mockUrl}
+                />
+              </Provider>
+            </IntlProvider>,
+          );
+          const resolvedView = await findByTestId(testId);
+          expect(resolvedView).toBeTruthy();
+          expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledTimes(1);
+          expect(analytics.uiRenderSuccessEvent).toBeCalledWith({
+            display: appearance,
+            status: 'resolved',
+            definitionId: 'd1',
+            extensionKey: 'object-provider',
+            canBeDatasource: true,
+          });
+        },
+      );
     });
   });
 });

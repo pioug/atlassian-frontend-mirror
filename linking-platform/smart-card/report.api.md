@@ -1064,6 +1064,7 @@ type UiRenderFailedEventProps = CommonEventProps & {
 type UiRenderSuccessEventProps = CommonEventProps & {
   display: CardInnerAppearance;
   status: CardType;
+  canBeDatasource?: boolean;
 };
 
 // @public (undocumented)
@@ -1181,6 +1182,7 @@ export const useSmartLinkAnalytics: (
       destinationProduct,
       destinationSubproduct,
       location,
+      canBeDatasource,
     }: UiRenderSuccessEventProps) => void;
     renderFailedEvent: ({
       display,

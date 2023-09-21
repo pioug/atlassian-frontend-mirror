@@ -20,7 +20,7 @@ import {
 import type { Command, CommandDispatch } from '../../../types';
 import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
 import { selectNodeBackward } from '@atlaskit/editor-prosemirror/commands';
-import { atTheEndOfDoc } from '../../../utils/prosemirror/position';
+import { atTheEndOfDoc } from '@atlaskit/editor-common/selection';
 
 /**
  * Check if is an empty selection at the start of the node

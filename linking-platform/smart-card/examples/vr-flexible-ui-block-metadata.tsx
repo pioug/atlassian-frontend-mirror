@@ -10,24 +10,26 @@ import { blockOverrideCss, getCardState } from './utils/flexible-ui';
 import FlexibleCard from '../src/view/FlexibleCard';
 
 const cardState = getCardState({
-  '@type': 'atlassian:Project',
-  'atlassian:priority': 'Critical',
-  'atlassian:state': 'open',
-  'atlassian:subscriberCount': 999,
-  'atlassian:updatedBy': { '@type': 'Person', name: 'Tweak' },
-  'atlassian:ownedBy': [
-    { '@type': 'Person', name: 'Fluffy' },
-    { '@type': 'Person', name: 'Kirara' },
-    { '@type': 'Person', name: 'Tweak' },
-  ],
-  attributedTo: [
-    { '@type': 'Person', name: 'Fluffy' },
-    { '@type': 'Person', name: 'Kirara' },
-    { '@type': 'Person', name: 'Tweak' },
-  ],
-  'schema:commentCount': 20,
-  'schema:dateCreated': '2020-02-04T12:40:12.353+0800',
-  'schema:programmingLanguage': 'Javascript',
+  data: {
+    '@type': 'atlassian:Project',
+    'atlassian:priority': 'Critical',
+    'atlassian:state': 'open',
+    'atlassian:subscriberCount': 999,
+    'atlassian:updatedBy': { '@type': 'Person', name: 'Tweak' },
+    'atlassian:ownedBy': [
+      { '@type': 'Person', name: 'Fluffy' },
+      { '@type': 'Person', name: 'Kirara' },
+      { '@type': 'Person', name: 'Tweak' },
+    ],
+    attributedTo: [
+      { '@type': 'Person', name: 'Fluffy' },
+      { '@type': 'Person', name: 'Kirara' },
+      { '@type': 'Person', name: 'Tweak' },
+    ],
+    'schema:commentCount': 20,
+    'schema:dateCreated': '2020-02-04T12:40:12.353+0800',
+    'schema:programmingLanguage': 'Javascript',
+  },
 });
 
 const elements: ElementItem[] = [

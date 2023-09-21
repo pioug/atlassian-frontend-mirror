@@ -106,6 +106,7 @@ export type UiClosedAuthEventProps = CommonEventProps & {
 export type UiRenderSuccessEventProps = CommonEventProps & {
   display: CardInnerAppearance;
   status: CardType;
+  canBeDatasource?: boolean;
 };
 
 export type UiRenderFailedEventProps = CommonEventProps & {

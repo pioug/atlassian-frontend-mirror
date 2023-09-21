@@ -1,10 +1,11 @@
 import React, { PureComponent } from 'react';
 
 import { withReactEditorViewOuterListeners } from '../../ui-react';
-import DropdownList, { OpenChangedEvent } from '../../ui/DropList';
+import type { OpenChangedEvent } from '../../ui/DropList';
+import DropdownList from '../../ui/DropList';
 import Popup from '../../ui/Popup';
 import { ArrowKeyNavigationProvider } from '../ArrowKeyNavigationProvider';
-import { ArrowKeyNavigationProviderOptions } from '../ArrowKeyNavigationProvider/types';
+import type { ArrowKeyNavigationProviderOptions } from '../ArrowKeyNavigationProvider/types';
 
 export interface Props {
   mountTo?: HTMLElement;
@@ -18,6 +19,7 @@ export interface Props {
   zIndex?: number;
   arrowKeyNavigationProviderOptions: ArrowKeyNavigationProviderOptions;
   dropdownListId?: string;
+  alignDropdownWithParentElement?: boolean;
 }
 
 export interface State {
@@ -72,11 +74,18 @@ export class Dropdown extends PureComponent<Props, State> {
       zIndex,
       arrowKeyNavigationProviderOptions,
       dropdownListId,
+      alignDropdownWithParentElement,
     } = this.props;
 
     return (
       <Popup
-        target={target}
+        target={
+          alignDropdownWithParentElement
+            ? (target?.closest(
+                "[data-testid='editor-floating-toolbar'",
+              ) as HTMLElement)
+            : target
+        }
         mountTo={mountTo}
         boundariesElement={boundariesElement}
         scrollableElement={scrollableElement}

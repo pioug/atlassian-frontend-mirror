@@ -20,26 +20,19 @@ import type {
   NodeWithPos,
 } from '@atlaskit/editor-prosemirror/utils';
 import { flatten, findParentNode } from '@atlaskit/editor-prosemirror/utils';
-
 import { akEditorSelectedNodeClassName } from '@atlaskit/editor-shared-styles';
-
 import {
   isSelectionAtStartOfNode,
   isSelectionAtEndOfNode,
-} from '@atlaskit/editor-common/selection';
-
-import { selectNode } from '../../utils/commands';
-import { isEmptyParagraph } from '@atlaskit/editor-common/utils';
-import { isIgnored as isIgnoredByGapCursor } from '../selection/gap-cursor/utils/is-ignored';
-
-import { selectionPluginKey } from './types';
-
-import {
   getNodeSelectionAnalyticsPayload,
   getAllSelectionAnalyticsPayload,
   getRangeSelectionAnalyticsPayload,
   getCellSelectionAnalyticsPayload,
+  selectNode,
 } from '@atlaskit/editor-common/selection';
+import { isEmptyParagraph } from '@atlaskit/editor-common/utils';
+import { isIgnored as isIgnoredByGapCursor } from '../selection/gap-cursor/utils/is-ignored';
+import { selectionPluginKey } from './types';
 
 export function createSelectionClickHandler(
   nodes: string[],

@@ -39,9 +39,6 @@
       "path": "../blanket/tsconfig.app.json"
     },
     {
-      "path": "../../monorepo-tooling/codemod-utils/tsconfig.app.json"
-    },
-    {
       "path": "../ds-lib/tsconfig.app.json"
     },
     {
@@ -49,6 +46,9 @@
     },
     {
       "path": "../icon/tsconfig.app.json"
+    },
+    {
+      "path": "../layering/tsconfig.app.json"
     },
     {
       "path": "../motion/tsconfig.app.json"

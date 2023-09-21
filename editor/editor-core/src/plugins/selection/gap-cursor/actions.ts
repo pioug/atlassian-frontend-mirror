@@ -13,21 +13,21 @@ import {
   findPositionOfNodeBefore,
   removeNodeBefore,
 } from '@atlaskit/editor-prosemirror/utils';
-import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/utils';
 import { Direction, isBackward, isForward } from './direction';
 import { GapCursorSelection, Side } from './selection';
 import { isTextBlockNearPos } from './utils';
 import { isValidTargetNode } from './utils/is-valid-target-node';
-import type { Command } from '../../../types';
+import type { Command } from '@atlaskit/editor-common/types';
 import {
   atTheBeginningOfDoc,
   atTheEndOfDoc,
-} from '../../../utils/prosemirror/position';
+} from '@atlaskit/editor-common/selection';
 import { gapCursorPluginKey } from '../pm-plugins/gap-cursor-plugin-key';
-import { isPositionNearTableRow } from '../../../utils/table';
 import {
+  ZERO_WIDTH_SPACE,
   isMediaNode,
   isNodeBeforeMediaNode,
+  isPositionNearTableRow,
 } from '@atlaskit/editor-common/utils';
 
 export type DirectionString =

@@ -18,6 +18,7 @@ import {
   li,
   ul,
   hr,
+  mention,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { onCreateSelectionBetween } from '../../create-selection-between';
 
@@ -497,6 +498,77 @@ describe('#onCreateSelectionBetween', () => {
           const $anchor = fakeDoc.resolve(fakeDoc.refs.anchor);
           const $head = fakeDoc.resolve(fakeDoc.refs.head);
 
+          const result = onCreateSelectionBetween(fakeView, $anchor, $head);
+          expect(result).toBeNull();
+        });
+      });
+    });
+  });
+
+  describe('when anchor is in multi-line paragraph and head is targeting a block node', () => {
+    const cases = [
+      {
+        description: 'targeting an block node atom',
+        docBuilder: doc(
+          // prettier-disable
+          hr(),
+          '{nextHeadNodePosition}',
+          panel()(p('{head}some text'), p('some other text{anchor}')),
+        ),
+      },
+      {
+        description: 'targeting an empty selectable block node',
+        docBuilder: doc(
+          // prettier-disable
+          panel()(p('')),
+          '{nextHeadNodePosition}',
+          panel()(p('{head}some text'), p('some other text{anchor}')),
+        ),
+      },
+      {
+        description:
+          'targeting an block node atom with inline node at beginning of multi-line paragraph',
+        docBuilder: doc(
+          // prettier-disable
+          hr(),
+          '{nextHeadNodePosition}',
+          panel()(
+            p(
+              '{head}',
+              mention({ id: '1', text: '@Oscar Wallhult' })(),
+              'some text',
+            ),
+            p('some other text{anchor}'),
+          ),
+        ),
+      },
+      {
+        description:
+          'targeting an empty selectable block node with inline node at beginning of multi-line paragraph',
+        docBuilder: doc(
+          // prettier-disable
+          panel()(p('')),
+          '{nextHeadNodePosition}',
+          panel()(
+            p(
+              '{head}',
+              mention({ id: '1', text: '@Oscar Wallhult' })(),
+              'some text',
+            ),
+            p('some other text{anchor}'),
+          ),
+        ),
+      },
+    ];
+    describe.each(cases)('', ({ description, docBuilder }) => {
+      describe(description, () => {
+        const fakeDoc = docBuilder(sampleSchema);
+
+        const fakeView: any = { state: { doc: fakeDoc } };
+        const $anchor = fakeDoc.resolve(fakeDoc.refs.anchor);
+        const $head = fakeDoc.resolve(fakeDoc.refs.head);
+
+        it('should return null', () => {
           const result = onCreateSelectionBetween(fakeView, $anchor, $head);
           expect(result).toBeNull();
         });

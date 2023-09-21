@@ -26,6 +26,7 @@ describe('/ui/Mention', () => {
     // eslint-disable-next-line no-console
     console.error = consoleError;
   });
+
   it('should render resourced mention', () => {
     renderWithIntl(<Mention id="abcd-abcd-abcd" text="@Oscar Wallhult" />);
 

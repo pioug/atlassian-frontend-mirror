@@ -70,6 +70,10 @@ context:
       required: false
       description: |
         The `tenantId` of the linked resource if relevant.
+    canBeDatasource:
+      type: boolean
+      required: false
+      description: An indicator that a link can be converted to datasource view
 
 shared:
   LifecycleEventAttributes: &LifecycleEventAttributes

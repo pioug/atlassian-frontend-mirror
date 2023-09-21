@@ -44,7 +44,7 @@ import {
 } from '@atlaskit/editor-common/insert';
 
 import { isImage } from './is-image';
-import { atTheBeginningOfBlock } from '../../../utils/prosemirror/position';
+import { atTheBeginningOfBlock } from '@atlaskit/editor-common/selection';
 import { getRandomHex } from '@atlaskit/media-common';
 import type { WidthPluginState } from '@atlaskit/editor-plugin-width';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';

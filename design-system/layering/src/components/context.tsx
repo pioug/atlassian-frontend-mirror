@@ -3,7 +3,6 @@ import React, {
   FC,
   MutableRefObject,
   ReactNode,
-  useCallback,
   useContext,
   useEffect,
   useMemo,
@@ -19,7 +18,7 @@ import { getBooleanFF } from '@atlaskit/platform-feature-flags';
  * LevelContext which maintains the current level of nested layers
  * Default is 0
  */
-const LevelContext = createContext(0);
+export const LevelContext = createContext(0);
 
 /**
  *
@@ -28,7 +27,7 @@ const LevelContext = createContext(0);
  * Default ref value is null
  *
  */
-const TopLevelContext = createContext<{
+export const TopLevelContext = createContext<{
   topLevelRef: MutableRefObject<number | null>;
   setTopLevel: (level: number) => void;
 }>({
@@ -106,22 +105,4 @@ export const UNSAFE_LAYERING: FC = ({ children }) => {
   );
 
   return isNested ? content : <LayeringProvider>{content}</LayeringProvider>;
-};
-
-/**
- *
- * @@experimental Still under development. Do not use.
- *
- * Layering hook to get layering info like the current level, the top level of
- * the given component
- *
- */
-export const UNSAFE_useLayering = () => {
-  const currentLevel = useContext(LevelContext);
-  const { topLevelRef } = useContext(TopLevelContext);
-  const checkIfTopLayer = useCallback(
-    () => currentLevel !== topLevelRef.current,
-    [currentLevel, topLevelRef],
-  );
-  return { currentLevel, topLevelRef, checkIfTopLayer };
 };

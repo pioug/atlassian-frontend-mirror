@@ -1,5 +1,3 @@
-import { MutableRefObject } from 'react';
-
 import { KEY_DOWN, KEY_END, KEY_HOME, KEY_UP } from '@atlaskit/ds-lib/keycodes';
 
 import { Action, FocusableElement } from '../../types';
@@ -53,16 +51,14 @@ const getPrevFocusableElement = (
 
 export default function handleFocus(
   refs: Array<FocusableElement>,
-  nestedLevel: Number,
-  maxLevelRef: MutableRefObject<number>,
+  isLayerDisabled: () => boolean,
 ) {
   return (e: KeyboardEvent) => {
     const currentFocusedIdx = refs.findIndex(
       (el: HTMLButtonElement | HTMLAnchorElement) =>
         document.activeElement?.isSameNode(el),
     );
-
-    if (nestedLevel < maxLevelRef.current) {
+    if (isLayerDisabled()) {
       // if it is a nested dropdown and the level of the given dropdown is not the current level,
       // we don't need to have focus on it
       return;

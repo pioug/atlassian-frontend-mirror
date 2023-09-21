@@ -47,9 +47,9 @@ const actions: ActionItem[] = [
 ];
 
 const renderForbiddenView = () => {
-  const cardState = getCardState(
-    undefined,
-    {
+  const cardState = getCardState({
+    data: undefined,
+    meta: {
       visibility: 'restricted',
       access: 'forbidden',
       auth: [
@@ -60,8 +60,8 @@ const renderForbiddenView = () => {
         },
       ],
     },
-    'forbidden',
-  );
+    status: 'forbidden',
+  });
   return (
     <FlexibleCard
       cardState={cardState}

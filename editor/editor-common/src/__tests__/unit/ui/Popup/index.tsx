@@ -2,9 +2,11 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 import createFocusTrap from 'focus-trap';
-import { replaceRaf, Stub } from 'raf-stub';
+import type { Stub } from 'raf-stub';
+import { replaceRaf } from 'raf-stub';
 
-import Popup, { Props } from '../../../../ui/Popup';
+import type { Props } from '../../../../ui/Popup';
+import Popup from '../../../../ui/Popup';
 
 const mockFocusTrap = {
   activate: jest.fn(),
@@ -125,6 +127,30 @@ describe('Popup', () => {
       rerender({ focusTrap: true });
 
       expect(mockFocusTrap.unpause).toHaveBeenCalled();
+    });
+  });
+
+  describe('accessibility', () => {
+    it('should be able to set up aria-label attribute when `ariaLabel` prop is passed', () => {
+      const testLabelText = 'test label';
+      const { component } = setup({ ariaLabel: testLabelText });
+      const popup = component.getByTestId('popup-wrapper');
+
+      expect(popup).toHaveAttribute('aria-label', testLabelText);
+    });
+
+    it('should have aria-label attribute equal to "Popup" when no `ariaLabel` prop is passed', () => {
+      const { component } = setup();
+      const popup = component.getByTestId('popup-wrapper');
+
+      expect(popup).toHaveAttribute('aria-label', 'Popup');
+    });
+
+    it('shouldnt have aria-label attriube when `null` is passed as `ariaLabel` prop', () => {
+      const { component } = setup({ ariaLabel: null });
+      const popup = component.getByTestId('popup-wrapper');
+
+      expect(popup).not.toHaveAttribute('aria-label');
     });
   });
 });

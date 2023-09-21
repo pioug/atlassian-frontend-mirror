@@ -255,7 +255,9 @@ export const isLocalPreview = (preview: CardPreview) => {
 };
 
 export const isSSRPreview = (preview: CardPreview) =>
-  isSSRClientPreview(preview) || isSSRServerPreview(preview);
+  isSSRClientPreview(preview) ||
+  isSSRServerPreview(preview) ||
+  isSSRDataPreview(preview);
 
 export const isSSRServerPreview = (preview: CardPreview) => {
   const ssrClientSources: CardPreviewSource[] = [

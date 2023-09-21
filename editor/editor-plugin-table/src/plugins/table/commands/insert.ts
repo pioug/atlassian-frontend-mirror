@@ -1,10 +1,14 @@
 // #region Imports
 import { AddColumnStep } from '@atlaskit/adf-schema/steps';
-import { Command } from '@atlaskit/editor-common/types';
-import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
-import { Selection, Transaction } from '@atlaskit/editor-prosemirror/state';
+import { TABLE_OVERFLOW_CHANGE_TRIGGER } from '@atlaskit/editor-common/analytics';
+import type {
+  Command,
+  GetEditorContainerWidth,
+} from '@atlaskit/editor-common/types';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+import { Selection } from '@atlaskit/editor-prosemirror/state';
 import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import {
   addColumnAt as addColumnAtPMUtils,
@@ -14,6 +18,7 @@ import {
   selectedRect,
 } from '@atlaskit/editor-tables/utils';
 
+import { META_KEYS } from '../pm-plugins/table-analytics';
 import { rescaleColumns } from '../transforms/column-width';
 import { checkIfHeaderRowEnabled, copyPreviousRow } from '../utils';
 import { getAllowAddColumnCustomStep } from '../utils/get-allow-add-column-custom-step';
@@ -50,6 +55,9 @@ export function addColumnAt(getEditorContainerWidth: GetEditorContainerWidth) {
           updatedTr,
         );
       }
+      updatedTr.setMeta(META_KEYS.OVERFLOW_TRIGGER, {
+        name: TABLE_OVERFLOW_CHANGE_TRIGGER.ADDED_COLUMN,
+      });
       return updatedTr;
     };
   };

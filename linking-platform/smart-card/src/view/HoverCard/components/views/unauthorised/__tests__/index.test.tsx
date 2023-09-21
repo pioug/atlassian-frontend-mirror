@@ -60,11 +60,11 @@ describe('Unauthorised Hover Card', () => {
           extensionKey={'google-object-provider'}
           id={'123'}
           flexibleCardProps={{
-            cardState: getCardState(
-              { ...mockUnauthorisedResponse.data, url: mockUrl },
-              mockUnauthorisedResponse.meta,
-              'unauthorized',
-            ),
+            cardState: getCardState({
+              data: { ...mockUnauthorisedResponse.data, url: mockUrl },
+              meta: mockUnauthorisedResponse.meta,
+              status: 'unauthorized',
+            }),
             children: {},
             url: mockUrl,
           }}

@@ -239,6 +239,8 @@ export class CardBase extends Component<CardBaseProps, CardState> {
       ) {
         // If dimensions from Server have changed and are bigger,
         // we need to refetch
+        // This is repeated in componentDidUpdate because in the case of lazy loading true
+        // the card will be invisible by default.
         this.refetchSSRPreview(identifier);
       }
     }
@@ -308,6 +310,17 @@ export class CardBase extends Component<CardBaseProps, CardState> {
         cardPreview: { dataURI, orientation: 1, source: 'external' },
         isCardVisible: true,
       });
+    }
+    if (
+      cardPreview &&
+      turnedVisible &&
+      isFileIdentifier(identifier) &&
+      isSSRDataPreview(cardPreview) &&
+      isBigger(this.ssrData?.dimensions, dimensions)
+    ) {
+      // If dimensions from Server have changed and are bigger,
+      // we need to refetch
+      this.refetchSSRPreview(identifier);
     }
     if (
       isFileIdentifier(identifier) &&

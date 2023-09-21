@@ -1,5 +1,15 @@
 # @atlaskit/modal-dialog
 
+## 12.7.0
+
+### Minor Changes
+
+- [`f355884a4aa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f355884a4aa) - [ux] Support to press escape key and only close the top layer
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.6.10
 
 ### Patch Changes

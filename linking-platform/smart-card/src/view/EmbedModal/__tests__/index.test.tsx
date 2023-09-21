@@ -403,6 +403,7 @@ describe('EmbedModal', () => {
           resourceType: 'spaghetti-resource',
           destinationObjectType: 'spaghetti-resource',
           status: 'resolved',
+          canBeDatasource: false,
         },
         eventType: 'ui',
       });

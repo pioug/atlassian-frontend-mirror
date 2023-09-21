@@ -18,6 +18,7 @@ import { runWhenIdle } from './utils';
 import { fakeFactory, mocks } from './__fixtures__/mocks';
 import { LifecycleAction } from './types';
 import { icon } from '@atlaskit/link-test-helpers/images';
+import { JsonLdDatasourceResponse } from '@atlaskit/link-client-extension';
 
 jest.mock('./utils', () => {
   const originalModule = jest.requireActual('./utils');
@@ -44,8 +45,8 @@ describe('useSmartLinkLifecycleAnalytics', () => {
     jest.clearAllMocks();
   });
 
-  const setup = () => {
-    const mockFetch = jest.fn(async () => mocks.success);
+  const setup = (responseData: JsonLdDatasourceResponse = mocks.success) => {
+    const mockFetch = jest.fn(async () => responseData);
     const mockClient = new (fakeFactory(mockFetch))();
 
     const onEvent = jest.fn();
@@ -250,28 +251,35 @@ describe('useSmartLinkLifecycleAnalytics', () => {
       });
     });
 
-    it('should return resolved metadata', async () => {
-      const { onEvent, result } = setup();
-      act(() => {
-        result.current[method]({ url: 'test.com', smartLinkId: 'xyz' });
-      });
+    it.each([
+      [true, mocks.withDatasources],
+      [false, mocks.success],
+    ])(
+      'should return resolved metadata with canBeDatasource = %s',
+      async (canBeDatasource, mockResponse) => {
+        const { onEvent, result } = setup(mockResponse);
+        act(() => {
+          result.current[method]({ url: 'test.com', smartLinkId: 'xyz' });
+        });
 
-      await waitFor(() => {
-        expect(onEvent).toBeFiredWithAnalyticEventOnce(
-          {
-            context: [PACKAGE_METADATA],
-            payload: {
-              ...payload,
-              attributes: {
-                smartLinkId: 'xyz',
-                ...expectedResolvedAttributes,
+        await waitFor(() => {
+          expect(onEvent).toBeFiredWithAnalyticEventOnce(
+            {
+              context: [PACKAGE_METADATA],
+              payload: {
+                ...payload,
+                attributes: {
+                  smartLinkId: 'xyz',
+                  canBeDatasource,
+                  ...expectedResolvedAttributes,
+                },
               },
             },
-          },
-          ANALYTICS_CHANNEL,
-        );
-      });
-    });
+            ANALYTICS_CHANNEL,
+          );
+        });
+      },
+    );
   });
 
   describe('with link picker source event', () => {

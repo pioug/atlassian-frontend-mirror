@@ -17,7 +17,7 @@ import type {
 } from '@atlaskit/editor-common/types';
 import WithPluginState from '../../ui/WithPluginState';
 import type { Dispatch } from '../../event-dispatcher';
-import { isNodeEmpty } from '../../utils';
+import { isNodeEmpty } from '@atlaskit/editor-common/utils';
 import { FakeTextCursorSelection } from '../fake-text-cursor/cursor';
 import PlaceholderFloatingToolbar from './ui/PlaceholderFloatingToolbar';
 import {

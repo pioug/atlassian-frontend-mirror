@@ -59,7 +59,6 @@ import {
   DEFAULT_IMAGE_HEIGHT,
   DEFAULT_IMAGE_WIDTH,
   getMaxWidthForNestedNode,
-  getMaxWidthForNestedNodeNext,
 } from '@atlaskit/editor-common/media-single';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
@@ -243,7 +242,7 @@ export default class MediaSingleNode extends Component<
     return dispatch(tr);
   };
 
-  // Workaound for iOS 16 Caption selection issue
+  // Workaround for iOS 16 Caption selection issue
   // @see https://product-fabric.atlassian.net/browse/MEX-2012
   onMediaSingleClicked = (event: MouseEvent) => {
     if (!browser.ios) {
@@ -277,8 +276,8 @@ export default class MediaSingleNode extends Component<
       widthType,
       width: mediaSingleWidthAttribute,
     } = node.attrs as ExtendedMediaAttributes;
-    const childNode = node.firstChild!;
-    const attrs = childNode.attrs as MediaADFAttrs;
+    const childNode = node.firstChild;
+    const attrs = (childNode?.attrs as MediaADFAttrs) || {};
 
     // original width and height of child media node (scaled)
     let { width, height } = attrs;
@@ -310,10 +309,13 @@ export default class MediaSingleNode extends Component<
 
     const isSelected = selected();
 
+    const currentMaxWidth = isSelected
+      ? pluginInjectionApi?.media.sharedState.currentState()?.currentMaxWidth
+      : undefined;
+
     const contentWidthForLegacyExperience =
       getMaxWidthForNestedNode(view, getPos()) || lineLength;
-    const contentWidth =
-      getMaxWidthForNestedNodeNext(view, getPos()) || lineLength;
+    const contentWidth = currentMaxWidth || lineLength;
 
     const mediaSingleProps = {
       layout,

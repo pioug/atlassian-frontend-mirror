@@ -1,16 +1,17 @@
 import React from 'react';
 
-import createFocusTrap, { FocusTrap } from 'focus-trap';
+import type { FocusTrap } from 'focus-trap';
+import createFocusTrap from 'focus-trap';
 import rafSchedule from 'raf-schd';
 import { createPortal } from 'react-dom';
 
 import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
 
+import type { Position } from './utils';
 import {
   calculatePlacement,
   calculatePosition,
   findOverflowScrollParent,
-  Position,
   validatePosition,
 } from './utils';
 export interface Props {
@@ -31,7 +32,8 @@ export interface Props {
   shouldRenderPopup?: (position: Position) => boolean;
   scrollableElement?: HTMLElement;
   stick?: boolean;
-  ariaLabel?: string;
+  /** `null` should only be used if we provide enough context to screen readers to exclude aria-label attribute */
+  ariaLabel?: string | null;
   forcePlacement?: boolean;
   allowOutOfBounds?: boolean; // Allow to correct position elements inside table: https://product-fabric.atlassian.net/browse/ED-7191
   rect?: DOMRect;
@@ -318,6 +320,12 @@ export default class Popup extends React.Component<Props, State> {
       return null;
     }
 
+    //In some cases we don't want to use default "Popup" text as an aria-label. It might be tedious for screen reader users.
+    const ariaLabel =
+      this.props.ariaLabel === null
+        ? undefined
+        : this.props.ariaLabel || 'Popup';
+
     return (
       <div
         ref={this.handleRef}
@@ -327,7 +335,8 @@ export default class Popup extends React.Component<Props, State> {
           ...position,
           ...this.props.style,
         }}
-        aria-label={this.props.ariaLabel || 'Popup'}
+        aria-label={ariaLabel}
+        data-testid="popup-wrapper"
         // Indicates component is an editor pop. Required for focus handling in Message.tsx
         data-editor-popup
       >

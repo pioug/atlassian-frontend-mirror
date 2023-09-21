@@ -57,7 +57,7 @@ export const ToolbarArrowKeyNavigationProvider = ({
 }: {
   children: ReactNode;
   editorView?: EditorView;
-  //Selector is used to filterout the keyevents originated outside of toolbars/any child component
+  // Selector is used to filterout the keyevents originated outside of toolbars/any child component
   childComponentSelector: string;
   handleEscape?: (event: KeyboardEvent) => void;
   disableArrowKeyNavigation?: boolean;
@@ -156,15 +156,15 @@ export const ToolbarArrowKeyNavigationProvider = ({
      * @param event
      */
     const handleKeyDown = (event: KeyboardEvent): void => {
-      //To trap the focus inside the horizontal toolbar for left and right arrow keys
+      // To trap the focus inside the horizontal toolbar for left and right arrow keys
       const targetElement = event.target as HTMLElement;
 
-      //To filter out the events outside the child component
+      // To filter out the events outside the child component
       if (!targetElement.closest(`${childComponentSelector}`)) {
         return;
       }
 
-      //The key events are from child components such as dropdown menus / popups are ignored
+      // The key events are from child components such as dropdown menus / popups are ignored
       if (
         document
           .querySelector(
@@ -196,8 +196,8 @@ export const ToolbarArrowKeyNavigationProvider = ({
         return;
       }
 
-      //This is kind of hack to reset the current focused toolbar item
-      //to handle some use cases such as Tab in/out of main toolbar
+      // This is kind of hack to reset the current focused toolbar item
+      // to handle some use cases such as Tab in/out of main toolbar
       if (!wrapperRef.current?.contains(targetElement)) {
         selectedItemIndex.current = -1;
       } else {
@@ -207,7 +207,7 @@ export const ToolbarArrowKeyNavigationProvider = ({
             : selectedItemIndex.current;
       }
 
-      //do not scroll to focused element for sticky toolbar when navigating with arrows to avoid unnesessary scroll jump
+      // do not scroll to focused element for sticky toolbar when navigating with arrows to avoid unnesessary scroll jump
       const allowScrollToElement = !(
         editorAppearance === 'comment' && !!useStickyToolbar
       );
@@ -240,7 +240,7 @@ export const ToolbarArrowKeyNavigationProvider = ({
     };
 
     const globalKeyDownHandler = (event: KeyboardEvent): void => {
-      //To focus the first element in the toolbar
+      // To focus the first element in the toolbar
       if (isShortcutToFocusToolbar!(event)) {
         const filteredFocusableElements = getFilteredFocusableElements(
           wrapperRef?.current,
@@ -311,7 +311,7 @@ function getFocusableElements(
 function getFilteredFocusableElements(
   rootNode: HTMLElement | null,
 ): Array<HTMLElement> {
-  //The focusable elements from child components such as dropdown menus / popups are ignored
+  // The focusable elements from child components such as dropdown menus / popups are ignored
   return getFocusableElements(rootNode).filter((elm) => {
     const style = window.getComputedStyle(elm);
     // ignore invisible element to avoid losing focus

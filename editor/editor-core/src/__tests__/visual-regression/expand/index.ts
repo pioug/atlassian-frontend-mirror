@@ -238,6 +238,7 @@ describe('Expand: Selection', () => {
         contentBoundingRect.top + 5,
       );
       await page.waitForSelector(selectionSelectors.selectedNode);
+      await waitForFloatingControl(page, 'Expand toolbar');
     });
   });
 });

@@ -11,6 +11,7 @@ import rafSchd from 'raf-schd';
 import { defineMessages, useIntl } from 'react-intl-next';
 
 import type { TableEventPayload } from '@atlaskit/editor-common/analytics';
+import { TABLE_OVERFLOW_CHANGE_TRIGGER } from '@atlaskit/editor-common/analytics';
 import { getGuidelinesWithHighlights } from '@atlaskit/editor-common/guideline';
 import type { GuidelineConfig } from '@atlaskit/editor-common/guideline';
 import type {
@@ -25,6 +26,7 @@ import { findTable } from '@atlaskit/editor-tables/utils';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { getPluginState } from '../pm-plugins/plugin-factory';
+import { META_KEYS } from '../pm-plugins/table-analytics';
 import {
   COLUMN_MIN_WIDTH,
   getColgroupChildrenLength,
@@ -214,6 +216,10 @@ export const TableResizer = ({
     } = editorView;
     tr.setMeta(tableWidthPluginKey, { resizing: true });
     displayGapCursor(false);
+
+    tr.setMeta(META_KEYS.OVERFLOW_TRIGGER, {
+      name: TABLE_OVERFLOW_CHANGE_TRIGGER.RESIZED,
+    });
 
     dispatch(tr);
 

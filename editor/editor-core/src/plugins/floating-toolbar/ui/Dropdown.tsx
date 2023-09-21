@@ -2,6 +2,13 @@
 import type { ReactElement } from 'react';
 import React, { Component } from 'react';
 import { css, jsx } from '@emotion/react';
+
+import type {
+  DropdownOptions,
+  DropdownOptionT,
+} from '@atlaskit/editor-common/types';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { token } from '@atlaskit/tokens';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
 
 import type { OpenChangedEvent } from '../../../ui/Dropdown';
@@ -9,14 +16,9 @@ import UiDropdown from '../../../ui/Dropdown';
 import { FloatingToolbarButton as Button } from '@atlaskit/editor-common/ui';
 
 import DropdownMenu, { itemSpacing, menuItemDimensions } from './DropdownMenu';
-import type {
-  DropdownOptions,
-  DropdownOptionT,
-} from '@atlaskit/editor-common/types';
-import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 const dropdownExpandContainer = css`
-  margin: 0px -4px;
+  margin: 0px ${token('space.negative.050', '-4px')};
 `;
 
 const iconGroup = css`
@@ -51,6 +53,8 @@ export interface Props {
   setDisableParentScroll?: (disable: boolean) => void;
   editorView?: EditorView;
   dropdownListId?: string;
+  // A prop to align the dropdown with the floating toolbar instead of the toolbar item
+  alignDropdownWithToolbar?: boolean;
 }
 
 export interface State {
@@ -79,6 +83,7 @@ export default class Dropdown extends Component<Props, State> {
       dropdownWidth,
       editorView,
       dropdownListId,
+      alignDropdownWithToolbar,
     } = this.props;
 
     let trigger;
@@ -145,6 +150,7 @@ export default class Dropdown extends Component<Props, State> {
         trigger={trigger}
         editorView={editorView}
         dropdownListId={dropdownListId}
+        alignDropdownWithParentElement={alignDropdownWithToolbar}
       >
         {Array.isArray(options)
           ? this.renderArrayOptions(options)

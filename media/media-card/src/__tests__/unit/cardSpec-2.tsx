@@ -272,7 +272,33 @@ describe('Media Card', () => {
       expect(mediaCard.state('cardPreview')).toEqual(expectedPreview);
     });
 
-    it(`should refetch the preview if ssr client dimensions are bigger than server`, async () => {
+    it(`should refetch the preview if ssr client dimensions are bigger than server and there is no lazy loading`, async () => {
+      const expectedPreview = filePreviews.ssrClient;
+      fetchAndCacheRemotePreview.mockResolvedValueOnce(expectedPreview);
+      const ssrDimensions = { width: 333, height: 222 };
+      (getSSRData as jest.Mock).mockReturnValueOnce({
+        dataURI: filePreviews.ssrClientGlobalScope.dataURI,
+        dimensions: ssrDimensions,
+      });
+
+      const mediaCard = shallow(
+        <CardBase
+          mediaClient={fakeMediaClient()}
+          identifier={indentifiers.file}
+          dimensions={{ width: 444, height: 222 }}
+          ssr={'client'}
+          isLazy={false}
+        />,
+      );
+
+      expect(getSSRData).toBeCalledTimes(1);
+      expect(fetchAndCacheRemotePreview).toBeCalledTimes(1);
+      // We need to flush promises after calling fetchAndCacheRemotePreview
+      await flushPromises();
+      expect(mediaCard.state('cardPreview')).toEqual(expectedPreview);
+    });
+
+    it(`should refetch the preview if ssr client dimensions are bigger than server when the card is visible`, async () => {
       const expectedPreview = filePreviews.ssrClient;
       fetchAndCacheRemotePreview.mockResolvedValueOnce(expectedPreview);
       const ssrDimensions = { width: 333, height: 222 };
@@ -289,6 +315,10 @@ describe('Media Card', () => {
           ssr={'client'}
         />,
       );
+      const vp = mediaCard.find(ViewportDetector);
+      const onVisible = vp.prop('onVisible');
+      onVisible();
+
       expect(getSSRData).toBeCalledTimes(1);
       expect(fetchAndCacheRemotePreview).toBeCalledTimes(1);
       // We need to flush promises after calling fetchAndCacheRemotePreview
@@ -296,7 +326,7 @@ describe('Media Card', () => {
       expect(mediaCard.state('cardPreview')).toEqual(expectedPreview);
     });
 
-    it(`should catch and log the error when refetch the preview if ssr client dimensions are bigger than server`, async () => {
+    it(`should catch and log the error when refetch the preview if ssr client dimensions are bigger than server when card is visible`, async () => {
       const ssrDimensions = { width: 333, height: 222 };
       const expectedPreview = filePreviews.ssrClientGlobalScope;
       (getSSRData as jest.Mock).mockReturnValueOnce({
@@ -317,6 +347,11 @@ describe('Media Card', () => {
           createAnalyticsEvent={createAnalyticsEvent}
         />,
       );
+
+      const vp = mediaCard.find(ViewportDetector);
+      const onVisible = vp.prop('onVisible');
+      onVisible();
+
       expect(getSSRData).toBeCalledTimes(1);
       expect(fetchAndCacheRemotePreview).toBeCalledTimes(1);
       // We need to flush promises after calling fetchAndCacheRemotePreview
@@ -378,6 +413,23 @@ describe('Media Card', () => {
         expect(mediaCard.state('isCardVisible')).toBe(false);
       },
     );
+
+    it('should start invisible if lazy load is enabled and there is SSR data-preview', () => {
+      const expectedPreview = filePreviews.ssrClientGlobalScope;
+      (getSSRData as jest.Mock).mockReturnValueOnce({
+        dataURI: filePreviews.ssrClientGlobalScope.dataURI,
+      });
+      const mediaCard = shallow(
+        <CardBase
+          mediaClient={fakeMediaClient()}
+          identifier={indentifiers.file}
+          isLazy={true}
+          ssr="client"
+        />,
+      );
+      expect(mediaCard.state('cardPreview')).toStrictEqual(expectedPreview);
+      expect(mediaCard.state('isCardVisible')).toBe(false);
+    });
 
     it.each(['server', 'client'] as const)(
       `should start visible if lazy load is disabled and there is SSR preview (%s)`,

@@ -5,10 +5,8 @@ import {
   TextSelection,
 } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-
 import type { Dispatch } from '../../../event-dispatcher';
-import type { DispatchAnalyticsEvent } from '../../analytics';
-
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import { SelectionActionTypes } from '../actions';
 import { createPluginState, getPluginState } from '../plugin-factory';
 import type { SelectionPluginOptions, SelectionPluginState } from '../types';

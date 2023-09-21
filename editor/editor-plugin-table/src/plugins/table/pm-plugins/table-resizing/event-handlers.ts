@@ -3,6 +3,7 @@ import {
   ACTION_SUBJECT,
   EVENT_TYPE,
   TABLE_ACTION,
+  TABLE_OVERFLOW_CHANGE_TRIGGER,
 } from '@atlaskit/editor-common/analytics';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { getParentNodeWidth } from '@atlaskit/editor-common/node-width';
@@ -20,6 +21,7 @@ import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { updateResizeHandleDecorations } from '../../commands/misc';
 import { updateColumnWidths } from '../../transforms';
 import { getSelectedColumnIndexes, updateResizeHandles } from '../../utils';
+import { META_KEYS } from '../table-analytics';
 
 import { evenColumns, setDragging, stopResizing } from './commands';
 import { getPluginState } from './plugin-factory';
@@ -52,6 +54,14 @@ export const handleMouseDown = (
     return false;
   }
   event.preventDefault();
+
+  if (getBooleanFF('platform.editor.table.overflow-state-analytics')) {
+    const tr = view.state.tr;
+    tr.setMeta(META_KEYS.OVERFLOW_TRIGGER, {
+      name: TABLE_OVERFLOW_CHANGE_TRIGGER.RESIZED_COLUMN,
+    });
+    dispatch(tr);
+  }
 
   const mouseDownTime = event.timeStamp;
   const cell = state.doc.nodeAt(localResizeHandlePos);

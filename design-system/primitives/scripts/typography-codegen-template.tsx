@@ -83,7 +83,7 @@ export const createTypographyStylesFromTemplate = (
 export const ${objectName}Map = {
   ${activeTokens
     .filter(filterFn)
-    .map(t => ({ ...t, name: t.name.replaceAll('.[default]', '') }))
+    .map(t => ({ ...t, name: t.name.replace(/\.\[default\]/g, '') }))
     .sort((a, b) => (a.name < b.name ? -1 : 1))
     .map(token => {
       return `

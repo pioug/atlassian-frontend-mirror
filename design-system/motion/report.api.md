@@ -127,11 +127,19 @@ interface MotionProps<TProps extends {}> {
   onFinish?: (state: Transition) => void;
 }
 
-// @public
+// @public @deprecated (undocumented)
 export const prefersReducedMotion: () => {
-  '@media (prefers-reduced-motion: reduce)': {
-    animation: string;
-    transition: string;
+  readonly '@media (prefers-reduced-motion: reduce)': {
+    readonly animation: 'none';
+    readonly transition: 'none';
+  };
+};
+
+// @public
+export const reduceMotionAsPerUserPreference: {
+  readonly '@media (prefers-reduced-motion: reduce)': {
+    readonly animation: 'none';
+    readonly transition: 'none';
   };
 };
 

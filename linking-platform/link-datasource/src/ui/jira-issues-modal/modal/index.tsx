@@ -19,6 +19,7 @@ import Modal, {
   ModalTitle,
   ModalTransition,
 } from '@atlaskit/modal-dialog';
+import LinkUrl from '@atlaskit/smart-card/link-url';
 import { B400, N0, N40, N800 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -87,7 +88,6 @@ const placeholderSmartLinkStyles = css({
 });
 
 const issueCountStyles = css({
-  color: token('color.text.accent.gray', N800),
   flex: 1,
   fontWeight: 600,
 });
@@ -674,11 +674,18 @@ export const PlainJiraIssuesConfigModal = (
               data-testid="jira-jql-datasource-modal-total-issues-count"
               css={issueCountStyles}
             >
-              <FormattedNumber value={totalCount} />{' '}
-              <FormattedMessage
-                {...modalMessages.issueText}
-                values={{ totalCount }}
-              />
+              <LinkUrl
+                href={jqlUrl}
+                target="_blank"
+                testId="item-count-url"
+                style={{ color: token('color.text.accent.gray', N800) }}
+              >
+                <FormattedNumber value={totalCount} />{' '}
+                <FormattedMessage
+                  {...modalMessages.issueText}
+                  values={{ totalCount }}
+                />
+              </LinkUrl>
             </div>
           )}
           <Button appearance="default" onClick={onCancelClick}>

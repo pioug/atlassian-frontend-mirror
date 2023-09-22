@@ -42,6 +42,7 @@ import {
   tableControlsSpacing,
   tableHeaderCellBackgroundColor,
   tableInsertColumnButtonSize,
+  tableOverflowShadowWidth,
   tablePadding,
   tableScrollbarOffset,
   tableTextColor,
@@ -437,6 +438,9 @@ export const tableStyles = (
 
       &.${ClassName.TABLE_CONTAINER}[data-number-column='true'] {
         padding-left: ${akEditorTableNumberColumnWidth + tablePadding - 1}px;
+      }
+      .${ClassName.TABLE_LEFT_SHADOW}, .${ClassName.TABLE_RIGHT_SHADOW} {
+        width: ${tableOverflowShadowWidth}px;
       }
 
       .${ClassName.TABLE_LEFT_SHADOW} {

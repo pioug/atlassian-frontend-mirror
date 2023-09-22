@@ -75,6 +75,7 @@ const PreviewBlockResolvedView: React.FC<PreviewBlockProps> = ({
   overrideCss,
   placement,
   testId,
+  overrideUrl,
   ...blockProps
 }) => {
   const [styles, setStyles] = useState<SerializedStyles | undefined>(
@@ -108,7 +109,11 @@ const PreviewBlockResolvedView: React.FC<PreviewBlockProps> = ({
       overrideCss={styles}
       testId={`${testId}-resolved-view`}
     >
-      <Preview onError={handleOnError} onLoad={handleOnLoad} />
+      <Preview
+        onError={handleOnError}
+        onLoad={handleOnLoad}
+        overrideUrl={overrideUrl}
+      />
     </Block>
   );
 };

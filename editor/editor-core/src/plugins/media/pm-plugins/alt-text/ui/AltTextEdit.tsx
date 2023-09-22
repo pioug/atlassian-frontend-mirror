@@ -12,8 +12,7 @@ import { injectIntl } from 'react-intl-next';
 import { FloatingToolbarButton as Button } from '@atlaskit/editor-common/ui';
 
 import { PanelTextInput } from '@atlaskit/editor-common/ui';
-import { escape } from '@atlaskit/editor-common/keymaps';
-import { ToolTipContent } from '../../../../../keymaps';
+import { escape, ToolTipContent } from '@atlaskit/editor-common/keymaps';
 import { closeMediaAltTextMenu, updateAltText } from '../commands';
 import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { withAnalyticsEvents } from '@atlaskit/analytics-next';

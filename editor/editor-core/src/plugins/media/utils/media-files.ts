@@ -6,15 +6,13 @@ import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
+  findFarthestParentNode,
+  insideTableCell,
+  isInLayoutColumn,
+  isInListItem,
+  isSupportedInParent,
   setNodeSelection,
   setTextSelection,
-  insideTableCell,
-  isInListItem,
-  findFarthestParentNode,
-} from '../../../utils';
-import {
-  isInLayoutColumn,
-  isSupportedInParent,
 } from '@atlaskit/editor-common/utils';
 import type { MediaState } from '../types';
 import {

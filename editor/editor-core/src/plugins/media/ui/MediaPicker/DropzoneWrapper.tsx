@@ -5,7 +5,7 @@ import PickerFacadeProvider from './PickerFacadeProvider';
 import type { MediaPluginState } from '../../pm-plugins/types';
 import type { MediaFeatureFlags } from '@atlaskit/media-common/mediaFeatureFlags';
 import { findOverflowScrollParent } from '@atlaskit/editor-common/ui';
-import type { EditorAppearance } from '../../../../types/editor-appearance';
+import type { EditorAppearance } from '@atlaskit/editor-common/types';
 
 type Props = {
   mediaState: MediaPluginState;

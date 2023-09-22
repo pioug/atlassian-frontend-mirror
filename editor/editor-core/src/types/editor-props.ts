@@ -392,8 +392,15 @@ export interface EditorPluginFeatureProps {
   /**
    * Enable experimental support for the "border" mark.
    * Refer to ADF Change proposal #65 for more details.
+   * @deprecated Use allowBorderMark instead.
    */
   UNSAFE_allowBorderMark?: boolean;
+
+  /**
+   * Enable support for the "border" mark.
+   * Refer to ADF Change proposal #65 for more details.
+   */
+  allowBorderMark?: boolean;
 
   /**
    * Enable support for the "fragment" mark.

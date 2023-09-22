@@ -1016,7 +1016,7 @@ describe('JiraIssuesConfigModal', () => {
       );
     });
 
-    it('should display a count of all issues found', async () => {
+    it('should display a count of all issues found with and link to the JQL link', async () => {
       const hookState = getDefaultHookState();
       const { getByTestId } = await setup({
         hookState,
@@ -1024,6 +1024,13 @@ describe('JiraIssuesConfigModal', () => {
       expect(
         getByTestId('jira-jql-datasource-modal-total-issues-count').textContent,
       ).toEqual('3 issues');
+
+      const issueCountLink = getByTestId('item-count-url');
+      expect(issueCountLink).toHaveAttribute('target', '_blank');
+      expect(issueCountLink).toHaveAttribute(
+        'href',
+        'https://hello.atlassian.net/issues/?jql=some-query',
+      );
     });
 
     it('should have enabled Insert button', async () => {

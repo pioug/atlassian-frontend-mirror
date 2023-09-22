@@ -7,7 +7,6 @@ import { LozengeProps } from './lozenge/types';
 import { AvatarGroupProps } from './avatar-group/types';
 import { TextProps } from './text/types';
 import { DateTimeProps } from './date-time/types';
-import { MediaProps } from './media/types';
 import { AtlaskitBadgeProps } from './atlaskit-badge/types';
 
 // Attention: Keep the export name and element name the same.
@@ -114,7 +113,7 @@ export const OwnedByGroup = createElement<AvatarGroupProps>(
  * Creates a Preview element using the data from Preview in the Flexible UI Context.
  * @see Preview
  */
-export const Preview = createElement<MediaProps>(ElementName.Preview);
+export { default as Preview } from './preview';
 /**
  * Creates a Priority Badge element using the data from Priority in the Flexible UI Context.
  * @see Badge

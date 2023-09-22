@@ -409,7 +409,7 @@ const joinToPreviousListItem: Command = (state, dispatch) => {
       // find the nearest paragraph that precedes this node
       let $lastNode = $cut.doc.resolve($cut.pos - 1);
 
-      while ($lastNode.parent.type !== paragraph) {
+      while ($lastNode.parent.type !== paragraph && $lastNode.pos > 1) {
         $lastNode = state.doc.resolve($lastNode.pos - 1);
       }
 

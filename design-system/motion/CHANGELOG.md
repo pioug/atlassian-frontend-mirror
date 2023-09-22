@@ -1,5 +1,11 @@
 # @atlaskit/motion
 
+## 1.5.0
+
+### Minor Changes
+
+- [`b3ba6514308`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b3ba6514308) - Introduce `reduceMotionAsPerUserPreference` in favour of `prefersReducedMotion` as the latter does not work correctly with Compiled.
+
 ## 1.4.5
 
 ### Patch Changes

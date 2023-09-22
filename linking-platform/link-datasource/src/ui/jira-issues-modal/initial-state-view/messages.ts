@@ -17,6 +17,6 @@ export const initialStateViewMessages = defineMessages({
     id: 'linkDataSource.modal-initial-state.learnMoreLink',
     description:
       'The link that displays under the search description to help people know more about JQL',
-    defaultMessage: 'Learn more about searching with JQL.',
+    defaultMessage: 'Learn more about searching with JQL',
   },
 });

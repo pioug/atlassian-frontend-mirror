@@ -1,9 +1,9 @@
 import type { RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
 import type { MediaSingleProps } from '@atlaskit/editor-common/ui';
 import type { MediaClientConfig } from '@atlaskit/media-core';
-import type mediaPlugin from '../../index';
+import type { MediaNextEditorPluginType } from '../../next-plugin-type';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import type { getPosHandler } from '../../../../nodeviews/types';
+import type { getPosHandler } from '../../types';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 
@@ -22,5 +22,7 @@ export type Props = MediaSingleProps & {
   fullWidthMode?: boolean;
   dispatchAnalyticsEvent: DispatchAnalyticsEvent;
   mediaSingleWidth?: number;
-  pluginInjectionApi: ExtractInjectionAPI<typeof mediaPlugin> | undefined;
+  pluginInjectionApi:
+    | ExtractInjectionAPI<MediaNextEditorPluginType>
+    | undefined;
 };

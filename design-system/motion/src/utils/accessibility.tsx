@@ -54,9 +54,15 @@ export const useIsReducedMotion = (): boolean => {
  * Always put at the end of your declaration for correct use of the cascade.
  * Reduced motion preference is generally set through OS preferences/settings.
  */
-export const prefersReducedMotion = () => ({
+export const reduceMotionAsPerUserPreference = {
   '@media (prefers-reduced-motion: reduce)': {
     animation: 'none',
     transition: 'none',
   },
-});
+} as const;
+
+/**
+ * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-4709 Internal documentation for deprecation (no external access)}
+ * Use the sibling export `reduceMotionAsPerUserPreference` instead.
+ */
+export const prefersReducedMotion = () => reduceMotionAsPerUserPreference;

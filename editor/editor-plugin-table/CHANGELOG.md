@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-table
 
+## 3.1.1
+
+### Patch Changes
+
+- [`05b9c2db1dc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/05b9c2db1dc) - [ux] Increase visibility of table scroll shadows
+
 ## 3.1.0
 
 ### Minor Changes

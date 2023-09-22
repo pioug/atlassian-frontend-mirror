@@ -18,6 +18,7 @@ import {
   supportsUploadFeature,
 } from '../../api/EmojiResource';
 import {
+  KeyboardKeys,
   customCategory,
   defaultEmojiPickerSize,
   frequentCategory,
@@ -572,6 +573,13 @@ const EmojiPickerComponent = ({
   // stop all key propagation to other event listeners
   const suppressKeyPress = (e: React.KeyboardEvent<HTMLDivElement>) => {
     e.stopPropagation();
+    // We prevent default for enter keypresses
+    // since products like Bitbucket might have parent forms
+    // that listen for keydown events to trigger form submission
+    // https://product-fabric.atlassian.net/browse/ED-19532
+    if (e.key === KeyboardKeys.Enter) {
+      e.preventDefault();
+    }
   };
 
   useEffect(() => {

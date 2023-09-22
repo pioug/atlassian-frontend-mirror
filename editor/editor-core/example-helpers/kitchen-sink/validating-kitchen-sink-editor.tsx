@@ -141,7 +141,7 @@ export class ValidatingKitchenSinkEditor extends React.Component<
           }}
           allowUndoRedoButtons={true}
           allowFragmentMark={true}
-          UNSAFE_allowBorderMark={true}
+          allowBorderMark={true}
           allowTextColor={true}
           allowTables={{
             advanced: true,

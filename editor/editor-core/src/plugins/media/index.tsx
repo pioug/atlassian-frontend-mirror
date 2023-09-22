@@ -191,7 +191,6 @@ const mediaPlugin: MediaNextEditorPluginType = ({
                     options,
                     api,
                   ),
-                  // @ts-expect-error
                   mediaInline: ReactMediaInlineNode(
                     portalProviderAPI,
                     eventDispatcher,

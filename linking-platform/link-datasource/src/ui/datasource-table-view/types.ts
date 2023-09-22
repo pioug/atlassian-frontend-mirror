@@ -4,4 +4,5 @@ export interface DatasourceTableViewProps {
   fields?: string[];
   onVisibleColumnKeysChange?: (visibleColumnKeys: string[]) => void;
   visibleColumnKeys?: string[];
+  url?: string;
 }

@@ -132,6 +132,7 @@ export type MediaDecorationSpec = {
   selected: boolean;
 };
 
+export type ProsemirrorGetPosHandler = getPosHandlerNode;
 export type getPosHandler = getPosHandlerNode;
 export type getPosHandlerNode = () => number | undefined;
 

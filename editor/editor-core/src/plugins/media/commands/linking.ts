@@ -6,8 +6,8 @@ import {
 } from '../pm-plugins/linking';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import { normalizeUrl } from '@atlaskit/editor-common/utils';
-import type { CommandDispatch } from '../../../types/command';
-import { createToggleBlockMarkOnRange } from '../../../commands';
+import type { Command, CommandDispatch } from '@atlaskit/editor-common/types';
+import { createToggleBlockMarkOnRange } from '@atlaskit/editor-common/commands';
 import type { LinkAttributes } from '@atlaskit/adf-schema';
 import { MediaLinkingActionsTypes } from '../pm-plugins/linking/actions';
 import type {
@@ -15,15 +15,14 @@ import type {
   Transaction,
 } from '@atlaskit/editor-prosemirror/state';
 import {
-  EVENT_TYPE,
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
+  EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
 import { currentMediaNode } from '../utils/current-media-node';
 import { checkMediaType } from '../utils/check-media-type';
 import { getMediaPluginState } from '../pm-plugins/main';
-import type { Command } from '../../../types';
 import type {
   INPUT_METHOD,
   MediaLinkAEP,

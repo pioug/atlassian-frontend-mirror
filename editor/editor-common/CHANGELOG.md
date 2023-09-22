@@ -1,5 +1,12 @@
 # @atlaskit/editor-common
 
+## 75.5.2
+
+### Patch Changes
+
+- [`d5088ec1cdf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d5088ec1cdf) - [ED-16733] Prepare Media plugin for extraction
+- [`05b9c2db1dc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/05b9c2db1dc) - [ux] Increase visibility of table scroll shadows
+
 ## 75.5.1
 
 ### Patch Changes

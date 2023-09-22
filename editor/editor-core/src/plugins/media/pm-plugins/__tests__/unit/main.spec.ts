@@ -15,11 +15,12 @@ import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-hel
 import { MediaPluginStateImplementation, stateKey } from '../../main';
 import type { MediaPluginState } from '../../types';
 import type { MediaPluginOptions } from '../../../media-plugin-options';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   getFreshMediaProvider,
   temporaryFileId,
   testCollectionName,
-} from '../../../../../__tests__/unit/plugins/media/_utils';
+} from '@atlaskit/editor-test-helpers/media-provider';
 
 describe('MediaPluginState', () => {
   const setup = (allowMediaInline = true) => {

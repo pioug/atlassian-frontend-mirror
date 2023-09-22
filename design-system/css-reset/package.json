@@ -42,7 +42,7 @@
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "mkdirp": "^0.5.1",
     "ts-node": "^10.9.1",
-    "tsconfig-paths": "^3.9.0",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "~4.9.5"
   },
   "keywords": [

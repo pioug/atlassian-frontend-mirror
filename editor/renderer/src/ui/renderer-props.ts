@@ -1,24 +1,24 @@
-import { Schema } from '@atlaskit/editor-prosemirror/model';
+import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { ADFStage } from '@atlaskit/editor-common/validator';
 import type { AnnotationProviders } from '@atlaskit/editor-common/types';
 import type { EventHandlers } from '@atlaskit/editor-common/ui';
 import type { UnsupportedContentLevelsTracking } from '@atlaskit/editor-common/utils';
-import { EmojiResourceConfig } from '@atlaskit/emoji/resource';
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { RendererContext } from '../';
-import { RenderOutputStat } from '../render-document';
-import {
+import type { EmojiResourceConfig } from '@atlaskit/emoji/resource';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { RendererContext } from '../';
+import type { RenderOutputStat } from '../render-document';
+import type {
   RendererAppearance,
   StickyHeaderProps,
   HeadingAnchorLinksProps,
   NodeComponentsProps,
 } from './Renderer/types';
-import { MediaOptions } from '../types/mediaOptions';
-import { SmartLinksOptions } from '../types/smartLinksOptions';
-import { ACTION_SUBJECT } from '@atlaskit/editor-common/analytics';
-import { DocNode } from '@atlaskit/adf-schema';
+import type { MediaOptions } from '../types/mediaOptions';
+import type { SmartLinksOptions } from '../types/smartLinksOptions';
+import type { ACTION_SUBJECT } from '@atlaskit/editor-common/analytics';
+import type { DocNode } from '@atlaskit/adf-schema';
 
 export interface RawObjectFeatureFlags {
   ['renderer-render-tracking']: string;
@@ -80,6 +80,16 @@ export interface RendererProps {
   allowSelectAllTrap?: boolean;
   unsupportedContentLevelsTracking?: UnsupportedContentLevelsTracking;
   nodeComponents?: NodeComponentsProps;
+  /**
+   * When enabled a trailing telepointer will be added to the rendered document
+   * following content updates.
+   *
+   * Content is updated by passing a new value prop to the renderer.
+   *
+   * The trailing pointer is updated by dom injection to the last text node which
+   * is updated as a result of a content update.
+   */
+  addTelepointer?: boolean;
 
   /**
    * @default undefined

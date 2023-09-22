@@ -1,5 +1,11 @@
 # @atlaskit/link-create
 
+## 1.1.1
+
+### Patch Changes
+
+- [`b77b38f55e3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b77b38f55e3) - EDM-7921: fire ui analytics event for error component in jira-issue-form and add new error type and handling for NO_JIRA_SITE_FOUND_ERROR
+
 ## 1.1.0
 
 ### Minor Changes

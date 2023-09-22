@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-list
 
+## 1.3.0
+
+### Minor Changes
+
+- [`39ff0b0788c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/39ff0b0788c) - [ux] [ED-19466] Solve bug where toggling off a bullet list when the list item contained text and a wrap (left or right) media node left the media node behind in the list and then joining the paragraph back to the list caused a position error.
+
+  Also export toggleList function so it can be used in external tests.
+
 ## 1.2.4
 
 ### Patch Changes

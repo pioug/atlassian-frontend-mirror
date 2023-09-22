@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 
+import { Jast } from '@atlassianlabs/jql-ast';
 import { JQLEditor } from '@atlassianlabs/jql-editor';
 
 import { useAutocompleteProvider } from '@atlaskit/jql-editor-autocomplete-rest';
@@ -11,7 +12,7 @@ export interface JiraJQLEditorProps {
   cloudId: string;
   isSearching?: boolean;
   onChange?: (query: string) => void;
-  onSearch: (query: string) => void;
+  onSearch: () => void;
   query: string;
 }
 
@@ -32,11 +33,17 @@ export const JiraJQLEditor: React.FC<JiraJQLEditorProps> = props => {
     });
   }, []);
 
+  const searchIfValidJql = (_: string, jast: Jast) => {
+    if (jast.errors.length === 0) {
+      onSearch();
+    }
+  };
+
   return (
     <JQLEditor
       analyticsSource="link-datasource"
       autocompleteProvider={autocompleteProvider}
-      onSearch={onSearch}
+      onSearch={searchIfValidJql}
       onUpdate={onChange}
       isSearching={isSearching}
       inputRef={inputRef}

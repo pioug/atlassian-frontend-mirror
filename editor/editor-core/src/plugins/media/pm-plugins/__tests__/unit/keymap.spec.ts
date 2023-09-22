@@ -6,6 +6,7 @@ import {
   mediaSingle,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import type { DocBuilder } from '@atlaskit/editor-common/types';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import type { MediaAttributes } from '@atlaskit/adf-schema';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
@@ -15,7 +16,8 @@ import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-hel
 import type { EditorSelectionAPI } from '@atlaskit/editor-common/selection';
 import { createEditorSelectionAPI } from '@atlaskit/editor-core/src/selection-api/api';
 
-import { getFreshMediaProvider } from '../../../../../__tests__/unit/plugins/media/_utils';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { getFreshMediaProvider } from '@atlaskit/editor-test-helpers/media-provider';
 import { stateKey } from '../../main';
 import type { MediaPluginState } from '../../types';
 import { sendArrowLeftKey, sendArrowRightKey } from './_utils';

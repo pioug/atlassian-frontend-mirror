@@ -16,10 +16,12 @@ import { FloatingToolbarButton as ToolbarButton } from '@atlaskit/editor-common/
 
 import { FloatingToolbarSeparator as Separator } from '@atlaskit/editor-common/ui';
 
-import { linkMessages } from '../../../messages';
-import { linkToolbarMessages } from '@atlaskit/editor-common/messages';
+import {
+  linkMessages,
+  linkToolbarMessages,
+} from '@atlaskit/editor-common/messages';
 
-import { ToolTipContent, addLink } from '../../../keymaps';
+import { ToolTipContent, addLink } from '@atlaskit/editor-common/keymaps';
 import { stateKey } from '../pm-plugins/plugin-key';
 import { currentMediaNode } from '../utils/current-media-node';
 

@@ -1,5 +1,11 @@
 # @atlaskit/emoji
 
+## 67.5.5
+
+### Patch Changes
+
+- [`a5aac31e4d0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a5aac31e4d0) - prevent ENTER to trigger form submit if emoji picker is under a form
+
 ## 67.5.4
 
 ### Patch Changes

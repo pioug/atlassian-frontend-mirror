@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 26.28.0
+
+### Minor Changes
+
+- [`46afccdf430`](https://bitbucket.org/atlassian/atlassian-frontend/commits/46afccdf430) - Flexible-UI: Add url override option to preview block
+
 ## 26.27.2
 
 ### Patch Changes

@@ -51,7 +51,10 @@ import { hasTableBeenResized } from '../pm-plugins/table-resizing/utils/colgroup
 import { updateControls } from '../pm-plugins/table-resizing/utils/dom';
 import type { PluginInjectionAPI } from '../types';
 import { TableCssClassName as ClassName, ShadowEvent } from '../types';
-import { tableOverflowShadowWidth } from '../ui/consts';
+import {
+  tableOverflowShadowWidth,
+  tableOverflowShadowWidthWide,
+} from '../ui/consts';
 import TableFloatingControls from '../ui/TableFloatingControls';
 import {
   containsHeaderRow,
@@ -494,7 +497,13 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
             style={{
               position: 'absolute',
               right: getBooleanFF('platform.editor.custom-table-width')
-                ? `${tableOverflowShadowWidth}px`
+                ? `${
+                    getBooleanFF(
+                      'platform.editor.table.increase-shadow-visibility_lh89r',
+                    )
+                      ? tableOverflowShadowWidthWide
+                      : tableOverflowShadowWidth
+                  }px`
                 : '-2px',
             }}
           >

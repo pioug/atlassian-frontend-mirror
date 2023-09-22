@@ -32,7 +32,7 @@ export default () => (
         <Preview testId="vr-test-media" />
       </div>
       <div css={containerStyles}>
-        <Preview url={wideImage} />
+        <Preview overrideUrl={wideImage} />
       </div>
       <h5>Override CSS</h5>
       <div css={containerStyles}>

@@ -23,9 +23,9 @@ import { ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics';
 import type { ADFStage } from '@atlaskit/editor-common/validator';
 import type { AnnotationProviders } from '@atlaskit/editor-common/types';
 import type { CardProps } from '@atlaskit/smart-card';
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { DocNode } from '@atlaskit/adf-schema';
-import { EmojiResourceConfig } from '@atlaskit/emoji/resource';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { DocNode } from '@atlaskit/adf-schema';
+import type { EmojiResourceConfig } from '@atlaskit/emoji/resource';
 import { EVENT_TYPE } from '@atlaskit/editor-common/analytics';
 import type { EventHandlers } from '@atlaskit/editor-common/ui';
 import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
@@ -37,7 +37,7 @@ import type { MediaFeatureFlags } from '@atlaskit/media-common';
 import { Node as Node_2 } from '@atlaskit/editor-prosemirror/model';
 import { OperationalAEP } from '@atlaskit/editor-common/analytics';
 import { PropsDifference } from '@atlaskit/editor-common/utils';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { Schema } from '@atlaskit/editor-prosemirror/model';
 import { SEVERITY } from '@atlaskit/editor-common/utils';
 import { ShallowPropsDifference } from '@atlaskit/editor-common/utils';
@@ -411,6 +411,7 @@ export interface RendererContext {
 
 // @public (undocumented)
 export interface RendererProps {
+  addTelepointer?: boolean;
   // (undocumented)
   adfStage?: ADFStage;
   // (undocumented)

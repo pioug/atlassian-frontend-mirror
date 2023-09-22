@@ -20,24 +20,23 @@ import type {
 } from '@atlaskit/editor-common/provider-factory';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { MediaSingle } from '@atlaskit/editor-common/ui';
-import { browser } from '@atlaskit/editor-common/utils';
 import type { CardEvent } from '@atlaskit/media-card';
-import { isNodeSelectedOrInRange } from '../../../utils/nodes';
+import {
+  browser,
+  isNodeSelectedOrInRange,
+  setNodeSelection,
+  setTextSelection,
+} from '@atlaskit/editor-common/utils';
 import type { MediaClientConfig } from '@atlaskit/media-core';
 
-import type {
-  getPosHandler,
-  getPosHandlerNode,
-  ForwardRef,
-} from '../../../nodeviews/';
-import { setNodeSelection, setTextSelection } from '../../../utils';
+import type { ForwardRef, getPosHandler, getPosHandlerNode } from '../types';
 import ResizableMediaSingleNext from '../ui/ResizableMediaSingle/ResizableMediaSingleNext';
 import ResizableMediaSingle from '../ui/ResizableMediaSingle';
-import type { EventDispatcher } from '../../../event-dispatcher';
+import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
 
-import type { MediaOptions } from '../types';
 import { MEDIA_CONTENT_WRAP_CLASS_NAME } from '../pm-plugins/main';
+import type { MediaOptions } from '../types';
 import type { MediaSingleNodeProps, MediaSingleNodeViewProps } from './types';
 import { MediaNodeUpdater } from './mediaNodeUpdater';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
@@ -51,7 +50,7 @@ import ReactNodeView from '@atlaskit/editor-common/react-node-view';
 import CaptionPlaceholder from '../ui/CaptionPlaceholder';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { insertAndSelectCaptionFromMediaSinglePos } from '../commands/captions';
-import type mediaPlugin from '../index';
+import type { MediaNextEditorPluginType } from '../next-plugin-type';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import {
   calcMediaSinglePixelWidth,
@@ -628,7 +627,9 @@ export const ReactMediaSingleNode =
     portalProviderAPI: PortalProviderAPI,
     eventDispatcher: EventDispatcher,
     providerFactory: ProviderFactory,
-    pluginInjectionApi: ExtractInjectionAPI<typeof mediaPlugin> | undefined,
+    pluginInjectionApi:
+      | ExtractInjectionAPI<MediaNextEditorPluginType>
+      | undefined,
     dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
     mediaOptions: MediaOptions = {},
   ) =>

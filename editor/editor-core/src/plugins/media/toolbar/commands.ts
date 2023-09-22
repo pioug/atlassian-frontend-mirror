@@ -5,12 +5,13 @@ import {
   removeSelectedNode,
   safeInsert,
 } from '@atlaskit/editor-prosemirror/utils';
+
 import type {
   BorderMarkAttributes,
   RichMediaLayout,
 } from '@atlaskit/adf-schema';
-
-import type { Command } from '../../../types';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { Command } from '@atlaskit/editor-common/types';
 import { getMediaInputResizeAnalyticsEvent } from '../utils/analytics';
 import type { PixelEntryValidation } from '../ui/PixelEntry/types';
 
@@ -22,8 +23,6 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import { removeMediaGroupNode, getSelectedMediaSingle } from './utils';
 import { currentMediaNodeWithPos } from '../utils/current-media-node';
-
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 
 export const DEFAULT_BORDER_COLOR = '#091e4224';
 export const DEFAULT_BORDER_SIZE = 2;

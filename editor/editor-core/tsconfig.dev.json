@@ -235,9 +235,6 @@
       "path": "../../media/media-core/tsconfig.app.json"
     },
     {
-      "path": "../../media/media-filmstrip/tsconfig.app.json"
-    },
-    {
       "path": "../../media/media-integration-test-helpers/tsconfig.app.json"
     },
     {

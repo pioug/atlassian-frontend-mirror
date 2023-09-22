@@ -1,11 +1,13 @@
-import { css, Theme } from '@emotion/react';
+import type { Theme } from '@emotion/react';
+import { css } from '@emotion/react';
 import { themed } from '@atlaskit/theme/components';
 import { fontFamily, fontSize } from '@atlaskit/theme/constants';
 import * as colors from '@atlaskit/theme/colors';
 import { headingSizes as headingSizesImport } from '@atlaskit/theme/typography';
-import { ThemeProps } from '@atlaskit/theme/types';
+import type { ThemeProps } from '@atlaskit/theme/types';
 
 import { token } from '@atlaskit/tokens';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import {
   tableSharedStyle,
@@ -48,8 +50,9 @@ import {
   akEditorStickyHeaderZIndex,
   relativeFontSizeToBase16,
 } from '@atlaskit/editor-shared-styles';
+import { N40A } from '@atlaskit/theme/colors';
 import { RendererCssClassName } from '../../consts';
-import { RendererAppearance } from './types';
+import type { RendererAppearance } from './types';
 import { HeadingAnchorWrapperClassName } from '../../react/nodes/heading-anchor';
 import { shadowObserverClassNames } from '@atlaskit/editor-common/ui';
 import { getLightWeightCodeBlockStylesForRootRendererStyleSheet } from '../../react/nodes/codeBlock/components/lightWeightCodeBlock';
@@ -57,11 +60,73 @@ import { isTableResizingEnabled } from '../../react/nodes/table';
 
 export const FullPagePadding = 32;
 
+const tableShadowWidth = 32;
+
 export type RendererWrapperProps = {
   appearance?: RendererAppearance;
   allowNestedHeaderLinks: boolean;
   allowColumnSorting: boolean;
   useBlockRenderForCodeBlock: boolean;
+};
+
+export const TELEPOINTER_ID = 'ai-streaming-telepointer';
+
+const telepointerStyles = (themeProps: ThemeProps) => {
+  return css`
+    #${TELEPOINTER_ID} {
+      display: inline-block;
+      position: relative;
+      width: 1.5px;
+      height: 25px;
+      background: linear-gradient(
+        45deg,
+        ${themed({
+            light: '#F8E6A0',
+            dark: '#F5CD47',
+          })(themeProps)} -12.02%,
+        ${themed({
+            light: '#8BDBE5',
+            dark: '#60C6D2',
+          })(themeProps)}
+          19.18%,
+        ${themed({
+            light: '#0C66E4',
+            dark: '#388BFF',
+          })(themeProps)}
+          71.87%
+      );
+      margin-left: ${token('space.025', '2px')};
+
+      &::after {
+        content: 'AI';
+        position: absolute;
+        display: block;
+        top: 0;
+        left: 0;
+        font-size: 10px;
+        font-weight: 700;
+        width: 12.5px;
+        height: 13px;
+        padding-top: 1px;
+        padding-left: 1.5px;
+        line-height: initial;
+        border-radius: 0px 2px 2px 0px;
+        color: ${token('color.text.inverse', 'white')};
+        background: linear-gradient(
+          45deg,
+          ${themed({
+              light: '#8BDBE5',
+              dark: '#60C6D2',
+            })(themeProps)} -57%,
+          ${themed({
+              light: '#0C66E4',
+              dark: '#388BFF',
+            })(themeProps)}
+            71.87%
+        );
+      }
+    }
+  `;
 };
 
 type HeadingSizes = keyof typeof headingSizesImport;
@@ -361,6 +426,42 @@ const breakoutWidthStyle = () => {
   `;
 };
 
+const getShadowOverrides = () => {
+  return getBooleanFF('platform.editor.table.increase-shadow-visibility_lh89r')
+    ? css`
+        /** Shadow overrides */
+        &.${shadowClassNames.RIGHT_SHADOW}::after,
+          &.${shadowClassNames.LEFT_SHADOW}::before {
+          width: ${tableShadowWidth}px;
+          background: linear-gradient(
+              to left,
+              transparent 0,
+              ${token('elevation.shadow.overflow.spread', N40A)} 140%
+            ),
+            linear-gradient(
+              to right,
+              ${token('elevation.shadow.overflow.perimeter', 'transparent')} 0px,
+              transparent 1px
+            );
+        }
+
+        &.${shadowClassNames.RIGHT_SHADOW}::after {
+          background: linear-gradient(
+              to right,
+              transparent 0,
+              ${token('elevation.shadow.overflow.spread', N40A)} 140%
+            ),
+            linear-gradient(
+              to left,
+              ${token('elevation.shadow.overflow.perimeter', 'transparent')} 0px,
+              transparent 1px
+            );
+          left: calc(100% - ${tableShadowWidth}px);
+        }
+      `
+    : '';
+};
+
 export const rendererStyles =
   (wrapperProps: RendererWrapperProps) => (theme: Theme) => {
     // This is required to be compatible with styled-components prop structure.
@@ -438,6 +539,7 @@ export const rendererStyles =
         })(themeProps)};
       }
 
+      ${telepointerStyles(themeProps)}
       ${whitespaceSharedStyles};
       ${blockquoteSharedStyles};
       ${headingsSharedStyles(themeProps)};
@@ -471,7 +573,7 @@ export const rendererStyles =
           light: token('color.text', colors.N800),
           dark: token('color.text', colors.DN600),
         })(themeProps)};
-        padding: 2px 4px;
+        padding: ${token('space.025', '2px')} ${token('space.050', '4px')};
         margin: 0 1px;
         transition: background 0.3s;
       }
@@ -513,7 +615,7 @@ export const rendererStyles =
         & + h4,
         & + h5,
         & + h6 {
-          margin-top: 8px;
+          margin-top: ${token('space.100', '8px')};
         }
       }
 
@@ -572,6 +674,8 @@ export const rendererStyles =
           height: calc(100% - ${tableMarginTop}px);
           z-index: ${akEditorStickyHeaderZIndex};
         }
+
+        ${getShadowOverrides()}
 
         &
           .${shadowObserverClassNames.SENTINEL_LEFT},

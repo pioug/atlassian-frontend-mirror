@@ -340,6 +340,7 @@ export class ExampleEditorComponent extends React.Component<
             <SmartCardProvider client={smartCardClient}>
               <Editor
                 allowUndoRedoButtons={true}
+                allowBorderMark={true}
                 allowAnalyticsGASV3={true}
                 quickInsert={{ provider: Promise.resolve(quickInsertProvider) }}
                 allowTextColor={true}

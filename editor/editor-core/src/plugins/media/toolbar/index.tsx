@@ -15,8 +15,8 @@ import type {
   FloatingToolbarConfig,
   FloatingToolbarItem,
 } from '@atlaskit/editor-common/types';
-import commonMessages from '../../../messages';
-import type { Command } from '../../../types';
+import commonMessages from '@atlaskit/editor-common/messages';
+import type { Command } from '@atlaskit/editor-common/types';
 import { stateKey } from '../pm-plugins/plugin-key';
 import type { HoverDecorationHandler } from '@atlaskit/editor-plugin-decorations';
 import { getLinkingToolbar, shouldShowMediaLinkToolbar } from './linking';
@@ -65,7 +65,6 @@ import {
 import ImageBorderItem from '../ui/ImageBorder';
 import { currentMediaNodeBorderMark } from '../utils/current-media-node';
 import { shouldShowImageBorder } from './imageBorder';
-import type mediaPlugin from '../index';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { PixelEntry, FullWidthDisplay } from '../ui/PixelEntry';
 import {
@@ -77,6 +76,7 @@ import {
   akEditorDefaultLayoutWidth,
   akEditorFullWidthLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
+import type { MediaNextEditorPluginType } from '../next-plugin-type';
 
 const remove: Command = (state, dispatch) => {
   if (dispatch) {
@@ -283,7 +283,9 @@ const generateMediaSingleFloatingToolbar = (
   options: MediaFloatingToolbarOptions,
   pluginState: MediaPluginState,
   mediaLinkingState: MediaLinkingState,
-  pluginInjectionApi: ExtractInjectionAPI<typeof mediaPlugin> | undefined,
+  pluginInjectionApi:
+    | ExtractInjectionAPI<MediaNextEditorPluginType>
+    | undefined,
   getEditorFeatureFlags?: GetEditorFeatureFlags,
 ) => {
   const { mediaSingle } = state.schema.nodes;
@@ -605,7 +607,9 @@ export const floatingToolbar = (
   state: EditorState,
   intl: IntlShape,
   options: MediaFloatingToolbarOptions = {},
-  pluginInjectionApi: ExtractInjectionAPI<typeof mediaPlugin> | undefined,
+  pluginInjectionApi:
+    | ExtractInjectionAPI<MediaNextEditorPluginType>
+    | undefined,
 ): FloatingToolbarConfig | undefined => {
   const { media, mediaInline, mediaSingle, mediaGroup } = state.schema.nodes;
   const {

@@ -1,5 +1,23 @@
 # @atlaskit/editor-core
 
+## 187.45.0
+
+### Minor Changes
+
+- [`b9264ebb903`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b9264ebb903) - Deprecate 'UNSAFE_allowBorderMark' prop in the editor plugin and replace it with 'allowBorderMark'
+
+## 187.44.11
+
+### Patch Changes
+
+- [`d5088ec1cdf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d5088ec1cdf) - [ED-16733] Prepare Media plugin for extraction
+
+## 187.44.10
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 187.44.8
 
 ### Patch Changes

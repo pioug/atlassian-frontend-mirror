@@ -13,20 +13,21 @@ import type {
   Selection,
   Transaction,
 } from '@atlaskit/editor-prosemirror/state';
-import { checkNodeDown } from '../../../utils';
+import {
+  checkNodeDown,
+  isEmptyParagraph,
+  mapSlice,
+} from '@atlaskit/editor-common/utils';
 import {
   getMediaSingleInitialWidth,
   MEDIA_SINGLE_DEFAULT_MIN_PIXEL_WIDTH,
   MEDIA_SINGLE_VIDEO_MIN_PIXEL_WIDTH,
   getMaxWidthForNestedNodeNext,
 } from '@atlaskit/editor-common/media-single';
-import { isEmptyParagraph } from '@atlaskit/editor-common/utils';
 
 import { copyOptionalAttrsFromMediaState } from '../utils/media-common';
 import type { MediaState } from '../types';
-import type { Command } from '../../../types';
-import { mapSlice } from '../../../utils/slice';
-
+import type { Command } from '@atlaskit/editor-common/types';
 import type {
   InputMethodInsertMedia,
   InsertEventPayload,

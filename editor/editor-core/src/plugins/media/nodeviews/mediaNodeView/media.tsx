@@ -19,15 +19,19 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import React, { Component } from 'react';
+import {
+  setNodeSelection,
+  setTextSelection,
+} from '@atlaskit/editor-common/utils';
+
 import type {
-  ProsemirrorGetPosHandler,
+  MediaOptions,
   ReactNodeProps,
-} from '../../../../nodeviews';
-import { setNodeSelection, setTextSelection } from '../../../../utils';
+  getPosHandler as ProsemirrorGetPosHandler,
+} from '../../types';
 import { stateKey as mediaStateKey } from '../../pm-plugins/plugin-key';
 import type { MediaPluginState } from '../../pm-plugins/types';
 import { MediaCardWrapper } from '../styles';
-import type { MediaOptions } from '../../types';
 
 // This is being used by DropPlaceholder now
 export const MEDIA_HEIGHT = 125;

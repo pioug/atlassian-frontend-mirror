@@ -16,7 +16,7 @@ import {
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 
 import type { MediaToolbarBaseConfig } from '../types';
-import type mediaPlugin from '../index';
+import type { MediaNextEditorPluginType } from '../next-plugin-type';
 
 const FORCE_FOCUS_SELECTOR =
   '[data-testid="add-link-button"],[data-testid="edit-link-button"]';
@@ -45,7 +45,9 @@ export const getLinkingToolbar = (
   mediaLinkingState: MediaLinkingState,
   state: EditorState,
   intl: IntlShape,
-  pluginInjectionApi: ExtractInjectionAPI<typeof mediaPlugin> | undefined,
+  pluginInjectionApi:
+    | ExtractInjectionAPI<MediaNextEditorPluginType>
+    | undefined,
   providerFactory?: ProviderFactory,
 ): FloatingToolbarConfig | undefined => {
   const { link, visible, editable: editing, mediaPos } = mediaLinkingState;

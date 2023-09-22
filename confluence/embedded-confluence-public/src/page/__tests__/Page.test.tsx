@@ -30,10 +30,20 @@ const MockViewPage = (props: any) => {
     });
   }
 
+  function handleCustomNavPolicyEdit() {
+    props.navigationPolicy.navigate(props.url, {
+      contentId: props.contentId,
+      spaceKey: props.spaceKey,
+      target: props.target,
+      routeName: 'SOMETHING_ELSE',
+    });
+  }
+
   return (
     <div>
       <>{props.allowedFeatures.toString()}</>
       <button onClick={handleOnEdit}>Edit</button>
+      <button onClick={handleCustomNavPolicyEdit}>Custom Edit</button>
     </div>
   );
 };
@@ -262,7 +272,7 @@ describe('if parent product passes its navigation policy', () => {
       <BasicPage url={viewPageUrl} navigationPolicy={mockNavigationPolicy} />,
     );
 
-    await userEvent.click(screen.getByText('Edit'));
+    await userEvent.click(screen.getByText('Custom Edit'));
 
     expect(mockNavigationPolicy.navigate).toHaveBeenCalled();
   });

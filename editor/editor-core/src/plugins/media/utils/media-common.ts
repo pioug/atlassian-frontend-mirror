@@ -16,26 +16,31 @@ import {
   createParagraphNear,
   createNewParagraphBelow,
 } from '@atlaskit/editor-common/utils';
-import { isTemporary } from '../../../utils';
-import type { ProsemirrorGetPosHandler } from '../../../nodeviews';
-import type { MediaState } from '../types';
-import { mapSlice } from '../../../utils/slice';
+import type {
+  getPosHandler as ProsemirrorGetPosHandler,
+  MediaState,
+} from '../types';
+import { mapSlice } from '@atlaskit/editor-common/utils';
 import {
   walkUpTreeUntil,
   removeNestedEmptyEls,
   unwrap,
-} from '../../../utils/dom';
+} from '@atlaskit/editor-common/utils';
 import { isImage } from './is-image';
 import {
+  GapCursorSelection,
   atTheBeginningOfBlock,
   atTheBeginningOfDoc,
   atTheEndOfBlock,
   endPositionOfParent,
   startPositionOfParent,
-  GapCursorSelection,
 } from '@atlaskit/editor-common/selection';
 import type { MediaADFAttrs } from '@atlaskit/adf-schema';
 import { isMediaBlobUrl } from '@atlaskit/media-client';
+
+const isTemporary = (id: string): boolean => {
+  return id.indexOf('temporary:') === 0;
+};
 
 export const isMediaBlobUrlFromAttrs = (attrs: MediaADFAttrs): boolean => {
   return !!(attrs && attrs.type === 'external' && isMediaBlobUrl(attrs.url));

@@ -3,8 +3,6 @@ import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import type {
   Transaction,
   ReadonlyTransaction,
-  EditorState,
-  TextSelection,
 } from '@atlaskit/editor-prosemirror/state';
 
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
@@ -15,30 +13,12 @@ import type {
 import type { DispatchAnalyticsEvent } from '../plugins/analytics/types/dispatch-analytics-event';
 import { getBreakoutMode } from './node-width';
 import type { BreakoutMarkAttrs } from '@atlaskit/adf-schema';
-import {
-  processRawValue,
-  hasDocAsParent,
-  getStepRange,
-  isEmptyParagraph,
+import { processRawValue, getStepRange } from '@atlaskit/editor-common/utils';
+
+export {
+  findFarthestParentNode,
+  isInEmptyLine,
 } from '@atlaskit/editor-common/utils';
-
-export { findFarthestParentNode } from '@atlaskit/editor-common/utils';
-
-export function isInEmptyLine(state: EditorState) {
-  const { selection } = state;
-  const { $cursor, $anchor } = selection as TextSelection;
-
-  if (!$cursor) {
-    return false;
-  }
-
-  const node = $cursor.node();
-
-  if (!node) {
-    return false;
-  }
-  return isEmptyParagraph(node) && hasDocAsParent($anchor);
-}
 
 export function processRawFragmentValue(
   schema: Schema,

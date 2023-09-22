@@ -25,6 +25,7 @@ const DatasourceTableViewWithoutAnalytics = ({
   parameters,
   visibleColumnKeys,
   onVisibleColumnKeysChange,
+  url,
 }: DatasourceTableViewProps) => {
   const {
     reset,
@@ -178,6 +179,7 @@ const DatasourceTableViewWithoutAnalytics = ({
         itemCount={isDataReady ? totalCount : undefined}
         onRefresh={forcedReset}
         isLoading={!isDataReady || status === 'loading'}
+        url={url}
       />
     </div>
   );

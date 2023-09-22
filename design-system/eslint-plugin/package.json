@@ -56,7 +56,7 @@
     "prettier": "^2.8.0",
     "react": "^16.8.0",
     "ts-node": "^10.9.1",
-    "tsconfig-paths": "^3.9.0",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "~4.9.5"
   },
   "scripts": {

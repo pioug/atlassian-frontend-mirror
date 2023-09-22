@@ -11,15 +11,13 @@ import type { EventHandlers } from '@atlaskit/editor-common/ui';
 
 import { getPlatform } from '../../utils';
 import { CardErrorBoundary } from './fallback';
-import { RendererAppearance } from '../../ui/Renderer/types';
+import type { RendererAppearance } from '../../ui/Renderer/types';
 import { getCardClickHandler } from '../utils/getCardClickHandler';
-import { SmartLinksOptions } from '../../types/smartLinksOptions';
+import type { SmartLinksOptions } from '../../types/smartLinksOptions';
 import InlineCard from './inlineCard';
 import { AnalyticsContext } from '@atlaskit/analytics-next';
-import {
-  DatasourceAdfView,
-  DatasourceTableView,
-} from '@atlaskit/link-datasource';
+import type { DatasourceAdfView } from '@atlaskit/link-datasource';
+import { DatasourceTableView } from '@atlaskit/link-datasource';
 
 import type { DatasourceAttributeProperties } from '@atlaskit/adf-schema/schema';
 import { token } from '@atlaskit/tokens';
@@ -114,6 +112,7 @@ export default function BlockCard(props: {
                     parameters={datasource.parameters}
                     visibleColumnKeys={visibleColumnKeys}
                     onVisibleColumnKeysChange={undefined}
+                    url={url}
                   />
                 </div>
               )}

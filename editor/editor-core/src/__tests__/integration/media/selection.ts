@@ -1,7 +1,7 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
-import { waitForNumImages } from '../../../../../__tests__/integration/media/_utils';
+import { waitForNumImages } from './_utils';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   setProseMirrorTextSelection,
@@ -23,7 +23,7 @@ import {
 } from '@atlaskit/editor-test-helpers/doc-builder';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import sampleSchema from '@atlaskit/editor-test-helpers/schema';
-import * as paragraphMediaAdf from './__fixtures__/paragraph-and-media.adf.json';
+import * as paragraphMediaAdf from './_fixtures_/paragraph-and-media.adf.json';
 
 // FIXME: safari test is inconsistent
 // https://automate.browserstack.com/dashboard/v2/builds/c1745da2a13b05d3767df8571454442f9a822903?overallStatus=error

@@ -760,6 +760,7 @@ type PreviewBlockProps = {
   ignoreContainerPadding?: boolean;
   onError?: () => void;
   placement?: MediaPlacement;
+  overrideUrl?: string;
 } & BlockProps;
 
 // @public (undocumented)

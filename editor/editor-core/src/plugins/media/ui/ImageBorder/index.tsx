@@ -19,7 +19,7 @@ import {
 } from '@atlaskit/editor-common/ui-menu';
 import Tooltip from '@atlaskit/tooltip';
 import { Popup } from '@atlaskit/editor-common/ui';
-import ToolbarButton from '../../../../ui/ToolbarButton';
+import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
 import {
   buttonStyle,
   buttonWrapperStyle,

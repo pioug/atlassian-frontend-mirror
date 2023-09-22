@@ -38,7 +38,7 @@
   "devDependencies": {
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "eslint": "^7.7.0",
-    "tsconfig-paths": "^3.9.0"
+    "tsconfig-paths": "^4.2.0"
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
 }

@@ -1,5 +1,27 @@
 # @atlaskit/renderer
 
+## 108.15.1
+
+### Patch Changes
+
+- [`05b9c2db1dc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/05b9c2db1dc) - [ux] Increase visibility of table scroll shadows
+
+## 108.15.0
+
+### Minor Changes
+
+- [`e4721cc5a3f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e4721cc5a3f) - Make issue count clickable
+
+### Patch Changes
+
+- Updated dependencies
+
+## 108.14.0
+
+### Minor Changes
+
+- [`fd3a855ab5a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd3a855ab5a) - [ED-19844] Add trailing telepointer logic to renderer behind feature flag
+
 ## 108.13.1
 
 ### Patch Changes

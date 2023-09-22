@@ -20,8 +20,10 @@ import EmojiAddIcon from '@atlaskit/icon/glyph/emoji-add';
  */
 export const EmojiPickerPopup = ({
   emojiProvider,
+  onSelected,
 }: {
   emojiProvider: Promise<EmojiProvider>;
+  onSelected?: OnEmojiEvent;
 }) => {
   const [emojiPickerOpen, setEmojiPickerOpen] = useState(false);
   const [selectedEmoji, setSelectedEmoji] = useState<EmojiId>();
@@ -29,6 +31,7 @@ export const EmojiPickerPopup = ({
   const onSelection: OnEmojiEvent = (emojiId, emoji) => {
     setSelectedEmoji(emojiId);
     setEmojiPickerOpen(false);
+    onSelected && onSelected(emojiId, emoji);
   };
 
   return (
@@ -38,6 +41,7 @@ export const EmojiPickerPopup = ({
         onClose={() => setEmojiPickerOpen(false)}
         trigger={(triggerProps) => (
           <Button
+            {...triggerProps}
             onClick={() => setEmojiPickerOpen(true)}
             iconBefore={<EmojiAddIcon size="small" label="Add reaction" />}
             spacing="none"
@@ -50,7 +54,7 @@ export const EmojiPickerPopup = ({
           />
         )}
       />
-      <p>
+      <p data-testid="selected-emoji">
         {selectedEmoji && (
           <ResourcedEmoji
             emojiId={selectedEmoji}

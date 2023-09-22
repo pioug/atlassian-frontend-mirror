@@ -13,24 +13,28 @@ import {
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView, Decoration } from '@atlaskit/editor-prosemirror/view';
 import React from 'react';
-import type { EventDispatcher } from '../../../../event-dispatcher';
-import type { getPosHandler, getPosHandlerNode } from '../../../../nodeviews';
+import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { SelectionBasedNodeView } from '@atlaskit/editor-common/selection-based-node-view';
-
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
-
 import type { WidthPluginState } from '@atlaskit/editor-plugin-width';
-import type { MediaOptions } from '../../types';
+
+import type {
+  getPosHandler,
+  getPosHandlerNode,
+  MediaOptions,
+} from '../../types';
 import type { MediaNodeViewProps } from '../types';
 import MediaNode from './media';
 import { getAttrsFromUrl } from '@atlaskit/media-client';
 import { isMediaBlobUrlFromAttrs } from '../../utils/media-common';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import type mediaPlugin from '../../index';
+import type { MediaNextEditorPluginType } from '../../next-plugin-type';
 
 interface MediaNodeWithProvidersProps {
-  pluginInjectionApi: ExtractInjectionAPI<typeof mediaPlugin> | undefined;
+  pluginInjectionApi:
+    | ExtractInjectionAPI<MediaNextEditorPluginType>
+    | undefined;
   innerComponent: (props: { width?: WidthPluginState }) => React.ReactElement;
 }
 
@@ -193,7 +197,9 @@ export const ReactMediaNode =
     eventDispatcher: EventDispatcher,
     providerFactory: ProviderFactory,
     mediaOptions: MediaOptions = {},
-    pluginInjectionApi: ExtractInjectionAPI<typeof mediaPlugin> | undefined,
+    pluginInjectionApi:
+      | ExtractInjectionAPI<MediaNextEditorPluginType>
+      | undefined,
   ) =>
   (node: PMNode, view: EditorView, getPos: getPosHandler) => {
     const hasIntlContext = true;

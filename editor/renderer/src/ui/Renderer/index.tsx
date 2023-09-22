@@ -36,7 +36,7 @@ import { FabricEditorAnalyticsContext } from '@atlaskit/analytics-namespaced-con
 import uuid from 'uuid/v4';
 import type { RendererContext } from '../../';
 import { ReactSerializer, renderDocument } from '../../';
-import { rendererStyles } from './style';
+import { TELEPOINTER_ID, rendererStyles } from './style';
 import { TruncatedWrapper } from './truncated-wrapper';
 import type { RendererAppearance } from './types';
 import {
@@ -87,8 +87,8 @@ export type { RendererProps as Props };
 export class Renderer extends PureComponent<RendererProps> {
   private providerFactory: ProviderFactory;
   private serializer: ReactSerializer;
-  private rafID?: number;
   private editorRef: React.RefObject<HTMLDivElement>;
+  private rafID?: number;
   private mouseDownSelection?: string;
   private id?: string;
   /**
@@ -499,6 +499,7 @@ export class Renderer extends PureComponent<RendererProps> {
                   useBlockRenderForCodeBlock={
                     featureFlags.featureFlags.useBlockRenderForCodeBlock ?? true
                   }
+                  addTelepointer={this.props.addTelepointer}
                   innerRef={this.editorRef}
                   onClick={handleWrapperOnClick}
                   onMouseDown={this.onMouseDownEditView}
@@ -560,6 +561,7 @@ export class Renderer extends PureComponent<RendererProps> {
           useBlockRenderForCodeBlock={
             featureFlags.featureFlags.useBlockRenderForCodeBlock ?? true
           }
+          addTelepointer={this.props.addTelepointer}
           onClick={handleWrapperOnClick}
         >
           <UnsupportedBlock />
@@ -624,6 +626,7 @@ type RendererWrapperProps = {
   allowWrapCodeBlock?: boolean;
   allowPlaceholderText?: boolean;
   allowCustomPanels?: boolean;
+  addTelepointer?: boolean;
   allowNestedHeaderLinks: boolean;
   useBlockRenderForCodeBlock: boolean;
   onClick?: (event: React.MouseEvent) => void;
@@ -640,7 +643,71 @@ const RendererWrapper = React.memo((props: RendererWrapperProps) => {
     onClick,
     onMouseDown,
     useBlockRenderForCodeBlock,
+    addTelepointer,
   } = props;
+
+  const createTelepointer = () => {
+    const telepointer = document.createElement('span');
+    telepointer.textContent = '\u200b';
+    telepointer.id = TELEPOINTER_ID;
+    return telepointer;
+  };
+
+  const initialUpdate = React.useRef(true);
+
+  React.useEffect(() => {
+    if (!addTelepointer || !innerRef?.current) {
+      return;
+    }
+
+    const renderer = innerRef.current.querySelector<HTMLElement>(
+      '.ak-renderer-document',
+    )!;
+
+    if (initialUpdate.current) {
+      const lastChild = renderer.lastChild;
+      lastChild && lastChild.appendChild(createTelepointer());
+    }
+
+    const mutateTelepointer = (mutations: MutationRecord[]) => {
+      mutations.forEach((mutation: MutationRecord) => {
+        if (initialUpdate.current) {
+          const oldTelepointer = renderer.querySelector(`#${TELEPOINTER_ID}`);
+          if (oldTelepointer) {
+            oldTelepointer.remove();
+          }
+          const lastChild = renderer.lastChild;
+          lastChild && lastChild.appendChild(createTelepointer());
+          initialUpdate.current = false;
+        }
+
+        if (mutation.type === 'characterData') {
+          const parentNode = mutation.target.parentElement;
+
+          if (parentNode) {
+            const oldTelepointer = renderer.querySelector(`#${TELEPOINTER_ID}`);
+            if (oldTelepointer) {
+              oldTelepointer.remove();
+            }
+            // initialUpdate.current = true;
+            // Add a new telepointer
+            parentNode!.appendChild(createTelepointer());
+          }
+        }
+      });
+    };
+
+    const observer = new MutationObserver(mutateTelepointer);
+
+    observer.observe(innerRef.current, {
+      characterData: true,
+      attributes: false,
+      childList: true,
+      subtree: true,
+    });
+
+    return () => observer.disconnect();
+  }, [innerRef, children, addTelepointer]);
 
   return (
     <WidthProvider

@@ -22,7 +22,12 @@ import type {
   ContextIdentifierProvider,
   MediaProvider,
 } from '@atlaskit/editor-common/provider-factory';
-import { ErrorReporter, browser } from '@atlaskit/editor-common/utils';
+import {
+  isInEmptyLine,
+  isInListItem,
+  ErrorReporter,
+  browser,
+} from '@atlaskit/editor-common/utils';
 import type { WidthPluginState } from '@atlaskit/editor-plugin-width';
 import assert from 'assert';
 import {
@@ -31,13 +36,17 @@ import {
   findSelectedNodeOfType,
   findParentNodeOfType,
 } from '@atlaskit/editor-prosemirror/utils';
-import type { Dispatch } from '../../../event-dispatcher';
-import type { ProsemirrorGetPosHandler } from '../../../nodeviews';
+import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { insertMediaSingleNode, isMediaSingle } from '../utils/media-single';
 import type { MediaPluginOptions } from '../media-plugin-options';
 import type { PlaceholderType } from '../ui/Media/DropPlaceholder';
 import DropPlaceholder from '../ui/Media/DropPlaceholder';
-import type { MediaOptions, MediaState, MediaStateStatus } from '../types';
+import type {
+  getPosHandlerNode as ProsemirrorGetPosHandler,
+  MediaOptions,
+  MediaState,
+  MediaStateStatus,
+} from '../types';
 import {
   insertMediaGroupNode,
   insertMediaInlineNode,
@@ -60,15 +69,13 @@ import PickerFacade from '../picker-facade';
 import type { InputMethodInsertMedia } from '@atlaskit/editor-common/analytics';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { MediaNodeWithPosHandler, MediaPluginState } from './types';
-import { isInEmptyLine } from '../../../utils/document';
 import { getMediaFeatureFlag } from '@atlaskit/media-common';
-import { isInListItem } from '../../../utils';
 import type { IntlShape } from 'react-intl-next';
 import { RawIntlProvider } from 'react-intl-next';
 import { MediaTaskManager } from './mediaTaskManager';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
-import type mediaPlugin from '../index';
+import type { MediaNextEditorPluginType } from '../next-plugin-type';
 import {
   getMaxWidthForNestedNodeNext,
   CAPTION_PLACEHOLDER_ID,
@@ -151,7 +158,9 @@ export class MediaPluginStateImplementation implements MediaPluginState {
   showEditingDialog?: boolean;
   mediaOptions?: MediaOptions;
   dispatch?: Dispatch;
-  pluginInjectionApi: ExtractInjectionAPI<typeof mediaPlugin> | undefined;
+  pluginInjectionApi:
+    | ExtractInjectionAPI<MediaNextEditorPluginType>
+    | undefined;
 
   constructor(
     state: EditorState,
@@ -159,7 +168,9 @@ export class MediaPluginStateImplementation implements MediaPluginState {
     mediaOptions: MediaOptions | undefined,
     newInsertionBehaviour: boolean | undefined,
     dispatch: Dispatch | undefined,
-    pluginInjectionApi: ExtractInjectionAPI<typeof mediaPlugin> | undefined,
+    pluginInjectionApi:
+      | ExtractInjectionAPI<MediaNextEditorPluginType>
+      | undefined,
   ) {
     this.options = options;
     this.mediaOptions = mediaOptions;
@@ -753,7 +764,9 @@ export const createPlugin = (
   options: MediaPluginOptions,
   reactContext: () => {},
   getIntl: () => IntlShape,
-  pluginInjectionApi: ExtractInjectionAPI<typeof mediaPlugin> | undefined,
+  pluginInjectionApi:
+    | ExtractInjectionAPI<MediaNextEditorPluginType>
+    | undefined,
   dispatch?: Dispatch,
   mediaOptions?: MediaOptions,
   newInsertionBehaviour?: boolean,

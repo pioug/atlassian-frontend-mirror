@@ -139,6 +139,13 @@ test.describe('resizing a table', () => {
   test('should resize to correct width and snap to closest guideline', async ({
     editor,
   }) => {
+    fixTest({
+      jiraIssueId: 'ED-20141',
+      reason:
+        'FIXME: This test was automatically skipped due to failure on 21/09/2023: https://product-fabric.atlassian.net/browse/ED-20141',
+      browsers: [BROWSERS.webkit],
+    });
+
     const nodes = EditorNodeContainerModel.from(editor);
     const tableModel = EditorTableModel.from(nodes.table);
     const resizerModel = tableModel.resizer();

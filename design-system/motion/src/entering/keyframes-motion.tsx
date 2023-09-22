@@ -2,7 +2,7 @@ import React, { Ref, useEffect, useState } from 'react';
 
 import { ClassNames, CSSObject, keyframes } from '@emotion/react';
 
-import { prefersReducedMotion } from '../utils/accessibility';
+import { reduceMotionAsPerUserPreference } from '../utils/accessibility';
 import { largeDurationMs } from '../utils/durations';
 import { useSetTimeout } from '../utils/timer-hooks';
 
@@ -125,7 +125,7 @@ const EnteringMotion = ({
             ref: staggered.ref,
             className: hasAnimationStyles
               ? css({
-                  ...prefersReducedMotion(),
+                  ...reduceMotionAsPerUserPreference,
                   animationDelay: `${delay}ms`,
                   animationDuration: `${
                     isExiting ? duration * EXITING_MOTION_MULTIPLIER : duration

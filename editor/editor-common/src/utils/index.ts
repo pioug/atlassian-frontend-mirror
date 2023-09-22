@@ -6,9 +6,13 @@ import type {
 import type {
   EditorState,
   Selection,
+  TextSelection,
 } from '@atlaskit/editor-prosemirror/state';
 import { hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
+
+import { hasDocAsParent } from './document';
+import { isEmptyParagraph } from './editor-core-utils';
 
 export {
   canApplyAnnotationOnRange,
@@ -44,7 +48,6 @@ export {
   removeBlockMarks,
   filterChildrenBetween,
 } from './editor-core-utils';
-import { isEmptyParagraph } from './editor-core-utils';
 export { withImageLoader } from './imageLoader';
 export type {
   ImageLoaderProps,
@@ -443,6 +446,22 @@ export function isNodeEmpty(node?: PMNode): boolean {
         childNode.isAtom,
     ).length
   );
+}
+
+export function isInEmptyLine(state: EditorState) {
+  const { selection } = state;
+  const { $cursor, $anchor } = selection as TextSelection;
+
+  if (!$cursor) {
+    return false;
+  }
+
+  const node = $cursor.node();
+
+  if (!node) {
+    return false;
+  }
+  return isEmptyParagraph(node) && hasDocAsParent($anchor);
 }
 
 export { dedupe } from './dedupe';

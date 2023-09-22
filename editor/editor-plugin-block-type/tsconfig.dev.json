@@ -29,7 +29,7 @@
   "compilerOptions": {
     "baseUrl": "",
     "composite": true,
-    "outDir": "../../../tsDist/@af__editor-plugin-block-type/dev"
+    "outDir": "../../../tsDist/@atlaskit__editor-plugin-block-type/dev"
   },
   "references": [
     {

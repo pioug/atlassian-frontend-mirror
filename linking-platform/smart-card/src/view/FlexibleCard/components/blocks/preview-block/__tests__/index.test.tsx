@@ -7,18 +7,24 @@ import context from '../../../../../../__fixtures__/flexible-ui-data-context';
 import { SmartLinkStatus } from '../../../../../../constants';
 import PreviewBlock from '../index';
 import { PreviewBlockProps } from '../types';
+import { FlexibleUiDataContext } from '../../../../../../state/flexible-ui-context/types';
 
 describe('PreviewBlock', () => {
   const testId = 'test-smart-block-preview';
 
-  const renderPreviewBlock = (props?: PreviewBlockProps) =>
-    render(
+  const renderPreviewBlock = (
+    props?: PreviewBlockProps,
+    customContext?: FlexibleUiDataContext,
+  ) => {
+    const ctx = customContext || context;
+    return render(
       <IntlProvider locale="en">
-        <FlexibleUiContext.Provider value={context}>
+        <FlexibleUiContext.Provider value={ctx}>
           <PreviewBlock status={SmartLinkStatus.Resolved} {...props} />
         </FlexibleUiContext.Provider>
       </IntlProvider>,
     );
+  };
 
   it('renders PreviewBlock', async () => {
     const { findByTestId } = renderPreviewBlock({
@@ -28,6 +34,34 @@ describe('PreviewBlock', () => {
     const block = await findByTestId(`${testId}-resolved-view`);
 
     expect(block).toBeDefined();
+  });
+
+  describe('renders Previewblock with overrideUrl', () => {
+    const props = {
+      testId,
+      overrideUrl: 'override-url',
+    };
+
+    it('with media data', async () => {
+      const { findByTestId } = renderPreviewBlock(props);
+
+      const block = await findByTestId(`${testId}-resolved-view`);
+      const image = await findByTestId(`smart-element-media-image-image`);
+
+      expect(block).toBeDefined();
+      expect(image).toHaveAttribute('src', 'override-url');
+    });
+
+    it('without media data', async () => {
+      const customContext = { ...context, preview: undefined };
+      const { findByTestId } = renderPreviewBlock(props, customContext);
+
+      const block = await findByTestId(`${testId}-resolved-view`);
+      const image = await findByTestId(`smart-element-media-image-image`);
+
+      expect(block).toBeDefined();
+      expect(image).toHaveAttribute('src', 'override-url');
+    });
   });
 
   describe('with specific status', () => {

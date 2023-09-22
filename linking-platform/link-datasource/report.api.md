@@ -93,6 +93,8 @@ interface DatasourceTableViewProps {
   // (undocumented)
   parameters: object;
   // (undocumented)
+  url?: string;
+  // (undocumented)
   visibleColumnKeys?: string[];
 }
 

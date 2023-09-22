@@ -7,38 +7,62 @@ import { DatePicker, DateTimePicker, TimePicker } from '../src';
 
 interface State {
   datePickerValue: string;
+  datePickerInput: string;
   timePickerValue: string;
+  timePickerInput: string;
   dateTimePickerValue: string;
+  dateTimePickerInput: string;
 }
+
+const dateId = 'datepicker-input';
+const timeId = 'timepicker-input';
+const datetimeId = 'datetimepicker-input';
 
 export default class MyComponent extends Component<{}, State> {
   state = {
     datePickerValue: '2018-01-02',
+    datePickerInput: '2018-01-02',
     timePickerValue: '14:30',
+    timePickerInput: '14:30',
     dateTimePickerValue: '2018-01-02T14:30+11:00',
+    dateTimePickerInput: '2018-01-02T14:30+11:00',
+  };
+
+  onBlur = () => {
+    this.setState({
+      datePickerValue: this.state.datePickerInput,
+      timePickerValue: this.state.timePickerInput,
+      dateTimePickerValue: this.state.dateTimePickerInput,
+    });
   };
 
   onDatePickerChange = (e: any) => {
     this.setState({
-      datePickerValue: e.target.value,
+      datePickerInput: e.target.value,
     });
   };
 
   onTimePickerChange = (e: any) => {
     this.setState({
-      timePickerValue: e.target.value,
+      timePickerInput: e.target.value,
     });
   };
 
   onDateTimePickerChange = (e: any) => {
     this.setState({
-      dateTimePickerValue: e.target.value,
+      dateTimePickerInput: e.target.value,
     });
   };
 
   render() {
-    const { datePickerValue, timePickerValue, dateTimePickerValue } =
-      this.state;
+    const {
+      datePickerValue,
+      datePickerInput,
+      timePickerValue,
+      timePickerInput,
+      dateTimePickerValue,
+      dateTimePickerInput,
+    } = this.state;
 
     return (
       <div>
@@ -46,52 +70,56 @@ export default class MyComponent extends Component<{}, State> {
           This demonstrates updating each pickers value via an external source.
         </p>
         <h3>Date picker</h3>
-        <Label htmlFor="date-picker-override">Input</Label>
+        <Label htmlFor="date-picker-override">Datepicker textfield input</Label>
         <TextField
           id="date-picker-override"
-          value={datePickerValue}
+          value={datePickerInput}
+          onBlur={this.onBlur}
           onChange={this.onDatePickerChange}
         />
 
-        <Label htmlFor="react-select-date-picker--input">Date</Label>
+        <Label htmlFor={dateId}>Date</Label>
         <DatePicker
-          id="date-picker"
           value={datePickerValue}
           isDisabled
           onChange={console.log}
+          selectProps={{ inputId: dateId }}
         />
 
         <h3>Time picker</h3>
-        <Label htmlFor="time-picker-override">Input</Label>
+        <Label htmlFor="time-picker-override">Timepicker textfield input</Label>
         <TextField
           id="time-picker-override"
-          value={timePickerValue}
+          value={timePickerInput}
+          onBlur={this.onBlur}
           onChange={this.onTimePickerChange}
         />
 
-        <Label htmlFor="react-select-time-picker--input">Time</Label>
+        <Label htmlFor={timeId}>Time</Label>
         <TimePicker
-          id="time-picker"
           value={timePickerValue}
           isDisabled
           onChange={console.log}
+          selectProps={{ inputId: timeId }}
         />
 
-        <h3>Date / time picker</h3>
-        <Label htmlFor="datetime-picker-override">Input</Label>
+        <h3>Datetime picker</h3>
+        <Label htmlFor="datetime-picker-override">
+          Datetime picker textfield input
+        </Label>
         <TextField
           id="datetime-picker-override"
-          label="Input"
-          value={dateTimePickerValue}
+          value={dateTimePickerInput}
+          onBlur={this.onBlur}
           onChange={this.onDateTimePickerChange}
         />
 
-        <Label htmlFor="react-select-datetime-picker--input">Date / time</Label>
+        <Label htmlFor={datetimeId}>Date / time</Label>
         <DateTimePicker
-          id="datetime-picker"
           value={dateTimePickerValue}
           isDisabled
           onChange={console.log}
+          datePickerSelectProps={{ inputId: datetimeId }}
         />
       </div>
     );

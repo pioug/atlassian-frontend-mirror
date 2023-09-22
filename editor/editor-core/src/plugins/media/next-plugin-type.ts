@@ -12,6 +12,7 @@ import type {
   NextEditorPlugin,
   OptionalPlugin,
 } from '@atlaskit/editor-common/types';
+
 import type { MediaOptions } from './types';
 
 export type MediaNextEditorPluginType = NextEditorPlugin<

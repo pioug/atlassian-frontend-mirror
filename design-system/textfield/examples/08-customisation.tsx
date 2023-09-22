@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
 
+import { Label } from '@atlaskit/form';
 import { token } from '@atlaskit/tokens';
 
 import TextField from '../src';
@@ -18,12 +19,15 @@ const overrideStyles = css({
 
 export default function OverrideStyleExample() {
   return (
-    <TextField
-      aria-label="customized text field"
-      testId="testOverride"
-      width="large"
-      css={overrideStyles}
-      defaultValue="CSS overrides via data-attributes"
-    />
+    <div>
+      <Label htmlFor="custom">Customized textfield</Label>
+      <TextField
+        id="custom"
+        testId="testOverride"
+        width="large"
+        css={overrideStyles}
+        defaultValue="CSS overrides via data-attributes"
+      />
+    </div>
   );
 }

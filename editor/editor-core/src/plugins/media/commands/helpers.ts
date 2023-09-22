@@ -1,6 +1,6 @@
 import type { MediaAttributes } from '@atlaskit/adf-schema';
 import { stateKey as mediaPluginKey } from '../pm-plugins/plugin-key';
-import type { Command } from '../../../types/command';
+import type { Command } from '@atlaskit/editor-common/types';
 import type {
   MediaNodeWithPosHandler,
   MediaPluginState,

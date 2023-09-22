@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { AppearanceType, SizeType } from '@atlaskit/avatar';
@@ -41,7 +41,7 @@ const generateData = ({
 describe('<AvatarGroup />', () => {
   it('should override add clickable button beside the last overflowed avatar item', () => {
     const callback = jest.fn();
-    const { getByTestId } = render(
+    render(
       <AvatarGroup
         testId="test"
         data={generateData({ avatarCount: 2 })}
@@ -69,14 +69,14 @@ describe('<AvatarGroup />', () => {
       />,
     );
 
-    fireEvent.click(getByTestId('test--overflow-menu--trigger'));
-    fireEvent.click(getByTestId('custom-button'));
+    fireEvent.click(screen.getByTestId('test--overflow-menu--trigger'));
+    fireEvent.click(screen.getByTestId('custom-button'));
 
     expect(callback).toHaveBeenCalled();
   });
 
   it('should display a single avatar', () => {
-    const { queryByTestId } = render(
+    render(
       <AvatarGroup
         testId="test"
         appearance="stack"
@@ -84,11 +84,11 @@ describe('<AvatarGroup />', () => {
       />,
     );
 
-    expect(queryByTestId('test--avatar-0')).not.toBeNull();
+    expect(screen.getByTestId('test--avatar-0')).toBeInTheDocument();
   });
 
   it('should not render overflow menu trigger when none avatars have been overflowed', () => {
-    const { queryByTestId } = render(
+    render(
       <AvatarGroup
         testId="test"
         appearance="stack"
@@ -96,11 +96,13 @@ describe('<AvatarGroup />', () => {
       />,
     );
 
-    expect(queryByTestId('test--overflow-menu--trigger')).toEqual(null);
+    expect(
+      screen.queryByTestId('test--overflow-menu--trigger'),
+    ).not.toBeInTheDocument();
   });
 
   it('should render the second avatar', () => {
-    const { queryByTestId } = render(
+    render(
       <AvatarGroup
         testId="test"
         appearance="stack"
@@ -108,11 +110,11 @@ describe('<AvatarGroup />', () => {
       />,
     );
 
-    expect(queryByTestId('test--avatar-1')).not.toBeNull();
+    expect(screen.getByTestId('test--avatar-1')).toBeInTheDocument();
   });
 
   it('should render the third avatar', () => {
-    const { queryByTestId } = render(
+    render(
       <AvatarGroup
         testId="test"
         appearance="stack"
@@ -120,11 +122,11 @@ describe('<AvatarGroup />', () => {
       />,
     );
 
-    expect(queryByTestId('test--avatar-2')).not.toBeNull();
+    expect(screen.getByTestId('test--avatar-2')).toBeInTheDocument();
   });
 
   it('should render the overflow menu trigger showing there are three avatars that have been overflowed', () => {
-    const { queryByText } = render(
+    render(
       <AvatarGroup
         testId="test"
         appearance="stack"
@@ -135,11 +137,11 @@ describe('<AvatarGroup />', () => {
       />,
     );
 
-    expect(queryByText('+3')).not.toBeNull();
+    expect(screen.getByText('+3')).toBeInTheDocument();
   });
 
   it('should set href to overflowed avatar dropdown item', () => {
-    const { getByTestId } = render(
+    render(
       <AvatarGroup
         testId="test"
         appearance="stack"
@@ -163,15 +165,16 @@ describe('<AvatarGroup />', () => {
       />,
     );
 
-    fireEvent.click(getByTestId('test--overflow-menu--trigger'));
+    fireEvent.click(screen.getByTestId('test--overflow-menu--trigger'));
 
-    expect(
-      getByTestId('test--avatar-group-item-1').getAttribute('href'),
-    ).toEqual('#');
+    expect(screen.getByTestId('test--avatar-group-item-1')).toHaveAttribute(
+      'href',
+      '#',
+    );
   });
 
   it('should set alt text on avatar images when name prop is provided', async () => {
-    const { getByTestId } = render(
+    render(
       <AvatarGroup
         testId="test"
         data={generateData({ avatarCount: 5 })}
@@ -181,19 +184,19 @@ describe('<AvatarGroup />', () => {
       />,
     );
 
-    const avatarGroup = getByTestId('test--avatar-group');
+    const avatarGroup = screen.getByTestId('test--avatar-group');
 
     const avatarLabelList = avatarGroup.querySelectorAll('img[alt]');
     // there are should be 3 avatar and 1 dropdown trigger button
     expect(avatarLabelList).toHaveLength(3);
 
     avatarLabelList.forEach((element, i) => {
-      expect(element.getAttribute('alt')).toBe(`Name ${i}`);
+      expect(element).toHaveAttribute('alt', `Name ${i}`);
     });
   });
 
   it('should set aria-label on _buttons_ when label prop AND onClick are provided', async () => {
-    const { getByTestId } = render(
+    render(
       <AvatarGroup
         testId="test"
         data={generateData({
@@ -207,19 +210,19 @@ describe('<AvatarGroup />', () => {
       />,
     );
 
-    const avatarGroup = getByTestId('test--avatar-group');
+    const avatarGroup = screen.getByTestId('test--avatar-group');
 
     const avatarLabelList = avatarGroup.querySelectorAll('button[aria-label]');
     // there are should be 3 avatar and 1 dropdown trigger button
     expect(avatarLabelList).toHaveLength(3);
 
     avatarLabelList.forEach((element, i) => {
-      expect(element.getAttribute('aria-label')).toBe(`Label ${i}`);
+      expect(element).toHaveAttribute('aria-label', `Label ${i}`);
     });
   });
 
   it('should set aria-label on _anchors_ when label prop AND href are provided', async () => {
-    const { getByTestId } = render(
+    render(
       <AvatarGroup
         testId="test"
         data={generateData({ avatarCount: 5, href: '#', label: 'Label' })}
@@ -229,19 +232,19 @@ describe('<AvatarGroup />', () => {
       />,
     );
 
-    const avatarGroup = getByTestId('test--avatar-group');
+    const avatarGroup = screen.getByTestId('test--avatar-group');
 
     const avatarLabelList = avatarGroup.querySelectorAll('a[aria-label]');
     // there are should be 3 avatar and 1 dropdown trigger button
     expect(avatarLabelList).toHaveLength(3);
 
     avatarLabelList.forEach((element, i) => {
-      expect(element.getAttribute('aria-label')).toBe(`Label ${i}`);
+      expect(element).toHaveAttribute('aria-label', `Label ${i}`);
     });
   });
 
   it('should not set aria-label on _spans_ if neither href or onClick are provided', async () => {
-    const { getByTestId } = render(
+    render(
       <AvatarGroup
         testId="test"
         data={generateData({ avatarCount: 5, label: 'Label' })}
@@ -251,7 +254,7 @@ describe('<AvatarGroup />', () => {
       />,
     );
 
-    const avatarGroup = getByTestId('test--avatar-group');
+    const avatarGroup = screen.getByTestId('test--avatar-group');
 
     // there are should be no aria-labels applied on Avatars if they render a span as the parent
     const avatarLabelList = avatarGroup.querySelectorAll('span[aria-label]');
@@ -261,12 +264,12 @@ describe('<AvatarGroup />', () => {
     const avatarImgList = avatarGroup.querySelectorAll('img[alt]');
     expect(avatarImgList).toHaveLength(3);
     avatarImgList.forEach((element, i) => {
-      expect(element.getAttribute('alt')).toBe(`Name ${i}`);
+      expect(element).toHaveAttribute('alt', `Name ${i}`);
     });
   });
 
   it('should NOT set labels to dropdown avatar items', async () => {
-    const { getByTestId } = render(
+    render(
       <AvatarGroup
         testId="test"
         data={generateData({ avatarCount: 5 })}
@@ -276,16 +279,16 @@ describe('<AvatarGroup />', () => {
       />,
     );
 
-    fireEvent.click(getByTestId('test--overflow-menu--trigger'));
+    fireEvent.click(screen.getByTestId('test--overflow-menu--trigger'));
 
-    const overflowMenu = getByTestId('test--overflow-menu');
+    const overflowMenu = screen.getByTestId('test--overflow-menu');
     const avatarLabelList = overflowMenu.querySelectorAll('span[aria-label]');
 
     expect(avatarLabelList).toHaveLength(0);
   });
 
   it('should ensure href is not set on the avatar inside the overflowed dropdown item', () => {
-    const { getByTestId } = render(
+    render(
       <AvatarGroup
         testId="test"
         appearance="stack"
@@ -294,15 +297,15 @@ describe('<AvatarGroup />', () => {
       />,
     );
 
-    fireEvent.click(getByTestId('test--overflow-menu--trigger'));
+    fireEvent.click(screen.getByTestId('test--overflow-menu--trigger'));
 
     expect(
-      getByTestId('test--avatar-group-item-0--avatar').getAttribute('href'),
-    ).toEqual(null);
+      screen.getByTestId('test--avatar-group-item-0--avatar'),
+    ).not.toHaveAttribute('href');
   });
 
   it('should start overflow index from max count when passing index to override render function', () => {
-    const { getAllByTestId, getByTestId } = render(
+    render(
       <AvatarGroup
         testId="test"
         appearance="stack"
@@ -321,15 +324,16 @@ describe('<AvatarGroup />', () => {
       />,
     );
 
-    fireEvent.click(getByTestId('test--overflow-menu--trigger'));
+    fireEvent.click(screen.getByTestId('test--overflow-menu--trigger'));
 
-    expect(
-      getAllByTestId('avatar-overflow')[0].getAttribute('data-index'),
-    ).toEqual('2');
+    expect(screen.getAllByTestId('avatar-overflow')[0]).toHaveAttribute(
+      'data-index',
+      '2',
+    );
   });
 
   it('should use the same index for visible avatar when passing index to override render function', () => {
-    const { getAllByTestId } = render(
+    render(
       <AvatarGroup
         testId="test"
         appearance="stack"
@@ -348,12 +352,15 @@ describe('<AvatarGroup />', () => {
       />,
     );
 
-    expect(getAllByTestId('avatar')[0].getAttribute('data-index')).toEqual('0');
+    expect(screen.getAllByTestId('avatar')[0]).toHaveAttribute(
+      'data-index',
+      '0',
+    );
   });
 
   it('should pass the index of the avatar when onAvatarClicked is fired from the more menu', () => {
     const onClick = jest.fn();
-    const { getByTestId } = render(
+    render(
       <AvatarGroup
         testId="test"
         data={generateData({ avatarCount: 4 })}
@@ -362,15 +369,17 @@ describe('<AvatarGroup />', () => {
       />,
     );
 
-    fireEvent.click(getByTestId('test--overflow-menu--trigger'));
-    fireEvent.click(getByTestId('test--avatar-group-item-3--avatar--inner'));
+    fireEvent.click(screen.getByTestId('test--overflow-menu--trigger'));
+    fireEvent.click(
+      screen.getByTestId('test--avatar-group-item-3--avatar--inner'),
+    );
 
     expect(onClick).toHaveBeenCalledWith(expect.anything(), undefined, 3);
   });
 
   it('onClick handlers provided via showMoreButtonProps should still open the dropdown', () => {
     const onClick = jest.fn();
-    const { getByTestId, queryByTestId } = render(
+    render(
       <AvatarGroup
         testId="test"
         data={generateData({ avatarCount: 4 })}
@@ -381,17 +390,17 @@ describe('<AvatarGroup />', () => {
       />,
     );
 
-    fireEvent.click(getByTestId('test--overflow-menu--trigger'));
+    fireEvent.click(screen.getByTestId('test--overflow-menu--trigger'));
 
     expect(
-      queryByTestId('test--avatar-group-item-3--avatar--inner'),
-    ).toBeTruthy();
+      screen.queryByTestId('test--avatar-group-item-3--avatar--inner'),
+    ).toBeInTheDocument();
     expect(onClick).toHaveBeenCalled();
   });
 
   it('onMoreClick should not open the dropdown', () => {
     const onClick = jest.fn();
-    const { getByTestId, queryByTestId } = render(
+    render(
       <AvatarGroup
         testId="test"
         data={generateData({ avatarCount: 4 })}
@@ -400,17 +409,17 @@ describe('<AvatarGroup />', () => {
       />,
     );
 
-    fireEvent.click(getByTestId('test--overflow-menu--trigger'));
+    fireEvent.click(screen.getByTestId('test--overflow-menu--trigger'));
 
     expect(
-      queryByTestId('test--avatar-group-item-3--avatar--inner'),
-    ).not.toBeTruthy();
+      screen.queryByTestId('test--avatar-group-item-3--avatar--inner'),
+    ).not.toBeInTheDocument();
     expect(onClick).toHaveBeenCalled();
   });
 
   it('should pass the index of the avatar when onAvatarClicked is fired', () => {
     const onClick = jest.fn();
-    const { getByTestId } = render(
+    render(
       <AvatarGroup
         testId="test"
         data={[
@@ -425,7 +434,7 @@ describe('<AvatarGroup />', () => {
       />,
     );
 
-    fireEvent.click(getByTestId('test--avatar-0--inner'));
+    fireEvent.click(screen.getByTestId('test--avatar-0--inner'));
 
     expect(onClick).toHaveBeenCalledWith(
       expect.anything(),
@@ -436,7 +445,7 @@ describe('<AvatarGroup />', () => {
 
   it('should pass the index of the avatar when is fired', () => {
     const onClick = jest.fn();
-    const { getByTestId } = render(
+    render(
       <AvatarGroup
         testId="test"
         data={[
@@ -451,7 +460,7 @@ describe('<AvatarGroup />', () => {
       />,
     );
 
-    fireEvent.click(getByTestId('test--avatar-0--inner'));
+    fireEvent.click(screen.getByTestId('test--avatar-0--inner'));
 
     expect(onClick).toHaveBeenCalledWith(
       expect.anything(),
@@ -464,7 +473,7 @@ describe('<AvatarGroup />', () => {
     const onClick = jest.fn();
     const onAvatarClick = jest.fn();
 
-    const { getByTestId } = render(
+    render(
       <AvatarGroup
         testId="test"
         data={generateData({ avatarCount: 4, href: '#', onClick })}
@@ -473,8 +482,10 @@ describe('<AvatarGroup />', () => {
       />,
     );
 
-    fireEvent.click(getByTestId('test--overflow-menu--trigger'));
-    fireEvent.click(getByTestId('test--avatar-group-item-3--avatar--inner'));
+    fireEvent.click(screen.getByTestId('test--overflow-menu--trigger'));
+    fireEvent.click(
+      screen.getByTestId('test--avatar-group-item-3--avatar--inner'),
+    );
 
     // onClick should take precedence over onAvatarClick
     expect(onClick).toHaveBeenCalled();
@@ -485,7 +496,7 @@ describe('<AvatarGroup />', () => {
     const onClick = jest.fn();
     const onAvatarClick = jest.fn();
 
-    const { getByTestId } = render(
+    render(
       <AvatarGroup
         testId="test"
         data={generateData({ avatarCount: 4, onClick })}
@@ -494,8 +505,10 @@ describe('<AvatarGroup />', () => {
       />,
     );
 
-    fireEvent.click(getByTestId('test--overflow-menu--trigger'));
-    fireEvent.click(getByTestId('test--avatar-group-item-3--avatar--inner'));
+    fireEvent.click(screen.getByTestId('test--overflow-menu--trigger'));
+    fireEvent.click(
+      screen.getByTestId('test--avatar-group-item-3--avatar--inner'),
+    );
 
     // onClick should take precedence over onAvatarClick
     expect(onClick).toHaveBeenCalled();
@@ -505,7 +518,7 @@ describe('<AvatarGroup />', () => {
   it('should call onAvatarClick on href elements in avatar group popup if onClick is not provided', () => {
     const onAvatarClick = jest.fn();
 
-    const { getByTestId } = render(
+    render(
       <AvatarGroup
         testId="test"
         data={generateData({ avatarCount: 4, href: '#' })}
@@ -514,8 +527,10 @@ describe('<AvatarGroup />', () => {
       />,
     );
 
-    fireEvent.click(getByTestId('test--overflow-menu--trigger'));
-    fireEvent.click(getByTestId('test--avatar-group-item-3--avatar--inner'));
+    fireEvent.click(screen.getByTestId('test--overflow-menu--trigger'));
+    fireEvent.click(
+      screen.getByTestId('test--avatar-group-item-3--avatar--inner'),
+    );
 
     expect(onAvatarClick).toHaveBeenCalled();
   });
@@ -523,7 +538,7 @@ describe('<AvatarGroup />', () => {
   it('should call onAvatarClick on button elements in avatar group popup if onClick is not provided', () => {
     const onAvatarClick = jest.fn();
 
-    const { getByTestId } = render(
+    render(
       <AvatarGroup
         testId="test"
         data={generateData({ avatarCount: 4 })}
@@ -532,8 +547,10 @@ describe('<AvatarGroup />', () => {
       />,
     );
 
-    fireEvent.click(getByTestId('test--overflow-menu--trigger'));
-    fireEvent.click(getByTestId('test--avatar-group-item-3--avatar--inner'));
+    fireEvent.click(screen.getByTestId('test--overflow-menu--trigger'));
+    fireEvent.click(
+      screen.getByTestId('test--avatar-group-item-3--avatar--inner'),
+    );
 
     expect(onAvatarClick).toHaveBeenCalled();
   });
@@ -541,7 +558,7 @@ describe('<AvatarGroup />', () => {
   it('container should be marked as unordered list', () => {
     const onAvatarClick = jest.fn();
 
-    const { getByTestId } = render(
+    render(
       <AvatarGroup
         testId="test"
         data={generateData({ avatarCount: 4 })}
@@ -550,7 +567,7 @@ describe('<AvatarGroup />', () => {
       />,
     );
 
-    const container = getByTestId('test--avatar-group');
+    const container = screen.getByTestId('test--avatar-group');
 
     expect(container!.tagName).toBe('UL');
   });
@@ -558,7 +575,7 @@ describe('<AvatarGroup />', () => {
   it('avatar items should be marked as list items', () => {
     const onAvatarClick = jest.fn();
 
-    const { getByTestId } = render(
+    render(
       <AvatarGroup
         testId="test"
         data={generateData({ avatarCount: 3 })}
@@ -567,8 +584,8 @@ describe('<AvatarGroup />', () => {
       />,
     );
 
-    const container = getByTestId('test--avatar-group');
-    expect(container).toBeDefined();
+    const container = screen.getByTestId('test--avatar-group');
+    expect(container).toBeInTheDocument();
 
     const listItems = container!.querySelectorAll('li');
     expect(listItems).toBeDefined();
@@ -578,7 +595,7 @@ describe('<AvatarGroup />', () => {
   it('should set received label as aria-label of avatar group list', () => {
     const onAvatarClick = jest.fn();
 
-    const { getByTestId } = render(
+    render(
       <AvatarGroup
         testId="test"
         data={generateData({ avatarCount: 3 })}
@@ -588,12 +605,12 @@ describe('<AvatarGroup />', () => {
       />,
     );
 
-    const container = getByTestId('test--avatar-group');
-    expect(container.getAttribute('aria-label')).toBe('Contributors');
+    const container = screen.getByTestId('test--avatar-group');
+    expect(container).toHaveAttribute('aria-label', 'Contributors');
   });
 
   it('should not be wrapped into the Tooltip when disabled', () => {
-    const { queryByTestId } = render(
+    render(
       <AvatarGroup
         testId="test"
         data={generateData({ avatarCount: 3, disabledIndexes: [1] })}
@@ -602,9 +619,9 @@ describe('<AvatarGroup />', () => {
     );
 
     const [firstAvatar, secondAvatar, thirdAvatar] = [
-      queryByTestId('test--tooltip-0--container'),
-      queryByTestId('test--tooltip-1--container'),
-      queryByTestId('test--tooltip-2--container'),
+      screen.queryByTestId('test--tooltip-0--container'),
+      screen.queryByTestId('test--tooltip-1--container'),
+      screen.queryByTestId('test--tooltip-2--container'),
     ];
 
     expect(firstAvatar).not.toBeNull();
@@ -616,7 +633,7 @@ describe('<AvatarGroup />', () => {
 describe('Accessibility', () => {
   it('Avatar Group items inside more should have role equal to button and get focus', async () => {
     const user = userEvent.setup();
-    const { getByTestId, getByRole } = render(
+    render(
       <AvatarGroup
         testId="test"
         data={generateData({ avatarCount: 7, disabledIndexes: [1] })}
@@ -624,11 +641,11 @@ describe('Accessibility', () => {
       />,
     );
 
-    await user.click(getByTestId('test--overflow-menu--trigger'));
-    const moreMenuContainer = getByTestId('test--overflow-menu');
+    await user.click(screen.getByTestId('test--overflow-menu--trigger'));
+    const moreMenuContainer = screen.getByTestId('test--overflow-menu');
     moreMenuContainer.focus();
 
-    const moreMenuItemOne = getByRole('button', {
+    const moreMenuItemOne = screen.getByRole('button', {
       name: 'Name 2',
     });
     await user.tab();

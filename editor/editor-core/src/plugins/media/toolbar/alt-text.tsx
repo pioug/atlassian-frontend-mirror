@@ -2,13 +2,14 @@ import React from 'react';
 import type { IntlShape } from 'react-intl-next';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type {
+  Command,
   FloatingToolbarButton,
   FloatingToolbarCustom,
   FloatingToolbarConfig,
 } from '@atlaskit/editor-common/types';
-import type { Command } from '../../../types';
 import { openMediaAltTextMenu } from '../pm-plugins/alt-text/commands';
-import { ToolTipContent, addAltText } from '../../../keymaps';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import { ToolTipContent, addAltText } from '@atlaskit/editor-common/keymaps';
 import type { MediaToolbarBaseConfig } from '../types';
 import { messages } from '../pm-plugins/alt-text/messages';
 import AltTextEdit, {
@@ -18,8 +19,6 @@ import { getMediaNodeFromSelection } from '../utils/media-common';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { ClassNames } from '../pm-plugins/alt-text/style';
 import type { ForceFocusSelector } from '@atlaskit/editor-plugin-floating-toolbar';
-
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 
 const testId = 'alt-text-edit-button';
 

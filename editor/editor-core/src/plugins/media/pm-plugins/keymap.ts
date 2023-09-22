@@ -13,7 +13,7 @@ import {
   insertNewLine,
 } from '@atlaskit/editor-common/keymaps';
 import { stateKey } from '../pm-plugins/plugin-key';
-import type { Command } from '../../../types';
+import type { Command } from '@atlaskit/editor-common/types';
 import type { MediaPluginState } from './types';
 import { getMediaFeatureFlag } from '@atlaskit/media-common';
 import type { EditorSelectionAPI } from '@atlaskit/editor-common/selection';

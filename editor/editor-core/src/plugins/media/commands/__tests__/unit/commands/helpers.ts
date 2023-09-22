@@ -4,7 +4,10 @@ import {
   updateMediaSingleNodeAttrs,
   updateCurrentMediaNodeAttrs,
 } from '../../../helpers';
-import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
+import {
+  defaultSchema as schema,
+  defaultSchema,
+} from '@atlaskit/adf-schema/schema-default';
 import { stateKey as mediaPluginKey } from '../../../../pm-plugins/plugin-key';
 import type { MediaPluginState } from '../../../../pm-plugins/types';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
@@ -22,13 +25,13 @@ import {
 } from '@atlaskit/editor-test-helpers/doc-builder';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   getFreshMediaProvider,
   temporaryFileId,
   testCollectionName,
-} from '../../../../../../__tests__/unit/plugins/media/_utils';
+} from '@atlaskit/editor-test-helpers/media-provider';
 import { EditorState, NodeSelection } from '@atlaskit/editor-prosemirror/state';
-import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import type { CommandDispatch } from '@atlaskit/editor-common/types';
 
 describe('media -> commands -> helpers.ts', () => {

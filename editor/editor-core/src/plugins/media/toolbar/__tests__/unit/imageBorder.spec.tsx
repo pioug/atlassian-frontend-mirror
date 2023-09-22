@@ -8,10 +8,11 @@ import {
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import type { DocBuilder } from '@atlaskit/editor-common/types';
 import type { MediaAttributes } from '@atlaskit/adf-schema';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   temporaryFileId,
   testCollectionName,
-} from '../../../../../__tests__/unit/plugins/media/_utils';
+} from '@atlaskit/editor-test-helpers/media-provider';
 import { shouldShowImageBorder } from '../../imageBorder';
 
 const attrs: MediaAttributes = {
@@ -31,7 +32,7 @@ describe('image border toolbar', () => {
     const wrapper = createEditor({
       doc,
       editorProps: {
-        UNSAFE_allowBorderMark: allowBorderMark,
+        allowBorderMark: allowBorderMark,
         media: {
           allowMediaSingle: true,
         },

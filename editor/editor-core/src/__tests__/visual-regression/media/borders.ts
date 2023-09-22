@@ -42,7 +42,7 @@ describe('Snapshot Test: Media Border Mark', () => {
         Appearance.fullPage,
         { width: 800, height: 700 },
         borderADF,
-        { UNSAFE_allowBorderMark: true, media: { allowMediaSingle: true } },
+        { allowBorderMark: true, media: { allowMediaSingle: true } },
       );
     });
 
@@ -89,7 +89,7 @@ describe('Snapshot Test: Media Border Mark', () => {
           { width: 800, height: 700 },
           borderADFWithLink,
           {
-            UNSAFE_allowBorderMark: true,
+            allowBorderMark: true,
             media: { allowMediaSingle: true, allowLinking: true },
           },
         );
@@ -125,7 +125,7 @@ describe('Snapshot Test: Media Border Mark', () => {
           { width: 800, height: 900 },
           borderADFWithinTable,
           {
-            UNSAFE_allowBorderMark: true,
+            allowBorderMark: true,
             media: { allowMediaSingle: true, allowLinking: true },
             allowTables: {
               advanced: true,

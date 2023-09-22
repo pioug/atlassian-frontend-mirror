@@ -5,13 +5,16 @@ import type {
   ContextIdentifierProvider,
   MediaProvider,
 } from '@atlaskit/editor-common/provider-factory';
-import type { MediaOptions, MediaState } from '../types';
+import type {
+  ProsemirrorGetPosHandler,
+  MediaOptions,
+  MediaState,
+} from '../types';
 import type { MediaPluginOptions } from '../media-plugin-options';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { MediaStateEventSubscriber } from '../picker-facade';
 import type PickerFacade from '../picker-facade';
-import type { Dispatch } from '../../../event-dispatcher';
-import type { ProsemirrorGetPosHandler } from '../../../nodeviews/types';
+import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 
 export interface MediaNodeWithPosHandler {
   node: PMNode;

@@ -8,6 +8,7 @@ import { FormattedMessage, FormattedNumber, useIntl } from 'react-intl-next';
 import Button from '@atlaskit/button';
 import Heading from '@atlaskit/heading';
 import RefreshIcon from '@atlaskit/icon/glyph/refresh';
+import LinkUrl from '@atlaskit/smart-card/link-url';
 import { N0, N40, N800, N90 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -18,6 +19,7 @@ export type TableFooterProps = {
   itemCount?: number;
   onRefresh?: () => void;
   isLoading: boolean;
+  url?: string;
 };
 
 const FooterWrapper = styled.div`
@@ -37,7 +39,6 @@ const TopBorderWrapper = styled.div`
 const ItemCounterWrapper = styled.div`
   display: flex;
   align-self: center;
-  color: ${token('color.text.accent.gray', N800)};
 `;
 
 const SyncWrapper = styled.div`
@@ -55,6 +56,7 @@ export const TableFooter = ({
   itemCount,
   onRefresh,
   isLoading,
+  url,
 }: TableFooterProps) => {
   const intl = useIntl();
   const [lastSyncTime, setLastSyncTime] = useState(new Date());
@@ -73,15 +75,25 @@ export const TableFooter = ({
   return onRefresh || showItemCount ? (
     <FooterWrapper data-testid="table-footer">
       <TopBorderWrapper>
-        <ItemCounterWrapper data-testid={'item-count-wrapper'}>
+        <ItemCounterWrapper data-testid="item-count-wrapper">
           {showItemCount && (
-            <Heading testId="item-count" level="h200">
-              <FormattedNumber value={itemCount as number} />{' '}
-              <FormattedMessage
-                {...footerMessages.itemText}
-                values={{ itemCount }}
-              />
-            </Heading>
+            <LinkUrl
+              href={url}
+              target="_blank"
+              testId="item-count-url"
+              style={{
+                color: token('color.text.accent.gray', N800),
+                textDecoration: !url ? 'none' : '',
+              }}
+            >
+              <Heading testId="item-count" level="h200">
+                <FormattedNumber value={itemCount as number} />{' '}
+                <FormattedMessage
+                  {...footerMessages.itemText}
+                  values={{ itemCount }}
+                />
+              </Heading>
+            </LinkUrl>
           )}
         </ItemCounterWrapper>
         <SyncWrapper>

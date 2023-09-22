@@ -6,12 +6,15 @@ import type {
   MediaProvider,
 } from '@atlaskit/editor-common/provider-factory';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import type { ProsemirrorGetPosHandler, ForwardRef } from '../../../nodeviews';
-import type { EventDispatcher } from '../../../event-dispatcher';
-import type { MediaOptions } from '../types';
+import type {
+  MediaOptions,
+  ForwardRef,
+  getPosHandler as ProsemirrorGetPosHandler,
+} from '../types';
+import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import type { MediaPluginState } from '../pm-plugins/types';
-import type mediaPlugin from '../index';
+import type { MediaNextEditorPluginType } from '../next-plugin-type';
 
 export interface MediaSingleNodeProps {
   view: EditorView;
@@ -29,7 +32,9 @@ export interface MediaSingleNodeProps {
   dispatchAnalyticsEvent: DispatchAnalyticsEvent;
   isCopyPasteEnabled?: boolean;
   forwardRef: ForwardRef;
-  pluginInjectionApi: ExtractInjectionAPI<typeof mediaPlugin> | undefined;
+  pluginInjectionApi:
+    | ExtractInjectionAPI<MediaNextEditorPluginType>
+    | undefined;
 }
 
 export interface MediaSingleNodeViewProps {
@@ -39,12 +44,16 @@ export interface MediaSingleNodeViewProps {
   fullWidthMode?: boolean;
   dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
   isCopyPasteEnabled?: boolean;
-  pluginInjectionApi: ExtractInjectionAPI<typeof mediaPlugin> | undefined;
+  pluginInjectionApi:
+    | ExtractInjectionAPI<MediaNextEditorPluginType>
+    | undefined;
 }
 
 export interface MediaNodeViewProps {
   eventDispatcher: EventDispatcher;
   providerFactory: ProviderFactory;
   mediaOptions: MediaOptions;
-  pluginInjectionApi: ExtractInjectionAPI<typeof mediaPlugin> | undefined;
+  pluginInjectionApi:
+    | ExtractInjectionAPI<MediaNextEditorPluginType>
+    | undefined;
 }

@@ -1,9 +1,9 @@
-import { pluginFactory } from '../../../../utils/plugin-state-factory';
+import { pluginFactory } from '@atlaskit/editor-common/utils';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey, NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { Mark } from '@atlaskit/editor-prosemirror/model';
-import type { Dispatch } from '../../../../event-dispatcher';
+import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import type { MediaLinkingActions } from './actions';
 import type { MediaLinkingState, InitialState } from './types';
 import reducer from './reducer';

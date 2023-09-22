@@ -53,15 +53,36 @@ describe('jql-editor', () => {
   });
 
   it('should render JQLEditor', () => {
-    const { getByTestId, onSearchMock } = setup();
+    const { getByTestId } = setup();
     expect(getByTestId('mocked-jira-editor')).toBeInTheDocument();
-    const { analyticsSource, query, onSearch, autocompleteProvider } = asMock(
-      JQLEditor,
-    ).mock.calls[0][0] as JQLEditorProps;
+    const { analyticsSource, query, autocompleteProvider } = asMock(JQLEditor)
+      .mock.calls[0][0] as JQLEditorProps;
     expect(analyticsSource).toBe('link-datasource');
     expect(query).toBe('some-query');
-    expect(onSearch).toBe(onSearchMock);
     expect(autocompleteProvider).toBe('useAutocompleteProvider-call-result');
+  });
+
+  it('should only call onSearch when valid JQL is provided', async () => {
+    const { onSearchMock } = setup();
+
+    let calls = asMock(JQLEditor).mock.calls;
+    const props = calls[calls.length - 1][0] as JQLEditorProps;
+
+    props.onSearch?.('some-query', {
+      represents: '',
+      errors: [{ description: 'error', message: 'error', name: 'error' }],
+      query: undefined,
+    });
+
+    expect(onSearchMock).not.toHaveBeenCalled();
+
+    props.onSearch?.('some-query', {
+      represents: '',
+      errors: [],
+      query: undefined,
+    });
+
+    expect(onSearchMock).toHaveBeenCalledTimes(1);
   });
 
   it('should setup proper AutocompleteProvider', async () => {

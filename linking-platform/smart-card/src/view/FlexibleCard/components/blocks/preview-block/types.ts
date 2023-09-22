@@ -24,4 +24,9 @@ export type PreviewBlockProps = {
    * to the left/right of the container.
    */
   placement?: MediaPlacement;
+
+  /**
+   * An image URL to render. This will replace the default image from smart link data.
+   */
+  overrideUrl?: string;
 } & BlockProps;

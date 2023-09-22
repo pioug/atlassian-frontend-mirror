@@ -767,6 +767,7 @@ interface EditorPluginFeatureProps {
   allowAnalyticsGASV3?: boolean;
   // (undocumented)
   allowBlockType?: BlockTypePluginOptions['allowBlockType'];
+  allowBorderMark?: boolean;
   // (undocumented)
   allowBreakout?: boolean;
   // (undocumented)
@@ -846,6 +847,7 @@ interface EditorPluginFeatureProps {
   smartLinks?: CardOptions;
   // (undocumented)
   textFormatting?: TextFormattingOptions;
+  // @deprecated
   UNSAFE_allowBorderMark?: boolean;
   // @deprecated (undocumented)
   UNSAFE_cards?: CardOptions;
@@ -1047,7 +1049,7 @@ export function getDefaultPresetOptionsFromEditorProps(
 export function getNodesCount(node: Node_2): Record<string, number>;
 
 // @public (undocumented)
-type getPosHandler = boolean | getPosHandlerNode;
+type getPosHandler = getPosHandlerNode;
 
 // @public (undocumented)
 type getPosHandlerNode = () => number | undefined;
@@ -1703,7 +1705,7 @@ type Props_5 = {
 };
 
 // @public (undocumented)
-type ProsemirrorGetPosHandler = () => number | undefined;
+type ProsemirrorGetPosHandler = getPosHandlerNode;
 
 export { QuickInsertItem };
 

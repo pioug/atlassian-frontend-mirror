@@ -17,10 +17,11 @@
 ```ts
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import type { EditorCommand } from '@atlaskit/editor-common/types';
 import type { FeatureFlags } from '@atlaskit/editor-common/types';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
-import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import type { OptionalPlugin } from '@atlaskit/editor-common/types';
 import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
@@ -34,6 +35,9 @@ type IndentList = (inputMethod: InputMethod) => EditorCommand;
 
 // @public (undocumented)
 export type InputMethod = INPUT_METHOD.KEYBOARD | INPUT_METHOD.TOOLBAR;
+
+// @public (undocumented)
+type InputMethod_2 = INPUT_METHOD.KEYBOARD | INPUT_METHOD.TOOLBAR;
 
 // @public (undocumented)
 type IsInsideListItem = (tr: Transaction) => boolean;
@@ -83,6 +87,14 @@ type OutdentList = (inputMethod: InputMethod) => EditorCommand;
 
 // @public (undocumented)
 type ToggleBulletList = (inputMethod: InputMethod) => EditorCommand;
+
+// @public (undocumented)
+export const toggleList: (
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+) => (
+  inputMethod: InputMethod_2,
+  listType: 'bulletList' | 'orderedList',
+) => EditorCommand;
 
 // @public (undocumented)
 type ToggleOrderedList = (inputMethod: InputMethod) => EditorCommand;

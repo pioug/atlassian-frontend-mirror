@@ -42,10 +42,12 @@ describe('<ButtonItem />', () => {
     });
 
     const { getByTestId } = render(
-      // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+      /* eslint-disable @atlaskit/design-system/consistent-css-prop-usage */
+      // @ts-ignore
       <ButtonItem css={hackStyles} testId="link">
         Hello world
       </ButtonItem>,
+      /* eslint-disable @atlaskit/design-system/consistent-css-prop-usage */
     );
 
     expect(getByTestId('link')).toHaveStyleRule('background-color', 'red');

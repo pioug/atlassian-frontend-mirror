@@ -6,3 +6,4 @@ export type {
   InputMethod,
 } from './types';
 export { listPlugin } from './plugin';
+export { toggleList } from './commands';

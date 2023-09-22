@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-card
 
+## 0.8.0
+
+### Minor Changes
+
+- [`e4721cc5a3f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e4721cc5a3f) - Make issue count clickable
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.7.3
 
 ### Patch Changes

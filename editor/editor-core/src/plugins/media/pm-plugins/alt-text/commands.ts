@@ -3,22 +3,21 @@ import {
   isSelectionMediaSingleNode,
   getMediaNodeFromSelection,
 } from '../../utils/media-common';
-import {
-  ACTION_SUBJECT,
-  EVENT_TYPE,
-  ACTION_SUBJECT_ID,
-  ACTION,
-} from '@atlaskit/editor-common/analytics';
+import { withAnalytics } from '@atlaskit/editor-common/editor-analytics';
 import type {
-  EditorAnalyticsAPI,
   MediaAltTextActionType,
+  EditorAnalyticsAPI,
+} from '@atlaskit/editor-common/analytics';
+import {
+  ACTION,
+  ACTION_SUBJECT,
+  ACTION_SUBJECT_ID,
+  EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
 import type {
   EditorState,
   Transaction,
 } from '@atlaskit/editor-prosemirror/state';
-
-import { withAnalytics } from '@atlaskit/editor-common/editor-analytics';
 
 import type {
   OpenMediaAltTextMenu,

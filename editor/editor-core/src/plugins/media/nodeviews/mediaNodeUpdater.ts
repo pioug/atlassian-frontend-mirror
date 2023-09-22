@@ -30,7 +30,7 @@ import {
   updateCurrentMediaNodeAttrs,
   updateMediaSingleNodeAttrs,
 } from '../commands/helpers';
-import type { ProsemirrorGetPosHandler } from '../../../nodeviews';
+import type { getPosHandler as ProsemirrorGetPosHandler } from '../types';
 import type { MediaTraceContext } from '@atlaskit/media-common';
 
 export type RemoteDimensions = { id: string; height: number; width: number };

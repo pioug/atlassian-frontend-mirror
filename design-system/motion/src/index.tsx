@@ -8,6 +8,7 @@ export { easeIn, easeInOut, easeOut } from './utils/curves';
 export {
   isReducedMotion,
   useIsReducedMotion,
+  reduceMotionAsPerUserPreference,
   prefersReducedMotion,
 } from './utils/accessibility';
 export { default as FadeIn, fadeInAnimation } from './entering/fade-in';

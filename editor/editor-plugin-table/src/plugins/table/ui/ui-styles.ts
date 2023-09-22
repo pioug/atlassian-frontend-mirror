@@ -38,6 +38,7 @@ import {
   tableHeaderCellBackgroundColor,
   tableInsertColumnButtonSize,
   tableOverflowShadowWidth,
+  tableOverflowShadowWidthWide,
   tableToolbarDeleteColor,
   tableToolbarSelectedColor,
   tableToolbarSize,
@@ -246,13 +247,22 @@ export const OverflowShadow = (props: ThemeProps) => css`
     pointer-events: none;
     top: ${tableMarginTop}px;
     z-index: ${akEditorShadowZIndex};
-    width: ${tableOverflowShadowWidth}px;
+    width: ${getBooleanFF(
+      'platform.editor.table.increase-shadow-visibility_lh89r',
+    )
+      ? tableOverflowShadowWidthWide
+      : tableOverflowShadowWidth}px;
   }
   .${ClassName.TABLE_LEFT_SHADOW} {
     background: linear-gradient(
         to left,
         transparent 0,
-        ${token('elevation.shadow.overflow.spread', N40A)} 100%
+        ${token('elevation.shadow.overflow.spread', N40A)}
+          ${getBooleanFF(
+            'platform.editor.table.increase-shadow-visibility_lh89r',
+          )
+            ? 140
+            : 100}%
       ),
       linear-gradient(
         to right,
@@ -268,7 +278,12 @@ export const OverflowShadow = (props: ThemeProps) => css`
     background: linear-gradient(
         to right,
         transparent 0,
-        ${token('elevation.shadow.overflow.spread', N40A)} 100%
+        ${token('elevation.shadow.overflow.spread', N40A)}
+          ${getBooleanFF(
+            'platform.editor.table.increase-shadow-visibility_lh89r',
+          )
+            ? 140
+            : 100}%
       ),
       linear-gradient(
         to left,
@@ -276,8 +291,16 @@ export const OverflowShadow = (props: ThemeProps) => css`
         transparent 1px
       );
     left: ${getBooleanFF('platform.editor.custom-table-width')
-      ? `calc(100% - ${tableOverflowShadowWidth}px)`
-      : 'calc(100% + 2px)'};
+      ? `calc(100% - ${
+          getBooleanFF('platform.editor.table.increase-shadow-visibility_lh89r')
+            ? tableOverflowShadowWidthWide
+            : tableOverflowShadowWidth
+        }px)`
+      : `calc(100% - ${
+          getBooleanFF('platform.editor.table.increase-shadow-visibility_lh89r')
+            ? tableOverflowShadowWidthWide - 10
+            : -2
+        }px)`};
   }
   .${ClassName.WITH_CONTROLS} {
     .${ClassName.TABLE_RIGHT_SHADOW}, .${ClassName.TABLE_LEFT_SHADOW} {

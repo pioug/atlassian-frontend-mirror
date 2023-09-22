@@ -637,7 +637,7 @@ export default function createUniversalPreset(
       return builder;
     })
     .maybeAdd(borderPlugin, (plugin, builder) => {
-      if (props.UNSAFE_allowBorderMark) {
+      if (props.allowBorderMark || props.UNSAFE_allowBorderMark) {
         return builder.add(plugin);
       }
 

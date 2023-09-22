@@ -43,25 +43,19 @@ const FancyChart = (props) => {
 Useful when performing motion with just CSS.
 
 ```
-import { prefersReducedMotion } from '@atlaskit/motion';
+import { reduceMotionAsPerUserPreference } from '@atlaskit/motion';
 
-// @emotion/core css prop
+// css prop
 <div
-  css={{
+  css={css({
     animationName: 'slide-in',
-    ...prefersReducedMotion()
-  }}
+    ...reduceMotionAsPerUserPreference
+  })}
 />
 
-// styled-components template literal
-styled.divˋ
-  animation-name: slide-in;
-  ＄{prefersReducedMotion()};
-ˋ;
-
-// styled-components object
+// styled components
 styled.div({
   animationName: 'slide-in',
-  ...prefersReducedMotion()
+  ...reduceMotionAsPerUserPreference
 });
 ```

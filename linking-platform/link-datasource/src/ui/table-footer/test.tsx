@@ -7,11 +7,14 @@ import { IntlProvider } from 'react-intl-next';
 import { TableFooter, TableFooterProps } from './index';
 
 const mockOnRefresh = jest.fn();
+const mockURL =
+  'https://a4t-moro.jira-dev.com/issues/?jql=created%20%3E%3D%20-30d%20order%20by%20created%20DESC';
 
 const renderFooter = (
   isLoading: TableFooterProps['isLoading'],
   itemCount: TableFooterProps['itemCount'],
   onRefresh: TableFooterProps['onRefresh'],
+  noUrl?: boolean,
 ) => {
   return render(
     <IntlProvider locale="en">
@@ -19,18 +22,33 @@ const renderFooter = (
         isLoading={isLoading}
         itemCount={itemCount}
         onRefresh={onRefresh}
+        url={noUrl ? undefined : mockURL}
       />
     </IntlProvider>,
   );
 };
 
 describe('TableFooter', () => {
-  it('should show correct last sync time and item count if one is passed in and table is not loading', async () => {
+  it('should have url, show correct last sync time and item count if one is passed in and table is not loading', async () => {
     const { getByTestId } = renderFooter(false, 25, mockOnRefresh);
     const syncText = getByTestId('sync-text');
     const itemCount = getByTestId('item-count');
     expect(syncText).toHaveTextContent('Synced just now');
     expect(itemCount).toHaveTextContent('25 items');
+    const issueCountLink = getByTestId('item-count-url');
+    expect(issueCountLink).toHaveAttribute('target', '_blank');
+    expect(issueCountLink).toHaveAttribute('href', mockURL);
+    expect(issueCountLink).not.toHaveStyle('text-decoration: none');
+  });
+
+  it('if no url, should show correct last sync time and item count without underline if one is passed in table is not loading', async () => {
+    const { getByTestId } = renderFooter(false, 25, mockOnRefresh, true);
+    const syncText = getByTestId('sync-text');
+    const itemCount = getByTestId('item-count');
+    expect(syncText).toHaveTextContent('Synced just now');
+    expect(itemCount).toHaveTextContent('25 items');
+    const issueCountLink = getByTestId('item-count-url');
+    expect(issueCountLink).toHaveStyle('text-decoration: none');
   });
 
   it('should show correct text if item count is 1', async () => {

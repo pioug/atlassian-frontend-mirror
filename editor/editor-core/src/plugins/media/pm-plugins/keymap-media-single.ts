@@ -16,8 +16,8 @@ import {
 import {
   isEmptyNode,
   isSelectionInsideLastNodeInDocument,
-} from '../../../utils';
-import type { Command, CommandDispatch } from '../../../types';
+} from '@atlaskit/editor-common/utils';
+import type { Command, CommandDispatch } from '@atlaskit/editor-common/types';
 import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
 import { selectNodeBackward } from '@atlaskit/editor-prosemirror/commands';
 import { atTheEndOfDoc } from '@atlaskit/editor-common/selection';

@@ -1,5 +1,23 @@
 # @atlaskit/link-datasource
 
+## 1.3.0
+
+### Minor Changes
+
+- [`e4721cc5a3f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e4721cc5a3f) - Make issue count clickable
+
+## 1.2.6
+
+### Patch Changes
+
+- [`1017511dadf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1017511dadf) - [ux] Prevent search with invalid input
+
+## 1.2.5
+
+### Patch Changes
+
+- [`eadf1b04163`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eadf1b04163) - [ux] Fixed copy on modal
+
 ## 1.2.4
 
 ### Patch Changes

@@ -118,6 +118,7 @@ export class DatasourceComponent extends React.PureComponent<DatasourceComponent
       : undefined;
 
     const datasource = this.getDatasource();
+    const attrs = this.props.node.attrs as DatasourceAdf['attrs'];
     const tableView = this.getTableView();
     if (tableView) {
       const visibleColumnKeys = tableView.properties?.columns.map(
@@ -134,6 +135,7 @@ export class DatasourceComponent extends React.PureComponent<DatasourceComponent
                 parameters={datasource.parameters}
                 visibleColumnKeys={visibleColumnKeys}
                 onVisibleColumnKeysChange={this.handleColumnChange}
+                url={attrs?.url}
               />
             </cardContext.Provider>
           </EditorAnalyticsContext>

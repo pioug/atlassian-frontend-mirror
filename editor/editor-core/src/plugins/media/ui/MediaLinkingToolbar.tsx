@@ -28,7 +28,7 @@ import { linkToolbarMessages } from '@atlaskit/editor-common/messages';
 
 import { normalizeUrl } from '@atlaskit/editor-common/utils';
 import { R400 } from '@atlaskit/theme/colors';
-import { INPUT_METHOD } from '../../analytics/types/enums';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { mediaLinkToolbarMessages } from './media-linking-toolbar-messages';
 import { token } from '@atlaskit/tokens';
 

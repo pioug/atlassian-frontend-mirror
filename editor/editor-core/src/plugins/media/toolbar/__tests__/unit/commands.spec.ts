@@ -12,11 +12,12 @@ import {
   border,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import type { MediaAttributes } from '@atlaskit/adf-schema';
-import type { MediaOptions } from '../../../../../plugins/media/types';
+import type { MediaOptions } from '../../../types';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   temporaryFileId,
   testCollectionName,
-} from '../../../../../__tests__/unit/plugins/media/_utils';
+} from '@atlaskit/editor-test-helpers/media-provider';
 import {
   changeInlineToMediaCard,
   changeMediaCardToInline,
@@ -62,7 +63,7 @@ describe('commands', () => {
     const wrapper = createEditor({
       doc,
       editorProps: {
-        UNSAFE_allowBorderMark: true,
+        allowBorderMark: true,
         media: {
           allowMediaSingle: true,
           ...mediaPropsOverride,

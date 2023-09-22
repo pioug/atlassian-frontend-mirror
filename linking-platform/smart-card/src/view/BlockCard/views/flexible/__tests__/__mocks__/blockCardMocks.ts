@@ -33,6 +33,10 @@ export const mockBaseResponse = {
       '@type': 'Link',
       href: 'url',
     },
+    image: {
+      '@type': 'Image',
+      url: 'url',
+    },
     url: 'https://some.url',
   },
 };

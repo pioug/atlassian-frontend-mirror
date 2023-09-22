@@ -15,28 +15,30 @@ import React from 'react';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import type {
   ForwardRef,
+  getPosHandler as ProsemirrorGetPosHandler,
   getPosHandler,
   getPosHandlerNode,
-  ProsemirrorGetPosHandler,
-} from '../../../nodeviews/';
+  MediaOptions,
+} from '../types';
 import ReactNodeView from '@atlaskit/editor-common/react-node-view';
 
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
-
-import { setNodeSelection } from '../../../utils';
-import { isNodeSelectedOrInRange, SelectedState } from '../../../utils/nodes';
+import {
+  SelectedState,
+  isNodeSelectedOrInRange,
+  setNodeSelection,
+} from '@atlaskit/editor-common/utils';
 import type { EditorDisabledPluginState } from '@atlaskit/editor-plugin-editor-disabled';
 
 import { stateKey as mediaStateKey } from '../pm-plugins/plugin-key';
 import type { MediaPluginState } from '../pm-plugins/types';
 import { MediaNodeUpdater } from './mediaNodeUpdater';
-import type { MediaOptions } from '../types';
 import { getMediaFeatureFlag } from '@atlaskit/media-common';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 import { messages } from './messages';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
-import type mediaPlugin from '../index';
+import type { MediaNextEditorPluginType } from '../next-plugin-type';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 
 export type MediaGroupProps = {
@@ -365,7 +367,9 @@ interface MediaGroupNodeViewProps {
   isCopyPasteEnabled?: boolean;
   providerFactory: ProviderFactory;
   mediaOptions: MediaOptions;
-  pluginInjectionApi: ExtractInjectionAPI<typeof mediaPlugin> | undefined;
+  pluginInjectionApi:
+    | ExtractInjectionAPI<MediaNextEditorPluginType>
+    | undefined;
 }
 
 interface RenderFn {
@@ -374,7 +378,9 @@ interface RenderFn {
 
 interface MediaGroupNodeViewInternalProps {
   renderFn: (props: RenderFn) => JSX.Element | null;
-  pluginInjectionApi: ExtractInjectionAPI<typeof mediaPlugin> | undefined;
+  pluginInjectionApi:
+    | ExtractInjectionAPI<MediaNextEditorPluginType>
+    | undefined;
 }
 
 function MediaGroupNodeViewInternal({
@@ -436,7 +442,9 @@ export const ReactMediaGroupNode =
     eventDispatcher: EventDispatcher,
     providerFactory: ProviderFactory,
     mediaOptions: MediaOptions = {},
-    pluginInjectionApi: ExtractInjectionAPI<typeof mediaPlugin> | undefined,
+    pluginInjectionApi:
+      | ExtractInjectionAPI<MediaNextEditorPluginType>
+      | undefined,
   ) =>
   (node: PMNode, view: EditorView, getPos: getPosHandler): NodeView => {
     const hasIntlContext = true;

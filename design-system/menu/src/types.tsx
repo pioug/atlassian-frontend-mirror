@@ -59,6 +59,11 @@ export interface MenuGroupProps extends MenuGroupSizing {
   children: React.ReactNode;
 
   /**
+   * Used for telling assistive technologies that the menu group is loading.
+   */
+  isLoading?: boolean;
+
+  /**
    * Configure the density of the MenuGroup content.
    */
   spacing?: SpacingMode;

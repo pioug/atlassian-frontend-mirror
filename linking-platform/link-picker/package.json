@@ -61,7 +61,7 @@
     "@atlaskit/linking-common": "^4.10.0",
     "@atlaskit/onboarding": "^10.8.2",
     "@atlaskit/platform-feature-flags": "^0.2.1",
-    "@atlaskit/spinner": "^15.5.0",
+    "@atlaskit/spinner": "^15.6.0",
     "@atlaskit/tabs": "^13.4.0",
     "@atlaskit/textfield": "^5.6.0",
     "@atlaskit/theme": "^12.6.0",

@@ -13,6 +13,7 @@ import {
 } from '@atlaskit/analytics-next';
 import Calendar, { CalendarRef } from '@atlaskit/calendar';
 import CalendarIcon from '@atlaskit/icon/glyph/calendar';
+import { UNSAFE_LAYERING } from '@atlaskit/layering';
 import {
   createLocalizationProvider,
   LocalizationProvider,
@@ -241,32 +242,34 @@ const menuStyles = css({
 });
 
 const Menu = ({ selectProps, innerProps }: MenuProps<any>) => (
-  <FixedLayer
-    inputValue={selectProps.inputValue}
-    containerRef={selectProps.calendarContainerRef}
-    content={
-      <div css={menuStyles} {...innerProps}>
-        <Calendar
-          {...getValidDate(selectProps.calendarValue)}
-          {...getValidDate(selectProps.calendarView)}
-          disabled={selectProps.calendarDisabled}
-          disabledDateFilter={selectProps.calendarDisabledDateFilter}
-          minDate={selectProps.calendarMinDate}
-          maxDate={selectProps.calendarMaxDate}
-          nextMonthLabel={selectProps.nextMonthLabel}
-          onChange={selectProps.onCalendarChange}
-          onSelect={selectProps.onCalendarSelect}
-          previousMonthLabel={selectProps.previousMonthLabel}
-          calendarRef={selectProps.calendarRef}
-          selected={[selectProps.calendarValue]}
-          locale={selectProps.calendarLocale}
-          testId={selectProps.testId && `${selectProps.testId}--calendar`}
-          weekStartDay={selectProps.calendarWeekStartDay}
-        />
-      </div>
-    }
-    testId={selectProps.testId}
-  />
+  <UNSAFE_LAYERING>
+    <FixedLayer
+      inputValue={selectProps.inputValue}
+      containerRef={selectProps.calendarContainerRef}
+      content={
+        <div css={menuStyles} {...innerProps}>
+          <Calendar
+            {...getValidDate(selectProps.calendarValue)}
+            {...getValidDate(selectProps.calendarView)}
+            disabled={selectProps.calendarDisabled}
+            disabledDateFilter={selectProps.calendarDisabledDateFilter}
+            minDate={selectProps.calendarMinDate}
+            maxDate={selectProps.calendarMaxDate}
+            nextMonthLabel={selectProps.nextMonthLabel}
+            onChange={selectProps.onCalendarChange}
+            onSelect={selectProps.onCalendarSelect}
+            previousMonthLabel={selectProps.previousMonthLabel}
+            calendarRef={selectProps.calendarRef}
+            selected={[selectProps.calendarValue]}
+            locale={selectProps.calendarLocale}
+            testId={selectProps.testId && `${selectProps.testId}--calendar`}
+            weekStartDay={selectProps.calendarWeekStartDay}
+          />
+        </div>
+      }
+      testId={selectProps.testId}
+    />
+  </UNSAFE_LAYERING>
 );
 
 const datePickerDefaultProps = {

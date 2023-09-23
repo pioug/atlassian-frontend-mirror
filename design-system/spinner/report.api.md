@@ -38,9 +38,10 @@ export type Size = PresetSize | number;
 export type SpinnerProps = {
   appearance?: Appearance;
   delay?: number;
+  interactionName?: string;
+  label?: string;
   size?: Size;
   testId?: string;
-  interactionName?: string;
 };
 
 // (No @packageDocumentation comment for this package)

@@ -499,6 +499,7 @@ describe('dropdown menu keyboard navigation', () => {
         </DropdownMenu>
       );
     };
+    // should have arrow navigation work
     ffTest(
       'platform.design-system-team.layering_qmiw3',
       // Test when true

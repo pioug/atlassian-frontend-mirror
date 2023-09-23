@@ -20,6 +20,16 @@ export type SpinnerProps = {
   delay?: number;
 
   /**
+   * An optional interactionName used to identify when this component is holding an interaction
+   */
+  interactionName?: string;
+
+  /**
+   * Adds context for assistive technologies.
+   */
+  label?: string;
+
+  /**
    * Size of the spinner.
    */
   size?: Size;
@@ -30,9 +40,4 @@ export type SpinnerProps = {
    * serving as a hook for automated tests.
    */
   testId?: string;
-
-  /**
-   * An optional interactionName used to identify when this component is holding an interaction
-   */
-  interactionName?: string;
 };

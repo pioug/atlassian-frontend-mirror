@@ -1,5 +1,11 @@
 # @atlaskit/embedded-confluence
 
+## 2.8.0
+
+### Minor Changes
+
+- [`3c942a33112`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3c942a33112) - Bump embedded-confluence-common package to fix draftShareId not being passed
+
 ## 2.7.0
 
 ### Minor Changes

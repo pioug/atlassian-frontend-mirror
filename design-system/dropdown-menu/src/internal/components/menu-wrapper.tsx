@@ -12,7 +12,6 @@ import { jsx } from '@emotion/react';
 import MenuGroup from '@atlaskit/menu/menu-group';
 import { Box, xcss } from '@atlaskit/primitives';
 import Spinner from '@atlaskit/spinner';
-import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import { FocusableElement, MenuWrapperProps } from '../../types';
 import { FocusManagerContext } from '../components/focus-manager';
@@ -28,12 +27,13 @@ const spinnerContainerStyles = xcss({
 
 const LoadingIndicator = ({
   statusLabel = 'Loading',
+  testId,
 }: {
   statusLabel: MenuWrapperProps['statusLabel'];
+  testId?: string;
 }) => (
   <Box xcss={spinnerContainerStyles}>
-    <Spinner size="small" />
-    <VisuallyHidden role="status">{statusLabel}</VisuallyHidden>
+    <Spinner size="small" label={statusLabel} testId={testId} />
   </Box>
 );
 /**
@@ -44,13 +44,16 @@ const LoadingIndicator = ({
  * It also sets focus to the first menu item when opened.
  */
 const MenuWrapper = ({
+  children,
+  isLoading,
+  maxHeight,
+  maxWidth,
   onClose,
   onUpdate,
-  isLoading,
   statusLabel,
   setInitialFocusRef,
-  children,
-  ...props
+  spacing,
+  testId,
 }: MenuWrapperProps) => {
   const { menuItemRefs } = useContext(FocusManagerContext);
 
@@ -88,9 +91,23 @@ const MenuWrapper = ({
   }, [menuItemRefs, setInitialFocusRef]);
 
   return (
-    // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-    <MenuGroup role="menu" onClick={closeOnMenuItemClick} {...props}>
-      {isLoading ? <LoadingIndicator statusLabel={statusLabel} /> : children}
+    <MenuGroup
+      isLoading={isLoading}
+      maxHeight={maxHeight}
+      maxWidth={maxWidth}
+      onClick={closeOnMenuItemClick}
+      role="menu"
+      spacing={spacing}
+      testId={testId && `${testId}--menu-group`}
+    >
+      {isLoading ? (
+        <LoadingIndicator
+          statusLabel={statusLabel}
+          testId={testId && `${testId}--loading-indicator`}
+        />
+      ) : (
+        children
+      )}
     </MenuGroup>
   );
 };

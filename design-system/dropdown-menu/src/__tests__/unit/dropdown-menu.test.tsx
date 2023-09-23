@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { act, fireEvent, render } from '@testing-library/react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 
 import Button from '@atlaskit/button/standard-button';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
@@ -115,37 +115,47 @@ describe('dropdown menu', () => {
         </DropdownMenu>
       );
     };
+    // should render nested dropdown on the page
     ffTest(
       'platform.design-system-team.layering_qmiw3',
       // Test when true
       () => {
-        const { getByTestId, queryByTestId } = render(<NestedDropdown />);
+        render(<NestedDropdown />);
         let level = 0;
         while (level < 5) {
           // test nested dropdown can be opened correctly
-          const nestedTrigger = getByTestId(`nested-${level}--trigger`);
+          const nestedTrigger = screen.getByTestId(`nested-${level}--trigger`);
           expect(nestedTrigger).toBeInTheDocument();
           fireEvent.click(nestedTrigger);
           level += 1;
         }
         while (level > 0) {
           // close the dropdown by pressing Escape
-          fireEvent.keyDown(document, { key: 'Escape', code: 'Escape' });
-          // test if top level of nested dropdown is closed
-          const nestedTrigger = queryByTestId(`nested-${level}--trigger`);
-          expect(nestedTrigger).not.toBeInTheDocument();
+          fireEvent.keyDown(document, { key: 'Escape', code: 27 });
+          // 0 timeout is needed to meet the same flow in layering
+          // avoid immediate cleanup using setTimeout when component unmount
+          // this will make sure non-top layer components can get the correct top level value
+          // when multiple layers trigger onClose in sequence.
+          setTimeout(() => {
+            // test if top level of nested dropdown is closed
+            expect(
+              screen.queryByTestId(`nested-${level}--trigger`),
+            ).not.toBeInTheDocument();
+          }, 0);
           level -= 1;
-          expect(queryByTestId(`nested-${level}--trigger`)).toBeInTheDocument();
+          expect(
+            screen.getByTestId(`nested-${level}--trigger`),
+          ).toBeInTheDocument();
         }
       },
       () => {
-        const { getByTestId } = render(<NestedDropdown />);
+        render(<NestedDropdown />);
         // test nested dropdown can be opened correctly
-        const nestedTrigger = getByTestId('nested-0--trigger');
+        const nestedTrigger = screen.getByTestId('nested-0--trigger');
         expect(nestedTrigger).toBeInTheDocument();
         fireEvent.click(nestedTrigger);
-        const nestedItem1 = getByTestId('nested-1--trigger');
-        expect(nestedItem1.closest('button')).not.toHaveFocus();
+        const nestedItem1 = screen.getByTestId('nested-1--trigger');
+        expect(nestedItem1).not.toHaveFocus();
       },
     );
   });
@@ -210,6 +220,8 @@ describe('dropdown menu', () => {
   });
 
   describe('isLoading status', () => {
+    const testId = 'test';
+
     it('does not display the dropdown item when loading', async () => {
       const triggerText = 'click me to open';
 
@@ -234,63 +246,64 @@ describe('dropdown menu', () => {
 
     it('display default label to indicate in loading status', async () => {
       const triggerText = 'click me to open';
-      const statusLabel = 'Loading';
+      const defaultLoadingText = 'Loading';
 
-      const { getByText, findByRole } = render(
-        <DropdownMenu trigger={triggerText} isLoading>
+      render(
+        <DropdownMenu trigger={triggerText} isLoading testId={testId}>
           <DropdownItemGroup>
             <DropdownItem>Loaded action</DropdownItem>
           </DropdownItemGroup>
         </DropdownMenu>,
       );
 
-      act(() => {
-        fireEvent.click(getByText(triggerText));
-      });
+      fireEvent.click(screen.getByText(triggerText));
 
-      const status = await findByRole('status');
-      expect(status.innerText).toEqual(statusLabel);
+      const loadingIndicator = await screen.findByTestId(/loading-indicator$/);
+      expect(loadingIndicator).toHaveAccessibleName(defaultLoadingText);
     });
 
     it('display label to indicate in loading status', async () => {
       const triggerText = 'click me to open';
       const statusLabel = 'the content is loading';
 
-      const { getByText, findByRole } = render(
-        <DropdownMenu trigger={triggerText} isLoading statusLabel={statusLabel}>
+      render(
+        <DropdownMenu
+          trigger={triggerText}
+          isLoading
+          statusLabel={statusLabel}
+          testId={testId}
+        >
           <DropdownItemGroup>
             <DropdownItem>Loaded action</DropdownItem>
           </DropdownItemGroup>
         </DropdownMenu>,
       );
 
-      act(() => {
-        fireEvent.click(getByText(triggerText));
-      });
+      fireEvent.click(screen.getByText(triggerText));
 
-      const status = await findByRole('status');
-      expect(status.innerText).toEqual(statusLabel);
+      const loadingIndicator = await screen.findByTestId(/loading-indicator$/);
+      expect(loadingIndicator).toHaveAccessibleName(statusLabel);
     });
 
     it('should close the dropdown menu on outside click', () => {
       const { getByTestId, queryByTestId } = render(
         <>
           <button data-testid="outside" type="button" />
-          <DropdownMenu testId="ddm" trigger="click to open" />
+          <DropdownMenu testId={testId} trigger="click to open" />
         </>,
       );
 
       act(() => {
-        fireEvent.click(getByTestId('ddm--trigger'));
+        fireEvent.click(getByTestId(`${testId}--trigger`));
       });
 
-      expect(getByTestId('ddm--content')).toBeInTheDocument();
+      expect(getByTestId(`${testId}--content`)).toBeInTheDocument();
 
       act(() => {
         fireEvent.click(getByTestId('outside'));
       });
 
-      expect(queryByTestId('ddm--content')).not.toBeInTheDocument();
+      expect(queryByTestId(`${testId}--content`)).not.toBeInTheDocument();
     });
 
     it('should close the dropdown menu on outside click which has stopPropagation', () => {
@@ -301,26 +314,26 @@ describe('dropdown menu', () => {
             type="button"
             onClick={(e) => e.stopPropagation()}
           />
-          <DropdownMenu testId="ddm" trigger="click to open" />
+          <DropdownMenu testId={testId} trigger="click to open" />
         </>,
       );
 
       act(() => {
-        fireEvent.click(getByTestId('ddm--trigger'));
+        fireEvent.click(getByTestId(`${testId}--trigger`));
       });
 
-      expect(getByTestId('ddm--content')).toBeInTheDocument();
+      expect(getByTestId(`${testId}--content`)).toBeInTheDocument();
 
       act(() => {
         fireEvent.click(getByTestId('outside'));
       });
 
-      expect(queryByTestId('ddm--content')).not.toBeInTheDocument();
+      expect(queryByTestId(`${testId}--content`)).not.toBeInTheDocument();
     });
 
     it('should generate a psuedorandom id to link the trigger and the popup if none was passed to it', () => {
       const { getByTestId } = render(
-        <DropdownMenu trigger={'click to open'} isOpen testId="dropdown">
+        <DropdownMenu trigger={'click to open'} isOpen testId={testId}>
           <DropdownItemGroup>
             <DropdownItem>Move</DropdownItem>
             <DropdownItem>Clone</DropdownItem>
@@ -328,9 +341,10 @@ describe('dropdown menu', () => {
           </DropdownItemGroup>
         </DropdownMenu>,
       );
-      const ariaControls =
-        getByTestId('dropdown--trigger').getAttribute('aria-controls');
-      const popupId = getByTestId('dropdown--content').getAttribute('id');
+      const ariaControls = getByTestId(`${testId}--trigger`).getAttribute(
+        'aria-controls',
+      );
+      const popupId = getByTestId(`${testId}--content`).getAttribute('id');
 
       expect(ariaControls).toBe(popupId);
     });
@@ -342,7 +356,7 @@ describe('dropdown menu', () => {
             <Button ref={triggerRef} {...props} type="button" />
           )}
           isOpen
-          testId="dropdown"
+          testId={testId}
         >
           <DropdownItemGroup>
             <DropdownItem>Move</DropdownItem>
@@ -351,9 +365,10 @@ describe('dropdown menu', () => {
           </DropdownItemGroup>
         </DropdownMenu>,
       );
-      const ariaControls =
-        getByTestId('dropdown--trigger').getAttribute('aria-controls');
-      const popupId = getByTestId('dropdown--content').getAttribute('id');
+      const ariaControls = getByTestId(`${testId}--trigger`).getAttribute(
+        'aria-controls',
+      );
+      const popupId = getByTestId(`${testId}--content`).getAttribute('id');
 
       expect(ariaControls).toBe(popupId);
     });

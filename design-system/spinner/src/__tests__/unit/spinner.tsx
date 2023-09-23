@@ -1,23 +1,37 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import Spinner from '../../index';
 
-it('should render the spinner at a custom size', () => {
-  const { getByTestId } = render(<Spinner size={4000} testId="spinner" />);
-  const el: HTMLElement = getByTestId('spinner');
+describe('<Spinner />', () => {
+  const testId = 'spinner';
 
-  expect(el.getAttribute('width')).toBe('4000');
-  expect(el.getAttribute('height')).toBe('4000');
-  expect(getByTestId('spinner-wrapper')).toHaveStyle('height: 4000px;');
-  expect(getByTestId('spinner-wrapper')).toHaveStyle('width: 4000px;');
-});
+  it('should render the spinner at a custom size', () => {
+    render(<Spinner size={4000} testId={testId} />);
 
-it('should forward the ref to the underlying svg', () => {
-  const ref = React.createRef<SVGSVGElement>();
+    const el = screen.getByTestId(testId);
 
-  const { container } = render(<Spinner ref={ref} />);
+    expect(el).toHaveAttribute('width', '4000');
+    expect(el).toHaveAttribute('height', '4000');
+    expect(screen.getByTestId('spinner-wrapper')).toHaveStyle(
+      'height: 4000px;',
+    );
+    expect(screen.getByTestId('spinner-wrapper')).toHaveStyle('width: 4000px;');
+  });
 
-  expect(container.querySelector('svg')).toBe(ref.current);
+  it('should forward the ref to the underlying svg', () => {
+    const ref = React.createRef<SVGSVGElement>();
+
+    render(<Spinner ref={ref} testId={testId} />);
+
+    expect(screen.getByTestId(testId)).toBe(ref.current);
+  });
+
+  it('should have a custom label if `label` prop is used', () => {
+    const label = 'label';
+    render(<Spinner label={label} testId={testId} />);
+
+    expect(screen.getByTestId(testId)).toHaveAttribute('aria-label', label);
+  });
 });

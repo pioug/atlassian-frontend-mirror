@@ -267,6 +267,7 @@ const DropdownMenu = <T extends HTMLElement = HTMLElement>(
                   ? setInitialFocusRef
                   : undefined
               }
+              testId={testId && `${testId}--menu-wrapper`}
             >
               {children}
             </MenuWrapper>

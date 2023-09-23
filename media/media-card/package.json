@@ -46,7 +46,7 @@
     "@atlaskit/media-ui": "^25.0.0",
     "@atlaskit/media-viewer": "^48.1.0",
     "@atlaskit/platform-feature-flags": "^0.2.2",
-    "@atlaskit/spinner": "^15.5.0",
+    "@atlaskit/spinner": "^15.6.0",
     "@atlaskit/theme": "^12.6.0",
     "@atlaskit/tokens": "^1.25.0",
     "@atlaskit/tooltip": "^17.8.0",

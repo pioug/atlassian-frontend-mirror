@@ -111,11 +111,12 @@ const useLayoutEffect =
 export default React.memo(
   React.forwardRef<SVGSVGElement, SpinnerProps>(function Spinner(
     {
-      testId,
       appearance = 'inherit',
       delay = 0,
-      size: providedSize = 'medium',
       interactionName,
+      label,
+      size: providedSize = 'medium',
+      testId,
     }: SpinnerProps,
     ref,
   ) {
@@ -164,6 +165,7 @@ export default React.memo(
           xmlns="http://www.w3.org/2000/svg"
           data-testid={testId}
           ref={ref}
+          aria-label={label}
           css={loadInStyles}
           style={{ animationDelay }}
         >

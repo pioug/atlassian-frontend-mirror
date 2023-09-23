@@ -1,5 +1,11 @@
 # @atlaskit/layering
 
+## 0.2.1
+
+### Patch Changes
+
+- [`53444bfd55a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/53444bfd55a) - Use 0 timeout to delay clean up after layering unmounted
+
 ## 0.2.0
 
 ### Minor Changes

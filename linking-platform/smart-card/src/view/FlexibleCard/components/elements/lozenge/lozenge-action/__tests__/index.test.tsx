@@ -172,16 +172,15 @@ describe('LozengeAction', () => {
   });
 
   it('renders loading indicator on click', async () => {
-    const { findByTestId, findByRole } = renderComponent({
+    const { findByTestId, getByTestId } = renderComponent({
       action: getAction(),
     });
 
     const element = await findByTestId(triggerTestId);
-    act(() => {
-      fireEvent.click(element);
-    });
-    const spinner = await findByRole('status');
-    expect(spinner).toBeTruthy();
+    fireEvent.click(element);
+
+    const loadingIndicator = getByTestId(/loading-indicator$/);
+    expect(loadingIndicator).toBeInTheDocument();
   });
 
   it('invokes read action', async () => {
@@ -434,21 +433,18 @@ describe('LozengeAction', () => {
       .fn()
       .mockResolvedValueOnce([{ id: '1', text: 'Done' }])
       .mockResolvedValueOnce(undefined);
-    const { findByRole, findByTestId } = renderComponent(
+    const { findByTestId, getByTestId } = renderComponent(
       { action: getAction() },
       mockInvoke,
     );
 
     const element = await findByTestId(triggerTestId);
-    act(() => {
-      fireEvent.click(element);
-    });
+    fireEvent.click(element);
     const item = await findByTestId(`${testId}-item-0`);
-    act(() => {
-      fireEvent.click(item);
-    });
-    const spinner = await findByRole('status');
-    expect(spinner).toBeTruthy();
+    fireEvent.click(item);
+
+    const loadingIndicator = getByTestId(/loading-indicator$/);
+    expect(loadingIndicator).toBeInTheDocument();
   });
 
   it('closes dropdown menu after update complete successfully', async () => {

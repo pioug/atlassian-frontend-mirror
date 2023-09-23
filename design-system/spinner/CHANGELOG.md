@@ -1,5 +1,11 @@
 # @atlaskit/spinner
 
+## 15.6.0
+
+### Minor Changes
+
+- [`60eed410ccc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/60eed410ccc) - [ux] Adds `label` prop to add more context for assistive technologies.
+
 ## 15.5.4
 
 ### Patch Changes

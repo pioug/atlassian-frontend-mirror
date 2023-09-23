@@ -1,5 +1,11 @@
 # @atlaskit/menu
 
+## 1.11.0
+
+### Minor Changes
+
+- [`5545e5a6ab2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5545e5a6ab2) - [ux] Adds `isLoading` prop to menu group for better context for assistive technology users.
+
 ## 1.10.1
 
 ### Patch Changes

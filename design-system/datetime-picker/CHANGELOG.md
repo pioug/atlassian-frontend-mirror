@@ -1,5 +1,11 @@
 # @atlaskit/datetime-picker
 
+## 12.10.1
+
+### Patch Changes
+
+- [`ccff5f6ec7a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ccff5f6ec7a) - Integrate layering into calendar
+
 ## 12.10.0
 
 ### Minor Changes

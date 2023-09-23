@@ -1,5 +1,18 @@
 # @atlaskit/dropdown-menu
 
+## 11.14.2
+
+### Patch Changes
+
+- [`9623c04c020`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9623c04c020) - [ux] Adds context to loading state for assistive technologies.
+- Updated dependencies
+
+## 11.14.1
+
+### Patch Changes
+
+- [`53444bfd55a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/53444bfd55a) - Use 0 timeout to delay clean up after layering unmounted
+
 ## 11.14.0
 
 ### Minor Changes

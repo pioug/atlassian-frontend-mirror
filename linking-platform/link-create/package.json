@@ -42,7 +42,7 @@
     "@atlaskit/intl-messages-provider": "^1.0.0",
     "@atlaskit/modal-dialog": "^12.7.0",
     "@atlaskit/select": "^16.7.0",
-    "@atlaskit/spinner": "^15.4.0",
+    "@atlaskit/spinner": "^15.6.0",
     "@atlaskit/textfield": "^5.6.0",
     "@atlaskit/tokens": "^1.25.0",
     "@babel/runtime": "^7.0.0",

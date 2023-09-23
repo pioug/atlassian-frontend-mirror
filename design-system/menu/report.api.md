@@ -142,6 +142,7 @@ export interface LinkItemProps extends BaseItemProps {
 
 // @public
 export const MenuGroup: ({
+  isLoading,
   maxWidth,
   minWidth,
   minHeight,
@@ -156,6 +157,7 @@ export const MenuGroup: ({
 // @public (undocumented)
 export interface MenuGroupProps extends MenuGroupSizing {
   children: React.ReactNode;
+  isLoading?: boolean;
   onClick?: (event: React.KeyboardEvent | React.MouseEvent) => void;
   role?: string;
   spacing?: SpacingMode;

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/spinner",
-  "version": "15.5.4",
+  "version": "15.6.0",
   "description": "A spinner is an animated spinning icon that lets users know content is being loaded.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

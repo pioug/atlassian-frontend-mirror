@@ -25,6 +25,7 @@ const baseStyles = css({
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/menu)
  */
 const MenuGroup = ({
+  isLoading,
   maxWidth,
   minWidth,
   minHeight,
@@ -42,6 +43,7 @@ const MenuGroup = ({
   <SpacingContext.Provider value={spacing}>
     <SELECTION_STYLE_CONTEXT_DO_NOT_USE.Provider value="border">
       <div
+        aria-busy={isLoading}
         style={{
           minWidth,
           maxWidth,

@@ -35,7 +35,10 @@ Spotlights can be connected in multi-step onboarding tours. Only one spotlight s
 
 If you would prefer the spotlight to appear without the tinted blanket background, set the `blanketIsTinted` prop to `false` on the `SpotlightManager` component.
 
-<Example Component={SpotlightBlanketIsTinted} packageName="@atlaskit/onboarding" />
+<Example
+  Component={SpotlightBlanketIsTinted}
+  packageName="@atlaskit/onboarding"
+/>
 
 ## Actions
 
@@ -43,13 +46,19 @@ If you would prefer the spotlight to appear without the tinted blanket backgroun
 
 You can change the default action button appearance to `subtle` or `subtle-link` with the `appearance` property on the action object. Spotlights should generally have one default action that leads the user through the onboarding process or prompts an action, with other actions such as "Skip" using the subtle appearance.
 
-<Example Component={SpotlightActionsAppearance} packageName="@atlaskit/onboarding" />
+<Example
+  Component={SpotlightActionsAppearance}
+  packageName="@atlaskit/onboarding"
+/>
 
 ### Actions before element
 
 To add a left-aligned element before the action buttons, use the `actionsBeforeElement` prop. One use case for this is adding a step number to an onboarding tour with 3 or more steps.
 
-<Example Component={SpotlightActionsBefore} packageName="@atlaskit/onboarding" />
+<Example
+  Component={SpotlightActionsBefore}
+  packageName="@atlaskit/onboarding"
+/>
 
 ## Heading
 
@@ -59,7 +68,10 @@ To add a heading to a spotlight, use the `heading` prop. For content guidance, s
 
 The `headingAfterElement` prop allows you to place an element to the right of the heading. This is sometimes used to implement a close icon button in a spotlight.
 
-<Example Component={SpotlightHeadingAfterElement} packageName="@atlaskit/onboarding" />
+<Example
+  Component={SpotlightHeadingAfterElement}
+  packageName="@atlaskit/onboarding"
+/>
 
 ## Image
 
@@ -77,7 +89,10 @@ When spotlights are active, a pulsing outline helps draw attention to the target
 
 By default, a spotlight dialog will be positioned to the "bottom left" relative to the target. You can change this by setting your desired position in the `dialogPlacement` prop.
 
-<Example Component={SpotlightDialogPlacement} packageName="@atlaskit/onboarding" />
+<Example
+  Component={SpotlightDialogPlacement}
+  packageName="@atlaskit/onboarding"
+/>
 
 ## Dialog width
 
@@ -95,16 +110,25 @@ The border radius of the spotlight target needs to be explicitly set. In the exa
 
 Sometimes the blanket can affect the background color of the target element. For example, subtle buttons are semi-transparent, which causes them to look darker when the blanket is applied. In cases like this, you can pass a color value to `targetBgColor` to make your target stand out properly.
 
-<Example Component={SpotlightTargetBackground} packageName="@atlaskit/onboarding" />
+<Example
+  Component={SpotlightTargetBackground}
+  packageName="@atlaskit/onboarding"
+/>
 
 ## Target replacement
 
 You can replace the original target with another component using the `targetReplacement` prop.
 
-<Example Component={SpotlightTargetReplacement} packageName="@atlaskit/onboarding" />
+<Example
+  Component={SpotlightTargetReplacement}
+  packageName="@atlaskit/onboarding"
+/>
 
 ## Conditional spotlight targets
 
 You can use the `useSpotlight` hook to check if a spotlight target is rendered or not. This allows you to conditionally add steps into a spotlight tour.
 
-<Example Component={SpotlightConditionalTargets} packageName="@atlaskit/onboarding" />
+<Example
+  Component={SpotlightConditionalTargets}
+  packageName="@atlaskit/onboarding"
+/>

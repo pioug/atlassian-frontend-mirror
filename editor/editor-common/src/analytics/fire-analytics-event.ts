@@ -3,7 +3,7 @@ import { FabricChannel } from '@atlaskit/analytics-listeners';
 import { AnalyticsQueue } from './analytics-queue';
 import { FireAnalyticsEvent } from './types';
 
-const editorAnalyticsChannel = FabricChannel.editor;
+export const editorAnalyticsChannel = FabricChannel.editor;
 
 export const fireAnalyticsEvent: FireAnalyticsEvent =
   (createAnalyticsEvent) =>

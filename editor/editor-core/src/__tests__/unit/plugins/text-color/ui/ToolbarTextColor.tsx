@@ -20,7 +20,7 @@ import { Color } from '@atlaskit/editor-common/ui-color';
 import ToolbarButton from '../../../../../ui/ToolbarButton';
 import type { Props as ToolbarTextColorProps } from '../../../../../plugins/text-color/ui/ToolbarTextColor';
 import { ToolbarTextColor } from '../../../../../plugins/text-color/ui/ToolbarTextColor';
-import type { PaletteColor } from '../../../../../ui/ColorPalette/Palettes/type';
+import type { PaletteColor } from '@atlaskit/editor-common/ui-color';
 import ReactEditorViewContext from '../../../../../create-editor/ReactEditorViewContext';
 
 const mockDispatchAnalytics = jest.fn(() => () => {});

@@ -5,8 +5,8 @@ import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
 import ToolbarButton from '../../../../ui/ToolbarButton';
-import type { OpenChangedEvent } from '../../../../ui/Dropdown';
-import Dropdown from '../../../../ui/Dropdown';
+import type { OpenChangedEvent } from '@atlaskit/editor-common/ui';
+import { DropdownContainer as Dropdown } from '@atlaskit/editor-common/ui-menu';
 import Alignment from '../../../../ui/Alignment';
 import type {
   AlignmentPluginState,

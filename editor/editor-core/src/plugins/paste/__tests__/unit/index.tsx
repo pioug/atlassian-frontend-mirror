@@ -89,10 +89,7 @@ import deprecatedAnalyticsPlugin, {
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { PastePluginOptions } from '../../index';
 
-import {
-  GapCursorSelection,
-  Side,
-} from '../../../selection/gap-cursor-selection';
+import { GapCursorSelection, Side } from '@atlaskit/editor-common/selection';
 
 import { getDefaultMediaClientConfig } from '@atlaskit/media-test-helpers/fakeMediaClient';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';

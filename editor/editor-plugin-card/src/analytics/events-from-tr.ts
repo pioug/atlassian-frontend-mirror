@@ -18,7 +18,7 @@ import { getPluginState } from '../pm-plugins/util/state';
 import type { Queue, Resolve } from '../types';
 
 import type { CardPluginEvent, Entity } from './types';
-import { EVENT } from './types';
+import { EVENT, EVENT_SUBJECT } from './types';
 import {
   appearanceForLink,
   areSameNodes,
@@ -185,7 +185,7 @@ export const findChanged = (
 
     /**
      * If there is no identifiable input method, and the links inserted and removed appear to be the same,
-     * then this transaction likely is not intended to be consided to be the insertion and removal of links
+     * then this transaction likely is not intended to be considered to be the insertion and removal of links
      */
     if (!inputMethod && areSameNodes(removed, inserted)) {
       return {
@@ -202,6 +202,8 @@ export const findChanged = (
     };
   }
 
+  const updateInserted = [];
+  const updateRemoved = [];
   for (let i = 0; i < inserted.length; i++) {
     if (isResolveReplace) {
       const newLink = inserted[i];
@@ -221,16 +223,27 @@ export const findChanged = (
     }
 
     if (inserted.length === removed.length) {
-      updated.push({
-        removed: removed[i],
-        inserted: inserted[i],
-      });
+      const previousSubject = getNodeSubject(removed[i].node);
+      const currentSubject = getNodeSubject(inserted[i].node);
+
+      if (
+        isDatasourceUpgrade(previousSubject, currentSubject) ||
+        isDatasourceDowngrade(previousSubject, currentSubject)
+      ) {
+        updateInserted.push(inserted[i]);
+        updateRemoved.push(removed[i]);
+      } else {
+        updated.push({
+          removed: removed[i],
+          inserted: inserted[i],
+        });
+      }
     }
   }
 
   return {
-    inserted: [],
-    removed: [],
+    inserted: updateInserted,
+    removed: updateRemoved,
     updated,
   };
 };
@@ -344,6 +357,20 @@ const getResolveLinkPrevDisplay = (state: EditorState, pos: number) => {
   return cardState.requests.find(request => request.pos === pos)
     ?.previousAppearance;
 };
+
+const isDatasourceDowngrade = (
+  previousSubject: EVENT_SUBJECT | null,
+  currentSubject: EVENT_SUBJECT | null,
+) =>
+  previousSubject === EVENT_SUBJECT.DATASOURCE &&
+  currentSubject === EVENT_SUBJECT.LINK;
+
+const isDatasourceUpgrade = (
+  previousSubject: EVENT_SUBJECT | null,
+  currentSubject: EVENT_SUBJECT | null,
+) =>
+  previousSubject === EVENT_SUBJECT.LINK &&
+  currentSubject === EVENT_SUBJECT.DATASOURCE;
 
 export function eventsFromTransaction(
   tr: ReadonlyTransaction,

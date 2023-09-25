@@ -141,7 +141,7 @@ export {
 export {
   GapCursorSelection,
   Side as GapCursorSide,
-} from './plugins/selection/gap-cursor-selection';
+} from '@atlaskit/editor-common/selection';
 export type { HistoryPluginState } from './plugins/history/types';
 export type { MentionPluginState } from './plugins/mentions/types';
 export type { TOOLBAR_MENU_TYPE as InsertBlockInputMethodToolbar } from './plugins/insert-block/ui/ToolbarInsertBlock/types';

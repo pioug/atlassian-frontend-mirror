@@ -13,7 +13,7 @@ import {
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { Command } from '../../../types';
 import { createNewParagraphBelow } from '@atlaskit/editor-common/utils';
-import { GapCursorSelection } from '../../selection/gap-cursor/selection';
+import { GapCursorSelection } from '@atlaskit/editor-common/selection';
 
 export function captionKeymap(): SafePlugin {
   const list = {};

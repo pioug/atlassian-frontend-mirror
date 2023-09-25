@@ -39,7 +39,6 @@ Inline edit wraps around any standard text field. Any styling of the text field 
 
 Since inline edit is used when entering content, it is optimized for use with keyboard inputs (use return to save and esc to cancel). When using a mouse, controls should always display on the bottom right of the field.
 
-
 ## Best practices
 
 - Use inline edit for an editable field that is not part of a [form](/patterns/forms). Do not use inline edit inside of a form.
@@ -48,17 +47,18 @@ Since inline edit is used when entering content, it is optimized for use with ke
   type="do"
   image={{
     url: inlineEditDo,
-    alt: 'Inline edit header in read view and edit view with the same styling and layout.'
+    alt: 'Inline edit header in read view and edit view with the same styling and layout.',
   }}
 >
-  Ensure read view and edit view components have identical styling. This avoids confusing the user.
+  Ensure read view and edit view components have identical styling. This avoids
+  confusing the user.
 </DoDont>
 
 <DoDont
   type="dont"
   image={{
     url: inlineEditDont,
-    alt: 'Inline edit header in read view and edit view with the same styling.'
+    alt: 'Inline edit header in read view and edit view with the same styling.',
   }}
 >
   Pass in read view and edit view components that have different styling.

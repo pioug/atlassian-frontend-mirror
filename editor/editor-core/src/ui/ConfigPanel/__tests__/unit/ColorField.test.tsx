@@ -11,7 +11,7 @@ import ColorPickerField, {
   extendedColorPalette,
   EXPANDED_COLOR_PICKER_COLUMNS,
 } from '../../Fields/ColorPicker';
-import ColorPickerButton from '../../../ColorPickerButton';
+import { ColorPickerButton } from '@atlaskit/editor-common/ui-menu';
 import type { FieldComponentProps } from '../../types';
 import ReactEditorViewContext from '../../../../create-editor/ReactEditorViewContext';
 

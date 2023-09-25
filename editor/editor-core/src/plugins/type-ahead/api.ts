@@ -13,7 +13,7 @@ import {
   getTypeAheadHandler,
   getTypeAheadQuery,
 } from './utils';
-import { INPUT_METHOD } from '../analytics/types/enums';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import {
   openTypeAheadAtCursor,
   openTypeAhead,

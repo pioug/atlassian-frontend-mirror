@@ -1,5 +1,11 @@
 # @atlaskit/link-client-extension
 
+## 1.7.2
+
+### Patch Changes
+
+- [`1fedffbd64b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1fedffbd64b) - Update json-ld-types dependencies to be compatible with version
+
 ## 1.7.1
 
 ### Patch Changes

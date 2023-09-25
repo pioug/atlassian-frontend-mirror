@@ -21,11 +21,11 @@ import {
   closeMediaAltTextMenu,
 } from '../../../../plugins/media/pm-plugins/alt-text/commands';
 import { getPluginState } from '../../../../plugins/media/pm-plugins/alt-text';
-import { setGapCursorSelection } from '@atlaskit/editor-common/selection';
 import {
+  setGapCursorSelection,
   Side,
   GapCursorSelection,
-} from '../../../../plugins/selection/gap-cursor-selection';
+} from '@atlaskit/editor-common/selection';
 import { pmHistoryPluginKey } from '@atlaskit/editor-common/utils';
 
 import type { PluginKey } from '@atlaskit/editor-prosemirror/state';

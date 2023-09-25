@@ -19,7 +19,7 @@ import type { LongPressSelectionPluginOptions } from '@atlaskit/editor-common/ty
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import { createWrapSelectionTransaction } from '@atlaskit/editor-common/utils';
-
+import type { SelectionPlugin } from '../selection'; // TO-DO: replace with editor-plugin-selection
 interface ExpandPluginOptions extends LongPressSelectionPluginOptions {
   allowInsertion?: boolean;
   appearance?: EditorProps['appearance'];
@@ -29,7 +29,11 @@ const expandPlugin: NextEditorPlugin<
   'expand',
   {
     pluginConfiguration: ExpandPluginOptions | undefined;
-    dependencies: [FeatureFlagsPlugin, typeof decorationsPlugin];
+    dependencies: [
+      FeatureFlagsPlugin,
+      typeof decorationsPlugin,
+      SelectionPlugin,
+    ];
   }
 > = ({ config: options = {}, api }) => {
   const featureFlags = api?.featureFlags?.sharedState.currentState() || {};
@@ -54,12 +58,13 @@ const expandPlugin: NextEditorPlugin<
               options.appearance,
               options.useLongPressSelection,
               featureFlags,
+              api,
             );
           },
         },
         {
           name: 'expandKeymap',
-          plugin: expandKeymap,
+          plugin: () => expandKeymap(api),
         },
       ];
     },

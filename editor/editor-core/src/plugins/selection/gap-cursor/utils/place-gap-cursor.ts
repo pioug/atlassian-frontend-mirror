@@ -4,8 +4,8 @@ import {
   isLeftCursor,
   getComputedStyleForLayoutMode,
 } from '../utils';
-import type { GapCursorSelection } from '../selection';
-import { Side } from '../selection';
+import type { GapCursorSelection } from '@atlaskit/editor-common/selection';
+import { Side } from '@atlaskit/editor-common/selection';
 
 /**
  * We have a couple of nodes that require us to compute style

@@ -9,7 +9,6 @@ import {
   Selection,
   AllSelection,
 } from '@atlaskit/editor-prosemirror/state';
-import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import type {
   Node as PmNode,
@@ -28,46 +27,11 @@ import {
   getAllSelectionAnalyticsPayload,
   getRangeSelectionAnalyticsPayload,
   getCellSelectionAnalyticsPayload,
-  selectNode,
+  createSelectionClickHandler,
+  isIgnored as isIgnoredByGapCursor,
 } from '@atlaskit/editor-common/selection';
 import { isEmptyParagraph } from '@atlaskit/editor-common/utils';
-import { isIgnored as isIgnoredByGapCursor } from '../selection/gap-cursor/utils/is-ignored';
 import { selectionPluginKey } from './types';
-
-export function createSelectionClickHandler(
-  nodes: string[],
-  isValidTarget: (target: HTMLElement) => boolean,
-  options: {
-    useLongPressSelection: boolean;
-    getNodeSelectionPos?: (state: EditorState, nodePos: number) => number;
-  },
-) {
-  return function handleClickOn(
-    view: EditorView,
-    pos: number,
-    node: PmNode,
-    nodePos: number,
-    event: MouseEvent,
-    direct: boolean,
-  ) {
-    if (options.useLongPressSelection) {
-      return false;
-    }
-    if (direct && nodes.indexOf(node.type.name) !== -1) {
-      if (event.target) {
-        const target = event.target as HTMLElement;
-        if (isValidTarget(target)) {
-          const selectionPos = options.getNodeSelectionPos
-            ? options.getNodeSelectionPos(view.state, nodePos)
-            : nodePos;
-          selectNode(selectionPos)(view.state, view.dispatch);
-          return true;
-        }
-      }
-    }
-    return false;
-  };
-}
 
 export const getDecorations = (
   tr: Transaction | ReadonlyTransaction,
@@ -362,4 +326,5 @@ export {
   getAllSelectionAnalyticsPayload,
   getRangeSelectionAnalyticsPayload,
   getCellSelectionAnalyticsPayload,
+  createSelectionClickHandler,
 };

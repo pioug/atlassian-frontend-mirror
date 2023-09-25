@@ -1,5 +1,38 @@
 # @atlaskit/editor-core
 
+## 187.47.0
+
+### Minor Changes
+
+- [`8cb8dafa05a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cb8dafa05a) - [ED-19774] Removing ../selection imports where possible. selectionPlugin imports still exist until we have an extracted package for selection.
+
+### Patch Changes
+
+- [`6a4f206b435`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6a4f206b435) - [ux] MEX-2598 Bug fix: Fixed the bug that caused certain nodes from disappearing when it was located beneath a media group node that got switched to a media inline node. This bug fix ensures that switching from media group to media inline should not affect the surrounding nodes.
+- Updated dependencies
+
+## 187.46.1
+
+### Patch Changes
+
+- [`bb4caba1310`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bb4caba1310) - Remove participants count metric from frozen analytics event
+
+## 187.46.0
+
+### Minor Changes
+
+- [`16a0e1fef2b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/16a0e1fef2b) - ED-20017 Decouple editor core from floating toolbar plugin
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.45.3
+
+### Patch Changes
+
+- [`d48ef0409af`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d48ef0409af) - ED-20003 decoupled editor-core from type-ahead
+
 ## 187.45.0
 
 ### Minor Changes

@@ -18,7 +18,7 @@ import {
   TextSelection,
 } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
-import { GapCursorSelection } from '../../selection/gap-cursor/selection';
+import { GapCursorSelection } from '@atlaskit/editor-common/selection';
 
 const createEditorTestingLibrary = createEditorFactory();
 const editor = (doc: (schema: Schema<any, any>) => RefsNode) =>

@@ -24,7 +24,6 @@ import { CodeDocsHeader } from '@af/design-system-docs-ui';
   directoryName="primitives"
 />
 
-
 ## Basic
 
 Inline should be used to efficiently lay-out a group of elements horizontally.
@@ -37,13 +36,19 @@ Use the given props to configure display behaviour using designs tokens, as show
 
 Spacing between items can be controlled with the `space` prop:
 
-<Example Component={InlineSpaceBasic} packageName="@atlaskit/primitives/inline" />
+<Example
+  Component={InlineSpaceBasic}
+  packageName="@atlaskit/primitives/inline"
+/>
 
 When content is set to wrap, the `space` prop applies equal spacing between rows.
 
 For a different space value between rows use the `rowSpace` prop.
 
-<Example Component={InlineSpaceWrap} packageName="@atlaskit/primitives/inline" />
+<Example
+  Component={InlineSpaceWrap}
+  packageName="@atlaskit/primitives/inline"
+/>
 
 ## Alignment
 
@@ -51,11 +56,17 @@ To control the alignment of items you can use the `alignBlock` and `alignInline`
 
 ### Block alignment
 
-<Example Component={InlineAlignBlock} packageName="@atlaskit/primitives/inline" />
+<Example
+  Component={InlineAlignBlock}
+  packageName="@atlaskit/primitives/inline"
+/>
 
 ### Inline alignment
 
-<Example Component={InlineAlignInline} packageName="@atlaskit/primitives/inline" />
+<Example
+  Component={InlineAlignInline}
+  packageName="@atlaskit/primitives/inline"
+/>
 
 ## Spread
 
@@ -73,15 +84,18 @@ When the number of items goes beyond the available space `shouldWrap` can be use
 
 For logically related elements it's possible to specify a `separator` character value.
 
-<Example Component={InlineSeparator} packageName="@atlaskit/primitives/inline" />
+<Example
+  Component={InlineSeparator}
+  packageName="@atlaskit/primitives/inline"
+/>
 
 ## Width control
 
-By default an `Inline` will have its width influenced by the context where it appears. 
+By default an `Inline` will have its width influenced by the context where it appears.
 To control the width, the `grow` prop can be used with the values:
 
-* `hug` (default) to use space only as required by its children, or
-* `fill` to take all space provided by the parent element.
+- `hug` (default) to use space only as required by its children, or
+- `fill` to take all space provided by the parent element.
 
 <Example Component={InlineGrow} packageName="@atlaskit/primitives/inline" />
 
@@ -95,4 +109,7 @@ It's possible to control the rendered HTML element with the `as` prop.
 
 An example of how an `Inline` might be used in product, using Atlassian Design System components.
 
-<Example Component={InlinePracticalUseCase} packageName="@atlaskit/primitives/inline" />
+<Example
+  Component={InlinePracticalUseCase}
+  packageName="@atlaskit/primitives/inline"
+/>

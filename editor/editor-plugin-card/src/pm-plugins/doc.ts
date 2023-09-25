@@ -215,6 +215,7 @@ export const handleFallbackWithAnalytics =
     addLinkMetadata(state.selection, tr, {
       action: request.analyticsAction,
       inputMethod: request.source,
+      sourceEvent: request.sourceEvent,
     });
 
     if (dispatch) {

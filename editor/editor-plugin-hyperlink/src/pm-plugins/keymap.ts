@@ -2,6 +2,7 @@ import type { Match } from '@atlaskit/adf-schema';
 import { getLinkMatch } from '@atlaskit/adf-schema';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import { addLinkMetadata } from '@atlaskit/editor-common/card';
 import {
   addLink,
   bindKeymapWithCommand,
@@ -101,6 +102,9 @@ const mayConvertLastWordToHyperlink: (
 
       const tr = state.tr.addMark(start, end, markType);
       if (dispatch) {
+        addLinkMetadata(state.selection, tr, {
+          inputMethod: INPUT_METHOD.AUTO_DETECT,
+        });
         if (skipAnalytics) {
           dispatch(tr);
         } else {

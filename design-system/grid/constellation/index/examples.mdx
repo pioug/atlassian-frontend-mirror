@@ -22,33 +22,33 @@ Grids are composed of a container `Grid` and child `GridItem`s. These two elemen
 
 ## Grid maxWidth
 
-You can restrict the maxWidth of the Grid to pre-defined sizes.  By default, the Grid takes up full space available.
+You can restrict the maxWidth of the Grid to pre-defined sizes. By default, the Grid takes up full space available.
 
 ### narrow
 
-The Grid's maximum width is `744px`.  On smaller screens it will take up all available width.
+The Grid's maximum width is `744px`. On smaller screens it will take up all available width.
 
 <Example Component={GridNarrow} packageName="@atlaskit/grid" />
 
 ### wide
 
-The Grid's maximum width is `1128px`.  On smaller screens it will take up all available width.
+The Grid's maximum width is `1128px`. On smaller screens it will take up all available width.
 
 <Example Component={GridWide} packageName="@atlaskit/grid" />
 
 ## Grid inline padding
 
-By default, the Grid has an inline padding around the outside of the Grid columns.  This can be disabled with `hasInlinePadding={false}`
+By default, the Grid has an inline padding around the outside of the Grid columns. This can be disabled with `hasInlinePadding={false}`
 
 <Example Component={GridInlinePadding} packageName="@atlaskit/grid" />
 
 ## Item span
 
-Define how many columns an item will span.  This is a 1-indexed range 1-12.
+Define how many columns an item will span. This is a 1-indexed range 1-12.
 
 By default, span is `12` and will span the entire row.
 
-We enable a shorthand here, using `span={6}` is the same as `span={{ xxs: 6 }}`.  The shorthand will override the default full-width functionality across all breakpoints.
+We enable a shorthand here, using `span={6}` is the same as `span={{ xxs: 6 }}`. The shorthand will override the default full-width functionality across all breakpoints.
 
 See [usage](./usage) to understand our how responsive object syntax works.
 
@@ -64,11 +64,11 @@ This is useful because if you wanted to hide the inner contents of the GridItem,
 
 ## Item start column
 
-Define the column at which your item will start.  This is a 1-indexed range 1-12.
+Define the column at which your item will start. This is a 1-indexed range 1-12.
 
 By default, start is `'auto'` and will fill the next available column in the row, as space is available.
 
-We enable a shorthand here, using `start={1}` is the same as `start={{ xxs: 1 }}`.  The shorthand will override the default `'auto'` functionality across all breakpoints.
+We enable a shorthand here, using `start={1}` is the same as `start={{ xxs: 1 }}`. The shorthand will override the default `'auto'` functionality across all breakpoints.
 
 See [usage](./usage) to understand our how responsive object syntax works.
 
@@ -98,7 +98,7 @@ This is because whenever a column is unavailable on the same row subsequently fr
 
 ## Nested grids
 
-We do not support nested Grids at this stage; doing so will throw an error.  Further guidance may be provided in the future.
+We do not support nested Grids at this stage; doing so will throw an error. Further guidance may be provided in the future.
 
 ## Grid container
 

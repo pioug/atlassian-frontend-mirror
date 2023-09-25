@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-content-insertion
 
+## 0.1.4
+
+### Patch Changes
+
+- [`c93a5930f34`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c93a5930f34) - [ux] Inserting block nodes will no longer replace the selected content, instead the block node will be inserted after it.
+
 ## 0.1.3
 
 ### Patch Changes

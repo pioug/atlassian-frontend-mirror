@@ -201,11 +201,17 @@ export const TableResizer = ({
       // only bring back the cursor if this table was deleted - i.e. if a user was resizing, then another
       // deleted this table
       if (isResizing.current) {
+        const {
+          dispatch,
+          state: { tr },
+        } = editorView;
         displayGapCursor(true);
         displayGuideline([]);
+        tr.setMeta(tableWidthPluginKey, { resizing: false });
+        dispatch(tr);
       }
     };
-  }, [displayGuideline, displayGapCursor]);
+  }, [editorView, displayGuideline, displayGapCursor]);
 
   const handleResizeStart = useCallback(() => {
     startMeasure();

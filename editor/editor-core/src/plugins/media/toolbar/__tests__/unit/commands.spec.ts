@@ -3,6 +3,8 @@ import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor
 import type { DocBuilder } from '@atlaskit/editor-common/types';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
+  bodiedExtension,
+  extension,
   media,
   mediaGroup,
   mediaInline,
@@ -63,6 +65,7 @@ describe('commands', () => {
     const wrapper = createEditor({
       doc,
       editorProps: {
+        allowExtension: true,
         allowBorderMark: true,
         media: {
           allowMediaSingle: true,
@@ -135,6 +138,60 @@ describe('commands', () => {
       );
       expect(editorView.state).toEqualDocumentAndSelection(
         doc(p(mediaInline(attrs)(), ' '), p()),
+      );
+    });
+
+    it('should change to media inline without affecting the extension beneath', async () => {
+      const createMediaGroupDoc = () =>
+        doc(
+          mediaGroup('{<node>}', media({ ...attrs })()),
+          extension({
+            localId: 'extension-local-id',
+            extensionKey: 'key-1',
+            extensionType: 'type-1',
+          })(),
+        );
+      const { editorView } = await setup(createMediaGroupDoc());
+      changeMediaCardToInline(mockEditorAnalyticsAPI)(
+        editorView.state,
+        editorView.dispatch,
+      );
+      expect(editorView.state).toEqualDocumentAndSelection(
+        doc(
+          p(mediaInline(attrs)(), ' '),
+          extension({
+            localId: 'extension-local-id',
+            extensionKey: 'key-1',
+            extensionType: 'type-1',
+          })(),
+        ),
+      );
+    });
+
+    it('should change to media inline without affecting the bodiedExtension beneath', async () => {
+      const createMediaGroupDoc = () =>
+        doc(
+          mediaGroup('{<node>}', media({ ...attrs })()),
+          bodiedExtension({
+            localId: 'test-bodied-extension-local-id',
+            extensionKey: '123',
+            extensionType: 'bodiedExtension',
+          })(p('extended paragraph')),
+        );
+      const { editorView } = await setup(createMediaGroupDoc());
+      changeMediaCardToInline(mockEditorAnalyticsAPI)(
+        editorView.state,
+        editorView.dispatch,
+      );
+      expect(editorView.state).toEqualDocumentAndSelection(
+        doc(
+          p(mediaInline(attrs)(), ' '),
+          bodiedExtension({
+            localId: 'test-bodied-extension-local-id',
+            extensionKey: '123',
+            extensionType: 'bodiedExtension',
+          })(p('extended paragraph')),
+        ),
       );
     });
 

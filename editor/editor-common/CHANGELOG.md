@@ -1,5 +1,23 @@
 # @atlaskit/editor-common
 
+## 75.7.0
+
+### Minor Changes
+
+- [`8cb8dafa05a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cb8dafa05a) - [ED-19774] Removing ../selection imports where possible. selectionPlugin imports still exist until we have an extracted package for selection.
+
+## 75.6.1
+
+### Patch Changes
+
+- [`bb4caba1310`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bb4caba1310) - Remove participants count metric from frozen analytics event
+
+## 75.6.0
+
+### Minor Changes
+
+- [`16a0e1fef2b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/16a0e1fef2b) - ED-20017 Decouple editor core from floating toolbar plugin
+
 ## 75.5.2
 
 ### Patch Changes

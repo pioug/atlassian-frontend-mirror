@@ -117,6 +117,10 @@ export interface TablePluginState {
   canCollapseTable?: boolean; // enabled/disabled state of collapse option
 
   getIntl: () => IntlShape;
+
+  isBreakoutEnabled?: boolean;
+  wasFullWidthModeEnabled?: boolean;
+  isTableResizingEnabled?: boolean;
 }
 
 export type TablePluginAction =

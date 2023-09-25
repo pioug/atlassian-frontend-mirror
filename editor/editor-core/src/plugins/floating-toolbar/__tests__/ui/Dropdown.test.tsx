@@ -19,7 +19,7 @@ import type {
   DropdownOptions,
 } from '@atlaskit/editor-common/types';
 import Toolbar from '../../ui/Toolbar';
-import ReactEditorViewContext from '../../../../create-editor/ReactEditorViewContext';
+import { ReactEditorViewContext } from '@atlaskit/editor-common/ui-react';
 
 describe('Dropdown', () => {
   describe('Accessibility', () => {

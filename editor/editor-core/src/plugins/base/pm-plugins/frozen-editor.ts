@@ -20,7 +20,6 @@ import {
   BROWSER_FREEZE_INTERACTION_TYPE,
   EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
-import { getParticipantsCount } from '../../collab-edit/get-participants-count';
 import type {
   InputTracking,
   BrowserFreezetracking,
@@ -59,7 +58,6 @@ const dispatchLongTaskEvent = (
       freezeTime: time,
       nodeSize: state.doc.nodeSize,
       ...nodesCount,
-      participants: getParticipantsCount(view.state),
       interactionType,
       severity,
     },
@@ -144,7 +142,6 @@ export default (
           time,
           nodeSize: state.doc.nodeSize,
           ...nodesCount,
-          participants: getParticipantsCount(state),
           objectId: getContextIdentifier(state)?.objectId,
           severity: shouldTrackSeverity ? severity : undefined,
         },
@@ -183,7 +180,6 @@ export default (
           ...nodeCount,
           nodeSize: state.doc.nodeSize,
           severity: shouldTrackSeverity ? severity : undefined,
-          participants: getParticipantsCount(state),
           objectId: getContextIdentifier(state)?.objectId,
         },
         eventType: EVENT_TYPE.OPERATIONAL,
@@ -275,7 +271,6 @@ export default (
             experienceStore?.success(EditorExperience.typing, {
               nodeSize: state.doc.nodeSize,
               ...nodesCount,
-              participants: getParticipantsCount(state),
               objectId: getContextIdentifier(state)?.objectId,
               time,
               severity: shouldTrackSeverity ? severity : undefined,
@@ -300,7 +295,6 @@ export default (
                 time,
                 nodeSize: state.doc.nodeSize,
                 ...nodesCount,
-                participants: getParticipantsCount(state),
                 objectId: getContextIdentifier(state)?.objectId,
               },
               eventType: EVENT_TYPE.OPERATIONAL,

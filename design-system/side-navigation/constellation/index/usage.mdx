@@ -8,9 +8,9 @@ order: 2
 
 Occasionally it's necessary to load some of the side navigation content asynchronously. There are a few things to take care of
 
-* Only use skeletons when you're quite certain of what the loaded state will look like. Most items that would appear in side navigation are probably fine to use with skeletons, for example, `@atlaskit/tree`.
-* When transitioning from loading skeleton to loaded items, try to ensure the jump does not look janky - use the equivalent skeleton item that is appropriate and be careful of things jumping around by a few pixels. We should be striving for UI that feels __stable__, which means it doesn't jump around when content loads.
-* Ensure loading does not take too long - try to anticipate if a user will look at your menu via hover events and the like, and pre-load the data as soon as possible.
-* When content is loading in, make sure it all loads in at the same time - our minds aren't fast enough to distinguish each item loading individually, for example, and it would appear slower to most users.
+- Only use skeletons when you're quite certain of what the loaded state will look like. Most items that would appear in side navigation are probably fine to use with skeletons, for example, `@atlaskit/tree`.
+- When transitioning from loading skeleton to loaded items, try to ensure the jump does not look janky - use the equivalent skeleton item that is appropriate and be careful of things jumping around by a few pixels. We should be striving for UI that feels **stable**, which means it doesn't jump around when content loads.
+- Ensure loading does not take too long - try to anticipate if a user will look at your menu via hover events and the like, and pre-load the data as soon as possible.
+- When content is loading in, make sure it all loads in at the same time - our minds aren't fast enough to distinguish each item loading individually, for example, and it would appear slower to most users.
 
-For a more in-depth look at how to approach loading states, please check out the _work in progress_ [skeleton exploration](https://hello.atlassian.net/wiki/spaces/ADG/pages/598816601/Loading+experiences+-+3.4+-+Guideline+exploration+-+Skeleton#Exploration-(spec)) (content restricted to Atlassian staff).
+For a more in-depth look at how to approach loading states, please check out the _work in progress_ [skeleton exploration](<https://hello.atlassian.net/wiki/spaces/ADG/pages/598816601/Loading+experiences+-+3.4+-+Guideline+exploration+-+Skeleton#Exploration-(spec)>) (content restricted to Atlassian staff).

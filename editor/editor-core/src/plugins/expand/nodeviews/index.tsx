@@ -28,12 +28,16 @@ import { expandClassNames } from '../ui/class-names';
 import {
   GapCursorSelection,
   Side,
-} from '../../../plugins/selection/gap-cursor-selection';
+  RelativeSelectionPos,
+} from '@atlaskit/editor-common/selection';
 import { closestElement } from '../../../utils/dom';
-import { RelativeSelectionPos } from '../../selection/types';
-import { setSelectionRelativeToNode } from '../../selection/commands';
-import { getPluginState as getSelectionPluginState } from '../../selection/plugin-factory';
-import type { FeatureFlags } from '@atlaskit/editor-common/types';
+import type {
+  FeatureFlags,
+  ExtractInjectionAPI,
+  EditorCommandWithMetadata,
+} from '@atlaskit/editor-common/types';
+import type expandPlugin from '../index';
+import type { SelectionSharedState } from '@atlaskit/editor-common/selection';
 
 function buildExpandClassName(type: string, expanded: boolean) {
   return `${expandClassNames.prefix} ${expandClassNames.type(type)} ${
@@ -101,7 +105,7 @@ export class ExpandNodeView implements NodeView {
   allowInteractiveExpand: boolean = true;
   isMobile: boolean = false;
   featureFlags: FeatureFlags;
-
+  api: ExtractInjectionAPI<typeof expandPlugin> | undefined;
   constructor(
     node: PmNode,
     view: EditorView,
@@ -109,6 +113,8 @@ export class ExpandNodeView implements NodeView {
     getIntl: () => IntlShape,
     isMobile: boolean,
     featureFlags: FeatureFlags,
+    private selectNearNode: EditorCommandWithMetadata | undefined,
+    api: ExtractInjectionAPI<typeof expandPlugin> | undefined,
   ) {
     this.intl = getIntl();
     const { dom, contentDOM } = DOMSerializer.renderSpec(
@@ -122,6 +128,7 @@ export class ExpandNodeView implements NodeView {
     this.contentDOM = contentDOM as HTMLElement;
     this.isMobile = isMobile;
     this.featureFlags = featureFlags;
+    this.api = api;
     this.icon = this.dom.querySelector<HTMLElement>(
       `.${expandClassNames.icon}`,
     );
@@ -162,7 +169,11 @@ export class ExpandNodeView implements NodeView {
   private focusTitle = () => {
     if (this.input) {
       const { state, dispatch } = this.view;
-      setSelectionRelativeToNode(RelativeSelectionPos.Start)(state, dispatch);
+      if (this.selectNearNode) {
+        this.api?.core.actions.execute(
+          this.selectNearNode(RelativeSelectionPos.Start),
+        );
+      }
       const pos = this.getPos();
       if (typeof pos === 'number') {
         setSelectionInsideExpand(pos)(state, dispatch, this.view);
@@ -395,7 +406,7 @@ export class ExpandNodeView implements NodeView {
   };
 
   private handleArrowRightFromTitle = (event: KeyboardEvent) => {
-    if (!this.input) {
+    if (!this.input || !this.selectNearNode) {
       return;
     }
     const pos = this.getPos();
@@ -405,18 +416,19 @@ export class ExpandNodeView implements NodeView {
     const { value, selectionStart, selectionEnd } = this.input;
     if (selectionStart === selectionEnd && selectionStart === value.length) {
       event.preventDefault();
-      const { state, dispatch } = this.view;
+      const { state } = this.view;
       this.view.focus();
-
-      setSelectionRelativeToNode(
-        RelativeSelectionPos.End,
-        NodeSelection.create(state.doc, pos),
-      )(state, dispatch);
+      this.api?.core.actions.execute(
+        this.selectNearNode(
+          RelativeSelectionPos.End,
+          NodeSelection.create(state.doc, pos),
+        ),
+      );
     }
   };
 
   private handleArrowLeftFromTitle = (event: KeyboardEvent) => {
-    if (!this.input) {
+    if (!this.input || !this.selectNearNode) {
       return;
     }
     const pos = this.getPos();
@@ -426,23 +438,26 @@ export class ExpandNodeView implements NodeView {
     const { selectionStart, selectionEnd } = this.input;
     if (selectionStart === selectionEnd && selectionStart === 0) {
       event.preventDefault();
-      const { state, dispatch } = this.view;
+      const { state } = this.view;
       this.view.focus();
-
+      const selectionSharedState: SelectionSharedState =
+        this.api?.selection.sharedState.currentState() || {};
       // selectionRelativeToNode is undefined when user clicked to select node, then hit left to get focus in title
       // This is a special case where we want to bypass node selection and jump straight to gap cursor
-      if (
-        getSelectionPluginState(state).selectionRelativeToNode === undefined
-      ) {
-        setSelectionRelativeToNode(
-          undefined,
-          new GapCursorSelection(state.doc.resolve(pos), Side.LEFT),
-        )(state, dispatch);
+      if (selectionSharedState?.selectionRelativeToNode === undefined) {
+        this.api?.core.actions.execute(
+          this.selectNearNode(
+            undefined,
+            new GapCursorSelection(state.doc.resolve(pos), Side.LEFT),
+          ),
+        );
       } else {
-        setSelectionRelativeToNode(
-          RelativeSelectionPos.Start,
-          NodeSelection.create(state.doc, pos),
-        )(state, dispatch);
+        this.api?.core.actions.execute(
+          this.selectNearNode(
+            RelativeSelectionPos.Start,
+            NodeSelection.create(state.doc, pos),
+          ),
+        );
       }
     }
   };
@@ -538,10 +553,12 @@ export default function ({
   getIntl,
   isMobile,
   featureFlags,
+  api,
 }: {
   getIntl: () => IntlShape;
   isMobile: boolean;
   featureFlags: FeatureFlags;
+  api: ExtractInjectionAPI<typeof expandPlugin> | undefined;
 }) {
   return (node: PmNode, view: EditorView, getPos: getPosHandler): NodeView =>
     new ExpandNodeView(
@@ -551,5 +568,7 @@ export default function ({
       getIntl,
       isMobile,
       featureFlags,
+      api?.selection.commands.selectNearNode,
+      api,
     );
 }

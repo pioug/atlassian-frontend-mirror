@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-table
 
+## 3.1.3
+
+### Patch Changes
+
+- [`5b783c0f957`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5b783c0f957) - Clean up resizing plugin state for table when deleted
+
+## 3.1.2
+
+### Patch Changes
+
+- [`866a47baae3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/866a47baae3) - Moved the cache FF variables from global to plugin state, to avoid other editor instances from overriding them
+
 ## 3.1.1
 
 ### Patch Changes

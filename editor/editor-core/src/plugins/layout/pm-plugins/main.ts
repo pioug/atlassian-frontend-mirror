@@ -10,7 +10,7 @@ import {
 } from '@atlaskit/editor-prosemirror/utils';
 import { filterCommand as filter } from '@atlaskit/editor-common/utils';
 import type { Command } from '../../../types/command';
-import { createSelectionClickHandler } from '../../selection/utils';
+import { createSelectionClickHandler } from '@atlaskit/editor-common/selection';
 import {
   fixColumnSizes,
   fixColumnStructure,

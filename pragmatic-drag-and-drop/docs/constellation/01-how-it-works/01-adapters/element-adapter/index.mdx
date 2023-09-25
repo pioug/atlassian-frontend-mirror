@@ -145,16 +145,18 @@ There are lots of platform gotchas when working with custom native drag previews
 
 <SectionMessage appearance="discovery" title="Built in browser preview styles">
 
-  Web browsers apply their own styles to native drag previews that cannot be controled:
+Web browsers apply their own styles to native drag previews that cannot be controled:
 
-  - The opacity of the drag preview is slightly lowered (approximately `opacity:0.8`)
-  - A box shadow is applied to the drag preview
+- The opacity of the drag preview is slightly lowered (approximately `opacity:0.8`)
+- A box shadow is applied to the drag preview
 
   <!-- adding the new line for better spacing -->
-  <br/>
 
+{' '}
 
-  These styles are applied for all native drag and drop operations on the web, so users will be familiar with these affordances.
+<br />
+
+These styles are applied for all native drag and drop operations on the web, so users will be familiar with these affordances.
 
 </SectionMessage>
 
@@ -167,7 +169,7 @@ You can also have smaller native previews just for Windows users if you like:
 ```ts
 const preview = document.createElement('div');
 
-if(navigator.platform.includes('Win32')) {
+if (navigator.platform.includes('Win32')) {
   preview.style.maxWidth = '280px';
   preview.style.maxHeight = '280px';
 }
@@ -383,6 +385,7 @@ draggable({
   },
 });
 ```
+
 Note: this helper works best when the rendered preview has the same dimensions as the dragged element
 
 ###### Gotcha: CSS transforms

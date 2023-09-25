@@ -35,7 +35,7 @@ import type { PluginInjectionAPI } from '../types';
 import { isTableNested } from '../utils';
 
 import TableComponent from './TableComponent';
-import type { Props, TableOptions } from './types';
+import type { Props } from './types';
 
 type ForwardRef = (node: HTMLElement | null) => void;
 
@@ -341,12 +341,17 @@ export const createTableView = (
   getPos: getPosHandler,
   portalProviderAPI: PortalProviderAPI,
   eventDispatcher: EventDispatcher,
-  options: TableOptions,
   getEditorContainerWidth: GetEditorContainerWidth,
   getEditorFeatureFlags: GetEditorFeatureFlags,
   pluginInjectionApi?: PluginInjectionAPI,
 ): NodeView => {
-  const { pluginConfig } = getPluginState(view.state);
+  const {
+    pluginConfig,
+    isBreakoutEnabled,
+    isFullWidthModeEnabled,
+    wasFullWidthModeEnabled,
+    isTableResizingEnabled,
+  } = getPluginState(view.state);
   const { allowColumnResizing } = getPluginConfig(pluginConfig);
   const hasIntlContext = true;
 
@@ -357,7 +362,12 @@ export const createTableView = (
     portalProviderAPI,
     eventDispatcher,
     getPos: getPos as getPosHandlerNode,
-    options,
+    options: {
+      isBreakoutEnabled,
+      isFullWidthModeEnabled,
+      wasFullWidthModeEnabled,
+      isTableResizingEnabled,
+    },
     getEditorContainerWidth,
     getEditorFeatureFlags,
     hasIntlContext,

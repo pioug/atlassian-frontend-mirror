@@ -94,7 +94,7 @@ export const changeMediaCardToInline =
     const nodePos = state.tr.doc.resolve(state.selection.from).start() - 1;
 
     let tr = removeMediaGroupNode(state);
-    tr = safeInsert(node, nodePos, true)(tr);
+    tr = safeInsert(node, nodePos, false)(tr);
 
     if (dispatch) {
       editorAnalyticsAPI?.attachAnalyticsEvent({

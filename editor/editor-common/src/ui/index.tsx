@@ -112,9 +112,9 @@ export type {
 export { snapTo, handleSides, imageAlignmentMap } from './ResizerLegacy/utils';
 
 export { wrapperStyle } from './ResizerLegacy/styled';
-
 export { panelTextInput } from './PanelTextInput/styles';
 export { default as PanelTextInput } from './PanelTextInput';
 export { default as Announcer } from './Announcer/announcer';
 export { EDIT_AREA_ID } from './Toolbar';
 export type { UseStickyToolbarType } from './Toolbar';
+export type { OpenChangedEvent } from './DropList';

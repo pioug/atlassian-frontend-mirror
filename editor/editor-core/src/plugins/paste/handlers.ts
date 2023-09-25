@@ -50,7 +50,7 @@ import {
 import { mapSlice } from '../../utils/slice';
 import type { InputMethodInsertMedia } from '../analytics';
 import { INPUT_METHOD } from '../analytics';
-import { GapCursorSelection, Side } from '../selection/gap-cursor-selection';
+import { GapCursorSelection, Side } from '@atlaskit/editor-common/selection';
 import { runMacroAutoConvert } from '../macro';
 import { insertMediaAsMediaSingle } from '../media/utils/media-single';
 

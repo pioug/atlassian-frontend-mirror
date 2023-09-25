@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 26.28.1
+
+### Patch Changes
+
+- [`1fedffbd64b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1fedffbd64b) - Update json-ld-types dependencies to be compatible with version
+
 ## 26.28.0
 
 ### Minor Changes

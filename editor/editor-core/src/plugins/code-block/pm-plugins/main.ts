@@ -9,7 +9,7 @@ import type {
 import type { IntlShape } from 'react-intl-next';
 import type { EditorProps } from '../../../types';
 import { codeBlockNodeView } from '../nodeviews/code-block';
-import { createSelectionClickHandler } from '../../selection/utils';
+import { createSelectionClickHandler } from '@atlaskit/editor-common/selection';
 import { pluginKey } from '../plugin-key';
 import { ACTIONS } from './actions';
 import {

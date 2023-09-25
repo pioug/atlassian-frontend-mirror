@@ -8,9 +8,10 @@ import type {
   ResolvedPos,
 } from '@atlaskit/editor-prosemirror/model';
 import { GapCursorSelection, Side } from './gap-cursor-selection';
-import { isIgnored as isIgnoredByGapCursor } from '../selection/gap-cursor/utils/is-ignored';
+import { isIgnored as isIgnoredByGapCursor } from '@atlaskit/editor-common/selection';
 import { isNodeEmpty, isEmptyParagraph } from '@atlaskit/editor-common/utils';
-import type { Command } from '@atlaskit/editor-common/types';
+import type { Command } from '../../types';
+
 import { SelectionActionTypes } from './actions';
 import { createCommand, getPluginState } from './plugin-factory';
 import {
@@ -23,7 +24,28 @@ import {
   findFirstChildNodeToSelect,
   findLastChildNodeToSelect,
 } from './utils';
-import { RelativeSelectionPos, SelectionDirection } from './types';
+import {
+  RelativeSelectionPos,
+  SelectionDirection,
+  selectionPluginKey,
+} from './types';
+import type { EditorCommandWithMetadata } from '@atlaskit/editor-common/types';
+
+export const selectNearNode: EditorCommandWithMetadata =
+  (
+    selectionRelativeToNode?: RelativeSelectionPos | undefined,
+    selection?: Selection | null,
+  ) =>
+  ({ tr }) => {
+    tr.setMeta(selectionPluginKey, {
+      type: SelectionActionTypes.SET_RELATIVE_SELECTION,
+      selectionRelativeToNode,
+    });
+    if (selection) {
+      return tr.setSelection(selection);
+    }
+    return tr;
+  };
 
 export const setSelectionRelativeToNode = (
   selectionRelativeToNode?: RelativeSelectionPos,
@@ -35,10 +57,7 @@ export const setSelectionRelativeToNode = (
       selectionRelativeToNode,
     },
     (tr) => {
-      if (selection) {
-        return tr.setSelection(selection);
-      }
-      return tr;
+      return selectNearNode(selectionRelativeToNode, selection)({ tr }) || tr;
     },
   );
 

@@ -1,4 +1,4 @@
-import { Command } from '../../../../types/command';
+import { Command } from '@atlaskit/editor-common/types';
 import { createCommand } from './plugin-factory';
 
 export const showConfirmDialog = (buttonIndex: number): Command =>

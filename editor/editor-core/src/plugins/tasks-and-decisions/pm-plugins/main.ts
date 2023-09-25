@@ -10,7 +10,7 @@ import type { Dispatch, EventDispatcher } from '../../../event-dispatcher';
 import type { Command } from '../../../types';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
 import { nodesBetweenChanged, SetAttrsStep } from '../../../utils';
-import { createSelectionClickHandler } from '../../selection/utils';
+import { createSelectionClickHandler } from '@atlaskit/editor-common/selection';
 import { decisionItemNodeView } from '../nodeviews/decisionItem';
 import { taskItemNodeViewFactory } from '../nodeviews/taskItem';
 

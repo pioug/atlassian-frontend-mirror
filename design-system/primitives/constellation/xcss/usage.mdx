@@ -3,9 +3,10 @@ title: xcss
 description: xcss is a safer, tokens-first approach to CSS-in-JS.
 order: 0
 ---
+
 import { MediaQueriesTable } from '@af/design-system-docs-ui';
 
-![xcss Logo](logo.png "xcss Logo")
+![xcss Logo](logo.png 'xcss Logo')
 
 `xcss` is an Atlassian Design System styling API that natively integrates with Atlassian's [design tokens](/tokens) and [primitives](/components/primitives).
 
@@ -13,14 +14,14 @@ The `xcss` utility behaves similarly to the `css` utility in libraries like `sty
 
 Familiar features:
 
-* `xcss` generates a `className` that is applied to the components
-* `xcss` provides key-value pairs of CSS properties in an object format
-* `xcss` supports style precedence and conditional styles
+- `xcss` generates a `className` that is applied to the components
+- `xcss` provides key-value pairs of CSS properties in an object format
+- `xcss` supports style precedence and conditional styles
 
 Key differences:
 
-* `xcss` has type-safety that ensures token name usage for all CSS properties represented by design tokens.
-* `xcss` restricts nested selectors completely from usage
+- `xcss` has type-safety that ensures token name usage for all CSS properties represented by design tokens.
+- `xcss` restricts nested selectors completely from usage
 
 ## Usage
 
@@ -46,9 +47,10 @@ const someStyles = xcss({
 });
 
 const MyBox = () => {
-  return <Box xcss={someStyles} />
-}
+  return <Box xcss={someStyles} />;
+};
 ```
+
 The `xcss` prop and the `xcss` function are direct complements and are designed to be used together.
 
 It is important to note that styles generated from `xcss` cannot be applied directly to the `className` property or `css` as they are with other CSS-in-JS libraries.
@@ -68,12 +70,13 @@ import { xcss } from '@atlaskit/primitives';
 
 const someStyles = xcss({
   padding: 'space.200', // <--- works
-  color: 'space.200',   // <--- invalid and will error
-  borderRadius: 'border.radius.100' // <--- also valid
+  color: 'space.200', // <--- invalid and will error
+  borderRadius: 'border.radius.100', // <--- also valid
 });
 ```
 
 ### Restricted nesting
+
 `xcss` is flexible enough to implement any design, but it does restrict the application of styles in one key way.
 Selectors cannot be nested or target elements beyond the element on which styles are applied.
 This restriction is intended to encourage better component encapsulation, reduce side-effects and make the codebase more resilient to change.
@@ -83,16 +86,16 @@ import { xcss } from '@atlaskit/primitives';
 
 const someStyles = xcss({
   ':hover': {
-    transform: 'scale(1)' // this is okay
+    transform: 'scale(1)', // this is okay
   },
   // This is not okay as this selector affects any nested div in
   // the component tree.
   'div:hover': {
-    transform: 'scale(1)'
+    transform: 'scale(1)',
   },
   // Neither is this
   '> * > div:hover': {
-    transform: 'scale(1)'
+    transform: 'scale(1)',
   },
 });
 ```
@@ -101,6 +104,7 @@ These unsafe selectors will throw a type error if applied.
 For richer examples of how to use `xcss` please see the [primitives `xcss` documentation](/components/primitives/xcss/examples).
 
 ### Media Queries
+
 xcss can create responsive layouts at predefined breakpoints that are consistent with the Atlassian Design System. To enable responsive behavior, xcss exposes the following pre-defined breakpoints:
 
 <MediaQueriesTable />
@@ -142,6 +146,6 @@ const someStyles = xcss({
 
 ## Get help
 
-* Atlassians can reach out in [Slack](slack://channel?team=TFCUTJ0G5&id=CFJ9DU39U) for help with `xcss` migration.
-* Other developers who need help with tokens or the `xcss` utility can post in the [public developer community](https://community.developer.atlassian.com/).
-* For general help with the Atlassian Design System, [contact us](/resources/contact-us).
+- Atlassians can reach out in [Slack](slack://channel?team=TFCUTJ0G5&id=CFJ9DU39U) for help with `xcss` migration.
+- Other developers who need help with tokens or the `xcss` utility can post in the [public developer community](https://community.developer.atlassian.com/).
+- For general help with the Atlassian Design System, [contact us](/resources/contact-us).

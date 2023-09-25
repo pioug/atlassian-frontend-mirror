@@ -27,31 +27,34 @@ A side navigation example showing all [components](#side-navigation-components) 
 Uses 100% of its parent's height and width, so make sure to place it into an element with explicit values set.<br />
 **Minimum width of 240px.**
 
-<Example Component={ContainerExample} packageName="@atlaskit/side-navigation"/>
+<Example Component={ContainerExample} packageName="@atlaskit/side-navigation" />
 
 ### Header and footer
 
 You can customise header and footer using `NavigationHeader` and `NavigationFooter`.
 
-<Example Component={HeaderAndFooterExample} packageName="@atlaskit/side-navigation"/>
+<Example
+  Component={HeaderAndFooterExample}
+  packageName="@atlaskit/side-navigation"
+/>
 
 ### Content
 
 Used as the container for [navigation items](#side-navigation-items). For nested views see the following example.
 
-<Example Component={ContentExample} packageName="@atlaskit/side-navigation"/>
+<Example Component={ContentExample} packageName="@atlaskit/side-navigation" />
 
 ### Section
 
 Used to separate items into sections. Using the `title` prop makes a section implicitly group the items for screen readers with no additional work required.
 
-<Example Component={SectionExample} packageName="@atlaskit/side-navigation"/>
+<Example Component={SectionExample} packageName="@atlaskit/side-navigation" />
 
 ### Nested navigation
 
 The container for navigation items with nested views is `NestableNavigationContent`.
 
-<Example Component={NestedExample} packageName="@atlaskit/side-navigation"/>
+<Example Component={NestedExample} packageName="@atlaskit/side-navigation" />
 
 ## Side navigation items
 
@@ -62,7 +65,7 @@ The `Section` component **must** be used to ensure consistent spacing around blo
 
 This item is used to provide a customized "go back" button in nested navigations.
 
-<Example Component={GoBackExample} packageName="@atlaskit/side-navigation"/>
+<Example Component={GoBackExample} packageName="@atlaskit/side-navigation" />
 
 ### Link item
 
@@ -70,7 +73,7 @@ Renders an item wrapped in an anchor tag, useful when you have an item that shou
 
 For custom SPA transitions use a custom item with the respective router logic, following the next example.
 
-<Example Component={LinkItemExample} packageName="@atlaskit/side-navigation"/>
+<Example Component={LinkItemExample} packageName="@atlaskit/side-navigation" />
 
 ### Custom item
 
@@ -78,13 +81,19 @@ Handles use cases where a custom router link component is needed.
 
 The custom component receives all overflow props passed to the custom item component, as well as when using TypeScript will add the custom component props to the root component props type for type safety.
 
-<Example Component={CustomItemExample} packageName="@atlaskit/side-navigation"/>
+<Example
+  Component={CustomItemExample}
+  packageName="@atlaskit/side-navigation"
+/>
 
 ### Button item
 
 Renders an item wrapped in a button tag, used primarily when an action does something other than changing routes.
 
-<Example Component={ButtonItemExample} packageName="@atlaskit/side-navigation"/>
+<Example
+  Component={ButtonItemExample}
+  packageName="@atlaskit/side-navigation"
+/>
 
 ### Heading item
 
@@ -94,4 +103,4 @@ Available for advanced use cases, for most situations providing a `title` to `Se
 
 Use loading skeletons to reduce the perceived loading time.
 
-<Example Component={LoadingExample} packageName="@atlaskit/side-navigation"/>
+<Example Component={LoadingExample} packageName="@atlaskit/side-navigation" />

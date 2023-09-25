@@ -4,16 +4,16 @@ import { Fragment } from 'react';
 import { Field } from '@atlaskit/form';
 import type { ColorField } from '@atlaskit/editor-common/extensions';
 import type { FeatureFlags } from '@atlaskit/editor-common/types';
-import type { PaletteColor } from '../../../ui/ColorPalette/Palettes';
-import { DEFAULT_BORDER_COLOR } from '../../../ui/ColorPalette/Palettes/common';
+import type { PaletteColor } from '@atlaskit/editor-common/ui-color';
+import { DEFAULT_BORDER_COLOR } from '@atlaskit/editor-common/ui-color';
 import type { OnFieldChange } from '../types';
 import { validate } from '../utils';
 import { token } from '@atlaskit/tokens';
 import { requiredIndicator } from './common/RequiredIndicator';
 import { headingSizes } from '@atlaskit/theme/typography';
 import FieldMessages from '../FieldMessages';
-import ColorPickerButton from '../../ColorPickerButton';
-import { chartsColorPaletteTooltipMessages } from '../../../ui/ColorPalette';
+import { ColorPickerButton } from '@atlaskit/editor-common/ui-menu';
+import { chartsColorPaletteTooltipMessages } from '@atlaskit/editor-common/ui-color';
 /*
     NOTE: color used here are not yet in atlaskit code
     this is part of extended color pack from ADG, which is yet to be release

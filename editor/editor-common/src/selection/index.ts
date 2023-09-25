@@ -8,6 +8,7 @@ import {
   NodeSelection,
   TextSelection,
 } from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables';
 import { selectedRect } from '@atlaskit/editor-tables/utils';
 
@@ -21,7 +22,12 @@ import {
 import type { Command } from '../types';
 
 export { RelativeSelectionPos } from './types';
-export type { SelectionPluginState, EditorSelectionAPI } from './types';
+export type {
+  SelectionPluginState,
+  EditorSelectionAPI,
+  SelectionPluginOptions,
+  SelectionSharedState,
+} from './types';
 
 export {
   GapCursorSelection,
@@ -142,3 +148,37 @@ export const selectNode =
     }
     return true;
   };
+export function createSelectionClickHandler(
+  nodes: string[],
+  isValidTarget: (target: HTMLElement) => boolean,
+  options: {
+    useLongPressSelection: boolean;
+    getNodeSelectionPos?: (state: EditorState, nodePos: number) => number;
+  },
+) {
+  return function handleClickOn(
+    view: EditorView,
+    pos: number,
+    node: PmNode,
+    nodePos: number,
+    event: MouseEvent,
+    direct: boolean,
+  ) {
+    if (options.useLongPressSelection) {
+      return false;
+    }
+    if (direct && nodes.indexOf(node.type.name) !== -1) {
+      if (event.target) {
+        const target = event.target as HTMLElement;
+        if (isValidTarget(target)) {
+          const selectionPos = options.getNodeSelectionPos
+            ? options.getNodeSelectionPos(view.state, nodePos)
+            : nodePos;
+          selectNode(selectionPos)(view.state, view.dispatch);
+          return true;
+        }
+      }
+    }
+    return false;
+  };
+}

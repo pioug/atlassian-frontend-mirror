@@ -1,27 +1,29 @@
 /** @jsx jsx */
 import React from 'react';
 import { css, jsx } from '@emotion/react';
-import {
-  defineMessages,
-  WrappedComponentProps,
-  injectIntl,
-} from 'react-intl-next';
-import EditorSearchIcon from '@atlaskit/icon/glyph/editor/search';
+import type { WrappedComponentProps } from 'react-intl-next';
+import { defineMessages, injectIntl } from 'react-intl-next';
 import {
   akEditorFloatingPanelZIndex,
   akEditorMobileMaxWidth,
 } from '@atlaskit/editor-shared-styles';
 import ToolbarButton, { TOOLBAR_BUTTON } from '../../../ui/ToolbarButton';
-import Dropdown from '../../../ui/Dropdown';
-import FindReplace, { FindReplaceProps } from './FindReplace';
-import { TRIGGER_METHOD, DispatchAnalyticsEvent } from '../../analytics/types';
+import {
+  Dropdown,
+  ArrowKeyNavigationType,
+} from '@atlaskit/editor-common/ui-menu';
+import EditorSearchIcon from '@atlaskit/icon/glyph/editor/search';
+import { token } from '@atlaskit/tokens';
+import type { FindReplaceProps } from './FindReplace';
+import FindReplace from './FindReplace';
+import type { DispatchAnalyticsEvent } from '../../analytics/types';
+import { TRIGGER_METHOD } from '../../analytics/types';
 import {
   ToolTipContent,
   findKeymapByDescription,
   tooltip,
 } from '../../../keymaps';
 import { getAriaKeyshortcuts } from '@atlaskit/editor-common/keymaps';
-import { ArrowKeyNavigationType } from '@atlaskit/editor-common/ui-menu';
 
 const toolbarButtonWrapper = css`
   display: flex;
@@ -29,7 +31,7 @@ const toolbarButtonWrapper = css`
   flex-grow: 0;
   justify-content: flex-end;
   align-items: center;
-  padding: 0 8px;
+  padding: 0 ${token('space.100', '8px')};
   @media (max-width: ${akEditorMobileMaxWidth}px) {
     justify-content: center;
     padding: 0;

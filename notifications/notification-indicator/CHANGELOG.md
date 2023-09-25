@@ -1,5 +1,11 @@
 # @atlaskit/notification-indicator
 
+## 9.1.5
+
+### Patch Changes
+
+- [`cd4be3557be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cd4be3557be) - Enrol @atlaskit/notification-indicator to push-model in JFE
+
 ## 9.1.4
 
 ### Patch Changes

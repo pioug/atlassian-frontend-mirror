@@ -2,7 +2,7 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { Dispatch } from '../../../event-dispatcher';
-import { createSelectionClickHandler } from '../../selection/utils';
+import { createSelectionClickHandler } from '@atlaskit/editor-common/selection';
 import ExpandNodeView from '../nodeviews';
 import { setExpandRef } from '../commands';
 import { findExpand } from '../utils';
@@ -10,7 +10,11 @@ import { expandClassNames } from '../ui/class-names';
 import { getPluginState, createPluginState, pluginKey } from './plugin-factory';
 import type { EditorProps } from '../../../types';
 import type { IntlShape } from 'react-intl-next';
-import type { FeatureFlags } from '@atlaskit/editor-common/types';
+import type {
+  FeatureFlags,
+  ExtractInjectionAPI,
+} from '@atlaskit/editor-common/types';
+import type expandPlugin from '../index';
 
 export function containsClass(
   element: Element | null,
@@ -25,6 +29,7 @@ export const createPlugin = (
   appearance: EditorProps['appearance'] = 'full-page',
   useLongPressSelection: boolean = false,
   featureFlags: FeatureFlags,
+  api: ExtractInjectionAPI<typeof expandPlugin> | undefined,
 ) => {
   const state = createPluginState(dispatch, {});
   const isMobile = appearance === 'mobile';
@@ -34,8 +39,8 @@ export const createPlugin = (
     key: pluginKey,
     props: {
       nodeViews: {
-        expand: ExpandNodeView({ getIntl, isMobile, featureFlags }),
-        nestedExpand: ExpandNodeView({ getIntl, isMobile, featureFlags }),
+        expand: ExpandNodeView({ getIntl, isMobile, featureFlags, api }),
+        nestedExpand: ExpandNodeView({ getIntl, isMobile, featureFlags, api }),
       },
       handleKeyDown(_view, event) {
         return containsClass(

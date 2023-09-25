@@ -1,4 +1,4 @@
-import { pluginFactory } from '../../../../utils/plugin-state-factory';
+import { pluginFactory } from '@atlaskit/editor-common/utils';
 import { pluginKey } from './plugin-key';
 import { reducer } from './reducer';
 

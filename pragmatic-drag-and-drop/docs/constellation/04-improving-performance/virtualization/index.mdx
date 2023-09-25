@@ -24,4 +24,3 @@ Determining when a drop occurs for virtual solutions can be difficult:
 - If the user does not drop on a valid _drop target_ and the dragging `draggable` is removed, then we have to rely on detecting other user input events to see if the drag operation is finished. This is not ideal as it means the user needs to do a small amount of movement after releasing their pointer before we can fire `onDrop`.
 
 To get around this problem you want to make it easy for a user to always drop on a valid _drop target_ so we always get the `"drop"` event. To do this, you can make a sufficiently high element a _drop target_ (eg a virtual list container or the `body`).
-

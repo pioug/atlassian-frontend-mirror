@@ -28,8 +28,8 @@ import { getPanelTypeBackgroundNoTokens } from '@atlaskit/editor-common/panel';
 import { findPanel } from './utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
-import type { PaletteColor } from '../../ui/ColorPalette/Palettes';
-import { DEFAULT_BORDER_COLOR } from '../../ui/ColorPalette/Palettes';
+import type { PaletteColor } from '@atlaskit/editor-common/ui-color';
+import { DEFAULT_BORDER_COLOR } from '@atlaskit/editor-common/ui-color';
 import { PanelType } from '@atlaskit/adf-schema';
 import type { AnalyticsEventPayload } from '../analytics';
 import {

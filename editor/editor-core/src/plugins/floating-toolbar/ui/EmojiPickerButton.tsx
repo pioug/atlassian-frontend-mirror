@@ -13,14 +13,14 @@ import type { EmojiId } from '@atlaskit/emoji';
 import { EmojiPicker } from '@atlaskit/emoji';
 import Tooltip from '@atlaskit/tooltip';
 import EditorEmojiAddIcon from './EditorEmojiAddIcon';
-import withOuterListeners from '../../../ui/with-outer-listeners';
+import { withReactEditorViewOuterListeners } from '@atlaskit/editor-common/ui-react';
 
 // helps adjusts position of popup
 const emojiPickerButtonWrapper = css`
   position: relative;
 `;
 
-const EmojiPickerWithListener = withOuterListeners(EmojiPicker);
+const EmojiPickerWithListener = withReactEditorViewOuterListeners(EmojiPicker);
 
 export const EmojiPickerButton: React.FunctionComponent<{
   className?: string;

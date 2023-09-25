@@ -5,6 +5,8 @@ import type {
 } from '@atlaskit/editor-prosemirror/state';
 import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
+import type { LongPressSelectionPluginOptions } from '../types';
+
 export enum RelativeSelectionPos {
   Before = 'Before',
   Start = 'Start',
@@ -31,3 +33,12 @@ export type EditorSelectionAPI = {
   }) => (state: EditorState) => Transaction;
   getSelectionPluginState: (state: EditorState) => SelectionPluginState;
 };
+
+export interface SelectionPluginOptions
+  extends LongPressSelectionPluginOptions {}
+
+export type SelectionSharedState =
+  | {
+      selectionRelativeToNode?: RelativeSelectionPos | undefined;
+    }
+  | undefined;

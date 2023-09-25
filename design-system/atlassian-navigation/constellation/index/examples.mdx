@@ -23,7 +23,10 @@ import AtlassianNavigationSkeletonLoaders from '../../examples/constellation/atl
 
 A basic Atlassian navigation.
 
-<Example Component={AtlassianNavigationDefaultExample} packageName="@atlaskit/atlassian-navigation"/>
+<Example
+  Component={AtlassianNavigationDefaultExample}
+  packageName="@atlaskit/atlassian-navigation"
+/>
 
 ## Primary items
 
@@ -31,81 +34,117 @@ A basic Atlassian navigation.
 
 Add top-level navigation items using `PrimaryButton`.
 
-<Example Component={AtlassianNavigationPrimaryButtonExample} packageName="@atlaskit/atlassian-navigation"/>
+<Example
+  Component={AtlassianNavigationPrimaryButtonExample}
+  packageName="@atlaskit/atlassian-navigation"
+/>
 
 ### Dropdown menu
 
 Add menu items to a primary button using the `PrimaryDropdownButton` component.
 
-<Example Component={AtlassianNavigationPrimaryDropdownExample} packageName="@atlaskit/atlassian-navigation"/>
+<Example
+  Component={AtlassianNavigationPrimaryDropdownExample}
+  packageName="@atlaskit/atlassian-navigation"
+/>
 
 ## Sections
 
 The navigation bar is divided into two areas (primary and secondary) and several sections.
 
-* The primary area shows the app switcher first, followed by the product home logo, dropdown buttons, and the call to action button (Create).
-* The secondary area — on the opposite side — can contain a search bar, notification button, help button, settings icon, and user profile actions.
+- The primary area shows the app switcher first, followed by the product home logo, dropdown buttons, and the call to action button (Create).
+- The secondary area — on the opposite side — can contain a search bar, notification button, help button, settings icon, and user profile actions.
 
 ### Product home
 
 The `ProductHome` component displays the product visual identity composed of: logo, icon, and optional text.<br />
 Values for `logo` and `icon` are never displayed at the same time, where `icon` is used only when space is restricted.
 
-<Example Component={AtlassianNavigationProductHomeExample} packageName="@atlaskit/atlassian-navigation"/>
+<Example
+  Component={AtlassianNavigationProductHomeExample}
+  packageName="@atlaskit/atlassian-navigation"
+/>
 
 ### Custom product home
 
 Use `CustomProductHome` to provide a custom logo and icon with URLs. Custom logos have a default max width of `260px`, but this can be overridden with the `logoMaxWidth` prop.
 
-<Example Component={AtlassianNavigationCustomProductHomeExample} packageName="@atlaskit/atlassian-navigation"/>
+<Example
+  Component={AtlassianNavigationCustomProductHomeExample}
+  packageName="@atlaskit/atlassian-navigation"
+/>
 
 ### App switcher
 
 To show the app switcher in Atlassian navigation, use the `renderAppSwitcher` prop with the `AppSwitcher` component.
 
-<Example Component={AtlassianNavigationAppSwitcherExample} packageName="@atlaskit/atlassian-navigation"/>
+<Example
+  Component={AtlassianNavigationAppSwitcherExample}
+  packageName="@atlaskit/atlassian-navigation"
+/>
 
 ### Create
 
 A call to action button can be added with the `Create` component, which is shown after all primary buttons.
 
-<Example Component={AtlassianNavigationCreateButtonExample} packageName="@atlaskit/atlassian-navigation"/>
+<Example
+  Component={AtlassianNavigationCreateButtonExample}
+  packageName="@atlaskit/atlassian-navigation"
+/>
 
 ### Profile
 
 A profile button which takes an icon/avatar component can be added with the `Profile` component.
 
-<Example Component={AtlassianNavigationProfileExample} packageName="@atlaskit/atlassian-navigation"/>
+<Example
+  Component={AtlassianNavigationProfileExample}
+  packageName="@atlaskit/atlassian-navigation"
+/>
 
 ### Search
 
 The `Search` component is a search input field that can be added to the navigation.
 
-<Example Component={AtlassianNavigationSearchExample} packageName="@atlaskit/atlassian-navigation"/>
+<Example
+  Component={AtlassianNavigationSearchExample}
+  packageName="@atlaskit/atlassian-navigation"
+/>
 
 ### Settings
 
 A settings button can be added with the `Settings` component.
 
-<Example Component={AtlassianNavigationSettingsExample} packageName="@atlaskit/atlassian-navigation"/>
+<Example
+  Component={AtlassianNavigationSettingsExample}
+  packageName="@atlaskit/atlassian-navigation"
+/>
 
 ### Sign in
 
 A sign in button can be added with the `SignIn` component.
 
-<Example Component={AtlassianNavigationSignInExample} packageName="@atlaskit/atlassian-navigation"/>
+<Example
+  Component={AtlassianNavigationSignInExample}
+  packageName="@atlaskit/atlassian-navigation"
+/>
 
 ### Help
 
 A help button can be added with the `Help` component.
 
-<Example Component={AtlassianNavigationHelpButtonExample} packageName="@atlaskit/atlassian-navigation"/>
+<Example
+  Component={AtlassianNavigationHelpButtonExample}
+  packageName="@atlaskit/atlassian-navigation"
+/>
 
 ### Notifications
 
 A notifications button with indicator can be added with the `Notifications` component.
 
-<Example Component={AtlassianNavigationNotificationsExample} packageName="@atlaskit/atlassian-navigation"/>
+<Example
+  Component={AtlassianNavigationNotificationsExample}
+  packageName="@atlaskit/atlassian-navigation"
+/>
 
 ## Routing
 
@@ -115,18 +154,21 @@ This includes the `component` prop, which allows you to pass in a custom element
 such as the `<Link>` component from popular routing libraries.
 
 ```js
-import Link from '@popular/routing-library'
+import Link from '@popular/routing-library';
 import { PrimaryButton } from '@atlaskit/atlassian-navigation';
 
 // Set a custom component
-<PrimaryButton component={Link}>Your Work</PrimaryButton>
+<PrimaryButton component={Link}>Your Work</PrimaryButton>;
 ```
 
 ## Responsive
 
 There may be too many menu items to display on small viewports. In these cases, the overflowing items should collapse into a dropdown menu.
 
-<Example Component={AtlassianNavigationOverflowMenuExample} packageName="@atlaskit/atlassian-navigation"/>
+<Example
+  Component={AtlassianNavigationOverflowMenuExample}
+  packageName="@atlaskit/atlassian-navigation"
+/>
 
 ## Loading
 
@@ -136,10 +178,16 @@ Skeleton buttons are lightweight HTML button elements with CSS used as a represe
 
 These can be used when only certain parts of the navigation are loaded dynamically; if the full navigation is delayed, use the skeleton loader pattern below instead.
 
-<Example Component={AtlassianNavigationSkeletonButtonsExample} packageName="@atlaskit/atlassian-navigation"/>
+<Example
+  Component={AtlassianNavigationSkeletonButtonsExample}
+  packageName="@atlaskit/atlassian-navigation"
+/>
 
 ### Skeleton loader
 
 Use loading skeletons to reduce the perceived loading time of heavier full-page experiences.
 
-<Example Component={AtlassianNavigationSkeletonLoaders} packageName="@atlaskit/atlassian-navigation"/>
+<Example
+  Component={AtlassianNavigationSkeletonLoaders}
+  packageName="@atlaskit/atlassian-navigation"
+/>

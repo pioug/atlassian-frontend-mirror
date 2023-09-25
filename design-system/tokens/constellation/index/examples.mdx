@@ -13,9 +13,9 @@ import TokensLineChartExample from '../../examples/constellation/token-line-char
 import TokensPieChartExample from '../../examples/constellation/token-pie-chart';
 import TokensBarChartExample from '../../examples/constellation/token-bar-chart';
 
-import TokenRadiusExample from '../../examples/constellation/token-radius'
+import TokenRadiusExample from '../../examples/constellation/token-radius';
 
-import TokenElevationExample from '../../examples/constellation/token-elevation'
+import TokenElevationExample from '../../examples/constellation/token-elevation';
 
 import TokenNeutralExample from '../../examples/constellation/token-card-neutral';
 import TokenBrandExample from '../../examples/constellation/token-card-brand';
@@ -30,9 +30,14 @@ import TokensNegativeSpaceExample from '../../examples/constellation/token-negat
 
 <SectionMessage title="Design tokens are in beta." appearance="discovery">
   <p>
-    Expect some changes as we iterate over the coming months.
-    For early access and release updates, <a href="https://community.developer.atlassian.com/t/introducing-design-tokens-new-colour-foundations-and-dark-mode/62258">see our developer community announcement</a>.
-    For Atlassians, <a href="/tokens/migrate-to-tokens/">learn how to migrate</a>.
+    Expect some changes as we iterate over the coming months. For early access
+    and release updates,{' '}
+    <a href="https://community.developer.atlassian.com/t/introducing-design-tokens-new-colour-foundations-and-dark-mode/62258">
+      see our developer community announcement
+    </a>
+    . For Atlassians, <a href="/tokens/migrate-to-tokens/">
+      learn how to migrate
+    </a>.
   </p>
 </SectionMessage>
 
@@ -44,37 +49,40 @@ This primary button uses a background token, text token, and other tokens to cre
 
 Buttons and other components can have multiple possible [interaction states](/foundations/color-new/#interaction-states), which require specific tokens to be applied for each state.
 
-<TokensButtonExample/>
+<TokensButtonExample />
 
 ### Modal dialog
 
 Modal dialogs use a surface token and shadow token to illustrate [elevation](/foundations/elevation). The surface token ensures no content shows underneath the modal.
 
-<TokensModalExample/>
+<TokensModalExample />
 
 ### Tag
 
 In the tag example, we can see the use of accent colors. Accent colors are available for text, icons, borders, and backgrounds. Apply accent tokens where [colors](/foundations/color-new/#color-roles) do not have a specific meaning tied to them.
 
-<TokensTagExample/>
+<TokensTagExample />
 
 ### Table
 
 An overflow shadow can be applied on horizontal scrollable tables to indicate there is hidden content that can be scrolled back into view.
 
-<TokensTableExample/>
+<TokensTableExample />
 
 ## Chart examples
 
 Use chart color tokens for chart elements that represent the data. Read our [data visualization color guideline](/foundations/color-new/data-visualization-color/) for guidance on color usage in charts.
 
 ### Line chart
+
 <TokensLineChartExample />
 
 ### Pie chart
+
 <TokensPieChartExample />
 
 ### Bar chart
+
 <TokensBarChartExample />
 
 ## Border examples
@@ -90,39 +98,48 @@ Use the default radius of `border.radius` if in doubt. If you are nesting elemen
 These pairing examples are some ways you can mix and match our tokens. If you decide to use a combination of tokens that’s not listed here, make sure to check the contrast to ensure it passes [WCAG AA guidelines](https://www.w3.org/WAI/WCAG2AA-Conformance).
 
 ### Neutral
+
 <TokenNeutralExample />
 
 ### Brand
-<TokenBrandExample/>
+
+<TokenBrandExample />
 
 ### Information
-<TokenInformationExample/>
+
+<TokenInformationExample />
 
 ### Success
-<TokenSuccessExample/>
+
+<TokenSuccessExample />
 
 ### Warning
-<TokenWarningExample/>
+
+<TokenWarningExample />
 
 ### Danger
-<TokenDangerExample/>
+
+<TokenDangerExample />
 
 ### Discovery
-<TokenDiscoveryExample/>
+
+<TokenDiscoveryExample />
 
 ### Selected
-<TokenSelectedExample/>
+
+<TokenSelectedExample />
 
 ### Elevations
 
 There are four available elevations: default, raised, overlay and sunken.
 Raised and overlay elevations require a combination of a surface color, and a matching shadow.
 
-<TokenElevationExample/>
+<TokenElevationExample />
 
 ## Spacing examples
 
 ### Negative values
+
 Occasionally you may need a negative space value, for example a negative margin breaking content out of its container.
 In this situation, use the CSS `calc` function to multiply a space token by `-1`.
 
@@ -130,4 +147,4 @@ In this situation, use the CSS `calc` function to multiply a space token by `-1`
 Avoid performing any other calculations on space tokens, such as adding, subtracting, or dividing.
 Avoid multiplying space tokens by values other than `-1`. The new [spacing scale](/components/tokens/all-tokens) provides a range of space values to suit many use cases.
 
-<TokensNegativeSpaceExample/>
+<TokensNegativeSpaceExample />

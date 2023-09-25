@@ -3,9 +3,9 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 
 import type { Dispatch } from '../../../event-dispatcher';
-import { textColorPalette } from '../../../ui/ColorPalette/Palettes/textColorPalette';
-import type { PaletteColor } from '../../../ui/ColorPalette/Palettes/type';
-import { DEFAULT_BORDER_COLOR } from '../../../ui/ColorPalette/Palettes/common';
+import { textColorPalette } from '@atlaskit/editor-common/ui-color';
+import type { PaletteColor } from '@atlaskit/editor-common/ui-color';
+import { DEFAULT_BORDER_COLOR } from '@atlaskit/editor-common/ui-color';
 import { DEFAULT_COLOR, getActiveColor } from '../utils/color';
 import { getDisabledState } from '../utils/disabled';
 

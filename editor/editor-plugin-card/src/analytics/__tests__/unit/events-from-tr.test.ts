@@ -1,12 +1,15 @@
 import { ACTION, INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { addLinkMetadata } from '@atlaskit/editor-common/card';
+import { pmHistoryPluginKey } from '@atlaskit/editor-common/utils';
 import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
+import type { PluginKey } from '@atlaskit/editor-prosemirror/state';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   a,
   blockquote,
+  datasourceBlockCard,
   doc,
   inlineCard,
   p,
@@ -15,9 +18,23 @@ import {
   tr as tableRow,
   td,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DatasourceAdf } from '@atlaskit/linking-common';
 
 import { queueCardsFromChangedTr } from '../../../pm-plugins/doc';
 import { findChanged } from '../../events-from-tr';
+
+const datasourceNoUrlAdfAttrs: DatasourceAdf['attrs'] = {
+  datasource: {
+    id: 'datasource-id',
+    parameters: { jql: 'EDM=jql', cloudId: 'cloud-id' },
+    views: [
+      {
+        type: 'table',
+        properties: { columns: [{ key: 'col1' }, { key: 'col2' }] },
+      },
+    ],
+  },
+};
 
 describe('findChanged', () => {
   it('should find 1 inserted link when inserting into the document into a position that is not already a link', () => {
@@ -170,6 +187,64 @@ describe('findChanged', () => {
     expect(updated).toHaveLength(0);
   });
 
+  it('should find 1 inserted and 1 deleted when downgrading from datasource to a link', () => {
+    const href = 'https://atlassian.com';
+    const state = createEditorState(
+      doc(datasourceBlockCard(datasourceNoUrlAdfAttrs)()),
+    );
+    const historyKey = {
+      key: pmHistoryPluginKey,
+    } as unknown as PluginKey;
+
+    const undoTransaction = state.tr;
+    const linkSlice = new Slice(
+      Fragment.from(p(a({ href })(href))(state.schema)),
+      0,
+      0,
+    );
+
+    undoTransaction.replaceRange(0, state.doc.content.size, linkSlice);
+    undoTransaction.setMeta(historyKey, { redo: false });
+    addLinkMetadata(state.selection, undoTransaction, {
+      cardAction: 'RESOLVE',
+      inputMethod: INPUT_METHOD.CLIPBOARD,
+    });
+
+    const { inserted, removed, updated } = findChanged(undoTransaction, state);
+
+    expect(inserted).toHaveLength(1);
+    expect(removed).toHaveLength(1);
+    expect(updated).toHaveLength(0);
+  });
+
+  it('should find 1 inserted and 1 deleted when upgrading from link to a datasource', () => {
+    const href = 'https://atlassian.com';
+    const state = createEditorState(doc(p(a({ href })(href))));
+    const historyKey = {
+      key: pmHistoryPluginKey,
+    } as unknown as PluginKey;
+
+    const redoTransaction = state.tr;
+    const datasource = datasourceBlockCard(datasourceNoUrlAdfAttrs)();
+    const slice = new Slice(
+      Fragment.from(doc('{<node>}', datasource)(state.schema)),
+      0,
+      0,
+    );
+    redoTransaction.replaceRange(0, state.doc.content.size, slice);
+    redoTransaction.setMeta(historyKey, { redo: true });
+    addLinkMetadata(state.selection, redoTransaction, {
+      cardAction: 'RESOLVE',
+      inputMethod: INPUT_METHOD.CLIPBOARD,
+    });
+
+    const { inserted, removed, updated } = findChanged(redoTransaction, state);
+
+    expect(inserted).toHaveLength(1);
+    expect(removed).toHaveLength(1);
+    expect(updated).toHaveLength(0);
+  });
+
   describe('updates', () => {
     it('should find 2 updated links when replacing a range that includes 2 entire links, with a slice that contains 2 links and is marked as an update', () => {
       const href = 'https://atlassian.com';
@@ -203,7 +278,7 @@ describe('findChanged', () => {
       expect(updated).toHaveLength(2);
     });
 
-    it('should find no changes if inserted link positons are queued for upgrade', () => {
+    it('should find no changes if inserted link positions are queued for upgrade', () => {
       const href = 'https://atlassian.com';
       const state = createEditorState(
         doc(p(a({ href })(href), ' some more text ', a({ href })(href))),

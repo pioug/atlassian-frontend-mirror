@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-card-provider",
-  "version": "3.1.7",
+  "version": "3.1.8",
   "description": "Contains the EditorCardProvider, for determining smart card behaviour in the editor.",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -39,7 +39,7 @@
     "@atlaskit/linking-common": "^4.10.0",
     "@babel/runtime": "^7.0.0",
     "dataloader": "^2.0.0",
-    "json-ld-types": "3.9.1",
+    "json-ld-types": "^3.9.1",
     "setimmediate": "^1.0.5"
   },
   "peerDependencies": {

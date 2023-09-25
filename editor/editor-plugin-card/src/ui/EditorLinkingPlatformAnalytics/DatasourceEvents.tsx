@@ -57,7 +57,7 @@ function getAnalyticAttributesFromNode(
   let inputMethod = '';
   let actions = [];
   if (metadata.inputMethod) {
-    inputMethod = getMethod({ inputMethod: metadata.inputMethod }) ?? '';
+    inputMethod = getMethod(metadata) ?? '';
   } else if (metadata.sourceEvent instanceof UIAnalyticsEvent) {
     inputMethod = metadata.sourceEvent.payload.attributes?.inputMethod;
     actions = metadata.sourceEvent.payload.attributes?.actions;

@@ -1,21 +1,30 @@
 import type {
   EditorCommand,
   NextEditorPlugin,
+  EditorCommandWithMetadata,
 } from '@atlaskit/editor-common/types';
+import type { SelectionSharedState } from '@atlaskit/editor-common/selection';
 
 import { createPlugin } from './pm-plugins/selection-main';
 import type { SelectionPluginOptions } from './types';
+import { selectionPluginKey } from './types';
 import selectionKeymapPlugin from './pm-plugins/keymap';
 
 import gapCursorPlugin from './pm-plugins/gap-cursor-main';
 import { gapCursorPluginKey } from './pm-plugins/gap-cursor-plugin-key';
 import gapCursorKeymapPlugin from './pm-plugins/gap-cursor-keymap';
 
-type SelectionPlugin = NextEditorPlugin<
+import { selectNearNode } from './commands';
+
+export type SelectionPlugin = NextEditorPlugin<
   'selection',
   {
     pluginConfiguration: SelectionPluginOptions | undefined;
-    commands: { displayGapCursor: (toggle: boolean) => EditorCommand };
+    commands: {
+      displayGapCursor: (toggle: boolean) => EditorCommand;
+      selectNearNode: EditorCommandWithMetadata;
+    };
+    sharedState: SelectionSharedState;
   }
 >;
 
@@ -32,6 +41,17 @@ export const selectionPlugin: SelectionPlugin = ({ config: options }) => ({
 
   commands: {
     displayGapCursor,
+    selectNearNode,
+  },
+
+  getSharedState(editorState) {
+    if (!editorState) {
+      return undefined;
+    }
+    const pluginState = selectionPluginKey.getState(editorState);
+    return {
+      selectionRelativeToNode: pluginState?.selectionRelativeToNode,
+    };
   },
 
   pmPlugins() {

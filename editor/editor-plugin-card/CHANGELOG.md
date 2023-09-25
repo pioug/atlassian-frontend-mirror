@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-card
 
+## 0.8.1
+
+### Patch Changes
+
+- [`ae7c1132c88`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ae7c1132c88) - Added analytics fix for undo/redo scenarious of link upgrade to a datasource
+- [`553b34b5fd4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/553b34b5fd4) - Small analytics bug fixes relating to auto-linking on enter, legacy link picker, and unresolvable links.
+
 ## 0.8.0
 
 ### Minor Changes

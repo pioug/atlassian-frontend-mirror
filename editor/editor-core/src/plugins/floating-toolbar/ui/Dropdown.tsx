@@ -11,8 +11,8 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { token } from '@atlaskit/tokens';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
 
-import type { OpenChangedEvent } from '../../../ui/Dropdown';
-import UiDropdown from '../../../ui/Dropdown';
+import type { OpenChangedEvent } from '@atlaskit/editor-common/ui';
+import { DropdownContainer as UiDropdown } from '@atlaskit/editor-common/ui-menu';
 import { FloatingToolbarButton as Button } from '@atlaskit/editor-common/ui';
 
 import DropdownMenu, { itemSpacing, menuItemDimensions } from './DropdownMenu';

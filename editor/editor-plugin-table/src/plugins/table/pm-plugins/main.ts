@@ -90,11 +90,6 @@ import { defaultTableSelection } from './default-table-selection';
 import { createPluginState, getPluginState } from './plugin-factory';
 import { pluginKey } from './plugin-key';
 
-let isBreakoutEnabled: boolean | undefined;
-let isFullWidthModeEnabled: boolean | undefined;
-let wasFullWidthModeEnabled: boolean | undefined;
-let isTableResizingEnabled: boolean | undefined;
-
 export const createPlugin = (
   dispatchAnalyticsEvent: DispatchAnalyticsEvent,
   dispatch: Dispatch,
@@ -111,16 +106,14 @@ export const createPlugin = (
   editorAnalyticsAPI?: EditorAnalyticsAPI,
   pluginInjectionApi?: PluginInjectionAPI,
 ) => {
-  isBreakoutEnabled = breakoutEnabled;
-  isFullWidthModeEnabled = fullWidthModeEnabled;
-  wasFullWidthModeEnabled = previousFullWidthModeEnabled;
-  isTableResizingEnabled = tableResizingEnabled;
-
   const state = createPluginState(dispatch, {
     pluginConfig,
     insertColumnButtonIndex: undefined,
     insertRowButtonIndex: undefined,
-    isFullWidthModeEnabled,
+    isFullWidthModeEnabled: fullWidthModeEnabled,
+    isBreakoutEnabled: breakoutEnabled,
+    wasFullWidthModeEnabled: previousFullWidthModeEnabled,
+    isTableResizingEnabled: tableResizingEnabled,
     isHeaderRowEnabled: !!pluginConfig.allowHeaderRow,
     isHeaderColumnEnabled: false,
     ...defaultTableSelection,
@@ -376,12 +369,6 @@ export const createPlugin = (
             getPos,
             portalProviderAPI,
             eventDispatcher,
-            {
-              isBreakoutEnabled,
-              isFullWidthModeEnabled,
-              wasFullWidthModeEnabled,
-              isTableResizingEnabled,
-            },
             getEditorContainerWidth,
             getEditorFeatureFlags,
             pluginInjectionApi,

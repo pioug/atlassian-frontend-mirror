@@ -19,7 +19,7 @@ import { Popup } from '@atlaskit/editor-common/ui';
 import type { Position } from '@atlaskit/editor-common/src/ui/Popup/utils';
 import { WithProviders } from '@atlaskit/editor-common/provider-factory';
 
-import type { Dispatch } from '../../event-dispatcher';
+import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import type {
   DispatchAnalyticsEvent,
   AnalyticsEventPayload,
@@ -38,12 +38,14 @@ import { hideConfirmDialog } from './pm-plugins/toolbar-data/commands';
 import { ConfirmationModal } from './ui/ConfirmationModal';
 import { ToolbarLoader } from './ui/ToolbarLoader';
 import type {
+  ExtractInjectionAPI,
   FloatingToolbarHandler,
   FloatingToolbarConfig,
   FloatingToolbarButton,
+  UiComponentFactoryParams,
 } from '@atlaskit/editor-common/types';
 import { findNode } from './utils';
-import { ErrorBoundary } from '../../ui/ErrorBoundary';
+import { ErrorBoundary } from '@atlaskit/editor-common/error-boundary';
 import type { IntlShape } from 'react-intl-next';
 import forceFocusPlugin, { forceFocusSelector } from './pm-plugins/force-focus';
 import type {
@@ -51,10 +53,6 @@ import type {
   ConfigWithNodeInfo,
   FloatingToolbarPluginState,
 } from '@atlaskit/editor-plugin-floating-toolbar';
-import type {
-  UiComponentFactoryParams,
-  ExtractInjectionAPI,
-} from '@atlaskit/editor-common/types';
 
 export const getRelevantConfig = (
   selection: Selection,

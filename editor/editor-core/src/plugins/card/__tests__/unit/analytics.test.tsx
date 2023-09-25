@@ -249,7 +249,7 @@ describe('Analytics key events', () => {
       return {
         type: 'blockCard',
         attrs: {
-          url: 'https://atl-jb-atjong-1.jira-dev.com/issues/?jql=created%20%3E%3D%20-30d%20order%20by%20created%20DESC',
+          url: 'https://test1.atlassian.net/issues/?jql=created%20%3E%3D%20-30d%20order%20by%20created%20DESC',
           datasource: {
             id: 'd8b75300-dfda-4519-b6cd-e49abbd50401',
             parameters: {
@@ -631,6 +631,71 @@ describe('Analytics key events', () => {
       );
     });
 
+    it('should fire when auto-linking a typed url and pressing enter', async () => {
+      const { editorView, undo, redo } = await setup();
+      const url = 'https://atlassian.com';
+      insertText(editorView, url);
+      sendKeyToPm(editorView, 'Enter');
+
+      /**
+       * auto linking does not get upgraded
+       */
+      expect(mockLinkCreated).toHaveBeenCalledTimes(1);
+      expect(mockLinkUpdated).toHaveBeenCalledTimes(0);
+      expect(mockLinkDeleted).toHaveBeenCalledTimes(0);
+      expect(mockLinkCreated).toHaveBeenCalledWith(
+        {
+          url,
+          displayCategory: 'link',
+        },
+        null,
+        {
+          creationMethod: 'editor_type',
+          display: 'url',
+          nodeContext: 'doc',
+        },
+      );
+
+      jest.clearAllMocks();
+      undo();
+
+      expect(mockLinkCreated).toHaveBeenCalledTimes(0);
+      expect(mockLinkUpdated).toHaveBeenCalledTimes(0);
+      expect(mockLinkDeleted).toHaveBeenCalledTimes(1);
+      expect(mockLinkDeleted).toHaveBeenCalledWith(
+        {
+          url,
+          displayCategory: 'link',
+        },
+        null,
+        {
+          deleteType: 'undo',
+          deleteMethod: 'undo',
+          display: 'url',
+          nodeContext: 'doc',
+        },
+      );
+
+      jest.clearAllMocks();
+      redo();
+
+      expect(mockLinkCreated).toHaveBeenCalledTimes(1);
+      expect(mockLinkUpdated).toHaveBeenCalledTimes(0);
+      expect(mockLinkDeleted).toHaveBeenCalledTimes(0);
+      expect(mockLinkCreated).toHaveBeenCalledWith(
+        {
+          url,
+          displayCategory: 'link',
+        },
+        null,
+        {
+          creationMethod: 'redo',
+          display: 'url',
+          nodeContext: 'doc',
+        },
+      );
+    });
+
     it('should fire when typing in markdown [text](url)', async () => {
       const { editorView, sel, undo, redo } = await setup({
         doc: doc(p('{<>}')),
@@ -694,6 +759,48 @@ describe('Analytics key events', () => {
       );
     });
 
+    it('should fire when inserting a link via legacy link picker', async () => {
+      const url = 'https://atlassian.com';
+      const urlDetails = { url };
+      const { editorView } = await setup({
+        editorProps: (props) => ({
+          ...props,
+          featureFlags: {
+            ...props.featureFlags,
+            'lp-link-picker': false,
+          },
+        }),
+      });
+
+      requestAnimationFrame.step();
+      sendKeyToPm(editorView, 'Mod-k');
+
+      const urlField = await screen.findByTestId('link-url');
+
+      await userEvent.type(urlField, url);
+      fireEvent.keyDown(urlField, {
+        key: 'Enter',
+        keyCode: 13,
+        which: 13,
+      });
+
+      expect(mockLinkCreated).toHaveBeenCalledTimes(0);
+      expect(mockLinkUpdated).toHaveBeenCalledTimes(0);
+      expect(mockLinkDeleted).toHaveBeenCalledTimes(0);
+
+      raf.flush();
+      await flushPromises();
+
+      expect(mockLinkCreated).toHaveBeenCalledTimes(1);
+      expect(mockLinkUpdated).toHaveBeenCalledTimes(0);
+      expect(mockLinkDeleted).toHaveBeenCalledTimes(0);
+      expect(mockLinkCreated).toHaveBeenCalledWith(urlDetails, null, {
+        creationMethod: 'linkpicker_manual',
+        display: 'inline',
+        nodeContext: 'doc',
+      });
+    });
+
     it('should fire when inserting a link via link picker that CAN be resolved', async () => {
       const url = 'https://atlassian.com';
       const urlDetails = { url };
@@ -722,7 +829,7 @@ describe('Analytics key events', () => {
         urlDetails,
         expect.any(UIAnalyticsEvent),
         {
-          creationMethod: 'unknown',
+          creationMethod: 'linkpicker_manual',
           display: 'inline',
           nodeContext: 'doc',
         },
@@ -789,9 +896,9 @@ describe('Analytics key events', () => {
       expect(mockLinkDeleted).toHaveBeenCalledTimes(0);
       expect(mockLinkCreated).toHaveBeenCalledWith(
         { ...urlDetails, displayCategory: 'link' },
-        null,
+        expect.any(UIAnalyticsEvent),
         {
-          creationMethod: 'unknown',
+          creationMethod: 'linkpicker_manual',
           display: 'url',
           nodeContext: 'doc',
         },
@@ -864,7 +971,7 @@ describe('Analytics key events', () => {
           { ...urlDetails, displayCategory: 'link' },
           expect.any(UIAnalyticsEvent),
           {
-            creationMethod: 'unknown',
+            creationMethod: 'linkpicker_manual',
             display: 'url',
             nodeContext: 'doc',
           },
@@ -1697,7 +1804,7 @@ describe('Analytics key events', () => {
         expect.any(UIAnalyticsEvent),
         {
           updateType: 'link_update',
-          updateMethod: 'unknown',
+          updateMethod: 'linkpicker_manual',
           display: 'inline',
           previousDisplay: 'inline',
           nodeContext: 'doc',
@@ -1824,7 +1931,7 @@ describe('Analytics key events', () => {
         { url: nextUrl, displayCategory: 'link' },
         expect.any(UIAnalyticsEvent),
         {
-          updateMethod: 'unknown',
+          updateMethod: 'linkpicker_manual',
           updateType: 'link_update',
           display: 'url',
           previousDisplay: 'inline',
@@ -1911,10 +2018,10 @@ describe('Analytics key events', () => {
       expect(mockLinkDeleted).toHaveBeenCalledTimes(0);
       expect(mockLinkUpdated).toHaveBeenCalledWith(
         { url: 'https://example.com', displayCategory: 'link' },
-        null,
+        expect.any(UIAnalyticsEvent),
         {
           updateType: 'link_update',
-          updateMethod: 'unknown',
+          updateMethod: 'linkpicker_manual',
           display: 'url',
           previousDisplay: 'inline',
           nodeContext: 'doc',
@@ -1988,7 +2095,7 @@ describe('Analytics key events', () => {
         expect.any(UIAnalyticsEvent),
         {
           updateType: 'link_update',
-          updateMethod: 'unknown',
+          updateMethod: 'linkpicker_manual',
           display: 'url',
           previousDisplay: 'url',
           nodeContext: 'doc',
@@ -2257,465 +2364,508 @@ describe('Analytics key events', () => {
     });
   });
 
-  describe('datasource created', () => {
-    describe('should fire when an anchor link is converted into a datasource if FF is true', () => {
-      ffTest(
-        'platform.linking-platform.datasource-jira_issues',
-        async () => {
-          const jqlUrl =
-            'https://atl-jb-atjong-1.jira-dev.com/issues/?jql=created%20%3E%3D%20-30d%20order%20by%20created%20DESC';
+  describe('datasource', () => {
+    const jqlUrl =
+      'https://test1.atlassian.net/issues/?jql=created%20%3E%3D%20-30d%20order%20by%20created%20DESC';
 
-          const {
-            analyticsSpy,
-            cardProviderInstance,
-            editorView,
-            editorProps,
-          } = await setup({
-            doc: doc(p(a({ href: jqlUrl })(jqlUrl), ' ')),
-            cardProvider: DatasourceCardProvider,
-          });
-          const cardRequestOne = createCardRequest(jqlUrl, 1);
-
-          await resolveWithProvider(
-            editorView,
-            cardProviderInstance as DatasourceCardProvider,
-            cardRequestOne,
-            editorProps.linking!.smartLinks!,
-            undefined,
-            undefined,
-          );
-
-          editorView.dispatch(
-            queueCards([cardRequestOne])(editorView.state.tr),
-          );
-
-          raf.flush();
-          requestAnimationFrame.step();
-          await flushPromises();
-          requestAnimationFrame.step();
-          await flushPromises();
-
-          const datasourceCreatedCalls = analyticsSpy.mock.calls.filter(
-            ([evt]) =>
-              evt.payload.actionSubject === 'datasource' &&
-              evt.payload.action === 'created',
-          );
-          expect(datasourceCreatedCalls.length).toEqual(1);
-          expect(datasourceCreatedCalls[0][0].payload).toEqual({
-            eventType: 'track',
-            actionSubject: 'datasource',
-            actionSubjectId: undefined,
-            action: 'created',
-            attributes: {
-              actions: [],
-              sourceEvent: null,
-              creationMethod: 'editor_paste',
-              display: 'table',
-              nodeContext: 'doc',
-              searchMethod: '',
-              displayedColumnCount: 0,
-              extensionKey: 'jira-object-provider',
-              status: 'resolved',
-              destinationObjectTypes: ['issue'],
-              totalItemCount: 4,
-              smartLinkId: undefined,
-            },
-            nonPrivacySafeAttributes: {
-              domainName: 'atl-jb-atjong-1.jira-dev.com',
-            },
-          });
-        },
-        async () => {
-          const jqlUrl =
-            'https://atl-jb-atjong-1.jira-dev.com/issues/?jql=created%20%3E%3D%20-30d%20order%20by%20created%20DESC';
-
-          const {
-            analyticsSpy,
-            cardProviderInstance,
-            editorView,
-            editorProps,
-          } = await setup({
-            doc: doc(p(a({ href: jqlUrl })(jqlUrl), ' ')),
-            cardProvider: DatasourceCardProvider,
-          });
-          const cardRequestOne = createCardRequest(jqlUrl, 1);
-
-          await resolveWithProvider(
-            editorView,
-            cardProviderInstance as DatasourceCardProvider,
-            cardRequestOne,
-            editorProps.linking!.smartLinks!,
-            undefined,
-            undefined,
-          );
-
-          editorView.dispatch(
-            queueCards([cardRequestOne])(editorView.state.tr),
-          );
-
-          raf.flush();
-          requestAnimationFrame.step();
-          await flushPromises();
-          requestAnimationFrame.step();
-          await flushPromises();
-
-          const datasourceCreatedCalls = analyticsSpy.mock.calls.filter(
-            ([evt]) =>
-              evt.payload.actionSubject === 'datasource' &&
-              evt.payload.action === 'created',
-          );
-          expect(datasourceCreatedCalls.length).toEqual(0);
-        },
-      );
+    const getExpectedPayload = (
+      action: 'created' | 'updated' | 'deleted',
+      overrideAttributes = {},
+      domainName = 'test1.atlassian.net',
+    ) => ({
+      eventType: 'track',
+      actionSubject: 'datasource',
+      actionSubjectId: undefined,
+      action: action,
+      attributes: {
+        sourceEvent: null,
+        display: 'table',
+        nodeContext: 'doc',
+        searchMethod: '',
+        displayedColumnCount: 3,
+        extensionKey: 'jira-object-provider',
+        status: 'resolved',
+        destinationObjectTypes: ['issue'],
+        totalItemCount: 4,
+        smartLinkId: undefined,
+        ...overrideAttributes,
+      },
+      nonPrivacySafeAttributes: {
+        domainName,
+      },
     });
 
-    test('should fire when a datasource is inserted via a dispatch transaction with a source analytic event (ex. jira issues config modal) when FF is true', async () => {
-      const { analyticsSpy, editorView } = await setup({
-        doc: doc(p('')),
-        cardProvider: DatasourceCardProvider,
-      });
-
-      insertDatasource(
-        editorView.state,
-        originalDatasourceAdf,
-        editorView,
-        new UIAnalyticsEvent({
-          payload: {
-            attributes: {
-              actions: ['columns added'],
-              inputMethod: 'datasource_config',
-              searchMethod: 'datasource_basic_filter',
-            },
-          },
-        }),
-      );
-
-      raf.flush();
-      requestAnimationFrame.step();
-      await flushPromises();
-
-      const datasourceCreatedCalls = analyticsSpy.mock.calls.filter(
+    const getAnalyticsCallsByAction = (
+      analyticsSpy: jest.Mock,
+      action: 'created' | 'updated' | 'deleted',
+      actionSubject: 'datasource' | 'link' = 'datasource',
+    ) => {
+      return analyticsSpy.mock.calls.filter(
         ([evt]) =>
-          evt.payload.actionSubject === 'datasource' &&
-          evt.payload.action === 'created',
+          evt.payload.actionSubject === actionSubject &&
+          evt.payload.action === action,
       );
-      expect(datasourceCreatedCalls.length).toEqual(1);
-      expect(datasourceCreatedCalls[0][0].payload).toEqual({
-        eventType: 'track',
-        actionSubject: 'datasource',
-        actionSubjectId: undefined,
-        action: 'created',
-        attributes: {
-          actions: ['columns added'],
-          creationMethod: 'datasource_config',
-          destinationObjectTypes: ['issue'],
-          display: 'table',
-          displayedColumnCount: 3,
-          extensionKey: 'jira-object-provider',
-          nodeContext: 'doc',
-          searchMethod: 'datasource_basic_filter',
-          smartLinkId: undefined,
-          sourceEvent: null,
-          status: 'resolved',
-          totalItemCount: 4,
-        },
-        nonPrivacySafeAttributes: { domainName: 'test1.atlassian.net' },
-      });
-    });
+    };
 
-    it('should fire when a datasource is inserted via a dispatch transaction without a source analytic event', async () => {
-      const { analyticsSpy, editorView } = await setup({
-        doc: doc(p('')),
+    const setupWithLinkConversionToDatasource = async () => {
+      const {
+        analyticsSpy,
+        cardProviderInstance,
+        editorView,
+        editorProps,
+        undo,
+        redo,
+      } = await setup({
+        doc: doc(p(a({ href: jqlUrl })(jqlUrl), ' ')),
         cardProvider: DatasourceCardProvider,
       });
+      const cardRequestOne = createCardRequest(jqlUrl, 1);
 
-      insertDatasource(
-        editorView.state,
-        originalDatasourceAdf,
+      await resolveWithProvider(
         editorView,
+        cardProviderInstance as DatasourceCardProvider,
+        cardRequestOne,
+        editorProps.linking!.smartLinks!,
+        undefined,
         undefined,
       );
 
+      editorView.dispatch(queueCards([cardRequestOne])(editorView.state.tr));
+
       raf.flush();
       requestAnimationFrame.step();
       await flushPromises();
+      requestAnimationFrame.step();
+      await flushPromises();
 
-      const datasourceCreatedCalls = analyticsSpy.mock.calls.filter(
-        ([evt]) =>
-          evt.payload.actionSubject === 'datasource' &&
-          evt.payload.action === 'created',
-      );
-      expect(datasourceCreatedCalls.length).toEqual(1);
-      expect(datasourceCreatedCalls[0][0].payload).toEqual({
-        eventType: 'track',
-        actionSubject: 'datasource',
-        actionSubjectId: undefined,
-        action: 'created',
-        attributes: {
-          actions: [],
-          sourceEvent: null,
-          creationMethod: '',
-          display: 'table',
-          nodeContext: 'doc',
-          searchMethod: 'unknown',
-          displayedColumnCount: 3,
-          extensionKey: 'jira-object-provider',
-          status: 'resolved',
-          destinationObjectTypes: ['issue'],
-          totalItemCount: 4,
-          smartLinkId: undefined,
-        },
-        nonPrivacySafeAttributes: { domainName: 'test1.atlassian.net' },
-      });
-    });
-  });
-
-  describe('datasource updated', () => {
-    it('should be fired when updating a datasource with a source event', async () => {
-      const datasourceRefsNode = datasourceBlockCard(datasourceAttributes)();
-      const datasourceNode = clean(datasourceRefsNode)(defaultSchema) as Node;
-
-      const { analyticsSpy, editorView } = await setup({
-        doc: doc('{<node>}', datasourceRefsNode),
-      });
-
-      updateCardFromDatasourceModal(
-        editorView.state,
-        datasourceNode,
-        {
-          ...originalDatasourceAdf,
-          attrs: {
-            ...originalDatasourceAdf.attrs,
-            url: jqlUrl.replace('DESC', 'ASC'),
-          },
-        },
+      return {
+        analyticsSpy,
+        cardProviderInstance,
         editorView,
-        new UIAnalyticsEvent({
-          payload: {
-            attributes: {
+        editorProps,
+        undo,
+        redo,
+      };
+    };
+
+    describe('datasource created', () => {
+      describe('should fire when an anchor link is converted into a datasource if FF is true', () => {
+        ffTest(
+          'platform.linking-platform.datasource-jira_issues',
+          async () => {
+            const { analyticsSpy } =
+              await setupWithLinkConversionToDatasource();
+
+            const datasourceCreatedCalls = getAnalyticsCallsByAction(
+              analyticsSpy,
+              'created',
+            );
+            expect(datasourceCreatedCalls.length).toEqual(1);
+
+            expect(datasourceCreatedCalls[0][0].payload).toEqual(
+              getExpectedPayload('created', {
+                creationMethod: 'editor_paste',
+                displayedColumnCount: 0,
+                actions: [],
+              }),
+            );
+          },
+          async () => {
+            const {
+              analyticsSpy,
+              cardProviderInstance,
+              editorView,
+              editorProps,
+            } = await setup({
+              doc: doc(p(a({ href: jqlUrl })(jqlUrl), ' ')),
+              cardProvider: DatasourceCardProvider,
+            });
+            const cardRequestOne = createCardRequest(jqlUrl, 1);
+
+            await resolveWithProvider(
+              editorView,
+              cardProviderInstance as DatasourceCardProvider,
+              cardRequestOne,
+              editorProps.linking!.smartLinks!,
+              undefined,
+              undefined,
+            );
+
+            editorView.dispatch(
+              queueCards([cardRequestOne])(editorView.state.tr),
+            );
+
+            raf.flush();
+            requestAnimationFrame.step();
+            await flushPromises();
+            requestAnimationFrame.step();
+            await flushPromises();
+
+            const datasourceCreatedCalls = getAnalyticsCallsByAction(
+              analyticsSpy,
+              'created',
+            );
+            expect(datasourceCreatedCalls.length).toEqual(0);
+          },
+        );
+      });
+
+      it('should fire when a datasource is inserted via a dispatch transaction with a source analytic event (ex. jira issues config modal) when FF is true', async () => {
+        const { analyticsSpy, editorView } = await setup({
+          doc: doc(p('')),
+          cardProvider: DatasourceCardProvider,
+        });
+
+        insertDatasource(
+          editorView.state,
+          originalDatasourceAdf,
+          editorView,
+          new UIAnalyticsEvent({
+            payload: {
+              attributes: {
+                actions: ['columns added'],
+                inputMethod: 'datasource_config',
+                searchMethod: 'datasource_basic_filter',
+              },
+            },
+          }),
+        );
+
+        raf.flush();
+        requestAnimationFrame.step();
+        await flushPromises();
+
+        const datasourceCreatedCalls = getAnalyticsCallsByAction(
+          analyticsSpy,
+          'created',
+        );
+        expect(datasourceCreatedCalls.length).toEqual(1);
+        expect(datasourceCreatedCalls[0][0].payload).toEqual(
+          getExpectedPayload(
+            'created',
+            {
               actions: ['columns added'],
-              inputMethod: 'datasource_config',
+              creationMethod: 'datasource_config',
               searchMethod: 'datasource_basic_filter',
             },
+            'test1.atlassian.net',
+          ),
+        );
+      });
+
+      it('should fire when a datasource is inserted via a dispatch transaction without a source analytic event', async () => {
+        const { analyticsSpy, editorView } = await setup({
+          doc: doc(p('')),
+          cardProvider: DatasourceCardProvider,
+        });
+
+        insertDatasource(
+          editorView.state,
+          originalDatasourceAdf,
+          editorView,
+          undefined,
+        );
+
+        raf.flush();
+        requestAnimationFrame.step();
+        await flushPromises();
+
+        const datasourceCreatedCalls = getAnalyticsCallsByAction(
+          analyticsSpy,
+          'created',
+        );
+        expect(datasourceCreatedCalls.length).toEqual(1);
+        expect(datasourceCreatedCalls[0][0].payload).toEqual(
+          getExpectedPayload('created', {
+            searchMethod: 'unknown',
+            creationMethod: '',
+            actions: [],
+          }),
+        );
+      });
+    });
+
+    describe('datasource updated', () => {
+      it('should be fired when updating a datasource with a source event', async () => {
+        const datasourceRefsNode = datasourceBlockCard(datasourceAttributes)();
+        const datasourceNode = clean(datasourceRefsNode)(defaultSchema) as Node;
+
+        const { analyticsSpy, editorView } = await setup({
+          doc: doc('{<node>}', datasourceRefsNode),
+        });
+
+        updateCardFromDatasourceModal(
+          editorView.state,
+          datasourceNode,
+          {
+            ...originalDatasourceAdf,
+            attrs: {
+              ...originalDatasourceAdf.attrs,
+              url: jqlUrl.replace('DESC', 'ASC'),
+            },
           },
-        }),
-      );
+          editorView,
+          new UIAnalyticsEvent({
+            payload: {
+              attributes: {
+                actions: ['columns added'],
+                inputMethod: 'datasource_config',
+                searchMethod: 'datasource_basic_filter',
+              },
+            },
+          }),
+        );
 
-      raf.flush();
-      requestAnimationFrame.step();
-      await flushPromises();
+        raf.flush();
+        requestAnimationFrame.step();
+        await flushPromises();
 
-      const datasourceCreatedCalls = analyticsSpy.mock.calls.filter(
-        ([evt]) =>
-          evt.payload.actionSubject === 'datasource' &&
-          evt.payload.action === 'updated',
-      );
-      expect(datasourceCreatedCalls.length).toEqual(1);
-      expect(datasourceCreatedCalls[0][0].payload).toEqual({
-        eventType: 'track',
-        actionSubject: 'datasource',
-        actionSubjectId: undefined,
-        action: 'updated',
-        attributes: {
-          actions: ['columns added'],
-          updateMethod: 'datasource_config',
-          destinationObjectTypes: ['issue'],
-          display: 'table',
-          displayedColumnCount: 3,
-          extensionKey: 'jira-object-provider',
-          nodeContext: 'doc',
-          searchMethod: 'datasource_basic_filter',
-          smartLinkId: undefined,
-          sourceEvent: null,
-          status: 'resolved',
-          totalItemCount: 4,
-        },
-        nonPrivacySafeAttributes: { domainName: 'test1.atlassian.net' },
-      });
-    });
-
-    it('should be fired when updating a datasource without a source event', async () => {
-      const datasourceRefsNode = datasourceBlockCard(datasourceAttributes)();
-      const datasourceNode = clean(datasourceRefsNode)(defaultSchema) as Node;
-
-      const { analyticsSpy, editorView } = await setup({
-        doc: doc('{<node>}', datasourceRefsNode),
+        const datasourceUpdatedCalls = getAnalyticsCallsByAction(
+          analyticsSpy,
+          'updated',
+        );
+        expect(datasourceUpdatedCalls.length).toEqual(1);
+        expect(datasourceUpdatedCalls[0][0].payload).toEqual(
+          getExpectedPayload('updated', {
+            searchMethod: 'datasource_basic_filter',
+            updateMethod: 'datasource_config',
+            actions: ['columns added'],
+          }),
+        );
       });
 
-      updateCardFromDatasourceModal(
-        editorView.state,
-        datasourceNode,
-        {
-          ...originalDatasourceAdf,
-          attrs: {
-            ...originalDatasourceAdf.attrs,
-            url: jqlUrl.replace('DESC', 'ASC'),
+      it('should be fired when updating a datasource without a source event', async () => {
+        const datasourceRefsNode = datasourceBlockCard(datasourceAttributes)();
+        const datasourceNode = clean(datasourceRefsNode)(defaultSchema) as Node;
+
+        const { analyticsSpy, editorView } = await setup({
+          doc: doc('{<node>}', datasourceRefsNode),
+        });
+
+        updateCardFromDatasourceModal(
+          editorView.state,
+          datasourceNode,
+          {
+            ...originalDatasourceAdf,
+            attrs: {
+              ...originalDatasourceAdf.attrs,
+              url: jqlUrl.replace('DESC', 'ASC'),
+            },
           },
-        },
-        editorView,
-        undefined,
-      );
+          editorView,
+          undefined,
+        );
 
-      raf.flush();
-      requestAnimationFrame.step();
-      await flushPromises();
+        raf.flush();
+        requestAnimationFrame.step();
+        await flushPromises();
 
-      const datasourceUpdatedCalls = analyticsSpy.mock.calls.filter(
-        ([evt]) =>
-          evt.payload.actionSubject === 'datasource' &&
-          evt.payload.action === 'updated',
-      );
-      expect(datasourceUpdatedCalls.length).toEqual(1);
-      expect(datasourceUpdatedCalls[0][0].payload).toEqual({
-        eventType: 'track',
-        actionSubject: 'datasource',
-        actionSubjectId: undefined,
-        action: 'updated',
-        attributes: {
-          actions: [],
-          destinationObjectTypes: ['issue'],
-          display: 'table',
-          displayedColumnCount: 3,
-          extensionKey: 'jira-object-provider',
-          nodeContext: 'doc',
-          searchMethod: 'unknown',
-          smartLinkId: undefined,
-          updateMethod: '',
-          sourceEvent: null,
-          status: 'resolved',
-          totalItemCount: 4,
-        },
-        nonPrivacySafeAttributes: { domainName: 'test1.atlassian.net' },
-      });
-    });
-  });
-
-  describe('datasource deleted', () => {
-    it('should be fired when the user deletes content by sending a delete hotkey', async () => {
-      const { analyticsSpy, editorView } = await setup({
-        doc: doc('{<node>}', datasourceBlockCard(datasourceAttributes)()),
-      });
-
-      sendKeyToPm(editorView, 'Mod-a');
-      sendKeyToPm(editorView, 'Delete');
-
-      raf.flush();
-      requestAnimationFrame.step();
-      await flushPromises();
-
-      const datasourceCreatedCalls = analyticsSpy.mock.calls.filter(
-        ([evt]) =>
-          evt.payload.actionSubject === 'datasource' &&
-          evt.payload.action === 'deleted',
-      );
-      expect(datasourceCreatedCalls.length).toEqual(1);
-      expect(datasourceCreatedCalls[0][0].payload).toEqual({
-        eventType: 'track',
-        actionSubject: 'datasource',
-        actionSubjectId: undefined,
-        action: 'deleted',
-        attributes: {
-          sourceEvent: null,
-          deleteMethod: '',
-          display: 'table',
-          nodeContext: 'doc',
-          searchMethod: 'unknown',
-          displayedColumnCount: 3,
-          extensionKey: 'jira-object-provider',
-          status: 'resolved',
-          destinationObjectTypes: ['issue'],
-          totalItemCount: 4,
-          smartLinkId: undefined,
-        },
-        nonPrivacySafeAttributes: { domainName: 'test1.atlassian.net' },
+        const datasourceUpdatedCalls = getAnalyticsCallsByAction(
+          analyticsSpy,
+          'updated',
+        );
+        expect(datasourceUpdatedCalls.length).toEqual(1);
+        expect(datasourceUpdatedCalls[0][0].payload).toEqual(
+          getExpectedPayload('updated', {
+            searchMethod: 'unknown',
+            updateMethod: '',
+            actions: [],
+          }),
+        );
       });
     });
 
-    it('should be fired when a datasource is deleted via a toolbar', async () => {
-      const providerFactory = new ProviderFactory();
-      const featureFlagsMock = {};
-      const intl = createIntl({ locale: 'en' });
+    describe('datasource deleted', () => {
+      it('should be fired when the user deletes content by sending a delete hotkey', async () => {
+        const { analyticsSpy, editorView } = await setup({
+          doc: doc('{<node>}', datasourceBlockCard(datasourceAttributes)()),
+        });
 
-      const getToolbarItems = (
-        toolbar: FloatingToolbarConfig,
-        editorView: EditorView,
-      ) => {
-        const node = editorView.state.doc.nodeAt(
-          editorView.state.selection.from,
-        )!;
+        sendKeyToPm(editorView, 'Mod-a');
+        sendKeyToPm(editorView, 'Delete');
 
-        const items = Array.isArray(toolbar.items)
-          ? toolbar.items
-          : toolbar.items(node);
-        return items.filter((item) => item.type !== 'copy-button');
-      };
+        raf.flush();
+        requestAnimationFrame.step();
+        await flushPromises();
 
-      const getToolbarButtonByTitle = (
-        toolbar: FloatingToolbarConfig,
-        editorView: EditorView,
-        title: string,
-      ) => {
-        return getToolbarItems(toolbar!, editorView).find(
-          (item) => item.type === 'button' && item.title === title,
-        ) as FloatingToolbarButton<Command>;
-      };
-
-      const { analyticsSpy, editorView } = await setup({
-        doc: doc(
-          p('ab'),
-          '{<node>}',
-          datasourceBlockCard(datasourceAttributes)(),
-          p('cd'),
-        ),
+        const datasourceDeletedCalls = getAnalyticsCallsByAction(
+          analyticsSpy,
+          'deleted',
+        );
+        expect(datasourceDeletedCalls.length).toEqual(1);
+        expect(datasourceDeletedCalls[0][0].payload).toEqual(
+          getExpectedPayload('deleted', {
+            searchMethod: 'unknown',
+            deleteMethod: '',
+          }),
+        );
       });
-      const removeTitle = intl.formatMessage(commonMessages.remove);
-      const toolbar = floatingToolbar(
-        { allowDatasource: true },
-        featureFlagsMock,
-      )(editorView.state, intl, providerFactory);
 
-      if (!toolbar) {
-        return expect(toolbar).toBeTruthy();
-      }
+      it('should be fired when a datasource is deleted via a toolbar', async () => {
+        const providerFactory = new ProviderFactory();
+        const featureFlagsMock = {};
+        const intl = createIntl({ locale: 'en' });
 
-      const removeButton = getToolbarButtonByTitle(
-        toolbar,
-        editorView,
-        removeTitle,
-      );
+        const getToolbarItems = (
+          toolbar: FloatingToolbarConfig,
+          editorView: EditorView,
+        ) => {
+          const node = editorView.state.doc.nodeAt(
+            editorView.state.selection.from,
+          )!;
 
-      removeButton.onClick(editorView.state, editorView.dispatch);
-      expect(editorView.state.doc).toEqualDocument(doc(p('ab'), p('cd')));
+          const items = Array.isArray(toolbar.items)
+            ? toolbar.items
+            : toolbar.items(node);
+          return items.filter((item) => item.type !== 'copy-button');
+        };
 
-      raf.flush();
-      requestAnimationFrame.step();
-      await flushPromises();
+        const getToolbarButtonByTitle = (
+          toolbar: FloatingToolbarConfig,
+          editorView: EditorView,
+          title: string,
+        ) => {
+          return getToolbarItems(toolbar!, editorView).find(
+            (item) => item.type === 'button' && item.title === title,
+          ) as FloatingToolbarButton<Command>;
+        };
 
-      const datasourceDeletedCalls = analyticsSpy.mock.calls.filter(
-        ([evt]) =>
-          evt.payload.actionSubject === 'datasource' &&
-          evt.payload.action === 'deleted',
-      );
-      expect(datasourceDeletedCalls.length).toEqual(1);
-      expect(datasourceDeletedCalls[0][0].payload).toEqual({
-        eventType: 'track',
-        actionSubject: 'datasource',
-        actionSubjectId: undefined,
-        action: 'deleted',
-        attributes: {
-          sourceEvent: null,
-          deleteMethod: 'editor_floatingToolbar',
-          display: 'table',
-          nodeContext: 'doc',
-          searchMethod: 'unknown',
-          displayedColumnCount: 3,
-          extensionKey: 'jira-object-provider',
-          status: 'resolved',
-          destinationObjectTypes: ['issue'],
-          totalItemCount: 4,
-          smartLinkId: undefined,
-        },
-        nonPrivacySafeAttributes: { domainName: 'test1.atlassian.net' },
+        const { analyticsSpy, editorView } = await setup({
+          doc: doc(
+            p('ab'),
+            '{<node>}',
+            datasourceBlockCard(datasourceAttributes)(),
+            p('cd'),
+          ),
+        });
+        const removeTitle = intl.formatMessage(commonMessages.remove);
+        const toolbar = floatingToolbar(
+          { allowDatasource: true },
+          featureFlagsMock,
+        )(editorView.state, intl, providerFactory);
+
+        if (!toolbar) {
+          return expect(toolbar).toBeTruthy();
+        }
+
+        const removeButton = getToolbarButtonByTitle(
+          toolbar,
+          editorView,
+          removeTitle,
+        );
+
+        removeButton.onClick(editorView.state, editorView.dispatch);
+        expect(editorView.state.doc).toEqualDocument(doc(p('ab'), p('cd')));
+
+        raf.flush();
+        requestAnimationFrame.step();
+        await flushPromises();
+
+        const datasourceDeletedCalls = getAnalyticsCallsByAction(
+          analyticsSpy,
+          'deleted',
+        );
+        expect(datasourceDeletedCalls.length).toEqual(1);
+        expect(datasourceDeletedCalls[0][0].payload).toEqual(
+          getExpectedPayload('deleted', {
+            deleteMethod: 'editor_floatingToolbar',
+            searchMethod: 'unknown',
+          }),
+        );
+      });
+
+      describe('should fire appropriate events for undo/redo upgrade link to a datasource', () => {
+        ffTest(
+          'platform.linking-platform.datasource-jira_issues',
+          async () => {
+            const { analyticsSpy, undo, redo } =
+              await setupWithLinkConversionToDatasource();
+
+            let datasourceCreatedCalls = getAnalyticsCallsByAction(
+              analyticsSpy,
+              'created',
+            );
+            expect(datasourceCreatedCalls.length).toEqual(1);
+
+            undo();
+
+            raf.flush();
+            requestAnimationFrame.step();
+            await flushPromises();
+
+            // verifying that after undo step we get 'datasource deleted'
+            const datasourceDeletedCalls = getAnalyticsCallsByAction(
+              analyticsSpy,
+              'deleted',
+            );
+
+            expect(datasourceDeletedCalls.length).toEqual(1);
+            expect(datasourceDeletedCalls[0][0].payload).toEqual(
+              getExpectedPayload('deleted', {
+                deleteMethod: 'undo',
+                searchMethod: 'unknown',
+                displayedColumnCount: 7,
+              }),
+            );
+
+            redo();
+
+            raf.flush();
+            requestAnimationFrame.step();
+            await flushPromises();
+
+            const datasourceCreatedCallsAfterRedo = getAnalyticsCallsByAction(
+              analyticsSpy,
+              'created',
+            );
+            expect(datasourceCreatedCallsAfterRedo.length).toEqual(2);
+            expect(datasourceCreatedCallsAfterRedo[1][0].payload).toEqual(
+              getExpectedPayload('created', {
+                creationMethod: 'redo',
+                displayedColumnCount: 7,
+                actions: [],
+                searchMethod: 'unknown',
+              }),
+            );
+          },
+          async () => {
+            const {
+              analyticsSpy,
+              cardProviderInstance,
+              editorView,
+              editorProps,
+            } = await setup({
+              doc: doc(p(a({ href: jqlUrl })(jqlUrl), ' ')),
+              cardProvider: DatasourceCardProvider,
+            });
+            const cardRequestOne = createCardRequest(jqlUrl, 1);
+
+            await resolveWithProvider(
+              editorView,
+              cardProviderInstance as DatasourceCardProvider,
+              cardRequestOne,
+              editorProps.linking!.smartLinks!,
+              undefined,
+              undefined,
+            );
+
+            editorView.dispatch(
+              queueCards([cardRequestOne])(editorView.state.tr),
+            );
+
+            raf.flush();
+            requestAnimationFrame.step();
+            await flushPromises();
+            requestAnimationFrame.step();
+            await flushPromises();
+
+            const datasourceCreatedCalls = getAnalyticsCallsByAction(
+              analyticsSpy,
+              'created',
+            );
+            expect(datasourceCreatedCalls.length).toEqual(0);
+          },
+        );
       });
     });
   });

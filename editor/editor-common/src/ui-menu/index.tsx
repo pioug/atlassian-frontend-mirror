@@ -13,3 +13,5 @@ export {
 export { ArrowKeyNavigationType } from './ArrowKeyNavigationProvider/types';
 export { ColorPaletteArrowKeyNavigationProvider } from './ArrowKeyNavigationProvider/ColorPaletteArrowKeyNavigationProvider';
 export { default as Dropdown } from './Dropdown';
+export { default as ColorPickerButton } from './ColorPickerButton';
+export { DropdownContainer } from './DropdownContainer';

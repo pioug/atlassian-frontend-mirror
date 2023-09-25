@@ -127,7 +127,10 @@ export type {
   UpdatedTargetAEP,
 } from './types';
 export type { EditorAnalyticsAPI } from './api';
-export { fireAnalyticsEvent } from './fire-analytics-event';
+export {
+  editorAnalyticsChannel,
+  fireAnalyticsEvent,
+} from './fire-analytics-event';
 export { getAnalyticsEventsFromTransaction } from './utils';
 export {
   buildEditLinkPayload,

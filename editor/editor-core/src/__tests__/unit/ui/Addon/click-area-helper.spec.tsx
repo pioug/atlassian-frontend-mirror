@@ -12,12 +12,9 @@ import {
   checkForModal,
 } from '../../../../ui/Addon/click-area-helper';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import {
-  GapCursorSelection,
-  Side,
-} from '../../../../plugins/selection/gap-cursor-selection';
+import { GapCursorSelection, Side } from '@atlaskit/editor-common/selection';
 import * as commands from '../../../../commands';
-import * as actions from '../../../../../src/plugins/selection/gap-cursor/actions';
+import * as actions from '../../../../../src/plugins/selection/gap-cursor/actions'; // TO-DO: update with editor-plugin-selection when ready
 
 import Modal from '@atlaskit/modal-dialog';
 

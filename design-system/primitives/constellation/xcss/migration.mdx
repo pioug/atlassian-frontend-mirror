@@ -35,7 +35,6 @@ JSXAttributes, be aware if you're not seeing your styles appear.
 + <Box xcss={someStyles} />
 ```
 
-
 #### Changing the way you express styles
 
 Why are nested selectors a problem? A key philosophy of `xcss` is encouraging more deterministic style application. Restricting nested styles eliminates side-effects and encourages component encapsulation. Consider the below example:
@@ -44,7 +43,7 @@ Why are nested selectors a problem? A key philosophy of `xcss` is encouraging mo
 const myComponentStyles = css({
   '> *': {
     color: 'color.text.danger',
-  }
+  },
 });
 
 const MyComponent = () => (
@@ -130,9 +129,8 @@ const myComponentStyles = xcss({
 const MyComponent = () => <Box xcss={myComponentStyles} />
 ```
 
-
 ## Get help
 
-* Atlassians can reach out in [Slack](slack://channel?team=TFCUTJ0G5&id=CFJ9DU39U) for help with `xcss` migration.
-* Other developers who need help with tokens or the `xcss` utility can post in the [public developer community](https://community.developer.atlassian.com/).
-* For general help with the Atlassian Design System, [contact us](/resources/contact-us).
+- Atlassians can reach out in [Slack](slack://channel?team=TFCUTJ0G5&id=CFJ9DU39U) for help with `xcss` migration.
+- Other developers who need help with tokens or the `xcss` utility can post in the [public developer community](https://community.developer.atlassian.com/).
+- For general help with the Atlassian Design System, [contact us](/resources/contact-us).

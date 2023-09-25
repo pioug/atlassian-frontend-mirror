@@ -2,7 +2,6 @@ import { toggleMark } from '@atlaskit/editor-prosemirror/commands';
 import type {
   Mark as PMMark,
   MarkType,
-  Node,
   ResolvedPos,
   Slice,
 } from '@atlaskit/editor-prosemirror/model';
@@ -11,8 +10,7 @@ import type {
   Selection,
   TextSelection,
 } from '@atlaskit/editor-prosemirror/state';
-import type { JSONDocNode, JSONNode } from '@atlaskit/editor-json-transformer';
-import { JSONTransformer } from '@atlaskit/editor-json-transformer';
+import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import { FakeTextCursorSelection } from '../plugins/fake-text-cursor/cursor';
 import { hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 
@@ -22,6 +20,8 @@ export {
   checkNodeDown,
   insideTableCell,
   isInListItem,
+  toJSON,
+  nodeToJSON,
 } from '@atlaskit/editor-common/utils';
 
 export { insideTable } from '@atlaskit/editor-common/core-utils';
@@ -107,15 +107,6 @@ export function isMarkTypeAllowedInCurrentSelection(
 
     return allowedInActiveMarks;
   });
-}
-
-const transformer = new JSONTransformer();
-export function toJSON(node: Node): JSONDocNode {
-  return transformer.encode(node);
-}
-
-export function nodeToJSON(node: Node): JSONNode {
-  return transformer.encodeNode(node);
 }
 
 /**

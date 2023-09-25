@@ -50,12 +50,12 @@ describe('expand actions', () => {
         .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }])
         .add(contentInsertionPlugin)
         .add(decorationsPlugin)
+        .add(selectionPlugin)
         .add([expandPlugin, { allowInsertion: true }])
         .add(typeAheadPlugin)
         .add(quickInsertPlugin)
         .add(widthPlugin)
         .add(guidelinePlugin)
-        .add(selectionPlugin)
         .add(tablesPlugin),
     });
   };
@@ -155,6 +155,8 @@ describe('expand actions', () => {
           jest.fn(),
           isMobile,
           {},
+          undefined,
+          undefined,
         );
       };
 

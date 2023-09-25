@@ -144,6 +144,7 @@ import type { ResolvedEditorState } from '@atlaskit/editor-common/collab';
 import type { RichMediaLayout } from '@atlaskit/adf-schema';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import type { SearchProvider } from '@atlaskit/editor-common/provider-factory';
+import type { SelectionPluginOptions } from '@atlaskit/editor-common/selection';
 import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 import { setTextSelection } from '@atlaskit/editor-common/utils';
 import type { SEVERITY } from '@atlaskit/editor-common/utils';
@@ -1849,9 +1850,6 @@ export interface SelectionDataState {
 
 // @public (undocumented)
 export const selectionPluginKey: PluginKey<any>;
-
-// @public (undocumented)
-interface SelectionPluginOptions extends LongPressSelectionPluginOptions {}
 
 // @public (undocumented)
 type SetEditorAPI = (editorApi: PublicPluginAPI<any>) => void;

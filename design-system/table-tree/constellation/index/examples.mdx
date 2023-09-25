@@ -30,7 +30,10 @@ and `Rows` components.
 
 This approach allows you to structure your data however you wish.
 
-<Example Component={AdvancedTableTreeExample} packageName="@atlaskit/table-tree" />
+<Example
+  Component={AdvancedTableTreeExample}
+  packageName="@atlaskit/table-tree"
+/>
 
 ## Uncontrolled
 
@@ -38,7 +41,10 @@ The expansion and collapsion of each row is handled automatically.
 
 Use the `isDefaultExpanded` prop to change whether a row is expanded by default.
 
-<Example Component={UncontrolledTableTreeExample} packageName="@atlaskit/table-tree" />
+<Example
+  Component={UncontrolledTableTreeExample}
+  packageName="@atlaskit/table-tree"
+/>
 
 ## Controlled
 
@@ -47,13 +53,19 @@ Use the `isExpanded` prop to manually control whether a row is expanded or not.
 Respond to user interaction by providing callbacks to the `onExpand` and
 `onCollapse` props.
 
-<Example Component={ControlledTableTreeExample} packageName="@atlaskit/table-tree" />
+<Example
+  Component={ControlledTableTreeExample}
+  packageName="@atlaskit/table-tree"
+/>
 
 ## Custom children
 
 You can use other components as children instead of additional rows and items.
 
-<Example Component={CustomChildTableTreeExample} packageName="@atlaskit/table-tree" />
+<Example
+  Component={CustomChildTableTreeExample}
+  packageName="@atlaskit/table-tree"
+/>
 
 ## Loading states
 
@@ -65,14 +77,20 @@ loading data asynchronously.
 To display the root level in a loading state, ensure that the `items` value
 provided to `Rows` is `undefined`.
 
-<Example Component={LoadingStateRootTableTreeExample} packageName="@atlaskit/table-tree" />
+<Example
+  Component={LoadingStateRootTableTreeExample}
+  packageName="@atlaskit/table-tree"
+/>
 
 ### Nested
 
 To display a nested level in a loading state, ensure that the `items` value
 provided to the corresponding `Row` is `undefined`.
 
-<Example Component={LoadingStateNestedTableTreeExample} packageName="@atlaskit/table-tree" />
+<Example
+  Component={LoadingStateNestedTableTreeExample}
+  packageName="@atlaskit/table-tree"
+/>
 
 ## Managing data
 
@@ -83,13 +101,19 @@ such as when loading data asynchronously.
 
 The `appendItems` method will add to the existing items.
 
-<Example Component={AsyncAppendTableTreeExample} packageName="@atlaskit/table-tree" />
+<Example
+  Component={AsyncAppendTableTreeExample}
+  packageName="@atlaskit/table-tree"
+/>
 
 ### Update items
 
 The `updateItems` method will replace the existing items.
 
-<Example Component={AsyncUpdateTableTreeExample} packageName="@atlaskit/table-tree" />
+<Example
+  Component={AsyncUpdateTableTreeExample}
+  packageName="@atlaskit/table-tree"
+/>
 
 ## Expand and collapse on row click
 
@@ -97,7 +121,10 @@ Use the `shouldExpandOnClick` prop to change whether a row with children expands
 
 Note that **this should not be used when interactive elements like a button or dropdown menu exist within your row**. Clicking on those elements will trigger the row's expanding or collapsing along with the default behavior of the interactive element.
 
-<Example Component={ShouldExpandOnClickTableTreeExample} packageName="@atlaskit/table-tree" />
+<Example
+  Component={ShouldExpandOnClickTableTreeExample}
+  packageName="@atlaskit/table-tree"
+/>
 
 ## Extended aria label for expand and collapse button
 
@@ -106,4 +133,7 @@ The prop accepts a column's component name and adds the text from that column's 
 
 For example, the first expand button below would read "Expand Chapter 1: Clean Code row".
 
-<Example Component={ExtendedExpandLabelTableTreeExample} packageName="@atlaskit/table-tree" />
+<Example
+  Component={ExtendedExpandLabelTableTreeExample}
+  packageName="@atlaskit/table-tree"
+/>

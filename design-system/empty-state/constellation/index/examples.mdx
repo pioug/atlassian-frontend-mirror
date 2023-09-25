@@ -16,7 +16,6 @@ import EmptyStateNarrow from '../../examples/constellation/empty-state-narrow';
 import EmptyStateWide from '../../examples/constellation/empty-state-wide';
 import EmptyStateWithHeadingLevel from '../../examples/constellation/empty-state-with-heading-level';
 
-
 ## Default
 
 The only required part of an empty state is the header.
@@ -29,13 +28,19 @@ The heading level rendered by default is heading level 4. Based on the heading s
 
 Use the `headingLevel` prop to set the heading level of the header element.
 
-<Example Component={EmptyStateWithHeadingLevel} packageName="@atlaskit/empty-state" />
+<Example
+  Component={EmptyStateWithHeadingLevel}
+  packageName="@atlaskit/empty-state"
+/>
 
 ## Description
 
 Descriptions should add useful and relevant additional information.
 
-<Example Component={EmptyStateDescription} packageName="@atlaskit/empty-state" />
+<Example
+  Component={EmptyStateDescription}
+  packageName="@atlaskit/empty-state"
+/>
 
 ## Actions
 
@@ -43,19 +48,28 @@ Descriptions should add useful and relevant additional information.
 
 A primary action button should recommended the most important next step a user can take.
 
-<Example Component={EmptyStatePrimaryAction} packageName="@atlaskit/empty-state" />
+<Example
+  Component={EmptyStatePrimaryAction}
+  packageName="@atlaskit/empty-state"
+/>
 
 ### Secondary
 
 A secondary action button should recommend an alternate step a user could take.
 
-<Example Component={EmptyStateSecondaryAction} packageName="@atlaskit/empty-state" />
+<Example
+  Component={EmptyStateSecondaryAction}
+  packageName="@atlaskit/empty-state"
+/>
 
 ### Tertiary
 
 Tertiary action buttons can be used to link to external resources or documentation to help the user learn more.
 
-<Example Component={EmptyStateTertiaryAction} packageName="@atlaskit/empty-state" />
+<Example
+  Component={EmptyStateTertiaryAction}
+  packageName="@atlaskit/empty-state"
+/>
 
 ## Loading state
 
@@ -75,7 +89,10 @@ You can display an image by supplying the `imageUrl` prop. This url will be pass
 
 An alternate approach to displaying an image is to use the `renderImage` prop. This render prop approach will only be used if there is no `imageUrl` prop supplied.
 
-<Example Component={EmptyStateRenderImage} packageName="@atlaskit/empty-state" />
+<Example
+  Component={EmptyStateRenderImage}
+  packageName="@atlaskit/empty-state"
+/>
 
 ### Image dimensions
 
@@ -85,13 +102,19 @@ If you have used the `imageUrl` approach, the `imageWidth` and `imageHeight` pro
 
 If you are resizing a spot illustration to try and squeeze it into a layout, it's a good time to ask whether you should include the image at all.
 
-<Example Component={EmptyStateImageDimensions} packageName="@atlaskit/empty-state" />
+<Example
+  Component={EmptyStateImageDimensions}
+  packageName="@atlaskit/empty-state"
+/>
 
 ### Maximum image dimensions
 
 Applying `maxImageHeight` and `maxImageWidth` works in the same way.
 
-<Example Component={EmptyStateImageMaxDimensions} packageName="@atlaskit/empty-state" />
+<Example
+  Component={EmptyStateImageMaxDimensions}
+  packageName="@atlaskit/empty-state"
+/>
 
 ## Width
 

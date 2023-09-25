@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-core",
-  "version": "187.45.0",
+  "version": "187.47.0",
   "description": "A package contains Atlassian editor core functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -55,7 +55,7 @@
     "@atlaskit/code": "^14.6.0",
     "@atlaskit/date": "^0.10.0",
     "@atlaskit/datetime-picker": "^12.10.0",
-    "@atlaskit/editor-common": "^75.5.0",
+    "@atlaskit/editor-common": "^75.7.0",
     "@atlaskit/editor-json-transformer": "^8.10.0",
     "@atlaskit/editor-markdown-transformer": "^5.2.5",
     "@atlaskit/editor-palette": "1.5.1",
@@ -289,6 +289,10 @@
       "referenceOnly": "true"
     },
     "platform.editor.table.increase-shadow-visibility_lh89r": {
+      "type": "boolean",
+      "referenceOnly": "true"
+    },
+    "platform.editor.content-insertion.block-node-prefer-insert-after-selection": {
       "type": "boolean",
       "referenceOnly": "true"
     }

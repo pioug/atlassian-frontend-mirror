@@ -150,7 +150,6 @@ type BrowserFreezePayload = OperationalAEPWithObjectId<
   {
     freezeTime: number;
     nodeSize: number;
-    participants: number;
     nodeCount?: Record<string, number>;
     interactionType?: BROWSER_FREEZE_INTERACTION_TYPE;
     severity?: SEVERITY;
@@ -173,7 +172,6 @@ type SlowInputAEP = OperationalAEPWithObjectId<
   {
     time: number;
     nodeSize: number;
-    participants: number;
     nodeCount?: Record<string, number>;
   },
   undefined
@@ -188,7 +186,6 @@ type InputPerfSamlingAEP = OperationalAEPWithObjectId<
   {
     time: number;
     nodeSize: number;
-    participants: number;
     nodeCount?: Record<string, number>;
     severity?: SEVERITY;
   },
@@ -205,7 +202,6 @@ type InputPerfSamplingAvgAEP = OperationalAEPWithObjectId<
     mean: number;
     median: number;
     sampleSize: number;
-    participants: number;
     nodeCount?: Record<string, number>;
     nodeSize: number;
     severity?: SEVERITY;

@@ -1,12 +1,13 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { PanelSharedCssClassName } from '@atlaskit/editor-common/panel';
 
 import { getPanelNodeView } from '../nodeviews/panel';
-import { PanelPluginOptions, pluginKey } from '../types';
-import { Dispatch } from '../../../event-dispatcher';
-import { createSelectionClickHandler } from '../../selection/utils';
+import type { PanelPluginOptions } from '../types';
+import { pluginKey } from '../types';
+import type { Dispatch } from '../../../event-dispatcher';
+import { createSelectionClickHandler } from '@atlaskit/editor-common/selection';
 
 export type PanelOptions = {
   color?: string;

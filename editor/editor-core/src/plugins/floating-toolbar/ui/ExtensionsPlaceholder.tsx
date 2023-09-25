@@ -11,7 +11,7 @@ import type { ExtensionAPI } from '@atlaskit/editor-common/extensions';
 import { getContextualToolbarItemsFromModule } from '@atlaskit/editor-common/extensions';
 import ButtonGroup from '@atlaskit/button/button-group';
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
-import { nodeToJSON } from '../../../utils';
+import { nodeToJSON } from '@atlaskit/editor-common/utils';
 import { FloatingToolbarButton as Button } from '@atlaskit/editor-common/ui';
 import type { ApplyChangeHandler } from '@atlaskit/editor-plugin-context-panel';
 

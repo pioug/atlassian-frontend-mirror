@@ -20,6 +20,7 @@ import type {
 import {
   isSelectionAtStartOfNode,
   isSelectionAtEndOfNode,
+  createSelectionClickHandler,
 } from '@atlaskit/editor-common/selection';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
@@ -32,7 +33,6 @@ import type {
 } from '@atlaskit/editor-common/event-dispatcher';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
 
-import { createSelectionClickHandler } from '../../selection/utils';
 import ExtensionNodeView from '../nodeviews/extension';
 import { updateState, clearEditingContext } from '../commands';
 import { getSelectedExtension, getSelectedDomElement } from '../utils';

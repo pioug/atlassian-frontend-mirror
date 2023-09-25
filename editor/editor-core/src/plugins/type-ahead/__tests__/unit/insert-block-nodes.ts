@@ -172,12 +172,12 @@ describe('type-ahead', () => {
       .add(fakeQuickInsertPlugin)
       .add(tasksAndDecisionsPlugin)
       .add(panelPlugin)
+      .add(selectionPlugin)
       .add(expandPlugin)
       .add(compositionPlugin)
       .add([codeBlockPlugin, { appearance: 'full-page' }])
       .add(widthPlugin)
       .add(guidelinePlugin)
-      .add(selectionPlugin)
       .add(tablesPlugin)
       .add(layoutPlugin);
 

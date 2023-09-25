@@ -10,7 +10,6 @@ import ShowExample from '../../examples/constellation/responsive/show';
 import HideExample from '../../examples/constellation/responsive/hide';
 import ShowHideExample from '../../examples/constellation/responsive/show-hide';
 
-
 import { CodeDocsHeader } from '@af/design-system-docs-ui';
 
 <CodeDocsHeader
@@ -25,16 +24,20 @@ Utilize our media queries exposed in `css`, `styled`, or `xcss` as computed keys
 
 ### Using with `xcss`
 
-Please use `xcss` whenever possible to ensure consistency and safety with style overrides.  Read more at [xcss](/components/primitives/xcss)
+Please use `xcss` whenever possible to ensure consistency and safety with style overrides. Read more at [xcss](/components/primitives/xcss)
 
-<Example Component={XCSSExample} packageName="@atlaskit/primitives/responsive" />
+<Example
+  Component={XCSSExample}
+  packageName="@atlaskit/primitives/responsive"
+/>
 
 ### Using with `css`
-<Example Component={CSSExample} packageName="@atlaskit/primitives/responsive" />
 
+<Example Component={CSSExample} packageName="@atlaskit/primitives/responsive" />
 
 ## Responsive primitives
 
 Consider these shortcuts to writing your own custom media queries. Composing with our primitives will be far quicker and consistent to implement, but may result in excess DOM nodes.
-* [Show](/components/primitives/responsive/show)
-* [Hide](/components/primitives/responsive/hide)
+
+- [Show](/components/primitives/responsive/show)
+- [Hide](/components/primitives/responsive/hide)

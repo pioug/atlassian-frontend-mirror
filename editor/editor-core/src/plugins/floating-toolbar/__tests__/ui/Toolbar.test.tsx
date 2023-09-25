@@ -1,5 +1,6 @@
 import React from 'react';
-import { mountWithIntl } from '../../../../__tests__/__helpers/enzyme';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies

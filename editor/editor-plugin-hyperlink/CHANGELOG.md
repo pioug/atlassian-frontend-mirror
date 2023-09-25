@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-hyperlink
 
+## 0.5.1
+
+### Patch Changes
+
+- [`553b34b5fd4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/553b34b5fd4) - Small analytics bug fixes relating to auto-linking on enter, legacy link picker, and unresolvable links.
+
 ## 0.5.0
 
 ### Minor Changes

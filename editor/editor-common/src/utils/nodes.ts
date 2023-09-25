@@ -1,3 +1,5 @@
+import { JSONTransformer } from '@atlaskit/editor-json-transformer';
+import type { JSONDocNode, JSONNode } from '@atlaskit/editor-json-transformer';
 import type {
   Fragment,
   MarkType,
@@ -184,3 +186,12 @@ export const isNodeBeforeMediaNode = (
 
   return false;
 };
+
+const transformer = new JSONTransformer();
+export function toJSON(node: PMNode): JSONDocNode {
+  return transformer.encode(node);
+}
+
+export function nodeToJSON(node: PMNode): JSONNode {
+  return transformer.encodeNode(node);
+}

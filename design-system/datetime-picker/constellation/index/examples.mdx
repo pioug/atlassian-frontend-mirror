@@ -19,13 +19,19 @@ By default, selecting the date field opens the calendar view. The current date t
 
 The time field is used to select a time from the [select](/components/select) menu.
 
-<Example Component={DateTimePickerDefault} packageName="@atlaskit/datetime-picker" />
+<Example
+  Component={DateTimePickerDefault}
+  packageName="@atlaskit/datetime-picker"
+/>
 
 ## Form
 
 Date time picker used with the [form](/components/form) component includes a field label and helper text.
 
-<Example Component={DateTimePickerForm} packageName="@atlaskit/datetime-picker" />
+<Example
+  Component={DateTimePickerForm}
+  packageName="@atlaskit/datetime-picker"
+/>
 
 ### Validation
 
@@ -39,7 +45,10 @@ When validating date time pickers in real-time, message icons switch based on th
 
 Keep helper text as short as possible. For complex information, provide a link to more information in a new browser tab. Use the [messaging guidelines](/content/messaging-guidelines) for more help.
 
-<Example Component={DateTimePickerValidation} packageName="@atlaskit/datetime-picker" />
+<Example
+  Component={DateTimePickerValidation}
+  packageName="@atlaskit/datetime-picker"
+/>
 
 ## Disabled dates
 
@@ -49,19 +58,28 @@ If a certain date is not a valid selection, you may disable it in the calendar s
 
 Use `disabled` to disable individual dates.
 
-<Example Component={DateTimePickerDisable} packageName="@atlaskit/datetime-picker" />
+<Example
+  Component={DateTimePickerDisable}
+  packageName="@atlaskit/datetime-picker"
+/>
 
 ### Date ranges
 
 Use `minDate` to set a minimum valid date and `maxDate` to set a maximum valid date. These can be used to define a valid date range.
 
-<Example Component={DateTimePickerDisableRange} packageName="@atlaskit/datetime-picker" />
+<Example
+  Component={DateTimePickerDisableRange}
+  packageName="@atlaskit/datetime-picker"
+/>
 
 ### Complex behavior
 
 Use `disabledDateFilter` for more complicated situations.
 
-<Example Component={DateTimePickerDisableComplex} packageName="@atlaskit/datetime-picker" />
+<Example
+  Component={DateTimePickerDisableComplex}
+  packageName="@atlaskit/datetime-picker"
+/>
 
 ## Internationalization
 
@@ -74,13 +92,19 @@ Date time picker supports internationalization through two props:
 
 Use `locale` to tailor UI copy to local audiences.
 
-<Example Component={DateTimePickerLocale} packageName="@atlaskit/datetime-picker" />
+<Example
+  Component={DateTimePickerLocale}
+  packageName="@atlaskit/datetime-picker"
+/>
 
 ### Week start day
 
 Use `weekStartDay` to adjust which day of the week is shown first in the calendar. A value of `0` corresponds to Sunday (default), `1` to Monday, and so on.
 
-<Example Component={DateTimePickerWeekStartDay} packageName="@atlaskit/datetime-picker" />
+<Example
+  Component={DateTimePickerWeekStartDay}
+  packageName="@atlaskit/datetime-picker"
+/>
 
 ## Date and time formats
 
@@ -91,10 +115,16 @@ Date time picker supports customizing the format of dates and times. Formats are
 
 Where possible use `locale` for date and time formatting, instead of a custom format. Date and time formats should be informed by the user’s locale and the use case.
 
-<Example Component={DateTimePickerFormatting} packageName="@atlaskit/datetime-picker" />
+<Example
+  Component={DateTimePickerFormatting}
+  packageName="@atlaskit/datetime-picker"
+/>
 
 ## Accessibility
 
 If using fields with labels other than "Date" and "Time" for the date picker and time picker respectively, use `datePickerSelectProps` and `timePickerSelectProps` to pass the `aria-label` prop.
 
-<Example Component={DateTimePickerFormAccessible} packageName="@atlaskit/datetime-picker" />
+<Example
+  Component={DateTimePickerFormAccessible}
+  packageName="@atlaskit/datetime-picker"
+/>

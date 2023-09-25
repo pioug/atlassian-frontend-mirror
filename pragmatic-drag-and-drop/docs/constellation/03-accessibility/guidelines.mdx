@@ -18,7 +18,6 @@ Our approach of leveraging alternative flows for assistive technologies satisfie
 
 </SectionMessage>
 
-
 ## Accessibility with alternative flows
 
 Pragmatic drag and drop is powered by the browser drag and drop API, which has no built-in accessibility story. To ensure that your experience is accessible, you must create alternative flows.
@@ -46,7 +45,8 @@ See examples of [alternate flows patterns](/components/pragmatic-drag-and-drop/a
 Many users do not interact with pointing input, instead relying on keyboard input. Ensure that pointing input is not required to complete tasks. Users should be able to achieve the same outcomes using only a keyboard.
 
 <DoDont type="do">
-  Ensure that keyboard users can achieve the same outcomes as pointing input users.
+  Ensure that keyboard users can achieve the same outcomes as pointing input
+  users.
 </DoDont>
 
 <DoDont type="dont">
@@ -74,7 +74,8 @@ There is no universal design for alternative flows, and the suitability of patte
 </DoDont>
 
 <DoDont type="dont">
-  Treat drag and drop interactions as the outcome. They are one way of achieving it.
+  Treat drag and drop interactions as the outcome. They are one way of achieving
+  it.
 </DoDont>
 
 ## Screen readers
@@ -89,17 +90,14 @@ There are two components to making pages perceivable for screen readers:
 For general guidelines on writing meaningful text, refer to our [accessibility guidelines](/foundations/accessibility).
 
 ### Labels
+
 All interactive elements should have a meaningful name visible to assistive technology.
 
 Ensure that accessible names for buttons include the name of the element being acted on, e.g. “Move task 'clean dishes' to top of backlog”.
 
-<DoDont type="do">
-  Include the name of the element being acted on.
-</DoDont>
+<DoDont type="do">Include the name of the element being acted on.</DoDont>
 
-<DoDont type="dont">
-  Don't make labels ambiguous.
-</DoDont>
+<DoDont type="dont">Don't make labels ambiguous.</DoDont>
 
 ### Live region announcements
 
@@ -107,12 +105,8 @@ Use live regions to announce content changes to screen readers. Messages in live
 
 Live regions should be used to provide real-time feedback both during and after a user interaction. Messages should contain the name of the item being moved, as well as both its old and new position.
 
-<DoDont type="do">
-  Include the name of the element being acted on.
-</DoDont>
+<DoDont type="do">Include the name of the element being acted on.</DoDont>
 
-<DoDont type="dont">
-  Don''t make labels ambiguous.
-</DoDont>
+<DoDont type="dont">Don''t make labels ambiguous.</DoDont>
 
 To simplify making live region announcements, we have created a [live region package](API-addons/live-region).

@@ -12,7 +12,7 @@ import type {
   FloatingToolbarColorPicker,
   FloatingToolbarEmojiPicker,
 } from '@atlaskit/editor-common/types';
-import { DEFAULT_BORDER_COLOR } from '../../ui/ColorPalette/Palettes';
+import { DEFAULT_BORDER_COLOR } from '@atlaskit/editor-common/ui-color';
 import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {

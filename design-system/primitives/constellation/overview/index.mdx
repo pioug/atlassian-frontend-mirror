@@ -32,11 +32,13 @@ Each primitive is designed to have a single responsibility, and it should be imm
 However, they are also flexible enough that they should be able to be used together to compose complex designs not otherwise implemented directly in the Design Systems.
 
 Currently, three core primitive components are available - Box, Inline and Stack. A large amount of layout problems can be reduced to laying out content:
+
 - in a container (see [box](/components/primitives/box))
 - horizontally (see [inline](/components/primitives/inline))
 - vertically (see [stack](/components/primitives/stack))
 
 Additional layouts not well-expressed by these core primitives can also be composed using:
+
 - CSS Flexbox (see [flex](/components/primitives/flex))
 - CSS Grid (see [grid](/components/primitives/grid))
 - Bleed (see [bleed](/components/primitives/bleed))
@@ -44,6 +46,7 @@ Additional layouts not well-expressed by these core primitives can also be compo
 ## Installation
 
 To install primitive components, add @atlaskit/primitives as a dependency on your project:
+
 ```bash
 $ yarn add @atlaskit/primitives
 ```
@@ -63,7 +66,11 @@ in a layout and grouping them together under a `Box`.
 The behavior within and around these boxes can then be broken down into their horizontal `Inline` and vertical `Stack` components.
 
 <SectionMessage>
-The ESLint rule <a href="/components/eslint-plugin-design-system/usage#use-primitives">use-primitives</a> offers suggestions for possible primitives to apply in a layout.
+  The ESLint rule{' '}
+  <a href="/components/eslint-plugin-design-system/usage#use-primitives">
+    use-primitives
+  </a>{' '}
+  offers suggestions for possible primitives to apply in a layout.
 </SectionMessage>
 
 <Image src={inlineUsageExample} />

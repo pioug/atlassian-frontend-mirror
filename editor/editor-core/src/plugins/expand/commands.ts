@@ -18,7 +18,7 @@ import {
   PLATFORMS,
   MODE,
 } from '../analytics';
-import { GapCursorSelection, Side } from '../selection/gap-cursor-selection';
+import { GapCursorSelection, Side } from '@atlaskit/editor-common/selection';
 
 import { findExpand } from './utils';
 import { createCommand } from './pm-plugins/plugin-factory';

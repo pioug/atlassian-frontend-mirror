@@ -5,7 +5,7 @@ import {
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import mediaAdf from './__fixtures__/toolbar-adf-with-media.json';
 import linkAdf from './__fixtures__/toolbar-adf-with-link.json';
-import type { EditorProps } from '../../../../../../types/editor-props';
+import type { EditorProps } from '../../../types/editor-props';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import type { PuppeteerPage } from '@atlaskit/editor-test-helpers/page-objects/types';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies

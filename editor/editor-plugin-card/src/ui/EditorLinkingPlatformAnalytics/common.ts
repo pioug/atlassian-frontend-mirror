@@ -1,9 +1,9 @@
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { ACTION, INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import { EditorCardPluginEvents } from '../../analytics/create-events-queue';
-import { CardPluginEvent } from '../../analytics/types';
+import type { EditorCardPluginEvents } from '../../analytics/create-events-queue';
+import type { CardPluginEvent } from '../../analytics/types';
 
 export type AnalyticsBindingsProps = {
   editorView: EditorView;
@@ -47,6 +47,10 @@ export const getMethod = withHistoryMethod(({ inputMethod }: EventMetadata) => {
     case INPUT_METHOD.AUTO_DETECT:
     case INPUT_METHOD.FORMATTING:
       return 'editor_type';
+    case INPUT_METHOD.TYPEAHEAD:
+      return 'linkpicker_searchResult';
+    case INPUT_METHOD.MANUAL:
+      return 'linkpicker_manual';
     default:
       return 'unknown';
   }

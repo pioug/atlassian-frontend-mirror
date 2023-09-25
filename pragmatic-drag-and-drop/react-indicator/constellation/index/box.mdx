@@ -24,7 +24,6 @@ When performing reordering operations a drop indicator is used to communicate th
   title="Positioning"
 >
 
-
 Ensure that the parent element of the `<DropIndicator/>` has [non-static positioning](https://developer.mozilla.org/en-US/docs/Web/CSS/position). The drop indicator uses `position: absolute` so will be positioned relative
 to the closest ancestor with non-static positioning.
 
@@ -32,14 +31,13 @@ Generally, you will want to add `position: relative` to the element you want to 
 
 </SectionMessage>
 
-
 ## Edge
 
 Use `edge` to specify which edge of the drop target the drop indicator should be rendered on.
 
 <Example Component={ClosestEdgeExample} />
 
-In order to help people be successful with performance, we have made `edge` a *required* prop. This will force you to only render the indicator when it is relevant (minimising `react` and DOM nodes)
+In order to help people be successful with performance, we have made `edge` a _required_ prop. This will force you to only render the indicator when it is relevant (minimising `react` and DOM nodes)
 
 <Example Component={ConditionalExample} />
 

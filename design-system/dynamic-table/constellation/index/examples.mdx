@@ -3,20 +3,23 @@ order: 0
 ---
 
 import SectionMessage from '@atlaskit/section-message';
-import Uncontrolled from '../../examples/0-stateful'
-import Controlled from '../../examples/1-stateless'
-import LoadingStateFewRows from '../../examples/4-loading-state-few-rows'
-import Sorting from '../../examples/18-sorting'
-import EmptyView from '../../examples/6-empty-view-with-body'
-import Headless from '../../examples/9-headless'
-import Pagination from '../../examples/10-with-lots-of-pages'
-import PaginationDragAndDrop from '../../examples/12-with-lots-of-pages-rankable'
-import ColSpan from '../../examples/13-colspan'
-import HighlightedRow from '../../examples/20-highlighted-row-with-sorting'
-import InteractiveRow from '../../examples/16-row-click-callback'
-import Overflow from '../../examples/19-overflow'
+import Uncontrolled from '../../examples/0-stateful';
+import Controlled from '../../examples/1-stateless';
+import LoadingStateFewRows from '../../examples/4-loading-state-few-rows';
+import Sorting from '../../examples/18-sorting';
+import EmptyView from '../../examples/6-empty-view-with-body';
+import Headless from '../../examples/9-headless';
+import Pagination from '../../examples/10-with-lots-of-pages';
+import PaginationDragAndDrop from '../../examples/12-with-lots-of-pages-rankable';
+import ColSpan from '../../examples/13-colspan';
+import HighlightedRow from '../../examples/20-highlighted-row-with-sorting';
+import InteractiveRow from '../../examples/16-row-click-callback';
+import Overflow from '../../examples/19-overflow';
 
-<SectionMessage>All examples use the following data model in their tables for easier readability.</SectionMessage>
+<SectionMessage>
+  All examples use the following data model in their tables for easier
+  readability.
+</SectionMessage>
 
 ```ts
   interface President {
@@ -80,7 +83,10 @@ Dynamic table uses a spinner to denote loading state. This is toggled by the `is
 
 Table content is set to 20% opacity in this loading state, using the `opacity.loading` token.
 
-<Example Component={LoadingStateFewRows} packageName="@atlaskit/dynamic-table" />
+<Example
+  Component={LoadingStateFewRows}
+  packageName="@atlaskit/dynamic-table"
+/>
 
 ## Empty state
 
@@ -109,7 +115,10 @@ If the `rowsPerPage` prop is set, and there is more than one page of content, th
 Drag and drop functionality is built into dynamic table and is enabled using the `isRankable` prop.
 This allows you to drag rows and rank them in different orders.
 
-<Example Component={PaginationDragAndDrop} packageName="@atlaskit/dynamic-table" />
+<Example
+  Component={PaginationDragAndDrop}
+  packageName="@atlaskit/dynamic-table"
+/>
 
 ## Overflow
 

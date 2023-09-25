@@ -153,7 +153,7 @@ export type { Dispatch } from './event-dispatcher';
 export {
   GapCursorSelection,
   Side as GapCursorSide,
-} from './plugins/selection/gap-cursor/selection';
+} from '@atlaskit/editor-common/selection';
 
 export function setTextSelection(
   view: EditorView,

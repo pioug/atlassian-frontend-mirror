@@ -14,7 +14,7 @@ import type {
 } from '../types';
 import { ACTIONS } from './actions';
 import { pluginKey } from './key';
-import { INPUT_METHOD } from '../../analytics/types/enums';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { isTypeAheadHandler } from '../utils';
 
 export type ReducerOptions = {

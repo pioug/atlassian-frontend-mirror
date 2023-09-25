@@ -1,5 +1,11 @@
 # @atlaskit/link-analytics
 
+## 8.3.3
+
+### Patch Changes
+
+- [`1fedffbd64b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1fedffbd64b) - Update json-ld-types dependencies to be compatible with version
+
 ## 8.3.2
 
 ### Patch Changes

@@ -1,42 +1,41 @@
 /** @jsx jsx */
 import React from 'react';
+
 import { css, jsx } from '@emotion/react';
 
-import type { PopupPosition } from '@atlaskit/editor-common/ui';
-import { Popup, withOuterListeners } from '@atlaskit/editor-common/ui';
-import {
-  ArrowKeyNavigationProvider,
-  ArrowKeyNavigationType,
-} from '@atlaskit/editor-common/ui-menu';
-import { getSelectedRowAndColumnFromPalette } from '@atlaskit/editor-common/ui-color';
-import Button from '@atlaskit/button';
-import Tooltip from '@atlaskit/tooltip';
-import { DN50, N0, N60A, N30A } from '@atlaskit/theme/colors';
-import { themed } from '@atlaskit/theme/components';
-import { borderRadius } from '@atlaskit/theme/constants';
-import type { ThemeProps } from '@atlaskit/theme/types';
-
-import ColorPalette from '../ColorPalette';
-import { DEFAULT_BORDER_COLOR } from '../ColorPalette/Palettes/common';
-import type {
-  PaletteColor,
-  PaletteTooltipMessages,
-} from '../ColorPalette/Palettes';
-import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import {
   withAnalyticsContext,
   withAnalyticsEvents,
 } from '@atlaskit/analytics-next';
-import type { ColorPickerAEP } from '../../plugins/analytics/types/general-events';
-import { editorAnalyticsChannel } from '../../plugins/analytics/consts';
+import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
+import Button from '@atlaskit/button';
+import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
+import { DN50, N0, N30A, N60A } from '@atlaskit/theme/colors';
+import { themed } from '@atlaskit/theme/components';
+import { borderRadius } from '@atlaskit/theme/constants';
+import type { ThemeProps } from '@atlaskit/theme/types';
+import { token } from '@atlaskit/tokens';
+import Tooltip from '@atlaskit/tooltip';
+
+import type { ColorPickerAEP } from '../../analytics';
 import {
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
+  editorAnalyticsChannel,
   EVENT_TYPE,
-} from '../../plugins/analytics/types';
-import { token } from '@atlaskit/tokens';
-import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
+} from '../../analytics';
+import {
+  ColorPalette,
+  DEFAULT_BORDER_COLOR,
+  getSelectedRowAndColumnFromPalette,
+} from '../../ui-color';
+import type { PaletteColor, PaletteTooltipMessages } from '../../ui-color';
+import { default as Popup } from '../../ui/Popup';
+import type { Position as PopupPosition } from '../../ui/Popup/utils';
+import { default as withOuterListeners } from '../../ui/with-outer-listeners';
+import { ArrowKeyNavigationProvider } from '../ArrowKeyNavigationProvider';
+import { ArrowKeyNavigationType } from '../ArrowKeyNavigationProvider/types';
 
 // helps adjusts position of popup
 const colorPickerButtonWrapper = css`

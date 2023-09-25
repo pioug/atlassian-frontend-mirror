@@ -29,6 +29,7 @@ import {
   TableContainer,
 } from '../../../plugins/table/nodeviews/TableContainer';
 import { pluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
+import { pluginKey as tableResizingPluginKey } from '../../../plugins/table/pm-plugins/table-width';
 import type { TablePluginState } from '../../../plugins/table/types';
 
 const mockStartMeasure = jest.fn();
@@ -66,9 +67,14 @@ describe('table -> nodeviews -> TableContainer.tsx', () => {
     return createEditor({
       doc,
       editorProps: {
+        appearance: 'full-page',
         allowTables: false,
         dangerouslyAppendPlugins: {
-          __plugins: [tablePlugin({ config: undefined })],
+          __plugins: [
+            tablePlugin({
+              config: { tableResizingEnabled: true, tableOptions: {} },
+            }),
+          ],
         },
         featureFlags,
       },
@@ -228,21 +234,7 @@ describe('table -> nodeviews -> TableContainer.tsx', () => {
       fireEvent.mouseMove(container.querySelector('.resizer-handle.right')!);
       fireEvent.mouseUp(container.querySelector('.resizer-handle.right')!);
 
-      expect(analyticsMock).toHaveBeenCalledWith({
-        action: TABLE_ACTION.RESIZED,
-        actionSubject: ACTION_SUBJECT.TABLE,
-        eventType: EVENT_TYPE.TRACK,
-        attributes: {
-          width: undefined, // Can't get the events right to trigger re-resizeable
-          prevWidth: null,
-          nodeSize: 20,
-          totalTableWidth: null,
-          totalRowCount: 1,
-          totalColumnCount: 3,
-        },
-      });
-
-      expect(analyticsMock).toHaveBeenCalledWith({
+      expect(analyticsMock).toHaveBeenNthCalledWith(1, {
         action: TABLE_ACTION.RESIZE_PERF_SAMPLING,
         actionSubject: ACTION_SUBJECT.TABLE,
         eventType: EVENT_TYPE.OPERATIONAL,
@@ -254,7 +246,7 @@ describe('table -> nodeviews -> TableContainer.tsx', () => {
         },
       });
 
-      expect(analyticsMock).toHaveBeenCalledWith({
+      expect(analyticsMock).toHaveBeenNthCalledWith(2, {
         action: TABLE_ACTION.RESIZE_PERF_SAMPLING,
         actionSubject: ACTION_SUBJECT.TABLE,
         eventType: EVENT_TYPE.OPERATIONAL,
@@ -263,6 +255,20 @@ describe('table -> nodeviews -> TableContainer.tsx', () => {
           frameRate: 53,
           isInitialSample: false,
           nodeSize: 20,
+        },
+      });
+
+      expect(analyticsMock).toHaveBeenNthCalledWith(3, {
+        action: TABLE_ACTION.RESIZED,
+        actionSubject: ACTION_SUBJECT.TABLE,
+        eventType: EVENT_TYPE.TRACK,
+        attributes: {
+          newWidth: 0, // Can't get the events right to trigger re-resizeable
+          prevWidth: 960,
+          nodeSize: 20,
+          totalTableWidth: null,
+          totalRowCount: 1,
+          totalColumnCount: 3,
         },
       });
 
@@ -378,7 +384,13 @@ describe('table -> nodeviews -> TableContainer.tsx', () => {
         />,
       );
 
-      return { container, unmount, selectionActionMock, actualGuidelineMock };
+      return {
+        container,
+        unmount,
+        editorView,
+        selectionActionMock,
+        actualGuidelineMock,
+      };
     };
 
     afterEach(() => {
@@ -407,6 +419,19 @@ describe('table -> nodeviews -> TableContainer.tsx', () => {
 
       unmount();
       expect(actualGuidelineMock).toHaveBeenCalledWith({ guidelines: [] });
+    });
+
+    // this is testing logic inside TableResizer, targeting the clean up in the useEffect
+    it('should call restore resizing plugin state when removed', () => {
+      const { container, unmount, editorView } = buildContainer({});
+
+      fireEvent.mouseDown(container.querySelector('.resizer-handle.right')!);
+      fireEvent.mouseMove(container.querySelector('.resizer-handle.right')!);
+
+      unmount();
+      expect(tableResizingPluginKey.getState(editorView.state)).toStrictEqual({
+        resizing: false,
+      });
     });
   });
 });

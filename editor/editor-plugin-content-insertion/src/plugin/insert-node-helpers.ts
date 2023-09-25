@@ -3,17 +3,18 @@ import {
   normaliseNestedLayout,
   safeInsert,
 } from '@atlaskit/editor-common/insert';
+import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import {
   Fragment,
   Node as PMNode,
-  ResolvedPos,
   Slice,
 } from '@atlaskit/editor-prosemirror/model';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import {
   NodeSelection,
   TextSelection,
-  Transaction,
 } from '@atlaskit/editor-prosemirror/state';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 function findInsertPoint(
   doc: PMNode,
@@ -100,14 +101,21 @@ export const insertBlockNode = ({
     $from: { pos: start },
     $to: { pos: end },
   } = position;
+
   if (node.isText) {
     return tr.replaceWith(start, end, node);
   }
 
   if (node.isBlock) {
-    tr.delete(start, end);
-
-    const mappedStart = tr.mapping.map(start);
+    let mappedStart = start;
+    if (
+      !getBooleanFF(
+        'platform.editor.content-insertion.block-node-prefer-insert-after-selection',
+      )
+    ) {
+      tr.delete(start, end);
+      mappedStart = tr.mapping.map(start);
+    }
     const nodeNormalized = normaliseNestedLayout(tr, node);
 
     // Handle edge cases for hr and mediaSingle

@@ -2,6 +2,7 @@
 order: 3
 title: Design guidelines
 ---
+
 <!-- Potentially add an intro here, and consider moving a general drag and drop interaction pattern into the "patterns" section. Can link here from there and visaversa... -->
 
 ## Boards
@@ -133,20 +134,16 @@ Drag and drop can be used to reorder items in a grid. At its core, a grid is a d
   <figcaption>
     Draggable grid items in their initial sort order.
 
-
   </figcaption>
 </figure>
-
 
 <figure>
   <img src="/images/example--grid-02.png" />
   <figcaption>
     To prevent sending a false signal to the user, the drop indicator isn't rendered until the draggable object is within range of the far edge of the next sibling.
 
-
   </figcaption>
 </figure>
-
 
 <figure>
   <img src="/images/example--grid-03.png" />
@@ -170,10 +167,8 @@ Drag and drop can be used to reorder items in a grid. At its core, a grid is a d
   <figcaption>
     The drop indicator is positioned on the same axis as the content flow. In this example, the grid flows horizontally to wrap over multiple lines and shows the drop indicator positioned between items on the same axis.
 
-
   </figcaption>
 </figure>
-
 
 <figure>
   <img src="/images/example--grid-06.png" />
@@ -329,7 +324,6 @@ Because trees support drag operations that affect hierarchical relationships, dr
   </figcaption>
 </figure>
 
-
 ### Moving a tree item into an existing tree group
 
 <figure>
@@ -340,14 +334,18 @@ Because trees support drag operations that affect hierarchical relationships, dr
 <figure>
   <img src="/images/example--tree__move-to-group-02.png" />
   <figcaption>
-    When a user starts dragging an item to reorder it, the drop indicator isn't rendered until the item is dragged into a position that would change its order.
+    When a user starts dragging an item to reorder it, the drop indicator isn't
+    rendered until the item is dragged into a position that would change its
+    order.
   </figcaption>
 </figure>
 
 <figure>
   <img src="/images/example--tree__move-to-group-03.png" />
   <figcaption>
-    As the item is dragged into a position that will affect its ordering, edge detection is employed to render a drop indicator which signals to the user where the item will move to when dropped.
+    As the item is dragged into a position that will affect its ordering, edge
+    detection is employed to render a drop indicator which signals to the user
+    where the item will move to when dropped.
   </figcaption>
 </figure>
 
@@ -356,24 +354,24 @@ Because trees support drag operations that affect hierarchical relationships, dr
   <figcaption>
     As the user drags the tree item on the horizontal axis, edge detection is employed to expand the tree group and update the drop indicator position to show that the item will become a child of the item being dragged over.
 
-
   </figcaption>
 </figure>
 
 <figure>
   <img src="/images/example--tree__move-to-group-05.png" />
   <figcaption>
-    With the tree group expanded, the user can continue to drag the tree item into the desired position using the drop indicator as a guide.
+    With the tree group expanded, the user can continue to drag the tree item
+    into the desired position using the drop indicator as a guide.
   </figcaption>
 </figure>
 
 <figure>
   <img src="/images/example--tree__move-to-group-06.png" />
   <figcaption>
-    Once the user lets go of the mouse to end the drag operation, the draggable source is removed and the original item is rendered in its new position.
+    Once the user lets go of the mouse to end the drag operation, the draggable
+    source is removed and the original item is rendered in its new position.
   </figcaption>
 </figure>
-
 
 ### Moving a tree item out of a tree group
 
@@ -385,31 +383,37 @@ Because trees support drag operations that affect hierarchical relationships, dr
 <figure>
   <img src="/images/example--tree__remove-from-group-02.png" />
   <figcaption>
-    When a user starts dragging an item to reorder it, the drop indicator isn't rendered until the item is dragged into a position that would change its order.
+    When a user starts dragging an item to reorder it, the drop indicator isn't
+    rendered until the item is dragged into a position that would change its
+    order.
   </figcaption>
 </figure>
 
 <figure>
   <img src="/images/example--tree__remove-from-group-03.png" />
   <figcaption>
-    As the item is dragged into a position that will affect its ordering, edge detection is employed to render a drop indicator which signals to the user where the item will move to when dropped.
+    As the item is dragged into a position that will affect its ordering, edge
+    detection is employed to render a drop indicator which signals to the user
+    where the item will move to when dropped.
   </figcaption>
 </figure>
 
 <figure>
   <img src="/images/example--tree__remove-from-group-04.png" />
   <figcaption>
-    As the user drags the tree item on the horizontal axis, edge detection is employed to update the drop indicator position to show that the item will no longer be a child of the tree group.
+    As the user drags the tree item on the horizontal axis, edge detection is
+    employed to update the drop indicator position to show that the item will no
+    longer be a child of the tree group.
   </figcaption>
 </figure>
 
 <figure>
   <img src="/images/example--tree__remove-from-group-05.png" />
   <figcaption>
-    Once the user lets go of the mouse to end the drag operation, the draggable source is removed and the original item is rendered in its new position.
+    Once the user lets go of the mouse to end the drag operation, the draggable
+    source is removed and the original item is rendered in its new position.
   </figcaption>
 </figure>
-
 
 ### Moving a tree group
 
@@ -421,20 +425,25 @@ Because trees support drag operations that affect hierarchical relationships, dr
 <figure>
   <img src="/images/example--tree__moving-group-02.png" />
   <figcaption>
-    When a user starts dragging an item to reorder it, the tree group collapses and a badge containing a count of the children.
+    When a user starts dragging an item to reorder it, the tree group collapses
+    and a badge containing a count of the children.
   </figcaption>
 </figure>
 
 <figure>
   <img src="/images/example--tree__moving-group-03.png" />
   <figcaption>
-    As the item is dragged into a position that will affect its ordering, edge detection is employed to render a drop indicator which signals to the user where the item will move to when dropped.
+    As the item is dragged into a position that will affect its ordering, edge
+    detection is employed to render a drop indicator which signals to the user
+    where the item will move to when dropped.
   </figcaption>
 </figure>
 
 <figure>
   <img src="/images/example--tree__moving-group-04.png" />
   <figcaption>
-    Once the user lets go of the mouse to end the drag operation, the draggable source is removed and the original item is rendered in its new position, and the tree group is automatically expanded.
+    Once the user lets go of the mouse to end the drag operation, the draggable
+    source is removed and the original item is rendered in its new position, and
+    the tree group is automatically expanded.
   </figcaption>
 </figure>

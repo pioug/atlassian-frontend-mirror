@@ -15,14 +15,19 @@ import {
   tab,
   backspace,
 } from '@atlaskit/editor-common/keymaps';
-import { GapCursorSelection, Side } from '../../selection/gap-cursor-selection';
+import {
+  GapCursorSelection,
+  Side,
+  RelativeSelectionPos,
+} from '@atlaskit/editor-common/selection';
+import type { SelectionSharedState } from '@atlaskit/editor-common/selection';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { findExpand } from '../utils';
 import { isEmptyNode } from '../../../utils';
 import { expandClassNames } from '../ui/class-names';
 import { deleteExpand, focusTitle } from '../commands';
-import { getPluginState as getSelectionPluginState } from '../../selection/plugin-factory';
-import { RelativeSelectionPos } from '../../selection/types';
 import { isPositionNearTableRow } from '@atlaskit/editor-common/utils';
+import type expandPlugin from '../index';
 
 const isExpandNode = (node: PMNode) => {
   return node?.type.name === 'expand' || node?.type.name === 'nestedExpand';
@@ -30,7 +35,9 @@ const isExpandNode = (node: PMNode) => {
 const isExpandSelected = (selection: Selection) =>
   selection instanceof NodeSelection && isExpandNode(selection.node);
 
-export function expandKeymap(): SafePlugin {
+export function expandKeymap(
+  api: ExtractInjectionAPI<typeof expandPlugin> | undefined,
+): SafePlugin {
   const list = {};
 
   bindKeymapWithCommand(
@@ -40,7 +47,9 @@ export function expandKeymap(): SafePlugin {
         return false;
       }
       const { selection } = state;
-      const { selectionRelativeToNode } = getSelectionPluginState(state);
+      const selectionSharedState: SelectionSharedState =
+        api?.selection.sharedState.currentState() || {};
+      const { selectionRelativeToNode } = selectionSharedState;
 
       if (
         isExpandSelected(selection) &&
@@ -60,7 +69,9 @@ export function expandKeymap(): SafePlugin {
         return false;
       }
       const { selection } = state;
-      const { selectionRelativeToNode } = getSelectionPluginState(state);
+      const selectionSharedState: SelectionSharedState =
+        api?.selection.sharedState.currentState() || {};
+      const { selectionRelativeToNode } = selectionSharedState;
 
       if (
         isExpandSelected(selection) &&

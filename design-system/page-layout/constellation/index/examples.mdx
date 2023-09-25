@@ -14,30 +14,44 @@ import PageLayoutServerRendered from '../../examples/constellation/page-layout-s
 import { ExpandLeftSidebarKeyboardShortcut } from '../../examples/common/expand-sidebar-keyboard-shortcut';
 import PageLayoutLeftSidebarWithKeyboardExpand from '../../examples/constellation/page-layout-left-sidebar-keyboard-event';
 
-
-<SectionMessage>Open the examples below in Codesandbox for a full-page experience.</SectionMessage>
+<SectionMessage>
+  Open the examples below in Codesandbox for a full-page experience.
+</SectionMessage>
 
 ## Basic
 
 `PageLayout` wraps an entire app view and helps split the viewport into sections where you can render components in slots, such as `TopNavigation`, `Main`, `LeftSidebar`, and more.
 
-<Example Component={PageLayoutBasic} appearance="source-only" packageName="@atlaskit/page-layout" />
+<Example
+  Component={PageLayoutBasic}
+  appearance="source-only"
+  packageName="@atlaskit/page-layout"
+/>
 
 Here is a customisable and more interactive example to demonstrate the page layout slots.
 
-<Example Component={PageLayoutInteractive} appearance="source-only" packageName="@atlaskit/page-layout" />
+<Example
+  Component={PageLayoutInteractive}
+  appearance="source-only"
+  packageName="@atlaskit/page-layout"
+/>
 
 ## Integrated
 
 `PageLayout` is designed to work in tandem with our other navigation components, `@atlaskit/atlassian-navigation` and `@atlaskit/side-navigation`. Here we have an example where these components are used together.
 
-<Example Component={PageLayoutIntegration} appearance="source-only" packageName="@atlaskit/page-layout" />
+<Example
+  Component={PageLayoutIntegration}
+  appearance="source-only"
+  packageName="@atlaskit/page-layout"
+/>
 
 ## Left sidebar
 
 The left sidebar houses all the navigation components for the **current** space a user is in. `PageLayout` lets a user choose to resize and/or collapse/expand the sidebar allowing a user to get more screen space to do work and for a certain level of personalisation.
 
 The left sidebar:
+
 - can be resized using mouse or keyboard
 - can be expanded/collapsed using mouse or keyboard
 - has a 'Flyout' feature when hovering over collapsed sidebar to quickly see navigation items
@@ -45,13 +59,21 @@ The left sidebar:
 
 You can see the left sidebar can be resized and even collapsed to give more screen space to the main content:
 
-<Example Component={PageLayoutResizeSidebar} appearance="source-only" packageName="@atlaskit/page-layout" />
+<Example
+  Component={PageLayoutResizeSidebar}
+  appearance="source-only"
+  packageName="@atlaskit/page-layout"
+/>
 
 ### Locking the sidebar open
 
 In some circumstances you may want to prevent the sidebar flyout from collapsing, such as when a pop-up menu has been opened inside the sidebar. The `useLeftSidebarFlyoutLock` hook is purpose-made for this situation.
 
-<Example Component={PageLayoutLockedSidebar} appearance="source-only" packageName="@atlaskit/page-layout" />
+<Example
+  Component={PageLayoutLockedSidebar}
+  appearance="source-only"
+  packageName="@atlaskit/page-layout"
+/>
 
 ### Left sidebar without resize
 
@@ -59,19 +81,28 @@ If you just need a left sidebar slot without any resize functionality, use the l
 
 ### Programatically toggling with a keyboard shortcut
 
-A common pattern with our LeftSidebar is to show, hide, and/or toggle the state based on a keyboard shortcut or some external input.  For this, we provide utilities that control sidebar state using React Context.
+A common pattern with our LeftSidebar is to show, hide, and/or toggle the state based on a keyboard shortcut or some external input. For this, we provide utilities that control sidebar state using React Context.
 
 These are the supported options exposed via context:
- - `toggleLeftSidebar()` to toggle visibility of the left sidebar
- - `collapseLeftSidebar()` to hide the left sidebar
- - `expandLeftSidebar()` to show the left sidebar visible
- - `isLeftSidebarCollapsed` whether or not the left sidebar is currently hidden
 
-<Example Component={ExpandLeftSidebarKeyboardShortcut} appearance="source-only" packageName="@atlaskit/page-layout" />
+- `toggleLeftSidebar()` to toggle visibility of the left sidebar
+- `collapseLeftSidebar()` to hide the left sidebar
+- `expandLeftSidebar()` to show the left sidebar visible
+- `isLeftSidebarCollapsed` whether or not the left sidebar is currently hidden
+
+<Example
+  Component={ExpandLeftSidebarKeyboardShortcut}
+  appearance="source-only"
+  packageName="@atlaskit/page-layout"
+/>
 
 The context is only available within the `LeftSidebar` component, so ensure your logic exists as a child for these to be available, example:
-<Example Component={PageLayoutLeftSidebarWithKeyboardExpand} appearance="source-only" packageName="@atlaskit/page-layout" />
 
+<Example
+  Component={PageLayoutLeftSidebarWithKeyboardExpand}
+  appearance="source-only"
+  packageName="@atlaskit/page-layout"
+/>
 
 ## Skip links
 
@@ -93,9 +124,11 @@ To modify the "Skip to:" text, set the `skipLinksLabel` prop in PageLayout.
 
 On first tab into the example below, you should see the skip link menu appear:
 
-<Example Component={PageLayoutBasic} appearance="source-only" packageName="@atlaskit/page-layout" />
-
-
+<Example
+  Component={PageLayoutBasic}
+  appearance="source-only"
+  packageName="@atlaskit/page-layout"
+/>
 
 ### Custom skip links
 
@@ -105,7 +138,11 @@ You can choose the position the link will show up in the menu by using the optio
 
 **Note:** Although `useCustomSkipLink` can link to DOM elements outside of `PageLayout` using the HTML `id`, it needs to be called from within `PageLayout`, since it relies on the context provider that wraps `PageLayout`.
 
-<Example Component={PageLayoutCustomSkipLinks} appearance="source-only" packageName="@atlaskit/page-layout" />
+<Example
+  Component={PageLayoutCustomSkipLinks}
+  appearance="source-only"
+  packageName="@atlaskit/page-layout"
+/>
 
 ### Accessibility
 
@@ -123,8 +160,11 @@ All skip link text needs to be translated for different locales. This includes s
 
 Here is an example of a server-rendered page.
 
-<Example Component={PageLayoutServerRendered} appearance="source-only" packageName="@atlaskit/page-layout" />
-
+<Example
+  Component={PageLayoutServerRendered}
+  appearance="source-only"
+  packageName="@atlaskit/page-layout"
+/>
 
 ## Using CSS variables
 

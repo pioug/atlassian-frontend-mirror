@@ -33,9 +33,10 @@ export const updateInlineCommentResolvedState = (
   return createCommand(command);
 };
 
-export const closeComponent = (): Command =>
+export const closeComponent = (state: EditorState): Command =>
   createCommand({
     type: ACTIONS.CLOSE_COMPONENT,
+    data: { lastClosedPos: state.selection.$head.pos },
   });
 
 export const clearDirtyMark = (): Command =>

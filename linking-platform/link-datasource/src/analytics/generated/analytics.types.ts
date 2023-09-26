@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::0262ba66242472aeffce99eacc538f23>>
+ * @codegen <<SignedSource::05b7b33172b55f75035f0d77317a3f4f>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen link-datasource
  */
 export type PackageMetaDataType = {
@@ -62,6 +62,7 @@ export type DatasourceRenderSuccessAttributesType = {
   extensionKey: string | null;
   display: 'table';
 };
+export type DatasourceRenderFailureAttributesType = {};
 export type NextItemLoadedAttributesType = {
   destinationObjectTypes: unknown[];
   extensionKey: string | null;
@@ -132,6 +133,9 @@ export type AnalyticsEventAttributes = {
   /**
    * Fired when an inserted datasource resolves / renders. */
   'ui.datasource.renderSuccess': DatasourceRenderSuccessAttributesType;
+  /**
+   * Fired when an inserted datasource fails to render */
+  'ui.datasource.renderFailure': DatasourceRenderFailureAttributesType;
   /**
    * Fired when user scrolls to the next page/list of the objects */
   'track.nextItem.loaded': NextItemLoadedAttributesType;

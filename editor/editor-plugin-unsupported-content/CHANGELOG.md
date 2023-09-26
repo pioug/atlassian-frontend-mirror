@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-unsupported-content
 
+## 0.2.3
+
+### Patch Changes
+
+- [`4e7058a65f4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4e7058a65f4) - Add eslint rule to ban React.FC and React.FunctionalComponent in editor. In most packages this is still a warning.
+
 ## 0.2.2
 
 ### Patch Changes

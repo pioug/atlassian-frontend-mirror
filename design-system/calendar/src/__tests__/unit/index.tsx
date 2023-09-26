@@ -247,7 +247,7 @@ describe('Calendar', () => {
       const heading = renderResult.getByRole('heading');
       const headingId = heading.getAttribute('id');
       const calendarGrid = renderResult.getByRole('grid');
-      expect(calendarGrid.getAttribute('aria-labelledby')).toBe(headingId);
+      expect(calendarGrid).toHaveAttribute('aria-labelledby', headingId);
     });
 
     it('should render default selected day', () => {
@@ -678,7 +678,7 @@ describe('Calendar', () => {
       const headerElements = setup({
         weekStartDay,
       }).renderResult.getAllByTestId(`${testId}--column-headers`)?.[0];
-      expect(headerElements.textContent).toBe(expected);
+      expect(headerElements).toHaveTextContent(expected);
     },
     {
       weekStartDay0: {

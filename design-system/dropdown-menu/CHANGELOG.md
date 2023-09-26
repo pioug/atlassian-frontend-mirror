@@ -1,5 +1,11 @@
 # @atlaskit/dropdown-menu
 
+## 11.14.3
+
+### Patch Changes
+
+- [`a54578d2ea9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a54578d2ea9) - This removes the feature flag for the `shouldRenderToParent` prop. The prop is available for use.
+
 ## 11.14.2
 
 ### Patch Changes

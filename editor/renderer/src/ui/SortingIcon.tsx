@@ -3,8 +3,9 @@ import { css, jsx } from '@emotion/react';
 import Tooltip from '@atlaskit/tooltip';
 import { N20, N30 } from '@atlaskit/theme/colors';
 import { SortOrder } from '@atlaskit/editor-common/types';
-import { sortingIconMessages } from '../messages';
-import { injectIntl, IntlShape, WrappedComponentProps } from 'react-intl-next';
+import { sortingIconMessages, sortingAriaLabelMessages } from '../messages';
+import type { IntlShape, WrappedComponentProps } from 'react-intl-next';
+import { injectIntl } from 'react-intl-next';
 import { token } from '@atlaskit/tokens';
 import { RendererCssClassName } from '../consts';
 
@@ -20,7 +21,7 @@ const buttonStyles = css`
   display: flex;
   height: 28px;
   width: 28px;
-  margin: 6px;
+  margin: ${token('space.075', '6px')};
   right: 0;
   top: 0;
   border: 2px solid ${token('color.border', '#fff')};
@@ -145,6 +146,35 @@ const getTooltipTitle = (
   return '';
 };
 
+const getAriaLabel = (
+  intl: IntlShape,
+  isSortingAllowed: boolean,
+  sortOrdered?: SortOrder,
+): string => {
+  const {
+    noOrderLabel,
+    ascOrderLabel,
+    descOrderLabel,
+    invalidLabel,
+    defaultLabel,
+  } = sortingAriaLabelMessages;
+
+  if (!isSortingAllowed) {
+    return intl.formatMessage(invalidLabel);
+  }
+
+  switch (sortOrdered) {
+    case SortOrder.NO_ORDER:
+      return intl.formatMessage(noOrderLabel);
+    case SortOrder.ASC:
+      return intl.formatMessage(ascOrderLabel);
+    case SortOrder.DESC:
+      return intl.formatMessage(descOrderLabel);
+  }
+
+  return intl.formatMessage(defaultLabel);
+};
+
 const SortingIcon = ({
   isSortingAllowed,
   sortOrdered,
@@ -159,6 +189,7 @@ const SortingIcon = ({
   }`;
 
   const content = getTooltipTitle(intl, isSortingAllowed, sortOrdered);
+  const ariaLabel = getAriaLabel(intl, isSortingAllowed, sortOrdered);
 
   const handleClick = () => {
     if (isSortingAllowed) {
@@ -179,7 +210,7 @@ const SortingIcon = ({
         className={buttonClassName}
         role="button"
         tabIndex={isSortingAllowed ? 0 : -1}
-        aria-label="sort column"
+        aria-label={ariaLabel}
         aria-disabled={!isSortingAllowed}
         onClick={handleClick}
         onKeyDown={handleKeyDown}

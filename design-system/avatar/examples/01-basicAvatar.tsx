@@ -43,7 +43,7 @@ export default () => (
     </Block>
     <Block heading="Disabled">
       <Tooltip content="xxlarge">
-        <Avatar name="xxlarge" size="xxlarge" testId="avatar" isDisabled />
+        <Avatar name="xxlarge" size="xxlarge" isDisabled />
       </Tooltip>
       <Gap />
       <Avatar name="xlarge" size="xlarge" presence="online" isDisabled />

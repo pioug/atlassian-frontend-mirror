@@ -1,4 +1,4 @@
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { snapshot, animationFrame, initRendererWithADF } from './_utils';
 import * as tableSortable from '../__fixtures__/table-sortable.adf.json';
 import * as tableWithMergedCells from '../__fixtures__/table-with-merged-cells.adf.json';
@@ -29,7 +29,7 @@ const initRenderer = async (page: PuppeteerPage, adf: any) => {
 };
 
 const getSortableColumnSelector = (nth: number) =>
-  `tr:first-of-type .${RendererCssClassName.SORTABLE_COLUMN}:nth-of-type(${nth}) div[aria-label="sort column"]`;
+  `tr:first-of-type .${RendererCssClassName.SORTABLE_COLUMN}:nth-of-type(${nth}) div[role="button"]`;
 
 const waitForDateText = async (page: PuppeteerPage, text: string) =>
   await waitForText(page, '.date-lozenger-container > span', text);

@@ -17,3 +17,4 @@ export type {
   DatasourceAdfView,
   DatasourceAdfTableView,
 } from '@atlaskit/linking-common/types';
+export { DatasourceRenderFailedAnalyticsWrapper } from './analytics';

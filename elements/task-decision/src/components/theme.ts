@@ -21,22 +21,16 @@ import {
 const checkboxTheme = {
   light: {
     borderColor: {
-      rest: token(
-        'color.border.input',
-        getBooleanFF(
-          'platform.design-system-team.update-border-radio-checkbox_7askv',
-        )
-          ? N100
-          : N40,
-      ),
-      hovered: token(
-        'color.border.input',
-        getBooleanFF(
-          'platform.design-system-team.update-border-radio-checkbox_7askv',
-        )
-          ? N100
-          : N40,
-      ),
+      rest: getBooleanFF(
+        'platform.design-system-team.update-border-radio-checkbox_7askv',
+      )
+        ? token('color.border.bold', N100)
+        : token('color.border.input', N40),
+      hovered: getBooleanFF(
+        'platform.design-system-team.update-border-radio-checkbox_7askv',
+      )
+        ? token('color.border.bold', N100)
+        : token('color.border.input', N40),
       disabled: token('color.background.disabled', N20),
       checked: token('color.background.selected.bold', B400),
       active: token('color.border', B50),
@@ -65,15 +59,16 @@ const checkboxTheme = {
    */
   dark: {
     borderColor: {
-      rest: token(
-        'color.border.input',
-        getBooleanFF(
-          'platform.design-system-team.update-border-radio-checkbox_7askv',
-        )
-          ? DN200
-          : '#A6C5E229',
-      ),
-      hovered: token('color.border.input', '#A6C5E229'),
+      rest: getBooleanFF(
+        'platform.design-system-team.update-border-radio-checkbox_7askv',
+      )
+        ? token('color.border.bold', DN200)
+        : token('color.border.input', '#A6C5E229'),
+      hovered: getBooleanFF(
+        'platform.design-system-team.update-border-radio-checkbox_7askv',
+      )
+        ? token('color.border.bold', DN200)
+        : token('color.border.input', '#A6C5E229'),
       disabled: token('color.background.disabled', '#BCD6F00A'),
       checked: token('color.background.selected.bold', '#579DFF'),
       active: token('color.border', '#A6C5E229'),

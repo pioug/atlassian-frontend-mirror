@@ -1,5 +1,11 @@
 # @atlaskit/link-datasource
 
+## 1.4.0
+
+### Minor Changes
+
+- [`b2a9540c8d8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b2a9540c8d8) - Export a new DatasourceRenderFailedAnalyticsWrapper - a component that can be consumed to emit 'ui.datasource.renderFailed' events when an inserted datasource fails to render
+
 ## 1.3.1
 
 ### Patch Changes

@@ -276,6 +276,7 @@ function ContentComponent({
     forcePlacement,
     preventPopupOverflow,
     onPositionCalculated,
+    absoluteOffset = { top: 0, left: 0, right: 0, bottom: 0 },
     focusTrap,
   } = config;
   const targetRef = getDomRef(editorView, dispatchAnalyticsEvent);
@@ -333,6 +334,7 @@ function ContentComponent({
         forcePlacement={forcePlacement}
         fitHeight={height}
         fitWidth={width}
+        absoluteOffset={absoluteOffset}
         alignX={align}
         stick={true}
         zIndex={zIndex}

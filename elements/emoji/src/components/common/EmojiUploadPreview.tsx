@@ -11,9 +11,7 @@ import { customCategory } from '../../util/constants';
 import { EmojiDescription, Message } from '../../types';
 import { messages } from '../i18n';
 import Emoji from './Emoji';
-import EmojiErrorMessage, {
-  emojiErrorScreenreaderTestId,
-} from './EmojiErrorMessage';
+import EmojiErrorMessage from './EmojiErrorMessage';
 import { UploadStatus } from './internal-types';
 import RetryableButton from './RetryableButton';
 import {
@@ -25,7 +23,6 @@ import {
   uploadPreviewFooter,
   uploadPreviewText,
 } from './styles';
-import VisuallyHidden from '@atlaskit/visually-hidden';
 
 export interface EmojiUploadPreviewProps {
   name: string;
@@ -39,7 +36,6 @@ export interface EmojiUploadPreviewProps {
 export const uploadPreviewTestId = 'upload-preview';
 export const cancelUploadButtonTestId = 'cancel-upload-button';
 const addEmojiPreviewDescriptionId = 'fabric.emoji.preview.description.id';
-const addEmojiButtonLabelId = 'fabric.emoji.add.label.id';
 
 class EmojiUploadPreview extends PureComponent<
   EmojiUploadPreviewProps & WrappedComponentProps,
@@ -76,6 +72,9 @@ class EmojiUploadPreview extends PureComponent<
     }
 
     const uploading = uploadStatus === UploadStatus.Uploading;
+    const retryableButtonLabel = errorMessage
+      ? formatMessage(messages.retryLabel)
+      : formatMessage(messages.addEmojiLabel);
 
     return (
       <div css={uploadPreviewFooter}>
@@ -84,10 +83,12 @@ class EmojiUploadPreview extends PureComponent<
             <h5>
               <FormattedMessage {...messages.emojiPreviewTitle} />
             </h5>
-            <FormattedMessage
-              {...messages.emojiPreview}
-              values={{ emoji: emojiComponent }}
-            />
+            <div id={addEmojiPreviewDescriptionId}>
+              <FormattedMessage
+                {...messages.emojiPreview}
+                values={{ emoji: emojiComponent }}
+              />
+            </div>
           </div>
           <div css={bigEmojiPreview}>{emojiComponent}</div>
         </div>
@@ -99,27 +100,13 @@ class EmojiUploadPreview extends PureComponent<
               tooltip
             />
           ) : null}
-          {!errorMessage && (
-            <VisuallyHidden id={addEmojiPreviewDescriptionId}>
-              <FormattedMessage
-                {...messages.emojiPreview}
-                values={{ emoji: name }}
-              />
-            </VisuallyHidden>
-          )}
-          <VisuallyHidden id={addEmojiButtonLabelId}>
-            {errorMessage
-              ? formatMessage(messages.retryLabel)
-              : formatMessage(messages.addEmojiLabel)}
-          </VisuallyHidden>
           <RetryableButton
-            label={formatMessage(messages.addEmojiLabel)}
+            label={retryableButtonLabel}
             onSubmit={onAddEmoji}
             appearance="primary"
             loading={uploading}
             error={!!errorMessage}
             ariaDescribedBy={addEmojiPreviewDescriptionId}
-            ariaLabelledBy={`${emojiErrorScreenreaderTestId} ${addEmojiButtonLabelId}`}
           />
           <AkButton
             onClick={onUploadCancelled}

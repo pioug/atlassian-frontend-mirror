@@ -198,13 +198,7 @@ const DropdownMenu = <T extends HTMLElement = HTMLElement>(
         fallbackPlacements={fallbackPlacements}
         testId={testId && `${testId}--content`}
         shouldUseCaptureOnOutsideClick
-        shouldRenderToParent={
-          getBooleanFF(
-            'platform.design-system-team.render-popup-in-parent_f73ij',
-          )
-            ? shouldRenderToParent
-            : undefined
-        }
+        shouldRenderToParent={shouldRenderToParent}
         trigger={(triggerProps: TriggerProps) => {
           if (typeof trigger === 'function') {
             const { ref, ...providedProps } = triggerProps;

@@ -9,7 +9,8 @@ export const StyledBar = (props: StyledBarProps) => {
   return (
     <div
       id="styledBar"
-      data-testid="media-progress-bar"
+      role="progressbar"
+      aria-valuenow={progress}
       css={styledBarStyles({
         progress,
         breakpoint,

@@ -302,6 +302,9 @@ export const hideNativeBrowserTextSelectionStyles =
   '\n  ::selection,*::selection {\n    background-color: transparent;\n  }\n  ::-moz-selection,*::-moz-selection {\n    background-color: transparent;\n  }\n';
 
 // @public (undocumented)
+export const MAX_BROWSER_SCROLLBAR_HEIGHT = 20;
+
+// @public (undocumented)
 export const overflowShadow: ({
   background,
   width,

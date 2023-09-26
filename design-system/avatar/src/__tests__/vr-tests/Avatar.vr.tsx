@@ -6,3 +6,9 @@ import BasicAvatar from '../../../examples/01-basicAvatar';
 snapshot(BasicAvatar, {
   drawsOutsideBounds: true,
 });
+
+snapshot(BasicAvatar, {
+  description: 'tooltip on hover',
+  states: [{ state: 'hovered', selector: { byTestId: 'avatar' } }],
+  drawsOutsideBounds: true,
+});

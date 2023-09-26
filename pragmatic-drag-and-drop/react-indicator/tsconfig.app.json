@@ -33,9 +33,6 @@
   },
   "references": [
     {
-      "path": "../core/tsconfig.app.json"
-    },
-    {
       "path": "../hitbox/tsconfig.app.json"
     },
     {

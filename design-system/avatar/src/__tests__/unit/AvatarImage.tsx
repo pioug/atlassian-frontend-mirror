@@ -1,14 +1,14 @@
 // eslint-disable-next-line @repo/internal/fs/filename-pattern-match
 import React from 'react';
 
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 import AvatarImage, { ICON_BACKGROUND, ICON_COLOR } from '../../AvatarImage';
 
 const ColorContrastChecker = require('color-contrast-checker');
 
 it('should display the default avatar if no image is provided', () => {
-  const { getByTestId } = render(
+  render(
     <AvatarImage
       appearance="circle"
       size="large"
@@ -17,13 +17,13 @@ it('should display the default avatar if no image is provided', () => {
     />,
   );
 
-  const svgElement = getByTestId('avatar--person');
+  const svgElement = screen.getByTestId('avatar--person');
 
-  expect(svgElement.getAttribute('aria-label')).toEqual('Carole Baskin');
+  expect(svgElement).toHaveAttribute('aria-label', 'Carole Baskin');
 });
 
 it('should display the default square avatar if appearance is square and no image is provided', () => {
-  const { getByTestId } = render(
+  render(
     <AvatarImage
       appearance="square"
       size="large"
@@ -32,13 +32,13 @@ it('should display the default square avatar if appearance is square and no imag
     />,
   );
 
-  const svgElement = getByTestId('avatar--ship');
+  const svgElement = screen.getByTestId('avatar--ship');
 
-  expect(svgElement.getAttribute('aria-label')).toEqual('Carole Baskin');
+  expect(svgElement).toHaveAttribute('aria-label', 'Carole Baskin');
 });
 
 it('should display the default avatar if image is provided and fails to load', () => {
-  const { getByTestId } = render(
+  render(
     <AvatarImage
       appearance="circle"
       size="large"
@@ -48,13 +48,13 @@ it('should display the default avatar if image is provided and fails to load', (
     />,
   );
 
-  fireEvent.error(getByTestId('avatar--image'));
-  const svgElement = getByTestId('avatar--person');
-  expect(svgElement.getAttribute('aria-label')).toEqual('Carole Baskin');
+  fireEvent.error(screen.getByTestId('avatar--image'));
+  const svgElement = screen.getByTestId('avatar--person');
+  expect(svgElement).toHaveAttribute('aria-label', 'Carole Baskin');
 });
 
 it('should display the default square avatar if image is provided and fails to load', () => {
-  const { getByTestId } = render(
+  render(
     <AvatarImage
       appearance="square"
       size="large"
@@ -64,13 +64,13 @@ it('should display the default square avatar if image is provided and fails to l
     />,
   );
 
-  fireEvent.error(getByTestId('avatar--image'));
-  const svgElement = getByTestId('avatar--ship');
-  expect(svgElement.getAttribute('aria-label')).toEqual('Carole Baskin');
+  fireEvent.error(screen.getByTestId('avatar--image'));
+  const svgElement = screen.getByTestId('avatar--ship');
+  expect(svgElement).toHaveAttribute('aria-label', 'Carole Baskin');
 });
 
 it('should display image is provided and successfully loads', () => {
-  const { getByTestId } = render(
+  render(
     <AvatarImage
       appearance="square"
       size="large"
@@ -80,12 +80,12 @@ it('should display image is provided and successfully loads', () => {
     />,
   );
 
-  const imgElement = getByTestId('avatar--image');
-  expect(imgElement.getAttribute('alt')).toEqual('Carole Baskin');
+  const imgElement = screen.getByTestId('avatar--image');
+  expect(imgElement).toHaveAttribute('alt', 'Carole Baskin');
 });
 
 it('should reset error state if `src` prop is updated', () => {
-  const { getByTestId, rerender } = render(
+  const { rerender } = render(
     <AvatarImage
       appearance="circle"
       size="large"
@@ -95,9 +95,9 @@ it('should reset error state if `src` prop is updated', () => {
     />,
   );
 
-  fireEvent.error(getByTestId('avatar--image'));
-  const svgElement = getByTestId('avatar--person');
-  expect(svgElement.getAttribute('aria-label')).toEqual('Carole Baskin');
+  fireEvent.error(screen.getByTestId('avatar--image'));
+  const svgElement = screen.getByTestId('avatar--person');
+  expect(svgElement).toHaveAttribute('aria-label', 'Carole Baskin');
 
   rerender(
     <AvatarImage
@@ -111,12 +111,12 @@ it('should reset error state if `src` prop is updated', () => {
 
   // After rerender on prop change we should no longer get the default SVG with aria-label
   expect(() => {
-    const svgElement = getByTestId('avatar--person');
-    expect(svgElement.getAttribute('aria-label')).toEqual('Carole Baskin');
+    const svgElement = screen.getByTestId('avatar--person');
+    expect(svgElement).toHaveAttribute('aria-label', 'Carole Baskin');
   }).toThrow();
   // Instead we should see an img with an alt
-  const imgElement = getByTestId('avatar--image');
-  expect(imgElement.getAttribute('alt')).toEqual('Carole Baskin');
+  const imgElement = screen.getByTestId('avatar--image');
+  expect(imgElement).toHaveAttribute('alt', 'Carole Baskin');
 });
 
 it('should render images on the first tick if they were cached', () => {
@@ -140,7 +140,7 @@ it('should render images on the first tick if they were cached', () => {
     },
   });
 
-  const { getByTestId } = render(
+  render(
     <AvatarImage
       appearance="square"
       size="large"
@@ -152,8 +152,8 @@ it('should render images on the first tick if they were cached', () => {
 
   expect(hasCalledOnLoad).toEqual(false);
 
-  const imgElement = getByTestId('avatar--image');
-  expect(imgElement.getAttribute('alt')).toEqual('Carole Baskin');
+  const imgElement = screen.getByTestId('avatar--image');
+  expect(imgElement).toHaveAttribute('alt', 'Carole Baskin');
 });
 
 // TODO re-enable this test once a solution is in place for testing token colors
@@ -177,7 +177,7 @@ it('image should be decorative when no alt is provided', () => {
     },
   });
 
-  const { getByTestId } = render(
+  render(
     <AvatarImage
       appearance="circle"
       size="large"
@@ -186,7 +186,7 @@ it('image should be decorative when no alt is provided', () => {
     />,
   );
 
-  const avatar = getByTestId('avatar--image');
+  const avatar = screen.getByTestId('avatar--image');
   expect(avatar).toHaveAttribute('alt');
-  expect(avatar.getAttribute('alt')).toEqual('');
+  expect(avatar).toHaveAttribute('alt', '');
 });

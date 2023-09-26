@@ -24,6 +24,7 @@ import WithFlash from '../../WithFlash';
 import { WidthConsumer } from '@atlaskit/editor-common/ui';
 import { akEditorMobileBreakoutPoint } from '@atlaskit/editor-shared-styles';
 import { GRID_GUTTER } from '@atlaskit/editor-common/styles';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import classnames from 'classnames';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
@@ -65,8 +66,9 @@ const commentEditorStyle = css`
 
 const ContentArea = createEditorContentStyle(css`
   flex-grow: 1;
-  overflow-x: hidden;
-  overflow-y: auto;
+  overflow-x: ${getBooleanFF('platform.editor.table-sticky-scrollbar')
+    ? 'clip'
+    : 'hidden'};
   line-height: 24px;
 
   /** Hack for Bitbucket to ensure entire editorView gets drop event; see ED-3294 **/

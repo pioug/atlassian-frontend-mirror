@@ -1,6 +1,6 @@
 import React, { createRef } from 'react';
 
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 import __noop from '@atlaskit/ds-lib/noop';
 
@@ -19,27 +19,27 @@ describe('Breadcrumbs container', () => {
   });
 
   it('should render a navigation role', () => {
-    const { queryAllByRole } = render(
+    render(
       <Breadcrumbs>
         <BreadcrumbsItem text="item" />
       </Breadcrumbs>,
     );
 
-    expect(queryAllByRole('navigation')).toHaveLength(1);
+    expect(screen.queryAllByRole('navigation')).toHaveLength(1);
   });
 
   it('should not render a navigation role if `isNavigation` is false', () => {
-    const { queryAllByRole } = render(
+    render(
       <Breadcrumbs testId="bcs" isNavigation={false}>
         <BreadcrumbsItem text="item" />
       </Breadcrumbs>,
     );
 
-    expect(queryAllByRole('navigation')).toHaveLength(0);
+    expect(screen.queryAllByRole('navigation')).toHaveLength(0);
   });
 
   it('should render multiple children', () => {
-    const { getByTestId } = render(
+    render(
       <Breadcrumbs testId="breadcrumbs-container">
         <BreadcrumbsItem href="/item" text="Item" />
         <BreadcrumbsItem href="/item" text="Another item" />
@@ -47,7 +47,7 @@ describe('Breadcrumbs container', () => {
       </Breadcrumbs>,
     );
 
-    const container = getByTestId('breadcrumbs-container');
+    const container = screen.getByTestId('breadcrumbs-container');
     const links = container.querySelectorAll('a');
 
     expect(links.length).toEqual(3);
@@ -75,7 +75,7 @@ describe('Breadcrumbs container', () => {
   });
 
   it('renders ellipsis for statefull breadcrumbs when there are too many items', () => {
-    const { getByTestId } = render(
+    render(
       <Breadcrumbs testId="breadcrumbs-container" maxItems={2}>
         <BreadcrumbsItem href="/item" text="Item" />
         <BreadcrumbsItem href="/item" text="Another item" />
@@ -83,18 +83,20 @@ describe('Breadcrumbs container', () => {
       </Breadcrumbs>,
     );
 
-    const container = getByTestId('breadcrumbs-container');
+    const container = screen.getByTestId('breadcrumbs-container');
     const links = container.querySelectorAll('a');
 
     expect(links.length).toEqual(2);
 
-    const ellipsis = getByTestId('breadcrumbs-container--breadcrumb-ellipsis');
-    expect(ellipsis).toBeDefined();
+    const ellipsis = screen.getByTestId(
+      'breadcrumbs-container--breadcrumb-ellipsis',
+    );
+    expect(ellipsis).toBeInTheDocument();
   });
 
   it('should set the reference on the breadcrumbs', () => {
     const ref = createRef();
-    const { getByLabelText } = render(
+    render(
       <Breadcrumbs testId="breadcrumbs-container" maxItems={2} ref={ref}>
         <BreadcrumbsItem href="/item" text="Item" />
         <BreadcrumbsItem href="/item" text="Another item" />
@@ -102,13 +104,13 @@ describe('Breadcrumbs container', () => {
       </Breadcrumbs>,
     );
 
-    const nav = getByLabelText('Breadcrumbs');
+    const nav = screen.getByLabelText('Breadcrumbs');
     expect(nav).toBe(ref.current);
   });
 
   it('should accept a function as a reference', () => {
     let ourNode: HTMLElement | undefined;
-    const { getByLabelText } = render(
+    render(
       <Breadcrumbs
         testId="breadcrumbs-container"
         maxItems={2}
@@ -122,7 +124,7 @@ describe('Breadcrumbs container', () => {
       </Breadcrumbs>,
     );
 
-    const nav = getByLabelText('Breadcrumbs');
+    const nav = screen.getByLabelText('Breadcrumbs');
     expect(nav).toBe(ourNode);
   });
 });
@@ -220,7 +222,7 @@ describe('Controlled breadcrumbs', () => {
   });
 
   it('render ellipsis - default aria-label', () => {
-    const { getByTestId } = render(
+    render(
       <Breadcrumbs testId="breadcrumbs-container" maxItems={2}>
         <BreadcrumbsItem href="/item" text="Item" />
         <BreadcrumbsItem href="/item" text="Another item" />
@@ -228,15 +230,17 @@ describe('Controlled breadcrumbs', () => {
       </Breadcrumbs>,
     );
 
-    const ellipsis = getByTestId('breadcrumbs-container--breadcrumb-ellipsis');
-    expect(ellipsis).toBeDefined();
+    const ellipsis = screen.getByTestId(
+      'breadcrumbs-container--breadcrumb-ellipsis',
+    );
+    expect(ellipsis).toBeInTheDocument();
 
     const ariaLabel = ellipsis.getAttribute('aria-label');
     expect(ariaLabel).toBe('Show more breadcrumbs');
   });
 
   it('render ellipsis - received aria-label', () => {
-    const { getByTestId } = render(
+    render(
       <Breadcrumbs
         testId="breadcrumbs-container"
         maxItems={2}
@@ -248,8 +252,10 @@ describe('Controlled breadcrumbs', () => {
       </Breadcrumbs>,
     );
 
-    const ellipsis = getByTestId('breadcrumbs-container--breadcrumb-ellipsis');
-    expect(ellipsis).toBeDefined();
+    const ellipsis = screen.getByTestId(
+      'breadcrumbs-container--breadcrumb-ellipsis',
+    );
+    expect(ellipsis).toBeInTheDocument();
 
     const ariaLabel = ellipsis.getAttribute('aria-label');
     expect(ariaLabel).toBe('Test label');
@@ -268,41 +274,39 @@ describe('Focus managment', () => {
   };
 
   it('should focus first revealed item, if ellipsis was focused', () => {
-    const { getByTestId, getByText } = render(breadcrumbsFixture());
+    render(breadcrumbsFixture());
 
-    const ellipsis = getByTestId('bcs--breadcrumb-ellipsis');
+    const ellipsis = screen.getByTestId('bcs--breadcrumb-ellipsis');
     ellipsis.focus();
 
     fireEvent.click(ellipsis);
-    const revealedItem = getByText('Another item').parentElement;
+    const revealedItem = screen.getByText('Another item').parentElement;
 
     expect(revealedItem).toHaveFocus();
   });
 
   it('should not focus first revealed item, if ellipsis was not focused', () => {
-    const { getByTestId, getByText } = render(breadcrumbsFixture());
+    render(breadcrumbsFixture());
 
-    const ellipsis = getByTestId('bcs--breadcrumb-ellipsis');
+    const ellipsis = screen.getByTestId('bcs--breadcrumb-ellipsis');
 
     fireEvent.click(ellipsis);
-    const revealedItem = getByText('Another item').parentElement;
+    const revealedItem = screen.getByText('Another item').parentElement;
 
     expect(revealedItem).not.toHaveFocus();
   });
 
   describe('should not focus when there is no one of controlling prop', () => {
     it('without onExpand', () => {
-      const { getByTestId, getByText, rerender } = render(
-        breadcrumbsFixture({ isExpanded: false }),
-      );
+      const { rerender } = render(breadcrumbsFixture({ isExpanded: false }));
 
-      const ellipsis = getByTestId('bcs--breadcrumb-ellipsis');
+      const ellipsis = screen.getByTestId('bcs--breadcrumb-ellipsis');
       ellipsis.focus();
       fireEvent.click(ellipsis);
 
       rerender(breadcrumbsFixture({ isExpanded: true }));
 
-      const revealedItem = getByText('Another item').parentElement;
+      const revealedItem = screen.getByText('Another item').parentElement;
       expect(revealedItem).not.toHaveFocus();
     });
   });
@@ -310,17 +314,17 @@ describe('Focus managment', () => {
   it('should focus first revealed item, when have both isExpanded and onExpand props', () => {
     const mockOnExpand = jest.fn();
 
-    const { getByTestId, getByText, rerender } = render(
+    const { rerender } = render(
       breadcrumbsFixture({ isExpanded: false, onExpand: mockOnExpand }),
     );
 
-    const ellipsis = getByTestId('bcs--breadcrumb-ellipsis');
+    const ellipsis = screen.getByTestId('bcs--breadcrumb-ellipsis');
     ellipsis.focus();
     fireEvent.click(ellipsis);
 
     rerender(breadcrumbsFixture({ isExpanded: true, onExpand: mockOnExpand }));
 
-    const revealedItem = getByText('Another item').parentElement;
+    const revealedItem = screen.getByText('Another item').parentElement;
     expect(revealedItem).toHaveFocus();
   });
 
@@ -329,7 +333,7 @@ describe('Focus managment', () => {
       <div>{children}</div>
     );
 
-    const { getByLabelText, getByTestId } = render(
+    render(
       <Breadcrumbs testId="bcs" maxItems={2}>
         <BreadcrumbsItem
           href="/item"
@@ -349,8 +353,8 @@ describe('Focus managment', () => {
       </Breadcrumbs>,
     );
 
-    const wrapper = getByLabelText('Breadcrumbs');
-    const ellipsis = getByTestId('bcs--breadcrumb-ellipsis');
+    const wrapper = screen.getByLabelText('Breadcrumbs');
+    const ellipsis = screen.getByTestId('bcs--breadcrumb-ellipsis');
     ellipsis.focus();
     fireEvent.click(ellipsis);
 
@@ -362,7 +366,7 @@ describe('Focus managment', () => {
       <div>{children}</div>
     );
 
-    const { getByText, getByTestId } = render(
+    render(
       <Breadcrumbs testId="bcs" maxItems={2}>
         <BreadcrumbsItem href="/item" text="Item" />
         <BreadcrumbsItem
@@ -374,8 +378,8 @@ describe('Focus managment', () => {
       </Breadcrumbs>,
     );
 
-    const firstBreadcrumbItem = getByText('Item').parentElement;
-    const ellipsis = getByTestId('bcs--breadcrumb-ellipsis');
+    const firstBreadcrumbItem = screen.getByText('Item').parentElement;
+    const ellipsis = screen.getByTestId('bcs--breadcrumb-ellipsis');
     ellipsis.focus();
     fireEvent.click(ellipsis);
 

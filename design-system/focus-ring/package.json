@@ -46,7 +46,7 @@
   },
   "devDependencies": {
     "@af/accessibility-testing": "*",
-    "@atlaskit/visual-regression": "*",
+    "@af/visual-regression": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@testing-library/react": "^12.1.5",
     "react-dom": "^16.8.0",

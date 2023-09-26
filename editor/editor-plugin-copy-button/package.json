@@ -33,7 +33,7 @@
     "./utils": "./src/utils.ts"
   },
   "dependencies": {
-    "@atlaskit/editor-common": "^75.7.0",
+    "@atlaskit/editor-common": "^75.8.0",
     "@atlaskit/editor-plugin-analytics": "^0.2.0",
     "@atlaskit/editor-plugin-decorations": "^0.2.0",
     "@atlaskit/editor-prosemirror": "1.1.0",

@@ -5,7 +5,6 @@ import { FC, memo, useState } from 'react';
 import { jsx } from '@emotion/react';
 
 import { UNSAFE_LAYERING } from '@atlaskit/layering';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { Manager, Reference } from '@atlaskit/popper';
 import Portal from '@atlaskit/portal';
 import { layers } from '@atlaskit/theme/constants';
@@ -54,6 +53,7 @@ export const Popup: FC<PopupProps> = memo(
           onClose={onClose}
           autoFocus={autoFocus}
           shouldUseCaptureOnOutsideClick={shouldUseCaptureOnOutsideClick}
+          shouldRenderToParent={shouldRenderToParent}
           triggerRef={triggerRef}
         />
       </UNSAFE_LAYERING>
@@ -81,14 +81,8 @@ export const Popup: FC<PopupProps> = memo(
           }}
         </Reference>
         {isOpen &&
-          (getBooleanFF(
-            'platform.design-system-team.render-popup-in-parent_f73ij',
-          ) ? (
-            shouldRenderToParent ? (
-              renderPopperWrapper
-            ) : (
-              <Portal zIndex={zIndex}>{renderPopperWrapper}</Portal>
-            )
+          (shouldRenderToParent ? (
+            renderPopperWrapper
           ) : (
             <Portal zIndex={zIndex}>{renderPopperWrapper}</Portal>
           ))}

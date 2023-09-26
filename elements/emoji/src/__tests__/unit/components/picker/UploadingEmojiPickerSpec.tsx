@@ -693,7 +693,7 @@ describe('<UploadingEmojiPicker />', () => {
         ),
       ).toBeInTheDocument();
 
-      expect(screen.getByLabelText('Retry')).toBeInTheDocument();
+      expect(screen.getByText('Retry')).toBeInTheDocument();
 
       helperTestingLibrary.cancelUpload();
       await waitFor(() => {
@@ -818,7 +818,7 @@ describe('<UploadingEmojiPicker />', () => {
         ),
       ).toBeInTheDocument();
 
-      expect(screen.getByLabelText('Retry')).toBeInTheDocument();
+      expect(screen.getByText('Retry')).toBeInTheDocument();
 
       // remove mock to make upload successful
       // @ts-ignore: prevent TS from complaining about mockRestore function

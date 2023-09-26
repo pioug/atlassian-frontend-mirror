@@ -35,7 +35,10 @@ export const inputRuleWithAnalytics = (
         typeof getPayload === 'function'
           ? getPayload(state, matchResult)
           : getPayload;
-
+      if (payload && payload.attributes) {
+        payload.attributes.formatSize =
+          typeof matchResult[0] === 'string' ? matchResult[0].length : 0;
+      }
       analyticsApi?.attachAnalyticsEvent(payload)(tr);
 
       if (originalRule.onHandlerApply) {

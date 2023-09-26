@@ -11,6 +11,8 @@ export type Coordinates = {
   bottom?: number;
 };
 
+export type PositionOffset = Coordinates;
+
 export interface Props {
   zIndex?: number;
   className?: string;
@@ -20,6 +22,7 @@ export interface Props {
   offset?: number[];
   fitWidth?: number;
   fitHeight?: number;
+  absoluteOffset?: PositionOffset;
   alignX?: 'left' | 'center' | 'right';
   alignY?: 'bottom' | 'top';
   onPositionCalculated?: (position: Coordinates) => any;
@@ -43,6 +46,7 @@ export default class FloatingToolbar extends PureComponent<Props, any> {
       popupsMountPoint,
       popupsBoundariesElement,
       className,
+      absoluteOffset,
       alignX,
       alignY,
       zIndex,
@@ -54,6 +58,7 @@ export default class FloatingToolbar extends PureComponent<Props, any> {
 
     return (
       <Popup
+        absoluteOffset={absoluteOffset}
         alignX={alignX}
         alignY={alignY}
         target={target}

@@ -2,9 +2,10 @@
 import React from 'react';
 
 import { isSafeUrl } from '@atlaskit/adf-schema';
-import { APIError } from '@atlaskit/smart-card';
+import { DatasourceRenderFailedAnalyticsWrapper } from '@atlaskit/link-datasource';
+import type { APIError } from '@atlaskit/smart-card';
 
-import { DatasourceProps } from './nodeviews/datasource';
+import type { DatasourceProps } from './nodeviews/datasource';
 import { setSelectedCardAppearance } from './pm-plugins/doc';
 
 export class DatasourceErrorBoundary extends React.Component<{
@@ -35,16 +36,26 @@ export class DatasourceErrorBoundary extends React.Component<{
       unsupportedComponent: UnsupportedComponent,
       view,
     } = this.props;
+
     if (this.state.isError) {
       if (url && isSafeUrl(url)) {
-        return setSelectedCardAppearance('inline', undefined)(
-          view.state,
-          view.dispatch,
+        return (
+          <DatasourceRenderFailedAnalyticsWrapper>
+            {setSelectedCardAppearance('inline', undefined)(
+              view.state,
+              view.dispatch,
+            )}
+          </DatasourceRenderFailedAnalyticsWrapper>
+        );
+      } else {
+        return (
+          <DatasourceRenderFailedAnalyticsWrapper>
+            <UnsupportedComponent />
+          </DatasourceRenderFailedAnalyticsWrapper>
         );
       }
-      return <UnsupportedComponent />;
+    } else {
+      return this.props.children;
     }
-
-    return this.props.children;
   }
 }

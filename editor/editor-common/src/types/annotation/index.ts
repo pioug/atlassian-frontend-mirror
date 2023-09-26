@@ -1,14 +1,13 @@
-import { AnnotationId, AnnotationTypes } from '@atlaskit/adf-schema';
+import type { AnnotationId, AnnotationTypes } from '@atlaskit/adf-schema';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import type { Step } from '@atlaskit/editor-prosemirror/transform';
 
-import {
+import type {
   AnnotationState,
-  AnnotationUpdateEmitter,
-  AnnotationUpdateEvent,
   AnnotationUpdateEventPayloads,
   OnAnnotationClickPayload,
 } from './emitter';
+import { AnnotationUpdateEmitter, AnnotationUpdateEvent } from './emitter';
 
 export type { AnnotationState };
 
@@ -31,7 +30,7 @@ export type InlineCommentSelectionComponentProps = {
   range: Range;
 
   /**
-   * Renderer/Editor DOM element ancestors wrapping the selection.
+   * Renderer/Editor DOM element ancestors wrapping the selection
    */
   wrapperDOM: HTMLElement;
 

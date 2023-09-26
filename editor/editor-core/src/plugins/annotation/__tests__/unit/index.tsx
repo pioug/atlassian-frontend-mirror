@@ -18,6 +18,7 @@ import {
   p,
   panel,
   hardBreak,
+  expand,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { EventDispatcher } from '../../../../event-dispatcher';
 import { getState } from '../_utils';
@@ -42,6 +43,7 @@ import { RESOLVE_METHOD } from '../../../analytics/types/inline-comment-events';
 import * as commands from '../../commands/index';
 import { inlineCommentPluginKey, getPluginState } from '../../utils';
 import { getAnnotationViewClassname } from '../../nodeviews';
+import { toggleExpandExpanded } from '../../../expand/commands';
 
 jest.mock('@atlaskit/editor-prosemirror/utils', () => {
   // Unblock prosemirror bump:
@@ -85,6 +87,7 @@ describe('annotation', () => {
         annotationProviders: {
           inlineComment: inlineCommentOptions || inlineCommentProviderFake,
         },
+        allowExpand: true,
       },
       createAnalyticsEvent,
     });
@@ -867,5 +870,43 @@ describe('annotation', () => {
       pluginState = getPluginState(editorView.state);
       expect(pluginState?.isVisible).toBe(true);
     });
+  });
+
+  it('is not reopened on expand toggle', async () => {
+    let editorView: EditorView;
+
+    const editorData = editor(
+      doc(
+        p(
+          annotation({
+            annotationType: AnnotationTypes.INLINE_COMMENT,
+            id: 'first123',
+          })('{start}hell{<>}o'),
+        ),
+        '{expandPos}',
+        expand()(p('expand')),
+      ),
+    );
+    editorView = editorData.editorView;
+
+    await flushPromises();
+    contentComponent = mount(editorView);
+
+    const { state, dispatch } = editorView;
+
+    const { onClose } = (inlineCommentProviderFake.viewComponent as jest.Mock)
+      .mock.calls[0][0];
+
+    expect(inlineCommentProviderFake.viewComponent).toHaveBeenCalledTimes(1);
+
+    onClose();
+    mount(editorView);
+
+    toggleExpandExpanded(editorData.refs.expandPos, state.schema.nodes.expand)(
+      state,
+      dispatch,
+    );
+
+    expect(inlineCommentProviderFake.viewComponent).toHaveBeenCalledTimes(1);
   });
 });

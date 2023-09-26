@@ -68,6 +68,8 @@ interface Position {
   left?: number;
 }
 
+type PositionOffset = Position;
+
 export type ConfirmDialogChildInfo = {
   id: string;
   name: string | null;
@@ -318,6 +320,9 @@ export interface FloatingToolbarConfig {
 
   /** Offset the position of the toolbar. */
   offset?: [number, number];
+
+  /** Absolute offset of the toolbar */
+  absoluteOffset?: PositionOffset;
 
   forcePlacement?: boolean;
 

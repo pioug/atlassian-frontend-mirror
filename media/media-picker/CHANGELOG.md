@@ -1,5 +1,11 @@
 # @atlaskit/media-picker
 
+## 66.2.5
+
+### Patch Changes
+
+- [`b4e36677fdb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b4e36677fdb) - Batch 255 items for 'addFilesWithSource' due to backend limits
+
 ## 66.2.4
 
 ### Patch Changes

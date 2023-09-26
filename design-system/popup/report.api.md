@@ -40,6 +40,7 @@ interface BaseProps {
   popupComponent?: ComponentType<PopupComponentProps>;
   rootBoundary?: 'document' | 'viewport';
   shouldFlip?: boolean;
+  shouldRenderToParent?: boolean;
   shouldUseCaptureOnOutsideClick?: boolean;
   testId?: string;
 }
@@ -64,13 +65,13 @@ export interface PopupComponentProps {
   children: ReactNode;
   id?: string;
   ref: Ref<HTMLDivElement>;
+  shouldRenderToParent?: boolean;
   style: CSSProperties;
   tabIndex: number | undefined;
 }
 
 // @public (undocumented)
 export interface PopupProps extends BaseProps {
-  shouldRenderToParent?: boolean;
   trigger: (props: TriggerProps) => React_2.ReactNode;
   zIndex?: number;
 }

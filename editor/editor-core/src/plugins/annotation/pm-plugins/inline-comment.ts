@@ -147,7 +147,10 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
         onSetVisibility(editorView)(isVisible);
       const setSelectedAnnotationFn = (annotationId?: string) => {
         if (!annotationId) {
-          closeComponent()(editorView.state, editorView.dispatch);
+          closeComponent(editorView.state)(
+            editorView.state,
+            editorView.dispatch,
+          );
         } else {
           setSelectedAnnotation(annotationId)(
             editorView.state,

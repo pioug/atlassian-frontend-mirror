@@ -1,5 +1,18 @@
 # @atlaskit/renderer
 
+## 108.15.3
+
+### Patch Changes
+
+- [`1b31bd53b23`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1b31bd53b23) - [ux] [ECA11Y-89] Added aria-label for sortable table header cell button
+
+## 108.15.2
+
+### Patch Changes
+
+- [`ae2c0db7186`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ae2c0db7186) - Add datasource failed analytic events to card fallback error boundary
+- Updated dependencies
+
 ## 108.15.1
 
 ### Patch Changes

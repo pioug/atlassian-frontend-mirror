@@ -1,5 +1,11 @@
 # @atlaskit/pubsub
 
+## 6.6.3
+
+### Patch Changes
+
+- [`424a4b8d3ad`](https://bitbucket.org/atlassian/atlassian-frontend/commits/424a4b8d3ad) - Enrol @atlaskit/pubsub on push-model in JFE.
+
 ## 6.6.2
 
 ### Patch Changes

@@ -150,10 +150,13 @@ export class TableRowNodeView implements NodeView {
 
     this.listening = true;
 
-    this.dom.addEventListener('wheel', this.headerRowMouseScroll.bind(this));
+    this.dom.addEventListener('wheel', this.headerRowMouseScroll.bind(this), {
+      passive: true,
+    });
     this.dom.addEventListener(
       'touchmove',
       this.headerRowMouseScroll.bind(this),
+      { passive: true },
     );
   }
 
@@ -164,7 +167,7 @@ export class TableRowNodeView implements NodeView {
     if (this.intersectionObserver) {
       this.intersectionObserver.disconnect();
       // ED-16211 Once intersection observer is disconnected, we need to remove the isObserved from the sentinels
-      // Otherwise when new intersection observer is created it will not observe because it thinks its already being observed
+      // Otherwise when newer intersection observer is created it will not observe because it thinks its already being observed
       [this.sentinels.top, this.sentinels.bottom].forEach((el) => {
         if (el) {
           delete el.dataset.isObserved;
@@ -522,9 +525,27 @@ export class TableRowNodeView implements NodeView {
     return false;
   };
 
+  /**
+   * Manually refire the intersection observers.
+   * Useful when the header may have detached from the table.
+   */
+  refireIntersectionObservers = () => {
+    if (this.isSticky) {
+      [this.sentinels.top, this.sentinels.bottom].forEach((el) => {
+        if (el && this.intersectionObserver) {
+          this.intersectionObserver.unobserve(el);
+          this.intersectionObserver.observe(el);
+        }
+      });
+    }
+  };
+
   makeHeaderRowSticky = (tree: TableDOMElements, scrollTop?: number) => {
     // If header row height is more than 50% of viewport height don't do this
-    if (this.stickyRowHeight && this.stickyRowHeight > window.innerHeight / 2) {
+    if (
+      this.isSticky ||
+      (this.stickyRowHeight && this.stickyRowHeight > window.innerHeight / 2)
+    ) {
       return;
     }
 
@@ -552,6 +573,22 @@ export class TableRowNodeView implements NodeView {
       table.classList.add(ClassName.TABLE_STICKY);
 
       this.isSticky = true;
+
+      /**
+       * The logic below is not desirable, but acts as a fail safe for scenarios where the sticky header
+       * detaches from the table. This typically happens during a fast scroll by the user which causes
+       * the intersection observer logic to not fire as expected.
+       */
+      this.editorScrollableElement?.addEventListener(
+        'scrollend',
+        this.refireIntersectionObservers,
+        { passive: true, once: true },
+      );
+
+      const fastScrollThresholdMs = 500;
+      setTimeout(() => {
+        this.refireIntersectionObservers();
+      }, fastScrollThresholdMs);
     }
 
     this.dom.style.top = `${domTop}px`;

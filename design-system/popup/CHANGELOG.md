@@ -1,5 +1,11 @@
 # @atlaskit/popup
 
+## 1.10.1
+
+### Patch Changes
+
+- [`a54578d2ea9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a54578d2ea9) - This removes the feature flag for the `shouldRenderToParent` prop. The prop is available for use.
+
 ## 1.10.0
 
 ### Minor Changes

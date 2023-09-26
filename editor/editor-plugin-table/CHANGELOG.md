@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-table
 
+## 3.2.1
+
+### Patch Changes
+
+- [`b1a93f61747`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b1a93f61747) - [ED-20091] add logic to refire intersection observers and prevent detached table sticky headers
+
+## 3.2.0
+
+### Minor Changes
+
+- [`3aaff60be08`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3aaff60be08) - [ux] ED-18988 Adds table sticky scrollbar
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.1.3
 
 ### Patch Changes

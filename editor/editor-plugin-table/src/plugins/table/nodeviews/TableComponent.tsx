@@ -27,7 +27,10 @@ import {
 } from '@atlaskit/editor-common/utils';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { akEditorTableToolbarSize as tableToolbarSize } from '@atlaskit/editor-shared-styles';
+import {
+  MAX_BROWSER_SCROLLBAR_HEIGHT,
+  akEditorTableToolbarSize as tableToolbarSize,
+} from '@atlaskit/editor-shared-styles';
 import { findTable, isTableSelected } from '@atlaskit/editor-tables/utils';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
@@ -65,6 +68,7 @@ import {
 
 import { OverflowShadowsObserver } from './OverflowShadowsObserver';
 import { TableContainer } from './TableContainer';
+import { TableStickyScrollbar } from './TableStickyScrollbar';
 import type { TableOptions } from './types';
 
 const isIE11 = browser.ie_version === 11;
@@ -72,6 +76,7 @@ const isIE11 = browser.ie_version === 11;
 // componentDidUpdate is called multiple times. The isOverflowing value is correct only on the last update.
 // To make sure we capture the last update, we use setTimeout.
 const initialOverflowCaptureTimeroutDelay = 300;
+
 export interface ComponentProps {
   view: EditorView;
   getNode: () => PmNode;
@@ -117,6 +122,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
   private containerWidth?: EditorContainerWidth;
   private layoutSize?: number;
   private overflowShadowsObserver?: OverflowShadowsObserver;
+  private stickyScrollbar?: TableStickyScrollbar;
 
   private isInitialOverflowSent: boolean;
   private initialOverflowCaptureTimerId?: ReturnType<typeof setTimeout>;
@@ -154,7 +160,18 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
   componentDidMount() {
     const { allowColumnResizing, eventDispatcher, options } = this.props;
     if (allowColumnResizing && this.wrapper && !isIE11) {
-      this.wrapper.addEventListener('scroll', this.handleScrollDebounced);
+      this.wrapper.addEventListener('scroll', this.handleScrollDebounced, {
+        passive: true,
+      });
+
+      if (getBooleanFF('platform.editor.table-sticky-scrollbar')) {
+        if (this.table) {
+          this.stickyScrollbar = new TableStickyScrollbar(
+            this.wrapper,
+            this.props.view,
+          );
+        }
+      }
     }
 
     if (allowColumnResizing) {
@@ -191,6 +208,12 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
     const { allowColumnResizing, eventDispatcher, options } = this.props;
     if (this.wrapper && !isIE11) {
       this.wrapper.removeEventListener('scroll', this.handleScrollDebounced);
+    }
+
+    if (getBooleanFF('platform.editor.table-sticky-scrollbar')) {
+      if (this.stickyScrollbar) {
+        this.stickyScrollbar.dispose();
+      }
     }
 
     this.handleScrollDebounced.cancel();
@@ -453,6 +476,12 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
           className={ClassName.TABLE_STICKY_SENTINEL_TOP}
           data-testid="sticky-sentinel-top"
         />
+        {getBooleanFF('platform.editor.table-sticky-scrollbar') && (
+          <div
+            className={ClassName.TABLE_STICKY_SCROLLBAR_SENTINEL_TOP}
+            data-testid="sticky-scrollbar-sentinel-top"
+          />
+        )}
         {allowControls && rowControls}
         <div
           style={shadowStyle(showBeforeShadow)}
@@ -473,7 +502,6 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
             }}
           />
         )}
-
         <div
           className={classnames(ClassName.TABLE_NODE_WRAPPER)}
           ref={(elem) => {
@@ -488,6 +516,17 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
             }
           }}
         />
+        {getBooleanFF('platform.editor.table-sticky-scrollbar') && (
+          <div
+            className={ClassName.TABLE_STICKY_SCROLLBAR_CONTAINER}
+            style={{
+              height: MAX_BROWSER_SCROLLBAR_HEIGHT,
+              display: 'none',
+            }}
+          >
+            <div style={{ width: tableRef?.clientWidth }}></div>
+          </div>
+        )}
         <div
           style={shadowStyle(showAfterShadow)}
           className={ClassName.TABLE_RIGHT_SHADOW}
@@ -526,6 +565,12 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
           className={ClassName.TABLE_STICKY_SENTINEL_BOTTOM}
           data-testid="sticky-sentinel-bottom"
         />
+        {getBooleanFF('platform.editor.table-sticky-scrollbar') && (
+          <div
+            className={ClassName.TABLE_STICKY_SCROLLBAR_SENTINEL_BOTTOM}
+            data-testid="sticky-scrollbar-sentinel-bottom"
+          />
+        )}
       </TableContainer>
     );
   }
@@ -533,6 +578,12 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
   private handleScroll = (event: Event) => {
     if (!this.wrapper || event.target !== this.wrapper) {
       return;
+    }
+
+    if (getBooleanFF('platform.editor.table-sticky-scrollbar')) {
+      if (this.stickyScrollbar) {
+        this.stickyScrollbar.scrollLeft(this.wrapper.scrollLeft);
+      }
     }
 
     if (this.table) {

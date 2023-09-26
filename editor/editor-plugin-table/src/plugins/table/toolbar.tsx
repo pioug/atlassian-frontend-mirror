@@ -33,13 +33,13 @@ import {
   getNodeName,
   isReferencedSource,
 } from '@atlaskit/editor-common/utils';
-import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { findParentDomRefOfType } from '@atlaskit/editor-prosemirror/utils';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
-import { Rect } from '@atlaskit/editor-tables/table-map';
+import type { Rect } from '@atlaskit/editor-tables/table-map';
 import {
   findCellRectClosestToPos,
   findTable,
@@ -48,6 +48,7 @@ import {
   splitCell,
 } from '@atlaskit/editor-tables/utils';
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import {
   clearHoverSelection,
@@ -79,13 +80,13 @@ import { pluginKey as tableResizingPluginKey } from './pm-plugins/table-resizing
 import { getNewResizeStateFromSelectedColumns } from './pm-plugins/table-resizing/utils/resize-state';
 import { pluginKey as tableWidthPluginKey } from './pm-plugins/table-width';
 import { canMergeCells } from './transforms';
-import {
+import type {
   PluginConfig,
-  TableCssClassName,
   ToolbarMenuConfig,
   ToolbarMenuContext,
   ToolbarMenuState,
 } from './types';
+import { TableCssClassName } from './types';
 import { messages as ContextualMenuMessages } from './ui/FloatingContextualMenu/ContextualMenu';
 import tableMessages from './ui/messages';
 import {
@@ -520,6 +521,9 @@ export const getToolbarConfig =
         getDomRef,
         nodeType,
         offset: [0, 18],
+        absoluteOffset: getBooleanFF('platform.editor.table-sticky-scrollbar')
+          ? { top: -6 }
+          : { top: 0 },
         zIndex: akEditorFloatingPanelZIndex + 1, // Place the context menu slightly above the others
         items: [
           menu,

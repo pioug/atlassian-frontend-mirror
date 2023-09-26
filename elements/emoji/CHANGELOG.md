@@ -1,5 +1,11 @@
 # @atlaskit/emoji
 
+## 67.5.6
+
+### Patch Changes
+
+- [`dfa79d120f0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dfa79d120f0) - [ux] [ECA11Y-69] Minor refactoring of accessibility Upload Emoji preview message
+
 ## 67.5.5
 
 ### Patch Changes

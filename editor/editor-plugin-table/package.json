@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-table",
-  "version": "3.1.3",
+  "version": "3.2.1",
   "description": "Table plugin for the @atlaskit/editor",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -28,12 +28,12 @@
   },
   "dependencies": {
     "@atlaskit/adf-schema": "^29.1.0",
-    "@atlaskit/editor-common": "^75.7.0",
+    "@atlaskit/editor-common": "^75.8.0",
     "@atlaskit/editor-palette": "1.5.1",
     "@atlaskit/editor-plugin-analytics": "^0.2.0",
     "@atlaskit/editor-plugin-content-insertion": "^0.1.0",
     "@atlaskit/editor-prosemirror": "1.1.0",
-    "@atlaskit/editor-shared-styles": "^2.7.0",
+    "@atlaskit/editor-shared-styles": "^2.8.0",
     "@atlaskit/editor-tables": "^2.3.0",
     "@atlaskit/icon": "^21.12.0",
     "@atlaskit/platform-feature-flags": "^0.2.1",
@@ -100,6 +100,9 @@
   },
   "platform-feature-flags": {
     "platform.editor.custom-table-width": {
+      "type": "boolean"
+    },
+    "platform.editor.table-sticky-scrollbar": {
       "type": "boolean"
     },
     "platform.editor.update-table-cell-width-via-step": {

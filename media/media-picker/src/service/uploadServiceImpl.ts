@@ -64,22 +64,12 @@ export class UploadServiceImpl implements UploadService {
   }
 
   addFiles(files: File[]): void {
-    const { maxUploadBatchSize } = this;
-    const traceContext = generateTraceContext();
-    for (
-      let iterator = 0;
-      iterator < files.length;
-      iterator += maxUploadBatchSize
-    ) {
-      const filesArray = files
-        .slice(iterator, iterator + maxUploadBatchSize)
-        .map((file: File) => ({
-          file,
-          source: LocalFileSource.LocalUpload,
-        }));
-
-      this.addFilesWithSource(filesArray, traceContext);
-    }
+    this.addFilesWithSource(
+      files.map((file: File) => ({
+        file,
+        source: LocalFileSource.LocalUpload,
+      })),
+    );
   }
 
   addFile(file: File, replaceFileId?: string) {
@@ -91,6 +81,62 @@ export class UploadServiceImpl implements UploadService {
   async addFilesWithSource(
     files: LocalFileWithSource[],
     traceContext = generateTraceContext(),
+  ): Promise<void> {
+    const batches = [];
+    for (
+      let iterator = 0;
+      iterator < files.length;
+      iterator += this.maxUploadBatchSize
+    ) {
+      batches.push(
+        this.addFilesAndUpload(
+          files.slice(iterator, iterator + this.maxUploadBatchSize),
+          traceContext,
+        ),
+      );
+    }
+    await Promise.all(batches);
+  }
+
+  isCancellableFileUpload(
+    fileUpload: null | CancellableFileUpload,
+  ): fileUpload is CancellableFileUpload {
+    return fileUpload !== null;
+  }
+
+  cancel(id?: string): void {
+    if (id) {
+      const cancellableFileUpload = this.cancellableFilesUploads[id];
+      if (cancellableFileUpload && cancellableFileUpload.cancel) {
+        cancellableFileUpload.cancel();
+      }
+    } else {
+      Object.keys(this.cancellableFilesUploads).forEach((key) => {
+        const cancellableFileUpload = this.cancellableFilesUploads[key];
+        if (cancellableFileUpload.cancel) {
+          cancellableFileUpload.cancel();
+        }
+      });
+    }
+  }
+
+  on<E extends keyof UploadServiceEventPayloadTypes>(
+    event: E,
+    listener: UploadServiceEventListener<E>,
+  ): void {
+    this.emitter.on(event, listener);
+  }
+
+  off<E extends keyof UploadServiceEventPayloadTypes>(
+    event: E,
+    listener: UploadServiceEventListener<E>,
+  ): void {
+    this.emitter.off(event, listener);
+  }
+
+  private async addFilesAndUpload(
+    files: LocalFileWithSource[],
+    traceContext: MediaTraceContext,
   ): Promise<void> {
     if (files.length === 0) {
       return;
@@ -270,42 +316,6 @@ export class UploadServiceImpl implements UploadService {
 
     this.emit('files-added', { files: mediaFiles, traceContext });
     this.emitPreviews(filteredCancellableFileUploads);
-  }
-
-  isCancellableFileUpload(
-    fileUpload: null | CancellableFileUpload,
-  ): fileUpload is CancellableFileUpload {
-    return fileUpload !== null;
-  }
-
-  cancel(id?: string): void {
-    if (id) {
-      const cancellableFileUpload = this.cancellableFilesUploads[id];
-      if (cancellableFileUpload && cancellableFileUpload.cancel) {
-        cancellableFileUpload.cancel();
-      }
-    } else {
-      Object.keys(this.cancellableFilesUploads).forEach((key) => {
-        const cancellableFileUpload = this.cancellableFilesUploads[key];
-        if (cancellableFileUpload.cancel) {
-          cancellableFileUpload.cancel();
-        }
-      });
-    }
-  }
-
-  on<E extends keyof UploadServiceEventPayloadTypes>(
-    event: E,
-    listener: UploadServiceEventListener<E>,
-  ): void {
-    this.emitter.on(event, listener);
-  }
-
-  off<E extends keyof UploadServiceEventPayloadTypes>(
-    event: E,
-    listener: UploadServiceEventListener<E>,
-  ): void {
-    this.emitter.off(event, listener);
   }
 
   private readonly emit = <E extends keyof UploadServiceEventPayloadTypes>(

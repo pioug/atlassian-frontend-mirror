@@ -775,10 +775,7 @@ describe('BaseUserPicker', () => {
         const component = mount(getBasePickerWithoutAnalytics({ loadOptions }));
         const input = component.find('input');
         input.simulate('focus');
-        expect(loadOptions).toHaveBeenCalledWith(
-          undefined,
-          'random-session-id',
-        );
+        expect(loadOptions).toHaveBeenCalledWith('', 'random-session-id');
       });
 
       it('should pass session id on select when it starts opened', () => {

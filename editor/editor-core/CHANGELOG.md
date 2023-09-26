@@ -1,5 +1,30 @@
 # @atlaskit/editor-core
 
+## 187.47.6
+
+### Patch Changes
+
+- [`5de1ca6bb97`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5de1ca6bb97) - Bumped @atlaskit/editor-plugin-content-insertion dependency version to latest released ^0.1.4
+
+## 187.47.5
+
+### Patch Changes
+
+- [`b1b8c7d356c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b1b8c7d356c) - [ED-19757] Fix getPos throwing exception for all nodeviews
+
+## 187.47.3
+
+### Patch Changes
+
+- [`3aaff60be08`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3aaff60be08) - ED-18988 Updates overflow property for content area of comment editor when table sticky scrollbar is enabled.
+- Updated dependencies
+
+## 187.47.2
+
+### Patch Changes
+
+- [`c89c55c6d49`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c89c55c6d49) - [ux] ED-19508 fixes closed inline comments reopening when user toggles an expand node
+
 ## 187.47.0
 
 ### Minor Changes

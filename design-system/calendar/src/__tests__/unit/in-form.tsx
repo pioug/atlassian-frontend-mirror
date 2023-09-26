@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { cleanup, fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 import Calendar from '../../index';
 
@@ -14,19 +14,18 @@ describe('Calendar should not submit form', () => {
 
   afterEach(() => {
     jest.resetAllMocks();
-    cleanup();
   });
 
   it('Day selection does not trigger form (click)', () => {
-    const { getAllByTestId, getByTestId } = render(
+    render(
       <form onSubmit={onSubmit}>
         <Calendar testId={testId} />
       </form>,
     );
 
-    const weekContainer = getAllByTestId(testIdWeek);
+    const weekContainer = screen.getAllByTestId(testIdWeek);
 
-    expect(() => getByTestId(testIdSelectedDay)).toThrow();
+    expect(() => screen.getByTestId(testIdSelectedDay)).toThrow();
 
     // WeekDayGrid > role="gridcell" > button
     fireEvent.click(weekContainer[0].children[0].children[0]);
@@ -34,19 +33,19 @@ describe('Calendar should not submit form', () => {
     expect(onSubmit).toHaveBeenCalledTimes(0);
 
     // but the day _is_ now selected
-    expect(getByTestId(testIdSelectedDay)).toBeTruthy();
+    expect(screen.getByTestId(testIdSelectedDay)).toBeInTheDocument();
   });
 
   it('Day selection does not trigger form (enter)', () => {
-    const { getByTestId } = render(
+    render(
       <form onSubmit={onSubmit}>
         <Calendar testId={testId} />
       </form>,
     );
 
-    const monthContainer = getByTestId(testIdMonth);
+    const monthContainer = screen.getByTestId(testIdMonth);
 
-    expect(() => getByTestId(testIdSelectedDay)).toThrow();
+    expect(() => screen.getByTestId(testIdSelectedDay)).toThrow();
 
     // this is 'a day'
     fireEvent.keyDown(monthContainer.children[0], {
@@ -57,6 +56,6 @@ describe('Calendar should not submit form', () => {
     expect(onSubmit).toHaveBeenCalledTimes(0);
 
     // but the day _is_ now selected
-    expect(getByTestId(testIdSelectedDay)).toBeTruthy();
+    expect(screen.getByTestId(testIdSelectedDay)).toBeInTheDocument();
   });
 });

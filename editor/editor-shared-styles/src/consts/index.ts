@@ -88,6 +88,7 @@ export {
   akEditorRuleBorderRadius,
   akEditorSelectedNodeClassName,
   akEditorToolbarKeylineHeight,
+  MAX_BROWSER_SCROLLBAR_HEIGHT,
   VIEWPORT_SIZES,
   akEditorMobileMaxWidth,
   getTableCellBackgroundDarkModeColors,

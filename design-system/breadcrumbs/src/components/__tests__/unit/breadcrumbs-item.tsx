@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { act, fireEvent, render } from '@testing-library/react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 
 import { AtlassianIcon } from '@atlaskit/logo';
 
@@ -11,7 +11,7 @@ const TestIcon = <AtlassianIcon label="Test icon" size="small" />;
 describe('BreadcrumbsItem', () => {
   it('renders item', () => {
     const onClick = jest.fn();
-    const { getByTestId } = render(
+    render(
       <BreadcrumbsItem
         href="/item"
         text="Item"
@@ -20,16 +20,16 @@ describe('BreadcrumbsItem', () => {
       />,
     );
 
-    const container = getByTestId('item-1');
+    const container = screen.getByTestId('item-1');
 
-    expect(container).toBeDefined();
+    expect(container).toBeInTheDocument();
     fireEvent.click(container);
 
     expect(onClick).toHaveBeenCalled();
   });
 
   it('renders item with truncated width', () => {
-    const { getByTestId, getByText, container } = render(
+    render(
       <BreadcrumbsItem
         truncationWidth={200}
         href="/item"
@@ -40,20 +40,20 @@ describe('BreadcrumbsItem', () => {
       />,
     );
 
-    const item = getByTestId('item-1');
-    expect(item).toBeDefined();
+    const item = screen.getByTestId('item-1');
+    expect(item).toBeInTheDocument();
 
-    const text = getByText('Long content, icons before and after');
-    expect(text).toBeDefined();
+    const text = screen.getByText('Long content, icons before and after');
+    expect(text).toBeInTheDocument();
 
-    const icons = container.querySelectorAll('span[aria-label="Test icon"]');
+    const icons = screen.getAllByLabelText('Test icon');
     expect(icons.length).toEqual(2);
   });
 
   it('should call onTooltipShown when tooltip is shown', () => {
     const onTooltipShown = jest.fn();
 
-    const { getByTestId } = render(
+    render(
       <BreadcrumbsItem
         truncationWidth={200}
         href="/item"
@@ -65,8 +65,8 @@ describe('BreadcrumbsItem', () => {
       />,
     );
 
-    const tooltipTrigger = getByTestId('item-1');
-    expect(tooltipTrigger).toBeDefined();
+    const tooltipTrigger = screen.getByTestId('item-1');
+    expect(tooltipTrigger).toBeInTheDocument();
     fireEvent.mouseOver(tooltipTrigger);
 
     act(() => {

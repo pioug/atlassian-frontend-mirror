@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/pubsub",
-  "version": "6.6.2",
+  "version": "6.6.3",
   "description": "Interacts with Atlassian Frontend PubSub service to receive pubsub events.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -25,6 +25,9 @@
   "atlassian": {
     "team": "Event Platform",
     "deprecatedAutoEntryPoints": true,
+    "productPushConsumption": [
+      "jira"
+    ],
     "releaseModel": "continuous",
     "website": {
       "name": "pubsub"

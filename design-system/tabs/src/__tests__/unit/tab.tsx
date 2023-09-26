@@ -85,11 +85,11 @@ describe('@atlaskit/tabs', () => {
 
       it('should map context to aria attributes correctly', () => {
         const tab = wrapper.getByRole('tab');
-        expect(tab.getAttribute('aria-controls')).toBe('0-1-tab');
-        expect(tab.getAttribute('aria-posinset')).toBe('2');
-        expect(tab.getAttribute('aria-selected')).toBe('true');
-        expect(tab.getAttribute('aria-setsize')).toBe('4');
-        expect(tab.getAttribute('tabIndex')).toBe('0');
+        expect(tab).toHaveAttribute('aria-controls', '0-1-tab');
+        expect(tab).toHaveAttribute('aria-posinset', '2');
+        expect(tab).toHaveAttribute('aria-selected', 'true');
+        expect(tab).toHaveAttribute('aria-setsize', '4');
+        expect(tab).toHaveAttribute('tabIndex', '0');
 
         // Test methods
         expect(onClick).not.toBeCalled();
@@ -155,19 +155,16 @@ describe('@atlaskit/tabs', () => {
             tabIndex: 0,
           }}
         >
-          {/* TODO: Remove role="presentation", since div's have no semantics anyway (DSP-11587) */}
-          <div role="presentation">
-            <Tab>Label 1</Tab>
-          </div>
+          <Tab>Label 1</Tab>
         </TabContext.Provider>,
       );
 
       const tab = getByRole('tab');
-      expect(tab.getAttribute('aria-controls')).toBe('0-1-tab');
-      expect(tab.getAttribute('aria-posinset')).toBe('2');
-      expect(tab.getAttribute('aria-selected')).toBe('true');
-      expect(tab.getAttribute('aria-setsize')).toBe('4');
-      expect(tab.getAttribute('tabIndex')).toBe('0');
+      expect(tab).toHaveAttribute('aria-controls', '0-1-tab');
+      expect(tab).toHaveAttribute('aria-posinset', '2');
+      expect(tab).toHaveAttribute('aria-selected', 'true');
+      expect(tab).toHaveAttribute('aria-setsize', '4');
+      expect(tab).toHaveAttribute('tabIndex', '0');
     });
   });
 
@@ -193,7 +190,7 @@ describe('@atlaskit/tabs', () => {
       </TabContext.Provider>,
     );
 
-    expect(getByTestId('label-1')).toBeTruthy();
+    expect(getByTestId('label-1')).toBeInTheDocument();
   });
 
   describe('Custom tab using useTab', () => {
@@ -221,11 +218,11 @@ describe('@atlaskit/tabs', () => {
       );
 
       const tab = getByRole('tab');
-      expect(tab.getAttribute('aria-controls')).toBe('0-1-tab');
-      expect(tab.getAttribute('aria-posinset')).toBe('2');
-      expect(tab.getAttribute('aria-selected')).toBe('true');
-      expect(tab.getAttribute('aria-setsize')).toBe('4');
-      expect(tab.getAttribute('tabIndex')).toBe('0');
+      expect(tab).toHaveAttribute('aria-controls', '0-1-tab');
+      expect(tab).toHaveAttribute('aria-posinset', '2');
+      expect(tab).toHaveAttribute('aria-selected', 'true');
+      expect(tab).toHaveAttribute('aria-setsize', '4');
+      expect(tab).toHaveAttribute('tabIndex', '0');
 
       // Test methods
       expect(onClick).not.toBeCalled();
@@ -259,10 +256,11 @@ describe('@atlaskit/tabs', () => {
       tab2.click();
 
       expect(spy).toHaveBeenCalledWith(1, expect.objectContaining({}));
-      expect(getByText('Tab 1 label').getAttribute('aria-selected')).toBe(
+      expect(getByText('Tab 1 label')).toHaveAttribute(
+        'aria-selected',
         'false',
       );
-      expect(tab2.getAttribute('aria-selected')).toBe('true');
+      expect(tab2).toHaveAttribute('aria-selected', 'true');
     });
 
     it('should change the custom tab when using the right key', () => {
@@ -284,8 +282,8 @@ describe('@atlaskit/tabs', () => {
       fireEvent.keyDown(tab1, { key: 'ArrowRight' });
 
       expect(spy).toHaveBeenCalledWith(1, expect.objectContaining({}));
-      expect(tab1.getAttribute('aria-selected')).toBe('false');
-      expect(tab2.getAttribute('aria-selected')).toBe('true');
+      expect(tab1).toHaveAttribute('aria-selected', 'false');
+      expect(tab2).toHaveAttribute('aria-selected', 'true');
     });
   });
 });

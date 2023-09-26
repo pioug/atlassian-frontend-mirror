@@ -18,7 +18,9 @@ if (dev) {
     !require.extensions['.ts'] ||
     // This extra condition is required to prevent compilation issues caused by jest attaching the JS loader to the TS extension
     // See https://product-fabric.atlassian.net/browse/AFP-3413?focusedCommentId=247598
-    require.extensions['.ts'] === require.extensions['.js']
+    require.extensions['.ts'] === require.extensions['.js'] ||
+    // Under Mocha test suites when consuming from source we need to always register
+    !!process.env.MOCHA_FILE
   ) {
     // ts-node can only handle being registered once, see https://github.com/TypeStrong/ts-node/issues/409
     require('ts-node').register({ project });

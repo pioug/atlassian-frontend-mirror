@@ -14,6 +14,6 @@ export type Props = InlineNodeViewComponentProps & {
   dispatchAnalyticsEvent?: (payload: UnsupportedContentTooltipPayload) => void;
 };
 
-export const UnsupportedInlineNodeView: React.FC<Props> = (props: Props) => {
+export const UnsupportedInlineNodeView = (props: Props) => {
   return <UnsupportedInline {...props} />;
 };

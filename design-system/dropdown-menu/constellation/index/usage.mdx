@@ -60,3 +60,7 @@ Consult [AUI](https://docs.atlassian.com/aui/latest/docs/dropdown.html) for impl
 - To allow users to search and select one or more options from a list, use the [select](/components/select) component.
 - To collect user input from a related list of items use [checkboxes](/components/checkbox).
 - To allow users to make a single selection from a short list, use [radio buttons](/components/radio).
+
+## Accessibility
+
+- When using a dropdown menu inside a modal dialog, use the `shouldRenderToParent` prop to prevent loss of focus and proper voicing by screen reading programs to render content in the nearest DOM node to the trigger element instead of `React.Portal`.

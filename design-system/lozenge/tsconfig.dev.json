@@ -39,6 +39,9 @@
       "path": "../accessibility-testing/tsconfig.app.json"
     },
     {
+      "path": "../../../build/test-tooling/gemini-visual-regression/tsconfig.app.json"
+    },
+    {
       "path": "../button/tsconfig.app.json"
     },
     {
@@ -67,9 +70,6 @@
     },
     {
       "path": "../tokens/tsconfig.app.json"
-    },
-    {
-      "path": "../../../build/test-tooling/visual-regression/tsconfig.app.json"
     },
     {
       "path": "../../../build/test-tooling/webdriver-runner/tsconfig.app.json"

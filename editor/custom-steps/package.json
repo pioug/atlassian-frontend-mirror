@@ -1,0 +1,57 @@
+{
+  "name": "@atlaskit/custom-steps",
+  "version": "0.0.1",
+  "description": "Editor Custom Steps",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "author": "Atlassian Pty Ltd",
+  "license": "Apache-2.0",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "module:es2019": "dist/es2019/index.js",
+  "types": "dist/types/index.d.ts",
+  "typesVersions": {
+    ">=4.5 <4.9": {
+      "*": [
+        "dist/types-ts4.5/*",
+        "dist/types-ts4.5/index.d.ts"
+      ]
+    }
+  },
+  "sideEffects": false,
+  "atlaskit:src": "src/index.ts",
+  "atlassian": {
+    "team": "Editor: ADF",
+    "inPublicMirror": true,
+    "releaseModel": "continuous"
+  },
+  "af:exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@atlaskit/adf-schema": "^29.1.0",
+    "@atlaskit/editor-prosemirror": "1.1.0",
+    "@atlaskit/editor-tables": "^2.3.10",
+    "@babel/runtime": "^7.0.0",
+    "memoize-one": "^6.0.0"
+  },
+  "devDependencies": {
+    "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1"
+  },
+  "techstack": {
+    "@atlassian/frontend": {
+      "circular-dependencies": [
+        "file-level"
+      ]
+    },
+    "@repo/internal": {
+      "deprecation": "no-deprecated-imports",
+      "styling": [
+        "emotion"
+      ]
+    }
+  },
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
+}

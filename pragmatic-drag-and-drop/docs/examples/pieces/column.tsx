@@ -273,11 +273,12 @@ export const Column = memo(function Column({ column }: { column: ColumnType }) {
           draggableStateStyles[draggableState.type],
         ]}
         ref={columnRef}
+        data-testid={`column-${columnId}`}
       >
         <div
           css={columnHeaderStyles}
           ref={headerRef}
-          data-testid={`column-${columnId}--header`}
+          data-testid={`column-header-${columnId}`}
         >
           <Heading level="h300" as="span">
             {column.title}

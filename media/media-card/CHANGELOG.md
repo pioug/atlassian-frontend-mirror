@@ -1,5 +1,11 @@
 # @atlaskit/media-card
 
+## 77.0.3
+
+### Patch Changes
+
+- [`25252788c18`](https://bitbucket.org/atlassian/atlassian-frontend/commits/25252788c18) - Give the progress bar in media card a "progressbar" role.
+
 ## 77.0.2
 
 ### Patch Changes

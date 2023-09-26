@@ -67,18 +67,14 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 
   const { getPos, view } = props;
   const isTopLevelNode = React.useMemo(() => {
-    try {
-      const pos: number | undefined =
-        typeof getPos === 'function' ? getPos() : undefined;
+    const pos: number | undefined =
+      typeof getPos === 'function' ? getPos() : undefined;
 
-      return (
-        typeof pos !== 'undefined' &&
-        !isNaN(pos) &&
-        view.state.doc.resolve(pos).depth === 0
-      );
-    } catch (e) {
-      return false;
-    }
+    return (
+      typeof pos !== 'undefined' &&
+      !isNaN(pos) &&
+      view.state.doc.resolve(pos).depth === 0
+    );
 
     return false;
   }, [view, getPos]);

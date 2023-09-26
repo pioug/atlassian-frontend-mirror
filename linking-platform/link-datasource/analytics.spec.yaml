@@ -35,7 +35,12 @@ attributes:
       description: The number of display columns in a table.
   SearchMethod: &SearchMethod
     searchMethod:
-      type: [ "datasource_search_query", "datasource_basic_filter", "datasource_saved_filter" ]
+      type:
+        [
+          "datasource_search_query",
+          "datasource_basic_filter",
+          "datasource_saved_filter",
+        ]
       required: false
       description: The method used for the datasource to be searched in config modal
   SearchCount: &SearchCount
@@ -195,8 +200,21 @@ events:
             *ExtensionKey,
           ]
         display:
-          type: ['table']
+          type: ["table"]
           description: Indicates what view option the datasource is shown as
+  - datasource renderFailure:
+      type: ui
+      description: Fired when an inserted datasource fails to render
+      attributes:
+        <<:
+          [
+            *PackageMetaDataContext,
+            *AnalyticsContext,
+            *AnalyticsContextAttributes,
+          ]
+      reason:
+        type: [ "internal" ]
+        description: The reason why datasource failed to render.
   - nextItem loaded:
       type: track
       description: Fired when user scrolls to the next page/list of the objects
@@ -238,7 +256,7 @@ events:
             *AnalyticsContextAttributes,
             *DestinationObjectTypes,
             *SearchMethod,
-            *ExtensionKey
+            *ExtensionKey,
           ]
   - link viewed (count):
       type: ui
@@ -252,5 +270,5 @@ events:
             *DestinationObjectTypes,
             *SearchMethod,
             *TotalItemCount,
-            *ExtensionKey
+            *ExtensionKey,
           ]

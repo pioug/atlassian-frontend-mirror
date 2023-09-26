@@ -1,5 +1,11 @@
 # @atlaskit/task-decision
 
+## 17.9.2
+
+### Patch Changes
+
+- [`8a519feae72`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8a519feae72) - Update checkbox border contrast under feature flag
+
 ## 17.9.1
 
 ### Patch Changes

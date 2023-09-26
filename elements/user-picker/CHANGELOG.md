@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 10.10.2
+
+### Patch Changes
+
+- [`ea5e724623c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ea5e724623c) - [ux] Fixed a minor bug where typing into the input for the user picker whilst it was in a closed state would result in the the loadOptions callback being called with undefined
+
 ## 10.10.1
 
 ### Patch Changes

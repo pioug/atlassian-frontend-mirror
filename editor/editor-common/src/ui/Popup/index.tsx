@@ -41,6 +41,7 @@ export interface Props {
   /** Enable focus trap to contain the user's focus within the popup */
   focusTrap?: boolean;
   preventOverflow?: boolean;
+  absoluteOffset?: Position;
 }
 
 export interface State {
@@ -90,6 +91,7 @@ export default class Popup extends React.Component<Props, State> {
       allowOutOfBounds,
       rect,
       preventOverflow,
+      absoluteOffset,
     } = props;
 
     if (!target || !popup) {
@@ -122,6 +124,22 @@ export default class Popup extends React.Component<Props, State> {
       rect,
     });
     position = onPositionCalculated ? onPositionCalculated(position) : position;
+
+    if (typeof position.top !== 'undefined' && absoluteOffset?.top) {
+      position.top = position.top + absoluteOffset.top;
+    }
+
+    if (typeof position.bottom !== 'undefined' && absoluteOffset?.bottom) {
+      position.bottom = position.bottom + absoluteOffset.bottom;
+    }
+
+    if (typeof position.right !== 'undefined' && absoluteOffset?.right) {
+      position.right = position.right + absoluteOffset.right;
+    }
+
+    if (typeof position.left !== 'undefined' && absoluteOffset?.left) {
+      position.left = position.left + absoluteOffset.left;
+    }
 
     return {
       position,

@@ -1,23 +1,21 @@
 import React from 'react';
 
-import { render, within } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 
 import Banner from '../../banner';
 
 describe('banner', () => {
   it('basic sanity check', () => {
-    const { getByTestId } = render(<Banner testId="banner-basic" />);
-    const banner = getByTestId('banner-basic');
+    render(<Banner testId="banner-basic" />);
+    const banner = screen.getByTestId('banner-basic');
 
-    expect(banner).toBeDefined();
+    expect(banner).toBeInTheDocument();
   });
 
   describe('props', () => {
     it('should render children prop', () => {
-      const { getByTestId } = render(
-        <Banner testId="banner-text">Testing!</Banner>,
-      );
-      const { getByText } = within(getByTestId('banner-text'));
+      render(<Banner testId="banner-text">Testing!</Banner>);
+      const { getByText } = within(screen.getByTestId('banner-text'));
 
       expect(getByText('Testing!')).toBeInTheDocument();
     });

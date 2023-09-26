@@ -36,6 +36,9 @@
       "path": "tsconfig.app.json"
     },
     {
+      "path": "../../../build/test-tooling/integration-testing/tsconfig.app.json"
+    },
+    {
       "path": "../../design-system/avatar/tsconfig.app.json"
     },
     {
@@ -43,6 +46,9 @@
     },
     {
       "path": "../../design-system/button/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/checkbox/tsconfig.app.json"
     },
     {
       "path": "../../design-system/code/tsconfig.app.json"
@@ -70,6 +76,9 @@
     },
     {
       "path": "../../design-system/icon/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/icon-object/tsconfig.app.json"
     },
     {
       "path": "../../design-system/lozenge/tsconfig.app.json"
@@ -133,9 +142,6 @@
     },
     {
       "path": "../../design-system/tokens/tsconfig.app.json"
-    },
-    {
-      "path": "../../../build/test-tooling/visual-regression/tsconfig.app.json"
     },
     {
       "path": "../../async/react-async/tsconfig.app.json"

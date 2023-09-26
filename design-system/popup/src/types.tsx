@@ -77,6 +77,12 @@ export interface PopupComponentProps {
    * Tab index passed through by the parent popup.
    */
   tabIndex: number | undefined;
+
+  /**
+   * The root element where the popup should be rendered.
+   * Defaults to `false`.
+   */
+  shouldRenderToParent?: boolean;
 }
 
 interface BaseProps {
@@ -169,6 +175,12 @@ interface BaseProps {
    *  `capture: true`.
    */
   shouldUseCaptureOnOutsideClick?: boolean;
+
+  /**
+   * The root element where the popup should be rendered.
+   * Defaults to `false`.
+   */
+  shouldRenderToParent?: boolean;
 }
 
 export interface PopupProps extends BaseProps {
@@ -185,12 +197,6 @@ export interface PopupProps extends BaseProps {
    * Defaults to `layers.layer()` from `@atlaskit/theme`.
    */
   zIndex?: number;
-
-  /**
-   * The root element where the popup should be rendered.
-   * Defaults to `false`.
-   */
-  shouldRenderToParent?: boolean;
 }
 
 export interface PopperWrapperProps extends BaseProps {

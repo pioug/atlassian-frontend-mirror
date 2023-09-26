@@ -11,6 +11,7 @@ import PopupFocusExample from '../../examples/constellation/popup-focus';
 import PopupDisableAutofocusExample from '../../examples/constellation/popup-disable-autofocus';
 import PopupContentUpdateExample from '../../examples/constellation/popup-content-update';
 import PopupSurfaceDetectionExample from '../../examples/constellation/popup-surface-detection';
+import PopupContentWithoutPortalExample from '../../examples/constellation/popup-content-without-portal';
 
 ## Default
 
@@ -80,5 +81,14 @@ The `utility.elevation.surface.current` design token can be used to style childr
 
 <Example
   Component={PopupSurfaceDetectionExample}
+  packageName="@atlaskit/popup"
+/>
+
+## Content wrapping
+
+By default, the popup content is rendered inside `React.Portal`. Use `shouldRenderToParent` prop to render the content directly after the trigger element.
+
+<Example
+  Component={PopupContentWithoutPortalExample}
   packageName="@atlaskit/popup"
 />

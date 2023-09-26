@@ -1,0 +1,25 @@
+{
+  "stepType": "ak-add-column",
+  "tablePos": 0,
+  "cells": [
+    {
+      "from": 10,
+      "to": 14,
+      "newCell": {
+        "type": "tableCell",
+        "attrs": {
+          "colspan": 1,
+          "rowspan": 3,
+          "colwidth": null,
+          "background": "#CCCCCC"
+        },
+        "content": [
+          {
+            "type": "paragraph"
+          }
+        ]
+      }
+    }
+  ],
+  "isDelete": false
+}

@@ -386,7 +386,6 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
       this.setState({ inputValue: search });
 
       this.startOptionsShownUfoExperience();
-      this.executeLoadOptions(search);
     }
   };
 
@@ -423,14 +422,21 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
   }
 
   componentDidUpdate(_: UserPickerProps, prevState: UserPickerState) {
-    const { menuIsOpen, options, resolving, count } = this.state;
-    // load options when the picker open
+    const { menuIsOpen, options, resolving, count, inputValue } = this.state;
+
     if (menuIsOpen && !prevState.menuIsOpen) {
       if (!this.session) {
         // session should have been created onFocus
         this.startSession();
       }
-      this.executeLoadOptions();
+    }
+
+    // Load options when user picker opens or when input value changes
+    if (
+      (menuIsOpen && !prevState.menuIsOpen) ||
+      inputValue !== prevState.inputValue
+    ) {
+      this.executeLoadOptions(inputValue);
     }
 
     if (!menuIsOpen && prevState.menuIsOpen && this.session) {

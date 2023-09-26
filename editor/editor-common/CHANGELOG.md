@@ -1,5 +1,33 @@
 # @atlaskit/editor-common
 
+## 75.8.2
+
+### Patch Changes
+
+- [`b8e2bd46490`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b8e2bd46490) - [ED-19868](https://product-fabric.atlassian.net/browse/ED-19868) added text length for analytics
+
+## 75.8.1
+
+### Patch Changes
+
+- [`b1b8c7d356c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b1b8c7d356c) - [ED-19757] Fix getPos throwing exception for all nodeviews
+
+## 75.8.0
+
+### Minor Changes
+
+- [`3aaff60be08`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3aaff60be08) - ED-18988 Adds classnames and constants for table sticky scrollbar
+
+### Patch Changes
+
+- Updated dependencies
+
+## 75.7.1
+
+### Patch Changes
+
+- [`7b3e5b2915d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7b3e5b2915d) - Dummy change to bump version
+
 ## 75.7.0
 
 ### Minor Changes

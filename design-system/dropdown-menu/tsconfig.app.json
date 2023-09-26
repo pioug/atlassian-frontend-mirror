@@ -36,9 +36,6 @@
       "path": "../button/tsconfig.app.json"
     },
     {
-      "path": "../../monorepo-tooling/codemod-utils/tsconfig.app.json"
-    },
-    {
       "path": "../ds-lib/tsconfig.app.json"
     },
     {
@@ -67,9 +64,6 @@
     },
     {
       "path": "../tokens/tsconfig.app.json"
-    },
-    {
-      "path": "../visually-hidden/tsconfig.app.json"
     }
   ]
 }

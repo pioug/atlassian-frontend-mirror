@@ -1,8 +1,9 @@
 /** @jsx jsx */
-import React, { useCallback, useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 
 import { css, jsx } from '@emotion/react';
-import { injectIntl, WrappedComponentProps } from 'react-intl-next';
+import type { WrappedComponentProps } from 'react-intl-next';
+import { injectIntl } from 'react-intl-next';
 
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import { Popup } from '@atlaskit/editor-common/ui';
@@ -15,7 +16,7 @@ import { token } from '@atlaskit/tokens';
 
 import { setCardLayout } from '../../pm-plugins/actions';
 
-import {
+import type {
   DatasourceTableLayout,
   LayoutButtonProps,
   LayoutButtonWrapperProps,
@@ -31,7 +32,7 @@ const toolbarButtonWrapperStyles = css({
   },
 });
 
-export const LayoutButton: React.FC<LayoutButtonProps> = ({
+export const LayoutButton = ({
   onLayoutChange,
   layout = 'center',
   intl: { formatMessage },
@@ -40,7 +41,7 @@ export const LayoutButton: React.FC<LayoutButtonProps> = ({
   scrollableElement,
   targetElement,
   testId = 'datasource-table-layout-button',
-}) => {
+}: LayoutButtonProps) => {
   const handleClick = useCallback(() => {
     onLayoutChange && onLayoutChange(getNextBreakoutMode(layout));
   }, [layout, onLayoutChange]);
@@ -82,16 +83,14 @@ export const LayoutButton: React.FC<LayoutButtonProps> = ({
   );
 };
 
-const LayoutButtonWrapper: React.FC<
-  LayoutButtonWrapperProps & WrappedComponentProps
-> = ({
+const LayoutButtonWrapper = ({
   editorView,
   mountPoint,
   scrollableElement,
   boundariesElement,
   intl,
   api,
-}) => {
+}: LayoutButtonWrapperProps & WrappedComponentProps) => {
   const { cardState } = useSharedPluginState(api, ['card']);
   const { node, pos } = getDatasource(editorView);
 

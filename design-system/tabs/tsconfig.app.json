@@ -36,9 +36,6 @@
       "path": "../../analytics/analytics-next/tsconfig.app.json"
     },
     {
-      "path": "../../monorepo-tooling/codemod-utils/tsconfig.app.json"
-    },
-    {
       "path": "../ds-explorations/tsconfig.app.json"
     },
     {

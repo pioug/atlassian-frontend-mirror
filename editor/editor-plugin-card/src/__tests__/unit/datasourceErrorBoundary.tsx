@@ -3,7 +3,8 @@ import React from 'react';
 import { render } from '@testing-library/react';
 
 import { isSafeUrl } from '@atlaskit/adf-schema';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { AnalyticsListener } from '@atlaskit/analytics-next';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { DatasourceErrorBoundary } from '../../datasourceErrorBoundary';
 import * as docModule from '../../pm-plugins/doc';
@@ -107,5 +108,92 @@ describe('DatasourceErrorBoundary', () => {
 
     expect(handleError).toHaveBeenCalledTimes(1);
     expect(getByText('Inline')).toBeInTheDocument();
+  });
+
+  describe('analytics', () => {
+    const EVENT_CHANNEL = 'media';
+
+    const renderFailedPayload = {
+      payload: {
+        action: 'renderFailure',
+        actionSubject: 'datasource',
+        actionSubjectId: undefined,
+        attributes: {
+          reason: 'internal',
+        },
+        eventType: 'ui',
+      },
+      context: [
+        {
+          packageName: '@atlaskit/fabric',
+          packageVersion: '0.0.0',
+        },
+      ],
+    };
+
+    const setup = (renderComponent: React.ReactNode, url?: string) => {
+      const onAnalyticFireEvent = jest.fn();
+
+      render(
+        <AnalyticsListener
+          channel={EVENT_CHANNEL}
+          onEvent={onAnalyticFireEvent}
+        >
+          <DatasourceErrorBoundary {...props} url={url}>
+            {renderComponent}
+          </DatasourceErrorBoundary>
+        </AnalyticsListener>,
+      );
+
+      return onAnalyticFireEvent;
+    };
+
+    it('fires datasource renderFailed event when error is caught by boundary', () => {
+      const onAnalyticFireEvent = setup(<ErrorChild />, url);
+
+      expect(onAnalyticFireEvent).toHaveBeenCalledTimes(1);
+      expect(onAnalyticFireEvent).toBeCalledWith(
+        expect.objectContaining(renderFailedPayload),
+        EVENT_CHANNEL,
+      );
+    });
+
+    it('fires datasource renderFailed event when error is caught by boundary and no URL is present', () => {
+      const onAnalyticFireEvent = setup(<ErrorChild />);
+
+      expect(onAnalyticFireEvent).toHaveBeenCalledTimes(1);
+      expect(onAnalyticFireEvent).toBeCalledWith(
+        expect.objectContaining(renderFailedPayload),
+        EVENT_CHANNEL,
+      );
+    });
+
+    it('fires datasource renderFailed event when error is caught by boundary and URL is unsafe', () => {
+      const unsafeUrl = 'javascript:alert(1)';
+      const onAnalyticFireEvent = setup(<ErrorChild />, unsafeUrl);
+
+      expect(onAnalyticFireEvent).toHaveBeenCalledTimes(1);
+      expect(onAnalyticFireEvent).toBeCalledWith(
+        expect.objectContaining(renderFailedPayload),
+        EVENT_CHANNEL,
+      );
+    });
+
+    it('does not fire datasource renderFailed event when rendering without error', () => {
+      const onAnalyticFireEvent = setup(<ChildComponent />, url);
+
+      render(
+        <AnalyticsListener
+          channel={EVENT_CHANNEL}
+          onEvent={onAnalyticFireEvent}
+        >
+          <DatasourceErrorBoundary {...props}>
+            <ChildComponent />
+          </DatasourceErrorBoundary>
+        </AnalyticsListener>,
+      );
+
+      expect(onAnalyticFireEvent).toHaveBeenCalledTimes(0);
+    });
   });
 });

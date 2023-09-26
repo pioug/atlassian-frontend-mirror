@@ -14,6 +14,7 @@ import {
   akEditorTableToolbarSize,
   akEditorUnitZIndex,
   getSelectionStyles,
+  MAX_BROWSER_SCROLLBAR_HEIGHT,
   relativeFontSizeToBase16,
   SelectionStyle,
 } from '@atlaskit/editor-shared-styles';
@@ -75,6 +76,7 @@ const cornerControlHeight = tableToolbarSize + 1;
   its center should be aligned with the edge
 */
 export const insertColumnButtonOffset = tableInsertColumnButtonSize / 2;
+export const tableRowHeight = 44;
 
 const rangeSelectionStyles = `
 .${ClassName.NODEVIEW_WRAPPER}.${akEditorSelectedNodeClassName} table tbody tr {
@@ -113,6 +115,41 @@ const sentinelStyles = `.${ClassName.TABLE_CONTAINER} {
     }
   }
 }`;
+
+const stickyScrollbarSentinelStyles = `.${ClassName.TABLE_CONTAINER} {
+ > .${ClassName.TABLE_STICKY_SCROLLBAR_SENTINEL_BOTTOM},
+ > .${ClassName.TABLE_STICKY_SCROLLBAR_SENTINEL_TOP} {
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    margin-top: -1px;
+    // need this to avoid sentinel being focused via keyboard
+    // this still allows it to be detected by intersection observer
+    visibility: hidden;
+  }
+  > .${ClassName.TABLE_STICKY_SCROLLBAR_SENTINEL_TOP} {
+    top: ${columnControlsDecorationHeight + tableRowHeight * 3}px;
+  }
+  > .${ClassName.TABLE_STICKY_SCROLLBAR_SENTINEL_BOTTOM} {
+    bottom: ${MAX_BROWSER_SCROLLBAR_HEIGHT}px;
+  }
+}`;
+
+const stickyScrollbarContainerStyles = `.${ClassName.TABLE_CONTAINER} {
+  > .${ClassName.TABLE_STICKY_SCROLLBAR_CONTAINER} {
+    width: 100%;
+    display: none;
+    overflow-x: auto;
+    position: sticky;
+    bottom: 0;
+  }
+}`;
+
+const stickyScrollbarStyles = () => {
+  return getBooleanFF('platform.editor.table-sticky-scrollbar')
+    ? `${stickyScrollbarContainerStyles} ${stickyScrollbarSentinelStyles}`
+    : '';
+};
 
 const shadowSentinelStyles = `
   .${ClassName.TABLE_SHADOW_SENTINEL_LEFT},
@@ -417,6 +454,7 @@ export const tableStyles = (
 
     ${sentinelStyles}
     ${OverflowShadow(props)}
+    ${stickyScrollbarStyles()}
 
     .${ClassName.TABLE_STICKY} .${ClassName.TABLE_STICKY_SHADOW} {
       height: 0; // stop overflow flash & set correct height in update-overflow-shadows.ts

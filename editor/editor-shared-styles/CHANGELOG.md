@@ -1,5 +1,11 @@
 # @atlaskit/editor-shared-styles
 
+## 2.8.0
+
+### Minor Changes
+
+- [`3aaff60be08`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3aaff60be08) - ED-18988 Adds classnames and constants for table sticky scrollbar
+
 ## 2.7.0
 
 ### Minor Changes

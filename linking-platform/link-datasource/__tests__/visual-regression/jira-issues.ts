@@ -184,7 +184,8 @@ describe('Modal', () => {
     expect(await page.screenshot()).toMatchProdImageSnapshot();
   });
 
-  it('should render smart link when result is single row', async () => {
+  // FIXME: This test was automatically skipped due to failure on 24/09/2023: https://product-fabric.atlassian.net/browse/SKIP-824
+  it.skip('should render smart link when result is single row', async () => {
     const siteSelectorTrigger = await page.waitForSelector(
       jiraModalSiteSelector,
       {

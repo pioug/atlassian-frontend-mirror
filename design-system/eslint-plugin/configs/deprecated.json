@@ -165,6 +165,9 @@
                 { "importName": "skeleton", "message": "Named color utils are deprecated in favor of design tokens." }
             ]
         },
+        "@atlaskit/theme/components": {
+            "message": "Legacy theming is deprecated in favor of design tokens."
+        },
         "@atlaskit/theme": {
             "importSpecifiers": [
                 {
@@ -186,6 +189,14 @@
                 {
                     "importName": "elevation",
                     "message": "Elevation mixin is deprecated. Please use design tokens instead."
+                },
+                {
+                    "importName": "themed",
+                    "message": "Legacy theming is deprecated in favor of design tokens."
+                },
+                {
+                    "importName": "AtlaskitThemeProvider",
+                    "message": "Legacy theming is deprecated in favor of design tokens."
                 }
             ]
         },

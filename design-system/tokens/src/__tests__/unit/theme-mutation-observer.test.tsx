@@ -1,4 +1,4 @@
-import { waitFor } from '@testing-library/dom';
+import { waitFor } from '@testing-library/react';
 
 import setGlobalTheme from '../../set-global-theme';
 import ThemeMutationObserver from '../../theme-mutation-observer';

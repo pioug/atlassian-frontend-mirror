@@ -189,6 +189,66 @@ describe('useDatasourceTableState', () => {
       );
     });
 
+    it('should update columns on subsequent getDatasourceData call with new response schema', async () => {
+      const expectedProperties = [
+        {
+          key: 'id',
+          title: 'id',
+          type: 'string',
+        },
+        {
+          key: 'issue',
+          title: 'Key',
+          type: 'link',
+        },
+        {
+          key: 'type',
+          type: 'icon',
+          title: 'Type',
+        },
+        {
+          key: 'summary',
+          title: 'Summary',
+          type: 'link',
+        },
+      ];
+      asMock(getDatasourceData).mockResolvedValueOnce({
+        ...mockDatasourceDataResponseWithSchema,
+        data: {
+          ...mockDatasourceDataResponseWithSchema.data,
+          schema: {
+            properties: expectedProperties.slice(-1),
+          },
+        },
+      });
+
+      const { waitForNextUpdate, result } = setup();
+      await waitForNextUpdate();
+
+      asMock(getDatasourceData).mockResolvedValueOnce({
+        ...mockDatasourceDataResponseWithSchema,
+        data: {
+          ...mockDatasourceDataResponseWithSchema.data,
+          schema: {
+            properties: expectedProperties,
+          },
+        },
+      });
+
+      await act(async () => {
+        result.current.onNextPage();
+      });
+
+      const expectedDefaultProperties = expectedProperties.map(
+        prop => prop.key,
+      );
+
+      expect(result.current.columns).toEqual(expectedProperties);
+      expect(result.current.defaultVisibleColumnKeys).toEqual(
+        expectedDefaultProperties,
+      );
+    });
+
     it('should populate extensionKey with the value received in meta after getDatasourceData call', async () => {
       asMock(getDatasourceData).mockResolvedValue(
         mockDatasourceDataResponseWithSchema,

@@ -15,7 +15,7 @@ import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
 import ColorPalette, {
   textPaletteTooltipMessages,
 } from '../../../../ui/ColorPalette';
-import Dropdown from '../../../../ui/Dropdown';
+import { DropdownContainer as Dropdown } from '@atlaskit/editor-common/ui-menu';
 import { expandIconWrapperStyle } from '../../../../ui/styles';
 import {
   wrapperStyle,

@@ -1,5 +1,11 @@
 # @atlaskit/atlassian-navigation
 
+## 2.8.0
+
+### Minor Changes
+
+- [#40069](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40069) [`d84be9a0f39`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d84be9a0f39) - [ux] We are testing icon button intenal spacing fix. We had to make related changes in dropdown menu button behind a fetaure flag. There is no visual difference but external changes instead. If the spacing fix is successful it will be available in a later release.
+
 ## 2.7.0
 
 ### Minor Changes

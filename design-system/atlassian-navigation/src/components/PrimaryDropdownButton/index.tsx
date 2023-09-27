@@ -4,7 +4,9 @@ import { forwardRef, Ref } from 'react';
 import { jsx } from '@emotion/react';
 
 import ChevronIcon from '@atlaskit/icon/glyph/chevron-down';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { Bleed, xcss } from '@atlaskit/primitives';
+import { token } from '@atlaskit/tokens';
 
 import { PrimaryButton } from '../PrimaryButton';
 
@@ -12,6 +14,11 @@ import { PrimaryDropdownButtonProps } from './types';
 
 const chevronIconStyles = xcss({
   opacity: 0.51,
+});
+
+const chevronIconStylesWithSpacingFixStyles = xcss({
+  opacity: 0.51,
+  marginInlineEnd: `${token('space.negative.050', '-0.25rem')}`,
 });
 
 /**
@@ -30,7 +37,16 @@ export const PrimaryDropdownButton = forwardRef<
   return (
     <PrimaryButton
       iconAfter={
-        <Bleed xcss={chevronIconStyles} inline="space.100">
+        <Bleed
+          xcss={
+            getBooleanFF(
+              'platform.design-system-team.icon-button-spacing-fix_o1zc5',
+            )
+              ? chevronIconStylesWithSpacingFixStyles
+              : chevronIconStyles
+          }
+          inline="space.100"
+        >
           <ChevronIcon label="" />
         </Bleed>
       }

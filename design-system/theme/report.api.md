@@ -53,7 +53,7 @@ export interface AtlaskitThemeProps {
   };
 }
 
-// @public
+// @public @deprecated (undocumented)
 export const AtlaskitThemeProvider: FC<AKThemeProviderProps>;
 
 // @public (undocumented)
@@ -933,7 +933,7 @@ type ThemeConsumerFn<ThemeTokens> = {
   children: (tokens: ThemeTokens) => ReactNode;
 };
 
-// @public (undocumented)
+// @public @deprecated (undocumented)
 export function themed<V = DefaultValue>(
   modesOrVariant: Modes<V> | string,
   variantModes?: VariantModes<V>,

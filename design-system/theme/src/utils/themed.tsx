@@ -29,6 +29,9 @@ function themedVariants<V>(variantProp: string, variants?: VariantModes<V>) {
   };
 }
 
+/**
+ * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-4693 Internal documentation for deprecation (no external access)}
+ */
 export default function themed<V = DefaultValue>(
   modesOrVariant: Modes<V> | string,
   variantModes?: VariantModes<V>,

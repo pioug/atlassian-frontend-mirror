@@ -2,7 +2,7 @@ import React from 'react';
 import ToolbarFeedback from '../../../ui/ToolbarFeedback';
 import { openFeedbackDialog } from '../../../plugins/feedback-dialog';
 import { analyticsEventKey } from '../../../plugins/analytics/consts';
-import type { basePlugin } from '../../../plugins/base';
+import type { basePlugin } from '@atlaskit/editor-plugin-base';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 import { screen } from '@testing-library/react';

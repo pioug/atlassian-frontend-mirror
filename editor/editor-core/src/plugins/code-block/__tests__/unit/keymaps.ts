@@ -26,7 +26,7 @@ import codeBlockPlugin from '../../';
 import { compositionPlugin } from '@atlaskit/editor-plugin-composition';
 import layoutPlugin from '../../../layout';
 import { blockTypePlugin } from '@atlaskit/editor-plugin-block-type';
-import { basePlugin } from '../../../base';
+import { basePlugin } from '@atlaskit/editor-plugin-base';
 import selectionPlugin from '../../../selection';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';

@@ -22,7 +22,7 @@ export const extractRequestAccessContext = ({
           () => window.open(url),
           'click_to_join',
           messages.click_to_join,
-          context,
+          { context },
         ),
       };
     case 'REQUEST_ACCESS':
@@ -34,7 +34,7 @@ export const extractRequestAccessContext = ({
           () => window.open(url),
           'request_access',
           messages.request_access,
-          context,
+          { context },
         ),
       };
     case 'PENDING_REQUEST_EXISTS':
@@ -51,6 +51,81 @@ export const extractRequestAccessContext = ({
       return {
         ...jsonLd?.requestAccess,
         descriptiveMessageKey: 'request_denied_description',
+      };
+    default:
+      return jsonLd?.requestAccess;
+  }
+};
+
+export const extractRequestAccessContextImproved = ({
+  jsonLd,
+  url,
+  product,
+}: {
+  jsonLd: JsonLd.Meta.BaseMeta;
+  url: string;
+  product: string;
+}): RequestAccessContextProps => {
+  switch (jsonLd?.requestAccess?.accessType) {
+    case 'DIRECT_ACCESS':
+      return {
+        ...jsonLd?.requestAccess,
+        titleMessageKey: 'direct_access_title_crossjoin',
+        descriptiveMessageKey: 'direct_access_description_crossjoin',
+        callToActionMessageKey: 'direct_access_crossjoin',
+        action: ForbiddenAction(
+          () => window.open(url),
+          'direct_access',
+          messages.direct_access_crossjoin,
+          { product },
+        ),
+      };
+    case 'REQUEST_ACCESS':
+      return {
+        ...jsonLd?.requestAccess,
+        titleMessageKey: 'default_no_access_title_crossjoin',
+        descriptiveMessageKey: 'request_access_description_crossjoin',
+        callToActionMessageKey: 'request_access_crossjoin',
+        action: ForbiddenAction(
+          () => window.open(url),
+          'request_access',
+          messages.request_access_crossjoin,
+        ),
+      };
+    case 'PENDING_REQUEST_EXISTS':
+      return {
+        ...jsonLd?.requestAccess,
+        titleMessageKey: 'request_access_pending_title_crossjoin',
+        descriptiveMessageKey: 'request_access_pending_description_crossjoin',
+        callToActionMessageKey: 'request_access_pending_crossjoin',
+        action: ForbiddenAction(
+          () => window.open(url),
+          'request_access_pending',
+          messages.request_access_pending_crossjoin,
+        ),
+      };
+    case 'DENIED_REQUEST_EXISTS':
+      return {
+        ...jsonLd?.requestAccess,
+        titleMessageKey: 'default_no_access_title_crossjoin',
+        descriptiveMessageKey: 'request_denied_description_crossjoin',
+      };
+    case 'ACCESS_EXISTS':
+      return {
+        ...jsonLd?.requestAccess,
+        titleMessageKey: 'default_no_access_title_crossjoin',
+        descriptiveMessageKey: 'access_exists_description_crossjoin',
+        callToActionMessageKey: 'request_access_crossjoin',
+        action: ForbiddenAction(
+          () => window.open(url),
+          'access_exists',
+          messages.request_access_crossjoin,
+        ),
+      };
+    case 'FORBIDDEN':
+      return {
+        ...jsonLd?.requestAccess,
+        descriptiveMessageKey: 'forbidden_description',
       };
     default:
       return jsonLd?.requestAccess;

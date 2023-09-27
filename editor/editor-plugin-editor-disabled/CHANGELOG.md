@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-editor-disabled
 
+## 0.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.2.1
 
 ### Patch Changes

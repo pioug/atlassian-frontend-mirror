@@ -8,7 +8,23 @@ export type RequestAccessMessageKey =
   | 'request_access_description'
   | 'request_access_pending'
   | 'request_access_pending_description'
-  | 'request_denied_description';
+  | 'request_denied_description'
+  //cross join types to be cleaned up in EDM-7977
+  | 'default_no_access_title_crossjoin'
+  | 'direct_access_title_crossjoin'
+  | 'direct_access_description_crossjoin'
+  | 'direct_access_crossjoin'
+  | 'request_access_description_crossjoin'
+  | 'request_access_crossjoin'
+  | 'request_access_pending_title_crossjoin'
+  | 'request_access_pending_description_crossjoin'
+  | 'request_access_pending_crossjoin'
+  | 'request_denied_description_crossjoin'
+  | 'access_exists_description_crossjoin'
+  | 'not_found_description_crossjoin'
+  | 'not_found_title_crossjoin';
+// | 'forbidden_access_crossjoin'
+// | 'forbidden_description_crossjoin';
 
 export type MessageKey =
   | 'assigned_to'
@@ -604,4 +620,108 @@ export const messages: Messages = defineMessages({
     description:
       "We have a link in our preview modals to the original document. This is for when we don't know the provider name",
   },
+  /**
+   * Temp messages to put behind a feature flag for the cross join stream, replace the messages with the message of the same
+   * title (without _crossjoin) during cleanup in EDM-7977 [https://product-fabric.atlassian.net/browse/EDM-7977].
+   */
+  default_no_access_title_crossjoin: {
+    id: 'fabric.linking.no_access_title_crossjoin',
+    defaultMessage: "You don't have access to this content",
+    description:
+      'Informs the user that they dont have access to certain content',
+  },
+
+  direct_access_title_crossjoin: {
+    id: 'fabric.linking.direct_access_title_crossjoin',
+    defaultMessage: 'Join your team in {product}',
+    description:
+      'Informs the user that they have access to this product, and can sign up or join right away.',
+  },
+  direct_access_description_crossjoin: {
+    id: 'fabric.linking.direct_access_description_crossjoin',
+    defaultMessage:
+      'All {emailDomain} emails are approved to access {hostname} in {product}.',
+    description:
+      'Informs the user that they have access to this product, and can sign up or join right away.',
+  },
+  direct_access_crossjoin: {
+    id: 'fabric.linking.direct_access_crossjoin',
+    defaultMessage: 'Go to {product}',
+    description: 'Allows the user join the product or service immediately',
+  },
+
+  request_access_description_crossjoin: {
+    id: 'fabric.linking.request_access_description_crossjoin',
+    defaultMessage: 'Contact your admin to request access.',
+    description:
+      'Informs the user to request access to a product by talking to the website administrator',
+  },
+  request_access_crossjoin: {
+    id: 'fabric.linking.request_access_crossjoin',
+    defaultMessage: 'Request access',
+    description: 'Allows the user to request access to a product or service',
+  },
+
+  request_access_pending_title_crossjoin: {
+    id: 'fabric.linking.request_access_pending_title_crossjoin',
+    defaultMessage: 'Access to {product} pending',
+    description:
+      'Informs the user that their request to view this content is pending',
+  },
+  request_access_pending_description_crossjoin: {
+    id: 'fabric.linking.request_access_pending_description_crossjoin',
+    defaultMessage:
+      'Your request to access {hostname} is awaiting admin approval.',
+    description:
+      'Informs the user that their request to view this content is pending website administrator approval',
+  },
+  request_access_pending_crossjoin: {
+    id: 'fabric.linking.request_access_pending_crossjoin',
+    defaultMessage: 'Pending approval',
+    description:
+      'Informs the user that their request to view this content is pending',
+  },
+
+  request_denied_description_crossjoin: {
+    id: 'fabric.linking.request_denied_description_crossjoin',
+    defaultMessage:
+      "Your admin didn't approve your request to view {product} pages from {hostname}.",
+    description:
+      'Informs the user that their request to view this content was denied',
+  },
+
+  access_exists_description_crossjoin: {
+    id: 'fabric.linking.access_exists_description',
+    defaultMessage:
+      'Contact your admin and request access to view this content from {hostname}.',
+    description:
+      'Informs the user to contact the website administrator to request access to a product',
+  },
+
+  not_found_description_crossjoin: {
+    id: 'fabric.linking.not_found_description_crossjoin',
+    defaultMessage:
+      "The page doesn't exist or it may have changed after this link was added.",
+    description:
+      'Error case for when a provided item is not found within the list of items',
+  },
+  not_found_title_crossjoin: {
+    id: 'fabric.linking.not_found_title_crossjoin',
+    defaultMessage: "We can't show you this {product} page",
+    description: 'Error case for when a provided link is not found',
+  },
+
+  // Pending designs:
+  // forbidden_access_crossjoin: {
+  //   id: 'fabric.linking.forbidden_access_crossjoin',
+  //   defaultMessage: 'Your access is forbidden',
+  //   description:
+  //     'Shown when a user does not have access to a resource behind the link.',
+  // },
+  // forbidden_description_crossjoin: {
+  //   id: 'fabric.linking.forbidden_description_crossjoin',
+  //   defaultMessage:
+  //     "You don't have access to this preview. Contact the site admin if you need access.",
+  //   description: 'Informs the user that they cannot view this content.',
+  // },
 });

@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-table
 
+## 4.0.1
+
+### Patch Changes
+
+- [#40684](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40684) [`9aa958ee692`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9aa958ee692) - [ux] Makes sticky scrollbar visible in Safari and Firefox by setting height.
+
+## 4.0.0
+
+### Major Changes
+
+- [`151b0d45db4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/151b0d45db4) - Changed Resizer API. Removed handleComponent, innerPadding & handleMarginTop. Also renamed HandleHeightSizeType to HandleSize. The resizer should be opionated and control the handle component itself. innerPadding & handleMarginTop can also be controlled via the handleStyles override property.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.2.1
 
 ### Patch Changes

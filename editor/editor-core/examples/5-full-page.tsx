@@ -60,7 +60,7 @@ import type { PanelPluginConfig } from '../src/plugins/panel/types';
 import {
   NORMAL_SEVERITY_THRESHOLD as BROWSER_FREEZE_NORMAL_SEVERITY_THRESHOLD,
   DEGRADED_SEVERITY_THRESHOLD as BROWSER_FREEZE_DEGRADED_SEVERITY_THRESHOLD,
-} from '../src/plugins/base/pm-plugins/frozen-editor';
+} from '@atlaskit/editor-plugin-base';
 import {
   PROSEMIRROR_RENDERED_NORMAL_SEVERITY_THRESHOLD,
   PROSEMIRROR_RENDERED_DEGRADED_SEVERITY_THRESHOLD,

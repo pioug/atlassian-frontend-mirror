@@ -6,7 +6,7 @@ import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 
 import createUniversalPreset from '../../../labs/next/presets/universal';
-import { basePlugin } from '../../../plugins';
+import { basePlugin } from '@atlaskit/editor-plugin-base';
 import EditorNext from '../../index';
 
 describe('EditorNext', () => {

@@ -524,7 +524,12 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
               display: 'none',
             }}
           >
-            <div style={{ width: tableRef?.clientWidth }}></div>
+            <div
+              style={{
+                width: tableRef?.clientWidth,
+                height: '100%',
+              }}
+            ></div>
           </div>
         )}
         <div

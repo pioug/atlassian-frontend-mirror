@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/atlassian-navigation",
-  "version": "2.7.0",
+  "version": "2.8.0",
   "description": "A horizontal navigation component for Atlassian products.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -96,6 +96,9 @@
       "type": "boolean"
     },
     "platform.design-system-team.border-checkbox_nyoiu": {
+      "type": "boolean"
+    },
+    "platform.design-system-team.icon-button-spacing-fix_o1zc5": {
       "type": "boolean"
     }
   }

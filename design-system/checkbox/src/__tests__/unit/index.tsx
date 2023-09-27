@@ -1,6 +1,6 @@
 import React, { ChangeEvent, createRef } from 'react';
 
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import __noop from '@atlaskit/ds-lib/noop';
 
@@ -32,33 +32,33 @@ describe('@atlaskit/checkbox', () => {
   describe('<Checkbox />', () => {
     describe('<Checkbox /> stateless: should not use state isChecked property when passing it as props', () => {
       it('keeps isChecked as false when passing it as prop and clicking', () => {
-        const { getByLabelText } = renderCheckbox({ isChecked: false });
-        const checkbox = getByLabelText('stub') as HTMLInputElement;
+        renderCheckbox({ isChecked: false });
+        const checkbox = screen.getByLabelText('stub') as HTMLInputElement;
 
         checkbox.click();
 
-        expect(checkbox.checked).toBe(false);
+        expect(checkbox).not.toBeChecked();
       });
 
       it('keeps isChecked as true when passing it as prop and calling onChange', () => {
-        const { getByLabelText } = renderCheckbox({ isChecked: true });
-        const checkbox = getByLabelText('stub') as HTMLInputElement;
+        renderCheckbox({ isChecked: true });
+        const checkbox = screen.getByLabelText('stub') as HTMLInputElement;
 
         checkbox.click();
 
-        expect(checkbox.checked).toBe(true);
+        expect(checkbox).toBeChecked();
       });
     });
     it('should be unchecked by default', () => {
-      const { getByLabelText } = renderCheckbox({});
-      const checkbox = getByLabelText('stub') as HTMLInputElement;
+      renderCheckbox({});
+      const checkbox = screen.getByLabelText('stub') as HTMLInputElement;
 
-      expect(checkbox.checked).toBe(false);
+      expect(checkbox).not.toBeChecked();
     });
     it('should call onchange on change', () => {
       const onChange = jest.fn();
-      const { getByLabelText } = renderCheckbox({ onChange: onChange });
-      const checkbox = getByLabelText('stub') as HTMLInputElement;
+      renderCheckbox({ onChange: onChange });
+      const checkbox = screen.getByLabelText('stub') as HTMLInputElement;
 
       checkbox.click();
 
@@ -67,13 +67,13 @@ describe('@atlaskit/checkbox', () => {
     it('should call onChange and change variable', () => {
       let value = '';
       let checked = false;
-      const { getByLabelText } = renderCheckbox({
+      renderCheckbox({
         onChange: (e: ChangeEvent<HTMLInputElement>) => {
           value = e.currentTarget.value;
           checked = e.currentTarget.checked;
         },
       });
-      const checkbox = getByLabelText('stub') as HTMLInputElement;
+      const checkbox = screen.getByLabelText('stub') as HTMLInputElement;
 
       checkbox.click();
 
@@ -81,30 +81,30 @@ describe('@atlaskit/checkbox', () => {
       expect(checked).toBe(true);
     });
     it('should set the checked state when checked', () => {
-      const { getByLabelText } = renderCheckbox({});
-      const checkbox = getByLabelText('stub') as HTMLInputElement;
+      renderCheckbox({});
+      const checkbox = screen.getByLabelText('stub') as HTMLInputElement;
 
       checkbox.click();
 
-      expect(checkbox.checked).toBe(true);
+      expect(checkbox).toBeChecked();
     });
     it('should set the indeterminate state', () => {
-      const { getByLabelText } = renderCheckbox({
+      renderCheckbox({
         isIndeterminate: true,
         isChecked: true,
       });
-      const checkbox = getByLabelText('stub') as HTMLInputElement;
-
+      const checkbox = screen.getByRole('checkbox');
+      // eslint-disable-next-line jest-dom/prefer-checked
       expect(checkbox).toHaveAttribute('aria-checked', 'mixed');
     });
     it('should set the indeterminate state on the checkbox on update', () => {
-      const { getByLabelText, rerender } = renderCheckbox({
+      const { rerender } = renderCheckbox({
         isChecked: false,
         isIndeterminate: false,
       });
-      const checkbox = getByLabelText('stub') as HTMLInputElement;
+      const checkbox = screen.getByLabelText('stub') as HTMLInputElement;
 
-      expect(checkbox).toHaveAttribute('aria-checked', 'false');
+      expect(checkbox).not.toBeChecked();
 
       rerender(
         <Checkbox
@@ -117,27 +117,27 @@ describe('@atlaskit/checkbox', () => {
         />,
       );
 
-      expect(checkbox).toHaveAttribute('aria-checked', 'mixed');
+      expect(checkbox).not.toBeChecked();
     });
     it('should show required indicator when isRequired prop is used', () => {
-      const { getByText } = renderCheckbox({ isRequired: true });
+      renderCheckbox({ isRequired: true });
 
-      const requiredIndicator = getByText('*');
+      const requiredIndicator = screen.getByText('*');
 
       expect(requiredIndicator).toBeVisible();
     });
     it('should set aria-invalid attr to input when isInvalid is true', () => {
-      const { getByLabelText } = renderCheckbox({ isInvalid: true });
+      renderCheckbox({ isInvalid: true });
 
-      const checkbox = getByLabelText('stub');
+      const checkbox = screen.getByLabelText('stub');
       expect(checkbox).toHaveAttribute('aria-invalid', 'true');
     });
     it('should pass input props as attributes on the checkbox', () => {
       const onFocus = jest.fn();
-      const { getByLabelText } = renderCheckbox({
+      renderCheckbox({
         onFocus: onFocus,
       });
-      const checkbox = getByLabelText('stub') as HTMLInputElement;
+      const checkbox = screen.getByLabelText('stub') as HTMLInputElement;
 
       checkbox.focus();
 
@@ -145,57 +145,61 @@ describe('@atlaskit/checkbox', () => {
     });
     it('should set the reference on the checkbox', () => {
       const ref = createRef<HTMLInputElement>();
-      const { getByLabelText } = renderCheckbox({
+      renderCheckbox({
         ref: ref,
       });
 
-      const input = getByLabelText('stub');
+      const input = screen.getByLabelText('stub');
       expect(input).toBe(ref.current);
     });
     it('should accept a function as a reference', () => {
       let ourNode: HTMLInputElement | undefined;
-      const { getByLabelText } = renderCheckbox({
+      renderCheckbox({
         ref: (node: HTMLInputElement) => {
           ourNode = node;
         },
       });
 
-      const input = getByLabelText('stub');
+      const input = screen.getByLabelText('stub');
       expect(input).toBe(ourNode);
     });
   });
   describe('<Checkbox defaultChecked/>', () => {
     it('should be checked when defaultChecked is set to checked', () => {
-      const { getByLabelText } = renderCheckbox({ defaultChecked: true });
-      const checkbox = getByLabelText('stub') as HTMLInputElement;
+      renderCheckbox({ defaultChecked: true });
+      const checkbox = screen.getByLabelText('stub') as HTMLInputElement;
 
-      expect(checkbox.checked).toBe(true);
+      expect(checkbox).toBeChecked();
     });
     it('should change checked after defaultChecked is set to true', () => {
-      const { getByLabelText } = renderCheckbox({ defaultChecked: true });
-      const checkbox = getByLabelText('stub') as HTMLInputElement;
+      renderCheckbox({ defaultChecked: true });
+      const checkbox = screen.getByLabelText('stub') as HTMLInputElement;
 
-      expect(checkbox.checked).toBe(true);
+      expect(checkbox).toBeChecked();
 
       checkbox.click();
 
-      expect(checkbox.checked).toBe(false);
+      expect(checkbox).not.toBeChecked();
     });
   });
 
   describe('<Checkbox /> label text should be present conditionally', () => {
     it('should be checked when defaultChecked is set to checked', () => {
-      const { getByTestId } = renderCheckbox({
+      renderCheckbox({
         label: undefined,
         testId: 'test',
       });
-      const checkbox = getByTestId('test--checkbox-label') as HTMLInputElement;
+      const checkbox = screen.getByTestId(
+        'test--checkbox-label',
+      ) as HTMLInputElement;
 
       expect(checkbox.querySelector('span')).toBe(null);
     });
     it('should change checked after defaultChecked is set to true', () => {
-      const { getByTestId } = renderCheckbox({ testId: 'test' });
-      const checkbox = getByTestId('test--checkbox-label') as HTMLInputElement;
+      renderCheckbox({ testId: 'test' });
+      const checkbox = screen.getByTestId(
+        'test--checkbox-label',
+      ) as HTMLInputElement;
 
       expect(checkbox.querySelector('span')).toBeDefined();
     });

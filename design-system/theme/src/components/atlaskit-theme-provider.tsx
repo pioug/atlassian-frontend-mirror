@@ -16,6 +16,9 @@ const themeFnMap: Record<ThemeModes, GetMode> = {
 };
 
 /**
+ *
+ * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-4693 Internal documentation for deprecation (no external access)}
+ *
  * __Atlaskit Theme Provider__
  *
  * The global theme provider is used to provide theme context to an application.

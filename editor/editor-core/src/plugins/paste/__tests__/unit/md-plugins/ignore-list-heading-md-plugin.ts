@@ -10,7 +10,7 @@ import {
 
 // Editor Plugins
 import pastePlugin from '../../..';
-import { basePlugin } from '../../../../base';
+import { basePlugin } from '@atlaskit/editor-plugin-base';
 import { blockTypePlugin } from '@atlaskit/editor-plugin-block-type';
 import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import { listPlugin } from '@atlaskit/editor-plugin-list';

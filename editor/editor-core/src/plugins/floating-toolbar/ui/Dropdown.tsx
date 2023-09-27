@@ -12,7 +12,10 @@ import { token } from '@atlaskit/tokens';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
 
 import type { OpenChangedEvent } from '@atlaskit/editor-common/ui';
-import { DropdownContainer as UiDropdown } from '@atlaskit/editor-common/ui-menu';
+import {
+  ArrowKeyNavigationType,
+  DropdownContainer as UiDropdown,
+} from '@atlaskit/editor-common/ui-menu';
 import { FloatingToolbarButton as Button } from '@atlaskit/editor-common/ui';
 
 import DropdownMenu, { itemSpacing, menuItemDimensions } from './DropdownMenu';
@@ -81,7 +84,6 @@ export default class Dropdown extends Component<Props, State> {
       tooltip,
       buttonTestId,
       dropdownWidth,
-      editorView,
       dropdownListId,
       alignDropdownWithToolbar,
     } = this.props;
@@ -137,7 +139,6 @@ export default class Dropdown extends Component<Props, State> {
 
     return (
       <UiDropdown
-        ref={this.triggerRef}
         mountTo={mountPoint}
         boundariesElement={boundariesElement}
         scrollableElement={scrollableElement}
@@ -148,9 +149,11 @@ export default class Dropdown extends Component<Props, State> {
         fitWidth={fitWidth + fitTolerance}
         fitHeight={fitHeight + fitTolerance}
         trigger={trigger}
-        editorView={editorView}
         dropdownListId={dropdownListId}
         alignDropdownWithParentElement={alignDropdownWithToolbar}
+        arrowKeyNavigationProviderOptions={{
+          type: ArrowKeyNavigationType.MENU,
+        }}
       >
         {Array.isArray(options)
           ? this.renderArrayOptions(options)

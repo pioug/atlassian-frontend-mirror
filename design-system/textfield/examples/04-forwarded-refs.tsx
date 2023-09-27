@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Button from '@atlaskit/button/standard-button';
+import { Label } from '@atlaskit/form';
 
 import Textfield from '../src';
 
@@ -19,7 +20,8 @@ export default function ForwardRefExample() {
 
   return (
     <div>
-      <Textfield ref={handleRef} aria-label="textfield label" />
+      <Label htmlFor="textfield">Text Input</Label>
+      <Textfield id="textfield" ref={handleRef} />
       <p>
         <Button appearance="primary" onClick={handleFocus}>
           Focus TextField

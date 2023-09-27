@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-core",
-  "version": "187.47.6",
+  "version": "187.48.0",
   "description": "A package contains Atlassian editor core functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -55,11 +55,12 @@
     "@atlaskit/code": "^14.6.0",
     "@atlaskit/date": "^0.10.0",
     "@atlaskit/datetime-picker": "^12.10.0",
-    "@atlaskit/editor-common": "^75.8.0",
+    "@atlaskit/editor-common": "^76.0.0",
     "@atlaskit/editor-json-transformer": "^8.10.0",
     "@atlaskit/editor-markdown-transformer": "^5.2.5",
     "@atlaskit/editor-palette": "1.5.1",
     "@atlaskit/editor-plugin-analytics": "^0.2.0",
+    "@atlaskit/editor-plugin-base": "^0.1.0",
     "@atlaskit/editor-plugin-block-type": "^1.0.0",
     "@atlaskit/editor-plugin-card": "^0.8.0",
     "@atlaskit/editor-plugin-composition": "^0.1.0",
@@ -81,7 +82,7 @@
     "@atlaskit/editor-plugin-placeholder": "^0.1.0",
     "@atlaskit/editor-plugin-quick-insert": "^0.1.0",
     "@atlaskit/editor-plugin-rule": "^0.1.0",
-    "@atlaskit/editor-plugin-table": "^3.2.0",
+    "@atlaskit/editor-plugin-table": "^4.0.0",
     "@atlaskit/editor-plugin-text-formatting": "^0.4.0",
     "@atlaskit/editor-plugin-type-ahead": "^0.3.0",
     "@atlaskit/editor-plugin-unsupported-content": "^0.2.0",
@@ -153,10 +154,10 @@
     "@af/integration-testing": "*",
     "@af/visual-regression": "*",
     "@atlaskit/code": "^14.6.0",
-    "@atlaskit/collab-provider": "9.12.3",
+    "@atlaskit/collab-provider": "9.12.4",
     "@atlaskit/dropdown-menu": "^11.14.0",
     "@atlaskit/editor-extension-dropbox": "^0.4.0",
-    "@atlaskit/editor-plugin-table": "^3.2.0",
+    "@atlaskit/editor-plugin-table": "^4.0.0",
     "@atlaskit/flag": "^15.2.0",
     "@atlaskit/icon-object": "^6.3.0",
     "@atlaskit/inline-dialog": "^13.6.0",
@@ -178,11 +179,12 @@
     "@atlaskit/util-data-test": "^17.8.0",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
+    "@atlassian/adf-schema-json": "^1.0.7",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@atlassian/editor-extension-link-create": "^0.4.0",
     "@atlassian/feature-flags-test-utils": "^0.1.1",
     "@atlassian/link-picker-plugins": "^23.0.0",
-    "@atlassian/search-provider": "2.4.7",
+    "@atlassian/search-provider": "2.4.8",
     "@atlassian/ufo": "^0.2.0",
     "@emotion/jest": "^11.8.0",
     "@storybook/addon-knobs": "^5.3.18",
@@ -269,9 +271,6 @@
     "platform.design-system-team.update-border-radio-checkbox_7askv": {
       "type": "boolean",
       "referenceOnly": "true"
-    },
-    "platform.editor.disable-chrome-88-selection-fix_uk53m": {
-      "type": "boolean"
     },
     "platform.linking-platform.datasource-jira_issues": {
       "type": "boolean"

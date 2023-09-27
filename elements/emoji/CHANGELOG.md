@@ -1,5 +1,11 @@
 # @atlaskit/emoji
 
+## 67.5.7
+
+### Patch Changes
+
+- [`11211011de2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/11211011de2) - Necessary release to unblock master in Atlassian Frontend Monorepo.
+
 ## 67.5.6
 
 ### Patch Changes

@@ -9,10 +9,10 @@ export const ForbiddenAction = (
   handler: () => void,
   id = 'connect-other-account',
   message = messages.try_another_account,
-  context = '',
+  values = {},
 ): ActionProps => ({
   id,
-  text: <FormattedMessage {...message} values={{ context }} />,
+  text: <FormattedMessage {...message} values={values} />,
   promise: () => new Promise((resolve) => resolve(handler())),
   buttonAppearance: 'default' as Appearance,
 });

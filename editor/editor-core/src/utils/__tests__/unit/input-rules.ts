@@ -16,7 +16,7 @@ import {
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import { listPlugin } from '@atlaskit/editor-plugin-list';
-import { basePlugin } from '../../../plugins/base';
+import { basePlugin } from '@atlaskit/editor-plugin-base';
 import mediaPlugin from '../../../plugins/media';
 import { copyButtonPlugin } from '@atlaskit/editor-plugin-copy-button';
 import floatingToolbarPlugin from '../../../plugins/floating-toolbar';

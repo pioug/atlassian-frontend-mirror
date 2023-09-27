@@ -2,6 +2,8 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 
+import { MediaClient, MediaClientConfig } from '@atlaskit/media-client';
+
 import { MediaClientProvider, useMediaClient } from '../../src';
 
 describe('MediaClientProvider', () => {
@@ -97,6 +99,41 @@ describe('MediaClientProvider', () => {
       </>,
     );
     expect(mediaClient1).not.toEqual(mediaClient2);
+  });
+
+  it('should get an empty client if no config has passed', async () => {
+    // The Provider defines mediaClientConfig as required,
+    // but integrators may skip it when using Media Card to display external images
+    // i.e. a Media Client is not needed.
+    // An empty mediaClientConfig object `{}` won't fall into this case,
+    // but that case is handled internally by Media Client.
+    const undefinedMediaClientConfig =
+      undefined as unknown as MediaClientConfig;
+
+    let mediaClient: MediaClient | undefined;
+
+    function Page() {
+      mediaClient = useMediaClient();
+      return null;
+    }
+
+    render(
+      <>
+        <MediaClientProvider clientConfig={undefinedMediaClientConfig}>
+          <Page />
+        </MediaClientProvider>
+      </>,
+    );
+
+    if (!mediaClient) {
+      throw new Error('mediaClient is undefined');
+    }
+    const auth = await mediaClient.config.authProvider();
+    expect(auth).toEqual({
+      clientId: '',
+      token: '',
+      baseUrl: '',
+    });
   });
 
   describe('with nested usage', () => {

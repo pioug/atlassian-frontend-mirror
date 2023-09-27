@@ -1,5 +1,22 @@
 # @atlaskit/editor-core
 
+## 187.48.0
+
+### Minor Changes
+
+- [`f8e7203eec6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f8e7203eec6) - ED-19618 Extract base plugin from editor-core
+
+### Patch Changes
+
+- [`4e0f5ccf818`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4e0f5ccf818) - ADFEXP-526: fix loading-adf test
+- Updated dependencies
+
+## 187.47.9
+
+### Patch Changes
+
+- [`36b7e4fd8d5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/36b7e4fd8d5) - ED-20017 Clean up unused functions in Dropdown
+
 ## 187.47.6
 
 ### Patch Changes

@@ -26,7 +26,7 @@ export type HandleStyles = {
   left?: React.CSSProperties;
 };
 
-export type HandleHeightSizeType = 'small' | 'medium' | 'large';
+export type HandleSize = 'small' | 'medium' | 'large';
 
 export type HandleAlignmentMethod = 'center' | 'sticky';
 

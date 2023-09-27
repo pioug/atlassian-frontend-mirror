@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import React, { useCallback, forwardRef } from 'react';
 import { css, jsx } from '@emotion/react';
-import type { BasePluginState } from '../../plugins/base';
+import type { BasePluginState } from '@atlaskit/editor-plugin-base';
 import type { MaxContentSizePluginState } from '../../plugins/max-content-size';
 import { pluginKey as maxContentSizePluginKey } from '../../plugins/max-content-size';
 import type { MobileDimensionsPluginState } from '../../plugins/mobile-dimensions/types';

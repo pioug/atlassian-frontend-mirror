@@ -29,8 +29,8 @@ import type { AnalyticsEventPayload as AnalyticsEventPayload_2 } from '@atlaskit
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { AnnotationTypes } from '@atlaskit/adf-schema';
+import type { BasePluginOptions } from '@atlaskit/editor-plugin-base';
 import type { BlockTypePluginOptions } from '@atlaskit/editor-plugin-block-type';
-import { BrowserFreezetracking } from '@atlaskit/editor-common/types';
 import type { CardOptions } from '@atlaskit/editor-common/card';
 import { CardProvider } from '@atlaskit/editor-common/provider-factory';
 import { clearEditorContent } from '@atlaskit/editor-common/commands';
@@ -90,7 +90,6 @@ import type { GuidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import type { HyperlinkPluginOptions } from '@atlaskit/editor-common/types';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { InputMethodInsertMedia } from '@atlaskit/editor-common/analytics';
-import { InputTracking } from '@atlaskit/editor-common/types';
 import { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
 import { jsx } from '@emotion/react';
 import { lightModeStatusColorPalette } from '@atlaskit/editor-common/ui-color';
@@ -146,6 +145,7 @@ import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import type { SearchProvider } from '@atlaskit/editor-common/provider-factory';
 import type { SelectionPluginOptions } from '@atlaskit/editor-common/selection';
 import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
+import { setKeyboardHeight } from '@atlaskit/editor-plugin-base';
 import { setTextSelection } from '@atlaskit/editor-common/utils';
 import type { SEVERITY } from '@atlaskit/editor-common/utils';
 import type { TaskDecisionProvider } from '@atlaskit/task-decision';
@@ -256,20 +256,6 @@ export class AnnotationUpdateEmitter extends EventEmitter_2 {
   on(event: VisibilityEvent, listener: (isVisible: boolean) => void): this;
   // (undocumented)
   on(event: UpdateEvent, listener: (annotationId: string) => void): this;
-}
-
-// @public (undocumented)
-interface BasePluginOptions {
-  // (undocumented)
-  allowInlineCursorTarget?: boolean;
-  // (undocumented)
-  allowScrollGutter?: ScrollGutterPluginOptions;
-  // (undocumented)
-  browserFreezeTracking?: BrowserFreezetracking;
-  // (undocumented)
-  inputTracking?: InputTracking;
-  // (undocumented)
-  ufo?: boolean;
 }
 
 // @public (undocumented)
@@ -1821,14 +1807,6 @@ interface RectData {
 export const removeStatus: (showStatusPickerAt: number) => Command;
 
 // @public (undocumented)
-type ScrollGutterPluginOptions = {
-  getScrollElement?: (view: EditorView) => HTMLElement | null;
-  allowCustomScrollHandler?: boolean;
-  persistScrollGutter?: boolean;
-  gutterSize?: number;
-};
-
-// @public (undocumented)
 export type SelectionData =
   | AllSelectionData
   | CellSelectionData
@@ -1857,8 +1835,7 @@ type SetEditorAPI = (editorApi: PublicPluginAPI<any>) => void;
 // @public (undocumented)
 export const setIsExpanded: (isExpanded: boolean) => Command_2;
 
-// @public (undocumented)
-export const setKeyboardHeight: (keyboardHeight: number) => Command_2;
+export { setKeyboardHeight };
 
 // @public (undocumented)
 export const setMobilePaddingTop: (paddingTop: number) => Command_2;

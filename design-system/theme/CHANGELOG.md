@@ -1,5 +1,11 @@
 # @atlaskit/theme
 
+## 12.6.1
+
+### Patch Changes
+
+- [`c6db573350d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c6db573350d) - The themed() and AtlaskitThemeProvider legacy theming API's are now marked as deprecated and eslint rules have been modified to disallow new usage of them.
+
 ## 12.6.0
 
 ### Minor Changes

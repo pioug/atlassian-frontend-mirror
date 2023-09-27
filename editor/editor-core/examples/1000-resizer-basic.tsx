@@ -4,10 +4,7 @@ import { useCallback, useState, useMemo } from 'react';
 import { jsx } from '@emotion/react';
 
 import { ResizerNext } from '@atlaskit/editor-common/resizer';
-import type {
-  HandleHeightSizeType,
-  HandleResize,
-} from '@atlaskit/editor-common/resizer';
+import type { HandleSize, HandleResize } from '@atlaskit/editor-common/resizer';
 
 import { RadioGroup } from '@atlaskit/radio';
 import type { OptionsPropType } from '@atlaskit/radio/types';
@@ -27,7 +24,7 @@ const snapping: OptionsPropType = [
 
 function Parent(props: {
   text: string;
-  handleHeightSize: HandleHeightSizeType | undefined;
+  handleSize: HandleSize | undefined;
   handleSnap: boolean | undefined;
 }): JSX.Element {
   const [width, setWidth] = useState(80);
@@ -53,7 +50,7 @@ function Parent(props: {
       handleResizeStart={handleResizeStart}
       handleResize={handleResize}
       handleResizeStop={handleResizeStop}
-      handleHeightSize={props.handleHeightSize}
+      handleSize={props.handleSize}
       width={width}
       minWidth={20} // we are adding 10px in the handleResizeStop, so the actual min width will be 20+10 = 30px.
       maxWidth={700} // max width will be 700
@@ -78,11 +75,11 @@ function Parent(props: {
 }
 
 export default function Example() {
-  const [size, setSize] = useState<HandleHeightSizeType>('medium');
+  const [size, setSize] = useState<HandleSize>('medium');
   const [snap, setSnap] = useState(false);
 
   const onChange = useCallback((event: SyntheticEvent<HTMLInputElement>) => {
-    setSize(event.currentTarget.value as HandleHeightSizeType);
+    setSize(event.currentTarget.value as HandleSize);
   }, []);
 
   const onChangeSnap = useCallback(
@@ -120,7 +117,7 @@ export default function Example() {
         />
       </div>
       <div style={{ display: 'block' }}>
-        <Parent text={size} handleHeightSize={size} handleSnap={snap} />
+        <Parent text={size} handleSize={size} handleSnap={snap} />
       </div>
     </div>
   );

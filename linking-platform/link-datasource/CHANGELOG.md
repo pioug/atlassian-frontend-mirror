@@ -1,5 +1,11 @@
 # @atlaskit/link-datasource
 
+## 1.4.1
+
+### Patch Changes
+
+- [`c8a7c9e33a8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c8a7c9e33a8) - [ux] Fixed columns not updating on reinsertion with new columns
+
 ## 1.4.0
 
 ### Minor Changes

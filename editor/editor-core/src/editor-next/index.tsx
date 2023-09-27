@@ -15,7 +15,7 @@ import {
   startMeasure,
   stopMeasure,
 } from '@atlaskit/editor-common/utils';
-import { basePlugin } from '../plugins';
+import { basePlugin } from '@atlaskit/editor-plugin-base';
 
 import EditorActions from '../actions';
 import { createFeatureFlagsFromProps } from '../create-editor/feature-flags-from-props';

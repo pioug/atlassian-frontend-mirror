@@ -6,7 +6,10 @@ import { injectIntl } from 'react-intl-next';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
 import ToolbarButton from '../../../../ui/ToolbarButton';
 import type { OpenChangedEvent } from '@atlaskit/editor-common/ui';
-import { DropdownContainer as Dropdown } from '@atlaskit/editor-common/ui-menu';
+import {
+  ArrowKeyNavigationType,
+  DropdownContainer as Dropdown,
+} from '@atlaskit/editor-common/ui-menu';
 import Alignment from '../../../../ui/Alignment';
 import type {
   AlignmentPluginState,
@@ -20,7 +23,6 @@ import { messages } from './messages';
 
 export interface State {
   isOpen: boolean;
-  isOpenedByKeyboard: boolean;
 }
 
 export interface Props {
@@ -42,11 +44,10 @@ export class AlignmentToolbar extends React.Component<
 
   state: State = {
     isOpen: false,
-    isOpenedByKeyboard: false,
   };
 
   render() {
-    const { isOpen, isOpenedByKeyboard } = this.state;
+    const { isOpen } = this.state;
     const {
       popupsMountPoint,
       popupsBoundariesElement,
@@ -66,12 +67,6 @@ export class AlignmentToolbar extends React.Component<
           boundariesElement={popupsBoundariesElement}
           scrollableElement={popupsScrollableElement}
           isOpen={isOpen}
-          shouldFocusFirstItem={() => {
-            if (isOpenedByKeyboard) {
-              this.setState({ ...this.state, isOpenedByKeyboard: false });
-            }
-            return isOpenedByKeyboard;
-          }}
           onOpenChange={({ isOpen }: { isOpen: boolean }) => {
             this.setState({ isOpen });
           }}
@@ -81,6 +76,9 @@ export class AlignmentToolbar extends React.Component<
             }
           }}
           handleEscapeKeydown={this.hideOnEscape}
+          arrowKeyNavigationProviderOptions={{
+            type: ArrowKeyNavigationType.MENU,
+          }}
           fitWidth={112}
           fitHeight={80}
           closeOnTab={true}
@@ -119,7 +117,7 @@ export class AlignmentToolbar extends React.Component<
   }
 
   componentDidUpdate(prevProps: Props) {
-    if (this.state.isOpen && this.state.isOpenedByKeyboard) {
+    if (this.state.isOpen) {
       // by triggering the keyboard event with a setTimeout, we ensure that the tooltip
       // associated with the alignment button doesn't render until the next render cycle
       // where the popup will be correctly positioned and the relative position of the tooltip
@@ -142,13 +140,13 @@ export class AlignmentToolbar extends React.Component<
   };
 
   private toggleOpen = () => {
-    this.setState({ isOpen: !this.state.isOpen, isOpenedByKeyboard: false });
+    this.setState({ isOpen: !this.state.isOpen });
   };
 
   private toggleOpenByKeyboard = (event: React.KeyboardEvent) => {
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault();
-      this.setState({ isOpen: !this.state.isOpen, isOpenedByKeyboard: true });
+      this.setState({ isOpen: !this.state.isOpen });
     }
   };
 

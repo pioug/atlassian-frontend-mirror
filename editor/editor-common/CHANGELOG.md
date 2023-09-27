@@ -1,5 +1,27 @@
 # @atlaskit/editor-common
 
+## 76.0.0
+
+### Major Changes
+
+- [`151b0d45db4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/151b0d45db4) - Changed Resizer API. Removed handleComponent, innerPadding & handleMarginTop. Also renamed HandleHeightSizeType to HandleSize. The resizer should be opionated and control the handle component itself. innerPadding & handleMarginTop can also be controlled via the handleStyles override property.
+
+### Patch Changes
+
+- [`6c7eda4573e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c7eda4573e) - ADFEXP-526: create a patch changeset for editor-common to try make Confluence Pipeline green
+
+## 75.8.4
+
+### Patch Changes
+
+- [`5868508ede4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5868508ede4) - Need this small change to workaround CC pipeline issue
+
+## 75.8.3
+
+### Patch Changes
+
+- [`36b7e4fd8d5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/36b7e4fd8d5) - ED-20017 Clean up unused functions in Dropdown
+
 ## 75.8.2
 
 ### Patch Changes

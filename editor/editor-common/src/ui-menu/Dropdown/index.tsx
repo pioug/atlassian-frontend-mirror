@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 
 import { withReactEditorViewOuterListeners } from '../../ui-react';
+import type { WithOutsideClickProps } from '../../ui-react/with-react-editor-view-outer-listeners';
 import type { OpenChangedEvent } from '../../ui/DropList';
 import DropdownList from '../../ui/DropList';
 import Popup from '../../ui/Popup';
@@ -8,6 +9,7 @@ import { ArrowKeyNavigationProvider } from '../ArrowKeyNavigationProvider';
 import type { ArrowKeyNavigationProviderOptions } from '../ArrowKeyNavigationProvider/types';
 
 export interface Props {
+  children?: React.ReactNode;
   mountTo?: HTMLElement;
   boundariesElement?: HTMLElement;
   scrollableElement?: HTMLElement;
@@ -82,7 +84,7 @@ export class Dropdown extends PureComponent<Props, State> {
         target={
           alignDropdownWithParentElement
             ? (target?.closest(
-                "[data-testid='editor-floating-toolbar'",
+                "[data-testid='editor-floating-toolbar']",
               ) as HTMLElement)
             : target
         }
@@ -127,6 +129,10 @@ export class Dropdown extends PureComponent<Props, State> {
   }
 }
 
-const DropdownWithOuterListeners = withReactEditorViewOuterListeners(Dropdown);
+export type DropdownPropsWithOutsideClickProps = Props & WithOutsideClickProps;
+
+const DropdownWithOuterListeners = withReactEditorViewOuterListeners(
+  Dropdown,
+) as React.ComponentType<DropdownPropsWithOutsideClickProps>;
 
 export default DropdownWithOuterListeners;

@@ -102,7 +102,7 @@ export {
   EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
 export type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
-export { setKeyboardHeight } from './plugins/base/commands';
+export { setKeyboardHeight } from '@atlaskit/editor-plugin-base';
 export {
   setMobilePaddingTop,
   setIsExpanded,

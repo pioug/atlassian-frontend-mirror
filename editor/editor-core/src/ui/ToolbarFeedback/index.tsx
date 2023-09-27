@@ -36,7 +36,7 @@ import pickBy from '../../utils/pick-by';
 import { analyticsEventKey } from '../../plugins/analytics/consts';
 import { usePresetContext } from '../../presets/context';
 import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
-import type { basePlugin } from '../../plugins';
+import type { basePlugin } from '@atlaskit/editor-plugin-base';
 
 const PopupWithOutsideListeners = withOuterListeners(Popup);
 const POPUP_HEIGHT = 388;

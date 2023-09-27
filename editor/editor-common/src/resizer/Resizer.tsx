@@ -1,5 +1,5 @@
-import React, { useMemo, useRef, useState } from 'react';
-import type { PropsWithChildren } from 'react';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
+import type { CSSProperties, PropsWithChildren } from 'react';
 
 import classnames from 'classnames';
 import type { HandleComponent, ResizeDirection } from 're-resizable';
@@ -24,61 +24,78 @@ import type {
   Dimensions,
   EnabledHandles,
   HandleAlignmentMethod,
-  HandleHeightSizeType,
   HandleHighlight,
   HandlePositioning,
   HandleResize,
   HandleResizeStart,
+  HandleSize,
   HandleStyles,
   ResizerAppearance,
   Snap,
 } from './types';
 
 export type ResizerProps = {
+  // sets class name for the resizable component on top of default styles
+  // (resizerItemClassName in packages/editor/editor-common/src/styles/shared/resizer.ts)
+  className?: string;
   // Enables resizing in left and/or right direction and enables handles
   enable: EnabledHandles;
   // initial width for now as Resizer is using defaultSize.
   width: number;
-  // Resizer lifecycle callbacks:
-  handleResizeStart: HandleResizeStart;
-  handleResize: HandleResize;
-  handleResizeStop: HandleResize;
-  // positions handles closer or further away from the resizable element default: 13px.
-  innerPadding?: number;
-  // sets classes for handles
-  // eg: handleClassName={'node-handle'} will become 'node-handle-right' and/or 'node-handle-left'
-  handleClassName?: string;
-  // sets class name for the resizable component on top of default styles
-  // (resizerItemClassName in packages/editor/editor-common/src/styles/shared/resizer.ts)
-  className?: string;
   minWidth?: number;
   maxWidth?: number;
-
-  handleWrapperStyle?: React.CSSProperties;
-  handleComponent?: HandleComponent;
-  handleStyles?: HandleStyles;
-  handlePositioning?: HandlePositioning;
-  handleHeightSize?: HandleHeightSizeType;
-  // top offset for resize handle
-  handleMarginTop?: number;
-
   // The snap property is used to specify absolute pixel values that resizing should snap to.
   // x and y are both optional, allowing you to only include the axis you want to define. Defaults to null.
   snap?: Snap;
   // The snapGap property is used to specify the minimum gap required in order to move to the next snapping target.
   // Defaults to 0 which means that snap targets are always used.
   snapGap?: number;
-  // This is the method that should be used by the resizer when positioning the handles
-  handleAlignmentMethod?: HandleAlignmentMethod;
   // Ratio that will scale the delta by
   resizeRatio?: number;
-  // control visibility of resize handle, by default handle is only visible on hover of element resizing
-  isHandleVisible?: boolean;
   appearance?: ResizerAppearance;
 
+  // control visibility of resize handle, by default handle is only visible on hover of element resizing
+  isHandleVisible?: boolean;
+  // Resizer lifecycle callbacks:
+  handleResizeStart: HandleResizeStart;
+  handleResize: HandleResize;
+  handleResizeStop: HandleResize;
+  /**
+   * This can be used to override the css class name applied to the resize handle.
+   */
+  handleClassName?: string;
+  /**
+   * This is used to override the style of resize handles wrapper.
+   */
+  handleWrapperStyle?: CSSProperties;
+  /**
+   * This property is used to override the style of one or more resize handles. Only the axis you specify will have
+   * its handle style overriden.
+   */
+  handleStyles?: HandleStyles;
+  /**
+   * The handleAlignmentMethod is used in determining the vertical positioning of the resizer handle in relation to its children.
+   */
+  handleAlignmentMethod?: HandleAlignmentMethod;
+  /**
+   * The handlePositioning is used to determine the horizontal position of the resizer handle in relation to its children.
+   */
+  handlePositioning?: HandlePositioning;
+  /**
+   * The handleSize is used to determine the width/height of the handle element.
+   */
+  handleSize?: HandleSize;
+  /**
+   * The handleHighlight is used to determine how the handle looks when the users mouse hovers over the handle element.
+   */
   handleHighlight?: HandleHighlight;
+  /**
+   * The handle can display a tooltip when mouse hovers.
+   */
   handleTooltipContent?: TooltipProps['content'];
 };
+
+const SUPPORTED_HANDLES: ['left', 'right'] = ['left', 'right'];
 
 export default function ResizerNext(
   props: PropsWithChildren<ResizerProps>,
@@ -94,24 +111,21 @@ export default function ResizerNext(
     handleResize,
     handleResizeStart,
     handleResizeStop,
-    handleHeightSize = 'medium',
+    handleSize = 'medium',
     handleAlignmentMethod = 'center',
     handlePositioning = 'overlap',
     appearance,
     handleStyles,
     resizeRatio = 1,
-    innerPadding,
     snap,
     snapGap,
-    handleMarginTop,
     isHandleVisible = false,
-    handleComponent,
     handleHighlight = 'none',
     handleTooltipContent,
     ...otherProps
   } = props;
 
-  const onResizeStart = React.useCallback(
+  const onResizeStart = useCallback(
     (
       event:
         | React.MouseEvent<HTMLDivElement>
@@ -126,7 +140,7 @@ export default function ResizerNext(
     [handleResizeStart],
   );
 
-  const onResize = React.useCallback(
+  const onResize = useCallback(
     (
       _event: MouseEvent | TouchEvent,
       _direction: ResizeDirection,
@@ -149,7 +163,7 @@ export default function ResizerNext(
     [handleResize],
   );
 
-  const onResizeStop = React.useCallback(
+  const onResizeStop = useCallback(
     (
       _event: MouseEvent | TouchEvent,
       _direction: ResizeDirection,
@@ -178,51 +192,43 @@ export default function ResizerNext(
     left: classnames(
       handleClassName ?? resizerHandleClassName,
       'left',
-      handleHeightSize,
+      handleSize,
       handleAlignmentMethod,
     ),
     right: classnames(
       handleClassName ?? resizerHandleClassName,
       'right',
-      handleHeightSize,
+      handleSize,
       handleAlignmentMethod,
     ),
   };
 
-  const baseHandleStyles: React.CSSProperties = {
+  const baseHandleStyles: CSSProperties = {
     width:
       handlePositioning === 'adjacent'
         ? token('space.100', '8px')
         : token('space.300', '24px'),
-    // eslint-disable-next-line
-    marginTop: Number.isFinite(handleMarginTop)
-      ? `${handleMarginTop}px`
-      : undefined,
     zIndex: resizerHandleZIndex,
     pointerEvents: 'auto',
     alignItems: handlePositioning === 'adjacent' ? 'center' : undefined,
   };
 
-  const offset = Number.isFinite(innerPadding)
-    ? `-${innerPadding}px`
-    : handlePositioning === 'adjacent'
-    ? `calc(${baseHandleStyles.width} * -1)`
-    : `calc(${baseHandleStyles.width} * -0.5)`;
+  const offset =
+    handlePositioning === 'adjacent'
+      ? `calc(${baseHandleStyles.width} * -1)`
+      : `calc(${baseHandleStyles.width} * -0.5)`;
 
-  const nextHandleStyles: HandleStyles = {
-    left: {
-      ...baseHandleStyles,
-      // eslint-disable-next-line
-      left: offset,
-      ...handleStyles?.left,
-    },
-    right: {
-      ...baseHandleStyles,
-      // eslint-disable-next-line
-      right: offset,
-      ...handleStyles?.right,
-    },
-  };
+  const nextHandleStyles = SUPPORTED_HANDLES.reduce<HandleStyles>(
+    (result, position) => ({
+      ...result,
+      [position]: {
+        ...baseHandleStyles,
+        [position]: offset,
+        ...handleStyles?.[position],
+      },
+    }),
+    {},
+  );
 
   const resizerClassName = classnames(className, resizerItemClassName, {
     'is-resizing': isResizing,
@@ -230,73 +236,59 @@ export default function ResizerNext(
     [resizerDangerClassName]: appearance === 'danger',
   });
 
-  const finalHandleComponent = useMemo(() => {
-    if (
-      (!handleHighlight || handleHighlight === 'none') &&
-      !handleTooltipContent &&
-      !handleComponent
-    ) {
-      return {
-        left: <div className={resizerHandleThumbClassName} />,
-        right: <div className={resizerHandleThumbClassName} />,
-      };
-    }
-
-    // If the handleComponent is set by the parent, then they're taking over control of the handle
-    if (handleComponent) {
-      return {
-        left:
-          handleComponent.left &&
-          React.cloneElement(handleComponent.left, {
-            className: resizerHandleThumbClassName,
-          }),
-        right:
-          handleComponent.right &&
-          React.cloneElement(handleComponent.right, {
-            className: resizerHandleThumbClassName,
-          }),
-      };
-    }
-
-    const children = (
-      <>
+  const handleComponent = useMemo(() => {
+    return SUPPORTED_HANDLES.reduce<HandleComponent>((result, position) => {
+      const thumb = (
         <div
-          className={classnames(resizerHandleTrackClassName, handleHighlight)}
+          className={resizerHandleThumbClassName}
+          data-testid={`resizer-handle-${position}-thumb`}
+          contentEditable={false}
         />
-        <div className={resizerHandleThumbClassName} />
-      </>
-    );
+      );
 
-    if (!!handleTooltipContent) {
+      if (
+        (!handleHighlight || handleHighlight === 'none') &&
+        !handleTooltipContent
+      ) {
+        return {
+          ...result,
+          [position]: thumb,
+        };
+      }
+
+      const thumbWithTrack = (
+        <>
+          <div
+            className={classnames(resizerHandleTrackClassName, handleHighlight)}
+            data-testid={`resizer-handle-${position}-track`}
+          />
+          {thumb}
+        </>
+      );
+
+      if (!!handleTooltipContent) {
+        return {
+          ...result,
+          [position]: (
+            <Tooltip
+              content={handleTooltipContent}
+              hideTooltipOnClick
+              position="mouse"
+              mousePosition="auto-start"
+              testId={`resizer-handle-${position}-tooltip`}
+            >
+              {thumbWithTrack}
+            </Tooltip>
+          ),
+        };
+      }
+
       return {
-        left: (
-          <Tooltip
-            content={handleTooltipContent}
-            hideTooltipOnClick
-            position="mouse"
-            mousePosition="auto-start"
-          >
-            {children}
-          </Tooltip>
-        ),
-        right: (
-          <Tooltip
-            content={handleTooltipContent}
-            hideTooltipOnClick
-            position="mouse"
-            mousePosition="auto-start"
-          >
-            {children}
-          </Tooltip>
-        ),
+        ...result,
+        [position]: thumbWithTrack,
       };
-    }
-
-    return {
-      left: children,
-      right: children,
-    };
-  }, [handleHighlight, handleTooltipContent, handleComponent]);
+    }, {});
+  }, [handleHighlight, handleTooltipContent]);
 
   // snapGap is usually a constant, if snap.x?.length is 0 and snapGap has a value resizer cannot be resized
   const snapGapActual = useMemo(() => {
@@ -323,7 +315,7 @@ export default function ResizerNext(
       resizeRatio={resizeRatio}
       snapGap={snapGapActual}
       snap={snap}
-      handleComponent={finalHandleComponent}
+      handleComponent={handleComponent}
       {...otherProps}
     >
       <span className={resizerHoverZoneClassName}>{children}</span>

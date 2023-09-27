@@ -67,7 +67,7 @@ describe('Resizer', () => {
     );
 
     const handleRight = container.querySelector(
-      `.${resizerHandleClassName}.left`,
+      `.${resizerHandleClassName}.right`,
     );
     const resizable = container.querySelector(`.${resizerItemClassName}`);
 
@@ -118,7 +118,7 @@ describe('Resizer', () => {
     );
 
     const handleRight = container.querySelector(
-      `.${resizerHandleClassName}.left`,
+      `.${resizerHandleClassName}.right`,
     );
     const resizable = container.querySelector(`.${resizerItemClassName}`);
 
@@ -214,7 +214,10 @@ describe('Resizer', () => {
         handleResize={mockHandleResize}
         handleResizeStop={mockHandleResizeStop}
         width={initialWidth}
-        innerPadding={customInnerPadding}
+        handleStyles={{
+          left: { left: `-${customInnerPadding}px` },
+          right: { right: `-${customInnerPadding}px` },
+        }}
       >
         <div>resizable div</div>
       </ResizerNext>,
@@ -265,7 +268,7 @@ describe('Resizer', () => {
         handleResize={mockHandleResize}
         handleResizeStop={mockHandleResizeStop}
         width={initialWidth}
-        handleHeightSize={'large'}
+        handleSize="large"
         className={customResizableClassName}
         handleClassName={customHandleClassName}
       >
@@ -288,7 +291,7 @@ describe('Resizer', () => {
         handleResize={mockHandleResize}
         handleResizeStop={mockHandleResizeStop}
         width={initialWidth}
-        handleHeightSize={'small'}
+        handleSize="small"
         className={customResizableClassName}
         handleClassName={customHandleClassName}
       >

@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 8.8.1
+
+### Patch Changes
+
+- [`c6db573350d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c6db573350d) - The themed() and AtlaskitThemeProvider legacy theming API's are now marked as deprecated and eslint rules have been modified to disallow new usage of them.
+
 ## 8.8.0
 
 ### Minor Changes

@@ -135,7 +135,7 @@ Please update the 'app' capability with a valid value and try again.
 
 You you encounter this error:
 
-- In CI, then ping `!disturbed` in [#atlassian-frontend](https://atlassian.slack.com/archives/CL6HC337Z) for help.
+- In CI, then ping `!disturbed` in [#help-atlassian-frontend-monorepo](https://atlassian.slack.com/archives/CL6HC337Z) for help.
 - Locally, you'll need to upload (or re-upload) them into your account via the custom pipeline.
   - First double check that you haven't accidentally set a value for `BROWSERSTACK_MOBILE_USERNAME` in your bash profile.
     - This is only for use when you're intending to alter the native application.

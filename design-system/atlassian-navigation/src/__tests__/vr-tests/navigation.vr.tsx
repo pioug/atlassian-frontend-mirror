@@ -30,6 +30,9 @@ snapshot(NavExample, {
       },
     },
   ],
+  featureFlags: {
+    'platform.design-system-team.icon-button-spacing-fix_o1zc5': true,
+  },
 });
 
 snapshot(SkeletonButtonsExample, {
@@ -51,6 +54,9 @@ snapshot(SkeletonButtonsExample, {
       },
     },
   ],
+  featureFlags: {
+    'platform.design-system-team.icon-button-spacing-fix_o1zc5': true,
+  },
 });
 
 snapshot(NavigationSkeletonExample, {
@@ -93,10 +99,17 @@ snapshot(ThemingExample, {
       },
     },
   ],
+  featureFlags: {
+    'platform.design-system-team.icon-button-spacing-fix_o1zc5': true,
+  },
 });
 
 snapshot(ThemingNavigationSkeletonExample);
-snapshot(ThemedSkeletonButtonsExample);
+snapshot(ThemedSkeletonButtonsExample, {
+  featureFlags: {
+    'platform.design-system-team.icon-button-spacing-fix_o1zc5': true,
+  },
+});
 
 snapshot(ResponsiveCreateHomeAndSearchExample, {
   variants: [

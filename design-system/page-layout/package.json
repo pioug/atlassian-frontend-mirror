@@ -51,7 +51,7 @@
   },
   "devDependencies": {
     "@af/accessibility-testing": "*",
-    "@atlaskit/atlassian-navigation": "^2.7.0",
+    "@atlaskit/atlassian-navigation": "^2.8.0",
     "@atlaskit/atlassian-notifications": "^0.4.0",
     "@atlaskit/drawer": "^7.6.0",
     "@atlaskit/icon": "*",

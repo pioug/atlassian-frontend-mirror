@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import { Checkbox } from '../../index';
 
@@ -10,7 +10,7 @@ describe('Checkbox should be found by data-testid', () => {
     const labelTestId = `${testId}--checkbox-label`;
     const checkboxTestId = `${testId}--hidden-checkbox`;
 
-    const { getByTestId } = render(
+    render(
       <Checkbox
         value="Basic checkbox"
         label="Basic checkbox"
@@ -19,10 +19,10 @@ describe('Checkbox should be found by data-testid', () => {
       />,
     );
 
-    const checkbox = getByTestId(checkboxTestId) as HTMLInputElement;
-    const label = getByTestId(labelTestId);
-    expect(checkbox.checked).toBeFalsy();
+    const checkbox = screen.getByTestId(checkboxTestId) as HTMLInputElement;
+    const label = screen.getByTestId(labelTestId);
+    expect(checkbox).not.toBeChecked();
     label.click();
-    expect(checkbox.checked).toBeTruthy();
+    expect(checkbox).toBeChecked();
   });
 });

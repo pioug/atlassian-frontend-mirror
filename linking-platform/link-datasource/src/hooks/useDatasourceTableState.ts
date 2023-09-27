@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 
+import isEqual from 'lodash/isEqual';
+
 import {
   DEFAULT_GET_DATASOURCE_DATA_PAGE_SIZE,
   useDatasourceClientExtension,
@@ -116,7 +118,7 @@ export const useDatasourceTableState = ({
 
   const applySchemaProperties = useCallback(
     (properties: DatasourceResponseSchemaProperty[]) => {
-      if (columns.length === 0) {
+      if (!isEqual(columns, properties)) {
         setColumns(properties);
       }
 
@@ -124,19 +126,15 @@ export const useDatasourceTableState = ({
 
       // when loading for the first time, we will need to set default visible props as /data does not give you that info
       // also, since we dont pass any fields, we will need to set this info as lastRequestedFieldKeys
-      if (defaultVisibleColumnKeys.length === 0) {
+      if (!isEqual(defaultVisibleColumnKeys, defaultProperties)) {
         setDefaultVisibleColumnKeys(defaultProperties);
       }
 
-      if (lastRequestedFieldKeys.length === 0) {
+      if (!isEqual(lastRequestedFieldKeys, defaultProperties)) {
         setLastRequestedFieldKeys(defaultProperties);
       }
     },
-    [
-      columns.length,
-      defaultVisibleColumnKeys.length,
-      lastRequestedFieldKeys?.length,
-    ],
+    [columns, defaultVisibleColumnKeys, lastRequestedFieldKeys],
   );
 
   const onNextPage = useCallback(

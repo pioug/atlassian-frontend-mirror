@@ -14,16 +14,14 @@ import type { TableEventPayload } from '@atlaskit/editor-common/analytics';
 import { TABLE_OVERFLOW_CHANGE_TRIGGER } from '@atlaskit/editor-common/analytics';
 import { getGuidelinesWithHighlights } from '@atlaskit/editor-common/guideline';
 import type { GuidelineConfig } from '@atlaskit/editor-common/guideline';
-import type {
-  HandleHeightSizeType,
-  HandleResize,
-} from '@atlaskit/editor-common/resizer';
+import type { HandleResize, HandleSize } from '@atlaskit/editor-common/resizer';
 import { ResizerNext } from '@atlaskit/editor-common/resizer';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { findTable } from '@atlaskit/editor-tables/utils';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { token } from '@atlaskit/tokens';
 
 import { getPluginState } from '../pm-plugins/plugin-factory';
 import { META_KEYS } from '../pm-plugins/table-analytics';
@@ -77,17 +75,18 @@ const messages = defineMessages({
 });
 
 const handles = { right: true };
-const tableHandleMarginTop = 12;
-const tableHandlePosition = 14;
+const handleStyles = {
+  right: {
+    // eslint-disable-next-line
+    right: '-14px',
+    marginTop: token('space.150', '12px'),
+  },
+};
 
-const getResizerHandleHeight = (tableRef: HTMLTableElement | undefined) => {
-  const tableHeight = tableRef?.clientHeight;
-  let handleHeightSize: HandleHeightSizeType | undefined = 'small';
-
-  if (!tableHeight) {
-    return handleHeightSize;
-  }
-
+const getResizerHandleHeight = (
+  tableRef: HTMLTableElement | undefined,
+): HandleSize | undefined => {
+  const tableHeight = tableRef?.clientHeight ?? 0;
   /*
     - One row table height (minimum possible table height) ~ 45px
     - Two row table height ~ 90px
@@ -97,13 +96,15 @@ const getResizerHandleHeight = (tableRef: HTMLTableElement | undefined) => {
     - > 46 because the height of the table can be a float number like 45.44.
     - < 96 is the height of large resize handle.
   */
-  if (tableHeight > 46 && tableHeight < 96) {
-    handleHeightSize = 'medium';
-  } else if (tableHeight >= 96) {
-    handleHeightSize = 'large';
+  if (tableHeight >= 96) {
+    return 'large';
   }
 
-  return handleHeightSize;
+  if (tableHeight > 46) {
+    return 'medium';
+  }
+
+  return 'small';
 };
 
 const getResizerMinWidth = (node: PMNode) => {
@@ -160,7 +161,7 @@ export const TableResizer = ({
   const { formatMessage } = useIntl();
 
   const resizerMinWidth = getResizerMinWidth(node);
-  const handleHeightSize = getResizerHandleHeight(tableRef);
+  const handleSize = getResizerHandleHeight(tableRef);
   const { isInDanger } = getPluginState(editorView.state);
 
   const { startMeasure, endMeasure, countFrames } = useMeasureFramerate();
@@ -389,8 +390,8 @@ export const TableResizer = ({
       enable={handles}
       width={width}
       handleAlignmentMethod="sticky"
-      handleHeightSize={handleHeightSize}
-      handleMarginTop={tableHandleMarginTop}
+      handleSize={handleSize}
+      handleStyles={handleStyles}
       handleResizeStart={handleResizeStart}
       handleResize={scheduleResize}
       handleResizeStop={handleResizeStop}
@@ -400,7 +401,6 @@ export const TableResizer = ({
       snapGap={TABLE_SNAP_GAP}
       snap={guidelineSnaps}
       handlePositioning="adjacent"
-      innerPadding={tableHandlePosition}
       isHandleVisible={isTableSelected}
       appearance={isInDanger && isTableSelected ? 'danger' : undefined}
       handleHighlight="shadow"

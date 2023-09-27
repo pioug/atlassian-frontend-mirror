@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 26.28.2
+
+### Patch Changes
+
+- [`c46305662f7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c46305662f7) - create new messages for smart link forbidden and not found views
+
 ## 26.28.1
 
 ### Patch Changes

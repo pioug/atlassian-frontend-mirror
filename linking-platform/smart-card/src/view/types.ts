@@ -35,6 +35,7 @@ export interface RequestAccessContextProps extends AccessContext {
   action?: ActionProps;
   callToActionMessageKey?: RequestAccessMessageKey;
   descriptiveMessageKey?: RequestAccessMessageKey;
+  titleMessageKey?: RequestAccessMessageKey;
 }
 
 export type InlinePreloaderStyle =

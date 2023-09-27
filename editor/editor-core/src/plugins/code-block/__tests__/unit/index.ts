@@ -35,7 +35,7 @@ import { copyToClipboard } from '../../../../utils/clipboard';
 import codeBlockPlugin from '../../';
 import { compositionPlugin } from '@atlaskit/editor-plugin-composition';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
-import { basePlugin } from '../../../base';
+import { basePlugin } from '@atlaskit/editor-plugin-base';
 import typeAheadPlugin from '../../../type-ahead';
 import { quickInsertPlugin } from '@atlaskit/editor-plugin-quick-insert';
 import selectionPlugin from '../../../selection';

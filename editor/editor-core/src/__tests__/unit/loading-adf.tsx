@@ -1,8 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
-import * as fs from 'fs';
-import * as path from 'path';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
@@ -14,6 +12,13 @@ import { cardProvider } from '@atlaskit/editor-test-helpers/card-provider';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 import { getEmojiProvider } from '@atlaskit/util-data-test/get-emoji-provider';
+
+import {
+  fullValidJsonSchema,
+  fullInvalidJsonSchema,
+  stage0ValidJsonSchema,
+  stage0InvalidJsonSchema,
+} from '@atlassian/adf-schema-json';
 
 import { Editor } from '../../index';
 
@@ -76,23 +81,38 @@ function mountEditorWithAdfDoc({ adfDoc }: { adfDoc: any }) {
   return { wrapper, editorView: editorView! };
 }
 
-function getAdfReferenceFileNameAndContents(group: 'valid' | 'invalid') {
-  const folderPath = path.join(
-    __dirname,
-    // TODO: https://product-fabric.atlassian.net/browse/ADFEXP-526
-    '../../../../adf-schema/src/__tests__/unit/json-schema/v1-reference/full/',
-    group,
-  );
-  return fs.readdirSync(folderPath).reduce((acc, name) => {
-    if (name.match(/\.json$/)) {
-      acc.push({
-        name: `${group}/${name}`,
-        adfDoc: JSON.parse(fs.readFileSync(`${folderPath}/${name}`, 'utf-8')),
-      });
-    }
+const processADFSchemaJSON = () => {
+  const renameKey = (obj: any, oldKey: string, newKey: string) => {
+    obj[newKey] = obj[oldKey];
+    delete obj[oldKey];
+  };
 
-    return acc;
-  }, [] as { name: string; adfDoc: any }[]);
+  fullValidJsonSchema.forEach((obj) => {
+    renameKey(obj, 'data', 'adfDoc');
+    obj.name = `valid/${obj.name}`;
+  });
+
+  fullInvalidJsonSchema.forEach((obj) => {
+    renameKey(obj, 'data', 'adfDoc');
+    obj.name = `invalid/${obj.name}`;
+  });
+
+  stage0ValidJsonSchema.forEach((obj) => {
+    renameKey(obj, 'data', 'adfDoc');
+    obj.name = `valid/${obj.name}`;
+  });
+
+  stage0InvalidJsonSchema.forEach((obj) => {
+    renameKey(obj, 'data', 'adfDoc');
+    obj.name = `invalid/${obj.name}`;
+  });
+};
+
+function getAdfReferenceFileNameAndContents(group: 'valid' | 'invalid') {
+  if (group === 'valid') {
+    return [...(fullValidJsonSchema as any), ...(stage0ValidJsonSchema as any)];
+  }
+  return [...(fullInvalidJsonSchema as any), stage0InvalidJsonSchema as any];
 }
 
 // These reference "invalid" docs do not result in an unsupported block or inline node
@@ -210,13 +230,9 @@ const emptyDocumentInnerHtml = mountEditorWithAdfDoc({
   },
 }).editorView.dom.innerHTML;
 
-// TODO: https://product-fabric.atlassian.net/browse/ADFEXP-526
-describe('bypassing tests', () => {
-  it('should bypass tests', () => {
-    expect(true).toBe(true);
-  });
-});
-describe.skip('editor loading adf', () => {
+describe('editor loading adf', () => {
+  processADFSchemaJSON();
+
   const validAdfFileTestCases = getAdfReferenceFileNameAndContents('valid').map(
     ({ name, adfDoc }) => [name, adfDoc],
   );
@@ -256,17 +272,17 @@ describe.skip('editor loading adf', () => {
         ({ name }) =>
           !invalidReferenceAdfLoadableWithoutUnsupported.includes(name) &&
           !invalidReferenceAdfUnloadable.includes(name) &&
-          !invalidReferenceAdfEmptyDocument.includes(name),
+          !invalidReferenceAdfEmptyDocument.includes(name) &&
+          name !== undefined,
       )
       .map(({ name, adfDoc }) => [name, adfDoc]);
 
   it.each(invalidAdfFileTestCasesLoadableWithUnsupported)(
     `should load some invalid adf document where it replaces unsupported nodes: %s`,
-    (name, adfDoc) => {
+    (_name, adfDoc) => {
       const { editorView } = mountEditorWithAdfDoc({
         adfDoc,
       });
-
       expect(editorView!.dom.innerHTML).toContain('unsupported');
     },
   );

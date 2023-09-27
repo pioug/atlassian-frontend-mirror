@@ -1,13 +1,10 @@
 import React, { ReactNode, useRef } from 'react';
 
-import { waitFor } from '@testing-library/dom';
-import { cleanup, fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { renderHook } from '@testing-library/react-hooks';
 
 import setGlobalTheme from '../../set-global-theme';
 import useThemeObserver from '../../use-theme-observer';
-
-beforeEach(cleanup);
 
 const LIGHT_THEME_OUTPUT = 'light-theme-output';
 const DARK_THEME_OUTPUT = 'dark-theme-output';
@@ -98,44 +95,44 @@ describe('useThemeObserver', () => {
   });
 
   it('should update when the color mode changes', async () => {
-    const { getByTestId } = render(<ThemedComponent />);
+    render(<ThemedComponent />);
 
-    const output = getByTestId(COLOR_MODE_OUTPUT);
-    const setLightButton = getByTestId(SET_LIGHT_COLOR_MODE);
-    const setDarkButton = getByTestId(SET_DARK_COLOR_MODE);
+    const output = screen.getByTestId(COLOR_MODE_OUTPUT);
+    const setLightButton = screen.getByTestId(SET_LIGHT_COLOR_MODE);
+    const setDarkButton = screen.getByTestId(SET_DARK_COLOR_MODE);
 
     // Color mode should initially be 'light'
-    await waitFor(() => expect(output.textContent).toBe('light'));
+    await waitFor(() => expect(output).toHaveTextContent('light'));
 
     // Change color mode to 'dark'
     fireEvent.click(setDarkButton);
-    await waitFor(() => expect(output.textContent).toBe('dark'));
+    await waitFor(() => expect(output).toHaveTextContent('dark'));
 
     // Change color mode to 'light'
     fireEvent.click(setLightButton);
-    await waitFor(() => expect(output.textContent).toBe('light'));
+    await waitFor(() => expect(output).toHaveTextContent('light'));
   });
 
   it('should update when the theme changes', async () => {
-    const { getByTestId } = render(<ThemedComponent />);
+    render(<ThemedComponent />);
 
-    const lightOutput = getByTestId(LIGHT_THEME_OUTPUT);
-    const darkOutput = getByTestId(DARK_THEME_OUTPUT);
-    const setLightButton = getByTestId(SET_LIGHT_THEME);
-    const setDarkButton = getByTestId(SET_DARK_THEME);
+    const lightOutput = screen.getByTestId(LIGHT_THEME_OUTPUT);
+    const darkOutput = screen.getByTestId(DARK_THEME_OUTPUT);
+    const setLightButton = screen.getByTestId(SET_LIGHT_THEME);
+    const setDarkButton = screen.getByTestId(SET_DARK_THEME);
 
     // Light theme should initially be 'light'
-    await waitFor(() => expect(lightOutput.textContent).toBe('light'));
+    await waitFor(() => expect(lightOutput).toHaveTextContent('light'));
 
     // Dark theme should initially be 'dark'
-    waitFor(() => expect(darkOutput.textContent).toBe('dark'));
+    await waitFor(() => expect(darkOutput).toHaveTextContent('dark'));
 
     // Change light theme
     fireEvent.click(setLightButton);
-    await waitFor(() => expect(lightOutput.textContent).toBe('legacy-light'));
+    await waitFor(() => expect(lightOutput).toHaveTextContent('legacy-light'));
 
     // Change dark theme
     fireEvent.click(setDarkButton);
-    await waitFor(() => expect(darkOutput.textContent).toBe('legacy-dark'));
+    await waitFor(() => expect(darkOutput).toHaveTextContent('legacy-dark'));
   });
 });

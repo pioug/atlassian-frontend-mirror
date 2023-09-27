@@ -20,7 +20,7 @@ import type {
 } from './create-editor/get-plugins';
 import { sortByOrder } from './create-editor/sort-by-order';
 import { analyticsPluginKey } from './plugins/analytics/plugin-key';
-import { basePlugin } from './plugins/base';
+import { basePlugin } from '@atlaskit/editor-plugin-base';
 import type { MarkConfig, NodeConfig } from './types/pm-config';
 
 export { createTypeAheadTools } from './plugins/type-ahead/api';

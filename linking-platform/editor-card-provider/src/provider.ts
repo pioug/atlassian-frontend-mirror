@@ -57,6 +57,9 @@ const isConfluenceWhiteboard = (url: string) =>
     /\/wiki\/spaces\/?.*\/whiteboard\/(?<resourceId>[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12})(\?\/)?/,
   );
 
+const isConfluenceDatabase = (url: string) =>
+  url.match(/\/wiki\/spaces\/~?[\d\w]+\/database\/\d+$/);
+
 export class EditorCardProvider implements CardProvider {
   private baseUrl: string;
   private resolverUrl: string;
@@ -208,7 +211,8 @@ export class EditorCardProvider implements CardProvider {
       isJwmView(url) ||
       isGiphyMedia(url) ||
       isProformaView(url) ||
-      isConfluenceWhiteboard(url)
+      isConfluenceWhiteboard(url) ||
+      isConfluenceDatabase(url)
     ) {
       return 'embed';
     }

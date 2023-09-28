@@ -4,37 +4,37 @@
 
 ### Patch Changes
 
-- [`b954b88b600`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b954b88b600) - Enrol packages to push model
+- [#39338](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39338) [`b954b88b600`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b954b88b600) - Enrol packages to push model
 
 ## 6.1.4
 
 ### Patch Changes
 
-- [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
+- [#38162](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38162) [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
 
 ## 6.1.3
 
 ### Patch Changes
 
-- [`f01deb5e6ab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f01deb5e6ab) - Use injected env vars instead of version.json
+- [#37925](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37925) [`f01deb5e6ab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f01deb5e6ab) - Use injected env vars instead of version.json
 
 ## 6.1.2
 
 ### Patch Changes
 
-- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793) [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
 
 ## 6.1.1
 
 ### Patch Changes
 
-- [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649) [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
 
 ## 6.1.0
 
 ### Minor Changes
 
-- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258) [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
 
 ### Patch Changes
 
@@ -44,55 +44,55 @@
 
 ### Patch Changes
 
-- [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
+- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874) [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
 
 ## 6.0.2
 
 ### Patch Changes
 
-- [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
+- [#24492](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24492) [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
 
 ## 6.0.1
 
 ### Patch Changes
 
-- [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
+- [#20650](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20650) [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
 
 ## 6.0.0
 
 ### Major Changes
 
-- [`8be1ff8ac9b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8be1ff8ac9b) - Removed V3 Notifications Api feature flag. By default, V3 Notifications Api will be used.
+- [#17459](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/17459) [`8be1ff8ac9b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8be1ff8ac9b) - Removed V3 Notifications Api feature flag. By default, V3 Notifications Api will be used.
 
 ## 5.2.0
 
 ### Minor Changes
 
-- [`0308a114d5c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0308a114d5c) - Changing endpoints to use V3 Notifications API
+- [#16208](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16208) [`0308a114d5c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0308a114d5c) - Changing endpoints to use V3 Notifications API
 
 ## 5.1.0
 
 ### Minor Changes
 
-- [`72b2c53156e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/72b2c53156e) - Changing cloudId input parameter to be nullable
+- [#10662](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10662) [`72b2c53156e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/72b2c53156e) - Changing cloudId input parameter to be nullable
 
 ## 5.0.4
 
 ### Patch Changes
 
-- [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
+- [#5857](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5857) [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
 
 ## 5.0.3
 
 ### Patch Changes
 
-- [`952f126a12`](https://bitbucket.org/atlassian/atlassian-frontend/commits/952f126a12) - Explicit declaration of default entrypoint
+- [#6039](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/6039) [`952f126a12`](https://bitbucket.org/atlassian/atlassian-frontend/commits/952f126a12) - Explicit declaration of default entrypoint
 
 ## 5.0.2
 
 ### Patch Changes
 
-- [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
+- [#5497](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5497) [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
   This requires version 3.8 of Typescript, read more about how we handle Typescript versions here: https://atlaskit.atlassian.com/get-started
   Also add `typescript` to `devDependencies` to denote version that the package was built with.
 
@@ -100,7 +100,7 @@
 
 ### Patch Changes
 
-- [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
+- [#3885](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3885) [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
 
   Since tslib is a dependency for all our packages we recommend that products also follow this tslib upgrade
   to prevent duplicates of tslib being bundled.
@@ -109,7 +109,7 @@
 
 ### Major Changes
 
-- [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
+- [#3335](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3335) [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
   For more information see: https://community.developer.atlassian.com/t/atlaskit-to-drop-support-for-internet-explorer-11-from-1st-july-2020/39534
 
 ### Patch Changes
@@ -120,7 +120,7 @@
 
 ### Patch Changes
 
-- [`5771f5a134`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5771f5a134) - Updated export \* to explict exports for @atlaskit/notification-log-client types
+- [#2489](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2489) [`5771f5a134`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5771f5a134) - Updated export \* to explict exports for @atlaskit/notification-log-client types
 
 ## 4.0.10
 

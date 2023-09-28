@@ -1,5 +1,17 @@
 # @atlaskit/legacy-mobile-macros
 
+## 2.4.211
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.210
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.4.209
 
 ### Patch Changes
@@ -220,14 +232,14 @@
 
 ### Patch Changes
 
-- [`6900f89eb0e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6900f89eb0e) - Internal changes to use space tokens. There is no expected visual or behaviour change.
+- [#39787](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39787) [`6900f89eb0e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6900f89eb0e) - Internal changes to use space tokens. There is no expected visual or behaviour change.
 - Updated dependencies
 
 ## 2.4.172
 
 ### Patch Changes
 
-- [`aeb5c9a01e8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aeb5c9a01e8) - Delete adf-schema from AFE and rely on npm package for adf-schema
+- [#39481](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39481) [`aeb5c9a01e8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aeb5c9a01e8) - Delete adf-schema from AFE and rely on npm package for adf-schema
 - [`4b4dcfe0bba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4b4dcfe0bba) - Delete adf-schema, use published version
 - Updated dependencies
 
@@ -403,7 +415,7 @@
 
 ### Patch Changes
 
-- [`33cb07de05f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/33cb07de05f) - change adf-schema to fixed versioning
+- [#38976](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38976) [`33cb07de05f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/33cb07de05f) - change adf-schema to fixed versioning
 - Updated dependencies
 
 ## 2.4.142
@@ -428,7 +440,7 @@
 
 ### Patch Changes
 
-- [`0514e72ec52`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0514e72ec52) - [ux] Adding design tokens for colors to support dark mode
+- [#38930](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38930) [`0514e72ec52`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0514e72ec52) - [ux] Adding design tokens for colors to support dark mode
 
 ## 2.4.138
 
@@ -1220,7 +1232,7 @@
 
 ### Patch Changes
 
-- [`47c9600680b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/47c9600680b) - [ux] Adds support for a mobile macro treatment that sends the user to the system browser
+- [#34192](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34192) [`47c9600680b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/47c9600680b) - [ux] Adds support for a mobile macro treatment that sends the user to the system browser
 - Updated dependencies
 
 ## 2.4.6
@@ -1233,7 +1245,7 @@
 
 ### Patch Changes
 
-- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793) [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
 - Updated dependencies
 
 ## 2.4.4
@@ -1246,7 +1258,7 @@
 
 ### Patch Changes
 
-- [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649) [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
 - Updated dependencies
 
 ## 2.4.2
@@ -1259,13 +1271,13 @@
 
 ### Patch Changes
 
-- [`ea97cc58f54`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ea97cc58f54) - Internal change to enforce token usage for spacing properties. There is no expected visual or behaviour change.
+- [#32931](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32931) [`ea97cc58f54`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ea97cc58f54) - Internal change to enforce token usage for spacing properties. There is no expected visual or behaviour change.
 
 ## 2.4.0
 
 ### Minor Changes
 
-- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258) [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
 
 ### Patch Changes
 
@@ -1293,7 +1305,7 @@
 
 ### Patch Changes
 
-- [`2e01c9c74b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e01c9c74b5) - DUMMY remove before merging to master; dupe adf-schema via adf-utils
+- [#32424](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32424) [`2e01c9c74b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e01c9c74b5) - DUMMY remove before merging to master; dupe adf-schema via adf-utils
 - Updated dependencies
 
 ## 2.3.23
@@ -1366,7 +1378,7 @@
 
 ### Patch Changes
 
-- [`4cded9846c6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4cded9846c6) - Adjust linting in confluence packages to prepare for design system token adoption.
+- [#30360](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/30360) [`4cded9846c6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4cded9846c6) - Adjust linting in confluence packages to prepare for design system token adoption.
 
 ## 2.3.11
 
@@ -1438,7 +1450,7 @@
 
 ### Minor Changes
 
-- [`1d432bde0ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1d432bde0ec) - [ux] Add click handler to drawio placeholder image in mobile to open in webview
+- [#28374](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28374) [`1d432bde0ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1d432bde0ec) - [ux] Add click handler to drawio placeholder image in mobile to open in webview
 - [`5e7b9edb448`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5e7b9edb448) - [ux] Constrain width of drawio placeholder diagram to width of mobile device
 - [`f6ca4a03780`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f6ca4a03780) - [ux] Adds padding to drawio placeholder image and grey background while in dark mode
 
@@ -1457,7 +1469,7 @@
 
 ### Minor Changes
 
-- [`5dd2d6c3561`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5dd2d6c3561) - [ux] Support drawio macro in mobile bridge
+- [#28090](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28090) [`5dd2d6c3561`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5dd2d6c3561) - [ux] Support drawio macro in mobile bridge
 
 ### Patch Changes
 
@@ -1564,7 +1576,7 @@
 
 ### Patch Changes
 
-- [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
+- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874) [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
 - Updated dependencies
 
 ## 2.1.11
@@ -1637,7 +1649,7 @@
 
 ### Minor Changes
 
-- [`8949731bc6a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8949731bc6a) - ED-14608: Migrate adf-utils imports in atlassian-frontend to new child entry points to improve treeshaking
+- [#21570](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21570) [`8949731bc6a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8949731bc6a) - ED-14608: Migrate adf-utils imports in atlassian-frontend to new child entry points to improve treeshaking
 
 ### Patch Changes
 
@@ -1696,13 +1708,13 @@
 
 ### Patch Changes
 
-- [`541edde8e78`](https://bitbucket.org/atlassian/atlassian-frontend/commits/541edde8e78) - [ux] Fixed a broken `text-color` CSS property inside `packages/confluence/legacy-mobile-macros/src/ui/ChartPlaceholder/index.tsx`
+- [#19607](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19607) [`541edde8e78`](https://bitbucket.org/atlassian/atlassian-frontend/commits/541edde8e78) - [ux] Fixed a broken `text-color` CSS property inside `packages/confluence/legacy-mobile-macros/src/ui/ChartPlaceholder/index.tsx`
 
 ## 2.0.0
 
 ### Major Changes
 
-- [`c45cdcd7dff`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c45cdcd7dff) - [ux] Adds support for rendering macros inline on mobile using the contentRenderer query. This change is only enabled when appropriate values are provided in a rendering strategy map from the Confluence native mobile apps.
+- [#19019](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19019) [`c45cdcd7dff`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c45cdcd7dff) - [ux] Adds support for rendering macros inline on mobile using the contentRenderer query. This change is only enabled when appropriate values are provided in a rendering strategy map from the Confluence native mobile apps.
 - [`e63d6997782`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e63d6997782) - Macros rendered by the legacy-mobile-macros package will now fire a macro viewed analytics event when rendered
 
 ### Patch Changes
@@ -1713,11 +1725,11 @@
 
 ### Minor Changes
 
-- [`c17b3fd9e67`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c17b3fd9e67) - [ux] Adds support for rendering the chart extension through macro fallback on mobile
+- [#16752](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16752) [`c17b3fd9e67`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c17b3fd9e67) - [ux] Adds support for rendering the chart extension through macro fallback on mobile
 
 ### Patch Changes
 
-- [`f61c5b89050`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f61c5b89050) - Loads superbatch tags from mobile macro config promise
+- [#18526](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/18526) [`f61c5b89050`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f61c5b89050) - Loads superbatch tags from mobile macro config promise
 - Updated dependencies
 
 ## 1.1.1
@@ -1766,7 +1778,7 @@
 
 ### Major Changes
 
-- [`47f58da5946`](https://bitbucket.org/atlassian/atlassian-frontend/commits/47f58da5946) - ED-13322, ED-13324, ED-13326, ED-13323, ED-13204: Upgrade and support react-intl@^5.18.1 including breaking API changes, types and tests in atlassian-frontend packages
+- [#14810](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/14810) [`47f58da5946`](https://bitbucket.org/atlassian/atlassian-frontend/commits/47f58da5946) - ED-13322, ED-13324, ED-13326, ED-13323, ED-13204: Upgrade and support react-intl@^5.18.1 including breaking API changes, types and tests in atlassian-frontend packages
 
   What changed: Upgraded our react-intl support from ^2.6.0 to ^5.18.1. This means editor packages now rely on consumers installing ^5.18.1, otherwise editor usage of react-intl will mismatch with actual installed react-intl APIs.
   Why change was made: As part of a coordinated upgrade effort across AF packages, as react-intl v2 is quite dated.
@@ -1830,7 +1842,7 @@
 
 ### Minor Changes
 
-- [`c12de6a20ae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c12de6a20ae) - [ux] Anchor links macro is now rendered inline and allows for scrolling to anchor
+- [#14777](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/14777) [`c12de6a20ae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c12de6a20ae) - [ux] Anchor links macro is now rendered inline and allows for scrolling to anchor
 
 ### Patch Changes
 
@@ -1840,7 +1852,7 @@
 
 ### Minor Changes
 
-- [`cf853e39278`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf853e39278) - Confluence legacy mobile macro fallback strings are now localized
+- [#14319](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/14319) [`cf853e39278`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf853e39278) - Confluence legacy mobile macro fallback strings are now localized
 
 ### Patch Changes
 
@@ -1862,7 +1874,7 @@
 
 ### Patch Changes
 
-- [`b95863772be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b95863772be) - Support external observers.
+- [#13864](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13864) [`b95863772be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b95863772be) - Support external observers.
   Use better naming for refNode (refNode => reference).
   In favor of further work (supporting multiple references) pass array of references to Extension component.
   Expand node with localId for extentions.
@@ -1980,7 +1992,7 @@
 
 ### Minor Changes
 
-- [`b15bcd24496`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b15bcd24496) - [ux] Link presentation for mobile macros is being disabled due to issues with the approach to rendering those links. Macros that were intended to be rendered as links on mobile will revert to the previous macro fallback behavior until this issue is resolved.
+- [#9083](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9083) [`b15bcd24496`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b15bcd24496) - [ux] Link presentation for mobile macros is being disabled due to issues with the approach to rendering those links. Macros that were intended to be rendered as links on mobile will revert to the previous macro fallback behavior until this issue is resolved.
 
 ### Patch Changes
 
@@ -2008,7 +2020,7 @@
 
 ### Minor Changes
 
-- [`5a657f8d9fb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5a657f8d9fb) - [ux] Google and Trello macros will now render as links on mobile instead of using the mobile macro fallback
+- [#8178](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8178) [`5a657f8d9fb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5a657f8d9fb) - [ux] Google and Trello macros will now render as links on mobile instead of using the mobile macro fallback
 
 ### Patch Changes
 
@@ -2042,14 +2054,14 @@
 
 ### Patch Changes
 
-- [`8a93403847`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8a93403847) - readability updated
+- [#7170](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/7170) [`8a93403847`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8a93403847) - readability updated
 - Updated dependencies
 
 ## 0.1.0
 
 ### Minor Changes
 
-- [`622ae0dc66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/622ae0dc66) - [ux] added macros and dark theme support with query params configuration
+- [#6930](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/6930) [`622ae0dc66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/622ae0dc66) - [ux] added macros and dark theme support with query params configuration
 
 ### Patch Changes
 

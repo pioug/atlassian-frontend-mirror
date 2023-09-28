@@ -4,7 +4,7 @@ import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { IntlProvider } from 'react-intl-next';
 import Editor from '../../../editor';
-import EditorNext from '../../../editor-next';
+import { ComposableEditor } from '../../../composable-editor';
 
 import CollapsedEditor from '../../../ui/CollapsedEditor';
 import createUniversalPreset from '../../../labs/next/presets/universal';
@@ -99,12 +99,12 @@ describe('CollapsedEditor', () => {
   });
 });
 
-describe('CollapsedEditor with EditorNext', () => {
+describe('CollapsedEditor with ComposableEditor', () => {
   const preset = createUniversalPreset('full-page', { paste: {} }, {});
   it('should load even if IntlProvider is not provided', () => {
     const { container } = render(
       <CollapsedEditor isExpanded={false}>
-        <EditorNext preset={preset} />
+        <ComposableEditor preset={preset} />
       </CollapsedEditor>,
     );
 
@@ -116,7 +116,7 @@ describe('CollapsedEditor with EditorNext', () => {
   it('should not render the editor when isExpanded is false', () => {
     const { container } = renderWithIntl(
       <CollapsedEditor isExpanded={false}>
-        <EditorNext preset={preset} />
+        <ComposableEditor preset={preset} />
       </CollapsedEditor>,
     );
 
@@ -128,7 +128,7 @@ describe('CollapsedEditor with EditorNext', () => {
   it('should render the editor when isExpanded is true', () => {
     const { container } = renderWithIntl(
       <CollapsedEditor isExpanded={true}>
-        <EditorNext preset={preset} />
+        <ComposableEditor preset={preset} />
       </CollapsedEditor>,
     );
     const editorElement = container.getElementsByClassName('akEditor');
@@ -140,7 +140,7 @@ describe('CollapsedEditor with EditorNext', () => {
     const onFocus = jest.fn();
     renderWithIntl(
       <CollapsedEditor onFocus={onFocus}>
-        <EditorNext preset={preset} />
+        <ComposableEditor preset={preset} />
       </CollapsedEditor>,
     );
     screen.getByRole('textbox').focus();
@@ -151,7 +151,7 @@ describe('CollapsedEditor with EditorNext', () => {
     const onExpand = jest.fn();
     renderWithIntl(
       <CollapsedEditor isExpanded={true} onExpand={onExpand}>
-        <EditorNext preset={preset} />
+        <ComposableEditor preset={preset} />
       </CollapsedEditor>,
     );
     expect(onExpand).toHaveBeenCalledTimes(0);
@@ -162,14 +162,14 @@ describe('CollapsedEditor with EditorNext', () => {
     const { rerender } = render(
       <IntlProvider locale="en">
         <CollapsedEditor isExpanded={false} onExpand={onExpand}>
-          <EditorNext preset={preset} />
+          <ComposableEditor preset={preset} />
         </CollapsedEditor>
       </IntlProvider>,
     );
     rerender(
       <IntlProvider locale="en">
         <CollapsedEditor isExpanded={true} onExpand={onExpand}>
-          <EditorNext preset={preset} />
+          <ComposableEditor preset={preset} />
         </CollapsedEditor>
       </IntlProvider>,
     );

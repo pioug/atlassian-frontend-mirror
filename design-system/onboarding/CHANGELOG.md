@@ -4,57 +4,57 @@
 
 ### Patch Changes
 
-- [`3c114ea4257`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3c114ea4257) - Update type definitions to conform to inherited changes from `@types/react@16.14.15`.
+- [#39128](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39128) [`3c114ea4257`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3c114ea4257) - Update type definitions to conform to inherited changes from `@types/react@16.14.15`.
 
 ## 10.8.7
 
 ### Patch Changes
 
-- [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
+- [#38162](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38162) [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
 - Updated dependencies
 
 ## 10.8.6
 
 ### Patch Changes
 
-- [`36e3e86da5d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/36e3e86da5d) - SpotlightCard width prop now accepts either a number or the string `'100%'` and refactors how our range of 160px – 600px works via css `min-width` and `max-width` instead of raw math.
+- [#38215](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38215) [`36e3e86da5d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/36e3e86da5d) - SpotlightCard width prop now accepts either a number or the string `'100%'` and refactors how our range of 160px – 600px works via css `min-width` and `max-width` instead of raw math.
 
 ## 10.8.5
 
 ### Patch Changes
 
-- [`599bfe90ee3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/599bfe90ee3) - Internal change to use shape tokens. There is no expected visual change.
+- [#35441](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35441) [`599bfe90ee3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/599bfe90ee3) - Internal change to use shape tokens. There is no expected visual change.
 
 ## 10.8.4
 
 ### Patch Changes
 
-- [`df6aac8c5a6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/df6aac8c5a6) - When providing an image path to `SpotlightCard`, there is no longer an additional space that appears between the image and content padding.
+- [#35716](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35716) [`df6aac8c5a6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/df6aac8c5a6) - When providing an image path to `SpotlightCard`, there is no longer an additional space that appears between the image and content padding.
 - Updated dependencies
 
 ## 10.8.3
 
 ### Patch Changes
 
-- [`e7ea6832ad2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e7ea6832ad2) - Bans the use of React.FC/React.FunctionComponent type in ADS components as part of the React 18 migration work. The change is internal only and should not introduce any changes for the component consumers.
+- [#33652](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33652) [`e7ea6832ad2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e7ea6832ad2) - Bans the use of React.FC/React.FunctionComponent type in ADS components as part of the React 18 migration work. The change is internal only and should not introduce any changes for the component consumers.
 
 ## 10.8.2
 
 ### Patch Changes
 
-- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793) [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
 
 ## 10.8.1
 
 ### Patch Changes
 
-- [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649) [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
 
 ## 10.8.0
 
 ### Minor Changes
 
-- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258) [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
 
 ### Patch Changes
 
@@ -64,19 +64,19 @@
 
 ### Patch Changes
 
-- [`4ba10567310`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ba10567310) - Internal changes.
+- [#32211](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32211) [`4ba10567310`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ba10567310) - Internal changes.
 
 ## 10.7.1
 
 ### Patch Changes
 
-- [`e0460d5d989`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e0460d5d989) - Usages of `process` are now guarded by a `typeof` check.
+- [#32294](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32294) [`e0460d5d989`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e0460d5d989) - Usages of `process` are now guarded by a `typeof` check.
 
 ## 10.7.0
 
 ### Minor Changes
 
-- [`e3fa4437cf5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e3fa4437cf5) - [ux] Updates focus appearance of components using buttons and custom buttons. These states now use an offset outline which is consistent with other applications of focus in Atlassian components.
+- [#31299](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31299) [`e3fa4437cf5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e3fa4437cf5) - [ux] Updates focus appearance of components using buttons and custom buttons. These states now use an offset outline which is consistent with other applications of focus in Atlassian components.
 
 ### Patch Changes
 
@@ -86,14 +86,14 @@
 
 ### Patch Changes
 
-- [`261420360ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/261420360ec) - Upgrades component types to support React 18.
+- [#31206](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31206) [`261420360ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/261420360ec) - Upgrades component types to support React 18.
 - Updated dependencies
 
 ## 10.6.11
 
 ### Patch Changes
 
-- [`7f5f23dcb68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7f5f23dcb68) - Introduce shape tokens to some packages.
+- [#30125](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/30125) [`7f5f23dcb68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7f5f23dcb68) - Introduce shape tokens to some packages.
 
 ## 10.6.10
 
@@ -111,19 +111,19 @@
 
 ### Patch Changes
 
-- [`18aeca8c199`](https://bitbucket.org/atlassian/atlassian-frontend/commits/18aeca8c199) - Internal change to update token references. There is no expected behaviour or visual change.
+- [#29390](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/29390) [`18aeca8c199`](https://bitbucket.org/atlassian/atlassian-frontend/commits/18aeca8c199) - Internal change to update token references. There is no expected behaviour or visual change.
 
 ## 10.6.7
 
 ### Patch Changes
 
-- [`4ee60bafc6d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ee60bafc6d) - ED-16603: Remove tooltips from VR tests and make them opt in. To opt-in, add `allowedSideEffects` when loading the page.
+- [#29227](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/29227) [`4ee60bafc6d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ee60bafc6d) - ED-16603: Remove tooltips from VR tests and make them opt in. To opt-in, add `allowedSideEffects` when loading the page.
 
 ## 10.6.6
 
 ### Patch Changes
 
-- [`716af1d3387`](https://bitbucket.org/atlassian/atlassian-frontend/commits/716af1d3387) - Bump @atlaskit/heading from 1.0.0 to 1.0.1 to avoid resolving to poison dependency version
+- [#28159](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28159) [`716af1d3387`](https://bitbucket.org/atlassian/atlassian-frontend/commits/716af1d3387) - Bump @atlaskit/heading from 1.0.0 to 1.0.1 to avoid resolving to poison dependency version
 
 ## 10.6.5
 
@@ -153,13 +153,13 @@
 
 ### Patch Changes
 
-- [`9de88fa1e1e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9de88fa1e1e) - Internal changes to include spacing tokens in component implementations.
+- [#26408](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26408) [`9de88fa1e1e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9de88fa1e1e) - Internal changes to include spacing tokens in component implementations.
 
 ## 10.6.0
 
 ### Minor Changes
 
-- [`e0015d4e201`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e0015d4e201) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behavior change.
+- [#24710](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24710) [`e0015d4e201`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e0015d4e201) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behavior change.
 
 ### Patch Changes
 
@@ -170,32 +170,32 @@
 
 ### Patch Changes
 
-- [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
+- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874) [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
 
 ## 10.5.3
 
 ### Patch Changes
 
-- [`7ca0e5a0c31`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7ca0e5a0c31) - Update "subtle" action in Onboarding component to use correct tokens
-- [`0e5102ee5ab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0e5102ee5ab) - Update "subtle-link" action in Onboarding component to use correct tokens
+- [#25075](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/25075) [`7ca0e5a0c31`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7ca0e5a0c31) - Update "subtle" action in Onboarding component to use correct tokens
+- [#25074](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/25074) [`0e5102ee5ab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0e5102ee5ab) - Update "subtle-link" action in Onboarding component to use correct tokens
 
 ## 10.5.2
 
 ### Patch Changes
 
-- [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
+- [#24492](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24492) [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
 
 ## 10.5.1
 
 ### Patch Changes
 
-- [`994508770f7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/994508770f7) - Bumps the `@atlaskit/heading` dependency forward to a higher minimum version.
+- [#24237](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24237) [`994508770f7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/994508770f7) - Bumps the `@atlaskit/heading` dependency forward to a higher minimum version.
 
 ## 10.5.0
 
 ### Minor Changes
 
-- [`0c0a8c64d54`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0c0a8c64d54) - Removes internal usage of the deprecated theme prop.
+- [#23381](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23381) [`0c0a8c64d54`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0c0a8c64d54) - Removes internal usage of the deprecated theme prop.
 
 ### Patch Changes
 
@@ -206,19 +206,19 @@
 
 ### Patch Changes
 
-- [`8a5bdb3c844`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8a5bdb3c844) - Upgrading internal dependency (bind-event-listener) for improved internal types
+- [#22614](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22614) [`8a5bdb3c844`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8a5bdb3c844) - Upgrading internal dependency (bind-event-listener) for improved internal types
 
 ## 10.4.1
 
 ### Patch Changes
 
-- [`e4b612d1c48`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e4b612d1c48) - Internal migration to bind-event-listener for safer DOM Event cleanup
+- [#22029](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22029) [`e4b612d1c48`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e4b612d1c48) - Internal migration to bind-event-listener for safer DOM Event cleanup
 
 ## 10.4.0
 
 ### Minor Changes
 
-- [`3124aa6ae24`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3124aa6ae24) - The onboarding package now exports a `ModalTransition` component for use with the benefits modal. This resolves an issue that can occur when using `ModalTransition` from a different version of `@atlaskit/modal-dialog` than the one that Onboarding is bringing in.
+- [#21570](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21570) [`3124aa6ae24`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3124aa6ae24) - The onboarding package now exports a `ModalTransition` component for use with the benefits modal. This resolves an issue that can occur when using `ModalTransition` from a different version of `@atlaskit/modal-dialog` than the one that Onboarding is bringing in.
 
 ### Patch Changes
 
@@ -228,7 +228,7 @@
 
 ### Patch Changes
 
-- [`efa50ac72ba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/efa50ac72ba) - Adjusts jsdoc strings to improve prop documentation
+- [#21545](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21545) [`efa50ac72ba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/efa50ac72ba) - Adjusts jsdoc strings to improve prop documentation
 
 ## 10.3.10
 
@@ -240,7 +240,7 @@
 
 ### Patch Changes
 
-- [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
+- [#20650](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20650) [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
 - Updated dependencies
 
 ## 10.3.8
@@ -253,7 +253,7 @@
 
 ### Patch Changes
 
-- [`ac9343c3ed4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ac9343c3ed4) - Replaces usage of deprecated design tokens. No visual or functional changes
+- [#19618](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19618) [`ac9343c3ed4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ac9343c3ed4) - Replaces usage of deprecated design tokens. No visual or functional changes
 - [`dcd92130cc4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dcd92130cc4) - Migrate deleted background accent tokens to replacements
 - [`62edf20ab1e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/62edf20ab1e) - Migrates all usage of brand tokens to either selected or information tokens. This change is purely for semantic reasons, there are no visual or behavioural changes.
 - Updated dependencies
@@ -262,14 +262,14 @@
 
 ### Patch Changes
 
-- [`bd38851d12f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bd38851d12f) - [ux] Fixed the missing Spotlight button border by updating the token usages.
+- [#19019](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19019) [`bd38851d12f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bd38851d12f) - [ux] Fixed the missing Spotlight button border by updating the token usages.
 - Updated dependencies
 
 ## 10.3.5
 
 ### Patch Changes
 
-- [`58884c2f6c1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/58884c2f6c1) - Internal code change turning on a new linting rule.
+- [#16752](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16752) [`58884c2f6c1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/58884c2f6c1) - Internal code change turning on a new linting rule.
 
 ## 10.3.4
 
@@ -289,13 +289,13 @@
 
 ### Patch Changes
 
-- [`9a5740d1ec3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9a5740d1ec3) - [ux] The `pulse` prop now works correctly for `<SpotlightPulse />`. Previously, it was applying the pulse to the `SpotlightPulse` target regardless of the `pulse` value. Now it checks the value of `pulse` and applies the animation accordingly.
+- [#17672](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/17672) [`9a5740d1ec3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9a5740d1ec3) - [ux] The `pulse` prop now works correctly for `<SpotlightPulse />`. Previously, it was applying the pulse to the `SpotlightPulse` target regardless of the `pulse` value. Now it checks the value of `pulse` and applies the animation accordingly.
 
 ## 10.3.1
 
 ### Patch Changes
 
-- [`3fced6aa641`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3fced6aa641) - Bumped `react-focus-lock` to version `^2.2.1`.
+- [#15998](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/15998) [`3fced6aa641`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3fced6aa641) - Bumped `react-focus-lock` to version `^2.2.1`.
 - [`f460cc7c411`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f460cc7c411) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving bundle size.
 - Updated dependencies
 
@@ -303,7 +303,7 @@
 
 ### Minor Changes
 
-- [`50081f13de7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/50081f13de7) - Instrumented `@atlaskit/onboarding` with the new theming package, `@atlaskit/tokens`.
+- [#14777](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/14777) [`50081f13de7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/50081f13de7) - Instrumented `@atlaskit/onboarding` with the new theming package, `@atlaskit/tokens`.
 
   New tokens will be visible only in applications configured to use the new Tokens API (currently in alpha). These changes are intended to be interoperable with the legacy theme implementation. Legacy dark mode users should expect no visual or breaking changes.
 
@@ -315,19 +315,19 @@
 
 ### Patch Changes
 
-- [`b85e7ce12cd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b85e7ce12cd) - Internal upgrade of memoize-one to 6.0.0
+- [#15694](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/15694) [`b85e7ce12cd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b85e7ce12cd) - Internal upgrade of memoize-one to 6.0.0
 
 ## 10.2.5
 
 ### Patch Changes
 
-- [`34282240102`](https://bitbucket.org/atlassian/atlassian-frontend/commits/34282240102) - Adds explicit type to button usages components.
+- [#15632](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/15632) [`34282240102`](https://bitbucket.org/atlassian/atlassian-frontend/commits/34282240102) - Adds explicit type to button usages components.
 
 ## 10.2.4
 
 ### Patch Changes
 
-- [`d77725f926f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d77725f926f) - Replaced usage of `styled-components` with `@emotion/core`.
+- [#14319](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/14319) [`d77725f926f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d77725f926f) - Replaced usage of `styled-components` with `@emotion/core`.
 - [`cf853e39278`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf853e39278) - Internal changes to remove `@atlaskit/theme/math` usage.
 - Updated dependencies
 
@@ -335,7 +335,7 @@
 
 ### Patch Changes
 
-- [`115c009e2ef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/115c009e2ef) - Refactor to use new modal dialog API.
+- [#13864](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13864) [`115c009e2ef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/115c009e2ef) - Refactor to use new modal dialog API.
 - Updated dependencies
 
 ## 10.2.2
@@ -348,13 +348,13 @@
 
 ### Patch Changes
 
-- [`378d1cef00f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/378d1cef00f) - Bump `@atlaskit/theme` to version `^11.3.0`.
+- [#12880](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12880) [`378d1cef00f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/378d1cef00f) - Bump `@atlaskit/theme` to version `^11.3.0`.
 
 ## 10.2.0
 
 ### Minor Changes
 
-- [`1b1cb960767`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1b1cb960767) - The `headingAfterElement` prop has been added to the spotlight component which can be used to add a supplementary action.
+- [#8644](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8644) [`1b1cb960767`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1b1cb960767) - The `headingAfterElement` prop has been added to the spotlight component which can be used to add a supplementary action.
 
 ### Patch Changes
 
@@ -364,13 +364,13 @@
 
 ### Patch Changes
 
-- [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
+- [#5857](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5857) [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
 
 ## 10.1.8
 
 ### Patch Changes
 
-- [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
+- [#5497](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5497) [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
   This requires version 3.8 of Typescript, read more about how we handle Typescript versions here: https://atlaskit.atlassian.com/get-started
   Also add `typescript` to `devDependencies` to denote version that the package was built with.
 
@@ -384,7 +384,7 @@
 
 ### Patch Changes
 
-- [`2ac834240e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2ac834240e) - Undo analytics-next file restructure to allow external ts definitions to continue working
+- [#5164](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5164) [`2ac834240e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2ac834240e) - Undo analytics-next file restructure to allow external ts definitions to continue working
 
 ## 10.1.5
 
@@ -396,13 +396,13 @@
 
 ### Patch Changes
 
-- [`6360c46009`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6360c46009) - Reenable integration tests for Edge browser
+- [#4707](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4707) [`6360c46009`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6360c46009) - Reenable integration tests for Edge browser
 
 ## 10.1.3
 
 ### Patch Changes
 
-- [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
+- [#3885](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3885) [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
 
   Since tslib is a dependency for all our packages we recommend that products also follow this tslib upgrade
   to prevent duplicates of tslib being bundled.
@@ -411,7 +411,7 @@
 
 ### Patch Changes
 
-- [`76165ad82f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/76165ad82f) - Bump required because of conflicts on wadmal release
+- [#4393](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4393) [`76165ad82f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/76165ad82f) - Bump required because of conflicts on wadmal release
 
 ## 10.1.1
 
@@ -423,7 +423,7 @@
 
 ### Minor Changes
 
-- [`5d6c324306`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5d6c324306) - Expose useSpotlight hook which returns #isTargetRendered function. We can use this function to check whether target is rendered or not.
+- [#3428](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3428) [`5d6c324306`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5d6c324306) - Expose useSpotlight hook which returns #isTargetRendered function. We can use this function to check whether target is rendered or not.
 
 ### Patch Changes
 
@@ -433,7 +433,7 @@
 
 ### Major Changes
 
-- [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
+- [#3335](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3335) [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
   For more information see: https://community.developer.atlassian.com/t/atlaskit-to-drop-support-for-internet-explorer-11-from-1st-july-2020/39534
 
 ### Patch Changes
@@ -444,19 +444,19 @@
 
 ### Minor Changes
 
-- [`2c8d296246`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2c8d296246) - Adds support for the `subtle` button appearance in the Spotlight dialog theme to align more closely with ADG guidelines. Also visually re-orders action items so that the primary item in the actions list appears on the right hand side, but still recieves focus first.
+- [#2763](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2763) [`2c8d296246`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2c8d296246) - Adds support for the `subtle` button appearance in the Spotlight dialog theme to align more closely with ADG guidelines. Also visually re-orders action items so that the primary item in the actions list appears on the right hand side, but still recieves focus first.
 
 ## 9.1.10
 
 ### Patch Changes
 
-- [`54a9514fcf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54a9514fcf) - Build and supporting files will no longer be published to npm
+- [#2866](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2866) [`54a9514fcf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54a9514fcf) - Build and supporting files will no longer be published to npm
 
 ## 9.1.9
 
 ### Patch Changes
 
-- [`4560b65a4f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4560b65a4f) - upgrade react-transition-group to latest
+- [#2677](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2677) [`4560b65a4f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4560b65a4f) - upgrade react-transition-group to latest
 
 ## 9.1.8
 
@@ -468,7 +468,7 @@
 
 ### Patch Changes
 
-- [`6faa22760b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6faa22760b) - Add modalButtonTheme, spotlightButtonTheme,- Updated dependencies
+- [#1868](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/1868) [`6faa22760b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6faa22760b) - Add modalButtonTheme, spotlightButtonTheme,- Updated dependencies
 
 ## 9.1.6
 

@@ -10,13 +10,13 @@
 
 ### Patch Changes
 
-- [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
+- [#38162](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38162) [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
 
 ## 17.4.4
 
 ### Patch Changes
 
-- [`48e4a655534`](https://bitbucket.org/atlassian/atlassian-frontend/commits/48e4a655534) - Internal change to enforce token usage for spacing properties. There is no expected visual or behaviour change.
+- [#33728](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33728) [`48e4a655534`](https://bitbucket.org/atlassian/atlassian-frontend/commits/48e4a655534) - Internal change to enforce token usage for spacing properties. There is no expected visual or behaviour change.
 
 ## 17.4.3
 
@@ -28,19 +28,19 @@
 
 ### Patch Changes
 
-- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793) [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
 
 ## 17.4.1
 
 ### Patch Changes
 
-- [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649) [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
 
 ## 17.4.0
 
 ### Minor Changes
 
-- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258) [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
 
 ### Patch Changes
 
@@ -62,7 +62,7 @@
 
 ### Minor Changes
 
-- [`79660ee4fa7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/79660ee4fa7) - Restructured the Media-Image and added CSS to make doc responsive.
+- [#28090](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28090) [`79660ee4fa7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/79660ee4fa7) - Restructured the Media-Image and added CSS to make doc responsive.
 
 ### Patch Changes
 
@@ -84,13 +84,13 @@
 
 ### Patch Changes
 
-- [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
+- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874) [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
 
 ## 17.2.4
 
 ### Patch Changes
 
-- [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
+- [#24492](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24492) [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
 
 ## 17.2.3
 
@@ -108,14 +108,14 @@
 
 ### Patch Changes
 
-- [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
+- [#20650](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20650) [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
 - Updated dependencies
 
 ## 17.2.0
 
 ### Minor Changes
 
-- [`f862d5ae7aa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f862d5ae7aa) - remove RxJs peer dependency
+- [#19618](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19618) [`f862d5ae7aa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f862d5ae7aa) - remove RxJs peer dependency
 - [`118f3af101f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/118f3af101f) - Media Client APIs has been updated to use MediaSubscribable which provides subscription functionality (similar to RxJs observables).
   It exposes subscribe method that is called with MediaObserver as an argument and returns MediaSubscription.
   MediaSubscription exposes unsubscribe method.
@@ -206,7 +206,7 @@
 
 ### Patch Changes
 
-- [`6810728cd53`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6810728cd53) - Ehance test for new auth provider in media-image to prevent re-subscription
+- [#12328](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12328) [`6810728cd53`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6810728cd53) - Ehance test for new auth provider in media-image to prevent re-subscription
 - [`0b201786d9c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0b201786d9c) - Render children as loading for media-image loader while fetching bundle
 - Updated dependencies
 
@@ -214,20 +214,20 @@
 
 ### Patch Changes
 
-- [`3cd9ee2d15b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3cd9ee2d15b) - Added RxJS compatiblity notice in Media docs
+- [#11113](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/11113) [`3cd9ee2d15b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3cd9ee2d15b) - Added RxJS compatiblity notice in Media docs
 - Updated dependencies
 
 ## 17.1.6
 
 ### Patch Changes
 
-- [`17b0f1123c6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/17b0f1123c6) - Update media-image package.json with correct description
+- [#10569](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10569) [`17b0f1123c6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/17b0f1123c6) - Update media-image package.json with correct description
 
 ## 17.1.5
 
 ### Patch Changes
 
-- [`277ed9667b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/277ed9667b2) - Fixed media bundle names following atlassian-frontend linting rules
+- [#10230](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10230) [`277ed9667b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/277ed9667b2) - Fixed media bundle names following atlassian-frontend linting rules
 
 ## 17.1.4
 
@@ -239,7 +239,7 @@
 
 ### Patch Changes
 
-- [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
+- [#5857](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5857) [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
 
 ## 17.1.2
 
@@ -251,7 +251,7 @@
 
 ### Patch Changes
 
-- [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
+- [#5497](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5497) [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
   This requires version 3.8 of Typescript, read more about how we handle Typescript versions here: https://atlaskit.atlassian.com/get-started
   Also add `typescript` to `devDependencies` to denote version that the package was built with.
 
@@ -259,7 +259,7 @@
 
 ### Minor Changes
 
-- [`7d831363d9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7d831363d9) - Migrated to declarative entry points
+- [#4749](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4749) [`7d831363d9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7d831363d9) - Migrated to declarative entry points
 
 ### Patch Changes
 
@@ -275,7 +275,7 @@
 
 ### Patch Changes
 
-- [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
+- [#3885](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3885) [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
 
   Since tslib is a dependency for all our packages we recommend that products also follow this tslib upgrade
   to prevent duplicates of tslib being bundled.
@@ -284,20 +284,20 @@
 
 ### Patch Changes
 
-- [`76165ad82f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/76165ad82f) - Bump required because of conflicts on wadmal release
+- [#4393](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4393) [`76165ad82f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/76165ad82f) - Bump required because of conflicts on wadmal release
 
 ## 17.0.1
 
 ### Patch Changes
 
-- [`fa6fb5dfbb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fa6fb5dfbb) - Removing unused code to be published
+- [#3823](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3823) [`fa6fb5dfbb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fa6fb5dfbb) - Removing unused code to be published
 - Updated dependencies
 
 ## 17.0.0
 
 ### Major Changes
 
-- [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
+- [#3335](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3335) [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
   For more information see: https://community.developer.atlassian.com/t/atlaskit-to-drop-support-for-internet-explorer-11-from-1st-july-2020/39534
 
 ### Patch Changes
@@ -314,13 +314,13 @@
 
 ### Patch Changes
 
-- [`51aa5587ef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/51aa5587ef) - bump media-client: Remove stack traces from media analytic events
+- [#2443](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2443) [`51aa5587ef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/51aa5587ef) - bump media-client: Remove stack traces from media analytic events
 
 ## 16.0.0
 
 ### Major Changes
 
-- [`db7a864f43`](https://bitbucket.org/atlassian/atlassian-frontend/commits/db7a864f43) - Using Lazy Load in MediaImage component
+- [#2137](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2137) [`db7a864f43`](https://bitbucket.org/atlassian/atlassian-frontend/commits/db7a864f43) - Using Lazy Load in MediaImage component
 
 ### Patch Changes
 

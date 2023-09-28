@@ -4,7 +4,7 @@
 
 ### Minor Changes
 
-- [`be5adc1c861`](https://bitbucket.org/atlassian/atlassian-frontend/commits/be5adc1c861) - MEX-2566 New feature: Enable cross-origin communication for when media viewer is opened and closed via a [MessageEvent](https://developer.mozilla.org/en-US/docs/Web/API/MessageEvent). The message data sent will be of type `MediaMessage`, which follows the below format.
+- [#40057](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40057) [`be5adc1c861`](https://bitbucket.org/atlassian/atlassian-frontend/commits/be5adc1c861) - MEX-2566 New feature: Enable cross-origin communication for when media viewer is opened and closed via a [MessageEvent](https://developer.mozilla.org/en-US/docs/Web/API/MessageEvent). The message data sent will be of type `MediaMessage`, which follows the below format.
 
   ```
   {
@@ -17,7 +17,7 @@
 
 ### Patch Changes
 
-- [`dcef48fcb56`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dcef48fcb56) - Dependency for @types/enzyme set as static as the following patch version contains a breaking change
+- [#40009](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40009) [`dcef48fcb56`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dcef48fcb56) - Dependency for @types/enzyme set as static as the following patch version contains a breaking change
 
 ## 48.0.15
 
@@ -29,13 +29,13 @@
 
 ### Patch Changes
 
-- [`6900f89eb0e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6900f89eb0e) - Internal changes to use space tokens. There is no expected visual or behaviour change.
+- [#39787](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39787) [`6900f89eb0e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6900f89eb0e) - Internal changes to use space tokens. There is no expected visual or behaviour change.
 
 ## 48.0.13
 
 ### Patch Changes
 
-- [`d6081fc0e01`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6081fc0e01) - [ux] Bug Fix: Prevent scrolling to the top of the page after closing MediaViewer. In doing so, MediaViewer will no longer return the focus to its initial position onced MediaViewer is closed.
+- [#39693](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39693) [`d6081fc0e01`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6081fc0e01) - [ux] Bug Fix: Prevent scrolling to the top of the page after closing MediaViewer. In doing so, MediaViewer will no longer return the focus to its initial position onced MediaViewer is closed.
 
 ## 48.0.12
 
@@ -47,7 +47,7 @@
 
 ### Patch Changes
 
-- [`ede6ee7aaab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ede6ee7aaab) - Updated tests, examples and moving towards /test-helper export in packages to prevent circular dependancies
+- [#39255](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39255) [`ede6ee7aaab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ede6ee7aaab) - Updated tests, examples and moving towards /test-helper export in packages to prevent circular dependancies
 - Updated dependencies
 
 ## 48.0.10
@@ -66,7 +66,7 @@
 
 ### Patch Changes
 
-- [`5953474fd5f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5953474fd5f) - [ux] [MEX-2514] Prevent the body (i.e. the background) from scrolling when Media Viewer is open to improve the user experience
+- [#37986](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37986) [`5953474fd5f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5953474fd5f) - [ux] [MEX-2514] Prevent the body (i.e. the background) from scrolling when Media Viewer is open to improve the user experience
 
 ## 48.0.7
 
@@ -78,14 +78,14 @@
 
 ### Patch Changes
 
-- [`8b9680efe08`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8b9680efe08) - Better logging of PDFjs errors
+- [#35121](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35121) [`8b9680efe08`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8b9680efe08) - Better logging of PDFjs errors
 - Updated dependencies
 
 ## 48.0.5
 
 ### Patch Changes
 
-- [`48e4a655534`](https://bitbucket.org/atlassian/atlassian-frontend/commits/48e4a655534) - Internal change to enforce token usage for spacing properties. There is no expected visual or behaviour change.
+- [#33728](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33728) [`48e4a655534`](https://bitbucket.org/atlassian/atlassian-frontend/commits/48e4a655534) - Internal change to enforce token usage for spacing properties. There is no expected visual or behaviour change.
 
 ## 48.0.4
 
@@ -109,13 +109,13 @@
 
 ### Patch Changes
 
-- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793) [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
 
 ## 48.0.0
 
 ### Major Changes
 
-- [`8c6a6cf4bc4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8c6a6cf4bc4) - Media Viewer no longer accepts a collection name as a data source. Integrators should pass the full list of files to browse, instead.
+- [#33771](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33771) [`8c6a6cf4bc4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8c6a6cf4bc4) - Media Viewer no longer accepts a collection name as a data source. Integrators should pass the full list of files to browse, instead.
 
 ### Patch Changes
 
@@ -125,13 +125,13 @@
 
 ### Patch Changes
 
-- [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649) [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
 
 ## 47.6.0
 
 ### Minor Changes
 
-- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258) [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
 
 ### Patch Changes
 
@@ -141,27 +141,27 @@
 
 ### Patch Changes
 
-- [`2e01c9c74b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e01c9c74b5) - DUMMY remove before merging to master; dupe adf-schema via adf-utils
+- [#32424](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32424) [`2e01c9c74b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e01c9c74b5) - DUMMY remove before merging to master; dupe adf-schema via adf-utils
 - Updated dependencies
 
 ## 47.5.2
 
 ### Patch Changes
 
-- [`ae5a7de77c8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ae5a7de77c8) - Fixed exported component prop types
+- [#31891](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31891) [`ae5a7de77c8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ae5a7de77c8) - Fixed exported component prop types
 
 ## 47.5.1
 
 ### Patch Changes
 
-- [`b37723f2cfa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b37723f2cfa) - The component now logs the full provided feature flags object
+- [#31299](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31299) [`b37723f2cfa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b37723f2cfa) - The component now logs the full provided feature flags object
 - Updated dependencies
 
 ## 47.5.0
 
 ### Minor Changes
 
-- [`c3eba8c788d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c3eba8c788d) - Deprecation notice: Media Viewer no longer accepts a collection name as a data source. Integrators should pass the full list of files to browse through the new "items" property.
+- [#30248](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/30248) [`c3eba8c788d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c3eba8c788d) - Deprecation notice: Media Viewer no longer accepts a collection name as a data source. Integrators should pass the full list of files to browse through the new "items" property.
 
 ### Patch Changes
 
@@ -177,7 +177,7 @@
 
 ### Patch Changes
 
-- [`35192e267e4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/35192e267e4) - Updates to support the new @atlaskit/tokens theming API.
+- [#30005](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/30005) [`35192e267e4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/35192e267e4) - Updates to support the new @atlaskit/tokens theming API.
 
 ## 47.4.1
 
@@ -189,7 +189,7 @@
 
 ### Minor Changes
 
-- [`2b3859896cc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2b3859896cc) - Added new Feature Flag to control internal Media Client behaviour
+- [#28932](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28932) [`2b3859896cc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2b3859896cc) - Added new Feature Flag to control internal Media Client behaviour
 
 ### Patch Changes
 
@@ -205,7 +205,7 @@
 
 ### Minor Changes
 
-- [`2168c4e0d81`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2168c4e0d81) - Implement traceContext in media-viewer
+- [#28090](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28090) [`2168c4e0d81`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2168c4e0d81) - Implement traceContext in media-viewer
 - [`0bccac57db6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0bccac57db6) - remove mediaUploadApiV2 Feature flag
 
 ### Patch Changes
@@ -228,7 +228,7 @@
 
 ### Minor Changes
 
-- [`0213586e12e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0213586e12e) - [ux] Instrumented '@atlaskit/media-viewer' with the new theming package, `@atlaskit/tokens`, and updated the lightbox experience to use new colors from the new color palette.
+- [#26712](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26712) [`0213586e12e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0213586e12e) - [ux] Instrumented '@atlaskit/media-viewer' with the new theming package, `@atlaskit/tokens`, and updated the lightbox experience to use new colors from the new color palette.
 
   New tokens will be visible only in applications configured to use the new Tokens API (currently in alpha). These changes are intended to be interoperable with the legacy theme implementation. Legacy dark mode users should expect no visual or breaking changes.
 
@@ -247,13 +247,13 @@
 
 ### Patch Changes
 
-- [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
+- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874) [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
 
 ## 47.1.0
 
 ### Minor Changes
 
-- [`4733432ab0c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4733432ab0c) - [ux] Support rendering code files including txt less than 10MB. For better performance, render code files in plain html if line counts exceed 10k or file size exceeds 5MB.
+- [#24004](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24004) [`4733432ab0c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4733432ab0c) - [ux] Support rendering code files including txt less than 10MB. For better performance, render code files in plain html if line counts exceed 10k or file size exceeds 5MB.
 
 ### Patch Changes
 
@@ -265,20 +265,20 @@
 
 ### Patch Changes
 
-- [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
+- [#24492](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24492) [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
 
 ## 47.0.1
 
 ### Patch Changes
 
-- [`a332288b5ea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a332288b5ea) - Added analytics for media-card memoryCacheLogging and added relevant featureFlag keys for media-common package.
+- [#23381](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23381) [`a332288b5ea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a332288b5ea) - Added analytics for media-card memoryCacheLogging and added relevant featureFlag keys for media-common package.
 - Updated dependencies
 
 ## 47.0.0
 
 ### Major Changes
 
-- [`910bb0dca94`](https://bitbucket.org/atlassian/atlassian-frontend/commits/910bb0dca94) - Migrated to emotion from styled-components
+- [#22642](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22642) [`910bb0dca94`](https://bitbucket.org/atlassian/atlassian-frontend/commits/910bb0dca94) - Migrated to emotion from styled-components
 
 ### Patch Changes
 
@@ -291,7 +291,7 @@
 
 ### Minor Changes
 
-- [`1a76e2839e6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1a76e2839e6) - Default value for mediaUploadApiV2 Media feature flag set to true.
+- [#22029](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22029) [`1a76e2839e6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1a76e2839e6) - Default value for mediaUploadApiV2 Media feature flag set to true.
 
 ### Patch Changes
 
@@ -301,7 +301,7 @@
 
 ### Minor Changes
 
-- [`bfde909c9b4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bfde909c9b4) - Add new feature flag mediaUploadApiV2
+- [#21570](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21570) [`bfde909c9b4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bfde909c9b4) - Add new feature flag mediaUploadApiV2
 - [`35e43fcc798`](https://bitbucket.org/atlassian/atlassian-frontend/commits/35e43fcc798) - Add ufo feature flag logging
 - [`31cf1fff440`](https://bitbucket.org/atlassian/atlassian-frontend/commits/31cf1fff440) - Flagged events with file states processing and uploading for UFO payload
 
@@ -315,7 +315,7 @@
 
 ### Minor Changes
 
-- [`d2e212a2676`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d2e212a2676) - Added media environment to UFO payload
+- [#20721](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20721) [`d2e212a2676`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d2e212a2676) - Added media environment to UFO payload
 
 ### Patch Changes
 
@@ -325,14 +325,14 @@
 
 ### Patch Changes
 
-- [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
+- [#20650](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20650) [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
 - Updated dependencies
 
 ## 46.2.1
 
 ### Patch Changes
 
-- [`a44c7c42fa7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a44c7c42fa7) - Added payload publisher wrapper for logging ufo events in examples
+- [#20033](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20033) [`a44c7c42fa7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a44c7c42fa7) - Added payload publisher wrapper for logging ufo events in examples
 - [`5a79ea6f7d6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5a79ea6f7d6) - Add support for assessing the mimetype of a file when deciding what viewer to show
 - [`065ae19cb44`](https://bitbucket.org/atlassian/atlassian-frontend/commits/065ae19cb44) - Enforced "up to date" logged feature flags via type checks
 - Updated dependencies
@@ -341,7 +341,7 @@
 
 ### Minor Changes
 
-- [`60136fd1e34`](https://bitbucket.org/atlassian/atlassian-frontend/commits/60136fd1e34) - Replicate Media Viewer Reliability Events using UFO client library
+- [#19618](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19618) [`60136fd1e34`](https://bitbucket.org/atlassian/atlassian-frontend/commits/60136fd1e34) - Replicate Media Viewer Reliability Events using UFO client library
 - [`f862d5ae7aa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f862d5ae7aa) - remove RxJs peer dependency
 - [`dea110be493`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dea110be493) - [ux] MEX-1334 Implemented code splitting in media-viewer
 - [`118f3af101f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/118f3af101f) - Media Client APIs has been updated to use MediaSubscribable which provides subscription functionality (similar to RxJs observables).
@@ -428,7 +428,7 @@
 
 ### Minor Changes
 
-- [`30fffbfe4d6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/30fffbfe4d6) - Replaced Deprecated dependency @atlaskit/navigation-next with @atlaskit/side-navigation and styled-components
+- [#19019](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19019) [`30fffbfe4d6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/30fffbfe4d6) - Replaced Deprecated dependency @atlaskit/navigation-next with @atlaskit/side-navigation and styled-components
 - [`94539e589cc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/94539e589cc) - MEX-1105 Migrated @atlaskit/button to @atlaskit/button/standard-button
 
 ### Patch Changes
@@ -440,14 +440,14 @@
 
 ### Patch Changes
 
-- [`52e0cd4922c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/52e0cd4922c) - [ux] There is no more flash of the an image at 100% when media viewer is opening
+- [#18526](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/18526) [`52e0cd4922c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/52e0cd4922c) - [ux] There is no more flash of the an image at 100% when media viewer is opening
 - Updated dependencies
 
 ## 46.0.0
 
 ### Major Changes
 
-- [`47f58da5946`](https://bitbucket.org/atlassian/atlassian-frontend/commits/47f58da5946) - ED-13322, ED-13324, ED-13326, ED-13323, ED-13204: Upgrade and support react-intl@^5.18.1 including breaking API changes, types and tests in atlassian-frontend packages
+- [#14810](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/14810) [`47f58da5946`](https://bitbucket.org/atlassian/atlassian-frontend/commits/47f58da5946) - ED-13322, ED-13324, ED-13326, ED-13323, ED-13204: Upgrade and support react-intl@^5.18.1 including breaking API changes, types and tests in atlassian-frontend packages
 
   What changed: Upgraded our react-intl support from ^2.6.0 to ^5.18.1. This means editor packages now rely on consumers installing ^5.18.1, otherwise editor usage of react-intl will mismatch with actual installed react-intl APIs.
   Why change was made: As part of a coordinated upgrade effort across AF packages, as react-intl v2 is quite dated.
@@ -493,7 +493,7 @@
 
 ### Patch Changes
 
-- [`f124adcb18f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f124adcb18f) - Adding .md, .lock, .yaml, .yml, .tsx, .jsx as known extension types
+- [#15998](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/15998) [`f124adcb18f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f124adcb18f) - Adding .md, .lock, .yaml, .yml, .tsx, .jsx as known extension types
 - [`2b24fcc59f2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2b24fcc59f2) - Removed Code Viewer and Zip Previews Feature Flags
 - Updated dependencies
 
@@ -501,7 +501,7 @@
 
 ### Patch Changes
 
-- [`fe9ced0cd70`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fe9ced0cd70) - Removed feature flags for polling settings
+- [#14777](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/14777) [`fe9ced0cd70`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fe9ced0cd70) - Removed feature flags for polling settings
 - Updated dependencies
 
 ## 45.8.9
@@ -514,7 +514,7 @@
 
 ### Patch Changes
 
-- [`6947b4a26ca`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6947b4a26ca) - Remove newgen folder from media-viewer src, move files up a level
+- [#13864](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13864) [`6947b4a26ca`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6947b4a26ca) - Remove newgen folder from media-viewer src, move files up a level
 - [`4777a174e6d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4777a174e6d) - Added analytics support for customMediaPlayer + screen event + entrypoint for locales
 - [`5fe6e21a9a0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5fe6e21a9a0) - [ux] Upgrade to the latest version of @atlaskit/modal-dialog. This change includes shifting the primary button in the footer of the modal to be on the right instead of the left.
 - [`b90c0237824`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b90c0237824) - Update package.jsons to remove unused dependencies.
@@ -530,7 +530,7 @@
 
 ### Patch Changes
 
-- [`ce9b9a7f44a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ce9b9a7f44a) - Fixed errorDetail on failures of type "archiveviewer-docviewer-onerror"
+- [#12328](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12328) [`ce9b9a7f44a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ce9b9a7f44a) - Fixed errorDetail on failures of type "archiveviewer-docviewer-onerror"
 - [`10932f6ae07`](https://bitbucket.org/atlassian/atlassian-frontend/commits/10932f6ae07) - SPFE-561: Remove the URLSearchParams polyfill
 - Updated dependencies
 
@@ -538,28 +538,28 @@
 
 ### Patch Changes
 
-- [`8cba1694b5e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cba1694b5e) - Remove pollingMaxFailuresExceeded error from implementation and feature flags
+- [#11649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/11649) [`8cba1694b5e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cba1694b5e) - Remove pollingMaxFailuresExceeded error from implementation and feature flags
 - Updated dependencies
 
 ## 45.8.4
 
 ### Patch Changes
 
-- [`3cd9ee2d15b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3cd9ee2d15b) - Added RxJS compatiblity notice in Media docs
+- [#11113](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/11113) [`3cd9ee2d15b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3cd9ee2d15b) - Added RxJS compatiblity notice in Media docs
 - Updated dependencies
 
 ## 45.8.3
 
 ### Patch Changes
 
-- [`611e08796a4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/611e08796a4) - fix minor bugs with media-viewer::CodeViewer
+- [#10569](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10569) [`611e08796a4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/611e08796a4) - fix minor bugs with media-viewer::CodeViewer
 - Updated dependencies
 
 ## 45.8.2
 
 ### Patch Changes
 
-- [`277ed9667b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/277ed9667b2) - Fixed media bundle names following atlassian-frontend linting rules
+- [#10230](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10230) [`277ed9667b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/277ed9667b2) - Fixed media bundle names following atlassian-frontend linting rules
 - [`7ba7af04db8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7ba7af04db8) - Type fixes related to consumption of `@atlaskit/code`
 - Updated dependencies
 
@@ -567,7 +567,7 @@
 
 ### Patch Changes
 
-- [`6e055f5d3c8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6e055f5d3c8) - [ux] Fixing a UI bug where the header covered the first 3 lines of a text/codeviewer file for Jira specifically
+- [#9510](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9510) [`6e055f5d3c8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6e055f5d3c8) - [ux] Fixing a UI bug where the header covered the first 3 lines of a text/codeviewer file for Jira specifically
 - [`341311b4eb4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/341311b4eb4) - Fix double events firing for media-viewer when errorMessage is rendered twice
 - [`abc38bc9990`](https://bitbucket.org/atlassian/atlassian-frontend/commits/abc38bc9990) - Added request metadata to failed frontend SLIs
 - Updated dependencies
@@ -576,7 +576,7 @@
 
 ### Minor Changes
 
-- [`0a8ad595765`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0a8ad595765) - Further restrict primary and secondary error reasons in media-viewer
+- [#9083](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9083) [`0a8ad595765`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0a8ad595765) - Further restrict primary and secondary error reasons in media-viewer
 
 ### Patch Changes
 
@@ -587,7 +587,7 @@
 
 ### Minor Changes
 
-- [`1d09c9ed549`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1d09c9ed549) - refactor media-viewer for better analytics and error handling
+- [#8644](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8644) [`1d09c9ed549`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1d09c9ed549) - refactor media-viewer for better analytics and error handling
 
 ### Patch Changes
 
@@ -603,7 +603,7 @@
 
 ### Minor Changes
 
-- [`56693486a3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56693486a3) - [ux] Rate Limited UI for the MediaViewer. Also moved a MediaCard function into MediaClient so that that functionality can be used across multiple packages
+- [#6930](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/6930) [`56693486a3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56693486a3) - [ux] Rate Limited UI for the MediaViewer. Also moved a MediaCard function into MediaClient so that that functionality can be used across multiple packages
 
 ### Patch Changes
 
@@ -613,27 +613,27 @@
 
 ### Patch Changes
 
-- [`a67513394d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a67513394d) - Fixed media-viewer leaking JWT in Analytics
+- [#6571](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/6571) [`a67513394d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a67513394d) - Fixed media-viewer leaking JWT in Analytics
 - Updated dependencies
 
 ## 45.5.2
 
 ### Patch Changes
 
-- [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
+- [#5857](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5857) [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
 
 ## 45.5.1
 
 ### Patch Changes
 
-- [`b130ee1234`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b130ee1234) - handle non-200 responses for codeViewer
+- [#6228](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/6228) [`b130ee1234`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b130ee1234) - handle non-200 responses for codeViewer
 - Updated dependencies
 
 ## 45.5.0
 
 ### Minor Changes
 
-- [`1e59fd65c5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1e59fd65c5) - ED-8720 Add OnUnhandledClickHandler for Renderer
+- [#5860](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5860) [`1e59fd65c5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1e59fd65c5) - ED-8720 Add OnUnhandledClickHandler for Renderer
 
 ### Patch Changes
 
@@ -645,7 +645,7 @@
 
 ### Minor Changes
 
-- [`f2308ddb6d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f2308ddb6d) - COREX-2800 Fixed sidebar opening
+- [#5516](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5516) [`f2308ddb6d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f2308ddb6d) - COREX-2800 Fixed sidebar opening
 - [`73613210d4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/73613210d4) - Adding support for Code and Email files so that they are now able to be previewed in the viewer.
 
 ### Patch Changes
@@ -656,7 +656,7 @@
 
 ### Patch Changes
 
-- [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
+- [#5497](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5497) [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
   This requires version 3.8 of Typescript, read more about how we handle Typescript versions here: https://atlaskit.atlassian.com/get-started
   Also add `typescript` to `devDependencies` to denote version that the package was built with.
 
@@ -670,7 +670,7 @@
 
 ### Minor Changes
 
-- [`7d831363d9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7d831363d9) - Migrated to declarative entry points
+- [#4749](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4749) [`7d831363d9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7d831363d9) - Migrated to declarative entry points
 
 ### Patch Changes
 
@@ -686,7 +686,7 @@
 
 ### Minor Changes
 
-- [`f3ec9a3f14`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f3ec9a3f14) - Added analytics to zip previews
+- [#4424](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4424) [`f3ec9a3f14`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f3ec9a3f14) - Added analytics to zip previews
 - [`8fc5fe20df`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8fc5fe20df) - Inline video player as part of the card and video player in media-viewer will now store last viewed position between sessions for given media id
 - [`0837e7611b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0837e7611b) - Adding spinner to ArchiveViewer entry preview section
 
@@ -698,7 +698,7 @@
 
 ### Patch Changes
 
-- [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
+- [#3885](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3885) [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
 
   Since tslib is a dependency for all our packages we recommend that products also follow this tslib upgrade
   to prevent duplicates of tslib being bundled.
@@ -707,13 +707,13 @@
 
 ### Patch Changes
 
-- [`76165ad82f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/76165ad82f) - Bump required because of conflicts on wadmal release
+- [#4393](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4393) [`76165ad82f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/76165ad82f) - Bump required because of conflicts on wadmal release
 
 ## 45.1.0
 
 ### Minor Changes
 
-- [`65652ba165`](https://bitbucket.org/atlassian/atlassian-frontend/commits/65652ba165) - Added 15 new icons based on the mimetype (.sketch, .gif, ect). Previously, we only had 6 icons based on the mediaType (doc/audio/unknown/image/video). Also created a dedicated examples page for icons
+- [#3823](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3823) [`65652ba165`](https://bitbucket.org/atlassian/atlassian-frontend/commits/65652ba165) - Added 15 new icons based on the mimetype (.sketch, .gif, ect). Previously, we only had 6 icons based on the mediaType (doc/audio/unknown/image/video). Also created a dedicated examples page for icons
 - [`6faafb144c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6faafb144c) - Introduce MediaFeatureFlags. Refactor components to use.
 - [`af4a8c4262`](https://bitbucket.org/atlassian/atlassian-frontend/commits/af4a8c4262) - Added custom error message for encrypted zip file previews
 - [`8cfc88423a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cfc88423a) - Added more zip examples and added error handling for zip previews
@@ -735,14 +735,14 @@
 
 ### Patch Changes
 
-- [`9e63f0070f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9e63f0070f) - Fix HD Button (zooming on images bigger then 4K)
+- [#3428](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3428) [`9e63f0070f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9e63f0070f) - Fix HD Button (zooming on images bigger then 4K)
 - [`6bcdf043ae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6bcdf043ae) - Fixed flaky Media-Viewer integration tests
 
 ## 45.0.0
 
 ### Major Changes
 
-- [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
+- [#3335](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3335) [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
   For more information see: https://community.developer.atlassian.com/t/atlaskit-to-drop-support-for-internet-explorer-11-from-1st-july-2020/39534
 
 ### Patch Changes
@@ -753,21 +753,21 @@
 
 ### Patch Changes
 
-- [`b8b8a16490`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b8b8a16490) - added action and actionSubject to mediaViewerModal event, so that it won't be filtered out and will fire
+- [#2763](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2763) [`b8b8a16490`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b8b8a16490) - added action and actionSubject to mediaViewerModal event, so that it won't be filtered out and will fire
 - Updated dependencies
 
 ## 44.4.3
 
 ### Patch Changes
 
-- [`51aa5587ef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/51aa5587ef) - bump media-client: Remove stack traces from media analytic events
+- [#2443](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2443) [`51aa5587ef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/51aa5587ef) - bump media-client: Remove stack traces from media analytic events
 - Updated dependencies
 
 ## 44.4.2
 
 ### Patch Changes
 
-- [`a2ffde361d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a2ffde361d) - MPT-131: fetch remote preview for files not supported by the browser
+- [#2137](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2137) [`a2ffde361d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a2ffde361d) - MPT-131: fetch remote preview for files not supported by the browser
 - [`cc5935bf4f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cc5935bf4f) - Use MediaTypeIcon from media-ui
 - [`54d82b49f0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54d82b49f0) - Remove unused dependencies
 - [`98f462e2aa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/98f462e2aa) - Bumping use the latest version of @atlaskit/spinner

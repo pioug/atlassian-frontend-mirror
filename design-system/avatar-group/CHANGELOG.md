@@ -4,68 +4,68 @@
 
 ### Patch Changes
 
-- [`6900f89eb0e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6900f89eb0e) - Internal changes to use space tokens. There is no expected visual or behaviour change.
+- [#39787](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39787) [`6900f89eb0e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6900f89eb0e) - Internal changes to use space tokens. There is no expected visual or behaviour change.
 
 ## 9.4.2
 
 ### Patch Changes
 
-- [`3c114ea4257`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3c114ea4257) - Update type definitions to conform to inherited changes from `@types/react@16.14.15`.
+- [#39128](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39128) [`3c114ea4257`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3c114ea4257) - Update type definitions to conform to inherited changes from `@types/react@16.14.15`.
 
 ## 9.4.1
 
 ### Patch Changes
 
-- [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
+- [#38162](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38162) [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
 - Updated dependencies
 
 ## 9.4.0
 
 ### Minor Changes
 
-- [`da7b6be2540`](https://bitbucket.org/atlassian/atlassian-frontend/commits/da7b6be2540) - Fixed keyboard support for the interactive element. Changed span to button for avatar-group
+- [#38166](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38166) [`da7b6be2540`](https://bitbucket.org/atlassian/atlassian-frontend/commits/da7b6be2540) - Fixed keyboard support for the interactive element. Changed span to button for avatar-group
 
 ## 9.3.6
 
 ### Patch Changes
 
-- [`71b58da4e00`](https://bitbucket.org/atlassian/atlassian-frontend/commits/71b58da4e00) - set focus to the first avatar when popup is open
+- [#36809](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36809) [`71b58da4e00`](https://bitbucket.org/atlassian/atlassian-frontend/commits/71b58da4e00) - set focus to the first avatar when popup is open
 
 ## 9.3.5
 
 ### Patch Changes
 
-- [`4ae083a7e66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ae083a7e66) - Use `@af/accessibility-testing` for default jest-axe config and jest-axe import in accessibility testing.
+- [#36754](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36754) [`4ae083a7e66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ae083a7e66) - Use `@af/accessibility-testing` for default jest-axe config and jest-axe import in accessibility testing.
 
 ## 9.3.4
 
 ### Patch Changes
 
-- [`cb7033c5b72`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb7033c5b72) - keyboard arrow (UP and DOWN) support in avatar-group popup component
+- [#33250](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33250) [`cb7033c5b72`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb7033c5b72) - keyboard arrow (UP and DOWN) support in avatar-group popup component
 
 ## 9.3.3
 
 ### Patch Changes
 
-- [`e7ea6832ad2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e7ea6832ad2) - Bans the use of React.FC/React.FunctionComponent type in ADS components as part of the React 18 migration work. The change is internal only and should not introduce any changes for the component consumers.
+- [#33652](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33652) [`e7ea6832ad2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e7ea6832ad2) - Bans the use of React.FC/React.FunctionComponent type in ADS components as part of the React 18 migration work. The change is internal only and should not introduce any changes for the component consumers.
 
 ## 9.3.2
 
 ### Patch Changes
 
-- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793) [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
 
 ## 9.3.1
 
 ### Patch Changes
 
-- [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649) [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
 
 ## 9.3.0
 
 ### Minor Changes
 
-- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258) [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
 
 ### Patch Changes
 
@@ -75,7 +75,7 @@
 
 ### Patch Changes
 
-- [`a8a1fe824b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a8a1fe824b0) - Removed unused prop `enableTooltip` and fixed tooltip toggle in examples.
+- [#30248](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/30248) [`a8a1fe824b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a8a1fe824b0) - Removed unused prop `enableTooltip` and fixed tooltip toggle in examples.
 - Updated dependencies
 
 ## 9.2.3
@@ -88,19 +88,19 @@
 
 ### Patch Changes
 
-- [`18aeca8c199`](https://bitbucket.org/atlassian/atlassian-frontend/commits/18aeca8c199) - Internal change to update token references. There is no expected behaviour or visual change.
+- [#29390](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/29390) [`18aeca8c199`](https://bitbucket.org/atlassian/atlassian-frontend/commits/18aeca8c199) - Internal change to update token references. There is no expected behaviour or visual change.
 
 ## 9.2.1
 
 ### Patch Changes
 
-- [`b0f6dd0bc35`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b0f6dd0bc35) - Updated to use typography tokens. There is no expected behaviour or visual change.
+- [#28064](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28064) [`b0f6dd0bc35`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b0f6dd0bc35) - Updated to use typography tokens. There is no expected behaviour or visual change.
 
 ## 9.2.0
 
 ### Minor Changes
 
-- [`3f8f08a1888`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3f8f08a1888) - Updating Avatar-group component to position the tooltip either to top or bottom based on configuration.
+- [#28090](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28090) [`3f8f08a1888`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3f8f08a1888) - Updating Avatar-group component to position the tooltip either to top or bottom based on configuration.
 
 ## 9.1.4
 
@@ -124,13 +124,13 @@
 
 ### Patch Changes
 
-- [`bc989043572`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bc989043572) - Internal changes to apply spacing tokens. This should be a no-op change.
+- [#26488](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26488) [`bc989043572`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bc989043572) - Internal changes to apply spacing tokens. This should be a no-op change.
 
 ## 9.1.0
 
 ### Minor Changes
 
-- [`110fb3a5f19`](https://bitbucket.org/atlassian/atlassian-frontend/commits/110fb3a5f19) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behaviour change.
+- [#24710](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24710) [`110fb3a5f19`](https://bitbucket.org/atlassian/atlassian-frontend/commits/110fb3a5f19) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behaviour change.
 
 ### Patch Changes
 
@@ -140,32 +140,32 @@
 
 ### Patch Changes
 
-- [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
+- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874) [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
 
 ## 9.0.3
 
 ### Patch Changes
 
-- [`4bc286406f2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4bc286406f2) - [ux] Update more indicator icon to use new design tokens and remove the unnecessary use of the :after element with regards to the consumption of the Avatar component.
+- [#24004](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24004) [`4bc286406f2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4bc286406f2) - [ux] Update more indicator icon to use new design tokens and remove the unnecessary use of the :after element with regards to the consumption of the Avatar component.
 - Updated dependencies
 
 ## 9.0.2
 
 ### Patch Changes
 
-- [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
+- [#24492](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24492) [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
 
 ## 9.0.1
 
 ### Patch Changes
 
-- [`45ebe7af434`](https://bitbucket.org/atlassian/atlassian-frontend/commits/45ebe7af434) - Moved to using declarative entrypoints internally. Public API is unchanged.
+- [#22642](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22642) [`45ebe7af434`](https://bitbucket.org/atlassian/atlassian-frontend/commits/45ebe7af434) - Moved to using declarative entrypoints internally. Public API is unchanged.
 
 ## 9.0.0
 
 ### Major Changes
 
-- [`92bb02bc46b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/92bb02bc46b) - [ux] There are **no code changes required** to consume this major, but you should be aware that internal changes have been made to how `@atlaskit/avatar` loads images.
+- [#21570](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21570) [`92bb02bc46b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/92bb02bc46b) - [ux] There are **no code changes required** to consume this major, but you should be aware that internal changes have been made to how `@atlaskit/avatar` loads images.
 
   Before, the image loading behaviour was written in JS. Now, it leans on a standard HTML `img` tag if you provide a `src` prop, allowing it to rely on the browser to optimise the loading. These changes should result in faster image loading and an improved server-side rendering story.
 
@@ -180,7 +180,7 @@
 
 ### Patch Changes
 
-- [`efa50ac72ba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/efa50ac72ba) - Adjusts jsdoc strings to improve prop documentation
+- [#21545](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21545) [`efa50ac72ba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/efa50ac72ba) - Adjusts jsdoc strings to improve prop documentation
 
 ## 8.5.14
 
@@ -192,7 +192,7 @@
 
 ### Patch Changes
 
-- [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
+- [#20650](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20650) [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
 
 ## 8.5.12
 
@@ -204,7 +204,7 @@
 
 ### Patch Changes
 
-- [`b2f8af359cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b2f8af359cf) - Rewrite dynamic styles to be static to aid compiled migration.
+- [#19618](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19618) [`b2f8af359cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b2f8af359cf) - Rewrite dynamic styles to be static to aid compiled migration.
 - [`62edf20ab1e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/62edf20ab1e) - Migrates all usage of brand tokens to either selected or information tokens. This change is purely for semantic reasons, there are no visual or behavioural changes.
 - Updated dependencies
 
@@ -218,7 +218,7 @@
 
 ### Patch Changes
 
-- [`58884c2f6c1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/58884c2f6c1) - Internal code change turning on a new linting rule.
+- [#16752](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16752) [`58884c2f6c1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/58884c2f6c1) - Internal code change turning on a new linting rule.
 
 ## 8.5.8
 
@@ -237,27 +237,27 @@
 
 ### Patch Changes
 
-- [`c55c736ecea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c55c736ecea) - Patch VULN AFP-3486 AFP-3487 AFP-3488 AFP-3489
+- [#17475](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/17475) [`c55c736ecea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c55c736ecea) - Patch VULN AFP-3486 AFP-3487 AFP-3488 AFP-3489
 
 ## 8.5.5
 
 ### Patch Changes
 
-- [`f460cc7c411`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f460cc7c411) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving bundle size.
+- [#15998](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/15998) [`f460cc7c411`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f460cc7c411) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving bundle size.
 - Updated dependencies
 
 ## 8.5.4
 
 ### Patch Changes
 
-- [`2b98dfda0a6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2b98dfda0a6) - Removes `@emotion/styled` in favour of `@emotion/core`.
+- [#14777](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/14777) [`2b98dfda0a6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2b98dfda0a6) - Removes `@emotion/styled` in favour of `@emotion/core`.
 - Updated dependencies
 
 ## 8.5.3
 
 ### Patch Changes
 
-- [`34282240102`](https://bitbucket.org/atlassian/atlassian-frontend/commits/34282240102) - Adds explicit type to button usages components.
+- [#15632](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/15632) [`34282240102`](https://bitbucket.org/atlassian/atlassian-frontend/commits/34282240102) - Adds explicit type to button usages components.
 
 ## 8.5.2
 
@@ -275,7 +275,7 @@
 
 ### Minor Changes
 
-- [`016d19b8038`](https://bitbucket.org/atlassian/atlassian-frontend/commits/016d19b8038) - [ux] When avatar's are disabled their tooltip will no longer be displayed.
+- [#13864](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13864) [`016d19b8038`](https://bitbucket.org/atlassian/atlassian-frontend/commits/016d19b8038) - [ux] When avatar's are disabled their tooltip will no longer be displayed.
 
 ### Patch Changes
 
@@ -285,7 +285,7 @@
 
 ### Minor Changes
 
-- [`c79bc186958`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c79bc186958) - [ux] Colors are now sourced through tokens.
+- [#13302](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13302) [`c79bc186958`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c79bc186958) - [ux] Colors are now sourced through tokens.
 
 ### Patch Changes
 
@@ -296,7 +296,7 @@
 
 ### Patch Changes
 
-- [`0d0ecc6e790`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0d0ecc6e790) - Corrects eslint supressions.
+- [#12837](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12837) [`0d0ecc6e790`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0d0ecc6e790) - Corrects eslint supressions.
 - [`9a84a3ceb82`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9a84a3ceb82) - Internal code changes.
 - Updated dependencies
 
@@ -304,13 +304,13 @@
 
 ### Patch Changes
 
-- [`378d1cef00f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/378d1cef00f) - Bump `@atlaskit/theme` to version `^11.3.0`.
+- [#12880](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12880) [`378d1cef00f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/378d1cef00f) - Bump `@atlaskit/theme` to version `^11.3.0`.
 
 ## 8.3.0
 
 ### Minor Changes
 
-- [`5ba523fc937`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5ba523fc937) - Now the `AvatarGroup` is marked with ul and li elements. This makes it easier for users with assistive technologies to distinguish `AvatarGroup` ( which is a list of avatars ) among other page components. The default label that the screen reader announces when a user selects the AvatarGroup is `list avatar group x items`. When one of AvatarGroupItems is selected screen reader announcement is `[avatar label], i of n` where `i` - index of a selected item, `n` - the length of the list.
+- [#12328](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12328) [`5ba523fc937`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5ba523fc937) - Now the `AvatarGroup` is marked with ul and li elements. This makes it easier for users with assistive technologies to distinguish `AvatarGroup` ( which is a list of avatars ) among other page components. The default label that the screen reader announces when a user selects the AvatarGroup is `list avatar group x items`. When one of AvatarGroupItems is selected screen reader announcement is `[avatar label], i of n` where `i` - index of a selected item, `n` - the length of the list.
 
   To change the label of a list you can use `label` props.
 
@@ -324,7 +324,7 @@
 
 ### Minor Changes
 
-- [`8f84c89cad5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f84c89cad5) - [ux] The styles of overflow button of avatar group has been aligned with default button styles. Also, contrast issue of the button has been fixed.
+- [#11113](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/11113) [`8f84c89cad5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f84c89cad5) - [ux] The styles of overflow button of avatar group has been aligned with default button styles. Also, contrast issue of the button has been fixed.
 
 ### Patch Changes
 
@@ -340,7 +340,7 @@
 
 ### Minor Changes
 
-- [`c40dcf42d93`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c40dcf42d93) - [ux] Added passing an empty name prop to Avatar in the AvararGroupItem that is used for overflow dropdown menu. Screen reader does not announce name twice now.
+- [#10230](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10230) [`c40dcf42d93`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c40dcf42d93) - [ux] Added passing an empty name prop to Avatar in the AvararGroupItem that is used for overflow dropdown menu. Screen reader does not announce name twice now.
 
 ### Patch Changes
 
@@ -350,13 +350,13 @@
 
 ### Patch Changes
 
-- [`dd0ddc74ee4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dd0ddc74ee4) - Support onClick handlers on anchor elements in Avatar Group
+- [#8644](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8644) [`dd0ddc74ee4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dd0ddc74ee4) - Support onClick handlers on anchor elements in Avatar Group
 
 ## 8.0.14
 
 ### Patch Changes
 
-- [`952019cfd39`](https://bitbucket.org/atlassian/atlassian-frontend/commits/952019cfd39) - Removed extraneous/unnecessary dependencies for design system components.
+- [#7762](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/7762) [`952019cfd39`](https://bitbucket.org/atlassian/atlassian-frontend/commits/952019cfd39) - Removed extraneous/unnecessary dependencies for design system components.
 
 ## 8.0.13
 
@@ -368,19 +368,19 @@
 
 ### Patch Changes
 
-- [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
+- [#5857](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5857) [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
 
 ## 8.0.11
 
 ### Patch Changes
 
-- [`07fcbf76b3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/07fcbf76b3) - [ux] `avatar-group` now renders properly when used in a `modal-dialog`. The overflow menu is visible above the modal content.
+- [#5620](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5620) [`07fcbf76b3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/07fcbf76b3) - [ux] `avatar-group` now renders properly when used in a `modal-dialog`. The overflow menu is visible above the modal content.
 
 ## 8.0.10
 
 ### Patch Changes
 
-- [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
+- [#5497](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5497) [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
   This requires version 3.8 of Typescript, read more about how we handle Typescript versions here: https://atlaskit.atlassian.com/get-started
   Also add `typescript` to `devDependencies` to denote version that the package was built with.
 
@@ -394,7 +394,7 @@
 
 ### Patch Changes
 
-- [`19d7d96007`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d7d96007) - [ux] Now AvatarGroup wouldn't create non-interactive buttons in case there is no action provided
+- [#4749](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4749) [`19d7d96007`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d7d96007) - [ux] Now AvatarGroup wouldn't create non-interactive buttons in case there is no action provided
 
 ## 8.0.7
 
@@ -406,7 +406,7 @@
 
 ### Patch Changes
 
-- [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
+- [#3885](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3885) [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
 
   Since tslib is a dependency for all our packages we recommend that products also follow this tslib upgrade
   to prevent duplicates of tslib being bundled.
@@ -415,14 +415,14 @@
 
 ### Patch Changes
 
-- [`6262f382de`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6262f382de) - Use the 'lodash' package instead of single-function 'lodash.\*' packages
+- [#3823](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3823) [`6262f382de`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6262f382de) - Use the 'lodash' package instead of single-function 'lodash.\*' packages
 - Updated dependencies
 
 ## 8.0.4
 
 ### Patch Changes
 
-- [`954cc87b62`](https://bitbucket.org/atlassian/atlassian-frontend/commits/954cc87b62) - The readme and package information has been updated to point to the new design system website.
+- [#3293](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3293) [`954cc87b62`](https://bitbucket.org/atlassian/atlassian-frontend/commits/954cc87b62) - The readme and package information has been updated to point to the new design system website.
 
 ## 8.0.3
 
@@ -434,19 +434,19 @@
 
 ### Patch Changes
 
-- [`3a919f4263`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3a919f4263) - Fixed .name being used as a key for AvatarGroup Tooltip's
+- [#3048](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3048) [`3a919f4263`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3a919f4263) - Fixed .name being used as a key for AvatarGroup Tooltip's
 
 ## 8.0.1
 
 ### Patch Changes
 
-- [`ab9503b252`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ab9503b252) - Ensure moreButtonProps is passed through to the MoreButton
+- [#3804](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3804) [`ab9503b252`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ab9503b252) - Ensure moreButtonProps is passed through to the MoreButton
 
 ## 8.0.0
 
 ### Major Changes
 
-- [`cde426961a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cde426961a) - `AvatarGroup` has been migrated to **lite-mode**. Users should see performance improvements and reduced bundlesize.
+- [#3428](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3428) [`cde426961a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cde426961a) - `AvatarGroup` has been migrated to **lite-mode**. Users should see performance improvements and reduced bundlesize.
 
   **Change summary:**
 
@@ -474,13 +474,13 @@
 
 ### Patch Changes
 
-- [`ae57cd8744`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ae57cd8744) - Assignment of key for AvatarGroup children made user driven now and using Array.index as a fallback, which fixes the unique key issue in AvaratGroup.
+- [#3363](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3363) [`ae57cd8744`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ae57cd8744) - Assignment of key for AvatarGroup children made user driven now and using Array.index as a fallback, which fixes the unique key issue in AvaratGroup.
 
 ## 7.0.0
 
 ### Major Changes
 
-- [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
+- [#3335](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3335) [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
   For more information see: https://community.developer.atlassian.com/t/atlaskit-to-drop-support-for-internet-explorer-11-from-1st-july-2020/39534
 
 ### Patch Changes
@@ -491,25 +491,25 @@
 
 ### Patch Changes
 
-- [`e91d934e94`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e91d934e94) - Using avatar.name + index as key for AvatarGroup
+- [#2443](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2443) [`e91d934e94`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e91d934e94) - Using avatar.name + index as key for AvatarGroup
 
 ## 6.0.2
 
 ### Patch Changes
 
-- [`54a9514fcf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54a9514fcf) - Build and supporting files will no longer be published to npm
+- [#2866](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2866) [`54a9514fcf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54a9514fcf) - Build and supporting files will no longer be published to npm
 
 ## 6.0.1
 
 ### Patch Changes
 
-- [`2daf5b6054`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2daf5b6054) - AvatarGroup will now send the index of the clicked item via the onAvatarClick event handler
+- [#2794](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2794) [`2daf5b6054`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2daf5b6054) - AvatarGroup will now send the index of the clicked item via the onAvatarClick event handler
 
 ## 6.0.0
 
 ### Major Changes
 
-- [`a7ca7039c7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a7ca7039c7) - AvatarGroup previously depended heavily on Avatar internals such as styles, `getProps` and `withPseudoState`. These have been moved directly into AvatarGroup to finally decouple the two components. We will revisit this when we convert AvatarGroup to lite-mode and most likely remove them entirely.
+- [#2137](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2137) [`a7ca7039c7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a7ca7039c7) - AvatarGroup previously depended heavily on Avatar internals such as styles, `getProps` and `withPseudoState`. These have been moved directly into AvatarGroup to finally decouple the two components. We will revisit this when we convert AvatarGroup to lite-mode and most likely remove them entirely.
 
   Previously, it was possible to pass arbritray props to the underlying Avatar via the `data` prop. This is no longer supported. Please pass props directly to the custom avatar / presence / status components.
 

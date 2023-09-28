@@ -10,13 +10,13 @@ describe('TextArea', () => {
       it('should sets textarea as disabled', () => {
         const { getByTestId } = render(<TextArea isDisabled testId="test" />);
         const textarea = getByTestId('test') as HTMLTextAreaElement;
-        expect(textarea.disabled).toBe(true);
+        expect(textarea).toBeDisabled();
       });
 
       it('should not set textarea as disabled', () => {
         const { getByTestId } = render(<TextArea testId="test" />);
         const textarea = getByTestId('test') as HTMLTextAreaElement;
-        expect(textarea.disabled).toBe(false);
+        expect(textarea).toBeEnabled();
       });
     });
 
@@ -38,12 +38,12 @@ describe('TextArea', () => {
       it('should set textarea as required', () => {
         const { getByTestId } = render(<TextArea testId="test" isRequired />);
         const textarea = getByTestId('test') as HTMLTextAreaElement;
-        expect(textarea.required).toBe(true);
+        expect(textarea).toBeRequired();
       });
       it('should not set textarea as required', () => {
         const { getByTestId } = render(<TextArea testId="test" />);
         const textarea = getByTestId('test') as HTMLTextAreaElement;
-        expect(textarea.required).toBe(false);
+        expect(textarea).not.toBeRequired();
       });
     });
 
@@ -71,7 +71,7 @@ describe('TextArea', () => {
       it('should enable textarea spellcheck', () => {
         const { getByTestId } = render(<TextArea testId="test" spellCheck />);
         const textarea = getByTestId('test') as HTMLTextAreaElement;
-        expect(textarea.getAttribute('spellcheck')).toBe('true');
+        expect(textarea).toHaveAttribute('spellcheck', 'true');
       });
 
       it('should not enable textarea spellcheck', () => {
@@ -79,7 +79,7 @@ describe('TextArea', () => {
           <TextArea testId="test" spellCheck={false} />,
         );
         const textarea = getByTestId('test') as HTMLTextAreaElement;
-        expect(textarea.getAttribute('spellcheck')).toBe('false');
+        expect(textarea).toHaveAttribute('spellcheck', 'false');
       });
     });
 
@@ -89,7 +89,7 @@ describe('TextArea', () => {
           <TextArea testId="test" placeholder="test placeholder" />,
         );
         const textarea = getByTestId('test') as HTMLTextAreaElement;
-        expect(textarea.getAttribute('placeholder')).toBe('test placeholder');
+        expect(textarea).toHaveAttribute('placeholder', 'test placeholder');
       });
     });
 
@@ -99,7 +99,7 @@ describe('TextArea', () => {
           <TextArea testId="test" name="test name" />,
         );
         const textarea = getByTestId('test') as HTMLTextAreaElement;
-        expect(textarea.getAttribute('name')).toBe('test name');
+        expect(textarea).toHaveAttribute('name', 'test name');
       });
     });
   });
@@ -161,7 +161,7 @@ describe('TextArea', () => {
         <TextArea testId="test" data-foo="text-area-bar" />,
       );
       const textarea = getByTestId('test') as HTMLTextAreaElement;
-      expect(textarea.getAttribute('data-foo')).toBe('text-area-bar');
+      expect(textarea).toHaveAttribute('data-foo', 'text-area-bar');
     });
 
     it('should use ref prop when resize is smart', () => {

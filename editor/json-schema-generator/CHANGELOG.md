@@ -4,85 +4,85 @@
 
 ### Patch Changes
 
-- [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
+- [#38162](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38162) [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
 
 ## 3.3.5
 
 ### Patch Changes
 
-- [`7b00632e7a8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7b00632e7a8) - npm ignore files, fix ts-node dep, add logic to determine if in monorepo
+- [#37403](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37403) [`7b00632e7a8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7b00632e7a8) - npm ignore files, fix ts-node dep, add logic to determine if in monorepo
 
 ## 3.3.4
 
 ### Patch Changes
 
-- [`bd1126bb798`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bd1126bb798) - Change transpilation to static for json-schema-generator
+- [#37259](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37259) [`bd1126bb798`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bd1126bb798) - Change transpilation to static for json-schema-generator
 
 ## 3.3.3
 
 ### Patch Changes
 
-- [`e40395c82d9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e40395c82d9) - Attempt to publish json-schema-generator to the greater world
+- [#37199](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37199) [`e40395c82d9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e40395c82d9) - Attempt to publish json-schema-generator to the greater world
 
 ## 3.3.2
 
 ### Patch Changes
 
-- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793) [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
 
 ## 3.3.1
 
 ### Patch Changes
 
-- [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649) [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
 
 ## 3.3.0
 
 ### Minor Changes
 
-- [`0088e374340`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0088e374340) - Returning promise from function in index.js so that it can write the output to files before process exits from cli.js
+- [#26802](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26802) [`0088e374340`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0088e374340) - Returning promise from function in index.js so that it can write the output to files before process exits from cli.js
 
 ## 3.2.4
 
 ### Patch Changes
 
-- [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
+- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874) [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
 
 ## 3.2.3
 
 ### Patch Changes
 
-- [`2d1e14605e2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2d1e14605e2) - This fixes the error “doc_node not found in the added definitions” that was breaking the json-schema generation script in adf-schema. In addition, it fixes the bug due to which the build process was failing silently on this error.
+- [#25150](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/25150) [`2d1e14605e2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2d1e14605e2) - This fixes the error “doc_node not found in the added definitions” that was breaking the json-schema generation script in adf-schema. In addition, it fixes the bug due to which the build process was failing silently on this error.
 
 ## 3.2.2
 
 ### Patch Changes
 
-- [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
+- [#24492](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24492) [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
 
 ## 3.2.1
 
 ### Patch Changes
 
-- [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
+- [#20650](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20650) [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
 
 ## 3.2.0
 
 ### Minor Changes
 
-- [`83154234335`](https://bitbucket.org/atlassian/atlassian-frontend/commits/83154234335) - ED-13522 Add safe URL check to ADF validator (smart cards now show as unsupported content if the check fails)
+- [#15998](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/15998) [`83154234335`](https://bitbucket.org/atlassian/atlassian-frontend/commits/83154234335) - ED-13522 Add safe URL check to ADF validator (smart cards now show as unsupported content if the check fails)
 
 ## 3.1.3
 
 ### Patch Changes
 
-- [`4fdb9762af`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4fdb9762af) - ED-10792: allow shouldExclude() to work on enum values
+- [#6228](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/6228) [`4fdb9762af`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4fdb9762af) - ED-10792: allow shouldExclude() to work on enum values
 
 ## 3.1.2
 
 ### Patch Changes
 
-- [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
+- [#5497](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5497) [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
   This requires version 3.8 of Typescript, read more about how we handle Typescript versions here: https://atlaskit.atlassian.com/get-started
   Also add `typescript` to `devDependencies` to denote version that the package was built with.
 
@@ -90,7 +90,7 @@
 
 ### Patch Changes
 
-- [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
+- [#3885](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3885) [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
 
   Since tslib is a dependency for all our packages we recommend that products also follow this tslib upgrade
   to prevent duplicates of tslib being bundled.
@@ -99,7 +99,7 @@
 
 ### Minor Changes
 
-- [`abce19a6d1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/abce19a6d1) - ED-9599 Add proper support for Tuple with `typescript` `TupleType`
+- [#3823](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3823) [`abce19a6d1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/abce19a6d1) - ED-9599 Add proper support for Tuple with `typescript` `TupleType`
 
   Array spec now has an optional `isTuple` property.
 
@@ -111,7 +111,7 @@
 
 ### Major Changes
 
-- [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
+- [#3335](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3335) [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
   For more information see: https://community.developer.atlassian.com/t/atlaskit-to-drop-support-for-internet-explorer-11-from-1st-july-2020/39534
 
 ## 2.3.0

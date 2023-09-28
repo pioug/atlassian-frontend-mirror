@@ -4,79 +4,79 @@
 
 ### Patch Changes
 
-- [`b580abfbc29`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b580abfbc29) - Remove onClick from checkbox label
+- [#38875](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38875) [`b580abfbc29`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b580abfbc29) - Remove onClick from checkbox label
 
 ## 12.6.10
 
 ### Patch Changes
 
-- [`9af31f3c1ae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9af31f3c1ae) - Delete version.json
+- [#38731](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38731) [`9af31f3c1ae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9af31f3c1ae) - Delete version.json
 
 ## 12.6.9
 
 ### Patch Changes
 
-- [`356d6ebed05`](https://bitbucket.org/atlassian/atlassian-frontend/commits/356d6ebed05) - This package is now onboarded onto the product push model.
+- [#38201](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38201) [`356d6ebed05`](https://bitbucket.org/atlassian/atlassian-frontend/commits/356d6ebed05) - This package is now onboarded onto the product push model.
 
 ## 12.6.8
 
 ### Patch Changes
 
-- [`ba0a43d8ccc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ba0a43d8ccc) - [ux] update focused color fallback to meet contrast requirement
+- [#37615](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37615) [`ba0a43d8ccc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ba0a43d8ccc) - [ux] update focused color fallback to meet contrast requirement
 
 ## 12.6.7
 
 ### Patch Changes
 
-- [`9cc3b8d1902`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9cc3b8d1902) - chore(checkbox): use new feature flag for border contrast
+- [#37452](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37452) [`9cc3b8d1902`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9cc3b8d1902) - chore(checkbox): use new feature flag for border contrast
 
 ## 12.6.6
 
 ### Patch Changes
 
-- [`4ae083a7e66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ae083a7e66) - Use `@af/accessibility-testing` for default jest-axe config and jest-axe import in accessibility testing.
+- [#36754](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36754) [`4ae083a7e66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ae083a7e66) - Use `@af/accessibility-testing` for default jest-axe config and jest-axe import in accessibility testing.
 
 ## 12.6.5
 
 ### Patch Changes
 
-- [`3958636a718`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3958636a718) - update border width with border spacing token
+- [#36666](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36666) [`3958636a718`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3958636a718) - update border width with border spacing token
 
 ## 12.6.4
 
 ### Patch Changes
 
-- [`8f436f0c301`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f436f0c301) - extend border contrast feature flag to support confluence
+- [#35111](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35111) [`8f436f0c301`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f436f0c301) - extend border contrast feature flag to support confluence
 
 ## 12.6.3
 
 ### Patch Changes
 
-- [`49b08bfdf5f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/49b08bfdf5f) - Migrated use of `gridSize` to space tokens where possible. There is no expected visual or behaviour change.
+- [#34051](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34051) [`49b08bfdf5f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/49b08bfdf5f) - Migrated use of `gridSize` to space tokens where possible. There is no expected visual or behaviour change.
 
 ## 12.6.2
 
 ### Patch Changes
 
-- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793) [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
 
 ## 12.6.1
 
 ### Patch Changes
 
-- [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649) [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
 
 ## 12.6.0
 
 ### Minor Changes
 
-- [`8d0fd2d3f6c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d0fd2d3f6c) - [ux] reduce stroke width from 2px to 1px with new color to meet contrast requirement
+- [#33335](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33335) [`8d0fd2d3f6c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d0fd2d3f6c) - [ux] reduce stroke width from 2px to 1px with new color to meet contrast requirement
 
 ## 12.5.0
 
 ### Minor Changes
 
-- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258) [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
 
 ### Patch Changes
 
@@ -110,7 +110,7 @@
 
 ### Patch Changes
 
-- [`ed1b0fd2c2d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ed1b0fd2c2d) - [ux] Removes redundant whitespace from checkbox when no visual label is applied - eg when an aria-label or id is used instead.
+- [#27738](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/27738) [`ed1b0fd2c2d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ed1b0fd2c2d) - [ux] Removes redundant whitespace from checkbox when no visual label is applied - eg when an aria-label or id is used instead.
 
 ## 12.4.1
 
@@ -122,7 +122,7 @@
 
 ### Minor Changes
 
-- [`0944c0e7eed`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0944c0e7eed) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behavior change.
+- [#24710](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24710) [`0944c0e7eed`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0944c0e7eed) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behavior change.
 
 ### Patch Changes
 
@@ -132,32 +132,32 @@
 
 ### Patch Changes
 
-- [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
+- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874) [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
 
 ## 12.3.19
 
 ### Patch Changes
 
-- [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
+- [#24492](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24492) [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
 
 ## 12.3.18
 
 ### Patch Changes
 
-- [`fe575d49d66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fe575d49d66) - Updated styles to use new input design tokens
+- [#23381](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23381) [`fe575d49d66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fe575d49d66) - Updated styles to use new input design tokens
 - Updated dependencies
 
 ## 12.3.17
 
 ### Patch Changes
 
-- [`90e89e12034`](https://bitbucket.org/atlassian/atlassian-frontend/commits/90e89e12034) - [ux] Updated colors to use appropriate tokens
+- [#23299](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23299) [`90e89e12034`](https://bitbucket.org/atlassian/atlassian-frontend/commits/90e89e12034) - [ux] Updated colors to use appropriate tokens
 
 ## 12.3.16
 
 ### Patch Changes
 
-- [`f55cf469372`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f55cf469372) - Added id property to the checkbox label for compatibility with aria-labelledby
+- [#23179](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23179) [`f55cf469372`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f55cf469372) - Added id property to the checkbox label for compatibility with aria-labelledby
 
 ## 12.3.15
 
@@ -169,7 +169,7 @@
 
 ### Patch Changes
 
-- [`ff75f6c3189`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ff75f6c3189) - [ux] Checkbox now uses grid layout in order to position the hidden checkbox over the area where the icon is. This improves the virtual cursor for screen readers while also meaning that modifier keys used when clicking the checkbox work."
+- [#22130](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22130) [`ff75f6c3189`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ff75f6c3189) - [ux] Checkbox now uses grid layout in order to position the hidden checkbox over the area where the icon is. This improves the virtual cursor for screen readers while also meaning that modifier keys used when clicking the checkbox work."
 
 ## 12.3.13
 
@@ -181,7 +181,7 @@
 
 ### Patch Changes
 
-- [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
+- [#20650](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20650) [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
 
 ## 12.3.11
 
@@ -205,14 +205,14 @@
 
 ### Patch Changes
 
-- [`5d27b03c5cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5d27b03c5cf) - Styles have been rewritten in preparation for migration to compiled.
+- [#18526](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/18526) [`5d27b03c5cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5d27b03c5cf) - Styles have been rewritten in preparation for migration to compiled.
 - Updated dependencies
 
 ## 12.3.7
 
 ### Patch Changes
 
-- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Updates usage of deprecated token names so they're aligned with the latest naming conventions. No UI or visual changes
+- [#16752](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16752) [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Updates usage of deprecated token names so they're aligned with the latest naming conventions. No UI or visual changes
 - Updated dependencies
 
 ## 12.3.6
@@ -225,7 +225,7 @@
 
 ### Patch Changes
 
-- [`f460cc7c411`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f460cc7c411) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving bundle size.
+- [#15998](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/15998) [`f460cc7c411`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f460cc7c411) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving bundle size.
 - Updated dependencies
 
 ## 12.3.4
@@ -250,14 +250,14 @@
 
 ### Patch Changes
 
-- [`6e2231d4609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6e2231d4609) - Checkbox no longer creates an empty `<span/>` element next to the input if no label is provided.
+- [#13864](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13864) [`6e2231d4609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6e2231d4609) - Checkbox no longer creates an empty `<span/>` element next to the input if no label is provided.
 - Updated dependencies
 
 ## 12.3.0
 
 ### Minor Changes
 
-- [`fe79d66ea34`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fe79d66ea34) - Instruments checkbox with the new tokens api. This will continue to work alongside the existing theming implementation. No visual changes
+- [#13302](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13302) [`fe79d66ea34`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fe79d66ea34) - Instruments checkbox with the new tokens api. This will continue to work alongside the existing theming implementation. No visual changes
 
 ### Patch Changes
 
@@ -269,20 +269,20 @@
 
 ### Patch Changes
 
-- [`18c128f6b73`](https://bitbucket.org/atlassian/atlassian-frontend/commits/18c128f6b73) - [ux] Fix bug in which modified click events (e.g. Ctrl+Click) would not get passed down to the underlying input element in Firefox.
+- [#12837](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12837) [`18c128f6b73`](https://bitbucket.org/atlassian/atlassian-frontend/commits/18c128f6b73) - [ux] Fix bug in which modified click events (e.g. Ctrl+Click) would not get passed down to the underlying input element in Firefox.
 - Updated dependencies
 
 ## 12.2.1
 
 ### Patch Changes
 
-- [`378d1cef00f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/378d1cef00f) - Bump `@atlaskit/theme` to version `^11.3.0`.
+- [#12880](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12880) [`378d1cef00f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/378d1cef00f) - Bump `@atlaskit/theme` to version `^11.3.0`.
 
 ## 12.2.0
 
 ### Minor Changes
 
-- [`987e2fc4ddd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/987e2fc4ddd) - Add configuration to eslint rule label-has-associated-control
+- [#12328](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12328) [`987e2fc4ddd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/987e2fc4ddd) - Add configuration to eslint rule label-has-associated-control
 
 ### Patch Changes
 
@@ -293,46 +293,46 @@
 
 ### Patch Changes
 
-- [`d6f7ff383cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6f7ff383cf) - Updates to development dependency `storybook-addon-performance`
+- [#12167](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12167) [`d6f7ff383cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6f7ff383cf) - Updates to development dependency `storybook-addon-performance`
 
 ## 12.1.2
 
 ### Patch Changes
 
-- [`37324ccc750`](https://bitbucket.org/atlassian/atlassian-frontend/commits/37324ccc750) - Fix styling error causing rendering errors in iOS Safari, and focus rings in Firefox
+- [#11584](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/11584) [`37324ccc750`](https://bitbucket.org/atlassian/atlassian-frontend/commits/37324ccc750) - Fix styling error causing rendering errors in iOS Safari, and focus rings in Firefox
 
 ## 12.1.1
 
 ### Patch Changes
 
-- [`a99925b1634`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a99925b1634) - Added styles for edge high contrast modes (black on white and white on black)
+- [#10230](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10230) [`a99925b1634`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a99925b1634) - Added styles for edge high contrast modes (black on white and white on black)
 - Updated dependencies
 
 ## 12.1.0
 
 ### Minor Changes
 
-- [`02a0cdbd98b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/02a0cdbd98b) - Added aria-invalid to checkbox input which corresponds the isInvalid prop
+- [#9510](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9510) [`02a0cdbd98b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/02a0cdbd98b) - Added aria-invalid to checkbox input which corresponds the isInvalid prop
 
 ## 12.0.2
 
 ### Patch Changes
 
-- [`e0278312c57`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e0278312c57) - Checkbox now uses the new `SVG` component from @atlaskit/icon.
+- [#9083](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9083) [`e0278312c57`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e0278312c57) - Checkbox now uses the new `SVG` component from @atlaskit/icon.
 - Updated dependencies
 
 ## 12.0.1
 
 ### Patch Changes
 
-- [`79c23df6340`](https://bitbucket.org/atlassian/atlassian-frontend/commits/79c23df6340) - Use injected package name and version for analytics instead of version.json.
+- [#8644](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8644) [`79c23df6340`](https://bitbucket.org/atlassian/atlassian-frontend/commits/79c23df6340) - Use injected package name and version for analytics instead of version.json.
 - [`08c1f789a45`](https://bitbucket.org/atlassian/atlassian-frontend/commits/08c1f789a45) - [ux] Fixes flickering when transitioning to and from indeterminate states
 
 ## 12.0.0
 
 ### Major Changes
 
-- [`ee02ee0aaa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ee02ee0aaa)
+- [#6571](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/6571) [`ee02ee0aaa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ee02ee0aaa)
   In this version, we made `Checkbox` dramatically faster and more lightweight 😍
 
 ### Changes
@@ -448,13 +448,13 @@ npx @atlaskit/codemod-cli /path/to/target/directory --parser [tsx | flow | babel
 
 ### Patch Changes
 
-- [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
+- [#5857](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5857) [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
 
 ## 11.0.7
 
 ### Patch Changes
 
-- [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
+- [#5497](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5497) [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
   This requires version 3.8 of Typescript, read more about how we handle Typescript versions here: https://atlaskit.atlassian.com/get-started
   Also add `typescript` to `devDependencies` to denote version that the package was built with.
 
@@ -468,13 +468,13 @@ npx @atlaskit/codemod-cli /path/to/target/directory --parser [tsx | flow | babel
 
 ### Patch Changes
 
-- [`6360c46009`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6360c46009) - Reenable integration tests for Edge browser
+- [#4707](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4707) [`6360c46009`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6360c46009) - Reenable integration tests for Edge browser
 
 ## 11.0.4
 
 ### Patch Changes
 
-- [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
+- [#3885](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3885) [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
 
   Since tslib is a dependency for all our packages we recommend that products also follow this tslib upgrade
   to prevent duplicates of tslib being bundled.
@@ -483,26 +483,26 @@ npx @atlaskit/codemod-cli /path/to/target/directory --parser [tsx | flow | babel
 
 ### Patch Changes
 
-- [`6262f382de`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6262f382de) - Use the 'lodash' package instead of single-function 'lodash.\*' packages
+- [#3823](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3823) [`6262f382de`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6262f382de) - Use the 'lodash' package instead of single-function 'lodash.\*' packages
 - [`e99262c6f0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e99262c6f0) - All form elements now have a default font explicitly set
 
 ## 11.0.2
 
 ### Patch Changes
 
-- [`954cc87b62`](https://bitbucket.org/atlassian/atlassian-frontend/commits/954cc87b62) - The readme and package information has been updated to point to the new design system website.
+- [#3293](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3293) [`954cc87b62`](https://bitbucket.org/atlassian/atlassian-frontend/commits/954cc87b62) - The readme and package information has been updated to point to the new design system website.
 
 ## 11.0.1
 
 ### Patch Changes
 
-- [`db053b24d8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/db053b24d8) - Update all the theme imports to be tree-shakable
+- [#3428](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3428) [`db053b24d8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/db053b24d8) - Update all the theme imports to be tree-shakable
 
 ## 11.0.0
 
 ### Major Changes
 
-- [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
+- [#3335](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3335) [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
   For more information see: https://community.developer.atlassian.com/t/atlaskit-to-drop-support-for-internet-explorer-11-from-1st-july-2020/39534
 
 ### Patch Changes
@@ -513,13 +513,13 @@ npx @atlaskit/codemod-cli /path/to/target/directory --parser [tsx | flow | babel
 
 ### Patch Changes
 
-- [`54a9514fcf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54a9514fcf) - Build and supporting files will no longer be published to npm
+- [#2866](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2866) [`54a9514fcf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54a9514fcf) - Build and supporting files will no longer be published to npm
 
 ## 10.1.13
 
 ### Patch Changes
 
-- [`54d82b49f0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54d82b49f0) - Remove unused dependencies
+- [#2137](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2137) [`54d82b49f0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54d82b49f0) - Remove unused dependencies
 
 ## 10.1.12
 

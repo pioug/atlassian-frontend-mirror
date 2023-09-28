@@ -4,44 +4,44 @@
 
 ### Patch Changes
 
-- [`ec4867e1376`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ec4867e1376) - Removed captions flag and replaced with a new media prop `allowCaptions`. `allowCaptions` is set to `false` by default and products will need to opt in to be able to use captions from now on.
+- [#39320](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39320) [`ec4867e1376`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ec4867e1376) - Removed captions flag and replaced with a new media prop `allowCaptions`. `allowCaptions` is set to `false` by default and products will need to opt in to be able to use captions from now on.
 
 ## 11.2.17
 
 ### Patch Changes
 
-- [`aeb5c9a01e8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aeb5c9a01e8) - Delete adf-schema from AFE and rely on npm package for adf-schema
+- [#39481](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39481) [`aeb5c9a01e8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aeb5c9a01e8) - Delete adf-schema from AFE and rely on npm package for adf-schema
 - [`4b4dcfe0bba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4b4dcfe0bba) - Delete adf-schema, use published version
 
 ## 11.2.16
 
 ### Patch Changes
 
-- [`15aeec90e88`](https://bitbucket.org/atlassian/atlassian-frontend/commits/15aeec90e88) - Fixed text of atlassian-info emoji
+- [#39744](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39744) [`15aeec90e88`](https://bitbucket.org/atlassian/atlassian-frontend/commits/15aeec90e88) - Fixed text of atlassian-info emoji
 
 ## 11.2.15
 
 ### Patch Changes
 
-- [`0e484b0dfde`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0e484b0dfde) - Improved behaviour of formatting marks around macros
+- [#39237](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39237) [`0e484b0dfde`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0e484b0dfde) - Improved behaviour of formatting marks around macros
 
 ## 11.2.14
 
 ### Patch Changes
 
-- [`33cb07de05f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/33cb07de05f) - change adf-schema to fixed versioning
+- [#38976](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38976) [`33cb07de05f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/33cb07de05f) - change adf-schema to fixed versioning
 
 ## 11.2.13
 
 ### Patch Changes
 
-- [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
+- [#38162](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38162) [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
 
 ## 11.2.12
 
 ### Patch Changes
 
-- [`03022b35109`](https://bitbucket.org/atlassian/atlassian-frontend/commits/03022b35109) - Fix codeblock bug by reverting changes from ADFEXP-371. Strike througth fix will come in future patch
+- [#38603](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38603) [`03022b35109`](https://bitbucket.org/atlassian/atlassian-frontend/commits/03022b35109) - Fix codeblock bug by reverting changes from ADFEXP-371. Strike througth fix will come in future patch
 
 ## 11.2.11
 
@@ -65,19 +65,19 @@
 
 ### Patch Changes
 
-- [`4e6f1bf8511`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4e6f1bf8511) - [ED-19233] Import prosemirror libraries from internal facade package
+- [#37785](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37785) [`4e6f1bf8511`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4e6f1bf8511) - [ED-19233] Import prosemirror libraries from internal facade package
 
 ## 11.2.7
 
 ### Patch Changes
 
-- [`93f5f1a9839`](https://bitbucket.org/atlassian/atlassian-frontend/commits/93f5f1a9839) - [ED-18161] Move transformer tests to their dedicated transformers packages to avoid circular dependencies
+- [#36798](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36798) [`93f5f1a9839`](https://bitbucket.org/atlassian/atlassian-frontend/commits/93f5f1a9839) - [ED-18161] Move transformer tests to their dedicated transformers packages to avoid circular dependencies
 
 ## 11.2.6
 
 ### Patch Changes
 
-- [`5f5ba16de66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f5ba16de66) - [ED-13910] Fix prosemirror types
+- [#36241](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36241) [`5f5ba16de66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f5ba16de66) - [ED-13910] Fix prosemirror types
 
 ## 11.2.5
 
@@ -89,31 +89,31 @@
 
 ### Patch Changes
 
-- [`61cb5313358`](https://bitbucket.org/atlassian/atlassian-frontend/commits/61cb5313358) - Removing unused dependencies and dev dependencies
+- [#34443](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34443) [`61cb5313358`](https://bitbucket.org/atlassian/atlassian-frontend/commits/61cb5313358) - Removing unused dependencies and dev dependencies
 
 ## 11.2.3
 
 ### Patch Changes
 
-- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793) [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
 
 ## 11.2.2
 
 ### Patch Changes
 
-- [`a142ba1aa28`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a142ba1aa28) - [ED17172] Bump prosemirror-model to 1.16.0 and prosemirror-view to 1.23.7 and removed work-arounds for fixed issues
+- [#33771](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33771) [`a142ba1aa28`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a142ba1aa28) - [ED17172] Bump prosemirror-model to 1.16.0 and prosemirror-view to 1.23.7 and removed work-arounds for fixed issues
 
 ## 11.2.1
 
 ### Patch Changes
 
-- [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649) [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
 
 ## 11.2.0
 
 ### Minor Changes
 
-- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258) [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
 
 ### Patch Changes
 
@@ -123,44 +123,44 @@
 
 ### Patch Changes
 
-- [`0ffb55018c9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0ffb55018c9) - Revert "[ED-17172] Bumped prosemirror-view from 1.23.2 to 1.23.7 and removed work-around for fixed issues"
+- [#33004](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33004) [`0ffb55018c9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0ffb55018c9) - Revert "[ED-17172] Bumped prosemirror-view from 1.23.2 to 1.23.7 and removed work-around for fixed issues"
 
 ## 11.1.16
 
 ### Patch Changes
 
-- [`5ae242b554c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5ae242b554c) - updated logic to handle multiple linebreaks inside a macro within a list
+- [#33037](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33037) [`5ae242b554c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5ae242b554c) - updated logic to handle multiple linebreaks inside a macro within a list
 
 ## 11.1.15
 
 ### Patch Changes
 
-- [`7c57f6550f7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7c57f6550f7) - Updated metacharacter escaping logic in encoder
+- [#32638](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32638) [`7c57f6550f7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7c57f6550f7) - Updated metacharacter escaping logic in encoder
 
 ## 11.1.14
 
 ### Patch Changes
 
-- [`2e01c9c74b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e01c9c74b5) - DUMMY remove before merging to master; dupe adf-schema via adf-utils
+- [#32424](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32424) [`2e01c9c74b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e01c9c74b5) - DUMMY remove before merging to master; dupe adf-schema via adf-utils
 - Updated dependencies
 
 ## 11.1.13
 
 ### Patch Changes
 
-- [`d907868ec78`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d907868ec78) - ADFEXP-227 Wrap nestedExpand only at root level
+- [#28490](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28490) [`d907868ec78`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d907868ec78) - ADFEXP-227 Wrap nestedExpand only at root level
 
 ## 11.1.12
 
 ### Patch Changes
 
-- [`e5c1d82be63`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e5c1d82be63) - ADFEXP-227 Wrap nestedExpand inside table
+- [#28438](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28438) [`e5c1d82be63`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e5c1d82be63) - ADFEXP-227 Wrap nestedExpand inside table
 
 ## 11.1.11
 
 ### Patch Changes
 
-- [`5d317ed8aa3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5d317ed8aa3) - ED-15882: Make editor-wikimarkup-transformer example page work, update tests for restartNumberedLists feature (custom start numbers for ordered lists)
+- [#28090](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28090) [`5d317ed8aa3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5d317ed8aa3) - ED-15882: Make editor-wikimarkup-transformer example page work, update tests for restartNumberedLists feature (custom start numbers for ordered lists)
 - [`224a2482244`](https://bitbucket.org/atlassian/atlassian-frontend/commits/224a2482244) - [ED-16166] Changes the renderer prop document type from any to DocNode
 
   BREAKING for `@atlaskit/renderer`: Previously the `document` prop for the renderer component had the type of `any`. This has now been changed to `DocNode` which comes from `@atlaskit/adf-schema`.
@@ -186,49 +186,49 @@
 
 ### Patch Changes
 
-- [`6eb39a91ca0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6eb39a91ca0) - Fixed ADF parsing issue related to codeblock inside table header
+- [#27498](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/27498) [`6eb39a91ca0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6eb39a91ca0) - Fixed ADF parsing issue related to codeblock inside table header
 
 ## 11.1.9
 
 ### Patch Changes
 
-- [`13721843343`](https://bitbucket.org/atlassian/atlassian-frontend/commits/13721843343) - Added support for multiple hardbreaks inside a table
+- [#26721](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26721) [`13721843343`](https://bitbucket.org/atlassian/atlassian-frontend/commits/13721843343) - Added support for multiple hardbreaks inside a table
 
 ## 11.1.8
 
 ### Patch Changes
 
-- [`0cc27eb485f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0cc27eb485f) - Added support for issue-key followed by punctuation marks
+- [#26277](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26277) [`0cc27eb485f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0cc27eb485f) - Added support for issue-key followed by punctuation marks
 
 ## 11.1.7
 
 ### Patch Changes
 
-- [`12399f5aaa1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/12399f5aaa1) - Adding custom regex for escaping of media, link and mention.
+- [#25822](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/25822) [`12399f5aaa1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/12399f5aaa1) - Adding custom regex for escaping of media, link and mention.
 
 ## 11.1.6
 
 ### Patch Changes
 
-- [`ea34f8260e3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ea34f8260e3) - Wiki to adf: Tables headings to be strong by default
+- [#25506](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/25506) [`ea34f8260e3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ea34f8260e3) - Wiki to adf: Tables headings to be strong by default
 
 ## 11.1.5
 
 ### Patch Changes
 
-- [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
+- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874) [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
 
 ## 11.1.4
 
 ### Patch Changes
 
-- [`49280fb073e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/49280fb073e) - Removing Array.at usage to support older browsers.
+- [#25411](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/25411) [`49280fb073e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/49280fb073e) - Removing Array.at usage to support older browsers.
 
 ## 11.1.3
 
 ### Patch Changes
 
-- [`916af279b4d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/916af279b4d) - added validation to handle strong mark under list
+- [#24889](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24889) [`916af279b4d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/916af279b4d) - added validation to handle strong mark under list
 
 ## 11.1.2
 
@@ -240,98 +240,98 @@
 
 ### Patch Changes
 
-- [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
+- [#24492](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24492) [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
 
 ## 11.1.0
 
 ### Minor Changes
 
-- [`635a121bf58`](https://bitbucket.org/atlassian/atlassian-frontend/commits/635a121bf58) - Add option to suppress default image width and height in wikimarkup transformer
+- [#23593](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23593) [`635a121bf58`](https://bitbucket.org/atlassian/atlassian-frontend/commits/635a121bf58) - Add option to suppress default image width and height in wikimarkup transformer
 
 ## 11.0.16
 
 ### Patch Changes
 
-- [`2760fbd2066`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2760fbd2066) - ESS-2569: fixed backslash issue in roundtrip wiki to adf
+- [#23396](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23396) [`2760fbd2066`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2760fbd2066) - ESS-2569: fixed backslash issue in roundtrip wiki to adf
 
 ## 11.0.15
 
 ### Patch Changes
 
-- [`273a8696f10`](https://bitbucket.org/atlassian/atlassian-frontend/commits/273a8696f10) - ESS-2539 Handle token with empty nodes
+- [#23390](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23390) [`273a8696f10`](https://bitbucket.org/atlassian/atlassian-frontend/commits/273a8696f10) - ESS-2539 Handle token with empty nodes
 
 ## 11.0.14
 
 ### Patch Changes
 
-- [`21684885de9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/21684885de9) - ESS-2539 Insert hardbreaks between text properly
+- [#23215](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23215) [`21684885de9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/21684885de9) - ESS-2539 Insert hardbreaks between text properly
 
 ## 11.0.13
 
 ### Patch Changes
 
-- [`82576043a8a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/82576043a8a) - ESS-2539 Added new test cases for line-breaks
+- [#23177](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23177) [`82576043a8a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/82576043a8a) - ESS-2539 Added new test cases for line-breaks
 
 ## 11.0.12
 
 ### Patch Changes
 
-- [`6a6291137de`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6a6291137de) - Handle hardbreaks and force-line-breaks differently
+- [#23092](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23092) [`6a6291137de`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6a6291137de) - Handle hardbreaks and force-line-breaks differently
 
 ## 11.0.11
 
 ### Patch Changes
 
-- [`31ea1d0b1f8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/31ea1d0b1f8) - Escape opening braces for only macro keywords
+- [#22935](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22935) [`31ea1d0b1f8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/31ea1d0b1f8) - Escape opening braces for only macro keywords
 
 ## 11.0.10
 
 ### Patch Changes
 
-- [`c0315117480`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c0315117480) - ESS-2375 Text effects should support surrounding curly braces
+- [#22112](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22112) [`c0315117480`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c0315117480) - ESS-2375 Text effects should support surrounding curly braces
 
 ## 11.0.9
 
 ### Patch Changes
 
-- [`daa1dac9961`](https://bitbucket.org/atlassian/atlassian-frontend/commits/daa1dac9961) - Update the @atlaskit/editor-wikimarkup-transformer to use emotion instead of styled and also updated the dependencies
+- [#21570](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21570) [`daa1dac9961`](https://bitbucket.org/atlassian/atlassian-frontend/commits/daa1dac9961) - Update the @atlaskit/editor-wikimarkup-transformer to use emotion instead of styled and also updated the dependencies
 - Updated dependencies
 
 ## 11.0.8
 
 ### Patch Changes
 
-- [`ca8996c6153`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ca8996c6153) - ESS-2439 Remove bad characters from end of regex match
+- [#21951](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21951) [`ca8996c6153`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ca8996c6153) - ESS-2439 Remove bad characters from end of regex match
 
 ## 11.0.7
 
 ### Patch Changes
 
-- [`21ae957a8fb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/21ae957a8fb) - ESS-2440 Render consecutive emojis correctly
+- [#21923](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21923) [`21ae957a8fb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/21ae957a8fb) - ESS-2440 Render consecutive emojis correctly
 
 ## 11.0.6
 
 ### Patch Changes
 
-- [`c85e50ef2ad`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c85e50ef2ad) - ESS-2439: Ignore closing parenthesis as part of url
+- [#21834](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21834) [`c85e50ef2ad`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c85e50ef2ad) - ESS-2439: Ignore closing parenthesis as part of url
 
 ## 11.0.5
 
 ### Patch Changes
 
-- [`34d3354b80e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/34d3354b80e) - ESS-1402: bug fix to parse the non-breaking space wikimarkup to adf.
+- [#21447](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21447) [`34d3354b80e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/34d3354b80e) - ESS-1402: bug fix to parse the non-breaking space wikimarkup to adf.
 
 ## 11.0.4
 
 ### Patch Changes
 
-- [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
+- [#20650](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20650) [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
 
 ## 11.0.3
 
 ### Patch Changes
 
-- [`b29ce16dad8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b29ce16dad8) - [ED-14606] Move bitbucket schema, confluence schema, jira schema, and default schema from @atlaskit/adf-schema to their own entry points. These new entry points are as follows
+- [#20033](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20033) [`b29ce16dad8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b29ce16dad8) - [ED-14606] Move bitbucket schema, confluence schema, jira schema, and default schema from @atlaskit/adf-schema to their own entry points. These new entry points are as follows
 
   @atlaskit/adf-schema/schema-bitbucket for:
 
@@ -377,14 +377,14 @@
 
 ### Patch Changes
 
-- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - ED-13753 Updated editor-common import entries.
+- [#16752](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16752) [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - ED-13753 Updated editor-common import entries.
 - Updated dependencies
 
 ## 11.0.0
 
 ### Major Changes
 
-- [`8f0577e0eb1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f0577e0eb1) - [ux] Promoted captions to full schema and better support of wikimarkup, email and slack renderer
+- [#15998](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/15998) [`8f0577e0eb1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f0577e0eb1) - [ux] Promoted captions to full schema and better support of wikimarkup, email and slack renderer
 
 ### Patch Changes
 
@@ -402,7 +402,7 @@
 
 ### Major Changes
 
-- [`ad7872a08ed`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ad7872a08ed) - Add media inline component to wikimarkup, slack markdown, email renderer transformers
+- [#14777](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/14777) [`ad7872a08ed`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ad7872a08ed) - Add media inline component to wikimarkup, slack markdown, email renderer transformers
 
 ### Patch Changes
 
@@ -418,38 +418,38 @@
 
 ### Patch Changes
 
-- [`aa6f29f8c3d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aa6f29f8c3d) - Setting up empty string value for alt attribute (images) by default
+- [#13302](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13302) [`aa6f29f8c3d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aa6f29f8c3d) - Setting up empty string value for alt attribute (images) by default
 - Updated dependencies
 
 ## 9.5.1
 
 ### Patch Changes
 
-- [`cdfde784f56`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cdfde784f56) - [ux] When converting from wikimarkup to ADF, if there is a parse error in an adf macro, put it in a code block with an error message instead of crashing (ADFS-719)
+- [#13035](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13035) [`cdfde784f56`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cdfde784f56) - [ux] When converting from wikimarkup to ADF, if there is a parse error in an adf macro, put it in a code block with an error message instead of crashing (ADFS-719)
 
 ## 9.5.0
 
 ### Minor Changes
 
-- [`d3945f52eeb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3945f52eeb) - Remove nulls when parsing and encoding wiki
+- [#12769](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12769) [`d3945f52eeb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3945f52eeb) - Remove nulls when parsing and encoding wiki
 
 ## 9.4.0
 
 ### Minor Changes
 
-- [`99ad5d22649`](https://bitbucket.org/atlassian/atlassian-frontend/commits/99ad5d22649) - Scope control characters inside of invalid links
+- [#12261](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12261) [`99ad5d22649`](https://bitbucket.org/atlassian/atlassian-frontend/commits/99ad5d22649) - Scope control characters inside of invalid links
 
 ## 9.3.3
 
 ### Patch Changes
 
-- [`7cb32dce7eb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7cb32dce7eb) - ADFS-700 trailing whitespaces don't open a new table cell
+- [#12175](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12175) [`7cb32dce7eb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7cb32dce7eb) - ADFS-700 trailing whitespaces don't open a new table cell
 
 ## 9.3.2
 
 ### Patch Changes
 
-- [`b7375e1a3fc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b7375e1a3fc) - ADFS-670 Performance improvement by replacing string buffer with array buffer
+- [#11898](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/11898) [`b7375e1a3fc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b7375e1a3fc) - ADFS-670 Performance improvement by replacing string buffer with array buffer
 
 ## 9.3.1
 
@@ -461,7 +461,7 @@
 
 ### Minor Changes
 
-- [`2fd50f55028`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2fd50f55028) - Updating documentation to inform users that soon picker popup will no longer be available and also getting rid of picker popup references in examples and all the associated dependencies
+- [#11113](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/11113) [`2fd50f55028`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2fd50f55028) - Updating documentation to inform users that soon picker popup will no longer be available and also getting rid of picker popup references in examples and all the associated dependencies
 
 ### Patch Changes
 
@@ -477,13 +477,13 @@
 
 ### Patch Changes
 
-- [`2c8bafbcca0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2c8bafbcca0) - ADFS-453 wiki transformer - Nested lists have size limit
+- [#9913](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9913) [`2c8bafbcca0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2c8bafbcca0) - ADFS-453 wiki transformer - Nested lists have size limit
 
 ## 9.2.2
 
 ### Patch Changes
 
-- [`58b170725be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/58b170725be) - Renamed @atlaskit/editor-test-helpers/schema-builder to @atlaskit/editor-test-helpers/doc-builder
+- [#9510](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9510) [`58b170725be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/58b170725be) - Renamed @atlaskit/editor-test-helpers/schema-builder to @atlaskit/editor-test-helpers/doc-builder
 - Updated dependencies
 
 ## 9.2.1
@@ -496,13 +496,13 @@
 
 ### Minor Changes
 
-- [`e00e0159214`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e00e0159214) - ADFS-456: Add support for image links in wikimarkup converter
+- [#9362](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9362) [`e00e0159214`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e00e0159214) - ADFS-456: Add support for image links in wikimarkup converter
 
 ## 9.1.0
 
 ### Minor Changes
 
-- [`a882576542d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a882576542d) - Adjust status node colors - ADFS-40
+- [#9147](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9147) [`a882576542d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a882576542d) - Adjust status node colors - ADFS-40
 
 ## 9.0.1
 
@@ -514,7 +514,7 @@
 
 ### Major Changes
 
-- [`9242f60d20`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9242f60d20) - Support anchor link starting with #
+- [#7170](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/7170) [`9242f60d20`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9242f60d20) - Support anchor link starting with #
 
 ### Patch Changes
 
@@ -524,7 +524,7 @@
 
 ### Minor Changes
 
-- [`21de2f736a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/21de2f736a) - fix: normalizeHexColor behaves normally when passed 'default'
+- [#6571](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/6571) [`21de2f736a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/21de2f736a) - fix: normalizeHexColor behaves normally when passed 'default'
 
 ### Patch Changes
 
@@ -534,33 +534,33 @@
 
 ### Patch Changes
 
-- [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
+- [#5857](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5857) [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
 
 ## 8.3.4
 
 ### Patch Changes
 
-- [`0175a00afc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0175a00afc) - [ED-10670] Update prosemirror-model type to use posAtIndex methods
+- [#6228](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/6228) [`0175a00afc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0175a00afc) - [ED-10670] Update prosemirror-model type to use posAtIndex methods
 - Updated dependencies
 
 ## 8.3.3
 
 ### Patch Changes
 
-- [`703752d487`](https://bitbucket.org/atlassian/atlassian-frontend/commits/703752d487) - ED-10647 Remove caret from prosemirror-model, prosemirror-keymap, prosemirror-state, prosemirror-transform to lock them down to an explicit version
+- [#5860](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5860) [`703752d487`](https://bitbucket.org/atlassian/atlassian-frontend/commits/703752d487) - ED-10647 Remove caret from prosemirror-model, prosemirror-keymap, prosemirror-state, prosemirror-transform to lock them down to an explicit version
 - Updated dependencies
 
 ## 8.3.2
 
 ### Patch Changes
 
-- [`cc8bfdf7a7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cc8bfdf7a7) - ADFS-255 bugfix: wiki transformer correctly passes through context object
+- [#6010](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/6010) [`cc8bfdf7a7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cc8bfdf7a7) - ADFS-255 bugfix: wiki transformer correctly passes through context object
 
 ## 8.3.1
 
 ### Patch Changes
 
-- [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
+- [#5497](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5497) [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
   This requires version 3.8 of Typescript, read more about how we handle Typescript versions here: https://atlaskit.atlassian.com/get-started
   Also add `typescript` to `devDependencies` to denote version that the package was built with.
 
@@ -568,7 +568,7 @@
 
 ### Minor Changes
 
-- [`9a39500244`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9a39500244) - Bump ProseMirror packages
+- [#4749](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4749) [`9a39500244`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9a39500244) - Bump ProseMirror packages
 
   Read more: https://product-fabric.atlassian.net/wiki/spaces/E/pages/1671956531/2020-08
 
@@ -580,31 +580,31 @@
 
 ### Minor Changes
 
-- [`183473232a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/183473232a) - CS-3136 bugfix: media single after media group no longer disappears
+- [#5100](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5100) [`183473232a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/183473232a) - CS-3136 bugfix: media single after media group no longer disappears
 
 ## 8.1.0
 
 ### Minor Changes
 
-- [`e6001d9b35`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e6001d9b35) - CS-3139 Rewrote query string parser to not escape sensitive characters (querystring parser was used previously)
+- [#5087](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5087) [`e6001d9b35`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e6001d9b35) - CS-3139 Rewrote query string parser to not escape sensitive characters (querystring parser was used previously)
 
 ## 8.0.0
 
 ### Major Changes
 
-- [`b809a4501a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b809a4501a) - CS-3128 context object for wiki media files is extended with `embed` property to properly round trip non-embeddable media
+- [#4901](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4901) [`b809a4501a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b809a4501a) - CS-3128 context object for wiki media files is extended with `embed` property to properly round trip non-embeddable media
 
 ## 7.2.0
 
 ### Minor Changes
 
-- [`cd32d3a1f4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cd32d3a1f4) - CS-3048 Embed cards now round trip in wiki<->adf conversions
+- [#4570](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4570) [`cd32d3a1f4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cd32d3a1f4) - CS-3048 Embed cards now round trip in wiki<->adf conversions
 
 ## 7.1.1
 
 ### Patch Changes
 
-- [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
+- [#3885](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3885) [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
 
   Since tslib is a dependency for all our packages we recommend that products also follow this tslib upgrade
   to prevent duplicates of tslib being bundled.
@@ -613,19 +613,19 @@
 
 ### Minor Changes
 
-- [`5b4f43d395`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5b4f43d395) - CS-2987 basic emojis now behave the same way as in wiki renderer
+- [#3724](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3724) [`5b4f43d395`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5b4f43d395) - CS-2987 basic emojis now behave the same way as in wiki renderer
 
 ## 7.0.0
 
 ### Major Changes
 
-- [`35ca66b0ac`](https://bitbucket.org/atlassian/atlassian-frontend/commits/35ca66b0ac) - CS-2956 Limit lists to max nesting level
+- [#3424](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3424) [`35ca66b0ac`](https://bitbucket.org/atlassian/atlassian-frontend/commits/35ca66b0ac) - CS-2956 Limit lists to max nesting level
 
 ## 6.0.0
 
 ### Major Changes
 
-- [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
+- [#3335](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3335) [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
   For more information see: https://community.developer.atlassian.com/t/atlaskit-to-drop-support-for-internet-explorer-11-from-1st-july-2020/39534
 
 ### Patch Changes
@@ -642,20 +642,20 @@
 
 ### Minor Changes
 
-- [`4feba15469`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4feba15469) - CS-2801 querystring replaced with querystring-es3 for browser compatibility
+- [#2847](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2847) [`4feba15469`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4feba15469) - CS-2801 querystring replaced with querystring-es3 for browser compatibility
 
 ## 5.6.0
 
 ### Minor Changes
 
-- [`41efaca0e1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41efaca0e1) - Allow setting of individual cellstyles in wikimarkup
+- [#2803](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2803) [`41efaca0e1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41efaca0e1) - Allow setting of individual cellstyles in wikimarkup
 
 ## 5.5.0
 
 ### Minor Changes
 
-- [`6aa26e54a5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6aa26e54a5) - CS-2800 mediaGroup and mediaSingle next to each other now works
-- [`a050c2ff0c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a050c2ff0c) - CS-2200 wiki transformer doesn't break table with empty new line
+- [#2733](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2733) [`6aa26e54a5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6aa26e54a5) - CS-2800 mediaGroup and mediaSingle next to each other now works
+- [#2735](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2735) [`a050c2ff0c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a050c2ff0c) - CS-2200 wiki transformer doesn't break table with empty new line
 
 ## 5.4.1
 
@@ -667,7 +667,7 @@
 
 ### Minor Changes
 
-- [`d0051d49a6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d0051d49a6) - Conversion mapping has been made case insensitive
+- [#1868](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/1868) [`d0051d49a6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d0051d49a6) - Conversion mapping has been made case insensitive
 
 ### Patch Changes
 

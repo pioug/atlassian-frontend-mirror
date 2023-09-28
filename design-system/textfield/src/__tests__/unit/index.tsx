@@ -10,7 +10,7 @@ import Textfield from '../../index';
 describe('Textfield', () => {
   it('should show defaults', () => {
     const input = render(<Textfield testId="test" />).getByTestId('test');
-    expect(input).toBeDefined();
+    expect(input).toBeInTheDocument();
     expect(input).toBeInstanceOf(HTMLInputElement);
   });
 

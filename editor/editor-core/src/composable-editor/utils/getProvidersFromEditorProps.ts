@@ -1,6 +1,6 @@
-import { Providers } from '@atlaskit/editor-common/provider-factory';
+import type { Providers } from '@atlaskit/editor-common/provider-factory';
 
-import { EditorProps } from '../../types/editor-props';
+import type { EditorProps } from '../../types/editor-props';
 
 type Complete<T> = {
   [P in keyof Required<T>]: Pick<T, P> extends Required<Pick<T, P>>

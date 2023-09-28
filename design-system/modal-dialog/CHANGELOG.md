@@ -4,7 +4,7 @@
 
 ### Minor Changes
 
-- [`f355884a4aa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f355884a4aa) - [ux] Support to press escape key and only close the top layer
+- [#39726](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39726) [`f355884a4aa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f355884a4aa) - [ux] Support to press escape key and only close the top layer
 
 ### Patch Changes
 
@@ -14,116 +14,116 @@
 
 ### Patch Changes
 
-- [`6900f89eb0e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6900f89eb0e) - Internal changes to use space tokens. There is no expected visual or behaviour change.
+- [#39787](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39787) [`6900f89eb0e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6900f89eb0e) - Internal changes to use space tokens. There is no expected visual or behaviour change.
 
 ## 12.6.9
 
 ### Patch Changes
 
-- [`c8d28bd7519`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c8d28bd7519) - Adds role of region to modal dialog body when scrollable
+- [#38948](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38948) [`c8d28bd7519`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c8d28bd7519) - Adds role of region to modal dialog body when scrollable
 
 ## 12.6.8
 
 ### Patch Changes
 
-- [`d6f63fa1abc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6f63fa1abc) - Adds support for surface detection when using design tokens. Enabling children to be styled with the Modal’s surface color when using the `utility.elevation.surface.current` design token.
+- [#37789](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37789) [`d6f63fa1abc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6f63fa1abc) - Adds support for surface detection when using design tokens. Enabling children to be styled with the Modal’s surface color when using the `utility.elevation.surface.current` design token.
 - Updated dependencies
 
 ## 12.6.7
 
 ### Patch Changes
 
-- [`d2b6377be3d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d2b6377be3d) - Add some basic JSDoc for internal components, add tokens.
+- [#39169](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39169) [`d2b6377be3d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d2b6377be3d) - Add some basic JSDoc for internal components, add tokens.
 
 ## 12.6.6
 
 ### Patch Changes
 
-- [`56b444b56a8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56b444b56a8) - Fix a bug where text descenders were cut off at high zoom levels on Windows
+- [#38209](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38209) [`56b444b56a8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56b444b56a8) - Fix a bug where text descenders were cut off at high zoom levels on Windows
 
 ## 12.6.5
 
 ### Patch Changes
 
-- [`c2484be748e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c2484be748e) - [ux] DSP-11269: hard coded the warning icon to improve color contrast
+- [#36744](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36744) [`c2484be748e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c2484be748e) - [ux] DSP-11269: hard coded the warning icon to improve color contrast
 
 ## 12.6.4
 
 ### Patch Changes
 
-- [`c673c7246cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c673c7246cf) - Internal change to improve how media queries are applied. There is no expected behaviour change.
+- [#37066](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37066) [`c673c7246cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c673c7246cf) - Internal change to improve how media queries are applied. There is no expected behaviour change.
 
 ## 12.6.3
 
 ### Patch Changes
 
-- [`4ae083a7e66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ae083a7e66) - Use `@af/accessibility-testing` for default jest-axe config and jest-axe import in accessibility testing.
+- [#36754](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36754) [`4ae083a7e66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ae083a7e66) - Use `@af/accessibility-testing` for default jest-axe config and jest-axe import in accessibility testing.
 
 ## 12.6.2
 
 ### Patch Changes
 
-- [`abf69e9a4f6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/abf69e9a4f6) - Removes usage of deprecated theme mixins in favor of static token / color usage.
+- [#34811](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34811) [`abf69e9a4f6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/abf69e9a4f6) - Removes usage of deprecated theme mixins in favor of static token / color usage.
 
 ## 12.6.1
 
 ### Patch Changes
 
-- [`b6b02e57520`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b6b02e57520) - Restore support for foreground modal
+- [#35074](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35074) [`b6b02e57520`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b6b02e57520) - Restore support for foreground modal
 
 ## 12.6.0
 
 ### Minor Changes
 
-- [`26388cfdd23`](https://bitbucket.org/atlassian/atlassian-frontend/commits/26388cfdd23) - Adds `label` prop for users of assistive technology to receive more context when using the modal.
+- [#34353](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34353) [`26388cfdd23`](https://bitbucket.org/atlassian/atlassian-frontend/commits/26388cfdd23) - Adds `label` prop for users of assistive technology to receive more context when using the modal.
 
 ## 12.5.7
 
 ### Patch Changes
 
-- [`7e018144c35`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7e018144c35) - [ux] Add aria-label to scrollable ModalBody to communicate to AT users why ModalBody is focused.
+- [#34427](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34427) [`7e018144c35`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7e018144c35) - [ux] Add aria-label to scrollable ModalBody to communicate to AT users why ModalBody is focused.
 
 ## 12.5.6
 
 ### Patch Changes
 
-- [`fd5c7f6ca6a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd5c7f6ca6a) - Fixes an issue where the focus moved inappropriately when closing a modal with multiple modals open.
+- [#34297](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34297) [`fd5c7f6ca6a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd5c7f6ca6a) - Fixes an issue where the focus moved inappropriately when closing a modal with multiple modals open.
 
 ## 12.5.5
 
 ### Patch Changes
 
-- [`ba48a3a0fec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ba48a3a0fec) - Remove redundant language from default icon labels for ModalTitle.
+- [#34160](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34160) [`ba48a3a0fec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ba48a3a0fec) - Remove redundant language from default icon labels for ModalTitle.
 
 ## 12.5.4
 
 ### Patch Changes
 
-- [`e3eff9117fe`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e3eff9117fe) - Update examples to use CTAs with sufficient contrast.
+- [#34170](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34170) [`e3eff9117fe`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e3eff9117fe) - Update examples to use CTAs with sufficient contrast.
 
 ## 12.5.3
 
 ### Patch Changes
 
-- [`49b08bfdf5f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/49b08bfdf5f) - Migrated use of `gridSize` to space tokens where possible. There is no expected visual or behaviour change.
+- [#34051](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34051) [`49b08bfdf5f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/49b08bfdf5f) - Migrated use of `gridSize` to space tokens where possible. There is no expected visual or behaviour change.
 
 ## 12.5.2
 
 ### Patch Changes
 
-- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793) [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
 
 ## 12.5.1
 
 ### Patch Changes
 
-- [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649) [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
 
 ## 12.5.0
 
 ### Minor Changes
 
-- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258) [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
 
 ### Patch Changes
 
@@ -133,19 +133,19 @@
 
 ### Patch Changes
 
-- [`7f53352e047`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7f53352e047) - Updates the `@types/react-beautiful-dnd` devDependency
+- [#32734](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32734) [`7f53352e047`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7f53352e047) - Updates the `@types/react-beautiful-dnd` devDependency
 
 ## 12.4.12
 
 ### Patch Changes
 
-- [`4ba10567310`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ba10567310) - Internal changes.
+- [#32211](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32211) [`4ba10567310`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ba10567310) - Internal changes.
 
 ## 12.4.11
 
 ### Patch Changes
 
-- [`7f5f23dcb68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7f5f23dcb68) - Introduce shape tokens to some packages.
+- [#30125](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/30125) [`7f5f23dcb68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7f5f23dcb68) - Introduce shape tokens to some packages.
 
 ## 12.4.10
 
@@ -157,7 +157,7 @@
 
 ### Patch Changes
 
-- [`63c2f0b3f96`](https://bitbucket.org/atlassian/atlassian-frontend/commits/63c2f0b3f96) - Internal changes to use spacing tokens. There is no expected behaviour or visual change.
+- [#29725](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/29725) [`63c2f0b3f96`](https://bitbucket.org/atlassian/atlassian-frontend/commits/63c2f0b3f96) - Internal changes to use spacing tokens. There is no expected behaviour or visual change.
 
 ## 12.4.8
 
@@ -169,19 +169,19 @@
 
 ### Patch Changes
 
-- [`18aeca8c199`](https://bitbucket.org/atlassian/atlassian-frontend/commits/18aeca8c199) - Internal change to update token references. There is no expected behaviour or visual change.
+- [#29390](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/29390) [`18aeca8c199`](https://bitbucket.org/atlassian/atlassian-frontend/commits/18aeca8c199) - Internal change to update token references. There is no expected behaviour or visual change.
 
 ## 12.4.6
 
 ### Patch Changes
 
-- [`4ee60bafc6d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ee60bafc6d) - ED-16603: Remove tooltips from VR tests and make them opt in. To opt-in, add `allowedSideEffects` when loading the page.
+- [#29227](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/29227) [`4ee60bafc6d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ee60bafc6d) - ED-16603: Remove tooltips from VR tests and make them opt in. To opt-in, add `allowedSideEffects` when loading the page.
 
 ## 12.4.5
 
 ### Patch Changes
 
-- [`b0f6dd0bc35`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b0f6dd0bc35) - Updated to use typography tokens. There is no expected behaviour or visual change.
+- [#28064](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28064) [`b0f6dd0bc35`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b0f6dd0bc35) - Updated to use typography tokens. There is no expected behaviour or visual change.
 
 ## 12.4.4
 
@@ -205,13 +205,13 @@
 
 ### Patch Changes
 
-- [`9de88fa1e1e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9de88fa1e1e) - Internal changes to include spacing tokens in component implementations.
+- [#26408](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26408) [`9de88fa1e1e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9de88fa1e1e) - Internal changes to include spacing tokens in component implementations.
 
 ## 12.4.0
 
 ### Minor Changes
 
-- [`f3ffcf1a783`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f3ffcf1a783) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behavior change.
+- [#24710](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24710) [`f3ffcf1a783`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f3ffcf1a783) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behavior change.
 
 ### Patch Changes
 
@@ -221,13 +221,13 @@
 
 ### Patch Changes
 
-- [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
+- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874) [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
 
 ## 12.3.0
 
 ### Minor Changes
 
-- [`c44f3f5f973`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c44f3f5f973) - Modal Dialog’s focus lock now allows focus to reach elements outside the modal if they contain the data-atlas-extension attribute, such as a browser extension that renders in-browser.
+- [#24004](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24004) [`c44f3f5f973`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c44f3f5f973) - Modal Dialog’s focus lock now allows focus to reach elements outside the modal if they contain the data-atlas-extension attribute, such as a browser extension that renders in-browser.
 
 ### Patch Changes
 
@@ -237,38 +237,38 @@
 
 ### Patch Changes
 
-- [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
+- [#24492](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24492) [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
 
 ## 12.2.14
 
 ### Patch Changes
 
-- [`454ec1bbf07`](https://bitbucket.org/atlassian/atlassian-frontend/commits/454ec1bbf07) - Internal code change turning on new linting rules.
+- [#23381](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23381) [`454ec1bbf07`](https://bitbucket.org/atlassian/atlassian-frontend/commits/454ec1bbf07) - Internal code change turning on new linting rules.
 - Updated dependencies
 
 ## 12.2.13
 
 ### Patch Changes
 
-- [`1c3948738f9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1c3948738f9) - Adjust the styles for an internal positioning element to constrain the height for ModalBody and restore support for custom scrolling regions"
+- [#22775](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22775) [`1c3948738f9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1c3948738f9) - Adjust the styles for an internal positioning element to constrain the height for ModalBody and restore support for custom scrolling regions"
 
 ## 12.2.12
 
 ### Patch Changes
 
-- [`b72e12b97ac`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b72e12b97ac) - [ux] Fixed a regression which prevented clicks on the blanket from closing modal dialogs with `shouldScrollInViewport`.
+- [#22758](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22758) [`b72e12b97ac`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b72e12b97ac) - [ux] Fixed a regression which prevented clicks on the blanket from closing modal dialogs with `shouldScrollInViewport`.
 
 ## 12.2.11
 
 ### Patch Changes
 
-- [`8a5bdb3c844`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8a5bdb3c844) - Upgrading internal dependency (bind-event-listener) for improved internal types
+- [#22614](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22614) [`8a5bdb3c844`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8a5bdb3c844) - Upgrading internal dependency (bind-event-listener) for improved internal types
 
 ## 12.2.10
 
 ### Patch Changes
 
-- [`e4b612d1c48`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e4b612d1c48) - Internal migration to bind-event-listener for safer DOM Event cleanup
+- [#22029](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22029) [`e4b612d1c48`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e4b612d1c48) - Internal migration to bind-event-listener for safer DOM Event cleanup
 - [`347fd703ce0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/347fd703ce0) - Internally shifting to using bind-event-listener for events added in effects
 - [`07ab2748b62`](https://bitbucket.org/atlassian/atlassian-frontend/commits/07ab2748b62) - [ux] - Changes the position of icon in ModalTitle having an appearance prop to be top aligned instead of center. This only affects titles that where the title wraps into multiple lines.
 - Updated dependencies
@@ -283,13 +283,13 @@
 
 ### Patch Changes
 
-- [`0d1c80fe00d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0d1c80fe00d) - [ux] The width of the modal dialog now respect the custom value of the `width` prop.
+- [#20721](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20721) [`0d1c80fe00d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0d1c80fe00d) - [ux] The width of the modal dialog now respect the custom value of the `width` prop.
 
 ## 12.2.7
 
 ### Patch Changes
 
-- [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
+- [#20650](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20650) [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
 
 ## 12.2.6
 
@@ -301,7 +301,7 @@
 
 ### Patch Changes
 
-- [`dcd92130cc4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dcd92130cc4) - Migrate deleted background accent tokens to replacements
+- [#19618](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19618) [`dcd92130cc4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dcd92130cc4) - Migrate deleted background accent tokens to replacements
 - Updated dependencies
 
 ## 12.2.4
@@ -320,7 +320,7 @@
 
 ### Patch Changes
 
-- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - The no-unsafe-design-token-usage eslint rule now respects the new token naming conventions when auto-fixing by correctly formatting token ids.
+- [#16752](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16752) [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - The no-unsafe-design-token-usage eslint rule now respects the new token naming conventions when auto-fixing by correctly formatting token ids.
 - [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - The no-unsafe-design-token-usage eslint rule now respects the new token naming conventions when auto-fixing by correctly formatting token ids.
 - [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Bump raf-schd to latest (4.0.3), including better TS typings.
 - Updated dependencies
@@ -335,7 +335,7 @@
 
 ### Minor Changes
 
-- [`2d60dd3116d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2d60dd3116d) - [ux] Modal dialogs which contain no focusable children will now lock focus to the modal container. The container will have a focus ring, so some VR tests may need to be regenerated.
+- [#15998](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/15998) [`2d60dd3116d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2d60dd3116d) - [ux] Modal dialogs which contain no focusable children will now lock focus to the modal container. The container will have a focus ring, so some VR tests may need to be regenerated.
 
 ### Patch Changes
 
@@ -348,13 +348,13 @@
 
 ### Patch Changes
 
-- [`2b2290121eb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2b2290121eb) - Raised the minimum version carat range of focus ring to latest.
+- [#16335](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16335) [`2b2290121eb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2b2290121eb) - Raised the minimum version carat range of focus ring to latest.
 
 ## 12.1.0
 
 ### Minor Changes
 
-- [`993eb469fcb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/993eb469fcb) - Instrumented `@atlaskit/modal-dialog` with the new theming package, `@atlaskit/tokens`. Tokens will be visible only in applications configured to use the new Tokens API (currently in alpha).These changes are intended to be interoperable with the legacy theme implementation. Legacy dark mode users should expect no visual or breaking changes.
+- [#14777](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/14777) [`993eb469fcb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/993eb469fcb) - Instrumented `@atlaskit/modal-dialog` with the new theming package, `@atlaskit/tokens`. Tokens will be visible only in applications configured to use the new Tokens API (currently in alpha).These changes are intended to be interoperable with the legacy theme implementation. Legacy dark mode users should expect no visual or breaking changes.
 
 ### Patch Changes
 
@@ -382,7 +382,7 @@
 
 ### Major Changes
 
-- [`07ad26948a1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/07ad26948a1) - In this version we made modal dialog dramatically faster and lighter with a new composable API.
+- [#13864](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13864) [`07ad26948a1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/07ad26948a1) - In this version we made modal dialog dramatically faster and lighter with a new composable API.
   This is a large change and we have provided a codemod to help you upgrade.
   Once you have run the codemod there may be manual change required so read below for all the changes in
   this release.
@@ -761,21 +761,21 @@
 
 ### Patch Changes
 
-- [`adad0d75402`](https://bitbucket.org/atlassian/atlassian-frontend/commits/adad0d75402) - Internal test fix.
+- [#13302](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13302) [`adad0d75402`](https://bitbucket.org/atlassian/atlassian-frontend/commits/adad0d75402) - Internal test fix.
 - Updated dependencies
 
 ## 11.7.3
 
 ### Patch Changes
 
-- [`f75544b8b57`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f75544b8b57) - [ux] As a part of DSP-895, a 0px margin was applied to button to fix a regression in Safari. This has been reverted as the 0px margin will be moved to css-reset instead. As a part of that same ticket, the specificity of the footer buttons in modal dialog was updated. This has also been reverted now that the 0px margin is being moved to css-reset.
+- [#12837](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12837) [`f75544b8b57`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f75544b8b57) - [ux] As a part of DSP-895, a 0px margin was applied to button to fix a regression in Safari. This has been reverted as the 0px margin will be moved to css-reset instead. As a part of that same ticket, the specificity of the footer buttons in modal dialog was updated. This has also been reverted now that the 0px margin is being moved to css-reset.
 - Updated dependencies
 
 ## 11.7.2
 
 ### Patch Changes
 
-- [`378d1cef00f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/378d1cef00f) - Bump `@atlaskit/theme` to version `^11.3.0`.
+- [#12880](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12880) [`378d1cef00f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/378d1cef00f) - Bump `@atlaskit/theme` to version `^11.3.0`.
 
 ## 11.7.1
 
@@ -787,7 +787,7 @@
 
 ### Minor Changes
 
-- [`6679c172f59`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6679c172f59) - Trap the virtual cursor within the modal for screen reader
+- [#11649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/11649) [`6679c172f59`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6679c172f59) - Trap the virtual cursor within the modal for screen reader
 
 ### Patch Changes
 
@@ -798,25 +798,25 @@
 
 ### Patch Changes
 
-- [`95f500da676`](https://bitbucket.org/atlassian/atlassian-frontend/commits/95f500da676) - [ux] Fixes a bug introduced in 11.4.0 – CSS property `left` is put back to the styles of modal dialog container so it doesn't push out floated elements in the background.
+- [#12263](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12263) [`95f500da676`](https://bitbucket.org/atlassian/atlassian-frontend/commits/95f500da676) - [ux] Fixes a bug introduced in 11.4.0 – CSS property `left` is put back to the styles of modal dialog container so it doesn't push out floated elements in the background.
 
 ## 11.6.2
 
 ### Patch Changes
 
-- [`d6f7ff383cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6f7ff383cf) - Updates to development dependency `storybook-addon-performance`
+- [#12167](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12167) [`d6f7ff383cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6f7ff383cf) - Updates to development dependency `storybook-addon-performance`
 
 ## 11.6.1
 
 ### Patch Changes
 
-- [`e3a6469c8e5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e3a6469c8e5) - [ux] FIX: fixes a bug introduced in 11.5.0 – now modal dialog is correctly positioned when relative sizing is used as width
+- [#11407](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/11407) [`e3a6469c8e5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e3a6469c8e5) - [ux] FIX: fixes a bug introduced in 11.5.0 – now modal dialog is correctly positioned when relative sizing is used as width
 
 ## 11.6.0
 
 ### Minor Changes
 
-- [`e1dc82f2825`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e1dc82f2825) - Fix Modal header and footer tags
+- [#11113](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/11113) [`e1dc82f2825`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e1dc82f2825) - Fix Modal header and footer tags
 
 ### Patch Changes
 
@@ -826,7 +826,7 @@
 
 ### Minor Changes
 
-- [`c9cca93180b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c9cca93180b) - [ux] Removes unnecessary dom nodes and refactors styles in modal dialog.
+- [#10569](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10569) [`c9cca93180b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c9cca93180b) - [ux] Removes unnecessary dom nodes and refactors styles in modal dialog.
 
 ### Patch Changes
 
@@ -843,7 +843,7 @@
 
 ### Minor Changes
 
-- [`c0dbb6425f7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c0dbb6425f7) - [ux] Changed ModalDialog html tag from "div" to "section", changed ModalDialog heading from "h4" to "h1"
+- [#10230](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10230) [`c0dbb6425f7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c0dbb6425f7) - [ux] Changed ModalDialog html tag from "div" to "section", changed ModalDialog heading from "h4" to "h1"
 - [`7e3e3e16b55`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7e3e3e16b55) - Entry points are now defined using the declarative format.
 - [`441b1eded91`](https://bitbucket.org/atlassian/atlassian-frontend/commits/441b1eded91) - [ux] Modal dialog no longer attaches keylines in its header/footer – it now shows and hides keylines in its body during scroll when the content overflows.
 - [`96f56104518`](https://bitbucket.org/atlassian/atlassian-frontend/commits/96f56104518) - Adds ability to pass a element ref to the `autoFocus` prop to specifically focus on an element during initial mount.
@@ -863,7 +863,7 @@
 
 ### Minor Changes
 
-- [`0e0b2148d48`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0e0b2148d48) - Modal dialog now attaches data-testid to its header and footer.
+- [#9756](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9756) [`0e0b2148d48`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0e0b2148d48) - Modal dialog now attaches data-testid to its header and footer.
 
 ### Patch Changes
 
@@ -875,45 +875,45 @@
 
 ### Patch Changes
 
-- [`624d33651cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/624d33651cf) - Fix content remounts in version >= 11.1.3
+- [#9083](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9083) [`624d33651cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/624d33651cf) - Fix content remounts in version >= 11.1.3
 - Updated dependencies
 
 ## 11.2.8
 
 ### Patch Changes
 
-- [`79c23df6340`](https://bitbucket.org/atlassian/atlassian-frontend/commits/79c23df6340) - Use injected package name and version for analytics instead of version.json.
+- [#8644](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8644) [`79c23df6340`](https://bitbucket.org/atlassian/atlassian-frontend/commits/79c23df6340) - Use injected package name and version for analytics instead of version.json.
 - Updated dependencies
 
 ## 11.2.7
 
 ### Patch Changes
 
-- [`5af85edf960`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5af85edf960) - Internal code style change of default exports
+- [#8478](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8478) [`5af85edf960`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5af85edf960) - Internal code style change of default exports
 
 ## 11.2.6
 
 ### Patch Changes
 
-- [`7490717bdd4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7490717bdd4) - Fix overflow issue present in Safari 14.0.3
+- [#7892](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/7892) [`7490717bdd4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7490717bdd4) - Fix overflow issue present in Safari 14.0.3
 
 ## 11.2.5
 
 ### Patch Changes
 
-- [`d94d90714b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d94d90714b) - Modal will retain full-width at viewports < 320px. This makes it consistent with < 480px beahviour.
+- [#7425](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/7425) [`d94d90714b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d94d90714b) - Modal will retain full-width at viewports < 320px. This makes it consistent with < 480px beahviour.
 
 ## 11.2.4
 
 ### Patch Changes
 
-- [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
+- [#5857](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5857) [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
 
 ## 11.2.3
 
 ### Patch Changes
 
-- [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
+- [#5497](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5497) [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
   This requires version 3.8 of Typescript, read more about how we handle Typescript versions here: https://atlaskit.atlassian.com/get-started
   Also add `typescript` to `devDependencies` to denote version that the package was built with.
 
@@ -927,13 +927,13 @@
 
 ### Patch Changes
 
-- [`2ac834240e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2ac834240e) - Undo analytics-next file restructure to allow external ts definitions to continue working
+- [#5164](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5164) [`2ac834240e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2ac834240e) - Undo analytics-next file restructure to allow external ts definitions to continue working
 
 ## 11.2.0
 
 ### Minor Changes
 
-- [`9d5d1ab37f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d5d1ab37f) - Allow for non tinted blanket background
+- [#4749](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4749) [`9d5d1ab37f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d5d1ab37f) - Allow for non tinted blanket background
 
 ### Patch Changes
 
@@ -944,13 +944,13 @@
 
 ### Patch Changes
 
-- [`6360c46009`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6360c46009) - Reenable integration tests for Edge browser
+- [#4707](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4707) [`6360c46009`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6360c46009) - Reenable integration tests for Edge browser
 
 ## 11.1.5
 
 ### Patch Changes
 
-- [`8598d0bd13`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8598d0bd13) - Remove unnecessary code and tests for IE11.
+- [#4424](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4424) [`8598d0bd13`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8598d0bd13) - Remove unnecessary code and tests for IE11.
 - [`6ac737558f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6ac737558f) - Remove non-standard CSS property [-ms-high-contrast](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/-ms-high-contrast). The `-ms-high-contrast` CSS media feature is a Microsoft extension that describes whether the application is being displayed in high contrast mode, and with what color variation.
 - Updated dependencies
 
@@ -958,7 +958,7 @@
 
 ### Patch Changes
 
-- [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
+- [#3885](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3885) [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
 
   Since tslib is a dependency for all our packages we recommend that products also follow this tslib upgrade
   to prevent duplicates of tslib being bundled.
@@ -967,25 +967,25 @@
 
 ### Patch Changes
 
-- [`c1b8d0e897`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c1b8d0e897) - You can now scroll using a touchscreen in the body of `modal-dialog` content
+- [#3823](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3823) [`c1b8d0e897`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c1b8d0e897) - You can now scroll using a touchscreen in the body of `modal-dialog` content
 
 ## 11.1.2
 
 ### Patch Changes
 
-- [`954cc87b62`](https://bitbucket.org/atlassian/atlassian-frontend/commits/954cc87b62) - The readme and package information has been updated to point to the new design system website.
+- [#3293](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3293) [`954cc87b62`](https://bitbucket.org/atlassian/atlassian-frontend/commits/954cc87b62) - The readme and package information has been updated to point to the new design system website.
 
 ## 11.1.1
 
 ### Patch Changes
 
-- [`810f11aaab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/810f11aaab) - Custom body styles have been added back. They will be removed in the next major version - if you're customizing the body of the modal dialog please make sure to spread props onto your custom component.
+- [#4191](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4191) [`810f11aaab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/810f11aaab) - Custom body styles have been added back. They will be removed in the next major version - if you're customizing the body of the modal dialog please make sure to spread props onto your custom component.
 
 ## 11.1.0
 
 ### Minor Changes
 
-- [`727776fa32`](https://bitbucket.org/atlassian/atlassian-frontend/commits/727776fa32) - Missing types for component overrides are now exposed - you can access them through the root entrypoint.
+- [#3954](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3954) [`727776fa32`](https://bitbucket.org/atlassian/atlassian-frontend/commits/727776fa32) - Missing types for component overrides are now exposed - you can access them through the root entrypoint.
 
   ```js
   import {
@@ -1002,7 +1002,7 @@
 
 ### Patch Changes
 
-- [`5b5e7b6323`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5b5e7b6323) - The previous hotfix (https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3781) didn't fix the appearance override issue.
+- [#3826](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3826) [`5b5e7b6323`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5b5e7b6323) - The previous hotfix (https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3781) didn't fix the appearance override issue.
 
   This change will be re-introduced in a future major version, please follow this ticket for updates https://product-fabric.atlassian.net/browse/DST-660.
 
@@ -1010,7 +1010,7 @@
 
 ### Patch Changes
 
-- [`9796654bab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9796654bab) - The button sequence correction has been reverted as it was causing unintended regressions for some use cases. Affected versions include: @atlaskit/modal-dialog@11.0.1.
+- [#3781](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3781) [`9796654bab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9796654bab) - The button sequence correction has been reverted as it was causing unintended regressions for some use cases. Affected versions include: @atlaskit/modal-dialog@11.0.1.
 
   This change will be re-introduced in a future major version, please follow this ticket for updates https://product-fabric.atlassian.net/browse/DST-660.
 
@@ -1018,7 +1018,7 @@
 
 ### Patch Changes
 
-- [`95261cf7b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/95261cf7b0) - Fixed modal dialog focus issue
+- [#3428](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3428) [`95261cf7b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/95261cf7b0) - Fixed modal dialog focus issue
 - [`3414523d6f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3414523d6f) - Rearange buttons order to align with design guidelines
 - [`30f8909177`](https://bitbucket.org/atlassian/atlassian-frontend/commits/30f8909177) - fixed the layering between header, content, and footer
 - [`db053b24d8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/db053b24d8) - Update all the theme imports to be tree-shakable
@@ -1027,7 +1027,7 @@
 
 ### Major Changes
 
-- [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
+- [#3335](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3335) [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
   For more information see: https://community.developer.atlassian.com/t/atlaskit-to-drop-support-for-internet-explorer-11-from-1st-july-2020/39534
 
 ### Patch Changes
@@ -1038,33 +1038,33 @@
 
 ### Patch Changes
 
-- [`5be257c6f6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5be257c6f6) - Fix issue with the way that tabIndex was applied to dialog content. Now the check looks at whether the container is scrollable, rather than the shouldScroll prop.
+- [#2763](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2763) [`5be257c6f6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5be257c6f6) - Fix issue with the way that tabIndex was applied to dialog content. Now the check looks at whether the container is scrollable, rather than the shouldScroll prop.
 - [`057d870973`](https://bitbucket.org/atlassian/atlassian-frontend/commits/057d870973) - Fix keyboard scrolling of modal dialog content
 
 ## 10.6.3
 
 ### Patch Changes
 
-- [`fddc283495`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fddc283495) - Added aria-labelledby to dialog and point it to the real heading
+- [#2443](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2443) [`fddc283495`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fddc283495) - Added aria-labelledby to dialog and point it to the real heading
 - [`b2b0b94079`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b2b0b94079) - Reverts breaking test id change.
 
 ## 10.6.2
 
 ### Patch Changes
 
-- [`54a9514fcf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54a9514fcf) - Build and supporting files will no longer be published to npm
+- [#2866](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2866) [`54a9514fcf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54a9514fcf) - Build and supporting files will no longer be published to npm
 
 ## 10.6.1
 
 ### Patch Changes
 
-- [`4560b65a4f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4560b65a4f) - upgrade react-transition-group to latest
+- [#2677](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2677) [`4560b65a4f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4560b65a4f) - upgrade react-transition-group to latest
 
 ## 10.6.0
 
 ### Minor Changes
 
-- [`98e93d93ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/98e93d93ec) - ActionProps.text now accepts React.ReactNode instead of just string
+- [#2137](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2137) [`98e93d93ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/98e93d93ec) - ActionProps.text now accepts React.ReactNode instead of just string
 
 ### Patch Changes
 
@@ -1081,7 +1081,7 @@
 
 ### Patch Changes
 
-- [`53d09bdb5d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/53d09bdb5d) - Reverts scrolling fix which introduced a layering regression.
+- [#2012](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2012) [`53d09bdb5d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/53d09bdb5d) - Reverts scrolling fix which introduced a layering regression.
 
 ## 10.5.7
 

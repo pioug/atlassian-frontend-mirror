@@ -180,8 +180,8 @@ describe('MediaSingle', () => {
     });
 
     it('should return existing value if layout is not full-width or wide', () => {
-      expect(getMediaContainerWidth(0, 'full-width')).toEqual(0);
-      expect(getMediaContainerWidth(0, 'wide')).toEqual(0);
+      expect(getMediaContainerWidth(0, 'full-width')).toEqual(1800);
+      expect(getMediaContainerWidth(0, 'wide')).toEqual(960);
       expect(getMediaContainerWidth(100, 'full-width')).toEqual(100);
       expect(getMediaContainerWidth(100, 'wide')).toEqual(100);
     });

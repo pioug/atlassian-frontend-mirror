@@ -16,20 +16,20 @@
 
 ### Patch Changes
 
-- [`aeb5c9a01e8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aeb5c9a01e8) - Delete adf-schema from AFE and rely on npm package for adf-schema
+- [#39481](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39481) [`aeb5c9a01e8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aeb5c9a01e8) - Delete adf-schema from AFE and rely on npm package for adf-schema
 - [`4b4dcfe0bba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4b4dcfe0bba) - Delete adf-schema, use published version
 
 ## 5.2.12
 
 ### Patch Changes
 
-- [`33cb07de05f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/33cb07de05f) - change adf-schema to fixed versioning
+- [#38976](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38976) [`33cb07de05f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/33cb07de05f) - change adf-schema to fixed versioning
 
 ## 5.2.11
 
 ### Patch Changes
 
-- [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
+- [#38162](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38162) [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
 - Updated dependencies
 
 ## 5.2.10
@@ -54,19 +54,19 @@
 
 ### Patch Changes
 
-- [`4e6f1bf8511`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4e6f1bf8511) - [ED-19233] Import prosemirror libraries from internal facade package
+- [#37785](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37785) [`4e6f1bf8511`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4e6f1bf8511) - [ED-19233] Import prosemirror libraries from internal facade package
 
 ## 5.2.6
 
 ### Patch Changes
 
-- [`1bfa8537fae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1bfa8537fae) - [ED-18163] Removed last circular dependencies by moving transformer tests to their related transformers and removing an unused dependency
+- [#37004](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37004) [`1bfa8537fae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1bfa8537fae) - [ED-18163] Removed last circular dependencies by moving transformer tests to their related transformers and removing an unused dependency
 
 ## 5.2.5
 
 ### Patch Changes
 
-- [`742d4ba9388`](https://bitbucket.org/atlassian/atlassian-frontend/commits/742d4ba9388) - [ux] ED-18027 Upgrades markdown-it-table@^2.0.6 to prevent empty lists underneath tables from crashing the editor.
+- [#36695](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36695) [`742d4ba9388`](https://bitbucket.org/atlassian/atlassian-frontend/commits/742d4ba9388) - [ux] ED-18027 Upgrades markdown-it-table@^2.0.6 to prevent empty lists underneath tables from crashing the editor.
 
 ## 5.2.4
 
@@ -78,26 +78,26 @@
 
 ### Patch Changes
 
-- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793) [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
 
 ## 5.2.2
 
 ### Patch Changes
 
-- [`a142ba1aa28`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a142ba1aa28) - [ED17172] Bump prosemirror-model to 1.16.0 and prosemirror-view to 1.23.7 and removed work-arounds for fixed issues
+- [#33771](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33771) [`a142ba1aa28`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a142ba1aa28) - [ED17172] Bump prosemirror-model to 1.16.0 and prosemirror-view to 1.23.7 and removed work-arounds for fixed issues
 - Updated dependencies
 
 ## 5.2.1
 
 ### Patch Changes
 
-- [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649) [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
 
 ## 5.2.0
 
 ### Minor Changes
 
-- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258) [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
 
 ### Patch Changes
 
@@ -107,33 +107,33 @@
 
 ### Patch Changes
 
-- [`0ffb55018c9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0ffb55018c9) - Revert "[ED-17172] Bumped prosemirror-view from 1.23.2 to 1.23.7 and removed work-around for fixed issues"
+- [#33004](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33004) [`0ffb55018c9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0ffb55018c9) - Revert "[ED-17172] Bumped prosemirror-view from 1.23.2 to 1.23.7 and removed work-around for fixed issues"
 - Updated dependencies
 
 ## 5.1.1
 
 ### Patch Changes
 
-- [`55d2b0c81ee`](https://bitbucket.org/atlassian/atlassian-frontend/commits/55d2b0c81ee) - ED-17502 Updated serializer for taskLists to add line breaks between children and after taskList.
+- [#32088](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32088) [`55d2b0c81ee`](https://bitbucket.org/atlassian/atlassian-frontend/commits/55d2b0c81ee) - ED-17502 Updated serializer for taskLists to add line breaks between children and after taskList.
 
 ## 5.1.0
 
 ### Minor Changes
 
-- [`bed2b09bcae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bed2b09bcae) - ED-17502 Adds taskList and taskItem markdown support in editor-plugin-ai, including mapping for these nodes in editor-markdown-transformer.
+- [#32581](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32581) [`bed2b09bcae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bed2b09bcae) - ED-17502 Adds taskList and taskItem markdown support in editor-plugin-ai, including mapping for these nodes in editor-markdown-transformer.
 
 ## 5.0.1
 
 ### Patch Changes
 
-- [`2e01c9c74b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e01c9c74b5) - DUMMY remove before merging to master; dupe adf-schema via adf-utils
+- [#32424](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32424) [`2e01c9c74b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e01c9c74b5) - DUMMY remove before merging to master; dupe adf-schema via adf-utils
 - Updated dependencies
 
 ## 5.0.0
 
 ### Major Changes
 
-- [`5d317ed8aa3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5d317ed8aa3) - [ux] ED-15882: Implement custom starting numbers for orderedList nodes in adf-schema, editor, renderer, transformers behind restartNumberedLists feature flag. Users will be able to set a custom starting number when typing to create a numbered list in the Editor and this will be persisted across Renderer and other format transformations.
+- [#28090](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28090) [`5d317ed8aa3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5d317ed8aa3) - [ux] ED-15882: Implement custom starting numbers for orderedList nodes in adf-schema, editor, renderer, transformers behind restartNumberedLists feature flag. Users will be able to set a custom starting number when typing to create a numbered list in the Editor and this will be persisted across Renderer and other format transformations.
 
   Note: restartNumberedLists will be off by default. To enable it, consumers will need to set <Editor featureFlags={{ restartNumberedLists: true }}> or <Renderer featureFlags={{ restartNumberedLists: true }}>
 
@@ -157,7 +157,7 @@
 
 ### Patch Changes
 
-- [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
+- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874) [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
 
 ## 4.2.14
 
@@ -169,13 +169,13 @@
 
 ### Patch Changes
 
-- [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
+- [#24492](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24492) [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
 
 ## 4.2.12
 
 ### Patch Changes
 
-- [`6cbd22a9318`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6cbd22a9318) - ED-15179 bumped markdown-it dependency to prevent vulnerability issue
+- [#23381](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23381) [`6cbd22a9318`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6cbd22a9318) - ED-15179 bumped markdown-it dependency to prevent vulnerability issue
 - Updated dependencies
 
 ## 4.2.11
@@ -188,7 +188,7 @@
 
 ### Patch Changes
 
-- [`61168f3e928`](https://bitbucket.org/atlassian/atlassian-frontend/commits/61168f3e928) - ED-14275 update markdown transformer to emotion
+- [#21570](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21570) [`61168f3e928`](https://bitbucket.org/atlassian/atlassian-frontend/commits/61168f3e928) - ED-14275 update markdown transformer to emotion
 - Updated dependencies
 
 ## 4.2.9
@@ -201,13 +201,13 @@
 
 ### Patch Changes
 
-- [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
+- [#20650](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20650) [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
 
 ## 4.2.7
 
 ### Patch Changes
 
-- [`b29ce16dad8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b29ce16dad8) - [ED-14606] Move bitbucket schema, confluence schema, jira schema, and default schema from @atlaskit/adf-schema to their own entry points. These new entry points are as follows
+- [#20033](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20033) [`b29ce16dad8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b29ce16dad8) - [ED-14606] Move bitbucket schema, confluence schema, jira schema, and default schema from @atlaskit/adf-schema to their own entry points. These new entry points are as follows
 
   @atlaskit/adf-schema/schema-bitbucket for:
 
@@ -265,7 +265,7 @@
 
 ### Patch Changes
 
-- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - ED-13753 Updated editor-common import entries.
+- [#16752](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16752) [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - ED-13753 Updated editor-common import entries.
 - Updated dependencies
 
 ## 4.2.2
@@ -278,7 +278,7 @@
 
 ### Patch Changes
 
-- [`c6feed82071`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c6feed82071) - ED-11632: Bump prosemirror packages;
+- [#15998](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/15998) [`c6feed82071`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c6feed82071) - ED-11632: Bump prosemirror packages;
 
   - prosmirror-commands 1.1.4 -> 1.1.11,
   - prosemirror-model 1.11.0 -> 1.14.3,
@@ -292,7 +292,7 @@
 
 ### Minor Changes
 
-- [`4ef117905fd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ef117905fd) - Disable 'linkify' option when transforming markdown to adf to avoid transforming undecorated urls and email addresses into links
+- [#14278](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/14278) [`4ef117905fd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ef117905fd) - Disable 'linkify' option when transforming markdown to adf to avoid transforming undecorated urls and email addresses into links
 
 ## 4.1.17
 
@@ -346,7 +346,7 @@
 
 ### Patch Changes
 
-- [`58b170725be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/58b170725be) - Renamed @atlaskit/editor-test-helpers/schema-builder to @atlaskit/editor-test-helpers/doc-builder
+- [#9510](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9510) [`58b170725be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/58b170725be) - Renamed @atlaskit/editor-test-helpers/schema-builder to @atlaskit/editor-test-helpers/doc-builder
 - Updated dependencies
 
 ## 4.1.8
@@ -377,7 +377,7 @@
 
 ### Patch Changes
 
-- [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
+- [#5857](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5857) [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
 
 ## 4.1.3
 
@@ -389,14 +389,14 @@
 
 ### Patch Changes
 
-- [`703752d487`](https://bitbucket.org/atlassian/atlassian-frontend/commits/703752d487) - ED-10647 Remove caret from prosemirror-model, prosemirror-keymap, prosemirror-state, prosemirror-transform to lock them down to an explicit version
+- [#5860](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5860) [`703752d487`](https://bitbucket.org/atlassian/atlassian-frontend/commits/703752d487) - ED-10647 Remove caret from prosemirror-model, prosemirror-keymap, prosemirror-state, prosemirror-transform to lock them down to an explicit version
 - Updated dependencies
 
 ## 4.1.1
 
 ### Patch Changes
 
-- [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
+- [#5497](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5497) [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
   This requires version 3.8 of Typescript, read more about how we handle Typescript versions here: https://atlaskit.atlassian.com/get-started
   Also add `typescript` to `devDependencies` to denote version that the package was built with.
 
@@ -404,7 +404,7 @@
 
 ### Minor Changes
 
-- [`9a39500244`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9a39500244) - Bump ProseMirror packages
+- [#4749](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4749) [`9a39500244`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9a39500244) - Bump ProseMirror packages
 
   Read more: https://product-fabric.atlassian.net/wiki/spaces/E/pages/1671956531/2020-08
 
@@ -422,7 +422,7 @@
 
 ### Patch Changes
 
-- [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
+- [#3885](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3885) [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
 
   Since tslib is a dependency for all our packages we recommend that products also follow this tslib upgrade
   to prevent duplicates of tslib being bundled.
@@ -443,7 +443,7 @@
 
 ### Major Changes
 
-- [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
+- [#3335](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3335) [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
   For more information see: https://community.developer.atlassian.com/t/atlaskit-to-drop-support-for-internet-explorer-11-from-1st-july-2020/39534
 
 ### Patch Changes

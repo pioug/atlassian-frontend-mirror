@@ -4,13 +4,13 @@
 
 ### Patch Changes
 
-- [`37c62369dae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/37c62369dae) - NO-ISSUE Import doc builder types from editor-common
+- [#39984](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39984) [`37c62369dae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/37c62369dae) - NO-ISSUE Import doc builder types from editor-common
 
 ## 2.3.9
 
 ### Patch Changes
 
-- [`35242fb367a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/35242fb367a) - Add custom-table-width feature flag and add width to table node when inserted
+- [#39381](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39381) [`35242fb367a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/35242fb367a) - Add custom-table-width feature flag and add width to table node when inserted
 
 ## 2.3.8
 
@@ -22,67 +22,67 @@
 
 ### Patch Changes
 
-- [`4e6f1bf8511`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4e6f1bf8511) - [ED-19233] Import prosemirror libraries from internal facade package
+- [#37785](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37785) [`4e6f1bf8511`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4e6f1bf8511) - [ED-19233] Import prosemirror libraries from internal facade package
 
 ## 2.3.6
 
 ### Patch Changes
 
-- [`5f5ba16de66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f5ba16de66) - [ED-13910] Fix prosemirror types
+- [#36241](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36241) [`5f5ba16de66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f5ba16de66) - [ED-13910] Fix prosemirror types
 
 ## 2.3.5
 
 ### Patch Changes
 
-- [`73b5128036b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/73b5128036b) - [ED-17082] Mark package as a singleton one
+- [#35782](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35782) [`73b5128036b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/73b5128036b) - [ED-17082] Mark package as a singleton one
 
 ## 2.3.4
 
 ### Patch Changes
 
-- [`fa1f53e0ae7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fa1f53e0ae7) - [ED-18167] Remove dependency of editor-tables on adf schema library to avoid a circular dependency
+- [#35533](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35533) [`fa1f53e0ae7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fa1f53e0ae7) - [ED-18167] Remove dependency of editor-tables on adf schema library to avoid a circular dependency
 
 ## 2.3.3
 
 ### Patch Changes
 
-- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793) [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
 
 ## 2.3.2
 
 ### Patch Changes
 
-- [`a142ba1aa28`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a142ba1aa28) - [ED17172] Bump prosemirror-model to 1.16.0 and prosemirror-view to 1.23.7 and removed work-arounds for fixed issues
+- [#33771](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33771) [`a142ba1aa28`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a142ba1aa28) - [ED17172] Bump prosemirror-model to 1.16.0 and prosemirror-view to 1.23.7 and removed work-arounds for fixed issues
 
 ## 2.3.1
 
 ### Patch Changes
 
-- [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649) [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
 
 ## 2.3.0
 
 ### Minor Changes
 
-- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258) [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
 
 ## 2.2.6
 
 ### Patch Changes
 
-- [`0ffb55018c9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0ffb55018c9) - Revert "[ED-17172] Bumped prosemirror-view from 1.23.2 to 1.23.7 and removed work-around for fixed issues"
+- [#33004](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33004) [`0ffb55018c9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0ffb55018c9) - Revert "[ED-17172] Bumped prosemirror-view from 1.23.2 to 1.23.7 and removed work-around for fixed issues"
 
 ## 2.2.5
 
 ### Patch Changes
 
-- [`2e01c9c74b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e01c9c74b5) - DUMMY remove before merging to master; dupe adf-schema via adf-utils
+- [#32424](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32424) [`2e01c9c74b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e01c9c74b5) - DUMMY remove before merging to master; dupe adf-schema via adf-utils
 
 ## 2.2.4
 
 ### Patch Changes
 
-- [`4080eb013ef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4080eb013ef) - [ux] Fix bug where pasting inside a table did not respect the table's headers. Pasted cells are formatted based on the table they are being pasted into.
+- [#28932](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28932) [`4080eb013ef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4080eb013ef) - [ux] Fix bug where pasting inside a table did not respect the table's headers. Pasted cells are formatted based on the table they are being pasted into.
 - [`4f6a895f1d5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4f6a895f1d5) - Set selectable property for selectable nodes
 - [`4f6a895f1d5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4f6a895f1d5) - Fix arrow shift selection coming from outside of the table
 
@@ -90,44 +90,44 @@
 
 ### Patch Changes
 
-- [`dbef481f7df`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dbef481f7df) - [ux] ED-15724: fix the merged row(2nd row or later) cannot been recongnized as row selection and cannot be deleted.
+- [#28090](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28090) [`dbef481f7df`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dbef481f7df) - [ux] ED-15724: fix the merged row(2nd row or later) cannot been recongnized as row selection and cannot be deleted.
 
 ## 2.2.2
 
 ### Patch Changes
 
-- [`47f1f76cb80`](https://bitbucket.org/atlassian/atlassian-frontend/commits/47f1f76cb80) - Add selectTableClosestToPos function
+- [#26712](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26712) [`47f1f76cb80`](https://bitbucket.org/atlassian/atlassian-frontend/commits/47f1f76cb80) - Add selectTableClosestToPos function
 - [`755d7bf5c2a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/755d7bf5c2a) - [ux] ED-12527 Prevents editor-tables handleMouseDown() from creating a cell selection when right clicking in a table cell.
 
 ## 2.2.1
 
 ### Patch Changes
 
-- [`403e0d2d291`](https://bitbucket.org/atlassian/atlassian-frontend/commits/403e0d2d291) - ED-16246 fix prevent @types/prosemirror-commands @types/prosemirror-keymap updating to incompatible version.
+- [#27511](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/27511) [`403e0d2d291`](https://bitbucket.org/atlassian/atlassian-frontend/commits/403e0d2d291) - ED-16246 fix prevent @types/prosemirror-commands @types/prosemirror-keymap updating to incompatible version.
 
 ## 2.2.0
 
 ### Minor Changes
 
-- [`d8acf7254db`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d8acf7254db) - ED-8567 added tracking for fixTables()
+- [#24710](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24710) [`d8acf7254db`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d8acf7254db) - ED-8567 added tracking for fixTables()
 
 ## 2.1.6
 
 ### Patch Changes
 
-- [`95f007063cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/95f007063cf) - Decoupling paste plugin and table plugin, copied `replaceSelectedTable` and `getSelectedTableInfo` utils to editor-tables utils package and analytics dependency shifted to paste plugin.
+- [#24607](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24607) [`95f007063cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/95f007063cf) - Decoupling paste plugin and table plugin, copied `replaceSelectedTable` and `getSelectedTableInfo` utils to editor-tables utils package and analytics dependency shifted to paste plugin.
 
 ## 2.1.5
 
 ### Patch Changes
 
-- [`e6f25536fe3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e6f25536fe3) - [ux][ed-15168] Fixes a bug where a width-less column was created when pasting table cells into a table that had columns with set widths.
+- [#23381](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23381) [`e6f25536fe3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e6f25536fe3) - [ux][ed-15168] Fixes a bug where a width-less column was created when pasting table cells into a table that had columns with set widths.
 
 ## 2.1.4
 
 ### Patch Changes
 
-- [`b29ce16dad8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b29ce16dad8) - [ED-14606] Move bitbucket schema, confluence schema, jira schema, and default schema from @atlaskit/adf-schema to their own entry points. These new entry points are as follows
+- [#20033](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20033) [`b29ce16dad8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b29ce16dad8) - [ED-14606] Move bitbucket schema, confluence schema, jira schema, and default schema from @atlaskit/adf-schema to their own entry points. These new entry points are as follows
 
   @atlaskit/adf-schema/schema-bitbucket for:
 
@@ -165,13 +165,13 @@
 
 ### Patch Changes
 
-- [`cbfbaab61bb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cbfbaab61bb) - [ux][ed-14300] Remove column width from table cells being pasted into another table as it should take the formatting of the destination table.
+- [#19618](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19618) [`cbfbaab61bb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cbfbaab61bb) - [ux][ed-14300] Remove column width from table cells being pasted into another table as it should take the formatting of the destination table.
 
 ## 2.1.2
 
 ### Patch Changes
 
-- [`4e6fbaf5898`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4e6fbaf5898) - ED-14117 Change EditorState.apply type to receive readonly transaction
+- [#18526](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/18526) [`4e6fbaf5898`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4e6fbaf5898) - ED-14117 Change EditorState.apply type to receive readonly transaction
 
   Transactions should not be mutated after being dispatched as it can lead to
   unexpected behaviour. This change patches the relevant types declared in
@@ -181,13 +181,13 @@
 
 ### Patch Changes
 
-- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - ED-13025 Bump prosemirror-view 1.23.1 -> 1.23.2
+- [#16752](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16752) [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - ED-13025 Bump prosemirror-view 1.23.1 -> 1.23.2
 
 ## 2.1.0
 
 ### Minor Changes
 
-- [`b230f366971`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b230f366971) - [ED-14008] Bump prosemirror-view from 1.20.2 to 1.23.1
+- [#15998](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/15998) [`b230f366971`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b230f366971) - [ED-14008] Bump prosemirror-view from 1.20.2 to 1.23.1
 
 ### Patch Changes
 
@@ -203,52 +203,52 @@
 
 ### Patch Changes
 
-- [`96c6146eef1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/96c6146eef1) - ED-13187: localId optional & empty values filtered
+- [#13302](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13302) [`96c6146eef1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/96c6146eef1) - ED-13187: localId optional & empty values filtered
 
 ## 2.0.0
 
 ### Major Changes
 
-- [`71318e96b5d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/71318e96b5d) - NO-ISSUE Force bump editor-tables
+- [#9847](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9847) [`71318e96b5d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/71318e96b5d) - NO-ISSUE Force bump editor-tables
 
 ## 1.1.5
 
 ### Patch Changes
 
-- [`5089bd2544d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5089bd2544d) - ED-11919: generate localId for tables
+- [#9510](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9510) [`5089bd2544d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5089bd2544d) - ED-11919: generate localId for tables
 - [`58b170725be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/58b170725be) - Renamed @atlaskit/editor-test-helpers/schema-builder to @atlaskit/editor-test-helpers/doc-builder
 
 ## 1.1.4
 
 ### Patch Changes
 
-- [`d2e70ebaaa9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d2e70ebaaa9) - NO-ISSUE: updated editor tests to use 'doc: DocBuilder' instead of 'doc: any'
+- [#9083](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9083) [`d2e70ebaaa9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d2e70ebaaa9) - NO-ISSUE: updated editor tests to use 'doc: DocBuilder' instead of 'doc: any'
 - [`fe1c96a3d28`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fe1c96a3d28) - added DocBuilder type to @atlaskit/editor-test-helpers, replaced duplicate definitions and DocumentType
 
 ## 1.1.3
 
 ### Patch Changes
 
-- [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
+- [#5857](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5857) [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
 
 ## 1.1.2
 
 ### Patch Changes
 
-- [`703752d487`](https://bitbucket.org/atlassian/atlassian-frontend/commits/703752d487) - ED-10647 Remove caret from prosemirror-model, prosemirror-keymap, prosemirror-state, prosemirror-transform to lock them down to an explicit version
+- [#5860](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5860) [`703752d487`](https://bitbucket.org/atlassian/atlassian-frontend/commits/703752d487) - ED-10647 Remove caret from prosemirror-model, prosemirror-keymap, prosemirror-state, prosemirror-transform to lock them down to an explicit version
 
 ## 1.1.1
 
 ### Patch Changes
 
-- [`e4abda244e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e4abda244e) - ED-9912: replace prosemirror-tables with editor-tables
+- [#5516](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5516) [`e4abda244e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e4abda244e) - ED-9912: replace prosemirror-tables with editor-tables
 - [`d39fa49905`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d39fa49905) - ED-10420: remove utils copied from prosemirror-utils
 
 ## 1.1.0
 
 ### Minor Changes
 
-- [`111eac563c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/111eac563c) - ED-9915: added table utils from prosemirror-utils
+- [#4749](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4749) [`111eac563c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/111eac563c) - ED-9915: added table utils from prosemirror-utils
 - [`9a39500244`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9a39500244) - Bump ProseMirror packages
 
   Read more: https://product-fabric.atlassian.net/wiki/spaces/E/pages/1671956531/2020-08
@@ -266,7 +266,7 @@
 
 ### Patch Changes
 
-- [`e485167c47`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e485167c47) - ED-10018: bump prosemirror-tables to fix copy-pasting merged rows
+- [#4424](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4424) [`e485167c47`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e485167c47) - ED-10018: bump prosemirror-tables to fix copy-pasting merged rows
 - [`7325aff6d3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7325aff6d3) - ED-9626: added unit tests for CellSelection and tableEditing plugin to editor-tables
 - Updated dependencies
 
@@ -274,7 +274,7 @@
 
 ### Patch Changes
 
-- [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
+- [#3885](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3885) [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
 
   Since tslib is a dependency for all our packages we recommend that products also follow this tslib upgrade
   to prevent duplicates of tslib being bundled.
@@ -283,4 +283,4 @@
 
 ### Major Changes
 
-- [`b00bfbe3f3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b00bfbe3f3) - ED-9627 Added new @atlaskit/editor-tables package to include common editor tables related code. Included TableMap class from prosemirror-tables package with it.
+- [#3428](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3428) [`b00bfbe3f3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b00bfbe3f3) - ED-9627 Added new @atlaskit/editor-tables package to include common editor tables related code. Included TableMap class from prosemirror-tables package with it.

@@ -4,45 +4,45 @@
 
 ### Patch Changes
 
-- [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
+- [#38162](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38162) [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
 
 ## 18.0.5
 
 ### Patch Changes
 
-- [`b9355830504`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b9355830504) - Opt out of peer dependency enforcement
+- [#37340](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37340) [`b9355830504`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b9355830504) - Opt out of peer dependency enforcement
 
 ## 18.0.4
 
 ### Patch Changes
 
-- [`3fb20c4aeba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3fb20c4aeba) - Add postinstall check to enforce internal peer dependencies
+- [#36757](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36757) [`3fb20c4aeba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3fb20c4aeba) - Add postinstall check to enforce internal peer dependencies
 
 ## 18.0.3
 
 ### Patch Changes
 
-- [`4d66cb26fcb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4d66cb26fcb) - Bump jsdom to ^17.0.0
+- [#36822](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36822) [`4d66cb26fcb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4d66cb26fcb) - Bump jsdom to ^17.0.0
 
 ## 18.0.2
 
 ### Patch Changes
 
-- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793) [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
 - Updated dependencies
 
 ## 18.0.1
 
 ### Patch Changes
 
-- [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649) [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
 - Updated dependencies
 
 ## 18.0.0
 
 ### Minor Changes
 
-- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258) [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
 
 ### Patch Changes
 
@@ -58,14 +58,14 @@
 
 ### Patch Changes
 
-- [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
+- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874) [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
 - Updated dependencies
 
 ## 16.1.0
 
 ### Minor Changes
 
-- [`229177bb85d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/229177bb85d) - CETI-16 added remove emoji icon so that it appears in mobilekit too
+- [#15998](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/15998) [`229177bb85d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/229177bb85d) - CETI-16 added remove emoji icon so that it appears in mobilekit too
 
 ### Patch Changes
 
@@ -99,38 +99,38 @@
 
 ### Patch Changes
 
-- [`01d837cb7f5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/01d837cb7f5) - Local build tooling has been improved.
+- [#9083](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9083) [`01d837cb7f5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/01d837cb7f5) - Local build tooling has been improved.
 - [`d98f1bb1169`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d98f1bb1169) - Local build tooling improvements.
 
 ## 13.1.0
 
 ### Minor Changes
 
-- [`b9265389fa0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b9265389fa0) - Icon now exposes a base icon via the `@atlaskit/icon/base` entrypoint. This is used in all generated glyphs inside the icon package.
+- [#8178](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8178) [`b9265389fa0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b9265389fa0) - Icon now exposes a base icon via the `@atlaskit/icon/base` entrypoint. This is used in all generated glyphs inside the icon package.
 
 ## 13.0.8
 
 ### Patch Changes
 
-- [`37afe4a0fd5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/37afe4a0fd5) - [ux] Update Dropbox icon and arrow-left icon
+- [#7762](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/7762) [`37afe4a0fd5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/37afe4a0fd5) - [ux] Update Dropbox icon and arrow-left icon
 
 ## 13.0.7
 
 ### Patch Changes
 
-- [`bd2fa06042`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bd2fa06042) - Re-generated icons using newer version of build process, and added missing 'archive' and 'mobile' buttons
+- [#7425](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/7425) [`bd2fa06042`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bd2fa06042) - Re-generated icons using newer version of build process, and added missing 'archive' and 'mobile' buttons
 
 ## 13.0.6
 
 ### Patch Changes
 
-- [`5a25ec3086`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5a25ec3086) - Regenerate icon-sprite after forcing resolution for xmldom to `^0.2.1`.
+- [#7539](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/7539) [`5a25ec3086`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5a25ec3086) - Regenerate icon-sprite after forcing resolution for xmldom to `^0.2.1`.
 
 ## 13.0.5
 
 ### Patch Changes
 
-- [`cdfd30ef56`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cdfd30ef56) - Bumping dep for fbjs util and moving it to a devDep for css-reset
+- [#5653](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5653) [`cdfd30ef56`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cdfd30ef56) - Bumping dep for fbjs util and moving it to a devDep for css-reset
 - Updated dependencies
 
 ## 13.0.4
@@ -143,13 +143,13 @@
 
 ### Patch Changes
 
-- [`30853172ff`](https://bitbucket.org/atlassian/atlassian-frontend/commits/30853172ff) - Reset babel config back to ie11 to prevent runtime issues in Jira and to unbreak the Confluence es5-check
+- [#4573](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4573) [`30853172ff`](https://bitbucket.org/atlassian/atlassian-frontend/commits/30853172ff) - Reset babel config back to ie11 to prevent runtime issues in Jira and to unbreak the Confluence es5-check
 
 ## 13.0.2
 
 ### Patch Changes
 
-- [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
+- [#3885](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3885) [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
 
   Since tslib is a dependency for all our packages we recommend that products also follow this tslib upgrade
   to prevent duplicates of tslib being bundled.
@@ -158,13 +158,13 @@
 
 ### Patch Changes
 
-- [`c061751e24`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c061751e24) - Fix Codesandbox example and update link in documentation
+- [#3428](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3428) [`c061751e24`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c061751e24) - Fix Codesandbox example and update link in documentation
 
 ## 13.0.0
 
 ### Major Changes
 
-- [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
+- [#3335](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3335) [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
   For more information see: https://community.developer.atlassian.com/t/atlaskit-to-drop-support-for-internet-explorer-11-from-1st-july-2020/39534
 
 ### Patch Changes

@@ -4,127 +4,127 @@
 
 ### Patch Changes
 
-- [`d01e1d4059c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d01e1d4059c) - Added this package into push model consumption.
+- [#39308](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39308) [`d01e1d4059c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d01e1d4059c) - Added this package into push model consumption.
 
 ## 10.2.4
 
 ### Patch Changes
 
-- [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
+- [#38162](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38162) [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
 
 ## 10.2.3
 
 ### Patch Changes
 
-- [`b1bdec7cce2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b1bdec7cce2) - Internal change to enforce token usage for spacing properties. There is no expected visual or behaviour change.
+- [#32935](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32935) [`b1bdec7cce2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b1bdec7cce2) - Internal change to enforce token usage for spacing properties. There is no expected visual or behaviour change.
 
 ## 10.2.2
 
 ### Patch Changes
 
-- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793) [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
 
 ## 10.2.1
 
 ### Patch Changes
 
-- [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649) [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
 
 ## 10.2.0
 
 ### Minor Changes
 
-- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258) [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
 
 ## 10.1.2
 
 ### Patch Changes
 
-- [`9827dcb82b8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9827dcb82b8) - No-op change to introduce spacing tokens to design system components.
+- [#26303](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26303) [`9827dcb82b8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9827dcb82b8) - No-op change to introduce spacing tokens to design system components.
 
 ## 10.1.1
 
 ### Patch Changes
 
-- [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
+- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874) [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
 
 ## 10.1.0
 
 ### Minor Changes
 
-- [`b70da512137`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b70da512137) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behavior change.
+- [#24004](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24004) [`b70da512137`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b70da512137) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behavior change.
 
 ## 10.0.14
 
 ### Patch Changes
 
-- [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
+- [#24492](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24492) [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
 
 ## 10.0.13
 
 ### Patch Changes
 
-- [`45ebe7af434`](https://bitbucket.org/atlassian/atlassian-frontend/commits/45ebe7af434) - Moved to using declarative entrypoints internally. Public API is unchanged.
+- [#22642](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22642) [`45ebe7af434`](https://bitbucket.org/atlassian/atlassian-frontend/commits/45ebe7af434) - Moved to using declarative entrypoints internally. Public API is unchanged.
 
 ## 10.0.12
 
 ### Patch Changes
 
-- [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
+- [#20650](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20650) [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
 
 ## 10.0.11
 
 ### Patch Changes
 
-- [`562a5b38aa9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/562a5b38aa9) - Styles have been rewritten in preparation for migrating to compiled.
+- [#16752](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16752) [`562a5b38aa9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/562a5b38aa9) - Styles have been rewritten in preparation for migrating to compiled.
 
 ## 10.0.10
 
 ### Patch Changes
 
-- [`cd34d8ca8ea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cd34d8ca8ea) - Internal wiring up to the tokens techstack, no code changes.
+- [#13302](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13302) [`cd34d8ca8ea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cd34d8ca8ea) - Internal wiring up to the tokens techstack, no code changes.
 
 ## 10.0.9
 
 ### Patch Changes
 
-- [`b0183dd2972`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b0183dd2972) - Updated package.json decriptions and documentation. Docs have moved from atlaskit.atlassian.com to atlassian.design
+- [#11980](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/11980) [`b0183dd2972`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b0183dd2972) - Updated package.json decriptions and documentation. Docs have moved from atlaskit.atlassian.com to atlassian.design
 
 ## 10.0.8
 
 ### Patch Changes
 
-- [`d6f7ff383cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6f7ff383cf) - Updates to development dependency `storybook-addon-performance`
+- [#12167](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12167) [`d6f7ff383cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6f7ff383cf) - Updates to development dependency `storybook-addon-performance`
 
 ## 10.0.7
 
 ### Patch Changes
 
-- [`c4820147878`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c4820147878) - Removed temporary comment introduced in previous patch
+- [#10230](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10230) [`c4820147878`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c4820147878) - Removed temporary comment introduced in previous patch
 
 ## 10.0.6
 
 ### Patch Changes
 
-- [`30a7d113d24`](https://bitbucket.org/atlassian/atlassian-frontend/commits/30a7d113d24) - Workaround to force a build of tag-group on Confluence
+- [#9510](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9510) [`30a7d113d24`](https://bitbucket.org/atlassian/atlassian-frontend/commits/30a7d113d24) - Workaround to force a build of tag-group on Confluence
 
 ## 10.0.5
 
 ### Patch Changes
 
-- [`afbc1c0b7b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/afbc1c0b7b5) - Removing dormant file from tag-group
+- [#8644](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8644) [`afbc1c0b7b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/afbc1c0b7b5) - Removing dormant file from tag-group
 
 ## 10.0.4
 
 ### Patch Changes
 
-- [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
+- [#5857](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5857) [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
 
 ## 10.0.3
 
 ### Patch Changes
 
-- [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
+- [#5497](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5497) [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
   This requires version 3.8 of Typescript, read more about how we handle Typescript versions here: https://atlaskit.atlassian.com/get-started
   Also add `typescript` to `devDependencies` to denote version that the package was built with.
 
@@ -132,13 +132,13 @@
 
 ### Patch Changes
 
-- [`e8bd7e3a2a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e8bd7e3a2a) - The changes are mainly on performance tunning for tag-group. As part of the change, we rewrote `TagGroup` with function component.
+- [#5155](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5155) [`e8bd7e3a2a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e8bd7e3a2a) - The changes are mainly on performance tunning for tag-group. As part of the change, we rewrote `TagGroup` with function component.
 
 ## 10.0.1
 
 ### Patch Changes
 
-- [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
+- [#3885](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3885) [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
 
   Since tslib is a dependency for all our packages we recommend that products also follow this tslib upgrade
   to prevent duplicates of tslib being bundled.
@@ -147,20 +147,20 @@
 
 ### Major Changes
 
-- [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
+- [#3335](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3335) [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
   For more information see: https://community.developer.atlassian.com/t/atlaskit-to-drop-support-for-internet-explorer-11-from-1st-july-2020/39534
 
 ## 9.0.8
 
 ### Patch Changes
 
-- [`54a9514fcf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54a9514fcf) - Build and supporting files will no longer be published to npm
+- [#2866](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2866) [`54a9514fcf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54a9514fcf) - Build and supporting files will no longer be published to npm
 
 ## 9.0.7
 
 ### Patch Changes
 
-- [`e1f57427e0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e1f57427e0) - Change imports to comply with Atlassian conventions
+- [#1868](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/1868) [`e1f57427e0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e1f57427e0) - Change imports to comply with Atlassian conventions
 
 ## 9.0.6
 

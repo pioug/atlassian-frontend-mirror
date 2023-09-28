@@ -4,44 +4,44 @@
 
 ### Patch Changes
 
-- [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
+- [#38162](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38162) [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
 - Updated dependencies
 
 ## 11.10.5
 
 ### Patch Changes
 
-- [`4ae083a7e66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ae083a7e66) - Use `@af/accessibility-testing` for default jest-axe config and jest-axe import in accessibility testing.
+- [#36754](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36754) [`4ae083a7e66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ae083a7e66) - Use `@af/accessibility-testing` for default jest-axe config and jest-axe import in accessibility testing.
 
 ## 11.10.4
 
 ### Patch Changes
 
-- [`774ed69ecef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/774ed69ecef) - Internal changes to use space tokens for spacing values. There is no visual change.
+- [#34881](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34881) [`774ed69ecef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/774ed69ecef) - Internal changes to use space tokens for spacing values. There is no visual change.
 
 ## 11.10.3
 
 ### Patch Changes
 
-- [`49b08bfdf5f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/49b08bfdf5f) - Migrated use of `gridSize` to space tokens where possible. There is no expected visual or behaviour change.
+- [#34051](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34051) [`49b08bfdf5f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/49b08bfdf5f) - Migrated use of `gridSize` to space tokens where possible. There is no expected visual or behaviour change.
 
 ## 11.10.2
 
 ### Patch Changes
 
-- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793) [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
 
 ## 11.10.1
 
 ### Patch Changes
 
-- [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649) [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
 
 ## 11.10.0
 
 ### Minor Changes
 
-- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258) [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
 
 ### Patch Changes
 
@@ -51,13 +51,13 @@
 
 ### Minor Changes
 
-- [`80c5ca2be68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/80c5ca2be68) - [ux] Added a feature flag which controls whether Tooltip is lazy loaded with react-loosely-lazy or not. After the flag is cleaned up, react-loosely-lazy will be removed from the component.
+- [#33004](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33004) [`80c5ca2be68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/80c5ca2be68) - [ux] Added a feature flag which controls whether Tooltip is lazy loaded with react-loosely-lazy or not. After the flag is cleaned up, react-loosely-lazy will be removed from the component.
 
 ## 11.8.0
 
 ### Minor Changes
 
-- [`239f09ffdbf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/239f09ffdbf) - Adds `isNavigation` prop.
+- [#31299](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31299) [`239f09ffdbf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/239f09ffdbf) - Adds `isNavigation` prop.
 
 ### Patch Changes
 
@@ -79,19 +79,19 @@
 
 ### Patch Changes
 
-- [`18aeca8c199`](https://bitbucket.org/atlassian/atlassian-frontend/commits/18aeca8c199) - Internal change to update token references. There is no expected behaviour or visual change.
+- [#29390](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/29390) [`18aeca8c199`](https://bitbucket.org/atlassian/atlassian-frontend/commits/18aeca8c199) - Internal change to update token references. There is no expected behaviour or visual change.
 
 ## 11.7.9
 
 ### Patch Changes
 
-- [`4ee60bafc6d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ee60bafc6d) - ED-16603: Remove tooltips from VR tests and make them opt in. To opt-in, add `allowedSideEffects` when loading the page.
+- [#29227](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/29227) [`4ee60bafc6d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ee60bafc6d) - ED-16603: Remove tooltips from VR tests and make them opt in. To opt-in, add `allowedSideEffects` when loading the page.
 
 ## 11.7.8
 
 ### Patch Changes
 
-- [`b0f6dd0bc35`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b0f6dd0bc35) - Updated to use typography tokens. There is no expected behaviour or visual change.
+- [#28064](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28064) [`b0f6dd0bc35`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b0f6dd0bc35) - Updated to use typography tokens. There is no expected behaviour or visual change.
 
 ## 11.7.7
 
@@ -109,7 +109,7 @@
 
 ### Patch Changes
 
-- [`cb8f8e76d25`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb8f8e76d25) - Update types for react-select and @atlaskit/select upgrade
+- [#26712](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26712) [`cb8f8e76d25`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb8f8e76d25) - Update types for react-select and @atlaskit/select upgrade
   Update commerce-ui entrypoints that caused a pipeline issue.
 - Updated dependencies
 
@@ -123,13 +123,13 @@
 
 ### Patch Changes
 
-- [`bc989043572`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bc989043572) - Internal changes to apply spacing tokens. This should be a no-op change.
+- [#26488](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26488) [`bc989043572`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bc989043572) - Internal changes to apply spacing tokens. This should be a no-op change.
 
 ## 11.7.2
 
 ### Patch Changes
 
-- [`af6e73a1e17`](https://bitbucket.org/atlassian/atlassian-frontend/commits/af6e73a1e17) - Bumping dependencies via Renovate:
+- [#20341](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20341) [`af6e73a1e17`](https://bitbucket.org/atlassian/atlassian-frontend/commits/af6e73a1e17) - Bumping dependencies via Renovate:
 
   - react-loosely-lazy
 
@@ -137,13 +137,13 @@
 
 ### Patch Changes
 
-- [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
+- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874) [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
 
 ## 11.7.0
 
 ### Minor Changes
 
-- [`29dc4886507`](https://bitbucket.org/atlassian/atlassian-frontend/commits/29dc4886507) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behaviour change.
+- [#24004](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24004) [`29dc4886507`](https://bitbucket.org/atlassian/atlassian-frontend/commits/29dc4886507) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behaviour change.
 
 ### Patch Changes
 
@@ -153,7 +153,7 @@
 
 ### Patch Changes
 
-- [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
+- [#24492](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24492) [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
 
 ## 11.6.2
 
@@ -171,13 +171,13 @@
 
 ### Minor Changes
 
-- [`c963742d9cd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c963742d9cd) - Added a prop to allow a function to be called when a breadcrumb item tooltip is shown
+- [#20721](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20721) [`c963742d9cd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c963742d9cd) - Added a prop to allow a function to be called when a breadcrumb item tooltip is shown
 
 ## 11.5.7
 
 ### Patch Changes
 
-- [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
+- [#20650](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20650) [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
 - Updated dependencies
 
 ## 11.5.6
@@ -202,14 +202,14 @@
 
 ### Patch Changes
 
-- [`fa68e406db6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fa68e406db6) - Internal styling has been refactored in preparation for @compiled/react
+- [#18526](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/18526) [`fa68e406db6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fa68e406db6) - Internal styling has been refactored in preparation for @compiled/react
 - Updated dependencies
 
 ## 11.5.2
 
 ### Patch Changes
 
-- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Updates usage of deprecated token names so they're aligned with the latest naming conventions. No UI or visual changes
+- [#16752](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16752) [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Updates usage of deprecated token names so they're aligned with the latest naming conventions. No UI or visual changes
 - Updated dependencies
 
 ## 11.5.1
@@ -222,7 +222,7 @@
 
 ### Minor Changes
 
-- [`040a261b2d1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/040a261b2d1) - **Note**: It is a re-release of the wrongly `patched` version `11.4.1` that should have been a `minor` release.
+- [#17576](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/17576) [`040a261b2d1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/040a261b2d1) - **Note**: It is a re-release of the wrongly `patched` version `11.4.1` that should have been a `minor` release.
 
   [ux] Bug fix; removed the dangling space that trails the final breadcrumbItem. Introduced in v11 there was additional space where the final '/' would be, now it ends directly after the final item again.
 
@@ -236,7 +236,7 @@
 
 _WRONG RELEASE TYPE - DON'T USE_
 
-- [`ff925e68253`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ff925e68253) - [ux] Bug fix; removed the dangling space that trails the final breadcrumbItem. Introduced in v11 there was additional space where the final '/' would be, now it ends directly after the final item again.
+- [#15998](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/15998) [`ff925e68253`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ff925e68253) - [ux] Bug fix; removed the dangling space that trails the final breadcrumbItem. Introduced in v11 there was additional space where the final '/' would be, now it ends directly after the final item again.
 
 ### Patch Changes
 
@@ -247,7 +247,7 @@ _WRONG RELEASE TYPE - DON'T USE_
 
 ### Minor Changes
 
-- [`b60d5bd1e00`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b60d5bd1e00) - [ux] Implemented focusing of the first revealed breadcrumbs item after expansion.
+- [#14777](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/14777) [`b60d5bd1e00`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b60d5bd1e00) - [ux] Implemented focusing of the first revealed breadcrumbs item after expansion.
 
 ### Patch Changes
 
@@ -281,7 +281,7 @@ _WRONG RELEASE TYPE - DON'T USE_
 
 ### Minor Changes
 
-- [`c37fc2898ff`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c37fc2898ff) - [ux] Colors now sourced from tokens.
+- [#12837](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12837) [`c37fc2898ff`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c37fc2898ff) - [ux] Colors now sourced from tokens.
 
 ### Patch Changes
 
@@ -293,45 +293,45 @@ _WRONG RELEASE TYPE - DON'T USE_
 
 ### Patch Changes
 
-- [`378d1cef00f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/378d1cef00f) - Bump `@atlaskit/theme` to version `^11.3.0`.
+- [#12880](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12880) [`378d1cef00f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/378d1cef00f) - Bump `@atlaskit/theme` to version `^11.3.0`.
 
 ## 11.2.5
 
 ### Patch Changes
 
-- [`d797e84b724`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d797e84b724) - SPFE-561: Update the `react-loosely-lazy` dependency. The previous version was using a broken ESM build.
+- [#12328](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12328) [`d797e84b724`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d797e84b724) - SPFE-561: Update the `react-loosely-lazy` dependency. The previous version was using a broken ESM build.
 - Updated dependencies
 
 ## 11.2.4
 
 ### Patch Changes
 
-- [`cecc3efb15d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cecc3efb15d) - Added the design-system tech stacks to the package.json and fixed linting errors, also disabled some linting rules to prevent breaking changes
+- [#11649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/11649) [`cecc3efb15d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cecc3efb15d) - Added the design-system tech stacks to the package.json and fixed linting errors, also disabled some linting rules to prevent breaking changes
 
 ## 11.2.3
 
 ### Patch Changes
 
-- [`139a522574f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/139a522574f) - Change selector for checking if breadcrumbs where clicked with click-area-helper
+- [#12210](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12210) [`139a522574f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/139a522574f) - Change selector for checking if breadcrumbs where clicked with click-area-helper
 
 ## 11.2.2
 
 ### Patch Changes
 
-- [`5d7f119c55d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5d7f119c55d) - Fix bread crumb issue
+- [#12105](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12105) [`5d7f119c55d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5d7f119c55d) - Fix bread crumb issue
 
 ## 11.2.1
 
 ### Patch Changes
 
-- [`5e221ab3244`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5e221ab3244) - Added the `design-system` tech stacks to the `package.json`
+- [#11113](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/11113) [`5e221ab3244`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5e221ab3244) - Added the `design-system` tech stacks to the `package.json`
 - [`910c5ba2052`](https://bitbucket.org/atlassian/atlassian-frontend/commits/910c5ba2052) - Breadcrumbs component now correctly forwards ref.
 
 ## 11.2.0
 
 ### Minor Changes
 
-- [`b5bbdf4acb3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b5bbdf4acb3) - [ux] Added an 'ellipsisLabel' prop to the Breadcrumbs component. This text is passed to the aria-label attribute on the ellipsis button (conditionally rendered when there are many items).
+- [#10230](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10230) [`b5bbdf4acb3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b5bbdf4acb3) - [ux] Added an 'ellipsisLabel' prop to the Breadcrumbs component. This text is passed to the aria-label attribute on the ellipsis button (conditionally rendered when there are many items).
 
 ### Patch Changes
 
@@ -341,32 +341,32 @@ _WRONG RELEASE TYPE - DON'T USE_
 
 ### Minor Changes
 
-- [`81020d0b345`](https://bitbucket.org/atlassian/atlassian-frontend/commits/81020d0b345) - [ux] Wrapped breadcrumbs into nav tag; added label props that is used as aria-label of nav wrapper.
+- [#9510](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9510) [`81020d0b345`](https://bitbucket.org/atlassian/atlassian-frontend/commits/81020d0b345) - [ux] Wrapped breadcrumbs into nav tag; added label props that is used as aria-label of nav wrapper.
 
 ## 11.0.3
 
 ### Patch Changes
 
-- [`b7c722cb270`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b7c722cb270) - The `react-loosely-lazy` dependency has been upgraded to `v0.4.4`.
+- [#9083](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9083) [`b7c722cb270`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b7c722cb270) - The `react-loosely-lazy` dependency has been upgraded to `v0.4.4`.
 - Updated dependencies
 
 ## 11.0.2
 
 ### Patch Changes
 
-- [`79c23df6340`](https://bitbucket.org/atlassian/atlassian-frontend/commits/79c23df6340) - Use injected package name and version for analytics instead of version.json.
+- [#8644](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8644) [`79c23df6340`](https://bitbucket.org/atlassian/atlassian-frontend/commits/79c23df6340) - Use injected package name and version for analytics instead of version.json.
 
 ## 11.0.1
 
 ### Patch Changes
 
-- [`a0c2212596a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a0c2212596a) - Adds a build time flag that lets consumers drop tooltips from their SSR bundles
+- [#8178](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8178) [`a0c2212596a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a0c2212596a) - Adds a build time flag that lets consumers drop tooltips from their SSR bundles
 
 ## 11.0.0
 
 ### Major Changes
 
-- [`3f80f8a2e4b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3f80f8a2e4b) - In this version we made breadcrumbs dramatically faster, lighter and easier to use 🤩
+- [#7762](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/7762) [`3f80f8a2e4b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3f80f8a2e4b) - In this version we made breadcrumbs dramatically faster, lighter and easier to use 🤩
 
   - BreadcrumbsStateless has been merged into the default export
   - Performance improvements
@@ -406,13 +406,13 @@ _WRONG RELEASE TYPE - DON'T USE_
 
 ### Minor Changes
 
-- [`4f9e6e2db5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4f9e6e2db5) - These packages now have defined entry points -- this means that you cannot access internal files in the packages that are not meant to be public. Sub-components in these packages have been explicitly defined, aiding tree-shaking and reducing bundle size.
+- [#7170](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/7170) [`4f9e6e2db5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4f9e6e2db5) - These packages now have defined entry points -- this means that you cannot access internal files in the packages that are not meant to be public. Sub-components in these packages have been explicitly defined, aiding tree-shaking and reducing bundle size.
 
 ## 10.0.12
 
 ### Patch Changes
 
-- [`4f2b2b5750`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4f2b2b5750) - Internal change from class to function components
+- [#6930](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/6930) [`4f2b2b5750`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4f2b2b5750) - Internal change from class to function components
 
   - converted all the class component in the package to function
   - started to use `usePlatformLeafEventHandler` to replace HOCs from `analytics-next`
@@ -425,19 +425,19 @@ _WRONG RELEASE TYPE - DON'T USE_
 
 ### Patch Changes
 
-- [`9a403ed9b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9a403ed9b2) - Fix slash color and font color in dark mode for breadcrumbs
+- [#6571](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/6571) [`9a403ed9b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9a403ed9b2) - Fix slash color and font color in dark mode for breadcrumbs
 
 ## 10.0.10
 
 ### Patch Changes
 
-- [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
+- [#5857](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5857) [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
 
 ## 10.0.9
 
 ### Patch Changes
 
-- [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
+- [#5497](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5497) [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
   This requires version 3.8 of Typescript, read more about how we handle Typescript versions here: https://atlaskit.atlassian.com/get-started
   Also add `typescript` to `devDependencies` to denote version that the package was built with.
 
@@ -451,7 +451,7 @@ _WRONG RELEASE TYPE - DON'T USE_
 
 ### Patch Changes
 
-- [`2ac834240e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2ac834240e) - Undo analytics-next file restructure to allow external ts definitions to continue working
+- [#5164](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5164) [`2ac834240e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2ac834240e) - Undo analytics-next file restructure to allow external ts definitions to continue working
 
 ## 10.0.6
 
@@ -463,7 +463,7 @@ _WRONG RELEASE TYPE - DON'T USE_
 
 ### Patch Changes
 
-- [`6360c46009`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6360c46009) - Reenable integration tests for Edge browser
+- [#4707](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4707) [`6360c46009`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6360c46009) - Reenable integration tests for Edge browser
 
 ## 10.0.4
 
@@ -475,7 +475,7 @@ _WRONG RELEASE TYPE - DON'T USE_
 
 ### Patch Changes
 
-- [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
+- [#3885](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3885) [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
 
   Since tslib is a dependency for all our packages we recommend that products also follow this tslib upgrade
   to prevent duplicates of tslib being bundled.
@@ -484,19 +484,19 @@ _WRONG RELEASE TYPE - DON'T USE_
 
 ### Patch Changes
 
-- [`954cc87b62`](https://bitbucket.org/atlassian/atlassian-frontend/commits/954cc87b62) - The readme and package information has been updated to point to the new design system website.
+- [#3293](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3293) [`954cc87b62`](https://bitbucket.org/atlassian/atlassian-frontend/commits/954cc87b62) - The readme and package information has been updated to point to the new design system website.
 
 ## 10.0.1
 
 ### Patch Changes
 
-- [`7d6718c600`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7d6718c600) - Fix Breadcrumbs font-weight to 400
+- [#3428](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3428) [`7d6718c600`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7d6718c600) - Fix Breadcrumbs font-weight to 400
 
 ## 10.0.0
 
 ### Major Changes
 
-- [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
+- [#3335](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3335) [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
   For more information see: https://community.developer.atlassian.com/t/atlaskit-to-drop-support-for-internet-explorer-11-from-1st-july-2020/39534
 
 ### Patch Changes
@@ -507,7 +507,7 @@ _WRONG RELEASE TYPE - DON'T USE_
 
 ### Patch Changes
 
-- [`54a9514fcf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54a9514fcf) - Build and supporting files will no longer be published to npm
+- [#2866](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2866) [`54a9514fcf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54a9514fcf) - Build and supporting files will no longer be published to npm
 
 ## 9.2.10
 

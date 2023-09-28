@@ -1,20 +1,20 @@
-import { ActivityProvider } from '@atlaskit/activity-provider';
+import type { ActivityProvider } from '@atlaskit/activity-provider';
 import type { EmojiProvider } from '@atlaskit/emoji/types';
-import { MentionProvider } from '@atlaskit/mention/types';
-import { TaskDecisionProvider } from '@atlaskit/task-decision/types';
+import type { MentionProvider } from '@atlaskit/mention/types';
+import type { TaskDecisionProvider } from '@atlaskit/task-decision/types';
 
 import type { CollabEditProvider } from '../collab';
-import { ExtensionProvider } from '../extensions/types';
+import type { ExtensionProvider } from '../extensions/types';
 
-import { AutoformattingProvider } from './autoformatting-provider';
-import { CardProvider } from './card-provider';
-import { ContextIdentifierProvider } from './context-identifier-provider';
-import { ImageUploadProvider } from './image-upload-provider';
-import { MacroProvider } from './macro-provider';
-import { MediaProvider } from './media-provider';
-import { ProfilecardProvider } from './profile-card-provider';
-import { QuickInsertProvider } from './quick-insert-provider';
-import { SearchProvider } from './search-provider';
+import type { AutoformattingProvider } from './autoformatting-provider';
+import type { CardProvider } from './card-provider';
+import type { ContextIdentifierProvider } from './context-identifier-provider';
+import type { ImageUploadProvider } from './image-upload-provider';
+import type { MacroProvider } from './macro-provider';
+import type { MediaProvider } from './media-provider';
+import type { ProfilecardProvider } from './profile-card-provider';
+import type { QuickInsertProvider } from './quick-insert-provider';
+import type { SearchProvider } from './search-provider';
 
 export interface Providers {
   mediaProvider?: Promise<MediaProvider>;

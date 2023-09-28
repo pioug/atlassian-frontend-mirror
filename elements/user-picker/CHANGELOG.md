@@ -4,19 +4,19 @@
 
 ### Patch Changes
 
-- [`ea5e724623c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ea5e724623c) - [ux] Fixed a minor bug where typing into the input for the user picker whilst it was in a closed state would result in the the loadOptions callback being called with undefined
+- [#40328](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40328) [`ea5e724623c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ea5e724623c) - [ux] Fixed a minor bug where typing into the input for the user picker whilst it was in a closed state would result in the the loadOptions callback being called with undefined
 
 ## 10.10.1
 
 ### Patch Changes
 
-- [`6900f89eb0e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6900f89eb0e) - Internal changes to use space tokens. There is no expected visual or behaviour change.
+- [#39787](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39787) [`6900f89eb0e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6900f89eb0e) - Internal changes to use space tokens. There is no expected visual or behaviour change.
 
 ## 10.10.0
 
 ### Minor Changes
 
-- [`faccaf9aac7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/faccaf9aac7) - Added baseUserPicker as an argument to the onSelection callback
+- [#39589](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39589) [`faccaf9aac7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/faccaf9aac7) - Added baseUserPicker as an argument to the onSelection callback
 
 ### Patch Changes
 
@@ -26,96 +26,96 @@
 
 ### Patch Changes
 
-- [`fc67a1928e7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fc67a1928e7) - [ux] Added z-index of 400 to menu list for user picker as per design system popup guidelines
+- [#39646](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39646) [`fc67a1928e7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fc67a1928e7) - [ux] Added z-index of 400 to menu list for user picker as per design system popup guidelines
 
 ## 10.9.0
 
 ### Minor Changes
 
-- [`f78b73387c6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f78b73387c6) - Add onKeyDown handler to props
+- [#39239](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39239) [`f78b73387c6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f78b73387c6) - Add onKeyDown handler to props
 
 ## 10.8.0
 
 ### Minor Changes
 
-- [`38c3ed63070`](https://bitbucket.org/atlassian/atlassian-frontend/commits/38c3ed63070) - Export sub-components of Option
+- [#39115](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39115) [`38c3ed63070`](https://bitbucket.org/atlassian/atlassian-frontend/commits/38c3ed63070) - Export sub-components of Option
 
 ## 10.7.0
 
 ### Minor Changes
 
-- [`406273e2aa8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/406273e2aa8) - Export Option component from /option entrypoint
+- [#38945](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38945) [`406273e2aa8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/406273e2aa8) - Export Option component from /option entrypoint
 
 ## 10.6.0
 
 ### Minor Changes
 
-- [`7b8ae37bf88`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7b8ae37bf88) - Allow passing a component for noOptionsMessage prop
+- [#38819](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38819) [`7b8ae37bf88`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7b8ae37bf88) - Allow passing a component for noOptionsMessage prop
 
 ### Patch Changes
 
-- [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
+- [#38162](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38162) [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
 - Updated dependencies
 
 ## 10.5.1
 
 ### Patch Changes
 
-- [`f01deb5e6ab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f01deb5e6ab) - Use injected env vars instead of version.json
+- [#37925](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37925) [`f01deb5e6ab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f01deb5e6ab) - Use injected env vars instead of version.json
 
 ## 10.5.0
 
 ### Minor Changes
 
-- [`eaf4a174f64`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eaf4a174f64) - Added optional onOpen callback
+- [#37123](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37123) [`eaf4a174f64`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eaf4a174f64) - Added optional onOpen callback
 
 ## 10.4.0
 
 ### Minor Changes
 
-- [`6734af6576d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6734af6576d) - Improved the behaviour of the aria-labelledby prop on the Input component. It used to use aria-describedby and if it didn't exist, fall back to using aria-labelledby. This has now been swapped to give aria-labelledby precedence with aria-describedby now being the fallback.
+- [#35452](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35452) [`6734af6576d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6734af6576d) - Improved the behaviour of the aria-labelledby prop on the Input component. It used to use aria-describedby and if it didn't exist, fall back to using aria-labelledby. This has now been swapped to give aria-labelledby precedence with aria-describedby now being the fallback.
 
 ## 10.3.0
 
 ### Minor Changes
 
-- [`413f440129c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/413f440129c) - [ux] Customised Menu component to allow users to include a footer in the dropdown list
+- [#34944](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34944) [`413f440129c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/413f440129c) - [ux] Customised Menu component to allow users to include a footer in the dropdown list
 
 ## 10.2.5
 
 ### Patch Changes
 
-- [`61cb5313358`](https://bitbucket.org/atlassian/atlassian-frontend/commits/61cb5313358) - Removing unused dependencies and dev dependencies
+- [#34443](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34443) [`61cb5313358`](https://bitbucket.org/atlassian/atlassian-frontend/commits/61cb5313358) - Removing unused dependencies and dev dependencies
 
 ## 10.2.4
 
 ### Patch Changes
 
-- [`17aec239f54`](https://bitbucket.org/atlassian/atlassian-frontend/commits/17aec239f54) - [ux] aria-describedby and aria-labelledby proper association in between input and placeholder
+- [#34290](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34290) [`17aec239f54`](https://bitbucket.org/atlassian/atlassian-frontend/commits/17aec239f54) - [ux] aria-describedby and aria-labelledby proper association in between input and placeholder
 
 ## 10.2.3
 
 ### Patch Changes
 
-- [`e8dbb0a281b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e8dbb0a281b) - add a11y support for alert messages
+- [#33584](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33584) [`e8dbb0a281b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e8dbb0a281b) - add a11y support for alert messages
 
 ## 10.2.2
 
 ### Patch Changes
 
-- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793) [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
 
 ## 10.2.1
 
 ### Patch Changes
 
-- [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649) [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
 
 ## 10.2.0
 
 ### Minor Changes
 
-- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258) [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
 
 ### Patch Changes
 
@@ -131,19 +131,19 @@
 
 ### Minor Changes
 
-- [`6e27d7c6682`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6e27d7c6682) - [ux] UserPicker now shows an error message when there has been a Promise failure for the provided loadOptions prop. You can customize the error message by providing a loadOptionsErrorMessage prop.
+- [#29759](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/29759) [`6e27d7c6682`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6e27d7c6682) - [ux] UserPicker now shows an error message when there has been a Promise failure for the provided loadOptions prop. You can customize the error message by providing a loadOptionsErrorMessage prop.
 
 ## 10.0.3
 
 ### Patch Changes
 
-- [`62e83249cb2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/62e83249cb2) - [ux] PopupUserPicker now supports user-defined styles prop for adding styling to PopupUserPicker.
+- [#30011](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/30011) [`62e83249cb2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/62e83249cb2) - [ux] PopupUserPicker now supports user-defined styles prop for adding styling to PopupUserPicker.
 
 ## 10.0.2
 
 ### Patch Changes
 
-- [`edc295b63a2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/edc295b63a2) - [ux] Fixes bug where the user picker opens the menu on click, but doesn't reopen the menu on the second click.
+- [#29607](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/29607) [`edc295b63a2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/edc295b63a2) - [ux] Fixes bug where the user picker opens the menu on click, but doesn't reopen the menu on the second click.
 
 ## 10.0.1
 
@@ -155,13 +155,13 @@
 
 ### Major Changes
 
-- [`ed632fa5f70`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ed632fa5f70) - Changing the typing for noOptionsMessage to accept either functions/null. No strings accepted; previously, due to a downstream change, providing strings did not work. Also fixed onClose behavior, previously did not work. Converted some tests to react testing library.
+- [#28453](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28453) [`ed632fa5f70`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ed632fa5f70) - Changing the typing for noOptionsMessage to accept either functions/null. No strings accepted; previously, due to a downstream change, providing strings did not work. Also fixed onClose behavior, previously did not work. Converted some tests to react testing library.
 
 ## 9.7.4
 
 ### Patch Changes
 
-- [`6455cf006b3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6455cf006b3) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving performance.
+- [#28324](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28324) [`6455cf006b3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6455cf006b3) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving performance.
 
 ## 9.7.3
 
@@ -179,7 +179,7 @@
 
 ### Patch Changes
 
-- [`cb8f8e76d25`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb8f8e76d25) - Update types for react-select and @atlaskit/select upgrade
+- [#26712](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26712) [`cb8f8e76d25`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb8f8e76d25) - Update types for react-select and @atlaskit/select upgrade
   Update commerce-ui entrypoints that caused a pipeline issue.
 - Updated dependencies
 
@@ -187,13 +187,13 @@
 
 ### Minor Changes
 
-- [`f1bb023364d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f1bb023364d) - Add optional field `hasProductAccess` to `ExternalUser`.
+- [#27883](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/27883) [`f1bb023364d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f1bb023364d) - Add optional field `hasProductAccess` to `ExternalUser`.
 
 ## 9.6.3
 
 ### Patch Changes
 
-- [`d4e917e03fd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d4e917e03fd) - Bump to @emotion v11
+- [#27674](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/27674) [`d4e917e03fd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d4e917e03fd) - Bump to @emotion v11
 
 ## 9.6.2
 
@@ -205,97 +205,97 @@
 
 ### Patch Changes
 
-- [`8ad846932fc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8ad846932fc) - [ux] Fixes incorrect border colour displayed when hovering a user picker with subtle appearance applied.
+- [#27136](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/27136) [`8ad846932fc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8ad846932fc) - [ux] Fixes incorrect border colour displayed when hovering a user picker with subtle appearance applied.
 
 ## 9.6.0
 
 ### Minor Changes
 
-- [`faf391ab64a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/faf391ab64a) - Implementing new CustomOption which will allow for a custom avatar
+- [#26601](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26601) [`faf391ab64a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/faf391ab64a) - Implementing new CustomOption which will allow for a custom avatar
 
 ## 9.5.1
 
 ### Patch Changes
 
-- [`c522aeea1da`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c522aeea1da) - bumped up @atlaskit/tokens version to ^0.10.19
+- [#26318](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26318) [`c522aeea1da`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c522aeea1da) - bumped up @atlaskit/tokens version to ^0.10.19
 
 ## 9.5.0
 
 ### Minor Changes
 
-- [`a4d4f93b480`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a4d4f93b480) - [ux] UserPicker now supports disabling option items through a new optional `isDisabled` field on data passed to the `options` prop.
+- [#25871](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/25871) [`a4d4f93b480`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a4d4f93b480) - [ux] UserPicker now supports disabling option items through a new optional `isDisabled` field on data passed to the `options` prop.
 
 ## 9.4.1
 
 ### Patch Changes
 
-- [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
+- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874) [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
 
 ## 9.4.0
 
 ### Minor Changes
 
-- [`47c6607c914`](https://bitbucket.org/atlassian/atlassian-frontend/commits/47c6607c914) - [ux] Adding ability for Options of type Team to allow for custom html in the lozenge prop. Added byline prop for type Team which will override the default byline generated from includesYou and memberCount props.
+- [#25327](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/25327) [`47c6607c914`](https://bitbucket.org/atlassian/atlassian-frontend/commits/47c6607c914) - [ux] Adding ability for Options of type Team to allow for custom html in the lozenge prop. Added byline prop for type Team which will override the default byline generated from includesYou and memberCount props.
 
 ## 9.3.6
 
 ### Patch Changes
 
-- [`cb4c9cdd28b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb4c9cdd28b) - [ux] Update input component to use input tokens
+- [#24878](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24878) [`cb4c9cdd28b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb4c9cdd28b) - [ux] Update input component to use input tokens
 
 ## 9.3.5
 
 ### Patch Changes
 
-- [`45da4e093b9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/45da4e093b9) - [ux] User picker now shows the "X" clear indicator on mobile, which previously wasn't working because hover was required which doesn't work on mobile.
+- [#24786](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24786) [`45da4e093b9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/45da4e093b9) - [ux] User picker now shows the "X" clear indicator on mobile, which previously wasn't working because hover was required which doesn't work on mobile.
 
 ## 9.3.4
 
 ### Patch Changes
 
-- [`dbff164b600`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dbff164b600) - [ux] Fix for appearance=compact not being applied correctly to user pickers
+- [#24670](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24670) [`dbff164b600`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dbff164b600) - [ux] Fix for appearance=compact not being applied correctly to user pickers
 
 ## 9.3.3
 
 ### Patch Changes
 
-- [`2c7609cef36`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2c7609cef36) - onSelection prop is now also called for user pickers where isMulti=true. Previously onSelection was only called for user picker where isMulti was false
+- [#24561](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24561) [`2c7609cef36`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2c7609cef36) - onSelection prop is now also called for user pickers where isMulti=true. Previously onSelection was only called for user picker where isMulti was false
 
 ## 9.3.2
 
 ### Patch Changes
 
-- [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
+- [#24492](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24492) [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
 
 ## 9.3.1
 
 ### Patch Changes
 
-- [`fd025cbb820`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd025cbb820) - [ux] Fix input cursor position relative to the placeholder
+- [#23743](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23743) [`fd025cbb820`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd025cbb820) - [ux] Fix input cursor position relative to the placeholder
 
 ## 9.3.0
 
 ### Minor Changes
 
-- [`bc0b47732f8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bc0b47732f8) - [ux] Fix bug where user picker input is not being unfocused when disableInput is set. The new behavior will enable you to still focus on the input but not interact with it, unless it is to delete selected users.
+- [#23577](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23577) [`bc0b47732f8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bc0b47732f8) - [ux] Fix bug where user picker input is not being unfocused when disableInput is set. The new behavior will enable you to still focus on the input but not interact with it, unless it is to delete selected users.
 
 ## 9.2.2
 
 ### Patch Changes
 
-- [`d27d65448a2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d27d65448a2) - [ux] Add margin-left to addMoreText field
+- [#23405](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23405) [`d27d65448a2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d27d65448a2) - [ux] Add margin-left to addMoreText field
 
 ## 9.2.1
 
 ### Patch Changes
 
-- [`607b182bb8a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/607b182bb8a) - Add typecasting to prevent type errors during multivaluecontainer placeholder translations. Also fix warnings for importing json attributes from version.json for analytics.
+- [#23196](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23196) [`607b182bb8a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/607b182bb8a) - Add typecasting to prevent type errors during multivaluecontainer placeholder translations. Also fix warnings for importing json attributes from version.json for analytics.
 
 ## 9.2.0
 
 ### Minor Changes
 
-- [`64dc40c32bc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/64dc40c32bc) - Add support for aria-labelledby and aria-live
+- [#22899](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22899) [`64dc40c32bc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/64dc40c32bc) - Add support for aria-labelledby and aria-live
 
 ## 9.1.1
 
@@ -307,7 +307,7 @@
 
 ### Minor Changes
 
-- [`cc40ab95bd4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cc40ab95bd4) - Adds a list of team members under OptionData for Teams
+- [#21796](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21796) [`cc40ab95bd4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cc40ab95bd4) - Adds a list of team members under OptionData for Teams
 
 ## 9.0.7
 
@@ -319,19 +319,19 @@
 
 ### Patch Changes
 
-- [`1d0b82f07d6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1d0b82f07d6) - Added numberOfResults to clicked and pressed events.
+- [#21465](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21465) [`1d0b82f07d6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1d0b82f07d6) - Added numberOfResults to clicked and pressed events.
 
 ## 9.0.5
 
 ### Patch Changes
 
-- [`9b66179b615`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9b66179b615) - Removed potential logging of PII in the external user hover analytics event.
+- [#21393](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21393) [`9b66179b615`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9b66179b615) - Removed potential logging of PII in the external user hover analytics event.
 
 ## 9.0.4
 
 ### Patch Changes
 
-- [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
+- [#20650](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20650) [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
 
 ## 9.0.3
 
@@ -343,19 +343,19 @@
 
 ### Patch Changes
 
-- [`85c0dcfe911`](https://bitbucket.org/atlassian/atlassian-frontend/commits/85c0dcfe911) - Added analytics event when the sources tooltip is displayed for an external user
+- [#20561](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20561) [`85c0dcfe911`](https://bitbucket.org/atlassian/atlassian-frontend/commits/85c0dcfe911) - Added analytics event when the sources tooltip is displayed for an external user
 
 ## 9.0.1
 
 ### Patch Changes
 
-- [`6df37fef2c2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6df37fef2c2) - Internal changes to migrate package from 'styled-components' to @emotion. There should be no change to the UX.
+- [#19959](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19959) [`6df37fef2c2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6df37fef2c2) - Internal changes to migrate package from 'styled-components' to @emotion. There should be no change to the UX.
 
 ## 9.0.0
 
 ### Major Changes
 
-- [`973e01bba77`](https://bitbucket.org/atlassian/atlassian-frontend/commits/973e01bba77) - The deprecated SmartUserPicker module is now removed from @atlaskit/user-picker. The module has now moved to its own dedicated package, @atlaskit/smart-user-picker.
+- [#18988](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/18988) [`973e01bba77`](https://bitbucket.org/atlassian/atlassian-frontend/commits/973e01bba77) - The deprecated SmartUserPicker module is now removed from @atlaskit/user-picker. The module has now moved to its own dedicated package, @atlaskit/smart-user-picker.
 
   ### What this means for you as a @atlaskit/user-picker/smart-user-picker consumer
 
@@ -367,13 +367,13 @@
 
 ### Patch Changes
 
-- [`c78ab0991dd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c78ab0991dd) - [ux] fixed external user source tooltip heading in user-picker
+- [#19987](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19987) [`c78ab0991dd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c78ab0991dd) - [ux] fixed external user source tooltip heading in user-picker
 
 ## 8.8.5
 
 ### Patch Changes
 
-- [`ac9343c3ed4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ac9343c3ed4) - Replaces usage of deprecated design tokens. No visual or functional changes
+- [#19618](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19618) [`ac9343c3ed4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ac9343c3ed4) - Replaces usage of deprecated design tokens. No visual or functional changes
 - [`62edf20ab1e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/62edf20ab1e) - Migrates all usage of brand tokens to either selected or information tokens. This change is purely for semantic reasons, there are no visual or behavioural changes.
 - Updated dependencies
 
@@ -381,19 +381,19 @@
 
 ### Patch Changes
 
-- [`d9b9077397d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d9b9077397d) - [ux] Updated the default copy for the byline when selecting email options in UserPicker.
+- [#19724](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19724) [`d9b9077397d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d9b9077397d) - [ux] Updated the default copy for the byline when selecting email options in UserPicker.
 
 ## 8.8.3
 
 ### Patch Changes
 
-- [`3553b21ec20`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3553b21ec20) - Render time of user picker list is now tracked with UFO
+- [#19308](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19308) [`3553b21ec20`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3553b21ec20) - Render time of user picker list is now tracked with UFO
 
 ## 8.8.2
 
 ### Patch Changes
 
-- [`cc773aa7ecc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cc773aa7ecc) - [ux] show error message in tooltip when there is no user source
+- [#19508](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19508) [`cc773aa7ecc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cc773aa7ecc) - [ux] show error message in tooltip when there is no user source
 
 ## 8.8.1
 
@@ -405,86 +405,86 @@
 
 ### Minor Changes
 
-- [`091da1d5f88`](https://bitbucket.org/atlassian/atlassian-frontend/commits/091da1d5f88) - [ux] Ensure items in the User Sources tooltip are unique and ordered correctly
+- [#19319](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19319) [`091da1d5f88`](https://bitbucket.org/atlassian/atlassian-frontend/commits/091da1d5f88) - [ux] Ensure items in the User Sources tooltip are unique and ordered correctly
 
 ## 8.7.4
 
 ### Patch Changes
 
-- [`35be12dee47`](https://bitbucket.org/atlassian/atlassian-frontend/commits/35be12dee47) - updated content copies for Org People Picker in user-picker and invite-people
+- [#18946](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/18946) [`35be12dee47`](https://bitbucket.org/atlassian/atlassian-frontend/commits/35be12dee47) - updated content copies for Org People Picker in user-picker and invite-people
 
 ## 8.7.3
 
 ### Patch Changes
 
-- [`7f37f923832`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7f37f923832) - updated analytics event for org people picker in core invites
+- [#19373](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19373) [`7f37f923832`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7f37f923832) - updated analytics event for org people picker in core invites
 
 ## 8.7.2
 
 ### Patch Changes
 
-- [`4d4d565e8ad`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4d4d565e8ad) - Skip sending UFO success if already failed
+- [#19298](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19298) [`4d4d565e8ad`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4d4d565e8ad) - Skip sending UFO success if already failed
 
 ## 8.7.1
 
 ### Patch Changes
 
-- [`dace9a85101`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dace9a85101) - Add new attribute to analytics events
+- [#19186](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19186) [`dace9a85101`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dace9a85101) - Add new attribute to analytics events
 
 ## 8.7.0
 
 ### Minor Changes
 
-- [`90f5bb4745c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/90f5bb4745c) - [ux] Sources tooltip: support 'Other Atlassian products', change heading
+- [#19180](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19180) [`90f5bb4745c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/90f5bb4745c) - [ux] Sources tooltip: support 'Other Atlassian products', change heading
 
 ## 8.6.4
 
 ### Patch Changes
 
-- [`3899f24cdd6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3899f24cdd6) - track mount error for User Picker in UFO
+- [#19132](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19132) [`3899f24cdd6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3899f24cdd6) - track mount error for User Picker in UFO
 
 ## 8.6.3
 
 ### Patch Changes
 
-- [`6503f21cfc0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6503f21cfc0) - [ux] Fix defaultValue behavior for user-picker and smart-user-picker. user-picker previously advertised hydrating default values if provided in unhydrated form. This was never the case; it is only hydrated from smart-user-picker. defaultValue would also be ignored if provided as a single OptionValue despite the typing being advertised as supporting it - this is now fixed.
+- [#19060](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19060) [`6503f21cfc0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6503f21cfc0) - [ux] Fix defaultValue behavior for user-picker and smart-user-picker. user-picker previously advertised hydrating default values if provided in unhydrated form. This was never the case; it is only hydrated from smart-user-picker. defaultValue would also be ignored if provided as a single OptionValue despite the typing being advertised as supporting it - this is now fixed.
 
 ## 8.6.2
 
 ### Patch Changes
 
-- [`5df1ae17438`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5df1ae17438) - @atlassian/smart-user-picker will now be made public and renamed @atlaskit/smart-user-picker to provide a 1-1 replacement for @atlaskit/user-picker/smart-user-picker (UR-3417).
+- [#18930](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/18930) [`5df1ae17438`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5df1ae17438) - @atlassian/smart-user-picker will now be made public and renamed @atlaskit/smart-user-picker to provide a 1-1 replacement for @atlaskit/user-picker/smart-user-picker (UR-3417).
 
 ## 8.6.1
 
 ### Patch Changes
 
-- [`9cadd6e79ac`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9cadd6e79ac) - Add in UFO events
+- [#18956](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/18956) [`9cadd6e79ac`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9cadd6e79ac) - Add in UFO events
 
 ## 8.6.0
 
 ### Minor Changes
 
-- [`d2a8de20d08`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d2a8de20d08) - Add support in SmartUserPicker for org id for team search
+- [#18908](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/18908) [`d2a8de20d08`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d2a8de20d08) - Add support in SmartUserPicker for org id for team search
 
 ## 8.5.0
 
 ### Minor Changes
 
-- [`b74959620f2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b74959620f2) - added hover state for info icon, and updated primary color correspondingly
+- [#18768](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/18768) [`b74959620f2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b74959620f2) - added hover state for info icon, and updated primary color correspondingly
   separated avatar item option for external users and applied different css settings
 
 ## 8.4.1
 
 ### Patch Changes
 
-- [`22928ac80d0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/22928ac80d0) - Fix: user sources would keep being fetched in a loop as long as the tooltip was displayed
+- [#18555](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/18555) [`22928ac80d0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/22928ac80d0) - Fix: user sources would keep being fetched in a loop as long as the tooltip was displayed
 
 ## 8.4.0
 
 ### Minor Changes
 
-- [`29dd0cee8cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/29dd0cee8cf) - [ux] Add support for Jira and Confluence user sources
+- [#18273](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/18273) [`29dd0cee8cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/29dd0cee8cf) - [ux] Add support for Jira and Confluence user sources
 
 ## 8.3.5
 
@@ -496,7 +496,7 @@
 
 ### Patch Changes
 
-- [`7f48efc8487`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7f48efc8487) - Use baseUrl prop in default user value hydration query
+- [#18303](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/18303) [`7f48efc8487`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7f48efc8487) - Use baseUrl prop in default user value hydration query
 
 ## 8.3.3
 
@@ -508,37 +508,37 @@
 
 ### Patch Changes
 
-- [`9fd6117d5e4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9fd6117d5e4) - Fix behavior of base URL so that API calls use baseUrl as base url
+- [#17940](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/17940) [`9fd6117d5e4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9fd6117d5e4) - Fix behavior of base URL so that API calls use baseUrl as base url
 
 ## 8.3.1
 
 ### Patch Changes
 
-- [`e75137a9eff`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e75137a9eff) - Adding ability to mark which external users need their sources hydrated
+- [#17994](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/17994) [`e75137a9eff`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e75137a9eff) - Adding ability to mark which external users need their sources hydrated
 
 ## 8.3.0
 
 ### Minor Changes
 
-- [`88551bad1ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/88551bad1ec) - [ux] Add support for asychronously fetching the sources for an external user when a user hovers over the sources tooltip
+- [#16673](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16673) [`88551bad1ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/88551bad1ec) - [ux] Add support for asychronously fetching the sources for an external user when a user hovers over the sources tooltip
 
 ## 8.2.1
 
 ### Patch Changes
 
-- [`c55c736ecea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c55c736ecea) - Patch VULN AFP-3486 AFP-3487 AFP-3488 AFP-3489
+- [#17475](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/17475) [`c55c736ecea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c55c736ecea) - Patch VULN AFP-3486 AFP-3487 AFP-3488 AFP-3489
 
 ## 8.2.0
 
 ### Minor Changes
 
-- [`35b466f6fb5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/35b466f6fb5) - Asynchronously load user options in user-picker
+- [#16998](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16998) [`35b466f6fb5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/35b466f6fb5) - Asynchronously load user options in user-picker
 
 ## 8.1.0
 
 ### Minor Changes
 
-- [`c48834ce234`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c48834ce234) - [ux] Instrumented `@atlaskit/user-picker` with the new theming package, `@atlaskit/tokens`.
+- [#17163](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/17163) [`c48834ce234`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c48834ce234) - [ux] Instrumented `@atlaskit/user-picker` with the new theming package, `@atlaskit/tokens`.
 
   New tokens will be visible only in applications configured to use the new Tokens API (currently in alpha).
   These changes are intended to be interoperable with the legacy theme implementation. Legacy dark mode users should expect no visual or breaking changes.
@@ -547,7 +547,7 @@
 
 ### Major Changes
 
-- [`47f58da5946`](https://bitbucket.org/atlassian/atlassian-frontend/commits/47f58da5946) - ED-13322, ED-13324, ED-13326, ED-13323, ED-13204: Upgrade and support react-intl@^5.18.1 including breaking API changes, types and tests in atlassian-frontend packages
+- [#14810](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/14810) [`47f58da5946`](https://bitbucket.org/atlassian/atlassian-frontend/commits/47f58da5946) - ED-13322, ED-13324, ED-13326, ED-13323, ED-13204: Upgrade and support react-intl@^5.18.1 including breaking API changes, types and tests in atlassian-frontend packages
 
   What changed: Upgraded our react-intl support from ^2.6.0 to ^5.18.1. This means editor packages now rely on consumers installing ^5.18.1, otherwise editor usage of react-intl will mismatch with actual installed react-intl APIs.
   Why change was made: As part of a coordinated upgrade effort across AF packages, as react-intl v2 is quite dated.
@@ -589,19 +589,19 @@
 
 ### Patch Changes
 
-- [`d194015e2a9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d194015e2a9) - Remove bulk import for colors
+- [#16666](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16666) [`d194015e2a9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d194015e2a9) - Remove bulk import for colors
 
 ## 7.16.5
 
 ### Patch Changes
 
-- [`b3d1a103c04`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b3d1a103c04) - Remove field-base deprecated dependency
+- [#15950](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/15950) [`b3d1a103c04`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b3d1a103c04) - Remove field-base deprecated dependency
 
 ## 7.16.4
 
 ### Patch Changes
 
-- [`b85e7ce12cd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b85e7ce12cd) - Internal upgrade of memoize-one to 6.0.0
+- [#15694](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/15694) [`b85e7ce12cd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b85e7ce12cd) - Internal upgrade of memoize-one to 6.0.0
 
 ## 7.16.3
 
@@ -613,38 +613,38 @@
 
 ### Patch Changes
 
-- [`8ea7c48af73`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8ea7c48af73) - [ux] Email options now only show email icon
+- [#14000](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/14000) [`8ea7c48af73`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8ea7c48af73) - [ux] Email options now only show email icon
 
 ## 7.16.1
 
 ### Patch Changes
 
-- [`5fe6e21a9a0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5fe6e21a9a0) - [ux] Upgrade to the latest version of @atlaskit/modal-dialog. This change includes shifting the primary button in the footer of the modal to be on the right instead of the left.
+- [#13864](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13864) [`5fe6e21a9a0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5fe6e21a9a0) - [ux] Upgrade to the latest version of @atlaskit/modal-dialog. This change includes shifting the primary button in the footer of the modal to be on the right instead of the left.
 - Updated dependencies
 
 ## 7.16.0
 
 ### Minor Changes
 
-- [`b6fa102efa0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b6fa102efa0) - [ux] Updated appearance of email options to use mail icon
+- [#13638](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13638) [`b6fa102efa0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b6fa102efa0) - [ux] Updated appearance of email options to use mail icon
 
 ## 7.15.2
 
 ### Patch Changes
 
-- [`5c34064da77`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5c34064da77) - Utilising useMemo hook to avoid re-merging i18n messages with parent provider on render
+- [#13609](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13609) [`5c34064da77`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5c34064da77) - Utilising useMemo hook to avoid re-merging i18n messages with parent provider on render
 
 ## 7.15.1
 
 ### Patch Changes
 
-- [`7cc3a4c74a2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7cc3a4c74a2) - Pass on parent IntlProvider messages so components passed as props from the parent (such as a placeholder) will have i18n
+- [#13580](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13580) [`7cc3a4c74a2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7cc3a4c74a2) - Pass on parent IntlProvider messages so components passed as props from the parent (such as a placeholder) will have i18n
 
 ## 7.15.0
 
 ### Minor Changes
 
-- [`ccda387eede`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ccda387eede) - smart-user-picker extracted out from user-picker to smart-user-picker package. smart-user-picker in user-picker is now deprecated but still backwards compatible. Please use @atlassian/smart-user-picker for smart-user-picker.
+- [#13189](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13189) [`ccda387eede`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ccda387eede) - smart-user-picker extracted out from user-picker to smart-user-picker package. smart-user-picker in user-picker is now deprecated but still backwards compatible. Please use @atlassian/smart-user-picker for smart-user-picker.
 
 ## 7.14.3
 
@@ -656,50 +656,50 @@
 
 ### Patch Changes
 
-- [`7ca4b74ff54`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7ca4b74ff54) - [ux] Bugfix for removing a weird box blip that extends outside of the avatar for user picker in Safari.
+- [#13040](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13040) [`7ca4b74ff54`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7ca4b74ff54) - [ux] Bugfix for removing a weird box blip that extends outside of the avatar for user picker in Safari.
 
 ## 7.14.1
 
 ### Patch Changes
 
-- [`f8630220e88`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f8630220e88) - Fix typing in MultiValueContainer
+- [#12045](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12045) [`f8630220e88`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f8630220e88) - Fix typing in MultiValueContainer
 
 ## 7.14.0
 
 ### Minor Changes
 
-- [`de907e45ad1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/de907e45ad1) - Removed the tag component to address accessibility isssues
+- [#12490](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12490) [`de907e45ad1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/de907e45ad1) - Removed the tag component to address accessibility isssues
 
 ## 7.13.1
 
 ### Patch Changes
 
-- [`1648ac429ee`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1648ac429ee) - [ux] Updated to use the new `@atlaskit/select` design.
+- [#12328](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12328) [`1648ac429ee`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1648ac429ee) - [ux] Updated to use the new `@atlaskit/select` design.
 - Updated dependencies
 
 ## 7.13.0
 
 ### Minor Changes
 
-- [`869e1fdef2f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/869e1fdef2f) - [ux] Prioritize filterOptions prop over onEmpty. Now, filterOptions is called AFTER onEmpty is applied to URS suggestions. This means that SUP can show empty results if filterOptions filters out all results. This fixes a bug where updated filterOptions does not get applied to suggestions.
+- [#12373](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12373) [`869e1fdef2f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/869e1fdef2f) - [ux] Prioritize filterOptions prop over onEmpty. Now, filterOptions is called AFTER onEmpty is applied to URS suggestions. This means that SUP can show empty results if filterOptions filters out all results. This fixes a bug where updated filterOptions does not get applied to suggestions.
 
 ## 7.12.0
 
 ### Minor Changes
 
-- [`92f34fa25a7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/92f34fa25a7) - Switching compass over to using its own user search index instead of jira's
+- [#12143](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12143) [`92f34fa25a7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/92f34fa25a7) - Switching compass over to using its own user search index instead of jira's
 
 ## 7.11.0
 
 ### Minor Changes
 
-- [`5dcf1001d62`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5dcf1001d62) - [ux] Added tooltips for Confluence ExCo/Guest lozenges for Smart User Picker
+- [#11257](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/11257) [`5dcf1001d62`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5dcf1001d62) - [ux] Added tooltips for Confluence ExCo/Guest lozenges for Smart User Picker
 
 ## 7.10.7
 
 ### Patch Changes
 
-- [`bdf81a467fd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bdf81a467fd) - Translation bugfix for text within user picker
+- [#11368](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/11368) [`bdf81a467fd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bdf81a467fd) - Translation bugfix for text within user picker
 
 ## 7.10.6
 
@@ -711,202 +711,202 @@
 
 ### Patch Changes
 
-- [`048fd26b847`](https://bitbucket.org/atlassian/atlassian-frontend/commits/048fd26b847) - Updating Smart User Picker atlaskit documentation
+- [#10964](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10964) [`048fd26b847`](https://bitbucket.org/atlassian/atlassian-frontend/commits/048fd26b847) - Updating Smart User Picker atlaskit documentation
 
 ## 7.10.4
 
 ### Patch Changes
 
-- [`f22daa70ff0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f22daa70ff0) - Unit test and some doco for defaultValue
+- [#11099](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/11099) [`f22daa70ff0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f22daa70ff0) - Unit test and some doco for defaultValue
 
 ## 7.10.3
 
 ### Patch Changes
 
-- [`ac30a1340a2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ac30a1340a2) - Groups with external collaborators will now have the Guest lozenge shown next to them on the smart user picker
+- [#10234](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10234) [`ac30a1340a2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ac30a1340a2) - Groups with external collaborators will now have the Guest lozenge shown next to them on the smart user picker
 
 ## 7.10.2
 
 ### Patch Changes
 
-- [`f310ccbe522`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f310ccbe522) - Updated AK examples to use new jdog cloudid
+- [#10330](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10330) [`f310ccbe522`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f310ccbe522) - Updated AK examples to use new jdog cloudid
 
 ## 7.10.1
 
 ### Patch Changes
 
-- [`772e15b76d2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/772e15b76d2) - UR-1409 handle request races gracefully
+- [#10325](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10325) [`772e15b76d2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/772e15b76d2) - UR-1409 handle request races gracefully
 
 ## 7.10.0
 
 ### Minor Changes
 
-- [`659f69d349a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/659f69d349a) - [ux] Added closeMenuOnScroll and menuShouldBlockScroll Select props which allows easier integrations inside modals
+- [#10082](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10082) [`659f69d349a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/659f69d349a) - [ux] Added closeMenuOnScroll and menuShouldBlockScroll Select props which allows easier integrations inside modals
 
 ## 7.9.3
 
 ### Patch Changes
 
-- [`40dc90330e4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/40dc90330e4) - UR-2530 accept empty placeholder values
+- [#10293](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10293) [`40dc90330e4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/40dc90330e4) - UR-2530 accept empty placeholder values
 
 ## 7.9.2
 
 ### Patch Changes
 
-- [`78c54a8761f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/78c54a8761f) - Rewording some comments/types/descriptions to remove unnecessarily gendered phrasing
+- [#9756](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9756) [`78c54a8761f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/78c54a8761f) - Rewording some comments/types/descriptions to remove unnecessarily gendered phrasing
 - Updated dependencies
 
 ## 7.9.1
 
 ### Patch Changes
 
-- [`2ed498a11d4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2ed498a11d4) - Export getUserRecommendations for external use and test mocking
+- [#10056](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10056) [`2ed498a11d4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2ed498a11d4) - Export getUserRecommendations for external use and test mocking
 
 ## 7.9.0
 
 ### Minor Changes
 
-- [`83812c6e1a6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/83812c6e1a6) - Add productAttributes into SmartUserPicker usersRequest analytics event
+- [#9493](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9493) [`83812c6e1a6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/83812c6e1a6) - Add productAttributes into SmartUserPicker usersRequest analytics event
 
 ## 7.8.0
 
 ### Minor Changes
 
-- [`3f551db7bed`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3f551db7bed) - filterOptions will include the query as an optional import
+- [#8895](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8895) [`3f551db7bed`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3f551db7bed) - filterOptions will include the query as an optional import
 
 ## 7.7.0
 
 ### Minor Changes
 
-- [`de8d3656da6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/de8d3656da6) - Added user markes to user-picker/smart-user-picker. Confluence guests will now appear with a lozenge containing the text 'GUEST'. Updated tests to match this behaviour and updated the smart-user-picker example.
+- [#8736](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8736) [`de8d3656da6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/de8d3656da6) - Added user markes to user-picker/smart-user-picker. Confluence guests will now appear with a lozenge containing the text 'GUEST'. Updated tests to match this behaviour and updated the smart-user-picker example.
 
 ## 7.6.0
 
 ### Minor Changes
 
-- [`0076cad2d37`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0076cad2d37) - Added the prop bootstrapOptions for Smart User Picker. This allows to override the bootstrap options.
+- [#8663](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8663) [`0076cad2d37`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0076cad2d37) - Added the prop bootstrapOptions for Smart User Picker. This allows to override the bootstrap options.
 
 ## 7.5.5
 
 ### Patch Changes
 
-- [`12493bf342e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/12493bf342e) - Add bugfix to make principalId actually optional. Backwards compatible.
+- [#8820](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8820) [`12493bf342e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/12493bf342e) - Add bugfix to make principalId actually optional. Backwards compatible.
 
 ## 7.5.4
 
 ### Patch Changes
 
-- [`c50a63f9f72`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c50a63f9f72) - Upgrade `@types/react-select` to `v3.1.2` and fix type breaks
+- [#8644](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8644) [`c50a63f9f72`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c50a63f9f72) - Upgrade `@types/react-select` to `v3.1.2` and fix type breaks
 - Updated dependencies
 
 ## 7.5.3
 
 ### Patch Changes
 
-- [`5aa6e51ed2f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5aa6e51ed2f) - [ux] Add GitHub as an external source for the user-picker
+- [#8536](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8536) [`5aa6e51ed2f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5aa6e51ed2f) - [ux] Add GitHub as an external source for the user-picker
 
 ## 7.5.2
 
 ### Patch Changes
 
-- [`6bbba22c60b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6bbba22c60b) - Prevent PII from being fired for UP analytics events
+- [#8147](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8147) [`6bbba22c60b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6bbba22c60b) - Prevent PII from being fired for UP analytics events
 
 ## 7.5.1
 
 ### Patch Changes
 
-- [`e55c8004986`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e55c8004986) - [ux] Add Team prefix to team option bylines to increase clarity.
+- [#7861](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/7861) [`e55c8004986`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e55c8004986) - [ux] Add Team prefix to team option bylines to increase clarity.
 
 ## 7.5.0
 
 ### Minor Changes
 
-- [`93adccb79a4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/93adccb79a4) - The Smart User Picker now has the ability to use menuPosition which can allow it to be displayed on top of a dialog box.
+- [#8048](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8048) [`93adccb79a4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/93adccb79a4) - The Smart User Picker now has the ability to use menuPosition which can allow it to be displayed on top of a dialog box.
 
 ## 7.4.0
 
 ### Minor Changes
 
-- [`4c7bc9847a4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4c7bc9847a4) - Added the Smart User Picker to Confluence quicksearch
+- [#7571](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/7571) [`4c7bc9847a4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4c7bc9847a4) - Added the Smart User Picker to Confluence quicksearch
 
 ## 7.3.3
 
 ### Patch Changes
 
-- [`224d0251bd1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/224d0251bd1) - Update examples to function components for use in react storybook
+- [#7745](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/7745) [`224d0251bd1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/224d0251bd1) - Update examples to function components for use in react storybook
 
 ## 7.3.2
 
 ### Patch Changes
 
-- [`9a206f99b1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9a206f99b1) - [ux] Added 'MEMBER' lozenge to SUP is workspaceMember attribute exists (from bitbucket recommendations response)
+- [#6792](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/6792) [`9a206f99b1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9a206f99b1) - [ux] Added 'MEMBER' lozenge to SUP is workspaceMember attribute exists (from bitbucket recommendations response)
 
 ## 7.3.1
 
 ### Patch Changes
 
-- [`8af040a491`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8af040a491) - Reformating suggested emails if user inputs a space in the picker, aligning email suggestion avatar size with other options in the picker
+- [#6830](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/6830) [`8af040a491`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8af040a491) - Reformating suggested emails if user inputs a space in the picker, aligning email suggestion avatar size with other options in the picker
 
 ## 7.3.0
 
 ### Minor Changes
 
-- [`39055f3ac5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/39055f3ac5) - ED-10694: Fix FieldComponent defaultValue behaviour losing value due to mutation
+- [#6571](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/6571) [`39055f3ac5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/39055f3ac5) - ED-10694: Fix FieldComponent defaultValue behaviour losing value due to mutation
 
 ## 7.2.1
 
 ### Patch Changes
 
-- [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
+- [#5857](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5857) [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
 
 ## 7.2.0
 
 ### Minor Changes
 
-- [`70c3d3cab0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/70c3d3cab0) - [ux] allow displaying a constant recommendation to invite users from a specific email domain, based on the users input value
+- [#6323](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/6323) [`70c3d3cab0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/70c3d3cab0) - [ux] allow displaying a constant recommendation to invite users from a specific email domain, based on the users input value
 
 ## 7.1.0
 
 ### Minor Changes
 
-- [`c9327fc11e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c9327fc11e) - [ux] Add ability to user picker to display the external users along with the sources they come from.
+- [#6175](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/6175) [`c9327fc11e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c9327fc11e) - [ux] Add ability to user picker to display the external users along with the sources they come from.
 
 ## 7.0.0
 
 ### Major Changes
 
-- [`2c148c9eb9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2c148c9eb9) - Update the on Error prop to allow fail-over search client implementation for products.
+- [#6050](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/6050) [`2c148c9eb9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2c148c9eb9) - Update the on Error prop to allow fail-over search client implementation for products.
   Confluence fail-over client.
 
 ## 6.9.3
 
 ### Patch Changes
 
-- [`6e859f4e7d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6e859f4e7d) - Fix analytics to not expose email addresses as part of payload
+- [#6238](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/6238) [`6e859f4e7d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6e859f4e7d) - Fix analytics to not expose email addresses as part of payload
 
 ## 6.9.2
 
 ### Patch Changes
 
-- [`677744c680`](https://bitbucket.org/atlassian/atlassian-frontend/commits/677744c680) - Add UserSelect field for ConfigPanel, and expose types in SmartUserPicker
+- [#5860](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5860) [`677744c680`](https://bitbucket.org/atlassian/atlassian-frontend/commits/677744c680) - Add UserSelect field for ConfigPanel, and expose types in SmartUserPicker
 
 ## 6.9.1
 
 ### Patch Changes
 
-- [`d46c67b902`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d46c67b902) - [ux] Added further props to the PopupUserPicker for enabling offsets/shouldFlip/boundary settings. This change is backwards compatible. PopperProps have been updated to conform with Popper2.0 change
+- [#5932](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5932) [`d46c67b902`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d46c67b902) - [ux] Added further props to the PopupUserPicker for enabling offsets/shouldFlip/boundary settings. This change is backwards compatible. PopperProps have been updated to conform with Popper2.0 change
 
 ## 6.9.0
 
 ### Minor Changes
 
-- [`c8061b65de`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c8061b65de) - Allow style passthrough to mergeStyles in atlaskit select
+- [#5901](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5901) [`c8061b65de`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c8061b65de) - Allow style passthrough to mergeStyles in atlaskit select
 
 ## 6.8.0
 
 ### Minor Changes
 
-- [`57ef50f4d4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/57ef50f4d4) - Retain requested order for defaultValue hydration.
+- [#5732](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5732) [`57ef50f4d4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/57ef50f4d4) - Retain requested order for defaultValue hydration.
   Hydrate an "Unknown" user if no result from hydration.
   Converted example to a function component.
 
@@ -914,7 +914,7 @@
 
 ### Patch Changes
 
-- [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
+- [#5497](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5497) [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
   This requires version 3.8 of Typescript, read more about how we handle Typescript versions here: https://atlaskit.atlassian.com/get-started
   Also add `typescript` to `devDependencies` to denote version that the package was built with.
 
@@ -928,19 +928,19 @@
 
 ### Minor Changes
 
-- [`fe292139a7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fe292139a7) - [ux] Added support for lozenge in the options dropdown
+- [#5357](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5357) [`fe292139a7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fe292139a7) - [ux] Added support for lozenge in the options dropdown
 
 ## 6.6.1
 
 ### Patch Changes
 
-- [`8c68430770`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8c68430770) - Added onValueError callback to handle hydration errors
+- [#5325](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5325) [`8c68430770`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8c68430770) - Added onValueError callback to handle hydration errors
 
 ## 6.6.0
 
 ### Minor Changes
 
-- [`defe93e5fe`](https://bitbucket.org/atlassian/atlassian-frontend/commits/defe93e5fe) - Added auto hydration for defaultValue user identifier types to SmartUserPicker
+- [#5141](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5141) [`defe93e5fe`](https://bitbucket.org/atlassian/atlassian-frontend/commits/defe93e5fe) - Added auto hydration for defaultValue user identifier types to SmartUserPicker
 
 ## 6.5.7
 
@@ -952,25 +952,25 @@
 
 ### Patch Changes
 
-- [`38cc5d88da`](https://bitbucket.org/atlassian/atlassian-frontend/commits/38cc5d88da) - Update type of Target to match popup-select's
+- [#5061](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5061) [`38cc5d88da`](https://bitbucket.org/atlassian/atlassian-frontend/commits/38cc5d88da) - Update type of Target to match popup-select's
 
 ## 6.5.5
 
 ### Patch Changes
 
-- [`46bb7d498e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/46bb7d498e) - [ux] Popup user picker styling bug fixed where the placeholder was placed in the wrong position
+- [#4945](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4945) [`46bb7d498e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/46bb7d498e) - [ux] Popup user picker styling bug fixed where the placeholder was placed in the wrong position
 
 ## 6.5.4
 
 ### Patch Changes
 
-- [`4111de09de`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4111de09de) - Allow emailLabel to be an empty string
+- [#4844](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4844) [`4111de09de`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4111de09de) - Allow emailLabel to be an empty string
 
 ## 6.5.3
 
 ### Patch Changes
 
-- [`0ea18048ed`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0ea18048ed) - Fix emailLabel not being passed in pickerProps
+- [#4817](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4817) [`0ea18048ed`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0ea18048ed) - Fix emailLabel not being passed in pickerProps
 
 ## 6.5.2
 
@@ -982,7 +982,7 @@
 
 ### Patch Changes
 
-- [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
+- [#3885](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3885) [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
 
   Since tslib is a dependency for all our packages we recommend that products also follow this tslib upgrade
   to prevent duplicates of tslib being bundled.
@@ -991,17 +991,17 @@
 
 ### Minor Changes
 
-- [`63715cc332`](https://bitbucket.org/atlassian/atlassian-frontend/commits/63715cc332) - Add noBorder option to match confluence styling
+- [#4404](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4404) [`63715cc332`](https://bitbucket.org/atlassian/atlassian-frontend/commits/63715cc332) - Add noBorder option to match confluence styling
 
 ### Patch Changes
 
-- [`1685d02525`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1685d02525) - Fix styling issue for noBorder
+- [#4410](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4410) [`1685d02525`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1685d02525) - Fix styling issue for noBorder
 
 ## 6.4.2
 
 ### Patch Changes
 
-- [`76165ad82f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/76165ad82f) - Bump required because of conflicts on wadmal release
+- [#4393](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4393) [`76165ad82f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/76165ad82f) - Bump required because of conflicts on wadmal release
 
 ## 6.4.1
 
@@ -1013,68 +1013,68 @@
 
 ### Minor Changes
 
-- [`0d5890d800`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0d5890d800) - Added props for bitbucket support - isPublicRepo, workspaceIds, emailDomain
+- [#4167](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4167) [`0d5890d800`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0d5890d800) - Added props for bitbucket support - isPublicRepo, workspaceIds, emailDomain
 
 ## 6.3.0
 
 ### Minor Changes
 
-- [`d645e8d753`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d645e8d753) - Added includeUsers prop to allow results for team or groups only
+- [#4009](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4009) [`d645e8d753`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d645e8d753) - Added includeUsers prop to allow results for team or groups only
 
 ## 6.2.4
 
 ### Patch Changes
 
-- [`d03bff2147`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d03bff2147) - updated translations
+- [#3369](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3369) [`d03bff2147`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d03bff2147) - updated translations
 
 ## 6.2.3
 
 ### Patch Changes
 
-- [`9ef8a85f82`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9ef8a85f82) - Reenable subtle and compact style flags
+- [#3930](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3930) [`9ef8a85f82`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9ef8a85f82) - Reenable subtle and compact style flags
 
 ## 6.2.2
 
 ### Patch Changes
 
-- [`37e5a70532`](https://bitbucket.org/atlassian/atlassian-frontend/commits/37e5a70532) - Fix deselect bug when defaultValue props provided
+- [#3908](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3908) [`37e5a70532`](https://bitbucket.org/atlassian/atlassian-frontend/commits/37e5a70532) - Fix deselect bug when defaultValue props provided
 
 ## 6.2.1
 
 ### Patch Changes
 
-- [`cfbae59ca9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cfbae59ca9) - Map groups through to picker results
+- [#3883](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3883) [`cfbae59ca9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cfbae59ca9) - Map groups through to picker results
 
 ## 6.2.0
 
 ### Minor Changes
 
-- [`51aca36965`](https://bitbucket.org/atlassian/atlassian-frontend/commits/51aca36965) - Added includeGroups prop for the retrieval of confluence groups in smart user picker
+- [#3770](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3770) [`51aca36965`](https://bitbucket.org/atlassian/atlassian-frontend/commits/51aca36965) - Added includeGroups prop for the retrieval of confluence groups in smart user picker
 
 ## 6.1.0
 
 ### Minor Changes
 
-- [`d8aec9a0f8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d8aec9a0f8) - Fixed visual regression with Select dropdown caussing scrollbars to appears inside the PopUp, now using a portal element. For @atlaskit/user-picker ability to pass down `portalElement` has been added.
+- [#3749](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3749) [`d8aec9a0f8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d8aec9a0f8) - Fixed visual regression with Select dropdown caussing scrollbars to appears inside the PopUp, now using a portal element. For @atlaskit/user-picker ability to pass down `portalElement` has been added.
 
 ## 6.0.2
 
 ### Patch Changes
 
-- [`cde426961a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cde426961a) - Bumps Avatar and AvatarGroup depenedencies
+- [#3428](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3428) [`cde426961a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cde426961a) - Bumps Avatar and AvatarGroup depenedencies
 - Updated dependencies
 
 ## 6.0.1
 
 ### Patch Changes
 
-- [`0c532edf6e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0c532edf6e) - Use the 'lodash' package instead of single-function 'lodash.\*' packages
+- [#3226](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3226) [`0c532edf6e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0c532edf6e) - Use the 'lodash' package instead of single-function 'lodash.\*' packages
 
 ## 6.0.0
 
 ### Major Changes
 
-- [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
+- [#3335](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3335) [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
   For more information see: https://community.developer.atlassian.com/t/atlaskit-to-drop-support-for-internet-explorer-11-from-1st-july-2020/39534
 
 ### Patch Changes
@@ -1085,19 +1085,19 @@
 
 ### Patch Changes
 
-- [`7f61836218`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7f61836218) - Re-fire userPicker searched event after an option has been selected (allows mapping between userPicker clicked/enetered with userPicker searched for multiple pick case).
+- [#3143](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3143) [`7f61836218`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7f61836218) - Re-fire userPicker searched event after an option has been selected (allows mapping between userPicker clicked/enetered with userPicker searched for multiple pick case).
 
 ## 5.1.3
 
 ### Patch Changes
 
-- [`f4fb91cf47`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f4fb91cf47) - Fix blank space after deleting items in multi
+- [#3230](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3230) [`f4fb91cf47`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f4fb91cf47) - Fix blank space after deleting items in multi
 
 ## 5.1.2
 
 ### Patch Changes
 
-- [`b6a673bb27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b6a673bb27) - Add smart user picker prop for share dialog. Only works if enableSmartUserPicker is true and product = 'jira'.
+- [#2488](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2488) [`b6a673bb27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b6a673bb27) - Add smart user picker prop for share dialog. Only works if enableSmartUserPicker is true and product = 'jira'.
 
   Fix maxPickerHeight prop in user-picker to work (previously was maxGrowHeight in styles but the prop was called maxPickerHeight).
 
@@ -1109,13 +1109,13 @@
 
 ### Patch Changes
 
-- [`50d6079274`](https://bitbucket.org/atlassian/atlassian-frontend/commits/50d6079274) - Fix analytics bug exposing PII for usersRequest succeeded
+- [#3057](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3057) [`50d6079274`](https://bitbucket.org/atlassian/atlassian-frontend/commits/50d6079274) - Fix analytics bug exposing PII for usersRequest succeeded
 
 ## 5.1.0
 
 ### Minor Changes
 
-- [`4ee1ba1585`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ee1ba1585) - Add maxPickerHeight to the user picker which sets the maximum height that the user picker can grow up to because of the picked items. Modified subtle prop version of user picker. When subtle, the user picker's border will be removed. The background color will remain the same (Grey N10). These changes were spurred by recent style changes in user picker, which impacted the style of the shares dialog.
+- [#2903](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2903) [`4ee1ba1585`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ee1ba1585) - Add maxPickerHeight to the user picker which sets the maximum height that the user picker can grow up to because of the picked items. Modified subtle prop version of user picker. When subtle, the user picker's border will be removed. The background color will remain the same (Grey N10). These changes were spurred by recent style changes in user picker, which impacted the style of the shares dialog.
   Consumers need to be aware of whether an infinitely growing number of users in the user picker can affect their styling. If it does, they will need to provide a suitable maxPickerHeight. Consumers who also wish for a borderless user picker must set the subtle prop to true.
 
   Change the background color from N10 to N20 to align with other select background colors.
@@ -1126,25 +1126,25 @@
 
 ### Major Changes
 
-- [`510b57c393`](https://bitbucket.org/atlassian/atlassian-frontend/commits/510b57c393) - SupportedProduct type changed from enum to a string union type of products. \n This change was a result of migration compatibility for smart-user-picker into ForgeUI. Enum types were forcing ForgeUI to eager load the whole package. Consumers should look to change their uses of SupportedProduct from enum to string identifiers. Possible values are listed in the package documentation.
+- [#2833](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2833) [`510b57c393`](https://bitbucket.org/atlassian/atlassian-frontend/commits/510b57c393) - SupportedProduct type changed from enum to a string union type of products. \n This change was a result of migration compatibility for smart-user-picker into ForgeUI. Enum types were forcing ForgeUI to eager load the whole package. Consumers should look to change their uses of SupportedProduct from enum to string identifiers. Possible values are listed in the package documentation.
 
 ## 4.6.4
 
 ### Patch Changes
 
-- [`cdb9e0c4de`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cdb9e0c4de) - UI bug fixes
+- [#2540](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2540) [`cdb9e0c4de`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cdb9e0c4de) - UI bug fixes
 
 ## 4.6.3
 
 ### Patch Changes
 
-- [`ac965ef48d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ac965ef48d) - Fix selected user alignment issue in single user picker
+- [#2694](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2694) [`ac965ef48d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ac965ef48d) - Fix selected user alignment issue in single user picker
 
 ## 4.6.2
 
 ### Patch Changes
 
-- [`54d82b49f0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54d82b49f0) - Remove unused dependencies
+- [#2137](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2137) [`54d82b49f0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54d82b49f0) - Remove unused dependencies
 - [`baaad91b65`](https://bitbucket.org/atlassian/atlassian-frontend/commits/baaad91b65) - Updated to use the latest and more performant version of `@atlaskit/avatar`
 - Updated dependencies
 
@@ -1152,41 +1152,41 @@
 
 ### Patch Changes
 
-- [`649f69b6d7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/649f69b6d7) - Patch all packages that are used by confluence that have a broken es2019 dist
+- [#2430](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2430) [`649f69b6d7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/649f69b6d7) - Patch all packages that are used by confluence that have a broken es2019 dist
 
 ## 4.6.0
 
 ### Minor Changes
 
-- [`5e93392923`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5e93392923) - filter out inactive users from suggestions
+- [#2262](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2262) [`5e93392923`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5e93392923) - filter out inactive users from suggestions
 
 ### Patch Changes
 
-- [`131cee6d7a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/131cee6d7a) - Add missing tslib dependency
+- [#2099](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2099) [`131cee6d7a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/131cee6d7a) - Add missing tslib dependency
 
 ## 4.5.1
 
 ### Patch Changes
 
-- [`d8df7262f9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d8df7262f9) - expose a method to change env so confluence local development is easier
+- [#2233](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2233) [`d8df7262f9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d8df7262f9) - expose a method to change env so confluence local development is easier
 
 ## 4.5.0
 
 ### Minor Changes
 
-- [`a046c939c7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a046c939c7) - Fix wrong url bug, add onEmpty property
+- [#2213](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2213) [`a046c939c7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a046c939c7) - Fix wrong url bug, add onEmpty property
 
 ## 4.4.0
 
 ### Minor Changes
 
-- [`a546558e20`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a546558e20) - add prefetch prop to smart user picker
+- [#2071](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2071) [`a546558e20`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a546558e20) - add prefetch prop to smart user picker
 
 ## 4.3.0
 
 ### Minor Changes
 
-- [`650d5ece5b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/650d5ece5b) - add smart user picker
+- [#1998](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/1998) [`650d5ece5b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/650d5ece5b) - add smart user picker
 
 ## 4.2.3
 

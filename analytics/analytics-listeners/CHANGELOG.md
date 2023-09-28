@@ -4,37 +4,37 @@
 
 ### Patch Changes
 
-- [`b954b88b600`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b954b88b600) - Enrol packages to push model
+- [#39338](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39338) [`b954b88b600`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b954b88b600) - Enrol packages to push model
 
 ## 8.7.4
 
 ### Patch Changes
 
-- [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
+- [#38162](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38162) [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
 
 ## 8.7.3
 
 ### Patch Changes
 
-- [`f01deb5e6ab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f01deb5e6ab) - Use injected env vars instead of version.json
+- [#37925](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37925) [`f01deb5e6ab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f01deb5e6ab) - Use injected env vars instead of version.json
 
 ## 8.7.2
 
 ### Patch Changes
 
-- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793) [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
 
 ## 8.7.1
 
 ### Patch Changes
 
-- [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649) [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
 
 ## 8.7.0
 
 ### Minor Changes
 
-- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258) [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
 
 ### Patch Changes
 
@@ -44,13 +44,13 @@
 
 ### Patch Changes
 
-- [`0593ff2722e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0593ff2722e) - CUI-26: inherit attributes from contexts in crossFlow channel
+- [#32117](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32117) [`0593ff2722e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0593ff2722e) - CUI-26: inherit attributes from contexts in crossFlow channel
 
 ## 8.6.0
 
 ### Minor Changes
 
-- [`adde244c8b4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/adde244c8b4) - CUI-24: set namespaces based on the context for crossFlow channel
+- [#32042](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32042) [`adde244c8b4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/adde244c8b4) - CUI-24: set namespaces based on the context for crossFlow channel
 
 ## 8.5.1
 
@@ -62,13 +62,13 @@
 
 ### Minor Changes
 
-- [`e8ee5a82bf4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e8ee5a82bf4) - First draft of discovery-analytics, type definitions and APIs, and implement fire viewed and clicked events. Add new listener for crossFlow.
+- [#28452](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28452) [`e8ee5a82bf4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e8ee5a82bf4) - First draft of discovery-analytics, type definitions and APIs, and implement fire viewed and clicked events. Add new listener for crossFlow.
 
 ## 8.4.0
 
 ### Minor Changes
 
-- [`5968718f21e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5968718f21e) - Added linkingPlatform listener
+- [#28780](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28780) [`5968718f21e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5968718f21e) - Added linkingPlatform listener
 
 ### Patch Changes
 
@@ -78,19 +78,19 @@
 
 ### Patch Changes
 
-- [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
+- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874) [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
 
 ## 8.3.1
 
 ### Patch Changes
 
-- [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
+- [#24492](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24492) [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
 
 ## 8.3.0
 
 ### Minor Changes
 
-- [`b6c9baebdf9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b6c9baebdf9) - Add Atlas analytics listener
+- [#22842](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22842) [`b6c9baebdf9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b6c9baebdf9) - Add Atlas analytics listener
 
 ### Patch Changes
 
@@ -100,13 +100,13 @@
 
 ### Patch Changes
 
-- [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
+- [#20650](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20650) [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
 
 ## 8.2.0
 
 ### Minor Changes
 
-- [`a21e53776ff`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a21e53776ff) - Added a recentWork channel
+- [#18423](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/18423) [`a21e53776ff`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a21e53776ff) - Added a recentWork channel
 
 ### Patch Changes
 
@@ -116,25 +116,25 @@
 
 ### Patch Changes
 
-- [`c55c736ecea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c55c736ecea) - Patch VULN AFP-3486 AFP-3487 AFP-3488 AFP-3489
+- [#17475](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/17475) [`c55c736ecea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c55c736ecea) - Patch VULN AFP-3486 AFP-3487 AFP-3488 AFP-3489
 
 ## 8.1.2
 
 ### Patch Changes
 
-- [`db441ee18c3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/db441ee18c3) - Handle localStorage and sessionStorage safely
+- [#10230](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10230) [`db441ee18c3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/db441ee18c3) - Handle localStorage and sessionStorage safely
 
 ## 8.1.1
 
 ### Patch Changes
 
-- [`5942bf3060c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5942bf3060c) - Pass containerId through in atlaskit listener
+- [#9796](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9796) [`5942bf3060c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5942bf3060c) - Pass containerId through in atlaskit listener
 
 ## 8.1.0
 
 ### Minor Changes
 
-- [`1ecfe397c00`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1ecfe397c00) - Added a notification channel
+- [#9555](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9555) [`1ecfe397c00`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1ecfe397c00) - Added a notification channel
 
 ### Patch Changes
 
@@ -144,7 +144,7 @@
 
 ### Major Changes
 
-- [`d59eaef1c0d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d59eaef1c0d) - Changes in MediaAnalyticsListener's processEvent(): not using namespace context anymore, AnalyticsContext will be solely used for retrieving packageName&version and computing packageHierarchy
+- [#8644](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8644) [`d59eaef1c0d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d59eaef1c0d) - Changes in MediaAnalyticsListener's processEvent(): not using namespace context anymore, AnalyticsContext will be solely used for retrieving packageName&version and computing packageHierarchy
 
 ### Patch Changes
 
@@ -155,13 +155,13 @@
 
 ### Patch Changes
 
-- [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
+- [#5857](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5857) [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
 
 ## 7.0.5
 
 ### Patch Changes
 
-- [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
+- [#5497](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5497) [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
   This requires version 3.8 of Typescript, read more about how we handle Typescript versions here: https://atlaskit.atlassian.com/get-started
   Also add `typescript` to `devDependencies` to denote version that the package was built with.
 
@@ -175,7 +175,7 @@
 
 ### Patch Changes
 
-- [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
+- [#3885](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3885) [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
 
   Since tslib is a dependency for all our packages we recommend that products also follow this tslib upgrade
   to prevent duplicates of tslib being bundled.
@@ -184,20 +184,20 @@
 
 ### Patch Changes
 
-- [`bb931c93a4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bb931c93a4) - Make it possible to override package version and name with the analytic payload
+- [#3823](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3823) [`bb931c93a4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bb931c93a4) - Make it possible to override package version and name with the analytic payload
 - Updated dependencies
 
 ## 7.0.1
 
 ### Patch Changes
 
-- [`0c532edf6e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0c532edf6e) - Use the 'lodash' package instead of single-function 'lodash.\*' packages
+- [#3226](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3226) [`0c532edf6e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0c532edf6e) - Use the 'lodash' package instead of single-function 'lodash.\*' packages
 
 ## 7.0.0
 
 ### Major Changes
 
-- [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
+- [#3335](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3335) [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
   For more information see: https://community.developer.atlassian.com/t/atlaskit-to-drop-support-for-internet-explorer-11-from-1st-july-2020/39534
 
 ### Patch Changes
@@ -208,13 +208,13 @@
 
 ### Patch Changes
 
-- [`3f39ac93a6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3f39ac93a6) - Allow track events on peopleTeams analytics channel
+- [#3426](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3426) [`3f39ac93a6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3f39ac93a6) - Allow track events on peopleTeams analytics channel
 
 ## 6.4.0
 
 ### Minor Changes
 
-- [`f895125071`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f895125071) - Add new analytics channel "peopleTeams"
+- [#2831](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2831) [`f895125071`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f895125071) - Add new analytics channel "peopleTeams"
 
 ### Patch Changes
 

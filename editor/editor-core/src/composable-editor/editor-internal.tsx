@@ -17,7 +17,6 @@ import type {
   AllEditorPresetPluginTypes,
   Transformer,
 } from '@atlaskit/editor-common/types';
-import type { ExperienceStore } from '@atlaskit/editor-common/ufo';
 import { BaseTheme, WidthProvider } from '@atlaskit/editor-common/ui';
 
 import type EditorActions from '../actions';
@@ -27,22 +26,18 @@ import { createFeatureFlagsFromProps } from '../create-editor/feature-flags-from
 import ReactEditorView from '../create-editor/ReactEditorViewNext';
 import type { EventDispatcher } from '../event-dispatcher';
 import { ContextAdapter } from '../nodeviews/context-adapter';
-import type { EditorNextProps, EditorProps } from '../types/editor-props';
+import type { EditorNextProps } from '../types/editor-props';
 import EditorContext from '../ui/EditorContext';
 import { useSetPresetContext } from '../presets/context';
 import { RenderTracking } from '../utils/performance/components/RenderTracking';
-
-import useMeasureEditorMountTime from './hooks/useMeasureEditorMountTime';
-import useProviderFactory from './hooks/useProviderFactory';
 import { getBaseFontSize } from './utils/getBaseFontSize';
 
-interface Props<PropsType> {
-  props: PropsType;
+interface InternalProps {
+  props: EditorNextProps;
   handleAnalyticsEvent: FireAnalyticsCallback;
   createAnalyticsEvent: CreateUIAnalyticsEvent;
   handleSave: (view: EditorView) => void;
   editorActions: EditorActions;
-  getExperienceStore: () => ExperienceStore | undefined;
   onEditorCreated: (instance: {
     view: EditorView;
     eventDispatcher: EventDispatcher;
@@ -53,46 +48,14 @@ interface Props<PropsType> {
     transformer?: Transformer<string>;
   }) => void;
   preset: EditorPresetBuilder<string[], AllEditorPresetPluginTypes[]>;
-}
-
-interface InternalProps
-  extends Omit<Props<EditorNextProps | EditorProps>, 'getExperienceStore'> {
   providerFactory: ProviderFactory;
-}
-
-/**
- * EditorInternal is used for the internal editor react component
- * with the lifecycle methods extracted into hooks.
- */
-export default function EditorInternal(props: Props<EditorNextProps>) {
-  const {
-    props: editorProps,
-    getExperienceStore,
-    editorActions,
-    createAnalyticsEvent,
-  } = props;
-
-  useMeasureEditorMountTime(
-    editorProps,
-    getExperienceStore,
-    createAnalyticsEvent,
-  );
-
-  const providerFactory = useProviderFactory(
-    editorProps,
-    editorActions,
-    createAnalyticsEvent,
-  );
-
-  const updatedProps = { ...props, providerFactory };
-  return <EditorInternalWithoutHooks {...updatedProps} />;
 }
 
 /**
  * EditorInternalComponent is used to capture the common component
  * from the `render` method of `Editor` and share it with `EditorNext`.
  */
-export function EditorInternalWithoutHooks({
+export function EditorInternal({
   props,
   handleAnalyticsEvent,
   createAnalyticsEvent,

@@ -4,73 +4,73 @@
 
 ### Patch Changes
 
-- [`29941aaea33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/29941aaea33) - update focused fallback color to meet contrast requirement
+- [#37613](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37613) [`29941aaea33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/29941aaea33) - update focused fallback color to meet contrast requirement
 
 ## 4.7.6
 
 ### Patch Changes
 
-- [`9af31f3c1ae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9af31f3c1ae) - Delete version.json
+- [#38731](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38731) [`9af31f3c1ae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9af31f3c1ae) - Delete version.json
 
 ## 4.7.5
 
 ### Patch Changes
 
-- [`356d6ebed05`](https://bitbucket.org/atlassian/atlassian-frontend/commits/356d6ebed05) - This package is now onboarded onto the product push model.
+- [#38201](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38201) [`356d6ebed05`](https://bitbucket.org/atlassian/atlassian-frontend/commits/356d6ebed05) - This package is now onboarded onto the product push model.
 
 ## 4.7.4
 
 ### Patch Changes
 
-- [`964e8db6c94`](https://bitbucket.org/atlassian/atlassian-frontend/commits/964e8db6c94) - update border width to use border spacing token
+- [#36662](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36662) [`964e8db6c94`](https://bitbucket.org/atlassian/atlassian-frontend/commits/964e8db6c94) - update border width to use border spacing token
 
 ## 4.7.3
 
 ### Patch Changes
 
-- [`599bfe90ee3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/599bfe90ee3) - Internal change to use shape tokens. There is no expected visual change.
+- [#35441](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35441) [`599bfe90ee3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/599bfe90ee3) - Internal change to use shape tokens. There is no expected visual change.
 
 ## 4.7.2
 
 ### Patch Changes
 
-- [`8f436f0c301`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f436f0c301) - extend border contrast feature flag to support confluence
+- [#35111](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35111) [`8f436f0c301`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f436f0c301) - extend border contrast feature flag to support confluence
 
 ## 4.7.1
 
 ### Patch Changes
 
-- [`b1bdec7cce2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b1bdec7cce2) - Internal change to enforce token usage for spacing properties. There is no expected visual or behaviour change.
+- [#32935](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32935) [`b1bdec7cce2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b1bdec7cce2) - Internal change to enforce token usage for spacing properties. There is no expected visual or behaviour change.
 
 ## 4.7.0
 
 ### Minor Changes
 
-- [`5f37caad726`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f37caad726) - [ux] reduce border width to 1px and update fallback color of border
+- [#33171](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33171) [`5f37caad726`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f37caad726) - [ux] reduce border width to 1px and update fallback color of border
 
 ## 4.6.3
 
 ### Patch Changes
 
-- [`49b08bfdf5f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/49b08bfdf5f) - Migrated use of `gridSize` to space tokens where possible. There is no expected visual or behaviour change.
+- [#34051](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34051) [`49b08bfdf5f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/49b08bfdf5f) - Migrated use of `gridSize` to space tokens where possible. There is no expected visual or behaviour change.
 
 ## 4.6.2
 
 ### Patch Changes
 
-- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793) [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
 
 ## 4.6.1
 
 ### Patch Changes
 
-- [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649) [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
 
 ## 4.6.0
 
 ### Minor Changes
 
-- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258) [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
 
 ### Patch Changes
 
@@ -80,7 +80,7 @@
 
 ### Patch Changes
 
-- [`e028bee17df`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e028bee17df) - [ux] fix(style): update fallback color of placeholder to meet contrast requirement
+- [#33004](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33004) [`e028bee17df`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e028bee17df) - [ux] fix(style): update fallback color of placeholder to meet contrast requirement
 
 ## 4.5.6
 
@@ -116,13 +116,13 @@
 
 ### Patch Changes
 
-- [`9827dcb82b8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9827dcb82b8) - No-op change to introduce spacing tokens to design system components.
+- [#26303](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26303) [`9827dcb82b8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9827dcb82b8) - No-op change to introduce spacing tokens to design system components.
 
 ## 4.5.0
 
 ### Minor Changes
 
-- [`6612a236510`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6612a236510) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behavior change.
+- [#24710](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24710) [`6612a236510`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6612a236510) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behavior change.
 
 ### Patch Changes
 
@@ -132,31 +132,31 @@
 
 ### Minor Changes
 
-- [`b8841384da6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b8841384da6) - Disabled background and border styles should not be applied to components that have either no background or transparent background to begin with. Textfield and textarea variants that do not have backgrounds (sublte or none) have no backgrounds or borders applied when disabled. As such, any comopnents that consume these will also be affected.
+- [#24968](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24968) [`b8841384da6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b8841384da6) - Disabled background and border styles should not be applied to components that have either no background or transparent background to begin with. Textfield and textarea variants that do not have backgrounds (sublte or none) have no backgrounds or borders applied when disabled. As such, any comopnents that consume these will also be affected.
 
 ## 4.3.11
 
 ### Patch Changes
 
-- [`bedbdec0e82`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bedbdec0e82) - Update hover state appearance of subtle Textarea, Textfield and Select components to match the hover states of their default counterparts.
+- [#25314](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/25314) [`bedbdec0e82`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bedbdec0e82) - Update hover state appearance of subtle Textarea, Textfield and Select components to match the hover states of their default counterparts.
 
 ## 4.3.10
 
 ### Patch Changes
 
-- [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
+- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874) [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
 
 ## 4.3.9
 
 ### Patch Changes
 
-- [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
+- [#24492](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24492) [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
 
 ## 4.3.8
 
 ### Patch Changes
 
-- [`e4abd2c2888`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e4abd2c2888) - Update token used for background color of subtle text area on hover
+- [#23381](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23381) [`e4abd2c2888`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e4abd2c2888) - Update token used for background color of subtle text area on hover
 - [`926f9b57c59`](https://bitbucket.org/atlassian/atlassian-frontend/commits/926f9b57c59) - Internal code change turning on new linting rules.
 - [`fe575d49d66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fe575d49d66) - Updated styles to use new input design tokens
 
@@ -164,13 +164,13 @@
 
 ### Patch Changes
 
-- [`45ebe7af434`](https://bitbucket.org/atlassian/atlassian-frontend/commits/45ebe7af434) - Moved to using declarative entrypoints internally. Public API is unchanged.
+- [#22642](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22642) [`45ebe7af434`](https://bitbucket.org/atlassian/atlassian-frontend/commits/45ebe7af434) - Moved to using declarative entrypoints internally. Public API is unchanged.
 
 ## 4.3.6
 
 ### Patch Changes
 
-- [`f63824e8227`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f63824e8227) - [ux] Updated input tokens within `@atlaskit/textarea`.
+- [#21570](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21570) [`f63824e8227`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f63824e8227) - [ux] Updated input tokens within `@atlaskit/textarea`.
 
 ## 4.3.5
 
@@ -182,7 +182,7 @@
 
 ### Patch Changes
 
-- [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
+- [#20650](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20650) [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
 
 ## 4.3.3
 
@@ -206,13 +206,13 @@
 
 ### Minor Changes
 
-- [`2e56ff8ea50`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e56ff8ea50) - [ux] Fixed a bug where smart resize did not work when the value prop was changed
+- [#18526](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/18526) [`2e56ff8ea50`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e56ff8ea50) - [ux] Fixed a bug where smart resize did not work when the value prop was changed
 
 ## 4.2.6
 
 ### Patch Changes
 
-- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - The no-unsafe-design-token-usage eslint rule now respects the new token naming conventions when auto-fixing by correctly formatting token ids.
+- [#16752](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16752) [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - The no-unsafe-design-token-usage eslint rule now respects the new token naming conventions when auto-fixing by correctly formatting token ids.
 - Updated dependencies
 
 ## 4.2.5
@@ -225,7 +225,7 @@
 
 ### Patch Changes
 
-- [`f460cc7c411`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f460cc7c411) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving bundle size.
+- [#15998](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/15998) [`f460cc7c411`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f460cc7c411) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving bundle size.
 - [`af7c289395b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/af7c289395b) - Fix TypeScript issue where text area HTML attributes were not exposed in component prop types.
 - Updated dependencies
 
@@ -251,7 +251,7 @@
 
 ### Minor Changes
 
-- [`ae281b57bcd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ae281b57bcd) - Instrumented Radio with the new theming package, `@atlaskit/tokens`.
+- [#13302](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13302) [`ae281b57bcd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ae281b57bcd) - Instrumented Radio with the new theming package, `@atlaskit/tokens`.
 
   New tokens will be visible only in applications configured to use the new Tokens API (currently in alpha).
   These changes are intended to be interoperable with the legacy theme implementation. Legacy dark mode users should expect no visual or breaking changes
@@ -265,43 +265,43 @@
 
 ### Patch Changes
 
-- [`c5785203506`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c5785203506) - Updated homepage in package.json
+- [#13728](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13728) [`c5785203506`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c5785203506) - Updated homepage in package.json
 
 ## 4.1.2
 
 ### Patch Changes
 
-- [`378d1cef00f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/378d1cef00f) - Bump `@atlaskit/theme` to version `^11.3.0`.
+- [#12880](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12880) [`378d1cef00f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/378d1cef00f) - Bump `@atlaskit/theme` to version `^11.3.0`.
 
 ## 4.1.1
 
 ### Patch Changes
 
-- [`d6f7ff383cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6f7ff383cf) - Updates to development dependency `storybook-addon-performance`
+- [#12167](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12167) [`d6f7ff383cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6f7ff383cf) - Updates to development dependency `storybook-addon-performance`
 
 ## 4.1.0
 
 ### Minor Changes
 
-- [`7af2427f3a8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7af2427f3a8) - [ux] Update form field examples for validation and add a new prop to RadioGroup component
+- [#11113](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/11113) [`7af2427f3a8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7af2427f3a8) - [ux] Update form field examples for validation and add a new prop to RadioGroup component
 
 ## 4.0.2
 
 ### Patch Changes
 
-- [`79c23df6340`](https://bitbucket.org/atlassian/atlassian-frontend/commits/79c23df6340) - Use injected package name and version for analytics instead of version.json.
+- [#8644](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8644) [`79c23df6340`](https://bitbucket.org/atlassian/atlassian-frontend/commits/79c23df6340) - Use injected package name and version for analytics instead of version.json.
 
 ## 4.0.1
 
 ### Patch Changes
 
-- [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
+- [#5857](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5857) [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
 
 ## 4.0.0
 
 ### Major Changes
 
-- [`782b6e5182`](https://bitbucket.org/atlassian/atlassian-frontend/commits/782b6e5182) - ### Brief
+- [#5860](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5860) [`782b6e5182`](https://bitbucket.org/atlassian/atlassian-frontend/commits/782b6e5182) - ### Brief
 
   The goal of this major for textarea is to improve the component's performance, by both
 
@@ -351,7 +351,7 @@ npx @atlaskit/codemod-cli /path/to/target/directory --parser [tsx | flow | babel
 
 ### Patch Changes
 
-- [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
+- [#5497](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5497) [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
 This requires version 3.8 of Typescript, read more about how we handle Typescript versions here: https://atlaskit.atlassian.com/get-started
 Also add `typescript` to `devDependencies` to denote version that the package was built with.
 
@@ -365,13 +365,13 @@ Also add `typescript` to `devDependencies` to denote version that the package wa
 
 ### Patch Changes
 
-- [`6360c46009`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6360c46009) - Reenable integration tests for Edge browser
+- [#4707](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4707) [`6360c46009`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6360c46009) - Reenable integration tests for Edge browser
 
 ## 3.0.2
 
 ### Patch Changes
 
-- [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
+- [#3885](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3885) [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
 
 Since tslib is a dependency for all our packages we recommend that products also follow this tslib upgrade
 to prevent duplicates of tslib being bundled.
@@ -380,13 +380,13 @@ to prevent duplicates of tslib being bundled.
 
 ### Patch Changes
 
-- [`e99262c6f0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e99262c6f0) - All form elements now have a default font explicitly set
+- [#3823](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3823) [`e99262c6f0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e99262c6f0) - All form elements now have a default font explicitly set
 
 ## 3.0.0
 
 ### Major Changes
 
-- [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
+- [#3335](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3335) [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
 For more information see: https://community.developer.atlassian.com/t/atlaskit-to-drop-support-for-internet-explorer-11-from-1st-july-2020/39534
 
 ### Patch Changes
@@ -397,7 +397,7 @@ For more information see: https://community.developer.atlassian.com/t/atlaskit-t
 
 ### Patch Changes
 
-- [`54a9514fcf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54a9514fcf) - Build and supporting files will no longer be published to npm
+- [#2866](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2866) [`54a9514fcf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54a9514fcf) - Build and supporting files will no longer be published to npm
 
 ## 2.2.9
 
@@ -409,7 +409,7 @@ For more information see: https://community.developer.atlassian.com/t/atlaskit-t
 
 ### Patch Changes
 
-- [`7aa4756beb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7aa4756beb) - Change imports to comply with Atlassian conventions- Updated dependencies
+- [#1868](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/1868) [`7aa4756beb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7aa4756beb) - Change imports to comply with Atlassian conventions- Updated dependencies
 
 ## 2.2.7
 

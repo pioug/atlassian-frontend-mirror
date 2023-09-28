@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import EditorNext from '../../editor-next';
+import { ComposableEditor } from '../../composable-editor';
 import { render } from '@testing-library/react';
 import { basePlugin } from '@atlaskit/editor-plugin-base';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
@@ -17,7 +17,7 @@ const allAppearances: EditorAppearance[] = [
   'full-width',
 ];
 
-describe('EditorNext', () => {
+describe('ComposableEditor', () => {
   describe('renders plugin hooks on all appearances', () => {
     it.each(allAppearances)(
       'should render plugin hooks for %s',
@@ -28,7 +28,7 @@ describe('EditorNext', () => {
           .add(basePlugin)
           .add([testPlugin, testFunc]);
 
-        render(<EditorNext appearance={appearance} preset={preset} />);
+        render(<ComposableEditor appearance={appearance} preset={preset} />);
 
         expect(testFunc).toHaveBeenCalledTimes(1);
       },

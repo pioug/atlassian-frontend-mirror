@@ -4,7 +4,7 @@
 
 ### Major Changes
 
-- [`978cfcda881`](https://bitbucket.org/atlassian/atlassian-frontend/commits/978cfcda881) - Migrate `jql-editor-common` package to the `@atlaskit` namespace. Any consumers should update their imports to `@atlaskit/jql-editor-common`.
+- [#39978](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39978) [`978cfcda881`](https://bitbucket.org/atlassian/atlassian-frontend/commits/978cfcda881) - Migrate `jql-editor-common` package to the `@atlaskit` namespace. Any consumers should update their imports to `@atlaskit/jql-editor-common`.
 
 ### Patch Changes
 
@@ -14,14 +14,14 @@
 
 ### Patch Changes
 
-- [`ef15cb77a2a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ef15cb77a2a) - Migrate `jql-autocomplete` package to the `@atlaskit` namespace. Any consumers should update their imports to `@atlaskit/jql-autocomplete`.
+- [#38896](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38896) [`ef15cb77a2a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ef15cb77a2a) - Migrate `jql-autocomplete` package to the `@atlaskit` namespace. Any consumers should update their imports to `@atlaskit/jql-autocomplete`.
 - Updated dependencies
 
 ## 1.0.2
 
 ### Patch Changes
 
-- [`6081642ebe0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6081642ebe0) - Allow Forge/Connect JQL functions to correctly autocomplete for single value and list operators.
+- [#37802](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37802) [`6081642ebe0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6081642ebe0) - Allow Forge/Connect JQL functions to correctly autocomplete for single value and list operators.
 
 ## 1.0.1
 
@@ -29,4 +29,4 @@
 
 ### Patch Changes
 
-- [`f04004ec277`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f04004ec277) - Extract common JQL editor types, constants and utilities to separate package.
+- [#36600](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36600) [`f04004ec277`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f04004ec277) - Extract common JQL editor types, constants and utilities to separate package.

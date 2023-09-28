@@ -4,13 +4,13 @@
 
 ### Patch Changes
 
-- [`6900f89eb0e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6900f89eb0e) - Internal changes to use space tokens. There is no expected visual or behaviour change.
+- [#39787](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39787) [`6900f89eb0e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6900f89eb0e) - Internal changes to use space tokens. There is no expected visual or behaviour change.
 
 ## 16.10.0
 
 ### Minor Changes
 
-- [`8c6ebfca290`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8c6ebfca290) - Expose temporary "unsafe" entry point for internal work. It will be removed soon. PLEASE DO NOT USE.
+- [#39701](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39701) [`8c6ebfca290`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8c6ebfca290) - Expose temporary "unsafe" entry point for internal work. It will be removed soon. PLEASE DO NOT USE.
 
 ### Patch Changes
 
@@ -20,110 +20,110 @@
 
 ### Patch Changes
 
-- [`f204e4e0e55`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f204e4e0e55) - Updated dependencies
+- [#39579](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39579) [`f204e4e0e55`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f204e4e0e55) - Updated dependencies
 
 ## 16.9.3
 
 ### Patch Changes
 
-- [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
+- [#38162](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38162) [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
 - Updated dependencies
 
 ## 16.9.2
 
 ### Patch Changes
 
-- [`234448e5bb3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/234448e5bb3) - [ux] Updated inner space fix values to be -2px to cover up for 2px margins.
+- [#38730](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38730) [`234448e5bb3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/234448e5bb3) - [ux] Updated inner space fix values to be -2px to cover up for 2px margins.
 
 ## 16.9.1
 
 ### Patch Changes
 
-- [`696e8c196a3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/696e8c196a3) - Update our documentation of our CustomThemeButton export to note the impending deprecation that we have planned.
+- [#38291](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38291) [`696e8c196a3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/696e8c196a3) - Update our documentation of our CustomThemeButton export to note the impending deprecation that we have planned.
 
 ## 16.9.0
 
 ### Minor Changes
 
-- [`f4aff27416d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f4aff27416d) - [ux] We are testing icon button internal spacing fix behind a feature flag. Now the space between icons and right or left edge of the button will be optically perceived as even. If this fix is successful it will be available in a later release.
+- [#38259](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38259) [`f4aff27416d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f4aff27416d) - [ux] We are testing icon button internal spacing fix behind a feature flag. Now the space between icons and right or left edge of the button will be optically perceived as even. If this fix is successful it will be available in a later release.
 
 ## 16.8.5
 
 ### Patch Changes
 
-- [`54b69a2fc03`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54b69a2fc03) - Refactor out rest props from button and make props more explicit.
+- [#37681](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37681) [`54b69a2fc03`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54b69a2fc03) - Refactor out rest props from button and make props more explicit.
 
 ## 16.8.4
 
 ### Patch Changes
 
-- [`4b3cfb2276b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4b3cfb2276b) - Refactor button base to remove rest props and make props more explicit.
+- [#37682](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37682) [`4b3cfb2276b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4b3cfb2276b) - Refactor button base to remove rest props and make props more explicit.
 
 ## 16.8.3
 
 ### Patch Changes
 
-- [`11cd2f83450`](https://bitbucket.org/atlassian/atlassian-frontend/commits/11cd2f83450) - Refactor loading button to use less rest props to pass props more explicitly.
+- [#37605](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37605) [`11cd2f83450`](https://bitbucket.org/atlassian/atlassian-frontend/commits/11cd2f83450) - Refactor loading button to use less rest props to pass props more explicitly.
 
 ## 16.8.2
 
 ### Patch Changes
 
-- [`4ae083a7e66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ae083a7e66) - Use `@af/accessibility-testing` for default jest-axe config and jest-axe import in accessibility testing.
+- [#36754](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36754) [`4ae083a7e66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ae083a7e66) - Use `@af/accessibility-testing` for default jest-axe config and jest-axe import in accessibility testing.
 
 ## 16.8.1
 
 ### Patch Changes
 
-- [`ba43427b3e8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ba43427b3e8) - Internal changes to account for introduction of shape/radius tokens.
+- [#35441](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35441) [`ba43427b3e8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ba43427b3e8) - Internal changes to account for introduction of shape/radius tokens.
 
 ## 16.8.0
 
 ### Minor Changes
 
-- [`5104149700b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5104149700b) - Button no longer unnecessarily sets `tabindex` as `0` for focus when using default `<button>` or `<a>` elements, as they are already focusable. This is still set when using the `component` prop so other elements can still be be focused. (This change is feature flagged)
+- [#34532](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34532) [`5104149700b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5104149700b) - Button no longer unnecessarily sets `tabindex` as `0` for focus when using default `<button>` or `<a>` elements, as they are already focusable. This is still set when using the `component` prop so other elements can still be be focused. (This change is feature flagged)
 
 ## 16.7.6
 
 ### Patch Changes
 
-- [`687e9b93266`](https://bitbucket.org/atlassian/atlassian-frontend/commits/687e9b93266) - Updated dependencies
+- [#34644](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34644) [`687e9b93266`](https://bitbucket.org/atlassian/atlassian-frontend/commits/687e9b93266) - Updated dependencies
 
 ## 16.7.5
 
 ### Patch Changes
 
-- [`3a14ab26d19`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3a14ab26d19) - Updated dependencies
+- [#34192](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34192) [`3a14ab26d19`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3a14ab26d19) - Updated dependencies
 
 ## 16.7.4
 
 ### Patch Changes
 
-- [`49b08bfdf5f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/49b08bfdf5f) - Migrated use of `gridSize` to space tokens where possible. There is no expected visual or behaviour change.
+- [#34051](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34051) [`49b08bfdf5f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/49b08bfdf5f) - Migrated use of `gridSize` to space tokens where possible. There is no expected visual or behaviour change.
 
 ## 16.7.3
 
 ### Patch Changes
 
-- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793) [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
 
 ## 16.7.2
 
 ### Patch Changes
 
-- [`96b5112590b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/96b5112590b) - Updated dependencies
+- [#33771](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33771) [`96b5112590b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/96b5112590b) - Updated dependencies
 
 ## 16.7.1
 
 ### Patch Changes
 
-- [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649) [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
 
 ## 16.7.0
 
 ### Minor Changes
 
-- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258) [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
 
 ### Patch Changes
 
@@ -133,13 +133,13 @@
 
 ### Patch Changes
 
-- [`23a850fe471`](https://bitbucket.org/atlassian/atlassian-frontend/commits/23a850fe471) - Updated dependencies
+- [#33004](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33004) [`23a850fe471`](https://bitbucket.org/atlassian/atlassian-frontend/commits/23a850fe471) - Updated dependencies
 
 ## 16.6.0
 
 ### Minor Changes
 
-- [`3367210dce8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3367210dce8) - [ux] Internal change to the way focus is rendered for buttons.
+- [#31299](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31299) [`3367210dce8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3367210dce8) - [ux] Internal change to the way focus is rendered for buttons.
   Focus states now apply a 2px offset to the focus ring to aid the contrast of the focus state when applied on the 'primary' and 'selected' buttons.
   As part of this change, and to settle on a more systemic approach to focus, button also no longer applies a different colored shadow per appearance.
 
@@ -147,7 +147,7 @@
 
 ### Patch Changes
 
-- [`729e45efa7f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/729e45efa7f) - [ux] Fix a bug where the incorrect design tokens were used for the color of spinners in warning, disabled and selected buttons
+- [#30248](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/30248) [`729e45efa7f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/729e45efa7f) - [ux] Fix a bug where the incorrect design tokens were used for the color of spinners in warning, disabled and selected buttons
 - Updated dependencies
 
 ## 16.5.6
@@ -166,13 +166,13 @@
 
 ### Patch Changes
 
-- [`18aeca8c199`](https://bitbucket.org/atlassian/atlassian-frontend/commits/18aeca8c199) - Internal change to update token references. There is no expected behaviour or visual change.
+- [#29390](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/29390) [`18aeca8c199`](https://bitbucket.org/atlassian/atlassian-frontend/commits/18aeca8c199) - Internal change to update token references. There is no expected behaviour or visual change.
 
 ## 16.5.3
 
 ### Patch Changes
 
-- [`f96f3ebd861`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f96f3ebd861) - [ux] Use color.background.neutral.subtle token to represent transparent background.
+- [#28090](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28090) [`f96f3ebd861`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f96f3ebd861) - [ux] Use color.background.neutral.subtle token to represent transparent background.
 
 ## 16.5.2
 
@@ -190,7 +190,7 @@
 
 ### Minor Changes
 
-- [`71799e16ae6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/71799e16ae6) - Introduce InteractionContext to @atlaskit/button
+- [#26712](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26712) [`71799e16ae6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/71799e16ae6) - Introduce InteractionContext to @atlaskit/button
 
 ### Patch Changes
 
@@ -207,7 +207,7 @@
 
 ### Minor Changes
 
-- [`9f6369f5505`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9f6369f5505) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behaviour change.
+- [#25860](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/25860) [`9f6369f5505`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9f6369f5505) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behaviour change.
 
 ### Patch Changes
 
@@ -217,50 +217,50 @@
 
 ### Patch Changes
 
-- [`bc989043572`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bc989043572) - Internal changes to apply spacing tokens. This should be a no-op change.
+- [#26488](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26488) [`bc989043572`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bc989043572) - Internal changes to apply spacing tokens. This should be a no-op change.
 
 ## 16.3.9
 
 ### Patch Changes
 
-- [`1f4dba8f1a5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1f4dba8f1a5) - [ux] DSP-6696: prevent ButtonGroup items from being squished
+- [#25237](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/25237) [`1f4dba8f1a5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1f4dba8f1a5) - [ux] DSP-6696: prevent ButtonGroup items from being squished
 
 ## 16.3.8
 
 ### Patch Changes
 
-- [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
+- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874) [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
 
 ## 16.3.7
 
 ### Patch Changes
 
-- [`14d635468f6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/14d635468f6) - [ux] DSP-6696: prevent empty ButtonGroup items from showing spacing by switching to flexbox gap
+- [#24921](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24921) [`14d635468f6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/14d635468f6) - [ux] DSP-6696: prevent empty ButtonGroup items from showing spacing by switching to flexbox gap
 
 ## 16.3.6
 
 ### Patch Changes
 
-- [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
+- [#24492](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24492) [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
 
 ## 16.3.5
 
 ### Patch Changes
 
-- [`e09f1576233`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e09f1576233) - Internal code change turning on new linting rules.
+- [#23381](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23381) [`e09f1576233`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e09f1576233) - Internal code change turning on new linting rules.
 - Updated dependencies
 
 ## 16.3.4
 
 ### Patch Changes
 
-- [`65a90f6ba14`](https://bitbucket.org/atlassian/atlassian-frontend/commits/65a90f6ba14) - Use medium icons for button examples
+- [#23191](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23191) [`65a90f6ba14`](https://bitbucket.org/atlassian/atlassian-frontend/commits/65a90f6ba14) - Use medium icons for button examples
 
 ## 16.3.3
 
 ### Patch Changes
 
-- [`8a5bdb3c844`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8a5bdb3c844) - Upgrading internal dependency (bind-event-listener) for improved internal types
+- [#22614](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22614) [`8a5bdb3c844`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8a5bdb3c844) - Upgrading internal dependency (bind-event-listener) for improved internal types
 
 ## 16.3.2
 
@@ -278,7 +278,7 @@
 
 ### Minor Changes
 
-- [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Export BaseProps type to prevent it being referenced via deep import path in d.ts files
+- [#20650](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20650) [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Export BaseProps type to prevent it being referenced via deep import path in d.ts files
 
 ### Patch Changes
 
@@ -294,14 +294,14 @@
 
 ### Patch Changes
 
-- [`62edf20ab1e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/62edf20ab1e) - Migrates all usage of brand tokens to either selected or information tokens. This change is purely for semantic reasons, there are no visual or behavioural changes.
+- [#19618](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19618) [`62edf20ab1e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/62edf20ab1e) - Migrates all usage of brand tokens to either selected or information tokens. This change is purely for semantic reasons, there are no visual or behavioural changes.
 - Updated dependencies
 
 ## 16.2.0
 
 ### Minor Changes
 
-- [`dde969b6ef5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dde969b6ef5) - Fix type error with missing 'css' prop when importing Buttons directly from "@atlaskit/button/standard-button"
+- [#19019](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19019) [`dde969b6ef5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dde969b6ef5) - Fix type error with missing 'css' prop when importing Buttons directly from "@atlaskit/button/standard-button"
 
 ### Patch Changes
 
@@ -311,7 +311,7 @@
 
 ### Patch Changes
 
-- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Performance optimisations (reduce tree size and improve style building)
+- [#16752](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16752) [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Performance optimisations (reduce tree size and improve style building)
 - [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Updates usage of deprecated token names so they're aligned with the latest naming conventions. No UI or visual changes
 - Updated dependencies
 
@@ -325,14 +325,14 @@
 
 ### Patch Changes
 
-- [`f460cc7c411`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f460cc7c411) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving bundle size.
+- [#15998](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/15998) [`f460cc7c411`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f460cc7c411) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving bundle size.
 - Updated dependencies
 
 ## 16.1.3
 
 ### Patch Changes
 
-- [`c3b0a17a96c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c3b0a17a96c) - Fix spinner colours for disabled, warning and selected states when using tokens
+- [#14777](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/14777) [`c3b0a17a96c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c3b0a17a96c) - Fix spinner colours for disabled, warning and selected states when using tokens
 - Updated dependencies
 
 ## 16.1.2
@@ -351,7 +351,7 @@
 
 ### Minor Changes
 
-- [`e267e790d38`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e267e790d38) - [ux] Colors are now sourced through tokens.
+- [#13302](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13302) [`e267e790d38`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e267e790d38) - [ux] Colors are now sourced through tokens.
 
 ### Patch Changes
 
@@ -372,44 +372,44 @@
 
 ### Patch Changes
 
-- [`378d1cef00f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/378d1cef00f) - Bump `@atlaskit/theme` to version `^11.3.0`.
+- [#12880](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12880) [`378d1cef00f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/378d1cef00f) - Bump `@atlaskit/theme` to version `^11.3.0`.
 
 ## 15.1.7
 
 ### Patch Changes
 
-- [`d6f7ff383cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6f7ff383cf) - Updates to development dependency `storybook-addon-performance`
+- [#12167](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12167) [`d6f7ff383cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6f7ff383cf) - Updates to development dependency `storybook-addon-performance`
 
 ## 15.1.6
 
 ### Patch Changes
 
-- [`49961803553`](https://bitbucket.org/atlassian/atlassian-frontend/commits/49961803553) - Now utlises the auto focus hook from `ds-lib`.
+- [#10230](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10230) [`49961803553`](https://bitbucket.org/atlassian/atlassian-frontend/commits/49961803553) - Now utlises the auto focus hook from `ds-lib`.
 - Updated dependencies
 
 ## 15.1.5
 
 ### Patch Changes
 
-- [`79c23df6340`](https://bitbucket.org/atlassian/atlassian-frontend/commits/79c23df6340) - Use injected package name and version for analytics instead of version.json.
+- [#8644](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8644) [`79c23df6340`](https://bitbucket.org/atlassian/atlassian-frontend/commits/79c23df6340) - Use injected package name and version for analytics instead of version.json.
 
 ## 15.1.4
 
 ### Patch Changes
 
-- [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
+- [#5857](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5857) [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
 
 ## 15.1.3
 
 ### Patch Changes
 
-- [`9f733e3f59`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9f733e3f59) - Fixes inlined inferred types in @atlaskit/button/loading-button - no material change
+- [#6091](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/6091) [`9f733e3f59`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9f733e3f59) - Fixes inlined inferred types in @atlaskit/button/loading-button - no material change
 
 ## 15.1.2
 
 ### Patch Changes
 
-- [`d7540c04cd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d7540c04cd) - Before `15.x` it was possible for you to pass in `data-testid` and for that to be applied. In `15.x` we changed how props are spread so that is no longer possible. Please use the public API prop `testId` to control `data-testid`
+- [#5860](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5860) [`d7540c04cd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d7540c04cd) - Before `15.x` it was possible for you to pass in `data-testid` and for that to be applied. In `15.x` we changed how props are spread so that is no longer possible. Please use the public API prop `testId` to control `data-testid`
 
   We have:
 
@@ -434,7 +434,7 @@
 
 ### Patch Changes
 
-- [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
+- [#5497](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5497) [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
   This requires version 3.8 of Typescript, read more about how we handle Typescript versions here: https://atlaskit.atlassian.com/get-started
   Also add `typescript` to `devDependencies` to denote version that the package was built with.
 
@@ -442,7 +442,7 @@
 
 ### Minor Changes
 
-- [`1944b0b626`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1944b0b626) - Export BaseOwnProps type to prevent it being referenced via deep import path in declaration files of dependendents
+- [#5344](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5344) [`1944b0b626`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1944b0b626) - Export BaseOwnProps type to prevent it being referenced via deep import path in declaration files of dependendents
 
 ### Patch Changes
 
@@ -452,7 +452,7 @@
 
 ### Major Changes
 
-- [`f75fedbf16`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f75fedbf16) - In this version we made button dramatically faster and lighter and improved buttons internal spacing 🤩
+- [#4749](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4749) [`f75fedbf16`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f75fedbf16) - In this version we made button dramatically faster and lighter and improved buttons internal spacing 🤩
 
 There are now 3 button variants. We highly recommend you only install button through entry points to ensure minimum kbs. Our codemod will automatically shift you over to the entry point format
 
@@ -620,13 +620,13 @@ _When you use `@atlaskit/codemod-cli` you will be able to select which codemod y
 
 ### Patch Changes
 
-- [`6360c46009`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6360c46009) - Reenable integration tests for Edge browser
+- [#4707](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4707) [`6360c46009`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6360c46009) - Reenable integration tests for Edge browser
 
 ## 14.0.3
 
 ### Patch Changes
 
-- [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
+- [#3885](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3885) [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
 
   Since tslib is a dependency for all our packages we recommend that products also follow this tslib upgrade
   to prevent duplicates of tslib being bundled.
@@ -635,19 +635,19 @@ _When you use `@atlaskit/codemod-cli` you will be able to select which codemod y
 
 ### Patch Changes
 
-- [`e99262c6f0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e99262c6f0) - All form elements now have a default font explicitly set
+- [#3823](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3823) [`e99262c6f0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e99262c6f0) - All form elements now have a default font explicitly set
 
 ## 14.0.1
 
 ### Patch Changes
 
-- [`954cc87b62`](https://bitbucket.org/atlassian/atlassian-frontend/commits/954cc87b62) - The readme and package information has been updated to point to the new design system website.
+- [#3293](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3293) [`954cc87b62`](https://bitbucket.org/atlassian/atlassian-frontend/commits/954cc87b62) - The readme and package information has been updated to point to the new design system website.
 
 ## 14.0.0
 
 ### Major Changes
 
-- [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
+- [#3335](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3335) [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
   For more information see: https://community.developer.atlassian.com/t/atlaskit-to-drop-support-for-internet-explorer-11-from-1st-july-2020/39534
 
 ### Patch Changes
@@ -664,13 +664,13 @@ _When you use `@atlaskit/codemod-cli` you will be able to select which codemod y
 
 ### Patch Changes
 
-- [`54a9514fcf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54a9514fcf) - Build and supporting files will no longer be published to npm
+- [#2866](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2866) [`54a9514fcf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54a9514fcf) - Build and supporting files will no longer be published to npm
 
 ## 13.4.0
 
 ### Minor Changes
 
-- [`afc842d132`](https://bitbucket.org/atlassian/atlassian-frontend/commits/afc842d132) - FIX: Buton text font-weight changed from normal to medium as per ADG spec
+- [#2137](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2137) [`afc842d132`](https://bitbucket.org/atlassian/atlassian-frontend/commits/afc842d132) - FIX: Buton text font-weight changed from normal to medium as per ADG spec
 
 ### Patch Changes
 

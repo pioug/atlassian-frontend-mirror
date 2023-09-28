@@ -1,5 +1,11 @@
 # @atlaskit/util-data-test
 
+## 17.8.19
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 17.8.18
 
 ### Patch Changes
@@ -76,43 +82,43 @@
 
 ### Patch Changes
 
-- [`6d4fd331a62`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6d4fd331a62) - Updated the packages to remove cyclic dependency. Changed relative imports from emoji, mention, user-picker packages to absolute in util-data-test.
+- [#38757](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38757) [`6d4fd331a62`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6d4fd331a62) - Updated the packages to remove cyclic dependency. Changed relative imports from emoji, mention, user-picker packages to absolute in util-data-test.
 
 ## 17.8.5
 
 ### Patch Changes
 
-- [`4da111eca36`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4da111eca36) - Revert relative imports
+- [#38304](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38304) [`4da111eca36`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4da111eca36) - Revert relative imports
 
 ## 17.8.4
 
 ### Patch Changes
 
-- [`339015fe986`](https://bitbucket.org/atlassian/atlassian-frontend/commits/339015fe986) - NO-ISSUE Remove circular dependency by turning imports into relative imports in test utility package
+- [#37072](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37072) [`339015fe986`](https://bitbucket.org/atlassian/atlassian-frontend/commits/339015fe986) - NO-ISSUE Remove circular dependency by turning imports into relative imports in test utility package
 
 ## 17.8.3
 
 ### Patch Changes
 
-- [`61cb5313358`](https://bitbucket.org/atlassian/atlassian-frontend/commits/61cb5313358) - Removing unused dependencies and dev dependencies
+- [#34443](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34443) [`61cb5313358`](https://bitbucket.org/atlassian/atlassian-frontend/commits/61cb5313358) - Removing unused dependencies and dev dependencies
 
 ## 17.8.2
 
 ### Patch Changes
 
-- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793) [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
 
 ## 17.8.1
 
 ### Patch Changes
 
-- [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649) [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
 
 ## 17.8.0
 
 ### Minor Changes
 
-- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258) [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
 
 ### Patch Changes
 
@@ -122,13 +128,13 @@
 
 ### Patch Changes
 
-- [`2e01c9c74b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e01c9c74b5) - DUMMY remove before merging to master; dupe adf-schema via adf-utils
+- [#32424](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32424) [`2e01c9c74b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e01c9c74b5) - DUMMY remove before merging to master; dupe adf-schema via adf-utils
 
 ## 17.7.0
 
 ### Minor Changes
 
-- [`001d3ca9cc6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/001d3ca9cc6) - PTC-6520 remove team mention highlight
+- [#31299](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31299) [`001d3ca9cc6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/001d3ca9cc6) - PTC-6520 remove team mention highlight
 
 ### Patch Changes
 
@@ -162,13 +168,13 @@
 
 ### Patch Changes
 
-- [`6455cf006b3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6455cf006b3) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving performance.
+- [#28324](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28324) [`6455cf006b3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6455cf006b3) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving performance.
 
 ## 17.6.6
 
 ### Patch Changes
 
-- [`1d41bbc2965`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1d41bbc2965) - This changeset introduces non breaking changes to support ssr within the loader emoji component
+- [#28090](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28090) [`1d41bbc2965`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1d41bbc2965) - This changeset introduces non breaking changes to support ssr within the loader emoji component
 - [`b7678f756b3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b7678f756b3) - useEmoji hook introduced to work along side EmojiCommonProvider
 - Updated dependencies
 
@@ -194,7 +200,7 @@
 
 ### Patch Changes
 
-- [`e6fd2041cf5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e6fd2041cf5) - Bump to @emotion v11
+- [#27704](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/27704) [`e6fd2041cf5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e6fd2041cf5) - Bump to @emotion v11
 
 ## 17.6.1
 
@@ -206,7 +212,7 @@
 
 ### Minor Changes
 
-- [`faf391ab64a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/faf391ab64a) - Implementing new CustomOption which will allow for a custom avatar
+- [#26601](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26601) [`faf391ab64a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/faf391ab64a) - Implementing new CustomOption which will allow for a custom avatar
 
 ### Patch Changes
 
@@ -216,26 +222,26 @@
 
 ### Patch Changes
 
-- [`588c8a3e413`](https://bitbucket.org/atlassian/atlassian-frontend/commits/588c8a3e413) - Update mocks to include interface fetchByEmojiId
+- [#25696](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/25696) [`588c8a3e413`](https://bitbucket.org/atlassian/atlassian-frontend/commits/588c8a3e413) - Update mocks to include interface fetchByEmojiId
 - Updated dependencies
 
 ## 17.5.6
 
 ### Patch Changes
 
-- [`12e166e12ee`](https://bitbucket.org/atlassian/atlassian-frontend/commits/12e166e12ee) - Updated user picker team data to demonstrate a hover effect on the custom icon. New example component added for custom icon.
+- [#25745](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/25745) [`12e166e12ee`](https://bitbucket.org/atlassian/atlassian-frontend/commits/12e166e12ee) - Updated user picker team data to demonstrate a hover effect on the custom icon. New example component added for custom icon.
 
 ## 17.5.5
 
 ### Patch Changes
 
-- [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
+- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874) [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
 
 ## 17.5.4
 
 ### Patch Changes
 
-- [`b7ec6e38528`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b7ec6e38528) - Adding extra user-picker data and team data
+- [#25327](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/25327) [`b7ec6e38528`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b7ec6e38528) - Adding extra user-picker data and team data
 - Updated dependencies
 
 ## 17.5.3
@@ -248,26 +254,26 @@
 
 ### Patch Changes
 
-- [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
+- [#24492](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24492) [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
 
 ## 17.5.1
 
 ### Patch Changes
 
-- [`40dc0e98bc6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/40dc0e98bc6) - remove fake timeout of findByEmojiId in mock
+- [#23381](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23381) [`40dc0e98bc6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/40dc0e98bc6) - remove fake timeout of findByEmojiId in mock
 - Updated dependencies
 
 ## 17.5.0
 
 ### Minor Changes
 
-- [`32312d1534d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/32312d1534d) - Add get-atlassian-emojis entry point
+- [#23334](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23334) [`32312d1534d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/32312d1534d) - Add get-atlassian-emojis entry point
 
 ## 17.4.0
 
 ### Minor Changes
 
-- [`06232e0f8dd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/06232e0f8dd) - [ux] Opt In SSR for Resourced Emoji and Emoji Placeholder with EmojiResource interfaces
+- [#22642](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22642) [`06232e0f8dd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/06232e0f8dd) - [ux] Opt In SSR for Resourced Emoji and Emoji Placeholder with EmojiResource interfaces
 
 ### Patch Changes
 
@@ -277,7 +283,7 @@
 
 ### Minor Changes
 
-- [`31ca93c69a3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/31ca93c69a3) - [ux] Adding give kudos button to the profile card
+- [#21848](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21848) [`31ca93c69a3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/31ca93c69a3) - [ux] Adding give kudos button to the profile card
 
 ### Patch Changes
 
@@ -287,14 +293,14 @@
 
 ### Patch Changes
 
-- [`b926172a999`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b926172a999) - Custom Emoji Assets now load using inline media tokens preventing 401s
+- [#20721](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20721) [`b926172a999`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b926172a999) - Custom Emoji Assets now load using inline media tokens preventing 401s
 - Updated dependencies
 
 ## 17.2.3
 
 ### Patch Changes
 
-- [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
+- [#20650](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20650) [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
 
 ## 17.2.2
 
@@ -312,7 +318,7 @@
 
 ### Minor Changes
 
-- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Upgrade js-search to v2
+- [#16752](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16752) [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Upgrade js-search to v2
 
 ### Patch Changes
 
@@ -322,25 +328,25 @@
 
 ### Patch Changes
 
-- [`e75137a9eff`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e75137a9eff) - Adding ability to mark which external users need their sources hydrated
+- [#17994](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/17994) [`e75137a9eff`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e75137a9eff) - Adding ability to mark which external users need their sources hydrated
 
 ## 17.1.1
 
 ### Patch Changes
 
-- [`1d343f094cc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1d343f094cc) - created new mock profile client function with types
+- [#17948](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/17948) [`1d343f094cc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1d343f094cc) - created new mock profile client function with types
 
 ## 17.1.0
 
 ### Minor Changes
 
-- [`a5c73ccaa58`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a5c73ccaa58) - Added manager and direct reports section to profile hover card"
+- [#17298](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/17298) [`a5c73ccaa58`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a5c73ccaa58) - Added manager and direct reports section to profile hover card"
 
 ## 17.0.2
 
 ### Patch Changes
 
-- [`c55c736ecea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c55c736ecea) - Patch VULN AFP-3486 AFP-3487 AFP-3488 AFP-3489
+- [#17475](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/17475) [`c55c736ecea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c55c736ecea) - Patch VULN AFP-3486 AFP-3487 AFP-3488 AFP-3489
 
 ## 17.0.1
 
@@ -352,7 +358,7 @@
 
 ### Major Changes
 
-- [`d21da111ec2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d21da111ec2) - CETI-95 Predefined icon sizes are different from existing icons
+- [#15998](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/15998) [`d21da111ec2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d21da111ec2) - CETI-95 Predefined icon sizes are different from existing icons
 
 ### Minor Changes
 
@@ -362,43 +368,43 @@
 
 ### Patch Changes
 
-- [`b85e7ce12cd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b85e7ce12cd) - Internal upgrade of memoize-one to 6.0.0
+- [#15694](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/15694) [`b85e7ce12cd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b85e7ce12cd) - Internal upgrade of memoize-one to 6.0.0
 
 ## 16.0.0
 
 ### Major Changes
 
-- [`57808770e17`](https://bitbucket.org/atlassian/atlassian-frontend/commits/57808770e17) - CETI-31 Add the predefined Panel Icons to the emoji Picker
+- [#14064](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/14064) [`57808770e17`](https://bitbucket.org/atlassian/atlassian-frontend/commits/57808770e17) - CETI-31 Add the predefined Panel Icons to the emoji Picker
 
 ## 15.0.1
 
 ### Patch Changes
 
-- [`83a7f464573`](https://bitbucket.org/atlassian/atlassian-frontend/commits/83a7f464573) - Introduce new simple mock profilecard client to improve usability.
+- [#9558](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9558) [`83a7f464573`](https://bitbucket.org/atlassian/atlassian-frontend/commits/83a7f464573) - Introduce new simple mock profilecard client to improve usability.
 
 ## 15.0.0
 
 ### Major Changes
 
-- [`d361f290d63`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d361f290d63) - NO-ISSUE avoid bundling test data for development
+- [#7803](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/7803) [`d361f290d63`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d361f290d63) - NO-ISSUE avoid bundling test data for development
 
 ## 14.2.2
 
 ### Patch Changes
 
-- [`dd91541afe`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dd91541afe) - [ux] Further improvements on the invite from mention experiment
+- [#6571](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/6571) [`dd91541afe`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dd91541afe) - [ux] Further improvements on the invite from mention experiment
 
 ## 14.2.1
 
 ### Patch Changes
 
-- [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
+- [#5857](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5857) [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
 
 ## 14.2.0
 
 ### Minor Changes
 
-- [`22791ceed0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/22791ceed0) - [ux] - added new properites in MentionResource interface to support invite from mention experiment
+- [#6228](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/6228) [`22791ceed0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/22791ceed0) - [ux] - added new properites in MentionResource interface to support invite from mention experiment
 
   - updated util-data-test/mention to enable invite from mention experiment
   - added invite from mention experiment logic into editor-core
@@ -411,13 +417,13 @@
 
 ### Minor Changes
 
-- [`c9327fc11e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c9327fc11e) - [ux] Add ability to user picker to display the external users along with the sources they come from.
+- [#6175](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/6175) [`c9327fc11e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c9327fc11e) - [ux] Add ability to user picker to display the external users along with the sources they come from.
 
 ## 14.0.4
 
 ### Patch Changes
 
-- [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
+- [#5497](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5497) [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
   This requires version 3.8 of Typescript, read more about how we handle Typescript versions here: https://atlaskit.atlassian.com/get-started
   Also add `typescript` to `devDependencies` to denote version that the package was built with.
 
@@ -431,7 +437,7 @@
 
 ### Patch Changes
 
-- [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
+- [#3885](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3885) [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
 
   Since tslib is a dependency for all our packages we recommend that products also follow this tslib upgrade
   to prevent duplicates of tslib being bundled.
@@ -440,13 +446,13 @@
 
 ### Patch Changes
 
-- [`0c532edf6e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0c532edf6e) - Use the 'lodash' package instead of single-function 'lodash.\*' packages
+- [#3226](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3226) [`0c532edf6e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0c532edf6e) - Use the 'lodash' package instead of single-function 'lodash.\*' packages
 
 ## 14.0.0
 
 ### Major Changes
 
-- [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
+- [#3335](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3335) [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
   For more information see: https://community.developer.atlassian.com/t/atlaskit-to-drop-support-for-internet-explorer-11-from-1st-july-2020/39534
 
 ### Patch Changes

@@ -4,44 +4,44 @@
 
 ### Patch Changes
 
-- [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
+- [#38162](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38162) [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
 - Updated dependencies
 
 ## 13.6.5
 
 ### Patch Changes
 
-- [`599bfe90ee3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/599bfe90ee3) - Internal change to use shape tokens. There is no expected visual change.
+- [#35441](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35441) [`599bfe90ee3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/599bfe90ee3) - Internal change to use shape tokens. There is no expected visual change.
 
 ## 13.6.4
 
 ### Patch Changes
 
-- [`e7ea6832ad2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e7ea6832ad2) - Bans the use of React.FC/React.FunctionComponent type in ADS components as part of the React 18 migration work. The change is internal only and should not introduce any changes for the component consumers.
+- [#33652](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33652) [`e7ea6832ad2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e7ea6832ad2) - Bans the use of React.FC/React.FunctionComponent type in ADS components as part of the React 18 migration work. The change is internal only and should not introduce any changes for the component consumers.
 
 ## 13.6.3
 
 ### Patch Changes
 
-- [`49b08bfdf5f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/49b08bfdf5f) - Migrated use of `gridSize` to space tokens where possible. There is no expected visual or behaviour change.
+- [#34051](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34051) [`49b08bfdf5f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/49b08bfdf5f) - Migrated use of `gridSize` to space tokens where possible. There is no expected visual or behaviour change.
 
 ## 13.6.2
 
 ### Patch Changes
 
-- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793) [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
 
 ## 13.6.1
 
 ### Patch Changes
 
-- [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649) [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
 
 ## 13.6.0
 
 ### Minor Changes
 
-- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258) [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
 
 ### Patch Changes
 
@@ -51,13 +51,13 @@
 
 ### Minor Changes
 
-- [`c0dd48dfb67`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c0dd48dfb67) - [ux] Adds keyboard support of using escape to close inline dialog.
+- [#31299](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31299) [`c0dd48dfb67`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c0dd48dfb67) - [ux] Adds keyboard support of using escape to close inline dialog.
 
 ## 13.4.9
 
 ### Patch Changes
 
-- [`261420360ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/261420360ec) - Upgrades component types to support React 18.
+- [#31206](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31206) [`261420360ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/261420360ec) - Upgrades component types to support React 18.
 - Updated dependencies
 
 ## 13.4.8
@@ -76,7 +76,7 @@
 
 ### Patch Changes
 
-- [`18aeca8c199`](https://bitbucket.org/atlassian/atlassian-frontend/commits/18aeca8c199) - Internal change to update token references. There is no expected behaviour or visual change.
+- [#29390](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/29390) [`18aeca8c199`](https://bitbucket.org/atlassian/atlassian-frontend/commits/18aeca8c199) - Internal change to update token references. There is no expected behaviour or visual change.
 
 ## 13.4.5
 
@@ -100,19 +100,19 @@
 
 ### Patch Changes
 
-- [`9de88fa1e1e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9de88fa1e1e) - Internal changes to include spacing tokens in component implementations.
+- [#26408](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26408) [`9de88fa1e1e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9de88fa1e1e) - Internal changes to include spacing tokens in component implementations.
 
 ## 13.4.1
 
 ### Patch Changes
 
-- [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
+- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874) [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
 
 ## 13.4.0
 
 ### Minor Changes
 
-- [`8d2ea17980d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d2ea17980d) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behavior change.
+- [#24004](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24004) [`8d2ea17980d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d2ea17980d) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behavior change.
 
 ### Patch Changes
 
@@ -122,13 +122,13 @@
 
 ### Patch Changes
 
-- [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
+- [#24492](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24492) [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
 
 ## 13.3.8
 
 ### Patch Changes
 
-- [`8a5bdb3c844`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8a5bdb3c844) - Upgrading internal dependency (bind-event-listener) for improved internal types
+- [#22614](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22614) [`8a5bdb3c844`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8a5bdb3c844) - Upgrading internal dependency (bind-event-listener) for improved internal types
 
 ## 13.3.7
 
@@ -146,13 +146,13 @@
 
 ### Patch Changes
 
-- [`2e7bbdfd813`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e7bbdfd813) - Upgrading internal dependency 'bind-event-listener' to 2.1.0 for improved types
+- [#21242](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21242) [`2e7bbdfd813`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e7bbdfd813) - Upgrading internal dependency 'bind-event-listener' to 2.1.0 for improved types
 
 ## 13.3.4
 
 ### Patch Changes
 
-- [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
+- [#20650](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20650) [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
 
 ## 13.3.3
 
@@ -176,7 +176,7 @@
 
 ### Minor Changes
 
-- [`2a53f51adc6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2a53f51adc6) - Introduce the prop `strategy` to allow consumers to override the default positioning strategy
+- [#18526](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/18526) [`2a53f51adc6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2a53f51adc6) - Introduce the prop `strategy` to allow consumers to override the default positioning strategy
 
 ### Patch Changes
 
@@ -186,7 +186,7 @@
 
 ### Patch Changes
 
-- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Updates usage of deprecated token names so they're aligned with the latest naming conventions. No UI or visual changes
+- [#16752](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16752) [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Updates usage of deprecated token names so they're aligned with the latest naming conventions. No UI or visual changes
 - Updated dependencies
 
 ## 13.2.1
@@ -199,13 +199,13 @@
 
 ### Minor Changes
 
-- [`2fe0d03807f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2fe0d03807f) - This removes the preventDefault functionality (reverts it back to the previous version of inline dialog where event listeners were added in the capture phase). It also refactors handleClickOutside so that it is now triggered by a ref.
+- [#16651](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16651) [`2fe0d03807f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2fe0d03807f) - This removes the preventDefault functionality (reverts it back to the previous version of inline dialog where event listeners were added in the capture phase). It also refactors handleClickOutside so that it is now triggered by a ref.
 
 ## 13.1.9
 
 ### Patch Changes
 
-- [`f460cc7c411`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f460cc7c411) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving bundle size.
+- [#15998](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/15998) [`f460cc7c411`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f460cc7c411) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving bundle size.
 - Updated dependencies
 
 ## 13.1.8
@@ -218,19 +218,19 @@
 
 ### Patch Changes
 
-- [`34282240102`](https://bitbucket.org/atlassian/atlassian-frontend/commits/34282240102) - Adds explicit type to button usages components.
+- [#15632](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/15632) [`34282240102`](https://bitbucket.org/atlassian/atlassian-frontend/commits/34282240102) - Adds explicit type to button usages components.
 
 ## 13.1.6
 
 ### Patch Changes
 
-- [`cb79dfea5d9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb79dfea5d9) - This fixes a bug in version 13.1.2 where inline dialog's `useEffect` was running synchronously and while the click event was still happening. This meant that if the open state was outside of inline dialog, there were instances where it failed to open.
+- [#15105](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/15105) [`cb79dfea5d9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb79dfea5d9) - This fixes a bug in version 13.1.2 where inline dialog's `useEffect` was running synchronously and while the click event was still happening. This meant that if the open state was outside of inline dialog, there were instances where it failed to open.
 
 ## 13.1.5
 
 ### Patch Changes
 
-- [`b94375ecf08`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b94375ecf08) - Fixes issue where enzyme is unable to access component name in snapshot tests. There should be no UI or UX change.
+- [#14723](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/14723) [`b94375ecf08`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b94375ecf08) - Fixes issue where enzyme is unable to access component name in snapshot tests. There should be no UI or UX change.
 
 ## 13.1.4
 
@@ -242,13 +242,13 @@
 
 ### Patch Changes
 
-- [`0e89e593547`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0e89e593547) - Fixes a bug where the dialog was retaining its window click event listener even after the dialog was closed.
+- [#14608](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/14608) [`0e89e593547`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0e89e593547) - Fixes a bug where the dialog was retaining its window click event listener even after the dialog was closed.
 
 ## 13.1.2
 
 ### Patch Changes
 
-- [`398904f14d9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/398904f14d9) - [ux] Fixes a bug in version 13.1.0 where InlineDialog cannot be closed after it opens a Modal. There should be no other UI or UX changes. Note that the click event listener's `capture: false` has been changed to `capture: true`. This may cause some issues with the opening or closing of the inline dialog in some situations e.g. if the open state of the inline dialog is in an outer component. You can solve this by trying to add a `preventDefault` to the click handler in the outer component or changing the inline dialog's event handler to `{ capture: true }`.
+- [#14328](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/14328) [`398904f14d9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/398904f14d9) - [ux] Fixes a bug in version 13.1.0 where InlineDialog cannot be closed after it opens a Modal. There should be no other UI or UX changes. Note that the click event listener's `capture: false` has been changed to `capture: true`. This may cause some issues with the opening or closing of the inline dialog in some situations e.g. if the open state of the inline dialog is in an outer component. You can solve this by trying to add a `preventDefault` to the click handler in the outer component or changing the inline dialog's event handler to `{ capture: true }`.
 
 ## 13.1.1
 
@@ -260,7 +260,7 @@
 
 ### Minor Changes
 
-- [`5a049f800d3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5a049f800d3) - Integrates the new tokens package to add support for our new theming solution. This change is fully backwards compatible with our existing theming solution
+- [#13302](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13302) [`5a049f800d3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5a049f800d3) - Integrates the new tokens package to add support for our new theming solution. This change is fully backwards compatible with our existing theming solution
 - [`caec2cee6e0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/caec2cee6e0) - Removes `styled-components` dependency from the package. Also uses ThemeV2 API now. There should be no visual or UX change.
 
 ### Patch Changes
@@ -271,25 +271,25 @@
 
 ### Patch Changes
 
-- [`378d1cef00f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/378d1cef00f) - Bump `@atlaskit/theme` to version `^11.3.0`.
+- [#12880](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12880) [`378d1cef00f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/378d1cef00f) - Bump `@atlaskit/theme` to version `^11.3.0`.
 
 ## 13.0.10
 
 ### Patch Changes
 
-- [`79c23df6340`](https://bitbucket.org/atlassian/atlassian-frontend/commits/79c23df6340) - Use injected package name and version for analytics instead of version.json.
+- [#8644](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8644) [`79c23df6340`](https://bitbucket.org/atlassian/atlassian-frontend/commits/79c23df6340) - Use injected package name and version for analytics instead of version.json.
 
 ## 13.0.9
 
 ### Patch Changes
 
-- [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
+- [#5857](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5857) [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
 
 ## 13.0.8
 
 ### Patch Changes
 
-- [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
+- [#5497](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5497) [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
   This requires version 3.8 of Typescript, read more about how we handle Typescript versions here: https://atlaskit.atlassian.com/get-started
   Also add `typescript` to `devDependencies` to denote version that the package was built with.
 
@@ -303,13 +303,13 @@
 
 ### Patch Changes
 
-- [`6360c46009`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6360c46009) - Reenable integration tests for Edge browser
+- [#4707](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4707) [`6360c46009`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6360c46009) - Reenable integration tests for Edge browser
 
 ## 13.0.5
 
 ### Patch Changes
 
-- [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
+- [#3885](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3885) [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
 
   Since tslib is a dependency for all our packages we recommend that products also follow this tslib upgrade
   to prevent duplicates of tslib being bundled.
@@ -318,7 +318,7 @@
 
 ### Patch Changes
 
-- [`76165ad82f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/76165ad82f) - Bump required because of conflicts on wadmal release
+- [#4393](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4393) [`76165ad82f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/76165ad82f) - Bump required because of conflicts on wadmal release
 
 ## 13.0.3
 
@@ -330,19 +330,19 @@
 
 ### Patch Changes
 
-- [`954cc87b62`](https://bitbucket.org/atlassian/atlassian-frontend/commits/954cc87b62) - The readme and package information has been updated to point to the new design system website.
+- [#3293](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3293) [`954cc87b62`](https://bitbucket.org/atlassian/atlassian-frontend/commits/954cc87b62) - The readme and package information has been updated to point to the new design system website.
 
 ## 13.0.1
 
 ### Patch Changes
 
-- [`db053b24d8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/db053b24d8) - Update all the theme imports to be tree-shakable
+- [#3428](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3428) [`db053b24d8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/db053b24d8) - Update all the theme imports to be tree-shakable
 
 ## 13.0.0
 
 ### Major Changes
 
-- [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
+- [#3335](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3335) [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
   For more information see: https://community.developer.atlassian.com/t/atlaskit-to-drop-support-for-internet-explorer-11-from-1st-july-2020/39534
 
 ### Patch Changes
@@ -353,7 +353,7 @@
 
 ### Patch Changes
 
-- [`54a9514fcf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54a9514fcf) - Build and supporting files will no longer be published to npm
+- [#2866](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2866) [`54a9514fcf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54a9514fcf) - Build and supporting files will no longer be published to npm
 
 ## 12.1.13
 

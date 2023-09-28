@@ -4,109 +4,109 @@
 
 ### Patch Changes
 
-- [`e2cad1162d6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e2cad1162d6) - Enrol packages on push model consumption
+- [#39629](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39629) [`e2cad1162d6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e2cad1162d6) - Enrol packages on push model consumption
 
 ## 34.1.3
 
 ### Patch Changes
 
-- [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
+- [#38162](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38162) [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
 
 ## 34.1.2
 
 ### Patch Changes
 
-- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793) [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
 
 ## 34.1.1
 
 ### Patch Changes
 
-- [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649) [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
 
 ## 34.1.0
 
 ### Minor Changes
 
-- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258) [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
 
 ## 34.0.2
 
 ### Patch Changes
 
-- [`f770f0118a4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f770f0118a4) - This package is now declared as a singleton within its package.json file. Consumers should provide tooling to assist in deduplication and enforcement of the singleton pattern.
+- [#30335](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/30335) [`f770f0118a4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f770f0118a4) - This package is now declared as a singleton within its package.json file. Consumers should provide tooling to assist in deduplication and enforcement of the singleton pattern.
 
 ## 34.0.1
 
 ### Patch Changes
 
-- [`a8eeb045e3a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a8eeb045e3a) - adding media only callouts to docs
+- [#28090](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28090) [`a8eeb045e3a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a8eeb045e3a) - adding media only callouts to docs
 
 ## 34.0.0
 
 ### Major Changes
 
-- [`153829bfcb3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/153829bfcb3) - Upgrade caching algorithm library lru-fast to lru_map.
+- [#24710](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24710) [`153829bfcb3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/153829bfcb3) - Upgrade caching algorithm library lru-fast to lru_map.
 
 ## 33.0.3
 
 ### Patch Changes
 
-- [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
+- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874) [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
 
 ## 33.0.2
 
 ### Patch Changes
 
-- [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
+- [#24492](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24492) [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
 
 ## 33.0.1
 
 ### Patch Changes
 
-- [`455daa4c9b9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/455daa4c9b9) - Removed styled-component unused dependency from package.json
+- [#22642](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22642) [`455daa4c9b9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/455daa4c9b9) - Removed styled-component unused dependency from package.json
 
 ## 33.0.0
 
 ### Major Changes
 
-- [`ad13b4d0bc6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ad13b4d0bc6) - [MEX-1525] Remove userAuth from Media-Core & Media-client
+- [#20721](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20721) [`ad13b4d0bc6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ad13b4d0bc6) - [MEX-1525] Remove userAuth from Media-Core & Media-client
 
 ## 32.3.1
 
 ### Patch Changes
 
-- [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
+- [#20650](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20650) [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
 
 ## 32.3.0
 
 ### Minor Changes
 
-- [`f862d5ae7aa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f862d5ae7aa) - remove RxJs peer dependency
+- [#19618](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19618) [`f862d5ae7aa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f862d5ae7aa) - remove RxJs peer dependency
 
 ## 32.2.0
 
 ### Minor Changes
 
-- [`531dcf9459d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/531dcf9459d) - Updated MediaClientConfig to accept Auth object for sync operation (see Media Client logs for more info)
+- [#12837](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12837) [`531dcf9459d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/531dcf9459d) - Updated MediaClientConfig to accept Auth object for sync operation (see Media Client logs for more info)
 
 ## 32.1.3
 
 ### Patch Changes
 
-- [`3cd9ee2d15b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3cd9ee2d15b) - Added RxJS compatiblity notice in Media docs
+- [#11113](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/11113) [`3cd9ee2d15b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3cd9ee2d15b) - Added RxJS compatiblity notice in Media docs
 
 ## 32.1.2
 
 ### Patch Changes
 
-- [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
+- [#5857](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5857) [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
 
 ## 32.1.1
 
 ### Patch Changes
 
-- [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
+- [#5497](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5497) [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
   This requires version 3.8 of Typescript, read more about how we handle Typescript versions here: https://atlaskit.atlassian.com/get-started
   Also add `typescript` to `devDependencies` to denote version that the package was built with.
 
@@ -114,13 +114,13 @@
 
 ### Minor Changes
 
-- [`7d831363d9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7d831363d9) - Migrated to declarative entry points
+- [#4749](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4749) [`7d831363d9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7d831363d9) - Migrated to declarative entry points
 
 ## 32.0.3
 
 ### Patch Changes
 
-- [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
+- [#3885](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3885) [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
 
   Since tslib is a dependency for all our packages we recommend that products also follow this tslib upgrade
   to prevent duplicates of tslib being bundled.
@@ -129,26 +129,26 @@
 
 ### Patch Changes
 
-- [`76165ad82f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/76165ad82f) - Bump required because of conflicts on wadmal release
+- [#4393](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4393) [`76165ad82f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/76165ad82f) - Bump required because of conflicts on wadmal release
 
 ## 32.0.1
 
 ### Patch Changes
 
-- [`fa6fb5dfbb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fa6fb5dfbb) - Removing unused code to be published
+- [#3823](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3823) [`fa6fb5dfbb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fa6fb5dfbb) - Removing unused code to be published
 
 ## 32.0.0
 
 ### Major Changes
 
-- [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
+- [#3335](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3335) [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
   For more information see: https://community.developer.atlassian.com/t/atlaskit-to-drop-support-for-internet-explorer-11-from-1st-july-2020/39534
 
 ## 31.1.1
 
 ### Patch Changes
 
-- [`54d82b49f0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54d82b49f0) - Remove unused dependencies
+- [#2137](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2137) [`54d82b49f0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54d82b49f0) - Remove unused dependencies
 
 ## 31.1.0
 

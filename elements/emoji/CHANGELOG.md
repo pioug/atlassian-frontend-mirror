@@ -4,49 +4,49 @@
 
 ### Patch Changes
 
-- [`11211011de2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/11211011de2) - Necessary release to unblock master in Atlassian Frontend Monorepo.
+- [#40674](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40674) [`11211011de2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/11211011de2) - Necessary release to unblock master in Atlassian Frontend Monorepo.
 
 ## 67.5.6
 
 ### Patch Changes
 
-- [`dfa79d120f0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dfa79d120f0) - [ux] [ECA11Y-69] Minor refactoring of accessibility Upload Emoji preview message
+- [#40447](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40447) [`dfa79d120f0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dfa79d120f0) - [ux] [ECA11Y-69] Minor refactoring of accessibility Upload Emoji preview message
 
 ## 67.5.5
 
 ### Patch Changes
 
-- [`a5aac31e4d0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a5aac31e4d0) - prevent ENTER to trigger form submit if emoji picker is under a form
+- [#40339](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40339) [`a5aac31e4d0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a5aac31e4d0) - prevent ENTER to trigger form submit if emoji picker is under a form
 
 ## 67.5.4
 
 ### Patch Changes
 
-- [`eb2a6ac5031`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eb2a6ac5031) - fix regression issue in emoji picker search after react-virtual deps bump
+- [#40318](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40318) [`eb2a6ac5031`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eb2a6ac5031) - fix regression issue in emoji picker search after react-virtual deps bump
 
 ## 67.5.3
 
 ### Patch Changes
 
-- [`aa456f60b3d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aa456f60b3d) - [ux] [ECA11Y-31] Refactored Upload own emoji component accessibility
+- [#39006](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39006) [`aa456f60b3d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aa456f60b3d) - [ux] [ECA11Y-31] Refactored Upload own emoji component accessibility
 
 ## 67.5.2
 
 ### Patch Changes
 
-- [`07e2883caee`](https://bitbucket.org/atlassian/atlassian-frontend/commits/07e2883caee) - upgrade @tanstack/react-virtual
+- [#40156](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40156) [`07e2883caee`](https://bitbucket.org/atlassian/atlassian-frontend/commits/07e2883caee) - upgrade @tanstack/react-virtual
 
 ## 67.5.1
 
 ### Patch Changes
 
-- [`6900f89eb0e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6900f89eb0e) - Internal changes to use space tokens. There is no expected visual or behaviour change.
+- [#39787](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39787) [`6900f89eb0e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6900f89eb0e) - Internal changes to use space tokens. There is no expected visual or behaviour change.
 
 ## 67.5.0
 
 ### Minor Changes
 
-- [`630ece558fe`](https://bitbucket.org/atlassian/atlassian-frontend/commits/630ece558fe) - Added onlyFetchOnDemand config to disable fetching by default in EmojiCommonProvider
+- [#39662](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39662) [`630ece558fe`](https://bitbucket.org/atlassian/atlassian-frontend/commits/630ece558fe) - Added onlyFetchOnDemand config to disable fetching by default in EmojiCommonProvider
 
 ### Patch Changes
 
@@ -62,26 +62,26 @@
 
 ### Patch Changes
 
-- [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
+- [#38162](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38162) [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
 - Updated dependencies
 
 ## 67.4.8
 
 ### Patch Changes
 
-- [`f01deb5e6ab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f01deb5e6ab) - Use injected env vars instead of version.json
+- [#37925](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37925) [`f01deb5e6ab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f01deb5e6ab) - Use injected env vars instead of version.json
 
 ## 67.4.7
 
 ### Patch Changes
 
-- [`540428b9e6d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/540428b9e6d) - [ED-17394] Add button type to skin tone selector to prevent it triggering create ticket form
+- [#37464](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37464) [`540428b9e6d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/540428b9e6d) - [ED-17394] Add button type to skin tone selector to prevent it triggering create ticket form
 
 ## 67.4.6
 
 ### Patch Changes
 
-- [`54ce14a4fd3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54ce14a4fd3) - [ED-18129] Duplicate Enzyme mount helper to avoid circular references in Emoji and Status
+- [#35117](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35117) [`54ce14a4fd3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54ce14a4fd3) - [ED-18129] Duplicate Enzyme mount helper to avoid circular references in Emoji and Status
 
 ## 67.4.5
 
@@ -93,31 +93,31 @@
 
 ### Patch Changes
 
-- [`82f7f9600a9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/82f7f9600a9) - Migrated to declarative entry points internally for emoji and reactions. Public API is unchanged.
+- [#33870](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33870) [`82f7f9600a9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/82f7f9600a9) - Migrated to declarative entry points internally for emoji and reactions. Public API is unchanged.
 
 ## 67.4.3
 
 ### Patch Changes
 
-- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793) [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
 
 ## 67.4.2
 
 ### Patch Changes
 
-- [`cccd619ffc5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cccd619ffc5) - fix focus style for category selector
+- [#33771](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33771) [`cccd619ffc5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cccd619ffc5) - fix focus style for category selector
 
 ## 67.4.1
 
 ### Patch Changes
 
-- [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649) [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
 
 ## 67.4.0
 
 ### Minor Changes
 
-- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258) [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
 
 ### Patch Changes
 
@@ -127,20 +127,20 @@
 
 ### Patch Changes
 
-- [`2e01c9c74b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e01c9c74b5) - DUMMY remove before merging to master; dupe adf-schema via adf-utils
+- [#32424](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32424) [`2e01c9c74b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e01c9c74b5) - DUMMY remove before merging to master; dupe adf-schema via adf-utils
 - Updated dependencies
 
 ## 67.3.1
 
 ### Patch Changes
 
-- [`0a30e729c1d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0a30e729c1d) - fix styling issue of headings in uploader screen and delete emoji screen of emoji picker
+- [#31888](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31888) [`0a30e729c1d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0a30e729c1d) - fix styling issue of headings in uploader screen and delete emoji screen of emoji picker
 
 ## 67.3.0
 
 ### Minor Changes
 
-- [`f31280da145`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f31280da145) - fix category reset when tone changed, update error message translations, improve error message for screen reader, improve auto focus on choose file screen
+- [#31891](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31891) [`f31280da145`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f31280da145) - fix category reset when tone changed, update error message translations, improve error message for screen reader, improve auto focus on choose file screen
 
 ### Patch Changes
 
@@ -154,13 +154,13 @@
 
 ### Patch Changes
 
-- [`a73ef9ebecb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a73ef9ebecb) - Add ssr rendering metadata to resourced emoji loaded experience
+- [#31848](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31848) [`a73ef9ebecb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a73ef9ebecb) - Add ssr rendering metadata to resourced emoji loaded experience
 
 ## 67.2.0
 
 ### Minor Changes
 
-- [`2b2aa109521`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2b2aa109521) - [ux] improve keyboard navigation in emoji picker list, improve category highlight logic in emoji picker
+- [#31299](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31299) [`2b2aa109521`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2b2aa109521) - [ux] improve keyboard navigation in emoji picker list, improve category highlight logic in emoji picker
 - [`7e3c38a86ef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7e3c38a86ef) - [ux] [COLLAB-2264] add arrow keys support for navigating categories selctor in emoji picker, used tabs structure for emoji picker with category selctor for better accessibility, added more aria-labels for category selector and picker list panel for accessibility, highlight first category in emoji picker at start
 
 ### Patch Changes
@@ -183,7 +183,7 @@
 
 ### Minor Changes
 
-- [`27b1925f52a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/27b1925f52a) - - search emoji in emoji picker will scroll to top
+- [#30248](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/30248) [`27b1925f52a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/27b1925f52a) - - search emoji in emoji picker will scroll to top
   - improve emoji search analytics tracking
   - add debounce to emoji search
   - fix duplicated calls triggered by each emoji search
@@ -197,7 +197,7 @@
 
 ### Patch Changes
 
-- [`afd73c661b7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/afd73c661b7) - Fixed regression bug where selecting a category highlighted wrong category in category tracker
+- [#29470](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/29470) [`afd73c661b7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/afd73c661b7) - Fixed regression bug where selecting a category highlighted wrong category in category tracker
 - [`3fdb998a000`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3fdb998a000) - Unblock hot-102193 to bump emoji to latest.
 - [`858c6abd872`](https://bitbucket.org/atlassian/atlassian-frontend/commits/858c6abd872) - Fix bug that was causing the emoji picker to crash on initial rendering
 - [`e2c42bb9cdd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e2c42bb9cdd) - [ux] fix emoji picker horizontal scrollbar issue
@@ -208,7 +208,7 @@
 
 ### Patch Changes
 
-- [`d16c7d57428`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d16c7d57428) - Update teams.json to reflect current team
+- [#29667](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/29667) [`d16c7d57428`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d16c7d57428) - Update teams.json to reflect current team
 
 ## 67.0.5
 
@@ -220,14 +220,14 @@
 
 ### Patch Changes
 
-- [`d260a1e3af3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d260a1e3af3) - This is a dummy changeset to force a patch bump. No files were changed.
+- [#28932](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28932) [`d260a1e3af3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d260a1e3af3) - This is a dummy changeset to force a patch bump. No files were changed.
 - [`93f02aebfa0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/93f02aebfa0) - Intangible change to fix product integration version alignment within confluence.
 
 ## 67.0.3
 
 ### Patch Changes
 
-- [`7d2488dcbcf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7d2488dcbcf) - Upgrade lru-fast@0.2.2 to lru_map
+- [#29080](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/29080) [`7d2488dcbcf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7d2488dcbcf) - Upgrade lru-fast@0.2.2 to lru_map
 
 ## 67.0.2
 
@@ -239,13 +239,13 @@
 
 ### Patch Changes
 
-- [`6455cf006b3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6455cf006b3) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving performance.
+- [#28324](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28324) [`6455cf006b3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6455cf006b3) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving performance.
 
 ## 67.0.0
 
 ### Major Changes
 
-- [`f25b0c5379b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f25b0c5379b) - Drop support for legacy React Context, and create new EmojiCommonProvider to provide emoji provider
+- [#28090](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28090) [`f25b0c5379b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f25b0c5379b) - Drop support for legacy React Context, and create new EmojiCommonProvider to provide emoji provider
 - [`62789954243`](https://bitbucket.org/atlassian/atlassian-frontend/commits/62789954243) - react-virutlaized has been replaced with @tanstack/react-virutal in @atlaskit/emoji
 
 ### Minor Changes
@@ -278,7 +278,7 @@
 
 ### Minor Changes
 
-- [`cde71051978`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cde71051978) - [ux] Provide size options for emoji picker, including `small`, `medium`, and `large`. Make `medium` size for emoji picker by default, which will enlarge emoji picker to show more emojis.
+- [#26712](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26712) [`cde71051978`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cde71051978) - [ux] Provide size options for emoji picker, including `small`, `medium`, and `large`. Make `medium` size for emoji picker by default, which will enlarge emoji picker to show more emojis.
 
 ### Patch Changes
 
@@ -295,7 +295,7 @@
 
 ### Patch Changes
 
-- [`cdf42c26e75`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cdf42c26e75) - Upgrade emotion library to use latest version 11
+- [#25860](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/25860) [`cdf42c26e75`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cdf42c26e75) - Upgrade emotion library to use latest version 11
 - [`cb5bbf2cd8c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb5bbf2cd8c) - Add testId to cancel upload button. No behaviour change.
 - [`d74d5065a25`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d74d5065a25) - minor analytics update
 - Updated dependencies
@@ -304,7 +304,7 @@
 
 ### Patch Changes
 
-- [`98b7ff82dae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/98b7ff82dae) - [UX] To remove the unwanted styles (which is taken care in typeahead list component ED-15655)
+- [#24710](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24710) [`98b7ff82dae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/98b7ff82dae) - [UX] To remove the unwanted styles (which is taken care in typeahead list component ED-15655)
 - [`f86e84d3cd8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f86e84d3cd8) - ED-13980 Changes to make typeahead menu accessible by adding assistive text and improving keyboard navigation
 - Updated dependencies
 
@@ -312,19 +312,19 @@
 
 ### Major Changes
 
-- [`052c7e4e4b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/052c7e4e4b2) - Update emoji interface types to include fetchByEmojiId
+- [#25696](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/25696) [`052c7e4e4b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/052c7e4e4b2) - Update emoji interface types to include fetchByEmojiId
 
 ## 65.2.1
 
 ### Patch Changes
 
-- [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
+- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874) [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
 
 ## 65.2.0
 
 ### Minor Changes
 
-- [`dc70b6076fb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dc70b6076fb) - Converted emoji picker component children to functional components.
+- [#24004](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24004) [`dc70b6076fb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dc70b6076fb) - Converted emoji picker component children to functional components.
 - [`f397ebff733`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f397ebff733) - Emoji Upload Component refactor to functional
 - [`f39be18203b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f39be18203b) - ToneSelector and EmojiActions functional component conversion
 - [`2a233390245`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2a233390245) - Emoji Upload Picker and File Chooser functional component refactor
@@ -343,13 +343,13 @@
 
 ### Patch Changes
 
-- [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
+- [#24492](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24492) [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
 
 ## 65.1.0
 
 ### Minor Changes
 
-- [`cceb3262363`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cceb3262363) - [ux] Show preview below the scrollable emoji box
+- [#23381](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23381) [`cceb3262363`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cceb3262363) - [ux] Show preview below the scrollable emoji box
 
 ### Patch Changes
 
@@ -360,7 +360,7 @@
 
 ### Major Changes
 
-- [`06232e0f8dd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/06232e0f8dd) - [ux] Opt In SSR for Resourced Emoji and Emoji Placeholder with EmojiResource interfaces
+- [#22642](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22642) [`06232e0f8dd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/06232e0f8dd) - [ux] Opt In SSR for Resourced Emoji and Emoji Placeholder with EmojiResource interfaces
 
 ### Minor Changes
 
@@ -376,7 +376,7 @@
 
 ### Patch Changes
 
-- [`6e01776f0b7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6e01776f0b7) - remove placeholder when lazy load emoji
+- [#22029](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22029) [`6e01776f0b7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6e01776f0b7) - remove placeholder when lazy load emoji
 - [`6e01776f0b7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6e01776f0b7) - fix placeholder issue in lazy loaded emoji by removing it and re-write the anlytics tracking around it
 - [`c3f9e9bce1c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c3f9e9bce1c) - Add custom information to failure and abort events for UFO experiences
 - Updated dependencies
@@ -385,7 +385,7 @@
 
 ### Minor Changes
 
-- [`2b241314079`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2b241314079) - improve lazy load emoji with placeholder and improved analtyics tracking
+- [#21570](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21570) [`2b241314079`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2b241314079) - improve lazy load emoji with placeholder and improved analtyics tracking
 
 ## 64.6.1
 
@@ -397,7 +397,7 @@
 
 ### Minor Changes
 
-- [`b926172a999`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b926172a999) - Custom Emoji Assets now load using inline media tokens preventing 401s
+- [#20721](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20721) [`b926172a999`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b926172a999) - Custom Emoji Assets now load using inline media tokens preventing 401s
 
 ### Patch Changes
 
@@ -407,7 +407,7 @@
 
 ### Patch Changes
 
-- [`a424e62b264`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a424e62b264) - Changes to support Node 16 Typescript definitions from `@types/node`.
+- [#20650](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20650) [`a424e62b264`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a424e62b264) - Changes to support Node 16 Typescript definitions from `@types/node`.
 
 ## 64.5.1
 
@@ -420,7 +420,7 @@
 
 ### Minor Changes
 
-- [`fcb3b3f77e2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fcb3b3f77e2) - Context Provider to convert legacy providers to non legacy providers
+- [#20033](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20033) [`fcb3b3f77e2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fcb3b3f77e2) - Context Provider to convert legacy providers to non legacy providers
 
 ### Patch Changes
 
@@ -430,19 +430,19 @@
 
 ### Patch Changes
 
-- [`15f783a5684`](https://bitbucket.org/atlassian/atlassian-frontend/commits/15f783a5684) - export ufo experience name and ufo component name, update component name for emoji recorded experience
+- [#20530](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20530) [`15f783a5684`](https://bitbucket.org/atlassian/atlassian-frontend/commits/15f783a5684) - export ufo experience name and ufo component name, update component name for emoji recorded experience
 
 ## 64.4.0
 
 ### Minor Changes
 
-- [`39031597fa1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/39031597fa1) - added more UFO experiences support
+- [#20147](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20147) [`39031597fa1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/39031597fa1) - added more UFO experiences support
 
 ## 64.3.0
 
 ### Minor Changes
 
-- [`753e9b6b610`](https://bitbucket.org/atlassian/atlassian-frontend/commits/753e9b6b610) - Migrated styles from typestyle to emotion
+- [#19618](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19618) [`753e9b6b610`](https://bitbucket.org/atlassian/atlassian-frontend/commits/753e9b6b610) - Migrated styles from typestyle to emotion
 - [`f862d5ae7aa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f862d5ae7aa) - remove RxJs peer dependency
 
 ### Patch Changes
@@ -457,13 +457,13 @@
 
 ### Patch Changes
 
-- [`85397ad6786`](https://bitbucket.org/atlassian/atlassian-frontend/commits/85397ad6786) - add emoji-rendered and emoji-resource-fetched UFO experiences
+- [#19619](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19619) [`85397ad6786`](https://bitbucket.org/atlassian/atlassian-frontend/commits/85397ad6786) - add emoji-rendered and emoji-resource-fetched UFO experiences
 
 ## 64.2.0
 
 ### Minor Changes
 
-- [`ae891ccd4c2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ae891ccd4c2) - Refactor legacy context providers and update tests to use react testing library
+- [#19019](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19019) [`ae891ccd4c2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ae891ccd4c2) - Refactor legacy context providers and update tests to use react testing library
 
 ### Patch Changes
 
@@ -474,14 +474,14 @@
 
 ### Patch Changes
 
-- [`21e15939c73`](https://bitbucket.org/atlassian/atlassian-frontend/commits/21e15939c73) - add SSR examples for emoji
+- [#18526](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/18526) [`21e15939c73`](https://bitbucket.org/atlassian/atlassian-frontend/commits/21e15939c73) - add SSR examples for emoji
 - [`95015909035`](https://bitbucket.org/atlassian/atlassian-frontend/commits/95015909035) - Fixed issue where some of the examples where crashing.
 
 ## 64.1.0
 
 ### Minor Changes
 
-- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - [ux] Task: https://a11y-internal.atlassian.net/browse/AK-97, Emoji picker: made emojis list keyboard accessible, moved tone selector and place it right after search input, placed upload/remove emoji menus above the emoji list.
+- [#16752](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16752) [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - [ux] Task: https://a11y-internal.atlassian.net/browse/AK-97, Emoji picker: made emojis list keyboard accessible, moved tone selector and place it right after search input, placed upload/remove emoji menus above the emoji list.
 - [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Remove @atlaskit/tooltip from critical path of rendering emoji
 - [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Upgrade js-search to v2
 
@@ -499,7 +499,7 @@
 
 ### Major Changes
 
-- [`47f58da5946`](https://bitbucket.org/atlassian/atlassian-frontend/commits/47f58da5946) - ED-13322, ED-13324, ED-13326, ED-13323, ED-13204: Upgrade and support react-intl@^5.18.1 including breaking API changes, types and tests in atlassian-frontend packages
+- [#14810](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/14810) [`47f58da5946`](https://bitbucket.org/atlassian/atlassian-frontend/commits/47f58da5946) - ED-13322, ED-13324, ED-13326, ED-13323, ED-13204: Upgrade and support react-intl@^5.18.1 including breaking API changes, types and tests in atlassian-frontend packages
 
   What changed: Upgraded our react-intl support from ^2.6.0 to ^5.18.1. This means editor packages now rely on consumers installing ^5.18.1, otherwise editor usage of react-intl will mismatch with actual installed react-intl APIs.
   Why change was made: As part of a coordinated upgrade effort across AF packages, as react-intl v2 is quite dated.
@@ -541,13 +541,13 @@
 
 ### Minor Changes
 
-- [`4f221a2664a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4f221a2664a) - Instrumented `@atlaskit/emoji` with the new theming package, `@atlaskit/tokens`. New tokens will be visible only in applications configured to use the new Tokens API (currently in alpha).These changes are intended to be interoperable with the legacy theme implementation. Legacy dark mode users should expect no visual or breaking changes.
+- [#16716](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16716) [`4f221a2664a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4f221a2664a) - Instrumented `@atlaskit/emoji` with the new theming package, `@atlaskit/tokens`. New tokens will be visible only in applications configured to use the new Tokens API (currently in alpha).These changes are intended to be interoperable with the legacy theme implementation. Legacy dark mode users should expect no visual or breaking changes.
 
 ## 63.1.10
 
 ### Patch Changes
 
-- [`5ee9d374461`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5ee9d374461) - [ux] AK-218: Emoji CategorySelector add outline to the category buttons on focus, add aria-label
+- [#15998](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/15998) [`5ee9d374461`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5ee9d374461) - [ux] AK-218: Emoji CategorySelector add outline to the category buttons on focus, add aria-label
 - [`022437d88d0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/022437d88d0) - [ux] AK-812 Emoji toolbar button hover state meet minimum contrast requirements
 - [`1f5f0470fdd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1f5f0470fdd) - New emoji link label with input
 
@@ -561,20 +561,20 @@
 
 ### Patch Changes
 
-- [`12ab65f8153`](https://bitbucket.org/atlassian/atlassian-frontend/commits/12ab65f8153) - Disabling flaky test
+- [#13864](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13864) [`12ab65f8153`](https://bitbucket.org/atlassian/atlassian-frontend/commits/12ab65f8153) - Disabling flaky test
 - Updated dependencies
 
 ## 63.1.7
 
 ### Patch Changes
 
-- [`252a76e7f61`](https://bitbucket.org/atlassian/atlassian-frontend/commits/252a76e7f61) - Updated comment reference to moved xregexp-transformer package
+- [#13209](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13209) [`252a76e7f61`](https://bitbucket.org/atlassian/atlassian-frontend/commits/252a76e7f61) - Updated comment reference to moved xregexp-transformer package
 
 ## 63.1.6
 
 ### Patch Changes
 
-- [`81c07c8a095`](https://bitbucket.org/atlassian/atlassian-frontend/commits/81c07c8a095) - AK-340: add screen reader description text to the Choose custom emoji button
+- [#12837](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12837) [`81c07c8a095`](https://bitbucket.org/atlassian/atlassian-frontend/commits/81c07c8a095) - AK-340: add screen reader description text to the Choose custom emoji button
 - [`6f94f8032cd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6f94f8032cd) - AK-95: fetch emoji as images in order to fix Windows High Contrast mode issues
 - [`e7d86570528`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e7d86570528) - AK-110, Emoji picker: make skin tone selection accessible for screen-reader and keyboard users
 - Updated dependencies
@@ -583,7 +583,7 @@
 
 ### Patch Changes
 
-- [`351177c316c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/351177c316c) - Emoji component: add aria-label attr to the Search Emoji input field
+- [#12328](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12328) [`351177c316c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/351177c316c) - Emoji component: add aria-label attr to the Search Emoji input field
 - [`10932f6ae07`](https://bitbucket.org/atlassian/atlassian-frontend/commits/10932f6ae07) - SPFE-561: Remove the URLSearchParams polyfill
 - Updated dependencies
 
@@ -591,13 +591,13 @@
 
 ### Patch Changes
 
-- [`2c076bc792a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2c076bc792a) - Update internal component usage
+- [#10569](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10569) [`2c076bc792a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2c076bc792a) - Update internal component usage
 
 ## 63.1.3
 
 ### Patch Changes
 
-- [`6c5df7efe3d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c5df7efe3d) - ED-11854 Improve localStorage detection
+- [#9510](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9510) [`6c5df7efe3d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c5df7efe3d) - ED-11854 Improve localStorage detection
 - Updated dependencies
 
 ## 63.1.2
@@ -610,20 +610,20 @@
 
 ### Patch Changes
 
-- [`18820a0a9a1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/18820a0a9a1) - Internal changes to break up internal component structure of EmojiPicker
+- [#8178](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8178) [`18820a0a9a1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/18820a0a9a1) - Internal changes to break up internal component structure of EmojiPicker
 - Updated dependencies
 
 ## 63.1.0
 
 ### Minor Changes
 
-- [`7ddbf962bd9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7ddbf962bd9) - [ux] Updated and added new translations
+- [#7762](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/7762) [`7ddbf962bd9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7ddbf962bd9) - [ux] Updated and added new translations
 
 ## 63.0.13
 
 ### Patch Changes
 
-- [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
+- [#5857](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5857) [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
 
 ## 63.0.12
 
@@ -635,14 +635,14 @@
 
 ### Patch Changes
 
-- [`401be935e9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/401be935e9) - Fix bug with emoji category selector not working inside forms
+- [#5516](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5516) [`401be935e9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/401be935e9) - Fix bug with emoji category selector not working inside forms
 - Updated dependencies
 
 ## 63.0.10
 
 ### Patch Changes
 
-- [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
+- [#5497](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5497) [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
   This requires version 3.8 of Typescript, read more about how we handle Typescript versions here: https://atlaskit.atlassian.com/get-started
   Also add `typescript` to `devDependencies` to denote version that the package was built with.
 
@@ -656,14 +656,14 @@
 
 ### Patch Changes
 
-- [`c0533f4b35`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c0533f4b35) - Upgrade analytics-next to prevent event loss (https://hello.atlassian.net/wiki/spaces/AFP/blog/2020/08/26/828144759/ACTION+REQUIRED+-+upgrade+analytics-next+to+prevent+event+loss)
+- [#4749](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4749) [`c0533f4b35`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c0533f4b35) - Upgrade analytics-next to prevent event loss (https://hello.atlassian.net/wiki/spaces/AFP/blog/2020/08/26/828144759/ACTION+REQUIRED+-+upgrade+analytics-next+to+prevent+event+loss)
 - Updated dependencies
 
 ## 63.0.7
 
 ### Patch Changes
 
-- [`bee2157c1b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bee2157c1b) - Remove usage of @atlaskit/util-common-test package
+- [#4932](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4932) [`bee2157c1b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bee2157c1b) - Remove usage of @atlaskit/util-common-test package
 
 ## 63.0.6
 
@@ -681,7 +681,7 @@
 
 ### Patch Changes
 
-- [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
+- [#3885](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3885) [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
 
   Since tslib is a dependency for all our packages we recommend that products also follow this tslib upgrade
   to prevent duplicates of tslib being bundled.
@@ -690,7 +690,7 @@
 
 ### Patch Changes
 
-- [`76165ad82f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/76165ad82f) - Bump required because of conflicts on wadmal release
+- [#4393](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4393) [`76165ad82f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/76165ad82f) - Bump required because of conflicts on wadmal release
 
 ## 63.0.2
 
@@ -702,13 +702,13 @@
 
 ### Patch Changes
 
-- [`d03bff2147`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d03bff2147) - updated translations
+- [#3369](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3369) [`d03bff2147`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d03bff2147) - updated translations
 
 ## 63.0.0
 
 ### Major Changes
 
-- [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
+- [#3335](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3335) [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
   For more information see: https://community.developer.atlassian.com/t/atlaskit-to-drop-support-for-internet-explorer-11-from-1st-july-2020/39534
 
 ### Patch Changes
@@ -731,13 +731,13 @@
 
 ### Patch Changes
 
-- [`fc83c36503`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fc83c36503) - Update translation files via Traduki build
+- [#2576](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2576) [`fc83c36503`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fc83c36503) - Update translation files via Traduki build
 
 ## 62.8.1
 
 ### Patch Changes
 
-- [`54d82b49f0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54d82b49f0) - Remove unused dependencies
+- [#2137](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2137) [`54d82b49f0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54d82b49f0) - Remove unused dependencies
 - [`98f462e2aa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/98f462e2aa) - Bumping use the latest version of @atlaskit/spinner
 - Updated dependencies
 
@@ -745,7 +745,7 @@
 
 ### Minor Changes
 
-- [`7d80e07781`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7d80e07781) - ED-9040 Add class to image emojis so they can be distinguished from sprite emojis in the DOM
+- [#1868](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/1868) [`7d80e07781`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7d80e07781) - ED-9040 Add class to image emojis so they can be distinguished from sprite emojis in the DOM
 
 ### Patch Changes
 

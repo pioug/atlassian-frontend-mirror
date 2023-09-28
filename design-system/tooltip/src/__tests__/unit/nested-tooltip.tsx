@@ -32,16 +32,16 @@ it('should allow tooltips to be nested', () => {
   act(() => {
     jest.runAllTimers();
   });
-  expect(queryByTestId('tooltip--outer')).toBeTruthy();
-  expect(queryByTestId('tooltip--inner')).toBeNull();
+  expect(queryByTestId('tooltip--outer')).toBeInTheDocument();
+  expect(queryByTestId('tooltip--inner')).not.toBeInTheDocument();
 
   // Trigger showing inner tooltip
   act(() => {
     fireEvent.mouseOver(innerTrigger);
     jest.runAllTimers();
   });
-  expect(queryByTestId('tooltip--inner')).toBeTruthy();
-  expect(queryByTestId('tooltip--outer')).toBeNull();
+  expect(queryByTestId('tooltip--inner')).toBeInTheDocument();
+  expect(queryByTestId('tooltip--outer')).not.toBeInTheDocument();
 
   // Leave both triggers causes both tooltips to not be visible
   fireEvent.mouseOut(innerTrigger);
@@ -53,6 +53,6 @@ it('should allow tooltips to be nested', () => {
   act(() => {
     jest.runOnlyPendingTimers();
   });
-  expect(queryByTestId('tooltip--inner')).toBeNull();
-  expect(queryByTestId('tooltip--outer')).toBeNull();
+  expect(queryByTestId('tooltip--inner')).not.toBeInTheDocument();
+  expect(queryByTestId('tooltip--outer')).not.toBeInTheDocument();
 });

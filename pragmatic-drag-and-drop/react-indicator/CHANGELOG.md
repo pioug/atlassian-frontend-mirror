@@ -28,13 +28,13 @@
 
 ### Minor Changes
 
-- [`3ccb90e7480`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3ccb90e7480) - Changed folder structure of package. There should be no visible changes.
+- [#37722](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37722) [`3ccb90e7480`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3ccb90e7480) - Changed folder structure of package. There should be no visible changes.
 
 ## 0.15.0
 
 ### Minor Changes
 
-- [`975218de587`](https://bitbucket.org/atlassian/atlassian-frontend/commits/975218de587) - Adds a terminal to the `DropIndicator` in the `/box` entrypoint. We now recommend most consumers use lines with terminals.
+- [#37280](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37280) [`975218de587`](https://bitbucket.org/atlassian/atlassian-frontend/commits/975218de587) - Adds a terminal to the `DropIndicator` in the `/box` entrypoint. We now recommend most consumers use lines with terminals.
 
   A new entrypoint `/box-without-terminal` has been added, which contains the old appearance.
 
@@ -48,25 +48,25 @@
 
 ### Patch Changes
 
-- [`61cb5313358`](https://bitbucket.org/atlassian/atlassian-frontend/commits/61cb5313358) - Removing unused dependencies and dev dependencies
+- [#34443](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34443) [`61cb5313358`](https://bitbucket.org/atlassian/atlassian-frontend/commits/61cb5313358) - Removing unused dependencies and dev dependencies
 
 ## 0.14.2
 
 ### Patch Changes
 
-- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793) [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
 
 ## 0.14.1
 
 ### Patch Changes
 
-- [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649) [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
 
 ## 0.14.0
 
 ### Minor Changes
 
-- [`9fd8556db17`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9fd8556db17) - Internal folder name structure change
+- [#33344](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33344) [`9fd8556db17`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9fd8556db17) - Internal folder name structure change
 
 ### Patch Changes
 
@@ -76,7 +76,7 @@
 
 ### Minor Changes
 
-- [`34ed7b2ec63`](https://bitbucket.org/atlassian/atlassian-frontend/commits/34ed7b2ec63) - We have changed the name of our drag and drop packages to align on the single name of "Pragmatic drag and drop"
+- [#33262](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33262) [`34ed7b2ec63`](https://bitbucket.org/atlassian/atlassian-frontend/commits/34ed7b2ec63) - We have changed the name of our drag and drop packages to align on the single name of "Pragmatic drag and drop"
 
   ```diff
   - @atlaskit/drag-and-drop
@@ -112,7 +112,7 @@
 
 ### Minor Changes
 
-- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258) [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
 
 ### Patch Changes
 
@@ -122,13 +122,13 @@
 
 ### Patch Changes
 
-- [`2e01c9c74b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e01c9c74b5) - DUMMY remove before merging to master; dupe adf-schema via adf-utils
+- [#32424](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32424) [`2e01c9c74b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e01c9c74b5) - DUMMY remove before merging to master; dupe adf-schema via adf-utils
 
 ## 0.11.0
 
 ### Minor Changes
 
-- [`e2a4f1aeab0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e2a4f1aeab0) - Changing experimental tree item border radius (`2px`) to match border radius of Confluence tree items (`3px`)
+- [#32212](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32212) [`e2a4f1aeab0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e2a4f1aeab0) - Changing experimental tree item border radius (`2px`) to match border radius of Confluence tree items (`3px`)
 
 ## 0.10.6
 
@@ -170,7 +170,7 @@
 
 ### Minor Changes
 
-- [`90901f5bbe0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/90901f5bbe0) - Replace default entry point of `undefined` with `{}`.
+- [#30953](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/30953) [`90901f5bbe0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/90901f5bbe0) - Replace default entry point of `undefined` with `{}`.
 
   > **NOTE:** Importing from the default entry point isn't supported.
   > _Please use individual entry points in order to always obtain minimum kbs._
@@ -189,7 +189,7 @@
 
 ### Minor Changes
 
-- [`fe6772a3719`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fe6772a3719) - Dramatic update to **experimental** tree-item outputs. These outputs should only be used right now by Confluence Page Tree. Changes are being communicated face to face with Confluence team members
+- [#29945](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/29945) [`fe6772a3719`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fe6772a3719) - Dramatic update to **experimental** tree-item outputs. These outputs should only be used right now by Confluence Page Tree. Changes are being communicated face to face with Confluence team members
 
 ### Patch Changes
 
@@ -211,7 +211,7 @@
 
 ### Minor Changes
 
-- [`2112070b91a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2112070b91a) - We have changed the API for our _experimental_ tree drop indicator. Consumers should not be using the _experimental_ tree drop indicator in production before speaking with the Design System team.
+- [#29562](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/29562) [`2112070b91a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2112070b91a) - We have changed the API for our _experimental_ tree drop indicator. Consumers should not be using the _experimental_ tree drop indicator in production before speaking with the Design System team.
 
   This change makes the tree item drop indicator API and usage consistent with our stable box drop indicator
 
@@ -238,7 +238,7 @@
 
 ### Patch Changes
 
-- [`6455cf006b3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6455cf006b3) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving performance.
+- [#28324](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28324) [`6455cf006b3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6455cf006b3) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving performance.
 
 ## 0.7.2
 
@@ -256,7 +256,7 @@
 
 ### Minor Changes
 
-- [`ace261c5753`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ace261c5753) - For the experimental tree drop indicator, we have changed the `gap` and `inset` from `number` to `string` to align with our `Box` line indicator.
+- [#27976](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/27976) [`ace261c5753`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ace261c5753) - For the experimental tree drop indicator, we have changed the `gap` and `inset` from `number` to `string` to align with our `Box` line indicator.
 
   Note: consumers should not be using the _experimental_ tree drop indicator in production. We are exposing this work in progress component for internal experimentation purposes.
 
@@ -276,7 +276,7 @@
 
 ### Minor Changes
 
-- [`9066b866ed1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9066b866ed1) - The `edge` prop on the box drop indicator `@atlaskit/drag-and-drop-indicator/box` was _previously_ **optional** and is _now_ **required**.
+- [#26749](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26749) [`9066b866ed1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9066b866ed1) - The `edge` prop on the box drop indicator `@atlaskit/drag-and-drop-indicator/box` was _previously_ **optional** and is _now_ **required**.
 
   For the fastest possible applications, it is important that `<DropIndicator>` is only doing work when it needs to. Making `edge` **required** forces consumers to only render the `<DropIndicator>` when it is actually doing something. We are using the type system to ensure the fastest possible usage
 
@@ -295,13 +295,13 @@
 
 ### Patch Changes
 
-- [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
+- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874) [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
 
 ## 0.5.0
 
 ### Minor Changes
 
-- [`5b37b07dc94`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5b37b07dc94) - Moving from `@emotion/core@10` to `@emotion/react@11` to line up `@emotion` usage with the rest of the Design System
+- [#25485](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/25485) [`5b37b07dc94`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5b37b07dc94) - Moving from `@emotion/core@10` to `@emotion/react@11` to line up `@emotion` usage with the rest of the Design System
 
 ## 0.4.2
 
@@ -319,13 +319,13 @@
 
 ### Minor Changes
 
-- [`01232de241c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/01232de241c) - The `gap` prop now takes a CSS string instead of a number.
+- [#24920](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24920) [`01232de241c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/01232de241c) - The `gap` prop now takes a CSS string instead of a number.
 
 ## 0.3.0
 
 ### Minor Changes
 
-- [`17950433a70`](https://bitbucket.org/atlassian/atlassian-frontend/commits/17950433a70) - Touching package to release re-release previous version. The previous (now deprecated) version did not have it's entry points built correctly
+- [#25007](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/25007) [`17950433a70`](https://bitbucket.org/atlassian/atlassian-frontend/commits/17950433a70) - Touching package to release re-release previous version. The previous (now deprecated) version did not have it's entry points built correctly
 
 ### Patch Changes
 
@@ -347,7 +347,7 @@
 
 ### Minor Changes
 
-- [`e26c936c610`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e26c936c610) - We have improved our naming consistency across our drag and drop packages.
+- [#24613](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24613) [`e26c936c610`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e26c936c610) - We have improved our naming consistency across our drag and drop packages.
 
   - The exports from `@atlaskit/drag-and-drop-indicator` have now been shifted over to `@atlaskit/drag-and-drop-indicator/box`. `@atlaskit/drag-and-drop-indicator` will no longer be useable from the root entry point
 
@@ -364,7 +364,7 @@
 
 ### Minor Changes
 
-- [`73427c38077`](https://bitbucket.org/atlassian/atlassian-frontend/commits/73427c38077) - Initial release of `@atlaskit/drag-and-drop` packages 🎉
+- [#24532](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24532) [`73427c38077`](https://bitbucket.org/atlassian/atlassian-frontend/commits/73427c38077) - Initial release of `@atlaskit/drag-and-drop` packages 🎉
 
 ### Patch Changes
 
@@ -374,5 +374,5 @@
 
 ### Patch Changes
 
-- [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
+- [#24492](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24492) [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
 - Updated dependencies

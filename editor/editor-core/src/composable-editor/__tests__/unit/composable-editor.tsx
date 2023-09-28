@@ -7,13 +7,13 @@ import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 
 import createUniversalPreset from '../../../labs/next/presets/universal';
 import { basePlugin } from '@atlaskit/editor-plugin-base';
-import EditorNext from '../../index';
+import { ComposableEditor } from '../../editor';
 
-describe('EditorNext', () => {
+describe('ComposableEditor', () => {
   describe('render with presets passed in', () => {
     it('should render correctly with the preset prop', () => {
       const preset = createUniversalPreset('full-page', { paste: {} }, {});
-      const { container } = render(<EditorNext preset={preset} />);
+      const { container } = render(<ComposableEditor preset={preset} />);
       const editorElement = container.getElementsByClassName('akEditor');
       expect(editorElement.length).toBe(1);
     });
@@ -21,7 +21,7 @@ describe('EditorNext', () => {
     it('should throw if passing an empty Preset', () => {
       const consoleErrorSpy = jest.spyOn(console, 'error');
       expect(() => {
-        render(<EditorNext preset={new EditorPresetBuilder()} />);
+        render(<ComposableEditor preset={new EditorPresetBuilder()} />);
       }).toThrow();
       expect(consoleErrorSpy).toHaveBeenCalledWith(
         expect.stringContaining('Presets must contain the base plugin'),
@@ -36,7 +36,7 @@ describe('EditorNext', () => {
         .add(basePlugin);
 
       expect(() => {
-        render(<EditorNext preset={preset} />);
+        render(<ComposableEditor preset={preset} />);
       }).not.toThrow();
       expect(consoleErrorSpy).toHaveBeenCalledTimes(0);
       consoleErrorSpy.mockRestore();
@@ -44,19 +44,19 @@ describe('EditorNext', () => {
   });
 });
 
-// Check typing of `EditorNext` is as expected
+// Check typing of `ComposableEditor` is as expected
 // eslint-disable-next-line
 function EditorTyping() {
   // @ts-expect-error no preset prop
-  const test1 = <EditorNext />;
+  const test1 = <ComposableEditor />;
 
   const test2 = (
     // @ts-expect-error no allow-* props
-    <EditorNext preset={new EditorPresetBuilder()} allowDate={true} />
+    <ComposableEditor preset={new EditorPresetBuilder()} allowDate={true} />
   );
 
   const test3 = (
-    <EditorNext
+    <ComposableEditor
       preset={new EditorPresetBuilder()}
       // @ts-expect-error no dangerouslyAppendPlugins
       dangerouslyAppendPlugins={{ __plugins: [] }}
@@ -64,7 +64,7 @@ function EditorTyping() {
   );
 
   const test4 = (
-    <EditorNext
+    <ComposableEditor
       preset={new EditorPresetBuilder()}
       // @ts-expect-error no allow-* props
       allowTextAlignment={true}
@@ -72,7 +72,7 @@ function EditorTyping() {
   );
 
   const test5 = (
-    <EditorNext
+    <ComposableEditor
       preset={new EditorPresetBuilder()}
       // @ts-expect-error no allow-* props
       allowTables={true}
@@ -80,7 +80,7 @@ function EditorTyping() {
   );
 
   const test6 = (
-    <EditorNext
+    <ComposableEditor
       preset={new EditorPresetBuilder()}
       // @ts-expect-error no allow-* props
       allowTextColor={true}
@@ -88,7 +88,7 @@ function EditorTyping() {
   );
 
   const test7 = (
-    <EditorNext
+    <ComposableEditor
       preset={new EditorPresetBuilder()}
       // @ts-expect-error no insertMenuItems
       insertMenuItems={[]}
@@ -96,7 +96,7 @@ function EditorTyping() {
   );
 
   const test8 = (
-    <EditorNext
+    <ComposableEditor
       preset={new EditorPresetBuilder()}
       // @ts-expect-error no UNSAFE_cards
       UNSAFE_cards={null}
@@ -104,7 +104,7 @@ function EditorTyping() {
   );
 
   const test9 = (
-    <EditorNext
+    <ComposableEditor
       preset={new EditorPresetBuilder()}
       // @ts-expect-error no smartLinks
       smartLinks={null}
@@ -112,7 +112,7 @@ function EditorTyping() {
   );
 
   const test10 = (
-    <EditorNext
+    <ComposableEditor
       preset={new EditorPresetBuilder()}
       // @ts-expect-error no allow-* props
       allowAnalyticsGASV3={true}
@@ -120,7 +120,7 @@ function EditorTyping() {
   );
 
   const test11 = (
-    <EditorNext
+    <ComposableEditor
       preset={new EditorPresetBuilder()}
       // @ts-expect-error no codeBlock
       codeBlock={null}
@@ -128,7 +128,7 @@ function EditorTyping() {
   );
 
   const test12 = (
-    <EditorNext
+    <ComposableEditor
       preset={new EditorPresetBuilder()}
       // @ts-expect-error no textFormatting
       textFormatting={null}

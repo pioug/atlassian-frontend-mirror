@@ -4,38 +4,38 @@
 
 ### Minor Changes
 
-- [`60eed410ccc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/60eed410ccc) - [ux] Adds `label` prop to add more context for assistive technologies.
+- [#40393](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40393) [`60eed410ccc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/60eed410ccc) - [ux] Adds `label` prop to add more context for assistive technologies.
 
 ## 15.5.4
 
 ### Patch Changes
 
-- [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
+- [#38162](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38162) [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
 - Updated dependencies
 
 ## 15.5.3
 
 ### Patch Changes
 
-- [`4ae083a7e66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ae083a7e66) - Use `@af/accessibility-testing` for default jest-axe config and jest-axe import in accessibility testing.
+- [#36754](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36754) [`4ae083a7e66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ae083a7e66) - Use `@af/accessibility-testing` for default jest-axe config and jest-axe import in accessibility testing.
 
 ## 15.5.2
 
 ### Patch Changes
 
-- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793) [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
 
 ## 15.5.1
 
 ### Patch Changes
 
-- [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649) [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
 
 ## 15.5.0
 
 ### Minor Changes
 
-- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258) [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
 
 ### Patch Changes
 
@@ -45,7 +45,7 @@
 
 ### Minor Changes
 
-- [`9c2b9a0062e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9c2b9a0062e) - [ux] Change the design tokens used for spinner from text to icon tokens
+- [#30248](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/30248) [`9c2b9a0062e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9c2b9a0062e) - [ux] Change the design tokens used for spinner from text to icon tokens
 
 ## 15.3.4
 
@@ -57,7 +57,7 @@
 
 ### Patch Changes
 
-- [`4ee60bafc6d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ee60bafc6d) - ED-16603: Remove tooltips from VR tests and make them opt in. To opt-in, add `allowedSideEffects` when loading the page.
+- [#29227](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/29227) [`4ee60bafc6d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ee60bafc6d) - ED-16603: Remove tooltips from VR tests and make them opt in. To opt-in, add `allowedSideEffects` when loading the page.
 
 ## 15.3.2
 
@@ -75,7 +75,7 @@
 
 ### Minor Changes
 
-- [`94909536ed2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/94909536ed2) - Enable Spinner to be able to hold during an interaction
+- [#26712](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26712) [`94909536ed2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/94909536ed2) - Enable Spinner to be able to hold during an interaction
 
 ### Patch Changes
 
@@ -91,43 +91,43 @@
 
 ### Minor Changes
 
-- [`daab1376ed1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/daab1376ed1) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behavior change.
+- [#25860](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/25860) [`daab1376ed1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/daab1376ed1) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behavior change.
 
 ## 15.1.17
 
 ### Patch Changes
 
-- [`9827dcb82b8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9827dcb82b8) - No-op change to introduce spacing tokens to design system components.
+- [#26303](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26303) [`9827dcb82b8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9827dcb82b8) - No-op change to introduce spacing tokens to design system components.
 
 ## 15.1.16
 
 ### Patch Changes
 
-- [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
+- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874) [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
 
 ## 15.1.15
 
 ### Patch Changes
 
-- [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
+- [#24492](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24492) [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
 
 ## 15.1.14
 
 ### Patch Changes
 
-- [`8202e37941b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8202e37941b) - Internal code change turning on new linting rules.
+- [#23381](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23381) [`8202e37941b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8202e37941b) - Internal code change turning on new linting rules.
 
 ## 15.1.13
 
 ### Patch Changes
 
-- [`45ebe7af434`](https://bitbucket.org/atlassian/atlassian-frontend/commits/45ebe7af434) - Moved to using declarative entrypoints internally. Public API is unchanged.
+- [#22642](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22642) [`45ebe7af434`](https://bitbucket.org/atlassian/atlassian-frontend/commits/45ebe7af434) - Moved to using declarative entrypoints internally. Public API is unchanged.
 
 ## 15.1.12
 
 ### Patch Changes
 
-- [`efa50ac72ba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/efa50ac72ba) - Adjusts jsdoc strings to improve prop documentation
+- [#21545](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21545) [`efa50ac72ba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/efa50ac72ba) - Adjusts jsdoc strings to improve prop documentation
 
 ## 15.1.11
 
@@ -139,7 +139,7 @@
 
 ### Patch Changes
 
-- [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
+- [#20650](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20650) [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
 
 ## 15.1.9
 
@@ -157,14 +157,14 @@
 
 ### Patch Changes
 
-- [`f0674fc2e61`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f0674fc2e61) - Styles have been rewritten to ensure future compatibility with compiled.
+- [#19019](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19019) [`f0674fc2e61`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f0674fc2e61) - Styles have been rewritten to ensure future compatibility with compiled.
 - Updated dependencies
 
 ## 15.1.6
 
 ### Patch Changes
 
-- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - The no-unsafe-design-token-usage eslint rule now respects the new token naming conventions when auto-fixing by correctly formatting token ids.
+- [#16752](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16752) [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - The no-unsafe-design-token-usage eslint rule now respects the new token naming conventions when auto-fixing by correctly formatting token ids.
 - Updated dependencies
 
 ## 15.1.5
@@ -177,7 +177,7 @@
 
 ### Patch Changes
 
-- [`f460cc7c411`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f460cc7c411) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving bundle size.
+- [#15998](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/15998) [`f460cc7c411`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f460cc7c411) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving bundle size.
 - Updated dependencies
 
 ## 15.1.3
@@ -202,7 +202,7 @@
 
 ### Minor Changes
 
-- [`97d5fe7100c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/97d5fe7100c) - Instrumented Spinner with the new theming package, `@atlaskit/tokens`.
+- [#13302](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13302) [`97d5fe7100c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/97d5fe7100c) - Instrumented Spinner with the new theming package, `@atlaskit/tokens`.
 
   Tokens will be visible only in applications configured to use the new Tokens API (currently in alpha).
 
@@ -216,13 +216,13 @@
 
 ### Patch Changes
 
-- [`378d1cef00f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/378d1cef00f) - Bump `@atlaskit/theme` to version `^11.3.0`.
+- [#12880](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12880) [`378d1cef00f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/378d1cef00f) - Bump `@atlaskit/theme` to version `^11.3.0`.
 
 ## 15.0.10
 
 ### Patch Changes
 
-- [`d2cf99ba208`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d2cf99ba208) - [ux] Fixes two regressions introduced in v15.0.8:
+- [#12654](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12654) [`d2cf99ba208`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d2cf99ba208) - [ux] Fixes two regressions introduced in v15.0.8:
 
   - There was a bug in the `xsmall` size variant of Spinner where the Spinner path appeared flipped, making the rotation look like the axis was off.
   - The addition of a wrapping span and layout change from `inline` to `inline-block` in v15.0.8 shifted the spinner down slightly, causing potential flickers when scrollbars appear as content overflows in very tight layout scenarios. Please note that if you are using a Spinner in the `iconBefore`, `iconAfter` or `overlay` props of `@atlaskit/button` to create custom loading experiences, you are encouraged to move to using our dedicated [LoadingButton](https://atlassian.design/components/button/examples#loading-button) component; this takes care of all UX concerns for you, and ensures a smooth upgrade path for you in the future.
@@ -231,32 +231,32 @@
 
 ### Patch Changes
 
-- [`90c7384c2fb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/90c7384c2fb) - [ux] add support for Windows high contrast mode
+- [#10569](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10569) [`90c7384c2fb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/90c7384c2fb) - [ux] add support for Windows high contrast mode
 
 ## 15.0.8
 
 ### Patch Changes
 
-- [`7be17d84c4a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7be17d84c4a) - Fix performance degradation caused by styles being continually re-calculated for the SVG animation. Fix a bug in which the Spinner was set to inline instead of inline-block. This reverts the component's layout behavior to version 12.
+- [#9756](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9756) [`7be17d84c4a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7be17d84c4a) - Fix performance degradation caused by styles being continually re-calculated for the SVG animation. Fix a bug in which the Spinner was set to inline instead of inline-block. This reverts the component's layout behavior to version 12.
 - Updated dependencies
 
 ## 15.0.7
 
 ### Patch Changes
 
-- [`7116601e1b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7116601e1b2) - Internal typing refactored to be readable by extract-react-types.
+- [#9083](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9083) [`7116601e1b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7116601e1b2) - Internal typing refactored to be readable by extract-react-types.
 
 ## 15.0.6
 
 ### Patch Changes
 
-- [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
+- [#5857](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5857) [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
 
 ## 15.0.5
 
 ### Patch Changes
 
-- [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
+- [#5497](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5497) [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
   This requires version 3.8 of Typescript, read more about how we handle Typescript versions here: https://atlaskit.atlassian.com/get-started
   Also add `typescript` to `devDependencies` to denote version that the package was built with.
 
@@ -270,13 +270,13 @@
 
 ### Patch Changes
 
-- [`6360c46009`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6360c46009) - Reenable integration tests for Edge browser
+- [#4707](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4707) [`6360c46009`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6360c46009) - Reenable integration tests for Edge browser
 
 ## 15.0.2
 
 ### Patch Changes
 
-- [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
+- [#3885](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3885) [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
 
   Since tslib is a dependency for all our packages we recommend that products also follow this tslib upgrade
   to prevent duplicates of tslib being bundled.
@@ -285,13 +285,13 @@
 
 ### Patch Changes
 
-- [`954cc87b62`](https://bitbucket.org/atlassian/atlassian-frontend/commits/954cc87b62) - The readme and package information has been updated to point to the new design system website.
+- [#3293](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3293) [`954cc87b62`](https://bitbucket.org/atlassian/atlassian-frontend/commits/954cc87b62) - The readme and package information has been updated to point to the new design system website.
 
 ## 15.0.0
 
 ### Major Changes
 
-- [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
+- [#3335](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3335) [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
   For more information see: https://community.developer.atlassian.com/t/atlaskit-to-drop-support-for-internet-explorer-11-from-1st-july-2020/39534
 
 ### Patch Changes
@@ -302,7 +302,7 @@
 
 ### Major Changes
 
-- [`206be3a0cb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/206be3a0cb) - In this version we made spinner dramatically faster and lighter 🤩
+- [#2137](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2137) [`206be3a0cb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/206be3a0cb) - In this version we made spinner dramatically faster and lighter 🤩
 
   ### Fix: Mounting animation
 
@@ -463,7 +463,7 @@
 
 ### Patch Changes
 
-- [`54a9514fcf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54a9514fcf) - Build and supporting files will no longer be published to npm
+- [#2866](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2866) [`54a9514fcf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54a9514fcf) - Build and supporting files will no longer be published to npm
 
 ## 13.0.0
 

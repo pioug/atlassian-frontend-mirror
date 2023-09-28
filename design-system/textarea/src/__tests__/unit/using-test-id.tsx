@@ -9,6 +9,6 @@ describe('Textarea should be found by data-testid', () => {
     const testId = 'the-textarea';
     const { getByTestId } = render(<TextArea value="hello" testId={testId} />);
 
-    expect(getByTestId(testId)).toBeTruthy();
+    expect(getByTestId(testId)).toBeInTheDocument();
   });
 });

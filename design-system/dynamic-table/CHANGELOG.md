@@ -4,49 +4,49 @@
 
 ### Patch Changes
 
-- [`6900f89eb0e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6900f89eb0e) - Internal changes to use space tokens. There is no expected visual or behaviour change.
+- [#39787](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39787) [`6900f89eb0e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6900f89eb0e) - Internal changes to use space tokens. There is no expected visual or behaviour change.
 
 ## 14.11.5
 
 ### Patch Changes
 
-- [`9af31f3c1ae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9af31f3c1ae) - Delete version.json
+- [#38731](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38731) [`9af31f3c1ae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9af31f3c1ae) - Delete version.json
 
 ## 14.11.4
 
 ### Patch Changes
 
-- [`56b444b56a8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56b444b56a8) - Fix a bug where text descenders were cut off at high zoom levels on Windows
+- [#38209](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38209) [`56b444b56a8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56b444b56a8) - Fix a bug where text descenders were cut off at high zoom levels on Windows
 
 ## 14.11.3
 
 ### Patch Changes
 
-- [`a486e54d1ef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a486e54d1ef) - Improved performance of built-in table sorting for stateful dynamic tables
+- [#38128](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38128) [`a486e54d1ef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a486e54d1ef) - Improved performance of built-in table sorting for stateful dynamic tables
 
 ## 14.11.2
 
 ### Patch Changes
 
-- [`4ae083a7e66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ae083a7e66) - Use `@af/accessibility-testing` for default jest-axe config and jest-axe import in accessibility testing.
+- [#36754](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36754) [`4ae083a7e66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ae083a7e66) - Use `@af/accessibility-testing` for default jest-axe config and jest-axe import in accessibility testing.
 
 ## 14.11.1
 
 ### Patch Changes
 
-- [`599bfe90ee3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/599bfe90ee3) - Internal change to use shape tokens. There is no expected visual change.
+- [#35441](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35441) [`599bfe90ee3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/599bfe90ee3) - Internal change to use shape tokens. There is no expected visual change.
 
 ## 14.11.0
 
 ### Minor Changes
 
-- [`ec1f82f8027`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ec1f82f8027) - Move away from findDOMNode API to refs
+- [#34915](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34915) [`ec1f82f8027`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ec1f82f8027) - Move away from findDOMNode API to refs
 
 ## 14.10.0
 
 ### Minor Changes
 
-- [`12d9c63d4c1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/12d9c63d4c1) - [ux] pass pageLabel to dynamic-table component and updat prev label in examples, add description in the types file, update example files
+- [#34947](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34947) [`12d9c63d4c1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/12d9c63d4c1) - [ux] pass pageLabel to dynamic-table component and updat prev label in examples, add description in the types file, update example files
 
 ### Patch Changes
 
@@ -56,25 +56,25 @@
 
 ### Patch Changes
 
-- [`77766ad157d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/77766ad157d) - Enrol packages to push-model consumption in Jira.
+- [#34124](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34124) [`77766ad157d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/77766ad157d) - Enrol packages to push-model consumption in Jira.
 
 ## 14.9.2
 
 ### Patch Changes
 
-- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793) [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
 
 ## 14.9.1
 
 ### Patch Changes
 
-- [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649) [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
 
 ## 14.9.0
 
 ### Minor Changes
 
-- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258) [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
 
 ### Patch Changes
 
@@ -84,31 +84,31 @@
 
 ### Patch Changes
 
-- [`cdb1910463d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cdb1910463d) - [ux] Adds buttons to sortable table head cells for better accessibility for keyboard and assistive technology users.
+- [#32202](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32202) [`cdb1910463d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cdb1910463d) - [ux] Adds buttons to sortable table head cells for better accessibility for keyboard and assistive technology users.
 
 ## 14.8.16
 
 ### Patch Changes
 
-- [`4ba10567310`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ba10567310) - Internal changes.
+- [#32211](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32211) [`4ba10567310`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ba10567310) - Internal changes.
 
 ## 14.8.15
 
 ### Patch Changes
 
-- [`e2f0271eaf9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e2f0271eaf9) - This changeset exists because a PR touches these packages in a way that doesn't require a release
+- [#32424](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32424) [`e2f0271eaf9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e2f0271eaf9) - This changeset exists because a PR touches these packages in a way that doesn't require a release
 
 ## 14.8.14
 
 ### Patch Changes
 
-- [`df9b2633fe4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/df9b2633fe4) - [ux] Adds `aria-sort` to sortable headers when being used to sort.
+- [#31299](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31299) [`df9b2633fe4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/df9b2633fe4) - [ux] Adds `aria-sort` to sortable headers when being used to sort.
 
 ## 14.8.13
 
 ### Patch Changes
 
-- [`261420360ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/261420360ec) - Upgrades component types to support React 18.
+- [#31206](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31206) [`261420360ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/261420360ec) - Upgrades component types to support React 18.
 - Updated dependencies
 
 ## 14.8.12
@@ -127,19 +127,19 @@
 
 ### Patch Changes
 
-- [`18aeca8c199`](https://bitbucket.org/atlassian/atlassian-frontend/commits/18aeca8c199) - Internal change to update token references. There is no expected behaviour or visual change.
+- [#29390](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/29390) [`18aeca8c199`](https://bitbucket.org/atlassian/atlassian-frontend/commits/18aeca8c199) - Internal change to update token references. There is no expected behaviour or visual change.
 
 ## 14.8.9
 
 ### Patch Changes
 
-- [`b0f6dd0bc35`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b0f6dd0bc35) - Updated to use typography tokens. There is no expected behaviour or visual change.
+- [#28064](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28064) [`b0f6dd0bc35`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b0f6dd0bc35) - Updated to use typography tokens. There is no expected behaviour or visual change.
 
 ## 14.8.8
 
 ### Patch Changes
 
-- [`f96f3ebd861`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f96f3ebd861) - [ux] Use color.background.neutral.subtle token to represent transparent background.
+- [#28090](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28090) [`f96f3ebd861`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f96f3ebd861) - [ux] Use color.background.neutral.subtle token to represent transparent background.
 - [`d0298c778ed`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d0298c778ed) - Added additional testId props for testing purposes
 
 ## 14.8.7
@@ -164,31 +164,31 @@
 
 ### Patch Changes
 
-- [`bc989043572`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bc989043572) - Internal changes to apply spacing tokens. This should be a no-op change.
+- [#26488](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26488) [`bc989043572`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bc989043572) - Internal changes to apply spacing tokens. This should be a no-op change.
 
 ## 14.8.3
 
 ### Patch Changes
 
-- [`ba5370e80b4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ba5370e80b4) - Update table row background color on drag to better match design token semantics
+- [#24710](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24710) [`ba5370e80b4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ba5370e80b4) - Update table row background color on drag to better match design token semantics
 
 ## 14.8.2
 
 ### Patch Changes
 
-- [`f9cd9e55e43`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f9cd9e55e43) - Update to disabled tokens which slightly affects the opacity in disabled states
+- [#24968](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24968) [`f9cd9e55e43`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f9cd9e55e43) - Update to disabled tokens which slightly affects the opacity in disabled states
 
 ## 14.8.1
 
 ### Patch Changes
 
-- [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
+- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874) [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
 
 ## 14.8.0
 
 ### Minor Changes
 
-- [`f88eb89b356`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f88eb89b356) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behavior change.
+- [#24004](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24004) [`f88eb89b356`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f88eb89b356) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behavior change.
 
 ### Patch Changes
 
@@ -199,13 +199,13 @@
 
 ### Patch Changes
 
-- [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
+- [#24492](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24492) [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
 
 ## 14.7.0
 
 ### Minor Changes
 
-- [`266abf54eea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/266abf54eea) - [ux] Pagination no longer renders when rowsPerPage is set, but there's only one page of content
+- [#23381](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23381) [`266abf54eea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/266abf54eea) - [ux] Pagination no longer renders when rowsPerPage is set, but there's only one page of content
 
 ### Patch Changes
 
@@ -220,13 +220,13 @@
 
 ### Patch Changes
 
-- [`deca22d60e1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/deca22d60e1) - Update DynamicTable HeaderCellType to make it clear that the width prop takes a percentage not a pixel value
+- [#23340](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23340) [`deca22d60e1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/deca22d60e1) - Update DynamicTable HeaderCellType to make it clear that the width prop takes a percentage not a pixel value
 
 ## 14.6.0
 
 ### Minor Changes
 
-- [`1cc3c9f1c8f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1cc3c9f1c8f) - Add test ID to table pagination so it can be queried in tests. It will be prefixed with the `testId` prop: `{testId}--pagination`.
+- [#21570](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21570) [`1cc3c9f1c8f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1cc3c9f1c8f) - Add test ID to table pagination so it can be queried in tests. It will be prefixed with the `testId` prop: `{testId}--pagination`.
 
 ### Patch Changes
 
@@ -242,7 +242,7 @@
 
 ### Patch Changes
 
-- [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
+- [#20650](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20650) [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
 
 ## 14.5.3
 
@@ -254,7 +254,7 @@
 
 ### Patch Changes
 
-- [`62edf20ab1e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/62edf20ab1e) - Migrates all usage of brand tokens to either selected or information tokens. This change is purely for semantic reasons, there are no visual or behavioural changes.
+- [#19618](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19618) [`62edf20ab1e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/62edf20ab1e) - Migrates all usage of brand tokens to either selected or information tokens. This change is purely for semantic reasons, there are no visual or behavioural changes.
 - Updated dependencies
 
 ## 14.5.1
@@ -267,7 +267,7 @@
 
 ### Minor Changes
 
-- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Rows can now also be highlighted using the isHighlighted property inside the rows data
+- [#16752](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16752) [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Rows can now also be highlighted using the isHighlighted property inside the rows data
 
 ### Patch Changes
 
@@ -284,26 +284,26 @@
 
 ### Patch Changes
 
-- [`f460cc7c411`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f460cc7c411) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving bundle size.
+- [#15998](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/15998) [`f460cc7c411`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f460cc7c411) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving bundle size.
 - Updated dependencies
 
 ## 14.4.2
 
 ### Patch Changes
 
-- [`78a7ffa81f8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/78a7ffa81f8) - Fixes a bug that meant an undefined width would still be stringifed and applied to the inline styles of table cells.
+- [#16499](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16499) [`78a7ffa81f8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/78a7ffa81f8) - Fixes a bug that meant an undefined width would still be stringifed and applied to the inline styles of table cells.
 
 ## 14.4.1
 
 ### Patch Changes
 
-- [`1601e51ab32`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1601e51ab32) - Fixes for internal types.
+- [#16038](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16038) [`1601e51ab32`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1601e51ab32) - Fixes for internal types.
 
 ## 14.4.0
 
 ### Minor Changes
 
-- [`dc35866892f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dc35866892f) - [ux] Instrumented dynamic-table with the new theming package, @atlaskit/tokens.
+- [#14777](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/14777) [`dc35866892f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dc35866892f) - [ux] Instrumented dynamic-table with the new theming package, @atlaskit/tokens.
 
   New tokens will be visible only in applications configured to use the new Tokens API (currently in alpha).
   These changes are intended to be interoperable with the legacy theme implementation. Legacy dark mode users should expect no visual or breaking changes.
@@ -318,20 +318,20 @@
 
 ### Patch Changes
 
-- [`cf853e39278`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf853e39278) - Internal changes to remove `@atlaskit/theme/math` usage.
+- [#14319](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/14319) [`cf853e39278`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf853e39278) - Internal changes to remove `@atlaskit/theme/math` usage.
 - Updated dependencies
 
 ## 14.3.1
 
 ### Patch Changes
 
-- [`378d1cef00f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/378d1cef00f) - Bump `@atlaskit/theme` to version `^11.3.0`.
+- [#12880](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12880) [`378d1cef00f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/378d1cef00f) - Bump `@atlaskit/theme` to version `^11.3.0`.
 
 ## 14.3.0
 
 ### Minor Changes
 
-- [`7da3e890032`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7da3e890032) - [ux] `highlightedRowIndex` now can be a list of numbers (`number[]`), as well as `number`. Also highlighted rows now have B50/B75 colour.
+- [#11649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/11649) [`7da3e890032`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7da3e890032) - [ux] `highlightedRowIndex` now can be a list of numbers (`number[]`), as well as `number`. Also highlighted rows now have B50/B75 colour.
 - [`aa66648082f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aa66648082f) - Add support for aria attributes on the table
 
 ### Patch Changes
@@ -342,7 +342,7 @@
 
 ### Patch Changes
 
-- [`cbd4258c692`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cbd4258c692) - Update the `rows` prop types to extend HTML table row props
+- [#11126](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/11126) [`cbd4258c692`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cbd4258c692) - Update the `rows` prop types to extend HTML table row props
 
 ## 14.2.2
 
@@ -354,13 +354,13 @@
 
 ### Patch Changes
 
-- [`79c23df6340`](https://bitbucket.org/atlassian/atlassian-frontend/commits/79c23df6340) - Use injected package name and version for analytics instead of version.json.
+- [#8644](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8644) [`79c23df6340`](https://bitbucket.org/atlassian/atlassian-frontend/commits/79c23df6340) - Use injected package name and version for analytics instead of version.json.
 
 ## 14.2.0
 
 ### Minor Changes
 
-- [`cd41357bdb0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cd41357bdb0) - Added total number of records for paginated data set to be passed as an optional prop
+- [#7762](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/7762) [`cd41357bdb0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cd41357bdb0) - Added total number of records for paginated data set to be passed as an optional prop
 
 ### Patch Changes
 
@@ -370,13 +370,13 @@
 
 ### Patch Changes
 
-- [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
+- [#5857](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5857) [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
 
 ## 14.1.4
 
 ### Patch Changes
 
-- [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
+- [#5497](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5497) [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
   This requires version 3.8 of Typescript, read more about how we handle Typescript versions here: https://atlaskit.atlassian.com/get-started
   Also add `typescript` to `devDependencies` to denote version that the package was built with.
 
@@ -390,13 +390,13 @@
 
 ### Patch Changes
 
-- [`6360c46009`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6360c46009) - Reenable integration tests for Edge browser
+- [#4707](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4707) [`6360c46009`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6360c46009) - Reenable integration tests for Edge browser
 
 ## 14.1.1
 
 ### Patch Changes
 
-- [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
+- [#3885](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3885) [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
 
   Since tslib is a dependency for all our packages we recommend that products also follow this tslib upgrade
   to prevent duplicates of tslib being bundled.
@@ -405,7 +405,7 @@
 
 ### Minor Changes
 
-- [`dff687b37a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dff687b37a) - Expose onKeyPress prop for dynamic-table and use it to show mediaViewer
+- [#3823](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3823) [`dff687b37a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dff687b37a) - Expose onKeyPress prop for dynamic-table and use it to show mediaViewer
 - [`e9a1942ae0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e9a1942ae0) - Set the attribute `data-testid` on the loading spinners. The convention follows the existing \${testId}--loadingSpinner.
 
 ### Patch Changes
@@ -416,13 +416,13 @@
 
 ### Patch Changes
 
-- [`db053b24d8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/db053b24d8) - Update all the theme imports to be tree-shakable
+- [#3428](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3428) [`db053b24d8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/db053b24d8) - Update all the theme imports to be tree-shakable
 
 ## 14.0.0
 
 ### Major Changes
 
-- [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
+- [#3335](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3335) [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
   For more information see: https://community.developer.atlassian.com/t/atlaskit-to-drop-support-for-internet-explorer-11-from-1st-july-2020/39534
 
 ### Patch Changes
@@ -433,7 +433,7 @@
 
 ### Patch Changes
 
-- [`e8b1104637`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e8b1104637) - Previously when sorting the rows weren’t using a stable key - thus they would re-mount unexpectedly! This has been fixed now.
+- [#2763](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2763) [`e8b1104637`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e8b1104637) - Previously when sorting the rows weren’t using a stable key - thus they would re-mount unexpectedly! This has been fixed now.
 - [`3cac2203ba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3cac2203ba) - Previously, sorting columns in dynamic table wouldn’t persist the page when table was updated, Now user will be able to apply sorting on dynamic table and page will be remain same even after updating table
 
 ## 13.7.8
@@ -446,13 +446,13 @@
 
 ### Patch Changes
 
-- [`54a9514fcf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54a9514fcf) - Build and supporting files will no longer be published to npm
+- [#2866](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2866) [`54a9514fcf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54a9514fcf) - Build and supporting files will no longer be published to npm
 
 ## 13.7.6
 
 ### Patch Changes
 
-- [`54d82b49f0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54d82b49f0) - Remove unused dependencies
+- [#2137](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2137) [`54d82b49f0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54d82b49f0) - Remove unused dependencies
 - [`baaad91b65`](https://bitbucket.org/atlassian/atlassian-frontend/commits/baaad91b65) - Updated to use the latest and more performant version of `@atlaskit/avatar`
 - Updated dependencies
 

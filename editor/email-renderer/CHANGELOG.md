@@ -4,26 +4,26 @@
 
 ### Patch Changes
 
-- [`aeb5c9a01e8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aeb5c9a01e8) - Delete adf-schema from AFE and rely on npm package for adf-schema
+- [#39481](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39481) [`aeb5c9a01e8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aeb5c9a01e8) - Delete adf-schema from AFE and rely on npm package for adf-schema
 - [`4b4dcfe0bba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4b4dcfe0bba) - Delete adf-schema, use published version
 
 ## 8.3.1
 
 ### Patch Changes
 
-- [`33cb07de05f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/33cb07de05f) - change adf-schema to fixed versioning
+- [#38976](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38976) [`33cb07de05f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/33cb07de05f) - change adf-schema to fixed versioning
 
 ## 8.3.0
 
 ### Minor Changes
 
-- [`d06696a2912`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d06696a2912) - Add pixel size support for media single
+- [#38885](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38885) [`d06696a2912`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d06696a2912) - Add pixel size support for media single
 
 ## 8.2.5
 
 ### Patch Changes
 
-- [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
+- [#38162](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38162) [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
 
 ## 8.2.4
 
@@ -47,13 +47,13 @@
 
 ### Patch Changes
 
-- [`4e6f1bf8511`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4e6f1bf8511) - [ED-19233] Import prosemirror libraries from internal facade package
+- [#37785](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37785) [`4e6f1bf8511`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4e6f1bf8511) - [ED-19233] Import prosemirror libraries from internal facade package
 
 ## 8.2.0
 
 ### Minor Changes
 
-- [`65fe45e0cc0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/65fe45e0cc0) - Promoted border mark to full schema and add border support for email renderer
+- [#36134](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36134) [`65fe45e0cc0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/65fe45e0cc0) - Promoted border mark to full schema and add border support for email renderer
 
 ### Patch Changes
 
@@ -63,7 +63,7 @@
 
 ### Patch Changes
 
-- [`5f5ba16de66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f5ba16de66) - [ED-13910] Fix prosemirror types
+- [#36241](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36241) [`5f5ba16de66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f5ba16de66) - [ED-13910] Fix prosemirror types
 
 ## 8.1.4
 
@@ -75,25 +75,25 @@
 
 ### Patch Changes
 
-- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793) [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
 
 ## 8.1.2
 
 ### Patch Changes
 
-- [`a142ba1aa28`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a142ba1aa28) - [ED17172] Bump prosemirror-model to 1.16.0 and prosemirror-view to 1.23.7 and removed work-arounds for fixed issues
+- [#33771](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33771) [`a142ba1aa28`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a142ba1aa28) - [ED17172] Bump prosemirror-model to 1.16.0 and prosemirror-view to 1.23.7 and removed work-arounds for fixed issues
 
 ## 8.1.1
 
 ### Patch Changes
 
-- [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649) [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
 
 ## 8.1.0
 
 ### Minor Changes
 
-- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258) [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
 
 ### Patch Changes
 
@@ -103,20 +103,20 @@
 
 ### Patch Changes
 
-- [`0ffb55018c9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0ffb55018c9) - Revert "[ED-17172] Bumped prosemirror-view from 1.23.2 to 1.23.7 and removed work-around for fixed issues"
+- [#33004](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33004) [`0ffb55018c9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0ffb55018c9) - Revert "[ED-17172] Bumped prosemirror-view from 1.23.2 to 1.23.7 and removed work-around for fixed issues"
 
 ## 8.0.12
 
 ### Patch Changes
 
-- [`2e01c9c74b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e01c9c74b5) - DUMMY remove before merging to master; dupe adf-schema via adf-utils
+- [#32424](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32424) [`2e01c9c74b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e01c9c74b5) - DUMMY remove before merging to master; dupe adf-schema via adf-utils
 - Updated dependencies
 
 ## 8.0.11
 
 ### Patch Changes
 
-- [`ecb263f4201`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ecb263f4201) - added support for custom starting numbers for ordered-list
+- [#28947](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28947) [`ecb263f4201`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ecb263f4201) - added support for custom starting numbers for ordered-list
 
 ## 8.0.10
 
@@ -128,7 +128,7 @@
 
 ### Patch Changes
 
-- [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
+- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874) [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
 
 ## 8.0.8
 
@@ -140,26 +140,26 @@
 
 ### Patch Changes
 
-- [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
+- [#24492](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24492) [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
 
 ## 8.0.6
 
 ### Patch Changes
 
-- [`d8b3bc73330`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d8b3bc73330) - [ED-14507] Deprecate the allowDynamicTextSizing editor prop and remove all code related to it. This feature has been unused since 2020.
+- [#21570](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21570) [`d8b3bc73330`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d8b3bc73330) - [ED-14507] Deprecate the allowDynamicTextSizing editor prop and remove all code related to it. This feature has been unused since 2020.
 - Updated dependencies
 
 ## 8.0.5
 
 ### Patch Changes
 
-- [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
+- [#20650](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20650) [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
 
 ## 8.0.4
 
 ### Patch Changes
 
-- [`b29ce16dad8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b29ce16dad8) - [ED-14606] Move bitbucket schema, confluence schema, jira schema, and default schema from @atlaskit/adf-schema to their own entry points. These new entry points are as follows
+- [#20033](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20033) [`b29ce16dad8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b29ce16dad8) - [ED-14606] Move bitbucket schema, confluence schema, jira schema, and default schema from @atlaskit/adf-schema to their own entry points. These new entry points are as follows
 
   @atlaskit/adf-schema/schema-bitbucket for:
 
@@ -211,13 +211,13 @@
 
 ### Patch Changes
 
-- [`c55c736ecea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c55c736ecea) - Patch VULN AFP-3486 AFP-3487 AFP-3488 AFP-3489
+- [#17475](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/17475) [`c55c736ecea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c55c736ecea) - Patch VULN AFP-3486 AFP-3487 AFP-3488 AFP-3489
 
 ## 8.0.0
 
 ### Major Changes
 
-- [`8f0577e0eb1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f0577e0eb1) - [ux] Promoted captions to full schema and better support of wikimarkup, email and slack renderer
+- [#15998](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/15998) [`8f0577e0eb1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f0577e0eb1) - [ux] Promoted captions to full schema and better support of wikimarkup, email and slack renderer
 
 ### Patch Changes
 
@@ -235,7 +235,7 @@
 
 ### Major Changes
 
-- [`ad7872a08ed`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ad7872a08ed) - Add media inline component to wikimarkup, slack markdown, email renderer transformers
+- [#14777](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/14777) [`ad7872a08ed`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ad7872a08ed) - Add media inline component to wikimarkup, slack markdown, email renderer transformers
 
 ### Patch Changes
 
@@ -245,7 +245,7 @@
 
 ### Minor Changes
 
-- [`5510b4794db`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5510b4794db) - CETI-4 Email renderer now renders the panel of type custom which is defaulted to info panel.
+- [#14067](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/14067) [`5510b4794db`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5510b4794db) - CETI-4 Email renderer now renders the panel of type custom which is defaulted to info panel.
 
 ## 6.2.5
 
@@ -257,7 +257,7 @@
 
 ### Patch Changes
 
-- [`414b6216adf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/414b6216adf) - Upgrade date-fns to ^2.17
+- [#9328](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9328) [`414b6216adf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/414b6216adf) - Upgrade date-fns to ^2.17
 
 ## 6.2.3
 
@@ -281,7 +281,7 @@
 
 ### Minor Changes
 
-- [`63b16140520`](https://bitbucket.org/atlassian/atlassian-frontend/commits/63b16140520) - ADFS-70 Allow marks on media single. This is to allow media items to be used as links in the email renderer
+- [#10124](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10124) [`63b16140520`](https://bitbucket.org/atlassian/atlassian-frontend/commits/63b16140520) - ADFS-70 Allow marks on media single. This is to allow media items to be used as links in the email renderer
 
 ## 6.1.9
 
@@ -293,7 +293,7 @@
 
 ### Patch Changes
 
-- [`471e2431a7c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/471e2431a7c) - Downgrade back to date-fns 1.30.1
+- [#9299](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9299) [`471e2431a7c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/471e2431a7c) - Downgrade back to date-fns 1.30.1
   We discovered big bundle size increases associated with the date-fns upgrade.
   We're reverting the upgarde to investigate
 
@@ -301,13 +301,13 @@
 
 ### Patch Changes
 
-- [`70f0701c2e6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/70f0701c2e6) - Upgrade date-fns to 2.17
+- [#8291](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8291) [`70f0701c2e6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/70f0701c2e6) - Upgrade date-fns to 2.17
 
 ## 6.1.6
 
 ### Patch Changes
 
-- [`985d30e44ef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/985d30e44ef) - Upgraded dependency 'juice' to ^7.0.0 to remove vulnerable transitive dependency 'request'
+- [#9027](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9027) [`985d30e44ef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/985d30e44ef) - Upgraded dependency 'juice' to ^7.0.0 to remove vulnerable transitive dependency 'request'
 
 ## 6.1.5
 
@@ -319,26 +319,26 @@
 
 ### Patch Changes
 
-- [`0d5592e293`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0d5592e293) - ADFS-333 Email renderer can now render embedCard as URL link
+- [#7177](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/7177) [`0d5592e293`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0d5592e293) - ADFS-333 Email renderer can now render embedCard as URL link
 
 ## 6.1.3
 
 ### Patch Changes
 
-- [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
+- [#5857](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5857) [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
 
 ## 6.1.2
 
 ### Patch Changes
 
-- [`703752d487`](https://bitbucket.org/atlassian/atlassian-frontend/commits/703752d487) - ED-10647 Remove caret from prosemirror-model, prosemirror-keymap, prosemirror-state, prosemirror-transform to lock them down to an explicit version
+- [#5860](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5860) [`703752d487`](https://bitbucket.org/atlassian/atlassian-frontend/commits/703752d487) - ED-10647 Remove caret from prosemirror-model, prosemirror-keymap, prosemirror-state, prosemirror-transform to lock them down to an explicit version
 - Updated dependencies
 
 ## 6.1.1
 
 ### Patch Changes
 
-- [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
+- [#5497](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5497) [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
   This requires version 3.8 of Typescript, read more about how we handle Typescript versions here: https://atlaskit.atlassian.com/get-started
   Also add `typescript` to `devDependencies` to denote version that the package was built with.
 
@@ -346,7 +346,7 @@
 
 ### Minor Changes
 
-- [`9a39500244`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9a39500244) - Bump ProseMirror packages
+- [#4749](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4749) [`9a39500244`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9a39500244) - Bump ProseMirror packages
 
   Read more: https://product-fabric.atlassian.net/wiki/spaces/E/pages/1671956531/2020-08
 
@@ -358,7 +358,7 @@
 
 ### Patch Changes
 
-- [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
+- [#3885](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3885) [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
 
   Since tslib is a dependency for all our packages we recommend that products also follow this tslib upgrade
   to prevent duplicates of tslib being bundled.
@@ -367,14 +367,14 @@
 
 ### Patch Changes
 
-- [`6262f382de`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6262f382de) - Use the 'lodash' package instead of single-function 'lodash.\*' packages
+- [#3823](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3823) [`6262f382de`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6262f382de) - Use the 'lodash' package instead of single-function 'lodash.\*' packages
 - Updated dependencies
 
 ## 6.0.0
 
 ### Major Changes
 
-- [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
+- [#3335](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3335) [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
   For more information see: https://community.developer.atlassian.com/t/atlaskit-to-drop-support-for-internet-explorer-11-from-1st-july-2020/39534
 
 ### Patch Changes
@@ -391,7 +391,7 @@
 
 ### Patch Changes
 
-- [`8a9e57a986`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8a9e57a986) - Add missing label so that email renderer demo appears in Drop-down menu
+- [#2137](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2137) [`8a9e57a986`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8a9e57a986) - Add missing label so that email renderer demo appears in Drop-down menu
 - [`54d82b49f0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54d82b49f0) - Remove unused dependencies
 - Updated dependencies
 

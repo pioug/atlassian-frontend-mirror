@@ -4,55 +4,55 @@
 
 ### Patch Changes
 
-- [`4ae083a7e66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ae083a7e66) - Use `@af/accessibility-testing` for default jest-axe config and jest-axe import in accessibility testing.
+- [#36754](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36754) [`4ae083a7e66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ae083a7e66) - Use `@af/accessibility-testing` for default jest-axe config and jest-axe import in accessibility testing.
 
 ## 13.14.7
 
 ### Patch Changes
 
-- [`e7ea6832ad2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e7ea6832ad2) - Bans the use of React.FC/React.FunctionComponent type in ADS components as part of the React 18 migration work. The change is internal only and should not introduce any changes for the component consumers.
+- [#33652](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33652) [`e7ea6832ad2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e7ea6832ad2) - Bans the use of React.FC/React.FunctionComponent type in ADS components as part of the React 18 migration work. The change is internal only and should not introduce any changes for the component consumers.
 
 ## 13.14.6
 
 ### Patch Changes
 
-- [`33f10b7eb36`](https://bitbucket.org/atlassian/atlassian-frontend/commits/33f10b7eb36) - Removing unused dependencies and dev dependencies
+- [#34445](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34445) [`33f10b7eb36`](https://bitbucket.org/atlassian/atlassian-frontend/commits/33f10b7eb36) - Removing unused dependencies and dev dependencies
 
 ## 13.14.5
 
 ### Patch Changes
 
-- [`b1bdec7cce2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b1bdec7cce2) - Internal change to enforce token usage for spacing properties. There is no expected visual or behaviour change.
+- [#32935](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32935) [`b1bdec7cce2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b1bdec7cce2) - Internal change to enforce token usage for spacing properties. There is no expected visual or behaviour change.
 
 ## 13.14.4
 
 ### Patch Changes
 
-- [`0ee3115921e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0ee3115921e) - [ux] removed width property in svg tag fro atlas logo
+- [#34305](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34305) [`0ee3115921e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0ee3115921e) - [ux] removed width property in svg tag fro atlas logo
 
 ## 13.14.3
 
 ### Patch Changes
 
-- [`77766ad157d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/77766ad157d) - Enrol packages to push-model consumption in Jira.
+- [#34124](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34124) [`77766ad157d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/77766ad157d) - Enrol packages to push-model consumption in Jira.
 
 ## 13.14.2
 
 ### Patch Changes
 
-- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793) [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
 
 ## 13.14.1
 
 ### Patch Changes
 
-- [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649) [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
 
 ## 13.14.0
 
 ### Minor Changes
 
-- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258) [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
 
 ### Patch Changes
 
@@ -62,38 +62,38 @@
 
 ### Minor Changes
 
-- [`5111380b383`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5111380b383) - Adds logo assets for Atlas
+- [#32323](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32323) [`5111380b383`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5111380b383) - Adds logo assets for Atlas
 
 ## 13.12.1
 
 ### Patch Changes
 
-- [`e0460d5d989`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e0460d5d989) - Usages of `process` are now guarded by a `typeof` check.
+- [#32294](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32294) [`e0460d5d989`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e0460d5d989) - Usages of `process` are now guarded by a `typeof` check.
 
 ## 13.12.0
 
 ### Minor Changes
 
-- [`4d2e52e86d3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4d2e52e86d3) - [ux] Add Atlassian Analytics logo and icon. Also fixes a bug with non-unique linear-gradient ids where subsequent logos on a page could be impacted by display/vvisibility styles applied to the first logo on a page.
+- [#31973](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31973) [`4d2e52e86d3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4d2e52e86d3) - [ux] Add Atlassian Analytics logo and icon. Also fixes a bug with non-unique linear-gradient ids where subsequent logos on a page could be impacted by display/vvisibility styles applied to the first logo on a page.
 
 ## 13.11.2
 
 ### Patch Changes
 
-- [`261420360ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/261420360ec) - Upgrades component types to support React 18.
+- [#31206](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31206) [`261420360ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/261420360ec) - Upgrades component types to support React 18.
 - Updated dependencies
 
 ## 13.11.1
 
 ### Patch Changes
 
-- [`b77d5924c19`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b77d5924c19) - [ux] Remove "width" attribute from Jira Product Discovery logo and icon SVGs.
+- [#29835](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/29835) [`b77d5924c19`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b77d5924c19) - [ux] Remove "width" attribute from Jira Product Discovery logo and icon SVGs.
 
 ## 13.11.0
 
 ### Minor Changes
 
-- [`a6da509aa20`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a6da509aa20) - [ux] Adds Jira Product Discovery logo and icon
+- [#29472](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/29472) [`a6da509aa20`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a6da509aa20) - [ux] Adds Jira Product Discovery logo and icon
 
 ## 13.10.5
 
@@ -123,25 +123,25 @@
 
 ### Patch Changes
 
-- [`88a34a8c2dd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/88a34a8c2dd) - Remove redundant `role=presentation` on wrapping @atlaskit/icon and @atlaskit/logo spans.
+- [#25860](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/25860) [`88a34a8c2dd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/88a34a8c2dd) - Remove redundant `role=presentation` on wrapping @atlaskit/icon and @atlaskit/logo spans.
 
 ## 13.10.0
 
 ### Minor Changes
 
-- [`68e771a783a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/68e771a783a) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behavior change.
+- [#24710](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24710) [`68e771a783a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/68e771a783a) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behavior change.
 
 ## 13.9.1
 
 ### Patch Changes
 
-- [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
+- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874) [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
 
 ## 13.9.0
 
 ### Minor Changes
 
-- [`76eadca8ef3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/76eadca8ef3) - Adds Jira Align logo, icon and wordmark.
+- [#24004](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24004) [`76eadca8ef3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/76eadca8ef3) - Adds Jira Align logo, icon and wordmark.
 
 ### Patch Changes
 
@@ -151,13 +151,13 @@
 
 ### Patch Changes
 
-- [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
+- [#24492](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24492) [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
 
 ## 13.8.1
 
 ### Patch Changes
 
-- [`d448e04e6a8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d448e04e6a8) - [ux] Internal changes to make the styling more resilient to inherited styles.
+- [#23381](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23381) [`d448e04e6a8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d448e04e6a8) - [ux] Internal changes to make the styling more resilient to inherited styles.
 - [`c320954edd7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c320954edd7) - Internal code change turning on new linting rules.
 - Updated dependencies
 
@@ -165,7 +165,7 @@
 
 ### Minor Changes
 
-- [`c7c2083475d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c7c2083475d) - [ux] - Adds `appearance` prop that allows you to choose between three brand-approved appearances: `brand`, `neutral` and `inverse`. These will be based on design tokens and theme-responsive.
+- [#22642](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22642) [`c7c2083475d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c7c2083475d) - [ux] - Adds `appearance` prop that allows you to choose between three brand-approved appearances: `brand`, `neutral` and `inverse`. These will be based on design tokens and theme-responsive.
 
   - Deprecates the `iconColor`, `iconGradientStart`, `iconGradientEnd` and `textColor` props. They will still be supported in the immediate future but the goal is to shift usages towards using the `appearance` prop.
 
@@ -179,7 +179,7 @@
 
 ### Minor Changes
 
-- [`0793be315f4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0793be315f4) - [ux] This is an update to clearly mark all deprecated Logo exports as deprecated and slated for removal in the next major release. In the next verion we will be removing the following deprecated exports from the main entrypoint:
+- [#21570](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21570) [`0793be315f4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0793be315f4) - [ux] This is an update to clearly mark all deprecated Logo exports as deprecated and slated for removal in the next major release. In the next verion we will be removing the following deprecated exports from the main entrypoint:
 
   - `StrideIcon`, `StrideLogo`, `StrideWordmark`
   - `HipchatIcon`, `HipchatLogo`, `HipchatWordmark`
@@ -220,44 +220,44 @@
 
 ### Minor Changes
 
-- [`4caed6d5063`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4caed6d5063) - Refactors logo converting it from class components to functional components. This includes file renames and some API changes such as prop name changes but is still backwards compatible. These old APIs will be deprecated in a later release.
+- [#20721](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20721) [`4caed6d5063`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4caed6d5063) - Refactors logo converting it from class components to functional components. This includes file renames and some API changes such as prop name changes but is still backwards compatible. These old APIs will be deprecated in a later release.
 
 ## 13.5.5
 
 ### Patch Changes
 
-- [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
+- [#20650](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20650) [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
 
 ## 13.5.4
 
 ### Patch Changes
 
-- [`ec464e07b10`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ec464e07b10) - Fixes a bug where the Atlassian Start logo did not render correctly on Firefox
+- [#16285](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16285) [`ec464e07b10`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ec464e07b10) - Fixes a bug where the Atlassian Start logo did not render correctly on Firefox
 
 ## 13.5.3
 
 ### Patch Changes
 
-- [`af4bca32ad4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/af4bca32ad4) - Internal changes to supress eslint rules.
+- [#13302](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13302) [`af4bca32ad4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/af4bca32ad4) - Internal changes to supress eslint rules.
 - Updated dependencies
 
 ## 13.5.2
 
 ### Patch Changes
 
-- [`545d363ca28`](https://bitbucket.org/atlassian/atlassian-frontend/commits/545d363ca28) - Convert usage of `styled-components` to `emotion`.
+- [#12837](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12837) [`545d363ca28`](https://bitbucket.org/atlassian/atlassian-frontend/commits/545d363ca28) - Convert usage of `styled-components` to `emotion`.
 
 ## 13.5.1
 
 ### Patch Changes
 
-- [`378d1cef00f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/378d1cef00f) - Bump `@atlaskit/theme` to version `^11.3.0`.
+- [#12880](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12880) [`378d1cef00f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/378d1cef00f) - Bump `@atlaskit/theme` to version `^11.3.0`.
 
 ## 13.5.0
 
 ### Minor Changes
 
-- [`83a089fe0cc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/83a089fe0cc) - Halp has been added to logos. This includes the logo, wordmark and icon.
+- [#12328](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12328) [`83a089fe0cc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/83a089fe0cc) - Halp has been added to logos. This includes the logo, wordmark and icon.
 
 ### Patch Changes
 
@@ -267,13 +267,13 @@
 
 ### Patch Changes
 
-- [`17770b662ac`](https://bitbucket.org/atlassian/atlassian-frontend/commits/17770b662ac) - NO-ISSUE reference existing file in af.exports['.']
+- [#11649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/11649) [`17770b662ac`](https://bitbucket.org/atlassian/atlassian-frontend/commits/17770b662ac) - NO-ISSUE reference existing file in af.exports['.']
 
 ## 13.4.1
 
 ### Patch Changes
 
-- [`0017d2a8439`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0017d2a8439) - Since the logo, icon and workmard components of JiraCore, JiraServiceDesk, OpsGenie, Stride and Hipchat are deprecated in `@atlaskit/logo`, we provided a codemod to help consumers upgrade their components.
+- [#10230](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10230) [`0017d2a8439`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0017d2a8439) - Since the logo, icon and workmard components of JiraCore, JiraServiceDesk, OpsGenie, Stride and Hipchat are deprecated in `@atlaskit/logo`, we provided a codemod to help consumers upgrade their components.
 
   **Running the codemod cli**
 
@@ -293,13 +293,13 @@
 
 ### Minor Changes
 
-- [`5f44a31b58a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f44a31b58a) - [ux] Add new Trello logo, Atlassian Start logo and Compass logo to `@atlaskit/logo`
+- [#10212](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10212) [`5f44a31b58a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f44a31b58a) - [ux] Add new Trello logo, Atlassian Start logo and Compass logo to `@atlaskit/logo`
 
 ## 13.3.0
 
 ### Minor Changes
 
-- [`c8afaa49d34`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c8afaa49d34) - Add `OpsgenieIcon`, `OpsgenieLogo` and `OpsgenieWordmark` in order to rename `OpsGenie` to `Opsgenie`, and deprecate the following logos:
+- [#9756](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9756) [`c8afaa49d34`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c8afaa49d34) - Add `OpsgenieIcon`, `OpsgenieLogo` and `OpsgenieWordmark` in order to rename `OpsGenie` to `Opsgenie`, and deprecate the following logos:
 
   - `JiraCoreIcon`, `JiraCoreLogo`, `JiraCoreWordmark`
   - `JiraServiceDeskIcon`, `JiraServiceDeskLogo`, `JiraServiceDeskWordmark`
@@ -314,13 +314,13 @@
 
 ### Minor Changes
 
-- [`95838b0d7cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/95838b0d7cf) - [ux] Add Jira Work Management Logo
+- [#9446](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9446) [`95838b0d7cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/95838b0d7cf) - [ux] Add Jira Work Management Logo
 
 ## 13.1.2
 
 ### Patch Changes
 
-- [`471e2431a7c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/471e2431a7c) - Downgrade back to date-fns 1.30.1
+- [#9299](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9299) [`471e2431a7c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/471e2431a7c) - Downgrade back to date-fns 1.30.1
   We discovered big bundle size increases associated with the date-fns upgrade.
   We're reverting the upgarde to investigate
 
@@ -328,38 +328,38 @@
 
 ### Patch Changes
 
-- [`70f0701c2e6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/70f0701c2e6) - Upgrade date-fns to 2.17
+- [#8291](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8291) [`70f0701c2e6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/70f0701c2e6) - Upgrade date-fns to 2.17
 
 ## 13.1.0
 
 ### Minor Changes
 
-- [`5216ebed3b6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5216ebed3b6) - Expose and use atlassian-icon, jira-icon entry points
+- [#8178](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8178) [`5216ebed3b6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5216ebed3b6) - Expose and use atlassian-icon, jira-icon entry points
 
 ## 13.0.8
 
 ### Patch Changes
 
-- [`952019cfd39`](https://bitbucket.org/atlassian/atlassian-frontend/commits/952019cfd39) - Removed extraneous/unnecessary dependencies for design system components.
+- [#7762](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/7762) [`952019cfd39`](https://bitbucket.org/atlassian/atlassian-frontend/commits/952019cfd39) - Removed extraneous/unnecessary dependencies for design system components.
 - [`dfa1827ecad`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dfa1827ecad) - Fixed the broken "Download the logos" link on https://atlassian.design/components/logo/usage
 
 ## 13.0.7
 
 ### Patch Changes
 
-- [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
+- [#5857](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5857) [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
 
 ## 13.0.6
 
 ### Patch Changes
 
-- [`ce8c85a20d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ce8c85a20d) - As part of this task we have introduced a new JSM logo and deprecated JSD logo
+- [#6125](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/6125) [`ce8c85a20d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ce8c85a20d) - As part of this task we have introduced a new JSM logo and deprecated JSD logo
 
 ## 13.0.5
 
 ### Patch Changes
 
-- [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
+- [#5497](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5497) [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
   This requires version 3.8 of Typescript, read more about how we handle Typescript versions here: https://atlaskit.atlassian.com/get-started
   Also add `typescript` to `devDependencies` to denote version that the package was built with.
 
@@ -367,13 +367,13 @@
 
 ### Patch Changes
 
-- [`7315203b80`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7315203b80) - Rename `AkCode` and `AkCodeBlock` exports to `Code` and `CodeBlock` for `@atlaskit/code`.
+- [#4424](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4424) [`7315203b80`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7315203b80) - Rename `AkCode` and `AkCodeBlock` exports to `Code` and `CodeBlock` for `@atlaskit/code`.
 
 ## 13.0.3
 
 ### Patch Changes
 
-- [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
+- [#3885](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3885) [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
 
   Since tslib is a dependency for all our packages we recommend that products also follow this tslib upgrade
   to prevent duplicates of tslib being bundled.
@@ -382,27 +382,27 @@
 
 ### Patch Changes
 
-- [`954cc87b62`](https://bitbucket.org/atlassian/atlassian-frontend/commits/954cc87b62) - The readme and package information has been updated to point to the new design system website.
+- [#3293](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3293) [`954cc87b62`](https://bitbucket.org/atlassian/atlassian-frontend/commits/954cc87b62) - The readme and package information has been updated to point to the new design system website.
 
 ## 13.0.1
 
 ### Patch Changes
 
-- [`ce3b100bed`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ce3b100bed) - Change the Atlassian Icon for better alignment with other Icons
+- [#3428](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3428) [`ce3b100bed`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ce3b100bed) - Change the Atlassian Icon for better alignment with other Icons
 - [`db053b24d8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/db053b24d8) - Update all the theme imports to be tree-shakable
 
 ## 13.0.0
 
 ### Major Changes
 
-- [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
+- [#3335](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3335) [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
   For more information see: https://community.developer.atlassian.com/t/atlaskit-to-drop-support-for-internet-explorer-11-from-1st-july-2020/39534
 
 ## 12.3.5
 
 ### Patch Changes
 
-- [`54a9514fcf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54a9514fcf) - Build and supporting files will no longer be published to npm
+- [#2866](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2866) [`54a9514fcf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54a9514fcf) - Build and supporting files will no longer be published to npm
 
 ## 12.3.4
 

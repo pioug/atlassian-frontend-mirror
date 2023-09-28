@@ -1,4 +1,11 @@
 import React from 'react';
+
+import type { FloatingToolbarColorPicker } from '@atlaskit/editor-common/types';
+import {
+  areSameItems,
+  isSameItem,
+} from '@atlaskit/editor-common/floating-toolbar';
+
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
@@ -15,14 +22,14 @@ import {
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
 import type { Item } from '../../ui/Toolbar';
-import Toolbar, { areSameItems, isSameItem } from '../../ui/Toolbar';
+import Toolbar from '../../ui/Toolbar';
 
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   createTestExtensionProvider,
   emptyExtensionProvider,
-} from '../_helpers';
-import type { FloatingToolbarColorPicker } from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-test-helpers/create-test-extension-provider';
 
 describe('<Toolbar />', () => {
   const createEditor = createEditorFactory();

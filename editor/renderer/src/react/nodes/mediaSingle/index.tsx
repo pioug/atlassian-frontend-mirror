@@ -17,13 +17,13 @@ import {
 } from '@atlaskit/editor-common/ui';
 import type {
   EventHandlers,
-  Breakpoints,
   MediaSingleWidthType,
 } from '@atlaskit/editor-common/ui';
 import type { ImageLoaderProps } from '@atlaskit/editor-common/utils';
 import {
   akEditorFullWidthLayoutWidth,
   akEditorDefaultLayoutWidth,
+  akEditorWideLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
 import type { AnalyticsEventPayload } from '../../../analytics/events';
 import { FullPagePadding } from '../../../ui/Renderer/style';
@@ -79,9 +79,19 @@ export const getMediaContainerWidth = (
   currentContainerWidth: number,
   layout: MediaSingleLayout,
 ): number => {
-  return !currentContainerWidth && layout !== 'full-width' && layout !== 'wide'
-    ? akEditorDefaultLayoutWidth
-    : currentContainerWidth;
+  if (currentContainerWidth) {
+    return currentContainerWidth;
+  }
+
+  // SSR mode fallback to default layout width
+  switch (layout) {
+    case 'full-width':
+      return akEditorFullWidthLayoutWidth;
+    case 'wide':
+      return akEditorWideLayoutWidth;
+    default:
+      return akEditorDefaultLayoutWidth;
+  }
 };
 
 const MediaSingle = (props: Props & WrappedComponentProps) => {
@@ -147,10 +157,7 @@ const MediaSingle = (props: Props & WrappedComponentProps) => {
   const padding = rendererAppearance === 'full-page' ? FullPagePadding * 2 : 0;
   const isFullWidth = rendererAppearance === 'full-width';
 
-  const calcDimensions = (
-    mediaContainerWidth: number,
-    mediaBreakpoint?: Breakpoints,
-  ) => {
+  const calcDimensions = (mediaContainerWidth: number) => {
     const containerWidth = getMediaContainerWidth(mediaContainerWidth, layout);
     const maxWidth = containerWidth;
     const maxHeight = (height / width) * maxWidth;
@@ -187,14 +194,10 @@ const MediaSingle = (props: Props & WrappedComponentProps) => {
     width,
   };
 
-  const renderMediaSingle = (
-    renderWidth: number,
-    mediaBreakpoint?: Breakpoints,
-  ) => {
-    const { cardDimensions, lineLength, containerWidth } = calcDimensions(
-      renderWidth,
-      mediaBreakpoint,
-    );
+  const renderMediaSingle = (renderWidth: number) => {
+    const { cardDimensions, lineLength, containerWidth } =
+      calcDimensions(renderWidth);
+
     const mediaComponent = React.cloneElement(media, {
       resizeMode: 'stretchy-fit',
       cardDimensions,
@@ -232,8 +235,11 @@ const MediaSingle = (props: Props & WrappedComponentProps) => {
 
   return (
     <WidthConsumer>
-      {({ width, breakpoint }) => {
-        return renderMediaSingle(width, breakpoint);
+      {({ width }) => {
+        // Note: in SSR mode the `window` object is not defined,
+        // therefore width here is 0, see:
+        // packages/editor/editor-common/src/ui/WidthProvider/index.tsx
+        return renderMediaSingle(width);
       }}
     </WidthConsumer>
   );

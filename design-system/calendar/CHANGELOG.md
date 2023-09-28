@@ -4,56 +4,56 @@
 
 ### Patch Changes
 
-- [`75b9f4664c6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/75b9f4664c6) - [ux] Hide weekday header row from assistive technologies.
+- [#39443](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39443) [`75b9f4664c6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/75b9f4664c6) - [ux] Hide weekday header row from assistive technologies.
 
 ## 13.3.0
 
 ### Minor Changes
 
-- [`26825f14d51`](https://bitbucket.org/atlassian/atlassian-frontend/commits/26825f14d51) - [ux] This adds greater keyboard accessibility to calendar, and removes the feature flag that gated this change.
+- [#39246](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39246) [`26825f14d51`](https://bitbucket.org/atlassian/atlassian-frontend/commits/26825f14d51) - [ux] This adds greater keyboard accessibility to calendar, and removes the feature flag that gated this change.
 
 ## 13.2.2
 
 ### Patch Changes
 
-- [`ceedd1f27df`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ceedd1f27df) - [ux] Ensures month/year does not render as live region until it has changed or has otherwise been interacted with for better usability. Part of feature flag for keyboard accessibility.
+- [#38521](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38521) [`ceedd1f27df`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ceedd1f27df) - [ux] Ensures month/year does not render as live region until it has changed or has otherwise been interacted with for better usability. Part of feature flag for keyboard accessibility.
 
 ## 13.2.1
 
 ### Patch Changes
 
-- [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
+- [#38162](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38162) [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
 - Updated dependencies
 
 ## 13.2.0
 
 ### Minor Changes
 
-- [`b5716b91b31`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b5716b91b31) - [ux] We are testing adding keyboard accessibility for Calendar behind a feature flag. This will add more affordances for users of assistive technologies to use the calendar, and updates the `tabIndex` prop to only use recommended values. If this fix is successful it will be available in a later release.
+- [#38403](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38403) [`b5716b91b31`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b5716b91b31) - [ux] We are testing adding keyboard accessibility for Calendar behind a feature flag. This will add more affordances for users of assistive technologies to use the calendar, and updates the `tabIndex` prop to only use recommended values. If this fix is successful it will be available in a later release.
 
 ## 13.1.17
 
 ### Patch Changes
 
-- [`0ed39bbcb73`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0ed39bbcb73) - [ux] correct fallback color of focused state to meet contrast requirement
+- [#37611](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37611) [`0ed39bbcb73`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0ed39bbcb73) - [ux] correct fallback color of focused state to meet contrast requirement
 
 ## 13.1.16
 
 ### Patch Changes
 
-- [`1ed303de3e8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1ed303de3e8) - Updated dependencies
+- [#37533](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37533) [`1ed303de3e8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1ed303de3e8) - Updated dependencies
 
 ## 13.1.15
 
 ### Patch Changes
 
-- [`3fadbb8bf73`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3fadbb8bf73) - Internal changes.
+- [#37278](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37278) [`3fadbb8bf73`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3fadbb8bf73) - Internal changes.
 
 ## 13.1.14
 
 ### Patch Changes
 
-- [`7e4085cd951`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7e4085cd951) - Allow caret version range in @atlaskit/primitives dependency.
+- [#36412](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36412) [`7e4085cd951`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7e4085cd951) - Allow caret version range in @atlaskit/primitives dependency.
 
 ## 13.1.13
 
@@ -77,7 +77,7 @@
 
 ### Patch Changes
 
-- [`76d4d797a2d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/76d4d797a2d) - Updates calendar for primitives bump.
+- [#35712](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35712) [`76d4d797a2d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/76d4d797a2d) - Updates calendar for primitives bump.
 - Updated dependencies
 
 ## 13.1.9
@@ -90,20 +90,20 @@
 
 ### Patch Changes
 
-- [`529814693a1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/529814693a1) - Pin version of @atlaskit/primitives so it resolves to correct version
+- [#35337](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35337) [`529814693a1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/529814693a1) - Pin version of @atlaskit/primitives so it resolves to correct version
 
 ## 13.1.7
 
 ### Patch Changes
 
-- [`b8b41649492`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b8b41649492) - Update how certain background colors are referenced by name. Internal changes only.
+- [#33833](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33833) [`b8b41649492`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b8b41649492) - Update how certain background colors are referenced by name. Internal changes only.
 - Updated dependencies
 
 ## 13.1.6
 
 ### Patch Changes
 
-- [`779727e307a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/779727e307a) - Internal change only. Replace all instances of Box with stable @atlaskit/primitives version.
+- [#34922](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34922) [`779727e307a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/779727e307a) - Internal change only. Replace all instances of Box with stable @atlaskit/primitives version.
 
 ## 13.1.5
 
@@ -115,31 +115,31 @@
 
 ### Patch Changes
 
-- [`774ed69ecef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/774ed69ecef) - Internal changes to use space tokens for spacing values. There is no visual change.
+- [#34881](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34881) [`774ed69ecef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/774ed69ecef) - Internal changes to use space tokens for spacing values. There is no visual change.
 
 ## 13.1.3
 
 ### Patch Changes
 
-- [`74fec133d99`](https://bitbucket.org/atlassian/atlassian-frontend/commits/74fec133d99) - [ux] Add proper grid roles to calendar.
+- [#34727](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34727) [`74fec133d99`](https://bitbucket.org/atlassian/atlassian-frontend/commits/74fec133d99) - [ux] Add proper grid roles to calendar.
 
 ## 13.1.2
 
 ### Patch Changes
 
-- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793) [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
 
 ## 13.1.1
 
 ### Patch Changes
 
-- [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649) [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
 
 ## 13.1.0
 
 ### Minor Changes
 
-- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258) [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
 
 ### Patch Changes
 
@@ -149,7 +149,7 @@
 
 ### Patch Changes
 
-- [`2e01c9c74b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e01c9c74b5) - DUMMY remove before merging to master; dupe adf-schema via adf-utils
+- [#32424](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32424) [`2e01c9c74b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e01c9c74b5) - DUMMY remove before merging to master; dupe adf-schema via adf-utils
 
 ## 13.0.13
 
@@ -167,7 +167,7 @@
 
 ### Patch Changes
 
-- [`70922a6fcea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/70922a6fcea) - [ux] style(calendar): update icon fallback color from N70 to N700 to match tokens and fix color contrast issue
+- [#31891](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31891) [`70922a6fcea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/70922a6fcea) - [ux] style(calendar): update icon fallback color from N70 to N700 to match tokens and fix color contrast issue
 - [`c0fb88b3af6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c0fb88b3af6) - [ux] style(calendar): update icon color token from text.subtlest to color.icon
 
 ## 13.0.10
@@ -192,19 +192,19 @@
 
 ### Patch Changes
 
-- [`cfe48bb7ece`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cfe48bb7ece) - Internal change only. Replace usages of Inline/Stack with stable version from `@atlaskit/primitives`.
+- [#31242](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31242) [`cfe48bb7ece`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cfe48bb7ece) - Internal change only. Replace usages of Inline/Stack with stable version from `@atlaskit/primitives`.
 
 ## 13.0.6
 
 ### Patch Changes
 
-- [`842bb999a85`](https://bitbucket.org/atlassian/atlassian-frontend/commits/842bb999a85) - Internal change only. Replace usages of Inline/Stack with stable version from `@atlaskit/primitives`.
+- [#31041](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31041) [`842bb999a85`](https://bitbucket.org/atlassian/atlassian-frontend/commits/842bb999a85) - Internal change only. Replace usages of Inline/Stack with stable version from `@atlaskit/primitives`.
 
 ## 13.0.5
 
 ### Patch Changes
 
-- [`1fc7949b336`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1fc7949b336) - [ux] Fixes a bug where the background for the calendar element was incorrectly set to 'elevation.surface'
+- [#30882](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/30882) [`1fc7949b336`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1fc7949b336) - [ux] Fixes a bug where the background for the calendar element was incorrectly set to 'elevation.surface'
 
 ## 13.0.4
 
@@ -216,27 +216,27 @@
 
 ### Patch Changes
 
-- [`22b754d311f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/22b754d311f) - Updates usage of removed design token `utilities.UNSAFE_util.transparent` in favour of its replacement `utilities.UNSAFE.transparent`
+- [#27634](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/27634) [`22b754d311f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/22b754d311f) - Updates usage of removed design token `utilities.UNSAFE_util.transparent` in favour of its replacement `utilities.UNSAFE.transparent`
 - Updated dependencies
 
 ## 13.0.2
 
 ### Patch Changes
 
-- [`eadbf13d8c0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eadbf13d8c0) - Updated usages of `Text`, `Box`, `Stack`, and `Inline` primitives to reflect their updated APIs. There are no visual or behaviour changes.
+- [#27891](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/27891) [`eadbf13d8c0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eadbf13d8c0) - Updated usages of `Text`, `Box`, `Stack`, and `Inline` primitives to reflect their updated APIs. There are no visual or behaviour changes.
 - Updated dependencies
 
 ## 13.0.1
 
 ### Patch Changes
 
-- [`b0f6dd0bc35`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b0f6dd0bc35) - Updated to use typography tokens. There is no expected behaviour or visual change.
+- [#28064](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28064) [`b0f6dd0bc35`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b0f6dd0bc35) - Updated to use typography tokens. There is no expected behaviour or visual change.
 
 ## 13.0.0
 
 ### Major Changes
 
-- [`642298a54dc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/642298a54dc) - Major changes:
+- [#28165](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28165) [`642298a54dc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/642298a54dc) - Major changes:
 
   - Removing support for legacy dark mode.
 
@@ -274,19 +274,19 @@
 
 ### Patch Changes
 
-- [`bc989043572`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bc989043572) - Internal changes to apply spacing tokens. This should be a no-op change.
+- [#26488](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26488) [`bc989043572`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bc989043572) - Internal changes to apply spacing tokens. This should be a no-op change.
 
 ## 12.4.1
 
 ### Patch Changes
 
-- [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
+- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874) [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
 
 ## 12.4.0
 
 ### Minor Changes
 
-- [`764726e020b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/764726e020b) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behavior change.
+- [#24004](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24004) [`764726e020b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/764726e020b) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behavior change.
 
 ### Patch Changes
 
@@ -296,13 +296,13 @@
 
 ### Patch Changes
 
-- [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
+- [#24492](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24492) [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
 
 ## 12.3.1
 
 ### Patch Changes
 
-- [`124a1b7532b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/124a1b7532b) - Remove calendar's background when design tokens are provided, to allow calendar to match the color of any surface in light or dark mode
+- [#23381](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23381) [`124a1b7532b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/124a1b7532b) - Remove calendar's background when design tokens are provided, to allow calendar to match the color of any surface in light or dark mode
 - [`6bf81ead961`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6bf81ead961) - Internal code change turning on new linting rules.
 - Updated dependencies
 
@@ -310,13 +310,13 @@
 
 ### Minor Changes
 
-- [`e1e33cfe0db`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e1e33cfe0db) - [ux] Adds tabIndex prop for `@atlaskit/calendar`, useful when needing to disable calendar from receiving focus by keyboard.
+- [#22642](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22642) [`e1e33cfe0db`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e1e33cfe0db) - [ux] Adds tabIndex prop for `@atlaskit/calendar`, useful when needing to disable calendar from receiving focus by keyboard.
 
 ## 12.2.0
 
 ### Minor Changes
 
-- [`6f7a4353204`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6f7a4353204) - Added ability to provide custom aria-labels for next- and previous-month buttons using `nextMonthLabel` and `previousMonthLabel`
+- [#22029](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22029) [`6f7a4353204`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6f7a4353204) - Added ability to provide custom aria-labels for next- and previous-month buttons using `nextMonthLabel` and `previousMonthLabel`
 
 ### Patch Changes
 
@@ -326,7 +326,7 @@
 
 ### Patch Changes
 
-- [`c8c7eec9fb8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c8c7eec9fb8) - [ux] Updates tokens used for selected hovered state
+- [#21570](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21570) [`c8c7eec9fb8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c8c7eec9fb8) - [ux] Updates tokens used for selected hovered state
 
 ## 12.1.13
 
@@ -338,7 +338,7 @@
 
 ### Patch Changes
 
-- [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
+- [#20650](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20650) [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
 - Updated dependencies
 
 ## 12.1.11
@@ -351,7 +351,7 @@
 
 ### Patch Changes
 
-- [`62edf20ab1e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/62edf20ab1e) - Migrates all usage of brand tokens to either selected or information tokens. This change is purely for semantic reasons, there are no visual or behavioural changes.
+- [#19618](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19618) [`62edf20ab1e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/62edf20ab1e) - Migrates all usage of brand tokens to either selected or information tokens. This change is purely for semantic reasons, there are no visual or behavioural changes.
 - Updated dependencies
 
 ## 12.1.9
@@ -370,7 +370,7 @@
 
 ### Patch Changes
 
-- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Updates usage of deprecated token names so they're aligned with the latest naming conventions. No UI or visual changes
+- [#16752](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16752) [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Updates usage of deprecated token names so they're aligned with the latest naming conventions. No UI or visual changes
 - Updated dependencies
 
 ## 12.1.6
@@ -383,7 +383,7 @@
 
 ### Patch Changes
 
-- [`f460cc7c411`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f460cc7c411) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving bundle size.
+- [#15998](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/15998) [`f460cc7c411`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f460cc7c411) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving bundle size.
 - Updated dependencies
 
 ## 12.1.4
@@ -396,7 +396,7 @@
 
 ### Patch Changes
 
-- [`192d35cfdbd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/192d35cfdbd) - Defaults native button usage to type="button" to prevent unintended submittig of forms.
+- [#15531](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/15531) [`192d35cfdbd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/192d35cfdbd) - Defaults native button usage to type="button" to prevent unintended submittig of forms.
 - [`f7d71a9ba09`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f7d71a9ba09) - Replaces visually hidden styles in component to instead use '@atlaskit/visually-hidden'.
 
 ## 12.1.2
@@ -415,7 +415,7 @@
 
 ### Minor Changes
 
-- [`89c0316aa2c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/89c0316aa2c) - Instrumented Calendar with the new theming package, `@atlaskit/tokens`. Tokens will be visible only in applications configured to use the new Tokens API (currently in alpha).These changes are intended to be interoperable with the legacy theme implementation. Legacy dark mode users should expect no visual or breaking changes.
+- [#13302](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13302) [`89c0316aa2c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/89c0316aa2c) - Instrumented Calendar with the new theming package, `@atlaskit/tokens`. Tokens will be visible only in applications configured to use the new Tokens API (currently in alpha).These changes are intended to be interoperable with the legacy theme implementation. Legacy dark mode users should expect no visual or breaking changes.
 
 ### Patch Changes
 
@@ -432,19 +432,19 @@
 
 ### Patch Changes
 
-- [`414b6216adf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/414b6216adf) - Upgrade date-fns to ^2.17
+- [#9328](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9328) [`414b6216adf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/414b6216adf) - Upgrade date-fns to ^2.17
 
 ## 12.0.1
 
 ### Patch Changes
 
-- [`378d1cef00f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/378d1cef00f) - Bump `@atlaskit/theme` to version `^11.3.0`.
+- [#12880](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12880) [`378d1cef00f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/378d1cef00f) - Bump `@atlaskit/theme` to version `^11.3.0`.
 
 ## 12.0.0
 
 ### Major Changes
 
-- [`4ab5a7e9069`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ab5a7e9069) - ### Major:
+- [#12328](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12328) [`4ab5a7e9069`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ab5a7e9069) - ### Major:
 
   Removes `defaultDisabled` prop, a stateless/uncontrolled variant of the `disabled` prop. As a stateless calendar would never change its disabled dates, this prop was unnecessary.
 
@@ -468,13 +468,13 @@
 
 ### Patch Changes
 
-- [`d6f7ff383cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6f7ff383cf) - Updates to development dependency `storybook-addon-performance`
+- [#12167](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12167) [`d6f7ff383cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6f7ff383cf) - Updates to development dependency `storybook-addon-performance`
 
 ## 11.1.0
 
 ### Minor Changes
 
-- [`d872280cff1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d872280cff1) - Calendar now exports a `WeekDay` type. This is the type used by the `weekStartDay` prop.
+- [#10230](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10230) [`d872280cff1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d872280cff1) - Calendar now exports a `WeekDay` type. This is the type used by the `weekStartDay` prop.
 
 ### Patch Changes
 
@@ -484,14 +484,14 @@
 
 ### Patch Changes
 
-- [`4eb2615652c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4eb2615652c) - Internal refactor to use common utils.
+- [#9756](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9756) [`4eb2615652c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4eb2615652c) - Internal refactor to use common utils.
 - Updated dependencies
 
 ## 11.0.0
 
 ### Major Changes
 
-- [`8ed4c2efc42`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8ed4c2efc42) - In this version we made calendar dramatically faster and lighter 🤩
+- [#9083](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9083) [`8ed4c2efc42`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8ed4c2efc42) - In this version we made calendar dramatically faster and lighter 🤩
 
   - General performance improvements
   - Moved from using tables to CSS grid to display the days
@@ -530,7 +530,7 @@
 
 ### Patch Changes
 
-- [`471e2431a7c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/471e2431a7c) - Downgrade back to date-fns 1.30.1
+- [#9299](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9299) [`471e2431a7c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/471e2431a7c) - Downgrade back to date-fns 1.30.1
   We discovered big bundle size increases associated with the date-fns upgrade.
   We're reverting the upgarde to investigate
 
@@ -538,13 +538,13 @@
 
 ### Patch Changes
 
-- [`70f0701c2e6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/70f0701c2e6) - Upgrade date-fns to 2.17
+- [#8291](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8291) [`70f0701c2e6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/70f0701c2e6) - Upgrade date-fns to 2.17
 
 ## 10.3.1
 
 ### Patch Changes
 
-- [`79c23df6340`](https://bitbucket.org/atlassian/atlassian-frontend/commits/79c23df6340) - Use injected package name and version for analytics instead of version.json.
+- [#8644](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8644) [`79c23df6340`](https://bitbucket.org/atlassian/atlassian-frontend/commits/79c23df6340) - Use injected package name and version for analytics instead of version.json.
 - [`42785088a12`](https://bitbucket.org/atlassian/atlassian-frontend/commits/42785088a12) - - Migrate old entry points to new one. Calendar now has only following exports:
 
   - **default export**. Can be imported like:
@@ -573,7 +573,7 @@
 
 ### Minor Changes
 
-- [`d069f7834ef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d069f7834ef) - Calendar now accepts a `weekStartDay` prop that controls which day of the week should be used at the start. This prop accepts the following values:
+- [#8178](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8178) [`d069f7834ef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d069f7834ef) - Calendar now accepts a `weekStartDay` prop that controls which day of the week should be used at the start. This prop accepts the following values:
 
   - `0` sunday (default value)
   - `1` monday
@@ -603,7 +603,7 @@
 
 ### Minor Changes
 
-- [`4dae77b2678`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4dae77b2678) - Calendar now accepts a `weekStartDay` prop that controls which day of the week should be used at the start. This prop accepts the following values:
+- [#8029](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8029) [`4dae77b2678`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4dae77b2678) - Calendar now accepts a `weekStartDay` prop that controls which day of the week should be used at the start. This prop accepts the following values:
 
   - `0` sunday (default value)
   - `1` monday
@@ -621,7 +621,7 @@
 
 ### Minor Changes
 
-- [`985961ce983`](https://bitbucket.org/atlassian/atlassian-frontend/commits/985961ce983) - Internal change from class to function components
+- [#7762](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/7762) [`985961ce983`](https://bitbucket.org/atlassian/atlassian-frontend/commits/985961ce983) - Internal change from class to function components
 
   - We have converted all the components from class to functional. This improved performance quite a bit. Initial rendering, hydration, interaction, bundlesize and re-rendering; all have been improved.
   - We have made all the prop typings optional now. Earlier they were not aligned with the prop values (which were all optional earlier).
@@ -634,13 +634,13 @@
 
 ### Patch Changes
 
-- [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
+- [#5857](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5857) [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
 
 ## 10.0.9
 
 ### Patch Changes
 
-- [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
+- [#5497](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5497) [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
   This requires version 3.8 of Typescript, read more about how we handle Typescript versions here: https://atlaskit.atlassian.com/get-started
   Also add `typescript` to `devDependencies` to denote version that the package was built with.
 
@@ -654,7 +654,7 @@
 
 ### Patch Changes
 
-- [`2ac834240e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2ac834240e) - Undo analytics-next file restructure to allow external ts definitions to continue working
+- [#5164](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5164) [`2ac834240e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2ac834240e) - Undo analytics-next file restructure to allow external ts definitions to continue working
 
 ## 10.0.6
 
@@ -666,26 +666,26 @@
 
 ### Patch Changes
 
-- [`b284fba3d1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b284fba3d1) - Components that had missing names are now fixed - this helps when looking for them using the React Dev Tools.
+- [#4649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4649) [`b284fba3d1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b284fba3d1) - Components that had missing names are now fixed - this helps when looking for them using the React Dev Tools.
 
 ## 10.0.4
 
 ### Patch Changes
 
-- [`6360c46009`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6360c46009) - Reenable integration tests for Edge browser
+- [#4707](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4707) [`6360c46009`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6360c46009) - Reenable integration tests for Edge browser
 
 ## 10.0.3
 
 ### Patch Changes
 
-- [`8598d0bd13`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8598d0bd13) - Remove unnecessary code and tests for IE11.
+- [#4424](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4424) [`8598d0bd13`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8598d0bd13) - Remove unnecessary code and tests for IE11.
 - Updated dependencies
 
 ## 10.0.2
 
 ### Patch Changes
 
-- [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
+- [#3885](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3885) [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
 
   Since tslib is a dependency for all our packages we recommend that products also follow this tslib upgrade
   to prevent duplicates of tslib being bundled.
@@ -694,14 +694,14 @@
 
 ### Patch Changes
 
-- [`6262f382de`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6262f382de) - Use the 'lodash' package instead of single-function 'lodash.\*' packages
+- [#3823](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3823) [`6262f382de`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6262f382de) - Use the 'lodash' package instead of single-function 'lodash.\*' packages
 - Updated dependencies
 
 ## 10.0.0
 
 ### Major Changes
 
-- [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
+- [#3335](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3335) [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
   For more information see: https://community.developer.atlassian.com/t/atlaskit-to-drop-support-for-internet-explorer-11-from-1st-july-2020/39534
 
 ### Patch Changes
@@ -712,13 +712,13 @@
 
 ### Patch Changes
 
-- [`69643331c3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/69643331c3) - Prevent day names table header from wrapping into two line
+- [#2443](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2443) [`69643331c3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/69643331c3) - Prevent day names table header from wrapping into two line
 
 ## 9.2.9
 
 ### Patch Changes
 
-- [`54a9514fcf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54a9514fcf) - Build and supporting files will no longer be published to npm
+- [#2866](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2866) [`54a9514fcf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54a9514fcf) - Build and supporting files will no longer be published to npm
 
 ## 9.2.8
 

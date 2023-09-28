@@ -34,25 +34,25 @@
 
 ### Patch Changes
 
-- [`61cb5313358`](https://bitbucket.org/atlassian/atlassian-frontend/commits/61cb5313358) - Removing unused dependencies and dev dependencies
+- [#34443](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34443) [`61cb5313358`](https://bitbucket.org/atlassian/atlassian-frontend/commits/61cb5313358) - Removing unused dependencies and dev dependencies
 
 ## 0.11.2
 
 ### Patch Changes
 
-- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793) [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
 
 ## 0.11.1
 
 ### Patch Changes
 
-- [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649) [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
 
 ## 0.11.0
 
 ### Minor Changes
 
-- [`9fd8556db17`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9fd8556db17) - Internal folder name structure change
+- [#33344](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33344) [`9fd8556db17`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9fd8556db17) - Internal folder name structure change
 
 ### Patch Changes
 
@@ -62,7 +62,7 @@
 
 ### Minor Changes
 
-- [`34ed7b2ec63`](https://bitbucket.org/atlassian/atlassian-frontend/commits/34ed7b2ec63) - We have changed the name of our drag and drop packages to align on the single name of "Pragmatic drag and drop"
+- [#33262](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33262) [`34ed7b2ec63`](https://bitbucket.org/atlassian/atlassian-frontend/commits/34ed7b2ec63) - We have changed the name of our drag and drop packages to align on the single name of "Pragmatic drag and drop"
 
   ```diff
   - @atlaskit/drag-and-drop
@@ -98,7 +98,7 @@
 
 ### Minor Changes
 
-- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258) [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
 
 ### Patch Changes
 
@@ -108,19 +108,19 @@
 
 ### Patch Changes
 
-- [`2e01c9c74b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e01c9c74b5) - DUMMY remove before merging to master; dupe adf-schema via adf-utils
+- [#32424](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32424) [`2e01c9c74b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e01c9c74b5) - DUMMY remove before merging to master; dupe adf-schema via adf-utils
 
 ## 0.8.0
 
 ### Minor Changes
 
-- [`a7dc73c0a57`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a7dc73c0a57) - Internal refactor: implemented a cheaper mechanism to enable memoization of tree item data
+- [#32145](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32145) [`a7dc73c0a57`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a7dc73c0a57) - Internal refactor: implemented a cheaper mechanism to enable memoization of tree item data
 
 ## 0.7.0
 
 ### Minor Changes
 
-- [`00434d087d7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/00434d087d7) - Tree item hitbox data is now memoized. This is helpful to reduce work for consumers who may take actions based on object reference changes.
+- [#32051](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32051) [`00434d087d7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/00434d087d7) - Tree item hitbox data is now memoized. This is helpful to reduce work for consumers who may take actions based on object reference changes.
 
   If you are using `react` and putting tree item hitbox instructions into state, react will now only re-render when the content of the instruction changes.
 
@@ -146,13 +146,13 @@
 
 ### Minor Changes
 
-- [`179d953be18`](https://bitbucket.org/atlassian/atlassian-frontend/commits/179d953be18) - [ux] Tweaking the hitbox of "expanded" tree items to improve the experience when expanding tree items during a drag. Note: our tree item hitbox is still _experimental_
+- [#31289](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31289) [`179d953be18`](https://bitbucket.org/atlassian/atlassian-frontend/commits/179d953be18) - [ux] Tweaking the hitbox of "expanded" tree items to improve the experience when expanding tree items during a drag. Note: our tree item hitbox is still _experimental_
 
 ## 0.5.0
 
 ### Minor Changes
 
-- [`90901f5bbe0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/90901f5bbe0) - Replace default entry point of `undefined` with `{}`.
+- [#30953](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/30953) [`90901f5bbe0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/90901f5bbe0) - Replace default entry point of `undefined` with `{}`.
 
   > **NOTE:** Importing from the default entry point isn't supported.
   > _Please use individual entry points in order to always obtain minimum kbs._
@@ -171,7 +171,7 @@
 
 ### Minor Changes
 
-- [`fe6772a3719`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fe6772a3719) - Dramatic update to **experimental** tree-item outputs. These outputs should only be used right now by Confluence Page Tree. Changes are being communicated face to face with Confluence team members
+- [#29945](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/29945) [`fe6772a3719`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fe6772a3719) - Dramatic update to **experimental** tree-item outputs. These outputs should only be used right now by Confluence Page Tree. Changes are being communicated face to face with Confluence team members
 
 ## 0.3.2
 
@@ -189,7 +189,7 @@
 
 ### Minor Changes
 
-- [`f004dadb4fc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f004dadb4fc) - `reorderWithEdge` has changed API in order to more accurately reflect the values that are being passed in
+- [#26934](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26934) [`f004dadb4fc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f004dadb4fc) - `reorderWithEdge` has changed API in order to more accurately reflect the values that are being passed in
 
   ```diff
   function reorderWithEdge<Value>(args: {
@@ -251,7 +251,7 @@
 
 ### Patch Changes
 
-- [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
+- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874) [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
 
 ## 0.2.5
 
@@ -287,7 +287,7 @@
 
 ### Minor Changes
 
-- [`dcebdf9404e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dcebdf9404e) - We have improved our naming consistency across our drag and drop packages.
+- [#24613](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24613) [`dcebdf9404e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dcebdf9404e) - We have improved our naming consistency across our drag and drop packages.
 
   - `@atlaskit/drag-and-drop-hitbox/closest-edge` has been renamed to `@atlaskit/drag-and-drop-hitbox/addon/closest-edge`
   - `@atlaskit/drag-and-drop-hitbox/reorder-with-edge` has been renamed to `@atlaskit/drag-and-drop-hitbox/util/reorder-with-edge`
@@ -300,7 +300,7 @@
 
 ### Minor Changes
 
-- [`73427c38077`](https://bitbucket.org/atlassian/atlassian-frontend/commits/73427c38077) - Initial release of `@atlaskit/drag-and-drop` packages 🎉
+- [#24532](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24532) [`73427c38077`](https://bitbucket.org/atlassian/atlassian-frontend/commits/73427c38077) - Initial release of `@atlaskit/drag-and-drop` packages 🎉
 
 ### Patch Changes
 
@@ -310,5 +310,5 @@
 
 ### Patch Changes
 
-- [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
+- [#24492](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24492) [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
 - Updated dependencies

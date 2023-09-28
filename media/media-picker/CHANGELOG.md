@@ -4,13 +4,13 @@
 
 ### Patch Changes
 
-- [`b4e36677fdb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b4e36677fdb) - Batch 255 items for 'addFilesWithSource' due to backend limits
+- [#40574](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40574) [`b4e36677fdb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b4e36677fdb) - Batch 255 items for 'addFilesWithSource' due to backend limits
 
 ## 66.2.4
 
 ### Patch Changes
 
-- [`dcef48fcb56`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dcef48fcb56) - Dependency for @types/enzyme set as static as the following patch version contains a breaking change
+- [#40009](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40009) [`dcef48fcb56`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dcef48fcb56) - Dependency for @types/enzyme set as static as the following patch version contains a breaking change
 
 ## 66.2.3
 
@@ -22,7 +22,7 @@
 
 ### Patch Changes
 
-- [`7b6a2c6671b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7b6a2c6671b) - Introducing 'media-state' for handling media internal file state.
+- [#38532](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38532) [`7b6a2c6671b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7b6a2c6671b) - Introducing 'media-state' for handling media internal file state.
   Introducing 'media-client-react' to provide hooks for seamless media-client integration with React.
   Introducing 'MediaCardV2' with a feature flag to replace rxjs based fileState subscription with 'useFileState' hook.
   Removed unused feature flags APIs from 'media-client' and its helper functions from 'media-common'.
@@ -32,14 +32,14 @@
 
 ### Patch Changes
 
-- [`ede6ee7aaab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ede6ee7aaab) - Updated tests, examples and moving towards /test-helper export in packages to prevent circular dependancies
+- [#39255](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39255) [`ede6ee7aaab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ede6ee7aaab) - Updated tests, examples and moving towards /test-helper export in packages to prevent circular dependancies
 - Updated dependencies
 
 ## 66.2.0
 
 ### Minor Changes
 
-- [`b06cd74349c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b06cd74349c) - # Media Picker
+- [#39007](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39007) [`b06cd74349c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b06cd74349c) - # Media Picker
 
   Make Clipboard secured by adding `container` and `onPaste()` to `config` `prop`. These two params address customer dissatisfaction when attachments are pasted duplicated, or to unwanted Jira issues (https://product-fabric.atlassian.net/browse/MEX-2454).
 
@@ -78,25 +78,25 @@
 
 ### Patch Changes
 
-- [`b9355830504`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b9355830504) - Opt out of peer dependency enforcement
+- [#37340](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37340) [`b9355830504`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b9355830504) - Opt out of peer dependency enforcement
 
 ## 66.1.2
 
 ### Patch Changes
 
-- [`3fb20c4aeba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3fb20c4aeba) - Add postinstall check to enforce internal peer dependencies
+- [#36757](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36757) [`3fb20c4aeba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3fb20c4aeba) - Add postinstall check to enforce internal peer dependencies
 
 ## 66.1.1
 
 ### Patch Changes
 
-- [`c5a5b4ec141`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c5a5b4ec141) - Reverted back the changes done as part of UTEST-643
+- [#35804](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35804) [`c5a5b4ec141`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c5a5b4ec141) - Reverted back the changes done as part of UTEST-643
 
 ## 66.1.0
 
 ### Minor Changes
 
-- [`8c7beee89c0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8c7beee89c0) - Multiple simultaneous uploads above 255 files are batched due to backend restrictions
+- [#35735](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35735) [`8c7beee89c0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8c7beee89c0) - Multiple simultaneous uploads above 255 files are batched due to backend restrictions
 
 ### Patch Changes
 
@@ -106,13 +106,13 @@
 
 ### Patch Changes
 
-- [`1add49b7bf7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1add49b7bf7) - Updated the babel config file extension to .cts to enable Parcel to support ts/tsx file extensions by default through parcel.
+- [#35057](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35057) [`1add49b7bf7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1add49b7bf7) - Updated the babel config file extension to .cts to enable Parcel to support ts/tsx file extensions by default through parcel.
 
 ## 66.0.3
 
 ### Patch Changes
 
-- [`48e4a655534`](https://bitbucket.org/atlassian/atlassian-frontend/commits/48e4a655534) - Internal change to enforce token usage for spacing properties. There is no expected visual or behaviour change.
+- [#33728](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33728) [`48e4a655534`](https://bitbucket.org/atlassian/atlassian-frontend/commits/48e4a655534) - Internal change to enforce token usage for spacing properties. There is no expected visual or behaviour change.
 
 ## 66.0.2
 
@@ -124,20 +124,20 @@
 
 ### Patch Changes
 
-- [`bb442ced942`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bb442ced942) - Remove newCardExperience feature flag
+- [#34887](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34887) [`bb442ced942`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bb442ced942) - Remove newCardExperience feature flag
 - Updated dependencies
 
 ## 66.0.0
 
 ### Major Changes
 
-- [`a7281dbb78f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a7281dbb78f) - Moved onFileRejection prop to Upload params and added file-size-limit API changes to /upload endpoint
+- [#34814](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34814) [`a7281dbb78f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a7281dbb78f) - Moved onFileRejection prop to Upload params and added file-size-limit API changes to /upload endpoint
 
 ## 65.1.3
 
 ### Patch Changes
 
-- [`cc299ebb3b4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cc299ebb3b4) - Added unhandled file statuses to the upload event emitter
+- [#34192](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34192) [`cc299ebb3b4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cc299ebb3b4) - Added unhandled file statuses to the upload event emitter
 - [`9425ed86eb7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9425ed86eb7) - File size limit is now verified in the backend, no longer the frontend
 - [`e725edbb0d9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e725edbb0d9) - Removed fetchFileStateAfterUpload Feature Flag integration
 - Updated dependencies
@@ -146,20 +146,20 @@
 
 ### Patch Changes
 
-- [`4ed8a9b7d81`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ed8a9b7d81) - Added numeric-seperator babel preset to media picker
+- [#33835](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33835) [`4ed8a9b7d81`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ed8a9b7d81) - Added numeric-seperator babel preset to media picker
 
 ## 65.1.1
 
 ### Patch Changes
 
-- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793) [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
 - Updated dependencies
 
 ## 65.1.0
 
 ### Minor Changes
 
-- [`4a6a812a4d2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4a6a812a4d2) - [ux] Add a user friendly error message when uploading a file that is over the file size limit
+- [#33771](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33771) [`4a6a812a4d2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4a6a812a4d2) - [ux] Add a user friendly error message when uploading a file that is over the file size limit
 
 ### Patch Changes
 
@@ -170,14 +170,14 @@
 
 ### Patch Changes
 
-- [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649) [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
 - Updated dependencies
 
 ## 65.0.0
 
 ### Minor Changes
 
-- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258) [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
 
 ### Patch Changes
 
@@ -187,7 +187,7 @@
 
 ### Minor Changes
 
-- [`1df7534fc12`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1df7534fc12) - [ux] Introduce file size limits when uploading
+- [#33004](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33004) [`1df7534fc12`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1df7534fc12) - [ux] Introduce file size limits when uploading
 
 ### Patch Changes
 
@@ -197,27 +197,27 @@
 
 ### Patch Changes
 
-- [`2e01c9c74b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e01c9c74b5) - DUMMY remove before merging to master; dupe adf-schema via adf-utils
+- [#32424](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32424) [`2e01c9c74b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e01c9c74b5) - DUMMY remove before merging to master; dupe adf-schema via adf-utils
 - Updated dependencies
 
 ## 64.3.0
 
 ### Minor Changes
 
-- [`c213d7f6cfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c213d7f6cfb) - Expose Expiry After parameter for Media Backend
+- [#31891](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31891) [`c213d7f6cfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c213d7f6cfb) - Expose Expiry After parameter for Media Backend
 
 ## 64.2.4
 
 ### Patch Changes
 
-- [`b37723f2cfa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b37723f2cfa) - The component now logs the full provided feature flags object
+- [#31299](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31299) [`b37723f2cfa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b37723f2cfa) - The component now logs the full provided feature flags object
 - Updated dependencies
 
 ## 64.2.3
 
 ### Patch Changes
 
-- [`0e2981295ce`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0e2981295ce) - Media Picker passes feature flags object through Media Client upload method, overriding internal Media Client flags
+- [#31582](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31582) [`0e2981295ce`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0e2981295ce) - Media Picker passes feature flags object through Media Client upload method, overriding internal Media Client flags
 - Updated dependencies
 
 ## 64.2.2
@@ -236,7 +236,7 @@
 
 ### Minor Changes
 
-- [`2b3859896cc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2b3859896cc) - Added new Feature Flag to control internal Media Client behaviour
+- [#28932](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28932) [`2b3859896cc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2b3859896cc) - Added new Feature Flag to control internal Media Client behaviour
 
 ### Patch Changes
 
@@ -252,7 +252,7 @@
 
 ### Minor Changes
 
-- [`3d40d5e9b37`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3d40d5e9b37) - Add traceId for media picker when uploading file(s)
+- [#28090](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28090) [`3d40d5e9b37`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3d40d5e9b37) - Add traceId for media picker when uploading file(s)
 - [`9ba2183f9e6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9ba2183f9e6) - Updated Media-Picker documentation with new tab structure and simpler usage example
 - [`0bccac57db6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0bccac57db6) - remove mediaUploadApiV2 Feature flag
 
@@ -276,34 +276,34 @@
 
 ### Patch Changes
 
-- [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
+- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874) [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
 - Updated dependencies
 
 ## 63.0.5
 
 ### Patch Changes
 
-- [`45b6d35ea96`](https://bitbucket.org/atlassian/atlassian-frontend/commits/45b6d35ea96) - [ME-1327] Added new upload methods to editor mobile bridge to support previews and progress for media cards.
+- [#24004](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24004) [`45b6d35ea96`](https://bitbucket.org/atlassian/atlassian-frontend/commits/45b6d35ea96) - [ME-1327] Added new upload methods to editor mobile bridge to support previews and progress for media cards.
 
 ## 63.0.4
 
 ### Patch Changes
 
-- [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
+- [#24492](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24492) [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
 - Updated dependencies
 
 ## 63.0.3
 
 ### Patch Changes
 
-- [`a332288b5ea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a332288b5ea) - Added analytics for media-card memoryCacheLogging and added relevant featureFlag keys for media-common package.
+- [#23381](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23381) [`a332288b5ea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a332288b5ea) - Added analytics for media-card memoryCacheLogging and added relevant featureFlag keys for media-common package.
 - Updated dependencies
 
 ## 63.0.2
 
 ### Patch Changes
 
-- [`e3d4c39b20c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e3d4c39b20c) - Remove version.json file.
+- [#22642](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22642) [`e3d4c39b20c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e3d4c39b20c) - Remove version.json file.
   Use injected package name and version from environment variable instead.
 - Updated dependencies
 
@@ -317,7 +317,7 @@
 
 ### Major Changes
 
-- [`e9de546cfc7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e9de546cfc7) - Migrate to emotion from styled-components
+- [#21570](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21570) [`e9de546cfc7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e9de546cfc7) - Migrate to emotion from styled-components
 
 ### Minor Changes
 
@@ -335,7 +335,7 @@
 
 ### Major Changes
 
-- [`ad13b4d0bc6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ad13b4d0bc6) - [MEX-1525] Remove userAuth from Media-Core & Media-client
+- [#20721](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20721) [`ad13b4d0bc6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ad13b4d0bc6) - [MEX-1525] Remove userAuth from Media-Core & Media-client
 
 ### Minor Changes
 
@@ -352,14 +352,14 @@
 
 ### Patch Changes
 
-- [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
+- [#20650](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20650) [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
 - Updated dependencies
 
 ## 61.0.0
 
 ### Major Changes
 
-- [`8f86bfe1961`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f86bfe1961) - [MEX-1389] Remove types & interfaces related to media-picker popup
+- [#20033](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20033) [`8f86bfe1961`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f86bfe1961) - [MEX-1389] Remove types & interfaces related to media-picker popup
 - [`675613ff0f4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/675613ff0f4) - [MEX-1390] Remove Media-picker popup as an export and remove useMediaPickerPopup flag
 
 ### Minor Changes
@@ -376,7 +376,7 @@
 
 ### Minor Changes
 
-- [`acb60e0107d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/acb60e0107d) - Replicate Media Picker Reliability Events using UFO client library
+- [#19618](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19618) [`acb60e0107d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/acb60e0107d) - Replicate Media Picker Reliability Events using UFO client library
 - [`fdc41ee7a0b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fdc41ee7a0b) - Stop exposing observableToPromise from media client API.
   mediaSubscribableToPromise is used internally.
 - [`f862d5ae7aa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f862d5ae7aa) - remove RxJs peer dependency
@@ -466,7 +466,7 @@
 
 ### Minor Changes
 
-- [`8742dbe70bd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8742dbe70bd) - MEX-1102 Removed lodash dependencies from media component and converted all to local functions (lightweight helpers)
+- [#19019](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19019) [`8742dbe70bd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8742dbe70bd) - MEX-1102 Removed lodash dependencies from media component and converted all to local functions (lightweight helpers)
 
 ### Patch Changes
 
@@ -477,13 +477,13 @@
 
 ### Patch Changes
 
-- [`6a5dc78b511`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6a5dc78b511) - Remove dateformat from media packages
+- [#19261](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19261) [`6a5dc78b511`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6a5dc78b511) - Remove dateformat from media packages
 
 ## 59.0.3
 
 ### Patch Changes
 
-- [`6d50e8c688e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6d50e8c688e) - Flexible UI: Add priority badge element
+- [#18526](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/18526) [`6d50e8c688e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6d50e8c688e) - Flexible UI: Add priority badge element
 - [`ef080793757`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ef080793757) - stop caching observable in UploadServiceImpl
 - Updated dependencies
 
@@ -491,20 +491,20 @@
 
 ### Patch Changes
 
-- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Removed Usage of "api-private." URL in Media Picker extensibility component
+- [#16752](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16752) [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Removed Usage of "api-private." URL in Media Picker extensibility component
 - Updated dependencies
 
 ## 59.0.1
 
 ### Patch Changes
 
-- [`c55c736ecea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c55c736ecea) - Patch VULN AFP-3486 AFP-3487 AFP-3488 AFP-3489
+- [#17475](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/17475) [`c55c736ecea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c55c736ecea) - Patch VULN AFP-3486 AFP-3487 AFP-3488 AFP-3489
 
 ## 59.0.0
 
 ### Major Changes
 
-- [`47f58da5946`](https://bitbucket.org/atlassian/atlassian-frontend/commits/47f58da5946) - ED-13322, ED-13324, ED-13326, ED-13323, ED-13204: Upgrade and support react-intl@^5.18.1 including breaking API changes, types and tests in atlassian-frontend packages
+- [#14810](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/14810) [`47f58da5946`](https://bitbucket.org/atlassian/atlassian-frontend/commits/47f58da5946) - ED-13322, ED-13324, ED-13326, ED-13323, ED-13204: Upgrade and support react-intl@^5.18.1 including breaking API changes, types and tests in atlassian-frontend packages
 
   What changed: Upgraded our react-intl support from ^2.6.0 to ^5.18.1. This means editor packages now rely on consumers installing ^5.18.1, otherwise editor usage of react-intl will mismatch with actual installed react-intl APIs.
   Why change was made: As part of a coordinated upgrade effort across AF packages, as react-intl v2 is quite dated.
@@ -550,7 +550,7 @@
 
 ### Patch Changes
 
-- [`89aa3e3f314`](https://bitbucket.org/atlassian/atlassian-frontend/commits/89aa3e3f314) - Update dependency of dropdown menu to the lite mode version. Update all usages to cater to the new API. The padding within dropdown menu items is 8px more, which makes the menu look bigger.
+- [#15998](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/15998) [`89aa3e3f314`](https://bitbucket.org/atlassian/atlassian-frontend/commits/89aa3e3f314) - Update dependency of dropdown menu to the lite mode version. Update all usages to cater to the new API. The padding within dropdown menu items is 8px more, which makes the menu look bigger.
 - Updated dependencies
 
 ## 58.1.2
@@ -569,7 +569,7 @@
 
 ### Minor Changes
 
-- [`5e6fa1c70a5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5e6fa1c70a5) - fix unit tests for modal dialog
+- [#13864](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13864) [`5e6fa1c70a5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5e6fa1c70a5) - fix unit tests for modal dialog
 - [`9c0241362a6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9c0241362a6) - [ux] Upgrade to the latest version of @atlaskit/modal-dialog. This change includes shifting the primary button in the footer of the modal to be on the right instead of the left.
 
 ### Patch Changes
@@ -586,7 +586,7 @@
 
 ### Minor Changes
 
-- [`f7ff2c84451`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f7ff2c84451) - bump json-ld-types from 2.2.2 to ^2.3.0"
+- [#11113](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/11113) [`f7ff2c84451`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f7ff2c84451) - bump json-ld-types from 2.2.2 to ^2.3.0"
 - [`2fd50f55028`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2fd50f55028) - Updating documentation to inform users that soon picker popup will no longer be available and also getting rid of picker popup references in examples and all the associated dependencies
 - [`f7f652aaefb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f7f652aaefb) - [ux] Removing sidebar items (googledrive/dropbox/giphy) from popup as popup is being deprecated
 
@@ -601,7 +601,7 @@
 
 ### Minor Changes
 
-- [`8bf3df4d99b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8bf3df4d99b) - Accept single fileId for Browser component uploads
+- [#10569](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10569) [`8bf3df4d99b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8bf3df4d99b) - Accept single fileId for Browser component uploads
 
 ### Patch Changes
 
@@ -612,34 +612,34 @@
 
 ### Patch Changes
 
-- [`277ed9667b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/277ed9667b2) - Fixed media bundle names following atlassian-frontend linting rules
+- [#10230](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10230) [`277ed9667b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/277ed9667b2) - Fixed media bundle names following atlassian-frontend linting rules
 - Updated dependencies
 
 ## 57.3.3
 
 ### Patch Changes
 
-- [`153f5588cab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/153f5588cab) - VULN-328572 - Upgrade dateformat to address security vuln
+- [#10206](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10206) [`153f5588cab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/153f5588cab) - VULN-328572 - Upgrade dateformat to address security vuln
 
 ## 57.3.2
 
 ### Patch Changes
 
-- [`abc38bc9990`](https://bitbucket.org/atlassian/atlassian-frontend/commits/abc38bc9990) - Added request metadata to failed frontend SLIs
+- [#9510](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9510) [`abc38bc9990`](https://bitbucket.org/atlassian/atlassian-frontend/commits/abc38bc9990) - Added request metadata to failed frontend SLIs
 - Updated dependencies
 
 ## 57.3.1
 
 ### Patch Changes
 
-- [`d6b31d9713d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6b31d9713d) - Fixed uncaught exceptions when uploading MP4/HEVC
+- [#9083](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9083) [`d6b31d9713d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6b31d9713d) - Fixed uncaught exceptions when uploading MP4/HEVC
 - Updated dependencies
 
 ## 57.3.0
 
 ### Minor Changes
 
-- [`0476f13a5ef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0476f13a5ef) - Refactored media-picker analytics according to SLO streams standards
+- [#8644](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8644) [`0476f13a5ef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0476f13a5ef) - Refactored media-picker analytics according to SLO streams standards
 
 ### Patch Changes
 
@@ -652,7 +652,7 @@
 
 ### Minor Changes
 
-- [`52013ecdd24`](https://bitbucket.org/atlassian/atlassian-frontend/commits/52013ecdd24) - Add an ability to create Browser component with children using render props pattern to avoid passing state around in parent components.
+- [#7762](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/7762) [`52013ecdd24`](https://bitbucket.org/atlassian/atlassian-frontend/commits/52013ecdd24) - Add an ability to create Browser component with children using render props pattern to avoid passing state around in parent components.
 
 ### Patch Changes
 
@@ -662,14 +662,14 @@
 
 ### Patch Changes
 
-- [`a4e37d0df4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a4e37d0df4) - Fix EDM-1636 again
+- [#7425](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/7425) [`a4e37d0df4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a4e37d0df4) - Fix EDM-1636 again
 - Updated dependencies
 
 ## 57.1.2
 
 ### Patch Changes
 
-- [`7c44d1e585`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7c44d1e585) - Fixed cards with non web-friendly MP4/MOV videos not mounting
+- [#7170](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/7170) [`7c44d1e585`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7c44d1e585) - Fixed cards with non web-friendly MP4/MOV videos not mounting
 - Updated dependencies
 
 ## 57.1.1
@@ -682,7 +682,7 @@
 
 ### Minor Changes
 
-- [`11d6640e9c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/11d6640e9c) - [ux] New UI states for when a card is rate limited
+- [#6571](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/6571) [`11d6640e9c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/11d6640e9c) - [ux] New UI states for when a card is rate limited
 
 ### Patch Changes
 
@@ -692,21 +692,21 @@
 
 ### Patch Changes
 
-- [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
+- [#5857](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5857) [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
 - Updated dependencies
 
 ## 57.0.0
 
 ### Patch Changes
 
-- [`d152b2062a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d152b2062a) - Changing ineffective usage of data-testid on internal uploadButton to testId
+- [#5860](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5860) [`d152b2062a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d152b2062a) - Changing ineffective usage of data-testid on internal uploadButton to testId
 - Updated dependencies
 
 ## 56.0.4
 
 ### Patch Changes
 
-- [`52b1353be9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/52b1353be9) - BMT-611 Added integration test for Giphy cloud files
+- [#5516](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5516) [`52b1353be9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/52b1353be9) - BMT-611 Added integration test for Giphy cloud files
 - [`3f0dd38c9d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3f0dd38c9d) - BMPT-626 Fixed fetching remote preview for non-supported documents in classic Media Card experience
 - [`bf98a47a0f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bf98a47a0f) - Enhance polling strategy to limit to finite attempts with timing backoff
 - Updated dependencies
@@ -715,7 +715,7 @@
 
 ### Patch Changes
 
-- [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
+- [#5497](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5497) [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
   This requires version 3.8 of Typescript, read more about how we handle Typescript versions here: https://atlaskit.atlassian.com/get-started
   Also add `typescript` to `devDependencies` to denote version that the package was built with.
 - Updated dependencies
@@ -730,13 +730,13 @@
 
 ### Patch Changes
 
-- [`2ac834240e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2ac834240e) - Undo analytics-next file restructure to allow external ts definitions to continue working
+- [#5164](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5164) [`2ac834240e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2ac834240e) - Undo analytics-next file restructure to allow external ts definitions to continue working
 
 ## 56.0.0
 
 ### Minor Changes
 
-- [`df3bf7f77f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/df3bf7f77f) - Added support for uploading files from MediaPicker. Additionally, added support for browser detection.
+- [#4749](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4749) [`df3bf7f77f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/df3bf7f77f) - Added support for uploading files from MediaPicker. Additionally, added support for browser detection.
 - [`96ab8c45fc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/96ab8c45fc) - Changing the text in the picker in the UI so that users now know they can drag&drop folders
 - [`7d831363d9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7d831363d9) - Migrated to declarative entry points
 - [`b3e730ddde`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b3e730ddde) - When a folder is uploaded, we are now tracking this and firing analytics for this event
@@ -749,7 +749,7 @@
 
 ### Patch Changes
 
-- [`8687140735`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8687140735) - [ux] Fix for file processing blocking pages and tickets from saving.
+- [#4769](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4769) [`8687140735`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8687140735) - [ux] Fix for file processing blocking pages and tickets from saving.
 - Updated dependencies
 
 ## 55.1.1
@@ -762,7 +762,7 @@
 
 ### Minor Changes
 
-- [`4c3cc9c1d6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4c3cc9c1d6) - add media feature flags to media-picker
+- [#4424](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4424) [`4c3cc9c1d6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4c3cc9c1d6) - add media feature flags to media-picker
 
 ### Patch Changes
 
@@ -774,7 +774,7 @@
 
 ### Patch Changes
 
-- [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
+- [#3885](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3885) [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
 
   Since tslib is a dependency for all our packages we recommend that products also follow this tslib upgrade
   to prevent duplicates of tslib being bundled.
@@ -783,13 +783,13 @@
 
 ### Patch Changes
 
-- [`76165ad82f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/76165ad82f) - Bump required because of conflicts on wadmal release
+- [#4393](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4393) [`76165ad82f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/76165ad82f) - Bump required because of conflicts on wadmal release
 
 ## 55.0.2
 
 ### Patch Changes
 
-- [`6262f382de`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6262f382de) - Use the 'lodash' package instead of single-function 'lodash.\*' packages
+- [#3823](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3823) [`6262f382de`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6262f382de) - Use the 'lodash' package instead of single-function 'lodash.\*' packages
 - [`fa6fb5dfbb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fa6fb5dfbb) - Removing unused code to be published
 - [`caf46c7c45`](https://bitbucket.org/atlassian/atlassian-frontend/commits/caf46c7c45) - Improved remote preview functionality for media-card redesign.
   Breaking change: renamed type of argument "SourceFile" to "CopySourceFile" in the method "copyFile" of media-client.
@@ -808,7 +808,7 @@
 
 ### Major Changes
 
-- [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
+- [#3335](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3335) [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
   For more information see: https://community.developer.atlassian.com/t/atlaskit-to-drop-support-for-internet-explorer-11-from-1st-july-2020/39534
 
 ### Patch Changes
@@ -819,26 +819,26 @@
 
 ### Patch Changes
 
-- [`dfd656e4ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dfd656e4ec) - MPT-503: fixed dragndrop of non-natively supported files in editor
+- [#2763](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2763) [`dfd656e4ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dfd656e4ec) - MPT-503: fixed dragndrop of non-natively supported files in editor
 - Updated dependencies
 
 ## 54.2.2
 
 ### Patch Changes
 
-- [`81c6a2fcb2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/81c6a2fcb2) - Fixed potential exception when synchronously accessing uninitialized RxJS subscription.
+- [#2979](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2979) [`81c6a2fcb2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/81c6a2fcb2) - Fixed potential exception when synchronously accessing uninitialized RxJS subscription.
 
 ## 54.2.1
 
 ### Patch Changes
 
-- [`eac08411a3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eac08411a3) - Updated react-redux dependency to 5.1.0
+- [#3229](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3229) [`eac08411a3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eac08411a3) - Updated react-redux dependency to 5.1.0
 
 ## 54.2.0
 
 ### Minor Changes
 
-- [`62269a3e45`](https://bitbucket.org/atlassian/atlassian-frontend/commits/62269a3e45) - Added undefined links
+- [#2443](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2443) [`62269a3e45`](https://bitbucket.org/atlassian/atlassian-frontend/commits/62269a3e45) - Added undefined links
 
 ### Patch Changes
 
@@ -851,7 +851,7 @@
 
 ### Patch Changes
 
-- [`a2ffde361d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a2ffde361d) - MPT-131: fetch remote preview for files not supported by the browser
+- [#2137](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2137) [`a2ffde361d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a2ffde361d) - MPT-131: fetch remote preview for files not supported by the browser
 - [`54d82b49f0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54d82b49f0) - Remove unused dependencies
 - [`fce18ac290`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fce18ac290) - adding `createdAt` field for analytics upload event when user inserts a file'
 - [`2d2012a993`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2d2012a993) - Adding `mediaRegion` payload into analytics events payload
@@ -868,7 +868,7 @@
 
 ### Patch Changes
 
-- [`9848dca5c7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9848dca5c7) - Updated json-ld-types to 2.1.0- Updated dependencies
+- [#1868](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/1868) [`9848dca5c7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9848dca5c7) - Updated json-ld-types to 2.1.0- Updated dependencies
 
 ## 54.1.1
 

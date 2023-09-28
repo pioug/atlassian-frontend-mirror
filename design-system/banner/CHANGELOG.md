@@ -4,32 +4,32 @@
 
 ### Patch Changes
 
-- [`9af31f3c1ae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9af31f3c1ae) - Delete version.json
+- [#38731](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38731) [`9af31f3c1ae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9af31f3c1ae) - Delete version.json
 
 ## 12.1.16
 
 ### Patch Changes
 
-- [`56b444b56a8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56b444b56a8) - Fix a bug where text descenders were cut off at high zoom levels on Windows
+- [#38209](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38209) [`56b444b56a8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56b444b56a8) - Fix a bug where text descenders were cut off at high zoom levels on Windows
 
 ## 12.1.15
 
 ### Patch Changes
 
-- [`1ed303de3e8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1ed303de3e8) - Updated dependencies
-- [`95401cac781`](https://bitbucket.org/atlassian/atlassian-frontend/commits/95401cac781) - Internal change to component composition. There is no expected change.
+- [#37533](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37533) [`1ed303de3e8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1ed303de3e8) - Updated dependencies
+- [#37419](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37419) [`95401cac781`](https://bitbucket.org/atlassian/atlassian-frontend/commits/95401cac781) - Internal change to component composition. There is no expected change.
 
 ## 12.1.14
 
 ### Patch Changes
 
-- [`4ae083a7e66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ae083a7e66) - Use `@af/accessibility-testing` for default jest-axe config and jest-axe import in accessibility testing.
+- [#36754](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36754) [`4ae083a7e66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ae083a7e66) - Use `@af/accessibility-testing` for default jest-axe config and jest-axe import in accessibility testing.
 
 ## 12.1.13
 
 ### Patch Changes
 
-- [`7e4085cd951`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7e4085cd951) - Allow caret version range in @atlaskit/primitives dependency.
+- [#36412](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36412) [`7e4085cd951`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7e4085cd951) - Allow caret version range in @atlaskit/primitives dependency.
 
 ## 12.1.12
 
@@ -65,20 +65,20 @@
 
 ### Patch Changes
 
-- [`529814693a1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/529814693a1) - Pin version of @atlaskit/primitives so it resolves to correct version
+- [#35337](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35337) [`529814693a1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/529814693a1) - Pin version of @atlaskit/primitives so it resolves to correct version
 
 ## 12.1.6
 
 ### Patch Changes
 
-- [`b8b41649492`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b8b41649492) - Update how certain background colors are referenced by name. Internal changes only.
+- [#33833](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33833) [`b8b41649492`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b8b41649492) - Update how certain background colors are referenced by name. Internal changes only.
 - Updated dependencies
 
 ## 12.1.5
 
 ### Patch Changes
 
-- [`779727e307a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/779727e307a) - Internal change only. Replace all instances of Box with stable @atlaskit/primitives version.
+- [#34922](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34922) [`779727e307a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/779727e307a) - Internal change only. Replace all instances of Box with stable @atlaskit/primitives version.
 
 ## 12.1.4
 
@@ -90,25 +90,25 @@
 
 ### Patch Changes
 
-- [`b95cc173965`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b95cc173965) - Moves banner to continuous releases and push model consumption - no code changes
+- [#34128](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34128) [`b95cc173965`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b95cc173965) - Moves banner to continuous releases and push model consumption - no code changes
 
 ## 12.1.2
 
 ### Patch Changes
 
-- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793) [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
 
 ## 12.1.1
 
 ### Patch Changes
 
-- [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649) [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
 
 ## 12.1.0
 
 ### Minor Changes
 
-- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258) [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
 
 ### Patch Changes
 
@@ -118,7 +118,7 @@
 
 ### Patch Changes
 
-- [`2e01c9c74b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e01c9c74b5) - DUMMY remove before merging to master; dupe adf-schema via adf-utils
+- [#32424](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32424) [`2e01c9c74b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e01c9c74b5) - DUMMY remove before merging to master; dupe adf-schema via adf-utils
 
 ## 12.0.19
 
@@ -148,7 +148,7 @@
 
 ### Patch Changes
 
-- [`699a5048af2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/699a5048af2) - [ux] Removes inaccurate role, tabindex, and aria-label from announcement banners.
+- [#31299](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31299) [`699a5048af2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/699a5048af2) - [ux] Removes inaccurate role, tabindex, and aria-label from announcement banners.
 
 ## 12.0.14
 
@@ -160,7 +160,7 @@
 
 ### Patch Changes
 
-- [`b6c5779d358`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b6c5779d358) - Internal changes only to restrict usage of `Box` from the primitives package.
+- [#31185](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31185) [`b6c5779d358`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b6c5779d358) - Internal changes only to restrict usage of `Box` from the primitives package.
 
 ## 12.0.12
 
@@ -172,7 +172,7 @@
 
 ### Patch Changes
 
-- [`6d665548890`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6d665548890) - Update usages of Inline and Stack to make use of stable version in `@atlaskit/primitives`. Internal change only.
+- [#30440](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/30440) [`6d665548890`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6d665548890) - Update usages of Inline and Stack to make use of stable version in `@atlaskit/primitives`. Internal change only.
 
 ## 12.0.10
 
@@ -184,14 +184,14 @@
 
 ### Patch Changes
 
-- [`eadbf13d8c0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eadbf13d8c0) - Updated usages of `Text`, `Box`, `Stack`, and `Inline` primitives to reflect their updated APIs. There are no visual or behaviour changes.
+- [#27891](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/27891) [`eadbf13d8c0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eadbf13d8c0) - Updated usages of `Text`, `Box`, `Stack`, and `Inline` primitives to reflect their updated APIs. There are no visual or behaviour changes.
 - Updated dependencies
 
 ## 12.0.8
 
 ### Patch Changes
 
-- [`acb689ac0da`](https://bitbucket.org/atlassian/atlassian-frontend/commits/acb689ac0da) - Change to an example available on atlassian.design so it does not use internal components.
+- [#28090](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28090) [`acb689ac0da`](https://bitbucket.org/atlassian/atlassian-frontend/commits/acb689ac0da) - Change to an example available on atlassian.design so it does not use internal components.
 
 ## 12.0.7
 
@@ -209,13 +209,13 @@
 
 ### Patch Changes
 
-- [`f7b2dbd6eba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f7b2dbd6eba) - Replace truncation styles with new Text `shouldTruncate` prop. No change in behaviour.
+- [#26712](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26712) [`f7b2dbd6eba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f7b2dbd6eba) - Replace truncation styles with new Text `shouldTruncate` prop. No change in behaviour.
 
 ## 12.0.4
 
 ### Patch Changes
 
-- [`ace7aad3603`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ace7aad3603) - Visual fix to padding on banner container to match grid system. This affects the height of the banner (previously 52px => now 48px). There is no expected behavior change.
+- [#27482](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/27482) [`ace7aad3603`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ace7aad3603) - Visual fix to padding on banner container to match grid system. This affects the height of the banner (previously 52px => now 48px). There is no expected behavior change.
 - Updated dependencies
 
 ## 12.0.3
@@ -228,7 +228,7 @@
 
 ### Patch Changes
 
-- [`7c6009de2f1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7c6009de2f1) - [ux] Updates the visual appearance to match the legacy light mode palette.
+- [#25860](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/25860) [`7c6009de2f1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7c6009de2f1) - [ux] Updates the visual appearance to match the legacy light mode palette.
 - [`e35fc41dc33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e35fc41dc33) - Internal change to use updated primtive spacing prop values. No expected behaviour change.
 - Updated dependencies
 
@@ -236,13 +236,13 @@
 
 ### Patch Changes
 
-- [`bc989043572`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bc989043572) - Internal changes to apply spacing tokens. This should be a no-op change.
+- [#26488](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26488) [`bc989043572`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bc989043572) - Internal changes to apply spacing tokens. This should be a no-op change.
 
 ## 12.0.0
 
 ### Major Changes
 
-- [`6f834df2eab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6f834df2eab) - Removed `isOpen` and `innerRef` props. Banner is now displayed by default - use conditional rendering to achieve the same behaviour as `isOpen`.
+- [#24710](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24710) [`6f834df2eab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6f834df2eab) - Removed `isOpen` and `innerRef` props. Banner is now displayed by default - use conditional rendering to achieve the same behaviour as `isOpen`.
 
 ### Minor Changes
 
@@ -257,25 +257,25 @@
 
 ### Patch Changes
 
-- [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
+- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874) [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
 
 ## 11.6.2
 
 ### Patch Changes
 
-- [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
+- [#24492](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24492) [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
 
 ## 11.6.1
 
 ### Patch Changes
 
-- [`a19199a0c68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a19199a0c68) - Mark `isOpen` and `innerRef` props on @atlaskit/banner as deprecated.
+- [#23674](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23674) [`a19199a0c68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a19199a0c68) - Mark `isOpen` and `innerRef` props on @atlaskit/banner as deprecated.
 
 ## 11.6.0
 
 ### Minor Changes
 
-- [`52f9dc8a972`](https://bitbucket.org/atlassian/atlassian-frontend/commits/52f9dc8a972) - [ux] Change text to be left-aligned and span the whole width of banner. Remove possibility of multi-line banners with announcement appearance.
+- [#22642](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22642) [`52f9dc8a972`](https://bitbucket.org/atlassian/atlassian-frontend/commits/52f9dc8a972) - [ux] Change text to be left-aligned and span the whole width of banner. Remove possibility of multi-line banners with announcement appearance.
 
 ## 11.5.1
 
@@ -287,7 +287,7 @@
 
 ### Minor Changes
 
-- [`46ea9efa81e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/46ea9efa81e) - [ux] Remove open/close animation. Restructure component to reduce nested divs.
+- [#20721](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20721) [`46ea9efa81e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/46ea9efa81e) - [ux] Remove open/close animation. Restructure component to reduce nested divs.
 
 ### Patch Changes
 
@@ -300,7 +300,7 @@
 
 ### Patch Changes
 
-- [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
+- [#20650](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20650) [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
 
 ## 11.4.10
 
@@ -324,7 +324,7 @@
 
 ### Patch Changes
 
-- [`58884c2f6c1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/58884c2f6c1) - Internal code change turning on a new linting rule.
+- [#16752](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16752) [`58884c2f6c1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/58884c2f6c1) - Internal code change turning on a new linting rule.
 
 ## 11.4.6
 
@@ -343,7 +343,7 @@
 
 ### Patch Changes
 
-- [`f460cc7c411`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f460cc7c411) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving bundle size.
+- [#15998](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/15998) [`f460cc7c411`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f460cc7c411) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving bundle size.
 - Updated dependencies
 
 ## 11.4.3
@@ -368,7 +368,7 @@
 
 ### Minor Changes
 
-- [`d92ab6985e4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d92ab6985e4) - Instrumented Banner with the new theming package, `@atlaskit/tokens`.
+- [#13302](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13302) [`d92ab6985e4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d92ab6985e4) - Instrumented Banner with the new theming package, `@atlaskit/tokens`.
 
   Tokens will be visible only in applications configured to use the new Tokens API (currently in alpha).These changes are intended to be interoperable with the legacy theme implementation. Legacy dark mode users should expect no visual or breaking changes.
 
@@ -382,7 +382,7 @@
 
 ### Minor Changes
 
-- [`33f360c4517`](https://bitbucket.org/atlassian/atlassian-frontend/commits/33f360c4517) - Changed styled-components of Banner to emotion.
+- [#12837](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12837) [`33f360c4517`](https://bitbucket.org/atlassian/atlassian-frontend/commits/33f360c4517) - Changed styled-components of Banner to emotion.
 
 ### Patch Changes
 
@@ -394,25 +394,25 @@
 
 ### Patch Changes
 
-- [`378d1cef00f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/378d1cef00f) - Bump `@atlaskit/theme` to version `^11.3.0`.
+- [#12880](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12880) [`378d1cef00f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/378d1cef00f) - Bump `@atlaskit/theme` to version `^11.3.0`.
 
 ## 11.2.2
 
 ### Patch Changes
 
-- [`c7319dcdea9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c7319dcdea9) - Added the design system tech stacks to the package.json and fixed linting errors, also disabled some linting rules to prevent breaking changes
+- [#11649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/11649) [`c7319dcdea9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c7319dcdea9) - Added the design system tech stacks to the package.json and fixed linting errors, also disabled some linting rules to prevent breaking changes
 
 ## 11.2.1
 
 ### Patch Changes
 
-- [`e7034163b66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e7034163b66) - Added the `design-system` tech stacks to the `package.json`
+- [#11113](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/11113) [`e7034163b66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e7034163b66) - Added the `design-system` tech stacks to the `package.json`
 
 ## 11.2.0
 
 ### Minor Changes
 
-- [`262bfb58dcd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/262bfb58dcd) - [ux] Add focus opportunity for Banner with announcement appearance
+- [#10230](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10230) [`262bfb58dcd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/262bfb58dcd) - [ux] Add focus opportunity for Banner with announcement appearance
 
 ### Patch Changes
 
@@ -422,25 +422,25 @@
 
 ### Patch Changes
 
-- [`2b5927de4d4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2b5927de4d4) - Added support for Windows high contrast mode for Banner Icon
+- [#9510](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9510) [`2b5927de4d4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2b5927de4d4) - Added support for Windows high contrast mode for Banner Icon
 
 ## 11.1.0
 
 ### Minor Changes
 
-- [`4f9e6e2db5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4f9e6e2db5) - These packages now have defined entry points -- this means that you cannot access internal files in the packages that are not meant to be public. Sub-components in these packages have been explicitly defined, aiding tree-shaking and reducing bundle size.
+- [#7170](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/7170) [`4f9e6e2db5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4f9e6e2db5) - These packages now have defined entry points -- this means that you cannot access internal files in the packages that are not meant to be public. Sub-components in these packages have been explicitly defined, aiding tree-shaking and reducing bundle size.
 
 ## 11.0.6
 
 ### Patch Changes
 
-- [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
+- [#5857](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5857) [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
 
 ## 11.0.5
 
 ### Patch Changes
 
-- [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
+- [#5497](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5497) [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
   This requires version 3.8 of Typescript, read more about how we handle Typescript versions here: https://atlaskit.atlassian.com/get-started
   Also add `typescript` to `devDependencies` to denote version that the package was built with.
 
@@ -454,13 +454,13 @@
 
 ### Patch Changes
 
-- [`6360c46009`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6360c46009) - Reenable integration tests for Edge browser
+- [#4707](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4707) [`6360c46009`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6360c46009) - Reenable integration tests for Edge browser
 
 ## 11.0.2
 
 ### Patch Changes
 
-- [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
+- [#3885](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3885) [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
 
   Since tslib is a dependency for all our packages we recommend that products also follow this tslib upgrade
   to prevent duplicates of tslib being bundled.
@@ -469,13 +469,13 @@
 
 ### Patch Changes
 
-- [`954cc87b62`](https://bitbucket.org/atlassian/atlassian-frontend/commits/954cc87b62) - The readme and package information has been updated to point to the new design system website.
+- [#3293](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3293) [`954cc87b62`](https://bitbucket.org/atlassian/atlassian-frontend/commits/954cc87b62) - The readme and package information has been updated to point to the new design system website.
 
 ## 11.0.0
 
 ### Major Changes
 
-- [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
+- [#3335](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3335) [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
   For more information see: https://community.developer.atlassian.com/t/atlaskit-to-drop-support-for-internet-explorer-11-from-1st-july-2020/39534
 
 ### Patch Changes
@@ -486,7 +486,7 @@
 
 ### Patch Changes
 
-- [`54a9514fcf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54a9514fcf) - Build and supporting files will no longer be published to npm
+- [#2866](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2866) [`54a9514fcf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54a9514fcf) - Build and supporting files will no longer be published to npm
 
 ## 10.1.9
 

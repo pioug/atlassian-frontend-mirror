@@ -4,31 +4,31 @@
 
 ### Patch Changes
 
-- [`461d74c2e9d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/461d74c2e9d) - change color because of insufficient color contrast for focus indicator
+- [#37167](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37167) [`461d74c2e9d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/461d74c2e9d) - change color because of insufficient color contrast for focus indicator
 
 ## 6.5.3
 
 ### Patch Changes
 
-- [`599bfe90ee3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/599bfe90ee3) - Internal change to use shape tokens. There is no expected visual change.
+- [#35441](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35441) [`599bfe90ee3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/599bfe90ee3) - Internal change to use shape tokens. There is no expected visual change.
 
 ## 6.5.2
 
 ### Patch Changes
 
-- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793) [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
 
 ## 6.5.1
 
 ### Patch Changes
 
-- [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649) [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
 
 ## 6.5.0
 
 ### Minor Changes
 
-- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258) [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
 
 ### Patch Changes
 
@@ -38,36 +38,36 @@
 
 ### Patch Changes
 
-- [`35d89e93915`](https://bitbucket.org/atlassian/atlassian-frontend/commits/35d89e93915) - Internal change to enforce token usage for spacing properties. There is no expected visual or behaviour change.
+- [#32932](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32932) [`35d89e93915`](https://bitbucket.org/atlassian/atlassian-frontend/commits/35d89e93915) - Internal change to enforce token usage for spacing properties. There is no expected visual or behaviour change.
 
 ## 6.4.0
 
 ### Minor Changes
 
-- [`f91b48763da`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f91b48763da) - [ux] Updates the body font size to use a typography token. This is a no-op change as the typography theme is not active.
+- [#32211](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32211) [`f91b48763da`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f91b48763da) - [ux] Updates the body font size to use a typography token. This is a no-op change as the typography theme is not active.
 
 ### Patch Changes
 
-- [`2d3b7c04afb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2d3b7c04afb) - Enroll @atlaskit/css-reset to push model consumption
+- [#32507](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32507) [`2d3b7c04afb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2d3b7c04afb) - Enroll @atlaskit/css-reset to push model consumption
 
 ## 6.3.21
 
 ### Patch Changes
 
-- [`8e0b1456821`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8e0b1456821) - Migrated use of `gridSize` to space tokens where possible. There is no expected visual or behaviour change.
+- [#32175](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32175) [`8e0b1456821`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8e0b1456821) - Migrated use of `gridSize` to space tokens where possible. There is no expected visual or behaviour change.
 
 ## 6.3.20
 
 ### Patch Changes
 
-- [`718d5ad3044`](https://bitbucket.org/atlassian/atlassian-frontend/commits/718d5ad3044) - Updates to support the new `@atlaskit/tokens` theming API.
+- [#27634](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/27634) [`718d5ad3044`](https://bitbucket.org/atlassian/atlassian-frontend/commits/718d5ad3044) - Updates to support the new `@atlaskit/tokens` theming API.
 - Updated dependencies
 
 ## 6.3.19
 
 ### Patch Changes
 
-- [`6455cf006b3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6455cf006b3) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving performance.
+- [#28324](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28324) [`6455cf006b3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6455cf006b3) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving performance.
 
 ## 6.3.18
 
@@ -91,13 +91,13 @@
 
 ### Patch Changes
 
-- [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
+- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874) [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
 
 ## 6.3.14
 
 ### Patch Changes
 
-- [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
+- [#24492](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24492) [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
 
 ## 6.3.13
 
@@ -109,13 +109,13 @@
 
 ### Patch Changes
 
-- [`70968c17cc9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/70968c17cc9) - Remove invalid selectors and associated rules
+- [#20721](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20721) [`70968c17cc9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/70968c17cc9) - Remove invalid selectors and associated rules
 
 ## 6.3.11
 
 ### Patch Changes
 
-- [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
+- [#20650](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20650) [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
 
 ## 6.3.10
 
@@ -139,13 +139,13 @@
 
 ### Patch Changes
 
-- [`2d430dae7d2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2d430dae7d2) - Removes <template /> override for IE11.
+- [#18980](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/18980) [`2d430dae7d2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2d430dae7d2) - Removes <template /> override for IE11.
 
 ## 6.3.6
 
 ### Patch Changes
 
-- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Updates usage of deprecated token names so they're aligned with the latest naming conventions. No UI or visual changes
+- [#16752](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16752) [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Updates usage of deprecated token names so they're aligned with the latest naming conventions. No UI or visual changes
 - Updated dependencies
 
 ## 6.3.5
@@ -158,38 +158,38 @@
 
 ### Patch Changes
 
-- [`02a2f889019`](https://bitbucket.org/atlassian/atlassian-frontend/commits/02a2f889019) - Removes css that sets the SVG text element's color styles
+- [#17514](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/17514) [`02a2f889019`](https://bitbucket.org/atlassian/atlassian-frontend/commits/02a2f889019) - Removes css that sets the SVG text element's color styles
 
 ## 6.3.3
 
 ### Patch Changes
 
-- [`5168407f185`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5168407f185) - Fixes an issue in the CSS reset where the SVG text element didn't inherit the correct reset styles.
+- [#17127](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/17127) [`5168407f185`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5168407f185) - Fixes an issue in the CSS reset where the SVG text element didn't inherit the correct reset styles.
 
 ## 6.3.2
 
 ### Patch Changes
 
-- [`b8fd2911013`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b8fd2911013) - [ux] Reduced motion styles that were causing layout flickers have been removed.
+- [#16864](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16864) [`b8fd2911013`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b8fd2911013) - [ux] Reduced motion styles that were causing layout flickers have been removed.
 
 ## 6.3.1
 
 ### Patch Changes
 
-- [`f460cc7c411`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f460cc7c411) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving bundle size.
+- [#15998](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/15998) [`f460cc7c411`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f460cc7c411) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving bundle size.
 - Updated dependencies
 
 ## 6.3.0
 
 ### Minor Changes
 
-- [`5b605d39119`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5b605d39119) - Scrollbars now respect theme selection
+- [#16479](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16479) [`5b605d39119`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5b605d39119) - Scrollbars now respect theme selection
 
 ## 6.2.0
 
 ### Minor Changes
 
-- [`fd7b67c606a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd7b67c606a) - [ux] The reset now uses focus-visible (if supported) instead of styling :focus directly.
+- [#14777](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/14777) [`fd7b67c606a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd7b67c606a) - [ux] The reset now uses focus-visible (if supported) instead of styling :focus directly.
 
 ### Patch Changes
 
@@ -223,7 +223,7 @@
 
 ### Minor Changes
 
-- [`92620c3aa0d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/92620c3aa0d) - [ux] Reduced motion support has been added to the CSS reset.
+- [#12837](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12837) [`92620c3aa0d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/92620c3aa0d) - [ux] Reduced motion support has been added to the CSS reset.
 - [`950a744a150`](https://bitbucket.org/atlassian/atlassian-frontend/commits/950a744a150) - [ux] Color values now sourced through tokens.
 
 ### Patch Changes
@@ -234,19 +234,19 @@
 
 ### Patch Changes
 
-- [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
+- [#5857](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5857) [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
 
 ## 6.0.4
 
 ### Patch Changes
 
-- [`cdfd30ef56`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cdfd30ef56) - Bumping dep for fbjs util and moving it to a devDep for css-reset
+- [#5653](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5653) [`cdfd30ef56`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cdfd30ef56) - Bumping dep for fbjs util and moving it to a devDep for css-reset
 
 ## 6.0.3
 
 ### Patch Changes
 
-- [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
+- [#5497](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5497) [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
   This requires version 3.8 of Typescript, read more about how we handle Typescript versions here: https://atlaskit.atlassian.com/get-started
   Also add `typescript` to `devDependencies` to denote version that the package was built with.
 
@@ -260,7 +260,7 @@
 
 ### Patch Changes
 
-- [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
+- [#3885](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3885) [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
 
   Since tslib is a dependency for all our packages we recommend that products also follow this tslib upgrade
   to prevent duplicates of tslib being bundled.
@@ -269,7 +269,7 @@
 
 ### Major Changes
 
-- [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
+- [#3335](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3335) [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
   For more information see: https://community.developer.atlassian.com/t/atlaskit-to-drop-support-for-internet-explorer-11-from-1st-july-2020/39534
 
 ### Patch Changes
@@ -280,13 +280,13 @@
 
 ### Patch Changes
 
-- [`82a7c30a60`](https://bitbucket.org/atlassian/atlassian-frontend/commits/82a7c30a60) - The module:es2019 field for css-reset should also point to bundle.css instead of a js file
+- [#2624](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2624) [`82a7c30a60`](https://bitbucket.org/atlassian/atlassian-frontend/commits/82a7c30a60) - The module:es2019 field for css-reset should also point to bundle.css instead of a js file
 
 ## 5.0.11
 
 ### Patch Changes
 
-- [`c2dbd2384c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c2dbd2384c) - FIX: Override for the default button font style introduced in latest Chrome 83.x.x.x
+- [#2591](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2591) [`c2dbd2384c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c2dbd2384c) - FIX: Override for the default button font style introduced in latest Chrome 83.x.x.x
 
 ## 5.0.10
 

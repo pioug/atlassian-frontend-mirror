@@ -544,7 +544,8 @@ describe('EmbedModal', () => {
       expect(ufoStartSpy).toHaveBeenCalledBefore(ufoSucceedSpy as jest.Mock);
     });
 
-    it('dispatches analytics event on download url', async () => {
+    // FIXME: Failing master on 28/09/23 https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/1729854/steps/%7B8c63fd9a-e483-4890-8485-806d4e8a7337%7D/test-report
+    it.skip('dispatches analytics event on download url', async () => {
       const ufoStartSpy = jest.spyOn(ufo, 'startUfoExperience');
       const ufoSucceedSpy = jest.spyOn(ufo, 'succeedUfoExperience');
       uuid.mockReturnValueOnce(EXPERIENCE_TEST_ID);

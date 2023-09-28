@@ -4,46 +4,46 @@
 
 ### Patch Changes
 
-- [`6900f89eb0e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6900f89eb0e) - Internal changes to use space tokens. There is no expected visual or behaviour change.
+- [#39787](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39787) [`6900f89eb0e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6900f89eb0e) - Internal changes to use space tokens. There is no expected visual or behaviour change.
 
 ## 19.5.9
 
 ### Patch Changes
 
-- [`c18f1580f12`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c18f1580f12) - [ux] [ECA11Y-33] Remove unncessary prefix from mention icons aria-label attribute
-- [`e9c9a4ea79f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e9c9a4ea79f) - [ux] [ECA11Y-34] Replaced profile name span element with h2 tag
+- [#39562](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39562) [`c18f1580f12`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c18f1580f12) - [ux] [ECA11Y-33] Remove unncessary prefix from mention icons aria-label attribute
+- [#39559](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39559) [`e9c9a4ea79f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e9c9a4ea79f) - [ux] [ECA11Y-34] Replaced profile name span element with h2 tag
 
 ## 19.5.8
 
 ### Patch Changes
 
-- [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
+- [#38162](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38162) [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
 - Updated dependencies
 
 ## 19.5.7
 
 ### Patch Changes
 
-- [`834a98bdc7b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/834a98bdc7b) - [ECA11Y-13] Make focus ring visible for 'Give kudos' button
+- [#37372](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37372) [`834a98bdc7b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/834a98bdc7b) - [ECA11Y-13] Make focus ring visible for 'Give kudos' button
 - Updated dependencies
 
 ## 19.5.6
 
 ### Patch Changes
 
-- [`3ef90d5fc2f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3ef90d5fc2f) - Cleanup the references to version.json
+- [#38551](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38551) [`3ef90d5fc2f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3ef90d5fc2f) - Cleanup the references to version.json
 
 ## 19.5.5
 
 ### Patch Changes
 
-- [`f01deb5e6ab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f01deb5e6ab) - Use injected env vars instead of version.json
+- [#37925](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37925) [`f01deb5e6ab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f01deb5e6ab) - Use injected env vars instead of version.json
 
 ## 19.5.4
 
 ### Patch Changes
 
-- [`cc13658d9b4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cc13658d9b4) - Fix for incorrect GraphQL query variable in team card
+- [#38237](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38237) [`cc13658d9b4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cc13658d9b4) - Fix for incorrect GraphQL query variable in team card
 
 ## 19.5.3
 
@@ -55,55 +55,55 @@
 
 ### Patch Changes
 
-- [`0c6a7acba8d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0c6a7acba8d) - Resolved an issue with the team profile card query having invalid formatting
+- [#36576](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36576) [`0c6a7acba8d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0c6a7acba8d) - Resolved an issue with the team profile card query having invalid formatting
 
 ## 19.5.1
 
 ### Patch Changes
 
-- [`5259a126fa1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5259a126fa1) - Replace calls to pf-directory `Team` and `TeamMembership` with AGG `teamV2` in Directory app.
+- [#35908](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35908) [`5259a126fa1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5259a126fa1) - Replace calls to pf-directory `Team` and `TeamMembership` with AGG `teamV2` in Directory app.
 
 ## 19.5.0
 
 ### Minor Changes
 
-- [`5a5c412a944`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5a5c412a944) - Site scoped changes for TeamProfileCard - behind FF platform.teams.site-scoped.m1
+- [#35776](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35776) [`5a5c412a944`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5a5c412a944) - Site scoped changes for TeamProfileCard - behind FF platform.teams.site-scoped.m1
 
 ## 19.4.2
 
 ### Patch Changes
 
-- [`61cb5313358`](https://bitbucket.org/atlassian/atlassian-frontend/commits/61cb5313358) - Removing unused dependencies and dev dependencies
+- [#34443](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34443) [`61cb5313358`](https://bitbucket.org/atlassian/atlassian-frontend/commits/61cb5313358) - Removing unused dependencies and dev dependencies
 
 ## 19.4.1
 
 ### Patch Changes
 
-- [`2eb438477ab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2eb438477ab) - Internal change to enforce token usage for spacing properties. There is no expected visual or behaviour change.
+- [#34118](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34118) [`2eb438477ab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2eb438477ab) - Internal change to enforce token usage for spacing properties. There is no expected visual or behaviour change.
 
 ## 19.4.0
 
 ### Minor Changes
 
-- [`17fe8f92030`](https://bitbucket.org/atlassian/atlassian-frontend/commits/17fe8f92030) - Correctly export i18n messages from profilecard!
+- [#34206](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34206) [`17fe8f92030`](https://bitbucket.org/atlassian/atlassian-frontend/commits/17fe8f92030) - Correctly export i18n messages from profilecard!
 
 ## 19.3.2
 
 ### Patch Changes
 
-- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793) [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
 
 ## 19.3.1
 
 ### Patch Changes
 
-- [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649) [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
 
 ## 19.3.0
 
 ### Minor Changes
 
-- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258) [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
 
 ### Patch Changes
 
@@ -113,49 +113,49 @@
 
 ### Patch Changes
 
-- [`c3d16d3164f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c3d16d3164f) - Migrated use of `gridSize` to space tokens where possible. There is no expected visual or behaviour change.
+- [#32030](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32030) [`c3d16d3164f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c3d16d3164f) - Migrated use of `gridSize` to space tokens where possible. There is no expected visual or behaviour change.
 
 ## 19.2.1
 
 ### Patch Changes
 
-- [`052672d7eca`](https://bitbucket.org/atlassian/atlassian-frontend/commits/052672d7eca) - Added errorSource to analytics events, added tests for fail events
+- [#31560](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31560) [`052672d7eca`](https://bitbucket.org/atlassian/atlassian-frontend/commits/052672d7eca) - Added errorSource to analytics events, added tests for fail events
 
 ## 19.2.0
 
 ### Minor Changes
 
-- [`2af6359970f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2af6359970f) - [ux] This change (related to TSLA-521) adds an onFocus handler for the profile card trigger that performs the same behavior as onHover. The change also adds an onBlur handler.
+- [#31233](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31233) [`2af6359970f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2af6359970f) - [ux] This change (related to TSLA-521) adds an onFocus handler for the profile card trigger that performs the same behavior as onHover. The change also adds an onBlur handler.
 
 ## 19.1.1
 
 ### Patch Changes
 
-- [`f80d2e43a41`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f80d2e43a41) - Added traceId, errorSource and errorMessage to analytic events
+- [#31423](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31423) [`f80d2e43a41`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f80d2e43a41) - Added traceId, errorSource and errorMessage to analytic events
 
 ## 19.1.0
 
 ### Minor Changes
 
-- [`13af6ca0e48`](https://bitbucket.org/atlassian/atlassian-frontend/commits/13af6ca0e48) - [ux] TSLA-521 docs(changeset): [ux] This change (TSLA-521) adds keyboard support for the profile card component by adding tabindex, an onKeyPress handler, and setting role="button" when the card is trigged by click. This change also adds unit tests for the profile card trigger as well as notifcations.
+- [#31160](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31160) [`13af6ca0e48`](https://bitbucket.org/atlassian/atlassian-frontend/commits/13af6ca0e48) - [ux] TSLA-521 docs(changeset): [ux] This change (TSLA-521) adds keyboard support for the profile card component by adding tabindex, an onKeyPress handler, and setting role="button" when the card is trigged by click. This change also adds unit tests for the profile card trigger as well as notifcations.
 
 ## 19.0.0
 
 ### Major Changes
 
-- [`6e57454a13a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6e57454a13a) - makeRequestViaGateway removed from TeamProfileClient, instead use makeRequest. teamsUseV2 removed from ProfileCardClient, it will now always use V3.
+- [#31230](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31230) [`6e57454a13a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6e57454a13a) - makeRequestViaGateway removed from TeamProfileClient, instead use makeRequest. teamsUseV2 removed from ProfileCardClient, it will now always use V3.
 
 ## 18.4.0
 
 ### Minor Changes
 
-- [`312e4be46d2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/312e4be46d2) - Always call AGG for team data'
+- [#30903](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/30903) [`312e4be46d2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/312e4be46d2) - Always call AGG for team data'
 
 ## 18.3.0
 
 ### Minor Changes
 
-- [`9cbd4a1766b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9cbd4a1766b) - [ux] Added an error state for team profile card that is displayed when the user lack of access to the team
+- [#30439](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/30439) [`9cbd4a1766b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9cbd4a1766b) - [ux] Added an error state for team profile card that is displayed when the user lack of access to the team
 
 ## 18.2.4
 
@@ -173,43 +173,43 @@
 
 ### Patch Changes
 
-- [`7d2488dcbcf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7d2488dcbcf) - Upgrade lru-fast@0.2.2 to lru_map
+- [#29080](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/29080) [`7d2488dcbcf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7d2488dcbcf) - Upgrade lru-fast@0.2.2 to lru_map
 
 ## 18.2.1
 
 ### Patch Changes
 
-- [`20f162117fb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/20f162117fb) - Remove usaged of themed for light and dark theme
+- [#29094](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/29094) [`20f162117fb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/20f162117fb) - Remove usaged of themed for light and dark theme
 
 ## 18.2.0
 
 ### Minor Changes
 
-- [`da891855ee9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/da891855ee9) - Remove Atlas give kudos M2 feature flag check
+- [#28622](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28622) [`da891855ee9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/da891855ee9) - Remove Atlas give kudos M2 feature flag check
 
 ## 18.1.3
 
 ### Patch Changes
 
-- [`5e697be0410`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5e697be0410) - [ux] Fix team header image bug
+- [#28723](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28723) [`5e697be0410`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5e697be0410) - [ux] Fix team header image bug
 
 ## 18.1.2
 
 ### Patch Changes
 
-- [`6455cf006b3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6455cf006b3) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving performance.
+- [#28324](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28324) [`6455cf006b3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6455cf006b3) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving performance.
 
 ## 18.1.1
 
 ### Patch Changes
 
-- [`60b1c9b0f05`](https://bitbucket.org/atlassian/atlassian-frontend/commits/60b1c9b0f05) - Upgrade profilecard to the latest major version of emotion
+- [#28352](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28352) [`60b1c9b0f05`](https://bitbucket.org/atlassian/atlassian-frontend/commits/60b1c9b0f05) - Upgrade profilecard to the latest major version of emotion
 
 ## 18.1.0
 
 ### Minor Changes
 
-- [`227230d34f2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/227230d34f2) - Allow option to force team profilecard to use pf-directory
+- [#28343](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28343) [`227230d34f2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/227230d34f2) - Allow option to force team profilecard to use pf-directory
 
 ## 18.0.2
 
@@ -227,7 +227,7 @@
 
 ### Major Changes
 
-- [`d1789629297`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d1789629297) - Switch from styled-components to emotion for CSS
+- [#27453](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/27453) [`d1789629297`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d1789629297) - Switch from styled-components to emotion for CSS
 
 ## 17.3.1
 
@@ -239,13 +239,13 @@
 
 ### Minor Changes
 
-- [`b2ef0c20138`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b2ef0c20138) - [ux] Don't shift focus when triggering user or team profilecard via hover
+- [#27395](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/27395) [`b2ef0c20138`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b2ef0c20138) - [ux] Don't shift focus when triggering user or team profilecard via hover
 
 ## 17.2.7
 
 ### Patch Changes
 
-- [`7bb86e9484c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7bb86e9484c) - Transform errors from AGG and ignore 403(TEAMS_FORBIDDEN) and 410(TEAMS_TEAM_DELETED) errors for SLO failure
+- [#27626](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/27626) [`7bb86e9484c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7bb86e9484c) - Transform errors from AGG and ignore 403(TEAMS_FORBIDDEN) and 410(TEAMS_TEAM_DELETED) errors for SLO failure
 
 ## 17.2.6
 
@@ -257,13 +257,13 @@
 
 ### Patch Changes
 
-- [`dbd0fa0aa5e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dbd0fa0aa5e) - Handle both new and legacy Team ARIs
+- [#26483](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26483) [`dbd0fa0aa5e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dbd0fa0aa5e) - Handle both new and legacy Team ARIs
 
 ## 17.2.4
 
 ### Patch Changes
 
-- [`250ad85dd78`](https://bitbucket.org/atlassian/atlassian-frontend/commits/250ad85dd78) - [ux] Removed ButtonGroup from team profile card to fix the layout of action buttons
+- [#26481](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26481) [`250ad85dd78`](https://bitbucket.org/atlassian/atlassian-frontend/commits/250ad85dd78) - [ux] Removed ButtonGroup from team profile card to fix the layout of action buttons
 
 ## 17.2.3
 
@@ -275,19 +275,19 @@
 
 ### Patch Changes
 
-- [`285ad326001`](https://bitbucket.org/atlassian/atlassian-frontend/commits/285ad326001) - no-issue: Translations update
+- [#23053](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23053) [`285ad326001`](https://bitbucket.org/atlassian/atlassian-frontend/commits/285ad326001) - no-issue: Translations update
 
 ## 17.2.1
 
 ### Patch Changes
 
-- [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
+- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874) [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
 
 ## 17.2.0
 
 ### Minor Changes
 
-- [`7f54d783d6e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7f54d783d6e) - Add mock for team central client workspace check
+- [#25271](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/25271) [`7f54d783d6e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7f54d783d6e) - Add mock for team central client workspace check
 
 ## 17.1.1
 
@@ -299,31 +299,31 @@
 
 ### Minor Changes
 
-- [`aa321e66c2a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aa321e66c2a) - Add cloudid as optional client prop and add workspace check for Atlas functionality
+- [#24175](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24175) [`aa321e66c2a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aa321e66c2a) - Add cloudid as optional client prop and add workspace check for Atlas functionality
 
 ## 17.0.0
 
 ### Major Changes
 
-- [`fae495c5956`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fae495c5956) - Deprecated the analytics prop and start emitting GASv3 analytics
+- [#23125](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23125) [`fae495c5956`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fae495c5956) - Deprecated the analytics prop and start emitting GASv3 analytics
 
 ## 16.12.1
 
 ### Patch Changes
 
-- [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
+- [#24492](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24492) [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
 
 ## 16.12.0
 
 ### Minor Changes
 
-- [`12835d685b4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/12835d685b4) - [ux] Only show give kudos button on active profiles
+- [#23898](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23898) [`12835d685b4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/12835d685b4) - [ux] Only show give kudos button on active profiles
 
 ## 16.11.0
 
 ### Minor Changes
 
-- [`01d80d395bc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/01d80d395bc) - pass event to onOpenChange consistently
+- [#23381](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23381) [`01d80d395bc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/01d80d395bc) - pass event to onOpenChange consistently
 
 ### Patch Changes
 
@@ -339,7 +339,7 @@
 
 ### Minor Changes
 
-- [`e5fbc101e73`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e5fbc101e73) - Remove analytics prop from give kudos component
+- [#23074](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23074) [`e5fbc101e73`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e5fbc101e73) - Remove analytics prop from give kudos component
 
 ### Patch Changes
 
@@ -355,37 +355,37 @@
 
 ### Minor Changes
 
-- [`1f16cd80413`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1f16cd80413) - [ux] Add give kudos to Team profile card.
+- [#22749](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22749) [`1f16cd80413`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1f16cd80413) - [ux] Add give kudos to Team profile card.
 
 ## 16.8.0
 
 ### Minor Changes
 
-- [`319c46e77de`](https://bitbucket.org/atlassian/atlassian-frontend/commits/319c46e77de) - [ux] Adding a button background animation when the give kudos button on the profile card is hovered over
+- [#22618](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22618) [`319c46e77de`](https://bitbucket.org/atlassian/atlassian-frontend/commits/319c46e77de) - [ux] Adding a button background animation when the give kudos button on the profile card is hovered over
 
 ## 16.7.0
 
 ### Minor Changes
 
-- [`4e9fbfb9e85`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4e9fbfb9e85) - [ux] Adding meatballs overflow menu when the profile card has more than two action buttons
+- [#22588](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22588) [`4e9fbfb9e85`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4e9fbfb9e85) - [ux] Adding meatballs overflow menu when the profile card has more than two action buttons
 
 ## 16.6.1
 
 ### Patch Changes
 
-- [`cf03bdf6b7e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf03bdf6b7e) - Made feature flag check extra context optional.
+- [#22624](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22624) [`cf03bdf6b7e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf03bdf6b7e) - Made feature flag check extra context optional.
 
 ## 16.6.0
 
 ### Minor Changes
 
-- [`7c691c8e8a9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7c691c8e8a9) - [ux] Launch the give kudos flow via a drawer from the profile-card.
+- [#22152](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22152) [`7c691c8e8a9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7c691c8e8a9) - [ux] Launch the give kudos flow via a drawer from the profile-card.
 
 ## 16.5.0
 
 ### Minor Changes
 
-- [`31ca93c69a3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/31ca93c69a3) - [ux] Adding give kudos button to the profile card
+- [#21848](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21848) [`31ca93c69a3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/31ca93c69a3) - [ux] Adding give kudos button to the profile card
 
 ## 16.4.8
 
@@ -403,25 +403,25 @@
 
 ### Patch Changes
 
-- [`386249e4be4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/386249e4be4) - [ux] Fix hide handler when the profile card is triggered via click
+- [#21462](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21462) [`386249e4be4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/386249e4be4) - [ux] Fix hide handler when the profile card is triggered via click
 
 ## 16.4.5
 
 ### Patch Changes
 
-- [`18ab5ef3325`](https://bitbucket.org/atlassian/atlassian-frontend/commits/18ab5ef3325) - Filter out certain types of failures for team profilecard data fetch
+- [#20787](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20787) [`18ab5ef3325`](https://bitbucket.org/atlassian/atlassian-frontend/commits/18ab5ef3325) - Filter out certain types of failures for team profilecard data fetch
 
 ## 16.4.4
 
 ### Patch Changes
 
-- [`b876346271a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b876346271a) - Ensure that component wrapping a ProfileCardTrigger is not clicked when clicking the trigger
+- [#21005](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21005) [`b876346271a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b876346271a) - Ensure that component wrapping a ProfileCardTrigger is not clicked when clicking the trigger
 
 ## 16.4.3
 
 ### Patch Changes
 
-- [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
+- [#20650](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20650) [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
 - Updated dependencies
 
 ## 16.4.2
@@ -434,14 +434,14 @@
 
 ### Patch Changes
 
-- [`ac9343c3ed4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ac9343c3ed4) - Replaces usage of deprecated design tokens. No visual or functional changes
+- [#19618](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19618) [`ac9343c3ed4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ac9343c3ed4) - Replaces usage of deprecated design tokens. No visual or functional changes
 - Updated dependencies
 
 ## 16.4.0
 
 ### Minor Changes
 
-- [`4c94bc2d6c4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4c94bc2d6c4) - Update profilecard to use analytics from teams common
+- [#19693](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19693) [`4c94bc2d6c4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4c94bc2d6c4) - Update profilecard to use analytics from teams common
 
 ## 16.3.1
 
@@ -453,19 +453,19 @@
 
 ### Minor Changes
 
-- [`ce207d8ea47`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ce207d8ea47) - Add option to query teams with AGG
+- [#17604](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/17604) [`ce207d8ea47`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ce207d8ea47) - Add option to query teams with AGG
 
 ## 16.2.3
 
 ### Patch Changes
 
-- [`4d4d5d66cb8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4d4d5d66cb8) - Use entrypoints to import profilecard components
+- [#18109](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/18109) [`4d4d5d66cb8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4d4d5d66cb8) - Use entrypoints to import profilecard components
 
 ## 16.2.2
 
 ### Patch Changes
 
-- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - The no-unsafe-design-token-usage eslint rule now respects the new token naming conventions when auto-fixing by correctly formatting token ids.
+- [#16752](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16752) [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - The no-unsafe-design-token-usage eslint rule now respects the new token naming conventions when auto-fixing by correctly formatting token ids.
 - Updated dependencies
 
 ## 16.2.1
@@ -478,31 +478,31 @@
 
 ### Minor Changes
 
-- [`4039320b130`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4039320b130) - Support lazy loading in the ProfileCardTrigger component
+- [#17840](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/17840) [`4039320b130`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4039320b130) - Support lazy loading in the ProfileCardTrigger component
 
 ## 16.1.0
 
 ### Minor Changes
 
-- [`a5c73ccaa58`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a5c73ccaa58) - Added manager and direct reports section to profile hover card"
+- [#17298](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/17298) [`a5c73ccaa58`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a5c73ccaa58) - Added manager and direct reports section to profile hover card"
 
 ## 16.0.2
 
 ### Patch Changes
 
-- [`c55c736ecea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c55c736ecea) - Patch VULN AFP-3486 AFP-3487 AFP-3488 AFP-3489
+- [#17475](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/17475) [`c55c736ecea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c55c736ecea) - Patch VULN AFP-3486 AFP-3487 AFP-3488 AFP-3489
 
 ## 16.0.1
 
 ### Patch Changes
 
-- [`82099b76445`](https://bitbucket.org/atlassian/atlassian-frontend/commits/82099b76445) - Add optional `testId` prop to `ProfileCardTrigger` to ease testing
+- [#16812](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16812) [`82099b76445`](https://bitbucket.org/atlassian/atlassian-frontend/commits/82099b76445) - Add optional `testId` prop to `ProfileCardTrigger` to ease testing
 
 ## 16.0.0
 
 ### Major Changes
 
-- [`47f58da5946`](https://bitbucket.org/atlassian/atlassian-frontend/commits/47f58da5946) - ED-13322, ED-13324, ED-13326, ED-13323, ED-13204: Upgrade and support react-intl@^5.18.1 including breaking API changes, types and tests in atlassian-frontend packages
+- [#14810](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/14810) [`47f58da5946`](https://bitbucket.org/atlassian/atlassian-frontend/commits/47f58da5946) - ED-13322, ED-13324, ED-13326, ED-13323, ED-13204: Upgrade and support react-intl@^5.18.1 including breaking API changes, types and tests in atlassian-frontend packages
 
   What changed: Upgraded our react-intl support from ^2.6.0 to ^5.18.1. This means editor packages now rely on consumers installing ^5.18.1, otherwise editor usage of react-intl will mismatch with actual installed react-intl APIs.
   Why change was made: As part of a coordinated upgrade effort across AF packages, as react-intl v2 is quite dated.
@@ -556,7 +556,7 @@
 
 ### Minor Changes
 
-- [`1b9bc1e4b9a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1b9bc1e4b9a) - [ux] Instrumented profilecard with the new theming package, `@atlaskit/tokens`.
+- [#15859](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/15859) [`1b9bc1e4b9a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1b9bc1e4b9a) - [ux] Instrumented profilecard with the new theming package, `@atlaskit/tokens`.
 
   New tokens will be visible only in applications configured to use the new Tokens API (currently in alpha).
   These changes are intended to be interoperable with the legacy theme implementation. Legacy dark mode users should expect no visual or breaking changes.
@@ -565,38 +565,38 @@
 
 ### Patch Changes
 
-- [`d04cae5d45c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d04cae5d45c) - Expose some mock helpers
+- [#15267](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/15267) [`d04cae5d45c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d04cae5d45c) - Expose some mock helpers
 
 ## 15.7.0
 
 ### Minor Changes
 
-- [`322786b0386`](https://bitbucket.org/atlassian/atlassian-frontend/commits/322786b0386) - Export team profile card content to outside so we can use it to build legacy profile card in Jira FE
+- [#15165](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/15165) [`322786b0386`](https://bitbucket.org/atlassian/atlassian-frontend/commits/322786b0386) - Export team profile card content to outside so we can use it to build legacy profile card in Jira FE
 
 ## 15.6.2
 
 ### Patch Changes
 
-- [`cf853e39278`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf853e39278) - Internal changes to remove `@atlaskit/theme/math` usage.
+- [#14319](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/14319) [`cf853e39278`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf853e39278) - Internal changes to remove `@atlaskit/theme/math` usage.
 - Updated dependencies
 
 ## 15.6.1
 
 ### Patch Changes
 
-- [`301bf1b9e08`](https://bitbucket.org/atlassian/atlassian-frontend/commits/301bf1b9e08) - Bring `withOuterListeners` HOC back so that Jira can continue use it
+- [#14411](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/14411) [`301bf1b9e08`](https://bitbucket.org/atlassian/atlassian-frontend/commits/301bf1b9e08) - Bring `withOuterListeners` HOC back so that Jira can continue use it
 
 ## 15.6.0
 
 ### Minor Changes
 
-- [`d07a1ced0bd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d07a1ced0bd) - Pass orgId on to service when querying team
+- [#13464](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13464) [`d07a1ced0bd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d07a1ced0bd) - Pass orgId on to service when querying team
 
 ## 15.5.12
 
 ### Patch Changes
 
-- [`524b20aff9a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/524b20aff9a) - Update package.jsons to remove unused dependencies. Also excludes tests from some build tsconfigs
+- [#13136](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13136) [`524b20aff9a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/524b20aff9a) - Update package.jsons to remove unused dependencies. Also excludes tests from some build tsconfigs
 - [`3c0349f272a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3c0349f272a) - Update package.jsons to remove unused dependencies. Also excludes tests from some build tsconfigs
 - [`591d34f966f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/591d34f966f) - Update package.jsons to remove unused dependencies. Also excludes tests from some build tsconfigs
 
@@ -610,13 +610,13 @@
 
 ### Patch Changes
 
-- [`414b6216adf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/414b6216adf) - Upgrade date-fns to ^2.17
+- [#9328](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9328) [`414b6216adf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/414b6216adf) - Upgrade date-fns to ^2.17
 
 ## 15.5.9
 
 ### Patch Changes
 
-- [`d57d071183e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d57d071183e) - Fix a bug - should re-render ProfileCard when "resourceClient" prop is changed
+- [#11951](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/11951) [`d57d071183e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d57d071183e) - Fix a bug - should re-render ProfileCard when "resourceClient" prop is changed
 
 ## 15.5.8
 
@@ -628,37 +628,37 @@
 
 ### Patch Changes
 
-- [`8b87ba0c18c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8b87ba0c18c) - Fix the behavior of command click and shift click on links
+- [#10514](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10514) [`8b87ba0c18c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8b87ba0c18c) - Fix the behavior of command click and shift click on links
 
 ## 15.5.6
 
 ### Patch Changes
 
-- [`f8cf7c90c94`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f8cf7c90c94) - Added error attributes to analytics after failures so we can track issue causes
+- [#10136](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10136) [`f8cf7c90c94`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f8cf7c90c94) - Added error attributes to analytics after failures so we can track issue causes
 
 ## 15.5.5
 
 ### Patch Changes
 
-- [`f5c41936feb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f5c41936feb) - Fix the props to allow better customization of links on avatars in team profilecards.
+- [#9558](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9558) [`f5c41936feb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f5c41936feb) - Fix the props to allow better customization of links on avatars in team profilecards.
 
 ## 15.5.4
 
 ### Patch Changes
 
-- [`9f19d3e89fe`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9f19d3e89fe) - CONFDEV-73945: Added optional customLozenges property to ProfileCardClientData so Typescript will allow custom UserProfileClients to add custom lozenges to the ProfileCard
+- [#9460](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9460) [`9f19d3e89fe`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9f19d3e89fe) - CONFDEV-73945: Added optional customLozenges property to ProfileCardClientData so Typescript will allow custom UserProfileClients to add custom lozenges to the ProfileCard
 
 ## 15.5.3
 
 ### Patch Changes
 
-- [`e7d0d61bfc0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e7d0d61bfc0) - Fixed analytics issues in Team Profilecard avatars and added key to User Profilecard lozenges
+- [#9307](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9307) [`e7d0d61bfc0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e7d0d61bfc0) - Fixed analytics issues in Team Profilecard avatars and added key to User Profilecard lozenges
 
 ## 15.5.2
 
 ### Patch Changes
 
-- [`471e2431a7c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/471e2431a7c) - Downgrade back to date-fns 1.30.1
+- [#9299](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9299) [`471e2431a7c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/471e2431a7c) - Downgrade back to date-fns 1.30.1
   We discovered big bundle size increases associated with the date-fns upgrade.
   We're reverting the upgarde to investigate
 
@@ -666,121 +666,121 @@
 
 ### Patch Changes
 
-- [`70f0701c2e6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/70f0701c2e6) - Upgrade date-fns to 2.17
+- [#8291](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8291) [`70f0701c2e6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/70f0701c2e6) - Upgrade date-fns to 2.17
 
 ## 15.5.0
 
 ### Minor Changes
 
-- [`54f4ce55485`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54f4ce55485) - Changed ProfileCard's customLozenges' 'text' prop type to accept a ReactNode to allow internationalized <FormattedMessage> elements in addition to string
+- [#9165](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9165) [`54f4ce55485`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54f4ce55485) - Changed ProfileCard's customLozenges' 'text' prop type to accept a ReactNode to allow internationalized <FormattedMessage> elements in addition to string
 
 ## 15.4.0
 
 ### Minor Changes
 
-- [`e76cdc56e39`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e76cdc56e39) - Made cloudId optional, to increase usability in site-less contexts like new products.
+- [#8973](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8973) [`e76cdc56e39`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e76cdc56e39) - Made cloudId optional, to increase usability in site-less contexts like new products.
 
 ## 15.3.1
 
 ### Patch Changes
 
-- [`620ddc14690`](https://bitbucket.org/atlassian/atlassian-frontend/commits/620ddc14690) - [ux] Correct styling on Profile Card triggers
+- [#9010](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9010) [`620ddc14690`](https://bitbucket.org/atlassian/atlassian-frontend/commits/620ddc14690) - [ux] Correct styling on Profile Card triggers
 
 ## 15.3.0
 
 ### Minor Changes
 
-- [`5e7fbaa154f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5e7fbaa154f) - [ux] Added an optional prop to the Profilecard component for displaying custom lozenges
+- [#8759](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8759) [`5e7fbaa154f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5e7fbaa154f) - [ux] Added an optional prop to the Profilecard component for displaying custom lozenges
 
 ## 15.2.0
 
 ### Minor Changes
 
-- [`61544638935`](https://bitbucket.org/atlassian/atlassian-frontend/commits/61544638935) - Added analytics to the Team profile card
+- [#8844](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8844) [`61544638935`](https://bitbucket.org/atlassian/atlassian-frontend/commits/61544638935) - Added analytics to the Team profile card
 
 ## 15.1.3
 
 ### Patch Changes
 
-- [`11f5b0da43e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/11f5b0da43e) - [ux] Fix zIndex for profile card and team profile card
+- [#8566](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8566) [`11f5b0da43e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/11f5b0da43e) - [ux] Fix zIndex for profile card and team profile card
 
 ## 15.1.2
 
 ### Patch Changes
 
-- [`e104d184c58`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e104d184c58) - [ux] Enabled translations for team profile card messages
+- [#8383](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8383) [`e104d184c58`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e104d184c58) - [ux] Enabled translations for team profile card messages
 
 ## 15.1.1
 
 ### Patch Changes
 
-- [`771af9a49ed`](https://bitbucket.org/atlassian/atlassian-frontend/commits/771af9a49ed) - [ux] Enable propagating onClick handlers to the Avatar Group
+- [#8354](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8354) [`771af9a49ed`](https://bitbucket.org/atlassian/atlassian-frontend/commits/771af9a49ed) - [ux] Enable propagating onClick handlers to the Avatar Group
 
 ## 15.1.0
 
 ### Minor Changes
 
-- [`d30beab4f1e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d30beab4f1e) - Introduce lazy loading for the team profile card
+- [#8289](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8289) [`d30beab4f1e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d30beab4f1e) - Introduce lazy loading for the team profile card
 
 ## 15.0.2
 
 ### Patch Changes
 
-- [`1d2da620745`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1d2da620745) - [ux] Default to showing shadow around user profile cards
+- [#8305](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8305) [`1d2da620745`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1d2da620745) - [ux] Default to showing shadow around user profile cards
 
 ## 15.0.1
 
 ### Patch Changes
 
-- [`1e5d7f613f5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1e5d7f613f5) - [ux] Position the header image on team profile cards correctly
+- [#8295](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8295) [`1e5d7f613f5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1e5d7f613f5) - [ux] Position the header image on team profile cards correctly
 
 ## 15.0.0
 
 ### Major Changes
 
-- [`6d6aa2b4928`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6d6aa2b4928) - Introduced entrypoints to the profilecard package.
+- [#8235](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8235) [`6d6aa2b4928`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6d6aa2b4928) - Introduced entrypoints to the profilecard package.
 
 ## 14.3.1
 
 ### Patch Changes
 
-- [`537b933d68f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/537b933d68f) - [ux] Simplified the CSS being used and added improved testing
+- [#8082](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8082) [`537b933d68f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/537b933d68f) - [ux] Simplified the CSS being used and added improved testing
 
 ## 14.3.0
 
 ### Minor Changes
 
-- [`7ddbf962bd9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7ddbf962bd9) - [ux] Updated and added new translations
+- [#7762](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/7762) [`7ddbf962bd9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7ddbf962bd9) - [ux] Updated and added new translations
 
 ## 14.2.0
 
 ### Minor Changes
 
-- [`78a52b31f84`](https://bitbucket.org/atlassian/atlassian-frontend/commits/78a52b31f84) - [ux] Added triggerLinkType prop to allow customisation of the link that wraps the trigger.
+- [#7829](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/7829) [`78a52b31f84`](https://bitbucket.org/atlassian/atlassian-frontend/commits/78a52b31f84) - [ux] Added triggerLinkType prop to allow customisation of the link that wraps the trigger.
 
 ## 14.1.0
 
 ### Minor Changes
 
-- [`8263a7a153`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8263a7a153) - [ux] Update the user profile card trigger to use @atlaskit/popup for the popup behaviour, and remove/simplify unneeded code.
+- [#7637](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/7637) [`8263a7a153`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8263a7a153) - [ux] Update the user profile card trigger to use @atlaskit/popup for the popup behaviour, and remove/simplify unneeded code.
 
 ## 14.0.2
 
 ### Patch Changes
 
-- [`9e021e9873`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9e021e9873) - Added customisation to the new Team Profilecard examples.
+- [#7625](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/7625) [`9e021e9873`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9e021e9873) - Added customisation to the new Team Profilecard examples.
 
 ## 14.0.1
 
 ### Patch Changes
 
-- [`d2582c8e90`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d2582c8e90) - Export the TeamProfileCardTrigger
+- [#7600](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/7600) [`d2582c8e90`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d2582c8e90) - Export the TeamProfileCardTrigger
 
 ## 14.0.0
 
 ### Major Changes
 
-- [`bc57b32d3a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bc57b32d3a) - [ux] WARNING: This major release exists for testing purposes only. Avoid using this version as it contains some duplicated dependencies that will be improved in future when the next release is ready for use.
+- [#7320](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/7320) [`bc57b32d3a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bc57b32d3a) - [ux] WARNING: This major release exists for testing purposes only. Avoid using this version as it contains some duplicated dependencies that will be improved in future when the next release is ready for use.
 
   Introduced a new profile card type: the Team profile card. To support this new type, some changes have been made to the profile client structure to allow code reuse for managing both team and user profile card data collection.
 
@@ -788,7 +788,7 @@
 
 ### Patch Changes
 
-- [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
+- [#5497](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5497) [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
   This requires version 3.8 of Typescript, read more about how we handle Typescript versions here: https://atlaskit.atlassian.com/get-started
   Also add `typescript` to `devDependencies` to denote version that the package was built with.
 
@@ -808,7 +808,7 @@
 
 ### Patch Changes
 
-- [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
+- [#3885](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3885) [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
 
   Since tslib is a dependency for all our packages we recommend that products also follow this tslib upgrade
   to prevent duplicates of tslib being bundled.
@@ -817,14 +817,14 @@
 
 ### Patch Changes
 
-- [`6262f382de`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6262f382de) - Use the 'lodash' package instead of single-function 'lodash.\*' packages
+- [#3823](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3823) [`6262f382de`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6262f382de) - Use the 'lodash' package instead of single-function 'lodash.\*' packages
 - Updated dependencies
 
 ## 13.0.2
 
 ### Patch Changes
 
-- [`d03bff2147`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d03bff2147) - updated translations
+- [#3369](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3369) [`d03bff2147`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d03bff2147) - updated translations
 
 ## 13.0.1
 
@@ -836,7 +836,7 @@
 
 ### Major Changes
 
-- [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
+- [#3335](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3335) [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
   For more information see: https://community.developer.atlassian.com/t/atlaskit-to-drop-support-for-internet-explorer-11-from-1st-july-2020/39534
 
 ### Patch Changes
@@ -853,19 +853,19 @@
 
 ### Patch Changes
 
-- [`fc83c36503`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fc83c36503) - Update translation files via Traduki build
+- [#2576](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2576) [`fc83c36503`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fc83c36503) - Update translation files via Traduki build
 
 ## 12.4.2
 
 ### Patch Changes
 
-- [`39faba6e98`](https://bitbucket.org/atlassian/atlassian-frontend/commits/39faba6e98) - Update all the theme imports to something tree-shakable
+- [#2891](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2891) [`39faba6e98`](https://bitbucket.org/atlassian/atlassian-frontend/commits/39faba6e98) - Update all the theme imports to something tree-shakable
 
 ## 12.4.1
 
 ### Patch Changes
 
-- [`54d82b49f0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54d82b49f0) - Remove unused dependencies
+- [#2137](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2137) [`54d82b49f0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54d82b49f0) - Remove unused dependencies
 - [`baaad91b65`](https://bitbucket.org/atlassian/atlassian-frontend/commits/baaad91b65) - Updated to use the latest and more performant version of `@atlaskit/avatar`
 - Updated dependencies
 

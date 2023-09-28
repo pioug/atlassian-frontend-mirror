@@ -4,65 +4,65 @@
 
 ### Patch Changes
 
-- [`f040aac6bd1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f040aac6bd1) - ADFEXP-524: unskip consistency.ts in adf-utils
+- [#40343](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40343) [`f040aac6bd1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f040aac6bd1) - ADFEXP-524: unskip consistency.ts in adf-utils
 
 ## 19.0.8
 
 ### Patch Changes
 
-- [`02417310e08`](https://bitbucket.org/atlassian/atlassian-frontend/commits/02417310e08) - Fix broken generate:spec in adf-utils
+- [#40119](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40119) [`02417310e08`](https://bitbucket.org/atlassian/atlassian-frontend/commits/02417310e08) - Fix broken generate:spec in adf-utils
 
 ## 19.0.7
 
 ### Patch Changes
 
-- [`aeb5c9a01e8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aeb5c9a01e8) - Delete adf-schema from AFE and rely on npm package for adf-schema
+- [#39481](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39481) [`aeb5c9a01e8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aeb5c9a01e8) - Delete adf-schema from AFE and rely on npm package for adf-schema
 - [`4b4dcfe0bba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4b4dcfe0bba) - Delete adf-schema, use published version
 
 ## 19.0.6
 
 ### Patch Changes
 
-- [`818087ca71e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/818087ca71e) - ADFEXP-542: fix validate test
+- [#39532](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39532) [`818087ca71e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/818087ca71e) - ADFEXP-542: fix validate test
 
 ## 19.0.5
 
 ### Patch Changes
 
-- [`33cb07de05f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/33cb07de05f) - change adf-schema to fixed versioning
+- [#38976](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38976) [`33cb07de05f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/33cb07de05f) - change adf-schema to fixed versioning
 
 ## 19.0.4
 
 ### Patch Changes
 
-- [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
+- [#38162](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38162) [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
 
 ## 19.0.3
 
 ### Patch Changes
 
-- [`106c54b0ce4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/106c54b0ce4) - [ux] ED-15896 - Added support for unsupported nodes in listItem
+- [#37934](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37934) [`106c54b0ce4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/106c54b0ce4) - [ux] ED-15896 - Added support for unsupported nodes in listItem
 - Updated dependencies
 
 ## 19.0.2
 
 ### Patch Changes
 
-- [`9064e2d0f28`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9064e2d0f28) - [ux] HOT-104783 Reverting https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37639
+- [#38316](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38316) [`9064e2d0f28`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9064e2d0f28) - [ux] HOT-104783 Reverting https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37639
 - Updated dependencies
 
 ## 19.0.1
 
 ### Patch Changes
 
-- [`30d82d3462c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/30d82d3462c) - [ED-19175] add missing support for the unsupportedBlock in table related nodes
+- [#37639](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37639) [`30d82d3462c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/30d82d3462c) - [ED-19175] add missing support for the unsupportedBlock in table related nodes
 - Updated dependencies
 
 ## 19.0.0
 
 ### Major Changes
 
-- [`68ef7e6146c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/68ef7e6146c) - [ADF change] added widthType attribute to mediaSingle node, to support fixed width media node.
+- [#35517](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35517) [`68ef7e6146c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/68ef7e6146c) - [ADF change] added widthType attribute to mediaSingle node, to support fixed width media node.
 
 ### Patch Changes
 
@@ -72,32 +72,32 @@
 
 ### Patch Changes
 
-- [`c630941e8ca`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c630941e8ca) - Fix validation spec and modify default card node replacement where rest of the attributes are spread on top of replaced URL
+- [#34936](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34936) [`c630941e8ca`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c630941e8ca) - Fix validation spec and modify default card node replacement where rest of the attributes are spread on top of replaced URL
 
 ## 18.4.2
 
 ### Patch Changes
 
-- [`bf7e8e4968b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bf7e8e4968b) - ED-15895 add unsupportedinline support to caption
+- [#35185](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35185) [`bf7e8e4968b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bf7e8e4968b) - ED-15895 add unsupportedinline support to caption
 
 ## 18.4.1
 
 ### Patch Changes
 
-- [`6de13a329d4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6de13a329d4) - Move `width` and `layout` out from `datasource` into `attr` root (context blockCard node)
+- [#35085](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35085) [`6de13a329d4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6de13a329d4) - Move `width` and `layout` out from `datasource` into `attr` root (context blockCard node)
 - Updated dependencies
 
 ## 18.4.0
 
 ### Minor Changes
 
-- [`55d241a3794`](https://bitbucket.org/atlassian/atlassian-frontend/commits/55d241a3794) - Improve ADF validation by making deeper and stricter array checks as well as ability to have deep attribute structures.
+- [#34998](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34998) [`55d241a3794`](https://bitbucket.org/atlassian/atlassian-frontend/commits/55d241a3794) - Improve ADF validation by making deeper and stricter array checks as well as ability to have deep attribute structures.
 
 ## 18.3.0
 
 ### Minor Changes
 
-- [`f3d2c08d61b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f3d2c08d61b) - Adds new datasource attribute to existing blockCard node
+- [#34887](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34887) [`f3d2c08d61b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f3d2c08d61b) - Adds new datasource attribute to existing blockCard node
 
 ### Patch Changes
 
@@ -107,26 +107,26 @@
 
 ### Patch Changes
 
-- [`94561f309f3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/94561f309f3) - New stage-0 change: custom "width" attribute on Tables nodes
+- [#34192](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34192) [`94561f309f3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/94561f309f3) - New stage-0 change: custom "width" attribute on Tables nodes
 - Updated dependencies
 
 ## 18.2.2
 
 ### Patch Changes
 
-- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793) [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
 
 ## 18.2.1
 
 ### Patch Changes
 
-- [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649) [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
 
 ## 18.2.0
 
 ### Minor Changes
 
-- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258) [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
 
 ### Patch Changes
 
@@ -136,20 +136,20 @@
 
 ### Patch Changes
 
-- [`ac684305b74`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ac684305b74) - [ED-17495] Avoid adding two unsupportedNodeAttribute marks as duplicate marks are invalid ADF
+- [#33004](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33004) [`ac684305b74`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ac684305b74) - [ED-17495] Avoid adding two unsupportedNodeAttribute marks as duplicate marks are invalid ADF
 
 ## 18.1.1
 
 ### Patch Changes
 
-- [`2e01c9c74b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e01c9c74b5) - DUMMY remove before merging to master; dupe adf-schema via adf-utils
+- [#32424](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32424) [`2e01c9c74b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e01c9c74b5) - DUMMY remove before merging to master; dupe adf-schema via adf-utils
 - Updated dependencies
 
 ## 18.1.0
 
 ### Minor Changes
 
-- [`bf04c417bfd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bf04c417bfd) - Add "border" mark to stage0 ADF schema
+- [#31891](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31891) [`bf04c417bfd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bf04c417bfd) - Add "border" mark to stage0 ADF schema
 
 ### Patch Changes
 
@@ -159,7 +159,7 @@
 
 ### Patch Changes
 
-- [`6b52583b688`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6b52583b688) - ED-15974 Currently nodes are validated against single spec.
+- [#31299](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31299) [`6b52583b688`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6b52583b688) - ED-15974 Currently nodes are validated against single spec.
   When a node has multiple specs, like mediaSingle, the first spec is used to validate the node.
   Therefore, the validation fails with an error `INVALID_CONTENT_LENGTH` when the correct spec is not selected for validation.
 
@@ -169,27 +169,27 @@
 
 ### Patch Changes
 
-- [`eab04c03dbc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eab04c03dbc) - ED-15641 Update transfromIndentationMarks() to remove heading indention from tableHeaders.
+- [#29470](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/29470) [`eab04c03dbc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eab04c03dbc) - ED-15641 Update transfromIndentationMarks() to remove heading indention from tableHeaders.
 - Updated dependencies
 
 ## 18.0.2
 
 ### Patch Changes
 
-- [`15e6a59ab9b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/15e6a59ab9b) - Dummy changeset to trigger product integrator to use latest adf-utils from develop.
+- [#28932](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28932) [`15e6a59ab9b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/15e6a59ab9b) - Dummy changeset to trigger product integrator to use latest adf-utils from develop.
 
 ## 18.0.1
 
 ### Patch Changes
 
-- [`070984d00ea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/070984d00ea) - Dummy changeset to trigger product integrator to use latest adf-utils from develop
+- [#28374](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28374) [`070984d00ea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/070984d00ea) - Dummy changeset to trigger product integrator to use latest adf-utils from develop
 - Updated dependencies
 
 ## 18.0.0
 
 ### Major Changes
 
-- [`5d317ed8aa3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5d317ed8aa3) - [ux] ED-15882: Implement custom starting numbers for orderedList nodes in adf-schema, editor, renderer, transformers behind restartNumberedLists feature flag. Users will be able to set a custom starting number when typing to create a numbered list in the Editor and this will be persisted across Renderer and other format transformations.
+- [#28090](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28090) [`5d317ed8aa3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5d317ed8aa3) - [ux] ED-15882: Implement custom starting numbers for orderedList nodes in adf-schema, editor, renderer, transformers behind restartNumberedLists feature flag. Users will be able to set a custom starting number when typing to create a numbered list in the Editor and this will be persisted across Renderer and other format transformations.
 
   Note: restartNumberedLists will be off by default. To enable it, consumers will need to set <Editor featureFlags={{ restartNumberedLists: true }}> or <Renderer featureFlags={{ restartNumberedLists: true }}>
 
@@ -201,13 +201,13 @@
 
 ### Patch Changes
 
-- [`17014a9004c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/17014a9004c) - [ux] ED-15632 preprocess invalid media adf to avoid empty mediaSingle node and duplicated captions and media inside mediaSingle.The document will be transformed for this cases and validation error not thrown.When mediaSingle with empty content is encountered - it will be removed.When mediaSingle with duplicated captions or media nodes is encountered - duplicate captions or media nodes will be removed, prioritising removal of nodes with empty content first.
+- [#26712](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26712) [`17014a9004c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/17014a9004c) - [ux] ED-15632 preprocess invalid media adf to avoid empty mediaSingle node and duplicated captions and media inside mediaSingle.The document will be transformed for this cases and validation error not thrown.When mediaSingle with empty content is encountered - it will be removed.When mediaSingle with duplicated captions or media nodes is encountered - duplicate captions or media nodes will be removed, prioritising removal of nodes with empty content first.
 
 ## 17.1.4
 
 ### Patch Changes
 
-- [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
+- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874) [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
 
 ## 17.1.3
 
@@ -219,20 +219,20 @@
 
 ### Patch Changes
 
-- [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
+- [#24492](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24492) [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
 
 ## 17.1.1
 
 ### Patch Changes
 
-- [`fecd5f5c96c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fecd5f5c96c) - ED-15067 Added paragraph_with_indentation to block content to allow indented paragraphs inside of layout columns. Prior to this change, it was possible to add indentation but it resulted in an unsupported mark.
+- [#23381](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23381) [`fecd5f5c96c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fecd5f5c96c) - ED-15067 Added paragraph_with_indentation to block content to allow indented paragraphs inside of layout columns. Prior to this change, it was possible to add indentation but it resulted in an unsupported mark.
 - Updated dependencies
 
 ## 17.1.0
 
 ### Minor Changes
 
-- [`4d8c675bd2a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4d8c675bd2a) - EDM-3779 Hotfix: Extend Media Inline ADF Schema to have type attribute
+- [#22875](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22875) [`4d8c675bd2a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4d8c675bd2a) - EDM-3779 Hotfix: Extend Media Inline ADF Schema to have type attribute
 
 ### Patch Changes
 
@@ -242,7 +242,7 @@
 
 ### Major Changes
 
-- [`844b8278b4d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/844b8278b4d) - ED-14608: Migrate adf-utils to modern child entry points, remove default entry point, add codemods to enforce migration.
+- [#21570](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21570) [`844b8278b4d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/844b8278b4d) - ED-14608: Migrate adf-utils to modern child entry points, remove default entry point, add codemods to enforce migration.
 
   As we will no longer support the default entry point, imports such as the example below:
 
@@ -309,7 +309,7 @@
 
 ### Patch Changes
 
-- [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
+- [#20650](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20650) [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
 
 ## 16.0.1
 
@@ -321,11 +321,11 @@
 
 ### Major Changes
 
-- [`304351e4b1e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/304351e4b1e) - CETI-241 - Added additional panel ADF attributes (panelIconId, panelIconText) to uniquely identify custom panel emojis. The change has been categorised as major since it is a change to the full-schema ADF. However, the custom panel feature is behind a feature flag, has not yet been released to production, and is only currently planned for release to Confluence. See ADF change #61 for further details.
+- [#18526](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/18526) [`304351e4b1e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/304351e4b1e) - CETI-241 - Added additional panel ADF attributes (panelIconId, panelIconText) to uniquely identify custom panel emojis. The change has been categorised as major since it is a change to the full-schema ADF. However, the custom panel feature is behind a feature flag, has not yet been released to production, and is only currently planned for release to Confluence. See ADF change #61 for further details.
 
 ### Patch Changes
 
-- [`2f5133aedd7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2f5133aedd7) - ED-13881 Update existing imports from @atlaskit/adf-schema to use declarative entry points
+- [#16752](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16752) [`2f5133aedd7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2f5133aedd7) - ED-13881 Update existing imports from @atlaskit/adf-schema to use declarative entry points
 - [`3b49ff824ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3b49ff824ec) - ED-14043 update prosemirror schema to only allow link mark on children of paragraph and mediaSingle
 - Updated dependencies
 
@@ -348,13 +348,13 @@
 
 ### Patch Changes
 
-- [`60a8ae28c1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/60a8ae28c1f) - [ux] HOT-97965: Strip code marks from text nodes when code and link marks both exist
+- [#18233](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/18233) [`60a8ae28c1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/60a8ae28c1f) - [ux] HOT-97965: Strip code marks from text nodes when code and link marks both exist
 
 ## 14.4.0
 
 ### Minor Changes
 
-- [`83154234335`](https://bitbucket.org/atlassian/atlassian-frontend/commits/83154234335) - ED-13522 Add safe URL check to ADF validator (smart cards now show as unsupported content if the check fails)
+- [#15998](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/15998) [`83154234335`](https://bitbucket.org/atlassian/atlassian-frontend/commits/83154234335) - ED-13522 Add safe URL check to ADF validator (smart cards now show as unsupported content if the check fails)
 - [`8bbb96540ea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8bbb96540ea) - Add "fragment" mark to stage0 ADF schema
 
 ### Patch Changes
@@ -365,7 +365,7 @@
 
 ### Minor Changes
 
-- [`cf853e39278`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf853e39278) - Add single column support for layouts
+- [#14319](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/14319) [`cf853e39278`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf853e39278) - Add single column support for layouts
 
 ### Patch Changes
 
@@ -375,7 +375,7 @@
 
 ### Minor Changes
 
-- [`ad67f6684f1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ad67f6684f1) - Add MediaInline to ADF Stage0 schema
+- [#13864](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13864) [`ad67f6684f1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ad67f6684f1) - Add MediaInline to ADF Stage0 schema
 
 ### Patch Changes
 
@@ -391,7 +391,7 @@
 
 ### Minor Changes
 
-- [`9fef23ee77c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9fef23ee77c) - ED-12477 Add unsupported node capability to Media Group
+- [#11649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/11649) [`9fef23ee77c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9fef23ee77c) - ED-12477 Add unsupported node capability to Media Group
 - [`fc04f067e14`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fc04f067e14) - Fix DataConsumer mark builder type
 
 ### Patch Changes
@@ -402,7 +402,7 @@
 
 ### Major Changes
 
-- [`7e6fe5abae9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7e6fe5abae9) - revert heading with indentation in table cell content
+- [#11379](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/11379) [`7e6fe5abae9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7e6fe5abae9) - revert heading with indentation in table cell content
 
 ### Patch Changes
 
@@ -412,7 +412,7 @@
 
 ### Major Changes
 
-- [`9d3472d1a17`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d3472d1a17) - ED-12889: Remove heading with indentation from table cell content
+- [#11113](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/11113) [`9d3472d1a17`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d3472d1a17) - ED-12889: Remove heading with indentation from table cell content
 
 ### Minor Changes
 
@@ -426,7 +426,7 @@
 
 ### Minor Changes
 
-- [`1fbe305bf7d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1fbe305bf7d) - ED-12273 Unsupported content support for Layout
+- [#10569](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10569) [`1fbe305bf7d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1fbe305bf7d) - ED-12273 Unsupported content support for Layout
 
 ### Patch Changes
 
@@ -436,7 +436,7 @@
 
 ### Minor Changes
 
-- [`8c84c29006b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8c84c29006b) - Improve data-consumer mark being nested, aAdd basic doc tests for data consumer
+- [#10230](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10230) [`8c84c29006b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8c84c29006b) - Improve data-consumer mark being nested, aAdd basic doc tests for data consumer
 - [`621f12ec284`](https://bitbucket.org/atlassian/atlassian-frontend/commits/621f12ec284) - Update adf util specs to support unsupported content changes
 
 ### Patch Changes
@@ -447,7 +447,7 @@
 
 ### Minor Changes
 
-- [`357edf7b4a1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/357edf7b4a1) - ED-12266 Extend code block to support UnsupportedInline content.
+- [#9756](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9756) [`357edf7b4a1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/357edf7b4a1) - ED-12266 Extend code block to support UnsupportedInline content.
 
 ### Patch Changes
 
@@ -457,7 +457,7 @@
 
 ### Major Changes
 
-- [`accd87f8116`](https://bitbucket.org/atlassian/atlassian-frontend/commits/accd87f8116) - ED-10216 Remove sanitizeNode helper function
+- [#9510](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9510) [`accd87f8116`](https://bitbucket.org/atlassian/atlassian-frontend/commits/accd87f8116) - ED-10216 Remove sanitizeNode helper function
 
   BREAKING CHANGE:
 
@@ -482,7 +482,7 @@
 
 ### Minor Changes
 
-- [`6d748ea5140`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6d748ea5140) - New stage-0 data consumer mark in ADF schema
+- [#9083](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9083) [`6d748ea5140`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6d748ea5140) - New stage-0 data consumer mark in ADF schema
 
 ### Patch Changes
 
@@ -492,26 +492,26 @@
 
 ### Patch Changes
 
-- [`ffbe78153cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ffbe78153cf) - New stage0 ADF change: localId attribute on Table nodes
+- [#8644](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8644) [`ffbe78153cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ffbe78153cf) - New stage0 ADF change: localId attribute on Table nodes
 - Updated dependencies
 
 ## 11.8.0
 
 ### Minor Changes
 
-- [`586040bf70b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/586040bf70b) - Ensure that all children are validated in new error path
+- [#7762](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/7762) [`586040bf70b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/586040bf70b) - Ensure that all children are validated in new error path
 
 ## 11.7.1
 
 ### Patch Changes
 
-- [`7374ce442af`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7374ce442af) - Scrub content in array attributes
+- [#7721](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/7721) [`7374ce442af`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7374ce442af) - Scrub content in array attributes
 
 ## 11.7.0
 
 ### Minor Changes
 
-- [`70f47afdee`](https://bitbucket.org/atlassian/atlassian-frontend/commits/70f47afdee) - Added unsupportedBlock support for mediaSingle as a child
+- [#7425](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/7425) [`70f47afdee`](https://bitbucket.org/atlassian/atlassian-frontend/commits/70f47afdee) - Added unsupportedBlock support for mediaSingle as a child
 - [`549740c01d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/549740c01d) - Exported the validator errors map
   Convert nodes that are after an invalid length to be unsupported
 
@@ -523,7 +523,7 @@
 
 ### Minor Changes
 
-- [`f523768cdc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f523768cdc) - Fix validator and schema for Image Captions
+- [#7170](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/7170) [`f523768cdc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f523768cdc) - Fix validator and schema for Image Captions
 
 ### Patch Changes
 
@@ -533,19 +533,19 @@
 
 ### Minor Changes
 
-- [`9697099745`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9697099745) - NO-ISSUE: replace media and smart links with valid nodes
+- [#6838](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/6838) [`9697099745`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9697099745) - NO-ISSUE: replace media and smart links with valid nodes
 
 ## 11.4.0
 
 ### Minor Changes
 
-- [`4d9d11c246`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4d9d11c246) - Fixes nodes with multiple validation specs to return node with most suitable spec.
+- [#6833](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/6833) [`4d9d11c246`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4d9d11c246) - Fixes nodes with multiple validation specs to return node with most suitable spec.
 
 ## 11.3.0
 
 ### Minor Changes
 
-- [`9b1c48edd1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9b1c48edd1) - Revert ED-10820 to resolve broken validator
+- [#6571](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/6571) [`9b1c48edd1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9b1c48edd1) - Revert ED-10820 to resolve broken validator
 
 ### Patch Changes
 
@@ -556,43 +556,43 @@
 
 ### Patch Changes
 
-- [`e6f6e57465`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e6f6e57465) - NO-ISSUE: replace unicode glyphs including emojis
+- [#6437](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/6437) [`e6f6e57465`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e6f6e57465) - NO-ISSUE: replace unicode glyphs including emojis
 
 ## 11.2.1
 
 ### Patch Changes
 
-- [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
+- [#5857](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5857) [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
 
 ## 11.2.0
 
 ### Minor Changes
 
-- [`24af67e112`](https://bitbucket.org/atlassian/atlassian-frontend/commits/24af67e112) - NO-ISSUE: allow consumers to specify per-type node replacements
+- [#6393](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/6393) [`24af67e112`](https://bitbucket.org/atlassian/atlassian-frontend/commits/24af67e112) - NO-ISSUE: allow consumers to specify per-type node replacements
 
 ## 11.1.2
 
 ### Patch Changes
 
-- [`b0203bf159`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b0203bf159) - NO-ISSUE: retain numeric characters
+- [#6340](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/6340) [`b0203bf159`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b0203bf159) - NO-ISSUE: retain numeric characters
 
 ## 11.1.1
 
 ### Patch Changes
 
-- [`b7e3b9c8f2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b7e3b9c8f2) - retain non-word characters and case when scrubbing
+- [#6308](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/6308) [`b7e3b9c8f2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b7e3b9c8f2) - retain non-word characters and case when scrubbing
 
 ## 11.1.0
 
 ### Minor Changes
 
-- [`988bc9cfc9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/988bc9cfc9) - ED-10676: ADF scrub util
+- [#5877](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5877) [`988bc9cfc9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/988bc9cfc9) - ED-10676: ADF scrub util
 
 ## 11.0.0
 
 ### Major Changes
 
-- [`f2fbde158a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f2fbde158a) - getEmptyADF() returns correct DocNode type
+- [#5860](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5860) [`f2fbde158a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f2fbde158a) - getEmptyADF() returns correct DocNode type
 
 ### Minor Changes
 
@@ -607,7 +607,7 @@
 
 ### Minor Changes
 
-- [`a41378f853`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a41378f853) - Refactor & fix few cases of unsupported node attributes:
+- [#5516](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5516) [`a41378f853`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a41378f853) - Refactor & fix few cases of unsupported node attributes:
 
   - Preseve attributes on nodes which do not support any attributes
   - Add unsupportedNodeAttribute to bulletList, layoutSection etc.
@@ -621,7 +621,7 @@
 
 ### Patch Changes
 
-- [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
+- [#5497](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5497) [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
   This requires version 3.8 of Typescript, read more about how we handle Typescript versions here: https://atlaskit.atlassian.com/get-started
   Also add `typescript` to `devDependencies` to denote version that the package was built with.
 
@@ -629,7 +629,7 @@
 
 ### Minor Changes
 
-- [`6e237a6753`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6e237a6753) - Add optional caption to mediaSingle in adf schema for stage 0
+- [#4749](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4749) [`6e237a6753`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6e237a6753) - Add optional caption to mediaSingle in adf schema for stage 0
 
 ### Patch Changes
 
@@ -640,7 +640,7 @@
 
 ### Minor Changes
 
-- [`aa03ba4b0b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aa03ba4b0b) - ED-9733 Preserve known mark on node which does not support it.
+- [#4424](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4424) [`aa03ba4b0b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aa03ba4b0b) - ED-9733 Preserve known mark on node which does not support it.
 - [`e4114d7053`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e4114d7053) - ED-9607 - Preserve Unsupported Node attributes
 
 ### Patch Changes
@@ -651,7 +651,7 @@
 
 ### Patch Changes
 
-- [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
+- [#3885](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3885) [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
 
   Since tslib is a dependency for all our packages we recommend that products also follow this tslib upgrade
   to prevent duplicates of tslib being bundled.
@@ -660,13 +660,13 @@
 
 ### Patch Changes
 
-- [`76165ad82f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/76165ad82f) - Bump required because of conflicts on wadmal release
+- [#4393](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4393) [`76165ad82f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/76165ad82f) - Bump required because of conflicts on wadmal release
 
 ## 10.2.0
 
 ### Minor Changes
 
-- [`0f5b0a3f5d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0f5b0a3f5d) - CS-2944 Traversing visitor function provides current node's depth inside document tree
+- [#3823](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3823) [`0f5b0a3f5d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0f5b0a3f5d) - CS-2944 Traversing visitor function provides current node's depth inside document tree
 - [`d55f8066fd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d55f8066fd) - ED-9569 Preserve unsupported mark attribute and value
 - [`abce19a6d1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/abce19a6d1) - Remove hard coded branching for Tuples
   Remove `forceContentValidation`
@@ -682,7 +682,7 @@
 
 ### Minor Changes
 
-- [`b7c4fc3b08`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b7c4fc3b08) - Preseve unsupported mark from getting lost
+- [#3428](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3428) [`b7c4fc3b08`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b7c4fc3b08) - Preseve unsupported mark from getting lost
 
 ### Patch Changes
 
@@ -692,7 +692,7 @@
 
 ### Major Changes
 
-- [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
+- [#3335](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3335) [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
   For more information see: https://community.developer.atlassian.com/t/atlaskit-to-drop-support-for-internet-explorer-11-from-1st-july-2020/39534
 
 ### Patch Changes
@@ -703,7 +703,7 @@
 
 ### Minor Changes
 
-- [`0ae829a4ea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0ae829a4ea) - EDM-648: Adds resizing and alignment to embed cards
+- [#2443](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2443) [`0ae829a4ea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0ae829a4ea) - EDM-648: Adds resizing and alignment to embed cards
 
 ### Patch Changes
 
@@ -713,7 +713,7 @@
 
 ### Minor Changes
 
-- [`50c333ab3a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/50c333ab3a) - EDM-216: Adds EmbedCards in the Editor under the flag - allowEmbeds in the UNSAFE_cards prop
+- [#2137](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2137) [`50c333ab3a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/50c333ab3a) - EDM-216: Adds EmbedCards in the Editor under the flag - allowEmbeds in the UNSAFE_cards prop
 
 ### Patch Changes
 

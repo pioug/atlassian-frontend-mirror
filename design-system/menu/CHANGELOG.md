@@ -4,43 +4,43 @@
 
 ### Minor Changes
 
-- [`5545e5a6ab2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5545e5a6ab2) - [ux] Adds `isLoading` prop to menu group for better context for assistive technology users.
+- [#40393](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40393) [`5545e5a6ab2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5545e5a6ab2) - [ux] Adds `isLoading` prop to menu group for better context for assistive technology users.
 
 ## 1.10.1
 
 ### Patch Changes
 
-- [`a962b1b24eb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a962b1b24eb) - The internal composition of this component has changed. There is no expected change in behavior.
+- [#38745](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38745) [`a962b1b24eb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a962b1b24eb) - The internal composition of this component has changed. There is no expected change in behavior.
 
 ## 1.10.0
 
 ### Minor Changes
 
-- [`6bb299616f3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6bb299616f3) - Adds a killswitch to turn off unsafe style overrides via a feature flag.
+- [#38470](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38470) [`6bb299616f3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6bb299616f3) - Adds a killswitch to turn off unsafe style overrides via a feature flag.
 
 ## 1.9.8
 
 ### Patch Changes
 
-- [`56b444b56a8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56b444b56a8) - Fix a bug where text descenders were cut off at high zoom levels on Windows
+- [#38209](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38209) [`56b444b56a8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56b444b56a8) - Fix a bug where text descenders were cut off at high zoom levels on Windows
 
 ## 1.9.7
 
 ### Patch Changes
 
-- [`1ed303de3e8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1ed303de3e8) - Updated dependencies
+- [#37533](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37533) [`1ed303de3e8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1ed303de3e8) - Updated dependencies
 
 ## 1.9.6
 
 ### Patch Changes
 
-- [`71c51a488d7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/71c51a488d7) - Removes max-height constraint on compact density.
+- [#37339](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37339) [`71c51a488d7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/71c51a488d7) - Removes max-height constraint on compact density.
 
 ## 1.9.5
 
 ### Patch Changes
 
-- [`4ae083a7e66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ae083a7e66) - Use `@af/accessibility-testing` for default jest-axe config and jest-axe import in accessibility testing.
+- [#36754](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36754) [`4ae083a7e66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ae083a7e66) - Use `@af/accessibility-testing` for default jest-axe config and jest-axe import in accessibility testing.
 
 ## 1.9.4
 
@@ -58,7 +58,7 @@
 
 ### Patch Changes
 
-- [`599bfe90ee3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/599bfe90ee3) - Internal change to use shape tokens. There is no expected visual change.
+- [#35441](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35441) [`599bfe90ee3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/599bfe90ee3) - Internal change to use shape tokens. There is no expected visual change.
 
 ## 1.9.1
 
@@ -70,7 +70,7 @@
 
 ### Minor Changes
 
-- [`0af122e7d0f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0af122e7d0f) - [ux] Prop isList in Section component allows to add `<ul>` and `<li>` elements around the items to better semantic markup if it is a list of items
+- [#35164](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35164) [`0af122e7d0f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0af122e7d0f) - [ux] Prop isList in Section component allows to add `<ul>` and `<li>` elements around the items to better semantic markup if it is a list of items
 
 ## 1.8.1
 
@@ -82,7 +82,7 @@
 
 ### Minor Changes
 
-- [`b53207f89ef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b53207f89ef) - The internal menu context now can have no border or notch for the selected state. This is being tested under a feature flag and if successful will be available in a later release.
+- [#35038](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35038) [`b53207f89ef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b53207f89ef) - The internal menu context now can have no border or notch for the selected state. This is being tested under a feature flag and if successful will be available in a later release.
 
 ### Patch Changes
 
@@ -110,55 +110,55 @@
 
 ### Patch Changes
 
-- [`4b76c41be8e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4b76c41be8e) - Added prop deprecation warnings for cssFn and overrides props. These warnings are displayed in the console in development environments only.
+- [#34655](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34655) [`4b76c41be8e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4b76c41be8e) - Added prop deprecation warnings for cssFn and overrides props. These warnings are displayed in the console in development environments only.
 
 ## 1.7.5
 
 ### Patch Changes
 
-- [`e7ea6832ad2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e7ea6832ad2) - Bans the use of React.FC/React.FunctionComponent type in ADS components as part of the React 18 migration work. The change is internal only and should not introduce any changes for the component consumers.
+- [#33652](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33652) [`e7ea6832ad2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e7ea6832ad2) - Bans the use of React.FC/React.FunctionComponent type in ADS components as part of the React 18 migration work. The change is internal only and should not introduce any changes for the component consumers.
 
 ## 1.7.4
 
 ### Patch Changes
 
-- [`33f10b7eb36`](https://bitbucket.org/atlassian/atlassian-frontend/commits/33f10b7eb36) - Removing unused dependencies and dev dependencies
+- [#34445](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34445) [`33f10b7eb36`](https://bitbucket.org/atlassian/atlassian-frontend/commits/33f10b7eb36) - Removing unused dependencies and dev dependencies
 
 ## 1.7.3
 
 ### Patch Changes
 
-- [`a1c538cb238`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a1c538cb238) - Enrol @atlaskit/menu on push model consumption in Jira.
+- [#34369](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34369) [`a1c538cb238`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a1c538cb238) - Enrol @atlaskit/menu on push model consumption in Jira.
 
 ## 1.7.2
 
 ### Patch Changes
 
-- [`49b08bfdf5f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/49b08bfdf5f) - Migrated use of `gridSize` to space tokens where possible. There is no expected visual or behaviour change.
+- [#34051](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34051) [`49b08bfdf5f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/49b08bfdf5f) - Migrated use of `gridSize` to space tokens where possible. There is no expected visual or behaviour change.
 
 ## 1.7.1
 
 ### Patch Changes
 
-- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793) [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
 
 ## 1.7.0
 
 ### Minor Changes
 
-- [`d518f0e34b9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d518f0e34b9) - [ux] We are testing a selected indicator change to menu, dropdown-menu, and side-navigation packages behind an internal feature flag. If successful this will be released in a later minor release.
+- [#33349](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33349) [`d518f0e34b9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d518f0e34b9) - [ux] We are testing a selected indicator change to menu, dropdown-menu, and side-navigation packages behind an internal feature flag. If successful this will be released in a later minor release.
 
 ## 1.6.1
 
 ### Patch Changes
 
-- [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649) [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
 
 ## 1.6.0
 
 ### Minor Changes
 
-- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258) [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
 
 ### Patch Changes
 
@@ -168,7 +168,7 @@
 
 ### Patch Changes
 
-- [`2e01c9c74b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e01c9c74b5) - DUMMY remove before merging to master; dupe adf-schema via adf-utils
+- [#32424](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32424) [`2e01c9c74b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e01c9c74b5) - DUMMY remove before merging to master; dupe adf-schema via adf-utils
 
 ## 1.5.7
 
@@ -198,27 +198,27 @@
 
 ### Patch Changes
 
-- [`a8debc96871`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a8debc96871) - Internal update to menu primitive so it renders a span instead of a div as child of button.
+- [#31691](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31691) [`a8debc96871`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a8debc96871) - Internal update to menu primitive so it renders a span instead of a div as child of button.
 
 ## 1.5.2
 
 ### Patch Changes
 
-- [`3ca97be0c06`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3ca97be0c06) - Internal change only. Replace usages of Inline/Stack with stable version from `@atlaskit/primitives`.
+- [#31378](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31378) [`3ca97be0c06`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3ca97be0c06) - Internal change only. Replace usages of Inline/Stack with stable version from `@atlaskit/primitives`.
 - Updated dependencies
 
 ## 1.5.1
 
 ### Patch Changes
 
-- [`261420360ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/261420360ec) - Upgrades component types to support React 18.
+- [#31206](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31206) [`261420360ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/261420360ec) - Upgrades component types to support React 18.
 - Updated dependencies
 
 ## 1.5.0
 
 ### Minor Changes
 
-- [`93d761786d6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/93d761786d6) - [ux] Default spacing for all menu items has been changed from 20px inline padding to 16px.
+- [#30362](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/30362) [`93d761786d6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/93d761786d6) - [ux] Default spacing for all menu items has been changed from 20px inline padding to 16px.
 
   Adds a new spacing prop to on `MenuGroup`. The prop can be used to control the content density of the component and its children.
 
@@ -228,7 +228,7 @@
 
 ### Patch Changes
 
-- [`63c2f0b3f96`](https://bitbucket.org/atlassian/atlassian-frontend/commits/63c2f0b3f96) - Internal changes to use spacing tokens. There is no expected behaviour or visual change.
+- [#29725](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/29725) [`63c2f0b3f96`](https://bitbucket.org/atlassian/atlassian-frontend/commits/63c2f0b3f96) - Internal changes to use spacing tokens. There is no expected behaviour or visual change.
 
 ## 1.4.9
 
@@ -240,13 +240,13 @@
 
 ### Patch Changes
 
-- [`18aeca8c199`](https://bitbucket.org/atlassian/atlassian-frontend/commits/18aeca8c199) - Internal change to update token references. There is no expected behaviour or visual change.
+- [#29390](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/29390) [`18aeca8c199`](https://bitbucket.org/atlassian/atlassian-frontend/commits/18aeca8c199) - Internal change to update token references. There is no expected behaviour or visual change.
 
 ## 1.4.7
 
 ### Patch Changes
 
-- [`4ee60bafc6d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ee60bafc6d) - ED-16603: Remove tooltips from VR tests and make them opt in. To opt-in, add `allowedSideEffects` when loading the page.
+- [#29227](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/29227) [`4ee60bafc6d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ee60bafc6d) - ED-16603: Remove tooltips from VR tests and make them opt in. To opt-in, add `allowedSideEffects` when loading the page.
 
 ## 1.4.6
 
@@ -258,13 +258,13 @@
 
 ### Patch Changes
 
-- [`b0f6dd0bc35`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b0f6dd0bc35) - Updated to use typography tokens. There is no expected behaviour or visual change.
+- [#28064](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28064) [`b0f6dd0bc35`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b0f6dd0bc35) - Updated to use typography tokens. There is no expected behaviour or visual change.
 
 ## 1.4.4
 
 ### Patch Changes
 
-- [`f96f3ebd861`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f96f3ebd861) - [ux] Use color.background.neutral.subtle token to represent transparent background.
+- [#28090](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28090) [`f96f3ebd861`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f96f3ebd861) - [ux] Use color.background.neutral.subtle token to represent transparent background.
 - [`981faeea2ff`](https://bitbucket.org/atlassian/atlassian-frontend/commits/981faeea2ff) - Application of spacing tokens for some internal styles of `MenuPrimitive`.
 - [`bcbd0c5b5bf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bcbd0c5b5bf) - Fix text color styling of disabled descriptions in menu and link items
 
@@ -290,7 +290,7 @@
 
 ### Minor Changes
 
-- [`3acf8a89149`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3acf8a89149) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behavior change.
+- [#25860](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/25860) [`3acf8a89149`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3acf8a89149) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behavior change.
 
 ### Patch Changes
 
@@ -300,52 +300,52 @@
 
 ### Patch Changes
 
-- [`9de88fa1e1e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9de88fa1e1e) - Internal changes to include spacing tokens in component implementations.
+- [#26408](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26408) [`9de88fa1e1e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9de88fa1e1e) - Internal changes to include spacing tokens in component implementations.
 
 ## 1.3.11
 
 ### Patch Changes
 
-- [`8f2153a45a7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f2153a45a7) - Convert Menu Group to use primitives.
+- [#24710](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24710) [`8f2153a45a7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f2153a45a7) - Convert Menu Group to use primitives.
 - Updated dependencies
 
 ## 1.3.10
 
 ### Patch Changes
 
-- [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
+- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874) [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
 
 ## 1.3.9
 
 ### Patch Changes
 
-- [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
+- [#24492](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24492) [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
 
 ## 1.3.8
 
 ### Patch Changes
 
-- [`b196f69e76b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b196f69e76b) - Menu items no longer intercept mouse down events to force focus or blur behavior depending on the last focused element.
+- [#23381](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23381) [`b196f69e76b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b196f69e76b) - Menu items no longer intercept mouse down events to force focus or blur behavior depending on the last focused element.
 - Updated dependencies
 
 ## 1.3.7
 
 ### Patch Changes
 
-- [`8a5bdb3c844`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8a5bdb3c844) - Upgrading internal dependency (bind-event-listener) for improved internal types
+- [#22614](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22614) [`8a5bdb3c844`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8a5bdb3c844) - Upgrading internal dependency (bind-event-listener) for improved internal types
 
 ## 1.3.6
 
 ### Patch Changes
 
-- [`c8145459eb5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c8145459eb5) - [ux] Updating skeleton token in @atlakist/menu, @atlaskit/theme
+- [#22029](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22029) [`c8145459eb5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c8145459eb5) - [ux] Updating skeleton token in @atlakist/menu, @atlaskit/theme
 - Updated dependencies
 
 ## 1.3.5
 
 ### Patch Changes
 
-- [`efa50ac72ba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/efa50ac72ba) - Adjusts jsdoc strings to improve prop documentation
+- [#21545](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21545) [`efa50ac72ba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/efa50ac72ba) - Adjusts jsdoc strings to improve prop documentation
 
 ## 1.3.4
 
@@ -357,7 +357,7 @@
 
 ### Patch Changes
 
-- [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
+- [#20650](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20650) [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
 
 ## 1.3.2
 
@@ -369,7 +369,7 @@
 
 ### Patch Changes
 
-- [`59e2178901f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/59e2178901f) - The `isShimmering` prop for skeleton items has been fixed, resolving a regression in version 1.2.0.
+- [#19618](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19618) [`59e2178901f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/59e2178901f) - The `isShimmering` prop for skeleton items has been fixed, resolving a regression in version 1.2.0.
 - [`62edf20ab1e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/62edf20ab1e) - Migrates all usage of brand tokens to either selected or information tokens. This change is purely for semantic reasons, there are no visual or behavioural changes.
 - Updated dependencies
 
@@ -377,7 +377,7 @@
 
 ### Minor Changes
 
-- [`77c46ec96a7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/77c46ec96a7) - Adds a prop for `role` to the MenuGroup component that acts as you'd expect the HTML attribute to act. You are now able to override the accessibility role for the element.
+- [#19019](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19019) [`77c46ec96a7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/77c46ec96a7) - Adds a prop for `role` to the MenuGroup component that acts as you'd expect the HTML attribute to act. You are now able to override the accessibility role for the element.
 
 ### Patch Changes
 
@@ -387,8 +387,8 @@
 
 ### Patch Changes
 
-- [`58884c2f6c1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/58884c2f6c1) - Internal code change turning on a new linting rule.
-- [`27467f65f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/27467f65f68) - [ux] Update headingStyle to color that passes WCAG AA color contrast
+- [#16752](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16752) [`58884c2f6c1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/58884c2f6c1) - Internal code change turning on a new linting rule.
+- [#18526](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/18526) [`27467f65f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/27467f65f68) - [ux] Update headingStyle to color that passes WCAG AA color contrast
 - [`2066efabc65`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2066efabc65) - A fix for the `StatelessCSSFn` type so that it now correctly accetps a void argument.
 - [`96cfc6c1c7f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/96cfc6c1c7f) - Deprecates the `cssFn` and `overrides` APIs in '@atlaskit/menu'. These APIs are not performant and allow unbounded customisation of the Menu components. These APIs will be removed in a future release.
 - Updated dependencies
@@ -411,26 +411,26 @@
 
 ### Patch Changes
 
-- [`f460cc7c411`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f460cc7c411) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving bundle size.
+- [#15998](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/15998) [`f460cc7c411`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f460cc7c411) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving bundle size.
 - Updated dependencies
 
 ## 1.2.2
 
 ### Patch Changes
 
-- [`2eeb5c46710`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2eeb5c46710) - Menu items can take `data-testid` directly again however we recommend to still use the officially supported `testId` prop instead. The `data-testid` prop was unintentionally removed in a previous version however will be removed as a breaking change in a later major version and remains not officially typed.
+- [#16405](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16405) [`2eeb5c46710`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2eeb5c46710) - Menu items can take `data-testid` directly again however we recommend to still use the officially supported `testId` prop instead. The `data-testid` prop was unintentionally removed in a previous version however will be removed as a breaking change in a later major version and remains not officially typed.
 
 ## 1.2.1
 
 ### Patch Changes
 
-- [`2b2290121eb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2b2290121eb) - Raised the minimum version carat range of focus ring to latest.
+- [#16335](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16335) [`2b2290121eb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2b2290121eb) - Raised the minimum version carat range of focus ring to latest.
 
 ## 1.2.0
 
 ### Minor Changes
 
-- [`213bfd77e61`](https://bitbucket.org/atlassian/atlassian-frontend/commits/213bfd77e61) - The DOM structure of menu item components has been flattened.
+- [#14777](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/14777) [`213bfd77e61`](https://bitbucket.org/atlassian/atlassian-frontend/commits/213bfd77e61) - The DOM structure of menu item components has been flattened.
   If you used CSS hacks (via className or cssFn) that targetted specific DOM nodes you may be broken.
 
   Previously the structure looked like:
@@ -465,13 +465,13 @@
 
 ### Patch Changes
 
-- [`34282240102`](https://bitbucket.org/atlassian/atlassian-frontend/commits/34282240102) - Adds explicit type to button usages components.
+- [#15632](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/15632) [`34282240102`](https://bitbucket.org/atlassian/atlassian-frontend/commits/34282240102) - Adds explicit type to button usages components.
 
 ## 1.1.3
 
 ### Patch Changes
 
-- [`192d35cfdbd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/192d35cfdbd) - Defaults native button usage to type="button" to prevent unintended submittig of forms.
+- [#15531](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/15531) [`192d35cfdbd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/192d35cfdbd) - Defaults native button usage to type="button" to prevent unintended submittig of forms.
 
 ## 1.1.2
 
@@ -489,7 +489,7 @@
 
 ### Minor Changes
 
-- [`224028babd3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/224028babd3) - Menu now uses the design system and emotion styling techstacks.
+- [#13864](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13864) [`224028babd3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/224028babd3) - Menu now uses the design system and emotion styling techstacks.
 - [`506282a89f2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/506282a89f2) - [ux] Menu items now have their text color set using `currentColor` instead of using colors directly off the palette.
 - [`58832848c98`](https://bitbucket.org/atlassian/atlassian-frontend/commits/58832848c98) - Instrumented menu with the new theming package, `@atlaskit/tokens`.
 
@@ -505,55 +505,55 @@
 
 ### Patch Changes
 
-- [`378d1cef00f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/378d1cef00f) - Bump `@atlaskit/theme` to version `^11.3.0`.
+- [#12880](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12880) [`378d1cef00f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/378d1cef00f) - Bump `@atlaskit/theme` to version `^11.3.0`.
 
 ## 1.0.3
 
 ### Patch Changes
 
-- [`3c1182fdf13`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3c1182fdf13) - added optional `role` prop to link item for a11y
+- [#11649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/11649) [`3c1182fdf13`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3c1182fdf13) - added optional `role` prop to link item for a11y
 
 ## 1.0.2
 
 ### Patch Changes
 
-- [`d6f7ff383cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6f7ff383cf) - Updates to development dependency `storybook-addon-performance`
+- [#12167](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12167) [`d6f7ff383cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6f7ff383cf) - Updates to development dependency `storybook-addon-performance`
 
 ## 1.0.1
 
 ### Patch Changes
 
-- [`1648daf0308`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1648daf0308) - Updates button item props.
+- [#10569](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10569) [`1648daf0308`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1648daf0308) - Updates button item props.
 
 ## 1.0.0
 
 ### Major Changes
 
-- [`7727f723965`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7727f723965) - Internal change to the release model from continous to scheduled release. There are **NO API CHANGES** in this release.
+- [#10609](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10609) [`7727f723965`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7727f723965) - Internal change to the release model from continous to scheduled release. There are **NO API CHANGES** in this release.
 
 ## 0.7.6
 
 ### Patch Changes
 
-- [`9ea5f8887cd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9ea5f8887cd) - Internal change to menu styling to allow for the separator color to be customisable in side-navigation
+- [#10255](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10255) [`9ea5f8887cd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9ea5f8887cd) - Internal change to menu styling to allow for the separator color to be customisable in side-navigation
 
 ## 0.7.5
 
 ### Patch Changes
 
-- [`21713b1335a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/21713b1335a) - [ux] adding shouldTitleWrap and shouldDescriptionWrap prop to menu items for wrap long text in title and description
+- [#9595](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9595) [`21713b1335a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/21713b1335a) - [ux] adding shouldTitleWrap and shouldDescriptionWrap prop to menu items for wrap long text in title and description
 
 ## 0.7.4
 
 ### Patch Changes
 
-- [`a1def13c6fb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a1def13c6fb) - Restructure the package to align with lite mode convention, and introduce entry points to each item type
+- [#8861](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8861) [`a1def13c6fb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a1def13c6fb) - Restructure the package to align with lite mode convention, and introduce entry points to each item type
 
 ## 0.7.3
 
 ### Patch Changes
 
-- [`451f220a771`](https://bitbucket.org/atlassian/atlassian-frontend/commits/451f220a771) - Set disabled/aria-disabled for menu item HTML elements, and prevent mouse events when the item is disabled
+- [#8637](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8637) [`451f220a771`](https://bitbucket.org/atlassian/atlassian-frontend/commits/451f220a771) - Set disabled/aria-disabled for menu item HTML elements, and prevent mouse events when the item is disabled
 - [`981c9be6b32`](https://bitbucket.org/atlassian/atlassian-frontend/commits/981c9be6b32) - Fix generics for custom item to work with typed components from external libs
 - [`11fea0f7e4b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/11fea0f7e4b) - Memoise menu item variants
 
@@ -561,31 +561,31 @@
 
 ### Patch Changes
 
-- [`1b5d5c0fca9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1b5d5c0fca9) - Use light mode values instead of calling the themed() API
+- [#8514](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8514) [`1b5d5c0fca9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1b5d5c0fca9) - Use light mode values instead of calling the themed() API
 
 ## 0.7.1
 
 ### Patch Changes
 
-- [`0b2f7e76803`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0b2f7e76803) - Codemods will only format a file if it is mutated.
+- [#8404](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8404) [`0b2f7e76803`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0b2f7e76803) - Codemods will only format a file if it is mutated.
 
 ## 0.7.0
 
 ### Minor Changes
 
-- [`79a40dec30`](https://bitbucket.org/atlassian/atlassian-frontend/commits/79a40dec30) - **Breaking** Adjusts the API of the cssFn prop used in both menu and side-navigation. The prop now no longer exposes the currentStyles to the user in the callback and instead only provides the current state. Users no longer need to spread the currentStyles into their components when overriding. This change also resolves a bug where cssFn overrides did not always take precedence correctly over the default component styles.
+- [#6194](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/6194) [`79a40dec30`](https://bitbucket.org/atlassian/atlassian-frontend/commits/79a40dec30) - **Breaking** Adjusts the API of the cssFn prop used in both menu and side-navigation. The prop now no longer exposes the currentStyles to the user in the callback and instead only provides the current state. Users no longer need to spread the currentStyles into their components when overriding. This change also resolves a bug where cssFn overrides did not always take precedence correctly over the default component styles.
 
 ## 0.6.5
 
 ### Patch Changes
 
-- [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
+- [#5857](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5857) [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
 
 ## 0.6.4
 
 ### Patch Changes
 
-- [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
+- [#5497](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5497) [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
   This requires version 3.8 of Typescript, read more about how we handle Typescript versions here: https://atlaskit.atlassian.com/get-started
   Also add `typescript` to `devDependencies` to denote version that the package was built with.
 
@@ -599,13 +599,13 @@
 
 ### Patch Changes
 
-- [`6360c46009`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6360c46009) - Reenable integration tests for Edge browser
+- [#4707](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4707) [`6360c46009`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6360c46009) - Reenable integration tests for Edge browser
 
 ## 0.6.1
 
 ### Patch Changes
 
-- [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
+- [#3885](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3885) [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
 
   Since tslib is a dependency for all our packages we recommend that products also follow this tslib upgrade
   to prevent duplicates of tslib being bundled.
@@ -614,25 +614,25 @@
 
 ### Minor Changes
 
-- [`63625ea30c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/63625ea30c) - Add `aria-current="page"` attribute to anchor tag when `isSelected` prop is `true` for `LinkItem` component.
+- [#4029](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4029) [`63625ea30c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/63625ea30c) - Add `aria-current="page"` attribute to anchor tag when `isSelected` prop is `true` for `LinkItem` component.
 
 ## 0.5.2
 
 ### Patch Changes
 
-- [`db053b24d8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/db053b24d8) - Update all the theme imports to be tree-shakable
+- [#3428](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3428) [`db053b24d8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/db053b24d8) - Update all the theme imports to be tree-shakable
 
 ## 0.5.1
 
 ### Patch Changes
 
-- [`a70b60d9f1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a70b60d9f1) - The line height of menu items has been slightly increased to accomodate descender spacing viewed on non-retina displays.
+- [#3515](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3515) [`a70b60d9f1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a70b60d9f1) - The line height of menu items has been slightly increased to accomodate descender spacing viewed on non-retina displays.
 
 ## 0.5.0
 
 ### Minor Changes
 
-- [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
+- [#3335](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3335) [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
   For more information see: https://community.developer.atlassian.com/t/atlaskit-to-drop-support-for-internet-explorer-11-from-1st-july-2020/39534
 
 ### Patch Changes
@@ -643,19 +643,19 @@
 
 ### Patch Changes
 
-- [`952087be5b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/952087be5b) - Item components now blur themselves during the mouse down event.
+- [#3025](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3025) [`952087be5b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/952087be5b) - Item components now blur themselves during the mouse down event.
 
 ## 0.4.6
 
 ### Patch Changes
 
-- [`54a9514fcf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54a9514fcf) - Build and supporting files will no longer be published to npm
+- [#2866](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2866) [`54a9514fcf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54a9514fcf) - Build and supporting files will no longer be published to npm
 
 ## 0.4.5
 
 ### Patch Changes
 
-- [`d674e203b3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d674e203b3) - Previously Menu items controlled their own margin spacing which caused issues when trying to use them outside of Menu.
+- [#2537](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2537) [`d674e203b3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d674e203b3) - Previously Menu items controlled their own margin spacing which caused issues when trying to use them outside of Menu.
   Now we have moved Menu item margin styles into the Section component so now the Section dictates the spacing around child items.
   We had to update Side Navigation to control its child item margins as well.
 
@@ -663,19 +663,19 @@
 
 ### Patch Changes
 
-- [`649f69b6d7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/649f69b6d7) - Patch all packages that are used by confluence that have a broken es2019 dist
+- [#2430](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2430) [`649f69b6d7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/649f69b6d7) - Patch all packages that are used by confluence that have a broken es2019 dist
 
 ## 0.4.3
 
 ### Patch Changes
 
-- [`eb2ed36f5a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eb2ed36f5a) - Fix characters with descenders (eg. 'g', 'j', 'p') in Menu Items from being clipped by increasing the line-height.
+- [#2393](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2393) [`eb2ed36f5a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eb2ed36f5a) - Fix characters with descenders (eg. 'g', 'j', 'p') in Menu Items from being clipped by increasing the line-height.
 
 ## 0.4.2
 
 ### Patch Changes
 
-- [`0b64c87548`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0b64c87548) - FIX: Global `a:visited` styles should not override LinkItem `:visited` styles
+- [#2039](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2039) [`0b64c87548`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0b64c87548) - FIX: Global `a:visited` styles should not override LinkItem `:visited` styles
 
 ## 0.4.1
 

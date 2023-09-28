@@ -4,146 +4,146 @@
 
 ### Minor Changes
 
-- [`5a5d1886592`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5a5d1886592) - Add follow and unfollow action type
+- [#39621](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39621) [`5a5d1886592`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5a5d1886592) - Add follow and unfollow action type
 
 ## 8.2.0
 
 ### Minor Changes
 
-- [`3c0719a11f7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3c0719a11f7) - added richtext type
+- [#36787](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36787) [`3c0719a11f7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3c0719a11f7) - added richtext type
 
 ## 8.1.0
 
 ### Minor Changes
 
-- [`ba155a0034c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ba155a0034c) - [ux] Add restricted access view to modal and table
+- [#35297](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35297) [`ba155a0034c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ba155a0034c) - [ux] Add restricted access view to modal and table
 
 ## 8.0.0
 
 ### Major Changes
 
-- [`12411d70076`](https://bitbucket.org/atlassian/atlassian-frontend/commits/12411d70076) - export more datasource types in the linking-type index and remove the defaultProperties in the datasourceDataResponse
+- [#36138](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36138) [`12411d70076`](https://bitbucket.org/atlassian/atlassian-frontend/commits/12411d70076) - export more datasource types in the linking-type index and remove the defaultProperties in the datasourceDataResponse
 
 ## 7.0.0
 
 ### Major Changes
 
-- [`f427908df3d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f427908df3d) - change the datasource response type to include the meta data section and the data response will wrap in the data section
+- [#35861](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35861) [`f427908df3d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f427908df3d) - change the datasource response type to include the meta data section and the data response will wrap in the data section
 
 ## 6.0.0
 
 ### Major Changes
 
-- [`b232899125b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b232899125b) - Update DatasourceDataResponse.totalIssues is changed to totalCount
+- [#34363](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34363) [`b232899125b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b232899125b) - Update DatasourceDataResponse.totalIssues is changed to totalCount
 
 ## 5.0.0
 
 ### Major Changes
 
-- [`df4d3388fb9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/df4d3388fb9) - Added schema to data response. Removed isFullSchema from datasource details request and response
+- [#34540](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34540) [`df4d3388fb9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/df4d3388fb9) - Added schema to data response. Removed isFullSchema from datasource details request and response
 
 ## 4.0.0
 
 ### Major Changes
 
-- [`637822277ce`](https://bitbucket.org/atlassian/atlassian-frontend/commits/637822277ce) - Added an optional parameter for datasource details request and response
+- [#34361](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34361) [`637822277ce`](https://bitbucket.org/atlassian/atlassian-frontend/commits/637822277ce) - Added an optional parameter for datasource details request and response
 
 ## 3.0.0
 
 ### Major Changes
 
-- [`3f4a6031a0e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3f4a6031a0e) - Removed the meta wrapper for primitive types and added `data` prop for `DatasourceDataResponseItem`
+- [#34035](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34035) [`3f4a6031a0e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3f4a6031a0e) - Removed the meta wrapper for primitive types and added `data` prop for `DatasourceDataResponseItem`
 
 ## 2.0.0
 
 ### Major Changes
 
-- [`c3219284ef0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c3219284ef0) - Added meta wrapper to primitive types
+- [#33917](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33917) [`c3219284ef0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c3219284ef0) - Added meta wrapper to primitive types
 
 ## 1.6.0
 
 ### Minor Changes
 
-- [`d04dbae5a15`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d04dbae5a15) - Remove uneeded type that was accidentally added in
+- [#33790](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33790) [`d04dbae5a15`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d04dbae5a15) - Remove uneeded type that was accidentally added in
 
 ### Patch Changes
 
-- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793) [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
 
 ## 1.5.1
 
 ### Patch Changes
 
-- [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649) [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
 
 ## 1.5.0
 
 ### Minor Changes
 
-- [`670454dc4a0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/670454dc4a0) - Add totalIssues to mock/types
+- [#33177](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33177) [`670454dc4a0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/670454dc4a0) - Add totalIssues to mock/types
 
 ## 1.4.0
 
 ### Minor Changes
 
-- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258) [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
 
 ## 1.3.0
 
 ### Minor Changes
 
-- [`92798c68d27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/92798c68d27) - Add `DatasourceTableStatusType` type and updated DatasourceDataResponse with `totalIssues` field.
+- [#32751](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32751) [`92798c68d27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/92798c68d27) - Add `DatasourceTableStatusType` type and updated DatasourceDataResponse with `totalIssues` field.
 
 ## 1.2.0
 
 ### Minor Changes
 
-- [`709e46de9d0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/709e46de9d0) - New error type was added to Smart card actions
+- [#32589](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32589) [`709e46de9d0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/709e46de9d0) - New error type was added to Smart card actions
 
 ## 1.1.0
 
 ### Minor Changes
 
-- [`d6266015d59`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6266015d59) - Added `Time` and `DateTime` types to `DatasourceType`
+- [#32502](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32502) [`d6266015d59`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6266015d59) - Added `Time` and `DateTime` types to `DatasourceType`
 
 ## 1.0.0
 
 ### Major Changes
 
-- [`c195b15017e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c195b15017e) - removed url property from `Icon` and updated status in `Status` as union type.
+- [#32189](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32189) [`c195b15017e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c195b15017e) - removed url property from `Icon` and updated status in `Status` as union type.
 
 ## 0.4.1
 
 ### Patch Changes
 
-- [`2e01c9c74b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e01c9c74b5) - DUMMY remove before merging to master; dupe adf-schema via adf-utils
+- [#32424](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32424) [`2e01c9c74b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e01c9c74b5) - DUMMY remove before merging to master; dupe adf-schema via adf-utils
 
 ## 0.4.0
 
 ### Minor Changes
 
-- [`5c993bce7c7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5c993bce7c7) - Updated types and interfaces to match current Datasource API design
+- [#32368](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32368) [`5c993bce7c7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5c993bce7c7) - Updated types and interfaces to match current Datasource API design
 
 ## 0.3.0
 
 ### Minor Changes
 
-- [`278539e88cd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/278539e88cd) - Update smart link action types
+- [#31905](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31905) [`278539e88cd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/278539e88cd) - Update smart link action types
 
 ## 0.2.0
 
 ### Minor Changes
 
-- [`82ce247716c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/82ce247716c) - Adds a new link datasource component `JiraIssuesTableView` (still under development) is added
+- [#30419](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/30419) [`82ce247716c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/82ce247716c) - Adds a new link datasource component `JiraIssuesTableView` (still under development) is added
 
 ## 0.1.1
 
 ### Patch Changes
 
-- [`47412a09e69`](https://bitbucket.org/atlassian/atlassian-frontend/commits/47412a09e69) - Changed export way for SmartLinkActionType enum
+- [#31232](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31232) [`47412a09e69`](https://bitbucket.org/atlassian/atlassian-frontend/commits/47412a09e69) - Changed export way for SmartLinkActionType enum
 
 ## 0.1.0
 
 ### Minor Changes
 
-- [`04378334c97`](https://bitbucket.org/atlassian/atlassian-frontend/commits/04378334c97) - Added Smart Link Action types that will be shared between FE & BE
+- [#31204](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31204) [`04378334c97`](https://bitbucket.org/atlassian/atlassian-frontend/commits/04378334c97) - Added Smart Link Action types that will be shared between FE & BE

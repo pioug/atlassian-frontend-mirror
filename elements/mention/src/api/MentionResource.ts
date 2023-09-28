@@ -562,7 +562,7 @@ export const isResolvingMentionProvider = (
 ): p is ResolvingMentionProvider =>
   !!(
     p &&
-    (<ResolvingMentionProvider>p).supportsMentionNameResolving &&
+    (p as ResolvingMentionProvider).supportsMentionNameResolving &&
     p.supportsMentionNameResolving()
   );
 

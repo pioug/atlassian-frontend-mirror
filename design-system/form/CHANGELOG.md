@@ -4,80 +4,80 @@
 
 ### Patch Changes
 
-- [`56b444b56a8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56b444b56a8) - Fix a bug where text descenders were cut off at high zoom levels on Windows
+- [#38209](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38209) [`56b444b56a8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56b444b56a8) - Fix a bug where text descenders were cut off at high zoom levels on Windows
 
 ## 8.11.11
 
 ### Patch Changes
 
-- [`02b609f1447`](https://bitbucket.org/atlassian/atlassian-frontend/commits/02b609f1447) - Form now onboarded onto the product push model for Jira.
+- [#38386](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38386) [`02b609f1447`](https://bitbucket.org/atlassian/atlassian-frontend/commits/02b609f1447) - Form now onboarded onto the product push model for Jira.
 
 ## 8.11.10
 
 ### Patch Changes
 
-- [`7c7704ad529`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7c7704ad529) - Imports from @atlaskit/form/Messages will no longer pull react-final-form and Field in the bundle.
+- [#37900](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37900) [`7c7704ad529`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7c7704ad529) - Imports from @atlaskit/form/Messages will no longer pull react-final-form and Field in the bundle.
 
 ## 8.11.9
 
 ### Patch Changes
 
-- [`85935c8cde4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/85935c8cde4) - [ux] Denoting live region of form messages using aria-live attribute instead of alert role.
+- [#37515](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37515) [`85935c8cde4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/85935c8cde4) - [ux] Denoting live region of form messages using aria-live attribute instead of alert role.
 
 ## 8.11.8
 
 ### Patch Changes
 
-- [`421b74bf0f9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/421b74bf0f9) - Combines stylings of label and legend for simpler maintenance.
+- [#35295](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35295) [`421b74bf0f9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/421b74bf0f9) - Combines stylings of label and legend for simpler maintenance.
 - [`215b4b5df50`](https://bitbucket.org/atlassian/atlassian-frontend/commits/215b4b5df50) - Removes redundant label from legend in fieldset.
 
 ## 8.11.7
 
 ### Patch Changes
 
-- [`ddb4e858a79`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ddb4e858a79) - Removes usage of deprecated theme mixins in favor of static token / color usage.
+- [#32979](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32979) [`ddb4e858a79`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ddb4e858a79) - Removes usage of deprecated theme mixins in favor of static token / color usage.
 
 ## 8.11.6
 
 ### Patch Changes
 
-- [`e7ea6832ad2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e7ea6832ad2) - Bans the use of React.FC/React.FunctionComponent type in ADS components as part of the React 18 migration work. The change is internal only and should not introduce any changes for the component consumers.
+- [#33652](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33652) [`e7ea6832ad2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e7ea6832ad2) - Bans the use of React.FC/React.FunctionComponent type in ADS components as part of the React 18 migration work. The change is internal only and should not introduce any changes for the component consumers.
 
 ## 8.11.5
 
 ### Patch Changes
 
-- [`b1bdec7cce2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b1bdec7cce2) - Internal change to enforce token usage for spacing properties. There is no expected visual or behaviour change.
+- [#32935](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32935) [`b1bdec7cce2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b1bdec7cce2) - Internal change to enforce token usage for spacing properties. There is no expected visual or behaviour change.
 
 ## 8.11.4
 
 ### Patch Changes
 
-- [`49b08bfdf5f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/49b08bfdf5f) - Migrated use of `gridSize` to space tokens where possible. There is no expected visual or behaviour change.
+- [#34051](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34051) [`49b08bfdf5f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/49b08bfdf5f) - Migrated use of `gridSize` to space tokens where possible. There is no expected visual or behaviour change.
 
 ## 8.11.3
 
 ### Patch Changes
 
-- [`e8dbb0a281b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e8dbb0a281b) - add a11y support for alert messages
+- [#33584](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33584) [`e8dbb0a281b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e8dbb0a281b) - add a11y support for alert messages
 
 ## 8.11.2
 
 ### Patch Changes
 
-- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793) [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
 
 ## 8.11.1
 
 ### Patch Changes
 
-- [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649) [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
 
 ## 8.11.0
 
 ### Minor Changes
 
-- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258) [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
 
 ### Patch Changes
 
@@ -87,19 +87,19 @@
 
 ### Minor Changes
 
-- [`c71b0ac8222`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c71b0ac8222) - Added testId prop to the Field component for better testing.
+- [#32350](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32350) [`c71b0ac8222`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c71b0ac8222) - Added testId prop to the Field component for better testing.
 
 ## 8.9.1
 
 ### Patch Changes
 
-- [`eb179f0c089`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eb179f0c089) - Migrates unit tests from enzyme to RTL.
+- [#32437](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32437) [`eb179f0c089`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eb179f0c089) - Migrates unit tests from enzyme to RTL.
 
 ## 8.9.0
 
 ### Minor Changes
 
-- [`824851f3580`](https://bitbucket.org/atlassian/atlassian-frontend/commits/824851f3580) - [ux] Gives added affordance to sighted users to get information on meaning of asterisk symbol on required fields.
+- [#32424](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32424) [`824851f3580`](https://bitbucket.org/atlassian/atlassian-frontend/commits/824851f3580) - [ux] Gives added affordance to sighted users to get information on meaning of asterisk symbol on required fields.
 
 ### Patch Changes
 
@@ -109,26 +109,26 @@
 
 ### Patch Changes
 
-- [`e0460d5d989`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e0460d5d989) - Usages of `process` are now guarded by a `typeof` check.
+- [#32294](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32294) [`e0460d5d989`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e0460d5d989) - Usages of `process` are now guarded by a `typeof` check.
 
 ## 8.8.7
 
 ### Patch Changes
 
-- [`1c6c493447f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1c6c493447f) - [ux] Place label and message fields in correct aria attributes.
+- [#31891](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31891) [`1c6c493447f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1c6c493447f) - [ux] Place label and message fields in correct aria attributes.
 
 ## 8.8.6
 
 ### Patch Changes
 
-- [`261420360ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/261420360ec) - Upgrades component types to support React 18.
+- [#31206](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31206) [`261420360ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/261420360ec) - Upgrades component types to support React 18.
 - Updated dependencies
 
 ## 8.8.5
 
 ### Patch Changes
 
-- [`74c1b81a476`](https://bitbucket.org/atlassian/atlassian-frontend/commits/74c1b81a476) - Replaces use of `gridSize` with space tokens. There is no expected visual change.
+- [#31338](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31338) [`74c1b81a476`](https://bitbucket.org/atlassian/atlassian-frontend/commits/74c1b81a476) - Replaces use of `gridSize` with space tokens. There is no expected visual change.
 
 ## 8.8.4
 
@@ -140,7 +140,7 @@
 
 ### Patch Changes
 
-- [`1b8e257525f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1b8e257525f) - [ux] Message content now preserves whitespace between elements.
+- [#28090](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28090) [`1b8e257525f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1b8e257525f) - [ux] Message content now preserves whitespace between elements.
 - [`ea1ad1d867f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ea1ad1d867f) - Message typings have been corrected, removing a number of props. These props existed only in the type and had no effect when used.
 
   The props which were removed from the typings are:
@@ -167,7 +167,7 @@
 
 ### Minor Changes
 
-- [`f2d39d67a70`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f2d39d67a70) - Fixed the issue where field's value was reset on the component re-mount.
+- [#26712](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26712) [`f2d39d67a70`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f2d39d67a70) - Fixed the issue where field's value was reset on the component re-mount.
 
 ## 8.7.1
 
@@ -179,7 +179,7 @@
 
 ### Minor Changes
 
-- [`500a96aa7de`](https://bitbucket.org/atlassian/atlassian-frontend/commits/500a96aa7de) - Add elementAfterLabel prop to form Field.
+- [#25860](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/25860) [`500a96aa7de`](https://bitbucket.org/atlassian/atlassian-frontend/commits/500a96aa7de) - Add elementAfterLabel prop to form Field.
 
 ### Patch Changes
 
@@ -189,7 +189,7 @@
 
 ### Minor Changes
 
-- [`ae87a1a6d39`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ae87a1a6d39) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behavior change.
+- [#24710](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24710) [`ae87a1a6d39`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ae87a1a6d39) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behavior change.
 
 ### Patch Changes
 
@@ -199,13 +199,13 @@
 
 ### Patch Changes
 
-- [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
+- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874) [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
 
 ## 8.5.8
 
 ### Patch Changes
 
-- [`0fbb2840aba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0fbb2840aba) - Add isInvalid prop to `@atlastkit/Select`. The prop indicates whether if the component is in the error state. If true, it visually shows a red border around the input.
+- [#24004](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24004) [`0fbb2840aba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0fbb2840aba) - Add isInvalid prop to `@atlastkit/Select`. The prop indicates whether if the component is in the error state. If true, it visually shows a red border around the input.
 
   This replaces validationState to make Select more consistent like other components that uses isInvalid prop.
 
@@ -215,13 +215,13 @@
 
 ### Patch Changes
 
-- [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
+- [#24492](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24492) [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
 
 ## 8.5.6
 
 ### Patch Changes
 
-- [`f2b8ca863a0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f2b8ca863a0) - [ux] Updates to slightly darken fallback colors for field messages
+- [#23485](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23485) [`f2b8ca863a0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f2b8ca863a0) - [ux] Updates to slightly darken fallback colors for field messages
 
 ## 8.5.5
 
@@ -233,7 +233,7 @@
 
 ### Patch Changes
 
-- [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
+- [#20650](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20650) [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
 
 ## 8.5.3
 
@@ -257,7 +257,7 @@
 
 ### Minor Changes
 
-- [`c987bb60a89`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c987bb60a89) - Exposes an additional Label component in `@atlaskit/form` - this component is designed to be wrapped by the Field component but there are certain use cases that require a Label on its own. This is to fulfill those use cases.
+- [#16752](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16752) [`c987bb60a89`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c987bb60a89) - Exposes an additional Label component in `@atlaskit/form` - this component is designed to be wrapped by the Field component but there are certain use cases that require a Label on its own. This is to fulfill those use cases.
 
 ### Patch Changes
 
@@ -281,13 +281,13 @@
 
 ### Patch Changes
 
-- [`c55c736ecea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c55c736ecea) - Patch VULN AFP-3486 AFP-3487 AFP-3488 AFP-3489
+- [#17475](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/17475) [`c55c736ecea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c55c736ecea) - Patch VULN AFP-3486 AFP-3487 AFP-3488 AFP-3489
 
 ## 8.4.5
 
 ### Patch Changes
 
-- [`f460cc7c411`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f460cc7c411) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving bundle size.
+- [#15998](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/15998) [`f460cc7c411`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f460cc7c411) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving bundle size.
 - Updated dependencies
 
 ## 8.4.4
@@ -300,25 +300,25 @@
 
 ### Patch Changes
 
-- [`2cf338dd802`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2cf338dd802) - Added homepage to package.json
+- [#15981](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/15981) [`2cf338dd802`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2cf338dd802) - Added homepage to package.json
 
 ## 8.4.2
 
 ### Patch Changes
 
-- [`34282240102`](https://bitbucket.org/atlassian/atlassian-frontend/commits/34282240102) - Adds explicit type to button usages components.
+- [#15632](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/15632) [`34282240102`](https://bitbucket.org/atlassian/atlassian-frontend/commits/34282240102) - Adds explicit type to button usages components.
 
 ## 8.4.1
 
 ### Patch Changes
 
-- [`b9b3ab10494`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b9b3ab10494) - There was a bug in 8.4.0 where the props in FormSection were not recognized. This has now been fixed.
+- [#15148](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/15148) [`b9b3ab10494`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b9b3ab10494) - There was a bug in 8.4.0 where the props in FormSection were not recognized. This has now been fixed.
 
 ## 8.4.0
 
 ### Minor Changes
 
-- [`4e3c853e85f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4e3c853e85f) - This change removes the dependency `styled-components`. It has been refactored to use `@emotion/core` instead and entrypoints have been updated. Some examples have also been updated. There should be no UI or UX change.
+- [#14319](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/14319) [`4e3c853e85f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4e3c853e85f) - This change removes the dependency `styled-components`. It has been refactored to use `@emotion/core` instead and entrypoints have been updated. Some examples have also been updated. There should be no UI or UX change.
 
 ### Patch Changes
 
@@ -335,7 +335,7 @@
 
 ### Minor Changes
 
-- [`4cab1a3d163`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4cab1a3d163) - Form is now instrumented with the new tokens theme implementation. This change is interoperable with the previous theme implementation.
+- [#13302](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13302) [`4cab1a3d163`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4cab1a3d163) - Form is now instrumented with the new tokens theme implementation. This change is interoperable with the previous theme implementation.
 
 ### Patch Changes
 
@@ -345,46 +345,46 @@
 
 ### Patch Changes
 
-- [`f701489305f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f701489305f) - Export Field directly for types to be exported explicitly.
+- [#12837](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12837) [`f701489305f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f701489305f) - Export Field directly for types to be exported explicitly.
 - Updated dependencies
 
 ## 8.2.3
 
 ### Patch Changes
 
-- [`378d1cef00f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/378d1cef00f) - Bump `@atlaskit/theme` to version `^11.3.0`.
+- [#12880](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12880) [`378d1cef00f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/378d1cef00f) - Bump `@atlaskit/theme` to version `^11.3.0`.
 
 ## 8.2.2
 
 ### Patch Changes
 
-- [`c50a63f9f72`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c50a63f9f72) - Upgrade `@types/react-select` to `v3.1.2` and fix type breaks
+- [#8644](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8644) [`c50a63f9f72`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c50a63f9f72) - Upgrade `@types/react-select` to `v3.1.2` and fix type breaks
 - Updated dependencies
 
 ## 8.2.1
 
 ### Patch Changes
 
-- [`5af85edf960`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5af85edf960) - Internal code style change of default exports
+- [#8478](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8478) [`5af85edf960`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5af85edf960) - Internal code style change of default exports
 
 ## 8.2.0
 
 ### Minor Changes
 
-- [`fa4256f9b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fa4256f9b0) - Add getState to FormProps for inspecting internal Form state (errors, values, et al)
+- [#6930](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/6930) [`fa4256f9b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fa4256f9b0) - Add getState to FormProps for inspecting internal Form state (errors, values, et al)
 - [`9552363cb7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9552363cb7) - [ux] Added a RangeField component to address issues surrounding Range having a different interface to other kinds of inputs. Use a RangeField instead of a Field when using a Range inside of a Form. You must provide a `defaultValue`.
 
 ## 8.1.7
 
 ### Patch Changes
 
-- [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
+- [#5857](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5857) [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
 
 ## 8.1.6
 
 ### Patch Changes
 
-- [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
+- [#5497](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5497) [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
   This requires version 3.8 of Typescript, read more about how we handle Typescript versions here: https://atlaskit.atlassian.com/get-started
   Also add `typescript` to `devDependencies` to denote version that the package was built with.
 
@@ -398,13 +398,13 @@
 
 ### Patch Changes
 
-- [`6360c46009`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6360c46009) - Reenable integration tests for Edge browser
+- [#4707](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4707) [`6360c46009`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6360c46009) - Reenable integration tests for Edge browser
 
 ## 8.1.3
 
 ### Patch Changes
 
-- [`741e4240d0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/741e4240d0) - Final form dependencies have been upgraded to their latest versions
+- [#4424](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4424) [`741e4240d0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/741e4240d0) - Final form dependencies have been upgraded to their latest versions
 - [`3773e0ad4e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3773e0ad4e) - There was an issue where the validate function in Field would return an incorrect value or even go unresponsive when mixing async and sync validators. This has been fixed by updating the version of `final-form`. The test that validates this is working has been re-enabled.
 - Updated dependencies
 
@@ -412,7 +412,7 @@
 
 ### Patch Changes
 
-- [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
+- [#3885](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3885) [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
 
   Since tslib is a dependency for all our packages we recommend that products also follow this tslib upgrade
   to prevent duplicates of tslib being bundled.
@@ -421,14 +421,14 @@
 
 ### Patch Changes
 
-- [`6262f382de`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6262f382de) - Use the 'lodash' package instead of single-function 'lodash.\*' packages
+- [#3823](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3823) [`6262f382de`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6262f382de) - Use the 'lodash' package instead of single-function 'lodash.\*' packages
 - [`e99262c6f0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e99262c6f0) - All form elements now have a default font explicitly set
 
 ## 8.1.0
 
 ### Minor Changes
 
-- [`694fee4dcc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/694fee4dcc) - Adding validating status to meta for async validations, and make sure the default value of error in form is a string
+- [#3428](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3428) [`694fee4dcc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/694fee4dcc) - Adding validating status to meta for async validations, and make sure the default value of error in form is a string
 
 ### Patch Changes
 
@@ -438,7 +438,7 @@
 
 ### Major Changes
 
-- [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
+- [#3335](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3335) [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
   For more information see: https://community.developer.atlassian.com/t/atlaskit-to-drop-support-for-internet-explorer-11-from-1st-july-2020/39534
 
 ### Patch Changes
@@ -449,25 +449,25 @@
 
 ### Patch Changes
 
-- [`2e4000e57b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e4000e57b) - Form now fully supports object and array field names.
+- [#2763](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2763) [`2e4000e57b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e4000e57b) - Form now fully supports object and array field names.
 
 ## 7.4.0
 
 ### Minor Changes
 
-- [`fc690a7dd4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fc690a7dd4) - HelperMessage, ErrorMessage and ValidMessage now have an optional prop testId that will set the attribute value data-testid.
+- [#2443](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2443) [`fc690a7dd4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fc690a7dd4) - HelperMessage, ErrorMessage and ValidMessage now have an optional prop testId that will set the attribute value data-testid.
 
 ## 7.3.1
 
 ### Patch Changes
 
-- [`54a9514fcf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54a9514fcf) - Build and supporting files will no longer be published to npm
+- [#2866](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2866) [`54a9514fcf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54a9514fcf) - Build and supporting files will no longer be published to npm
 
 ## 7.3.0
 
 ### Minor Changes
 
-- [`56d6259cf5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56d6259cf5) - Change FormHeader and FormSection to use h2 and h3 respectively for headings instead of h1 and h2.
+- [#2137](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2137) [`56d6259cf5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56d6259cf5) - Change FormHeader and FormSection to use h2 and h3 respectively for headings instead of h1 and h2.
 
 ### Patch Changes
 

@@ -4,44 +4,44 @@
 
 ### Patch Changes
 
-- [`f78ae454863`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f78ae454863) - Update tooltip z-index to 9999
+- [#39442](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39442) [`f78ae454863`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f78ae454863) - Update tooltip z-index to 9999
 - Updated dependencies
 
 ## 4.3.5
 
 ### Patch Changes
 
-- [`9af31f3c1ae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9af31f3c1ae) - Delete version.json
+- [#38731](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38731) [`9af31f3c1ae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9af31f3c1ae) - Delete version.json
 
 ## 4.3.4
 
 ### Patch Changes
 
-- [`33f10b7eb36`](https://bitbucket.org/atlassian/atlassian-frontend/commits/33f10b7eb36) - Removing unused dependencies and dev dependencies
+- [#34445](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34445) [`33f10b7eb36`](https://bitbucket.org/atlassian/atlassian-frontend/commits/33f10b7eb36) - Removing unused dependencies and dev dependencies
 
 ## 4.3.3
 
 ### Patch Changes
 
-- [`77766ad157d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/77766ad157d) - Enrol packages to push-model consumption in Jira.
+- [#34124](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34124) [`77766ad157d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/77766ad157d) - Enrol packages to push-model consumption in Jira.
 
 ## 4.3.2
 
 ### Patch Changes
 
-- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793) [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
 
 ## 4.3.1
 
 ### Patch Changes
 
-- [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649) [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
 
 ## 4.3.0
 
 ### Minor Changes
 
-- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258) [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
 
 ### Patch Changes
 
@@ -51,106 +51,106 @@
 
 ### Patch Changes
 
-- [`4ba10567310`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ba10567310) - Internal changes.
+- [#32211](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32211) [`4ba10567310`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ba10567310) - Internal changes.
 
 ## 4.2.12
 
 ### Patch Changes
 
-- [`9827dcb82b8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9827dcb82b8) - No-op change to introduce spacing tokens to design system components.
+- [#26303](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26303) [`9827dcb82b8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9827dcb82b8) - No-op change to introduce spacing tokens to design system components.
 
 ## 4.2.11
 
 ### Patch Changes
 
-- [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
+- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874) [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
 
 ## 4.2.10
 
 ### Patch Changes
 
-- [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
+- [#24492](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24492) [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
 
 ## 4.2.9
 
 ### Patch Changes
 
-- [`d5f0b466415`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d5f0b466415) - Internal code change turning on new linting rules.
+- [#23381](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23381) [`d5f0b466415`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d5f0b466415) - Internal code change turning on new linting rules.
 
 ## 4.2.8
 
 ### Patch Changes
 
-- [`8a5bdb3c844`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8a5bdb3c844) - Upgrading internal dependency (bind-event-listener) for improved internal types
+- [#22614](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22614) [`8a5bdb3c844`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8a5bdb3c844) - Upgrading internal dependency (bind-event-listener) for improved internal types
 
 ## 4.2.7
 
 ### Patch Changes
 
-- [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
+- [#20650](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20650) [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
 
 ## 4.2.6
 
 ### Patch Changes
 
-- [`b3e5a62a9e3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b3e5a62a9e3) - Adds `static` techstack to package, enforcing stricter style linting. In this case the package already satisfied this requirement so there have been no changes to styles.
+- [#20033](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20033) [`b3e5a62a9e3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b3e5a62a9e3) - Adds `static` techstack to package, enforcing stricter style linting. In this case the package already satisfied this requirement so there have been no changes to styles.
 
 ## 4.2.5
 
 ### Patch Changes
 
-- [`cf853e39278`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf853e39278) - Retains the portal wrapper in the DOM after the last portal is unmounted. This drastically reduces the style recalculations and improves performance for portalled elements.
+- [#14319](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/14319) [`cf853e39278`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf853e39278) - Retains the portal wrapper in the DOM after the last portal is unmounted. This drastically reduces the style recalculations and improves performance for portalled elements.
 - Updated dependencies
 
 ## 4.2.4
 
 ### Patch Changes
 
-- [`cd34d8ca8ea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cd34d8ca8ea) - Internal wiring up to the tokens techstack, no code changes.
+- [#13302](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13302) [`cd34d8ca8ea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cd34d8ca8ea) - Internal wiring up to the tokens techstack, no code changes.
 
 ## 4.2.3
 
 ### Patch Changes
 
-- [`ea086afdc2d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ea086afdc2d) - Fix bug where Portal was attached to the body after the children were rendered. Now Portal is attached before it's children are rendered.
+- [#12837](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12837) [`ea086afdc2d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ea086afdc2d) - Fix bug where Portal was attached to the body after the children were rendered. Now Portal is attached before it's children are rendered.
 - Updated dependencies
 
 ## 4.2.2
 
 ### Patch Changes
 
-- [`378d1cef00f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/378d1cef00f) - Bump `@atlaskit/theme` to version `^11.3.0`.
+- [#12880](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12880) [`378d1cef00f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/378d1cef00f) - Bump `@atlaskit/theme` to version `^11.3.0`.
 
 ## 4.2.1
 
 ### Patch Changes
 
-- [`d6f7ff383cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6f7ff383cf) - Updates to development dependency `storybook-addon-performance`
+- [#12167](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12167) [`d6f7ff383cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6f7ff383cf) - Updates to development dependency `storybook-addon-performance`
 
 ## 4.2.0
 
 ### Minor Changes
 
-- [`f6b951a51f2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f6b951a51f2) - Removes usage of styled-components in favour of standardising on emotion
+- [#12170](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12170) [`f6b951a51f2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f6b951a51f2) - Removes usage of styled-components in favour of standardising on emotion
 
 ## 4.1.2
 
 ### Patch Changes
 
-- [`28f40bac160`](https://bitbucket.org/atlassian/atlassian-frontend/commits/28f40bac160) - Updates targets for modal dialog in VR tests.
+- [#10569](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10569) [`28f40bac160`](https://bitbucket.org/atlassian/atlassian-frontend/commits/28f40bac160) - Updates targets for modal dialog in VR tests.
 
 ## 4.1.1
 
 ### Patch Changes
 
-- [`8b360a4ac06`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8b360a4ac06) - NO-ISSUE Update modal dialog selector for VR & integration tests
+- [#10230](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10230) [`8b360a4ac06`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8b360a4ac06) - NO-ISSUE Update modal dialog selector for VR & integration tests
 - Updated dependencies
 
 ## 4.1.0
 
 ### Minor Changes
 
-- [`d4f0c36ac36`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d4f0c36ac36) - Converted class based portal component to functional component and dropped unused ie11 specific code
+- [#9083](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9083) [`d4f0c36ac36`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d4f0c36ac36) - Converted class based portal component to functional component and dropped unused ie11 specific code
 
 ### Patch Changes
 
@@ -161,13 +161,13 @@
 
 ### Patch Changes
 
-- [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
+- [#5857](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5857) [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
 
 ## 4.0.4
 
 ### Patch Changes
 
-- [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
+- [#5497](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5497) [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
   This requires version 3.8 of Typescript, read more about how we handle Typescript versions here: https://atlaskit.atlassian.com/get-started
   Also add `typescript` to `devDependencies` to denote version that the package was built with.
 
@@ -181,7 +181,7 @@
 
 ### Patch Changes
 
-- [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
+- [#3885](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3885) [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
 
   Since tslib is a dependency for all our packages we recommend that products also follow this tslib upgrade
   to prevent duplicates of tslib being bundled.
@@ -190,14 +190,14 @@
 
 ### Patch Changes
 
-- [`3414523d6f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3414523d6f) - Rearange buttons order to align with design guidelines
+- [#3428](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3428) [`3414523d6f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3414523d6f) - Rearange buttons order to align with design guidelines
 - [`db053b24d8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/db053b24d8) - Update all the theme imports to be tree-shakable
 
 ## 4.0.0
 
 ### Major Changes
 
-- [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
+- [#3335](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3335) [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
   For more information see: https://community.developer.atlassian.com/t/atlaskit-to-drop-support-for-internet-explorer-11-from-1st-july-2020/39534
 
 ### Patch Changes
@@ -208,13 +208,13 @@
 
 ### Patch Changes
 
-- [`54a9514fcf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54a9514fcf) - Build and supporting files will no longer be published to npm
+- [#2866](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2866) [`54a9514fcf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54a9514fcf) - Build and supporting files will no longer be published to npm
 
 ## 3.1.8
 
 ### Patch Changes
 
-- [`4069606178`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4069606178) - Change imports to comply with Atlassian conventions- Updated dependencies
+- [#1868](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/1868) [`4069606178`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4069606178) - Change imports to comply with Atlassian conventions- Updated dependencies
 
 ## 3.1.7
 

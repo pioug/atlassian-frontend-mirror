@@ -4,79 +4,79 @@
 
 ### Patch Changes
 
-- [`424a4b8d3ad`](https://bitbucket.org/atlassian/atlassian-frontend/commits/424a4b8d3ad) - Enrol @atlaskit/pubsub on push-model in JFE.
+- [#40630](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40630) [`424a4b8d3ad`](https://bitbucket.org/atlassian/atlassian-frontend/commits/424a4b8d3ad) - Enrol @atlaskit/pubsub on push-model in JFE.
 
 ## 6.6.2
 
 ### Patch Changes
 
-- [`9888768ec7a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9888768ec7a) - Use more conservative retry configuration
+- [#39513](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39513) [`9888768ec7a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9888768ec7a) - Use more conservative retry configuration
 
 ## 6.6.1
 
 ### Patch Changes
 
-- [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
+- [#38162](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38162) [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
 
 ## 6.6.0
 
 ### Minor Changes
 
-- [`e5b6edb6c82`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e5b6edb6c82) - Improve reconnect mechanisms for both WS and HTTP protocols
+- [#38442](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38442) [`e5b6edb6c82`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e5b6edb6c82) - Improve reconnect mechanisms for both WS and HTTP protocols
 
 ## 6.5.4
 
 ### Patch Changes
 
-- [`f01deb5e6ab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f01deb5e6ab) - Use injected env vars instead of version.json
+- [#37925](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37925) [`f01deb5e6ab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f01deb5e6ab) - Use injected env vars instead of version.json
 
 ## 6.5.3
 
 ### Patch Changes
 
-- [`72a7210af1c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/72a7210af1c) - Bump the version of the PubNub library to the latest one
+- [#37667](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37667) [`72a7210af1c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/72a7210af1c) - Bump the version of the PubNub library to the latest one
 
 ## 6.5.2
 
 ### Patch Changes
 
-- [`f835642fab3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f835642fab3) - Fix analytics events attributes
+- [#36259](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36259) [`f835642fab3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f835642fab3) - Fix analytics events attributes
 
 ## 6.5.1
 
 ### Patch Changes
 
-- [`6aeadb8078a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6aeadb8078a) - Fix HTTP fallback mechanism after introduction of WebSocket connection retries
+- [#35422](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35422) [`6aeadb8078a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6aeadb8078a) - Fix HTTP fallback mechanism after introduction of WebSocket connection retries
 
 ## 6.5.0
 
 ### Minor Changes
 
-- [`5a905de1b6d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5a905de1b6d) - Added reconnects for WebSockets and analytics events
+- [#35350](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35350) [`5a905de1b6d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5a905de1b6d) - Added reconnects for WebSockets and analytics events
 
 ## 6.4.3
 
 ### Patch Changes
 
-- [`61cb5313358`](https://bitbucket.org/atlassian/atlassian-frontend/commits/61cb5313358) - Removing unused dependencies and dev dependencies
+- [#34443](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34443) [`61cb5313358`](https://bitbucket.org/atlassian/atlassian-frontend/commits/61cb5313358) - Removing unused dependencies and dev dependencies
 
 ## 6.4.2
 
 ### Patch Changes
 
-- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793) [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
 
 ## 6.4.1
 
 ### Patch Changes
 
-- [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649) [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
 
 ## 6.4.0
 
 ### Minor Changes
 
-- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258) [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
 
 ### Patch Changes
 
@@ -86,49 +86,49 @@
 
 ### Minor Changes
 
-- [`bf1b91e09e3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bf1b91e09e3) - Add support to Http long polling for the APS protocol
+- [#32708](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32708) [`bf1b91e09e3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bf1b91e09e3) - Add support to Http long polling for the APS protocol
 
 ## 6.2.2
 
 ### Patch Changes
 
-- [`fdcca15d9a8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fdcca15d9a8) - Bump vm2 dependency because of VULN - again
+- [#32592](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32592) [`fdcca15d9a8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fdcca15d9a8) - Bump vm2 dependency because of VULN - again
 
 ## 6.2.1
 
 ### Patch Changes
 
-- [`de0273d83ea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/de0273d83ea) - Bumped version of vm2 due to a vulnerability
+- [#32418](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32418) [`de0273d83ea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/de0273d83ea) - Bumped version of vm2 due to a vulnerability
 
 ## 6.2.0
 
 ### Minor Changes
 
-- [`fcc2b0f4bf1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fcc2b0f4bf1) - Add support for the Atlassian PubSub (APS) protocol
+- [#26309](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26309) [`fcc2b0f4bf1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fcc2b0f4bf1) - Add support for the Atlassian PubSub (APS) protocol
 
 ## 6.1.0
 
 ### Minor Changes
 
-- [`6591533faf6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6591533faf6) - VULN-1028179 Force patched version of vm2 to address CVE-2022-25893
+- [#28287](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28287) [`6591533faf6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6591533faf6) - VULN-1028179 Force patched version of vm2 to address CVE-2022-25893
 
 ## 6.0.9
 
 ### Patch Changes
 
-- [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
+- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874) [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
 
 ## 6.0.8
 
 ### Patch Changes
 
-- [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
+- [#24492](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24492) [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
 
 ## 6.0.7
 
 ### Patch Changes
 
-- [`a424e62b264`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a424e62b264) - Changes to support Node 16 Typescript definitions from `@types/node`.
+- [#20650](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20650) [`a424e62b264`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a424e62b264) - Changes to support Node 16 Typescript definitions from `@types/node`.
 
 ## 6.0.6
 
@@ -140,19 +140,19 @@
 
 ### Patch Changes
 
-- [`c55c736ecea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c55c736ecea) - Patch VULN AFP-3486 AFP-3487 AFP-3488 AFP-3489
+- [#17475](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/17475) [`c55c736ecea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c55c736ecea) - Patch VULN AFP-3486 AFP-3487 AFP-3488 AFP-3489
 
 ## 6.0.4
 
 ### Patch Changes
 
-- [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
+- [#5857](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5857) [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
 
 ## 6.0.3
 
 ### Patch Changes
 
-- [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
+- [#5497](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5497) [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
   This requires version 3.8 of Typescript, read more about how we handle Typescript versions here: https://atlaskit.atlassian.com/get-started
   Also add `typescript` to `devDependencies` to denote version that the package was built with.
 
@@ -160,7 +160,7 @@
 
 ### Patch Changes
 
-- [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
+- [#3885](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3885) [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
 
   Since tslib is a dependency for all our packages we recommend that products also follow this tslib upgrade
   to prevent duplicates of tslib being bundled.
@@ -169,13 +169,13 @@
 
 ### Patch Changes
 
-- [`e97b5f6130`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e97b5f6130) - Only subscribe to base pubsub events when connected to at least one channel.
+- [#4128](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4128) [`e97b5f6130`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e97b5f6130) - Only subscribe to base pubsub events when connected to at least one channel.
 
 ## 6.0.0
 
 ### Major Changes
 
-- [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
+- [#3335](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3335) [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
   For more information see: https://community.developer.atlassian.com/t/atlaskit-to-drop-support-for-internet-explorer-11-from-1st-july-2020/39534
 
 ### Patch Changes

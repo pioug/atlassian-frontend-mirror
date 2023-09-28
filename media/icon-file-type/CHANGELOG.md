@@ -4,31 +4,31 @@
 
 ### Patch Changes
 
-- [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
+- [#38162](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38162) [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
 
 ## 6.4.3
 
 ### Patch Changes
 
-- [`48e4a655534`](https://bitbucket.org/atlassian/atlassian-frontend/commits/48e4a655534) - Internal change to enforce token usage for spacing properties. There is no expected visual or behaviour change.
+- [#33728](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33728) [`48e4a655534`](https://bitbucket.org/atlassian/atlassian-frontend/commits/48e4a655534) - Internal change to enforce token usage for spacing properties. There is no expected visual or behaviour change.
 
 ## 6.4.2
 
 ### Patch Changes
 
-- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793) [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
 
 ## 6.4.1
 
 ### Patch Changes
 
-- [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649) [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
 
 ## 6.4.0
 
 ### Minor Changes
 
-- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258) [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
 
 ### Patch Changes
 
@@ -38,19 +38,19 @@
 
 ### Patch Changes
 
-- [`daefffa7e1a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/daefffa7e1a) - Migrated use of `gridSize` to space tokens where possible. There is no expected visual or behaviour change.
+- [#32171](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32171) [`daefffa7e1a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/daefffa7e1a) - Migrated use of `gridSize` to space tokens where possible. There is no expected visual or behaviour change.
 
 ## 6.3.7
 
 ### Patch Changes
 
-- [`ea9ecef219f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ea9ecef219f) - Updated Icon File Type documentation with new tab structure
+- [#28090](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28090) [`ea9ecef219f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ea9ecef219f) - Updated Icon File Type documentation with new tab structure
 
 ## 6.3.6
 
 ### Patch Changes
 
-- [`d2f7ffb6b78`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d2f7ffb6b78) - [ux] Updated the fill color of the following file icons to use new colors from the new color palette to avoid contrast issue in dark mode:
+- [#26712](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26712) [`d2f7ffb6b78`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d2f7ffb6b78) - [ux] Updated the fill color of the following file icons to use new colors from the new color palette to avoid contrast issue in dark mode:
 
   - archive
   - excel-spreadsheet
@@ -65,37 +65,37 @@
 
 ### Patch Changes
 
-- [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
+- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874) [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
 
 ## 6.3.4
 
 ### Patch Changes
 
-- [`378d1cef00f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/378d1cef00f) - Bump `@atlaskit/theme` to version `^11.3.0`.
+- [#12880](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12880) [`378d1cef00f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/378d1cef00f) - Bump `@atlaskit/theme` to version `^11.3.0`.
 
 ## 6.3.3
 
 ### Patch Changes
 
-- [`df2bb5891ef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/df2bb5891ef) - Use named export of base icon in all icon-\* glyphs
+- [#11649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/11649) [`df2bb5891ef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/df2bb5891ef) - Use named export of base icon in all icon-\* glyphs
 
 ## 6.3.2
 
 ### Patch Changes
 
-- [`72ef8bafec9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/72ef8bafec9) - Add "./glyph" entry point.
+- [#10522](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10522) [`72ef8bafec9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/72ef8bafec9) - Add "./glyph" entry point.
 
 ## 6.3.1
 
 ### Patch Changes
 
-- [`877e9e0b9f6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/877e9e0b9f6) - Icon package dependency now uses carat range.
+- [#9510](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9510) [`877e9e0b9f6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/877e9e0b9f6) - Icon package dependency now uses carat range.
 
 ## 6.3.0
 
 ### Minor Changes
 
-- [`62968ed79be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/62968ed79be) - Icon file type now utilises the base icon from `@atlaskit/icon`.
+- [#9083](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9083) [`62968ed79be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/62968ed79be) - Icon file type now utilises the base icon from `@atlaskit/icon`.
 
 ### Patch Changes
 
@@ -109,7 +109,7 @@
 
 ### Minor Changes
 
-- [`6967b72747c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6967b72747c) - Icon file type now ships with cjs, esm, and es2019 bundles for exported components and utils. Glyphs unfortunately aren't included and still only export cjs bundles.
+- [#8644](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8644) [`6967b72747c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6967b72747c) - Icon file type now ships with cjs, esm, and es2019 bundles for exported components and utils. Glyphs unfortunately aren't included and still only export cjs bundles.
 
 ### Patch Changes
 
@@ -120,20 +120,20 @@
 
 ### Patch Changes
 
-- [`0741b1556f6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0741b1556f6) - All icon glpyhs are now built without inline extends helpers, reducing their bundlesize.
+- [#8178](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8178) [`0741b1556f6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0741b1556f6) - All icon glpyhs are now built without inline extends helpers, reducing their bundlesize.
 - [`8d6c79b9055`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d6c79b9055) - Typedefs of glyphs have been updated to reflect an API change that occured in version 15. For context, `onClick` was removed as a functional prop but it was still supported by the types. This may have resulted in a confusing developer experience although the fundamental behaviour has been consistent since version 15.
 
 ## 6.1.3
 
 ### Patch Changes
 
-- [`b9f0d16300`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b9f0d16300) - Re-generated icons using a newer version of the build process
+- [#7425](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/7425) [`b9f0d16300`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b9f0d16300) - Re-generated icons using a newer version of the build process
 
 ## 6.1.2
 
 ### Patch Changes
 
-- [`c65f28c058`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c65f28c058) - Change codemod to return raw source if it is not transforming a file.
+- [#7589](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/7589) [`c65f28c058`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c65f28c058) - Change codemod to return raw source if it is not transforming a file.
 
   Otherwise it would run prettier which can lead to some invalid syntax outputted
   in edge cases. This is likely due to an issue in either `codemod-cli` or `jscodeshift`.
@@ -142,7 +142,7 @@
 
 ### Patch Changes
 
-- [`8990bf36a9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8990bf36a9) - Add a missing codemod for the entrypoint change in 6.1.0
+- [#7458](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/7458) [`8990bf36a9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8990bf36a9) - Add a missing codemod for the entrypoint change in 6.1.0
 
   ***
 
@@ -163,13 +163,13 @@
 
 ### Minor Changes
 
-- [`fbdf356800`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fbdf356800) - Remove undocumented metadata export from main entry point. To import metadata instead do it from the /metadata entrypoint.
+- [#7170](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/7170) [`fbdf356800`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fbdf356800) - Remove undocumented metadata export from main entry point. To import metadata instead do it from the /metadata entrypoint.
 
 ## 6.0.6
 
 ### Patch Changes
 
-- [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
+- [#5497](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5497) [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
   This requires version 3.8 of Typescript, read more about how we handle Typescript versions here: https://atlaskit.atlassian.com/get-started
   Also add `typescript` to `devDependencies` to denote version that the package was built with.
 
@@ -183,19 +183,19 @@
 
 ### Patch Changes
 
-- [`d6ff4c7dce`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6ff4c7dce) - Removes unused (and incorrect) es2019 key in package.json
+- [#4649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4649) [`d6ff4c7dce`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6ff4c7dce) - Removes unused (and incorrect) es2019 key in package.json
 
 ## 6.0.3
 
 ### Patch Changes
 
-- [`f51e6ff443`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f51e6ff443) - License updated to Apache 2.0 (previously under the ADG license)
+- [#4682](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4682) [`f51e6ff443`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f51e6ff443) - License updated to Apache 2.0 (previously under the ADG license)
 
 ## 6.0.2
 
 ### Patch Changes
 
-- [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
+- [#3885](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3885) [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
 
   Since tslib is a dependency for all our packages we recommend that products also follow this tslib upgrade
   to prevent duplicates of tslib being bundled.
@@ -204,13 +204,13 @@
 
 ### Patch Changes
 
-- [`db053b24d8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/db053b24d8) - Update all the theme imports to be tree-shakable
+- [#3428](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3428) [`db053b24d8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/db053b24d8) - Update all the theme imports to be tree-shakable
 
 ## 6.0.0
 
 ### Major Changes
 
-- [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
+- [#3335](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3335) [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
   For more information see: https://community.developer.atlassian.com/t/atlaskit-to-drop-support-for-internet-explorer-11-from-1st-july-2020/39534
 
 ### Patch Changes

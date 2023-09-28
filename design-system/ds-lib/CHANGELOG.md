@@ -4,49 +4,49 @@
 
 ### Patch Changes
 
-- [`b1bdec7cce2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b1bdec7cce2) - Internal change to enforce token usage for spacing properties. There is no expected visual or behaviour change.
+- [#32935](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32935) [`b1bdec7cce2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b1bdec7cce2) - Internal change to enforce token usage for spacing properties. There is no expected visual or behaviour change.
 
 ## 2.2.2
 
 ### Patch Changes
 
-- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793) [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
 
 ## 2.2.1
 
 ### Patch Changes
 
-- [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649) [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
 
 ## 2.2.0
 
 ### Minor Changes
 
-- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258) [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
 
 ## 2.1.3
 
 ### Patch Changes
 
-- [`e0460d5d989`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e0460d5d989) - Usages of `process` are now guarded by a `typeof` check.
+- [#32294](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32294) [`e0460d5d989`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e0460d5d989) - Usages of `process` are now guarded by a `typeof` check.
 
 ## 2.1.2
 
 ### Patch Changes
 
-- [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
+- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874) [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
 
 ## 2.1.1
 
 ### Patch Changes
 
-- [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
+- [#24492](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24492) [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
 
 ## 2.1.0
 
 ### Minor Changes
 
-- [`620c24e72b4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/620c24e72b4) - Introduces `propDeprecationWarning` function.
+- [#23381](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23381) [`620c24e72b4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/620c24e72b4) - Introduces `propDeprecationWarning` function.
 
 ### Patch Changes
 
@@ -56,44 +56,44 @@
 
 ### Patch Changes
 
-- [`8a5bdb3c844`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8a5bdb3c844) - Upgrading internal dependency (bind-event-listener) for improved internal types
+- [#22614](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22614) [`8a5bdb3c844`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8a5bdb3c844) - Upgrading internal dependency (bind-event-listener) for improved internal types
 
 ## 2.0.0
 
 ### Major Changes
 
-- [`347fd703ce0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/347fd703ce0) - Removing useDocumentEvent, useWindowEvent, useElementEvent and useKeydownEvent and replacing usages with bind-event-listener
+- [#22029](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22029) [`347fd703ce0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/347fd703ce0) - Removing useDocumentEvent, useWindowEvent, useElementEvent and useKeydownEvent and replacing usages with bind-event-listener
 
 ## 1.4.2
 
 ### Patch Changes
 
-- [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
+- [#20650](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20650) [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
 
 ## 1.4.1
 
 ### Patch Changes
 
-- [`b3e5a62a9e3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b3e5a62a9e3) - Adds `static` techstack to package, enforcing stricter style linting. In this case the package already satisfied this requirement so there have been no changes to styles.
+- [#20033](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20033) [`b3e5a62a9e3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b3e5a62a9e3) - Adds `static` techstack to package, enforcing stricter style linting. In this case the package already satisfied this requirement so there have been no changes to styles.
 
 ## 1.4.0
 
 ### Minor Changes
 
-- [`9f8f2b902bb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9f8f2b902bb) - Adds a new utility function for standardised deprecation warnings.
+- [#16752](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16752) [`9f8f2b902bb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9f8f2b902bb) - Adds a new utility function for standardised deprecation warnings.
 
 ## 1.3.0
 
 ### Minor Changes
 
-- [`5b5bffe8f58`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5b5bffe8f58) - - Adds two new methods: `useKeyDownEvent` and `useFocusEvent`.
+- [#13302](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13302) [`5b5bffe8f58`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5b5bffe8f58) - - Adds two new methods: `useKeyDownEvent` and `useFocusEvent`.
   - Adds keycodes as constants.
 
 ## 1.2.0
 
 ### Minor Changes
 
-- [`742b9d82cdc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/742b9d82cdc) - Added `useControlled` hook which can be used to be handle controlled & uncontrolled behaviour of a componenent.
+- [#10230](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10230) [`742b9d82cdc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/742b9d82cdc) - Added `useControlled` hook which can be used to be handle controlled & uncontrolled behaviour of a componenent.
 - [`e1d9004d5ee`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e1d9004d5ee) - Adds new utility to merge refs.
 - [`40d5bb8a2f4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/40d5bb8a2f4) - New `useAutoFocus` hook to be used when wanting to focus on an element during initial mount.
 - [`c60505b8a38`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c60505b8a38) - Adds new `useCloseOnEscapePress` hook, to be used exclusively for closing layered components.
@@ -104,7 +104,7 @@
 
 ### Minor Changes
 
-- [`e56d6be0379`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e56d6be0379) - A new utility to calculate scrollbar width is added for re-use.
+- [#9756](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9756) [`e56d6be0379`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e56d6be0379) - A new utility to calculate scrollbar width is added for re-use.
 - [`a2924ae3e4f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a2924ae3e4f) - **Add DS lib package with reusable utils and hooks**
 
   - We are introducing a new package which contains reusable utils and hooks specific to design system.

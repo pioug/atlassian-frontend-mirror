@@ -27,11 +27,16 @@ import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { useConstructor } from '@atlaskit/editor-common/hooks';
 import { useEditorContext } from '../ui/EditorContext';
 import measurements from '../utils/performance/measure-enum';
-import EditorInternal from './editor-internal';
+import { EditorInternal } from './editor-internal';
 import sendDurationAnalytics from './utils/sendDurationAnalytics';
 import trackEditorActions from './utils/trackEditorActions';
+import useMeasureEditorMountTime from './hooks/useMeasureEditorMountTime';
+import useProviderFactory from './hooks/useProviderFactory';
 
-export function Editor(passedProps: EditorNextProps) {
+/**
+ * Editor wrapper that deals with the lifecycle logic of the editor
+ */
+function Editor(passedProps: EditorNextProps) {
   const defaultProps: Partial<EditorNextProps> = {
     appearance: 'comment',
     disabled: false,
@@ -108,6 +113,14 @@ export function Editor(passedProps: EditorNextProps) {
     props.onDestroy?.();
   };
 
+  useMeasureEditorMountTime(props, getExperienceStore, createAnalyticsEvent);
+
+  const providerFactory = useProviderFactory(
+    props,
+    editorActions.current,
+    createAnalyticsEvent,
+  );
+
   return (
     <EditorInternal
       props={props}
@@ -116,14 +129,14 @@ export function Editor(passedProps: EditorNextProps) {
       preset={props.preset}
       handleSave={(view) => props.onSave?.(view)}
       editorActions={editorActions.current}
-      getExperienceStore={getExperienceStore}
       onEditorCreated={onEditorCreated}
       onEditorDestroyed={onEditorDestroyed}
+      providerFactory={providerFactory}
     />
   );
 }
 
-export default function EditorNext(props: EditorNextProps) {
+export function ComposableEditor(props: EditorNextProps) {
   const editorSessionId = useRef(uuid());
 
   return (
@@ -141,7 +154,7 @@ export default function EditorNext(props: EditorNextProps) {
   );
 }
 
-EditorNext.propTypes = {
+ComposableEditor.propTypes = {
   minHeight: ({
     appearance,
     minHeight,

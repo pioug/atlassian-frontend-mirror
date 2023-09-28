@@ -4,74 +4,74 @@
 
 ### Patch Changes
 
-- [`8a519feae72`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8a519feae72) - Update checkbox border contrast under feature flag
+- [#40530](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40530) [`8a519feae72`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8a519feae72) - Update checkbox border contrast under feature flag
 
 ## 17.9.1
 
 ### Patch Changes
 
-- [`c820226ec08`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c820226ec08) - Update feature flag name for checkbox and radio border update
+- [#40282](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40282) [`c820226ec08`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c820226ec08) - Update feature flag name for checkbox and radio border update
 
 ## 17.9.0
 
 ### Minor Changes
 
-- [`96f4e9fe6de`](https://bitbucket.org/atlassian/atlassian-frontend/commits/96f4e9fe6de) - [ux] ECA11Y-1 Added keyboard support to focus checkbox, check or uncheck, inside action item
+- [#38929](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38929) [`96f4e9fe6de`](https://bitbucket.org/atlassian/atlassian-frontend/commits/96f4e9fe6de) - [ux] ECA11Y-1 Added keyboard support to focus checkbox, check or uncheck, inside action item
 
 ## 17.8.1
 
 ### Patch Changes
 
-- [`6900f89eb0e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6900f89eb0e) - Internal changes to use space tokens. There is no expected visual or behaviour change.
+- [#39787](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39787) [`6900f89eb0e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6900f89eb0e) - Internal changes to use space tokens. There is no expected visual or behaviour change.
 
 ## 17.8.0
 
 ### Minor Changes
 
-- [`705d8ec0641`](https://bitbucket.org/atlassian/atlassian-frontend/commits/705d8ec0641) - [ux] Added a new shortcut (⌘ + Opt + ⏎) for Check/Uncheck Action item
+- [#39012](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39012) [`705d8ec0641`](https://bitbucket.org/atlassian/atlassian-frontend/commits/705d8ec0641) - [ux] Added a new shortcut (⌘ + Opt + ⏎) for Check/Uncheck Action item
 
 ## 17.7.1
 
 ### Patch Changes
 
-- [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
+- [#38162](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38162) [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
 - Updated dependencies
 
 ## 17.7.0
 
 ### Minor Changes
 
-- [`8c026385eb8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8c026385eb8) - [ux] ED-17434: Update TaskItem to match @atlaskit/checkbox and update to support design tokens and match spacing from bullet and numbered lists.
+- [#35509](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35509) [`8c026385eb8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8c026385eb8) - [ux] ED-17434: Update TaskItem to match @atlaskit/checkbox and update to support design tokens and match spacing from bullet and numbered lists.
 
 ## 17.6.4
 
 ### Patch Changes
 
-- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793) [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
 
 ## 17.6.3
 
 ### Patch Changes
 
-- [`9369cc38a68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9369cc38a68) - Migrated use of `gridSize` to space tokens where possible. There is no expected visual or behaviour change.
+- [#33771](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33771) [`9369cc38a68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9369cc38a68) - Migrated use of `gridSize` to space tokens where possible. There is no expected visual or behaviour change.
 
 ## 17.6.2
 
 ### Patch Changes
 
-- [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649) [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
 
 ## 17.6.1
 
 ### Patch Changes
 
-- [`98c74fa6f26`](https://bitbucket.org/atlassian/atlassian-frontend/commits/98c74fa6f26) - [ux] fix placeholder fallback
+- [#32882](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32882) [`98c74fa6f26`](https://bitbucket.org/atlassian/atlassian-frontend/commits/98c74fa6f26) - [ux] fix placeholder fallback
 
 ## 17.6.0
 
 ### Minor Changes
 
-- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258) [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
 
 ### Patch Changes
 
@@ -81,7 +81,7 @@
 
 ### Patch Changes
 
-- [`2e01c9c74b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e01c9c74b5) - DUMMY remove before merging to master; dupe adf-schema via adf-utils
+- [#32424](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32424) [`2e01c9c74b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e01c9c74b5) - DUMMY remove before merging to master; dupe adf-schema via adf-utils
 
 ## 17.5.10
 
@@ -99,19 +99,19 @@
 
 ### Patch Changes
 
-- [`67dc5df7db3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/67dc5df7db3) - [ux] Fix behaviour where safari could get stuck inside a decision item when trying to use the up-arrow key.
+- [#28932](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28932) [`67dc5df7db3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/67dc5df7db3) - [ux] Fix behaviour where safari could get stuck inside a decision item when trying to use the up-arrow key.
 
 ## 17.5.7
 
 ### Patch Changes
 
-- [`6455cf006b3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6455cf006b3) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving performance.
+- [#28324](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28324) [`6455cf006b3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6455cf006b3) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving performance.
 
 ## 17.5.6
 
 ### Patch Changes
 
-- [`224a2482244`](https://bitbucket.org/atlassian/atlassian-frontend/commits/224a2482244) - [ED-16166] Changes the renderer prop document type from any to DocNode
+- [#28090](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28090) [`224a2482244`](https://bitbucket.org/atlassian/atlassian-frontend/commits/224a2482244) - [ED-16166] Changes the renderer prop document type from any to DocNode
 
   BREAKING for `@atlaskit/renderer`: Previously the `document` prop for the renderer component had the type of `any`. This has now been changed to `DocNode` which comes from `@atlaskit/adf-schema`.
 
@@ -151,19 +151,19 @@
 
 ### Patch Changes
 
-- [`0915ecdd1db`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0915ecdd1db) - Removed styled components from dev and peer dependencies
+- [#25860](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/25860) [`0915ecdd1db`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0915ecdd1db) - Removed styled components from dev and peer dependencies
 
 ## 17.5.1
 
 ### Patch Changes
 
-- [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
+- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874) [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
 
 ## 17.5.0
 
 ### Minor Changes
 
-- [`2112384b533`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2112384b533) - Replaced styled components with emotion.
+- [#24004](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24004) [`2112384b533`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2112384b533) - Replaced styled components with emotion.
 
 ### Patch Changes
 
@@ -173,13 +173,13 @@
 
 ### Patch Changes
 
-- [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
+- [#24492](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24492) [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
 
 ## 17.4.4
 
 ### Patch Changes
 
-- [`bffe28af76b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bffe28af76b) - ED-14764: Modified CSS display attribute for checkboxes in action items slightly to address the problem seen in firefox where the cursor does not move to the previous item using the up arrow key. No appearance changes to the component as a result of this modification.
+- [#21570](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21570) [`bffe28af76b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bffe28af76b) - ED-14764: Modified CSS display attribute for checkboxes in action items slightly to address the problem seen in firefox where the cursor does not move to the previous item using the up arrow key. No appearance changes to the component as a result of this modification.
 
 ## 17.4.3
 
@@ -191,7 +191,7 @@
 
 ### Patch Changes
 
-- [`a424e62b264`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a424e62b264) - Changes to support Node 16 Typescript definitions from `@types/node`.
+- [#20650](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20650) [`a424e62b264`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a424e62b264) - Changes to support Node 16 Typescript definitions from `@types/node`.
 
 ## 17.4.1
 
@@ -203,7 +203,7 @@
 
 ### Minor Changes
 
-- [`785548f317d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/785548f317d) - [ux] Instrumented `@atlaskit/task-decision` with the new theming package, `@atlaskit/tokens`.
+- [#20033](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20033) [`785548f317d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/785548f317d) - [ux] Instrumented `@atlaskit/task-decision` with the new theming package, `@atlaskit/tokens`.
 
   New tokens will be visible only in applications configured to use the new Tokens API (currently in alpha).
   These changes are intended to be interoperable with the legacy theme implementation. Legacy dark mode users should expect no visual or breaking changes.
@@ -217,19 +217,19 @@
 
 ### Patch Changes
 
-- [`053b9d1b25e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/053b9d1b25e) - AK-729: an empty label was removed from action item component
+- [#19019](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19019) [`053b9d1b25e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/053b9d1b25e) - AK-729: an empty label was removed from action item component
 
 ## 17.3.1
 
 ### Patch Changes
 
-- [`57f3b255fb2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/57f3b255fb2) - [ux] AK-608: Action items are keyboard accessible
+- [#18526](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/18526) [`57f3b255fb2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/57f3b255fb2) - [ux] AK-608: Action items are keyboard accessible
 
 ## 17.3.0
 
 ### Minor Changes
 
-- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - AK-735 Update decision icon color
+- [#16752](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16752) [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - AK-735 Update decision icon color
 
 ### Patch Changes
 
@@ -239,7 +239,7 @@
 
 ### Patch Changes
 
-- [`35611ad44a5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/35611ad44a5) - AK-601 Changed checkbox colors to meet minimum contrast requirements
+- [#15998](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/15998) [`35611ad44a5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/35611ad44a5) - AK-601 Changed checkbox colors to meet minimum contrast requirements
 - [`544dc89eb9e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/544dc89eb9e) - import more contrast color for text in decisions list
 
 ## 17.2.3
@@ -252,20 +252,20 @@
 
 ### Patch Changes
 
-- [`b90c0237824`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b90c0237824) - Update package.jsons to remove unused dependencies.
+- [#13864](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13864) [`b90c0237824`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b90c0237824) - Update package.jsons to remove unused dependencies.
 - Updated dependencies
 
 ## 17.2.1
 
 ### Patch Changes
 
-- [`414b6216adf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/414b6216adf) - Upgrade date-fns to ^2.17
+- [#9328](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9328) [`414b6216adf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/414b6216adf) - Upgrade date-fns to ^2.17
 
 ## 17.2.0
 
 ### Minor Changes
 
-- [`ab7db4ccc25`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ab7db4ccc25) - Wrap checkbox text with label
+- [#12328](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12328) [`ab7db4ccc25`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ab7db4ccc25) - Wrap checkbox text with label
 
 ### Patch Changes
 
@@ -275,7 +275,7 @@
 
 ### Minor Changes
 
-- [`5be9ece5fd5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5be9ece5fd5) - Removed RxJS from peer dependencies
+- [#11113](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/11113) [`5be9ece5fd5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5be9ece5fd5) - Removed RxJS from peer dependencies
 
 ### Patch Changes
 
@@ -285,7 +285,7 @@
 
 ### Patch Changes
 
-- [`471e2431a7c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/471e2431a7c) - Downgrade back to date-fns 1.30.1
+- [#9299](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9299) [`471e2431a7c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/471e2431a7c) - Downgrade back to date-fns 1.30.1
   We discovered big bundle size increases associated with the date-fns upgrade.
   We're reverting the upgarde to investigate
 
@@ -293,7 +293,7 @@
 
 ### Patch Changes
 
-- [`70f0701c2e6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/70f0701c2e6) - Upgrade date-fns to 2.17
+- [#8291](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8291) [`70f0701c2e6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/70f0701c2e6) - Upgrade date-fns to 2.17
 
 ## 17.0.10
 
@@ -305,13 +305,13 @@
 
 ### Patch Changes
 
-- [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
+- [#5857](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5857) [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
 
 ## 17.0.8
 
 ### Patch Changes
 
-- [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
+- [#5497](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5497) [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
   This requires version 3.8 of Typescript, read more about how we handle Typescript versions here: https://atlaskit.atlassian.com/get-started
   Also add `typescript` to `devDependencies` to denote version that the package was built with.
 
@@ -325,20 +325,20 @@
 
 ### Patch Changes
 
-- [`66a23c5c94`](https://bitbucket.org/atlassian/atlassian-frontend/commits/66a23c5c94) - ED-9350: prevent action item/decision overflow
+- [#4749](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4749) [`66a23c5c94`](https://bitbucket.org/atlassian/atlassian-frontend/commits/66a23c5c94) - ED-9350: prevent action item/decision overflow
 - Updated dependencies
 
 ## 17.0.5
 
 ### Patch Changes
 
-- [`bee2157c1b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bee2157c1b) - Remove usage of @atlaskit/util-common-test package
+- [#4932](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4932) [`bee2157c1b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bee2157c1b) - Remove usage of @atlaskit/util-common-test package
 
 ## 17.0.4
 
 ### Patch Changes
 
-- [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
+- [#3885](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3885) [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
 
   Since tslib is a dependency for all our packages we recommend that products also follow this tslib upgrade
   to prevent duplicates of tslib being bundled.
@@ -347,26 +347,26 @@
 
 ### Patch Changes
 
-- [`76165ad82f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/76165ad82f) - Bump required because of conflicts on wadmal release
+- [#4393](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4393) [`76165ad82f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/76165ad82f) - Bump required because of conflicts on wadmal release
 
 ## 17.0.2
 
 ### Patch Changes
 
-- [`e7957c86bf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e7957c86bf) - ED-7467: Added a new attribute data-node-type in DecisionList to fix copy/pasting between `@atlaskit/renderer` and `@atlaskit/editor-core`.
+- [#3823](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3823) [`e7957c86bf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e7957c86bf) - ED-7467: Added a new attribute data-node-type in DecisionList to fix copy/pasting between `@atlaskit/renderer` and `@atlaskit/editor-core`.
 - Updated dependencies
 
 ## 17.0.1
 
 ### Patch Changes
 
-- [`c72502e22a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c72502e22a) - ED-9594: Remove cursor pointer from decision items in renderer
+- [#3428](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3428) [`c72502e22a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c72502e22a) - ED-9594: Remove cursor pointer from decision items in renderer
 
 ## 17.0.0
 
 ### Major Changes
 
-- [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
+- [#3335](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3335) [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
   For more information see: https://community.developer.atlassian.com/t/atlaskit-to-drop-support-for-internet-explorer-11-from-1st-july-2020/39534
 
 ### Patch Changes
@@ -377,20 +377,20 @@
 
 ### Patch Changes
 
-- [`d320dccd58`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d320dccd58) - ED-9488 Remove `export *` from @atlaskit/task-decision
+- [#2763](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2763) [`d320dccd58`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d320dccd58) - ED-9488 Remove `export *` from @atlaskit/task-decision
 
 ## 16.1.1
 
 ### Patch Changes
 
-- [`6ce2418b54`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6ce2418b54) - ED-9349 Remove hover state from decision item
+- [#2443](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2443) [`6ce2418b54`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6ce2418b54) - ED-9349 Remove hover state from decision item
 - [`a86fbdb2b8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a86fbdb2b8) - CEMS-1138 Fix TaskItem 'isDone' state gets overriden when user changes the checkbox value
 
 ## 16.1.0
 
 ### Minor Changes
 
-- [`ef36de69ad`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ef36de69ad) - ED-8358 Change decision to use a grey background
+- [#2137](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2137) [`ef36de69ad`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ef36de69ad) - ED-8358 Change decision to use a grey background
 
 ### Patch Changes
 
@@ -402,7 +402,7 @@
 
 ### Patch Changes
 
-- [`9b1a0d0033`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9b1a0d0033) - ED-8358 Revert making decisions background grey- [`d895d21c49`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d895d21c49) - ED-9176: add annotations to task and decisions- Updated dependencies
+- [`9b1a0d0033`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9b1a0d0033) - ED-8358 Revert making decisions background grey- [#1868](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/1868) [`d895d21c49`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d895d21c49) - ED-9176: add annotations to task and decisions- Updated dependencies
 
 ## 16.0.11
 

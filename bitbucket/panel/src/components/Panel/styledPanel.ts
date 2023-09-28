@@ -36,7 +36,7 @@ export const ButtonWrapper = styled.div<{ isHidden: boolean }>`
 
 export const PanelHeader: FC<
   HTMLProps<HTMLDivElement> & { isFocused?: boolean }
-> = withFocusWithin(styled.div`
+> = withFocusWithin(styled.div<{ isFocused?: boolean }>`
   align-items: center;
   background-color: ${(props) =>
     props.isFocused && token('elevation.surface.hovered', colors.N20)};

@@ -1,5 +1,5 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
+import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 
 import { pluginKey } from './plugin-key';
 import { createPluginState } from './plugin-factory';

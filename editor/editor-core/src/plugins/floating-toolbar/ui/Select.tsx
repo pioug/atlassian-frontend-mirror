@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
-import Select, { ValueType } from '@atlaskit/select';
+import type { ValueType } from '@atlaskit/select';
+import Select from '@atlaskit/select';
 
 import type {
   RenderOptionsPropsT,

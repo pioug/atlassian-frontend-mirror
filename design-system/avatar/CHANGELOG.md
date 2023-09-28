@@ -4,62 +4,62 @@
 
 ### Patch Changes
 
-- [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
+- [#38162](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38162) [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
 - Updated dependencies
 
 ## 21.3.8
 
 ### Patch Changes
 
-- [`7a3cbead067`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7a3cbead067) - Default content for label
+- [#38336](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38336) [`7a3cbead067`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7a3cbead067) - Default content for label
 
 ## 21.3.7
 
 ### Patch Changes
 
-- [`4ae083a7e66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ae083a7e66) - Use `@af/accessibility-testing` for default jest-axe config and jest-axe import in accessibility testing.
+- [#36754](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36754) [`4ae083a7e66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ae083a7e66) - Use `@af/accessibility-testing` for default jest-axe config and jest-axe import in accessibility testing.
 
 ## 21.3.6
 
 ### Patch Changes
 
-- [`599bfe90ee3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/599bfe90ee3) - Internal change to use shape tokens. There is no expected visual change.
+- [#35441](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35441) [`599bfe90ee3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/599bfe90ee3) - Internal change to use shape tokens. There is no expected visual change.
 
 ## 21.3.5
 
 ### Patch Changes
 
-- [`342bd17ba74`](https://bitbucket.org/atlassian/atlassian-frontend/commits/342bd17ba74) - Fix presence and status props being expanded to all strings instead of the allowed values.
+- [#36027](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36027) [`342bd17ba74`](https://bitbucket.org/atlassian/atlassian-frontend/commits/342bd17ba74) - Fix presence and status props being expanded to all strings instead of the allowed values.
 
 ## 21.3.4
 
 ### Patch Changes
 
-- [`abf69e9a4f6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/abf69e9a4f6) - Removes usage of deprecated theme mixins in favor of static token / color usage.
+- [#34811](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34811) [`abf69e9a4f6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/abf69e9a4f6) - Removes usage of deprecated theme mixins in favor of static token / color usage.
 
 ## 21.3.3
 
 ### Patch Changes
 
-- [`e2d375fa634`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e2d375fa634) - Refactor how some internal styles are applied; no functional changes.
+- [#34804](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34804) [`e2d375fa634`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e2d375fa634) - Refactor how some internal styles are applied; no functional changes.
 
 ## 21.3.2
 
 ### Patch Changes
 
-- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793) [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
 
 ## 21.3.1
 
 ### Patch Changes
 
-- [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649) [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
 
 ## 21.3.0
 
 ### Minor Changes
 
-- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258) [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
 
 ### Patch Changes
 
@@ -69,13 +69,13 @@
 
 ### Patch Changes
 
-- [`4ba10567310`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ba10567310) - Internal changes.
+- [#32211](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32211) [`4ba10567310`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ba10567310) - Internal changes.
 
 ## 21.2.0
 
 ### Minor Changes
 
-- [`51928bbe70c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/51928bbe70c) - [ux] Removes status/presence indicator images from the accessibility tree for the Avatar component.
+- [#30248](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/30248) [`51928bbe70c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/51928bbe70c) - [ux] Removes status/presence indicator images from the accessibility tree for the Avatar component.
 
 ### Patch Changes
 
@@ -86,7 +86,7 @@
 
 ### Patch Changes
 
-- [`5aab9bfc96c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5aab9bfc96c) - Replace gridSize in spacing values with corresponding spacing tokens
+- [#30134](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/30134) [`5aab9bfc96c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5aab9bfc96c) - Replace gridSize in spacing values with corresponding spacing tokens
 
 ## 21.1.9
 
@@ -104,13 +104,13 @@
 
 ### Patch Changes
 
-- [`18aeca8c199`](https://bitbucket.org/atlassian/atlassian-frontend/commits/18aeca8c199) - Internal change to update token references. There is no expected behaviour or visual change.
+- [#29390](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/29390) [`18aeca8c199`](https://bitbucket.org/atlassian/atlassian-frontend/commits/18aeca8c199) - Internal change to update token references. There is no expected behaviour or visual change.
 
 ## 21.1.6
 
 ### Patch Changes
 
-- [`4ee60bafc6d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ee60bafc6d) - ED-16603: Remove tooltips from VR tests and make them opt in. To opt-in, add `allowedSideEffects` when loading the page.
+- [#29227](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/29227) [`4ee60bafc6d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ee60bafc6d) - ED-16603: Remove tooltips from VR tests and make them opt in. To opt-in, add `allowedSideEffects` when loading the page.
 
 ## 21.1.5
 
@@ -134,19 +134,19 @@
 
 ### Patch Changes
 
-- [`47f0e63c935`](https://bitbucket.org/atlassian/atlassian-frontend/commits/47f0e63c935) - Internal changes to apply spacing tokens. This should be a no-op change.
+- [#26699](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26699) [`47f0e63c935`](https://bitbucket.org/atlassian/atlassian-frontend/commits/47f0e63c935) - Internal changes to apply spacing tokens. This should be a no-op change.
 
 ## 21.1.1
 
 ### Patch Changes
 
-- [`bc989043572`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bc989043572) - Internal changes to apply spacing tokens. This should be a no-op change.
+- [#26488](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26488) [`bc989043572`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bc989043572) - Internal changes to apply spacing tokens. This should be a no-op change.
 
 ## 21.1.0
 
 ### Minor Changes
 
-- [`c1d012d6d20`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c1d012d6d20) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behaviour change.
+- [#24710](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24710) [`c1d012d6d20`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c1d012d6d20) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behaviour change.
 
 ### Patch Changes
 
@@ -156,25 +156,25 @@
 
 ### Patch Changes
 
-- [`f9cd9e55e43`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f9cd9e55e43) - Update to disabled tokens which slightly affects the opacity in disabled states
+- [#24968](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24968) [`f9cd9e55e43`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f9cd9e55e43) - Update to disabled tokens which slightly affects the opacity in disabled states
 
 ## 21.0.2
 
 ### Patch Changes
 
-- [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
+- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874) [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
 
 ## 21.0.1
 
 ### Patch Changes
 
-- [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
+- [#24492](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24492) [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
 
 ## 21.0.0
 
 ### Major Changes
 
-- [`92bb02bc46b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/92bb02bc46b) - [ux] There are **no code changes required** to consume this major, but you should be aware that internal changes have been made to how `@atlaskit/avatar` loads images.
+- [#21570](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21570) [`92bb02bc46b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/92bb02bc46b) - [ux] There are **no code changes required** to consume this major, but you should be aware that internal changes have been made to how `@atlaskit/avatar` loads images.
 
   Before, the image loading behaviour was written in JS. Now, it leans on a standard HTML `img` tag if you provide a `src` prop, allowing it to rely on the browser to optimise the loading. These changes should result in faster image loading and an improved server-side rendering story.
 
@@ -194,7 +194,7 @@
 
 ### Patch Changes
 
-- [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
+- [#20650](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20650) [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
 
 ## 20.5.8
 
@@ -218,7 +218,7 @@
 
 ### Patch Changes
 
-- [`58884c2f6c1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/58884c2f6c1) - Internal code change turning on a new linting rule.
+- [#16752](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16752) [`58884c2f6c1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/58884c2f6c1) - Internal code change turning on a new linting rule.
 
 ## 20.5.4
 
@@ -237,7 +237,7 @@
 
 ### Patch Changes
 
-- [`f460cc7c411`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f460cc7c411) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving bundle size.
+- [#15998](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/15998) [`f460cc7c411`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f460cc7c411) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving bundle size.
 - Updated dependencies
 
 ## 20.5.1
@@ -250,7 +250,7 @@
 
 ### Minor Changes
 
-- [`cf853e39278`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf853e39278) - [ux] Fix avatar focus ring in windows high contrast mode
+- [#14319](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/14319) [`cf853e39278`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf853e39278) - [ux] Fix avatar focus ring in windows high contrast mode
 
 ### Patch Changes
 
@@ -266,7 +266,7 @@
 
 ### Patch Changes
 
-- [`0a759df738f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0a759df738f) - When Avatar is not interactive and no `name` prop is provided, `role` and an empty `aria-label` attributes are not rendered anymore. Screen readers consider these images as decorative now and doesn't announce them as "Unlabeled image".
+- [#13864](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13864) [`0a759df738f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0a759df738f) - When Avatar is not interactive and no `name` prop is provided, `role` and an empty `aria-label` attributes are not rendered anymore. Screen readers consider these images as decorative now and doesn't announce them as "Unlabeled image".
 - [`016d19b8038`](https://bitbucket.org/atlassian/atlassian-frontend/commits/016d19b8038) - [ux] When avatars are disabled they no longer will appear as interactive.
 - Updated dependencies
 
@@ -274,7 +274,7 @@
 
 ### Minor Changes
 
-- [`cb101fd1d29`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb101fd1d29) - [ux] Colors are now sourced through tokens.
+- [#13302](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13302) [`cb101fd1d29`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb101fd1d29) - [ux] Colors are now sourced through tokens.
 
 ### Patch Changes
 
@@ -284,26 +284,26 @@
 
 ### Patch Changes
 
-- [`0d0ecc6e790`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0d0ecc6e790) - Corrects eslint supressions.
+- [#12837](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12837) [`0d0ecc6e790`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0d0ecc6e790) - Corrects eslint supressions.
 - Updated dependencies
 
 ## 20.3.2
 
 ### Patch Changes
 
-- [`378d1cef00f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/378d1cef00f) - Bump `@atlaskit/theme` to version `^11.3.0`.
+- [#12880](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12880) [`378d1cef00f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/378d1cef00f) - Bump `@atlaskit/theme` to version `^11.3.0`.
 
 ## 20.3.1
 
 ### Patch Changes
 
-- [`34992526ab4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/34992526ab4) - Removes duplicate dependency (@atlaskit/tooltip) from dependency array.
+- [#11649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/11649) [`34992526ab4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/34992526ab4) - Removes duplicate dependency (@atlaskit/tooltip) from dependency array.
 
 ## 20.3.0
 
 ### Minor Changes
 
-- [`8f84c89cad5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f84c89cad5) - [ux] The styles of overflow button of avatar group has been aligned with default button styles. Also, contrast issue of the button has been fixed.
+- [#11113](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/11113) [`8f84c89cad5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f84c89cad5) - [ux] The styles of overflow button of avatar group has been aligned with default button styles. Also, contrast issue of the button has been fixed.
 
 ### Patch Changes
 
@@ -322,20 +322,20 @@
 
 ### Patch Changes
 
-- [`79c23df6340`](https://bitbucket.org/atlassian/atlassian-frontend/commits/79c23df6340) - Use injected package name and version for analytics instead of version.json.
+- [#8644](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8644) [`79c23df6340`](https://bitbucket.org/atlassian/atlassian-frontend/commits/79c23df6340) - Use injected package name and version for analytics instead of version.json.
 - Updated dependencies
 
 ## 20.2.1
 
 ### Patch Changes
 
-- [`e177a840b13`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e177a840b13) - Fix flickering of cached avatar images on mount
+- [#8710](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8710) [`e177a840b13`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e177a840b13) - Fix flickering of cached avatar images on mount
 
 ## 20.2.0
 
 ### Minor Changes
 
-- [`1a8fcbf9878`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1a8fcbf9878) - [ux] Avatar and AvatarItem now accept a label prop which allows the components to be accessible when viewed in a screen reader. The isDisabled prop now correctly generates the appropriate markup (was a span, now a disabled button) for screen reader users.
+- [#8178](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8178) [`1a8fcbf9878`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1a8fcbf9878) - [ux] Avatar and AvatarItem now accept a label prop which allows the components to be accessible when viewed in a screen reader. The isDisabled prop now correctly generates the appropriate markup (was a span, now a disabled button) for screen reader users.
 
 ### Patch Changes
 
@@ -346,13 +346,13 @@
 
 ### Patch Changes
 
-- [`fe59fc62a58`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fe59fc62a58) - Increased the contrast for the fallback icon of the Avatar package so that it passes WCAG AA contrast requirements.
+- [#7762](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/7762) [`fe59fc62a58`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fe59fc62a58) - Increased the contrast for the fallback icon of the Avatar package so that it passes WCAG AA contrast requirements.
 
 ## 20.1.0
 
 ### Minor Changes
 
-- [`4f9e6e2db5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4f9e6e2db5) - These packages now have defined entry points -- this means that you cannot access internal files in the packages that are not meant to be public. Sub-components in these packages have been explicitly defined, aiding tree-shaking and reducing bundle size.
+- [#7170](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/7170) [`4f9e6e2db5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4f9e6e2db5) - These packages now have defined entry points -- this means that you cannot access internal files in the packages that are not meant to be public. Sub-components in these packages have been explicitly defined, aiding tree-shaking and reducing bundle size.
 
 ### Patch Changes
 
@@ -362,19 +362,19 @@
 
 ### Patch Changes
 
-- [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
+- [#5857](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5857) [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
 
 ## 20.0.7
 
 ### Patch Changes
 
-- [`5c1b4d64ef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5c1b4d64ef) - [ux] There were two browser specific issues in avatar component. 1- Misalignment in firefox (Interactive button avatar is incorrectly aligned) — To fix this we added font-size and font-family to button element. 2- Hover issue in safari (On hover avatar was showing rectangular background) — To fix this we have added border radius to avatar on hover.
+- [#6228](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/6228) [`5c1b4d64ef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5c1b4d64ef) - [ux] There were two browser specific issues in avatar component. 1- Misalignment in firefox (Interactive button avatar is incorrectly aligned) — To fix this we added font-size and font-family to button element. 2- Hover issue in safari (On hover avatar was showing rectangular background) — To fix this we have added border radius to avatar on hover.
 
 ## 20.0.6
 
 ### Patch Changes
 
-- [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
+- [#5497](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5497) [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
   This requires version 3.8 of Typescript, read more about how we handle Typescript versions here: https://atlaskit.atlassian.com/get-started
   Also add `typescript` to `devDependencies` to denote version that the package was built with.
 
@@ -394,7 +394,7 @@
 
 ### Patch Changes
 
-- [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
+- [#3885](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3885) [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
 
   Since tslib is a dependency for all our packages we recommend that products also follow this tslib upgrade
   to prevent duplicates of tslib being bundled.
@@ -403,19 +403,19 @@
 
 ### Patch Changes
 
-- [`954cc87b62`](https://bitbucket.org/atlassian/atlassian-frontend/commits/954cc87b62) - The readme and package information has been updated to point to the new design system website.
+- [#3293](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3293) [`954cc87b62`](https://bitbucket.org/atlassian/atlassian-frontend/commits/954cc87b62) - The readme and package information has been updated to point to the new design system website.
 
 ## 20.0.1
 
 ### Patch Changes
 
-- [`dfd7418707`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dfd7418707) - Added types for function parameters in the Presence, Status and Skeleton avatar sub-components. Without these types we were unable to generate prop tables in the documentation site using `extract-react-types`.
+- [#4044](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4044) [`dfd7418707`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dfd7418707) - Added types for function parameters in the Presence, Status and Skeleton avatar sub-components. Without these types we were unable to generate prop tables in the documentation site using `extract-react-types`.
 
 ## 20.0.0
 
 ### Major Changes
 
-- [`cde426961a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cde426961a) - Changes to Avatar in this release are intended to provide users with more flexible and performant customization options.
+- [#3428](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3428) [`cde426961a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cde426961a) - Changes to Avatar in this release are intended to provide users with more flexible and performant customization options.
 
   Previously Avatars could only be customized like so:
 
@@ -471,7 +471,7 @@
 
 ### Major Changes
 
-- [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
+- [#3335](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3335) [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
   For more information see: https://community.developer.atlassian.com/t/atlaskit-to-drop-support-for-internet-explorer-11-from-1st-july-2020/39534
 
 ### Patch Changes
@@ -482,20 +482,20 @@
 
 ### Patch Changes
 
-- [`1c401b41d6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1c401b41d6) - Codemod updated to target the correct avatarItem prop name
+- [#2443](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2443) [`1c401b41d6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1c401b41d6) - Codemod updated to target the correct avatarItem prop name
 - [`e3cb6026bc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e3cb6026bc) - Updates the v18 codemod to ensure it doesnt format files that are not relevant
 
 ## 18.0.1
 
 ### Patch Changes
 
-- [`54a9514fcf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54a9514fcf) - Build and supporting files will no longer be published to npm
+- [#2866](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2866) [`54a9514fcf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54a9514fcf) - Build and supporting files will no longer be published to npm
 
 ## 18.0.0
 
 ### Major Changes
 
-- [`b1fa2d6d1c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b1fa2d6d1c) - Avatar has been refactored to improve performance and be compliant with the lite-mode specification.
+- [#2137](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2137) [`b1fa2d6d1c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b1fa2d6d1c) - Avatar has been refactored to improve performance and be compliant with the lite-mode specification.
   Since there are significant prop and API changes, we will be providing a codemod to help consumers upgrade their components.
 
   To run the codemod:

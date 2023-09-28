@@ -4,50 +4,50 @@
 
 ### Patch Changes
 
-- [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
+- [#38162](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38162) [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
 - Updated dependencies
 
 ## 14.6.6
 
 ### Patch Changes
 
-- [`4ae083a7e66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ae083a7e66) - Use `@af/accessibility-testing` for default jest-axe config and jest-axe import in accessibility testing.
+- [#36754](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36754) [`4ae083a7e66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ae083a7e66) - Use `@af/accessibility-testing` for default jest-axe config and jest-axe import in accessibility testing.
 
 ## 14.6.5
 
 ### Patch Changes
 
-- [`59b808d6a46`](https://bitbucket.org/atlassian/atlassian-frontend/commits/59b808d6a46) - [ux] Improves the accessibility of the bidirectional character warnings.
+- [#34360](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34360) [`59b808d6a46`](https://bitbucket.org/atlassian/atlassian-frontend/commits/59b808d6a46) - [ux] Improves the accessibility of the bidirectional character warnings.
 
 ## 14.6.4
 
 ### Patch Changes
 
-- [`e7ea6832ad2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e7ea6832ad2) - Bans the use of React.FC/React.FunctionComponent type in ADS components as part of the React 18 migration work. The change is internal only and should not introduce any changes for the component consumers.
+- [#33652](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33652) [`e7ea6832ad2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e7ea6832ad2) - Bans the use of React.FC/React.FunctionComponent type in ADS components as part of the React 18 migration work. The change is internal only and should not introduce any changes for the component consumers.
 
 ## 14.6.3
 
 ### Patch Changes
 
-- [`49b08bfdf5f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/49b08bfdf5f) - Migrated use of `gridSize` to space tokens where possible. There is no expected visual or behaviour change.
+- [#34051](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34051) [`49b08bfdf5f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/49b08bfdf5f) - Migrated use of `gridSize` to space tokens where possible. There is no expected visual or behaviour change.
 
 ## 14.6.2
 
 ### Patch Changes
 
-- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793) [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
 
 ## 14.6.1
 
 ### Patch Changes
 
-- [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649) [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
 
 ## 14.6.0
 
 ### Minor Changes
 
-- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258) [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
 
 ### Patch Changes
 
@@ -57,32 +57,32 @@
 
 ### Patch Changes
 
-- [`2e01c9c74b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e01c9c74b5) - DUMMY remove before merging to master; dupe adf-schema via adf-utils
+- [#32424](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32424) [`2e01c9c74b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e01c9c74b5) - DUMMY remove before merging to master; dupe adf-schema via adf-utils
 
 ## 14.5.3
 
 ### Patch Changes
 
-- [`74750bef5c4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/74750bef5c4) - Fixes some bugs with the long line wrapping and syntax-highlighting changes that were released in v14.5.0.
+- [#31638](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31638) [`74750bef5c4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/74750bef5c4) - Fixes some bugs with the long line wrapping and syntax-highlighting changes that were released in v14.5.0.
 
 ## 14.5.2
 
 ### Patch Changes
 
-- [`3ca97be0c06`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3ca97be0c06) - Internal change only. Replace usages of Inline/Stack with stable version from `@atlaskit/primitives`.
+- [#31378](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31378) [`3ca97be0c06`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3ca97be0c06) - Internal change only. Replace usages of Inline/Stack with stable version from `@atlaskit/primitives`.
 
 ## 14.5.1
 
 ### Patch Changes
 
-- [`261420360ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/261420360ec) - Upgrades component types to support React 18.
+- [#31206](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31206) [`261420360ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/261420360ec) - Upgrades component types to support React 18.
 - Updated dependencies
 
 ## 14.5.0
 
 ### Minor Changes
 
-- [`f5ca132a05e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f5ca132a05e) - [ux] CodeBlock has had some significant under-the-hood changes in this version. While technically it is a minor update as all API changes are additive and backwards-compatible, this is a heads up that there are some small visual changes that may require visual regression snapshots to be updated.
+- [#30248](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/30248) [`f5ca132a05e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f5ca132a05e) - [ux] CodeBlock has had some significant under-the-hood changes in this version. While technically it is a minor update as all API changes are additive and backwards-compatible, this is a heads up that there are some small visual changes that may require visual regression snapshots to be updated.
 
   - Adds a new `shouldWrapLongLines` prop that allows you to wrap long lines of code over multiple lines, instead of always forcing the container to scroll horizontally.
 
@@ -106,13 +106,13 @@
 
 ### Patch Changes
 
-- [`18aeca8c199`](https://bitbucket.org/atlassian/atlassian-frontend/commits/18aeca8c199) - Internal change to update token references. There is no expected behaviour or visual change.
+- [#29390](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/29390) [`18aeca8c199`](https://bitbucket.org/atlassian/atlassian-frontend/commits/18aeca8c199) - Internal change to update token references. There is no expected behaviour or visual change.
 
 ## 14.4.6
 
 ### Patch Changes
 
-- [`b0f6dd0bc35`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b0f6dd0bc35) - Updated to use typography tokens. There is no expected behaviour or visual change.
+- [#28064](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28064) [`b0f6dd0bc35`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b0f6dd0bc35) - Updated to use typography tokens. There is no expected behaviour or visual change.
 
 ## 14.4.5
 
@@ -130,7 +130,7 @@
 
 ### Patch Changes
 
-- [`f1765efdca6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f1765efdca6) - [ux] Fix bug that caused misalignment of Code Block content which contain a mixture of spaces and tabs
+- [#26712](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26712) [`f1765efdca6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f1765efdca6) - [ux] Fix bug that caused misalignment of Code Block content which contain a mixture of spaces and tabs
 
 ## 14.4.2
 
@@ -142,13 +142,13 @@
 
 ### Patch Changes
 
-- [`bc989043572`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bc989043572) - Internal changes to apply spacing tokens. This should be a no-op change.
+- [#26488](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26488) [`bc989043572`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bc989043572) - Internal changes to apply spacing tokens. This should be a no-op change.
 
 ## 14.4.0
 
 ### Minor Changes
 
-- [`d6bf753bb43`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6bf753bb43) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behavior change.
+- [#24710](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24710) [`d6bf753bb43`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6bf753bb43) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behavior change.
 
 ### Patch Changes
 
@@ -158,19 +158,19 @@
 
 ### Patch Changes
 
-- [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
+- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874) [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
 
 ## 14.3.9
 
 ### Patch Changes
 
-- [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
+- [#24492](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24492) [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
 
 ## 14.3.8
 
 ### Patch Changes
 
-- [`8202e37941b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8202e37941b) - Internal code change turning on new linting rules.
+- [#23381](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23381) [`8202e37941b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8202e37941b) - Internal code change turning on new linting rules.
 
 ## 14.3.7
 
@@ -182,13 +182,13 @@
 
 ### Patch Changes
 
-- [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
+- [#20650](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20650) [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
 
 ## 14.3.5
 
 ### Patch Changes
 
-- [`46824ff1acd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/46824ff1acd) - [ux] `<CodeBlock />`s with no content no longer vertically collapse, and maintain their intended minimum height
+- [#20033](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20033) [`46824ff1acd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/46824ff1acd) - [ux] `<CodeBlock />`s with no content no longer vertically collapse, and maintain their intended minimum height
 - Updated dependencies
 
 ## 14.3.4
@@ -201,7 +201,7 @@
 
 ### Patch Changes
 
-- [`a1a89347baa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a1a89347baa) - [ux] Instrumented `@atlaskit/code` with the new theming package, `@atlaskit/tokens`.
+- [#19019](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19019) [`a1a89347baa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a1a89347baa) - [ux] Instrumented `@atlaskit/code` with the new theming package, `@atlaskit/tokens`.
 
   New tokens will be visible only in applications configured to use the new Tokens API (currently in alpha).
   These changes are intended to be interoperable with the legacy theme implementation. Legacy dark mode users should expect no visual or breaking changes.
@@ -212,31 +212,31 @@
 
 ### Patch Changes
 
-- [`b5226ba2c15`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b5226ba2c15) - Replace `bolt` with `yarn` for rendered example changeset commands
+- [#18356](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/18356) [`b5226ba2c15`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b5226ba2c15) - Replace `bolt` with `yarn` for rendered example changeset commands
 
 ## 14.3.1
 
 ### Patch Changes
 
-- [`7a34eeea327`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7a34eeea327) - Bump prismjs due to vulnerability
+- [#16531](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16531) [`7a34eeea327`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7a34eeea327) - Bump prismjs due to vulnerability
 
 ## 14.3.0
 
 ### Minor Changes
 
-- [`db3477abb18`](https://bitbucket.org/atlassian/atlassian-frontend/commits/db3477abb18) - [ux] ED-13938 disabled code-bidi warning tooltip for mobile, reworked TextWrapper to fix bidi mitigation, and fixed issue where bidi warnings were not presented when renderer used with an annotation provider with draftMode set to true
+- [#16168](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16168) [`db3477abb18`](https://bitbucket.org/atlassian/atlassian-frontend/commits/db3477abb18) - [ux] ED-13938 disabled code-bidi warning tooltip for mobile, reworked TextWrapper to fix bidi mitigation, and fixed issue where bidi warnings were not presented when renderer used with an annotation provider with draftMode set to true
 
 ## 14.2.0
 
 ### Minor Changes
 
-- [`c80c71b537d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c80c71b537d) - [ux] ED-13860 add bidi warning decorations to code components
+- [#16006](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16006) [`c80c71b537d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c80c71b537d) - [ux] ED-13860 add bidi warning decorations to code components
 
 ## 14.1.5
 
 ### Patch Changes
 
-- [`b85e7ce12cd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b85e7ce12cd) - Internal upgrade of memoize-one to 6.0.0
+- [#15694](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/15694) [`b85e7ce12cd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b85e7ce12cd) - Internal upgrade of memoize-one to 6.0.0
 
 ## 14.1.4
 
@@ -248,39 +248,39 @@
 
 ### Patch Changes
 
-- [`378d1cef00f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/378d1cef00f) - Bump `@atlaskit/theme` to version `^11.3.0`.
+- [#12880](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12880) [`378d1cef00f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/378d1cef00f) - Bump `@atlaskit/theme` to version `^11.3.0`.
 
 ## 14.1.2
 
 ### Patch Changes
 
-- [`d827fec15b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d827fec15b2) - Fixes a regression in ^14.0.0 that meant the function `getCodeStyles` didn't work correctly with interpolations using the `styled-components` theming.
+- [#12810](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12810) [`d827fec15b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d827fec15b2) - Fixes a regression in ^14.0.0 that meant the function `getCodeStyles` didn't work correctly with interpolations using the `styled-components` theming.
 
 ## 14.1.1
 
 ### Patch Changes
 
-- [`cd488f9d370`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cd488f9d370) - Bumps prismjs to address a security vulnerability in the underlying lib.
+- [#12168](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12168) [`cd488f9d370`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cd488f9d370) - Bumps prismjs to address a security vulnerability in the underlying lib.
 
 ## 14.1.0
 
 ### Minor Changes
 
-- [`aef12f51c46`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aef12f51c46) - Add an entry point for constants to expose SUPPORTED_LANGUAGES and export the type of SUPPORTED_LANGUAGES.
+- [#11113](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/11113) [`aef12f51c46`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aef12f51c46) - Add an entry point for constants to expose SUPPORTED_LANGUAGES and export the type of SUPPORTED_LANGUAGES.
   Splunk SPl has also been added as a supported language.
 
 ## 14.0.1
 
 ### Patch Changes
 
-- [`596f1eb2fca`](https://bitbucket.org/atlassian/atlassian-frontend/commits/596f1eb2fca) - [ux] Line height property remvoved from inline code. This was a bug as the line height was being under calculated relative to the code's font size. It now inherits correctly.
+- [#10569](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10569) [`596f1eb2fca`](https://bitbucket.org/atlassian/atlassian-frontend/commits/596f1eb2fca) - [ux] Line height property remvoved from inline code. This was a bug as the line height was being under calculated relative to the code's font size. It now inherits correctly.
 - Updated dependencies
 
 ## 14.0.0
 
 ### Major Changes
 
-- [`e8f66c36dd7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e8f66c36dd7) - **BREAKING CHANGES**
+- [#10230](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10230) [`e8f66c36dd7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e8f66c36dd7) - **BREAKING CHANGES**
 
   This version includes several breaking changes to improve performance of the `@atlaskit/code` package.
 
@@ -342,26 +342,26 @@
 
 ### Patch Changes
 
-- [`900819ca759`](https://bitbucket.org/atlassian/atlassian-frontend/commits/900819ca759) - Update to VR test suite, to make diffs easier to reason about.
+- [#9756](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9756) [`900819ca759`](https://bitbucket.org/atlassian/atlassian-frontend/commits/900819ca759) - Update to VR test suite, to make diffs easier to reason about.
 - Updated dependencies
 
 ## 13.2.2
 
 ### Patch Changes
 
-- [`c9da1eecd2a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c9da1eecd2a) - Internal changes moving class components to functional components, added updated types for react-syntax-highlighter
+- [#9510](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9510) [`c9da1eecd2a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c9da1eecd2a) - Internal changes moving class components to functional components, added updated types for react-syntax-highlighter
 
 ## 13.2.1
 
 ### Patch Changes
 
-- [`413cc46d307`](https://bitbucket.org/atlassian/atlassian-frontend/commits/413cc46d307) - [ux] Added colors for missing syntax keywords
+- [#8057](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8057) [`413cc46d307`](https://bitbucket.org/atlassian/atlassian-frontend/commits/413cc46d307) - [ux] Added colors for missing syntax keywords
 
 ## 13.2.0
 
 ### Minor Changes
 
-- [`3c7be954dbd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3c7be954dbd) - [ux] Line highlighting now meets WCAG 2.1 guidelines. Colors that were failing contrast have been updated and there is now a new visual cue consisting of a left border to the highlighted lines.
+- [#7762](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/7762) [`3c7be954dbd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3c7be954dbd) - [ux] Line highlighting now meets WCAG 2.1 guidelines. Colors that were failing contrast have been updated and there is now a new visual cue consisting of a left border to the highlighted lines.
 - [`23ef692842a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/23ef692842a) - [ux] `Code` and `CodeBlock` now use react-syntax-highlighter@^15 to highlight code. As part of this change
   the fontSize for the line numbers and the code body have been normalised. This will be a breaking visual change for all consumers.
   No action is required other than a callout that this will affect any existing visual regression tests.
@@ -390,19 +390,19 @@
 
 ### Patch Changes
 
-- [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
+- [#5857](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5857) [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
 
 ## 13.1.0
 
 ### Minor Changes
 
-- [`17162a77f2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/17162a77f2) - types of Supported Languages for @atlaskit/code is maintained by the package itself. Useful for when one references Supported Languages, wanting to know what types of languages are supported by @atlaskit/code.
+- [#5516](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5516) [`17162a77f2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/17162a77f2) - types of Supported Languages for @atlaskit/code is maintained by the package itself. Useful for when one references Supported Languages, wanting to know what types of languages are supported by @atlaskit/code.
 
 ## 13.0.3
 
 ### Patch Changes
 
-- [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
+- [#5497](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5497) [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
   This requires version 3.8 of Typescript, read more about how we handle Typescript versions here: https://atlaskit.atlassian.com/get-started
   Also add `typescript` to `devDependencies` to denote version that the package was built with.
 
@@ -416,13 +416,13 @@
 
 ### Patch Changes
 
-- [`ade5203287`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ade5203287) - Fix codemod utilities being exposed through the codemod cli
+- [#4346](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4346) [`ade5203287`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ade5203287) - Fix codemod utilities being exposed through the codemod cli
 
 ## 13.0.0
 
 ### Major Changes
 
-- [`37f8133702`](https://bitbucket.org/atlassian/atlassian-frontend/commits/37f8133702) - - Rename `AkCode` and `AkCodeBlock` exports to `Code` and `CodeBlock` respectively.
+- [#4424](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4424) [`37f8133702`](https://bitbucket.org/atlassian/atlassian-frontend/commits/37f8133702) - - Rename `AkCode` and `AkCodeBlock` exports to `Code` and `CodeBlock` respectively.
   - Remove unnecessary props (`lineNumberContainerStyle`, `showLineNumbers` and `highlight`) from `Code`.
   - Add codemods for above changes. Codemods can be found inside [codemods](./codemods) directory.
     Please use [@atlaskit/codemod-cli](https://www.npmjs.com/package/@atlaskit/codemod-cli) for running the codemods according to version of your package.
@@ -438,7 +438,7 @@
 
 ### Patch Changes
 
-- [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
+- [#3885](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3885) [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
 
   Since tslib is a dependency for all our packages we recommend that products also follow this tslib upgrade
   to prevent duplicates of tslib being bundled.
@@ -447,19 +447,19 @@
 
 ### Patch Changes
 
-- [`954cc87b62`](https://bitbucket.org/atlassian/atlassian-frontend/commits/954cc87b62) - The readme and package information has been updated to point to the new design system website.
+- [#3293](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3293) [`954cc87b62`](https://bitbucket.org/atlassian/atlassian-frontend/commits/954cc87b62) - The readme and package information has been updated to point to the new design system website.
 
 ## 12.0.1
 
 ### Patch Changes
 
-- [`db053b24d8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/db053b24d8) - Update all the theme imports to be tree-shakable
+- [#3428](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3428) [`db053b24d8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/db053b24d8) - Update all the theme imports to be tree-shakable
 
 ## 12.0.0
 
 ### Major Changes
 
-- [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
+- [#3335](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3335) [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
   For more information see: https://community.developer.atlassian.com/t/atlaskit-to-drop-support-for-internet-explorer-11-from-1st-july-2020/39534
 
 ### Patch Changes
@@ -470,7 +470,7 @@
 
 ### Patch Changes
 
-- [`54a9514fcf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54a9514fcf) - Build and supporting files will no longer be published to npm
+- [#2866](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2866) [`54a9514fcf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54a9514fcf) - Build and supporting files will no longer be published to npm
 
 ## 11.1.5
 

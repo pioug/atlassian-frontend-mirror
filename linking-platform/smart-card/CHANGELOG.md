@@ -4,135 +4,135 @@
 
 ### Patch Changes
 
-- [`c46305662f7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c46305662f7) - create new messages for smart link forbidden and not found views
+- [#40621](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40621) [`c46305662f7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c46305662f7) - create new messages for smart link forbidden and not found views
 
 ## 26.28.1
 
 ### Patch Changes
 
-- [`1fedffbd64b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1fedffbd64b) - Update json-ld-types dependencies to be compatible with version
+- [#40491](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40491) [`1fedffbd64b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1fedffbd64b) - Update json-ld-types dependencies to be compatible with version
 
 ## 26.28.0
 
 ### Minor Changes
 
-- [`46afccdf430`](https://bitbucket.org/atlassian/atlassian-frontend/commits/46afccdf430) - Flexible-UI: Add url override option to preview block
+- [#40420](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40420) [`46afccdf430`](https://bitbucket.org/atlassian/atlassian-frontend/commits/46afccdf430) - Flexible-UI: Add url override option to preview block
 
 ## 26.27.2
 
 ### Patch Changes
 
-- [`cecab8d279d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cecab8d279d) - Added an attribute 'canBeDatasource' to 'smartLink renderSuccess' event to indicate which smart links can be converted to datasources
+- [#40305](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40305) [`cecab8d279d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cecab8d279d) - Added an attribute 'canBeDatasource' to 'smartLink renderSuccess' event to indicate which smart links can be converted to datasources
 
 ## 26.27.1
 
 ### Patch Changes
 
-- [`3c60160da56`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3c60160da56) - Update usages of token color.border.input to color.input
+- [#40312](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40312) [`3c60160da56`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3c60160da56) - Update usages of token color.border.input to color.input
 
 ## 26.27.0
 
 ### Minor Changes
 
-- [`12f9e6886ed`](https://bitbucket.org/atlassian/atlassian-frontend/commits/12f9e6886ed) - [ux] Add follow/unfollow button to card and hover preview (behind feature flag).
+- [#40190](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40190) [`12f9e6886ed`](https://bitbucket.org/atlassian/atlassian-frontend/commits/12f9e6886ed) - [ux] Add follow/unfollow button to card and hover preview (behind feature flag).
 
 ## 26.26.2
 
 ### Patch Changes
 
-- [`da7fcd582e2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/da7fcd582e2) - Fixed embed modal go to url and download button inconsitent behaviour when triggered from hover preview and block card
+- [#40075](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40075) [`da7fcd582e2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/da7fcd582e2) - Fixed embed modal go to url and download button inconsitent behaviour when triggered from hover preview and block card
 
 ## 26.26.1
 
 ### Patch Changes
 
-- [`2cd7af71b63`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2cd7af71b63) - Bump json-ld-types 3.8.0 -> 3.9.1
+- [#40127](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40127) [`2cd7af71b63`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2cd7af71b63) - Bump json-ld-types 3.8.0 -> 3.9.1
 
 ## 26.26.0
 
 ### Minor Changes
 
-- [`d3e04f50bbc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3e04f50bbc) - Add follow action analytics (behind feature flag)
+- [#40002](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40002) [`d3e04f50bbc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3e04f50bbc) - Add follow action analytics (behind feature flag)
 
 ## 26.25.0
 
 ### Minor Changes
 
-- [`dc3345f4b47`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dc3345f4b47) - Refactor flexible card to use client action hook. (Minor due to the change to the deprecated hook.)
+- [#39853](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39853) [`dc3345f4b47`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dc3345f4b47) - Refactor flexible card to use client action hook. (Minor due to the change to the deprecated hook.)
 
 ### Patch Changes
 
-- [`2c8b781fd3a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2c8b781fd3a) - cleanup: remove server actions from actions extractor
+- [#39980](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39980) [`2c8b781fd3a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2c8b781fd3a) - cleanup: remove server actions from actions extractor
 
 ## 26.24.0
 
 ### Minor Changes
 
-- [`cb6f1d7a319`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb6f1d7a319) - Add Follow/Unfollow action to flexible smart links (behind feature flag)
+- [#39856](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39856) [`cb6f1d7a319`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb6f1d7a319) - Add Follow/Unfollow action to flexible smart links (behind feature flag)
 
 ### Patch Changes
 
-- [`93888ff40ba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/93888ff40ba) - [ux] Style updates for refreshed smart cards behind a feature flag. If this update is successful it will be available in a later release.
+- [#39523](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39523) [`93888ff40ba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/93888ff40ba) - [ux] Style updates for refreshed smart cards behind a feature flag. If this update is successful it will be available in a later release.
 
 ## 26.23.2
 
 ### Patch Changes
 
-- [`4c919248f12`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4c919248f12) - cleanup: remove usages of useLozengeAction feature flag
+- [#39907](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39907) [`4c919248f12`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4c919248f12) - cleanup: remove usages of useLozengeAction feature flag
 - Updated dependencies
 
 ## 26.23.1
 
 ### Patch Changes
 
-- [`6900f89eb0e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6900f89eb0e) - Internal changes to use space tokens. There is no expected visual or behaviour change.
+- [#39787](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39787) [`6900f89eb0e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6900f89eb0e) - Internal changes to use space tokens. There is no expected visual or behaviour change.
 
 ## 26.23.0
 
 ### Minor Changes
 
-- [`253d4604c50`](https://bitbucket.org/atlassian/atlassian-frontend/commits/253d4604c50) - We are testing support for allow-storage-access-by-user-activation sandbox permission on untrusted embeds behind the "platform.linking-platform.smart-card.iframes-allow-storage-access-by-user-activation" feature flag. If this is successful it will always be enabled for unstrusted embeds in a future release.
+- [#39326](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39326) [`253d4604c50`](https://bitbucket.org/atlassian/atlassian-frontend/commits/253d4604c50) - We are testing support for allow-storage-access-by-user-activation sandbox permission on untrusted embeds behind the "platform.linking-platform.smart-card.iframes-allow-storage-access-by-user-activation" feature flag. If this is successful it will always be enabled for unstrusted embeds in a future release.
 
 ### Patch Changes
 
-- [`f85b3744521`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f85b3744521) - Add async action base component to flexible smart links (internal)
+- [#39681](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39681) [`f85b3744521`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f85b3744521) - Add async action base component to flexible smart links (internal)
 
 ## 26.22.1
 
 ### Patch Changes
 
-- [`419f14321f3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/419f14321f3) - Adds a JiraTask check when getting a metadata for hovercard. The change is behind a FF. If this update is successful it will be available in a later release.
+- [#39734](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39734) [`419f14321f3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/419f14321f3) - Adds a JiraTask check when getting a metadata for hovercard. The change is behind a FF. If this update is successful it will be available in a later release.
 
 ## 26.22.0
 
 ### Minor Changes
 
-- [`b3f9c544faa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b3f9c544faa) - Refactor client action hook.
+- [#39462](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39462) [`b3f9c544faa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b3f9c544faa) - Refactor client action hook.
 
 ## 26.21.0
 
 ### Minor Changes
 
-- [`b2ea37e78dc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b2ea37e78dc) - We are testing a fix for internal conditional logic that determines when the sandbox attribute is applied to smart link embeds behind the feature flag "platform.linking-platform.smart-card.fix-is-trusted-pop". If this is successful it will be changed permanently in a future release.
+- [#39683](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39683) [`b2ea37e78dc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b2ea37e78dc) - We are testing a fix for internal conditional logic that determines when the sandbox attribute is applied to smart link embeds behind the feature flag "platform.linking-platform.smart-card.fix-is-trusted-pop". If this is successful it will be changed permanently in a future release.
 
 ## 26.20.1
 
 ### Patch Changes
 
-- [`335ad945d2f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/335ad945d2f) - Update for an avatar’s name prefix in Avatar Group Flex UI behind a feature flag. If this update is successful it will be available in a later release.
+- [#39512](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39512) [`335ad945d2f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/335ad945d2f) - Update for an avatar’s name prefix in Avatar Group Flex UI behind a feature flag. If this update is successful it will be available in a later release.
 - Updated dependencies
 
 ## 26.20.0
 
 ### Minor Changes
 
-- [`f2cb6463788`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f2cb6463788) - We are testing a fallback avatar in Assigned Avatar Group in Flex UI behind a feature flag. If this update is successful it will be available in a later release.
+- [#39262](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39262) [`f2cb6463788`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f2cb6463788) - We are testing a fallback avatar in Assigned Avatar Group in Flex UI behind a feature flag. If this update is successful it will be available in a later release.
 
 ## 26.19.0
 
 ### Minor Changes
 
-- [`1f25a043b3f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1f25a043b3f) - [ux] We are testing an improved display for BB hover cards behind a feature flag. If this update is successful it will be available in a later release.
+- [#39323](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39323) [`1f25a043b3f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1f25a043b3f) - [ux] We are testing an improved display for BB hover cards behind a feature flag. If this update is successful it will be available in a later release.
 
 ### Patch Changes
 
@@ -142,107 +142,107 @@
 
 ### Minor Changes
 
-- [`e7e73b61721`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e7e73b61721) - [ux] We are testing an improved dispaly for Slack hover & block cards behind a feature flag. If this update is successful it will be available in a later release.
+- [#39182](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39182) [`e7e73b61721`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e7e73b61721) - [ux] We are testing an improved dispaly for Slack hover & block cards behind a feature flag. If this update is successful it will be available in a later release.
 
 ## 26.17.0
 
 ### Minor Changes
 
-- [`efc2669bc13`](https://bitbucket.org/atlassian/atlassian-frontend/commits/efc2669bc13) - We are testing adding a prefix to the Avatar name tooltip in the Hover Card behind the "platform.linking-platform.smart-card.enable-better-metadata_iojwg" feature flag. You can turn it on by passing new showNamePrefix prop to the Flexible UI elements such us AssignedToGroup, OwnedByGroup and AuthorGroup. If this fix is successful it will be available in a later release.
+- [#39029](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39029) [`efc2669bc13`](https://bitbucket.org/atlassian/atlassian-frontend/commits/efc2669bc13) - We are testing adding a prefix to the Avatar name tooltip in the Hover Card behind the "platform.linking-platform.smart-card.enable-better-metadata_iojwg" feature flag. You can turn it on by passing new showNamePrefix prop to the Flexible UI elements such us AssignedToGroup, OwnedByGroup and AuthorGroup. If this fix is successful it will be available in a later release.
 
 ## 26.16.1
 
 ### Patch Changes
 
-- [`8e0d75e3666`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8e0d75e3666) - Update Image preview styles for Hover Card
+- [#38898](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38898) [`8e0d75e3666`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8e0d75e3666) - Update Image preview styles for Hover Card
 
 ## 26.16.0
 
 ### Minor Changes
 
-- [`b73f38b2588`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b73f38b2588) - Add new FlexUI element - SentOn
+- [#39073](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39073) [`b73f38b2588`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b73f38b2588) - Add new FlexUI element - SentOn
 
 ## 26.15.11
 
 ### Patch Changes
 
-- [`3d5b709c646`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3d5b709c646) - Update css styles for metadata block elements in Block & Hover Card
+- [#38964](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38964) [`3d5b709c646`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3d5b709c646) - Update css styles for metadata block elements in Block & Hover Card
 
 ## 26.15.10
 
 ### Patch Changes
 
-- [`9eed222eff6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9eed222eff6) - noFadeDelay internal hover card prop added.
+- [#38841](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38841) [`9eed222eff6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9eed222eff6) - noFadeDelay internal hover card prop added.
 
 ## 26.15.9
 
 ### Patch Changes
 
-- [`f64123c5b1e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f64123c5b1e) - [ux] Update Full screen view button to Open preview
+- [#38973](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38973) [`f64123c5b1e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f64123c5b1e) - [ux] Update Full screen view button to Open preview
 - Updated dependencies
 
 ## 26.15.8
 
 ### Patch Changes
 
-- [`215e90a628b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/215e90a628b) - Update Metadata Display Order for Figma Hover Cards
-- [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
+- [#38832](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38832) [`215e90a628b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/215e90a628b) - Update Metadata Display Order for Figma Hover Cards
+- [#38162](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38162) [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
 - Updated dependencies
 
 ## 26.15.7
 
 ### Patch Changes
 
-- [`c54d67a60b4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c54d67a60b4) - [ux] Addresses some styling problems in the Editor related to selected smart cards
+- [#38545](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38545) [`c54d67a60b4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c54d67a60b4) - [ux] Addresses some styling problems in the Editor related to selected smart cards
 
 ## 26.15.6
 
 ### Patch Changes
 
-- [`ba101932150`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ba101932150) - [ux] Use semibold font-weight for title in flexible smart cards.
+- [#38677](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38677) [`ba101932150`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ba101932150) - [ux] Use semibold font-weight for title in flexible smart cards.
 
 ## 26.15.5
 
 ### Patch Changes
 
-- [`f01deb5e6ab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f01deb5e6ab) - Use injected env vars instead of version.json
+- [#37925](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37925) [`f01deb5e6ab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f01deb5e6ab) - Use injected env vars instead of version.json
 
 ## 26.15.4
 
 ### Patch Changes
 
-- [`2e4ceb4b6b1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e4ceb4b6b1) - [ux] Refreshed design for flexible block and hover cards.
+- [#38035](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38035) [`2e4ceb4b6b1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e4ceb4b6b1) - [ux] Refreshed design for flexible block and hover cards.
 
 ## 26.15.3
 
 ### Patch Changes
 
-- [`5ef68120bed`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5ef68120bed) - fix for the padding issue on the Link Safety Warning Modal
+- [#37377](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37377) [`5ef68120bed`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5ef68120bed) - fix for the padding issue on the Link Safety Warning Modal
 
 ## 26.15.2
 
 ### Patch Changes
 
-- [`3355d65ed83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3355d65ed83) - Fix duplicate WebpackChunkName for GlyphSubtask & GlyphSubtaskProgress"
+- [#38340](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38340) [`3355d65ed83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3355d65ed83) - Fix duplicate WebpackChunkName for GlyphSubtask & GlyphSubtaskProgress"
 
 ## 26.15.1
 
 ### Patch Changes
 
-- [`60b5cb9448d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/60b5cb9448d) - Add StoryPoints FlexUI Element to Jira Block & Hover Card
+- [#38290](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38290) [`60b5cb9448d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/60b5cb9448d) - Add StoryPoints FlexUI Element to Jira Block & Hover Card
 
 ## 26.15.0
 
 ### Minor Changes
 
-- [`560f5be1d2c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/560f5be1d2c) - Add FlexUI element for dispalying StoryPoints as a Badge
+- [#38227](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38227) [`560f5be1d2c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/560f5be1d2c) - Add FlexUI element for dispalying StoryPoints as a Badge
 
 ## 26.14.6
 
 ### Patch Changes
 
-- [`88b90baf84c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/88b90baf84c) - Update icon for SubTasksProgress flex ui element & update metadata elements order in Block & Hover Card
-- [`e6d7b777ce0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e6d7b777ce0) - Remove dependency to @atlaskit/media-common
+- [#38116](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38116) [`88b90baf84c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/88b90baf84c) - Update icon for SubTasksProgress flex ui element & update metadata elements order in Block & Hover Card
+- [#37930](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37930) [`e6d7b777ce0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e6d7b777ce0) - Remove dependency to @atlaskit/media-common
 
 ## 26.14.5
 
@@ -254,43 +254,43 @@
 
 ### Patch Changes
 
-- [`f6e68d0feb1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f6e68d0feb1) - Update css style for avatar groups in block card
+- [#37901](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37901) [`f6e68d0feb1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f6e68d0feb1) - Update css style for avatar groups in block card
 
 ## 26.14.3
 
 ### Patch Changes
 
-- [`c5a8ab5629d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c5a8ab5629d) - Refactor view url action
+- [#37935](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37935) [`c5a8ab5629d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c5a8ab5629d) - Refactor view url action
 
 ## 26.14.2
 
 ### Patch Changes
 
-- [`6a807668da6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6a807668da6) - [ux] Refreshed design for the Embed Smart Links view added under the FF
+- [#37695](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37695) [`6a807668da6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6a807668da6) - [ux] Refreshed design for the Embed Smart Links view added under the FF
 
 ## 26.14.1
 
 ### Patch Changes
 
-- [`f3cefce58df`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f3cefce58df) - Refactor embed modal helper function (internal)
+- [#37830](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37830) [`f3cefce58df`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f3cefce58df) - Refactor embed modal helper function (internal)
 
 ## 26.14.0
 
 ### Minor Changes
 
-- [`d8799deba6e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d8799deba6e) - Add new Flexui elements-OwnedByGroup, AssignedTogroup, AssignedTo, ReadTime & SubtasksProgress. Add provider specific logic for metadata display for Hover Cards & Block Cards.
+- [#37264](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37264) [`d8799deba6e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d8799deba6e) - Add new Flexui elements-OwnedByGroup, AssignedTogroup, AssignedTo, ReadTime & SubtasksProgress. Add provider specific logic for metadata display for Hover Cards & Block Cards.
 
 ## 26.13.1
 
 ### Patch Changes
 
-- [`72d087f0de3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/72d087f0de3) - [ux] Update smart link unauthorised view when there is no auth flow available
+- [#37579](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37579) [`72d087f0de3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/72d087f0de3) - [ux] Update smart link unauthorised view when there is no auth flow available
 
 ## 26.13.0
 
 ### Minor Changes
 
-- [`d2ef5ede462`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d2ef5ede462) - Added a new analytics event that will fire on resolution of data for hover cards. The change is behind a FF and will only surface if we pass the FF as true to SmartCardProvider.
+- [#37820](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37820) [`d2ef5ede462`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d2ef5ede462) - Added a new analytics event that will fire on resolution of data for hover cards. The change is behind a FF and will only surface if we pass the FF as true to SmartCardProvider.
 
 ### Patch Changes
 
@@ -300,75 +300,75 @@
 
 ### Patch Changes
 
-- [`e74ae7f06d4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e74ae7f06d4) - Update dependency json-ld-types@3.8.0
+- [#37720](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37720) [`e74ae7f06d4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e74ae7f06d4) - Update dependency json-ld-types@3.8.0
 
 ## 26.12.0
 
 ### Minor Changes
 
-- [`5eea09cd864`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5eea09cd864) - Standalone Hover Preview: Add zIndex prop to pass to DS Popup
+- [#37654](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37654) [`5eea09cd864`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5eea09cd864) - Standalone Hover Preview: Add zIndex prop to pass to DS Popup
 
 ## 26.11.1
 
 ### Patch Changes
 
-- [`b37a26be833`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b37a26be833) - Prevent LinkUrl from throwing error on validation
+- [#37580](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37580) [`b37a26be833`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b37a26be833) - Prevent LinkUrl from throwing error on validation
 
 ## 26.11.0
 
 ### Minor Changes
 
-- [`fdfe07831c7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fdfe07831c7) - - Deprecate standalone hover card `onAuthorize` prop (no implementation)
+- [#37492](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37492) [`fdfe07831c7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fdfe07831c7) - - Deprecate standalone hover card `onAuthorize` prop (no implementation)
   - Hide auth tooltip on unauthenticated inline link with no auth flow (new design, behind feature flag)
 
 ## 26.10.0
 
 ### Minor Changes
 
-- [`fa12a765333`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fa12a765333) - Cleansup a FF introduced in 26.3.5 (platform.linking-platform.smart-card.remove-dispatch-analytics-as-prop) providing default display attribute now prefers analytics context instead of passing a dispatch function as prop.
+- [#36434](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36434) [`fa12a765333`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fa12a765333) - Cleansup a FF introduced in 26.3.5 (platform.linking-platform.smart-card.remove-dispatch-analytics-as-prop) providing default display attribute now prefers analytics context instead of passing a dispatch function as prop.
 
 ## 26.9.19
 
 ### Patch Changes
 
-- [`928615c211b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/928615c211b) - Fix connect button appear when user cannot not connect (no auth flow)
+- [#37261](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37261) [`928615c211b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/928615c211b) - Fix connect button appear when user cannot not connect (no auth flow)
 
 ## 26.9.18
 
 ### Patch Changes
 
-- [`bfab8038b9c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bfab8038b9c) - [ux] Fix for Block card avatar misalignment in Cofnluence renderer caused by a less specific css rule on our end
+- [#37406](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37406) [`bfab8038b9c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bfab8038b9c) - [ux] Fix for Block card avatar misalignment in Cofnluence renderer caused by a less specific css rule on our end
 
 ## 26.9.17
 
 ### Patch Changes
 
-- [`936fc621c48`](https://bitbucket.org/atlassian/atlassian-frontend/commits/936fc621c48) - [ux] Design refresh for the Inline Smart Links.
+- [#36005](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36005) [`936fc621c48`](https://bitbucket.org/atlassian/atlassian-frontend/commits/936fc621c48) - [ux] Design refresh for the Inline Smart Links.
 
 ## 26.9.16
 
 ### Patch Changes
 
-- [`a4ff4c2f918`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a4ff4c2f918) - Update to use 'getStatus' from '@atlaskit/linking-common'
+- [#37136](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37136) [`a4ff4c2f918`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a4ff4c2f918) - Update to use 'getStatus' from '@atlaskit/linking-common'
 - Updated dependencies
 
 ## 26.9.15
 
 ### Patch Changes
 
-- [`b9355830504`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b9355830504) - Opt out of peer dependency enforcement
+- [#37340](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37340) [`b9355830504`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b9355830504) - Opt out of peer dependency enforcement
 
 ## 26.9.14
 
 ### Patch Changes
 
-- [`08c372c1547`](https://bitbucket.org/atlassian/atlassian-frontend/commits/08c372c1547) - [ux] Revert of functionality added in 26.9.8
+- [#37322](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37322) [`08c372c1547`](https://bitbucket.org/atlassian/atlassian-frontend/commits/08c372c1547) - [ux] Revert of functionality added in 26.9.8
 
 ## 26.9.13
 
 ### Patch Changes
 
-- [`68956c0d353`](https://bitbucket.org/atlassian/atlassian-frontend/commits/68956c0d353) - Embed Modal: Fix icon alignment when triggered from flexible and block card component
+- [#37046](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37046) [`68956c0d353`](https://bitbucket.org/atlassian/atlassian-frontend/commits/68956c0d353) - Embed Modal: Fix icon alignment when triggered from flexible and block card component
 
 ## 26.9.12
 
@@ -380,96 +380,96 @@
 
 ### Patch Changes
 
-- [`3fb20c4aeba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3fb20c4aeba) - Add postinstall check to enforce internal peer dependencies
+- [#36757](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36757) [`3fb20c4aeba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3fb20c4aeba) - Add postinstall check to enforce internal peer dependencies
 
 ## 26.9.10
 
 ### Patch Changes
 
-- [`74c892f10de`](https://bitbucket.org/atlassian/atlassian-frontend/commits/74c892f10de) - [ux] Hover card will open closer to the mouse position, but with a slight offset of 10px to the right and to the top.
+- [#36975](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36975) [`74c892f10de`](https://bitbucket.org/atlassian/atlassian-frontend/commits/74c892f10de) - [ux] Hover card will open closer to the mouse position, but with a slight offset of 10px to the right and to the top.
 
 ## 26.9.9
 
 ### Patch Changes
 
-- [`4e254433494`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4e254433494) - [ux] Remove 'open in new tab' button in Hover Cards
+- [#36898](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36898) [`4e254433494`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4e254433494) - [ux] Remove 'open in new tab' button in Hover Cards
 
 ## 26.9.8
 
 ### Patch Changes
 
-- [`4d66cb26fcb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4d66cb26fcb) - Bump jsdom to ^17.0.0
-- [`2a6ebbbfdf1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2a6ebbbfdf1) - [ux] Hover Preview: Hide hover preview on scrolling (wheel event)
+- [#36822](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36822) [`4d66cb26fcb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4d66cb26fcb) - Bump jsdom to ^17.0.0
+- [#36849](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36849) [`2a6ebbbfdf1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2a6ebbbfdf1) - [ux] Hover Preview: Hide hover preview on scrolling (wheel event)
 - Updated dependencies
 
 ## 26.9.7
 
 ### Patch Changes
 
-- [`68880de5ecb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/68880de5ecb) - [ux] Closing hover card on right click (open of context menu)
+- [#36850](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36850) [`68880de5ecb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/68880de5ecb) - [ux] Closing hover card on right click (open of context menu)
 
 ## 26.9.6
 
 ### Patch Changes
 
-- [`e0a2c926e63`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e0a2c926e63) - [ux] Flexible Smart Links: Fix hover preview shows on mouse leave
+- [#36755](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36755) [`e0a2c926e63`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e0a2c926e63) - [ux] Flexible Smart Links: Fix hover preview shows on mouse leave
 
 ## 26.9.5
 
 ### Patch Changes
 
-- [`7b08013b112`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7b08013b112) - Clean up use of showAuthTooltip FF. Switch to being fully reliant on the showAuthTooltip prop.
+- [#36589](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36589) [`7b08013b112`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7b08013b112) - Clean up use of showAuthTooltip FF. Switch to being fully reliant on the showAuthTooltip prop.
 - Updated dependencies
 
 ## 26.9.4
 
 ### Patch Changes
 
-- [`2a4926aa20a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2a4926aa20a) - [ux] Flexible Smart Links: Add hover preview show/hide delay when mouse moves inside the card
+- [#36620](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36620) [`2a4926aa20a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2a4926aa20a) - [ux] Flexible Smart Links: Add hover preview show/hide delay when mouse moves inside the card
 
 ## 26.9.3
 
 ### Patch Changes
 
-- [`1e7190077d4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1e7190077d4) - Move off deprecated @atlaskit/linking-common/extractors to @atlaskit/link-extractors
+- [#36089](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36089) [`1e7190077d4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1e7190077d4) - Move off deprecated @atlaskit/linking-common/extractors to @atlaskit/link-extractors
 - Updated dependencies
 
 ## 26.9.2
 
 ### Patch Changes
 
-- [`99643bdd534`](https://bitbucket.org/atlassian/atlassian-frontend/commits/99643bdd534) - Fix flexible smart links onclick event not bubble up when hover preview is enabled
+- [#36428](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36428) [`99643bdd534`](https://bitbucket.org/atlassian/atlassian-frontend/commits/99643bdd534) - Fix flexible smart links onclick event not bubble up when hover preview is enabled
 
 ## 26.9.1
 
 ### Patch Changes
 
-- [`88cc5a0088c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/88cc5a0088c) - [ux] Flexible Smart Links: Hover preview to follow mouse position
+- [#36225](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36225) [`88cc5a0088c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/88cc5a0088c) - [ux] Flexible Smart Links: Hover preview to follow mouse position
 - Updated dependencies
 
 ## 26.9.0
 
 ### Minor Changes
 
-- [`7811ab546b9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7811ab546b9) - Cleans up FF platform.linking-platform.smart-card.enable-analytics-context introduced in 26.2.2 — resolved attributes now provided to all events fired within Smart Card by default.
+- [#36317](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36317) [`7811ab546b9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7811ab546b9) - Cleans up FF platform.linking-platform.smart-card.enable-analytics-context introduced in 26.2.2 — resolved attributes now provided to all events fired within Smart Card by default.
 
 ## 26.8.1
 
 ### Patch Changes
 
-- [`0b148ef0a04`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0b148ef0a04) - [ux] Updated fade in delay for hover card to be 500ms
+- [#36308](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36308) [`0b148ef0a04`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0b148ef0a04) - [ux] Updated fade in delay for hover card to be 500ms
 
 ## 26.8.0
 
 ### Minor Changes
 
-- [`a1b70608039`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a1b70608039) - [ux] Adds editor toolbar to link datasource component
+- [#35499](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35499) [`a1b70608039`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a1b70608039) - [ux] Adds editor toolbar to link datasource component
 
 ## 26.7.0
 
 ### Minor Changes
 
-- [`c5a897eb81d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c5a897eb81d) - add statusDetails attribute
+- [#36198](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36198) [`c5a897eb81d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c5a897eb81d) - add statusDetails attribute
 
 ### Patch Changes
 
@@ -479,7 +479,7 @@
 
 ### Patch Changes
 
-- [`fc0fa5ca4e7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fc0fa5ca4e7) - [ux] Fix for a hover card issue introduced in 25.6.17
+- [#36052](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36052) [`fc0fa5ca4e7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fc0fa5ca4e7) - [ux] Fix for a hover card issue introduced in 25.6.17
 
 ## 26.6.2
 
@@ -491,14 +491,14 @@
 
 ### Patch Changes
 
-- [`ebb6750a97d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ebb6750a97d) - [ux] Flexible Smart Links: Change hover preview show/hide behavior. Hover preview should not show when hovering over metadata elements and actions.
+- [#35958](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35958) [`ebb6750a97d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ebb6750a97d) - [ux] Flexible Smart Links: Change hover preview show/hide behavior. Hover preview should not show when hovering over metadata elements and actions.
 - Updated dependencies
 
 ## 26.6.0
 
 ### Minor Changes
 
-- [`04295e9d5bc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/04295e9d5bc) - [ux] Updating ORS response to include datasources and facilitating pasting JQL links turning into datasource tables
+- [#35032](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35032) [`04295e9d5bc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/04295e9d5bc) - [ux] Updating ORS response to include datasources and facilitating pasting JQL links turning into datasource tables
 
 ### Patch Changes
 
@@ -514,7 +514,7 @@
 
 ### Patch Changes
 
-- [`b3ed4f7f776`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b3ed4f7f776) - [ux] Fix for Hover Card unmount - added a clean up function that will clearTimeouts. Additionally changed the trigger of HoverCard from onMouseEnter to onMouseOver and added a function that after 100ms of hover starts fetching the data for the url to reduce the loading state experienced on standalone HoverCards.
+- [#35601](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35601) [`b3ed4f7f776`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b3ed4f7f776) - [ux] Fix for Hover Card unmount - added a clean up function that will clearTimeouts. Additionally changed the trigger of HoverCard from onMouseEnter to onMouseOver and added a function that after 100ms of hover starts fetching the data for the url to reduce the loading state experienced on standalone HoverCards.
 
 ## 26.5.16
 
@@ -526,73 +526,73 @@
 
 ### Patch Changes
 
-- [`7b2d54a82d0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7b2d54a82d0) - Cleans up a FF introduced in 26.3.3 & Fixes HoverCard component providing hover card analytics context to the wrapped trigger component
+- [#35883](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35883) [`7b2d54a82d0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7b2d54a82d0) - Cleans up a FF introduced in 26.3.3 & Fixes HoverCard component providing hover card analytics context to the wrapped trigger component
 
 ## 26.5.14
 
 ### Patch Changes
 
-- [`fd2375e6f26`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd2375e6f26) - [ux] Prevent skipping of warning modal when onClick callback programatically opens a window. OnClick function is no longer called if the warning modal is shown. This will prevent link click analytics from firing but there is no easy way to distinguish the effects of what happens within onClick. Additionally, clicking continue in the warning modal will always open the link in a new tab.
+- [#35467](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35467) [`fd2375e6f26`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd2375e6f26) - [ux] Prevent skipping of warning modal when onClick callback programatically opens a window. OnClick function is no longer called if the warning modal is shown. This will prevent link click analytics from firing but there is no easy way to distinguish the effects of what happens within onClick. Additionally, clicking continue in the warning modal will always open the link in a new tab.
 
 ## 26.5.13
 
 ### Patch Changes
 
-- [`2d2b6b23bec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2d2b6b23bec) - Updated dependencies
+- [#35582](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35582) [`2d2b6b23bec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2d2b6b23bec) - Updated dependencies
 
 ## 26.5.12
 
 ### Patch Changes
 
-- [`472882f9947`](https://bitbucket.org/atlassian/atlassian-frontend/commits/472882f9947) - fix analytics display to be flexible when it is a flex ui
+- [#35384](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35384) [`472882f9947`](https://bitbucket.org/atlassian/atlassian-frontend/commits/472882f9947) - fix analytics display to be flexible when it is a flex ui
 
 ## 26.5.11
 
 ### Patch Changes
 
-- [`0dd86b5573c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0dd86b5573c) - Small refactoring to move lozenge action to lozenge element
+- [#35202](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35202) [`0dd86b5573c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0dd86b5573c) - Small refactoring to move lozenge action to lozenge element
 
 ## 26.5.10
 
 ### Patch Changes
 
-- [`70f573b2c44`](https://bitbucket.org/atlassian/atlassian-frontend/commits/70f573b2c44) - Internal change to use space tokens for spacing properties. There is no visual change.
+- [#35458](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35458) [`70f573b2c44`](https://bitbucket.org/atlassian/atlassian-frontend/commits/70f573b2c44) - Internal change to use space tokens for spacing properties. There is no visual change.
 
 ## 26.5.9
 
 ### Patch Changes
 
-- [`d394a5db254`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d394a5db254) - Fixes display analytics attribute provided by analytics context when the apperance is flexible
+- [#35046](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35046) [`d394a5db254`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d394a5db254) - Fixes display analytics attribute provided by analytics context when the apperance is flexible
 
 ## 26.5.8
 
 ### Patch Changes
 
-- [`27f4aa34132`](https://bitbucket.org/atlassian/atlassian-frontend/commits/27f4aa34132) - [ux] Fix for Hover Card in Flexible UI links: it will show only supported states, such as resolved and unauthorized based on the corresponding featureFlag ('showHoverPreview' and 'showAuthTooltip')
+- [#35067](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35067) [`27f4aa34132`](https://bitbucket.org/atlassian/atlassian-frontend/commits/27f4aa34132) - [ux] Fix for Hover Card in Flexible UI links: it will show only supported states, such as resolved and unauthorized based on the corresponding featureFlag ('showHoverPreview' and 'showAuthTooltip')
 
 ## 26.5.7
 
 ### Patch Changes
 
-- [`5b5d7b22e80`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5b5d7b22e80) - [ux] Update feature discovery on lozenge action to display for 2s before marking it as discovered
+- [#35159](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35159) [`5b5d7b22e80`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5b5d7b22e80) - [ux] Update feature discovery on lozenge action to display for 2s before marking it as discovered
 
 ## 26.5.6
 
 ### Patch Changes
 
-- [`625aad4d6f8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/625aad4d6f8) - [ux] Change block card link clicks to open in the same tab by default unless overriden with onclick behaviour.
+- [#34809](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34809) [`625aad4d6f8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/625aad4d6f8) - [ux] Change block card link clicks to open in the same tab by default unless overriden with onclick behaviour.
 
 ## 26.5.5
 
 ### Patch Changes
 
-- [`8f456366d7b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f456366d7b) - Clean up actionable element experiment
+- [#34996](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34996) [`8f456366d7b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f456366d7b) - Clean up actionable element experiment
 
 ## 26.5.4
 
 ### Patch Changes
 
-- [`2660603c726`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2660603c726) - [ux] A hover card loading state improvement is implemented: all elements except for actions would have a loading skeleton
+- [#34907](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34907) [`2660603c726`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2660603c726) - [ux] A hover card loading state improvement is implemented: all elements except for actions would have a loading skeleton
 - Updated dependencies
 
 ## 26.5.3
@@ -605,20 +605,20 @@
 
 ### Patch Changes
 
-- [`c77f4d24dee`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c77f4d24dee) - [ux] Show feature discovery (pulse) on lozenge action
+- [#34674](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34674) [`c77f4d24dee`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c77f4d24dee) - [ux] Show feature discovery (pulse) on lozenge action
 
 ## 26.5.1
 
 ### Patch Changes
 
-- [`61cb5313358`](https://bitbucket.org/atlassian/atlassian-frontend/commits/61cb5313358) - Removing unused dependencies and dev dependencies
+- [#34443](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34443) [`61cb5313358`](https://bitbucket.org/atlassian/atlassian-frontend/commits/61cb5313358) - Removing unused dependencies and dev dependencies
 - Updated dependencies
 
 ## 26.5.0
 
 ### Minor Changes
 
-- [`ce79111f98f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ce79111f98f) - Card component will stop throwing any uncaught errors. Any existing consumer relying on this behaviour should start using `fallbackComponent` to provide fallback ui and `onError` to act on such errors. See CardProps type for more docs.
+- [#34504](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34504) [`ce79111f98f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ce79111f98f) - Card component will stop throwing any uncaught errors. Any existing consumer relying on this behaviour should start using `fallbackComponent` to provide fallback ui and `onError` to act on such errors. See CardProps type for more docs.
   Reason this is a minor bump and not a major version is because the previous behaviour of error propagation was actually a bug and was not a public contract with clients. This minor version fixes this bug and requires the client to update their code.
 
 ## 26.4.1
@@ -631,20 +631,20 @@
 
 ### Minor Changes
 
-- [`2b7f0f3b158`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2b7f0f3b158) - [ux] Fix issue with metadata alignment of Title Block component in Confluence Web links.
+- [#34415](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34415) [`2b7f0f3b158`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2b7f0f3b158) - [ux] Fix issue with metadata alignment of Title Block component in Confluence Web links.
 
 ## 26.3.10
 
 ### Patch Changes
 
-- [`d8263ae659f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d8263ae659f) - [ux] Small css fix for avatar alignment in smart links
-- [`438b90799c4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/438b90799c4) - Removes urlHash from linking platform events.
+- [#34414](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34414) [`d8263ae659f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d8263ae659f) - [ux] Small css fix for avatar alignment in smart links
+- [#34396](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34396) [`438b90799c4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/438b90799c4) - Removes urlHash from linking platform events.
 
 ## 26.3.9
 
 ### Patch Changes
 
-- [`d476c6d5223`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d476c6d5223) - Add an optional err?:Error property to OnErrorCallback for upcoming changes
+- [#34400](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34400) [`d476c6d5223`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d476c6d5223) - Add an optional err?:Error property to OnErrorCallback for upcoming changes
 
 ## 26.3.8
 
@@ -656,7 +656,7 @@
 
 ### Patch Changes
 
-- [`b270cd7542b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b270cd7542b) - Updates internal analytics for link clicked events in Smart Card and adds more attributes to link clicked event fired by LinkUrl (blue links) that are rendered in editor.
+- [#34133](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34133) [`b270cd7542b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b270cd7542b) - Updates internal analytics for link clicked events in Smart Card and adds more attributes to link clicked event fired by LinkUrl (blue links) that are rendered in editor.
 
 ## 26.3.6
 
@@ -668,26 +668,26 @@
 
 ### Patch Changes
 
-- [`36b440f8c7f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/36b440f8c7f) - Disable prop-drilling of analytics dispatch function
+- [#34034](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34034) [`36b440f8c7f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/36b440f8c7f) - Disable prop-drilling of analytics dispatch function
 
 ## 26.3.4
 
 ### Patch Changes
 
-- [`d86bc75af82`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d86bc75af82) - Internal change to enforce token usage for spacing properties. There is no expected visual or behaviour change.
+- [#33689](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33689) [`d86bc75af82`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d86bc75af82) - Internal change to enforce token usage for spacing properties. There is no expected visual or behaviour change.
 
 ## 26.3.3
 
 ### Patch Changes
 
-- [`6d9a4d28d94`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6d9a4d28d94) - Fixes HoverCard component providing hover card analytics context to the wrapped trigger component.
+- [#29598](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/29598) [`6d9a4d28d94`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6d9a4d28d94) - Fixes HoverCard component providing hover card analytics context to the wrapped trigger component.
 - Updated dependencies
 
 ## 26.3.2
 
 ### Patch Changes
 
-- [`f10ed88032c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f10ed88032c) - With the renaming of Jira Roadmaps to Timeline, we are updating the regex rules to match timeline in conjunction to roadmaps
+- [#33699](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33699) [`f10ed88032c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f10ed88032c) - With the renaming of Jira Roadmaps to Timeline, we are updating the regex rules to match timeline in conjunction to roadmaps
 - Updated dependencies
 
 ## 26.3.1
@@ -700,27 +700,27 @@
 
 ### Minor Changes
 
-- [`8406b471923`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8406b471923) - [ux] Update analytics tracking events for lozenge action
+- [#33933](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33933) [`8406b471923`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8406b471923) - [ux] Update analytics tracking events for lozenge action
 
 ## 26.2.2
 
 ### Patch Changes
 
-- [`374da8b159a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/374da8b159a) - Include additional attributes (urlHash, display, id) and resolved attributes for link clicked analytics events (Originally introduced in 25.8.0, reverted in 25.9.1 due to regression)
-- [`c6d962997a7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c6d962997a7) - [ux] Changed the text of the button from 'Full screen view' to 'Open preview' and also changed the color of a button in the hover cards
+- [#33812](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33812) [`374da8b159a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/374da8b159a) - Include additional attributes (urlHash, display, id) and resolved attributes for link clicked analytics events (Originally introduced in 25.8.0, reverted in 25.9.1 due to regression)
+- [#32358](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32358) [`c6d962997a7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c6d962997a7) - [ux] Changed the text of the button from 'Full screen view' to 'Open preview' and also changed the color of a button in the hover cards
 - Updated dependencies
 
 ## 26.2.1
 
 ### Patch Changes
 
-- [`f27eb952289`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f27eb952289) - [ux] This fixes a bug which is caused when some text including a newline is linked and clicked, which incorrectly triggers a warning.
+- [#33691](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33691) [`f27eb952289`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f27eb952289) - [ux] This fixes a bug which is caused when some text including a newline is linked and clicked, which incorrectly triggers a warning.
 
 ## 26.2.0
 
 ### Minor Changes
 
-- [`877b4f8f7fc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/877b4f8f7fc) - Remove iframe dwell tracking feature flag. Smart card embedded iframes will always track dwell events.
+- [#32778](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32778) [`877b4f8f7fc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/877b4f8f7fc) - Remove iframe dwell tracking feature flag. Smart card embedded iframes will always track dwell events.
 
 ### Patch Changes
 
@@ -730,57 +730,57 @@
 
 ### Patch Changes
 
-- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793) [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
 - Updated dependencies
 
 ## 26.1.5
 
 ### Patch Changes
 
-- [`6fa208a0d81`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6fa208a0d81) - Fixes internal useSmartCardState to internally use useSyncExternalStore to fix bugs relating to syncronous updates to the store in the same phase that the store is subscribed to.
+- [#33126](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33126) [`6fa208a0d81`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6fa208a0d81) - Fixes internal useSmartCardState to internally use useSyncExternalStore to fix bugs relating to syncronous updates to the store in the same phase that the store is subscribed to.
 
 ## 26.1.4
 
 ### Patch Changes
 
-- [`cee3699d4a8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cee3699d4a8) - [ux] Minor style updates for a Smart Link Error Lozenge
+- [#33678](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33678) [`cee3699d4a8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cee3699d4a8) - [ux] Minor style updates for a Smart Link Error Lozenge
 
 ## 26.1.3
 
 ### Patch Changes
 
-- [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649) [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
 - Updated dependencies
 
 ## 26.1.2
 
 ### Patch Changes
 
-- [`f50bead1f15`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f50bead1f15) - Added firing an analytics event on action lozenge error modal opening
+- [#33580](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33580) [`f50bead1f15`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f50bead1f15) - Added firing an analytics event on action lozenge error modal opening
 
 ## 26.1.1
 
 ### Patch Changes
 
-- [`04a2ca5dffb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/04a2ca5dffb) - [ux] Changed zIndex for hover card
+- [#33219](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33219) [`04a2ca5dffb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/04a2ca5dffb) - [ux] Changed zIndex for hover card
 
 ## 26.1.0
 
 ### Minor Changes
 
-- [`68562365142`](https://bitbucket.org/atlassian/atlassian-frontend/commits/68562365142) - Add analytics for quick actions
+- [#32854](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32854) [`68562365142`](https://bitbucket.org/atlassian/atlassian-frontend/commits/68562365142) - Add analytics for quick actions
 
 ## 26.0.1
 
 ### Patch Changes
 
-- [`6341b726715`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6341b726715) - Fix of the request body of the invoke update request
+- [#33268](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33268) [`6341b726715`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6341b726715) - Fix of the request body of the invoke update request
 
 ## 26.0.0
 
 ### Minor Changes
 
-- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258) [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
 
 ### Patch Changes
 
@@ -790,38 +790,38 @@
 
 ### Patch Changes
 
-- [`e241a5dda48`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e241a5dda48) - Add 'keyboard' clickType for link clicked analytics events when user interacts with links using keyboard
+- [#32992](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32992) [`e241a5dda48`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e241a5dda48) - Add 'keyboard' clickType for link clicked analytics events when user interacts with links using keyboard
 
 ## 25.9.4
 
 ### Patch Changes
 
-- [`025d2c69562`](https://bitbucket.org/atlassian/atlassian-frontend/commits/025d2c69562) - [ux] Restrict maximum height on lozenge action
+- [#33200](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33200) [`025d2c69562`](https://bitbucket.org/atlassian/atlassian-frontend/commits/025d2c69562) - [ux] Restrict maximum height on lozenge action
 
 ## 25.9.3
 
 ### Patch Changes
 
-- [`607168dad64`](https://bitbucket.org/atlassian/atlassian-frontend/commits/607168dad64) - [ux] Update lozenge action with selected item on action success.
+- [#33039](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33039) [`607168dad64`](https://bitbucket.org/atlassian/atlassian-frontend/commits/607168dad64) - [ux] Update lozenge action with selected item on action success.
 
 ## 25.9.2
 
 ### Patch Changes
 
-- [`845816bac34`](https://bitbucket.org/atlassian/atlassian-frontend/commits/845816bac34) - [ux] Added a link to open preview modal on action error
+- [#33035](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33035) [`845816bac34`](https://bitbucket.org/atlassian/atlassian-frontend/commits/845816bac34) - [ux] Added a link to open preview modal on action error
 
 ## 25.9.1
 
 ### Patch Changes
 
-- [`b76602c1619`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b76602c1619) - Revert 25.8.0 changes "Include additional attributes (urlHash, display, id) and resolved attributes for link clicked analytics events" due to regression
-- [`1aedc244e41`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1aedc244e41) - [ux] Smart Links Internal Grey theme is now more specific to prevent Confluence override
+- [#33078](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33078) [`b76602c1619`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b76602c1619) - Revert 25.8.0 changes "Include additional attributes (urlHash, display, id) and resolved attributes for link clicked analytics events" due to regression
+- [#33088](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33088) [`1aedc244e41`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1aedc244e41) - [ux] Smart Links Internal Grey theme is now more specific to prevent Confluence override
 
 ## 25.9.0
 
 ### Minor Changes
 
-- [`7f248766888`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7f248766888) - [ux] Add container names which mark the location in which the linked resource sits within. This funtionality will be used to show the container names for Trello links.
+- [#32736](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32736) [`7f248766888`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7f248766888) - [ux] Add container names which mark the location in which the linked resource sits within. This funtionality will be used to show the container names for Trello links.
 
   FlexUI: Reduced gap between title and subtitle in TitleBlock.
 
@@ -829,13 +829,13 @@
 
 ### Minor Changes
 
-- [`44b76af1d5f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/44b76af1d5f) - Include additional attributes (`urlHash`, `display`, `id`) and resolved attributes for `link clicked` analytics events
+- [#32497](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32497) [`44b76af1d5f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/44b76af1d5f) - Include additional attributes (`urlHash`, `display`, `id`) and resolved attributes for `link clicked` analytics events
 
 ## 25.7.3
 
 ### Patch Changes
 
-- [`878dc4e5239`](https://bitbucket.org/atlassian/atlassian-frontend/commits/878dc4e5239) - Enable lozenge action by using showServerActions opt-in OR using feature flag useLozengeAction for experiment
+- [#32914](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32914) [`878dc4e5239`](https://bitbucket.org/atlassian/atlassian-frontend/commits/878dc4e5239) - Enable lozenge action by using showServerActions opt-in OR using feature flag useLozengeAction for experiment
 
 ## 25.7.2
 
@@ -847,14 +847,14 @@
 
 ### Patch Changes
 
-- [`7a58d99e333`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7a58d99e333) - [ux] Added error handling for smart link action
+- [#32589](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32589) [`7a58d99e333`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7a58d99e333) - [ux] Added error handling for smart link action
 - Updated dependencies
 
 ## 25.7.0
 
 ### Minor Changes
 
-- [`9c49eef4c87`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9c49eef4c87) - [ux]
+- [#32793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32793) [`9c49eef4c87`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9c49eef4c87) - [ux]
 
   - Add lozenge action to hover preview (wip, opt-in, feature flag)
   - Fix hover preview's action dropdown menu showing behind container
@@ -864,13 +864,13 @@
 
 ### Patch Changes
 
-- [`72a99128d3e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/72a99128d3e) - Enables CardSSR component to send analytics events.
+- [#32743](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32743) [`72a99128d3e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/72a99128d3e) - Enables CardSSR component to send analytics events.
 
 ## 25.6.0
 
 ### Minor Changes
 
-- [`eceb32a564f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eceb32a564f) - [ux] This adds a new Flexible UI attribute, `OwnedBy`, which represents who owns a resource.
+- [#32541](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32541) [`eceb32a564f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eceb32a564f) - [ux] This adds a new Flexible UI attribute, `OwnedBy`, which represents who owns a resource.
 
 ### Patch Changes
 
@@ -880,7 +880,7 @@
 
 ### Patch Changes
 
-- [`4c046475c1b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4c046475c1b) - Fix LinkUrl component: it should not show warning for many cases when it does right now (like relative path comparasion)
+- [#32330](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32330) [`4c046475c1b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4c046475c1b) - Fix LinkUrl component: it should not show warning for many cases when it does right now (like relative path comparasion)
 
 ## 25.5.6
 
@@ -892,44 +892,44 @@
 
 ### Patch Changes
 
-- [`4b396e5d7eb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4b396e5d7eb) - [ux] Add lozenge action to block card (wip, opt-in, feature flag)
+- [#32537](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32537) [`4b396e5d7eb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4b396e5d7eb) - [ux] Add lozenge action to block card (wip, opt-in, feature flag)
 
 ## 25.5.4
 
 ### Patch Changes
 
-- [`19622f395b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19622f395b0) - Connect `showServerActions` prop to flexible smart links, surfacing the lozenge dropdown action behind feature flag.
+- [#32465](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32465) [`19622f395b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19622f395b0) - Connect `showServerActions` prop to flexible smart links, surfacing the lozenge dropdown action behind feature flag.
 
 ## 25.5.3
 
 ### Patch Changes
 
-- [`da5d5b2dbef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/da5d5b2dbef) - Fire link clicked analytics event for LinkUrl component
+- [#32235](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32235) [`da5d5b2dbef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/da5d5b2dbef) - Fire link clicked analytics event for LinkUrl component
 
 ## 25.5.2
 
 ### Patch Changes
 
-- [`c2aab8ee44b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c2aab8ee44b) - Add lozenge dropdown action to Flexible Smart Link based element lozenge
+- [#32447](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32447) [`c2aab8ee44b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c2aab8ee44b) - Add lozenge dropdown action to Flexible Smart Link based element lozenge
 
 ## 25.5.1
 
 ### Patch Changes
 
-- [`bcc645691c5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bcc645691c5) - Add lozenge action feature flag and extract server action for state lozenge from JSON-LD response
+- [#32442](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32442) [`bcc645691c5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bcc645691c5) - Add lozenge action feature flag and extract server action for state lozenge from JSON-LD response
 - Updated dependencies
 
 ## 25.5.0
 
 ### Minor Changes
 
-- [`5329942b8aa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5329942b8aa) - Deprecates analyticsHandler argument of useSmartLinkActions and useSmartLinkReload hooks.
+- [#32389](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32389) [`5329942b8aa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5329942b8aa) - Deprecates analyticsHandler argument of useSmartLinkActions and useSmartLinkReload hooks.
 
 ## 25.4.4
 
 ### Patch Changes
 
-- [`2e01c9c74b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e01c9c74b5) - DUMMY remove before merging to master; dupe adf-schema via adf-utils
+- [#32424](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32424) [`2e01c9c74b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e01c9c74b5) - DUMMY remove before merging to master; dupe adf-schema via adf-utils
 - Updated dependencies
 
 ## 25.4.3
@@ -942,71 +942,71 @@
 
 ### Patch Changes
 
-- [`1d38688106e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1d38688106e) - [ux] Moved out the implementation of the resolve function from useSmartCardActions into a separate internal hook useResolve. Added reload functionality for LozengeAction on a successful update
-- [`0ee9370595a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0ee9370595a) - Update json-ld-types
+- [#32236](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32236) [`1d38688106e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1d38688106e) - [ux] Moved out the implementation of the resolve function from useSmartCardActions into a separate internal hook useResolve. Added reload functionality for LozengeAction on a successful update
+- [#32360](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32360) [`0ee9370595a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0ee9370595a) - Update json-ld-types
 - Updated dependencies
 
 ## 25.4.1
 
 ### Patch Changes
 
-- [`ae2cba07a9a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ae2cba07a9a) - Removes prevented as a clickOutcome analytics attribute value and adds defaultPrevented as a replacement attribute.
+- [#32105](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32105) [`ae2cba07a9a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ae2cba07a9a) - Removes prevented as a clickOutcome analytics attribute value and adds defaultPrevented as a replacement attribute.
 
 ## 25.4.0
 
 ### Minor Changes
 
-- [`65b0490a5dc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/65b0490a5dc) - Deprecates the export of useSmartLinkAnalytics hook and analyticsEvents prop.
+- [#32152](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32152) [`65b0490a5dc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/65b0490a5dc) - Deprecates the export of useSmartLinkAnalytics hook and analyticsEvents prop.
 
 ## 25.3.3
 
 ### Patch Changes
 
-- [`b57c925587f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b57c925587f) - Migrated use of `gridSize` to space tokens where possible. There is no expected visual or behaviour change.
+- [#32170](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32170) [`b57c925587f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b57c925587f) - Migrated use of `gridSize` to space tokens where possible. There is no expected visual or behaviour change.
 
 ## 25.3.2
 
 ### Patch Changes
 
-- [`fab186f135b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fab186f135b) - Add load and update functionality to lozenge action
+- [#31900](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31900) [`fab186f135b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fab186f135b) - Add load and update functionality to lozenge action
 - Updated dependencies
 
 ## 25.3.1
 
 ### Patch Changes
 
-- [`fa2fb550e4b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fa2fb550e4b) - [ux] This makes Flexible Block Cards have the same onClick behaviour as the older block card, where the passed in onClick behaviour will cause the Smart Card to use `e.preventDefault()`.
+- [#31924](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31924) [`fa2fb550e4b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fa2fb550e4b) - [ux] This makes Flexible Block Cards have the same onClick behaviour as the older block card, where the passed in onClick behaviour will cause the Smart Card to use `e.preventDefault()`.
 
 ## 25.3.0
 
 ### Minor Changes
 
-- [`4a1604ce132`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4a1604ce132) - Adds a new themeMode query param to preview links url from 1P integrators that support different theme modes.
+- [#31910](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31910) [`4a1604ce132`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4a1604ce132) - Adds a new themeMode query param to preview links url from 1P integrators that support different theme modes.
 
 ## 25.2.1
 
 ### Patch Changes
 
-- [`03394282a26`](https://bitbucket.org/atlassian/atlassian-frontend/commits/03394282a26) - The change migrates `Shimmer` component to use the `Skeleton` component from the common package
+- [#31717](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31717) [`03394282a26`](https://bitbucket.org/atlassian/atlassian-frontend/commits/03394282a26) - The change migrates `Shimmer` component to use the `Skeleton` component from the common package
 - Updated dependencies
 
 ## 25.2.0
 
 ### Minor Changes
 
-- [`aeaf58d2384`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aeaf58d2384) - Change adds a new prop on Smart Card `embedIframeUrlType` which allows a user of a Smart Card with the `embed` appearance to specify whether the Smart Card embed should use `href` or `interactiveHref` in the JSON-LD response.
+- [#31601](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31601) [`aeaf58d2384`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aeaf58d2384) - Change adds a new prop on Smart Card `embedIframeUrlType` which allows a user of a Smart Card with the `embed` appearance to specify whether the Smart Card embed should use `href` or `interactiveHref` in the JSON-LD response.
 
 ## 25.1.1
 
 ### Patch Changes
 
-- [`a3b9ef40d09`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a3b9ef40d09) - [ux] Adds white-space style to FlexUI text element
+- [#31690](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31690) [`a3b9ef40d09`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a3b9ef40d09) - [ux] Adds white-space style to FlexUI text element
 
 ## 25.1.0
 
 ### Minor Changes
 
-- [`b811f263575`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b811f263575) - Add new "showServerActions" prop to SmartCard to show available server actions on inline and block Smart Links. This will be used in conjunction with feature flags on the duration of the experiment.
+- [#31299](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31299) [`b811f263575`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b811f263575) - Add new "showServerActions" prop to SmartCard to show available server actions on inline and block Smart Links. This will be used in conjunction with feature flags on the duration of the experiment.
 
 ### Patch Changes
 
@@ -1017,14 +1017,14 @@
 
 ### Patch Changes
 
-- [`0af4a6b6426`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0af4a6b6426) - Dependency update json-ld-types@3.4.0
+- [#31388](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31388) [`0af4a6b6426`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0af4a6b6426) - Dependency update json-ld-types@3.4.0
 - Updated dependencies
 
 ## 25.0.6
 
 ### Patch Changes
 
-- [`c85ee838eae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c85ee838eae) - [ux] Added analytics event 'appAccount authStarted' for inline smart card
+- [#31243](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31243) [`c85ee838eae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c85ee838eae) - [ux] Added analytics event 'appAccount authStarted' for inline smart card
 
 ## 25.0.5
 
@@ -1036,25 +1036,25 @@
 
 ### Patch Changes
 
-- [`de8c6e88424`](https://bitbucket.org/atlassian/atlassian-frontend/commits/de8c6e88424) - flexible block card metadata all left aligned
+- [#31038](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31038) [`de8c6e88424`](https://bitbucket.org/atlassian/atlassian-frontend/commits/de8c6e88424) - flexible block card metadata all left aligned
 
 ## 25.0.3
 
 ### Patch Changes
 
-- [`7ae310c744a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7ae310c744a) - [ux] Updated Flex UI CollaboratorGroup extractor to return list of collaborators
+- [#30722](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/30722) [`7ae310c744a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7ae310c744a) - [ux] Updated Flex UI CollaboratorGroup extractor to return list of collaborators
 
 ## 25.0.2
 
 ### Patch Changes
 
-- [`14363bff579`](https://bitbucket.org/atlassian/atlassian-frontend/commits/14363bff579) - Formatting change for i18n translations
+- [#30583](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/30583) [`14363bff579`](https://bitbucket.org/atlassian/atlassian-frontend/commits/14363bff579) - Formatting change for i18n translations
 
 ## 25.0.1
 
 ### Patch Changes
 
-- [`c687cc0de52`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c687cc0de52) - Add lozenge action component (WIP)
+- [#30863](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/30863) [`c687cc0de52`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c687cc0de52) - Add lozenge action component (WIP)
 
 ## 25.0.0
 
@@ -1066,26 +1066,26 @@
 
 ### Patch Changes
 
-- [`12223b3ee04`](https://bitbucket.org/atlassian/atlassian-frontend/commits/12223b3ee04) - Move EditorCardProvider to new package instead of using imports from Link Provider and Smart Card
+- [#30266](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/30266) [`12223b3ee04`](https://bitbucket.org/atlassian/atlassian-frontend/commits/12223b3ee04) - Move EditorCardProvider to new package instead of using imports from Link Provider and Smart Card
 - Updated dependencies
 
 ## 24.3.1
 
 ### Patch Changes
 
-- [`d0c67f1cc2b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d0c67f1cc2b) - Prettier-ignore added to i18n translations
+- [#30237](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/30237) [`d0c67f1cc2b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d0c67f1cc2b) - Prettier-ignore added to i18n translations
 
 ## 24.3.0
 
 ### Minor Changes
 
-- [`9f903aa9c4e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9f903aa9c4e) - Fixes rethrow logic in flex ui to not rely on reference to APIError constructor.
+- [#30188](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/30188) [`9f903aa9c4e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9f903aa9c4e) - Fixes rethrow logic in flex ui to not rely on reference to APIError constructor.
 
 ## 24.2.0
 
 ### Minor Changes
 
-- [`ef5f28bfbcb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ef5f28bfbcb) - [ux] Support to hide the full screen view button in hover previews was added. A new prop 'hideHoverCardPreviewButton' was added to FlexibleUiOptions which allows for not showing the button in the hover preview shown on flexui cards. A new prop was also added to standlone hover card called 'hidePreviewButton' which allows for removing the same button when directly consuming hover card.
+- [#30067](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/30067) [`ef5f28bfbcb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ef5f28bfbcb) - [ux] Support to hide the full screen view button in hover previews was added. A new prop 'hideHoverCardPreviewButton' was added to FlexibleUiOptions which allows for not showing the button in the hover preview shown on flexui cards. A new prop was also added to standlone hover card called 'hidePreviewButton' which allows for removing the same button when directly consuming hover card.
 
 ## 24.1.3
 
@@ -1103,31 +1103,31 @@
 
 ### Patch Changes
 
-- [`ffa4b8db98b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ffa4b8db98b) - Bugfix: Hide a vertical scroll bar for a flex UI card in case it's a clickable container and has one line title with no paddings
+- [#29932](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/29932) [`ffa4b8db98b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ffa4b8db98b) - Bugfix: Hide a vertical scroll bar for a flex UI card in case it's a clickable container and has one line title with no paddings
 
 ## 24.1.0
 
 ### Minor Changes
 
-- [`2d2bfdfb0eb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2d2bfdfb0eb) - [ux] A support for borderless embed was added. A new prop 'frameStyle' was added which allows user to choose one of three styles: 'show', 'hide', 'showOnHover'. The prop isFrameVisible was made deprecated and replaced by the new prop.
+- [#29331](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/29331) [`2d2bfdfb0eb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2d2bfdfb0eb) - [ux] A support for borderless embed was added. A new prop 'frameStyle' was added which allows user to choose one of three styles: 'show', 'hide', 'showOnHover'. The prop isFrameVisible was made deprecated and replaced by the new prop.
 
 ## 24.0.3
 
 ### Patch Changes
 
-- [`9e7d94da3cd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9e7d94da3cd) - [ux] Fix hover preview background colour in dark mode
+- [#29605](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/29605) [`9e7d94da3cd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9e7d94da3cd) - [ux] Fix hover preview background colour in dark mode
 
 ## 24.0.2
 
 ### Patch Changes
 
-- [`134bac37edc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/134bac37edc) - [ux] Adds the ChecklistProgress element to Flexible Block View's secondary section
+- [#29464](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/29464) [`134bac37edc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/134bac37edc) - [ux] Adds the ChecklistProgress element to Flexible Block View's secondary section
 
 ## 24.0.1
 
 ### Patch Changes
 
-- [`4661d4f7f7b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4661d4f7f7b) - Add `link clicked` UI event to Smart Card.
+- [#29067](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/29067) [`4661d4f7f7b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4661d4f7f7b) - Add `link clicked` UI event to Smart Card.
 - Updated dependencies
 
 ## 24.0.0
@@ -1146,13 +1146,13 @@
 
 ### Patch Changes
 
-- [`4ee60bafc6d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ee60bafc6d) - ED-16603: Remove tooltips from VR tests and make them opt in. To opt-in, add `allowedSideEffects` when loading the page.
+- [#29227](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/29227) [`4ee60bafc6d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ee60bafc6d) - ED-16603: Remove tooltips from VR tests and make them opt in. To opt-in, add `allowedSideEffects` when loading the page.
 
 ## 23.14.0
 
 ### Minor Changes
 
-- [`eb2e7a0e762`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eb2e7a0e762) - Add new "showAuthTooltip" prop to SmartCard which shows Auth Tooltip on unauthorised inline Smart Links. This allows us to remove product feature flags in the future
+- [#28932](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28932) [`eb2e7a0e762`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eb2e7a0e762) - Add new "showAuthTooltip" prop to SmartCard which shows Auth Tooltip on unauthorised inline Smart Links. This allows us to remove product feature flags in the future
 
 ### Patch Changes
 
@@ -1162,31 +1162,31 @@
 
 ### Patch Changes
 
-- [`e5b8a41f4da`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e5b8a41f4da) - Hover Preview: Reduce hover content re-rendering
+- [#29265](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/29265) [`e5b8a41f4da`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e5b8a41f4da) - Hover Preview: Reduce hover content re-rendering
 
 ## 23.13.2
 
 ### Patch Changes
 
-- [`465e0f001fb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/465e0f001fb) - Operational analytics event added to the LinkUrl component. It fires when Link Safety Warning message shown.
+- [#29088](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/29088) [`465e0f001fb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/465e0f001fb) - Operational analytics event added to the LinkUrl component. It fires when Link Safety Warning message shown.
 
 ## 23.13.1
 
 ### Patch Changes
 
-- [`02d341ecf63`](https://bitbucket.org/atlassian/atlassian-frontend/commits/02d341ecf63) - [ux] Fix copy button tooltip to show Copy link, not Download
+- [#29018](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/29018) [`02d341ecf63`](https://bitbucket.org/atlassian/atlassian-frontend/commits/02d341ecf63) - [ux] Fix copy button tooltip to show Copy link, not Download
 
 ## 23.13.0
 
 ### Minor Changes
 
-- [`67cfd8e13d0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/67cfd8e13d0) - LinkUrl component with built-in link safety check added
+- [#28707](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28707) [`67cfd8e13d0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/67cfd8e13d0) - LinkUrl component with built-in link safety check added
 
 ## 23.12.3
 
 ### Patch Changes
 
-- [`27b8d8e0b4b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/27b8d8e0b4b) - [ux] This adds tooltip messages to custom Flexible UI actions.
+- [#28632](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28632) [`27b8d8e0b4b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/27b8d8e0b4b) - [ux] This adds tooltip messages to custom Flexible UI actions.
   Now, when hovering over custom actions, the "content" prop will be displayed in the tooltip.
   This also affects hover preview actions, which now show the tooltip message when hovering over actions inside of the hover preview card.
 
@@ -1196,19 +1196,19 @@
 
 ### Patch Changes
 
-- [`2c80995745e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2c80995745e) - Embed Preview Modal: Fix title alignment causing by global override (margin-bottom)
+- [#28778](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28778) [`2c80995745e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2c80995745e) - Embed Preview Modal: Fix title alignment causing by global override (margin-bottom)
 
 ## 23.12.1
 
 ### Patch Changes
 
-- [`59104c1e92f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/59104c1e92f) - [ux] Fix message shown in unauthorised Smart Link appearances as per design decision
+- [#28533](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28533) [`59104c1e92f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/59104c1e92f) - [ux] Fix message shown in unauthorised Smart Link appearances as per design decision
 
 ## 23.12.0
 
 ### Minor Changes
 
-- [`d5a9fd04c02`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d5a9fd04c02) - Analytics to track dwell time and focus on smart links embedded iframes
+- [#27632](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/27632) [`d5a9fd04c02`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d5a9fd04c02) - Analytics to track dwell time and focus on smart links embedded iframes
 
 ### Patch Changes
 
@@ -1218,49 +1218,49 @@
 
 ### Patch Changes
 
-- [`08ef315c46d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/08ef315c46d) - [ux] Add a copy url button to hover cards.
+- [#28455](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28455) [`08ef315c46d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/08ef315c46d) - [ux] Add a copy url button to hover cards.
 
 ## 23.11.2
 
 ### Patch Changes
 
-- [`6455cf006b3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6455cf006b3) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving performance.
+- [#28324](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28324) [`6455cf006b3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6455cf006b3) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving performance.
 
 ## 23.11.1
 
 ### Patch Changes
 
-- [`44f83adace3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/44f83adace3) - Add documentation for the standalone hover cards on atlaskit.
+- [#28316](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28316) [`44f83adace3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/44f83adace3) - Add documentation for the standalone hover cards on atlaskit.
 
 ## 23.11.0
 
 ### Minor Changes
 
-- [`32aa136af5c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/32aa136af5c) - Hover Preview: Add actionable element experiment reload analytics
+- [#28266](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28266) [`32aa136af5c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/32aa136af5c) - Hover Preview: Add actionable element experiment reload analytics
 
 ## 23.10.3
 
 ### Patch Changes
 
-- [`bca078a37af`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bca078a37af) - Bump to @emotion v11
+- [#27705](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/27705) [`bca078a37af`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bca078a37af) - Bump to @emotion v11
 
 ## 23.10.2
 
 ### Patch Changes
 
-- [`cb819660949`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb819660949) - [ux] Add a lonzenge to restricted links.
+- [#28181](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28181) [`cb819660949`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb819660949) - [ux] Add a lonzenge to restricted links.
 
 ## 23.10.1
 
 ### Patch Changes
 
-- [`d88eda329c1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d88eda329c1) - seperate chunk load errors into it's own analytics event and do retries when lazy loading smartcard-urlcardcontent fails
+- [#28125](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28125) [`d88eda329c1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d88eda329c1) - seperate chunk load errors into it's own analytics event and do retries when lazy loading smartcard-urlcardcontent fails
 
 ## 23.10.0
 
 ### Minor Changes
 
-- [`aa44d74bf40`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aa44d74bf40) - Expose a new entry point to hover cards at @atlaskit/smart-card/hover-card
+- [#27837](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/27837) [`aa44d74bf40`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aa44d74bf40) - Expose a new entry point to hover cards at @atlaskit/smart-card/hover-card
 
 ## 23.9.3
 
@@ -1278,103 +1278,103 @@
 
 ### Patch Changes
 
-- [`484be3ed430`](https://bitbucket.org/atlassian/atlassian-frontend/commits/484be3ed430) - This adds onResolve back to Flexible Block Card
+- [#27699](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/27699) [`484be3ed430`](https://bitbucket.org/atlassian/atlassian-frontend/commits/484be3ed430) - This adds onResolve back to Flexible Block Card
 
 ## 23.9.0
 
 ### Minor Changes
 
-- [`5c7c532de88`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5c7c532de88) - [ux] Add showHoverPreview as a ui parameter to allow hover cards on flex ui links.
+- [#27455](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/27455) [`5c7c532de88`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5c7c532de88) - [ux] Add showHoverPreview as a ui parameter to allow hover cards on flex ui links.
 
 ## 23.8.2
 
 ### Patch Changes
 
-- [`f3aa608f0ba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f3aa608f0ba) - Update i18n translations from Traduki
+- [#28114](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28114) [`f3aa608f0ba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f3aa608f0ba) - Update i18n translations from Traduki
 
 ## 23.8.1
 
 ### Patch Changes
 
-- [`af251caa485`](https://bitbucket.org/atlassian/atlassian-frontend/commits/af251caa485) - Push div from hoverCardComponent into hoverCardContent to allow conditional rendering from inside hoverCardContent.
+- [#27983](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/27983) [`af251caa485`](https://bitbucket.org/atlassian/atlassian-frontend/commits/af251caa485) - Push div from hoverCardComponent into hoverCardContent to allow conditional rendering from inside hoverCardContent.
 
 ## 23.8.0
 
 ### Minor Changes
 
-- [`d739aa7120c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d739aa7120c) - [ux] Analytics is added for Unauthorised view of Hover Card & to Unauthorised view of an Embed card & to Unauthorised view of a Block Card
+- [#27580](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/27580) [`d739aa7120c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d739aa7120c) - [ux] Analytics is added for Unauthorised view of Hover Card & to Unauthorised view of an Embed card & to Unauthorised view of a Block Card
 
 ## 23.7.3
 
 ### Patch Changes
 
-- [`b795ce86cf7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b795ce86cf7) - split single underline into two for unauthorized inline smart links
+- [#27562](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/27562) [`b795ce86cf7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b795ce86cf7) - split single underline into two for unauthorized inline smart links
 
 ## 23.7.2
 
 ### Patch Changes
 
-- [`ee1c940ea18`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ee1c940ea18) - Update unauth message across all Smart Card appearances
+- [#27720](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/27720) [`ee1c940ea18`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ee1c940ea18) - Update unauth message across all Smart Card appearances
 
 ## 23.7.1
 
 ### Patch Changes
 
-- [`33e0b942925`](https://bitbucket.org/atlassian/atlassian-frontend/commits/33e0b942925) - [ux] Flexible Card: Update unauthorised view text messages and connect button
+- [#27669](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/27669) [`33e0b942925`](https://bitbucket.org/atlassian/atlassian-frontend/commits/33e0b942925) - [ux] Flexible Card: Update unauthorised view text messages and connect button
 
 ## 23.7.0
 
 ### Minor Changes
 
-- [`3cae92db2b6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3cae92db2b6) - [ux] Introduces ChecklistProgress element, adds to Trello Hover Cards
+- [#26872](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26872) [`3cae92db2b6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3cae92db2b6) - [ux] Introduces ChecklistProgress element, adds to Trello Hover Cards
 
 ## 23.6.7
 
 ### Patch Changes
 
-- [`9110a0daf0e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9110a0daf0e) - [ux] Added support of different forbidden views for Block Card with Flexible UI
+- [#27628](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/27628) [`9110a0daf0e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9110a0daf0e) - [ux] Added support of different forbidden views for Block Card with Flexible UI
 
 ## 23.6.6
 
 ### Patch Changes
 
-- [`b86cebed4a3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b86cebed4a3) - Hover Preview: Update actionable element hover state
+- [#27655](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/27655) [`b86cebed4a3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b86cebed4a3) - Hover Preview: Update actionable element hover state
 
 ## 23.6.5
 
 ### Patch Changes
 
-- [`0540b6c16a4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0540b6c16a4) - Hover Preview: Update action experiment analytics
+- [#27593](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/27593) [`0540b6c16a4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0540b6c16a4) - Hover Preview: Update action experiment analytics
 
 ## 23.6.4
 
 ### Patch Changes
 
-- [`e402b41fc94`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e402b41fc94) - [ux] This change removes the icons on flexible block card actions, and also adds analytics for each of the flexible block card actions to maintain parity with the older block card.
+- [#27514](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/27514) [`e402b41fc94`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e402b41fc94) - [ux] This change removes the icons on flexible block card actions, and also adds analytics for each of the flexible block card actions to maintain parity with the older block card.
 
 ## 23.6.3
 
 ### Patch Changes
 
-- [`b3c2a297df4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b3c2a297df4) - Hover Preview: Actionable element experiment: Reload link after embed view modal is closed
+- [#27547](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/27547) [`b3c2a297df4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b3c2a297df4) - Hover Preview: Actionable element experiment: Reload link after embed view modal is closed
 
 ## 23.6.2
 
 ### Patch Changes
 
-- [`ac756b23886`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ac756b23886) - Added tooltip for open link in new tab button in hover card
+- [#27559](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/27559) [`ac756b23886`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ac756b23886) - Added tooltip for open link in new tab button in hover card
 
 ## 23.6.1
 
 ### Patch Changes
 
-- [`55429f504d6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/55429f504d6) - [ux] Change the 'Preview' button text to 'Full screen view' with a matching icon
+- [#27206](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/27206) [`55429f504d6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/55429f504d6) - [ux] Change the 'Preview' button text to 'Full screen view' with a matching icon
 
 ## 23.6.0
 
 ### Minor Changes
 
-- [`3626f0cc5c0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3626f0cc5c0) - [ux] An unauthorised view was implemented for Hover Card. It will show up if the link is in 'unauthorized' state and it will offer a way for a user to connect their account.
+- [#27416](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/27416) [`3626f0cc5c0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3626f0cc5c0) - [ux] An unauthorised view was implemented for Hover Card. It will show up if the link is in 'unauthorized' state and it will offer a way for a user to connect their account.
 
 ### Patch Changes
 
@@ -1384,21 +1384,21 @@
 
 ### Patch Changes
 
-- [`0b8bfb1a2d9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0b8bfb1a2d9) - Force http call (and not use cache) when reload action is called
+- [#27328](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/27328) [`0b8bfb1a2d9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0b8bfb1a2d9) - Force http call (and not use cache) when reload action is called
 - Updated dependencies
 
 ## 23.5.1
 
 ### Patch Changes
 
-- [`1070e536838`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1070e536838) - [ux] Hover Preview: Add experiment for actionable element
+- [#27236](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/27236) [`1070e536838`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1070e536838) - [ux] Hover Preview: Add experiment for actionable element
 - Updated dependencies
 
 ## 23.5.0
 
 ### Minor Changes
 
-- [`9dd3377f9bb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9dd3377f9bb) - [ux] This adds support for the new Flexible UI Block Card, added behind a feature flag "useFlexibleBlockCard"
+- [#27193](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/27193) [`9dd3377f9bb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9dd3377f9bb) - [ux] This adds support for the new Flexible UI Block Card, added behind a feature flag "useFlexibleBlockCard"
 
 ### Patch Changes
 
@@ -1408,7 +1408,7 @@
 
 ### Patch Changes
 
-- [`ca2b5b1a999`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ca2b5b1a999) - [ux] fix Safari opening downloads in the same tab
+- [#27196](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/27196) [`ca2b5b1a999`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ca2b5b1a999) - [ux] fix Safari opening downloads in the same tab
 
 ## 23.4.7
 
@@ -1420,44 +1420,44 @@
 
 ### Patch Changes
 
-- [`efa366b6ed6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/efa366b6ed6) - Upgrade json-ld-types from 3.1.0 to 3.2.0
+- [#27073](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/27073) [`efa366b6ed6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/efa366b6ed6) - Upgrade json-ld-types from 3.1.0 to 3.2.0
 - Updated dependencies
 
 ## 23.4.5
 
 ### Patch Changes
 
-- [`d2d705badea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d2d705badea) - [ux] Small fix for the Footer Block that will be used in unresolved states of Block Card with Flexible UI.
+- [#27237](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/27237) [`d2d705badea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d2d705badea) - [ux] Small fix for the Footer Block that will be used in unresolved states of Block Card with Flexible UI.
 
 ## 23.4.4
 
 ### Patch Changes
 
-- [`655a52b4c06`](https://bitbucket.org/atlassian/atlassian-frontend/commits/655a52b4c06) - [ux] Update Flex-UI unauthorised views to include provider name
+- [#27141](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/27141) [`655a52b4c06`](https://bitbucket.org/atlassian/atlassian-frontend/commits/655a52b4c06) - [ux] Update Flex-UI unauthorised views to include provider name
 
 ## 23.4.3
 
 ### Patch Changes
 
-- [`85de18a2d79`](https://bitbucket.org/atlassian/atlassian-frontend/commits/85de18a2d79) - [ux] Enable text wrapping in contents of unresolved views and allow scrolling in when embed size is small.
+- [#27191](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/27191) [`85de18a2d79`](https://bitbucket.org/atlassian/atlassian-frontend/commits/85de18a2d79) - [ux] Enable text wrapping in contents of unresolved views and allow scrolling in when embed size is small.
 
 ## 23.4.2
 
 ### Patch Changes
 
-- [`306c81c6551`](https://bitbucket.org/atlassian/atlassian-frontend/commits/306c81c6551) - [ux] Added unresolved views for a Flexible Block card. At the moment these views are not exposed, but they will be used when a Block Card is replaced with Flexible UI.
+- [#27081](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/27081) [`306c81c6551`](https://bitbucket.org/atlassian/atlassian-frontend/commits/306c81c6551) - [ux] Added unresolved views for a Flexible Block card. At the moment these views are not exposed, but they will be used when a Block Card is replaced with Flexible UI.
 
 ## 23.4.1
 
 ### Patch Changes
 
-- [`9dd78d9e76e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9dd78d9e76e) - [ux] Update button text on inline card unauthorised view to include provider name
+- [#26884](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26884) [`9dd78d9e76e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9dd78d9e76e) - [ux] Update button text on inline card unauthorised view to include provider name
 
 ## 23.4.0
 
 ### Minor Changes
 
-- [`a86403e5e0e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a86403e5e0e) - [ux] This PR adds more actions for use in Flexible UI Smart Links. These are PreviewAction, ViewAction and DownloadAction, and correspond to their Block card counterparts.
+- [#26746](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26746) [`a86403e5e0e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a86403e5e0e) - [ux] This PR adds more actions for use in Flexible UI Smart Links. These are PreviewAction, ViewAction and DownloadAction, and correspond to their Block card counterparts.
 
   These, unlike the existing actions, will only render when the data for them is available. Therefore, the onClick for these actions are optional.
 
@@ -1491,64 +1491,64 @@
 
 ### Patch Changes
 
-- [`6533e448c53`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6533e448c53) - [ux] Embed: Update unauthorised view text messages and use provider image if available
+- [#26811](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26811) [`6533e448c53`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6533e448c53) - [ux] Embed: Update unauthorised view text messages and use provider image if available
 - Updated dependencies
 
 ## 23.3.0
 
 ### Minor Changes
 
-- [`be7ac1e0d9b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/be7ac1e0d9b) - Add `hideRetry` optional prop to TitleBlock element to allow customers to optout from any retry buttons to be shown (like "connect to preview" or "Can't find link" or "Restricted link, try another account")
+- [#26834](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26834) [`be7ac1e0d9b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/be7ac1e0d9b) - Add `hideRetry` optional prop to TitleBlock element to allow customers to optout from any retry buttons to be shown (like "connect to preview" or "Can't find link" or "Restricted link, try another account")
 
 ## 23.2.0
 
 ### Minor Changes
 
-- [`5a2432bf917`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5a2432bf917) - [ux] Adds metadata to hover smart cards resolved by trello-object-provider
+- [#26689](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26689) [`5a2432bf917`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5a2432bf917) - [ux] Adds metadata to hover smart cards resolved by trello-object-provider
 
 ## 23.1.4
 
 ### Patch Changes
 
-- [`e6d8d32e33e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e6d8d32e33e) - [ux] Update token usages in the loading shimmer effect to be smoother for inline cards. Updated appearances only visible in applications configured to use the new Tokens API (currently in alpha).
+- [#26701](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26701) [`e6d8d32e33e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e6d8d32e33e) - [ux] Update token usages in the loading shimmer effect to be smoother for inline cards. Updated appearances only visible in applications configured to use the new Tokens API (currently in alpha).
 
 ## 23.1.3
 
 ### Patch Changes
 
-- [`558e0af2263`](https://bitbucket.org/atlassian/atlassian-frontend/commits/558e0af2263) - Embed Preview: Clean up experiment
+- [#25507](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/25507) [`558e0af2263`](https://bitbucket.org/atlassian/atlassian-frontend/commits/558e0af2263) - Embed Preview: Clean up experiment
 
 ## 23.1.2
 
 ### Patch Changes
 
-- [`5bdea3e4375`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5bdea3e4375) - Re register card when redux store is recreated
+- [#26582](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26582) [`5bdea3e4375`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5bdea3e4375) - Re register card when redux store is recreated
 
 ## 23.1.1
 
 ### Patch Changes
 
-- [`d2cde0ebdfd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d2cde0ebdfd) - fix editor cypress tests and delete media cypress tests
-- [`8f95d913495`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f95d913495) - Smart Link: Add default view to inline/block/embed appearance
+- [#26241](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26241) [`d2cde0ebdfd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d2cde0ebdfd) - fix editor cypress tests and delete media cypress tests
+- [#26451](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26451) [`8f95d913495`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f95d913495) - Smart Link: Add default view to inline/block/embed appearance
 
 ## 23.1.0
 
 ### Minor Changes
 
-- [`b3ba198b928`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b3ba198b928) - [ux] Adds attachment count widget to metadata section
+- [#25527](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/25527) [`b3ba198b928`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b3ba198b928) - [ux] Adds attachment count widget to metadata section
 
 ## 23.0.2
 
 ### Patch Changes
 
-- [`6af519d2a17`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6af519d2a17) - Upgrade json-ld-types from 3.0.2 to 3.1.0
+- [#25967](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/25967) [`6af519d2a17`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6af519d2a17) - Upgrade json-ld-types from 3.0.2 to 3.1.0
 - Updated dependencies
 
 ## 23.0.1
 
 ### Patch Changes
 
-- [`3b30fc47274`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3b30fc47274) - Smart Link card state fix relating to an issue with returning old state if url changes to the one already present in the store.
+- [#26357](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26357) [`3b30fc47274`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3b30fc47274) - Smart Link card state fix relating to an issue with returning old state if url changes to the one already present in the store.
 
 ## 23.0.0
 
@@ -1560,25 +1560,25 @@
 
 ### Minor Changes
 
-- [`b5278b469b8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b5278b469b8) - [ux] Allow rendering custom preview of embeds in forbidden view
+- [#26080](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26080) [`b5278b469b8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b5278b469b8) - [ux] Allow rendering custom preview of embeds in forbidden view
 
 ## 22.3.2
 
 ### Patch Changes
 
-- [`d4f3f7afbe4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d4f3f7afbe4) - [ux] Smart Links: Change date format of the Flexible Smart Links' CreatedOn and ModifiedOn element to short month to better accommodate smaller space, including but not limited to Hover Preview.
+- [#26229](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26229) [`d4f3f7afbe4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d4f3f7afbe4) - [ux] Smart Links: Change date format of the Flexible Smart Links' CreatedOn and ModifiedOn element to short month to better accommodate smaller space, including but not limited to Hover Preview.
 
 ## 22.3.1
 
 ### Patch Changes
 
-- [`829baeda46d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/829baeda46d) - [ux] Update token usages in the loading shimmer effect on inline cards.
+- [#25951](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/25951) [`829baeda46d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/829baeda46d) - [ux] Update token usages in the loading shimmer effect on inline cards.
 
 ## 22.3.0
 
 ### Minor Changes
 
-- [`b31cdf70f6e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b31cdf70f6e) - Updates `@emotion/core` v10 to `@emotion/react` v11. There is no expected behaviour change.
+- [#24710](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24710) [`b31cdf70f6e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b31cdf70f6e) - Updates `@emotion/core` v10 to `@emotion/react` v11. There is no expected behaviour change.
 
 ### Patch Changes
 
@@ -1588,20 +1588,20 @@
 
 ### Patch Changes
 
-- [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
+- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874) [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
 - Updated dependencies
 
 ## 22.2.0
 
 ### Minor Changes
 
-- [`9a0c1c39d27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9a0c1c39d27) - Rethrow errors from child component of smart-card so all non API errors will be handed to parent of smart-card
+- [#24742](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24742) [`9a0c1c39d27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9a0c1c39d27) - Rethrow errors from child component of smart-card so all non API errors will be handed to parent of smart-card
 
 ## 22.1.2
 
 ### Patch Changes
 
-- [`46059beebbf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/46059beebbf) - - include **tests_external** in build
+- [#24818](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24818) [`46059beebbf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/46059beebbf) - - include **tests_external** in build
   - replace usage of @local-cypress package with @cypress
   - bump @cypress from ^6.4.0 to ^7.7.0
   - import cypress types into @atlaskit/in-product-testing tsconfig
@@ -1610,20 +1610,20 @@
 
 ### Patch Changes
 
-- [`9c7cc4139ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9c7cc4139ec) - Partially remove Lozenge CSS override which conflicts with updated Lozenge styling.
+- [#24004](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24004) [`9c7cc4139ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9c7cc4139ec) - Partially remove Lozenge CSS override which conflicts with updated Lozenge styling.
 - Updated dependencies
 
 ## 22.1.0
 
 ### Minor Changes
 
-- [`c908307ef8e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c908307ef8e) - Embed Preview: Update embed preview modal analytics
+- [#24522](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24522) [`c908307ef8e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c908307ef8e) - Embed Preview: Update embed preview modal analytics
 
 ## 22.0.0
 
 ### Major Changes
 
-- [`e2bd5c50884`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e2bd5c50884) - This PR changes how Smart Link Analytics events are defined.
+- [#24526](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24526) [`e2bd5c50884`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e2bd5c50884) - This PR changes how Smart Link Analytics events are defined.
   Analytics events now use object args rather than inline arguments.
 
   Previously:
@@ -1666,32 +1666,32 @@
 
 ### Minor Changes
 
-- [`1c76ddcd2f3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1c76ddcd2f3) - [ux] Flex-UI: - Add props to generic block: - onRender - onTransitionEnd - blockRef
+- [#24246](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24246) [`1c76ddcd2f3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1c76ddcd2f3) - [ux] Flex-UI: - Add props to generic block: - onRender - onTransitionEnd - blockRef
   HoverCard: - use the above properties in Hover Card to apply transition to preview block and fallback to snippet
 
 ## 21.2.0
 
 ### Minor Changes
 
-- [`d2439a3c65d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d2439a3c65d) - [ux] Embed Preview Modal: Add experiment modal with new UX and resize functionality (behind feature flag)
+- [#24391](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24391) [`d2439a3c65d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d2439a3c65d) - [ux] Embed Preview Modal: Add experiment modal with new UX and resize functionality (behind feature flag)
 
 ### Patch Changes
 
-- [`6dd64ce82a8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6dd64ce82a8) - [ux] This changes icon loading for Flexible Smart Links. Previously, all `@atlaskit/icon-file-type/glyph/` icons in Flexible Smart Links would be loaded asynchronously. This change makes it so that the `@atlaskit/icon-file-type/glyph/blog` and `@atlaskit/icon-file-type/glyph/document`icons load synchronously in order to better support SSR use cases.
+- [#24530](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24530) [`6dd64ce82a8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6dd64ce82a8) - [ux] This changes icon loading for Flexible Smart Links. Previously, all `@atlaskit/icon-file-type/glyph/` icons in Flexible Smart Links would be loaded asynchronously. This change makes it so that the `@atlaskit/icon-file-type/glyph/blog` and `@atlaskit/icon-file-type/glyph/document`icons load synchronously in order to better support SSR use cases.
 - Updated dependencies
 
 ## 21.1.4
 
 ### Patch Changes
 
-- [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
+- [#24492](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24492) [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
 - Updated dependencies
 
 ## 21.1.3
 
 ### Patch Changes
 
-- [`d0b3a262e03`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d0b3a262e03) - [ux] Embed Preview: Update the new embed preview modal UX
+- [#24442](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24442) [`d0b3a262e03`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d0b3a262e03) - [ux] Embed Preview: Update the new embed preview modal UX
 
   - Make title smaller
   - Reduce gap between element
@@ -1701,43 +1701,43 @@
 
 ### Patch Changes
 
-- [`a024e3c77ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a024e3c77ec) - Embed Preview: Add embed preview modal (WIP)
+- [#24344](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24344) [`a024e3c77ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a024e3c77ec) - Embed Preview: Add embed preview modal (WIP)
 
 ## 21.1.1
 
 ### Patch Changes
 
-- [`e6a3654a137`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e6a3654a137) - Fix bug where smart cards used `elevation.surface` instead of `elevation.surface.raised` design tokens for card backgrounds.
+- [#24162](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24162) [`e6a3654a137`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e6a3654a137) - Fix bug where smart cards used `elevation.surface` instead of `elevation.surface.raised` design tokens for card backgrounds.
 
 ## 21.1.0
 
 ### Minor Changes
 
-- [`fa7f42de6c0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fa7f42de6c0) - Flexible UI: Add onActionMenuOpenChange on TitleBlock to detect action dropdown menu open/close
+- [#24174](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24174) [`fa7f42de6c0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fa7f42de6c0) - Flexible UI: Add onActionMenuOpenChange on TitleBlock to detect action dropdown menu open/close
 
 ## 21.0.4
 
 ### Patch Changes
 
-- [`4347099f4ba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4347099f4ba) - [ux] Blue highlight is removed for when a user right-clicks on a Flex UI Smart Link
+- [#24078](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24078) [`4347099f4ba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4347099f4ba) - [ux] Blue highlight is removed for when a user right-clicks on a Flex UI Smart Link
 
 ## 21.0.3
 
 ### Patch Changes
 
-- [`a657fbfe5e1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a657fbfe5e1) - [ux] Flexible UI: Fix action menu and its tooltip not disappear after an action is clicked
+- [#24043](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24043) [`a657fbfe5e1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a657fbfe5e1) - [ux] Flexible UI: Fix action menu and its tooltip not disappear after an action is clicked
 
 ## 21.0.2
 
 ### Patch Changes
 
-- [`0a08e95af20`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0a08e95af20) - fix bug where scrolling onto an inline link opens hover card in unexpected locations
+- [#23789](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23789) [`0a08e95af20`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0a08e95af20) - fix bug where scrolling onto an inline link opens hover card in unexpected locations
 
 ## 21.0.1
 
 ### Patch Changes
 
-- [`919a3124eb8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/919a3124eb8) - turn off autofocus for hover card
+- [#23740](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23740) [`919a3124eb8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/919a3124eb8) - turn off autofocus for hover card
 
 ## 21.0.0
 
@@ -1749,31 +1749,31 @@
 
 ### Patch Changes
 
-- [`8df009f4313`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8df009f4313) - fix metadata status for prefetching
+- [#23638](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23638) [`8df009f4313`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8df009f4313) - fix metadata status for prefetching
 
 ## 20.1.3
 
 ### Patch Changes
 
-- [`7c0644e5daf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7c0644e5daf) - fix on mouse hover functionality for hover cards
+- [#23600](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23600) [`7c0644e5daf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7c0644e5daf) - fix on mouse hover functionality for hover cards
 
 ## 20.1.2
 
 ### Patch Changes
 
-- [`0fb4cccede9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0fb4cccede9) - add on mouse hover to hover card
+- [#23043](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23043) [`0fb4cccede9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0fb4cccede9) - add on mouse hover to hover card
 
 ## 20.1.1
 
 ### Patch Changes
 
-- [`59469f2ed1c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/59469f2ed1c) - Add loading state for hover previews
+- [#23452](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23452) [`59469f2ed1c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/59469f2ed1c) - Add loading state for hover previews
 
 ## 20.1.0
 
 ### Minor Changes
 
-- [`58eb89c70f5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/58eb89c70f5) - Add onError callback on Card component.
+- [#23385](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23385) [`58eb89c70f5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/58eb89c70f5) - Add onError callback on Card component.
   The callback is triggered when Card component unable to resolve the link.
 
   Return statuses are errored, fallback, forbidden, not_found and unauthorized.
@@ -1788,7 +1788,7 @@
 
 ### Patch Changes
 
-- [`e15410365b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e15410365b2) - - export types/functions in linking common to be used in smart card
+- [#22592](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22592) [`e15410365b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e15410365b2) - - export types/functions in linking common to be used in smart card
 
   - add flag to card action to override re-using previous 'resolved' state
 
@@ -1802,25 +1802,25 @@
 
 ### Patch Changes
 
-- [`afb579e5778`](https://bitbucket.org/atlassian/atlassian-frontend/commits/afb579e5778) - Flexible UI: Fix styling on MetadataBlock and FooterBlock in Firefox and Safari browser
+- [#23362](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23362) [`afb579e5778`](https://bitbucket.org/atlassian/atlassian-frontend/commits/afb579e5778) - Flexible UI: Fix styling on MetadataBlock and FooterBlock in Firefox and Safari browser
 
 ## 20.0.5
 
 ### Patch Changes
 
-- [`6e4810f82c3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6e4810f82c3) - wrap hover preview in error boundary and emit failure event
+- [#23192](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23192) [`6e4810f82c3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6e4810f82c3) - wrap hover preview in error boundary and emit failure event
 
 ## 20.0.4
 
 ### Patch Changes
 
-- [`2a5cc0d4297`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2a5cc0d4297) - Block: Update pull request link avatar to author (attributedTo)
+- [#23305](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23305) [`2a5cc0d4297`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2a5cc0d4297) - Block: Update pull request link avatar to author (attributedTo)
 
 ## 20.0.3
 
 ### Patch Changes
 
-- [`4c2c26ca270`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4c2c26ca270) - Fix regression in logos in BlockCard footers in preview mode cuased by the `appearance` prop.
+- [#22642](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22642) [`4c2c26ca270`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4c2c26ca270) - Fix regression in logos in BlockCard footers in preview mode cuased by the `appearance` prop.
 - [`d4133fe0edc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d4133fe0edc) - Fix regression in logos in BlockCard footers caused by inheriting ProseMirror styles after a change in @atlaskit/logo internals.
 - Updated dependencies
 
@@ -1828,13 +1828,13 @@
 
 ### Patch Changes
 
-- [`12950ccea1b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/12950ccea1b) - Hover Preview: Stop hover preview from propagating click event to parent element
+- [#23227](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23227) [`12950ccea1b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/12950ccea1b) - Hover Preview: Stop hover preview from propagating click event to parent element
 
 ## 20.0.1
 
 ### Patch Changes
 
-- [`3e4f8e1490a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3e4f8e1490a) - Hover Preview: Fix Hover Preview shows on top of Preview modal
+- [#23170](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23170) [`3e4f8e1490a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3e4f8e1490a) - Hover Preview: Fix Hover Preview shows on top of Preview modal
 
 ## 20.0.0
 
@@ -1846,7 +1846,7 @@
 
 ### Minor Changes
 
-- [`cd5e63258cd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cd5e63258cd) - Moved extractors to linking-common/extractors
+- [#23000](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23000) [`cd5e63258cd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cd5e63258cd) - Moved extractors to linking-common/extractors
 
 ### Patch Changes
 
@@ -1856,33 +1856,33 @@
 
 ### Patch Changes
 
-- [`34d17437062`](https://bitbucket.org/atlassian/atlassian-frontend/commits/34d17437062) - Flexible UI: Add DueOn element
+- [#22856](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22856) [`34d17437062`](https://bitbucket.org/atlassian/atlassian-frontend/commits/34d17437062) - Flexible UI: Add DueOn element
   Hover Preview: Update Atlas metadata
 
 ## 19.1.30
 
 ### Patch Changes
 
-- [`3a2bc5af606`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3a2bc5af606) - Flexible UI: Add pull request source and target branch element (text)
+- [#22717](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22717) [`3a2bc5af606`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3a2bc5af606) - Flexible UI: Add pull request source and target branch element (text)
   Hover Preview: Update Bitbucket metadata for pull request link
 
 ## 19.1.29
 
 ### Patch Changes
 
-- [`acfb4cbb01f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/acfb4cbb01f) - set hover card z-index to 511 to go over issue view modal
+- [#23045](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23045) [`acfb4cbb01f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/acfb4cbb01f) - set hover card z-index to 511 to go over issue view modal
 
 ## 19.1.28
 
 ### Patch Changes
 
-- [`455538b6a3f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/455538b6a3f) - use useFeatureFlag hook to get hover preview FF
+- [#22959](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22959) [`455538b6a3f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/455538b6a3f) - use useFeatureFlag hook to get hover preview FF
 
 ## 19.1.27
 
 ### Patch Changes
 
-- [`98d3f88e428`](https://bitbucket.org/atlassian/atlassian-frontend/commits/98d3f88e428) - This PR adds external element typings for Flexible UI metadata.
+- [#22105](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22105) [`98d3f88e428`](https://bitbucket.org/atlassian/atlassian-frontend/commits/98d3f88e428) - This PR adds external element typings for Flexible UI metadata.
   This means code completion will now be available when an element has a prop that can be overridden.
   As of this PR, these are the `CreatedOn` and `ModifiedOn` elements, which now accept some `text` which will override the existing text.
 
@@ -1892,39 +1892,39 @@
 
 ### Patch Changes
 
-- [`00c79cca5b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/00c79cca5b0) - hover card white space changes
+- [#22869](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22869) [`00c79cca5b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/00c79cca5b0) - hover card white space changes
 
 ## 19.1.25
 
 ### Patch Changes
 
-- [`de8de71a806`](https://bitbucket.org/atlassian/atlassian-frontend/commits/de8de71a806) - Hover Preview: Fix Hover Preview analytics event details get applied to other Smart Links analytics
-- [`ae023956743`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ae023956743) - Smart Links Analytics types are exported to allow their usage from outside of the package
+- [#22836](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22836) [`de8de71a806`](https://bitbucket.org/atlassian/atlassian-frontend/commits/de8de71a806) - Hover Preview: Fix Hover Preview analytics event details get applied to other Smart Links analytics
+- [#22879](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22879) [`ae023956743`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ae023956743) - Smart Links Analytics types are exported to allow their usage from outside of the package
 
 ## 19.1.24
 
 ### Patch Changes
 
-- [`cd729a0a41b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cd729a0a41b) - [ux][ed-15030] Set the background color of smart cards properly in dark mode
+- [#22808](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22808) [`cd729a0a41b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cd729a0a41b) - [ux][ed-15030] Set the background color of smart cards properly in dark mode
 
 ## 19.1.23
 
 ### Patch Changes
 
-- [`f538640e3a5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f538640e3a5) - fix: Previously the .reload() action would not propagate changes through to the smart-card state in some scenarios. This has been amended by making it an explicit Redux action.
+- [#22476](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22476) [`f538640e3a5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f538640e3a5) - fix: Previously the .reload() action would not propagate changes through to the smart-card state in some scenarios. This has been amended by making it an explicit Redux action.
 - Updated dependencies
 
 ## 19.1.22
 
 ### Patch Changes
 
-- [`c6978e3a40c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c6978e3a40c) - This update adds Destination product and subproduct (core, servicedesk, software, etc.) analytics now available in the Smart Link ui card clicked event. At the time of writing, only Jira links have this functionality.
+- [#22366](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22366) [`c6978e3a40c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c6978e3a40c) - This update adds Destination product and subproduct (core, servicedesk, software, etc.) analytics now available in the Smart Link ui card clicked event. At the time of writing, only Jira links have this functionality.
 
 ## 19.1.21
 
 ### Patch Changes
 
-- [`b39f43e68c3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b39f43e68c3) - [ux] Hover Preview: Add CreatedBy to 3P link metadata
+- [#22383](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22383) [`b39f43e68c3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b39f43e68c3) - [ux] Hover Preview: Add CreatedBy to 3P link metadata
 
   [ux] Flexible UI: Text based elements now wrap and truncate within metadata group.
 
@@ -1932,20 +1932,20 @@
 
 ### Patch Changes
 
-- [`0b7abdcf058`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0b7abdcf058) - Flexible UI: Fix PreviewBlock not showing image loading skeleton
+- [#22447](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22447) [`0b7abdcf058`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0b7abdcf058) - Flexible UI: Fix PreviewBlock not showing image loading skeleton
 
 ## 19.1.19
 
 ### Patch Changes
 
-- [`f7aedc6cf7d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f7aedc6cf7d) - [ux] A new element 'LatestCommit' was added in FlexibleUI for Smart Links. It displays the latest commit of a repository. Version of package 'json-ld-types' was upgraded to 2.4.2
+- [#22266](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22266) [`f7aedc6cf7d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f7aedc6cf7d) - [ux] A new element 'LatestCommit' was added in FlexibleUI for Smart Links. It displays the latest commit of a repository. Version of package 'json-ld-types' was upgraded to 2.4.2
 - Updated dependencies
 
 ## 19.1.18
 
 ### Patch Changes
 
-- [`b26dd70a1e6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b26dd70a1e6) - This PR adds the ability for an integrator to provide a string via `placeholder` which will be displayed instead of the url while the CardWithURLContent component is not mounted (i.e. not currently being observed). This should help with performance use cases where some text is required to be displayed before the full Smart Link component is rendered.
+- [#22197](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22197) [`b26dd70a1e6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b26dd70a1e6) - This PR adds the ability for an integrator to provide a string via `placeholder` which will be displayed instead of the url while the CardWithURLContent component is not mounted (i.e. not currently being observed). This should help with performance use cases where some text is required to be displayed before the full Smart Link component is rendered.
 
   Usage:
 
@@ -1958,25 +1958,25 @@
 
 ### Patch Changes
 
-- [`46f6c1a70e3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/46f6c1a70e3) - Hover Preview: Improve analytics and update Flexible UI usage within Hover Preview
+- [#22247](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22247) [`46f6c1a70e3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/46f6c1a70e3) - Hover Preview: Improve analytics and update Flexible UI usage within Hover Preview
 
 ## 19.1.16
 
 ### Patch Changes
 
-- [`47058879f49`](https://bitbucket.org/atlassian/atlassian-frontend/commits/47058879f49) - [ux] Text customisation made possible for Flexible UI fields “ModifiedOn“ & “CreatedOn" (example: <TitleBlock metadata={[ { name: ElementName.CreatedOn, text: 'Last commit on' }]} />)
+- [#22225](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22225) [`47058879f49`](https://bitbucket.org/atlassian/atlassian-frontend/commits/47058879f49) - [ux] Text customisation made possible for Flexible UI fields “ModifiedOn“ & “CreatedOn" (example: <TitleBlock metadata={[ { name: ElementName.CreatedOn, text: 'Last commit on' }]} />)
 
 ## 19.1.15
 
 ### Patch Changes
 
-- [`23445a4d2ca`](https://bitbucket.org/atlassian/atlassian-frontend/commits/23445a4d2ca) - Hover Preview: Update analytics details
+- [#22201](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22201) [`23445a4d2ca`](https://bitbucket.org/atlassian/atlassian-frontend/commits/23445a4d2ca) - Hover Preview: Update analytics details
 
 ## 19.1.14
 
 ### Patch Changes
 
-- [`9d57264a033`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d57264a033) - This update adds an exposed analytics hook, which will pave the way for future usage of Smart Link analytics outside of the smart-card component.
+- [#21912](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21912) [`9d57264a033`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d57264a033) - This update adds an exposed analytics hook, which will pave the way for future usage of Smart Link analytics outside of the smart-card component.
 
   # Usage of `useSmartLinkAnalytics`
 
@@ -2031,76 +2031,76 @@
 
 ### Patch Changes
 
-- [`a575379772a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a575379772a) - Hover Preview: Update z-index
+- [#22005](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22005) [`a575379772a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a575379772a) - Hover Preview: Update z-index
 
 ## 19.1.12
 
 ### Patch Changes
 
-- [`b68e80d658f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b68e80d658f) - add hover previews feature flag
+- [#21570](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21570) [`b68e80d658f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b68e80d658f) - add hover previews feature flag
 - Updated dependencies
 
 ## 19.1.11
 
 ### Patch Changes
 
-- [`7833a526777`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7833a526777) - - Transfer i18n from @atlaskit/media-ui to @atlaskit/smart-card
+- [#21885](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21885) [`7833a526777`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7833a526777) - - Transfer i18n from @atlaskit/media-ui to @atlaskit/smart-card
   - Remove @atlaskit/media-ui dependency
 
 ## 19.1.10
 
 ### Patch Changes
 
-- [`009e3475b29`](https://bitbucket.org/atlassian/atlassian-frontend/commits/009e3475b29) - Duplicate isIntersectionObserverSupported from media-ui to smart-card
+- [#21922](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21922) [`009e3475b29`](https://bitbucket.org/atlassian/atlassian-frontend/commits/009e3475b29) - Duplicate isIntersectionObserverSupported from media-ui to smart-card
 
 ## 19.1.9
 
 ### Patch Changes
 
-- [`003ac36263e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/003ac36263e) - Flexible UI: Fix preview block showing white space below image in Safari
+- [#21743](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21743) [`003ac36263e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/003ac36263e) - Flexible UI: Fix preview block showing white space below image in Safari
 
 ## 19.1.8
 
 ### Patch Changes
 
-- [`81968c216ce`](https://bitbucket.org/atlassian/atlassian-frontend/commits/81968c216ce) - Flexible UI: Fix clickableContainer not triggering analytics event
+- [#21778](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21778) [`81968c216ce`](https://bitbucket.org/atlassian/atlassian-frontend/commits/81968c216ce) - Flexible UI: Fix clickableContainer not triggering analytics event
 
 ## 19.1.7
 
 ### Patch Changes
 
-- [`08bdfa654e2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/08bdfa654e2) - Flexible UI: Add option to hide link tooltip on TitleBlock.
+- [#21700](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21700) [`08bdfa654e2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/08bdfa654e2) - Flexible UI: Add option to hide link tooltip on TitleBlock.
 
 ## 19.1.6
 
 ### Patch Changes
 
-- [`28410ec919d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/28410ec919d) - Flexible UI: Passing JsonLD response on authFlow disabled
+- [#21676](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21676) [`28410ec919d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/28410ec919d) - Flexible UI: Passing JsonLD response on authFlow disabled
 - Updated dependencies
 
 ## 19.1.5
 
 ### Patch Changes
 
-- [`db78a813922`](https://bitbucket.org/atlassian/atlassian-frontend/commits/db78a813922) - Add error handling to smart-card ssr component
+- [#21558](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21558) [`db78a813922`](https://bitbucket.org/atlassian/atlassian-frontend/commits/db78a813922) - Add error handling to smart-card ssr component
 
 ## 19.1.4
 
 ### Patch Changes
 
-- [`cd2e7183aa5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cd2e7183aa5) - Flexible UI: Fix action tooltips not displayed on hover
+- [#21625](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21625) [`cd2e7183aa5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cd2e7183aa5) - Flexible UI: Fix action tooltips not displayed on hover
 
 ## 19.1.3
 
 ### Patch Changes
 
-- [`3de372f6670`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3de372f6670) - Hover Previews: use black flex-ui theme
+- [#21611](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21611) [`3de372f6670`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3de372f6670) - Hover Previews: use black flex-ui theme
 
 ## 19.1.2
 
 ### Patch Changes
 
-- [`3a0fdf3c651`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3a0fdf3c651) - change hover previews to show preview over snippet when its available
+- [#21520](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21520) [`3a0fdf3c651`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3a0fdf3c651) - change hover previews to show preview over snippet when its available
 
 ## 19.1.1
 
@@ -2112,7 +2112,7 @@
 
 ### Minor Changes
 
-- [`6b7ba46a96b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6b7ba46a96b) - [MEX-1456] Remove unused infinite scroll from Media-UI and Remove lodash from Media package
+- [#20721](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20721) [`6b7ba46a96b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6b7ba46a96b) - [MEX-1456] Remove unused infinite scroll from Media-UI and Remove lodash from Media package
 
 ### Patch Changes
 
@@ -2123,31 +2123,31 @@
 
 ### Patch Changes
 
-- [`3eea7c153d6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3eea7c153d6) - Handle onResolve prop from smart-card in flexible-card and use the prop inside hover-card to dynamically update popup positioning
+- [#21469](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21469) [`3eea7c153d6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3eea7c153d6) - Handle onResolve prop from smart-card in flexible-card and use the prop inside hover-card to dynamically update popup positioning
 
 ## 19.0.3
 
 ### Patch Changes
 
-- [`cae40e59c49`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cae40e59c49) - Show relative date for dates less then 7 days away (flexible ui)
+- [#20394](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20394) [`cae40e59c49`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cae40e59c49) - Show relative date for dates less then 7 days away (flexible ui)
 
 ## 19.0.2
 
 ### Patch Changes
 
-- [`f3026520fc6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f3026520fc6) - Fix long tti times for UFO smart-link-rendered experience
+- [#21353](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21353) [`f3026520fc6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f3026520fc6) - Fix long tti times for UFO smart-link-rendered experience
 
 ## 19.0.1
 
 ### Patch Changes
 
-- [`49f905e71e5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/49f905e71e5) - Flexible UI: Add API document and update prop types.
+- [#21392](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21392) [`49f905e71e5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/49f905e71e5) - Flexible UI: Add API document and update prop types.
 
 ## 19.0.0
 
 ### Major Changes
 
-- [`6ee499cbb73`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6ee499cbb73) - - Add @atlaskit/link-provider as peerDependency.
+- [#20562](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20562) [`6ee499cbb73`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6ee499cbb73) - - Add @atlaskit/link-provider as peerDependency.
 
   - Use Provider/Client from @atlaskit/link-provider and remove local version.
   - Re export moved things from @atlaskit/link-provider to make adoption easier
@@ -2183,44 +2183,44 @@
 
 ### Patch Changes
 
-- [`8b9f08cbc1c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8b9f08cbc1c) - [ux] Default representation for Slack links was changed from 'block' to 'inline'
-- [`f4811ca8c6a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f4811ca8c6a) - add provider based metadata to hover previews
+- [#20973](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20973) [`8b9f08cbc1c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8b9f08cbc1c) - [ux] Default representation for Slack links was changed from 'block' to 'inline'
+- [#21186](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21186) [`f4811ca8c6a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f4811ca8c6a) - add provider based metadata to hover previews
 
 ## 18.0.21
 
 ### Patch Changes
 
-- [`ffaf122189e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ffaf122189e) - Flexible UI: TitleBlock is now composory to display Flexible UI on Smart Links
+- [#21170](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21170) [`ffaf122189e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ffaf122189e) - Flexible UI: TitleBlock is now composory to display Flexible UI on Smart Links
 
 ## 18.0.20
 
 ### Patch Changes
 
-- [`451f99db28a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/451f99db28a) - Flexible UI: Improve link title truncate to support url string
+- [#21142](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21142) [`451f99db28a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/451f99db28a) - Flexible UI: Improve link title truncate to support url string
 
 ## 18.0.19
 
 ### Patch Changes
 
-- [`c09b670ffa1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c09b670ffa1) - Flexible UI: Add container clickable option and improve keyboard navigation
+- [#21019](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21019) [`c09b670ffa1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c09b670ffa1) - Flexible UI: Add container clickable option and improve keyboard navigation
 
 ## 18.0.18
 
 ### Patch Changes
 
-- [`63f6330be06`](https://bitbucket.org/atlassian/atlassian-frontend/commits/63f6330be06) - [ux] Flexible UI: Change loading spinner on resolving view to loading skeleton
+- [#21091](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21091) [`63f6330be06`](https://bitbucket.org/atlassian/atlassian-frontend/commits/63f6330be06) - [ux] Flexible UI: Change loading spinner on resolving view to loading skeleton
 
 ## 18.0.17
 
 ### Patch Changes
 
-- [`79b365c3757`](https://bitbucket.org/atlassian/atlassian-frontend/commits/79b365c3757) - [ux] If the "authFlow: disabled" prop is provided on the Smart Card Provider, then the call to action to authenticate forbidden links will also be disabled (in addition to the existing behaviour where only unauthenticated links have the call to action disabled).
+- [#21014](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21014) [`79b365c3757`](https://bitbucket.org/atlassian/atlassian-frontend/commits/79b365c3757) - [ux] If the "authFlow: disabled" prop is provided on the Smart Card Provider, then the call to action to authenticate forbidden links will also be disabled (in addition to the existing behaviour where only unauthenticated links have the call to action disabled).
 
 ## 18.0.16
 
 ### Patch Changes
 
-- [`63d05619104`](https://bitbucket.org/atlassian/atlassian-frontend/commits/63d05619104) - [ux] Instrumented `@atlaskit/smart-card` with the new theming package, `@atlaskit/tokens`.
+- [#20590](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20590) [`63d05619104`](https://bitbucket.org/atlassian/atlassian-frontend/commits/63d05619104) - [ux] Instrumented `@atlaskit/smart-card` with the new theming package, `@atlaskit/tokens`.
 
   New tokens will be visible only in applications configured to use the new Tokens API (currently in alpha).
   These changes are intended to be interoperable with the legacy theme implementation. Legacy dark mode users should expect no visual or breaking changes.
@@ -2229,7 +2229,7 @@
 
 ### Patch Changes
 
-- [`c2a240de738`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c2a240de738) - Add inline documentation for Flexible UI
+- [#20650](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20650) [`c2a240de738`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c2a240de738) - Add inline documentation for Flexible UI
 - [`6976489a51a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6976489a51a) - Flexible UI: Enable css override for actions
 - [`7d4e18ffddb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7d4e18ffddb) - instrument analytics events for hover card
 - [`a123e96fc62`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a123e96fc62) - expose prop on smart card
@@ -2254,13 +2254,13 @@
 
 ### Patch Changes
 
-- [`b90896c18cd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b90896c18cd) - move helpers and types to @atlaskit/linking-common and import them
+- [#20479](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20479) [`b90896c18cd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b90896c18cd) - move helpers and types to @atlaskit/linking-common and import them
 
 ## 18.0.11
 
 ### Patch Changes
 
-- [`ec98e2d8ebc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ec98e2d8ebc) - feat: Expose `useSmartLinkReload` hook.
+- [#20258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20258) [`ec98e2d8ebc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ec98e2d8ebc) - feat: Expose `useSmartLinkReload` hook.
 
   ### Example Usage
 
@@ -2283,67 +2283,67 @@
 
 ### Patch Changes
 
-- [`b687926f768`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b687926f768) - Fix bug where individual action item was not hidden by default with showActionOnHover flag
+- [#20227](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20227) [`b687926f768`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b687926f768) - Fix bug where individual action item was not hidden by default with showActionOnHover flag
 
 ## 18.0.9
 
 ### Patch Changes
 
-- [`6adaa6b5c18`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6adaa6b5c18) - Updated default renderer onClick to not fire on a Flexible UI link to prevent links from being openned twice
+- [#20257](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20257) [`6adaa6b5c18`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6adaa6b5c18) - Updated default renderer onClick to not fire on a Flexible UI link to prevent links from being openned twice
 
 ## 18.0.8
 
 ### Patch Changes
 
-- [`d9b55e7cd29`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d9b55e7cd29) - Add classname for placeholder element that is shown while we load js module
+- [#20229](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20229) [`d9b55e7cd29`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d9b55e7cd29) - Add classname for placeholder element that is shown while we load js module
 
 ## 18.0.7
 
 ### Patch Changes
 
-- [`1f377bd17a4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1f377bd17a4) - Added open in new tab action to titleblock and refactored tests
+- [#20143](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20143) [`1f377bd17a4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1f377bd17a4) - Added open in new tab action to titleblock and refactored tests
 
 ## 18.0.6
 
 ### Patch Changes
 
-- [`9945f8983f0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9945f8983f0) - TitleBlock now has "anchorTarget" property
+- [#20127](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20127) [`9945f8983f0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9945f8983f0) - TitleBlock now has "anchorTarget" property
 
 ## 18.0.5
 
 ### Patch Changes
 
-- [`54d8579fe05`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54d8579fe05) - Flexible UI: Reduce link title font weight
+- [#20121](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20121) [`54d8579fe05`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54d8579fe05) - Flexible UI: Reduce link title font weight
 
 ## 18.0.4
 
 ### Patch Changes
 
-- [`dd4ae8205d1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dd4ae8205d1) - Add actions for non-resolved view of flexible ui
+- [#19947](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19947) [`dd4ae8205d1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dd4ae8205d1) - Add actions for non-resolved view of flexible ui
 
 ## 18.0.3
 
 ### Patch Changes
 
-- [`7dc2fb8eb8b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7dc2fb8eb8b) - Handle exceptions coming from client
+- [#20029](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20029) [`7dc2fb8eb8b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7dc2fb8eb8b) - Handle exceptions coming from client
 
 ## 18.0.2
 
 ### Patch Changes
 
-- [`cff21812950`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cff21812950) - add smart link actions to footer of hover card, plus small styling changes
+- [#20055](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20055) [`cff21812950`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cff21812950) - add smart link actions to footer of hover card, plus small styling changes
 
 ## 18.0.1
 
 ### Patch Changes
 
-- [`75c16ae4964`](https://bitbucket.org/atlassian/atlassian-frontend/commits/75c16ae4964) - refactor code to use atlaskit/popup instead of atlaskit/tooltip as a base component
+- [#19884](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19884) [`75c16ae4964`](https://bitbucket.org/atlassian/atlassian-frontend/commits/75c16ae4964) - refactor code to use atlaskit/popup instead of atlaskit/tooltip as a base component
 
 ## 18.0.0
 
 ### Major Changes
 
-- [`dd429d9fdca`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dd429d9fdca) - [ux] EDM-2822: Fix smart link wraps just after the icon
+- [#19618](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19618) [`dd429d9fdca`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dd429d9fdca) - [ux] EDM-2822: Fix smart link wraps just after the icon
 
 ### Patch Changes
 
@@ -2354,37 +2354,37 @@
 
 ### Patch Changes
 
-- [`f9bbe6d0a56`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f9bbe6d0a56) - Add View, Vote and React badge elements
+- [#19883](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19883) [`f9bbe6d0a56`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f9bbe6d0a56) - Add View, Vote and React badge elements
 
 ## 17.7.11
 
 ### Patch Changes
 
-- [`ca8c8db1440`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ca8c8db1440) - Flexible UI: Add separator between text/date-time elements
+- [#19727](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19727) [`ca8c8db1440`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ca8c8db1440) - Flexible UI: Add separator between text/date-time elements
 
 ## 17.7.10
 
 ### Patch Changes
 
-- [`e04b58c623e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e04b58c623e) - Add EditAction
+- [#19735](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19735) [`e04b58c623e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e04b58c623e) - Add EditAction
 
 ## 17.7.9
 
 ### Patch Changes
 
-- [`63d4f963f72`](https://bitbucket.org/atlassian/atlassian-frontend/commits/63d4f963f72) - Flexible UI: Set PreviewBlock image aspect ratio to 16:9
+- [#19689](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19689) [`63d4f963f72`](https://bitbucket.org/atlassian/atlassian-frontend/commits/63d4f963f72) - Flexible UI: Set PreviewBlock image aspect ratio to 16:9
 
 ## 17.7.8
 
 ### Patch Changes
 
-- [`d75ce5b847d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d75ce5b847d) - Add link click analytics to flexible ui title block component
+- [#18523](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/18523) [`d75ce5b847d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d75ce5b847d) - Add link click analytics to flexible ui title block component
 
 ## 17.7.7
 
 ### Patch Changes
 
-- [`c01f6404d0c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c01f6404d0c) - Add ability to trigger actions for a Smart Link from outside of the Smart Link card.
+- [#19669](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19669) [`c01f6404d0c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c01f6404d0c) - Add ability to trigger actions for a Smart Link from outside of the Smart Link card.
 
   Example usage:
 
@@ -2416,43 +2416,43 @@
 
 ### Patch Changes
 
-- [`0e5c8b501d6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0e5c8b501d6) - add test for when hover preview prop is not provided to inline card
+- [#19706](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19706) [`0e5c8b501d6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0e5c8b501d6) - add test for when hover preview prop is not provided to inline card
 
 ## 17.7.5
 
 ### Patch Changes
 
-- [`b89ef291fb9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b89ef291fb9) - EDM-2902: Move common component out of BlockCard
+- [#19700](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19700) [`b89ef291fb9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b89ef291fb9) - EDM-2902: Move common component out of BlockCard
 
 ## 17.7.4
 
 ### Patch Changes
 
-- [`ff7b1126682`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ff7b1126682) - Set up base component and relevant tests for hover previews
+- [#19644](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19644) [`ff7b1126682`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ff7b1126682) - Set up base component and relevant tests for hover previews
 
 ## 17.7.3
 
 ### Patch Changes
 
-- [`474d69913ef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/474d69913ef) - Title block can have an action visible only on hover
+- [#19661](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19661) [`474d69913ef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/474d69913ef) - Title block can have an action visible only on hover
 
 ## 17.7.2
 
 ### Patch Changes
 
-- [`9066a1e8154`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9066a1e8154) - EDM-2926: Add title override for title block
+- [#19436](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19436) [`9066a1e8154`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9066a1e8154) - EDM-2926: Add title override for title block
 
 ## 17.7.1
 
 ### Patch Changes
 
-- [`123201c5105`](https://bitbucket.org/atlassian/atlassian-frontend/commits/123201c5105) - Add ability to add custom action item
+- [#19441](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19441) [`123201c5105`](https://bitbucket.org/atlassian/atlassian-frontend/commits/123201c5105) - Add ability to add custom action item
 
 ## 17.7.0
 
 ### Minor Changes
 
-- [`924aa854655`](https://bitbucket.org/atlassian/atlassian-frontend/commits/924aa854655) - Replaced deprecated dependency with @atlaskit/droplist and @atlaskit/item with @atlaskit/dropdown-menu in block card actions list
+- [#19019](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19019) [`924aa854655`](https://bitbucket.org/atlassian/atlassian-frontend/commits/924aa854655) - Replaced deprecated dependency with @atlaskit/droplist and @atlaskit/item with @atlaskit/dropdown-menu in block card actions list
 - [`fb15a8a421c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fb15a8a421c) - move smart-card views and helpers from media-ui into smart-card
 
 ### Patch Changes
@@ -2463,95 +2463,95 @@
 
 ### Minor Changes
 
-- [`0cab291e19e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0cab291e19e) - Add "more" and dopdown for actions when there is more then 2
+- [#19341](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19341) [`0cab291e19e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0cab291e19e) - Add "more" and dopdown for actions when there is more then 2
 
 ## 17.5.3
 
 ### Patch Changes
 
-- [`e68f0f554fa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e68f0f554fa) - remove mousedown handler for inline links and add a vr test for the logic
+- [#19339](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19339) [`e68f0f554fa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e68f0f554fa) - remove mousedown handler for inline links and add a vr test for the logic
 
 ## 17.5.2
 
 ### Patch Changes
 
-- [`0fb7e85e70a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0fb7e85e70a) - Flexible UI: Add PreviewBlock
+- [#19307](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19307) [`0fb7e85e70a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0fb7e85e70a) - Flexible UI: Add PreviewBlock
 
 ## 17.5.1
 
 ### Patch Changes
 
-- [`238facb8e1a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/238facb8e1a) - Flexible UI: Add Preview element
+- [#19296](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19296) [`238facb8e1a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/238facb8e1a) - Flexible UI: Add Preview element
 
 ## 17.5.0
 
 ### Minor Changes
 
-- [`be8dc55e85d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/be8dc55e85d) - [ux] Add Footer block
+- [#19243](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19243) [`be8dc55e85d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/be8dc55e85d) - [ux] Add Footer block
 
 ## 17.4.3
 
 ### Patch Changes
 
-- [`5a50882a528`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5a50882a528) - Flexible UI: Remove safeToken function
+- [#19213](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19213) [`5a50882a528`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5a50882a528) - Flexible UI: Remove safeToken function
 
 ## 17.4.2
 
 ### Patch Changes
 
-- [`c8285bdcde4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c8285bdcde4) - Flexible UI: Add SnippetBlock
+- [#19191](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19191) [`c8285bdcde4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c8285bdcde4) - Flexible UI: Add SnippetBlock
 
 ## 17.4.1
 
 ### Patch Changes
 
-- [`ecf130ca7d8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ecf130ca7d8) - Flexible UI: Remove check on Smart Links appearance
+- [#19085](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19085) [`ecf130ca7d8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ecf130ca7d8) - Flexible UI: Remove check on Smart Links appearance
 
 ## 17.4.0
 
 ### Minor Changes
 
-- [`392b7d2b98f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/392b7d2b98f) - Add Provider element
+- [#19175](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19175) [`392b7d2b98f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/392b7d2b98f) - Add Provider element
 
 ## 17.3.2
 
 ### Patch Changes
 
-- [`02ed34221ef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/02ed34221ef) - Flexible UI: Add Snippet element
+- [#19107](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19107) [`02ed34221ef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/02ed34221ef) - Flexible UI: Add Snippet element
 
 ## 17.3.1
 
 ### Patch Changes
 
-- [`66dc86e0331`](https://bitbucket.org/atlassian/atlassian-frontend/commits/66dc86e0331) - Flexible UI: Check for null element
+- [#19029](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19029) [`66dc86e0331`](https://bitbucket.org/atlassian/atlassian-frontend/commits/66dc86e0331) - Flexible UI: Check for null element
 
 ## 17.3.0
 
 ### Minor Changes
 
-- [`dab29fc6697`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dab29fc6697) - [ux] Flexible UI: AvatarGroup sizing updated for small and medium size
+- [#19028](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19028) [`dab29fc6697`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dab29fc6697) - [ux] Flexible UI: AvatarGroup sizing updated for small and medium size
 
 ### Patch Changes
 
-- [`25408fac413`](https://bitbucket.org/atlassian/atlassian-frontend/commits/25408fac413) - Flexible UI: Add MetadataBlock example
+- [#19023](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19023) [`25408fac413`](https://bitbucket.org/atlassian/atlassian-frontend/commits/25408fac413) - Flexible UI: Add MetadataBlock example
 
 ## 17.2.1
 
 ### Patch Changes
 
-- [`1d701660954`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1d701660954) - Refactored deleteAction into a re-usable action component
+- [#18831](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/18831) [`1d701660954`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1d701660954) - Refactored deleteAction into a re-usable action component
 
 ## 17.2.0
 
 ### Minor Changes
 
-- [`3200ce3abc5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3200ce3abc5) - Flexible UI: Add MetadataBlock
+- [#18951](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/18951) [`3200ce3abc5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3200ce3abc5) - Flexible UI: Add MetadataBlock
 
 ## 17.1.0
 
 ### Minor Changes
 
-- [`c73cde16d49`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c73cde16d49) - [ux] Jira Work Management (JWM) List and Board view links will be converted into smart link embed by default
+- [#18526](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/18526) [`c73cde16d49`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c73cde16d49) - [ux] Jira Work Management (JWM) List and Board view links will be converted into smart link embed by default
 - [`948a410185b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/948a410185b) - [ux] New elements were added ModifiedOn and CreatedOn
 - [`6648e62bbfe`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6648e62bbfe) - ### Expose smart-card SSR component
 
@@ -2573,7 +2573,7 @@
 - [`3c4e3cf2bd3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3c4e3cf2bd3) - Flexible UI: Update sizing and styling
 - [`15b67162087`](https://bitbucket.org/atlassian/atlassian-frontend/commits/15b67162087) - Flexible UI: Add LinkIcon element
 - [`a53d41a0d93`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a53d41a0d93) - Flexible UI: Add TitleBlock error views
-- [`12943538dde`](https://bitbucket.org/atlassian/atlassian-frontend/commits/12943538dde) - Flexible UI: Add element - Title
+- [#16752](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16752) [`12943538dde`](https://bitbucket.org/atlassian/atlassian-frontend/commits/12943538dde) - Flexible UI: Add element - Title
 - [`a46aabfcc71`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a46aabfcc71) - Flexible UI: TitleBlock metadata
 - [`8e1979f21ef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8e1979f21ef) - Flexible UI: Update action styling and sizing
 - [`be56b069142`](https://bitbucket.org/atlassian/atlassian-frontend/commits/be56b069142) - Flexible UI: Add element type Text
@@ -2617,7 +2617,7 @@
 
 ### Major Changes
 
-- [`47f58da5946`](https://bitbucket.org/atlassian/atlassian-frontend/commits/47f58da5946) - ED-13322, ED-13324, ED-13326, ED-13323, ED-13204: Upgrade and support react-intl@^5.18.1 including breaking API changes, types and tests in atlassian-frontend packages
+- [#14810](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/14810) [`47f58da5946`](https://bitbucket.org/atlassian/atlassian-frontend/commits/47f58da5946) - ED-13322, ED-13324, ED-13326, ED-13323, ED-13204: Upgrade and support react-intl@^5.18.1 including breaking API changes, types and tests in atlassian-frontend packages
 
   What changed: Upgraded our react-intl support from ^2.6.0 to ^5.18.1. This means editor packages now rely on consumers installing ^5.18.1, otherwise editor usage of react-intl will mismatch with actual installed react-intl APIs.
   Why change was made: As part of a coordinated upgrade effort across AF packages, as react-intl v2 is quite dated.
@@ -2663,7 +2663,7 @@
 
 ### Minor Changes
 
-- [`af29def3dac`](https://bitbucket.org/atlassian/atlassian-frontend/commits/af29def3dac) - expose missing smart-card classnames
+- [#15998](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/15998) [`af29def3dac`](https://bitbucket.org/atlassian/atlassian-frontend/commits/af29def3dac) - expose missing smart-card classnames
 
   ```
   import {
@@ -2696,13 +2696,13 @@
 
 ### Patch Changes
 
-- [`d7f743bbbdd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d7f743bbbdd) - useCallback for dispatchAnalytics to prevent multiple events firing on hover
+- [#16475](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16475) [`d7f743bbbdd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d7f743bbbdd) - useCallback for dispatchAnalytics to prevent multiple events firing on hover
 
 ## 16.2.0
 
 ### Minor Changes
 
-- [`0448db49f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0448db49f68) - Implement UFO instrumentation events pattern
+- [#14777](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/14777) [`0448db49f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0448db49f68) - Implement UFO instrumentation events pattern
 
 ### Patch Changes
 
@@ -2721,7 +2721,7 @@
 
 ### Minor Changes
 
-- [`978e9280610`](https://bitbucket.org/atlassian/atlassian-frontend/commits/978e9280610) - add support for platform in BlockCard component
+- [#13864](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13864) [`978e9280610`](https://bitbucket.org/atlassian/atlassian-frontend/commits/978e9280610) - add support for platform in BlockCard component
 
 ### Patch Changes
 
@@ -2732,7 +2732,7 @@
 
 ### Major Changes
 
-- [`86aeb07cae3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/86aeb07cae3) - EDM-2264: allow embed resize events from all domains
+- [#13302](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13302) [`86aeb07cae3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/86aeb07cae3) - EDM-2264: allow embed resize events from all domains
 
   **Note:**
 
@@ -2780,7 +2780,7 @@
 
 ### Minor Changes
 
-- [`96b6fb1c6b9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/96b6fb1c6b9) - Add sandbox property to Smart Links embed
+- [#12837](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12837) [`96b6fb1c6b9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/96b6fb1c6b9) - Add sandbox property to Smart Links embed
 - [`c0fa45830e1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c0fa45830e1) - Add sandbox prop to Smart Links block card preview iframe
 
 ### Patch Changes
@@ -2791,7 +2791,7 @@
 
 ### Minor Changes
 
-- [`3c79bfd15b4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3c79bfd15b4) - Add sideEffects false for better tree-shaking support
+- [#12328](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12328) [`3c79bfd15b4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3c79bfd15b4) - Add sideEffects false for better tree-shaking support
 
 ### Patch Changes
 
@@ -2801,14 +2801,14 @@
 
 ### Patch Changes
 
-- [`d9cfa5c45dc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d9cfa5c45dc) - Render Polaris (Jira Product Discovery) view as an embed by default
+- [#11649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/11649) [`d9cfa5c45dc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d9cfa5c45dc) - Render Polaris (Jira Product Discovery) view as an embed by default
 - Updated dependencies
 
 ## 15.3.0
 
 ### Minor Changes
 
-- [`f7ff2c84451`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f7ff2c84451) - bump json-ld-types from 2.2.2 to ^2.3.0"
+- [#11113](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/11113) [`f7ff2c84451`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f7ff2c84451) - bump json-ld-types from 2.2.2 to ^2.3.0"
 - [`c9dd0243320`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c9dd0243320) - [ux] prepend page title with emoji icon for smart link and block card
 
 ### Patch Changes
@@ -2819,14 +2819,14 @@
 
 ### Patch Changes
 
-- [`277ed9667b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/277ed9667b2) - Fixed media bundle names following atlassian-frontend linting rules
+- [#10230](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10230) [`277ed9667b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/277ed9667b2) - Fixed media bundle names following atlassian-frontend linting rules
 - Updated dependencies
 
 ## 15.2.0
 
 ### Minor Changes
 
-- [`e494a28d544`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e494a28d544) - New exported member `embedHeaderHeight` is added. Also all the instances of `onResolve` callback now return an object that contains optional extra property `aspectRatio`.
+- [#9510](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9510) [`e494a28d544`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e494a28d544) - New exported member `embedHeaderHeight` is added. Also all the instances of `onResolve` callback now return an object that contains optional extra property `aspectRatio`.
 
 ### Patch Changes
 
@@ -2836,7 +2836,7 @@
 
 ### Minor Changes
 
-- [`dfbb0a86959`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dfbb0a86959) - [ux] Add ability for avatars to be shown in card view through adding the extractBlockUsers method
+- [#9083](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9083) [`dfbb0a86959`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dfbb0a86959) - [ux] Add ability for avatars to be shown in card view through adding the extractBlockUsers method
 - [`203e4021ada`](https://bitbucket.org/atlassian/atlassian-frontend/commits/203e4021ada) - [ux] Add support of .docx, .xlsx, .pptx, .rar mime types and folder; fix .doc and .ppt
 
 ### Patch Changes
@@ -2849,7 +2849,7 @@
 
 ### Patch Changes
 
-- [`845dee52a4a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/845dee52a4a) - [ux] Adds additional request access metadata to forbidden urls if avalible
+- [#8644](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8644) [`845dee52a4a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/845dee52a4a) - [ux] Adds additional request access metadata to forbidden urls if avalible
 - [`8d6a82191ab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d6a82191ab) - Removes unused props from icon usage.
 - [`695ce4fe717`](https://bitbucket.org/atlassian/atlassian-frontend/commits/695ce4fe717) - Adds additional request access metadata to forbidden urls if avalible
 - Updated dependencies
@@ -2858,7 +2858,7 @@
 
 ### Major Changes
 
-- [`08c624ac7b8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/08c624ac7b8) - [ux] `inlinePreloaderStyle` prop was added to SmartCard. It can be either `'on-left-with-skeleton'` or a `'on-right-without-skeleton'`
+- [#8178](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8178) [`08c624ac7b8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/08c624ac7b8) - [ux] `inlinePreloaderStyle` prop was added to SmartCard. It can be either `'on-left-with-skeleton'` or a `'on-right-without-skeleton'`
 
 ### Patch Changes
 
@@ -2871,33 +2871,33 @@
 
 ### Patch Changes
 
-- [`e604c297faf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e604c297faf) - Prevent resolveUnsupported errors being sent as unresolved events to stop SLO pollution.
+- [#8381](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8381) [`e604c297faf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e604c297faf) - Prevent resolveUnsupported errors being sent as unresolved events to stop SLO pollution.
 
 ## 14.8.4
 
 ### Patch Changes
 
-- [`d9d5322b260`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d9d5322b260) - [ux] Render as a blue link in adf when there is a fatal error on smartcard
+- [#7762](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/7762) [`d9d5322b260`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d9d5322b260) - [ux] Render as a blue link in adf when there is a fatal error on smartcard
 - Updated dependencies
 
 ## 14.8.3
 
 ### Patch Changes
 
-- [`eda409bf20`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eda409bf20) - Handle network errors in smart-card client
+- [#7425](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/7425) [`eda409bf20`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eda409bf20) - Handle network errors in smart-card client
 - Updated dependencies
 
 ## 14.8.2
 
 ### Patch Changes
 
-- [`965c783580`](https://bitbucket.org/atlassian/atlassian-frontend/commits/965c783580) - add override references for Trello only
+- [#7559](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/7559) [`965c783580`](https://bitbucket.org/atlassian/atlassian-frontend/commits/965c783580) - add override references for Trello only
 
 ## 14.8.1
 
 ### Patch Changes
 
-- [`fae156831b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fae156831b) - Removed unused devDependency (was only used in one example, which has been refactored)
+- [#7170](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/7170) [`fae156831b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fae156831b) - Removed unused devDependency (was only used in one example, which has been refactored)
 - [`df97510b77`](https://bitbucket.org/atlassian/atlassian-frontend/commits/df97510b77) - handle backend errors in smart-link dataloader
 - [`b4cd19ad66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b4cd19ad66) - To allow jira roadmap link with query param to convert to embed view
 - Updated dependencies
@@ -2906,7 +2906,7 @@
 
 ### Minor Changes
 
-- [`6bef7adf66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6bef7adf66) - `Card` component expects optional `embedIframeRef` iframe ref. New `IframelyResizeMessageListener` HOC component export is introduced.
+- [#6930](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/6930) [`6bef7adf66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6bef7adf66) - `Card` component expects optional `embedIframeRef` iframe ref. New `IframelyResizeMessageListener` HOC component export is introduced.
 
 ### Patch Changes
 
@@ -2918,7 +2918,7 @@
 
 ### Minor Changes
 
-- [`48995f73b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/48995f73b2) - Create entry points to export internal API isolated from UI changes.
+- [#6571](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/6571) [`48995f73b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/48995f73b2) - Create entry points to export internal API isolated from UI changes.
 
 ### Patch Changes
 
@@ -2928,13 +2928,13 @@
 
 ### Patch Changes
 
-- [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
+- [#5857](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5857) [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
 
 ## 14.6.0
 
 ### Minor Changes
 
-- [`950ed4f24c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/950ed4f24c) - [ux] The embed card will now fallback to a inlineCard instead of blockCard in mobile
+- [#6228](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/6228) [`950ed4f24c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/950ed4f24c) - [ux] The embed card will now fallback to a inlineCard instead of blockCard in mobile
 
 ### Patch Changes
 
@@ -2946,7 +2946,7 @@
 
 ### Minor Changes
 
-- [`09de4533b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/09de4533b0) - Make findPattern available to consumers
+- [#5516](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5516) [`09de4533b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/09de4533b0) - Make findPattern available to consumers
 - [`3ae1d5929f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3ae1d5929f) - [ux] Jira roadmap of classic projects will now be an embedCard by default
 
 ### Patch Changes
@@ -2957,13 +2957,13 @@
 
 ### Patch Changes
 
-- [`676241b24e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/676241b24e) - HOT-93133: fix analytics for Smart Links
+- [#5734](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5734) [`676241b24e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/676241b24e) - HOT-93133: fix analytics for Smart Links
 
 ## 14.4.3
 
 ### Patch Changes
 
-- [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
+- [#5497](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5497) [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
   This requires version 3.8 of Typescript, read more about how we handle Typescript versions here: https://atlaskit.atlassian.com/get-started
   Also add `typescript` to `devDependencies` to denote version that the package was built with.
 
@@ -2977,13 +2977,13 @@
 
 ### Patch Changes
 
-- [`2ac834240e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2ac834240e) - Undo analytics-next file restructure to allow external ts definitions to continue working
+- [#5164](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5164) [`2ac834240e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2ac834240e) - Undo analytics-next file restructure to allow external ts definitions to continue working
 
 ## 14.4.0
 
 ### Minor Changes
 
-- [`22105274d2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/22105274d2) - Only render smart-card when context.value is available
+- [#4749](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4749) [`22105274d2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/22105274d2) - Only render smart-card when context.value is available
 - [`c2e573479c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c2e573479c) - EDM-937: added prefetching to Smart Links rendering path.
 
   As of this version of `@atlaskit/smart-card`, when a Smart Link is initially rendered, one of two things will take place:
@@ -3014,13 +3014,13 @@
 
 ### Minor Changes
 
-- [`bc754bab5f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bc754bab5f) - expose SmartCardContext from @atlaskit/smart-card
+- [#4829](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4829) [`bc754bab5f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bc754bab5f) - expose SmartCardContext from @atlaskit/smart-card
 
 ## 14.2.3
 
 ### Patch Changes
 
-- [`6e5372dcda`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6e5372dcda) - **Ticket:** EDM-1121
+- [#4424](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4424) [`6e5372dcda`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6e5372dcda) - **Ticket:** EDM-1121
 
   **Changes:**
 
@@ -3044,7 +3044,7 @@
 
 ### Patch Changes
 
-- [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
+- [#3885](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3885) [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
 
   Since tslib is a dependency for all our packages we recommend that products also follow this tslib upgrade
   to prevent duplicates of tslib being bundled.
@@ -3053,13 +3053,13 @@
 
 ### Patch Changes
 
-- [`76165ad82f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/76165ad82f) - Bump required because of conflicts on wadmal release
+- [#4393](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4393) [`76165ad82f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/76165ad82f) - Bump required because of conflicts on wadmal release
 
 ## 14.2.0
 
 ### Minor Changes
 
-- [`fae1f71b0f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fae1f71b0f) - Implement caching of duplicate URLs
+- [#3823](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3823) [`fae1f71b0f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fae1f71b0f) - Implement caching of duplicate URLs
 
 ### Patch Changes
 
@@ -3074,7 +3074,7 @@
 
 ### Minor Changes
 
-- [`4311cf9bf1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4311cf9bf1) - Add additional connectFailedEvent reasons for smartcards
+- [#3428](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3428) [`4311cf9bf1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4311cf9bf1) - Add additional connectFailedEvent reasons for smartcards
 
 ### Patch Changes
 
@@ -3088,7 +3088,7 @@
 
 ### Major Changes
 
-- [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
+- [#3335](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3335) [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
   For more information see: https://community.developer.atlassian.com/t/atlaskit-to-drop-support-for-internet-explorer-11-from-1st-july-2020/39534
 
 ### Patch Changes
@@ -3099,14 +3099,14 @@
 
 ### Patch Changes
 
-- [`cd9c2500a8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cd9c2500a8) - EDM-834: Jira Roadmap embeds will now be an embedCard by default and also wide
+- [#2763](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2763) [`cd9c2500a8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cd9c2500a8) - EDM-834: Jira Roadmap embeds will now be an embedCard by default and also wide
 - [`b17d1c437a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b17d1c437a) - EDM-920: add required className to intersection observer loader
 
 ## 13.5.0
 
 ### Minor Changes
 
-- [`0ae829a4ea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0ae829a4ea) - EDM-648: Adds resizing and alignment to embed cards
+- [#2443](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2443) [`0ae829a4ea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0ae829a4ea) - EDM-648: Adds resizing and alignment to embed cards
 - [`62269a3e45`](https://bitbucket.org/atlassian/atlassian-frontend/commits/62269a3e45) - Added undefined links
 - [`996e045cc4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/996e045cc4) - EDM-776: add platform prop to @atlaskit/smart-card for rendering fallback on mobile (embed -> block)
 
@@ -3121,14 +3121,14 @@
 
 ### Patch Changes
 
-- [`455e383cda`](https://bitbucket.org/atlassian/atlassian-frontend/commits/455e383cda) - Use IntersectionObserver in smart-card to detect when a link enters the viewport
+- [#2984](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2984) [`455e383cda`](https://bitbucket.org/atlassian/atlassian-frontend/commits/455e383cda) - Use IntersectionObserver in smart-card to detect when a link enters the viewport
 - Updated dependencies
 
 ## 13.4.0
 
 ### Minor Changes
 
-- [`50c333ab3a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/50c333ab3a) - EDM-216: Adds EmbedCards in the Editor under the flag - allowEmbeds in the UNSAFE_cards prop
+- [#2137](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2137) [`50c333ab3a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/50c333ab3a) - EDM-216: Adds EmbedCards in the Editor under the flag - allowEmbeds in the UNSAFE_cards prop
 
 ### Patch Changes
 
@@ -3142,7 +3142,7 @@
 
 ### Minor Changes
 
-- [`9848dca5c7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9848dca5c7) - Updated json-ld-types to 2.1.0
+- [#1868](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/1868) [`9848dca5c7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9848dca5c7) - Updated json-ld-types to 2.1.0
 
 ### Patch Changes
 

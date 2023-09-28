@@ -60,7 +60,7 @@ it('should fire event on the public channel and the internal channel', () => {
     context: [analyticsAttributes],
   });
 
-  expect(queryByTestId('tooltip')).toBeTruthy();
+  expect(queryByTestId('tooltip')).toBeInTheDocument();
   assert(onPublicEvent, expectedShow);
   assert(onAtlaskitEvent, expectedShow);
 
@@ -88,7 +88,7 @@ it('should fire event on the public channel and the internal channel', () => {
     context: [analyticsAttributes],
   });
 
-  expect(queryByTestId('tooltip')).toBeNull();
+  expect(queryByTestId('tooltip')).not.toBeInTheDocument();
   assert(onPublicEvent, expectedHide);
   assert(onAtlaskitEvent, expectedHide);
 });

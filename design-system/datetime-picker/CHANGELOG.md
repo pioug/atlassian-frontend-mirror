@@ -4,92 +4,92 @@
 
 ### Patch Changes
 
-- [`ccff5f6ec7a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ccff5f6ec7a) - Integrate layering into calendar
+- [#40400](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40400) [`ccff5f6ec7a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ccff5f6ec7a) - Integrate layering into calendar
 
 ## 12.10.0
 
 ### Minor Changes
 
-- [`6c0c0407eb1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c0c0407eb1) - This cleans up the feature flag references for the keyboard accessibility changes, making them fully available for all users.
+- [#39964](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39964) [`6c0c0407eb1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c0c0407eb1) - This cleans up the feature flag references for the keyboard accessibility changes, making them fully available for all users.
 
 ## 12.9.0
 
 ### Minor Changes
 
-- [`4afff68f652`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4afff68f652) - Make typing more complete and accurate for date picker.
+- [#39720](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39720) [`4afff68f652`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4afff68f652) - Make typing more complete and accurate for date picker.
 
 ## 12.8.2
 
 ### Patch Changes
 
-- [`829d92bcf37`](https://bitbucket.org/atlassian/atlassian-frontend/commits/829d92bcf37) - Remove out of date lifecycle methods in favor of up to date methods.
+- [#39447](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39447) [`829d92bcf37`](https://bitbucket.org/atlassian/atlassian-frontend/commits/829d92bcf37) - Remove out of date lifecycle methods in favor of up to date methods.
 
 ## 12.8.1
 
 ### Patch Changes
 
-- [`ae2b28c599a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ae2b28c599a) - Remove unused state value.
+- [#39448](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39448) [`ae2b28c599a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ae2b28c599a) - Remove unused state value.
 
 ## 12.8.0
 
 ### Minor Changes
 
-- [`0ab32310305`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0ab32310305) - [ux] We are testing adding keyboard accessibility to the datepicker change behind a feature flag. If this fix is successful it will be available in a later release.
+- [#38521](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38521) [`0ab32310305`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0ab32310305) - [ux] We are testing adding keyboard accessibility to the datepicker change behind a feature flag. If this fix is successful it will be available in a later release.
 
 ## 12.7.12
 
 ### Patch Changes
 
-- [`5fae4d61ff7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5fae4d61ff7) - Move event handlers to time picker input
+- [#39105](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39105) [`5fae4d61ff7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5fae4d61ff7) - Move event handlers to time picker input
 
 ## 12.7.11
 
 ### Patch Changes
 
-- [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
+- [#38162](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38162) [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
 - Updated dependencies
 
 ## 12.7.10
 
 ### Patch Changes
 
-- [`e211efc7c5f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e211efc7c5f) - [ux] Add `lang` attribute to value of pickers.
+- [#38651](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38651) [`e211efc7c5f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e211efc7c5f) - [ux] Add `lang` attribute to value of pickers.
 
 ## 12.7.9
 
 ### Patch Changes
 
-- [`6f1daf0e449`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6f1daf0e449) - Prevent calander from overlaying input when at the bottom of viewport
+- [#38569](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38569) [`6f1daf0e449`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6f1daf0e449) - Prevent calander from overlaying input when at the bottom of viewport
 
 ## 12.7.8
 
 ### Patch Changes
 
-- [`e8bb91da805`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e8bb91da805) - [ux] Ensure menu doesn't close when focus moves within it. Makes future keyboard accessibility possible.
+- [#37610](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37610) [`e8bb91da805`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e8bb91da805) - [ux] Ensure menu doesn't close when focus moves within it. Makes future keyboard accessibility possible.
 
 ## 12.7.7
 
 ### Patch Changes
 
-- [`ba50169844e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ba50169844e) - Remove lookahead and lookbehind in format util to support browsers without that functionality.
+- [#36759](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36759) [`ba50169844e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ba50169844e) - Remove lookahead and lookbehind in format util to support browsers without that functionality.
 
 ## 12.7.6
 
 ### Patch Changes
 
-- [`6d8ce8bb48a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6d8ce8bb48a) - Revert PR using regex that is not supported by Safari 16.4 and below and can crash a session
+- [#35904](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35904) [`6d8ce8bb48a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6d8ce8bb48a) - Revert PR using regex that is not supported by Safari 16.4 and below and can crash a session
 
 ## 12.7.5
 
 ### Patch Changes
 
-- [`22363f962e5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/22363f962e5) - update border width to use border spacing token
+- [#36665](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36665) [`22363f962e5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/22363f962e5) - update border width to use border spacing token
 
 ## 12.7.4
 
 ### Patch Changes
 
-- [`599bfe90ee3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/599bfe90ee3) - Internal change to use shape tokens. There is no expected visual change.
+- [#35441](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35441) [`599bfe90ee3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/599bfe90ee3) - Internal change to use shape tokens. There is no expected visual change.
 
 ## 12.7.3
 
@@ -101,31 +101,31 @@
 
 ### Patch Changes
 
-- [`8f436f0c301`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f436f0c301) - extend border contrast feature flag to support confluence
+- [#35111](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35111) [`8f436f0c301`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f436f0c301) - extend border contrast feature flag to support confluence
 
 ## 12.7.1
 
 ### Patch Changes
 
-- [`774ed69ecef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/774ed69ecef) - Internal changes to use space tokens for spacing values. There is no visual change.
+- [#34881](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34881) [`774ed69ecef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/774ed69ecef) - Internal changes to use space tokens for spacing values. There is no visual change.
 
 ## 12.7.0
 
 ### Minor Changes
 
-- [`1d5cd2e273c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1d5cd2e273c) - [ux] We are testing an input behavior change in date picker behind a feature flag. Now when entering a date in the input this value will persist after selecting a date instead of being cleared, acting like a standard input. If this fix is successful it will be available in a later release.
+- [#34373](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34373) [`1d5cd2e273c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1d5cd2e273c) - [ux] We are testing an input behavior change in date picker behind a feature flag. Now when entering a date in the input this value will persist after selecting a date instead of being cleared, acting like a standard input. If this fix is successful it will be available in a later release.
 
 ## 12.6.1
 
 ### Patch Changes
 
-- [`b1bdec7cce2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b1bdec7cce2) - Internal change to enforce token usage for spacing properties. There is no expected visual or behaviour change.
+- [#32935](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32935) [`b1bdec7cce2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b1bdec7cce2) - Internal change to enforce token usage for spacing properties. There is no expected visual or behaviour change.
 
 ## 12.6.0
 
 ### Minor Changes
 
-- [`6e51e0d5358`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6e51e0d5358) - [ux] update border width from 2px to 1px and add 1px box-shadow when focus or error
+- [#33475](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33475) [`6e51e0d5358`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6e51e0d5358) - [ux] update border width from 2px to 1px and add 1px box-shadow when focus or error
 
 ### Patch Changes
 
@@ -135,25 +135,25 @@
 
 ### Patch Changes
 
-- [`49b08bfdf5f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/49b08bfdf5f) - Migrated use of `gridSize` to space tokens where possible. There is no expected visual or behaviour change.
+- [#34051](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34051) [`49b08bfdf5f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/49b08bfdf5f) - Migrated use of `gridSize` to space tokens where possible. There is no expected visual or behaviour change.
 
 ## 12.5.2
 
 ### Patch Changes
 
-- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793) [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
 
 ## 12.5.1
 
 ### Patch Changes
 
-- [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649) [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
 
 ## 12.5.0
 
 ### Minor Changes
 
-- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258) [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
 
 ### Patch Changes
 
@@ -163,38 +163,38 @@
 
 ### Minor Changes
 
-- [`e976f3cebd0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e976f3cebd0) - Remove excessive `aria-labelledby` prop, remove incorret documentation.
+- [#33163](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33163) [`e976f3cebd0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e976f3cebd0) - Remove excessive `aria-labelledby` prop, remove incorret documentation.
 
 ## 12.3.13
 
 ### Patch Changes
 
-- [`c71b0ac8222`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c71b0ac8222) - [ux] Add default label to time picker element of datetime picker. Update documentation for more accessible examples and guidelines.
+- [#32350](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32350) [`c71b0ac8222`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c71b0ac8222) - [ux] Add default label to time picker element of datetime picker. Update documentation for more accessible examples and guidelines.
 
 ## 12.3.12
 
 ### Patch Changes
 
-- [`e754545d460`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e754545d460) - [ux] Ensure no duplicate ID's when using `selectProps` on any of the DateTime Picker components.
+- [#32424](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32424) [`e754545d460`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e754545d460) - [ux] Ensure no duplicate ID's when using `selectProps` on any of the DateTime Picker components.
 
 ## 12.3.11
 
 ### Patch Changes
 
-- [`b50c6475079`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b50c6475079) - Make clear button in datetime picker a button element that is out of the tab order. This mimics the native input element's clear behavior in Safari/Edge.
+- [#31891](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31891) [`b50c6475079`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b50c6475079) - Make clear button in datetime picker a button element that is out of the tab order. This mimics the native input element's clear behavior in Safari/Edge.
 - [`c0fb88b3af6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c0fb88b3af6) - [ux] style(calendar): update icon color token from text.subtlest to color.icon
 
 ## 12.3.10
 
 ### Patch Changes
 
-- [`1fc7949b336`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1fc7949b336) - [ux] Fixes a bug where the background for the calendar element was incorrectly set to 'elevation.surface'
+- [#30882](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/30882) [`1fc7949b336`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1fc7949b336) - [ux] Fixes a bug where the background for the calendar element was incorrectly set to 'elevation.surface'
 
 ## 12.3.9
 
 ### Patch Changes
 
-- [`5546747df1e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5546747df1e) - Refactoring of code to clean tech debt and make future maintenance easier
+- [#29470](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/29470) [`5546747df1e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5546747df1e) - Refactoring of code to clean tech debt and make future maintenance easier
 - Updated dependencies
 
 ## 12.3.8
@@ -207,7 +207,7 @@
 
 ### Patch Changes
 
-- [`98891267a5e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/98891267a5e) - [ux] Dates entered with 5+ digit years will no longer throw a RangeError
+- [#28932](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28932) [`98891267a5e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/98891267a5e) - [ux] Dates entered with 5+ digit years will no longer throw a RangeError
 
 ## 12.3.6
 
@@ -231,7 +231,7 @@
 
 ### Patch Changes
 
-- [`cb8f8e76d25`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb8f8e76d25) - Update types for react-select and @atlaskit/select upgrade
+- [#26712](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26712) [`cb8f8e76d25`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb8f8e76d25) - Update types for react-select and @atlaskit/select upgrade
   Update commerce-ui entrypoints that caused a pipeline issue.
 - Updated dependencies
 
@@ -245,25 +245,25 @@
 
 ### Patch Changes
 
-- [`051095c0d82`](https://bitbucket.org/atlassian/atlassian-frontend/commits/051095c0d82) - [ux] Changed the Date Picker controller icon to use `color.icon.disabled` token when in disabled state.
+- [#27289](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/27289) [`051095c0d82`](https://bitbucket.org/atlassian/atlassian-frontend/commits/051095c0d82) - [ux] Changed the Date Picker controller icon to use `color.icon.disabled` token when in disabled state.
 
 ## 12.3.0
 
 ### Minor Changes
 
-- [`b8841384da6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b8841384da6) - Disabled background and border styles should not be applied to components that have either no background or transparent background to begin with. Textfield and textarea variants that do not have backgrounds (sublte or none) have no backgrounds or borders applied when disabled. As such, any comopnents that consume these will also be affected.
+- [#24968](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24968) [`b8841384da6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b8841384da6) - Disabled background and border styles should not be applied to components that have either no background or transparent background to begin with. Textfield and textarea variants that do not have backgrounds (sublte or none) have no backgrounds or borders applied when disabled. As such, any comopnents that consume these will also be affected.
 
 ## 12.2.1
 
 ### Patch Changes
 
-- [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
+- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874) [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
 
 ## 12.2.0
 
 ### Minor Changes
 
-- [`a91fbaf0552`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a91fbaf0552) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behavior change.
+- [#24004](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24004) [`a91fbaf0552`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a91fbaf0552) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behavior change.
 
 ### Patch Changes
 
@@ -277,20 +277,20 @@
 
 ### Patch Changes
 
-- [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
+- [#24492](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24492) [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
 
 ## 12.1.3
 
 ### Patch Changes
 
-- [`299e4104e10`](https://bitbucket.org/atlassian/atlassian-frontend/commits/299e4104e10) - [ux] Added appearance 'none' option to component and adopts appearance handling from @atlaskit/select
+- [#24008](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24008) [`299e4104e10`](https://bitbucket.org/atlassian/atlassian-frontend/commits/299e4104e10) - [ux] Added appearance 'none' option to component and adopts appearance handling from @atlaskit/select
 - Updated dependencies
 
 ## 12.1.2
 
 ### Patch Changes
 
-- [`df3d5287649`](https://bitbucket.org/atlassian/atlassian-frontend/commits/df3d5287649) - Internal code change turning on new linting rules.
+- [#23381](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23381) [`df3d5287649`](https://bitbucket.org/atlassian/atlassian-frontend/commits/df3d5287649) - Internal code change turning on new linting rules.
 - [`429a576a4b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/429a576a4b2) - fix change-event firing for invalid inputs in datetime-picker select.
 - [`84afee665fc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/84afee665fc) - [ux] Implemented missing functionality to submit forms on enter press after a date has been selected in DatePicker
 - [`2a2dcc1cf91`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2a2dcc1cf91) - Updated styles to use new input design tokens. Fixed bug where border radius on datePicker rendered incorrectly.
@@ -300,13 +300,13 @@
 
 ### Patch Changes
 
-- [`3fa327b5d01`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3fa327b5d01) - [ux] Border on a subtle appearance date-picker will now persist after a date is selected and field is in focus
+- [#23350](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23350) [`3fa327b5d01`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3fa327b5d01) - [ux] Border on a subtle appearance date-picker will now persist after a date is selected and field is in focus
 
 ## 12.1.0
 
 ### Minor Changes
 
-- [`58d4cd75f7a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/58d4cd75f7a) - Removed deprecated hideIcon prop from DateTimePicker because it is unused and serves no functionality.
+- [#22642](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22642) [`58d4cd75f7a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/58d4cd75f7a) - Removed deprecated hideIcon prop from DateTimePicker because it is unused and serves no functionality.
   Removed the deprecation notice for the formatDisplayLabel prop in TimePicker
 
 ### Patch Changes
@@ -321,7 +321,7 @@
 
 ### Major Changes
 
-- [`27d4f1e7121`](https://bitbucket.org/atlassian/atlassian-frontend/commits/27d4f1e7121) - [ux] Updating tokens
+- [#22029](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22029) [`27d4f1e7121`](https://bitbucket.org/atlassian/atlassian-frontend/commits/27d4f1e7121) - [ux] Updating tokens
 - [`d7542d1a7c2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d7542d1a7c2) - [ux] Update Tokens in the code with those that are a better fit. New tokens will be visible only in applications configured to use the new Tokens API (currently in alpha).These changes are intended to be interoperable with the legacy theme implementation. Legacy dark mode users should expect no visual or breaking changes.
 - [`c19fb116172`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c19fb116172) - [ux] Update Tokens in the code with those that are a better fit. New tokens will be visible only in applications configured to use the new Tokens API (currently in alpha).These changes are intended to be interoperable with the legacy theme implementation. Legacy dark mode users should expect no visual or breaking changes.
 
@@ -338,7 +338,7 @@
 
 ### Patch Changes
 
-- [`558cc136503`](https://bitbucket.org/atlassian/atlassian-frontend/commits/558cc136503) - Bump moment dependency version
+- [#21570](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21570) [`558cc136503`](https://bitbucket.org/atlassian/atlassian-frontend/commits/558cc136503) - Bump moment dependency version
 - [`e7438659c2e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e7438659c2e) - Updated dependency '@types/react-select' to fix type error
 - Updated dependencies
 
@@ -352,7 +352,7 @@
 
 ### Patch Changes
 
-- [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
+- [#20650](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20650) [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
 
 ## 11.1.8
 
@@ -376,7 +376,7 @@
 
 ### Patch Changes
 
-- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Updates usage of deprecated token names so they're aligned with the latest naming conventions. No UI or visual changes
+- [#16752](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16752) [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Updates usage of deprecated token names so they're aligned with the latest naming conventions. No UI or visual changes
 - [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Fix bug in inline-edit and Form which prevented date selection in datetimepicker using the keyboard.
 - Updated dependencies
 
@@ -390,26 +390,26 @@
 
 ### Patch Changes
 
-- [`c55c736ecea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c55c736ecea) - Patch VULN AFP-3486 AFP-3487 AFP-3488 AFP-3489
+- [#17475](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/17475) [`c55c736ecea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c55c736ecea) - Patch VULN AFP-3486 AFP-3487 AFP-3488 AFP-3489
 
 ## 11.1.2
 
 ### Patch Changes
 
-- [`f460cc7c411`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f460cc7c411) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving bundle size.
+- [#15998](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/15998) [`f460cc7c411`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f460cc7c411) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving bundle size.
 - Updated dependencies
 
 ## 11.1.1
 
 ### Patch Changes
 
-- [`095021b1e08`](https://bitbucket.org/atlassian/atlassian-frontend/commits/095021b1e08) - renaming deprecated lifecycle methods
+- [#15807](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/15807) [`095021b1e08`](https://bitbucket.org/atlassian/atlassian-frontend/commits/095021b1e08) - renaming deprecated lifecycle methods
 
 ## 11.1.0
 
 ### Minor Changes
 
-- [`354ef86cca0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/354ef86cca0) - Instrumented datetime-picker with the new theming package, `@atlaskit/tokens`.
+- [#14777](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/14777) [`354ef86cca0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/354ef86cca0) - Instrumented datetime-picker with the new theming package, `@atlaskit/tokens`.
 
   New tokens will be visible only in applications configured to use the new Tokens API (currently in alpha).
   These changes are intended to be interoperable with the legacy theme implementation. Legacy dark mode users should expect no visual or breaking changes.
@@ -429,14 +429,14 @@
 
 ### Patch Changes
 
-- [`b90c0237824`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b90c0237824) - Update package.jsons to remove unused dependencies.
+- [#13864](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13864) [`b90c0237824`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b90c0237824) - Update package.jsons to remove unused dependencies.
 - Updated dependencies
 
 ## 11.0.0
 
 ### Major Changes
 
-- [`414b6216adf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/414b6216adf) - [ux] BREAKING CHANGE: Datetime picker now uses date-fns@2.17 (previously <2.0). This change has tightened the requirements of users to provide ISO dates. This was never explicitly supported, but now will cause an error to be thrown for non-ISO dates. For an abundance of caution we're calling this a breaking change to protect users relying on the previous behaviour.
+- [#9328](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9328) [`414b6216adf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/414b6216adf) - [ux] BREAKING CHANGE: Datetime picker now uses date-fns@2.17 (previously <2.0). This change has tightened the requirements of users to provide ISO dates. This was never explicitly supported, but now will cause an error to be thrown for non-ISO dates. For an abundance of caution we're calling this a breaking change to protect users relying on the previous behaviour.
 
   To upgrade you'll need to ensure any dates passed to the `DateTimePicker` are in ISO format.
 
@@ -444,19 +444,19 @@
 
 ### Patch Changes
 
-- [`787c731b208`](https://bitbucket.org/atlassian/atlassian-frontend/commits/787c731b208) - Updated package description.
+- [#12830](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12830) [`787c731b208`](https://bitbucket.org/atlassian/atlassian-frontend/commits/787c731b208) - Updated package description.
 
 ## 10.4.1
 
 ### Patch Changes
 
-- [`378d1cef00f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/378d1cef00f) - Bump `@atlaskit/theme` to version `^11.3.0`.
+- [#12880](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12880) [`378d1cef00f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/378d1cef00f) - Bump `@atlaskit/theme` to version `^11.3.0`.
 
 ## 10.4.0
 
 ### Minor Changes
 
-- [`b162da59aac`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b162da59aac) -
+- [#12328](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12328) [`b162da59aac`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b162da59aac) -
 
   #### New Features:
 
@@ -480,7 +480,7 @@
 
 ### Minor Changes
 
-- [`f6b951a51f2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f6b951a51f2) - Removes usage of styled-components in favour of standardising on emotion
+- [#12170](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12170) [`f6b951a51f2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f6b951a51f2) - Removes usage of styled-components in favour of standardising on emotion
 
 ### Patch Changes
 
@@ -490,14 +490,14 @@
 
 ### Patch Changes
 
-- [`1f493e1dc65`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1f493e1dc65) - Bump `react-select` to v4.
+- [#11113](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/11113) [`1f493e1dc65`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1f493e1dc65) - Bump `react-select` to v4.
 - Updated dependencies
 
 ## 10.2.0
 
 ### Minor Changes
 
-- [`1ad2a658d5d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1ad2a658d5d) - [ux] Added `weekStartDay` prop which gets passed to the underlying `Calendar` instance.
+- [#10230](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10230) [`1ad2a658d5d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1ad2a658d5d) - [ux] Added `weekStartDay` prop which gets passed to the underlying `Calendar` instance.
 
 ### Patch Changes
 
@@ -507,7 +507,7 @@
 
 ### Minor Changes
 
-- [`069538e03c6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/069538e03c6) - Prefixes the testId passed down to the nested Calendar component with '\${testId}--calendar' to ensure testIds are namespaced correctly. This change only affects calendar testIds when used within a DatePicker context.
+- [#9510](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9510) [`069538e03c6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/069538e03c6) - Prefixes the testId passed down to the nested Calendar component with '\${testId}--calendar' to ensure testIds are namespaced correctly. This change only affects calendar testIds when used within a DatePicker context.
 
 ## 10.0.12
 
@@ -519,7 +519,7 @@
 
 ### Patch Changes
 
-- [`471e2431a7c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/471e2431a7c) - Downgrade back to date-fns 1.30.1
+- [#9299](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9299) [`471e2431a7c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/471e2431a7c) - Downgrade back to date-fns 1.30.1
   We discovered big bundle size increases associated with the date-fns upgrade.
   We're reverting the upgarde to investigate
 
@@ -527,13 +527,13 @@
 
 ### Patch Changes
 
-- [`70f0701c2e6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/70f0701c2e6) - Upgrade date-fns to 2.17
+- [#8291](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8291) [`70f0701c2e6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/70f0701c2e6) - Upgrade date-fns to 2.17
 
 ## 10.0.9
 
 ### Patch Changes
 
-- [`79c23df6340`](https://bitbucket.org/atlassian/atlassian-frontend/commits/79c23df6340) - Use injected package name and version for analytics instead of version.json.
+- [#8644](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8644) [`79c23df6340`](https://bitbucket.org/atlassian/atlassian-frontend/commits/79c23df6340) - Use injected package name and version for analytics instead of version.json.
 - [`c20be966f07`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c20be966f07) - **Internal change**
 
   - Change `@atlaskit/calendar` ref type import name from `CalendarInternalRef` to `CalendarRef`.
@@ -545,7 +545,7 @@
 
 ### Patch Changes
 
-- [`9c020a0e05f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9c020a0e05f) - Replaced `@atlaskit/calendar` exported types to access its `navigate()` api
+- [#7762](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/7762) [`9c020a0e05f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9c020a0e05f) - Replaced `@atlaskit/calendar` exported types to access its `navigate()` api
 
   - Replaced `CalendarClassType` & `ArrowKeys` types with `CalendarInternalRef` type.
   - Also replaced `ref` prop with `internalRef` prop for accessing `navigate()` api.
@@ -556,13 +556,13 @@
 
 ### Patch Changes
 
-- [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
+- [#5857](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5857) [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
 
 ## 10.0.6
 
 ### Patch Changes
 
-- [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
+- [#5497](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5497) [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
   This requires version 3.8 of Typescript, read more about how we handle Typescript versions here: https://atlaskit.atlassian.com/get-started
   Also add `typescript` to `devDependencies` to denote version that the package was built with.
 
@@ -576,13 +576,13 @@
 
 ### Patch Changes
 
-- [`6360c46009`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6360c46009) - Reenable integration tests for Edge browser
+- [#4707](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4707) [`6360c46009`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6360c46009) - Reenable integration tests for Edge browser
 
 ## 10.0.3
 
 ### Patch Changes
 
-- [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
+- [#3885](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3885) [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
 
   Since tslib is a dependency for all our packages we recommend that products also follow this tslib upgrade
   to prevent duplicates of tslib being bundled.
@@ -591,7 +591,7 @@
 
 ### Patch Changes
 
-- [`6262f382de`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6262f382de) - Use the 'lodash' package instead of single-function 'lodash.\*' packages
+- [#3823](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3823) [`6262f382de`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6262f382de) - Use the 'lodash' package instead of single-function 'lodash.\*' packages
 - [`39e130698b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/39e130698b) - Fixes an issue in DatePicker, DateTimePicker and TimePicker where they all had a circular dependency between a type declaration and default props which led to TypeScript marking props with default values as required props. This will no longer occur.
 - Updated dependencies
 
@@ -599,14 +599,14 @@
 
 ### Patch Changes
 
-- [`23f968def3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/23f968def3) - Earlier value returned from DateTimePicker component was inconsistent, like for the first time it was without zone offset and after that with zone offset. Now it is consistent with zone offset every-time.
+- [#3428](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3428) [`23f968def3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/23f968def3) - Earlier value returned from DateTimePicker component was inconsistent, like for the first time it was without zone offset and after that with zone offset. Now it is consistent with zone offset every-time.
 - [`db053b24d8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/db053b24d8) - Update all the theme imports to be tree-shakable
 
 ## 10.0.0
 
 ### Major Changes
 
-- [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
+- [#3335](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3335) [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
   For more information see: https://community.developer.atlassian.com/t/atlaskit-to-drop-support-for-internet-explorer-11-from-1st-july-2020/39534
 
 ### Patch Changes
@@ -617,32 +617,32 @@
 
 ### Patch Changes
 
-- [`038b0fbb8e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/038b0fbb8e) - fix typings after reverting DST-461 changes. typeof is fixed in ERT repo (https://github.com/atlassian/extract-react-types/pull/126)
+- [#2763](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2763) [`038b0fbb8e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/038b0fbb8e) - fix typings after reverting DST-461 changes. typeof is fixed in ERT repo (https://github.com/atlassian/extract-react-types/pull/126)
 
 ## 9.4.6
 
 ### Patch Changes
 
-- [`a39ef6582c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a39ef6582c) - Marks default pops as optional in interface (TimePicker & DatePicker)
+- [#2443](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2443) [`a39ef6582c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a39ef6582c) - Marks default pops as optional in interface (TimePicker & DatePicker)
 
 ## 9.4.5
 
 ### Patch Changes
 
-- [`54a9514fcf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54a9514fcf) - Build and supporting files will no longer be published to npm
+- [#2866](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2866) [`54a9514fcf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54a9514fcf) - Build and supporting files will no longer be published to npm
 
 ## 9.4.4
 
 ### Patch Changes
 
-- [`466aec241f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/466aec241f) - Fixing incorrect margin for time-picker
+- [#2137](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2137) [`466aec241f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/466aec241f) - Fixing incorrect margin for time-picker
 - [`54d82b49f0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54d82b49f0) - Remove unused dependencies
 
 ## 9.4.3
 
 ### Patch Changes
 
-- [`ccd9c51bd3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ccd9c51bd3) - Fixes date picker being affected by an invalid emotion theme provider.
+- [#2490](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2490) [`ccd9c51bd3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ccd9c51bd3) - Fixes date picker being affected by an invalid emotion theme provider.
 
 ## 9.4.2
 
@@ -654,7 +654,7 @@
 
 ### Patch Changes
 
-- [`d2876ee14f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d2876ee14f) - FIX: Add `hideIcon` prop back for backwards compatibility in MINOR
+- [#1891](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/1891) [`d2876ee14f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d2876ee14f) - FIX: Add `hideIcon` prop back for backwards compatibility in MINOR
 
 ## 9.4.0
 

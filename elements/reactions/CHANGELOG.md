@@ -4,26 +4,26 @@
 
 ### Patch Changes
 
-- [`6900f89eb0e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6900f89eb0e) - Internal changes to use space tokens. There is no expected visual or behaviour change.
+- [#39787](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39787) [`6900f89eb0e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6900f89eb0e) - Internal changes to use space tokens. There is no expected visual or behaviour change.
 
 ## 22.5.2
 
 ### Patch Changes
 
-- [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
+- [#38162](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38162) [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
 - Updated dependencies
 
 ## 22.5.1
 
 ### Patch Changes
 
-- [`f01deb5e6ab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f01deb5e6ab) - Use injected env vars instead of version.json
+- [#37925](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37925) [`f01deb5e6ab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f01deb5e6ab) - Use injected env vars instead of version.json
 
 ## 22.5.0
 
 ### Minor Changes
 
-- [`3920dcfd848`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3920dcfd848) - This removes the feature flag made for upgrading the `focus-trap` dependency and keeps `focus-trap` at it's original version.
+- [#34797](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34797) [`3920dcfd848`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3920dcfd848) - This removes the feature flag made for upgrading the `focus-trap` dependency and keeps `focus-trap` at it's original version.
 
 ## 22.4.0
 
@@ -35,25 +35,25 @@
 
 ### Patch Changes
 
-- [`82f7f9600a9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/82f7f9600a9) - Migrated to declarative entry points internally for emoji and reactions. Public API is unchanged.
+- [#33870](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33870) [`82f7f9600a9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/82f7f9600a9) - Migrated to declarative entry points internally for emoji and reactions. Public API is unchanged.
 
 ## 22.3.2
 
 ### Patch Changes
 
-- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793) [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
 
 ## 22.3.1
 
 ### Patch Changes
 
-- [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649) [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
 
 ## 22.3.0
 
 ### Minor Changes
 
-- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258) [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
 
 ### Patch Changes
 
@@ -63,26 +63,26 @@
 
 ### Patch Changes
 
-- [`50e0e3c23bd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/50e0e3c23bd) - fix error handling for get reactions
+- [#33004](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33004) [`50e0e3c23bd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/50e0e3c23bd) - fix error handling for get reactions
 
 ## 22.2.8
 
 ### Patch Changes
 
-- [`2e01c9c74b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e01c9c74b5) - DUMMY remove before merging to master; dupe adf-schema via adf-utils
+- [#32424](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32424) [`2e01c9c74b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e01c9c74b5) - DUMMY remove before merging to master; dupe adf-schema via adf-utils
 
 ## 22.2.7
 
 ### Patch Changes
 
-- [`419eaff2c03`](https://bitbucket.org/atlassian/atlassian-frontend/commits/419eaff2c03) - fix focus trap not deactivated issue in reaction picker
+- [#31891](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31891) [`419eaff2c03`](https://bitbucket.org/atlassian/atlassian-frontend/commits/419eaff2c03) - fix focus trap not deactivated issue in reaction picker
 - Updated dependencies
 
 ## 22.2.6
 
 ### Patch Changes
 
-- [`6b5bf5505b6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6b5bf5505b6) - revert atlaskit popup refactor in reaction picker
+- [#31299](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31299) [`6b5bf5505b6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6b5bf5505b6) - revert atlaskit popup refactor in reaction picker
 - [`db658265a45`](https://bitbucket.org/atlassian/atlassian-frontend/commits/db658265a45) - add sampling for reaction view analytics
 - [`c84afc8fbd8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c84afc8fbd8) - [ux] add focus trap to reaction picker
 - [`ed219dee1bd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ed219dee1bd) - refactor reactions picker with @atlaskit/popup
@@ -92,40 +92,40 @@
 
 ### Patch Changes
 
-- [`dfbecb4aa7c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dfbecb4aa7c) - [ux] [COLLAB-2263] allow `Enter` to open Show more to show emoji picker, allow `ESC` to close emoji picker / reaction selector.
+- [#30248](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/30248) [`dfbecb4aa7c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dfbecb4aa7c) - [ux] [COLLAB-2263] allow `Enter` to open Show more to show emoji picker, allow `ESC` to close emoji picker / reaction selector.
 - Updated dependencies
 
 ## 22.2.4
 
 ### Patch Changes
 
-- [`c78b97a8b2b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c78b97a8b2b) - Remove explicit width from reaction counter container
+- [#29990](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/29990) [`c78b97a8b2b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c78b97a8b2b) - Remove explicit width from reaction counter container
 
 ## 22.2.3
 
 ### Patch Changes
 
-- [`3592739fb5b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3592739fb5b) - [ux] hide tooltip of add reaction when reaction picker is opened
+- [#29470](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/29470) [`3592739fb5b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3592739fb5b) - [ux] hide tooltip of add reaction when reaction picker is opened
 - Updated dependencies
 
 ## 22.2.2
 
 ### Patch Changes
 
-- [`d16c7d57428`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d16c7d57428) - Update teams.json to reflect current team
+- [#29667](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/29667) [`d16c7d57428`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d16c7d57428) - Update teams.json to reflect current team
 
 ## 22.2.1
 
 ### Patch Changes
 
-- [`718d5ad3044`](https://bitbucket.org/atlassian/atlassian-frontend/commits/718d5ad3044) - Updates to support the new `@atlaskit/tokens` theming API.
+- [#27634](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/27634) [`718d5ad3044`](https://bitbucket.org/atlassian/atlassian-frontend/commits/718d5ad3044) - Updates to support the new `@atlaskit/tokens` theming API.
 - Updated dependencies
 
 ## 22.2.0
 
 ### Minor Changes
 
-- [`c3868fc0d7a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c3868fc0d7a) - [ux] remove extra spacing around reactions
+- [#28932](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28932) [`c3868fc0d7a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c3868fc0d7a) - [ux] remove extra spacing around reactions
 
 ### Patch Changes
 
@@ -135,19 +135,19 @@
 
 ### Minor Changes
 
-- [`14258b03842`](https://bitbucket.org/atlassian/atlassian-frontend/commits/14258b03842) - make reaction buttons more compact, and introduce miniMode for add reaction button
+- [#28374](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28374) [`14258b03842`](https://bitbucket.org/atlassian/atlassian-frontend/commits/14258b03842) - make reaction buttons more compact, and introduce miniMode for add reaction button
 
 ## 22.0.4
 
 ### Patch Changes
 
-- [`6455cf006b3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6455cf006b3) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving performance.
+- [#28324](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28324) [`6455cf006b3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6455cf006b3) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving performance.
 
 ## 22.0.3
 
 ### Patch Changes
 
-- [`16aa7646472`](https://bitbucket.org/atlassian/atlassian-frontend/commits/16aa7646472) - update ufo sampling rate due to change of sampling algorithm
+- [#28090](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28090) [`16aa7646472`](https://bitbucket.org/atlassian/atlassian-frontend/commits/16aa7646472) - update ufo sampling rate due to change of sampling algorithm
 - Updated dependencies
 
 ## 22.0.2
@@ -166,7 +166,7 @@
 
 ### Major Changes
 
-- [`0617b7ef2aa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0617b7ef2aa) - [ux]
+- [#26712](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26712) [`0617b7ef2aa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0617b7ef2aa) - [ux]
   Created a new prop, allowUserDialog, that enables an actionable tooltip link to see
   a detailed breakdown of reacted users. The reactions dialog shows the complete user list for
   the currently selected reaction, as well as, the user list for all other reactions. Can tab or click through the reactions list to see all reactions and user lists.
@@ -198,7 +198,7 @@
 
 ### Minor Changes
 
-- [`cb37ece1f9e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb37ece1f9e) - Add aria expanded and aria cotrols to reaction picker toggle
+- [#25860](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/25860) [`cb37ece1f9e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb37ece1f9e) - Add aria expanded and aria cotrols to reaction picker toggle
 
 ### Patch Changes
 
@@ -211,7 +211,7 @@
 
 ### Minor Changes
 
-- [`e2635f36d53`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e2635f36d53) - Adds new optional prop to <ReactionPicker /> component to setup the content for the tooltip on the add new reaction element
+- [#24710](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24710) [`e2635f36d53`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e2635f36d53) - Adds new optional prop to <ReactionPicker /> component to setup the content for the tooltip on the add new reaction element
   [ux] This adds a border around the Add reaction button according with new design requirements
 - [`ce1ceee9114`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ce1ceee9114) - Refactor props of <Reactions /> component to better infer types from quickReactionEmojiIds to quickReactionEmojis
 
@@ -233,13 +233,13 @@
 
 ### Patch Changes
 
-- [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
+- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874) [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
 
 ## 21.6.0
 
 ### Minor Changes
 
-- [`41d75524c76`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41d75524c76) - Upgrade @atlaskit/reactions to use functional components, add comments and cleanup outdated legacy code
+- [#24004](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24004) [`41d75524c76`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41d75524c76) - Upgrade @atlaskit/reactions to use functional components, add comments and cleanup outdated legacy code
 - [`d840e9e5c90`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d840e9e5c90) - show proper error message in tooltip if failed to get reactions
 
 ### Patch Changes
@@ -250,13 +250,13 @@
 
 ### Patch Changes
 
-- [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
+- [#24492](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24492) [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
 
 ## 21.5.0
 
 ### Minor Changes
 
-- [`e3192fc9dc2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e3192fc9dc2) - Fix add own emoji in reaction picker
+- [#23381](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23381) [`e3192fc9dc2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e3192fc9dc2) - Fix add own emoji in reaction picker
 
 ### Patch Changes
 
@@ -267,7 +267,7 @@
 
 ### Minor Changes
 
-- [`34155ee7563`](https://bitbucket.org/atlassian/atlassian-frontend/commits/34155ee7563) - add sampling for 2 ufo experiences to reduce volume of analytics
+- [#22642](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22642) [`34155ee7563`](https://bitbucket.org/atlassian/atlassian-frontend/commits/34155ee7563) - add sampling for 2 ufo experiences to reduce volume of analytics
 
 ### Patch Changes
 
@@ -277,20 +277,20 @@
 
 ### Patch Changes
 
-- [`c3f9e9bce1c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c3f9e9bce1c) - Add custom information to failure and abort events for UFO experiences
+- [#22029](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22029) [`c3f9e9bce1c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c3f9e9bce1c) - Add custom information to failure and abort events for UFO experiences
 - Updated dependencies
 
 ## 21.3.3
 
 ### Patch Changes
 
-- [`7f1dd280229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7f1dd280229) - Fix styling issue in the reaction emoji while hovering on it for the first time
+- [#22299](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22299) [`7f1dd280229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7f1dd280229) - Fix styling issue in the reaction emoji while hovering on it for the first time
 
 ## 21.3.2
 
 ### Patch Changes
 
-- [`1940b04de7d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1940b04de7d) - Adding new UFO experience for contents list of reacted users should be able to be fetched reliably
+- [#21570](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21570) [`1940b04de7d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1940b04de7d) - Adding new UFO experience for contents list of reacted users should be able to be fetched reliably
 - Updated dependencies
 
 ## 21.3.1
@@ -303,7 +303,7 @@
 
 ### Minor Changes
 
-- [`8db47b60a8f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8db47b60a8f) - [ux] Updated reactions count color to be accessible, pluralize the more emojis tooltip, and stopped the reactions button click event from propagating into the reactions tooltip.
+- [#20721](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20721) [`8db47b60a8f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8db47b60a8f) - [ux] Updated reactions count color to be accessible, pluralize the more emojis tooltip, and stopped the reactions button click event from propagating into the reactions tooltip.
 
 ### Patch Changes
 
@@ -313,7 +313,7 @@
 
 ### Patch Changes
 
-- [`a424e62b264`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a424e62b264) - Changes to support Node 16 Typescript definitions from `@types/node`.
+- [#20650](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20650) [`a424e62b264`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a424e62b264) - Changes to support Node 16 Typescript definitions from `@types/node`.
 
 ## 21.2.4
 
@@ -326,32 +326,32 @@
 
 ### Patch Changes
 
-- [`d64aafec153`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d64aafec153) - Fixed bug where clicking on tooltip triggered a reaction
+- [#20033](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20033) [`d64aafec153`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d64aafec153) - Fixed bug where clicking on tooltip triggered a reaction
 - Updated dependencies
 
 ## 21.2.2
 
 ### Patch Changes
 
-- [`58a563ece8f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/58a563ece8f) - Add ComponentName as part of the exported enum collection for easier consumption inside products
+- [#20484](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20484) [`58a563ece8f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/58a563ece8f) - Add ComponentName as part of the exported enum collection for easier consumption inside products
 
 ## 21.2.1
 
 ### Patch Changes
 
-- [`783c8c02335`](https://bitbucket.org/atlassian/atlassian-frontend/commits/783c8c02335) - Update the reactions rendered UFO type
+- [#20447](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20447) [`783c8c02335`](https://bitbucket.org/atlassian/atlassian-frontend/commits/783c8c02335) - Update the reactions rendered UFO type
 
 ## 21.2.0
 
 ### Minor Changes
 
-- [`ed9ab4d82a3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ed9ab4d82a3) - Adds "reactions-rendered", "reactions-picker-opened", "reaction-added" and "reaction-removed" to UFO experiences
+- [#20002](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20002) [`ed9ab4d82a3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ed9ab4d82a3) - Adds "reactions-rendered", "reactions-picker-opened", "reaction-added" and "reaction-removed" to UFO experiences
 
 ## 21.1.0
 
 ### Minor Changes
 
-- [`f0c986fe03a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f0c986fe03a) - Migrated styles to emotion and removed typestyle dependency from atlassian-frontend dependencies.
+- [#19618](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19618) [`f0c986fe03a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f0c986fe03a) - Migrated styles to emotion and removed typestyle dependency from atlassian-frontend dependencies.
 
 ### Patch Changes
 
@@ -363,14 +363,14 @@
 
 ### Patch Changes
 
-- [`63f11b8ade4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/63f11b8ade4) - support proxy via webpack config cli
+- [#19019](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19019) [`63f11b8ade4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/63f11b8ade4) - support proxy via webpack config cli
 - Updated dependencies
 
 ## 21.0.4
 
 ### Patch Changes
 
-- [`62a37c2a5c8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/62a37c2a5c8) - replace `react-transition-group` with `@atlaskit/motion` and improve Counter component
+- [#18526](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/18526) [`62a37c2a5c8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/62a37c2a5c8) - replace `react-transition-group` with `@atlaskit/motion` and improve Counter component
 - [`696ba6c465d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/696ba6c465d) - The Reaction component now fires only one request to the service when being hovered.
 - [`95015909035`](https://bitbucket.org/atlassian/atlassian-frontend/commits/95015909035) - Fixed issue where some of the examples where crashing.
 - Updated dependencies
@@ -391,13 +391,13 @@
 
 ### Patch Changes
 
-- [`b44aa6749c0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b44aa6749c0) - [ux] Changed the token usage for emoji name to make it visible in the reaction tooltip.
+- [#17798](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/17798) [`b44aa6749c0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b44aa6749c0) - [ux] Changed the token usage for emoji name to make it visible in the reaction tooltip.
 
 ## 21.0.0
 
 ### Major Changes
 
-- [`47f58da5946`](https://bitbucket.org/atlassian/atlassian-frontend/commits/47f58da5946) - ED-13322, ED-13324, ED-13326, ED-13323, ED-13204: Upgrade and support react-intl@^5.18.1 including breaking API changes, types and tests in atlassian-frontend packages
+- [#14810](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/14810) [`47f58da5946`](https://bitbucket.org/atlassian/atlassian-frontend/commits/47f58da5946) - ED-13322, ED-13324, ED-13326, ED-13323, ED-13204: Upgrade and support react-intl@^5.18.1 including breaking API changes, types and tests in atlassian-frontend packages
 
   What changed: Upgraded our react-intl support from ^2.6.0 to ^5.18.1. This means editor packages now rely on consumers installing ^5.18.1, otherwise editor usage of react-intl will mismatch with actual installed react-intl APIs.
   Why change was made: As part of a coordinated upgrade effort across AF packages, as react-intl v2 is quite dated.
@@ -443,13 +443,13 @@
 
 ### Minor Changes
 
-- [`e82f9588eff`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e82f9588eff) - Instrumented `@atlaskit/reactions` with the new theming package, `@atlaskit/tokens`. New tokens will be visible only in applications configured to use the new Tokens API (currently in alpha).These changes are intended to be interoperable with the legacy theme implementation. Legacy dark mode users should expect no visual or breaking changes.
+- [#16668](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16668) [`e82f9588eff`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e82f9588eff) - Instrumented `@atlaskit/reactions` with the new theming package, `@atlaskit/tokens`. New tokens will be visible only in applications configured to use the new Tokens API (currently in alpha).These changes are intended to be interoperable with the legacy theme implementation. Legacy dark mode users should expect no visual or breaking changes.
 
 ## 20.0.0
 
 ### Major Changes
 
-- [`814356508d3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/814356508d3) - [ux] Design changes to help distinguish reactions and users. User list tooltip now shows the emoji name in grey and the additional users past the first five users in grey.Reactions that you have reacted to now have a blue border and slightly blue transparent background.Updated the heart emoji in the default emoji set.
+- [#15998](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/15998) [`814356508d3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/814356508d3) - [ux] Design changes to help distinguish reactions and users. User list tooltip now shows the emoji name in grey and the additional users past the first five users in grey.Reactions that you have reacted to now have a blue border and slightly blue transparent background.Updated the heart emoji in the default emoji set.
 
 ### Minor Changes
 
@@ -465,7 +465,7 @@
 
 ### Patch Changes
 
-- [`b90c0237824`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b90c0237824) - Update package.jsons to remove unused dependencies.
+- [#13864](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13864) [`b90c0237824`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b90c0237824) - Update package.jsons to remove unused dependencies.
 - Updated dependencies
 
 ## 19.1.3
@@ -478,20 +478,20 @@
 
 ### Patch Changes
 
-- [`4adcd7f3f2b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4adcd7f3f2b) - Fixing small bug related to 19.0.0 change
+- [#12328](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12328) [`4adcd7f3f2b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4adcd7f3f2b) - Fixing small bug related to 19.0.0 change
 - Updated dependencies
 
 ## 19.1.1
 
 ### Patch Changes
 
-- [`b15d1cda72e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b15d1cda72e) - Fixing small bug related to 19.0.0 change
+- [#12295](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12295) [`b15d1cda72e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b15d1cda72e) - Fixing small bug related to 19.0.0 change
 
 ## 19.1.0
 
 ### Minor Changes
 
-- [`7de0b9572f0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7de0b9572f0) - [ux] Updated reactions so that if there is a reaction with count 0, it will now render as just the emoji with no counter (now an empty string). Previously in this scenario it would show the emoji with the number 0 next to it. This should only affect direct usages of the standalone Reactions components, anyone using ConnectedReactionsView (the standard use case) should see no difference as this component already filters out any reactions with a count of 0.
+- [#10569](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10569) [`7de0b9572f0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7de0b9572f0) - [ux] Updated reactions so that if there is a reaction with count 0, it will now render as just the emoji with no counter (now an empty string). Previously in this scenario it would show the emoji with the number 0 next to it. This should only affect direct usages of the standalone Reactions components, anyone using ConnectedReactionsView (the standard use case) should see no difference as this component already filters out any reactions with a count of 0.
 
 ### Patch Changes
 
@@ -501,7 +501,7 @@
 
 ### Major Changes
 
-- [`2f55d66e464`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2f55d66e464) - [ux] Updated the default emoji set that pops up when adding a new reaction and created a pill shaped outline around the reaction.
+- [#10230](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10230) [`2f55d66e464`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2f55d66e464) - [ux] Updated the default emoji set that pops up when adding a new reaction and created a pill shaped outline around the reaction.
 
   Default emoji set: replaced thumsdown with clap, heart_eyes with hearts, joy with astonished, and cry with thinking.
 
@@ -515,7 +515,7 @@
 
 ### Patch Changes
 
-- [`87d5fffa13c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87d5fffa13c) - [ux] Fixed an issue where the Reaction trigger resizes and causes flickering
+- [#9083](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9083) [`87d5fffa13c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87d5fffa13c) - [ux] Fixed an issue where the Reaction trigger resizes and causes flickering
 - Updated dependencies
 
 ## 18.2.1
@@ -528,7 +528,7 @@
 
 ### Minor Changes
 
-- [`7ddbf962bd9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7ddbf962bd9) - [ux] Updated and added new translations
+- [#7762](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/7762) [`7ddbf962bd9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7ddbf962bd9) - [ux] Updated and added new translations
 
 ### Patch Changes
 
@@ -538,20 +538,20 @@
 
 ### Patch Changes
 
-- [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
+- [#5857](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5857) [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
 
 ## 18.1.8
 
 ### Patch Changes
 
-- [`99abe1f917`](https://bitbucket.org/atlassian/atlassian-frontend/commits/99abe1f917) - Fix SLO of get reactions
+- [#5516](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5516) [`99abe1f917`](https://bitbucket.org/atlassian/atlassian-frontend/commits/99abe1f917) - Fix SLO of get reactions
 - Updated dependencies
 
 ## 18.1.7
 
 ### Patch Changes
 
-- [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
+- [#5497](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5497) [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
   This requires version 3.8 of Typescript, read more about how we handle Typescript versions here: https://atlaskit.atlassian.com/get-started
   Also add `typescript` to `devDependencies` to denote version that the package was built with.
 
@@ -565,14 +565,14 @@
 
 ### Patch Changes
 
-- [`c0533f4b35`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c0533f4b35) - Upgrade analytics-next to prevent event loss (https://hello.atlassian.net/wiki/spaces/AFP/blog/2020/08/26/828144759/ACTION+REQUIRED+-+upgrade+analytics-next+to+prevent+event+loss)
+- [#4749](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4749) [`c0533f4b35`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c0533f4b35) - Upgrade analytics-next to prevent event loss (https://hello.atlassian.net/wiki/spaces/AFP/blog/2020/08/26/828144759/ACTION+REQUIRED+-+upgrade+analytics-next+to+prevent+event+loss)
 - Updated dependencies
 
 ## 18.1.4
 
 ### Patch Changes
 
-- [`bee2157c1b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bee2157c1b) - Remove usage of @atlaskit/util-common-test package
+- [#4932](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4932) [`bee2157c1b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bee2157c1b) - Remove usage of @atlaskit/util-common-test package
 
 ## 18.1.3
 
@@ -584,7 +584,7 @@
 
 ### Patch Changes
 
-- [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
+- [#3885](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3885) [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
 
   Since tslib is a dependency for all our packages we recommend that products also follow this tslib upgrade
   to prevent duplicates of tslib being bundled.
@@ -593,13 +593,13 @@
 
 ### Patch Changes
 
-- [`76165ad82f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/76165ad82f) - Bump required because of conflicts on wadmal release
+- [#4393](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4393) [`76165ad82f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/76165ad82f) - Bump required because of conflicts on wadmal release
 
 ## 18.1.0
 
 ### Minor Changes
 
-- [`940cde5773`](https://bitbucket.org/atlassian/atlassian-frontend/commits/940cde5773) - - The Reactions popup menu has been moved from the now-deprecated `@atlaskit/layer` to `@atlaskit/popper`.
+- [#3823](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3823) [`940cde5773`](https://bitbucket.org/atlassian/atlassian-frontend/commits/940cde5773) - - The Reactions popup menu has been moved from the now-deprecated `@atlaskit/layer` to `@atlaskit/popper`.
   - (bugfix) The full emoji picker now repositions to stay in the window boundaries.
 
 ### Patch Changes
@@ -610,13 +610,13 @@
 
 ### Patch Changes
 
-- [`d03bff2147`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d03bff2147) - updated translations
+- [#3369](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3369) [`d03bff2147`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d03bff2147) - updated translations
 
 ## 18.0.0
 
 ### Major Changes
 
-- [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
+- [#3335](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3335) [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
   For more information see: https://community.developer.atlassian.com/t/atlaskit-to-drop-support-for-internet-explorer-11-from-1st-july-2020/39534
 
 ### Patch Changes
@@ -627,13 +627,13 @@
 
 ### Patch Changes
 
-- [`fc83c36503`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fc83c36503) - Update translation files via Traduki build
+- [#2576](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2576) [`fc83c36503`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fc83c36503) - Update translation files via Traduki build
 
 ## 17.3.3
 
 ### Patch Changes
 
-- [`4560b65a4f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4560b65a4f) - upgrade react-transition-group to latest
+- [#2677](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2677) [`4560b65a4f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4560b65a4f) - upgrade react-transition-group to latest
 
 ## 17.3.2
 

@@ -1,1 +1,1 @@
-export { default as ComposableEditor } from './editor-next';
+export { ComposableEditor } from './composable-editor/editor';

@@ -29,7 +29,7 @@ describe('Unmounting tooltip', () => {
       jest.runAllTimers();
     });
 
-    expect(queryByTestId('tooltip')).toBeNull();
+    expect(queryByTestId('tooltip')).not.toBeInTheDocument();
     // eslint-disable-next-line no-console
     expect(console.error).not.toHaveBeenCalled();
     (global.console.error as jest.Mock).mockRestore();
@@ -52,7 +52,7 @@ describe('Unmounting tooltip', () => {
     });
     unmount();
 
-    expect(queryByTestId('tooltip')).toBeNull();
+    expect(queryByTestId('tooltip')).not.toBeInTheDocument();
     // eslint-disable-next-line no-console
     expect(console.error).not.toHaveBeenCalled();
     (global.console.error as jest.Mock).mockRestore();
@@ -75,7 +75,7 @@ describe('Unmounting tooltip', () => {
     });
     unmount();
 
-    expect(queryByTestId('tooltip')).toBeNull();
+    expect(queryByTestId('tooltip')).not.toBeInTheDocument();
     // eslint-disable-next-line no-console
     expect(console.error).not.toHaveBeenCalled();
     (global.console.error as jest.Mock).mockRestore();
@@ -96,7 +96,7 @@ describe('Unmounting tooltip', () => {
       jest.runAllTimers();
     });
 
-    expect(queryByTestId('tooltip')).toBeTruthy();
+    expect(queryByTestId('tooltip')).toBeInTheDocument();
 
     act(() => {
       fireEvent.mouseOut(trigger);
@@ -105,7 +105,7 @@ describe('Unmounting tooltip', () => {
       unmount();
     });
 
-    expect(queryByTestId('tooltip')).toBeNull();
+    expect(queryByTestId('tooltip')).not.toBeInTheDocument();
     // eslint-disable-next-line no-console
     expect(console.error).not.toHaveBeenCalled();
     (global.console.error as jest.Mock).mockRestore();
@@ -126,7 +126,7 @@ describe('Unmounting tooltip', () => {
       jest.runAllTimers();
     });
 
-    expect(queryByTestId('tooltip')).toBeTruthy();
+    expect(queryByTestId('tooltip')).toBeInTheDocument();
 
     act(() => {
       fireEvent.mouseOut(trigger);
@@ -136,7 +136,7 @@ describe('Unmounting tooltip', () => {
     });
     unmount();
 
-    expect(queryByTestId('tooltip')).toBeNull();
+    expect(queryByTestId('tooltip')).not.toBeInTheDocument();
     // eslint-disable-next-line no-console
     expect(console.error).not.toHaveBeenCalled();
     (global.console.error as jest.Mock).mockRestore();

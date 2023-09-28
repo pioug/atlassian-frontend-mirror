@@ -16,13 +16,13 @@
 
 ### Minor Changes
 
-- [`ad3c5c21079`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ad3c5c21079) - Updating all plugins with minor version to correct issue with semver.
+- [#39325](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39325) [`ad3c5c21079`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ad3c5c21079) - Updating all plugins with minor version to correct issue with semver.
 
 ## 0.1.5
 
 ### Patch Changes
 
-- [`8467bdcdf4f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8467bdcdf4f) - Removing `dependencies` prop from PluginInjectionAPI and changing
+- [#39010](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39010) [`8467bdcdf4f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8467bdcdf4f) - Removing `dependencies` prop from PluginInjectionAPI and changing
   signature of `NextEditorPlugin`.
 
   Previously a `NextEditorPlugin` would be consumed as so:
@@ -52,19 +52,19 @@
 
 ### Patch Changes
 
-- [`24e27147cbd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/24e27147cbd) - Added atlaskit docs to all existing plugins.
+- [#39177](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39177) [`24e27147cbd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/24e27147cbd) - Added atlaskit docs to all existing plugins.
 
 ## 0.1.3
 
 ### Patch Changes
 
-- [`f12aff135b6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f12aff135b6) - Extract Composition Plugin
+- [#38577](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38577) [`f12aff135b6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f12aff135b6) - Extract Composition Plugin
 
 ## 0.1.2
 
 ### Patch Changes
 
-- [`4714a80b9d5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4714a80b9d5) - [ED-19488] Fix media Clipboard wrapper to paste images when Editor hasFocus
+- [#38526](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38526) [`4714a80b9d5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4714a80b9d5) - [ED-19488] Fix media Clipboard wrapper to paste images when Editor hasFocus
 - Updated dependencies
 
 ## 0.1.1
@@ -77,4 +77,4 @@
 
 ### Minor Changes
 
-- [`7a438d76a8a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7a438d76a8a) - [ED-16733] Extract Focus plugin to its own plugin
+- [#38424](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38424) [`7a438d76a8a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7a438d76a8a) - [ED-16733] Extract Focus plugin to its own plugin

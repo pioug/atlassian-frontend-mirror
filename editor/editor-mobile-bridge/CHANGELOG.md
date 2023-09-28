@@ -1,5 +1,24 @@
 # @atlaskit/editor-mobile-bridge
 
+## 187.48.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.48.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.48.2
+
+### Patch Changes
+
+- [#40700](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40700) [`07c8d720947`](https://bitbucket.org/atlassian/atlassian-frontend/commits/07c8d720947) - [ED-17196] Refactored editor internal abstraction
+- Updated dependencies
+
 ## 187.48.1
 
 ### Patch Changes
@@ -250,7 +269,7 @@
 
 ### Patch Changes
 
-- [`9131a0a2ffa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9131a0a2ffa) - Extract quick-insert plugin from @atlaskit/editor-core to @atlaskit/editor-plugin-quick-insert.
+- [#39905](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39905) [`9131a0a2ffa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9131a0a2ffa) - Extract quick-insert plugin from @atlaskit/editor-core to @atlaskit/editor-plugin-quick-insert.
 - Updated dependencies
 
 ## 187.43.10
@@ -317,7 +336,7 @@
 
 ### Minor Changes
 
-- [`ec4867e1376`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ec4867e1376) - Removed captions flag and replaced with a new media prop `allowCaptions`. `allowCaptions` is set to `false` by default and products will need to opt in to be able to use captions from now on.
+- [#39320](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39320) [`ec4867e1376`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ec4867e1376) - Removed captions flag and replaced with a new media prop `allowCaptions`. `allowCaptions` is set to `false` by default and products will need to opt in to be able to use captions from now on.
 
 ### Patch Changes
 
@@ -327,7 +346,7 @@
 
 ### Patch Changes
 
-- [`37c62369dae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/37c62369dae) - NO-ISSUE Import doc builder types from editor-common
+- [#39984](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39984) [`37c62369dae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/37c62369dae) - NO-ISSUE Import doc builder types from editor-common
 - Updated dependencies
 
 ## 187.42.5
@@ -364,7 +383,7 @@
 
 ### Minor Changes
 
-- [`8441acc0e0c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8441acc0e0c) - Extract block-type plugin into @atlaskit/editor-plugin-block-type
+- [#39730](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39730) [`8441acc0e0c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8441acc0e0c) - Extract block-type plugin into @atlaskit/editor-plugin-block-type
 
 ### Patch Changes
 
@@ -404,7 +423,7 @@
 
 ### Patch Changes
 
-- [`aeb5c9a01e8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aeb5c9a01e8) - Delete adf-schema from AFE and rely on npm package for adf-schema
+- [#39481](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39481) [`aeb5c9a01e8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aeb5c9a01e8) - Delete adf-schema from AFE and rely on npm package for adf-schema
 - [`4b4dcfe0bba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4b4dcfe0bba) - Delete adf-schema, use published version
 - Updated dependencies
 
@@ -430,7 +449,7 @@
 
 ### Patch Changes
 
-- [`d4cbb84052d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d4cbb84052d) - Move element-browser to `editor-common` to decouple quick-insert plugin.
+- [#39790](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39790) [`d4cbb84052d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d4cbb84052d) - Move element-browser to `editor-common` to decouple quick-insert plugin.
 - Updated dependencies
 
 ## 187.40.2
@@ -539,7 +558,7 @@
 
 ### Patch Changes
 
-- [`94662d7c5af`](https://bitbucket.org/atlassian/atlassian-frontend/commits/94662d7c5af) - Extracted rule plugin from editor-core to editor-plugin-rule.
+- [#39510](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39510) [`94662d7c5af`](https://bitbucket.org/atlassian/atlassian-frontend/commits/94662d7c5af) - Extracted rule plugin from editor-core to editor-plugin-rule.
 - Updated dependencies
 
 ## 187.37.4
@@ -582,7 +601,7 @@
 
 ### Patch Changes
 
-- [`085d722e77f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/085d722e77f) - Decoupling the rule plugin and adding the insertHorizontalRule action to the rule plugin.
+- [#39360](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39360) [`085d722e77f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/085d722e77f) - Decoupling the rule plugin and adding the insertHorizontalRule action to the rule plugin.
 - Updated dependencies
 
 ## 187.35.7
@@ -619,7 +638,7 @@
 
 ### Patch Changes
 
-- [`6acf9830b36`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6acf9830b36) - Update feature flags plugin
+- [#39304](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39304) [`6acf9830b36`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6acf9830b36) - Update feature flags plugin
   (@atlaskit/editor-plugin-feature-flags) to use a named export
   rather than default export to match other plugins.
 
@@ -643,7 +662,7 @@
 
 ### Minor Changes
 
-- [`3542bead318`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3542bead318) - Move block type commands to next editor plugin actions
+- [#39062](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39062) [`3542bead318`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3542bead318) - Move block type commands to next editor plugin actions
 
 ### Patch Changes
 
@@ -671,7 +690,7 @@
 
 ### Minor Changes
 
-- [`7613b6b6a51`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7613b6b6a51) - [ED-19428] Decouple quick-insert plugin from editor-core
+- [#39159](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39159) [`7613b6b6a51`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7613b6b6a51) - [ED-19428] Decouple quick-insert plugin from editor-core
 
 ### Patch Changes
 
@@ -729,7 +748,7 @@
 
 ### Patch Changes
 
-- [`8467bdcdf4f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8467bdcdf4f) - Removing `dependencies` prop from PluginInjectionAPI and changing
+- [#39010](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39010) [`8467bdcdf4f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8467bdcdf4f) - Removing `dependencies` prop from PluginInjectionAPI and changing
   signature of `NextEditorPlugin`.
 
   Previously a `NextEditorPlugin` would be consumed as so:
@@ -801,7 +820,7 @@
 
 ### Minor Changes
 
-- [`c70a6612aba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c70a6612aba) - [ED-19428] Decouple quick-insert plugin from editor-core
+- [#38851](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38851) [`c70a6612aba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c70a6612aba) - [ED-19428] Decouple quick-insert plugin from editor-core
 
 ### Patch Changes
 
@@ -817,7 +836,7 @@
 
 ### Patch Changes
 
-- [`4795a87a349`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4795a87a349) - Migrating some actions of `editor-plugin-list` to commands. Adding sharedState for `editor-plugin-text-formatting`.
+- [#39023](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39023) [`4795a87a349`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4795a87a349) - Migrating some actions of `editor-plugin-list` to commands. Adding sharedState for `editor-plugin-text-formatting`.
 - Updated dependencies
 
 ## 187.30.8
@@ -836,7 +855,7 @@
 
 ### Patch Changes
 
-- [`33cb07de05f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/33cb07de05f) - change adf-schema to fixed versioning
+- [#38976](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38976) [`33cb07de05f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/33cb07de05f) - change adf-schema to fixed versioning
 - Updated dependencies
 
 ## 187.30.5
@@ -903,7 +922,7 @@
 
 ### Patch Changes
 
-- [`8e9c21af71d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8e9c21af71d) - Extracting list plugin code from editor-core to @atlaskit/editor-plugin-list.
+- [#38881](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38881) [`8e9c21af71d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8e9c21af71d) - Extracting list plugin code from editor-core to @atlaskit/editor-plugin-list.
 - Updated dependencies
 
 ## 187.28.5
@@ -934,14 +953,14 @@
 
 ### Patch Changes
 
-- [`5d6ec9ac49c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5d6ec9ac49c) - ED-19330 Refactor to actions. Move styles locally
+- [#38491](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38491) [`5d6ec9ac49c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5d6ec9ac49c) - ED-19330 Refactor to actions. Move styles locally
 - Updated dependencies
 
 ## 187.28.0
 
 ### Patch Changes
 
-- [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
+- [#38162](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38162) [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
 - Updated dependencies
 
 ## 187.27.1
@@ -954,7 +973,7 @@
 
 ### Patch Changes
 
-- [`967f4819f58`](https://bitbucket.org/atlassian/atlassian-frontend/commits/967f4819f58) - Introduce core plugin that is always injected into the pluginInjectionApi. This has a new action `execute` that replaces the existing `executeCommand` that was called from the `pluginInjectionApi`.
+- [#38808](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38808) [`967f4819f58`](https://bitbucket.org/atlassian/atlassian-frontend/commits/967f4819f58) - Introduce core plugin that is always injected into the pluginInjectionApi. This has a new action `execute` that replaces the existing `executeCommand` that was called from the `pluginInjectionApi`.
 - Updated dependencies
 
 ## 187.26.2
@@ -979,7 +998,7 @@
 
 ### Patch Changes
 
-- [`cbff538b420`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cbff538b420) - [ED-19428] Move shared types from quick-insert plugin to editor-common as a first step towards decoupling it from editor-core
+- [#38688](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38688) [`cbff538b420`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cbff538b420) - [ED-19428] Move shared types from quick-insert plugin to editor-common as a first step towards decoupling it from editor-core
 - Updated dependencies
 
 ## 187.25.2
@@ -1016,7 +1035,7 @@
 
 ### Patch Changes
 
-- [`3ef90d5fc2f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3ef90d5fc2f) - Cleanup the references to version.json
+- [#38551](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38551) [`3ef90d5fc2f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3ef90d5fc2f) - Cleanup the references to version.json
 - Updated dependencies
 
 ## 187.24.0
@@ -1053,7 +1072,7 @@
 
 ### Patch Changes
 
-- [`ee20a0c6142`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ee20a0c6142) - Exporting default preset via preset-default endpoint. This can be accessed like so:
+- [#38629](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38629) [`ee20a0c6142`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ee20a0c6142) - Exporting default preset via preset-default endpoint. This can be accessed like so:
 
   ```ts
   import { createDefaultPreset } from '@atlaskit/editor-core/preset-default';
@@ -1103,7 +1122,7 @@
 
 ### Minor Changes
 
-- [`43c51e0a282`](https://bitbucket.org/atlassian/atlassian-frontend/commits/43c51e0a282) - [ED-19431] Migrate all text-formatting plugin actions over to plugin commands
+- [#38497](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38497) [`43c51e0a282`](https://bitbucket.org/atlassian/atlassian-frontend/commits/43c51e0a282) - [ED-19431] Migrate all text-formatting plugin actions over to plugin commands
 
 ### Patch Changes
 
@@ -1137,7 +1156,7 @@
 
 ### Minor Changes
 
-- [`80b964e24a2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/80b964e24a2) - [ED-19205] Extract the text-formatting editor plugin to a separate package
+- [#38359](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38359) [`80b964e24a2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/80b964e24a2) - [ED-19205] Extract the text-formatting editor plugin to a separate package
 
 ### Patch Changes
 
@@ -1189,14 +1208,14 @@
 
 ### Patch Changes
 
-- [`8b104cb7575`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8b104cb7575) - [ED-14769] Remove tableCellOptionsinFloatingToolbar feature flag & make it default behaviour
+- [#38287](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38287) [`8b104cb7575`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8b104cb7575) - [ED-14769] Remove tableCellOptionsinFloatingToolbar feature flag & make it default behaviour
 - Updated dependencies
 
 ## 187.16.0
 
 ### Patch Changes
 
-- [`3413f770f2b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3413f770f2b) - Moving references to floating-toolbar types to `editor-common`
+- [#38389](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38389) [`3413f770f2b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3413f770f2b) - Moving references to floating-toolbar types to `editor-common`
 - Updated dependencies
 
 ## 187.15.1
@@ -1323,7 +1342,7 @@
 
 ### Minor Changes
 
-- [`8695abdde8e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8695abdde8e) - [ED-18289] Clean-up Editor Sentry feature flag
+- [#38217](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38217) [`8695abdde8e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8695abdde8e) - [ED-18289] Clean-up Editor Sentry feature flag
 
 ### Patch Changes
 
@@ -1333,7 +1352,7 @@
 
 ### Minor Changes
 
-- [`c2279d7aeb1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c2279d7aeb1) - [ED-19205] Update text formatting plugin API to abstract away the analytics implementation
+- [#38225](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38225) [`c2279d7aeb1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c2279d7aeb1) - [ED-19205] Update text formatting plugin API to abstract away the analytics implementation
 
 ### Patch Changes
 
@@ -1343,7 +1362,7 @@
 
 ### Minor Changes
 
-- [`c6c3b7e43d3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c6c3b7e43d3) - [ED-19202] Remove direct dependency of editor-core code on text-formatting plugin
+- [#37920](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37920) [`c6c3b7e43d3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c6c3b7e43d3) - [ED-19202] Remove direct dependency of editor-core code on text-formatting plugin
 
 ### Patch Changes
 
@@ -1395,21 +1414,21 @@
 
 ### Patch Changes
 
-- [`7cca8fcf473`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7cca8fcf473) - ED-18274: Remove unused feature flags listNumberContinuity and restartNumberedListsToolbar (not planned for future use either) (all related to the restart lists project)
+- [#37872](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37872) [`7cca8fcf473`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7cca8fcf473) - ED-18274: Remove unused feature flags listNumberContinuity and restartNumberedListsToolbar (not planned for future use either) (all related to the restart lists project)
 - Updated dependencies
 
 ## 187.10.1
 
 ### Patch Changes
 
-- [`31405891e32`](https://bitbucket.org/atlassian/atlassian-frontend/commits/31405891e32) - Extract editor disabled plugin as separate package.
+- [#37702](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37702) [`31405891e32`](https://bitbucket.org/atlassian/atlassian-frontend/commits/31405891e32) - Extract editor disabled plugin as separate package.
 - Updated dependencies
 
 ## 187.10.0
 
 ### Patch Changes
 
-- [`1944b35b538`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1944b35b538) - update usage of block-type related utils
+- [#37964](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37964) [`1944b35b538`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1944b35b538) - update usage of block-type related utils
 - Updated dependencies
 
 ## 187.9.3
@@ -1470,7 +1489,7 @@
 
 ### Patch Changes
 
-- [`d8c1bcdc71a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d8c1bcdc71a) - ED-19217 decoupled lists related util functions from editor-core
+- [#37650](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37650) [`d8c1bcdc71a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d8c1bcdc71a) - ED-19217 decoupled lists related util functions from editor-core
 - Updated dependencies
 
 ## 187.8.9
@@ -1513,7 +1532,7 @@
 
 ### Patch Changes
 
-- [`4e6f1bf8511`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4e6f1bf8511) - [ED-19233] Import prosemirror libraries from internal facade package
+- [#37785](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37785) [`4e6f1bf8511`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4e6f1bf8511) - [ED-19233] Import prosemirror libraries from internal facade package
 - Updated dependencies
 
 ## 187.8.2
@@ -1532,7 +1551,7 @@
 
 ### Patch Changes
 
-- [`9bc531568ad`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9bc531568ad) - [ED-19216] Remove current analytics in list plugin
+- [#37503](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37503) [`9bc531568ad`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9bc531568ad) - [ED-19216] Remove current analytics in list plugin
 - Updated dependencies
 
 ## 187.7.2
@@ -1731,14 +1750,14 @@
 
 ### Patch Changes
 
-- [`315332d1509`](https://bitbucket.org/atlassian/atlassian-frontend/commits/315332d1509) - Converts the existing withAnalytics events within the text-formatting to use the new EditorAnalyticsAPI instead
+- [#37189](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37189) [`315332d1509`](https://bitbucket.org/atlassian/atlassian-frontend/commits/315332d1509) - Converts the existing withAnalytics events within the text-formatting to use the new EditorAnalyticsAPI instead
 - Updated dependencies
 
 ## 187.3.6
 
 ### Patch Changes
 
-- [`b9355830504`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b9355830504) - Opt out of peer dependency enforcement
+- [#37340](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37340) [`b9355830504`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b9355830504) - Opt out of peer dependency enforcement
 - Updated dependencies
 
 ## 187.3.5
@@ -1859,14 +1878,14 @@
 
 ### Patch Changes
 
-- [`3fb20c4aeba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3fb20c4aeba) - Add postinstall check to enforce internal peer dependencies
+- [#36757](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36757) [`3fb20c4aeba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3fb20c4aeba) - Add postinstall check to enforce internal peer dependencies
 - Updated dependencies
 
 ## 187.1.0
 
 ### Minor Changes
 
-- [`af518541914`](https://bitbucket.org/atlassian/atlassian-frontend/commits/af518541914) - Integrates the new Design Tokens API into Editor-mobile-bridge behind a feature flag `?enableTokenThemes=true` and updates static colors in the css-reset to use tokens.
+- [#36720](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36720) [`af518541914`](https://bitbucket.org/atlassian/atlassian-frontend/commits/af518541914) - Integrates the new Design Tokens API into Editor-mobile-bridge behind a feature flag `?enableTokenThemes=true` and updates static colors in the css-reset to use tokens.
 
 ## 187.0.0
 
@@ -1878,7 +1897,7 @@
 
 ### Minor Changes
 
-- [`4661eca5acc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4661eca5acc) - ED-18122 Fix first load content issues
+- [#36908](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36908) [`4661eca5acc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4661eca5acc) - ED-18122 Fix first load content issues
 
 ## 186.0.2
 
@@ -1896,7 +1915,7 @@
 
 ### Patch Changes
 
-- [`8e084d87da5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8e084d87da5) - Remove deprecated hyperlink commands and plugin key including:
+- [#37010](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37010) [`8e084d87da5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8e084d87da5) - Remove deprecated hyperlink commands and plugin key including:
 
   - isTextAtPos
   - isLinkAtPos
@@ -2040,7 +2059,7 @@
 
 ### Patch Changes
 
-- [`8b891bf3590`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8b891bf3590) - This change introduces `editor-plugin-hyperlink` which separates the hyperlink plugin from `editor-core`. In order to enable this change there are now new entry points on `editor-common` (such as `/link`, `/quick-insert`) in order to separate common code. Further `prosemirror-input-rules` now has new exports of `createPlugin` and `createRule` which are used in many plugins in `editor-core`.
+- [#36631](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36631) [`8b891bf3590`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8b891bf3590) - This change introduces `editor-plugin-hyperlink` which separates the hyperlink plugin from `editor-core`. In order to enable this change there are now new entry points on `editor-common` (such as `/link`, `/quick-insert`) in order to separate common code. Further `prosemirror-input-rules` now has new exports of `createPlugin` and `createRule` which are used in many plugins in `editor-core`.
 - Updated dependencies
 
 ## 185.14.4
@@ -2071,7 +2090,7 @@
 
 ### Patch Changes
 
-- [`91c4edcea5a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/91c4edcea5a) - The analytics plugin (`editor-plugin-analytics`) now creates the `createAnalyticsEvent` if none is supplied and shares it with other plugins internally.
+- [#36748](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36748) [`91c4edcea5a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/91c4edcea5a) - The analytics plugin (`editor-plugin-analytics`) now creates the `createAnalyticsEvent` if none is supplied and shares it with other plugins internally.
 - Updated dependencies
 
 ## 185.13.2
@@ -2090,7 +2109,7 @@
 
 ### Minor Changes
 
-- [`e4557e0d9be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e4557e0d9be) - [ED-18160] Switch to using example pages for mobile webdriver tests
+- [#36429](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36429) [`e4557e0d9be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e4557e0d9be) - [ED-18160] Switch to using example pages for mobile webdriver tests
 
 ### Patch Changes
 
@@ -2136,7 +2155,7 @@
 
 ### Minor Changes
 
-- [`f21b48e8a51`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f21b48e8a51) - enabled access to NextEditorPlugin actions for mobile bridge
+- [#34966](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34966) [`f21b48e8a51`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f21b48e8a51) - enabled access to NextEditorPlugin actions for mobile bridge
 
 ### Patch Changes
 
@@ -2212,7 +2231,7 @@
 
 ### Patch Changes
 
-- [`5f5ba16de66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f5ba16de66) - [ED-13910] Fix prosemirror types
+- [#36241](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36241) [`5f5ba16de66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f5ba16de66) - [ED-13910] Fix prosemirror types
 - Updated dependencies
 
 ## 185.8.2
@@ -2447,7 +2466,7 @@
 
 ### Patch Changes
 
-- [`a133cf2c682`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a133cf2c682) - [ux] Typing in table cells for mobile editor will no longer increase the width of the table cell unexpectedly
+- [#35497](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35497) [`a133cf2c682`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a133cf2c682) - [ux] Typing in table cells for mobile editor will no longer increase the width of the table cell unexpectedly
 
 ## 185.2.20
 
@@ -2561,7 +2580,7 @@
 
 ### Patch Changes
 
-- [`f07a1e036a9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f07a1e036a9) - Refactoring editor-core to prepare for extracting card plugin.
+- [#35005](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35005) [`f07a1e036a9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f07a1e036a9) - Refactoring editor-core to prepare for extracting card plugin.
 - Updated dependencies
 
 ## 185.2.1
@@ -2604,7 +2623,7 @@
 
 ### Patch Changes
 
-- [`0414d1a9533`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0414d1a9533) - [ux] [ED-16506] Fix bug where in android when the editor is loaded for the first time with existing content a race condition was causing an enter key press to get triggered and add extra paragraphs to the start of the document
+- [#34953](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34953) [`0414d1a9533`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0414d1a9533) - [ux] [ED-16506] Fix bug where in android when the editor is loaded for the first time with existing content a race condition was causing an enter key press to get triggered and add extra paragraphs to the start of the document
 - Updated dependencies
 
 ## 185.1.2
@@ -2623,7 +2642,7 @@
 
 ### Patch Changes
 
-- [`bb442ced942`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bb442ced942) - Remove newCardExperience feature flag
+- [#34887](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34887) [`bb442ced942`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bb442ced942) - Remove newCardExperience feature flag
 - Updated dependencies
 
 ## 185.0.3
@@ -2786,14 +2805,14 @@
 
 ### Patch Changes
 
-- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793) [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
 - Updated dependencies
 
 ## 183.1.0
 
 ### Minor Changes
 
-- [`6bc52e5a406`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6bc52e5a406) - [ED-17687] Capture errors caught in error boundaries in Sentry
+- [#33771](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33771) [`6bc52e5a406`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6bc52e5a406) - [ED-17687] Capture errors caught in error boundaries in Sentry
 
 ### Patch Changes
 
@@ -2828,7 +2847,7 @@
 
 ### Patch Changes
 
-- [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649) [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
 - Updated dependencies
 
 ## 183.0.7
@@ -2877,7 +2896,7 @@
 
 ### Minor Changes
 
-- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258) [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
 
 ### Patch Changes
 
@@ -2893,7 +2912,7 @@
 
 ### Patch Changes
 
-- [`0ffb55018c9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0ffb55018c9) - Revert "[ED-17172] Bumped prosemirror-view from 1.23.2 to 1.23.7 and removed work-around for fixed issues"
+- [#33004](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33004) [`0ffb55018c9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0ffb55018c9) - Revert "[ED-17172] Bumped prosemirror-view from 1.23.2 to 1.23.7 and removed work-around for fixed issues"
 - Updated dependencies
 
 ## 182.1.4
@@ -2912,7 +2931,7 @@
 
 ### Patch Changes
 
-- [`1a1dc6a0370`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1a1dc6a0370) - Upgrade `@babel` scoped packages to `^7.20.0`
+- [#33005](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33005) [`1a1dc6a0370`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1a1dc6a0370) - Upgrade `@babel` scoped packages to `^7.20.0`
 
 ## 36.3.44
 
@@ -3050,7 +3069,7 @@
 
 ### Patch Changes
 
-- [`2e01c9c74b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e01c9c74b5) - DUMMY remove before merging to master; dupe adf-schema via adf-utils
+- [#32424](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32424) [`2e01c9c74b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e01c9c74b5) - DUMMY remove before merging to master; dupe adf-schema via adf-utils
 - [`00a63a62af2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/00a63a62af2) - ME-3069 Reverted removal of styled components theme provider in mobile bridge. https://product-fabric.atlassian.net/browse/ME-3069
 - [`21b20f571fa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/21b20f571fa) - [ED-17382] Update feature flag usage for rule plugin
 - [`8bf267b25b8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8bf267b25b8) - [ED-17384] Send feature flags to the \_privateRegisterEditor EditorAction function
@@ -3157,7 +3176,7 @@
 
 ### Patch Changes
 
-- [`ef830fdabfa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ef830fdabfa) - [ED-17294] Enable type checking for Preset plugins on unit tests
+- [#31891](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31891) [`ef830fdabfa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ef830fdabfa) - [ED-17294] Enable type checking for Preset plugins on unit tests
 - [`31717a1fe63`](https://bitbucket.org/atlassian/atlassian-frontend/commits/31717a1fe63) - Fix the bug when clicking on media inline files in Hybrid Renderer, viewer is not opening.
 - Updated dependencies
 
@@ -3189,7 +3208,7 @@
 
 ### Minor Changes
 
-- [`6c543971074`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c543971074) - [ux] PTC-6520 remove team mention highlight
+- [#31299](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31299) [`6c543971074`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c543971074) - [ux] PTC-6520 remove team mention highlight
 
 ### Patch Changes
 
@@ -3212,7 +3231,7 @@
 
 ### Patch Changes
 
-- [`9ef3576ee60`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9ef3576ee60) - [ux] HOT-102812: revert ED-16120
+- [#31198](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31198) [`9ef3576ee60`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9ef3576ee60) - [ux] HOT-102812: revert ED-16120
 
 ## 36.2.2
 
@@ -3230,7 +3249,7 @@
 
 ### Minor Changes
 
-- [`0bc056cca38`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0bc056cca38) - [ux] ED-16712 Fixed an issue when the user opens the Android app the first time, the cursor position is not at the start of document
+- [#30248](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/30248) [`0bc056cca38`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0bc056cca38) - [ux] ED-16712 Fixed an issue when the user opens the Android app the first time, the cursor position is not at the start of document
 
 ### Patch Changes
 
@@ -3276,7 +3295,7 @@
 
 ### Minor Changes
 
-- [`7cd38db873f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7cd38db873f) - [ux] Do not move the cursor while updating Date on iOS platform
+- [#30718](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/30718) [`7cd38db873f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7cd38db873f) - [ux] Do not move the cursor while updating Date on iOS platform
 
 ## 36.0.25
 
@@ -3300,7 +3319,7 @@
 
 ### Patch Changes
 
-- [`c38fe3fa7d1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c38fe3fa7d1) - [ux]ED-16915 Adds back styles for placeholder span on Android
+- [#30359](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/30359) [`c38fe3fa7d1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c38fe3fa7d1) - [ux]ED-16915 Adds back styles for placeholder span on Android
 - Updated dependencies
 
 ## 36.0.21
@@ -3325,7 +3344,7 @@
 
 ### Patch Changes
 
-- [`e78c04fa97c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e78c04fa97c) - [ux] ED-16489 Fixed - textFormatBridge.updateTextWithADFStatus returns "isEmptyAdf: false" when ADF has only whitespace
+- [#29470](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/29470) [`e78c04fa97c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e78c04fa97c) - [ux] ED-16489 Fixed - textFormatBridge.updateTextWithADFStatus returns "isEmptyAdf: false" when ADF has only whitespace
 - Updated dependencies
 
 ## 36.0.17
@@ -3392,7 +3411,7 @@
 
 ### Patch Changes
 
-- [`68ff6bc0ead`](https://bitbucket.org/atlassian/atlassian-frontend/commits/68ff6bc0ead) - [ux] ED-16712 Fixed an issue when the user opens the Android app the first time, the cursor position is not at the start of document
+- [#29602](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/29602) [`68ff6bc0ead`](https://bitbucket.org/atlassian/atlassian-frontend/commits/68ff6bc0ead) - [ux] ED-16712 Fixed an issue when the user opens the Android app the first time, the cursor position is not at the start of document
 
 ## 36.0.6
 
@@ -3434,7 +3453,7 @@
 
 ### Major Changes
 
-- [`8c89945947e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8c89945947e) - Editor bridge opens edit status when status is added
+- [#28932](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28932) [`8c89945947e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8c89945947e) - Editor bridge opens edit status when status is added
 
 ### Patch Changes
 
@@ -3576,7 +3595,7 @@
 
 ### Patch Changes
 
-- [`dca00b9db07`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dca00b9db07) - [ED-15854] Refactor restart numbered lists feature flags (restartNumberedLists, listNumberContinuity) to use URL params instead of editor config.
+- [#28090](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28090) [`dca00b9db07`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dca00b9db07) - [ED-15854] Refactor restart numbered lists feature flags (restartNumberedLists, listNumberContinuity) to use URL params instead of editor config.
 - [`224a2482244`](https://bitbucket.org/atlassian/atlassian-frontend/commits/224a2482244) - [ED-16166] Changes the renderer prop document type from any to DocNode
 
   BREAKING for `@atlaskit/renderer`: Previously the `document` prop for the renderer component had the type of `any`. This has now been changed to `DocNode` which comes from `@atlaskit/adf-schema`.
@@ -3675,7 +3694,7 @@
 
 ### Patch Changes
 
-- [`81ed0d4231d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/81ed0d4231d) - [ED-15853] Add feature flags for the restart numbered lists project. These include:
+- [#26712](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26712) [`81ed0d4231d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/81ed0d4231d) - [ED-15853] Add feature flags for the restart numbered lists project. These include:
 
   - restartNumberedLists: Allow numbered lists to start from any number greater than 0, not just 1
   - listNumberContinuity: Allow lists to continue their numbering when split by other nodes
@@ -3918,7 +3937,7 @@
 
 ### Minor Changes
 
-- [`72d44f7f681`](https://bitbucket.org/atlassian/atlassian-frontend/commits/72d44f7f681) - [ux] ED-15457: call replaceDocument() from mobile bridge to properly reload web Editor with all props taken into consideration
+- [#25860](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/25860) [`72d44f7f681`](https://bitbucket.org/atlassian/atlassian-frontend/commits/72d44f7f681) - [ux] ED-15457: call replaceDocument() from mobile bridge to properly reload web Editor with all props taken into consideration
 
 ### Patch Changes
 
@@ -3995,7 +4014,7 @@
 
 ### Minor Changes
 
-- [`e71cf110b81`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e71cf110b81) - [ux] ED-14418 Copied table cell options to the floating toolbar if feature flag is enabled (off by default)
+- [#24710](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24710) [`e71cf110b81`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e71cf110b81) - [ux] ED-14418 Copied table cell options to the floating toolbar if feature flag is enabled (off by default)
 - [`c3f440484ff`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c3f440484ff) - Removed styled components theme provider
 
 ### Patch Changes
@@ -4007,7 +4026,7 @@
 
 ### Patch Changes
 
-- [`588c8a3e413`](https://bitbucket.org/atlassian/atlassian-frontend/commits/588c8a3e413) - Update mocks to include interface fetchByEmojiId
+- [#25696](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/25696) [`588c8a3e413`](https://bitbucket.org/atlassian/atlassian-frontend/commits/588c8a3e413) - Update mocks to include interface fetchByEmojiId
 - Updated dependencies
 
 ## 34.5.10
@@ -4032,7 +4051,7 @@
 
 ### Patch Changes
 
-- [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
+- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874) [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
 - Updated dependencies
 
 ## 34.5.6
@@ -4075,7 +4094,7 @@
 
 ### Minor Changes
 
-- [`45b6d35ea96`](https://bitbucket.org/atlassian/atlassian-frontend/commits/45b6d35ea96) - [ME-1327] Added new upload methods to editor mobile bridge to support previews and progress for media cards.
+- [#24004](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24004) [`45b6d35ea96`](https://bitbucket.org/atlassian/atlassian-frontend/commits/45b6d35ea96) - [ME-1327] Added new upload methods to editor mobile bridge to support previews and progress for media cards.
 
 ### Patch Changes
 
@@ -4120,7 +4139,7 @@
 
 ### Patch Changes
 
-- [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
+- [#24492](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24492) [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
 - Updated dependencies
 
 ## 34.4.23
@@ -4169,7 +4188,7 @@
 
 ### Patch Changes
 
-- [`8ed516834c1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8ed516834c1) - [ux] ED-15407: Bring forward patches below to master:
+- [#24029](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24029) [`8ed516834c1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8ed516834c1) - [ux] ED-15407: Bring forward patches below to master:
 
   - ED-14988: Patch dark mode in mobile-bridge by ensuring theme context is not stale. Repaints editor nodes when theme mode changes.
   - ME-2511: Revert the premature optimisation that introduces race condition.
@@ -4187,7 +4206,7 @@
 
 ### Patch Changes
 
-- [`721bc4d7794`](https://bitbucket.org/atlassian/atlassian-frontend/commits/721bc4d7794) - ED-14377 To remove the imports of version.json which is deprecated
+- [#23381](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23381) [`721bc4d7794`](https://bitbucket.org/atlassian/atlassian-frontend/commits/721bc4d7794) - ED-14377 To remove the imports of version.json which is deprecated
 - [`6317ceaac4b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6317ceaac4b) - use @atlaskit/link-picker
 - [`04db970c32b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/04db970c32b) - ED-14899 add attribute to render measurements and rework analytics events to prevent measurements done in background to resulting in misleading render durations.
 - Updated dependencies
@@ -4274,7 +4293,7 @@
 
 ### Minor Changes
 
-- [`8a6ceb519b4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8a6ceb519b4) - ED-14955 Fix the task list not rendered in hybrid editor
+- [#22642](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22642) [`8a6ceb519b4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8a6ceb519b4) - ED-14955 Fix the task list not rendered in hybrid editor
 - [`06232e0f8dd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/06232e0f8dd) - [ux] Opt In SSR for Resourced Emoji and Emoji Placeholder with EmojiResource interfaces
 
 ### Patch Changes
@@ -4369,7 +4388,7 @@
 
 ### Minor Changes
 
-- [`daab566aecb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/daab566aecb) - [ux] ME-2402 cursor moves to after date node after inserting a date on mobile
+- [#22029](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22029) [`daab566aecb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/daab566aecb) - [ux] ME-2402 cursor moves to after date node after inserting a date on mobile
 
 ### Patch Changes
 
@@ -4463,13 +4482,13 @@
 
 ### Minor Changes
 
-- [`afccf139dce`](https://bitbucket.org/atlassian/atlassian-frontend/commits/afccf139dce) - ME-2258 On mobile, picking a date in negative timezone return an incorrect day
+- [#22001](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22001) [`afccf139dce`](https://bitbucket.org/atlassian/atlassian-frontend/commits/afccf139dce) - ME-2258 On mobile, picking a date in negative timezone return an incorrect day
 
 ## 34.1.0
 
 ### Minor Changes
 
-- [`f6a7c770330`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f6a7c770330) - Fix re-rendering issue when the content is not changed
+- [#21570](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21570) [`f6a7c770330`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f6a7c770330) - Fix re-rendering issue when the content is not changed
 - [`8949731bc6a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8949731bc6a) - ED-14608: Migrate adf-utils imports in atlassian-frontend to new child entry points to improve treeshaking
 - [`68c8e183ac4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/68c8e183ac4) - Fix the excessive memory usage caused by redundant emoji requests
 - [`834e51ac432`](https://bitbucket.org/atlassian/atlassian-frontend/commits/834e51ac432) - ME-1873 Do not call updateListState if there is no change in ListState
@@ -4567,7 +4586,7 @@
 
 ### Minor Changes
 
-- [`4573a95b655`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4573a95b655) - [ux] Instrumented `@atlaskit/editor-mobile-bridge` with the new theming package, `@atlaskit/tokens`.
+- [#20721](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20721) [`4573a95b655`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4573a95b655) - [ux] Instrumented `@atlaskit/editor-mobile-bridge` with the new theming package, `@atlaskit/tokens`.
 
   New tokens will be visible only in applications configured to use the new Tokens API (currently in alpha).
   These changes are intended to be interoperable with the legacy theme implementation. Legacy dark mode users should expect no visual or breaking changes.
@@ -4641,7 +4660,7 @@
 
 ### Patch Changes
 
-- [`eb513953a19`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eb513953a19) - Fix misaligned font-size in editor-mobile-bridge renderer
+- [#21094](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21094) [`eb513953a19`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eb513953a19) - Fix misaligned font-size in editor-mobile-bridge renderer
 
 ## 33.1.8
 
@@ -4689,14 +4708,14 @@
 
 ### Patch Changes
 
-- [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
+- [#20650](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20650) [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
 - Updated dependencies
 
 ## 33.1.0
 
 ### Minor Changes
 
-- [`b623cae0fe6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b623cae0fe6) - [ux][ed-13182] Uses the same logic for inserting or adding new action and decision items via different methods.
+- [#20033](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20033) [`b623cae0fe6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b623cae0fe6) - [ux][ed-13182] Uses the same logic for inserting or adding new action and decision items via different methods.
 
   It helps to avoid inconsistent spacing between items that were inserted via different insertion methods.
 
@@ -4842,7 +4861,7 @@
 
 ### Major Changes
 
-- [`2ec99bf6f9f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2ec99bf6f9f) - [ux] ED-14651: removed react-intl v2.
+- [#19618](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19618) [`2ec99bf6f9f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2ec99bf6f9f) - [ux] ED-14651: removed react-intl v2.
 
 ### Minor Changes
 
@@ -4938,7 +4957,7 @@
 
 ### Patch Changes
 
-- [`7e7fff3b56d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7e7fff3b56d) - ED-14766: polyfill queueMicrotask in mobile-brdige
+- [#19876](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19876) [`7e7fff3b56d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7e7fff3b56d) - ED-14766: polyfill queueMicrotask in mobile-brdige
 
 ## 32.0.15
 
@@ -5034,7 +5053,7 @@
 
 ### Major Changes
 
-- [`076d3d9d1b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/076d3d9d1b2) - [ME-1214] Introduced a bridge method setSelectionAtAnchor to the start or end
+- [#19019](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19019) [`076d3d9d1b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/076d3d9d1b2) - [ME-1214] Introduced a bridge method setSelectionAtAnchor to the start or end
 
 ### Minor Changes
 
@@ -5147,13 +5166,13 @@
 
 ### Minor Changes
 
-- [`89f141deaa8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/89f141deaa8) - [ux] Enables text-alignment in the Mobile editor
+- [#18526](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/18526) [`89f141deaa8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/89f141deaa8) - [ux] Enables text-alignment in the Mobile editor
 - [`304351e4b1e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/304351e4b1e) - CETI-241 - Added additional panel ADF attributes (panelIconId, panelIconText) to uniquely identify custom panel emojis. The change has been categorised as major since it is a change to the full-schema ADF. However, the custom panel feature is behind a feature flag, has not yet been released to production, and is only currently planned for release to Confluence. See ADF change #61 for further details.
 
 ### Patch Changes
 
 - [`1892be345ad`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1892be345ad) - Remove empty path aliasing for @atlaskit/avatar-group and @atlaskit/avatar
-- [`0a8e556744b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0a8e556744b) - [ME-1678] Stop the editorView from being in compose mode while pressing adaptive toolbar buttons
+- [#16752](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16752) [`0a8e556744b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0a8e556744b) - [ME-1678] Stop the editorView from being in compose mode while pressing adaptive toolbar buttons
 - [`2f5133aedd7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2f5133aedd7) - ED-13881 Update existing imports from @atlaskit/adf-schema to use declarative entry points
 - [`78c6a40ef5e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/78c6a40ef5e) - [ED-13118] Removing dead workaround code that causes tapping after a bullet item with a smart link to select the smart link
 - Updated dependencies
@@ -5257,7 +5276,7 @@
 
 ### Patch Changes
 
-- [`c55c736ecea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c55c736ecea) - Patch VULN AFP-3486 AFP-3487 AFP-3488 AFP-3489
+- [#17475](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/17475) [`c55c736ecea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c55c736ecea) - Patch VULN AFP-3486 AFP-3487 AFP-3488 AFP-3489
 - Updated dependencies
 
 ## 31.0.3
@@ -5282,7 +5301,7 @@
 
 ### Major Changes
 
-- [`47f58da5946`](https://bitbucket.org/atlassian/atlassian-frontend/commits/47f58da5946) - ED-13322, ED-13324, ED-13326, ED-13323, ED-13204: Upgrade and support react-intl@^5.18.1 including breaking API changes, types and tests in atlassian-frontend packages
+- [#14810](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/14810) [`47f58da5946`](https://bitbucket.org/atlassian/atlassian-frontend/commits/47f58da5946) - ED-13322, ED-13324, ED-13326, ED-13323, ED-13204: Upgrade and support react-intl@^5.18.1 including breaking API changes, types and tests in atlassian-frontend packages
 
   What changed: Upgraded our react-intl support from ^2.6.0 to ^5.18.1. This means editor packages now rely on consumers installing ^5.18.1, otherwise editor usage of react-intl will mismatch with actual installed react-intl APIs.
   Why change was made: As part of a coordinated upgrade effort across AF packages, as react-intl v2 is quite dated.
@@ -5358,7 +5377,7 @@
 
 ### Major Changes
 
-- [`0cf5fa82add`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0cf5fa82add) - CETI-20 Rename custom panel FF from `UNSAFE_allowCustomPanel` to `allowCustomPanel`
+- [#15998](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/15998) [`0cf5fa82add`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0cf5fa82add) - CETI-20 Rename custom panel FF from `UNSAFE_allowCustomPanel` to `allowCustomPanel`
 
 ### Minor Changes
 
@@ -5411,7 +5430,7 @@
 
 ### Minor Changes
 
-- [`db3477abb18`](https://bitbucket.org/atlassian/atlassian-frontend/commits/db3477abb18) - [ux] ED-13938 disabled code-bidi warning tooltip for mobile, reworked TextWrapper to fix bidi mitigation, and fixed issue where bidi warnings were not presented when renderer used with an annotation provider with draftMode set to true
+- [#16168](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16168) [`db3477abb18`](https://bitbucket.org/atlassian/atlassian-frontend/commits/db3477abb18) - [ux] ED-13938 disabled code-bidi warning tooltip for mobile, reworked TextWrapper to fix bidi mitigation, and fixed issue where bidi warnings were not presented when renderer used with an annotation provider with draftMode set to true
 
 ### Patch Changes
 
@@ -5445,7 +5464,7 @@
 
 ### Minor Changes
 
-- [`f235d19dcdb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f235d19dcdb) - Added an api for creating a brand new editor state when replacing the document using editorActions
+- [#14777](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/14777) [`f235d19dcdb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f235d19dcdb) - Added an api for creating a brand new editor state when replacing the document using editorActions
 
 ### Patch Changes
 
@@ -5500,7 +5519,7 @@
 
 ### Patch Changes
 
-- [`cf853e39278`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf853e39278) - COLLAB-411-change-to-metadata: 'setTitle' and 'setEditorWidth' are deprecated, going to be removed in the next release, use 'setMetadata' instead.
+- [#14319](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/14319) [`cf853e39278`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf853e39278) - COLLAB-411-change-to-metadata: 'setTitle' and 'setEditorWidth' are deprecated, going to be removed in the next release, use 'setMetadata' instead.
 - [`cf853e39278`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf853e39278) - Internal changes to remove `@atlaskit/theme/math` usage.
 - Updated dependencies
 
@@ -5532,7 +5551,7 @@
 
 ### Major Changes
 
-- [`c79e5921417`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c79e5921417) - ME-1521: introduced a method to invoke async functions and submit a cross platfrom promise on completion. Made the scrollToNode method itself async to prevent some rare race conditions if other bridge methods where invoked before completion.
+- [#13864](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13864) [`c79e5921417`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c79e5921417) - ME-1521: introduced a method to invoke async functions and submit a cross platfrom promise on completion. Made the scrollToNode method itself async to prevent some rare race conditions if other bridge methods where invoked before completion.
 
 ### Minor Changes
 
@@ -5564,7 +5583,7 @@
 
 ### Minor Changes
 
-- [`c796dfa0ae4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c796dfa0ae4) - [ME-1589] Rearchitect the adaptive toolbar solution for the editor mobile bridge.
+- [#13302](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13302) [`c796dfa0ae4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c796dfa0ae4) - [ME-1589] Rearchitect the adaptive toolbar solution for the editor mobile bridge.
 
   - Add a new plugin to editor-core that allows you to subscribe to events when the editor view is updated.
   - Created a subscription that allows you to listen to toolbar and picker plugin updates.
@@ -5585,7 +5604,7 @@
 
 ### Patch Changes
 
-- [`12d2ef24248`](https://bitbucket.org/atlassian/atlassian-frontend/commits/12d2ef24248) - [ux][me-1713] Remove setting focus in editorReady lifecycle.
+- [#13835](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13835) [`12d2ef24248`](https://bitbucket.org/atlassian/atlassian-frontend/commits/12d2ef24248) - [ux][me-1713] Remove setting focus in editorReady lifecycle.
 
 ## 28.0.5
 
@@ -5597,7 +5616,7 @@
 
 ### Patch Changes
 
-- [`f987b3578a6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f987b3578a6) - Address an issue with schema related feature flags conflicting with mobile bridge re-configuration
+- [#13525](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13525) [`f987b3578a6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f987b3578a6) - Address an issue with schema related feature flags conflicting with mobile bridge re-configuration
 
 ## 28.0.3
 
@@ -5621,7 +5640,7 @@
 
 ### Minor Changes
 
-- [`5e55b55d035`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5e55b55d035) - [ux][ed-9961] Remove the predictable lists feature flag and the legacy lists plugin so that predictable lists is default.
+- [#12837](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12837) [`5e55b55d035`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5e55b55d035) - [ux][ed-9961] Remove the predictable lists feature flag and the legacy lists plugin so that predictable lists is default.
 
   Doing this by removing the lists plugin, removing the predictableLists feature flag, renaming lists-predictable to just list, refactoring any areas of the code that used the feature flag or the legacy lists still.
 
@@ -5660,7 +5679,7 @@
 
 ### Major Changes
 
-- [`fef8103dc44`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fef8103dc44) - [ux] Media inserted now defaults to left aligned on the mobile editor
+- [#12328](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12328) [`fef8103dc44`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fef8103dc44) - [ux] Media inserted now defaults to left aligned on the mobile editor
 
 ### Minor Changes
 
@@ -5706,7 +5725,7 @@
 
 ### Minor Changes
 
-- [`a8c2596ed8e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a8c2596ed8e) - Add smartLinks prop to Editor and mark UNSAFE_cards as deprecated
+- [#11649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/11649) [`a8c2596ed8e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a8c2596ed8e) - Add smartLinks prop to Editor and mark UNSAFE_cards as deprecated
 - [`cc42416c77d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cc42416c77d) - [ME-1514] Add generic bridge API to insert a node in the Hybrid Editor.
   This specific change inserts a 'status' node.
 - [`5783530b152`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5783530b152) - Added a new DSL in the mobile bridge to interpret a FloatingToolbarDatePicker. This extends from the FloatingToolbarSelectType.
@@ -5727,7 +5746,7 @@
 
 ### Minor Changes
 
-- [`0e54a14becf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0e54a14becf) - ED-13199 added localIdGenerationOnTables and dataConsumerMark flags to the mobile bridge
+- [#12262](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12262) [`0e54a14becf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0e54a14becf) - ED-13199 added localIdGenerationOnTables and dataConsumerMark flags to the mobile bridge
 
 ## 26.3.8
 
@@ -5781,7 +5800,7 @@
 
 ### Minor Changes
 
-- [`4b1e5c75a6e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4b1e5c75a6e) - Track font size analytics for the Hybrid Editor and Renderer.
+- [#11113](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/11113) [`4b1e5c75a6e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4b1e5c75a6e) - Track font size analytics for the Hybrid Editor and Renderer.
 - [`2fd50f55028`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2fd50f55028) - Updating documentation to inform users that soon picker popup will no longer be available and also getting rid of picker popup references in examples and all the associated dependencies
 - [`f582254da39`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f582254da39) - [ME-1434] Set max font size on Hybrid Editor and Renderer.
   [ME-1450] Fix decision panel overlap.
@@ -5812,7 +5831,7 @@
 
 ### Minor Changes
 
-- [`272aae086cb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/272aae086cb) - [ME-740] Read in user device font settings
+- [#10569](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10569) [`272aae086cb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/272aae086cb) - [ME-740] Read in user device font settings
 - [`3cd8ee5491b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3cd8ee5491b) - ED-12790 Disable the indentation for compact editor
 
 ### Patch Changes
@@ -5825,7 +5844,7 @@
 
 ### Minor Changes
 
-- [`9532245d3bb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9532245d3bb) - [ux] Allow for quick insert to work with both typeahead toolbar and with /link + enter
+- [#10230](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10230) [`9532245d3bb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9532245d3bb) - [ux] Allow for quick insert to work with both typeahead toolbar and with /link + enter
 - [`5c6fbdb545d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5c6fbdb545d) - ME-1163 When a content is set, onContentRendered event is invoked in the mobile bridge. It uses measureRender utility method to fire an event for the first rendered frame.
 
   In mobile, WebView is reused, therefore in the native side an empty content is set on each WebView stop. This causes issues if measureRender is invoked again. Therefore, this changeset prevents to use measureRender when the content is empty. Content is set properly, but there won't be any onContentRendered invocation.
@@ -5855,7 +5874,7 @@
 
 ### Major Changes
 
-- [`864bae0214b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/864bae0214b) - Removed old methods for inserting a link as they were only being used by mobile. Fix hyperlink text removal on editor mobile bridge.
+- [#9756](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9756) [`864bae0214b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/864bae0214b) - Removed old methods for inserting a link as they were only being used by mobile. Fix hyperlink text removal on editor mobile bridge.
 
 ### Minor Changes
 
@@ -5876,7 +5895,7 @@
 
 ### Patch Changes
 
-- [`97264580c25`](https://bitbucket.org/atlassian/atlassian-frontend/commits/97264580c25) - Use blank image for mobile media expand test
+- [#10112](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10112) [`97264580c25`](https://bitbucket.org/atlassian/atlassian-frontend/commits/97264580c25) - Use blank image for mobile media expand test
 
 ## 25.5.4
 
@@ -5906,7 +5925,7 @@
 
 ### Minor Changes
 
-- [`3cbac8569d2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3cbac8569d2) - MOBILE-1643 Disabled image resizing on mobile by default and put it behind a feature toggle.
+- [#9510](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9510) [`3cbac8569d2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3cbac8569d2) - MOBILE-1643 Disabled image resizing on mobile by default and put it behind a feature toggle.
   It can be enabled via query param.`enableMediaResize` is they query param key.
 - [`5fff41bad66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5fff41bad66) - Enable Predictable List on Editor
 
@@ -5928,7 +5947,7 @@
 
 ### Minor Changes
 
-- [`5a02668a6f1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5a02668a6f1) - ED-12169 Hook predictableLists feature flag to predictableLists functions in editor-core
+- [#9083](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9083) [`5a02668a6f1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5a02668a6f1) - ED-12169 Hook predictableLists feature flag to predictableLists functions in editor-core
 
 ### Patch Changes
 
@@ -5941,7 +5960,7 @@
 
 ### Patch Changes
 
-- [`98b1799faaf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/98b1799faaf) - Bumps devDependency to resolve security vulnerability
+- [#9310](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9310) [`98b1799faaf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/98b1799faaf) - Bumps devDependency to resolve security vulnerability
 
 ## 25.3.6
 
@@ -5959,7 +5978,7 @@
 
 ### Patch Changes
 
-- [`3feef06e39e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3feef06e39e) - EDM-1381: Match Confluence's stage0 prop on the Mobile renderer
+- [#9225](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9225) [`3feef06e39e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3feef06e39e) - EDM-1381: Match Confluence's stage0 prop on the Mobile renderer
 
 ## 25.3.3
 
@@ -5977,13 +5996,13 @@
 
 ### Patch Changes
 
-- [`3a1ba537b1b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3a1ba537b1b) - Unify test file into single file
+- [#9099](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9099) [`3a1ba537b1b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3a1ba537b1b) - Unify test file into single file
 
 ## 25.3.0
 
 ### Minor Changes
 
-- [`49bf29ce37b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/49bf29ce37b) - - Adding a type decleration as a temporary fix to subdue a type error being raised in editor-mobile-bridge component caused due to @visx/responsive.
+- [#8505](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8505) [`49bf29ce37b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/49bf29ce37b) - - Adding a type decleration as a temporary fix to subdue a type error being raised in editor-mobile-bridge component caused due to @visx/responsive.
   - @visx/responsive is a charting library we are using for our new Charts module.
   - @visx/responsive has a global declaration of the ResizeObserver type and is responsible for type type errors in the editor-mobile-bridge file.
   - Without this additional decleration editor-mobile-bridge/src/document-reflow-detector.ts will pull in the incorrect global decleration.
@@ -5994,13 +6013,13 @@
 
 ### Patch Changes
 
-- [`1782690487b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1782690487b) - Group mobile integration test by file to reduce parallelism
+- [#8871](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8871) [`1782690487b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1782690487b) - Group mobile integration test by file to reduce parallelism
 
 ## 25.2.0
 
 ### Minor Changes
 
-- [`5d37f7fc1f9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5d37f7fc1f9) - Revert ED-9960. UNSAFE_predictableLists no longer defaulted to enabled.
+- [#8644](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8644) [`5d37f7fc1f9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5d37f7fc1f9) - Revert ED-9960. UNSAFE_predictableLists no longer defaulted to enabled.
 - [`761283d9f4f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/761283d9f4f) - Removed arch-v3 files
 - [`1bf9a0ebc55`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1bf9a0ebc55) - EDM-1615: implement typeAheadItemSelected(quickInsertItem: string)
 
@@ -6012,25 +6031,25 @@
 
 ### Patch Changes
 
-- [`b99097f3b1e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b99097f3b1e) - EDM-1630: Add MediaGroup mobile VR test
+- [#8753](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8753) [`b99097f3b1e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b99097f3b1e) - EDM-1630: Add MediaGroup mobile VR test
 
 ## 25.1.5
 
 ### Patch Changes
 
-- [`058e1ec668d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/058e1ec668d) - Add media layout mobile VR tests
+- [#8658](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8658) [`058e1ec668d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/058e1ec668d) - Add media layout mobile VR tests
 
 ## 25.1.4
 
 ### Patch Changes
 
-- [`6494628658a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6494628658a) - Adds helper for media upload
+- [#8591](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8591) [`6494628658a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6494628658a) - Adds helper for media upload
 
 ## 25.1.3
 
 ### Patch Changes
 
-- [`ca4c76f79dc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ca4c76f79dc) - ME-1061 Fix editor-mobile-bridge webpack_base_config for 25.0.0
+- [#8647](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8647) [`ca4c76f79dc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ca4c76f79dc) - ME-1061 Fix editor-mobile-bridge webpack_base_config for 25.0.0
 
 ## 25.1.2
 
@@ -6048,13 +6067,13 @@
 
 ### Minor Changes
 
-- [`cfd20c34074`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cfd20c34074) - Add ability to run mobile VR tests
+- [#8498](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8498) [`cfd20c34074`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cfd20c34074) - Add ability to run mobile VR tests
 
 ## 25.0.0
 
 ### Major Changes
 
-- [`709a28ee803`](https://bitbucket.org/atlassian/atlassian-frontend/commits/709a28ee803) - Add setContentPayload / resolvePromisePayload methods to speed up native to bridge data transportation by fetching the json payload from a predefined url.
+- [#8178](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8178) [`709a28ee803`](https://bitbucket.org/atlassian/atlassian-frontend/commits/709a28ee803) - Add setContentPayload / resolvePromisePayload methods to speed up native to bridge data transportation by fetching the json payload from a predefined url.
 - [`3d81784c978`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3d81784c978) - ED-12005 Added API to check if ADF is empty or only has whitespace
 
 ### Minor Changes
@@ -6102,7 +6121,7 @@
 
 ### Major Changes
 
-- [`43f44a3fb3e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/43f44a3fb3e) - [ED-11244] Change Bridge API - configureEditor to configure
+- [#7762](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/7762) [`43f44a3fb3e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/43f44a3fb3e) - [ED-11244] Change Bridge API - configureEditor to configure
 
 ### Minor Changes
 
@@ -6127,7 +6146,7 @@
 
 ### Patch Changes
 
-- [`d361f290d63`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d361f290d63) - NO-ISSUE avoid bundling test data for development
+- [#7803](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/7803) [`d361f290d63`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d361f290d63) - NO-ISSUE avoid bundling test data for development
 - Updated dependencies
 
 ## 23.0.1
@@ -6140,7 +6159,7 @@
 
 ### Major Changes
 
-- [`658184c615`](https://bitbucket.org/atlassian/atlassian-frontend/commits/658184c615) - [ED-11630] Removes the usage of Query Parameter for Predictable List and Makes the Predictable List reconfigurable via the bridge.configureEditor method. All the clients setting allowPredictableList from query parameter should use bridge.configureEditor and pass in the allowPredictableList flag.
+- [#7425](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/7425) [`658184c615`](https://bitbucket.org/atlassian/atlassian-frontend/commits/658184c615) - [ED-11630] Removes the usage of Query Parameter for Predictable List and Makes the Predictable List reconfigurable via the bridge.configureEditor method. All the clients setting allowPredictableList from query parameter should use bridge.configureEditor and pass in the allowPredictableList flag.
   Example: bridge.configureEditor("{\"allowPredictableList\": true}")
 
 ### Minor Changes
@@ -6188,7 +6207,7 @@
 
 ### Major Changes
 
-- [`4ec622ea6a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ec622ea6a) - ED-10856 - Added `configure` bridge method to change the Renderer Configurations.
+- [#7170](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/7170) [`4ec622ea6a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ec622ea6a) - ED-10856 - Added `configure` bridge method to change the Renderer Configurations.
   Mobile Clients need to use `configre` bridge method to set
   `disableMediaLinking`, `allowHeadingAnchorLinks`, `allowAnnotations`, `disableActions`
   and remove them from query params while initial load of the renderer.
@@ -6216,7 +6235,7 @@
 
 ### Minor Changes
 
-- [`622ae0dc66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/622ae0dc66) - [ux] added macros and dark theme support with query params configuration
+- [#6930](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/6930) [`622ae0dc66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/622ae0dc66) - [ux] added macros and dark theme support with query params configuration
 - [`9d91ea2859`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d91ea2859) - ED-11455 Enable useSpecvalidator flag for hybrid renderer
 - [`2d80d6e283`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2d80d6e283) - [ED-11464][editor] Introduce onContentRendered method in content bridge. It is called when content is rendered which is set by bridge.setContent
 
@@ -6228,7 +6247,7 @@
 
 ### Patch Changes
 
-- [`b8cf033738`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b8cf033738) - Bumped react-dev-server to fix DoS issue
+- [#6899](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/6899) [`b8cf033738`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b8cf033738) - Bumped react-dev-server to fix DoS issue
 
 ## 21.0.1
 
@@ -6240,7 +6259,7 @@
 
 ### Major Changes
 
-- [`e984b12c67`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e984b12c67) - ED-10835 - Added new `configureEditor` bridge method to change the Editorsettings. Mobile Clients needs to use `configureEditor` bridge method to set `mode` and remove `mode` parameter usage from query params while initial load of the editor.
+- [#6571](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/6571) [`e984b12c67`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e984b12c67) - ED-10835 - Added new `configureEditor` bridge method to change the Editorsettings. Mobile Clients needs to use `configureEditor` bridge method to set `mode` and remove `mode` parameter usage from query params while initial load of the editor.
   Relevant changes on mobile should be completed as part of below stories.
   ED-11271 https://product-fabric.atlassian.net/browse/ED-11271
   ED-11270 https://product-fabric.atlassian.net/browse/ED-11270
@@ -6263,7 +6282,7 @@
 
 ### Patch Changes
 
-- [`fe84dc9b3a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fe84dc9b3a) - - Add first editor media mobile test
+- [#4263](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4263) [`fe84dc9b3a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fe84dc9b3a) - - Add first editor media mobile test
   - Created a new webpack config to build the test bundle so we can run mobile integration tests. Now we have:
     - webpack.config.js
     - webpack.test.config.js
@@ -6273,13 +6292,13 @@
 
 ### Minor Changes
 
-- [`b1a610f36e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b1a610f36e) - ED-11214 Fix quick insert translations on mobile bridge
+- [#6474](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/6474) [`b1a610f36e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b1a610f36e) - ED-11214 Fix quick insert translations on mobile bridge
 
 ## 20.1.2
 
 ### Patch Changes
 
-- [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
+- [#5857](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5857) [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
 - Updated dependencies
 
 ## 20.1.1
@@ -6292,7 +6311,7 @@
 
 ### Minor Changes
 
-- [`277c2d52d3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/277c2d52d3) - [ux] ED-10815 Enable localization in hybrid renderer
+- [#6228](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/6228) [`277c2d52d3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/277c2d52d3) - [ux] ED-10815 Enable localization in hybrid renderer
 - [`474b09e4c0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/474b09e4c0) - COLLAB-11 steps rejected error handler
 - [`28e97db5a7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/28e97db5a7) - TWISTA-407 Expose the Confluence index match API to native. On applying draft mode, the bridge will call `annotationIndexMatch` with the `numMatch`, `matchIndex`, `originalSelection` tuple that is required by Confluence.
 
@@ -6316,7 +6335,7 @@
 
 ### Major Changes
 
-- [`f73b500ffa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f73b500ffa) - ED-10681 API for dismiss typeahead
+- [#5860](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5860) [`f73b500ffa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f73b500ffa) - ED-10681 API for dismiss typeahead
 
 ### Minor Changes
 
@@ -6345,7 +6364,7 @@
 
 ### Minor Changes
 
-- [`7056ac94b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7056ac94b0) - TWISTA-4 Enabling I18N on mobile editor
+- [#5516](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5516) [`7056ac94b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7056ac94b0) - TWISTA-4 Enabling I18N on mobile editor
 - [`8c13867014`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8c13867014) - TWISTA-438 Add new PageTitle bridge. This bridge will serve as a middle ware between collab provider and native side.
 
 ### Patch Changes
@@ -6363,7 +6382,7 @@
 
 ### Patch Changes
 
-- [`a2092945b1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a2092945b1) - [ux] ED-10813 Disable heading link buttons (copy link to clipboard) on mobile.
+- [#5803](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5803) [`a2092945b1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a2092945b1) - [ux] ED-10813 Disable heading link buttons (copy link to clipboard) on mobile.
 
   Nested header links is enabled using the `allowHeadingAnchorLinks` editor prop. This prop is overloaded because it also opts into using the new UI/UX for the copy link button.
 
@@ -6399,7 +6418,7 @@
 
 ### Patch Changes
 
-- [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
+- [#5497](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5497) [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
   This requires version 3.8 of Typescript, read more about how we handle Typescript versions here: https://atlaskit.atlassian.com/get-started
   Also add `typescript` to `devDependencies` to denote version that the package was built with.
 - Updated dependencies
@@ -6414,7 +6433,7 @@
 
 ### Patch Changes
 
-- [`f990181fb2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f990181fb2) - TWISTA-430 Add debounce to webview page resize to prevent renderer sometimes being cut off
+- [#5461](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5461) [`f990181fb2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f990181fb2) - TWISTA-430 Add debounce to webview page resize to prevent renderer sometimes being cut off
 
 ## 19.0.7
 
@@ -6426,7 +6445,7 @@
 
 ### Patch Changes
 
-- [`9a055964a3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9a055964a3) - ED-10628 Re-enable single click selection on mobile
+- [#5373](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5373) [`9a055964a3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9a055964a3) - ED-10628 Re-enable single click selection on mobile
 
   Long press selection is temporarily blocked, so we will re-enable single click selection for now
 
@@ -6448,7 +6467,7 @@
 
 ### Patch Changes
 
-- [`295377267b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/295377267b) - TWISTA-434 Fix bridge not being called correctly
+- [#5220](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5220) [`295377267b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/295377267b) - TWISTA-434 Fix bridge not being called correctly
 
 ## 19.0.2
 
@@ -6466,7 +6485,7 @@
 
 ### Major Changes
 
-- [`225c901919`](https://bitbucket.org/atlassian/atlassian-frontend/commits/225c901919) - ED-10351 add API to delete the annotation
+- [#4749](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4749) [`225c901919`](https://bitbucket.org/atlassian/atlassian-frontend/commits/225c901919) - ED-10351 add API to delete the annotation
 - [`9a39500244`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9a39500244) - Bump ProseMirror packages
 
   Read more: https://product-fabric.atlassian.net/wiki/spaces/E/pages/1671956531/2020-08
@@ -6513,7 +6532,7 @@
 
 ### Major Changes
 
-- [`c8cf7f9419`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c8cf7f9419) - ED-9623:
+- [#4424](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4424) [`c8cf7f9419`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c8cf7f9419) - ED-9623:
 
   This piece of work includes:
 
@@ -6544,7 +6563,7 @@
 
 ### Patch Changes
 
-- [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
+- [#3885](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3885) [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
 
   Since tslib is a dependency for all our packages we recommend that products also follow this tslib upgrade
   to prevent duplicates of tslib being bundled.
@@ -6555,14 +6574,14 @@
 
 ### Patch Changes
 
-- [`76165ad82f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/76165ad82f) - Bump required because of conflicts on wadmal release
+- [#4393](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4393) [`76165ad82f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/76165ad82f) - Bump required because of conflicts on wadmal release
 - Updated dependencies
 
 ## 17.1.0
 
 ### Minor Changes
 
-- [`41596c1581`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41596c1581) - EDM-925: fix cmd + k behaviour of Smart Links; respect user's display text
+- [#3823](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3823) [`41596c1581`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41596c1581) - EDM-925: fix cmd + k behaviour of Smart Links; respect user's display text
 - [`564cdfc7e1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/564cdfc7e1) - TYPH-236 Adding lifecycle bridge to editor
 - [`a93d423be6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a93d423be6) - [TWISTA-218] Implements the Mobile Bridge API methods to works with Inline Comments on Renderer
   [TWISTA-146] Remove previous annotation highlight before focus in another one
@@ -6608,7 +6627,7 @@
 
 ### Major Changes
 
-- [`f378057777`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f378057777) - [FM-2967] height too big on hybrid editor on mobile view
+- [#3428](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3428) [`f378057777`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f378057777) - [FM-2967] height too big on hybrid editor on mobile view
 
 ### Minor Changes
 
@@ -6666,7 +6685,7 @@
 
 ### Patch Changes
 
-- [`6ced984cdc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6ced984cdc) - TWISTA-248 Fix bug where emoji were not ben loaded on iOS
+- [#3458](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3458) [`6ced984cdc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6ced984cdc) - TWISTA-248 Fix bug where emoji were not ben loaded on iOS
 
 ## 16.0.0
 
@@ -6690,7 +6709,7 @@
 
 ### Minor Changes
 
-- [`2725c8ba93`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2725c8ba93) - ED-9451 Pass lifecycle event emitter to colalb provider
+- [#2763](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2763) [`2725c8ba93`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2725c8ba93) - ED-9451 Pass lifecycle event emitter to colalb provider
 - [`cbf6bfb3cb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cbf6bfb3cb) - ED-9367 Implement bridge integration to new collab service
 - [`4921566a4e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4921566a4e) - [FM-3943] change tsx compiler options in webpack config to support older browsers
 - [`df5ac71588`](https://bitbucket.org/atlassian/atlassian-frontend/commits/df5ac71588) - ED-9451 Create and pass Native Storage into collab provider
@@ -6714,7 +6733,7 @@
 
 ### Major Changes
 
-- [`c3d0c7ab9e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c3d0c7ab9e) - [FM-3823] Modify onAnnotationClick on AnnotationBridge to support multiple types
+- [#2443](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2443) [`c3d0c7ab9e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c3d0c7ab9e) - [FM-3823] Modify onAnnotationClick on AnnotationBridge to support multiple types
 
   Breaking change:
 
@@ -6800,7 +6819,7 @@
 
 ### Minor Changes
 
-- [`d425f7f6c7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d425f7f6c7) - [TYPH-113] fix webpack config for tsx for older browser
+- [#2865](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2865) [`d425f7f6c7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d425f7f6c7) - [TYPH-113] fix webpack config for tsx for older browser
 
 ### Patch Changes
 
@@ -6816,7 +6835,7 @@
 
 ### Patch Changes
 
-- [`a5815adf37`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a5815adf37) - Fixed es2019 distributable missing a version.json file
+- [#2731](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2731) [`a5815adf37`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a5815adf37) - Fixed es2019 distributable missing a version.json file
 
 ## 14.0.1
 
@@ -6828,7 +6847,7 @@
 
 ### Major Changes
 
-- [`76160b5c71`](https://bitbucket.org/atlassian/atlassian-frontend/commits/76160b5c71) - [FM-2506] added cursor selection location plugin
+- [#2137](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2137) [`76160b5c71`](https://bitbucket.org/atlassian/atlassian-frontend/commits/76160b5c71) - [FM-2506] added cursor selection location plugin
 - [`e30894b112`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e30894b112) - [FM-3716] First Inline Comments implementation for Renderer
 - [`3fdfbc0db1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3fdfbc0db1) - [FM-3678] Enable Renderer Inline Comments on mobile bridge
 - [`319fc073ae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/319fc073ae) - [FM-3670] placeholder text showing in editor
@@ -6860,7 +6879,7 @@
 
 ### Patch Changes
 
-- [`0ea959ff19`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0ea959ff19) - Disable mobile bridge translations (not currently in use) to fix editor focus problem
+- [#2340](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2340) [`0ea959ff19`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0ea959ff19) - Disable mobile bridge translations (not currently in use) to fix editor focus problem
 
 ## 13.0.3
 
@@ -6884,7 +6903,7 @@
 
 ### Major Changes
 
-- [`f64040d049`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f64040d049) - FM-3657 Disable zooming in Hybrid Renderer
+- [#1868](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/1868) [`f64040d049`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f64040d049) - FM-3657 Disable zooming in Hybrid Renderer
 
 ### Minor Changes
 

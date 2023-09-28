@@ -4,7 +4,7 @@
 
 ### Minor Changes
 
-- [`3da89e29dfc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3da89e29dfc) - We have renamed and tweaked the recently added `setCustomNativeDragPreview` `getOffset` utility `preserveOffsetFromPointer` to be a bit easier to understand what it is doing.
+- [#38713](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38713) [`3da89e29dfc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3da89e29dfc) - We have renamed and tweaked the recently added `setCustomNativeDragPreview` `getOffset` utility `preserveOffsetFromPointer` to be a bit easier to understand what it is doing.
 
   ```diff
   - import { preserveOffsetFromPointer } from '@atlaskit/pragmatic-drag-and-drop/util/preserve-offset-from-pointer';
@@ -36,7 +36,7 @@
 
 ### Minor Changes
 
-- [`d644a68ddf6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d644a68ddf6) - Added a new `setCustomNativeDragPreview` `getOffset` utility: `preserveOffsetFromPointer`. `preserveOffsetFromPointer` mimics the default behaviour for non custom drag previews when starting a drag: the initial cursor position offset is preserved for a seamless drag and drop experience.
+- [#38397](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38397) [`d644a68ddf6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d644a68ddf6) - Added a new `setCustomNativeDragPreview` `getOffset` utility: `preserveOffsetFromPointer`. `preserveOffsetFromPointer` mimics the default behaviour for non custom drag previews when starting a drag: the initial cursor position offset is preserved for a seamless drag and drop experience.
 
   ```ts
   import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/util/set-custom-native-drag-preview';
@@ -63,7 +63,7 @@
 
 ### Minor Changes
 
-- [`de7463c7096`](https://bitbucket.org/atlassian/atlassian-frontend/commits/de7463c7096) - Exposing some additional TypeScript types. These can be helpful when creating helper packages.
+- [#38525](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38525) [`de7463c7096`](https://bitbucket.org/atlassian/atlassian-frontend/commits/de7463c7096) - Exposing some additional TypeScript types. These can be helpful when creating helper packages.
 
   ```ts
   import type {
@@ -83,7 +83,7 @@
 
 ### Minor Changes
 
-- [`554a6d8cc34`](https://bitbucket.org/atlassian/atlassian-frontend/commits/554a6d8cc34) - ### Stickiness algorithm improvement
+- [#38453](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38453) [`554a6d8cc34`](https://bitbucket.org/atlassian/atlassian-frontend/commits/554a6d8cc34) - ### Stickiness algorithm improvement
 
   We have made some improvements to the drop target stickiness algorithm to allow sticky drop targets that are no longer dragged over to cancel their stickiness.
 
@@ -127,7 +127,7 @@
 
 ### Minor Changes
 
-- [`8c301a251e4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8c301a251e4) - We have changed the API of `setCustomNativeDragPreview()` to allow increased control and slightly lower bundles as well.
+- [#35574](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35574) [`8c301a251e4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8c301a251e4) - We have changed the API of `setCustomNativeDragPreview()` to allow increased control and slightly lower bundles as well.
 
   We have removed the `placement` argument, and replaced it with `getOffset()`.
 
@@ -190,25 +190,25 @@
 
 ### Patch Changes
 
-- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793) [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
 
 ## 0.18.1
 
 ### Patch Changes
 
-- [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649) [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
 
 ## 0.18.0
 
 ### Minor Changes
 
-- [`9fd8556db17`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9fd8556db17) - Internal folder name structure change
+- [#33344](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33344) [`9fd8556db17`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9fd8556db17) - Internal folder name structure change
 
 ## 0.17.0
 
 ### Minor Changes
 
-- [`34ed7b2ec63`](https://bitbucket.org/atlassian/atlassian-frontend/commits/34ed7b2ec63) - We have changed the name of our drag and drop packages to align on the single name of "Pragmatic drag and drop"
+- [#33262](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33262) [`34ed7b2ec63`](https://bitbucket.org/atlassian/atlassian-frontend/commits/34ed7b2ec63) - We have changed the name of our drag and drop packages to align on the single name of "Pragmatic drag and drop"
 
   ```diff
   - @atlaskit/drag-and-drop
@@ -240,25 +240,25 @@
 
 ### Minor Changes
 
-- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258) [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
 
 ## 0.15.1
 
 ### Patch Changes
 
-- [`2e01c9c74b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e01c9c74b5) - DUMMY remove before merging to master; dupe adf-schema via adf-utils
+- [#32424](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32424) [`2e01c9c74b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e01c9c74b5) - DUMMY remove before merging to master; dupe adf-schema via adf-utils
 
 ## 0.15.0
 
 ### Minor Changes
 
-- [`ed028658f13`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ed028658f13) - Minor internal refactor and adding additional tests
+- [#31909](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31909) [`ed028658f13`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ed028658f13) - Minor internal refactor and adding additional tests
 
 ## 0.14.0
 
 ### Minor Changes
 
-- [`eab6d26451d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eab6d26451d) - Improving the resilience of our workaround for a [Browser bug](https://bugs.chromium.org/p/chromium/issues/detail?id=410328) where after a drag finishes, an unrelated element can be entered into.
+- [#31794](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31794) [`eab6d26451d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eab6d26451d) - Improving the resilience of our workaround for a [Browser bug](https://bugs.chromium.org/p/chromium/issues/detail?id=410328) where after a drag finishes, an unrelated element can be entered into.
 - [`ba7ea570aee`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ba7ea570aee) - > Both of these changes should not impact most consumers as they are targeted at edge cases.
 
   - **Fix**: We no longer extract user input (eg `clientX`) from native `"dragleave"` events due to a [Bug with Chrome we discovered](https://bugs.chromium.org/p/chromium/issues/detail?id=1429937). Due to this bug, it was possible for `location.current.input` to be incorrectly set in `onDropTargetChange` and `onDrop` when a user was cancelling a drag or dropping or no drop targets.
@@ -269,7 +269,7 @@
 
 ### Minor Changes
 
-- [`2582df26509`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2582df26509) - Fixing a browser bug where after a drag finishes, a unrelated element can be entered into by the browser
+- [#30879](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/30879) [`2582df26509`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2582df26509) - Fixing a browser bug where after a drag finishes, a unrelated element can be entered into by the browser
 
   - [Visual explanation of bug](https://twitter.com/alexandereardon/status/1633614212873465856)
   - [Chrome bug](https://bugs.chromium.org/p/chromium/issues/detail?id=410328)
@@ -278,7 +278,7 @@
 
 ### Minor Changes
 
-- [`90901f5bbe0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/90901f5bbe0) - Replace default entry point of `undefined` with `{}`.
+- [#30953](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/30953) [`90901f5bbe0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/90901f5bbe0) - Replace default entry point of `undefined` with `{}`.
 
   > **NOTE:** Importing from the default entry point isn't supported.
   > _Please use individual entry points in order to always obtain minimum kbs._
@@ -287,7 +287,7 @@
 
 ### Minor Changes
 
-- [`1ecbb19d450`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1ecbb19d450) - Adding a new function to make creating _custom_ native drag previews safe and easy: `setCustomNativeDragPreview`
+- [#30668](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/30668) [`1ecbb19d450`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1ecbb19d450) - Adding a new function to make creating _custom_ native drag previews safe and easy: `setCustomNativeDragPreview`
 
   ```tsx
   import { setCustomNativeDragPreview } from '@atlaskit/drag-and-drop/util/set-custom-native-drag-preview';
@@ -314,7 +314,7 @@
 
 ### Minor Changes
 
-- [`9c0975e2fab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9c0975e2fab) - Bug fix: A _monitor_ should not be called after it is removed. Previously, if a _monitor_ (monitor 1) removed another _monitor_ (monitor 2) for the same event, then the second monitor (monitor 2) would still be called. This has been fixed
+- [#29951](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/29951) [`9c0975e2fab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9c0975e2fab) - Bug fix: A _monitor_ should not be called after it is removed. Previously, if a _monitor_ (monitor 1) removed another _monitor_ (monitor 2) for the same event, then the second monitor (monitor 2) would still be called. This has been fixed
 
   ```ts
   const cleanupMonitor1 = monitorForElements({
@@ -332,7 +332,7 @@
 
 ### Minor Changes
 
-- [`03e0aa5ae85`](https://bitbucket.org/atlassian/atlassian-frontend/commits/03e0aa5ae85) - `@atlaskit/drag-and-drop` adds event listeners to the `window` during a drag operation. These drag operation event listeners were [`bubble` phase event listeners](https://domevents.dev/), but they are now `capture` phase event listeners to be more resliant against external code (incorrectly) stopping events.
+- [#29651](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/29651) [`03e0aa5ae85`](https://bitbucket.org/atlassian/atlassian-frontend/commits/03e0aa5ae85) - `@atlaskit/drag-and-drop` adds event listeners to the `window` during a drag operation. These drag operation event listeners were [`bubble` phase event listeners](https://domevents.dev/), but they are now `capture` phase event listeners to be more resliant against external code (incorrectly) stopping events.
 
   This does not impact the ability of a consumer to have their own `draggable`s on a page not controlled by `@atlaskit/drag-and-drop`
 
@@ -340,49 +340,49 @@
 
 ### Patch Changes
 
-- [`6455cf006b3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6455cf006b3) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving performance.
+- [#28324](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28324) [`6455cf006b3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6455cf006b3) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving performance.
 
 ## 0.8.0
 
 ### Minor Changes
 
-- [`1e3f9743e57`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1e3f9743e57) - A _monitor_ that is added during an event (eg `onDragStart`) will no longer be called for the current event. This is to prevent the accidental creation of infinite loops. This behaviour matches native [`EventTargets`](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget) where an event listener cannot add another event listener during an active event to the same event target in the same event phase.
+- [#26317](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26317) [`1e3f9743e57`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1e3f9743e57) - A _monitor_ that is added during an event (eg `onDragStart`) will no longer be called for the current event. This is to prevent the accidental creation of infinite loops. This behaviour matches native [`EventTargets`](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget) where an event listener cannot add another event listener during an active event to the same event target in the same event phase.
 
 ## 0.7.1
 
 ### Patch Changes
 
-- [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
+- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874) [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
 
 ## 0.7.0
 
 ### Minor Changes
 
-- [`f2a7931d609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f2a7931d609) - Adding jsdoc to DragLocation type for better autocomplete
+- [#25428](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/25428) [`f2a7931d609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f2a7931d609) - Adding jsdoc to DragLocation type for better autocomplete
 
 ## 0.6.0
 
 ### Minor Changes
 
-- [`0f755214ee7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0f755214ee7) - Internal folder renaming. No API impact
+- [#25002](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/25002) [`0f755214ee7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0f755214ee7) - Internal folder renaming. No API impact
 
 ## 0.5.0
 
 ### Minor Changes
 
-- [`17950433a70`](https://bitbucket.org/atlassian/atlassian-frontend/commits/17950433a70) - Touching package to release re-release previous version. The previous (now deprecated) version did not have it's entry points built correctly
+- [#25007](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/25007) [`17950433a70`](https://bitbucket.org/atlassian/atlassian-frontend/commits/17950433a70) - Touching package to release re-release previous version. The previous (now deprecated) version did not have it's entry points built correctly
 
 ## 0.4.0
 
 ### Minor Changes
 
-- [`4d739042b04`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4d739042b04) - Improving jsdoc auto complete information for `GetFeedbackArgs`
+- [#24861](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24861) [`4d739042b04`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4d739042b04) - Improving jsdoc auto complete information for `GetFeedbackArgs`
 
 ## 0.3.0
 
 ### Minor Changes
 
-- [`52403a2c11f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/52403a2c11f) - Adding a `canMonitor()` function to _monitors_ to allow a _monitor_ to conditionally apply to a drag operation.
+- [#24810](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24810) [`52403a2c11f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/52403a2c11f) - Adding a `canMonitor()` function to _monitors_ to allow a _monitor_ to conditionally apply to a drag operation.
 
   ```ts
   monitorForElements({
@@ -396,7 +396,7 @@
 
 ### Minor Changes
 
-- [`1cf9e484b4b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1cf9e484b4b) - We have improved our naming consistency across our drag and drop packages.
+- [#24613](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24613) [`1cf9e484b4b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1cf9e484b4b) - We have improved our naming consistency across our drag and drop packages.
 
   - `@atlaskit/drag-and-drop/util/cancel-unhandled` has been renamed to `@atlaskit/drag-and-drop/addon/cancel-unhandled`
 
@@ -404,10 +404,10 @@
 
 ### Minor Changes
 
-- [`73427c38077`](https://bitbucket.org/atlassian/atlassian-frontend/commits/73427c38077) - Initial release of `@atlaskit/drag-and-drop` packages 🎉
+- [#24532](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24532) [`73427c38077`](https://bitbucket.org/atlassian/atlassian-frontend/commits/73427c38077) - Initial release of `@atlaskit/drag-and-drop` packages 🎉
 
 ## 0.0.1
 
 ### Patch Changes
 
-- [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
+- [#24492](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24492) [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.

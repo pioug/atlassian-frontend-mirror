@@ -4,31 +4,31 @@
 
 ### Patch Changes
 
-- [`4ae083a7e66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ae083a7e66) - Use `@af/accessibility-testing` for default jest-axe config and jest-axe import in accessibility testing.
+- [#36754](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36754) [`4ae083a7e66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ae083a7e66) - Use `@af/accessibility-testing` for default jest-axe config and jest-axe import in accessibility testing.
 
 ## 12.4.3
 
 ### Patch Changes
 
-- [`77766ad157d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/77766ad157d) - Enrol packages to push-model consumption in Jira.
+- [#34124](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34124) [`77766ad157d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/77766ad157d) - Enrol packages to push-model consumption in Jira.
 
 ## 12.4.2
 
 ### Patch Changes
 
-- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793) [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
 
 ## 12.4.1
 
 ### Patch Changes
 
-- [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649) [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
 
 ## 12.4.0
 
 ### Minor Changes
 
-- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258) [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
 
 ### Patch Changes
 
@@ -38,7 +38,7 @@
 
 ### Patch Changes
 
-- [`4ba10567310`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ba10567310) - Internal changes.
+- [#32211](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32211) [`4ba10567310`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ba10567310) - Internal changes.
 
 ## 12.3.7
 
@@ -50,7 +50,7 @@
 
 ### Patch Changes
 
-- [`a7e8a6c3ace`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a7e8a6c3ace) - Prevent onBlanketClick function firing on Blanket when mousedown event begins on Blanket children
+- [#29669](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/29669) [`a7e8a6c3ace`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a7e8a6c3ace) - Prevent onBlanketClick function firing on Blanket when mousedown event begins on Blanket children
 
 ## 12.3.5
 
@@ -80,25 +80,25 @@
 
 ### Patch Changes
 
-- [`bc989043572`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bc989043572) - Internal changes to apply spacing tokens. This should be a no-op change.
+- [#26488](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26488) [`bc989043572`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bc989043572) - Internal changes to apply spacing tokens. This should be a no-op change.
 
 ## 12.3.0
 
 ### Minor Changes
 
-- [`f2fe91811eb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f2fe91811eb) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behaviour change.
+- [#24710](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24710) [`f2fe91811eb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f2fe91811eb) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behaviour change.
 
 ## 12.2.16
 
 ### Patch Changes
 
-- [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
+- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874) [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
 
 ## 12.2.15
 
 ### Patch Changes
 
-- [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
+- [#24492](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24492) [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
 
 ## 12.2.14
 
@@ -116,7 +116,7 @@
 
 ### Patch Changes
 
-- [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
+- [#20650](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20650) [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
 
 ## 12.2.11
 
@@ -128,14 +128,14 @@
 
 ### Patch Changes
 
-- [`dcd92130cc4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dcd92130cc4) - Migrate deleted background accent tokens to replacements
+- [#19618](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19618) [`dcd92130cc4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dcd92130cc4) - Migrate deleted background accent tokens to replacements
 - Updated dependencies
 
 ## 12.2.9
 
 ### Patch Changes
 
-- [`a0b4a3db79c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a0b4a3db79c) - Change internal type syntax to work with extract-react-types
+- [#19696](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19696) [`a0b4a3db79c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a0b4a3db79c) - Change internal type syntax to work with extract-react-types
 
 ## 12.2.8
 
@@ -147,7 +147,7 @@
 
 ### Patch Changes
 
-- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Updates usage of deprecated token names so they're aligned with the latest naming conventions. No UI or visual changes
+- [#16752](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16752) [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Updates usage of deprecated token names so they're aligned with the latest naming conventions. No UI or visual changes
 - Updated dependencies
 
 ## 12.2.6
@@ -160,7 +160,7 @@
 
 ### Patch Changes
 
-- [`f460cc7c411`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f460cc7c411) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving bundle size.
+- [#15998](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/15998) [`f460cc7c411`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f460cc7c411) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving bundle size.
 - Updated dependencies
 
 ## 12.2.4
@@ -173,7 +173,7 @@
 
 ### Patch Changes
 
-- [`34282240102`](https://bitbucket.org/atlassian/atlassian-frontend/commits/34282240102) - Adds explicit type to button usages components.
+- [#15632](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/15632) [`34282240102`](https://bitbucket.org/atlassian/atlassian-frontend/commits/34282240102) - Adds explicit type to button usages components.
 
 ## 12.2.2
 
@@ -191,7 +191,7 @@
 
 ### Minor Changes
 
-- [`9f7f8e0b581`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9f7f8e0b581) - [ux] Blanket now uses a transparent background color when un-tinted instead of using opacity.
+- [#13302](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13302) [`9f7f8e0b581`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9f7f8e0b581) - [ux] Blanket now uses a transparent background color when un-tinted instead of using opacity.
 
 ### Patch Changes
 
@@ -208,7 +208,7 @@
 
 ### Minor Changes
 
-- [`6071d362abb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6071d362abb) - [ux] Colors now sourced from tokens.
+- [#12837](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12837) [`6071d362abb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6071d362abb) - [ux] Colors now sourced from tokens.
 
 ### Patch Changes
 
@@ -219,13 +219,13 @@
 
 ### Patch Changes
 
-- [`378d1cef00f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/378d1cef00f) - Bump `@atlaskit/theme` to version `^11.3.0`.
+- [#12880](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12880) [`378d1cef00f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/378d1cef00f) - Bump `@atlaskit/theme` to version `^11.3.0`.
 
 ## 12.0.0
 
 ### Major Changes
 
-- [`f166f5398b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f166f5398b2) - In this version we made **Blanket** faster and lighter
+- [#12328](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12328) [`f166f5398b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f166f5398b2) - In this version we made **Blanket** faster and lighter
 
   - General performance improvements
 
@@ -268,37 +268,37 @@
 
 ### Patch Changes
 
-- [`dd89416d229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dd89416d229) - Updated dependency of `@atlaskit/theme` to 11.2.0
+- [#12670](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12670) [`dd89416d229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dd89416d229) - Updated dependency of `@atlaskit/theme` to 11.2.0
 
 ## 11.4.0
 
 ### Minor Changes
 
-- [`96fda7877a1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/96fda7877a1) - We converted blanket from class to functional component and replaced styled components with emotion
+- [#11649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/11649) [`96fda7877a1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/96fda7877a1) - We converted blanket from class to functional component and replaced styled components with emotion
 
 ## 11.3.1
 
 ### Patch Changes
 
-- [`d6f7ff383cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6f7ff383cf) - Updates to development dependency `storybook-addon-performance`
+- [#12167](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12167) [`d6f7ff383cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6f7ff383cf) - Updates to development dependency `storybook-addon-performance`
 
 ## 11.3.0
 
 ### Minor Changes
 
-- [`f6b951a51f2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f6b951a51f2) - Removes usage of styled-components in favour of standardising on emotion
+- [#12170](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12170) [`f6b951a51f2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f6b951a51f2) - Removes usage of styled-components in favour of standardising on emotion
 
 ## 11.2.1
 
 ### Patch Changes
 
-- [`e08a57e5055`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e08a57e5055) - Added the `design-system` tech stacks to the `package.json`
+- [#11113](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/11113) [`e08a57e5055`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e08a57e5055) - Added the `design-system` tech stacks to the `package.json`
 
 ## 11.2.0
 
 ### Minor Changes
 
-- [`990aefd838b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/990aefd838b) - Blanket now accepts testId prop to be used for automated testing purposes.
+- [#9756](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9756) [`990aefd838b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/990aefd838b) - Blanket now accepts testId prop to be used for automated testing purposes.
 
 ### Patch Changes
 
@@ -308,25 +308,25 @@
 
 ### Patch Changes
 
-- [`79c23df6340`](https://bitbucket.org/atlassian/atlassian-frontend/commits/79c23df6340) - Use injected package name and version for analytics instead of version.json.
+- [#8644](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8644) [`79c23df6340`](https://bitbucket.org/atlassian/atlassian-frontend/commits/79c23df6340) - Use injected package name and version for analytics instead of version.json.
 
 ## 11.1.0
 
 ### Minor Changes
 
-- [`4f9e6e2db5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4f9e6e2db5) - These packages now have defined entry points -- this means that you cannot access internal files in the packages that are not meant to be public. Sub-components in these packages have been explicitly defined, aiding tree-shaking and reducing bundle size.
+- [#7170](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/7170) [`4f9e6e2db5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4f9e6e2db5) - These packages now have defined entry points -- this means that you cannot access internal files in the packages that are not meant to be public. Sub-components in these packages have been explicitly defined, aiding tree-shaking and reducing bundle size.
 
 ## 11.0.4
 
 ### Patch Changes
 
-- [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
+- [#5857](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5857) [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
 
 ## 11.0.3
 
 ### Patch Changes
 
-- [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
+- [#5497](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5497) [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
   This requires version 3.8 of Typescript, read more about how we handle Typescript versions here: https://atlaskit.atlassian.com/get-started
   Also add `typescript` to `devDependencies` to denote version that the package was built with.
 
@@ -340,7 +340,7 @@
 
 ### Patch Changes
 
-- [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
+- [#3885](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3885) [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
 
   Since tslib is a dependency for all our packages we recommend that products also follow this tslib upgrade
   to prevent duplicates of tslib being bundled.
@@ -349,7 +349,7 @@
 
 ### Major Changes
 
-- [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
+- [#3335](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3335) [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
   For more information see: https://community.developer.atlassian.com/t/atlaskit-to-drop-support-for-internet-explorer-11-from-1st-july-2020/39534
 
 ### Patch Changes
@@ -360,7 +360,7 @@
 
 ### Patch Changes
 
-- [`54a9514fcf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54a9514fcf) - Build and supporting files will no longer be published to npm
+- [#2866](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2866) [`54a9514fcf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54a9514fcf) - Build and supporting files will no longer be published to npm
 
 ## 10.0.18
 

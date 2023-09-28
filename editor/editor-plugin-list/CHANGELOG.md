@@ -10,7 +10,7 @@
 
 ### Minor Changes
 
-- [`39ff0b0788c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/39ff0b0788c) - [ux] [ED-19466] Solve bug where toggling off a bullet list when the list item contained text and a wrap (left or right) media node left the media node behind in the list and then joining the paragraph back to the list caused a position error.
+- [#40238](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40238) [`39ff0b0788c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/39ff0b0788c) - [ux] [ED-19466] Solve bug where toggling off a bullet list when the list item contained text and a wrap (left or right) media node left the media node behind in the list and then joining the paragraph back to the list caused a position error.
 
   Also export toggleList function so it can be used in external tests.
 
@@ -18,7 +18,7 @@
 
 ### Patch Changes
 
-- [`37c62369dae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/37c62369dae) - NO-ISSUE Import doc builder types from editor-common
+- [#39984](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39984) [`37c62369dae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/37c62369dae) - NO-ISSUE Import doc builder types from editor-common
 
 ## 1.2.3
 
@@ -30,14 +30,14 @@
 
 ### Patch Changes
 
-- [`aeb5c9a01e8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aeb5c9a01e8) - Delete adf-schema from AFE and rely on npm package for adf-schema
+- [#39481](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39481) [`aeb5c9a01e8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aeb5c9a01e8) - Delete adf-schema from AFE and rely on npm package for adf-schema
 - [`4b4dcfe0bba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4b4dcfe0bba) - Delete adf-schema, use published version
 
 ## 1.2.1
 
 ### Patch Changes
 
-- [`6acf9830b36`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6acf9830b36) - Update feature flags plugin
+- [#39304](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39304) [`6acf9830b36`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6acf9830b36) - Update feature flags plugin
   (@atlaskit/editor-plugin-feature-flags) to use a named export
   rather than default export to match other plugins.
 
@@ -55,7 +55,7 @@
 
 ### Minor Changes
 
-- [`ad3c5c21079`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ad3c5c21079) - Updating all plugins with minor version to correct issue with semver.
+- [#39325](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39325) [`ad3c5c21079`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ad3c5c21079) - Updating all plugins with minor version to correct issue with semver.
 
 ### Patch Changes
 
@@ -65,7 +65,7 @@
 
 ### Patch Changes
 
-- [`8467bdcdf4f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8467bdcdf4f) - Removing `dependencies` prop from PluginInjectionAPI and changing
+- [#39010](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39010) [`8467bdcdf4f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8467bdcdf4f) - Removing `dependencies` prop from PluginInjectionAPI and changing
   signature of `NextEditorPlugin`.
 
   Previously a `NextEditorPlugin` would be consumed as so:
@@ -95,25 +95,25 @@
 
 ### Patch Changes
 
-- [`67971a65d80`](https://bitbucket.org/atlassian/atlassian-frontend/commits/67971a65d80) - use fixed version for adf-schema
+- [#39133](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39133) [`67971a65d80`](https://bitbucket.org/atlassian/atlassian-frontend/commits/67971a65d80) - use fixed version for adf-schema
 
 ## 1.1.1
 
 ### Patch Changes
 
-- [`24e27147cbd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/24e27147cbd) - Added atlaskit docs to all existing plugins.
+- [#39177](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39177) [`24e27147cbd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/24e27147cbd) - Added atlaskit docs to all existing plugins.
 
 ## 1.1.0
 
 ### Minor Changes
 
-- [`4795a87a349`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4795a87a349) - Migrating some actions of `editor-plugin-list` to commands. Adding sharedState for `editor-plugin-text-formatting`.
+- [#39023](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39023) [`4795a87a349`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4795a87a349) - Migrating some actions of `editor-plugin-list` to commands. Adding sharedState for `editor-plugin-text-formatting`.
 
 ## 1.0.0
 
 ### Major Changes
 
-- [`8e9c21af71d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8e9c21af71d) - Extracting list plugin code from editor-core to @atlaskit/editor-plugin-list.
+- [#38881](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38881) [`8e9c21af71d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8e9c21af71d) - Extracting list plugin code from editor-core to @atlaskit/editor-plugin-list.
 
 ### Patch Changes
 
@@ -123,4 +123,4 @@
 
 ### Minor Changes
 
-- [`5d6ec9ac49c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5d6ec9ac49c) - ED-19330 - decouple list plugin from editor-core
+- [#38491](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38491) [`5d6ec9ac49c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5d6ec9ac49c) - ED-19330 - decouple list plugin from editor-core

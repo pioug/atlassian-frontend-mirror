@@ -19,11 +19,12 @@ import {
   p,
   inlineExtension,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { createTestExtensionProvider } from '@atlaskit/editor-test-helpers/create-test-extension-provider';
 import type { Schema } from '@atlaskit/editor-test-helpers/schema';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
 import { ExtensionsPlaceholder } from '../../ui/ExtensionsPlaceholder';
-import { createTestExtensionProvider } from '../_helpers';
 
 describe('ExtensionsPlaceholder', () => {
   const createEditor = createEditorFactory();

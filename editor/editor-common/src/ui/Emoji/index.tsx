@@ -1,14 +1,11 @@
 import React, { PureComponent } from 'react';
 
 import { ResourcedEmoji } from '@atlaskit/emoji/element';
-import { EmojiResourceConfig } from '@atlaskit/emoji/resource';
-import { EmojiId } from '@atlaskit/emoji/types';
+import type { EmojiResourceConfig } from '@atlaskit/emoji/resource';
+import type { EmojiId } from '@atlaskit/emoji/types';
 
-import {
-  ProviderFactory,
-  Providers,
-  WithProviders,
-} from '../../provider-factory';
+import type { Providers } from '../../provider-factory';
+import { ProviderFactory, WithProviders } from '../../provider-factory';
 
 export interface EmojiProps extends EmojiId {
   allowTextFallback?: boolean;

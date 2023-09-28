@@ -4,7 +4,7 @@
 
 ### Major Changes
 
-- [`978cfcda881`](https://bitbucket.org/atlassian/atlassian-frontend/commits/978cfcda881) - Migrate `jql-ast` package to the `@atlaskit` namespace. Any consumers should update their imports to `@atlaskit/jql-ast`.
+- [#39978](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39978) [`978cfcda881`](https://bitbucket.org/atlassian/atlassian-frontend/commits/978cfcda881) - Migrate `jql-ast` package to the `@atlaskit` namespace. Any consumers should update their imports to `@atlaskit/jql-ast`.
 
 ### Patch Changes
 
@@ -14,7 +14,7 @@
 
 ### Patch Changes
 
-- [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
+- [#38162](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38162) [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
 
 ## 2.4.1
 
@@ -22,13 +22,13 @@
 
 ### Patch Changes
 
-- [`7926dc060ff`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7926dc060ff) - Clamp antlr4ts version to 0.5.0-alpha.4
+- [#36690](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36690) [`7926dc060ff`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7926dc060ff) - Clamp antlr4ts version to 0.5.0-alpha.4
 
 ## 2.4.0
 
 ### Minor Changes
 
-- [`337298e67b8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/337298e67b8) - Added argumentByText to creators that let you add an argument that has been pre-treated to produce a valid JQL string
+- [#36029](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36029) [`337298e67b8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/337298e67b8) - Added argumentByText to creators that let you add an argument that has been pre-treated to produce a valid JQL string
 
 ## 2.3.2
 
@@ -36,37 +36,37 @@
 
 ### Patch Changes
 
-- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793) [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
 
 ## 2.3.1
 
 ### Patch Changes
 
-- [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649) [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
 
 ## 2.3.0
 
 ### Minor Changes
 
-- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258) [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
 
 ## 2.2.0
 
 ### Minor Changes
 
-- [`0d5ab9875fc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0d5ab9875fc) - Add new `isOperandNode` type guard which can be called to identify AST nodes of type operand
+- [#31491](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31491) [`0d5ab9875fc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0d5ab9875fc) - Add new `isOperandNode` type guard which can be called to identify AST nodes of type operand
 
 ## 2.1.0
 
 ### Minor Changes
 
-- [`35d641e8956`](https://bitbucket.org/atlassian/atlassian-frontend/commits/35d641e8956) - Introduce valueOperandByText creator which allows creation of value operand AST nodes by text instead of value
+- [#31288](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31288) [`35d641e8956`](https://bitbucket.org/atlassian/atlassian-frontend/commits/35d641e8956) - Introduce valueOperandByText creator which allows creation of value operand AST nodes by text instead of value
 
 ## 2.0.1
 
 ### Patch Changes
 
-- [`4ca006051df`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ca006051df) - Migrate @atlassiansox/jql-ast package to the Atlassian Frontend monorepo
+- [#24912](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24912) [`4ca006051df`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ca006051df) - Migrate @atlassiansox/jql-ast package to the Atlassian Frontend monorepo
 
 ## 2.0.0
 

@@ -4,13 +4,13 @@
 
 ### Patch Changes
 
-- [`a54578d2ea9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a54578d2ea9) - This removes the feature flag for the `shouldRenderToParent` prop. The prop is available for use.
+- [#40515](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40515) [`a54578d2ea9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a54578d2ea9) - This removes the feature flag for the `shouldRenderToParent` prop. The prop is available for use.
 
 ## 1.10.0
 
 ### Minor Changes
 
-- [`f355884a4aa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f355884a4aa) - [ux] Support to press escape key and only close the top layer
+- [#39726](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39726) [`f355884a4aa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f355884a4aa) - [ux] Support to press escape key and only close the top layer
 
 ### Patch Changes
 
@@ -20,44 +20,44 @@
 
 ### Patch Changes
 
-- [`84442a93613`](https://bitbucket.org/atlassian/atlassian-frontend/commits/84442a93613) - Adds support for surface detection when using design tokens. Enabling children to be styled with the surface color of the popup when using the `utility.elevation.surface.current` design token.
+- [#39278](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39278) [`84442a93613`](https://bitbucket.org/atlassian/atlassian-frontend/commits/84442a93613) - Adds support for surface detection when using design tokens. Enabling children to be styled with the surface color of the popup when using the `utility.elevation.surface.current` design token.
 - Updated dependencies
 
 ## 1.9.2
 
 ### Patch Changes
 
-- [`065da872439`](https://bitbucket.org/atlassian/atlassian-frontend/commits/065da872439) - Css changes for testing the feature flag `platform.design-system-team.render-popup-in-parent_f73ij`.
+- [#38011](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38011) [`065da872439`](https://bitbucket.org/atlassian/atlassian-frontend/commits/065da872439) - Css changes for testing the feature flag `platform.design-system-team.render-popup-in-parent_f73ij`.
 
 ## 1.9.1
 
 ### Patch Changes
 
-- [`6a0a3c059ba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6a0a3c059ba) - Remove unused argument from internal focus management function.
+- [#37614](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37614) [`6a0a3c059ba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6a0a3c059ba) - Remove unused argument from internal focus management function.
 
 ## 1.9.0
 
 ### Minor Changes
 
-- [`3920dcfd848`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3920dcfd848) - This removes the feature flag made for upgrading the `focus-trap` dependency and keeps `focus-trap` at it's original version.
+- [#34797](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34797) [`3920dcfd848`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3920dcfd848) - This removes the feature flag made for upgrading the `focus-trap` dependency and keeps `focus-trap` at it's original version.
 
 ## 1.8.3
 
 ### Patch Changes
 
-- [`4ae083a7e66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ae083a7e66) - Use `@af/accessibility-testing` for default jest-axe config and jest-axe import in accessibility testing.
+- [#36754](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36754) [`4ae083a7e66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ae083a7e66) - Use `@af/accessibility-testing` for default jest-axe config and jest-axe import in accessibility testing.
 
 ## 1.8.2
 
 ### Patch Changes
 
-- [`472a62ce219`](https://bitbucket.org/atlassian/atlassian-frontend/commits/472a62ce219) - [ux] Fixes `autoFocus` functionality on upgrade of focus-trap to v7.
+- [#36447](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36447) [`472a62ce219`](https://bitbucket.org/atlassian/atlassian-frontend/commits/472a62ce219) - [ux] Fixes `autoFocus` functionality on upgrade of focus-trap to v7.
 
 ## 1.8.1
 
 ### Patch Changes
 
-- [`599bfe90ee3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/599bfe90ee3) - Internal change to use shape tokens. There is no expected visual change.
+- [#35441](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35441) [`599bfe90ee3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/599bfe90ee3) - Internal change to use shape tokens. There is no expected visual change.
 
 ## 1.8.0
 
@@ -69,37 +69,37 @@
 
 ### Minor Changes
 
-- [`eca89633804`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eca89633804) - Add a new prop `shouldRenderToParent` to allow render popup into a DOM node within the parent DOM hierarchy instead of React portal.
+- [#35092](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35092) [`eca89633804`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eca89633804) - Add a new prop `shouldRenderToParent` to allow render popup into a DOM node within the parent DOM hierarchy instead of React portal.
 
 ## 1.6.4
 
 ### Patch Changes
 
-- [`e2a6337bb05`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e2a6337bb05) - Reverts changes 1.6.3 in @atlaskit/popup, reverts disabling pointer events on iframes when popup is open.
+- [#35299](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35299) [`e2a6337bb05`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e2a6337bb05) - Reverts changes 1.6.3 in @atlaskit/popup, reverts disabling pointer events on iframes when popup is open.
 
 ## 1.6.3
 
 ### Patch Changes
 
-- [`c394dbc632f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c394dbc632f) - Addresses the problem where the popup fails to close upon clicking on the iframe
+- [#34314](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34314) [`c394dbc632f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c394dbc632f) - Addresses the problem where the popup fails to close upon clicking on the iframe
 
 ## 1.6.2
 
 ### Patch Changes
 
-- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793) [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
 
 ## 1.6.1
 
 ### Patch Changes
 
-- [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649) [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
 
 ## 1.6.0
 
 ### Minor Changes
 
-- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258) [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
 
 ### Patch Changes
 
@@ -133,31 +133,31 @@
 
 ### Patch Changes
 
-- [`9827dcb82b8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9827dcb82b8) - No-op change to introduce spacing tokens to design system components.
+- [#26303](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26303) [`9827dcb82b8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9827dcb82b8) - No-op change to introduce spacing tokens to design system components.
 
 ## 1.5.0
 
 ### Minor Changes
 
-- [`c520e306869`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c520e306869) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behavior change.
+- [#24710](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24710) [`c520e306869`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c520e306869) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behavior change.
 
 ## 1.4.2
 
 ### Patch Changes
 
-- [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
+- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874) [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
 
 ## 1.4.1
 
 ### Patch Changes
 
-- [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
+- [#24492](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24492) [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
 
 ## 1.4.0
 
 ### Minor Changes
 
-- [`01d80d395bc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/01d80d395bc) - pass event to onOpenChange consistently
+- [#23381](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23381) [`01d80d395bc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/01d80d395bc) - pass event to onOpenChange consistently
 
 ### Patch Changes
 
@@ -168,13 +168,13 @@
 
 ### Patch Changes
 
-- [`8a5bdb3c844`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8a5bdb3c844) - Upgrading internal dependency (bind-event-listener) for improved internal types
+- [#22614](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22614) [`8a5bdb3c844`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8a5bdb3c844) - Upgrading internal dependency (bind-event-listener) for improved internal types
 
 ## 1.3.9
 
 ### Patch Changes
 
-- [`dcf8150c49c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dcf8150c49c) - Allow `trigger` props to be applied to any HTML element tag without causing type errors for the `ref` type
+- [#21570](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21570) [`dcf8150c49c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dcf8150c49c) - Allow `trigger` props to be applied to any HTML element tag without causing type errors for the `ref` type
 
 ## 1.3.8
 
@@ -186,13 +186,13 @@
 
 ### Patch Changes
 
-- [`2e7bbdfd813`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e7bbdfd813) - Upgrading internal dependency 'bind-event-listener' to 2.1.0 for improved types
+- [#21242](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21242) [`2e7bbdfd813`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e7bbdfd813) - Upgrading internal dependency 'bind-event-listener' to 2.1.0 for improved types
 
 ## 1.3.6
 
 ### Patch Changes
 
-- [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
+- [#20650](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20650) [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
 
 ## 1.3.5
 
@@ -216,7 +216,7 @@
 
 ### Patch Changes
 
-- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - The no-unsafe-design-token-usage eslint rule now respects the new token naming conventions when auto-fixing by correctly formatting token ids.
+- [#16752](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16752) [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - The no-unsafe-design-token-usage eslint rule now respects the new token naming conventions when auto-fixing by correctly formatting token ids.
 - [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - The no-unsafe-design-token-usage eslint rule now respects the new token naming conventions when auto-fixing by correctly formatting token ids.
 - Updated dependencies
 
@@ -230,7 +230,7 @@
 
 ### Minor Changes
 
-- [`2e42aa0d900`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e42aa0d900) - **Note**: It is a re-release of the wrongly `patched` version `1.1.6` that should have been a `minor` release.
+- [#17576](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/17576) [`2e42aa0d900`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e42aa0d900) - **Note**: It is a re-release of the wrongly `patched` version `1.1.6` that should have been a `minor` release.
 
   Expose `fallbackPlacement` modifier from to specify a list of fallback options to try incase there isn't enough space
 
@@ -242,7 +242,7 @@
 
 ### Minor Changes
 
-- [`c2dd770a743`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c2dd770a743) - Add new prop which controls is outside click should be bound using capture
+- [#16960](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16960) [`c2dd770a743`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c2dd770a743) - Add new prop which controls is outside click should be bound using capture
 
 ## 1.1.6
 
@@ -250,7 +250,7 @@ _WRONG RELEASE TYPE - DON'T USE_
 
 ### Minor Changes
 
-- [`f142150a3e8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f142150a3e8) - Expose `fallbackPlacement` modifier from to specify a list of fallback options to try incase there isn't enough space
+- [#15998](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/15998) [`f142150a3e8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f142150a3e8) - Expose `fallbackPlacement` modifier from to specify a list of fallback options to try incase there isn't enough space
 
 ### Patch Changes
 
@@ -291,7 +291,7 @@ _WRONG RELEASE TYPE - DON'T USE_
 
 ### Minor Changes
 
-- [`04cf9c3d28c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/04cf9c3d28c) - [ux] Colors now sourced from tokens.
+- [#12837](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12837) [`04cf9c3d28c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/04cf9c3d28c) - [ux] Colors now sourced from tokens.
 
 ### Patch Changes
 
@@ -301,31 +301,31 @@ _WRONG RELEASE TYPE - DON'T USE_
 
 ### Patch Changes
 
-- [`378d1cef00f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/378d1cef00f) - Bump `@atlaskit/theme` to version `^11.3.0`.
+- [#12880](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12880) [`378d1cef00f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/378d1cef00f) - Bump `@atlaskit/theme` to version `^11.3.0`.
 
 ## 1.0.7
 
 ### Patch Changes
 
-- [`d6f7ff383cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6f7ff383cf) - Updates to development dependency `storybook-addon-performance`
+- [#12167](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12167) [`d6f7ff383cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6f7ff383cf) - Updates to development dependency `storybook-addon-performance`
 
 ## 1.0.6
 
 ### Patch Changes
 
-- [`1858f20ac3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1858f20ac3) - Optimised popup performance as part of the lite-mode project. Changes are internal and have no implications for component API or usage.
+- [#6930](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/6930) [`1858f20ac3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1858f20ac3) - Optimised popup performance as part of the lite-mode project. Changes are internal and have no implications for component API or usage.
 
 ## 1.0.5
 
 ### Patch Changes
 
-- [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
+- [#5857](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5857) [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
 
 ## 1.0.4
 
 ### Patch Changes
 
-- [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
+- [#5497](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5497) [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
   This requires version 3.8 of Typescript, read more about how we handle Typescript versions here: https://atlaskit.atlassian.com/get-started
   Also add `typescript` to `devDependencies` to denote version that the package was built with.
 
@@ -339,13 +339,13 @@ _WRONG RELEASE TYPE - DON'T USE_
 
 ### Patch Changes
 
-- [`fc8f6e61f3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fc8f6e61f3) - Fix codemod utilities being exposed through the codemod cli
+- [#4346](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4346) [`fc8f6e61f3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fc8f6e61f3) - Fix codemod utilities being exposed through the codemod cli
 
 ## 1.0.1
 
 ### Patch Changes
 
-- [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
+- [#3885](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3885) [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
 
   Since tslib is a dependency for all our packages we recommend that products also follow this tslib upgrade
   to prevent duplicates of tslib being bundled.
@@ -354,7 +354,7 @@ _WRONG RELEASE TYPE - DON'T USE_
 
 ### Major Changes
 
-- [`740e011f8d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/740e011f8d) - This first major release of popup brings in major changes from @atlaskit/popper. These changes come with performance, maintainability and behavioral improvements.
+- [#3823](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3823) [`740e011f8d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/740e011f8d) - This first major release of popup brings in major changes from @atlaskit/popper. These changes come with performance, maintainability and behavioral improvements.
 
   As popup wraps popper's functionality, these changes result in a breaking change for popup as well.
 
@@ -396,13 +396,13 @@ _WRONG RELEASE TYPE - DON'T USE_
 
 ### Patch Changes
 
-- [`8dd80245bb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8dd80245bb) - Remove unnecessary code for IE11.
+- [#4329](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4329) [`8dd80245bb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8dd80245bb) - Remove unnecessary code for IE11.
 
 ## 0.6.0
 
 ### Minor Changes
 
-- [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
+- [#3335](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3335) [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
   For more information see: https://community.developer.atlassian.com/t/atlaskit-to-drop-support-for-internet-explorer-11-from-1st-july-2020/39534
 
 ### Patch Changes
@@ -413,31 +413,31 @@ _WRONG RELEASE TYPE - DON'T USE_
 
 ### Minor Changes
 
-- [`ebcb467688`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ebcb467688) - Add a new prop `autoFocus` to allow consumers to control whether the Popup takes focus when opened
+- [#3289](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3289) [`ebcb467688`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ebcb467688) - Add a new prop `autoFocus` to allow consumers to control whether the Popup takes focus when opened
 
 ## 0.4.3
 
 ### Patch Changes
 
-- [`54a9514fcf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54a9514fcf) - Build and supporting files will no longer be published to npm
+- [#2866](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2866) [`54a9514fcf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54a9514fcf) - Build and supporting files will no longer be published to npm
 
 ## 0.4.2
 
 ### Patch Changes
 
-- [`649f69b6d7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/649f69b6d7) - Patch all packages that are used by confluence that have a broken es2019 dist
+- [#2430](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2430) [`649f69b6d7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/649f69b6d7) - Patch all packages that are used by confluence that have a broken es2019 dist
 
 ## 0.4.1
 
 ### Patch Changes
 
-- [`f4d4de67e4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f4d4de67e4) - Prevent closing of popup when clicked element (which is inside content) is removed from the DOM
+- [#2186](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2186) [`f4d4de67e4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f4d4de67e4) - Prevent closing of popup when clicked element (which is inside content) is removed from the DOM
 
 ## 0.4.0
 
 ### Minor Changes
 
-- [`ead13374cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ead13374cf) - **BREAKING:** Removes `tag` prop and unneeded wrapping element around the trigger.
+- [#2060](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2060) [`ead13374cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ead13374cf) - **BREAKING:** Removes `tag` prop and unneeded wrapping element around the trigger.
 
 ## 0.3.5
 

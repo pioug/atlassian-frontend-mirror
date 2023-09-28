@@ -4,7 +4,7 @@
 
 ### Major Changes
 
-- [`978cfcda881`](https://bitbucket.org/atlassian/atlassian-frontend/commits/978cfcda881) - Migrate `jql-autocomplete` package to the `@atlaskit` namespace. Any consumers should update their imports to `@atlaskit/jql-autocomplete`.
+- [#39978](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39978) [`978cfcda881`](https://bitbucket.org/atlassian/atlassian-frontend/commits/978cfcda881) - Migrate `jql-autocomplete` package to the `@atlaskit` namespace. Any consumers should update their imports to `@atlaskit/jql-autocomplete`.
 
 ### Patch Changes
 
@@ -14,13 +14,13 @@
 
 ### Patch Changes
 
-- [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
+- [#38162](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38162) [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
 
 ## 1.2.5
 
 ### Patch Changes
 
-- [`046f9e95899`](https://bitbucket.org/atlassian/atlassian-frontend/commits/046f9e95899) - Use deep import for antlr4-c3 dependency to mitigate lack of tree-shaking.
+- [#38404](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38404) [`046f9e95899`](https://bitbucket.org/atlassian/atlassian-frontend/commits/046f9e95899) - Use deep import for antlr4-c3 dependency to mitigate lack of tree-shaking.
 
 ## 1.2.4
 
@@ -28,7 +28,7 @@
 
 ### Patch Changes
 
-- [`7926dc060ff`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7926dc060ff) - Clamp antlr4ts version to 0.5.0-alpha.4
+- [#36690](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36690) [`7926dc060ff`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7926dc060ff) - Clamp antlr4ts version to 0.5.0-alpha.4
 
 ## 1.2.3
 
@@ -36,31 +36,31 @@
 
 ### Patch Changes
 
-- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793) [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
 
 ## 1.2.2
 
 ### Patch Changes
 
-- [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649) [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
 
 ## 1.2.1
 
 ### Patch Changes
 
-- [`5fbee461cc7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5fbee461cc7) - Internal change to enforce token usage for spacing properties. There is no expected visual or behaviour change.
+- [#33285](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33285) [`5fbee461cc7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5fbee461cc7) - Internal change to enforce token usage for spacing properties. There is no expected visual or behaviour change.
 
 ## 1.2.0
 
 ### Minor Changes
 
-- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258) [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
 
 ## 1.1.9
 
 ### Patch Changes
 
-- [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
+- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874) [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
 
 ## 1.1.8
 
@@ -68,7 +68,7 @@
 
 ### Patch Changes
 
-- [`5a4217aeed6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5a4217aeed6) - Add polyfill for node assert and util modules.
+- [#25232](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/25232) [`5a4217aeed6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5a4217aeed6) - Add polyfill for node assert and util modules.
 
 ## 1.1.7
 

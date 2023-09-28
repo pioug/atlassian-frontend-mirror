@@ -45,7 +45,8 @@ import { withSidebarContainer } from './SidebarContainer';
 import quickInsertProviderFactory from './quick-insert-provider';
 
 import type { EditorProps } from '../src';
-import { createTestExtensionProvider } from '../src/plugins/floating-toolbar/__tests__/_helpers';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { createTestExtensionProvider } from '@atlaskit/editor-test-helpers/create-test-extension-provider';
 import { createExtensionFramesProvider } from '../src/__tests__/visual-regression/common/__helpers__/extensionFrameManifest';
 import { getConfluenceMacrosExtensionProvider } from './confluence-macros';
 import {

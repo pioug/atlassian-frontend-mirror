@@ -4,7 +4,7 @@
 
 ### Major Changes
 
-- [`978cfcda881`](https://bitbucket.org/atlassian/atlassian-frontend/commits/978cfcda881) - Migrate `jql-parser` package to the `@atlaskit` namespace. Any consumers should update their imports to `@atlaskit/jql-parser`.
+- [#39978](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39978) [`978cfcda881`](https://bitbucket.org/atlassian/atlassian-frontend/commits/978cfcda881) - Migrate `jql-parser` package to the `@atlaskit` namespace. Any consumers should update their imports to `@atlaskit/jql-parser`.
 
 ## 1.0.7
 

@@ -541,7 +541,6 @@ export class ExampleEditorComponent extends React.Component<
                   ...editorProps.featureFlags,
                   // Enabling to catch during dev by default
                   'safer-dispatched-transactions': true,
-                  'use-editor-next': true,
                 }}
                 appearance={this.state.appearance}
                 onEditorReady={this.onEditorReady}

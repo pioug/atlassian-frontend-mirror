@@ -11,6 +11,6 @@ describe('Textfield should be found by data-testid', () => {
       <Textfield placeholder="hello" testId={testId} />,
     );
 
-    expect(getByTestId(testId)).toBeTruthy();
+    expect(getByTestId(testId)).toBeInTheDocument();
   });
 });

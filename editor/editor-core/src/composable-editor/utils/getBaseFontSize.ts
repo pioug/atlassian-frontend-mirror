@@ -1,4 +1,4 @@
-import { EditorAppearance } from '@atlaskit/editor-common/types';
+import type { EditorAppearance } from '@atlaskit/editor-common/types';
 import { akEditorFullPageDefaultFontSize } from '@atlaskit/editor-shared-styles';
 /**
  * @param appearance

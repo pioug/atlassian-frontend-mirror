@@ -1,12 +1,9 @@
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { pluginKey as datePluginKey } from '../../date/pm-plugins/plugin-key';
 import type { DatePluginState } from '../../date/pm-plugins/types';
 import type { FloatingToolbarPluginState } from '@atlaskit/editor-plugin-floating-toolbar';
 import type { ConfigWithNodeInfo } from '@atlaskit/editor-plugin-floating-toolbar';
-import { pluginKey as floatingToolbarPluginKey } from '../../floating-toolbar';
 import type { StatusState } from '../../status/types';
-import { pluginKey as statusPluginKey } from '../../status/plugin-key';
-import { areSameItems } from '../../floating-toolbar/ui/Toolbar';
+import { areSameItems } from '@atlaskit/editor-common/floating-toolbar';
 import { isTypeAheadOpen } from '../../type-ahead/utils';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { ViewUpdateSubscription } from '..';
@@ -65,6 +62,28 @@ export const subscribeToToolbarAndPickerUpdates: SubscribeToToolbarAndPickerUpda
       if (isTypeAheadOpen(newEditorState)) {
         return;
       }
+
+      // Creating fake plugin keys for these plugins for the mean time until all these plugins are extracted.
+      const datePluginKey = {
+        key: 'datePlugin$',
+        getState: (state: EditorState) => {
+          return (state as any)['datePlugin$'];
+        },
+      };
+
+      const statusPluginKey = {
+        key: 'statusPlugin$',
+        getState: (state: EditorState) => {
+          return (state as any)['statusPlugin$'];
+        },
+      };
+
+      const floatingToolbarPluginKey = {
+        key: 'floatingToolbarPluginKey$',
+        getState: (state: EditorState) => {
+          return (state as any)['floatingToolbarPluginKey$'];
+        },
+      };
 
       const dateState = datePluginKey.getState(newEditorState);
       const statusState = statusPluginKey.getState(newEditorState);

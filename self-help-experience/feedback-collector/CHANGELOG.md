@@ -4,93 +4,93 @@
 
 ### Patch Changes
 
-- [`9ab9f14f503`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9ab9f14f503) - [ux] Adding linked label to the feedback topics select dropdown
+- [#39764](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39764) [`9ab9f14f503`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9ab9f14f503) - [ux] Adding linked label to the feedback topics select dropdown
 
 ## 13.0.5
 
 ### Patch Changes
 
-- [`8f7a65cea77`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f7a65cea77) - [ux] Opens privacy policy link in new tab
+- [#39163](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39163) [`8f7a65cea77`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f7a65cea77) - [ux] Opens privacy policy link in new tab
 
 ## 13.0.4
 
 ### Patch Changes
 
-- [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
+- [#38162](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38162) [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
 - Updated dependencies
 
 ## 13.0.3
 
 ### Patch Changes
 
-- [`026e8c5ae33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/026e8c5ae33) - [ux] Remove visible label
+- [#38252](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38252) [`026e8c5ae33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/026e8c5ae33) - [ux] Remove visible label
 
 ## 13.0.2
 
 ### Patch Changes
 
-- [`758e7d99631`](https://bitbucket.org/atlassian/atlassian-frontend/commits/758e7d99631) - Fixed submit button locking mechanism when the description field is hidden and a default description value has been provided
+- [#38141](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38141) [`758e7d99631`](https://bitbucket.org/atlassian/atlassian-frontend/commits/758e7d99631) - Fixed submit button locking mechanism when the description field is hidden and a default description value has been provided
 
 ## 13.0.1
 
 ### Patch Changes
 
-- [`2441f8995ee`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2441f8995ee) - [ux] Allow close icon to be tab-selected. Issue type select still retains initial focus
+- [#35554](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35554) [`2441f8995ee`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2441f8995ee) - [ux] Allow close icon to be tab-selected. Issue type select still retains initial focus
 
 ## 13.0.0
 
 ### Major Changes
 
-- [`a823baa34dc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a823baa34dc) - Only send Atlassian Account ID, never use hashed email
+- [#34955](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34955) [`a823baa34dc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a823baa34dc) - Only send Atlassian Account ID, never use hashed email
   The `email` property has been removed, only an Atlassian Account ID will ever be sent in `aaidOrHash` to avoid interception and submitting feedback as another user.
 
 ## 12.2.3
 
 ### Patch Changes
 
-- [`db4b539c969`](https://bitbucket.org/atlassian/atlassian-frontend/commits/db4b539c969) - update internationalization formatting
+- [#34959](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34959) [`db4b539c969`](https://bitbucket.org/atlassian/atlassian-frontend/commits/db4b539c969) - update internationalization formatting
 
 ## 12.2.2
 
 ### Patch Changes
 
-- [`a6e64a7df16`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a6e64a7df16) - [ux] fix opt-in messages
+- [#34951](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34951) [`a6e64a7df16`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a6e64a7df16) - [ux] fix opt-in messages
 
 ## 12.2.1
 
 ### Patch Changes
 
-- [`44d70ecadb6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/44d70ecadb6) - [ux] Fix enroll message
+- [#34871](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34871) [`44d70ecadb6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/44d70ecadb6) - [ux] Fix enroll message
 
 ## 12.2.0
 
 ### Minor Changes
 
-- [`32649ca71ad`](https://bitbucket.org/atlassian/atlassian-frontend/commits/32649ca71ad) - [ux] Update the 'can be contacted' opt-in language
+- [#34252](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34252) [`32649ca71ad`](https://bitbucket.org/atlassian/atlassian-frontend/commits/32649ca71ad) - [ux] Update the 'can be contacted' opt-in language
 
 ## 12.1.3
 
 ### Patch Changes
 
-- [`61cb5313358`](https://bitbucket.org/atlassian/atlassian-frontend/commits/61cb5313358) - Removing unused dependencies and dev dependencies
+- [#34443](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34443) [`61cb5313358`](https://bitbucket.org/atlassian/atlassian-frontend/commits/61cb5313358) - Removing unused dependencies and dev dependencies
 
 ## 12.1.2
 
 ### Patch Changes
 
-- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793) [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
 
 ## 12.1.1
 
 ### Patch Changes
 
-- [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649) [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
 
 ## 12.1.0
 
 ### Minor Changes
 
-- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258) [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
 
 ### Patch Changes
 
@@ -100,7 +100,7 @@
 
 ### Major Changes
 
-- [`278c2413bf4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/278c2413bf4) - Adding and renaming properties to the component. This was introduced to support teams defining and using their own values for the checkboxes.
+- [#32479](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32479) [`278c2413bf4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/278c2413bf4) - Adding and renaming properties to the component. This was introduced to support teams defining and using their own values for the checkboxes.
 
   If you overwrite the `canBeContactedDefaultValue` or `enrollInResearchDefaultValue`, you'll need to update the property name in use
 
@@ -115,19 +115,19 @@
 
 ### Major Changes
 
-- [`2753f3d9acc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2753f3d9acc) - Use entrypointId instead of embeddedKey and requestTypeId; use API v2
+- [#29949](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/29949) [`2753f3d9acc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2753f3d9acc) - Use entrypointId instead of embeddedKey and requestTypeId; use API v2
 
 ## 10.10.0
 
 ### Minor Changes
 
-- [`854cc74fad4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/854cc74fad4) - [ux] Fix padding around modal close icon
+- [#29877](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/29877) [`854cc74fad4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/854cc74fad4) - [ux] Fix padding around modal close icon
 
 ## 10.9.0
 
 ### Minor Changes
 
-- [`add53eec671`](https://bitbucket.org/atlassian/atlassian-frontend/commits/add53eec671) - [ux] Disabling the submit button while feedback is being submitted
+- [#29873](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/29873) [`add53eec671`](https://bitbucket.org/atlassian/atlassian-frontend/commits/add53eec671) - [ux] Disabling the submit button while feedback is being submitted
 
 ## 10.8.3
 
@@ -139,37 +139,37 @@
 
 ### Patch Changes
 
-- [`5c0a3df1927`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5c0a3df1927) - [ux] Don't close feedback modal if escape key is pressed
+- [#29251](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/29251) [`5c0a3df1927`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5c0a3df1927) - [ux] Don't close feedback modal if escape key is pressed
 
 ## 10.8.1
 
 ### Patch Changes
 
-- [`89da7b835e1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/89da7b835e1) - [ux] Don't close if clicked outside modal, add 'x' button to header
+- [#29129](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/29129) [`89da7b835e1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/89da7b835e1) - [ux] Don't close if clicked outside modal, add 'x' button to header
 
 ## 10.8.0
 
 ### Minor Changes
 
-- [`9fcfa8846e9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9fcfa8846e9) - Add properties to allow custom feedback models
+- [#29096](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/29096) [`9fcfa8846e9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9fcfa8846e9) - Add properties to allow custom feedback models
 
 ## 10.7.1
 
 ### Patch Changes
 
-- [`3b897f937e4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3b897f937e4) - add option to exclude entitlement detail and email
+- [#28849](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28849) [`3b897f937e4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3b897f937e4) - add option to exclude entitlement detail and email
 
 ## 10.7.0
 
 ### Minor Changes
 
-- [`27bfb6f0bb1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/27bfb6f0bb1) - allow separate entries for gateway and feedback urls
+- [#28756](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28756) [`27bfb6f0bb1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/27bfb6f0bb1) - allow separate entries for gateway and feedback urls
 
 ## 10.6.10
 
 ### Patch Changes
 
-- [`6455cf006b3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6455cf006b3) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving performance.
+- [#28324](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28324) [`6455cf006b3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6455cf006b3) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving performance.
 
 ## 10.6.9
 
@@ -199,49 +199,49 @@
 
 ### Patch Changes
 
-- [`0c19f354255`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0c19f354255) - Consolidate In Product Help & Self-Help Experiences ownership
+- [#26424](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26424) [`0c19f354255`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0c19f354255) - Consolidate In Product Help & Self-Help Experiences ownership
 
 ## 10.6.4
 
 ### Patch Changes
 
-- [`086761a9ac0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/086761a9ac0) - always send credentials in fetch
+- [#26473](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26473) [`086761a9ac0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/086761a9ac0) - always send credentials in fetch
 
 ## 10.6.3
 
 ### Patch Changes
 
-- [`9ecee5db726`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9ecee5db726) - Add support for Trello.
+- [#25502](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/25502) [`9ecee5db726`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9ecee5db726) - Add support for Trello.
 
 ## 10.6.2
 
 ### Patch Changes
 
-- [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
+- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874) [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
 
 ## 10.6.1
 
 ### Patch Changes
 
-- [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
+- [#24492](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24492) [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
 
 ## 10.6.0
 
 ### Minor Changes
 
-- [`346e6dfc562`](https://bitbucket.org/atlassian/atlassian-frontend/commits/346e6dfc562) - Add imported Buffer as webpack workaround
+- [#22901](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22901) [`346e6dfc562`](https://bitbucket.org/atlassian/atlassian-frontend/commits/346e6dfc562) - Add imported Buffer as webpack workaround
 
 ## 10.5.3
 
 ### Patch Changes
 
-- [`92ec4fcb6f9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/92ec4fcb6f9) - [ux] Fix message translations not being displayed for the user's language.
+- [#22401](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22401) [`92ec4fcb6f9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/92ec4fcb6f9) - [ux] Fix message translations not being displayed for the user's language.
 
 ## 10.5.2
 
 ### Patch Changes
 
-- [`8e34fbcfb52`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8e34fbcfb52) - Prevent unnecessary duplicate http call in feedback collector
+- [#22022](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22022) [`8e34fbcfb52`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8e34fbcfb52) - Prevent unnecessary duplicate http call in feedback collector
 
 ## 10.5.1
 
@@ -253,25 +253,25 @@
 
 ### Minor Changes
 
-- [`11dd69e5a0f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/11dd69e5a0f) - Fix details for Bitbucket Cloud feedback
+- [#21587](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21587) [`11dd69e5a0f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/11dd69e5a0f) - Fix details for Bitbucket Cloud feedback
 
 ## 10.4.1
 
 ### Patch Changes
 
-- [`55b7d39a841`](https://bitbucket.org/atlassian/atlassian-frontend/commits/55b7d39a841) - Send Cloud Tenant ID with feedback (if available)
+- [#21216](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21216) [`55b7d39a841`](https://bitbucket.org/atlassian/atlassian-frontend/commits/55b7d39a841) - Send Cloud Tenant ID with feedback (if available)
 
 ## 10.4.0
 
 ### Minor Changes
 
-- [`271e4374f58`](https://bitbucket.org/atlassian/atlassian-frontend/commits/271e4374f58) - [ux] Add support for i18n
+- [#20901](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20901) [`271e4374f58`](https://bitbucket.org/atlassian/atlassian-frontend/commits/271e4374f58) - [ux] Add support for i18n
 
 ## 10.3.2
 
 ### Patch Changes
 
-- [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
+- [#20650](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20650) [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
 - Updated dependencies
 
 ## 10.3.1
@@ -284,19 +284,19 @@
 
 ### Minor Changes
 
-- [`7891017f3f9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7891017f3f9) - use hash of userid or email instead of sending PII
+- [#20102](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20102) [`7891017f3f9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7891017f3f9) - use hash of userid or email instead of sending PII
 
 ## 10.2.0
 
 ### Minor Changes
 
-- [`1781fc857bd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1781fc857bd) - add email from logged in user
+- [#20100](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20100) [`1781fc857bd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1781fc857bd) - add email from logged in user
 
 ## 10.1.0
 
 ### Minor Changes
 
-- [`b35b73e9670`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b35b73e9670) - Use correct requestTypeId for feedback collector
+- [#19962](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19962) [`b35b73e9670`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b35b73e9670) - Use correct requestTypeId for feedback collector
 
 ## 10.0.1
 
@@ -308,7 +308,7 @@
 
 ### Major Changes
 
-- [`2f210d2f476`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2f210d2f476) - [ux] Add feedback button and place it above proforma form builder
+- [#19806](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19806) [`2f210d2f476`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2f210d2f476) - [ux] Add feedback button and place it above proforma form builder
 
 ## 9.0.2
 
@@ -320,13 +320,13 @@
 
 ### Patch Changes
 
-- [`90a4afb3339`](https://bitbucket.org/atlassian/atlassian-frontend/commits/90a4afb3339) - Updating only a comment
+- [#19035](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19035) [`90a4afb3339`](https://bitbucket.org/atlassian/atlassian-frontend/commits/90a4afb3339) - Updating only a comment
 
 ## 9.0.0
 
 ### Major Changes
 
-- [`de5ad5f78ba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/de5ad5f78ba) - Use Stargate proxy instead of Cookie
+- [#18526](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/18526) [`de5ad5f78ba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/de5ad5f78ba) - Use Stargate proxy instead of Cookie
 
 ### Patch Changes
 
@@ -336,7 +336,7 @@
 
 ### Patch Changes
 
-- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Updates usage of deprecated token names so they're aligned with the latest naming conventions. No UI or visual changes
+- [#16752](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16752) [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Updates usage of deprecated token names so they're aligned with the latest naming conventions. No UI or visual changes
 - Updated dependencies
 
 ## 8.0.1
@@ -349,7 +349,7 @@
 
 ### Major Changes
 
-- [`286af9264f7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/286af9264f7) - **Note**: It is a re-release of the wrongly `patched` version `7.1.2` that should have been a `major` release.
+- [#17576](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/17576) [`286af9264f7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/286af9264f7) - **Note**: It is a re-release of the wrongly `patched` version `7.1.2` that should have been a `major` release.
 
   ## Breaking Changes
 
@@ -374,7 +374,7 @@
 
 ### Patch Changes
 
-- [`c55c736ecea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c55c736ecea) - Patch VULN AFP-3486 AFP-3487 AFP-3488 AFP-3489
+- [#17475](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/17475) [`c55c736ecea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c55c736ecea) - Patch VULN AFP-3486 AFP-3487 AFP-3488 AFP-3489
 
 ## 7.1.2
 
@@ -382,7 +382,7 @@
 
 _WRONG RELEASE TYPE - DON'T USE_
 
-- [`be25f4abde4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/be25f4abde4) - ## Breaking Changes
+- [#15998](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/15998) [`be25f4abde4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/be25f4abde4) - ## Breaking Changes
 
   The new `cookie` property is **required**. This is property is a simple string of the user's cloud session token. Please pass in the entire key/value pair of the cookie. Like:
 
@@ -412,7 +412,7 @@ _WRONG RELEASE TYPE - DON'T USE_
 
 ### Minor Changes
 
-- [`dc5c87fae7d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dc5c87fae7d) - Instrumented feedback-collector with the new theming package, `@atlaskit/tokens`.
+- [#14319](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/14319) [`dc5c87fae7d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dc5c87fae7d) - Instrumented feedback-collector with the new theming package, `@atlaskit/tokens`.
 
   New tokens will be visible only in applications configured to use the new Tokens API (currently in alpha). These changes are intended to be interoperable with the legacy theme implementation. Legacy dark mode users should expect no visual or breaking changes.
 
@@ -426,7 +426,7 @@ _WRONG RELEASE TYPE - DON'T USE_
 
 ### Major Changes
 
-- [`b000daa6f08`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b000daa6f08) - [ux] Refactor to use new modal dialog API. This includes button order being reversed so that the primary button is on the right.
+- [#13864](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13864) [`b000daa6f08`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b000daa6f08) - [ux] Refactor to use new modal dialog API. This includes button order being reversed so that the primary button is on the right.
 
 ### Patch Changes
 
@@ -438,7 +438,7 @@ _WRONG RELEASE TYPE - DON'T USE_
 
 ### Minor Changes
 
-- [`d8083af448f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d8083af448f) - Updated flexibility for localisation and copy custimisation through additional optional props: description, title, submitButtonLabel, cancelButtonLabel, selectOptionDetails
+- [#13302](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13302) [`d8083af448f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d8083af448f) - Updated flexibility for localisation and copy custimisation through additional optional props: description, title, submitButtonLabel, cancelButtonLabel, selectOptionDetails
 
 ### Patch Changes
 
@@ -454,7 +454,7 @@ _WRONG RELEASE TYPE - DON'T USE_
 
 ### Patch Changes
 
-- [`378d1cef00f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/378d1cef00f) - Bump `@atlaskit/theme` to version `^11.3.0`.
+- [#12880](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12880) [`378d1cef00f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/378d1cef00f) - Bump `@atlaskit/theme` to version `^11.3.0`.
 
 ## 6.1.10
 
@@ -466,20 +466,20 @@ _WRONG RELEASE TYPE - DON'T USE_
 
 ### Patch Changes
 
-- [`76f16d562bc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/76f16d562bc) - Removed styled-components as a peerDependency
+- [#12205](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12205) [`76f16d562bc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/76f16d562bc) - Removed styled-components as a peerDependency
 
 ## 6.1.8
 
 ### Patch Changes
 
-- [`b71e86a459f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b71e86a459f) - [ux] fixes bug in feedback collector examples where flag would not autodismiss
+- [#11113](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/11113) [`b71e86a459f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b71e86a459f) - [ux] fixes bug in feedback collector examples where flag would not autodismiss
 - Updated dependencies
 
 ## 6.1.7
 
 ### Patch Changes
 
-- [`82f5dd62177`](https://bitbucket.org/atlassian/atlassian-frontend/commits/82f5dd62177) - Removed axios as a dev dependency since it's no longer used
+- [#9414](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9414) [`82f5dd62177`](https://bitbucket.org/atlassian/atlassian-frontend/commits/82f5dd62177) - Removed axios as a dev dependency since it's no longer used
 
 ## 6.1.6
 
@@ -491,7 +491,7 @@ _WRONG RELEASE TYPE - DON'T USE_
 
 ### Patch Changes
 
-- [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
+- [#5857](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5857) [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
 
 ## 6.1.4
 
@@ -503,7 +503,7 @@ _WRONG RELEASE TYPE - DON'T USE_
 
 ### Patch Changes
 
-- [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
+- [#5497](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5497) [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
   This requires version 3.8 of Typescript, read more about how we handle Typescript versions here: https://atlaskit.atlassian.com/get-started
   Also add `typescript` to `devDependencies` to denote version that the package was built with.
 
@@ -523,7 +523,7 @@ _WRONG RELEASE TYPE - DON'T USE_
 
 ### Minor Changes
 
-- [`ae57065429`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ae57065429) - Updated flexibility for localisation and copy custimisation through additional optional props: showTypeField, feedbackTitle, feedbackTitleDetails, enrolInResearchLabel, canBeContactedLabel, summaryPlaceholder
+- [#4424](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4424) [`ae57065429`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ae57065429) - Updated flexibility for localisation and copy custimisation through additional optional props: showTypeField, feedbackTitle, feedbackTitleDetails, enrolInResearchLabel, canBeContactedLabel, summaryPlaceholder
 
 ### Patch Changes
 
@@ -533,7 +533,7 @@ _WRONG RELEASE TYPE - DON'T USE_
 
 ### Patch Changes
 
-- [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
+- [#3885](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3885) [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
 
   Since tslib is a dependency for all our packages we recommend that products also follow this tslib upgrade
   to prevent duplicates of tslib being bundled.
@@ -542,7 +542,7 @@ _WRONG RELEASE TYPE - DON'T USE_
 
 ### Patch Changes
 
-- [`6262f382de`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6262f382de) - Use the 'lodash' package instead of single-function 'lodash.\*' packages
+- [#3823](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3823) [`6262f382de`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6262f382de) - Use the 'lodash' package instead of single-function 'lodash.\*' packages
 - Updated dependencies
 
 ## 6.0.1
@@ -555,7 +555,7 @@ _WRONG RELEASE TYPE - DON'T USE_
 
 ### Major Changes
 
-- [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
+- [#3335](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3335) [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
   For more information see: https://community.developer.atlassian.com/t/atlaskit-to-drop-support-for-internet-explorer-11-from-1st-july-2020/39534
 
 ### Patch Changes
@@ -566,7 +566,7 @@ _WRONG RELEASE TYPE - DON'T USE_
 
 ### Patch Changes
 
-- [`54a9514fcf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54a9514fcf) - Build and supporting files will no longer be published to npm
+- [#2866](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2866) [`54a9514fcf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54a9514fcf) - Build and supporting files will no longer be published to npm
 
 ## 5.0.1
 

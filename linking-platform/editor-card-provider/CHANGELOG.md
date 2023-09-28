@@ -1,35 +1,41 @@
 # @atlaskit/editor-card-provider
 
+## 3.1.9
+
+### Patch Changes
+
+- [#40406](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40406) [`542d0dd0b1d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/542d0dd0b1d) - [ux] Changed default smart card view for Confluence Databases route from inline to embed.
+
 ## 3.1.8
 
 ### Patch Changes
 
-- [`1fedffbd64b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1fedffbd64b) - Update json-ld-types dependencies to be compatible with version
+- [#40491](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40491) [`1fedffbd64b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1fedffbd64b) - Update json-ld-types dependencies to be compatible with version
 
 ## 3.1.7
 
 ### Patch Changes
 
-- [`2cd7af71b63`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2cd7af71b63) - Bump json-ld-types 3.8.0 -> 3.9.1
+- [#40127](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40127) [`2cd7af71b63`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2cd7af71b63) - Bump json-ld-types 3.8.0 -> 3.9.1
 
 ## 3.1.6
 
 ### Patch Changes
 
-- [`e74ae7f06d4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e74ae7f06d4) - Update dependency json-ld-types@3.8.0
+- [#37720](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37720) [`e74ae7f06d4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e74ae7f06d4) - Update dependency json-ld-types@3.8.0
 
 ## 3.1.5
 
 ### Patch Changes
 
-- [`83f06b6e7f6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/83f06b6e7f6) - Update to use 'getStatus' from '@atlaskit/linking-common'
+- [#37136](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37136) [`83f06b6e7f6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/83f06b6e7f6) - Update to use 'getStatus' from '@atlaskit/linking-common'
 - Updated dependencies
 
 ## 3.1.4
 
 ### Patch Changes
 
-- [`b9355830504`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b9355830504) - Opt out of peer dependency enforcement
+- [#37340](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37340) [`b9355830504`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b9355830504) - Opt out of peer dependency enforcement
 
 ## 3.1.3
 
@@ -41,20 +47,20 @@
 
 ### Patch Changes
 
-- [`3fb20c4aeba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3fb20c4aeba) - Add postinstall check to enforce internal peer dependencies
+- [#36757](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36757) [`3fb20c4aeba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3fb20c4aeba) - Add postinstall check to enforce internal peer dependencies
 
 ## 3.1.1
 
 ### Patch Changes
 
-- [`1e7190077d4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1e7190077d4) - Move off deprecated @atlaskit/linking-common/extractors to @atlaskit/link-extractors
+- [#36089](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36089) [`1e7190077d4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1e7190077d4) - Move off deprecated @atlaskit/linking-common/extractors to @atlaskit/link-extractors
 - Updated dependencies
 
 ## 3.1.0
 
 ### Minor Changes
 
-- [`04295e9d5bc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/04295e9d5bc) - [ux] Updating ORS response to include datasources and facilitating pasting JQL links turning into datasource tables
+- [#35032](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35032) [`04295e9d5bc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/04295e9d5bc) - [ux] Updating ORS response to include datasources and facilitating pasting JQL links turning into datasource tables
 
 ### Patch Changes
 
@@ -70,34 +76,34 @@
 
 ### Patch Changes
 
-- [`1674b5907b4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1674b5907b4) - [ux] Make confluence whiteboard urls default to embed view
+- [#35428](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35428) [`1674b5907b4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1674b5907b4) - [ux] Make confluence whiteboard urls default to embed view
 
 ## 3.0.3
 
 ### Patch Changes
 
-- [`f10ed88032c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f10ed88032c) - With the renaming of Jira Roadmaps to Timeline, we are updating the regex rules to match timeline in conjunction to roadmaps
+- [#33699](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33699) [`f10ed88032c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f10ed88032c) - With the renaming of Jira Roadmaps to Timeline, we are updating the regex rules to match timeline in conjunction to roadmaps
 - Updated dependencies
 
 ## 3.0.2
 
 ### Patch Changes
 
-- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793) [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
 - Updated dependencies
 
 ## 3.0.1
 
 ### Patch Changes
 
-- [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649) [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
 - Updated dependencies
 
 ## 3.0.0
 
 ### Minor Changes
 
-- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258) [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
 
 ### Patch Changes
 
@@ -107,28 +113,28 @@
 
 ### Patch Changes
 
-- [`0624df1ffe1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0624df1ffe1) - Bump json-ld-types dependency
+- [#32541](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32541) [`0624df1ffe1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0624df1ffe1) - Bump json-ld-types dependency
 - Updated dependencies
 
 ## 2.0.3
 
 ### Patch Changes
 
-- [`2e01c9c74b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e01c9c74b5) - DUMMY remove before merging to master; dupe adf-schema via adf-utils
+- [#32424](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32424) [`2e01c9c74b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e01c9c74b5) - DUMMY remove before merging to master; dupe adf-schema via adf-utils
 - Updated dependencies
 
 ## 2.0.2
 
 ### Patch Changes
 
-- [`0ee9370595a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0ee9370595a) - Update json-ld-types
+- [#32360](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32360) [`0ee9370595a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0ee9370595a) - Update json-ld-types
 - Updated dependencies
 
 ## 2.0.1
 
 ### Patch Changes
 
-- [`0af4a6b6426`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0af4a6b6426) - Dependency update json-ld-types@3.4.0
+- [#31388](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31388) [`0af4a6b6426`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0af4a6b6426) - Dependency update json-ld-types@3.4.0
 - Updated dependencies
 
 ## 2.0.0
@@ -141,7 +147,7 @@
 
 ### Major Changes
 
-- [`12223b3ee04`](https://bitbucket.org/atlassian/atlassian-frontend/commits/12223b3ee04) - Move EditorCardProvider to new package instead of using imports from Link Provider and Smart Card
+- [#30266](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/30266) [`12223b3ee04`](https://bitbucket.org/atlassian/atlassian-frontend/commits/12223b3ee04) - Move EditorCardProvider to new package instead of using imports from Link Provider and Smart Card
 
 ### Patch Changes
 

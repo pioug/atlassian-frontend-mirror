@@ -1,44 +1,60 @@
 # @atlaskit/editor-common
 
+## 76.1.1
+
+### Patch Changes
+
+- [#40723](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40723) [`97197ef1cd2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/97197ef1cd2) - type warnings fix for emoji
+
+## 76.1.0
+
+### Minor Changes
+
+- [#40698](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40698) [`37b11d838e4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/37b11d838e4) - ED-20017 Decouple floating toolbar from editor-core
+
+### Patch Changes
+
+- [#40700](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40700) [`07c8d720947`](https://bitbucket.org/atlassian/atlassian-frontend/commits/07c8d720947) - [ED-17196] Refactored editor internal abstraction
+
 ## 76.0.0
 
 ### Major Changes
 
-- [`151b0d45db4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/151b0d45db4) - Changed Resizer API. Removed handleComponent, innerPadding & handleMarginTop. Also renamed HandleHeightSizeType to HandleSize. The resizer should be opionated and control the handle component itself. innerPadding & handleMarginTop can also be controlled via the handleStyles override property.
+- [#39205](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39205) [`151b0d45db4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/151b0d45db4) - Changed Resizer API. Removed handleComponent, innerPadding & handleMarginTop. Also renamed HandleHeightSizeType to HandleSize. The resizer should be opionated and control the handle component itself. innerPadding & handleMarginTop can also be controlled via the handleStyles override property.
 
 ### Patch Changes
 
-- [`6c7eda4573e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c7eda4573e) - ADFEXP-526: create a patch changeset for editor-common to try make Confluence Pipeline green
+- [#40549](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40549) [`6c7eda4573e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c7eda4573e) - ADFEXP-526: create a patch changeset for editor-common to try make Confluence Pipeline green
 
 ## 75.8.4
 
 ### Patch Changes
 
-- [`5868508ede4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5868508ede4) - Need this small change to workaround CC pipeline issue
+- [#39625](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39625) [`5868508ede4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5868508ede4) - Need this small change to workaround CC pipeline issue
 
 ## 75.8.3
 
 ### Patch Changes
 
-- [`36b7e4fd8d5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/36b7e4fd8d5) - ED-20017 Clean up unused functions in Dropdown
+- [#40563](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40563) [`36b7e4fd8d5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/36b7e4fd8d5) - ED-20017 Clean up unused functions in Dropdown
 
 ## 75.8.2
 
 ### Patch Changes
 
-- [`b8e2bd46490`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b8e2bd46490) - [ED-19868](https://product-fabric.atlassian.net/browse/ED-19868) added text length for analytics
+- [#40523](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40523) [`b8e2bd46490`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b8e2bd46490) - [ED-19868](https://product-fabric.atlassian.net/browse/ED-19868) added text length for analytics
 
 ## 75.8.1
 
 ### Patch Changes
 
-- [`b1b8c7d356c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b1b8c7d356c) - [ED-19757] Fix getPos throwing exception for all nodeviews
+- [#40448](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40448) [`b1b8c7d356c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b1b8c7d356c) - [ED-19757] Fix getPos throwing exception for all nodeviews
 
 ## 75.8.0
 
 ### Minor Changes
 
-- [`3aaff60be08`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3aaff60be08) - ED-18988 Adds classnames and constants for table sticky scrollbar
+- [#39366](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39366) [`3aaff60be08`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3aaff60be08) - ED-18988 Adds classnames and constants for table sticky scrollbar
 
 ### Patch Changes
 
@@ -48,272 +64,272 @@
 
 ### Patch Changes
 
-- [`7b3e5b2915d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7b3e5b2915d) - Dummy change to bump version
+- [#40056](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40056) [`7b3e5b2915d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7b3e5b2915d) - Dummy change to bump version
 
 ## 75.7.0
 
 ### Minor Changes
 
-- [`8cb8dafa05a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cb8dafa05a) - [ED-19774] Removing ../selection imports where possible. selectionPlugin imports still exist until we have an extracted package for selection.
+- [#40367](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40367) [`8cb8dafa05a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cb8dafa05a) - [ED-19774] Removing ../selection imports where possible. selectionPlugin imports still exist until we have an extracted package for selection.
 
 ## 75.6.1
 
 ### Patch Changes
 
-- [`bb4caba1310`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bb4caba1310) - Remove participants count metric from frozen analytics event
+- [#40558](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40558) [`bb4caba1310`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bb4caba1310) - Remove participants count metric from frozen analytics event
 
 ## 75.6.0
 
 ### Minor Changes
 
-- [`16a0e1fef2b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/16a0e1fef2b) - ED-20017 Decouple editor core from floating toolbar plugin
+- [#40470](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40470) [`16a0e1fef2b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/16a0e1fef2b) - ED-20017 Decouple editor core from floating toolbar plugin
 
 ## 75.5.2
 
 ### Patch Changes
 
-- [`d5088ec1cdf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d5088ec1cdf) - [ED-16733] Prepare Media plugin for extraction
-- [`05b9c2db1dc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/05b9c2db1dc) - [ux] Increase visibility of table scroll shadows
+- [#38479](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38479) [`d5088ec1cdf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d5088ec1cdf) - [ED-16733] Prepare Media plugin for extraction
+- [#40231](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40231) [`05b9c2db1dc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/05b9c2db1dc) - [ux] Increase visibility of table scroll shadows
 
 ## 75.5.1
 
 ### Patch Changes
 
-- [`966f90e1edf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/966f90e1edf) - [ux] [ECA11Y-44] Adjust 'Popup' component so that it doesn't always have to have 'aria-label' attribute displayed
+- [#39632](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39632) [`966f90e1edf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/966f90e1edf) - [ux] [ECA11Y-44] Adjust 'Popup' component so that it doesn't always have to have 'aria-label' attribute displayed
 
 ## 75.5.0
 
 ### Minor Changes
 
-- [`20d1964ba9d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/20d1964ba9d) - Adds two new table analytics events: an initialOverflowCaptured event to detect initial oveflow state when the page is with a table is loaded or a new table is inserted/pasted and an overflowChanged event used to detect overflow state changes that occur as a result of different table actions.
+- [#39755](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39755) [`20d1964ba9d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/20d1964ba9d) - Adds two new table analytics events: an initialOverflowCaptured event to detect initial oveflow state when the page is with a table is loaded or a new table is inserted/pasted and an overflowChanged event used to detect overflow state changes that occur as a result of different table actions.
 
 ### Patch Changes
 
-- [`68dc5afa8f3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/68dc5afa8f3) - Add line before test cases
+- [#40389](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40389) [`68dc5afa8f3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/68dc5afa8f3) - Add line before test cases
 
 ## 75.4.0
 
 ### Minor Changes
 
-- [`21305ee6254`](https://bitbucket.org/atlassian/atlassian-frontend/commits/21305ee6254) - ED-19874 Align the dropdown with the floating toolbar if there is a single button in the toolbar
+- [#40017](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40017) [`21305ee6254`](https://bitbucket.org/atlassian/atlassian-frontend/commits/21305ee6254) - ED-19874 Align the dropdown with the floating toolbar if there is a single button in the toolbar
 
 ### Patch Changes
 
-- [`b092b2cb3b7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b092b2cb3b7) - Dummy change as workaround for product integrator pipeline. This change fixes comment spacing.
+- [#40244](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40244) [`b092b2cb3b7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b092b2cb3b7) - Dummy change as workaround for product integrator pipeline. This change fixes comment spacing.
 
 ## 75.3.1
 
 ### Patch Changes
 
-- [`32e751116bb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/32e751116bb) - [ED-20088] Debounce updates into the useSharedPluginState to avoid blocking the main thread with unnecessary UI updates
+- [#40422](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40422) [`32e751116bb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/32e751116bb) - [ED-20088] Debounce updates into the useSharedPluginState to avoid blocking the main thread with unnecessary UI updates
 
 ## 75.3.0
 
 ### Minor Changes
 
-- [`fa39c6ce044`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fa39c6ce044) - [ED-19775] Decouple selection plugin from the editor-core code
+- [#40381](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40381) [`fa39c6ce044`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fa39c6ce044) - [ED-19775] Decouple selection plugin from the editor-core code
 
 ### Patch Changes
 
-- [`ced80eee086`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ced80eee086) - Updated notes for getMaxWidthForNestedNodeNext
+- [#40295](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40295) [`ced80eee086`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ced80eee086) - Updated notes for getMaxWidthForNestedNodeNext
 
 ## 75.2.4
 
 ### Patch Changes
 
-- [`ca001e68a96`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ca001e68a96) - Fixed typos in comments
+- [#40062](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40062) [`ca001e68a96`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ca001e68a96) - Fixed typos in comments
 
 ## 75.2.3
 
 ### Patch Changes
 
-- [`8f4d47470d8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f4d47470d8) - Dummy changeset for Product Integrator
+- [#40361](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40361) [`8f4d47470d8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f4d47470d8) - Dummy changeset for Product Integrator
 
 ## 75.2.2
 
 ### Patch Changes
 
-- [`eaa9770d475`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eaa9770d475) - [ED-18264] Remove feature flag for chart colors
+- [#40341](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40341) [`eaa9770d475`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eaa9770d475) - [ED-18264] Remove feature flag for chart colors
 
 ## 75.2.1
 
 ### Patch Changes
 
-- [`8081046adff`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8081046adff) - patch version bump to trigger updated version in Confluence for editor-common
+- [#40293](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40293) [`8081046adff`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8081046adff) - patch version bump to trigger updated version in Confluence for editor-common
 
 ## 75.2.0
 
 ### Minor Changes
 
-- [`9f2365fabcc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9f2365fabcc) - ED-19617 - Initial creation of editor-plugin-copy-button package
+- [#40092](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40092) [`9f2365fabcc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9f2365fabcc) - ED-19617 - Initial creation of editor-plugin-copy-button package
 
 ## 75.1.2
 
 ### Patch Changes
 
-- [`621b904a076`](https://bitbucket.org/atlassian/atlassian-frontend/commits/621b904a076) - Updated a JS doc comment.
+- [#39894](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39894) [`621b904a076`](https://bitbucket.org/atlassian/atlassian-frontend/commits/621b904a076) - Updated a JS doc comment.
 
 ## 75.1.1
 
 ### Patch Changes
 
-- [`9eec18457a6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9eec18457a6) - This changeset exists because a PR's confluence integrator step needs to pre-release the latest editor-common for the build to not fail.
-- [`9131a0a2ffa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9131a0a2ffa) - Extract quick-insert plugin from @atlaskit/editor-core to @atlaskit/editor-plugin-quick-insert.
+- [#38929](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38929) [`9eec18457a6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9eec18457a6) - This changeset exists because a PR's confluence integrator step needs to pre-release the latest editor-common for the build to not fail.
+- [#39905](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39905) [`9131a0a2ffa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9131a0a2ffa) - Extract quick-insert plugin from @atlaskit/editor-core to @atlaskit/editor-plugin-quick-insert.
 - Updated dependencies
 
 ## 75.1.0
 
 ### Minor Changes
 
-- [`50b3bf73ed3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/50b3bf73ed3) - [ux] Add edit datasource button to toolbar for cards which can resolve into datasources
+- [#39171](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39171) [`50b3bf73ed3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/50b3bf73ed3) - [ux] Add edit datasource button to toolbar for cards which can resolve into datasources
 
 ## 75.0.8
 
 ### Patch Changes
 
-- [`06afa5b7aec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/06afa5b7aec) - Increasing the Toolbar S breakpoint from 370 to 410 to resolve squishy Insert Block
+- [#39924](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39924) [`06afa5b7aec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/06afa5b7aec) - Increasing the Toolbar S breakpoint from 370 to 410 to resolve squishy Insert Block
 
 ## 75.0.7
 
 ### Patch Changes
 
-- [`8b8a309cb62`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8b8a309cb62) - This changeset exists because a PR's confluence integrator step needs to pre-release the latest editor-common for the build to not fail.
+- [#39265](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39265) [`8b8a309cb62`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8b8a309cb62) - This changeset exists because a PR's confluence integrator step needs to pre-release the latest editor-common for the build to not fail.
 
 ## 75.0.6
 
 ### Patch Changes
 
-- [`4549a57cc67`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4549a57cc67) - Remove unused leftover API - shouldAllowMultilineItems
+- [#39654](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39654) [`4549a57cc67`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4549a57cc67) - Remove unused leftover API - shouldAllowMultilineItems
 
 ## 75.0.5
 
 ### Patch Changes
 
-- [`12843a6f104`](https://bitbucket.org/atlassian/atlassian-frontend/commits/12843a6f104) - ED-19617 - Initial creation of editor-plugin-copy-button package
+- [#40004](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40004) [`12843a6f104`](https://bitbucket.org/atlassian/atlassian-frontend/commits/12843a6f104) - ED-19617 - Initial creation of editor-plugin-copy-button package
 
 ## 75.0.4
 
 ### Patch Changes
 
-- [`aa106a614df`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aa106a614df) - Dummy change to test CI pipeline
+- [#40126](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40126) [`aa106a614df`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aa106a614df) - Dummy change to test CI pipeline
 
 ## 75.0.3
 
 ### Patch Changes
 
-- [`ec4867e1376`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ec4867e1376) - Removed captions flag and replaced with a new media prop `allowCaptions`. `allowCaptions` is set to `false` by default and products will need to opt in to be able to use captions from now on.
+- [#39320](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39320) [`ec4867e1376`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ec4867e1376) - Removed captions flag and replaced with a new media prop `allowCaptions`. `allowCaptions` is set to `false` by default and products will need to opt in to be able to use captions from now on.
 
 ## 75.0.2
 
 ### Patch Changes
 
-- [`37c62369dae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/37c62369dae) - NO-ISSUE Import doc builder types from editor-common
+- [#39984](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39984) [`37c62369dae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/37c62369dae) - NO-ISSUE Import doc builder types from editor-common
 
 ## 75.0.1
 
 ### Patch Changes
 
-- [`1c085549bd9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1c085549bd9) - clean up pctWidth used in new image resize experience
+- [#39925](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39925) [`1c085549bd9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1c085549bd9) - clean up pctWidth used in new image resize experience
 
 ## 75.0.0
 
 ### Major Changes
 
-- [`e6122bf1c9a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e6122bf1c9a) - MEX-2481 revert and re-introduce a new fix for media border gap issue
+- [#39427](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39427) [`e6122bf1c9a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e6122bf1c9a) - MEX-2481 revert and re-introduce a new fix for media border gap issue
 
 ### Patch Changes
 
-- [`9d3236f1b2d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d3236f1b2d) - Add comments for getParentWidthForNestedMediaSingleNode function
+- [#39921](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39921) [`9d3236f1b2d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d3236f1b2d) - Add comments for getParentWidthForNestedMediaSingleNode function
 - Updated dependencies
 
 ## 74.59.0
 
 ### Minor Changes
 
-- [`8441acc0e0c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8441acc0e0c) - Extract block-type plugin into @atlaskit/editor-plugin-block-type
+- [#39730](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39730) [`8441acc0e0c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8441acc0e0c) - Extract block-type plugin into @atlaskit/editor-plugin-block-type
 
 ## 74.58.5
 
 ### Patch Changes
 
-- [`66e75974428`](https://bitbucket.org/atlassian/atlassian-frontend/commits/66e75974428) - [ux] Selection style for the block smart cards updated behind a feature flag. If this update is successful it will be available in a later release.
-- [`890ab8d6307`](https://bitbucket.org/atlassian/atlassian-frontend/commits/890ab8d6307) - NO-ISSUE Move doc builder types to editor-common to break circular dependencies
+- [#39891](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39891) [`66e75974428`](https://bitbucket.org/atlassian/atlassian-frontend/commits/66e75974428) - [ux] Selection style for the block smart cards updated behind a feature flag. If this update is successful it will be available in a later release.
+- [#39946](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39946) [`890ab8d6307`](https://bitbucket.org/atlassian/atlassian-frontend/commits/890ab8d6307) - NO-ISSUE Move doc builder types to editor-common to break circular dependencies
 
 ## 74.58.4
 
 ### Patch Changes
 
-- [`1e26db8ffd0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1e26db8ffd0) - ED-18264: Clean up useSomewhatSemanticTextColorNames - default behaviour will be same as when FF was on.
+- [#38828](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38828) [`1e26db8ffd0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1e26db8ffd0) - ED-18264: Clean up useSomewhatSemanticTextColorNames - default behaviour will be same as when FF was on.
 
 ## 74.58.3
 
 ### Patch Changes
 
-- [`aeb5c9a01e8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aeb5c9a01e8) - Delete adf-schema from AFE and rely on npm package for adf-schema
-- [`111ff4f4f1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/111ff4f4f1f) - Add input resizing event analytics
+- [#39481](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39481) [`aeb5c9a01e8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aeb5c9a01e8) - Delete adf-schema from AFE and rely on npm package for adf-schema
+- [#39622](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39622) [`111ff4f4f1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/111ff4f4f1f) - Add input resizing event analytics
 - [`4b4dcfe0bba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4b4dcfe0bba) - Delete adf-schema, use published version
 
 ## 74.58.2
 
 ### Patch Changes
 
-- [`546c2038081`](https://bitbucket.org/atlassian/atlassian-frontend/commits/546c2038081) - ED-19888 fix handler styles
+- [#39911](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39911) [`546c2038081`](https://bitbucket.org/atlassian/atlassian-frontend/commits/546c2038081) - ED-19888 fix handler styles
 
 ## 74.58.1
 
 ### Patch Changes
 
-- [`521b2b088ed`](https://bitbucket.org/atlassian/atlassian-frontend/commits/521b2b088ed) - fix border mark issue for legacy validator
+- [#39913](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39913) [`521b2b088ed`](https://bitbucket.org/atlassian/atlassian-frontend/commits/521b2b088ed) - fix border mark issue for legacy validator
 
 ## 74.58.0
 
 ### Minor Changes
 
-- [`c06bb97591a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c06bb97591a) - [ED-19023] Add distorted duration to TTI event (tracking tab visibility)
-- [`d4cbb84052d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d4cbb84052d) - Move element-browser to `editor-common` to decouple quick-insert plugin.
+- [#39837](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39837) [`c06bb97591a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c06bb97591a) - [ED-19023] Add distorted duration to TTI event (tracking tab visibility)
+- [#39790](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39790) [`d4cbb84052d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d4cbb84052d) - Move element-browser to `editor-common` to decouple quick-insert plugin.
 
 ## 74.57.0
 
 ### Minor Changes
 
-- [`705d8ec0641`](https://bitbucket.org/atlassian/atlassian-frontend/commits/705d8ec0641) - [ux] Added a new shortcut (⌘ + Opt + ⏎) for Check/Uncheck Action item
+- [#39012](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39012) [`705d8ec0641`](https://bitbucket.org/atlassian/atlassian-frontend/commits/705d8ec0641) - [ux] Added a new shortcut (⌘ + Opt + ⏎) for Check/Uncheck Action item
 
 ### Patch Changes
 
-- [`a6c0a2dcf2e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a6c0a2dcf2e) - [ux] [ECA11Y-68] Changed in the wrapper to change role="menu" to role="presentation"
+- [#39489](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39489) [`a6c0a2dcf2e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a6c0a2dcf2e) - [ux] [ECA11Y-68] Changed in the wrapper to change role="menu" to role="presentation"
 - Updated dependencies
 
 ## 74.56.10
 
 ### Patch Changes
 
-- [`dca155209d9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dca155209d9) - ED-15094 Feature flag clean up for copy button
+- [#39202](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39202) [`dca155209d9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dca155209d9) - ED-15094 Feature flag clean up for copy button
 
 ## 74.56.9
 
 ### Patch Changes
 
-- [`a9552aaea4e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a9552aaea4e) - NO-ISSUE Fixed minor issue with TTI measurement that made it cancel before 60s
+- [#39773](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39773) [`a9552aaea4e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a9552aaea4e) - NO-ISSUE Fixed minor issue with TTI measurement that made it cancel before 60s
 
 ## 74.56.8
 
 ### Patch Changes
 
-- [`0dd8a45fd35`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0dd8a45fd35) - Add test for mouse hover zone in resizer and adjust the handle track height
+- [#39457](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39457) [`0dd8a45fd35`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0dd8a45fd35) - Add test for mouse hover zone in resizer and adjust the handle track height
 
 ## 74.56.7
 
 ### Patch Changes
 
-- [`dfb663969a0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dfb663969a0) - ED-19820: Fix for table scroll when insert media node when extended-resize-experience is off
-- [`d1bd1be0923`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d1bd1be0923) - Updated shared resizer style
+- [#39612](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39612) [`dfb663969a0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dfb663969a0) - ED-19820: Fix for table scroll when insert media node when extended-resize-experience is off
+- [#39538](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39538) [`d1bd1be0923`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d1bd1be0923) - Updated shared resizer style
 - Updated dependencies
 
 ## 74.56.6
 
 ### Patch Changes
 
-- [`1b66c23221e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1b66c23221e) - Fix missing analytics parameter in media plugin.
+- [#39628](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39628) [`1b66c23221e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1b66c23221e) - Fix missing analytics parameter in media plugin.
 
 ## 74.56.5
 
@@ -325,52 +341,52 @@
 
 ### Patch Changes
 
-- [`e31a001b8b8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e31a001b8b8) - Add pixel entry resize analytic event payload
+- [#39530](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39530) [`e31a001b8b8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e31a001b8b8) - Add pixel entry resize analytic event payload
 
 ## 74.56.3
 
 ### Patch Changes
 
-- [`c4754a4e96f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c4754a4e96f) - Ignore invisible element for arrow key navigation to prevent focus loss
-- [`3b7bf91daa5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3b7bf91daa5) - [ux] ED-19785 Add dark mode icon for custom panel and update light mode icon with new colours.
+- [#39436](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39436) [`c4754a4e96f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c4754a4e96f) - Ignore invisible element for arrow key navigation to prevent focus loss
+- [#39408](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39408) [`3b7bf91daa5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3b7bf91daa5) - [ux] ED-19785 Add dark mode icon for custom panel and update light mode icon with new colours.
 
 ## 74.56.2
 
 ### Patch Changes
 
-- [`74cf8d56408`](https://bitbucket.org/atlassian/atlassian-frontend/commits/74cf8d56408) - ED-19748: dispatch analytics when a table is selected.
-- [`95225cb45ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/95225cb45ec) - increase mouse hover zone for resizer
+- [#39411](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39411) [`74cf8d56408`](https://bitbucket.org/atlassian/atlassian-frontend/commits/74cf8d56408) - ED-19748: dispatch analytics when a table is selected.
+- [#39334](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39334) [`95225cb45ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/95225cb45ec) - increase mouse hover zone for resizer
 
 ## 74.56.1
 
 ### Patch Changes
 
-- [`2c12cd28cb8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2c12cd28cb8) - Enforce scale-down approach for wide media single node in renderer
+- [#39329](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39329) [`2c12cd28cb8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2c12cd28cb8) - Enforce scale-down approach for wide media single node in renderer
 
 ## 74.56.0
 
 ### Minor Changes
 
-- [`3542bead318`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3542bead318) - Move block type commands to next editor plugin actions
+- [#39062](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39062) [`3542bead318`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3542bead318) - Move block type commands to next editor plugin actions
 
 ## 74.55.2
 
 ### Patch Changes
 
-- [`58f6154cd7c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/58f6154cd7c) - Use color.icon.danger colour token for resizer danger state, rename the danger className to avoid collisions and ensure danger state is only applied to tables when the table is selected
+- [#39342](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39342) [`58f6154cd7c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/58f6154cd7c) - Use color.icon.danger colour token for resizer danger state, rename the danger className to avoid collisions and ensure danger state is only applied to tables when the table is selected
 
 ## 74.55.1
 
 ### Patch Changes
 
-- [`6ca5d702ed5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6ca5d702ed5) - Cleaned up more barrel imports to be named imports for treeshaking purposes :)
+- [#39328](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39328) [`6ca5d702ed5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6ca5d702ed5) - Cleaned up more barrel imports to be named imports for treeshaking purposes :)
 - Updated dependencies
 
 ## 74.55.0
 
 ### Minor Changes
 
-- [`7613b6b6a51`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7613b6b6a51) - [ED-19428] Decouple quick-insert plugin from editor-core
+- [#39159](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39159) [`7613b6b6a51`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7613b6b6a51) - [ED-19428] Decouple quick-insert plugin from editor-core
 
 ### Patch Changes
 
@@ -380,19 +396,19 @@
 
 ### Minor Changes
 
-- [`b08849ad727`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b08849ad727) - [ux] Added tooltip to table column resize handles, also added a tooltip to the custom table width table resizer handle
+- [#39045](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39045) [`b08849ad727`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b08849ad727) - [ux] Added tooltip to table column resize handles, also added a tooltip to the custom table width table resizer handle
 
 ## 74.53.1
 
 ### Patch Changes
 
-- [`eab48233583`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eab48233583) - Calculate parent content width properly when inserting a nested media single node
+- [#39080](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39080) [`eab48233583`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eab48233583) - Calculate parent content width properly when inserting a nested media single node
 
 ## 74.53.0
 
 ### Minor Changes
 
-- [`8467bdcdf4f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8467bdcdf4f) - Removing `dependencies` prop from PluginInjectionAPI and changing
+- [#39010](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39010) [`8467bdcdf4f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8467bdcdf4f) - Removing `dependencies` prop from PluginInjectionAPI and changing
   signature of `NextEditorPlugin`.
 
   Previously a `NextEditorPlugin` would be consumed as so:
@@ -420,107 +436,107 @@
 
 ### Patch Changes
 
-- [`e0f020abea0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e0f020abea0) - created new plugin for unsupported-content, moved code and styles
+- [#38900](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38900) [`e0f020abea0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e0f020abea0) - created new plugin for unsupported-content, moved code and styles
 - Updated dependencies
 
 ## 74.52.1
 
 ### Patch Changes
 
-- [`dbccd831543`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dbccd831543) - [ux] tokenize ColorPicker, make charts package compatible with tokens, make check mark compatible with tokens
+- [#38934](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38934) [`dbccd831543`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dbccd831543) - [ux] tokenize ColorPicker, make charts package compatible with tokens, make check mark compatible with tokens
 
 ## 74.52.0
 
 ### Minor Changes
 
-- [`c70a6612aba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c70a6612aba) - [ED-19428] Decouple quick-insert plugin from editor-core
+- [#38851](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38851) [`c70a6612aba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c70a6612aba) - [ED-19428] Decouple quick-insert plugin from editor-core
 
 ## 74.51.7
 
 ### Patch Changes
 
-- [`4795a87a349`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4795a87a349) - Migrating some actions of `editor-plugin-list` to commands. Adding sharedState for `editor-plugin-text-formatting`.
-- [`a34c6ca52c2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a34c6ca52c2) - [ux] [ED-19442] - Modified images and mentions icons and added dark mode
+- [#39023](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39023) [`4795a87a349`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4795a87a349) - Migrating some actions of `editor-plugin-list` to commands. Adding sharedState for `editor-plugin-text-formatting`.
+- [#39047](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39047) [`a34c6ca52c2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a34c6ca52c2) - [ux] [ED-19442] - Modified images and mentions icons and added dark mode
 
 ## 74.51.6
 
 ### Patch Changes
 
-- [`edeab2d50b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/edeab2d50b2) - Fix analytics event for image resizing and relative snaps
+- [#39075](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39075) [`edeab2d50b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/edeab2d50b2) - Fix analytics event for image resizing and relative snaps
 
 ## 74.51.5
 
 ### Patch Changes
 
-- [`3fa17b4c298`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3fa17b4c298) - Update type definitions to conform to changes within `@types/react@16.14.15`.
-- [`f7f92b615ff`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f7f92b615ff) - [ux] ED-19439 Added dark mode icons for link and layout. Fixed gradient in date dark mode icon.
-- [`1e1bbc02f1c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1e1bbc02f1c) - Export function `getDatasourceType`
+- [#39127](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39127) [`3fa17b4c298`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3fa17b4c298) - Update type definitions to conform to changes within `@types/react@16.14.15`.
+- [#39111](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39111) [`f7f92b615ff`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f7f92b615ff) - [ux] ED-19439 Added dark mode icons for link and layout. Fixed gradient in date dark mode icon.
+- [#39036](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39036) [`1e1bbc02f1c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1e1bbc02f1c) - Export function `getDatasourceType`
 
 ## 74.51.4
 
 ### Patch Changes
 
-- [`33cb07de05f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/33cb07de05f) - change adf-schema to fixed versioning
+- [#38976](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38976) [`33cb07de05f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/33cb07de05f) - change adf-schema to fixed versioning
 
 ## 74.51.3
 
 ### Patch Changes
 
-- [`265255c9011`](https://bitbucket.org/atlassian/atlassian-frontend/commits/265255c9011) - Remove height from will-change css
-- [`ef2d5662e05`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ef2d5662e05) - [ux] Implement pixel entry input validation when submitting and render warning decoration for invalid input
+- [#39072](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39072) [`265255c9011`](https://bitbucket.org/atlassian/atlassian-frontend/commits/265255c9011) - Remove height from will-change css
+- [#38879](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38879) [`ef2d5662e05`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ef2d5662e05) - [ux] Implement pixel entry input validation when submitting and render warning decoration for invalid input
 
 ## 74.51.2
 
 ### Patch Changes
 
-- [`14a853a7939`](https://bitbucket.org/atlassian/atlassian-frontend/commits/14a853a7939) - [ux] ED-19439 Added dark mode icons for emoji, expand and fallback
+- [#39063](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39063) [`14a853a7939`](https://bitbucket.org/atlassian/atlassian-frontend/commits/14a853a7939) - [ux] ED-19439 Added dark mode icons for emoji, expand and fallback
 
 ## 74.51.1
 
 ### Patch Changes
 
-- [`f68eb1b1731`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f68eb1b1731) - Move common functions from `editor-core` to `editor-common` in preparation for `base` plugin extraction
+- [#38894](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38894) [`f68eb1b1731`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f68eb1b1731) - Move common functions from `editor-core` to `editor-common` in preparation for `base` plugin extraction
 
 ## 74.51.0
 
 ### Minor Changes
 
-- [`7f45581d141`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7f45581d141) - ED-19630 fixed guideline alignment issue.
+- [#38980](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38980) [`7f45581d141`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7f45581d141) - ED-19630 fixed guideline alignment issue.
 
 ### Patch Changes
 
-- [`f76bc3a94fa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f76bc3a94fa) - [ux] Datasource container border radius increased
+- [#38967](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38967) [`f76bc3a94fa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f76bc3a94fa) - [ux] Datasource container border radius increased
 
 ## 74.50.4
 
 ### Patch Changes
 
-- [`2f7d7be2983`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2f7d7be2983) - [ux] ED-19438 Added dark mode icons for headings 1 to 6
-- [`64d1dfc55b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/64d1dfc55b5) - refactor utils for calc max width for nested node
+- [#39035](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39035) [`2f7d7be2983`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2f7d7be2983) - [ux] ED-19438 Added dark mode icons for headings 1 to 6
+- [#38906](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38906) [`64d1dfc55b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/64d1dfc55b5) - refactor utils for calc max width for nested node
 
 ## 74.50.3
 
 ### Patch Changes
 
-- [`c8acabc067e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c8acabc067e) - COMMENTS-342: Remove white space no wrap in expand macro causing inline comment navigation bug
+- [#38874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38874) [`c8acabc067e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c8acabc067e) - COMMENTS-342: Remove white space no wrap in expand macro causing inline comment navigation bug
 
 ## 74.50.2
 
 ### Patch Changes
 
-- [`90520713d49`](https://bitbucket.org/atlassian/atlassian-frontend/commits/90520713d49) - [ux] [ED-19441] - Added dark mode icons for panels
+- [#38963](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38963) [`90520713d49`](https://bitbucket.org/atlassian/atlassian-frontend/commits/90520713d49) - [ux] [ED-19441] - Added dark mode icons for panels
 
 ## 74.50.1
 
 ### Patch Changes
 
-- [`eefbc3c6065`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eefbc3c6065) - [ED-19510] Applies performance tweaks for table
+- [#38814](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38814) [`eefbc3c6065`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eefbc3c6065) - [ED-19510] Applies performance tweaks for table
 
 ## 74.50.0
 
 ### Minor Changes
 
-- [`8e9c21af71d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8e9c21af71d) - Extracting list plugin code from editor-core to @atlaskit/editor-plugin-list.
+- [#38881](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38881) [`8e9c21af71d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8e9c21af71d) - Extracting list plugin code from editor-core to @atlaskit/editor-plugin-list.
 
 ## 74.49.3
 
@@ -532,88 +548,88 @@
 
 ### Patch Changes
 
-- [`a3c9fd814c5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a3c9fd814c5) - Set minimum width for media single node of video type (when first inserted and when resizing)
+- [#38637](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38637) [`a3c9fd814c5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a3c9fd814c5) - Set minimum width for media single node of video type (when first inserted and when resizing)
 
 ## 74.49.1
 
 ### Patch Changes
 
-- [`79c0b7e6821`](https://bitbucket.org/atlassian/atlassian-frontend/commits/79c0b7e6821) - Decouple `base` plugin from `editor-core`
+- [#38740](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38740) [`79c0b7e6821`](https://bitbucket.org/atlassian/atlassian-frontend/commits/79c0b7e6821) - Decouple `base` plugin from `editor-core`
 
 ## 74.49.0
 
 ### Minor Changes
 
-- [`9ebabeaa630`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9ebabeaa630) - added ExtractPublicEditorAPI type helper
+- [#38838](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38838) [`9ebabeaa630`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9ebabeaa630) - added ExtractPublicEditorAPI type helper
 
 ### Patch Changes
 
-- [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
+- [#38162](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38162) [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
 - Updated dependencies
 
 ## 74.48.0
 
 ### Minor Changes
 
-- [`30d49e87f62`](https://bitbucket.org/atlassian/atlassian-frontend/commits/30d49e87f62) - Added danger apperance to ReszierNext component and toggled it when the delete icon in the table floating toolbar is rolled over
+- [#38739](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38739) [`30d49e87f62`](https://bitbucket.org/atlassian/atlassian-frontend/commits/30d49e87f62) - Added danger apperance to ReszierNext component and toggled it when the delete icon in the table floating toolbar is rolled over
 
 ### Patch Changes
 
-- [`967f4819f58`](https://bitbucket.org/atlassian/atlassian-frontend/commits/967f4819f58) - Introduce core plugin that is always injected into the pluginInjectionApi. This has a new action `execute` that replaces the existing `executeCommand` that was called from the `pluginInjectionApi`.
+- [#38808](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38808) [`967f4819f58`](https://bitbucket.org/atlassian/atlassian-frontend/commits/967f4819f58) - Introduce core plugin that is always injected into the pluginInjectionApi. This has a new action `execute` that replaces the existing `executeCommand` that was called from the `pluginInjectionApi`.
 
 ## 74.47.1
 
 ### Patch Changes
 
-- [`c54d67a60b4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c54d67a60b4) - [ux] Addresses some styling problems in the Editor related to selected smart cards
+- [#38545](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38545) [`c54d67a60b4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c54d67a60b4) - [ux] Addresses some styling problems in the Editor related to selected smart cards
 
 ## 74.47.0
 
 ### Minor Changes
 
-- [`0f3026deda5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0f3026deda5) - ED-12027 cleaned up table optimisation feature flags, made optimised code run by default.
+- [#37656](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37656) [`0f3026deda5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0f3026deda5) - ED-12027 cleaned up table optimisation feature flags, made optimised code run by default.
 
 ## 74.46.3
 
 ### Patch Changes
 
-- [`cbff538b420`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cbff538b420) - [ED-19428] Move shared types from quick-insert plugin to editor-common as a first step towards decoupling it from editor-core
+- [#38688](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38688) [`cbff538b420`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cbff538b420) - [ED-19428] Move shared types from quick-insert plugin to editor-common as a first step towards decoupling it from editor-core
 
 ## 74.46.2
 
 ### Patch Changes
 
-- [`72e552fe076`](https://bitbucket.org/atlassian/atlassian-frontend/commits/72e552fe076) - [ux] ED-17954: Fix inline node selections for mentions and emojis in iOS. Previously, the visually hidden assistive text would also be shown as a selection in iOS which would often make the selection look larger than the actual node itself.
+- [#38496](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38496) [`72e552fe076`](https://bitbucket.org/atlassian/atlassian-frontend/commits/72e552fe076) - [ux] ED-17954: Fix inline node selections for mentions and emojis in iOS. Previously, the visually hidden assistive text would also be shown as a selection in iOS which would often make the selection look larger than the actual node itself.
 
 ## 74.46.1
 
 ### Patch Changes
 
-- [`51e6a0128eb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/51e6a0128eb) - ED-18969 Implemented relative guideline
+- [#38672](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38672) [`51e6a0128eb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/51e6a0128eb) - ED-18969 Implemented relative guideline
 
 ## 74.46.0
 
 ### Minor Changes
 
-- [`24fc3925d73`](https://bitbucket.org/atlassian/atlassian-frontend/commits/24fc3925d73) - Add a new hook called `usePreset` accesed via `@atlaskit/editor-core/use-preset`. This hook can be used to safely access state and commands from outside the editor using `EditorContext`.
+- [#38495](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38495) [`24fc3925d73`](https://bitbucket.org/atlassian/atlassian-frontend/commits/24fc3925d73) - Add a new hook called `usePreset` accesed via `@atlaskit/editor-core/use-preset`. This hook can be used to safely access state and commands from outside the editor using `EditorContext`.
 
 ## 74.45.5
 
 ### Patch Changes
 
-- [`3a2d2104ca9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3a2d2104ca9) - [ux] [ED-19468] Adds dark mode icon for date
+- [#38489](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38489) [`3a2d2104ca9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3a2d2104ca9) - [ux] [ED-19468] Adds dark mode icon for date
 
 ## 74.45.4
 
 ### Patch Changes
 
-- [`58fa188ef48`](https://bitbucket.org/atlassian/atlassian-frontend/commits/58fa188ef48) - [ux] [ED-19461] Reduce draggable zone of adjacent resize handle.
+- [#38636](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38636) [`58fa188ef48`](https://bitbucket.org/atlassian/atlassian-frontend/commits/58fa188ef48) - [ux] [ED-19461] Reduce draggable zone of adjacent resize handle.
 
 ## 74.45.3
 
 ### Patch Changes
 
-- [`cf71a66559b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf71a66559b) - Update analytics event for new resize experience
+- [#38464](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38464) [`cf71a66559b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf71a66559b) - Update analytics event for new resize experience
 
 ## 74.45.2
 
@@ -625,34 +641,34 @@
 
 ### Patch Changes
 
-- [`d6f1bb321b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6f1bb321b2) - Revert back to legacy implementation and styling
-- [`469b5c12303`](https://bitbucket.org/atlassian/atlassian-frontend/commits/469b5c12303) - NO-ISSUE Move CollabEventLocalStepData to editor-common
-- [`da58165fe10`](https://bitbucket.org/atlassian/atlassian-frontend/commits/da58165fe10) - [ux] ED-19440 - Adds dark mode icons for bullet list, numbered list, quote, status and table
+- [#38385](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38385) [`d6f1bb321b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6f1bb321b2) - Revert back to legacy implementation and styling
+- [#38613](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38613) [`469b5c12303`](https://bitbucket.org/atlassian/atlassian-frontend/commits/469b5c12303) - NO-ISSUE Move CollabEventLocalStepData to editor-common
+- [#38476](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38476) [`da58165fe10`](https://bitbucket.org/atlassian/atlassian-frontend/commits/da58165fe10) - [ux] ED-19440 - Adds dark mode icons for bullet list, numbered list, quote, status and table
 
 ## 74.45.0
 
 ### Minor Changes
 
-- [`43c51e0a282`](https://bitbucket.org/atlassian/atlassian-frontend/commits/43c51e0a282) - [ED-19431] Migrate all text-formatting plugin actions over to plugin commands
-- [`8375e041861`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8375e041861) - [ED-16733] Extract common functions used by media plugin to editor-common
+- [#38497](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38497) [`43c51e0a282`](https://bitbucket.org/atlassian/atlassian-frontend/commits/43c51e0a282) - [ED-19431] Migrate all text-formatting plugin actions over to plugin commands
+- [#38607](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38607) [`8375e041861`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8375e041861) - [ED-16733] Extract common functions used by media plugin to editor-common
 
 ## 74.44.1
 
 ### Patch Changes
 
-- [`494826929c3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/494826929c3) - Fix with-plugin-state test
+- [#38576](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38576) [`494826929c3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/494826929c3) - Fix with-plugin-state test
 
 ## 74.44.0
 
 ### Minor Changes
 
-- [`079e7748c62`](https://bitbucket.org/atlassian/atlassian-frontend/commits/079e7748c62) - Extracted `editor-plugin-image-upload` from `editor-core`.
+- [#38501](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38501) [`079e7748c62`](https://bitbucket.org/atlassian/atlassian-frontend/commits/079e7748c62) - Extracted `editor-plugin-image-upload` from `editor-core`.
 
 ## 74.43.0
 
 ### Minor Changes
 
-- [`7e77fe6f2ed`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7e77fe6f2ed) - ED-19330 Decouple list plugin from editor-core
+- [#38419](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38419) [`7e77fe6f2ed`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7e77fe6f2ed) - ED-19330 Decouple list plugin from editor-core
 
 ## 74.42.3
 
@@ -664,70 +680,70 @@
 
 ### Patch Changes
 
-- [`9a44011d87e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9a44011d87e) - ED-15896 Move editor-json-transformer to dependency to prevent errors when re-exporting types from this package.
+- [#37934](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37934) [`9a44011d87e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9a44011d87e) - ED-15896 Move editor-json-transformer to dependency to prevent errors when re-exporting types from this package.
 - Updated dependencies
 
 ## 74.42.1
 
 ### Patch Changes
 
-- [`5f8e4780f9e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f8e4780f9e) - [ux] ED-19473 & ED-19435 Adds dark mode icons for action, code, decision, divider and Editor example to test them in none, light and dark modes.
+- [#38388](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38388) [`5f8e4780f9e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f8e4780f9e) - [ux] ED-19473 & ED-19435 Adds dark mode icons for action, code, decision, divider and Editor example to test them in none, light and dark modes.
 
 ## 74.42.0
 
 ### Minor Changes
 
-- [`7472b6ab3b4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7472b6ab3b4) - [ED-19329] Add analytics event for table resize framerate
-- [`9d2794a7753`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d2794a7753) - Add `executeCommand` to `pluginInjectionAPI` which should be used to dispatch a `PluginCommand` - from the `commands` property of a plugin.
+- [#38232](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38232) [`7472b6ab3b4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7472b6ab3b4) - [ED-19329] Add analytics event for table resize framerate
+- [#38145](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38145) [`9d2794a7753`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d2794a7753) - Add `executeCommand` to `pluginInjectionAPI` which should be used to dispatch a `PluginCommand` - from the `commands` property of a plugin.
 
 ## 74.41.2
 
 ### Patch Changes
 
-- [`8b104cb7575`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8b104cb7575) - [ED-14769] Remove tableCellOptionsinFloatingToolbar feature flag & make it default behaviour
+- [#38287](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38287) [`8b104cb7575`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8b104cb7575) - [ED-14769] Remove tableCellOptionsinFloatingToolbar feature flag & make it default behaviour
 
 ## 74.41.1
 
 ### Patch Changes
 
-- [`3df14c86161`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3df14c86161) - Cleaning up better typeahead feature flag.
+- [#38377](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38377) [`3df14c86161`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3df14c86161) - Cleaning up better typeahead feature flag.
 
 ## 74.41.0
 
 ### Minor Changes
 
-- [`7b8e8b52110`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7b8e8b52110) - [ED-16733] Editor Media Extraction: Moving Floating Toolbar Separator to editor-common
+- [#38367](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38367) [`7b8e8b52110`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7b8e8b52110) - [ED-16733] Editor Media Extraction: Moving Floating Toolbar Separator to editor-common
 
 ## 74.40.1
 
 ### Patch Changes
 
-- [`736af94f8b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/736af94f8b0) - [ux] Fixing the bug due to which break-out layout and expand node on narrow viewport resizes to be too narrow
-- [`39099193642`](https://bitbucket.org/atlassian/atlassian-frontend/commits/39099193642) - Cleanup breakout styling when table has fragment mark ff
+- [#37664](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37664) [`736af94f8b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/736af94f8b0) - [ux] Fixing the bug due to which break-out layout and expand node on narrow viewport resizes to be too narrow
+- [#38344](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38344) [`39099193642`](https://bitbucket.org/atlassian/atlassian-frontend/commits/39099193642) - Cleanup breakout styling when table has fragment mark ff
 
 ## 74.40.0
 
 ### Minor Changes
 
-- [`960a2b478c8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/960a2b478c8) - [ux] [ED-19167] Add blue shadow to resizer handle on hover
+- [#38268](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38268) [`960a2b478c8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/960a2b478c8) - [ux] [ED-19167] Add blue shadow to resizer handle on hover
 
 ## 74.39.0
 
 ### Minor Changes
 
-- [`021d5f488ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/021d5f488ec) - [ED-16733] Media Plugin Extractation - Move core commands to common entrypoint
+- [#38352](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38352) [`021d5f488ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/021d5f488ec) - [ED-16733] Media Plugin Extractation - Move core commands to common entrypoint
 
 ## 74.38.1
 
 ### Patch Changes
 
-- [`4cbae03c15c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4cbae03c15c) - Set maxWidth for ResizerNext to stop lable updating when reaching max width
+- [#38219](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38219) [`4cbae03c15c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4cbae03c15c) - Set maxWidth for ResizerNext to stop lable updating when reaching max width
 
 ## 74.38.0
 
 ### Minor Changes
 
-- [`a675f834911`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a675f834911) - Introduce `commands` optional parameter to `NextEditorPlugin`. It can be used similarly to `actions` in `NextEditorPlugin` but `commands` must adhere to the type of `PluginCommand`:
+- [#38001](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38001) [`a675f834911`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a675f834911) - Introduce `commands` optional parameter to `NextEditorPlugin`. It can be used similarly to `actions` in `NextEditorPlugin` but `commands` must adhere to the type of `PluginCommand`:
 
   ```ts
   type PluginCommand = ({ tr }: { tr: Transaction }) => Transaction | null;
@@ -737,69 +753,69 @@
 
 ### Patch Changes
 
-- [`3bbe8f91f34`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3bbe8f91f34) - refactor ResizableMediaSingleNext around guidelines and snapping
+- [#38130](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38130) [`3bbe8f91f34`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3bbe8f91f34) - refactor ResizableMediaSingleNext around guidelines and snapping
 
 ## 74.37.0
 
 ### Minor Changes
 
-- [`8699cf99ceb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8699cf99ceb) - Exporting LayoutPluginOptions and CollabEditOptions from editor-common.
+- [#38323](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38323) [`8699cf99ceb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8699cf99ceb) - Exporting LayoutPluginOptions and CollabEditOptions from editor-common.
 
 ## 74.36.4
 
 ### Patch Changes
 
-- [`9064e2d0f28`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9064e2d0f28) - [ux] HOT-104783 Reverting https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37639
+- [#38316](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38316) [`9064e2d0f28`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9064e2d0f28) - [ux] HOT-104783 Reverting https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37639
 - Updated dependencies
 
 ## 74.36.3
 
 ### Patch Changes
 
-- [`30d82d3462c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/30d82d3462c) - [ED-19175] add missing support for the unsupportedBlock in table related nodes
+- [#37639](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37639) [`30d82d3462c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/30d82d3462c) - [ED-19175] add missing support for the unsupportedBlock in table related nodes
 - Updated dependencies
 
 ## 74.36.2
 
 ### Patch Changes
 
-- [`62d6f381722`](https://bitbucket.org/atlassian/atlassian-frontend/commits/62d6f381722) - ED-18969 preliminaary refactor for relative guideline.
+- [#38156](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38156) [`62d6f381722`](https://bitbucket.org/atlassian/atlassian-frontend/commits/62d6f381722) - ED-18969 preliminaary refactor for relative guideline.
 
 ## 74.36.1
 
 ### Patch Changes
 
-- [`f5550db8a7f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f5550db8a7f) - Ensure isHandleVisible affects both handles
+- [#38242](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38242) [`f5550db8a7f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f5550db8a7f) - Ensure isHandleVisible affects both handles
 
 ## 74.36.0
 
 ### Minor Changes
 
-- [`8695abdde8e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8695abdde8e) - [ED-18289] Clean-up Editor Sentry feature flag
+- [#38217](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38217) [`8695abdde8e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8695abdde8e) - [ED-18289] Clean-up Editor Sentry feature flag
 
 ## 74.35.0
 
 ### Minor Changes
 
-- [`c6c3b7e43d3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c6c3b7e43d3) - [ED-19202] Remove direct dependency of editor-core code on text-formatting plugin
+- [#37920](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37920) [`c6c3b7e43d3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c6c3b7e43d3) - [ED-19202] Remove direct dependency of editor-core code on text-formatting plugin
 
 ## 74.34.5
 
 ### Patch Changes
 
-- [`d432ad14798`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d432ad14798) - [ux] Added standard page guidelines when custom table width enabled and is resizing table.
+- [#37990](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37990) [`d432ad14798`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d432ad14798) - [ux] Added standard page guidelines when custom table width enabled and is resizing table.
 
 ## 74.34.4
 
 ### Patch Changes
 
-- [`0d297244de3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0d297244de3) - Add calcMediaSingleMaxWidth, move default image constants to /media-single
+- [#37839](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37839) [`0d297244de3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0d297244de3) - Add calcMediaSingleMaxWidth, move default image constants to /media-single
 
 ## 74.34.3
 
 ### Patch Changes
 
-- [`eeecb78b23f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eeecb78b23f) - Added media-single utils to editor-common and moved utils from editor-core/media to edtor-common/media-single.
+- [#37885](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37885) [`eeecb78b23f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eeecb78b23f) - Added media-single utils to editor-common and moved utils from editor-core/media to edtor-common/media-single.
 
 ## 74.34.2
 
@@ -811,13 +827,13 @@
 
 ### Patch Changes
 
-- [`7cca8fcf473`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7cca8fcf473) - ED-18274: Remove unused feature flags listNumberContinuity and restartNumberedListsToolbar (not planned for future use either) (all related to the restart lists project)
+- [#37872](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37872) [`7cca8fcf473`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7cca8fcf473) - ED-18274: Remove unused feature flags listNumberContinuity and restartNumberedListsToolbar (not planned for future use either) (all related to the restart lists project)
 
 ## 74.34.0
 
 ### Minor Changes
 
-- [`1944b35b538`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1944b35b538) - move common utilities to editor-common, to help with decoupling block-type plugin
+- [#37964](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37964) [`1944b35b538`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1944b35b538) - move common utilities to editor-common, to help with decoupling block-type plugin
 
 ### Patch Changes
 
@@ -827,7 +843,7 @@
 
 ### Minor Changes
 
-- [`936c30f8dc9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/936c30f8dc9) - support new image resize experience under feature flag
+- [#32787](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32787) [`936c30f8dc9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/936c30f8dc9) - support new image resize experience under feature flag
 
 ## 74.32.1
 
@@ -839,19 +855,19 @@
 
 ### Minor Changes
 
-- [`2b54c3b0d24`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2b54c3b0d24) - [ED-19203] Decouple text-formatting plugin and editor-core
+- [#37821](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37821) [`2b54c3b0d24`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2b54c3b0d24) - [ED-19203] Decouple text-formatting plugin and editor-core
 
 ## 74.31.0
 
 ### Minor Changes
 
-- [`d8c1bcdc71a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d8c1bcdc71a) - ED-19217 decoupled lists related util functions from editor-core
+- [#37650](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37650) [`d8c1bcdc71a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d8c1bcdc71a) - ED-19217 decoupled lists related util functions from editor-core
 
 ## 74.30.0
 
 ### Minor Changes
 
-- [`3a1cd78b42a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3a1cd78b42a) - [ED-19203] Moving some common logic, styles, and types to editor-common to make it easier to extract the text-formatting plugin from editor-core
+- [#37493](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37493) [`3a1cd78b42a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3a1cd78b42a) - [ED-19203] Moving some common logic, styles, and types to editor-common to make it easier to extract the text-formatting plugin from editor-core
 
 ## 74.29.3
 
@@ -863,31 +879,31 @@
 
 ### Patch Changes
 
-- [`4e6f1bf8511`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4e6f1bf8511) - [ED-19233] Import prosemirror libraries from internal facade package
+- [#37785](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37785) [`4e6f1bf8511`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4e6f1bf8511) - [ED-19233] Import prosemirror libraries from internal facade package
 
 ## 74.29.1
 
 ### Patch Changes
 
-- [`f0153f75b5d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f0153f75b5d) - Added generateDefaultGuideline to editor-common/guideline
+- [#37771](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37771) [`f0153f75b5d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f0153f75b5d) - Added generateDefaultGuideline to editor-common/guideline
 
 ## 74.29.0
 
 ### Minor Changes
 
-- [`e83596269e5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e83596269e5) - Add isResizing support into media plugin
+- [#37572](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37572) [`e83596269e5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e83596269e5) - Add isResizing support into media plugin
 
 ## 74.28.0
 
 ### Minor Changes
 
-- [`39e6af5fa1d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/39e6af5fa1d) - Add a new 'isHandleVisible' prop to allow handle visibility to be toggled externally
+- [#37588](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37588) [`39e6af5fa1d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/39e6af5fa1d) - Add a new 'isHandleVisible' prop to allow handle visibility to be toggled externally
 
 ## 74.27.3
 
 ### Patch Changes
 
-- [`f16e946ce4d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f16e946ce4d) - Update type exports and fix a bug with snapGap
+- [#37647](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37647) [`f16e946ce4d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f16e946ce4d) - Update type exports and fix a bug with snapGap
 
 ## 74.27.2
 
@@ -899,80 +915,80 @@
 
 ### Patch Changes
 
-- [`dbf78a2ac7f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dbf78a2ac7f) - Added snapping utils and tests to editor-common
+- [#37619](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37619) [`dbf78a2ac7f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dbf78a2ac7f) - Added snapping utils and tests to editor-common
 
 ## 74.27.0
 
 ### Minor Changes
 
-- [`0ae6f70038a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0ae6f70038a) - [ED-17635] Add analytics event for table width resizing
+- [#37467](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37467) [`0ae6f70038a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0ae6f70038a) - [ED-17635] Add analytics event for table width resizing
 
 ## 74.26.9
 
 ### Patch Changes
 
-- [`3b01ce33502`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3b01ce33502) - add getMediaSinglePixelWidth to support legacy and new media resize experience
+- [#37530](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37530) [`3b01ce33502`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3b01ce33502) - add getMediaSinglePixelWidth to support legacy and new media resize experience
 
 ## 74.26.8
 
 ### Patch Changes
 
-- [`01237de37e7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/01237de37e7) - [ED-17901] Update clear button on input to have tabindex and update tests to test for both chrome / firefox and safari
+- [#37496](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37496) [`01237de37e7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/01237de37e7) - [ED-17901] Update clear button on input to have tabindex and update tests to test for both chrome / firefox and safari
 
 ## 74.26.7
 
 ### Patch Changes
 
-- [`e4ae2b4792a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e4ae2b4792a) - Added media-single constants
+- [#37459](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37459) [`e4ae2b4792a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e4ae2b4792a) - Added media-single constants
 
 ## 74.26.6
 
 ### Patch Changes
 
-- [`5f0b47a1443`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f0b47a1443) - [ux] Enable text selection for expand macro button since disabling causes selection bug on triple click
+- [#34870](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34870) [`5f0b47a1443`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f0b47a1443) - [ux] Enable text selection for expand macro button since disabling causes selection bug on triple click
 
 ## 74.26.5
 
 ### Patch Changes
 
-- [`3d065399b07`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3d065399b07) - ED-18969 refactor guideline plugin interface.
+- [#37398](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37398) [`3d065399b07`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3d065399b07) - ED-18969 refactor guideline plugin interface.
 
 ## 74.26.4
 
 ### Patch Changes
 
-- [`33cec4ba4f0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/33cec4ba4f0) - [ED-19203] Extract common logic, styles, and types to editor-common
+- [#37428](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37428) [`33cec4ba4f0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/33cec4ba4f0) - [ED-19203] Extract common logic, styles, and types to editor-common
 
 ## 74.26.3
 
 ### Patch Changes
 
-- [`d3851530199`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3851530199) - Update snapping logic, tests and examples
+- [#37456](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37456) [`d3851530199`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3851530199) - Update snapping logic, tests and examples
 - Updated dependencies
 
 ## 74.26.2
 
 ### Patch Changes
 
-- [`6255c2ad1c9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6255c2ad1c9) - [ux] Adds ability to open Assets datasource dialog using the slash command in the editor, behind a feature flag
+- [#37357](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37357) [`6255c2ad1c9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6255c2ad1c9) - [ux] Adds ability to open Assets datasource dialog using the slash command in the editor, behind a feature flag
 
 ## 74.26.1
 
 ### Patch Changes
 
-- [`e8885f55db6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e8885f55db6) - ED-18969 implement relative guides support
+- [#37348](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37348) [`e8885f55db6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e8885f55db6) - ED-18969 implement relative guides support
 
 ## 74.26.0
 
 ### Minor Changes
 
-- [`3920dcfd848`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3920dcfd848) - This removes the feature flag made for upgrading the `focus-trap` dependency and keeps `focus-trap` at it's original version.
+- [#34797](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34797) [`3920dcfd848`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3920dcfd848) - This removes the feature flag made for upgrading the `focus-trap` dependency and keeps `focus-trap` at it's original version.
 
 ## 74.25.2
 
 ### Patch Changes
 
-- [`b9355830504`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b9355830504) - Opt out of peer dependency enforcement
+- [#37340](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37340) [`b9355830504`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b9355830504) - Opt out of peer dependency enforcement
 
 ## 74.25.1
 
@@ -984,86 +1000,86 @@
 
 ### Minor Changes
 
-- [`6bacee18c2d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6bacee18c2d) - [ux] Add new allowDatasource prop for enabling datasource in editor and add inlineCard fallback render for blockCard with datasource
+- [#36750](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36750) [`6bacee18c2d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6bacee18c2d) - [ux] Add new allowDatasource prop for enabling datasource in editor and add inlineCard fallback render for blockCard with datasource
 
 ## 74.24.0
 
 ### Minor Changes
 
-- [`22a59977bb3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/22a59977bb3) - [ux] Updated ResizerNext to allow handle style overrides. Updated the table resizer to space and align the resizer handle according the the design specifications
+- [#37063](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37063) [`22a59977bb3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/22a59977bb3) - [ux] Updated ResizerNext to allow handle style overrides. Updated the table resizer to space and align the resizer handle according the the design specifications
 
 ## 74.23.1
 
 ### Patch Changes
 
-- [`3fb20c4aeba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3fb20c4aeba) - Add postinstall check to enforce internal peer dependencies
+- [#36757](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36757) [`3fb20c4aeba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3fb20c4aeba) - Add postinstall check to enforce internal peer dependencies
 
 ## 74.23.0
 
 ### Minor Changes
 
-- [`5f028fb62a1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f028fb62a1) - ED-19038 added mediaSingle.widthType support to renderer.
+- [#36801](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36801) [`5f028fb62a1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f028fb62a1) - ED-19038 added mediaSingle.widthType support to renderer.
 
 ## 74.22.0
 
 ### Minor Changes
 
-- [`464745a92e6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/464745a92e6) - [ux] Updated the Editor Table plugin to use the new guidelines plugin when custom-table-widths FF is enabled
+- [#36772](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36772) [`464745a92e6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/464745a92e6) - [ux] Updated the Editor Table plugin to use the new guidelines plugin when custom-table-widths FF is enabled
 
 ## 74.21.4
 
 ### Patch Changes
 
-- [`1d3e0468d4c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1d3e0468d4c) - Adds a new analytics event to be implemented later
+- [#36865](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36865) [`1d3e0468d4c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1d3e0468d4c) - Adds a new analytics event to be implemented later
 
 ## 74.21.3
 
 ### Patch Changes
 
-- [`018b27d3392`](https://bitbucket.org/atlassian/atlassian-frontend/commits/018b27d3392) - Adds new prop handleMarginTop on ResizerNext component to center resize handle on tables
+- [#36852](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36852) [`018b27d3392`](https://bitbucket.org/atlassian/atlassian-frontend/commits/018b27d3392) - Adds new prop handleMarginTop on ResizerNext component to center resize handle on tables
 
 ## 74.21.2
 
 ### Patch Changes
 
-- [`32ca42e82c3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/32ca42e82c3) - Extracted internal editor card plugin to new package `editor-plugin-card`.
+- [#36863](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36863) [`32ca42e82c3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/32ca42e82c3) - Extracted internal editor card plugin to new package `editor-plugin-card`.
 
 ## 74.21.1
 
 ### Patch Changes
 
-- [`14224c3f8a4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/14224c3f8a4) - [ED-18162] Move the collab provider types to the editor common package to avoid circular dependencies
+- [#36848](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36848) [`14224c3f8a4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/14224c3f8a4) - [ED-18162] Move the collab provider types to the editor common package to avoid circular dependencies
 
 ## 74.21.0
 
 ### Minor Changes
 
-- [`680a4437157`](https://bitbucket.org/atlassian/atlassian-frontend/commits/680a4437157) - - Adds support for datasource quick insert
+- [#36344](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36344) [`680a4437157`](https://bitbucket.org/atlassian/atlassian-frontend/commits/680a4437157) - - Adds support for datasource quick insert
   - Export type `DatasourceModalType`
 
 ## 74.20.0
 
 ### Minor Changes
 
-- [`8b891bf3590`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8b891bf3590) - This change introduces `editor-plugin-hyperlink` which separates the hyperlink plugin from `editor-core`. In order to enable this change there are now new entry points on `editor-common` (such as `/link`, `/quick-insert`) in order to separate common code. Further `prosemirror-input-rules` now has new exports of `createPlugin` and `createRule` which are used in many plugins in `editor-core`.
+- [#36631](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36631) [`8b891bf3590`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8b891bf3590) - This change introduces `editor-plugin-hyperlink` which separates the hyperlink plugin from `editor-core`. In order to enable this change there are now new entry points on `editor-common` (such as `/link`, `/quick-insert`) in order to separate common code. Further `prosemirror-input-rules` now has new exports of `createPlugin` and `createRule` which are used in many plugins in `editor-core`.
 
 ## 74.19.2
 
 ### Patch Changes
 
-- [`f188d9ea397`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f188d9ea397) - Create reference event for legacy image upload so DataTransfer is not lost
+- [#36487](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36487) [`f188d9ea397`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f188d9ea397) - Create reference event for legacy image upload so DataTransfer is not lost
 
 ## 74.19.1
 
 ### Patch Changes
 
-- [`202f8c2ee69`](https://bitbucket.org/atlassian/atlassian-frontend/commits/202f8c2ee69) - The changes here adds support for datasource feature flag for rollout.
+- [#36626](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36626) [`202f8c2ee69`](https://bitbucket.org/atlassian/atlassian-frontend/commits/202f8c2ee69) - The changes here adds support for datasource feature flag for rollout.
 
 ## 74.19.0
 
 ### Minor Changes
 
-- [`f486dbd535c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f486dbd535c) - MEX-2481 Fix minor gap between image and border
+- [#36498](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36498) [`f486dbd535c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f486dbd535c) - MEX-2481 Fix minor gap between image and border
 
 ### Patch Changes
 
@@ -1073,25 +1089,25 @@
 
 ### Minor Changes
 
-- [`11285b1d77e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/11285b1d77e) - ED-18971 Added editor dynamic guideline util and new guideline entry point in editor-common
+- [#36414](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36414) [`11285b1d77e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/11285b1d77e) - ED-18971 Added editor dynamic guideline util and new guideline entry point in editor-common
 
 ## 74.17.1
 
 ### Patch Changes
 
-- [`1a852e48b42`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1a852e48b42) - [ED-17438] Check if parent node is empty paragraph before adding horizontal rule
+- [#35625](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35625) [`1a852e48b42`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1a852e48b42) - [ED-17438] Check if parent node is empty paragraph before adding horizontal rule
 
 ## 74.17.0
 
 ### Minor Changes
 
-- [`87aac05bf04`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87aac05bf04) - [ED-18895] Create new package to contain editor plugin integration tests to avoid circular dev dependencies between plugins and editor-core
+- [#36349](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36349) [`87aac05bf04`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87aac05bf04) - [ED-18895] Create new package to contain editor plugin integration tests to avoid circular dev dependencies between plugins and editor-core
 
 ## 74.16.0
 
 ### Minor Changes
 
-- [`9a01d73afe2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9a01d73afe2) - [ux] ED-17434: Update TaskItem to match @atlaskit/checkbox and update to support design tokens and match spacing from bullet and numbered lists.
+- [#35509](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35509) [`9a01d73afe2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9a01d73afe2) - [ux] ED-17434: Update TaskItem to match @atlaskit/checkbox and update to support design tokens and match spacing from bullet and numbered lists.
 
 ### Patch Changes
 
@@ -1101,19 +1117,19 @@
 
 ### Patch Changes
 
-- [`3a0a36b5910`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3a0a36b5910) - check if document exists before using, for confluence SSR to work
+- [#36403](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36403) [`3a0a36b5910`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3a0a36b5910) - check if document exists before using, for confluence SSR to work
 
 ## 74.15.1
 
 ### Patch Changes
 
-- [`5f5ba16de66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f5ba16de66) - [ED-13910] Fix prosemirror types
+- [#36241](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36241) [`5f5ba16de66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f5ba16de66) - [ED-13910] Fix prosemirror types
 
 ## 74.15.0
 
 ### Minor Changes
 
-- [`68ef7e6146c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/68ef7e6146c) - Added feature flag for the new media resize experience.
+- [#35517](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35517) [`68ef7e6146c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/68ef7e6146c) - Added feature flag for the new media resize experience.
 
 ### Patch Changes
 
@@ -1123,19 +1139,19 @@
 
 ### Minor Changes
 
-- [`9fc1422dec1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9fc1422dec1) - Make `hyperlink` plugin an explicit dependency of `card` plugin. Move card styles and types into editor-common.
+- [#36220](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36220) [`9fc1422dec1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9fc1422dec1) - Make `hyperlink` plugin an explicit dependency of `card` plugin. Move card styles and types into editor-common.
 
 ## 74.13.0
 
 ### Minor Changes
 
-- [`6c1685f4793`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c1685f4793) - [ED-18163] Removed participant count from generic editor-common analytics events
+- [#36286](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36286) [`6c1685f4793`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c1685f4793) - [ED-18163] Removed participant count from generic editor-common analytics events
 
 ## 74.12.0
 
 ### Minor Changes
 
-- [`a1b70608039`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a1b70608039) - [ux] Adds editor toolbar to link datasource component
+- [#35499](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35499) [`a1b70608039`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a1b70608039) - [ux] Adds editor toolbar to link datasource component
 
 ### Patch Changes
 
@@ -1145,14 +1161,14 @@
 
 ### Patch Changes
 
-- [`c75a15c09dd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c75a15c09dd) - - The change here adds a datasource wrapper css class to be used for datasource table.
+- [#35176](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35176) [`c75a15c09dd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c75a15c09dd) - - The change here adds a datasource wrapper css class to be used for datasource table.
   - Also moves some types and functions from breakout plugin to common to be reused for datasource layout button
 
 ## 74.11.0
 
 ### Minor Changes
 
-- [`04295e9d5bc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/04295e9d5bc) - [ux] Updating ORS response to include datasources and facilitating pasting JQL links turning into datasource tables
+- [#35032](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35032) [`04295e9d5bc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/04295e9d5bc) - [ux] Updating ORS response to include datasources and facilitating pasting JQL links turning into datasource tables
 
 ### Patch Changes
 
@@ -1162,13 +1178,13 @@
 
 ### Patch Changes
 
-- [`a9350cf3831`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a9350cf3831) - Check existence of window and document variable for confluence SSR to work
+- [#35233](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35233) [`a9350cf3831`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a9350cf3831) - Check existence of window and document variable for confluence SSR to work
 
 ## 74.10.1
 
 ### Patch Changes
 
-- [`194bd1bf486`](https://bitbucket.org/atlassian/atlassian-frontend/commits/194bd1bf486) - Move smart-card dependency out of dev into direct
+- [#34936](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34936) [`194bd1bf486`](https://bitbucket.org/atlassian/atlassian-frontend/commits/194bd1bf486) - Move smart-card dependency out of dev into direct
 
 ## 74.10.0
 
@@ -1180,60 +1196,60 @@
 
 ### Patch Changes
 
-- [`87070f514cd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87070f514cd) - [ux] ED-18024 Adds an enter keydown handler on the main toolbar droplist (BlockInsertMenuLegacy) to prevent the editor capturing the keypress when the keyboard is used to insert nodes.
+- [#35844](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35844) [`87070f514cd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87070f514cd) - [ux] ED-18024 Adds an enter keydown handler on the main toolbar droplist (BlockInsertMenuLegacy) to prevent the editor capturing the keypress when the keyboard is used to insert nodes.
 
 ## 74.9.1
 
 ### Patch Changes
 
-- [`18344c31ea3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/18344c31ea3) - [ED-13910] Fix EditorView getPos type
+- [#35788](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35788) [`18344c31ea3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/18344c31ea3) - [ED-13910] Fix EditorView getPos type
 
 ## 74.9.0
 
 ### Minor Changes
 
-- [`4bf22e4eb1c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4bf22e4eb1c) - The editor dropdown menu items are now forced to be `position: static` when a feature flag is on to work around menu items being position relative now. This is a short term fix to keep the table cell color nested menu working.
+- [#35868](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35868) [`4bf22e4eb1c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4bf22e4eb1c) - The editor dropdown menu items are now forced to be `position: static` when a feature flag is on to work around menu items being position relative now. This is a short term fix to keep the table cell color nested menu working.
 
 ### Patch Changes
 
-- [`73b5128036b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/73b5128036b) - [ED-17082] Mark package as a singleton one
+- [#35782](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35782) [`73b5128036b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/73b5128036b) - [ED-17082] Mark package as a singleton one
 - Updated dependencies
 
 ## 74.8.0
 
 ### Minor Changes
 
-- [`5e01082b600`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5e01082b600) - Extracting SelectionBasedNodeView to editor-common.
+- [#35353](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35353) [`5e01082b600`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5e01082b600) - Extracting SelectionBasedNodeView to editor-common.
 
 ## 74.7.9
 
 ### Patch Changes
 
-- [`87366c84531`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87366c84531) - Extract context panel plugin to new package @atlaskit/editor-plugin-context-panel
+- [#35475](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35475) [`87366c84531`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87366c84531) - Extract context panel plugin to new package @atlaskit/editor-plugin-context-panel
 
 ## 74.7.8
 
 ### Patch Changes
 
-- [`b32b60b7807`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b32b60b7807) - [ux] ED-17462 fix 1px overflow
+- [#34956](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34956) [`b32b60b7807`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b32b60b7807) - [ux] ED-17462 fix 1px overflow
 
 ## 74.7.7
 
 ### Patch Changes
 
-- [`8493df1e169`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8493df1e169) - NO-ISSUE Moved some purely type dependencies to dev dependencies
+- [#35575](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35575) [`8493df1e169`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8493df1e169) - NO-ISSUE Moved some purely type dependencies to dev dependencies
 
 ## 74.7.6
 
 ### Patch Changes
 
-- [`0edc12510fb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0edc12510fb) - Updating types, examples and general clean up of Resizer component
+- [#35130](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35130) [`0edc12510fb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0edc12510fb) - Updating types, examples and general clean up of Resizer component
 
 ## 74.7.5
 
 ### Patch Changes
 
-- [`12d33fa653a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/12d33fa653a) - [ED-17762] Fix nested table rescale logic when the context menu opens
+- [#34365](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34365) [`12d33fa653a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/12d33fa653a) - [ED-17762] Fix nested table rescale logic when the context menu opens
 
 ## 74.7.4
 
@@ -1245,31 +1261,31 @@
 
 ### Patch Changes
 
-- [`1259df9a9ef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1259df9a9ef) - converted some of block-type's analytics to use new EditorAnalyticsAPI
+- [#34961](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34961) [`1259df9a9ef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1259df9a9ef) - converted some of block-type's analytics to use new EditorAnalyticsAPI
 
 ## 74.7.2
 
 ### Patch Changes
 
-- [`b9c2562b357`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b9c2562b357) - Mark WithPluginState as deprecated.
+- [#35393](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35393) [`b9c2562b357`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b9c2562b357) - Mark WithPluginState as deprecated.
 
 ## 74.7.1
 
 ### Patch Changes
 
-- [`b48d0a5f88f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b48d0a5f88f) - Create new placeholder for the floating toolbar plugin and use a new action to replace the forceFocusSelector action.
+- [#35227](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35227) [`b48d0a5f88f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b48d0a5f88f) - Create new placeholder for the floating toolbar plugin and use a new action to replace the forceFocusSelector action.
 
 ## 74.7.0
 
 ### Minor Changes
 
-- [`89989e06f43`](https://bitbucket.org/atlassian/atlassian-frontend/commits/89989e06f43) - [ux] Adding initial Resizer to table plugin behind a platform feature flag, allowing tables to resize to a custom width. This change also includes the following refactors:- change calcTableWidth function to return number instead of px- allowing tables to use breakout values when allowColumnResize is disabled
+- [#34954](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34954) [`89989e06f43`](https://bitbucket.org/atlassian/atlassian-frontend/commits/89989e06f43) - [ux] Adding initial Resizer to table plugin behind a platform feature flag, allowing tables to resize to a custom width. This change also includes the following refactors:- change calcTableWidth function to return number instead of px- allowing tables to use breakout values when allowColumnResize is disabled
 
 ## 74.6.0
 
 ### Minor Changes
 
-- [`f07a1e036a9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f07a1e036a9) - Refactoring editor-core to prepare for extracting card plugin.
+- [#35005](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35005) [`f07a1e036a9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f07a1e036a9) - Refactoring editor-core to prepare for extracting card plugin.
 
 ## 74.5.2
 
@@ -1281,19 +1297,19 @@
 
 ### Patch Changes
 
-- [`a336b15fe85`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a336b15fe85) - NO-ISSUE Explicitly remove breadcrumbs for Editor Sentry events
+- [#34974](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34974) [`a336b15fe85`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a336b15fe85) - NO-ISSUE Explicitly remove breadcrumbs for Editor Sentry events
 
 ## 74.5.0
 
 ### Minor Changes
 
-- [`7cd4abcdc0d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7cd4abcdc0d) - Fix workaround in `editor-plugin-width`. This involved removing `WidthEmitter` in `editor-core`, removing `containerWidth` from `WidthPluginState`. This change also introduces `usePluginHook` for an `EditorPlugin` - this enables a react hook to be mounted for plugins (in all appearances).
+- [#34938](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34938) [`7cd4abcdc0d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7cd4abcdc0d) - Fix workaround in `editor-plugin-width`. This involved removing `WidthEmitter` in `editor-core`, removing `containerWidth` from `WidthPluginState`. This change also introduces `usePluginHook` for an `EditorPlugin` - this enables a react hook to be mounted for plugins (in all appearances).
 
 ## 74.4.0
 
 ### Minor Changes
 
-- [`d9fe34b3f2b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d9fe34b3f2b) - [ux] The ResizerNext component now supports a new property handleAlignmentMethod which defaults to "sticky". This means the resizer handles wil stick to the top/bottom bounds of the browser viewport if the component extends beyond and the user scrolls down. An alternative "center" value can be set which means the handles will just center to their content and not stick.
+- [#34887](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34887) [`d9fe34b3f2b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d9fe34b3f2b) - [ux] The ResizerNext component now supports a new property handleAlignmentMethod which defaults to "sticky". This means the resizer handles wil stick to the top/bottom bounds of the browser viewport if the component extends beyond and the user scrolls down. An alternative "center" value can be set which means the handles will just center to their content and not stick.
 - [`f3d2c08d61b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f3d2c08d61b) - Adds new datasource attribute to existing blockCard node
 
 ### Patch Changes
@@ -1310,7 +1326,7 @@
 
 ### Minor Changes
 
-- [`602d003d7e5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/602d003d7e5) - [ux] The table column sort compartor method would previously only look at the first word when sorting the column. This means when words are joined with special characters they would not sort correctly. This now looks at all the text in the cell when calculating the sort order.
+- [#34644](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34644) [`602d003d7e5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/602d003d7e5) - [ux] The table column sort compartor method would previously only look at the first word when sorting the column. This means when words are joined with special characters they would not sort correctly. This now looks at all the text in the cell when calculating the sort order.
 
 ### Patch Changes
 
@@ -1343,13 +1359,13 @@
 
 ### Patch Changes
 
-- [`01bb98b52ee`](https://bitbucket.org/atlassian/atlassian-frontend/commits/01bb98b52ee) - Internal change to replace gridSize with space tokens.
+- [#34395](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34395) [`01bb98b52ee`](https://bitbucket.org/atlassian/atlassian-frontend/commits/01bb98b52ee) - Internal change to replace gridSize with space tokens.
 
 ## 74.2.0
 
 ### Minor Changes
 
-- [`1549c2e6dda`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1549c2e6dda) - Extract width plugin from `editor-core` to separate `editor-plugin-width` package.
+- [#34192](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34192) [`1549c2e6dda`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1549c2e6dda) - Extract width plugin from `editor-core` to separate `editor-plugin-width` package.
 - [`f055b886032`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f055b886032) - Extract the grid plugin to a separate package.
 
 ### Patch Changes
@@ -1364,20 +1380,20 @@
 
 ### Patch Changes
 
-- [`f3bd38c3f31`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f3bd38c3f31) - Removes spacing tokens from shadows in favour of shadow tokens
+- [#34084](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34084) [`f3bd38c3f31`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f3bd38c3f31) - Removes spacing tokens from shadows in favour of shadow tokens
 
 ## 74.1.1
 
 ### Patch Changes
 
-- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793) [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
 - Updated dependencies
 
 ## 74.1.0
 
 ### Minor Changes
 
-- [`6bc52e5a406`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6bc52e5a406) - [ED-17687] Capture errors caught in error boundaries in Sentry
+- [#33771](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33771) [`6bc52e5a406`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6bc52e5a406) - [ED-17687] Capture errors caught in error boundaries in Sentry
 - [`8a391616ecc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8a391616ecc) - Moving insert node API to a new editor plugin to allow it to be more extensible. Also exposing a new editor plugin action for tables to allow for consistent insertion.
 - [`5cc449dac8d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5cc449dac8d) - Decouple card plugin so that it uses new NextEditorPlugin for any injected dependencies.
 - [`be561d3491c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/be561d3491c) - [ED-17622] Adds new Resizer component
@@ -1396,14 +1412,14 @@
 
 ### Patch Changes
 
-- [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649) [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
 - Updated dependencies
 
 ## 74.0.0
 
 ### Minor Changes
 
-- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258) [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
 
 ### Patch Changes
 
@@ -1413,7 +1429,7 @@
 
 ### Major Changes
 
-- [`054186aa44f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/054186aa44f) - Remove email from CollabParticipant type and rely more on ProviderParticipant type.
+- [#33004](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33004) [`054186aa44f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/054186aa44f) - Remove email from CollabParticipant type and rely more on ProviderParticipant type.
 
 ### Patch Changes
 
@@ -1424,13 +1440,13 @@
 
 ### Minor Changes
 
-- [`135df1a1e78`](https://bitbucket.org/atlassian/atlassian-frontend/commits/135df1a1e78) - [ux] ED-17405 - Bugfix: Editor toolbar dropdown menus not receiving keyboard events for navigation
+- [#32257](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32257) [`135df1a1e78`](https://bitbucket.org/atlassian/atlassian-frontend/commits/135df1a1e78) - [ux] ED-17405 - Bugfix: Editor toolbar dropdown menus not receiving keyboard events for navigation
 
 ## 72.8.0
 
 ### Minor Changes
 
-- [`c2385dcb8f7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c2385dcb8f7) - [ux] ED-17043 Expanded table chart colors from 20 to 36 colors.
+- [#32424](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32424) [`c2385dcb8f7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c2385dcb8f7) - [ux] ED-17043 Expanded table chart colors from 20 to 36 colors.
 - [`0237059f136`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0237059f136) - Adds utilities to @atlaskit/editor-common/card for assisting adding `LinkMetaStep` to a transaction and reading metadata from a transaction.
 
   ```ts
@@ -1468,26 +1484,26 @@
 
 ### Patch Changes
 
-- [`68f2cf54b1b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/68f2cf54b1b) - [ED-17484] Fix plugins race condition when pluginInjectionAPI uses .reverse().map()
+- [#32248](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32248) [`68f2cf54b1b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/68f2cf54b1b) - [ED-17484] Fix plugins race condition when pluginInjectionAPI uses .reverse().map()
 
 ## 72.7.2
 
 ### Patch Changes
 
-- [`190cca54c10`](https://bitbucket.org/atlassian/atlassian-frontend/commits/190cca54c10) - [ux] Update the image border icon
+- [#31952](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31952) [`190cca54c10`](https://bitbucket.org/atlassian/atlassian-frontend/commits/190cca54c10) - [ux] Update the image border icon
 
 ## 72.7.1
 
 ### Patch Changes
 
-- [`9f9b4b1cf60`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9f9b4b1cf60) - [ux] [HOT-103036] Fix table width styling when broken out with fragment mark
+- [#31852](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31852) [`9f9b4b1cf60`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9f9b4b1cf60) - [ux] [HOT-103036] Fix table width styling when broken out with fragment mark
 - Updated dependencies
 
 ## 72.7.0
 
 ### Minor Changes
 
-- [`2192c9417d7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2192c9417d7) - [ESS-3335] Review Collab Provider API error handling & types
+- [#31891](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31891) [`2192c9417d7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2192c9417d7) - [ESS-3335] Review Collab Provider API error handling & types
 - [`bf04c417bfd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bf04c417bfd) - Add "border" mark to stage0 ADF schema
 - [`27b106a736b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/27b106a736b) - ESS-3274 Refactor participant logic our of Provider class
 - [`af9a85063e5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/af9a85063e5) - add image border toolbar
@@ -1511,13 +1527,13 @@
 
 ### Patch Changes
 
-- [`b737494c727`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b737494c727) - Update optional feature flag type
+- [#31898](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31898) [`b737494c727`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b737494c727) - Update optional feature flag type
 
 ## 72.6.0
 
 ### Minor Changes
 
-- [`a697f9eb7ca`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a697f9eb7ca) - [ED-16746] Introduce the shareable actions concept into the NextEditorPlugin
+- [#31299](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31299) [`a697f9eb7ca`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a697f9eb7ca) - [ED-16746] Introduce the shareable actions concept into the NextEditorPlugin
 - [`a7e36157e01`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a7e36157e01) - [ED-15941] Refactor Preset into EditorPresetBuilder
 - [`66bbcd766fe`](https://bitbucket.org/atlassian/atlassian-frontend/commits/66bbcd766fe) - [ED-16735] Inject its own api on NextEditorPlugin
 - [`0078ddc7e2e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0078ddc7e2e) - New smartLinks prop to allow renderer and editor to determine whether smart link should show actions that can change the link resource.
@@ -1564,7 +1580,7 @@
 
 ### Minor Changes
 
-- [`2ee31675e66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2ee31675e66) - [ED-16557] Refactor Editor and EditorNext to share common code in editor-core.
+- [#30248](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/30248) [`2ee31675e66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2ee31675e66) - [ED-16557] Refactor Editor and EditorNext to share common code in editor-core.
 
   Introduce new hooks in editor-common including:
 
@@ -1622,7 +1638,7 @@
 
 ### Minor Changes
 
-- [`7fc33ec3f67`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7fc33ec3f67) - updating payload types for collab provider connected event payload
+- [#29470](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/29470) [`7fc33ec3f67`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7fc33ec3f67) - updating payload types for collab provider connected event payload
 - [`ef0beaafa36`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ef0beaafa36) - [ux] ED-15862: Add analytics for restartNumberedLists custom list start numbers
 
 ### Patch Changes
@@ -1638,13 +1654,13 @@
 
 ### Minor Changes
 
-- [`5d255c4c7c0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5d255c4c7c0) - Updates to support the new @atlaskit/tokens theming API.
+- [#30009](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/30009) [`5d255c4c7c0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5d255c4c7c0) - Updates to support the new @atlaskit/tokens theming API.
 
 ## 72.2.3
 
 ### Patch Changes
 
-- [`9e088852e54`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9e088852e54) - ED-16199 moved domainName to nonPrivacySafeAttributes
+- [#29831](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/29831) [`9e088852e54`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9e088852e54) - ED-16199 moved domainName to nonPrivacySafeAttributes
 
 ## 72.2.2
 
@@ -1662,7 +1678,7 @@
 
 ### Minor Changes
 
-- [`a0a35fe7fb1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a0a35fe7fb1) - Renaming contentComponent event subject to contentComponentv2. Move errorStack attribute to nonPrivacySafeAttributes
+- [#28932](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28932) [`a0a35fe7fb1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a0a35fe7fb1) - Renaming contentComponent event subject to contentComponentv2. Move errorStack attribute to nonPrivacySafeAttributes
 
 ### Patch Changes
 
@@ -1677,19 +1693,19 @@
 
 ### Patch Changes
 
-- [`2ff1c66a6ab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2ff1c66a6ab) - [ux] ED-16490 fixed bug so big margin will not occur before a Decision node in Renderer on iOS
+- [#29169](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/29169) [`2ff1c66a6ab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2ff1c66a6ab) - [ux] ED-16490 fixed bug so big margin will not occur before a Decision node in Renderer on iOS
 
 ## 72.1.1
 
 ### Patch Changes
 
-- [`2b78f58c35c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2b78f58c35c) - [ux] ED-16490 fixed bug so big margin will not occur before a Decision node on iOS
+- [#28981](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28981) [`2b78f58c35c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2b78f58c35c) - [ux] ED-16490 fixed bug so big margin will not occur before a Decision node on iOS
 
 ## 72.1.0
 
 ### Minor Changes
 
-- [`055a333dad9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/055a333dad9) - [ux] Remove `moreTextColors` feature flag and deprecate `allowMoreTextColors` field of `allowTextColor` editor prop and `colorPaletteExtended` mark.
+- [#28374](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28374) [`055a333dad9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/055a333dad9) - [ux] Remove `moreTextColors` feature flag and deprecate `allowMoreTextColors` field of `allowTextColor` editor prop and `colorPaletteExtended` mark.
 
   Showing more colors in the color selection palette is now a default behaviour.
 
@@ -1761,14 +1777,14 @@
 
 ### Patch Changes
 
-- [`4a2a04ee176`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4a2a04ee176) - Internal refactor of panel color logic to support design token babel plugin
+- [#28324](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28324) [`4a2a04ee176`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4a2a04ee176) - Internal refactor of panel color logic to support design token babel plugin
 - [`6455cf006b3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6455cf006b3) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving performance.
 
 ## 72.0.0
 
 ### Major Changes
 
-- [`ac1c880cf4c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ac1c880cf4c) - [ux] ED-12395 - Remove the keyboard accessible date picker feature flag, which has been 100% rolled out
+- [#28090](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28090) [`ac1c880cf4c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ac1c880cf4c) - [ux] ED-12395 - Remove the keyboard accessible date picker feature flag, which has been 100% rolled out
 
   ## **DEPRECATION WARNING:**
 
@@ -1857,7 +1873,7 @@
 
 ### Major Changes
 
-- [`2df5ab17c10`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2df5ab17c10) - DSP-6459: Adds a background to code blocks in the editor to remove transparency. E.g. prevents table cell background colors from affecting code blocks. Also modifies code blocks in table headers to have a border instead of a different color when design tokens are enabled.
+- [#26712](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26712) [`2df5ab17c10`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2df5ab17c10) - DSP-6459: Adds a background to code blocks in the editor to remove transparency. E.g. prevents table cell background colors from affecting code blocks. Also modifies code blocks in table headers to have a border instead of a different color when design tokens are enabled.
 
 ### Minor Changes
 
@@ -1901,7 +1917,7 @@
 
 ### Minor Changes
 
-- [`a9cc5c4241b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a9cc5c4241b) - ED-15936 add and export new analytic events for editor-referentiality
+- [#26945](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26945) [`a9cc5c4241b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a9cc5c4241b) - ED-15936 add and export new analytic events for editor-referentiality
 
 ## 70.2.1
 
@@ -1913,7 +1929,7 @@
 
 ### Minor Changes
 
-- [`30e8425f7d6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/30e8425f7d6) - [ux] ED-15706 Reenable copy button on editor-plugin-table. Added property copyButton to floatingToolbarConfig.
+- [#25860](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/25860) [`30e8425f7d6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/30e8425f7d6) - [ux] ED-15706 Reenable copy button on editor-plugin-table. Added property copyButton to floatingToolbarConfig.
 - [`90c44a68da2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/90c44a68da2) - Removed editor-core table plugin and replaced with new `editor-plugin-table` package. This change required adding copying new table changes from editor-core to the new table package, moving IconTable to shared package, and creating new entry-points from editor-plugin-table. `getPluginState` from `packages/editor/editor-plugin-table/src/plugins/table/pm-plugins/table-resizing` was also exported.
 
   [ED-15674][ed15739] [ED-15633]
@@ -1947,7 +1963,7 @@
 
 ### Patch Changes
 
-- [`d2cde0ebdfd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d2cde0ebdfd) - fix editor cypress tests and delete media cypress tests
+- [#26241](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26241) [`d2cde0ebdfd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d2cde0ebdfd) - fix editor cypress tests and delete media cypress tests
 
 ## 70.1.2
 
@@ -1959,19 +1975,19 @@
 
 ### Patch Changes
 
-- [`fa5c9465369`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fa5c9465369) - [ED-15753] adds types for editor-referentiality plugin analytics events
+- [#26088](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26088) [`fa5c9465369`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fa5c9465369) - [ED-15753] adds types for editor-referentiality plugin analytics events
 
 ## 70.1.0
 
 ### Minor Changes
 
-- [`74abc212007`](https://bitbucket.org/atlassian/atlassian-frontend/commits/74abc212007) - Move `setTextSelection` from `editor-core` to `editor-common`, then re-export it form `editor-core` to ensure there are no breaking changes
+- [#25718](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/25718) [`74abc212007`](https://bitbucket.org/atlassian/atlassian-frontend/commits/74abc212007) - Move `setTextSelection` from `editor-core` to `editor-common`, then re-export it form `editor-core` to ensure there are no breaking changes
 
 ## 70.0.0
 
 ### Patch Changes
 
-- [`07160af53b7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/07160af53b7) - [ux] ED-15447: Stop breakout width layout button position flickering when user moves selection out and into breakout-supported nodes
+- [#24710](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24710) [`07160af53b7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/07160af53b7) - [ux] ED-15447: Stop breakout width layout button position flickering when user moves selection out and into breakout-supported nodes
 - [`dbc1b4943c2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dbc1b4943c2) - ED-13162 add word joiner before and after telepointer
 - Updated dependencies
 
@@ -1985,26 +2001,26 @@
 
 ### Patch Changes
 
-- [`8dfda7116ca`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8dfda7116ca) - remove cypress-config export from editor-common
+- [#25553](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/25553) [`8dfda7116ca`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8dfda7116ca) - remove cypress-config export from editor-common
 
 ## 69.4.0
 
 ### Minor Changes
 
-- [`06ae7af103f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/06ae7af103f) - [ux][ed-15739] Bring back the table icon to the typeahead menu by moving IconTable component to shared package
+- [#25390](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/25390) [`06ae7af103f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/06ae7af103f) - [ux][ed-15739] Bring back the table icon to the typeahead menu by moving IconTable component to shared package
 
 ## 69.3.1
 
 ### Patch Changes
 
-- [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
+- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874) [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
 - Updated dependencies
 
 ## 69.3.0
 
 ### Minor Changes
 
-- [`c804f3217e7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c804f3217e7) - [ED-15588] Decouple messages in table plugin by moving dependencies to editor-common.
+- [#24607](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24607) [`c804f3217e7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c804f3217e7) - [ED-15588] Decouple messages in table plugin by moving dependencies to editor-common.
 - [`a4d1c1e9dd0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a4d1c1e9dd0) - Shifted slice transforms to editor-common
 - [`f920b646662`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f920b646662) - Shifted many common utils from editor-core to editor-common
 - [`7987d8b379b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7987d8b379b) - ED-15584 Re-enable extracted layout button, shifting common editor-core UI elements to `editor-common/menu-ui`
@@ -2025,7 +2041,7 @@
 
 ### Patch Changes
 
-- [`46059beebbf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/46059beebbf) - - include **tests_external** in build
+- [#24818](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24818) [`46059beebbf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/46059beebbf) - - include **tests_external** in build
   - replace usage of @local-cypress package with @cypress
   - bump @cypress from ^6.4.0 to ^7.7.0
   - import cypress types into @atlaskit/in-product-testing tsconfig
@@ -2040,7 +2056,7 @@
 
 ### Minor Changes
 
-- [`0a2a2ff14d9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0a2a2ff14d9) - [ux] ED-15284 Updated shared styles to add margin-top to paragraphs and headings with indentation mark. Prior to this, indented content had different spacing to the rest of the document.
+- [#24004](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24004) [`0a2a2ff14d9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0a2a2ff14d9) - [ux] ED-15284 Updated shared styles to add margin-top to paragraphs and headings with indentation mark. Prior to this, indented content had different spacing to the rest of the document.
 - [`d7c4506066d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d7c4506066d) - [ux][ed-15295] improve code block copy button label to better indicate to users what will end up in the clipboard when used.
 
 ### Patch Changes
@@ -2062,14 +2078,14 @@
 
 ### Patch Changes
 
-- [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
+- [#24492](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24492) [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
 - Updated dependencies
 
 ## 69.1.0
 
 ### Minor Changes
 
-- [`2affe8adcfa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2affe8adcfa) - ED-14510: Generic feature flag to disable spellcheck via browser and version
+- [#23381](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23381) [`2affe8adcfa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2affe8adcfa) - ED-14510: Generic feature flag to disable spellcheck via browser and version
 - [`5020781d90a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5020781d90a) - [ux] ED-15099 added floatng toolbar copy button to Expand
 - [`995991c4b11`](https://bitbucket.org/atlassian/atlassian-frontend/commits/995991c4b11) - [ux] ED-15108 added floating toolbar copy button to Layout
 
@@ -2089,7 +2105,7 @@
 
 ### Major Changes
 
-- [`04589993d81`](https://bitbucket.org/atlassian/atlassian-frontend/commits/04589993d81) - ED-15148: moved duplicate entrypoints from @atlaskit/editor-common/utils to @atlaskit/editor-common/validator
+- [#22642](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22642) [`04589993d81`](https://bitbucket.org/atlassian/atlassian-frontend/commits/04589993d81) - ED-15148: moved duplicate entrypoints from @atlaskit/editor-common/utils to @atlaskit/editor-common/validator
 
 ### Minor Changes
 
@@ -2117,14 +2133,14 @@
 
 ### Patch Changes
 
-- [`559b6610a0e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/559b6610a0e) - Modified some CSS rules to ensure Emotion is compatible with server side rendering.
+- [#22029](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22029) [`559b6610a0e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/559b6610a0e) - Modified some CSS rules to ensure Emotion is compatible with server side rendering.
 - Updated dependencies
 
 ## 68.0.0
 
 ### Major Changes
 
-- [`b7b72b61dca`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b7b72b61dca) - ED-10337 Refactor overflow shadows using intersection observer to improve renderer performance on initial load and when scrolling contents of the tables and extensions horizontally.
+- [#21570](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21570) [`b7b72b61dca`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b7b72b61dca) - ED-10337 Refactor overflow shadows using intersection observer to improve renderer performance on initial load and when scrolling contents of the tables and extensions horizontally.
   This is affecting vertical shadows inside tables and extensions in renderer.
   On the OverflowShadowOptions interface of the shadows component exported from editor-common we are also removing scrollableSelector option which is no longer used.
 
@@ -2149,7 +2165,7 @@
 
 ### Minor Changes
 
-- [`025ee31e9bc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/025ee31e9bc) - [ux] Instrumented `@atlaskit/editor-common` with the new theming package, `@atlaskit/tokens`.
+- [#20721](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20721) [`025ee31e9bc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/025ee31e9bc) - [ux] Instrumented `@atlaskit/editor-common` with the new theming package, `@atlaskit/tokens`.
 
   New tokens will be visible only in applications configured to use the new Tokens API (currently in alpha).
   These changes are intended to be interoperable with the legacy theme implementation. Legacy dark mode users should expect no visual or breaking change.
@@ -2174,7 +2190,7 @@
 
 ### Patch Changes
 
-- [`a424e62b264`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a424e62b264) - Changes to support Node 16 Typescript definitions from `@types/node`.
+- [#20650](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20650) [`a424e62b264`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a424e62b264) - Changes to support Node 16 Typescript definitions from `@types/node`.
 
 ## 66.0.3
 
@@ -2187,7 +2203,7 @@
 
 ### Patch Changes
 
-- [`c827226316a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c827226316a) - ED-14291 removed deprecated themeProvider
+- [#20033](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20033) [`c827226316a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c827226316a) - ED-14291 removed deprecated themeProvider
 - [`b29ce16dad8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b29ce16dad8) - [ED-14606] Move bitbucket schema, confluence schema, jira schema, and default schema from @atlaskit/adf-schema to their own entry points. These new entry points are as follows
 
   @atlaskit/adf-schema/schema-bitbucket for:
@@ -2229,13 +2245,13 @@
 
 ### Patch Changes
 
-- [`209fdaab573`](https://bitbucket.org/atlassian/atlassian-frontend/commits/209fdaab573) - export in product tests
+- [#20557](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20557) [`209fdaab573`](https://bitbucket.org/atlassian/atlassian-frontend/commits/209fdaab573) - export in product tests
 
 ## 66.0.0
 
 ### Major Changes
 
-- [`2ec99bf6f9f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2ec99bf6f9f) - [ux] ED-14651: removed react-intl v2 fallback helpers IntlLegacyFallbackProvider and IntlNextCompat
+- [#19618](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19618) [`2ec99bf6f9f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2ec99bf6f9f) - [ux] ED-14651: removed react-intl v2 fallback helpers IntlLegacyFallbackProvider and IntlNextCompat
 - [`2ec99bf6f9f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2ec99bf6f9f) - [ux] ED-14651: removed react-intl v2.
 
 ### Minor Changes
@@ -2257,7 +2273,7 @@
 
 ### Major Changes
 
-- [`09453a633c9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/09453a633c9) - Removed root entry point file of editor-common. Consumers is now forced to use child entry points.
+- [#19019](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19019) [`09453a633c9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/09453a633c9) - Removed root entry point file of editor-common. Consumers is now forced to use child entry points.
 
 ### Minor Changes
 
@@ -2277,11 +2293,11 @@
 
 ### Major Changes
 
-- [`b32b7a39a70`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b32b7a39a70) - CETI-166 Increase the standard panel icons size to make it consistent with the emojis in the panel content area
+- [#18526](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/18526) [`b32b7a39a70`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b32b7a39a70) - CETI-166 Increase the standard panel icons size to make it consistent with the emojis in the panel content area
 
 ### Minor Changes
 
-- [`4e234e7fe93`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4e234e7fe93) - CETI-240 handle add custom emoji in floating toolbar
+- [#16752](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16752) [`4e234e7fe93`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4e234e7fe93) - CETI-240 handle add custom emoji in floating toolbar
 - [`5293a48368e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5293a48368e) - fix image size in layout with ref and width observer
 - [`304351e4b1e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/304351e4b1e) - CETI-241 - Added additional panel ADF attributes (panelIconId, panelIconText) to uniquely identify custom panel emojis. The change has been categorised as major since it is a change to the full-schema ADF. However, the custom panel feature is behind a feature flag, has not yet been released to production, and is only currently planned for release to Confluence. See ADF change #61 for further details.
 - [`9c9557fcdd8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9c9557fcdd8) - AK-279 Moved copy button outside of heading, that made heading accessible
@@ -2303,7 +2319,7 @@
 
 ### Patch Changes
 
-- [`b921ec55066`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b921ec55066) - Fix chrome version parsing logic to accept 3 digits instead of just 2
+- [#18556](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/18556) [`b921ec55066`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b921ec55066) - Fix chrome version parsing logic to accept 3 digits instead of just 2
 
 ## 63.0.0
 
@@ -2373,13 +2389,13 @@
 
 ### Patch Changes
 
-- [`c55c736ecea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c55c736ecea) - Patch VULN AFP-3486 AFP-3487 AFP-3488 AFP-3489
+- [#17475](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/17475) [`c55c736ecea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c55c736ecea) - Patch VULN AFP-3486 AFP-3487 AFP-3488 AFP-3489
 
 ## 62.1.0
 
 ### Minor Changes
 
-- [`b9cd2373064`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b9cd2373064) - [ED-14106] Reset custom color when the node is inside a link
+- [#16928](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16928) [`b9cd2373064`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b9cd2373064) - [ED-14106] Reset custom color when the node is inside a link
 
 ### Patch Changes
 
@@ -2389,7 +2405,7 @@
 
 ### Major Changes
 
-- [`47f58da5946`](https://bitbucket.org/atlassian/atlassian-frontend/commits/47f58da5946) - ED-13322, ED-13324, ED-13326, ED-13323, ED-13204: Upgrade and support react-intl@^5.18.1 including breaking API changes, types and tests in atlassian-frontend packages
+- [#14810](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/14810) [`47f58da5946`](https://bitbucket.org/atlassian/atlassian-frontend/commits/47f58da5946) - ED-13322, ED-13324, ED-13326, ED-13323, ED-13204: Upgrade and support react-intl@^5.18.1 including breaking API changes, types and tests in atlassian-frontend packages
 
   What changed: Upgraded our react-intl support from ^2.6.0 to ^5.18.1. This means editor packages now rely on consumers installing ^5.18.1, otherwise editor usage of react-intl will mismatch with actual installed react-intl APIs.
   Why change was made: As part of a coordinated upgrade effort across AF packages, as react-intl v2 is quite dated.
@@ -2435,13 +2451,13 @@
 
 ### Patch Changes
 
-- [`4531469b0f8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4531469b0f8) - ED-14034 fix broken media captions in firefox
+- [#16614](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16614) [`4531469b0f8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4531469b0f8) - ED-14034 fix broken media captions in firefox
 
 ## 61.0.0
 
 ### Major Changes
 
-- [`fd675db8754`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd675db8754) - [ux] ED-13100: added GroupedField.hasGroupedValues and enable parameter flattening for expand/tab-group/tab fields in config panels. The default value of `GroupedField.hasGroupedValues` is `False`, which will flatten data structures. Set `GroupedField.hasGroupedValues` to `True` on all tab-group/tab/expand fields if you wish to retain existing behaviour.
+- [#15998](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/15998) [`fd675db8754`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd675db8754) - [ux] ED-13100: added GroupedField.hasGroupedValues and enable parameter flattening for expand/tab-group/tab fields in config panels. The default value of `GroupedField.hasGroupedValues` is `False`, which will flatten data structures. Set `GroupedField.hasGroupedValues` to `True` on all tab-group/tab/expand fields if you wish to retain existing behaviour.
 
   This change has several parts to ensure the correctness of serialize(), deserialize(), GroupedField.hasGroupedValues and BaseFieldDefinition.allowDuplicates
 
@@ -2484,7 +2500,7 @@
 
 ### Minor Changes
 
-- [`c80c71b537d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c80c71b537d) - [ux] ED-13860 add bidi warning decorations to code components
+- [#16006](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16006) [`c80c71b537d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c80c71b537d) - [ux] ED-13860 add bidi warning decorations to code components
 
 ### Patch Changes
 
@@ -2494,7 +2510,7 @@
 
 ### Minor Changes
 
-- [`53d2eac387d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/53d2eac387d) - ED-12705 Fail all active editor UFO experiences from the editor error boundary
+- [#14777](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/14777) [`53d2eac387d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/53d2eac387d) - ED-12705 Fail all active editor UFO experiences from the editor error boundary
 - [`b58f3c24179`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b58f3c24179) - ED-13643 Instrument editor interaction UFO experience
 - [`971845eac0d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/971845eac0d) - CETI-96 Added new rule to emoji to solve the duplicate icon issue when we copy from renderer
 - [`87ea2112afe`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87ea2112afe) - ED-13214 Update ExperienceStore to use EditorView as unique identifier rather than session id
@@ -2515,7 +2531,7 @@
 
 ### Minor Changes
 
-- [`981052d2a94`](https://bitbucket.org/atlassian/atlassian-frontend/commits/981052d2a94) - COLLAB-933: Update common types to support disconnected event
+- [#14319](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/14319) [`981052d2a94`](https://bitbucket.org/atlassian/atlassian-frontend/commits/981052d2a94) - COLLAB-933: Update common types to support disconnected event
 - [`8c36177a89c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8c36177a89c) - [ux] Changed wording of 'hideEmoji' to 'removeEmoji' & disbaled th button when there is no emoji (& enabled when there was one)
 - [`cf853e39278`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf853e39278) - AK-279 Moved copy button outside of heading, that made heading accessible
 - [`1a07c1caf61`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1a07c1caf61) - CETI-93 - Fixed custom panel icon sizing and alignment when icon render as image
@@ -2530,7 +2546,7 @@
 
 ### Major Changes
 
-- [`b95863772be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b95863772be) - Support external observers.
+- [#13864](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13864) [`b95863772be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b95863772be) - Support external observers.
   Use better naming for refNode (refNode => reference).
   In favor of further work (supporting multiple references) pass array of references to Extension component.
   Expand node with localId for extentions.
@@ -2553,7 +2569,7 @@
 
 ### Minor Changes
 
-- [`ea1cb28fb03`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ea1cb28fb03) - CETI-3 User is able to change emoji and background color when selected
+- [#13302](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13302) [`ea1cb28fb03`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ea1cb28fb03) - CETI-3 User is able to change emoji and background color when selected
 - [`c796dfa0ae4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c796dfa0ae4) - [ME-1589] Rearchitect the adaptive toolbar solution for the editor mobile bridge.
 
   - Add a new plugin to editor-core that allows you to subscribe to events when the editor view is updated.
@@ -2570,7 +2586,7 @@
 
 ### Minor Changes
 
-- [`adccfcdafd8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/adccfcdafd8) - [ux] ED-13043 Add experimental `__hideFrame` option in extension manifest for extension nodes. This removes the border in edit mode to bring it closer to WYSIWYG. This cannot be opted into for the 'mobile' appearance & frames will continue to always show.
+- [#12837](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12837) [`adccfcdafd8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/adccfcdafd8) - [ux] ED-13043 Add experimental `__hideFrame` option in extension manifest for extension nodes. This removes the border in edit mode to bring it closer to WYSIWYG. This cannot be opted into for the 'mobile' appearance & frames will continue to always show.
 - [`5e55b55d035`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5e55b55d035) - [ux][ed-9961] Remove the predictable lists feature flag and the legacy lists plugin so that predictable lists is default.
 
   Doing this by removing the lists plugin, removing the predictableLists feature flag, renaming lists-predictable to just list, refactoring any areas of the code that used the feature flag or the legacy lists still.
@@ -2591,19 +2607,19 @@
 
 ### Patch Changes
 
-- [`414b6216adf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/414b6216adf) - Upgrade date-fns to ^2.17
+- [#9328](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9328) [`414b6216adf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/414b6216adf) - Upgrade date-fns to ^2.17
 
 ## 58.1.1
 
 ### Patch Changes
 
-- [`799eae9351d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/799eae9351d) - Updating BaseFieldDefiniton type to include isHidden on it.
+- [#12489](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12489) [`799eae9351d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/799eae9351d) - Updating BaseFieldDefiniton type to include isHidden on it.
 
 ## 58.1.0
 
 ### Minor Changes
 
-- [`1075019cefe`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1075019cefe) - Add NodeProps to Caption
+- [#12328](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12328) [`1075019cefe`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1075019cefe) - Add NodeProps to Caption
 
 ### Patch Changes
 
@@ -2614,7 +2630,7 @@
 
 ### Major Changes
 
-- [`0b9318d5c23`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0b9318d5c23) - ED-11952 updated extension interface to allow dynamic toolbar buttons.
+- [#11649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/11649) [`0b9318d5c23`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0b9318d5c23) - ED-11952 updated extension interface to allow dynamic toolbar buttons.
   BREAKING CHANGE: `ExtensionModules.contextualToolbarItems` has been removed in favor of `ExtensionModules.contextualToolbars`.
 
   `ExtensionModules.contextualToolbars` consist of a list of `ContextualToolbar` which has the following signature:
@@ -2640,20 +2656,20 @@
 
 ### Minor Changes
 
-- [`92c1a74eb2d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/92c1a74eb2d) - [ux] ED-13083: fixed serialize() for Tabs and Expand fields
+- [#11843](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/11843) [`92c1a74eb2d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/92c1a74eb2d) - [ux] ED-13083: fixed serialize() for Tabs and Expand fields
 
 ## 57.1.3
 
 ### Patch Changes
 
-- [`9e09b407b43`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9e09b407b43) - Exclude `__tests_external__` from the `build/tsconfig.json`.
+- [#11778](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/11778) [`9e09b407b43`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9e09b407b43) - Exclude `__tests_external__` from the `build/tsconfig.json`.
   Add `local-cypress` and remove types export.
 
 ## 57.1.2
 
 ### Patch Changes
 
-- [`070261ec304`](https://bitbucket.org/atlassian/atlassian-frontend/commits/070261ec304) - Fix Cypress types for packages
+- [#11723](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/11723) [`070261ec304`](https://bitbucket.org/atlassian/atlassian-frontend/commits/070261ec304) - Fix Cypress types for packages
 
 ## 57.1.1
 
@@ -2665,7 +2681,7 @@
 
 ### Minor Changes
 
-- [`e66cd2fe716`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e66cd2fe716) - ED-12655: added support for config panel tabs
+- [#11113](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/11113) [`e66cd2fe716`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e66cd2fe716) - ED-12655: added support for config panel tabs
 - [`11b9305ca1b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/11b9305ca1b) - [ux] ED-12649 add ColorField definition and UI to ConfigPanel
 - [`35645d7d1b7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/35645d7d1b7) - ED-12762 Prevent nesting of GroupingFields (for now)
   Added localization for expand field
@@ -2682,7 +2698,7 @@
 
 ### Major Changes
 
-- [`713dcb9d058`](https://bitbucket.org/atlassian/atlassian-frontend/commits/713dcb9d058) - remove DataSourceField
+- [#10569](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10569) [`713dcb9d058`](https://bitbucket.org/atlassian/atlassian-frontend/commits/713dcb9d058) - remove DataSourceField
 
 ### Minor Changes
 
@@ -2697,7 +2713,7 @@
 
 ### Major Changes
 
-- [`4befa7c039c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4befa7c039c) - ED-12593: rename ExtensionAPI.editInLegacyMacroBrowser() to \_editInLegacyMacroBrowser()
+- [#10230](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10230) [`4befa7c039c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4befa7c039c) - ED-12593: rename ExtensionAPI.editInLegacyMacroBrowser() to \_editInLegacyMacroBrowser()
 
   Also cleaned up the options for createExtensionAPI() for easier use.
 
@@ -2731,14 +2747,14 @@
 
 ### Patch Changes
 
-- [`c2c0160f566`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c2c0160f566) - Bump editor-shared-styles to pick up relativeFontSizeToBase16
+- [#10316](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10316) [`c2c0160f566`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c2c0160f566) - Bump editor-shared-styles to pick up relativeFontSizeToBase16
 - Updated dependencies
 
 ## 55.5.1
 
 ### Patch Changes
 
-- [`df1da03ac3d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/df1da03ac3d) - define interface for api extension
+- [#9756](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9756) [`df1da03ac3d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/df1da03ac3d) - define interface for api extension
 - [`5a6e9efd99b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5a6e9efd99b) - ED-12508 implement api stub
 - [`5c835144ef0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5c835144ef0) - [ME-741][me-743] Remove PX references in editor packages and modify code block font size.
 - Updated dependencies
@@ -2747,7 +2763,7 @@
 
 ### Minor Changes
 
-- [`769e10a40a7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/769e10a40a7) - ED-12108 Support duplicate named fields in config panel fieldset
+- [#9510](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9510) [`769e10a40a7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/769e10a40a7) - ED-12108 Support duplicate named fields in config panel fieldset
 
   For a field to be allowed to have duplicates you must set `allowDuplicates: true` on the field definition
 
@@ -2763,7 +2779,7 @@
 
 ### Patch Changes
 
-- [`6d748ea5140`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6d748ea5140) - New stage-0 data consumer mark in ADF schema
+- [#9083](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9083) [`6d748ea5140`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6d748ea5140) - New stage-0 data consumer mark in ADF schema
 - [`d2e70ebaaa9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d2e70ebaaa9) - NO-ISSUE: updated editor tests to use 'doc: DocBuilder' instead of 'doc: any'
 - [`ee188b01fc0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ee188b01fc0) - ED-12339 added adf information to be passed into extension button on click action
 - [`b7e61c08ef5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b7e61c08ef5) - [ux] ED-11916 Extended floating toolbars on table and exension nodes with buttons that can be provided by extensions
@@ -2773,7 +2789,7 @@
 
 ### Patch Changes
 
-- [`471e2431a7c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/471e2431a7c) - Downgrade back to date-fns 1.30.1
+- [#9299](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9299) [`471e2431a7c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/471e2431a7c) - Downgrade back to date-fns 1.30.1
   We discovered big bundle size increases associated with the date-fns upgrade.
   We're reverting the upgarde to investigate
 
@@ -2781,13 +2797,13 @@
 
 ### Patch Changes
 
-- [`70f0701c2e6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/70f0701c2e6) - Upgrade date-fns to 2.17
+- [#8291](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8291) [`70f0701c2e6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/70f0701c2e6) - Upgrade date-fns to 2.17
 
 ## 55.4.0
 
 ### Minor Changes
 
-- [`b74caaa43e9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b74caaa43e9) - add reserveCursor option to init event
+- [#8644](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8644) [`b74caaa43e9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b74caaa43e9) - add reserveCursor option to init event
 - [`4f08f25ebfe`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4f08f25ebfe) - NO-ISSUE pass through feature flags into renderer
 - [`d33f17ed9b6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d33f17ed9b6) - ED-11153: additionally map tti values in editor tti event to severity strings
 
@@ -2802,7 +2818,7 @@
 
 ### Minor Changes
 
-- [`2cde1293d9f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2cde1293d9f) - [ux] `useAlternativePreloader` prop was added to `CardOptions`, which is type of editor prop `UNSAFE_cards`. Default value is true (if not defined). When `useAlternativePreloader` is true preloader experience for smart link components in editor will be different: there won't be normal smart link skeleton (border and a shaddow) and spinner is located on the right (compare to left as before). Note: renderer experience won't change.
+- [#8178](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8178) [`2cde1293d9f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2cde1293d9f) - [ux] `useAlternativePreloader` prop was added to `CardOptions`, which is type of editor prop `UNSAFE_cards`. Default value is true (if not defined). When `useAlternativePreloader` is true preloader experience for smart link components in editor will be different: there won't be normal smart link skeleton (border and a shaddow) and spinner is located on the right (compare to left as before). Note: renderer experience won't change.
 
 ### Patch Changes
 
@@ -2822,7 +2838,7 @@
 
 ### Minor Changes
 
-- [`8c90794239c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8c90794239c) - ED-11587: quickInsert for placeholder-text plugin
+- [#7762](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/7762) [`8c90794239c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8c90794239c) - ED-11587: quickInsert for placeholder-text plugin
 - [`7ddbf962bd9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7ddbf962bd9) - [ux] Updated and added new translations
 - [`586040bf70b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/586040bf70b) - Ensure that all children are validated in new error path
 
@@ -2838,7 +2854,7 @@
 
 ### Patch Changes
 
-- [`549740c01d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/549740c01d) - Exported the validator errors map
+- [#7425](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/7425) [`549740c01d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/549740c01d) - Exported the validator errors map
   Convert nodes that are after an invalid length to be unsupported
 - Updated dependencies
 
@@ -2852,7 +2868,7 @@
 
 ### Minor Changes
 
-- [`64281cda86`](https://bitbucket.org/atlassian/atlassian-frontend/commits/64281cda86) - ED-11151: Improve TTI measurements
+- [#7170](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/7170) [`64281cda86`](https://bitbucket.org/atlassian/atlassian-frontend/commits/64281cda86) - ED-11151: Improve TTI measurements
 - [`38e24bcc76`](https://bitbucket.org/atlassian/atlassian-frontend/commits/38e24bcc76) - ED-10832 Track unsupportedNode Attribute with null value explicitly
 
 ### Patch Changes
@@ -2864,7 +2880,7 @@
 
 ### Major Changes
 
-- [`0923d917ef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0923d917ef) - `MediaSingle` prop 'blockLink' is removed and `width` becomes optional.
+- [#6930](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/6930) [`0923d917ef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0923d917ef) - `MediaSingle` prop 'blockLink' is removed and `width` becomes optional.
   `MediaSingleDimensionHelper` prop `ratio` is removed.
 
 ### Patch Changes
@@ -2876,7 +2892,7 @@
 
 ### Major Changes
 
-- [`da77198e43`](https://bitbucket.org/atlassian/atlassian-frontend/commits/da77198e43) - Rename title:changed to metadata:changed in collab provider, editor common and mobile bridge
+- [#6571](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/6571) [`da77198e43`](https://bitbucket.org/atlassian/atlassian-frontend/commits/da77198e43) - Rename title:changed to metadata:changed in collab provider, editor common and mobile bridge
 - [`cc9f374276`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cc9f374276) - Remove unsupported API for includeGroups/includeTeams for Users in extension config, and stop setState after unmount
 
 ### Minor Changes
@@ -2894,14 +2910,14 @@
 
 ### Patch Changes
 
-- [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
+- [#5857](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5857) [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
 - Updated dependencies
 
 ## 53.0.0
 
 ### Major Changes
 
-- [`9f81260dd5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9f81260dd5) - ED-10683 Serialize number fields to Number instead of String
+- [#6228](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/6228) [`9f81260dd5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9f81260dd5) - ED-10683 Serialize number fields to Number instead of String
 - [`835810cac7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/835810cac7) - ED-10646 prevent nested Fieldset definitions
 
 ### Minor Changes
@@ -2927,7 +2943,7 @@
 
 ### Major Changes
 
-- [`ff39f9f643`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ff39f9f643) - ED-10614 Add match indexing (Confluence API) for annotation creation for the renderer
+- [#5860](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5860) [`ff39f9f643`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ff39f9f643) - ED-10614 Add match indexing (Confluence API) for annotation creation for the renderer
 
   BEFORE
 
@@ -2971,7 +2987,7 @@
 
 ### Minor Changes
 
-- [`848f187b49`](https://bitbucket.org/atlassian/atlassian-frontend/commits/848f187b49) - Extend CardProvider interface with findPattern
+- [#5516](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5516) [`848f187b49`](https://bitbucket.org/atlassian/atlassian-frontend/commits/848f187b49) - Extend CardProvider interface with findPattern
 - [`0bbaa4a976`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0bbaa4a976) - ED-10553 added an option to enable analytics for synchrony entity
 
 ### Patch Changes
@@ -2998,19 +3014,19 @@
 
 ### Patch Changes
 
-- [`679a66bd92`](https://bitbucket.org/atlassian/atlassian-frontend/commits/679a66bd92) - Fix for renderer SSR inline script when server side bundle is minimized
+- [#5821](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5821) [`679a66bd92`](https://bitbucket.org/atlassian/atlassian-frontend/commits/679a66bd92) - Fix for renderer SSR inline script when server side bundle is minimized
 
 ## 51.1.2
 
 ### Patch Changes
 
-- [`ac54a7870c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ac54a7870c) - Remove extraneous dependencies rule suppression
+- [#5725](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5725) [`ac54a7870c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ac54a7870c) - Remove extraneous dependencies rule suppression
 
 ## 51.1.1
 
 ### Patch Changes
 
-- [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
+- [#5497](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5497) [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
   This requires version 3.8 of Typescript, read more about how we handle Typescript versions here: https://atlaskit.atlassian.com/get-started
   Also add `typescript` to `devDependencies` to denote version that the package was built with.
 - Updated dependencies
@@ -3019,7 +3035,7 @@
 
 ### Minor Changes
 
-- [`1c6b85ea41`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1c6b85ea41) - Export OverflowShadowState and ExpandStyleProps types to prevent deep import path references in dependent TS declaration files
+- [#5344](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5344) [`1c6b85ea41`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1c6b85ea41) - Export OverflowShadowState and ExpandStyleProps types to prevent deep import path references in dependent TS declaration files
 - [`825273198f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/825273198f) - Migrate to declarative entry points
 
 ### Patch Changes
@@ -3030,7 +3046,7 @@
 
 ### Major Changes
 
-- [`8830f4d771`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8830f4d771) - ED-10170 Remove style constants from @atlaskit/editor-common - import these from @atlaskit/editor-shared-styles instead
+- [#4749](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4749) [`8830f4d771`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8830f4d771) - ED-10170 Remove style constants from @atlaskit/editor-common - import these from @atlaskit/editor-shared-styles instead
 - [`225c901919`](https://bitbucket.org/atlassian/atlassian-frontend/commits/225c901919) - ED-10351 add API to delete the annotation
 - [`8de373491a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8de373491a) - Strengthen the Typescript rules for Enum fields per design guidelines
 
@@ -3076,7 +3092,7 @@
 
 ### Major Changes
 
-- [`78de49291b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/78de49291b) - [TWISTA-130] Changes on Annotation types
+- [#4424](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4424) [`78de49291b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/78de49291b) - [TWISTA-130] Changes on Annotation types
 
   # WHAT
 
@@ -3141,7 +3157,7 @@
 
 ### Patch Changes
 
-- [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
+- [#3885](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3885) [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
 
   Since tslib is a dependency for all our packages we recommend that products also follow this tslib upgrade
   to prevent duplicates of tslib being bundled.
@@ -3150,13 +3166,13 @@
 
 ### Patch Changes
 
-- [`76165ad82f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/76165ad82f) - Bump required because of conflicts on wadmal release
+- [#4393](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4393) [`76165ad82f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/76165ad82f) - Bump required because of conflicts on wadmal release
 
 ## 49.0.0
 
 ### Major Changes
 
-- [`6faafb144c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6faafb144c) - Introduce MediaFeatureFlags. Refactor components to use.
+- [#3823](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3823) [`6faafb144c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6faafb144c) - Introduce MediaFeatureFlags. Refactor components to use.
 
 ### Minor Changes
 
@@ -3178,7 +3194,7 @@
 
 ### Major Changes
 
-- [`faf010cbc3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/faf010cbc3) - ED-9212: Add support for extension auto convert
+- [#3428](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3428) [`faf010cbc3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/faf010cbc3) - ED-9212: Add support for extension auto convert
 
   ## Breaking changes:
 
@@ -3225,7 +3241,7 @@
 
 ### Major Changes
 
-- [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
+- [#3335](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3335) [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
   For more information see: https://community.developer.atlassian.com/t/atlaskit-to-drop-support-for-internet-explorer-11-from-1st-july-2020/39534
 
 ### Patch Changes
@@ -3236,13 +3252,13 @@
 
 ### Patch Changes
 
-- [`050c9121ab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/050c9121ab) - CEMS-1106: show sticky headers in editor when in expand
+- [#3281](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3281) [`050c9121ab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/050c9121ab) - CEMS-1106: show sticky headers in editor when in expand
 
 ## 46.1.0
 
 ### Minor Changes
 
-- [`64d75b8f7e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/64d75b8f7e) - Call getFieldsDefinition with extension parameters
+- [#2763](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2763) [`64d75b8f7e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/64d75b8f7e) - Call getFieldsDefinition with extension parameters
 - [`a4948958c4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a4948958c4) - [FM-3820] Implements to set annotation state event on Renderer
 - [`ea81ff42a0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ea81ff42a0) - [FM-3819] Implements a subscriber API to allows set focus in an specific annotation
 
@@ -3258,7 +3274,7 @@
 
 ### Major Changes
 
-- [`0ae829a4ea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0ae829a4ea) - EDM-648: Adds resizing and alignment to embed cards
+- [#2443](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2443) [`0ae829a4ea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0ae829a4ea) - EDM-648: Adds resizing and alignment to embed cards
 
 ### Minor Changes
 
@@ -3290,7 +3306,7 @@
 
 ### Minor Changes
 
-- [`50c333ab3a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/50c333ab3a) - EDM-216: Adds EmbedCards in the Editor under the flag - allowEmbeds in the UNSAFE_cards prop
+- [#2137](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2137) [`50c333ab3a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/50c333ab3a) - EDM-216: Adds EmbedCards in the Editor under the flag - allowEmbeds in the UNSAFE_cards prop
 
 ### Patch Changes
 
@@ -3323,7 +3339,7 @@
 
 ### Minor Changes
 
-- [`dd84377963`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dd84377963) - ED-9038 ED-9040 Export class names to use for targetting mention and emoji nodes- [`e97f14eade`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e97f14eade) - ED-9155: Rename prop `extensionParams` to `node` in the extensions api v2- [`d16adc8554`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d16adc8554) - ED-8988 Export more selection style variables- [`c8e601e6fc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c8e601e6fc) - ED-8814 Add selection to panel- [`8bc9f3e9af`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8bc9f3e9af) - ED-8942: Changed default font size for full width editor and renderer
+- [`dd84377963`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dd84377963) - ED-9038 ED-9040 Export class names to use for targetting mention and emoji nodes- [`e97f14eade`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e97f14eade) - ED-9155: Rename prop `extensionParams` to `node` in the extensions api v2- [`d16adc8554`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d16adc8554) - ED-8988 Export more selection style variables- [`c8e601e6fc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c8e601e6fc) - ED-8814 Add selection to panel- [#1868](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/1868) [`8bc9f3e9af`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8bc9f3e9af) - ED-8942: Changed default font size for full width editor and renderer
 
   - Previously default font size for full page editor was 14px. Now, when `allowDynamicTextSizing` is disabled it equals to 16px.
   - Font size in table was 14px, ignoring dynamic text sizing font size, after this change it follows the same rules as the rest of the editor, namely it will get updated font size.- [`403377ca1a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/403377ca1a) - ED-8997: Implements creating marks on basic text selections

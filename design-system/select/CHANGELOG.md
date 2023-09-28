@@ -4,74 +4,74 @@
 
 ### Minor Changes
 
-- [`31496cc7c8a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/31496cc7c8a) - [ux] Adds accessible name to the search input for popup select components via new `label` prop or `placeholder` prop if `label` is not provided.
+- [#40209](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40209) [`31496cc7c8a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/31496cc7c8a) - [ux] Adds accessible name to the search input for popup select components via new `label` prop or `placeholder` prop if `label` is not provided.
 
 ## 16.6.0
 
 ### Minor Changes
 
-- [`f03e630c03e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f03e630c03e) - [ux] Adds keydown handler to target spread props for better accessibility for keyboard users.
+- [#40039](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40039) [`f03e630c03e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f03e630c03e) - [ux] Adds keydown handler to target spread props for better accessibility for keyboard users.
 
 ## 16.5.14
 
 ### Patch Changes
 
-- [`aee1bdd977d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aee1bdd977d) - Update select checkbox and radio icon to have 1px border under FF
+- [#40096](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40096) [`aee1bdd977d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aee1bdd977d) - Update select checkbox and radio icon to have 1px border under FF
 
 ## 16.5.13
 
 ### Patch Changes
 
-- [`a22d71ff733`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a22d71ff733) - [ux] Select component now respects explicitly passed value set to aria-describedby attribute.
+- [#39015](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39015) [`a22d71ff733`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a22d71ff733) - [ux] Select component now respects explicitly passed value set to aria-describedby attribute.
 
 ## 16.5.12
 
 ### Patch Changes
 
-- [`872a49e0bd8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/872a49e0bd8) - Fixed color contrast for grouped text label in the Select component
+- [#38708](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38708) [`872a49e0bd8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/872a49e0bd8) - Fixed color contrast for grouped text label in the Select component
 
 ## 16.5.11
 
 ### Patch Changes
 
-- [`479e6a92e33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/479e6a92e33) - Move css styles out to top-level scope for more consistency.
+- [#38796](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38796) [`479e6a92e33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/479e6a92e33) - Move css styles out to top-level scope for more consistency.
 
 ## 16.5.10
 
 ### Patch Changes
 
-- [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
+- [#38162](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38162) [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
 - Updated dependencies
 
 ## 16.5.9
 
 ### Patch Changes
 
-- [`2c77d477cbb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2c77d477cbb) - Ensures static linting occurs in the techstack, fixes one example's eslint error.
+- [#38520](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38520) [`2c77d477cbb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2c77d477cbb) - Ensures static linting occurs in the techstack, fixes one example's eslint error.
 
 ## 16.5.8
 
 ### Patch Changes
 
-- [`5c22f7ade33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5c22f7ade33) - Convert CSS tagged templates to explicit function calls with objects.
+- [#38518](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38518) [`5c22f7ade33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5c22f7ade33) - Convert CSS tagged templates to explicit function calls with objects.
 
 ## 16.5.7
 
 ### Patch Changes
 
-- [`919bf219a91`](https://bitbucket.org/atlassian/atlassian-frontend/commits/919bf219a91) - use border token for border width
+- [#36663](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36663) [`919bf219a91`](https://bitbucket.org/atlassian/atlassian-frontend/commits/919bf219a91) - use border token for border width
 
 ## 16.5.6
 
 ### Patch Changes
 
-- [`599bfe90ee3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/599bfe90ee3) - Internal change to use shape tokens. There is no expected visual change.
+- [#35441](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35441) [`599bfe90ee3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/599bfe90ee3) - Internal change to use shape tokens. There is no expected visual change.
 
 ## 16.5.5
 
 ### Patch Changes
 
-- [`96ac277d0d7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/96ac277d0d7) - [ux] - created custom onFocus function, which overwrites built in onFocus method for ariaLiveMessages;
+- [#35267](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35267) [`96ac277d0d7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/96ac277d0d7) - [ux] - created custom onFocus function, which overwrites built in onFocus method for ariaLiveMessages;
 
   - function is conditionally invoked only for grouped select options to enable group label announcement with it's group options;
 
@@ -79,73 +79,73 @@
 
 ### Patch Changes
 
-- [`8f436f0c301`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f436f0c301) - extend border contrast feature flag to support confluence
+- [#35111](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35111) [`8f436f0c301`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f436f0c301) - extend border contrast feature flag to support confluence
 
 ## 16.5.3
 
 ### Patch Changes
 
-- [`774ed69ecef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/774ed69ecef) - Internal changes to use space tokens for spacing values. There is no visual change.
+- [#34881](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34881) [`774ed69ecef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/774ed69ecef) - Internal changes to use space tokens for spacing values. There is no visual change.
 
 ## 16.5.2
 
 ### Patch Changes
 
-- [`449ab6d341b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/449ab6d341b) - Clear control keyboard access for Select component
+- [#33774](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33774) [`449ab6d341b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/449ab6d341b) - Clear control keyboard access for Select component
 
 ## 16.5.1
 
 ### Patch Changes
 
-- [`e7ea6832ad2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e7ea6832ad2) - Bans the use of React.FC/React.FunctionComponent type in ADS components as part of the React 18 migration work. The change is internal only and should not introduce any changes for the component consumers.
+- [#33652](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33652) [`e7ea6832ad2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e7ea6832ad2) - Bans the use of React.FC/React.FunctionComponent type in ADS components as part of the React 18 migration work. The change is internal only and should not introduce any changes for the component consumers.
 
 ## 16.5.0
 
 ### Minor Changes
 
-- [`3c38b01cfd9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3c38b01cfd9) - Added screen reader text to announce multi selects support multiple options. This will be announced prior to any placeholder text.
+- [#34303](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34303) [`3c38b01cfd9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3c38b01cfd9) - Added screen reader text to announce multi selects support multiple options. This will be announced prior to any placeholder text.
 
 ## 16.4.0
 
 ### Minor Changes
 
-- [`45bcfb68efb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/45bcfb68efb) - Testing behind a feature flag: reduce re-renders in `<PopupSelect>` by using an available renderProps to both disable and block scrolling at the right time as well as avoid rendering the `<Select>` to a portal not visible to the user.
+- [#34251](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34251) [`45bcfb68efb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/45bcfb68efb) - Testing behind a feature flag: reduce re-renders in `<PopupSelect>` by using an available renderProps to both disable and block scrolling at the right time as well as avoid rendering the `<Select>` to a portal not visible to the user.
 
 ## 16.3.1
 
 ### Patch Changes
 
-- [`1cd0d824b3c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1cd0d824b3c) - NO-ISSUE Add basic memoization on CheckboxSelect and RadioSelect to avoid unnecessary re-renders with otherwise static references.
+- [#34230](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34230) [`1cd0d824b3c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1cd0d824b3c) - NO-ISSUE Add basic memoization on CheckboxSelect and RadioSelect to avoid unnecessary re-renders with otherwise static references.
 
 ## 16.3.0
 
 ### Minor Changes
 
-- [`6e51e0d5358`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6e51e0d5358) - [ux] update border width from 2px to 1px and add 1px box-shadow when focus or error
+- [#33475](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33475) [`6e51e0d5358`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6e51e0d5358) - [ux] update border width from 2px to 1px and add 1px box-shadow when focus or error
 
 ## 16.2.3
 
 ### Patch Changes
 
-- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793) [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
 
 ## 16.2.2
 
 ### Patch Changes
 
-- [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649) [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
 
 ## 16.2.1
 
 ### Patch Changes
 
-- [`ffeeae59446`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ffeeae59446) - Migrates unit tests from enzyme to RTL.
+- [#32947](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32947) [`ffeeae59446`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ffeeae59446) - Migrates unit tests from enzyme to RTL.
 
 ## 16.2.0
 
 ### Minor Changes
 
-- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258) [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
 
 ### Patch Changes
 
@@ -155,31 +155,31 @@
 
 ### Patch Changes
 
-- [`79ddcb13067`](https://bitbucket.org/atlassian/atlassian-frontend/commits/79ddcb13067) - [ux] style(select): update fallback of select placeholder to N200'
+- [#33004](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33004) [`79ddcb13067`](https://bitbucket.org/atlassian/atlassian-frontend/commits/79ddcb13067) - [ux] style(select): update fallback of select placeholder to N200'
 
 ## 16.1.8
 
 ### Patch Changes
 
-- [`8a8aac2b848`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8a8aac2b848) - [ux] Adds proper disabled styling to the isMulti component.
+- [#31299](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31299) [`8a8aac2b848`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8a8aac2b848) - [ux] Adds proper disabled styling to the isMulti component.
 
 ## 16.1.7
 
 ### Patch Changes
 
-- [`c3a92e0b058`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c3a92e0b058) - Export placeholder props from figma plugin
+- [#31495](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31495) [`c3a92e0b058`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c3a92e0b058) - Export placeholder props from figma plugin
 
 ## 16.1.6
 
 ### Patch Changes
 
-- [`74c1b81a476`](https://bitbucket.org/atlassian/atlassian-frontend/commits/74c1b81a476) - Replaces use of `gridSize` with space tokens. There is no expected visual change.
+- [#31338](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31338) [`74c1b81a476`](https://bitbucket.org/atlassian/atlassian-frontend/commits/74c1b81a476) - Replaces use of `gridSize` with space tokens. There is no expected visual change.
 
 ## 16.1.5
 
 ### Patch Changes
 
-- [`7f5f23dcb68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7f5f23dcb68) - Introduce shape tokens to some packages.
+- [#30125](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/30125) [`7f5f23dcb68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7f5f23dcb68) - Introduce shape tokens to some packages.
 
 ## 16.1.4
 
@@ -191,26 +191,26 @@
 
 ### Patch Changes
 
-- [`22b754d311f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/22b754d311f) - Updates usage of removed design token `utilities.UNSAFE_util.transparent` in favour of its replacement `utilities.UNSAFE.transparent`
+- [#27634](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/27634) [`22b754d311f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/22b754d311f) - Updates usage of removed design token `utilities.UNSAFE_util.transparent` in favour of its replacement `utilities.UNSAFE.transparent`
 - Updated dependencies
 
 ## 16.1.2
 
 ### Patch Changes
 
-- [`18aeca8c199`](https://bitbucket.org/atlassian/atlassian-frontend/commits/18aeca8c199) - Internal change to update token references. There is no expected behaviour or visual change.
+- [#29390](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/29390) [`18aeca8c199`](https://bitbucket.org/atlassian/atlassian-frontend/commits/18aeca8c199) - Internal change to update token references. There is no expected behaviour or visual change.
 
 ## 16.1.1
 
 ### Patch Changes
 
-- [`81bb765f055`](https://bitbucket.org/atlassian/atlassian-frontend/commits/81bb765f055) - Missing export for type MultiValueRemoveProps added
+- [#29396](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/29396) [`81bb765f055`](https://bitbucket.org/atlassian/atlassian-frontend/commits/81bb765f055) - Missing export for type MultiValueRemoveProps added
 
 ## 16.1.0
 
 ### Minor Changes
 
-- [`017e3dccdf3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/017e3dccdf3) - Add SelectInstance for export
+- [#28090](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28090) [`017e3dccdf3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/017e3dccdf3) - Add SelectInstance for export
 - [`2368982b4d2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2368982b4d2) - Add MultiValueRemoveProps, SelectInstance to export
 
 ### Patch Changes
@@ -233,7 +233,7 @@
 
 ### Patch Changes
 
-- [`e7046ed0fb1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e7046ed0fb1) - - Add MultiValueRemoveProps to export
+- [#27813](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/27813) [`e7046ed0fb1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e7046ed0fb1) - - Add MultiValueRemoveProps to export
   - Add SelectInstance for export
   - Revert the onOpen and onClose logic in PopupSelect
 
@@ -241,7 +241,7 @@
 
 ### Major Changes
 
-- [`95b3630e9b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/95b3630e9b5) - Update `@atlaskit/select` to use react-select v5, and update types
+- [#26712](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26712) [`95b3630e9b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/95b3630e9b5) - Update `@atlaskit/select` to use react-select v5, and update types
 
   Use forwardRef for all wrapped components - this means that if you were accessing anything on the Select instance using a ref, the ref will now reference the internal Select directly (see below for how to upgrade)
 
@@ -340,7 +340,7 @@
 
 ### Patch Changes
 
-- [`8048ae661df`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8048ae661df) - [ux] Fixed bug where consumers extending the styles of PopupSelect would not receive the correct base styles in their custom styles functions.
+- [#27523](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/27523) [`8048ae661df`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8048ae661df) - [ux] Fixed bug where consumers extending the styles of PopupSelect would not receive the correct base styles in their custom styles functions.
 
 ## 15.7.6
 
@@ -352,38 +352,38 @@
 
 ### Patch Changes
 
-- [`a0bf7e532ff`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a0bf7e532ff) - Fix validationState taking precedent over isInvalid
+- [#25860](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/25860) [`a0bf7e532ff`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a0bf7e532ff) - Fix validationState taking precedent over isInvalid
 - Updated dependencies
 
 ## 15.7.4
 
 ### Patch Changes
 
-- [`9827dcb82b8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9827dcb82b8) - No-op change to introduce spacing tokens to design system components.
+- [#26303](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26303) [`9827dcb82b8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9827dcb82b8) - No-op change to introduce spacing tokens to design system components.
 
 ## 15.7.3
 
 ### Patch Changes
 
-- [`5e578b89178`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5e578b89178) - Fixed an issue in PopupSelect that caused the page to scroll to the top.
+- [#25307](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/25307) [`5e578b89178`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5e578b89178) - Fixed an issue in PopupSelect that caused the page to scroll to the top.
 
 ## 15.7.2
 
 ### Patch Changes
 
-- [`bedbdec0e82`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bedbdec0e82) - Update hover state appearance of subtle Textarea, Textfield and Select components to match the hover states of their default counterparts.
+- [#25314](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/25314) [`bedbdec0e82`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bedbdec0e82) - Update hover state appearance of subtle Textarea, Textfield and Select components to match the hover states of their default counterparts.
 
 ## 15.7.1
 
 ### Patch Changes
 
-- [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
+- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874) [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
 
 ## 15.7.0
 
 ### Minor Changes
 
-- [`0fbb2840aba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0fbb2840aba) - Add isInvalid prop to `@atlastkit/Select`. The prop indicates whether if the component is in the error state. If true, it visually shows a red border around the input.
+- [#24004](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24004) [`0fbb2840aba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0fbb2840aba) - Add isInvalid prop to `@atlastkit/Select`. The prop indicates whether if the component is in the error state. If true, it visually shows a red border around the input.
 
   This replaces validationState to make Select more consistent like other components that uses isInvalid prop.
 
@@ -401,25 +401,25 @@
 
 ### Patch Changes
 
-- [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
+- [#24492](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24492) [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
 
 ## 15.6.1
 
 ### Patch Changes
 
-- [`d9f112c7b09`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d9f112c7b09) - Reverts change to multiSelect's remove behaviour when using tokens, fixing issue with a pointer-events: none style
+- [#24436](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24436) [`d9f112c7b09`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d9f112c7b09) - Reverts change to multiSelect's remove behaviour when using tokens, fixing issue with a pointer-events: none style
 
 ## 15.6.0
 
 ### Minor Changes
 
-- [`68cc8008851`](https://bitbucket.org/atlassian/atlassian-frontend/commits/68cc8008851) - [ux] Introduces appearance prop to component, with 'default', 'subtle' and 'none' variants
+- [#24008](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24008) [`68cc8008851`](https://bitbucket.org/atlassian/atlassian-frontend/commits/68cc8008851) - [ux] Introduces appearance prop to component, with 'default', 'subtle' and 'none' variants
 
 ## 15.5.0
 
 ### Minor Changes
 
-- [`c17c6943be2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c17c6943be2) - Updated appearance of multi-select tags; when delete button is hovered, the appearance now matches @atlaskit/tag. The change is only visible with design token CSS enabled (in light or dark mode)
+- [#23381](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23381) [`c17c6943be2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c17c6943be2) - Updated appearance of multi-select tags; when delete button is hovered, the appearance now matches @atlaskit/tag. The change is only visible with design token CSS enabled (in light or dark mode)
 - [`45cae79ec0f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/45cae79ec0f) - [ux] Internal changes to <CountrySelect /> to no longer override container and menu width. The behaviour is now the same as the default Select component. Visual changes are possible if the <CountrySelect /> is being used in an unconstrained container (it will now expand to fill as is the default).
 
   Component now also uses the correct types (previously set to `any`). Props are still passed through so there is no runtime effect, but this may effect compilation for users providing props that are unsupported by the runtime.
@@ -436,26 +436,26 @@
 
 ### Minor Changes
 
-- [`4609a8a733a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4609a8a733a) - Made SelectWithoutAnalytics component and InputActionMeta type available from @atlaskit/select
+- [#22818](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22818) [`4609a8a733a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4609a8a733a) - Made SelectWithoutAnalytics component and InputActionMeta type available from @atlaskit/select
 
 ## 15.3.2
 
 ### Patch Changes
 
-- [`8a5bdb3c844`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8a5bdb3c844) - Upgrading internal dependency (bind-event-listener) for improved internal types
+- [#22614](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22614) [`8a5bdb3c844`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8a5bdb3c844) - Upgrading internal dependency (bind-event-listener) for improved internal types
 
 ## 15.3.1
 
 ### Patch Changes
 
-- [`8f6f225ac11`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f6f225ac11) - Updated prop types for Popup Select
+- [#22029](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22029) [`8f6f225ac11`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f6f225ac11) - Updated prop types for Popup Select
 - [`e4b612d1c48`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e4b612d1c48) - Internal migration to bind-event-listener for safer DOM Event cleanup
 
 ## 15.3.0
 
 ### Minor Changes
 
-- [`145c9cea461`](https://bitbucket.org/atlassian/atlassian-frontend/commits/145c9cea461) - [ux] Added 2 new props for controlling the open state of PopupSelect:
+- [#21570](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21570) [`145c9cea461`](https://bitbucket.org/atlassian/atlassian-frontend/commits/145c9cea461) - [ux] Added 2 new props for controlling the open state of PopupSelect:
 
   - `isOpen` controls whether the popup is open (controlled)
   - `defaultIsOpen` controls whether the popup is initially open on mount (uncontrolled)
@@ -476,7 +476,7 @@
 
 ### Patch Changes
 
-- [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
+- [#20650](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20650) [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
 - [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Updated types for @atlaskit/select to support Typescript 4.2.4
 
 ## 15.2.11
@@ -489,7 +489,7 @@
 
 ### Patch Changes
 
-- [`62edf20ab1e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/62edf20ab1e) - Migrates all usage of brand tokens to either selected or information tokens. This change is purely for semantic reasons, there are no visual or behavioural changes.
+- [#19618](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19618) [`62edf20ab1e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/62edf20ab1e) - Migrates all usage of brand tokens to either selected or information tokens. This change is purely for semantic reasons, there are no visual or behavioural changes.
 - Updated dependencies
 
 ## 15.2.9
@@ -502,7 +502,7 @@
 
 ### Patch Changes
 
-- [`b2c25c19e38`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b2c25c19e38) - PopupSelect now uses `@atlaskit/visually-hidden` under the hood.
+- [#16752](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16752) [`b2c25c19e38`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b2c25c19e38) - PopupSelect now uses `@atlaskit/visually-hidden` under the hood.
 - Updated dependencies
 
 ## 15.2.7
@@ -524,27 +524,27 @@
 
 ### Patch Changes
 
-- [`f460cc7c411`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f460cc7c411) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving bundle size.
+- [#15998](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/15998) [`f460cc7c411`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f460cc7c411) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving bundle size.
 - Updated dependencies
 
 ## 15.2.4
 
 ### Patch Changes
 
-- [`401179b652b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/401179b652b) - PopupSelect now returns focus to the "trigger" element on close.
+- [#14777](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/14777) [`401179b652b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/401179b652b) - PopupSelect now returns focus to the "trigger" element on close.
 - Updated dependencies
 
 ## 15.2.3
 
 ### Patch Changes
 
-- [`b85e7ce12cd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b85e7ce12cd) - Internal upgrade of memoize-one to 6.0.0
+- [#15694](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/15694) [`b85e7ce12cd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b85e7ce12cd) - Internal upgrade of memoize-one to 6.0.0
 
 ## 15.2.2
 
 ### Patch Changes
 
-- [`6fb4421c4c1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6fb4421c4c1) - Fixed the validation token for Select in the Dark theme.
+- [#14319](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/14319) [`6fb4421c4c1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6fb4421c4c1) - Fixed the validation token for Select in the Dark theme.
 - Updated dependencies
 
 ## 15.2.1
@@ -557,7 +557,7 @@
 
 ### Minor Changes
 
-- [`f7cbc6631cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f7cbc6631cf) - Instrumented select with the new theming package, `@atlaskit/tokens`.
+- [#13864](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13864) [`f7cbc6631cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f7cbc6631cf) - Instrumented select with the new theming package, `@atlaskit/tokens`.
 
   New tokens will be visible only in applications configured to use the new Tokens API (currently in alpha).
 
@@ -572,26 +572,26 @@
 
 ### Minor Changes
 
-- [`1dfc276fa55`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1dfc276fa55) - Expose InputActionMeta in atlaskit/select. Convert withSmarts from class to function component. Fix analytics.
+- [#13477](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13477) [`1dfc276fa55`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1dfc276fa55) - Expose InputActionMeta in atlaskit/select. Convert withSmarts from class to function component. Fix analytics.
 
 ## 15.0.2
 
 ### Patch Changes
 
-- [`ce350569ced`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ce350569ced) - The `aria-live` prop is now `assertive` by default to help option selection to stay in sync with screen reader announcements.
+- [#12837](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12837) [`ce350569ced`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ce350569ced) - The `aria-live` prop is now `assertive` by default to help option selection to stay in sync with screen reader announcements.
 - Updated dependencies
 
 ## 15.0.1
 
 ### Patch Changes
 
-- [`378d1cef00f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/378d1cef00f) - Bump `@atlaskit/theme` to version `^11.3.0`.
+- [#12880](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12880) [`378d1cef00f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/378d1cef00f) - Bump `@atlaskit/theme` to version `^11.3.0`.
 
 ## 15.0.0
 
 ### Major Changes
 
-- [`8c9055949d4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8c9055949d4) - [ux] Options and Placeholders are now easier to see for users with low vision. We have also improved the experience in Windows High Contrast Mode.
+- [#12328](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12328) [`8c9055949d4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8c9055949d4) - [ux] Options and Placeholders are now easier to see for users with low vision. We have also improved the experience in Windows High Contrast Mode.
 
 ### Patch Changes
 
@@ -602,7 +602,7 @@
 
 ### Minor Changes
 
-- [`1ffa16e7d54`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1ffa16e7d54) - [ux] An argument of `PopupSelect`'s `target` render props was extended with `aria-haspopup`, `aria-expanded`, and `aria-controls` fields . You should pass this fields to custom trigger like `({isOpen, ...triggerProps}) => <button {...triggerProps}>Trigger</button>`. Provided aria attributes help users who use assistive technologies understand a component better.
+- [#11649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/11649) [`1ffa16e7d54`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1ffa16e7d54) - [ux] An argument of `PopupSelect`'s `target` render props was extended with `aria-haspopup`, `aria-expanded`, and `aria-controls` fields . You should pass this fields to custom trigger like `({isOpen, ...triggerProps}) => <button {...triggerProps}>Trigger</button>`. Provided aria attributes help users who use assistive technologies understand a component better.
 
 ### Patch Changes
 
@@ -612,13 +612,13 @@
 
 ### Patch Changes
 
-- [`76f16d562bc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/76f16d562bc) - Removed styled-components as a peerDependency
+- [#12205](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12205) [`76f16d562bc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/76f16d562bc) - Removed styled-components as a peerDependency
 
 ## 14.0.0
 
 ### Major Changes
 
-- [`1f493e1dc65`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1f493e1dc65) - Bump `react-select` to v4. This brings some API changes and it uses `emotion` v11.
+- [#11113](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/11113) [`1f493e1dc65`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1f493e1dc65) - Bump `react-select` to v4. This brings some API changes and it uses `emotion` v11.
 
 ### Patch Changes
 
@@ -629,20 +629,20 @@
 
 ### Patch Changes
 
-- [`0e3333cd10a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0e3333cd10a) - Corrects usage of modal dialog types.
+- [#10230](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10230) [`0e3333cd10a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0e3333cd10a) - Corrects usage of modal dialog types.
 - Updated dependencies
 
 ## 13.3.0
 
 ### Minor Changes
 
-- [`0115b3b722b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0115b3b722b) - Update PopupSelect dependency `@popperjs/core` to `^2.9.1`, fixing some positioning bugs, such as in parents with `will-change` CSS properties set. For more information on the specific changes, see the popper docs.
+- [#8388](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8388) [`0115b3b722b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0115b3b722b) - Update PopupSelect dependency `@popperjs/core` to `^2.9.1`, fixing some positioning bugs, such as in parents with `will-change` CSS properties set. For more information on the specific changes, see the popper docs.
 
 ## 13.2.0
 
 ### Minor Changes
 
-- [`c50a63f9f72`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c50a63f9f72) - Upgrade `@types/react-select` to `v3.1.2` and fix type breaks
+- [#8644](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8644) [`c50a63f9f72`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c50a63f9f72) - Upgrade `@types/react-select` to `v3.1.2` and fix type breaks
 
 ### Patch Changes
 
@@ -653,19 +653,19 @@
 
 ### Patch Changes
 
-- [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
+- [#5857](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5857) [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
 
 ## 13.1.0
 
 ### Minor Changes
 
-- [`c3d2088249`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c3d2088249) - expose GroupedOptionsType type
+- [#6228](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/6228) [`c3d2088249`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c3d2088249) - expose GroupedOptionsType type
 
 ## 13.0.6
 
 ### Patch Changes
 
-- [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
+- [#5497](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5497) [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
   This requires version 3.8 of Typescript, read more about how we handle Typescript versions here: https://atlaskit.atlassian.com/get-started
   Also add `typescript` to `devDependencies` to denote version that the package was built with.
 
@@ -679,19 +679,19 @@
 
 ### Patch Changes
 
-- [`fc8f6e61f3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fc8f6e61f3) - Fix codemod utilities being exposed through the codemod cli
+- [#4346](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4346) [`fc8f6e61f3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fc8f6e61f3) - Fix codemod utilities being exposed through the codemod cli
 
 ## 13.0.3
 
 ### Patch Changes
 
-- [`6360c46009`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6360c46009) - Reenable integration tests for Edge browser
+- [#4707](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4707) [`6360c46009`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6360c46009) - Reenable integration tests for Edge browser
 
 ## 13.0.2
 
 ### Patch Changes
 
-- [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
+- [#3885](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3885) [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
 
   Since tslib is a dependency for all our packages we recommend that products also follow this tslib upgrade
   to prevent duplicates of tslib being bundled.
@@ -700,13 +700,13 @@
 
 ### Patch Changes
 
-- [`76165ad82f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/76165ad82f) - Bump required because of conflicts on wadmal release
+- [#4393](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4393) [`76165ad82f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/76165ad82f) - Bump required because of conflicts on wadmal release
 
 ## 13.0.0
 
 ### Major Changes
 
-- [`b85482c030`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b85482c030) - Upgraded Popper JS to version 2.2.3, which comes with bug fixes, performance improvements and a reduced bundle size when combined with @popperjs/core. As a result, PopupSelect has some changes to the values accepted by the `popperProps` prop.
+- [#3823](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3823) [`b85482c030`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b85482c030) - Upgraded Popper JS to version 2.2.3, which comes with bug fixes, performance improvements and a reduced bundle size when combined with @popperjs/core. As a result, PopupSelect has some changes to the values accepted by the `popperProps` prop.
 
   Changes labelled with ⚙️ have codemod support:
 
@@ -746,19 +746,19 @@
 
 ### Patch Changes
 
-- [`954cc87b62`](https://bitbucket.org/atlassian/atlassian-frontend/commits/954cc87b62) - The readme and package information has been updated to point to the new design system website.
+- [#3293](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3293) [`954cc87b62`](https://bitbucket.org/atlassian/atlassian-frontend/commits/954cc87b62) - The readme and package information has been updated to point to the new design system website.
 
 ## 12.0.1
 
 ### Patch Changes
 
-- [`5ccf97c849`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5ccf97c849) - Popup Select click and keydown events would not bubble if parent element stopped propagation. Have changed these events to use capture mode instead.
+- [#3428](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3428) [`5ccf97c849`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5ccf97c849) - Popup Select click and keydown events would not bubble if parent element stopped propagation. Have changed these events to use capture mode instead.
 
 ## 12.0.0
 
 ### Major Changes
 
-- [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
+- [#3335](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3335) [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
   For more information see: https://community.developer.atlassian.com/t/atlaskit-to-drop-support-for-internet-explorer-11-from-1st-july-2020/39534
 
 ### Patch Changes
@@ -775,13 +775,13 @@
 
 ### Patch Changes
 
-- [`54a9514fcf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54a9514fcf) - Build and supporting files will no longer be published to npm
+- [#2866](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2866) [`54a9514fcf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54a9514fcf) - Build and supporting files will no longer be published to npm
 
 ## 11.0.12
 
 ### Patch Changes
 
-- [`6aec273747`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6aec273747) - FIX: Dropdown chevron fixed to reflect ADG spec
+- [#2137](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2137) [`6aec273747`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6aec273747) - FIX: Dropdown chevron fixed to reflect ADG spec
 - Updated dependencies
 
 ## 11.0.11

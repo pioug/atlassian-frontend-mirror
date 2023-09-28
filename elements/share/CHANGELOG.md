@@ -4,62 +4,62 @@
 
 ### Patch Changes
 
-- [`6900f89eb0e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6900f89eb0e) - Internal changes to use space tokens. There is no expected visual or behaviour change.
+- [#39787](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39787) [`6900f89eb0e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6900f89eb0e) - Internal changes to use space tokens. There is no expected visual or behaviour change.
 
 ## 4.4.2
 
 ### Patch Changes
 
-- [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
+- [#38162](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38162) [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
 - Updated dependencies
 
 ## 4.4.1
 
 ### Patch Changes
 
-- [`a3b895a070a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a3b895a070a) - Remove unused local storage util functions
+- [#36034](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36034) [`a3b895a070a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a3b895a070a) - Remove unused local storage util functions
 
 ## 4.4.0
 
 ### Minor Changes
 
-- [`b5a13856081`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b5a13856081) - [ux] Better accessibility support and copy for the Share dialog
+- [#35655](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35655) [`b5a13856081`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b5a13856081) - [ux] Better accessibility support and copy for the Share dialog
 
 ## 4.3.1
 
 ### Patch Changes
 
-- [`6febf275a0a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6febf275a0a) - [ux] Rename Roadmap to Timeline in the shared success message for roadmap share content type
+- [#35722](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35722) [`6febf275a0a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6febf275a0a) - [ux] Rename Roadmap to Timeline in the shared success message for roadmap share content type
 
 ## 4.3.0
 
 ### Minor Changes
 
-- [`1b0098b3680`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1b0098b3680) - [ux] Updated the Share dialog to handle errors relating to user, group, or team selection.
+- [#34975](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34975) [`1b0098b3680`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1b0098b3680) - [ux] Updated the Share dialog to handle errors relating to user, group, or team selection.
 
 ## 4.2.3
 
 ### Patch Changes
 
-- [`d6d8c718bd8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6d8c718bd8) - Internal change to enforce token usage for spacing properties. There is no expected visual or behaviour change.
+- [#34518](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34518) [`d6d8c718bd8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6d8c718bd8) - Internal change to enforce token usage for spacing properties. There is no expected visual or behaviour change.
 
 ## 4.2.2
 
 ### Patch Changes
 
-- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793) [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
 
 ## 4.2.1
 
 ### Patch Changes
 
-- [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649) [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
 
 ## 4.2.0
 
 ### Minor Changes
 
-- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258) [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
 
 ### Patch Changes
 
@@ -69,20 +69,20 @@
 
 ### Patch Changes
 
-- [`2e01c9c74b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e01c9c74b5) - DUMMY remove before merging to master; dupe adf-schema via adf-utils
+- [#32424](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32424) [`2e01c9c74b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e01c9c74b5) - DUMMY remove before merging to master; dupe adf-schema via adf-utils
 - Updated dependencies
 
 ## 4.1.0
 
 ### Minor Changes
 
-- [`d18dc3069a2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d18dc3069a2) - Removing the share to slack FF attribute as part of FF clean up
+- [#31395](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31395) [`d18dc3069a2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d18dc3069a2) - Removing the share to slack FF attribute as part of FF clean up
 
 ## 4.0.0
 
 ### Major Changes
 
-- [`95aac8bb852`](https://bitbucket.org/atlassian/atlassian-frontend/commits/95aac8bb852) - Adding originId to shortenRequest; removing query prop from ShortenRequest
+- [#30976](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/30976) [`95aac8bb852`](https://bitbucket.org/atlassian/atlassian-frontend/commits/95aac8bb852) - Adding originId to shortenRequest; removing query prop from ShortenRequest
 
 ## 3.7.4
 
@@ -94,7 +94,7 @@
 
 ### Patch Changes
 
-- [`b7db08a28e7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b7db08a28e7) - Do not render HelperMessage if shareFormHelperMessage prop has empty string
+- [#29833](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/29833) [`b7db08a28e7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b7db08a28e7) - Do not render HelperMessage if shareFormHelperMessage prop has empty string
 
 ## 3.7.2
 
@@ -106,13 +106,13 @@
 
 ### Patch Changes
 
-- [`665bb54f9fd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/665bb54f9fd) - "Passing down existing props to share and integrations package"
+- [#28741](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28741) [`665bb54f9fd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/665bb54f9fd) - "Passing down existing props to share and integrations package"
 
 ## 3.7.0
 
 ### Minor Changes
 
-- [`fb2fac8e456`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fb2fac8e456) - Passing down the shareContentType prop to allow custom feedback messages
+- [#28541](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28541) [`fb2fac8e456`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fb2fac8e456) - Passing down the shareContentType prop to allow custom feedback messages
 
 ## 3.6.1
 
@@ -124,13 +124,13 @@
 
 ### Minor Changes
 
-- [`9bd59066a1c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9bd59066a1c) - [ux] Added prop isBrowseUsersDisabled to handle users without permission to search for users and groups
+- [#27274](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/27274) [`9bd59066a1c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9bd59066a1c) - [ux] Added prop isBrowseUsersDisabled to handle users without permission to search for users and groups
 
 ## 3.5.10
 
 ### Patch Changes
 
-- [`6455cf006b3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6455cf006b3) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving performance.
+- [#28324](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28324) [`6455cf006b3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6455cf006b3) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving performance.
 
 ## 3.5.9
 
@@ -154,14 +154,14 @@
 
 ### Patch Changes
 
-- [`faf391ab64a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/faf391ab64a) - Implementing new CustomOption which will allow for a custom avatar
+- [#26601](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26601) [`faf391ab64a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/faf391ab64a) - Implementing new CustomOption which will allow for a custom avatar
 - Updated dependencies
 
 ## 3.5.5
 
 ### Patch Changes
 
-- [`e4288af2ae8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e4288af2ae8) - Add jsx pragma to fix @emotion/react styles not applying correctly
+- [#25860](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/25860) [`e4288af2ae8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e4288af2ae8) - Add jsx pragma to fix @emotion/react styles not applying correctly
 - [`0915ecdd1db`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0915ecdd1db) - Removed styled components from dev and peer dependencies
 - Updated dependencies
 
@@ -169,7 +169,7 @@
 
 ### Patch Changes
 
-- [`af6e73a1e17`](https://bitbucket.org/atlassian/atlassian-frontend/commits/af6e73a1e17) - Bumping dependencies via Renovate:
+- [#20341](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20341) [`af6e73a1e17`](https://bitbucket.org/atlassian/atlassian-frontend/commits/af6e73a1e17) - Bumping dependencies via Renovate:
 
   - react-loosely-lazy
 
@@ -177,80 +177,80 @@
 
 ### Patch Changes
 
-- [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
+- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874) [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
 
 ## 3.5.2
 
 ### Patch Changes
 
-- [`e9a46954c0f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e9a46954c0f) - added examples of copy link button
+- [#24915](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24915) [`e9a46954c0f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e9a46954c0f) - added examples of copy link button
 
 ## 3.5.1
 
 ### Patch Changes
 
-- [`99ba33da55f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/99ba33da55f) - Removed styled components from tests and examples
+- [#24996](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24996) [`99ba33da55f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/99ba33da55f) - Removed styled components from tests and examples
 
 ## 3.5.0
 
 ### Minor Changes
 
-- [`76c73df383f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/76c73df383f) - Exposed CopyLinkButton from share component and made it generic.
+- [#24236](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24236) [`76c73df383f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/76c73df383f) - Exposed CopyLinkButton from share component and made it generic.
 
 ## 3.4.2
 
 ### Patch Changes
 
-- [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
+- [#24492](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24492) [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
 
 ## 3.4.1
 
 ### Patch Changes
 
-- [`620f202bc02`](https://bitbucket.org/atlassian/atlassian-frontend/commits/620f202bc02) - Prevent event propagation in Share loading state
+- [#23990](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23990) [`620f202bc02`](https://bitbucket.org/atlassian/atlassian-frontend/commits/620f202bc02) - Prevent event propagation in Share loading state
 
 ## 3.4.0
 
 ### Minor Changes
 
-- [`e5aa0ac9b74`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e5aa0ac9b74) - [ux] ED-15329 migrates @atlaskit/share to emotion -- fixes a spacing bug with bottom margin on share button.
+- [#23956](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23956) [`e5aa0ac9b74`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e5aa0ac9b74) - [ux] ED-15329 migrates @atlaskit/share to emotion -- fixes a spacing bug with bottom margin on share button.
 
 ## 3.3.1
 
 ### Patch Changes
 
-- [`575b4888124`](https://bitbucket.org/atlassian/atlassian-frontend/commits/575b4888124) - Removed internal test/demo usages of setSmartUserPickerEnv
+- [#23381](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23381) [`575b4888124`](https://bitbucket.org/atlassian/atlassian-frontend/commits/575b4888124) - Removed internal test/demo usages of setSmartUserPickerEnv
 - Updated dependencies
 
 ## 3.3.0
 
 ### Minor Changes
 
-- [`3f35716fe41`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3f35716fe41) - [ux] changed share dialogue button to 'share' from 'send'
+- [#23804](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23804) [`3f35716fe41`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3f35716fe41) - [ux] changed share dialogue button to 'share' from 'send'
 
 ## 3.2.6
 
 ### Patch Changes
 
-- [`c58555a28e7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c58555a28e7) - Make the share component a functional component to work with storybook
+- [#23238](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23238) [`c58555a28e7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c58555a28e7) - Make the share component a functional component to work with storybook
 
 ## 3.2.5
 
 ### Patch Changes
 
-- [`0a61837e1ff`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0a61837e1ff) - Bump patch version of smart-user-picker to support right context key for org ID
+- [#23098](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23098) [`0a61837e1ff`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0a61837e1ff) - Bump patch version of smart-user-picker to support right context key for org ID
 
 ## 3.2.4
 
 ### Patch Changes
 
-- [`facf0749321`](https://bitbucket.org/atlassian/atlassian-frontend/commits/facf0749321) - improve FE analytics by ignoring 401, 403 and 429 status code
+- [#22148](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22148) [`facf0749321`](https://bitbucket.org/atlassian/atlassian-frontend/commits/facf0749321) - improve FE analytics by ignoring 401, 403 and 429 status code
 
 ## 3.2.3
 
 ### Patch Changes
 
-- [`bde6e3d6be0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bde6e3d6be0) - Added orgId as an optional prop to Share
+- [#22128](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22128) [`bde6e3d6be0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bde6e3d6be0) - Added orgId as an optional prop to Share
 
 ## 3.2.2
 
@@ -262,19 +262,19 @@
 
 ### Patch Changes
 
-- [`f68c0d8a877`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f68c0d8a877) - Stop depending on missing version.json file
+- [#20588](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20588) [`f68c0d8a877`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f68c0d8a877) - Stop depending on missing version.json file
 
 ## 3.2.0
 
 ### Minor Changes
 
-- [`bbadcbc3c29`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bbadcbc3c29) - Add analytics through @atlassian/ufo
+- [#21038](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21038) [`bbadcbc3c29`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bbadcbc3c29) - Add analytics through @atlassian/ufo
 
 ## 3.1.7
 
 ### Patch Changes
 
-- [`a424e62b264`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a424e62b264) - Changes to support Node 16 Typescript definitions from `@types/node`.
+- [#20650](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20650) [`a424e62b264`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a424e62b264) - Changes to support Node 16 Typescript definitions from `@types/node`.
 
 ## 3.1.6
 
@@ -293,7 +293,7 @@
 
 ### Patch Changes
 
-- [`4a010959e0d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4a010959e0d) - [ux] Updated some hardcoded colors to use Design Tokens for theming that were missing during initial migration
+- [#20390](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20390) [`4a010959e0d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4a010959e0d) - [ux] Updated some hardcoded colors to use Design Tokens for theming that were missing during initial migration
 
 ## 3.1.3
 
@@ -317,7 +317,7 @@
 
 ### Minor Changes
 
-- [`c3963026311`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c3963026311) - [ux] Instrumented `@atlaskit/share` with the new theming package, `@atlaskit/tokens`.
+- [#19185](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19185) [`c3963026311`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c3963026311) - [ux] Instrumented `@atlaskit/share` with the new theming package, `@atlaskit/tokens`.
 
   New tokens will be visible only in applications configured to use the new Tokens API (currently in alpha).
   These changes are intended to be interoperable with the legacy theme implementation. Legacy dark mode users should expect no visual or breaking changes.
@@ -332,19 +332,19 @@
 
 ### Patch Changes
 
-- [`7d2e926ff5a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7d2e926ff5a) - use latest SmartUserPicker in @atlaskit/share
+- [#19063](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19063) [`7d2e926ff5a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7d2e926ff5a) - use latest SmartUserPicker in @atlaskit/share
 
 ## 3.0.11
 
 ### Patch Changes
 
-- [`cc08c9c2bb1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cc08c9c2bb1) - Remove react-device-detect dependency from @atlaskit/share. Only used to detect for Safari which can be done in a much lighterweight way, @atlaskit/share is 10.7kb gzipped
+- [#18660](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/18660) [`cc08c9c2bb1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cc08c9c2bb1) - Remove react-device-detect dependency from @atlaskit/share. Only used to detect for Safari which can be done in a much lighterweight way, @atlaskit/share is 10.7kb gzipped
 
 ## 3.0.10
 
 ### Patch Changes
 
-- [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - [ux] Replace dependency on deprecated @atlaskit/field-text-area with supported package @atlaskit/textarea.
+- [#16752](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16752) [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - [ux] Replace dependency on deprecated @atlaskit/field-text-area with supported package @atlaskit/textarea.
 - [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Bump dependency tiny-invariant to latest"
 - Updated dependencies
 
@@ -352,98 +352,98 @@
 
 ### Patch Changes
 
-- [`da84c14aa89`](https://bitbucket.org/atlassian/atlassian-frontend/commits/da84c14aa89) - Custom footer display in stein fix. Connected analytics event fire fix
+- [#18113](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/18113) [`da84c14aa89`](https://bitbucket.org/atlassian/atlassian-frontend/commits/da84c14aa89) - Custom footer display in stein fix. Connected analytics event fire fix
 
 ## 3.0.8
 
 ### Patch Changes
 
-- [`9f7c98cf94f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9f7c98cf94f) - Fixes issues with share dialog closing and resetting tabIndex
+- [#18085](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/18085) [`9f7c98cf94f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9f7c98cf94f) - Fixes issues with share dialog closing and resetting tabIndex
 
 ## 3.0.7
 
 ### Patch Changes
 
-- [`4e97b934e85`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4e97b934e85) - Adds condition to only render customFooter for default share form
+- [#18079](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/18079) [`4e97b934e85`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4e97b934e85) - Adds condition to only render customFooter for default share form
 
 ## 3.0.6
 
 ### Patch Changes
 
-- [`3bada8f14f6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3bada8f14f6) - Rendering of share form submit button depends on the integration type. A type of 'tabs' will change the label to 'share'
+- [#18036](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/18036) [`3bada8f14f6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3bada8f14f6) - Rendering of share form submit button depends on the integration type. A type of 'tabs' will change the label to 'share'
 
 ## 3.0.5
 
 ### Patch Changes
 
-- [`7fe36d0765b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7fe36d0765b) - Analytics context changes for share to integrations
+- [#17956](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/17956) [`7fe36d0765b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7fe36d0765b) - Analytics context changes for share to integrations
 
 ## 3.0.4
 
 ### Patch Changes
 
-- [`1977f429d03`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1977f429d03) - Bug fixes
+- [#17859](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/17859) [`1977f429d03`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1977f429d03) - Bug fixes
 
 ## 3.0.3
 
 ### Patch Changes
 
-- [`c05de712c4d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c05de712c4d) - Fixing bug where the prop onTabChange was not being passed to the ShareForm
+- [#17582](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/17582) [`c05de712c4d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c05de712c4d) - Fixing bug where the prop onTabChange was not being passed to the ShareForm
 
 ## 3.0.2
 
 ### Patch Changes
 
-- [`f316529ecf5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f316529ecf5) - add accessible label for share button
+- [#16764](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16764) [`f316529ecf5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f316529ecf5) - add accessible label for share button
 
 ## 3.0.1
 
 ### Patch Changes
 
-- [`97c7770541f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/97c7770541f) - Added updates to share to control tabs via code
+- [#17214](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/17214) [`97c7770541f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/97c7770541f) - Added updates to share to control tabs via code
 
 ## 3.0.0
 
 ### Major Changes
 
-- [`b8ee9e3d609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b8ee9e3d609) - Remove "enableEmailPermissionCheck" prop
+- [#17155](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/17155) [`b8ee9e3d609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b8ee9e3d609) - Remove "enableEmailPermissionCheck" prop
 
 ## 2.0.1
 
 ### Patch Changes
 
-- [`edeab5ff699`](https://bitbucket.org/atlassian/atlassian-frontend/commits/edeab5ff699) - AK-15: Share dialog-> make ‘Link copied to clipboard’ notification accessible for screen reader users
+- [#16945](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16945) [`edeab5ff699`](https://bitbucket.org/atlassian/atlassian-frontend/commits/edeab5ff699) - AK-15: Share dialog-> make ‘Link copied to clipboard’ notification accessible for screen reader users
 
 ## 2.0.0
 
 ### Major Changes
 
-- [`559b300e04b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/559b300e04b) - - Lazy-load form content of Share package
+- [#16893](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16893) [`559b300e04b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/559b300e04b) - - Lazy-load form content of Share package
   - Stop export `ShareServiceClient` and `ShareClient` in `@atlaskit/share`. So you should use `@atlaskit/share/clients` instead.
 
 ## 1.0.3
 
 ### Patch Changes
 
-- [`6eb7be4e83d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6eb7be4e83d) - [ux] Implementing the product specific tab share titles for the experiment
+- [#17005](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/17005) [`6eb7be4e83d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6eb7be4e83d) - [ux] Implementing the product specific tab share titles for the experiment
 
 ## 1.0.2
 
 ### Patch Changes
 
-- [`1bc9346871a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1bc9346871a) - Updates to prop passing from share to integration. The share-to-slack form needs to make use of this onClose prop in the actual form
+- [#17002](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/17002) [`1bc9346871a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1bc9346871a) - Updates to prop passing from share to integration. The share-to-slack form needs to make use of this onClose prop in the actual form
 
 ## 1.0.1
 
 ### Patch Changes
 
-- [`b8afeefa482`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b8afeefa482) - Analytics update to tabs onChange event
+- [#16821](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16821) [`b8afeefa482`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b8afeefa482) - Analytics update to tabs onChange event
 
 ## 1.0.0
 
 ### Major Changes
 
-- [`47f58da5946`](https://bitbucket.org/atlassian/atlassian-frontend/commits/47f58da5946) - ED-13322, ED-13324, ED-13326, ED-13323, ED-13204: Upgrade and support react-intl@^5.18.1 including breaking API changes, types and tests in atlassian-frontend packages
+- [#14810](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/14810) [`47f58da5946`](https://bitbucket.org/atlassian/atlassian-frontend/commits/47f58da5946) - ED-13322, ED-13324, ED-13326, ED-13323, ED-13204: Upgrade and support react-intl@^5.18.1 including breaking API changes, types and tests in atlassian-frontend packages
 
   What changed: Upgraded our react-intl support from ^2.6.0 to ^5.18.1. This means editor packages now rely on consumers installing ^5.18.1, otherwise editor usage of react-intl will mismatch with actual installed react-intl APIs.
   Why change was made: As part of a coordinated upgrade effort across AF packages, as react-intl v2 is quite dated.
@@ -489,13 +489,13 @@
 
 ### Patch Changes
 
-- [`d506d312f89`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d506d312f89) - Updating ts Type to be string restricted for easier use. Tests updated to accommodate.
+- [#16449](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16449) [`d506d312f89`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d506d312f89) - Updating ts Type to be string restricted for easier use. Tests updated to accommodate.
 
 ## 0.34.2
 
 ### Patch Changes
 
-- [`89aa3e3f314`](https://bitbucket.org/atlassian/atlassian-frontend/commits/89aa3e3f314) - Update dependency of dropdown menu to the lite mode version. Update all usages to cater to the new API. The padding within dropdown menu items is 8px more, which makes the menu look bigger.
+- [#15998](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/15998) [`89aa3e3f314`](https://bitbucket.org/atlassian/atlassian-frontend/commits/89aa3e3f314) - Update dependency of dropdown menu to the lite mode version. Update all usages to cater to the new API. The padding within dropdown menu items is 8px more, which makes the menu look bigger.
 - [`12bfc09a21e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/12bfc09a21e) - Fixing internal prop calls for testId and removing references to the old DropdownMenuStateless export when using the new default export.
 - Updated dependencies
 
@@ -503,80 +503,80 @@
 
 ### Patch Changes
 
-- [`00ded488f98`](https://bitbucket.org/atlassian/atlassian-frontend/commits/00ded488f98) - Update existing isDisabled prop to be used in renderCustomTriggerButton component callback
+- [#16546](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16546) [`00ded488f98`](https://bitbucket.org/atlassian/atlassian-frontend/commits/00ded488f98) - Update existing isDisabled prop to be used in renderCustomTriggerButton component callback
 
 ## 0.34.0
 
 ### Minor Changes
 
-- [`e0a9c170e0f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e0a9c170e0f) - [ux] Share now supports tabs for integrations
+- [#16094](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16094) [`e0a9c170e0f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e0a9c170e0f) - [ux] Share now supports tabs for integrations
 
 ## 0.33.0
 
 ### Minor Changes
 
-- [`a33d6328a58`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a33d6328a58) - Optional prop to pass custom message helper for Share element
+- [#16124](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16124) [`a33d6328a58`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a33d6328a58) - Optional prop to pass custom message helper for Share element
 
 ## 0.32.1
 
 ### Patch Changes
 
-- [`8b66b823694`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8b66b823694) - [ux] Update to the Share endpoint being called and the copy in error messages.
+- [#16129](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16129) [`8b66b823694`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8b66b823694) - [ux] Update to the Share endpoint being called and the copy in error messages.
 
 ## 0.32.0
 
 ### Minor Changes
 
-- [`860bc656501`](https://bitbucket.org/atlassian/atlassian-frontend/commits/860bc656501) - Introduce `config` call to Share service to check if the site is permitted to makes to email addresses.
+- [#15964](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/15964) [`860bc656501`](https://bitbucket.org/atlassian/atlassian-frontend/commits/860bc656501) - Introduce `config` call to Share service to check if the site is permitted to makes to email addresses.
 
 ## 0.31.1
 
 ### Patch Changes
 
-- [`b85e7ce12cd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b85e7ce12cd) - Internal upgrade of memoize-one to 6.0.0
+- [#15694](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/15694) [`b85e7ce12cd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b85e7ce12cd) - Internal upgrade of memoize-one to 6.0.0
 
 ## 0.31.0
 
 ### Minor Changes
 
-- [`ac8d6861881`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ac8d6861881) - [ux] expose copyTooltipText and onDialogClose props to share component
+- [#15561](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/15561) [`ac8d6861881`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ac8d6861881) - [ux] expose copyTooltipText and onDialogClose props to share component
 
 ## 0.30.0
 
 ### Minor Changes
 
-- [`bc36730eba5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bc36730eba5) - remove disableInviteCapabilities prop for Share components
+- [#14513](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/14513) [`bc36730eba5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bc36730eba5) - remove disableInviteCapabilities prop for Share components
 
 ## 0.29.1
 
 ### Patch Changes
 
-- [`cf853e39278`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf853e39278) - Internal changes to remove `@atlaskit/theme/math` usage.
+- [#14319](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/14319) [`cf853e39278`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf853e39278) - Internal changes to remove `@atlaskit/theme/math` usage.
 - Updated dependencies
 
 ## 0.29.0
 
 ### Minor Changes
 
-- [`75f940df1ce`](https://bitbucket.org/atlassian/atlassian-frontend/commits/75f940df1ce) - Update ProductID list to accept more valid Jira subproducts
+- [#14298](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/14298) [`75f940df1ce`](https://bitbucket.org/atlassian/atlassian-frontend/commits/75f940df1ce) - Update ProductID list to accept more valid Jira subproducts
 
 ## 0.28.0
 
 ### Minor Changes
 
-- [`93b425ba29d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/93b425ba29d) - Accept "jira" as a ProductId to handle experiences that don't belong to a particular Jira Subproduct
+- [#14280](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/14280) [`93b425ba29d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/93b425ba29d) - Accept "jira" as a ProductId to handle experiences that don't belong to a particular Jira Subproduct
 
 ## 0.27.1
 
 ### Patch Changes
 
-- [`310c94eb3c3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/310c94eb3c3) - [ux] Pass configuration to the ShareServiceClient when the component instantiates it
+- [#13860](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13860) [`310c94eb3c3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/310c94eb3c3) - [ux] Pass configuration to the ShareServiceClient when the component instantiates it
 
 ## 0.27.0
 
 ### Minor Changes
 
-- [`adf513ae754`](https://bitbucket.org/atlassian/atlassian-frontend/commits/adf513ae754) - [ux] Removing invitation capabilities of the Share component
+- [#13638](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13638) [`adf513ae754`](https://bitbucket.org/atlassian/atlassian-frontend/commits/adf513ae754) - [ux] Removing invitation capabilities of the Share component
 
 ### Patch Changes
 
@@ -586,19 +586,19 @@
 
 ### Patch Changes
 
-- [`e178114aea5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e178114aea5) - Merging parent intl-provider messages with share intl-provider - to support i18n in components passed as props such as a custom footer
+- [#13671](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13671) [`e178114aea5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e178114aea5) - Merging parent intl-provider messages with share intl-provider - to support i18n in components passed as props such as a custom footer
 
 ## 0.26.12
 
 ### Patch Changes
 
-- [`5995bf12959`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5995bf12959) - Merging parent intl-provider messages with share intl-provider - to support i18n in components passed as props such as a custom footer
+- [#13558](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13558) [`5995bf12959`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5995bf12959) - Merging parent intl-provider messages with share intl-provider - to support i18n in components passed as props such as a custom footer
 
 ## 0.26.11
 
 ### Patch Changes
 
-- [`524b20aff9a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/524b20aff9a) - Update package.jsons to remove unused dependencies. Also excludes tests from some build tsconfigs
+- [#13136](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13136) [`524b20aff9a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/524b20aff9a) - Update package.jsons to remove unused dependencies. Also excludes tests from some build tsconfigs
 - [`3c0349f272a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3c0349f272a) - Update package.jsons to remove unused dependencies. Also excludes tests from some build tsconfigs
 - [`591d34f966f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/591d34f966f) - Update package.jsons to remove unused dependencies. Also excludes tests from some build tsconfigs
 
@@ -612,7 +612,7 @@
 
 ### Patch Changes
 
-- [`c74cf22db0e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c74cf22db0e) - Declarative entry points, removes auto-generated i18n entry point
+- [#12933](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12933) [`c74cf22db0e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c74cf22db0e) - Declarative entry points, removes auto-generated i18n entry point
 
 ## 0.26.8
 
@@ -624,7 +624,7 @@
 
 ### Patch Changes
 
-- [`d288a9efa56`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d288a9efa56) - Bumping user picker in shares for translation bugfix
+- [#11617](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/11617) [`d288a9efa56`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d288a9efa56) - Bumping user picker in shares for translation bugfix
 
 ## 0.26.6
 
@@ -636,57 +636,57 @@
 
 ### Patch Changes
 
-- [`be80d157d5f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/be80d157d5f) - Update internal component usage
+- [#10569](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10569) [`be80d157d5f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/be80d157d5f) - Update internal component usage
 - Updated dependencies
 
 ## 0.26.4
 
 ### Patch Changes
 
-- [`f310ccbe522`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f310ccbe522) - Updated AK examples to use new jdog cloudid
+- [#10330](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10330) [`f310ccbe522`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f310ccbe522) - Updated AK examples to use new jdog cloudid
 
 ## 0.26.3
 
 ### Patch Changes
 
-- [`cc8196efa6f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cc8196efa6f) - Add attribute for tests
+- [#9273](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9273) [`cc8196efa6f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cc8196efa6f) - Add attribute for tests
 
 ## 0.26.2
 
 ### Patch Changes
 
-- [`3093cc9c0e4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3093cc9c0e4) - Update analytics for the split button experiment
+- [#9238](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9238) [`3093cc9c0e4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3093cc9c0e4) - Update analytics for the split button experiment
 
 ## 0.26.1
 
 ### Patch Changes
 
-- [`f4a6138b7aa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f4a6138b7aa) - Fix share button not rendering when integrations provided
+- [#9100](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9100) [`f4a6138b7aa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f4a6138b7aa) - Fix share button not rendering when integrations provided
 
 ## 0.26.0
 
 ### Minor Changes
 
-- [`044fc424693`](https://bitbucket.org/atlassian/atlassian-frontend/commits/044fc424693) - [ux] Remove Share to slack and adds split button feature which allows for multiple integrations to be added to the share button
+- [#8424](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8424) [`044fc424693`](https://bitbucket.org/atlassian/atlassian-frontend/commits/044fc424693) - [ux] Remove Share to slack and adds split button feature which allows for multiple integrations to be added to the share button
 
 ## 0.25.0
 
 ### Minor Changes
 
-- [`b62dbfe883a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b62dbfe883a) - Add new optional attribute isDisabled which will disbale copy-link and share-button.
+- [#8267](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8267) [`b62dbfe883a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b62dbfe883a) - Add new optional attribute isDisabled which will disbale copy-link and share-button.
 
 ## 0.24.4
 
 ### Patch Changes
 
-- [`b90bb8af61`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b90bb8af61) - ED-11101 fix tab issue to set the focus straight to the Invite To Edit button
+- [#6571](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/6571) [`b90bb8af61`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b90bb8af61) - ED-11101 fix tab issue to set the focus straight to the Invite To Edit button
 - Updated dependencies
 
 ## 0.24.3
 
 ### Patch Changes
 
-- [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
+- [#5857](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5857) [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
 
 ## 0.24.2
 
@@ -698,19 +698,19 @@
 
 ### Patch Changes
 
-- [`da7bf820f4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/da7bf820f4) - Bumping user picker in share to fix email PII exposure
+- [#6251](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/6251) [`da7bf820f4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/da7bf820f4) - Bumping user picker in share to fix email PII exposure
 
 ## 0.24.0
 
 ### Minor Changes
 
-- [`ada07884c2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ada07884c2) - Send ARI with CopyLink click event to analytics-system
+- [#6045](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/6045) [`ada07884c2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ada07884c2) - Send ARI with CopyLink click event to analytics-system
 
 ## 0.23.5
 
 ### Patch Changes
 
-- [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
+- [#5497](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5497) [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
   This requires version 3.8 of Typescript, read more about how we handle Typescript versions here: https://atlaskit.atlassian.com/get-started
   Also add `typescript` to `devDependencies` to denote version that the package was built with.
 
@@ -718,7 +718,7 @@
 
 ### Patch Changes
 
-- [`de40912b0a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/de40912b0a) - Fix types not resolving correctly due to an incorrect types path in package.json
+- [#5406](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5406) [`de40912b0a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/de40912b0a) - Fix types not resolving correctly due to an incorrect types path in package.json
 
 ## 0.23.3
 
@@ -730,26 +730,26 @@
 
 ### Patch Changes
 
-- [`66481c4270`](https://bitbucket.org/atlassian/atlassian-frontend/commits/66481c4270) - Fixed public links analytics events and bugs
+- [#5260](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5260) [`66481c4270`](https://bitbucket.org/atlassian/atlassian-frontend/commits/66481c4270) - Fixed public links analytics events and bugs
 
 ## 0.23.1
 
 ### Patch Changes
 
-- [`c0533f4b35`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c0533f4b35) - Upgrade analytics-next to prevent event loss (https://hello.atlassian.net/wiki/spaces/AFP/blog/2020/08/26/828144759/ACTION+REQUIRED+-+upgrade+analytics-next+to+prevent+event+loss)
+- [#4749](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4749) [`c0533f4b35`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c0533f4b35) - Upgrade analytics-next to prevent event loss (https://hello.atlassian.net/wiki/spaces/AFP/blog/2020/08/26/828144759/ACTION+REQUIRED+-+upgrade+analytics-next+to+prevent+event+loss)
 - Updated dependencies
 
 ## 0.23.0
 
 ### Minor Changes
 
-- [`bc02807f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bc02807f68) - In public link mode, invite related wording is omitted
+- [#4858](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4858) [`bc02807f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bc02807f68) - In public link mode, invite related wording is omitted
 
 ## 0.22.5
 
 ### Patch Changes
 
-- [`83b9759009`](https://bitbucket.org/atlassian/atlassian-frontend/commits/83b9759009) - Add public links analytics
+- [#4807](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4807) [`83b9759009`](https://bitbucket.org/atlassian/atlassian-frontend/commits/83b9759009) - Add public links analytics
 
 ## 0.22.4
 
@@ -761,7 +761,7 @@
 
 ### Patch Changes
 
-- [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
+- [#3885](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3885) [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
 
   Since tslib is a dependency for all our packages we recommend that products also follow this tslib upgrade
   to prevent duplicates of tslib being bundled.
@@ -776,31 +776,31 @@
 
 ### Patch Changes
 
-- [`eeb82e0bd4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eeb82e0bd4) - Set loadUserOptions optional so that consumers won't need to pass in loadUserOptions when smart user picker is enabled.
+- [#4336](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4336) [`eeb82e0bd4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eeb82e0bd4) - Set loadUserOptions optional so that consumers won't need to pass in loadUserOptions when smart user picker is enabled.
 
 ## 0.22.0
 
 ### Minor Changes
 
-- [`b35e9baef6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b35e9baef6) - Add public link mode to share component which changes texts of Send and Copy buttons
+- [#4097](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4097) [`b35e9baef6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b35e9baef6) - Add public link mode to share component which changes texts of Send and Copy buttons
 
 ## 0.21.2
 
 ### Patch Changes
 
-- [`d03bff2147`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d03bff2147) - updated translations
+- [#3369](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3369) [`d03bff2147`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d03bff2147) - updated translations
 
 ## 0.21.1
 
 ### Patch Changes
 
-- [`872628440c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/872628440c) - Map groups through to picker results
+- [#3883](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3883) [`872628440c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/872628440c) - Map groups through to picker results
 
 ## 0.21.0
 
 ### Minor Changes
 
-- [`51aca36965`](https://bitbucket.org/atlassian/atlassian-frontend/commits/51aca36965) - Added includeGroups prop for the retrieval of confluence groups in smart user picker
+- [#3770](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3770) [`51aca36965`](https://bitbucket.org/atlassian/atlassian-frontend/commits/51aca36965) - Added includeGroups prop for the retrieval of confluence groups in smart user picker
 
 ### Patch Changes
 
@@ -810,7 +810,7 @@
 
 ### Minor Changes
 
-- [`d8aec9a0f8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d8aec9a0f8) - Fixed visual regression with Select dropdown caussing scrollbars to appears inside the PopUp, now using a portal element. For @atlaskit/user-picker ability to pass down `portalElement` has been added.
+- [#3749](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3749) [`d8aec9a0f8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d8aec9a0f8) - Fixed visual regression with Select dropdown caussing scrollbars to appears inside the PopUp, now using a portal element. For @atlaskit/user-picker ability to pass down `portalElement` has been added.
 
 ### Patch Changes
 
@@ -820,19 +820,19 @@
 
 ### Minor Changes
 
-- [`6eeb86da1e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6eeb86da1e) - Swapping the use of @atlaskit/inline-dialog in favour of @atlaskit/popup and adding a "dialogBoundariesElement" prop that is passed down to the Popup.
+- [#3579](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3579) [`6eeb86da1e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6eeb86da1e) - Swapping the use of @atlaskit/inline-dialog in favour of @atlaskit/popup and adding a "dialogBoundariesElement" prop that is passed down to the Popup.
 
 ## 0.18.1
 
 ### Patch Changes
 
-- [`a821deced3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a821deced3) - Add debounce prop to share. Bump user picker version which introduces analytics fix.
+- [#3381](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3381) [`a821deced3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a821deced3) - Add debounce prop to share. Bump user picker version which introduces analytics fix.
 
 ## 0.18.0
 
 ### Minor Changes
 
-- [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
+- [#3335](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3335) [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
   For more information see: https://community.developer.atlassian.com/t/atlaskit-to-drop-support-for-internet-explorer-11-from-1st-july-2020/39534
 
 ### Patch Changes
@@ -843,13 +843,13 @@
 
 ### Patch Changes
 
-- [`957b3e95cb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/957b3e95cb) - Upgrade user picker version in share
+- [#3296](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3296) [`957b3e95cb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/957b3e95cb) - Upgrade user picker version in share
 
 ## 0.17.0
 
 ### Minor Changes
 
-- [`b6a673bb27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b6a673bb27) - Add smart user picker prop for share dialog. Only works if enableSmartUserPicker is true and product = 'jira'.
+- [#2488](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2488) [`b6a673bb27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b6a673bb27) - Add smart user picker prop for share dialog. Only works if enableSmartUserPicker is true and product = 'jira'.
 
   Fix maxPickerHeight prop in user-picker to work (previously was maxGrowHeight in styles but the prop was called maxPickerHeight).
 
@@ -861,19 +861,19 @@
 
 ### Minor Changes
 
-- [`ea13555079`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ea13555079) - Adding managing expanded and collapsed state from a11y perspective, adding unit tests
+- [#2923](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2923) [`ea13555079`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ea13555079) - Adding managing expanded and collapsed state from a11y perspective, adding unit tests
 
 ## 0.15.0
 
 ### Minor Changes
 
-- [`26a1813cd9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/26a1813cd9) - Added the `shortLinkData` prop to use the new link shortening API
+- [#2836](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2836) [`26a1813cd9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/26a1813cd9) - Added the `shortLinkData` prop to use the new link shortening API
 
 ## 0.14.2
 
 ### Patch Changes
 
-- [`4ee1ba1585`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ee1ba1585) - Add maxPickerHeight to the user picker which sets the maximum height that the user picker can grow up to because of the picked items. Modified subtle prop version of user picker. When subtle, the user picker's border will be removed. The background color will remain the same (Grey N10). These changes were spurred by recent style changes in user picker, which impacted the style of the shares dialog.
+- [#2903](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2903) [`4ee1ba1585`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ee1ba1585) - Add maxPickerHeight to the user picker which sets the maximum height that the user picker can grow up to because of the picked items. Modified subtle prop version of user picker. When subtle, the user picker's border will be removed. The background color will remain the same (Grey N10). These changes were spurred by recent style changes in user picker, which impacted the style of the shares dialog.
   Consumers need to be aware of whether an infinitely growing number of users in the user picker can affect their styling. If it does, they will need to provide a suitable maxPickerHeight. Consumers who also wish for a borderless user picker must set the subtle prop to true.
 
   Change the background color from N10 to N20 to align with other select background colors.
@@ -892,31 +892,31 @@
 
 ### Minor Changes
 
-- [`70ed335404`](https://bitbucket.org/atlassian/atlassian-frontend/commits/70ed335404) - Add onDialogOpen callback to share dialog
+- [#2618](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2618) [`70ed335404`](https://bitbucket.org/atlassian/atlassian-frontend/commits/70ed335404) - Add onDialogOpen callback to share dialog
 
 ## 0.13.2
 
 ### Patch Changes
 
-- [`0b17f23567`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0b17f23567) - Fix text overflowing share to slack onboarding footer
+- [#2493](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2493) [`0b17f23567`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0b17f23567) - Fix text overflowing share to slack onboarding footer
 
 ## 0.13.1
 
 ### Patch Changes
 
-- [`649f69b6d7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/649f69b6d7) - Patch all packages that are used by confluence that have a broken es2019 dist
+- [#2430](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2430) [`649f69b6d7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/649f69b6d7) - Patch all packages that are used by confluence that have a broken es2019 dist
 
 ## 0.13.0
 
 ### Minor Changes
 
-- [`a9ea8ed10e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a9ea8ed10e) - Add prop to display custom footer below share form fields, bubble up share form user picker onChange event
+- [#2053](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2053) [`a9ea8ed10e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a9ea8ed10e) - Add prop to display custom footer below share form fields, bubble up share form user picker onChange event
 
 ## 0.12.8
 
 ### Patch Changes
 
-- [`131cee6d7a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/131cee6d7a) - Add missing tslib dependency
+- [#2099](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2099) [`131cee6d7a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/131cee6d7a) - Add missing tslib dependency
 - Updated dependencies
 
 ## 0.12.7

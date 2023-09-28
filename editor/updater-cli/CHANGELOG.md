@@ -4,91 +4,91 @@
 
 ### Patch Changes
 
-- [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
+- [#38162](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38162) [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
 
 ## 2.1.3
 
 ### Patch Changes
 
-- [`50cf866a219`](https://bitbucket.org/atlassian/atlassian-frontend/commits/50cf866a219) - bump semver
+- [#35950](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35950) [`50cf866a219`](https://bitbucket.org/atlassian/atlassian-frontend/commits/50cf866a219) - bump semver
 
 ## 2.1.2
 
 ### Patch Changes
 
-- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793) [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
 
 ## 2.1.1
 
 ### Patch Changes
 
-- [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649) [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
 
 ## 2.1.0
 
 ### Minor Changes
 
-- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258) [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
 
 ## 2.0.21
 
 ### Patch Changes
 
-- [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
+- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874) [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
 
 ## 2.0.20
 
 ### Patch Changes
 
-- [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
+- [#24492](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24492) [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
 
 ## 2.0.19
 
 ### Patch Changes
 
-- [`dff6a807e2a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dff6a807e2a) - Upgrade yarn-deduplicate to 5.0.2
+- [#24343](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24343) [`dff6a807e2a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dff6a807e2a) - Upgrade yarn-deduplicate to 5.0.2
 
 ## 2.0.18
 
 ### Patch Changes
 
-- [`8f0eed03d11`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f0eed03d11) - Upgrade yarn-deduplicate to 5.0.0 (latest)
+- [#22872](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22872) [`8f0eed03d11`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f0eed03d11) - Upgrade yarn-deduplicate to 5.0.0 (latest)
 
 ## 2.0.17
 
 ### Patch Changes
 
-- [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
+- [#20650](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20650) [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
 
 ## 2.0.16
 
 ### Patch Changes
 
-- [`650aa20f6fe`](https://bitbucket.org/atlassian/atlassian-frontend/commits/650aa20f6fe) - Upgrade meow dependency
+- [#16649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16649) [`650aa20f6fe`](https://bitbucket.org/atlassian/atlassian-frontend/commits/650aa20f6fe) - Upgrade meow dependency
 
 ## 2.0.15
 
 ### Patch Changes
 
-- [`84270dcf31a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/84270dcf31a) - Bump dependency "meow" to version ^6.0.0
+- [#9018](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9018) [`84270dcf31a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/84270dcf31a) - Bump dependency "meow" to version ^6.0.0
 
 ## 2.0.14
 
 ### Patch Changes
 
-- [`5f2c0c88e5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f2c0c88e5) - Upgraded yarn-deduplicate and added new snapshot registry to branch deploy tooling
+- [#6363](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/6363) [`5f2c0c88e5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f2c0c88e5) - Upgraded yarn-deduplicate and added new snapshot registry to branch deploy tooling
 
 ## 2.0.13
 
 ### Patch Changes
 
-- [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
+- [#5857](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5857) [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
 
 ## 2.0.12
 
 ### Patch Changes
 
-- [`c709b5e800`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c709b5e800) - Fixing Denial Of Service (DoS) vulnerability found in node-fetch - bump node fetch 2.6.1.
+- [#5645](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5645) [`c709b5e800`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c709b5e800) - Fixing Denial Of Service (DoS) vulnerability found in node-fetch - bump node fetch 2.6.1.
 
   - Bump `node-fetch` to 2.6.1 - we were already resolving to 2.6.0
   - Run `yarn-deduplicate --packages node-fetch` in all 4 yarn.lock
@@ -102,7 +102,7 @@
 
 ### Patch Changes
 
-- [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
+- [#5497](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5497) [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
   This requires version 3.8 of Typescript, read more about how we handle Typescript versions here: https://atlaskit.atlassian.com/get-started
   Also add `typescript` to `devDependencies` to denote version that the package was built with.
 
@@ -110,7 +110,7 @@
 
 ### Patch Changes
 
-- [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
+- [#3885](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3885) [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
 
   Since tslib is a dependency for all our packages we recommend that products also follow this tslib upgrade
   to prevent duplicates of tslib being bundled.

@@ -1,41 +1,47 @@
 # @atlaskit/mention
 
+## 22.1.6
+
+### Patch Changes
+
+- [#40715](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40715) [`eb792f21a58`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eb792f21a58) - remove unused type paramater from setStateSafely
+
 ## 22.1.5
 
 ### Patch Changes
 
-- [`6900f89eb0e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6900f89eb0e) - Internal changes to use space tokens. There is no expected visual or behaviour change.
+- [#39787](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39787) [`6900f89eb0e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6900f89eb0e) - Internal changes to use space tokens. There is no expected visual or behaviour change.
 
 ## 22.1.4
 
 ### Patch Changes
 
-- [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
+- [#38162](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38162) [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
 - Updated dependencies
 
 ## 22.1.3
 
 ### Patch Changes
 
-- [`f01deb5e6ab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f01deb5e6ab) - Use injected env vars instead of version.json
+- [#37925](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37925) [`f01deb5e6ab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f01deb5e6ab) - Use injected env vars instead of version.json
 
 ## 22.1.2
 
 ### Patch Changes
 
-- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793) [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
 
 ## 22.1.1
 
 ### Patch Changes
 
-- [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649) [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
 
 ## 22.1.0
 
 ### Minor Changes
 
-- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258) [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
 
 ### Patch Changes
 
@@ -45,13 +51,13 @@
 
 ### Patch Changes
 
-- [`2e01c9c74b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e01c9c74b5) - DUMMY remove before merging to master; dupe adf-schema via adf-utils
+- [#32424](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32424) [`2e01c9c74b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e01c9c74b5) - DUMMY remove before merging to master; dupe adf-schema via adf-utils
 
 ## 22.0.0
 
 ### Major Changes
 
-- [`6c543971074`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c543971074) - [ux] PTC-6520 remove team mention highlight
+- [#31299](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31299) [`6c543971074`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c543971074) - [ux] PTC-6520 remove team mention highlight
 
 ## 21.0.19
 
@@ -69,19 +75,19 @@
 
 ### Patch Changes
 
-- [`4ee60bafc6d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ee60bafc6d) - ED-16603: Remove tooltips from VR tests and make them opt in. To opt-in, add `allowedSideEffects` when loading the page.
+- [#29227](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/29227) [`4ee60bafc6d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ee60bafc6d) - ED-16603: Remove tooltips from VR tests and make them opt in. To opt-in, add `allowedSideEffects` when loading the page.
 
 ## 21.0.16
 
 ### Patch Changes
 
-- [`6455cf006b3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6455cf006b3) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving performance.
+- [#28324](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28324) [`6455cf006b3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6455cf006b3) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving performance.
 
 ## 21.0.15
 
 ### Patch Changes
 
-- [`9ace7f714e3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9ace7f714e3) - Handle new Teams ARI format in mentions
+- [#28090](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28090) [`9ace7f714e3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9ace7f714e3) - Handle new Teams ARI format in mentions
 
 ## 21.0.14
 
@@ -99,14 +105,14 @@
 
 ### Patch Changes
 
-- [`136542df4cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/136542df4cf) - Changes restricted mention border color token to bold version and text color token to default one for better accessibility. Updated appearances only visible in applications configured to use the new Tokens API (currently in alpha).
+- [#26712](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26712) [`136542df4cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/136542df4cf) - Changes restricted mention border color token to bold version and text color token to default one for better accessibility. Updated appearances only visible in applications configured to use the new Tokens API (currently in alpha).
 - Updated dependencies
 
 ## 21.0.11
 
 ### Patch Changes
 
-- [`f14b977abd5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f14b977abd5) - Bump query-string to ^v7.1.3
+- [#27924](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/27924) [`f14b977abd5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f14b977abd5) - Bump query-string to ^v7.1.3
 
 ## 21.0.10
 
@@ -118,19 +124,19 @@
 
 ### Patch Changes
 
-- [`016d3039482`](https://bitbucket.org/atlassian/atlassian-frontend/commits/016d3039482) - Updates `@emotion/core` v10 to `@emotion/react` v11. There is no expected behavior change.
+- [#26786](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26786) [`016d3039482`](https://bitbucket.org/atlassian/atlassian-frontend/commits/016d3039482) - Updates `@emotion/core` v10 to `@emotion/react` v11. There is no expected behavior change.
 
 ## 21.0.8
 
 ### Patch Changes
 
-- [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
+- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874) [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
 
 ## 21.0.7
 
 ### Patch Changes
 
-- [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
+- [#24492](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24492) [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
 
 ## 21.0.6
 
@@ -148,7 +154,7 @@
 
 ### Patch Changes
 
-- [`a424e62b264`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a424e62b264) - Changes to support Node 16 Typescript definitions from `@types/node`.
+- [#20650](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20650) [`a424e62b264`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a424e62b264) - Changes to support Node 16 Typescript definitions from `@types/node`.
 
 ## 21.0.3
 
@@ -167,7 +173,7 @@
 
 ### Patch Changes
 
-- [`9120f857a67`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9120f857a67) - Remove react-intl v2 from dev dependencies
+- [#19618](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19618) [`9120f857a67`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9120f857a67) - Remove react-intl v2 from dev dependencies
 - [`6ee0b5cac9a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6ee0b5cac9a) - Mention lozenge component rendering performance/reliability is now tracked
 - [`62edf20ab1e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/62edf20ab1e) - Migrates all usage of brand tokens to either selected or information tokens. This change is purely for semantic reasons, there are no visual or behavioural changes.
 - Updated dependencies
@@ -176,7 +182,7 @@
 
 ### Major Changes
 
-- [`c5d52f78847`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c5d52f78847) - Extracting smart-mention-resource into its own private package
+- [#19019](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19019) [`c5d52f78847`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c5d52f78847) - Extracting smart-mention-resource into its own private package
 
 ### Patch Changes
 
@@ -186,11 +192,11 @@
 
 ### Major Changes
 
-- [`ee723e753de`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ee723e753de) - [UR-3222]: Upgrade to intl v5. To consume Mentions, you will need a react-intl v5 intl provider
+- [#18526](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/18526) [`ee723e753de`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ee723e753de) - [UR-3222]: Upgrade to intl v5. To consume Mentions, you will need a react-intl v5 intl provider
 
 ### Minor Changes
 
-- [`0e32e4669ae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0e32e4669ae) - Internal changes to migrate package from 'styled-components' to @emotion. There should be no change to the UX.
+- [#16752](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16752) [`0e32e4669ae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0e32e4669ae) - Internal changes to migrate package from 'styled-components' to @emotion. There should be no change to the UX.
 
 ### Patch Changes
 
@@ -204,55 +210,55 @@
 
 ### Patch Changes
 
-- [`c55c736ecea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c55c736ecea) - Patch VULN AFP-3486 AFP-3487 AFP-3488 AFP-3489
+- [#17475](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/17475) [`c55c736ecea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c55c736ecea) - Patch VULN AFP-3486 AFP-3487 AFP-3488 AFP-3489
 
 ## 19.9.5
 
 ### Patch Changes
 
-- [`6344bc53c4e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6344bc53c4e) - Remove bulk imports in mentions
+- [#16666](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16666) [`6344bc53c4e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6344bc53c4e) - Remove bulk imports in mentions
 
 ## 19.9.4
 
 ### Patch Changes
 
-- [`e770c0c16d9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e770c0c16d9) - Remove non-prod API configs from mentions, and update docs to mock out API calls.
+- [#16169](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16169) [`e770c0c16d9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e770c0c16d9) - Remove non-prod API configs from mentions, and update docs to mock out API calls.
 
 ## 19.9.3
 
 ### Patch Changes
 
-- [`d1ed723c1e0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d1ed723c1e0) - Fix bug where includeTeams in smartMentionResource was not being passed in correctly
+- [#16445](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16445) [`d1ed723c1e0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d1ed723c1e0) - Fix bug where includeTeams in smartMentionResource was not being passed in correctly
 
 ## 19.9.2
 
 ### Patch Changes
 
-- [`570ccaa00bd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/570ccaa00bd) - Add the ability for users in Default Mention Name Resolver to be nullable
+- [#15889](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/15889) [`570ccaa00bd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/570ccaa00bd) - Add the ability for users in Default Mention Name Resolver to be nullable
 
 ## 19.9.1
 
 ### Patch Changes
 
-- [`a92e3bdb515`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a92e3bdb515) - Relaxed product enum typing to take in any string
+- [#15454](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/15454) [`a92e3bdb515`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a92e3bdb515) - Relaxed product enum typing to take in any string
 
 ## 19.9.0
 
 ### Minor Changes
 
-- [`e65ada9dbbb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e65ada9dbbb) - Debounce MentionResource when debounceTime is passed in
+- [#15112](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/15112) [`e65ada9dbbb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e65ada9dbbb) - Debounce MentionResource when debounceTime is passed in
 
 ## 19.8.1
 
 ### Patch Changes
 
-- [`e5e658bc51d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e5e658bc51d) - Fix for mention default name provider using an incorrect API endpoint when no baseUrl was supplied to SmartMentionResource
+- [#14944](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/14944) [`e5e658bc51d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e5e658bc51d) - Fix for mention default name provider using an incorrect API endpoint when no baseUrl was supplied to SmartMentionResource
 
 ## 19.8.0
 
 ### Minor Changes
 
-- [`9871a89fe5d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9871a89fe5d) - SmartMentionResource now has a default name resolver if one is not provided. You can still provide the `mentionNameResolver` in the config when instantiating SmartMentionResource if a custom name resolver is needed.
+- [#14604](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/14604) [`9871a89fe5d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9871a89fe5d) - SmartMentionResource now has a default name resolver if one is not provided. You can still provide the `mentionNameResolver` in the config when instantiating SmartMentionResource if a custom name resolver is needed.
 
 ## 19.7.2
 
@@ -264,13 +270,13 @@
 
 ### Patch Changes
 
-- [`4ac918aad80`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ac918aad80) - Added helper documentation for easier onboarding onto Atlaskit Editor
+- [#14494](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/14494) [`4ac918aad80`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ac918aad80) - Added helper documentation for easier onboarding onto Atlaskit Editor
 
 ## 19.7.0
 
 ### Minor Changes
 
-- [`71bb1bb3cd0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/71bb1bb3cd0) - [ED-12933] Export min height mentions to improve rendering performance on editor typeahead
+- [#13864](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13864) [`71bb1bb3cd0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/71bb1bb3cd0) - [ED-12933] Export min height mentions to improve rendering performance on editor typeahead
 
 ### Patch Changes
 
@@ -286,26 +292,26 @@
 
 ### Patch Changes
 
-- [`52e7807e543`](https://bitbucket.org/atlassian/atlassian-frontend/commits/52e7807e543) - Fixed English translations for team counts
+- [#11649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/11649) [`52e7807e543`](https://bitbucket.org/atlassian/atlassian-frontend/commits/52e7807e543) - Fixed English translations for team counts
 
 ## 19.6.2
 
 ### Patch Changes
 
-- [`56ffe4d3c5a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56ffe4d3c5a) - Add optional MentionNameResolver to SmartMentionResource config
+- [#10978](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10978) [`56ffe4d3c5a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56ffe4d3c5a) - Add optional MentionNameResolver to SmartMentionResource config
 
 ## 19.6.1
 
 ### Patch Changes
 
-- [`f5eba1a5c71`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f5eba1a5c71) - ED-11989 fixed mention displaying old cached name
+- [#10230](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10230) [`f5eba1a5c71`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f5eba1a5c71) - ED-11989 fixed mention displaying old cached name
 - Updated dependencies
 
 ## 19.6.0
 
 ### Minor Changes
 
-- [`f042eac9bf1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f042eac9bf1) - Add SmartMentionResource to mentions with editor-core example
+- [#9756](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9756) [`f042eac9bf1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f042eac9bf1) - Add SmartMentionResource to mentions with editor-core example
 
 ### Patch Changes
 
@@ -315,25 +321,25 @@
 
 ### Patch Changes
 
-- [`3274237a5be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3274237a5be) - [ux] reverted changes in ED-11939
+- [#10035](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10035) [`3274237a5be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3274237a5be) - [ux] reverted changes in ED-11939
 
 ## 19.5.0
 
 ### Minor Changes
 
-- [`c49d543a921`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c49d543a921) - Only restrict mentions view if UserAccessLevel is set to NONE
+- [#9780](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9780) [`c49d543a921`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c49d543a921) - Only restrict mentions view if UserAccessLevel is set to NONE
 
 ## 19.4.1
 
 ### Patch Changes
 
-- [`d5b0036f8c5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d5b0036f8c5) - Updated LozengeProps type to accept React.ReactNode instead of string. This makes it easier to pass in translations to this component from the consumer.
+- [#9510](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9510) [`d5b0036f8c5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d5b0036f8c5) - Updated LozengeProps type to accept React.ReactNode instead of string. This makes it easier to pass in translations to this component from the consumer.
 
 ## 19.4.0
 
 ### Minor Changes
 
-- [`3dae9ea0c02`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3dae9ea0c02) - MentionItem now accepts and renders Lozenges when provided with a LozengeProps type object - ex. { text: 'GUEST', appearance: 'new' }. Previously, it only accepted a string.
+- [#9083](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9083) [`3dae9ea0c02`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3dae9ea0c02) - MentionItem now accepts and renders Lozenges when provided with a LozengeProps type object - ex. { text: 'GUEST', appearance: 'new' }. Previously, it only accepted a string.
 
 ### Patch Changes
 
@@ -345,14 +351,14 @@
 
 ### Patch Changes
 
-- [`178e91b75ad`](https://bitbucket.org/atlassian/atlassian-frontend/commits/178e91b75ad) - PL-AFDD-JOB1-158 Add translations for new messages
+- [#8644](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8644) [`178e91b75ad`](https://bitbucket.org/atlassian/atlassian-frontend/commits/178e91b75ad) - PL-AFDD-JOB1-158 Add translations for new messages
 - Updated dependencies
 
 ## 19.3.0
 
 ### Minor Changes
 
-- [`cafde5bbe21`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cafde5bbe21) - [ux] Added Team prefix to teams in the mention list to increase clarity.
+- [#8178](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8178) [`cafde5bbe21`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cafde5bbe21) - [ux] Added Team prefix to teams in the mention list to increase clarity.
 - [`43b2f925f0b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/43b2f925f0b) - Add optional attributes to mentionProvider analytics callback
 
 ### Patch Changes
@@ -363,26 +369,26 @@
 
 ### Minor Changes
 
-- [`7ddbf962bd9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7ddbf962bd9) - [ux] Updated and added new translations
+- [#7762](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/7762) [`7ddbf962bd9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7ddbf962bd9) - [ux] Updated and added new translations
 
 ## 19.1.2
 
 ### Patch Changes
 
-- [`05757c917b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/05757c917b) - taking config.productName into mentionResource
+- [#6571](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/6571) [`05757c917b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/05757c917b) - taking config.productName into mentionResource
 - [`dd91541afe`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dd91541afe) - [ux] Further improvements on the invite from mention experiment
 
 ## 19.1.1
 
 ### Patch Changes
 
-- [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
+- [#5857](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5857) [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
 
 ## 19.1.0
 
 ### Minor Changes
 
-- [`22791ceed0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/22791ceed0) - [ux] - added new properites in MentionResource interface to support invite from mention experiment
+- [#6228](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/6228) [`22791ceed0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/22791ceed0) - [ux] - added new properites in MentionResource interface to support invite from mention experiment
 
   - updated util-data-test/mention to enable invite from mention experiment
   - added invite from mention experiment logic into editor-core
@@ -391,14 +397,14 @@
 
 ### Patch Changes
 
-- [`dcd6b0ecfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dcd6b0ecfb) - Fix React warning: should not setState on unmounted component
+- [#5516](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5516) [`dcd6b0ecfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dcd6b0ecfb) - Fix React warning: should not setState on unmounted component
 - Updated dependencies
 
 ## 19.0.8
 
 ### Patch Changes
 
-- [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
+- [#5497](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5497) [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
   This requires version 3.8 of Typescript, read more about how we handle Typescript versions here: https://atlaskit.atlassian.com/get-started
   Also add `typescript` to `devDependencies` to denote version that the package was built with.
 
@@ -412,14 +418,14 @@
 
 ### Patch Changes
 
-- [`c0533f4b35`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c0533f4b35) - Upgrade analytics-next to prevent event loss (https://hello.atlassian.net/wiki/spaces/AFP/blog/2020/08/26/828144759/ACTION+REQUIRED+-+upgrade+analytics-next+to+prevent+event+loss)
+- [#4749](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4749) [`c0533f4b35`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c0533f4b35) - Upgrade analytics-next to prevent event loss (https://hello.atlassian.net/wiki/spaces/AFP/blog/2020/08/26/828144759/ACTION+REQUIRED+-+upgrade+analytics-next+to+prevent+event+loss)
 - Updated dependencies
 
 ## 19.0.5
 
 ### Patch Changes
 
-- [`bee2157c1b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bee2157c1b) - Remove usage of @atlaskit/util-common-test package
+- [#4932](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4932) [`bee2157c1b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bee2157c1b) - Remove usage of @atlaskit/util-common-test package
 
 ## 19.0.4
 
@@ -431,7 +437,7 @@
 
 ### Patch Changes
 
-- [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
+- [#3885](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3885) [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
 
   Since tslib is a dependency for all our packages we recommend that products also follow this tslib upgrade
   to prevent duplicates of tslib being bundled.
@@ -440,7 +446,7 @@
 
 ### Patch Changes
 
-- [`d03bff2147`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d03bff2147) - updated translations
+- [#3369](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3369) [`d03bff2147`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d03bff2147) - updated translations
 
 ## 19.0.1
 
@@ -452,7 +458,7 @@
 
 ### Major Changes
 
-- [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
+- [#3335](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3335) [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
   For more information see: https://community.developer.atlassian.com/t/atlaskit-to-drop-support-for-internet-explorer-11-from-1st-july-2020/39534
 
 ### Patch Changes
@@ -463,13 +469,13 @@
 
 ### Patch Changes
 
-- [`fc83c36503`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fc83c36503) - Update translation files via Traduki build
+- [#2576](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2576) [`fc83c36503`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fc83c36503) - Update translation files via Traduki build
 
 ## 18.18.2
 
 ### Patch Changes
 
-- [`64e7f3f077`](https://bitbucket.org/atlassian/atlassian-frontend/commits/64e7f3f077) - Bump dependency query-string to ^5.1.0
+- [#2959](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2959) [`64e7f3f077`](https://bitbucket.org/atlassian/atlassian-frontend/commits/64e7f3f077) - Bump dependency query-string to ^5.1.0
 
 ## 18.18.1
 

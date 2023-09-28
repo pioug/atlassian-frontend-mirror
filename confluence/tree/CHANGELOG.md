@@ -4,109 +4,109 @@
 
 ### Patch Changes
 
-- [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
+- [#38162](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38162) [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
 
 ## 8.8.5
 
 ### Patch Changes
 
-- [`61cb5313358`](https://bitbucket.org/atlassian/atlassian-frontend/commits/61cb5313358) - Removing unused dependencies and dev dependencies
+- [#34443](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34443) [`61cb5313358`](https://bitbucket.org/atlassian/atlassian-frontend/commits/61cb5313358) - Removing unused dependencies and dev dependencies
 
 ## 8.8.4
 
 ### Patch Changes
 
-- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793) [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
 
 ## 8.8.3
 
 ### Patch Changes
 
-- [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649) [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
 
 ## 8.8.2
 
 ### Patch Changes
 
-- [`a1935b9b9bc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a1935b9b9bc) - Upgrading @atlaskit/tokens dependency to version 1.3.2
+- [#33567](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33567) [`a1935b9b9bc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a1935b9b9bc) - Upgrading @atlaskit/tokens dependency to version 1.3.2
 
 ## 8.8.1
 
 ### Patch Changes
 
-- [`ea97cc58f54`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ea97cc58f54) - Internal change to enforce token usage for spacing properties. There is no expected visual or behaviour change.
+- [#32931](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32931) [`ea97cc58f54`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ea97cc58f54) - Internal change to enforce token usage for spacing properties. There is no expected visual or behaviour change.
 
 ## 8.8.0
 
 ### Minor Changes
 
-- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258) [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
 
 ## 8.7.0
 
 ### Minor Changes
 
-- [`813b1a6ca29`](https://bitbucket.org/atlassian/atlassian-frontend/commits/813b1a6ca29) - Migrate tree package to declarative entry points
+- [#29412](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/29412) [`813b1a6ca29`](https://bitbucket.org/atlassian/atlassian-frontend/commits/813b1a6ca29) - Migrate tree package to declarative entry points
 
 ## 8.6.3
 
 ### Patch Changes
 
-- [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
+- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874) [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
 
 ## 8.6.2
 
 ### Patch Changes
 
-- [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
+- [#24492](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24492) [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
 
 ## 8.6.1
 
 ### Patch Changes
 
-- [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
+- [#20650](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20650) [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
 
 ## 8.6.0
 
 ### Minor Changes
 
-- [`7becb9517f5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7becb9517f5) - Fixed bug where drag and drop is broken in the case where only some tree items are draggable (i.e. passing a function to the isDragEnabled prop)
+- [#18144](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/18144) [`7becb9517f5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7becb9517f5) - Fixed bug where drag and drop is broken in the case where only some tree items are draggable (i.e. passing a function to the isDragEnabled prop)
 
 ## 8.5.0
 
 ### Minor Changes
 
-- [`1fb6e5f07eb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1fb6e5f07eb) - Performance optimization which prevents Draggables from being rendered if drag and drop is disabled
+- [#17369](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/17369) [`1fb6e5f07eb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1fb6e5f07eb) - Performance optimization which prevents Draggables from being rendered if drag and drop is disabled
 
 ## 8.4.0
 
 ### Minor Changes
 
-- [`996a944785e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/996a944785e) - [ux] nondraggable and draggable tree items will both re-render every time the tree renders. This allows draggable/nondraggable items to behave the same.
+- [#12328](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12328) [`996a944785e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/996a944785e) - [ux] nondraggable and draggable tree items will both re-render every time the tree renders. This allows draggable/nondraggable items to behave the same.
 
 ## 8.3.0
 
 ### Minor Changes
 
-- [`7d9095756b7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7d9095756b7) - [ux] nondraggable and draggable tree items will both re-render every time the tree renders. This allows draggable/nondraggable items to behave the same.
+- [#11935](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/11935) [`7d9095756b7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7d9095756b7) - [ux] nondraggable and draggable tree items will both re-render every time the tree renders. This allows draggable/nondraggable items to behave the same.
 
 ## 8.2.0
 
 ### Minor Changes
 
-- [`955641ffdc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/955641ffdc) - Add the ability to specify `isDragEnabled` as a function. This will allow to control whether the item is draggable or not on a per-item basis.
+- [#6729](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/6729) [`955641ffdc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/955641ffdc) - Add the ability to specify `isDragEnabled` as a function. This will allow to control whether the item is draggable or not on a per-item basis.
 
 ## 8.1.3
 
 ### Patch Changes
 
-- [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
+- [#5857](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5857) [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
 
 ## 8.1.2
 
 ### Patch Changes
 
-- [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
+- [#5497](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5497) [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
   This requires version 3.8 of Typescript, read more about how we handle Typescript versions here: https://atlaskit.atlassian.com/get-started
   Also add `typescript` to `devDependencies` to denote version that the package was built with.
 
@@ -114,7 +114,7 @@
 
 ### Patch Changes
 
-- [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
+- [#3885](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3885) [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
 
   Since tslib is a dependency for all our packages we recommend that products also follow this tslib upgrade
   to prevent duplicates of tslib being bundled.
@@ -123,13 +123,13 @@
 
 ### Minor Changes
 
-- [`5584033c5e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5584033c5e) - Fixed missing react beautiful D&D placeholder behavior
+- [#3858](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3858) [`5584033c5e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5584033c5e) - Fixed missing react beautiful D&D placeholder behavior
 
 ## 8.0.0
 
 ### Major Changes
 
-- [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
+- [#3335](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3335) [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
   For more information see: https://community.developer.atlassian.com/t/atlaskit-to-drop-support-for-internet-explorer-11-from-1st-july-2020/39534
 
 ## 7.1.2

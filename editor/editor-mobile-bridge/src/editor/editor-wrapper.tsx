@@ -30,7 +30,7 @@ const ComposableEditorWrapper = ({ props }: WrapperProps) => {
 };
 
 export class Editor extends React.Component<EditorWrapperProps> {
-  // Copied from `packages/editor/editor-core/src/editor-next/utils/editorPropTypes.ts`
+  // Copied from `packages/editor/editor-core/src/composable-editor/utils/editorPropTypes.ts`
   static defaultProps = {
     disabled: false,
     extensionHandlers: {},

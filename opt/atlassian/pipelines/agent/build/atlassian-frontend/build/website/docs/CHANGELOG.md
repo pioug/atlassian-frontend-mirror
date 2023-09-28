@@ -4,7 +4,7 @@
 
 ### Minor Changes
 
-- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258) [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
 
 ### Patch Changes
 
@@ -14,19 +14,19 @@
 
 ### Patch Changes
 
-- [`93118b676a8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/93118b676a8) - This changeset exists because a PR touches these packages in a way that doesn't require a release
+- [#25547](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/25547) [`93118b676a8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/93118b676a8) - This changeset exists because a PR touches these packages in a way that doesn't require a release
 
 ## 9.0.12
 
 ### Patch Changes
 
-- [`7f083c2c69d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7f083c2c69d) - Bump version of pretty-proptypes to 1.7.0
+- [#21613](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21613) [`7f083c2c69d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7f083c2c69d) - Bump version of pretty-proptypes to 1.7.0
 
 ## 9.0.11
 
 ### Patch Changes
 
-- [`88612fc2020`](https://bitbucket.org/atlassian/atlassian-frontend/commits/88612fc2020) - patch bumps Pretty-proptypes to fix null check regression
+- [#21172](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21172) [`88612fc2020`](https://bitbucket.org/atlassian/atlassian-frontend/commits/88612fc2020) - patch bumps Pretty-proptypes to fix null check regression
 
 ## 9.0.10
 
@@ -44,7 +44,7 @@
 
 ### Patch Changes
 
-- [`b665929e8b7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b665929e8b7) - Bumps pretty proptypes.
+- [#12557](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12557) [`b665929e8b7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b665929e8b7) - Bumps pretty proptypes.
 
 ## 9.0.7
 
@@ -56,14 +56,14 @@
 
 ### Patch Changes
 
-- [`7ba7af04db8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7ba7af04db8) - Type fixes related to consumption of `@atlaskit/code`
+- [#10230](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10230) [`7ba7af04db8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7ba7af04db8) - Type fixes related to consumption of `@atlaskit/code`
 - Updated dependencies
 
 ## 9.0.5
 
 ### Patch Changes
 
-- [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
+- [#5857](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5857) [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
 
 ## 9.0.4
 
@@ -81,20 +81,20 @@
 
 ### Patch Changes
 
-- [`7315203b80`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7315203b80) - Rename `AkCode` and `AkCodeBlock` exports to `Code` and `CodeBlock` for `@atlaskit/code`.
+- [#4424](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4424) [`7315203b80`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7315203b80) - Rename `AkCode` and `AkCodeBlock` exports to `Code` and `CodeBlock` for `@atlaskit/code`.
 - Updated dependencies
 
 ## 9.0.1
 
 ### Patch Changes
 
-- [`30853172ff`](https://bitbucket.org/atlassian/atlassian-frontend/commits/30853172ff) - Reset babel config back to ie11 to prevent runtime issues in Jira and to unbreak the Confluence es5-check
+- [#4573](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4573) [`30853172ff`](https://bitbucket.org/atlassian/atlassian-frontend/commits/30853172ff) - Reset babel config back to ie11 to prevent runtime issues in Jira and to unbreak the Confluence es5-check
 
 ## 9.0.0
 
 ### Major Changes
 
-- [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
+- [#3335](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3335) [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
   For more information see: https://community.developer.atlassian.com/t/atlaskit-to-drop-support-for-internet-explorer-11-from-1st-july-2020/39534
 
 ### Patch Changes
@@ -105,19 +105,19 @@
 
 ### Patch Changes
 
-- [`64e8f48490`](https://bitbucket.org/atlassian/atlassian-frontend/commits/64e8f48490) - upgrade pretty-proptypes from ^1.1.2 to ^1.1.3
+- [#2800](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2800) [`64e8f48490`](https://bitbucket.org/atlassian/atlassian-frontend/commits/64e8f48490) - upgrade pretty-proptypes from ^1.1.2 to ^1.1.3
 
 ## 8.5.3
 
 ### Patch Changes
 
-- [`a5815adf37`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a5815adf37) - Fixed es2019 distributable missing a version.json file
+- [#2731](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2731) [`a5815adf37`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a5815adf37) - Fixed es2019 distributable missing a version.json file
 
 ## 8.5.2
 
 ### Patch Changes
 
-- [`b245e72191`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b245e72191) - upgrade pretty-proptypes from ^1.1.1 to ^1.1.2
+- [#2557](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2557) [`b245e72191`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b245e72191) - upgrade pretty-proptypes from ^1.1.1 to ^1.1.2
 
 ## 8.5.1
 

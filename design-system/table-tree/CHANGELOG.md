@@ -4,51 +4,51 @@
 
 ### Patch Changes
 
-- [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
+- [#38162](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38162) [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
 - Updated dependencies
 
 ## 9.6.2
 
 ### Patch Changes
 
-- [`56b444b56a8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56b444b56a8) - Fix a bug where text descenders were cut off at high zoom levels on Windows
+- [#38209](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38209) [`56b444b56a8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56b444b56a8) - Fix a bug where text descenders were cut off at high zoom levels on Windows
 
 ## 9.6.1
 
 ### Patch Changes
 
-- [`fbce2074415`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fbce2074415) - Fix issues with inappropriate roles and `aria-controls` application.
+- [#37624](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37624) [`fbce2074415`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fbce2074415) - Fix issues with inappropriate roles and `aria-controls` application.
 
 ## 9.6.0
 
 ### Minor Changes
 
-- [`60b048eae5d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/60b048eae5d) - Replaced legacy context with useContext for handling column widths
+- [#35975](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35975) [`60b048eae5d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/60b048eae5d) - Replaced legacy context with useContext for handling column widths
 
 ## 9.5.0
 
 ### Minor Changes
 
-- [`6e5546981a3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6e5546981a3) - Accessibility: Fix the chevron button label.
+- [#33849](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33849) [`6e5546981a3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6e5546981a3) - Accessibility: Fix the chevron button label.
   Add a new prop `mainColumnForExpandCollapseLabel` that allows you to show a chevron label with row contents instead of a row index.
 
 ## 9.4.2
 
 ### Patch Changes
 
-- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793) [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
 
 ## 9.4.1
 
 ### Patch Changes
 
-- [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649) [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
 
 ## 9.4.0
 
 ### Minor Changes
 
-- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258) [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
 
 ### Patch Changes
 
@@ -58,25 +58,25 @@
 
 ### Patch Changes
 
-- [`4ba10567310`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ba10567310) - Internal changes.
+- [#32211](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32211) [`4ba10567310`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ba10567310) - Internal changes.
 
 ## 9.3.1
 
 ### Patch Changes
 
-- [`2e01c9c74b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e01c9c74b5) - DUMMY remove before merging to master; dupe adf-schema via adf-utils
+- [#32424](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32424) [`2e01c9c74b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e01c9c74b5) - DUMMY remove before merging to master; dupe adf-schema via adf-utils
 
 ## 9.3.0
 
 ### Minor Changes
 
-- [`6d99522bfa2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6d99522bfa2) - [ux] Adds `shouldExpandOnClick` prop for both TableTree and Row. This allows expansion of expandable rows when a user clicks anywhere on the row, along with the chevron at the head of the row.
+- [#31891](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31891) [`6d99522bfa2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6d99522bfa2) - [ux] Adds `shouldExpandOnClick` prop for both TableTree and Row. This allows expansion of expandable rows when a user clicks anywhere on the row, along with the chevron at the head of the row.
 
 ## 9.2.11
 
 ### Patch Changes
 
-- [`261420360ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/261420360ec) - Upgrades component types to support React 18.
+- [#31206](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31206) [`261420360ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/261420360ec) - Upgrades component types to support React 18.
 - Updated dependencies
 
 ## 9.2.10
@@ -95,7 +95,7 @@
 
 ### Patch Changes
 
-- [`4ee60bafc6d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ee60bafc6d) - ED-16603: Remove tooltips from VR tests and make them opt in. To opt-in, add `allowedSideEffects` when loading the page.
+- [#29227](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/29227) [`4ee60bafc6d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ee60bafc6d) - ED-16603: Remove tooltips from VR tests and make them opt in. To opt-in, add `allowedSideEffects` when loading the page.
 
 ## 9.2.7
 
@@ -113,13 +113,13 @@
 
 ### Patch Changes
 
-- [`25348ec8a74`](https://bitbucket.org/atlassian/atlassian-frontend/commits/25348ec8a74) - Updated to use spacing and typography tokens. With spacing tokens enabled, padding inside cells has changed slightly from 10px vertical to 8px vertical, and from 25px inline to 24px inline. No visual changes without tokens enabled.
+- [#28029](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28029) [`25348ec8a74`](https://bitbucket.org/atlassian/atlassian-frontend/commits/25348ec8a74) - Updated to use spacing and typography tokens. With spacing tokens enabled, padding inside cells has changed slightly from 10px vertical to 8px vertical, and from 25px inline to 24px inline. No visual changes without tokens enabled.
 
 ## 9.2.4
 
 ### Patch Changes
 
-- [`cb8f8e76d25`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb8f8e76d25) - Update types for react-select and @atlaskit/select upgrade
+- [#26712](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26712) [`cb8f8e76d25`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb8f8e76d25) - Update types for react-select and @atlaskit/select upgrade
   Update commerce-ui entrypoints that caused a pipeline issue.
 - Updated dependencies
 
@@ -133,19 +133,19 @@
 
 ### Patch Changes
 
-- [`9827dcb82b8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9827dcb82b8) - No-op change to introduce spacing tokens to design system components.
+- [#26303](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26303) [`9827dcb82b8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9827dcb82b8) - No-op change to introduce spacing tokens to design system components.
 
 ## 9.2.1
 
 ### Patch Changes
 
-- [`d0e187cc5bd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d0e187cc5bd) - Fixed a babel issue causing `styled-components` to get injected, which broke our styling.
+- [#24924](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24924) [`d0e187cc5bd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d0e187cc5bd) - Fixed a babel issue causing `styled-components` to get injected, which broke our styling.
 
 ## 9.2.0
 
 ### Minor Changes
 
-- [`181c4b6cc3a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/181c4b6cc3a) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behavior change.
+- [#24004](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24004) [`181c4b6cc3a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/181c4b6cc3a) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behavior change.
 
 ### Patch Changes
 
@@ -155,13 +155,13 @@
 
 ### Patch Changes
 
-- [`70c2c0e00ea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/70c2c0e00ea) - Updates `@emotion/core` v10 to `@emotion/react` v11. No expected behaviour change.
+- [#23749](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23749) [`70c2c0e00ea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/70c2c0e00ea) - Updates `@emotion/core` v10 to `@emotion/react` v11. No expected behaviour change.
 
 ## 9.1.9
 
 ### Patch Changes
 
-- [`efa50ac72ba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/efa50ac72ba) - Adjusts jsdoc strings to improve prop documentation
+- [#21545](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21545) [`efa50ac72ba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/efa50ac72ba) - Adjusts jsdoc strings to improve prop documentation
 
 ## 9.1.8
 
@@ -185,7 +185,7 @@
 
 ### Patch Changes
 
-- [`ae03dc85756`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ae03dc85756) - Moved homepage to atlassian.design.
+- [#19646](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19646) [`ae03dc85756`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ae03dc85756) - Moved homepage to atlassian.design.
 
 ## 9.1.4
 
@@ -197,7 +197,7 @@
 
 ### Patch Changes
 
-- [`58884c2f6c1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/58884c2f6c1) - Internal code change turning on a new linting rule.
+- [#16752](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16752) [`58884c2f6c1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/58884c2f6c1) - Internal code change turning on a new linting rule.
 
 ## 9.1.2
 
@@ -216,7 +216,7 @@
 
 ### Minor Changes
 
-- [`4dd20cb2110`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4dd20cb2110) - **Note**: It is a re-release of the wrongly `patched` version `21.9.2` that should have been a `minor` release.
+- [#17576](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/17576) [`4dd20cb2110`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4dd20cb2110) - **Note**: It is a re-release of the wrongly `patched` version `21.9.2` that should have been a `minor` release.
 
   Package has been migrated from `styled-components` to `@emotion/core`.
 
@@ -234,13 +234,13 @@
 
 ### Patch Changes
 
-- [`c55c736ecea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c55c736ecea) - Patch VULN AFP-3486 AFP-3487 AFP-3488 AFP-3489
+- [#17475](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/17475) [`c55c736ecea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c55c736ecea) - Patch VULN AFP-3486 AFP-3487 AFP-3488 AFP-3489
 
 ## 9.0.14
 
 ### Patch Changes
 
-- [`ca37d9b9707`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ca37d9b9707) - Hotfix to resolve an issue introduced in 9.0.12 which meant the indent of rows was not being applied correctly.
+- [#17256](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/17256) [`ca37d9b9707`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ca37d9b9707) - Hotfix to resolve an issue introduced in 9.0.12 which meant the indent of rows was not being applied correctly.
 
 ## 9.0.13
 
@@ -248,7 +248,7 @@
 
 _WRONG RELEASE TYPE - DON'T USE_
 
-- [`3fe03999326`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3fe03999326) - Package has been migrated from `styled-components` to `@emotion/core`.
+- [#15998](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/15998) [`3fe03999326`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3fe03999326) - Package has been migrated from `styled-components` to `@emotion/core`.
 
   Other internal changes:
 
@@ -277,26 +277,26 @@ _WRONG RELEASE TYPE - DON'T USE_
 
 ### Patch Changes
 
-- [`378d1cef00f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/378d1cef00f) - Bump `@atlaskit/theme` to version `^11.3.0`.
+- [#12880](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12880) [`378d1cef00f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/378d1cef00f) - Bump `@atlaskit/theme` to version `^11.3.0`.
 
 ## 9.0.9
 
 ### Patch Changes
 
-- [`25e6994ab97`](https://bitbucket.org/atlassian/atlassian-frontend/commits/25e6994ab97) - Update internal component usage
+- [#10569](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10569) [`25e6994ab97`](https://bitbucket.org/atlassian/atlassian-frontend/commits/25e6994ab97) - Update internal component usage
 
 ## 9.0.8
 
 ### Patch Changes
 
-- [`79c23df6340`](https://bitbucket.org/atlassian/atlassian-frontend/commits/79c23df6340) - Use injected package name and version for analytics instead of version.json.
+- [#8644](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8644) [`79c23df6340`](https://bitbucket.org/atlassian/atlassian-frontend/commits/79c23df6340) - Use injected package name and version for analytics instead of version.json.
 - Updated dependencies
 
 ## 9.0.7
 
 ### Patch Changes
 
-- [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
+- [#5857](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5857) [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
 
 ## 9.0.6
 
@@ -314,13 +314,13 @@ _WRONG RELEASE TYPE - DON'T USE_
 
 ### Patch Changes
 
-- [`30853172ff`](https://bitbucket.org/atlassian/atlassian-frontend/commits/30853172ff) - Reset babel config back to ie11 to prevent runtime issues in Jira and to unbreak the Confluence es5-check
+- [#4573](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4573) [`30853172ff`](https://bitbucket.org/atlassian/atlassian-frontend/commits/30853172ff) - Reset babel config back to ie11 to prevent runtime issues in Jira and to unbreak the Confluence es5-check
 
 ## 9.0.3
 
 ### Patch Changes
 
-- [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
+- [#3885](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3885) [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
 
   Since tslib is a dependency for all our packages we recommend that products also follow this tslib upgrade
   to prevent duplicates of tslib being bundled.
@@ -329,19 +329,19 @@ _WRONG RELEASE TYPE - DON'T USE_
 
 ### Patch Changes
 
-- [`76165ad82f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/76165ad82f) - Bump required because of conflicts on wadmal release
+- [#4393](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4393) [`76165ad82f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/76165ad82f) - Bump required because of conflicts on wadmal release
 
 ## 9.0.1
 
 ### Patch Changes
 
-- [`6262f382de`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6262f382de) - Use the 'lodash' package instead of single-function 'lodash.\*' packages
+- [#3823](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3823) [`6262f382de`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6262f382de) - Use the 'lodash' package instead of single-function 'lodash.\*' packages
 
 ## 9.0.0
 
 ### Major Changes
 
-- [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
+- [#3335](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3335) [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
   For more information see: https://community.developer.atlassian.com/t/atlaskit-to-drop-support-for-internet-explorer-11-from-1st-july-2020/39534
 
 ### Patch Changes
@@ -352,13 +352,13 @@ _WRONG RELEASE TYPE - DON'T USE_
 
 ### Patch Changes
 
-- [`e80d58698b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e80d58698b) - Fixed alignment of Cell items
+- [#2763](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2763) [`e80d58698b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e80d58698b) - Fixed alignment of Cell items
 
 ## 8.0.7
 
 ### Patch Changes
 
-- [`eac08411a3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eac08411a3) - Updated react-redux dependency to 5.1.0
+- [#3229](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3229) [`eac08411a3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eac08411a3) - Updated react-redux dependency to 5.1.0
 
 ## 8.0.6
 
@@ -370,7 +370,7 @@ _WRONG RELEASE TYPE - DON'T USE_
 
 ### Patch Changes
 
-- [`54a9514fcf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54a9514fcf) - Build and supporting files will no longer be published to npm
+- [#2866](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2866) [`54a9514fcf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54a9514fcf) - Build and supporting files will no longer be published to npm
 
 ## 8.0.4
 

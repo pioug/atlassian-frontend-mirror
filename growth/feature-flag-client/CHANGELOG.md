@@ -4,49 +4,49 @@
 
 ### Minor Changes
 
-- [`08c4f9a0a3b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/08c4f9a0a3b) - Prevent automatic exposure events for missing platform. flags to be sent
+- [#38460](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38460) [`08c4f9a0a3b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/08c4f9a0a3b) - Prevent automatic exposure events for missing platform. flags to be sent
 
 ## 5.3.0
 
 ### Minor Changes
 
-- [`7584b4516ac`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7584b4516ac) - Feature flag client now allows an additional param isMissingFlagEventsDisabled which you can disable missing flag exposure events being fired
+- [#34283](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34283) [`7584b4516ac`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7584b4516ac) - Feature flag client now allows an additional param isMissingFlagEventsDisabled which you can disable missing flag exposure events being fired
 
 ## 5.2.2
 
 ### Patch Changes
 
-- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793) [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
 
 ## 5.2.1
 
 ### Patch Changes
 
-- [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649) [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
 
 ## 5.2.0
 
 ### Minor Changes
 
-- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258) [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
 
 ## 5.1.1
 
 ### Patch Changes
 
-- [`c708e3eff99`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c708e3eff99) - Remove object spread from get feature-flag value
+- [#26163](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26163) [`c708e3eff99`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c708e3eff99) - Remove object spread from get feature-flag value
 
 ## 5.1.0
 
 ### Minor Changes
 
-- [`9391c400ada`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9391c400ada) - Added API `getFlagEvaluation` to get FlagShape of evaluation details
+- [#25700](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/25700) [`9391c400ada`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9391c400ada) - Added API `getFlagEvaluation` to get FlagShape of evaluation details
 
 ## 5.0.0
 
 ### Major Changes
 
-- [`21a06c801dc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/21a06c801dc) - Removed the ability for exposure events to be send via Track GASv3 events.
+- [#25576](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/25576) [`21a06c801dc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/21a06c801dc) - Removed the ability for exposure events to be send via Track GASv3 events.
   Removed `client.getFlag` API.
   Automatic exposures now uses the same analyticsHandler as the other exposure events.
   Automatic exposures can be enabled in the constructor.
@@ -55,79 +55,79 @@
 
 ### Patch Changes
 
-- [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
+- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874) [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
 
 ## 4.6.0
 
 ### Minor Changes
 
-- [`dc7a50a70a2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dc7a50a70a2) - Split out automatically sent events to handle upcoming change in the flag exposure pipeline
+- [#24815](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24815) [`dc7a50a70a2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dc7a50a70a2) - Split out automatically sent events to handle upcoming change in the flag exposure pipeline
 
 ## 4.5.5
 
 ### Patch Changes
 
-- [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
+- [#24492](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24492) [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
 
 ## 4.5.4
 
 ### Patch Changes
 
-- [`fbc99902b9e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fbc99902b9e) - Fixed trackFeatureFlag to send value when falsey
+- [#21524](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21524) [`fbc99902b9e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fbc99902b9e) - Fixed trackFeatureFlag to send value when falsey
 
 ## 4.5.3
 
 ### Patch Changes
 
-- [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
+- [#20650](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20650) [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
 
 ## 4.5.2
 
 ### Patch Changes
 
-- [`0f34f1e0e2f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0f34f1e0e2f) - Changed client functions to be prototypes to make consistent
+- [#20213](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20213) [`0f34f1e0e2f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0f34f1e0e2f) - Changed client functions to be prototypes to make consistent
 
 ## 4.5.1
 
 ### Patch Changes
 
-- [`fa66f824bac`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fa66f824bac) - Fixed getRawValue to not perform type check on value and defaultValue as intended
+- [#20140](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20140) [`fa66f824bac`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fa66f824bac) - Fixed getRawValue to not perform type check on value and defaultValue as intended
 
 ## 4.5.0
 
 ### Minor Changes
 
-- [`c732a4cbccc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c732a4cbccc) - Adds trackFeatureFlag endpoint
+- [#19483](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/19483) [`c732a4cbccc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c732a4cbccc) - Adds trackFeatureFlag endpoint
 
 ## 4.4.0
 
 ### Minor Changes
 
-- [`3b893b75e05`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3b893b75e05) - Prevent sending automatic exposures when evaluating flags with no explanation
+- [#13766](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13766) [`3b893b75e05`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3b893b75e05) - Prevent sending automatic exposures when evaluating flags with no explanation
 
 ## 4.3.1
 
 ### Patch Changes
 
-- [`a0e3bec2bda`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a0e3bec2bda) - Explicilty set exposure trigger reason to exposure event tags
+- [#13661](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13661) [`a0e3bec2bda`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a0e3bec2bda) - Explicilty set exposure trigger reason to exposure event tags
 
 ## 4.3.0
 
 ### Minor Changes
 
-- [`b74ad8c4eed`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b74ad8c4eed) - Cache the result of the first evaluation for each flag key to skip un-necessary validation checks on subsequent calls
+- [#12916](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12916) [`b74ad8c4eed`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b74ad8c4eed) - Cache the result of the first evaluation for each flag key to skip un-necessary validation checks on subsequent calls
 
 ## 4.2.1
 
 ### Patch Changes
 
-- [`1eb2ab20e1c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1eb2ab20e1c) - Fix a bug which caused the value property to be removed from the object returned from getFlag
+- [#10210](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10210) [`1eb2ab20e1c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1eb2ab20e1c) - Fix a bug which caused the value property to be removed from the object returned from getFlag
 
 ## 4.2.0
 
 ### Minor Changes
 
-- [`1388ead86af`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1388ead86af) - Migrated to declarative entry points. This has removed all entrypoints except for @atlaskit/feature-flag-client and @atlaskit/feature-flag-client/types
+- [#9856](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9856) [`1388ead86af`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1388ead86af) - Migrated to declarative entry points. This has removed all entrypoints except for @atlaskit/feature-flag-client and @atlaskit/feature-flag-client/types
 - [`63c23e6bc25`](https://bitbucket.org/atlassian/atlassian-frontend/commits/63c23e6bc25) - Added a new getRawValue method that can be used to evaluate flags without performing any type safety checks
   Added a new getFlagStats method that returns usage information about each flag. This currently only contains an "evaluationCount" per used flag key.
   Performance improvements for repeat evaluations. Flag objects are now cached after the first evaluation, so that subsequent evaluations do not need to perform the same validation checks again.
@@ -137,32 +137,32 @@
 
 ### Patch Changes
 
-- [`5eddf1c36bb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5eddf1c36bb) - remove version.json and replace with build time params
+- [#10007](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10007) [`5eddf1c36bb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5eddf1c36bb) - remove version.json and replace with build time params
 
 ## 4.1.2
 
 ### Patch Changes
 
-- [`66c38f2f1b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/66c38f2f1b) - Setting highPriority field to true for manually fired exposure events to keep backwards compatibility
+- [#6754](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/6754) [`66c38f2f1b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/66c38f2f1b) - Setting highPriority field to true for manually fired exposure events to keep backwards compatibility
 
 ## 4.1.1
 
 ### Patch Changes
 
-- [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
+- [#5857](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5857) [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
 
 ## 4.1.0
 
 ### Minor Changes
 
-- [`0206cc79b8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0206cc79b8) - - Feature Flag Client now includes a client method `setAutomaticExposuresMode` which can be enabled to automatically fire exposure events whenever a flag is evaluated. These automatic events can be identified by the tag `['autoExposure']`.
+- [#5506](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5506) [`0206cc79b8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0206cc79b8) - - Feature Flag Client now includes a client method `setAutomaticExposuresMode` which can be enabled to automatically fire exposure events whenever a flag is evaluated. These automatic events can be identified by the tag `['autoExposure']`.
   - Feature Flag Client will now set the `highPriority` field to false on all exposure events. This means that when the analytics web client starts its new delay mechanism, the sending of exposure events will be delayed.
 
 ## 4.0.3
 
 ### Patch Changes
 
-- [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
+- [#5497](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5497) [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
   This requires version 3.8 of Typescript, read more about how we handle Typescript versions here: https://atlaskit.atlassian.com/get-started
   Also add `typescript` to `devDependencies` to denote version that the package was built with.
 
@@ -170,7 +170,7 @@
 
 ### Patch Changes
 
-- [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
+- [#3885](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3885) [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
 
   Since tslib is a dependency for all our packages we recommend that products also follow this tslib upgrade
   to prevent duplicates of tslib being bundled.
@@ -179,13 +179,13 @@
 
 ### Patch Changes
 
-- [`42cbd7edb8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/42cbd7edb8) - Update reference to team in package.json
+- [#3937](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3937) [`42cbd7edb8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/42cbd7edb8) - Update reference to team in package.json
 
 ## 4.0.0
 
 ### Major Changes
 
-- [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
+- [#3335](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3335) [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
   For more information see: https://community.developer.atlassian.com/t/atlaskit-to-drop-support-for-internet-explorer-11-from-1st-july-2020/39534
 
 ## 3.1.8

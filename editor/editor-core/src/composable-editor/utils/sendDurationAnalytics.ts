@@ -1,13 +1,14 @@
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { ACTION } from '@atlaskit/editor-common/analytics';
 import {
-  ACTION,
   ACTION_SUBJECT,
   EVENT_TYPE,
   fireAnalyticsEvent,
 } from '@atlaskit/editor-common/analytics';
-import { EditorExperience, ExperienceStore } from '@atlaskit/editor-common/ufo';
+import type { ExperienceStore } from '@atlaskit/editor-common/ufo';
+import { EditorExperience } from '@atlaskit/editor-common/ufo';
 
-import { EditorProps } from '../../types/editor-props';
+import type { EditorProps } from '../../types/editor-props';
 
 /**
  *

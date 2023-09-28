@@ -15,6 +15,7 @@ import {
   buttonGroupStyle,
   wrapperStyle,
 } from '@atlaskit/editor-common/styles';
+import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
 import { insertDate } from '../../../date/actions';
 import { showPlaceholderFloatingToolbar } from '../../../placeholder-text/actions';
 import { insertLayoutColumnsWithAnalytics } from '../../../layout/actions';
@@ -231,6 +232,7 @@ export class ToolbarInsertBlock extends React.PureComponent<
         boundariesElement={popupsBoundariesElement}
         scrollableElement={popupsScrollableElement}
         focusTrap
+        zIndex={akEditorMenuZIndex}
       >
         <EmojiPickerWithListeners
           emojiProvider={emojiProvider}

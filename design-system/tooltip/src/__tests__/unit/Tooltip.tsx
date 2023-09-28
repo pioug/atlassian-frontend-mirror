@@ -37,7 +37,7 @@ describe('Tooltip', () => {
 
     [wrapped, renderProp].forEach((jsx) => {
       const { queryByTestId, unmount } = render(jsx);
-      expect(queryByTestId('tooltip')).toBeNull();
+      expect(queryByTestId('tooltip')).not.toBeInTheDocument();
       unmount();
     });
   });
@@ -48,7 +48,7 @@ describe('Tooltip', () => {
         <button data-testid="trigger">focus me</button>
       </Tooltip>,
     );
-    expect(getByRole('presentation')).not.toBeNull();
+    expect(getByRole('presentation')).toBeInTheDocument();
   });
 
   it('should be visible when trigger is hovered', () => {
@@ -78,7 +78,7 @@ describe('Tooltip', () => {
         jest.runAllTimers();
       });
 
-      expect(getByTestId('tooltip').textContent).toEqual('hello world');
+      expect(getByTestId('tooltip')).toHaveTextContent('hello world');
       expect(onShow).toHaveBeenCalledTimes(1);
       onShow.mockClear();
       unmount();
@@ -122,7 +122,7 @@ describe('Tooltip', () => {
       act(() => {
         jest.runTimersToTime(299);
       });
-      expect(queryByTestId('tooltip')).toBeNull();
+      expect(queryByTestId('tooltip')).not.toBeInTheDocument();
       expect(onShow).not.toHaveBeenCalled();
 
       // hide the tooltip
@@ -133,7 +133,7 @@ describe('Tooltip', () => {
         jest.runAllTimers();
       });
 
-      expect(queryByTestId('tooltip')).toBeNull();
+      expect(queryByTestId('tooltip')).not.toBeInTheDocument();
       expect(onShow).not.toHaveBeenCalled();
       onShow.mockClear();
       unmount();
@@ -167,7 +167,7 @@ describe('Tooltip', () => {
       act(() => {
         jest.runAllTimers();
       });
-      expect(queryByTestId('tooltip')).toBeTruthy();
+      expect(queryByTestId('tooltip')).toBeInTheDocument();
 
       // Trigger hiding tooltip
       fireEvent.mouseOut(trigger);
@@ -180,7 +180,7 @@ describe('Tooltip', () => {
         jest.runOnlyPendingTimers();
       });
 
-      expect(queryByTestId('tooltip')).toBeNull();
+      expect(queryByTestId('tooltip')).not.toBeInTheDocument();
       expect(onHide).toHaveBeenCalledTimes(1);
       onHide.mockClear();
       unmount();
@@ -228,7 +228,7 @@ describe('Tooltip', () => {
       act(() => {
         jest.runAllTimers();
       });
-      expect(queryByTestId('tooltip')).toBeTruthy();
+      expect(queryByTestId('tooltip')).toBeInTheDocument();
 
       // Trigger hiding tooltip
       fireEvent.mouseOut(trigger);
@@ -236,7 +236,7 @@ describe('Tooltip', () => {
       act(() => {
         jest.runTimersToTime(299);
       });
-      expect(queryByTestId('tooltip')).toBeTruthy();
+      expect(queryByTestId('tooltip')).toBeInTheDocument();
 
       // Going back over the tooltip
       fireEvent.mouseOver(trigger);
@@ -249,7 +249,7 @@ describe('Tooltip', () => {
         jest.runAllTimers();
       });
       // Tooltip is still around being awesome
-      expect(queryByTestId('tooltip')).toBeTruthy();
+      expect(queryByTestId('tooltip')).toBeInTheDocument();
       expect(onHide).toHaveBeenCalledTimes(0);
       unmount();
     });
@@ -284,7 +284,7 @@ describe('Tooltip', () => {
       act(() => {
         jest.runAllTimers();
       });
-      expect(queryByTestId('tooltip')).toBeTruthy();
+      expect(queryByTestId('tooltip')).toBeInTheDocument();
 
       // Trigger hiding tooltip
       fireEvent.mouseOut(trigger);
@@ -297,7 +297,7 @@ describe('Tooltip', () => {
         jest.runTimersToTime(1);
       });
       // tooltip is visible but fading out
-      expect(queryByTestId('tooltip')).toBeTruthy();
+      expect(queryByTestId('tooltip')).toBeInTheDocument();
       // on hide not called yet
       expect(onHide).toHaveBeenCalledTimes(0);
 
@@ -309,7 +309,7 @@ describe('Tooltip', () => {
       });
 
       // But the tooltip is back and being awesome
-      expect(queryByTestId('tooltip')).toBeTruthy();
+      expect(queryByTestId('tooltip')).toBeInTheDocument();
       expect(onHide).toHaveBeenCalledTimes(0);
       unmount();
     });
@@ -341,7 +341,7 @@ describe('Tooltip', () => {
         jest.runAllTimers();
       });
 
-      expect(getByTestId('tooltip').textContent).toEqual('hello world');
+      expect(getByTestId('tooltip')).toHaveTextContent('hello world');
       unmount();
     });
   });
@@ -384,7 +384,7 @@ describe('Tooltip', () => {
         jest.runAllTimers();
       });
 
-      expect(queryByTestId('tooltip')).toBeNull();
+      expect(queryByTestId('tooltip')).not.toBeInTheDocument();
       unmount();
     });
   });
@@ -416,7 +416,7 @@ describe('Tooltip', () => {
         jest.runAllTimers();
       });
 
-      expect(getByTestId('tooltip').textContent).toEqual('hello world');
+      expect(getByTestId('tooltip')).toHaveTextContent('hello world');
       unmount();
     });
   });
@@ -447,13 +447,13 @@ describe('Tooltip', () => {
         jest.runAllTimers();
       });
 
-      expect(getByTestId('tooltip').textContent).toEqual('hello world');
+      expect(getByTestId('tooltip')).toHaveTextContent('hello world');
 
       fireEvent.click(trigger);
       act(() => {
         jest.runAllTimers();
       });
-      expect(queryByTestId('tooltip')).toBeNull();
+      expect(queryByTestId('tooltip')).not.toBeInTheDocument();
       unmount();
     });
   });
@@ -484,14 +484,14 @@ describe('Tooltip', () => {
         jest.runAllTimers();
       });
 
-      expect(getByTestId('tooltip').textContent).toEqual('hello world');
+      expect(getByTestId('tooltip')).toHaveTextContent('hello world');
 
       fireEvent.mouseDown(trigger);
       act(() => {
         jest.runAllTimers();
       });
 
-      expect(queryByTestId('tooltip')).toBeNull();
+      expect(queryByTestId('tooltip')).not.toBeInTheDocument();
       unmount();
     });
   });
@@ -522,14 +522,14 @@ describe('Tooltip', () => {
         jest.runAllTimers();
       });
 
-      expect(getByTestId('tooltip').textContent).toEqual('hello world');
+      expect(getByTestId('tooltip')).toHaveTextContent('hello world');
 
       act(() => {
         fireEvent.keyDown(trigger, { key: 'Escape' });
         jest.runAllTimers();
       });
 
-      expect(queryByTestId('tooltip')).toBeNull();
+      expect(queryByTestId('tooltip')).not.toBeInTheDocument();
       unmount();
     });
   });
@@ -568,7 +568,7 @@ describe('Tooltip', () => {
       });
 
       const tooltip = getByTestId('tooltip');
-      expect(tooltip.textContent).toEqual('Im a custom tooltip');
+      expect(tooltip).toHaveTextContent('Im a custom tooltip');
       expect(tooltip.tagName).toEqual('STRONG');
       unmount();
     });
@@ -634,7 +634,7 @@ describe('Tooltip', () => {
       });
 
       expect(onShow).toHaveBeenCalledTimes(1);
-      expect(queryByTestId('tooltip')).not.toBeNull();
+      expect(queryByTestId('tooltip')).toBeInTheDocument();
       onShow.mockClear();
       unmount();
     });
@@ -668,13 +668,13 @@ describe('Tooltip', () => {
         jest.runTimersToTime(999);
       });
       expect(onShow).toHaveBeenCalledTimes(0);
-      expect(queryByTestId('tooltip')).toBeNull();
+      expect(queryByTestId('tooltip')).not.toBeInTheDocument();
 
       act(() => {
         jest.runTimersToTime(1);
       });
       expect(onShow).toHaveBeenCalledTimes(1);
-      expect(queryByTestId('tooltip')).not.toBeNull();
+      expect(queryByTestId('tooltip')).toBeInTheDocument();
       unmount();
       onShow.mockClear();
     });
@@ -706,7 +706,7 @@ describe('Tooltip', () => {
       act(() => {
         jest.runAllTimers();
       });
-      expect(queryByTestId('tooltip')).not.toBeNull();
+      expect(queryByTestId('tooltip')).toBeInTheDocument();
 
       // start hiding
       fireEvent.mouseOut(trigger);
@@ -714,7 +714,7 @@ describe('Tooltip', () => {
         jest.runTimersToTime(299);
       });
       // haven't waited long enough
-      expect(queryByTestId('tooltip')).not.toBeNull();
+      expect(queryByTestId('tooltip')).toBeInTheDocument();
 
       // finish delay
       act(() => {
@@ -722,13 +722,13 @@ describe('Tooltip', () => {
       });
 
       // Still present because we haven't flushed motion
-      expect(queryByTestId('tooltip')).not.toBeNull();
+      expect(queryByTestId('tooltip')).toBeInTheDocument();
 
       // Flushing motion
       act(() => {
         jest.runAllTimers();
       });
-      expect(queryByTestId('tooltip')).toBeNull();
+      expect(queryByTestId('tooltip')).not.toBeInTheDocument();
       unmount();
     });
   });
@@ -759,7 +759,7 @@ describe('Tooltip', () => {
         jest.runAllTimers();
       });
 
-      expect(queryByTestId('tooltip')).not.toBeNull();
+      expect(queryByTestId('tooltip')).toBeInTheDocument();
 
       act(() => {
         fireEvent.mouseOut(trigger);
@@ -768,7 +768,7 @@ describe('Tooltip', () => {
 
       rerender(jsx);
 
-      expect(queryByTestId('tooltip')).not.toBeNull();
+      expect(queryByTestId('tooltip')).toBeInTheDocument();
 
       act(() => {
         jest.runTimersToTime(1);
@@ -781,7 +781,7 @@ describe('Tooltip', () => {
         jest.runAllTimers();
       });
 
-      expect(queryByTestId('tooltip')).toBeNull();
+      expect(queryByTestId('tooltip')).not.toBeInTheDocument();
       unmount();
     });
   });
@@ -812,7 +812,7 @@ describe('Tooltip', () => {
         jest.runAllTimers();
       });
 
-      expect(queryByTestId('tooltip')).toBeNull();
+      expect(queryByTestId('tooltip')).not.toBeInTheDocument();
       unmount();
     });
   });
@@ -843,7 +843,7 @@ describe('Tooltip', () => {
         jest.runAllTimers();
       });
 
-      expect(queryByTestId('tooltip')).toBeNull();
+      expect(queryByTestId('tooltip')).not.toBeInTheDocument();
       unmount();
     });
   });
@@ -874,7 +874,7 @@ describe('Tooltip', () => {
         jest.runAllTimers();
       });
 
-      expect(queryByTestId('tooltip')).toBeNull();
+      expect(queryByTestId('tooltip')).not.toBeInTheDocument();
       unmount();
     });
   });
@@ -915,9 +915,7 @@ describe('Tooltip', () => {
         jest.runAllTimers();
       });
 
-      expect(getByTestId('tooltip').getAttribute('data-placement')).toEqual(
-        'left',
-      );
+      expect(getByTestId('tooltip')).toHaveAttribute('data-placement', 'left');
       unmount();
     });
   });
@@ -958,9 +956,7 @@ describe('Tooltip', () => {
         jest.runAllTimers();
       });
 
-      expect(getByTestId('tooltip').getAttribute('data-placement')).toEqual(
-        'right',
-      );
+      expect(getByTestId('tooltip')).toHaveAttribute('data-placement', 'right');
       unmount();
     });
   });
@@ -991,9 +987,7 @@ describe('Tooltip', () => {
         jest.runAllTimers();
       });
 
-      expect(getByTestId('tooltip').getAttribute('data-placement')).toEqual(
-        'left',
-      );
+      expect(getByTestId('tooltip')).toHaveAttribute('data-placement', 'left');
       unmount();
     });
   });
@@ -1024,7 +1018,7 @@ describe('Tooltip', () => {
       act(() => {
         jest.runAllTimers();
       });
-      expect(queryByTestId('tooltip')).toBeTruthy();
+      expect(queryByTestId('tooltip')).toBeInTheDocument();
 
       // Trigger hiding tooltip
       fireEvent.mouseOut(trigger);
@@ -1038,7 +1032,7 @@ describe('Tooltip', () => {
         jest.runOnlyPendingTimers();
       });
 
-      expect(queryByTestId('tooltip')).not.toBeNull();
+      expect(queryByTestId('tooltip')).toBeInTheDocument();
       unmount();
     });
   });
@@ -1127,7 +1121,7 @@ describe('Tooltip', () => {
         fireEvent.mouseOver(trigger);
         jest.runAllTimers();
       });
-      expect(queryByTestId('tooltip')).toBeTruthy();
+      expect(queryByTestId('tooltip')).toBeInTheDocument();
 
       // hide tooltip
       fireEvent.mouseOut(trigger);
@@ -1198,7 +1192,7 @@ describe('Tooltip', () => {
         jest.runAllTimers();
       });
 
-      expect(getByTestId('tooltip--wrapper').getAttribute('style')).toEqual(
+      expect(getByTestId('tooltip--wrapper')).toHaveStyle(
         'position: fixed; left: 0px; top: 0px;',
       );
       unmount();
@@ -1243,7 +1237,7 @@ describe('Tooltip', () => {
         jest.runAllTimers();
       });
 
-      expect(getByTestId('tooltip--wrapper').getAttribute('style')).toEqual(
+      expect(getByTestId('tooltip--wrapper')).toHaveStyle(
         'position: absolute; left: 0px; top: 0px;',
       );
       unmount();

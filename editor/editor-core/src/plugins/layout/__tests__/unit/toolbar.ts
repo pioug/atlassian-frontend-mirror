@@ -20,10 +20,11 @@ import type { Command } from '../../../../types';
 import commonMessages from '../../../../messages';
 import { buildLayoutForWidths } from './_utils';
 import { LAYOUT_TYPE } from '../../../analytics/types/node-events';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   getToolbarItems,
   findToolbarBtn,
-} from '../../../floating-toolbar/__tests__/_helpers';
+} from '@atlaskit/editor-test-helpers/floating-toolbar';
 
 describe('layout toolbar', () => {
   let createAnalyticsEvent: CreateUIAnalyticsEvent;

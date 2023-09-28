@@ -4,43 +4,43 @@
 
 ### Minor Changes
 
-- [`b3ba6514308`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b3ba6514308) - Introduce `reduceMotionAsPerUserPreference` in favour of `prefersReducedMotion` as the latter does not work correctly with Compiled.
+- [#40426](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40426) [`b3ba6514308`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b3ba6514308) - Introduce `reduceMotionAsPerUserPreference` in favour of `prefersReducedMotion` as the latter does not work correctly with Compiled.
 
 ## 1.4.5
 
 ### Patch Changes
 
-- [`1f371d41ccb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1f371d41ccb) - Motion is now enrolled into the product push model for Jira.
+- [#39731](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39731) [`1f371d41ccb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1f371d41ccb) - Motion is now enrolled into the product push model for Jira.
 
 ## 1.4.4
 
 ### Patch Changes
 
-- [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
+- [#38162](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38162) [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
 
 ## 1.4.3
 
 ### Patch Changes
 
-- [`e7ea6832ad2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e7ea6832ad2) - Bans the use of React.FC/React.FunctionComponent type in ADS components as part of the React 18 migration work. The change is internal only and should not introduce any changes for the component consumers.
+- [#33652](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33652) [`e7ea6832ad2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e7ea6832ad2) - Bans the use of React.FC/React.FunctionComponent type in ADS components as part of the React 18 migration work. The change is internal only and should not introduce any changes for the component consumers.
 
 ## 1.4.2
 
 ### Patch Changes
 
-- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793) [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
 
 ## 1.4.1
 
 ### Patch Changes
 
-- [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649) [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
 
 ## 1.4.0
 
 ### Minor Changes
 
-- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258) [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
 
 ### Patch Changes
 
@@ -50,69 +50,69 @@
 
 ### Patch Changes
 
-- [`8081a4b12d3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8081a4b12d3) - Fixed a type error for the `ResizingHeight` component caused by not rendering valid JSX
+- [#30905](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/30905) [`8081a4b12d3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8081a4b12d3) - Fixed a type error for the `ResizingHeight` component caused by not rendering valid JSX
 
 ## 1.3.1
 
 ### Patch Changes
 
-- [`7f5f23dcb68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7f5f23dcb68) - Introduce shape tokens to some packages.
+- [#30125](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/30125) [`7f5f23dcb68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7f5f23dcb68) - Introduce shape tokens to some packages.
 
 ## 1.3.0
 
 ### Minor Changes
 
-- [`a86726f0b16`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a86726f0b16) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behavior change.
+- [#25860](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/25860) [`a86726f0b16`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a86726f0b16) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behavior change.
 
 ## 1.2.4
 
 ### Patch Changes
 
-- [`9de88fa1e1e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9de88fa1e1e) - Internal changes to include spacing tokens in component implementations.
+- [#26408](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26408) [`9de88fa1e1e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9de88fa1e1e) - Internal changes to include spacing tokens in component implementations.
 
 ## 1.2.3
 
 ### Patch Changes
 
-- [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
+- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874) [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
 
 ## 1.2.2
 
 ### Patch Changes
 
-- [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
+- [#24492](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24492) [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
 
 ## 1.2.1
 
 ### Patch Changes
 
-- [`01a461fe433`](https://bitbucket.org/atlassian/atlassian-frontend/commits/01a461fe433) - Internal code change turning on new linting rules.
+- [#23381](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23381) [`01a461fe433`](https://bitbucket.org/atlassian/atlassian-frontend/commits/01a461fe433) - Internal code change turning on new linting rules.
 - Updated dependencies
 
 ## 1.2.0
 
 ### Minor Changes
 
-- [`a1c9465b456`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a1c9465b456) - - `FadeIn` now supports different exit directions using the `exitDirection` prop
+- [#22642](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22642) [`a1c9465b456`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a1c9465b456) - - `FadeIn` now supports different exit directions using the `exitDirection` prop
   - `FadeIn` now supports different distance options for animations, using the `distance` prop
 
 ## 1.1.2
 
 ### Patch Changes
 
-- [`8a5bdb3c844`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8a5bdb3c844) - Upgrading internal dependency (bind-event-listener) for improved internal types
+- [#22614](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22614) [`8a5bdb3c844`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8a5bdb3c844) - Upgrading internal dependency (bind-event-listener) for improved internal types
 
 ## 1.1.1
 
 ### Patch Changes
 
-- [`e4b612d1c48`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e4b612d1c48) - Internal migration to bind-event-listener for safer DOM Event cleanup
+- [#22029](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22029) [`e4b612d1c48`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e4b612d1c48) - Internal migration to bind-event-listener for safer DOM Event cleanup
 
 ## 1.1.0
 
 ### Minor Changes
 
-- [`8630371ec57`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8630371ec57) - **Note**: It is a re-release of the wrongly `patched` version `1.0.4` that should have been a `minor` release.
+- [#21335](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21335) [`8630371ec57`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8630371ec57) - **Note**: It is a re-release of the wrongly `patched` version `1.0.4` that should have been a `minor` release.
 
   Add a useIsReducedMotion() hook that returns the user's current motion preference.
 
@@ -126,43 +126,43 @@
 
 _WRONG RELEASE TYPE - DON'T USE_
 
-- [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
+- [#20650](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20650) [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
 
 ## 1.0.3
 
 ### Patch Changes
 
-- [`cd34d8ca8ea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cd34d8ca8ea) - Internal wiring up to the tokens techstack, no code changes.
+- [#13302](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13302) [`cd34d8ca8ea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cd34d8ca8ea) - Internal wiring up to the tokens techstack, no code changes.
 
 ## 1.0.2
 
 ### Patch Changes
 
-- [`378d1cef00f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/378d1cef00f) - Bump `@atlaskit/theme` to version `^11.3.0`.
+- [#12880](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12880) [`378d1cef00f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/378d1cef00f) - Bump `@atlaskit/theme` to version `^11.3.0`.
 
 ## 1.0.1
 
 ### Patch Changes
 
-- [`08b6e9821d0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/08b6e9821d0) - ExitingPersistence is now memoised to prevent a re-render that terminates the exit animation when its children have not changed.
+- [#11692](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/11692) [`08b6e9821d0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/08b6e9821d0) - ExitingPersistence is now memoised to prevent a re-render that terminates the exit animation when its children have not changed.
 
 ## 1.0.0
 
 ### Major Changes
 
-- [`4925538af72`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4925538af72) - This `1.0.0` release denotes that the package API is now stable and is no longer in developer preview. There are **NO API CHANGES** in this release.
+- [#10609](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10609) [`4925538af72`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4925538af72) - This `1.0.0` release denotes that the package API is now stable and is no longer in developer preview. There are **NO API CHANGES** in this release.
 
 ## 0.4.8
 
 ### Patch Changes
 
-- [`12f99a7b1ab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/12f99a7b1ab) - Export useExitingPersistence from @atlaskit/motion, and fix types for children of ExitingPersistence.
+- [#10230](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10230) [`12f99a7b1ab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/12f99a7b1ab) - Export useExitingPersistence from @atlaskit/motion, and fix types for children of ExitingPersistence.
 
 ## 0.4.7
 
 ### Patch Changes
 
-- [`9d9f1490c22`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d9f1490c22) - @atlaskit/motion now supports multi entry-points. Users can now import only the parts of this module they need, reducing the size of your final bundle.
+- [#9641](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9641) [`9d9f1490c22`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d9f1490c22) - @atlaskit/motion now supports multi entry-points. Users can now import only the parts of this module they need, reducing the size of your final bundle.
 
   Entry-points include:
 
@@ -182,13 +182,13 @@ _WRONG RELEASE TYPE - DON'T USE_
 
 ### Patch Changes
 
-- [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
+- [#5857](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5857) [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
 
 ## 0.4.5
 
 ### Patch Changes
 
-- [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
+- [#5497](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5497) [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
   This requires version 3.8 of Typescript, read more about how we handle Typescript versions here: https://atlaskit.atlassian.com/get-started
   Also add `typescript` to `devDependencies` to denote version that the package was built with.
 
@@ -196,19 +196,19 @@ _WRONG RELEASE TYPE - DON'T USE_
 
 ### Patch Changes
 
-- [`02df8cde1d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/02df8cde1d) - Readme now points to the correct docs URL.
+- [#4749](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4749) [`02df8cde1d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/02df8cde1d) - Readme now points to the correct docs URL.
 
 ## 0.4.3
 
 ### Patch Changes
 
-- [`81c95008a4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/81c95008a4) - Remove transform if FadeIn movement is not provided
+- [#4424](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4424) [`81c95008a4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/81c95008a4) - Remove transform if FadeIn movement is not provided
 
 ## 0.4.2
 
 ### Patch Changes
 
-- [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
+- [#3885](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3885) [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
 
   Since tslib is a dependency for all our packages we recommend that products also follow this tslib upgrade
   to prevent duplicates of tslib being bundled.
@@ -217,21 +217,21 @@ _WRONG RELEASE TYPE - DON'T USE_
 
 ### Patch Changes
 
-- [`60dd4ecc69`](https://bitbucket.org/atlassian/atlassian-frontend/commits/60dd4ecc69) - Changed export all to export individual components in index
+- [#3428](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3428) [`60dd4ecc69`](https://bitbucket.org/atlassian/atlassian-frontend/commits/60dd4ecc69) - Changed export all to export individual components in index
 - [`db053b24d8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/db053b24d8) - Update all the theme imports to be tree-shakable
 
 ## 0.4.0
 
 ### Minor Changes
 
-- [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
+- [#3335](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3335) [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
   For more information see: https://community.developer.atlassian.com/t/atlaskit-to-drop-support-for-internet-explorer-11-from-1st-july-2020/39534
 
 ## 0.3.0
 
 ### Minor Changes
 
-- [`dd275c9b81`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dd275c9b81) - Added the option to animate opacity within `SlideIn`.
+- [#2763](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2763) [`dd275c9b81`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dd275c9b81) - Added the option to animate opacity within `SlideIn`.
 
   You can now add the property `animateOpacity` which if true, animates the opacity from 0 -> 1 on enter and 1 -> 0 on exit.
 
@@ -239,13 +239,13 @@ _WRONG RELEASE TYPE - DON'T USE_
 
 ### Patch Changes
 
-- [`1e4930567c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1e4930567c) - There should be no noticeable changes to consumers of `motion`, but we now remove the animation styles once an animation is complete, or if the elements are not meant to animate on initial mount. This prevents a class of bugs where we were seeing unintended animations.
+- [#2943](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2943) [`1e4930567c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1e4930567c) - There should be no noticeable changes to consumers of `motion`, but we now remove the animation styles once an animation is complete, or if the elements are not meant to animate on initial mount. This prevents a class of bugs where we were seeing unintended animations.
 
 ## 0.2.5
 
 ### Patch Changes
 
-- [`54a9514fcf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54a9514fcf) - Build and supporting files will no longer be published to npm
+- [#2866](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2866) [`54a9514fcf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54a9514fcf) - Build and supporting files will no longer be published to npm
 
 ## 0.2.4
 

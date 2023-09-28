@@ -36,16 +36,16 @@ export type {
   UiComponentFactoryParams,
 } from './types';
 
-import EditorNext from './editor-next';
+import { ComposableEditor } from './composable-editor';
 import useUniversalPreset from './labs/next/presets/useUniversalPreset';
 
 interface WrapperProps {
   props: EditorProps;
 }
 
-const EditorNextWrapper = ({ props }: WrapperProps) => {
+const ComposableEditorWrapper = ({ props }: WrapperProps) => {
   const preset = useUniversalPreset({ props });
-  return <EditorNext preset={preset} {...props} />;
+  return <ComposableEditor preset={preset} {...props} />;
 };
 
 export default class Editor extends React.Component<EditorProps> {
@@ -64,6 +64,6 @@ export default class Editor extends React.Component<EditorProps> {
   }
 
   render() {
-    return <EditorNextWrapper props={this.props} />;
+    return <ComposableEditorWrapper props={this.props} />;
   }
 }

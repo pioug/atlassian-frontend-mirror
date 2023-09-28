@@ -4,133 +4,133 @@
 
 ### Patch Changes
 
-- [`9af31f3c1ae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9af31f3c1ae) - Delete version.json
+- [#38731](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38731) [`9af31f3c1ae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9af31f3c1ae) - Delete version.json
 
 ## 9.1.3
 
 ### Patch Changes
 
-- [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793) [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
 
 ## 9.1.2
 
 ### Patch Changes
 
-- [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649) [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
 
 ## 9.1.1
 
 ### Patch Changes
 
-- [`7cc1e8f18ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7cc1e8f18ec) - Move analytics-next to maintenance mode
+- [#33292](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33292) [`7cc1e8f18ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7cc1e8f18ec) - Move analytics-next to maintenance mode
 
 ## 9.1.0
 
 ### Minor Changes
 
-- [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258) [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
 
 ## 9.0.2
 
 ### Patch Changes
 
-- [`7caf968e4cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7caf968e4cf) - Move analytics-next to maintenance mode
+- [#33013](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33013) [`7caf968e4cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7caf968e4cf) - Move analytics-next to maintenance mode
 
 ## 9.0.1
 
 ### Patch Changes
 
-- [`fbff320b423`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fbff320b423) - Move package to continuous model and to push model consumption
+- [#32312](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32312) [`fbff320b423`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fbff320b423) - Move package to continuous model and to push model consumption
 
 ## 9.0.0
 
 ### Major Changes
 
-- [`cf21f06ff72`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf21f06ff72) - Bugfix, removed sending event fn and deprecated AnalyticErrorBoundary
+- [#29470](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/29470) [`cf21f06ff72`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf21f06ff72) - Bugfix, removed sending event fn and deprecated AnalyticErrorBoundary
 
 ## 8.3.5
 
 ### Patch Changes
 
-- [`ccdc8e150f9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ccdc8e150f9) - AFO-771 Analytics next - fix node process check
+- [#26436](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26436) [`ccdc8e150f9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ccdc8e150f9) - AFO-771 Analytics next - fix node process check
 
 ## 8.3.4
 
 ### Patch Changes
 
-- [`2cbb787f8b3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2cbb787f8b3) - AFO-711 Analytics-next: nullable check for context
+- [#26220](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26220) [`2cbb787f8b3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2cbb787f8b3) - AFO-711 Analytics-next: nullable check for context
 
 ## 8.3.3
 
 ### Patch Changes
 
-- [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
+- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874) [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
 
 ## 8.3.2
 
 ### Patch Changes
 
-- [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
+- [#24492](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24492) [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
 
 ## 8.3.1
 
 ### Patch Changes
 
-- [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
+- [#20650](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20650) [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
 
 ## 8.3.0
 
 ### Minor Changes
 
-- [`37fd554209e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/37fd554209e) - Add instance checks for analytics events in analytics-next. Update check in mpt-analytics for events too.
+- [#14012](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/14012) [`37fd554209e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/37fd554209e) - Add instance checks for analytics events in analytics-next. Update check in mpt-analytics for events too.
 
 ## 8.2.1
 
 ### Patch Changes
 
-- [`a4420ad5104`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a4420ad5104) - Improves referential stability of analytics-next wrapped callbacks
+- [#12837](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12837) [`a4420ad5104`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a4420ad5104) - Improves referential stability of analytics-next wrapped callbacks
 
 ## 8.2.0
 
 ### Minor Changes
 
-- [`0dbf0427287`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0dbf0427287) - [ux] Added new optional props to allow executing on catching error and rendering an error screen on error
+- [#12328](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12328) [`0dbf0427287`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0dbf0427287) - [ux] Added new optional props to allow executing on catching error and rendering an error screen on error
 
 ## 8.1.4
 
 ### Patch Changes
 
-- [`d6f7ff383cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6f7ff383cf) - Updates to development dependency `storybook-addon-performance`
+- [#12167](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12167) [`d6f7ff383cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6f7ff383cf) - Updates to development dependency `storybook-addon-performance`
 
 ## 8.1.3
 
 ### Patch Changes
 
-- [`5a9b102eef0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5a9b102eef0) - Add optional actionSubject parameter to usePlatformLeafHandlerHook
+- [#10230](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10230) [`5a9b102eef0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5a9b102eef0) - Add optional actionSubject parameter to usePlatformLeafHandlerHook
 
 ## 8.1.2
 
 ### Patch Changes
 
-- [`b290f591719`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b290f591719) - Add process type check in analytics next
+- [#9083](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9083) [`b290f591719`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b290f591719) - Add process type check in analytics next
 
 ## 8.1.1
 
 ### Patch Changes
 
-- [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
+- [#5857](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5857) [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
 
 ## 8.1.0
 
 ### Minor Changes
 
-- [`4eb71695b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4eb71695b5) - Added usePlatformLeafSyntheticEventHandler, which acts similarly to usePlatformLeafEventHandler but is used for synthetic events where the event handler takes no `value` prop
+- [#5693](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5693) [`4eb71695b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4eb71695b5) - Added usePlatformLeafSyntheticEventHandler, which acts similarly to usePlatformLeafEventHandler but is used for synthetic events where the event handler takes no `value` prop
 
 ## 8.0.2
 
 ### Patch Changes
 
-- [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
+- [#5497](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5497) [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
   This requires version 3.8 of Typescript, read more about how we handle Typescript versions here: https://atlaskit.atlassian.com/get-started
   Also add `typescript` to `devDependencies` to denote version that the package was built with.
 
@@ -138,13 +138,13 @@
 
 ### Patch Changes
 
-- [`b6af9198dd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b6af9198dd) - Restructure back to original lite mode file structure
+- [#5412](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5412) [`b6af9198dd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b6af9198dd) - Restructure back to original lite mode file structure
 
 ## 8.0.0
 
 ### Major Changes
 
-- [`b485472340`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b485472340) - Export WithContextProps type to prevent deep import path references in dependent packages declaration output.
+- [#5344](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5344) [`b485472340`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b485472340) - Export WithContextProps type to prevent deep import path references in dependent packages declaration output.
 
   Released as a major to prevent existing Atlaskit dependencies that use analytics-next from breaking when analytics-next file structure changes in the future.
 
@@ -152,13 +152,13 @@
 
 ### Patch Changes
 
-- [`2ac834240e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2ac834240e) - Undo analytics-next file restructure to allow external ts definitions to continue working
+- [#5164](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5164) [`2ac834240e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2ac834240e) - Undo analytics-next file restructure to allow external ts definitions to continue working
 
 ## 7.1.0
 
 ### Minor Changes
 
-- [`0e2a914932`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0e2a914932) - ### Additions
+- [#4749](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4749) [`0e2a914932`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0e2a914932) - ### Additions
 
   - Added a new hook `useAnalyticsEventHandler` for sole use in Atlaskit components
 
@@ -213,7 +213,7 @@
 
 ### Patch Changes
 
-- [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
+- [#3885](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3885) [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
 
   Since tslib is a dependency for all our packages we recommend that products also follow this tslib upgrade
   to prevent duplicates of tslib being bundled.
@@ -224,19 +224,19 @@
 
 ### Patch Changes
 
-- [`723a322186`](https://bitbucket.org/atlassian/atlassian-frontend/commits/723a322186) - Hotfix to have a stable react context across multiple versions of @atlaskit/analytics-next
+- [#4344](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4344) [`723a322186`](https://bitbucket.org/atlassian/atlassian-frontend/commits/723a322186) - Hotfix to have a stable react context across multiple versions of @atlaskit/analytics-next
 
 ## 7.0.1
 
 ### Patch Changes
 
-- [`bff2f273bf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bff2f273bf) - useAnalyticsEvents will no longer log errors when used without an AnalyticsListerner or AnalyticsContext
+- [#3428](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3428) [`bff2f273bf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bff2f273bf) - useAnalyticsEvents will no longer log errors when used without an AnalyticsListerner or AnalyticsContext
 
 ## 7.0.0
 
 ### Major Changes
 
-- [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
+- [#3335](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3335) [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
   For more information see: https://community.developer.atlassian.com/t/atlaskit-to-drop-support-for-internet-explorer-11-from-1st-july-2020/39534
 
 ## 6.3.6

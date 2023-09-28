@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/panel",
-  "version": "0.9.5",
+  "version": "0.9.6",
   "description": "A React component rendering a collapsible panel",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

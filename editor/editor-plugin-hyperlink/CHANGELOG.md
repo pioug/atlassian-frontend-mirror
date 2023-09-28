@@ -10,13 +10,13 @@
 
 ### Patch Changes
 
-- [`553b34b5fd4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/553b34b5fd4) - Small analytics bug fixes relating to auto-linking on enter, legacy link picker, and unresolvable links.
+- [#40199](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40199) [`553b34b5fd4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/553b34b5fd4) - Small analytics bug fixes relating to auto-linking on enter, legacy link picker, and unresolvable links.
 
 ## 0.5.0
 
 ### Minor Changes
 
-- [`9a62c110c14`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9a62c110c14) - [ux] ECA11Y-65: Removed aria-pressed from the Hyperlink floating controls toolbar buttons
+- [#40089](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40089) [`9a62c110c14`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9a62c110c14) - [ux] ECA11Y-65: Removed aria-pressed from the Hyperlink floating controls toolbar buttons
 
 ## 0.4.3
 
@@ -28,7 +28,7 @@
 
 ### Patch Changes
 
-- [`aeb5c9a01e8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aeb5c9a01e8) - Delete adf-schema from AFE and rely on npm package for adf-schema
+- [#39481](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39481) [`aeb5c9a01e8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aeb5c9a01e8) - Delete adf-schema from AFE and rely on npm package for adf-schema
 - [`4b4dcfe0bba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4b4dcfe0bba) - Delete adf-schema, use published version
 
 ## 0.4.1
@@ -41,7 +41,7 @@
 
 ### Minor Changes
 
-- [`ad3c5c21079`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ad3c5c21079) - Updating all plugins with minor version to correct issue with semver.
+- [#39325](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39325) [`ad3c5c21079`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ad3c5c21079) - Updating all plugins with minor version to correct issue with semver.
 
 ### Patch Changes
 
@@ -51,7 +51,7 @@
 
 ### Patch Changes
 
-- [`8467bdcdf4f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8467bdcdf4f) - Removing `dependencies` prop from PluginInjectionAPI and changing
+- [#39010](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39010) [`8467bdcdf4f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8467bdcdf4f) - Removing `dependencies` prop from PluginInjectionAPI and changing
   signature of `NextEditorPlugin`.
 
   Previously a `NextEditorPlugin` would be consumed as so:
@@ -81,19 +81,19 @@
 
 ### Patch Changes
 
-- [`24e27147cbd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/24e27147cbd) - Added atlaskit docs to all existing plugins.
+- [#39177](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39177) [`24e27147cbd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/24e27147cbd) - Added atlaskit docs to all existing plugins.
 
 ## 0.3.3
 
 ### Patch Changes
 
-- [`33cb07de05f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/33cb07de05f) - change adf-schema to fixed versioning
+- [#38976](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38976) [`33cb07de05f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/33cb07de05f) - change adf-schema to fixed versioning
 
 ## 0.3.2
 
 ### Patch Changes
 
-- [`24fc3925d73`](https://bitbucket.org/atlassian/atlassian-frontend/commits/24fc3925d73) - Add a new hook called `usePreset` accesed via `@atlaskit/editor-core/use-preset`. This hook can be used to safely access state and commands from outside the editor using `EditorContext`.
+- [#38495](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38495) [`24fc3925d73`](https://bitbucket.org/atlassian/atlassian-frontend/commits/24fc3925d73) - Add a new hook called `usePreset` accesed via `@atlaskit/editor-core/use-preset`. This hook can be used to safely access state and commands from outside the editor using `EditorContext`.
 - Updated dependencies
 
 ## 0.3.1
@@ -106,7 +106,7 @@
 
 ### Minor Changes
 
-- [`a675f834911`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a675f834911) - Introduce `commands` optional parameter to `NextEditorPlugin`. It can be used similarly to `actions` in `NextEditorPlugin` but `commands` must adhere to the type of `PluginCommand`:
+- [#38001](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38001) [`a675f834911`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a675f834911) - Introduce `commands` optional parameter to `NextEditorPlugin`. It can be used similarly to `actions` in `NextEditorPlugin` but `commands` must adhere to the type of `PluginCommand`:
 
   ```ts
   type PluginCommand = ({ tr }: { tr: Transaction }) => Transaction | null;
@@ -134,20 +134,20 @@
 
 ### Patch Changes
 
-- [`d8c1bcdc71a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d8c1bcdc71a) - ED-19217 decoupled lists related util functions from editor-core
+- [#37650](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37650) [`d8c1bcdc71a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d8c1bcdc71a) - ED-19217 decoupled lists related util functions from editor-core
 - Updated dependencies
 
 ## 0.2.1
 
 ### Patch Changes
 
-- [`4e6f1bf8511`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4e6f1bf8511) - [ED-19233] Import prosemirror libraries from internal facade package
+- [#37785](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37785) [`4e6f1bf8511`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4e6f1bf8511) - [ED-19233] Import prosemirror libraries from internal facade package
 
 ## 0.2.0
 
 ### Minor Changes
 
-- [`8e084d87da5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8e084d87da5) - Remove deprecated hyperlink commands and plugin key including:
+- [#37010](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37010) [`8e084d87da5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8e084d87da5) - Remove deprecated hyperlink commands and plugin key including:
 
   - isTextAtPos
   - isLinkAtPos

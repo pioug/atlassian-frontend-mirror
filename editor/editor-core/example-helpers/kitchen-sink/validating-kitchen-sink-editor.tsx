@@ -214,7 +214,6 @@ export class ValidatingKitchenSinkEditor extends React.Component<
           featureFlags={{
             'safer-dispatched-transactions': true,
             'restart-numbered-lists': true,
-            'use-editor-next': true,
             ...this.props.featureFlags,
           }}
           dangerouslyAppendPlugins={{

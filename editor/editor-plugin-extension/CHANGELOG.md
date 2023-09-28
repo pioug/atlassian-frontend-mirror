@@ -16,4 +16,4 @@
 
 ### Minor Changes
 
-- [`da629b62ef9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/da629b62ef9) - ED-19617 Refactor actions to remove createExtenstionAPI and call it instead during initialisation
+- [#39743](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39743) [`da629b62ef9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/da629b62ef9) - ED-19617 Refactor actions to remove createExtenstionAPI and call it instead during initialisation

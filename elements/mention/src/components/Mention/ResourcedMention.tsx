@@ -60,7 +60,7 @@ export default class ResourcedMention extends React.PureComponent<
     }
   }
 
-  private setStateSafely<K extends keyof State>(newState: any) {
+  private setStateSafely(newState: any) {
     if (!this._isMounted) {
       debug('[ResourcedMention]: cannot setState when component is unmounted.');
       return;

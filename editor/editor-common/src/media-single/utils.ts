@@ -292,6 +292,12 @@ export const getParentWidthForNestedMediaSingleNode = (
   return null;
 };
 
+/**
+ * Get parent width for nested media single nodes
+ * @param resolvedPos resolved Position of the node
+ * @param view editor view
+ * @returns parent width used for media single initial width on insertion
+ */
 export const getParentWidthForNestedMediaSingleNodeForInsertion = (
   resolvedPos: ResolvedPos,
   view: EditorView,

@@ -13,11 +13,11 @@ export interface LinkPreview {
 export type EmbedIframeUrlType = 'href' | 'interactiveHref';
 
 export const extractPreview = (
-  jsonLd: JsonLd.Data.BaseData,
+  jsonLd?: JsonLd.Data.BaseData,
   platform?: CardPlatform,
   iframeUrlType?: EmbedIframeUrlType,
 ): LinkPreview | undefined => {
-  const preview = jsonLd.preview;
+  const preview = jsonLd?.preview;
   const isSupported = extractPlatformIsSupported(preview, platform);
   if (preview && isSupported) {
     if (typeof preview === 'string') {

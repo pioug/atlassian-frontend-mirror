@@ -1,5 +1,5 @@
 import type { InputMethod as BlockTypeInputMethod } from '@atlaskit/editor-plugin-block-type';
-import type { InsertBlockInputMethodToolbar } from '@atlaskit/editor-core';
+import type { TOOLBAR_MENU_TYPE as InsertBlockInputMethodToolbar } from '@atlaskit/editor-core/src/plugins/insert-block/ui/ToolbarInsertBlock/types';
 import type {
   LinkInputType as LinkInputMethod,
   InputMethodBasic as TextFormattingInputMethodBasic,
@@ -73,5 +73,5 @@ export default interface NativeToWebBridge {
     onUploadFail(payload: string): void;
   };
   shiftSelectionToNextPosition(): void;
-  hasVisibleContent(): Boolean;
+  hasVisibleContent(): boolean;
 }

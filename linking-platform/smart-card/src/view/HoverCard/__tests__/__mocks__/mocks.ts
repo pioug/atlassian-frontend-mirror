@@ -1,6 +1,7 @@
 import { overrideEmbedContent } from '../../../../../examples/utils/common';
 import { SmartLinkActionType } from '@atlaskit/linking-types';
 import { JsonLd } from 'json-ld-types';
+import JiraPreviewImage from '../../../../../examples/images/forbidden-jira.svg';
 
 export const mockBaseResponse = {
   meta: {
@@ -293,3 +294,45 @@ export const mockUnauthorisedResponse: JsonLd.Response = {
     url: 'https://docs.google.com/presentation/d/1hH1kRMTn7OORleGEBq64XqOfpctKIU1AnooHPyhcdDw/edit?usp=share_link',
   },
 };
+
+export const getMockForbiddenDirectAccessResponse = (
+  accessType = 'DIRECT_ACCESS',
+): JsonLd.Response => ({
+  meta: {
+    auth: [],
+    definitionId: 'jira-object-provider',
+    product: 'jira',
+    visibility: 'not_found',
+    access: 'forbidden',
+    resourceType: 'issue',
+    category: 'object',
+    tenantId: '4e6bb7f0-488b-4693-a4fe-47a98903d57b',
+    key: 'jira-object-provider',
+    requestAccess: {
+      accessType,
+      cloudId: '4e6bb7f0-488b-4693-a4fe-47a98903d57b',
+    },
+  },
+  data: {
+    '@context': {
+      '@vocab': 'https://www.w3.org/ns/activitystreams#',
+      atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
+      schema: 'http://schema.org/',
+    },
+    generator: {
+      '@type': 'Application',
+      '@id': 'https://www.atlassian.com/#Jira',
+      name: 'Jira',
+      icon: {
+        '@type': 'Image',
+        url: 'https://cdn.bfldr.com/K3MHR9G8/at/nw9qpmqv3g2j75qvk8sjcw/jira-mark-gradient-blue.svg?auto=webp&format=png',
+      },
+    },
+    image: {
+      '@type': 'Image',
+      url: JiraPreviewImage,
+    },
+    url: 'https://nkt-direct-access.atlassian.net/browse/NKT-1',
+    '@type': ['atlassian:Task', 'Object'],
+  },
+});

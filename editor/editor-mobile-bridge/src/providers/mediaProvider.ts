@@ -1,5 +1,10 @@
-import { MediaProvider } from '@atlaskit/editor-core';
-import { Auth, AuthContext, MediaClientConfig } from '@atlaskit/media-core';
+import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
+
+import type {
+  Auth,
+  AuthContext,
+  MediaClientConfig,
+} from '@atlaskit/media-core';
 
 import { createPromise } from '../cross-platform-promise';
 

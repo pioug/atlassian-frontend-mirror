@@ -9,7 +9,7 @@ const MessageContent = (
     <h4>It is so great to use data-testid</h4>
     <span>
       Visit{' '}
-      <a href="https://developer.atlassian.com/cloud/framework/atlassian-frontend/development/testing">
+      <a href="https://hello.atlassian.net/wiki/spaces/AF/pages/2634728893/Testing+in+Atlassian+Frontend">
         our testing website
       </a>{' '}
       for more information

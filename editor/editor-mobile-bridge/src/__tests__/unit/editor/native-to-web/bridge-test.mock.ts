@@ -15,11 +15,20 @@ const mockEditorCore = {
     toggleOrderedList: jest.fn(() => () => {}),
     toggleBulletList: jest.fn(() => () => {}),
   })),
-  clearEditorContent: jest.fn(() => {}),
-  setKeyboardHeight: jest.fn(() => () => {}),
   insertMentionQuery: jest.fn(() => () => {}),
   insertEmojiQuery: jest.fn(() => () => {}),
 };
+
+jest.mock('@atlaskit/editor-core/src/commands', () => ({
+  ...jest.requireActual<Object>('@atlaskit/editor-core/src/commands'),
+  clearEditorContent: jest.fn(() => {}),
+}));
+
+jest.mock('@atlaskit/editor-core/src/plugins/type-ahead/api', () => ({
+  ...(jest.genMockFromModule(
+    '@atlaskit/editor-core/src/plugins/type-ahead/api',
+  ) as object),
+}));
 
 jest.mock('@atlaskit/editor-core', () => mockEditorCore);
 

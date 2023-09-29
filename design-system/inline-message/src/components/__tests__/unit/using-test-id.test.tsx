@@ -10,7 +10,7 @@ const MessageContent = (
     <h4>It is so great to use data-testid</h4>
     <span>
       Visit{' '}
-      <a href="https://developer.atlassian.com/cloud/framework/atlassian-frontend/development/testing">
+      <a href="https://hello.atlassian.net/wiki/spaces/AF/pages/2634728893/Testing+in+Atlassian+Frontend">
         our testing website
       </a>{' '}
       for more information
@@ -40,12 +40,12 @@ describe('Inline message should be found by data-testid', () => {
     const inlineMessageContent = 'the-inline-message--inline-dialog';
 
     const { getByTestId } = render(createWrapper('the-inline-message'));
-    expect(getByTestId(inlineMessageBtn)).toBeTruthy();
-    expect(getByTestId(inlineMessageComponent)).toBeTruthy();
-    expect(getByTestId(inlineMessageTitle)).toBeTruthy();
-    expect(getByTestId(inlineMessageText)).toBeTruthy();
+    expect(getByTestId(inlineMessageBtn)).toBeInTheDocument();
+    expect(getByTestId(inlineMessageComponent)).toBeInTheDocument();
+    expect(getByTestId(inlineMessageTitle)).toBeInTheDocument();
+    expect(getByTestId(inlineMessageText)).toBeInTheDocument();
     // the content is only displayed when it is clicked on the inline-message.
     await user.click(getByTestId(inlineMessageBtn));
-    expect(getByTestId(inlineMessageContent)).toBeTruthy();
+    expect(getByTestId(inlineMessageContent)).toBeInTheDocument();
   });
 });

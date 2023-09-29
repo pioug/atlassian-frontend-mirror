@@ -1142,7 +1142,6 @@ export const useSmartLinkAnalytics: (
       id,
       actionType,
       display,
-      invokeType,
       extensionKey: overrideExtensionKey,
       definitionId,
       resourceType,
@@ -1309,11 +1308,7 @@ export const useSmartLinkAnalytics: (
       extensionKey,
       location,
     }: TrackAppAccountConnectedProps) => void;
-    linkUpdated: (
-      props: CommonEventProps & {
-        [key: string]: any;
-      },
-    ) => void;
+    linkUpdated: () => void;
     smartLinkQuickActionStarted: (props: {
       smartLinkActionType: SmartLinkActionType | TrackQuickActionType;
     }) => void;

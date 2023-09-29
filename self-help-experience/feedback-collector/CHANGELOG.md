@@ -1,5 +1,11 @@
 # @atlaskit/feedback-collector
 
+## 13.0.7
+
+### Patch Changes
+
+- [#40842](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40842) [`f80998d1dea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f80998d1dea) - Fix type issues for feedback-collectors
+
 ## 13.0.6
 
 ### Patch Changes

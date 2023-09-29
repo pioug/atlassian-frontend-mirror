@@ -8,6 +8,8 @@ import type { EditorProps } from '../../types/editor-props';
 import type {
   NextEditorPlugin,
   CommandDispatch,
+  OptionalPlugin,
+  ExtractInjectionAPI,
 } from '@atlaskit/editor-common/types';
 import { submit } from '@atlaskit/editor-common/keymaps';
 import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
@@ -18,11 +20,12 @@ import {
   EVENT_TYPE,
   INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
-import { stateKey as mediaPluginKey } from '../../plugins/media/pm-plugins/plugin-key';
+import type { MediaNextEditorPluginType } from '../../plugins/media/next-plugin-type';
 import { analyticsEventKey } from '../analytics/consts';
 
 export function createPlugin(
   eventDispatch: Dispatch,
+  api: ExtractInjectionAPI<SubmitEditorPlugin> | undefined,
   onSave?: (editorView: EditorView) => void,
 ): SafePlugin | undefined {
   if (!onSave) {
@@ -35,7 +38,7 @@ export function createPlugin(
       _dispatch?: CommandDispatch,
       editorView?: EditorView,
     ) => {
-      const mediaState = mediaPluginKey.getState(state);
+      const mediaState = api?.media?.sharedState?.currentState();
 
       if (
         mediaState &&
@@ -73,17 +76,23 @@ const analyticsPayload = (
 });
 
 type Config = EditorProps['onSave'];
-const submitEditorPlugin: NextEditorPlugin<
+
+type SubmitEditorPlugin = NextEditorPlugin<
   'submitEditor',
-  { pluginConfiguration: Config | undefined }
-> = ({ config: onSave }) => ({
+  {
+    pluginConfiguration: Config | undefined;
+    dependencies: [OptionalPlugin<MediaNextEditorPluginType>];
+  }
+>;
+
+const submitEditorPlugin: SubmitEditorPlugin = ({ config: onSave, api }) => ({
   name: 'submitEditor',
 
   pmPlugins() {
     return [
       {
         name: 'submitEditor',
-        plugin: ({ dispatch }) => createPlugin(dispatch, onSave),
+        plugin: ({ dispatch }) => createPlugin(dispatch, api, onSave),
       },
     ];
   },

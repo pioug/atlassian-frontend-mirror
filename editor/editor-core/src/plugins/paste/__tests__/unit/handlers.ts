@@ -81,7 +81,7 @@ import { listPlugin } from '@atlaskit/editor-plugin-list';
 import extensionPlugin from '../../../extension';
 import { rulePlugin } from '@atlaskit/editor-plugin-rule';
 import { copyButtonPlugin } from '@atlaskit/editor-plugin-copy-button';
-import floatingToolbarPlugin from '../../../floating-toolbar';
+import { floatingToolbarPlugin } from '@atlaskit/editor-plugin-floating-toolbar';
 import codeBlockPlugin from '../../../code-block';
 import { compositionPlugin } from '@atlaskit/editor-plugin-composition';
 import typeAheadPlugin from '../../../type-ahead';

@@ -1,5 +1,118 @@
 # @atlaskit/editor-core
 
+## 188.0.0
+
+### Major Changes
+
+- [#40718](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40718) [`c1d4b48bdd9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c1d4b48bdd9) - WHAT: This change removes plugin exports from editor-core that were used only for the mobile bridge.
+
+  This includes:
+
+  - All plugin keys
+  - Plugin commands
+  - Plugin types
+
+  The full list is:
+
+  - EditorFeatureFlags (available via '@atlaskit/editor-common/types' as `FeatureFlags`)
+  - EmojiResource (available via '@atlaskit/emoji/resource' as `EmojiResource`)
+  - mediaPlugin
+  - insertMediaSingleNode
+  - CustomMediaPicker
+  - mediaPluginKey
+  - textColorPluginKey
+  - TextColorPluginState
+  - changeColor
+  - CodeBlockPlugin
+  - PanelPlugin
+  - subscribeToToolbarAndPickerUpdates
+  - subscribeTypeAheadUpdates
+  - TextFormattingInputMethodToolbar
+  - TextFormattingInputMethodBasic
+  - createTable
+  - insertTaskDecisionCommand
+  - TaskDecisionInputMethod
+  - EventDispatcher
+  - statusPluginKey
+  - StatusState
+  - StatusType
+  - DatePluginState
+  - insertDate
+  - openDatePicker
+  - deleteDate
+  - dateToDateType
+  - datePluginKey
+  - commitStatusPicker
+  - setStatusPickerAt
+  - updateStatus
+  - updateStatusWithAnalytics
+  - removeStatus
+  - typeAheadPluginKey
+  - TypeAheadPluginState
+  - setKeyboardHeight
+  - setMobilePaddingTop
+  - setIsExpanded
+  - dedupe (available via '@atlaskit/editor-common/utils' as `dedupe`)
+  - GapCursorSelection (available via '@atlaskit/editor-common/selection' as `GapCursorSelection`)
+  - GapCursorSide (available via '@atlaskit/editor-common/selection' as `Side`)
+  - HistoryPluginState
+  - MentionPluginState
+  - InsertBlockInputMethodToolbar
+  - selectionPluginKey
+  - SelectionData
+  - SelectionDataState
+  - insertExpand
+  - createTypeAheadTools
+  - AbstractMentionResource (available via '@atlaskit/mention/resource' as `AbstractMentionResource`)
+  - PresenceResource (available via '@atlaskit/mention/resource' as `PresenceResource`)
+  - ReactEditorView
+  - BaseReactEditorView
+  - getDefaultPresetOptionsFromEditorProps
+  - lightModeStatusColorPalette
+  - darkModeStatusColorPalette
+  - PaletteColor
+  - DEFAULT_BORDER_COLOR
+
+  WHY: We have been extracting plugins out of `editor-core` and as we move them out we need to remove these exports as the new architecture does not support plugin keys or commands.
+
+  This major bump will remove all remaining commands and keys in one go - some of these features will be accessible in a safe manner in the future via the `ComposableEditor` and the appropriate plugins.
+
+  HOW: Should be no consumers using these methods currently (only mobile bridge which has been updated).
+
+  If there are any issues please reach out to the #help-editor for information on how to update appropriately.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.48.8
+
+### Patch Changes
+
+- [#40754](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40754) [`fc1c299c926`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fc1c299c926) - ED-20017 Extract Floating toolbar plugin to its own package
+- Updated dependencies
+
+## 187.48.7
+
+### Patch Changes
+
+- [#40786](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40786) [`fc0c789c450`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fc0c789c450) - Add platform.linking-platform.datasource.show-jlol-basic-filters feature flag reference for usage in editor examples
+
+## 187.48.6
+
+### Patch Changes
+
+- [#40691](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40691) [`cffa2089176`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cffa2089176) - Decouple Help Dialog Plugin from Editor Core
+- [#40485](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40485) [`14a726ecf5d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/14a726ecf5d) - [ux] Respect allowResizingInTables for pixel entry component
+- Updated dependencies
+
+## 187.48.5
+
+### Patch Changes
+
+- [#40763](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40763) [`7ff70f99909`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7ff70f99909) - Decouple media from editor-core and expose GridPluginState from grid plugin.
+- Updated dependencies
+
 ## 187.48.4
 
 ### Patch Changes

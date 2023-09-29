@@ -1,11 +1,10 @@
 /** @jsx jsx */
-import { FC } from 'react';
-
 import { css, jsx } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
 import { useHeadingElement } from './heading-context';
+import NewHeading from './heading.temp';
 import type { HeadingProps } from './types';
 
 // https://atlassian.design/foundations/typography
@@ -23,9 +22,8 @@ const levelMap = {
 } as const;
 
 const headingResetStyles = css({
-  marginTop: token('space.0', '0px'),
-  marginBottom: token('space.0', '0px'),
   color: token('color.text', '#172B4D'),
+  marginBlock: token('space.0', '0px'),
 });
 
 const h900Styles = css({
@@ -115,14 +113,14 @@ const subtlestStyles = css({
  * );
  * ```
  */
-const Heading: FC<HeadingProps> = ({
+const Heading = ({
   children,
   level,
   id,
   testId,
   as,
   color = 'default',
-}) => {
+}: HeadingProps) => {
   if (
     typeof process !== 'undefined' &&
     process.env.NODE_ENV !== 'production' &&
@@ -139,18 +137,19 @@ const Heading: FC<HeadingProps> = ({
    * 2. inferred a11y level
    * 3. default final fallback
    */
-  const Markup = as || (hLevel && `h${hLevel}`) || levelMap[level];
+  const Markup =
+    as ||
+    (hLevel && (hLevel > 6 ? 'div' : `h${hLevel as 1 | 2 | 3 | 4 | 5 | 6}`)) ||
+    levelMap[level!];
   const isSubtleHeading = level === 'h200' || level === 'h100';
 
   return (
     <Markup
       id={id}
       data-testid={testId}
-      // @ts-ignore
-      // Resolved by https://github.com/atlassian-labs/compiled/pull/1321
+      role={Markup === 'div' ? 'heading' : undefined}
       css={[
         headingResetStyles,
-        // This can be refactored when @compiled supports style maps
         level === 'h100' && h100Styles,
         level === 'h200' && h200Styles,
         level === 'h300' && h300Styles,
@@ -169,4 +168,12 @@ const Heading: FC<HeadingProps> = ({
   );
 };
 
-export default Heading;
+export default ({ level, variant, ...props }: HeadingProps) => {
+  return level ? (
+    // eslint-disable-next-line jsx-a11y/heading-has-content
+    <Heading level={level} {...props} />
+  ) : (
+    // eslint-disable-next-line jsx-a11y/heading-has-content
+    <NewHeading variant={variant} {...props} />
+  );
+};

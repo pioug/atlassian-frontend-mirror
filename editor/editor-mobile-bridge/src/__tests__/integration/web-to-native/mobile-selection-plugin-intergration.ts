@@ -1,4 +1,4 @@
-import { SelectionDataState } from '@atlaskit/editor-core';
+import type { SelectionDataState } from '@atlaskit/editor-core/src/plugins/mobile-selection';
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 import {

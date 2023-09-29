@@ -1,22 +1,45 @@
-import type { PluginKey } from '@atlaskit/editor-prosemirror/state';
+import type {
+  PluginKey,
+  EditorState,
+} from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import rafSchedule from 'raf-schd';
-import type {
-  EventDispatcher,
-  HistoryPluginState,
-  SelectionDataState,
-  TextColorPluginState,
-} from '@atlaskit/editor-core';
-import {
-  textColorPluginKey,
-  historyPluginKey,
-  selectionPluginKey,
-} from '@atlaskit/editor-core';
+import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
+import type { HistoryPluginState } from '@atlaskit/editor-core/src/plugins/history/types';
+import type { TextColorPluginState } from '@atlaskit/editor-core/src/plugins/text-color';
+import type { SelectionDataState } from '@atlaskit/editor-core/src/plugins/mobile-selection';
 import type WebBridgeImpl from '../native-to-web';
 import { toNativeBridge } from '../web-to-native';
 import { createPromise } from '../../cross-platform-promise';
 import { getSelectionObserverEnabled } from '../../query-param-reader';
 import EditorConfiguration from '../editor-configuration';
+
+// TODO: When we extract the text color plugin we can remove this
+// @ts-ignore
+const textColorPluginKey = {
+  key: 'textColorPlugin$',
+  getState: (state: EditorState) => {
+    return (state as any)['textColorPlugin$'];
+  },
+} as PluginKey;
+
+// TODO: When we extract the history plugin we can remove this
+// @ts-ignore
+const historyPluginKey = {
+  key: 'historyPlugin$',
+  getState: (state: EditorState) => {
+    return (state as any)['historyPlugin$'];
+  },
+} as PluginKey;
+
+// TODO: When we extract the selection plugin we can remove this
+// @ts-ignore
+const selectionPluginKey = {
+  key: 'mobile-selection$',
+  getState: (state: EditorState) => {
+    return (state as any)['mobile-selection$'];
+  },
+} as PluginKey;
 
 interface BridgePluginListener<T> {
   bridge: string;

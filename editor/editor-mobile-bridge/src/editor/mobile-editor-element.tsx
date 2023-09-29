@@ -1,11 +1,8 @@
 import React, { useEffect } from 'react';
 import memoizeOne from 'memoize-one';
 import isEqual from 'lodash/isEqual';
-import type {
-  MediaProvider as MediaProviderType,
-  EditorProps,
-  MentionProvider,
-} from '@atlaskit/editor-core';
+import type { EditorProps, MentionProvider } from '@atlaskit/editor-core';
+import type { MediaProvider as MediaProviderType } from '@atlaskit/editor-common/provider-factory';
 import { EditorContext } from '@atlaskit/editor-core';
 import { hasVisibleContent } from '@atlaskit/editor-common/utils';
 import { Editor } from './editor-wrapper';

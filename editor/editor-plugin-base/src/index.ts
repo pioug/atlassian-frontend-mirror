@@ -9,8 +9,3 @@ export type {
   BasePluginOptions,
   ScrollGutterPluginOptions,
 };
-export {
-  NORMAL_SEVERITY_THRESHOLD,
-  DEGRADED_SEVERITY_THRESHOLD,
-} from './pm-plugins/frozen-editor';
-export { setKeyboardHeight } from './commands';

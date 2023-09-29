@@ -1,5 +1,11 @@
 # @atlaskit/panel
 
+## 0.9.7
+
+### Patch Changes
+
+- [#40824](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40824) [`a24df8d818b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a24df8d818b) - update atlaskit/panel to have defined entry points
+
 ## 0.9.6
 
 ### Patch Changes

@@ -1,25 +1,33 @@
-import React, { createContext, FC, ReactNode, useContext } from 'react';
+import React, { createContext, ReactNode, useContext } from 'react';
 
-type HeadingElement = 1 | 2 | 3 | 4 | 5 | 6;
+// Allows support for heading levels 1-9 via aria-level
+type HeadingElement = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
 
-const HeadingContext = createContext<HeadingElement | undefined>(undefined);
+const HeadingLevelContext = createContext<HeadingElement>(0 as HeadingElement);
 
+/**
+ * @internal
+ * @returns The current heading level context.
+ */
 export const useHeadingElement = (): HeadingElement => {
-  return Math.min(useContext(HeadingContext) || 0, 6) as HeadingElement;
+  return useContext(HeadingLevelContext);
 };
 
-export interface HeadingContextProps {
+export interface HeadingLevelContextProps {
   /**
    * Optional - only apply this value if the intent is to reset the heading context outside the normal content flow, for example inside a `section`.
    */
   value?: HeadingElement;
+  /**
+   * Semantic heirarchy of content below the heading context.
+   */
   children: ReactNode;
 }
 
 /**
- * __Heading context__
+ * __Heading level provider__
  *
- * The HeadingContext
+ * The Heading level provider injectes the heading level to all `Heading` components below it in the component tree.
  *
  * @example
  * ```tsx
@@ -32,17 +40,17 @@ export interface HeadingContextProps {
  * </HeadingContext>
  * ```
  */
-const HeadingContextProvider: FC<HeadingContextProps> = ({
+const HeadingLevelContextProvider = ({
   children,
   value,
-}) => {
+}: HeadingLevelContextProps) => {
   const parentHeadingLevel = useHeadingElement();
   const headingLevel = (parentHeadingLevel + 1) as HeadingElement;
   return (
-    <HeadingContext.Provider value={value || headingLevel}>
+    <HeadingLevelContext.Provider value={value || headingLevel}>
       {children}
-    </HeadingContext.Provider>
+    </HeadingLevelContext.Provider>
   );
 };
 
-export default HeadingContextProvider;
+export default HeadingLevelContextProvider;

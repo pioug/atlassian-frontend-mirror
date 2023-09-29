@@ -2,8 +2,9 @@ import React from 'react';
 import QuestionIcon from '@atlaskit/icon/glyph/question';
 import ToolbarButton from '../ToolbarButton';
 import WithHelpTrigger from '../WithHelpTrigger';
-import { PositionType } from '@atlaskit/tooltip/types';
-import { injectIntl, WrappedComponentProps } from 'react-intl-next';
+import type { PositionType } from '@atlaskit/tooltip/types';
+import type { WrappedComponentProps } from 'react-intl-next';
+import { injectIntl } from 'react-intl-next';
 import { messages } from './messages';
 
 interface Props {
@@ -11,7 +12,7 @@ interface Props {
   titlePosition?: PositionType;
 }
 
-const tooltipHelpTrigger = ({
+const TooltipHelpTrigger = ({
   title = 'Open help dialog',
   titlePosition = 'left',
   intl,
@@ -36,4 +37,4 @@ const tooltipHelpTrigger = ({
   );
 };
 
-export default injectIntl(tooltipHelpTrigger);
+export default injectIntl(TooltipHelpTrigger);

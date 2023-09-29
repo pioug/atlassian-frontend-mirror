@@ -1,5 +1,11 @@
 # @atlaskit/embedded-confluence
 
+## 2.9.0
+
+### Minor Changes
+
+- [#40682](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40682) [`d2f8c72c834`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d2f8c72c834) - [ux] Deprecates the iconColor, iconGradientStart, iconGradientEnd, and textColor props from @atlaskit/logo and introduces the appearance prop in order to support design tokens and be theme-responsive for Embeddable Pages and Project Pages
+
 ## 2.8.0
 
 ### Minor Changes

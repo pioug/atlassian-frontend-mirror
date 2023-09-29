@@ -15,6 +15,7 @@ import type { BlockTypePlugin } from '@atlaskit/editor-plugin-block-type';
 import type codeBlockPlugin from '../code-block';
 import type panelPlugin from '../panel';
 import type { RulePlugin } from '@atlaskit/editor-plugin-rule';
+import type { MediaNextEditorPluginType } from '../media/next-plugin-type';
 
 export type InsertBlockPluginDependencies = [
   FeatureFlagsPlugin,
@@ -30,4 +31,5 @@ export type InsertBlockPluginDependencies = [
   OptionalPlugin<RulePlugin>,
   OptionalPlugin<typeof codeBlockPlugin>,
   OptionalPlugin<typeof panelPlugin>,
+  OptionalPlugin<MediaNextEditorPluginType>,
 ];

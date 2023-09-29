@@ -55,7 +55,7 @@ import codeBlockPlugin from '../../../code-block';
 import { compositionPlugin } from '@atlaskit/editor-plugin-composition';
 import { blockTypePlugin } from '@atlaskit/editor-plugin-block-type';
 import { copyButtonPlugin } from '@atlaskit/editor-plugin-copy-button';
-import floatingToolbarPlugin from '../../../floating-toolbar';
+import { floatingToolbarPlugin } from '@atlaskit/editor-plugin-floating-toolbar';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';

@@ -49,10 +49,12 @@ import mentionsPlugin from '../../../../../plugins/mentions';
 import selectionPlugin from '../../../../../plugins/selection';
 import { emojiPlugin } from '@atlaskit/editor-plugin-emoji';
 import datePlugin from '../../../../../plugins/date';
-import { widthPlugin } from '@atlaskit/editor-plugin-width';
+import mediaPlugin from '../../../../../plugins/media';
+import { editorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
+import { floatingToolbarPlugin } from '@atlaskit/editor-plugin-floating-toolbar';
 import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import { imageUploadPlugin } from '@atlaskit/editor-plugin-image-upload';
-import { editorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
 
 import {
   CODE_BLOCK,
@@ -62,7 +64,7 @@ import {
 import ToolbarInsertBlock, {
   ToolbarInsertBlock as BaseToolbarInsertBlock,
 } from '../../../../../plugins/insert-block/ui/ToolbarInsertBlock';
-import type { MediaProvider } from '../../../../../plugins/media';
+import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { stateKey as hyperlinkPluginKey } from '@atlaskit/editor-plugin-hyperlink/src/pm-plugins/main';
 import { LinkAction } from '@atlaskit/editor-common/link';
@@ -82,6 +84,9 @@ import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import { compositionPlugin } from '@atlaskit/editor-plugin-composition';
+import { focusPlugin } from '@atlaskit/editor-plugin-focus';
+import { gridPlugin } from '@atlaskit/editor-plugin-grid';
+import { copyButtonPlugin } from '@atlaskit/editor-plugin-copy-button';
 
 import ReactEditorViewContext from '../../../../../create-editor/ReactEditorViewContext';
 import codeBlockPlugin from '../../../../../plugins/code-block';
@@ -194,7 +199,12 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
       .add(datePlugin)
       .add(emojiPlugin)
       .add(compositionPlugin)
-      .add([codeBlockPlugin, {}]);
+      .add(gridPlugin)
+      .add(copyButtonPlugin)
+      .add(focusPlugin)
+      .add(floatingToolbarPlugin)
+      .add([codeBlockPlugin, {}])
+      .add([mediaPlugin, { allowMediaSingle: true }]);
 
   let editorAPI: ExtractPublicEditorAPI<ReturnType<typeof createPreset>>;
 

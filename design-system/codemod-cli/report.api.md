@@ -15,8 +15,6 @@
 <!--SECTION START: Main Entry Types-->
 
 ```ts
-/// <reference types="node" />
-
 // @public (undocumented)
 type CliFlags = {
   transform?: string;

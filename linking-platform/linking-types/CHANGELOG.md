@@ -1,5 +1,11 @@
 # @atlaskit/linking-types
 
+## 8.4.0
+
+### Minor Changes
+
+- [#40783](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40783) [`a591eb7b1ce`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a591eb7b1ce) - Added default properties to datasource data response
+
 ## 8.3.0
 
 ### Minor Changes

@@ -70,7 +70,7 @@ import {
   name as packageName,
   version as packageVersion,
 } from '../../version-wrapper';
-import type { MediaOptions } from '../..';
+import type { MediaOptions } from '../../plugins/media/types';
 import { EditorActions, EditorContext } from '../..';
 import { asMock } from '@atlaskit/media-test-helpers';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies

@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React from 'react';
+import React, { Fragment } from 'react';
 import { css, jsx } from '@emotion/react';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/custom-theme-button';
@@ -9,15 +9,12 @@ import { token } from '@atlaskit/tokens';
 
 import Toolbar from '../../Toolbar';
 import PluginSlot from '../../PluginSlot';
-import WithPluginState from '../../WithPluginState';
 
 import type {
   EditorAppearanceComponentProps,
   EditorAppearance,
 } from '../../../types';
 import type { MaxContentSizePluginState } from '../../../plugins/max-content-size';
-import { pluginKey as maxContentSizePluginKey } from '../../../plugins/max-content-size';
-import { stateKey as mediaPluginKey } from '../../../plugins/media/pm-plugins/plugin-key';
 import { ClickAreaBlock } from '../../Addon';
 import { tableCommentEditorStyles } from '@atlaskit/editor-plugin-table/ui/common-styles';
 import WithFlash from '../../WithFlash';
@@ -30,6 +27,7 @@ import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 import messages from '../../../messages';
 import type { MediaPluginState } from '../../../plugins/media/pm-plugins/types';
+import { usePresetContext } from '../../../presets/context';
 
 import {
   TableControlsPadding,
@@ -38,6 +36,7 @@ import {
 } from './Toolbar';
 import { createEditorContentStyle } from '../../ContentStyles';
 import { ToolbarArrowKeyNavigationProvider } from '@atlaskit/editor-common/ui-menu';
+import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 
 const CommentEditorMargin = 14;
 
@@ -131,13 +130,7 @@ class Editor extends React.Component<
     }
   };
 
-  private renderChrome = ({
-    maxContentSize,
-    mediaState,
-  }: {
-    maxContentSize?: MaxContentSizePluginState;
-    mediaState?: MediaPluginState;
-  }) => {
+  private renderChrome = ({ maxContentSize, mediaState }: PluginStates) => {
     const {
       editorDOMElement,
       editorView,
@@ -302,16 +295,31 @@ class Editor extends React.Component<
   };
 
   render() {
-    return (
-      <WithPluginState
-        plugins={{
-          maxContentSize: maxContentSizePluginKey,
-          mediaState: mediaPluginKey,
-        }}
-        render={this.renderChrome}
-      />
-    );
+    return <RenderWithPluginState renderChrome={this.renderChrome} />;
   }
+}
+
+interface PluginStates {
+  maxContentSize?: MaxContentSizePluginState;
+  mediaState?: MediaPluginState;
+}
+
+interface RenderChromeProps {
+  renderChrome: (props: PluginStates) => React.ReactNode;
+}
+
+function RenderWithPluginState({ renderChrome }: RenderChromeProps) {
+  const api = usePresetContext();
+  const { mediaState, maxContentSizeState } = useSharedPluginState(api, [
+    'media',
+    'maxContentSize',
+  ]);
+
+  return (
+    <Fragment>
+      {renderChrome({ maxContentSize: maxContentSizeState, mediaState })}
+    </Fragment>
+  );
 }
 
 export const CommentEditorWithIntl = injectIntl(Editor);

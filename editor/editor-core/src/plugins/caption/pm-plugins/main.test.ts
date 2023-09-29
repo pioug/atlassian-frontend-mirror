@@ -8,7 +8,7 @@ import mediaPlugin from '../../media';
 import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import { copyButtonPlugin } from '@atlaskit/editor-plugin-copy-button';
-import floatingToolbarPlugin from '../../floating-toolbar';
+import { floatingToolbarPlugin } from '@atlaskit/editor-plugin-floating-toolbar';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import captionPlugin from '../';
 import type { DocBuilder } from '@atlaskit/editor-common/types';

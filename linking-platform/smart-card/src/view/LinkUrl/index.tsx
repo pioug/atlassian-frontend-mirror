@@ -9,8 +9,8 @@ import { LinkUrlProps, PackageDataType } from './types';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 const PACKAGE_DATA: PackageDataType = {
-  packageName: process.env._PACKAGE_NAME_,
-  packageVersion: process.env._PACKAGE_VERSION_,
+  packageName: process.env._PACKAGE_NAME_ as string,
+  packageVersion: process.env._PACKAGE_VERSION_ as string,
   componentName: 'linkUrl',
 };
 

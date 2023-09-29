@@ -6,7 +6,7 @@ Main package for the Atlassian Editor.
 
 Current devloop involves leveraging the atlaskit website shell to build out examples.
 
-0. After following https://developer.atlassian.com/cloud/framework/atlassian-frontend/getting-started/getting-started/
+0. After following https://hello.atlassian.net/wiki/spaces/AF/pages/2634599657/Getting+Started
 1. `yarn start editor-core`
 
 Then hit http://localhost:9000/examples/editor/editor-core

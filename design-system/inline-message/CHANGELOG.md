@@ -1,5 +1,11 @@
 # @atlaskit/inline-message
 
+## 11.5.6
+
+### Patch Changes
+
+- [#40832](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40832) [`89fccc9c758`](https://bitbucket.org/atlassian/atlassian-frontend/commits/89fccc9c758) - Add aria-expanded to communicate expanded/ collapsed state
+
 ## 11.5.5
 
 ### Patch Changes

@@ -388,7 +388,6 @@ export const useSmartLinkAnalytics = (
         id,
         actionType,
         display,
-        invokeType,
         extensionKey: overrideExtensionKey,
         definitionId,
         resourceType,
@@ -1007,7 +1006,7 @@ export const useSmartLinkAnalytics = (
        * Removed in EDM-5153: This is an even from an experiment.
        * @deprecated
        */
-      linkUpdated: (props: CommonEventProps & { [key: string]: any }) => {},
+      linkUpdated: () => {},
 
       /**
        * This fires a tracking event before an action invoke api call is made

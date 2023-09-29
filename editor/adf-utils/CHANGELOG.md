@@ -298,7 +298,7 @@
 
   `npx @atlaskit/codemod-cli /path/to/target/directory`
 
-  See [documentation on DAC](https://developer.atlassian.com/cloud/framework/atlassian-frontend/codemods/01-atlassian-codemods/) for general codemod guidance.
+  See [documentation on DAC](https://hello.atlassian.net/wiki/spaces/AF/pages/2627171992/Codemods) for general codemod guidance.
 
 ### Patch Changes
 

@@ -1,13 +1,11 @@
+import type { DynamicMobileTestSuite } from '@atlaskit/webdriver-runner/runner';
 import {
   MobileTestCase,
-  DynamicMobileTestSuite,
   getDynamicMobileTestCase,
 } from '@atlaskit/webdriver-runner/runner';
 import Page from '@atlaskit/webdriver-runner/wd-app-wrapper';
-import {
-  lightModeStatusColorPalette,
-  PaletteColor,
-} from '@atlaskit/editor-core';
+import type { PaletteColor } from '@atlaskit/editor-core/src/ui/ColorPalette/Palettes/type';
+import { lightModeStatusColorPalette } from '@atlaskit/editor-core/src/ui/ColorPalette/Palettes/statusColorPalette';
 import { getDummyBridgeCalls } from '../../../integration/_utils';
 import adfContent from '../../__fixtures__/panel-date-status-adf.json';
 import {

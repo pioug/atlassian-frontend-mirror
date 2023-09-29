@@ -121,17 +121,17 @@ const durationOptions: OptionsPropType = [
   {
     name: 'duration',
     value: 'mediumDurationMs',
-    label: (
-      <OptionLabel description={<>Equal to 350ms</>}>
-        <span>Medium</span>
-        <Lozenge appearance="inprogress">Current</Lozenge>
-      </OptionLabel>
-    ),
+    label: <OptionLabel description={<>Equal to 350ms</>}>Medium</OptionLabel>,
   },
   {
     name: 'duration',
     value: 'largeDurationMs',
-    label: <OptionLabel description={<>Equal to 700ms</>}>Large</OptionLabel>,
+    label: (
+      <OptionLabel description={<>Equal to 700ms</>}>
+        <span>Large</span>
+        <Lozenge appearance="inprogress">Current</Lozenge>
+      </OptionLabel>
+    ),
   },
 ];
 

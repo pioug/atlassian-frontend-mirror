@@ -1,9 +1,10 @@
 /** @jsx jsx */
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 import { useIntl } from 'react-intl-next';
 
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { useDatasourceAnalyticsEvents } from '../../../analytics';
@@ -16,6 +17,7 @@ import {
   JiraIssueDatasourceParametersQuery,
 } from '../types';
 
+import BasicFilterContainer from './basic-filters';
 import { buildJQL } from './buildJQL';
 import { modeSwitcherMessages } from './messages';
 
@@ -99,15 +101,29 @@ export const JiraSearchContainer = (props: SearchContainerProps) => {
     }
   };
 
+  const showBasicFilters = useMemo(() => {
+    if (
+      getBooleanFF(
+        'platform.linking-platform.datasource.show-jlol-basic-filters',
+      )
+    ) {
+      return true;
+    }
+    return false;
+  }, []);
+
   return (
     <div css={inputContainerStyles}>
       {currentSearchMethod === 'basic' && (
-        <BasicSearchInput
-          isSearching={isSearching}
-          onChange={handleBasicSearchChange}
-          onSearch={handleSearch}
-          searchTerm={basicSearchTerm}
-        />
+        <React.Fragment>
+          <BasicSearchInput
+            isSearching={isSearching}
+            onChange={handleBasicSearchChange}
+            onSearch={handleSearch}
+            searchTerm={basicSearchTerm}
+          />
+          {showBasicFilters && <BasicFilterContainer />}
+        </React.Fragment>
       )}
       {currentSearchMethod === 'jql' && (
         <JiraJQLEditor

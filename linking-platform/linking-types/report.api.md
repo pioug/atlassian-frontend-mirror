@@ -41,6 +41,7 @@ export type DatasourceData = {
   items: DatasourceDataResponseItem[];
   schema?: {
     properties: DatasourceResponseSchemaProperty[];
+    defaultProperties?: string[];
   };
   nextPageCursor?: string;
   totalCount?: number;

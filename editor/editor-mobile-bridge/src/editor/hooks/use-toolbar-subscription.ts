@@ -1,11 +1,9 @@
 import { useEffect } from 'react';
-import WebBridgeImpl from '../native-to-web';
-import EditorConfiguration from '../editor-configuration';
-import { IntlShape } from 'react-intl-next';
-import {
-  StatusType,
-  subscribeToToolbarAndPickerUpdates,
-} from '@atlaskit/editor-core';
+import type WebBridgeImpl from '../native-to-web';
+import type EditorConfiguration from '../editor-configuration';
+import type { IntlShape } from 'react-intl-next';
+import type { StatusType } from '@atlaskit/editor-core/src/plugins/status/plugin';
+import { subscribeToToolbarAndPickerUpdates } from '@atlaskit/editor-core/src/plugins/view-update-subscription/subscribe/toolbarAndPickerUpdates';
 import { createFloatingToolbarConfigForStatus } from '../status-utils';
 import { createFloatingToolbarConfigForDate } from '../date-utils';
 import { isPanelNode } from '@atlaskit/editor-core/src/plugins/paste/util';

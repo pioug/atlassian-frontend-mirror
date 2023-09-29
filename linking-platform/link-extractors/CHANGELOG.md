@@ -1,5 +1,11 @@
 # @atlaskit/link-extractors
 
+## 1.2.0
+
+### Minor Changes
+
+- [#40648](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40648) [`4c9952cf9d5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4c9952cf9d5) - make json prop optional for extractPreview function
+
 ## 1.1.4
 
 ### Patch Changes

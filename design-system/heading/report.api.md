@@ -15,43 +15,68 @@
 <!--SECTION START: Main Entry Types-->
 
 ```ts
-import { FC } from 'react';
+import { jsx } from '@emotion/react';
 import { ReactNode } from 'react';
-
-// @public
-const Heading: FC<HeadingProps>;
-export default Heading;
+import { SerializedStyles } from '@emotion/react';
 
 // @public (undocumented)
-interface HeadingContextProps {
-  // (undocumented)
+const _default: ({ level, variant, ...props }: HeadingProps) => jsx.JSX.Element;
+export default _default;
+
+// @public
+export const HeadingContextProvider: ({
+  children,
+  value,
+}: HeadingLevelContextProps) => JSX.Element;
+
+// @public (undocumented)
+type HeadingElement = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
+
+// @public (undocumented)
+interface HeadingLevelContextProps {
   children: ReactNode;
   value?: HeadingElement;
 }
-
-// @public
-export const HeadingContextProvider: FC<HeadingContextProps>;
-
-// @public (undocumented)
-type HeadingElement = 1 | 2 | 3 | 4 | 5 | 6;
 
 // @public (undocumented)
 export type HeadingProps = {
   testId?: string;
   children: ReactNode;
-  level:
-    | 'h100'
-    | 'h200'
-    | 'h300'
-    | 'h400'
-    | 'h500'
-    | 'h600'
-    | 'h700'
-    | 'h800'
-    | 'h900';
   id?: string;
   as?: 'div' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'span';
   color?: 'default' | 'inverse';
+} & (
+  | {
+      level?:
+        | 'h100'
+        | 'h200'
+        | 'h300'
+        | 'h400'
+        | 'h500'
+        | 'h600'
+        | 'h700'
+        | 'h800'
+        | 'h900';
+      variant?: never;
+    }
+  | {
+      level?: never;
+      variant?: HeadingVariant;
+    }
+);
+
+// @public (undocumented)
+type HeadingVariant = keyof typeof headingVariantStylesMap;
+
+// @public
+const headingVariantStylesMap: {
+  large: SerializedStyles;
+  medium: SerializedStyles;
+  small: SerializedStyles;
+  xlarge: SerializedStyles;
+  xsmall: SerializedStyles;
+  xxlarge: SerializedStyles;
+  xxsmall: SerializedStyles;
 };
 
 // (No @packageDocumentation comment for this package)

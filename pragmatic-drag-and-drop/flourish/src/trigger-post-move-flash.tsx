@@ -1,4 +1,4 @@
-import { mediumDurationMs } from '@atlaskit/motion/durations';
+import { largeDurationMs } from '@atlaskit/motion/durations';
 import { token } from '@atlaskit/tokens';
 
 /**
@@ -14,8 +14,15 @@ export function triggerPostMoveFlash(element: HTMLElement) {
       {},
     ],
     {
-      duration: mediumDurationMs,
-      easing: undefined,
+      duration: largeDurationMs,
+      /**
+       * This is equivalent to the browser default, but we are making it
+       * explicit to avoid relying on implicit behavior.
+       *
+       * This curve is not part of `@atlaskit/motion` but it was an intentional
+       * design decision to use this curve.
+       */
+      easing: 'cubic-bezier(0.25, 0.1, 0.25, 1.0)',
       iterations: 1,
     },
   );

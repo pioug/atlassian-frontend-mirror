@@ -224,8 +224,7 @@ export const PlainJiraIssuesConfigModal = (
     !isParametersSet ||
     status === 'rejected' ||
     status === 'unauthorized' ||
-    status === 'loading' ||
-    resolvedWithNoResults;
+    status === 'loading';
 
   const shouldShowIssueCount =
     !!totalCount && totalCount !== 1 && currentViewMode === 'issue';

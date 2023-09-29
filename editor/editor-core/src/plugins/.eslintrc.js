@@ -18,13 +18,13 @@ module.exports = {
             target: `packages/editor/editor-core/src/plugins/!(${pluginName})/**/*`,
             from: `packages/editor/editor-core/src/plugins/${pluginName}/!(types)*`,
             message:
-              '[ELR102] Avoid cross-dependencies between editor plugins. Type-only imports are an exception. Move shared code to a common location. https://developer.atlassian.com/cloud/framework/atlassian-frontend/editor/lint#elr102',
+              '[ELR102] Avoid cross-dependencies between editor plugins. Type-only imports are an exception. Move shared code to a common location. https://hello.atlassian.net/wiki/spaces/AF/pages/2634573964/Editor+Lint#ELR002',
           })),
           ...pluginNames.map((pluginName) => ({
             target: `packages/editor/editor-core/src/plugins/!(${pluginName})/**/*`,
             from: `packages/editor/editor-core/src/plugins/${pluginName}/!(types)**/*`,
             message:
-              '[ELR102] Avoid cross-dependencies between editor plugins. Type-only imports are an exception. Move shared code to a common location. https://developer.atlassian.com/cloud/framework/atlassian-frontend/editor/lint#elr102',
+              '[ELR102] Avoid cross-dependencies between editor plugins. Type-only imports are an exception. Move shared code to a common location. https://hello.atlassian.net/wiki/spaces/AF/pages/2634573964/Editor+Lint#ELR002',
           })),
         ],
       },

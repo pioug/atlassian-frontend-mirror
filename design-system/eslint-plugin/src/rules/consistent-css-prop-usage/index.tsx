@@ -173,7 +173,7 @@ const rule = createLintRule({
     name: 'consistent-css-prop-usage',
     docs: {
       description: 'Ensures consistency with `css` and `xcss` prop usages',
-      url: 'https://developer.atlassian.com/cloud/framework/atlassian-frontend/development/styling',
+      url: 'https://hello.atlassian.net/wiki/spaces/AF/pages/2630143294/Styling+Components',
       recommended: true,
       severity: 'error',
     },

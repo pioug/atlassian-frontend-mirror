@@ -18,10 +18,6 @@ const PreviewBlock: React.FC<PreviewBlockProps> = ({
   overrideUrl,
   ...blockProps
 }) => {
-  if (status !== SmartLinkStatus.Resolved) {
-    return null;
-  }
-
   return (
     <PreviewBlockResolvedView
       {...blockProps}

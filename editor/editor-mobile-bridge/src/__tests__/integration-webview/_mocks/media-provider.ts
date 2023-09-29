@@ -1,5 +1,5 @@
-import { MediaProvider } from '@atlaskit/editor-core';
-import { MediaClientConfig } from '@atlaskit/media-core';
+import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
+import type { MediaClientConfig } from '@atlaskit/media-core';
 import { tenantAuthProvider } from '../../../__tests__/integration-webview/_mocks/database';
 
 export const createMediaProvider = async (): Promise<MediaProvider> => {

@@ -26,7 +26,6 @@ import type { ActionItem } from '../../../FlexibleCard/components/blocks/types';
  * @see FlexibleCardProps
  */
 const FlexibleResolvedView = ({
-  id,
   cardState,
   onClick,
   onError,

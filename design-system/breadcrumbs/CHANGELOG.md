@@ -1,5 +1,11 @@
 # @atlaskit/breadcrumbs
 
+## 11.10.7
+
+### Patch Changes
+
+- [#40837](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40837) [`a41955df26f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a41955df26f) - use array from instead of spread operator to fix ts error
+
 ## 11.10.6
 
 ### Patch Changes

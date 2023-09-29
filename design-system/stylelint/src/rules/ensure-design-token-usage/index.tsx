@@ -15,6 +15,7 @@ const defaultIsEnabled = {
   color: true,
   spacing: false,
   typography: false,
+  nonTokenCssVariables: false,
 };
 
 export const ruleName = 'design-system/ensure-design-token-usage';
@@ -46,6 +47,7 @@ export default stylelint.createPlugin(
           color: [true, false],
           spacing: [true, false],
           typography: [true, false],
+          nonTokenCssVariables: [true, false],
         },
       });
 
@@ -61,7 +63,7 @@ export default stylelint.createPlugin(
                 return false;
               }
 
-              if (!isToken(node.nodes[0])) {
+              if (isEnabled.nonTokenCssVariables && !isToken(node.nodes[0])) {
                 /**
                  * If we find a var, ensure it's a token var
                  */

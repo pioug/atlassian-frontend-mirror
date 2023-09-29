@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { MediaProvider } from '@atlaskit/editor-core';
+import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
 import {
   createMediaProvider,
   createCardProvider,
@@ -7,13 +7,13 @@ import {
   createEmojiProvider,
   createMentionProvider,
 } from '../../providers';
-import { Provider as CollabProvider } from '@atlaskit/collab-provider';
-import WebBridgeImpl from '../native-to-web';
-import { CardClient } from '@atlaskit/link-provider';
-import { EditorCardProvider } from '@atlaskit/editor-card-provider';
+import type { Provider as CollabProvider } from '@atlaskit/collab-provider';
+import type WebBridgeImpl from '../native-to-web';
+import type { CardClient } from '@atlaskit/link-provider';
+import type { EditorCardProvider } from '@atlaskit/editor-card-provider';
 import { fetchProxy } from '../../utils/fetch-proxy';
-import { EmojiResource } from '@atlaskit/emoji';
-import { MentionProvider } from '@atlaskit/mention';
+import type { EmojiResource } from '@atlaskit/emoji';
+import type { MentionProvider } from '@atlaskit/mention';
 import { createCollabProviderFactory } from '../../providers/collab-provider';
 
 interface Providers {

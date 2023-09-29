@@ -23,6 +23,10 @@ export type CorePlugin = NextEditorPlugin<
   }
 >;
 
+/**
+ * Core plugin that is always included in the preset.
+ * Allows for executing `EditorCommand` and other core functionality.
+ */
 export const corePlugin: CorePlugin = ({ config }) => {
   return {
     name: 'core',

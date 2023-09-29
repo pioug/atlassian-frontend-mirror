@@ -246,8 +246,8 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
       );
     },
     [
-      initHideCard,
       initShowCard,
+      initHideCard,
       filteredActions,
       linkState,
       onActionClick,

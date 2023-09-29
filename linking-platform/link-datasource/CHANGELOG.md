@@ -1,5 +1,17 @@
 # @atlaskit/link-datasource
 
+## 1.4.3
+
+### Patch Changes
+
+- [#40786](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40786) [`e9557ab2ce4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e9557ab2ce4) - Adding an empty basic filter container under platform.linking-platform.datasource.show-jlol-basic-filters feature flag
+
+## 1.4.2
+
+### Patch Changes
+
+- [#40743](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40743) [`a0c3be1b27f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a0c3be1b27f) - [ux] Enabled datasource insert from jira config modal with no issues result
+
 ## 1.4.1
 
 ### Patch Changes

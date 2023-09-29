@@ -15,7 +15,8 @@ import { MockActivityResource } from './activity-provider';
 import { content, buttonGroup } from './styles';
 import imageUploadHandler from './imageUpload';
 
-import { TeamMentionResource, MentionResource, EmojiResource } from '../src';
+import { TeamMentionResource, MentionResource } from '../src';
+import { EmojiResource } from '@atlaskit/emoji/resource';
 import { toJSON } from '../src/utils';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';

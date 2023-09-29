@@ -640,7 +640,7 @@ export const messages: Messages = defineMessages({
   direct_access_description_crossjoin: {
     id: 'fabric.linking.direct_access_description_crossjoin',
     defaultMessage:
-      'All {emailDomain} emails are approved to access {hostname} in {product}.',
+      'All accounts with your same email domain are approved to access {hostname} in {product}.',
     description:
       'Informs the user that they have access to this product, and can sign up or join right away.',
   },
@@ -711,17 +711,16 @@ export const messages: Messages = defineMessages({
     description: 'Error case for when a provided link is not found',
   },
 
-  // Pending designs:
-  // forbidden_access_crossjoin: {
-  //   id: 'fabric.linking.forbidden_access_crossjoin',
-  //   defaultMessage: 'Your access is forbidden',
-  //   description:
-  //     'Shown when a user does not have access to a resource behind the link.',
-  // },
-  // forbidden_description_crossjoin: {
-  //   id: 'fabric.linking.forbidden_description_crossjoin',
-  //   defaultMessage:
-  //     "You don't have access to this preview. Contact the site admin if you need access.",
-  //   description: 'Informs the user that they cannot view this content.',
-  // },
+  forbidden_title_crossjoin: {
+    id: 'fabric.linking.forbidden_title_crossjoin',
+    defaultMessage: "You don't have access to this content",
+    description:
+      'Informs the user that they do not have access to the linked content.',
+  },
+  forbidden_description_crossjoin: {
+    id: 'fabric.linking.forbidden_description_crossjoin',
+    defaultMessage: 'Contact your admin to request access.',
+    description:
+      'Informs the user that they must contact the site administrator for access.',
+  },
 });

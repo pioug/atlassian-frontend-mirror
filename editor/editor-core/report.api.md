@@ -18,194 +18,87 @@
 /// <reference types="node" />
 /// <reference types="react" />
 
-import { AbstractMentionResource } from '@atlaskit/mention/resource';
 import { ACTION } from '@atlaskit/editor-common/analytics';
 import { ACTION_SUBJECT } from '@atlaskit/editor-common/analytics';
 import { ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics';
 import type { ActivityProvider } from '@atlaskit/activity-provider';
-import type { AllEditorPresetPluginTypes } from '@atlaskit/editor-common/types';
 import { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
 import type { AnalyticsEventPayload as AnalyticsEventPayload_2 } from '@atlaskit/analytics-next/AnalyticsEvent';
-import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { AnnotationTypes } from '@atlaskit/adf-schema';
-import type { BasePluginOptions } from '@atlaskit/editor-plugin-base';
 import type { BlockTypePluginOptions } from '@atlaskit/editor-plugin-block-type';
 import type { CardOptions } from '@atlaskit/editor-common/card';
 import { CardProvider } from '@atlaskit/editor-common/provider-factory';
-import { clearEditorContent } from '@atlaskit/editor-common/commands';
 import type { CollabEditOptions } from '@atlaskit/editor-common/collab';
-import type { Color } from '@atlaskit/status/element';
-import { Command as Command_2 } from '@atlaskit/editor-common/types';
-import { ComponentType } from 'react';
-import type { compositionPlugin } from '@atlaskit/editor-plugin-composition';
-import type { ConfigWithNodeInfo } from '@atlaskit/editor-plugin-floating-toolbar';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
 import type { ContextUpdateHandler } from '@atlaskit/editor-common/types';
-import { createTable } from '@atlaskit/editor-plugin-table/commands';
-import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { darkModeStatusColorPalette } from '@atlaskit/editor-common/ui-color';
-import type { DecisionItemDefinition } from '@atlaskit/adf-schema';
-import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';
-import type { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
-import { dedupe } from '@atlaskit/editor-common/utils';
-import { DEFAULT_BORDER_COLOR } from '@atlaskit/editor-common/ui-color';
-import type { DirectEditorProps } from '@atlaskit/editor-prosemirror/view';
-import { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
-import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import type { EditorActionsOptions } from '@atlaskit/editor-common/types';
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { EditorAppearance } from '@atlaskit/editor-common/types';
-import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
-import { FeatureFlags as EditorFeatureFlags } from '@atlaskit/editor-common/types';
 import { EditorPlugin } from '@atlaskit/editor-common/types';
-import type { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
-import { EditorReactContext } from '@atlaskit/editor-common/types';
 import type { EditorSelectionAPI } from '@atlaskit/editor-common/selection';
-import { EditorState } from '@atlaskit/editor-prosemirror/state';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { EmojiResource } from '@atlaskit/emoji/resource';
 import { EmptyStateHandler } from '@atlaskit/editor-common/types';
-import type { ErrorReporter } from '@atlaskit/editor-common/utils';
 import type { ErrorReportingHandler } from '@atlaskit/editor-common/utils';
 import { EVENT_TYPE } from '@atlaskit/editor-common/analytics';
 import { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { EventEmitter as EventEmitter_2 } from 'events';
-import { ExperienceStore } from '@atlaskit/editor-common/ufo';
 import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
 import type { ExtensionProvider } from '@atlaskit/editor-common/extensions';
 import { ExtensionType } from '@atlaskit/editor-common/provider-factory';
-import { FC } from 'react';
-import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
-import type { FireAnalyticsCallback } from '@atlaskit/editor-common/analytics';
-import type { FloatingToolbarPlugin } from '@atlaskit/editor-plugin-floating-toolbar';
-import type { FocusPlugin } from '@atlaskit/editor-plugin-focus';
-import { FULL_WIDTH_MODE } from '@atlaskit/editor-common/analytics';
-import { GapCursorSelection } from '@atlaskit/editor-common/selection';
-import { Side as GapCursorSide } from '@atlaskit/editor-common/selection';
+import type { FeatureFlags } from '@atlaskit/editor-common/types';
 import type { GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
-import type { GridPlugin } from '@atlaskit/editor-plugin-grid';
-import type { GuidelinePlugin } from '@atlaskit/editor-plugin-guideline';
-import type { HyperlinkPluginOptions } from '@atlaskit/editor-common/types';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import type { InputMethodInsertMedia } from '@atlaskit/editor-common/analytics';
 import { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
 import { jsx } from '@emotion/react';
-import { lightModeStatusColorPalette } from '@atlaskit/editor-common/ui-color';
 import type { LinkingOptions } from '@atlaskit/editor-common/types';
 import type { LongPressSelectionPluginOptions } from '@atlaskit/editor-common/types';
 import { MacroAttributes } from '@atlaskit/editor-common/provider-factory';
 import { MacroProvider } from '@atlaskit/editor-common/provider-factory';
-import { MarkConfig } from '@atlaskit/editor-common/types';
-import type { MediaClientConfig } from '@atlaskit/media-core';
 import type { MediaFeatureFlags } from '@atlaskit/media-common';
-import type { MediaFeatureFlags as MediaFeatureFlags_2 } from '@atlaskit/media-common/mediaFeatureFlags';
-import type { MediaFile } from '@atlaskit/media-picker/types';
-import type { MediaProvider as MediaProvider_2 } from '@atlaskit/editor-common/provider-factory';
-import type { MentionDescription } from '@atlaskit/mention';
+import { MediaProvider as MediaProvider_2 } from '@atlaskit/editor-common/provider-factory';
 import { MentionProvider } from '@atlaskit/mention/resource';
-import type { MentionProvider as MentionProvider_2 } from '@atlaskit/mention';
 import { MentionResource } from '@atlaskit/mention/resource';
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
-import { default as messages } from '@atlaskit/editor-common/messages';
-import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import { Node as Node_2 } from '@atlaskit/editor-prosemirror/model';
-import { NodeConfig } from '@atlaskit/editor-common/types';
-import type { NodeType } from '@atlaskit/editor-prosemirror/model';
-import type { NodeView } from '@atlaskit/editor-prosemirror/view';
-import type { OptionalPlugin } from '@atlaskit/editor-common/types';
-import { PaletteColor } from '@atlaskit/editor-common/ui-color';
 import { PerformanceTracking } from '@atlaskit/editor-common/types';
-import type { PlaceholderPluginOptions } from '@atlaskit/editor-plugin-placeholder';
 import type { PluginConfig } from '@atlaskit/editor-plugin-table/types';
-import { PluginKey } from '@atlaskit/editor-prosemirror/state';
-import { PMPlugin } from '@atlaskit/editor-common/types';
 import { PortalProvider } from '@atlaskit/editor-common/portal-provider';
 import { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
 import { PortalRenderer } from '@atlaskit/editor-common/portal-provider';
-import { PositionType } from '@atlaskit/tooltip/types';
+import type { PositionType } from '@atlaskit/tooltip/types';
 import { PresenceProvider } from '@atlaskit/mention/resource';
-import { PresenceResource } from '@atlaskit/mention/resource';
 import PropTypes from 'prop-types';
-import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { Providers } from '@atlaskit/editor-common/provider-factory';
-import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
 import { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
 import type { QuickInsertOptions } from '@atlaskit/editor-common/types';
-import type { QuickInsertPluginOptions } from '@atlaskit/editor-common/types';
 import { QuickInsertProvider } from '@atlaskit/editor-common/provider-factory';
 import { default as React_2 } from 'react';
 import type { ReactElement } from 'react';
-import type { ReactHookFactory } from '@atlaskit/editor-common/types';
 import type { ReplaceRawValue } from '@atlaskit/editor-common/types';
 import type { ResolvedEditorState } from '@atlaskit/editor-common/collab';
-import type { RichMediaLayout } from '@atlaskit/adf-schema';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import type { SearchProvider } from '@atlaskit/editor-common/provider-factory';
-import type { SelectionPluginOptions } from '@atlaskit/editor-common/selection';
-import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
-import { setKeyboardHeight } from '@atlaskit/editor-plugin-base';
 import { setTextSelection } from '@atlaskit/editor-common/utils';
-import type { SEVERITY } from '@atlaskit/editor-common/utils';
 import type { TaskDecisionProvider } from '@atlaskit/task-decision';
-import type { TaskItemDefinition } from '@atlaskit/adf-schema';
 import { TeamMentionResource } from '@atlaskit/mention/team-resource';
-import { InputMethodBasic as TextFormattingInputMethodBasic } from '@atlaskit/editor-common/types';
-import { InputMethodToolbar as TextFormattingInputMethodToolbar } from '@atlaskit/editor-common/types';
 import type { TextFormattingOptions } from '@atlaskit/editor-common/types';
 import { ToolbarUIComponentFactory } from '@atlaskit/editor-common/types';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
-import { TransactionTracking } from '@atlaskit/editor-common/types';
 import type { Transformer as Transformer_2 } from '@atlaskit/editor-common/types';
-import type { TypeAheadHandler } from '@atlaskit/editor-common/types';
-import type { TypeAheadInputMethod } from '@atlaskit/editor-plugin-type-ahead';
 import { TypeAheadItem } from '@atlaskit/editor-common/provider-factory';
-import type { TypeAheadItem as TypeAheadItem_2 } from '@atlaskit/editor-common/types';
-import type { TypeAheadPluginOptions } from '@atlaskit/editor-plugin-type-ahead';
-import type { TypeAheadStats } from '@atlaskit/editor-common/types';
 import { UIComponentFactory } from '@atlaskit/editor-common/types';
-import type { UploadEndEventPayload } from '@atlaskit/media-picker/types';
-import type { UploadErrorEventPayload } from '@atlaskit/media-picker/types';
 import type { UploadParams } from '@atlaskit/media-picker/types';
-import type { UploadPreviewUpdateEventPayload } from '@atlaskit/media-picker/types';
 import type { UseStickyToolbarType } from '@atlaskit/editor-common/ui';
 import type { WeekDay } from '@atlaskit/calendar/types';
-import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
-import type { WidthPluginState } from '@atlaskit/editor-plugin-width';
 import { WithIntlProps } from 'react-intl-next';
-import { WithPluginState } from '@atlaskit/editor-common/with-plugin-state';
-import { WrappedComponentProps } from 'react-intl-next';
-
-export { AbstractMentionResource };
+import type { WrappedComponentProps } from 'react-intl-next';
 
 export { ACTION };
 
 export { ACTION_SUBJECT };
 
 export { ACTION_SUBJECT_ID };
-
-// @public (undocumented)
-type AddItemAttrs =
-  | Partial<DecisionItemDefinition['attrs']>
-  | Partial<TaskItemDefinition['attrs']>;
-
-// @public (undocumented)
-type AddItemTransactionCreator = (opts: {
-  state: EditorState;
-  tr: Transaction;
-  list: NodeType;
-  item: NodeType;
-  listLocalId: string;
-  itemLocalId: string;
-  itemAttrs?: AddItemAttrs;
-}) => Transaction | null;
-
-// @public (undocumented)
-interface AllSelectionData {
-  // (undocumented)
-  type: 'all';
-}
 
 export { AnalyticsEventPayload };
 
@@ -259,49 +152,12 @@ export class AnnotationUpdateEmitter extends EventEmitter_2 {
 }
 
 // @public (undocumented)
-export class BaseReactEditorView<T = {}> extends ReactEditorView_2<T> {}
-
-// @public (undocumented)
 type BeforeAndAfterToolbarComponents = {
   before: ReactComponents;
   after: ReactComponents;
 };
 
 export { CardProvider };
-
-// @public (undocumented)
-interface CellSelectionData {
-  // (undocumented)
-  anchor: number;
-  // (undocumented)
-  head: number;
-  // (undocumented)
-  type: 'cell';
-}
-
-// @public (undocumented)
-export const changeColor: (color: string) => Command;
-
-export { clearEditorContent };
-
-// @public (undocumented)
-type CloseOptions = {
-  insertCurrentQueryAsRawText: boolean;
-  attachCommand?: Command_2;
-};
-
-// @public (undocumented)
-enum closingMethods {
-  // (undocumented)
-  ArrowLeft = 'arrowLeft',
-  // (undocumented)
-  ArrowRight = 'arrowRight',
-}
-
-// @public (undocumented)
-type ClosingPayload = {
-  closingMethod: closingMethods;
-};
 
 // @public (undocumented)
 interface CodeBlockOptions extends LongPressSelectionPluginOptions {
@@ -312,25 +168,6 @@ interface CodeBlockOptions extends LongPressSelectionPluginOptions {
   // (undocumented)
   appearance?: EditorAppearance | undefined;
 }
-
-// @public (undocumented)
-export type CodeBlockPlugin = typeof codeBlockPlugin;
-
-// @public (undocumented)
-const codeBlockPlugin: NextEditorPlugin<
-  'codeBlock',
-  {
-    pluginConfiguration: CodeBlockOptions;
-    dependencies: [
-      typeof decorationsPlugin,
-      typeof compositionPlugin,
-      OptionalPlugin<typeof analyticsPlugin>,
-    ];
-    actions: {
-      insertCodeBlock: (inputMethod: INPUT_METHOD) => Command_2;
-    };
-  }
->;
 
 // @public (undocumented)
 export class CollapsedEditor extends React_2.Component<Props, State> {
@@ -359,92 +196,10 @@ export type Command = (
 export type CommandDispatch = (tr: Transaction) => void;
 
 // @public (undocumented)
-export const commitStatusPicker: (
-  closingPayload?: ClosingPayload,
-) => (editorView: EditorView) => void;
-
-// @public (undocumented)
 export function ContextPanel(props: Props_4): jsx.JSX.Element;
 
 // @public (undocumented)
-interface CreateEditorStateOptions {
-  // (undocumented)
-  context: EditorReactContext;
-  // (undocumented)
-  doc?: Object | Node_2 | string;
-  // (undocumented)
-  props: EditorViewProps;
-  // (undocumented)
-  resetting?: boolean;
-  // (undocumented)
-  selectionAtStart?: boolean;
-}
-
-export { createTable };
-
-// @public (undocumented)
-export const createTypeAheadTools: (editorView: EditorView) => {
-  isOpen: () => TypeAheadHandler | false;
-  currentQuery: () => string | undefined;
-  close: (options?: CloseOptions) => boolean;
-  openMention: (inputMethod: TypeAheadInputMethod) => boolean;
-  searchMention: (query?: string) => {
-    type: (appendValue: string) => Promise<TypeAheadItem[]> | undefined;
-    result: () => Promise<TypeAheadItem[] | undefined>;
-    close: (options?: CloseOptions) => boolean;
-    insert: ({
-      index,
-      mode,
-    }: {
-      index: number;
-      mode?: SelectItemMode | undefined;
-    }) => Promise<void>;
-  };
-  openQuickInsert: (inputMethod: TypeAheadInputMethod) => boolean;
-  searchQuickInsert: (query?: string) => {
-    type: (appendValue: string) => Promise<TypeAheadItem[]> | undefined;
-    result: () => Promise<TypeAheadItem[] | undefined>;
-    close: (options?: CloseOptions) => boolean;
-    insert: ({
-      index,
-      mode,
-    }: {
-      index: number;
-      mode?: SelectItemMode | undefined;
-    }) => Promise<void>;
-  };
-  openEmoji: (inputMethod: TypeAheadInputMethod) => boolean;
-  searchEmoji: (query?: string) => {
-    type: (appendValue: string) => Promise<TypeAheadItem[]> | undefined;
-    result: () => Promise<TypeAheadItem[] | undefined>;
-    close: (options?: CloseOptions) => boolean;
-    insert: ({
-      index,
-      mode,
-    }: {
-      index: number;
-      mode?: SelectItemMode | undefined;
-    }) => Promise<void>;
-  };
-  insertItemMention: ({
-    contentItem,
-    query,
-    sourceListItem,
-  }: InsertItemProps) => boolean;
-  insertItemEmoji: ({
-    contentItem,
-    query,
-    sourceListItem,
-  }: InsertItemProps) => boolean;
-  insertItemQuickInsert: ({
-    contentItem,
-    query,
-    sourceListItem,
-  }: InsertItemProps) => boolean;
-};
-
-// @public (undocumented)
-export interface CustomMediaPicker {
+interface CustomMediaPicker {
   // (undocumented)
   destroy(): void;
   // (undocumented)
@@ -457,71 +212,11 @@ export interface CustomMediaPicker {
   setUploadParams(uploadParams: UploadParams): void;
 }
 
-export { darkModeStatusColorPalette };
-
-// @public (undocumented)
-export const dateMessages: {
-  editText: {
-    id: string;
-    defaultMessage: string;
-    description: string;
-  };
-};
-
 // @public (undocumented)
 interface DatePluginConfig {
   // (undocumented)
   weekStartDay?: WeekDay;
 }
-
-// @public (undocumented)
-export const datePluginKey: PluginKey<DatePluginState>;
-
-// @public (undocumented)
-export type DatePluginState = {
-  isQuickInsertAction?: boolean;
-  isNew: boolean;
-  showDatePickerAt: null | number;
-  isDateEmpty: boolean;
-  focusDateInput: boolean;
-};
-
-// @public
-export function dateToDateType(date: Date): DateType;
-
-// @public (undocumented)
-type DateType = {
-  year: number;
-  month: number;
-  day?: number;
-};
-
-export { dedupe };
-
-export { DEFAULT_BORDER_COLOR };
-
-// @public (undocumented)
-type DefaultPresetPluginOptions = {
-  paste: PastePluginOptions;
-  base?: BasePluginOptions;
-  blockType?: BlockTypePluginOptions;
-  placeholder?: PlaceholderPluginOptions;
-  textFormatting?: TextFormattingOptions;
-  submitEditor?: EditorProps['onSave'];
-  annotationProviders?: AnnotationProviders;
-  quickInsert?: QuickInsertPluginOptions;
-  codeBlock?: CodeBlockOptions;
-  selection?: SelectionPluginOptions;
-  cardOptions?: CardOptions;
-  hyperlinkOptions?: HyperlinkPluginOptions;
-  createAnalyticsEvent?: CreateUIAnalyticsEvent;
-  typeAhead?: TypeAheadPluginOptions;
-  allowAnalyticsGASV3?: boolean;
-  performanceTracking?: EditorProps['performanceTracking'];
-};
-
-// @public
-export const deleteDate: () => Command;
 
 // @public (undocumented)
 export class Editor extends React_2.Component<EditorProps> {
@@ -571,7 +266,7 @@ export class EditorActions<T = any> implements EditorActionsOptions<T> {
     editorView: EditorView,
     eventDispatcher: EventDispatcher,
     contentTransformer?: Transformer_2<T>,
-    getFeatureFlags?: () => EditorFeatureFlags,
+    getFeatureFlags?: () => FeatureFlags,
   ): void;
   // (undocumented)
   _privateSubscribe(cb: ContextUpdateHandler): void;
@@ -662,29 +357,6 @@ interface EditorBaseProps {
 }
 
 // @public (undocumented)
-interface EditorConfig {
-  // (undocumented)
-  contentComponents: UIComponentFactory[];
-  // (undocumented)
-  marks: MarkConfig[];
-  // (undocumented)
-  nodes: NodeConfig[];
-  // (undocumented)
-  onEditorViewStateUpdatedCallbacks: Array<{
-    pluginName: string;
-    callback: (props: EditorViewStateUpdatedCallbackProps) => void;
-  }>;
-  // (undocumented)
-  pluginHooks: ReactHookFactory[];
-  // (undocumented)
-  pmPlugins: Array<PMPlugin>;
-  // (undocumented)
-  primaryToolbarComponents: ToolbarUIComponentFactory[];
-  // (undocumented)
-  secondaryToolbarComponents: UIComponentFactory[];
-}
-
-// @public (undocumented)
 export class EditorContext extends React_2.Component<EditorContextProps, {}> {
   constructor(props: EditorContextProps);
   // (undocumented)
@@ -703,8 +375,6 @@ export class EditorContext extends React_2.Component<EditorContextProps, {}> {
 type EditorContextProps = {
   editorActions?: EditorActions;
 };
-
-export { EditorFeatureFlags };
 
 // @public (undocumented)
 export interface EditorInstance {
@@ -727,15 +397,6 @@ export interface EditorInstance {
   primaryToolbarComponents: ToolbarUIComponentFactory[];
   // (undocumented)
   secondaryToolbarComponents: UIComponentFactory[];
-}
-
-// @public (undocumented)
-interface EditorNextProps
-  extends EditorBaseProps,
-    EditorSharedPropsWithPlugins,
-    EditorProviderProps {
-  // (undocumented)
-  preset: EditorPresetBuilder<string[], AllEditorPresetPluginTypes[]>;
 }
 
 // @public (undocumented)
@@ -845,16 +506,6 @@ interface EditorPluginFeatureProps {
 }
 
 // @public (undocumented)
-interface EditorPresetProps {
-  // (undocumented)
-  excludes?: Set<string>;
-  // (undocumented)
-  experimental?: Array<string>;
-  // (undocumented)
-  featureFlags?: EditorFeatureFlags;
-}
-
-// @public (undocumented)
 type EditorProduct = 'bitbucket' | 'confluence' | 'jira' | 'stride' | undefined;
 
 // @public (undocumented)
@@ -915,63 +566,9 @@ interface EditorSharedPropsWithPlugins {
   sanitizePrivateContent?: boolean;
 }
 
-// @public (undocumented)
-interface EditorViewProps {
-  // (undocumented)
-  createAnalyticsEvent?: CreateUIAnalyticsEvent;
-  // (undocumented)
-  disabled?: boolean;
-  // (undocumented)
-  editorProps: EditorNextProps | EditorProps;
-  // (undocumented)
-  experienceStore?: ExperienceStore;
-  // (undocumented)
-  onEditorCreated: (instance: {
-    view: EditorView;
-    config: EditorConfig;
-    eventDispatcher: EventDispatcher;
-    transformer?: Transformer_2<string>;
-  }) => void;
-  // (undocumented)
-  onEditorDestroyed: (instance: {
-    view: EditorView;
-    config: EditorConfig;
-    eventDispatcher: EventDispatcher;
-    transformer?: Transformer_2<string>;
-  }) => void;
-  // (undocumented)
-  portalProviderAPI: PortalProviderAPI;
-  // (undocumented)
-  preset: EditorPresetBuilder<string[], AllEditorPresetPluginTypes[]>;
-  // (undocumented)
-  providerFactory: ProviderFactory;
-  // (undocumented)
-  render?: (props: {
-    editor: JSX.Element;
-    view?: EditorView;
-    config: EditorConfig;
-    eventDispatcher: EventDispatcher;
-    transformer?: Transformer_2<string>;
-    dispatchAnalyticsEvent: DispatchAnalyticsEvent;
-    editorRef: React_2.RefObject<HTMLDivElement>;
-  }) => JSX.Element;
-  // (undocumented)
-  setEditorApi?: SetEditorAPI;
-}
-
-// @public (undocumented)
-type EditorViewStateUpdatedCallbackProps = {
-  readonly originalTransaction: Readonly<Transaction>;
-  readonly transactions: readonly Transaction[];
-  readonly oldEditorState: Readonly<EditorState>;
-  readonly newEditorState: Readonly<EditorState>;
-};
-
 export { EmojiResource };
 
 export { EVENT_TYPE };
-
-export { EventDispatcher };
 
 // @public (undocumented)
 interface ExtensionConfig {
@@ -1014,43 +611,8 @@ type FindReplaceOptions = {
   allowMatchCase?: boolean;
 };
 
-export { GapCursorSelection };
-
-export { GapCursorSide };
-
-// @public (undocumented)
-interface GapSelectionData {
-  // (undocumented)
-  pos: number;
-  // (undocumented)
-  type: 'gapcursor';
-}
-
-// @public (undocumented)
-export function getDefaultPresetOptionsFromEditorProps(
-  props: EditorProps,
-  createAnalyticsEvent?: CreateUIAnalyticsEvent,
-): EditorPresetProps & DefaultPresetPluginOptions & EditorPluginFeatureProps;
-
 // @public (undocumented)
 export function getNodesCount(node: Node_2): Record<string, number>;
-
-// @public (undocumented)
-type getPosHandler = getPosHandlerNode;
-
-// @public (undocumented)
-type getPosHandlerNode = () => number | undefined;
-
-// @public
-export const historyPluginKey: PluginKey<HistoryPluginState>;
-
-// @public (undocumented)
-export interface HistoryPluginState {
-  // (undocumented)
-  canRedo: boolean;
-  // (undocumented)
-  canUndo: boolean;
-}
 
 // @public (undocumented)
 export type InlineCommentAnnotationProvider = AnnotationTypeProvider<
@@ -1083,53 +645,6 @@ export type InlineCommentViewComponentProps = AnnotationComponentProps & {
 export { INPUT_METHOD };
 
 // @public (undocumented)
-export type InsertBlockInputMethodToolbar =
-  | INPUT_METHOD.INSERT_MENU
-  | INPUT_METHOD.TOOLBAR;
-
-// @public (undocumented)
-export const insertDate: (
-  date?: DateType,
-  inputMethod?: InsertBlockInputMethodToolbar,
-  commitMethod?: INPUT_METHOD.KEYBOARD | INPUT_METHOD.PICKER,
-  enterPressed?: boolean,
-) => Command;
-
-// @public (undocumented)
-export const insertExpand: Command;
-
-// @public (undocumented)
-type InsertItemProps = {
-  contentItem: TypeAheadItem;
-  query: string;
-  sourceListItem: TypeAheadItem[];
-};
-
-// @public (undocumented)
-export const insertMediaSingleNode: (
-  view: EditorView,
-  mediaState: MediaState,
-  inputMethod?: InputMethodInsertMedia,
-  collection?: string,
-  alignLeftOnInsert?: boolean,
-  newInsertionBehaviour?: boolean,
-  widthPluginState?: WidthPluginState | undefined,
-  editorAnalyticsAPI?: EditorAnalyticsAPI | undefined,
-) => boolean;
-
-// @public (undocumented)
-export const insertTaskDecisionCommand: (
-  listType: TaskDecisionListType,
-  inputMethod?:
-    | INPUT_METHOD.FORMATTING
-    | INPUT_METHOD.QUICK_INSERT
-    | InsertBlockInputMethodToolbar,
-  addItem?: AddItemTransactionCreator,
-  listLocalId?: string,
-  itemLocalId?: string,
-) => Command;
-
-// @public (undocumented)
 interface LayoutPluginOptions extends LongPressSelectionPluginOptions {
   // (undocumented)
   allowBreakout?: boolean;
@@ -1139,28 +654,12 @@ interface LayoutPluginOptions extends LongPressSelectionPluginOptions {
   UNSAFE_allowSingleColumnLayout?: boolean;
 }
 
-export { lightModeStatusColorPalette };
-
 // @public (undocumented)
 type Listener = (data: any) => void;
 
 export { MacroAttributes };
 
 export { MacroProvider };
-
-// @public (undocumented)
-interface MeasureHelpers {
-  // (undocumented)
-  startMeasure: (measureName: string) => void;
-  // (undocumented)
-  stopMeasure: (
-    measureName: string,
-    onMeasureComplete?: (duration: number, startTime: number) => void,
-  ) => void;
-}
-
-// @public (undocumented)
-type MeasureListener = (entry: SimpleEntry) => void;
 
 // @public (undocumented)
 export const measurements: {
@@ -1170,34 +669,6 @@ export const measurements: {
   ON_EDITOR_READY_CALLBACK: string;
   PASTE: string;
 };
-
-// @public (undocumented)
-type MediaNextEditorPluginType = NextEditorPlugin<
-  'media',
-  {
-    pluginConfiguration: MediaOptions | undefined;
-    dependencies: [
-      FeatureFlagsPlugin,
-      OptionalPlugin<AnalyticsPlugin>,
-      GuidelinePlugin,
-      GridPlugin,
-      WidthPlugin,
-      DecorationsPlugin,
-      FloatingToolbarPlugin,
-      EditorDisabledPlugin,
-      FocusPlugin,
-    ];
-    sharedState: MediaPluginState | null;
-  }
->;
-
-// @public (undocumented)
-interface MediaNodeWithPosHandler {
-  // (undocumented)
-  getPos: ProsemirrorGetPosHandler;
-  // (undocumented)
-  node: Node_2;
-}
 
 // @public (undocumented)
 export interface MediaOptions {
@@ -1261,153 +732,6 @@ export interface MediaOptions {
   waitForMediaUpload?: boolean;
 }
 
-// @public (undocumented)
-export const mediaPlugin: MediaNextEditorPluginType;
-
-// @public (undocumented)
-export const mediaPluginKey: PluginKey<MediaPluginState>;
-
-// @public (undocumented)
-type MediaPluginOptions = {
-  providerFactory: ProviderFactory;
-  nodeViews: {
-    [name: string]: (
-      node: Node_2,
-      view: EditorView,
-      getPos: getPosHandler,
-    ) => NodeView;
-  };
-  errorReporter?: ErrorReporter;
-  uploadErrorHandler?: (state: MediaState) => void;
-  waitForMediaUpload?: boolean;
-  customDropzoneContainer?: HTMLElement;
-  customMediaPicker?: CustomMediaPicker;
-  allowResizing: boolean;
-};
-
-// @public (undocumented)
-interface MediaPluginState {
-  // (undocumented)
-  addPendingTask: (promise: Promise<any>) => void;
-  // (undocumented)
-  allowsUploads: boolean;
-  // (undocumented)
-  allUploadsFinished: boolean;
-  // (undocumented)
-  currentMaxWidth?: number;
-  // (undocumented)
-  destroy(): void;
-  // (undocumented)
-  dispatch?: Dispatch;
-  // (undocumented)
-  editingMediaSinglePos?: number;
-  // (undocumented)
-  element?: HTMLElement;
-  // (undocumented)
-  findMediaNode: (id: string) => MediaNodeWithPosHandler | null;
-  // (undocumented)
-  getMediaOptions: () => MediaPluginOptions;
-  // (undocumented)
-  handleDrag: (dragState: 'enter' | 'leave') => void;
-  // (undocumented)
-  handleMediaGroupUpdate: (oldNodes: Node_2[], newNodes: Node_2[]) => void;
-  // (undocumented)
-  handleMediaNodeMount: (
-    node: Node_2,
-    getPos: ProsemirrorGetPosHandler,
-  ) => void;
-  // (undocumented)
-  handleMediaNodeRemoval: (
-    node: Node_2 | undefined,
-    getPos: ProsemirrorGetPosHandler,
-  ) => void;
-  // (undocumented)
-  handleMediaNodeUnmount: (oldNode: Node_2) => void;
-  // (undocumented)
-  ignoreLinks: boolean;
-  // (undocumented)
-  insertFile: (
-    mediaState: MediaState,
-    onMediaStateChanged: MediaStateEventSubscriber,
-    pickerType?: string,
-  ) => void;
-  // (undocumented)
-  isFullscreen: boolean;
-  // (undocumented)
-  isResizing: boolean;
-  // (undocumented)
-  layout: RichMediaLayout;
-  // (undocumented)
-  mediaClientConfig?: MediaClientConfig;
-  // (undocumented)
-  mediaNodes: MediaNodeWithPosHandler[];
-  // (undocumented)
-  mediaOptions?: MediaOptions;
-  // (undocumented)
-  mediaProvider?: MediaProvider_2;
-  // (undocumented)
-  onContextIdentifierProvider: (
-    _name: string,
-    provider?: Promise<ContextIdentifierProvider>,
-  ) => Promise<void>;
-  // (undocumented)
-  onPopupPickerClose: () => void;
-  // (undocumented)
-  onPopupToggle: (onPopupToogleCallback: (isOpen: boolean) => void) => void;
-  // (undocumented)
-  options: MediaPluginOptions;
-  // (undocumented)
-  pickerPromises: Array<Promise<PickerFacade>>;
-  // (undocumented)
-  pickers: PickerFacade[];
-  // (undocumented)
-  removeSelectedMediaContainer: () => boolean;
-  // (undocumented)
-  resizingWidth: number;
-  // (undocumented)
-  selectedMediaContainerNode: () => Node_2 | undefined;
-  // (undocumented)
-  setBrowseFn: (browseFn: () => void) => void;
-  // (undocumented)
-  setIsResizing(isResizing: boolean): void;
-  // (undocumented)
-  setMediaProvider: (mediaProvider?: Promise<MediaProvider_2>) => Promise<void>;
-  // (undocumented)
-  setResizingWidth(width: number): void;
-  // (undocumented)
-  setView(view: EditorView): void;
-  // (undocumented)
-  showDropzone: boolean;
-  // (undocumented)
-  showEditingDialog?: boolean;
-  // (undocumented)
-  showMediaPicker: () => void;
-  // (undocumented)
-  splitMediaGroup: () => boolean;
-  // (undocumented)
-  updateAndDispatch(
-    props: Partial<
-      Pick<this, 'allUploadsFinished' | 'allowsUploads' | 'isFullscreen'>
-    >,
-  ): void;
-  // (undocumented)
-  updateElement(): void;
-  // (undocumented)
-  updateMediaSingleNodeAttrs: (
-    id: string,
-    attrs: object,
-  ) => boolean | undefined;
-  // (undocumented)
-  uploadMediaClientConfig?: MediaClientConfig;
-  // (undocumented)
-  waitForMediaUpload: boolean;
-  // (undocumented)
-  waitForPendingTasks: (
-    timeout?: number,
-    lastTask?: Promise<MediaState | null>,
-  ) => Promise<MediaState | null>;
-}
-
 export { MediaProvider_2 as MediaProvider };
 
 // @public (undocumented)
@@ -1417,7 +741,7 @@ interface MediaSingleOptions {
 }
 
 // @public (undocumented)
-export interface MediaState {
+interface MediaState {
   // (undocumented)
   collection?: string;
   // (undocumented)
@@ -1448,15 +772,6 @@ export interface MediaState {
 }
 
 // @public (undocumented)
-type MediaStateEvent = MediaState;
-
-// @public (undocumented)
-type MediaStateEventListener = (evt: MediaStateEvent) => void;
-
-// @public (undocumented)
-type MediaStateEventSubscriber = (listener: MediaStateEventListener) => void;
-
-// @public (undocumented)
 type MediaStateStatus =
   | 'cancelled'
   | 'error'
@@ -1473,46 +788,13 @@ interface MentionPluginConfig {
   insertDisplayName?: boolean;
 }
 
-// @public (undocumented)
-export type MentionPluginState = {
-  mentionProvider?: MentionProvider_2;
-  contextIdentifierProvider?: ContextIdentifierProvider;
-  mentions?: Array<MentionDescription>;
-  canInsertMention?: boolean;
-};
-
 export { MentionProvider };
 
 export { MentionResource };
 
-export { messages };
-
-// @public (undocumented)
-type MobileUploadEndEventPayload = {
-  readonly file: MediaFile & {
-    readonly collectionName?: string;
-    readonly publicId?: string;
-  };
-};
-
 // @public (undocumented)
 const name_2: string;
 export { name_2 as name };
-
-// @public (undocumented)
-type NewMediaEvent = (
-  state: MediaState,
-  onStateChanged: MediaStateEventSubscriber,
-  pickerType?: string,
-) => void;
-
-// @public (undocumented)
-interface NodeSelectionData {
-  // (undocumented)
-  anchor: number;
-  // (undocumented)
-  type: 'node';
-}
 
 // @public (undocumented)
 type OnEditorViewStateUpdated = (props: {
@@ -1523,94 +805,12 @@ type OnEditorViewStateUpdated = (props: {
 }) => void;
 
 // @public (undocumented)
-export const openDatePicker: () => Command;
-
-export { PaletteColor };
-
-// @public (undocumented)
-export type PanelPlugin = typeof panelPlugin;
-
-// @public (undocumented)
-const panelPlugin: NextEditorPlugin<
-  'panel',
-  {
-    pluginConfiguration: PanelPluginOptions | undefined;
-    dependencies: [
-      typeof decorationsPlugin,
-      OptionalPlugin<typeof analyticsPlugin>,
-    ];
-    actions: {
-      insertPanel: (inputMethod: INPUT_METHOD) => Command_2;
-    };
-  }
->;
-
-// @public (undocumented)
 interface PanelPluginConfig {
   // (undocumented)
   allowCustomPanel?: boolean;
   // (undocumented)
   allowCustomPanelEdit?: boolean;
 }
-
-// @public (undocumented)
-interface PanelPluginOptions
-  extends LongPressSelectionPluginOptions,
-    PanelPluginConfig {}
-
-// @public (undocumented)
-type PastePluginOptions = {
-  cardOptions?: CardOptions;
-  sanitizePrivateContent?: boolean;
-};
-
-// @public (undocumented)
-class PickerFacade {
-  constructor(
-    pickerType: PickerType,
-    config: PickerFacadeConfig,
-    pickerConfig?: CustomMediaPicker | null | undefined,
-    analyticsName?: string,
-  );
-  // (undocumented)
-  readonly config: PickerFacadeConfig;
-  // (undocumented)
-  destroy(): void;
-  // (undocumented)
-  erroredFiles: Set<string>;
-  // (undocumented)
-  handleMobileUploadEnd: (event: MobileUploadEndEventPayload) => void;
-  // (undocumented)
-  handleReady: (event: UploadEndEventPayload) => void;
-  // (undocumented)
-  handleUploadError: ({ error, fileId }: UploadErrorEventPayload) => void;
-  // (undocumented)
-  handleUploadPreviewUpdate: (event: UploadPreviewUpdateEventPayload) => void;
-  // (undocumented)
-  init(): Promise<PickerFacade>;
-  // (undocumented)
-  get mediaPicker(): CustomMediaPicker | undefined;
-  // (undocumented)
-  onDrag(cb: (state: 'enter' | 'leave') => any): void;
-  // (undocumented)
-  onNewMedia(cb: NewMediaEvent): void;
-  // (undocumented)
-  readonly pickerConfig?: CustomMediaPicker | null | undefined;
-  // (undocumented)
-  setUploadParams(params: UploadParams): void;
-  // (undocumented)
-  get type(): PickerType;
-}
-
-// @public (undocumented)
-type PickerFacadeConfig = {
-  mediaClientConfig: MediaClientConfig;
-  errorReporter: ErrorReportingHandler;
-  featureFlags?: MediaFeatureFlags_2;
-};
-
-// @public (undocumented)
-type PickerType = 'clipboard' | 'customMediaPicker' | 'dropzone';
 
 // @public (undocumented)
 interface PlaceholderTextOptions {
@@ -1631,8 +831,6 @@ export { PortalProviderAPI };
 export { PortalRenderer };
 
 export { PresenceProvider };
-
-export { PresenceResource };
 
 // @public (undocumented)
 type PrimaryToolbarComponents =
@@ -1685,15 +883,6 @@ type Props_4 = {
   children?: React_2.ReactElement;
 };
 
-// @public (undocumented)
-type Props_5 = {
-  oldPluginState: TypeAheadPluginState;
-  newPluginState: TypeAheadPluginState;
-};
-
-// @public (undocumented)
-type ProsemirrorGetPosHandler = getPosHandlerNode;
-
 export { QuickInsertItem };
 
 export { QuickInsertProvider };
@@ -1701,235 +890,10 @@ export { QuickInsertProvider };
 // @public (undocumented)
 type ReactComponents = ReactElement<any> | ReactElement<any>[];
 
-// @public (undocumented)
-export const ReactEditorView: FC<
-  WithIntlProps<EditorViewProps & WrappedComponentProps<'intl'>>
-> & {
-  WrappedComponent: ComponentType<
-    EditorViewProps & WrappedComponentProps<'intl'>
-  >;
-};
-
-// @public (undocumented)
-class ReactEditorView_2<T = {}> extends React_2.Component<
-  EditorViewProps & WrappedComponentProps & T,
-  {},
-  EditorReactContext
-> {
-  constructor(
-    props: EditorViewProps & WrappedComponentProps & T,
-    context: EditorReactContext,
-  );
-  // (undocumented)
-  blur: () => void;
-  // (undocumented)
-  componentDidMount(): void;
-  componentWillUnmount(): void;
-  // (undocumented)
-  config: EditorConfig;
-  // (undocumented)
-  contentTransformer?: Transformer_2<string>;
-  // (undocumented)
-  static contextTypes: {
-    getAtlaskitAnalyticsEventHandlers: PropTypes.Requireable<
-      (...args: any[]) => any
-    >;
-  };
-  // (undocumented)
-  createEditorState: (options: CreateEditorStateOptions) => EditorState;
-  // (undocumented)
-  dispatch: Dispatch;
-  // (undocumented)
-  dispatchAnalyticsEvent: (payload: AnalyticsEventPayload) => void;
-  // (undocumented)
-  editorRef: React_2.RefObject<HTMLDivElement>;
-  // (undocumented)
-  editorState: EditorState;
-  // (undocumented)
-  errorReporter: ErrorReporter;
-  // (undocumented)
-  eventDispatcher: EventDispatcher;
-  // (undocumented)
-  experienceStore?: ExperienceStore;
-  // (undocumented)
-  formatFullWidthAppearance: (
-    appearance: EditorAppearance | undefined,
-  ) => FULL_WIDTH_MODE;
-  // (undocumented)
-  getDirectEditorProps: (state?: EditorState) => DirectEditorProps;
-  // (undocumented)
-  getEditorState: () => EditorState | undefined;
-  // (undocumented)
-  getEditorView: () => EditorView | undefined;
-  // (undocumented)
-  getPlugins(
-    preset: EditorPresetBuilder<string[], AllEditorPresetPluginTypes[]>,
-  ): EditorPlugin[];
-  // (undocumented)
-  handleAnalyticsEvent: FireAnalyticsCallback;
-  // (undocumented)
-  handleEditorViewRef: (node: HTMLDivElement) => void;
-  // (undocumented)
-  proseMirrorRenderedSeverity?: SEVERITY;
-  // (undocumented)
-  reconfigureState(props: EditorViewProps): void;
-  // (undocumented)
-  render(): JSX.Element;
-  // (undocumented)
-  resetEditorState: ({
-    doc,
-    shouldScrollToBottom,
-  }: {
-    doc: string;
-    shouldScrollToBottom: boolean;
-  }) => void;
-  // (undocumented)
-  transactionTracker: TransactionTracker;
-  // (undocumented)
-  get transactionTracking(): TransactionTracking;
-  // (undocumented)
-  UNSAFE_componentWillReceiveProps(nextProps: EditorViewProps): void;
-  // (undocumented)
-  validTransactionCount: number;
-  // (undocumented)
-  view?: EditorView;
-}
-
-// @public (undocumented)
-interface RectData {
-  // (undocumented)
-  left: number;
-  // (undocumented)
-  top: number;
-}
-
-// @public (undocumented)
-export const removeStatus: (showStatusPickerAt: number) => Command;
-
-// @public (undocumented)
-export type SelectionData =
-  | AllSelectionData
-  | CellSelectionData
-  | GapSelectionData
-  | NodeSelectionData
-  | TextSelectionData;
-
-// @public (undocumented)
-export interface SelectionDataState {
-  // (undocumented)
-  markTypes: string[];
-  // (undocumented)
-  nodeTypes: string[];
-  // (undocumented)
-  rect: RectData;
-  // (undocumented)
-  selection: SelectionData;
-}
-
-// @public (undocumented)
-export const selectionPluginKey: PluginKey<any>;
-
-// @public (undocumented)
-type SetEditorAPI = (editorApi: PublicPluginAPI<any>) => void;
-
-// @public (undocumented)
-export const setIsExpanded: (isExpanded: boolean) => Command_2;
-
-export { setKeyboardHeight };
-
-// @public (undocumented)
-export const setMobilePaddingTop: (paddingTop: number) => Command_2;
-
-// @public (undocumented)
-export const setStatusPickerAt: (
-  showStatusPickerAt: null | number,
-) => (state: EditorState, dispatch: (tr: Transaction) => void) => boolean;
-
 export { setTextSelection };
 
 // @public (undocumented)
-interface SimpleEntry {
-  // (undocumented)
-  duration: number;
-  // (undocumented)
-  name: string;
-  // (undocumented)
-  startTime: number;
-}
-
-// @public (undocumented)
 interface State {}
-
-// @public (undocumented)
-export const statusMessages: {
-  placeholder: {
-    id: string;
-    defaultMessage: string;
-    description: string;
-  };
-  editText: {
-    id: string;
-    defaultMessage: string;
-    description: string;
-  };
-  editColor: {
-    id: string;
-    defaultMessage: string;
-    description: string;
-  };
-};
-
-// @public (undocumented)
-export const statusPluginKey: PluginKey<StatusState>;
-
-// @public (undocumented)
-export type StatusState = {
-  isNew: boolean;
-  showStatusPickerAt: null | number;
-};
-
-// @public (undocumented)
-export type StatusType = {
-  color: Color;
-  text: string;
-  localId?: string;
-};
-
-// @public (undocumented)
-type SubscribeToToolbarAndPickerUpdates = (
-  editorView: EditorView,
-  cb: (args: SubscribeToToolbarAndPickerUpdatesCallbackArgs) => void,
-) => () => void;
-
-// @public (undocumented)
-export const subscribeToToolbarAndPickerUpdates: SubscribeToToolbarAndPickerUpdates;
-
-// @public (undocumented)
-type SubscribeToToolbarAndPickerUpdatesCallbackArgs = {
-  dateState?: DatePluginState;
-  statusState?: StatusState;
-  toolbarConfig: ConfigWithNodeInfo | null | undefined;
-};
-
-// @public (undocumented)
-type SubscribeTypeAheadUpdates = (
-  editorView: EditorView,
-  cb: (props: Props_5) => void,
-) => () => void;
-
-// @public (undocumented)
-export const subscribeTypeAheadUpdates: SubscribeTypeAheadUpdates;
-
-// @public (undocumented)
-export type TaskDecisionInputMethod =
-  | INPUT_METHOD.FORMATTING
-  | INPUT_METHOD.INSERT_MENU
-  | INPUT_METHOD.KEYBOARD
-  | INPUT_METHOD.QUICK_INSERT
-  | INPUT_METHOD.TOOLBAR;
-
-// @public (undocumented)
-type TaskDecisionListType = 'decisionList' | 'taskList';
 
 export { TeamMentionResource };
 
@@ -1946,31 +910,6 @@ interface TextColorPluginConfig {
 }
 
 // @public (undocumented)
-export const textColorPluginKey: PluginKey<TextColorPluginState>;
-
-// @public (undocumented)
-export type TextColorPluginState = {
-  palette: Array<PaletteColor>;
-  defaultColor: string;
-  disabled?: boolean;
-  color: null | string;
-};
-
-export { TextFormattingInputMethodBasic };
-
-export { TextFormattingInputMethodToolbar };
-
-// @public (undocumented)
-interface TextSelectionData {
-  // (undocumented)
-  anchor: number;
-  // (undocumented)
-  head: number;
-  // (undocumented)
-  type: 'text';
-}
-
-// @public (undocumented)
 export function ToolbarFeedback(props: Props_3): jsx.JSX.Element;
 
 // @public (undocumented)
@@ -1982,43 +921,7 @@ export const ToolbarHelp: React_2.FC<
   >;
 };
 
-// @public (undocumented)
-class TransactionTracker {
-  // (undocumented)
-  addMeasureListener(listener: MeasureListener): void;
-  // (undocumented)
-  bumpDispatchCounter: (options: TransactionTracking) => number;
-  // (undocumented)
-  getMeasureHelpers: (options: TransactionTracking) => MeasureHelpers;
-  // (undocumented)
-  removeMeasureListener(listener: MeasureListener): void;
-  // (undocumented)
-  shouldTrackTransaction(options: TransactionTracking): boolean;
-}
-
 export { TypeAheadItem };
-
-// @public (undocumented)
-export const typeAheadPluginKey: PluginKey<TypeAheadPluginState>;
-
-// @public (undocumented)
-export type TypeAheadPluginState = {
-  decorationSet: DecorationSet;
-  decorationElement: HTMLElement | null;
-  typeAheadHandlers: Array<TypeAheadHandler>;
-  query: string;
-  items: Array<TypeAheadItem_2>;
-  triggerHandler?: TypeAheadHandler;
-  selectedIndex: number;
-  stats: TypeAheadStatsSerializable | null;
-  inputMethod: TypeAheadInputMethod | null;
-};
-
-// @public (undocumented)
-interface TypeAheadStatsSerializable extends TypeAheadStats {
-  // (undocumented)
-  serialize: () => TypeAheadStats;
-}
 
 // @public (undocumented)
 export type UpdateEvent =
@@ -2027,15 +930,6 @@ export type UpdateEvent =
   | 'resolve'
   | 'setselectedannotation'
   | 'unresolve';
-
-// @public (undocumented)
-export const updateStatus: (status?: StatusType) => Command;
-
-// @public (undocumented)
-export const updateStatusWithAnalytics: (
-  inputMethod: InsertBlockInputMethodToolbar,
-  status?: StatusType,
-) => Command;
 
 // @public (undocumented)
 export const version: string;
@@ -2073,11 +967,9 @@ interface WithEditorActionsProps {
   render(actions: EditorActions): React_2.ReactElement<any> | null;
 }
 
-// @public (undocumented)
+// @public @deprecated (undocumented)
 export class WithHelpTrigger extends React_2.Component<
-  {
-    render: (openHelp: () => void) => React_2.ReactNode;
-  },
+  WithHelpTriggerProps,
   any
 > {
   // (undocumented)
@@ -2090,7 +982,11 @@ export class WithHelpTrigger extends React_2.Component<
   render(): React_2.ReactNode;
 }
 
-export { WithPluginState };
+// @public (undocumented)
+interface WithHelpTriggerProps {
+  // (undocumented)
+  render: (openHelp: () => void) => React_2.ReactNode;
+}
 
 // (No @packageDocumentation comment for this package)
 ```

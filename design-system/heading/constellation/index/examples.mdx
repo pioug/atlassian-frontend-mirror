@@ -4,17 +4,17 @@ order: 0
 
 import HeadingDefault from '../../examples/constellation/heading-default';
 import HeadingInverse from '../../examples/constellation/heading-inverse';
+import HeadingProvider from '../../examples/constellation/heading-provider';
 
 ## Basic
 
-Implements the [Atlassian typography set](/foundations/typography/) as a component.
+Implements the [Atlassian typography heading set](/foundations/typography/) as a component.
 
-A selected `level` will affect the final HTML element rendered in the DOM.
-It's important to note that the final DOM may be impacted by the parent heading level context
-because of inferred accessibility level correction. Therefore, it is recommended to check the final
-DOM to confirm the actual rendered HTML element.
+Depending on if you're applying the legacy or new system the API is slightly different. For the future typography system,
+the `variant` prop is exposed to control the visual appearance of the heading element. For the legacy typography system,
+use the `level` prop.
 
-The typography `level` can be configured to one of the following types.
+The `variant` and `level` can be configured to one of the following types.
 
 <Example Component={HeadingDefault} packageName="@atlaskit/heading" />
 
@@ -24,3 +24,12 @@ Set `color` to change the text color of the heading. Use `color="inverse"` for h
 surface for better color contrast.
 
 <Example Component={HeadingInverse} packageName="@atlaskit/heading" />
+
+## Heading Provider
+
+The `HeadingContextProvider` component allows you to configure the default heading level for all headings.
+By nesting a `HeadingContextProvider`, you can override the default heading level for a subtree. This is useful
+for when you want to use a different heading level for a section of your page but do not have control over where
+in the heading heirarchy that section will be placed.
+
+<Example Component={HeadingProvider} packageName="@atlaskit/heading" />

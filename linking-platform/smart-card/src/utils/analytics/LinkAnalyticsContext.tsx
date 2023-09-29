@@ -17,7 +17,6 @@ type LinkAnalyticsContextProps = {
  * Provides an analytics context to supply attributes to events based on a URL
  */
 export const LinkAnalyticsContext = ({
-  url = '',
   display,
   id,
   children,

@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 0.6.0
+
+### Minor Changes
+
+- [#40754](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40754) [`fc1c299c926`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fc1c299c926) - ED-20017 Extract Floating toolbar plugin to its own package
+
 ## 0.5.1
 
 ### Patch Changes

@@ -2,7 +2,7 @@
 Media package for the Atlassian Editor.
 ## Quick Start
 Current devloop involves leveraging the atlaskit website shell to build out examples.
-0. After following https://developer.atlassian.com/cloud/framework/atlassian-frontend/getting-started/getting-started/
+0. After following https://hello.atlassian.net/wiki/spaces/AF/pages/2634599657/Getting+Started
 1. `yarn start:media` at the root of the project to run only media examples OR
    `yarn start editor-core` at the root of the project and then http://localhost:9000/examples/editor/editor-core/kitchen-sink to run media components integrated in editor
 To run tests run following at the root of the project:

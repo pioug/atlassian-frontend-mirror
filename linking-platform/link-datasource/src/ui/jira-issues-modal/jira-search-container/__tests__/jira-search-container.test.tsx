@@ -7,11 +7,11 @@ import { IntlProvider } from 'react-intl-next';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { EVENT_CHANNEL } from '../../../../analytics';
 import { JiraIssueDatasourceParameters } from '../../types';
 import { JiraSearchContainer, SearchContainerProps } from '../index';
-
 jest.mock('@atlaskit/jql-editor-autocomplete-rest', () => ({
   useAutocompleteProvider: jest
     .fn()
@@ -250,6 +250,26 @@ describe('JiraSearchContainer', () => {
 
     expect(getLatestJQLEditorProps().query).toEqual(
       'created >= -30d order by created DESC',
+    );
+  });
+
+  describe('should show basic filter container based on FF value', () => {
+    ffTest(
+      'platform.linking-platform.datasource.show-jlol-basic-filters',
+      () => {
+        const { queryByTestId } = setup();
+
+        expect(
+          queryByTestId('jlol-datasource-basic-filter-container'),
+        ).toBeInTheDocument();
+      },
+      () => {
+        const { queryByTestId } = setup();
+
+        expect(
+          queryByTestId('jlol-datasource-basic-filter-container'),
+        ).not.toBeInTheDocument();
+      },
     );
   });
 });

@@ -18,10 +18,7 @@ import {
   getTruncateStyles,
 } from '../../utils';
 
-const getPositionStyles = (
-  size: SmartLinkSize,
-  position: SmartLinkPosition,
-): SerializedStyles => {
+const getPositionStyles = (position: SmartLinkPosition): SerializedStyles => {
   switch (position) {
     case SmartLinkPosition.Center:
       return css`
@@ -37,11 +34,10 @@ const getPositionStyles = (
 };
 
 const getIconStyles = (
-  size: SmartLinkSize,
   position: SmartLinkPosition,
   width: string,
 ): SerializedStyles => css`
-  ${getPositionStyles(size, position)}
+  ${getPositionStyles(position)}
   ${getIconSizeStyles(width)}
 `;
 
@@ -75,7 +71,6 @@ const renderDefaultIcon = (label: string, testId: string): React.ReactNode => (
 
 const renderImageIcon = (
   defaultIcon: React.ReactNode,
-  icon?: IconType,
   url?: string,
   testId?: string,
 ): React.ReactNode | undefined => {
@@ -105,14 +100,14 @@ const Icon: React.FC<IconProps> = ({
     const defaultIcon = renderDefaultIcon(label, testId);
     return (
       render?.() ||
-      renderImageIcon(defaultIcon, icon, url, testId) ||
+      renderImageIcon(defaultIcon, url, testId) ||
       renderAtlaskitIcon(icon, label, testId) ||
       defaultIcon
     );
   }, [icon, label, render, testId, url]);
 
   const width = getIconWidth(size);
-  const styles = getIconStyles(size, position, width);
+  const styles = getIconStyles(position, width);
   const renderStyles = render ? getCustomRenderStyles(width) : undefined;
 
   return (

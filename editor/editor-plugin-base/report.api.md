@@ -30,6 +30,9 @@ export type BasePlugin = NextEditorPlugin<
     pluginConfiguration: BasePluginOptions | undefined;
     dependencies: [FeatureFlagsPlugin];
     sharedState: BasePluginState;
+    actions: {
+      setKeyboardHeight: typeof setKeyboardHeight;
+    };
   }
 >;
 
@@ -57,12 +60,6 @@ export type BasePluginState = {
 };
 
 // @public (undocumented)
-export const DEGRADED_SEVERITY_THRESHOLD = 3000;
-
-// @public (undocumented)
-export const NORMAL_SEVERITY_THRESHOLD = 2000;
-
-// @public (undocumented)
 export type ScrollGutterPluginOptions = {
   getScrollElement?: (view: EditorView) => HTMLElement | null;
   allowCustomScrollHandler?: boolean;
@@ -71,7 +68,7 @@ export type ScrollGutterPluginOptions = {
 };
 
 // @public (undocumented)
-export const setKeyboardHeight: (keyboardHeight: number) => Command;
+const setKeyboardHeight: (keyboardHeight: number) => Command;
 
 // (No @packageDocumentation comment for this package)
 ```

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-card",
-  "version": "0.8.3",
+  "version": "0.8.6",
   "description": "Card plugin for @atlaskit/editor-core",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -37,8 +37,8 @@
     "@atlaskit/editor-plugin-analytics": "^0.2.0",
     "@atlaskit/editor-plugin-decorations": "^0.2.0",
     "@atlaskit/editor-plugin-feature-flags": "^1.0.0",
-    "@atlaskit/editor-plugin-floating-toolbar": "^0.5.0",
-    "@atlaskit/editor-plugin-grid": "^0.2.0",
+    "@atlaskit/editor-plugin-floating-toolbar": "^0.6.0",
+    "@atlaskit/editor-plugin-grid": "^0.3.0",
     "@atlaskit/editor-plugin-hyperlink": "^0.5.0",
     "@atlaskit/editor-plugin-width": "^0.2.0",
     "@atlaskit/editor-prosemirror": "1.1.0",
@@ -47,7 +47,7 @@
     "@atlaskit/link-analytics": "^8.3.0",
     "@atlaskit/link-datasource": "^1.4.0",
     "@atlaskit/platform-feature-flags": "^0.2.0",
-    "@atlaskit/smart-card": "^26.28.0",
+    "@atlaskit/smart-card": "^26.30.0",
     "@atlaskit/theme": "^12.6.0",
     "@atlaskit/tokens": "^1.25.0",
     "@babel/runtime": "^7.0.0",
@@ -118,6 +118,10 @@
     },
     "platform.linking-platform.editor.toolbar-viewed-event": {
       "type": "boolean"
+    },
+    "platform.linking-platform.datasource.show-jlol-basic-filters": {
+      "type": "boolean",
+      "referenceOnly": "true"
     }
   }
 }

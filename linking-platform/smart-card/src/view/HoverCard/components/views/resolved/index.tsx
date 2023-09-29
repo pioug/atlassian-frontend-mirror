@@ -84,8 +84,6 @@ const HoverCardResolvedView: React.FC<HoverCardResolvedProps> = ({
   flexibleCardProps,
   titleBlockProps,
   analytics,
-  id = '',
-  url,
   cardState,
   cardActions = [],
   onActionClick,

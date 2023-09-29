@@ -110,7 +110,7 @@ export const extractPlatformIsSupported: (
 
 // @public (undocumented)
 export const extractPreview: (
-  jsonLd: JsonLd.Data.BaseData,
+  jsonLd?: JsonLd.Data.BaseData,
   platform?: CardPlatform,
   iframeUrlType?: EmbedIframeUrlType,
 ) => LinkPreview | undefined;

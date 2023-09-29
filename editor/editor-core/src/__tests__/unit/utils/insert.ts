@@ -41,7 +41,7 @@ import { rulePlugin } from '@atlaskit/editor-plugin-rule';
 import typeAheadPlugin from '../../../plugins/type-ahead';
 import { quickInsertPlugin } from '@atlaskit/editor-plugin-quick-insert';
 import { editorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
-import floatingToolbarPlugin from '../../../plugins/floating-toolbar';
+import { floatingToolbarPlugin } from '@atlaskit/editor-plugin-floating-toolbar';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { copyButtonPlugin } from '@atlaskit/editor-plugin-copy-button';
 import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';

@@ -1,5 +1,11 @@
 # @atlaskit/primitives
 
+## 1.6.2
+
+### Patch Changes
+
+- [#40254](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40254) [`c296560ae7e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c296560ae7e) - Removes unused experimental component.
+
 ## 1.6.1
 
 ### Patch Changes

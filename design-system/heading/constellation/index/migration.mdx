@@ -1,0 +1,35 @@
+import HeadingMigration from '../../examples/constellation/heading-migration';
+
+## Migration from ADG3
+
+<Example Component={HeadingMigration} packageName="@atlaskit/heading" />
+
+### Context on ADG3 and ADG4
+
+The Atlassian Design Guidelines 3 (ADG3) were the previous version of Atlassian's design guidelines.
+These guidelines were built on top of the Atlassian User Interface (AUI) library.
+ADG4 is a significant evolution of the guidelines and is not backwards compatible with ADG3.
+If you are migrating from ADG3 to ADG4, you will need to update your code to use the new ADG4 components and APIs.
+For now this migration is opt-in.
+
+### `level` renamed to `variant`
+
+The `level` prop on the `Heading` component has been renamed to `variant` to better reflect its purpose.
+The `level` prop is still supported but will be removed in a future major release.
+
+To migrate from `level` to `variant`, rename the `prop` in your code and update the value to match the new `variant` values.
+
+```diff
+- <Heading level="h300">
++ <Heading variant="xxs">
+```
+
+This migration isn't 1:1 as the `variant` prop has a different set of values to the `level` prop although there are
+rough equivalents. Apply this migration carefully. Certain headings (h100, h200) have no equivalanece in the ADG4 typography system.
+
+Other props on the `Heading` component have not changed.
+
+### `token` backed components
+
+The `variant` prop will only apply when a typography `theme` is on the page. Apply a typography theme via
+the `setGlobalTheme()` function to enable the `variant` prop.

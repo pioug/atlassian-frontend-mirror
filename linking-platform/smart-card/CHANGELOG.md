@@ -1,5 +1,21 @@
 # @atlaskit/smart-card
 
+## 26.30.0
+
+### Minor Changes
+
+- [#40776](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40776) [`4f644544016`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4f644544016) - Remove unused variables to fix TS errors in Federated Frontend Repo
+
+## 26.29.0
+
+### Minor Changes
+
+- [#40648](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40648) [`7952bdd41cb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7952bdd41cb) - [ux] Add hover card forbidden views
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 26.28.2
 
 ### Patch Changes

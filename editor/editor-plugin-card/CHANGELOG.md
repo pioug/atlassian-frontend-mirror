@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-card
 
+## 0.8.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.8.5
+
+### Patch Changes
+
+- [#40786](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40786) [`898ac16a850`](https://bitbucket.org/atlassian/atlassian-frontend/commits/898ac16a850) - Add platform.linking-platform.datasource.show-jlol-basic-filters feature flag reference for usage in editor examples
+
+## 0.8.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.8.3
 
 ### Patch Changes

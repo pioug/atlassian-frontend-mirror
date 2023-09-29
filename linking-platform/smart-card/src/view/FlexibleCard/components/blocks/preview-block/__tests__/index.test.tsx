@@ -36,6 +36,15 @@ describe('PreviewBlock', () => {
     expect(block).toBeDefined();
   });
 
+  it('does not render Media if preview context is undefined', async () => {
+    const { queryByTestId } = renderPreviewBlock(undefined, {
+      preview: undefined,
+    });
+
+    const media = queryByTestId(`smart-element-media-image-image`);
+    expect(media).not.toBeInTheDocument();
+  });
+
   describe('renders Previewblock with overrideUrl', () => {
     const props = {
       testId,
@@ -81,12 +90,14 @@ describe('PreviewBlock', () => {
       [SmartLinkStatus.Unauthorized],
       [SmartLinkStatus.Fallback],
     ])(
-      'does not renders PreviewBlock when status is %s',
+      'renders PreviewBlock when status is %s',
       async (status: SmartLinkStatus) => {
-        const { container } = renderPreviewBlock({
+        const { findByTestId } = renderPreviewBlock({
           status,
         });
-        expect(container.children.length).toEqual(0);
+        const block = await findByTestId('smart-block-preview-resolved-view');
+
+        expect(block).toBeDefined();
       },
     );
   });

@@ -5,3 +5,5 @@ export type {
   FloatingToolbarPluginData,
   FloatingToolbarPluginState,
 } from './types';
+
+export { floatingToolbarPlugin } from './plugin';

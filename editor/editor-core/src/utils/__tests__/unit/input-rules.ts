@@ -19,7 +19,7 @@ import { listPlugin } from '@atlaskit/editor-plugin-list';
 import { basePlugin } from '@atlaskit/editor-plugin-base';
 import mediaPlugin from '../../../plugins/media';
 import { copyButtonPlugin } from '@atlaskit/editor-plugin-copy-button';
-import floatingToolbarPlugin from '../../../plugins/floating-toolbar';
+import { floatingToolbarPlugin } from '@atlaskit/editor-plugin-floating-toolbar';
 
 import { editorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';

@@ -60,7 +60,7 @@ import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import captionPlugin from '@atlaskit/editor-core/src/plugins/caption';
 import selectionPlugin from '../../../selection';
 import { copyButtonPlugin } from '@atlaskit/editor-plugin-copy-button';
-import floatingToolbarPlugin from '../../../floating-toolbar';
+import { floatingToolbarPlugin } from '@atlaskit/editor-plugin-floating-toolbar';
 
 import { hideCaretModifier } from '../../gap-cursor/styles';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';

@@ -43,13 +43,13 @@ export type GridPlugin = NextEditorPlugin<
 export const gridPlugin: GridPlugin;
 
 // @public (undocumented)
-interface GridPluginOptions {
+export interface GridPluginOptions {
   // (undocumented)
   shouldCalcBreakoutGridLines?: boolean;
 }
 
 // @public (undocumented)
-type GridPluginState = {
+export type GridPluginState = {
   visible: boolean;
   gridType?: GridType;
   highlight: Highlights;

@@ -100,8 +100,9 @@ export const popupContainerStyles = css`
   })()};
 `;
 
-export const getPreviewBlockStyles = (snippetHeight: number) => css`
-  height: ${snippetHeight}px;
+export const getPreviewBlockStyles = (previewHeight?: number) => css`
+  ${previewHeight ? `height: ${previewHeight}px;` : ''}
+
   ${getBooleanFF(
     'platform.linking-platform.smart-card.show-smart-links-refreshed-design',
   )

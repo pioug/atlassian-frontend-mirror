@@ -5,11 +5,8 @@ import React from 'react';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
 import { borderRadius } from '@atlaskit/theme/constants';
-import {
-  ShareDialogContainer,
-  ShareResponse,
-  ConfigResponse,
-} from '@atlaskit/share';
+import type { ShareResponse, ConfigResponse } from '@atlaskit/share';
+import { ShareDialogContainer } from '@atlaskit/share';
 
 import { getEmojiProvider } from '@atlaskit/util-data-test/get-emoji-provider';
 import {
@@ -19,7 +16,7 @@ import {
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 import { userPickerData } from '@atlaskit/util-data-test/user-picker-data';
 
-import { OptionData, User } from '@atlaskit/smart-user-picker';
+import type { OptionData, User } from '@atlaskit/smart-user-picker';
 import { cardProviderStaging } from '@atlaskit/editor-test-helpers/card-provider';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
 import quickInsertProviderFactory from '../example-helpers/quick-insert-provider';
@@ -32,15 +29,17 @@ import {
   akEditorCodeFontFamily,
 } from '@atlaskit/editor-shared-styles';
 
-import { Editor, EditorProps } from './../src';
+import type { EditorProps } from './../src';
+import { Editor } from './../src';
 import EditorContext from './../src/ui/EditorContext';
 import WithEditorActions from './../src/ui/WithEditorActions';
 
 import { createCollabEditProvider } from '@atlaskit/synchrony-test-helpers';
 import { TitleInput } from '../example-helpers/PageElements';
-import { EditorActions, MediaProvider, MentionProvider } from '../src';
-import { InviteToEditComponentProps } from '../src/plugins/collab-edit/types';
-import { ResolvingMentionProvider } from '@atlaskit/mention/resource';
+import type { EditorActions, MentionProvider } from '../src';
+import type { MediaProvider } from '../src/plugins/media';
+import type { InviteToEditComponentProps } from '../src/plugins/collab-edit/types';
+import type { ResolvingMentionProvider } from '@atlaskit/mention/resource';
 
 import { macroProvider } from '@atlaskit/editor-test-helpers/mock-macro-provider';
 import { getExampleExtensionProviders } from '../example-helpers/get-example-extension-providers';

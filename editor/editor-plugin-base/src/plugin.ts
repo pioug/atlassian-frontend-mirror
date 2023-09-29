@@ -14,6 +14,7 @@ import { baseKeymap } from '@atlaskit/editor-prosemirror/commands';
 import { history } from '@atlaskit/editor-prosemirror/history';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
+import { setKeyboardHeight } from './commands';
 import contextIdentifierPlugin, {
   getContextIdentifier,
 } from './pm-plugins/context-identifier';
@@ -46,6 +47,9 @@ export type BasePlugin = NextEditorPlugin<
     pluginConfiguration: BasePluginOptions | undefined;
     dependencies: [FeatureFlagsPlugin];
     sharedState: BasePluginState;
+    actions: {
+      setKeyboardHeight: typeof setKeyboardHeight;
+    };
   }
 >;
 
@@ -64,6 +68,10 @@ const basePlugin: BasePlugin = ({ config: options, api }) => {
         contextIdentifier: getContextIdentifier(editorState),
         keyboardHeight: getKeyboardHeight(editorState),
       };
+    },
+
+    actions: {
+      setKeyboardHeight,
     },
 
     pmPlugins() {

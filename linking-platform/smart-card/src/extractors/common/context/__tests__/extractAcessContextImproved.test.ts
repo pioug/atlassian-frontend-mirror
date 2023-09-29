@@ -118,7 +118,8 @@ describe('extractors.access.context', () => {
       }),
     ).toMatchObject({
       accessType: 'FORBIDDEN',
-      descriptiveMessageKey: 'forbidden_description',
+      titleMessageKey: 'forbidden_title_crossjoin',
+      descriptiveMessageKey: 'forbidden_description_crossjoin',
     });
   });
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import type { AnalyticsDispatch } from '../../plugins/analytics';
 import {
-  AnalyticsDispatch,
   ACTION,
   ACTION_SUBJECT,
   INPUT_METHOD,
@@ -9,11 +9,20 @@ import {
   ACTION_SUBJECT_ID,
 } from '../../plugins/analytics';
 import { createDispatch } from '../../event-dispatcher';
-import { openHelpCommand } from '../../plugins/help-dialog/commands';
 import { analyticsEventKey } from '../../plugins/analytics/consts';
+// TODO - ED-20189 Source deprecatedOpenHelpCommand from help-dialog-plugin
+import { openHelpCommand } from '../../plugins/help-dialog/commands';
 
+interface WithHelpTriggerProps {
+  render: (openHelp: () => void) => React.ReactNode;
+}
+
+/**
+ * @deprecated
+ * Use WithHelpTrigger from @atlaskit/editor-plugin-help-dialog which uses pluginInjectionApi
+ */
 export default class WithHelpTrigger extends React.Component<
-  { render: (openHelp: () => void) => React.ReactNode },
+  WithHelpTriggerProps,
   any
 > {
   static contextTypes = {

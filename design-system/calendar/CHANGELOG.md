@@ -519,7 +519,7 @@
 
   Run `npx @atlaskit/codemod-cli -h` for more details on usage.
   For Atlassians,
-  refer to the [documentation](https://developer.atlassian.com/cloud/framework/atlassian-frontend/codemods/01-atlassian-codemods/) for more details on the codemod CLI.
+  refer to the [documentation](https://hello.atlassian.net/wiki/spaces/AF/pages/2627171992/Codemods) for more details on the codemod CLI.
 
 ### Patch Changes
 

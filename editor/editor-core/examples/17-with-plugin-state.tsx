@@ -3,8 +3,9 @@
 import React from 'react';
 import Lozenge from '@atlaskit/lozenge';
 import ToolsDrawer from '../example-helpers/ToolsDrawer';
-import { Editor, EditorContext, mediaPluginKey } from '../src';
+import { Editor, EditorContext } from '../src';
 import WithPluginState from '../src/ui/WithPluginState';
+import { stateKey as mediaPluginKey } from '../src/plugins/media/pm-plugins/plugin-key';
 import { pluginKey as typeAheadPluginKey } from '../src/plugins/type-ahead/pm-plugins/key';
 
 const SAVE_ACTION = () => console.log('Save');

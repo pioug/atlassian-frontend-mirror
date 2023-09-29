@@ -1,5 +1,11 @@
 # @atlaskit/heading
 
+## 1.4.0
+
+### Minor Changes
+
+- [#40254](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40254) [`9cc7e23c65b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9cc7e23c65b) - [ux] Adds additional heading types via the `variant` prop. This prop has been added to aid deprecation of the previous `level` prop. The `level` prop will be removed in a future release.
+
 ## 1.3.8
 
 ### Patch Changes

@@ -230,7 +230,7 @@ export default class FeedbackCollector extends Component<Props> {
     }
 
     let entitlement;
-    const entitlementInformation = [];
+    const entitlementInformation: Array<{ id: string; value: any }> = [];
     const cloudSiteId = entitlementDetails?.cloudSiteId || '';
     if (entitlementDetails?.children) {
       entitlement = entitlementDetails?.children.find(
@@ -352,7 +352,7 @@ export default class FeedbackCollector extends Component<Props> {
   }
 
   async mapFormToJSD(formValues: FormFields) {
-    let entitlementInformation = null;
+    let entitlementInformation: FieldType[] | [] | null = null;
 
     if (this.props.shouldGetEntitlementDetails) {
       entitlementInformation = await this.getEntitlementInformation();

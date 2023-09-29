@@ -1,7 +1,7 @@
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { SelectionData } from '@atlaskit/editor-core';
-import { AnnotationMarkStates } from '@atlaskit/adf-schema';
-import { ResolveResponse } from '@atlaskit/smart-card';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { SelectionData } from '@atlaskit/editor-core/src/plugins/mobile-selection';
+import type { AnnotationMarkStates } from '@atlaskit/adf-schema';
+import type { ResolveResponse } from '@atlaskit/smart-card';
 
 export type EditorViewWithComposition = EditorView & {
   domObserver: {

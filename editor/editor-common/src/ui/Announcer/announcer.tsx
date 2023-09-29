@@ -1,11 +1,5 @@
-import React, {
-  AriaAttributes,
-  forwardRef,
-  memo,
-  Ref,
-  useEffect,
-  useState,
-} from 'react';
+import type { AriaAttributes, Ref } from 'react';
+import React, { forwardRef, memo, useEffect, useState } from 'react';
 
 // How to use:
 // https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Live_Regions#Preferring_specialized_live_region_roles

@@ -371,7 +371,7 @@
   The CLI will show a list of components and versions so select `@atlaskit/inline-edit@^12.0.0` and you will automatically be upgraded. If your usage of PACKAGE cannot be upgraded a comment will be left that a manual change is required.
 
   Run `npx @atlaskit/codemod-cli -h` for more details on usage.
-  For Atlassians, refer to [this doc](https://developer.atlassian.com/cloud/framework/atlassian-frontend/codemods/01-atlassian-codemods/) for more details on the codemod CLI.
+  For Atlassians, refer to [this doc](https://hello.atlassian.net/wiki/spaces/AF/pages/2627171992/Codemods) for more details on the codemod CLI.
 
 ### Patch Changes
 

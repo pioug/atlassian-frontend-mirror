@@ -76,7 +76,7 @@ const InnerBreadcrumbs = forwardRef(
 
     const focusFirstRevealed = () => {
       if (wrapperRef.current) {
-        const listItems = [...wrapperRef.current.querySelectorAll('li')];
+        const listItems = Array.from(wrapperRef.current.querySelectorAll('li'));
         const interactiveElements = listItems.map((li) =>
           li.querySelector<HTMLElement>(interactiveElementSelector),
         );

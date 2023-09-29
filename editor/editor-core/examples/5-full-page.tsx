@@ -58,10 +58,6 @@ import { TitleInput } from '../example-helpers/PageElements';
 import type { EditorActions } from './../src';
 import type { PanelPluginConfig } from '../src/plugins/panel/types';
 import {
-  NORMAL_SEVERITY_THRESHOLD as BROWSER_FREEZE_NORMAL_SEVERITY_THRESHOLD,
-  DEGRADED_SEVERITY_THRESHOLD as BROWSER_FREEZE_DEGRADED_SEVERITY_THRESHOLD,
-} from '@atlaskit/editor-plugin-base';
-import {
   PROSEMIRROR_RENDERED_NORMAL_SEVERITY_THRESHOLD,
   PROSEMIRROR_RENDERED_DEGRADED_SEVERITY_THRESHOLD,
 } from '../src/create-editor/consts';
@@ -84,6 +80,8 @@ import {
 } from '@atlaskit/media-test-helpers/media-mock';
 import type { MediaFeatureFlags } from '@atlaskit/media-common';
 
+const BROWSER_FREEZE_NORMAL_SEVERITY_THRESHOLD = 2000;
+const BROWSER_FREEZE_DEGRADED_SEVERITY_THRESHOLD = 3000;
 // const tableOptions = {
 //   advanced: true,
 //   allowColumnSorting: true,

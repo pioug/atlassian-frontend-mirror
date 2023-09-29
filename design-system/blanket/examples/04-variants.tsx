@@ -14,13 +14,13 @@ import { token } from '@atlaskit/tokens';
 
 const labelStyles = css({
   display: 'inline-block',
-  marginTop: token('space.0', '0px'),
-  marginBottom: token('space.050', '4px'),
   color: token('color.text.subtlest', colors.N200),
   fontSize: `${headingSizes.h200.size / fontSize()}em`,
   fontStyle: 'inherit',
   fontWeight: token('font.weight.semibold', '600'),
   lineHeight: headingSizes.h200.lineHeight / headingSizes.h200.size,
+  marginBlockEnd: token('space.050', '4px'),
+  marginBlockStart: token('space.0', '0px'),
 });
 
 const blanketStyles = css({
@@ -38,7 +38,7 @@ const blanketStyles = css({
 
 const behindOffsetStyles = css({
   // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-  marginLeft: '144px',
+  marginInlineStart: '144px',
 });
 
 import Blanket from '../src';

@@ -1,10 +1,10 @@
+import type { TOOLBAR_MENU_TYPE as InsertBlockInputMethodToolbar } from '@atlaskit/editor-core/src/plugins/insert-block/ui/ToolbarInsertBlock/types';
+import type { MentionPluginState } from '@atlaskit/editor-core/src/plugins/mentions/types';
 import type {
-  CustomMediaPicker,
-  InsertBlockInputMethodToolbar,
-  MentionPluginState,
   StatusState,
   StatusType,
-} from '@atlaskit/editor-core';
+} from '@atlaskit/editor-core/src/plugins/status/plugin';
+import type { CustomMediaPicker } from '@atlaskit/editor-core/src/plugins/media';
 import type {
   ListState,
   InputMethod as ListInputMethod,
@@ -18,22 +18,23 @@ import type {
   QuickInsertItemId,
   TypeAheadItem,
 } from '@atlaskit/editor-common/provider-factory';
+import { EditorActions } from '@atlaskit/editor-core';
+import { clearEditorContent } from '@atlaskit/editor-core/src/commands';
+import { changeColor } from '@atlaskit/editor-core/src/plugins/text-color/commands/change-color';
+import { createTypeAheadTools } from '@atlaskit/editor-core/src/plugins/type-ahead/api';
 import {
-  changeColor,
-  clearEditorContent,
+  updateStatusWithAnalytics,
   commitStatusPicker,
-  createTable,
-  EditorActions,
-  insertTaskDecisionCommand,
-  setKeyboardHeight,
+} from '@atlaskit/editor-core/src/plugins/status/actions';
+import {
   setMobilePaddingTop,
   setIsExpanded,
-  updateStatusWithAnalytics,
-  insertExpand,
-  insertDate,
-  dateToDateType,
-  createTypeAheadTools,
-} from '@atlaskit/editor-core';
+} from '@atlaskit/editor-core/src/plugins/mobile-dimensions/commands';
+import { createTable } from '@atlaskit/editor-plugin-table/commands';
+import { insertTaskDecisionCommand } from '@atlaskit/editor-core/src/plugins/tasks-and-decisions/commands';
+import { dateToDateType } from '@atlaskit/editor-core/src/plugins/date/utils/formatParse';
+import { insertDate } from '@atlaskit/editor-core/src/plugins/date/actions';
+import { insertExpand } from '@atlaskit/editor-core/src/plugins/expand/commands';
 import type {
   InputMethodBasic as TextFormattingInputMethodBasic,
   TextFormattingState,
@@ -176,7 +177,7 @@ export default class WebBridgeImpl
   private editorConfiguration: MobileEditorConfiguration;
   private resetProviders: () => void = () => {};
   private featureFlags: FeatureFlags = {};
-  private storedContent: String | undefined;
+  private storedContent: string | undefined;
   private pluginInjectionApi:
     | ExtractInjectionAPI<typeof mobileApiPlugin>
     | undefined = undefined;
@@ -802,7 +803,7 @@ export default class WebBridgeImpl
 
   setKeyboardControlsHeight(height: string) {
     if (this.editorView) {
-      setKeyboardHeight(+height)(
+      this.pluginInjectionApi?.base.actions?.setKeyboardHeight(+height)(
         this.editorView.state,
         this.editorView.dispatch,
       );
@@ -1137,7 +1138,7 @@ export default class WebBridgeImpl
     );
   }
 
-  hasVisibleContent(): Boolean {
+  hasVisibleContent(): boolean {
     return this.editorView?.state?.doc
       ? hasVisibleContent(this.editorView.state.doc)
       : false;

@@ -1,4 +1,4 @@
-import { CustomMediaPicker } from '@atlaskit/editor-core';
+import type { CustomMediaPicker } from '@atlaskit/editor-core/src/plugins/media';
 
 export default class MobileMediaPicker implements CustomMediaPicker {
   private listeners: any = {};

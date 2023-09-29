@@ -1,4 +1,4 @@
-import { Providers } from '../provider-factory';
+import type { Providers } from '../provider-factory';
 
 export interface CardOptions {
   provider?: Providers['cardProvider'];

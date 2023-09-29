@@ -1,5 +1,105 @@
 # @atlaskit/editor-common
 
+## 76.1.5
+
+### Patch Changes
+
+- [#40718](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40718) [`c1d4b48bdd9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c1d4b48bdd9) - WHAT: This change removes plugin exports from editor-core that were used only for the mobile bridge.
+
+  This includes:
+
+  - All plugin keys
+  - Plugin commands
+  - Plugin types
+
+  The full list is:
+
+  - EditorFeatureFlags (available via '@atlaskit/editor-common/types' as `FeatureFlags`)
+  - EmojiResource (available via '@atlaskit/emoji/resource' as `EmojiResource`)
+  - mediaPlugin
+  - insertMediaSingleNode
+  - CustomMediaPicker
+  - mediaPluginKey
+  - textColorPluginKey
+  - TextColorPluginState
+  - changeColor
+  - CodeBlockPlugin
+  - PanelPlugin
+  - subscribeToToolbarAndPickerUpdates
+  - subscribeTypeAheadUpdates
+  - TextFormattingInputMethodToolbar
+  - TextFormattingInputMethodBasic
+  - createTable
+  - insertTaskDecisionCommand
+  - TaskDecisionInputMethod
+  - EventDispatcher
+  - statusPluginKey
+  - StatusState
+  - StatusType
+  - DatePluginState
+  - insertDate
+  - openDatePicker
+  - deleteDate
+  - dateToDateType
+  - datePluginKey
+  - commitStatusPicker
+  - setStatusPickerAt
+  - updateStatus
+  - updateStatusWithAnalytics
+  - removeStatus
+  - typeAheadPluginKey
+  - TypeAheadPluginState
+  - setKeyboardHeight
+  - setMobilePaddingTop
+  - setIsExpanded
+  - dedupe (available via '@atlaskit/editor-common/utils' as `dedupe`)
+  - GapCursorSelection (available via '@atlaskit/editor-common/selection' as `GapCursorSelection`)
+  - GapCursorSide (available via '@atlaskit/editor-common/selection' as `Side`)
+  - HistoryPluginState
+  - MentionPluginState
+  - InsertBlockInputMethodToolbar
+  - selectionPluginKey
+  - SelectionData
+  - SelectionDataState
+  - insertExpand
+  - createTypeAheadTools
+  - AbstractMentionResource (available via '@atlaskit/mention/resource' as `AbstractMentionResource`)
+  - PresenceResource (available via '@atlaskit/mention/resource' as `PresenceResource`)
+  - ReactEditorView
+  - BaseReactEditorView
+  - getDefaultPresetOptionsFromEditorProps
+  - lightModeStatusColorPalette
+  - darkModeStatusColorPalette
+  - PaletteColor
+  - DEFAULT_BORDER_COLOR
+
+  WHY: We have been extracting plugins out of `editor-core` and as we move them out we need to remove these exports as the new architecture does not support plugin keys or commands.
+
+  This major bump will remove all remaining commands and keys in one go - some of these features will be accessible in a safe manner in the future via the `ComposableEditor` and the appropriate plugins.
+
+  HOW: Should be no consumers using these methods currently (only mobile bridge which has been updated).
+
+  If there are any issues please reach out to the #help-editor for information on how to update appropriately.
+
+## 76.1.4
+
+### Patch Changes
+
+- [#40786](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40786) [`eec3df6e2ae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eec3df6e2ae) - Workaround to fix confluence build failures
+
+## 76.1.3
+
+### Patch Changes
+
+- [#40691](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40691) [`d4a967da8a9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d4a967da8a9) - Dummy changeset
+- [#40485](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40485) [`a1d6b3ddb0f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a1d6b3ddb0f) - add descriptors to util function for media single
+
+## 76.1.2
+
+### Patch Changes
+
+- [#40763](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40763) [`7ff70f99909`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7ff70f99909) - Decouple media from editor-core and expose GridPluginState from grid plugin.
+
 ## 76.1.1
 
 ### Patch Changes

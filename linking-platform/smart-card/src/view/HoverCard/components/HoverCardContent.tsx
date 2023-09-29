@@ -35,6 +35,8 @@ import { FormattedMessage } from 'react-intl-next';
 import { messages } from '../../../messages';
 import { fireLinkClickedEvent } from '../../../utils/analytics/click';
 import { useSmartCardState } from '../../../state/store';
+import HoverCardForbiddenView from './views/forbidden';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 export const hoverCardClassName = 'smart-links-hover-preview';
 
@@ -183,6 +185,12 @@ const HoverCardContent: React.FC<HoverCardContentProps> = ({
           url={url}
         />
       );
+    }
+
+    if (getBooleanFF('platform.linking-platform.smart-card.cross-join')) {
+      if (cardState.status === 'forbidden') {
+        return <HoverCardForbiddenView flexibleCardProps={flexibleCardProps} />;
+      }
     }
 
     if (cardState.status === 'resolved') {

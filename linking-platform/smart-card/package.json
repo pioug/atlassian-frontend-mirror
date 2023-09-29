@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/smart-card",
-  "version": "26.28.2",
+  "version": "26.30.0",
   "description": "Smart card component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -37,9 +37,9 @@
     "@atlaskit/in-product-testing": "^0.2.0",
     "@atlaskit/link-analytics": "^8.3.0",
     "@atlaskit/link-client-extension": "^1.7.0",
-    "@atlaskit/link-extractors": "^1.1.0",
+    "@atlaskit/link-extractors": "^1.2.0",
     "@atlaskit/linking-common": "^4.10.0",
-    "@atlaskit/linking-types": "^8.3.0",
+    "@atlaskit/linking-types": "^8.4.0",
     "@atlaskit/logo": "^13.14.0",
     "@atlaskit/lozenge": "^11.4.0",
     "@atlaskit/modal-dialog": "^12.7.0",
@@ -86,6 +86,7 @@
     "@testing-library/react": "^12.1.5",
     "@testing-library/react-hooks": "^8.0.1",
     "@testing-library/user-event": "^14.4.3",
+    "@types/facepaint": "^1.2.1",
     "@types/lorem-ipsum": "^1.0.2",
     "@types/react": "^16.8.0",
     "@types/react-loadable": "^5.4.1",
@@ -153,6 +154,9 @@
       "type": "boolean"
     },
     "platform.linking-platform.smart-card.iframes-allow-storage-access-by-user-activation": {
+      "type": "boolean"
+    },
+    "platform.linking-platform.smart-card.cross-join": {
       "type": "boolean"
     }
   },

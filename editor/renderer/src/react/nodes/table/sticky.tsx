@@ -144,7 +144,7 @@ export const StickyTable = ({
   if (isTableResizingEnabled(rendererAppearance)) {
     styles = css({
       top: mode === 'pin-bottom' ? top : undefined,
-      position: 'relative',
+      position: 'absolute',
     });
   } else {
     styles = css({

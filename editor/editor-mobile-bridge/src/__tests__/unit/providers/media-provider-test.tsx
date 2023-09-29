@@ -1,13 +1,14 @@
 jest.mock('@atlaskit/media-client');
 import React from 'react';
-import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type {
-  MediaOptions,
-  MediaState,
+  ContextIdentifierProvider,
   MediaProvider,
-} from '@atlaskit/editor-core';
-import { insertMediaSingleNode, mediaPluginKey } from '@atlaskit/editor-core';
+} from '@atlaskit/editor-common/provider-factory';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { MediaState } from '@atlaskit/editor-core/src/plugins/media';
+
+import type { MediaOptions } from '@atlaskit/editor-core/src/plugins/media/types';
+import { insertMediaSingleNode } from '@atlaskit/editor-core/src/plugins/media';
 
 import {
   doc,
@@ -146,7 +147,6 @@ describe('Mobile MediaProvider', () => {
         media: mediaOptions,
         appearance: 'mobile',
       },
-      pluginKey: mediaPluginKey,
       providerFactory,
     });
 

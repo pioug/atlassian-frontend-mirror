@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
-import { subscribeTypeAheadUpdates } from '@atlaskit/editor-core';
+import { subscribeTypeAheadUpdates } from '@atlaskit/editor-core/src/plugins/view-update-subscription/subscribe/type-ahead-updates';
 import type EditorConfiguration from '../editor-configuration';
 import { toNativeBridge } from '../web-to-native';
 import type WebBridgeImpl from '../native-to-web';

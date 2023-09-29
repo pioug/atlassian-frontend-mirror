@@ -1,5 +1,11 @@
 # @atlaskit/stylelint-design-system
 
+## 1.1.0
+
+### Minor Changes
+
+- [#40796](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40796) [`4a861e0b373`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4a861e0b373) - Adds a new "nonTokenCssVariables" option to the ensure-design-token-usage stylelint rule's configuration. When this is enabled, it will disallow CSS variables that aren't design tokens. This is used to be the default behavior but needs to now be explicitly enabled with the new option.
+
 ## 1.0.3
 
 ### Patch Changes

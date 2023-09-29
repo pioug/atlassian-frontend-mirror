@@ -7,6 +7,7 @@ export { default as slackLogo } from './slack-logo.svg';
 export { default as imageForbidden } from './forbidden.svg';
 export { default as imageNotFound } from './not_found.svg';
 export { default as imageUnauthorised } from './unauthorized.svg';
+export { default as forbiddenJira } from './forbidden-jira.svg';
 
 // Link images
 export { default as image1 } from './rectangle.svg';

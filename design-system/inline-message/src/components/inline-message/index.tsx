@@ -210,6 +210,7 @@ const InlineMessage: FC<InlineMessageProps> = ({
           onClick={toggleDialog}
           spacing="none"
           testId={testId && `${testId}--button`}
+          aria-expanded={isOpen}
         >
           <div css={buttonContentsStyles}>
             <MessageIcon

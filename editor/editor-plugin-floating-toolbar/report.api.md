@@ -60,6 +60,9 @@ export type FloatingToolbarPlugin = NextEditorPlugin<
 >;
 
 // @public (undocumented)
+export const floatingToolbarPlugin: FloatingToolbarPlugin;
+
+// @public (undocumented)
 export type FloatingToolbarPluginData = {
   confirmDialogForItem?: number;
 };

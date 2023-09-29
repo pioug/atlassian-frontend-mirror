@@ -1,11 +1,11 @@
-import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { IntlShape } from 'react-intl-next';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { IntlShape } from 'react-intl-next';
+import { dateMessages } from '@atlaskit/editor-core/src/messages';
+import messages from '@atlaskit/editor-common/messages';
 import {
-  dateMessages,
-  deleteDate,
   insertDate,
-  messages,
-} from '@atlaskit/editor-core';
+  deleteDate,
+} from '@atlaskit/editor-core/src/plugins/date/actions';
 import type {
   FloatingToolbarConfig,
   Command,

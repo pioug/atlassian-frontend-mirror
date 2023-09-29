@@ -1,5 +1,11 @@
 # @atlaskit/blanket
 
+## 12.4.5
+
+### Patch Changes
+
+- [#40123](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40123) [`b289e593932`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b289e593932) - Internal change to apply logical properties instead of physical properties for spacing, border, and position.
+
 ## 12.4.4
 
 ### Patch Changes
@@ -257,7 +263,7 @@
   Run `npx @atlaskit/codemod-cli -h` for more details on usage.
 
   For Atlassians,
-  refer to the [documentation](https://developer.atlassian.com/cloud/framework/atlassian-frontend/codemods/01-atlassian-codemods/) for more details on the codemod CLI.
+  refer to the [documentation](https://hello.atlassian.net/wiki/spaces/AF/pages/2627171992/Codemods) for more details on the codemod CLI.
 
 ### Patch Changes
 

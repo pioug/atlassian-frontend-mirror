@@ -8,7 +8,7 @@ import {
   SaveAndCancelButtons,
 } from './5-full-page';
 import LanguagePicker from '../example-helpers/LanguagePicker';
-import type { MediaOptions } from '../src';
+import type { MediaOptions } from '../src/plugins/media/types';
 import adf from '../example-helpers/templates/media-with-caption.adf.json';
 import { getTranslations } from '../example-helpers/get-translations';
 

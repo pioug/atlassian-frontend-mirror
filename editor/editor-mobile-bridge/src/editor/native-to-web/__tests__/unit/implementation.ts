@@ -1,11 +1,10 @@
 import type { Provider as CollabProvider } from '@atlaskit/collab-provider';
-import {
-  EditorActions,
-  EventDispatcher,
-  updateStatusWithAnalytics,
-  insertDate,
-  dateToDateType,
-} from '@atlaskit/editor-core';
+import { EditorActions } from '@atlaskit/editor-core';
+import { updateStatusWithAnalytics } from '@atlaskit/editor-core/src/plugins/status/actions';
+
+import { dateToDateType } from '@atlaskit/editor-core/src/plugins/date/utils/formatParse';
+import { insertDate } from '@atlaskit/editor-core/src/plugins/date/actions';
+import { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { createProsemirrorEditorFactory } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
@@ -57,9 +56,28 @@ jest.mock('@atlaskit/editor-core', () => ({
     },
   },
   updateStatusWithAnalytics: jest.fn(() => () => {}),
-  insertDate: jest.fn(() => () => {}),
   openDatePicker: jest.fn(() => () => {}),
   setMobilePaddingTop: jest.fn(() => () => {}),
+}));
+
+jest.mock('@atlaskit/editor-core/src/plugins/type-ahead/api', () => ({
+  ...(jest.genMockFromModule(
+    '@atlaskit/editor-core/src/plugins/type-ahead/api',
+  ) as object),
+}));
+
+jest.mock('@atlaskit/editor-core/src/plugins/status/actions', () => ({
+  ...(jest.requireActual(
+    '@atlaskit/editor-core/src/plugins/status/actions',
+  ) as object),
+  updateStatusWithAnalytics: jest.fn(() => () => {}),
+}));
+
+jest.mock('@atlaskit/editor-core/src/plugins/date/actions', () => ({
+  ...jest.requireActual<Object>(
+    '@atlaskit/editor-core/src/plugins/date/actions',
+  ),
+  insertDate: jest.fn(() => () => {}),
 }));
 jest.mock('@atlaskit/editor-common/utils', () => ({
   ...jest.requireActual<Object>('@atlaskit/editor-common/utils'),

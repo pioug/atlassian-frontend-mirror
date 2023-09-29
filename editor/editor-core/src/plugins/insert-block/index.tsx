@@ -9,9 +9,6 @@ import type {
 import { WithProviders } from '@atlaskit/editor-common/provider-factory';
 import type { Providers } from '@atlaskit/editor-common/provider-factory';
 
-import { stateKey as mediaStateKey } from '../media/pm-plugins/plugin-key';
-import type { MediaPluginState } from '../media/pm-plugins/types';
-
 import { isTypeAheadAllowed } from '../type-ahead/utils';
 
 import { pluginKey as layoutStateKey } from '../layout';
@@ -116,13 +113,11 @@ const insertBlockPlugin: NextEditorPlugin<
           <WithPluginState
             plugins={{
               typeAheadState: typeAheadPluginKey,
-              mediaState: mediaStateKey,
               macroState: macroStateKey,
               placeholderTextState: placeholderTextStateKey,
               layoutState: layoutStateKey,
             }}
             render={({
-              mediaState,
               macroState = {} as MacroState,
               placeholderTextState,
               layoutState,
@@ -142,7 +137,6 @@ const insertBlockPlugin: NextEditorPlugin<
                   isToolbarReducedSpacing={isToolbarReducedSpacing}
                   isLastItem={isLastItem}
                   featureFlags={featureFlags}
-                  mediaState={mediaState}
                   macroState={macroState}
                   placeholderTextState={placeholderTextState}
                   layoutState={layoutState}
@@ -177,7 +171,6 @@ interface ToolbarInsertBlockWithInjectionApiProps
   featureFlags: FeatureFlags;
   // As part of Scalability project we are removing plugin keys
   // As we do this these props below will disappear
-  mediaState: MediaPluginState | undefined;
   macroState: MacroState;
   placeholderTextState: PlaceholderTextPluginState | undefined;
   layoutState: LayoutState | undefined;
@@ -197,7 +190,6 @@ function ToolbarInsertBlockWithInjectionApi({
   providers,
   pluginInjectionApi,
   options,
-  mediaState,
   macroState,
   placeholderTextState,
   layoutState,
@@ -211,6 +203,7 @@ function ToolbarInsertBlockWithInjectionApi({
     mentionState,
     emojiState,
     blockTypeState,
+    mediaState,
   } = useSharedPluginState(pluginInjectionApi, [
     'hyperlink',
     'date',
@@ -218,6 +211,7 @@ function ToolbarInsertBlockWithInjectionApi({
     'mention',
     'emoji',
     'blockType',
+    'media',
   ]);
 
   return (
@@ -239,8 +233,12 @@ function ToolbarInsertBlockWithInjectionApi({
       }
       layoutSectionEnabled={!!layoutState}
       expandEnabled={!!options.allowExpand}
-      mediaUploadsEnabled={mediaState && mediaState.allowsUploads}
-      onShowMediaPicker={mediaState && mediaState.showMediaPicker}
+      mediaUploadsEnabled={
+        (mediaState && mediaState.allowsUploads) ?? undefined
+      }
+      onShowMediaPicker={
+        (mediaState && mediaState.showMediaPicker) ?? undefined
+      }
       mediaSupported={!!mediaState}
       imageUploadSupported={!!pluginInjectionApi?.imageUpload}
       imageUploadEnabled={imageUploadState?.enabled}

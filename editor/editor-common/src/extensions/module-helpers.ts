@@ -1,7 +1,7 @@
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 
 import { buildAction } from './manifest-helpers';
-import {
+import type {
   ExtensionAPI,
   ExtensionAutoConvertHandler,
   ExtensionManifest,
@@ -11,7 +11,7 @@ import {
   MenuItem,
   Parameters,
 } from './types';
-import {
+import type {
   ContextualToolbar,
   ToolbarContext,
   ToolbarItem,

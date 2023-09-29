@@ -70,7 +70,6 @@ const ActionGroup: React.FC<ActionGroupProps> = ({
   appearance,
   visibleButtonsNum = 2,
   onDropdownOpenChange,
-  testId,
 }) => {
   const context = useFlexibleUiContext();
   const ui = useFlexibleUiOptionContext();

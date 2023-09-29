@@ -1,9 +1,6 @@
 import * as mocks from './bridge-test.mock';
-import {
-  INPUT_METHOD,
-  clearEditorContent,
-  setKeyboardHeight,
-} from '@atlaskit/editor-core';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import { clearEditorContent } from '@atlaskit/editor-core/src/commands';
 import type { QuickInsertActionInsert } from '@atlaskit/editor-common/provider-factory';
 import { isLinkAtPos, isTextAtPos } from '@atlaskit/editor-common/link';
 import WebBridgeImpl from '../../../../editor/native-to-web';
@@ -358,14 +355,18 @@ describe('history', () => {
 
 describe('ui', () => {
   const bridge: any = new WebBridgeImpl();
+  const mockSetKeyboardHeight = jest.fn(() => () => {});
 
   beforeEach(() => {
     bridge.editorView = {};
+    bridge.setPluginInjectionApi({
+      base: { actions: { setKeyboardHeight: mockSetKeyboardHeight } },
+    });
   });
 
   it('should set keyboard height', () => {
     bridge.setKeyboardControlsHeight('350');
-    expect(setKeyboardHeight).toHaveBeenCalledWith(350);
+    expect(mockSetKeyboardHeight).toHaveBeenCalledWith(350);
   });
 });
 

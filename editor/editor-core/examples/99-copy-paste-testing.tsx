@@ -1,9 +1,11 @@
 /** @jsx jsx */
 import { jsx, css } from '@emotion/react';
-import React, { KeyboardEvent, FormEvent } from 'react';
+import type { KeyboardEvent, FormEvent } from 'react';
+import React from 'react';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
-import Editor, { EditorProps, EditorAppearance } from '../src/editor';
+import type { EditorProps, EditorAppearance } from '../src/editor';
+import Editor from '../src/editor';
 import EditorContext from '../src/ui/EditorContext';
 import WithEditorActions from '../src/ui/WithEditorActions';
 import { autoformattingProvider } from '@atlaskit/editor-test-helpers/autoformatting-provider';
@@ -22,7 +24,9 @@ import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import { customInsertMenuItems } from '@atlaskit/editor-test-helpers/mock-insert-menu';
 import quickInsertProviderFactory from '../example-helpers/quick-insert-provider';
 import { TitleInput } from '../example-helpers/PageElements';
-import { EditorActions, MediaProvider, MediaOptions } from '../src';
+import type { EditorActions } from '../src';
+import type { MediaOptions } from '../src/plugins/media/types';
+import type { MediaProvider } from '../src/plugins/media';
 import { MockActivityResource } from '../example-helpers/activity-provider';
 import BreadcrumbsMiscActions from '../example-helpers/breadcrumbs-misc-actions';
 import {

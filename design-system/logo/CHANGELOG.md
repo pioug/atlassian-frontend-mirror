@@ -196,7 +196,7 @@
 
   To help with this migration, we have provided a codemod that you can run to automatically update your imports (it will leave a comment if you are using a logo with no alternative). This codemod has been around for a while, but we've updated it in this release.
 
-  Once you've upgraded `@atlaskit/logo`, use the Atlaskit codemod CLI. See [documentation on DAC](https://developer.atlassian.com/cloud/framework/atlassian-frontend/codemods/01-atlassian-codemods/) for general codemod guidance.
+  Once you've upgraded `@atlaskit/logo`, use the Atlaskit codemod CLI. See [documentation on DAC](https://hello.atlassian.net/wiki/spaces/AF/pages/2627171992/Codemods) for general codemod guidance.
 
   Without setting options in your terminal command, you can run the following and type to search for `logo` and select `@atlaskit/logo: 13.6.0-rename-imports` from the interactive CLI.
 

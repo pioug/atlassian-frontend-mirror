@@ -1,4 +1,10 @@
-import type { ASTPath, Collection, JSCodeshift, JSXElement } from 'jscodeshift';
+import type {
+  ASTPath,
+  Collection,
+  ImportDeclaration,
+  JSCodeshift,
+  JSXElement,
+} from 'jscodeshift';
 
 function getImportDeclarationsForPackage(
   j: JSCodeshift,
@@ -13,7 +19,7 @@ function getImportDeclarationsForPackage(
 export function getImportDeclarationsForRbd(
   j: JSCodeshift,
   source: Collection<Node>,
-) {
+): Collection<ImportDeclaration> {
   return getImportDeclarationsForPackage(j, source, 'react-beautiful-dnd');
 }
 

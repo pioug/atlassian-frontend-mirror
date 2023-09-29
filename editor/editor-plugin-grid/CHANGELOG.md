@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-grid
 
+## 0.3.0
+
+### Minor Changes
+
+- [#40763](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40763) [`7ff70f99909`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7ff70f99909) - Decouple media from editor-core and expose GridPluginState from grid plugin.
+
 ## 0.2.2
 
 ### Patch Changes

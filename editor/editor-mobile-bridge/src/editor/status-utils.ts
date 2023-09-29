@@ -1,25 +1,28 @@
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
+import type { PaletteColor } from '@atlaskit/editor-core/src/ui/ColorPalette/Palettes/type';
+import type { StatusType } from '@atlaskit/editor-core/src/plugins/status/plugin';
 import {
-  updateStatusWithAnalytics,
-  PaletteColor,
-  StatusType,
   lightModeStatusColorPalette,
   darkModeStatusColorPalette,
-  messages,
-  statusMessages,
+} from '@atlaskit/editor-core/src/ui/ColorPalette/Palettes/statusColorPalette';
+import { statusMessages } from '@atlaskit/editor-core/src/messages';
+import messages from '@atlaskit/editor-common/messages';
+
+import {
+  updateStatusWithAnalytics,
   removeStatus,
-} from '@atlaskit/editor-core';
+} from '@atlaskit/editor-core/src/plugins/status/actions';
 import type {
   Command,
   CommandDispatch,
   FloatingToolbarConfig,
 } from '@atlaskit/editor-common/types';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import { EditorState } from '@atlaskit/editor-prosemirror/state';
-import { NodeType } from '@atlaskit/editor-prosemirror/model';
-import EditorConfiguration from './editor-configuration';
-import { ThemeModes } from '@atlaskit/theme/types';
-import { IntlShape } from 'react-intl-next';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { NodeType } from '@atlaskit/editor-prosemirror/model';
+import type EditorConfiguration from './editor-configuration';
+import type { ThemeModes } from '@atlaskit/theme/types';
+import type { IntlShape } from 'react-intl-next';
 
 const getColorOptionsForMode = (themeMode: ThemeModes) => {
   return themeMode === 'light'

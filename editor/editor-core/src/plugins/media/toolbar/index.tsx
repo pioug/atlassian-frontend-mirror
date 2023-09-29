@@ -3,6 +3,7 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import {
   findParentNodeOfType,
+  hasParentNodeOfType,
   removeSelectedNode,
 } from '@atlaskit/editor-prosemirror/utils';
 import type { IntlShape } from 'react-intl-next';
@@ -371,9 +372,14 @@ const generateMediaSingleFloatingToolbar = (
     }
 
     // Pixel Entry Toolbar Support
+    const { selection } = state;
+    const isWithinTable = hasParentNodeOfType([state.schema.nodes.table])(
+      selection,
+    );
     if (
       getBooleanFF('platform.editor.media.extended-resize-experience') &&
-      allowResizing
+      allowResizing &&
+      (!isWithinTable || allowResizingInTables === true)
     ) {
       const selectedMediaSingleNode = getSelectedMediaSingle(state);
 

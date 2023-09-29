@@ -88,7 +88,6 @@ export const ResolvedView = ({
   details = [],
   testId = 'block-card-resolved-view',
   showActions = true,
-  isSupportTheming,
 }: ResolvedViewProps) => {
   const resolvedMetadata =
     details.length > 0 ? (

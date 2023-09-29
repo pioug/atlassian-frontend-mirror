@@ -66,6 +66,9 @@
       "path": "../editor-plugin-analytics/tsconfig.app.json"
     },
     {
+      "path": "../editor-plugin-base/tsconfig.app.json"
+    },
+    {
       "path": "../editor-plugin-block-type/tsconfig.app.json"
     },
     {
@@ -82,6 +85,9 @@
     },
     {
       "path": "../editor-plugin-rule/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-table/tsconfig.app.json"
     },
     {
       "path": "../editor-plugin-text-formatting/tsconfig.app.json"

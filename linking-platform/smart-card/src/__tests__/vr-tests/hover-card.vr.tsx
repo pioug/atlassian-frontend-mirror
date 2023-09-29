@@ -6,6 +6,7 @@ import HoverCardConfluence from '../../../examples/vr-hover-card/vr-hover-card-c
 import HoverCardAssignedJiraIssue from '../../../examples/vr-hover-card/vr-hover-card-jira-assigned-issue';
 import HoverCardUnassignedJiraIssue from '../../../examples/vr-hover-card/vr-hover-card-jira-unassigned-issue';
 import HoverCardJiraProject from '../../../examples/vr-hover-card/vr-hover-card-jira-project';
+import HoverCardForbiddenJira from '../../../examples/vr-hover-card/vr-hover-card-forbidden-jira';
 
 snapshot(HoverCard, {
   description: 'Standalone hover card deafult',
@@ -119,5 +120,87 @@ snapshot(HoverCardJiraProject, {
     'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
       true,
     'platform.linking-platform.smart-card.enable-better-metadata_iojwg': true,
+  },
+});
+
+snapshot(HoverCardForbiddenJira, {
+  description:
+    'Refreshed standalone hover card forbidden view with direct_access context for Jira ',
+  states: [{ state: 'hovered', selector: { byTestId: 'DIRECT_ACCESS' } }],
+  drawsOutsideBounds: true,
+  featureFlags: {
+    'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
+      true,
+    'platform.linking-platform.smart-card.enable-better-metadata_iojwg': true,
+    'platform.linking-platform.smart-card.cross-join': true,
+  },
+});
+
+snapshot(HoverCardForbiddenJira, {
+  description:
+    'Refreshed standalone hover card forbidden view with request_access context for Jira',
+  states: [{ state: 'hovered', selector: { byTestId: 'REQUEST_ACCESS' } }],
+  drawsOutsideBounds: true,
+  featureFlags: {
+    'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
+      true,
+    'platform.linking-platform.smart-card.enable-better-metadata_iojwg': true,
+    'platform.linking-platform.smart-card.cross-join': true,
+  },
+});
+
+snapshot(HoverCardForbiddenJira, {
+  description:
+    'Refreshed standalone hover card forbidden view with pending_request_exists context for Jira',
+  states: [
+    { state: 'hovered', selector: { byTestId: 'PENDING_REQUEST_EXISTS' } },
+  ],
+  drawsOutsideBounds: true,
+  featureFlags: {
+    'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
+      true,
+    'platform.linking-platform.smart-card.enable-better-metadata_iojwg': true,
+    'platform.linking-platform.smart-card.cross-join': true,
+  },
+});
+
+snapshot(HoverCardForbiddenJira, {
+  description:
+    'Refreshed standalone hover card forbidden view with denied_request_exists context for Jira',
+  states: [
+    { state: 'hovered', selector: { byTestId: 'DENIED_REQUEST_EXISTS' } },
+  ],
+  drawsOutsideBounds: true,
+  featureFlags: {
+    'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
+      true,
+    'platform.linking-platform.smart-card.enable-better-metadata_iojwg': true,
+    'platform.linking-platform.smart-card.cross-join': true,
+  },
+});
+
+snapshot(HoverCardForbiddenJira, {
+  description:
+    'Refreshed standalone hover card forbidden view with access_exists context for Jira',
+  states: [{ state: 'hovered', selector: { byTestId: 'ACCESS_EXISTS' } }],
+  drawsOutsideBounds: true,
+  featureFlags: {
+    'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
+      true,
+    'platform.linking-platform.smart-card.enable-better-metadata_iojwg': true,
+    'platform.linking-platform.smart-card.cross-join': true,
+  },
+});
+
+snapshot(HoverCardForbiddenJira, {
+  description:
+    'Refreshed standalone hover card forbidden view with forbidden context for Jira',
+  states: [{ state: 'hovered', selector: { byTestId: 'FORBIDDEN' } }],
+  drawsOutsideBounds: true,
+  featureFlags: {
+    'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
+      true,
+    'platform.linking-platform.smart-card.enable-better-metadata_iojwg': true,
+    'platform.linking-platform.smart-card.cross-join': true,
   },
 });

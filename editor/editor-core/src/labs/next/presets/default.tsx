@@ -17,7 +17,7 @@ import submitEditorPlugin from '../../../plugins/submit-editor';
 import fakeTextCursorPlugin from '../../../plugins/fake-text-cursor';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import { copyButtonPlugin } from '@atlaskit/editor-plugin-copy-button';
-import floatingToolbarPlugin from '../../../plugins/floating-toolbar';
+import { floatingToolbarPlugin } from '@atlaskit/editor-plugin-floating-toolbar';
 import type { EditorProps } from '../../../types/editor-props';
 import type { EditorPresetProps } from './types';
 import clipboardPlugin from '../../../plugins/clipboard';

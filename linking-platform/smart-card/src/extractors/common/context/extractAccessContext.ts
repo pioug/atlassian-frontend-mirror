@@ -125,7 +125,8 @@ export const extractRequestAccessContextImproved = ({
     case 'FORBIDDEN':
       return {
         ...jsonLd?.requestAccess,
-        descriptiveMessageKey: 'forbidden_description',
+        titleMessageKey: 'forbidden_title_crossjoin',
+        descriptiveMessageKey: 'forbidden_description_crossjoin',
       };
     default:
       return jsonLd?.requestAccess;

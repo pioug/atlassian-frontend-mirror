@@ -1195,16 +1195,19 @@ describe('JiraIssuesConfigModal', () => {
 
   describe('when no issues are returned', () => {
     it('should show no results screen in issue view mode', async () => {
-      const { getByRole, getByText } = await setup({
+      const { getByRole, getByText, onInsert } = await setup({
         hookState: { ...getDefaultHookState(), responseItems: [] },
       });
 
       expect(getByText('No results found')).toBeInTheDocument();
-      expect(getByRole('button', { name: 'Insert issues' })).toBeDisabled();
+      expect(getByRole('button', { name: 'Insert issues' })).not.toBeDisabled();
+
+      fireEvent.click(getByRole('button', { name: 'Insert issues' }));
+      expect(onInsert).toHaveBeenCalledTimes(1);
     });
 
     it('should not show no results screen in count view mode', async () => {
-      const { getByLabelText, queryByText } = await setup({
+      const { getByLabelText, getByRole, queryByText, onInsert } = await setup({
         hookState: { ...getDefaultHookState(), responseItems: [] },
       });
 
@@ -1213,6 +1216,9 @@ describe('JiraIssuesConfigModal', () => {
       });
 
       expect(queryByText('No results found')).not.toBeInTheDocument();
+      expect(getByRole('button', { name: 'Insert issues' })).not.toBeDisabled();
+      fireEvent.click(getByRole('button', { name: 'Insert issues' }));
+      expect(onInsert).toHaveBeenCalledTimes(1);
     });
   });
 

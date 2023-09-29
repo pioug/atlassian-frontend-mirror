@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/panel",
-  "version": "0.9.6",
+  "version": "0.9.7",
   "description": "A React component rendering a collapsible panel",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -20,10 +20,12 @@
       ]
     }
   },
+  "af:exports": {
+    ".": "./src/index.ts"
+  },
   "atlaskit:src": "src/index.ts",
   "atlassian": {
     "team": "Bitbucket: CoreX",
-    "deprecatedAutoEntryPoints": true,
     "releaseModel": "continuous",
     "website": {
       "name": "Panel"

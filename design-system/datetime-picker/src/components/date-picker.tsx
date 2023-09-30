@@ -131,7 +131,8 @@ export interface DatePickerBaseProps extends WithAnalyticsEventsProps {
    */
   onFocus?: React.FocusEventHandler<HTMLInputElement>;
   /**
-   * A function for parsing input characters and transforming them into a Date object. By default parses the date string based off the locale.
+   * A function for parsing input characters and transforming them into a Date object.
+   * By default parses the date string based off the locale.
    */
   parseInputValue?: (date: string, dateFormat: string) => Date;
   /**

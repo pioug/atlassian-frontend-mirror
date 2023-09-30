@@ -106,6 +106,10 @@ export interface TimePickerBaseProps extends WithAnalyticsEventsProps {
    * Called when the field is focused.
    */
   onFocus?: React.FocusEventHandler<HTMLElement>;
+  /**
+   * A function for parsing input characters and transforming them into either a string or a Date object.
+   * By default parses the string based off the locale.
+   */
   parseInputValue?: (time: string, timeFormat: string) => string | Date;
   /**
    * Props to apply to the select.

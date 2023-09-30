@@ -29,10 +29,9 @@ const FeedbackFlag = ({ description, title }: AkProps) => {
       }
       id="feedbackSent"
       description={
-        description ||
-        formatMessage({ ...messages.feedbackSuccessFlagDescription })
+        description || formatMessage(messages.feedbackSuccessFlagDescription)
       }
-      title={title || formatMessage({ ...messages.feedbackSuccessFlagTitle })}
+      title={title || formatMessage(messages.feedbackSuccessFlagTitle)}
     />
   );
 };

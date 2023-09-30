@@ -497,7 +497,6 @@ export interface TimePickerProps extends WithAnalyticsEventsProps {
   onBlur?: React_2.FocusEventHandler<HTMLElement>;
   onChange?: (value: string) => void;
   onFocus?: React_2.FocusEventHandler<HTMLElement>;
-  // (undocumented)
   parseInputValue?: (time: string, timeFormat: string) => Date | string;
   placeholder?: string;
   selectProps?: SelectProps<any>;

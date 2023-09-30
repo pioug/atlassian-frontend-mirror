@@ -1,5 +1,11 @@
 # @atlaskit/feedback-collector
 
+## 13.0.8
+
+### Patch Changes
+
+- [#40820](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40820) [`92525eab97e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/92525eab97e) - Removed spread operator in react intl formatMessage() so babel-plugin-formatjs can extract corresponding messages
+
 ## 13.0.7
 
 ### Patch Changes

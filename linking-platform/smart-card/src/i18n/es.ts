@@ -38,6 +38,7 @@ export default {
   'fabric.linking.delete': 'Eliminar',
   'fabric.linking.download': 'Descargar',
   'fabric.linking.edit': 'Editar',
+  'fabric.linking.follow': 'Seguir',
   'fabric.linking.forbidden_access': 'Tienes prohibido el acceso',
   'fabric.linking.forbidden_description':
     'No puedes acceder a esta vista previa. Ponte en contacto con el administrador del sitio si tienes que acceder.',
@@ -96,12 +97,14 @@ export default {
   'fabric.linking.status_change_update_error': 'No hemos podido actualizar el estado',
   'fabric.linking.try_again': 'Volver a intentarlo',
   'fabric.linking.try_another_account': 'Probar otra cuenta',
+  'fabric.linking.unassigned': 'Sin asignar',
   'fabric.linking.unauthorised_account_description':
     'Estás intentando previsualizar un enlace a una página privada de {context}. Te recomendamos que revises la URL o contactes con el propietario de la página.',
   'fabric.linking.unauthorised_account_description_no_provider':
     'Estás intentando previsualizar un enlace a una página privada. Te recomendamos que revises la URL o contactes con el propietario de la página.',
   'fabric.linking.unauthorised_account_name': 'No podemos mostrar las páginas privadas de {context}',
   'fabric.linking.unauthorised_account_name_no_provider': 'No podemos mostrar páginas privadas',
+  'fabric.linking.unfollow': 'Dejar de seguir',
   'fabric.linking.unlink_account': 'Desvincular cuenta',
   'fabric.linking.updated_by': 'Modificado por {context}',
   'fabric.linking.view': 'Ver',

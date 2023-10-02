@@ -1,6 +1,8 @@
 import { AnalyticsEventPayload } from '@atlaskit/analytics-next';
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 
+import { ErrorAttributes } from '../client/types';
+
 import { getPageTime } from './performance';
 
 /** Below lines are copied from teams common analytics */
@@ -19,7 +21,9 @@ const runItLater = (cb: (arg: any) => void) => {
   return () => setTimeout(cb);
 };
 
-type GenericAttributes = Record<string, string | number | boolean | undefined>;
+type GenericAttributes =
+  | Record<string, string | number | boolean | undefined | string[]>
+  | ErrorAttributes;
 
 interface AnalyticsEvent {
   action?: string;

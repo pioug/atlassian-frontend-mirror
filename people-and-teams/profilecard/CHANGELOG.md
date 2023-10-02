@@ -1,5 +1,11 @@
 # @atlaskit/profilecard
 
+## 19.5.11
+
+### Patch Changes
+
+- [#40822](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40822) [`179ee5ba573`](https://bitbucket.org/atlassian/atlassian-frontend/commits/179ee5ba573) - Better handling of errors
+
 ## 19.5.10
 
 ### Patch Changes

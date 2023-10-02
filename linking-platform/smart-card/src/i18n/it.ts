@@ -39,6 +39,7 @@ export default {
   'fabric.linking.delete': 'Elimina',
   'fabric.linking.download': 'Scarica',
   'fabric.linking.edit': 'Modifica',
+  'fabric.linking.follow': 'Segui',
   'fabric.linking.forbidden_access': 'Accesso vietato',
   'fabric.linking.forbidden_description':
     "Non hai accesso a questa anteprima. Contatta l'amministratore del sito se devi accedere.",
@@ -88,6 +89,8 @@ export default {
   'fabric.linking.restricted_link': 'Link con restrizioni, prova con un altro account',
   'fabric.linking.retry': 'Riprova',
   'fabric.linking.save': 'Salva',
+  'fabric.linking.sent_on_absolute': 'Inviato in data {context}',
+  'fabric.linking.sent_on_relative': 'Inviato {context}',
   'fabric.linking.srclink': 'Visualizza in',
   'fabric.linking.srclinkunknown': 'Mostra originale',
   'fabric.linking.status_change_load_error': 'Impossibile caricare stati e transizioni',
@@ -96,12 +99,14 @@ export default {
   'fabric.linking.status_change_update_error': 'Impossibile aggiornare lo stato',
   'fabric.linking.try_again': 'Riprova',
   'fabric.linking.try_another_account': 'Prova con un altro account',
+  'fabric.linking.unassigned': 'Non assegnato',
   'fabric.linking.unauthorised_account_description':
     "Stai tentando di visualizzare in anteprima un link a una pagina {context} privata. Ti consigliamo di controllare l'URL o contattare il responsabile della pagina.",
   'fabric.linking.unauthorised_account_description_no_provider':
     "Stai tentando di visualizzare in anteprima un link a una pagina privata. Ti consigliamo di controllare l'URL o contattare il responsabile della pagina.",
   'fabric.linking.unauthorised_account_name': 'Non è possibile visualizzare le pagine private di {context}',
   'fabric.linking.unauthorised_account_name_no_provider': 'Impossibile visualizzare le pagine private',
+  'fabric.linking.unfollow': 'Non seguire più',
   'fabric.linking.unlink_account': 'Scollega account',
   'fabric.linking.updated_by': 'Modificato da {context}',
   'fabric.linking.view': 'Visualizza',

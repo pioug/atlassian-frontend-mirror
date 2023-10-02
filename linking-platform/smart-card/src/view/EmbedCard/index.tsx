@@ -1,5 +1,7 @@
 import React from 'react';
 import { JsonLd } from 'json-ld-types';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { extractRequestAccessContextImproved } from '../../extractors/common/context/extractAccessContext';
 
 import { EmbedCardProps } from './types';
 import { extractEmbedProps } from '../../extractors/embed';
@@ -15,6 +17,7 @@ import { EmbedCardNotFoundView } from './views/NotFoundView';
 import { EmbedCardResolvedView } from './views/ResolvedView';
 import { EmbedCardUnauthorisedView } from './views/UnauthorisedView';
 import { EmbedCardErroredView } from './views/ErroredView';
+import ForbiddenView from './views/forbidden-view';
 
 export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
   (
@@ -136,11 +139,6 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
         }
         const forbiddenViewProps = extractEmbedProps(data, meta, platform);
         const cardMetadata = details?.meta ?? getForbiddenJsonLd().meta;
-        const requestAccessContext = extractRequestAccessContext({
-          jsonLd: cardMetadata,
-          url,
-          context: forbiddenViewProps.context?.text,
-        });
 
         if (forbiddenViewProps.preview) {
           return (
@@ -156,6 +154,31 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
           );
         }
 
+        if (getBooleanFF('platform.linking-platform.smart-card.cross-join')) {
+          const requestAccessContext = extractRequestAccessContextImproved({
+            jsonLd: cardMetadata,
+            url,
+            product: forbiddenViewProps.context?.text ?? '',
+          });
+
+          return (
+            <ForbiddenView
+              context={forbiddenViewProps.context}
+              inheritDimensions={inheritDimensions}
+              isSelected={isSelected}
+              onAuthorise={handleAuthorize}
+              onClick={handleFrameClick}
+              requestAccessContext={requestAccessContext}
+              url={forbiddenViewProps.link}
+            />
+          );
+        }
+
+        const requestAccessContext = extractRequestAccessContext({
+          jsonLd: cardMetadata,
+          url,
+          context: forbiddenViewProps.context?.text,
+        });
         return (
           <EmbedCardForbiddenView
             {...forbiddenViewProps}

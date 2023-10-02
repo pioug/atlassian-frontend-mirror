@@ -40,6 +40,7 @@ export default {
   'fabric.linking.delete': 'Törlés',
   'fabric.linking.download': 'Letöltés',
   'fabric.linking.edit': 'Szerkesztés',
+  'fabric.linking.follow': 'Követés',
   'fabric.linking.forbidden_access': 'Hozzáférés megtagadva',
   'fabric.linking.forbidden_description':
     'Nincs hozzáférésed ehhez az előnézethez. Lépj kapcsolatba a webhely adminisztrátorával, ha szükséged van hozzáférésre.',
@@ -90,6 +91,8 @@ export default {
   'fabric.linking.restricted_link': 'Korlátozott link, próbálkozz másik fiókkal',
   'fabric.linking.retry': 'Újra',
   'fabric.linking.save': 'Mentés',
+  'fabric.linking.sent_on_absolute': 'Elküldve: {context}',
+  'fabric.linking.sent_on_relative': 'Elküldve: {context}',
   'fabric.linking.srclink': 'Megtekintés módja:',
   'fabric.linking.srclinkunknown': 'Eredeti megtekintése',
   'fabric.linking.status_change_load_error': 'Nem sikerült betölteni az állapotokat és az átviteleket',
@@ -97,12 +100,14 @@ export default {
   'fabric.linking.status_change_update_error': 'Nem sikerült frissíteni az állapotot',
   'fabric.linking.try_again': 'Próbáld újra',
   'fabric.linking.try_another_account': 'Próbálkozz másik fiókkal',
+  'fabric.linking.unassigned': 'Nincs hozzárendelve',
   'fabric.linking.unauthorised_account_description':
     'Egy privát {context}-oldalra mutató link előnézetét próbálod megtekinteni. Azt javasoljuk, hogy ellenőrizd az URL-címet, vagy lépj kapcsolatba az oldal tulajdonosával.',
   'fabric.linking.unauthorised_account_description_no_provider':
     'Egy privát oldalra mutató link előnézetét próbálod megtekinteni. Azt javasoljuk, hogy ellenőrizd az URL-címet, vagy lépj kapcsolatba az oldal tulajdonosával.',
   'fabric.linking.unauthorised_account_name': 'Nem tudunk privát oldalakat megjeleníteni a(z) {context} felületéről',
   'fabric.linking.unauthorised_account_name_no_provider': 'Nem tudunk privát oldalakat megjeleníteni',
+  'fabric.linking.unfollow': 'Követés leállítása',
   'fabric.linking.unlink_account': 'Fiók leválasztása',
   'fabric.linking.updated_by': 'Módosította: {context}',
   'fabric.linking.view': 'Megtekintés',

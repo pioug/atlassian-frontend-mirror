@@ -27,6 +27,7 @@ describe('extractors.access.context', () => {
       }),
     ).toEqual({
       accessType: 'invalid',
+      hostname: 'visit.url.com',
     });
   });
 
@@ -52,6 +53,7 @@ describe('extractors.access.context', () => {
         promise: expect.any(Function),
         text: expect.any(Object),
       },
+      hostname: 'visit.url.com',
     });
   });
 
@@ -77,6 +79,7 @@ describe('extractors.access.context', () => {
         promise: expect.any(Function),
         text: expect.any(Object),
       },
+      hostname: 'visit.url.com',
     });
   });
 
@@ -102,6 +105,7 @@ describe('extractors.access.context', () => {
         promise: expect.any(Function),
         text: expect.any(Object),
       },
+      hostname: 'visit.url.com',
     });
   });
 
@@ -120,6 +124,7 @@ describe('extractors.access.context', () => {
       accessType: 'FORBIDDEN',
       titleMessageKey: 'forbidden_title_crossjoin',
       descriptiveMessageKey: 'forbidden_description_crossjoin',
+      hostname: 'visit.url.com',
     });
   });
 
@@ -138,6 +143,7 @@ describe('extractors.access.context', () => {
       accessType: 'DENIED_REQUEST_EXISTS',
       titleMessageKey: 'default_no_access_title_crossjoin',
       descriptiveMessageKey: 'request_denied_description_crossjoin',
+      hostname: 'visit.url.com',
     });
   });
 
@@ -162,6 +168,7 @@ describe('extractors.access.context', () => {
         promise: expect.any(Function),
         text: expect.any(Object),
       },
+      hostname: 'visit.url.com',
     });
   });
 });

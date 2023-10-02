@@ -39,6 +39,7 @@ export default {
   'fabric.linking.delete': 'Excluir',
   'fabric.linking.download': 'Baixar',
   'fabric.linking.edit': 'Editar',
+  'fabric.linking.follow': 'Seguir',
   'fabric.linking.forbidden_access': 'O acesso é proibido',
   'fabric.linking.forbidden_description':
     'Você não tem acesso a essa visualização. Entre em contato com o administrador do site se precisar de acesso.',
@@ -88,6 +89,8 @@ export default {
   'fabric.linking.restricted_link': 'Link restrito; tente outra conta',
   'fabric.linking.retry': 'Tentar novamente',
   'fabric.linking.save': 'Salvar',
+  'fabric.linking.sent_on_absolute': 'Enviado em {context}',
+  'fabric.linking.sent_on_relative': 'Enviado {context}',
   'fabric.linking.srclink': 'Visualizar em',
   'fabric.linking.srclinkunknown': 'Ver o original',
   'fabric.linking.status_change_load_error': 'Não foi possível carregar os status ou as transições',
@@ -95,12 +98,14 @@ export default {
   'fabric.linking.status_change_update_error': 'Não foi possível atualizar o status',
   'fabric.linking.try_again': 'Tentar novamente',
   'fabric.linking.try_another_account': 'Experimente uma outra conta',
+  'fabric.linking.unassigned': 'Sem responsável',
   'fabric.linking.unauthorised_account_description':
     'Você está tentando visualizar um link de uma página {context} privada. Verifique o URL ou entre em contato com o proprietário da página.',
   'fabric.linking.unauthorised_account_description_no_provider':
     'Você está tentando visualizar um link de uma página privada. Verifique o URL ou entre em contato com o proprietário da página.',
   'fabric.linking.unauthorised_account_name': 'Não é possível exibir páginas privadas de {context}',
   'fabric.linking.unauthorised_account_name_no_provider': 'Não é possível exibir páginas privadas',
+  'fabric.linking.unfollow': 'Deixar de seguir',
   'fabric.linking.unlink_account': 'Desvincular conta',
   'fabric.linking.updated_by': 'Modificado por {context}',
   'fabric.linking.view': 'Visualizar',

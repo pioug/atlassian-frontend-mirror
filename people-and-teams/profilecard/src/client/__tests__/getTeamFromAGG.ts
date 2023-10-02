@@ -3,6 +3,7 @@ import fetchMock from 'fetch-mock/cjs/client';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { parseAndTestGraphQLQueries } from '@atlassian/ptc-test-utils/graphql-jest';
 
+import { AGGErrors, HttpError } from '../../util/errors';
 import {
   addHeaders,
   buildGatewayQuery,
@@ -184,7 +185,6 @@ describe('getTeamFromAGG', () => {
 
     it('should return error when response is not ok', async () => {
       const status = 400;
-      const statusText = 'Bad Request';
       const traceId = '123';
       fetchMock.mock(serviceUrl, (_: any, __: any) => ({
         status,
@@ -193,11 +193,9 @@ describe('getTeamFromAGG', () => {
         },
       }));
 
-      await expect(getTeamFromAGG(serviceUrl, teamId)).rejects.toEqual({
-        code: status,
-        reason: statusText,
-        traceId,
-      });
+      await expect(getTeamFromAGG(serviceUrl, teamId)).rejects.toBeInstanceOf(
+        HttpError,
+      );
     });
 
     it('should return error when the response contains errors from AGG', async () => {
@@ -227,13 +225,17 @@ describe('getTeamFromAGG', () => {
         },
       }));
 
-      await expect(getTeamFromAGG(serviceUrl, teamId)).rejects.toEqual({
-        code: status,
-        reason,
-        traceId,
-        source,
-        message,
-      });
+      expect.assertions(6);
+      try {
+        await getTeamFromAGG(serviceUrl, teamId);
+      } catch (e) {
+        expect(e).toBeInstanceOf(AGGErrors);
+        expect((e as AGGErrors).errors.length).toEqual(1);
+        expect((e as AGGErrors).errors[0].message).toEqual(message);
+        expect((e as AGGErrors).errors[0].statusCode).toEqual(status);
+        expect((e as AGGErrors).errors[0].classification).toEqual(reason);
+        expect((e as AGGErrors).traceId).toEqual(traceId);
+      }
     });
 
     it.each([
@@ -262,7 +264,7 @@ describe('getTeamFromAGG', () => {
       'should make the correct query - site scoped %s',
       async (siteScopedTeamsEnabled, expectedObject) => {
         const gqlQuery = jest
-          .spyOn(gqlUtils, 'graphqlQuery')
+          .spyOn(gqlUtils, 'AGGQuery')
           .mockImplementation(() => Promise.resolve({ Team: TEAM_RESPONSE }));
         (getBooleanFF as jest.Mock).mockImplementation(
           () => siteScopedTeamsEnabled,

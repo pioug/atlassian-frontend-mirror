@@ -7,6 +7,8 @@
  */
 //
 export default {
+  'fabric.linking.access_exists_description':
+    'Contact your admin and request access to view this content from {hostname}.',
   'fabric.linking.actions': 'Actions',
   'fabric.linking.add_account': 'Add account',
   'fabric.linking.assigned_to': 'Assigned to {context}',
@@ -36,8 +38,13 @@ export default {
   'fabric.linking.create_on_relative': 'Created {context}',
   'fabric.linking.created_by': 'Created by {context}',
   'fabric.linking.delete': 'Delete',
+  'fabric.linking.direct_access_crossjoin': 'Go to {product}',
+  'fabric.linking.direct_access_description_crossjoin':
+    'All {emailDomain} emails are approved to access {hostname} in {product}.',
+  'fabric.linking.direct_access_title_crossjoin': 'Join your team in {product}',
   'fabric.linking.download': 'Download',
   'fabric.linking.edit': 'Edit',
+  'fabric.linking.follow': 'Follow',
   'fabric.linking.forbidden_access': 'Your access is forbidden',
   'fabric.linking.forbidden_description':
     'You don’t have access to this preview. Contact the site admin if you need access.',
@@ -53,8 +60,12 @@ export default {
   'fabric.linking.modified_on_absolute': 'Updated on {context}',
   'fabric.linking.modified_on_relative': 'Updated {context}',
   'fabric.linking.more_actions': 'More actions',
+  'fabric.linking.no_access_title_crossjoin': "You don't have access to this content",
   'fabric.linking.not_found_description': "We couldn't find the link. Check the url and try editing or paste again.",
+  'fabric.linking.not_found_description_crossjoin':
+    "The page doesn't exist or it may have changed after this link was added.",
   'fabric.linking.not_found_title': "Uh oh. We can't find this link!",
+  'fabric.linking.not_found_title_crossjoin': "We can't show you this {product} page",
   'fabric.linking.open_issue_in_jira': 'Open issue in Jira',
   'fabric.linking.open_link_in_a_new_tab': 'Open link in a new tab',
   'fabric.linking.owned_by': 'Owned by {context}',
@@ -76,13 +87,21 @@ export default {
   'fabric.linking.priority_undefined': 'Undefined',
   'fabric.linking.read_time': '{context} min read',
   'fabric.linking.request_access': 'Request access',
+  'fabric.linking.request_access_crossjoin': 'Request access',
   'fabric.linking.request_access_description': 'Request access to {context} view this preview.',
+  'fabric.linking.request_access_description_crossjoin': 'Contact your admin to request access.',
   'fabric.linking.request_access_pending': 'Access pending',
+  'fabric.linking.request_access_pending_crossjoin': 'Pending approval',
   'fabric.linking.request_access_pending_description': 'Your access request is pending.',
+  'fabric.linking.request_access_pending_description_crossjoin':
+    'Your request to access {hostname} is awaiting admin approval.',
+  'fabric.linking.request_access_pending_title_crossjoin': 'Access to {product} pending',
   'fabric.linking.request_access_to_view': 'Request access to {context} to view this issue',
   'fabric.linking.request_denied': 'Your access request was denied',
   'fabric.linking.request_denied_description':
     'Your access request was denied. Contact the site admin if you still need access.',
+  'fabric.linking.request_denied_description_crossjoin':
+    "Your admin didn't approve your request to view {product} pages from {hostname}.",
   'fabric.linking.restricted_link': 'Restricted link, try another account',
   'fabric.linking.retry': 'Retry',
   'fabric.linking.save': 'Save',
@@ -95,12 +114,14 @@ export default {
   'fabric.linking.status_change_update_error': 'We couldn’t update the status',
   'fabric.linking.try_again': 'Try again',
   'fabric.linking.try_another_account': 'Try another account',
+  'fabric.linking.unassigned': 'Unassigned',
   'fabric.linking.unauthorised_account_description':
     "You're trying to preview a link to a private {context} page. We recommend you review the URL or contact the page owner.",
   'fabric.linking.unauthorised_account_description_no_provider':
     "You're trying to preview a link to a private page. We recommend you review the URL or contact the page owner.",
   'fabric.linking.unauthorised_account_name': "We can't display private pages from {context}",
   'fabric.linking.unauthorised_account_name_no_provider': "We can't display private pages",
+  'fabric.linking.unfollow': 'Unfollow',
   'fabric.linking.unlink_account': 'Unlink Account',
   'fabric.linking.updated_by': 'Modified by {context}',
   'fabric.linking.view': 'View',

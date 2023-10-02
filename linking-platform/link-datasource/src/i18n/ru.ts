@@ -21,6 +21,10 @@ export default {
   'linkDataSource.assets.configmodal.insertIssuesButtonText':
     '{objectsCount, plural, one {Вставить объект} few {Вставить объекты} many {Вставить объекты} other {Вставить объекты}}',
   'linkDataSource.assets.configmodal.insertObjectsTitle': 'Вставить объекты из',
+  'linkDataSource.column-picker.no-all-items-shown-message.line-1':
+    'Ваш поисковый запрос дал слишком много результатов.',
+  'linkDataSource.column-picker.no-all-items-shown-message.line-2':
+    'Укажите более точные ключевые слова и повторите попытку.',
   'linkDataSource.column-picker.search': 'Поиск полей',
   'linkDataSource.jira-issues.accessInstructions': 'Чтобы запросить доступ, обратитесь к администратору.',
   'linkDataSource.jira-issues.accessRequired': 'У вас нет доступа к этому сайту',
@@ -43,14 +47,18 @@ export default {
   'linkDataSource.jira-issues.configmodal.selectedJiraSiteLabel': 'Выбран сайт {siteName}',
   'linkDataSource.jira-issues.noResultsFound': 'Ничего не найдено',
   'linkDataSource.jira-issues.refresh': 'Обновить',
-  'linkDataSource.jira-issues.unableToLoadIssues': 'Не удалось загрузить задачи',
+  'linkDataSource.jira-issues.unableToLoadItems': 'Не удалось загрузить элементы',
   'linkDataSource.jira-issues.unableToLoadResults': 'Не удалось загрузить результаты',
+  'linkDataSource.modal-initial-state.learnMoreLink': 'Подробнее о поиске с помощью JQL',
+  'linkDataSource.modal-initial-state.searchDescription': 'Начните вводить текст или используйте JQL для поиска.',
+  'linkDataSource.modal-initial-state.searchTitle': 'Поиск задач Jira',
   'linkDataSource.render-type.boolean.false': 'Нет',
   'linkDataSource.render-type.boolean.true': 'Да',
   'linkDataSource.render-type.user.default.display.name': 'Не назначено',
   'linkDataSource.table-footer.date_formatter.under_one_minute': 'Синхронизировано только что',
   'linkDataSource.table-footer.date_formatter.under_over_minute': 'Синхронизировано {date}',
-  'linkDataSource.table-footer.issue': '{issueCount, plural, one {задача} few {задачи} many {задач} other {задачи}}',
+  'linkDataSource.table-footer.item':
+    '{itemCount, plural, one {элемент} few {элемента} many {элементов} other {элемента}}',
   'linkDataSource.table-footer.loading': 'Загрузка…',
   'linkDataSource.table-footer.refresh': 'Обновить',
 };

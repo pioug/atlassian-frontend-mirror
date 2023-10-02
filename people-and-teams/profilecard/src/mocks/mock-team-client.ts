@@ -1,3 +1,4 @@
+import { handleAGGErrors } from '../client/errorUtils';
 import TeamProfileCardClient from '../client/TeamProfileCardClient';
 import { Team } from '../types';
 
@@ -6,6 +7,7 @@ export default function getMockTeamClient(data: {
   timeout: number;
   error: any;
   errorRate: number;
+  traceId: string;
 }): any {
   return class MockTeamClient extends TeamProfileCardClient {
     makeRequest(teamId: string): Promise<Team> {
@@ -18,7 +20,11 @@ export default function getMockTeamClient(data: {
       };
       if (!data.timeout) {
         if (data.error && Math.random() < data.errorRate) {
-          return Promise.reject(errorResponse);
+          try {
+            handleAGGErrors(data.error, data.traceId);
+          } catch (e) {
+            return Promise.reject(e);
+          }
         }
 
         return Promise.resolve(data.team);

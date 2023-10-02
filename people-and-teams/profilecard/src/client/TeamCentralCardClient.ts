@@ -5,7 +5,7 @@ import {
 } from '../types';
 
 import CachingClient from './CachingClient';
-import { graphqlQuery } from './graphqlUtils';
+import { directoryGraphqlQuery } from './graphqlUtils';
 
 const buildReportingLinesQuery = (aaid: string) => ({
   query: `
@@ -121,7 +121,7 @@ class TeamCentralCardClient extends CachingClient<TeamCentralReportingLinesData>
     }
     const query = buildCheckFeatureFlagQuery(featureKey, context);
 
-    const response = await graphqlQuery<{
+    const response = await directoryGraphqlQuery<{
       isFeatureEnabled: { enabled: boolean };
     }>(
       `${this.options.teamCentralUrl}?operationName=isFeatureKeyEnabled`,
@@ -140,7 +140,7 @@ class TeamCentralCardClient extends CachingClient<TeamCentralReportingLinesData>
 
     const query = buildReportingLinesQuery(userId);
 
-    const response = await graphqlQuery<{
+    const response = await directoryGraphqlQuery<{
       reportingLines: TeamCentralReportingLinesData;
     }>(`${this.options.teamCentralUrl}?operationName=ReportingLines`, query);
 

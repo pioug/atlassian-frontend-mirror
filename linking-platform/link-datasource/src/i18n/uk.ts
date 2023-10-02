@@ -21,6 +21,10 @@ export default {
   'linkDataSource.assets.configmodal.insertIssuesButtonText':
     '{objectsCount, plural, one {Вставити об’єкт(-и)} few {Вставити об’єкти} many {Вставити об’єкти} other {Вставити об’єкти}}',
   'linkDataSource.assets.configmodal.insertObjectsTitle': 'Вставка об’єктів з',
+  'linkDataSource.column-picker.no-all-items-shown-message.line-1':
+    'Для вашого пошукового запиту знайдено забагато результатів.',
+  'linkDataSource.column-picker.no-all-items-shown-message.line-2':
+    'Повторіть спробу, використовуючи специфічніші ключові слова.',
   'linkDataSource.column-picker.search': 'Пошук полів',
   'linkDataSource.jira-issues.accessInstructions': 'Щоб запитати доступ, зверніться до адміністратора.',
   'linkDataSource.jira-issues.accessRequired': 'У вас немає доступу до цього сайту',
@@ -42,15 +46,18 @@ export default {
   'linkDataSource.jira-issues.configmodal.selectedJiraSiteLabel': 'Вибрано сайт {siteName}',
   'linkDataSource.jira-issues.noResultsFound': 'Немає результатів',
   'linkDataSource.jira-issues.refresh': 'Оновити',
-  'linkDataSource.jira-issues.unableToLoadIssues': 'Не вдалося завантажити завдання',
+  'linkDataSource.jira-issues.unableToLoadItems': 'Не вдалося завантажити завдання',
   'linkDataSource.jira-issues.unableToLoadResults': 'Не вдалося завантажити результати',
+  'linkDataSource.modal-initial-state.learnMoreLink': 'Докладніше про пошук засобами JQL',
+  'linkDataSource.modal-initial-state.searchDescription': 'Почніть вводити запит або скористайтеся JQL для пошуку.',
+  'linkDataSource.modal-initial-state.searchTitle': 'Пошук завдань Jira',
   'linkDataSource.render-type.boolean.false': 'Ні',
   'linkDataSource.render-type.boolean.true': 'Так',
   'linkDataSource.render-type.user.default.display.name': 'Не призначено',
   'linkDataSource.table-footer.date_formatter.under_one_minute': 'Синхронізовано щойно',
   'linkDataSource.table-footer.date_formatter.under_over_minute': 'Синхронізація: {date}',
-  'linkDataSource.table-footer.issue':
-    '{issueCount, plural, one {завдання} few {завдання} many {завдань} other {завдання}}',
+  'linkDataSource.table-footer.item':
+    '{itemCount, plural, one {елемент} few {елементи} many {елементів} other {елементів}}',
   'linkDataSource.table-footer.loading': 'Завантаження…',
   'linkDataSource.table-footer.refresh': 'Оновити',
 };

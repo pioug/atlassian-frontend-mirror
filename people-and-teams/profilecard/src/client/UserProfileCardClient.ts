@@ -10,7 +10,7 @@ import { getPageTime } from '../util/performance';
 
 import CachingClient from './CachingClient';
 import { getErrorAttributes } from './errorUtils';
-import { graphqlQuery } from './graphqlUtils';
+import { directoryGraphqlQuery } from './graphqlUtils';
 
 /**
  * Transform response from GraphQL
@@ -99,7 +99,7 @@ export default class UserProfileCardClient extends CachingClient<any> {
 
     const query = buildUserQuery(cloudId, userId);
 
-    const response = await graphqlQuery<ApiClientResponse>(
+    const response = await directoryGraphqlQuery<ApiClientResponse>(
       this.options.url,
       query,
     );

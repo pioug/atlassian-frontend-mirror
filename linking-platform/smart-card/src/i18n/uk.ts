@@ -40,6 +40,7 @@ export default {
   'fabric.linking.delete': 'Видалити',
   'fabric.linking.download': 'Завантажити',
   'fabric.linking.edit': 'Редагувати',
+  'fabric.linking.follow': 'Підписатися',
   'fabric.linking.forbidden_access': 'У вас немає доступу',
   'fabric.linking.forbidden_description':
     'Ви не маєте доступу до цього вмісту. Якщо вам потрібен доступ, зверніться до адміністратора сайту.',
@@ -90,6 +91,8 @@ export default {
   'fabric.linking.restricted_link': 'Посилання з обмеженим доступом; спробуйте інший обліковий запис',
   'fabric.linking.retry': 'Повторити спробу',
   'fabric.linking.save': 'Зберегти',
+  'fabric.linking.sent_on_absolute': 'Надіслано {context}',
+  'fabric.linking.sent_on_relative': 'Надіслано {context}',
   'fabric.linking.srclink': 'Переглянути в',
   'fabric.linking.srclinkunknown': 'Переглянути оригінал',
   'fabric.linking.status_change_load_error': 'Не вдалося завантажити стани і їх зміни',
@@ -97,12 +100,14 @@ export default {
   'fabric.linking.status_change_update_error': 'Не вдалось оновити стан',
   'fabric.linking.try_again': 'Повторити спробу',
   'fabric.linking.try_another_account': 'Увійти з іншим обліковим запитом',
+  'fabric.linking.unassigned': 'Не призначено',
   'fabric.linking.unauthorised_account_description':
     'Ви намагаєтеся переглянути посилання на приватну сторінку {context}. Ми рекомендуємо перевірити URL-адресу або зв’язатися з власником сторінки.',
   'fabric.linking.unauthorised_account_description_no_provider':
     'Ви намагаєтеся переглянути посилання на приватну сторінку. Ми рекомендуємо перевірити URL-адресу або зв’язатися з власником сторінки.',
   'fabric.linking.unauthorised_account_name': 'Ми не можемо відображати приватні сторінки з {context}',
   'fabric.linking.unauthorised_account_name_no_provider': 'Ми не можемо відображати приватні сторінки',
+  'fabric.linking.unfollow': 'Відписатися',
   'fabric.linking.unlink_account': 'Від’єднати обліковий запис',
   'fabric.linking.updated_by': 'Автор зміни: {context}',
   'fabric.linking.view': 'Переглянути',

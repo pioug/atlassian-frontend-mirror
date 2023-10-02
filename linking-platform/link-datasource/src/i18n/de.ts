@@ -21,6 +21,9 @@ export default {
   'linkDataSource.assets.configmodal.insertIssuesButtonText':
     '{objectsCount, plural, one {Objekt einfügen} other {Objekte einfügen}}',
   'linkDataSource.assets.configmodal.insertObjectsTitle': 'Objekte einfügen aus',
+  'linkDataSource.column-picker.no-all-items-shown-message.line-1': 'Ihre Suche brachte zu viele Ergebnisse.',
+  'linkDataSource.column-picker.no-all-items-shown-message.line-2':
+    'Versuchen Sie es erneut mit konkreteren Stichwörtern.',
   'linkDataSource.column-picker.search': 'Nach Feldern suchen',
   'linkDataSource.jira-issues.accessInstructions': 'Wenden Sie sich an Ihren Administrator, um Zugriff anzufordern.',
   'linkDataSource.jira-issues.accessRequired': 'Sie haben keinen Zugriff auf diese Site.',
@@ -42,14 +45,18 @@ export default {
   'linkDataSource.jira-issues.configmodal.selectedJiraSiteLabel': '{siteName} ist ausgewählt',
   'linkDataSource.jira-issues.noResultsFound': 'Keine Ergebnisse gefunden',
   'linkDataSource.jira-issues.refresh': 'Aktualisieren',
-  'linkDataSource.jira-issues.unableToLoadIssues': 'Vorgänge konnten nicht geladen werden',
+  'linkDataSource.jira-issues.unableToLoadItems': 'Elemente konnten nicht geladen werden',
   'linkDataSource.jira-issues.unableToLoadResults': 'Ergebnisse konnten nicht geladen werden',
+  'linkDataSource.modal-initial-state.learnMoreLink': 'Weitere Informationen zur Suche mit JQL',
+  'linkDataSource.modal-initial-state.searchDescription':
+    'Um zu suchen, beginnen Sie mit der Eingabe, oder verwenden Sie JQL.',
+  'linkDataSource.modal-initial-state.searchTitle': 'Nach Jira-Vorgängen suchen',
   'linkDataSource.render-type.boolean.false': 'Nein',
   'linkDataSource.render-type.boolean.true': 'Ja',
   'linkDataSource.render-type.user.default.display.name': 'Nicht zugewiesen',
   'linkDataSource.table-footer.date_formatter.under_one_minute': 'Gerade synchronisiert',
   'linkDataSource.table-footer.date_formatter.under_over_minute': 'Synchronisiert am {date}',
-  'linkDataSource.table-footer.issue': '{issueCount, plural, one {Vorgang} other {Vorgänge}}',
+  'linkDataSource.table-footer.item': '{itemCount, plural, one {Element} other {Elemente}}',
   'linkDataSource.table-footer.loading': 'Wird geladen …',
   'linkDataSource.table-footer.refresh': 'Aktualisieren',
 };

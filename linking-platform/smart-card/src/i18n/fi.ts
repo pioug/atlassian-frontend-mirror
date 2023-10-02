@@ -40,6 +40,7 @@ export default {
   'fabric.linking.delete': 'Poista',
   'fabric.linking.download': 'Lataa',
   'fabric.linking.edit': 'Muokkaa',
+  'fabric.linking.follow': 'Seuraa',
   'fabric.linking.forbidden_access': 'Pääsy on kielletty',
   'fabric.linking.forbidden_description':
     'Sinulla ei ole tämän esikatselun käyttöoikeutta. Jos tarvitset käyttöoikeuden, ota yhteyttä sivuston ylläpitäjään.',
@@ -89,6 +90,8 @@ export default {
   'fabric.linking.restricted_link': 'Rajoitettu linkki, kokeile toista tiliä',
   'fabric.linking.retry': 'Yritä uudelleen',
   'fabric.linking.save': 'Tallenna',
+  'fabric.linking.sent_on_absolute': 'Lähetetty {context}',
+  'fabric.linking.sent_on_relative': 'Lähetetty {context}',
   'fabric.linking.srclink': 'Näytä kohteessa',
   'fabric.linking.srclinkunknown': 'Näytä alkuperäinen',
   'fabric.linking.status_change_load_error': 'Tiloja ja siirtymiä ei voitu ladata',
@@ -96,12 +99,14 @@ export default {
   'fabric.linking.status_change_update_error': 'Tilan päivitys epäonnistui',
   'fabric.linking.try_again': 'Yritä uudelleen',
   'fabric.linking.try_another_account': 'Kokeile toista tiliä',
+  'fabric.linking.unassigned': 'Määräämätön',
   'fabric.linking.unauthorised_account_description':
     'Yrität esikatsella yksityisen {context}-sivun linkkiä. Suosittelemme, että tarkistat URL-osoitteen tai otat yhteyden sivun omistajaan.',
   'fabric.linking.unauthorised_account_description_no_provider':
     'Yrität esikatsella yksityisen sivun linkkiä. Suosittelemme, että tarkistat URL-osoitteen tai otat yhteyden sivun omistajaan.',
   'fabric.linking.unauthorised_account_name': 'Yksityisiä sivuja ei voida näyttää kohteesta {context}',
   'fabric.linking.unauthorised_account_name_no_provider': 'Yksityisiä sivuja ei voida näyttää',
+  'fabric.linking.unfollow': 'Lopeta seuraaminen',
   'fabric.linking.unlink_account': 'Poista tilin linkitys',
   'fabric.linking.updated_by': 'Muokannut: {context}',
   'fabric.linking.view': 'Näytä',

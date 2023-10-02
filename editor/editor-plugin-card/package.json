@@ -47,7 +47,7 @@
     "@atlaskit/link-analytics": "^8.3.0",
     "@atlaskit/link-datasource": "^1.4.0",
     "@atlaskit/platform-feature-flags": "^0.2.0",
-    "@atlaskit/smart-card": "^26.30.0",
+    "@atlaskit/smart-card": "^26.31.0",
     "@atlaskit/theme": "^12.6.0",
     "@atlaskit/tokens": "^1.25.0",
     "@babel/runtime": "^7.0.0",

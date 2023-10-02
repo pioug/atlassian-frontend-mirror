@@ -26,6 +26,10 @@ export interface EmbedCardUnresolvedViewProps {
   testId?: string;
 }
 
+/**
+ * @deprecated {@link https://product-fabric.atlassian.net/browse/EDM-7977 Internal documentation for deprecation (no external access)}\
+ * @deprecated Replaced by unresolved-view
+ */
 export const EmbedCardUnresolvedView: FC<EmbedCardUnresolvedViewProps> = ({
   image,
   title,

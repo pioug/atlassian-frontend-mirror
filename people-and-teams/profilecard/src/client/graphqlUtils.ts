@@ -1,3 +1,7 @@
+import { HttpError } from '../util/errors';
+
+import { handleAGGErrors, handleDirectoryGraphQLErrors } from './errorUtils';
+
 const buildHeaders = () => {
   const headers = new Headers();
   headers.append('Content-Type', 'application/json');
@@ -16,6 +20,12 @@ export interface GraphQLError {
   source?: string;
   message?: string;
   traceId?: string;
+  category: string;
+  type: string;
+  path: string[];
+  extensions: {
+    errorNumber: number;
+  } & Record<string, any>;
 }
 
 type HeaderProcessor = (headers: Headers) => Headers;
@@ -26,14 +36,41 @@ const id: HeaderProcessor = (headers) => headers;
  * @param {Query} query - GraphQL query
  * @param {HeaderProcessor} processHeaders - a function to add extra headers to the request
  */
-export function graphqlQuery<D>(
+export async function directoryGraphqlQuery<D>(
   serviceUrl: string,
   query: Query,
   processHeaders: HeaderProcessor = id,
 ): Promise<D> {
+  return graphQLQuery(
+    serviceUrl,
+    query,
+    processHeaders,
+    handleDirectoryGraphQLErrors,
+  );
+}
+
+/**
+ * @param {string} serviceUrl - GraphQL service endpoint
+ * @param {Query} query - GraphQL query
+ * @param {HeaderProcessor} processHeaders - a function to add extra headers to the request
+ */
+export async function AGGQuery<D>(
+  serviceUrl: string,
+  query: Query,
+  processHeaders: HeaderProcessor = id,
+): Promise<D> {
+  return graphQLQuery(serviceUrl, query, processHeaders, handleAGGErrors);
+}
+
+async function graphQLQuery(
+  serviceUrl: string,
+  query: Query,
+  processHeaders: HeaderProcessor = id,
+  handleErrors: (errors: any, traceId: string | null) => void,
+): Promise<any> {
   const headers = processHeaders(buildHeaders());
 
-  return fetch(
+  const response = await fetch(
     new Request(serviceUrl, {
       method: 'POST',
       credentials: 'include',
@@ -41,34 +78,26 @@ export function graphqlQuery<D>(
       headers,
       body: JSON.stringify(query),
     }),
-  )
-    .then((response) => {
-      if (!response.ok) {
-        const traceIdFromHeaders = response?.headers?.get('atl-traceid');
-        return Promise.reject({
-          code: response.status,
-          reason: response.statusText,
-          traceId: traceIdFromHeaders,
-        });
-      }
+  );
 
-      return response;
-    })
-    .then((response) => response.json())
-    .then((json) => {
-      if (json.errors) {
-        return Promise.reject({
-          reason:
-            json.errors[0]?.category ||
-            json.errors[0]?.extensions?.classification ||
-            'default',
-          code: json.errors[0]?.extensions?.statusCode,
-          source: json.errors[0]?.extensions?.errorSource,
-          message: json.errors[0].message,
-          traceId: json.extensions?.gateway?.request_id,
-        });
-      }
+  const traceIdFromHeaders = response?.headers?.get('atl-traceid');
 
-      return json.data;
-    });
+  if (!response.ok) {
+    throw new HttpError(
+      response.status,
+      response.statusText,
+      traceIdFromHeaders,
+    );
+  }
+
+  const json = await response.json();
+
+  if (json.errors) {
+    handleErrors(
+      json.errors,
+      json.extensions?.gateway?.request_id ?? traceIdFromHeaders,
+    );
+  }
+
+  return json.data;
 }

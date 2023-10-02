@@ -39,6 +39,7 @@ export default {
   'fabric.linking.delete': 'Slet',
   'fabric.linking.download': 'Hent',
   'fabric.linking.edit': 'Rediger',
+  'fabric.linking.follow': 'Følg',
   'fabric.linking.forbidden_access': 'Du har ikke adgang',
   'fabric.linking.forbidden_description':
     'Du har ikke adgang til denne forhåndsvisning. Kontakt webstedets administrator, hvis du har brug for adgang.',
@@ -97,12 +98,14 @@ export default {
   'fabric.linking.status_change_update_error': 'Vi kunne ikke opdatere statussen',
   'fabric.linking.try_again': 'Prøv igen',
   'fabric.linking.try_another_account': 'Prøv en anden konto',
+  'fabric.linking.unassigned': 'Ikke tildelt',
   'fabric.linking.unauthorised_account_description':
     "Du forsøger at få vist et link til en privat {context}-side. Vi anbefaler, at du gennemgår URL'en eller kontakter sideejeren.",
   'fabric.linking.unauthorised_account_description_no_provider':
     "Du forsøger at få vist et link til en privat side. Vi anbefaler, at du gennemgår URL'en eller kontakter sideejeren.",
   'fabric.linking.unauthorised_account_name': 'Vi kan ikke vise private sider fra {context}',
   'fabric.linking.unauthorised_account_name_no_provider': 'Vi kan ikke vise private sider',
+  'fabric.linking.unfollow': 'Ophør med at følge',
   'fabric.linking.unlink_account': 'Fjern link til konto',
   'fabric.linking.updated_by': 'Ændret af {context}',
   'fabric.linking.view': 'Vis',

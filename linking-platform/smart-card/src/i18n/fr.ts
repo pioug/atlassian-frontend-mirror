@@ -40,6 +40,7 @@ export default {
   'fabric.linking.delete': 'Supprimer',
   'fabric.linking.download': 'Télécharger',
   'fabric.linking.edit': 'Modifier',
+  'fabric.linking.follow': 'Suivre',
   'fabric.linking.forbidden_access': "Vous n'avez pas accès à cette ressource",
   'fabric.linking.forbidden_description':
     "Vous n'avez pas accès à cet aperçu. Contactez l'administrateur de site si vous avez besoin d'y accéder.",
@@ -89,6 +90,8 @@ export default {
   'fabric.linking.restricted_link': 'Lien restreint, essayez un autre compte',
   'fabric.linking.retry': 'Réessayer',
   'fabric.linking.save': 'Enregistrer',
+  'fabric.linking.sent_on_absolute': 'Envoyée le {context}',
+  'fabric.linking.sent_on_relative': 'Envoyée {context}',
   'fabric.linking.srclink': 'Afficher dans',
   'fabric.linking.srclinkunknown': "Afficher l'original",
   'fabric.linking.status_change_load_error': 'Impossible de charger les états et les transitions',
@@ -96,12 +99,14 @@ export default {
   'fabric.linking.status_change_update_error': "Impossible de mettre à jour l'état",
   'fabric.linking.try_again': 'Réessayez',
   'fabric.linking.try_another_account': 'Essayez un autre compte',
+  'fabric.linking.unassigned': 'Non assigné',
   'fabric.linking.unauthorised_account_description':
     "Vous essayez de prévisualiser un lien vers une page {context} privée. Nous vous recommandons d'examiner l'URL ou de contacter le propriétaire de la page.",
   'fabric.linking.unauthorised_account_description_no_provider':
     "Vous essayez de prévisualiser un lien vers une page privée. Nous vous recommandons d'examiner l'URL ou de contacter le propriétaire de la page.",
   'fabric.linking.unauthorised_account_name': "Impossible d'afficher les pages privées de {context}",
   'fabric.linking.unauthorised_account_name_no_provider': "Impossible d'afficher les pages privées",
+  'fabric.linking.unfollow': 'Ne plus suivre',
   'fabric.linking.unlink_account': 'Dissocier le compte',
   'fabric.linking.updated_by': 'Modification par {context}',
   'fabric.linking.view': 'Afficher',

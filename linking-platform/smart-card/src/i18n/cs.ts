@@ -39,6 +39,7 @@ export default {
   'fabric.linking.delete': 'Odstranit',
   'fabric.linking.download': 'Stáhnout',
   'fabric.linking.edit': 'Upravit',
+  'fabric.linking.follow': 'Sledovat',
   'fabric.linking.forbidden_access': 'Přístup byl odepřen',
   'fabric.linking.forbidden_description':
     'K tomuto náhledu nemáte přístup. Pokud potřebujete přístup, obraťte se na správce webu.',
@@ -90,6 +91,8 @@ export default {
   'fabric.linking.restricted_link': 'Omezený odkaz, zkuste jiný účet.',
   'fabric.linking.retry': 'Zkusit znovu',
   'fabric.linking.save': 'Uložit',
+  'fabric.linking.sent_on_absolute': 'Odesláno {context}',
+  'fabric.linking.sent_on_relative': 'Odesláno {context}',
   'fabric.linking.srclink': 'Zobrazit v',
   'fabric.linking.srclinkunknown': 'Zobrazit originál',
   'fabric.linking.status_change_load_error': 'Načtení stavů a přechodů se nezdařilo',
@@ -97,12 +100,14 @@ export default {
   'fabric.linking.status_change_update_error': 'Aktualizace stavu se nezdařila',
   'fabric.linking.try_again': 'Zkusit znovu',
   'fabric.linking.try_another_account': 'Zkuste jiný účet',
+  'fabric.linking.unassigned': 'Nepřiřazeno',
   'fabric.linking.unauthorised_account_description':
     'Pokoušíte se zobrazit náhled odkazu na soukromou stránku ze zdroje {context}. Doporučujeme zkontrolovat adresu URL nebo kontaktovat vlastníka stránky.',
   'fabric.linking.unauthorised_account_description_no_provider':
     'Pokoušíte se zobrazit náhled odkazu na soukromou stránku. Doporučujeme zkontrolovat adresu URL nebo kontaktovat vlastníka stránky.',
   'fabric.linking.unauthorised_account_name': 'Soukromé stránky ze zdroje {context} nejde zobrazit.',
   'fabric.linking.unauthorised_account_name_no_provider': 'Soukromé stránky nejde zobrazit.',
+  'fabric.linking.unfollow': 'Přestat sledovat',
   'fabric.linking.unlink_account': 'Odpojit účet',
   'fabric.linking.updated_by': 'Upravil(a) {context}',
   'fabric.linking.view': 'Zobrazit',

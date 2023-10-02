@@ -22,6 +22,10 @@ export default {
   'linkDataSource.assets.configmodal.insertIssuesButtonText':
     '{objectsCount, plural, one {⁣⁢Insert object؜⁪⁭‌؜‌⁯⁮؜⁭؜⁮⁪⁡⁬؜⁪⁫⁠⁪⁭⁪‌⁣⁤} other {⁣⁢Insert objects؜⁪⁭‌؜‌⁯⁮؜⁭؜⁮⁪⁡⁬؜⁪⁫⁠⁪⁭⁪‌⁣⁤}}',
   'linkDataSource.assets.configmodal.insertObjectsTitle': '⁣⁢Insert objects from⁫‍؜‌⁭⁠⁬؜⁠؜⁪⁡‌⁬⁯⁯‍⁯⁪⁫⁣⁤',
+  'linkDataSource.column-picker.no-all-items-shown-message.line-1':
+    '⁣⁢Your search returned too many results.⁡⁬⁫؜⁠⁯؜⁬⁡‌⁯⁫⁮⁪⁡‌‍‍؜⁫⁬⁭‌⁯⁣⁤',
+  'linkDataSource.column-picker.no-all-items-shown-message.line-2':
+    '⁣⁢Try again with more specific keywords.⁮⁡⁬⁬⁪⁡‍⁯⁠⁭⁯⁮⁮⁭⁪‍⁯‍⁪⁮⁪⁫⁣⁤',
   'linkDataSource.column-picker.search': '⁣⁢Search for fields⁭⁮⁡⁪⁠‌‍⁫؜⁪⁬⁫؜⁡⁯⁭⁡⁬⁬⁫⁠⁡‌‍⁣⁤',
   'linkDataSource.jira-issues.accessInstructions': '⁣⁢To request access, contact your admin.‌‌⁬⁫⁭⁫؜‍؜⁡⁯⁬‍⁮⁯⁠‌⁡‍⁯‌⁮⁣⁤',
   'linkDataSource.jira-issues.accessRequired': "⁣⁢You don't have access to this site⁪⁡⁭⁠‌‌⁮⁠⁯⁯⁡⁪⁬؜‌⁫⁬⁯‌؜⁭⁭⁭⁮‍⁣⁤",
@@ -46,15 +50,18 @@ export default {
   'linkDataSource.jira-issues.configmodal.selectedJiraSiteLabel': '⁣⁢{siteName} is selected⁮⁮‌⁠⁡⁪⁯⁬⁠⁭؜⁬⁫⁬⁪⁫‍⁠⁪⁪‍⁬⁪؜⁮⁣⁤',
   'linkDataSource.jira-issues.noResultsFound': '⁣⁢No results found؜⁮؜‌⁬⁡⁮⁯⁭⁡⁪‍⁭⁯؜⁡⁮؜؜⁡⁠⁣⁤',
   'linkDataSource.jira-issues.refresh': '⁣⁢Refresh؜⁠⁫⁯؜⁬⁠⁡⁡⁮⁬⁫⁯⁡⁫⁪‍⁭⁭⁪⁪⁭؜⁫؜⁣⁤',
-  'linkDataSource.jira-issues.unableToLoadIssues': '⁣⁢Unable to load issues⁭⁠⁠⁬⁡⁮‍⁡‍‍⁮؜⁯⁫⁯⁠⁡⁪⁭⁮⁡⁫⁣⁤',
+  'linkDataSource.jira-issues.unableToLoadItems': '⁣⁢Unable to load items⁪⁮⁠⁠⁮⁭⁭⁪⁫⁠‌‌⁠‌⁯⁮⁯‌⁠⁠⁯؜؜⁫⁣⁤',
   'linkDataSource.jira-issues.unableToLoadResults': '⁣⁢Unable to load results؜؜‌⁠‌⁡⁪⁫⁯⁪⁬⁫⁪⁮⁮؜‍⁪⁯⁬‍⁠‌‌⁣⁤',
+  'linkDataSource.modal-initial-state.learnMoreLink': '⁣⁢Learn more about searching with JQL⁫⁬‌⁫‍‌⁫⁫⁡⁮‌‌‍⁭⁠⁮⁬⁡⁫⁫⁯‍⁣⁤',
+  'linkDataSource.modal-initial-state.searchDescription': '⁣⁢Start typing or use JQL to search.⁯⁬⁫؜⁠؜⁭‍‍⁠⁬⁭‍‌‍⁭⁭؜⁡؜⁣⁤',
+  'linkDataSource.modal-initial-state.searchTitle': '⁣⁢Search for Jira issues⁠⁯⁬؜⁬⁡⁭⁭‌‍⁮⁫⁫⁭⁪⁡‍⁪⁬‍⁫⁣⁤',
   'linkDataSource.render-type.boolean.false': '⁣⁢No⁪⁡⁠؜⁡⁮⁡⁫؜⁮⁯⁠⁯⁠⁮⁭⁪⁠⁫؜⁪⁣⁤',
   'linkDataSource.render-type.boolean.true': '⁣⁢Yes‍⁫⁫⁬⁠⁡⁠⁡⁪⁬⁡⁭⁭⁡‍⁫⁫؜‍⁪⁪؜⁮⁬⁣⁤',
   'linkDataSource.render-type.user.default.display.name': '⁣⁢Unassigned‍⁫⁡⁡‌⁠⁡‌⁪⁫⁡⁪⁭⁡⁫⁮⁮⁫⁯⁮⁣⁤',
   'linkDataSource.table-footer.date_formatter.under_one_minute': '⁣⁢Synced just now⁪‌‌‌‍⁬⁫⁭⁫⁬⁡⁠⁫⁭؜⁪⁪؜⁬‍⁮؜⁪⁠⁭⁫⁣⁤',
   'linkDataSource.table-footer.date_formatter.under_over_minute': '⁣⁢Synced {date}‌⁯⁯⁬⁮⁯⁫؜⁮⁯⁬⁠⁠⁮⁡⁭؜⁠؜⁯‌⁣⁤',
-  'linkDataSource.table-footer.issue':
-    '{issueCount, plural, one {⁣⁢issue⁭⁯؜⁮⁠‍⁭؜‍⁮⁠⁪؜⁮⁫‌‌⁯‌⁪⁠⁮⁫⁮⁯⁣⁤} other {⁣⁢issues⁭⁯؜⁮⁠‍⁭؜‍⁮⁠⁪؜⁮⁫‌‌⁯‌⁪⁠⁮⁫⁮⁯⁣⁤}}',
+  'linkDataSource.table-footer.item':
+    '{itemCount, plural, one {⁣⁢item⁪⁫‍⁭⁫⁠⁫⁪‌⁬⁮‍⁮⁮⁠⁯⁮؜⁣⁤} other {⁣⁢items⁪⁫‍⁭⁫⁠⁫⁪‌⁬⁮‍⁮⁮⁠⁯⁮؜⁣⁤}}',
   'linkDataSource.table-footer.loading': '⁣⁢Loading...⁠⁠⁠؜؜⁭⁡‍؜‍⁫‍⁠⁬⁭⁬⁬⁠⁬⁡⁠⁮؜⁣⁤',
   'linkDataSource.table-footer.refresh': '⁣⁢Refresh⁠⁫⁡⁫‍⁡⁭⁠⁬⁠⁠⁪⁠‌؜‌⁮⁬⁪⁪⁪⁫⁣⁤',
 };

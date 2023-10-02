@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 26.31.0
+
+### Minor Changes
+
+- [#40428](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40428) [`a3343c6feb4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a3343c6feb4) - [ux] Add cross-join embed forbidden view (behind feature flag)
+
 ## 26.30.0
 
 ### Minor Changes

@@ -39,6 +39,7 @@ export default {
   'fabric.linking.delete': 'ลบ',
   'fabric.linking.download': 'ดาวน์โหลด',
   'fabric.linking.edit': 'แก้ไข',
+  'fabric.linking.follow': 'ติดตาม',
   'fabric.linking.forbidden_access': 'คุณไม่มีสิทธิ์เข้าถึง',
   'fabric.linking.forbidden_description':
     'คุณไม่มีสิทธิ์เข้าถึงตัวอย่างนี้ โปรดติดต่อผู้ดูแลระบบเว็บไซต์หากคุณต้องการสิทธิ์การเข้าถึง',
@@ -87,6 +88,8 @@ export default {
   'fabric.linking.restricted_link': 'ลิงก์ถูกจำกัดการเข้าถึง โปรดลองใช้บัญชีอื่น',
   'fabric.linking.retry': 'ลองอีกครั้ง',
   'fabric.linking.save': 'บันทึก',
+  'fabric.linking.sent_on_absolute': 'ส่งเมื่อ {context}',
+  'fabric.linking.sent_on_relative': 'ส่ง {context} ที่แล้ว',
   'fabric.linking.srclink': 'ดูใน',
   'fabric.linking.srclinkunknown': 'ดูต้นฉบับ',
   'fabric.linking.status_change_load_error': 'เราไม่สามารถโหลดสถานะและการเปลี่ยนย้ายได้',
@@ -94,12 +97,14 @@ export default {
   'fabric.linking.status_change_update_error': 'เราไม่สามารถอัปเดตสถานะได้',
   'fabric.linking.try_again': 'ลองอีกครั้ง',
   'fabric.linking.try_another_account': 'ลองบัญชีอื่น',
+  'fabric.linking.unassigned': 'ยังไม่ได้มอบหมาย',
   'fabric.linking.unauthorised_account_description':
     'คุณกำลังพยายามแสดงตัวอย่างลิงก์ไปยังหน้าข้อมูล {context} เราขอแนะนำให้คุณตรวจสอบ URL หรือติดต่อเจ้าของหน้าข้อมูล',
   'fabric.linking.unauthorised_account_description_no_provider':
     'คุณกำลังพยายามแสดงตัวอย่างลิงก์ไปยังหน้าข้อมูลส่วนตัว เราขอแนะนำให้คุณตรวจสอบ URL หรือติดต่อเจ้าของหน้าข้อมูล',
   'fabric.linking.unauthorised_account_name': 'เราไม่สามารถแสดงหน้าข้อมูลส่วนตัวจาก {context} ได้',
   'fabric.linking.unauthorised_account_name_no_provider': 'เราไม่สามารถแสดงหน้าข้อมูลส่วนตัวได้',
+  'fabric.linking.unfollow': 'ยกเลิกการติดตาม',
   'fabric.linking.unlink_account': 'ยกเลิกการเชื่อมโยงบัญชี',
   'fabric.linking.updated_by': 'แก้ไขแล้วโดย {context}',
   'fabric.linking.view': 'ดู',

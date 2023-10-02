@@ -54,6 +54,7 @@ const mockResourceClient: unknown = {
 describe('TeamProfileCardTrigger', () => {
   describe('Open and close conditions', () => {
     beforeEach(() => {
+      jest.clearAllMocks();
       createAnalyticsEvent.mockClear();
       jest.useFakeTimers();
     });
@@ -490,6 +491,7 @@ describe('TeamProfileCardTrigger', () => {
         timeout: 0,
         error: undefined,
         errorRate: 0,
+        traceId: '123',
       });
 
       const clientArgs = {
@@ -536,18 +538,21 @@ describe('TeamProfileCardTrigger', () => {
     });
 
     it('Request failure analytics', async () => {
-      const error = {
-        reason: 'Bad request',
-        code: 400,
-        source: 'UNDERLYING_SERVICE',
-        message: 'An error occurred',
-        traceId: '123',
-      };
+      const error = [
+        {
+          message: 'Bad request',
+          extensions: {
+            statusCode: 400,
+            errorType: 'UNDERLYING_SERVICE',
+          },
+        },
+      ];
       const MockTeamClient = getMockTeamClient({
         team: sampleProfile,
         timeout: 0,
         error,
         errorRate: 1,
+        traceId: '123',
       });
 
       const clientArgs = {
@@ -587,13 +592,19 @@ describe('TeamProfileCardTrigger', () => {
         flexiTime(
           teamRequestAnalytics('failed', {
             duration: expect.anything(),
-            errorReason: error.reason,
-            errorMessage: error.message,
-            errorSource: error.source,
-            errorStatus: error.code,
-            traceId: error.traceId,
+            errorCount: 1,
+            errorMessage: 'AGGErrors',
+            errorDetails: [
+              {
+                errorMessage: 'Bad request',
+                errorType: 'UNDERLYING_SERVICE',
+                errorStatusCode: 400,
+                isSLOFailure: true,
+              },
+            ],
             gateway: true,
             isSLOFailure: true,
+            traceId: '123',
           }),
         ),
       );

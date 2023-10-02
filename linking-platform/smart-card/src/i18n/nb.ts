@@ -39,6 +39,7 @@ export default {
   'fabric.linking.delete': 'Slett',
   'fabric.linking.download': 'Last ned',
   'fabric.linking.edit': 'Rediger',
+  'fabric.linking.follow': 'Følg',
   'fabric.linking.forbidden_access': 'Du har ikke tilgang',
   'fabric.linking.forbidden_description':
     'Du har ikke tilgang til denne forhåndsvisningen. Ta kontakt med nettstedets administrator hvis du trenger tilgang.',
@@ -88,6 +89,8 @@ export default {
   'fabric.linking.restricted_link': 'Begrenset kobling, prøv en annen konto',
   'fabric.linking.retry': 'Prøv igjen',
   'fabric.linking.save': 'Lagre',
+  'fabric.linking.sent_on_absolute': 'Sendt {context}',
+  'fabric.linking.sent_on_relative': 'Sendt {context}',
   'fabric.linking.srclink': 'Se i',
   'fabric.linking.srclinkunknown': 'Vis original',
   'fabric.linking.status_change_load_error': 'Vi kan ikke laste inn statuser og overføringer',
@@ -95,12 +98,14 @@ export default {
   'fabric.linking.status_change_update_error': 'Vi kan ikke oppdatere statusen',
   'fabric.linking.try_again': 'Prøv på nytt',
   'fabric.linking.try_another_account': 'Prøv en annen konto',
+  'fabric.linking.unassigned': 'Ikke tilordnet',
   'fabric.linking.unauthorised_account_description':
     'Du prøver å forhåndsvise en kobling til en privat {context}-side. Vi anbefaler at du sjekker nettadressen eller kontakter sideeieren.',
   'fabric.linking.unauthorised_account_description_no_provider':
     'Du prøver å forhåndsvise en kobling til en privat side. Vi anbefaler at du sjekker nettadressen eller kontakter sideeieren.',
   'fabric.linking.unauthorised_account_name': 'Vi kan ikke vise private sider fra {context}',
   'fabric.linking.unauthorised_account_name_no_provider': 'Vi kan ikke vise private sider',
+  'fabric.linking.unfollow': 'Slutt å følge',
   'fabric.linking.unlink_account': 'Fjern kobling fra konto',
   'fabric.linking.updated_by': 'Endret av {context}',
   'fabric.linking.view': 'Vis',

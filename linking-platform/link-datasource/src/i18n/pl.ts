@@ -21,6 +21,9 @@ export default {
   'linkDataSource.assets.configmodal.insertIssuesButtonText':
     '{objectsCount, plural, one {Wstaw obiekt} few {Wstaw obiekty} many {Wstaw obiekty} other {Wstaw obiekty}}',
   'linkDataSource.assets.configmodal.insertObjectsTitle': 'Wstawianie obiektów z',
+  'linkDataSource.column-picker.no-all-items-shown-message.line-1': 'Wyszukiwanie zwróciło zbyt wiele wyników.',
+  'linkDataSource.column-picker.no-all-items-shown-message.line-2':
+    'Spróbuj ponownie z bardziej szczegółowymi słowami kluczowymi.',
   'linkDataSource.column-picker.search': 'Wyszukaj pola',
   'linkDataSource.jira-issues.accessInstructions': 'Aby poprosić o dostęp, skontaktuj się z administratorem.',
   'linkDataSource.jira-issues.accessRequired': 'Nie masz dostępu do tej witryny',
@@ -42,15 +45,19 @@ export default {
   'linkDataSource.jira-issues.configmodal.selectedJiraSiteLabel': 'Wybrano witrynę {siteName}',
   'linkDataSource.jira-issues.noResultsFound': 'Nie znaleziono wyników',
   'linkDataSource.jira-issues.refresh': 'Odśwież',
-  'linkDataSource.jira-issues.unableToLoadIssues': 'Nie można załadować zgłoszeń',
+  'linkDataSource.jira-issues.unableToLoadItems': 'Nie można załadować elementów',
   'linkDataSource.jira-issues.unableToLoadResults': 'Nie można załadować wyników',
+  'linkDataSource.modal-initial-state.learnMoreLink':
+    'Dowiedz się więcej na temat wyszukiwania przy użyciu zapytań JQL',
+  'linkDataSource.modal-initial-state.searchDescription': 'Zacznij wpisywać lub użyj języka JQL, aby wyszukać.',
+  'linkDataSource.modal-initial-state.searchTitle': 'Wyszukaj zgłoszenia Jira',
   'linkDataSource.render-type.boolean.false': 'Nie',
   'linkDataSource.render-type.boolean.true': 'Tak',
   'linkDataSource.render-type.user.default.display.name': 'Nieprzydzielone',
   'linkDataSource.table-footer.date_formatter.under_one_minute': 'Właśnie zsynchronizowano',
   'linkDataSource.table-footer.date_formatter.under_over_minute': 'Zsynchronizowano {date}',
-  'linkDataSource.table-footer.issue':
-    '{issueCount, plural, one {zgłoszenie} few {zgłoszenia} many {zgłoszeń} other {zgłoszenia}}',
+  'linkDataSource.table-footer.item':
+    '{itemCount, plural, one {element} few {elementy} many {elementów} other {elementu}}',
   'linkDataSource.table-footer.loading': 'Ładowanie…',
   'linkDataSource.table-footer.refresh': 'Odśwież',
 };

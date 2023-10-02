@@ -7,7 +7,6 @@ import { getPageTime } from '../util/performance';
 import CachingClient from './CachingClient';
 import { getErrorAttributes } from './errorUtils';
 import { getTeamFromAGG } from './getTeamFromAGG';
-import { GraphQLError } from './graphqlUtils';
 
 export default class TeamProfileCardClient extends CachingClient<Team> {
   options: ProfileClientOptions;
@@ -68,7 +67,7 @@ export default class TeamProfileCardClient extends CachingClient<Team> {
           }
           resolve(data);
         })
-        .catch((error: GraphQLError) => {
+        .catch((error: unknown) => {
           if (analytics) {
             analytics(
               teamRequestAnalytics('failed', {

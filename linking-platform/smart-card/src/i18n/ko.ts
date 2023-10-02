@@ -38,6 +38,7 @@ export default {
   'fabric.linking.delete': '삭제',
   'fabric.linking.download': '다운로드',
   'fabric.linking.edit': '편집',
+  'fabric.linking.follow': '팔로우',
   'fabric.linking.forbidden_access': '액세스가 금지되었습니다',
   'fabric.linking.forbidden_description':
     '이 미리 보기에 액세스할 수 없습니다. 액세스가 필요한 경우 사이트 관리자에게 문의하세요.',
@@ -71,8 +72,8 @@ export default {
   'fabric.linking.priority_lowest': '가장 낮음',
   'fabric.linking.priority_major': '주요',
   'fabric.linking.priority_medium': '보통',
-  'fabric.linking.priority_minor': '경미함',
-  'fabric.linking.priority_trivial': '사소함',
+  'fabric.linking.priority_minor': '사소함',
+  'fabric.linking.priority_trivial': '경미함',
   'fabric.linking.priority_undefined': '정의되지 않음',
   'fabric.linking.read_time': '{context}분 읽기',
   'fabric.linking.request_access': '액세스 요청',
@@ -95,12 +96,14 @@ export default {
   'fabric.linking.status_change_update_error': '상태를 업데이트할 수 없습니다',
   'fabric.linking.try_again': '다시 시도',
   'fabric.linking.try_another_account': '다른 계정으로 시도해 보세요.',
+  'fabric.linking.unassigned': '할당되지 않음',
   'fabric.linking.unauthorised_account_description':
     '비공개 {context} 페이지의 링크를 미리 보려고 하고 있습니다. URL을 검토하거나 페이지 소유자에게 문의하는 것이 좋습니다.',
   'fabric.linking.unauthorised_account_description_no_provider':
     '비공개 페이지의 링크를 미리 보려고 하고 있습니다. URL을 검토하거나 페이지 소유자에게 문의하는 것이 좋습니다.',
   'fabric.linking.unauthorised_account_name': '{context}의 비공개 페이지는 표시할 수 없습니다',
   'fabric.linking.unauthorised_account_name_no_provider': '비공개 페이지를 표시할 수 없습니다',
+  'fabric.linking.unfollow': '팔로우 취소',
   'fabric.linking.unlink_account': '계정 연결 해제',
   'fabric.linking.updated_by': '수정한 사용자: {context}',
   'fabric.linking.view': '보기',

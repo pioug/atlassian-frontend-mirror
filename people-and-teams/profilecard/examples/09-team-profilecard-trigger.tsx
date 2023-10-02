@@ -36,11 +36,13 @@ const teamClientData: {
   timeout: number;
   error: any;
   errorRate: number;
+  traceId: string;
 } = {
   team: myTeamData,
   timeout: 500,
   error: {},
   errorRate: 0,
+  traceId: 'trace-id',
 };
 
 const MockTeamClient = getMockTeamClient(teamClientData);

@@ -1,33 +1,11 @@
 import React from 'react';
 
 import VRTestWrapper from '../utils/vr-test-wrapper';
-import { ProviderProps, SmartCardProvider } from '@atlaskit/link-provider';
-import { Card, CardProps } from '@atlaskit/smart-card';
+import CardView, { CardViewProps } from './card-view';
 
-type VRCardViewProps = {
-  appearance: CardProps['appearance'];
-  client: ProviderProps['client'];
-  url?: CardProps['url'];
-};
-
-const VRCardView: React.FC<VRCardViewProps> = ({
-  appearance,
-  client,
-  url = 'https://some.url',
-}) => (
+const VRCardView: React.FC<CardViewProps> = (props) => (
   <VRTestWrapper>
-    <SmartCardProvider
-      client={client}
-      featureFlags={{ enableFlexibleBlockCard: true }}
-    >
-      <Card
-        appearance={appearance}
-        showServerActions={true}
-        url={url}
-        /* Embed-specific props */
-        frameStyle="show"
-      />
-    </SmartCardProvider>
+    <CardView {...props} />
   </VRTestWrapper>
 );
 

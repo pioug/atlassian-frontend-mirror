@@ -40,6 +40,7 @@ export default {
   'fabric.linking.delete': 'Удалить',
   'fabric.linking.download': 'Скачать',
   'fabric.linking.edit': 'Изменить',
+  'fabric.linking.follow': 'Подписаться',
   'fabric.linking.forbidden_access': 'Доступ запрещен',
   'fabric.linking.forbidden_description':
     'У вас нет доступа к предварительному просмотру. Если вам требуется доступ, обратитесь к администратору сайта.',
@@ -98,12 +99,14 @@ export default {
   'fabric.linking.status_change_update_error': 'Не удалось обновить статус',
   'fabric.linking.try_again': 'Повторить попытку',
   'fabric.linking.try_another_account': 'Попробуйте использовать другой аккаунт',
+  'fabric.linking.unassigned': 'Не назначено',
   'fabric.linking.unauthorised_account_description':
     'Вы пытаетесь перейти к предварительному просмотру ссылки на приватную страницу {context}. Рекомендуется проверить URL-адрес или связаться с владельцем страницы.',
   'fabric.linking.unauthorised_account_description_no_provider':
     'Вы пытаетесь перейти к предварительному просмотру ссылки на приватную страницу. Рекомендуется проверить URL-адрес или связаться с владельцем страницы.',
   'fabric.linking.unauthorised_account_name': 'Приватные страницы {context} недоступны для отображения',
   'fabric.linking.unauthorised_account_name_no_provider': 'Приватные страницы недоступны для отображения',
+  'fabric.linking.unfollow': 'Отписаться',
   'fabric.linking.unlink_account': 'Отменить связь с аккаунтом',
   'fabric.linking.updated_by': 'Изменено: {context}',
   'fabric.linking.view': 'Просмотреть',

@@ -39,6 +39,7 @@ export default {
   'fabric.linking.delete': 'Sil',
   'fabric.linking.download': 'İndir',
   'fabric.linking.edit': 'Düzenle',
+  'fabric.linking.follow': 'Takip Et',
   'fabric.linking.forbidden_access': 'Erişiminiz yasak',
   'fabric.linking.forbidden_description':
     'Bu önizlemeye erişiminiz yok. Erişim gerekliyse site yöneticisiyle iletişime geçin.',
@@ -88,6 +89,8 @@ export default {
   'fabric.linking.restricted_link': 'Sınırlı bağlantı, başka bir hesap deneyin',
   'fabric.linking.retry': 'Yeniden Dene',
   'fabric.linking.save': 'Kaydet',
+  'fabric.linking.sent_on_absolute': 'Gönderilme: {context}',
+  'fabric.linking.sent_on_relative': '{context} gönderildi',
   'fabric.linking.srclink': 'Şurada görüntüleyin:',
   'fabric.linking.srclinkunknown': 'Orijinalini Görüntüleyin',
   'fabric.linking.status_change_load_error': 'Durumlar ve durum değişiklikleri yüklenemedi',
@@ -95,12 +98,14 @@ export default {
   'fabric.linking.status_change_update_error': 'Durum güncellenemedi',
   'fabric.linking.try_again': 'Yeniden dene',
   'fabric.linking.try_another_account': 'Başka bir hesapla deneyin',
+  'fabric.linking.unassigned': 'Atanmamış',
   'fabric.linking.unauthorised_account_description':
     "Özel bir {context} sayfasına olan bir bağlantıyı önizlemeye çalışıyorsunuz. URL'yi incelemenizi veya sayfa sahibiyle iletişime geçmenizi öneririz.",
   'fabric.linking.unauthorised_account_description_no_provider':
     "Özel bir sayfaya olan bir bağlantıyı önizlemeye çalışıyorsunuz. URL'yi incelemenizi veya sayfa sahibiyle iletişime geçmenizi öneririz.",
   'fabric.linking.unauthorised_account_name': '{context} üzerindeki özel sayfalar görüntülenemiyor',
   'fabric.linking.unauthorised_account_name_no_provider': 'Özel sayfalar görüntülenemiyor',
+  'fabric.linking.unfollow': 'Takibi bırak',
   'fabric.linking.unlink_account': 'Hesabın Bağlantısını Kaldır',
   'fabric.linking.updated_by': '{context} tarafından değiştirildi',
   'fabric.linking.view': 'Görüntüle',

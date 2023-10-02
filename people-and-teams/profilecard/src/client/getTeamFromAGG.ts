@@ -2,7 +2,7 @@ import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import type { Team } from '../types';
 
-import { graphqlQuery } from './graphqlUtils';
+import { AGGQuery } from './graphqlUtils';
 
 interface AGGTeam extends Omit<Team, 'members'> {
   members?: {
@@ -114,11 +114,7 @@ export async function getTeamFromAGG(
     siteId,
   });
 
-  const { Team } = await graphqlQuery<{ Team: AGGResult }>(
-    url,
-    query,
-    addHeaders,
-  );
+  const { Team } = await AGGQuery<{ Team: AGGResult }>(url, query, addHeaders);
 
   return convertTeam(Team);
 }

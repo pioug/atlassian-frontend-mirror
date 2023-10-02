@@ -39,6 +39,7 @@ export default {
   'fabric.linking.delete': 'Radera',
   'fabric.linking.download': 'Ladda ner',
   'fabric.linking.edit': 'Redigera',
+  'fabric.linking.follow': 'Följ',
   'fabric.linking.forbidden_access': 'Din åtkomst är förbjuden',
   'fabric.linking.forbidden_description':
     'Du har inte behörighet för den här förhandsgranskningen. Kontakta webbplatsadministratören om du behöver åtkomst.',
@@ -88,6 +89,8 @@ export default {
   'fabric.linking.restricted_link': 'Begränsad länk, prova ett annat konto',
   'fabric.linking.retry': 'Försök igen',
   'fabric.linking.save': 'Spara',
+  'fabric.linking.sent_on_absolute': 'Skickades den {context}',
+  'fabric.linking.sent_on_relative': 'Skickades för {context}',
   'fabric.linking.srclink': 'Visa i',
   'fabric.linking.srclinkunknown': 'Visa original',
   'fabric.linking.status_change_load_error': 'Vi kunde inte läsa in statusar och övergångar',
@@ -95,12 +98,14 @@ export default {
   'fabric.linking.status_change_update_error': 'Vi kunde inte uppdatera statusen',
   'fabric.linking.try_again': 'Försök igen',
   'fabric.linking.try_another_account': 'Försök med ett annat konto',
+  'fabric.linking.unassigned': 'Ej tilldelad',
   'fabric.linking.unauthorised_account_description':
     'Du försöker att förhandsgranska en länk till en privat {context}-sida. Vi rekommenderar att du granskar webbadressen eller kontaktar sidans ägare.',
   'fabric.linking.unauthorised_account_description_no_provider':
     'Du försöker att förhandsgranska en länk till en privat sida. Vi rekommenderar att du granskar webbadressen eller kontaktar sidans ägare.',
   'fabric.linking.unauthorised_account_name': 'Vi kan inte visa privata sidor från {context}',
   'fabric.linking.unauthorised_account_name_no_provider': 'Vi kan inte visa privata sidor',
+  'fabric.linking.unfollow': 'Sluta följa',
   'fabric.linking.unlink_account': 'Ta bort kontolänk',
   'fabric.linking.updated_by': 'Ändrad av {context}',
   'fabric.linking.view': 'Visa',

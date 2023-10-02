@@ -39,6 +39,7 @@ export default {
   'fabric.linking.delete': 'Löschen',
   'fabric.linking.download': 'Herunterladen',
   'fabric.linking.edit': 'Bearbeiten',
+  'fabric.linking.follow': 'Folgen',
   'fabric.linking.forbidden_access': 'Sie sind nicht zugriffsberechtigt',
   'fabric.linking.forbidden_description':
     'Sie haben keinen Zugriff auf diese Vorschau. Wenden Sie sich an Ihren Administrator, falls Sie noch Zugriff benötigen.',
@@ -89,6 +90,8 @@ export default {
   'fabric.linking.restricted_link': 'Eingeschränkter Link, bitte versuchen Sie es mit einem anderen Konto.',
   'fabric.linking.retry': 'Erneut versuchen',
   'fabric.linking.save': 'Speichern',
+  'fabric.linking.sent_on_absolute': 'Gesendet am {context}',
+  'fabric.linking.sent_on_relative': 'Gesendet: {context}',
   'fabric.linking.srclink': 'Anzeigen in',
   'fabric.linking.srclinkunknown': 'Original anzeigen',
   'fabric.linking.status_change_load_error': 'Status und Übergänge konnten nicht geladen werden',
@@ -96,12 +99,14 @@ export default {
   'fabric.linking.status_change_update_error': 'Der Status konnte nicht aktualisiert werden',
   'fabric.linking.try_again': 'Versuchen Sie es erneut.',
   'fabric.linking.try_another_account': 'Versuchen Sie es mit einem anderen Konto erneut.',
+  'fabric.linking.unassigned': 'Nicht zugewiesen',
   'fabric.linking.unauthorised_account_description':
     'Sie versuchen, die Vorschau eines Links zu einer privaten {context}-Seite anzuzeigen. Überprüfen Sie die URL oder wenden Sie sich an den Seitenbesitzer.',
   'fabric.linking.unauthorised_account_description_no_provider':
     'Sie versuchen, die Vorschau eines Links zu einer privaten Seite anzuzeigen. Überprüfen Sie die URL oder wenden Sie sich an den Seitenbesitzer.',
   'fabric.linking.unauthorised_account_name': 'Private Seiten von {context} können nicht angezeigt werden',
   'fabric.linking.unauthorised_account_name_no_provider': 'Private Seiten können nicht angezeigt werden',
+  'fabric.linking.unfollow': 'Nicht mehr folgen',
   'fabric.linking.unlink_account': 'Kontoverknüpfung löschen',
   'fabric.linking.updated_by': 'Geändert von {context}',
   'fabric.linking.view': 'Anzeigen',

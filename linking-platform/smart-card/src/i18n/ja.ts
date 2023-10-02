@@ -38,6 +38,7 @@ export default {
   'fabric.linking.delete': '削除',
   'fabric.linking.download': 'ダウンロード',
   'fabric.linking.edit': '編集',
+  'fabric.linking.follow': 'フォロー',
   'fabric.linking.forbidden_access': 'アクセスは禁止されています。',
   'fabric.linking.forbidden_description':
     'このプレビューにアクセスできません。アクセスが必要な場合はサイト管理者にお問い合わせください。',
@@ -88,6 +89,8 @@ export default {
   'fabric.linking.restricted_link': '制限されているリンクです、別のアカウントをお試しください。',
   'fabric.linking.retry': '再試行',
   'fabric.linking.save': '保存',
+  'fabric.linking.sent_on_absolute': '{context} に送信済み',
+  'fabric.linking.sent_on_relative': '{context}に送信済み',
   'fabric.linking.srclink': '次で表示',
   'fabric.linking.srclinkunknown': 'リンク元を表示',
   'fabric.linking.status_change_load_error': 'ステータスとトランジションを読み込めませんでした。',
@@ -95,12 +98,14 @@ export default {
   'fabric.linking.status_change_update_error': 'ステータスを更新できませんでした。',
   'fabric.linking.try_again': '再試行',
   'fabric.linking.try_another_account': '別のアカウントでお試しください',
+  'fabric.linking.unassigned': '未割り当て',
   'fabric.linking.unauthorised_account_description':
     '{context} の非公開ページへのリンクをプレビューしようとしています。URL を確認するか、ページの所有者に問い合わせることをお勧めします。',
   'fabric.linking.unauthorised_account_description_no_provider':
     '非公開ページへのリンクをプレビューしようとしています。URL を確認するか、ページの所有者に問い合わせることをお勧めします。',
   'fabric.linking.unauthorised_account_name': '{context} の非公開ページは表示できません',
   'fabric.linking.unauthorised_account_name_no_provider': '非公開ページは表示できません',
+  'fabric.linking.unfollow': 'フォローを解除',
   'fabric.linking.unlink_account': 'アカウントのリンクを解除',
   'fabric.linking.updated_by': '変更元: {context}',
   'fabric.linking.view': '表示',

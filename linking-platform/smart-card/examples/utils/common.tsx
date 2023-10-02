@@ -4,11 +4,16 @@ import { IntlProvider } from 'react-intl-next';
 import { JsonLd } from 'json-ld-types';
 import Page from '@atlaskit/page';
 import { token } from '@atlaskit/tokens';
-import { iconGoogleDrive } from '../images';
+import { iconGoogleDrive, imageForbiddenJiraEmbed } from '../images';
 interface VRTestCaseOpts {
   title: string;
   children: () => JSX.Element;
 }
+
+export const embedWrapperStyles = css`
+  width: 640px;
+  margin: ${token('space.150', '12px')} auto;
+`;
 
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 const subHeaderCSS = css`
@@ -99,6 +104,46 @@ export const mocks = {
       url: 'https://some.url',
     },
   } as JsonLd.Response,
+  forbiddenCrossJoin: (accessType = 'FORBIDDEN', visibility = 'not_found') =>
+    ({
+      meta: {
+        auth: [],
+        definitionId: 'jira-object-provider',
+        product: 'jira',
+        visibility,
+        access: 'forbidden',
+        resourceType: 'issue',
+        category: 'object',
+        tenantId: 'tenant-id',
+        key: 'jira-object-provider',
+        requestAccess: {
+          accessType,
+          cloudId: 'cloud-id',
+        },
+      },
+      data: {
+        '@context': {
+          '@vocab': 'https://www.w3.org/ns/activitystreams#',
+          atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
+          schema: 'http://schema.org/',
+        },
+        generator: {
+          '@type': 'Application',
+          '@id': 'https://www.atlassian.com/#Jira',
+          name: 'Jira',
+          icon: {
+            '@type': 'Image',
+            url: 'https://icon-url',
+          },
+          image: {
+            '@type': 'Image',
+            url: imageForbiddenJiraEmbed,
+          },
+        },
+        url: 'https://site.atlassian.net/browse/key-1',
+        '@type': ['atlassian:Task', 'Object'],
+      },
+    } as JsonLd.Response),
   unauthorized: {
     meta: {
       access: 'unauthorized',

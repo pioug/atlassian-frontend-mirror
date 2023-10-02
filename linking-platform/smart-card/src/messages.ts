@@ -664,7 +664,7 @@ export const messages: Messages = defineMessages({
 
   request_access_pending_title_crossjoin: {
     id: 'fabric.linking.request_access_pending_title_crossjoin',
-    defaultMessage: 'Access to {product} pending',
+    defaultMessage: 'Access to {product} is pending',
     description:
       'Informs the user that their request to view this content is pending',
   },

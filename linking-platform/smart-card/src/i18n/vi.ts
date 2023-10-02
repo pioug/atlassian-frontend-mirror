@@ -39,6 +39,7 @@ export default {
   'fabric.linking.delete': 'Xóa',
   'fabric.linking.download': 'Tải xuống',
   'fabric.linking.edit': 'Chỉnh sửa',
+  'fabric.linking.follow': 'Theo dõi',
   'fabric.linking.forbidden_access': 'Quyền truy cập của bạn bị cấm',
   'fabric.linking.forbidden_description':
     'Bạn không có quyền truy cập vào bản xem trước này. Hãy liên hệ với quản trị viên trang web nếu bạn cần quyền truy cập.',
@@ -88,6 +89,8 @@ export default {
   'fabric.linking.restricted_link': 'Liên kết bị hạn chế, thử một tài khoản khác',
   'fabric.linking.retry': 'Thử lại',
   'fabric.linking.save': 'Lưu',
+  'fabric.linking.sent_on_absolute': 'Đã gửi vào {context}',
+  'fabric.linking.sent_on_relative': 'Đã gửi {context}',
   'fabric.linking.srclink': 'Xem trong',
   'fabric.linking.srclinkunknown': 'Xem bản gốc',
   'fabric.linking.status_change_load_error': 'Chúng tôi không thể tải trạng thái và quy trình chuyển đổi',
@@ -95,12 +98,14 @@ export default {
   'fabric.linking.status_change_update_error': 'Chúng tôi không thể cập nhật trạng thái',
   'fabric.linking.try_again': 'Thử lại',
   'fabric.linking.try_another_account': 'Thử một tài khoản khác',
+  'fabric.linking.unassigned': 'Chưa được chỉ định',
   'fabric.linking.unauthorised_account_description':
     'Bạn đang tìm cách xem trước liên kết đến trang {context} riêng tư. Bạn nên xem lại URL hoặc liên hệ với chủ sở hữu trang.',
   'fabric.linking.unauthorised_account_description_no_provider':
     'Bạn đang tìm cách xem trước liên kết đến một trang riêng tư. Bạn nên xem lại URL hoặc liên hệ với chủ sở hữu trang.',
   'fabric.linking.unauthorised_account_name': 'Chúng tôi không thể hiển thị trang riêng tư từ {context}',
   'fabric.linking.unauthorised_account_name_no_provider': 'Chúng tôi không thể hiển thị trang riêng tư',
+  'fabric.linking.unfollow': 'Bỏ theo dõi',
   'fabric.linking.unlink_account': 'Hủy liên kết tài khoản',
   'fabric.linking.updated_by': 'Được sửa đổi bởi {context}',
   'fabric.linking.view': 'Xem',

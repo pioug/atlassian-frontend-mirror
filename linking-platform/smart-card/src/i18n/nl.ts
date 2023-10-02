@@ -39,6 +39,7 @@ export default {
   'fabric.linking.delete': 'Verwijderen',
   'fabric.linking.download': 'Downloaden',
   'fabric.linking.edit': 'Bewerken',
+  'fabric.linking.follow': 'Volgen',
   'fabric.linking.forbidden_access': 'Je hebt geen toegang',
   'fabric.linking.forbidden_description':
     'Je hebt geen toegang tot deze voorvertoning. Neem contact op met de sitebeheerder als je toegang nodig hebt.',
@@ -88,6 +89,8 @@ export default {
   'fabric.linking.restricted_link': 'Afgeschermde link, probeer een ander account',
   'fabric.linking.retry': 'Probeer opnieuw',
   'fabric.linking.save': 'Opslaan',
+  'fabric.linking.sent_on_absolute': 'Verzonden op {context}',
+  'fabric.linking.sent_on_relative': 'Verzonden {context}',
   'fabric.linking.srclink': 'Bekijken in',
   'fabric.linking.srclinkunknown': 'Bekijk Origineel',
   'fabric.linking.status_change_load_error': 'We konden de statussen en transities niet laden',
@@ -95,12 +98,14 @@ export default {
   'fabric.linking.status_change_update_error': 'We konden de status niet bijwerken',
   'fabric.linking.try_again': 'Opnieuw proberen',
   'fabric.linking.try_another_account': 'Gebruik een ander account',
+  'fabric.linking.unassigned': 'Niet toegewezen',
   'fabric.linking.unauthorised_account_description':
     'Je probeert een voorbeeldweergave van een link naar een besloten {context}-pagina te bekijken. We raden je aan om URL te controleren of om contact op te nemen met de eigenaar van de pagina.',
   'fabric.linking.unauthorised_account_description_no_provider':
     'Je probeert een voorbeeldweergave van een link naar een besloten pagina te bekijken. We raden je aan om URL te controleren of om contact op te nemen met de eigenaar van de pagina.',
   'fabric.linking.unauthorised_account_name': "We kunnen besloten pagina's van {context} niet weergeven",
   'fabric.linking.unauthorised_account_name_no_provider': "We kunnen besloten pagina's niet weergeven",
+  'fabric.linking.unfollow': 'Niet meer volgen',
   'fabric.linking.unlink_account': 'Verbinding met account verwijderen',
   'fabric.linking.updated_by': 'Gewijzigd door {context}',
   'fabric.linking.view': 'Bekijken',

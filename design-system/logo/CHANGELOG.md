@@ -1,5 +1,11 @@
 # @atlaskit/logo
 
+## 13.14.9
+
+### Patch Changes
+
+- [#40928](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40928) [`dbe29ba5d95`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dbe29ba5d95) - remove unused size/label paramaters to fix ts error
+
 ## 13.14.8
 
 ### Patch Changes

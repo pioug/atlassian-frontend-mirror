@@ -702,6 +702,7 @@ Object {
       "attrs": Object {
         "layout": "center",
         "width": null,
+        "widthType": null,
       },
       "content": Array [
         Object {

@@ -1,4 +1,5 @@
-import { LinkMetaStep, TableSortStep } from '@atlaskit/adf-schema/steps';
+import { LinkMetaStep } from '@atlaskit/adf-schema/steps';
+import { TableSortStep } from '@atlaskit/custom-steps';
 import { ACTION } from '@atlaskit/editor-common/analytics';
 import { getLinkMetadataFromTransaction } from '@atlaskit/editor-common/card';
 import { isLinkMark, pmHistoryPluginKey } from '@atlaskit/editor-common/utils';

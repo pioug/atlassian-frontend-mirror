@@ -9,7 +9,6 @@ import TextFieldFormValidation from '../../examples/constellation/text-field-for
 import TextFieldMaxValue from '../../examples/constellation/text-field-max-value';
 import TextFieldAppearanceStandard from '../../examples/constellation/text-field-appearance-standard';
 import TextFieldAppearanceSubtle from '../../examples/constellation/text-field-appearance-subtle';
-import TextFieldAppearanceNone from '../../examples/constellation/text-field-appearance-none';
 import TextFieldElementsBeforeAndAfter from '../../examples/constellation/text-field-elements-before-and-after';
 import TextFieldOverrideStyles from '../../examples/constellation/text-field-customisation';
 
@@ -25,18 +24,18 @@ You'll often use text fields as a [form field](/components/form/examples#field),
 
 <Example Component={TextFieldForm} packageName="@atlaskit/textfield" />
 
-## Native validation
+## Validation
 
-Validation can display a native error message related to the restrictions of the pattern attribute. Keep this text as short as possible. Use the [writing guidelines](/content/writing-style) for more help. For complicated infomation, provide a link to more information in a new browser tab.
+### Native
+
+Validation can display a native error message related to the restrictions of the pattern attribute. Keep this text as short as possible. Use the [writing guidelines](/content/writing-style) for more help. For complicated information, provide a link to more information in a new browser tab.
 
 <Example
   Component={TextFieldFormNativeValidation}
   packageName="@atlaskit/textfield"
 />
 
-## Custom validation
-
-Validation can display an error message related to the restrictions of the field. Keep this text as short as possible. Use the [writing guidelines](/content/writing-style) for more help. For complicated infomation, provide a link to more information in a new browser tab.
+### Custom
 
 <Example
   Component={TextFieldFormValidation}
@@ -53,7 +52,7 @@ Text fields can be set with a maximum character limit for constraining the amoun
 
 ### Standard
 
-The standard (default) text field appearance.
+The default text field appearance.
 
 <Example
   Component={TextFieldAppearanceStandard}
@@ -66,15 +65,6 @@ A text field that's transparent until interaction or error.
 
 <Example
   Component={TextFieldAppearanceSubtle}
-  packageName="@atlaskit/textfield"
-/>
-
-### None
-
-A text field that's fully transparent with no indication on interaction or error.
-
-<Example
-  Component={TextFieldAppearanceNone}
   packageName="@atlaskit/textfield"
 />
 

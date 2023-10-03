@@ -18,7 +18,7 @@ export default () => {
         <DatePicker
           autoFocus={false}
           id="value1"
-          onChange={(date) => {
+          onChange={(date: string) => {
             setDate(date);
           }}
           value={date}

@@ -17,7 +17,8 @@
             "isNumberColumnEnabled": false,
             "layout": "default",
             "__autoSize": false,
-            "localId": "8d7486b8-777f-4dc8-b709-0675990a949b"
+            "localId": "8d7486b8-777f-4dc8-b709-0675990a949b",
+            "width": null
           },
           "content": [
             {

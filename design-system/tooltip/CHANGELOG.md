@@ -1,5 +1,11 @@
 # @atlaskit/tooltip
 
+## 17.8.7
+
+### Patch Changes
+
+- [#40904](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40904) [`f5731d7c0ca`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f5731d7c0ca) - Improve the performance of the tooltip trigger's ref setter function by ensuring the `useCallback` only regenerates a new reference when absolutely needed (rather than on every render).
+
 ## 17.8.6
 
 ### Patch Changes

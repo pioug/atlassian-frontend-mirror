@@ -1,5 +1,5 @@
 import { uuid } from '@atlaskit/adf-schema';
-import { TableSortOrder as SortOrder } from '@atlaskit/adf-schema/steps';
+import { TableSortOrder as SortOrder } from '@atlaskit/custom-steps';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import selectionPlugin from '@atlaskit/editor-core/src/plugins/selection';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';

@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 
-import type { TableColumnOrdering } from '@atlaskit/adf-schema/steps';
+import type { TableColumnOrdering } from '@atlaskit/custom-steps';
 import type { GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
 import { browser } from '@atlaskit/editor-common/utils';
-import { Selection } from '@atlaskit/editor-prosemirror/state';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { Selection } from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { hoverRows, selectRow } from '../../commands';
-import { RowStickyState } from '../../pm-plugins/sticky-headers';
+import type { RowStickyState } from '../../pm-plugins/sticky-headers';
 import { isSelectionUpdated } from '../../utils';
 
 import { CornerControls } from './CornerControls';

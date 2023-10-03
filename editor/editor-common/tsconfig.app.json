@@ -54,6 +54,9 @@
       "path": "../../design-system/code/tsconfig.app.json"
     },
     {
+      "path": "../custom-steps/tsconfig.app.json"
+    },
+    {
       "path": "../editor-json-transformer/tsconfig.app.json"
     },
     {

@@ -1,5 +1,11 @@
 # @atlaskit/editor-cq-transformer
 
+## 8.2.16
+
+### Patch Changes
+
+- [#39749](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39749) [`e6b69f455c3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e6b69f455c3) - Connect yarn changeset to packages, upgrade adf-schema
+
 ## 8.2.15
 
 ### Patch Changes

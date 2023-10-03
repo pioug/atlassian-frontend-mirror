@@ -1,5 +1,11 @@
 # @atlaskit/icon-object
 
+## 6.3.6
+
+### Patch Changes
+
+- [#40919](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40919) [`0cd2364f0ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0cd2364f0ec) - This package is now onboarded onto the product push model.
+
 ## 6.3.5
 
 ### Patch Changes

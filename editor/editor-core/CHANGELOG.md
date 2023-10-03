@@ -1,5 +1,18 @@
 # @atlaskit/editor-core
 
+## 188.0.4
+
+### Patch Changes
+
+- [#40655](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40655) [`e08f00068b8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e08f00068b8) - [ECA11Y-76] Typeahead List - Improvement for screen reader users, now it correctly reads the position of the selected item in the list
+- [#40774](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40774) [`c61db65ea25`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c61db65ea25) - [ED-17196] Refactored provider factory initialisation
+
+## 188.0.2
+
+### Patch Changes
+
+- [#39749](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39749) [`e6b69f455c3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e6b69f455c3) - Connect yarn changeset to packages, upgrade adf-schema
+
 ## 188.0.0
 
 ### Major Changes

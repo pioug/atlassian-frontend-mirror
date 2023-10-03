@@ -1,11 +1,10 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
 
+import { Example } from '@af/design-system-docs-ui';
 import { Bleed } from '@atlaskit/primitives';
 import { N0, N300A, N30A, N60A } from '@atlaskit/theme/colors';
 
-// eslint-disable-next-line @atlassian/tangerine/import/no-relative-package-imports
-import { Example } from '../../../../../services/design-system-docs/src/__DO_NOT_ADD_TO_THIS_FOLDER__/gatsby-theme-brisk/components/example/Example';
 import token from '../../src/get-token';
 
 const TokensNegativeSpaceCodeBlock = `
@@ -31,7 +30,7 @@ const containerStyles = css({
 
 const dividerStyles = css({
   border: 'none',
-  borderBottom: `1px solid ${token('color.border', N300A)}`,
+  borderBlockEnd: `1px solid ${token('color.border', N300A)}`,
 });
 
 const TokensNegativeSpace = () => {

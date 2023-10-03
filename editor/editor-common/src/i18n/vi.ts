@@ -38,6 +38,7 @@ export default {
   'fabric.editor.columns.description': 'Thiết lập cấu trúc trang của bạn bằng cách sử dụng các mục',
   'fabric.editor.copiedToClipboard': 'Đã sao chép!',
   'fabric.editor.copyToClipboard': 'Sao chép',
+  'fabric.editor.datasourceTitle': 'Sửa truy vấn tìm kiếm',
   'fabric.editor.date': 'Ngày',
   'fabric.editor.date.description': 'Thêm ngày bằng cách sử dụng lịch',
   'fabric.editor.decision': 'Quyết định',
@@ -54,6 +55,12 @@ export default {
   'fabric.editor.editLink': 'Chỉnh sửa liên kết',
   'fabric.editor.editMode.inviteToEditButton.title': 'Mời chỉnh sửa',
   'fabric.editor.editableContentLabel': 'Nội dung có thể chỉnh sửa',
+  'fabric.editor.elementbrowser.search.empty-state.heading':
+    'Không có nội dung nào phù hợp với yêu cầu tìm kiếm của bạn',
+  'fabric.editor.elementbrowser.search.empty-state.sub-heading':
+    'Hãy thử tìm theo một từ khác hoặc khám phá các ứng dụng mới dành cho sản phẩm của Atlassian.',
+  'fabric.editor.elementbrowser.search.empty-state.sub-heading.link': 'Khám phá Atlassian Marketplace',
+  'fabric.editor.elementbrowser.sidebar.heading': 'Duyệt',
   'fabric.editor.embedTitle': 'Đã nhúng',
   'fabric.editor.emoji': 'Biểu tượng cảm xúc',
   'fabric.editor.emoji.description': 'Sử dụng biểu tượng cảm xúc để thể hiện ý kiến 🎉 và cảm xúc 😄',

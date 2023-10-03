@@ -6,7 +6,7 @@ import {
   tableHeaderSelector,
   tablePrefixSelector,
 } from '@atlaskit/adf-schema';
-import type { TableColumnOrdering } from '@atlaskit/adf-schema/steps';
+import type { TableColumnOrdering } from '@atlaskit/custom-steps';
 import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { TableSharedCssClassName } from '@atlaskit/editor-common/styles';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';

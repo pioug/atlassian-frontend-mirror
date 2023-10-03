@@ -18,4 +18,9 @@ export default {
   'fabric.editor.headingLink.invalidLabel': '⚠️ 統合したセルで表を並べ替えることはできません',
   'fabric.editor.headingLink.noOrderLabel': '列の並べ替え: A から Z',
   'fabric.editor.headingLink.noneSortingLabel': 'なし',
+  'fabric.editor.tableHeader.sorting.asc': '昇順並べ替えが適用されています',
+  'fabric.editor.tableHeader.sorting.default': '列を並べ替え',
+  'fabric.editor.tableHeader.sorting.desc': '降順並べ替えが適用されています',
+  'fabric.editor.tableHeader.sorting.invalid': '結合セルを含む表は並べ替えられません',
+  'fabric.editor.tableHeader.sorting.no': '並べ替えは列に適用されていません',
 };

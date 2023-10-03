@@ -5,7 +5,7 @@ import classnames from 'classnames';
 import memoizeOne from 'memoize-one';
 import rafSchedule from 'raf-schd';
 
-import type { TableColumnOrdering } from '@atlaskit/adf-schema/steps';
+import type { TableColumnOrdering } from '@atlaskit/custom-steps';
 import {
   ACTION_SUBJECT,
   EVENT_TYPE,

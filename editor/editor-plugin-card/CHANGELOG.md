@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-card
 
+## 0.8.7
+
+### Patch Changes
+
+- [#39749](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39749) [`e6b69f455c3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e6b69f455c3) - Connect yarn changeset to packages, upgrade adf-schema
+- Updated dependencies
+
 ## 0.8.6
 
 ### Patch Changes

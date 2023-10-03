@@ -21,7 +21,7 @@ const akEditorSelectedNodeClassName = 'ak-editor-selected-node';
 
 export const handleWrapperClass = 'resizer-handle-wrapper';
 
-export const resizerHandleZIndex = 99;
+export const resizerHandleZIndex = 1;
 
 export const resizerStyles = css`
   .${resizerItemClassName} {

@@ -65,7 +65,7 @@ export default function getProvidersFromEditorProps({
     emojiProvider: emojiProvider,
     mentionProvider: mentionProvider,
     autoformattingProvider: autoformattingProvider,
-    cardProvider: cardProvider,
+    cardProvider,
     activityProvider: activityProvider,
     imageUploadProvider: legacyImageUploadProvider,
     taskDecisionProvider: taskDecisionProvider,
@@ -73,9 +73,8 @@ export default function getProvidersFromEditorProps({
     searchProvider: searchProvider,
     presenceProvider: presenceProvider,
     macroProvider: macroProvider,
-    collabEditProvider:
-      collabEdit && collabEdit.provider
-        ? collabEdit.provider
-        : collabEditProvider,
+    collabEditProvider: collabEdit?.provider
+      ? collabEdit.provider
+      : collabEditProvider,
   };
 }

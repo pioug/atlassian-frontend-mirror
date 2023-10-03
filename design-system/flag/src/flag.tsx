@@ -8,7 +8,6 @@ import { Inline, Stack, Box, xcss } from '@atlaskit/primitives';
 import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
 import noop from '@atlaskit/ds-lib/noop';
-import FocusRing from '@atlaskit/focus-ring';
 
 import { DEFAULT_APPEARANCE } from './constants';
 import { flagTextColor, flagBackgroundColor, flagIconColor } from './theme';
@@ -146,88 +145,84 @@ const Flag: FC<FlagProps> = (props) => {
     (!isBold && (description || actions.length)) || isExpanded;
 
   return (
-    <FocusRing>
-      <div
-        // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
-        tabIndex={0}
-        role="alert"
-        css={flagWrapperStyles}
-        data-testid={testId}
-        {...autoDismissProps}
+    <div
+      role="alert"
+      css={flagWrapperStyles}
+      data-testid={testId}
+      {...autoDismissProps}
+    >
+      <Box
+        backgroundColor={flagBackgroundColor[appearance]}
+        padding="space.200"
+        xcss={flagStyles}
       >
-        <Box
-          backgroundColor={flagBackgroundColor[appearance]}
-          padding="space.200"
-          xcss={flagStyles}
-        >
-          <Inline alignBlock="stretch" space="space.200">
-            <div
-              css={iconWrapperStyles}
-              style={{ [CSS_VAR_ICON_COLOR]: iconColor } as CSSProperties}
+        <Inline alignBlock="stretch" space="space.200">
+          <div
+            css={iconWrapperStyles}
+            style={{ [CSS_VAR_ICON_COLOR]: iconColor } as CSSProperties}
+          >
+            {icon}
+          </div>
+          <span css={transitionStyles}>
+            <Stack
+              space={shouldRenderGap ? 'space.100' : 'space.0'} // Gap exists even when not expanded due to Expander internals always being in the DOM
             >
-              {icon}
-            </div>
-            <span css={transitionStyles}>
-              <Stack
-                space={shouldRenderGap ? 'space.100' : 'space.0'} // Gap exists even when not expanded due to Expander internals always being in the DOM
+              <Inline
+                alignBlock="stretch"
+                space="space.100"
+                spread="space-between"
               >
-                <Inline
-                  alignBlock="stretch"
-                  space="space.100"
-                  spread="space-between"
-                >
-                  <Box paddingBlockStart="space.025">
-                    <Text
-                      color={textColor}
-                      fontWeight="semibold"
-                      UNSAFE_style={{
-                        overflowWrap: 'anywhere', // For cases where a single word is longer than the container (e.g. filenames)
-                      }}
-                    >
-                      {title}
-                    </Text>
-                  </Box>
-                  {isDismissable
-                    ? !(isBold && !description && !actions.length) && (
-                        <DismissButton
-                          testId={testId}
-                          appearance={appearance}
-                          isBold={isBold}
-                          isExpanded={isExpanded}
-                          onClick={isBold ? toggleExpand : buttonActionCallback}
-                        />
-                      )
-                    : null}
-                </Inline>
-                {/* Normal appearance can't be expanded so isExpanded is always true */}
-                <Expander isExpanded={!isBold || isExpanded} testId={testId}>
-                  {description && (
-                    <Text
-                      as="div"
-                      color={textColor}
-                      UNSAFE_style={{
-                        maxHeight: 100, // height is defined as 5 lines maximum by design
-                        overflow: 'auto',
-                        overflowWrap: 'anywhere', // For cases where a single word is longer than the container (e.g. filenames)
-                      }}
-                      testId={testId && `${testId}-description`}
-                    >
-                      {description}
-                    </Text>
-                  )}
-                  <Actions
-                    actions={actions}
-                    appearance={appearance}
-                    linkComponent={linkComponent}
-                    testId={testId}
-                  />
-                </Expander>
-              </Stack>
-            </span>
-          </Inline>
-        </Box>
-      </div>
-    </FocusRing>
+                <Box paddingBlockStart="space.025">
+                  <Text
+                    color={textColor}
+                    fontWeight="semibold"
+                    UNSAFE_style={{
+                      overflowWrap: 'anywhere', // For cases where a single word is longer than the container (e.g. filenames)
+                    }}
+                  >
+                    {title}
+                  </Text>
+                </Box>
+                {isDismissable
+                  ? !(isBold && !description && !actions.length) && (
+                      <DismissButton
+                        testId={testId}
+                        appearance={appearance}
+                        isBold={isBold}
+                        isExpanded={isExpanded}
+                        onClick={isBold ? toggleExpand : buttonActionCallback}
+                      />
+                    )
+                  : null}
+              </Inline>
+              {/* Normal appearance can't be expanded so isExpanded is always true */}
+              <Expander isExpanded={!isBold || isExpanded} testId={testId}>
+                {description && (
+                  <Text
+                    as="div"
+                    color={textColor}
+                    UNSAFE_style={{
+                      maxHeight: 100, // height is defined as 5 lines maximum by design
+                      overflow: 'auto',
+                      overflowWrap: 'anywhere', // For cases where a single word is longer than the container (e.g. filenames)
+                    }}
+                    testId={testId && `${testId}-description`}
+                  >
+                    {description}
+                  </Text>
+                )}
+                <Actions
+                  actions={actions}
+                  appearance={appearance}
+                  linkComponent={linkComponent}
+                  testId={testId}
+                />
+              </Expander>
+            </Stack>
+          </span>
+        </Inline>
+      </Box>
+    </div>
   );
 };
 

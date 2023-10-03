@@ -72,7 +72,7 @@ export default class TableTree extends Component<any, State> {
         ))}
       </Headers>
     );
-    let rows = null;
+    let rows: React.ReactNode = null;
     if (columns && items) {
       rows = (
         <Rows

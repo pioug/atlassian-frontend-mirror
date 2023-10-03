@@ -2,7 +2,7 @@
 import { jsx } from '@emotion/react';
 import { defineMessages } from 'react-intl-next';
 
-import { TableSortOrder as SortOrder } from '@atlaskit/adf-schema/steps';
+import { TableSortOrder as SortOrder } from '@atlaskit/custom-steps';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import {

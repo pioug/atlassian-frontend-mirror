@@ -27,8 +27,8 @@ const fillScreenStyles = css({
   height: '100vh',
 
   position: 'fixed',
-  top: token('space.0', '0'),
-  left: token('space.0', '0'),
+  insetBlockStart: token('space.0', '0'),
+  insetInlineStart: token('space.0', '0'),
 
   overflowY: 'auto',
   WebkitOverflowScrolling: 'touch',

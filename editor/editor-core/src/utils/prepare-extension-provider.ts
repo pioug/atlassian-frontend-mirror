@@ -2,8 +2,8 @@ import type { ExtensionProvider } from '@atlaskit/editor-common/extensions';
 
 import { combineExtensionProviders } from '@atlaskit/editor-common/extensions';
 import memoizeOne from 'memoize-one';
-import EditorActions from '../actions';
-import { ExtensionProvidersProp } from '../types/editor-props';
+import type EditorActions from '../actions';
+import type { ExtensionProvidersProp } from '../types/editor-props';
 
 function prepareExtensionProvidersInternal(
   editorActions: EditorActions,

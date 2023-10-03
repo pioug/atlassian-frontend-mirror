@@ -40,6 +40,9 @@
       "path": "../accessibility-testing/tsconfig.app.json"
     },
     {
+      "path": "../design-system-docs-ui/tsconfig.app.json"
+    },
+    {
       "path": "../../../build/test-tooling/gemini-visual-regression/tsconfig.app.json"
     },
     {
@@ -124,7 +127,13 @@
       "path": "../../../build/test-tooling/visual-regression/tsconfig.app.json"
     },
     {
+      "path": "../../../services/design-system-docs/tsconfig.app.json"
+    },
+    {
       "path": "../../platform/feature-flags-test-utils/tsconfig.app.json"
+    },
+    {
+      "path": "../../monorepo-tooling/gemini/tsconfig.app.json"
     }
   ]
 }

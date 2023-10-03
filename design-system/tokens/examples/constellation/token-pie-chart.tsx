@@ -2,10 +2,9 @@ import React from 'react';
 
 import ReactECharts from 'echarts-for-react';
 
+import { Example } from '@af/design-system-docs-ui';
 import { N0, N500, N800 } from '@atlaskit/theme/colors';
 
-// eslint-disable-next-line @atlassian/tangerine/import/no-relative-package-imports
-import { Example } from '../../../../../services/design-system-docs/src/__DO_NOT_ADD_TO_THIS_FOLDER__/gatsby-theme-brisk/components/example/Example';
 import getTokenValue from '../../src/get-token-value';
 import useThemeObserver from '../../src/use-theme-observer';
 

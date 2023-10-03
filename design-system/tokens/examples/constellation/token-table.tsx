@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
+import { Example } from '@af/design-system-docs-ui';
 import Avatar from '@atlaskit/avatar';
 import DropdownMenu, {
   DropdownItem,
@@ -11,8 +12,6 @@ import DropdownMenu, {
 import DynamicTable from '@atlaskit/dynamic-table';
 import { N50A, N60A } from '@atlaskit/theme/colors';
 
-// eslint-disable-next-line @atlassian/tangerine/import/no-relative-package-imports
-import { Example } from '../../../../../services/design-system-docs/src/__DO_NOT_ADD_TO_THIS_FOLDER__/gatsby-theme-brisk/components/example/Example';
 import token from '../../src/get-token';
 
 const TokensTagCodeBlock = `
@@ -85,7 +84,7 @@ const nameWrapperStyles = css({
 });
 
 const avatarWrapperStyles = css({
-  marginRight: '8px',
+  marginInlineEnd: '8px',
 });
 
 interface President {
@@ -150,20 +149,20 @@ const overflowStyles = css({
 const shadowStyles = css({
   width: '10px',
   position: 'absolute',
-  top: '-10px',
-  bottom: '-10px',
   boxShadow: token(
     'elevation.shadow.overflow',
     `2px 0px 8px ${N50A}, 1px 0px 0px ${N60A}`,
   ),
+  insetBlockEnd: '-10px',
+  insetBlockStart: '-10px',
 });
 
 const rightShadowStyles = css({
-  right: ' -10px',
+  insetInlineEnd: ' -10px',
 });
 
 const leftShadowStyles = css({
-  left: ' -10px',
+  insetInlineStart: ' -10px',
 });
 
 const TokensTable = () => {

@@ -92,25 +92,26 @@ function Tooltip({
 
   const apiRef = useRef<API>(null);
   const [state, setState] = useState<State>('hide');
-  const targetRef = useRef<PopperProps<any>['referenceElement']>(null);
-  const containerRef = useRef<HTMLElement>(null);
+  const targetRef = useRef<
+    PopperProps<any>['referenceElement'] | ChildNode | null
+  >(null);
+  const containerRef = useRef<HTMLElement | null>(null);
+
+  const hasFunctionalChildren = typeof children === 'function'; // Stored to keep our `setRef` callback cleaner.
   const setRef = useCallback(
     (node: HTMLElement | null) => {
       if (!node) {
         return;
       }
 
-      if (typeof children === 'function') {
-        // @ts-ignore - React Ref typing is too strict for this use case
+      if (hasFunctionalChildren) {
         targetRef.current = node;
       } else {
-        // @ts-ignore - React Ref typing is too strict for this use case
         containerRef.current = node;
-        // @ts-ignore - React Ref typing is too strict for this use case
         targetRef.current = node.firstChild;
       }
     },
-    [children],
+    [hasFunctionalChildren],
   );
 
   // Putting a few things into refs so that we don't have to break memoization

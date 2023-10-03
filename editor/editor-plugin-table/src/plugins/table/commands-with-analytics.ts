@@ -1,5 +1,6 @@
-import { tableBackgroundColorPalette, TableLayout } from '@atlaskit/adf-schema';
-import { TableSortOrder as SortOrder } from '@atlaskit/adf-schema/steps';
+import type { TableLayout } from '@atlaskit/adf-schema';
+import { tableBackgroundColorPalette } from '@atlaskit/adf-schema';
+import type { TableSortOrder as SortOrder } from '@atlaskit/custom-steps';
 import {
   ACTION_SUBJECT,
   EVENT_TYPE,
@@ -15,9 +16,9 @@ import type {
   Command,
   GetEditorContainerWidth,
 } from '@atlaskit/editor-common/types';
-import { Selection } from '@atlaskit/editor-prosemirror/state';
+import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
-import { Rect } from '@atlaskit/editor-tables/table-map';
+import type { Rect } from '@atlaskit/editor-tables/table-map';
 import {
   findCellClosestToPos,
   findCellRectClosestToPos,
@@ -43,9 +44,13 @@ import {
 } from './commands/toggle';
 import { getPluginState } from './pm-plugins/plugin-factory';
 import { distributeColumnsWidths } from './pm-plugins/table-resizing/commands';
-import { ResizeStateWithAnalytics } from './pm-plugins/table-resizing/utils';
+import type { ResizeStateWithAnalytics } from './pm-plugins/table-resizing/utils';
 import { deleteColumns, deleteRows, mergeCells } from './transforms';
-import { InsertRowMethods, InsertRowOptions, RowInsertPosition } from './types';
+import type {
+  InsertRowMethods,
+  InsertRowOptions,
+  RowInsertPosition,
+} from './types';
 import {
   checkIfNumberColumnEnabled,
   getSelectedCellInfo,

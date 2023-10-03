@@ -36,7 +36,7 @@ export default () => {
       </Label>
       <DatePicker
         id="start-date"
-        onChange={(date) => setStartDate(date)}
+        onChange={(date: string) => setStartDate(date)}
         value={startDate}
         minDate={earliestDateString}
         maxDate={endDate || latestDateString}
@@ -51,7 +51,7 @@ export default () => {
         minDate={startDate || earliestDateString}
         maxDate={latestDateString}
         disabledDateFilter={weekendFilter}
-        onChange={(date) => setEndDate(date)}
+        onChange={(date: string) => setEndDate(date)}
       />
     </div>
   );

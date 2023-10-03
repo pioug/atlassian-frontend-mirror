@@ -9,7 +9,6 @@ import { B300, G300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import Flag, { AutoDismissFlag, FlagGroup } from '../../index';
-import FlagsProviderExample from '../../../examples/constellation/flags-provider-show-flag';
 
 describe('Accessibility jest-axe', () => {
   it('FlagGroup', async () => {
@@ -48,12 +47,6 @@ describe('Accessibility jest-axe', () => {
         ))}
       </FlagGroup>,
     );
-
-    await axe(container);
-  });
-
-  it('FlagsProvider', async () => {
-    const { container } = render(<FlagsProviderExample />);
 
     await axe(container);
   });

@@ -1,5 +1,5 @@
 // #region Imports
-import { AddColumnStep } from '@atlaskit/adf-schema/steps';
+import { AddColumnStep } from '@atlaskit/custom-steps';
 import { TABLE_OVERFLOW_CHANGE_TRIGGER } from '@atlaskit/editor-common/analytics';
 import type {
   Command,

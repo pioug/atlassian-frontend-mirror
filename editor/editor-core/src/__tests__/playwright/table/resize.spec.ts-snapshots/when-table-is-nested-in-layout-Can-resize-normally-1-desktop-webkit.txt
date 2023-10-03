@@ -16,7 +16,8 @@
                 "isNumberColumnEnabled": false,
                 "layout": "default",
                 "__autoSize": false,
-                "localId": "abc-123"
+                "localId": "abc-123",
+                "width": null
               },
               "content": [
                 {

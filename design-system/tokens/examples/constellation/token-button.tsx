@@ -1,9 +1,7 @@
 import React from 'react';
 
+import { Example } from '@af/design-system-docs-ui';
 import Button from '@atlaskit/button';
-
-// eslint-disable-next-line @atlassian/tangerine/import/no-relative-package-imports
-import { Example } from '../../../../../services/design-system-docs/src/__DO_NOT_ADD_TO_THIS_FOLDER__/gatsby-theme-brisk/components/example/Example';
 
 const TokensButtonCodeBlock = `import { B300, B400, B500, N0 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';

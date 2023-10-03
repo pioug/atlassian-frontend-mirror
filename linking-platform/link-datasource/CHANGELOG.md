@@ -1,5 +1,23 @@
 # @atlaskit/link-datasource
 
+## 1.5.0
+
+### Minor Changes
+
+- [#40840](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40840) [`66c9f6469c5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/66c9f6469c5) - [ux] Wrap link values in smart link hover card component
+
+## 1.4.5
+
+### Patch Changes
+
+- [#40880](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40880) [`89dd0f4ea1a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/89dd0f4ea1a) - Added boilterplate for basic filters
+
+## 1.4.4
+
+### Patch Changes
+
+- [#39749](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39749) [`e6b69f455c3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e6b69f455c3) - Connect yarn changeset to packages, upgrade adf-schema
+
 ## 1.4.3
 
 ### Patch Changes

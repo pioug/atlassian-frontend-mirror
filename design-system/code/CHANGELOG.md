@@ -1,5 +1,11 @@
 # @atlaskit/code
 
+## 14.6.8
+
+### Patch Changes
+
+- [#40914](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40914) [`ffa68309c76`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ffa68309c76) - update children variable to have type definition
+
 ## 14.6.7
 
 ### Patch Changes

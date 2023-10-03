@@ -17,7 +17,7 @@ import {
   JiraIssueDatasourceParametersQuery,
 } from '../types';
 
-import BasicFilterContainer from './basic-filters';
+import { BasicFilters } from './basic-filters';
 import { buildJQL } from './buildJQL';
 import { modeSwitcherMessages } from './messages';
 
@@ -122,7 +122,7 @@ export const JiraSearchContainer = (props: SearchContainerProps) => {
             onSearch={handleSearch}
             searchTerm={basicSearchTerm}
           />
-          {showBasicFilters && <BasicFilterContainer />}
+          {showBasicFilters && <BasicFilters />}
         </React.Fragment>
       )}
       {currentSearchMethod === 'jql' && (

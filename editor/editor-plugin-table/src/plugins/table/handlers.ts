@@ -1,21 +1,20 @@
 // #region Imports
-import { TableColumnOrdering, TableSortStep } from '@atlaskit/adf-schema/steps';
+import { TableSortStep } from '@atlaskit/custom-steps';
+import type { TableColumnOrdering } from '@atlaskit/custom-steps';
 import { isTextInput } from '@atlaskit/editor-common/utils';
-import { NodeType } from '@atlaskit/editor-prosemirror/model';
+import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 // @ts-ignore -- ReadonlyTransaction is a local declaration and will cause a TS2305 error in CCFE typecheck
-import {
+import type {
   ReadonlyTransaction,
   Transaction,
 } from '@atlaskit/editor-prosemirror/state';
-import {
-  ContentNodeWithPos,
-  findParentNodeOfType,
-} from '@atlaskit/editor-prosemirror/utils';
+import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
+import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { findTable } from '@atlaskit/editor-tables/utils';
 
 import { defaultTableSelection } from './pm-plugins/default-table-selection';
 import { pluginKey as tableResizingPluginKey } from './pm-plugins/table-resizing';
-import { TablePluginState } from './types';
+import type { TablePluginState } from './types';
 import { isTableCollapsible } from './utils/collapse';
 import {
   checkIfHeaderColumnEnabled,

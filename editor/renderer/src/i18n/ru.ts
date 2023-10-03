@@ -18,4 +18,9 @@ export default {
   'fabric.editor.headingLink.invalidLabel': '⚠️ Невозможно отсортировать таблицу с объединением ячеек',
   'fabric.editor.headingLink.noOrderLabel': 'Сортировать столбцы (А–Я)',
   'fabric.editor.headingLink.noneSortingLabel': 'Нет',
+  'fabric.editor.tableHeader.sorting.asc': 'Применяется сортировка по возрастанию',
+  'fabric.editor.tableHeader.sorting.default': 'Сортировать столбец',
+  'fabric.editor.tableHeader.sorting.desc': 'Применяется сортировка по убыванию',
+  'fabric.editor.tableHeader.sorting.invalid': 'Невозможно отсортировать таблицу с объединенными ячейками',
+  'fabric.editor.tableHeader.sorting.no': 'Сортировка столбца не применяется',
 };

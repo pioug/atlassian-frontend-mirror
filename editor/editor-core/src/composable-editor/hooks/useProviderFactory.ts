@@ -1,8 +1,7 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import type { ExtensionProvider } from '@atlaskit/editor-common/extensions';
-import { usePreviousState } from '@atlaskit/editor-common/hooks';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 
 import type EditorActions from '../../actions';
@@ -18,17 +17,17 @@ import prepareQuickInsertProvider from '../../utils/prepare-quick-insert-provide
 import getProvidersFromEditorProps from '../utils/getProvidersFromEditorProps';
 import handleProviders from '../utils/handleProviders';
 
-export type ProviderFactoryState = {
+type PreparedProviders = {
   extensionProvider?: ExtensionProvider;
   quickInsertProvider?: Promise<QuickInsertProvider>;
 };
 
-function createNewState(
+function prepareProviders(
   editorActions: EditorActions,
   quickInsert: QuickInsertOptions | undefined,
   extensionProviders: ExtensionProvidersProp | undefined,
   createAnalyticsEvent: CreateUIAnalyticsEvent,
-): ProviderFactoryState {
+): PreparedProviders {
   const extensionProvider = prepareExtensionProvider(() => editorActions)(
     extensionProviders,
   );
@@ -59,8 +58,6 @@ export default function useProviderFactory(
   createAnalyticsEvent: CreateUIAnalyticsEvent,
 ): ProviderFactory {
   const {
-    extensionProviders,
-    quickInsert,
     linking,
     autoformattingProvider,
     media,
@@ -75,66 +72,16 @@ export default function useProviderFactory(
     collabEdit,
     collabEditProvider,
     presenceProvider,
+    quickInsert,
+    extensionProviders,
   } = props;
 
+  // TODO: Remove these when we deprecate these props from editor-props - smartLinks is unfortunately still used in some places, we can sidestep this problem if we move everyone across to ComposableEditor and deprecate Editor
   const UNSAFE_cards = (props as EditorProps).UNSAFE_cards;
   const smartLinks = (props as EditorProps).smartLinks;
 
-  const providerFactory = useRef(new ProviderFactory());
-  const [providerState, setProviderState] = useState<ProviderFactoryState>(
-    createNewState(
-      editorActions,
-      quickInsert,
-      extensionProviders,
-      createAnalyticsEvent,
-    ),
-  );
-  const prevProps = usePreviousState({ extensionProviders, quickInsert });
-
-  useEffect(() => {
-    if (
-      (extensionProviders &&
-        extensionProviders !== prevProps?.extensionProviders) ||
-      // Though this will introduce some performance regression related to quick insert
-      // loading but we can remove it soon when Forge will move to new API.
-      // quickInsert={Promise.resolve(consumerQuickInsert)} is one of the main reason behind this performance issue.
-      (quickInsert && quickInsert !== prevProps?.quickInsert)
-    ) {
-      const newState = createNewState(
-        editorActions,
-        quickInsert,
-        extensionProviders,
-        createAnalyticsEvent,
-      );
-      setProviderState(newState);
-
-      handleProviders(
-        providerFactory.current,
-        getProvidersFromEditorProps({
-          linking,
-          smartLinks,
-          UNSAFE_cards,
-          autoformattingProvider,
-          media,
-          emojiProvider,
-          mentionProvider,
-          legacyImageUploadProvider,
-          taskDecisionProvider,
-          contextIdentifierProvider,
-          searchProvider,
-          macroProvider,
-          activityProvider,
-          collabEdit,
-          collabEditProvider,
-          presenceProvider,
-        }),
-        newState.extensionProvider,
-        newState.quickInsertProvider,
-      );
-      return;
-    }
-    handleProviders(
-      providerFactory.current,
+  const providers = useMemo(
+    () =>
       getProvidersFromEditorProps({
         linking,
         smartLinks,
@@ -153,35 +100,50 @@ export default function useProviderFactory(
         collabEditProvider,
         presenceProvider,
       }),
-      providerState.extensionProvider,
-      providerState.quickInsertProvider,
+    [
+      linking,
+      smartLinks,
+      UNSAFE_cards,
+      autoformattingProvider,
+      media,
+      emojiProvider,
+      mentionProvider,
+      legacyImageUploadProvider,
+      taskDecisionProvider,
+      contextIdentifierProvider,
+      searchProvider,
+      macroProvider,
+      activityProvider,
+      collabEdit,
+      collabEditProvider,
+      presenceProvider,
+    ],
+  );
+
+  const providerFactory = useRef(new ProviderFactory());
+
+  const preparedProviders = useMemo(
+    () =>
+      // Though this will introduce some performance regression related to quick insert
+      // loading but we can remove it soon when Forge will move to new API.
+      // quickInsert={Promise.resolve(consumerQuickInsert)} is one of the main reason behind this performance issue.
+      prepareProviders(
+        editorActions,
+        quickInsert,
+        extensionProviders,
+        createAnalyticsEvent,
+      ),
+    [extensionProviders, quickInsert, editorActions, createAnalyticsEvent],
+  );
+
+  useEffect(() => {
+    handleProviders(
+      providerFactory.current,
+      providers,
+      preparedProviders.extensionProvider,
+      preparedProviders.quickInsertProvider,
     );
-  }, [
-    linking,
-    smartLinks,
-    UNSAFE_cards,
-    autoformattingProvider,
-    media,
-    emojiProvider,
-    mentionProvider,
-    legacyImageUploadProvider,
-    taskDecisionProvider,
-    contextIdentifierProvider,
-    searchProvider,
-    macroProvider,
-    activityProvider,
-    collabEdit,
-    collabEditProvider,
-    presenceProvider,
-    prevProps?.quickInsert,
-    prevProps?.extensionProviders,
-    createAnalyticsEvent,
-    editorActions,
-    providerState.extensionProvider,
-    providerState.quickInsertProvider,
-    extensionProviders,
-    quickInsert,
-  ]);
+  }, [providers, preparedProviders]);
 
   // componentWillUnmount equivalent
   useEffect(() => {

@@ -2934,7 +2934,7 @@ exports[`Renderer - EmailSerializer should render media single with pixel sizing
   </p>
   <div
     class="csg-media-single-wrap-left"
-    style="float: left; width: 100%; max-width: 100%;"
+    style="float: left; width: 300px; max-width: 100%;"
   >
     <div
       class="csg-media-lozenge-wrapper"
@@ -2970,7 +2970,7 @@ exports[`Renderer - EmailSerializer should render media single with pixel sizing
   </p>
   <div
     class="csg-media-single-wrap-right"
-    style="float: right; width: 100%; max-width: 100%;"
+    style="float: right; width: 300px; max-width: 100%;"
   >
     <div
       class="csg-media-lozenge-wrapper"
@@ -3018,7 +3018,7 @@ exports[`Renderer - EmailSerializer should render media single with pixel sizing
   </p>
   <div
     class="csg-media-single-align-end"
-    style="margin-left: auto; margin-right: 0px; width: 100%; max-width: 100%;"
+    style="margin-left: auto; margin-right: 0px; width: 400px; max-width: 100%;"
   >
     <div
       class="csg-media-lozenge-wrapper"
@@ -3054,7 +3054,7 @@ exports[`Renderer - EmailSerializer should render media single with pixel sizing
   </p>
   <div
     class="csg-media-single-align-start"
-    style="margin-left: 0px; margin-right: auto; width: 100%; max-width: 100%;"
+    style="margin-left: 0px; margin-right: auto; width: 150px; max-width: 100%;"
   >
     <div
       class="csg-media-lozenge-wrapper"
@@ -3090,7 +3090,7 @@ exports[`Renderer - EmailSerializer should render media single with pixel sizing
   </p>
   <div
     class="csg-media-single-center"
-    style="margin-left: auto; margin-right: auto; width: 100%; max-width: 100%;"
+    style="margin-left: auto; margin-right: auto; width: 600px; max-width: 100%;"
   >
     <div
       class="csg-media-lozenge-wrapper"
@@ -3203,7 +3203,7 @@ exports[`Renderer - EmailSerializer should render media single with pixel sizing
   >
     <div
       class="csg-media-single-align-start"
-      style="margin-left: 0px; margin-right: auto; width: 100%; max-width: 100%;"
+      style="margin-left: 0px; margin-right: auto; width: 300px; max-width: 100%;"
     >
       <div
         class="csg-media-lozenge-wrapper"

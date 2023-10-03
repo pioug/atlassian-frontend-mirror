@@ -9,7 +9,7 @@ import { defaultLogoParams } from '../constants';
 import { LogoProps } from '../types';
 import Wrapper from '../wrapper';
 
-const svg = ({ iconGradientStart, iconGradientStop, size }: LogoProps) => {
+const svg = ({ iconGradientStart, iconGradientStop }: LogoProps) => {
   // Will be fixed upon removal of deprecated iconGradientStart and
   // iconGradientStop props, or with React 18's useId() hook when we update.
   // eslint-disable-next-line @repo/internal/react/disallow-unstable-values
@@ -72,7 +72,7 @@ export const OpsGenieLogo = ({
       iconGradientStart={iconGradientStart}
       iconGradientStop={iconGradientStop}
       size={size}
-      svg={svg({ iconGradientStart, iconGradientStop, size })}
+      svg={svg({ iconGradientStart, iconGradientStop })}
       testId={testId}
       textColor={textColor}
     />

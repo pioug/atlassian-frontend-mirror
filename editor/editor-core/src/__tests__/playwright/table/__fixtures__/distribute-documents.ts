@@ -8,6 +8,7 @@ export const mergedColumnsResized = {
         isNumberColumnEnabled: false,
         layout: 'default',
         localId: 'abc-123',
+        width: null,
       },
       content: [
         {

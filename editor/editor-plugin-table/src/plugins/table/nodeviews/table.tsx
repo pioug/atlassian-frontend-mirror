@@ -1,6 +1,6 @@
 import React from 'react';
 
-import type { TableColumnOrdering } from '@atlaskit/adf-schema/steps';
+import type { TableColumnOrdering } from '@atlaskit/custom-steps';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';

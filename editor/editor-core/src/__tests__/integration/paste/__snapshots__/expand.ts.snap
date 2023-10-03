@@ -9,6 +9,7 @@ Object {
         "isNumberColumnEnabled": false,
         "layout": "default",
         "localId": "abc-123",
+        "width": null,
       },
       "content": Array [
         Object {
@@ -117,6 +118,7 @@ Object {
         "isNumberColumnEnabled": false,
         "layout": "default",
         "localId": "abc-123",
+        "width": null,
       },
       "content": Array [
         Object {
@@ -210,6 +212,7 @@ Object {
             "isNumberColumnEnabled": false,
             "layout": "default",
             "localId": "abc-123",
+            "width": null,
           },
           "content": Array [
             Object {
@@ -401,6 +404,7 @@ Object {
         "isNumberColumnEnabled": false,
         "layout": "default",
         "localId": "abc-123",
+        "width": null,
       },
       "content": Array [
         Object {
@@ -591,6 +595,7 @@ Object {
         "isNumberColumnEnabled": false,
         "layout": "default",
         "localId": "abc-123",
+        "width": null,
       },
       "content": Array [
         Object {
@@ -781,6 +786,7 @@ Object {
             "isNumberColumnEnabled": false,
             "layout": "default",
             "localId": "=\\"abc-123\\"",
+            "width": null,
           },
           "content": Array [
             Object {
@@ -837,6 +843,7 @@ Object {
         "isNumberColumnEnabled": false,
         "layout": "default",
         "localId": "abc-123",
+        "width": null,
       },
       "content": Array [
         Object {
@@ -1047,6 +1054,7 @@ Object {
             "isNumberColumnEnabled": false,
             "layout": "default",
             "localId": "abc-123",
+            "width": null,
           },
           "content": Array [
             Object {
@@ -1225,6 +1233,7 @@ Object {
         "isNumberColumnEnabled": false,
         "layout": "default",
         "localId": "=\\"abc-123\\"",
+        "width": null,
       },
       "content": Array [
         Object {

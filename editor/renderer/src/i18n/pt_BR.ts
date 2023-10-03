@@ -18,4 +18,9 @@ export default {
   'fabric.editor.headingLink.invalidLabel': '⚠️ Você não pode ordenar uma tabela com células mescladas',
   'fabric.editor.headingLink.noOrderLabel': 'Ordenar coluna de A a Z',
   'fabric.editor.headingLink.noneSortingLabel': 'nenhum',
+  'fabric.editor.tableHeader.sorting.asc': 'Ordenação crescente aplicada',
+  'fabric.editor.tableHeader.sorting.default': 'Ordenar coluna',
+  'fabric.editor.tableHeader.sorting.desc': 'Ordenação decrescente aplicada',
+  'fabric.editor.tableHeader.sorting.invalid': 'Não é possível ordenar uma tabela com células mescladas',
+  'fabric.editor.tableHeader.sorting.no': 'Nenhuma ordenação aplicada à coluna',
 };

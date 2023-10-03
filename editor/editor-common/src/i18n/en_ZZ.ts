@@ -40,6 +40,7 @@ export default {
   'fabric.editor.columns.description': '⁣⁢Structure your page using sections‌⁯‍⁠⁠‍⁮⁬؜⁪⁭‍⁯⁯⁫⁮⁡⁡⁪⁬⁡⁣⁤',
   'fabric.editor.copiedToClipboard': '⁣⁢Copied!⁮⁬⁯⁡⁮⁮⁭⁫⁯‍‍⁠⁫؜‍⁪؜⁮⁡⁬⁣⁤',
   'fabric.editor.copyToClipboard': '⁣⁢Copy⁪⁠⁪؜‍‍‌⁬⁮⁬؜‌⁬؜‍؜⁡⁠⁪⁮؜⁠⁠⁯‌‌⁬⁪⁣⁤',
+  'fabric.editor.datasourceTitle': '⁣⁢Edit search query⁪⁯‌؜⁡⁯⁫⁠‍⁭⁯⁯⁫⁯؜⁯‌⁠⁪‌‍⁫⁠⁬⁪⁣⁤',
   'fabric.editor.date': '⁣⁢Date⁡⁡⁠⁮‍‍؜⁠⁮‌‍⁯⁫⁭⁬⁬⁪؜⁣⁤',
   'fabric.editor.date.description': '⁣⁢Add a date using a calendar⁠⁬⁡⁫؜⁭⁡⁡⁮⁭⁠؜⁭⁯⁠‍⁯⁠⁪⁪⁡⁯⁣⁤',
   'fabric.editor.decision': '⁣⁢Decision‍⁬⁠⁡⁫⁠؜⁭‌⁠‍⁭⁠⁠⁫⁣⁤',
@@ -57,6 +58,12 @@ export default {
   'fabric.editor.editLink': '⁣⁢Edit link⁮⁪⁡‍؜‌‍‌⁫‍⁫⁯؜‍⁮⁡⁭⁪⁯⁣⁤',
   'fabric.editor.editMode.inviteToEditButton.title': '⁣⁢Invite to edit‍⁡⁪⁬⁮⁫‍⁡⁡⁬؜⁮⁯⁫⁭⁣⁤',
   'fabric.editor.editableContentLabel': '⁣⁢Editable content⁡⁫؜⁫⁡⁫⁪⁬؜؜⁭؜‍⁠‍⁯⁠‍⁮⁬‌⁭⁪⁮⁬⁯⁣⁤',
+  'fabric.editor.elementbrowser.search.empty-state.heading': '⁣⁢Nothing matches your search⁮‍‍⁠⁭؜؜؜⁭⁡⁡⁫؜⁠⁫⁠⁬‍⁯؜⁯⁣⁤',
+  'fabric.editor.elementbrowser.search.empty-state.sub-heading':
+    '⁣⁢Try searching with a different term or discover new apps for Atlassian products.⁫⁬⁪⁭⁬⁯⁯⁯⁠‌‌⁭⁬؜⁬⁡⁪⁪⁡‍؜⁮⁭‌‌⁣⁤',
+  'fabric.editor.elementbrowser.search.empty-state.sub-heading.link':
+    '⁣⁢Explore Atlassian Marketplace⁯؜⁮⁮⁡‌؜⁮⁭⁬؜‌⁪⁪‌⁮⁠⁫⁫⁪‌⁣⁤',
+  'fabric.editor.elementbrowser.sidebar.heading': '⁣⁢Browse⁯‍⁪‌‍‍⁭⁭⁭⁪⁮‍‍‌‍⁭⁬‍⁮⁭⁯؜⁡⁣⁤',
   'fabric.editor.embedTitle': '⁣⁢Embed؜‍⁭⁫⁭⁪⁫⁪⁡⁪⁫؜⁬؜⁠⁮⁭⁮⁬⁯⁫‍⁣⁤',
   'fabric.editor.emoji': '⁣⁢Emoji⁮؜⁫⁠⁠‌؜⁬⁪‍⁪؜⁠⁪⁠⁬⁡‌⁮⁪⁣⁤',
   'fabric.editor.emoji.description': '⁣⁢Use emojis to express ideas 🎉 and emotions 😄⁮⁮⁭⁯⁬⁫‍⁫⁫⁡⁠⁪‍؜⁬⁪⁪؜⁪‍⁣⁤',

@@ -10,7 +10,6 @@ import Wrapper from '../wrapper';
 
 const svg = ({
   appearance,
-  size,
   iconGradientStart,
   iconGradientStop,
   iconColor,
@@ -78,7 +77,6 @@ export const JiraAlignIcon = ({
         iconGradientStart,
         iconGradientStop,
         iconColor,
-        size,
       })}
       iconColor={iconColor}
       iconGradientStart={iconGradientStart}

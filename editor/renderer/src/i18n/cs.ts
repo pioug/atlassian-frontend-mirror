@@ -18,4 +18,9 @@ export default {
   'fabric.editor.headingLink.invalidLabel': '⚠️ Tabulku se sloučenými buňkami nelze seřadit',
   'fabric.editor.headingLink.noOrderLabel': 'Seřadit sloupec od A do Z',
   'fabric.editor.headingLink.noneSortingLabel': 'Žádné',
+  'fabric.editor.tableHeader.sorting.asc': 'Bylo použito vzestupné řazení',
+  'fabric.editor.tableHeader.sorting.default': 'Seřadit sloupec',
+  'fabric.editor.tableHeader.sorting.desc': 'Bylo použito sestupné řazení',
+  'fabric.editor.tableHeader.sorting.invalid': 'Tabulku se sloučenými buňkami nejde seřadit',
+  'fabric.editor.tableHeader.sorting.no': 'U sloupce není použito žádné řazení',
 };

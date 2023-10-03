@@ -55,25 +55,6 @@ describe('Snapshot Test', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
-  it('shows up the focus ring on the entire flag container', async () => {
-    const url = getExampleUrl(
-      'design-system',
-      'flag',
-      'all-flags',
-      global.__BASEURL__,
-    );
-
-    await loadPage(page, url);
-    await page.waitForSelector('span[aria-label="Normal success"]');
-
-    // navigate to button
-    await page.keyboard.press('Tab');
-
-    const image = await page.screenshot();
-
-    expect(image).toMatchProdImageSnapshot();
-  });
-
   it('expanded flag should match production example', async () => {
     const url = getExampleUrl(
       'design-system',

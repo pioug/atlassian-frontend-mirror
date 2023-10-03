@@ -18,4 +18,9 @@ export default {
   'fabric.editor.headingLink.invalidLabel': "⚠️ You can't sort a table with merged cells",
   'fabric.editor.headingLink.noOrderLabel': 'Sort column A to Z',
   'fabric.editor.headingLink.noneSortingLabel': 'none',
+  'fabric.editor.tableHeader.sorting.asc': 'Ascending sort applied',
+  'fabric.editor.tableHeader.sorting.default': 'Sort the column',
+  'fabric.editor.tableHeader.sorting.desc': 'Descending sort applied',
+  'fabric.editor.tableHeader.sorting.invalid': "You can't sort a table with merged cells",
+  'fabric.editor.tableHeader.sorting.no': 'No sort applied to the column',
 };

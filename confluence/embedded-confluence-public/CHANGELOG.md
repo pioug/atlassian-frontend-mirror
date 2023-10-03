@@ -1,5 +1,11 @@
 # @atlaskit/embedded-confluence
 
+## 2.10.0
+
+### Minor Changes
+
+- [#40902](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40902) [`7ea2036b444`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7ea2036b444) - Define inline-comments as a default allowed feature for both the embedded view and editor
+
 ## 2.9.0
 
 ### Minor Changes

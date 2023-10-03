@@ -11,7 +11,7 @@ type DropdownItem = MenuItem & {
   };
 };
 
-import { TableSortOrder as SortOrder } from '@atlaskit/adf-schema/steps';
+import { TableSortOrder as SortOrder } from '@atlaskit/custom-steps';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {

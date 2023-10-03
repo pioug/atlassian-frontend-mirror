@@ -21,7 +21,7 @@ export default function codeBidiWarningDecorator<DecoratorOutput>(
     return originalText;
   }
 
-  let children = [];
+  let children: (string | DecoratorOutput)[] = [];
   let mappedTo = 0;
 
   for (const match of matches) {

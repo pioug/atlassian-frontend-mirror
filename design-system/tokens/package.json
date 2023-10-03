@@ -41,6 +41,7 @@
     "bind-event-listener": "^2.1.1"
   },
   "peerDependencies": {
+    "@af/design-system-docs-ui": "*",
     "react": "^16.8.0"
   },
   "devDependencies": {

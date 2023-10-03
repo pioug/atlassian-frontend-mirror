@@ -42,7 +42,6 @@ function Editor(passedProps: EditorNextProps) {
     disabled: false,
     quickInsert: true,
   };
-
   const props = { ...defaultProps, ...passedProps };
 
   const editorContext = useEditorContext();

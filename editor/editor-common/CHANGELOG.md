@@ -1,5 +1,24 @@
 # @atlaskit/editor-common
 
+## 76.1.8
+
+### Patch Changes
+
+- [#40774](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40774) [`dd8e0606597`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dd8e0606597) - Dummy changeset to get the product integrator to work
+- [#40655](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40655) [`1616e213ade`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1616e213ade) - Remove line before test case
+
+## 76.1.7
+
+### Patch Changes
+
+- [#40695](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40695) [`ef33a64163a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ef33a64163a) - Provide a default z-index value for handle style in ResizerNext to avoid issues with shadow and handle when resizing in comment editor
+
+## 76.1.6
+
+### Patch Changes
+
+- [#39749](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39749) [`e6b69f455c3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e6b69f455c3) - Connect yarn changeset to packages, upgrade adf-schema
+
 ## 76.1.5
 
 ### Patch Changes

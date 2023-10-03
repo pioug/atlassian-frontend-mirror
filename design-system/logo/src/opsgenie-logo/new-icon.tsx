@@ -10,7 +10,6 @@ import Wrapper from '../wrapper';
 
 const svg = ({
   appearance,
-  size,
   iconGradientStart,
   iconGradientStop,
   iconColor,
@@ -89,7 +88,6 @@ export const OpsgenieIcon = ({
       appearance={appearance}
       svg={svg({
         appearance,
-        size,
         iconGradientStart,
         iconGradientStop,
         iconColor,

@@ -6,7 +6,10 @@ import { IntlProvider } from 'react-intl-next';
 import { EMBEDDED_CONFLUENCE_MODE } from '@atlassian/embedded-confluence-common';
 import { ExperienceTrackerContext } from '@atlassian/experience-tracker';
 
-import { PageAllowedFeatures } from '@atlassian/embedded-confluence-common/features';
+import {
+  DEFAULT_ALLOWED_FEATURES,
+  PageAllowedFeatures,
+} from '@atlassian/embedded-confluence-common/features';
 import { Page } from '../Page';
 
 const BasicPage = (props: React.ComponentProps<typeof Page>) => (
@@ -214,8 +217,10 @@ test('should show View page if view mode is passed in with contentId, spackeKey,
 
 describe('if parent product passes allowedFeatures array', () => {
   test('should show default view allowedFeatures in view component as a default', async () => {
-    const defaultViewAllowedFeatures =
-      'byline-contributors,byline-extensions,page-comments,page-reactions,edit';
+    const defaultViewAllowedFeatures = [
+      ...DEFAULT_ALLOWED_FEATURES.view,
+      'edit',
+    ].join(',');
     const allowedFeatures = undefined;
     render(<BasicPage url={viewPageUrl} allowedFeatures={allowedFeatures} />);
 
@@ -223,7 +228,6 @@ describe('if parent product passes allowedFeatures array', () => {
   });
 
   test('should show correct parsed allowedFeatures for View and Edit components when we pass allowedFeatures(view: array, edit: array)', async () => {
-    const expectedAllowedFeatures = `byline-contributors,byline-extensions,delete,inline-comments,page-comments,page-reactions,sticky-header,edit`;
     const allowedFeatures: PageAllowedFeatures = {
       view: [
         'byline-contributors',
@@ -236,12 +240,17 @@ describe('if parent product passes allowedFeatures array', () => {
       ],
       edit: ['delete-draft'],
     };
+    const expectedViewAllowedFeatures = [
+      ...(allowedFeatures.view as []),
+      'edit',
+    ].join(',');
+    const expectedEditAllowedFeatures = (allowedFeatures.edit as [string])[0];
     render(<BasicPage url={viewPageUrl} allowedFeatures={allowedFeatures} />);
-    expect(screen.getByText(expectedAllowedFeatures)).toBeInTheDocument();
+    expect(screen.getByText(expectedViewAllowedFeatures)).toBeInTheDocument();
 
     await userEvent.click(screen.getByText('Edit'));
 
-    expect(screen.getByText('delete-draft')).toBeInTheDocument();
+    expect(screen.getByText(expectedEditAllowedFeatures)).toBeInTheDocument();
   });
 
   test('should show edit allowedFeature in view component when we pass allowedFeatures(view: [])', async () => {

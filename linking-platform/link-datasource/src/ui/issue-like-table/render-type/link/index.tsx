@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 
 import { Link } from '@atlaskit/linking-types';
 import { Card } from '@atlaskit/smart-card';
+import { HoverCard } from '@atlaskit/smart-card/hover-card';
 import LinkUrl from '@atlaskit/smart-card/link-url';
 import { N300 } from '@atlaskit/theme/colors';
 import { h300 } from '@atlaskit/theme/typography';
@@ -36,14 +37,16 @@ const LinkRenderType = ({
 
   const anchor = useMemo(
     () => (
-      <LinkUrl
-        href={url}
-        style={{ ...linkStyle, fontSize: FieldTextFontSize }}
-        data-testid={testId}
-        target="_blank"
-      >
-        {text || url}
-      </LinkUrl>
+      <HoverCard url={url} showServerActions={true}>
+        <LinkUrl
+          href={url}
+          style={{ ...linkStyle, fontSize: FieldTextFontSize }}
+          data-testid={testId}
+          target="_blank"
+        >
+          {text || url}
+        </LinkUrl>
+      </HoverCard>
     ),
     [linkStyle, url, text, testId],
   );

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/renderer",
-  "version": "108.15.6",
+  "version": "108.15.7",
   "description": "Renderer component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -24,7 +24,7 @@
     }
   },
   "dependencies": {
-    "@atlaskit/adf-schema": "^29.1.0",
+    "@atlaskit/adf-schema": "^32.0.0",
     "@atlaskit/adf-utils": "^19.0.0",
     "@atlaskit/analytics-listeners": "^8.7.0",
     "@atlaskit/analytics-namespaced-context": "^6.7.0",
@@ -38,7 +38,7 @@
     "@atlaskit/editor-shared-styles": "^2.8.0",
     "@atlaskit/emoji": "^67.5.0",
     "@atlaskit/icon": "^21.12.0",
-    "@atlaskit/link-datasource": "^1.4.0",
+    "@atlaskit/link-datasource": "^1.5.0",
     "@atlaskit/media-card": "^77.0.0",
     "@atlaskit/media-client": "^24.0.0",
     "@atlaskit/media-common": "^9.0.0",

@@ -1,4 +1,4 @@
-import type { TableSortOrder as SortOrder } from '@atlaskit/adf-schema/steps';
+import type { TableSortOrder as SortOrder } from '@atlaskit/custom-steps';
 
 import type { ACTION_SUBJECT, INPUT_METHOD } from './enums';
 import type { OperationalAEP, TableAEP, UIAEP } from './utils';

@@ -1,5 +1,11 @@
 # @atlaskit/table-tree
 
+## 9.6.4
+
+### Patch Changes
+
+- [#40838](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40838) [`ba9a249a153`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ba9a249a153) - Add type any and remove null assignment to fix TS error in CFE
+
 ## 9.6.3
 
 ### Patch Changes

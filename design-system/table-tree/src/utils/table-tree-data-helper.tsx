@@ -55,7 +55,7 @@ function updateChildItems<T extends any>(
   const allItemsCopy = [...allTableItems];
   const objectToChange = get(allItemsCopy, parentLocation);
   const baseChildrenOfObjectToChange =
-    operation === 'UPDATE' ? [] : get(objectToChange, 'children', []);
+    operation === 'UPDATE' ? [] : (get(objectToChange, 'children', []) as T[]);
   (objectToChange as any).children =
     baseChildrenOfObjectToChange.concat(newitems);
 

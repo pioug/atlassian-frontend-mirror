@@ -172,6 +172,7 @@ Object {
         "isNumberColumnEnabled": false,
         "layout": "default",
         "localId": "",
+        "width": null,
       },
       "content": Array [
         Object {
@@ -259,6 +260,7 @@ Object {
         "isNumberColumnEnabled": false,
         "layout": "default",
         "localId": "",
+        "width": null,
       },
       "content": Array [
         Object {
@@ -340,6 +342,7 @@ Object {
         "isNumberColumnEnabled": false,
         "layout": "default",
         "localId": "",
+        "width": null,
       },
       "content": Array [
         Object {
@@ -385,6 +388,7 @@ Object {
         "isNumberColumnEnabled": false,
         "layout": "default",
         "localId": "",
+        "width": null,
       },
       "content": Array [
         Object {

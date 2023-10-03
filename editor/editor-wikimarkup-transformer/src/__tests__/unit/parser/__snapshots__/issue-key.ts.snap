@@ -178,6 +178,7 @@ Object {
       "attrs": Object {
         "layout": "center",
         "width": null,
+        "widthType": null,
       },
       "content": Array [
         Object {
@@ -594,6 +595,7 @@ Object {
         "isNumberColumnEnabled": false,
         "layout": "default",
         "localId": "",
+        "width": null,
       },
       "content": Array [
         Object {

@@ -458,10 +458,10 @@ export interface EditorPluginFeatureProps {
   // Set to add custom menu items to the insert (plus) menu dropdown.
   insertMenuItems?: MenuItem[];
 
-  /** @deprecated Use smartLinks instead. */
+  /** @deprecated Use linking.smartLinks prop instead. */
   UNSAFE_cards?: CardOptions;
 
-  /** @deprecated Use linking instead. */
+  /** @deprecated Use linking.smartLinks prop instead. */
   smartLinks?: CardOptions;
 
   allowAnalyticsGASV3?: boolean;

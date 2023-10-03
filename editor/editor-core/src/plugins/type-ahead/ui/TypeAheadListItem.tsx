@@ -196,6 +196,7 @@ export const TypeAheadListItem: React.FC<TypeAheadListItemProps> = ({
         role="option"
         aria-label={ariaLabel}
         aria-setsize={itemsLength}
+        aria-posinset={itemIndex}
         tabIndex={0}
         css={listItemClasses}
         className={`ak-typeahead-item ${
@@ -220,6 +221,7 @@ export const TypeAheadListItem: React.FC<TypeAheadListItemProps> = ({
     itemsLength,
     customItemRef,
     insertSelectedItem,
+    itemIndex,
   ]);
 
   if (customItem) {
@@ -235,6 +237,7 @@ export const TypeAheadListItem: React.FC<TypeAheadListItemProps> = ({
         aria-selected={isSelected}
         aria-label={title}
         aria-setsize={itemsLength}
+        aria-posinset={itemIndex}
         role="option"
         ref={buttonItemRef}
         css={listItemClasses}

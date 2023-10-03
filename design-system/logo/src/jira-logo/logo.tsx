@@ -10,8 +10,6 @@ import Wrapper from '../wrapper';
 
 const svg = ({
   appearance,
-  size,
-  label,
   iconGradientStart,
   iconGradientStop,
   iconColor,
@@ -88,8 +86,6 @@ export const JiraLogo = ({
         iconGradientStop,
         iconColor,
         textColor,
-        size,
-        label,
       })}
       testId={testId}
       textColor={textColor}

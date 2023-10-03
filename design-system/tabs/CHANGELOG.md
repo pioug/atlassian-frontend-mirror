@@ -1,5 +1,17 @@
 # @atlaskit/tabs
 
+## 13.4.7
+
+### Patch Changes
+
+- [#40919](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40919) [`0cd2364f0ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0cd2364f0ec) - This package is now onboarded onto the product push model.
+
+## 13.4.6
+
+### Patch Changes
+
+- [#39749](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39749) [`e6b69f455c3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e6b69f455c3) - Connect yarn changeset to packages, upgrade adf-schema
+
 ## 13.4.5
 
 ### Patch Changes

@@ -18,4 +18,9 @@ export default {
   'fabric.editor.headingLink.invalidLabel': '⚠️ Et voi lajitella yhdistettyjä soluja sisältävää taulukkoa',
   'fabric.editor.headingLink.noOrderLabel': 'Lajittele sarake A–Z',
   'fabric.editor.headingLink.noneSortingLabel': 'Ei mitään',
+  'fabric.editor.tableHeader.sorting.asc': 'Nouseva lajittelu otettu käyttöön',
+  'fabric.editor.tableHeader.sorting.default': 'Lajittele sarake',
+  'fabric.editor.tableHeader.sorting.desc': 'Laskeva lajittelu otettu käyttöön',
+  'fabric.editor.tableHeader.sorting.invalid': 'Et voi lajitella yhdistettyjä soluja sisältävää taulukkoa',
+  'fabric.editor.tableHeader.sorting.no': 'Ei lajittelua käytössä sarakkeessa',
 };

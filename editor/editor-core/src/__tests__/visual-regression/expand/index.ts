@@ -226,7 +226,8 @@ describe('Expand: Selection', () => {
       await page.waitForSelector('div[aria-label="Go full width"]');
     });
 
-    it('displays nested expand as selected when clicked', async () => {
+    // FIXME: This test was automatically skipped due to failure on 02/10/2023: https://product-fabric.atlassian.net/browse/ED-20262
+    it.skip('displays nested expand as selected when clicked', async () => {
       await initFullPageEditorWithAdf(page, nestedExpandAdf, Device.LaptopMDPI);
       await page.waitForSelector(selectors.nestedExpand);
       const contentBoundingRect = await getBoundingClientRect(

@@ -87,7 +87,9 @@ test.describe('columns should distribute correctly', () => {
 
       await expect(editor).toMatchDocument(
         doc(
-          table()(
+          // TODO: the table.attrs.width type in adf-schema is 'number | undefined', but the default value is null, ignoring until adf-schema is updated
+          // @ts-ignore
+          table({ localId: 'abc-123', width: null })(
             tr(th().any, th().any, th().any),
             tr(td().any, td().any, td().any),
             tr(td().any, td().any, td().any),
@@ -116,7 +118,9 @@ test.describe('columns should distribute correctly', () => {
 
       await expect(editor).toMatchDocument(
         doc(
-          table()(
+          // TODO: the table.attrs.width type in adf-schema is 'number | undefined', but the default value is null, ignoring until adf-schema is updated
+          // @ts-ignore
+          table({ localId: 'abc-123', width: null })(
             tr(th().any, th().any, th().any),
             tr(td().any, td().any, td().any),
             tr(td().any, td().any, td().any),
@@ -171,7 +175,9 @@ test.describe('columns should distribute correctly', () => {
 
       await expect(editor).toMatchDocument(
         doc(
-          table()(
+          // TODO: the table.attrs.width type in adf-schema is 'number | undefined', but the default value is null, ignoring until adf-schema is updated
+          // @ts-ignore
+          table({ localId: 'abc-123', width: null })(
             tr(...new Array(50).fill(null).map(() => th().any)),
             tr.any,
             tr.any,
@@ -209,7 +215,7 @@ test.describe('columns should distribute correctly', () => {
         // output will enforce the min-width value set in the colgroup.
         await expect(editor).toMatchDocument(
           doc(
-            table()(
+            table({ localId: 'abc-123', width: 760 })(
               tr(...new Array(50).fill(null).map(() => th().any)),
               tr.any,
               tr.any,

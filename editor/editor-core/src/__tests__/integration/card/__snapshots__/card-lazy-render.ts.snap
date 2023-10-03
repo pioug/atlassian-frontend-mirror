@@ -316,6 +316,7 @@ Object {
         "isNumberColumnEnabled": false,
         "layout": "wide",
         "localId": "abc-123",
+        "width": null,
       },
       "content": Array [
         Object {

@@ -565,7 +565,7 @@ describe('nodeviews/mediaSingle', () => {
       });
     });
 
-    it('should not have widthType attribute when use full schema', () => {
+    it('should have widthType attribute when use full schema', () => {
       const newNode = mediaSingle({
         layout: 'center',
         width: 100,
@@ -574,6 +574,7 @@ describe('nodeviews/mediaSingle', () => {
       expect(newNode.attrs).toEqual({
         layout: 'center',
         width: 100,
+        widthType: 'percentage',
       });
     });
   });

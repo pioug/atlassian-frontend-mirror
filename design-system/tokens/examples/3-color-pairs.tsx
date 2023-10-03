@@ -409,7 +409,7 @@ const boxStyles = css({
 const varToToken = (tokenString: string) =>
   `color.${tokenString
     .substring(9, tokenString.length - 1)
-    .replaceAll('-', '.')}`;
+    .replace(/\-/g, '.')}`;
 
 const Box = ({ background, text }: { background: string; text: string }) => (
   <div

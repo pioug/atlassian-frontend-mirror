@@ -175,6 +175,7 @@ Object {
         layout: 'default',
         __autoSize: false,
         localId: 'table-local-id',
+        width: null,
       },
       content: [
         {

@@ -1,5 +1,11 @@
 # @atlaskit/flag
 
+## 15.2.18
+
+### Patch Changes
+
+- [#40332](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40332) [`4d35602a23a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4d35602a23a) - Removes tabindex from Flag container
+
 ## 15.2.17
 
 ### Patch Changes

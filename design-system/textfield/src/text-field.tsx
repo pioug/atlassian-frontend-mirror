@@ -21,20 +21,23 @@ const analyticsParams = {
 const Textfield = forwardRef((props: TextfieldProps, ref) => {
   const {
     appearance = 'standard',
+    className,
+    elemAfterInput,
+    elemBeforeInput,
     isCompact = false,
     isDisabled = false,
     isInvalid = false,
-    isRequired = false,
-    isReadOnly = false,
     isMonospaced = false,
-    width,
-    elemAfterInput,
-    elemBeforeInput,
-    testId,
-    onFocus,
+    isReadOnly = false,
+    isRequired = false,
+    name,
     onBlur,
+    onChange,
+    onFocus,
     onMouseDown,
-    className,
+    placeholder,
+    testId,
+    width,
     ...spreadProps
   } = props;
 
@@ -107,9 +110,15 @@ const Textfield = forwardRef((props: TextfieldProps, ref) => {
   const inputStyle = useMemo(() => getInputStyles(mode), [mode]);
 
   return (
-    // We use event bubbling here to listen to any child element mouse down event.
-    // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+    /**
+     * It is not normally acceptable to add click and key handlers to
+     * non-interactive elements as this is an accessibility anti-pattern.
+     * However, because this instance is to handle events on all children that
+     * should be associated with the input, we can add role="presentation" so
+     * that there are no negative impacts to assistive technologies.
+     */
     <div
+      role="presentation"
       data-disabled={isDisabled ? isDisabled : undefined}
       data-invalid={isInvalid ? isInvalid : undefined}
       data-ds--text-field--container
@@ -123,20 +132,23 @@ const Textfield = forwardRef((props: TextfieldProps, ref) => {
       {elemBeforeInput}
       <input
         {...spreadProps}
-        data-compact={isCompact ? isCompact : undefined}
-        data-monospaced={isMonospaced ? isMonospaced : undefined}
-        data-ds--text-field--input
-        data-testid={testId}
         aria-invalid={isInvalid ? isInvalid : undefined}
-        disabled={isDisabled}
-        readOnly={isReadOnly}
-        required={isRequired}
-        onBlur={handleOnBlur}
-        onFocus={handleOnFocus}
-        ref={setInputRef}
         // TODO: When removing legacy theming fix this.
         // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
         css={inputStyle}
+        data-compact={isCompact ? isCompact : undefined}
+        data-ds--text-field--input
+        data-monospaced={isMonospaced ? isMonospaced : undefined}
+        data-testid={testId}
+        disabled={isDisabled}
+        name={name}
+        onBlur={handleOnBlur}
+        onChange={onChange}
+        onFocus={handleOnFocus}
+        placeholder={placeholder}
+        readOnly={isReadOnly}
+        ref={setInputRef}
+        required={isRequired}
       />
       {elemAfterInput}
     </div>

@@ -1,5 +1,23 @@
 # @atlaskit/link-datasource
 
+## 1.5.3
+
+### Patch Changes
+
+- [#40935](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40935) [`05b395f72c6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/05b395f72c6) - Minor styling update for header padding and table border-radius
+
+## 1.5.2
+
+### Patch Changes
+
+- [#40773](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40773) [`25db8b103c7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/25db8b103c7) - [ux] Adding alphabetical sorting to site selector
+
+## 1.5.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.5.0
 
 ### Minor Changes

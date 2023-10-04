@@ -1,7 +1,7 @@
 /* eslint-disable jsdoc/require-asterisk-prefix */
 import { ReactNode } from 'react';
 
-import { HeadingVariant } from './heading.temp';
+import { HeadingVariant } from './heading.partial';
 
 export type HeadingProps =
   | {

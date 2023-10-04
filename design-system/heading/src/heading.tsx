@@ -4,7 +4,7 @@ import { css, jsx } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
 
 import { useHeadingElement } from './heading-context';
-import NewHeading from './heading.temp';
+import NewHeading from './heading.partial';
 import type { HeadingProps } from './types';
 
 // https://atlassian.design/foundations/typography
@@ -148,6 +148,7 @@ const Heading = ({
       id={id}
       data-testid={testId}
       role={Markup === 'div' ? 'heading' : undefined}
+      aria-level={Markup === 'div' ? hLevel : undefined}
       css={[
         headingResetStyles,
         level === 'h100' && h100Styles,

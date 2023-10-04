@@ -49,10 +49,10 @@ import {
 } from '../../utils';
 import { mapSlice } from '../../utils/slice';
 import type { InputMethodInsertMedia } from '../analytics';
-import { INPUT_METHOD } from '../analytics';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { GapCursorSelection, Side } from '@atlaskit/editor-common/selection';
 import { runMacroAutoConvert } from '../macro';
-import { insertMediaAsMediaSingle } from '../media/utils/media-single';
+import type { InsertMediaAsMediaSingle } from '../media/utils/media-single';
 
 import {
   addReplaceSelectedTableAnalytics,
@@ -77,7 +77,6 @@ import type {
   CardOptions,
 } from '@atlaskit/editor-common/card';
 import { anyMarkActive } from '@atlaskit/editor-common/mark';
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import type { FindRootParentListNode } from '@atlaskit/editor-plugin-list';
 
 // remove text attribute from mention for copy/paste (GDPR)
@@ -854,17 +853,18 @@ function isOnlyMediaSingle(state: EditorState, slice: Slice) {
 
 export function handleMediaSingle(
   inputMethod: InputMethodInsertMedia,
-  editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+  insertMediaAsMediaSingle: InsertMediaAsMediaSingle | undefined,
 ) {
   return function (slice: Slice): Command {
     return (state, dispatch, view) => {
       if (view) {
         if (isOnlyMedia(state, slice)) {
-          return insertMediaAsMediaSingle(
-            view,
-            slice.content.firstChild!,
-            inputMethod,
-            editorAnalyticsAPI,
+          return (
+            insertMediaAsMediaSingle?.(
+              view,
+              slice.content.firstChild!,
+              inputMethod,
+            ) ?? false
           );
         }
 

@@ -13,6 +13,7 @@ import type {
   OptionalPlugin,
 } from '@atlaskit/editor-common/types';
 
+import type { InsertMediaAsMediaSingle } from './utils/media-single';
 import type { MediaOptions } from './types';
 
 export type MediaNextEditorPluginType = NextEditorPlugin<
@@ -31,5 +32,8 @@ export type MediaNextEditorPluginType = NextEditorPlugin<
       FocusPlugin,
     ];
     sharedState: MediaPluginState | null;
+    actions: {
+      insertMediaAsMediaSingle: InsertMediaAsMediaSingle;
+    };
   }
 >;

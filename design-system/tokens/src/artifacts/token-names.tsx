@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::85873830ffd9373b872fe41c841504eb>>
+ * @codegen <<SignedSource::b8507162c70d82c2e8040cc31a142fdb>>
  * @codegenCommand yarn build tokens
  */
 const tokens = {
@@ -550,23 +550,23 @@ const tokens = {
   'space.negative.300': '--ds-space-negative-300',
   'space.negative.400': '--ds-space-negative-400',
   'font.body': '--ds-font-body',
-  'font.body.lg': '--ds-font-body-lg',
-  'font.body.sm': '--ds-font-body-sm',
+  'font.body.large': '--ds-font-body-large',
+  'font.body.small': '--ds-font-body-small',
   'font.code': '--ds-font-code',
-  'font.heading.lg': '--ds-font-heading-lg',
-  'font.heading.md': '--ds-font-heading-md',
-  'font.heading.sm': '--ds-font-heading-sm',
-  'font.heading.xl': '--ds-font-heading-xl',
-  'font.heading.xs': '--ds-font-heading-xs',
-  'font.heading.xxl': '--ds-font-heading-xxl',
-  'font.heading.xxs': '--ds-font-heading-xxs',
+  'font.heading.large': '--ds-font-heading-large',
+  'font.heading.medium': '--ds-font-heading-medium',
+  'font.heading.small': '--ds-font-heading-small',
+  'font.heading.xlarge': '--ds-font-heading-xlarge',
+  'font.heading.xsmall': '--ds-font-heading-xsmall',
+  'font.heading.xxlarge': '--ds-font-heading-xxlarge',
+  'font.heading.xxsmall': '--ds-font-heading-xxsmall',
   'font.letterSpacing.0': '--ds-font-letterSpacing-0',
   'font.letterSpacing.100': '--ds-font-letterSpacing-100',
   'font.letterSpacing.200': '--ds-font-letterSpacing-200',
   'font.letterSpacing.300': '--ds-font-letterSpacing-300',
   'font.letterSpacing.400': '--ds-font-letterSpacing-400',
   'font.ui': '--ds-font-ui',
-  'font.ui.sm': '--ds-font-ui-sm',
+  'font.ui.small': '--ds-font-ui-small',
   'font.family.body': '--ds-font-family-body',
   'font.family.code': '--ds-font-family-code',
   'font.family.heading': '--ds-font-family-heading',
@@ -1019,23 +1019,23 @@ export type CSSTokenMap = {
   'space.negative.300': 'var(--ds-space-negative-300)';
   'space.negative.400': 'var(--ds-space-negative-400)';
   'font.body': 'var(--ds-font-body)';
-  'font.body.lg': 'var(--ds-font-body-lg)';
-  'font.body.sm': 'var(--ds-font-body-sm)';
+  'font.body.large': 'var(--ds-font-body-large)';
+  'font.body.small': 'var(--ds-font-body-small)';
   'font.code': 'var(--ds-font-code)';
-  'font.heading.lg': 'var(--ds-font-heading-lg)';
-  'font.heading.md': 'var(--ds-font-heading-md)';
-  'font.heading.sm': 'var(--ds-font-heading-sm)';
-  'font.heading.xl': 'var(--ds-font-heading-xl)';
-  'font.heading.xs': 'var(--ds-font-heading-xs)';
-  'font.heading.xxl': 'var(--ds-font-heading-xxl)';
-  'font.heading.xxs': 'var(--ds-font-heading-xxs)';
+  'font.heading.large': 'var(--ds-font-heading-large)';
+  'font.heading.medium': 'var(--ds-font-heading-medium)';
+  'font.heading.small': 'var(--ds-font-heading-small)';
+  'font.heading.xlarge': 'var(--ds-font-heading-xlarge)';
+  'font.heading.xsmall': 'var(--ds-font-heading-xsmall)';
+  'font.heading.xxlarge': 'var(--ds-font-heading-xxlarge)';
+  'font.heading.xxsmall': 'var(--ds-font-heading-xxsmall)';
   'font.letterSpacing.0': 'var(--ds-font-letterSpacing-0)';
   'font.letterSpacing.100': 'var(--ds-font-letterSpacing-100)';
   'font.letterSpacing.200': 'var(--ds-font-letterSpacing-200)';
   'font.letterSpacing.300': 'var(--ds-font-letterSpacing-300)';
   'font.letterSpacing.400': 'var(--ds-font-letterSpacing-400)';
   'font.ui': 'var(--ds-font-ui)';
-  'font.ui.sm': 'var(--ds-font-ui-sm)';
+  'font.ui.small': 'var(--ds-font-ui-small)';
   'font.family.body': 'var(--ds-font-family-body)';
   'font.family.code': 'var(--ds-font-family-code)';
   'font.family.heading': 'var(--ds-font-family-heading)';

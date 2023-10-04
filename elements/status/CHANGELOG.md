@@ -1,5 +1,11 @@
 # @atlaskit/status
 
+## 1.4.2
+
+### Patch Changes
+
+- [#40997](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40997) [`02b9339abb1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/02b9339abb1) - add type definition to newColorIndex
+
 ## 1.4.1
 
 ### Patch Changes

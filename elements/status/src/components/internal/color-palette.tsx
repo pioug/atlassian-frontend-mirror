@@ -88,7 +88,7 @@ export default ({
 
   const memoizedHandleKeyDown = useCallback(
     (e: React.KeyboardEvent) => {
-      let newColorIndex = null;
+      let newColorIndex: number | null = null;
       const nextColor = () =>
         currentFocusedColor + 1 > palette.length - 1
           ? 0

@@ -477,8 +477,8 @@ describe('JiraIssuesConfigModal', () => {
 
       assertInsertResult(
         {
-          cloudId: '12345',
-          jqlUrl: 'https://test1.atlassian.net/issues/?jql=some-query',
+          cloudId: '67899',
+          jqlUrl: 'https://hello.atlassian.net/issues/?jql=some-query',
         },
         {
           attributes: {
@@ -560,7 +560,7 @@ describe('JiraIssuesConfigModal', () => {
           parameters: undefined,
           mockSiteDataOverride: mockSiteData.slice(0, 2),
         });
-        await findByText('Insert Jira issues from test1');
+        await findByText('Insert Jira issues from hello');
 
         const { onSearch } = getLatestJiraSearchContainerProps();
         act(() => {
@@ -574,8 +574,8 @@ describe('JiraIssuesConfigModal', () => {
 
         assertInsertResult(
           {
-            cloudId: '12345',
-            jqlUrl: 'https://test1.atlassian.net/issues/?jql=some-query',
+            cloudId: '67899',
+            jqlUrl: 'https://hello.atlassian.net/issues/?jql=some-query',
           },
           {
             attributes: {
@@ -598,7 +598,7 @@ describe('JiraIssuesConfigModal', () => {
           mockSiteDataOverride: mockSiteData.slice(0, 2),
         });
 
-        await findByText('Insert Jira issues from test1');
+        await findByText('Insert Jira issues from hello');
 
         const { onSearch } = getLatestJiraSearchContainerProps();
         act(() => {
@@ -612,8 +612,8 @@ describe('JiraIssuesConfigModal', () => {
 
         assertInsertResult(
           {
-            cloudId: '12345',
-            jqlUrl: 'https://test1.atlassian.net/issues/?jql=some-query',
+            cloudId: '67899',
+            jqlUrl: 'https://hello.atlassian.net/issues/?jql=some-query',
           },
           {
             attributes: {

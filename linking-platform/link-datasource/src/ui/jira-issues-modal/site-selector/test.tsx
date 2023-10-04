@@ -15,7 +15,7 @@ describe('JiraSiteSelector', () => {
         <JiraSiteSelector
           testId={'my-selector'}
           availableSites={mockSiteData}
-          selectedJiraSite={mockSiteData[2]}
+          selectedJiraSite={mockSiteData[0]} // hello sorted alphabetically
           onSiteSelection={mockOnSiteSelection}
           {...(!!propsOverride && propsOverride)}
         />
@@ -59,5 +59,20 @@ describe('JiraSiteSelector', () => {
     jiraSiteDropdownItem[3].click();
 
     expect(mockOnSiteSelection).toHaveBeenCalledWith(mockSiteData[3]);
+  });
+
+  it('should display site names in alphabetical order', async () => {
+    const { getAllByRole, getByTestId } = renderSiteSelector();
+
+    // click dropdown button to open list dropdown
+    getByTestId('my-selector--trigger').click();
+
+    const dropdownItems = getAllByRole('menuitem').map(
+      item => item.textContent,
+    );
+
+    const sortedDropdownItems = [...dropdownItems].sort();
+
+    expect(dropdownItems).toEqual(sortedDropdownItems);
   });
 });

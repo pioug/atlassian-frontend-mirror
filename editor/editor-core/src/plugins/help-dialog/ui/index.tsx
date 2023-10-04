@@ -59,15 +59,15 @@ import {
 import type { Keymap } from '@atlaskit/editor-common/keymaps';
 import ToolbarButton from '../../../ui/ToolbarButton';
 import {
-  toolbarMessages,
+  alignmentMessages,
+  annotationMessages,
   listMessages,
+  toolbarInsertBlockMessages,
+  toolbarMessages,
+  undoRedoMessages,
+  blockTypeMessages,
 } from '@atlaskit/editor-common/messages';
-import { messages as insertBlockMessages } from '../../insert-block/ui/ToolbarInsertBlock/messages';
-import { messages as blockTypeMessages } from '@atlaskit/editor-plugin-block-type/messages';
-import { messages as undoRedoMessages } from '../../undo-redo/messages';
-import { alignmentMessages } from '../../../ui/Alignment/messages';
 import { closeHelpCommand } from '../commands';
-import { annotationMessages } from '../../annotation/toolbar';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type helpDialogPlugin from '..';
@@ -307,7 +307,7 @@ export const formatting: (intl: IntlShape) => Format[] = ({
     ),
   },
   {
-    name: formatMessage(insertBlockMessages.horizontalRule),
+    name: formatMessage(toolbarInsertBlockMessages.horizontalRule),
     type: 'rule',
     keymap: () => insertRule,
     autoFormatting: () => (
@@ -317,13 +317,13 @@ export const formatting: (intl: IntlShape) => Format[] = ({
     ),
   },
   {
-    name: formatMessage(insertBlockMessages.link),
+    name: formatMessage(toolbarInsertBlockMessages.link),
     type: 'link',
     keymap: () => addLink,
     autoFormatting: () => (
       <span>
         <span css={codeLg}>
-          [<FormattedMessage {...insertBlockMessages.link} />
+          [<FormattedMessage {...toolbarInsertBlockMessages.link} />
           ](http://a.com)
         </span>
       </span>
@@ -342,7 +342,7 @@ export const formatting: (intl: IntlShape) => Format[] = ({
     ),
   },
   {
-    name: formatMessage(insertBlockMessages.action),
+    name: formatMessage(toolbarInsertBlockMessages.action),
     type: 'taskItem',
     autoFormatting: () => (
       <span>
@@ -351,7 +351,7 @@ export const formatting: (intl: IntlShape) => Format[] = ({
     ),
   },
   {
-    name: formatMessage(insertBlockMessages.decision),
+    name: formatMessage(toolbarInsertBlockMessages.decision),
     type: 'decisionItem',
     autoFormatting: () => (
       <span>
@@ -360,7 +360,7 @@ export const formatting: (intl: IntlShape) => Format[] = ({
     ),
   },
   {
-    name: formatMessage(insertBlockMessages.emoji),
+    name: formatMessage(toolbarInsertBlockMessages.emoji),
     type: 'emoji',
     autoFormatting: () => (
       <span>
@@ -369,7 +369,7 @@ export const formatting: (intl: IntlShape) => Format[] = ({
     ),
   },
   {
-    name: formatMessage(insertBlockMessages.mention),
+    name: formatMessage(toolbarInsertBlockMessages.mention),
     type: 'mention',
     autoFormatting: () => (
       <span>

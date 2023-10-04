@@ -14,6 +14,10 @@ export interface EmbedCardNotFoundViewProps {
   onClick?: (evt: React.MouseEvent) => void;
 }
 
+/**
+ * @deprecated {@link https://product-fabric.atlassian.net/browse/EDM-7977 Internal documentation for deprecation (no external access)}\
+ * @deprecated Replaced by not-found-view
+ */
 export const EmbedCardNotFoundView: FC<EmbedCardNotFoundViewProps> = ({
   link,
   context,

@@ -1,5 +1,12 @@
 # @atlaskit/renderer
 
+## 108.15.8
+
+### Patch Changes
+
+- [#40912](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40912) [`1b1cb811d4d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1b1cb811d4d) - [ED-20170] Fix telepointer being duplicated when renderer telepointer feature flag is on
+- [#40912](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40912) [`050cf3ed98f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/050cf3ed98f) - [ED-19844] Fix issue where mutation observer was being created in SSR environments
+
 ## 108.15.7
 
 ### Patch Changes

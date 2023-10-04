@@ -1,5 +1,11 @@
 # @atlaskit/primitives
 
+## 1.6.3
+
+### Patch Changes
+
+- [#40299](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40299) [`b1882fdd842`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b1882fdd842) - Change typography token naming to be more verbose.
+
 ## 1.6.2
 
 ### Patch Changes

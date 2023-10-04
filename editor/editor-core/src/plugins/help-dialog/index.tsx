@@ -5,10 +5,6 @@ import type {
   EditorState,
   ReadonlyTransaction,
 } from '@atlaskit/editor-prosemirror/state';
-import type {
-  NextEditorPlugin,
-  OptionalPlugin,
-} from '@atlaskit/editor-common/types';
 import {
   bindKeymapWithCommand,
   openHelp,
@@ -22,13 +18,12 @@ import {
   EVENT_TYPE,
   INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
-import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import QuestionCircleIcon from '@atlaskit/icon/glyph/question-circle';
-import { messages } from '../insert-block/ui/ToolbarInsertBlock/messages';
+import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import { openHelpCommand } from './commands';
 import { pluginKey } from './plugin-key';
-import type { QuickInsertPlugin } from '@atlaskit/editor-plugin-quick-insert';
+import type { HelpDialogPlugin } from '@atlaskit/editor-plugin-help-dialog';
 
 export function createPlugin(dispatch: Function, imageEnabled: boolean) {
   return new SafePlugin({
@@ -51,22 +46,10 @@ export function createPlugin(dispatch: Function, imageEnabled: boolean) {
   });
 }
 
-interface HelpDialogSharedState {
-  isVisible: boolean;
-  imageEnabled: boolean;
-}
-
-const helpDialog: NextEditorPlugin<
-  'helpDialog',
-  {
-    dependencies: [
-      OptionalPlugin<AnalyticsPlugin>,
-      OptionalPlugin<QuickInsertPlugin>,
-    ];
-    pluginConfiguration: boolean;
-    sharedState: HelpDialogSharedState | null;
-  }
-> = ({ config: imageUploadProviderExists = false, api }) => ({
+const helpDialog: HelpDialogPlugin = ({
+  config: imageUploadProviderExists = false,
+  api,
+}) => ({
   name: 'helpDialog',
 
   pmPlugins() {

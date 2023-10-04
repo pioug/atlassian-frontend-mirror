@@ -73,7 +73,7 @@ import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import type { DispatchAnalyticsEvent } from '../../../../../plugins/analytics';
 
 import { messages } from '../../../../../plugins/insert-block/ui/ToolbarInsertBlock/messages';
-import { messages as blockTypeMessages } from '@atlaskit/editor-plugin-block-type/messages';
+import { blockTypeMessages } from '@atlaskit/editor-common/messages';
 import type { Props as ToolbarInsertBlockProps } from '../../../../../plugins/insert-block/ui/ToolbarInsertBlock/types';
 
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';

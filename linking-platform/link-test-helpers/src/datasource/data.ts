@@ -511,6 +511,11 @@ export const mockJiraData = {
 
 export const mockSiteData = [
   {
+    cloudId: '67899',
+    url: 'https://hello.atlassian.net',
+    displayName: 'hello',
+  },
+  {
     cloudId: '12345',
     url: 'https://test1.atlassian.net',
     displayName: 'test1',
@@ -521,24 +526,9 @@ export const mockSiteData = [
     displayName: 'test2',
   },
   {
-    cloudId: '67899',
-    url: 'https://hello.atlassian.net',
-    displayName: 'hello',
-  },
-  {
     cloudId: '78911',
     url: 'https://test4.atlassian.net',
     displayName: 'test4',
-  },
-  {
-    cloudId: '11111',
-    url: 'https://test5.atlassian.net',
-    displayName: 'testSingleIssue',
-  },
-  {
-    cloudId: '22222',
-    url: 'https://test6.atlassian.net',
-    displayName: 'testNoResults',
   },
   {
     cloudId: '33333',
@@ -549,6 +539,16 @@ export const mockSiteData = [
     cloudId: '44444',
     url: 'https://test7.atlassian.net',
     displayName: 'testNoAccess',
+  },
+  {
+    cloudId: '22222',
+    url: 'https://test6.atlassian.net',
+    displayName: 'testNoResults',
+  },
+  {
+    cloudId: '11111',
+    url: 'https://test5.atlassian.net',
+    displayName: 'testSingleIssue',
   },
 ];
 

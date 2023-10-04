@@ -1,5 +1,11 @@
 # @atlaskit/link-test-helpers
 
+## 6.1.5
+
+### Patch Changes
+
+- [#40773](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40773) [`36ece5e3656`](https://bitbucket.org/atlassian/atlassian-frontend/commits/36ece5e3656) - Ordering mock data alphabetically for site selector
+
 ## 6.1.4
 
 ### Patch Changes

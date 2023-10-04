@@ -60,6 +60,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
   private isChannelInitialized: boolean = false;
   private initialDraft?: InitialDraft;
   private isProviderInitialized: boolean = false;
+  private isBuffered: boolean = false;
 
   // isBufferingEnabled is a boolean value passed to the config during provider creation.
   // It determines if the provider should initialize immediately and will only be true if:
@@ -171,14 +172,19 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 
   private initializeChannel = () => {
     this.emit('connecting', { initial: true });
-    const shouldInitialize =
-      Boolean(this.initialDraft) && !this.isProviderInitialized;
+    // shouldSkipDocumentInit will bypass the NCS draft fetch if the initial draft is passed to the provider
+    const shouldSkipDocumentInit = Boolean(this.initialDraft);
     this.channel
       .on('connected', ({ sid, initialized }) => {
         this.sessionId = sid;
-        // if buffering is enabled and the provider is initialized before connection, call catchup
-        // once setup resolves with the defined editor state
-        if (this.isBufferingEnabled && this.isProviderInitialized) {
+        // if buffering is enabled and the provider is initialized before connection,
+        // send any unconfirmed steps
+        if (
+          this.isBufferingEnabled &&
+          this.isProviderInitialized &&
+          !this.isBuffered
+        ) {
+          this.isBuffered = true; // setting buffering to true so that the sending of unconfirmed steps happens only on first connection
           this.documentService.sendStepsFromCurrentState();
         }
         this.emit('connected', {
@@ -235,7 +241,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
       .on('disconnect', this.onDisconnected.bind(this))
       .on('error', this.onErrorHandled)
       .on('status', this.namespaceService.onNamespaceStatusChanged)
-      .connect(shouldInitialize);
+      .connect(shouldSkipDocumentInit);
   };
 
   private setUserId = (id: string) => {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { PureComponent } from 'react';
-import { MentionProvider } from '@atlaskit/mention/resource';
+import type { MentionProvider } from '@atlaskit/mention/resource';
 import { ResourcedMention } from '@atlaskit/mention/element';
 import {
   ProviderFactory,
@@ -9,7 +9,22 @@ import {
 import type { Providers } from '@atlaskit/editor-common/provider-factory';
 import type { MentionEventHandlers } from '@atlaskit/editor-common/ui';
 import { browser } from '@atlaskit/editor-common/utils';
-import { refreshBrowserSelection } from '../../../code-block/refresh-browser-selection';
+
+// Workaround for a firefox issue where dom selection is off sync
+// https://product-fabric.atlassian.net/browse/ED-12442
+const refreshBrowserSelection = () => {
+  const domSelection = window.getSelection();
+  if (domSelection) {
+    const domRange =
+      domSelection &&
+      domSelection.rangeCount === 1 &&
+      domSelection.getRangeAt(0).cloneRange();
+    if (domRange) {
+      domSelection.removeAllRanges();
+      domSelection.addRange(domRange);
+    }
+  }
+};
 
 export interface MentionProps {
   id: string;

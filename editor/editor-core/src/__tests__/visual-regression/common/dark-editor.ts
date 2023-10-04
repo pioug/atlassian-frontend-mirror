@@ -9,6 +9,9 @@ import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { emojiSelectors } from '@atlaskit/editor-test-helpers/page-objects/emoji';
 import { waitForLoadedBackgroundImages } from '@atlaskit/visual-regression/helper';
+// Below import is temporarily exempted as it predated the introduction of the eslint rule
+// Please avoid importing from src or dist directories of platform components
+// eslint-disable-next-line no-restricted-imports
 import { waitForAllMedia } from '@atlaskit/renderer/src/__tests__/__helpers/page-objects/_media';
 
 describe.skip('Snapshot Test: Dark Editor', () => {

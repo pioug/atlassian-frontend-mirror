@@ -46,6 +46,7 @@ export type TypeAheadPlugin = NextEditorPlugin<
     pluginConfiguration: TypeAheadPluginOptions | undefined;
     actions: {
       isOpen: (editorState: EditorState) => boolean;
+      isAllowed: (editorState: EditorState) => boolean;
     };
     commands: {
       openTypeAheadAtCursor: OpenTypeAheadAtCursorType;

@@ -10,14 +10,12 @@ import { ForbiddenViewProps } from './types';
 
 const ForbiddenView: FC<ForbiddenViewProps> = ({
   context,
-  inheritDimensions,
-  isSelected,
   onAuthorise,
-  onClick,
-  requestAccessContext,
+  accessContext,
   testId = 'embed-card-forbidden-view',
-  url,
+  ...unresolvedViewProps
 }) => {
+  const { icon, image, text = '' } = context ?? {};
   const {
     accessType,
     hostname,
@@ -25,7 +23,7 @@ const ForbiddenView: FC<ForbiddenViewProps> = ({
     descriptiveMessageKey,
     callToActionMessageKey,
     action,
-  } = requestAccessContext ?? {};
+  } = accessContext ?? {};
 
   const values = useMemo(() => {
     const product = context?.text ?? '';
@@ -35,8 +33,6 @@ const ForbiddenView: FC<ForbiddenViewProps> = ({
       hostname: <b>{hostname}</b>,
     };
   }, [hostname, context?.text]);
-
-  const image = useMemo(() => context?.image ?? LockImage, [context?.image]);
 
   /**
    * if there is a request access context, but no action to perform, do not show any button.
@@ -73,13 +69,11 @@ const ForbiddenView: FC<ForbiddenViewProps> = ({
 
   return (
     <UnresolvedView
-      icon={context?.icon}
-      image={image}
-      inheritDimensions={inheritDimensions}
-      isSelected={isSelected}
-      onClick={onClick}
+      {...unresolvedViewProps}
+      icon={icon}
+      image={image ?? LockImage}
       testId={testId}
-      text={context?.text}
+      text={text}
       title={
         <FormattedMessage
           {...toMessage(messages.invalid_permissions, titleMessageKey)}
@@ -96,7 +90,6 @@ const ForbiddenView: FC<ForbiddenViewProps> = ({
         />
       }
       button={button}
-      url={url}
     />
   );
 };

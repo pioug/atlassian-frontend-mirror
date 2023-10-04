@@ -25,7 +25,10 @@ import {
   buildTypeAheadRenderedPayload,
 } from '../analytics';
 import InviteItem, { INVITE_ITEM_DESCRIPTION } from '../ui/InviteItem';
-import type { TypeAheadHandler, TypeAheadItem } from '../../type-ahead/types';
+import type {
+  TypeAheadHandler,
+  TypeAheadItem,
+} from '@atlaskit/editor-common/types';
 import {
   isInviteItem,
   isTeamType,

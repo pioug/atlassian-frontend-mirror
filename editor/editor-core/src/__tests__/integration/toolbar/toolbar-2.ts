@@ -5,15 +5,17 @@ import {
   fullpage,
   editable,
 } from '@atlaskit/editor-test-helpers/integration/helpers';
-import { toolbarMessages as blockTypeMessages } from '@atlaskit/editor-plugin-block-type/messages';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   goToEditorTestingWDExample,
   mountEditor,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
-import { messages } from '@atlaskit/editor-plugin-block-type/messages';
+import {
+  blockTypeMessages,
+  toolbarMessages as textFormattingMessages,
+} from '@atlaskit/editor-common/messages';
 
-const changeFormatting = `[aria-label="${blockTypeMessages.textStyles.defaultMessage}"]`;
+const changeFormatting = `[aria-label="${textFormattingMessages.textStyles.defaultMessage}"]`;
 const input = 'helloworld';
 
 // https://product-fabric.atlassian.net/browse/ED-4531
@@ -38,7 +40,8 @@ const input = 'helloworld';
 const validateFormat = async (browser: any, heading: number) => {
   const selector =
     'span=' +
-    messages[('heading' + heading) as keyof typeof messages].defaultMessage;
+    blockTypeMessages[('heading' + heading) as keyof typeof blockTypeMessages]
+      .defaultMessage;
   await browser.click(changeFormatting);
   await browser.waitForSelector(selector);
   await browser.click(selector);

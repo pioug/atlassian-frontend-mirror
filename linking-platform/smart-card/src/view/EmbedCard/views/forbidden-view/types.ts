@@ -1,13 +1,12 @@
 import { RequestAccessContextProps } from '../../../types';
 import { ContextViewModel } from '../../types';
+import { UnresolvedViewProps } from '../unresolved-view/types';
 
-export type ForbiddenViewProps = {
+export type ForbiddenViewProps = Pick<
+  UnresolvedViewProps,
+  'inheritDimensions' | 'isSelected' | 'onClick' | 'testId' | 'url'
+> & {
   context?: ContextViewModel;
-  inheritDimensions?: boolean;
-  isSelected?: boolean;
   onAuthorise?: () => void;
-  onClick?: (evt: React.MouseEvent) => void;
-  requestAccessContext: RequestAccessContextProps;
-  testId?: string;
-  url: string;
+  accessContext: RequestAccessContextProps;
 };

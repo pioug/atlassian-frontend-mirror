@@ -17,7 +17,7 @@ import {
   td,
   media,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { transformSliceForMedia } from '../../../../plugins/media/utils/media-single';
+import { transformSliceForMedia } from '../../../../plugins/paste/plugins/media';
 import { temporaryMediaAttrs } from './_utils';
 
 const removeRef = (node: Node) =>

@@ -1,5 +1,8 @@
 import { defineMessages } from 'react-intl-next';
 
+export { alignmentMessages } from './alignment';
+export { annotationMessages } from './annotation';
+export { messages as blockTypeMessages } from './block-type';
 export { codeBidiWarningMessages } from './codeBidiWarning';
 export { linkMessages } from './link';
 export { linkToolbarMessages } from './link-toolbar';
@@ -11,6 +14,7 @@ export { messages as cardMessages } from './card';
 export { messages as fullPageMessages } from './full-page';
 export { toolbarMessages } from './toolbar';
 export { messages as listMessages } from './list';
+export { messages as undoRedoMessages } from './undo-redo';
 
 export default defineMessages({
   layoutFixedWidth: {

@@ -10,7 +10,7 @@ import {
   mountEditor,
   goToEditorTestingWDExample,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
-import { messages } from '@atlaskit/editor-plugin-block-type/messages';
+import { blockTypeMessages } from '@atlaskit/editor-common/messages';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { codeBlockSelectors } from '@atlaskit/editor-test-helpers/page-objects/code-block';
 
@@ -27,7 +27,9 @@ const floatingToolbarLanguageSelector = 'div[aria-label="Floating Toolbar"]';
         appearance: editor as EditorAppearance,
       });
 
-      await page.click(`[aria-label="${messages.codeblock.defaultMessage}"]`);
+      await page.click(
+        `[aria-label="${blockTypeMessages.codeblock.defaultMessage}"]`,
+      );
       await page.waitForSelector(codeBlockSelectors.languageSelectInput);
       await page.type(codeBlockSelectors.languageSelectInput, ['javascript']);
       await page.keys('Return');
@@ -48,7 +50,9 @@ const floatingToolbarLanguageSelector = 'div[aria-label="Floating Toolbar"]';
       });
 
       // Insert code block
-      await page.click(`[aria-label="${messages.codeblock.defaultMessage}"]`);
+      await page.click(
+        `[aria-label="${blockTypeMessages.codeblock.defaultMessage}"]`,
+      );
       await page.waitForSelector(codeBlockSelectors.languageSelectInput);
       // Change code block language
       await page.type(codeBlockSelectors.languageSelectInput, ['javascript']);
@@ -77,7 +81,9 @@ const floatingToolbarLanguageSelector = 'div[aria-label="Floating Toolbar"]';
       });
 
       // Insert code block
-      await page.click(`[aria-label="${messages.codeblock.defaultMessage}"]`);
+      await page.click(
+        `[aria-label="${blockTypeMessages.codeblock.defaultMessage}"]`,
+      );
       await page.waitForSelector(codeBlockSelectors.languageSelectInput);
 
       // Change code block language
@@ -88,7 +94,9 @@ const floatingToolbarLanguageSelector = 'div[aria-label="Floating Toolbar"]';
       await page.keys('ArrowRight');
       await page.keys('Return');
       // Insert a second code block
-      await page.click(`[aria-label="${messages.codeblock.defaultMessage}"]`);
+      await page.click(
+        `[aria-label="${blockTypeMessages.codeblock.defaultMessage}"]`,
+      );
 
       // Make sure the second code block doesn't have a language set.
       await page.waitForSelector(codeBlockSelectors.languageSelectInput);
@@ -133,13 +141,17 @@ const floatingToolbarLanguageSelector = 'div[aria-label="Floating Toolbar"]';
       });
 
       // Insert code block
-      await page.click(`[aria-label="${messages.codeblock.defaultMessage}"]`);
+      await page.click(
+        `[aria-label="${blockTypeMessages.codeblock.defaultMessage}"]`,
+      );
       await page.waitForSelector(codeBlockSelectors.languageSelectInput);
       // Move out of code block
       await page.keys(['ArrowDown']);
       await page.keys('Return');
       // Insert a second code block
-      await page.click(`[aria-label="${messages.codeblock.defaultMessage}"]`);
+      await page.click(
+        `[aria-label="${blockTypeMessages.codeblock.defaultMessage}"]`,
+      );
 
       // Make sure the second code block doesn't have a language set.
       await page.waitForSelector(codeBlockSelectors.languageSelectInput);

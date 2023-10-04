@@ -5,10 +5,23 @@ import Lozenge from '@atlaskit/lozenge';
 import ToolsDrawer from '../example-helpers/ToolsDrawer';
 import { Editor, EditorContext } from '../src';
 import WithPluginState from '../src/ui/WithPluginState';
-import { stateKey as mediaPluginKey } from '../src/plugins/media/pm-plugins/plugin-key';
 import { pluginKey as typeAheadPluginKey } from '../src/plugins/type-ahead/pm-plugins/key';
 
 const SAVE_ACTION = () => console.log('Save');
+
+import type {
+  PluginKey,
+  EditorState,
+} from '@atlaskit/editor-prosemirror/state';
+// TODO: ED-15663
+// Please, do not copy or use this kind of code below
+// @ts-ignore
+const fakeMediaPluginKey = {
+  key: 'mediaPlugin$',
+  getState: (state: EditorState) => {
+    return (state as any)['mediaPlugin$'];
+  },
+} as PluginKey;
 
 export default function Example() {
   return (
@@ -16,7 +29,7 @@ export default function Example() {
       <div>
         <WithPluginState
           plugins={{
-            media: mediaPluginKey,
+            media: fakeMediaPluginKey,
             typeAhead: typeAheadPluginKey,
           }}
           render={({ media, typeAhead }) => (

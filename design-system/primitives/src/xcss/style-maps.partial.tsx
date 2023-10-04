@@ -1057,10 +1057,10 @@ export type BorderRadius = keyof typeof borderRadiusMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::752c1b8bdc7db62e519dd729222d57ad>>
+ * @codegen <<SignedSource::fc5fa2e6300ad8cc69d2ab1af222c4f5>>
  * @codegenId typography
  * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
- * @codegenParams ["fontSize", "fontWeight", "fontFamily", "lineHeight", "body", "heading", "ui"]
+ * @codegenParams ["fontSize", "fontWeight", "fontFamily", "lineHeight", "body", "ui"]
  * @codegenDependency ../../scripts/codegen-file-templates/dimensions.tsx <<SignedSource::0cd422575c3f2a3784eeef767abe71f4>>
  * @codegenDependency ../../scripts/codegen-file-templates/layer.tsx <<SignedSource::79d24a1e558f12d671c06a7609f90dc1>>
  */
@@ -1089,7 +1089,7 @@ export type FontWeight = keyof typeof fontWeightMap;
 export const fontFamilyMap = {
   'font.family.body': token(
     'font.family.body',
-    'ui-sans-serif, "Segoe UI", system-ui, Ubuntu, "Helvetica Neue", sans-serif',
+    'ui-sans-serif, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
   ),
   'font.family.brand': token('font.family.brand', 'Charlie Sans'),
   'font.family.code': token(
@@ -1098,7 +1098,7 @@ export const fontFamilyMap = {
   ),
   'font.family.heading': token(
     'font.family.heading',
-    'ui-sans-serif, "Segoe UI", system-ui, Ubuntu, "Helvetica Neue", sans-serif',
+    'ui-sans-serif, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
   ),
   'font.family.monospace': token(
     'font.family.monospace',
@@ -1126,54 +1126,24 @@ export type LineHeight = keyof typeof lineHeightMap;
 
 export const bodyTextMap = {
   body: token('font.body', 'normal 400 14px/20px var(--ds-font-family-body)'),
-  'body.lg': token(
-    'font.body.lg',
+  'body.large': token(
+    'font.body.large',
     'normal 400 16px/24px var(--ds-font-family-body)',
   ),
-  'body.sm': token(
-    'font.body.sm',
+  'body.small': token(
+    'font.body.small',
     'normal 400 11px/20px var(--ds-font-family-body)',
   ),
 };
 
 export type BodyText = keyof typeof bodyTextMap;
 
-export const headingTextMap = {
-  'heading.lg': token(
-    'font.heading.lg',
-    'normal 500 24px/28px var(--ds-font-family-heading)',
-  ),
-  'heading.md': token(
-    'font.heading.md',
-    'normal 500 20px/24px var(--ds-font-family-heading)',
-  ),
-  'heading.sm': token(
-    'font.heading.sm',
-    'normal 600 16px/20px var(--ds-font-family-heading)',
-  ),
-  'heading.xl': token(
-    'font.heading.xl',
-    'normal 600 29px/32px var(--ds-font-family-heading)',
-  ),
-  'heading.xs': token(
-    'font.heading.xs',
-    'normal 600 14px/16px var(--ds-font-family-heading)',
-  ),
-  'heading.xxl': token(
-    'font.heading.xxl',
-    'normal 500 35px/40px var(--ds-font-family-heading)',
-  ),
-  'heading.xxs': token(
-    'font.heading.xxs',
-    'normal 600 12px/16px var(--ds-font-family-heading)',
-  ),
-};
-
-export type HeadingText = keyof typeof headingTextMap;
-
 export const uiTextMap = {
   ui: token('font.ui', 'normal 400 14px/1 var(--ds-font-family-body)'),
-  'ui.sm': token('font.ui.sm', 'normal 400 11px/1 var(--ds-font-family-body)'),
+  'ui.small': token(
+    'font.ui.small',
+    'normal 400 11px/1 var(--ds-font-family-body)',
+  ),
 };
 
 export type UiText = keyof typeof uiTextMap;
@@ -1284,7 +1254,6 @@ type PropsToken =
   | FontFamilyToken
   | LineHeightToken
   | TextColorToken
-  | HeadingTextToken
   | BodyTextToken
   | UITextToken;
 type TokenMap = Partial<Record<PropsToken, ReturnType<typeof token>>>;
@@ -1310,7 +1279,6 @@ type FontSizeToken = keyof typeof fontSizeMap;
 type FontWeightToken = keyof typeof fontWeightMap;
 type FontFamilyToken = keyof typeof fontFamilyMap;
 type LineHeightToken = keyof typeof lineHeightMap;
-type HeadingTextToken = keyof typeof headingTextMap;
 type BodyTextToken = keyof typeof bodyTextMap;
 type UITextToken = keyof typeof uiTextMap;
 type SpacingStyleMap = Record<
@@ -1324,7 +1292,6 @@ type FontSizeStyleMap = Record<FontSizeToken, SerializedStyles>;
 type FontWeightStyleMap = Record<FontWeightToken, SerializedStyles>;
 type FontFamilyStyleMap = Record<FontFamilyToken, SerializedStyles>;
 type LineHeightStyleMap = Record<LineHeightToken, SerializedStyles>;
-type HeadingTextStyleMap = Record<HeadingTextToken, SerializedStyles>;
 type BodyTextStyleMap = Record<BodyTextToken, SerializedStyles>;
 type UITextStyleMap = Record<UITextToken, SerializedStyles>;
 
@@ -1374,10 +1341,6 @@ export const fontFamilyStylesMap: FontFamilyStyleMap = getSerializedStylesMap(
 export const lineHeightStylesMap: LineHeightStyleMap = getSerializedStylesMap(
   'lineHeight',
   lineHeightMap,
-);
-export const headingTextStylesMap: HeadingTextStyleMap = getSerializedStylesMap(
-  'font',
-  headingTextMap,
 );
 export const bodyTextStylesMap: BodyTextStyleMap = getSerializedStylesMap(
   'font',

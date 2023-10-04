@@ -11,7 +11,7 @@ import {
   goToEditorTestingWDExample,
   mountEditor,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
-import { messages } from '@atlaskit/editor-plugin-block-type/messages';
+import { blockTypeMessages as messages } from '@atlaskit/editor-common/messages';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { runEscapeKeydownSuite } from '@atlaskit/editor-test-helpers/integration/escape-keydown';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies

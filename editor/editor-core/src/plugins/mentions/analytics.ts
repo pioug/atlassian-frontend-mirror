@@ -1,22 +1,15 @@
+import type { EventType, GasPayload } from '@atlaskit/analytics-gas-types';
 import {
-  EventType,
-  GasPayload,
   OPERATIONAL_EVENT_TYPE,
   UI_EVENT_TYPE,
 } from '@atlaskit/analytics-gas-types';
-import {
-  isSpecialMention,
-  MentionDescription,
-} from '@atlaskit/mention/resource';
-import { InviteExperimentCohort, UserRole } from '@atlaskit/mention';
-import {
-  name as packageName,
-  version as packageVersion,
-} from '../../version-wrapper';
+import type { MentionDescription } from '@atlaskit/mention/resource';
+import { isSpecialMention } from '@atlaskit/mention/resource';
+import type { InviteExperimentCohort, UserRole } from '@atlaskit/mention';
 
-import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
+import type { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 import { isTeamType } from './utils';
-import { TeamInfoAttrAnalytics } from './types';
+import type { TeamInfoAttrAnalytics } from './types';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
 
 const componentName = 'mention';
@@ -33,8 +26,6 @@ export const buildAnalyticsPayload = (
   actionSubject,
   eventType,
   attributes: {
-    packageName,
-    packageVersion,
     componentName,
     sessionId,
     ...otherAttributes,
@@ -246,8 +237,6 @@ export const buildTypeAheadRenderedPayload = (
     actionSubject,
     eventType: OPERATIONAL_EVENT_TYPE,
     attributes: {
-      packageName,
-      packageVersion,
       componentName,
       duration,
       userIds,

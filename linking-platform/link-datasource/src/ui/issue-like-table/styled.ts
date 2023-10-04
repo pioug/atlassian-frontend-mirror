@@ -11,7 +11,7 @@ export const Table = styled.table`
 
 export const TableHeading = styled.th`
   position: relative;
-  padding-block: ${token('space.100', '8px')};
+  padding-block: ${token('space.300', '24px')} ${token('space.100', '8px')};
   line-height: ${token('font.lineHeight.300', '16px')};
   border-bottom: 2px solid ${token('color.background.accent.gray.subtler', N40)};
   & [data-testid='datasource-header-content--container'] {

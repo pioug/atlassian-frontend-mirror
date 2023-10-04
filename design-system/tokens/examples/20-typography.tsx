@@ -8,20 +8,21 @@ import Stack from '@atlaskit/primitives/stack';
 import { token } from '../src';
 
 const fonts = [
-  'font.heading.xxl',
-  'font.heading.xl',
-  'font.heading.lg',
-  'font.heading.md',
-  'font.heading.sm',
-  'font.heading.xs',
-  'font.heading.xxs',
+  'font.heading.xxlarge',
+  'font.heading.xlarge',
+  'font.heading.large',
+  'font.heading.medium',
+  'font.heading.small',
+  'font.heading.xsmall',
+  'font.heading.xxsmall',
 ] as const;
 
 const body = [
+  'font.body.large',
   'font.body',
-  'font.body.sm',
+  'font.body.small',
   'font.ui',
-  'font.ui.sm',
+  'font.ui.small',
   'font.code',
 ] as const;
 

@@ -19,6 +19,8 @@ export class ErroredClient extends CardClient {
   }
 }
 
+// "visibility": "restricted",
+// "access": "forbidden",
 export class ForbiddenClient extends CardClient {
   fetchData(): Promise<JsonLd.Response> {
     return Promise.resolve(mocks.forbidden);
@@ -30,7 +32,7 @@ export class ForbiddenClient extends CardClient {
 // "accessType": "FORBIDDEN",
 export class ForbiddenWithImageClient extends CardClient {
   fetchData(): Promise<JsonLd.Response> {
-    return Promise.resolve(mocks.forbiddenCrossJoin('FORBIDDEN', 'not_found'));
+    return Promise.resolve(mocks.unresolved('FORBIDDEN', 'not_found'));
   }
 }
 
@@ -39,15 +41,18 @@ export class ForbiddenWithImageClient extends CardClient {
 // "accessType": "ACCESS_EXISTS",
 export class ForbiddenWithObjectRequestAccessClient extends CardClient {
   fetchData(): Promise<JsonLd.Response> {
-    return Promise.resolve(
-      mocks.forbiddenCrossJoin('ACCESS_EXISTS', 'restricted'),
-    );
+    return Promise.resolve(mocks.unresolved('ACCESS_EXISTS', 'restricted'));
   }
 }
 
+// "visibility": "not_found",
+// "access": "forbidden",
+// "accessType": "DENIED_REQUEST_EXISTS",
 export class ForbiddenWithSiteDeniedRequestClient extends CardClient {
   fetchData(): Promise<JsonLd.Response> {
-    return Promise.resolve(mocks.forbiddenCrossJoin('DENIED_REQUEST_EXISTS'));
+    return Promise.resolve(
+      mocks.unresolved('DENIED_REQUEST_EXISTS', 'not_found'),
+    );
   }
 }
 
@@ -56,9 +61,7 @@ export class ForbiddenWithSiteDeniedRequestClient extends CardClient {
 // "accessType": "DIRECT_ACCESS",
 export class ForbiddenWithSiteDirectAccessClient extends CardClient {
   fetchData(): Promise<JsonLd.Response> {
-    return Promise.resolve(
-      mocks.forbiddenCrossJoin('DIRECT_ACCESS', 'not_found'),
-    );
+    return Promise.resolve(mocks.unresolved('DIRECT_ACCESS', 'not_found'));
   }
 }
 
@@ -68,7 +71,7 @@ export class ForbiddenWithSiteDirectAccessClient extends CardClient {
 export class ForbiddenWithSitePendingRequestClient extends CardClient {
   fetchData(): Promise<JsonLd.Response> {
     return Promise.resolve(
-      mocks.forbiddenCrossJoin('PENDING_REQUEST_EXISTS', 'not_found'),
+      mocks.unresolved('PENDING_REQUEST_EXISTS', 'not_found'),
     );
   }
 }
@@ -78,15 +81,24 @@ export class ForbiddenWithSitePendingRequestClient extends CardClient {
 // "accessType": "REQUEST_ACCESS",
 export class ForbiddenWithSiteRequestAccessClient extends CardClient {
   fetchData(): Promise<JsonLd.Response> {
-    return Promise.resolve(
-      mocks.forbiddenCrossJoin('REQUEST_ACCESS', 'not_found'),
-    );
+    return Promise.resolve(mocks.unresolved('REQUEST_ACCESS', 'not_found'));
   }
 }
 
+// visibility: 'not_found',
+// access: 'forbidden',
 export class NotFoundClient extends CardClient {
   fetchData(): Promise<JsonLd.Response> {
     return Promise.resolve(mocks.notFound);
+  }
+}
+
+// "visibility": "not_found",
+// "access": "forbidden",
+// "accessType": "ACCESS_EXISTS",
+export class NotFoundWithSiteAccessExistsClient extends CardClient {
+  fetchData(): Promise<JsonLd.Response> {
+    return Promise.resolve(mocks.unresolved('ACCESS_EXISTS', 'not_found'));
   }
 }
 

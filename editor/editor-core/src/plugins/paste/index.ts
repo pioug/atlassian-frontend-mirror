@@ -9,13 +9,14 @@ import type { cardPlugin } from '@atlaskit/editor-plugin-card';
 import type betterTypeHistoryPlugin from '../better-type-history';
 import type { listPlugin } from '@atlaskit/editor-plugin-list';
 import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { MediaNextEditorPluginType } from '../media/next-plugin-type';
 
 export type PastePluginOptions = {
   cardOptions?: CardOptions;
   sanitizePrivateContent?: boolean;
 };
 
-const pastePlugin: NextEditorPlugin<
+export type PastePlugin = NextEditorPlugin<
   'paste',
   {
     pluginConfiguration: PastePluginOptions;
@@ -25,9 +26,12 @@ const pastePlugin: NextEditorPlugin<
       typeof betterTypeHistoryPlugin,
       OptionalPlugin<typeof cardPlugin>,
       OptionalPlugin<typeof analyticsPlugin>,
+      OptionalPlugin<MediaNextEditorPluginType>,
     ];
   }
-> = ({ config, api }) => {
+>;
+
+const pastePlugin: PastePlugin = ({ config, api }) => {
   const { cardOptions, sanitizePrivateContent } = config ?? {};
   const featureFlags = api?.featureFlags?.sharedState.currentState() || {};
   return {

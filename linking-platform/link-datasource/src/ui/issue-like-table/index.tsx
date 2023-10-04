@@ -69,6 +69,7 @@ const scrollableContainerStyles = css({
   overflow: 'auto',
   padding: `0 ${tableSidePadding} 0 ${tableSidePadding}`,
   boxSizing: 'border-box',
+  borderRadius: token('border.radius.100', '3px'),
 });
 
 const tableStyles = css({

@@ -221,7 +221,7 @@ const fontFamilyPalette: FontFamilyPaletteTokenSchema<FontFamilyPaletteValues> =
        * @see https://fonts.google.com/knowledge/glossary/system_font_web_safe_font
        */
       FontFamilyWebSans: {
-        value: `ui-sans-serif, \"Segoe UI\", system-ui, Ubuntu, \"Helvetica Neue\", sans-serif`,
+        value: `ui-sans-serif, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif`,
         attributes: {
           group: 'fontFamily',
         },

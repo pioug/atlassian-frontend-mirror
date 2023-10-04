@@ -13,6 +13,9 @@ import { RequestAccessContextProps } from '../../types';
 import Lozenge from '@atlaskit/lozenge';
 import { LozengeWrapper } from '../IconAndTitleLayout/styled';
 import withFrameStyleControl from '../utils/withFrameStyleControl';
+import { HoverCard } from '../../HoverCard';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+
 export interface InlineCardForbiddenViewProps {
   /** The url to display */
   url: string;
@@ -30,6 +33,8 @@ export interface InlineCardForbiddenViewProps {
   testId?: string;
   /* Describes additional metadata based on the type of access a user has to the link */
   requestAccessContext?: RequestAccessContextProps;
+  /** Enables showing a custom preview on hover of link */
+  showHoverPreview?: boolean;
 }
 
 const FallbackForbiddenIcon = (
@@ -129,7 +134,8 @@ export class InlineCardForbiddenView extends React.Component<InlineCardForbidden
       isSelected,
       testId = 'inline-card-forbidden-view',
     } = this.props;
-    return (
+
+    const content = (
       <Frame testId={testId} isSelected={isSelected} ref={this.frameRef}>
         <IconAndTitleLayout
           icon={icon ? icon : FallbackForbiddenIcon}
@@ -141,5 +147,14 @@ export class InlineCardForbiddenView extends React.Component<InlineCardForbidden
         {this.renderActionButton()}
       </Frame>
     );
+
+    if (
+      this.props.showHoverPreview &&
+      getBooleanFF('platform.linking-platform.smart-card.cross-join')
+    ) {
+      return <HoverCard url={url}>{content}</HoverCard>;
+    }
+
+    return content;
   }
 }

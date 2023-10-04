@@ -15,6 +15,7 @@ import {
   B300,
   DN50,
   DN600,
+  N200,
   N200A,
   N300A,
   N30A,
@@ -237,9 +238,12 @@ const titleInputStyles = (props: ThemeProps) => css`
   width: 100%;
 
   &::placeholder {
-    opacity: 0.6;
+    opacity: ${themed({
+      light: 1,
+      dark: 0.6,
+    })(props)};
     color: ${themed({
-      light: token('color.text.subtlest', N200A),
+      light: token('color.text.subtlest', N200),
       dark: token('color.text.subtlest', DN600),
     })(props)};
   }

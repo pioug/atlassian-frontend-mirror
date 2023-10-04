@@ -3,6 +3,14 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { InlineCardErroredView } from '../..';
 import { IntlProvider } from 'react-intl-next';
 import WarningIcon from '@atlaskit/icon/glyph/warning';
+import { Provider } from '../../../../..';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+
+jest.mock('@atlaskit/platform-feature-flags');
+
+afterEach(() => {
+  (getBooleanFF as jest.Mock).mockReset();
+});
 
 const URL =
   'http://product.example.com/lorem/ipsum/dolor/sit/amet/consectetur/adipiscing/volutpat/';
@@ -66,5 +74,53 @@ describe('Errored view', () => {
     fireEvent.click(await screen.findByRole('button', { name: 'Try again' }));
     expect(onRetrySpy).toHaveBeenCalledTimes(1);
     expect(onClickSpy).not.toHaveBeenCalled();
+  });
+
+  it('should render a hover card when showHoverPreview prop is enabled and cross-join feature flag is enabled', async () => {
+    (getBooleanFF as jest.Mock).mockImplementation(
+      (flag) => flag === 'platform.linking-platform.smart-card.cross-join',
+    );
+    render(
+      <Provider>
+        <InlineCardErroredView
+          message="Error"
+          showHoverPreview={true}
+          url="www.test.com"
+        />
+      </Provider>,
+    );
+    expect(
+      await screen.findByTestId('hover-card-trigger-wrapper'),
+    ).toBeInTheDocument();
+  });
+
+  it('should not render a hover card when showHoverPreview prop is not enabled and cross-join feature flag is enabled', async () => {
+    (getBooleanFF as jest.Mock).mockImplementation(
+      (flag) => flag === 'platform.linking-platform.smart-card.cross-join',
+    );
+    render(<InlineCardErroredView message="Error" url="www.test.com" />);
+    expect(
+      screen.queryByTestId('hover-card-trigger-wrapper'),
+    ).not.toBeInTheDocument();
+  });
+
+  it('should not render a hover card when showHoverPreview prop is enabled and cross-join feature flag is disabled', async () => {
+    render(
+      <InlineCardErroredView
+        message="Error"
+        showHoverPreview={true}
+        url="www.test.com"
+      />,
+    );
+    expect(
+      screen.queryByTestId('hover-card-trigger-wrapper'),
+    ).not.toBeInTheDocument();
+  });
+
+  it('should not render a hover card when showHoverPreview prop is disabled and cross-join feature flag is disabled', async () => {
+    render(<InlineCardErroredView message="Error" url="www.test.com" />);
+    expect(
+      screen.queryByTestId('hover-card-trigger-wrapper'),
+    ).not.toBeInTheDocument();
   });
 });

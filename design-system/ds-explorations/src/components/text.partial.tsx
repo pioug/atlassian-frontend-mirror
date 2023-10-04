@@ -195,11 +195,11 @@ export default Text;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::de3943f17f27e9d5895c249c30c12802>>
+ * @codegen <<SignedSource::14dcf59f69533f453ffa8a5c5d165d19>>
  * @codegenId typography
  * @codegenCommand yarn codegen-styles
  * @codegenParams ["fontSize", "fontWeight", "fontFamily", "lineHeight"]
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-typography.tsx <<SignedSource::85d34d11efbf90832fccaf960c2ea033>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-typography.tsx <<SignedSource::b01e60e475c0cb12960865631f2b4e2c>>
  */
 const fontSizeMap = {
   'size.050': css({
@@ -251,7 +251,7 @@ const fontFamilyMap = {
   body: css({
     fontFamily: token(
       'font.family.body',
-      'ui-sans-serif, "Segoe UI", system-ui, Ubuntu, "Helvetica Neue", sans-serif',
+      'ui-sans-serif, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
     ),
   }),
   brand: css({
@@ -266,7 +266,7 @@ const fontFamilyMap = {
   heading: css({
     fontFamily: token(
       'font.family.heading',
-      'ui-sans-serif, "Segoe UI", system-ui, Ubuntu, "Helvetica Neue", sans-serif',
+      'ui-sans-serif, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
     ),
   }),
   monospace: css({

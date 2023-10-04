@@ -656,58 +656,58 @@ const RendererWrapper = React.memo((props: RendererWrapperProps) => {
   const initialUpdate = React.useRef(true);
 
   React.useEffect(() => {
-    if (!addTelepointer || !innerRef?.current) {
-      return;
-    }
+    // We must check if window is defined, if it isn't we are in a SSR environment
+    // and we don't want to add the telepointer
+    if (typeof window !== 'undefined' && addTelepointer && innerRef?.current) {
+      const renderer = innerRef.current.querySelector<HTMLElement>(
+        '.ak-renderer-document',
+      )!;
 
-    const renderer = innerRef.current.querySelector<HTMLElement>(
-      '.ak-renderer-document',
-    )!;
+      if (initialUpdate.current) {
+        const lastChild = renderer.lastChild;
+        lastChild && lastChild.appendChild(createTelepointer());
+      }
 
-    if (initialUpdate.current) {
-      const lastChild = renderer.lastChild;
-      lastChild && lastChild.appendChild(createTelepointer());
-    }
-
-    const mutateTelepointer = (mutations: MutationRecord[]) => {
-      mutations.forEach((mutation: MutationRecord) => {
-        if (initialUpdate.current) {
-          const oldTelepointer = renderer.querySelector(`#${TELEPOINTER_ID}`);
-          if (oldTelepointer) {
-            oldTelepointer.remove();
-          }
-          const lastChild = renderer.lastChild;
-          lastChild && lastChild.appendChild(createTelepointer());
-          initialUpdate.current = false;
-        }
-
-        if (mutation.type === 'characterData') {
-          const parentNode = mutation.target.parentElement;
-
-          if (parentNode) {
+      const mutateTelepointer = (mutations: MutationRecord[]) => {
+        mutations.forEach((mutation: MutationRecord) => {
+          if (initialUpdate.current) {
             const oldTelepointer = renderer.querySelector(`#${TELEPOINTER_ID}`);
             if (oldTelepointer) {
               oldTelepointer.remove();
             }
-            // initialUpdate.current = true;
-            // Add a new telepointer
-            parentNode!.appendChild(createTelepointer());
+            const lastChild = renderer.lastChild;
+            lastChild && lastChild.appendChild(createTelepointer());
+            initialUpdate.current = false;
           }
-        }
+
+          if (mutation.type === 'characterData') {
+            const parentNode = mutation.target.parentElement;
+
+            if (parentNode) {
+              const oldTelepointer = renderer.querySelector(
+                `#${TELEPOINTER_ID}`,
+              );
+              if (oldTelepointer) {
+                oldTelepointer.remove();
+              }
+              parentNode!.appendChild(createTelepointer());
+            }
+          }
+        });
+      };
+
+      const observer = new MutationObserver(mutateTelepointer);
+
+      observer.observe(innerRef.current, {
+        characterData: true,
+        attributes: false,
+        childList: true,
+        subtree: true,
       });
-    };
 
-    const observer = new MutationObserver(mutateTelepointer);
-
-    observer.observe(innerRef.current, {
-      characterData: true,
-      attributes: false,
-      childList: true,
-      subtree: true,
-    });
-
-    return () => observer.disconnect();
-  }, [innerRef, children, addTelepointer]);
+      return () => observer.disconnect();
+    }
+  }, [innerRef, addTelepointer]);
 
   return (
     <WidthProvider

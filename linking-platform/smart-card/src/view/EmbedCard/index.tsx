@@ -18,6 +18,7 @@ import { EmbedCardResolvedView } from './views/ResolvedView';
 import { EmbedCardUnauthorisedView } from './views/UnauthorisedView';
 import { EmbedCardErroredView } from './views/ErroredView';
 import ForbiddenView from './views/forbidden-view';
+import NotFoundView from './views/not-found-view';
 
 export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
   (
@@ -155,7 +156,7 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
         }
 
         if (getBooleanFF('platform.linking-platform.smart-card.cross-join')) {
-          const requestAccessContext = extractRequestAccessContextImproved({
+          const accessContext = extractRequestAccessContextImproved({
             jsonLd: cardMetadata,
             url,
             product: forbiddenViewProps.context?.text ?? '',
@@ -168,7 +169,7 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
               isSelected={isSelected}
               onAuthorise={handleAuthorize}
               onClick={handleFrameClick}
-              requestAccessContext={requestAccessContext}
+              accessContext={accessContext}
               url={forbiddenViewProps.link}
             />
           );
@@ -194,6 +195,28 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
           onError({ url, status });
         }
         const notFoundViewProps = extractEmbedProps(data, meta, platform);
+
+        if (getBooleanFF('platform.linking-platform.smart-card.cross-join')) {
+          const accessContext = details?.meta
+            ? extractRequestAccessContextImproved({
+                jsonLd: details?.meta,
+                url,
+                product: notFoundViewProps.context?.text ?? '',
+              })
+            : undefined;
+
+          return (
+            <NotFoundView
+              context={notFoundViewProps.context}
+              inheritDimensions={inheritDimensions}
+              isSelected={isSelected}
+              onClick={handleFrameClick}
+              accessContext={accessContext}
+              url={notFoundViewProps.link}
+            />
+          );
+        }
+
         return (
           <EmbedCardNotFoundView
             {...notFoundViewProps}

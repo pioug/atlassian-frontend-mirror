@@ -8,7 +8,7 @@
         "introduced": "1.14.0",
         "description": "Helpful guidance goes here"
       },
-      "value": "ui-sans-serif, \"Segoe UI\", system-ui, Ubuntu, \"Helvetica Neue\", sans-serif"
+      "value": "ui-sans-serif, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif"
     },
     "Typography minor3/font.family.code": {
       "attributes": {
@@ -26,7 +26,7 @@
         "introduced": "1.14.0",
         "description": "Helpful guidance goes here"
       },
-      "value": "ui-sans-serif, \"Segoe UI\", system-ui, Ubuntu, \"Helvetica Neue\", sans-serif"
+      "value": "ui-sans-serif, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif"
     },
     "Typography minor3/font.family.monospace": {
       "attributes": {
@@ -44,7 +44,7 @@
         "introduced": "0.10.33",
         "description": "Helpful guidance goes here"
       },
-      "value": "ui-sans-serif, \"Segoe UI\", system-ui, Ubuntu, \"Helvetica Neue\", sans-serif"
+      "value": "ui-sans-serif, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif"
     },
     "Typography minor3/font.family.brand": {
       "attributes": {

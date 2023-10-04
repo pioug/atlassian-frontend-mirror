@@ -12,7 +12,7 @@ export default function IconDatasourceJiraIssue() {
       xmlns="http://www.w3.org/2000/svg"
     >
       <g clipPath="url(#clip0_503_53432)">
-        <rect width="40" height="40" rx="3" fill="white" />
+        <rect width="40" height="40" rx="3" />
         <path
           fillRule="evenodd"
           clipRule="evenodd"

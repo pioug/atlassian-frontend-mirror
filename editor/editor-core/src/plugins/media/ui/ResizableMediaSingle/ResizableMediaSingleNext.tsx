@@ -588,6 +588,7 @@ class ResizableMediaSingleNext extends React.Component<
         'rich-media-wrapped': layout === 'wrap-left' || layout === 'wrap-right',
       },
     );
+    // @ts-expect-error - TS2339 Lodash get() now infers types.
     const resizerNextClassName = classnames(className, resizerStyles);
     const isNestedNode = this.isNestedNode();
 

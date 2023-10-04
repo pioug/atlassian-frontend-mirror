@@ -5,6 +5,7 @@ import { JsonLd } from 'json-ld-types';
 import { render, cleanup, waitFor } from '@testing-library/react';
 import { CardClient, CardProviderStoreOpts } from '@atlaskit/link-provider';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { Card } from '../../Card';
 import { Provider } from '../../..';
 import * as analytics from '../../../utils/analytics';
@@ -259,6 +260,189 @@ describe('smart-card: card states, embed', () => {
             status: 'forbidden',
           });
         });
+      });
+
+      describe('with text content', () => {
+        type ContextProp = { accessType: string; visibility: string };
+        type ContentProps = {
+          button?: string;
+          description: string;
+          title: string;
+        };
+        const mockResponse = ({
+          accessType = 'FORBIDDEN',
+          visibility = 'not_found',
+        } = {}) =>
+          ({
+            meta: {
+              auth: [],
+              visibility,
+              access: 'forbidden',
+              key: 'jira-object-provider',
+              requestAccess: { accessType },
+            },
+            data: {
+              ...mocks.forbidden.data,
+              generator: {
+                '@type': 'Application',
+                '@id': 'https://www.atlassian.com/#Jira',
+                name: 'Jira',
+              },
+            },
+          } as JsonLd.Response);
+
+        const setup = async (response = mocks.forbidden) => {
+          mockFetch.mockImplementationOnce(async () => response);
+          const renderResult = render(
+            <Provider client={mockClient}>
+              <Card
+                appearance="embed"
+                url="https://site.atlassian.net/browse/key-1"
+              />
+            </Provider>,
+          );
+          await new Promise((resolve) => setTimeout(resolve, 1000));
+
+          return renderResult;
+        };
+
+        describe.each([
+          [
+            "site - request access: I don't have access to the site, but I can request access",
+            { accessType: 'REQUEST_ACCESS', visibility: 'not_found' },
+            {
+              title: "You don't have access to this content",
+              description: 'Contact your admin to request access.',
+              button: 'Request access',
+            },
+            {
+              title: 'Restricted content',
+              description: 'Request access to Jira view this preview.',
+              button: 'Request access',
+            },
+          ],
+          [
+            "site - pending request: I don't have access to the site, but I've already requested access and I'm waiting",
+            { accessType: 'PENDING_REQUEST_EXISTS', visibility: 'not_found' },
+            {
+              title: 'Access to Jira is pending',
+              description:
+                'Your request to access site.atlassian.net is awaiting admin approval.',
+              button: 'Pending approval',
+            },
+            {
+              title: 'Restricted content',
+              description: 'Your access request is pending.',
+            },
+          ],
+          [
+            "site - denied request: I don't have access to the site, and my previous request was denied",
+            { accessType: 'DENIED_REQUEST_EXISTS', visibility: 'not_found' },
+            {
+              title: "You don't have access to this content",
+              description:
+                "Your admin didn't approve your request to view Jira pages from site.atlassian.net.",
+            },
+            {
+              title: 'Restricted content',
+              description:
+                'Your access request was denied. Contact the site admin if you still need access.',
+            },
+          ],
+          [
+            "site - direct access: I don't have access to the site, but I can join directly",
+            { accessType: 'DIRECT_ACCESS', visibility: 'not_found' },
+            {
+              title: 'Join your team in Jira',
+              description:
+                'All accounts with your same email domain are approved to access site.atlassian.net in Jira.',
+              button: 'Go to Jira',
+            },
+            {
+              title: 'Restricted content',
+              description:
+                "You've been approved, so you can join Jira right away.",
+              button: 'Join Jira',
+            },
+          ],
+          [
+            'object - request Access: I have access to the site, but not the object',
+            { accessType: 'ACCESS_EXISTS', visibility: 'restricted' },
+            {
+              title: "You don't have access to this content",
+              description:
+                'Contact your admin and request access to view this content from site.atlassian.net.',
+              button: 'Request access',
+            },
+            {
+              title: 'Restricted content',
+              description:
+                "You'll need to request access or try a different account to view this preview.",
+              button: 'Try another account',
+            },
+          ],
+          [
+            'not found, access exists: I have access to the site, but not the object or object is not-found',
+            { accessType: 'ACCESS_EXISTS', visibility: 'not_found' },
+            {
+              title: "We can't show you this Jira page",
+              description:
+                "The page doesn't exist or it may have changed after this link was added.",
+            },
+            {
+              title: "Uh oh. We can't find this link!",
+              description:
+                "We couldn't find the link. Check the url and try editing or paste again.",
+            },
+          ],
+          [
+            'forbidden: When you don’t have access to the site, and you can’t request access',
+            { accessType: 'FORBIDDEN', visibility: 'not_found' },
+            {
+              title: "You don't have access to this content",
+              description: 'Contact your admin to request access.',
+            },
+            {
+              title: 'Restricted content',
+              description:
+                'You don’t have access to this preview. Contact the site admin if you need access.',
+            },
+          ],
+        ])(
+          '%s',
+          (
+            name: string,
+            context: ContextProp,
+            expected: ContentProps,
+            expectedFFOff: ContentProps,
+          ) => {
+            ffTest(
+              'platform.linking-platform.smart-card.cross-join',
+              async () => {
+                const { container, findByText } = await setup(
+                  mockResponse(context),
+                );
+
+                expect(await findByText(expected.title)).toBeVisible();
+                expect(container).toHaveTextContent(expected.description);
+                if (expected.button) {
+                  expect(await findByText(expected.button)).toBeVisible();
+                }
+              },
+              async () => {
+                const { findByText } = await setup(mockResponse(context));
+
+                expect(await findByText(expectedFFOff.title)).toBeVisible();
+                expect(
+                  await findByText(expectedFFOff.description),
+                ).toBeVisible();
+                if (expectedFFOff.button) {
+                  expect(await findByText(expectedFFOff.button)).toBeVisible();
+                }
+              },
+            );
+          },
+        );
       });
     });
 

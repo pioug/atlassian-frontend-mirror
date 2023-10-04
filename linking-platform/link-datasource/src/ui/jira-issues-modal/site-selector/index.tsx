@@ -32,6 +32,7 @@ export const JiraSiteSelector = (props: JiraSiteSelectorProps) => {
       trigger={({ triggerRef, ...props }) => (
         <Button
           {...props}
+          testId={`${testId}--trigger`}
           spacing="none"
           iconBefore={
             <ChevronDownIcon

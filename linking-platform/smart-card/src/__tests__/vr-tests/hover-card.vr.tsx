@@ -126,7 +126,12 @@ snapshot(HoverCardJiraProject, {
 snapshot(HoverCardForbiddenJira, {
   description:
     'Refreshed standalone hover card forbidden view with direct_access context for Jira ',
-  states: [{ state: 'hovered', selector: { byTestId: 'DIRECT_ACCESS' } }],
+  states: [
+    {
+      state: 'hovered',
+      selector: { byTestId: 'DIRECT_ACCESS' },
+    },
+  ],
   drawsOutsideBounds: true,
   featureFlags: {
     'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
@@ -139,7 +144,12 @@ snapshot(HoverCardForbiddenJira, {
 snapshot(HoverCardForbiddenJira, {
   description:
     'Refreshed standalone hover card forbidden view with request_access context for Jira',
-  states: [{ state: 'hovered', selector: { byTestId: 'REQUEST_ACCESS' } }],
+  states: [
+    {
+      state: 'hovered',
+      selector: { byTestId: 'REQUEST_ACCESS' },
+    },
+  ],
   drawsOutsideBounds: true,
   featureFlags: {
     'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
@@ -153,7 +163,10 @@ snapshot(HoverCardForbiddenJira, {
   description:
     'Refreshed standalone hover card forbidden view with pending_request_exists context for Jira',
   states: [
-    { state: 'hovered', selector: { byTestId: 'PENDING_REQUEST_EXISTS' } },
+    {
+      state: 'hovered',
+      selector: { byTestId: 'PENDING_REQUEST_EXISTS' },
+    },
   ],
   drawsOutsideBounds: true,
   featureFlags: {
@@ -168,7 +181,10 @@ snapshot(HoverCardForbiddenJira, {
   description:
     'Refreshed standalone hover card forbidden view with denied_request_exists context for Jira',
   states: [
-    { state: 'hovered', selector: { byTestId: 'DENIED_REQUEST_EXISTS' } },
+    {
+      state: 'hovered',
+      selector: { byTestId: 'DENIED_REQUEST_EXISTS' },
+    },
   ],
   drawsOutsideBounds: true,
   featureFlags: {
@@ -181,8 +197,31 @@ snapshot(HoverCardForbiddenJira, {
 
 snapshot(HoverCardForbiddenJira, {
   description:
-    'Refreshed standalone hover card forbidden view with access_exists context for Jira',
-  states: [{ state: 'hovered', selector: { byTestId: 'ACCESS_EXISTS' } }],
+    'Refreshed standalone hover card forbidden view with access_exists context and visibility not_found for Jira',
+  states: [
+    {
+      state: 'hovered',
+      selector: { byTestId: 'ACCESS_EXISTS-not_found' },
+    },
+  ],
+  drawsOutsideBounds: true,
+  featureFlags: {
+    'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
+      true,
+    'platform.linking-platform.smart-card.enable-better-metadata_iojwg': true,
+    'platform.linking-platform.smart-card.cross-join': true,
+  },
+});
+
+snapshot(HoverCardForbiddenJira, {
+  description:
+    'Refreshed standalone hover card forbidden view with access_exists context and visibility restricted for Jira',
+  states: [
+    {
+      state: 'hovered',
+      selector: { byTestId: 'ACCESS_EXISTS-restricted' },
+    },
+  ],
   drawsOutsideBounds: true,
   featureFlags: {
     'platform.linking-platform.smart-card.show-smart-links-refreshed-design':

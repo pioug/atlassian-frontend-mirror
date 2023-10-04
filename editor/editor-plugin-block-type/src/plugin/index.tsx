@@ -16,6 +16,7 @@ import {
   toggleBlockQuote,
   tooltip,
 } from '@atlaskit/editor-common/keymaps';
+import { blockTypeMessages as messages } from '@atlaskit/editor-common/messages';
 import type {
   QuickInsertActionInsert,
   QuickInsertItem,
@@ -36,7 +37,6 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { setBlockTypeWithAnalytics } from './commands';
 import type { InputMethod } from './commands/block-type';
 import { insertBlockQuoteWithAnalytics } from './commands/block-type';
-import { messages } from './messages';
 import inputRulePlugin from './pm-plugins/input-rule';
 import keymapPlugin from './pm-plugins/keymap';
 import type { BlockTypeState } from './pm-plugins/main';

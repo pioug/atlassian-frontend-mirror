@@ -70,7 +70,7 @@ describe('Modal', () => {
     const availableSitesDropdownItems = await page.$$(
       '[data-testid="jira-jql-datasource-modal--site-selector--dropdown-item"],[data-testid="jira-jql-datasource-modal--site-selector--dropdown-item__selected"]',
     );
-    await availableSitesDropdownItems[2].click(); // "hello"
+    await availableSitesDropdownItems[0].click(); // "hello" after alphabetical sorting
 
     expect(
       await takeElementScreenShot(page, jiraModal),
@@ -197,7 +197,7 @@ describe('Modal', () => {
     const availableSitesDropdownItems = await page.$$(
       '[data-testid="jira-jql-datasource-modal--site-selector--dropdown-item"],[data-testid="jira-jql-datasource-modal--site-selector--dropdown-item__selected"]',
     );
-    await availableSitesDropdownItems[4].click(); // "testSingleIssue"
+    await availableSitesDropdownItems[7].click(); // "testSingleIssue" after alphabetical sorting
 
     const basicInput = await page.waitForSelector(jqlEditorBasicInputSelector);
     basicInput?.type('Render Smart Card');
@@ -230,7 +230,7 @@ describe('Modal', () => {
     const availableSitesDropdownItems = await page.$$(
       '[data-testid="jira-jql-datasource-modal--site-selector--dropdown-item"],[data-testid="jira-jql-datasource-modal--site-selector--dropdown-item__selected"]',
     );
-    await availableSitesDropdownItems[5].click(); // "testNoResults"
+    await availableSitesDropdownItems[6].click(); // "testNoResults" after alphabetical sorting
 
     const basicInput = await page.waitForSelector(jqlEditorBasicInputSelector);
     basicInput?.type('test');
@@ -253,7 +253,7 @@ describe('Modal', () => {
     const availableSitesDropdownItems = await page.$$(
       '[data-testid="jira-jql-datasource-modal--site-selector--dropdown-item"],[data-testid="jira-jql-datasource-modal--site-selector--dropdown-item__selected"]',
     );
-    await availableSitesDropdownItems[6].click(); // "testNetworkError"
+    await availableSitesDropdownItems[4].click(); // "testNetworkError" after alphabetical sorting
 
     const basicInput = await page.waitForSelector(jqlEditorBasicInputSelector);
     basicInput?.type('test');
@@ -276,7 +276,7 @@ describe('Modal', () => {
     const availableSitesDropdownItems = await page.$$(
       '[data-testid="jira-jql-datasource-modal--site-selector--dropdown-item"],[data-testid="jira-jql-datasource-modal--site-selector--dropdown-item__selected"]',
     );
-    await availableSitesDropdownItems[7].click(); // "testNoAccess"
+    await availableSitesDropdownItems[5].click(); // "testNoAccess" after alphabetical sorting
 
     const basicInput = await page.waitForSelector(jqlEditorBasicInputSelector);
     basicInput?.type('test');

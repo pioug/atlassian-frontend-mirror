@@ -8,8 +8,7 @@ import type {
   NextEditorPlugin,
   OptionalPlugin,
 } from '@atlaskit/editor-common/types';
-import WithPluginState from '../../ui/WithPluginState';
-import { isTypeAheadAllowed } from '../type-ahead/utils';
+import { WithPluginState } from '@atlaskit/editor-common/with-plugin-state';
 import ToolbarMention from './ui/ToolbarMention';
 import {
   ACTION,
@@ -19,7 +18,7 @@ import {
   INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
 import { IconMention } from '@atlaskit/editor-common/quick-insert';
-import { messages } from '../insert-block/ui/ToolbarInsertBlock/messages';
+import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import type {
   MentionPluginOptions,
   FireElementsChannelEvent,
@@ -29,7 +28,7 @@ import { createTypeAheadConfig } from './type-ahead';
 import { mentionPluginKey } from './pm-plugins/key';
 import { createMentionPlugin } from './pm-plugins/main';
 import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import type { TypeAheadPlugin } from '../type-ahead';
+import type { TypeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
 
 export { mentionPluginKey };
 
@@ -101,7 +100,9 @@ const mentionsPlugin: NextEditorPlugin<
             !mentionState.mentionProvider ? null : (
               <ToolbarMention
                 editorView={editorView}
-                isDisabled={disabled || isTypeAheadAllowed(editorView.state)}
+                isDisabled={
+                  disabled || api?.typeAhead.actions.isAllowed(editorView.state)
+                }
               />
             )
           }

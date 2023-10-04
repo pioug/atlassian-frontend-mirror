@@ -27,7 +27,7 @@ import {
   IconPanelError,
 } from '@atlaskit/editor-common/quick-insert';
 import { createWrapSelectionTransaction } from '@atlaskit/editor-common/utils';
-import { messages } from '@atlaskit/editor-plugin-block-type/messages';
+import { blockTypeMessages } from '@atlaskit/editor-common/messages';
 import type { PanelPluginOptions } from './types';
 import { IconCustomPanel } from '@atlaskit/editor-common/quick-insert';
 import { T50 } from '@atlaskit/theme/colors';
@@ -81,9 +81,9 @@ const panelPlugin: NextEditorPlugin<
       let quickInsertOptions: QuickInsertItem[] = [
         {
           id: 'infopanel',
-          title: formatMessage(messages.infoPanel),
+          title: formatMessage(blockTypeMessages.infoPanel),
           keywords: ['panel'],
-          description: formatMessage(messages.infoPanelDescription),
+          description: formatMessage(blockTypeMessages.infoPanelDescription),
           priority: 800,
           icon: () => <IconPanel />,
           action(insert, state) {
@@ -95,8 +95,8 @@ const panelPlugin: NextEditorPlugin<
         },
         {
           id: 'notepanel',
-          title: formatMessage(messages.notePanel),
-          description: formatMessage(messages.notePanelDescription),
+          title: formatMessage(blockTypeMessages.notePanel),
+          description: formatMessage(blockTypeMessages.notePanelDescription),
           priority: 1000,
           icon: () => <IconPanelNote />,
           action(insert, state) {
@@ -108,8 +108,8 @@ const panelPlugin: NextEditorPlugin<
         },
         {
           id: 'successpanel',
-          title: formatMessage(messages.successPanel),
-          description: formatMessage(messages.successPanelDescription),
+          title: formatMessage(blockTypeMessages.successPanel),
+          description: formatMessage(blockTypeMessages.successPanelDescription),
           keywords: ['tip'],
           priority: 1000,
           icon: () => <IconPanelSuccess />,
@@ -122,8 +122,8 @@ const panelPlugin: NextEditorPlugin<
         },
         {
           id: 'warningpanel',
-          title: formatMessage(messages.warningPanel),
-          description: formatMessage(messages.warningPanelDescription),
+          title: formatMessage(blockTypeMessages.warningPanel),
+          description: formatMessage(blockTypeMessages.warningPanelDescription),
           priority: 1000,
           icon: () => <IconPanelWarning />,
           action(insert, state) {
@@ -135,8 +135,8 @@ const panelPlugin: NextEditorPlugin<
         },
         {
           id: 'errorpanel',
-          title: formatMessage(messages.errorPanel),
-          description: formatMessage(messages.errorPanelDescription),
+          title: formatMessage(blockTypeMessages.errorPanel),
+          description: formatMessage(blockTypeMessages.errorPanelDescription),
           priority: 1000,
           icon: () => <IconPanelError />,
           action(insert, state) {
@@ -150,8 +150,8 @@ const panelPlugin: NextEditorPlugin<
       if (options.allowCustomPanel && options.allowCustomPanelEdit) {
         quickInsertOptions.push({
           id: 'custompanel',
-          title: formatMessage(messages.customPanel),
-          description: formatMessage(messages.customPanelDescription),
+          title: formatMessage(blockTypeMessages.customPanel),
+          description: formatMessage(blockTypeMessages.customPanelDescription),
           priority: 1000,
           icon: () => <IconCustomPanel />,
           action(insert, state) {

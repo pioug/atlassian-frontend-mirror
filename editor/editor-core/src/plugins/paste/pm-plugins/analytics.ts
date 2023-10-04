@@ -51,8 +51,8 @@ import type {
   Command,
 } from '@atlaskit/editor-common/types';
 import type pastePlugin from '../';
+import type { InsertMediaAsMediaSingle } from '../../media/utils/media-single';
 
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import type { FindRootParentListNode } from '@atlaskit/editor-plugin-list';
 
 type PasteContext = {
@@ -421,13 +421,13 @@ export const handleMediaSingleWithAnalytics = (
   event: ClipboardEvent,
   slice: Slice,
   type: PasteType,
-  editorAnalyticsAPI?: EditorAnalyticsAPI | undefined,
+  insertMediaAsMediaSingle: InsertMediaAsMediaSingle | undefined,
 ): Command =>
   injectAnalyticsPayloadBeforeCommand(
     createPasteAnalyticsPayloadBySelection(event, slice, {
       type,
     }),
-  )(handleMediaSingle(INPUT_METHOD.CLIPBOARD, editorAnalyticsAPI)(slice));
+  )(handleMediaSingle(INPUT_METHOD.CLIPBOARD, insertMediaAsMediaSingle)(slice));
 
 export const handlePastePreservingMarksWithAnalytics = (
   view: EditorView,

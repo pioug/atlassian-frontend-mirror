@@ -30,7 +30,7 @@ const font: AttributeSchema<TypographyTokenSchema<any>> = {
       },
     },
     heading: {
-      xxl: {
+      xxlarge: {
         attributes: {
           group: 'typography',
           state: 'experimental',
@@ -38,7 +38,7 @@ const font: AttributeSchema<TypographyTokenSchema<any>> = {
           description: 'TBD',
         },
       },
-      xl: {
+      xlarge: {
         attributes: {
           group: 'typography',
           state: 'experimental',
@@ -46,7 +46,7 @@ const font: AttributeSchema<TypographyTokenSchema<any>> = {
           description: 'TBD',
         },
       },
-      lg: {
+      large: {
         attributes: {
           group: 'typography',
           state: 'experimental',
@@ -54,7 +54,7 @@ const font: AttributeSchema<TypographyTokenSchema<any>> = {
           description: 'TBD',
         },
       },
-      md: {
+      medium: {
         attributes: {
           group: 'typography',
           state: 'experimental',
@@ -62,7 +62,7 @@ const font: AttributeSchema<TypographyTokenSchema<any>> = {
           description: 'TBD',
         },
       },
-      sm: {
+      small: {
         attributes: {
           group: 'typography',
           state: 'experimental',
@@ -70,7 +70,7 @@ const font: AttributeSchema<TypographyTokenSchema<any>> = {
           description: 'TBD',
         },
       },
-      xs: {
+      xsmall: {
         attributes: {
           group: 'typography',
           state: 'experimental',
@@ -78,7 +78,7 @@ const font: AttributeSchema<TypographyTokenSchema<any>> = {
           description: 'TBD',
         },
       },
-      xxs: {
+      xxsmall: {
         attributes: {
           group: 'typography',
           state: 'experimental',
@@ -88,7 +88,7 @@ const font: AttributeSchema<TypographyTokenSchema<any>> = {
       },
     },
     ui: {
-      sm: {
+      small: {
         attributes: {
           group: 'typography',
           state: 'experimental',
@@ -107,7 +107,7 @@ const font: AttributeSchema<TypographyTokenSchema<any>> = {
       },
     },
     body: {
-      lg: {
+      large: {
         attributes: {
           group: 'typography',
           state: 'experimental',
@@ -116,7 +116,7 @@ const font: AttributeSchema<TypographyTokenSchema<any>> = {
             'Larger body font or default body font for text rich experiences.',
         },
       },
-      sm: {
+      small: {
         attributes: {
           group: 'typography',
           state: 'experimental',

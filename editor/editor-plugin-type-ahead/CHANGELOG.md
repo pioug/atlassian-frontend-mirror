@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 0.4.0
+
+### Minor Changes
+
+- [#40955](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40955) [`30dc2b1e6c9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/30dc2b1e6c9) - [ED-19746] Decoupling mentions plugin from Editor-core libraries
+
 ## 0.3.2
 
 ### Patch Changes

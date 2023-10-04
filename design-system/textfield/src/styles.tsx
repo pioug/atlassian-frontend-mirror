@@ -177,8 +177,7 @@ export const containerStyles = (
     // add 1px padding on both top and bottom to keep the same overall height after border reduced from 2px to 1px under feature flag
     ...(getBooleanFF('platform.design-system-team.border-checkbox_nyoiu') &&
     appearance !== 'none'
-      ? // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-        { padding: `${token('border.width', '1px')} 0` }
+      ? { padding: `${token('border.width', '1px')} 0` }
       : {}),
     borderStyle: appearance === 'none' ? 'none' : 'solid',
     boxSizing: 'border-box',

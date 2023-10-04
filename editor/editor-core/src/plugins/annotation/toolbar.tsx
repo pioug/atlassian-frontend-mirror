@@ -1,6 +1,5 @@
 import React from 'react';
 import type { IntlShape } from 'react-intl-next';
-import { defineMessages } from 'react-intl-next';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
@@ -18,26 +17,8 @@ import { setInlineCommentDraftState } from './commands';
 import type { CoordsAtPos } from './types';
 import { AnnotationTestIds, AnnotationSelectionType } from './types';
 import { isSelectionValid } from './utils';
+import { annotationMessages } from '@atlaskit/editor-common/messages';
 
-export const annotationMessages = defineMessages({
-  createComment: {
-    id: 'fabric.editor.createComment',
-    defaultMessage: 'Comment',
-    description: 'Create/add an inline comment based on the users selection',
-  },
-  createCommentInvalid: {
-    id: 'fabric.editor.createCommentInvalid',
-    defaultMessage: 'You can only comment on text and headings',
-    description:
-      'Error message to communicate to the user they can only do the current action in certain contexts',
-  },
-  toolbar: {
-    id: 'fabric.editor.annotationToolbar',
-    defaultMessage: 'Annotation toolbar',
-    description:
-      'A label for a toolbar (UI element) that creates annotations/comments in the document',
-  },
-});
 /**
  * Returns the coordintes at the bottom the selection.
  */

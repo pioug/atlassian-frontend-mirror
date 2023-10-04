@@ -1,3 +1,4 @@
+import { JsonLd } from 'json-ld-types';
 import { extractRequestAccessContextImproved } from '../extractAccessContext';
 import { TEST_META_DATA, TEST_VISIT_URL } from '../../__mocks__/jsonld';
 
@@ -168,6 +169,29 @@ describe('extractors.access.context', () => {
         promise: expect.any(Function),
         text: expect.any(Object),
       },
+      hostname: 'visit.url.com',
+    });
+  });
+
+  it('returns access exists metadata with not found context', () => {
+    const jsonLd: JsonLd.Meta.BaseMeta = {
+      ...TEST_META_DATA,
+      visibility: 'not_found',
+      requestAccess: {
+        accessType: 'ACCESS_EXISTS',
+      },
+    };
+
+    expect(
+      extractRequestAccessContextImproved({
+        jsonLd,
+        url: TEST_VISIT_URL,
+        product: 'mock-product',
+      }),
+    ).toMatchObject({
+      accessType: 'ACCESS_EXISTS',
+      titleMessageKey: 'not_found_title_crossjoin',
+      descriptiveMessageKey: 'not_found_description_crossjoin',
       hostname: 'visit.url.com',
     });
   });

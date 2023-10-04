@@ -1,54 +1,45 @@
+import {
+  getMaxWidthForNestedNodeNext,
+  getMediaSingleInitialWidth,
+  MEDIA_SINGLE_DEFAULT_MIN_PIXEL_WIDTH,
+  MEDIA_SINGLE_VIDEO_MIN_PIXEL_WIDTH,
+} from '@atlaskit/editor-common/media-single';
+import { checkNodeDown, isEmptyParagraph } from '@atlaskit/editor-common/utils';
 import type {
   Node as PMNode,
   Schema,
 } from '@atlaskit/editor-prosemirror/model';
 import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
-import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import {
-  safeInsert as pmSafeInsert,
-  hasParentNodeOfType,
-} from '@atlaskit/editor-prosemirror/utils';
 import type {
   EditorState,
-  Selection,
   Transaction,
 } from '@atlaskit/editor-prosemirror/state';
-import {
-  checkNodeDown,
-  isEmptyParagraph,
-  mapSlice,
-} from '@atlaskit/editor-common/utils';
-import {
-  getMediaSingleInitialWidth,
-  MEDIA_SINGLE_DEFAULT_MIN_PIXEL_WIDTH,
-  MEDIA_SINGLE_VIDEO_MIN_PIXEL_WIDTH,
-  getMaxWidthForNestedNodeNext,
-} from '@atlaskit/editor-common/media-single';
+import { safeInsert as pmSafeInsert } from '@atlaskit/editor-prosemirror/utils';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import { copyOptionalAttrsFromMediaState } from '../utils/media-common';
-import type { MediaState } from '../types';
-import type { Command } from '@atlaskit/editor-common/types';
 import type {
+  EditorAnalyticsAPI,
   InputMethodInsertMedia,
   InsertEventPayload,
-  EditorAnalyticsAPI,
 } from '@atlaskit/editor-common/analytics';
 import {
   ACTION,
   ACTION_SUBJECT,
-  EVENT_TYPE,
   ACTION_SUBJECT_ID,
+  EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
 import {
   safeInsert,
   shouldSplitSelectedNodeOnNodeInsertion,
 } from '@atlaskit/editor-common/insert';
+import type { Command } from '@atlaskit/editor-common/types';
+import type { MediaState } from '../types';
+import { copyOptionalAttrsFromMediaState } from '../utils/media-common';
 
-import { isImage } from './is-image';
 import { atTheBeginningOfBlock } from '@atlaskit/editor-common/selection';
-import { getRandomHex } from '@atlaskit/media-common';
 import type { WidthPluginState } from '@atlaskit/editor-plugin-width';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { isImage } from './is-image';
 
 export interface MediaSingleState extends MediaState {
   dimensions: { width: number; height: number };
@@ -113,6 +104,12 @@ function insertNodesWithOptionalParagraph(
 
 export const isMediaSingle = (schema: Schema, fileMimeType?: string) =>
   !!schema.nodes.mediaSingle && isImage(fileMimeType);
+
+export type InsertMediaAsMediaSingle = (
+  view: EditorView,
+  node: PMNode,
+  inputMethod: InputMethodInsertMedia,
+) => boolean;
 
 export const insertMediaAsMediaSingle = (
   view: EditorView,
@@ -272,101 +269,6 @@ export const createMediaSingleNode =
     copyOptionalAttrsFromMediaState(mediaState, mediaNode);
     return mediaSingle.createChecked(extendedMediaSingleAttrs, mediaNode);
   };
-
-export function transformSliceForMedia(slice: Slice, schema: Schema) {
-  const {
-    mediaSingle,
-    layoutSection,
-    table,
-    bulletList,
-    orderedList,
-    media,
-    mediaInline,
-    expand,
-    nestedExpand,
-  } = schema.nodes;
-
-  return (selection: Selection) => {
-    let newSlice = slice;
-    if (
-      hasParentNodeOfType([
-        layoutSection,
-        table,
-        bulletList,
-        orderedList,
-        expand,
-        nestedExpand,
-      ])(selection)
-    ) {
-      newSlice = mapSlice(newSlice, (node) => {
-        const extendedOrLegacyAttrs = getBooleanFF(
-          'platform.editor.media.extended-resize-experience',
-        )
-          ? {
-              layout: node.attrs.layout,
-              widthType: node.attrs.widthType,
-              width: node.attrs.width,
-            }
-          : { layout: node.attrs.layout };
-
-        let attrs = {};
-        if (hasParentNodeOfType([layoutSection, table])(selection)) {
-          // Supports layouts
-          attrs = { ...extendedOrLegacyAttrs };
-        } else if (
-          hasParentNodeOfType([bulletList, orderedList, expand, nestedExpand])(
-            selection,
-          )
-        ) {
-          // does not support other layouts
-          attrs = { ...extendedOrLegacyAttrs, layout: 'center' };
-        }
-
-        return node.type.name === 'mediaSingle'
-          ? mediaSingle.createChecked(attrs, node.content, node.marks)
-          : node;
-      });
-    }
-
-    const __mediaTraceId = getRandomHex(8);
-
-    newSlice = mapSlice(newSlice, (node) => {
-      // This logic is duplicated in editor-plugin-ai where external images can be inserted
-      // from external sources through the use of AI.  The editor-plugin-ai package is avoiding
-      // sharing dependencies with editor-core to support products using it with various versions
-      // of editor packages.
-      // The duplication is in the following file:
-      // packages/editor/editor-plugin-ai/src/prebuilt/content-transformers/markdown-to-pm/markdown-transformer.ts
-      if (node.type.name === 'media') {
-        return media.createChecked(
-          {
-            ...node.attrs,
-            __external: node.attrs.type === 'external',
-            __mediaTraceId:
-              node.attrs.type === 'external' ? null : __mediaTraceId,
-          },
-          node.content,
-          node.marks,
-        );
-      }
-
-      if (node.type.name === 'mediaInline') {
-        return mediaInline.createChecked(
-          {
-            ...node.attrs,
-            __mediaTraceId,
-          },
-          node.content,
-          node.marks,
-        );
-      }
-
-      return node;
-    });
-
-    return newSlice;
-  };
-}
 
 export function isCaptionNode(editorView: EditorView) {
   const { $from } = editorView.state.selection;

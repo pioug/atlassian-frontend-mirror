@@ -1,14 +1,16 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import { PureComponent } from 'react';
-import { injectIntl, WrappedComponentProps } from 'react-intl-next';
-import { MessageDescriptor } from '../../types/i18n';
-import { AlignmentState } from '../../plugins/alignment/pm-plugins/types';
+import type { WrappedComponentProps } from 'react-intl-next';
+import { injectIntl } from 'react-intl-next';
+import type { MessageDescriptor } from '../../types/i18n';
+import type { AlignmentState } from '../../plugins/alignment/pm-plugins/types';
 import { IconMap } from '../../plugins/alignment/ui/ToolbarAlignment/icon-map';
 import AlignmentButton from './AlignmentButton';
-import { alignmentMessages } from './messages';
+import { alignmentMessages } from '@atlaskit/editor-common/messages';
 import { alignmentWrapper } from './styles';
-import { Keymap, alignLeft } from '../../keymaps';
+import type { Keymap } from '../../keymaps';
+import { alignLeft } from '../../keymaps';
 
 export interface Props {
   selectedAlignment?: string;

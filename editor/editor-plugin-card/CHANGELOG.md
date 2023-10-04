@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-card
 
+## 0.9.0
+
+### Minor Changes
+
+- [#40876](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40876) [`c43a6a9cbd2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c43a6a9cbd2) - [ux] Adds copy button to datasource toolbar
+
 ## 0.8.7
 
 ### Patch Changes

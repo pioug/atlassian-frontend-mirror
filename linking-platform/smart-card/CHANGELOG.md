@@ -1,5 +1,23 @@
 # @atlaskit/smart-card
 
+## 26.33.0
+
+### Minor Changes
+
+- [#40996](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40996) [`b6d96384d32`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b6d96384d32) - [ux] Add forbidden hover card to inline cards
+
+## 26.32.0
+
+### Minor Changes
+
+- [#40962](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40962) [`cc5b7d44ad2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cc5b7d44ad2) - [ux] Add cross-join embed not found view (behind feature flag)
+
+## 26.31.1
+
+### Patch Changes
+
+- [#40941](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40941) [`26046c8fe0a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/26046c8fe0a) - Update cross-join not found message for link where user has access to the site (behind feature flag)
+
 ## 26.31.0
 
 ### Minor Changes

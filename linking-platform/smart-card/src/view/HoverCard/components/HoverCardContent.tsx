@@ -188,7 +188,10 @@ const HoverCardContent: React.FC<HoverCardContentProps> = ({
     }
 
     if (getBooleanFF('platform.linking-platform.smart-card.cross-join')) {
-      if (cardState.status === 'forbidden') {
+      if (
+        cardState.status === 'forbidden' ||
+        cardState.status === 'not_found'
+      ) {
         return <HoverCardForbiddenView flexibleCardProps={flexibleCardProps} />;
       }
     }

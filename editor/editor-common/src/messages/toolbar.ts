@@ -77,6 +77,12 @@ export const toolbarMessages = defineMessages({
     defaultMessage: '{formattingType} Off',
     description: 'Reports that text formatting has been turned off',
   },
+  textStyles: {
+    id: 'fabric.editor.textStyles',
+    defaultMessage: 'Text styles',
+    description:
+      'Menu provides access to various heading styles or normal text',
+  },
   textFormattingOff: {
     id: 'fabric.editor.text.formatting.off',
     defaultMessage: 'Text formatting Off',

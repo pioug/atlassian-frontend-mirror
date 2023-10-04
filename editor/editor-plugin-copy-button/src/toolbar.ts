@@ -107,7 +107,7 @@ export function getCopyButtonConfig(
   };
 }
 
-export const showCopyButton = (state?: EditorState) => {
+const showCopyButton = (state?: EditorState) => {
   return (
     state &&
     // Check if the Copy button plugin is enabled

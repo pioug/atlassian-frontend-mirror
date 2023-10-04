@@ -32,7 +32,7 @@ const typography: ValueSchema<
 > = {
   font: {
     heading: {
-      xxl: {
+      xxlarge: {
         value: {
           fontWeight: 'FontWeight500',
           fontSize: 'LegacyFontSize35',
@@ -42,7 +42,7 @@ const typography: ValueSchema<
           letterSpacing: 'LetterSpacing400',
         },
       },
-      xl: {
+      xlarge: {
         value: {
           fontWeight: 'FontWeight600',
           fontSize: 'LegacyFontSize29',
@@ -52,7 +52,7 @@ const typography: ValueSchema<
           letterSpacing: 'LetterSpacing400',
         },
       },
-      lg: {
+      large: {
         value: {
           fontWeight: 'FontWeight500',
           fontSize: 'FontSize24',
@@ -62,7 +62,7 @@ const typography: ValueSchema<
           letterSpacing: 'LetterSpacing400',
         },
       },
-      md: {
+      medium: {
         value: {
           fontWeight: 'FontWeight500',
           fontSize: 'FontSize20',
@@ -72,7 +72,7 @@ const typography: ValueSchema<
           letterSpacing: 'LetterSpacing300',
         },
       },
-      sm: {
+      small: {
         value: {
           fontWeight: 'FontWeight600',
           fontSize: 'FontSize16',
@@ -82,7 +82,7 @@ const typography: ValueSchema<
           letterSpacing: 'LetterSpacing200',
         },
       },
-      xs: {
+      xsmall: {
         value: {
           fontWeight: 'FontWeight600',
           fontSize: 'FontSize14',
@@ -92,7 +92,7 @@ const typography: ValueSchema<
           letterSpacing: 'LetterSpacing100',
         },
       },
-      xxs: {
+      xxsmall: {
         value: {
           fontWeight: 'FontWeight600',
           fontSize: 'FontSize12',
@@ -126,7 +126,7 @@ const typography: ValueSchema<
           letterSpacing: 'LetterSpacing0',
         },
       },
-      lg: {
+      large: {
         value: {
           fontWeight: 'FontWeight400',
           fontSize: 'FontSize16',
@@ -136,7 +136,7 @@ const typography: ValueSchema<
           letterSpacing: 'LetterSpacing0',
         },
       },
-      sm: {
+      small: {
         value: {
           fontWeight: 'FontWeight400',
           fontSize: 'LegacyFontSize11',
@@ -158,7 +158,7 @@ const typography: ValueSchema<
           letterSpacing: 'LetterSpacing0',
         },
       },
-      sm: {
+      small: {
         value: {
           fontWeight: 'FontWeight400',
           fontSize: 'LegacyFontSize11',

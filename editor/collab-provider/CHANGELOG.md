@@ -1,5 +1,11 @@
 # @atlaskit/collab-provider
 
+## 9.13.0
+
+### Minor Changes
+
+- [#40878](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40878) [`7009422b0ad`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7009422b0ad) - remove provider initialization check for buffering
+
 ## 9.12.5
 
 ### Patch Changes

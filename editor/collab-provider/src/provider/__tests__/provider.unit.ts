@@ -168,7 +168,7 @@ describe('Provider', () => {
       };
 
       it('should successfully initialize provider and call catchup when channel connects', async (done) => {
-        expect.assertions(4);
+        expect.assertions(5);
         const sid = 'expected-sid-123';
         const provider = createSocketIOCollabProvider(
           testProviderConfigWithDraft,
@@ -181,6 +181,7 @@ describe('Provider', () => {
         provider.on('connected', ({ sid }) => {
           expect(sid).toBe('expected-sid-123');
           expect((provider as any).isProviderInitialized).toEqual(true);
+          expect((provider as any).isBuffered).toEqual(true);
           expect(sendStepsFromCurrentStateSpy).toHaveBeenCalledTimes(1);
         });
         provider.on('init', (data) => {

@@ -19,7 +19,11 @@ import type {
 import { getExtensionAutoConvertersFromProvider } from '@atlaskit/editor-common/extensions';
 
 import { isPastedFile as isPastedFileFromEvent } from '@atlaskit/editor-common/paste';
-import { transformSliceForMedia } from '../../media/utils/media-single';
+import {
+  transformSliceForMedia,
+  transformSliceToCorrectMediaWrapper,
+  unwrapNestedMediaElements,
+} from '../plugins/media';
 
 import {
   escapeLinks,
@@ -68,10 +72,6 @@ import {
 } from '../../analytics';
 import { isInsideBlockQuote, insideTable, measurements } from '../../../utils';
 import { measureRender } from '@atlaskit/editor-common/utils';
-import {
-  transformSliceToCorrectMediaWrapper,
-  unwrapNestedMediaElements,
-} from '../../media/utils/media-common';
 import { upgradeTextToLists, splitParagraphs } from '../commands';
 import { md } from '@atlaskit/editor-common/paste';
 import { transformSliceToDecisionList } from '../../tasks-and-decisions/utils';
@@ -96,14 +96,14 @@ import type {
   ExtractInjectionAPI,
 } from '@atlaskit/editor-common/types';
 import { hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
-import type pastePlugin from '../';
+import type { PastePlugin } from '../';
 
 export function createPlugin(
   schema: Schema,
   dispatchAnalyticsEvent: DispatchAnalyticsEvent,
   dispatch: Dispatch,
   featureFlags: FeatureFlags,
-  pluginInjectionApi: ExtractInjectionAPI<typeof pastePlugin> | undefined,
+  pluginInjectionApi: ExtractInjectionAPI<PastePlugin> | undefined,
   cardOptions?: CardOptions,
   sanitizePrivateContent?: boolean,
   providerFactory?: ProviderFactory,
@@ -427,7 +427,7 @@ export function createPlugin(
             event,
             slice,
             isPastedFile ? PasteTypes.binary : PasteTypes.richText,
-            pluginInjectionApi?.analytics?.actions,
+            pluginInjectionApi?.media?.actions.insertMediaAsMediaSingle,
           )(state, dispatch, view)
         ) {
           return true;

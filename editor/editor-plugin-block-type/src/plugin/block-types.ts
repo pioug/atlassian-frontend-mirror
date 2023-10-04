@@ -1,4 +1,5 @@
-import { messages } from './messages';
+import { blockTypeMessages as messages } from '@atlaskit/editor-common/messages';
+
 import type { BlockType } from './types';
 
 export const NORMAL_TEXT: BlockType = {

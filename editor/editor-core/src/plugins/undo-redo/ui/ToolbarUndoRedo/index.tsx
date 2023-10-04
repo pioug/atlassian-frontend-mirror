@@ -18,7 +18,7 @@ import {
   buttonGroupStyle,
 } from '@atlaskit/editor-common/styles';
 import ToolbarButton, { TOOLBAR_BUTTON } from '../../../../ui/ToolbarButton';
-import { messages } from '../../messages';
+import { undoRedoMessages } from '@atlaskit/editor-common/messages';
 import type { HistoryPluginState } from '../../../history/types';
 import { createTypeAheadTools } from '../../../type-ahead/api';
 import { undoFromToolbar, redoFromToolbar } from '../../commands';
@@ -76,8 +76,8 @@ export class ToolbarUndoRedo extends PureComponent<
     const handleRedo = () => {
       forceFocus(editorView)(redoFromToolbar);
     };
-    const labelUndo = formatMessage(messages.undo);
-    const labelRedo = formatMessage(messages.redo);
+    const labelUndo = formatMessage(undoRedoMessages.undo);
+    const labelRedo = formatMessage(undoRedoMessages.redo);
 
     const { canUndo, canRedo } = historyState;
 

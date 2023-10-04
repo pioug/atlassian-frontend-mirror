@@ -11,7 +11,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 /**
  * Records metadata about the user action and input method relating to a transaction
  * as a custom LinkStepMetadata prosemirror step so that it is preserved in
- * the history for undo/redo
+ * the history for undo/redo.
  */
 export function addLinkMetadata(
   initialSelection: Selection,

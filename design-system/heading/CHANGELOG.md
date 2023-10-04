@@ -1,5 +1,12 @@
 # @atlaskit/heading
 
+## 1.4.1
+
+### Patch Changes
+
+- [#41032](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41032) [`8d9dad6b977`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d9dad6b977) - Heading will apply an aria level if rendered as a div. This is an accessibility fix for an incomplete feature shipped in the previous minor version.
+- [#40299](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40299) [`b1882fdd842`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b1882fdd842) - Change typography token naming to be more verbose.
+
 ## 1.4.0
 
 ### Minor Changes

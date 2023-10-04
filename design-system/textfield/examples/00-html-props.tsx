@@ -1,9 +1,6 @@
 import React from 'react';
 
-import { N200 } from '@atlaskit/theme/colors';
-import { fontSize } from '@atlaskit/theme/constants';
-import { headingSizes } from '@atlaskit/theme/typography';
-import { token } from '@atlaskit/tokens';
+import { Label } from '@atlaskit/form';
 
 import Textfield from '../src';
 
@@ -17,22 +14,3 @@ export default function HtmlPropsExample() {
     </div>
   );
 }
-
-const Label = function (props: { htmlFor: string; children: React.ReactNode }) {
-  return (
-    <label
-      htmlFor={props.htmlFor}
-      style={{
-        display: 'inline-block',
-        fontSize: `${headingSizes.h200.size / fontSize()}em`,
-        fontStyle: 'inherit',
-        lineHeight: `${headingSizes.h200.lineHeight / headingSizes.h200.size}`,
-        color: token('color.text.subtlest', N200),
-        fontWeight: 600,
-        marginTop: token('space.200', '16px'),
-      }}
-    >
-      {props.children}
-    </label>
-  );
-};

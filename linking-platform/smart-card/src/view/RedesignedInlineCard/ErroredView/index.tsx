@@ -10,6 +10,9 @@ import { messages } from '../../../messages';
 import { FormattedMessage } from 'react-intl-next';
 import { IconStyledButton } from '../styled';
 import withFrameStyleControl from '../utils/withFrameStyleControl';
+import { HoverCard } from '../../HoverCard';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+
 export interface InlineCardErroredViewProps {
   /** The url to display */
   url: string;
@@ -25,6 +28,8 @@ export interface InlineCardErroredViewProps {
   testId?: string;
   /* Icon to be provided to show this error state */
   icon?: React.ReactNode;
+  /** Enables showing a custom preview on hover of link */
+  showHoverPreview?: boolean;
 }
 
 export class InlineCardErroredView extends React.Component<InlineCardErroredViewProps> {
@@ -68,7 +73,7 @@ export class InlineCardErroredView extends React.Component<InlineCardErroredView
       message,
     } = this.props;
 
-    return (
+    const content = (
       <Frame testId={testId} isSelected={isSelected} ref={this.frameRef}>
         <IconAndTitleLayout
           icon={
@@ -91,5 +96,14 @@ export class InlineCardErroredView extends React.Component<InlineCardErroredView
         {this.renderActionButton()}
       </Frame>
     );
+
+    if (
+      this.props.showHoverPreview &&
+      getBooleanFF('platform.linking-platform.smart-card.cross-join')
+    ) {
+      return <HoverCard url={url}>{content}</HoverCard>;
+    }
+
+    return content;
   }
 }

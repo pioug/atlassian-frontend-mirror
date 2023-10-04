@@ -34,7 +34,6 @@ import type { ContextUpdateHandler } from '@atlaskit/editor-common/types';
 import type { EditorActionsOptions } from '@atlaskit/editor-common/types';
 import { EditorAppearance } from '@atlaskit/editor-common/types';
 import { EditorPlugin } from '@atlaskit/editor-common/types';
-import type { EditorSelectionAPI } from '@atlaskit/editor-common/selection';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { EmojiResource } from '@atlaskit/emoji/resource';
@@ -47,7 +46,6 @@ import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
 import type { ExtensionProvider } from '@atlaskit/editor-common/extensions';
 import { ExtensionType } from '@atlaskit/editor-common/provider-factory';
 import type { FeatureFlags } from '@atlaskit/editor-common/types';
-import type { GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
 import { jsx } from '@emotion/react';
@@ -55,8 +53,9 @@ import type { LinkingOptions } from '@atlaskit/editor-common/types';
 import type { LongPressSelectionPluginOptions } from '@atlaskit/editor-common/types';
 import { MacroAttributes } from '@atlaskit/editor-common/provider-factory';
 import { MacroProvider } from '@atlaskit/editor-common/provider-factory';
-import type { MediaFeatureFlags } from '@atlaskit/media-common';
+import { MediaOptions } from '@atlaskit/editor-plugin-media/types';
 import { MediaProvider as MediaProvider_2 } from '@atlaskit/editor-common/provider-factory';
+import { MediaState } from '@atlaskit/editor-plugin-media/types';
 import { MentionProvider } from '@atlaskit/mention/resource';
 import { MentionResource } from '@atlaskit/mention/resource';
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
@@ -88,7 +87,6 @@ import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { Transformer as Transformer_2 } from '@atlaskit/editor-common/types';
 import { TypeAheadItem } from '@atlaskit/editor-common/provider-factory';
 import { UIComponentFactory } from '@atlaskit/editor-common/types';
-import type { UploadParams } from '@atlaskit/media-picker/types';
 import type { UseStickyToolbarType } from '@atlaskit/editor-common/ui';
 import type { WeekDay } from '@atlaskit/calendar/types';
 import { WithIntlProps } from 'react-intl-next';
@@ -197,20 +195,6 @@ export type CommandDispatch = (tr: Transaction) => void;
 
 // @public (undocumented)
 export function ContextPanel(props: Props_4): jsx.JSX.Element;
-
-// @public (undocumented)
-interface CustomMediaPicker {
-  // (undocumented)
-  destroy(): void;
-  // (undocumented)
-  emit(event: string, data: any): void;
-  // (undocumented)
-  on(event: string, cb: Listener): void;
-  // (undocumented)
-  removeAllListeners(event: any): void;
-  // (undocumented)
-  setUploadParams(uploadParams: UploadParams): void;
-}
 
 // @public (undocumented)
 interface DatePluginConfig {
@@ -654,9 +638,6 @@ interface LayoutPluginOptions extends LongPressSelectionPluginOptions {
   UNSAFE_allowSingleColumnLayout?: boolean;
 }
 
-// @public (undocumented)
-type Listener = (data: any) => void;
-
 export { MacroAttributes };
 
 export { MacroProvider };
@@ -670,115 +651,9 @@ export const measurements: {
   PASTE: string;
 };
 
-// @public (undocumented)
-export interface MediaOptions {
-  // (undocumented)
-  alignLeftOnInsert?: boolean;
-  // (undocumented)
-  allowAdvancedToolBarOptions?: boolean;
-  // (undocumented)
-  allowAltTextOnImages?: boolean;
-  // (undocumented)
-  allowBreakoutSnapPoints?: boolean;
-  // (undocumented)
-  allowCaptions?: boolean;
-  // (undocumented)
-  allowDropzoneDropLine?: boolean;
-  // (undocumented)
-  allowLazyLoading?: boolean;
-  // (undocumented)
-  allowLinking?: boolean;
-  // (undocumented)
-  allowMarkingUploadsAsIncomplete?: boolean;
-  // (undocumented)
-  allowMediaGroup?: boolean;
-  // (undocumented)
-  allowMediaSingle?: MediaSingleOptions | boolean;
-  // (undocumented)
-  allowMediaSingleEditable?: boolean;
-  // (undocumented)
-  allowRemoteDimensionsFetch?: boolean;
-  // (undocumented)
-  allowResizing?: boolean;
-  // (undocumented)
-  allowResizingInTables?: boolean;
-  // (undocumented)
-  allowTemplatePlaceholders?: PlaceholderTextOptions_2 | boolean;
-  // (undocumented)
-  altTextValidator?: (value: string) => string[];
-  // (undocumented)
-  customDropzoneContainer?: HTMLElement;
-  // (undocumented)
-  customMediaPicker?: CustomMediaPicker;
-  // (undocumented)
-  editorSelectionAPI?: EditorSelectionAPI;
-  // (undocumented)
-  enableDownloadButton?: boolean;
-  // (undocumented)
-  featureFlags?: MediaFeatureFlags;
-  // (undocumented)
-  fullWidthEnabled?: boolean;
-  // (undocumented)
-  getEditorFeatureFlags?: GetEditorFeatureFlags;
-  // (undocumented)
-  isCopyPasteEnabled?: boolean;
-  // (undocumented)
-  provider?: Providers['mediaProvider'];
-  // (undocumented)
-  uploadErrorHandler?: (state: MediaState) => void;
-  // (undocumented)
-  useForgePlugins?: boolean;
-  // (undocumented)
-  waitForMediaUpload?: boolean;
-}
+export { MediaOptions };
 
 export { MediaProvider_2 as MediaProvider };
-
-// @public (undocumented)
-interface MediaSingleOptions {
-  // (undocumented)
-  disableLayout?: boolean;
-}
-
-// @public (undocumented)
-interface MediaState {
-  // (undocumented)
-  collection?: string;
-  // (undocumented)
-  contextId?: string;
-  // (undocumented)
-  dimensions?: {
-    width: number | undefined;
-    height: number | undefined;
-  };
-  // (undocumented)
-  error?: {
-    name: string;
-    description: string;
-  };
-  // (undocumented)
-  fileMimeType?: string;
-  // (undocumented)
-  fileName?: string;
-  // (undocumented)
-  fileSize?: number;
-  // (undocumented)
-  id: string;
-  publicId?: string;
-  // (undocumented)
-  scaleFactor?: number;
-  // (undocumented)
-  status?: MediaStateStatus;
-}
-
-// @public (undocumented)
-type MediaStateStatus =
-  | 'cancelled'
-  | 'error'
-  | 'mobile-upload-end'
-  | 'preview'
-  | 'ready'
-  | 'unknown';
 
 // @public (undocumented)
 interface MentionPluginConfig {
@@ -814,12 +689,6 @@ interface PanelPluginConfig {
 
 // @public (undocumented)
 interface PlaceholderTextOptions {
-  // (undocumented)
-  allowInserting?: boolean;
-}
-
-// @public (undocumented)
-interface PlaceholderTextOptions_2 {
   // (undocumented)
   allowInserting?: boolean;
 }

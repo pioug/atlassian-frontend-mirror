@@ -33,21 +33,6 @@ describe('Snapshot Test', () => {
     },
   );
 
-  it('Basic usage example should match production example', async () => {
-    const url = getExampleUrl(
-      'design-system',
-      'checkbox',
-      'basic-usage',
-      global.__BASEURL__,
-    );
-    const { page } = global;
-    await loadPage(page, url);
-    await waitForCheckboxes(page);
-
-    const image = await page.screenshot();
-    expect(image).toMatchProdImageSnapshot();
-  });
-
   it('Default checkbox should render correctly under all interactions', async () => {
     const { __BASEURL__, page } = global;
     const url = getExampleUrl(
@@ -105,21 +90,6 @@ describe('Snapshot Test', () => {
     expect(selectedImg).toMatchProdImageSnapshot();
   });
 
-  it('Example with sizes should match production example', async () => {
-    const url = getExampleUrl(
-      'design-system',
-      'checkbox',
-      'sizes',
-      global.__BASEURL__,
-    );
-    const { page } = global;
-    await loadPage(page, url);
-    await page.waitForSelector("[data-testid='xlarge--checkbox-label']");
-
-    const image = await page.screenshot();
-    expect(image).toMatchProdImageSnapshot();
-  });
-
   it('Indeterminate examples should match production example', async () => {
     const url = getExampleUrl(
       'design-system',
@@ -132,23 +102,6 @@ describe('Snapshot Test', () => {
     await page.waitForSelector("[data-testid='parent--checkbox-label']");
 
     await page.click("[data-testid='child-1--checkbox-label']");
-
-    const image = await page.screenshot();
-    expect(image).toMatchProdImageSnapshot();
-  });
-
-  it('Multiline label example should match production example', async () => {
-    const url = getExampleUrl(
-      'design-system',
-      'checkbox',
-      'multiline-label',
-      global.__BASEURL__,
-    );
-    const { page } = global;
-    await loadPage(page, url);
-    await page.waitForSelector(
-      "[data-testid='multiline-label--checkbox-label']",
-    );
 
     const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();

@@ -110,6 +110,7 @@ export const extractRequestAccessContextImproved = ({
           'request_access_pending',
           messages.request_access_pending_crossjoin,
         ),
+        buttonDisabled: true,
       };
     case 'DENIED_REQUEST_EXISTS':
       return {
@@ -118,6 +119,14 @@ export const extractRequestAccessContextImproved = ({
         descriptiveMessageKey: 'request_denied_description_crossjoin',
       };
     case 'ACCESS_EXISTS':
+      if (jsonLd?.visibility === 'not_found') {
+        return {
+          ...requestAccess,
+          titleMessageKey: 'not_found_title_crossjoin',
+          descriptiveMessageKey: 'not_found_description_crossjoin',
+        };
+      }
+
       return {
         ...requestAccess,
         titleMessageKey: 'default_no_access_title_crossjoin',

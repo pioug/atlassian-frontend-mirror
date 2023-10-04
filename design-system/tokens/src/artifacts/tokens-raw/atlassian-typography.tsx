@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::2dbe284320c4a652bc8420a1e9457c66>>
+ * @codegen <<SignedSource::87a8cb620b538e3524b5031d5a012ecd>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -64,13 +64,13 @@ const tokens = [
         "letterSpacing": "LetterSpacing0"
       }
     },
-    "name": "font.body.lg",
+    "name": "font.body.large",
     "path": [
       "font",
       "body",
-      "lg"
+      "large"
     ],
-    "cleanName": "font.body.lg"
+    "cleanName": "font.body.large"
   },
   {
     "attributes": {
@@ -98,13 +98,13 @@ const tokens = [
         "letterSpacing": "LetterSpacing0"
       }
     },
-    "name": "font.body.sm",
+    "name": "font.body.small",
     "path": [
       "font",
       "body",
-      "sm"
+      "small"
     ],
-    "cleanName": "font.body.sm"
+    "cleanName": "font.body.small"
   },
   {
     "attributes": {
@@ -166,13 +166,13 @@ const tokens = [
         "letterSpacing": "LetterSpacing0"
       }
     },
-    "name": "font.heading.lg",
+    "name": "font.heading.large",
     "path": [
       "font",
       "heading",
-      "lg"
+      "large"
     ],
-    "cleanName": "font.heading.lg"
+    "cleanName": "font.heading.large"
   },
   {
     "attributes": {
@@ -200,13 +200,13 @@ const tokens = [
         "letterSpacing": "LetterSpacing0"
       }
     },
-    "name": "font.heading.md",
+    "name": "font.heading.medium",
     "path": [
       "font",
       "heading",
-      "md"
+      "medium"
     ],
-    "cleanName": "font.heading.md"
+    "cleanName": "font.heading.medium"
   },
   {
     "attributes": {
@@ -234,13 +234,13 @@ const tokens = [
         "letterSpacing": "LetterSpacing0"
       }
     },
-    "name": "font.heading.sm",
+    "name": "font.heading.small",
     "path": [
       "font",
       "heading",
-      "sm"
+      "small"
     ],
-    "cleanName": "font.heading.sm"
+    "cleanName": "font.heading.small"
   },
   {
     "attributes": {
@@ -268,13 +268,13 @@ const tokens = [
         "letterSpacing": "LetterSpacing0"
       }
     },
-    "name": "font.heading.xl",
+    "name": "font.heading.xlarge",
     "path": [
       "font",
       "heading",
-      "xl"
+      "xlarge"
     ],
-    "cleanName": "font.heading.xl"
+    "cleanName": "font.heading.xlarge"
   },
   {
     "attributes": {
@@ -302,13 +302,13 @@ const tokens = [
         "letterSpacing": "LetterSpacing0"
       }
     },
-    "name": "font.heading.xs",
+    "name": "font.heading.xsmall",
     "path": [
       "font",
       "heading",
-      "xs"
+      "xsmall"
     ],
-    "cleanName": "font.heading.xs"
+    "cleanName": "font.heading.xsmall"
   },
   {
     "attributes": {
@@ -336,13 +336,13 @@ const tokens = [
         "letterSpacing": "LetterSpacing0"
       }
     },
-    "name": "font.heading.xxl",
+    "name": "font.heading.xxlarge",
     "path": [
       "font",
       "heading",
-      "xxl"
+      "xxlarge"
     ],
-    "cleanName": "font.heading.xxl"
+    "cleanName": "font.heading.xxlarge"
   },
   {
     "attributes": {
@@ -370,13 +370,13 @@ const tokens = [
         "letterSpacing": "LetterSpacing0"
       }
     },
-    "name": "font.heading.xxs",
+    "name": "font.heading.xxsmall",
     "path": [
       "font",
       "heading",
-      "xxs"
+      "xxsmall"
     ],
-    "cleanName": "font.heading.xxs"
+    "cleanName": "font.heading.xxsmall"
   },
   {
     "attributes": {
@@ -573,13 +573,13 @@ const tokens = [
         "letterSpacing": "LetterSpacing0"
       }
     },
-    "name": "font.ui.sm",
+    "name": "font.ui.small",
     "path": [
       "font",
       "ui",
-      "sm"
+      "small"
     ],
-    "cleanName": "font.ui.sm"
+    "cleanName": "font.ui.small"
   },
   {
     "attributes": {
@@ -588,7 +588,7 @@ const tokens = [
       "introduced": "1.14.0",
       "description": "Helpful guidance goes here"
     },
-    "value": "ui-sans-serif, \"Segoe UI\", system-ui, Ubuntu, \"Helvetica Neue\", sans-serif",
+    "value": "ui-sans-serif, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
     "filePath": "src/tokens/atlassian-typography/font-family.tsx",
     "isSource": true,
     "original": {
@@ -642,7 +642,7 @@ const tokens = [
       "introduced": "1.14.0",
       "description": "Helpful guidance goes here"
     },
-    "value": "ui-sans-serif, \"Segoe UI\", system-ui, Ubuntu, \"Helvetica Neue\", sans-serif",
+    "value": "ui-sans-serif, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
     "filePath": "src/tokens/atlassian-typography/font-family.tsx",
     "isSource": true,
     "original": {
@@ -696,7 +696,7 @@ const tokens = [
       "introduced": "0.10.33",
       "description": "Helpful guidance goes here"
     },
-    "value": "ui-sans-serif, \"Segoe UI\", system-ui, Ubuntu, \"Helvetica Neue\", sans-serif",
+    "value": "ui-sans-serif, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
     "filePath": "src/tokens/atlassian-typography/font-family.tsx",
     "isSource": true,
     "original": {

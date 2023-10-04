@@ -6,14 +6,15 @@ import {
   fullpage,
   editable,
 } from '@atlaskit/editor-test-helpers/integration/helpers';
-import { toolbarMessages as textFormattingMessages } from '@atlaskit/editor-common/messages';
-import { toolbarMessages as blockTypeToolbarMessages } from '@atlaskit/editor-plugin-block-type/messages';
+import {
+  toolbarMessages as textFormattingMessages,
+  blockTypeMessages,
+} from '@atlaskit/editor-common/messages';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   goToEditorTestingWDExample,
   mountEditor,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
-import { messages as blockTypeMessages } from '@atlaskit/editor-plugin-block-type/messages';
 
 const input = 'helloworld ';
 // https://product-fabric.atlassian.net/browse/ED-4531
@@ -24,7 +25,7 @@ const input = 'helloworld ';
     async (client: any, testName: string) => {
       const bold = `[aria-label*="${textFormattingMessages.bold.defaultMessage}"]`;
       const italic = `[aria-label*="${textFormattingMessages.italic.defaultMessage}"]`;
-      const changeFormatting = `[aria-label="${blockTypeToolbarMessages.textStyles.defaultMessage}"]`;
+      const changeFormatting = `[aria-label="${textFormattingMessages.textStyles.defaultMessage}"]`;
       const normalText = `span=${blockTypeMessages.normal.defaultMessage}`;
       const more = `[aria-label="${textFormattingMessages.moreFormatting.defaultMessage}"]`;
       const underline = `span=${textFormattingMessages.underline.defaultMessage}`;

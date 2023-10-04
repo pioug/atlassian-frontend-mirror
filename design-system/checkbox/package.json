@@ -51,6 +51,7 @@
   },
   "devDependencies": {
     "@af/accessibility-testing": "*",
+    "@af/visual-regression": "*",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",

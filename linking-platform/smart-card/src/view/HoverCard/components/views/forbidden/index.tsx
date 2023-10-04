@@ -1,25 +1,20 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { FormattedMessage } from 'react-intl-next';
 import { JsonLd } from 'json-ld-types';
 import FlexibleCard from '../../../../FlexibleCard';
-import {
-  ActionItem,
-  CustomActionItem,
-} from '../../../../FlexibleCard/components/blocks/types';
 import { messages } from '../../../../../messages';
 import {
   CustomBlock,
   PreviewBlock,
 } from '../../../../FlexibleCard/components/blocks';
 import { HoverCardForbiddenProps } from './types';
+import Button from '@atlaskit/button';
 import { extractProvider } from '@atlaskit/link-extractors';
 import {
   connectButtonStyles,
   mainTextStyles,
   titleBlockStyles,
 } from './styled';
-import ActionGroup from '../../../../FlexibleCard/components/blocks/action-group';
-import { ActionName } from '../../../../../constants';
 import { getPreviewBlockStyles } from '../../../styled';
 import { extractRequestAccessContextImproved } from '../../../../../extractors/common/context/extractAccessContext';
 
@@ -31,25 +26,14 @@ const HoverCardForbiddenView: React.FC<HoverCardForbiddenProps> = ({
   const data = cardState.details?.data as JsonLd.Data.BaseData;
   const meta = cardState.details?.meta as JsonLd.Meta.BaseMeta;
   const product = extractProvider(data)?.text ?? '';
-  const hostname = new URL(url).hostname;
+  const hostname = <b>{new URL(url).hostname}</b>;
 
-  const { action, descriptiveMessageKey, titleMessageKey } =
+  const { action, descriptiveMessageKey, titleMessageKey, buttonDisabled } =
     extractRequestAccessContextImproved({
       jsonLd: meta,
       url,
       product,
-    });
-
-  const actions = useMemo<ActionItem[]>(
-    () => [
-      {
-        name: ActionName.CustomAction,
-        content: action?.text,
-        onClick: action?.promise,
-      } as CustomActionItem,
-    ],
-    [action],
-  );
+    }) ?? {};
 
   if (!titleMessageKey || !descriptiveMessageKey) {
     return null;
@@ -76,7 +60,13 @@ const HoverCardForbiddenView: React.FC<HoverCardForbiddenProps> = ({
           overrideCss={connectButtonStyles}
           testId={`${testId}-button`}
         >
-          <ActionGroup items={actions} appearance="primary" />
+          <Button
+            onClick={action?.promise}
+            appearance="primary"
+            isDisabled={buttonDisabled}
+          >
+            {action?.text}
+          </Button>
         </CustomBlock>
       )}
     </FlexibleCard>

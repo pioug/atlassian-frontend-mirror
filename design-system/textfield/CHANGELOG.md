@@ -1,5 +1,11 @@
 # @atlaskit/textfield
 
+## 5.6.8
+
+### Patch Changes
+
+- [#40987](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40987) [`3039d60a810`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3039d60a810) - Make spread props present in types explicit.
+
 ## 5.6.7
 
 ### Patch Changes

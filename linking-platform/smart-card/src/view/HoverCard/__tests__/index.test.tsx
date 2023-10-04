@@ -61,6 +61,13 @@ import { HoverCardInternalProps } from '../types';
 import { PROVIDER_KEYS_WITH_THEMING } from '../../../extractors/constants';
 import { setGlobalTheme } from '@atlaskit/tokens';
 import MockAtlasProject from '../../../__fixtures__/atlas-project';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+
+jest.mock('@atlaskit/platform-feature-flags');
+
+afterEach(() => {
+  (getBooleanFF as jest.Mock).mockReset();
+});
 
 const mockUrl = 'https://some.url';
 
@@ -1152,6 +1159,42 @@ describe('HoverCard', () => {
             expect(queryByTestId(authTooltipId)).toBeNull();
           },
         );
+      });
+    });
+
+    describe('renders forbidden view hover card', () => {
+      beforeEach(() => {
+        (getBooleanFF as jest.Mock).mockImplementation((flag) => {
+          switch (flag) {
+            case 'platform.linking-platform.smart-card.cross-join':
+            case 'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
+            case 'platform.linking-platform.smart-card.enable-better-metadata_iojwg':
+              return true;
+          }
+        });
+      });
+      it('when response is forbidden', async () => {
+        const { findByTestId } = await setup({
+          mock: mocks.forbidden,
+          testId: 'inline-card-forbidden-view',
+        });
+        jest.runAllTimers();
+        const hoverCard = await findByTestId('hover-card');
+        expect(hoverCard).toBeTruthy();
+      });
+
+      it('when response is not_found with access_exists', async () => {
+        const mock = mocks.notFound;
+        mock.meta.requestAccess = {
+          accessType: 'ACCESS_EXISTS',
+        };
+        const { findByTestId } = await setup({
+          mock: mock,
+          testId: 'inline-card-not-found-view',
+        });
+        jest.runAllTimers();
+        const hoverCard = await findByTestId('hover-card');
+        expect(hoverCard).toBeTruthy();
       });
     });
 

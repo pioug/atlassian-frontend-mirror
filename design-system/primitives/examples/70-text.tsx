@@ -4,7 +4,13 @@ import { jsx } from '@emotion/react';
 import { Stack } from '../src';
 import Text from '../src/components/text';
 
-const variants = ['ui.sm', 'ui', 'body.sm', 'body', 'body.lg'] as const;
+const variants = [
+  'ui.small',
+  'ui',
+  'body.small',
+  'body',
+  'body.large',
+] as const;
 
 export default () => {
   return (

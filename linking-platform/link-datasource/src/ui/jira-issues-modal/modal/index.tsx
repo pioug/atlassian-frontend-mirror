@@ -269,10 +269,13 @@ export const PlainJiraIssuesConfigModal = (
   useEffect(() => {
     const fetchSiteDisplayNames = async () => {
       const jiraSites = await getAvailableJiraSites();
-      setAvailableSites(jiraSites);
+      const sortedAvailableSites = [...jiraSites].sort((a, b) =>
+        a.displayName.localeCompare(b.displayName),
+      );
+      setAvailableSites(sortedAvailableSites);
 
       fireEvent('ui.modal.ready.datasource', {
-        instancesCount: jiraSites.length,
+        instancesCount: sortedAvailableSites.length,
       });
     };
 

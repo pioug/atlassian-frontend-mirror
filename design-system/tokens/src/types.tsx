@@ -1144,22 +1144,22 @@ export interface TypographyTokenSchema<
 > {
   font: {
     heading: {
-      xxl: TypographyToken<TPalette>;
-      xl: TypographyToken<TPalette>;
-      lg: TypographyToken<TPalette>;
-      md: TypographyToken<TPalette>;
-      sm: TypographyToken<TPalette>;
-      xs: TypographyToken<TPalette>;
-      xxs: TypographyToken<TPalette>;
+      xxlarge: TypographyToken<TPalette>;
+      xlarge: TypographyToken<TPalette>;
+      large: TypographyToken<TPalette>;
+      medium: TypographyToken<TPalette>;
+      small: TypographyToken<TPalette>;
+      xsmall: TypographyToken<TPalette>;
+      xxsmall: TypographyToken<TPalette>;
     };
     ui: {
       '[default]': TypographyToken<TPalette>;
-      sm: TypographyToken<TPalette>;
+      small: TypographyToken<TPalette>;
     };
     body: {
       '[default]': TypographyToken<TPalette>;
-      sm: TypographyToken<TPalette>;
-      lg: TypographyToken<TPalette>;
+      small: TypographyToken<TPalette>;
+      large: TypographyToken<TPalette>;
     };
     code: {
       '[default]': TypographyToken<TPalette>;

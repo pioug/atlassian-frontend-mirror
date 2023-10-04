@@ -5,6 +5,10 @@ import {
   copyHTMLToClipboardPolyfill,
   getAnalyticsPayload,
 } from '@atlaskit/editor-common/clipboard';
+import {
+  getSelectedNodeOrNodeParentByNodeType,
+  toDOM,
+} from '@atlaskit/editor-common/copy-button';
 import type { Command, CommandDispatch } from '@atlaskit/editor-common/types';
 import { browser } from '@atlaskit/editor-common/utils';
 import type { HoverDecorationHandler } from '@atlaskit/editor-plugin-decorations';
@@ -16,7 +20,6 @@ import type {
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 
 import { copyButtonPluginKey } from './pm-plugins/plugin-key';
-import { getSelectedNodeOrNodeParentByNodeType, toDOM } from './utils';
 
 export function createToolbarCopyCommandForMark(
   markType: MarkType,

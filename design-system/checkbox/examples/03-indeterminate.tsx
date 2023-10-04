@@ -3,13 +3,11 @@ import { ChangeEvent, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
+import { Fieldset } from '@atlaskit/form';
 import { token } from '@atlaskit/tokens';
 
 import { Checkbox } from '../src';
 
-const introStyles = css({
-  marginBlockEnd: token('space.100', '8px'),
-});
 const groupStyles = css({
   display: 'flex',
   flexDirection: 'column',
@@ -75,46 +73,43 @@ const IndeterminateCheckbox = () => {
 
   return (
     <div>
-      <p css={introStyles}>
-        An indeterminate checkbox can be used to show partially checked states.
-        The parent checkbox below will be indeterminate until all its&#39;
-        children are checked.
-      </p>
-      <Checkbox
-        isChecked={checkedItems[PARENT_ID]}
-        isIndeterminate={getIsParentIndeterminate(checkedItems)}
-        onChange={onChange}
-        label="All projects"
-        value={PARENT_ID}
-        name="parent"
-        testId="parent"
-      />
-      <div css={groupStyles}>
+      <Fieldset legend="An indeterminate checkbox can be used to show partially checked states. The parent checkbox below will be indeterminate until all its' children are checked.">
         <Checkbox
-          isChecked={checkedItems[CHILD_1_ID]}
+          isChecked={checkedItems[PARENT_ID]}
+          isIndeterminate={getIsParentIndeterminate(checkedItems)}
           onChange={onChange}
-          label="Design System"
-          value={CHILD_1_ID}
-          name="child-1"
-          testId="child-1"
+          label="All projects"
+          value={PARENT_ID}
+          name="parent"
+          testId="parent"
         />
-        <Checkbox
-          isChecked={checkedItems[CHILD_2_ID]}
-          onChange={onChange}
-          label="Jira Software"
-          value={CHILD_2_ID}
-          name="child-2"
-          testId="child-2"
-        />
-        <Checkbox
-          isChecked={checkedItems[CHILD_3_ID]}
-          onChange={onChange}
-          label="Confluence"
-          value={CHILD_3_ID}
-          name="child-3"
-          testId="child-3"
-        />
-      </div>
+        <div css={groupStyles}>
+          <Checkbox
+            isChecked={checkedItems[CHILD_1_ID]}
+            onChange={onChange}
+            label="Design System"
+            value={CHILD_1_ID}
+            name="child-1"
+            testId="child-1"
+          />
+          <Checkbox
+            isChecked={checkedItems[CHILD_2_ID]}
+            onChange={onChange}
+            label="Jira Software"
+            value={CHILD_2_ID}
+            name="child-2"
+            testId="child-2"
+          />
+          <Checkbox
+            isChecked={checkedItems[CHILD_3_ID]}
+            onChange={onChange}
+            label="Confluence"
+            value={CHILD_3_ID}
+            name="child-3"
+            testId="child-3"
+          />
+        </div>
+      </Fieldset>
     </div>
   );
 };

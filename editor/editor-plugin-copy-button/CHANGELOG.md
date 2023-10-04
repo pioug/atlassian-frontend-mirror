@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-copy-button
 
+## 1.0.0
+
+### Major Changes
+
+- [#41021](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41021) [`79abfef6196`](https://bitbucket.org/atlassian/atlassian-frontend/commits/79abfef6196) - ED-20299 remove unnecessary entry points in editor-plugin-copy-button and refactor
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.2.1
 
 ### Patch Changes

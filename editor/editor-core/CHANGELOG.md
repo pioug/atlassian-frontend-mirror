@@ -1,5 +1,58 @@
 # @atlaskit/editor-core
 
+## 188.1.0
+
+### Minor Changes
+
+- [#40850](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40850) [`e7cead0f099`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e7cead0f099) - Move shared messages to editor-common
+- [#40910](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40910) [`820e75ceeda`](https://bitbucket.org/atlassian/atlassian-frontend/commits/820e75ceeda) - Decoupling the media plugin from the paste plugin.
+
+### Patch Changes
+
+- [#41021](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41021) [`79abfef6196`](https://bitbucket.org/atlassian/atlassian-frontend/commits/79abfef6196) - ED-20299 remove unnecessary entry points in editor-plugin-copy-button and refactor
+- [#41020](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41020) [`ab49509530f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ab49509530f) - Add editor-plugin-help-dialog
+- Updated dependencies
+
+## 188.0.12
+
+### Patch Changes
+
+- [#40788](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40788) [`30e085a3e77`](https://bitbucket.org/atlassian/atlassian-frontend/commits/30e085a3e77) - Fix type violations from upgrading lodash.
+
+## 188.0.11
+
+### Patch Changes
+
+- [#40955](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40955) [`30dc2b1e6c9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/30dc2b1e6c9) - [ED-19746] Decoupling mentions plugin from Editor-core libraries
+- Updated dependencies
+
+## 188.0.9
+
+### Patch Changes
+
+- [#40920](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40920) [`cbc14adc54a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cbc14adc54a) - ED-20003 moved TypeAhead tests as part of extraction efforts in Scalability
+- [#41009](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41009) [`d760dcdc8a2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d760dcdc8a2) - Updates failing datasources playwright test for site selector alphabetical ordering
+
+## 188.0.8
+
+### Patch Changes
+
+- [#40755](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40755) [`c1cd5ba7d38`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c1cd5ba7d38) - [ED-16733] Extraction Media Plugin: Add new placeholder package for media types.
+- Updated dependencies
+
+## 188.0.7
+
+### Patch Changes
+
+- [#40876](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40876) [`25ab77d5406`](https://bitbucket.org/atlassian/atlassian-frontend/commits/25ab77d5406) - Adds datasource integration test case for copy button
+- Updated dependencies
+
+## 188.0.5
+
+### Patch Changes
+
+- [#40878](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40878) [`15c7575b19c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/15c7575b19c) - Fixing comments for editor-common, editor-core
+
 ## 188.0.4
 
 ### Patch Changes

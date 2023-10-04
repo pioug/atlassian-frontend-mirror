@@ -4,8 +4,8 @@ import React from 'react';
 import { css, jsx } from '@emotion/react';
 import { themed } from '@atlaskit/theme/components';
 import { DN900, N90 } from '@atlaskit/theme/colors';
-import { Provider } from '@atlaskit/collab-provider';
-import { ThemeProps } from '@atlaskit/theme/types';
+import type { Provider } from '@atlaskit/collab-provider';
+import type { ThemeProps } from '@atlaskit/theme/types';
 
 export const titleArea: any = (props: ThemeProps) => css`
   border: none;

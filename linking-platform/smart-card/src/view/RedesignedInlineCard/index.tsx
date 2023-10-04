@@ -132,6 +132,7 @@ export const InlineCard: FC<InlineCardProps> = ({
           onAuthorise={handleAuthorize}
           testId={testIdWithStatus}
           requestAccessContext={requestAccessContext}
+          showHoverPreview={showHoverPreview}
         />
       );
     case 'not_found':
@@ -150,6 +151,7 @@ export const InlineCard: FC<InlineCardProps> = ({
           message="Can't find link"
           onClick={handleFrameClick}
           testId={testIdWithStatus || 'inline-card-not-found-view'}
+          showHoverPreview={showHoverPreview}
         />
       );
     case 'fallback':

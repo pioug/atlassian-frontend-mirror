@@ -4,8 +4,16 @@ import { IntlProvider } from 'react-intl-next';
 
 import { InlineCardForbiddenView } from '../..';
 import { expectElementWithText } from '../../../../../__tests__/__utils__/unit-helpers';
+import { Provider } from '../../../../../';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 jest.mock('react-render-image');
+
+jest.mock('@atlaskit/platform-feature-flags');
+
+afterEach(() => {
+  (getBooleanFF as jest.Mock).mockReset();
+});
 
 const URL =
   'http://product.example.com/lorem/ipsum/dolor/sit/amet/consectetur/adipiscing/volutpat/';
@@ -149,5 +157,45 @@ describe('Forbidden view', () => {
       await screen.findByRole('button', { name: 'Request access' }),
     );
     expect(promise).toHaveBeenCalledTimes(1);
+  });
+
+  it('should render a hover card when showHoverPreview prop is enabled and cross-join feature flag is enabled', async () => {
+    (getBooleanFF as jest.Mock).mockImplementation(
+      (flag) => flag === 'platform.linking-platform.smart-card.cross-join',
+    );
+    render(
+      <Provider>
+        <InlineCardForbiddenView showHoverPreview={true} url="www.test.com" />,
+      </Provider>,
+    );
+    expect(
+      await screen.findByTestId('hover-card-trigger-wrapper'),
+    ).toBeInTheDocument();
+  });
+
+  it('should not render a hover card when showHoverPreview prop is not enabled and cross-join feature flag is enabled', async () => {
+    (getBooleanFF as jest.Mock).mockImplementation(
+      (flag) => flag === 'platform.linking-platform.smart-card.cross-join',
+    );
+    render(<InlineCardForbiddenView url="www.test.com" />);
+    expect(
+      screen.queryByTestId('hover-card-trigger-wrapper'),
+    ).not.toBeInTheDocument();
+  });
+
+  it('should not render a hover card when showHoverPreview prop is enabled and cross-join feature flag is disabled', async () => {
+    render(
+      <InlineCardForbiddenView showHoverPreview={true} url="www.test.com" />,
+    );
+    expect(
+      screen.queryByTestId('hover-card-trigger-wrapper'),
+    ).not.toBeInTheDocument();
+  });
+
+  it('should not render a hover card when showHoverPreview prop is disabled and cross-join feature flag is disabled', async () => {
+    render(<InlineCardForbiddenView url="www.test.com" />);
+    expect(
+      screen.queryByTestId('hover-card-trigger-wrapper'),
+    ).not.toBeInTheDocument();
   });
 });

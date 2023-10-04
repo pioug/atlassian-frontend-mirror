@@ -297,12 +297,13 @@ export const mockUnauthorisedResponse: JsonLd.Response = {
 
 export const getMockForbiddenDirectAccessResponse = (
   accessType = 'DIRECT_ACCESS',
+  visibility: JsonLd.Primitives.Visibility = 'not_found',
 ): JsonLd.Response => ({
   meta: {
     auth: [],
     definitionId: 'jira-object-provider',
     product: 'jira',
-    visibility: 'not_found',
+    visibility,
     access: 'forbidden',
     resourceType: 'issue',
     category: 'object',

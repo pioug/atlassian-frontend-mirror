@@ -1,3 +1,6 @@
+// Below import is temporarily exempted as it predated the introduction of the eslint rule
+// Please avoid importing from src or dist directories of platform components
+// eslint-disable-next-line no-restricted-imports
 import { selectors } from '@atlaskit/renderer/src/__tests__/__helpers/page-objects/_media';
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies

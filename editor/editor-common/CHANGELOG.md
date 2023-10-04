@@ -1,5 +1,40 @@
 # @atlaskit/editor-common
 
+## 76.3.0
+
+### Minor Changes
+
+- [#40653](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40653) [`fb16d9fc8e0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fb16d9fc8e0) - [ux] ECA11Y-21: Replaced colour contrast for the placeholder title text in expand element
+
+## 76.2.0
+
+### Minor Changes
+
+- [#40850](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40850) [`e7cead0f099`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e7cead0f099) - Move shared messages to editor-common
+- [#41021](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41021) [`79abfef6196`](https://bitbucket.org/atlassian/atlassian-frontend/commits/79abfef6196) - ED-20299 remove unnecessary entry points in editor-plugin-copy-button and refactor
+
+### Patch Changes
+
+- [#40910](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40910) [`21ec1a76487`](https://bitbucket.org/atlassian/atlassian-frontend/commits/21ec1a76487) - Minor import update.
+
+## 76.1.11
+
+### Patch Changes
+
+- [#40876](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40876) [`22a9d56fd1e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/22a9d56fd1e) - This changeset exists because a PR's confluence integrator step needs to pre-release the latest editor-common for the build to not fail.
+
+## 76.1.10
+
+### Patch Changes
+
+- [#40918](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40918) [`2be79319d65`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2be79319d65) - [ux] Fix JLOL icon in quick insert menu always having white background even in dark mode
+
+## 76.1.9
+
+### Patch Changes
+
+- [#40878](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40878) [`15c7575b19c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/15c7575b19c) - Fixing comments for editor-common, editor-core
+
 ## 76.1.8
 
 ### Patch Changes

@@ -5,6 +5,7 @@ import { getMockForbiddenDirectAccessResponse } from '../../../../__tests__/__mo
 import HoverCardForbiddenView from '../index';
 
 const mockResponse = getMockForbiddenDirectAccessResponse();
+const forbiddenViewTestId = 'hover-card-forbidden-view-resolved-view';
 
 describe('Forbidden Hover Card', () => {
   const mockUrl = 'https://mock-url.com';
@@ -13,14 +14,14 @@ describe('Forbidden Hover Card', () => {
     jest.clearAllMocks();
   });
 
-  const setUpHoverCard = async () => {
-    const { findByTestId } = render(
+  const setUpHoverCard = async (customResponse: any = mockResponse) => {
+    const { findByTestId, queryByTestId } = render(
       <IntlProvider locale="en">
         <HoverCardForbiddenView
           flexibleCardProps={{
             cardState: {
               status: 'forbidden',
-              details: mockResponse,
+              details: customResponse,
             },
             children: {},
             url: mockUrl,
@@ -29,12 +30,12 @@ describe('Forbidden Hover Card', () => {
       </IntlProvider>,
     );
 
-    return { findByTestId };
+    return { findByTestId, queryByTestId };
   };
 
   it('renders forbidden hover card content', async () => {
     const { findByTestId } = await setUpHoverCard();
-    await findByTestId('hover-card-forbidden-view-resolved-view');
+    await findByTestId(forbiddenViewTestId);
     const titleElement = await findByTestId('hover-card-forbidden-view-title');
     const mainContentElement = await findByTestId(
       'hover-card-forbidden-view-content',
@@ -48,5 +49,25 @@ describe('Forbidden Hover Card', () => {
       'All accounts with your same email domain are approved to access mock-url.com in Jira.',
     );
     expect(buttonElement.textContent).toBe('Go to Jira');
+  });
+
+  it('does not render forbidden hover card when accessContext is undefined', async () => {
+    const mockResponse = getMockForbiddenDirectAccessResponse();
+    mockResponse.meta.requestAccess = undefined;
+    const { queryByTestId } = await setUpHoverCard(mockResponse);
+    const hoverCard = await queryByTestId(forbiddenViewTestId);
+
+    expect(hoverCard).not.toBeInTheDocument();
+  });
+
+  it('does not render forbidden hover card when accessContext is malformed', async () => {
+    const mockResponse = getMockForbiddenDirectAccessResponse();
+    mockResponse.meta.requestAccess = {
+      accessType: 'blah',
+    };
+    const { queryByTestId } = await setUpHoverCard(mockResponse);
+    const hoverCard = await queryByTestId(forbiddenViewTestId);
+
+    expect(hoverCard).not.toBeInTheDocument();
   });
 });

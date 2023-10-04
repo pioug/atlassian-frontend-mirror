@@ -46,7 +46,7 @@ import { ReactMediaInlineNode } from './nodeviews/mediaInline';
 
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { stateKey } from './pm-plugins/plugin-key';
-
+import { insertMediaAsMediaSingle } from './utils/media-single';
 export type { MediaState, MediaProvider, CustomMediaPicker };
 export { insertMediaSingleNode } from './utils/media-single';
 import type { MediaNextEditorPluginType } from './next-plugin-type';
@@ -91,6 +91,16 @@ const mediaPlugin: MediaNextEditorPluginType = ({
         return null;
       }
       return stateKey.getState(editorState) || null;
+    },
+
+    actions: {
+      insertMediaAsMediaSingle: (view, node, inputMethod) =>
+        insertMediaAsMediaSingle(
+          view,
+          node,
+          inputMethod,
+          api?.analytics?.actions,
+        ),
     },
 
     nodes() {

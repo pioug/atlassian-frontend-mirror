@@ -20,13 +20,13 @@ export default () => {
       </Stack>
       <Stack testId="headings" space="space.100">
         <style>{`:root { --ds-font-family-heading: sans-serif; }`}</style>
-        <Heading variant="xxlarge">xxl</Heading>
-        <Heading variant="xlarge">xl</Heading>
-        <Heading variant="large">lg</Heading>
-        <Heading variant="medium">md</Heading>
-        <Heading variant="small">sm</Heading>
-        <Heading variant="xsmall">xs</Heading>
-        <Heading variant="xxsmall">xxs</Heading>
+        <Heading variant="xxlarge">xxlarge</Heading>
+        <Heading variant="xlarge">xlarge</Heading>
+        <Heading variant="large">large</Heading>
+        <Heading variant="medium">medium</Heading>
+        <Heading variant="small">small</Heading>
+        <Heading variant="xsmall">xsmall</Heading>
+        <Heading variant="xxsmall">xxsmall</Heading>
       </Stack>
     </Grid>
   );

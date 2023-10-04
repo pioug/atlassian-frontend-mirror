@@ -19,7 +19,7 @@ import type {
   OptionalPlugin,
   Command,
 } from '@atlaskit/editor-common/types';
-import { messages } from '@atlaskit/editor-plugin-block-type/messages';
+import { blockTypeMessages } from '@atlaskit/editor-common/messages';
 import type { CodeBlockOptions } from './types';
 import refreshBrowserSelectionOnChange from './refresh-browser-selection';
 import type { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
@@ -105,8 +105,8 @@ const codeBlockPlugin: NextEditorPlugin<
     quickInsert: ({ formatMessage }) => [
       {
         id: 'codeblock',
-        title: formatMessage(messages.codeblock),
-        description: formatMessage(messages.codeblockDescription),
+        title: formatMessage(blockTypeMessages.codeblock),
+        description: formatMessage(blockTypeMessages.codeblockDescription),
         keywords: ['code block'],
         priority: 700,
         keyshortcut: '```',

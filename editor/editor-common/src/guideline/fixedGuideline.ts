@@ -1,4 +1,4 @@
-import { LengthGuide } from './types';
+import type { LengthGuide } from './types';
 
 /**
  * This creates a collection of points relative to the center line of each supplied length. For example; a length of

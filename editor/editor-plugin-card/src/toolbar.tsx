@@ -387,6 +387,7 @@ const generateToolbarItems =
         node,
         hoverDecoration,
         node.attrs.datasource.id,
+        state,
       );
     } else {
       const { inlineCard } = state.schema.nodes;
@@ -573,6 +574,7 @@ const getDatasourceButtonGroup = (
   node: Node,
   hoverDecoration: HoverDecorationHandler | undefined,
   datasourceId: string,
+  state: EditorState,
 ): FloatingToolbarItem<Command>[] => {
   const toolbarItems: Array<FloatingToolbarItem<Command>> = [
     {
@@ -604,6 +606,17 @@ const getDatasourceButtonGroup = (
 
   toolbarItems.push(
     { type: 'separator' },
+    {
+      type: 'copy-button',
+      items: [
+        {
+          state,
+          formatMessage: intl.formatMessage,
+          nodeType: node.type,
+        },
+        { type: 'separator' },
+      ],
+    },
     {
       id: 'editor.link.delete',
       focusEditoronEnter: true,

@@ -6,7 +6,7 @@ import type {
   Transaction,
 } from '@atlaskit/editor-prosemirror/state';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import { getSelectedNodeOrNodeParentByNodeType } from '@atlaskit/editor-plugin-copy-button/utils';
+import { getSelectedNodeOrNodeParentByNodeType } from '@atlaskit/editor-common/copy-button';
 
 export const copySelectionPluginKey = new PluginKey(
   'codeBlockCopySelectionPlugin',

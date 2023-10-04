@@ -31,7 +31,7 @@ export function getScrollGutterOptions(
   const { appearance, persistScrollGutter } = props;
 
   if (fullPageCheck(appearance)) {
-    // Full Page appearance uses a scrollable div wrapper
+    // Full Page appearance uses a scrollable div wrapper.
     return {
       getScrollElement: () =>
         document.querySelector('.fabric-editor-popup-scroll-parent'),

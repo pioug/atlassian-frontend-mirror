@@ -127,13 +127,7 @@
       "path": "../../../build/test-tooling/visual-regression/tsconfig.app.json"
     },
     {
-      "path": "../../../services/design-system-docs/tsconfig.app.json"
-    },
-    {
       "path": "../../platform/feature-flags-test-utils/tsconfig.app.json"
-    },
-    {
-      "path": "../../monorepo-tooling/gemini/tsconfig.app.json"
     }
   ]
 }

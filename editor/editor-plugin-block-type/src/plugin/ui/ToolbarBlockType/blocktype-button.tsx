@@ -3,8 +3,9 @@ import React from 'react';
 
 import { jsx } from '@emotion/react';
 import type { MessageDescriptor, WrappedComponentProps } from 'react-intl-next';
-import { defineMessages, FormattedMessage } from 'react-intl-next';
+import { FormattedMessage } from 'react-intl-next';
 
+import { toolbarMessages } from '@atlaskit/editor-common/messages';
 import { wrapperStyle } from '@atlaskit/editor-common/styles';
 import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
@@ -31,19 +32,10 @@ export interface BlockTypeButtonProps {
   formatMessage: WrappedComponentProps['intl']['formatMessage'];
 }
 
-export const messages = defineMessages({
-  textStyles: {
-    id: 'fabric.editor.textStyles',
-    defaultMessage: 'Text styles',
-    description:
-      'Menu provides access to various heading styles or normal text',
-  },
-});
-
 export const BlockTypeButton: React.StatelessComponent<
   BlockTypeButtonProps
 > = props => {
-  const labelTextStyles = props.formatMessage(messages.textStyles);
+  const labelTextStyles = props.formatMessage(toolbarMessages.textStyles);
   return (
     <ToolbarButton
       spacing={props.isReducedSpacing ? 'none' : 'default'}

@@ -9,6 +9,7 @@ export const titleBlockStyles = css`
 `;
 
 export const mainTextStyles = css`
+  display: inline;
   justify-content: center;
   margin-top: ${blockGap};
   font-size: 0.75rem;

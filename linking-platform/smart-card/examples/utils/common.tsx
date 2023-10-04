@@ -104,7 +104,7 @@ export const mocks = {
       url: 'https://some.url',
     },
   } as JsonLd.Response,
-  forbiddenCrossJoin: (accessType = 'FORBIDDEN', visibility = 'not_found') =>
+  unresolved: (accessType = 'FORBIDDEN', visibility = 'not_found') =>
     ({
       meta: {
         auth: [],

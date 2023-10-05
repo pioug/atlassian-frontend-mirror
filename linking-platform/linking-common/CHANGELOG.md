@@ -1,5 +1,11 @@
 # @atlaskit/linking-common
 
+## 4.11.0
+
+### Minor Changes
+
+- [#38342](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38342) [`9b37a0f7afa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9b37a0f7afa) - Deprecates ff enableLinkPickerForgeTabs relating to @atlaskit/link-picker-plugins
+
 ## 4.10.1
 
 ### Patch Changes

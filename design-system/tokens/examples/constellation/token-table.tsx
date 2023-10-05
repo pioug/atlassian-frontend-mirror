@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import { Example } from '@af/design-system-docs-ui';
 import Avatar from '@atlaskit/avatar';
 import DropdownMenu, {
   DropdownItem,
@@ -14,7 +13,7 @@ import { N50A, N60A } from '@atlaskit/theme/colors';
 
 import token from '../../src/get-token';
 
-const TokensTagCodeBlock = `
+const TokenTableCodeBlock = `
 import { N50A, N60A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -25,7 +24,7 @@ boxShadow: token(
 ),
 `;
 
-export const createHead = (withWidth: boolean) => {
+const createHead = (withWidth: boolean) => {
   return {
     cells: [
       {
@@ -61,7 +60,7 @@ export const createHead = (withWidth: boolean) => {
   };
 };
 
-export const head = createHead(true);
+const head = createHead(true);
 
 const presidents = [
   {
@@ -94,7 +93,7 @@ interface President {
   term: string;
 }
 
-export const rows = presidents.map((president: President, index: number) => ({
+const rows = presidents.map((president: President, index: number) => ({
   key: `row-${index}-${president.name}`,
   isHighlighted: false,
   cells: [
@@ -165,7 +164,7 @@ const leftShadowStyles = css({
   insetInlineStart: ' -10px',
 });
 
-const TokensTable = () => {
+const TokenTable = () => {
   const [shadowLeft, setShadowLeft] = useState(false);
   const [shadowRight, setShadowRight] = useState(false);
 
@@ -208,14 +207,4 @@ const TokensTable = () => {
   );
 };
 
-const TokensTableExample = () => {
-  return (
-    <Example
-      Component={TokensTable}
-      source={TokensTagCodeBlock}
-      packageName="@atlaskit/tokens"
-    />
-  );
-};
-
-export default TokensTableExample;
+export default { example: TokenTable, code: TokenTableCodeBlock };

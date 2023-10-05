@@ -1,35 +1,37 @@
+import React from 'react';
+
 import type { MediaADFAttrs } from '@atlaskit/adf-schema';
-import { WithProviders } from '@atlaskit/editor-common/provider-factory';
-import type {
-  Providers,
-  MediaProvider,
-  ContextIdentifierProvider,
-  ProviderFactory,
-} from '@atlaskit/editor-common/provider-factory';
+import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
+import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import {
   DEFAULT_IMAGE_HEIGHT,
   DEFAULT_IMAGE_WIDTH,
 } from '@atlaskit/editor-common/media-single';
-import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import type { EditorView, Decoration } from '@atlaskit/editor-prosemirror/view';
-import React from 'react';
-import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
-import { SelectionBasedNodeView } from '@atlaskit/editor-common/selection-based-node-view';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
+import { WithProviders } from '@atlaskit/editor-common/provider-factory';
+import type {
+  ContextIdentifierProvider,
+  MediaProvider,
+  ProviderFactory,
+  Providers,
+} from '@atlaskit/editor-common/provider-factory';
+import { SelectionBasedNodeView } from '@atlaskit/editor-common/selection-based-node-view';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { WidthPluginState } from '@atlaskit/editor-plugin-width';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { Decoration, EditorView } from '@atlaskit/editor-prosemirror/view';
+import { getAttrsFromUrl } from '@atlaskit/media-client';
 
+import type { MediaNextEditorPluginType } from '../../next-plugin-type';
 import type {
   getPosHandler,
   getPosHandlerNode,
   MediaOptions,
 } from '../../types';
-import type { MediaNodeViewProps } from '../types';
-import MediaNode from './media';
-import { getAttrsFromUrl } from '@atlaskit/media-client';
 import { isMediaBlobUrlFromAttrs } from '../../utils/media-common';
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import type { MediaNextEditorPluginType } from '../../next-plugin-type';
+import type { MediaNodeViewProps } from '../types';
+
+import MediaNode from './media';
 
 interface MediaNodeWithProvidersProps {
   pluginInjectionApi:

@@ -1,17 +1,18 @@
 import { css } from '@emotion/react';
-import { borderRadius } from '@atlaskit/theme/constants';
-import * as colors from '@atlaskit/theme/colors';
+
 import {
   akEditorUnitZIndex,
   relativeFontSizeToBase16,
 } from '@atlaskit/editor-shared-styles';
-import { token } from '@atlaskit/tokens';
+import * as colors from '@atlaskit/theme/colors';
 import { N400 } from '@atlaskit/theme/colors';
+import { borderRadius } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 export const header = css`
   z-index: ${akEditorUnitZIndex};
   min-height: 24px;
-  padding: 20px 40px;
+  padding: ${token('space.250', '20px')} ${token('space.500', '40px')};
   font-size: ${relativeFontSizeToBase16(24)};
   display: flex;
   justify-content: space-between;
@@ -27,13 +28,13 @@ export const footer = css`
   font-size: ${relativeFontSizeToBase16(14)};
   line-height: 20px;
   color: ${token('color.text.subtlest', colors.N300)};
-  padding: 24px;
+  padding: ${token('space.300', '24px')};
   text-align: right;
   box-shadow: 'none';
 `;
 
 export const contentWrapper = css`
-  padding: 20px 44px;
+  padding: ${token('space.250', '20px')} 44px;
   border-bottom-right-radius: ${borderRadius()}px;
   overflow: auto;
   position: relative;
@@ -70,7 +71,7 @@ export const column = {
 };
 
 export const row = css`
-  margin: 20px 0;
+  margin: ${token('space.250', '20px')} 0;
   display: flex;
   justify-content: space-between;
 `;

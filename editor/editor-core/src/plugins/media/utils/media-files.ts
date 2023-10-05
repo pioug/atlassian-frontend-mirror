@@ -1,10 +1,21 @@
 import type {
-  Node as PMNode,
-  NodeType,
-} from '@atlaskit/editor-prosemirror/model';
-import { Fragment } from '@atlaskit/editor-prosemirror/model';
-import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+  EditorAnalyticsAPI,
+  InputMethodInsertMedia,
+  InsertEventPayload,
+} from '@atlaskit/editor-common/analytics';
+import {
+  ACTION,
+  ACTION_SUBJECT,
+  ACTION_SUBJECT_ID,
+  EVENT_TYPE,
+} from '@atlaskit/editor-common/analytics';
+import {
+  atTheBeginningOfBlock,
+  atTheEndOfBlock,
+  atTheEndOfDoc,
+  endPositionOfParent,
+  startPositionOfParent,
+} from '@atlaskit/editor-common/selection';
 import {
   findFarthestParentNode,
   insideTableCell,
@@ -14,39 +25,30 @@ import {
   setNodeSelection,
   setTextSelection,
 } from '@atlaskit/editor-common/utils';
-import type { MediaState } from '../types';
-import {
-  posOfPrecedingMediaGroup,
-  posOfMediaGroupNearby,
-  posOfParentMediaGroup,
-  isSelectionNonMediaBlockNode,
-  isInsidePotentialEmptyParagraph,
-  copyOptionalAttrsFromMediaState,
-} from './media-common';
+import type {
+  NodeType,
+  Node as PMNode,
+} from '@atlaskit/editor-prosemirror/model';
+import { Fragment } from '@atlaskit/editor-prosemirror/model';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import {
   canInsert,
-  safeInsert,
   hasParentNode,
+  safeInsert,
 } from '@atlaskit/editor-prosemirror/utils';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+
+import type { MediaState } from '../types';
+
 import {
-  atTheBeginningOfBlock,
-  atTheEndOfBlock,
-  atTheEndOfDoc,
-  endPositionOfParent,
-  startPositionOfParent,
-} from '@atlaskit/editor-common/selection';
-import type {
-  InsertEventPayload,
-  InputMethodInsertMedia,
-  EditorAnalyticsAPI,
-} from '@atlaskit/editor-common/analytics';
-import {
-  ACTION,
-  ACTION_SUBJECT,
-  ACTION_SUBJECT_ID,
-  EVENT_TYPE,
-} from '@atlaskit/editor-common/analytics';
+  copyOptionalAttrsFromMediaState,
+  isInsidePotentialEmptyParagraph,
+  isSelectionNonMediaBlockNode,
+  posOfMediaGroupNearby,
+  posOfParentMediaGroup,
+  posOfPrecedingMediaGroup,
+} from './media-common';
 
 export interface Range {
   start: number;

@@ -327,6 +327,7 @@ export interface LinkingPlatformFeatureFlags {
   enableHoverCardResolutionTracking?: boolean;
   // @deprecated
   enableImprovedPreviewAction?: boolean;
+  // @deprecated
   enableLinkPickerForgeTabs?: boolean;
   // @deprecated
   enableResolveMetadataForLinkAnalytics?: boolean;

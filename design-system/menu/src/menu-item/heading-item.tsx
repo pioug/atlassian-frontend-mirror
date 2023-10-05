@@ -47,7 +47,7 @@ const HeadingItem = memo(
     ...rest
   }: HeadingItemProps) => {
     propDeprecationWarning(
-      process.env._PACKAGE_NAME_,
+      process.env._PACKAGE_NAME_ || '',
       'cssFn',
       cssFn !== (noop as any),
       '', // TODO: Create DAC post when primitives/xcss are available as alternatives

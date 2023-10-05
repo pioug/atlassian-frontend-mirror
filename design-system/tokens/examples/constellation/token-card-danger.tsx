@@ -1,12 +1,10 @@
 import React from 'react';
 
-import { Example } from '@af/design-system-docs-ui';
-
 import token from '../../src/get-token';
 
 import Card from './token-card-base';
 
-const dangerStylesCode = `// bold styles
+const TokenDangerCodeBlock = `// bold styles
 color: token('color.text.inverse'),
 backgroundColor: token('color.background.danger.bold'),
 border: \`1px solid \${token('color.border.danger')}\`,
@@ -58,14 +56,4 @@ const TokenDanger = () => {
   );
 };
 
-const TokenDangerExample = () => {
-  return (
-    <Example
-      Component={TokenDanger}
-      source={dangerStylesCode}
-      packageName="@atlaskit/tokens"
-    />
-  );
-};
-
-export default TokenDangerExample;
+export default { example: TokenDanger, code: TokenDangerCodeBlock };

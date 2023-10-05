@@ -44,6 +44,20 @@ snapshot(ErrorBoundaryExample, {
       false,
     ],
   },
+  ignoredErrors: [
+    {
+      pattern: /replace is not a function/,
+      ignoredBecause:
+        'Intentionally triggering an error to capture error boundary fallback',
+      jiraIssueId: 'NONE-123',
+    },
+    {
+      pattern: /error occurred in one of your React components/,
+      ignoredBecause:
+        'Intentionally triggering an error to capture error boundary fallback',
+      jiraIssueId: 'NONE-123',
+    },
+  ],
 });
 
 /** Width examples */
@@ -52,7 +66,7 @@ snapshot(DisableWidthWithPluginsExample);
 snapshot(DisableWidth500Example);
 snapshot(DisableWidth300Example);
 
-/** Padding examples */
+// /** Padding examples */
 snapshot(ZeroPaddingExample);
 snapshot(LargePaddingUsingTokensExample, {
   variants: [

@@ -1,8 +1,8 @@
-import { ParticipantsService } from '../../participants/participants-service';
+import type { ParticipantsService } from '../../participants/participants-service';
 import { DocumentService } from '../document-service';
 import AnalyticsHelper from '../../analytics/analytics-helper';
 import { MetadataService } from '../../metadata/metadata-service';
-import { Config } from '../../types';
+import type { Config } from '../../types';
 
 jest.mock('../../analytics/analytics-helper');
 
@@ -34,6 +34,7 @@ export const createMockService = (config: Partial<Config> = {}) => {
     getUserIdMock,
     onErrorHandledMock,
     metadataService,
+    // @ts-ignore
     config.failedStepLimitBeforeCatchupOnPublish,
     config.enableErrorOnFailedDocumentApply,
     config.featureFlags,

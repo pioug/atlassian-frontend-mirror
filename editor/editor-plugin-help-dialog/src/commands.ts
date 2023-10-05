@@ -1,4 +1,5 @@
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+
 import { pluginKey } from './plugin-key';
 
 export const openHelpCommand = (

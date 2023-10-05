@@ -1,25 +1,27 @@
+import type { MediaAttributes } from '@atlaskit/adf-schema';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import type { DocBuilder } from '@atlaskit/editor-common/types';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   bodiedExtension,
+  border,
+  doc,
   extension,
   media,
   mediaGroup,
   mediaInline,
   mediaSingle,
-  doc,
   p,
-  border,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import type { MediaAttributes } from '@atlaskit/adf-schema';
-import type { MediaOptions } from '../../../types';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   temporaryFileId,
   testCollectionName,
 } from '@atlaskit/editor-test-helpers/media-provider';
+
+import type { MediaOptions } from '../../../types';
 import {
   changeInlineToMediaCard,
   changeMediaCardToInline,
@@ -30,8 +32,6 @@ import {
   toggleBorderMark,
   updateMediaSingleWidth,
 } from '../../commands';
-
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 
 const attrs: MediaAttributes = {
   id: temporaryFileId,

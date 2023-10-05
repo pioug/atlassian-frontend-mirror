@@ -1,6 +1,7 @@
 import { css } from '@emotion/react';
-import { token } from '@atlaskit/tokens';
+
 import * as colors from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 const NOTIFICATION_SIZE = 8;
 const SPACE_FROM_EDGE = token('space.100', '8px');

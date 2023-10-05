@@ -46,14 +46,30 @@ export const DropdownItem: React_2.ForwardRefExoticComponent<
 >;
 
 // @public
-export const DropdownItemCheckbox: (
-  props: DropdownItemCheckboxProps,
-) => JSX.Element;
+export const DropdownItemCheckbox: ({
+  children,
+  defaultSelected,
+  description,
+  id,
+  isDisabled,
+  isSelected,
+  onClick: providedOnClick,
+  shouldDescriptionWrap,
+  shouldTitleWrap,
+  testId,
+}: DropdownItemCheckboxProps) => JSX.Element;
 
 // @public
-export const DropdownItemCheckboxGroup: (
-  props: DropdownItemCheckboxGroupProps,
-) => JSX.Element;
+export const DropdownItemCheckboxGroup: ({
+  children,
+  hasSeparator,
+  id,
+  isList,
+  isScrollable,
+  overrides,
+  testId,
+  title,
+}: DropdownItemCheckboxGroupProps) => JSX.Element;
 
 // @public (undocumented)
 interface DropdownItemCheckboxGroupProps extends SectionProps {
@@ -97,12 +113,31 @@ export interface DropdownItemProps {
 }
 
 // @public
-export const DropdownItemRadio: (props: DropdownItemRadioProps) => JSX.Element;
+export const DropdownItemRadio: ({
+  children,
+  defaultSelected,
+  testId,
+  id,
+  title,
+  description,
+  isDisabled,
+  isSelected,
+  onClick: providedOnClick,
+  shouldDescriptionWrap,
+  shouldTitleWrap,
+}: DropdownItemRadioProps) => JSX.Element;
 
 // @public
-export const DropdownItemRadioGroup: (
-  props: DropdownItemRadioGroupProps,
-) => JSX.Element;
+export const DropdownItemRadioGroup: ({
+  children,
+  hasSeparator,
+  id,
+  isList,
+  isScrollable,
+  overrides,
+  testId,
+  title,
+}: DropdownItemRadioGroupProps) => JSX.Element;
 
 // @public (undocumented)
 interface DropdownItemRadioGroupProps extends SectionProps {
@@ -126,9 +161,22 @@ interface DropdownItemRadioProps {
 }
 
 // @public
-const DropdownMenu: <T extends HTMLElement = HTMLElement>(
-  props: DropdownMenuProps<T>,
-) => JSX.Element;
+const DropdownMenu: <T extends HTMLElement = HTMLElement>({
+  autoFocus,
+  children,
+  defaultOpen,
+  isLoading,
+  isOpen,
+  onOpenChange,
+  placement,
+  shouldFlip,
+  shouldRenderToParent,
+  spacing,
+  statusLabel,
+  testId,
+  trigger,
+  zIndex,
+}: DropdownMenuProps<T>) => JSX.Element;
 export default DropdownMenu;
 
 // @public (undocumented)

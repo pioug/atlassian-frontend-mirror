@@ -1,16 +1,5 @@
 import React from 'react';
-import { keymap } from '@atlaskit/editor-prosemirror/keymap';
-import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type {
-  EditorState,
-  ReadonlyTransaction,
-} from '@atlaskit/editor-prosemirror/state';
-import {
-  bindKeymapWithCommand,
-  openHelp,
-  tooltip,
-} from '@atlaskit/editor-common/keymaps';
-import { HelpDialogLoader } from './ui/HelpDialogLoader';
+
 import {
   ACTION,
   ACTION_SUBJECT,
@@ -19,11 +8,24 @@ import {
   INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import QuestionCircleIcon from '@atlaskit/icon/glyph/question-circle';
+import {
+  bindKeymapWithCommand,
+  openHelp,
+  tooltip,
+} from '@atlaskit/editor-common/keymaps';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { keymap } from '@atlaskit/editor-prosemirror/keymap';
+import type {
+  EditorState,
+  ReadonlyTransaction,
+} from '@atlaskit/editor-prosemirror/state';
+import QuestionCircleIcon from '@atlaskit/icon/glyph/question-circle';
+
 import { openHelpCommand } from './commands';
 import { pluginKey } from './plugin-key';
-import type { HelpDialogPlugin } from '@atlaskit/editor-plugin-help-dialog';
+import type { HelpDialogPlugin } from './types';
+import { HelpDialogLoader } from './ui/HelpDialogLoader';
 
 export function createPlugin(dispatch: Function, imageEnabled: boolean) {
   return new SafePlugin({
@@ -32,7 +34,7 @@ export function createPlugin(dispatch: Function, imageEnabled: boolean) {
       init() {
         return { isVisible: false, imageEnabled };
       },
-      apply(tr: ReadonlyTransaction, _value: any, state: EditorState) {
+      apply(tr: ReadonlyTransaction, _value: unknown, state: EditorState) {
         const isVisible = tr.getMeta(pluginKey);
         const currentState = pluginKey.getState(state);
         if (isVisible !== undefined && isVisible !== currentState.isVisible) {
@@ -46,7 +48,7 @@ export function createPlugin(dispatch: Function, imageEnabled: boolean) {
   });
 }
 
-const helpDialog: HelpDialogPlugin = ({
+export const helpDialogPlugin: HelpDialogPlugin = ({
   config: imageUploadProviderExists = false,
   api,
 }) => ({
@@ -135,5 +137,3 @@ const keymapPlugin = (
   );
   return keymap(list) as SafePlugin;
 };
-
-export default helpDialog;

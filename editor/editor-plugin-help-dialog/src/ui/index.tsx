@@ -1,76 +1,80 @@
 /** @jsx jsx */
 import { useCallback, useEffect } from 'react';
+
 import { jsx } from '@emotion/react';
 import type { IntlShape, WrappedComponentProps } from 'react-intl-next';
-import { injectIntl, defineMessages, FormattedMessage } from 'react-intl-next';
-import type { Schema } from '@atlaskit/editor-prosemirror/model';
-import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { browser } from '@atlaskit/editor-common/utils';
-import CrossIcon from '@atlaskit/icon/glyph/cross';
-import AkModalDialog, {
-  ModalTransition,
-  useModal,
-} from '@atlaskit/modal-dialog';
+import { defineMessages, FormattedMessage, injectIntl } from 'react-intl-next';
+
+import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import {
-  header,
-  footer,
-  contentWrapper,
-  line,
-  content,
-  row,
-  codeSm,
-  codeMd,
-  codeLg,
-  title,
-  column,
-  dialogHeader,
-} from './styles';
-import {
-  navToFloatingToolbar,
+  addInlineComment,
+  addLink,
+  alignLeft,
+  clearFormatting,
+  insertRule,
   navToEditorToolbar,
+  navToFloatingToolbar,
+  openHelp,
+  pastePlainText,
+  redo,
+  setNormalText,
+  toggleBlockQuote,
   toggleBold,
-  toggleItalic,
-  toggleUnderline,
-  toggleStrikethrough,
-  toggleSubscript,
-  toggleSuperscript,
+  toggleBulletList,
+  toggleCode,
   toggleHeading1,
   toggleHeading2,
   toggleHeading3,
   toggleHeading4,
   toggleHeading5,
   toggleHeading6,
+  toggleItalic,
   toggleOrderedList,
-  insertRule,
-  addLink,
-  setNormalText,
-  alignLeft,
-  clearFormatting,
-  undo,
-  redo,
-  pastePlainText,
-  addInlineComment,
+  toggleStrikethrough,
+  toggleSubscript,
+  toggleSuperscript,
   toggleTaskItemCheckbox,
-  toggleCode,
-  openHelp,
-  toggleBulletList,
-  toggleBlockQuote,
+  toggleUnderline,
+  undo,
 } from '@atlaskit/editor-common/keymaps';
 import type { Keymap } from '@atlaskit/editor-common/keymaps';
-import ToolbarButton from '../../../ui/ToolbarButton';
 import {
   alignmentMessages,
   annotationMessages,
+  blockTypeMessages,
   listMessages,
   toolbarInsertBlockMessages,
   toolbarMessages,
   undoRedoMessages,
-  blockTypeMessages,
 } from '@atlaskit/editor-common/messages';
-import { closeHelpCommand } from '../commands';
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import type helpDialogPlugin from '..';
+import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
+import { browser } from '@atlaskit/editor-common/utils';
+import type { Schema } from '@atlaskit/editor-prosemirror/model';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import CrossIcon from '@atlaskit/icon/glyph/cross';
+import AkModalDialog, {
+  ModalTransition,
+  useModal,
+} from '@atlaskit/modal-dialog';
+
+import { closeHelpCommand } from '../commands';
+import type { HelpDialogPlugin } from '../types';
+
+import {
+  codeLg,
+  codeMd,
+  codeSm,
+  column,
+  content,
+  contentWrapper,
+  dialogHeader,
+  footer,
+  header,
+  line,
+  row,
+  title,
+} from './styles';
 
 const messages = defineMessages({
   editorHelp: {
@@ -467,7 +471,7 @@ export const getSupportedFormatting = (
   quickInsertEnabled?: boolean,
 ): Format[] => {
   const supportedBySchema = formatting(intl).filter(
-    (format) => schema.nodes[format.type] || schema.marks[format.type],
+    format => schema.nodes[format.type] || schema.marks[format.type],
   );
   return [
     ...navigationKeymaps(intl),
@@ -560,7 +564,7 @@ const ModalFooter = () => (
 );
 
 export interface HelpDialogProps {
-  pluginInjectionApi: ExtractInjectionAPI<typeof helpDialogPlugin> | undefined;
+  pluginInjectionApi: ExtractInjectionAPI<HelpDialogPlugin> | undefined;
   editorView: EditorView;
   quickInsertEnabled?: boolean;
 }
@@ -626,11 +630,11 @@ const HelpDialog = ({
                 </h2>
                 <ul>
                   {formatting
-                    .filter((form) => {
+                    .filter(form => {
                       const keymap = form.keymap && form.keymap();
                       return keymap && keymap[browser.mac ? 'mac' : 'windows'];
                     })
-                    .map((form) => (
+                    .map(form => (
                       <li css={row} key={`textFormatting-${form.name}`}>
                         <span>{form.name}</span>
                         {getComponentFromKeymap(form.keymap!())}
@@ -639,11 +643,11 @@ const HelpDialog = ({
 
                   {formatting
                     .filter(
-                      (form) =>
+                      form =>
                         shortcutNamesWithoutKeymap.indexOf(form.type) !== -1,
                     )
-                    .filter((form) => form.autoFormatting)
-                    .map((form) => (
+                    .filter(form => form.autoFormatting)
+                    .map(form => (
                       <li css={row} key={`autoFormatting-${form.name}`}>
                         <span>{form.name}</span>
                         {form.autoFormatting!()}
@@ -659,11 +663,11 @@ const HelpDialog = ({
                 <ul>
                   {formatting
                     .filter(
-                      (form) =>
+                      form =>
                         shortcutNamesWithoutKeymap.indexOf(form.type) === -1,
                     )
                     .map(
-                      (form) =>
+                      form =>
                         form.autoFormatting && (
                           <li key={`autoFormatting-${form.name}`} css={row}>
                             <span>{form.name}</span>

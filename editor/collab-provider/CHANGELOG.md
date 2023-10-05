@@ -1,5 +1,11 @@
 # @atlaskit/collab-provider
 
+## 9.14.0
+
+### Minor Changes
+
+- [#41007](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41007) [`7f1c8bda21e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7f1c8bda21e) - adding logging for presence of unconfirmed steps in collab-provider
+
 ## 9.13.0
 
 ### Minor Changes

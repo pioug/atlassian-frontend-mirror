@@ -1,5 +1,5 @@
 import { getAutoConvertPatternsFromModule } from './module-helpers';
-import {
+import type {
   ExtensionAutoConvertHandler,
   ExtensionKey,
   ExtensionManifest,

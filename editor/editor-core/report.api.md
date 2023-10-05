@@ -836,7 +836,7 @@ interface WithEditorActionsProps {
   render(actions: EditorActions): React_2.ReactElement<any> | null;
 }
 
-// @public @deprecated (undocumented)
+// @public (undocumented)
 export class WithHelpTrigger extends React_2.Component<
   WithHelpTriggerProps,
   any

@@ -1,7 +1,7 @@
 import type {
   MediaEventPayload,
-  MediaResizeTrackAction,
   MediaInputResizeTrackAction,
+  MediaResizeTrackAction,
 } from '@atlaskit/editor-common/analytics';
 import {
   ACTION,

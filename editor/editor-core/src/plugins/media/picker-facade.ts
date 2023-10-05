@@ -1,18 +1,18 @@
+import type { ErrorReportingHandler } from '@atlaskit/editor-common/utils';
+import type { MediaFeatureFlags } from '@atlaskit/media-common/mediaFeatureFlags';
+import type { MediaClientConfig } from '@atlaskit/media-core';
 import { isImagePreview } from '@atlaskit/media-picker';
 import type {
   MediaFile,
-  UploadPreviewUpdateEventPayload,
-  UploadParams,
-  UploadErrorEventPayload,
   UploadEndEventPayload,
+  UploadErrorEventPayload,
+  UploadParams,
+  UploadPreviewUpdateEventPayload,
 } from '@atlaskit/media-picker/types';
-import type { MediaClientConfig } from '@atlaskit/media-core';
-import type { ErrorReportingHandler } from '@atlaskit/editor-common/utils';
-import type { MediaFeatureFlags } from '@atlaskit/media-common/mediaFeatureFlags';
 
 import type {
-  MediaState,
   CustomMediaPicker,
+  MediaState,
   MobileUploadEndEventPayload,
 } from './types';
 

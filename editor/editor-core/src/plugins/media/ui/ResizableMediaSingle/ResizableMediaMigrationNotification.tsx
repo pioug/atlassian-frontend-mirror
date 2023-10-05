@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
+
 import { resizableMediaMigrationNotificationStyle } from './styles';
 
 export const ResizableMediaMigrationNotification = () => {

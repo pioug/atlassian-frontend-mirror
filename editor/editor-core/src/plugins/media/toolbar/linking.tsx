@@ -1,22 +1,22 @@
 import React from 'react';
-import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+
 import type { IntlShape } from 'react-intl-next';
 
+import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { FloatingToolbarConfig } from '@atlaskit/editor-common/types';
-import { hideLinkingToolbar, setUrlToMedia, unlink } from '../commands/linking';
-import type { MediaLinkingState } from '../pm-plugins/linking';
-import { getMediaLinkingState } from '../pm-plugins/linking';
-
-import MediaLinkingToolbar from '../ui/MediaLinkingToolbar';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import {
   RECENT_SEARCH_HEIGHT_IN_PX,
   RECENT_SEARCH_WIDTH_IN_PX,
 } from '@atlaskit/editor-common/ui';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 
-import type { MediaToolbarBaseConfig } from '../types';
+import { hideLinkingToolbar, setUrlToMedia, unlink } from '../commands/linking';
 import type { MediaNextEditorPluginType } from '../next-plugin-type';
+import type { MediaLinkingState } from '../pm-plugins/linking';
+import { getMediaLinkingState } from '../pm-plugins/linking';
+import type { MediaToolbarBaseConfig } from '../types';
+import MediaLinkingToolbar from '../ui/MediaLinkingToolbar';
 
 const FORCE_FOCUS_SELECTOR =
   '[data-testid="add-link-button"],[data-testid="edit-link-button"]';

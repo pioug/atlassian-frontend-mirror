@@ -1,10 +1,3 @@
-import type {
-  Node as PMNode,
-  Schema,
-} from '@atlaskit/editor-prosemirror/model';
-import type { Transaction } from '@atlaskit/editor-prosemirror/state';
-import { setTextSelection } from '@atlaskit/editor-prosemirror/utils';
-import type { Command } from '@atlaskit/editor-common/types';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
   ACTION,
@@ -12,6 +5,13 @@ import {
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
+import type { Command } from '@atlaskit/editor-common/types';
+import type {
+  Node as PMNode,
+  Schema,
+} from '@atlaskit/editor-prosemirror/model';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+import { setTextSelection } from '@atlaskit/editor-prosemirror/utils';
 
 export const selectCaptionFromMediaSinglePos =
   (mediaSingleNodePos: number, mediaSingleNode: PMNode): Command =>

@@ -1,24 +1,27 @@
 import React from 'react';
+
 import type { IntlShape } from 'react-intl-next';
-import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import { addAltText, ToolTipContent } from '@atlaskit/editor-common/keymaps';
 import type {
   Command,
   FloatingToolbarButton,
-  FloatingToolbarCustom,
   FloatingToolbarConfig,
+  FloatingToolbarCustom,
 } from '@atlaskit/editor-common/types';
+import type { ForceFocusSelector } from '@atlaskit/editor-plugin-floating-toolbar';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+
 import { openMediaAltTextMenu } from '../pm-plugins/alt-text/commands';
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import { ToolTipContent, addAltText } from '@atlaskit/editor-common/keymaps';
-import type { MediaToolbarBaseConfig } from '../types';
 import { messages } from '../pm-plugins/alt-text/messages';
+import { ClassNames } from '../pm-plugins/alt-text/style';
 import AltTextEdit, {
   CONTAINER_WIDTH_IN_PX,
 } from '../pm-plugins/alt-text/ui/AltTextEdit';
+import type { MediaToolbarBaseConfig } from '../types';
 import { getMediaNodeFromSelection } from '../utils/media-common';
-import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import { ClassNames } from '../pm-plugins/alt-text/style';
-import type { ForceFocusSelector } from '@atlaskit/editor-plugin-floating-toolbar';
 
 const testId = 'alt-text-edit-button';
 

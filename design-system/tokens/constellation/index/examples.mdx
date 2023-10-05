@@ -4,29 +4,29 @@ order: 3
 
 import SectionMessage from '@atlaskit/section-message';
 
-import TokensButtonExample from '../../examples/constellation/token-button';
-import TokensModalExample from '../../examples/constellation/token-modal';
-import TokensTagExample from '../../examples/constellation/token-tag';
-import TokensTableExample from '../../examples/constellation/token-table';
+import buttonExample from '../../examples/constellation/token-button';
+import modalExample from '../../examples/constellation/token-modal';
+import tagExample from '../../examples/constellation/token-tag';
+import tableExample from '../../examples/constellation/token-table';
 
-import TokensLineChartExample from '../../examples/constellation/token-line-chart';
-import TokensPieChartExample from '../../examples/constellation/token-pie-chart';
-import TokensBarChartExample from '../../examples/constellation/token-bar-chart';
+import lineChartExample from '../../examples/constellation/token-line-chart';
+import pieChartExample from '../../examples/constellation/token-pie-chart';
+import barChartExample from '../../examples/constellation/token-bar-chart';
 
-import TokenRadiusExample from '../../examples/constellation/token-radius';
+import TokensRadiusExample from '../../examples/constellation/token-radius';
 
-import TokenElevationExample from '../../examples/constellation/token-elevation';
+import neutralExample from '../../examples/constellation/token-card-neutral';
+import brandExample from '../../examples/constellation/token-card-brand';
+import informationExample from '../../examples/constellation/token-card-information';
+import successExample from '../../examples/constellation/token-card-success';
+import warningExample from '../../examples/constellation/token-card-warning';
+import dangerExample from '../../examples/constellation/token-card-danger';
+import discoveryExample from '../../examples/constellation/token-card-discovery';
+import selectedExample from '../../examples/constellation/token-card-selected';
 
-import TokenNeutralExample from '../../examples/constellation/token-card-neutral';
-import TokenBrandExample from '../../examples/constellation/token-card-brand';
-import TokenInformationExample from '../../examples/constellation/token-card-information';
-import TokenSuccessExample from '../../examples/constellation/token-card-success';
-import TokenWarningExample from '../../examples/constellation/token-card-warning';
-import TokenDangerExample from '../../examples/constellation/token-card-danger';
-import TokenDiscoveryExample from '../../examples/constellation/token-card-discovery';
-import TokenSelectedExample from '../../examples/constellation/token-card-selected';
+import elevationExample from '../../examples/constellation/token-elevation';
 
-import TokensNegativeSpaceExample from '../../examples/constellation/token-negative-space';
+import negativeSpaceExample from '../../examples/constellation/token-negative-space';
 
 <SectionMessage title="Design tokens are in beta." appearance="discovery">
   <p>
@@ -49,25 +49,41 @@ This primary button uses a background token, text token, and other tokens to cre
 
 Buttons and other components can have multiple possible [interaction states](/foundations/color-new/#interaction-states), which require specific tokens to be applied for each state.
 
-<TokensButtonExample />
+<Example
+  Component={buttonExample.example}
+  source={buttonExample.code}
+  packageName="@atlaskit/tokens"
+/>
 
 ### Modal dialog
 
 Modal dialogs use a surface token and shadow token to illustrate [elevation](/foundations/elevation). The surface token ensures no content shows underneath the modal.
 
-<TokensModalExample />
+<Example
+  Component={modalExample.example}
+  source={modalExample.code}
+  packageName="@atlaskit/tokens"
+/>
 
 ### Tag
 
 In the tag example, we can see the use of accent colors. Accent colors are available for text, icons, borders, and backgrounds. Apply accent tokens where [colors](/foundations/color-new/#color-roles) do not have a specific meaning tied to them.
 
-<TokensTagExample />
+<Example
+  Component={tagExample.example}
+  source={tagExample.code}
+  packageName="@atlaskit/tokens"
+/>
 
 ### Table
 
 An overflow shadow can be applied on horizontal scrollable tables to indicate there is hidden content that can be scrolled back into view.
 
-<TokensTableExample />
+<Example
+  Component={tableExample.example}
+  source={tableExample.code}
+  packageName="@atlaskit/tokens"
+/>
 
 ## Chart examples
 
@@ -75,15 +91,27 @@ Use chart color tokens for chart elements that represent the data. Read our [dat
 
 ### Line chart
 
-<TokensLineChartExample />
+<Example
+  Component={lineChartExample.example}
+  source={lineChartExample.code}
+  packageName="@atlaskit/tokens"
+/>
 
 ### Pie chart
 
-<TokensPieChartExample />
+<Example
+  Component={pieChartExample.example}
+  source={pieChartExample.code}
+  packageName="@atlaskit/tokens"
+/>
 
 ### Bar chart
 
-<TokensBarChartExample />
+<Example
+  Component={barChartExample.example}
+  source={barChartExample.code}
+  packageName="@atlaskit/tokens"
+/>
 
 ## Border examples
 
@@ -91,7 +119,7 @@ Use chart color tokens for chart elements that represent the data. Read our [dat
 
 Use the default radius of `border.radius` if in doubt. If you are nesting elements, ensure the outer element has the largest radius.
 
-<TokenRadiusExample />
+<TokensRadiusExample />
 
 ## Pairing examples
 
@@ -99,42 +127,78 @@ These pairing examples are some ways you can mix and match our tokens. If you de
 
 ### Neutral
 
-<TokenNeutralExample />
+<Example
+  Component={neutralExample.example}
+  source={neutralExample.code}
+  packageName="@atlaskit/tokens"
+/>
 
 ### Brand
 
-<TokenBrandExample />
+<Example
+  Component={brandExample.example}
+  source={brandExample.code}
+  packageName="@atlaskit/tokens"
+/>
 
 ### Information
 
-<TokenInformationExample />
+<Example
+  Component={informationExample.example}
+  source={informationExample.code}
+  packageName="@atlaskit/tokens"
+/>
 
 ### Success
 
-<TokenSuccessExample />
+<Example
+  Component={successExample.example}
+  source={successExample.code}
+  packageName="@atlaskit/tokens"
+/>
 
 ### Warning
 
-<TokenWarningExample />
+<Example
+  Component={warningExample.example}
+  source={warningExample.code}
+  packageName="@atlaskit/tokens"
+/>
 
 ### Danger
 
-<TokenDangerExample />
+<Example
+  Component={dangerExample.example}
+  source={dangerExample.code}
+  packageName="@atlaskit/tokens"
+/>
 
 ### Discovery
 
-<TokenDiscoveryExample />
+<Example
+  Component={discoveryExample.example}
+  source={discoveryExample.code}
+  packageName="@atlaskit/tokens"
+/>
 
 ### Selected
 
-<TokenSelectedExample />
+<Example
+  Component={selectedExample.example}
+  source={selectedExample.code}
+  packageName="@atlaskit/tokens"
+/>
 
 ### Elevations
 
 There are four available elevations: default, raised, overlay and sunken.
 Raised and overlay elevations require a combination of a surface color, and a matching shadow.
 
-<TokenElevationExample />
+<Example
+  Component={elevationExample.example}
+  source={elevationExample.code}
+  packageName="@atlaskit/tokens"
+/>
 
 ## Spacing examples
 
@@ -147,4 +211,8 @@ In this situation, use the CSS `calc` function to multiply a space token by `-1`
 Avoid performing any other calculations on space tokens, such as adding, subtracting, or dividing.
 Avoid multiplying space tokens by values other than `-1`. The new [spacing scale](/components/tokens/all-tokens) provides a range of space values to suit many use cases.
 
-<TokensNegativeSpaceExample />
+<Example
+  Component={negativeSpaceExample.example}
+  source={negativeSpaceExample.code}
+  packageName="@atlaskit/tokens"
+/>

@@ -1,12 +1,10 @@
 import React from 'react';
 
-import { Example } from '@af/design-system-docs-ui';
-
 import token from '../../src/get-token';
 
 import Card from './token-card-base';
 
-const warningStylesCode = `// bold styles
+export const TokenWarningCodeBlock = `// bold styles
 color: token('color.text.warning.inverse'),
 backgroundColor: token('color.background.warning.bold'),
 border: \`1px solid \${token('color.border.warning')}\`,
@@ -48,7 +46,7 @@ const warningStyles = {
   },
 };
 
-const TokenWarning = () => {
+export const TokenWarning = () => {
   return (
     <div style={{ display: 'flex', columnGap: '24px' }}>
       {Object.entries(warningStyles).map(([key, subStyle]) => (
@@ -58,14 +56,4 @@ const TokenWarning = () => {
   );
 };
 
-const TokenWarningExample = () => {
-  return (
-    <Example
-      Component={TokenWarning}
-      source={warningStylesCode}
-      packageName="@atlaskit/tokens"
-    />
-  );
-};
-
-export default TokenWarningExample;
+export default { example: TokenWarning, code: TokenWarningCodeBlock };

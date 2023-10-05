@@ -19,19 +19,18 @@ jest.mock('@atlaskit/media-client', () => {
   };
 });
 
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { mediaSingle, media } from '@atlaskit/editor-test-helpers/doc-builder';
 import type { MediaADFAttrs } from '@atlaskit/adf-schema';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
-
-import {
-  getDefaultMediaClientConfig,
-  fakeMediaClient,
-} from '@atlaskit/media-test-helpers/fakeMediaClient';
-import type { FileState } from '@atlaskit/media-client';
-import { getMediaClient } from '@atlaskit/media-client';
-import { asMockFunction } from '@atlaskit/media-test-helpers';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { media, mediaSingle } from '@atlaskit/editor-test-helpers/doc-builder';
+import { getMediaClient } from '@atlaskit/media-client';
+import type { FileState } from '@atlaskit/media-client';
+import { asMockFunction } from '@atlaskit/media-test-helpers';
+import {
+  fakeMediaClient,
+  getDefaultMediaClientConfig,
+} from '@atlaskit/media-test-helpers/fakeMediaClient';
 
 import { checkMediaType } from '../../../utils/check-media-type';
 

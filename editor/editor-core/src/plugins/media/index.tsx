@@ -1,55 +1,54 @@
 import React from 'react';
 
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
-import { PluginKey, NodeSelection } from '@atlaskit/editor-prosemirror/state';
-import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
 import {
   media,
   mediaGroup,
   mediaInline,
   mediaSingleSpec,
 } from '@atlaskit/adf-schema';
-
+import {
+  ACTION,
+  ACTION_SUBJECT,
+  ACTION_SUBJECT_ID,
+  EVENT_TYPE,
+  INPUT_METHOD,
+} from '@atlaskit/editor-common/analytics';
+import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
+import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
+import { IconImages } from '@atlaskit/editor-common/quick-insert';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type {
   EditorAppearance,
   ExtractInjectionAPI,
   PMPlugin,
   PMPluginFactoryParams,
 } from '@atlaskit/editor-common/types';
-import type { MediaState } from './pm-plugins/main';
-import { stateKey as pluginKey, createPlugin } from './pm-plugins/main';
+import { NodeSelection, PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { getMediaFeatureFlag } from '@atlaskit/media-common';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+
+import type { MediaNextEditorPluginType } from './next-plugin-type';
+import { ReactMediaGroupNode } from './nodeviews/mediaGroup';
+import { ReactMediaInlineNode } from './nodeviews/mediaInline';
+import { ReactMediaNode } from './nodeviews/mediaNodeView';
+import { ReactMediaSingleNode } from './nodeviews/mediaSingle';
 import { createPlugin as createMediaAltTextPlugin } from './pm-plugins/alt-text';
 import keymapMediaAltTextPlugin from './pm-plugins/alt-text/keymap';
-import keymapMediaSinglePlugin from './pm-plugins/keymap-media-single';
-import keymapLinkingPlugin from './pm-plugins/linking/keymap';
 import keymapPlugin from './pm-plugins/keymap';
+import keymapMediaSinglePlugin from './pm-plugins/keymap-media-single';
 import linkingPlugin from './pm-plugins/linking';
-import ToolbarMedia from './ui/ToolbarMedia';
-import { ReactMediaGroupNode } from './nodeviews/mediaGroup';
-import { ReactMediaSingleNode } from './nodeviews/mediaSingle';
-import type { CustomMediaPicker } from './types';
-import { floatingToolbar } from './toolbar';
-import {
-  ACTION,
-  ACTION_SUBJECT,
-  INPUT_METHOD,
-  EVENT_TYPE,
-  ACTION_SUBJECT_ID,
-} from '@atlaskit/editor-common/analytics';
-import { IconImages } from '@atlaskit/editor-common/quick-insert';
-import { MediaPickerComponents } from './ui/MediaPicker';
-import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
-import { ReactMediaNode } from './nodeviews/mediaNodeView';
-import { ReactMediaInlineNode } from './nodeviews/mediaInline';
-
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import keymapLinkingPlugin from './pm-plugins/linking/keymap';
+import type { MediaState } from './pm-plugins/main';
+import { createPlugin, stateKey as pluginKey } from './pm-plugins/main';
 import { stateKey } from './pm-plugins/plugin-key';
+import { floatingToolbar } from './toolbar';
+import type { CustomMediaPicker } from './types';
+import { MediaPickerComponents } from './ui/MediaPicker';
+import ToolbarMedia from './ui/ToolbarMedia';
 import { insertMediaAsMediaSingle } from './utils/media-single';
 export type { MediaState, MediaProvider, CustomMediaPicker };
 export { insertMediaSingleNode } from './utils/media-single';
-import type { MediaNextEditorPluginType } from './next-plugin-type';
 
 type MediaPickerFunctionalComponentProps = {
   editorDomElement: Element;

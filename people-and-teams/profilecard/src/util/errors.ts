@@ -32,7 +32,7 @@ export class DirectoryGraphQLError extends Error {
     message: string,
     category: ErrorCategory,
     type: string,
-    extensions: ErrorExtensions,
+    extensions: ErrorExtensions = {},
     path: (string | number)[] = [],
   ) {
     super(message);

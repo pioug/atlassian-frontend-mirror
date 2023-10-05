@@ -20,12 +20,12 @@ import EmbedCardUnauthorisedNoAuth from '../../../examples/vr-embed-card/vr-embe
  * Slack: https://atlassian.slack.com/archives/CR5KWBDT4/p1692161302662599
  */
 snapshot(EmbedCardError);
-snapshot.skip(EmbedCardForbidden);
-snapshot.skip(EmbedCardNotFound);
+snapshot(EmbedCardForbidden);
+snapshot(EmbedCardNotFound);
 snapshot(EmbedCardResolved);
-snapshot.skip(EmbedCardUnauthorised);
+snapshot(EmbedCardUnauthorised);
 snapshot(EmbedCardUnauthorisedWithProviderImage);
-snapshot.skip(EmbedCardUnauthorisedNoAuth);
+snapshot(EmbedCardUnauthorisedNoAuth);
 
 // //Same list of tests for refreshed embed card design under the FF
 // //TODO: Delete during the 'platform.linking-platform.smart-card.show-smart-links-refreshed-design' FF clean up
@@ -37,7 +37,7 @@ snapshot(EmbedCardError, {
       true,
   },
 });
-snapshot.skip(EmbedCardForbidden, {
+snapshot(EmbedCardForbidden, {
   description: 'refreshed embed card forbidden view',
   featureFlags: {
     'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
@@ -79,7 +79,7 @@ snapshot(EmbedCardForbiddenSiteRequestAccess, {
     'platform.linking-platform.smart-card.cross-join': true,
   },
 });
-snapshot.skip(EmbedCardNotFound, {
+snapshot(EmbedCardNotFound, {
   description: 'refreshed embed card link not found',
   featureFlags: {
     'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
@@ -100,7 +100,7 @@ snapshot(EmbedCardResolved, {
       true,
   },
 });
-snapshot.skip(EmbedCardUnauthorised, {
+snapshot(EmbedCardUnauthorised, {
   description: 'refreshed embed card unathorised view',
   featureFlags: {
     'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
@@ -114,7 +114,7 @@ snapshot(EmbedCardUnauthorisedWithProviderImage, {
       true,
   },
 });
-snapshot.skip(EmbedCardUnauthorisedNoAuth, {
+snapshot(EmbedCardUnauthorisedNoAuth, {
   description: 'refreshed embed card unathorised view with no auth',
   featureFlags: {
     'platform.linking-platform.smart-card.show-smart-links-refreshed-design':

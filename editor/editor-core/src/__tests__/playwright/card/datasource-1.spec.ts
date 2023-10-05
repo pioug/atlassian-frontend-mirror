@@ -33,12 +33,12 @@ test.use({
 });
 
 const expectedDatasourceBlockCard = datasourceBlockCard({
-  url: expect.any(String),
+  url: 'https://hello.atlassian.net/issues/?jql=text%20~%20%22something*%22%20or%20summary%20~%20%22something*%22%20ORDER%20BY%20created%20DESC',
   datasource: {
     id: 'd8b75300-dfda-4519-b6cd-e49abbd50401',
     parameters: {
-      cloudId: expect.any(String),
-      jql: '(text ~ "something*" OR summary ~ "something*") order by created DESC',
+      cloudId: '67899',
+      jql: 'text ~ "something*" or summary ~ "something*" ORDER BY created DESC',
     },
     views: [
       {

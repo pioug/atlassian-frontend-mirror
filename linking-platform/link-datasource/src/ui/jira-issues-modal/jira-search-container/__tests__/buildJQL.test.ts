@@ -9,7 +9,7 @@ describe('buildJQL', () => {
     });
 
     expect(jql).toEqual(
-      '(text ~ "testing*" OR summary ~ "testing*") order by created DESC',
+      'text ~ "testing*" or summary ~ "testing*" ORDER BY created DESC',
     );
   });
 
@@ -21,7 +21,7 @@ describe('buildJQL', () => {
     });
 
     expect(jql).toEqual(
-      '(text ~ "testing*" OR summary ~ "testing*") order by status ASC',
+      'text ~ "testing*" or summary ~ "testing*" ORDER BY status ASC',
     );
   });
 
@@ -29,7 +29,7 @@ describe('buildJQL', () => {
     const jql = buildJQL({
       rawSearch: ' ',
     });
-    expect(jql).toEqual('created >= -30d order by created DESC');
+    expect(jql).toEqual('created >= -30d ORDER BY created DESC');
   });
 
   it('omits fuzzy search search term with quotations', () => {
@@ -38,7 +38,7 @@ describe('buildJQL', () => {
     });
 
     expect(jql).toEqual(
-      '(text ~ "testing" OR summary ~ "testing") order by created DESC',
+      'text ~ testing or summary ~ testing ORDER BY created DESC',
     );
   });
 
@@ -48,7 +48,7 @@ describe('buildJQL', () => {
     });
 
     expect(jql).toEqual(
-      '(text ~ "EDM-6023*" OR summary ~ "EDM-6023*" OR key = "EDM-6023") order by created DESC',
+      'text ~ "EDM-6023*" or summary ~ "EDM-6023*" or key = EDM-6023 ORDER BY created DESC',
     );
   });
 
@@ -57,6 +57,6 @@ describe('buildJQL', () => {
       rawSearch: '"?',
     });
 
-    expect(jql).toEqual('(text ~ "*" OR summary ~ "*") order by created DESC');
+    expect(jql).toEqual('text ~ "*" or summary ~ "*" ORDER BY created DESC');
   });
 });

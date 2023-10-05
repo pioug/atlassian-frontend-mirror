@@ -18,13 +18,30 @@ interface DropdownItemCheckboxGroupProps extends SectionProps {
  * A wrapping element for dropdown menu checkbox items.
  *
  */
-const DropdownItemCheckboxGroup = (props: DropdownItemCheckboxGroupProps) => {
-  const { children, id } = props;
-
+const DropdownItemCheckboxGroup = ({
+  children,
+  hasSeparator,
+  id,
+  isList,
+  isScrollable,
+  overrides,
+  testId,
+  title,
+}: DropdownItemCheckboxGroupProps) => {
   return (
     <CheckboxGroupContext.Provider value={id}>
-      {/* eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props */}
-      <Section {...props}>{children}</Section>
+      <Section
+        hasSeparator={hasSeparator}
+        id={id}
+        isList={isList}
+        isScrollable={isScrollable}
+        // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
+        overrides={overrides}
+        testId={testId}
+        title={title}
+      >
+        {children}
+      </Section>
     </CheckboxGroupContext.Provider>
   );
 };

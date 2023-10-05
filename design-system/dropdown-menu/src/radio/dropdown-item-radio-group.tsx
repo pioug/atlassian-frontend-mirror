@@ -32,8 +32,16 @@ export const RadioGroupContext = createContext<RadioGroupContextProps>({
  *  across mount and unmounts.
  *
  */
-const DropdownItemRadioGroup = (props: DropdownItemRadioGroupProps) => {
-  const { children, id } = props;
+const DropdownItemRadioGroup = ({
+  children,
+  hasSeparator,
+  id,
+  isList,
+  isScrollable,
+  overrides,
+  testId,
+  title,
+}: DropdownItemRadioGroupProps) => {
   const { setGroupState, getGroupState } = useContext(SelectionStoreContext);
 
   /**
@@ -58,8 +66,18 @@ const DropdownItemRadioGroup = (props: DropdownItemRadioGroupProps) => {
     <RadioGroupContext.Provider
       value={{ id, radioGroupState, selectRadioItem }}
     >
-      {/* eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props */}
-      <Section {...props}>{children}</Section>
+      <Section
+        hasSeparator={hasSeparator}
+        id={id}
+        isList={isList}
+        isScrollable={isScrollable}
+        // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
+        overrides={overrides}
+        testId={testId}
+        title={title}
+      >
+        {children}
+      </Section>
     </RadioGroupContext.Provider>
   );
 };

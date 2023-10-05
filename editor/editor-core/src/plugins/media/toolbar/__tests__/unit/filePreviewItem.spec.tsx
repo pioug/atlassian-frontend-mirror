@@ -1,8 +1,10 @@
 import React from 'react';
+
 import { render, waitFor } from '@testing-library/react';
-import { FilePreviewItem } from '../../filePreviewItem';
-import type { MediaPluginState } from '../../../pm-plugins/types';
 import type { IntlShape } from 'react-intl-next';
+
+import type { MediaPluginState } from '../../../pm-plugins/types';
+import { FilePreviewItem } from '../../filePreviewItem';
 
 describe('<FilePreviewItem />', () => {
   it('should render MediaViewer when shouldOpenMediaViewer=true and clicked', async () => {

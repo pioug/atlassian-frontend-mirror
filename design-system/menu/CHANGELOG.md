@@ -1,5 +1,11 @@
 # @atlaskit/menu
 
+## 1.11.1
+
+### Patch Changes
+
+- [#41025](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41025) [`518532660de`](https://bitbucket.org/atlassian/atlassian-frontend/commits/518532660de) - Add default for environment variable to fix typechecking under local consumption
+
 ## 1.11.0
 
 ### Minor Changes

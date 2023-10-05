@@ -1,5 +1,11 @@
 # @atlaskit/dropdown-menu
 
+## 11.14.5
+
+### Patch Changes
+
+- [#41067](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41067) [`5a9ed67f8f5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5a9ed67f8f5) - Expand rest props for more explicit function data flow.
+
 ## 11.14.4
 
 ### Patch Changes

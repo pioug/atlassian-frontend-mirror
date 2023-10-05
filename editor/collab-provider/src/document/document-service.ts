@@ -718,6 +718,14 @@ export class DocumentService {
     }
 
     const unconfirmedSteps = unconfirmedStepsData.steps;
+    this.analyticsHelper?.sendActionEvent(
+      EVENT_ACTION.HAS_UNCONFIRMED_STEPS,
+      EVENT_STATUS.INFO,
+      {
+        numUnconfirmedSteps: unconfirmedSteps?.length || 0,
+      },
+    );
+
     if (!unconfirmedSteps?.length) {
       return;
     }

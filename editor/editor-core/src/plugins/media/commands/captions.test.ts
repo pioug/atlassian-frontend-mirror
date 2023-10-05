@@ -1,6 +1,7 @@
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import type { DocBuilder } from '@atlaskit/editor-common/types';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies\
+import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   caption,
@@ -9,12 +10,11 @@ import {
   mediaSingle,
   p,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+
 import {
   insertAndSelectCaptionFromMediaSinglePos,
   selectCaptionFromMediaSinglePos,
 } from './captions';
-
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 
 describe('Caption plugin', () => {
   const createEditor = createEditorFactory();

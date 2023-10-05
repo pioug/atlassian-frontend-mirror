@@ -64,6 +64,9 @@
       "path": "../../design-system/image/tsconfig.app.json"
     },
     {
+      "path": "../../jql/jql-ast/tsconfig.app.json"
+    },
+    {
       "path": "../../jql/jql-editor-autocomplete-rest/tsconfig.app.json"
     },
     {

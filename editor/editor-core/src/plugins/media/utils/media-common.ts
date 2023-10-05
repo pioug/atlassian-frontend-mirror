@@ -24,9 +24,10 @@ import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { findPositionOfNodeBefore } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { isMediaBlobUrl } from '@atlaskit/media-client';
+
 import type {
-  getPosHandler as ProsemirrorGetPosHandler,
   MediaState,
+  getPosHandler as ProsemirrorGetPosHandler,
 } from '../types';
 
 const isTemporary = (id: string): boolean => {

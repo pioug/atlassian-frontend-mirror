@@ -1,4 +1,30 @@
 import React from 'react';
+
+import type { IntlShape } from 'react-intl-next';
+
+import {
+  ACTION,
+  ACTION_SUBJECT,
+  ACTION_SUBJECT_ID,
+  EVENT_TYPE,
+} from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import { buildLayoutButtons } from '@atlaskit/editor-common/card';
+import {
+  calcMinWidth,
+  DEFAULT_IMAGE_HEIGHT,
+  DEFAULT_IMAGE_WIDTH,
+} from '@atlaskit/editor-common/media-single';
+import commonMessages from '@atlaskit/editor-common/messages';
+import { cardMessages } from '@atlaskit/editor-common/messages';
+import type {
+  ExtractInjectionAPI,
+  FloatingToolbarConfig,
+  FloatingToolbarItem,
+  GetEditorFeatureFlags,
+} from '@atlaskit/editor-common/types';
+import type { Command } from '@atlaskit/editor-common/types';
+import type { HoverDecorationHandler } from '@atlaskit/editor-plugin-decorations';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import {
@@ -6,51 +32,34 @@ import {
   hasParentNodeOfType,
   removeSelectedNode,
 } from '@atlaskit/editor-prosemirror/utils';
-import type { IntlShape } from 'react-intl-next';
-import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
+import {
+  akEditorDefaultLayoutWidth,
+  akEditorFullWidthLayoutWidth,
+} from '@atlaskit/editor-shared-styles';
 import DownloadIcon from '@atlaskit/icon/glyph/download';
+import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 import { mediaFilmstripItemDOMSelector } from '@atlaskit/media-filmstrip';
-import type {
-  GetEditorFeatureFlags,
-  ExtractInjectionAPI,
-  FloatingToolbarConfig,
-  FloatingToolbarItem,
-} from '@atlaskit/editor-common/types';
-import commonMessages from '@atlaskit/editor-common/messages';
-import type { Command } from '@atlaskit/editor-common/types';
-import { stateKey } from '../pm-plugins/plugin-key';
-import type { HoverDecorationHandler } from '@atlaskit/editor-plugin-decorations';
-import { getLinkingToolbar, shouldShowMediaLinkToolbar } from './linking';
-import { buildLayoutButtons } from '@atlaskit/editor-common/card';
+import { messages } from '@atlaskit/media-ui';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
+import { showLinkingToolbar } from '../commands/linking';
+import type { MediaNextEditorPluginType } from '../next-plugin-type';
+import {
+  MediaInlineNodeSelector,
+  MediaSingleNodeSelector,
+} from '../nodeviews/styles';
+import { getPluginState as getMediaAltTextPluginState } from '../pm-plugins/alt-text';
 import type { MediaLinkingState } from '../pm-plugins/linking';
 import { getMediaLinkingState } from '../pm-plugins/linking';
-import { getPluginState as getMediaAltTextPluginState } from '../pm-plugins/alt-text';
-import { altTextButton, getAltTextToolbar } from './alt-text';
-import type { MediaFloatingToolbarOptions } from '../types';
+import { stateKey } from '../pm-plugins/plugin-key';
 import type { MediaPluginState } from '../pm-plugins/types';
-import { showLinkingToolbar } from '../commands/linking';
-import { LinkToolbarAppearance } from './linking-toolbar-appearance';
-import {
-  ACTION,
-  ACTION_SUBJECT,
-  ACTION_SUBJECT_ID,
-  EVENT_TYPE,
-} from '@atlaskit/editor-common/analytics';
-import { messages } from '@atlaskit/media-ui';
-import { cardMessages } from '@atlaskit/editor-common/messages';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
-import { FilePreviewItem } from './filePreviewItem';
-import {
-  downloadMedia,
-  getSelectedMediaSingle,
-  removeMediaGroupNode,
-  getPixelWidthOfElement,
-  calcNewLayout,
-  getMaxToolbarWidth,
-} from './utils';
+import type { MediaFloatingToolbarOptions } from '../types';
+import ImageBorderItem from '../ui/ImageBorder';
+import { FullWidthDisplay, PixelEntry } from '../ui/PixelEntry';
+import { currentMediaNodeBorderMark } from '../utils/current-media-node';
 import { isVideo } from '../utils/media-single';
 
+import { altTextButton, getAltTextToolbar } from './alt-text';
 import {
   changeInlineToMediaCard,
   changeMediaCardToInline,
@@ -59,25 +68,18 @@ import {
   toggleBorderMark,
   updateMediaSingleWidth,
 } from './commands';
-import {
-  MediaInlineNodeSelector,
-  MediaSingleNodeSelector,
-} from '../nodeviews/styles';
-import ImageBorderItem from '../ui/ImageBorder';
-import { currentMediaNodeBorderMark } from '../utils/current-media-node';
+import { FilePreviewItem } from './filePreviewItem';
 import { shouldShowImageBorder } from './imageBorder';
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import { PixelEntry, FullWidthDisplay } from '../ui/PixelEntry';
+import { getLinkingToolbar, shouldShowMediaLinkToolbar } from './linking';
+import { LinkToolbarAppearance } from './linking-toolbar-appearance';
 import {
-  DEFAULT_IMAGE_WIDTH,
-  DEFAULT_IMAGE_HEIGHT,
-  calcMinWidth,
-} from '@atlaskit/editor-common/media-single';
-import {
-  akEditorDefaultLayoutWidth,
-  akEditorFullWidthLayoutWidth,
-} from '@atlaskit/editor-shared-styles';
-import type { MediaNextEditorPluginType } from '../next-plugin-type';
+  calcNewLayout,
+  downloadMedia,
+  getMaxToolbarWidth,
+  getPixelWidthOfElement,
+  getSelectedMediaSingle,
+  removeMediaGroupNode,
+} from './utils';
 
 const remove: Command = (state, dispatch) => {
   if (dispatch) {

@@ -2,19 +2,19 @@ import type {
   MediaBaseAttributes,
   RichMediaLayout,
 } from '@atlaskit/adf-schema';
-import { getMediaClient } from '@atlaskit/media-client';
+import { wrappedLayouts } from '@atlaskit/editor-common/media-single';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import type { MediaPluginState } from '../pm-plugins/types';
-import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
   findParentNodeOfType,
+  findSelectedNodeOfType,
   removeParentNodeOfType,
   removeSelectedNode,
-  findSelectedNodeOfType,
 } from '@atlaskit/editor-prosemirror/utils';
-
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFullWidthLayoutWidth } from '@atlaskit/editor-shared-styles';
-import { wrappedLayouts } from '@atlaskit/editor-common/media-single';
+import { getMediaClient } from '@atlaskit/media-client';
+
+import type { MediaPluginState } from '../pm-plugins/types';
 
 export const getSelectedMediaContainerNodeAttrs = (
   mediaPluginState: MediaPluginState,

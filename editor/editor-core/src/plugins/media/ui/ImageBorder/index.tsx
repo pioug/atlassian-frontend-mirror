@@ -1,25 +1,29 @@
 /** @jsx jsx */
+import { useRef, useState } from 'react';
+
 import { jsx } from '@emotion/react';
 import type { IntlShape } from 'react-intl-next';
-import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
-import { DropdownMenuSharedCssClassName } from '@atlaskit/editor-common/styles';
-import { BorderIcon } from '@atlaskit/editor-common/icons';
-import { useRef, useState } from 'react';
-import {
-  ColorPalette,
-  borderPaletteTooltipMessages,
-} from '@atlaskit/editor-common/ui-color';
-import { hexToEditorBorderPaletteColor } from '@atlaskit/editor-palette';
-import { borderColorPalette } from '@atlaskit/editor-common/ui-color';
+
 import type { BorderMarkAttributes } from '@atlaskit/adf-schema';
+import { BorderIcon } from '@atlaskit/editor-common/icons';
+import { DropdownMenuSharedCssClassName } from '@atlaskit/editor-common/styles';
+import { Popup } from '@atlaskit/editor-common/ui';
+import {
+  borderPaletteTooltipMessages,
+  ColorPalette,
+} from '@atlaskit/editor-common/ui-color';
+import { borderColorPalette } from '@atlaskit/editor-common/ui-color';
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import {
   ArrowKeyNavigationType,
   DropdownMenu,
 } from '@atlaskit/editor-common/ui-menu';
-import Tooltip from '@atlaskit/tooltip';
-import { Popup } from '@atlaskit/editor-common/ui';
 import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
+import { hexToEditorBorderPaletteColor } from '@atlaskit/editor-palette';
+import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
+import Tooltip from '@atlaskit/tooltip';
+
+import { messages } from './messages';
 import {
   buttonStyle,
   buttonWrapperStyle,
@@ -31,7 +35,6 @@ import {
   menuItemDimensions,
   toolbarButtonWrapper,
 } from './styles';
-import { messages } from './messages';
 
 export interface ImageBorderProps {
   intl: IntlShape;

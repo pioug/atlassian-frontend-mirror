@@ -65,9 +65,9 @@ const wordBreakStyles = css({
 });
 
 const descriptionStyles = css({
-  marginTop: token('space.050', '4px'),
   color: token('color.text.subtlest', N200),
   fontSize: token('font.size.075', '12px'),
+  marginBlockStart: token('space.050', '4px'),
 });
 
 const disabledDescriptionStyles = css({
@@ -145,11 +145,11 @@ const selectedBorderStyles = css({
   '&::before': {
     width: 2,
     position: 'absolute',
-    top: 0,
-    bottom: 0,
-    left: 0,
     background: token('color.border.selected', 'transparent'),
     content: '""',
+    insetBlockEnd: 0,
+    insetBlockStart: 0,
+    insetInlineStart: 0,
   },
 });
 
@@ -157,15 +157,15 @@ const selectedNotchStyles = css({
   '&::before': {
     width: 4,
     position: 'absolute',
-    top: token('space.150', '12px'),
-    bottom: token('space.150', '12px'),
-    left: 0,
     background: token('color.border.selected', 'transparent'),
     borderRadius: `0 ${token('border.radius', '4px')} ${token(
       'border.radius',
       '4px',
     )} 0`,
     content: '""',
+    insetBlockEnd: token('space.150', '12px'),
+    insetBlockStart: token('space.150', '12px'),
+    insetInlineStart: 0,
   },
 });
 
@@ -219,7 +219,7 @@ const MenuItemPrimitive = ({
   isSelected = false,
 }: MenuItemPrimitiveProps) => {
   propDeprecationWarning(
-    process.env._PACKAGE_NAME_,
+    process.env._PACKAGE_NAME_ || '',
     'overrides',
     overrides !== undefined,
     '', // TODO: Create DAC post when primitives/xcss are available as alternatives

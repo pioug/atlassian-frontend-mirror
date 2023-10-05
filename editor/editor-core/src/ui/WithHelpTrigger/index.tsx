@@ -10,17 +10,12 @@ import {
 } from '../../plugins/analytics';
 import { createDispatch } from '../../event-dispatcher';
 import { analyticsEventKey } from '../../plugins/analytics/consts';
-// TODO - ED-20189 Source deprecatedOpenHelpCommand from help-dialog-plugin
-import { openHelpCommand } from '../../plugins/help-dialog/commands';
+import { deprecatedOpenHelpCommand } from '@atlaskit/editor-plugin-help-dialog';
 
 interface WithHelpTriggerProps {
   render: (openHelp: () => void) => React.ReactNode;
 }
 
-/**
- * @deprecated
- * Use WithHelpTrigger from @atlaskit/editor-plugin-help-dialog which uses pluginInjectionApi
- */
 export default class WithHelpTrigger extends React.Component<
   WithHelpTriggerProps,
   any
@@ -47,7 +42,7 @@ export default class WithHelpTrigger extends React.Component<
 
     const editorView = editorActions._privateGetEditorView();
     if (editorView) {
-      openHelpCommand(editorView.state.tr, editorView.dispatch);
+      deprecatedOpenHelpCommand(editorView.state.tr, editorView.dispatch);
     }
   };
 

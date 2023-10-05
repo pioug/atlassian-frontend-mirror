@@ -1,11 +1,14 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+
+import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { IntlProvider, createIntl } from 'react-intl-next';
+import { createIntl, IntlProvider } from 'react-intl-next';
+
 import { ReactEditorViewContext } from '@atlaskit/editor-common/ui-react';
-import type { PixelEntryProps } from '../../types';
-import { PixelEntry } from '../..';
+
 import { PIXELENTRY_MIGRATION_BUTTON_TESTID } from '../../constants';
+import { PixelEntry } from '../../index';
+import type { PixelEntryProps } from '../../types';
 
 const setup = (propsOverrides?: Partial<PixelEntryProps>) => {
   const intl = createIntl({ locale: 'en' });

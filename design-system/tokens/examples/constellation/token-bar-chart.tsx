@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 
 import ReactECharts from 'echarts-for-react';
 
-import { Example } from '@af/design-system-docs-ui';
 import {
   B200,
   B300,
@@ -16,7 +15,7 @@ import {
 import getTokenValue from '../../src/get-token-value';
 import useThemeObserver from '../../src/use-theme-observer';
 
-const TokensBarChartCodeBlock = `
+const TokenBarChartCodeBlock = `
 //  This is using echarts-for-react to generate graphs and it's using canvas under the hood
 const data = [
   80, 55, 55, 80, 85, 52, 39, 53, 75, 58, 76, 52, 52, 78, 79, 77, 78,
@@ -45,7 +44,7 @@ const options = {
 
 `;
 
-const Chart = () => {
+const TokenBarChart = () => {
   const theme = useThemeObserver();
   const [chartOptions, setChartOptions] = useState({});
   useEffect(() => {
@@ -112,14 +111,4 @@ const Chart = () => {
   return <ReactECharts option={chartOptions} />;
 };
 
-const TokensLineChartExample = () => {
-  return (
-    <Example
-      Component={Chart}
-      source={TokensBarChartCodeBlock}
-      packageName="@atlaskit/tokens"
-    />
-  );
-};
-
-export default TokensLineChartExample;
+export default { example: TokenBarChart, code: TokenBarChartCodeBlock };

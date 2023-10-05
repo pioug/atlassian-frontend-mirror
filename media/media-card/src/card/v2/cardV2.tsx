@@ -42,7 +42,7 @@ import {
 } from 'react-intl-next';
 import { CardAction } from '../actions';
 import { CardProps, CardState, CardStatus, CardPreview } from '../../types';
-import { CardView } from '../cardView';
+import { CardViewV2 } from './cardViewV2';
 import { ViewportDetector } from '../../utils/viewportDetector';
 import { videoIsPlayable } from '../../utils/videoIsPlayable';
 import { getRequestedDimensions } from '../../utils/getDataURIDimension';
@@ -177,7 +177,8 @@ export class CardV2Base extends Component<CardV2BaseProps, CardState> {
       previewDidRender: false,
       error,
       wasResolvedUpfrontPreview: false,
-      shouldUpdateStateForIdentifier: false,
+      shouldUpdateStateForIdentifier:
+        isCardVisible && isFileIdentifier(identifier),
     };
   }
 
@@ -1032,7 +1033,7 @@ export class CardV2Base extends Component<CardV2BaseProps, CardState> {
     );
 
     const card = (
-      <CardView
+      <CardViewV2
         status={cardStatusOverride || status}
         error={error}
         mediaItemType={mediaItemType}

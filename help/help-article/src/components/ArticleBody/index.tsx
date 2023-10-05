@@ -28,7 +28,7 @@ export const ArticleBody = (props: Props) => {
   /**
    * Set article height
    */
-  const resizeIframe = (onArticleRenderDone?: () => void) => {
+  const resizeIframe = () => {
     const currentIframe: HTMLIFrameElement | null = document.getElementById(
       IFRAME_ID,
     ) as HTMLIFrameElement;
@@ -104,7 +104,7 @@ export const ArticleBody = (props: Props) => {
             id={IFRAME_ID}
             name={IFRAME_ID}
             onLoad={() => {
-              resizeIframe(props.onArticleRenderDone);
+              resizeIframe();
             }}
             sandbox="allow-same-origin allow-popups allow-popups-to-escape-sandbox"
           />,

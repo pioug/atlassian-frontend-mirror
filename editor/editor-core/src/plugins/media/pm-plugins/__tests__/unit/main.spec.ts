@@ -2,25 +2,26 @@ jest.mock('@atlaskit/editor-prosemirror/utils', () => ({
   ...jest.requireActual<any>('@atlaskit/editor-prosemirror/utils'),
   findDomRefAtPos: jest.fn().mockReturnValue({ childNodes: [] }),
 }));
-import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
-import type { DocBuilder } from '@atlaskit/editor-common/types';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { media, mediaGroup } from '@atlaskit/editor-test-helpers/doc-builder';
 import type { MediaAttributes } from '@atlaskit/adf-schema';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { DocBuilder } from '@atlaskit/editor-common/types';
+import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
-import { MediaPluginStateImplementation, stateKey } from '../../main';
-import type { MediaPluginState } from '../../types';
-import type { MediaPluginOptions } from '../../../media-plugin-options';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { media, mediaGroup } from '@atlaskit/editor-test-helpers/doc-builder';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   getFreshMediaProvider,
   temporaryFileId,
   testCollectionName,
 } from '@atlaskit/editor-test-helpers/media-provider';
+
+import type { MediaPluginOptions } from '../../../media-plugin-options';
+import { MediaPluginStateImplementation, stateKey } from '../../main';
+import type { MediaPluginState } from '../../types';
 
 describe('MediaPluginState', () => {
   const setup = (allowMediaInline = true) => {

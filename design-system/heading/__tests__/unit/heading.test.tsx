@@ -44,12 +44,15 @@ describe('Heading (Legacy)', () => {
     // should be H1 --> H2 --> H3
     render(
       <HeadingContextProvider>
+        <Heading level="h100" testId="h2">
+          Hello
+        </Heading>
         <HeadingContextProvider>
-          <Heading level="h100" testId="h2">
+          <Heading level="h100" testId="h3">
             Hello
           </Heading>
           <HeadingContextProvider>
-            <Heading level="h100" testId="h3">
+            <Heading level="h100" testId="h4">
               Hello
             </Heading>
           </HeadingContextProvider>
@@ -59,6 +62,7 @@ describe('Heading (Legacy)', () => {
 
     expect(screen.getByTestId('h2').tagName).toEqual('H2');
     expect(screen.getByTestId('h3').tagName).toEqual('H3');
+    expect(screen.getByTestId('h4').tagName).toEqual('H4');
   });
 });
 
@@ -103,11 +107,11 @@ describe('Heading', () => {
     render(
       <HeadingContextProvider>
         <HeadingContextProvider>
-          <Heading variant="xxsmall" testId="h2">
+          <Heading variant="xxsmall" testId="h3">
             Hello
           </Heading>
           <HeadingContextProvider>
-            <Heading variant="xxsmall" testId="h3">
+            <Heading variant="xxsmall" testId="h4">
               Hello
             </Heading>
           </HeadingContextProvider>
@@ -115,7 +119,7 @@ describe('Heading', () => {
       </HeadingContextProvider>,
     );
 
-    expect(screen.getByTestId('h2').tagName).toEqual('H2');
     expect(screen.getByTestId('h3').tagName).toEqual('H3');
+    expect(screen.getByTestId('h4').tagName).toEqual('H4');
   });
 });

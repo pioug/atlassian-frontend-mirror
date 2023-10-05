@@ -18,43 +18,61 @@ import { DropdownItemProps } from './types';
  * - [Usage](https://atlassian.design/components/dropdown-item/usage)
  */
 const DropdownMenuItem = forwardRef<HTMLElement, DropdownItemProps>(
-  (props, ref) => {
-    const {
-      component,
-      elemBefore,
-      elemAfter,
-      shouldTitleWrap = true,
-      shouldDescriptionWrap = true,
+  (
+    {
       children,
-      ...rest
-    } = props;
-
+      component,
+      description,
+      elemAfter,
+      elemBefore,
+      href,
+      isDisabled,
+      isSelected,
+      onClick,
+      rel,
+      shouldDescriptionWrap = true,
+      shouldTitleWrap = true,
+      target,
+      testId,
+    }: DropdownItemProps,
+    ref,
+  ) => {
     const itemRef = useRegisterItemWithFocusManager();
     if (component) {
       return (
         <CustomItem
           component={component}
-          iconBefore={elemBefore}
+          description={description}
           iconAfter={elemAfter}
+          iconBefore={elemBefore}
+          isDisabled={isDisabled}
+          isSelected={isSelected}
+          onClick={onClick}
           ref={mergeRefs([ref, itemRef])}
-          shouldTitleWrap={shouldTitleWrap}
           shouldDescriptionWrap={shouldDescriptionWrap}
-          {...rest}
+          shouldTitleWrap={shouldTitleWrap}
+          testId={testId}
         >
           {children}
         </CustomItem>
       );
-    } else if (props.href) {
+    } else if (href) {
       return (
         <LinkItem
-          href={props.href}
-          iconBefore={elemBefore}
+          description={description}
+          href={href}
           iconAfter={elemAfter}
-          role="menuitem"
+          iconBefore={elemBefore}
+          isDisabled={isDisabled}
+          isSelected={isSelected}
+          onClick={onClick}
           ref={mergeRefs([ref, itemRef])}
-          shouldTitleWrap={shouldTitleWrap}
+          rel={rel}
+          role="menuitem"
           shouldDescriptionWrap={shouldDescriptionWrap}
-          {...rest}
+          shouldTitleWrap={shouldTitleWrap}
+          target={target}
+          testId={testId}
         >
           {children}
         </LinkItem>
@@ -62,13 +80,17 @@ const DropdownMenuItem = forwardRef<HTMLElement, DropdownItemProps>(
     } else {
       return (
         <ButtonItem
-          role="menuitem"
-          iconBefore={elemBefore}
+          description={description}
           iconAfter={elemAfter}
+          iconBefore={elemBefore}
+          isDisabled={isDisabled}
+          isSelected={isSelected}
+          onClick={onClick}
           ref={mergeRefs([ref, itemRef])}
-          shouldTitleWrap={shouldTitleWrap}
+          role="menuitem"
           shouldDescriptionWrap={shouldDescriptionWrap}
-          {...rest}
+          shouldTitleWrap={shouldTitleWrap}
+          testId={testId}
         >
           {children}
         </ButtonItem>

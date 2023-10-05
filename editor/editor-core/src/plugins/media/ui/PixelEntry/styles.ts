@@ -1,4 +1,5 @@
 import { css } from '@emotion/react';
+
 import { token } from '@atlaskit/tokens';
 
 const PIXEL_SIZING_WRAPPER_MINIMUM_WIDTH = 120;

@@ -1,5 +1,11 @@
 # @atlaskit/profilecard
 
+## 19.5.12
+
+### Patch Changes
+
+- [#41012](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41012) [`99707f3ab56`](https://bitbucket.org/atlassian/atlassian-frontend/commits/99707f3ab56) - Fix destructing Directory error
+
 ## 19.5.11
 
 ### Patch Changes

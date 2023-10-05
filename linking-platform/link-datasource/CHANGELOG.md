@@ -1,5 +1,17 @@
 # @atlaskit/link-datasource
 
+## 1.6.1
+
+### Patch Changes
+
+- [#40923](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40923) [`1eaceeae0b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1eaceeae0b0) - Use jql-ast to build jql
+
+## 1.6.0
+
+### Minor Changes
+
+- [#40917](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40917) [`dc555a1aceb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dc555a1aceb) - [ux] Persisted column picker during loading states
+
 ## 1.5.3
 
 ### Patch Changes

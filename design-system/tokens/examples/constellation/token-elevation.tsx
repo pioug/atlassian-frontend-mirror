@@ -1,12 +1,10 @@
 import React from 'react';
 
-import { Example } from '@af/design-system-docs-ui';
-
 import token from '../../src/get-token';
 
 import Card from './token-card-base';
 
-const elevationStylesCode = `// Sunken
+export const TokenElevationCodeBlock = `// Sunken
 label: 'Sunken',
 backgroundColor: token('elevation.surface.sunken'),
 
@@ -54,7 +52,7 @@ const elevationStyles = {
   },
 };
 
-const TokenWarning = () => {
+export const TokenElevation = () => {
   return (
     <div
       style={{
@@ -70,14 +68,4 @@ const TokenWarning = () => {
   );
 };
 
-const TokenWarningExample = () => {
-  return (
-    <Example
-      Component={TokenWarning}
-      source={elevationStylesCode}
-      packageName="@atlaskit/tokens"
-    />
-  );
-};
-
-export default TokenWarningExample;
+export default { example: TokenElevation, code: TokenElevationCodeBlock };

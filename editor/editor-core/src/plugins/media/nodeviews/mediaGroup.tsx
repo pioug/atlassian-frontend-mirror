@@ -1,45 +1,47 @@
+import React from 'react';
+
+import type { WrappedComponentProps } from 'react-intl-next';
+import { injectIntl } from 'react-intl-next';
+
+import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
+import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
 import { WithProviders } from '@atlaskit/editor-common/provider-factory';
 import type {
   ContextIdentifierProvider,
   MediaProvider,
   ProviderFactory,
 } from '@atlaskit/editor-common/provider-factory';
-import EditorCloseIcon from '@atlaskit/icon/glyph/editor/close';
-import type { Identifier } from '@atlaskit/media-client';
-import type { MediaClientConfig } from '@atlaskit/media-core';
-import type { FilmstripItem } from '@atlaskit/media-filmstrip';
-import { Filmstrip } from '@atlaskit/media-filmstrip';
-import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
-import React from 'react';
-import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
-import type {
-  ForwardRef,
-  getPosHandler as ProsemirrorGetPosHandler,
-  getPosHandler,
-  getPosHandlerNode,
-  MediaOptions,
-} from '../types';
 import ReactNodeView from '@atlaskit/editor-common/react-node-view';
-
-import type { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import {
-  SelectedState,
   isNodeSelectedOrInRange,
+  SelectedState,
   setNodeSelection,
 } from '@atlaskit/editor-common/utils';
 import type { EditorDisabledPluginState } from '@atlaskit/editor-plugin-editor-disabled';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
+import EditorCloseIcon from '@atlaskit/icon/glyph/editor/close';
+import type { Identifier } from '@atlaskit/media-client';
+import { getMediaFeatureFlag } from '@atlaskit/media-common';
+import type { MediaClientConfig } from '@atlaskit/media-core';
+import type { FilmstripItem } from '@atlaskit/media-filmstrip';
+import { Filmstrip } from '@atlaskit/media-filmstrip';
 
+import type { MediaNextEditorPluginType } from '../next-plugin-type';
 import { stateKey as mediaStateKey } from '../pm-plugins/plugin-key';
 import type { MediaPluginState } from '../pm-plugins/types';
+import type {
+  ForwardRef,
+  getPosHandler,
+  getPosHandlerNode,
+  MediaOptions,
+  getPosHandler as ProsemirrorGetPosHandler,
+} from '../types';
+
 import { MediaNodeUpdater } from './mediaNodeUpdater';
-import { getMediaFeatureFlag } from '@atlaskit/media-common';
-import type { WrappedComponentProps } from 'react-intl-next';
-import { injectIntl } from 'react-intl-next';
 import { messages } from './messages';
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
-import type { MediaNextEditorPluginType } from '../next-plugin-type';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 
 export type MediaGroupProps = {
   forwardRef?: (ref: HTMLElement) => void;

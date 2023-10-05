@@ -8,7 +8,6 @@ import {
   datePlugin,
   extensionPlugin,
   fragmentMarkPlugin,
-  helpDialogPlugin,
   insertBlockPlugin,
   jiraIssuePlugin,
   layoutPlugin,
@@ -42,6 +41,7 @@ import {
   codeBidiWarningPlugin,
   borderPlugin,
 } from '../../../plugins';
+import { helpDialogPlugin } from '@atlaskit/editor-plugin-help-dialog';
 import { rulePlugin } from '@atlaskit/editor-plugin-rule';
 import { emojiPlugin } from '@atlaskit/editor-plugin-emoji';
 import { listPlugin } from '@atlaskit/editor-plugin-list';

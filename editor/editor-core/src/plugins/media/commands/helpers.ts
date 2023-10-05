@@ -1,12 +1,13 @@
 import type { MediaAttributes } from '@atlaskit/adf-schema';
-import { stateKey as mediaPluginKey } from '../pm-plugins/plugin-key';
+import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
 import type { Command } from '@atlaskit/editor-common/types';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+
+import { stateKey as mediaPluginKey } from '../pm-plugins/plugin-key';
 import type {
   MediaNodeWithPosHandler,
   MediaPluginState,
 } from '../pm-plugins/types';
-import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
-import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 
 /**
  * Note that Media Inline is inserted like a media single node into the media plugin state.

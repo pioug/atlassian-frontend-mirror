@@ -2537,7 +2537,6 @@ export const useThemeObserver: () => Partial<ActiveThemeState>;
 
 ```json
 {
-  "@af/design-system-docs-ui": "*",
   "react": "^16.8.0"
 }
 ```

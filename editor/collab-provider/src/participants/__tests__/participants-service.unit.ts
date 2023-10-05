@@ -40,6 +40,7 @@ const participantsServiceConstructor = (deps: {
 }): ParticipantsService =>
   new ParticipantsService(
     deps.analyticsHelper,
+    // @ts-ignore
     deps.participants,
     deps.emit || jest.fn(),
     deps.getUser || jest.fn(),

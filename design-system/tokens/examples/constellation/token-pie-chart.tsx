@@ -2,13 +2,12 @@ import React from 'react';
 
 import ReactECharts from 'echarts-for-react';
 
-import { Example } from '@af/design-system-docs-ui';
 import { N0, N500, N800 } from '@atlaskit/theme/colors';
 
 import getTokenValue from '../../src/get-token-value';
 import useThemeObserver from '../../src/use-theme-observer';
 
-const TokensPieChartCodeBlock = `
+export const TokenPieChartCodeBlock = `
   //  This is using echarts-for-react to generate graphs and it's using canvas under the hood
   const data = [
     {
@@ -104,7 +103,7 @@ const TokensPieChartCodeBlock = `
   ];
 `;
 
-const Chart = () => {
+export const TokenPieChart = () => {
   useThemeObserver();
 
   const chartOptions = {
@@ -252,14 +251,4 @@ const Chart = () => {
   return <ReactECharts option={chartOptions} />;
 };
 
-const TokensPieChartExample = () => {
-  return (
-    <Example
-      Component={Chart}
-      source={TokensPieChartCodeBlock}
-      packageName="@atlaskit/tokens"
-    />
-  );
-};
-
-export default TokensPieChartExample;
+export default { example: TokenPieChart, code: TokenPieChartCodeBlock };

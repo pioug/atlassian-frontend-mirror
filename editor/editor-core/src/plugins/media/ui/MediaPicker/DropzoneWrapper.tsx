@@ -1,11 +1,14 @@
 import React from 'react';
+
+import type { EditorAppearance } from '@atlaskit/editor-common/types';
+import { findOverflowScrollParent } from '@atlaskit/editor-common/ui';
+import type { MediaFeatureFlags } from '@atlaskit/media-common/mediaFeatureFlags';
 import type { DropzoneConfig } from '@atlaskit/media-picker';
 import { Dropzone } from '@atlaskit/media-picker';
-import PickerFacadeProvider from './PickerFacadeProvider';
+
 import type { MediaPluginState } from '../../pm-plugins/types';
-import type { MediaFeatureFlags } from '@atlaskit/media-common/mediaFeatureFlags';
-import { findOverflowScrollParent } from '@atlaskit/editor-common/ui';
-import type { EditorAppearance } from '@atlaskit/editor-common/types';
+
+import PickerFacadeProvider from './PickerFacadeProvider';
 
 type Props = {
   mediaState: MediaPluginState;

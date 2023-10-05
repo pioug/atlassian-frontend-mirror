@@ -1,29 +1,32 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import type { IntlShape } from 'react-intl-next';
 import type { ChangeEvent } from 'react';
-import Textfield from '@atlaskit/textfield';
-import Tooltip from '@atlaskit/tooltip';
+
+import { jsx } from '@emotion/react';
+import type { IntlShape } from 'react-intl-next';
+
 import Button from '@atlaskit/button';
 import Form, { Field } from '@atlaskit/form';
+import Textfield from '@atlaskit/textfield';
+import Tooltip from '@atlaskit/tooltip';
+
+import { PIXELENTRY_MIGRATION_BUTTON_TESTID } from './constants';
+import { messages } from './messages';
 import {
-  pixelSizingInput,
-  pixelSizingLabel,
-  pixelSizingWidthInput,
-  pixelSizingHeightInput,
-  pixelSizingWrapper,
   pixelEntryForm,
   pixelEntryHiddenSubmit,
   pixelSizingFullWidthLabelStyles,
+  pixelSizingHeightInput,
+  pixelSizingInput,
+  pixelSizingLabel,
+  pixelSizingWidthInput,
+  pixelSizingWrapper,
 } from './styles';
 import type {
   PixelEntryFormValues,
   PixelEntryProps,
   PixelEntryValidation,
 } from './types';
-import { messages } from './messages';
-import { PIXELENTRY_MIGRATION_BUTTON_TESTID } from './constants';
 
 export const PixelEntry = ({
   width,

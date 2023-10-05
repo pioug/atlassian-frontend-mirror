@@ -1,12 +1,10 @@
 import React from 'react';
 
-import { Example } from '@af/design-system-docs-ui';
-
 import token from '../../src/get-token';
 
 import Card from './token-card-base';
 
-const selectedStylesCode = `// bold styles
+export const TokenSelectedCodeBlock = `// bold styles
 color: token('color.text.inverse'),
 backgroundColor: token('color.background.selected.bold'),
 border: \`1px solid \${token('color.border.selected')}\`,
@@ -51,7 +49,7 @@ const selectedStyles = {
   },
 };
 
-const TokenSelected = () => {
+export const TokenSelected = () => {
   return (
     <div style={{ display: 'flex', columnGap: '24px' }}>
       {Object.entries(selectedStyles).map(([key, subStyle]) => (
@@ -61,14 +59,4 @@ const TokenSelected = () => {
   );
 };
 
-const TokenSelectedExample = () => {
-  return (
-    <Example
-      Component={TokenSelected}
-      source={selectedStylesCode}
-      packageName="@atlaskit/tokens"
-    />
-  );
-};
-
-export default TokenSelectedExample;
+export default { example: TokenSelected, code: TokenSelectedCodeBlock };

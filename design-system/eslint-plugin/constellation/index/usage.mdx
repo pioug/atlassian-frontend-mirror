@@ -11,23 +11,25 @@ This plugin contains rules that should be used when working with the [Atlassian 
 <!-- START_RULE_TABLE_CODEGEN -->
 <!-- @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen -->
 
-| Rule                                                                               | Description                                                                                                                                                                      | Recommended | Fixable | Suggestions |
-| ---------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- | ------- | ----------- |
-| <a href="#consistent-css-prop-usage">consistent-css-prop-usage</a>                 | Ensures consistency with `css` and `xcss` prop usages                                                                                                                            | Yes         | Yes     |             |
-| <a href="#ensure-design-token-usage">ensure-design-token-usage</a>                 | Enforces usage of design tokens rather than hard-coded values.                                                                                                                   | Yes         | Yes     | Yes         |
-| <a href="#ensure-design-token-usage-preview">ensure-design-token-usage/preview</a> | Enforces usage of pre-release design tokens rather than hard-coded values.                                                                                                       |             | Yes     | Yes         |
-| <a href="#icon-label">icon-label</a>                                               | Enforces accessible usage of icon labels when composed with Atlassian Design System components.                                                                                  | Yes         | Yes     |             |
-| <a href="#no-banned-imports">no-banned-imports</a>                                 | Disallow importing banned modules.                                                                                                                                               | Yes         |         |             |
-| <a href="#no-deprecated-apis">no-deprecated-apis</a>                               | Disallow using deprecated APIs.                                                                                                                                                  | Yes         |         |             |
-| <a href="#no-deprecated-design-token-usage">no-deprecated-design-token-usage</a>   | Disallow using deprecated design tokens.                                                                                                                                         | Yes         | Yes     |             |
-| <a href="#no-deprecated-imports">no-deprecated-imports</a>                         | Disallow importing deprecated modules.                                                                                                                                           | Yes         |         |             |
-| <a href="#no-margin">no-margin</a>                                                 | Disallow using the margin CSS property.                                                                                                                                          |             |         |             |
-| <a href="#no-nested-styles">no-nested-styles</a>                                   | Disallows use of nested styles in `css` functions.                                                                                                                               | Yes         |         |             |
-| <a href="#no-physical-properties">no-physical-properties</a>                       | Disallow physical properties and values in `css` function calls.                                                                                                                 |             | Yes     |             |
-| <a href="#no-unsafe-design-token-usage">no-unsafe-design-token-usage</a>           | Enforces design token usage is statically and locally analyzable.                                                                                                                | Yes         | Yes     |             |
-| <a href="#prefer-primitives">prefer-primitives</a>                                 | Increase awareness of primitive components via code hints. Strictly used for education purposes and discoverability. To enforce usage please refer to the `use-primitives` rule. |             |         |             |
-| <a href="#use-primitives">use-primitives</a>                                       | Encourage the usage of primitives components.                                                                                                                                    |             | Yes     | Yes         |
-| <a href="#use-visually-hidden">use-visually-hidden</a>                             | Enforce usage of the visually hidden component.                                                                                                                                  | Yes         | Yes     |             |
+| Rule                                                                                         | Description                                                                                                                                                                                                                                                                                                         | Recommended | Fixable | Suggestions |
+| -------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- | ------- | ----------- |
+| <a href="#consistent-css-prop-usage">consistent-css-prop-usage</a>                           | Ensures consistency with `css` and `xcss` prop usages                                                                                                                                                                                                                                                               | Yes         | Yes     |             |
+| <a href="#ensure-design-token-usage">ensure-design-token-usage</a>                           | Enforces usage of design tokens rather than hard-coded values.                                                                                                                                                                                                                                                      | Yes         | Yes     | Yes         |
+| <a href="#ensure-design-token-usage-preview">ensure-design-token-usage/preview</a>           | Enforces usage of pre-release design tokens rather than hard-coded values.                                                                                                                                                                                                                                          |             | Yes     | Yes         |
+| <a href="#icon-label">icon-label</a>                                                         | Enforces accessible usage of icon labels when composed with Atlassian Design System components.                                                                                                                                                                                                                     | Yes         | Yes     |             |
+| <a href="#no-banned-imports">no-banned-imports</a>                                           | Disallow importing banned modules.                                                                                                                                                                                                                                                                                  | Yes         |         |             |
+| <a href="#no-deprecated-apis">no-deprecated-apis</a>                                         | Disallow using deprecated APIs.                                                                                                                                                                                                                                                                                     | Yes         |         |             |
+| <a href="#no-deprecated-design-token-usage">no-deprecated-design-token-usage</a>             | Disallow using deprecated design tokens.                                                                                                                                                                                                                                                                            | Yes         | Yes     |             |
+| <a href="#no-deprecated-imports">no-deprecated-imports</a>                                   | Disallow importing deprecated modules.                                                                                                                                                                                                                                                                              | Yes         |         |             |
+| <a href="#no-margin">no-margin</a>                                                           | Disallow using the margin CSS property.                                                                                                                                                                                                                                                                             |             |         |             |
+| <a href="#no-nested-styles">no-nested-styles</a>                                             | Disallows use of nested styles in `css` functions.                                                                                                                                                                                                                                                                  | Yes         |         |             |
+| <a href="#no-physical-properties">no-physical-properties</a>                                 | Disallow physical properties and values in `css` function calls.                                                                                                                                                                                                                                                    |             | Yes     |             |
+| <a href="#no-unsafe-design-token-usage">no-unsafe-design-token-usage</a>                     | Enforces design token usage is statically and locally analyzable.                                                                                                                                                                                                                                                   | Yes         | Yes     |             |
+| <a href="#no-unsupported-drag-and-drop-libraries">no-unsupported-drag-and-drop-libraries</a> | Disallow importing unsupported drag and drop modules.                                                                                                                                                                                                                                                               | Yes         |         |             |
+| <a href="#prefer-primitives">prefer-primitives</a>                                           | Increase awareness of primitive components via code hints. Strictly used for education purposes and discoverability. To enforce usage please refer to the `use-primitives` rule.                                                                                                                                    |             |         |             |
+| <a href="#use-href-in-link-item">use-href-in-link-item</a>                                   | Inform developers of eventual requirement of `href` prop in `LinkItem` component. Elements with a `link` role require an `href` attribute for users to properly navigate, particularly those using assistive technologies. If no valid `href` is required for your use case, consider using a `ButtonItem` instead. | Yes         |         | Yes         |
+| <a href="#use-primitives">use-primitives</a>                                                 | Encourage the usage of primitives components.                                                                                                                                                                                                                                                                       |             | Yes     | Yes         |
+| <a href="#use-visually-hidden">use-visually-hidden</a>                                       | Enforce usage of the visually hidden component.                                                                                                                                                                                                                                                                     | Yes         | Yes     |             |
 
 <!-- END_RULE_TABLE_CODEGEN -->
 
@@ -615,6 +617,24 @@ This rule comes with options to aid in migrating to design tokens.
 When `true` the rule will mark token function usage as violations when fallbacks aren't defined.
 When `false` the rule will mark token function usage as violations when fallbacks are defined.
 
+## no-unsupported-drag-and-drop-libraries
+
+We encourage the use of Pragmatic drag and drop to power all drag and drop experiences - from table to external files. Pragmatic drag and drop is a performance optimised drag and drop framework that has been designed to power any drag and drop experience on any tech stack. Please avoid using alternative drag and drop libraries as it will lead to poorer performance, increased maintenance costs, (likely) worse accessibility and fragmented user experiences. See https://staging.atlassian.design/components/pragmatic-drag-and-drop/
+
+<h3>Examples</h3>
+
+Libraries such as `react-beautiful-dnd` and `@atlassian/jira-dnd` that are no longer supported, as well as external libraries such as `react-dnd` and `react-sortable-hoc`.
+
+#### Incorrect
+
+```ts
+import { DraggableLocation } from 'react-beautiful-dnd';
+                                   ^^^^^^^^^^^^^^^^^^^
+
+import { useDrag } from 'react-dnd'
+                         ^^^^^^^^^
+```
+
 ## prefer-primitives
 
 Using primitives allows you to delete bespoke component code and replace it with ready made solutions made by the Atlassian Design System Team.
@@ -645,6 +665,25 @@ This rule marks code as violations when it may be able to be replaced with a pri
 <Component>
   <Box xcss={someStyles}></Box>
 </Component>
+```
+
+## use-href-in-link-item
+
+The `LinkItem` component in `@atlaskit/menu` will be requiring the `href` prop in future releases. If no valid `href` prop is required, consider using the `ButtonItem` component.
+
+<h3>Examples</h3>
+
+#### Incorrect
+
+```tsx
+<LinkItem>Button</LinkItem>
+ ^^^^^^^^
+```
+
+#### Correct
+
+```tsx
+<LinkItem href="http://example.com">Link</LinkItem>
 ```
 
 ## use-primitives

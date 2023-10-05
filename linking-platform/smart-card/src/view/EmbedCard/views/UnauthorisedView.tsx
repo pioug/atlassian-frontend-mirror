@@ -1,11 +1,13 @@
 import React, { FC, useCallback, useMemo } from 'react';
+import { di } from 'react-magnetic-di';
+
 import { EmbedCardUnresolvedView } from './UnresolvedView';
-import { LockImage, UnauthorisedImage } from '../constants';
 import { ExpandedFrame } from '../components/ExpandedFrame';
 import { ImageIcon } from '../components/ImageIcon';
 import { ContextViewModel } from '../types';
 import UnauthorisedViewContent from '../../common/UnauthorisedViewContent';
 import { AnalyticsFacade } from '../../../state/analytics';
+import { getUnresolvedEmbedCardImage } from '../utils';
 
 export interface EmbedCardUnauthorisedViewProps {
   analytics: AnalyticsFacade;
@@ -30,6 +32,8 @@ export const EmbedCardUnauthorisedView: FC<EmbedCardUnauthorisedViewProps> = ({
   onClick,
   extensionKey,
 }) => {
+  di(getUnresolvedEmbedCardImage);
+
   const icon = context && context.icon && (
     <ImageIcon
       src={typeof context.icon === 'string' ? context.icon : undefined}
@@ -57,7 +61,7 @@ export const EmbedCardUnauthorisedView: FC<EmbedCardUnauthorisedViewProps> = ({
           }}
           context={context && context.text}
           description="connect_unauthorised_account_description"
-          image={context?.image ?? UnauthorisedImage}
+          image={context?.image ?? getUnresolvedEmbedCardImage('unauthorized')}
           onClick={handleOnAuthorizeClick}
           testId={testId}
           title="connect_link_account_card_name"
@@ -78,7 +82,7 @@ export const EmbedCardUnauthorisedView: FC<EmbedCardUnauthorisedViewProps> = ({
             ? 'unauthorised_account_description'
             : 'unauthorised_account_description_no_provider'
         }
-        image={context?.image ?? LockImage}
+        image={context?.image ?? getUnresolvedEmbedCardImage('forbidden')}
         context={context?.text}
         testId={testId}
         title={

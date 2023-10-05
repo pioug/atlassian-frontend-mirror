@@ -80,7 +80,10 @@ const mutateElementStyle = (
   style: CSSStyleDeclaration,
   side: Side,
 ) => {
+  element.style.transform = style.getPropertyValue('transform');
+
   if (isLeftCursor(side)) {
+    element.style.width = style.getPropertyValue('width');
     element.style.marginLeft = style.getPropertyValue('margin-left');
   } else {
     const marginRight = parseFloat(style.getPropertyValue('margin-right'));

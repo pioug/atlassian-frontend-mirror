@@ -1,5 +1,17 @@
 # @atlaskit/media-card
 
+## 77.1.1
+
+### Patch Changes
+
+- [#41101](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41101) [`eeafdcc5924`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eeafdcc5924) - fix platform FF not working for mediaCardV2 in SSR
+
+## 77.1.0
+
+### Minor Changes
+
+- [#41033](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41033) [`812baef40e8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/812baef40e8) - MEX-2574 convert CardView to functional component
+
 ## 77.0.3
 
 ### Patch Changes

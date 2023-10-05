@@ -1,28 +1,31 @@
 import * as mocks from './mediaSingle.mock';
 import React from 'react';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
-import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { mediaSingle, media } from '@atlaskit/editor-test-helpers/doc-builder';
+
+import { fireEvent, render } from '@testing-library/react';
+import { IntlProvider } from 'react-intl-next';
+
 import type {
   ExternalMediaAttributes,
   MediaAttributes,
 } from '@atlaskit/adf-schema';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
+import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import MediaSingleNode from '../mediaSingle';
+import { EditorState, NodeSelection } from '@atlaskit/editor-prosemirror/state';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { media, mediaSingle } from '@atlaskit/editor-test-helpers/doc-builder';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
-import type { MediaPluginState } from '../../pm-plugins/types';
-import { fireEvent, render } from '@testing-library/react';
-import { NodeSelection, EditorState } from '@atlaskit/editor-prosemirror/state';
-import type { MediaSingleNodeProps } from '../types';
-import { IntlProvider } from 'react-intl-next';
 import {
   ffTest,
   getCurrentFeatureFlag,
 } from '@atlassian/feature-flags-test-utils';
+
+import type { MediaPluginState } from '../../pm-plugins/types';
 import { resizerNextTestId } from '../../ui/ResizableMediaSingle/ResizableMediaSingleNext';
+import MediaSingleNode from '../mediaSingle';
+import type { MediaSingleNodeProps } from '../types';
 
 export const createMediaProvider = async (): Promise<MediaProvider> =>
   ({} as MediaProvider);

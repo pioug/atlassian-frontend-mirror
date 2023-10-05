@@ -1,5 +1,6 @@
-import { MediaTaskManager } from '../../mediaTaskManager';
 import { flushPromises } from '@atlaskit/media-test-helpers';
+
+import { MediaTaskManager } from '../../mediaTaskManager';
 
 const createPromise = (): [Promise<any>, () => void, () => void] => {
   let extResolve: () => void = () => {};

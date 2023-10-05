@@ -1,37 +1,38 @@
 /** @jsx jsx */
 import type { KeyboardEvent } from 'react';
 import React from 'react';
+
 import { css, jsx } from '@emotion/react';
-import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { N100, N30, R400, N80 } from '@atlaskit/theme/colors';
-import ChevronLeftLargeIcon from '@atlaskit/icon/glyph/chevron-left-large';
-import CrossCircleIcon from '@atlaskit/icon/glyph/cross-circle';
-import { messages } from '../messages';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
-import { FloatingToolbarButton as Button } from '@atlaskit/editor-common/ui';
 
-import { PanelTextInput } from '@atlaskit/editor-common/ui';
-import { escape, ToolTipContent } from '@atlaskit/editor-common/keymaps';
-import { closeMediaAltTextMenu, updateAltText } from '../commands';
 import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { withAnalyticsEvents } from '@atlaskit/analytics-next';
 import type {
-  MediaAltTextActionType,
   FireAnalyticsCallback,
+  MediaAltTextActionType,
 } from '@atlaskit/editor-common/analytics';
 import {
+  ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
   fireAnalyticsEvent,
-  ACTION,
 } from '@atlaskit/editor-common/analytics';
+import { escape, ToolTipContent } from '@atlaskit/editor-common/keymaps';
+import { PanelTextInput } from '@atlaskit/editor-common/ui';
+import { FloatingToolbarButton as Button } from '@atlaskit/editor-common/ui';
 import { RECENT_SEARCH_WIDTH_IN_PX } from '@atlaskit/editor-common/ui';
-import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
-
 import { ErrorMessage } from '@atlaskit/editor-common/ui';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
+import ChevronLeftLargeIcon from '@atlaskit/icon/glyph/chevron-left-large';
+import CrossCircleIcon from '@atlaskit/icon/glyph/cross-circle';
+import { N100, N30, N80, R400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
+
+import { closeMediaAltTextMenu, updateAltText } from '../commands';
+import { messages } from '../messages';
 
 export const CONTAINER_WIDTH_IN_PX = RECENT_SEARCH_WIDTH_IN_PX;
 export const MAX_ALT_TEXT_LENGTH = 510; // double tweet length

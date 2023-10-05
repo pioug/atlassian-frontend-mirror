@@ -1,3 +1,18 @@
+import {
+  COMPOUND_OPERATOR_AND,
+  COMPOUND_OPERATOR_OR,
+  creators,
+  Jast,
+  JastBuilder,
+  OPERATOR_EQUALS,
+  OPERATOR_GT_EQUALS,
+  OPERATOR_LIKE,
+  OperatorValue,
+  ORDER_BY_DIRECTION_ASC,
+  ORDER_BY_DIRECTION_DESC,
+  print,
+} from '@atlaskit/jql-ast';
+
 type BuildJQLInput = {
   rawSearch: string;
   orderDirection?: string;
@@ -7,25 +22,83 @@ type BuildJQLInput = {
 const fuzzySearchRegExp = /^"(.+)"$/;
 const jiraIssueKeyRegExp = /[A-Z]+-\d+/;
 
+const constructTerminalClause = (
+  field: string,
+  operator: OperatorValue,
+  value: string,
+) =>
+  creators.terminalClause(
+    creators.field(field),
+    creators.operator(operator),
+    creators.valueOperand(value),
+  );
+
 export const buildJQL = (input: BuildJQLInput): string => {
-  const { rawSearch, orderDirection = 'DESC', orderKey = 'created' } = input;
+  /**
+   * Jql ast - Transforming the ast
+   * https://atlaskit.atlassian.com/packages/jql/jql-ast/docs/transforming-the-ast
+   */
+  const jast: Jast = new JastBuilder().build('');
 
-  const fuzzy = !rawSearch.match(fuzzySearchRegExp) ? '*' : '';
-  const basicSearch = rawSearch.replace(/['"?*]+/g, '');
+  const { query } = jast;
+  const {
+    rawSearch,
+    orderDirection = ORDER_BY_DIRECTION_DESC,
+    orderKey = 'created',
+  } = input;
+  const trimmedRawSearch = rawSearch.trim();
 
-  const baseQueryParts = rawSearch.trim()
-    ? [`text ~ "${basicSearch}${fuzzy}"`, `summary ~ "${basicSearch}${fuzzy}"`]
-    : [];
-
-  if (jiraIssueKeyRegExp.test(rawSearch)) {
-    baseQueryParts.push(`key = "${basicSearch}"`);
+  if (!query) {
+    return '';
   }
 
-  const baseQueryContent = baseQueryParts.join(' OR ');
-  const baseQuery = baseQueryContent ? `(${baseQueryContent})` : '';
+  if (trimmedRawSearch) {
+    const fuzzy = !trimmedRawSearch.match(fuzzySearchRegExp) ? '*' : '';
+    const basicSearch = trimmedRawSearch.replace(/['"?*]+/g, '');
 
-  const limiter = rawSearch?.trim() ? '' : `created >= -30d`;
-  const query = [baseQuery, limiter].filter(Boolean).join(' AND ');
+    const text = constructTerminalClause(
+      'text',
+      OPERATOR_LIKE,
+      `${basicSearch}${fuzzy}`,
+    );
+    const summary = constructTerminalClause(
+      'summary',
+      OPERATOR_LIKE,
+      `${basicSearch}${fuzzy}`,
+    );
 
-  return `${query} order by ${orderKey} ${orderDirection.toUpperCase()}`;
+    const orClauseFields = [text, summary];
+
+    if (jiraIssueKeyRegExp.test(trimmedRawSearch)) {
+      const key = constructTerminalClause('key', OPERATOR_EQUALS, basicSearch);
+      orClauseFields.push(key);
+    }
+
+    const orClause = creators.compoundClause(
+      creators.compoundOperator(COMPOUND_OPERATOR_OR),
+      orClauseFields,
+    );
+
+    query.appendClause(orClause, COMPOUND_OPERATOR_AND);
+  } else {
+    const created = constructTerminalClause(
+      'created',
+      OPERATOR_GT_EQUALS,
+      '-30d',
+    );
+
+    query.appendClause(created, COMPOUND_OPERATOR_AND);
+  }
+
+  const orderField = creators.orderByField(creators.field(orderKey));
+  query.prependOrderField(orderField);
+  query.setOrderDirection(
+    creators.orderByDirection(
+      orderDirection.toLowerCase() === 'asc'
+        ? ORDER_BY_DIRECTION_ASC
+        : ORDER_BY_DIRECTION_DESC,
+    ),
+  );
+
+  return print(jast);
 };

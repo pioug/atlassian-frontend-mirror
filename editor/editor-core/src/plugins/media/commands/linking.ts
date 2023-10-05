@@ -1,33 +1,34 @@
-import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import {
-  createMediaLinkingCommand,
-  getMediaLinkingState,
-  mediaLinkingPluginKey,
-} from '../pm-plugins/linking';
-import type { Node } from '@atlaskit/editor-prosemirror/model';
-import { normalizeUrl } from '@atlaskit/editor-common/utils';
-import type { Command, CommandDispatch } from '@atlaskit/editor-common/types';
-import { createToggleBlockMarkOnRange } from '@atlaskit/editor-common/commands';
 import type { LinkAttributes } from '@atlaskit/adf-schema';
-import { MediaLinkingActionsTypes } from '../pm-plugins/linking/actions';
-import type {
-  EditorState,
-  Transaction,
-} from '@atlaskit/editor-prosemirror/state';
 import {
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
-import { currentMediaNode } from '../utils/current-media-node';
-import { checkMediaType } from '../utils/check-media-type';
-import { getMediaPluginState } from '../pm-plugins/main';
 import type {
+  EditorAnalyticsAPI,
   INPUT_METHOD,
   MediaLinkAEP,
-  EditorAnalyticsAPI,
 } from '@atlaskit/editor-common/analytics';
+import { createToggleBlockMarkOnRange } from '@atlaskit/editor-common/commands';
+import type { Command, CommandDispatch } from '@atlaskit/editor-common/types';
+import { normalizeUrl } from '@atlaskit/editor-common/utils';
+import type { Node } from '@atlaskit/editor-prosemirror/model';
+import type {
+  EditorState,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+
+import {
+  createMediaLinkingCommand,
+  getMediaLinkingState,
+  mediaLinkingPluginKey,
+} from '../pm-plugins/linking';
+import { MediaLinkingActionsTypes } from '../pm-plugins/linking/actions';
+import { getMediaPluginState } from '../pm-plugins/main';
+import { checkMediaType } from '../utils/check-media-type';
+import { currentMediaNode } from '../utils/current-media-node';
 
 export const showLinkingToolbar = createMediaLinkingCommand((state) => {
   const mediaLinkingState = getMediaLinkingState(state);

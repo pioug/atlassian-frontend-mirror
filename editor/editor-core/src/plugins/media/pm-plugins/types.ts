@@ -1,20 +1,21 @@
-import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import type { MediaClientConfig } from '@atlaskit/media-core';
 import type { RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
+import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import type {
   ContextIdentifierProvider,
   MediaProvider,
 } from '@atlaskit/editor-common/provider-factory';
-import type {
-  ProsemirrorGetPosHandler,
-  MediaOptions,
-  MediaState,
-} from '../types';
-import type { MediaPluginOptions } from '../media-plugin-options';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { MediaClientConfig } from '@atlaskit/media-core';
+
+import type { MediaPluginOptions } from '../media-plugin-options';
 import type { MediaStateEventSubscriber } from '../picker-facade';
 import type PickerFacade from '../picker-facade';
-import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
+import type {
+  MediaOptions,
+  MediaState,
+  ProsemirrorGetPosHandler,
+} from '../types';
 
 export interface MediaNodeWithPosHandler {
   node: PMNode;

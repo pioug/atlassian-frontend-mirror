@@ -1,5 +1,11 @@
 # @atlaskit/heading
 
+## 1.4.2
+
+### Patch Changes
+
+- [#41124](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41124) [`40cd7f0c882`](https://bitbucket.org/atlassian/atlassian-frontend/commits/40cd7f0c882) - Fix to prevent heading getting into possible invalid state.
+
 ## 1.4.1
 
 ### Patch Changes

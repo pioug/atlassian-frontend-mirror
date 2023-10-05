@@ -1,5 +1,17 @@
 # @atlaskit/editor-common
 
+## 76.3.2
+
+### Patch Changes
+
+- [#40699](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40699) [`55ee186cac1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/55ee186cac1) - Fix Media Single gap cursor placement when center aligned and when align-end in full-width
+
+## 76.3.1
+
+### Patch Changes
+
+- [#41049](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41049) [`56e271b5da6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56e271b5da6) - Extract help-dialog-plugin from editor-core
+
 ## 76.3.0
 
 ### Minor Changes

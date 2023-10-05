@@ -1,8 +1,10 @@
 /** @jsx jsx */
 import React from 'react';
+
 import { css, jsx } from '@emotion/react';
-import type { NumericalCardDimensions } from '@atlaskit/media-card';
+
 import { MediaBorderGapFiller } from '@atlaskit/editor-common/ui';
+import type { NumericalCardDimensions } from '@atlaskit/media-card';
 
 export const MediaInlineNodeSelector = 'media-inline-node';
 export const MediaSingleNodeSelector = 'media-single-node';

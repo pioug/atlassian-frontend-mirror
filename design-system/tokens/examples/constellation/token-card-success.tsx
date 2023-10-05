@@ -1,12 +1,10 @@
 import React from 'react';
 
-import { Example } from '@af/design-system-docs-ui';
-
 import token from '../../src/get-token';
 
 import Card from './token-card-base';
 
-const successStylesCode = `// bold styles
+export const TokenSuccessCodeBlock = `// bold styles
 color: token('color.text.inverse'),
 backgroundColor: token('color.background.success.bold'),
 border: \`1px solid \${token('color.border.success')}\`,
@@ -48,7 +46,7 @@ const successStyles = {
   },
 };
 
-const TokenSuccess = () => {
+export const TokenSuccess = () => {
   return (
     <div style={{ display: 'flex', columnGap: '24px' }}>
       {Object.entries(successStyles).map(([key, subStyle]) => (
@@ -58,14 +56,4 @@ const TokenSuccess = () => {
   );
 };
 
-const TokenSuccessExample = () => {
-  return (
-    <Example
-      Component={TokenSuccess}
-      source={successStylesCode}
-      packageName="@atlaskit/tokens"
-    />
-  );
-};
-
-export default TokenSuccessExample;
+export default { example: TokenSuccess, code: TokenSuccessCodeBlock };

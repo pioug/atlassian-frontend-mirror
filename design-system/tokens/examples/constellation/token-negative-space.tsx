@@ -1,13 +1,12 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
 
-import { Example } from '@af/design-system-docs-ui';
 import { Bleed } from '@atlaskit/primitives';
 import { N0, N300A, N30A, N60A } from '@atlaskit/theme/colors';
 
 import token from '../../src/get-token';
 
-const TokensNegativeSpaceCodeBlock = `
+const TokenNegativeSpaceCodeBlock = `
 import { token } from '@atlaskit/tokens';
 
 // Container styles
@@ -33,7 +32,7 @@ const dividerStyles = css({
   borderBlockEnd: `1px solid ${token('color.border', N300A)}`,
 });
 
-const TokensNegativeSpace = () => {
+const TokenNegativeSpace = () => {
   return (
     <div css={containerStyles}>
       <p>A container with an inset</p>
@@ -44,14 +43,7 @@ const TokensNegativeSpace = () => {
   );
 };
 
-const TokensNegativeSpaceExample = () => {
-  return (
-    <Example
-      Component={TokensNegativeSpace}
-      source={TokensNegativeSpaceCodeBlock}
-      packageName="@atlaskit/tokens"
-    />
-  );
+export default {
+  example: TokenNegativeSpace,
+  code: TokenNegativeSpaceCodeBlock,
 };
-
-export default TokensNegativeSpaceExample;

@@ -1,4 +1,5 @@
 import type { RichMediaLayout } from '@atlaskit/adf-schema';
+
 import * as utils from '../../utils';
 
 describe('utils', () => {

@@ -1,17 +1,18 @@
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import {
-  doc,
-  p,
-  mediaSingle,
-  media,
-  border,
-} from '@atlaskit/editor-test-helpers/doc-builder';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import { EditorState, NodeSelection } from '@atlaskit/editor-prosemirror/state';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import {
+  border,
+  doc,
+  media,
+  mediaSingle,
+  p,
+} from '@atlaskit/editor-test-helpers/doc-builder';
+
 import {
   currentMediaNode,
-  currentMediaNodeWithPos,
   currentMediaNodeBorderMark,
+  currentMediaNodeWithPos,
 } from '../../../utils/current-media-node';
 
 const mediaNode = mediaSingle({ layout: 'center' })(

@@ -168,7 +168,7 @@ describe('Provider', () => {
       };
 
       it('should successfully initialize provider and call catchup when channel connects', async (done) => {
-        expect.assertions(5);
+        expect.assertions(4);
         const sid = 'expected-sid-123';
         const provider = createSocketIOCollabProvider(
           testProviderConfigWithDraft,
@@ -178,12 +178,6 @@ describe('Provider', () => {
           provider.documentService as any,
           'sendStepsFromCurrentState',
         );
-        provider.on('connected', ({ sid }) => {
-          expect(sid).toBe('expected-sid-123');
-          expect((provider as any).isProviderInitialized).toEqual(true);
-          expect((provider as any).isBuffered).toEqual(true);
-          expect(sendStepsFromCurrentStateSpy).toHaveBeenCalledTimes(1);
-        });
         provider.on('init', (data) => {
           expect(data).toEqual({
             doc: 'test-document',
@@ -193,6 +187,9 @@ describe('Provider', () => {
         });
         provider.setup({ getState: () => editorState });
         channel.emit('connected', { sid, initialized: true });
+        expect((provider as any).isProviderInitialized).toEqual(true);
+        expect((provider as any).isBuffered).toEqual(true);
+        expect(sendStepsFromCurrentStateSpy).toHaveBeenCalledTimes(1);
         done();
       });
 
@@ -1102,7 +1099,7 @@ describe('Provider', () => {
 
       expect(throttledCatchupSpy).toHaveBeenCalledTimes(1);
       expect(catchup).toHaveBeenCalledTimes(1);
-      expect(sendActionEventSpy).toHaveBeenCalledTimes(17);
+      expect(sendActionEventSpy).toHaveBeenCalledTimes(18);
       expect(sendActionEventSpy).toHaveBeenNthCalledWith(
         17,
         'catchup',
@@ -1111,10 +1108,16 @@ describe('Provider', () => {
           latency: 0,
         },
       );
+      expect(sendActionEventSpy).toHaveBeenNthCalledWith(
+        18,
+        'hasUnconfirmedSteps',
+        'INFO',
+        { numUnconfirmedSteps: 0 },
+      );
 
       channel.emit('error', stepRejectedError);
 
-      expect(sendActionEventSpy).toHaveBeenCalledTimes(18);
+      expect(sendActionEventSpy).toHaveBeenCalledTimes(19);
       expect(throttledCatchupSpy).toHaveBeenCalledTimes(1);
       expect(catchupMock).toHaveBeenCalledTimes(1);
     });

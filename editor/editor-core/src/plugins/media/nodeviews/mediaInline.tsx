@@ -1,33 +1,34 @@
-import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 import React, { useEffect, useState } from 'react';
-import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
-import type {
-  getPosHandler as ProsemirrorGetPosHandler,
-  getPosHandler,
-  getPosHandlerNode,
-} from '../types';
-import { SelectionBasedNodeView } from '@atlaskit/editor-common/selection-based-node-view';
 
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
-import { MediaInlineCard } from '@atlaskit/media-card';
-import type { MediaClientConfig } from '@atlaskit/media-core/auth';
-import type { FileIdentifier } from '@atlaskit/media-client';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
 import { WithProviders } from '@atlaskit/editor-common/provider-factory';
 import type {
+  ContextIdentifierProvider,
   MediaProvider,
   ProviderFactory,
-  ContextIdentifierProvider,
 } from '@atlaskit/editor-common/provider-factory';
-import type { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
-
-import { MediaInlineNodeSelector } from './styles';
-import type { MediaPluginState } from '../pm-plugins/types';
-import { MediaNodeUpdater } from './mediaNodeUpdater';
-import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
-import { MediaInlineCardLoadingView } from '@atlaskit/media-ui';
+import { SelectionBasedNodeView } from '@atlaskit/editor-common/selection-based-node-view';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
+import { MediaInlineCard } from '@atlaskit/media-card';
+import type { FileIdentifier } from '@atlaskit/media-client';
+import type { MediaClientConfig } from '@atlaskit/media-core/auth';
+import { MediaInlineCardLoadingView } from '@atlaskit/media-ui';
+
 import type { MediaNextEditorPluginType } from '../next-plugin-type';
+import type { MediaPluginState } from '../pm-plugins/types';
+import type {
+  getPosHandler,
+  getPosHandlerNode,
+  getPosHandler as ProsemirrorGetPosHandler,
+} from '../types';
+
+import { MediaNodeUpdater } from './mediaNodeUpdater';
+import { MediaInlineNodeSelector } from './styles';
 
 export interface MediaInlineProps {
   mediaProvider: Promise<MediaProvider>;

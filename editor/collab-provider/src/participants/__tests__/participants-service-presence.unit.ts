@@ -31,6 +31,7 @@ describe('participants-service-presence', () => {
     };
     participantsService = new ParticipantsService(
       analyticsHelper,
+      // @ts-ignore
       undefined,
       emit,
       getUser,

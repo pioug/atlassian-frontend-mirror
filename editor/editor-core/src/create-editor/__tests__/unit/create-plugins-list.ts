@@ -9,9 +9,11 @@ jest.mock('@atlaskit/editor-plugin-quick-insert');
 jest.mock('@atlaskit/editor-plugin-card');
 jest.mock('@atlaskit/editor-plugin-table');
 jest.mock('@atlaskit/editor-plugin-context-panel');
+jest.mock('@atlaskit/editor-plugin-help-dialog');
 
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import { contextPanelPlugin } from '@atlaskit/editor-plugin-context-panel';
+import { helpDialogPlugin } from '@atlaskit/editor-plugin-help-dialog';
 
 import {
   analyticsPlugin,
@@ -25,7 +27,6 @@ import {
   scrollIntoViewPlugin,
   mobileDimensionsPlugin,
   findReplacePlugin,
-  helpDialogPlugin,
 } from '../../../plugins';
 
 import { cardPlugin } from '@atlaskit/editor-plugin-card';

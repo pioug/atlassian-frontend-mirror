@@ -1,65 +1,67 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/react';
 import type { MouseEvent } from 'react';
 import React, { Component } from 'react';
-import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+
+import { jsx } from '@emotion/react';
+
 import type {
-  DecorationSource,
-  EditorView,
-  Decoration,
-} from '@atlaskit/editor-prosemirror/view';
-import type {
-  RichMediaLayout as MediaSingleLayout,
-  MediaADFAttrs,
   ExtendedMediaAttributes,
+  MediaADFAttrs,
+  RichMediaLayout as MediaSingleLayout,
 } from '@atlaskit/adf-schema';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
+import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import {
+  calcMediaSinglePixelWidth,
+  DEFAULT_IMAGE_HEIGHT,
+  DEFAULT_IMAGE_WIDTH,
+  getMaxWidthForNestedNode,
+  MEDIA_SINGLE_GUTTER_SIZE,
+} from '@atlaskit/editor-common/media-single';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
 import { WithProviders } from '@atlaskit/editor-common/provider-factory';
 import type {
   ContextIdentifierProvider,
   ProviderFactory,
 } from '@atlaskit/editor-common/provider-factory';
+import ReactNodeView from '@atlaskit/editor-common/react-node-view';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { MediaSingle } from '@atlaskit/editor-common/ui';
-import type { CardEvent } from '@atlaskit/media-card';
 import {
   browser,
   isNodeSelectedOrInRange,
   setNodeSelection,
   setTextSelection,
 } from '@atlaskit/editor-common/utils';
-import type { MediaClientConfig } from '@atlaskit/media-core';
-
-import type { ForwardRef, getPosHandler, getPosHandlerNode } from '../types';
-import ResizableMediaSingleNext from '../ui/ResizableMediaSingle/ResizableMediaSingleNext';
-import ResizableMediaSingle from '../ui/ResizableMediaSingle';
-import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
-import type { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
-
-import { MEDIA_CONTENT_WRAP_CLASS_NAME } from '../pm-plugins/main';
-import type { MediaOptions } from '../types';
-import type { MediaSingleNodeProps, MediaSingleNodeViewProps } from './types';
-import { MediaNodeUpdater } from './mediaNodeUpdater';
-import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
-import { findParentNodeOfTypeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
-import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
-import { figureWrapper, MediaSingleNodeSelector } from './styles';
-import { getAttrsFromUrl } from '@atlaskit/media-client';
-import { isMediaBlobUrlFromAttrs } from '../utils/media-common';
-import { getMediaFeatureFlag } from '@atlaskit/media-common';
-import ReactNodeView from '@atlaskit/editor-common/react-node-view';
-import CaptionPlaceholder from '../ui/CaptionPlaceholder';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
+import { findParentNodeOfTypeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
+import type {
+  Decoration,
+  DecorationSource,
+  EditorView,
+} from '@atlaskit/editor-prosemirror/view';
+import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
+import type { CardEvent } from '@atlaskit/media-card';
+import { getAttrsFromUrl } from '@atlaskit/media-client';
+import { getMediaFeatureFlag } from '@atlaskit/media-common';
+import type { MediaClientConfig } from '@atlaskit/media-core';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+
 import { insertAndSelectCaptionFromMediaSinglePos } from '../commands/captions';
 import type { MediaNextEditorPluginType } from '../next-plugin-type';
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
-import {
-  calcMediaSinglePixelWidth,
-  MEDIA_SINGLE_GUTTER_SIZE,
-  DEFAULT_IMAGE_HEIGHT,
-  DEFAULT_IMAGE_WIDTH,
-  getMaxWidthForNestedNode,
-} from '@atlaskit/editor-common/media-single';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { MEDIA_CONTENT_WRAP_CLASS_NAME } from '../pm-plugins/main';
+import type { ForwardRef, getPosHandler, getPosHandlerNode } from '../types';
+import type { MediaOptions } from '../types';
+import CaptionPlaceholder from '../ui/CaptionPlaceholder';
+import ResizableMediaSingle from '../ui/ResizableMediaSingle';
+import ResizableMediaSingleNext from '../ui/ResizableMediaSingle/ResizableMediaSingleNext';
+import { isMediaBlobUrlFromAttrs } from '../utils/media-common';
+
+import { MediaNodeUpdater } from './mediaNodeUpdater';
+import { figureWrapper, MediaSingleNodeSelector } from './styles';
+import type { MediaSingleNodeProps, MediaSingleNodeViewProps } from './types';
 
 export interface MediaSingleNodeState {
   width?: number;

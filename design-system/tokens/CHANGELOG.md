@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 1.25.2
+
+### Patch Changes
+
+- [#41083](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41083) [`efb7932428f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/efb7932428f) - Fix a bug introduced in @atlaskit/tokens@1.25.1 that added an invalid peer dependency. The previous version has been marked as deprecated.
+
 ## 1.25.1
 
 ### Patch Changes

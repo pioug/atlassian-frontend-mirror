@@ -1,20 +1,21 @@
-import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type {
   ContextIdentifierProvider,
   MediaProvider,
 } from '@atlaskit/editor-common/provider-factory';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+
+import type { MediaNextEditorPluginType } from '../next-plugin-type';
+import type { MediaPluginState } from '../pm-plugins/types';
 import type {
-  MediaOptions,
   ForwardRef,
+  MediaOptions,
   getPosHandler as ProsemirrorGetPosHandler,
 } from '../types';
-import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
-import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
-import type { MediaPluginState } from '../pm-plugins/types';
-import type { MediaNextEditorPluginType } from '../next-plugin-type';
 
 export interface MediaSingleNodeProps {
   view: EditorView;

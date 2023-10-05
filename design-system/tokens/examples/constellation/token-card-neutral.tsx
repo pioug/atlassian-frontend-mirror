@@ -1,12 +1,10 @@
 import React from 'react';
 
-import { Example } from '@af/design-system-docs-ui';
-
 import token from '../../src/get-token';
 
 import Card from './token-card-base';
 
-const neutralStylesCode = `// bold styles
+export const TokenNeutralCodeBlock = `// bold styles
 color: token('color.text.inverse'),
 backgroundColor: token('color.background.neutral.bold'),
 border: \`1px solid \${token('color.border')}\`,
@@ -76,7 +74,7 @@ const neutralStyles = {
   },
 };
 
-const TokenNeutral = () => {
+export const TokenNeutral = () => {
   return (
     <div style={{ display: 'flex', columnGap: '24px' }}>
       {Object.entries(neutralStyles).map(([key, subStyle]) => (
@@ -86,14 +84,4 @@ const TokenNeutral = () => {
   );
 };
 
-const TokenNeutralExample = () => {
-  return (
-    <Example
-      Component={TokenNeutral}
-      source={neutralStylesCode}
-      packageName="@atlaskit/tokens"
-    />
-  );
-};
-
-export default TokenNeutralExample;
+export default { example: TokenNeutral, code: TokenNeutralCodeBlock };

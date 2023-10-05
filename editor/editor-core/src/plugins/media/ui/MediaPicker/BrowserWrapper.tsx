@@ -1,9 +1,12 @@
 import React from 'react';
-import PickerFacadeProvider from './PickerFacadeProvider';
+
+import type { MediaFeatureFlags } from '@atlaskit/media-common/mediaFeatureFlags';
 import { Browser } from '@atlaskit/media-picker';
 import type { BrowserConfig } from '@atlaskit/media-picker/types';
+
 import type { MediaPluginState } from '../../pm-plugins/types';
-import type { MediaFeatureFlags } from '@atlaskit/media-common/mediaFeatureFlags';
+
+import PickerFacadeProvider from './PickerFacadeProvider';
 
 type Props = {
   mediaState: MediaPluginState;

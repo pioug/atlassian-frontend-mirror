@@ -1,30 +1,30 @@
-import { keymap } from '@atlaskit/editor-prosemirror/keymap';
-import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
-
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
   bindKeymapWithCommand,
-  undo,
   enter,
-  tab,
+  insertNewLine,
+  moveDown,
   moveLeft,
   moveRight,
-  moveDown,
-  insertNewLine,
+  tab,
+  undo,
 } from '@atlaskit/editor-common/keymaps';
-import { stateKey } from '../pm-plugins/plugin-key';
-import type { Command } from '@atlaskit/editor-common/types';
-import type { MediaPluginState } from './types';
-import { getMediaFeatureFlag } from '@atlaskit/media-common';
+import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { EditorSelectionAPI } from '@atlaskit/editor-common/selection';
 import { GapCursorSelection, Side } from '@atlaskit/editor-common/selection';
-import type { MediaOptions } from '../types';
+import type { Command } from '@atlaskit/editor-common/types';
+import { keymap } from '@atlaskit/editor-prosemirror/keymap';
+import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
+import { getMediaFeatureFlag } from '@atlaskit/media-common';
+
 import {
   insertAndSelectCaptionFromMediaSinglePos,
   selectCaptionFromMediaSinglePos,
 } from '../commands/captions';
+import { stateKey } from '../pm-plugins/plugin-key';
+import type { MediaOptions } from '../types';
 
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { MediaPluginState } from './types';
 
 export function keymapPlugin(
   options: MediaOptions | undefined,

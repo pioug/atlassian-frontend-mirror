@@ -1,4 +1,5 @@
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+
 import { currentMediaNodeWithPos } from '../utils/current-media-node';
 
 export function shouldShowImageBorder(editorState: EditorState): boolean {

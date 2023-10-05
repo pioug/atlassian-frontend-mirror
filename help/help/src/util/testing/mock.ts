@@ -50,7 +50,7 @@ export const getMockArticleItem = (
 export const getMockArticleItemList = (
   numberOfItems: number,
 ): ArticleItem[] => {
-  const articleItemList = [];
+  const articleItemList: ArticleItem[] = [];
   for (var i = 0; i < numberOfItems; i++) {
     articleItemList.push(getMockArticleItem(i.toString()));
   }
@@ -105,7 +105,7 @@ export const getMockWhatsNewArticleItem = (
 export const getMockWhatsNewArticleItemList = (
   numberOfItems: number,
 ): WhatsNewArticleItem[] => {
-  const articleItemList = [];
+  const articleItemList: WhatsNewArticleItem[] = [];
   for (var i = 0; i < numberOfItems; i++) {
     articleItemList.push(getMockWhatsNewArticleItem(i.toString()));
   }

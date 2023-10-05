@@ -84,25 +84,22 @@ const getFallbackPlacements = (
  * - [Code](https://atlassian.design/components/dropdown-menu/code)
  * - [Usage](https://atlassian.design/components/dropdown-menu/usage)
  */
-const DropdownMenu = <T extends HTMLElement = HTMLElement>(
-  props: DropdownMenuProps<T>,
-) => {
-  const {
-    defaultOpen = false,
-    isOpen,
-    onOpenChange = noop,
-    children,
-    placement = 'bottom-start',
-    trigger,
-    spacing,
-    shouldFlip = true,
-    shouldRenderToParent = false,
-    isLoading = false,
-    autoFocus = false,
-    testId,
-    statusLabel,
-    zIndex = layers.modal(),
-  } = props;
+const DropdownMenu = <T extends HTMLElement = HTMLElement>({
+  autoFocus = false,
+  children,
+  defaultOpen = false,
+  isLoading = false,
+  isOpen,
+  onOpenChange = noop,
+  placement = 'bottom-start',
+  shouldFlip = true,
+  shouldRenderToParent = false,
+  spacing,
+  statusLabel,
+  testId,
+  trigger,
+  zIndex = layers.modal(),
+}: DropdownMenuProps<T>) => {
   const [isLocalOpen, setLocalIsOpen] = useControlledState(
     isOpen,
     () => defaultOpen,
@@ -199,12 +196,17 @@ const DropdownMenu = <T extends HTMLElement = HTMLElement>(
         testId={testId && `${testId}--content`}
         shouldUseCaptureOnOutsideClick
         shouldRenderToParent={shouldRenderToParent}
-        trigger={(triggerProps: TriggerProps) => {
+        trigger={({
+          ref,
+          'aria-controls': ariaControls,
+          'aria-expanded': ariaExpanded,
+          'aria-haspopup': ariaHasPopup,
+        }: TriggerProps) => {
           if (typeof trigger === 'function') {
-            const { ref, ...providedProps } = triggerProps;
-
             return trigger({
-              ...providedProps,
+              'aria-controls': ariaControls,
+              'aria-expanded': ariaExpanded,
+              'aria-haspopup': ariaHasPopup,
               ...bindFocus,
               triggerRef: mergeRefs([ref, itemRef]),
               isSelected: isLocalOpen,
@@ -220,10 +222,10 @@ const DropdownMenu = <T extends HTMLElement = HTMLElement>(
               iconAfter={<ExpandIcon size="medium" label="" />}
               onFocus={bindFocus.onFocus}
               onBlur={bindFocus.onBlur}
-              ref={mergeRefs([triggerProps.ref, itemRef])}
-              aria-controls={triggerProps['aria-controls']}
-              aria-expanded={triggerProps['aria-expanded']}
-              aria-haspopup={triggerProps['aria-haspopup']}
+              ref={mergeRefs([ref, itemRef])}
+              aria-controls={ariaControls}
+              aria-expanded={ariaExpanded}
+              aria-haspopup={ariaHasPopup}
               isSelected={isLocalOpen}
               onClick={handleTriggerClicked}
               testId={testId && `${testId}--trigger`}
@@ -233,10 +235,10 @@ const DropdownMenu = <T extends HTMLElement = HTMLElement>(
           ) : (
             <Button
               {...bindFocus}
-              ref={mergeRefs([triggerProps.ref, itemRef])}
-              aria-controls={triggerProps['aria-controls']}
-              aria-expanded={triggerProps['aria-expanded']}
-              aria-haspopup={triggerProps['aria-haspopup']}
+              ref={mergeRefs([ref, itemRef])}
+              aria-controls={ariaControls}
+              aria-expanded={ariaExpanded}
+              aria-haspopup={ariaHasPopup}
               isSelected={isLocalOpen}
               iconAfter={<ExpandIcon size="medium" label="" />}
               onClick={handleTriggerClicked}

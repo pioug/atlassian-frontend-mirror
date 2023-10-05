@@ -18,6 +18,7 @@ export enum EVENT_ACTION {
   WEBSOCKET_MESSAGE_VOLUME_METRIC = 'websocketMessageVolumeMetric', // https://data-portal.internal.atlassian.com/analytics/registry/53596
   PROVIDER_INITIALIZED = 'providerInitialized', // https://data-portal.internal.atlassian.com/analytics/registry/54714
   PROVIDER_SETUP = 'providerSetup', // https://data-portal.internal.atlassian.com/analytics/registry/54715
+  HAS_UNCONFIRMED_STEPS = 'hasUnconfirmedSteps', // https://data-portal.internal.atlassian.com/analytics/registry/56141
 }
 export enum EVENT_STATUS {
   SUCCESS = 'SUCCESS',
@@ -273,6 +274,13 @@ type ProviderSetupAnalyticsEvent = {
   };
 };
 
+type ProviderHasUnconfirmedStepsAnalyticsEvent = {
+  eventAction: EVENT_ACTION.HAS_UNCONFIRMED_STEPS;
+  attributes: {
+    numUnconfirmedSteps: number;
+  };
+};
+
 export type ActionAnalyticsEvent =
   | AddStepsSuccessAnalyticsEvent
   | AddStepsFailureAnalyticsEvent
@@ -296,7 +304,8 @@ export type ActionAnalyticsEvent =
   | CatchUpDroppedStepsEvent
   | WebsocketMessageVolumeMetricEvent
   | ProviderInitializedAnalyticsEvent
-  | ProviderSetupAnalyticsEvent;
+  | ProviderSetupAnalyticsEvent
+  | ProviderHasUnconfirmedStepsAnalyticsEvent;
 
 export const ACK_MAX_TRY = 60;
 

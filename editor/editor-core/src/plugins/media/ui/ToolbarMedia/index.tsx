@@ -1,13 +1,17 @@
 import React from 'react';
-import AttachmentIcon from '@atlaskit/icon/glyph/editor/attachment';
-import { ToolbarButton, TOOLBAR_BUTTON } from '@atlaskit/editor-common/ui-menu';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import type { MediaPluginState } from '../../pm-plugins/types';
-import type { MediaNextEditorPluginType } from '../../next-plugin-type';
-import { toolbarMediaMessages } from './toolbar-media-messages';
+
 import type { WrappedComponentProps } from 'react-intl-next';
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import { injectIntl } from 'react-intl-next';
+
+import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { TOOLBAR_BUTTON, ToolbarButton } from '@atlaskit/editor-common/ui-menu';
+import AttachmentIcon from '@atlaskit/icon/glyph/editor/attachment';
+
+import type { MediaNextEditorPluginType } from '../../next-plugin-type';
+import type { MediaPluginState } from '../../pm-plugins/types';
+
+import { toolbarMediaMessages } from './toolbar-media-messages';
 
 export interface Props {
   isDisabled?: boolean;

@@ -1,4 +1,4 @@
-import { MediaState } from '../types';
+import type { MediaState } from '../types';
 
 type MediaTask = {
   task: Promise<any>;

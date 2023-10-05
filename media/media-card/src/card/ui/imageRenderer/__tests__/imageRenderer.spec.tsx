@@ -108,6 +108,18 @@ describe('ImageRenderer', () => {
   });
 
   it('should convert resizeMode to crop and stretch MediaImage props', () => {
+    expect(resizeModeToMediaImageProps(undefined)).toMatchObject({
+      crop: false,
+      stretch: false,
+    });
+    expect(resizeModeToMediaImageProps('fit')).toMatchObject({
+      crop: false,
+      stretch: false,
+    });
+    expect(resizeModeToMediaImageProps('full-fit')).toMatchObject({
+      crop: false,
+      stretch: false,
+    });
     expect(resizeModeToMediaImageProps('stretchy-fit')).toMatchObject({
       crop: false,
       stretch: true,

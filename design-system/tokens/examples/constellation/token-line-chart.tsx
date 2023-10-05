@@ -2,13 +2,12 @@ import React from 'react';
 
 import ReactECharts from 'echarts-for-react';
 
-import { Example } from '@af/design-system-docs-ui';
 import { G400, G500, N0, N40, N500, N800 } from '@atlaskit/theme/colors';
 
 import getTokenValue from '../../src/get-token-value';
 import useThemeObserver from '../../src/use-theme-observer';
 
-const TokensLineChartCodeBlock = `
+export const TokenLineChartCodeBlock = `
 //  This is using echarts-for-react to generate graphs and it's using canvas under the hood
 
   const chartOptions = {
@@ -50,7 +49,7 @@ const TokensLineChartCodeBlock = `
   };
 `;
 
-const Chart = () => {
+export const TokenLineChart = () => {
   useThemeObserver();
 
   const chartOptions = {
@@ -117,14 +116,4 @@ const Chart = () => {
   return <ReactECharts option={chartOptions} />;
 };
 
-const TokensLineChartExample = () => {
-  return (
-    <Example
-      Component={Chart}
-      source={TokensLineChartCodeBlock}
-      packageName="@atlaskit/tokens"
-    />
-  );
-};
-
-export default TokensLineChartExample;
+export default { example: TokenLineChart, code: TokenLineChartCodeBlock };

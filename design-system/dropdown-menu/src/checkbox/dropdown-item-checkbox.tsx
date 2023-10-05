@@ -19,17 +19,18 @@ import { DropdownItemCheckboxProps } from '../types';
  * - [Code](https://atlassian.design/components/dropdown-menu/dropdown-item-checkbox/code)
  * - [Usage](https://atlassian.design/components/dropdown-menu/dropdown-item-checkbox/usage)
  */
-const DropdownItemCheckbox = (props: DropdownItemCheckboxProps) => {
-  const {
-    id,
-    isSelected,
-    defaultSelected,
-    onClick: providedOnClick = noop,
-    shouldTitleWrap = true,
-    shouldDescriptionWrap = true,
-    ...rest
-  } = props;
-
+const DropdownItemCheckbox = ({
+  children,
+  defaultSelected,
+  description,
+  id,
+  isDisabled,
+  isSelected,
+  onClick: providedOnClick = noop,
+  shouldDescriptionWrap = true,
+  shouldTitleWrap = true,
+  testId,
+}: DropdownItemCheckboxProps) => {
   if (
     typeof process !== 'undefined' &&
     process.env.NODE_ENV !== 'production' &&
@@ -61,23 +62,26 @@ const DropdownItemCheckbox = (props: DropdownItemCheckboxProps) => {
   return (
     <SELECTION_STYLE_CONTEXT_DO_NOT_USE.Provider value="none">
       <ButtonItem
-        id={id}
-        onClick={onClickHandler}
-        role="menuitemcheckbox"
         aria-checked={selected}
-        shouldTitleWrap={shouldTitleWrap}
-        shouldDescriptionWrap={shouldDescriptionWrap}
+        description={description}
         iconBefore={<CheckboxIcon checked={selected} />}
+        id={id}
+        isDisabled={isDisabled}
         isSelected={
           selected &&
           getBooleanFF(
             'platform.design-system-team.menu-selected-state-change_0see9',
           )
         }
+        onClick={onClickHandler}
         ref={itemRef}
-        // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-        {...rest}
-      />
+        role="menuitemcheckbox"
+        shouldDescriptionWrap={shouldDescriptionWrap}
+        shouldTitleWrap={shouldTitleWrap}
+        testId={testId}
+      >
+        {children}
+      </ButtonItem>
     </SELECTION_STYLE_CONTEXT_DO_NOT_USE.Provider>
   );
 };

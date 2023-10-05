@@ -1,5 +1,11 @@
 # @atlaskit/help-article
 
+## 4.1.5
+
+### Patch Changes
+
+- [#41087](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41087) [`7d066a73736`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7d066a73736) - Fix ts errors by adding type definition and removing unused parameter
+
 ## 4.1.4
 
 ### Patch Changes

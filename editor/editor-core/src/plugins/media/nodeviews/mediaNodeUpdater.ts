@@ -1,37 +1,39 @@
 import uuidV4 from 'uuid/v4';
-import type { MediaAttributes, MediaADFAttrs } from '@atlaskit/adf-schema';
-import type {
-  MediaProvider,
-  ContextIdentifierProvider,
-} from '@atlaskit/editor-common/provider-factory';
-import {
-  DEFAULT_IMAGE_HEIGHT,
-  DEFAULT_IMAGE_WIDTH,
-} from '@atlaskit/editor-common/media-single';
-import type { FileState } from '@atlaskit/media-client';
-import {
-  getMediaClient,
-  isMediaBlobUrl,
-  getAttrsFromUrl,
-  isImageRepresentationReady,
-} from '@atlaskit/media-client';
-import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+
+import type { MediaADFAttrs, MediaAttributes } from '@atlaskit/adf-schema';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import {
   ACTION,
   ACTION_SUBJECT,
   EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
-import type { MediaOptions } from '../types';
+import {
+  DEFAULT_IMAGE_HEIGHT,
+  DEFAULT_IMAGE_WIDTH,
+} from '@atlaskit/editor-common/media-single';
+import type {
+  ContextIdentifierProvider,
+  MediaProvider,
+} from '@atlaskit/editor-common/provider-factory';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { FileState } from '@atlaskit/media-client';
+import {
+  getAttrsFromUrl,
+  getMediaClient,
+  isImageRepresentationReady,
+  isMediaBlobUrl,
+} from '@atlaskit/media-client';
+import type { MediaTraceContext } from '@atlaskit/media-common';
+
 import {
   replaceExternalMedia,
   updateAllMediaSingleNodesAttrs,
   updateCurrentMediaNodeAttrs,
   updateMediaSingleNodeAttrs,
 } from '../commands/helpers';
+import type { MediaOptions } from '../types';
 import type { getPosHandler as ProsemirrorGetPosHandler } from '../types';
-import type { MediaTraceContext } from '@atlaskit/media-common';
 
 export type RemoteDimensions = { id: string; height: number; width: number };
 
@@ -503,7 +505,7 @@ export class MediaNodeUpdater {
 const hasPrivateAttrsChanged = (
   currentAttrs: MediaAttributes,
   newAttrs: Partial<MediaAttributes>,
-): Boolean => {
+): boolean => {
   return (
     currentAttrs.__fileName !== newAttrs.__fileName ||
     currentAttrs.__fileMimeType !== newAttrs.__fileMimeType ||

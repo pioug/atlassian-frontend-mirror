@@ -45,7 +45,7 @@ Use `tall` to control the height of the menu. The tall menu will not scroll unti
 
 ## Custom triggers
 
-There are two recommended ways to customize a trigger.
+There are three recommended ways to customize a trigger.
 
 ### Using trigger
 
@@ -104,7 +104,7 @@ Use `isOpen` to control the open state of the dropdown menu.
 
 ### Default placement
 
-By default the dropdown menu will be placed next to your trigger.
+By default, the dropdown menu will be placed next to your trigger.
 
 <Example
   Component={DropdownMenuPlacementDefault}
@@ -113,7 +113,7 @@ By default the dropdown menu will be placed next to your trigger.
 
 ### Placement
 
-Use `placement` to set the menu placement, for example bottom right.
+Use `placement` to set the menu placement. In the bottom right, for example.
 
 <Example
   Component={DropdownMenuPlacement}
@@ -131,13 +131,13 @@ Use `shouldFlip` to place to the dropdown menu on the opposite side of its trigg
 
 ### Z-index
 
-Use `zIndex` to resolve clashes with other layered components with competing z-index values, such as Popup.
+Use `zIndex` to resolve clashes with other layered components with competing z-index values, such as popup.
 
 <Example Component={DropdownMenuZIndex} packageName="@atlaskit/dropdown-menu" />
 
 ## Content wrapping
 
-By default, the dropdown-menu content is rendered inside `React.Portal`. Use `shouldRenderToParent` prop to render the content directly after the trigger element.
+By default, the dropdown menu content is rendered inside `React.Portal`. Use `shouldRenderToParent` prop to render the content directly after the trigger element.
 
 <Example
   Component={DropdownMenuWithoutPortal}

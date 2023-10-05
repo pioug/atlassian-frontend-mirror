@@ -18,7 +18,7 @@ export const getSelectedStyles = (selected?: boolean) =>
 
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 export const wrapperStyles = (selected?: boolean) => css`
-  ${transition()}
+  ${transition && transition()}
   font-size: 14px;
   width: 14px;
   height: 14px;

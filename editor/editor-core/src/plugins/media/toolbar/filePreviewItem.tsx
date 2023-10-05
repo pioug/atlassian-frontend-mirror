@@ -1,14 +1,18 @@
-import React, { useState, FC } from 'react';
-import ReactDOM from 'react-dom';
-import { FileIdentifier } from '@atlaskit/media-client';
-import { MediaViewer } from '@atlaskit/media-viewer';
-import { messages } from '@atlaskit/media-ui';
-import FilePreviewIcon from '@atlaskit/icon/glyph/editor/file-preview';
-import { FloatingToolbarButton as ToolbarButton } from '@atlaskit/editor-common/ui';
+import type { FC } from 'react';
+import React, { useState } from 'react';
 
-import { MediaPluginState } from '../pm-plugins/types';
+import ReactDOM from 'react-dom';
+import type { IntlShape } from 'react-intl-next';
+
+import { FloatingToolbarButton as ToolbarButton } from '@atlaskit/editor-common/ui';
+import FilePreviewIcon from '@atlaskit/icon/glyph/editor/file-preview';
+import type { FileIdentifier } from '@atlaskit/media-client';
+import { messages } from '@atlaskit/media-ui';
+import { MediaViewer } from '@atlaskit/media-viewer';
+
+import type { MediaPluginState } from '../pm-plugins/types';
+
 import { getSelectedMediaContainerNodeAttrs } from './utils';
-import { IntlShape } from 'react-intl-next';
 
 interface FilePreviewProps {
   mediaPluginState: MediaPluginState;

@@ -1,5 +1,17 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 8.10.0
+
+### Minor Changes
+
+- [#40425](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40425) [`5d0222e1bd7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5d0222e1bd7) - Added new `no-unsupported-drag-and-drop-libraries` rule that detects imports of restricted drag and drop libraries, instead suggesting use of our library, Pragmatic drag and drop.
+
+## 8.9.0
+
+### Minor Changes
+
+- [#40868](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40868) [`3f36676cbfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3f36676cbfb) - Add `use-href-in-linkitem` rule.
+
 ## 8.8.1
 
 ### Patch Changes

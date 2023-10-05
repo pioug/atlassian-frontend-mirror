@@ -1,31 +1,35 @@
 /** @jsx jsx */
 import React from 'react';
+
 import { jsx } from '@emotion/react';
+
+import type { RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
+import { calculateOffsetLeft } from '@atlaskit/editor-common/media-single';
+import type { GridType, SnapPointsProps } from '@atlaskit/editor-common/types';
+import {
+  calcColumnsFromPx,
+  calcMediaPxWidth,
+  calcPctFromPx,
+  handleSides,
+  imageAlignmentMap,
+  Resizer,
+  snapTo,
+  wrappedLayouts,
+} from '@atlaskit/editor-common/ui';
+import { calculateSnapPoints } from '@atlaskit/editor-common/utils';
+import type { Highlights } from '@atlaskit/editor-plugin-grid';
 import {
   findParentNodeOfTypeClosestToPos,
   hasParentNodeOfType,
 } from '@atlaskit/editor-prosemirror/utils';
-import type { RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
-import type { MediaClientConfig } from '@atlaskit/media-core';
-import {
-  calcPctFromPx,
-  calcColumnsFromPx,
-  wrappedLayouts,
-  Resizer,
-  calcMediaPxWidth,
-  snapTo,
-  handleSides,
-  imageAlignmentMap,
-} from '@atlaskit/editor-common/ui';
 import { akEditorWideLayoutWidth } from '@atlaskit/editor-shared-styles';
-import { wrapperStyle } from './styled';
-import type { Props, EnabledHandles } from './types';
-import type { GridType, SnapPointsProps } from '@atlaskit/editor-common/types';
-import { calculateOffsetLeft } from '@atlaskit/editor-common/media-single';
-import type { Highlights } from '@atlaskit/editor-plugin-grid';
-import { calculateSnapPoints } from '@atlaskit/editor-common/utils';
+import type { MediaClientConfig } from '@atlaskit/media-core';
 import { token } from '@atlaskit/tokens';
+
 import { checkMediaType } from '../../utils/check-media-type';
+
+import { wrapperStyle } from './styled';
+import type { EnabledHandles, Props } from './types';
 
 type State = {
   offsetLeft: number;
@@ -372,7 +376,7 @@ export default class ResizableMediaSingle extends React.Component<
       wrappedLayout: this.wrappedLayout,
     };
 
-    const nestedInTableHandleStyles = (isNestedInTable: Boolean) => {
+    const nestedInTableHandleStyles = (isNestedInTable: boolean) => {
       if (!isNestedInTable) {
         return;
       }

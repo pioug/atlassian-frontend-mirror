@@ -1,6 +1,6 @@
-import { PresencePayload } from '../../types';
+import type { PresencePayload } from '../../types';
 import AnalyticsHelper from '../../analytics/analytics-helper';
-import { ParticipantsMap } from '../participants-helper';
+import type { ParticipantsMap } from '../participants-helper';
 import type { ProviderParticipant } from '@atlaskit/editor-common/collab';
 import { ParticipantsService } from '../participants-service';
 import { ParticipantsState } from '../participants-state';
@@ -38,6 +38,7 @@ const participantsServiceConstructor = (deps: {
 }): ParticipantsService =>
   new ParticipantsService(
     deps.analyticsHelper,
+    // @ts-ignore
     deps.participants,
     deps.emit || jest.fn(),
     deps.getUser || jest.fn(),

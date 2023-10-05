@@ -1,12 +1,6 @@
-import { createCommand } from '.';
-import {
-  isSelectionMediaSingleNode,
-  getMediaNodeFromSelection,
-} from '../../utils/media-common';
-import { withAnalytics } from '@atlaskit/editor-common/editor-analytics';
 import type {
-  MediaAltTextActionType,
   EditorAnalyticsAPI,
+  MediaAltTextActionType,
 } from '@atlaskit/editor-common/analytics';
 import {
   ACTION,
@@ -14,16 +8,24 @@ import {
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
+import { withAnalytics } from '@atlaskit/editor-common/editor-analytics';
 import type {
   EditorState,
   Transaction,
 } from '@atlaskit/editor-prosemirror/state';
 
+import {
+  getMediaNodeFromSelection,
+  isSelectionMediaSingleNode,
+} from '../../utils/media-common';
+
 import type {
-  OpenMediaAltTextMenu,
   CloseMediaAltTextMenu,
+  OpenMediaAltTextMenu,
   UpdateAltText,
 } from './actions';
+
+import { createCommand } from './index';
 
 const createCommandWithAnalytics = (
   actionType: MediaAltTextActionType,

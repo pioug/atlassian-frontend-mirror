@@ -1,9 +1,8 @@
 import React from 'react';
 
-import { Example } from '@af/design-system-docs-ui';
 import Button from '@atlaskit/button';
 
-const TokensButtonCodeBlock = `import { B300, B400, B500, N0 } from '@atlaskit/theme/colors';
+const TokenButtonCodeBlock = `import { B300, B400, B500, N0 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 // default state
@@ -20,23 +19,8 @@ background: token('color.background.selected.bold', B400),
   background: token('color.background.selected.bold.pressed', B500),
 }`;
 
-const TokensButton = () => {
+const TokenButton = () => {
   return <Button appearance="primary">Default button</Button>;
 };
 
-/**
- * __Tokens button example__
- *
- * A tokens button example {description}.
- */
-const TokensButtonExample = () => {
-  return (
-    <Example
-      Component={TokensButton}
-      source={TokensButtonCodeBlock}
-      packageName="@atlaskit/tokens"
-    />
-  );
-};
-
-export default TokensButtonExample;
+export default { example: TokenButton, code: TokenButtonCodeBlock };

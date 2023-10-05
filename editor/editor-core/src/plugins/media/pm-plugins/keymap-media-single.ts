@@ -1,26 +1,26 @@
-import { keymap } from '@atlaskit/editor-prosemirror/keymap';
-import type {
-  Schema,
-  NodeType,
-  Node,
-} from '@atlaskit/editor-prosemirror/model';
-import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type {
-  EditorState,
-  Selection,
-} from '@atlaskit/editor-prosemirror/state';
 import {
-  bindKeymapWithCommand,
   backspace,
+  bindKeymapWithCommand,
 } from '@atlaskit/editor-common/keymaps';
+import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { atTheEndOfDoc } from '@atlaskit/editor-common/selection';
+import type { Command, CommandDispatch } from '@atlaskit/editor-common/types';
 import {
   isEmptyNode,
   isSelectionInsideLastNodeInDocument,
 } from '@atlaskit/editor-common/utils';
-import type { Command, CommandDispatch } from '@atlaskit/editor-common/types';
-import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
 import { selectNodeBackward } from '@atlaskit/editor-prosemirror/commands';
-import { atTheEndOfDoc } from '@atlaskit/editor-common/selection';
+import { keymap } from '@atlaskit/editor-prosemirror/keymap';
+import type {
+  Node,
+  NodeType,
+  Schema,
+} from '@atlaskit/editor-prosemirror/model';
+import type {
+  EditorState,
+  Selection,
+} from '@atlaskit/editor-prosemirror/state';
+import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
 
 /**
  * Check if is an empty selection at the start of the node

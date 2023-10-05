@@ -1,5 +1,11 @@
 # @atlaskit/emoji
 
+## 67.5.8
+
+### Patch Changes
+
+- [#41080](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41080) [`bec2dcb2370`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bec2dcb2370) - Update type definition for variables
+
 ## 67.5.7
 
 ### Patch Changes

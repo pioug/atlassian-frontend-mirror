@@ -1,85 +1,90 @@
+import assert from 'assert';
+
 import React from 'react';
+
 import ReactDOM from 'react-dom';
-import type {
-  Node as PMNode,
-  Schema,
-} from '@atlaskit/editor-prosemirror/model';
-import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import {
-  NodeSelection,
-  TextSelection,
-  AllSelection,
-  Selection,
-} from '@atlaskit/editor-prosemirror/state';
-import { insertPoint } from '@atlaskit/editor-prosemirror/transform';
-import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import type { MediaClientConfig } from '@atlaskit/media-core';
+import type { IntlShape } from 'react-intl-next';
+import { RawIntlProvider } from 'react-intl-next';
+
 import type { RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
-import type { UploadParams } from '@atlaskit/media-picker/types';
+import type { InputMethodInsertMedia } from '@atlaskit/editor-common/analytics';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
+import {
+  CAPTION_PLACEHOLDER_ID,
+  getMaxWidthForNestedNodeNext,
+} from '@atlaskit/editor-common/media-single';
 import type {
   ContextIdentifierProvider,
   MediaProvider,
 } from '@atlaskit/editor-common/provider-factory';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import {
+  browser,
+  ErrorReporter,
   isInEmptyLine,
   isInListItem,
-  ErrorReporter,
-  browser,
 } from '@atlaskit/editor-common/utils';
 import type { WidthPluginState } from '@atlaskit/editor-plugin-width';
-import assert from 'assert';
+import type {
+  Node as PMNode,
+  Schema,
+} from '@atlaskit/editor-prosemirror/model';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import {
+  AllSelection,
+  NodeSelection,
+  Selection,
+  TextSelection,
+} from '@atlaskit/editor-prosemirror/state';
+import { insertPoint } from '@atlaskit/editor-prosemirror/transform';
 import {
   findDomRefAtPos,
-  isNodeSelection,
-  findSelectedNodeOfType,
   findParentNodeOfType,
+  findSelectedNodeOfType,
+  isNodeSelection,
 } from '@atlaskit/editor-prosemirror/utils';
-import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
-import { insertMediaSingleNode, isMediaSingle } from '../utils/media-single';
-import type { MediaPluginOptions } from '../media-plugin-options';
-import type { PlaceholderType } from '../ui/Media/DropPlaceholder';
-import DropPlaceholder from '../ui/Media/DropPlaceholder';
-import type {
-  getPosHandlerNode as ProsemirrorGetPosHandler,
-  MediaOptions,
-  MediaState,
-  MediaStateStatus,
-} from '../types';
-import {
-  insertMediaGroupNode,
-  insertMediaInlineNode,
-  canInsertMediaInline,
-} from '../utils/media-files';
-import {
-  isInsidePotentialEmptyParagraph,
-  removeMediaNode,
-  splitMediaGroup,
-} from '../utils/media-common';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
+import { getMediaFeatureFlag } from '@atlaskit/media-common';
+import type { MediaClientConfig } from '@atlaskit/media-core';
+import type { UploadParams } from '@atlaskit/media-picker/types';
+
 import * as helpers from '../commands/helpers';
 import { updateMediaSingleNodeAttrs } from '../commands/helpers';
-import { stateKey } from './plugin-key';
+import type { MediaPluginOptions } from '../media-plugin-options';
+import type { MediaNextEditorPluginType } from '../next-plugin-type';
 import type {
   MediaStateEventListener,
   MediaStateEventSubscriber,
   PickerFacadeConfig,
 } from '../picker-facade';
 import PickerFacade from '../picker-facade';
-import type { InputMethodInsertMedia } from '@atlaskit/editor-common/analytics';
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import type { MediaNodeWithPosHandler, MediaPluginState } from './types';
-import { getMediaFeatureFlag } from '@atlaskit/media-common';
-import type { IntlShape } from 'react-intl-next';
-import { RawIntlProvider } from 'react-intl-next';
-import { MediaTaskManager } from './mediaTaskManager';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
-import type { MediaNextEditorPluginType } from '../next-plugin-type';
+import type {
+  MediaOptions,
+  MediaState,
+  MediaStateStatus,
+  getPosHandlerNode as ProsemirrorGetPosHandler,
+} from '../types';
+import type { PlaceholderType } from '../ui/Media/DropPlaceholder';
+import DropPlaceholder from '../ui/Media/DropPlaceholder';
 import {
-  getMaxWidthForNestedNodeNext,
-  CAPTION_PLACEHOLDER_ID,
-} from '@atlaskit/editor-common/media-single';
+  isInsidePotentialEmptyParagraph,
+  removeMediaNode,
+  splitMediaGroup,
+} from '../utils/media-common';
+import {
+  canInsertMediaInline,
+  insertMediaGroupNode,
+  insertMediaInlineNode,
+} from '../utils/media-files';
+import { insertMediaSingleNode, isMediaSingle } from '../utils/media-single';
+
+import { MediaTaskManager } from './mediaTaskManager';
+import { stateKey } from './plugin-key';
+import type { MediaNodeWithPosHandler, MediaPluginState } from './types';
 
 export type { MediaState, MediaProvider, MediaStateStatus };
 export { stateKey } from './plugin-key';

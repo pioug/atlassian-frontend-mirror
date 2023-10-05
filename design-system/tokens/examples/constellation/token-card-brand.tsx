@@ -1,12 +1,10 @@
 import React from 'react';
 
-import { Example } from '@af/design-system-docs-ui';
-
 import token from '../../src/get-token';
 
 import Card from './token-card-base';
 
-const brandStylesCode = `// bold styles
+const TokenBrandCodeBlock = `// bold styles
 color: token('color.text.inverse'),
 backgroundColor: token('color.background.brand.bold'),
 border: \`1px solid \${token('color.border.brand')}\`,
@@ -42,14 +40,4 @@ const TokenBrand = () => {
   );
 };
 
-const TokenBrandExample = () => {
-  return (
-    <Example
-      Component={TokenBrand}
-      source={brandStylesCode}
-      packageName="@atlaskit/tokens"
-    />
-  );
-};
-
-export default TokenBrandExample;
+export default { example: TokenBrand, code: TokenBrandCodeBlock };

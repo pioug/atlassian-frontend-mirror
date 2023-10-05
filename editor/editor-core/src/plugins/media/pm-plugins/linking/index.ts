@@ -1,13 +1,14 @@
-import { pluginFactory } from '@atlaskit/editor-common/utils';
-import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
-import { PluginKey, NodeSelection } from '@atlaskit/editor-prosemirror/state';
-import type { Mark } from '@atlaskit/editor-prosemirror/model';
-import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
-import type { MediaLinkingActions } from './actions';
-import type { MediaLinkingState, InitialState } from './types';
-import reducer from './reducer';
 import type { LinkAttributes } from '@atlaskit/adf-schema';
+import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { pluginFactory } from '@atlaskit/editor-common/utils';
+import type { Mark } from '@atlaskit/editor-prosemirror/model';
+import type { ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
+import { NodeSelection, PluginKey } from '@atlaskit/editor-prosemirror/state';
+
+import type { MediaLinkingActions } from './actions';
+import reducer from './reducer';
+import type { InitialState, MediaLinkingState } from './types';
 
 export const mediaLinkingPluginKey = new PluginKey<MediaLinkingState>(
   'mediaLinking',

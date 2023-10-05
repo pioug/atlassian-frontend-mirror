@@ -1,13 +1,12 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
 
-import { Example } from '@af/design-system-docs-ui';
 import Button from '@atlaskit/button/standard-button';
 import { N0, N30A, N60A } from '@atlaskit/theme/colors';
 
 import token from '../../src/get-token';
 
-const TokensModalCodeBlock = `
+export const TokenModalCodeBlock = `
 import { N0, N30A, N60A, N800 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -57,7 +56,7 @@ const footerStyles = css({
   gap: '8px',
 });
 
-const TokensModal = () => {
+export const TokenModal = () => {
   return (
     <div css={dialogStyles}>
       <div css={headerStyles}>
@@ -82,14 +81,4 @@ const TokensModal = () => {
   );
 };
 
-const TokensModalExample = () => {
-  return (
-    <Example
-      Component={TokensModal}
-      source={TokensModalCodeBlock}
-      packageName="@atlaskit/tokens"
-    />
-  );
-};
-
-export default TokensModalExample;
+export default { example: TokenModal, code: TokenModalCodeBlock };

@@ -36,6 +36,13 @@ import {
 } from '../../card/v2/__tests__/utils/_createMediaClient';
 import { videoURI, tallImage } from '@atlaskit/media-test-helpers';
 import {
+  imgTestId,
+  spinnerTestId,
+  cardTestId,
+  mediaViewerTestId,
+  titleBoxTestId,
+} from '../utils/_testIDs';
+import {
   MediaClientConfig,
   globalMediaEventEmitter,
 } from '@atlaskit/media-client';
@@ -52,13 +59,6 @@ import { MediaCardError, MediaFileStateError } from '../../errors';
 import { MockIntersectionObserver } from '../../utils/mockIntersectionObserver';
 
 const dummyMediaClientConfig = {} as MediaClientConfig;
-
-// test ids
-const imgTestId = 'media-image';
-const spinnerTestId = 'media-card-loading';
-const cardTestId = 'media-card-view';
-const mediaViewerTestId = 'media-viewer-popup';
-const titleBoxTestId = 'media-title-box';
 
 const GLOBAL_MEDIA_CARD_SSR = 'mediaCardSsr';
 const GLOBAL_MEDIA_NAMESPACE = '__MEDIA_INTERNAL';

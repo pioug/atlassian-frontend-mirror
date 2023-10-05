@@ -1,23 +1,24 @@
 import { css } from '@emotion/react';
+
 import {
   mediaSingleSharedStyle,
   richMediaClassName,
 } from '@atlaskit/editor-common/styles';
 import {
-  akEditorDeleteBorder,
   akEditorDeleteBackground,
-  akEditorSelectedBorderBoldSize,
-  akEditorMediaResizeHandlerPaddingWide,
-  akEditorMediaResizeHandlerPadding,
-  akEditorSelectedNodeClassName,
+  akEditorDeleteBorder,
   akEditorDeleteIconColor,
+  akEditorMediaResizeHandlerPadding,
+  akEditorMediaResizeHandlerPaddingWide,
+  akEditorSelectedBorderBoldSize,
+  akEditorSelectedNodeClassName,
 } from '@atlaskit/editor-shared-styles';
-import { N60, B200, Y500 } from '@atlaskit/theme/colors';
 import {
   fileCardImageViewSelector,
   inlinePlayerClassName,
   newFileExperienceClassName,
 } from '@atlaskit/media-card';
+import { B200, N60, Y500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 export const mediaStyles = css`

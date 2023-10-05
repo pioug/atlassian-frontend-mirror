@@ -1,11 +1,20 @@
+import React, { Component } from 'react';
+
+import { MEDIA_CONTEXT } from '@atlaskit/analytics-namespaced-context';
+import { AnalyticsContext } from '@atlaskit/analytics-next';
 import type {
   ContextIdentifierProvider,
   MediaProvider,
 } from '@atlaskit/editor-common/provider-factory';
-import { withImageLoader } from '@atlaskit/editor-common/utils';
-import { AnalyticsContext } from '@atlaskit/analytics-next';
-import { MEDIA_CONTEXT } from '@atlaskit/analytics-namespaced-context';
 import type { ImageLoaderProps } from '@atlaskit/editor-common/utils';
+import { withImageLoader } from '@atlaskit/editor-common/utils';
+import {
+  setNodeSelection,
+  setTextSelection,
+} from '@atlaskit/editor-common/utils';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import type {
   CardDimensions,
   CardEvent,
@@ -15,22 +24,14 @@ import type {
 import { Card, CardLoading } from '@atlaskit/media-card';
 import type { Identifier } from '@atlaskit/media-client';
 import type { MediaClientConfig } from '@atlaskit/media-core';
-import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
-import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import React, { Component } from 'react';
-import {
-  setNodeSelection,
-  setTextSelection,
-} from '@atlaskit/editor-common/utils';
 
-import type {
-  MediaOptions,
-  ReactNodeProps,
-  getPosHandler as ProsemirrorGetPosHandler,
-} from '../../types';
 import { stateKey as mediaStateKey } from '../../pm-plugins/plugin-key';
 import type { MediaPluginState } from '../../pm-plugins/types';
+import type {
+  MediaOptions,
+  getPosHandler as ProsemirrorGetPosHandler,
+  ReactNodeProps,
+} from '../../types';
 import { MediaCardWrapper } from '../styles';
 
 // This is being used by DropPlaceholder now

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/tokens",
-  "version": "1.25.1",
+  "version": "1.25.2",
   "description": "Design tokens are the single source of truth to name and store design decisions.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -41,7 +41,6 @@
     "bind-event-listener": "^2.1.1"
   },
   "peerDependencies": {
-    "@af/design-system-docs-ui": "*",
     "react": "^16.8.0"
   },
   "devDependencies": {

@@ -1,5 +1,5 @@
-import { MediaAltTextState } from './types';
-import { MediaAltTextAction } from './actions';
+import type { MediaAltTextAction } from './actions';
+import type { MediaAltTextState } from './types';
 
 export default (
   state: MediaAltTextState,

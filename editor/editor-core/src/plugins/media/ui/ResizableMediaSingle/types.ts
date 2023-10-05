@@ -1,11 +1,12 @@
 import type { RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
-import type { MediaSingleProps } from '@atlaskit/editor-common/ui';
-import type { MediaClientConfig } from '@atlaskit/media-core';
-import type { MediaNextEditorPluginType } from '../../next-plugin-type';
-import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import type { getPosHandler } from '../../types';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { MediaSingleProps } from '@atlaskit/editor-common/ui';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { MediaClientConfig } from '@atlaskit/media-core';
+
+import type { MediaNextEditorPluginType } from '../../next-plugin-type';
+import type { getPosHandler } from '../../types';
 
 export type EnabledHandles = { left?: boolean; right?: boolean };
 

@@ -1,3 +1,15 @@
+import type {
+  BorderMarkAttributes,
+  RichMediaLayout,
+} from '@atlaskit/adf-schema';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import {
+  ACTION,
+  ACTION_SUBJECT,
+  ACTION_SUBJECT_ID,
+  EVENT_TYPE,
+} from '@atlaskit/editor-common/analytics';
+import type { Command } from '@atlaskit/editor-common/types';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import {
@@ -6,23 +18,11 @@ import {
   safeInsert,
 } from '@atlaskit/editor-prosemirror/utils';
 
-import type {
-  BorderMarkAttributes,
-  RichMediaLayout,
-} from '@atlaskit/adf-schema';
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import type { Command } from '@atlaskit/editor-common/types';
-import { getMediaInputResizeAnalyticsEvent } from '../utils/analytics';
 import type { PixelEntryValidation } from '../ui/PixelEntry/types';
-
-import {
-  ACTION,
-  ACTION_SUBJECT,
-  ACTION_SUBJECT_ID,
-  EVENT_TYPE,
-} from '@atlaskit/editor-common/analytics';
-import { removeMediaGroupNode, getSelectedMediaSingle } from './utils';
+import { getMediaInputResizeAnalyticsEvent } from '../utils/analytics';
 import { currentMediaNodeWithPos } from '../utils/current-media-node';
+
+import { getSelectedMediaSingle, removeMediaGroupNode } from './utils';
 
 export const DEFAULT_BORDER_COLOR = '#091e4224';
 export const DEFAULT_BORDER_SIZE = 2;

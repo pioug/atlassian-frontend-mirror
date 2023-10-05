@@ -1,22 +1,3 @@
-import {
-  getMaxWidthForNestedNodeNext,
-  getMediaSingleInitialWidth,
-  MEDIA_SINGLE_DEFAULT_MIN_PIXEL_WIDTH,
-  MEDIA_SINGLE_VIDEO_MIN_PIXEL_WIDTH,
-} from '@atlaskit/editor-common/media-single';
-import { checkNodeDown, isEmptyParagraph } from '@atlaskit/editor-common/utils';
-import type {
-  Node as PMNode,
-  Schema,
-} from '@atlaskit/editor-prosemirror/model';
-import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
-import type {
-  EditorState,
-  Transaction,
-} from '@atlaskit/editor-prosemirror/state';
-import { safeInsert as pmSafeInsert } from '@atlaskit/editor-prosemirror/utils';
-import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-
 import type {
   EditorAnalyticsAPI,
   InputMethodInsertMedia,
@@ -32,13 +13,32 @@ import {
   safeInsert,
   shouldSplitSelectedNodeOnNodeInsertion,
 } from '@atlaskit/editor-common/insert';
+import {
+  getMaxWidthForNestedNodeNext,
+  getMediaSingleInitialWidth,
+  MEDIA_SINGLE_DEFAULT_MIN_PIXEL_WIDTH,
+  MEDIA_SINGLE_VIDEO_MIN_PIXEL_WIDTH,
+} from '@atlaskit/editor-common/media-single';
+import { atTheBeginningOfBlock } from '@atlaskit/editor-common/selection';
 import type { Command } from '@atlaskit/editor-common/types';
+import { checkNodeDown, isEmptyParagraph } from '@atlaskit/editor-common/utils';
+import type { WidthPluginState } from '@atlaskit/editor-plugin-width';
+import type {
+  Node as PMNode,
+  Schema,
+} from '@atlaskit/editor-prosemirror/model';
+import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
+import type {
+  EditorState,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
+import { safeInsert as pmSafeInsert } from '@atlaskit/editor-prosemirror/utils';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+
 import type { MediaState } from '../types';
 import { copyOptionalAttrsFromMediaState } from '../utils/media-common';
 
-import { atTheBeginningOfBlock } from '@atlaskit/editor-common/selection';
-import type { WidthPluginState } from '@atlaskit/editor-plugin-width';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { isImage } from './is-image';
 
 export interface MediaSingleState extends MediaState {

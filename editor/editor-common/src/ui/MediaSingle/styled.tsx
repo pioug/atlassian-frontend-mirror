@@ -196,24 +196,23 @@ export const MediaSingleDimensionHelper = ({
     }
   }`}
 
-  &[class*='not-resizing'] {
-    ${isNestedNode
-      ? /* Make nested node appear responsives when resizing table cell */
-        `max-width: 100%;`
-      : `${
-          nonWrappedLayouts.includes(layout) &&
-          `margin-left: 50%;
-          transform: translateX(-50%);`
-        }`}
+  &:not(.is-resizing) {
+    transition: width 100ms ease-in;
   }
 
   float: ${float(layout)};
   margin: ${calcMargin(layout)};
-  ${isImageAligned(layout)};
 
-  &:not(.is-resizing) {
-    transition: width 100ms ease-in;
+  &[class*='not-resizing'] {
+    ${isNestedNode
+      ? /* Make nested node appear responsives when resizing table cell */
+        `max-width: 100%;`
+      : nonWrappedLayouts.includes(layout) &&
+        `margin-left: 50%;
+        transform: translateX(-50%);`}
   }
+
+  ${isImageAligned(layout)};
 `;
 
 export interface MediaWrapperProps {

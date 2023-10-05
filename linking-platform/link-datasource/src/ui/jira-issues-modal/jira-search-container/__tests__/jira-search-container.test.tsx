@@ -148,7 +148,7 @@ describe('JiraSearchContainer', () => {
 
     expect(mockOnSearch).toHaveBeenCalledWith(
       {
-        jql: '(text ~ "testing*" OR summary ~ "testing*") order by created DESC',
+        jql: 'text ~ "testing*" or summary ~ "testing*" ORDER BY created DESC',
       },
       'basic',
     );
@@ -176,7 +176,7 @@ describe('JiraSearchContainer', () => {
 
     act(() => {
       getLatestJQLEditorProps().onUpdate!(
-        '(text ~ "test*" OR summary ~ "test*") ORDER by status ASC',
+        'text ~ "test*" or summary ~ "test*" ORDER BY status ASC',
         {
           represents: '',
           errors: [],
@@ -195,7 +195,7 @@ describe('JiraSearchContainer', () => {
     fireEvent.click(getByTestId('mode-toggle-jql'));
 
     expect(getLatestJQLEditorProps().query).toEqual(
-      '(text ~ "testing*" OR summary ~ "testing*") order by status ASC',
+      'text ~ "testing*" or summary ~ "testing*" ORDER BY status ASC',
     );
   });
 
@@ -207,7 +207,7 @@ describe('JiraSearchContainer', () => {
 
     act(() => {
       getLatestJQLEditorProps().onUpdate!(
-        '(text ~ "test*" OR summary ~ "test*") order by fakeKey ASC',
+        'text ~ "test*" or summary ~ "test*" ORDER BY fakeKey ASC',
         {
           represents: '',
           errors: [],
@@ -225,7 +225,7 @@ describe('JiraSearchContainer', () => {
     fireEvent.click(getByTestId('mode-toggle-jql'));
 
     expect(getLatestJQLEditorProps().query).toEqual(
-      '(text ~ "testing*" OR summary ~ "testing*") order by created DESC',
+      'text ~ "testing*" or summary ~ "testing*" ORDER BY created DESC',
     );
   });
 
@@ -249,7 +249,7 @@ describe('JiraSearchContainer', () => {
     fireEvent.click(getByTestId('mode-toggle-jql'));
 
     expect(getLatestJQLEditorProps().query).toEqual(
-      'created >= -30d order by created DESC',
+      'created >= -30d ORDER BY created DESC',
     );
   });
 

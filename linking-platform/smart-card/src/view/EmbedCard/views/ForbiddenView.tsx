@@ -1,9 +1,10 @@
 import React, { FC } from 'react';
 import { EmbedCardUnresolvedView, ButtonProps } from './UnresolvedView';
-import { LockImage } from '../constants';
 import { ExpandedFrame } from '../components/ExpandedFrame';
 import { ImageIcon } from '../components/ImageIcon';
 import { ContextViewModel, RequestAccessContextProps } from '../types';
+import { getUnresolvedEmbedCardImage } from '../utils';
+import { di } from 'react-magnetic-di';
 
 export interface EmbedCardForbiddenViewProps {
   context?: ContextViewModel;
@@ -30,6 +31,8 @@ export const EmbedCardForbiddenView: FC<EmbedCardForbiddenViewProps> = ({
   onClick,
   requestAccessContext = {},
 }) => {
+  di(getUnresolvedEmbedCardImage);
+
   const icon = context && context.icon && (
     <ImageIcon
       src={typeof context.icon === 'string' ? context.icon : undefined}
@@ -72,7 +75,7 @@ export const EmbedCardForbiddenView: FC<EmbedCardForbiddenViewProps> = ({
       allowScrollBar={true}
     >
       <EmbedCardUnresolvedView
-        image={LockImage}
+        image={getUnresolvedEmbedCardImage('forbidden')}
         title="invalid_permissions"
         description={descriptionKey}
         context={context && context.text}

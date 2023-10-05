@@ -42,18 +42,18 @@ const sectionStyles = css({
   },
   // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   '& [data-ds--menu--heading-item]': {
-    marginTop: itemHeadingTopMargin,
-    marginBottom: itemHeadingBottomMargin,
+    marginBlockEnd: itemHeadingBottomMargin,
+    marginBlockStart: itemHeadingTopMargin,
     '&:first-of-type': {
-      marginTop: itemHeadingTopMargin - sectionPaddingTopBottom,
+      marginBlockStart: itemHeadingTopMargin - sectionPaddingTopBottom,
     },
   },
   // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   '& [data-ds--menu--skeleton-heading-item]': {
-    marginTop: skeletonHeadingTopMargin,
-    marginBottom: skeletonHeadingBottomMargin,
+    marginBlockEnd: skeletonHeadingBottomMargin,
+    marginBlockStart: skeletonHeadingTopMargin,
     '&:first-of-type': {
-      marginTop: skeletonHeadingTopMargin - sectionPaddingTopBottom,
+      marginBlockStart: skeletonHeadingTopMargin - sectionPaddingTopBottom,
     },
   },
   '&:focus': {
@@ -75,7 +75,7 @@ const unscrollableStyles = css({
 });
 
 const separatorStyles = css({
-  borderTop: `2px solid var(${VAR_SEPARATOR_COLOR}, ${token(
+  borderBlockStart: `2px solid var(${VAR_SEPARATOR_COLOR}, ${token(
     'color.border',
     N30A,
   )})`,
@@ -85,7 +85,7 @@ const noSeparatorStyles = css({
   // this is to ensure that adjacent sections without separators don't get additional margins.
   // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   '[data-section] + &': {
-    marginTop: -6,
+    marginBlockStart: -6,
   },
 });
 
@@ -119,7 +119,7 @@ const Section = forwardRef<HTMLElement, SectionProps>(
     ref,
   ) => {
     propDeprecationWarning(
-      process.env._PACKAGE_NAME_,
+      process.env._PACKAGE_NAME_ || '',
       'overrides',
       overrides !== undefined,
       '', // TODO: Create DAC post when primitives/xcss are available as alternatives

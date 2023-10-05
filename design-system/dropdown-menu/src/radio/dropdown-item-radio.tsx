@@ -20,17 +20,19 @@ import { DropdownItemRadioProps } from '../types';
  * - [Code](https://atlassian.design/components/dropdown-menu/dropdown-item-radio/code)
  * - [Usage](https://atlassian.design/components/dropdown-menu/dropdown-item-radio/usage)
  */
-const DropdownItemRadio = (props: DropdownItemRadioProps) => {
-  const {
-    id,
-    isSelected,
-    defaultSelected,
-    onClick: providedOnClick = noop,
-    shouldTitleWrap = true,
-    shouldDescriptionWrap = true,
-    ...rest
-  } = props;
-
+const DropdownItemRadio = ({
+  children,
+  defaultSelected,
+  testId,
+  id,
+  title,
+  description,
+  isDisabled,
+  isSelected,
+  onClick: providedOnClick = noop,
+  shouldDescriptionWrap = true,
+  shouldTitleWrap = true,
+}: DropdownItemRadioProps) => {
   if (
     typeof process !== 'undefined' &&
     process.env.NODE_ENV !== 'production' &&
@@ -62,22 +64,24 @@ const DropdownItemRadio = (props: DropdownItemRadioProps) => {
   return (
     <SELECTION_STYLE_CONTEXT_DO_NOT_USE.Provider value="none">
       <ButtonItem
-        id={id}
-        onClick={onClickHandler}
-        role={isVoiceOverSupported() ? 'radio' : 'menuitemradio'}
         aria-checked={selected}
-        shouldTitleWrap={shouldTitleWrap}
-        shouldDescriptionWrap={shouldDescriptionWrap}
+        children={children}
+        description={description}
         iconBefore={<RadioIcon checked={selected} />}
+        id={id}
+        isDisabled={isDisabled}
         isSelected={
           selected &&
           getBooleanFF(
             'platform.design-system-team.menu-selected-state-change_0see9',
           )
         }
+        onClick={onClickHandler}
         ref={itemRef}
-        // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-        {...rest}
+        role={isVoiceOverSupported() ? 'radio' : 'menuitemradio'}
+        shouldDescriptionWrap={shouldDescriptionWrap}
+        shouldTitleWrap={shouldTitleWrap}
+        testId={testId}
       />
     </SELECTION_STYLE_CONTEXT_DO_NOT_USE.Provider>
   );

@@ -1,19 +1,17 @@
-import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
-
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { getFreshMediaProvider } from '@atlaskit/editor-test-helpers/media-provider';
-
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { RefsNode } from '@atlaskit/editor-common/types';
+import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorInstanceWithPlugin } from '@atlaskit/editor-test-helpers/create-editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import type { RefsNode } from '@atlaskit/editor-common/types';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   doc,
   media,
   mediaGroup,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { getFreshMediaProvider } from '@atlaskit/editor-test-helpers/media-provider';
 import type { Schema } from '@atlaskit/editor-test-helpers/schema';
 
 describe('media scroll', () => {

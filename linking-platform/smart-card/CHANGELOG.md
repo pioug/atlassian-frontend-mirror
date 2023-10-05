@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 26.33.1
+
+### Patch Changes
+
+- [#40937](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40937) [`6c144f0cff6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c144f0cff6) - Unskipped embed card VR tests
+
 ## 26.33.0
 
 ### Minor Changes

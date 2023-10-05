@@ -1,14 +1,17 @@
 import React from 'react';
-import { ClipboardWrapper } from './ClipboardWrapper';
-import { DropzoneWrapper } from './DropzoneWrapper';
-import { BrowserWrapper } from './BrowserWrapper';
-import type { MediaPluginState } from '../../pm-plugins/types';
+
+import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type {
   EditorAppearance,
   ExtractInjectionAPI,
 } from '@atlaskit/editor-common/types';
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+
 import type { MediaNextEditorPluginType } from '../../next-plugin-type';
+import type { MediaPluginState } from '../../pm-plugins/types';
+
+import { BrowserWrapper } from './BrowserWrapper';
+import { ClipboardWrapper } from './ClipboardWrapper';
+import { DropzoneWrapper } from './DropzoneWrapper';
 
 type Props = {
   mediaState: MediaPluginState;

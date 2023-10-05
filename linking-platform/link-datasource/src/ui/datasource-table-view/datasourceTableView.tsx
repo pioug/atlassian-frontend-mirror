@@ -55,11 +55,10 @@ const DatasourceTableViewWithoutAnalytics = ({
       mechanism of initial loading. Use of ref here makes it basically work as a `componentDidUpdate` but not `componentDidMount`
    */
   const isInitialRender = useRef(true);
+  const hasColumns = !!columns.length;
   const isDataReady =
-    columns.length > 0 &&
-    responseItems.length > 0 &&
-    totalCount &&
-    totalCount > 0;
+    hasColumns && responseItems.length > 0 && totalCount && totalCount > 0;
+
   visibleColumnCount.current = visibleColumnKeys?.length || 0;
 
   useEffect(() => {
@@ -153,7 +152,7 @@ const DatasourceTableViewWithoutAnalytics = ({
   return (
     // datasource-table classname is to exclude all children from being commentable - exclude list is in CFE
     <div className="datasource-table">
-      {isDataReady ? (
+      {hasColumns ? (
         <IssueLikeDataTableView
           testId={'datasource-table-view'}
           hasNextPage={hasNextPage}

@@ -1,9 +1,10 @@
 import React, { FC } from 'react';
 import { EmbedCardUnresolvedView } from './UnresolvedView';
-import { NotFoundImage } from '../constants';
 import { ExpandedFrame } from '../components/ExpandedFrame';
 import { ImageIcon } from '../components/ImageIcon';
 import { ContextViewModel } from '../types';
+import { getUnresolvedEmbedCardImage } from '../utils';
+import { di } from 'react-magnetic-di';
 
 export interface EmbedCardNotFoundViewProps {
   context?: ContextViewModel;
@@ -26,6 +27,8 @@ export const EmbedCardNotFoundView: FC<EmbedCardNotFoundViewProps> = ({
   testId = 'embed-card-not-found-view',
   onClick,
 }) => {
+  di(getUnresolvedEmbedCardImage);
+
   const icon = context && context.icon && (
     <ImageIcon
       src={typeof context.icon === 'string' ? context.icon : undefined}
@@ -44,7 +47,7 @@ export const EmbedCardNotFoundView: FC<EmbedCardNotFoundViewProps> = ({
       allowScrollBar={true}
     >
       <EmbedCardUnresolvedView
-        image={NotFoundImage}
+        image={getUnresolvedEmbedCardImage('notFound')}
         title="not_found_title"
         description="not_found_description"
         context={context && context.text}

@@ -1,12 +1,14 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+
+import { fireEvent, render, screen } from '@testing-library/react';
 import type { IntlShape } from 'react-intl-next';
 import { IntlProvider } from 'react-intl-next';
+
+import { ReactEditorViewContext } from '@atlaskit/editor-common/ui-react';
 
 import type { ImageBorderProps } from '../../index';
 import ImageBorder from '../../index';
 import { messages } from '../../messages';
-import { ReactEditorViewContext } from '@atlaskit/editor-common/ui-react';
 
 const intlMock = {
   formatMessage: (messageDescriptor: any) =>

@@ -1,28 +1,25 @@
 /** @jsx jsx */
-import { token } from '@atlaskit/tokens';
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
+
 import { css, jsx } from '@emotion/react';
 import type { IntlShape } from 'react-intl-next';
-import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 
-import LinkIcon from '@atlaskit/icon/glyph/editor/link';
-import OpenIcon from '@atlaskit/icon/glyph/shortcut';
 import { isSafeUrl } from '@atlaskit/adf-schema';
-
-import { checkMediaType } from '../utils/check-media-type';
-import type { MediaLinkingState } from '../pm-plugins/linking';
-
-import { FloatingToolbarButton as ToolbarButton } from '@atlaskit/editor-common/ui';
-
-import { FloatingToolbarSeparator as Separator } from '@atlaskit/editor-common/ui';
-
+import { addLink, ToolTipContent } from '@atlaskit/editor-common/keymaps';
 import {
   linkMessages,
   linkToolbarMessages,
 } from '@atlaskit/editor-common/messages';
+import { FloatingToolbarButton as ToolbarButton } from '@atlaskit/editor-common/ui';
+import { FloatingToolbarSeparator as Separator } from '@atlaskit/editor-common/ui';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import LinkIcon from '@atlaskit/icon/glyph/editor/link';
+import OpenIcon from '@atlaskit/icon/glyph/shortcut';
+import { token } from '@atlaskit/tokens';
 
-import { ToolTipContent, addLink } from '@atlaskit/editor-common/keymaps';
+import type { MediaLinkingState } from '../pm-plugins/linking';
 import { stateKey } from '../pm-plugins/plugin-key';
+import { checkMediaType } from '../utils/check-media-type';
 import { currentMediaNode } from '../utils/current-media-node';
 
 export interface LinkingToolbarProps {

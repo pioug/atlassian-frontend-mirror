@@ -476,7 +476,7 @@ export const IssueLikeDataTableView = ({
                 );
               }
             })}
-            {onVisibleColumnKeysChange && hasData && (
+            {onVisibleColumnKeysChange && (
               <ColumnPickerHeader>
                 <ColumnPicker
                   columns={hasFullSchema ? orderedColumns : []}

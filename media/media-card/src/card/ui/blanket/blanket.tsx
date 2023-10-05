@@ -10,5 +10,11 @@ export interface BlanketProps {
 export const Blanket = (props: BlanketProps) => {
   const { isFixed } = props;
 
-  return <div css={blanketStyles(isFixed)} className={blanketClassName} />;
+  return (
+    <div
+      css={blanketStyles(isFixed)}
+      className={blanketClassName}
+      data-testid="media-card-blanket"
+    />
+  );
 };

@@ -1,26 +1,35 @@
 /** @jsx jsx */
 import React from 'react';
+
 import { jsx } from '@emotion/react';
-import { findParentNodeOfTypeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
+import classnames from 'classnames';
+import throttle from 'lodash/throttle';
+import memoizeOne from 'memoize-one';
+
 import type { RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
-import type { MediaClientConfig } from '@atlaskit/media-core';
 import {
-  calcPctFromPx,
-  wrappedLayouts,
-  handleSides,
-  imageAlignmentMap,
-} from '@atlaskit/editor-common/ui';
+  findClosestSnap,
+  generateDefaultGuidelines,
+  generateDynamicGuidelines,
+  getGuidelineSnaps,
+  getGuidelinesWithHighlights,
+  getGuidelineTypeFromKey,
+  getRelativeGuidelines,
+  getRelativeGuideSnaps,
+} from '@atlaskit/editor-common/guideline';
+import type {
+  GuidelineConfig,
+  GuidelineSnapsReference,
+  RelativeGuides,
+} from '@atlaskit/editor-common/guideline';
 import {
-  nonWrappedLayouts,
-  setNodeSelection,
-} from '@atlaskit/editor-common/utils';
-import {
-  akEditorFullWidthLayoutWidth,
-  akEditorGutterPadding,
-  akEditorDefaultLayoutWidth,
-} from '@atlaskit/editor-shared-styles';
-import { wrapperStyle } from './styled';
-import type { Props, EnabledHandles } from './types';
+  calcMediaSingleMaxWidth,
+  DEFAULT_IMAGE_WIDTH,
+  MEDIA_SINGLE_DEFAULT_MIN_PIXEL_WIDTH,
+  MEDIA_SINGLE_RESIZE_THROTTLE_TIME,
+  MEDIA_SINGLE_SNAP_GAP,
+  MEDIA_SINGLE_VIDEO_MIN_PIXEL_WIDTH,
+} from '@atlaskit/editor-common/media-single';
 import type {
   Dimensions,
   HandleResize,
@@ -29,43 +38,38 @@ import type {
   Snap,
 } from '@atlaskit/editor-common/resizer';
 import { ResizerNext } from '@atlaskit/editor-common/resizer';
-import classnames from 'classnames';
 import {
-  richMediaClassName,
   resizerStyles,
+  richMediaClassName,
 } from '@atlaskit/editor-common/styles';
 import {
-  MEDIA_SINGLE_DEFAULT_MIN_PIXEL_WIDTH,
-  MEDIA_SINGLE_VIDEO_MIN_PIXEL_WIDTH,
-  MEDIA_SINGLE_SNAP_GAP,
-  MEDIA_SINGLE_RESIZE_THROTTLE_TIME,
-  DEFAULT_IMAGE_WIDTH,
-  calcMediaSingleMaxWidth,
-} from '@atlaskit/editor-common/media-single';
+  calcPctFromPx,
+  handleSides,
+  imageAlignmentMap,
+  wrappedLayouts,
+} from '@atlaskit/editor-common/ui';
 import {
-  findClosestSnap,
-  getGuidelinesWithHighlights,
-  generateDefaultGuidelines,
-  generateDynamicGuidelines,
-  getGuidelineSnaps,
-  getGuidelineTypeFromKey,
-  getRelativeGuideSnaps,
-  getRelativeGuidelines,
-} from '@atlaskit/editor-common/guideline';
-import type {
-  GuidelineConfig,
-  RelativeGuides,
-  GuidelineSnapsReference,
-} from '@atlaskit/editor-common/guideline';
-import memoizeOne from 'memoize-one';
-import { getMediaResizeAnalyticsEvent } from '../../utils/analytics';
-import throttle from 'lodash/throttle';
+  nonWrappedLayouts,
+  setNodeSelection,
+} from '@atlaskit/editor-common/utils';
+import { findParentNodeOfTypeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
+import {
+  akEditorDefaultLayoutWidth,
+  akEditorFullWidthLayoutWidth,
+  akEditorGutterPadding,
+} from '@atlaskit/editor-shared-styles';
+import type { MediaClientConfig } from '@atlaskit/media-core';
+
 import {
   MEDIA_PLUGIN_IS_RESIZING_KEY,
   MEDIA_PLUGIN_RESIZING_WIDTH_KEY,
 } from '../../pm-plugins/main';
-import { ResizableMediaMigrationNotification } from './ResizableMediaMigrationNotification';
+import { getMediaResizeAnalyticsEvent } from '../../utils/analytics';
 import { checkMediaType } from '../../utils/check-media-type';
+
+import { ResizableMediaMigrationNotification } from './ResizableMediaMigrationNotification';
+import { wrapperStyle } from './styled';
+import type { EnabledHandles, Props } from './types';
 
 type State = {
   isVideoFile: boolean;

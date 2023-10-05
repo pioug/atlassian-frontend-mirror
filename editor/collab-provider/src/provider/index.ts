@@ -177,6 +177,11 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
     this.channel
       .on('connected', ({ sid, initialized }) => {
         this.sessionId = sid;
+        this.emit('connected', {
+          sid,
+          initial: !initialized,
+        });
+
         // if buffering is enabled and the provider is initialized before connection,
         // send any unconfirmed steps
         if (
@@ -187,10 +192,6 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
           this.isBuffered = true; // setting buffering to true so that the sending of unconfirmed steps happens only on first connection
           this.documentService.sendStepsFromCurrentState();
         }
-        this.emit('connected', {
-          sid,
-          initial: !initialized,
-        });
 
         // Early initialization with initial draft passed via provider
         if (this.initialDraft && initialized && !this.isProviderInitialized) {

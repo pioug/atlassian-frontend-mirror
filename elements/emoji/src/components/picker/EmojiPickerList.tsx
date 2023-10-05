@@ -425,7 +425,7 @@ export default class EmojiPickerVirtualListInternal extends PureComponent<
   private findCategoryToActivate = (
     row: VirtualItem<CategoryHeadingProps | EmojiRowProps | {}>,
   ) => {
-    let category = null;
+    let category: CategoryGroupKey | null = null;
     if (row instanceof CategoryHeadingItem) {
       category = row.props.id;
     } else if (row instanceof EmojisRowItem) {

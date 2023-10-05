@@ -37,14 +37,13 @@ const skeletonStyles = css({
   pointerEvents: 'none',
   '::after': {
     height: skeletonContentHeight,
-    // This is a little bespoke but we need to push everything down 1px
-    // because the skeleton content should align to the bottom of the text.
-    // Confirm VR test failures before accepting a change.
-    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-    marginTop: 1,
     backgroundColor: skeletonColor,
     borderRadius: skeletonTextBorderRadius,
     content: '""',
+    // This is a little bespoke but we need to push everything down 1px
+    // because the skeleton content should align to the bottom of the text.
+    // Confirm VR test failures before accepting a change.
+    marginBlockStart: 1,
   },
 });
 
@@ -79,13 +78,11 @@ const beforeElementStyles = css({
   '::before': {
     width: skeletonItemElemSize,
     height: skeletonItemElemSize,
-    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-    marginRight: itemElemSpacing + itemElemSkeletonOffset,
-    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-    marginLeft: itemElemSkeletonOffset,
     flexShrink: 0,
     backgroundColor: skeletonColor,
     content: '""',
+    marginInlineEnd: itemElemSpacing + itemElemSkeletonOffset,
+    marginInlineStart: token('space.025', '2px'),
   },
 });
 
@@ -118,7 +115,7 @@ const SkeletonItem = ({
   cssFn = noop as any,
 }: SkeletonItemProps) => {
   propDeprecationWarning(
-    process.env._PACKAGE_NAME_,
+    process.env._PACKAGE_NAME_ || '',
     'cssFn',
     cssFn !== (noop as any),
     '', // TODO: Create DAC post when primitives/xcss are available as alternatives

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/help",
-  "version": "7.2.8",
+  "version": "7.2.9",
   "description": "A cross-product help component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

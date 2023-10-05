@@ -1,38 +1,41 @@
 import {
-  isMediaNode,
-  replaceExternalMedia,
-  updateMediaSingleNodeAttrs,
-  updateCurrentMediaNodeAttrs,
-} from '../../../helpers';
-import {
-  defaultSchema as schema,
   defaultSchema,
+  defaultSchema as schema,
 } from '@atlaskit/adf-schema/schema-default';
-import { stateKey as mediaPluginKey } from '../../../../pm-plugins/plugin-key';
-import type { MediaPluginState } from '../../../../pm-plugins/types';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type {
+  CommandDispatch,
+  DocBuilder,
+} from '@atlaskit/editor-common/types';
+import { EditorState, NodeSelection } from '@atlaskit/editor-prosemirror/state';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import type { DocBuilder } from '@atlaskit/editor-common/types';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   doc,
-  p,
   media,
+  mediaGroup,
   mediaInline,
   mediaSingle,
-  mediaGroup,
+  p,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   getFreshMediaProvider,
   temporaryFileId,
   testCollectionName,
 } from '@atlaskit/editor-test-helpers/media-provider';
-import { EditorState, NodeSelection } from '@atlaskit/editor-prosemirror/state';
-import type { CommandDispatch } from '@atlaskit/editor-common/types';
+
+import { stateKey as mediaPluginKey } from '../../../../pm-plugins/plugin-key';
+import type { MediaPluginState } from '../../../../pm-plugins/types';
+import {
+  isMediaNode,
+  replaceExternalMedia,
+  updateCurrentMediaNodeAttrs,
+  updateMediaSingleNodeAttrs,
+} from '../../../helpers';
 
 describe('media -> commands -> helpers.ts', () => {
   const mediaProvider = getFreshMediaProvider();

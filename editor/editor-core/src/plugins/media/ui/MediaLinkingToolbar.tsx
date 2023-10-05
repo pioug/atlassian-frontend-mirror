@@ -1,18 +1,10 @@
 /** @jsx jsx */
 import React, { Fragment } from 'react';
-import { css, jsx } from '@emotion/react';
-import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { ErrorMessage } from '@atlaskit/editor-common/ui';
-import ChevronLeftLargeIcon from '@atlaskit/icon/glyph/chevron-left-large';
-import EditorUnlinkIcon from '@atlaskit/icon/glyph/editor/unlink';
-// Common Translations will live here
-import type { IntlShape, WrappedComponentProps } from 'react-intl-next';
-import { PanelTextInput } from '@atlaskit/editor-common/ui';
-import {
-  FloatingToolbarButton as Button,
-  FloatingToolbarSeparator as Separator,
-} from '@atlaskit/editor-common/ui';
 
+import { css, jsx } from '@emotion/react';
+import type { IntlShape, WrappedComponentProps } from 'react-intl-next';
+
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type {
   ChildProps,
   RecentSearchInputTypes,
@@ -25,12 +17,21 @@ import {
   RecentSearch,
 } from '@atlaskit/editor-common/link';
 import { linkToolbarMessages } from '@atlaskit/editor-common/messages';
-
+import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import { ErrorMessage } from '@atlaskit/editor-common/ui';
+// Common Translations will live here
+import { PanelTextInput } from '@atlaskit/editor-common/ui';
+import {
+  FloatingToolbarButton as Button,
+  FloatingToolbarSeparator as Separator,
+} from '@atlaskit/editor-common/ui';
 import { normalizeUrl } from '@atlaskit/editor-common/utils';
+import ChevronLeftLargeIcon from '@atlaskit/icon/glyph/chevron-left-large';
+import EditorUnlinkIcon from '@atlaskit/icon/glyph/editor/unlink';
 import { R400 } from '@atlaskit/theme/colors';
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import { mediaLinkToolbarMessages } from './media-linking-toolbar-messages';
 import { token } from '@atlaskit/tokens';
+
+import { mediaLinkToolbarMessages } from './media-linking-toolbar-messages';
 
 export type Props = {
   intl: IntlShape;

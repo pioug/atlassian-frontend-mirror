@@ -19,6 +19,13 @@ import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import type { OptionalPlugin } from '@atlaskit/editor-common/types';
 import type { QuickInsertPlugin } from '@atlaskit/editor-plugin-quick-insert';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+
+// @public (undocumented)
+export const deprecatedOpenHelpCommand: (
+  tr: Transaction,
+  dispatch?: Function,
+) => boolean;
 
 // @public (undocumented)
 export type HelpDialogPlugin = NextEditorPlugin<
@@ -32,6 +39,9 @@ export type HelpDialogPlugin = NextEditorPlugin<
     sharedState: HelpDialogSharedState | null;
   }
 >;
+
+// @public (undocumented)
+export const helpDialogPlugin: HelpDialogPlugin;
 
 // @public (undocumented)
 export interface HelpDialogSharedState {

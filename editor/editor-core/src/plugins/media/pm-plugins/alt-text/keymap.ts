@@ -1,13 +1,14 @@
-import { keymap } from '@atlaskit/editor-prosemirror/keymap';
-import type { Schema } from '@atlaskit/editor-prosemirror/model';
-import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
-  bindKeymapWithCommand,
   addAltText,
+  bindKeymapWithCommand,
   escape,
 } from '@atlaskit/editor-common/keymaps';
-import { openMediaAltTextMenu, closeMediaAltTextMenu } from './commands';
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { keymap } from '@atlaskit/editor-prosemirror/keymap';
+import type { Schema } from '@atlaskit/editor-prosemirror/model';
+
+import { closeMediaAltTextMenu, openMediaAltTextMenu } from './commands';
 
 export default function keymapPlugin(
   schema: Schema,

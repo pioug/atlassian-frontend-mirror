@@ -23,6 +23,7 @@ export interface LinkingPlatformFeatureFlags {
   useLinkPickerAtlassianTabs?: boolean;
   /**
    * Enable forge providers tabs in products
+   * @deprecated Feature flag rollout abandoned FD-40224
    */
   enableLinkPickerForgeTabs?: boolean;
   /**

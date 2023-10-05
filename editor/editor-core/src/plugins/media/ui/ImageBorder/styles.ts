@@ -1,10 +1,11 @@
 import { css } from '@emotion/react';
-import { token } from '@atlaskit/tokens';
-import * as colors from '@atlaskit/theme/colors';
+
 import { DEFAULT_BORDER_COLOR } from '@atlaskit/editor-common/ui-color';
-import { N20A, N50, N60A, N90, N800, N0 } from '@atlaskit/theme/colors';
+import * as colors from '@atlaskit/theme/colors';
+import { N0, N20A, N50, N60A, N800, N90 } from '@atlaskit/theme/colors';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { gridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 // menuItemDimensions and itemSpacing are copied from
 // packages/editor/editor-core/src/plugins/floating-toolbar/ui/DropdownMenu.tsx
@@ -22,7 +23,7 @@ export const contextualMenuArrow = css`
   display: flex;
   &::after {
     content: '›';
-    margin-left: 4px;
+    margin-left: ${token('space.050', '4px')};
     line-height: 20px;
     color: ${token('color.icon', N90)};
   }
@@ -52,7 +53,7 @@ export const contextualSubMenu = (index: number) => css`
   position: absolute;
   top: ${index * (menuItemDimensions.height + itemSpacing * 2)}px;
   left: ${menuItemDimensions.width}px;
-  padding: 8px;
+  padding: ${token('space.100', '8px')};
 
   > div {
     padding: 0;

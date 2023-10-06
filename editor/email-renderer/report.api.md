@@ -16,8 +16,8 @@
 
 ```ts
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
-import { Mark } from '@atlaskit/editor-prosemirror/model';
-import { Node as Node_2 } from '@atlaskit/editor-prosemirror/model';
+import type { Mark } from '@atlaskit/editor-prosemirror/model';
+import type { Node as Node_2 } from '@atlaskit/editor-prosemirror/model';
 import { Schema } from '@atlaskit/editor-prosemirror/model';
 
 // @public (undocumented)
@@ -74,6 +74,8 @@ export type MarkSerializer = (opts: MarkSerializerOpts) => string;
 // @public (undocumented)
 export interface MarkSerializerOpts {
   // (undocumented)
+  context?: any;
+  // (undocumented)
   mark: Mark;
   // (undocumented)
   text: string;
@@ -115,6 +117,8 @@ export type MediaType =
 
 // @public (undocumented)
 export interface MetaDataContext {
+  // (undocumented)
+  baseURL?: string;
   // (undocumented)
   conversion?: {
     inlineCardConversion?: {

@@ -166,7 +166,7 @@ export const knownVariables: Record<string, string[]> = {
   '--jpo-border-secondary-color': ['border', 'subtle'],
 };
 
-export const knownColors: Record<string, string[]> = {
+export const knownNamedColors: Record<string, string[]> = {
   aliceblue: ['blue'],
   antiquewhite: [],
   aqua: ['teal'],
@@ -186,7 +186,7 @@ export const knownColors: Record<string, string[]> = {
   coral: [],
   cornflowerblue: ['blue'],
   cornsilk: [],
-  crimson: ['accent', 'red'],
+  crimson: ['red'],
   cyan: ['accent', 'teal', 'subtle'],
   darkblue: ['accent', 'blue', 'bold'],
   darkcyan: ['accent', 'teal', 'bold'],
@@ -240,11 +240,11 @@ export const knownColors: Record<string, string[]> = {
   lightgoldenrodyellow: [],
   lightgray: [],
   lightgrey: [],
-  lightgreen: ['green'],
+  lightgreen: ['green', 'accent'],
   lightpink: ['magenta'],
   lightsalmon: ['pink', 'subtler'],
   lightseagreen: ['green'],
-  lightskyblue: ['blue'],
+  lightskyblue: ['blue', 'accent'],
   lightslategray: [],
   lightslategrey: [],
   lightsteelblue: ['blue'],
@@ -286,7 +286,8 @@ export const knownColors: Record<string, string[]> = {
   plum: [],
   powderblue: ['blue', 'subtle'],
   purple: ['purple'],
-  red: ['accent', 'red', 'subtle'],
+  rebeccapurple: ['purple', 'accent'],
+  red: ['red', 'accent'],
   rosybrown: [],
   royalblue: [],
   saddlebrown: [],
@@ -317,10 +318,9 @@ export const knownColors: Record<string, string[]> = {
 };
 
 export const knownRawColors: Record<string, string[]> = {
-  '#000000': ['text'],
-  '#cccccc': ['border'],
-  '#aaaaaa': ['border'],
-  '#bbbbbb': ['border'],
+  '#cccccc': ['gray'],
+  '#aaaaaa': ['gray', 'subtlest'],
+  '#bbbbbb': ['gray', 'subtle'],
   '#ffffff': ['elevation', 'surface'],
   '#f0f0f0': ['elevation', 'surface'],
   '#eeeeee': ['elevation', 'surface', 'sunken'],
@@ -329,7 +329,6 @@ export const knownRawColors: Record<string, string[]> = {
   '#c00c00': ['danger'],
   '#5243aa': ['discovery'],
   '#ffc712': ['warning'],
-  '#292929': ['text'],
   '#00f00f': ['brand'],
   '#3b73af': ['brand'],
   '#326ca6': ['brand'],

@@ -1,6 +1,6 @@
 import { applyMarks } from '../apply-marks';
-import { NodeSerializerOpts } from '../interfaces';
+import type { NodeSerializerOpts } from '../interfaces';
 
-export default function text({ marks, text }: NodeSerializerOpts) {
-  return applyMarks(marks, text!);
+export default function text({ marks, text, context }: NodeSerializerOpts) {
+  return applyMarks(marks, text!, context);
 }

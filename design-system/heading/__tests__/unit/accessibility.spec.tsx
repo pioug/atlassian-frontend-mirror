@@ -15,6 +15,16 @@ it('Basic Heading should not fail aXe audit', async () => {
   await axe(container);
 });
 
+it('Basic Heading should not fail aXe audit if level only is applied', async () => {
+  const { container } = render(
+    <>
+      <Heading level="h500">h500</Heading>
+      <Heading level="h500">h500</Heading>
+    </>,
+  );
+  await axe(container);
+});
+
 it('Basic level is correct', async () => {
   const { container } = render(
     <Heading as="div" level="h500" color="inverse">
@@ -24,7 +34,7 @@ it('Basic level is correct', async () => {
   await axe(container);
 });
 
-it('Basic varaint is correct', async () => {
+it('Basic variant is correct', async () => {
   const { container } = render(
     <Heading as="div" variant="xxlarge" color="inverse">
       inverse

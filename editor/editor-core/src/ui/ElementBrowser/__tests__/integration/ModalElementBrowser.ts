@@ -48,6 +48,7 @@ BrowserTestCase(
   'should add only the highlighted component when using keyboard',
   { skip: ['safari'] },
   async (client: any, testName: string) => {
+    const expandSelector = '.ak-editor-expand__title-container';
     const page = await goToFullPageWithXExtensions(client);
     await page.click(toolbarMenuItemsSelectors[ToolbarMenuItem.insertMenu]);
     await page.waitForSelector(elementBrowserSelectors.elementBrowser);
@@ -61,6 +62,8 @@ BrowserTestCase(
     await page.keys(['Tab']);
     await page.keys(['Tab']);
     await page.keys(['Enter']);
+
+    await page.waitForSelector(expandSelector);
 
     const doc = await page.$eval(editable, getDocFromElement);
     expect(doc).toMatchCustomDocSnapshot(testName);

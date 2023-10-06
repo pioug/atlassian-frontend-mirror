@@ -1,5 +1,17 @@
 # @atlaskit/link-analytics
 
+## 8.3.5
+
+### Patch Changes
+
+- [#41199](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41199) [`33844c6d074`](https://bitbucket.org/atlassian/atlassian-frontend/commits/33844c6d074) - Add ts-ignore for mock functions to pass typecheck
+
+## 8.3.4
+
+### Patch Changes
+
+- [#40908](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40908) [`c229318d297`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c229318d297) - Add new event for jira datasource inserts
+
 ## 8.3.3
 
 ### Patch Changes

@@ -78,6 +78,7 @@ describe('Quick Insert', () => {
       };
 
       modalProps.onInsertItem(item);
+      modalProps.onCloseComplete();
 
       expect(insertItem).toHaveBeenCalledWith(item);
       expect(closeElementBrowserModal).toHaveBeenCalledTimes(1);

@@ -28,7 +28,7 @@ import type {
   shouldUpdate,
 } from './types';
 
-export type { getPosHandler, ReactComponentProps, shouldUpdate };
+export type { getPosHandler, ReactComponentProps, shouldUpdate, ForwardRef };
 export type { InlineNodeViewComponentProps } from './getInlineNodeViewProducer';
 export {
   getInlineNodeViewProducer,

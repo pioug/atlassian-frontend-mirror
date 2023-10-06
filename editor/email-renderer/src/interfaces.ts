@@ -1,4 +1,4 @@
-import { Mark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { Mark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 export type NodeSerializer = (opts: NodeSerializerOpts) => string;
 export type MarkSerializer = (opts: MarkSerializerOpts) => string;
@@ -18,6 +18,7 @@ export interface NodeSerializerOpts {
 export interface MarkSerializerOpts {
   mark: Mark;
   text: string;
+  context?: any;
 }
 
 export interface SmartCardWithUrlAttributes {
@@ -60,6 +61,7 @@ export interface MediaMetaDataContextItem {
   size: number;
 }
 export interface MetaDataContext {
+  baseURL?: string;
   conversion?: {
     inlineCardConversion?: { [key: string]: string };
   };

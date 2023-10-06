@@ -114,6 +114,14 @@ events:
             The inputMethod that caused the link to be deleted.
         <<: [*ExternalContext, *ResolvedAttributes, *LifecycleEventAttributes]
 
+  - macro inserted:
+      type: track
+      description: fires when a macro is inserted, initially used for jira datasource
+      attributes:
+        creationMethod:
+          type: string
+        <<: [*ExternalContext, *ResolvedAttributes, *LifecycleEventAttributes]
+
   - datasource created:
       type: track
       description: fired when a datasource is created

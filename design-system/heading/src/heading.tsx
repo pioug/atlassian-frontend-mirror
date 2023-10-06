@@ -3,7 +3,7 @@ import { css, jsx } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
-import { useHeadingElement } from './heading-context';
+import { useHeading } from './heading-context';
 import NewHeading from './heading.partial';
 import type { HeadingProps } from './types';
 
@@ -130,25 +130,17 @@ const Heading = ({
     throw new Error('`as` prop should be a string.');
   }
 
-  const hLevel = useHeadingElement();
-  /**
-   * Order here is important, we for now apply
-   * 1. user choice
-   * 2. inferred a11y level
-   * 3. default final fallback
-   */
-  const Markup =
-    as ||
-    (hLevel && (hLevel > 6 ? 'div' : `h${hLevel as 1 | 2 | 3 | 4 | 5 | 6}`)) ||
-    levelMap[level!];
+  const [hLevel, inferredElement] = useHeading(levelMap[level!]);
+  const Markup = as || inferredElement;
   const isSubtleHeading = level === 'h200' || level === 'h100';
+  const needsAriaRole = Markup === 'div' && hLevel;
 
   return (
     <Markup
       id={id}
       data-testid={testId}
-      role={Markup === 'div' ? 'heading' : undefined}
-      aria-level={Markup === 'div' ? hLevel : undefined}
+      role={needsAriaRole ? 'heading' : undefined}
+      aria-level={needsAriaRole ? hLevel : undefined}
       css={[
         headingResetStyles,
         level === 'h100' && h100Styles,

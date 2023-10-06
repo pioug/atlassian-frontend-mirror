@@ -313,19 +313,36 @@ export const OverflowShadow = (props: ThemeProps) => css`
   }
 `;
 
-const columnHeaderButton = (props: ThemeProps, cssString?: string) => css`
-  background: ${tableHeaderCellBackgroundColor(props)};
-  border: 1px solid ${tableBorderColor(props)};
-  display: block;
-  box-sizing: border-box;
-  padding: 0;
+const columnHeaderButton = (props: ThemeProps, cssString?: string) => {
+  if (getBooleanFF('platform.editor.table.column-controls-styles-updated')) {
+    return css`
+      background: ${tableHeaderCellBackgroundColor(props)};
+      display: block;
+      box-sizing: border-box;
+      padding: 0;
 
-  :focus {
-    outline: none;
+      :focus {
+        outline: none;
+      }
+
+      ${cssString}
+    `;
+  } else {
+    return css`
+      background: ${tableHeaderCellBackgroundColor(props)};
+      border: 1px solid ${tableBorderColor(props)};
+      display: block;
+      box-sizing: border-box;
+      padding: 0;
+
+      :focus {
+        outline: none;
+      }
+
+      ${cssString}
+    `;
   }
-
-  ${cssString}
-`;
+};
 
 const columnHeaderButtonSelected = (props: ThemeProps) => css`
   color: ${token('color.text.inverse', N0)};
@@ -357,37 +374,163 @@ const getFloatingDotOverrides = (props: ThemeProps) => {
     : '';
 };
 
-export const columnControlsDecoration = (props: ThemeProps) => css`
-  .${ClassName.COLUMN_CONTROLS_DECORATIONS} {
-    display: none;
-    cursor: pointer;
-    position: absolute;
-    width: calc(100% + ${tableCellBorderWidth * 2}px);
-    left: -1px;
-    top: -${columnControlsDecorationHeight + tableCellBorderWidth}px;
-    height: ${columnControlsDecorationHeight}px;
-    // floating dot for adding column button
-    &::before {
-      content: ' ';
-      background-color: ${tableBorderColor(props)};
-      position: absolute;
-      height: ${lineMarkerSize}px;
-      width: ${lineMarkerSize}px;
-      border-radius: 50%;
-      pointer-events: none;
-      top: 2px;
-      right: -1px;
-    }
+export const columnControlsDecoration = (props: ThemeProps) => {
+  if (getBooleanFF('platform.editor.table.column-controls-styles-updated')) {
+    return css`
+      .${ClassName.COLUMN_CONTROLS_DECORATIONS} {
+        display: none;
+        cursor: pointer;
+        position: absolute;
+        width: 100%;
+        left: 0;
+        top: -${columnControlsDecorationHeight + tableCellBorderWidth}px;
+        height: ${columnControlsDecorationHeight}px;
+        // floating dot for adding column button
+        &::before {
+          content: ' ';
+          background-color: ${tableBorderColor(props)};
+          position: absolute;
+          height: ${lineMarkerSize}px;
+          width: ${lineMarkerSize}px;
+          border-radius: 50%;
+          pointer-events: none;
+          top: 2px;
+          right: -1px;
+        }
 
-    &::after {
-      content: ' ';
+        &::after {
+          content: ' ';
 
-      ${columnHeaderButton(
-        props,
-        `
+          ${columnHeaderButton(
+            props,
+            `
         border-right: ${tableCellBorderWidth}px solid ${tableBorderColor(
-          props,
-        )};
+              props,
+            )};
+        border-top: ${tableCellBorderWidth}px solid ${tableBorderColor(props)};
+        border-bottom: ${tableCellBorderWidth}px solid ${tableBorderColor(
+              props,
+            )};
+        box-sizing: content-box;
+        height: ${tableToolbarSize - 1}px;
+        width: 100%;
+        position: absolute;
+        top: ${columnControlsDecorationHeight - tableToolbarSize}px;
+        left: 0px;
+        z-index: ${columnControlsZIndex};
+      `,
+          )}
+        }
+      }
+
+      // floating dot for adding column button - overriding style on last column to avoid scroll
+      ${getFloatingDotOverrides(props)}
+
+      div.${ClassName.WITH_CONTROLS}>.${ClassName.ROW_CONTROLS_WRAPPER}::after {
+        content: ' ';
+        background-color: ${tableBorderColor(props)};
+        position: absolute;
+        height: ${lineMarkerSize}px;
+        width: ${lineMarkerSize}px;
+        border-radius: 50%;
+        pointer-events: none;
+        top: -${tableToolbarSize + tableCellBorderWidth}px;
+        right: -1px;
+      }
+
+      .${ClassName.WITH_CONTROLS} .${ClassName.COLUMN_CONTROLS_DECORATIONS} {
+        display: block;
+      }
+
+      table tr:first-of-type th.${ClassName.TABLE_HEADER_CELL} {
+        &.${ClassName.COLUMN_SELECTED}, &.${ClassName.HOVERED_TABLE} {
+          .${ClassName.COLUMN_CONTROLS_DECORATIONS}::after {
+            ${columnHeaderButtonSelected(props)};
+          }
+
+          &.${ClassName.HOVERED_CELL_IN_DANGER}
+            .${ClassName.COLUMN_CONTROLS_DECORATIONS}::after {
+            background-color: ${tableToolbarDeleteColor(props)};
+            border-color: ${tableBorderDeleteColor(props)};
+            z-index: ${akEditorUnitZIndex * 100};
+          }
+        }
+      }
+
+      table tr:first-of-type th.${ClassName.TABLE_HEADER_CELL} {
+        &.${ClassName.COLUMN_SELECTED}, &.${ClassName.HOVERED_COLUMN} {
+          .${ClassName.COLUMN_CONTROLS_DECORATIONS}::after {
+            ${columnHeaderButtonSelected(props)};
+            border-left: ${tableCellBorderWidth}px solid
+              ${tableBorderSelectedColor(props)};
+            left: -${tableCellBorderWidth}px;
+          }
+        }
+      }
+
+      table tr:first-of-type th.${ClassName.TABLE_HEADER_CELL} {
+        &.${ClassName.HOVERED_COLUMN} {
+          .${ClassName.COLUMN_CONTROLS_DECORATIONS}::after {
+            ${columnHeaderButtonSelected(props)};
+          }
+
+          &.${ClassName.HOVERED_CELL_IN_DANGER}
+            .${ClassName.COLUMN_CONTROLS_DECORATIONS}::after {
+            background-color: ${tableToolbarDeleteColor(props)};
+            border-color: ${tableBorderDeleteColor(props)};
+            border-left: ${tableCellBorderWidth}px solid
+              ${tableBorderDeleteColor(props)};
+            left: -${tableCellBorderWidth}px;
+            z-index: ${akEditorUnitZIndex * 100};
+          }
+        }
+      }
+
+      .${ClassName.TABLE_SELECTED}
+        table
+        tr:first-of-type
+        td.${ClassName.TABLE_CELL},
+        .${ClassName.TABLE_SELECTED}
+        table
+        tr:first-of-type
+        th.${ClassName.TABLE_HEADER_CELL} {
+        .${ClassName.COLUMN_CONTROLS_DECORATIONS}::after {
+          ${columnHeaderButtonSelected(props)};
+        }
+      }
+    `;
+  } else {
+    return css`
+      .${ClassName.COLUMN_CONTROLS_DECORATIONS} {
+        display: none;
+        cursor: pointer;
+        position: absolute;
+        width: calc(100% + ${tableCellBorderWidth * 2}px);
+        left: -1px;
+        top: -${columnControlsDecorationHeight + tableCellBorderWidth}px;
+        height: ${columnControlsDecorationHeight}px;
+        // floating dot for adding column button
+        &::before {
+          content: ' ';
+          background-color: ${tableBorderColor(props)};
+          position: absolute;
+          height: ${lineMarkerSize}px;
+          width: ${lineMarkerSize}px;
+          border-radius: 50%;
+          pointer-events: none;
+          top: 2px;
+          right: -1px;
+        }
+
+        &::after {
+          content: ' ';
+
+          ${columnHeaderButton(
+            props,
+            `
+        border-right: ${tableCellBorderWidth}px solid ${tableBorderColor(
+              props,
+            )};
         border-bottom: none;
         height: ${tableToolbarSize}px;
         width: 100%;
@@ -396,65 +539,67 @@ export const columnControlsDecoration = (props: ThemeProps) => css`
         left: 0px;
         z-index: ${columnControlsZIndex};
       `,
-      )}
-    }
-  }
-
-  // floating dot for adding column button - overriding style on last column to avoid scroll
-  ${getFloatingDotOverrides(props)}
-
-  div.${ClassName.WITH_CONTROLS}>.${ClassName.ROW_CONTROLS_WRAPPER}::after {
-    content: ' ';
-    background-color: ${tableBorderColor(props)};
-    position: absolute;
-    height: ${lineMarkerSize}px;
-    width: ${lineMarkerSize}px;
-    border-radius: 50%;
-    pointer-events: none;
-    top: -${tableToolbarSize + tableCellBorderWidth}px;
-    right: -1px;
-  }
-
-  .${ClassName.WITH_CONTROLS} .${ClassName.COLUMN_CONTROLS_DECORATIONS} {
-    display: block;
-  }
-
-  table
-    tr:first-of-type
-    td.${ClassName.TABLE_CELL},
-    table
-    tr:first-of-type
-    th.${ClassName.TABLE_HEADER_CELL} {
-    &.${ClassName.COLUMN_SELECTED},
-      &.${ClassName.HOVERED_COLUMN},
-      &.${ClassName.HOVERED_TABLE} {
-      .${ClassName.COLUMN_CONTROLS_DECORATIONS}::after {
-        ${columnHeaderButtonSelected(props)};
+          )}
+        }
       }
 
-      &.${ClassName.HOVERED_CELL_IN_DANGER}
+      // floating dot for adding column button - overriding style on last column to avoid scroll
+      ${getFloatingDotOverrides(props)}
+
+      div.${ClassName.WITH_CONTROLS}>.${ClassName.ROW_CONTROLS_WRAPPER}::after {
+        content: ' ';
+        background-color: ${tableBorderColor(props)};
+        position: absolute;
+        height: ${lineMarkerSize}px;
+        width: ${lineMarkerSize}px;
+        border-radius: 50%;
+        pointer-events: none;
+        top: -${tableToolbarSize + tableCellBorderWidth}px;
+        right: -1px;
+      }
+
+      .${ClassName.WITH_CONTROLS} .${ClassName.COLUMN_CONTROLS_DECORATIONS} {
+        display: block;
+      }
+
+      table
+        tr:first-of-type
+        td.${ClassName.TABLE_CELL},
+        table
+        tr:first-of-type
+        th.${ClassName.TABLE_HEADER_CELL} {
+        &.${ClassName.COLUMN_SELECTED},
+          &.${ClassName.HOVERED_COLUMN},
+          &.${ClassName.HOVERED_TABLE} {
+          .${ClassName.COLUMN_CONTROLS_DECORATIONS}::after {
+            ${columnHeaderButtonSelected(props)};
+          }
+
+          &.${ClassName.HOVERED_CELL_IN_DANGER}
+            .${ClassName.COLUMN_CONTROLS_DECORATIONS}::after {
+            background-color: ${tableToolbarDeleteColor(props)};
+            border: 1px solid ${tableBorderDeleteColor(props)};
+            border-bottom: none;
+            z-index: ${akEditorUnitZIndex * 100};
+          }
+        }
+      }
+
+      .${ClassName.TABLE_SELECTED}
+        table
+        tr:first-of-type
+        td.${ClassName.TABLE_CELL},
+        .${ClassName.TABLE_SELECTED}
+        table
+        tr:first-of-type
+        th.${ClassName.TABLE_HEADER_CELL} {
         .${ClassName.COLUMN_CONTROLS_DECORATIONS}::after {
-        background-color: ${tableToolbarDeleteColor(props)};
-        border: 1px solid ${tableBorderDeleteColor(props)};
-        border-bottom: none;
-        z-index: ${akEditorUnitZIndex * 100};
+          ${columnHeaderButtonSelected(props)};
+        }
       }
-    }
+    `;
   }
-
-  .${ClassName.TABLE_SELECTED}
-    table
-    tr:first-of-type
-    td.${ClassName.TABLE_CELL},
-    .${ClassName.TABLE_SELECTED}
-    table
-    tr:first-of-type
-    th.${ClassName.TABLE_HEADER_CELL} {
-    .${ClassName.COLUMN_CONTROLS_DECORATIONS}::after {
-      ${columnHeaderButtonSelected(props)};
-    }
-  }
-`;
+};
 
 export const hoveredDeleteButton = (props: ThemeProps) => css`
   .${ClassName.TABLE_CONTAINER}.${ClassName.HOVERED_DELETE_BUTTON} {

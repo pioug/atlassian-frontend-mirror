@@ -1,5 +1,18 @@
 # @atlaskit/codemod-cli
 
+## 0.15.0
+
+### Minor Changes
+
+- [#40270](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40270) [`27bbdfcb6ad`](https://bitbucket.org/atlassian/atlassian-frontend/commits/27bbdfcb6ad) - This update includes several improvements and fixes to the css-to-design-tokens preset:
+
+  - Resolved transformation errors.
+  - Added support for new color properties such as `border-color-left`.
+  - Omitted unrecognized functions, including `url`, and certain Less functions to prevent compile errors.
+  - Enhanced codemod to only substitute raw, named colors and known variables (like old Atlaskit colors), and to avoid substituting variables not related to colors.
+  - Introduced token filtering for more precise token identification.
+  - Added parsing for gradient functions and multiple colors.
+
 ## 0.14.0
 
 ### Minor Changes

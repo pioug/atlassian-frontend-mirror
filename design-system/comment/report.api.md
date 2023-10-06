@@ -129,7 +129,7 @@ export interface CommentProps {
   edited?: ReactNode;
   errorActions?: Array<ReactNode>;
   errorIconLabel?: string;
-  headingLevel?: string;
+  headingLevel?: '1' | '2' | '3' | '4' | '5' | '6';
   highlighted?: boolean;
   id?: string;
   isError?: boolean;

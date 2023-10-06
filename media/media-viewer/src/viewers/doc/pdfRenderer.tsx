@@ -1,8 +1,18 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { FileState } from '@atlaskit/media-client';
 import { token } from '@atlaskit/tokens';
-import * as PDFJSViewer from 'pdfjs-dist/web/pdf_viewer';
-import * as pdfjsLib from 'pdfjs-dist/build/pdf';
+import {
+  PDFViewer,
+  EventBus,
+  PDFLinkService,
+  NullL10n,
+} from 'pdfjs-dist/legacy/web/pdf_viewer';
+import {
+  getDocument,
+  GlobalWorkerOptions,
+  version,
+} from 'pdfjs-dist/legacy/build/pdf';
+import type { PDFDocumentProxy } from 'pdfjs-dist/legacy/build/pdf';
 import { css, Global } from '@emotion/react';
 import { ZoomControls } from '../../zoomControls';
 import { PDFWrapper } from '../../styleWrappers';
@@ -15,80 +25,80 @@ import { ZoomLevel } from '../../domain/zoomLevel';
 import { processError } from './processError';
 
 export const pdfViewerClassName = 'pdfViewer';
+
+// Styles are partially copied from https://github.com/mozilla/pdfjs-dist/blob/v2.9.359/web/pdf_viewer.css
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage/preview */
 const globalStyles = css`
   .${pdfViewerClassName} {
     margin-top: ${token('space.800', '64px')};
     margin-bottom: ${token('space.800', '64px')};
+
     .page {
       margin: 1px auto ${token('space.negative.100', '-8px')} auto;
       border: 9px solid transparent;
       position: relative;
+    }
 
-      .canvasWrapper {
-        overflow: hidden;
-      }
+    .canvasWrapper {
+      overflow: hidden;
+    }
 
-      .textLayer {
-        position: absolute;
-        left: 0;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        overflow: hidden;
-        line-height: 1;
-        font-family: sans-serif;
-        opacity: 0.8;
+    .textLayer {
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      overflow: hidden;
+      opacity: 0.2;
+      line-height: 1;
+    }
 
-        ::selection {
-          background: rgb(0, 0, 255);
-        }
-      }
+    .textLayer span,
+    .textLayer br {
+      color: transparent;
+      position: absolute;
+      white-space: pre;
+      cursor: text;
+      transform-origin: 0% 0%;
+    }
 
-      .annotationLayer {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-      }
+    .textLayer ::-moz-selection {
+      background: rgba(0, 0, 255, 1);
+    }
 
-      .textLayer > div,
-      .annotationLayer > section {
-        color: transparent;
-        position: absolute;
-        white-space: pre;
-        cursor: text;
-        transform-origin: 0% 0%;
-      }
-      .linkAnnotation > a {
-        position: absolute;
-        font-size: 1em;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-      }
+    .textLayer ::selection {
+      background: rgba(0, 0, 255, 1);
+    }
 
-      .linkAnnotation > a {
-        background: url('data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7')
-          0 0 repeat;
-      }
+    .annotationLayer section {
+      position: absolute;
+      text-align: initial;
+    }
 
-      .linkAnnotation > a:hover {
-        opacity: 0.2;
-        background: #ff0;
-        box-shadow: 0 2px 10px #ff0;
-      }
+    .annotationLayer .linkAnnotation > a,
+    .annotationLayer .buttonWidgetAnnotation.pushButton > a {
+      position: absolute;
+      font-size: 1em;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .annotationLayer .linkAnnotation > a:hover,
+    .annotationLayer .buttonWidgetAnnotation.pushButton > a:hover {
+      opacity: 0.2;
+      background: rgba(255, 255, 0, 1);
+      box-shadow: 0 2px 10px rgba(255, 255, 0, 1);
     }
   }
 `;
-/* eslint-enable no-unused-expressions */
-/* eslint-enable @atlaskit/design-system/ensure-design-token-usage */
+/* eslint-enable @atlaskit/design-system/ensure-design-token-usage/preview */
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 
-pdfjsLib.GlobalWorkerOptions.workerSrc = '/'; // TODO: use web workers instead of fake worker.
-
-const fetchPdf = (url: string): Promise<PDFDocumentProxy> => {
-  return pdfjsLib.getDocument(url).promise;
-};
+GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${version}/legacy/build/pdf.worker.min.js`; // TODO: use web workers instead of fake worker.
 
 export type Props = {
   item: FileState;
@@ -98,110 +108,118 @@ export type Props = {
   onError?: (error: MediaViewerError) => void;
 };
 
-export type State = {
-  doc: Outcome<any, MediaViewerError>;
-  zoomLevel: ZoomLevel;
-};
+export const PDFRenderer = ({
+  src,
+  onClose,
+  onSuccess,
+  onError,
+  item,
+}: Props) => {
+  const [zoomLevel, setZoomLevel] = useState<ZoomLevel>(new ZoomLevel(1));
+  const [docOutcome, setDocOutcome] = useState<Outcome<any, MediaViewerError>>(
+    Outcome.pending(),
+  );
+  const pdfWrapperRef = useRef<HTMLDivElement>();
+  const docRef = useRef<PDFDocumentProxy>();
+  const pdfViewerRef = useRef<any>();
+  const onSuccessRef = useRef<(() => void) | undefined>(onSuccess);
+  const onErrorRef = useRef<((error: MediaViewerError) => void) | undefined>(
+    onError,
+  );
 
-const initialState: State = {
-  zoomLevel: new ZoomLevel(1),
-  doc: Outcome.pending(),
-};
+  useEffect(() => {
+    let isSubscribed = true;
+    const fetchDoc = async () => {
+      try {
+        docRef.current = await getDocument({
+          url: src,
+          cMapUrl: `https://unpkg.com/pdfjs-dist@${version}/cmaps/`,
+          cMapPacked: true,
+        }).promise;
+        isSubscribed && setDocOutcome(Outcome.successful(docRef.current));
+      } catch (error) {
+        const pdfError = processError(error);
+        isSubscribed && setDocOutcome(Outcome.failed(pdfError));
 
-export class PDFRenderer extends React.Component<Props, State> {
-  private el?: HTMLDivElement;
-  private doc?: PDFDocumentProxy;
-  private pdfViewer: any;
-
-  state: State = initialState;
-
-  componentDidMount() {
-    this.init();
-  }
-
-  componentWillUnmount() {
-    if (this.doc) {
-      this.doc.destroy();
-    }
-  }
-
-  private async init() {
-    const { src, onSuccess, onError } = this.props;
-
-    try {
-      this.doc = await fetchPdf(src);
-      this.setState({ doc: Outcome.successful(this.doc) }, () => {
-        this.pdfViewer = new PDFJSViewer.PDFViewer({ container: this.el });
-        this.pdfViewer.setDocument(this.doc);
-        this.pdfViewer.firstPagePromise.then(this.scaleToFit);
-
-        if (onSuccess) {
-          onSuccess();
+        if (onErrorRef.current) {
+          onErrorRef.current(pdfError);
         }
-      });
-    } catch (error) {
-      const pdfError = processError(error);
-      this.setState({
-        doc: Outcome.failed(pdfError),
-      });
-
-      if (onError) {
-        onError(pdfError);
       }
+    };
+
+    fetchDoc();
+
+    return () => {
+      isSubscribed = false;
+      if (docRef.current) {
+        docRef.current.destroy();
+      }
+    };
+  }, [src]);
+
+  useEffect(() => {
+    if (docOutcome.status !== 'SUCCESSFUL' || !pdfWrapperRef.current) {
+      return;
     }
-  }
-
-  private savePdfElement = (el: HTMLDivElement) => {
-    this.el = el;
-  };
-
-  private handleZoom = (zoomLevel: ZoomLevel) => {
-    this.pdfViewer.currentScale = zoomLevel.value;
-    this.setState({ zoomLevel });
-  };
-
-  private scaleToFit = () => {
-    const { pdfViewer } = this;
-    if (pdfViewer) {
-      pdfViewer.currentScaleValue = 'page-width';
-      this.setState({
-        zoomLevel: new ZoomLevel(pdfViewer.currentScale),
-      });
-    }
-  };
-
-  render() {
-    return this.state.doc.match({
-      pending: () => <Spinner />,
-      successful: () => (
-        <>
-          <Global styles={globalStyles} />
-          <PDFWrapper
-            data-testid="media-viewer-pdf-content"
-            ref={this.savePdfElement}
-          >
-            <div
-              className={pdfViewerClassName}
-              onClick={closeOnDirectClick(this.props.onClose)}
-            />
-            <ZoomControls
-              zoomLevel={this.state.zoomLevel}
-              onChange={this.handleZoom}
-            />
-          </PDFWrapper>
-        </>
-      ),
-      failed: (error) => {
-        const { item } = this.props;
-        return (
-          <ErrorMessage
-            fileId={item.id}
-            fileState={item}
-            error={error}
-            supressAnalytics={true} // item-viewer.tsx will send
-          />
-        );
-      },
+    const eventBus = new EventBus();
+    const pdfLinkService = new PDFLinkService({
+      eventBus,
     });
-  }
-}
+    pdfViewerRef.current = new PDFViewer({
+      container: pdfWrapperRef.current,
+      eventBus,
+      linkService: pdfLinkService,
+      l10n: NullL10n,
+    });
+    pdfLinkService.setViewer(pdfViewerRef.current);
+    pdfViewerRef.current.setDocument(docRef.current);
+    pdfLinkService.setDocument(docRef.current, null);
+    pdfViewerRef.current.firstPagePromise.then(scaleToFit);
+
+    if (onSuccessRef.current) {
+      onSuccessRef.current();
+    }
+  }, [docOutcome]);
+
+  const savePdfElement = (el: HTMLDivElement) => {
+    pdfWrapperRef.current = el;
+  };
+
+  const handleZoom = (zoomLevel: ZoomLevel) => {
+    pdfViewerRef.current.currentScale = zoomLevel.value;
+    setZoomLevel(zoomLevel);
+  };
+
+  const scaleToFit = () => {
+    if (pdfViewerRef.current) {
+      pdfViewerRef.current.currentScaleValue = 'page-width';
+      setZoomLevel(new ZoomLevel(pdfViewerRef.current.currentScale));
+    }
+  };
+
+  return docOutcome.match({
+    pending: () => <Spinner />,
+    successful: () => (
+      <>
+        <Global styles={globalStyles} />
+        <PDFWrapper data-testid="media-viewer-pdf-content" ref={savePdfElement}>
+          <div
+            className={pdfViewerClassName}
+            onClick={closeOnDirectClick(onClose)}
+          />
+          <ZoomControls zoomLevel={zoomLevel} onChange={handleZoom} />
+        </PDFWrapper>
+      </>
+    ),
+    failed: (error) => {
+      return (
+        <ErrorMessage
+          fileId={item.id}
+          fileState={item}
+          error={error}
+          supressAnalytics={true} // item-viewer.tsx will send
+        />
+      );
+    },
+  });
+};

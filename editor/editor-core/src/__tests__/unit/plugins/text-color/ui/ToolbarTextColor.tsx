@@ -22,6 +22,8 @@ import type { Props as ToolbarTextColorProps } from '../../../../../plugins/text
 import { ToolbarTextColor } from '../../../../../plugins/text-color/ui/ToolbarTextColor';
 import type { PaletteColor } from '@atlaskit/editor-common/ui-color';
 import ReactEditorViewContext from '../../../../../create-editor/ReactEditorViewContext';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { TextColorPlugin } from '../../../../../plugins/text-color/types';
 
 const mockDispatchAnalytics = jest.fn(() => () => {});
 
@@ -104,7 +106,7 @@ describe('ToolbarTextColor', () => {
     let pluginState: TextColorPluginState;
 
     beforeEach(() => {
-      const { editorView } = editor(doc(p('text')));
+      const { editorView, editorAPI } = editor(doc(p('text')));
       pluginState = pluginKey.getState(editorView.state)!;
       mockDispatchAnalytics.mockClear();
       const intl = createIntl({ locale: 'en' });
@@ -123,6 +125,9 @@ describe('ToolbarTextColor', () => {
             pluginState={pluginState}
             editorView={editorView}
             dispatchAnalyticsEvent={mockDispatchAnalytics}
+            pluginInjectionApi={
+              editorAPI as ExtractInjectionAPI<TextColorPlugin> | undefined
+            }
           />
         </ReactEditorViewContext.Provider>,
       );
@@ -276,6 +281,7 @@ describe('ToolbarTextColor', () => {
           pluginState={pluginState}
           editorView={editorView}
           dispatchAnalyticsEvent={mockDispatchAnalytics}
+          pluginInjectionApi={undefined}
         />,
       );
     });

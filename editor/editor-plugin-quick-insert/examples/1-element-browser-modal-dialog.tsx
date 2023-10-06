@@ -75,6 +75,7 @@ const ElementBrowserModalDialog = () => {
               onInsertItem={onInsertItem}
               isOpen={showModal}
               onClose={() => setModalVisibility(false)}
+              onCloseComplete={() => {}}
             />
 
             <div onKeyDown={onEscapeKeyDown}>

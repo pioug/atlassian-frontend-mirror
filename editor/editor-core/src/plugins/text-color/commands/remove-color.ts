@@ -1,7 +1,7 @@
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 
-import type { Command } from '../../../types';
+import type { Command } from '@atlaskit/editor-common/types';
 import { ACTIONS, pluginKey } from '../pm-plugins/main';
 
 export const removeColor = (): Command => (state, dispatch) => {

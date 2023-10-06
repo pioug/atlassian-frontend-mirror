@@ -1,7 +1,10 @@
 import fetchMock from 'fetch-mock/cjs/client';
 
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
-import { parseAndTestGraphQLQueries } from '@atlassian/ptc-test-utils/graphql-jest';
+import {
+  parseAndTestGraphQLQueries,
+  toBeValidAGGQuery,
+} from '@atlassian/ptc-test-utils/graphql-jest';
 
 import { AGGErrors, HttpError } from '../../util/errors';
 import {
@@ -26,6 +29,8 @@ const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
 describe('getTeamFromAGG', () => {
+  toBeValidAGGQuery(GATEWAY_QUERY);
+  toBeValidAGGQuery(GATEWAY_QUERY_V2);
   parseAndTestGraphQLQueries([GATEWAY_QUERY, GATEWAY_QUERY_V2]);
 
   describe('extractIdFromAri', () => {

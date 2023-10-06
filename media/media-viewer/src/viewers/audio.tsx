@@ -157,7 +157,7 @@ export class AudioViewer extends BaseViewer<string, Props, State> {
 
     try {
       await this.loadCover(coverUrl);
-      this.setState({ coverUrl });
+      this.safeSetState({ coverUrl });
     } catch (e) {}
   };
 
@@ -180,18 +180,18 @@ export class AudioViewer extends BaseViewer<string, Props, State> {
       } else {
         audioUrl = await getObjectUrlFromFileState(item);
         if (!audioUrl) {
-          this.setState({
+          this.safeSetState({
             content: Outcome.pending(),
           });
           return;
         }
       }
       this.setCoverUrl();
-      this.setState({
+      this.safeSetState({
         content: Outcome.successful(audioUrl),
       });
     } catch (error) {
-      this.setState({
+      this.safeSetState({
         content: Outcome.failed(
           new MediaViewerError(
             'audioviewer-fetch-url',

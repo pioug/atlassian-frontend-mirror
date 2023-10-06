@@ -1,5 +1,11 @@
 # @atlaskit/heading
 
+## 1.4.3
+
+### Patch Changes
+
+- [#41226](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41226) [`fc7aba3cbae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fc7aba3cbae) - [ux] Further fixes related to heading getting into possible invalid state. Heading will now always produce valid markup / aria-attributes for any configuration. Previously if there was no `HeadingContext` in the tree the heading would not produce accessibly correct markup in some cases. This is now resolved.
+
 ## 1.4.2
 
 ### Patch Changes

@@ -1,5 +1,22 @@
 # @atlaskit/media-viewer
 
+## 48.1.2
+
+### Patch Changes
+
+- [#40767](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40767) [`8836e1fb91c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8836e1fb91c) - [ux] Upgraded pdfjs-dist from 2.0.943 to 2.16.105. This includes changes such as:
+
+  - [MEX-2580] displaying digital signatures on MediaViewer
+  - [MEX-2225] handling the 'Cannot read properties of undefined' error
+  - [MEX-2162] showing non-latin characters on MediaViewer
+  - ensuring bookmark links are working on MediaViewer
+
+## 48.1.1
+
+### Patch Changes
+
+- [#40647](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40647) [`0de92f17021`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0de92f17021) - Bump react-focus-lock to latest version
+
 ## 48.1.0
 
 ### Minor Changes

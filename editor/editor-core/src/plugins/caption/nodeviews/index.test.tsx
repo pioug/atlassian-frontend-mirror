@@ -1,6 +1,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import type { RefsNode } from '@atlaskit/editor-common/types';
+import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   caption,
@@ -10,14 +11,16 @@ import {
   p,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
-import { setNodeSelection, setTextSelection } from '../../../utils';
+import {
+  setNodeSelection,
+  setTextSelection,
+} from '@atlaskit/editor-common/utils';
 import type { MediaADFAttrs } from '@atlaskit/adf-schema';
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 import captionNodeView from '.';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
 
-import type { EventDispatcher } from '../../../event-dispatcher';
 import { screen } from '@testing-library/react';
 
 const createEditorTestingLibrary = createEditorFactory();

@@ -7,7 +7,7 @@ import {
 import CachingClient from './CachingClient';
 import { directoryGraphqlQuery } from './graphqlUtils';
 
-const buildReportingLinesQuery = (aaid: string) => ({
+export const buildReportingLinesQuery = (aaid: string) => ({
   query: `
     fragment ReportingLinesUserPII on UserPII {
       name
@@ -38,7 +38,7 @@ const buildReportingLinesQuery = (aaid: string) => ({
   },
 });
 
-const buildCheckFeatureFlagQuery = (
+export const buildCheckFeatureFlagQuery = (
   featureKey: string,
   context?: FeatureFlagExtraContext[],
 ) => ({

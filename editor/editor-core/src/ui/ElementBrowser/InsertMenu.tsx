@@ -72,9 +72,6 @@ const InsertMenu = ({
   const onInsertItem = useCallback(
     (item: QuickInsertItem) => {
       toggleVisiblity();
-      if (!editorView.hasFocus()) {
-        editorView.focus();
-      }
       pluginInjectionApi?.quickInsert?.actions.insertItem(item)(
         editorView.state,
         editorView.dispatch,

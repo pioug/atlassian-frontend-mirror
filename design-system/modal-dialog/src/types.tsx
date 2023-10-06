@@ -93,6 +93,13 @@ export interface ModalDialogProps {
   shouldCloseOnEscapePress?: boolean;
 
   /**
+   * ReturnFocus is used to control what happens when the user exists
+   * focus lock mode. If true, focus will be returned to the element that had focus before focus lock
+   * was activated. If false, focus remains where it was when the FocusLock was deactivated.
+   */
+  shouldReturnFocus?: boolean;
+
+  /**
    * Will remove the blanket tinted background color.
    */
   isBlanketHidden?: boolean;

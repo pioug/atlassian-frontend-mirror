@@ -1,5 +1,42 @@
 # @atlaskit/editor-mobile-bridge
 
+## 188.2.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 188.2.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 188.2.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 188.2.5
+
+### Patch Changes
+
+- [#41103](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41103) [`e268e178096`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e268e178096) - ED-20195 Decouple Text color plugin from editor core
+- Updated dependencies
+
+## 188.2.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 188.2.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 188.2.2
 
 ### Patch Changes

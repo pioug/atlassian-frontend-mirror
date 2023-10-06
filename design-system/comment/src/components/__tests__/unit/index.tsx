@@ -50,7 +50,7 @@ describe('@atlaskit comments', () => {
           render(<Comment avatar="" author={author} testId="comment" />);
 
           expect(screen.getByText('Joshua Nelson')).toBeInTheDocument();
-          expect(screen.getByTestId('comment-header').textContent).toBe(
+          expect(screen.getByTestId('comment-header')).toHaveTextContent(
             'Joshua Nelson',
           );
         });
@@ -108,7 +108,7 @@ describe('@atlaskit comments', () => {
           render(<Comment avatar="" time={time} testId="comment" />);
 
           expect(screen.getByText('30 August, 2016')).toBeInTheDocument();
-          expect(screen.getByTestId('comment-header').textContent).toBe(
+          expect(screen.getByTestId('comment-header')).toHaveTextContent(
             '30 August, 2016',
           );
         });
@@ -120,7 +120,7 @@ describe('@atlaskit comments', () => {
           render(<Comment avatar="" edited={edited} testId="comment" />);
 
           expect(screen.getByText('Edited')).toBeInTheDocument();
-          expect(screen.getByTestId('comment-header').textContent).toBe(
+          expect(screen.getByTestId('comment-header')).toHaveTextContent(
             'Edited',
           );
         });
@@ -132,7 +132,9 @@ describe('@atlaskit comments', () => {
           render(<Comment avatar="" type={type} testId="comment" />);
 
           expect(screen.getByText('type')).toBeInTheDocument();
-          expect(screen.getByTestId('comment-header').textContent).toBe('type');
+          expect(screen.getByTestId('comment-header')).toHaveTextContent(
+            'type',
+          );
         });
       });
 
@@ -149,8 +151,8 @@ describe('@atlaskit comments', () => {
           const svg = container.querySelectorAll('svg');
 
           expect(svg).toHaveLength(1);
-          expect(screen.getByTestId('comment').textContent).toContain(
-            'atlassian-staff',
+          expect(screen.getByTestId('comment')).toHaveTextContent(
+            /atlassian\-staff/,
           );
         });
 
@@ -166,8 +168,8 @@ describe('@atlaskit comments', () => {
           it('should render the default savingText if no savingText is set', () => {
             render(<Comment avatar="" isSaving testId="comment" />);
 
-            expect(screen.getByTestId('comment-header').textContent).toContain(
-              'Sending...',
+            expect(screen.getByTestId('comment-header')).toHaveTextContent(
+              /Sending\.\.\./,
             );
           });
 
@@ -181,8 +183,8 @@ describe('@atlaskit comments', () => {
               />,
             );
 
-            expect(screen.getByTestId('comment-header').textContent).toContain(
-              'Saving...',
+            expect(screen.getByTestId('comment-header')).toHaveTextContent(
+              /Saving\.\.\./,
             );
           });
 
@@ -216,8 +218,8 @@ describe('@atlaskit comments', () => {
               <Comment avatar="" savingText="Saving..." testId="comment" />,
             );
 
-            expect(screen.getByTestId('comment').textContent).not.toContain(
-              'Saving...',
+            expect(screen.getByTestId('comment')).not.toHaveTextContent(
+              /Saving\.\.\./,
             );
           });
         });
@@ -314,22 +316,6 @@ describe('@atlaskit comments', () => {
 
           expect(heading).toBeInTheDocument();
         });
-
-        it('should reset the heading level to h3 if headingLevel < 1 || headingLevel > 6', () => {
-          render(
-            <Comment
-              avatar=""
-              headingLevel="7"
-              type="hello"
-              author="DDC"
-              testId="comment"
-            />,
-          );
-
-          const heading = screen.getByRole('heading', { level: 3 });
-
-          expect(heading).toBeInTheDocument();
-        });
       });
 
       describe('Top items', () => {
@@ -348,10 +334,10 @@ describe('@atlaskit comments', () => {
 
           const header = screen.getByTestId('comment-header');
 
-          expect(header.textContent).toContain('Mary');
-          expect(header.textContent).toContain('atlassian-staff');
-          expect(header.textContent).toContain('Type');
-          expect(header.textContent).toContain('30 August, 2016');
+          expect(header).toHaveTextContent(/Mary/);
+          expect(header).toHaveTextContent(/atlassian\-staff/);
+          expect(header).toHaveTextContent(/Type/);
+          expect(header).toHaveTextContent(/30 August, 2016/);
         });
 
         it('Should render in the order author, type, savingText, restrictedTo', () => {
@@ -369,10 +355,10 @@ describe('@atlaskit comments', () => {
 
           const header = screen.getByTestId('comment');
 
-          expect(header.textContent).toContain('Mary');
-          expect(header.textContent).toContain('atlassian-staff');
-          expect(header.textContent).toContain('Type');
-          expect(header.textContent).toContain('Saving...');
+          expect(header).toHaveTextContent(/Mary/);
+          expect(header).toHaveTextContent(/atlassian\-staff/);
+          expect(header).toHaveTextContent(/Type/);
+          expect(header).toHaveTextContent(/Saving\.\.\./);
         });
 
         it('should not render time if isSaving is set', () => {
@@ -392,8 +378,8 @@ describe('@atlaskit comments', () => {
 
           const header = screen.getByTestId('comment');
 
-          expect(header.textContent).toContain('Saving...');
-          expect(header.textContent).not.toContain('30 August, 2016');
+          expect(header).toHaveTextContent(/Saving\.\.\./);
+          expect(header).not.toHaveTextContent(/30 August, 2016/);
         });
       });
     });
@@ -413,7 +399,7 @@ describe('@atlaskit comments', () => {
 
         expect(child).toBeInTheDocument();
         expect(child).toHaveTextContent('child');
-        expect(screen.getByTestId('parent').textContent).toContain('parent');
+        expect(screen.getByTestId('parent')).toHaveTextContent(/parent/);
       });
     });
   });

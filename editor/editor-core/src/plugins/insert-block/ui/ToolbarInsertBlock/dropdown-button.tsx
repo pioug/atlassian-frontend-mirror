@@ -4,8 +4,9 @@ import { jsx } from '@emotion/react';
 import AddIcon from '@atlaskit/icon/glyph/editor/add';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
 import { ToolTipContent } from '../../../../keymaps';
-import ToolbarButton, { ToolbarButtonRef } from '../../../../ui/ToolbarButton';
-import { expandIconWrapperStyle } from '../../../../ui/styles';
+import type { ToolbarButtonRef } from '../../../../ui/ToolbarButton';
+import ToolbarButton from '../../../../ui/ToolbarButton';
+import { expandIconWrapperStyle } from '@atlaskit/editor-common/styles';
 import { triggerWrapper } from './styles';
 
 export interface DropDownButtonProps {

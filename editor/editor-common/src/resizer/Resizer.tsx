@@ -42,8 +42,8 @@ export type ResizerProps = {
   enable: EnabledHandles;
   // initial width for now as Resizer is using defaultSize.
   width: number;
-  minWidth?: number;
-  maxWidth?: number;
+  minWidth?: number | string;
+  maxWidth?: number | string;
   // The snap property is used to specify absolute pixel values that resizing should snap to.
   // x and y are both optional, allowing you to only include the axis you want to define. Defaults to null.
   snap?: Snap;

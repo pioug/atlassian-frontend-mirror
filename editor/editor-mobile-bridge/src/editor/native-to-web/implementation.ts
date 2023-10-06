@@ -451,7 +451,10 @@ export default class WebBridgeImpl
 
   setTextColor(color: string) {
     if (this.editorView) {
-      changeColor(color)(this.editorView.state, this.editorView.dispatch);
+      changeColor(color, this.pluginInjectionApi?.analytics?.actions)(
+        this.editorView.state,
+        this.editorView.dispatch,
+      );
     }
   }
 

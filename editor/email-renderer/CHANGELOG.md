@@ -1,5 +1,11 @@
 # @atlaskit/email-renderer
 
+## 8.4.0
+
+### Minor Changes
+
+- [#41191](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41191) [`614e860a24e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/614e860a24e) - ADFEXP-623: add a base path to the email renderer context
+
 ## 8.3.3
 
 ### Patch Changes

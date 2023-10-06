@@ -135,6 +135,13 @@ export interface AvatarPropTypes {
    * Analytics context meta data
    */
   analyticsContext?: Record<string, any>;
+  /**
+   * Replace the wrapping element. This accepts the name of a html tag which will
+   * be used to wrap the element.
+   */
+  as?:
+    | keyof JSX.IntrinsicElements
+    | React.ComponentType<React.AllHTMLAttributes<HTMLElement>>;
 }
 
 const getStyles = (
@@ -285,6 +292,7 @@ const Avatar = forwardRef<HTMLElement, AvatarPropTypes>(
       status,
       target,
       testId,
+      as: AvatarContainer = 'div',
     },
     ref,
   ) => {
@@ -373,7 +381,7 @@ const Avatar = forwardRef<HTMLElement, AvatarPropTypes>(
     };
 
     return (
-      <div
+      <AvatarContainer
         data-testid={testId}
         style={{
           display: 'inline-block',
@@ -442,7 +450,7 @@ const Avatar = forwardRef<HTMLElement, AvatarPropTypes>(
             {customStatusNode}
           </StatusWrapper>
         )}
-      </div>
+      </AvatarContainer>
     );
   },
 );

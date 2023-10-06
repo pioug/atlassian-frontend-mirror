@@ -190,7 +190,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
           !this.isBuffered
         ) {
           this.isBuffered = true; // setting buffering to true so that the sending of unconfirmed steps happens only on first connection
-          this.documentService.sendStepsFromCurrentState();
+          this.documentService.sendStepsFromCurrentState(true);
         }
 
         // Early initialization with initial draft passed via provider

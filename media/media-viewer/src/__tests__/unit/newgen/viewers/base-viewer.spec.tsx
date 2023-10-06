@@ -6,11 +6,9 @@ import { Outcome } from '../../../../domain';
 import { ErrorMessage } from '../../../../errorMessage';
 import { MediaViewerError } from '../../../../errors';
 import { Spinner } from '../../../../loading';
-import {
-  mountWithIntlContext,
-  fakeMediaClient,
-} from '@atlaskit/media-test-helpers';
+import { fakeMediaClient } from '@atlaskit/media-test-helpers';
 import { mount } from 'enzyme';
+import { IntlProvider } from 'react-intl-next';
 
 function createItem(): ProcessedFileState {
   return {
@@ -52,10 +50,19 @@ function createTestViewer(props: BaseProps, mountWithContext?: boolean) {
     protected release = releaseSpy;
     protected renderSuccessful = renderSuccessfulSpy;
   }
-  const el = mountWithContext
-    ? mountWithIntlContext(<TestViewer {...props} />)
-    : mount(<TestViewer {...props} />);
-  return { el, initSpy, releaseSpy, renderSuccessfulSpy };
+
+  // 'setProps' can only set props of the root component.
+  // Therefore, we require this component to pass the root props to the child component that we are testing
+  const PropsPasser = (props: BaseProps) => {
+    return (
+      <IntlProvider locale="en">
+        <TestViewer {...props} />
+      </IntlProvider>
+    );
+  };
+
+  const el = mount(<PropsPasser {...props} />);
+  return { TestViewer, el, initSpy, releaseSpy, renderSuccessfulSpy };
 }
 
 describe('BaseViewer', () => {
@@ -93,15 +100,15 @@ describe('BaseViewer', () => {
   });
 
   it('sets the initialState when component is mounted', () => {
-    const { el } = createTestViewer(createProps());
-    expect(el.state()).toMatchObject(createInitialState());
+    const { el, TestViewer } = createTestViewer(createProps());
+    expect(el.find(TestViewer).state()).toMatchObject(createInitialState());
   });
 
   it('resets the component to the initialState when properties were updated', () => {
-    const { el } = createTestViewer(createProps());
-    el.setState({ content: Outcome.successful('test') });
+    const { el, TestViewer } = createTestViewer(createProps());
+    el.find(TestViewer).setState({ content: Outcome.successful('test') });
     el.setProps({ mediaClient: fakeMediaClient() });
-    expect(el.state()).toMatchObject(createInitialState());
+    expect(el.find(TestViewer).state()).toMatchObject(createInitialState());
   });
 
   it('renders a spinner while the content is pending', () => {
@@ -110,19 +117,21 @@ describe('BaseViewer', () => {
   });
 
   it('invokes renderSuccessful() when the content loading was successful', () => {
-    const { el, renderSuccessfulSpy } = createTestViewer(createProps());
+    const { el, TestViewer, renderSuccessfulSpy } = createTestViewer(
+      createProps(),
+    );
     const content = Outcome.successful('test');
-    el.setState({ content });
+    el.find(TestViewer).setState({ content });
     expect(el.text()).toEqual('test');
     expect(renderSuccessfulSpy).toHaveBeenCalled();
   });
 
   it('renders an error message when the content loading has failed', () => {
-    const { el } = createTestViewer(createProps(), true);
+    const { el, TestViewer } = createTestViewer(createProps(), true);
     const content = Outcome.failed({
       failReason: 'previewFailed',
     });
-    el.setState({ content });
+    el.find(TestViewer).setState({ content });
     const errorMessage = el.find(ErrorMessage);
     expect(errorMessage).toHaveLength(1);
     expect(errorMessage.text()).toContain(

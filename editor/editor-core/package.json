@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-core",
-  "version": "188.2.1",
+  "version": "188.2.8",
   "description": "A package contains Atlassian editor core functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -47,7 +47,7 @@
     "@atlaskit/analytics-namespaced-context": "^6.7.0",
     "@atlaskit/analytics-next": "^9.1.0",
     "@atlaskit/analytics-next-stable-react-context": "1.0.1",
-    "@atlaskit/avatar": "^21.3.0",
+    "@atlaskit/avatar": "^21.4.0",
     "@atlaskit/avatar-group": "^9.4.0",
     "@atlaskit/button": "^16.10.0",
     "@atlaskit/calendar": "^13.3.0",
@@ -55,13 +55,14 @@
     "@atlaskit/code": "^14.6.0",
     "@atlaskit/date": "^0.10.0",
     "@atlaskit/datetime-picker": "^12.10.0",
-    "@atlaskit/editor-common": "^76.3.0",
+    "@atlaskit/editor-common": "^76.5.0",
     "@atlaskit/editor-json-transformer": "^8.10.0",
     "@atlaskit/editor-markdown-transformer": "^5.2.5",
     "@atlaskit/editor-palette": "1.5.1",
     "@atlaskit/editor-plugin-analytics": "^0.2.0",
     "@atlaskit/editor-plugin-base": "^0.2.0",
     "@atlaskit/editor-plugin-block-type": "^2.0.0",
+    "@atlaskit/editor-plugin-caption": "^0.1.0",
     "@atlaskit/editor-plugin-card": "^0.9.0",
     "@atlaskit/editor-plugin-composition": "^0.1.0",
     "@atlaskit/editor-plugin-content-insertion": "^0.1.4",
@@ -155,7 +156,7 @@
     "@af/integration-testing": "*",
     "@af/visual-regression": "*",
     "@atlaskit/code": "^14.6.0",
-    "@atlaskit/collab-provider": "9.14.0",
+    "@atlaskit/collab-provider": "9.15.0",
     "@atlaskit/dropdown-menu": "^11.14.0",
     "@atlaskit/editor-extension-dropbox": "^0.4.0",
     "@atlaskit/editor-plugin-table": "^4.0.0",
@@ -169,7 +170,7 @@
     "@atlaskit/media-integration-test-helpers": "^3.0.0",
     "@atlaskit/media-test-helpers": "^33.0.0",
     "@atlaskit/menu": "^1.11.0",
-    "@atlaskit/modal-dialog": "^12.7.0",
+    "@atlaskit/modal-dialog": "^12.8.0",
     "@atlaskit/platform-feature-flags": "^0.2.0",
     "@atlaskit/renderer": "^108.15.0",
     "@atlaskit/section-message": "^6.4.0",
@@ -254,6 +255,10 @@
     },
     "platform.editor.table-sticky-scrollbar": {
       "type": "boolean"
+    },
+    "platform.editor.table.column-controls-styles-updated": {
+      "type": "boolean",
+      "referenceOnly": "true"
     },
     "platform.editor.update-table-cell-width-via-step": {
       "type": "boolean",

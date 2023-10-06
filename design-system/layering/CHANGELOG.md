@@ -1,5 +1,11 @@
 # @atlaskit/layering
 
+## 0.2.2
+
+### Patch Changes
+
+- [#41184](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41184) [`5700fc01a25`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5700fc01a25) - Update UNSAFE_LAYERING type to include children type
+
 ## 0.2.1
 
 ### Patch Changes

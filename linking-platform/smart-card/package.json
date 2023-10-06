@@ -24,7 +24,7 @@
   "dependencies": {
     "@atlaskit/analytics-gas-types": "^5.1.0",
     "@atlaskit/analytics-next": "^9.1.0",
-    "@atlaskit/avatar": "^21.3.0",
+    "@atlaskit/avatar": "^21.4.0",
     "@atlaskit/avatar-group": "^9.4.0",
     "@atlaskit/badge": "^15.1.0",
     "@atlaskit/button": "^16.10.0",
@@ -42,7 +42,7 @@
     "@atlaskit/linking-types": "^8.4.0",
     "@atlaskit/logo": "^13.14.0",
     "@atlaskit/lozenge": "^11.4.0",
-    "@atlaskit/modal-dialog": "^12.7.0",
+    "@atlaskit/modal-dialog": "^12.8.0",
     "@atlaskit/outbound-auth-flow-client": "^3.4.0",
     "@atlaskit/platform-feature-flags": "^0.2.1",
     "@atlaskit/popup": "^1.10.0",
@@ -74,7 +74,7 @@
   "devDependencies": {
     "@af/visual-regression": "*",
     "@atlaskit/analytics-listeners": "^8.7.0",
-    "@atlaskit/avatar": "^21.3.0",
+    "@atlaskit/avatar": "^21.4.0",
     "@atlaskit/css-reset": "^6.5.0",
     "@atlaskit/link-test-helpers": "^6.1.0",
     "@atlaskit/lozenge": "^11.4.0",

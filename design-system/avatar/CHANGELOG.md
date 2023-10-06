@@ -1,5 +1,11 @@
 # @atlaskit/avatar
 
+## 21.4.0
+
+### Minor Changes
+
+- [#40977](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40977) [`994a98df01b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/994a98df01b) - Introduce `as` prop for customising the wrapping element
+
 ## 21.3.9
 
 ### Patch Changes

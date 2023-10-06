@@ -1,5 +1,17 @@
 # @atlaskit/modal-dialog
 
+## 12.8.1
+
+### Patch Changes
+
+- [#40647](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40647) [`0de92f17021`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0de92f17021) - Bump react-focus-lock to latest version
+
+## 12.8.0
+
+### Minor Changes
+
+- [#39425](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39425) [`f0df9a3b6e7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f0df9a3b6e7) - [ED-19408] Add new prop to modal shouldReturnFocus - shouldReturnFocus is used to control what happens when the user exits focus lock mode. If true, focus will be returned to the element that had focus before focus lock was activated. If false, focus remains where it was when the FocusLock was deactivated
+
 ## 12.7.1
 
 ### Patch Changes

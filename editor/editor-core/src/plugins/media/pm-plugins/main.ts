@@ -166,6 +166,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
   pluginInjectionApi:
     | ExtractInjectionAPI<MediaNextEditorPluginType>
     | undefined;
+  singletonCreatedAt: number;
 
   constructor(
     state: EditorState,
@@ -206,6 +207,20 @@ export class MediaPluginStateImplementation implements MediaPluginState {
     );
 
     this.errorReporter = options.errorReporter || new ErrorReporter();
+    this.singletonCreatedAt = (performance || Date).now();
+  }
+
+  clone() {
+    const clonedAt = (performance || Date).now();
+    return new Proxy(this, {
+      get(target, prop, receiver) {
+        if (prop === 'singletonCreatedAt') {
+          return clonedAt;
+        }
+
+        return Reflect.get(target, prop, receiver);
+      },
+    });
   }
 
   onContextIdentifierProvider = async (
@@ -798,13 +813,20 @@ export const createPlugin = (
       apply(tr, pluginState: MediaPluginState) {
         const isResizing = tr.getMeta(MEDIA_PLUGIN_IS_RESIZING_KEY);
         const resizingWidth = tr.getMeta(MEDIA_PLUGIN_RESIZING_WIDTH_KEY);
+        // Yes, I agree with you; this approach, using the clone() fuction, below is horrifying.
+        // However, we needed to implement this workaround to solve the singleton Media PluginState.
+        // The entire PluginInjectionAPI relies on the following axiom: "A PluginState that reflects a new EditorState.". We can not have the mutable singleton instance for all EditorState.
+        // Unfortunately, we can't implement a proper fix for this media state situation. So, we are faking a new object using a Proxy instance.
+        let nextPluginState = pluginState;
 
         if (isResizing !== undefined) {
           pluginState.setIsResizing(isResizing);
+          nextPluginState = nextPluginState.clone();
         }
 
         if (resizingWidth) {
           pluginState.setResizingWidth(resizingWidth);
+          nextPluginState = nextPluginState.clone();
         }
 
         // remap editing media single position if we're in collab
@@ -812,6 +834,7 @@ export const createPlugin = (
           pluginState.editingMediaSinglePos = tr.mapping.map(
             pluginState.editingMediaSinglePos,
           );
+          nextPluginState = nextPluginState.clone();
         }
 
         const meta = tr.getMeta(stateKey);
@@ -823,12 +846,13 @@ export const createPlugin = (
                 ? pluginState.allowsUploads
                 : allowsUploads,
           });
+          nextPluginState = nextPluginState.clone();
         }
 
         // NOTE: We're not calling passing new state to the Editor, because we depend on the view.state reference
         //       throughout the lifetime of view. We injected the view into the plugin state, because we dispatch()
         //       transformations from within the plugin state (i.e. when adding a new file).
-        return pluginState;
+        return nextPluginState;
       },
     },
     appendTransaction(

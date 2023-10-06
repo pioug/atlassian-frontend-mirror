@@ -1,13 +1,15 @@
-import { Command } from '../../../types';
-import { PaletteColor } from '../../../ui/ColorPalette/Palettes/type';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
-  HigherOrderCommand,
-  withAnalytics,
-} from '../../analytics';
+} from '@atlaskit/editor-common/analytics';
+import { withAnalytics } from '@atlaskit/editor-common/editor-analytics';
+import type { HigherOrderCommand } from '@atlaskit/editor-common/types';
+import type { Command } from '@atlaskit/editor-common/types';
+import type { PaletteColor } from '@atlaskit/editor-common/ui-color';
+
 import { pluginKey } from '../pm-plugins/main';
 import { getActiveColor } from '../utils/color';
 
@@ -25,6 +27,7 @@ function createWithColorAnalytics(
   newColor: string,
   previousColor: string | null,
   palette: PaletteColor[],
+  editorAnalyticsApi: EditorAnalyticsAPI | undefined,
 ): HigherOrderCommand {
   const newColorFromPalette = palette.find(({ value }) => value === newColor);
   const previousColorFromPalette = palette.find(
@@ -38,7 +41,7 @@ function createWithColorAnalytics(
     ? previousColorFromPalette.label
     : previousColor || '';
 
-  return withAnalytics({
+  return withAnalytics(editorAnalyticsApi, {
     action: ACTION.FORMATTED,
     actionSubject: ACTION_SUBJECT.TEXT,
     actionSubjectId: ACTION_SUBJECT_ID.FORMAT_COLOR,
@@ -51,7 +54,10 @@ function createWithColorAnalytics(
 }
 
 export const changeColor =
-  (color: string): Command =>
+  (
+    color: string,
+    editorAnalyticsApi: EditorAnalyticsAPI | undefined,
+  ): Command =>
   (state, dispatch) => {
     const { textColor } = state.schema.marks;
     if (textColor) {
@@ -62,6 +68,7 @@ export const changeColor =
         color,
         activeColor,
         pluginState?.palette || [],
+        editorAnalyticsApi,
       );
 
       if (pluginState?.disabled) {

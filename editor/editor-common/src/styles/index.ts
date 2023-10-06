@@ -84,3 +84,5 @@ export {
   UnsupportedSharedCssClassName,
   unsupportedStyles,
 } from './shared/unsupported-content';
+
+export { expandIconWrapperStyle } from './shared/expand';

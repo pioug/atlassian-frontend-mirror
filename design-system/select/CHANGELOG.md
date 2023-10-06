@@ -1,5 +1,17 @@
 # @atlaskit/select
 
+## 16.7.2
+
+### Patch Changes
+
+- [#41115](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41115) [`6f2d15a60eb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6f2d15a60eb) - Remove unused variables in components and PopupSelect
+
+## 16.7.1
+
+### Patch Changes
+
+- [#40647](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40647) [`0de92f17021`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0de92f17021) - Bump react-focus-lock to latest version
+
 ## 16.7.0
 
 ### Minor Changes

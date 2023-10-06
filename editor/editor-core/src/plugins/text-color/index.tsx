@@ -1,10 +1,6 @@
 import React from 'react';
-
 import { textColor } from '@atlaskit/adf-schema';
-
-import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
-import WithPluginState from '../../ui/WithPluginState';
-
+import { WithPluginState } from '@atlaskit/editor-common/with-plugin-state';
 import type {
   TextColorPluginConfig,
   TextColorPluginState,
@@ -14,6 +10,7 @@ import {
   pluginKey as textColorPluginKey,
 } from './pm-plugins/main';
 import ToolbarTextColor from './ui/ToolbarTextColor';
+import type { TextColorPlugin } from './types';
 
 const pluginConfig = (
   textColorConfig?: TextColorPluginConfig | boolean,
@@ -25,14 +22,7 @@ const pluginConfig = (
   return textColorConfig;
 };
 
-type Config = TextColorPluginConfig | boolean;
-const textColorPlugin: NextEditorPlugin<
-  'textColor',
-  {
-    pluginConfiguration: Config | undefined;
-    dependencies: [];
-  }
-> = ({ config: textColorConfig }) => {
+const textColorPlugin: TextColorPlugin = ({ config: textColorConfig, api }) => {
   return {
     name: 'textColor',
 
@@ -74,6 +64,7 @@ const textColorPlugin: NextEditorPlugin<
               popupsScrollableElement={popupsScrollableElement}
               dispatchAnalyticsEvent={dispatchAnalyticsEvent}
               disabled={disabled}
+              pluginInjectionApi={api}
             />
           )}
         />

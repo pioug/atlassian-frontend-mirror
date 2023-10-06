@@ -55,6 +55,7 @@ const ModalWrapper = (props: ModalDialogProps) => {
     shouldCloseOnEscapePress = true,
     shouldCloseOnOverlayClick = true,
     shouldScrollInViewport = false,
+    shouldReturnFocus = true,
     stackIndex: stackIndexOverride,
     onClose = noop,
     onStackChange = noop,
@@ -131,7 +132,7 @@ const ModalWrapper = (props: ModalDialogProps) => {
               <FocusLock
                 autoFocus={autoFocusLock}
                 disabled={!isForeground}
-                returnFocus
+                returnFocus={shouldReturnFocus}
                 whiteList={whiteListElements}
               >
                 {/* Ensures scroll events are blocked on the document body and locked */}

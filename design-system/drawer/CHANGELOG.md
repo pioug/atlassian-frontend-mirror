@@ -1,5 +1,11 @@
 # @atlaskit/drawer
 
+## 7.6.1
+
+### Patch Changes
+
+- [#40647](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40647) [`0de92f17021`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0de92f17021) - Bump react-focus-lock to latest version
+
 ## 7.6.0
 
 ### Minor Changes

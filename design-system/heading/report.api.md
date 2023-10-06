@@ -30,12 +30,12 @@ export const HeadingContextProvider: ({
 }: HeadingLevelContextProps) => JSX.Element;
 
 // @public (undocumented)
-type HeadingElement = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
+type HeadingLevel = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
 
 // @public (undocumented)
 interface HeadingLevelContextProps {
   children: ReactNode;
-  value?: HeadingElement;
+  value?: HeadingLevel;
 }
 
 // @public (undocumented)

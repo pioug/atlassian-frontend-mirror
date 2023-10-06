@@ -43,7 +43,7 @@ describe('Heading (Legacy)', () => {
   it('observes deeper context', () => {
     // should be H1 --> H2 --> H3
     render(
-      <HeadingContextProvider>
+      <HeadingContextProvider value={2}>
         <Heading level="h100" testId="h2">
           Hello
         </Heading>
@@ -103,9 +103,9 @@ describe('Heading', () => {
   });
 
   it('observes deeper context', () => {
-    // should be H1 --> H2 --> H3
+    // should be H2 --> H3 --> H4
     render(
-      <HeadingContextProvider>
+      <HeadingContextProvider value={2}>
         <HeadingContextProvider>
           <Heading variant="xxsmall" testId="h3">
             Hello

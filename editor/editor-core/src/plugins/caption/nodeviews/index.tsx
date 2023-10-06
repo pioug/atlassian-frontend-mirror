@@ -4,14 +4,14 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { Caption } from '@atlaskit/editor-common/ui';
 
 import type {
+  ExtractInjectionAPI,
   getPosHandler,
   getPosHandlerNode,
-  ForwardRef,
-} from '../../../nodeviews/';
+} from '@atlaskit/editor-common/types';
+import type { ForwardRef } from '@atlaskit/editor-common/react-node-view';
 import { SelectionBasedNodeView } from '@atlaskit/editor-common/selection-based-node-view';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type captionPlugin from '../index';
 
 export class CaptionNodeView extends SelectionBasedNodeView {

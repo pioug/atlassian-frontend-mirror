@@ -70,7 +70,7 @@ describe('text color commands', () => {
       );
       const { dispatch, state } = editorView;
 
-      expect(changeColor(testColor2)(state, dispatch));
+      expect(changeColor(testColor2, undefined)(state, dispatch));
       expect(editorView.state.doc).toEqualDocument(
         doc(p(createTextColor(testColor2)('t'), 'ext')),
       );
@@ -81,7 +81,7 @@ describe('text color commands', () => {
       const { dispatch, state } = editorView;
 
       expect(pluginState.color).toBe(pluginState.defaultColor);
-      expect(changeColor(testColor2)(state, dispatch));
+      expect(changeColor(testColor2, undefined)(state, dispatch));
 
       const updatedPluginState = textColorPluginKey.getState(editorView.state);
       expect(updatedPluginState?.color).toBe(testColor2);
@@ -92,7 +92,7 @@ describe('text color commands', () => {
       const { dispatch, state } = editorView;
 
       expect(pluginState.color).toBe(pluginState.defaultColor);
-      expect(changeColor(testColor1)(state, dispatch));
+      expect(changeColor(testColor1, undefined)(state, dispatch));
 
       const updatedPluginState = textColorPluginKey.getState(editorView.state);
       expect(updatedPluginState?.color).toBe(testColor1);
@@ -102,7 +102,7 @@ describe('text color commands', () => {
       const { editorView } = editor(doc(p('t{<}ext', hardBreak(), 'text{>}')));
       const { dispatch, state } = editorView;
 
-      changeColor(testColor1)(state, dispatch);
+      changeColor(testColor1, undefined)(state, dispatch);
 
       expect(editorView.state.doc).toEqualDocument(
         doc(
@@ -130,7 +130,7 @@ describe('text color commands', () => {
 
       const { state, dispatch } = editorView;
 
-      changeColor(pluginState.defaultColor)(state, dispatch);
+      changeColor(pluginState.defaultColor, undefined)(state, dispatch);
 
       expect(editorView.state.doc).toEqualDocument(
         doc(
@@ -155,7 +155,7 @@ describe('text color commands', () => {
 
       const { state, dispatch } = editorView;
 
-      changeColor(pluginState.defaultColor)(state, dispatch);
+      changeColor(pluginState.defaultColor, undefined)(state, dispatch);
 
       expect(editorView.state.doc).toEqualDocument(
         doc(

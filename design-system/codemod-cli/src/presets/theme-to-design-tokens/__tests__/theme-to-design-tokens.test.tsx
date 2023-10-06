@@ -1,9 +1,8 @@
-/* eslint-disable no-console */
 jest.autoMockOff();
 
 import jscodeshift from 'jscodeshift';
-
 import codemod from '../theme-to-design-tokens';
+import { withMockedConsoleWarn } from '../../../__tests__/test-utils';
 
 interface Options {
   parser: string;
@@ -23,16 +22,6 @@ async function applyTransform(
   );
 
   return (output || '').trim();
-}
-
-async function withMockedConsoleWarn(fn: any) {
-  const originalWarn = console.warn;
-  const warn = jest.fn();
-  console.warn = warn;
-
-  await fn(warn);
-
-  console.warn = originalWarn;
 }
 
 describe('theme-to-design-tokens', () => {

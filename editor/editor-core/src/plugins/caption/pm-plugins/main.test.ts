@@ -4,6 +4,7 @@ import {
   createProsemirrorEditorFactory,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+// TODO ED-20290 - import mediaPlugin from '@atlaskit/editor-core/src/plugins/media'
 import mediaPlugin from '../../media';
 import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
@@ -21,8 +22,7 @@ import {
   p,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { pluginKey } from './plugin-key';
-import { setTextSelection } from '../../../utils/selection';
-import deprecatedAnalyticsPlugin from '../../analytics';
+import { setTextSelection } from '@atlaskit/editor-common/utils';
 import { editorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 
 import { focusPlugin } from '@atlaskit/editor-plugin-focus';
@@ -40,7 +40,6 @@ describe('Caption plugin', () => {
       preset: new Preset<LightEditorPlugin>()
         .add([featureFlagsPlugin, {}])
         .add([analyticsPlugin, { createAnalyticsEvent }])
-        .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }])
         .add(decorationsPlugin)
         .add(editorDisabledPlugin)
         .add(widthPlugin)

@@ -566,6 +566,7 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
       ariaLabelledBy,
       ariaLive,
       name,
+      header,
     } = this.props;
 
     const {
@@ -634,6 +635,7 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
         onKeyDown={this.handleKeyDown}
         maxPickerHeight={maxPickerHeight}
         textFieldBackgroundColor={textFieldBackgroundColor}
+        header={header}
         {...this.ariaProps}
         {...pickerProps}
       />

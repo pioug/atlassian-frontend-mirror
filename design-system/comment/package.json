@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/comment",
-  "version": "10.8.19",
+  "version": "10.8.20",
   "description": "A comment displays discussions and user feedback.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -40,7 +40,7 @@
   "devDependencies": {
     "@af/accessibility-testing": "*",
     "@af/visual-regression": "*",
-    "@atlaskit/avatar": "^21.3.0",
+    "@atlaskit/avatar": "^21.4.0",
     "@atlaskit/ds-lib": "^2.2.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",

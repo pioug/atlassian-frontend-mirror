@@ -1,5 +1,11 @@
 # @atlaskit/link-picker
 
+## 1.30.1
+
+### Patch Changes
+
+- [#41114](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41114) [`f8efb1a7ce5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f8efb1a7ce5) - Add env var default and fix array iterable for local consumption typechecking
+
 ## 1.30.0
 
 ### Minor Changes

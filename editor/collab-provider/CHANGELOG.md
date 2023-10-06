@@ -1,5 +1,11 @@
 # @atlaskit/collab-provider
 
+## 9.15.0
+
+### Minor Changes
+
+- [#41131](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41131) [`6d09bbf0bc7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6d09bbf0bc7) - only sending analytics event with unconfirmed step count on first connection when buffering is enabled
+
 ## 9.14.0
 
 ### Minor Changes

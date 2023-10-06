@@ -1,146 +1,229 @@
-jest.mock('pdfjs-dist/build/pdf', () => ({
-  __esModule: true, // this property makes it work
+jest.mock('pdfjs-dist/legacy/build/pdf', () => ({
+  __esModule: true,
+  getDocument: jest.fn().mockImplementation(() => {
+    return jest.fn();
+  }),
   GlobalWorkerOptions: {
     workerSrc: '',
   },
-  getDocument: jest.fn(),
+  version: '',
 }));
 
-jest.mock('pdfjs-dist/web/pdf_viewer', () => ({
-  __esModule: true, // this property makes it work
+jest.mock('pdfjs-dist/legacy/web/pdf_viewer', () => ({
+  __esModule: true,
   PDFViewer: jest.fn().mockImplementation(() => {
     return {
       setDocument: jest.fn(),
       firstPagePromise: new Promise(() => {}),
     };
   }),
+  EventBus: jest.fn(),
+  PDFLinkService: jest.fn().mockImplementation(() => {
+    return {
+      setDocument: jest.fn(),
+      setViewer: jest.fn(),
+    };
+  }),
 }));
 
 import React from 'react';
-import * as pdfjsLib from 'pdfjs-dist/build/pdf';
-import * as PDFJSViewer from 'pdfjs-dist/web/pdf_viewer';
+import { render, screen, waitFor } from '@testing-library/react';
+import { getDocument } from 'pdfjs-dist/legacy/build/pdf';
 import {
   PDFRenderer,
   pdfViewerClassName,
-  Props,
-  State,
 } from '../../../../../viewers/doc/pdfRenderer';
-import { ZoomControls } from '../../../../../zoomControls';
-import { Spinner } from '../../../../../loading';
-import { ErrorMessage } from '../../../../../errorMessage';
-import { mountWithIntlContext } from '@atlaskit/media-test-helpers';
+import { IntlProvider } from 'react-intl-next';
+import userEvent from '@testing-library/user-event';
 
-function createFixture(documentPromise: Promise<any>) {
-  const onClose = jest.fn();
-  const onSuccess = jest.fn();
-  (pdfjsLib.getDocument as jest.Mock<{}>).mockReturnValue({
-    promise: documentPromise,
-  });
-
-  const el = mountWithIntlContext<Props, State>(
-    <PDFRenderer
-      item={{
-        id: '1',
-        status: 'processing',
-        mediaType: 'doc',
-        mimeType: 'application/pdf',
-        name: 'file.pdf',
-        size: 1,
-      }}
-      src={''}
-      onClose={onClose}
-      onSuccess={onSuccess}
-    />,
-  );
-  return { el, onClose, onSuccess };
-}
+// data test ids and labels
+const spinnerLabel = 'Loading file...';
+const pdfViewerWrapperTestId = 'media-viewer-pdf-content';
 
 describe('PDFRenderer', () => {
-  beforeEach(() => {
-    (PDFJSViewer.PDFViewer as jest.Mock<{}>).mockImplementation(() => {
-      return {
-        setDocument: jest.fn(),
-        firstPagePromise: new Promise(() => {}),
-      };
-    });
-  });
+  beforeEach(() => {});
+
   afterEach(() => {
-    (pdfjsLib.getDocument as jest.Mock<{}>).mockReset();
-    (PDFJSViewer.PDFViewer as jest.Mock<{}>).mockReset();
+    jest.restoreAllMocks();
   });
 
   it('supports zooming', async () => {
-    const documentPromise = Promise.resolve({});
-    const { el } = createFixture(documentPromise);
-    await documentPromise;
-    el.update();
+    const user = userEvent.setup();
+    render(
+      <IntlProvider locale="en">
+        <PDFRenderer
+          item={{
+            id: '1',
+            status: 'processing',
+            mediaType: 'doc',
+            mimeType: 'application/pdf',
+            name: 'file.pdf',
+            size: 1,
+          }}
+          src={''}
+        />
+      </IntlProvider>,
+    );
 
-    expect(el.state('zoomLevel').value).toEqual(1);
+    expect(await screen.findByText('100 %')).toBeInTheDocument();
 
-    expect(el.state('doc').status).toEqual('SUCCESSFUL');
-    expect(el.find(ZoomControls)).toHaveLength(1);
-    el.find(ZoomControls)
-      .find('button[type="button"]')
-      .first()
-      .simulate('click');
-    expect(el.state('zoomLevel').value).toBeLessThan(1);
+    // should render zoom controls
+    expect(screen.queryByLabelText('zoom out')).toBeInTheDocument();
+    expect(screen.queryByLabelText('zoom in')).toBeInTheDocument();
+
+    // click zoom control
+    const zoomOutBtn = screen.getByLabelText('zoom out');
+    await user.click(zoomOutBtn);
+
+    // expect new zoom level to be less than 100%
+    const zoomLevelElement = screen.getByText('%', { exact: false });
+    expect(zoomLevelElement).toBeInTheDocument();
+    const foundZoomLevel = zoomLevelElement.innerText.match(/\d+ %/);
+    expect(foundZoomLevel).toBeDefined();
+    expect(parseInt(foundZoomLevel![0])).toBeLessThan(100);
   });
 
-  it('shows a loading indicator until the document is ready', () => {
-    const unresolvedDocumentPromise = new Promise(() => {});
-    const { el } = createFixture(unresolvedDocumentPromise);
-    expect(el.find(Spinner)).toHaveLength(1);
+  it('shows a loading indicator until the document is ready', async () => {
+    (getDocument as jest.Mock).mockReturnValueOnce({
+      promise: new Promise(() => {}),
+    });
+    render(
+      <IntlProvider locale="en">
+        <PDFRenderer
+          item={{
+            id: '1',
+            status: 'processing',
+            mediaType: 'doc',
+            mimeType: 'application/pdf',
+            name: 'file.pdf',
+            size: 1,
+          }}
+          src={''}
+        />
+      </IntlProvider>,
+    );
+
+    // should render a spinner
+    expect(screen.queryByLabelText(spinnerLabel)).toBeInTheDocument();
   });
 
   it('shows an error message when the document could not be loaded', async () => {
-    const failedDocumentPromise = Promise.reject(new Error('test'));
-    const { el } = createFixture(failedDocumentPromise);
-
-    // wait for promise rejection ignoring the error
-    await failedDocumentPromise.catch(() => {});
-    el.update();
-
-    const errorMessage = el.find(ErrorMessage);
-
-    expect(errorMessage).toHaveLength(1);
-    expect(errorMessage.text()).toContain(
-      "We couldn't generate a preview for this file",
+    (getDocument as jest.Mock).mockReturnValueOnce({
+      promise: Promise.reject(new Error('test')),
+    });
+    render(
+      <IntlProvider locale="en">
+        <PDFRenderer
+          item={{
+            id: '1',
+            status: 'processing',
+            mediaType: 'doc',
+            mimeType: 'application/pdf',
+            name: 'file.pdf',
+            size: 1,
+          }}
+          src={''}
+        />
+      </IntlProvider>,
     );
-    expect(errorMessage.find('button[type="button"]')).toHaveLength(0);
+
+    expect(
+      await screen.findByText("We couldn't generate a preview for this file."),
+    ).toBeInTheDocument();
+    expect(screen.getByText('Something went wrong.')).toBeInTheDocument();
+    expect(
+      screen.getByRole('img', { name: 'Error loading file' }),
+    ).toBeInTheDocument();
   });
 
   it('MSW-700: clicking on background of DocViewer does not close it', async () => {
-    const documentPromise = Promise.resolve({});
-    const { el, onClose } = createFixture(documentPromise);
-    await documentPromise;
-    el.update();
+    const user = userEvent.setup();
+    const onClose = jest.fn();
+    render(
+      <IntlProvider locale="en">
+        <PDFRenderer
+          item={{
+            id: '1',
+            status: 'processing',
+            mediaType: 'doc',
+            mimeType: 'application/pdf',
+            name: 'file.pdf',
+            size: 1,
+          }}
+          src={''}
+          onClose={onClose}
+        />
+      </IntlProvider>,
+    );
 
-    el.find(`.${pdfViewerClassName}`).simulate('click');
+    const pdfViewerWrapper = await screen.findByTestId(pdfViewerWrapperTestId);
+    const pdfViewer = pdfViewerWrapper.firstElementChild;
+    expect(pdfViewer).toBeDefined();
+    expect(pdfViewer!.className).toEqual(pdfViewerClassName);
+    await user.click(pdfViewer!);
 
     expect(onClose).toHaveBeenCalled();
   });
 
   it('should call onSuccess when loaded', async () => {
-    const documentPromise = Promise.resolve({});
-    const { el, onSuccess } = createFixture(documentPromise);
-    await documentPromise;
-    el.update();
+    const onSuccess = jest.fn();
+    render(
+      <IntlProvider locale="en">
+        <PDFRenderer
+          item={{
+            id: '1',
+            status: 'processing',
+            mediaType: 'doc',
+            mimeType: 'application/pdf',
+            name: 'file.pdf',
+            size: 1,
+          }}
+          src={''}
+          onSuccess={onSuccess}
+        />
+      </IntlProvider>,
+    );
+    // wait for MediaViewer to be fully loaded
+    await waitFor(() =>
+      expect(screen.queryByLabelText(spinnerLabel)).not.toBeInTheDocument(),
+    );
 
-    expect(onSuccess).toHaveBeenCalled();
+    expect(onSuccess).toHaveBeenCalledTimes(1);
   });
 
   it('should destroy loading documents on component unmount', async () => {
-    const documentPromise = Promise.resolve({
-      loadingTask: {
-        destroyed: false,
-      },
-      destroy: jest.fn(),
+    const destroy = jest.fn();
+    (getDocument as jest.Mock).mockReturnValueOnce({
+      promise: Promise.resolve({
+        loadingTask: {
+          destroyed: false,
+        },
+        destroy,
+      }),
     });
-    const { el } = createFixture(documentPromise);
-    await documentPromise;
-    el.update();
-    el.unmount();
 
-    expect((await documentPromise).destroy).toHaveBeenCalled();
+    const { unmount } = render(
+      <IntlProvider locale="en">
+        <PDFRenderer
+          item={{
+            id: '1',
+            status: 'processing',
+            mediaType: 'doc',
+            mimeType: 'application/pdf',
+            name: 'file.pdf',
+            size: 1,
+          }}
+          src={''}
+        />
+      </IntlProvider>,
+    );
+
+    // wait for MediaViewer to be fully loaded
+    await waitFor(() =>
+      expect(screen.queryByLabelText(spinnerLabel)).not.toBeInTheDocument(),
+    );
+
+    unmount();
+    expect(destroy).toHaveBeenCalled();
   });
 });

@@ -181,29 +181,8 @@ describe('#sendData', () => {
           });
           expect(
             fakeAnalyticsWebClient.sendOperationalEvent,
-          ).toHaveBeenCalledTimes(2);
-          expect(
-            fakeAnalyticsWebClient.sendOperationalEvent,
-          ).toHaveBeenNthCalledWith(1, {
-            action: 'hasUnconfirmedSteps',
-            actionSubject: 'collab',
-            attributes: {
-              packageName: '@atlaskit/fabric',
-              packageVersion: '0.0.0',
-              collabService: 'ncs',
-              network: {
-                status: 'ONLINE',
-              },
-              documentAri: 'ari:cloud:confluence:ABC:page/testpage',
-              eventStatus: EVENT_STATUS.INFO,
-              numUnconfirmedSteps: 1,
-            },
-            tags: ['editor'],
-            source: 'unknown',
-          });
-          expect(
-            fakeAnalyticsWebClient.sendOperationalEvent,
-          ).toHaveBeenNthCalledWith(2, {
+          ).toHaveBeenCalledTimes(1);
+          expect(fakeAnalyticsWebClient.sendOperationalEvent).toBeCalledWith({
             action: 'addSteps',
             actionSubject: 'collab',
             attributes: {
@@ -240,10 +219,10 @@ describe('#sendData', () => {
 
             expect(
               fakeAnalyticsWebClient.sendOperationalEvent,
-            ).toHaveBeenCalledTimes(3);
+            ).toHaveBeenCalledTimes(2);
             expect(
               fakeAnalyticsWebClient.sendOperationalEvent,
-            ).toHaveBeenNthCalledWith(3, {
+            ).toHaveBeenNthCalledWith(2, {
               action: 'addSteps',
               actionSubject: 'collab',
               attributes: {
@@ -299,10 +278,10 @@ describe('#sendData', () => {
             );
             expect(
               fakeAnalyticsWebClient.sendOperationalEvent,
-            ).toHaveBeenCalledTimes(3);
+            ).toHaveBeenCalledTimes(2);
             expect(
               fakeAnalyticsWebClient.sendOperationalEvent,
-            ).toHaveBeenNthCalledWith(3, {
+            ).toHaveBeenNthCalledWith(2, {
               action: 'addSteps',
               actionSubject: 'collab',
               attributes: {
@@ -395,7 +374,7 @@ describe('#sendData', () => {
 
           expect(
             fakeAnalyticsWebClient.sendOperationalEvent,
-          ).toHaveBeenCalledTimes(2);
+          ).toHaveBeenCalledTimes(1);
           expect(fakeAnalyticsWebClient.sendTrackEvent).toHaveBeenNthCalledWith(
             1,
             {

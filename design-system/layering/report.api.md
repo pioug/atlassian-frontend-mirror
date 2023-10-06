@@ -19,9 +19,12 @@
 
 import { FC } from 'react';
 import { MutableRefObject } from 'react';
+import { ReactNode } from 'react';
 
 // @public
-export const UNSAFE_LAYERING: FC;
+export const UNSAFE_LAYERING: FC<{
+  children: ReactNode;
+}>;
 
 // @public
 export function UNSAFE_useLayering(): {

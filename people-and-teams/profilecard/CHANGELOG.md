@@ -1,5 +1,11 @@
 # @atlaskit/profilecard
 
+## 19.5.13
+
+### Patch Changes
+
+- [#41140](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41140) [`e54969bc4d1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e54969bc4d1) - PTC-7540 as a PIR, add unit tests for graphql queries
+
 ## 19.5.12
 
 ### Patch Changes

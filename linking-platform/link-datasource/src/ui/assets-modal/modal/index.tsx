@@ -108,15 +108,10 @@ const PlainAssetsConfigModal = (props: AssetsConfigModalProps) => {
   }, [initialVisibleColumnKeys, defaultVisibleColumnKeys]);
 
   useEffect(() => {
-    const [data] = responseItems;
-    if (data && isNewSearch) {
-      setVisibleColumnKeys(Object.keys(data));
-    } else if (data && (visibleColumnKeys || []).length) {
-      setVisibleColumnKeys(visibleColumnKeys);
+    if (isNewSearch) {
+      setVisibleColumnKeys(defaultVisibleColumnKeys);
     }
-    // Purposely not included 'visibleColumnKeys' as a dependency to prevent infinite loop
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [responseItems, isNewSearch]);
+  }, [defaultVisibleColumnKeys, isNewSearch]);
 
   useEffect(() => {
     fireEvent('screen.datasourceModalDialog.viewed', {});
@@ -186,21 +181,15 @@ const PlainAssetsConfigModal = (props: AssetsConfigModalProps) => {
   ]);
 
   const handleOnSearch = useCallback(
-    (searchAql: string, searchSchemaId: string) => {
-      if (schemaId !== searchSchemaId) {
+    async (searchAql: string, searchSchemaId: string) => {
+      if (schemaId !== searchSchemaId || aql !== searchAql) {
         reset({ shouldResetColumns: true });
         setAql(searchAql);
         setSchemaId(searchSchemaId);
         setIsNewSearch(true);
-        loadDatasourceDetails();
-      }
-      if (aql !== searchAql) {
-        reset();
-        setAql(searchAql);
-        setSchemaId(searchSchemaId);
       }
     },
-    [aql, loadDatasourceDetails, reset, schemaId],
+    [aql, reset, schemaId],
   );
 
   const renderModalTitleContent = useCallback(() => {

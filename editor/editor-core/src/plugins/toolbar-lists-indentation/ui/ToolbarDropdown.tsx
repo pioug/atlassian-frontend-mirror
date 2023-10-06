@@ -14,7 +14,8 @@ import {
 import type { DropdownItem } from '@atlaskit/editor-plugin-block-type';
 import { DropdownMenuWithKeyboardNavigation as DropdownMenu } from '@atlaskit/editor-common/ui-menu';
 import ToolbarButton from '../../../ui/ToolbarButton';
-import { expandIconWrapperStyle, shortcutStyle } from '../../../ui/styles';
+import { shortcutStyle } from '../../../ui/styles';
+import { expandIconWrapperStyle } from '@atlaskit/editor-common/styles';
 import { wrapperStyle, separatorStyles } from '@atlaskit/editor-common/styles';
 import { listMessages } from '@atlaskit/editor-common/messages';
 import { messages as indentationMessages } from '../../indentation/messages';

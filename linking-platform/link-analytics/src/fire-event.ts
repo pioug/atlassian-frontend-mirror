@@ -10,7 +10,9 @@ import {
 import { getDomainFromUrl, mergeAttributes } from './utils';
 import { resolveAttributes } from './utils';
 import { ANALYTICS_CHANNEL } from './consts';
-import createEventPayload from './common/utils/analytics/analytics.codegen';
+import createEventPayload, {
+  LinkCreatedAttributesType,
+} from './common/utils/analytics/analytics.codegen';
 import {
   DatasourceDataRequest,
   DatasourceDataResponse,
@@ -104,6 +106,18 @@ export const fireDatasourceEvent = (
         domainName: details.url ? getDomainFromUrl(details.url) : '',
       },
     });
+
+    if (extensionKey === 'jira-object-provider' && action === 'created') {
+      // macro inserted event name is consistent with what confluence uses for JIM inserts
+      const payload = createEventPayload(`track.macro.inserted`, {
+        ...(mergedAttributes as LinkCreatedAttributesType),
+      });
+
+      createAnalyticsEvent({
+        ...payload,
+        actionSubjectId: 'jlol',
+      }).fire(ANALYTICS_CHANNEL);
+    }
 
     event.context.push(PACKAGE_DATA);
     event.fire(ANALYTICS_CHANNEL);

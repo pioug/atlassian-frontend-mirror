@@ -23,8 +23,8 @@ export const testIds = {
 };
 
 export const PACKAGE_DATA: PackageMetaDataType = {
-  packageName: process.env._PACKAGE_NAME_,
-  packageVersion: process.env._PACKAGE_VERSION_,
+  packageName: process.env._PACKAGE_NAME_ || '',
+  packageVersion: process.env._PACKAGE_VERSION_ || '',
   componentName: COMPONENT_NAME,
   source: COMPONENT_NAME,
 };

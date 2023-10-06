@@ -8,7 +8,6 @@ import { Outcome } from '../../domain';
 import { MediaViewerError } from '../../errors';
 import { Spinner } from '../../loading';
 import { Props as RendererProps } from './pdfRenderer';
-import { ComponentClass } from 'react';
 import { BaseViewer } from '../base-viewer';
 import { getObjectUrlFromFileState } from '../../utils/getObjectUrlFromFileState';
 
@@ -17,7 +16,7 @@ const moduleLoader = () =>
     /* webpackChunkName: "@atlaskit-internal_media-pdf-viewer" */ './pdfRenderer'
   );
 
-const componentLoader: () => Promise<ComponentClass<RendererProps>> = () =>
+const componentLoader = () =>
   moduleLoader().then((module) => module.PDFRenderer);
 
 export type Props = {
@@ -34,7 +33,7 @@ export type State = {
 };
 
 export class DocViewer extends BaseViewer<string, Props> {
-  static PDFComponent: ComponentClass<RendererProps>;
+  static PDFComponent: (props: RendererProps) => JSX.Element;
 
   protected get initialState() {
     return {

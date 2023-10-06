@@ -1,5 +1,44 @@
 # @atlaskit/editor-core
 
+## 188.2.8
+
+### Patch Changes
+
+- [#41120](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41120) [`011df0ba8ab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/011df0ba8ab) - Fix media icon showing in comment editor toolbar due to state not updating.
+
+## 188.2.7
+
+### Patch Changes
+
+- [#41217](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41217) [`288b7a988c7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/288b7a988c7) - Caption Plugin Scaffolding
+- [#41209](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41209) [`1e9d1d550ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1e9d1d550ec) - Decouple Caption Plugin from editor-core
+- Updated dependencies
+
+## 188.2.6
+
+### Patch Changes
+
+- [#41212](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41212) [`db0107e09d7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/db0107e09d7) - Updates failing datasources playwright test
+
+## 188.2.5
+
+### Patch Changes
+
+- [#41103](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41103) [`e268e178096`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e268e178096) - ED-20195 Decouple Text color plugin from editor core
+- Updated dependencies
+
+## 188.2.4
+
+### Patch Changes
+
+- [#39425](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39425) [`4c27d14af2e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4c27d14af2e) - [ED-19408] Fix issue where FocusTrap returnFocus was causing the cursor to end up at the beginning of the document when inserting elements using the element browser modal.
+
+## 188.2.3
+
+### Patch Changes
+
+- [#41015](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41015) [`a372c39bc57`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a372c39bc57) - ED-20297 fixed nested video overlapping issue
+
 ## 188.2.1
 
 ### Patch Changes

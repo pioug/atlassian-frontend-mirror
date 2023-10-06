@@ -1,7 +1,7 @@
 import { applyMarks } from '../apply-marks';
 import { createTag } from '../create-tag';
 import { createClassName } from '../styles/util';
-import { NodeSerializerOpts } from '../interfaces';
+import type { NodeSerializerOpts } from '../interfaces';
 import { lineHeight, fontSize } from '../styles/common';
 
 const className = createClassName('caption');
@@ -18,7 +18,7 @@ export const styles = `
 }
 `;
 
-export default function caption({ text, marks }: NodeSerializerOpts) {
+export default function caption({ text, marks, context }: NodeSerializerOpts) {
   const caption = createTag('div', { class: className }, text || '&nbsp;');
-  return applyMarks(marks, caption);
+  return applyMarks(marks, caption, context);
 }

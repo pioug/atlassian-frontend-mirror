@@ -65,7 +65,7 @@ export const MenuDialog: FC<MenuDialogProps> = ({
 // ==============================
 
 const dropdownStyles = css({
-  marginRight: token('space.025', '2px'),
+  marginInlineEnd: token('space.025', '2px'),
   textAlign: 'center',
   width: 32,
 });
@@ -103,10 +103,8 @@ export const DummyControl: FC<ControlProps<OptionType, boolean>> = (props) => (
 );
 
 // NOTE `props` intentionally omitted from `Fragment`
-const Menu = ({
-  children,
-  innerProps,
-  ...props
-}: MenuProps<OptionType, boolean>) => <div {...innerProps}>{children}</div>;
+const Menu = ({ children, innerProps }: MenuProps<OptionType, boolean>) => (
+  <div {...innerProps}>{children}</div>
+);
 
 export const defaultComponents = { Control, DropdownIndicator, Menu };

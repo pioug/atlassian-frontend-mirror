@@ -1,5 +1,6 @@
 import { Parser } from 'jscodeshift';
 import transformer from '../css-to-design-tokens';
+import { withMockedConsoleWarn } from '../../../__tests__/test-utils';
 
 async function applyTransform(
   transform: any,
@@ -25,94 +26,96 @@ async function applyTransform(
 }
 
 describe('PostCSS Transform', () => {
-  it('standard CSS', async () => {
-    const result = await applyTransform(
-      transformer,
-      `
+  it(`standard CSS`, async () => {
+    const input = `
 .normal {
   color: #eeeeee;
 }
-
 .normal-selected {
   color: #eeeeee;
-}`,
-    );
-
+}
+`;
+    const result = await applyTransform(transformer, input);
     expect(result).toMatchInlineSnapshot(`
       ".normal {
         color: var(--ds-surface-sunken, #eeeeee);
       }
-
       .normal-selected {
         color: var(--ds-surface-sunken, #eeeeee);
       }"
     `);
   });
 
-  it('standard LESS', async () => {
-    const result = await applyTransform(
-      transformer,
-      `
-    .container {
-        .mixin-1();
-        .mixin-2;
-        .mixin-3 (@width: 100px) {
-            color: #eeeeee;
-        }
-    }`,
-    );
-
+  it(`standard LESS`, async () => {
+    const input = `
+.container {
+    .mixin-1();
+    .mixin-2;
+    .mixin-3 (@width: 100px) {
+        color: #eeeeee;
+    }
+}
+`;
+    const result = await applyTransform(transformer, input);
     expect(result).toMatchInlineSnapshot(`
       ".container {
-              .mixin-1();
-              .mixin-2;
-              .mixin-3 (@width: 100px) {
-                  color: var(--ds-surface-sunken, #eeeeee);
-              }
-          }"
+          .mixin-1();
+          .mixin-2;
+          .mixin-3 (@width: 100px) {
+              color: var(--ds-surface-sunken, #eeeeee);
+          }
+      }"
     `);
   });
 
-  it('box-shadows', async () => {
-    const result = await applyTransform(
-      transformer,
-      `.container { box-shadow: 0px 1px 5px 0px var(--adg3-color-N40); }`,
-    );
-
+  it(`box-shadows`, async () => {
+    const input = `.container { box-shadow: 0px 1px 5px 0px var(--adg3-color-N40); }`;
+    const result = await applyTransform(transformer, input);
     expect(result).toMatchInlineSnapshot(
       `".container { box-shadow: var(--ds-shadow-overflow, 0px 1px 5px 0px var(--adg3-color-N40)); }"`,
     );
   });
 
-  it('should not transform box-shadow: none', async () => {
-    const result = await applyTransform(
-      transformer,
-      `.container { box-shadow: none; }`,
+  it(`should not transform value with 'url()'`, async () => {
+    const input = `.user-time-icon { background: url(@spriteUrl) no-repeat; }`;
+    const result = await applyTransform(transformer, input);
+    expect(result).toMatchInlineSnapshot(
+      `".user-time-icon { background: url(@spriteUrl) no-repeat; }"`,
     );
+  });
 
+  it(`should not transform value with less functions`, async () => {
+    await withMockedConsoleWarn(async (warn: any) => {
+      const input = `.user-time-icon { background: lighten(@spriteUrl) no-repeat; }`;
+      const result = await applyTransform(transformer, input);
+      expect(result).toMatchInlineSnapshot(
+        `".user-time-icon { background: lighten(@spriteUrl) no-repeat; }"`,
+      );
+      expect(warn).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  it(`should not transform box-shadow: none`, async () => {
+    const input = `.container { box-shadow: none; }`;
+    const result = await applyTransform(transformer, input);
     expect(result).toMatchInlineSnapshot(`".container { box-shadow: none; }"`);
   });
 
-  it('should not transform border radius', async () => {
-    const result = await applyTransform(
-      transformer,
-      `.container { border-radius: 3px; }`,
-    );
-
+  it(`should not transform border radius`, async () => {
+    const input = `.container { border-radius: 3px; }`;
+    const result = await applyTransform(transformer, input);
     expect(result).toMatchInlineSnapshot(
       `".container { border-radius: 3px; }"`,
     );
   });
 
-  it('chained selectors', async () => {
-    const result = await applyTransform(
-      transformer,
-      `
+  it(`chained selectors`, async () => {
+    const input = `
 h1,h2,h3 {
   color: #eeeeee;
-}`,
-    );
-
+}
+`;
+    const result = await applyTransform(transformer, input);
     expect(result).toMatchInlineSnapshot(`
       "h1,h2,h3 {
         color: var(--ds-surface-sunken, #eeeeee);
@@ -120,26 +123,21 @@ h1,h2,h3 {
     `);
   });
 
-  it('does not transform CSS var declarations', async () => {
-    const result = await applyTransform(
-      transformer,
-      `--adg3-color-R50: #ffebe6;`,
-    );
-
+  it(`does not transform CSS var declarations`, async () => {
+    const input = `--adg3-color-R50: #ffebe6;`;
+    const result = await applyTransform(transformer, input);
     expect(result).toMatchInlineSnapshot(`"--adg3-color-R50: #ffebe6;"`);
   });
 
-  it('standard CSS with ADG3 variables', async () => {
-    const result = await applyTransform(
-      transformer,
-      `
+  it(`standard CSS with ADG3 variables`, async () => {
+    const input = `
 .normal {
   color: var(--adg3-color-N800);
   color: var(--adg3-color-T400);
   color: var(--adg3-color-B400);
-}`,
-    );
-
+}
+`;
+    const result = await applyTransform(transformer, input);
     expect(result).toMatchInlineSnapshot(`
       ".normal {
         color: var(--ds-text, var(--adg3-color-N800));
@@ -149,50 +147,24 @@ h1,h2,h3 {
     `);
   });
 
-  it('less syntax variables', async () => {
-    const result = await applyTransform(
-      transformer,
-      `
-.normal {
-  color: @adg3-color-N800;
-  color: @adg3-color-T400;
-  color: @adg3-color-B400;
-}`,
-    );
-
-    expect(result).toMatchInlineSnapshot(`
-      ".normal {
-        color: var(--ds-text, @adg3-color-N800);
-        color: var(--ds-text-accent-teal, @adg3-color-T400);
-        color: var(--ds-text-brand, @adg3-color-B400);
-      }"
-    `);
-  });
-
-  it('deeply nested CSS', async () => {
-    const result = await applyTransform(
-      transformer,
-      `
+  it(`deeply nested CSS`, async () => {
+    const input = `
 .normal {
   color: #eeeeee;
-
   .deep {
     color: #eeeeee;
-
     .deeper {
       color: #eeeeee;
     }
   }
-}`,
-    );
-
+}
+`;
+    const result = await applyTransform(transformer, input);
     expect(result).toMatchInlineSnapshot(`
       ".normal {
         color: var(--ds-surface-sunken, #eeeeee);
-
         .deep {
           color: var(--ds-surface-sunken, #eeeeee);
-
           .deeper {
             color: var(--ds-surface-sunken, #eeeeee);
           }
@@ -201,65 +173,51 @@ h1,h2,h3 {
     `);
   });
 
-  it('interaction states CSS', async () => {
-    const result = await applyTransform(
-      transformer,
-      `
+  it(`interaction states CSS`, async () => {
+    const input = `
 .normal {
   color: #eeeeee;
 }
-
 .normal:hover {
   color: #eeeeee;
 }
-
 .normal:active {
   color: #eeeeee;
 }
-`,
-    );
-
+`;
+    const result = await applyTransform(transformer, input);
     expect(result).toMatchInlineSnapshot(`
       ".normal {
         color: var(--ds-surface-sunken, #eeeeee);
       }
-
       .normal:hover {
         color: var(--ds-surface-sunken, #eeeeee);
       }
-
       .normal:active {
         color: var(--ds-surface-sunken, #eeeeee);
       }"
     `);
   });
 
-  it('nested interaction states CSS', async () => {
-    const result = await applyTransform(
-      transformer,
-      `
+  it(`nested interaction states CSS`, async () => {
+    const input = `
 .normal {
   color: #eeeeee;
-
   &:hover {
     color: #eeeeee;
   }
-
   &:active {
     color: #eeeeee;
   }
 }
-  `,
-    );
-
+`;
+    const result = await applyTransform(transformer, input);
     expect(result).toMatchInlineSnapshot(`
       ".normal {
         color: var(--ds-surface-sunken, #eeeeee);
-
         &:hover {
           color: var(--ds-surface-sunken, #eeeeee);
         }
-
         &:active {
           color: var(--ds-surface-sunken, #eeeeee);
         }
@@ -267,25 +225,21 @@ h1,h2,h3 {
     `);
   });
 
-  it('nested CSS', async () => {
-    const result = await applyTransform(
-      transformer,
-      `
+  it(`nested CSS`, async () => {
+    const input = `
 .normal {
     color: #000000;
     width: var(--gutter-size);
-
     .nested {
         color: #000000;
     }
-}`,
-    );
-
+}
+`;
+    const result = await applyTransform(transformer, input);
     expect(result).toMatchInlineSnapshot(`
       ".normal {
           color: var(--ds-text, #000000);
           width: var(--gutter-size);
-
           .nested {
               color: var(--ds-text, #000000);
           }
@@ -293,15 +247,13 @@ h1,h2,h3 {
     `);
   });
 
-  it('avoids already converted colors', async () => {
-    const result = await applyTransform(
-      transformer,
-      `
+  it(`avoids already converted colors`, async () => {
+    const input = `
 .normal {
     color: var(--ds-text, #000000);
-}`,
-    );
-
+}
+`;
+    const result = await applyTransform(transformer, input);
     expect(result).toMatchInlineSnapshot(`
       ".normal {
           color: var(--ds-text, #000000);
@@ -309,16 +261,14 @@ h1,h2,h3 {
     `);
   });
 
-  it('aliased adg-3 colors', async () => {
-    const result = await applyTransform(
-      transformer,
-      `
+  it(`aliased adg-3 colors`, async () => {
+    const input = `
 .container {
   box-shadow: 0px 1px 5px 0px var(--adg3-color-N40);
   border: 1px solid var(--adg3-color-N40);
-}`,
-    );
-
+}
+`;
+    const result = await applyTransform(transformer, input);
     expect(result).toMatchInlineSnapshot(`
       ".container {
         box-shadow: var(--ds-shadow-overflow, 0px 1px 5px 0px var(--adg3-color-N40));
@@ -327,16 +277,14 @@ h1,h2,h3 {
     `);
   });
 
-  it('should transform border properties', async () => {
-    const result = await applyTransform(
-      transformer,
-      `
+  it(`should transform border properties`, async () => {
+    const input = `
 .normal {
     border-top: 1px solid #eee;
     border-bottom: 1px solid #eee;
-}`,
-    );
-
+}
+`;
+    const result = await applyTransform(transformer, input);
     expect(result).toMatchInlineSnapshot(`
       ".normal {
           border-top: 1px solid var(--ds-surface-sunken, #eee);
@@ -345,10 +293,8 @@ h1,h2,h3 {
     `);
   });
 
-  it('named colors', async () => {
-    const result = await applyTransform(
-      transformer,
-      `
+  it(`named colors`, async () => {
+    const input = `
 .normal {
   color: red;
   color: crimson;
@@ -374,20 +320,20 @@ h1,h2,h3 {
   border-color: fuchsia;
   border-color: lightgreen;
   border-color: lightskyblue;
-}`,
-    );
-
+}
+`;
+    const result = await applyTransform(transformer, input);
     expect(result).toMatchInlineSnapshot(`
       ".normal {
-        color: var(--ds-background-accent-orange-subtle, red);
+        color: var(--ds-text-accent-orange, red);
         color: var(--ds-text-danger, crimson);
-        color: var(--ds-background-accent-teal-subtle, cyan);
+        color: var(--ds-text-accent-teal, cyan);
         color: var(--ds-text-accent-blue-bolder, darkblue);
         color: var(--ds-text-accent-teal-bolder, darkcyan);
-        color: var(--ds-background-accent-magenta-subtle, fuchsia);
+        color: var(--ds-text-subtle, fuchsia);
         color: var(--ds-text-accent-green, lightgreen);
         color: var(--ds-text-accent-blue, lightskyblue);
-        background-color: var(--ds-background-accent-orange-subtle, red);
+        background-color: var(--ds-background-danger, red);
         background-color: var(--ds-background-danger, crimson);
         background-color: var(--ds-background-accent-teal-subtle, cyan);
         background-color: var(--ds-background-accent-blue-bolder, darkblue);
@@ -407,10 +353,8 @@ h1,h2,h3 {
     `);
   });
 
-  it('raw colors', async () => {
-    const result = await applyTransform(
-      transformer,
-      `
+  it(`raw colors`, async () => {
+    const input = `
 .normal {
   color: #ffffff;
   color: #fff;
@@ -436,9 +380,9 @@ h1,h2,h3 {
   border-color: #cccccc;
   border-color: #292929;
   border-color: #003366;
-}`,
-    );
-
+}
+`;
+    const result = await applyTransform(transformer, input);
     expect(result).toMatchInlineSnapshot(`
       ".normal {
         color: var(--ds-surface, #ffffff);
@@ -446,7 +390,7 @@ h1,h2,h3 {
         color: var(--ds-text, #000000);
         color: var(--ds-surface, #f0f0f0);
         color: var(--ds-surface-sunken, #eeeeee);
-        color: var(--ds-text, #cccccc);
+        color: var(--ds-text-accent-gray, #cccccc);
         color: var(--ds-text, #292929);
         color: var(--ds-text, #003366);
         background-color: var(--ds-surface, #ffffff);
@@ -454,7 +398,7 @@ h1,h2,h3 {
         background-color: var(--ds-background-input, #000000);
         background-color: var(--ds-surface, #f0f0f0);
         background-color: var(--ds-surface-sunken, #eeeeee);
-        background-color: var(--ds-background-input, #cccccc);
+        background-color: var(--ds-background-accent-gray-subtle, #cccccc);
         background-color: var(--ds-background-input, #292929);
         background-color: var(--ds-background-input, #003366);
         border-color: var(--ds-surface, #ffffff);
@@ -462,9 +406,69 @@ h1,h2,h3 {
         border-color: var(--ds-border, #000000);
         border-color: var(--ds-surface, #f0f0f0);
         border-color: var(--ds-surface-sunken, #eeeeee);
-        border-color: var(--ds-border, #cccccc);
+        border-color: var(--ds-border-accent-gray, #cccccc);
         border-color: var(--ds-border, #292929);
         border-color: var(--ds-border, #003366);
+      }"
+    `);
+  });
+
+  it(`omits less variable use`, async () => {
+    const input = `.normal { border-bottom: @grid/2 solid @gh-background-color-column; }`;
+    const result = await applyTransform(transformer, input);
+    expect(result).toMatchInlineSnapshot(
+      `".normal { border-bottom: @grid/2 solid @gh-background-color-column; }"`,
+    );
+  });
+
+  it(`gradients`, async () => {
+    const input = `
+.container {
+  background: linear-gradient(red, blue);
+  background: radial-gradient(red, blue);
+  background: conic-gradient(red, orange, yellow, green, blue);
+}
+`;
+    const result = await applyTransform(transformer, input);
+    expect(result).toMatchInlineSnapshot(`
+      ".container {
+        background: linear-gradient(var(--ds-background-danger, red), var(--ds-background-accent-blue-subtle, blue));
+        background: radial-gradient(var(--ds-background-danger, red), var(--ds-background-accent-blue-subtle, blue));
+        background: conic-gradient(var(--ds-background-danger, red), var(--ds-background-input, orange), var(--ds-background-accent-yellow-subtle, yellow), var(--ds-background-accent-green-subtle, green), var(--ds-background-accent-blue-subtle, blue));
+      }"
+    `);
+  });
+
+  it(`border color`, async () => {
+    const input = `
+.some-div {
+  border-color: red yellow green hsla(60, 90%, 50%, .8);
+}
+`;
+    const result = await applyTransform(transformer, input);
+    expect(result).toMatchInlineSnapshot(`
+      ".some-div {
+        border-color: var(--ds-border-accent-orange, red) var(--ds-border-accent-yellow, yellow) var(--ds-border-accent-green, green) var(--ds-border, hsla(60, 90%, 50%, .8));
+      }"
+    `);
+  });
+
+  it(`other color properties`, async () => {
+    const input = `
+.properties {
+  accent-color: darkred;
+  caret-color: red;
+  text-stroke: 4px navy;
+  scrollbar-color: rebeccapurple green;
+}
+`;
+    const result = await applyTransform(transformer, input);
+    expect(result).toMatchInlineSnapshot(`
+      ".properties {
+        accent-color: var(--ds-chart-danger-bold, darkred);
+        caret-color: var(--ds-background-accent-orange-subtler-hovered, red);
+        text-stroke: 4px var(--ds-chart-blue-bold, navy);
+        scrollbar-color: var(--ds-text-accent-purple, rebeccapurple) var(--ds-text-accent-green, green);
       }"
     `);
   });

@@ -37,6 +37,7 @@ export default function mediaSingle({
   attrs,
   marks,
   text,
+  context,
 }: NodeSerializerOpts) {
   // If not full width or wide
   const honorWidth = !['wide', 'full-width'].includes(attrs.layout);
@@ -58,5 +59,5 @@ export default function mediaSingle({
     { style: serializeStyle(style), class: layoutClass },
     text,
   );
-  return applyMarks(marks, mediaSingleTag);
+  return applyMarks(marks, mediaSingleTag, context);
 }

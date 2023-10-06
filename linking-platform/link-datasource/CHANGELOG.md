@@ -1,5 +1,11 @@
 # @atlaskit/link-datasource
 
+## 1.6.2
+
+### Patch Changes
+
+- [#40759](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40759) [`2e42297cee1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e42297cee1) - Reset default visible column keys when `shouldResetColumns` is `true`
+
 ## 1.6.1
 
 ### Patch Changes

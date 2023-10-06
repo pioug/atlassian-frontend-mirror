@@ -2,7 +2,7 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 
-import type { Dispatch } from '../../../event-dispatcher';
+import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { textColorPalette } from '@atlaskit/editor-common/ui-color';
 import type { PaletteColor } from '@atlaskit/editor-common/ui-color';
 import { DEFAULT_BORDER_COLOR } from '@atlaskit/editor-common/ui-color';

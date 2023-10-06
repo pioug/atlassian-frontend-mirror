@@ -170,7 +170,6 @@ const getBorderColor = ({
   isDisabled,
   isFocused,
   isSelected,
-  ...rest
 }: ControlProps): string => {
   if (isDisabled && isSelected) {
     return token('color.background.disabled', B400);
@@ -194,7 +193,7 @@ const baseIconStyles = css({
   alignItems: 'center',
   display: 'flex ',
   flexShrink: 0,
-  paddingRight: token('space.050', '4px'),
+  paddingInlineEnd: token('space.050', '4px'),
   // Here we are adding a border to the Checkbox and Radio SVG icons
   // This is an a11y fix for Select only for now but it may be rolled
   // into the `@atlaskit/icon` package's Checkbox and Radio SVGs later

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/stylelint-design-system",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Stylelint plugin for use with the Atlassian Design System.",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -22,7 +22,8 @@
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "CHANGELOG.md"
   ],
   "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "main": "dist/cjs/index.js",

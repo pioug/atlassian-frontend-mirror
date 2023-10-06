@@ -11,7 +11,7 @@ import {
   moveLeft,
 } from '@atlaskit/editor-common/keymaps';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
-import type { Command } from '../../../types';
+import type { Command } from '@atlaskit/editor-common/types';
 import { createNewParagraphBelow } from '@atlaskit/editor-common/utils';
 import { GapCursorSelection } from '@atlaskit/editor-common/selection';
 

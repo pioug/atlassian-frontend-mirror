@@ -17,14 +17,15 @@ export const fakeFactory: any = (
   implementationPrefetch: () => Promise<JsonLd.Response | undefined>,
 ) =>
   class CustomClient extends CardClient {
+    // @ts-ignore
     async fetchData(url: string) {
       return await implementation(url);
     }
-
+    // @ts-ignore
     async postData() {
       return await implementationPost();
     }
-
+    // @ts-ignore
     async prefetchData() {
       return await implementationPrefetch();
     }

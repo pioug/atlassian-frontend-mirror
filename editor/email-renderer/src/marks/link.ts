@@ -1,4 +1,4 @@
-import { MarkSerializerOpts } from '../interfaces';
+import type { MarkSerializerOpts } from '../interfaces';
 import { createTag } from '../create-tag';
 import { createClassName } from '../styles/util';
 
@@ -10,13 +10,23 @@ export const styles = `
   text-decoration: none;
 }
 `;
-export default function link({ mark, text }: MarkSerializerOpts) {
+export default function link({ mark, text, context }: MarkSerializerOpts) {
+  const baseURL = context?.baseURL;
   const { href, title } = mark.attrs;
+
+  const resolveRelativeOrAbsoluteURL = (href: string, baseURL: string) => {
+    try {
+      const url = new URL(href, baseURL);
+      return url.href;
+    } catch (e) {
+      return href;
+    }
+  };
 
   return createTag(
     'a',
     {
-      href,
+      href: resolveRelativeOrAbsoluteURL(href, baseURL),
       title,
       class: createClassName('mark-link'),
     },

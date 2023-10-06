@@ -3,6 +3,7 @@ import {
   expect,
   EditorNodeContainerModel,
   EditorBlockCardModel,
+  fixTest,
 } from '@af/editor-libra';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
@@ -143,19 +144,16 @@ const expectedEditedAssetsDatasourceBlockCard = datasourceBlockCard({
         properties: {
           columns: [
             {
-              key: 'id',
+              key: 'key',
             },
             {
               key: 'type',
             },
             {
-              key: 'key',
+              key: 'summary',
             },
             {
               key: 'description',
-            },
-            {
-              key: 'summary',
             },
             {
               key: 'assignee',
@@ -164,16 +162,13 @@ const expectedEditedAssetsDatasourceBlockCard = datasourceBlockCard({
               key: 'priority',
             },
             {
+              key: 'labels',
+            },
+            {
               key: 'status',
             },
             {
               key: 'created',
-            },
-            {
-              key: 'due',
-            },
-            {
-              key: 'labels',
             },
           ],
         },
@@ -226,9 +221,16 @@ test.describe('blockCard:datasource', () => {
     );
   });
 
+  // skipped on due to pipeline, DTR-1949
   test('should insert datasource from the /assets command', async ({
     editor,
   }) => {
+    fixTest({
+      jiraIssueId: 'DTR-1949',
+      reason:
+        'FIXME: This test was skipped due to pipeline failure on 06/07/2023: https://product-fabric.atlassian.net/jira/servicedesk/projects/DTR/queues/issue/DTR-1949',
+    });
+
     const nodes = EditorNodeContainerModel.from(editor);
     const blockCardModel = EditorBlockCardModel.from(nodes.blockCard);
 

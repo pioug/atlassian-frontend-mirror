@@ -624,7 +624,6 @@ const defaultComponents: {
   Menu: ({
     children,
     innerProps,
-    ...props
   }: MenuProps<OptionType, boolean>) => jsx.JSX.Element;
 };
 
@@ -1122,7 +1121,6 @@ export class PopupSelect<
           Menu: ({
             children,
             innerProps,
-            ...props
           }: MenuProps<OptionType, boolean>) => jsx;
         };
         mergedPopperProps: PopperPropsNoChildren<string>;
@@ -1135,7 +1133,6 @@ export class PopupSelect<
           Menu: ({
             children,
             innerProps,
-            ...props
           }: MenuProps<OptionType, boolean>) => jsx;
         };
         mergedPopperProps: PopperPropsNoChildren<string>;

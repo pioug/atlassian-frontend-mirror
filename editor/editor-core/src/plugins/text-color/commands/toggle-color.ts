@@ -1,8 +1,8 @@
-import type { Command } from '../../../types';
 import { toggleMark } from '@atlaskit/editor-common/mark';
+import { editorCommandToPMCommand } from '@atlaskit/editor-common/preset';
+import type { Command } from '@atlaskit/editor-common/types';
 import { ACTIONS, pluginKey } from '../pm-plugins/main';
 import { getDisabledState } from '../utils/disabled';
-import { editorCommandToPMCommand } from '@atlaskit/editor-common/preset';
 
 export const toggleColor =
   (color: string): Command =>

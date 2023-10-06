@@ -26,8 +26,10 @@ export interface Props {
   onInsertItem: (item: QuickInsertItem) => void;
   isOpen?: boolean;
   onClose: () => void;
+  onCloseComplete: () => void;
   helpUrl?: string | undefined;
   emptyStateHandler?: EmptyStateHandler;
+  shouldReturnFocus?: boolean;
 }
 
 const actionsStyles = css({
@@ -137,9 +139,11 @@ const ModalElementBrowser = (props: Props & WrappedComponentProps) => {
             stackIndex={0}
             key="element-browser-modal"
             onClose={props.onClose}
+            onCloseComplete={props.onCloseComplete}
             height="664px"
             width="x-large"
             autoFocus={false}
+            shouldReturnFocus={props.shouldReturnFocus}
             // defaults to true and doesn't work along with stackIndex=1.
             // packages/design-system/modal-dialog/src/components/Content.tsx Line 287
             shouldCloseOnEscapePress={false}

@@ -29,13 +29,22 @@ export abstract class BaseViewer<
   State extends BaseState<Content> = BaseState<Content>,
 > extends React.Component<Props, State> {
   state = this.getInitialState();
+  protected isMounted: boolean = false;
 
   componentDidMount() {
+    this.isMounted = true;
     this.init();
   }
 
   componentWillUnmount() {
+    this.isMounted = false;
     this.release();
+  }
+
+  protected safeSetState(newState: Partial<State>) {
+    if (this.isMounted) {
+      this.setState({ ...this.state, ...newState });
+    }
   }
 
   // NOTE: We've moved parts of the logic to reset a component into this method

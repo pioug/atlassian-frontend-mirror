@@ -153,6 +153,8 @@ export type UserPickerProps = WithAnalyticsEventsProps & {
   ariaLive?: 'polite' | 'off' | 'assertive';
   /** Name to use for input element. */
   name?: string;
+  /** Header to be displayed in MenuList */
+  header?: React.ReactNode;
 };
 
 export type PopupUserPickerProps = UserPickerProps & {

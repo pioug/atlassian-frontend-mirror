@@ -98,4 +98,6 @@ export interface MediaPluginState {
       Pick<this, 'allowsUploads' | 'allUploadsFinished' | 'isFullscreen'>
     >,
   ): void;
+
+  clone(): MediaPluginState;
 }

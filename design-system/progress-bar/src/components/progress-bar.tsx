@@ -100,7 +100,7 @@ const ProgressBar = ({
     : Math.max(MIN_VALUE, Math.min(value, MAX_VALUE));
 
   propDeprecationWarning(
-    process.env._PACKAGE_NAME_,
+    process.env._PACKAGE_NAME_ || '',
     'theme',
     typeof theme !== undefined,
     'https://community.developer.atlassian.com/t/theme-prop-in-atlaskit-progress-bar-is-being-deprecated/56198',

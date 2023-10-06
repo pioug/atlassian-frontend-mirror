@@ -62,6 +62,7 @@ export interface ModalDialogProps {
   onStackChange?: OnStackChangeHandler;
   shouldCloseOnEscapePress?: boolean;
   shouldCloseOnOverlayClick?: boolean;
+  shouldReturnFocus?: boolean;
   shouldScrollInViewport?: boolean;
   stackIndex?: number;
   testId?: string;

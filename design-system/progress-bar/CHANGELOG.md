@@ -1,5 +1,11 @@
 # @atlaskit/progress-bar
 
+## 1.0.1
+
+### Patch Changes
+
+- [#41141](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41141) [`91b814bddb4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/91b814bddb4) - Add default for env variable to fix typechecking errors
+
 ## 1.0.0
 
 ### Major Changes

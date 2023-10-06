@@ -823,7 +823,7 @@ describe('<ItemViewer />', () => {
       const errorMessage = el.find(ErrorMessage);
       expect(errorMessage).toHaveLength(1);
       const error = errorMessage.prop('error') as Error;
-      expect(error.message).toEqual(mvError.message);
+      expect(error.message).toEqual('docviewer-fetch-pdf');
     });
 
     test.each<[MediaType, MediaType]>([['audio', 'video']])(

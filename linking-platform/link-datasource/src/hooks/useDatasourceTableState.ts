@@ -238,6 +238,7 @@ export const useDatasourceTableState = ({
     setShouldForceRequest(options?.shouldForceRequest || false);
     if (options?.shouldResetColumns) {
       setColumns([]);
+      setDefaultVisibleColumnKeys([]);
     }
   }, []);
 

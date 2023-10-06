@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-table
 
+## 4.0.3
+
+### Patch Changes
+
+- [#41163](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41163) [`298256e6c4f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/298256e6c4f) - [ux] Updates table column controls decorations styles to fix table horizontal scroll on page zoom.
+
 ## 4.0.2
 
 ### Patch Changes

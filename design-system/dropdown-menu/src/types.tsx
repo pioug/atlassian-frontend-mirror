@@ -176,7 +176,7 @@ export interface DropdownMenuProps<
    * Controls the initial open state of the dropdown. If provided, the component is considered to be controlled
    * which means that the user is responsible for managing the open and close state of the menu.
    */
-  // eslint-disable-next-line
+  // eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
   defaultOpen?: boolean;
 
   /**

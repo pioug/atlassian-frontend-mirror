@@ -310,6 +310,7 @@ export const PopupUserPicker: React_2.ForwardRefExoticComponent<
     | 'emailLabel'
     | 'fieldId'
     | 'footer'
+    | 'header'
     | 'inputId'
     | 'isClearable'
     | 'isDisabled'
@@ -481,6 +482,7 @@ const UserPicker: React_2.ForwardRefExoticComponent<
     | 'emailLabel'
     | 'fieldId'
     | 'footer'
+    | 'header'
     | 'inputId'
     | 'isClearable'
     | 'isDisabled'
@@ -593,6 +595,7 @@ export type UserPickerProps = WithAnalyticsEventsProps & {
   ariaLabelledBy?: string;
   ariaLive?: 'assertive' | 'off' | 'polite';
   name?: string;
+  header?: React_2.ReactNode;
 };
 
 // @public (undocumented)

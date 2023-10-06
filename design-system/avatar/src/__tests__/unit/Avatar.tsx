@@ -431,4 +431,18 @@ describe('Avatar', () => {
     expect(element.tagName).toEqual('BUTTON');
     expect(element).toHaveAttribute('aria-label', 'Test avatar');
   });
+
+  it('should render a wrapping div element by default', () => {
+    render(<Avatar testId={'avatar'} onClick={__noop} />);
+    const avatar = screen.getByTestId('avatar');
+
+    expect(avatar.tagName).toEqual('DIV');
+  });
+
+  it('should render a wrapping span element if supplied by the as prop', () => {
+    render(<Avatar testId={'avatar'} onClick={__noop} as="span" />);
+    const avatar = screen.getByTestId('avatar');
+
+    expect(avatar.tagName).toEqual('SPAN');
+  });
 });

@@ -74,6 +74,9 @@ export interface AvatarItemProps {
 export interface AvatarPropTypes {
   analyticsContext?: Record<string, any>;
   appearance?: AppearanceType;
+  as?:
+    | React.ComponentType<React.AllHTMLAttributes<HTMLElement>>
+    | keyof JSX.IntrinsicElements;
   borderColor?: string;
   children?: (props: CustomAvatarProps) => ReactNode;
   href?: string;

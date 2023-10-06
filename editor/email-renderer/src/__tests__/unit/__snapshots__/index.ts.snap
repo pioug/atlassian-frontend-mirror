@@ -169,6 +169,21 @@ exports[`Renderer - EmailSerializer should not inline CSS: html 1`] = `
 </div>
 `;
 
+exports[`Renderer - EmailSerializer should render absolute link: html 1`] = `
+<div
+  class="csg-wrapper"
+  style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; line-height: 24px; vertical-align: baseline;"
+>
+  <a
+    class="csg-mark-link"
+    href="https://www.atlassian.com/"
+    style="border: none; background: transparent; color: #0052cc; text-decoration: none;"
+  >
+    Hello, world!
+  </a>
+</div>
+`;
+
 exports[`Renderer - EmailSerializer should render block cards correctly: html 1`] = `
 <div
   class="csg-wrapper"
@@ -1558,7 +1573,7 @@ exports[`Renderer - EmailSerializer should render layout column and sections: ht
 </div>
 `;
 
-exports[`Renderer - EmailSerializer should render link: html 1`] = `
+exports[`Renderer - EmailSerializer should render link with incorrect baseURL: html 1`] = `
 <div
   class="csg-wrapper"
   style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; line-height: 24px; vertical-align: baseline;"
@@ -5575,6 +5590,21 @@ exports[`Renderer - EmailSerializer should render paragraph with indentations: h
 </div>
 `;
 
+exports[`Renderer - EmailSerializer should render relative link with baseURL: html 1`] = `
+<div
+  class="csg-wrapper"
+  style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; line-height: 24px; vertical-align: baseline;"
+>
+  <a
+    class="csg-mark-link"
+    href="https://example.com/wiki/atlassian"
+    style="border: none; background: transparent; color: #0052cc; text-decoration: none;"
+  >
+    Hello, world!
+  </a>
+</div>
+`;
+
 exports[`Renderer - EmailSerializer should render status correctly: html 1`] = `
 <div
   class="csg-wrapper"
@@ -6567,7 +6597,7 @@ exports[`Renderer - EmailSerializer should render text and does not interpret HT
   >
     <a
       class="csg-mark-link"
-      href="https://www.atlassian.com"
+      href="https://www.atlassian.com/"
       style="border: none; background: transparent; color: #0052cc; text-decoration: none;"
     >
       Hello renderer, can you please escape the HTML,  &lt;script&gt;alert('xss')&lt;/script&gt; &lt;img src="" /&gt; &lt;h1&gt; &lt;dododododododo /&gt; &lt;/h1&gt; 
@@ -6578,7 +6608,7 @@ exports[`Renderer - EmailSerializer should render text and does not interpret HT
     >
       <a
         class="csg-mark-link"
-        href="https://www.atlassian.com"
+        href="https://www.atlassian.com/"
         style="border: none; background: transparent; color: #0052cc; text-decoration: none;"
       >
         Atlassian Website
@@ -6600,7 +6630,7 @@ exports[`Renderer - EmailSerializer should render text with em inside of a parag
   >
     <a
       class="csg-mark-link"
-      href="https://www.atlassian.com"
+      href="https://www.atlassian.com/"
       style="border: none; background: transparent; color: #0052cc; text-decoration: none;"
     >
       Hello, 
@@ -6611,7 +6641,7 @@ exports[`Renderer - EmailSerializer should render text with em inside of a parag
     >
       <a
         class="csg-mark-link"
-        href="https://www.atlassian.com"
+        href="https://www.atlassian.com/"
         style="border: none; background: transparent; color: #0052cc; text-decoration: none;"
       >
         World!

@@ -1,5 +1,6 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
-import { waitForNumImages } from '../../../../__tests__/integration/media/_utils';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { waitForNumImages } from '@atlaskit/editor-test-helpers/integration/media';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   editable,

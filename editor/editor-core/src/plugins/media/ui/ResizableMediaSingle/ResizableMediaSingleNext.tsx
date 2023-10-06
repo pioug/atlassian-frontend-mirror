@@ -604,6 +604,9 @@ class ResizableMediaSingleNext extends React.Component<
 
     const minWidth = this.calcMinWidth(isVideoFile, lineLength);
 
+    // while is not resizing, we take 100% as min-width if the container width is less than the min-width
+    const minViewWidth = isResizing ? minWidth : `min(${minWidth}px, 100%)`;
+
     return (
       <div
         css={wrapperStyle({
@@ -616,7 +619,7 @@ class ResizableMediaSingleNext extends React.Component<
         })}
       >
         <ResizerNext
-          minWidth={minWidth}
+          minWidth={minViewWidth}
           maxWidth={maxWidth}
           className={resizerNextClassName}
           snapGap={MEDIA_SINGLE_SNAP_GAP}

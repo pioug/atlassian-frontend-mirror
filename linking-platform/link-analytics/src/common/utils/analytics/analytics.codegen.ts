@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::096d930f46556a8e77a6362f6a333ab1>>
+ * @codegen <<SignedSource::51cee2198a185514f1983d14f57a5d9a>>
  * @codegenCommand yarn workspace @atlaskit/link-analytics run codegen-analytics
  */
 export type ExternalContextType = {
@@ -45,6 +45,10 @@ export type LinkDeletedAttributesType = {
   deleteMethod: string;
   sourceEvent: string | null;
 };
+export type MacroInsertedAttributesType = {
+  creationMethod: string;
+  sourceEvent: string | null;
+};
 export type DatasourceCreatedAttributesType = {
   creationMethod: string;
   sourceEvent: string | null;
@@ -68,6 +72,7 @@ type AnalyticsEventAttributes = {
   'track.link.created': LinkCreatedAttributesType;
   'track.link.updated': LinkUpdatedAttributesType;
   'track.link.deleted': LinkDeletedAttributesType;
+  'track.macro.inserted': MacroInsertedAttributesType;
   'track.datasource.created': DatasourceCreatedAttributesType;
   'track.datasource.updated': DatasourceUpdatedAttributesType;
   'track.datasource.deleted': DatasourceDeletedAttributesType;

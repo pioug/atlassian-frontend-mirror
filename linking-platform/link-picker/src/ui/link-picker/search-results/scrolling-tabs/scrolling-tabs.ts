@@ -52,7 +52,7 @@ const moveTabsScroll = (
   const container = getContainer(ref);
   if (container) {
     const tablist = container.children[0];
-    const tabs = [...tablist.children];
+    const tabs = Array.from(tablist.children);
     if (tabs.length > 0) {
       const target = findFn(container, tabs as HTMLElement[]);
       if (target) {

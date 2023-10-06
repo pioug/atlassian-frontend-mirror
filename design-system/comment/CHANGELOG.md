@@ -1,5 +1,11 @@
 # @atlaskit/comment
 
+## 10.8.20
+
+### Patch Changes
+
+- [#41074](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41074) [`336ea43b075`](https://bitbucket.org/atlassian/atlassian-frontend/commits/336ea43b075) - Specify type of headingLevel from 1 to 6
+
 ## 10.8.19
 
 ### Patch Changes

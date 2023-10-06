@@ -17,6 +17,7 @@ import * as inlineCodeProps from './__fixtures__/inline-code-props.adf.json';
 import * as inlineTextProps from './__fixtures__/inline-text-props.adf.json';
 import * as panels from './__fixtures__/panels.adf.json';
 import * as link from './__fixtures__/link.adf.json';
+import * as linkRelative from './__fixtures__/link-relative.adf.json';
 import * as decisionList from './__fixtures__/decision-list.adf.json';
 import * as taskList from './__fixtures__/task-list.adf.json';
 import * as nestedTaskList from './__fixtures__/nested-task-list.adf.json';
@@ -49,6 +50,14 @@ import type { MetaDataContext } from '../../interfaces';
 const defaultTestOpts: EmailSerializerOpts = {
   isImageStubEnabled: false,
   isInlineCSSEnabled: true,
+};
+
+const baseURLContext: MetaDataContext = {
+  baseURL: 'https://example.com',
+};
+
+const incorrectBaseURLContext: MetaDataContext = {
+  baseURL: 'incorrectBaseURL',
 };
 
 const mediaContext: MetaDataContext = {
@@ -311,8 +320,18 @@ describe('Renderer - EmailSerializer', () => {
     expect(result).toMatchSnapshot('html');
   });
 
-  it('should render link', () => {
+  it('should render absolute link', () => {
     const { result } = render(link);
+    expect(result).toMatchSnapshot('html');
+  });
+
+  it('should render relative link with baseURL', () => {
+    const { result } = render(linkRelative, undefined, baseURLContext);
+    expect(result).toMatchSnapshot('html');
+  });
+
+  it('should render link with incorrect baseURL', () => {
+    const { result } = render(link, undefined, incorrectBaseURLContext);
     expect(result).toMatchSnapshot('html');
   });
 

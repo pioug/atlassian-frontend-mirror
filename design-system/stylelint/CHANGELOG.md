@@ -1,5 +1,11 @@
 # @atlaskit/stylelint-design-system
 
+## 1.1.1
+
+### Patch Changes
+
+- [#41213](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41213) [`f79c2dcb310`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f79c2dcb310) - Add CHANGELOG.md back to published files
+
 ## 1.1.0
 
 ### Minor Changes

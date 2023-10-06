@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 10.11.0
+
+### Minor Changes
+
+- [#41027](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41027) [`5c316f5eee6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5c316f5eee6) - Added header for menu
+
 ## 10.10.2
 
 ### Patch Changes

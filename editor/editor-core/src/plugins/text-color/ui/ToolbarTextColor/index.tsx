@@ -6,48 +6,52 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { defineMessages, injectIntl } from 'react-intl-next';
 
+import type {
+  AnalyticsEventPayload,
+  DispatchAnalyticsEvent,
+  TextColorSelectedAEP,
+  TextColorShowPaletteToggleAEP,
+  TextColorSelectedAttr,
+  TextColorShowPaletteToggleAttr,
+  EditorAnalyticsAPI,
+} from '@atlaskit/editor-common/analytics';
 import { getSelectedRowAndColumnFromPalette } from '@atlaskit/editor-common/ui-color';
 import { ArrowKeyNavigationType } from '@atlaskit/editor-common/ui-menu';
-import { hexToEditorTextPaletteColor } from '@atlaskit/editor-palette';
-import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
-import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
-
-import ColorPalette, {
+import {
+  ColorPalette,
   textPaletteTooltipMessages,
-} from '../../../../ui/ColorPalette';
-import { DropdownContainer as Dropdown } from '@atlaskit/editor-common/ui-menu';
-import { expandIconWrapperStyle } from '../../../../ui/styles';
+} from '@atlaskit/editor-common/ui-color';
 import {
   wrapperStyle,
   separatorStyles,
   triggerWrapperStyles,
 } from '@atlaskit/editor-common/styles';
-import ToolbarButton, { TOOLBAR_BUTTON } from '../../../../ui/ToolbarButton';
-import type {
-  AnalyticsEventPayload,
-  DispatchAnalyticsEvent,
-} from '../../../analytics';
+import {
+  DropdownContainer as Dropdown,
+  ToolbarButton,
+  TOOLBAR_BUTTON,
+} from '@atlaskit/editor-common/ui-menu';
 import {
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
-} from '../../../analytics';
-import type {
-  TextColorSelectedAEP,
-  TextColorShowPaletteToggleAEP,
-  TextColorSelectedAttr,
-  TextColorShowPaletteToggleAttr,
-} from '../../../analytics/types/experimental-events';
-import * as commands from '../../commands/change-color';
-import type { TextColorPluginState } from '../../pm-plugins/main';
+} from '@atlaskit/editor-common/analytics';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { hexToEditorTextPaletteColor } from '@atlaskit/editor-palette';
+import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
+import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
+import { expandIconWrapperStyle } from '@atlaskit/editor-common/styles';
 
+import { changeColor as changeColorWithAnalytics } from '../../commands/change-color';
+import type { TextColorPluginState } from '../../pm-plugins/main';
 import { EditorTextColorIcon } from './icon';
 import {
   backgroundDisabled,
   textColorIconBar,
   textColorIconWrapper,
 } from './styles';
+import type { TextColorPlugin } from '../../types';
 
 const EXPERIMENT_NAME: string = 'editor.toolbarTextColor.moreColors';
 const EXPERIMENT_GROUP_CONTROL: string = 'control';
@@ -74,6 +78,7 @@ export interface Props {
   isReducedSpacing?: boolean;
   dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
   disabled?: boolean;
+  pluginInjectionApi: ExtractInjectionAPI<TextColorPlugin> | undefined;
 }
 
 interface HandleOpenChangeData {
@@ -92,8 +97,11 @@ export class ToolbarTextColor extends React.Component<
   };
   private toolbarItemRef = React.createRef<HTMLElement>();
 
-  changeColor = (color: string) =>
-    commands.changeColor(color)(
+  changeColor = (
+    color: string,
+    editorAnalyticsApi: EditorAnalyticsAPI | undefined,
+  ) =>
+    changeColorWithAnalytics(color, editorAnalyticsApi)(
       this.props.editorView.state,
       this.props.editorView.dispatch,
     );
@@ -108,6 +116,7 @@ export class ToolbarTextColor extends React.Component<
       pluginState,
       intl: { formatMessage },
       disabled,
+      pluginInjectionApi,
     } = this.props;
 
     const labelTextColor = formatMessage(messages.textColor);
@@ -184,7 +193,11 @@ export class ToolbarTextColor extends React.Component<
           <div data-testid="text-color-palette">
             <ColorPalette
               onClick={(color) =>
-                this.changeTextColor(color, pluginState.disabled)
+                this.changeTextColor(
+                  color,
+                  pluginInjectionApi?.analytics?.actions,
+                  pluginState.disabled,
+                )
               }
               selectedColor={pluginState.color}
               paletteOptions={{
@@ -208,7 +221,11 @@ export class ToolbarTextColor extends React.Component<
     });
   };
 
-  private changeTextColor = (color: string, disabled?: boolean) => {
+  private changeTextColor = (
+    color: string,
+    editorAnalyticsApi: EditorAnalyticsAPI | undefined,
+    disabled?: boolean,
+  ) => {
     if (!disabled) {
       const {
         pluginState: { palette },
@@ -227,7 +244,7 @@ export class ToolbarTextColor extends React.Component<
         isOpen: false,
         logCloseEvent: false,
       });
-      this.changeColor(color);
+      this.changeColor(color, editorAnalyticsApi);
       //To set the focus on the textcolor button when the menu is closed by 'Esc' only to meet aria guidelines
       this.props.editorView?.focus();
     }

@@ -74,7 +74,9 @@ const LevelProvider: FC<{
  * It provides initial top level ref value as 0 and set top level method
  *
  */
-const LayeringProvider: FC = ({ children }) => {
+const LayeringProvider: FC<{
+  children: ReactNode;
+}> = ({ children }) => {
   const topLevelRef = useRef(0);
   const value = useMemo(
     () => ({
@@ -102,7 +104,9 @@ const LayeringProvider: FC = ({ children }) => {
  * Layering component is a wrapper to let children to consume layer contexts and hooks.
  *
  */
-export const UNSAFE_LAYERING: FC = ({ children }) => {
+export const UNSAFE_LAYERING: FC<{
+  children: ReactNode;
+}> = ({ children }) => {
   const currentLevel = useContext(LevelContext);
   const isNested = currentLevel > 0;
   if (!getBooleanFF('platform.design-system-team.layering_qmiw3')) {

@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
 
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
 import type {
   ExtractInjectionAPI,
   QuickInsertSharedState,
@@ -47,18 +48,35 @@ const Modal = ({
     }
   }, [editorView]);
 
+  // ED-19408 We not store the item ref in the state
+  // Instead of adding the item immediately on insert item
+  // We wait until modal close is complete, refocus the editor and then add the item
+  const insertableItem = React.useRef<QuickInsertItem | null>(null);
   const onInsertItem = useCallback(
-    item => {
+    (item: QuickInsertItem) => {
       closeElementBrowserModal()(editorView.state, editorView.dispatch);
-      focusInEditor();
-      insertItem(item)(editorView.state, editorView.dispatch);
+      insertableItem.current = item;
     },
-    [editorView, focusInEditor],
+    [editorView],
   );
 
   const onClose = useCallback(() => {
     closeElementBrowserModal()(editorView.state, editorView.dispatch);
     focusInEditor();
+  }, [editorView, focusInEditor]);
+
+  const onCloseComplete = useCallback(() => {
+    if (!insertableItem.current) {
+      focusInEditor();
+      return;
+    }
+
+    const item = insertableItem.current;
+    insertableItem.current = null;
+
+    focusInEditor();
+
+    insertItem(item)(editorView.state, editorView.dispatch);
   }, [editorView, focusInEditor]);
 
   return (
@@ -69,6 +87,8 @@ const Modal = ({
       isOpen={quickInsertState?.isElementBrowserModalOpen || false}
       emptyStateHandler={quickInsertState?.emptyStateHandler}
       onClose={onClose}
+      onCloseComplete={onCloseComplete}
+      shouldReturnFocus={false}
     />
   );
 };

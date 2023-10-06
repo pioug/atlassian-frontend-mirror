@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
+import { fireEvent, render, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
@@ -19,12 +19,17 @@ import {
   useObjectSchemas,
   UseObjectSchemasState,
 } from '../../../../hooks/useObjectSchemas';
+import {
+  useValidateAqlText,
+  UseValidateAqlTextState,
+} from '../../../../hooks/useValidateAqlText';
 import { AssetsDatasourceParameters } from '../../types';
 import { AssetsConfigModal } from '../index'; // Using async one to test lazy integration at the same time
 
 jest.mock('../../../../hooks/useDatasourceTableState');
 jest.mock('../../../../hooks/useAssetsClient');
 jest.mock('../../../../hooks/useObjectSchemas');
+jest.mock('../../../../hooks/useValidateAqlText');
 
 describe('AssetsConfigModal', () => {
   const getDefaultParameters: () => AssetsDatasourceParameters = () => ({
@@ -126,7 +131,7 @@ describe('AssetsConfigModal', () => {
   const getAssetsClientDefaultHookState: () => UseAssetsClientState = () => ({
     workspaceId: 'some-workspace-id',
     workspaceError: undefined,
-    objectSchema: undefined,
+    objectSchema: { name: 'test schema', id: '123' },
     assetsClientLoading: false,
   });
 
@@ -201,8 +206,26 @@ describe('AssetsConfigModal', () => {
     };
   };
 
+  const mockUseValidateAqlText = asMock(useValidateAqlText);
+  const mockValidateAqlText = jest.fn();
+  const getUseValidateAqlTextDefaultHookState: UseValidateAqlTextState = {
+    isValidAqlText: false,
+    validateAqlTextError: undefined,
+    validateAqlTextLoading: false,
+    validateAqlText: mockValidateAqlText,
+  };
+  const mockValidateAqlTextValid: boolean = true;
+
   beforeEach(() => {
-    jest.clearAllMocks();
+    jest.resetAllMocks();
+    mockUseValidateAqlText.mockReturnValue(
+      getUseValidateAqlTextDefaultHookState,
+    );
+    mockValidateAqlText.mockResolvedValue(mockValidateAqlTextValid);
+  });
+
+  afterEach(() => {
+    jest.clearAllTimers();
   });
 
   it('should call onCancel when cancel button is clicked', async () => {
@@ -498,6 +521,92 @@ describe('AssetsConfigModal', () => {
       });
       expect(getByText('Unable to load results')).toBeInTheDocument();
       expect(getByRole('button', { name: 'Insert objects' })).toBeDisabled();
+    });
+  });
+
+  describe('when handling column resetting in search query', () => {
+    it('should reset columns when search has changed', async () => {
+      const mockReset = jest.fn();
+
+      const { getByTestId } = await setup({
+        parameters: {
+          ...getDefaultParameters(),
+          aql: 'name like a',
+        },
+        datasourceTableHookState: {
+          ...getDefaultDataSourceTableHookState(),
+          reset: mockReset,
+        },
+      });
+
+      // Change the AQL query to something else
+      const textInput = getByTestId(
+        'assets-datasource-modal--aql-search-input',
+      );
+      fireEvent.focus(textInput);
+      fireEvent.change(textInput, {
+        target: { value: 'objectType = "test aql query"' },
+      });
+
+      await waitFor(() => {
+        expect(mockValidateAqlText).toBeCalledTimes(1);
+        expect(mockValidateAqlText).toBeCalledWith(
+          'objectType = "test aql query"',
+        );
+      });
+
+      // Click on search button once the query is valid and button is enabled
+      const searchButton = await getByTestId(
+        'assets-datasource-modal--aql-search-button',
+      );
+      await waitFor(() => {
+        expect(searchButton).toBeEnabled();
+      });
+      await searchButton.click();
+
+      // Reset of columns should be applied because query has changed
+      await waitFor(() => {
+        expect(mockReset).toBeCalledTimes(1);
+        expect(mockReset).toHaveBeenCalledWith({ shouldResetColumns: true });
+      });
+    });
+
+    it('should not reset columns when search is the same', async () => {
+      const mockReset = jest.fn();
+
+      const { getByTestId } = await setup({
+        parameters: {
+          ...getDefaultParameters(),
+          aql: 'name like a',
+        },
+        datasourceTableHookState: {
+          ...getDefaultDataSourceTableHookState(),
+          reset: mockReset,
+        },
+      });
+
+      // Change the AQL query to something else
+      const textInput = getByTestId(
+        'assets-datasource-modal--aql-search-input',
+      );
+      fireEvent.focus(textInput);
+      fireEvent.change(textInput, {
+        target: { value: 'name like a' },
+      });
+
+      // Click on search button
+      const searchButton = await getByTestId(
+        'assets-datasource-modal--aql-search-button',
+      );
+      await waitFor(() => {
+        expect(searchButton).toBeEnabled();
+      });
+      await searchButton.click();
+
+      // Reset of columns should not be applied because query is the same.
+      await waitFor(() => {
+        expect(mockReset).toBeCalledTimes(0);
+      });
     });
   });
 });

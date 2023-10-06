@@ -952,7 +952,7 @@ describe('document-service', () => {
         expect(service.send).not.toBeCalled();
       });
 
-      it('Cals send steps with the state', () => {
+      it('Calls send steps with the state', () => {
         const { service } = createMockService();
         service.setup({
           getState: jest.fn().mockReturnValue('state'),
@@ -960,7 +960,7 @@ describe('document-service', () => {
         });
         jest.spyOn(service, 'send').mockImplementation();
         service.sendStepsFromCurrentState();
-        expect(service.send).toBeCalledWith(null, null, 'state');
+        expect(service.send).toBeCalledWith(null, null, 'state', undefined);
       });
     });
 

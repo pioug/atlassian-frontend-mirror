@@ -4,4 +4,8 @@ export {
   filterChildrenBetween,
   toggleMark,
 } from './commands';
-export { anyMarkActive } from './text-formatting';
+export {
+  anyMarkActive,
+  isMarkAllowedInRange,
+  isMarkExcluded,
+} from './text-formatting';

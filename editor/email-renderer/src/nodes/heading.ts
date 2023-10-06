@@ -1,4 +1,4 @@
-import { NodeSerializerOpts } from '../interfaces';
+import type { NodeSerializerOpts } from '../interfaces';
 import { createTag } from '../create-tag';
 import { applyMarks } from '../apply-marks';
 import { createClassName } from '../styles/util';
@@ -58,7 +58,12 @@ export const styles = `
 }
 `;
 
-export default function heading({ attrs, marks, text }: NodeSerializerOpts) {
+export default function heading({
+  attrs,
+  marks,
+  text,
+  context,
+}: NodeSerializerOpts) {
   const tagName = `h${attrs.level}`;
 
   const headingTag = createTag(
@@ -66,5 +71,5 @@ export default function heading({ attrs, marks, text }: NodeSerializerOpts) {
     { class: createClassName(tagName) },
     text,
   );
-  return applyMarks(marks, headingTag);
+  return applyMarks(marks, headingTag, context);
 }

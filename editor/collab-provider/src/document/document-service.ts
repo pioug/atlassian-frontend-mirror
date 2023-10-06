@@ -659,13 +659,13 @@ export class DocumentService {
    * The getState function will return the current EditorState
    * from the EditorView.
    */
-  sendStepsFromCurrentState() {
+  sendStepsFromCurrentState(sendAnalyticsEvent?: boolean) {
     const state = this.getState?.();
     if (!state) {
       return;
     }
 
-    this.send(null, null, state);
+    this.send(null, null, state, sendAnalyticsEvent);
   }
 
   onStepRejectedError = () => {
@@ -708,6 +708,7 @@ export class DocumentService {
     _tr: Transaction | null,
     _oldState: EditorState | null,
     newState: EditorState,
+    sendAnalyticsEvent?: boolean,
   ) {
     const unconfirmedStepsData = sendableSteps(newState);
     const version = getVersion(newState);
@@ -718,13 +719,18 @@ export class DocumentService {
     }
 
     const unconfirmedSteps = unconfirmedStepsData.steps;
-    this.analyticsHelper?.sendActionEvent(
-      EVENT_ACTION.HAS_UNCONFIRMED_STEPS,
-      EVENT_STATUS.INFO,
-      {
-        numUnconfirmedSteps: unconfirmedSteps?.length || 0,
-      },
-    );
+    // sendAnalyticsEvent is only true when buffering is enabled,
+    // to ensure that analytics events with the number of unconfirmed steps is only
+    // sent once on connection (as opposed to on every step)
+    if (sendAnalyticsEvent) {
+      this.analyticsHelper?.sendActionEvent(
+        EVENT_ACTION.HAS_UNCONFIRMED_STEPS,
+        EVENT_STATUS.INFO,
+        {
+          numUnconfirmedSteps: unconfirmedSteps?.length || 0,
+        },
+      );
+    }
 
     if (!unconfirmedSteps?.length) {
       return;

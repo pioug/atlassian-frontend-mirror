@@ -1,5 +1,27 @@
 # @atlaskit/editor-common
 
+## 76.5.0
+
+### Minor Changes
+
+- [#41209](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41209) [`1e9d1d550ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1e9d1d550ec) - Decouple Caption Plugin from editor-core
+
+### Patch Changes
+
+- [#41217](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41217) [`288b7a988c7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/288b7a988c7) - Caption Plugin Scaffolding
+
+## 76.4.0
+
+### Minor Changes
+
+- [#41103](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41103) [`e268e178096`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e268e178096) - ED-20195 Decouple Text color plugin from editor core
+
+## 76.3.3
+
+### Patch Changes
+
+- [#41015](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41015) [`a372c39bc57`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a372c39bc57) - ED-20297 fixed nested video overlapping issue
+
 ## 76.3.2
 
 ### Patch Changes

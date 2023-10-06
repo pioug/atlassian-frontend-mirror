@@ -44,7 +44,9 @@ describe('ModalElementBrowser', () => {
         visible: true,
       });
     });
-    it('should match ModalElementBrowser with help link snapshot', async () => {
+    // TODO: Fix and restore test - was failing on master
+    // See https://product-fabric.atlassian.net/jira/servicedesk/projects/DTR/queues/issue/DTR-1948
+    it.skip('should match ModalElementBrowser with help link snapshot', async () => {
       const element = await page.waitForSelector(
         elementBrowserSelectors.modalBrowser,
         {

@@ -57,25 +57,25 @@ export const modifyResponse = (
  * @param  {string} cloudId
  * @return {string} GraphQL Query String
  */
-const buildUserQuery = (cloudId: string, userId: string) => ({
+export const buildUserQuery = (cloudId: string, userId: string) => ({
   query: `query User($userId: String!, $cloudId: String!) {
     User: CloudUser(userId: $userId, cloudId: $cloudId) {
-      id,
-      isCurrentUser,
-      status,
-      statusModifiedDate,
-      isBot,
-      isNotMentionable,
-      fullName,
-      nickname,
-      email,
-      meta: title,
-      location,
-      companyName,
-      avatarUrl(size: 192),
-      remoteWeekdayIndex: localTime(format: "d"),
-      remoteWeekdayString: localTime(format: "ddd"),
-      remoteTimeString: localTime(format: "h:mma"),
+      id
+      isCurrentUser
+      status
+      statusModifiedDate
+      isBot
+      isNotMentionable
+      fullName
+      nickname
+      email
+      meta: title
+      location
+      companyName
+      avatarUrl(size: 192)
+      remoteWeekdayIndex: localTime(format: "d")
+      remoteWeekdayString: localTime(format: "ddd")
+      remoteTimeString: localTime(format: "h:mma")
     }
   }`,
   variables: {

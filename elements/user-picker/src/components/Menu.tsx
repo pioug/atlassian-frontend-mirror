@@ -19,6 +19,7 @@ export class Menu extends React.Component<Props> {
   render() {
     return (
       <components.Menu {...(this.props as any)}>
+        {this.props.selectProps.header}
         {this.props.children}
         {this.props.selectProps.footer && (
           <div css={getFooterStyle()}>{this.props.selectProps.footer}</div>

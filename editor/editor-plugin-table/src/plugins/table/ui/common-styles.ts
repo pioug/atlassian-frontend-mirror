@@ -194,6 +194,50 @@ const breakoutWidthStyling = () => {
   `;
 };
 
+const tableBorderStyles = (
+  props: ThemeProps & { featureFlags?: FeatureFlags },
+) => {
+  if (getBooleanFF('platform.editor.table.column-controls-styles-updated')) {
+    return `border-color: ${tableBorderDeleteColor(props)}`;
+  } else {
+    return `border: 1px solid ${tableBorderDeleteColor(props)}`;
+  }
+};
+
+const tableStickyHeaderColumnControlsDecorationsStyle = (
+  props: ThemeProps & { featureFlags?: FeatureFlags },
+) => {
+  if (getBooleanFF('platform.editor.table.column-controls-styles-updated')) {
+    return css`
+      .${ClassName.TABLE_STICKY} .${ClassName.COLUMN_CONTROLS_DECORATIONS} {
+        z-index: 0;
+        left: -1px;
+      }
+
+      .${ClassName.TABLE_STICKY}
+        .${ClassName.COLUMN_CONTROLS_DECORATIONS}::after {
+        border-left: 1px solid ${tableBorderColor(props)};
+      }
+
+      .${ClassName.TABLE_STICKY}
+        tr:first-of-type
+        th.${ClassName.TABLE_HEADER_CELL} {
+        &.${ClassName.COLUMN_SELECTED}, &.${ClassName.HOVERED_COLUMN} {
+          .${ClassName.COLUMN_CONTROLS_DECORATIONS}::after {
+            left: 0;
+          }
+        }
+      }
+    `;
+  } else {
+    return css`
+      .${ClassName.TABLE_STICKY} .${ClassName.COLUMN_CONTROLS_DECORATIONS} {
+        z-index: 0;
+      }
+    `;
+  }
+};
+
 const tableWrapperStyles = () => {
   if (getBooleanFF('platform.editor.custom-table-width')) {
     return css`
@@ -323,9 +367,7 @@ export const tableStyles = (
       width: ${tableToolbarSize}px;
     }
 
-    .${ClassName.TABLE_STICKY} .${ClassName.COLUMN_CONTROLS_DECORATIONS} {
-      z-index: 0;
-    }
+    ${tableStickyHeaderColumnControlsDecorationsStyle(props)}
 
     .${ClassName.TABLE_STICKY}
       .${ClassName.ROW_CONTROLS}
@@ -798,7 +840,7 @@ export const tableStyles = (
           pointer-events: none;
         }
         &.${ClassName.HOVERED_CELL_IN_DANGER}::after {
-          border: 1px solid ${tableBorderDeleteColor(props)};
+          ${tableBorderStyles(props)};
           z-index: ${akEditorUnitZIndex * 100};
         }
       }

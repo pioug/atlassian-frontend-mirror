@@ -28,6 +28,7 @@ import { MediaCardError } from '../../errors';
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { FabricChannel } from '@atlaskit/analytics-listeners';
 import { fireEvent, render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
 
 const cardPreview = {
@@ -86,7 +87,8 @@ const file: FileDetails = {
 };
 
 describe('CardView', () => {
-  it('should return analytics event as a last argument when card is clicked', () => {
+  it('should return analytics event as a last argument when card is clicked', async () => {
+    const user = userEvent.setup();
     const clickHandler = jest.fn();
     const analyticsEventHandler = jest.fn();
     const { getByTestId } = render(
@@ -103,7 +105,7 @@ describe('CardView', () => {
       </AnalyticsListener>,
     );
 
-    fireEvent.click(getByTestId(cardTestId));
+    await user.click(getByTestId(cardTestId));
 
     expect(clickHandler).toHaveBeenCalledTimes(1);
     expect(analyticsEventHandler).toHaveBeenCalledTimes(1);

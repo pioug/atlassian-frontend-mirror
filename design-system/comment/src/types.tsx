@@ -81,5 +81,5 @@ export interface CommentProps {
   /**
    * A semantic heading level to display on this comment (1, 2, 3, 4, 5, 6).
    */
-  headingLevel?: string;
+  headingLevel?: '1' | '2' | '3' | '4' | '5' | '6';
 }

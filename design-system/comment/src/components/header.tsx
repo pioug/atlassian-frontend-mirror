@@ -19,7 +19,7 @@ interface HeaderProps {
   testId?: string;
   edited?: ReactNode;
   isError?: boolean;
-  headingLevel?: string;
+  headingLevel?: '1' | '2' | '3' | '4' | '5' | '6';
 }
 
 type HeadingLevel = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
@@ -51,9 +51,7 @@ const Header: FC<HeaderProps> = ({
   type,
   headingLevel = '3',
 }) => {
-  const Heading = `h${
-    Number(headingLevel) < 1 || Number(headingLevel) > 6 ? '3' : headingLevel
-  }` as HeadingLevel;
+  const Heading: HeadingLevel = `h${headingLevel}`;
   const shouldRender =
     author ||
     time ||

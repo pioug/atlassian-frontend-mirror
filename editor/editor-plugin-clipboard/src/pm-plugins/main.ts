@@ -1,15 +1,14 @@
-import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import type { PMPluginFactoryParams } from '../../../types';
-import { clipboardPluginKey } from '../plugin-key';
-import type { DispatchAnalyticsEvent } from '../../analytics/types/dispatch-analytics-event';
-
-import { ACTION } from '../../analytics/types/enums';
-import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
-import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
-import { Fragment } from '@atlaskit/editor-prosemirror/model';
-import type { NodeType, Schema } from '@atlaskit/editor-prosemirror/model';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+import { ACTION } from '@atlaskit/editor-common/analytics';
 import { getAnalyticsPayload } from '@atlaskit/editor-common/clipboard';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type { PMPluginFactoryParams } from '@atlaskit/editor-common/types';
+import { DOMSerializer, Fragment } from '@atlaskit/editor-prosemirror/model';
+import type { NodeType, Schema } from '@atlaskit/editor-prosemirror/model';
+import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+
+import { clipboardPluginKey } from '../plugin-key';
 
 export const createPlugin = ({
   dispatchAnalyticsEvent,
@@ -29,9 +28,9 @@ export const createPlugin = ({
     },
     props: {
       handleDOMEvents: {
-        cut: (view) =>
+        cut: view =>
           sendClipboardAnalytics(view, dispatchAnalyticsEvent, ACTION.CUT),
-        copy: (view) =>
+        copy: view =>
           sendClipboardAnalytics(view, dispatchAnalyticsEvent, ACTION.COPIED),
       },
       clipboardSerializer: createClipboardSerializer(schema, getEditorView),

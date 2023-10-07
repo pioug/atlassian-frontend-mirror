@@ -1,5 +1,12 @@
 # @atlaskit/editor-core
 
+## 188.2.9
+
+### Patch Changes
+
+- [#41100](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41100) [`54a4a1cef12`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54a4a1cef12) - ED-20264 - clipboard plugin extraction
+- Updated dependencies
+
 ## 188.2.8
 
 ### Patch Changes

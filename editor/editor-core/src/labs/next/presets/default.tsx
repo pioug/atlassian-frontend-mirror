@@ -20,7 +20,7 @@ import { copyButtonPlugin } from '@atlaskit/editor-plugin-copy-button';
 import { floatingToolbarPlugin } from '@atlaskit/editor-plugin-floating-toolbar';
 import type { EditorProps } from '../../../types/editor-props';
 import type { EditorPresetProps } from './types';
-import clipboardPlugin from '../../../plugins/clipboard';
+import { clipboardPlugin } from '@atlaskit/editor-plugin-clipboard';
 import { analyticsPlugin as deprecatedAnalyticsPlugin } from '../../../plugins';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { BlockTypePluginOptions } from '@atlaskit/editor-plugin-block-type';

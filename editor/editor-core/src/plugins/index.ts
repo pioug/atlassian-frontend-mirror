@@ -39,7 +39,6 @@ export { default as mobileDimensionsPlugin } from './mobile-dimensions';
 export { default as findReplacePlugin } from './find-replace';
 export { default as selectionPlugin } from './selection';
 export { default as mobileSelectionPlugin } from './mobile-selection';
-export { default as clipboardPlugin } from './clipboard';
 export { default as undoRedoPlugin } from './undo-redo';
 export { default as avatarGroupPlugin } from './avatar-group';
 export { default as viewUpdateSubscriptionPlugin } from './view-update-subscription';

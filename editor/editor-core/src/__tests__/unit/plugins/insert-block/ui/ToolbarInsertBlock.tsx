@@ -49,7 +49,7 @@ import mentionsPlugin from '../../../../../plugins/mentions';
 import selectionPlugin from '../../../../../plugins/selection';
 import { emojiPlugin } from '@atlaskit/editor-plugin-emoji';
 import datePlugin from '../../../../../plugins/date';
-import mediaPlugin from '../../../../../plugins/media';
+import { mediaPlugin } from '@atlaskit/editor-plugin-media';
 import { editorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 import { floatingToolbarPlugin } from '@atlaskit/editor-plugin-floating-toolbar';
 import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
@@ -690,23 +690,6 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
             action: 'opened',
             actionSubject: 'picker',
             actionSubjectId: 'emojiPicker',
-            attributes: expect.objectContaining({ inputMethod: menu.name }),
-            eventType: 'ui',
-          });
-        });
-      });
-
-      describe('mentions option', () => {
-        it('should fire v3 analytics event when mention option clicked', () => {
-          buildToolbarForMenu({
-            mentionsSupported: true,
-            isTypeAheadAllowed: true,
-          });
-          menu.clickButton(messages.mention.defaultMessage, toolbarOption);
-          expect(createAnalyticsEvent).toHaveBeenCalledWith({
-            action: 'invoked',
-            actionSubject: 'typeAhead',
-            actionSubjectId: 'mentionTypeAhead',
             attributes: expect.objectContaining({ inputMethod: menu.name }),
             eventType: 'ui',
           });

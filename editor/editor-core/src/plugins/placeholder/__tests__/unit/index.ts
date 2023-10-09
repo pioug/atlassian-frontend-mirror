@@ -80,13 +80,10 @@ describe('placeholder', () => {
       };
       expectPlaceHolderWithText(editorView, defaultPlaceholder);
 
-      editorAPI.core.actions.execute(
-        editorAPI.typeAhead.commands.openTypeAheadAtCursor({
-          triggerHandler: fakeTriggerHandler,
-          inputMethod: INPUT_METHOD.KEYBOARD,
-        }),
-      );
-
+      editorAPI.typeAhead.actions.open({
+        triggerHandler: fakeTriggerHandler,
+        inputMethod: INPUT_METHOD.KEYBOARD,
+      });
       expectNoPlaceholder(editorView);
     });
   });

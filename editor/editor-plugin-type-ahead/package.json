@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-type-ahead",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Type-ahead plugin for @atlaskit/editor-core",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -31,7 +31,8 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@atlaskit/editor-common": "^76.5.0",
+    "@atlaskit/editor-common": "^76.6.0",
+    "@atlaskit/editor-plugin-analytics": "^0.2.0",
     "@atlaskit/editor-prosemirror": "1.1.0",
     "@babel/runtime": "^7.0.0"
   },

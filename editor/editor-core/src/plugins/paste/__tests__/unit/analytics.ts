@@ -20,7 +20,8 @@ import {
   getContentNodeTypes,
   getMediaTraceId,
 } from '../../pm-plugins/analytics';
-import { temporaryMediaAttrs } from '../../../../__tests__/unit/plugins/media/_utils';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { temporaryMediaAttrs } from '@atlaskit/editor-test-helpers/media-provider';
 
 describe('paste analytics', () => {
   describe('getContentNodeTypes()', () => {

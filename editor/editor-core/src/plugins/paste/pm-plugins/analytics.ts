@@ -51,7 +51,7 @@ import type {
   Command,
 } from '@atlaskit/editor-common/types';
 import type pastePlugin from '../';
-import type { InsertMediaAsMediaSingle } from '../../media/utils/media-single';
+import type { InsertMediaAsMediaSingle } from '@atlaskit/editor-plugin-media/types';
 
 import type { FindRootParentListNode } from '@atlaskit/editor-plugin-list';
 

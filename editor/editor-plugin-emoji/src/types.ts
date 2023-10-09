@@ -3,9 +3,13 @@ import type {
   EditorCommand,
   NextEditorPlugin,
   OptionalPlugin,
+  TypeAheadHandler,
 } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import type { TypeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
+import type {
+  TypeAheadInputMethod,
+  TypeAheadPlugin,
+} from '@atlaskit/editor-plugin-type-ahead';
 import type {
   EmojiDescription,
   EmojiId,
@@ -23,12 +27,16 @@ export type EmojiPluginState = {
   asciiMap?: Map<string, EmojiDescription>;
 };
 
+export type EmojiPluginSharedState = EmojiPluginState & {
+  typeAheadHandler: TypeAheadHandler;
+};
+
 export type EmojiPlugin = NextEditorPlugin<
   'emoji',
   {
     pluginConfiguration: EmojiPluginOptions | undefined;
     dependencies: [OptionalPlugin<AnalyticsPlugin>, TypeAheadPlugin];
-    sharedState: EmojiPluginState | undefined;
+    sharedState: EmojiPluginSharedState | undefined;
     commands: {
       insertEmoji: (
         emojiId: EmojiId,
@@ -37,6 +45,10 @@ export type EmojiPlugin = NextEditorPlugin<
           | INPUT_METHOD.ASCII
           | INPUT_METHOD.TYPEAHEAD,
       ) => EditorCommand;
+    };
+
+    actions: {
+      openTypeAhead: (inputMethod: TypeAheadInputMethod) => boolean;
     };
   }
 >;

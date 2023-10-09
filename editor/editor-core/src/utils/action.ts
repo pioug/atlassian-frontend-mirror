@@ -1,6 +1,7 @@
 import type {
   EditorState,
   Transaction,
+  PluginKey,
 } from '@atlaskit/editor-prosemirror/state';
 import { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -10,8 +11,17 @@ import type { ExtensionState } from '../plugins/extension/types';
 import { forceAutoSave } from '../plugins/extension/commands';
 
 import type { Command, CommandDispatch } from '../types/command';
-import { stateKey as mediaPluginKey } from '../plugins/media/pm-plugins/plugin-key';
-import type { MediaPluginState } from '../plugins/media/pm-plugins/types';
+import type { MediaPluginState } from '@atlaskit/editor-plugin-media/types';
+
+// TODO: ED-15663
+// Please, do not copy or use this kind of code below
+// @ts-ignore
+const mediaPluginKey = {
+  key: 'mediaPlugin$',
+  getState: (state: EditorState) => {
+    return (state as any)['mediaPlugin$'];
+  },
+} as PluginKey;
 
 export async function __temporaryFixForConfigPanel(editorView: EditorView) {
   const extensionPluginState =

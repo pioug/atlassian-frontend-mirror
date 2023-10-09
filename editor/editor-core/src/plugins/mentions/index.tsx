@@ -7,16 +7,11 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type {
   NextEditorPlugin,
   OptionalPlugin,
+  TypeAheadHandler,
 } from '@atlaskit/editor-common/types';
 import { WithPluginState } from '@atlaskit/editor-common/with-plugin-state';
 import ToolbarMention from './ui/ToolbarMention';
-import {
-  ACTION,
-  ACTION_SUBJECT,
-  ACTION_SUBJECT_ID,
-  EVENT_TYPE,
-  INPUT_METHOD,
-} from '@atlaskit/editor-common/analytics';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { IconMention } from '@atlaskit/editor-common/quick-insert';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import type {
@@ -28,27 +23,29 @@ import { createTypeAheadConfig } from './type-ahead';
 import { mentionPluginKey } from './pm-plugins/key';
 import { createMentionPlugin } from './pm-plugins/main';
 import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import type { TypeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
+import type {
+  TypeAheadPlugin,
+  TypeAheadInputMethod,
+} from '@atlaskit/editor-plugin-type-ahead';
 
 export { mentionPluginKey };
 
-const getSharedState = (
-  editorState: EditorState | undefined,
-): MentionPluginState | undefined => {
-  if (!editorState) {
-    return undefined;
-  }
-  return mentionPluginKey.getState(editorState);
+export type MentionSharedState = MentionPluginState & {
+  typeAheadHandler: TypeAheadHandler;
 };
-
-const mentionsPlugin: NextEditorPlugin<
+export type MentionPlugin = NextEditorPlugin<
   'mention',
   {
     pluginConfiguration: MentionPluginOptions | undefined;
     dependencies: [OptionalPlugin<typeof analyticsPlugin>, TypeAheadPlugin];
-    sharedState: MentionPluginState | undefined;
+    sharedState: MentionSharedState | undefined;
+    actions: {
+      openTypeAhead: (inputMethod: TypeAheadInputMethod) => boolean;
+    };
   }
-> = ({ config: options, api }) => {
+>;
+
+const mentionsPlugin: MentionPlugin = ({ config: options, api }) => {
   let sessionId = uuid();
   const fireEvent: FireElementsChannelEvent = <T extends AnalyticsEventPayload>(
     payload: T,
@@ -90,6 +87,13 @@ const mentionsPlugin: NextEditorPlugin<
     },
 
     secondaryToolbarComponent({ editorView, disabled }) {
+      const openMentionTypeAhead = () => {
+        api?.typeAhead?.actions?.open({
+          triggerHandler: typeAhead,
+          inputMethod: INPUT_METHOD.INSERT_MENU,
+        });
+      };
+
       return (
         <WithPluginState
           editorView={editorView}
@@ -100,6 +104,7 @@ const mentionsPlugin: NextEditorPlugin<
             !mentionState.mentionProvider ? null : (
               <ToolbarMention
                 editorView={editorView}
+                onInsertMention={openMentionTypeAhead}
                 isDisabled={
                   disabled || api?.typeAhead.actions.isAllowed(editorView.state)
                 }
@@ -110,7 +115,30 @@ const mentionsPlugin: NextEditorPlugin<
       );
     },
 
-    getSharedState,
+    actions: {
+      openTypeAhead(inputMethod: TypeAheadInputMethod) {
+        return Boolean(
+          api?.typeAhead?.actions?.open({
+            triggerHandler: typeAhead,
+            inputMethod,
+          }),
+        );
+      },
+    },
+
+    getSharedState(
+      editorState: EditorState | undefined,
+    ): MentionSharedState | undefined {
+      if (!editorState) {
+        return undefined;
+      }
+
+      const mentionPluginState = mentionPluginKey.getState(editorState);
+      return {
+        ...mentionPluginState,
+        typeAheadHandler: typeAhead,
+      };
+    },
 
     pluginsOptions: {
       quickInsert: ({ formatMessage }) => [
@@ -124,21 +152,14 @@ const mentionsPlugin: NextEditorPlugin<
           icon: () => <IconMention />,
           action(insert, state) {
             const tr = insert(undefined);
-            const pluginState = getSharedState(state);
+            const pluginState = mentionPluginKey.getState(state);
             if (pluginState && pluginState.canInsertMention === false) {
               return false;
             }
-            api?.typeAhead.commands.openTypeAheadAtCursor({
+
+            api?.typeAhead.actions.openAtTransaction({
               triggerHandler: typeAhead,
               inputMethod: INPUT_METHOD.QUICK_INSERT,
-            })({ tr });
-
-            api?.analytics?.actions.attachAnalyticsEvent({
-              action: ACTION.INVOKED,
-              actionSubject: ACTION_SUBJECT.TYPEAHEAD,
-              actionSubjectId: ACTION_SUBJECT_ID.TYPEAHEAD_MENTION,
-              attributes: { inputMethod: INPUT_METHOD.QUICK_INSERT },
-              eventType: EVENT_TYPE.UI,
             })(tr);
 
             return tr;

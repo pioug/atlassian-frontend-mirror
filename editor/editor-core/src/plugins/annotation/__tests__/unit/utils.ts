@@ -50,7 +50,7 @@ import { textFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';
 import { emojiPlugin } from '@atlaskit/editor-plugin-emoji';
 import typeAheadPlugin from '../../../type-ahead';
 import { inlineCommentProvider } from '../_utils';
-import mediaPlugin from '../../../media';
+import { mediaPlugin } from '@atlaskit/editor-plugin-media';
 import codeBlockPlugin from '../../../code-block';
 import { compositionPlugin } from '@atlaskit/editor-plugin-composition';
 import { blockTypePlugin } from '@atlaskit/editor-plugin-block-type';

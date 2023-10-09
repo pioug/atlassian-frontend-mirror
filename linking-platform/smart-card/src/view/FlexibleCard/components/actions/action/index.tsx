@@ -27,13 +27,19 @@ const Action: React.FC<ActionProps & InternalActionProps> = ({
   tooltipMessage,
   asDropDownItem,
   overrideCss,
+  isDisabled,
 }) => {
   if (!onClick) {
     return null;
   }
 
   const actionIcon = icon && (
-    <ActionIcon icon={icon} size={size} testId={testId} />
+    <ActionIcon
+      isDisabled={isDisabled}
+      icon={icon}
+      size={size}
+      testId={testId}
+    />
   );
   const iconBefore = icon && iconPosition === 'before' ? actionIcon : undefined;
   const iconAfter = icon && iconPosition === 'after' ? actionIcon : undefined;
@@ -62,6 +68,7 @@ const Action: React.FC<ActionProps & InternalActionProps> = ({
         size={size}
         testId={testId}
         tooltipMessage={tooltipMessage || content}
+        isDisabled={isDisabled}
       />
     );
   }

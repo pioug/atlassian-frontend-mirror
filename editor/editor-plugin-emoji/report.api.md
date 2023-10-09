@@ -24,6 +24,8 @@ import type { EmojiResourceConfig } from '@atlaskit/emoji';
 import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import type { OptionalPlugin } from '@atlaskit/editor-common/types';
+import type { TypeAheadHandler } from '@atlaskit/editor-common/types';
+import type { TypeAheadInputMethod } from '@atlaskit/editor-plugin-type-ahead';
 import type { TypeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
 
 // @public (undocumented)
@@ -32,7 +34,7 @@ export type EmojiPlugin = NextEditorPlugin<
   {
     pluginConfiguration: EmojiPluginOptions | undefined;
     dependencies: [OptionalPlugin<AnalyticsPlugin>, TypeAheadPlugin];
-    sharedState: EmojiPluginState | undefined;
+    sharedState: EmojiPluginSharedState | undefined;
     commands: {
       insertEmoji: (
         emojiId: EmojiId,
@@ -41,6 +43,9 @@ export type EmojiPlugin = NextEditorPlugin<
           | INPUT_METHOD.PICKER
           | INPUT_METHOD.TYPEAHEAD,
       ) => EditorCommand;
+    };
+    actions: {
+      openTypeAhead: (inputMethod: TypeAheadInputMethod) => boolean;
     };
   }
 >;
@@ -53,6 +58,11 @@ export interface EmojiPluginOptions {
   // (undocumented)
   headless?: boolean;
 }
+
+// @public (undocumented)
+type EmojiPluginSharedState = EmojiPluginState & {
+  typeAheadHandler: TypeAheadHandler;
+};
 
 // @public (undocumented)
 export type EmojiPluginState = {

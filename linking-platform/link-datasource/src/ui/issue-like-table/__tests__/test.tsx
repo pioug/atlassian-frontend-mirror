@@ -16,7 +16,7 @@ import {
 } from '@atlaskit/linking-types/datasource';
 import { ConcurrentExperience } from '@atlaskit/ufo';
 
-import { IssueLikeDataTableView } from '../index';
+import { IssueLikeDataTableView, orderColumns } from '../index';
 import {
   IssueLikeDataTableViewProps,
   TableViewPropsRenderType,
@@ -161,6 +161,55 @@ describe('IssueLikeDataTableView', () => {
     },
   ];
 
+  const getExampleColumns = (): DatasourceResponseSchemaProperty[] => [
+    {
+      key: 'key',
+      title: 'Key',
+      type: 'link',
+    },
+    {
+      key: 'type',
+      type: 'icon',
+      title: 'Type',
+    },
+    {
+      key: 'summary',
+      title: 'Summary',
+      type: 'link',
+    },
+    {
+      key: 'description',
+      title: 'Description',
+      type: 'richtext',
+    },
+    {
+      key: 'assignee',
+      title: 'Assignee',
+      type: 'user',
+    },
+    {
+      key: 'priority',
+      title: 'P',
+      type: 'icon',
+    },
+    {
+      key: 'labels',
+      title: 'Labels',
+      type: 'tag',
+      isList: true,
+    },
+    {
+      key: 'status',
+      title: 'Status for each issue',
+      type: 'status',
+    },
+    {
+      key: 'created',
+      title: 'Date of Creation for each issue',
+      type: 'date',
+    },
+  ];
+
   async function assertColumnTitles(onColumnChange?: () => void) {
     const items = getComplexItems();
     const columns = getComplexColumns();
@@ -177,6 +226,61 @@ describe('IssueLikeDataTableView', () => {
       'Some Other key',
     );
   }
+
+  it('should sort columns in correct order for column picker', () => {
+    const columns = getExampleColumns();
+    const visibleColumnKeys = ['created', 'priority', 'key'];
+    const orderedColumns = orderColumns(columns, visibleColumnKeys);
+    const expectedOrderedColumns = [
+      {
+        key: 'created',
+        title: 'Date of Creation for each issue',
+        type: 'date',
+      },
+      {
+        key: 'priority',
+        title: 'P',
+        type: 'icon',
+      },
+      {
+        key: 'key',
+        title: 'Key',
+        type: 'link',
+      },
+      {
+        key: 'type',
+        type: 'icon',
+        title: 'Type',
+      },
+      {
+        key: 'summary',
+        title: 'Summary',
+        type: 'link',
+      },
+      {
+        key: 'description',
+        title: 'Description',
+        type: 'richtext',
+      },
+      {
+        key: 'assignee',
+        title: 'Assignee',
+        type: 'user',
+      },
+      {
+        key: 'labels',
+        title: 'Labels',
+        type: 'tag',
+        isList: true,
+      },
+      {
+        key: 'status',
+        title: 'Status for each issue',
+        type: 'status',
+      },
+    ];
+    expect(orderedColumns).toEqual(expectedOrderedColumns);
+  });
 
   it('should display X rows in correct order given the data', async () => {
     const items: DatasourceDataResponseItem[] = [

@@ -27,8 +27,8 @@ import { customInsertMenuItems } from '@atlaskit/editor-test-helpers/mock-insert
 import quickInsertProviderFactory from '../example-helpers/quick-insert-provider';
 import { TitleInput } from '../example-helpers/PageElements';
 import type { EditorActions } from './../src';
-import type { MediaOptions } from '../src/plugins/media/types';
-import type { MediaProvider } from '../src/plugins/media';
+import type { MediaOptions } from '@atlaskit/editor-plugin-media/types';
+import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
 import { MockActivityResource } from '../example-helpers/activity-provider';
 import BreadcrumbsMiscActions from '../example-helpers/breadcrumbs-misc-actions';
 import {

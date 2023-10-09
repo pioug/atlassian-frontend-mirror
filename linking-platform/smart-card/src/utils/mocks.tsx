@@ -8,6 +8,12 @@ export const mockContext = {
   schema: 'http://schema.org/',
 } as const;
 
+export const mockGenerator = {
+  '@type': 'Application',
+  '@id': 'https://www.atlassian.com/#Jira',
+  name: 'Jira',
+};
+
 export const mockByUrl = (url: string) => {
   return {
     meta: {

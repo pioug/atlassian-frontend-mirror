@@ -103,7 +103,7 @@ import { emojiPlugin } from '@atlaskit/editor-plugin-emoji';
 import mentionsPlugin from '../../../mentions';
 import { cardPlugin } from '@atlaskit/editor-plugin-card';
 import pastePlugin from '../../index';
-import mediaPlugin from '../../../media';
+import { mediaPlugin } from '@atlaskit/editor-plugin-media';
 import type { PluginConfig as TablePluginConfig } from '@atlaskit/editor-plugin-table/types';
 import { blockTypePlugin } from '@atlaskit/editor-plugin-block-type';
 import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';

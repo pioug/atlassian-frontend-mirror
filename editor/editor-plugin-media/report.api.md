@@ -15,6 +15,436 @@
 <!--SECTION START: Main Entry Types-->
 
 ```ts
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
+import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';
+import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
+import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
+import type { EditorSelectionAPI } from '@atlaskit/editor-common/selection';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { ErrorReporter } from '@atlaskit/editor-common/utils';
+import type { ErrorReportingHandler } from '@atlaskit/editor-common/utils';
+import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
+import type { FloatingToolbarPlugin } from '@atlaskit/editor-plugin-floating-toolbar';
+import type { FocusPlugin } from '@atlaskit/editor-plugin-focus';
+import type { GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
+import type { GridPlugin } from '@atlaskit/editor-plugin-grid';
+import type { GuidelinePlugin } from '@atlaskit/editor-plugin-guideline';
+import type { InputMethodInsertMedia } from '@atlaskit/editor-common/analytics';
+import type { MediaClientConfig } from '@atlaskit/media-core';
+import type { MediaFeatureFlags } from '@atlaskit/media-common';
+import type { MediaFeatureFlags as MediaFeatureFlags_2 } from '@atlaskit/media-common/mediaFeatureFlags';
+import type { MediaFile } from '@atlaskit/media-picker/types';
+import type { MediaProvider as MediaProvider_2 } from '@atlaskit/editor-common/provider-factory';
+import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
+import type { Node as Node_2 } from '@atlaskit/editor-prosemirror/model';
+import type { NodeView } from '@atlaskit/editor-prosemirror/view';
+import type { OptionalPlugin } from '@atlaskit/editor-common/types';
+import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { Providers } from '@atlaskit/editor-common/provider-factory';
+import type { RichMediaLayout } from '@atlaskit/adf-schema';
+import type { UploadEndEventPayload } from '@atlaskit/media-picker/types';
+import type { UploadErrorEventPayload } from '@atlaskit/media-picker/types';
+import type { UploadParams } from '@atlaskit/media-picker/types';
+import type { UploadPreviewUpdateEventPayload } from '@atlaskit/media-picker/types';
+import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
+
+// @public (undocumented)
+interface CustomMediaPicker {
+  // (undocumented)
+  destroy(): void;
+  // (undocumented)
+  emit(event: string, data: any): void;
+  // (undocumented)
+  on(event: string, cb: Listener): void;
+  // (undocumented)
+  removeAllListeners(event: any): void;
+  // (undocumented)
+  setUploadParams(uploadParams: UploadParams): void;
+}
+
+// @public (undocumented)
+type getPosHandler = getPosHandlerNode;
+
+// @public (undocumented)
+type getPosHandlerNode = () => number | undefined;
+
+// @public (undocumented)
+type InsertMediaAsMediaSingle = (
+  view: EditorView,
+  node: Node_2,
+  inputMethod: InputMethodInsertMedia,
+) => boolean;
+
+// @public (undocumented)
+type Listener = (data: any) => void;
+
+// @public (undocumented)
+interface MediaNodeWithPosHandler {
+  // (undocumented)
+  getPos: ProsemirrorGetPosHandler;
+  // (undocumented)
+  node: Node_2;
+}
+
+// @public (undocumented)
+interface MediaOptions {
+  // (undocumented)
+  alignLeftOnInsert?: boolean;
+  // (undocumented)
+  allowAdvancedToolBarOptions?: boolean;
+  // (undocumented)
+  allowAltTextOnImages?: boolean;
+  // (undocumented)
+  allowBreakoutSnapPoints?: boolean;
+  // (undocumented)
+  allowCaptions?: boolean;
+  // (undocumented)
+  allowDropzoneDropLine?: boolean;
+  // (undocumented)
+  allowLazyLoading?: boolean;
+  // (undocumented)
+  allowLinking?: boolean;
+  // (undocumented)
+  allowMarkingUploadsAsIncomplete?: boolean;
+  // (undocumented)
+  allowMediaGroup?: boolean;
+  // (undocumented)
+  allowMediaSingle?: MediaSingleOptions | boolean;
+  // (undocumented)
+  allowMediaSingleEditable?: boolean;
+  // (undocumented)
+  allowRemoteDimensionsFetch?: boolean;
+  // (undocumented)
+  allowResizing?: boolean;
+  // (undocumented)
+  allowResizingInTables?: boolean;
+  // (undocumented)
+  allowTemplatePlaceholders?: PlaceholderTextOptions | boolean;
+  // (undocumented)
+  altTextValidator?: (value: string) => string[];
+  // (undocumented)
+  customDropzoneContainer?: HTMLElement;
+  // (undocumented)
+  customMediaPicker?: CustomMediaPicker;
+  // (undocumented)
+  editorSelectionAPI?: EditorSelectionAPI;
+  // (undocumented)
+  enableDownloadButton?: boolean;
+  // (undocumented)
+  featureFlags?: MediaFeatureFlags;
+  // (undocumented)
+  fullWidthEnabled?: boolean;
+  // (undocumented)
+  getEditorFeatureFlags?: GetEditorFeatureFlags;
+  // (undocumented)
+  isCopyPasteEnabled?: boolean;
+  // (undocumented)
+  provider?: Providers['mediaProvider'];
+  // (undocumented)
+  uploadErrorHandler?: (state: MediaState) => void;
+  // (undocumented)
+  useForgePlugins?: boolean;
+  // (undocumented)
+  waitForMediaUpload?: boolean;
+}
+
+// @public (undocumented)
+export type MediaPlugin = NextEditorPlugin<
+  'media',
+  {
+    pluginConfiguration: MediaOptions | undefined;
+    dependencies: [
+      FeatureFlagsPlugin,
+      OptionalPlugin<AnalyticsPlugin>,
+      GuidelinePlugin,
+      GridPlugin,
+      WidthPlugin,
+      DecorationsPlugin,
+      FloatingToolbarPlugin,
+      EditorDisabledPlugin,
+      FocusPlugin,
+    ];
+    sharedState: MediaPluginState | null;
+    actions: {
+      insertMediaAsMediaSingle: InsertMediaAsMediaSingle;
+    };
+  }
+>;
+
+// @public (undocumented)
+export const mediaPlugin: MediaPlugin;
+
+// @public (undocumented)
+type MediaPluginOptions = {
+  providerFactory: ProviderFactory;
+  nodeViews: {
+    [name: string]: (
+      node: Node_2,
+      view: EditorView,
+      getPos: getPosHandler,
+    ) => NodeView;
+  };
+  errorReporter?: ErrorReporter;
+  uploadErrorHandler?: (state: MediaState) => void;
+  waitForMediaUpload?: boolean;
+  customDropzoneContainer?: HTMLElement;
+  customMediaPicker?: CustomMediaPicker;
+  allowResizing: boolean;
+};
+
+// @public (undocumented)
+interface MediaPluginState {
+  // (undocumented)
+  addPendingTask: (promise: Promise<any>) => void;
+  // (undocumented)
+  allowsUploads: boolean;
+  // (undocumented)
+  allUploadsFinished: boolean;
+  // (undocumented)
+  clone(): MediaPluginState;
+  // (undocumented)
+  currentMaxWidth?: number;
+  // (undocumented)
+  destroy(): void;
+  // (undocumented)
+  dispatch?: Dispatch;
+  // (undocumented)
+  editingMediaSinglePos?: number;
+  // (undocumented)
+  element?: HTMLElement;
+  // (undocumented)
+  findMediaNode: (id: string) => MediaNodeWithPosHandler | null;
+  // (undocumented)
+  getMediaOptions: () => MediaPluginOptions;
+  // (undocumented)
+  handleDrag: (dragState: 'enter' | 'leave') => void;
+  // (undocumented)
+  handleMediaGroupUpdate: (oldNodes: Node_2[], newNodes: Node_2[]) => void;
+  // (undocumented)
+  handleMediaNodeMount: (
+    node: Node_2,
+    getPos: ProsemirrorGetPosHandler,
+  ) => void;
+  // (undocumented)
+  handleMediaNodeRemoval: (
+    node: Node_2 | undefined,
+    getPos: ProsemirrorGetPosHandler,
+  ) => void;
+  // (undocumented)
+  handleMediaNodeUnmount: (oldNode: Node_2) => void;
+  // (undocumented)
+  ignoreLinks: boolean;
+  // (undocumented)
+  insertFile: (
+    mediaState: MediaState,
+    onMediaStateChanged: MediaStateEventSubscriber,
+    pickerType?: string,
+  ) => void;
+  // (undocumented)
+  isFullscreen: boolean;
+  // (undocumented)
+  isResizing: boolean;
+  // (undocumented)
+  layout: RichMediaLayout;
+  // (undocumented)
+  mediaClientConfig?: MediaClientConfig;
+  // (undocumented)
+  mediaNodes: MediaNodeWithPosHandler[];
+  // (undocumented)
+  mediaOptions?: MediaOptions;
+  // (undocumented)
+  mediaProvider?: MediaProvider_2;
+  // (undocumented)
+  onContextIdentifierProvider: (
+    _name: string,
+    provider?: Promise<ContextIdentifierProvider>,
+  ) => Promise<void>;
+  // (undocumented)
+  onPopupPickerClose: () => void;
+  // (undocumented)
+  onPopupToggle: (onPopupToogleCallback: (isOpen: boolean) => void) => void;
+  // (undocumented)
+  options: MediaPluginOptions;
+  // (undocumented)
+  pickerPromises: Array<Promise<PickerFacade>>;
+  // (undocumented)
+  pickers: PickerFacade[];
+  // (undocumented)
+  removeSelectedMediaContainer: () => boolean;
+  // (undocumented)
+  resizingWidth: number;
+  // (undocumented)
+  selectedMediaContainerNode: () => Node_2 | undefined;
+  // (undocumented)
+  setBrowseFn: (browseFn: () => void) => void;
+  // (undocumented)
+  setIsResizing(isResizing: boolean): void;
+  // (undocumented)
+  setMediaProvider: (mediaProvider?: Promise<MediaProvider_2>) => Promise<void>;
+  // (undocumented)
+  setResizingWidth(width: number): void;
+  // (undocumented)
+  setView(view: EditorView): void;
+  // (undocumented)
+  showDropzone: boolean;
+  // (undocumented)
+  showEditingDialog?: boolean;
+  // (undocumented)
+  showMediaPicker: () => void;
+  // (undocumented)
+  splitMediaGroup: () => boolean;
+  // (undocumented)
+  updateAndDispatch(
+    props: Partial<
+      Pick<this, 'allUploadsFinished' | 'allowsUploads' | 'isFullscreen'>
+    >,
+  ): void;
+  // (undocumented)
+  updateElement(): void;
+  // (undocumented)
+  updateMediaSingleNodeAttrs: (
+    id: string,
+    attrs: object,
+  ) => boolean | undefined;
+  // (undocumented)
+  uploadMediaClientConfig?: MediaClientConfig;
+  // (undocumented)
+  waitForMediaUpload: boolean;
+  // (undocumented)
+  waitForPendingTasks: (
+    timeout?: number,
+    lastTask?: Promise<MediaState | null>,
+  ) => Promise<MediaState | null>;
+}
+
+// @public (undocumented)
+interface MediaSingleOptions {
+  // (undocumented)
+  disableLayout?: boolean;
+}
+
+// @public (undocumented)
+interface MediaState {
+  // (undocumented)
+  collection?: string;
+  // (undocumented)
+  contextId?: string;
+  // (undocumented)
+  dimensions?: {
+    width: number | undefined;
+    height: number | undefined;
+  };
+  // (undocumented)
+  error?: {
+    name: string;
+    description: string;
+  };
+  // (undocumented)
+  fileMimeType?: string;
+  // (undocumented)
+  fileName?: string;
+  // (undocumented)
+  fileSize?: number;
+  // (undocumented)
+  id: string;
+  publicId?: string;
+  // (undocumented)
+  scaleFactor?: number;
+  // (undocumented)
+  status?: MediaStateStatus;
+}
+
+// @public (undocumented)
+type MediaStateEvent = MediaState;
+
+// @public (undocumented)
+type MediaStateEventListener = (evt: MediaStateEvent) => void;
+
+// @public (undocumented)
+type MediaStateEventSubscriber = (listener: MediaStateEventListener) => void;
+
+// @public (undocumented)
+type MediaStateStatus =
+  | 'cancelled'
+  | 'error'
+  | 'mobile-upload-end'
+  | 'preview'
+  | 'ready'
+  | 'unknown';
+
+// @public (undocumented)
+type MobileUploadEndEventPayload = {
+  readonly file: MediaFile & {
+    readonly collectionName?: string;
+    readonly publicId?: string;
+  };
+};
+
+// @public (undocumented)
+type NewMediaEvent = (
+  state: MediaState,
+  onStateChanged: MediaStateEventSubscriber,
+  pickerType?: string,
+) => void;
+
+// @public (undocumented)
+class PickerFacade {
+  constructor(
+    pickerType: PickerType,
+    config: PickerFacadeConfig,
+    pickerConfig?: CustomMediaPicker | null | undefined,
+    analyticsName?: string,
+  );
+  // (undocumented)
+  readonly config: PickerFacadeConfig;
+  // (undocumented)
+  destroy(): void;
+  // (undocumented)
+  erroredFiles: Set<string>;
+  // (undocumented)
+  handleMobileUploadEnd: (event: MobileUploadEndEventPayload) => void;
+  // (undocumented)
+  handleReady: (event: UploadEndEventPayload) => void;
+  // (undocumented)
+  handleUploadError: ({ error, fileId }: UploadErrorEventPayload) => void;
+  // (undocumented)
+  handleUploadPreviewUpdate: (event: UploadPreviewUpdateEventPayload) => void;
+  // (undocumented)
+  init(): Promise<PickerFacade>;
+  // (undocumented)
+  get mediaPicker(): CustomMediaPicker | undefined;
+  // (undocumented)
+  onDrag(cb: (state: 'enter' | 'leave') => any): void;
+  // (undocumented)
+  onNewMedia(cb: NewMediaEvent): void;
+  // (undocumented)
+  readonly pickerConfig?: CustomMediaPicker | null | undefined;
+  // (undocumented)
+  setUploadParams(params: UploadParams): void;
+  // (undocumented)
+  get type(): PickerType;
+}
+
+// @public (undocumented)
+type PickerFacadeConfig = {
+  mediaClientConfig: MediaClientConfig;
+  errorReporter: ErrorReportingHandler;
+  featureFlags?: MediaFeatureFlags_2;
+};
+
+// @public (undocumented)
+type PickerType = 'clipboard' | 'customMediaPicker' | 'dropzone';
+
+// @public (undocumented)
+interface PlaceholderTextOptions {
+  // (undocumented)
+  allowInserting?: boolean;
+}
+
+// @public (undocumented)
+type ProsemirrorGetPosHandler = getPosHandlerNode;
+
 // (No @packageDocumentation comment for this package)
 ```
 

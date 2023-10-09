@@ -56,7 +56,6 @@
   },
   "devDependencies": {
     "@atlaskit/ssr": "*",
-    "@atlaskit/tokens": "^1.25.0",
     "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@testing-library/react": "^12.1.5",

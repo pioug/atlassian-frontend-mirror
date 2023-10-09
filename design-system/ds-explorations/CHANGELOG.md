@@ -1,5 +1,11 @@
 # @atlaskit/ds-explorations
 
+## 2.4.0
+
+### Minor Changes
+
+- [#41275](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41275) [`1fd49b30e7e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1fd49b30e7e) - Revert removal of Box, Inline, Stack entry-points.
+
 ## 2.3.2
 
 ### Patch Changes

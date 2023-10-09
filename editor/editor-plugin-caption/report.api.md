@@ -26,6 +26,9 @@ export type CaptionPlugin = NextEditorPlugin<
   }
 >;
 
+// @public (undocumented)
+export const captionPlugin: CaptionPlugin;
+
 // (No @packageDocumentation comment for this package)
 ```
 

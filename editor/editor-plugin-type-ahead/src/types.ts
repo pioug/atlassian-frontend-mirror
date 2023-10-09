@@ -1,11 +1,18 @@
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import type { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 import type {
-  EditorCommand,
+  Command,
   NextEditorPlugin,
+  OptionalPlugin,
   TypeAheadHandler,
+  TypeAheadItem,
 } from '@atlaskit/editor-common/types';
-import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type {
+  EditorState,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
 
 export type TypeAheadInputMethod =
   | INPUT_METHOD.INSERT_MENU
@@ -13,18 +20,28 @@ export type TypeAheadInputMethod =
   | INPUT_METHOD.QUICK_INSERT
   | INPUT_METHOD.TOOLBAR;
 
-type Props = {
-  triggerHandler: TypeAheadHandler;
-  inputMethod: TypeAheadInputMethod;
-  query?: string;
-};
-
 export type TypeAheadPluginOptions = {
   isMobile?: boolean;
   createAnalyticsEvent?: CreateUIAnalyticsEvent;
 };
 
-type OpenTypeAheadAtCursorType = (props: Props) => EditorCommand;
+type OpenTypeAheadProps = {
+  triggerHandler: TypeAheadHandler;
+  inputMethod: TypeAheadInputMethod;
+  query?: string;
+};
+type InsertTypeAheadItemProps = {
+  triggerHandler: TypeAheadHandler;
+  contentItem: TypeAheadItem;
+  query: string;
+  sourceListItem: TypeAheadItem[];
+  mode?: SelectItemMode;
+};
+
+type CloseTypeAheadProps = {
+  insertCurrentQueryAsRawText: boolean;
+  attachCommand?: Command;
+};
 
 /**
  * Type ahead plugin to be added to an `EditorPresetBuilder` and used with `ComposableEditor`
@@ -34,12 +51,20 @@ export type TypeAheadPlugin = NextEditorPlugin<
   'typeAhead',
   {
     pluginConfiguration: TypeAheadPluginOptions | undefined;
+    dependencies: [OptionalPlugin<AnalyticsPlugin>];
+    sharedState: {
+      query: string;
+    };
     actions: {
       isOpen: (editorState: EditorState) => boolean;
       isAllowed: (editorState: EditorState) => boolean;
-    };
-    commands: {
-      openTypeAheadAtCursor: OpenTypeAheadAtCursorType;
+      insert: (props: InsertTypeAheadItemProps) => boolean;
+      findHandlerByTrigger: (trigger: string) => TypeAheadHandler | null;
+      open: (props: OpenTypeAheadProps) => boolean;
+      close: (props: CloseTypeAheadProps) => boolean;
+      openAtTransaction: (
+        props: OpenTypeAheadProps,
+      ) => (tr: Transaction) => boolean;
     };
   }
 >;

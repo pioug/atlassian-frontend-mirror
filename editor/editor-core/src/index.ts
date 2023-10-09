@@ -72,9 +72,9 @@ export type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
  * @deprecated
  * DO NOT USE THIS WILL BE REMOVED SOON AND IS UNSAFE.
  * This is here while we work to extract the media plugin.
- * Please use the export from `@atlaskit/editor-common/provider-factory`.
+ * Please use the export from `@atlaskit/editor-plugin-media/types`.
  */
-export type { MediaOptions } from './plugins/media/types';
+export type { MediaOptions } from '@atlaskit/editor-plugin-media/types';
 export type {
   /**
    * @deprecated Use QuickInsertItem from @atlaskit/editor-common/provider-factory instead

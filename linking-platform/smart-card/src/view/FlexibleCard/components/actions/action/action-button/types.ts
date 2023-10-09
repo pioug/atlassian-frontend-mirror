@@ -6,4 +6,5 @@ export type ActionButtonProps = ActionProps & {
   iconBefore?: React.ReactChild;
   isLoading?: boolean;
   size: SmartLinkSize;
+  isDisabled?: boolean;
 };

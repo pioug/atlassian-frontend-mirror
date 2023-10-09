@@ -24,11 +24,18 @@ import { analyticsEventKey } from '../utils/analytics';
 import type {
   ForwardRef,
   getPosHandler,
+  ProsemirrorGetPosHandler,
   ReactComponentProps,
   shouldUpdate,
 } from './types';
 
-export type { getPosHandler, ReactComponentProps, shouldUpdate, ForwardRef };
+export type {
+  getPosHandler,
+  ReactComponentProps,
+  shouldUpdate,
+  ProsemirrorGetPosHandler,
+  ForwardRef,
+};
 export type { InlineNodeViewComponentProps } from './getInlineNodeViewProducer';
 export {
   getInlineNodeViewProducer,

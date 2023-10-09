@@ -10,6 +10,7 @@ jest.mock('@atlaskit/editor-plugin-card');
 jest.mock('@atlaskit/editor-plugin-table');
 jest.mock('@atlaskit/editor-plugin-context-panel');
 jest.mock('@atlaskit/editor-plugin-help-dialog');
+jest.mock('@atlaskit/editor-plugin-media');
 
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import { contextPanelPlugin } from '@atlaskit/editor-plugin-context-panel';
@@ -17,7 +18,6 @@ import { helpDialogPlugin } from '@atlaskit/editor-plugin-help-dialog';
 
 import {
   analyticsPlugin,
-  mediaPlugin,
   insertBlockPlugin,
   feedbackDialogPlugin,
   placeholderTextPlugin,
@@ -28,6 +28,7 @@ import {
   mobileDimensionsPlugin,
   findReplacePlugin,
 } from '../../../plugins';
+import { mediaPlugin } from '@atlaskit/editor-plugin-media';
 
 import { cardPlugin } from '@atlaskit/editor-plugin-card';
 import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';

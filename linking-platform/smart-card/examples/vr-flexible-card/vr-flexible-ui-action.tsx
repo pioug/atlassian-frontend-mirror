@@ -34,6 +34,7 @@ export default () => (
             <th>No icon</th>
             <th>Custom icon</th>
             <th>Custom text</th>
+            <th>Disabled</th>
           </tr>
         </thead>
         <tbody>
@@ -121,6 +122,25 @@ export default () => (
                       content="Remove"
                       appearance="default"
                       testId="vr-test-delete-action"
+                    />
+                  </div>
+                </td>
+                <td>
+                  <div css={containerStyles}>
+                    <DeleteAction
+                      size={size}
+                      onClick={onClick}
+                      content="Remove"
+                      testId="vr-test-delete-action"
+                      isDisabled
+                    />
+                    <DeleteAction
+                      size={size}
+                      onClick={onClick}
+                      content="Remove"
+                      appearance="default"
+                      testId="vr-test-delete-action"
+                      isDisabled
                     />
                   </div>
                 </td>

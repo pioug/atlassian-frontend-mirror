@@ -1,32 +1,37 @@
-import { fontSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 import { css } from '@emotion/react';
 import { gs } from '../../../common/utils';
 
 export const containerStyles = css`
+  display: grid;
+  height: inherit;
+`;
+
+export const contentStyles = css`
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  height: 100%;
+  align-items: center;
+  margin: auto;
+  padding: ${token('space.200', '16px')};
+  gap: ${token('space.250', '20px')};
+  max-width: ${gs(50)};
 `;
 
 export const imageStyles = css`
-  max-height: ${gs(14)};
-  margin-bottom: ${gs(4)};
-  overflow: hidden;
+  height: 120px;
+  width: 180px;
+  object-fit: contain;
+  object-position: center center;
 `;
 
 export const titleStyles = css`
-  font-size: ${gs(2.5)};
-  margin-bottom: ${gs(1.5)};
-  max-width: ${gs(50)};
   text-align: center;
+  margin: 0;
+  padding: 0;
 `;
 
 export const descriptionStyles = css`
-  font-size: ${fontSize()};
-  margin-bottom: ${gs(2.5)};
+  font-size: 1em;
   text-align: center;
-  max-width: ${gs(50)};
-  line-height: ${gs(3)};
 `;

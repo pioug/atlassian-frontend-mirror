@@ -15,10 +15,17 @@
 <!--SECTION START: Main Entry Types-->
 
 ```ts
+import { ComponentPropsWithoutRef } from 'react';
+import { ComponentPropsWithRef } from 'react';
 import type { CSSProperties } from 'react';
+import { ElementType } from 'react';
 import { FC } from 'react';
+import { ForwardRefExoticComponent } from 'react';
 import { jsx } from '@emotion/react';
+import { MemoExoticComponent } from 'react';
+import { ReactElement } from 'react';
 import { ReactNode } from 'react';
+import { RefAttributes } from 'react';
 import { SerializedStyles } from '@emotion/react';
 
 // @public (undocumented)
@@ -26,6 +33,41 @@ const asAllowlist: readonly ['span', 'div', 'p', 'strong'];
 
 // @public (undocumented)
 type AsElement = (typeof asAllowlist)[number];
+
+// @public (undocumented)
+type BackgroundColor = keyof typeof backgroundColorMap;
+
+// @public (undocumented)
+const backgroundColorMap: {
+  readonly disabled: SerializedStyles;
+  readonly input: SerializedStyles;
+  readonly 'inverse.subtle': SerializedStyles;
+  readonly neutral: SerializedStyles;
+  readonly 'neutral.subtle': SerializedStyles;
+  readonly 'neutral.bold': SerializedStyles;
+  readonly selected: SerializedStyles;
+  readonly 'selected.bold': SerializedStyles;
+  readonly 'brand.subtlest': SerializedStyles;
+  readonly 'brand.bold': SerializedStyles;
+  readonly 'brand.boldest': SerializedStyles;
+  readonly danger: SerializedStyles;
+  readonly 'danger.bold': SerializedStyles;
+  readonly warning: SerializedStyles;
+  readonly 'warning.bold': SerializedStyles;
+  readonly success: SerializedStyles;
+  readonly 'success.bold': SerializedStyles;
+  readonly discovery: SerializedStyles;
+  readonly 'discovery.bold': SerializedStyles;
+  readonly information: SerializedStyles;
+  readonly 'information.bold': SerializedStyles;
+  readonly 'color.blanket': SerializedStyles;
+  readonly 'color.blanket.selected': SerializedStyles;
+  readonly 'color.blanket.danger': SerializedStyles;
+  readonly 'elevation.surface': SerializedStyles;
+  readonly 'elevation.surface.overlay': SerializedStyles;
+  readonly 'elevation.surface.raised': SerializedStyles;
+  readonly 'elevation.surface.sunken': SerializedStyles;
+};
 
 // @public (undocumented)
 const backgroundHoverColorMap: {
@@ -101,6 +143,227 @@ interface BasePrimitiveProps {
 }
 
 // @public (undocumented)
+type BorderColor = keyof typeof borderColorMap;
+
+// @public
+const borderColorMap: {
+  readonly 'color.border': SerializedStyles;
+  readonly disabled: SerializedStyles;
+  readonly focused: SerializedStyles;
+  readonly input: SerializedStyles;
+  readonly inverse: SerializedStyles;
+  readonly selected: SerializedStyles;
+  readonly brand: SerializedStyles;
+  readonly danger: SerializedStyles;
+  readonly warning: SerializedStyles;
+  readonly success: SerializedStyles;
+  readonly discovery: SerializedStyles;
+  readonly information: SerializedStyles;
+  readonly bold: SerializedStyles;
+};
+
+// @public (undocumented)
+type BorderRadius = keyof typeof borderRadiusMap;
+
+// @public (undocumented)
+const borderRadiusMap: {
+  normal: SerializedStyles;
+  rounded: SerializedStyles;
+  badge: SerializedStyles;
+};
+
+// @public (undocumented)
+type BorderStyle = keyof typeof borderStyleMap;
+
+// @public (undocumented)
+const borderStyleMap: {
+  none: SerializedStyles;
+  solid: SerializedStyles;
+  dashed: SerializedStyles;
+  dotted: SerializedStyles;
+};
+
+// @public (undocumented)
+type BorderWidth = keyof typeof borderWidthMap;
+
+// @public (undocumented)
+const borderWidthMap: {
+  '0px': SerializedStyles;
+  '1px': SerializedStyles;
+  '2px': SerializedStyles;
+  '3px': SerializedStyles;
+};
+
+// @public (undocumented)
+type BoxComponent<T extends ElementType = 'div'> = (<
+  T extends ElementType = 'div',
+>(
+  props: UNSAFE_BoxProps<T>,
+) => ReactElement | null) &
+  FC<UNSAFE_BoxProps<T>>;
+
+// @public (undocumented)
+type BoxPropsBase<T extends ElementType> = {
+  as?: T;
+  children?: ReactNode;
+  className?: string;
+  backgroundColor?: BackgroundColor;
+  shadow?: Shadow;
+  borderStyle?: BorderStyle;
+  borderWidth?: BorderWidth;
+  borderColor?: BorderColor;
+  borderRadius?: BorderRadius;
+  layer?: Layer;
+  flexDirection?: FlexDirection;
+  alignItems?: FlexAlignItems;
+  justifyContent?: FlexJustifyContent;
+  overflow?: Overflow;
+  padding?: Padding;
+  paddingBlock?: PaddingBlock;
+  paddingInline?: PaddingInline;
+  width?: Width;
+  height?: Height;
+  display?: Display;
+  position?: Position;
+  ref?: ComponentPropsWithRef<T>['ref'];
+};
+
+// @public (undocumented)
+type ColumnGap = keyof typeof columnGapMap;
+
+// @public
+const columnGapMap: {
+  'space.0': SerializedStyles;
+  'space.025': SerializedStyles;
+  'space.050': SerializedStyles;
+  'space.075': SerializedStyles;
+  'space.100': SerializedStyles;
+  'space.1000': SerializedStyles;
+  'space.150': SerializedStyles;
+  'space.200': SerializedStyles;
+  'space.250': SerializedStyles;
+  'space.300': SerializedStyles;
+  'space.400': SerializedStyles;
+  'space.500': SerializedStyles;
+  'space.600': SerializedStyles;
+  'space.800': SerializedStyles;
+};
+
+// @public (undocumented)
+type Display = keyof typeof displayMap;
+
+// @public (undocumented)
+const displayMap: {
+  block: SerializedStyles;
+  inline: SerializedStyles;
+  flex: SerializedStyles;
+  inlineFlex: SerializedStyles;
+  inlineBlock: SerializedStyles;
+};
+
+// @public
+type FlexAlignItems = keyof typeof flexAlignItemsMap;
+
+// @public (undocumented)
+type FlexAlignItems_2 = keyof typeof flexAlignItemsMap_2;
+
+// @public (undocumented)
+type FlexAlignItems_3 = keyof typeof flexAlignItemsMap_3;
+
+// @public (undocumented)
+const flexAlignItemsMap: {
+  center: SerializedStyles;
+  baseline: SerializedStyles;
+  flexStart: SerializedStyles;
+  flexEnd: SerializedStyles;
+  start: SerializedStyles;
+  end: SerializedStyles;
+};
+
+// @public (undocumented)
+const flexAlignItemsMap_2: {
+  center: SerializedStyles;
+  baseline: SerializedStyles;
+  flexStart: SerializedStyles;
+  flexEnd: SerializedStyles;
+  start: SerializedStyles;
+  end: SerializedStyles;
+};
+
+// @public (undocumented)
+const flexAlignItemsMap_3: {
+  center: SerializedStyles;
+  baseline: SerializedStyles;
+  flexStart: SerializedStyles;
+  flexEnd: SerializedStyles;
+  start: SerializedStyles;
+  end: SerializedStyles;
+};
+
+// @public
+type FlexDirection = keyof typeof flexDirectionMap;
+
+// @public (undocumented)
+const flexDirectionMap: {
+  column: SerializedStyles;
+  row: SerializedStyles;
+};
+
+// @public
+type FlexJustifyContent = keyof typeof flexJustifyContentMap;
+
+// @public (undocumented)
+type FlexJustifyContent_2 = keyof typeof flexJustifyContentMap_2;
+
+// @public (undocumented)
+type FlexJustifyContent_3 = keyof typeof flexJustifyContentMap_3;
+
+// @public (undocumented)
+const flexJustifyContentMap: {
+  center: SerializedStyles;
+  flexStart: SerializedStyles;
+  flexEnd: SerializedStyles;
+  start: SerializedStyles;
+  end: SerializedStyles;
+};
+
+// @public (undocumented)
+const flexJustifyContentMap_2: {
+  center: SerializedStyles;
+  flexStart: SerializedStyles;
+  'space-between': SerializedStyles;
+  flexEnd: SerializedStyles;
+  start: SerializedStyles;
+  end: SerializedStyles;
+  spaceBetween: SerializedStyles;
+};
+
+// @public (undocumented)
+const flexJustifyContentMap_3: {
+  center: SerializedStyles;
+  flexStart: SerializedStyles;
+  flexEnd: SerializedStyles;
+  start: SerializedStyles;
+  end: SerializedStyles;
+};
+
+// @public (undocumented)
+type FlexWrap = keyof typeof flexWrapMap;
+
+// @public (undocumented)
+type FlexWrap_2 = keyof typeof flexWrapMap_2;
+
+// @public (undocumented)
+const flexWrapMap: {
+  wrap: SerializedStyles;
+};
+
+// @public (undocumented)
+const flexWrapMap_2: {
+  wrap: SerializedStyles;
+};
+
+// @public (undocumented)
 type FontSize = keyof typeof fontSizeMap;
 
 // @public
@@ -127,6 +390,21 @@ const fontWeightMap: {
 };
 
 // @public (undocumented)
+type Height = keyof typeof heightMap;
+
+// @public (undocumented)
+const heightMap: {
+  '100%': SerializedStyles;
+  'size.100': SerializedStyles;
+  'size.1000': SerializedStyles;
+  'size.200': SerializedStyles;
+  'size.300': SerializedStyles;
+  'size.400': SerializedStyles;
+  'size.500': SerializedStyles;
+  'size.600': SerializedStyles;
+};
+
+// @public (undocumented)
 type InteractionBackgroundColor = keyof typeof backgroundHoverColorMap;
 
 // @public (undocumented)
@@ -136,6 +414,22 @@ interface InteractionSurfaceProps extends BasePrimitiveProps {
   // (undocumented)
   children: ReactNode;
 }
+
+// @public (undocumented)
+type Layer = keyof typeof LAYERS;
+
+// @public (undocumented)
+const LAYERS: {
+  readonly card: 100;
+  readonly navigation: 200;
+  readonly dialog: 300;
+  readonly layer: 400;
+  readonly blanket: 500;
+  readonly modal: 510;
+  readonly flag: 600;
+  readonly spotlight: 700;
+  readonly tooltip: 800;
+};
 
 // @public (undocumented)
 type LineHeight = keyof typeof lineHeightMap;
@@ -149,6 +443,122 @@ const lineHeightMap: {
   'lineHeight.400': SerializedStyles;
   'lineHeight.500': SerializedStyles;
   'lineHeight.600': SerializedStyles;
+};
+
+// @public (undocumented)
+type Overflow = keyof typeof overflowMap;
+
+// @public (undocumented)
+const overflowMap: {
+  auto: SerializedStyles;
+  hidden: SerializedStyles;
+};
+
+// @public (undocumented)
+type Padding = keyof typeof paddingMap;
+
+// @public (undocumented)
+type PaddingBlock = keyof typeof paddingBlockMap;
+
+// @public (undocumented)
+const paddingBlockMap: {
+  'space.0': SerializedStyles;
+  'space.025': SerializedStyles;
+  'space.050': SerializedStyles;
+  'space.075': SerializedStyles;
+  'space.100': SerializedStyles;
+  'space.1000': SerializedStyles;
+  'space.150': SerializedStyles;
+  'space.200': SerializedStyles;
+  'space.250': SerializedStyles;
+  'space.300': SerializedStyles;
+  'space.400': SerializedStyles;
+  'space.500': SerializedStyles;
+  'space.600': SerializedStyles;
+  'space.800': SerializedStyles;
+};
+
+// @public (undocumented)
+type PaddingInline = keyof typeof paddingInlineMap;
+
+// @public (undocumented)
+const paddingInlineMap: {
+  'space.0': SerializedStyles;
+  'space.025': SerializedStyles;
+  'space.050': SerializedStyles;
+  'space.075': SerializedStyles;
+  'space.100': SerializedStyles;
+  'space.1000': SerializedStyles;
+  'space.150': SerializedStyles;
+  'space.200': SerializedStyles;
+  'space.250': SerializedStyles;
+  'space.300': SerializedStyles;
+  'space.400': SerializedStyles;
+  'space.500': SerializedStyles;
+  'space.600': SerializedStyles;
+  'space.800': SerializedStyles;
+};
+
+// @public
+const paddingMap: {
+  'space.0': SerializedStyles;
+  'space.025': SerializedStyles;
+  'space.050': SerializedStyles;
+  'space.075': SerializedStyles;
+  'space.100': SerializedStyles;
+  'space.1000': SerializedStyles;
+  'space.150': SerializedStyles;
+  'space.200': SerializedStyles;
+  'space.250': SerializedStyles;
+  'space.300': SerializedStyles;
+  'space.400': SerializedStyles;
+  'space.500': SerializedStyles;
+  'space.600': SerializedStyles;
+  'space.800': SerializedStyles;
+};
+
+// @public (undocumented)
+type Position = keyof typeof positionMap;
+
+// @public (undocumented)
+const positionMap: {
+  absolute: SerializedStyles;
+  fixed: SerializedStyles;
+  relative: SerializedStyles;
+  static: SerializedStyles;
+};
+
+// @public (undocumented)
+type RowGap = keyof typeof rowGapMap;
+
+// @public
+const rowGapMap: {
+  'space.0': SerializedStyles;
+  'space.025': SerializedStyles;
+  'space.050': SerializedStyles;
+  'space.075': SerializedStyles;
+  'space.100': SerializedStyles;
+  'space.1000': SerializedStyles;
+  'space.150': SerializedStyles;
+  'space.200': SerializedStyles;
+  'space.250': SerializedStyles;
+  'space.300': SerializedStyles;
+  'space.400': SerializedStyles;
+  'space.500': SerializedStyles;
+  'space.600': SerializedStyles;
+  'space.800': SerializedStyles;
+};
+
+// @public (undocumented)
+type Shadow = keyof typeof shadowMap;
+
+// @public (undocumented)
+const shadowMap: {
+  readonly overflow: SerializedStyles;
+  readonly 'overflow.perimeter': SerializedStyles;
+  readonly 'overflow.spread': SerializedStyles;
+  readonly overlay: SerializedStyles;
+  readonly raised: SerializedStyles;
 };
 
 // @public (undocumented)
@@ -191,12 +601,52 @@ const textTransformMap: {
   uppercase: SerializedStyles;
 };
 
+// @public @deprecated
+export const UNSAFE_Box: BoxComponent;
+
+// @public @deprecated (undocumented)
+export type UNSAFE_BoxProps<T extends ElementType = 'div'> = Omit<
+  ComponentPropsWithoutRef<T>,
+  'as' | 'className' | 'style'
+> &
+  BasePrimitiveProps &
+  BoxPropsBase<T>;
+
+// @public @deprecated
+export const UNSAFE_Inline: MemoExoticComponent<
+  ForwardRefExoticComponent<UNSAFE_InlineProps & RefAttributes<HTMLDivElement>>
+>;
+
+// @public @deprecated (undocumented)
+export interface UNSAFE_InlineProps extends BasePrimitiveProps {
+  alignItems?: FlexAlignItems_2;
+  children: ReactNode;
+  divider?: ReactNode;
+  flexWrap?: FlexWrap;
+  gap: ColumnGap;
+  justifyContent?: FlexJustifyContent_2;
+}
+
 // @public (undocumented)
 export const UNSAFE_InteractionSurface: ({
   appearance,
   children,
   testId,
 }: InteractionSurfaceProps) => jsx.JSX.Element;
+
+// @public @deprecated
+export const UNSAFE_Stack: MemoExoticComponent<
+  ForwardRefExoticComponent<UNSAFE_StackProps & RefAttributes<HTMLDivElement>>
+>;
+
+// @public @deprecated (undocumented)
+export interface UNSAFE_StackProps extends BasePrimitiveProps {
+  alignItems?: FlexAlignItems_3;
+  children: ReactNode;
+  flexWrap?: FlexWrap_2;
+  gap: RowGap;
+  justifyContent?: FlexJustifyContent_3;
+}
 
 // @internal
 export const UNSAFE_Text: FC<UNSAFE_TextProps>;
@@ -224,6 +674,21 @@ const verticalAlignMap: {
   top: SerializedStyles;
   middle: SerializedStyles;
   bottom: SerializedStyles;
+};
+
+// @public (undocumented)
+type Width = keyof typeof widthMap;
+
+// @public
+const widthMap: {
+  '100%': SerializedStyles;
+  'size.100': SerializedStyles;
+  'size.1000': SerializedStyles;
+  'size.200': SerializedStyles;
+  'size.300': SerializedStyles;
+  'size.400': SerializedStyles;
+  'size.500': SerializedStyles;
+  'size.600': SerializedStyles;
 };
 
 // (No @packageDocumentation comment for this package)

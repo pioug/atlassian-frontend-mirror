@@ -105,7 +105,6 @@ export const ColumnPicker = ({
       selectValue.some(selectedValue => selectedValue.value === option.value)
     );
   };
-
   useEffect(() => {
     if (allOptions.length) {
       // necessary to refocus the search input after the loading state

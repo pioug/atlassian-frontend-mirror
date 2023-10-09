@@ -36,7 +36,7 @@ import type {
 import { CodeBlock } from '@atlaskit/code';
 import type { MentionProvider } from '@atlaskit/mention/types';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
-import type { MediaOptions } from '@atlaskit/editor-core/src/plugins/media/types';
+import type { MediaOptions } from '@atlaskit/editor-plugin-media/types';
 
 import { token } from '@atlaskit/tokens';
 

@@ -204,6 +204,12 @@ export class DocumentService {
       startMeasure(MEASURE_NAME.GET_CURRENT_STATE, this.analyticsHelper);
 
       // Convert ProseMirror document in Editor state to ADF document
+      if (!this.getState?.()) {
+        this.analyticsHelper?.sendErrorEvent(
+          new Error('Editor state is undefined'),
+          'getCurrentState called without state',
+        );
+      }
       const state = this.getState!();
       const adfDocument = new JSONTransformer().encode(state.doc);
 
@@ -519,6 +525,12 @@ export class DocumentService {
 
   private validatePMJSONDocument = (doc: any) => {
     try {
+      if (!this.getState?.()) {
+        this.analyticsHelper?.sendErrorEvent(
+          new Error('Editor state is undefined'),
+          'validatePMJSONDocument called without state',
+        );
+      }
       const state = this.getState!();
       const content: Array<PMNode> = (doc.content || []).map((child: any) =>
         state.schema.nodeFromJSON(child),
@@ -558,6 +570,12 @@ export class DocumentService {
         const lastTr = unconfirmedTrs?.[unconfirmedTrs.length - 1];
         let isLastTrConfirmed = false;
 
+        if (!this.getState?.()) {
+          this.analyticsHelper?.sendErrorEvent(
+            new Error('Editor state is undefined'),
+            'commitUnconfirmedSteps called without state',
+          );
+        }
         while (!isLastTrConfirmed) {
           this.sendStepsFromCurrentState();
 
@@ -662,6 +680,10 @@ export class DocumentService {
   sendStepsFromCurrentState(sendAnalyticsEvent?: boolean) {
     const state = this.getState?.();
     if (!state) {
+      this.analyticsHelper?.sendErrorEvent(
+        new Error('Editor state is undefined'),
+        'sendStepsFromCurrentState called without state',
+      );
       return;
     }
 

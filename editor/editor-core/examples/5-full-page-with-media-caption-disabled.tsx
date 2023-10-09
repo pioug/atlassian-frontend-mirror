@@ -8,7 +8,7 @@ import {
   SaveAndCancelButtons,
 } from './5-full-page';
 import LanguagePicker from '../example-helpers/LanguagePicker';
-import type { MediaOptions } from '../src/plugins/media/types';
+import type { MediaOptions } from '@atlaskit/editor-plugin-media/types';
 import adf from '../example-helpers/templates/media-without-caption.adf.json';
 import { getTranslations } from '../example-helpers/get-translations';
 export type Props = {};

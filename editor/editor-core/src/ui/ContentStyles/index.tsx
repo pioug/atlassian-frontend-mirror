@@ -43,14 +43,14 @@ import { gapCursorStyles } from '../../plugins/selection/gap-cursor/styles';
 import { tableStyles } from '@atlaskit/editor-plugin-table/ui/common-styles';
 import { blocktypeStyles } from '@atlaskit/editor-plugin-block-type/styles';
 import { codeBlockStyles } from '../../plugins/code-block/styles';
-import { mediaStyles } from '../../plugins/media/styles';
+import { mediaStyles } from './media';
 import { layoutStyles } from '../../plugins/layout/styles';
 import { panelStyles } from '../../plugins/panel/styles';
 import { fakeCursorStyles } from '../../plugins/fake-text-cursor/styles';
 import { placeholderTextStyles } from '../../plugins/placeholder-text/styles';
 import { extensionStyles } from '../../plugins/extension/ui/styles';
 import { expandStyles } from '../../plugins/expand/ui/styles';
-import { ClassNames } from '../../plugins/media/pm-plugins/alt-text/style';
+import { MediaSharedClassNames } from '@atlaskit/editor-common/styles';
 import { findReplaceStyles } from '../../plugins/find-replace/styles';
 import { taskDecisionStyles } from '../../plugins/tasks-and-decisions/styles';
 import { statusStyles } from '../../plugins/status/styles';
@@ -304,7 +304,7 @@ const contentStyles = (props: ContentStylesProps) => css`
   }
 
   .hyperlink-floating-toolbar,
-  .${ClassNames.FLOATING_TOOLBAR_COMPONENT} {
+  .${MediaSharedClassNames.FLOATING_TOOLBAR_COMPONENT} {
     padding: 0;
   }
 

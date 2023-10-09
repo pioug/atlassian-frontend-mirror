@@ -98,6 +98,9 @@
       "path": "../editor-plugin-block-type/tsconfig.app.json"
     },
     {
+      "path": "../editor-plugin-border/tsconfig.app.json"
+    },
+    {
       "path": "../editor-plugin-caption/tsconfig.app.json"
     },
     {
@@ -222,18 +225,6 @@
     },
     {
       "path": "../../media/media-core/tsconfig.app.json"
-    },
-    {
-      "path": "../../media/media-filmstrip/tsconfig.app.json"
-    },
-    {
-      "path": "../../media/media-picker/tsconfig.app.json"
-    },
-    {
-      "path": "../../media/media-ui/tsconfig.app.json"
-    },
-    {
-      "path": "../../media/media-viewer/tsconfig.app.json"
     },
     {
       "path": "../../elements/mention/tsconfig.app.json"

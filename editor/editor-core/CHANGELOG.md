@@ -1,5 +1,40 @@
 # @atlaskit/editor-core
 
+## 188.4.0
+
+### Minor Changes
+
+- [#41203](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41203) [`4aa3dc2fa1a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4aa3dc2fa1a) - [ED-20291] New package for Editor border plugin
+
+### Patch Changes
+
+- [#41143](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41143) [`7d6dfe2befa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7d6dfe2befa) - [ED-20003] Replace TyepAhead API for Editor Plugin Injection API
+- Updated dependencies
+
+## 188.3.1
+
+### Patch Changes
+
+- [#41187](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41187) [`c09b3a047f4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c09b3a047f4) - Extract media plugin from `@atlaskit/editor-core` to `@atlaskit/editor-plugin-media.
+- Updated dependencies
+
+## 188.3.0
+
+### Minor Changes
+
+- [#41239](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41239) [`7d70b962986`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7d70b962986) - Extract Caption Plugin from Editor Core
+
+### Patch Changes
+
+- Updated dependencies
+
+## 188.2.11
+
+### Patch Changes
+
+- [#41224](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41224) [`6818e578fd6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6818e578fd6) - Added new Tables toggle option for enabling Drag and Drop
+- Updated dependencies
+
 ## 188.2.9
 
 ### Patch Changes

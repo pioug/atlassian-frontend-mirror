@@ -86,6 +86,7 @@ type ActionProps = {
   asDropDownItem?: boolean;
   overrideCss?: SerializedStyles;
   testId?: string;
+  isDisabled?: boolean;
 };
 
 // @public (undocumented)
@@ -182,6 +183,7 @@ type BaseActionItem = {
   overrideCss?: SerializedStyles;
   size?: SmartLinkSize;
   testId?: string;
+  isDisabled?: boolean;
 };
 
 // @public
@@ -193,6 +195,7 @@ type BaseDataActionItem = {
   overrideCss?: SerializedStyles;
   size?: SmartLinkSize;
   testId?: string;
+  isDisabled?: boolean;
 };
 
 export { BlockCardAdf };

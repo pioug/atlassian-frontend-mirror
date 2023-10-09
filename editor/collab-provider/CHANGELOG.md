@@ -1,5 +1,11 @@
 # @atlaskit/collab-provider
 
+## 9.15.1
+
+### Patch Changes
+
+- [#40940](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40940) [`7a58a018436`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7a58a018436) - add error logs for when editor state is undefined
+
 ## 9.15.0
 
 ### Minor Changes

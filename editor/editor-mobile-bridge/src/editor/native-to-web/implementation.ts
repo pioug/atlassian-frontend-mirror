@@ -4,7 +4,7 @@ import type {
   StatusState,
   StatusType,
 } from '@atlaskit/editor-core/src/plugins/status/plugin';
-import type { CustomMediaPicker } from '@atlaskit/editor-core/src/plugins/media';
+import type { CustomMediaPicker } from '@atlaskit/editor-plugin-media/types';
 import type {
   ListState,
   InputMethod as ListInputMethod,
@@ -21,7 +21,6 @@ import type {
 import { EditorActions } from '@atlaskit/editor-core';
 import { clearEditorContent } from '@atlaskit/editor-core/src/commands';
 import { changeColor } from '@atlaskit/editor-core/src/plugins/text-color/commands/change-color';
-import { createTypeAheadTools } from '@atlaskit/editor-core/src/plugins/type-ahead/api';
 import {
   updateStatusWithAnalytics,
   commitStatusPicker,
@@ -36,6 +35,7 @@ import { dateToDateType } from '@atlaskit/editor-core/src/plugins/date/utils/for
 import { insertDate } from '@atlaskit/editor-core/src/plugins/date/actions';
 import { insertExpand } from '@atlaskit/editor-core/src/plugins/expand/commands';
 import type {
+  TypeAheadHandler,
   InputMethodBasic as TextFormattingInputMethodBasic,
   TextFormattingState,
   LinkInputType as LinkInputMethod,
@@ -125,14 +125,19 @@ type Command = (
 export type EditorConfigChange = (config: MobileEditorConfiguration) => void;
 
 const closeTypeAheadAndRunCommand =
-  (editorView?: EditorView) => (command: Command) => {
+  (
+    editorView: EditorView | undefined,
+    api: ExtractInjectionAPI<typeof mobileApiPlugin> | undefined,
+  ) =>
+  (command: Command) => {
     if (!editorView) {
       return;
     }
-    const tool = createTypeAheadTools(editorView);
 
-    if (tool && tool.isOpen()) {
-      tool.close({
+    const isTypeAheadOpen = api?.typeAhead?.actions?.isOpen(editorView.state);
+
+    if (isTypeAheadOpen) {
+      api?.typeAhead?.actions?.close({
         attachCommand: command,
         insertCurrentQueryAsRawText: false,
       });
@@ -141,11 +146,17 @@ const closeTypeAheadAndRunCommand =
     }
   };
 
-const closeTypeAheadAndUndo = (editorView?: EditorView) => {
-  return closeTypeAheadAndRunCommand(editorView)(pmHistoryUndo);
+const closeTypeAheadAndUndo = (
+  editorView: EditorView | undefined,
+  api: ExtractInjectionAPI<typeof mobileApiPlugin> | undefined,
+) => {
+  return closeTypeAheadAndRunCommand(editorView, api)(pmHistoryUndo);
 };
-const closeTypeAheadAndRedo = (editorView?: EditorView) => {
-  return closeTypeAheadAndRunCommand(editorView)(pmHistoryRedo);
+const closeTypeAheadAndRedo = (
+  editorView: EditorView | undefined,
+  api: ExtractInjectionAPI<typeof mobileApiPlugin> | undefined,
+) => {
+  return closeTypeAheadAndRunCommand(editorView, api)(pmHistoryRedo);
 };
 
 export default class WebBridgeImpl
@@ -662,14 +673,17 @@ export default class WebBridgeImpl
     if (!this.editorView) {
       return;
     }
-    createTypeAheadTools(this.editorView).openMention(INPUT_METHOD.TOOLBAR);
+
+    this.pluginInjectionApi?.mention.actions.openTypeAhead(
+      INPUT_METHOD.TOOLBAR,
+    );
   }
 
   insertEmojiQuery() {
     if (!this.editorView) {
       return;
     }
-    createTypeAheadTools(this.editorView).openEmoji(INPUT_METHOD.TOOLBAR);
+    this.pluginInjectionApi?.emoji.actions.openTypeAhead(INPUT_METHOD.TOOLBAR);
   }
 
   insertTypeAheadItem(
@@ -680,66 +694,75 @@ export default class WebBridgeImpl
       return;
     }
 
+    if (!['quickinsert', 'mention', 'emoji'].includes(type)) {
+      return;
+    }
+
     const enableQuickInsert = this.editorConfiguration.isQuickInsertEnabled();
     this.flushDOM();
 
     const parsedPayload: TypeAheadItem = JSON.parse(payload);
 
-    const tool = createTypeAheadTools(this.editorView);
-    if (!tool) {
-      return;
-    }
-    const query = tool.currentQuery() || '';
+    let handler: TypeAheadHandler | undefined;
+    const api = this.pluginInjectionApi;
 
     switch (type) {
       case 'mention':
-        tool.insertItemMention({
-          query,
-          sourceListItem: [],
-          contentItem: {
-            ...parsedPayload,
-            mention: parsedPayload,
-          },
-        });
+        handler = api?.mention?.sharedState.currentState()?.typeAheadHandler;
         break;
       case 'emoji':
-        tool.insertItemEmoji({
-          query,
-          sourceListItem: [],
-          contentItem: {
-            ...parsedPayload,
-            emoji: parsedPayload,
-          },
-        });
+        handler = api?.emoji?.sharedState.currentState()?.typeAheadHandler;
         break;
       case 'quickinsert':
-        if (!enableQuickInsert) {
-          return;
-        }
-        const index = parseInt(parsedPayload.index, 10);
-        if (!Number.isInteger(index)) {
-          return;
-        }
-
-        const quickInsertList =
-          this.pluginInjectionApi?.quickInsert?.actions.getSuggestions({
-            query,
-            disableDefaultItems: true,
-          });
-        const quickInsertItem = quickInsertList?.[index];
-
-        if (!quickInsertItem) {
-          return;
-        }
-
-        tool.insertItemQuickInsert({
-          query,
-          sourceListItem: quickInsertList,
-          contentItem: quickInsertItem,
-        });
-
+        handler =
+          api?.quickInsert?.sharedState.currentState()?.typeAheadHandler;
         break;
     }
+
+    if (!handler) {
+      return;
+    }
+
+    const query = api?.typeAhead?.sharedState.currentState()?.query || '';
+
+    if (['mention', 'emoji'].includes(type)) {
+      api?.typeAhead?.actions?.insert({
+        triggerHandler: handler,
+        query,
+        sourceListItem: [],
+        contentItem: {
+          ...parsedPayload,
+          [type]: parsedPayload,
+        },
+      });
+
+      return;
+    }
+
+    if (!enableQuickInsert) {
+      return;
+    }
+    const index = parseInt(parsedPayload.index, 10);
+    if (!Number.isInteger(index)) {
+      return;
+    }
+
+    const quickInsertList =
+      this.pluginInjectionApi?.quickInsert?.actions.getSuggestions({
+        query,
+        disableDefaultItems: true,
+      });
+    const quickInsertItem = quickInsertList?.[index];
+
+    if (!quickInsertItem) {
+      return;
+    }
+    api?.typeAhead?.actions?.insert({
+      triggerHandler: handler,
+      query,
+      sourceListItem: quickInsertList,
+      contentItem: quickInsertItem,
+    });
   }
 
   setFocus(force: boolean) {
@@ -797,11 +820,11 @@ export default class WebBridgeImpl
   }
 
   undo() {
-    closeTypeAheadAndUndo(this.editorView);
+    closeTypeAheadAndUndo(this.editorView, this.pluginInjectionApi);
   }
 
   redo() {
-    closeTypeAheadAndRedo(this.editorView);
+    closeTypeAheadAndRedo(this.editorView, this.pluginInjectionApi);
   }
 
   setKeyboardControlsHeight(height: string) {
@@ -967,8 +990,9 @@ export default class WebBridgeImpl
       return;
     }
 
-    const tool = createTypeAheadTools(this.editorView);
-    tool.close({ insertCurrentQueryAsRawText: true });
+    this.pluginInjectionApi?.typeAhead?.actions?.close({
+      insertCurrentQueryAsRawText: true,
+    });
   }
 
   configure(config: string) {

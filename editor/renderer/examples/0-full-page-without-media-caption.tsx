@@ -1,6 +1,6 @@
 import React from 'react';
 import RendererDemo from './helper/RendererDemo';
-import type { MediaOptions } from '@atlaskit/editor-core/src/plugins/media/types';
+import type { MediaOptions } from '@atlaskit/editor-plugin-media/types';
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 import adf from './helper/media-without-caption.adf.json';
 

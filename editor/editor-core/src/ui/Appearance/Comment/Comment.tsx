@@ -26,7 +26,7 @@ import classnames from 'classnames';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 import messages from '../../../messages';
-import type { MediaPluginState } from '../../../plugins/media/pm-plugins/types';
+import type { MediaPluginState } from '@atlaskit/editor-plugin-media/types';
 import { usePresetContext } from '../../../presets/context';
 
 import {

@@ -20,7 +20,7 @@ import {
   EVENT_TYPE,
   INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
-import type { MediaNextEditorPluginType } from '../../plugins/media/next-plugin-type';
+import type { MediaPlugin } from '@atlaskit/editor-plugin-media';
 import { analyticsEventKey } from '../analytics/consts';
 
 export function createPlugin(
@@ -81,7 +81,7 @@ type SubmitEditorPlugin = NextEditorPlugin<
   'submitEditor',
   {
     pluginConfiguration: Config | undefined;
-    dependencies: [OptionalPlugin<MediaNextEditorPluginType>];
+    dependencies: [OptionalPlugin<MediaPlugin>];
   }
 >;
 

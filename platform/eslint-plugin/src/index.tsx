@@ -4,6 +4,7 @@ import noPreAndPostInstallScripts from './rules/no-pre-post-installs';
 import ensureTestRunnerArguments from './rules/ensure-test-runner-arguments';
 import ensureTestRunnerNestedCount from './rules/ensure-test-runner-nested-count';
 import ensureAtlassianTeam from './rules/ensure-atlassian-team';
+import noDuplicateDependencies from './rules/no-duplicate-dependencies';
 import noInvalidFeatureFlagUsage from './rules/no-invalid-feature-flag-usage';
 import ensureFeatureFlagPrefix from './rules/ensure-feature-flag-prefix';
 import ensureCriticalDependencyResolutions from './rules/ensure-critical-dependency-resolutions';
@@ -17,6 +18,7 @@ export const rules = {
   'ensure-test-runner-nested-count': ensureTestRunnerNestedCount,
   'ensure-atlassian-team': ensureAtlassianTeam,
   'ensure-critical-dependency-resolutions': ensureCriticalDependencyResolutions,
+  'no-duplicate-dependencies': noDuplicateDependencies,
   'no-invalid-feature-flag-usage': noInvalidFeatureFlagUsage,
   'no-pre-post-install-scripts': noPreAndPostInstallScripts,
   'no-invalid-storybook-decorator-usage': noInvalidStorybookDecoratorUsage,
@@ -41,14 +43,32 @@ export const configs = {
   },
 };
 
+const jsonPrefix =
+  '/* eslint-disable quote-props, comma-dangle, quotes, semi, eol-last, @typescript-eslint/semi, no-template-curly-in-string */ module.exports = ';
+
 export const processors = {
   'package-json-processor': {
     preprocess: (source: string) => {
       // augment the json into a js file
-      return [
-        `/* eslint-disable quote-props, comma-dangle, quotes, semi, eol-last, @typescript-eslint/semi, no-template-curly-in-string */ module.exports = ${source.trim()}`,
-      ];
+      return [jsonPrefix + source.trim()];
     },
-    postprocess: (errors) => errors[0],
+    postprocess: (messages) => {
+      return messages[0].map((message) => {
+        const { fix } = message;
+        if (!fix) {
+          return message;
+        }
+
+        const offset = jsonPrefix.length;
+        return {
+          ...message,
+          fix: {
+            ...fix,
+            range: [fix.range[0] - offset, fix.range[1] - offset],
+          },
+        };
+      });
+    },
+    supportsAutofix: true,
   } as Linter.Processor,
 };

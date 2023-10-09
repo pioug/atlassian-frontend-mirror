@@ -1,5 +1,17 @@
 # @atlaskit/editor-common
 
+## 76.6.0
+
+### Minor Changes
+
+- [#41187](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41187) [`c09b3a047f4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c09b3a047f4) - Extract media plugin from `@atlaskit/editor-core` to `@atlaskit/editor-plugin-media.
+
+## 76.5.1
+
+### Patch Changes
+
+- [#41239](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41239) [`7d70b962986`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7d70b962986) - Extract Caption Plugin from Editor Core
+
 ## 76.5.0
 
 ### Minor Changes

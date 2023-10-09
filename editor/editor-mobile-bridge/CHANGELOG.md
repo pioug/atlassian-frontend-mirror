@@ -1,5 +1,44 @@
 # @atlaskit/editor-mobile-bridge
 
+## 188.4.0
+
+### Patch Changes
+
+- [#41294](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41294) [`1436cc7c791`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1436cc7c791) - Bumps dev dependency "sharp" to safe version
+- [#41143](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41143) [`7d6dfe2befa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7d6dfe2befa) - [ED-20003] Replace TyepAhead API for Editor Plugin Injection API
+- Updated dependencies
+
+## 188.3.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 188.3.1
+
+### Patch Changes
+
+- [#41187](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41187) [`c09b3a047f4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c09b3a047f4) - Extract media plugin from `@atlaskit/editor-core` to `@atlaskit/editor-plugin-media.
+- Updated dependencies
+
+## 188.3.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 188.2.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 188.2.10
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 188.2.9
 
 ### Patch Changes

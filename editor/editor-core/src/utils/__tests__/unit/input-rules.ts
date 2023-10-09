@@ -17,7 +17,7 @@ import {
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import { listPlugin } from '@atlaskit/editor-plugin-list';
 import { basePlugin } from '@atlaskit/editor-plugin-base';
-import mediaPlugin from '../../../plugins/media';
+import { mediaPlugin } from '@atlaskit/editor-plugin-media';
 import { copyButtonPlugin } from '@atlaskit/editor-plugin-copy-button';
 import { floatingToolbarPlugin } from '@atlaskit/editor-plugin-floating-toolbar';
 
@@ -29,7 +29,7 @@ import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import alignmentPlugin from '../../../plugins/alignment';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
-import captionPlugin from '../../../plugins/caption';
+import { captionPlugin } from '@atlaskit/editor-plugin-caption';
 import { focusPlugin } from '@atlaskit/editor-plugin-focus';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';

@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-platform
 
+## 0.3.0
+
+### Minor Changes
+
+- [#41190](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41190) [`a5047d254d4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a5047d254d4) - Add no-duplicate-dependencies rule and enable package-json-processor autofix
+
 ## 0.2.6
 
 ### Patch Changes

@@ -23,7 +23,6 @@ import { analyticsPluginKey } from './plugins/analytics/plugin-key';
 import { basePlugin } from '@atlaskit/editor-plugin-base';
 import type { MarkConfig, NodeConfig } from './types/pm-config';
 
-export { createTypeAheadTools } from './plugins/type-ahead/api';
 export type { LightEditorPlugin } from './create-editor/get-plugins';
 export type { DispatchAnalyticsEvent } from './plugins/analytics/types';
 export type { FeatureFlags } from './types/feature-flags';

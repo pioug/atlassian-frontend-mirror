@@ -12,6 +12,7 @@ import {
 import { p, doc } from '@atlaskit/editor-test-helpers/doc-builder';
 import type { DocBuilder } from '@atlaskit/editor-common/types';
 
+import typeAheadPlugin from '../../../type-ahead';
 import historyPlugin from '../../../history';
 import { historyPluginKey } from '../../../history';
 import undoRedoPlugin from '../../index';
@@ -37,6 +38,7 @@ describe('ToolbarUndoRedo', () => {
     createEditor({
       doc,
       preset: new Preset<LightEditorPlugin>()
+        .add(typeAheadPlugin)
         .add(historyPlugin)
         .add(undoRedoPlugin),
     });

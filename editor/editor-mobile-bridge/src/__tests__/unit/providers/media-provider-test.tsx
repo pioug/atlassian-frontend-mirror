@@ -5,10 +5,13 @@ import type {
   MediaProvider,
 } from '@atlaskit/editor-common/provider-factory';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import type { MediaState } from '@atlaskit/editor-core/src/plugins/media';
 
-import type { MediaOptions } from '@atlaskit/editor-core/src/plugins/media/types';
-import { insertMediaSingleNode } from '@atlaskit/editor-core/src/plugins/media';
+import type {
+  MediaOptions,
+  MediaState,
+} from '@atlaskit/editor-plugin-media/types';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import { insertMediaSingleNode } from '@atlaskit/editor-plugin-media/src/plugin';
 
 import {
   doc,
@@ -40,7 +43,7 @@ import {
   expectFunctionToHaveBeenCalledWith,
   fakeMediaClient,
 } from '@atlaskit/media-test-helpers';
-import { INPUT_METHOD } from '@atlaskit/editor-core';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 
 // Quick patch for isFileIdentifier
 // TODO: please, don't mock the full @atlaskit/media-client package

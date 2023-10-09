@@ -59,10 +59,7 @@ class ProfileCardResourced extends React.PureComponent<
     this.clientFetchProfile();
   }
 
-  componentDidUpdate(
-    prevProps: ProfileCardResourcedProps,
-    prevState: ProfileCardResourcedState,
-  ) {
+  componentDidUpdate(prevProps: ProfileCardResourcedProps) {
     const { userId, cloudId, resourceClient } = this.props;
 
     if (

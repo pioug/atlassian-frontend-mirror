@@ -52,7 +52,7 @@ import type { InputMethodInsertMedia } from '../analytics';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { GapCursorSelection, Side } from '@atlaskit/editor-common/selection';
 import { runMacroAutoConvert } from '../macro';
-import type { InsertMediaAsMediaSingle } from '../media/utils/media-single';
+import type { InsertMediaAsMediaSingle } from '@atlaskit/editor-plugin-media/types';
 
 import {
   addReplaceSelectedTableAnalytics,

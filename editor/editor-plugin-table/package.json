@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-table",
-  "version": "4.0.3",
+  "version": "4.1.1",
   "description": "Table plugin for the @atlaskit/editor",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -29,7 +29,7 @@
   "dependencies": {
     "@atlaskit/adf-schema": "^32.0.0",
     "@atlaskit/custom-steps": "^0.0.2",
-    "@atlaskit/editor-common": "^76.5.0",
+    "@atlaskit/editor-common": "^76.6.0",
     "@atlaskit/editor-palette": "1.5.1",
     "@atlaskit/editor-plugin-analytics": "^0.2.0",
     "@atlaskit/editor-plugin-content-insertion": "^0.1.0",
@@ -122,6 +122,9 @@
       "type": "boolean"
     },
     "platform.editor.table.increase-shadow-visibility_lh89r": {
+      "type": "boolean"
+    },
+    "platform.editor.table.update-table-resizer-styles": {
       "type": "boolean"
     }
   }

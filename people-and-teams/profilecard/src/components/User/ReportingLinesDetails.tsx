@@ -94,7 +94,7 @@ const ReportingLinesDetails = (props: ReportingLinesDetailsProps) => {
           <AvatarGroup
             appearance="stack"
             size="small"
-            data={reports.map((member: ReportingLinesUser, index) => {
+            data={reports.map((member: ReportingLinesUser) => {
               return {
                 key: member.accountIdentifier,
                 name: member.pii?.name || '',

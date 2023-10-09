@@ -36,17 +36,20 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import { messages } from '../insert-block/ui/ToolbarInsertBlock/messages';
 import { isSelectionAtPlaceholder } from './selection-utils';
-import { createInternalTypeAheadTools } from '../type-ahead/api';
 import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { TypeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
 
-const getOpenTypeAhead = (view: EditorView, content: string) => {
-  const typeAheadAPI = createInternalTypeAheadTools(view);
-  const typeAheadHandler = typeAheadAPI.findTypeAheadHandler(content);
+const getOpenTypeAhead = (
+  trigger: string,
+  api: ExtractInjectionAPI<PlaceholderTextPlugin> | undefined,
+) => {
+  const typeAheadHandler =
+    api?.typeAhead?.actions?.findHandlerByTrigger(trigger);
   if (!typeAheadHandler || !typeAheadHandler.id) {
     return null;
   }
 
-  return typeAheadAPI.openTypeAheadHandler({
+  return api?.typeAhead?.actions?.openAtTransaction({
     triggerHandler: typeAheadHandler,
     inputMethod: INPUT_METHOD.KEYBOARD,
   });
@@ -55,6 +58,7 @@ const getOpenTypeAhead = (view: EditorView, content: string) => {
 export function createPlugin(
   dispatch: Dispatch<PluginState>,
   options: PlaceholderTextOptions,
+  api: ExtractInjectionAPI<PlaceholderTextPlugin> | undefined,
 ): SafePlugin | undefined {
   const allowInserting = !!options.allowInserting;
   return new SafePlugin({
@@ -155,7 +159,7 @@ export function createPlugin(
 
             tr.delete(startNodePosition, startNodePosition + 1);
 
-            const openTypeAhead = getOpenTypeAhead(view, content);
+            const openTypeAhead = getOpenTypeAhead(content, api);
             if (openTypeAhead) {
               openTypeAhead(tr);
             } else {
@@ -178,6 +182,7 @@ export function createPlugin(
 }
 
 const basePlaceholderTextPlugin: PlaceholderTextPlugin = ({
+  api,
   config: options,
 }) => ({
   name: 'placeholderText',
@@ -190,7 +195,7 @@ const basePlaceholderTextPlugin: PlaceholderTextPlugin = ({
     return [
       {
         name: 'placeholderText',
-        plugin: ({ dispatch }) => createPlugin(dispatch, options),
+        plugin: ({ dispatch }) => createPlugin(dispatch, options, api),
       },
     ];
   },
@@ -277,7 +282,7 @@ const decorateWithPluginOptions = (
 type PlaceholderTextPlugin = NextEditorPlugin<
   'placeholderText',
   {
-    dependencies: [OptionalPlugin<typeof analyticsPlugin>];
+    dependencies: [OptionalPlugin<typeof analyticsPlugin>, TypeAheadPlugin];
     pluginConfiguration: PlaceholderTextOptions;
   }
 >;
@@ -285,7 +290,7 @@ type PlaceholderTextPlugin = NextEditorPlugin<
 const placeholderTextPlugin: NextEditorPlugin<
   'placeholderText',
   {
-    dependencies: [OptionalPlugin<typeof analyticsPlugin>];
+    dependencies: [OptionalPlugin<typeof analyticsPlugin>, TypeAheadPlugin];
     pluginConfiguration: PlaceholderTextOptions;
   }
 > = ({ config: options = {}, api }) =>

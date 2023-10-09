@@ -58,7 +58,6 @@
   },
   "devDependencies": {
     "@af/accessibility-testing": "*",
-    "@atlaskit/ds-lib": "*",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",

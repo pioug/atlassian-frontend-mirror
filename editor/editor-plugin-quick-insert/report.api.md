@@ -21,15 +21,20 @@ import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
 import type { QuickInsertPluginOptions } from '@atlaskit/editor-common/types';
 import type { QuickInsertSearchOptions } from '@atlaskit/editor-common/types';
-import type { QuickInsertSharedState } from '@atlaskit/editor-common/types';
+import type { QuickInsertSharedState as QuickInsertSharedState_2 } from '@atlaskit/editor-common/types';
+import type { TypeAheadHandler } from '@atlaskit/editor-common/types';
+import type { TypeAheadInputMethod } from '@atlaskit/editor-plugin-type-ahead';
+import type { TypeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
 
 // @public (undocumented)
 export type QuickInsertPlugin = NextEditorPlugin<
   'quickInsert',
   {
     pluginConfiguration: QuickInsertPluginOptions | undefined;
+    dependencies: [TypeAheadPlugin];
     sharedState: QuickInsertSharedState | null;
     actions: {
+      openTypeAhead: (inputMethod: TypeAheadInputMethod) => boolean;
       insertItem: (item: QuickInsertItem) => Command;
       getSuggestions: (
         searchOptions: QuickInsertSearchOptions,
@@ -43,6 +48,11 @@ export type QuickInsertPlugin = NextEditorPlugin<
 
 // @public (undocumented)
 export const quickInsertPlugin: QuickInsertPlugin;
+
+// @public (undocumented)
+export type QuickInsertSharedState = QuickInsertSharedState_2 & {
+  typeAheadHandler: TypeAheadHandler;
+};
 
 // (No @packageDocumentation comment for this package)
 ```

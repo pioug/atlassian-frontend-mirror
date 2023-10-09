@@ -1,5 +1,10 @@
 import { token } from '@atlaskit/tokens';
 
+/**
+ * @private
+ * @deprecated {@link https://product-fabric.atlassian.net/browse/EDM-8175 Internal documentation for deprecation (no external access)}\
+ * @deprecated Use the token directly in the file
+ */
 export const tokens = {
   actionIcon: token('color.icon', '#44546F'),
   background: token('elevation.surface.raised', '#FFFFFF'),

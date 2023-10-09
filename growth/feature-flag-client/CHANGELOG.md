@@ -1,5 +1,11 @@
 # @atlaskit/feature-flag-client
 
+## 5.4.1
+
+### Patch Changes
+
+- [#41225](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41225) [`bb71eaa8631`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bb71eaa8631) - Enrol @atlaskit/feature-flag-client to push model in JFE.
+
 ## 5.4.0
 
 ### Minor Changes

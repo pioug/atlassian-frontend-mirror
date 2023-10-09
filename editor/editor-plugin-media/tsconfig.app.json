@@ -33,7 +33,61 @@
   },
   "references": [
     {
+      "path": "../../analytics/analytics-namespaced-context/tsconfig.app.json"
+    },
+    {
+      "path": "../../analytics/analytics-next/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/button/tsconfig.app.json"
+    },
+    {
       "path": "../editor-common/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-palette/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-analytics/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-decorations/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-editor-disabled/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-feature-flags/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-floating-toolbar/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-focus/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-grid/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-guideline/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-width/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-shared-styles/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-tables/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/form/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/icon/tsconfig.app.json"
+    },
+    {
+      "path": "../../media/media-card/tsconfig.app.json"
     },
     {
       "path": "../../media/media-client/tsconfig.app.json"
@@ -45,7 +99,31 @@
       "path": "../../media/media-core/tsconfig.app.json"
     },
     {
+      "path": "../../media/media-filmstrip/tsconfig.app.json"
+    },
+    {
       "path": "../../media/media-picker/tsconfig.app.json"
+    },
+    {
+      "path": "../../media/media-ui/tsconfig.app.json"
+    },
+    {
+      "path": "../../media/media-viewer/tsconfig.app.json"
+    },
+    {
+      "path": "../../platform/feature-flags/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/textfield/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/theme/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/tokens/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/tooltip/tsconfig.app.json"
     }
   ]
 }

@@ -35,7 +35,10 @@ import type { CollabEditOptions } from '@atlaskit/editor-common/collab';
 import type { DatePluginConfig } from '../plugins/date/types';
 import type { FindReplaceOptions } from '../plugins/find-replace/types';
 import type { LayoutPluginOptions } from '../plugins/layout/types';
-import type { MediaOptions, MediaState } from '../plugins/media/types';
+import type {
+  MediaOptions,
+  MediaState,
+} from '@atlaskit/editor-plugin-media/types';
 import type { MentionPluginConfig } from '../plugins/mentions/types';
 import type { PanelPluginConfig } from '../plugins/panel/types';
 import type { PlaceholderTextOptions } from '../plugins/placeholder-text/types';

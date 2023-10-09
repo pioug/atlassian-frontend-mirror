@@ -46,7 +46,7 @@ export const isTypeAheadAllowed = (state: EditorState) => {
 };
 
 export const findHandler = (
-  id: TypeAheadAvailableNodes,
+  id: string,
   state: EditorState,
 ): TypeAheadHandler | null => {
   const pluginState = typeAheadPluginKey.getState(state);

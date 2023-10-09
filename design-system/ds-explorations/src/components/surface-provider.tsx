@@ -1,6 +1,6 @@
 import { createContext, useContext } from 'react';
 
-import type { BackgroundColor } from '@atlaskit/primitives';
+import type { BackgroundColor } from './box.partial';
 
 /**
  * __Surface context__

@@ -1,2 +1,2 @@
 export { quickInsertPlugin } from './plugin';
-export type { QuickInsertPlugin } from './plugin';
+export type { QuickInsertPlugin, QuickInsertSharedState } from './plugin';

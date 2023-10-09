@@ -7,6 +7,6 @@ export type ForbiddenViewProps = Pick<
   'inheritDimensions' | 'isSelected' | 'onClick' | 'testId' | 'url'
 > & {
   context?: ContextViewModel;
-  onAuthorise?: () => void;
+  onAuthorize?: () => void;
   accessContext: RequestAccessContextProps;
 };

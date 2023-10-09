@@ -7,6 +7,7 @@ import { ImageIcon } from '../../components/ImageIcon';
 
 import {
   containerStyles,
+  contentStyles,
   descriptionStyles,
   imageStyles,
   titleStyles,
@@ -59,21 +60,23 @@ const UnresolvedView: FC<UnresolvedViewProps> = ({
       text={text}
     >
       <div css={containerStyles} data-testid={`${testId}-unresolved-container`}>
-        <img
-          css={imageStyles}
-          data-testid={`${testId}-unresolved-image`}
-          src={image}
-        />
-        <span css={titleStyles} data-testid={`${testId}-unresolved-title`}>
-          {title}
-        </span>
-        <span
-          css={descriptionStyles}
-          data-testid={`${testId}-unresolved-description`}
-        >
-          {description}
-        </span>
-        {button}
+        <div css={contentStyles}>
+          <img
+            css={imageStyles}
+            data-testid={`${testId}-unresolved-image`}
+            src={image}
+          />
+          <h2 css={titleStyles} data-testid={`${testId}-unresolved-title`}>
+            {title}
+          </h2>
+          <span
+            css={descriptionStyles}
+            data-testid={`${testId}-unresolved-description`}
+          >
+            {description}
+          </span>
+          {button}
+        </div>
       </div>
     </ExpandedFrame>
   );

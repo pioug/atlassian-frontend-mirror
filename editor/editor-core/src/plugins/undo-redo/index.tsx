@@ -1,13 +1,13 @@
 import React from 'react';
 
-import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import { keymapPlugin } from './pm-plugins/keymaps';
 import { createPlugin } from './pm-plugins/main';
 import { historyPluginKey } from '../history';
 import ToolbarUndoRedo from './ui/ToolbarUndoRedo';
 import WithPluginState from '../../ui/WithPluginState';
+import type { UndoRedoPlugin } from './types';
 
-const undoRedoPlugin: NextEditorPlugin<'undoRedoPlugin'> = () => ({
+const undoRedoPlugin: UndoRedoPlugin = ({ api }) => ({
   name: 'undoRedoPlugin',
 
   pmPlugins() {
@@ -36,6 +36,7 @@ const undoRedoPlugin: NextEditorPlugin<'undoRedoPlugin'> = () => ({
               disabled={disabled}
               historyState={historyState!}
               editorView={editorView}
+              api={api}
             />
           );
         }}

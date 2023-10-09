@@ -1,15 +1,10 @@
 import React from 'react';
 
 import Heading from '@atlaskit/heading';
-import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
+import Inline from '@atlaskit/primitives/inline';
+import Stack from '@atlaskit/primitives/stack';
 
-import { UNSAFE_Text as Text } from '../src';
-
-const fixedWidthStyles = xcss({ display: 'flex', width: '200px' });
-
-const lineHeightContainerStyles = xcss({
-  display: 'inline-flex',
-});
+import { UNSAFE_Box as Box, UNSAFE_Text as Text } from '../src';
 
 export default () => {
   return (
@@ -18,7 +13,7 @@ export default () => {
         Text examples
       </Heading>
       <Stack space="space.200">
-        <Box>
+        <Box display="block">
           <Heading level="h300">Font size</Heading>
           <Inline space="space.200" testId="font-sizes">
             {(
@@ -39,7 +34,7 @@ export default () => {
             ))}
           </Inline>
         </Box>
-        <Box>
+        <Box display="block">
           <Heading level="h300" as="h4">
             Font weight
           </Heading>
@@ -53,7 +48,7 @@ export default () => {
             )}
           </Inline>
         </Box>
-        <Box>
+        <Box display="block">
           <Heading level="h300" as="h4">
             Line height
           </Heading>
@@ -70,15 +65,15 @@ export default () => {
             ).map((lineHeight) => (
               <Box
                 key={lineHeight}
-                xcss={lineHeightContainerStyles}
-                backgroundColor="color.background.neutral"
+                display="inlineFlex"
+                backgroundColor="neutral"
               >
                 <Text lineHeight={lineHeight}>lineHeight {lineHeight}</Text>
               </Box>
             ))}
           </Inline>
         </Box>
-        <Box>
+        <Box display="block">
           <Heading level="h300" as="h4">
             Testing
           </Heading>
@@ -97,7 +92,7 @@ export default () => {
             >
               Text with various props
             </Text>
-            <Box xcss={fixedWidthStyles}>
+            <Box UNSAFE_style={{ width: '200px' }}>
               <Text shouldTruncate>Long truncated text that is cut off.</Text>
             </Box>
           </Stack>

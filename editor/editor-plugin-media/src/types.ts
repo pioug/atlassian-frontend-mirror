@@ -143,3 +143,6 @@ export interface ReactNodeProps {
 }
 
 export type ForwardRef = (node: HTMLElement | null) => void;
+
+export type { InsertMediaAsMediaSingle } from './utils/media-single';
+export type { MediaPluginState } from './pm-plugins/types';

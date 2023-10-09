@@ -86,3 +86,4 @@ export {
 } from './shared/unsupported-content';
 
 export { expandIconWrapperStyle } from './shared/expand';
+export { ClassNames as MediaSharedClassNames } from './shared/media';

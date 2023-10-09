@@ -15,18 +15,35 @@
 <!--SECTION START: Main Entry Types-->
 
 ```ts
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { Command } from '@atlaskit/editor-common/types';
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
-import type { EditorCommand } from '@atlaskit/editor-common/types';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
+import type { OptionalPlugin } from '@atlaskit/editor-common/types';
+import type { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { TypeAheadHandler } from '@atlaskit/editor-common/types';
+import type { TypeAheadItem } from '@atlaskit/editor-common/types';
 
 // @public (undocumented)
-type OpenTypeAheadAtCursorType = (props: Props) => EditorCommand;
+type CloseTypeAheadProps = {
+  insertCurrentQueryAsRawText: boolean;
+  attachCommand?: Command;
+};
 
 // @public (undocumented)
-type Props = {
+type InsertTypeAheadItemProps = {
+  triggerHandler: TypeAheadHandler;
+  contentItem: TypeAheadItem;
+  query: string;
+  sourceListItem: TypeAheadItem[];
+  mode?: SelectItemMode;
+};
+
+// @public (undocumented)
+type OpenTypeAheadProps = {
   triggerHandler: TypeAheadHandler;
   inputMethod: TypeAheadInputMethod;
   query?: string;
@@ -44,12 +61,20 @@ export type TypeAheadPlugin = NextEditorPlugin<
   'typeAhead',
   {
     pluginConfiguration: TypeAheadPluginOptions | undefined;
+    dependencies: [OptionalPlugin<AnalyticsPlugin>];
+    sharedState: {
+      query: string;
+    };
     actions: {
       isOpen: (editorState: EditorState) => boolean;
       isAllowed: (editorState: EditorState) => boolean;
-    };
-    commands: {
-      openTypeAheadAtCursor: OpenTypeAheadAtCursorType;
+      insert: (props: InsertTypeAheadItemProps) => boolean;
+      findHandlerByTrigger: (trigger: string) => TypeAheadHandler | null;
+      open: (props: OpenTypeAheadProps) => boolean;
+      close: (props: CloseTypeAheadProps) => boolean;
+      openAtTransaction: (
+        props: OpenTypeAheadProps,
+      ) => (tr: Transaction) => boolean;
     };
   }
 >;

@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-table
 
+## 4.1.1
+
+### Patch Changes
+
+- [#41220](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41220) [`9e66f4b0610`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9e66f4b0610) - Add a new feature flag (platform.editor.table.update-table-resizer-styles) that uses display: flex; to center resizable tables in full page editor. This replaces the current method which uses margin to calculate an offset
+- Updated dependencies
+
+## 4.1.0
+
+### Minor Changes
+
+- [#41224](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41224) [`6818e578fd6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6818e578fd6) - Added new Tables toggle option for enabling Drag and Drop
+
 ## 4.0.3
 
 ### Patch Changes

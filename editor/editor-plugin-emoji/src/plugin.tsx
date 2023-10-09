@@ -245,7 +245,23 @@ export const emojiPlugin: EmojiPlugin = ({ config: options, api }) => {
       if (!editorState) {
         return undefined;
       }
-      return emojiPluginKey.getState(editorState);
+      const emojiPluginState = emojiPluginKey.getState(editorState);
+
+      return {
+        ...emojiPluginState,
+        typeAheadHandler: typeAhead,
+      };
+    },
+
+    actions: {
+      openTypeAhead(inputMethod) {
+        return Boolean(
+          api?.typeAhead?.actions.open({
+            triggerHandler: typeAhead,
+            inputMethod,
+          }),
+        );
+      },
     },
 
     commands: {
@@ -263,17 +279,9 @@ export const emojiPlugin: EmojiPlugin = ({ config: options, api }) => {
           icon: () => <IconEmoji />,
           action(insert, state) {
             const tr = insert(undefined);
-            api?.typeAhead.commands.openTypeAheadAtCursor({
+            api?.typeAhead.actions.openAtTransaction({
               triggerHandler: typeAhead,
               inputMethod: INPUT_METHOD.QUICK_INSERT,
-            })({ tr });
-
-            api?.analytics?.actions.attachAnalyticsEvent({
-              action: ACTION.INVOKED,
-              actionSubject: ACTION_SUBJECT.TYPEAHEAD,
-              actionSubjectId: ACTION_SUBJECT_ID.TYPEAHEAD_EMOJI,
-              attributes: { inputMethod: INPUT_METHOD.QUICK_INSERT },
-              eventType: EVENT_TYPE.UI,
             })(tr);
 
             return tr;

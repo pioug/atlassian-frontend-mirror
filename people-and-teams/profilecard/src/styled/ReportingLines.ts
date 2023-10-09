@@ -11,7 +11,7 @@ export const ReportingLinesSection = styled.div`
   margin-top: ${token('space.100', '8px')};
 `;
 
-export const ReportingLinesHeading = styled.h5`
+export const ReportingLinesHeading = styled.h3`
   color: ${appLabelTextColor};
   font-size: ${gridSize() * 1.5}px;
   font-weight: 600;

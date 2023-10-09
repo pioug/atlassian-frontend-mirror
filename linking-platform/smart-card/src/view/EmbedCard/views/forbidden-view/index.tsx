@@ -11,7 +11,7 @@ import { getUnresolvedEmbedCardImage } from '../../utils';
 
 const ForbiddenView: FC<ForbiddenViewProps> = ({
   context,
-  onAuthorise,
+  onAuthorize,
   accessContext,
   testId = 'embed-card-forbidden-view',
   ...unresolvedViewProps
@@ -42,7 +42,7 @@ const ForbiddenView: FC<ForbiddenViewProps> = ({
    * want to encourage users to try another account, if their request is already pending, etc.
    */
   const button = useMemo(() => {
-    const onEmbedCardClick = action?.promise ?? onAuthorise;
+    const onEmbedCardClick = action?.promise ?? onAuthorize;
     if (!onEmbedCardClick) {
       return null;
     }
@@ -65,7 +65,7 @@ const ForbiddenView: FC<ForbiddenViewProps> = ({
     action?.id,
     action?.promise,
     callToActionMessageKey,
-    onAuthorise,
+    onAuthorize,
     values,
   ]);
 

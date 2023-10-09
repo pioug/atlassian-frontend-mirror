@@ -106,6 +106,8 @@ interface TablePluginOptions {
   // (undocumented)
   breakoutEnabled?: boolean;
   // (undocumented)
+  dragAndDropEnabled?: boolean;
+  // (undocumented)
   editorSelectionAPI?: EditorSelectionAPI;
   // (undocumented)
   fullWidthEnabled?: boolean;

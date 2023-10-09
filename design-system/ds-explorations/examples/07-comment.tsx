@@ -2,8 +2,10 @@
 import { jsx } from '@emotion/react';
 
 import Lozenge from '@atlaskit/lozenge';
-import { Box, Inline, Stack } from '@atlaskit/primitives';
+import Inline from '@atlaskit/primitives/inline';
+import Stack from '@atlaskit/primitives/stack';
 
+import { UNSAFE_Box as Box } from '../src';
 import Text from '../src/components/text.partial';
 
 const Author = ({ children }: any) => {

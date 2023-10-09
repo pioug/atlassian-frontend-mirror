@@ -3,12 +3,27 @@ import type WebBridgeImpl from '../native-to-web';
 import type EditorConfiguration from '../editor-configuration';
 import type { IntlShape } from 'react-intl-next';
 import type { StatusType } from '@atlaskit/editor-core/src/plugins/status/plugin';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { subscribeToToolbarAndPickerUpdates } from '@atlaskit/editor-core/src/plugins/view-update-subscription/subscribe/toolbarAndPickerUpdates';
 import { createFloatingToolbarConfigForStatus } from '../status-utils';
 import { createFloatingToolbarConfigForDate } from '../date-utils';
 import { isPanelNode } from '@atlaskit/editor-core/src/plugins/paste/util';
-import { isCaptionNode } from '@atlaskit/editor-core/src/plugins/media/utils/media-single';
 import { createFloatingToolbarConfigForPanel } from '../panel-utils';
+
+// Copied from: @atlaskit/editor-plugin-media/src/utils/media-single
+function isCaptionNode(editorView: EditorView) {
+  const { $from } = editorView.state.selection;
+  const immediateWrapperParentNode = editorView.state.doc.nodeAt(
+    $from.before(Math.max($from.depth, 1)),
+  );
+  if (
+    immediateWrapperParentNode &&
+    immediateWrapperParentNode.type.name === 'caption'
+  ) {
+    return true;
+  }
+  return false;
+}
 
 export function useToolbarSubscription(
   editorReady: boolean,

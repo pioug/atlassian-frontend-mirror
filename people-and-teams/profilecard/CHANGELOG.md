@@ -1,5 +1,17 @@
 # @atlaskit/profilecard
 
+## 19.6.0
+
+### Minor Changes
+
+- [#41158](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41158) [`573b0c53f09`](https://bitbucket.org/atlassian/atlassian-frontend/commits/573b0c53f09) - [ux] Replaced h5 to h3
+
+## 19.5.14
+
+### Patch Changes
+
+- [#41283](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41283) [`4eb4f881efa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4eb4f881efa) - fix strict typescript errors
+
 ## 19.5.13
 
 ### Patch Changes

@@ -14,7 +14,6 @@ import {
   toolbarListsIndentationPlugin,
   macroPlugin,
   maxContentSizePlugin,
-  mediaPlugin,
   mentionsPlugin,
   panelPlugin,
   placeholderTextPlugin,
@@ -34,14 +33,15 @@ import {
   findReplacePlugin,
   mobileSelectionPlugin,
   annotationPlugin,
-  captionPlugin,
   avatarGroupPlugin,
   viewUpdateSubscriptionPlugin,
   beforePrimaryToolbarPlugin,
   codeBidiWarningPlugin,
-  borderPlugin,
 } from '../../../plugins';
+import { captionPlugin } from '@atlaskit/editor-plugin-caption';
+import { borderPlugin } from '@atlaskit/editor-plugin-border';
 import { helpDialogPlugin } from '@atlaskit/editor-plugin-help-dialog';
+import { mediaPlugin } from '@atlaskit/editor-plugin-media';
 import { rulePlugin } from '@atlaskit/editor-plugin-rule';
 import { emojiPlugin } from '@atlaskit/editor-plugin-emoji';
 import { listPlugin } from '@atlaskit/editor-plugin-list';
@@ -285,6 +285,8 @@ export default function createUniversalPreset(
             tableResizingEnabled:
               getBooleanFF('platform.editor.custom-table-width') &&
               ['full-page', 'full-width'].includes(appearance || ''),
+            dragAndDropEnabled:
+              getBooleanFF('platform.editor.table.drag-and-drop') && isFullPage,
             breakoutEnabled: appearance === 'full-page',
             allowContextualMenu: !isMobile,
             fullWidthEnabled: appearance === 'full-width',

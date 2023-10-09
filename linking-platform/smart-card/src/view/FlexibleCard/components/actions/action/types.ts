@@ -55,6 +55,11 @@ export type ActionProps = {
    * serving as a hook for automated tests
    */
   testId?: string;
+
+  /**
+   * Determines whether the button displays as disabled.
+   */
+  isDisabled?: boolean;
 };
 
 /**

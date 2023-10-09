@@ -37,7 +37,7 @@ import WithEditorActions from './../src/ui/WithEditorActions';
 import { createCollabEditProvider } from '@atlaskit/synchrony-test-helpers';
 import { TitleInput } from '../example-helpers/PageElements';
 import type { EditorActions, MentionProvider } from '../src';
-import type { MediaProvider } from '../src/plugins/media';
+import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
 import type { InviteToEditComponentProps } from '../src/plugins/collab-edit/types';
 import type { ResolvingMentionProvider } from '@atlaskit/mention/resource';
 

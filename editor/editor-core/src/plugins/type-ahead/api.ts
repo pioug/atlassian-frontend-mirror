@@ -8,16 +8,12 @@ import {
 import type { TypeAheadInputMethod } from '@atlaskit/editor-plugin-type-ahead';
 import {
   findHandler,
-  findHandlerByTrigger,
   isTypeAheadOpen,
   getTypeAheadHandler,
   getTypeAheadQuery,
 } from './utils';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import {
-  openTypeAheadAtCursor,
-  openTypeAhead,
-} from './transforms/open-typeahead-at-cursor';
+import { openTypeAheadAtCursor } from './transforms/open-typeahead-at-cursor';
 import { closeTypeAhead } from './transforms/close-type-ahead';
 import { updateQuery } from './commands/update-query';
 import { insertTypeAheadItem } from './commands/insert-type-ahead-item';
@@ -215,32 +211,13 @@ const currentQuery =
     return getTypeAheadQuery(editorView.state);
   };
 
-const find =
-  ({ editorView }: CommonProps) =>
-  (trigger: string): TypeAheadHandler | null => {
-    const { state: editorState } = editorView;
-    const handler = findHandlerByTrigger({ trigger, editorState });
-
-    if (!handler) {
-      return null;
-    }
-
-    return handler;
-  };
-
-// This is an internal tool to be used inside of others Editor Plugins
-// We shouldn't public export this method.
-export const createInternalTypeAheadTools = (editorView: EditorView) => {
-  const props: CommonProps = {
-    editorView,
-  };
-
-  return {
-    findTypeAheadHandler: find(props),
-    openTypeAheadHandler: openTypeAhead,
-  };
-};
-
+/**
+ * Please do not use it. Ping #help-editor and talk to the Lego team before use it.
+ *
+ * @private
+ * @deprecated
+ *
+ */
 export const createTypeAheadTools = (editorView: EditorView) => {
   const props: CommonProps = {
     editorView,

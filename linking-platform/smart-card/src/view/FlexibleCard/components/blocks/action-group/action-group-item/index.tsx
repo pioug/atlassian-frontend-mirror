@@ -17,7 +17,7 @@ const ActionGroupItem: React.FC<{
   asDropDownItems?: boolean;
   onActionItemClick?: () => void;
 }> = ({ item, size, appearance, asDropDownItems, onActionItemClick }) => {
-  const { name, hideContent, hideIcon, onClick, ...props } = item;
+  const { name, hideContent, hideIcon, onClick, isDisabled, ...props } = item;
   const handleOnClick = useCallback(() => {
     if (onActionItemClick) {
       onActionItemClick();
@@ -49,6 +49,7 @@ const ActionGroupItem: React.FC<{
       size={size}
       appearance={appearance}
       onClick={handleOnClick}
+      isDisabled={isDisabled}
       {...actionProps}
     />
   );

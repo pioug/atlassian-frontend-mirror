@@ -55,7 +55,7 @@ import { MacroAttributes } from '@atlaskit/editor-common/provider-factory';
 import { MacroProvider } from '@atlaskit/editor-common/provider-factory';
 import { MediaOptions } from '@atlaskit/editor-plugin-media/types';
 import { MediaProvider as MediaProvider_2 } from '@atlaskit/editor-common/provider-factory';
-import { MediaState } from '@atlaskit/editor-plugin-media/types';
+import type { MediaState } from '@atlaskit/editor-plugin-media/types';
 import { MentionProvider } from '@atlaskit/mention/resource';
 import { MentionResource } from '@atlaskit/mention/resource';
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';

@@ -36,7 +36,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { focusPlugin } from '@atlaskit/editor-plugin-focus';
 import codeBlockPlugin from '../../../../code-block';
 import { compositionPlugin } from '@atlaskit/editor-plugin-composition';
-import mediaPlugin from '../../../../media';
+import { mediaPlugin } from '@atlaskit/editor-plugin-media';
 import pastePlugin from '../../../index';
 import { blockTypePlugin } from '@atlaskit/editor-plugin-block-type';
 import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
@@ -54,7 +54,7 @@ import selectionPlugin from '../../../../selection';
 import { copyButtonPlugin } from '@atlaskit/editor-plugin-copy-button';
 import { floatingToolbarPlugin } from '@atlaskit/editor-plugin-floating-toolbar';
 import betterTypeHistoryPlugin from '../../../../better-type-history';
-import captionPlugin from '../../../../caption';
+import { captionPlugin } from '@atlaskit/editor-plugin-caption';
 
 import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';

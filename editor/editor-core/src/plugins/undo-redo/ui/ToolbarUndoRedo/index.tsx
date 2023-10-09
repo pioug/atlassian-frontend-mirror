@@ -20,10 +20,11 @@ import {
 import ToolbarButton, { TOOLBAR_BUTTON } from '../../../../ui/ToolbarButton';
 import { undoRedoMessages } from '@atlaskit/editor-common/messages';
 import type { HistoryPluginState } from '../../../history/types';
-import { createTypeAheadTools } from '../../../type-ahead/api';
 import { undoFromToolbar, redoFromToolbar } from '../../commands';
 import type { Command } from '../../../../types/command';
 import { getAriaKeyshortcuts } from '@atlaskit/editor-common/keymaps';
+import type { UndoRedoPlugin } from '../../types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 
 export interface Props {
   undoDisabled?: boolean;
@@ -32,17 +33,20 @@ export interface Props {
   isReducedSpacing?: boolean;
   historyState: HistoryPluginState;
   editorView: EditorView;
+  api: ExtractInjectionAPI<UndoRedoPlugin> | undefined;
 }
 
 const closeTypeAheadAndRunCommand =
-  (editorView?: EditorView) => (command: Command) => {
+  (
+    editorView: EditorView,
+    api: ExtractInjectionAPI<UndoRedoPlugin> | undefined,
+  ) =>
+  (command: Command) => {
     if (!editorView) {
       return;
     }
-    const tool = createTypeAheadTools(editorView);
-
-    if (tool.isOpen()) {
-      tool.close({
+    if (api?.typeAhead?.actions?.isOpen(editorView.state)) {
+      api?.typeAhead?.actions?.close({
         attachCommand: command,
         insertCurrentQueryAsRawText: false,
       });
@@ -50,13 +54,18 @@ const closeTypeAheadAndRunCommand =
       command(editorView.state, editorView.dispatch);
     }
   };
-const forceFocus = (editorView: EditorView) => (command: Command) => {
-  closeTypeAheadAndRunCommand(editorView)(command);
+const forceFocus =
+  (
+    editorView: EditorView,
+    api: ExtractInjectionAPI<UndoRedoPlugin> | undefined,
+  ) =>
+  (command: Command) => {
+    closeTypeAheadAndRunCommand(editorView, api)(command);
 
-  if (!editorView.hasFocus()) {
-    editorView.focus();
-  }
-};
+    if (!editorView.hasFocus()) {
+      editorView.focus();
+    }
+  };
 export class ToolbarUndoRedo extends PureComponent<
   Props & WrappedComponentProps
 > {
@@ -66,15 +75,16 @@ export class ToolbarUndoRedo extends PureComponent<
       isReducedSpacing,
       historyState,
       editorView,
+      api,
       intl: { formatMessage },
     } = this.props;
 
     const handleUndo = () => {
-      forceFocus(editorView)(undoFromToolbar);
+      forceFocus(editorView, api)(undoFromToolbar);
     };
 
     const handleRedo = () => {
-      forceFocus(editorView)(redoFromToolbar);
+      forceFocus(editorView, api)(redoFromToolbar);
     };
     const labelUndo = formatMessage(undoRedoMessages.undo);
     const labelRedo = formatMessage(undoRedoMessages.redo);

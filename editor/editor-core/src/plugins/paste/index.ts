@@ -9,7 +9,7 @@ import type { cardPlugin } from '@atlaskit/editor-plugin-card';
 import type betterTypeHistoryPlugin from '../better-type-history';
 import type { listPlugin } from '@atlaskit/editor-plugin-list';
 import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import type { MediaNextEditorPluginType } from '../media/next-plugin-type';
+import type { MediaPlugin } from '@atlaskit/editor-plugin-media';
 
 export type PastePluginOptions = {
   cardOptions?: CardOptions;
@@ -26,7 +26,7 @@ export type PastePlugin = NextEditorPlugin<
       typeof betterTypeHistoryPlugin,
       OptionalPlugin<typeof cardPlugin>,
       OptionalPlugin<typeof analyticsPlugin>,
-      OptionalPlugin<MediaNextEditorPluginType>,
+      OptionalPlugin<MediaPlugin>,
     ];
   }
 >;

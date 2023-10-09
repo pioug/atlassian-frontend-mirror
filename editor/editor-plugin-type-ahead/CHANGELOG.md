@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 0.5.0
+
+### Minor Changes
+
+- [#41143](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41143) [`7d6dfe2befa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7d6dfe2befa) - [ED-20003] Replace TyepAhead API for Editor Plugin Injection API
+
 ## 0.4.0
 
 ### Minor Changes

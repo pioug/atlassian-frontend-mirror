@@ -2,10 +2,10 @@ import React from 'react';
 
 import { act, fireEvent, render } from '@testing-library/react';
 
-import { Box } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
 import {
+  UNSAFE_Box as Box,
   UNSAFE_InteractionSurface as InteractionSurface,
   UNSAFE_Text as Text,
 } from '../../../index';
@@ -57,7 +57,7 @@ describe('InteractionSurface component', () => {
 
   it('should render an inherited hover state if a Box context is present', () => {
     const { getByTestId } = render(
-      <Box backgroundColor="color.background.brand.bold">
+      <Box backgroundColor="brand.bold">
         <InteractionSurface testId="surface">
           <Text>hello</Text>
         </InteractionSurface>

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-caption",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Caption plugin for @atlaskit/editor-core",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -8,7 +8,7 @@
     "registry": "https://registry.npmjs.org/"
   },
   "atlassian": {
-    "team": "Editor: Lego",
+    "team": "Editor: Media Experience Porygon",
     "singleton": true,
     "releaseModel": "continuous"
   },
@@ -31,11 +31,24 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@atlaskit/editor-common": "^76.5.0",
+    "@atlaskit/adf-schema": "^32.0.0",
+    "@atlaskit/editor-common": "^76.6.0",
     "@atlaskit/editor-plugin-analytics": "^0.2.0",
+    "@atlaskit/editor-prosemirror": "1.1.0",
     "@babel/runtime": "^7.0.0"
   },
   "devDependencies": {
+    "@atlaskit/editor-plugin-copy-button": "^1.0.0",
+    "@atlaskit/editor-plugin-decorations": "^0.2.0",
+    "@atlaskit/editor-plugin-editor-disabled": "^0.2.0",
+    "@atlaskit/editor-plugin-feature-flags": "^1.0.0",
+    "@atlaskit/editor-plugin-floating-toolbar": "^0.6.0",
+    "@atlaskit/editor-plugin-focus": "^0.2.0",
+    "@atlaskit/editor-plugin-grid": "^0.3.0",
+    "@atlaskit/editor-plugin-guideline": "^0.5.0",
+    "@atlaskit/editor-plugin-width": "^0.2.0",
+    "@atlaskit/renderer": "^108.15.0",
+    "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0"
   },
   "peerDependencies": {

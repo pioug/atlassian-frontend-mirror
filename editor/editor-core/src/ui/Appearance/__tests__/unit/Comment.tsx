@@ -10,11 +10,10 @@ import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor
 import Comment from '../../Comment';
 import { getDefaultMediaClientConfig } from '@atlaskit/media-test-helpers/fakeMediaClient';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { getMediaPluginState } from '../../../../plugins/media/pm-plugins/main';
 import type { ReactWrapper } from 'enzyme';
 import EditorContext from '../../../EditorContext';
 import EditorActions from '../../../../actions';
-import type { MediaOptions } from '../../../../plugins/media/types';
+import type { MediaOptions } from '@atlaskit/editor-plugin-media/types';
 
 describe('comment editor', () => {
   afterEach(() => {
@@ -93,7 +92,7 @@ describe('comment editor', () => {
     }
 
     it('should not be disabled when mediaPluginState.allowUploadFinished is false', async () => {
-      const { editorView, eventDispatcher } = createEditor({
+      const { editorView, eventDispatcher, editorAPI } = createEditor({
         doc: doc(p('')),
         providerFactory,
         editorProps: {
@@ -116,7 +115,7 @@ describe('comment editor', () => {
           />
         </EditorContext>,
       );
-      const mediaPluginState = getMediaPluginState(editorView.state);
+      const mediaPluginState = editorAPI?.media?.sharedState.currentState();
 
       mediaPluginState.updateAndDispatch({
         allUploadsFinished: false,
@@ -133,7 +132,7 @@ describe('comment editor', () => {
     });
 
     it('should set up required media options for Comment Editor', () => {
-      const { editorView } = createEditor({
+      const { editorAPI } = createEditor({
         doc: doc(p('')),
         providerFactory,
         editorProps: {
@@ -143,7 +142,7 @@ describe('comment editor', () => {
         },
       });
 
-      const mediaPluginState = getMediaPluginState(editorView.state);
+      const mediaPluginState = editorAPI?.media?.sharedState.currentState();
       expect(mediaPluginState.mediaOptions).toBeDefined();
 
       const { allowAdvancedToolBarOptions, alignLeftOnInsert } =

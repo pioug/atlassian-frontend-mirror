@@ -82,6 +82,7 @@ interface TablePluginOptions {
   // experimental custom table resizing experience, set inside editor-core behind a feature flag
   // will eventually replace breakoutEnabled
   tableResizingEnabled?: boolean;
+  dragAndDropEnabled?: boolean;
   breakoutEnabled?: boolean;
   allowContextualMenu?: boolean;
   // TODO these two need to be rethought
@@ -279,7 +280,6 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
                 )
               : undefined,
         },
-
         {
           name: 'tableLocalId',
           plugin: ({ dispatch }) => createTableLocalIdPlugin(dispatch),

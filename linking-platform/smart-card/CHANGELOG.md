@@ -1,5 +1,23 @@
 # @atlaskit/smart-card
 
+## 26.34.1
+
+### Patch Changes
+
+- [#41295](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41295) [`d18dc7aba6d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d18dc7aba6d) - [ux] Update embed unauth view styling (behind feature flag)
+
+## 26.34.0
+
+### Minor Changes
+
+- [#41278](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41278) [`abf3bed4cf2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/abf3bed4cf2) - Flexible-UI: add isDisabled option to action items to show disabled view and disable clicks on button
+
+## 26.33.2
+
+### Patch Changes
+
+- [#41089](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41089) [`f5acb8e8917`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f5acb8e8917) - [ux] Update embed unresolved view styling (behind feature flag)
+
 ## 26.33.1
 
 ### Patch Changes

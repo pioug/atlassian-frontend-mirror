@@ -243,13 +243,16 @@ describe('document-service', () => {
       });
 
       it('Throws an error when it retries too many times to save steps', async () => {
-        expect.assertions(6);
+        expect.assertions(7);
         (service.getUnconfirmedSteps as jest.Mock).mockReturnValue([
           proseMirrorStep,
         ]);
         (service.getUnconfirmedStepsOrigins as jest.Mock).mockReturnValue([
           'mockStep',
         ]);
+        (service.sendStepsFromCurrentState as jest.Mock).mockImplementation(
+          () => {},
+        );
         const commitPromise = service.commitUnconfirmedSteps();
         // Call done when the commitPromise throws
         const expectThrowPromise = expect(commitPromise).rejects.toThrowError(
@@ -268,9 +271,14 @@ describe('document-service', () => {
           'FAILURE',
           { latency: undefined, numUnconfirmedSteps: 1 },
         );
-        expect(analyticsMock.sendErrorEvent).toBeCalledTimes(1);
+        expect(analyticsMock.sendErrorEvent).toBeCalledTimes(2);
         expect(analyticsMock.sendErrorEvent).toHaveBeenNthCalledWith(
           1,
+          new Error('Editor state is undefined'),
+          'commitUnconfirmedSteps called without state',
+        );
+        expect(analyticsMock.sendErrorEvent).toHaveBeenNthCalledWith(
+          2,
           new CantSyncUpError(
             "Can't sync up with Collab Service: unable to send unconfirmed steps and max retry reached",
             {
@@ -687,7 +695,11 @@ describe('document-service', () => {
           'FAILURE',
           { latency: undefined },
         );
-        expect(analyticsHelperMock.sendErrorEvent).toBeCalledTimes(1);
+        expect(analyticsHelperMock.sendErrorEvent).toBeCalledTimes(2);
+        expect(analyticsHelperMock.sendErrorEvent).toBeCalledWith(
+          new Error('Editor state is undefined'),
+          'getCurrentState called without state',
+        );
         expect(analyticsHelperMock.sendErrorEvent).toBeCalledWith(
           expect.any(Error),
           'Error while returning ADF version of current draft document',

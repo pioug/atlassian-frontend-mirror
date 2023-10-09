@@ -19,6 +19,7 @@ import { EmbedCardUnauthorisedView } from './views/UnauthorisedView';
 import { EmbedCardErroredView } from './views/ErroredView';
 import ForbiddenView from './views/forbidden-view';
 import NotFoundView from './views/not-found-view';
+import UnauthorizedView from './views/unauthorized-view';
 
 export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
   (
@@ -122,6 +123,23 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
           onError({ url, status });
         }
         const unauthorisedViewProps = extractEmbedProps(data, meta, platform);
+
+        if (getBooleanFF('platform.linking-platform.smart-card.cross-join')) {
+          return (
+            <UnauthorizedView
+              analytics={analytics}
+              context={unauthorisedViewProps.context}
+              extensionKey={extensionKey}
+              inheritDimensions={inheritDimensions}
+              isSelected={isSelected}
+              onAuthorize={handleAuthorize}
+              onClick={handleFrameClick}
+              testId={testId}
+              url={unauthorisedViewProps.link}
+            />
+          );
+        }
+
         return (
           <EmbedCardUnauthorisedView
             {...unauthorisedViewProps}
@@ -167,7 +185,7 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
               context={forbiddenViewProps.context}
               inheritDimensions={inheritDimensions}
               isSelected={isSelected}
-              onAuthorise={handleAuthorize}
+              onAuthorize={handleAuthorize}
               onClick={handleFrameClick}
               accessContext={accessContext}
               url={forbiddenViewProps.link}

@@ -21,7 +21,6 @@ import { showPlaceholderFloatingToolbar } from '../../../placeholder-text/action
 import { insertLayoutColumnsWithAnalytics } from '../../../layout/actions';
 import { insertTaskDecisionCommand } from '../../../tasks-and-decisions/commands';
 import { insertExpand } from '../../../expand/commands';
-import { createTypeAheadTools } from '../../../type-ahead/api';
 import { updateStatusWithAnalytics } from '../../../status/actions';
 import {
   ACTION,
@@ -358,9 +357,9 @@ export class ToolbarInsertBlock extends React.PureComponent<
     if (pluginState && pluginState.canInsertMention === false) {
       return false;
     }
-    createTypeAheadTools(editorView).openMention(inputMethod);
-
-    return true;
+    return Boolean(
+      pluginInjectionApi?.mention?.actions?.openTypeAhead(inputMethod),
+    );
   };
 
   private insertTable = (inputMethod: TOOLBAR_MENU_TYPE): boolean => {

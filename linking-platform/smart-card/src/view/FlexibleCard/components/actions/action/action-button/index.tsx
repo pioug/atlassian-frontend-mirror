@@ -63,6 +63,7 @@ const ActionButton: React.FC<ActionButtonProps> = ({
   size,
   testId,
   tooltipMessage,
+  isDisabled,
 }) => {
   const iconOnly = !content;
 
@@ -104,6 +105,7 @@ const ActionButton: React.FC<ActionButtonProps> = ({
             onClick={onButtonClick(onClick)}
             spacing={sizeToButtonSpacing[size]}
             testId={testId}
+            isDisabled={isDisabled}
           >
             {content}
           </Button>

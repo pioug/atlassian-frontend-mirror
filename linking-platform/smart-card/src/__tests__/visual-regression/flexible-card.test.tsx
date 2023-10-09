@@ -115,7 +115,7 @@ describe('Flexible Card', () => {
       const page = await setup(url);
       await page.waitForSelector('[data-testid="vr-test-delete-action"]');
 
-      const image = await takeSnapshot(page, 450);
+      const image = await takeSnapshot(page, 480);
       expect(image).toMatchProdImageSnapshot();
     });
   });

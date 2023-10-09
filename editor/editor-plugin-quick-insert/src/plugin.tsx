@@ -13,6 +13,7 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
 import type {
   Command,
+  QuickInsertSharedState as CommonQuickInsertSharedState,
   EditorCommand,
   EmptyStateHandler,
   NextEditorPlugin,
@@ -21,8 +22,12 @@ import type {
   QuickInsertPluginState,
   QuickInsertPluginStateKeys,
   QuickInsertSearchOptions,
-  QuickInsertSharedState,
+  TypeAheadHandler,
 } from '@atlaskit/editor-common/types';
+import type {
+  TypeAheadInputMethod,
+  TypeAheadPlugin,
+} from '@atlaskit/editor-plugin-type-ahead';
 
 import { insertItem, openElementBrowserModal } from './commands';
 import { pluginKey } from './plugin-key';
@@ -31,12 +36,18 @@ import ModalElementBrowser from './ui/ModalElementBrowser';
 
 export type { QuickInsertPluginOptions };
 
+export type QuickInsertSharedState = CommonQuickInsertSharedState & {
+  typeAheadHandler: TypeAheadHandler;
+};
+
 export type QuickInsertPlugin = NextEditorPlugin<
   'quickInsert',
   {
     pluginConfiguration: QuickInsertPluginOptions | undefined;
+    dependencies: [TypeAheadPlugin];
     sharedState: QuickInsertSharedState | null;
     actions: {
+      openTypeAhead: (inputMethod: TypeAheadInputMethod) => boolean;
       insertItem: (item: QuickInsertItem) => Command;
       getSuggestions: (
         searchOptions: QuickInsertSearchOptions,
@@ -51,97 +62,110 @@ export type QuickInsertPlugin = NextEditorPlugin<
 export const quickInsertPlugin: QuickInsertPlugin = ({
   config: options,
   api,
-}) => ({
-  name: 'quickInsert',
+}) => {
+  const typeAhead: TypeAheadHandler = {
+    id: TypeAheadAvailableNodes.QUICK_INSERT,
+    trigger: '/',
+    headless: options?.headless,
+    getItems({ query, editorState }) {
+      const quickInsertState = pluginKey.getState(editorState);
 
-  pmPlugins(defaultItems: Array<QuickInsertHandler>) {
-    return [
-      {
-        name: 'quickInsert', // It's important that this plugin is above TypeAheadPlugin
-        plugin: ({ providerFactory, getIntl, dispatch }) =>
-          quickInsertPluginFactory(
-            defaultItems,
-            providerFactory,
-            getIntl,
-            dispatch,
-            options?.emptyStateHandler,
-          ),
-      },
-    ];
-  },
+      return Promise.resolve(
+        getQuickInsertSuggestions(
+          {
+            query,
+            disableDefaultItems: options?.disableDefaultItems,
+          },
+          quickInsertState?.lazyDefaultItems,
+          quickInsertState?.providedItems,
+        ),
+      );
+    },
+    selectItem: (state, item, insert) => {
+      return (item as QuickInsertItem).action(insert, state);
+    },
+  };
+  return {
+    name: 'quickInsert',
 
-  pluginsOptions: {
-    typeAhead: {
-      id: TypeAheadAvailableNodes.QUICK_INSERT,
-      trigger: '/',
-      headless: options?.headless,
-      getItems({ query, editorState }) {
-        const quickInsertState = pluginKey.getState(editorState);
+    pmPlugins(defaultItems: Array<QuickInsertHandler>) {
+      return [
+        {
+          name: 'quickInsert', // It's important that this plugin is above TypeAheadPlugin
+          plugin: ({ providerFactory, getIntl, dispatch }) =>
+            quickInsertPluginFactory(
+              defaultItems,
+              providerFactory,
+              getIntl,
+              dispatch,
+              options?.emptyStateHandler,
+            ),
+        },
+      ];
+    },
 
-        return Promise.resolve(
-          getQuickInsertSuggestions(
-            {
-              query,
-              disableDefaultItems: options?.disableDefaultItems,
-            },
-            quickInsertState?.lazyDefaultItems,
-            quickInsertState?.providedItems,
-          ),
+    pluginsOptions: {
+      typeAhead,
+    },
+
+    contentComponent({ editorView }) {
+      if (options?.enableElementBrowser) {
+        return (
+          <ModalElementBrowser
+            editorView={editorView}
+            helpUrl={options?.elementBrowserHelpUrl}
+            pluginInjectionAPI={api}
+          />
+        );
+      }
+
+      return null;
+    },
+
+    getSharedState(editorState) {
+      if (!editorState) {
+        return null;
+      }
+      const quickInsertState = pluginKey.getState(editorState);
+      if (!quickInsertState) {
+        return null;
+      }
+      return {
+        typeAheadHandler: typeAhead,
+        lazyDefaultItems: quickInsertState.lazyDefaultItems,
+        emptyStateHandler: quickInsertState.emptyStateHandler,
+        providedItems: quickInsertState.providedItems,
+        isElementBrowserModalOpen: quickInsertState.isElementBrowserModalOpen,
+      };
+    },
+
+    actions: {
+      insertItem,
+
+      openTypeAhead(inputMethod) {
+        return Boolean(
+          api?.typeAhead?.actions.open({
+            triggerHandler: typeAhead,
+            inputMethod,
+          }),
         );
       },
-      selectItem: (state, item, insert) => {
-        return (item as QuickInsertItem).action(insert, state);
+      getSuggestions: searchOptions => {
+        const { lazyDefaultItems, providedItems } =
+          api?.quickInsert.sharedState.currentState() ?? {};
+        return getQuickInsertSuggestions(
+          searchOptions,
+          lazyDefaultItems,
+          providedItems,
+        );
       },
     },
-  },
 
-  contentComponent({ editorView }) {
-    if (options?.enableElementBrowser) {
-      return (
-        <ModalElementBrowser
-          editorView={editorView}
-          helpUrl={options?.elementBrowserHelpUrl}
-          pluginInjectionAPI={api}
-        />
-      );
-    }
-
-    return null;
-  },
-
-  getSharedState(editorState) {
-    if (!editorState) {
-      return null;
-    }
-    const quickInsertState = pluginKey.getState(editorState);
-    if (!quickInsertState) {
-      return null;
-    }
-    return {
-      lazyDefaultItems: quickInsertState.lazyDefaultItems,
-      emptyStateHandler: quickInsertState.emptyStateHandler,
-      providedItems: quickInsertState.providedItems,
-      isElementBrowserModalOpen: quickInsertState.isElementBrowserModalOpen,
-    };
-  },
-
-  actions: {
-    insertItem,
-    getSuggestions: searchOptions => {
-      const { lazyDefaultItems, providedItems } =
-        api?.quickInsert.sharedState.currentState() ?? {};
-      return getQuickInsertSuggestions(
-        searchOptions,
-        lazyDefaultItems,
-        providedItems,
-      );
+    commands: {
+      openElementBrowserModal,
     },
-  },
-
-  commands: {
-    openElementBrowserModal,
-  },
-});
+  };
+};
 
 const setProviderState =
   (providerState: Partial<QuickInsertPluginState>): Command =>

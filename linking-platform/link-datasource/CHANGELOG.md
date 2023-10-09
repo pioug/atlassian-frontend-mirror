@@ -1,5 +1,12 @@
 # @atlaskit/link-datasource
 
+## 1.6.3
+
+### Patch Changes
+
+- [#41133](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41133) [`598eb394b7e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/598eb394b7e) - [ux] fix the order of columns is incorrect in column picker problem
+  [ux] Do not reorder columns when the column picker is open
+
 ## 1.6.2
 
 ### Patch Changes

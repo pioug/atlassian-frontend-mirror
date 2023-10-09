@@ -5,7 +5,7 @@ exports[`ReportingLinesDetails should match snapshot when manager and reports ar
 exports[`ReportingLinesDetails should match snapshot when manager and reports are specified 1`] = `
 <Fragment>
   <Styled(div)>
-    <Styled(h5)
+    <Styled(h3)
       style={
         Object {
           "marginBottom": 0,
@@ -17,7 +17,7 @@ exports[`ReportingLinesDetails should match snapshot when manager and reports ar
         description="Title for a section on the profile card that show the user's direct manager"
         id="pt.team-profile-card.manager.heading"
       />
-    </Styled(h5)>
+    </Styled(h3)>
     <Styled(div)>
       <CustomThemeButton
         appearance="subtle"
@@ -39,13 +39,13 @@ exports[`ReportingLinesDetails should match snapshot when manager and reports ar
     </Styled(div)>
   </Styled(div)>
   <Styled(div)>
-    <Styled(h5)>
+    <Styled(h3)>
       <MemoizedFormattedMessage
         defaultMessage="Direct reports"
         description="Title for a section on the profile card that show the user's direct reports"
         id="pt.team-profile-card.directReports.heading"
       />
-    </Styled(h5)>
+    </Styled(h3)>
     <AvatarGroup
       appearance="stack"
       data={

@@ -26,6 +26,7 @@ import { listPlugin } from '@atlaskit/editor-plugin-list';
 import { pluginKey as undoPluginKey } from '../../../pm-plugins/plugin-key';
 import { attachInputMeta } from '../../../attach-input-meta';
 import { InputSource } from '../../../enums';
+import typeAheadPlugin from '../../../../type-ahead';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
@@ -40,6 +41,7 @@ describe('change input method from undo/redo events', () => {
         .add([featureFlagsPlugin, {}])
         .add(decorationsPlugin)
         .add([analyticsPlugin, { createAnalyticsEvent }])
+        .add(typeAheadPlugin)
         .add(listPlugin)
         .add(panelPlugin)
         .add(undoPlugin),

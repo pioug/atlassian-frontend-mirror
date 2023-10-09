@@ -18,7 +18,8 @@ import {
   media,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { transformSliceForMedia } from '../../../../plugins/paste/plugins/media';
-import { temporaryMediaAttrs } from './_utils';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { temporaryMediaAttrs } from '@atlaskit/editor-test-helpers/media-provider';
 
 const removeRef = (node: Node) =>
   Node.fromJSON(node.type.schema, node.toJSON());

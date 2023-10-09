@@ -1,15 +1,13 @@
-import React from 'react';
-import { PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import MentionIcon from '@atlaskit/icon/glyph/editor/mention';
 import { ToolbarButton, TOOLBAR_BUTTON } from '@atlaskit/editor-common/ui-menu';
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import { createTypeAheadTools } from '../../../type-ahead/api';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 import { messages } from '../../messages';
 
 interface Props {
+  onInsertMention: () => void;
   editorView?: EditorView;
   isDisabled?: boolean;
   testId?: string;
@@ -39,9 +37,7 @@ class ToolbarMention extends PureComponent<Props & WrappedComponentProps> {
       return false;
     }
 
-    createTypeAheadTools(this.props.editorView).openMention(
-      INPUT_METHOD.INSERT_MENU,
-    );
+    this.props.onInsertMention();
     return true;
   };
 }

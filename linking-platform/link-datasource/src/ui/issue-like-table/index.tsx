@@ -103,26 +103,23 @@ function extractIndex(data: Record<string, unknown>) {
   return index;
 }
 
-const orderColumns = (
+export const orderColumns = (
   columns: DatasourceResponseSchemaProperty[],
   visibleColumnKeys: string[],
 ) => {
-  // newColumnKeyOrder contains keys of selected (visible columns only).
-  // In order to sort all the columns we need to insert unselected ones into this list
-  // We put them into their absolution position as it was in unchanged (before column move) order.
-  columns.forEach(({ key }, index) => {
-    if (!visibleColumnKeys.includes(key)) {
-      visibleColumnKeys.splice(index, 0, key);
-    }
-  });
+  const visibleColumns = columns
+    .filter(column => visibleColumnKeys.includes(column.key))
+    .sort((a, b) => {
+      const indexB = visibleColumnKeys.indexOf(b.key);
+      const indexA = visibleColumnKeys.indexOf(a.key);
+      return indexA - indexB;
+    });
 
-  columns.sort((a, b) => {
-    const indexB = visibleColumnKeys.indexOf(b.key);
-    const indexA = visibleColumnKeys.indexOf(a.key);
-    return indexA - indexB;
-  });
+  const invisibleColumns = columns.filter(
+    column => !visibleColumnKeys.includes(column.key),
+  );
 
-  return [...columns];
+  return [...visibleColumns, ...invisibleColumns];
 };
 
 const BASE_WIDTH = 8;
@@ -185,8 +182,10 @@ export const IssueLikeDataTableView = ({
   );
 
   useEffect(() => {
-    setOrderedColumns(orderColumns([...columns], [...visibleColumnKeys]));
-  }, [columns, visibleColumnKeys]);
+    if (!hasFullSchema) {
+      setOrderedColumns(orderColumns([...columns], [...visibleColumnKeys]));
+    }
+  }, [columns, visibleColumnKeys, hasFullSchema]);
 
   useEffect(() => {
     if (parentContainerRenderInstanceId && status === 'resolved') {

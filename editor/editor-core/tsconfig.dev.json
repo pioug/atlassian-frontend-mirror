@@ -118,6 +118,9 @@
       "path": "../editor-plugin-block-type/tsconfig.app.json"
     },
     {
+      "path": "../editor-plugin-caption/tsconfig.app.json"
+    },
+    {
       "path": "../editor-plugin-card/tsconfig.app.json"
     },
     {
@@ -167,6 +170,9 @@
     },
     {
       "path": "../editor-plugin-list/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-media/tsconfig.app.json"
     },
     {
       "path": "../editor-plugin-placeholder/tsconfig.app.json"
@@ -227,12 +233,6 @@
     },
     {
       "path": "../../design-system/lozenge/tsconfig.app.json"
-    },
-    {
-      "path": "../../media/media-card/tsconfig.app.json"
-    },
-    {
-      "path": "../../media/media-client/tsconfig.app.json"
     },
     {
       "path": "../../media/media-common/tsconfig.app.json"

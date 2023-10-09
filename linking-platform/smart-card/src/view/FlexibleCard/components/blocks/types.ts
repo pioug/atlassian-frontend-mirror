@@ -123,6 +123,11 @@ export type BaseActionItem = {
    * serving as a hook for automated tests
    */
   testId?: string;
+
+  /**
+   * Determines whether the button displays as disabled.
+   */
+  isDisabled?: boolean;
 };
 
 /**
@@ -167,6 +172,11 @@ export type BaseDataActionItem = {
    * serving as a hook for automated tests
    */
   testId?: string;
+
+  /**
+   * Determines whether the button displays as disabled.
+   */
+  isDisabled?: boolean;
 };
 
 /**

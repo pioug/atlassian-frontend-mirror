@@ -9,7 +9,7 @@ import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { Card } from '../../Card';
 import { Provider } from '../../..';
 import * as analytics from '../../../utils/analytics';
-import { fakeFactory, mocks } from '../../../utils/mocks';
+import { fakeFactory, mockGenerator, mocks } from '../../../utils/mocks';
 import { IntlProvider } from 'react-intl-next';
 
 mockSimpleIntersectionObserver();
@@ -283,11 +283,7 @@ describe('smart-card: card states, embed', () => {
             },
             data: {
               ...mocks.forbidden.data,
-              generator: {
-                '@type': 'Application',
-                '@id': 'https://www.atlassian.com/#Jira',
-                name: 'Jira',
-              },
+              generator: mockGenerator,
             },
           } as JsonLd.Response);
 
@@ -479,8 +475,9 @@ describe('smart-card: card states, embed', () => {
 
       describe('with auth services not available', () => {
         it('embed: renders without connect flow', async () => {
-          mocks.unauthorized.meta.auth = [];
-          mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
+          mockFetch.mockImplementationOnce(
+            async () => mocks.unauthorizedWithNoAuth,
+          );
           const { findByTestId } = render(
             <Provider client={mockClient}>
               <Card appearance="embed" url={mockUrl} onError={mockOnError} />
@@ -518,6 +515,101 @@ describe('smart-card: card states, embed', () => {
             status: 'fallback',
           });
         });
+      });
+
+      describe('with text content', () => {
+        type ContentProps = {
+          button?: string;
+          description: string;
+          title: string;
+        };
+
+        const setup = async (response = mocks.forbidden) => {
+          mockFetch.mockImplementationOnce(async () => response);
+          const renderResult = render(
+            <Provider client={mockClient}>
+              <Card
+                appearance="embed"
+                url="https://site.atlassian.net/browse/key-1"
+              />
+            </Provider>,
+          );
+          await new Promise((resolve) => setTimeout(resolve, 1000));
+
+          return renderResult;
+        };
+
+        describe.each([
+          [
+            'unauthorized: connect to provider',
+            {
+              ...mocks.unauthorized,
+              data: {
+                ...mocks.unauthorized.data,
+                generator: mockGenerator,
+              },
+            } as JsonLd.Response,
+            {
+              title: 'Connect your Jira account',
+              description:
+                'Connect Jira to Atlassian to view more details of your work and collaborate from one place. Learn more about Smart Links.',
+              button: 'Connect to Jira',
+            },
+          ],
+          [
+            'unauthorized: connect to unknown provider',
+            mocks.unauthorized,
+            {
+              // Our title and button messages always expect the product name to be present
+              // while the description support when product name is not present.
+              // To be looked at https://product-fabric.atlassian.net/browse/EDM-8173
+              title: 'Connect your account',
+              description:
+                'Connect to Atlassian to view more details of your work and collaborate from one place. Learn more about Smart Links.',
+              button: 'Connect to',
+            },
+          ],
+          [
+            'unauthorized: cannot connect to provider',
+            {
+              ...mocks.unauthorizedWithNoAuth,
+              data: {
+                ...mocks.unauthorizedWithNoAuth.data,
+                generator: mockGenerator,
+              },
+            } as JsonLd.Response,
+            {
+              title: "We can't display private pages from Jira",
+              description:
+                "You're trying to preview a link to a private Jira page. We recommend you review the URL or contact the page owner.",
+            },
+          ],
+          [
+            'unauthorized: cannot connect to unknown provider',
+            mocks.unauthorizedWithNoAuth,
+            {
+              title: "We can't display private pages",
+              description:
+                "You're trying to preview a link to a private page. We recommend you review the URL or contact the page owner.",
+            },
+          ],
+        ])(
+          '%s',
+          (name: string, response: JsonLd.Response, expected: ContentProps) => {
+            ffTest(
+              'platform.linking-platform.smart-card.cross-join',
+              async () => {
+                const { container, findByText } = await setup(response);
+
+                expect(await findByText(expected.title)).toBeVisible();
+                expect(container).toHaveTextContent(expected.description);
+                if (expected.button) {
+                  expect(await findByText(expected.button)).toBeVisible();
+                }
+              },
+            );
+          },
+        );
       });
     });
 

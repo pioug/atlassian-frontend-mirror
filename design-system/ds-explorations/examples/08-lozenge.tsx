@@ -2,22 +2,18 @@
 import { jsx } from '@emotion/react';
 
 import Lozenge from '@atlaskit/lozenge';
-import { Box, Inline, xcss } from '@atlaskit/primitives';
+import Inline from '@atlaskit/primitives/inline';
 
-import { UNSAFE_Text as Text } from '../src';
-
-const boxStyles = xcss({
-  borderRadius: 'border.radius',
-});
+import { UNSAFE_Box as Box, UNSAFE_Text as Text } from '../src';
 
 export default () => {
   return (
     <Inline space="space.200">
       <Lozenge>Default</Lozenge>
       <Box
+        backgroundColor="neutral"
+        borderRadius="normal"
         as="span"
-        xcss={boxStyles}
-        backgroundColor="color.background.neutral"
         paddingInline="space.050"
       >
         <Text

@@ -1,11 +1,14 @@
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
-import { akEditorBreakoutPadding } from '@atlaskit/editor-shared-styles';
-import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import { buildLayoutForWidths } from '../../../../../plugins/layout/__tests__/unit/_utils';
 import { calcMediaPxWidth } from '@atlaskit/editor-common/ui';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { akEditorBreakoutPadding } from '@atlaskit/editor-shared-styles';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
+
+import { buildLayoutForWidths } from '../../../../../plugins/layout/__tests__/unit/_utils';
+
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 
 describe('Media Single Utils', () => {
   const containerWidth = { width: 1920, lineLength: 760 };

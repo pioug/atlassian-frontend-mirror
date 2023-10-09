@@ -9,7 +9,10 @@
 import React from 'react';
 import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type {
+  TypeAheadInputMethod,
   TypeAheadHandler,
   PopupMountPointReference,
   TypeAheadPluginState,
@@ -21,11 +24,23 @@ import { typeAheadQuery } from '@atlaskit/adf-schema';
 import { pluginKey as typeAheadPluginKey } from './pm-plugins/key';
 import { inputRulePlugin } from './pm-plugins/input-rules';
 import { TypeAheadPopup } from './ui/TypeAheadPopup';
-import { getPluginState, isTypeAheadOpen, isTypeAheadAllowed } from './utils';
+import {
+  findHandler,
+  getPluginState,
+  isTypeAheadOpen,
+  isTypeAheadAllowed,
+  getTypeAheadQuery,
+  getTypeAheadHandler,
+} from './utils';
 import { useItemInsert } from './ui/hooks/use-item-insert';
 import { updateSelectedIndex } from './commands/update-selected-index';
 import { StatsModifier } from './stats-modifier';
-import type { FireAnalyticsCallback } from '@atlaskit/editor-common/analytics';
+
+import type { TypeAheadItem, Command } from '@atlaskit/editor-common/types';
+import type {
+  EditorAnalyticsAPI,
+  FireAnalyticsCallback,
+} from '@atlaskit/editor-common/analytics';
 import {
   ACTION,
   ACTION_SUBJECT,
@@ -35,6 +50,8 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import type { CloseSelectionOptions } from './constants';
 import { openTypeAheadAtCursor } from './transforms/open-typeahead-at-cursor';
+import { closeTypeAhead } from './transforms/close-type-ahead';
+import { insertTypeAheadItem } from './commands/insert-type-ahead-item';
 import type {
   TypeAheadPluginOptions,
   TypeAheadPlugin,
@@ -150,6 +167,141 @@ const TypeAheadMenu: React.FC<TypeAheadMenuType> = React.memo(
   },
 );
 
+const createOpenAtTransaction =
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
+  (props: OpenTypeAheadProps) =>
+  (tr: Transaction): boolean => {
+    const { triggerHandler, inputMethod } = props;
+
+    openTypeAheadAtCursor({ triggerHandler, inputMethod })({ tr });
+
+    editorAnalyticsAPI?.attachAnalyticsEvent({
+      action: ACTION.INVOKED,
+      actionSubject: ACTION_SUBJECT.TYPEAHEAD,
+      actionSubjectId: triggerHandler.id,
+      attributes: { inputMethod },
+      eventType: EVENT_TYPE.UI,
+    })(tr);
+
+    return true;
+  };
+
+type EditorViewRef = Record<'current', EditorView | null>;
+type OpenTypeAheadProps = {
+  triggerHandler: TypeAheadHandler;
+  inputMethod: TypeAheadInputMethod;
+  query?: string;
+};
+const createOpenTypeAhead =
+  (
+    editorViewRef: EditorViewRef,
+    editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+  ) =>
+  (props: OpenTypeAheadProps): boolean => {
+    if (!editorViewRef.current) {
+      return false;
+    }
+
+    const { current: view } = editorViewRef;
+    const { tr } = view.state;
+
+    createOpenAtTransaction(editorAnalyticsAPI)(props)(tr);
+
+    view.dispatch(tr);
+
+    return true;
+  };
+
+type InsertTypeAheadItemProps = {
+  triggerHandler: TypeAheadHandler;
+  contentItem: TypeAheadItem;
+  query: string;
+  sourceListItem: TypeAheadItem[];
+  mode?: SelectItemMode;
+};
+const createInsertTypeAheadItem =
+  (editorViewRef: EditorViewRef) =>
+  (props: InsertTypeAheadItemProps): boolean => {
+    if (!editorViewRef.current) {
+      return false;
+    }
+
+    const { current: view } = editorViewRef;
+    const { triggerHandler, contentItem, query, sourceListItem, mode } = props;
+
+    insertTypeAheadItem(view)({
+      handler: triggerHandler,
+      item: contentItem,
+      mode: mode || SelectItemMode.SELECTED,
+      query,
+      sourceListItem,
+    });
+
+    return true;
+  };
+
+const createFindHandlerByTrigger =
+  (editorViewRef: EditorViewRef) =>
+  (trigger: string): TypeAheadHandler | null => {
+    if (!editorViewRef.current) {
+      return null;
+    }
+
+    const { current: view } = editorViewRef;
+
+    return findHandler(trigger, view.state);
+  };
+
+type CloseTypeAheadProps = {
+  insertCurrentQueryAsRawText: boolean;
+  attachCommand?: Command;
+};
+const createCloseTypeAhead =
+  (editorViewRef: EditorViewRef) =>
+  (options: CloseTypeAheadProps): boolean => {
+    if (!editorViewRef.current) {
+      return false;
+    }
+
+    const { current: view } = editorViewRef;
+
+    const currentQuery = getTypeAheadQuery(view.state) || '';
+    const { state } = view;
+
+    let tr = state.tr;
+
+    if (options.attachCommand) {
+      const fakeDispatch = (customTr: Transaction) => {
+        tr = customTr;
+      };
+
+      options.attachCommand(state, fakeDispatch);
+    }
+
+    closeTypeAhead(tr);
+
+    if (
+      options.insertCurrentQueryAsRawText &&
+      currentQuery &&
+      currentQuery.length > 0
+    ) {
+      const handler = getTypeAheadHandler(state);
+      if (!handler) {
+        return false;
+      }
+      const text = handler.trigger.concat(currentQuery);
+      tr.replaceSelectionWith(state.schema.text(text));
+    }
+
+    view.dispatch(tr);
+
+    if (!view.hasFocus()) {
+      view.focus();
+    }
+
+    return true;
+  };
+
 /**
  *
  * Revamped typeahead using decorations instead of the `typeAheadQuery` mark
@@ -158,13 +310,14 @@ const TypeAheadMenu: React.FC<TypeAheadMenuType> = React.memo(
  *
  *
  */
-const typeAheadPlugin: TypeAheadPlugin = ({ config: options }) => {
+const typeAheadPlugin: TypeAheadPlugin = ({ config: options, api }) => {
   const fireAnalyticsCallback = fireAnalyticsEvent(
     options?.createAnalyticsEvent,
   );
   const popupMountRef: PopupMountPointReference = {
     current: null,
   };
+  const editorViewRef: EditorViewRef = { current: null };
   return {
     name: 'typeAhead',
 
@@ -188,6 +341,22 @@ const typeAheadPlugin: TypeAheadPlugin = ({ config: options }) => {
             }),
         },
         {
+          name: 'typeAheadEditorViewRef',
+          plugin: () => {
+            return new SafePlugin({
+              view(view) {
+                editorViewRef.current = view;
+
+                return {
+                  destroy() {
+                    editorViewRef.current = null;
+                  },
+                };
+              },
+            });
+          },
+        },
+        {
           name: 'typeAheadInsertItem',
           plugin: createInsertItemPlugin,
         },
@@ -199,13 +368,25 @@ const typeAheadPlugin: TypeAheadPlugin = ({ config: options }) => {
       ];
     },
 
-    commands: {
-      openTypeAheadAtCursor,
-    },
+    getSharedState(editorState) {
+      if (!editorState) {
+        return {
+          query: '',
+        };
+      }
 
+      return {
+        query: getTypeAheadQuery(editorState) || '',
+      };
+    },
     actions: {
       isOpen: isTypeAheadOpen,
       isAllowed: isTypeAheadAllowed,
+      open: createOpenTypeAhead(editorViewRef, api?.analytics?.actions),
+      openAtTransaction: createOpenAtTransaction(api?.analytics?.actions),
+      findHandlerByTrigger: createFindHandlerByTrigger(editorViewRef),
+      insert: createInsertTypeAheadItem(editorViewRef),
+      close: createCloseTypeAhead(editorViewRef),
     },
 
     contentComponent({

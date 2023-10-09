@@ -50,14 +50,14 @@ import {
   createProsemirrorEditorFactory,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import mediaPlugin from '../../../media';
+import { mediaPlugin } from '@atlaskit/editor-plugin-media';
 import { editorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { focusPlugin } from '@atlaskit/editor-plugin-focus';
 import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import captionPlugin from '@atlaskit/editor-core/src/plugins/caption';
+import { captionPlugin } from '@atlaskit/editor-plugin-caption';
 import selectionPlugin from '../../../selection';
 import { copyButtonPlugin } from '@atlaskit/editor-plugin-copy-button';
 import { floatingToolbarPlugin } from '@atlaskit/editor-plugin-floating-toolbar';

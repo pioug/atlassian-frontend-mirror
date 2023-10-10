@@ -16,7 +16,6 @@ import {
   wrapperStyle,
 } from '@atlaskit/editor-common/styles';
 import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
-import { insertDate } from '../../../date/actions';
 import { showPlaceholderFloatingToolbar } from '../../../placeholder-text/actions';
 import { insertLayoutColumnsWithAnalytics } from '../../../layout/actions';
 import { insertTaskDecisionCommand } from '../../../tasks-and-decisions/commands';
@@ -32,7 +31,8 @@ import {
 import type { DropdownItem } from '@atlaskit/editor-plugin-block-type';
 import type { OnInsert } from '../../../../ui/ElementBrowser/types';
 import { messages } from './messages';
-import type { Props, State, TOOLBAR_MENU_TYPE } from './types';
+import type { Props, State } from './types';
+import type { TOOLBAR_MENU_TYPE } from '@atlaskit/editor-common/types';
 import { createItems } from './create-items';
 import { BlockInsertMenu } from './block-insert-menu';
 import withOuterListeners from '../../../../ui/with-outer-listeners';
@@ -379,9 +379,13 @@ export class ToolbarInsertBlock extends React.PureComponent<
   };
 
   private createDate = (inputMethod: TOOLBAR_MENU_TYPE): boolean => {
-    const { editorView } = this.props;
-    insertDate(undefined, inputMethod)(editorView.state, editorView.dispatch);
-    return true;
+    const { pluginInjectionApi, editorView } = this.props;
+    return (
+      pluginInjectionApi?.date?.actions.insertDate(undefined, inputMethod)(
+        editorView.state,
+        editorView.dispatch,
+      ) ?? false
+    );
   };
 
   private createPlaceholderText = (): boolean => {

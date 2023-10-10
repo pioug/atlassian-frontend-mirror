@@ -42,12 +42,12 @@ import { blockTypePlugin } from '@atlaskit/editor-plugin-block-type';
 import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import expandPlugin from '../../../expand';
-import datePlugin from '../../../date';
+import { datePlugin } from '../../../date';
 import layoutPlugin from '../../../layout';
 import panelPlugin from '../../../panel';
 import { mediaPlugin } from '@atlaskit/editor-plugin-media';
 import { captionPlugin } from '@atlaskit/editor-plugin-caption';
-import selectionPlugin from '../../../selection';
+import { selectionPlugin } from '@atlaskit/editor-plugin-selection';
 import { listPlugin } from '@atlaskit/editor-plugin-list';
 import { copyButtonPlugin } from '@atlaskit/editor-plugin-copy-button';
 import { floatingToolbarPlugin } from '@atlaskit/editor-plugin-floating-toolbar';
@@ -106,12 +106,12 @@ describe('action paste handler', () => {
         .add(copyButtonPlugin)
         .add(floatingToolbarPlugin)
         .add(focusPlugin)
+        .add(selectionPlugin)
         .add([mediaPlugin, { allowMediaSingle: true, allowCaptions: true }])
         .add(listPlugin)
         .add(hyperlinkPlugin)
         .add([statusPlugin, { menuDisabled: false }])
         .add(contextPanelPlugin)
-        .add(selectionPlugin)
         .add(tablesPlugin)
         .add(expandPlugin)
         .add(datePlugin)

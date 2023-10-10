@@ -1,0 +1,93 @@
+{
+  "name": "@atlaskit/editor-plugin-selection",
+  "version": "0.1.0",
+  "description": "Selection plugin for @atlaskit/editor-core",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "author": "Atlassian Pty Ltd",
+  "license": "Apache-2.0",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "module:es2019": "dist/es2019/index.js",
+  "types": "dist/types/index.d.ts",
+  "sideEffects": false,
+  "atlaskit:src": "src/index.ts",
+  "atlassian": {
+    "team": "Editor: Lego",
+    "releaseModel": "continuous",
+    "singleton": true
+  },
+  "dependencies": {
+    "@atlaskit/editor-common": "^76.8.0",
+    "@atlaskit/editor-prosemirror": "1.1.0",
+    "@atlaskit/editor-shared-styles": "^2.7.0",
+    "@atlaskit/editor-tables": "^2.3.10",
+    "@babel/runtime": "^7.0.0"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0"
+  },
+  "devDependencies": {
+    "@af/editor-libra": "*",
+    "@af/visual-regression": "*",
+    "@atlaskit/editor-plugin-analytics": "^0.2.4",
+    "@atlaskit/editor-plugin-feature-flags": "^1.0.0",
+    "@atlaskit/editor-plugin-focus": "^0.2.1",
+    "@atlaskit/editor-plugin-grid": "^0.3.0",
+    "@atlaskit/editor-plugin-guideline": "^0.5.1",
+    "@atlaskit/editor-plugin-rule": "^0.1.2",
+    "@atlaskit/editor-plugin-width": "^0.2.2",
+    "@atlaskit/media-integration-test-helpers": "^3.0.0",
+    "@atlaskit/media-test-helpers": "^33.0.0",
+    "@atlaskit/ssr": "*",
+    "@atlaskit/visual-regression": "*",
+    "@atlaskit/webdriver-runner": "*",
+    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
+    "@testing-library/react": "^12.1.5",
+    "react-dom": "^16.8.0",
+    "typescript": "~4.9.5",
+    "wait-for-expect": "^1.2.0"
+  },
+  "techstack": {
+    "@atlassian/frontend": {
+      "import-structure": [
+        "atlassian-conventions"
+      ],
+      "circular-dependencies": [
+        "file-and-folder-level"
+      ]
+    },
+    "@repo/internal": {
+      "dom-events": "use-bind-event-listener",
+      "analytics": [
+        "analytics-next"
+      ],
+      "design-tokens": [
+        "color"
+      ],
+      "theming": [
+        "react-context"
+      ],
+      "ui-components": [
+        "lite-mode"
+      ],
+      "deprecation": [
+        "no-deprecated-imports"
+      ],
+      "styling": [
+        "static",
+        "emotion"
+      ],
+      "imports": [
+        "import-no-extraneous-disable-for-examples-and-docs"
+      ]
+    }
+  },
+  "af:exports": {
+    ".": "./src/index.ts",
+    "./types": "./src/types.ts"
+  },
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
+}

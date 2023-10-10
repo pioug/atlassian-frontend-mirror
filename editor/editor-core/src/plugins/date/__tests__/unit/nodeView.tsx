@@ -17,7 +17,8 @@ import {
   Preset,
   createProsemirrorEditorFactory,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import { mountWithIntl } from '../../../../__tests__/__helpers/enzyme';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { uuid } from '@atlaskit/adf-schema';
 
 import { insertDate } from '../../actions';
@@ -25,7 +26,7 @@ import { DateNodeView } from '../../nodeviews/date';
 
 // Editor plugins
 import { editorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
-import datePlugin from '../../index';
+import datePlugin from '../../plugin';
 import tasksAndDecisionsPlugin from '../../../tasks-and-decisions';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';

@@ -1,7 +1,4 @@
-import type {
-  INPUT_METHOD,
-  DispatchAnalyticsEvent,
-} from '@atlaskit/editor-common/analytics';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type {
   EditorActionsOptions as EditorActions,
@@ -75,5 +72,3 @@ export interface State {
   dropdownItems: BlockMenuItem[];
   isOpenedByKeyboard: boolean;
 }
-
-export type TOOLBAR_MENU_TYPE = INPUT_METHOD.TOOLBAR | INPUT_METHOD.INSERT_MENU;

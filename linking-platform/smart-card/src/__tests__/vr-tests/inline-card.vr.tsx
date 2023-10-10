@@ -3,6 +3,11 @@ import InlineCardDefault from '../../../examples/vr-inline-card-default-icon';
 import InlineCardTextWrap from '../../../examples/vr-inline-card-text-wrap';
 import InlineCardError from '../../../examples/vr-inline-card/vr-inline-card-error';
 import InlineCardForbidden from '../../../examples/vr-inline-card/vr-inline-card-forbidden';
+import InlineCardForbiddenRequestAccess from '../../../examples/vr-inline-card/vr-inline-card-forbidden-request-access';
+import InlineCardForbiddenSiteRequestAccess from '../../../examples/vr-inline-card/vr-inline-card-forbidden-site-request-access';
+import InlineCardForbiddenDirectAccess from '../../../examples/vr-inline-card/vr-inline-card-forbidden-site-direct-access';
+import InlineCardForbiddenPendingSiteAccess from '../../../examples/vr-inline-card/vr-inline-card-forbidden-site-pending-access';
+import InlineCardForbiddenDeniedSiteAccess from '../../../examples/vr-inline-card/vr-inline-card-forbidden-site-denied-access';
 import InlineCardNotFound from '../../../examples/vr-inline-card/vr-inline-card-not-found';
 import InlineCardUnauthorised from '../../../examples/vr-inline-card/vr-inline-card-unauthorised';
 import InlineCardUnauthorisedNoAuth from '../../../examples/vr-inline-card/vr-inline-card-unauthorised-no-auth';
@@ -183,6 +188,48 @@ snapshot(InlineCardForbidden, {
   states: [
     { state: 'hovered', selector: { byTestId: 'inline-card-forbidden-view' } },
   ],
+});
+snapshot(InlineCardForbiddenRequestAccess, {
+  description:
+    'refreshed inline card forbidden view with request access to object',
+  featureFlags: {
+    'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
+      true,
+    'platform.linking-platform.smart-card.cross-join': true,
+  },
+});
+snapshot(InlineCardForbiddenSiteRequestAccess, {
+  description:
+    'refreshed inline card forbidden view with request access to site',
+  featureFlags: {
+    'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
+      true,
+    'platform.linking-platform.smart-card.cross-join': true,
+  },
+});
+snapshot(InlineCardForbiddenDirectAccess, {
+  description: 'refreshed inline card forbidden view with direct access',
+  featureFlags: {
+    'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
+      true,
+    'platform.linking-platform.smart-card.cross-join': true,
+  },
+});
+snapshot(InlineCardForbiddenPendingSiteAccess, {
+  description: 'refreshed inline card forbidden view with pending site access',
+  featureFlags: {
+    'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
+      true,
+    'platform.linking-platform.smart-card.cross-join': true,
+  },
+});
+snapshot(InlineCardForbiddenDeniedSiteAccess, {
+  description: 'refreshed inline card forbidden view with denied site access',
+  featureFlags: {
+    'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
+      true,
+    'platform.linking-platform.smart-card.cross-join': true,
+  },
 });
 snapshot(InlineCardNotFound, {
   description: `refreshed inline card can't find link view`,

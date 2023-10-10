@@ -21,6 +21,9 @@ const overlay = (
   </span>
 );
 
+const shouldFitContainerStyles = xcss({ width: 'size.1000' });
+const longLabelStyles = xcss({ width: 'size.600' });
+
 const ExampleRow = ({
   component: Component,
   appearance,
@@ -107,14 +110,14 @@ const ExampleRow = ({
       </Component>
     </td>
     <td>
-      <Box xcss={xcss({ width: 'size.1000' })}>
+      <Box xcss={shouldFitContainerStyles}>
         <Component appearance={appearance} shouldFitContainer spacing={spacing}>
           Button
         </Component>
       </Box>
     </td>
     <td>
-      <Box xcss={xcss({ width: 'size.600' })}>
+      <Box xcss={longLabelStyles}>
         <Component appearance={appearance} spacing={spacing}>
           Button with long label
         </Component>

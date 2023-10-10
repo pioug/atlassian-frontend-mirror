@@ -434,7 +434,7 @@ export class ContextualMenu extends Component<
         deleteColumnsWithAnalytics(editorAnalyticsAPI)(
           INPUT_METHOD.CONTEXT_MENU,
           selectionRect,
-        )(state, dispatch);
+        )(state, dispatch, editorView);
         this.toggleOpen();
         break;
       case 'delete_row':

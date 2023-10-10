@@ -5,16 +5,14 @@ import { Box, xcss } from '@atlaskit/primitives';
 
 import variants from '../src/utils/variants';
 
+const constrainedWidthCellStyles = xcss({
+  width: 'size.600',
+});
+
 const ContrainedWidthCell = ({ children }: { children: React.ReactNode }) => {
   return (
     <td>
-      <Box
-        xcss={xcss({
-          width: 'size.600',
-        })}
-      >
-        {children}
-      </Box>
+      <Box xcss={constrainedWidthCellStyles}>{children}</Box>
     </td>
   );
 };

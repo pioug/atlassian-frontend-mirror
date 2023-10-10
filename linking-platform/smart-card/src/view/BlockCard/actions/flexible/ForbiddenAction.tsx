@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { FormattedMessage } from 'react-intl-next';
 
 import { CustomActionItem } from '../../../FlexibleCard/components/blocks/types';
@@ -20,11 +20,13 @@ import {
 export const ForbiddenAction = (
   onClick: () => void,
   content: RequestAccessMessageKey | MessageKey,
-  context?: string,
+  context?: Record<string, ReactNode>,
+  isDisabled?: boolean,
 ): CustomActionItem =>
   ({
     name: ActionName.CustomAction,
-    content: <FormattedMessage {...messages[content]} values={{ context }} />,
+    content: <FormattedMessage {...messages[content]} values={context} />,
     onClick,
     testId: 'smart-action-connect-other-account',
+    isDisabled,
   } as CustomActionItem);

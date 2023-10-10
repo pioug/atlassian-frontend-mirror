@@ -9,10 +9,7 @@ import {
 
 import { createColorStylesFromTemplate } from './color-codegen-template';
 import { createColorMapTemplate } from './color-map-template';
-import { createDimensionStylesFromTemplate } from './dimension-codegen-template';
 import { createInteractionStylesFromTemplate } from './interaction-codegen';
-import { createStylesFromTemplate } from './misc-codegen-template';
-import { createSpacingStylesFromTemplate } from './spacing-codegen-template';
 import { createSpacingScaleTemplate } from './spacing-scale-template';
 import { createTypographyStylesFromTemplate } from './typography-codegen-template';
 
@@ -20,9 +17,7 @@ const colorMapOutputFolder = join(__dirname, '../', 'src', 'internal');
 const colorTokensDependencyPath = require.resolve(
   '../../tokens/src/artifacts/tokens-raw/atlassian-light',
 );
-const spacingTokensDependencyPath = require.resolve(
-  '../../tokens/src/artifacts/tokens-raw/atlassian-spacing',
-);
+
 const typographyTokensDependencyPath = require.resolve(
   '../../tokens/src/artifacts/tokens-raw/atlassian-typography',
 );
@@ -48,52 +43,24 @@ writeFile(
 
 // generate colors
 Promise.all(
-  [{ target: 'text.partial.tsx' }, { target: 'box.partial.tsx' }].map(
-    ({ target }) => {
-      const targetPath = join(__dirname, '../', 'src', 'components', target);
+  [{ target: 'text.partial.tsx' }].map(({ target }) => {
+    const targetPath = join(__dirname, '../', 'src', 'components', target);
 
-      const source = createPartialSignedArtifact(
-        (options) => options.map(createColorStylesFromTemplate).join('\n'),
-        'yarn codegen-styles',
-        {
-          id: 'colors',
-          absoluteFilePath: targetPath,
-          dependencies: [colorTokensDependencyPath],
-        },
-      );
-
-      return writeFile(targetPath, source).then(() =>
-        console.log(`${targetPath} written!`),
-      );
-    },
-  ),
-)
-  .then(() => {
-    // generate spacing values
-    return Promise.all(
-      [
-        { target: 'box.partial.tsx' },
-        { target: 'stack.partial.tsx' },
-        { target: 'inline.partial.tsx' },
-      ].map(({ target }) => {
-        const targetPath = join(__dirname, '../', 'src', 'components', target);
-
-        const source = createPartialSignedArtifact(
-          (options) => options.map(createSpacingStylesFromTemplate).join('\n'),
-          'yarn codegen-styles',
-          {
-            id: 'spacing',
-            absoluteFilePath: targetPath,
-            dependencies: [spacingTokensDependencyPath],
-          },
-        );
-
-        return writeFile(targetPath, source).then(() =>
-          console.log(`${targetPath} written!`),
-        );
-      }),
+    const source = createPartialSignedArtifact(
+      (options) => options.map(createColorStylesFromTemplate).join('\n'),
+      'yarn codegen-styles',
+      {
+        id: 'colors',
+        absoluteFilePath: targetPath,
+        dependencies: [colorTokensDependencyPath],
+      },
     );
-  })
+
+    return writeFile(targetPath, source).then(() =>
+      console.log(`${targetPath} written!`),
+    );
+  }),
+)
   .then(() => {
     // generate typography values
     return Promise.all(
@@ -118,24 +85,6 @@ Promise.all(
     );
   })
   .then(() => {
-    // generate other values
-    return Promise.all(
-      [{ target: 'box.partial.tsx' }].map(({ target }) => {
-        const targetPath = join(__dirname, '../', 'src', 'components', target);
-
-        const source = createPartialSignedArtifact(
-          (options) => options.map(createStylesFromTemplate).join('\n'),
-          'yarn codegen-styles',
-          { id: 'misc', absoluteFilePath: targetPath },
-        );
-
-        return writeFile(targetPath, source).then(() =>
-          console.log(`${targetPath} written!`),
-        );
-      }),
-    );
-  })
-  .then(() => {
     const targetPath = join(
       __dirname,
       '../',
@@ -151,28 +100,6 @@ Promise.all(
         id: 'interactions',
         absoluteFilePath: targetPath,
         dependencies: [colorTokensDependencyPath],
-      },
-    );
-
-    return writeFile(targetPath, source).then(() =>
-      console.log(`${targetPath} written!`),
-    );
-  })
-  .then(() => {
-    const targetPath = join(
-      __dirname,
-      '../',
-      'src',
-      'components',
-      'box.partial.tsx',
-    );
-
-    const source = createPartialSignedArtifact(
-      (options) => options.map(createDimensionStylesFromTemplate).join('\n'),
-      'yarn codegen-styles',
-      {
-        id: 'dimensions',
-        absoluteFilePath: targetPath,
       },
     );
 

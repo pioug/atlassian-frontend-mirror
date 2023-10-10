@@ -34,10 +34,12 @@ import { closestElement } from '../../../utils/dom';
 import type {
   FeatureFlags,
   ExtractInjectionAPI,
-  EditorCommandWithMetadata,
 } from '@atlaskit/editor-common/types';
 import type expandPlugin from '../index';
-import type { SelectionSharedState } from '@atlaskit/editor-common/selection';
+import type {
+  SelectionSharedState,
+  SetSelectionRelativeToNode,
+} from '@atlaskit/editor-common/selection';
 
 function buildExpandClassName(type: string, expanded: boolean) {
   return `${expandClassNames.prefix} ${expandClassNames.type(type)} ${
@@ -113,7 +115,7 @@ export class ExpandNodeView implements NodeView {
     getIntl: () => IntlShape,
     isMobile: boolean,
     featureFlags: FeatureFlags,
-    private selectNearNode: EditorCommandWithMetadata | undefined,
+    private selectNearNode: SetSelectionRelativeToNode | undefined,
     api: ExtractInjectionAPI<typeof expandPlugin> | undefined,
   ) {
     this.intl = getIntl();
@@ -170,9 +172,12 @@ export class ExpandNodeView implements NodeView {
     if (this.input) {
       const { state, dispatch } = this.view;
       if (this.selectNearNode) {
-        this.api?.core.actions.execute(
-          this.selectNearNode(RelativeSelectionPos.Start),
-        );
+        const tr = this.selectNearNode({
+          selectionRelativeToNode: RelativeSelectionPos.Start,
+        })(state);
+        if (dispatch) {
+          dispatch(tr);
+        }
       }
       const pos = this.getPos();
       if (typeof pos === 'number') {
@@ -416,14 +421,15 @@ export class ExpandNodeView implements NodeView {
     const { value, selectionStart, selectionEnd } = this.input;
     if (selectionStart === selectionEnd && selectionStart === value.length) {
       event.preventDefault();
-      const { state } = this.view;
+      const { state, dispatch } = this.view;
       this.view.focus();
-      this.api?.core.actions.execute(
-        this.selectNearNode(
-          RelativeSelectionPos.End,
-          NodeSelection.create(state.doc, pos),
-        ),
-      );
+      const tr = this.selectNearNode({
+        selectionRelativeToNode: RelativeSelectionPos.End,
+        selection: NodeSelection.create(state.doc, pos),
+      })(state);
+      if (dispatch) {
+        dispatch(tr);
+      }
     }
   };
 
@@ -438,26 +444,28 @@ export class ExpandNodeView implements NodeView {
     const { selectionStart, selectionEnd } = this.input;
     if (selectionStart === selectionEnd && selectionStart === 0) {
       event.preventDefault();
-      const { state } = this.view;
+      const { state, dispatch } = this.view;
       this.view.focus();
       const selectionSharedState: SelectionSharedState =
-        this.api?.selection.sharedState.currentState() || {};
+        this.api?.selection?.sharedState.currentState() || {};
       // selectionRelativeToNode is undefined when user clicked to select node, then hit left to get focus in title
       // This is a special case where we want to bypass node selection and jump straight to gap cursor
       if (selectionSharedState?.selectionRelativeToNode === undefined) {
-        this.api?.core.actions.execute(
-          this.selectNearNode(
-            undefined,
-            new GapCursorSelection(state.doc.resolve(pos), Side.LEFT),
-          ),
-        );
+        const tr = this.selectNearNode({
+          selectionRelativeToNode: undefined,
+          selection: new GapCursorSelection(state.doc.resolve(pos), Side.LEFT),
+        })(state);
+        if (dispatch) {
+          dispatch(tr);
+        }
       } else {
-        this.api?.core.actions.execute(
-          this.selectNearNode(
-            RelativeSelectionPos.Start,
-            NodeSelection.create(state.doc, pos),
-          ),
-        );
+        const tr = this.selectNearNode({
+          selectionRelativeToNode: RelativeSelectionPos.Start,
+          selection: NodeSelection.create(state.doc, pos),
+        })(state);
+        if (dispatch) {
+          dispatch(tr);
+        }
       }
     }
   };
@@ -568,7 +576,7 @@ export default function ({
       getIntl,
       isMobile,
       featureFlags,
-      api?.selection.commands.selectNearNode,
+      api?.selection?.actions?.selectNearNode,
       api,
     );
 }

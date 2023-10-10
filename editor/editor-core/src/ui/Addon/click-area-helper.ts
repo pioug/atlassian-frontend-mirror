@@ -1,10 +1,7 @@
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { closestElement } from '../../utils/dom';
-import {
-  setSelectionTopLevelBlocks,
-  hasGapCursorPlugin,
-} from '../../plugins/selection/gap-cursor-selection';
-import { addParagraphAtEnd } from '../../commands';
+import { closestElement } from '@atlaskit/editor-common/utils';
+import { setSelectionTopLevelBlocks } from '@atlaskit/editor-common/selection';
+import { addParagraphAtEnd } from '@atlaskit/editor-common/commands';
 
 // we ignore all of the clicks made inside <div class="ak-editor-content-area" /> (but not clicks on the node itself)
 const insideContentArea = (ref: HTMLElement | null): boolean => {
@@ -154,15 +151,13 @@ const outsideProsemirrorEditorClickHandler = (
     addParagraphAtEnd(tr);
   }
 
-  if (hasGapCursorPlugin(state)) {
-    setSelectionTopLevelBlocks(
-      tr,
-      event,
-      dom as HTMLElement,
-      view.posAtCoords.bind(view),
-      isEditorFocused,
-    );
-  }
+  setSelectionTopLevelBlocks(
+    tr,
+    event,
+    dom as HTMLElement,
+    view.posAtCoords.bind(view),
+    isEditorFocused,
+  );
 
   if (!tr.docChanged && !tr.selectionSet) {
     return;

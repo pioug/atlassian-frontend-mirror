@@ -20,8 +20,9 @@ import { ErroredView as BlockCardErroredView } from './views/ErroredView';
 import FlexibleResolvedView from './views/flexible/FlexibleResolvedView';
 import FlexibleUnauthorisedView from './views/flexible/FlexibleUnauthorisedView';
 import FlexibleNotFoundView from './views/flexible/FlexibleNotFoundView';
-import FlexibleErroredView from './views/flexible/FlexibleErroredView';
 import FlexibleForbiddenView from './views/flexible/FlexibleForbiddenView';
+import FlexibleForbiddenViewOld from './views/flexible/FlexibleForbiddenViewOld';
+import FlexibleErroredView from './views/flexible/FlexibleErroredView';
 import { jsx } from '@emotion/react';
 import { handleClickCommon } from './utils/handlers';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
@@ -125,8 +126,15 @@ export const BlockCard: FC<BlockCardProps> = ({
           />
         );
       case 'forbidden':
-        return (
+        return getBooleanFF(
+          'platform.linking-platform.smart-card.cross-join',
+        ) ? (
           <FlexibleForbiddenView
+            {...flexibleBlockCardProps}
+            onAuthorize={handleAuthorize}
+          />
+        ) : (
+          <FlexibleForbiddenViewOld
             {...flexibleBlockCardProps}
             onAuthorize={handleAuthorize}
           />

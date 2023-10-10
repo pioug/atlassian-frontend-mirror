@@ -38,6 +38,8 @@ export {
   isLastItemMediaGroup,
   setNodeSelection,
   setTextSelection,
+  setAllSelection,
+  setCellSelection,
   nonNullable,
   stepAddsOneOf,
   stepHasSlice,

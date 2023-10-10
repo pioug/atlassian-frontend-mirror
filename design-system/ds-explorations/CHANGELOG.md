@@ -1,5 +1,11 @@
 # @atlaskit/ds-explorations
 
+## 3.0.0
+
+### Major Changes
+
+- [#41301](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41301) [`5f80fdb81a0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f80fdb81a0) - Remove Box, Inline, Stack components. These components are deprecated in favour of @atlaskit/primitives.
+
 ## 2.4.0
 
 ### Minor Changes

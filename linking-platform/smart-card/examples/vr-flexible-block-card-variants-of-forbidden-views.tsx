@@ -18,6 +18,11 @@ const getMetadata = (accessType?: string) => {
   };
 };
 
+/**
+ * @private
+ * @deprecated {@link https://product-fabric.atlassian.net/browse/EDM-7977 Internal documentation for deprecation (no external access)}\
+ * @deprecated Replaced by test of same name in ../vr-block-card/vr-flexible-block-card-variants-of-forbidden-views.tsx
+ */
 export default () => {
   const mockAnalytics = {} as AnalyticsFacade;
   return (

@@ -1,6 +1,8 @@
 // this isn't implemented by JSDOM so we've implemented it to make Typescript happy
 // see https://github.com/tmpvar/jsdom/issues/1568
-export class ClipboardMockFile implements File {
+// TODO: remove this `Omit` usage once TS fixes File class regression.
+// https://github.com/microsoft/TypeScript/issues/52166
+export class ClipboardMockFile implements Omit<File, 'constructor'> {
   readonly size: number;
   readonly type: string;
   readonly lastModified: number = 1234;
@@ -12,6 +14,10 @@ export class ClipboardMockFile implements File {
   slice(): Blob {
     throw new Error('not implemented');
   }
+  // TODO: remove this property once TS fixes File class regression.
+  // https://github.com/microsoft/TypeScript/issues/52166
+  prototype = File.prototype;
+
   constructor(
     options: { type: string; name: string } = {
       type: '',
@@ -26,8 +32,7 @@ export class ClipboardMockFile implements File {
   arrayBuffer() {
     return Promise.resolve(new ArrayBuffer(0));
   }
-
-  // @ts-expect-error Property 'stream' in type 'ClipboardMockFile' is not assignable to the same property in base type 'File'.
+  // @ts-ignore: https://github.com/microsoft/TypeScript/issues/52166
   stream() {
     // IE11 compat
     // eslint-disable-next-line compat/compat

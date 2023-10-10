@@ -1,13 +1,18 @@
-import { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
-import { AddCellArgs } from '../../interfaces';
+import type {
+  Mark,
+  Node as PMNode,
+  Schema,
+} from '@atlaskit/editor-prosemirror/model';
+import type { AddCellArgs } from '../../interfaces';
 import { TableBuilder } from '../builder/table-builder';
 import { parseString } from '../text';
 import { normalizePMNodes } from '../utils/normalize';
 import { linkFormat } from './links/link-format';
 import { media } from './media';
 import { emoji } from './emoji';
-import { TokenType, TokenParser } from './';
-import { Context } from '../../interfaces';
+import type { TokenParser } from './';
+import { TokenType } from './';
+import type { Context } from '../../interfaces';
 import { parseNewlineOnly } from './whitespace';
 import { parseMacroKeyword } from './keyword';
 import { parseToken } from './';
@@ -325,46 +330,34 @@ function bufferToCells(
   }
 }
 
-function createTableHeader(pmNode: PMNode, schema: Schema): PMNode {
+function createTableHeader(node: PMNode, schema: Schema): PMNode {
   const mark = schema.marks.strong.create();
-  if (
-    pmNode.type.name === 'text' &&
-    !hasAnyOfMarks(pmNode, ['strong', 'code'])
-  ) {
-    return pmNode.mark([...pmNode.marks, mark]);
-  } else if (
-    pmNode.childCount > 0 &&
-    pmNode.firstChild &&
-    pmNode.child(0) &&
-    pmNode.type.name !== 'codeBlock'
-  ) {
-    const jsonNode = traverseJsonNodeAndAddMarks(
-      pmNode.toJSON(),
-      'strong',
-      schema,
-    );
-    pmNode = PMNode.fromJSON(schema, jsonNode);
-    return pmNode;
-  }
-  return pmNode;
+  return traverseNodeAndAddMarks(node, mark, schema);
 }
 
-function traverseJsonNodeAndAddMarks(node: any, mark: string, schema: Schema) {
-  if (node.type === 'text') {
-    if (
-      node.marks &&
-      node.marks.find(
-        ({ type }: { type: String }) => type === 'strong' || type === 'code',
-      )
-    ) {
-      return node;
-    }
-    node.marks = node.marks
-      ? [...node.marks, { type: mark }]
-      : [{ type: mark }];
+function traverseContent(node: PMNode, mark: Mark, schema: Schema): any {
+  if (
+    node.content.childCount === 0 ||
+    !node.content.child(0) ||
+    !node.content.firstChild ||
+    node.type.name === 'codeBlock'
+  ) {
+    return node;
   }
-  if (node.content && Array.isArray(node.content)) {
-    node.content.map((e: any) => traverseJsonNodeAndAddMarks(e, mark, schema));
+
+  for (let i = 0; i < node.content.childCount; i++) {
+    const child = node.content.child(i);
+    const markedChild = traverseNodeAndAddMarks(child, mark, schema);
+    const updatedContent = node.content.replaceChild(i, markedChild);
+    node = node.copy(updatedContent);
   }
   return node;
+}
+
+function traverseNodeAndAddMarks(node: PMNode, mark: Mark, schema: Schema) {
+  if (node.type.name === 'text' && !hasAnyOfMarks(node, ['strong', 'code'])) {
+    const newNode = node.mark([...node.marks, mark]);
+    return newNode;
+  }
+  return traverseContent(node, mark, schema);
 }

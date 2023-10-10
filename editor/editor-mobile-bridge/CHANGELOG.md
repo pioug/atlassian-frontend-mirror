@@ -1,5 +1,42 @@
 # @atlaskit/editor-mobile-bridge
 
+## 188.5.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 188.5.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 188.5.0
+
+### Patch Changes
+
+- [#41289](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41289) [`805e20742e7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/805e20742e7) - Decouple Date Plugin
+- Updated dependencies
+
+## 188.4.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 188.4.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 188.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 188.4.0
 
 ### Patch Changes

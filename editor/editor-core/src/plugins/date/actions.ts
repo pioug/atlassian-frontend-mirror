@@ -5,20 +5,22 @@ import type {
 import { NodeSelection, Selection } from '@atlaskit/editor-prosemirror/state';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import { todayTimestampInUTC } from '@atlaskit/editor-common/utils';
-import type { Command, CommandDispatch } from '../../types';
-import type { DateType } from './types';
-import type { TOOLBAR_MENU_TYPE } from '../insert-block/ui/ToolbarInsertBlock/types';
+import type { DatePlugin, DateType } from './types';
+import type {
+  TOOLBAR_MENU_TYPE,
+  Command,
+  CommandDispatch,
+  ExtractInjectionAPI,
+} from '@atlaskit/editor-common/types';
 import { pluginKey } from './pm-plugins/plugin-key';
 
 import {
-  withAnalytics,
-  addAnalytics,
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
   INPUT_METHOD,
-} from '../analytics';
+} from '@atlaskit/editor-common/analytics';
 import { isToday } from './utils/internal';
 import type { DatePluginState } from './pm-plugins/types';
 import { canInsert } from '@atlaskit/editor-prosemirror/utils';
@@ -83,13 +85,16 @@ export const focusDateInput =
     return true;
   };
 
-export const insertDate =
-  (
-    date?: DateType,
-    inputMethod?: TOOLBAR_MENU_TYPE,
-    commitMethod?: INPUT_METHOD.PICKER | INPUT_METHOD.KEYBOARD,
-    enterPressed: boolean = true,
-  ): Command =>
+type InsertDate = (
+  date?: DateType,
+  inputMethod?: TOOLBAR_MENU_TYPE,
+  commitMethod?: INPUT_METHOD.PICKER | INPUT_METHOD.KEYBOARD,
+  enterPressed?: boolean,
+  pluginInjectionApi?: ExtractInjectionAPI<DatePlugin>,
+) => Command;
+
+export const insertDate: InsertDate =
+  (date, inputMethod, commitMethod, enterPressed = true, pluginInjectionApi) =>
   (state, dispatch) => {
     const { schema } = state;
     let timestamp: string;
@@ -101,17 +106,17 @@ export const insertDate =
 
     let tr = state.tr;
     if (inputMethod) {
-      addAnalytics(state, tr, {
+      pluginInjectionApi?.analytics?.actions?.attachAnalyticsEvent({
         action: ACTION.INSERTED,
         actionSubject: ACTION_SUBJECT.DOCUMENT,
         actionSubjectId: ACTION_SUBJECT_ID.DATE,
         eventType: EVENT_TYPE.TRACK,
         attributes: { inputMethod },
-      });
+      })(tr);
     }
 
     if (commitMethod) {
-      addAnalytics(state, tr, {
+      pluginInjectionApi?.analytics?.actions?.attachAnalyticsEvent({
         eventType: EVENT_TYPE.TRACK,
         action: ACTION.COMMITTED,
         actionSubject: ACTION_SUBJECT.DATE,
@@ -120,7 +125,7 @@ export const insertDate =
           isValid: date !== undefined,
           isToday: isToday(date),
         },
-      });
+      })(tr);
     }
 
     const { showDatePickerAt } = pluginKey.getState(state) || {};
@@ -216,10 +221,12 @@ export const closeDatePicker =
 
 export const closeDatePickerWithAnalytics = ({
   date,
+  pluginInjectionApi,
 }: {
   date?: DateType;
-}): Command =>
-  withAnalytics({
+  pluginInjectionApi?: ExtractInjectionAPI<DatePlugin>;
+}): Command => {
+  pluginInjectionApi?.analytics?.actions?.attachAnalyticsEvent({
     eventType: EVENT_TYPE.TRACK,
     action: ACTION.COMMITTED,
     actionSubject: ACTION_SUBJECT.DATE,
@@ -228,7 +235,9 @@ export const closeDatePickerWithAnalytics = ({
       isValid: date !== undefined,
       isToday: isToday(date),
     },
-  })(closeDatePicker());
+  });
+  return closeDatePicker();
+};
 
 export const openDatePicker = (): Command => (state, dispatch) => {
   const { $from } = state.selection;

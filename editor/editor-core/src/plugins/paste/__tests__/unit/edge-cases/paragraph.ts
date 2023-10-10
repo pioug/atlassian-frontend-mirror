@@ -50,7 +50,7 @@ import { textFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import layoutPlugin from '../../../../layout';
 import panelPlugin from '../../../../panel';
-import selectionPlugin from '../../../../selection';
+import { selectionPlugin } from '@atlaskit/editor-plugin-selection';
 import { copyButtonPlugin } from '@atlaskit/editor-plugin-copy-button';
 import { floatingToolbarPlugin } from '@atlaskit/editor-plugin-floating-toolbar';
 import betterTypeHistoryPlugin from '../../../../better-type-history';

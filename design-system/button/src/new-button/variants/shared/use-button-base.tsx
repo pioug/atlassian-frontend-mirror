@@ -20,7 +20,7 @@ import { Box, xcss } from '@atlaskit/primitives';
 import { type CommonButtonProps } from '../types';
 
 import blockEvents from './block-events';
-import { getXCSS, overlayStyles } from './xcss';
+import { getXCSS } from './xcss';
 
 export type ControlledEvents<TagName extends HTMLElement> = Pick<
   React.DOMAttributes<TagName>,
@@ -73,6 +73,17 @@ export type UseButtonBaseReturn<TagName extends HTMLElement> = {
   children: React.ReactNode;
   isDisabled: boolean;
 } & ControlledEvents<TagName>;
+
+const overlayStyles = xcss({
+  position: 'absolute',
+  insetInlineStart: 'space.0',
+  insetBlockStart: 'space.0',
+  insetInlineEnd: 'space.0',
+  insetBlockEnd: 'space.0',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+});
 
 /**
  * __Use button base__

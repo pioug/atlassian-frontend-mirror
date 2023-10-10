@@ -25,12 +25,13 @@ export interface SelectionPluginState {
    */
   selectionRelativeToNode?: RelativeSelectionPos;
 }
+export type SetSelectionRelativeToNode = (props: {
+  selectionRelativeToNode?: RelativeSelectionPos;
+  selection?: Selection | null;
+}) => (state: EditorState) => Transaction;
 
 export type EditorSelectionAPI = {
-  setSelectionRelativeToNode: (props: {
-    selectionRelativeToNode?: RelativeSelectionPos;
-    selection?: Selection | null;
-  }) => (state: EditorState) => Transaction;
+  setSelectionRelativeToNode: SetSelectionRelativeToNode;
   getSelectionPluginState: (state: EditorState) => SelectionPluginState;
 };
 

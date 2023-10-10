@@ -10,9 +10,9 @@ import {
   undo,
 } from '@atlaskit/editor-common/keymaps';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { EditorSelectionAPI } from '@atlaskit/editor-common/selection';
 import { GapCursorSelection, Side } from '@atlaskit/editor-common/selection';
 import type { Command } from '@atlaskit/editor-common/types';
+import type { EditorSelectionAPI } from '@atlaskit/editor-plugin-selection';
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { getMediaFeatureFlag } from '@atlaskit/media-common';
@@ -29,6 +29,7 @@ import type { MediaPluginState } from './types';
 export function keymapPlugin(
   options: MediaOptions | undefined,
   editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+  editorSelectionAPI: EditorSelectionAPI | undefined,
 ): SafePlugin {
   const list = {};
   const { featureFlags } = options || {};
@@ -50,12 +51,12 @@ export function keymapPlugin(
 
     bindKeymapWithCommand(
       moveLeft.common!,
-      arrowLeftFromMediaSingle(options?.editorSelectionAPI),
+      arrowLeftFromMediaSingle(editorSelectionAPI),
       list,
     );
     bindKeymapWithCommand(
       moveRight.common!,
-      arrowRightFromMediaSingle(options?.editorSelectionAPI),
+      arrowRightFromMediaSingle(editorSelectionAPI),
       list,
     );
   }
@@ -110,7 +111,7 @@ const arrowLeftFromMediaSingle =
       selection instanceof NodeSelection &&
       selection.node.type.name === 'mediaSingle'
     ) {
-      const tr = editorSelectionAPI.setSelectionRelativeToNode({
+      const tr = editorSelectionAPI.selectNearNode({
         selectionRelativeToNode: undefined,
         selection: new GapCursorSelection(
           state.doc.resolve(selection.from),
@@ -136,7 +137,7 @@ const arrowRightFromMediaSingle =
       selection instanceof NodeSelection &&
       selection.node.type.name === 'mediaSingle'
     ) {
-      const tr = editorSelectionAPI.setSelectionRelativeToNode({
+      const tr = editorSelectionAPI.selectNearNode({
         selectionRelativeToNode: undefined,
         selection: new GapCursorSelection(
           state.doc.resolve(selection.to),

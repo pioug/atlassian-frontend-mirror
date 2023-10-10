@@ -13,14 +13,18 @@ import {
 } from '../../../../ui/Addon/click-area-helper';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { GapCursorSelection, Side } from '@atlaskit/editor-common/selection';
-import * as commands from '../../../../commands';
-import * as actions from '../../../../../src/plugins/selection/gap-cursor/actions'; // TO-DO: update with editor-plugin-selection when ready
+import * as commands from '@atlaskit/editor-common/commands';
+import * as selectionUtils from '@atlaskit/editor-common/selection';
 
 import Modal from '@atlaskit/modal-dialog';
 
-jest.mock('../../../../commands', () => ({
+jest.mock('@atlaskit/editor-common/selection', () => ({
   __esModule: true,
-  ...jest.requireActual<Object>('../../../../commands'),
+  ...jest.requireActual<Object>('@atlaskit/editor-common/selection'),
+}));
+jest.mock('@atlaskit/editor-common/commands', () => ({
+  __esModule: true,
+  ...jest.requireActual<Object>('@atlaskit/editor-common/commands'),
 }));
 jest.mock('@atlaskit/editor-common/utils', () => ({
   ...jest.requireActual<Object>('@atlaskit/editor-common/utils'),
@@ -100,7 +104,7 @@ describe('Editor click area handler', () => {
         addParagraphAtEndMock = jest.spyOn(commands, 'addParagraphAtEnd');
         addParagraphAtEndMock.mockImplementation(() => {});
         setSelectionTopLevelBlockMock = jest.spyOn(
-          actions,
+          selectionUtils,
           'setSelectionTopLevelBlocks',
         );
         setSelectionTopLevelBlockMock.mockImplementation(() => {});

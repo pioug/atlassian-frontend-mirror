@@ -27,6 +27,7 @@ export type {
   EditorSelectionAPI,
   SelectionPluginOptions,
   SelectionSharedState,
+  SetSelectionRelativeToNode,
 } from './types';
 
 export {
@@ -36,8 +37,14 @@ export {
   GapBookmark,
 } from './gap-cursor/selection';
 
+export {
+  setSelectionTopLevelBlocks,
+  setGapCursorAtPos,
+} from './gap-cursor/actions';
+
 export { isIgnored, isValidTargetNode } from './gap-cursor/utils';
 export { setGapCursorSelection } from './gap-cursor/utils/setGapCursorSelection';
+export { hideCaretModifier, gapCursorStyles } from './gap-cursor/styles';
 
 export {
   atTheBeginningOfBlock,

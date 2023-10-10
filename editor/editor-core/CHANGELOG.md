@@ -1,5 +1,22 @@
 # @atlaskit/editor-core
 
+## 188.5.2
+
+### Patch Changes
+
+- [#40750](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40750) [`fc19a7b9edd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fc19a7b9edd) - [ED-19875] Extraction of Editor Core's Selection Plugin into independent package '@atlaskit/editor-plugin-selection'.
+- Updated dependencies
+
+## 188.5.0
+
+### Minor Changes
+
+- [#41289](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41289) [`805e20742e7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/805e20742e7) - Decouple Date Plugin
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 188.4.0
 
 ### Minor Changes

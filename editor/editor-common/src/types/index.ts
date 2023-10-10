@@ -218,6 +218,8 @@ export type {
   InputRuleWrapper,
 } from './input-rules';
 
+export type { TOOLBAR_MENU_TYPE } from './insert-block';
+
 export type {
   TextFormattingOptions,
   TextFormattingState,

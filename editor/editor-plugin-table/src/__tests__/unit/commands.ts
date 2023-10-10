@@ -3,13 +3,13 @@ import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import type { DocBuilder } from '@atlaskit/editor-common/types';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import selectionPlugin from '@atlaskit/editor-core/src/plugins/selection';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
+import { selectionPlugin } from '@atlaskit/editor-plugin-selection';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
@@ -327,6 +327,7 @@ describe('table plugin: actions', () => {
     const editorAnalyticsAPIFake: EditorAnalyticsAPI = {
       attachAnalyticsEvent: jest.fn().mockReturnValue(() => jest.fn()),
     };
+
     describe('when the entire table is selected', () => {
       it('should remove the table', () => {
         const { editorView, refs } = editor(

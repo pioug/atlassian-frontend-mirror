@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 10.11.1
+
+### Patch Changes
+
+- [#41252](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41252) [`8aa48820027`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8aa48820027) - Support aria-activedescendant on select input
+
 ## 10.11.0
 
 ### Minor Changes

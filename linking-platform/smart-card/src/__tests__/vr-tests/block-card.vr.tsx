@@ -10,6 +10,7 @@ import BlockCardResolvedConfluencePage from '../../../examples/vr-block-card/vr-
 import BlockCardResolvedTrelloWithImagePreview from '../../../examples/vr-block-card/vr-block-card-resolved-trello-image-preview';
 import BlockCardResolvedAtlas from '../../../examples/vr-block-card/vr-block-card-resolved-atlas';
 import BlockCardResolvedBitbucket from '../../../examples/vr-block-card/vr-block-card-resolved-bitbucket';
+import BlockCardForbiddenViews from '../../../examples/vr-block-card/vr-flexible-block-card-variants-of-forbidden-views';
 
 snapshot(BlockCardError);
 snapshot(BlockCardForbidden);
@@ -37,6 +38,14 @@ snapshot(BlockCardForbidden, {
   featureFlags: {
     'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
       true,
+  },
+});
+snapshot(BlockCardForbidden, {
+  description: 'cross join refreshed block card forbidden view',
+  featureFlags: {
+    'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
+      true,
+    'platform.linking-platform.smart-card.cross-join': true,
   },
 });
 snapshot(BlockCardNotFound, {
@@ -102,5 +111,15 @@ snapshot(BlockCardResolvedBitbucket, {
     'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
       true,
     'platform.linking-platform.smart-card.enable-better-metadata_iojwg': true,
+  },
+});
+
+snapshot(BlockCardForbiddenViews, {
+  description: 'cross join updated block card forbidden views ',
+  featureFlags: {
+    'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
+      true,
+    'platform.linking-platform.smart-card.enable-better-metadata_iojwg': true,
+    'platform.linking-platform.smart-card.cross-join': true,
   },
 });

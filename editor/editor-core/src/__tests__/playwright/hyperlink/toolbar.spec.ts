@@ -4,6 +4,8 @@ import {
   EditorFloatingToolbarModel,
   EditorHyperlinkModel,
   expect,
+  EditorTypeAheadModel,
+  EditorLinkPickerModel,
 } from '@af/editor-libra';
 import { basicHyperlinkAdf } from './__fixtures__/basic-hyperlink-adf';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
@@ -329,6 +331,37 @@ test.describe('toolbar', () => {
       const isToolbarVisibleBeforeEscape = floatingToolbarModel.isVisible();
 
       expect(await isToolbarVisibleBeforeEscape).toBeTruthy();
+    });
+    test('the url field of the link picker is autofocused when opened via typeahead', async ({
+      editor,
+    }) => {
+      const nodes = EditorNodeContainerModel.from(editor);
+      const typeaheadModel = EditorTypeAheadModel.from(editor);
+      const link = nodes.link.first();
+
+      const hyperlinkModel = EditorHyperlinkModel.from(link);
+      const floatingToolbarModel = EditorFloatingToolbarModel.from(
+        editor,
+        hyperlinkModel,
+      );
+      const linkPickerModel = EditorLinkPickerModel.from(floatingToolbarModel);
+
+      const checkUrlFieldAutoFocus = async () => {
+        // Open link picker via typeahead
+        await typeaheadModel.searchAndInsert('link');
+        await linkPickerModel.waitForUrlFieldToBeFocused();
+        await expect(linkPickerModel.isUrlFieldFocused()).resolves.toBe(true);
+      };
+
+      await test.step('First check', checkUrlFieldAutoFocus);
+
+      // Close link picker
+      await editor.keyboard.press('Escape');
+
+      await test.step(
+        'Second check (repeated to ensure lazy-loaded assets have not affected test)',
+        checkUrlFieldAutoFocus,
+      );
     });
   });
 });

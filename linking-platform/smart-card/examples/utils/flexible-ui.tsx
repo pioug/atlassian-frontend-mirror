@@ -38,17 +38,19 @@ export const getJsonLdResponse = (url: string, meta = {}, data = {}) =>
     },
   } as JsonLd.Response);
 
+export interface GetCardStateProps {
+  data?: any;
+  meta?: Partial<JsonLd.Meta.BaseMeta>;
+  datasources?: DatasourceResolveResponse[];
+  status?: CardType;
+}
+
 export const getCardState = ({
   data = {},
   meta = {},
   datasources = undefined,
   status = 'resolved' as CardType,
-}: {
-  data?: any;
-  meta?: Partial<JsonLd.Meta.BaseMeta>;
-  datasources?: DatasourceResolveResponse[];
-  status?: CardType;
-} = {}): CardState => ({
+}: GetCardStateProps = {}): CardState => ({
   status,
   details: {
     ...getJsonLdResponse('link-url', meta, {

@@ -68,7 +68,7 @@ import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import expandPlugin from '../../../expand';
 import layoutPlugin from '../../../layout';
 import panelPlugin from '../../../panel';
-import selectionPlugin from '../../../selection';
+import { selectionPlugin } from '@atlaskit/editor-plugin-selection';
 import { emojiPlugin } from '@atlaskit/editor-plugin-emoji';
 import { blockTypePlugin } from '@atlaskit/editor-plugin-block-type';
 import { captionPlugin } from '@atlaskit/editor-plugin-caption';
@@ -2125,6 +2125,7 @@ describe('handlePasteIntoCaption', () => {
         .add(copyButtonPlugin)
         .add(floatingToolbarPlugin)
         .add(focusPlugin)
+        .add(selectionPlugin)
         .add([mediaPlugin, { allowMediaSingle: true, allowCaptions: true }]);
 
       return createEditor({

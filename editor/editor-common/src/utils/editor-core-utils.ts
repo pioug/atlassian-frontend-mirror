@@ -1,24 +1,28 @@
-import {
+import type {
   Mark,
   MarkType,
   Node,
   NodeType,
   Slice,
 } from '@atlaskit/editor-prosemirror/model';
-import {
+import type {
   EditorState,
-  NodeSelection,
   Selection,
-  TextSelection,
   Transaction,
 } from '@atlaskit/editor-prosemirror/state';
 import {
+  AllSelection,
+  NodeSelection,
+  TextSelection,
+} from '@atlaskit/editor-prosemirror/state';
+import type { Step } from '@atlaskit/editor-prosemirror/transform';
+import {
   ReplaceAroundStep,
   ReplaceStep,
-  Step,
 } from '@atlaskit/editor-prosemirror/transform';
 import { hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 
 import { closest } from './dom';
 
@@ -105,6 +109,23 @@ export function setTextSelection(
     TextSelection.create(state.doc, anchor, head),
   );
   dispatch(tr);
+}
+
+export function setAllSelection(view: EditorView) {
+  const { state, dispatch } = view;
+  const tr = state.tr.setSelection(new AllSelection(view.state.doc));
+  dispatch(tr);
+}
+
+export function setCellSelection(
+  view: EditorView,
+  anchor: number,
+  head?: number,
+) {
+  const { state, dispatch } = view;
+  dispatch(
+    state.tr.setSelection(CellSelection.create(state.doc, anchor, head) as any),
+  );
 }
 
 export function nonNullable<T>(value: T): value is NonNullable<T> {

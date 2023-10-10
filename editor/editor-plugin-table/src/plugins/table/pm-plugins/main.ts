@@ -191,7 +191,13 @@ export const createPlugin = (
 
       if (tr) {
         // "fixTables" removes empty rows as we don't allow that in schema
-        const updatedTr = handleCut(tr, oldState, newState, editorAnalyticsAPI);
+        const updatedTr = handleCut(
+          tr,
+          oldState,
+          newState,
+          editorAnalyticsAPI,
+          editorViewRef || undefined,
+        );
         return fixTables(updatedTr) || updatedTr;
       }
       if (transactions.find((tr) => tr.docChanged)) {

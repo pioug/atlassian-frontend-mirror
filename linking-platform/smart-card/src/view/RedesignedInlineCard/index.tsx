@@ -4,6 +4,7 @@ import { getEmptyJsonLd, getForbiddenJsonLd } from '../../utils/jsonld';
 import { extractInlineProps } from '../../extractors/inline';
 import { JsonLd } from 'json-ld-types';
 import { extractRequestAccessContext } from '../../extractors/common/context';
+import { extractRequestAccessContextImproved } from '../../extractors/common/context/extractAccessContext';
 import { CardLinkView } from '../LinkView';
 import { InlineCardErroredView } from './ErroredView';
 import { InlineCardForbiddenView } from './ForbiddenView';
@@ -13,6 +14,7 @@ import { InlineCardUnauthorizedView } from './UnauthorisedView';
 import { extractProvider } from '@atlaskit/link-extractors';
 import { useFeatureFlag } from '@atlaskit/link-provider';
 import { getExtensionKey } from '../../state/helpers';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 export {
   InlineCardResolvedView,
@@ -117,11 +119,20 @@ export const InlineCard: FC<InlineCardProps> = ({
         cardDetails as JsonLd.Data.BaseData,
       );
       const cardMetadata = details?.meta ?? getForbiddenJsonLd().meta;
-      const requestAccessContext = extractRequestAccessContext({
-        jsonLd: cardMetadata,
-        url,
-        context: providerForbidden?.text,
-      });
+      const requestAccessContext = getBooleanFF(
+        'platform.linking-platform.smart-card.cross-join',
+      )
+        ? extractRequestAccessContextImproved({
+            jsonLd: cardMetadata,
+            url,
+            product: providerForbidden?.text ?? '',
+          })
+        : extractRequestAccessContext({
+            jsonLd: cardMetadata,
+            url,
+            context: providerForbidden?.text,
+          });
+
       return (
         <InlineCardForbiddenView
           url={url}

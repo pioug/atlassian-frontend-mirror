@@ -1,5 +1,4 @@
 import { easeOut } from '@atlaskit/motion/curves';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import type { DrawerWidth, FocusLockSettings } from './components/types';
 
@@ -19,8 +18,5 @@ export const animationTimingFunction = () => easeOut;
 export const defaultFocusLockSettings: FocusLockSettings = {
   isFocusLockEnabled: true,
   shouldReturnFocus: true,
-  autoFocusFirstElem:
-    getBooleanFF(
-      'platform.design-system-team.drawer-screen-reader-focus-trap-refactor_hfuxc',
-    ) || false,
+  autoFocusFirstElem: true,
 };

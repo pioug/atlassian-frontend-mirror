@@ -1,9 +1,10 @@
 import React from 'react';
 
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
-import { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
+import { DatasourceErrorBoundary } from '../../datasourceErrorBoundary';
 import type { cardPlugin } from '../../plugin';
 
 import { DatasourceModal } from './index';
@@ -22,10 +23,12 @@ const ModalWithState = ({
   }
 
   return (
-    <DatasourceModal
-      view={editorView}
-      modalType={cardState?.datasourceModalType}
-    />
+    <DatasourceErrorBoundary view={editorView}>
+      <DatasourceModal
+        view={editorView}
+        modalType={cardState?.datasourceModalType}
+      />
+    </DatasourceErrorBoundary>
   );
 };
 

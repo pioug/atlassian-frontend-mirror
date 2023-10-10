@@ -25,8 +25,10 @@ export const useFocusManager = ({
 
     const focusTrap = createFocusTrap(popupRef, trapConfig);
 
+    let frameId: number | null = null;
+
     // wait for the popup to reposition itself before we focus
-    let frameId: number | null = requestAnimationFrame(() => {
+    frameId = requestAnimationFrame(() => {
       frameId = null;
       focusTrap.activate();
     });

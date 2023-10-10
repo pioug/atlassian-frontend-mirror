@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/drawer",
-  "version": "7.6.1",
+  "version": "7.6.2",
   "description": "A drawer is a panel that slides in from the left side of the screen.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -37,7 +37,6 @@
     "@atlaskit/blanket": "^12.4.0",
     "@atlaskit/icon": "^21.12.0",
     "@atlaskit/motion": "^1.5.0",
-    "@atlaskit/platform-feature-flags": "^0.2.0",
     "@atlaskit/portal": "^4.3.0",
     "@atlaskit/theme": "^12.6.0",
     "@atlaskit/tokens": "^1.25.0",
@@ -62,7 +61,6 @@
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
-    "@atlassian/feature-flags-test-utils": "*",
     "@testing-library/react": "^12.1.5",
     "@testing-library/user-event": "^14.4.3",
     "lodash": "^4.17.21",
@@ -93,10 +91,5 @@
       ]
     }
   },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
-  "platform-feature-flags": {
-    "platform.design-system-team.drawer-screen-reader-focus-trap-refactor_hfuxc": {
-      "type": "boolean"
-    }
-  }
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
 }

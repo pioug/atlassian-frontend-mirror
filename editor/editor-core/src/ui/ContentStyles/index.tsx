@@ -39,7 +39,6 @@ import { MentionSharedCssClassName } from '@atlaskit/editor-common/mention';
 import { token } from '@atlaskit/tokens';
 
 import { telepointerStyle } from '../../plugins/collab-edit/styles';
-import { gapCursorStyles } from '../../plugins/selection/gap-cursor/styles';
 import { tableStyles } from '@atlaskit/editor-plugin-table/ui/common-styles';
 import { blocktypeStyles } from '@atlaskit/editor-plugin-block-type/styles';
 import { codeBlockStyles } from '../../plugins/code-block/styles';
@@ -54,7 +53,7 @@ import { MediaSharedClassNames } from '@atlaskit/editor-common/styles';
 import { findReplaceStyles } from '../../plugins/find-replace/styles';
 import { taskDecisionStyles } from '../../plugins/tasks-and-decisions/styles';
 import { statusStyles } from '../../plugins/status/styles';
-import { dateStyles } from '../../plugins/date/styles';
+import { dateStyles } from './date';
 import type { FeatureFlags } from '../../types/feature-flags';
 import { InlineNodeViewSharedStyles } from '../../nodeviews/getInlineNodeViewProducer.styles';
 import {
@@ -66,6 +65,7 @@ import { browser } from '@atlaskit/editor-common/utils';
 import { EmojiSharedCssClassName } from '@atlaskit/editor-common/emoji';
 
 import { N500, N30A, N200 } from '@atlaskit/theme/colors';
+import { gapCursorStyles } from '@atlaskit/editor-common/selection';
 
 export const linkStyles = css`
   .ProseMirror {

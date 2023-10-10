@@ -27,6 +27,7 @@ import {
 
 import { clearMultipleCells } from './commands/clear';
 import { wrapTableInExpand } from './commands/collapse';
+import { deleteColumnsCommand } from './commands/delete';
 import { insertColumn, insertRow } from './commands/insert';
 import {
   deleteTable,
@@ -45,7 +46,7 @@ import {
 import { getPluginState } from './pm-plugins/plugin-factory';
 import { distributeColumnsWidths } from './pm-plugins/table-resizing/commands';
 import type { ResizeStateWithAnalytics } from './pm-plugins/table-resizing/utils';
-import { deleteColumns, deleteRows, mergeCells } from './transforms';
+import { deleteRows, mergeCells } from './transforms';
 import type {
   InsertRowMethods,
   InsertRowOptions,
@@ -57,7 +58,6 @@ import {
   getSelectedTableInfo,
 } from './utils';
 import { withEditorAnalyticsAPI } from './utils/analytics';
-import { getAllowAddColumnCustomStep } from './utils/get-allow-add-column-custom-step';
 
 const TABLE_BREAKOUT_NAME_MAPPING = {
   default: TABLE_BREAKOUT.NORMAL,
@@ -337,14 +337,7 @@ export const deleteColumnsWithAnalytics =
         },
         eventType: EVENT_TYPE.TRACK,
       };
-    })(editorAnalyticsAPI)((state, dispatch) => {
-      if (dispatch) {
-        dispatch(
-          deleteColumns(rect, getAllowAddColumnCustomStep(state))(state.tr),
-        );
-      }
-      return true;
-    });
+    })(editorAnalyticsAPI)(deleteColumnsCommand(rect));
 
 const getTableDeletedAnalytics = (
   selection: Selection,

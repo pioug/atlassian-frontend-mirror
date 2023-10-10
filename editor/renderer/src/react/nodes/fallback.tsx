@@ -1,7 +1,7 @@
 import React from 'react';
 import { InlineCard } from './';
 import { isSafeUrl } from '@atlaskit/adf-schema';
-import { DatasourceRenderFailedAnalyticsWrapper } from '@atlaskit/link-datasource';
+import { LazyLoadedDatasourceRenderFailedAnalyticsWrapper } from '@atlaskit/link-datasource';
 
 export type CardErrorBoundaryProps = {
   unsupportedComponent: React.ComponentType;
@@ -48,15 +48,15 @@ export class CardErrorBoundary extends React.PureComponent<
         if (isDatasource) {
           if (isSafeUrl(url)) {
             return (
-              <DatasourceRenderFailedAnalyticsWrapper>
+              <LazyLoadedDatasourceRenderFailedAnalyticsWrapper>
                 <InlineCard {...this.props} />
-              </DatasourceRenderFailedAnalyticsWrapper>
+              </LazyLoadedDatasourceRenderFailedAnalyticsWrapper>
             );
           } else {
             return (
-              <DatasourceRenderFailedAnalyticsWrapper>
+              <LazyLoadedDatasourceRenderFailedAnalyticsWrapper>
                 {fallback}
-              </DatasourceRenderFailedAnalyticsWrapper>
+              </LazyLoadedDatasourceRenderFailedAnalyticsWrapper>
             );
           }
         } else {

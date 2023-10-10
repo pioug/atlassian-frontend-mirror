@@ -1,4 +1,4 @@
-import type { TOOLBAR_MENU_TYPE as InsertBlockInputMethodToolbar } from '@atlaskit/editor-core/src/plugins/insert-block/ui/ToolbarInsertBlock/types';
+import type { TOOLBAR_MENU_TYPE as InsertBlockInputMethodToolbar } from '@atlaskit/editor-common/types';
 import type { MentionPluginState } from '@atlaskit/editor-core/src/plugins/mentions/types';
 import type {
   StatusState,
@@ -32,7 +32,6 @@ import {
 import { createTable } from '@atlaskit/editor-plugin-table/commands';
 import { insertTaskDecisionCommand } from '@atlaskit/editor-core/src/plugins/tasks-and-decisions/commands';
 import { dateToDateType } from '@atlaskit/editor-core/src/plugins/date/utils/formatParse';
-import { insertDate } from '@atlaskit/editor-core/src/plugins/date/actions';
 import { insertExpand } from '@atlaskit/editor-core/src/plugins/expand/commands';
 import type {
   TypeAheadHandler,
@@ -1120,7 +1119,16 @@ export default class WebBridgeImpl
       case 'date':
         const dateType = dateToDateType(new Date());
 
-        apply(insertDate(dateType, INPUT_METHOD.TOOLBAR, INPUT_METHOD.PICKER));
+        if (this.pluginInjectionApi?.date?.actions?.insertDate) {
+          apply(
+            this.pluginInjectionApi?.date?.actions?.insertDate(
+              dateType,
+              INPUT_METHOD.TOOLBAR,
+              INPUT_METHOD.PICKER,
+            ),
+          );
+        }
+
         break;
       default:
         break;

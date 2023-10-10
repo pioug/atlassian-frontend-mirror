@@ -18,8 +18,8 @@ import { mentionResourceProviderWithResolver } from '@atlaskit/util-data-test/me
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 import { customInsertMenuItems } from '@atlaskit/editor-test-helpers/mock-insert-menu';
 import { createSocketIOCollabProvider } from '@atlaskit/collab-provider/socket-io-provider';
-import { Provider } from '@atlaskit/collab-provider';
-import { EditorActions } from '../src';
+import type { Provider } from '@atlaskit/collab-provider';
+import type { EditorActions } from '../src';
 import { TitleInput } from '../example-helpers/PageElements';
 
 export const getRandomUser = () => {
@@ -201,6 +201,7 @@ export default class Example extends React.Component<Props, State> {
                   advanced: true,
                   allowColumnSorting: true,
                   allowAddColumnWithCustomStep: true,
+                  allowDistributeColumns: true,
                 }}
                 allowTemplatePlaceholders={{ allowInserting: true }}
                 media={{

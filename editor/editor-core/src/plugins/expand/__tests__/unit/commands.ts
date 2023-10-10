@@ -11,7 +11,7 @@ import { toggleExpandExpanded } from '../../commands';
 import expandPlugin from '../../index';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
-import selectionPlugin from '../../../selection';
+import { selectionPlugin } from '@atlaskit/editor-plugin-selection';
 
 describe('Expand Commands', () => {
   const createEditor = createProsemirrorEditorFactory();

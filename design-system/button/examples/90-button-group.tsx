@@ -10,15 +10,13 @@ import Button from '../src/new-button/variants/default/button';
 import spacing from '../src/utils/spacing';
 import variants from '../src/utils/variants';
 
+const constrainedRowStyles = xcss({
+  width: 'size.1000',
+  overflowX: 'scroll',
+});
+
 const ConstrainedRow = (props: { children: React.ReactNode }) => (
-  <Box
-    xcss={xcss({
-      width: 'size.1000',
-      overflowX: 'scroll',
-    })}
-  >
-    {props.children}
-  </Box>
+  <Box xcss={constrainedRowStyles}>{props.children}</Box>
 );
 
 export default function ButtonGroupExample() {

@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/consistent-css-prop-usage */
 /** @jsx jsx */
 import { CSSObject, jsx } from '@emotion/react';
 

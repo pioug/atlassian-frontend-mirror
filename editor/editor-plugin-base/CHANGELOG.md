@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-base
 
+## 0.2.2
+
+### Patch Changes
+
+- [#40750](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40750) [`fc19a7b9edd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fc19a7b9edd) - [ED-19875] Extraction of Editor Core's Selection Plugin into independent package '@atlaskit/editor-plugin-selection'.
+- Updated dependencies
+
 ## 0.2.1
 
 ### Patch Changes

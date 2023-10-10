@@ -32,7 +32,7 @@ import type { AnnotationProviders } from '../plugins/annotation/types';
 import type { BlockTypePluginOptions } from '@atlaskit/editor-plugin-block-type';
 import type { CodeBlockOptions } from '../plugins/code-block/types';
 import type { CollabEditOptions } from '@atlaskit/editor-common/collab';
-import type { DatePluginConfig } from '../plugins/date/types';
+import type { DatePluginConfig } from '../plugins/date';
 import type { FindReplaceOptions } from '../plugins/find-replace/types';
 import type { LayoutPluginOptions } from '../plugins/layout/types';
 import type {

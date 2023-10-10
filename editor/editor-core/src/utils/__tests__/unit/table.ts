@@ -23,6 +23,7 @@ import {
 
 import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { isPositionNearTableRow } from '@atlaskit/editor-common/utils';
+import { selectionPlugin } from '@atlaskit/editor-plugin-selection';
 
 const editorFactory = (doc: DocBuilder) => {
   const editor = createProsemirrorEditorFactory()({
@@ -33,6 +34,7 @@ const editorFactory = (doc: DocBuilder) => {
       .add(contentInsertionPlugin)
       .add(widthPlugin)
       .add(guidelinePlugin)
+      .add(selectionPlugin)
       .add(tablesPlugin),
   });
   const { state } = editor.editorView;

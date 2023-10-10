@@ -1,5 +1,11 @@
 # @atlaskit/popup
 
+## 1.10.2
+
+### Patch Changes
+
+- [#41354](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41354) [`d621fe3e4f8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d621fe3e4f8) - fix ReferenceError where frameId is used before it is initialised
+
 ## 1.10.1
 
 ### Patch Changes

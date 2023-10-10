@@ -15,11 +15,8 @@ test.describe('Drawer', () => {
   });
 });
 
-// TODO: enable this testcase after cleaning up the feature flag. Currently feature flag conditional flow is not supported for Playwright.
 test.describe('Drawer', () => {
-  test.skip('should have focus on first element when opened', async ({
-    page,
-  }) => {
+  test('should have focus on first element when opened', async ({ page }) => {
     await page.visitExample('design-system', 'drawer', 'drawer-default');
     await page.getByTestId('drawer-trigger').click();
     const drawerCloseButton = page.getByTestId(

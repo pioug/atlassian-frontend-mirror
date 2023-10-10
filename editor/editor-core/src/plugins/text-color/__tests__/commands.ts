@@ -20,7 +20,7 @@ import {
 
 import { blockTypePlugin } from '@atlaskit/editor-plugin-block-type';
 import panelPlugin from '../../panel';
-import selectionPlugin from '../../selection';
+import { selectionPlugin } from '@atlaskit/editor-plugin-selection';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import { changeColor } from '../commands/change-color';
 import { toggleColor } from '../commands/toggle-color';

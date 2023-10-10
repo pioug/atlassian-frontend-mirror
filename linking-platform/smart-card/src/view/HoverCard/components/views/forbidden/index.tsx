@@ -17,6 +17,7 @@ import {
 } from './styled';
 import { getPreviewBlockStyles } from '../../../styled';
 import { extractRequestAccessContextImproved } from '../../../../../extractors/common/context/extractAccessContext';
+import extractHostname from '../../../../../extractors/common/hostname/extractHostname';
 
 const HoverCardForbiddenView: React.FC<HoverCardForbiddenProps> = ({
   flexibleCardProps,
@@ -26,7 +27,7 @@ const HoverCardForbiddenView: React.FC<HoverCardForbiddenProps> = ({
   const data = cardState.details?.data as JsonLd.Data.BaseData;
   const meta = cardState.details?.meta as JsonLd.Meta.BaseMeta;
   const product = extractProvider(data)?.text ?? '';
-  const hostname = <b>{new URL(url).hostname}</b>;
+  const hostname = <b>{extractHostname(url)}</b>;
 
   const { action, descriptiveMessageKey, titleMessageKey, buttonDisabled } =
     extractRequestAccessContextImproved({

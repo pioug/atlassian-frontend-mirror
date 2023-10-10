@@ -1,5 +1,17 @@
 # @atlaskit/link-datasource
 
+## 1.7.1
+
+### Patch Changes
+
+- [#40897](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40897) [`04a55cb2bec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/04a55cb2bec) - Preventing refetch if newly selected columns already have data
+
+## 1.7.0
+
+### Minor Changes
+
+- [#40745](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40745) [`f1fb082c389`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f1fb082c389) - DatasourceRenderFailedAnalyticsWrapper is now being exported as lazy loaded component
+
 ## 1.6.3
 
 ### Patch Changes

@@ -1,11 +1,8 @@
-import { createEditorSelectionAPI } from '../../../selection-api/api';
-import type { EditorSelectionAPI } from '@atlaskit/editor-common/selection';
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import {
   breakoutPlugin,
   collabEditPlugin,
   dataConsumerMarkPlugin,
-  datePlugin,
   extensionPlugin,
   fragmentMarkPlugin,
   insertBlockPlugin,
@@ -38,6 +35,7 @@ import {
   beforePrimaryToolbarPlugin,
   codeBidiWarningPlugin,
 } from '../../../plugins';
+import { datePlugin } from '../../../plugins/date';
 import { captionPlugin } from '@atlaskit/editor-plugin-caption';
 import { borderPlugin } from '@atlaskit/editor-plugin-border';
 import { helpDialogPlugin } from '@atlaskit/editor-plugin-help-dialog';
@@ -103,7 +101,6 @@ export default function createUniversalPreset(
   const isFullPage = fullPageCheck(appearance);
 
   const getEditorFeatureFlags = () => featureFlags;
-  const editorSelectionAPI: EditorSelectionAPI = createEditorSelectionAPI();
 
   const defaultPreset = createDefaultPreset({ ...props, createAnalyticsEvent });
 
@@ -219,7 +216,6 @@ export default function createUniversalPreset(
             allowDropzoneDropLine: isFullPage,
             allowMediaSingleEditable: !isMobile,
             allowRemoteDimensionsFetch: !isMobile,
-            editorSelectionAPI,
             // This is a wild one. I didnt quite understand what the code was doing
             // so a bit of guess for now.
             allowMarkingUploadsAsIncomplete: isMobile,
@@ -292,7 +288,6 @@ export default function createUniversalPreset(
             fullWidthEnabled: appearance === 'full-width',
             wasFullWidthEnabled:
               prevAppearance && prevAppearance === 'full-width',
-            editorSelectionAPI,
             getEditorFeatureFlags,
           },
         ]);
@@ -349,7 +344,6 @@ export default function createUniversalPreset(
             allowMediaSingle: { disableLayout: true },
             allowMediaGroup: false,
             isCopyPasteEnabled: true,
-            editorSelectionAPI,
           },
         ]);
       }

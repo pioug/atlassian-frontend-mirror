@@ -5,6 +5,7 @@ import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertio
 import { emojiPlugin } from '@atlaskit/editor-plugin-emoji';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
+import { selectionPlugin } from '@atlaskit/editor-plugin-selection';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import type {
@@ -31,7 +32,6 @@ import {
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 
 // eslint-disable-next-line @atlassian/tangerine/import/no-relative-package-imports
-import selectionPlugin from '../../../../editor-core/src/plugins/selection';
 // eslint-disable-next-line @atlassian/tangerine/import/no-relative-package-imports
 import typeAheadPlugin from '../../../../editor-core/src/plugins/type-ahead';
 import { basePlugin } from '../../index';

@@ -417,7 +417,7 @@ describe('useDatasourceTableState', () => {
         expect(getDatasourceData).toBeCalledTimes(1);
       });
 
-      it('should call getDatasourceData when requesting a new column', async () => {
+      it('should call getDatasourceData a second time when requesting a new column without existing data', async () => {
         asMock(getDatasourceData).mockResolvedValue(
           mockDatasourceDataResponseWithSchema,
         );
@@ -431,6 +431,20 @@ describe('useDatasourceTableState', () => {
         await waitForNextUpdate();
 
         expect(getDatasourceData).toBeCalledTimes(2);
+      });
+
+      it('should not call getDatasourceData a second time when requesting a new column with existing data', async () => {
+        asMock(getDatasourceData).mockResolvedValue(
+          mockDatasourceDataResponseWithSchema,
+        );
+        const { rerender, waitForNextUpdate } = setup();
+        await waitForNextUpdate();
+
+        rerender({
+          fieldKeys: ['due'],
+        });
+
+        expect(getDatasourceData).toBeCalledTimes(1);
       });
 
       it('should overwrite exiting columns when requesting first page info', async () => {
@@ -481,7 +495,7 @@ describe('useDatasourceTableState', () => {
         );
       });
 
-      it('should not fire analytics event "ui.nextItem.loaded" when the number of columns changed', async () => {
+      it('should not call fire analytics event "ui.nextItem.loaded" when adding new column not found in data', async () => {
         asMock(getDatasourceData).mockResolvedValue(
           mockDatasourceDataResponseWithSchema,
         );
@@ -493,6 +507,21 @@ describe('useDatasourceTableState', () => {
         });
 
         await waitForNextUpdate();
+        // reset() happens before onNextPage() so isUserLoadingNextPage is false and event is not fired
+
+        expect(onAnalyticFireEvent).toHaveBeenCalledTimes(0);
+      });
+
+      it('should not fire analytics event "ui.nextItem.loaded" when adding old column with data', async () => {
+        asMock(getDatasourceData).mockResolvedValue(
+          mockDatasourceDataResponseWithSchema,
+        );
+        const { rerender, waitForNextUpdate } = setup();
+        await waitForNextUpdate();
+
+        rerender({
+          fieldKeys: ['issue'],
+        });
 
         expect(onAnalyticFireEvent).not.toHaveBeenCalled();
       });

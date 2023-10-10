@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/consistent-css-prop-usage */
 /** @jsx jsx */
 import React, {
   type ReactNode,
@@ -180,7 +181,7 @@ export default React.forwardRef<HTMLElement, ButtonBaseProps>(
 
     // we are 'disabling' input with a button when there is an overlay
     const hasOverlay: boolean = Boolean(overlay);
-    const fadeCss: SerializedStyles = css(getFadingCss({ hasOverlay }));
+    const fadeStyles: SerializedStyles = css(getFadingCss({ hasOverlay }));
 
     const isInteractive: boolean = !isDisabled && !hasOverlay;
 
@@ -228,7 +229,7 @@ export default React.forwardRef<HTMLElement, ButtonBaseProps>(
           {iconBefore ? (
             <span
               css={[
-                fadeCss,
+                fadeStyles,
                 getIconStyle({ spacing }),
                 getSpacingFix(children, iconBeforeSpacingFixStyle),
               ]}
@@ -239,17 +240,18 @@ export default React.forwardRef<HTMLElement, ButtonBaseProps>(
           {!getBooleanFF(
             'platform.design-system-team.icon-button-spacing-fix_o1zc5',
           ) && children ? (
-            <span css={[fadeCss, getContentStyle({ spacing })]}>
+            <span css={[fadeStyles, getContentStyle({ spacing })]}>
               {children}
             </span>
           ) : null}
           {getBooleanFF(
             'platform.design-system-team.icon-button-spacing-fix_o1zc5',
-          ) && getChildren(children, [fadeCss, getContentStyle({ spacing })])}
+          ) &&
+            getChildren(children, [fadeStyles, getContentStyle({ spacing })])}
           {iconAfter ? (
             <span
               css={[
-                fadeCss,
+                fadeStyles,
                 getIconStyle({ spacing }),
                 getSpacingFix(children, iconAfterSpacingFixStyle),
               ]}

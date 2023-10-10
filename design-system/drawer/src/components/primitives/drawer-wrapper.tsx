@@ -4,7 +4,6 @@ import { forwardRef, ReactElement, Ref, useCallback } from 'react';
 import { css, jsx } from '@emotion/react';
 import { useMergeRefs } from 'use-callback-ref';
 
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { N0 } from '@atlaskit/theme/colors';
 import { CURRENT_SURFACE_CSS_VAR, token } from '@atlaskit/tokens';
 
@@ -25,10 +24,10 @@ const wrapperStyles = css({
   height: '100vh',
   position: 'fixed',
   zIndex: 500,
-  top: 0,
-  left: 0,
   backgroundColor: token('elevation.surface.overlay', N0),
   [CURRENT_SURFACE_CSS_VAR]: token('elevation.surface.overlay', N0),
+  insetBlockStart: 0,
+  insetInlineStart: 0,
   overflow: 'hidden',
 });
 
@@ -85,15 +84,6 @@ const DrawerWrapper = forwardRef<HTMLElement, FocusLockRefTargetProps>(
 
     usePreventProgrammaticScroll();
 
-    const modalDialogAttributes = getBooleanFF(
-      'platform.design-system-team.drawer-screen-reader-focus-trap-refactor_hfuxc',
-    ) && {
-      'aria-modal': true,
-      role: 'dialog',
-      'aria-label': label,
-      'aria-labelledby': titleId,
-    };
-
     return (
       <div
         css={wrapperStyles}
@@ -101,7 +91,10 @@ const DrawerWrapper = forwardRef<HTMLElement, FocusLockRefTargetProps>(
         className={className}
         data-testid={testId}
         ref={ref}
-        {...modalDialogAttributes}
+        aria-modal={true}
+        role="dialog"
+        aria-label={label}
+        aria-labelledby={titleId}
       >
         {children}
       </div>

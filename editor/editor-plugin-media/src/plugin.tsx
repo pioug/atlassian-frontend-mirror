@@ -226,7 +226,12 @@ export const mediaPlugin: MediaNextEditorPluginType = ({
         },
         {
           name: 'mediaKeymap',
-          plugin: () => keymapPlugin(options, api?.analytics?.actions),
+          plugin: () =>
+            keymapPlugin(
+              options,
+              api?.analytics?.actions,
+              api?.selection.actions,
+            ),
         },
       ];
 

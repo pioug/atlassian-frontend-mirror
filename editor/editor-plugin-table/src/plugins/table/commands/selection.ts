@@ -1,13 +1,16 @@
+import type { SelectionSharedState } from '@atlaskit/editor-common/selection';
 import {
-  EditorSelectionAPI,
   GapCursorSelection,
   isSelectionAtEndOfNode,
   isSelectionAtStartOfNode,
   RelativeSelectionPos,
   Side,
 } from '@atlaskit/editor-common/selection';
-import type { Command } from '@atlaskit/editor-common/types';
-import {
+import type {
+  Command,
+  ExtractInjectionAPI,
+} from '@atlaskit/editor-common/types';
+import type {
   Node as PmNode,
   ResolvedPos,
 } from '@atlaskit/editor-prosemirror/model';
@@ -16,13 +19,19 @@ import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { findTable, isTableSelected } from '@atlaskit/editor-tables/utils';
 
+import type tablePlugin from '../index';
+
 export enum TableSelectionDirection {
   TopToBottom = 'TopToBottom',
   BottomToTop = 'BottomToTop',
 }
 
 export const arrowLeftFromTable =
-  (editorSelectionAPI: EditorSelectionAPI | undefined | null) =>
+  (
+    editorSelectionAPI:
+      | ExtractInjectionAPI<typeof tablePlugin>['selection']
+      | undefined,
+  ) =>
   (): Command =>
   (state, dispatch) => {
     const { selection } = state;
@@ -43,7 +52,11 @@ export const arrowLeftFromTable =
   };
 
 export const arrowRightFromTable =
-  (editorSelectionAPI: EditorSelectionAPI | undefined | null) =>
+  (
+    editorSelectionAPI:
+      | ExtractInjectionAPI<typeof tablePlugin>['selection']
+      | undefined,
+  ) =>
   (): Command =>
   (state, dispatch) => {
     const { selection } = state;
@@ -65,22 +78,30 @@ export const arrowRightFromTable =
   };
 
 const arrowLeftFromCellSelection =
-  (editorSelectionAPI: EditorSelectionAPI | undefined | null) =>
+  (
+    editorSelectionAPI:
+      | ExtractInjectionAPI<typeof tablePlugin>['selection']
+      | undefined,
+  ) =>
   (selection: CellSelection): Command =>
   (state, dispatch) => {
     if (isTableSelected(state.selection) && editorSelectionAPI) {
-      const { selectionRelativeToNode } =
-        editorSelectionAPI.getSelectionPluginState(state);
-      if (selectionRelativeToNode === RelativeSelectionPos.Start) {
+      const selectionState: SelectionSharedState =
+        editorSelectionAPI.sharedState.currentState() || {};
+      if (
+        selectionState?.selectionRelativeToNode === RelativeSelectionPos.Start
+      ) {
         // we have full table cell selection and want to set gap cursor selection before table
         return setGapCursorBeforeTable(editorSelectionAPI)()(state, dispatch);
-      } else if (selectionRelativeToNode === RelativeSelectionPos.End) {
+      } else if (
+        selectionState?.selectionRelativeToNode === RelativeSelectionPos.End
+      ) {
         // we have full table cell selection and want to set selection at end of last cell
         return setSelectionAtEndOfLastCell(editorSelectionAPI)(selection)(
           state,
           dispatch,
         );
-      } else if (selectionRelativeToNode === undefined) {
+      } else if (selectionState?.selectionRelativeToNode === undefined) {
         // we have full table cell selection and want to set selection at start of first cell
         return setSelectionAtStartOfFirstCell(editorSelectionAPI)(
           selection,
@@ -92,12 +113,16 @@ const arrowLeftFromCellSelection =
   };
 
 const arrowRightFromCellSelection =
-  (editorSelectionAPI: EditorSelectionAPI | undefined | null) =>
+  (
+    editorSelectionAPI:
+      | ExtractInjectionAPI<typeof tablePlugin>['selection']
+      | undefined,
+  ) =>
   (selection: CellSelection): Command =>
   (state, dispatch) => {
     if (isTableSelected(state.selection) && editorSelectionAPI) {
       const { selectionRelativeToNode } =
-        editorSelectionAPI.getSelectionPluginState(state);
+        editorSelectionAPI.sharedState.currentState() || {};
 
       if (selectionRelativeToNode === RelativeSelectionPos.Start) {
         // we have full table cell selection and want to set selection at start of first cell
@@ -117,7 +142,11 @@ const arrowRightFromCellSelection =
   };
 
 const arrowLeftFromGapCursor =
-  (editorSelectionAPI: EditorSelectionAPI | undefined | null) =>
+  (
+    editorSelectionAPI:
+      | ExtractInjectionAPI<typeof tablePlugin>['selection']
+      | undefined,
+  ) =>
   (selection: GapCursorSelection): Command =>
   (state, dispatch) => {
     const { doc } = state;
@@ -139,9 +168,12 @@ const arrowLeftFromGapCursor =
         isSelectionAtStartOfTable($from, selection) &&
         editorSelectionAPI
       ) {
-        const { selectionRelativeToNode } =
-          editorSelectionAPI.getSelectionPluginState(state);
-        if (selectionRelativeToNode === RelativeSelectionPos.Before) {
+        const selectionState: SelectionSharedState =
+          editorSelectionAPI.sharedState.currentState() || {};
+        if (
+          selectionState?.selectionRelativeToNode ===
+          RelativeSelectionPos.Before
+        ) {
           // we have a gap cursor at start of first table cell and want to set a gap cursor selection before table
           return setGapCursorBeforeTable(editorSelectionAPI)()(state, dispatch);
         } else {
@@ -158,7 +190,11 @@ const arrowLeftFromGapCursor =
   };
 
 const arrowRightFromGapCursor =
-  (editorSelectionAPI: EditorSelectionAPI | undefined | null) =>
+  (
+    editorSelectionAPI:
+      | ExtractInjectionAPI<typeof tablePlugin>['selection']
+      | undefined,
+  ) =>
   (selection: GapCursorSelection): Command =>
   (state, dispatch) => {
     const { $from, from, $to, side } = selection;
@@ -187,7 +223,11 @@ const arrowRightFromGapCursor =
   };
 
 const arrowLeftFromText =
-  (editorSelectionAPI: EditorSelectionAPI | undefined | null) =>
+  (
+    editorSelectionAPI:
+      | ExtractInjectionAPI<typeof tablePlugin>['selection']
+      | undefined,
+  ) =>
   (selection: TextSelection): Command =>
   (state, dispatch) => {
     const table = findTable(selection);
@@ -199,9 +239,13 @@ const arrowLeftFromText =
         $from.depth === table.depth + 3 && // + 3 for: row, cell & paragraph nodes
         editorSelectionAPI
       ) {
-        const { selectionRelativeToNode } =
-          editorSelectionAPI.getSelectionPluginState(state);
-        if (selectionRelativeToNode === RelativeSelectionPos.Before) {
+        const selectionState: SelectionSharedState =
+          editorSelectionAPI.sharedState.currentState() || {};
+
+        if (
+          selectionState?.selectionRelativeToNode ===
+          RelativeSelectionPos.Before
+        ) {
           // we have a text selection at start of first table cell, directly inside a top level paragraph,
           // and want to set gap cursor selection before table
           return setGapCursorBeforeTable(editorSelectionAPI)()(state, dispatch);
@@ -220,7 +264,11 @@ const arrowLeftFromText =
   };
 
 const arrowRightFromText =
-  (editorSelectionAPI: EditorSelectionAPI | undefined | null) =>
+  (
+    editorSelectionAPI:
+      | ExtractInjectionAPI<typeof tablePlugin>['selection']
+      | undefined,
+  ) =>
   (selection: TextSelection): Command =>
   (state, dispatch) => {
     const table = findTable(selection);
@@ -250,7 +298,11 @@ const arrowRightFromText =
  * pos in the selection plugin
  */
 const selectFullTable =
-  (editorSelectionAPI: EditorSelectionAPI | undefined | null) =>
+  (
+    editorSelectionAPI:
+      | ExtractInjectionAPI<typeof tablePlugin>['selection']
+      | undefined,
+  ) =>
   ({
     node,
     startPos,
@@ -276,7 +328,7 @@ const selectFullTable =
       selectionRelativeToNode = RelativeSelectionPos.Start;
     }
     if (editorSelectionAPI) {
-      const tr = editorSelectionAPI.setSelectionRelativeToNode({
+      const tr = editorSelectionAPI.actions.selectNearNode({
         selectionRelativeToNode,
         selection: fullTableSelection,
       })(state);
@@ -290,7 +342,11 @@ const selectFullTable =
   };
 
 const setSelectionAtStartOfFirstCell =
-  (editorSelectionAPI: EditorSelectionAPI | undefined | null) =>
+  (
+    editorSelectionAPI:
+      | ExtractInjectionAPI<typeof tablePlugin>['selection']
+      | undefined,
+  ) =>
   (
     selection: CellSelection,
     selectionRelativeToNode?: RelativeSelectionPos,
@@ -307,7 +363,7 @@ const setSelectionAtStartOfFirstCell =
       : Selection.findFrom($firstPosInsideCell, 1);
 
     if (editorSelectionAPI) {
-      const tr = editorSelectionAPI.setSelectionRelativeToNode({
+      const tr = editorSelectionAPI.actions.selectNearNode({
         selectionRelativeToNode,
         selection: selectionAtStartOfCell,
       })(state);
@@ -321,7 +377,11 @@ const setSelectionAtStartOfFirstCell =
   };
 
 const setSelectionAtEndOfLastCell =
-  (editorSelectionAPI: EditorSelectionAPI | undefined | null) =>
+  (
+    editorSelectionAPI:
+      | ExtractInjectionAPI<typeof tablePlugin>['selection']
+      | undefined,
+  ) =>
   (
     selection: CellSelection,
     selectionRelativeToNode?: RelativeSelectionPos,
@@ -341,7 +401,7 @@ const setSelectionAtEndOfLastCell =
       : Selection.findFrom($lastPosInsideCell, -1);
 
     if (editorSelectionAPI) {
-      const tr = editorSelectionAPI.setSelectionRelativeToNode({
+      const tr = editorSelectionAPI.actions.selectNearNode({
         selectionRelativeToNode,
         selection: selectionAtEndOfCell,
       })(state);
@@ -355,7 +415,11 @@ const setSelectionAtEndOfLastCell =
   };
 
 const setGapCursorBeforeTable =
-  (editorSelectionAPI: EditorSelectionAPI | undefined | null) =>
+  (
+    editorSelectionAPI:
+      | ExtractInjectionAPI<typeof tablePlugin>['selection']
+      | undefined,
+  ) =>
   (): Command =>
   (state, dispatch) => {
     const table = findTable(state.selection);
@@ -367,7 +431,7 @@ const setGapCursorBeforeTable =
           Side.LEFT,
         );
         if (editorSelectionAPI) {
-          const tr = editorSelectionAPI.setSelectionRelativeToNode({
+          const tr = editorSelectionAPI.actions.selectNearNode({
             selectionRelativeToNode: undefined,
             selection: selectionBeforeTable,
           })(state);
@@ -383,7 +447,11 @@ const setGapCursorBeforeTable =
   };
 
 const setGapCursorAfterTable =
-  (editorSelectionAPI: EditorSelectionAPI | undefined | null) =>
+  (
+    editorSelectionAPI:
+      | ExtractInjectionAPI<typeof tablePlugin>['selection']
+      | undefined,
+  ) =>
   (): Command =>
   (state, dispatch) => {
     const table = findTable(state.selection);
@@ -396,7 +464,7 @@ const setGapCursorAfterTable =
         );
 
         if (editorSelectionAPI) {
-          const tr = editorSelectionAPI.setSelectionRelativeToNode({
+          const tr = editorSelectionAPI.actions.selectNearNode({
             selectionRelativeToNode: undefined,
             selection: selectionAfterTable,
           })(state);

@@ -1,5 +1,5 @@
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import type { DatePluginState } from '../../date/pm-plugins/types';
+import type { DatePluginSharedState } from '../../date';
 import type { FloatingToolbarPluginState } from '@atlaskit/editor-plugin-floating-toolbar';
 import type { ConfigWithNodeInfo } from '@atlaskit/editor-plugin-floating-toolbar';
 import type { StatusState } from '../../status/types';
@@ -10,7 +10,7 @@ import type { ViewUpdateSubscription } from '..';
 import { trackerStore } from '..';
 
 type SubscribeToToolbarAndPickerUpdatesCallbackArgs = {
-  dateState?: DatePluginState;
+  dateState?: DatePluginSharedState;
   statusState?: StatusState;
   toolbarConfig: ConfigWithNodeInfo | null | undefined;
 };

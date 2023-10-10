@@ -1,5 +1,11 @@
 # @atlaskit/button
 
+## 16.10.2
+
+### Patch Changes
+
+- [#41229](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41229) [`22075b34cb8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/22075b34cb8) - Removing static styling violations
+
 ## 16.10.1
 
 ### Patch Changes

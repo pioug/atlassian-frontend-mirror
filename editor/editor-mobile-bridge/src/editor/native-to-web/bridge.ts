@@ -1,5 +1,5 @@
 import type { InputMethod as BlockTypeInputMethod } from '@atlaskit/editor-plugin-block-type';
-import type { TOOLBAR_MENU_TYPE as InsertBlockInputMethodToolbar } from '@atlaskit/editor-core/src/plugins/insert-block/ui/ToolbarInsertBlock/types';
+import type { TOOLBAR_MENU_TYPE as InsertBlockInputMethodToolbar } from '@atlaskit/editor-common/types';
 import type {
   LinkInputType as LinkInputMethod,
   InputMethodBasic as TextFormattingInputMethodBasic,

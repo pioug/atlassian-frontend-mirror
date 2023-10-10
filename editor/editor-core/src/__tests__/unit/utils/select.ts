@@ -25,7 +25,7 @@ import {
   Side as GapCursorSide,
 } from '@atlaskit/editor-common/selection';
 
-import selectionPlugin from '../../../plugins/selection';
+import { selectionPlugin } from '@atlaskit/editor-plugin-selection';
 import { rulePlugin } from '@atlaskit/editor-plugin-rule';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';

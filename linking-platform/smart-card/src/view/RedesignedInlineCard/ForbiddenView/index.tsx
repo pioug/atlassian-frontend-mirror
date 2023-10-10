@@ -70,10 +70,16 @@ export class InlineCardForbiddenView extends React.Component<InlineCardForbidden
   renderForbiddenAccessMessage = () => {
     if (this.props?.requestAccessContext?.callToActionMessageKey) {
       const { callToActionMessageKey } = this.props.requestAccessContext;
+      const values = getBooleanFF(
+        'platform.linking-platform.smart-card.cross-join',
+      )
+        ? { product: this.props.context }
+        : { context: this.props.context };
+
       return (
         <FormattedMessage
           {...messages[callToActionMessageKey]}
-          values={{ context: this.props.context }}
+          values={values}
         />
       );
     }
@@ -91,6 +97,10 @@ export class InlineCardForbiddenView extends React.Component<InlineCardForbidden
   renderActionButton = () => {
     const { onAuthorise } = this.props;
     const ActionButton = withFrameStyleControl(Button, this.frameRef);
+    const accessType = this.props.requestAccessContext?.accessType;
+    const isButtonDisabled =
+      getBooleanFF('platform.linking-platform.smart-card.cross-join') &&
+      accessType === 'PENDING_REQUEST_EXISTS';
 
     if (this.state.hasRequestAccessContextMessage) {
       return (
@@ -100,6 +110,7 @@ export class InlineCardForbiddenView extends React.Component<InlineCardForbidden
           component={IconStyledButton}
           testId="button-connect-other-account"
           role="button"
+          isDisabled={isButtonDisabled}
         >
           {this.renderForbiddenAccessMessage()}
         </ActionButton>

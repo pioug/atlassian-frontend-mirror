@@ -37,7 +37,7 @@ import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import expandPlugin from '../../../expand';
 import layoutPlugin from '../../../layout';
 import panelPlugin from '../../../panel';
-import selectionPlugin from '../../../selection';
+import { selectionPlugin } from '@atlaskit/editor-plugin-selection';
 import { blockTypePlugin } from '@atlaskit/editor-plugin-block-type';
 import { listPlugin } from '@atlaskit/editor-plugin-list';
 import extensionPlugin from '../../../extension';

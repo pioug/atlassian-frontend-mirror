@@ -412,6 +412,7 @@ export const handleCut = (
   oldState: EditorState,
   newState: EditorState,
   editorAnalyticsAPI?: EditorAnalyticsAPI,
+  editorView?: EditorView,
 ): Transaction => {
   const oldSelection = oldState.tr.selection;
   let { tr } = newState;
@@ -464,7 +465,11 @@ export const handleCut = (
             } = getPluginState(newState);
             tr = deleteRows(rect, isHeaderRowRequired)(tr);
           } else if (tr.selection.isColSelection()) {
-            tr = deleteColumns(rect, getAllowAddColumnCustomStep(oldState))(tr);
+            tr = deleteColumns(
+              rect,
+              getAllowAddColumnCustomStep(oldState),
+              editorView,
+            )(tr);
           }
         }
       }

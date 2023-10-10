@@ -13,11 +13,11 @@ import type { WeekDay } from '@atlaskit/calendar/types';
 import { borderRadius } from '@atlaskit/theme/constants';
 import { N60A, N0 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
-import withOuterListeners from '../../../../ui/with-outer-listeners';
+import { withOuterListeners } from '@atlaskit/editor-common/ui';
 import type { DateType } from '../../types';
 
 const PopupWithListeners = withOuterListeners(Popup);
-import { INPUT_METHOD } from '../../../analytics/types/enums';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';

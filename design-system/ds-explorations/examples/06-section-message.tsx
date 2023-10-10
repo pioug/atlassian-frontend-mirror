@@ -6,14 +6,12 @@ import Button from '@atlaskit/button';
 import __noop from '@atlaskit/ds-lib/noop';
 import Heading from '@atlaskit/heading';
 import InfoIcon from '@atlaskit/icon/glyph/info';
-import Inline from '@atlaskit/primitives/inline';
-import Stack from '@atlaskit/primitives/stack';
+import { Box, Inline, Stack } from '@atlaskit/primitives';
 import SectionMessage, {
   SectionMessageAction,
 } from '@atlaskit/section-message';
 import { token } from '@atlaskit/tokens';
 
-import { UNSAFE_Box as Box } from '../src';
 import Text from '../src/components/text.partial';
 
 export default () => {
@@ -22,7 +20,7 @@ export default () => {
       <Box
         paddingBlock="space.200"
         paddingInline="space.200"
-        backgroundColor="information"
+        backgroundColor="color.background.information"
       >
         <Inline space="space.200">
           <InfoIcon

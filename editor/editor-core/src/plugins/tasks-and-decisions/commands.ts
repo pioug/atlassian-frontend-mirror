@@ -32,7 +32,7 @@ import {
   USER_CONTEXT,
 } from '../analytics';
 import { GapCursorSelection } from '@atlaskit/editor-common/selection';
-import type { TOOLBAR_MENU_TYPE } from '../insert-block/ui/ToolbarInsertBlock/types';
+import type { TOOLBAR_MENU_TYPE } from '@atlaskit/editor-common/types';
 import { stateKey as taskDecisionStateKey } from './pm-plugins/plugin-key';
 import type {
   AddItemAttrs,

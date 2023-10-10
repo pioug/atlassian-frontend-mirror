@@ -1,5 +1,11 @@
 # @atlaskit/editor-wikimarkup-transformer
 
+## 11.2.20
+
+### Patch Changes
+
+- [#41321](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41321) [`fa05c912164`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fa05c912164) - avoid adding marks to text in code blocks
+
 ## 11.2.19
 
 ### Patch Changes

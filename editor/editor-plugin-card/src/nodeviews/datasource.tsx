@@ -28,8 +28,6 @@ import { DatasourceTableView } from '@atlaskit/link-datasource';
 
 import { DatasourceErrorBoundary } from '../datasourceErrorBoundary';
 import type { cardPlugin } from '../index';
-import type { LinkNodes } from '../pm-plugins/doc';
-import { getLinkNodeType } from '../pm-plugins/doc';
 import { EditorAnalyticsContext } from '../ui/EditorAnalyticsContext';
 
 const getPosSafely = (pos: getPosHandler) => {
@@ -179,20 +177,6 @@ export class Datasource extends ReactNodeView<DatasourceProps> {
     });
   }
 
-  // this is necessary so that the datasource toolbar won't be rendered on error
-  updateNodeRemoveAttrs = () => {
-    const { url } = this.node.attrs;
-    const { state, dispatch } = this.view;
-    const pos = getPosSafely(this.getPos);
-    if (pos === undefined) {
-      return;
-    }
-    const nodeType = getLinkNodeType('inline', state.schema.nodes as LinkNodes);
-    const tr = state.tr.setNodeMarkup(pos, nodeType, { url });
-    tr.setMeta('scrollIntoView', false);
-    return dispatch(tr);
-  };
-
   createDomRef(): HTMLElement {
     const domRef = document.createElement('div');
     domRef.classList.add(SmartCardSharedCssClassName.DATASOURCE_CONTAINER);
@@ -203,7 +187,6 @@ export class Datasource extends ReactNodeView<DatasourceProps> {
     const { attrs } = this.node;
     return (
       <DatasourceErrorBoundary
-        handleError={this.updateNodeRemoveAttrs}
         unsupportedComponent={UnsupportedInline}
         view={this.view}
         url={attrs.url}

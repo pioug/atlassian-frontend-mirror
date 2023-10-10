@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-card
 
+## 0.9.1
+
+### Patch Changes
+
+- [#40745](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40745) [`bba067a4049`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bba067a4049) - Datasource modal dialog now wrapped with datasource render failed analytics component
+- Updated dependencies
+
 ## 0.9.0
 
 ### Minor Changes

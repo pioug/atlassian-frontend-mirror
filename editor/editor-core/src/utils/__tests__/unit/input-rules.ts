@@ -33,6 +33,7 @@ import { captionPlugin } from '@atlaskit/editor-plugin-caption';
 import { focusPlugin } from '@atlaskit/editor-plugin-focus';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
+import { selectionPlugin } from '@atlaskit/editor-plugin-selection';
 
 import { createWrappingJoinRule } from '@atlaskit/editor-common/utils';
 
@@ -57,6 +58,7 @@ describe('createWrappingJoinRule()', () => {
         .add(floatingToolbarPlugin)
         .add(focusPlugin)
         .add(captionPlugin)
+        .add(selectionPlugin)
         .add([mediaPlugin, { allowMediaSingle: true }]),
     });
     return editorTemp;

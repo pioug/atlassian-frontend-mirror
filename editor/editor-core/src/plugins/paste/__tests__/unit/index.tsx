@@ -120,7 +120,7 @@ import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
 import { setupProvider } from '@atlaskit/editor-plugin-card/src/__tests__/unit/_helpers';
 import type { InlineCommentAnnotationProvider } from '../../../annotation/types';
 import annotationPlugin from '../../../annotation';
-import selectionPlugin from '../../../selection';
+import { selectionPlugin } from '@atlaskit/editor-plugin-selection';
 import type {
   InlineCommentPluginState,
   InlineCommentMap,

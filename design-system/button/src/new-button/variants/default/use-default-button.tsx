@@ -1,12 +1,10 @@
 import React, { Fragment } from 'react';
 
-import { Box } from '@atlaskit/primitives';
-
+import Content from '../shared/content';
 import useButtonBase, {
   type UseButtonBaseArgs,
   type UseButtonBaseReturn,
 } from '../shared/use-button-base';
-import { contentStyles, getFadingStyles, iconStyles } from '../shared/xcss';
 
 import { type CommonDefaultButtonProps } from './types';
 
@@ -51,7 +49,7 @@ const useDefaultButton = <TagName extends HTMLElement>({
   shouldFitContainer,
   spacing,
 }: UseDefaultButtonArgs<TagName>): UseButtonReturn<TagName> => {
-  const fadeStyles = getFadingStyles({ hasOverlay: Boolean(overlay) });
+  const hasOverlay = Boolean(overlay);
 
   const baseProps = useButtonBase<TagName>({
     analyticsContext,
@@ -61,19 +59,15 @@ const useDefaultButton = <TagName extends HTMLElement>({
     children: (
       <Fragment>
         {iconBefore && (
-          <Box as="span" xcss={[fadeStyles, iconStyles]}>
+          <Content type="icon" hasOverlay={hasOverlay}>
             {iconBefore}
-          </Box>
+          </Content>
         )}
-        {children && (
-          <Box as="span" xcss={[fadeStyles, contentStyles]}>
-            {children}
-          </Box>
-        )}
+        {children && <Content hasOverlay={hasOverlay}>{children}</Content>}
         {iconAfter && (
-          <Box as="span" xcss={[fadeStyles, iconStyles]}>
+          <Content type="icon" hasOverlay={hasOverlay}>
             {iconAfter}
-          </Box>
+          </Content>
         )}
       </Fragment>
     ),

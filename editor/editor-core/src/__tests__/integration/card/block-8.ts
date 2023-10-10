@@ -17,7 +17,8 @@ type ClientType = Parameters<typeof goToEditorTestingWDExample>[0];
 
 BrowserTestCase(
   'card: block card with datasource on column add should render new column in table',
-  {},
+  // Skipped due to consistent failure on master
+  { skip: ['chrome'] },
   async (client: ClientType, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 

@@ -6,7 +6,8 @@ import { IntlProvider } from 'react-intl-next';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
 import LockCircleIcon from '@atlaskit/icon/glyph/lock-circle';
-import { Editor, EditorProps } from './../src';
+import type { EditorProps } from './../src';
+import { Editor } from './../src';
 import EditorContext from './../src/ui/EditorContext';
 import WithEditorActions from './../src/ui/WithEditorActions';
 import ToolbarHelp from './../src/ui/ToolbarHelp';
@@ -127,7 +128,8 @@ export class CommentEditorWithFeedback extends React.Component<Props, State> {
                       allowTextColor={true}
                       allowRule={true}
                       allowTables={{
-                        allowControls: true,
+                        advanced: true,
+                        allowDistributeColumns: true,
                       }}
                       allowHelpDialog={true}
                       disabled={disabled}

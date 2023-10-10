@@ -21,21 +21,19 @@ import { IconTable } from '@atlaskit/editor-common/icons';
 import { toggleTable, tooltip } from '@atlaskit/editor-common/keymaps';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { EditorSelectionAPI } from '@atlaskit/editor-common/selection';
 import type {
   Command,
-  EditorCommand,
   EditorPlugin,
   GetEditorContainerWidth,
   GetEditorFeatureFlags,
   NextEditorPlugin,
-  OptionalPlugin,
 } from '@atlaskit/editor-common/types';
 import { browser } from '@atlaskit/editor-common/utils';
 import { WithPluginState } from '@atlaskit/editor-common/with-plugin-state';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { ContentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 import type { GuidelinePlugin } from '@atlaskit/editor-plugin-guideline';
+import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
 import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -76,7 +74,6 @@ import FloatingDeleteButton from './ui/FloatingDeleteButton';
 import FloatingInsertButton from './ui/FloatingInsertButton';
 import LayoutButton from './ui/LayoutButton';
 import { isLayoutSupported } from './utils';
-
 interface TablePluginOptions {
   tableOptions: PluginConfig;
   // experimental custom table resizing experience, set inside editor-core behind a feature flag
@@ -88,21 +85,10 @@ interface TablePluginOptions {
   // TODO these two need to be rethought
   fullWidthEnabled?: boolean;
   wasFullWidthEnabled?: boolean;
-  editorSelectionAPI?: EditorSelectionAPI;
   getEditorFeatureFlags?: GetEditorFeatureFlags;
 }
 
 type InsertTableAction = (analyticsPayload: AnalyticsEventPayload) => Command;
-
-// TODO: duplicated SelectionPlugin type as it's still in editor-core, doing this avoid
-// circular dependencies
-type SelectionPlugin = NextEditorPlugin<
-  'selection',
-  {
-    pluginConfiguration: unknown;
-    commands: { displayGapCursor: (toggle: boolean) => EditorCommand };
-  }
->;
 
 const defaultGetEditorFeatureFlags = () => ({});
 
@@ -118,7 +104,7 @@ export type TablePlugin = NextEditorPlugin<
       ContentInsertionPlugin,
       WidthPlugin,
       GuidelinePlugin,
-      OptionalPlugin<SelectionPlugin>,
+      SelectionPlugin,
     ];
   }
 >;
@@ -242,7 +228,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
         },
         {
           name: 'tableSelectionKeymap',
-          plugin: () => tableSelectionKeymapPlugin(options?.editorSelectionAPI),
+          plugin: () => tableSelectionKeymapPlugin(api?.selection),
         },
         {
           name: 'tableEditing',

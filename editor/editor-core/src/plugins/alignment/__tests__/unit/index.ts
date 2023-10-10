@@ -34,7 +34,7 @@ import codeBlockPlugin from '../../../code-block';
 import { compositionPlugin } from '@atlaskit/editor-plugin-composition';
 import { blockTypePlugin } from '@atlaskit/editor-plugin-block-type';
 import type { AlignmentPluginState } from '../../pm-plugins/types';
-import selectionPlugin from '../../../selection';
+import { selectionPlugin } from '@atlaskit/editor-plugin-selection';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';

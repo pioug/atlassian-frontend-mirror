@@ -19,7 +19,7 @@ import type { LongPressSelectionPluginOptions } from '@atlaskit/editor-common/ty
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import { createWrapSelectionTransaction } from '@atlaskit/editor-common/utils';
-import type { SelectionPlugin } from '../selection'; // TO-DO: replace with editor-plugin-selection
+import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
 interface ExpandPluginOptions extends LongPressSelectionPluginOptions {
   allowInsertion?: boolean;
   appearance?: EditorProps['appearance'];

@@ -2,7 +2,7 @@
 import React from 'react';
 
 import { isSafeUrl } from '@atlaskit/adf-schema';
-import { DatasourceRenderFailedAnalyticsWrapper } from '@atlaskit/link-datasource';
+import { LazyLoadedDatasourceRenderFailedAnalyticsWrapper } from '@atlaskit/link-datasource';
 import type { APIError } from '@atlaskit/smart-card';
 
 import type { DatasourceProps } from './nodeviews/datasource';
@@ -10,8 +10,8 @@ import { setSelectedCardAppearance } from './pm-plugins/doc';
 
 export class DatasourceErrorBoundary extends React.Component<{
   url?: string;
-  unsupportedComponent: React.ComponentType;
-  handleError: () => void;
+  unsupportedComponent?: React.ComponentType;
+  handleError?: () => void;
   view: DatasourceProps['view'];
 }> {
   state = {
@@ -23,7 +23,9 @@ export class DatasourceErrorBoundary extends React.Component<{
   }
 
   componentDidCatch(error: Error | APIError) {
-    this.props.handleError();
+    if (this.props.handleError) {
+      this.props.handleError();
+    }
     // prevent re-render children with error
     if (this.state.isError) {
       this.setState({ isError: true });
@@ -40,18 +42,22 @@ export class DatasourceErrorBoundary extends React.Component<{
     if (this.state.isError) {
       if (url && isSafeUrl(url)) {
         return (
-          <DatasourceRenderFailedAnalyticsWrapper>
+          <LazyLoadedDatasourceRenderFailedAnalyticsWrapper>
             {setSelectedCardAppearance('inline', undefined)(
               view.state,
               view.dispatch,
             )}
-          </DatasourceRenderFailedAnalyticsWrapper>
+          </LazyLoadedDatasourceRenderFailedAnalyticsWrapper>
         );
       } else {
+        const unsupportedComponent = UnsupportedComponent ? (
+          <UnsupportedComponent />
+        ) : null;
+
         return (
-          <DatasourceRenderFailedAnalyticsWrapper>
-            <UnsupportedComponent />
-          </DatasourceRenderFailedAnalyticsWrapper>
+          <LazyLoadedDatasourceRenderFailedAnalyticsWrapper>
+            {unsupportedComponent}
+          </LazyLoadedDatasourceRenderFailedAnalyticsWrapper>
         );
       }
     } else {

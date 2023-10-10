@@ -1,12 +1,10 @@
 import React from 'react';
 
-import { Box } from '@atlaskit/primitives';
-
+import Content from '../shared/content';
 import useButtonBase, {
   type UseButtonBaseArgs,
   type UseButtonBaseReturn,
 } from '../shared/use-button-base';
-import { getFadingStyles, iconStyles } from '../shared/xcss';
 
 import { type CommonIconButtonProps } from './types';
 
@@ -51,7 +49,7 @@ const useIconButton = <TagName extends HTMLElement>({
   shouldFitContainer,
   spacing,
 }: UseIconButtonArgs<TagName>): UseIconButtonReturn<TagName> => {
-  const fadeStyles = getFadingStyles({ hasOverlay: Boolean(overlay) });
+  const hasOverlay = Boolean(overlay);
 
   const baseProps = useButtonBase<TagName>({
     analyticsContext,
@@ -63,9 +61,9 @@ const useIconButton = <TagName extends HTMLElement>({
      * label - likely implemented using VisuallyHidden
      */
     children: (
-      <Box as="span" xcss={[fadeStyles, iconStyles]}>
+      <Content type="icon" hasOverlay={hasOverlay}>
         {icon}
-      </Box>
+      </Content>
     ),
     interactionName,
     isDisabled,

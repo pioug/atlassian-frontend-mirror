@@ -18,6 +18,7 @@ export type ButtonGroupProps = {
 const buttonGroupStyles = css({
   display: 'inline-flex',
   gap: token('space.050', '4px'),
+  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   '> *': {
     flex: '1 0 auto',
   },

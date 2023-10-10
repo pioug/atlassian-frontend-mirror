@@ -1,11 +1,11 @@
 import { uuid } from '@atlaskit/adf-schema';
 import type { DocBuilder } from '@atlaskit/editor-common/types';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import selectionPlugin from '@atlaskit/editor-core/src/plugins/selection';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
+import { selectionPlugin } from '@atlaskit/editor-plugin-selection';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import type { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { Rect } from '@atlaskit/editor-tables/table-map';
@@ -26,6 +26,7 @@ import {
   tdEmpty,
   tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import tablePlugin from '../../../plugins/table-plugin';
 import { pluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
@@ -42,12 +43,27 @@ const colsToRect = (cols: Array<number>, noOfRows: number): Rect => ({
 const TABLE_LOCAL_ID = 'test-table-local-id';
 
 describe('table plugin -> transforms -> delete columns', () => {
+  const originalClientWidth = Object.getOwnPropertyDescriptor(
+    HTMLElement.prototype,
+    'clientWidth',
+  );
   beforeAll(() => {
     uuid.setStatic(TABLE_LOCAL_ID);
+
+    Object.defineProperty(HTMLElement.prototype, 'clientWidth', {
+      get() {
+        return 760;
+      },
+    });
   });
 
   afterAll(() => {
     uuid.setStatic(false);
+    Object.defineProperty(HTMLElement.prototype, 'clientWidth', {
+      get() {
+        return originalClientWidth;
+      },
+    });
   });
 
   const createEditor = createProsemirrorEditorFactory();
@@ -65,132 +81,411 @@ describe('table plugin -> transforms -> delete columns', () => {
       doc,
       preset,
       pluginKey,
+      attachTo: document.body,
     });
 
   describe('when selection rect is given', () => {
     describe('when the first column is deleted', () => {
-      it('should delete the column and move cursor to the first column', () => {
-        const {
-          editorView,
-          refs: { nextCursorPos },
-        } = editor(
-          doc(
-            p('text'),
-            table()(
-              tr(
-                td({})(p('{nextCursorPos}')),
-                td({})(p('c2')),
-                td({})(p('c3')),
+      describe('should delete the column and move cursor to the first column', () => {
+        ffTest(
+          'platform.editor.table-update-colwidths-after-column-is-deleted',
+          () => {
+            const {
+              editorView,
+              refs: { nextCursorPos },
+            } = editor(
+              doc(
+                p('text'),
+                table()(
+                  tr(
+                    td({})(p('{nextCursorPos}')),
+                    td({})(p('c2')),
+                    td({})(p('c3')),
+                  ),
+                ),
               ),
-            ),
-          ),
+            );
+            const { state, dispatch } = editorView;
+            dispatch(deleteColumns(colsToRect([0], 1), true)(state.tr));
+            expect(editorView.state.doc).toEqualDocument(
+              doc(
+                p('text'),
+                table({ localId: TABLE_LOCAL_ID })(
+                  tr(td({})(p('c2')), td()(p('c3'))),
+                ),
+              ),
+            );
+            expect(editorView.state.selection.from).toEqual(nextCursorPos);
+          },
+          () => {
+            const {
+              editorView,
+              refs: { nextCursorPos },
+            } = editor(
+              doc(
+                p('text'),
+                table()(
+                  tr(
+                    td({})(p('{nextCursorPos}')),
+                    td({})(p('c2')),
+                    td({})(p('c3')),
+                  ),
+                ),
+              ),
+            );
+            const { state, dispatch } = editorView;
+            dispatch(deleteColumns(colsToRect([0], 1), true)(state.tr));
+            expect(editorView.state.doc).toEqualDocument(
+              doc(
+                p('text'),
+                table({ localId: TABLE_LOCAL_ID })(
+                  tr(td({})(p('c2')), td()(p('c3'))),
+                ),
+              ),
+            );
+            expect(editorView.state.selection.from).toEqual(nextCursorPos);
+          },
         );
-        const { state, dispatch } = editorView;
-        dispatch(deleteColumns(colsToRect([0], 1))(state.tr));
-        expect(editorView.state.doc).toEqualDocument(
-          doc(
-            p('text'),
-            table({ localId: TABLE_LOCAL_ID })(
-              tr(td({})(p('c2')), td()(p('c3'))),
-            ),
-          ),
-        );
-        expect(editorView.state.selection.from).toEqual(nextCursorPos);
       });
     });
 
     describe('when middle column is deleted', () => {
-      it('should delete the column and move cursor to the previous column', () => {
-        const {
-          editorView,
-          refs: { nextCursorPos },
-        } = editor(
-          doc(
-            p('text'),
-            table()(
-              tr(
-                td({})(p('{nextCursorPos}')),
-                td({})(p('c2')),
-                td({})(p('c3')),
+      describe('should delete the column and move cursor to the previous column', () => {
+        ffTest(
+          'platform.editor.table-update-colwidths-after-column-is-deleted',
+          () => {
+            const {
+              editorView,
+              refs: { nextCursorPos },
+            } = editor(
+              doc(
+                p('text'),
+                table()(
+                  tr(
+                    td({})(p('{nextCursorPos}')),
+                    td({})(p('c2')),
+                    td({})(p('c3')),
+                  ),
+                ),
               ),
-            ),
-          ),
+            );
+            const { state, dispatch } = editorView;
+            dispatch(deleteColumns(colsToRect([1], 1), true)(state.tr));
+            expect(editorView.state.doc).toEqualDocument(
+              doc(
+                p('text'),
+                table({ localId: TABLE_LOCAL_ID })(tr(tdEmpty, td()(p('c3')))),
+              ),
+            );
+            expect(editorView.state.selection.from).toEqual(nextCursorPos);
+          },
+          () => {
+            const {
+              editorView,
+              refs: { nextCursorPos },
+            } = editor(
+              doc(
+                p('text'),
+                table()(
+                  tr(
+                    td({})(p('{nextCursorPos}')),
+                    td({})(p('c2')),
+                    td({})(p('c3')),
+                  ),
+                ),
+              ),
+            );
+            const { state, dispatch } = editorView;
+            dispatch(deleteColumns(colsToRect([1], 1), true)(state.tr));
+            expect(editorView.state.doc).toEqualDocument(
+              doc(
+                p('text'),
+                table({ localId: TABLE_LOCAL_ID })(tr(tdEmpty, td()(p('c3')))),
+              ),
+            );
+            expect(editorView.state.selection.from).toEqual(nextCursorPos);
+          },
         );
-        const { state, dispatch } = editorView;
-        dispatch(deleteColumns(colsToRect([1], 1))(state.tr));
-        expect(editorView.state.doc).toEqualDocument(
-          doc(
-            p('text'),
-            table({ localId: TABLE_LOCAL_ID })(tr(tdEmpty, td()(p('c3')))),
-          ),
-        );
-        expect(editorView.state.selection.from).toEqual(nextCursorPos);
       });
     });
 
     describe('when multiple rows are selected', () => {
-      it('should delete these columns', () => {
-        const { editorView } = editor(
-          doc(
-            p('text'),
-            table()(tr(tdCursor, td({})(p('c1')), td({})(p('c2')))),
-          ),
-        );
-        const { state, dispatch } = editorView;
-        dispatch(deleteColumns(colsToRect([0, 1], 1))(state.tr));
-        expect(editorView.state.doc).toEqualDocument(
-          doc(p('text'), table({ localId: TABLE_LOCAL_ID })(tr(td()(p('c2'))))),
+      describe('should delete these columns', () => {
+        ffTest(
+          'platform.editor.table-update-colwidths-after-column-is-deleted',
+          () => {
+            const { editorView } = editor(
+              doc(
+                p('text'),
+                table()(tr(tdCursor, td({})(p('c1')), td({})(p('c2')))),
+              ),
+            );
+            const { state, dispatch } = editorView;
+            dispatch(deleteColumns(colsToRect([0, 1], 1), true)(state.tr));
+            expect(editorView.state.doc).toEqualDocument(
+              doc(
+                p('text'),
+                table({ localId: TABLE_LOCAL_ID })(tr(td()(p('c2')))),
+              ),
+            );
+          },
+          () => {
+            const { editorView } = editor(
+              doc(
+                p('text'),
+                table()(tr(tdCursor, td({})(p('c1')), td({})(p('c2')))),
+              ),
+            );
+            const { state, dispatch } = editorView;
+            dispatch(deleteColumns(colsToRect([0, 1], 1), true)(state.tr));
+            expect(editorView.state.doc).toEqualDocument(
+              doc(
+                p('text'),
+                table({ localId: TABLE_LOCAL_ID })(tr(td()(p('c2')))),
+              ),
+            );
+          },
         );
       });
     });
   });
 
   describe('when one column is selected', () => {
-    it('should delete the column', () => {
-      const { editorView } = editor(
-        doc(
-          p('text'),
-          table()(
-            tr(td({})(p('a1')), td({})(p('{<cell}a2')), td({})(p('a3'))),
-            tr(td({})(p('b1')), td({})(p('{cell>}b2')), td({})(p('b3'))),
-          ),
-        ),
+    describe('should delete the column', () => {
+      ffTest(
+        'platform.editor.table-update-colwidths-after-column-is-deleted',
+        () => {
+          const { editorView } = editor(
+            doc(
+              p('text'),
+              table()(
+                tr(td({})(p('a1')), td({})(p('{<cell}a2')), td({})(p('a3'))),
+                tr(td({})(p('b1')), td({})(p('{cell>}b2')), td({})(p('b3'))),
+              ),
+            ),
+          );
+          const { state, dispatch } = editorView;
+          dispatch(
+            deleteColumns(getSelectionRect(state.selection)!, true)(state.tr),
+          );
+          expect(editorView.state.doc).toEqualDocument(
+            doc(
+              p('text'),
+              table({ localId: TABLE_LOCAL_ID })(
+                tr(td({})(p('a1')), td({})(p('a3'))),
+                tr(td({})(p('b1')), td({})(p('b3'))),
+              ),
+            ),
+          );
+        },
+        () => {
+          const { editorView } = editor(
+            doc(
+              p('text'),
+              table()(
+                tr(td({})(p('a1')), td({})(p('{<cell}a2')), td({})(p('a3'))),
+                tr(td({})(p('b1')), td({})(p('{cell>}b2')), td({})(p('b3'))),
+              ),
+            ),
+          );
+          const { state, dispatch } = editorView;
+          dispatch(
+            deleteColumns(getSelectionRect(state.selection)!, true)(state.tr),
+          );
+          expect(editorView.state.doc).toEqualDocument(
+            doc(
+              p('text'),
+              table({ localId: TABLE_LOCAL_ID })(
+                tr(td({})(p('a1')), td({})(p('a3'))),
+                tr(td({})(p('b1')), td({})(p('b3'))),
+              ),
+            ),
+          );
+        },
       );
-      const { state, dispatch } = editorView;
-      dispatch(deleteColumns(getSelectionRect(state.selection)!)(state.tr));
-      expect(editorView.state.doc).toEqualDocument(
-        doc(
-          p('text'),
-          table({ localId: TABLE_LOCAL_ID })(
-            tr(td({})(p('a1')), td({})(p('a3'))),
-            tr(td({})(p('b1')), td({})(p('b3'))),
-          ),
-        ),
+    });
+
+    describe('should update each cells colWidth', () => {
+      ffTest(
+        'platform.editor.table-update-colwidths-after-column-is-deleted',
+        () => {
+          const { editorView } = editor(
+            doc(
+              table({ localId: TABLE_LOCAL_ID, layout: 'default', width: 760 })(
+                tr(
+                  td({ colwidth: [401] })(p('{<>}')),
+                  td({ colwidth: [105] })(p('')),
+                  td({ colwidth: [253] })(p('')),
+                ),
+              ),
+            ),
+          );
+          const { dispatch, state } = editorView;
+          dispatch(
+            deleteColumns(colsToRect([1], 1), true, editorView)(state.tr),
+          );
+
+          expect(editorView.state.doc).toEqualDocument(
+            doc(
+              table({ localId: TABLE_LOCAL_ID, width: 760 })(
+                tr(
+                  td({ colwidth: [460] })(p('')),
+                  td({ colwidth: [289] })(p('')),
+                ),
+              ),
+            ),
+          );
+        },
+        () => {
+          const { editorView } = editor(
+            doc(
+              table({ localId: TABLE_LOCAL_ID, width: 691 })(
+                tr(
+                  td({ colwidth: [230] })(p('')),
+                  td({ colwidth: [230] })(p('')),
+                  td({ colwidth: [230] })(p('')),
+                ),
+              ),
+            ),
+          );
+          const { dispatch, state } = editorView;
+
+          dispatch(
+            deleteColumns(colsToRect([1], 1), true, editorView)(state.tr),
+          );
+
+          expect(editorView.state.doc).toEqualDocument(
+            doc(
+              table({ localId: TABLE_LOCAL_ID, width: 691 })(
+                tr(
+                  td({ colwidth: [230] })(p('')),
+                  td({ colwidth: [230] })(p('')),
+                ),
+              ),
+            ),
+          );
+        },
       );
     });
   });
 
   describe('when multiple columns are selected', () => {
-    it('should delete these column', () => {
-      const { editorView } = editor(
-        doc(
-          p('text'),
-          table()(
-            tr(td({})(p('{<cell}a1')), td({})(p('a2')), td({})(p('a3'))),
-            tr(td({})(p('b1')), td({})(p('{cell>}b2')), td({})(p('b3'))),
-          ),
-        ),
+    describe('should delete these column', () => {
+      ffTest(
+        'platform.editor.table-update-colwidths-after-column-is-deleted',
+        () => {
+          const { editorView } = editor(
+            doc(
+              p('text'),
+              table()(
+                tr(td({})(p('{<cell}a1')), td({})(p('a2')), td({})(p('a3'))),
+                tr(td({})(p('b1')), td({})(p('{cell>}b2')), td({})(p('b3'))),
+              ),
+            ),
+          );
+          const { state, dispatch } = editorView;
+          dispatch(
+            deleteColumns(getSelectionRect(state.selection)!, true)(state.tr),
+          );
+          expect(editorView.state.doc).toEqualDocument(
+            doc(
+              p('text'),
+              table({ localId: TABLE_LOCAL_ID })(
+                tr(td({})(p('a3'))),
+                tr(td({})(p('b3'))),
+              ),
+            ),
+          );
+        },
+        () => {
+          const { editorView } = editor(
+            doc(
+              p('text'),
+              table()(
+                tr(td({})(p('{<cell}a1')), td({})(p('a2')), td({})(p('a3'))),
+                tr(td({})(p('b1')), td({})(p('{cell>}b2')), td({})(p('b3'))),
+              ),
+            ),
+          );
+          const { state, dispatch } = editorView;
+          dispatch(
+            deleteColumns(getSelectionRect(state.selection)!, true)(state.tr),
+          );
+          expect(editorView.state.doc).toEqualDocument(
+            doc(
+              p('text'),
+              table({ localId: TABLE_LOCAL_ID })(
+                tr(td({})(p('a3'))),
+                tr(td({})(p('b3'))),
+              ),
+            ),
+          );
+        },
       );
-      const { state, dispatch } = editorView;
-      dispatch(deleteColumns(getSelectionRect(state.selection)!)(state.tr));
-      expect(editorView.state.doc).toEqualDocument(
-        doc(
-          p('text'),
-          table({ localId: TABLE_LOCAL_ID })(
-            tr(td({})(p('a3'))),
-            tr(td({})(p('b3'))),
-          ),
-        ),
+    });
+
+    describe('should update each cells colWidth', () => {
+      ffTest(
+        'platform.editor.table-update-colwidths-after-column-is-deleted',
+        () => {
+          const { editorView } = editor(
+            doc(
+              table({ localId: TABLE_LOCAL_ID, layout: 'default', width: 760 })(
+                tr(
+                  td({ colwidth: [401] })(p('{<cell}')),
+                  td({ colwidth: [105] })(p('{cell>}')),
+                  td({ colwidth: [253] })(p('')),
+                ),
+              ),
+            ),
+          );
+          const { dispatch, state } = editorView;
+          dispatch(
+            deleteColumns(
+              getSelectionRect(state.selection)!,
+              true,
+              editorView,
+            )(state.tr),
+          );
+
+          expect(editorView.state.doc).toEqualDocument(
+            doc(
+              table({ localId: TABLE_LOCAL_ID, width: 760 })(
+                tr(td({ colwidth: [749] })(p(''))),
+              ),
+            ),
+          );
+        },
+        () => {
+          const { editorView } = editor(
+            doc(
+              table({ localId: TABLE_LOCAL_ID, width: 691 })(
+                tr(
+                  td({ colwidth: [401] })(p('{<cell}')),
+                  td({ colwidth: [105] })(p('{cell>}')),
+                  td({ colwidth: [253] })(p('')),
+                ),
+              ),
+            ),
+          );
+          const { dispatch, state } = editorView;
+
+          dispatch(
+            deleteColumns(
+              getSelectionRect(state.selection)!,
+              true,
+              editorView,
+            )(state.tr),
+          );
+
+          expect(editorView.state.doc).toEqualDocument(
+            doc(
+              table({ localId: TABLE_LOCAL_ID, width: 691 })(
+                tr(td({ colwidth: [253] })(p(''))),
+              ),
+            ),
+          );
+        },
       );
     });
   });
@@ -207,7 +502,9 @@ describe('table plugin -> transforms -> delete columns', () => {
         ),
       );
       const { state, dispatch } = editorView;
-      dispatch(deleteColumns(getSelectionRect(state.selection)!)(state.tr));
+      dispatch(
+        deleteColumns(getSelectionRect(state.selection)!, true)(state.tr),
+      );
       expect(editorView.state.doc).toEqualDocument(
         doc(
           p('text'),
@@ -241,7 +538,9 @@ describe('table plugin -> transforms -> delete columns', () => {
           ),
         );
         const { state, dispatch } = editorView;
-        dispatch(deleteColumns(getSelectionRect(state.selection)!)(state.tr));
+        dispatch(
+          deleteColumns(getSelectionRect(state.selection)!, false)(state.tr),
+        );
         expect(editorView.state.doc).toEqualDocument(
           doc(
             p('text'),
@@ -271,7 +570,9 @@ describe('table plugin -> transforms -> delete columns', () => {
           ),
         );
         const { state, dispatch } = editorView;
-        dispatch(deleteColumns(getSelectionRect(state.selection)!)(state.tr));
+        dispatch(
+          deleteColumns(getSelectionRect(state.selection)!, false)(state.tr),
+        );
         expect(editorView.state.doc).toEqualDocument(
           doc(
             p('text'),
@@ -305,7 +606,7 @@ describe('table plugin -> transforms -> delete columns', () => {
             ),
           );
           const { state, dispatch } = editorView;
-          dispatch(deleteColumns(colsToRect([0], 3))(state.tr));
+          dispatch(deleteColumns(colsToRect([0], 3), true)(state.tr));
           expect(editorView.state.doc).toEqualDocument(
             doc(
               table({ localId: TABLE_LOCAL_ID })(
@@ -355,7 +656,7 @@ describe('table plugin -> transforms -> delete columns', () => {
             ),
           );
           const { state, dispatch } = editorView;
-          dispatch(deleteColumns(colsToRect([0], 4))(state.tr));
+          dispatch(deleteColumns(colsToRect([0], 4), true)(state.tr));
           expect(editorView.state.doc).toEqualDocument(
             doc(
               table({ localId: TABLE_LOCAL_ID })(
@@ -407,7 +708,7 @@ describe('table plugin -> transforms -> delete columns', () => {
             ),
           );
           const { state, dispatch } = editorView;
-          dispatch(deleteColumns(colsToRect([1], 3))(state.tr));
+          dispatch(deleteColumns(colsToRect([1], 3), true)(state.tr));
           expect(editorView.state.doc).toEqualDocument(
             doc(
               table({ localId: TABLE_LOCAL_ID })(
@@ -454,7 +755,7 @@ describe('table plugin -> transforms -> delete columns', () => {
             ),
           );
           const { state, dispatch } = editorView;
-          dispatch(deleteColumns(colsToRect([1], 4))(state.tr));
+          dispatch(deleteColumns(colsToRect([1], 4), true)(state.tr));
           expect(editorView.state.doc).toEqualDocument(
             doc(
               table({ localId: TABLE_LOCAL_ID })(
@@ -500,7 +801,7 @@ describe('table plugin -> transforms -> delete columns', () => {
           ),
         );
         const { state, dispatch } = editorView;
-        dispatch(deleteColumns(colsToRect([1, 2], 3))(state.tr));
+        dispatch(deleteColumns(colsToRect([1, 2], 3), true)(state.tr));
         expect(editorView.state.doc).toEqualDocument(
           doc(
             table({ localId: TABLE_LOCAL_ID })(

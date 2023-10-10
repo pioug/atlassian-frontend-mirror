@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/side-navigation",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "A highly composable side navigation component that supports nested views.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -32,7 +32,7 @@
     }
   },
   "dependencies": {
-    "@atlaskit/ds-explorations": "^2.4.0",
+    "@atlaskit/ds-explorations": "^3.0.0",
     "@atlaskit/ds-lib": "^2.2.0",
     "@atlaskit/icon": "^21.12.0",
     "@atlaskit/menu": "^1.11.0",

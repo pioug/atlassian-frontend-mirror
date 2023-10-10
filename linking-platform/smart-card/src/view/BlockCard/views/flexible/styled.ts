@@ -62,3 +62,7 @@ export const flexibleBlockCardStyle = getBooleanFF(
 )
   ? refreshedFlexibleBlockCardStyle
   : flexibleBlockCardElevationStyle;
+
+export const forbiddenViewTitleStyle = css`
+  font-weight: 600;
+`;

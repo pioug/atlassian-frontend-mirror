@@ -45,7 +45,7 @@ import extensionPlugin from '../../../../extension';
 import layoutPlugin from '../../../../layout';
 import expandPlugin from '../../../../expand';
 import panelPlugin from '../../../../panel';
-import selectionPlugin from '../../../../selection';
+import { selectionPlugin } from '@atlaskit/editor-plugin-selection';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';

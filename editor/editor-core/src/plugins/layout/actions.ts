@@ -23,7 +23,7 @@ import { LAYOUT_TYPE } from '../analytics/types/node-events';
 import { pluginKey } from './pm-plugins/plugin-key';
 import type { LayoutState } from './pm-plugins/types';
 import type { Change, PresetLayout } from './types';
-import type { TOOLBAR_MENU_TYPE } from '../insert-block/ui/ToolbarInsertBlock/types';
+import type { TOOLBAR_MENU_TYPE } from '@atlaskit/editor-common/types';
 
 export const ONE_COL_LAYOUTS: PresetLayout[] = ['single'];
 export const TWO_COL_LAYOUTS: PresetLayout[] = [

@@ -10,6 +10,7 @@ import type { FloatingToolbarPlugin } from '@atlaskit/editor-plugin-floating-too
 import type { FocusPlugin } from '@atlaskit/editor-plugin-focus';
 import type { GridPlugin } from '@atlaskit/editor-plugin-grid';
 import type { GuidelinePlugin } from '@atlaskit/editor-plugin-guideline';
+import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
 import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
 
 import type { MediaPluginState } from './pm-plugins/types';
@@ -30,6 +31,7 @@ export type MediaNextEditorPluginType = NextEditorPlugin<
       FloatingToolbarPlugin,
       EditorDisabledPlugin,
       FocusPlugin,
+      SelectionPlugin,
     ];
     sharedState: MediaPluginState | null;
     actions: {

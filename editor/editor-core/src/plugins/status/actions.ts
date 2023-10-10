@@ -16,7 +16,7 @@ import {
   EVENT_TYPE,
   withAnalytics,
 } from '../analytics';
-import type { TOOLBAR_MENU_TYPE } from '../insert-block/ui/ToolbarInsertBlock/types';
+import type { TOOLBAR_MENU_TYPE } from '@atlaskit/editor-common/types';
 
 import { pluginKey } from './plugin-key';
 import type { StatusType, ClosingPayload } from './types';

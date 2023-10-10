@@ -3,7 +3,6 @@ import { EditorActions } from '@atlaskit/editor-core';
 import { updateStatusWithAnalytics } from '@atlaskit/editor-core/src/plugins/status/actions';
 
 import { dateToDateType } from '@atlaskit/editor-core/src/plugins/date/utils/formatParse';
-import { insertDate } from '@atlaskit/editor-core/src/plugins/date/actions';
 import { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import type { DocBuilder } from '@atlaskit/editor-common/types';
@@ -73,12 +72,6 @@ jest.mock('@atlaskit/editor-core/src/plugins/status/actions', () => ({
   updateStatusWithAnalytics: jest.fn(() => () => {}),
 }));
 
-jest.mock('@atlaskit/editor-core/src/plugins/date/actions', () => ({
-  ...jest.requireActual<Object>(
-    '@atlaskit/editor-core/src/plugins/date/actions',
-  ),
-  insertDate: jest.fn(() => () => {}),
-}));
 jest.mock('@atlaskit/editor-common/utils', () => ({
   ...jest.requireActual<Object>('@atlaskit/editor-common/utils'),
   measureRender: jest.fn((name, callback) => {
@@ -791,14 +784,18 @@ describe('insert node', () => {
   });
 
   it('should insert a date node', () => {
+    const mockInsertDate = jest.fn(() => () => {});
     let bridge: WebBridgeImpl = new WebBridgeImpl();
     const editorView = {} as EditorViewWithComposition;
     bridge.editorView = editorView;
-    bridge.insertNode('date');
+    bridge.setPluginInjectionApi({
+      date: { actions: { insertDate: mockInsertDate } },
+    } as any);
 
+    bridge.insertNode('date');
     const dateType = dateToDateType(new Date());
 
-    expect(insertDate).toBeCalledWith(dateType, 'toolbar', 'picker');
+    expect(mockInsertDate).toBeCalledWith(dateType, 'toolbar', 'picker');
   });
 
   it('should shift the cursor', () => {

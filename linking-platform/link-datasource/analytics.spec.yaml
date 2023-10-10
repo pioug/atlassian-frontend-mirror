@@ -203,7 +203,7 @@ events:
           type: ["table"]
           description: Indicates what view option the datasource is shown as
   - datasource renderFailure:
-      type: ui
+      type: operational
       description: Fired when an inserted datasource fails to render
       attributes:
         <<:

@@ -35,13 +35,13 @@ import {
 } from '../../actions';
 
 // Editor plugins
-import deprecatedAnalyticsPlugin, { INPUT_METHOD } from '../../../analytics';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import datePlugin from '../../index';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import datePlugin from '../../plugin';
 import { quickInsertPlugin } from '@atlaskit/editor-plugin-quick-insert';
 import typeAheadPlugin from '../../../type-ahead';
 import codeBlockPlugin from '../../../code-block';
-import selectionPlugin from '../../../selection';
+import { selectionPlugin } from '@atlaskit/editor-plugin-selection';
 import { compositionPlugin } from '@atlaskit/editor-plugin-composition';
 import { editorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
@@ -58,6 +58,17 @@ describe('date plugin', () => {
   const createEditor = createProsemirrorEditorFactory();
   let createAnalyticsEvent: CreateUIAnalyticsEvent;
 
+  const attachAnalyticsEvent = jest.fn().mockImplementation(() => () => {});
+
+  const mockPluginInjectionApiWithAnalytics = {
+    analytics: {
+      actions: {
+        attachAnalyticsEvent,
+      },
+    },
+    // @ts-ignore
+  } as any;
+
   const editor = (doc: DocBuilder) => {
     createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
     return createEditor({
@@ -65,7 +76,6 @@ describe('date plugin', () => {
       preset: new Preset<LightEditorPlugin>()
         .add([featureFlagsPlugin, {}])
         .add([analyticsPlugin, { createAnalyticsEvent }])
-        .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }])
         .add(contentInsertionPlugin)
         .add(decorationsPlugin)
         .add(editorDisabledPlugin)
@@ -285,8 +295,14 @@ describe('date plugin', () => {
 
       it('should fire analytics event when inserting date node', () => {
         const { editorView: view } = editor(doc(paragraph('{<>}')));
-        insertDate(undefined, INPUT_METHOD.TOOLBAR)(view.state, view.dispatch);
-        expect(createAnalyticsEvent).toBeCalledWith({
+        insertDate(
+          undefined,
+          INPUT_METHOD.TOOLBAR,
+          undefined,
+          undefined,
+          mockPluginInjectionApiWithAnalytics,
+        )(view.state, view.dispatch);
+        expect(attachAnalyticsEvent).toBeCalledWith({
           action: 'inserted',
           actionSubject: 'document',
           actionSubjectId: 'date',
@@ -312,8 +328,10 @@ describe('date plugin', () => {
           validDate,
           undefined,
           INPUT_METHOD.PICKER,
+          undefined,
+          mockPluginInjectionApiWithAnalytics,
         )(view.state, view.dispatch);
-        expect(createAnalyticsEvent).toBeCalledWith({
+        expect(attachAnalyticsEvent).toBeCalledWith({
           eventType: 'track',
           action: 'committed',
           actionSubject: 'date',
@@ -363,8 +381,10 @@ describe('date plugin', () => {
           validDate,
           undefined,
           INPUT_METHOD.KEYBOARD,
+          undefined,
+          mockPluginInjectionApiWithAnalytics,
         )(view.state, view.dispatch);
-        expect(createAnalyticsEvent).toBeCalledWith({
+        expect(attachAnalyticsEvent).toBeCalledWith({
           eventType: 'track',
           action: 'committed',
           actionSubject: 'date',
@@ -385,8 +405,10 @@ describe('date plugin', () => {
           invalidDate,
           undefined,
           INPUT_METHOD.KEYBOARD,
+          undefined,
+          mockPluginInjectionApiWithAnalytics,
         )(view.state, view.dispatch);
-        expect(createAnalyticsEvent).toBeCalledWith({
+        expect(attachAnalyticsEvent).toBeCalledWith({
           eventType: 'track',
           action: 'committed',
           actionSubject: 'date',
@@ -528,11 +550,11 @@ describe('date plugin', () => {
         // need to have the datepicker open first, otherwise withAnalytics
         // never gets called because closeDatePicker returns false
         openDatePicker()(view.state, view.dispatch);
-        closeDatePickerWithAnalytics({ date: validDate })(
-          view.state,
-          view.dispatch,
-        );
-        expect(createAnalyticsEvent).toBeCalledWith({
+        closeDatePickerWithAnalytics({
+          date: validDate,
+          pluginInjectionApi: mockPluginInjectionApiWithAnalytics,
+        })(view.state, view.dispatch);
+        expect(attachAnalyticsEvent).toBeCalledWith({
           eventType: 'track',
           action: 'committed',
           actionSubject: 'date',

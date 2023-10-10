@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { MobileAppearance } from '../../Mobile';
-import selectionPlugin from '../../../../plugins/selection';
+import { selectionPlugin } from '@atlaskit/editor-plugin-selection';
 import type { DocBuilder } from '@atlaskit/editor-common/types';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {

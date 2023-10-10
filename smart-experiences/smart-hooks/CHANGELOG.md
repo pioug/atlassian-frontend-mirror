@@ -1,5 +1,11 @@
 # @atlaskit/smart-hooks
 
+## 0.2.7
+
+### Patch Changes
+
+- [#40652](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40652) [`097ce4dd212`](https://bitbucket.org/atlassian/atlassian-frontend/commits/097ce4dd212) - Changes for remove cyclic dependency in AFE(@atlaskit/smart-hooks,@atlassian/notification-common, @atlassian/notification-test-utils)
+
 ## 0.2.6
 
 ### Patch Changes

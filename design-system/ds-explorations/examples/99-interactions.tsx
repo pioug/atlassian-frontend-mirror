@@ -1,42 +1,55 @@
 /** @jsx jsx */
 import { Fragment } from 'react';
 
-import { css, jsx } from '@emotion/react';
+import { jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button';
 import { Code } from '@atlaskit/code';
 import FocusRing from '@atlaskit/focus-ring';
 import Heading from '@atlaskit/heading';
 import WarningIcon from '@atlaskit/icon/glyph/warning';
-import Inline from '@atlaskit/primitives/inline';
-import Stack from '@atlaskit/primitives/stack';
+import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
 import Textfield from '@atlaskit/textfield';
-import { B200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import {
-  UNSAFE_Box as Box,
   UNSAFE_InteractionSurface as InteractionSurface,
   UNSAFE_Text as Text,
 } from '../src';
 
-const fieldsetStyles = css({
+const containerStyles = xcss({
+  width: 'size.500',
+});
+
+const fieldsetStyles = xcss({
   flex: '1 1 100%',
+  borderStyle: 'solid',
+  borderWidth: 'border.width',
+  borderColor: 'color.border',
   ':hover': {
-    backgroundColor: token('color.background.input.hovered', '#bbb'),
+    backgroundColor: 'color.background.input.hovered',
   },
   ':invalid': {
-    borderColor: token('color.border.danger', 'red'),
+    borderColor: 'color.border.danger',
   },
-  ':focus, :focus-within': {
-    backgroundColor: token('color.background.input', '#FAFBFC'),
-    borderColor: token('color.border.focused', B200),
+  ':focus': {
+    backgroundColor: 'color.background.input',
+    borderColor: 'color.border.focused',
   },
+  ':focus-within': {
+    backgroundColor: 'color.background.input',
+    borderColor: 'color.border.focused',
+  },
+});
+
+const focusRingBoxStyles = xcss({
+  borderRadius: 'border.radius',
+  position: 'relative',
 });
 
 export default () => {
   return (
-    <Box width="size.500" padding="space.100" testId="all">
+    <Box xcss={containerStyles} padding="space.100" testId="all">
       <Stack space="space.200">
         <Heading level="h400">Current ADS Buttons</Heading>
         <Inline space="space.200">
@@ -48,13 +61,18 @@ export default () => {
           Buttons with <Code>InteractionSurface</Code>
         </Heading>
         <Inline space="space.200" testId="buttons">
-          {(['brand.bold', 'neutral', 'warning.bold'] as const).map((app) => (
+          {(
+            [
+              'color.background.brand.bold',
+              'color.background.neutral',
+              'color.background.warning.bold',
+            ] as const
+          ).map((app) => (
             <FocusRing key={app}>
               <Box
                 as="button"
                 onClick={() => console.log('hello')}
-                borderRadius="normal"
-                position="relative"
+                xcss={focusRingBoxStyles}
                 paddingInline="space.150"
                 backgroundColor={app}
               >
@@ -79,11 +97,10 @@ export default () => {
           <FocusRing>
             <Box
               as="button"
-              backgroundColor="brand.bold"
+              backgroundColor="color.background.brand.bold"
               onClick={() => console.log('hello')}
-              borderRadius="normal"
-              position="relative"
               padding="space.050"
+              xcss={focusRingBoxStyles}
             >
               <InteractionSurface>
                 <WarningIcon
@@ -97,10 +114,9 @@ export default () => {
           <FocusRing>
             <Box
               as="button"
-              backgroundColor="neutral"
+              backgroundColor="color.background.neutral"
               onClick={() => console.log('hello')}
-              borderRadius="normal"
-              position="relative"
+              xcss={focusRingBoxStyles}
               padding="space.050"
             >
               <InteractionSurface>
@@ -111,10 +127,9 @@ export default () => {
           <FocusRing>
             <Box
               as="button"
-              backgroundColor="warning.bold"
+              backgroundColor="color.background.warning.bold"
               onClick={() => console.log('hello')}
-              borderRadius="normal"
-              position="relative"
+              xcss={focusRingBoxStyles}
               padding="space.050"
             >
               <InteractionSurface>
@@ -131,15 +146,20 @@ export default () => {
           Progress Indicator with <Code>InteractionSurface</Code>
         </Heading>
         <Inline space="space.200" testId="progress-indicators">
-          {(['brand.bold', 'neutral', 'warning.bold'] as const).map((app) => (
+          {(
+            [
+              'color.background.brand.bold',
+              'color.background.neutral',
+              'color.background.warning.bold',
+            ] as const
+          ).map((app) => (
             <FocusRing>
               <Box
                 key={app}
                 as="button"
                 backgroundColor={app}
                 onClick={() => console.log('hello')}
-                borderRadius="rounded"
-                position="relative"
+                xcss={focusRingBoxStyles}
                 padding="space.050"
               >
                 <InteractionSurface>
@@ -154,14 +174,10 @@ export default () => {
           <Textfield />
           <Box
             as="fieldset"
-            borderRadius="normal"
-            borderStyle="solid"
-            borderWidth="2px"
             padding="space.100"
             tabIndex={-1}
-            borderColor="color.border"
-            backgroundColor="input"
-            css={fieldsetStyles}
+            backgroundColor="color.background.input"
+            xcss={fieldsetStyles}
           >
             <input
               id="textfield"

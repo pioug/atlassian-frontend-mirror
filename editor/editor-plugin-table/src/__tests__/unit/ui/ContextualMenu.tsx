@@ -4,11 +4,11 @@ import { render, screen } from '@testing-library/react';
 import { createIntl } from 'react-intl-next';
 
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import selectionPlugin from '@atlaskit/editor-core/src/plugins/selection';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
+import { selectionPlugin } from '@atlaskit/editor-plugin-selection';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';

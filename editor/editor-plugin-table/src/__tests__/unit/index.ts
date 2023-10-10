@@ -4,13 +4,12 @@ import type {
   GetEditorContainerWidth,
 } from '@atlaskit/editor-common/types';
 import { setNodeSelection } from '@atlaskit/editor-common/utils';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import selectionPlugin from '@atlaskit/editor-core/src/plugins/selection';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
+import { selectionPlugin } from '@atlaskit/editor-plugin-selection';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { uuid as tablesUuid } from '@atlaskit/editor-tables';

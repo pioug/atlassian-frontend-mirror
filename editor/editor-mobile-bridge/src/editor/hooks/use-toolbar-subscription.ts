@@ -50,7 +50,11 @@ export function useToolbarSubscription(
               return;
             }
 
-            const config = createFloatingToolbarConfigForDate(node, intl);
+            const config = createFloatingToolbarConfigForDate(
+              node,
+              intl,
+              bridge.getPluginInjectionApi(),
+            );
             bridge.mobileEditingToolbarActions.notifyNativeBridgeForEditCapabilitiesChanges(
               config,
               node,

@@ -1,10 +1,10 @@
 import { formatDateType, dateTypeToDate, dateToDateType } from './formatParse';
-import { DateType } from '../types';
+import type { DateType } from '../types';
 import addDays from 'date-fns/addDays';
 import addMonths from 'date-fns/addMonths';
 import addYears from 'date-fns/addYears';
 
-import { DateSegment } from '../types';
+import type { DateSegment } from '../types';
 
 function isDigit(c: string): boolean {
   if (c === undefined) {

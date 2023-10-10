@@ -2,13 +2,22 @@ import React from 'react';
 import { mount, ReactWrapper } from 'enzyme';
 import { CardErrorBoundary } from '../../../../react/nodes/fallback';
 import { isSafeUrl } from '@atlaskit/adf-schema';
-import { AnalyticsListener } from '@atlaskit/analytics-next';
-import { render } from '@testing-library/react';
 
 const MockedUnsupportedInline = () => <div>UnsupportedInline</div>;
 const MockedChildren = () => <div>Rendered Children</div>;
 const url =
   'https://extranet.atlassian.com/pages/viewpage.action?pageId=3088533424';
+
+jest.mock('@atlaskit/link-datasource', () => {
+  const originalModule = jest.requireActual('@atlaskit/link-datasource');
+
+  return {
+    ...originalModule,
+    LazyLoadedDatasourceRenderFailedAnalyticsWrapper: ({ children }: never) => (
+      <>{children}</>
+    ),
+  };
+});
 
 describe('Renderer - React/Nodes/Fallback', () => {
   let node: ReactWrapper;
@@ -85,7 +94,7 @@ describe('Renderer - React/Nodes/Fallback', () => {
     expect(node.find('LoadableComponent').prop('url')).toEqual(url);
   });
 
-  it('should render blue link if error occurs, when url is present and isDatasource is true and isSafeUrl is false', () => {
+  it('should render blue link if error occurs, when url is present and isDatasource is true and isSafeUrl is false', async () => {
     const unsafeUrl = 'javascript:alert(1)';
     node = mount(
       <CardErrorBoundary
@@ -127,77 +136,5 @@ describe('Renderer - React/Nodes/Fallback', () => {
     link.simulate('click');
 
     expect(mockedOnClick).toHaveBeenCalledTimes(1);
-  });
-});
-
-describe('Renderer - Fallback analytics', () => {
-  const EVENT_CHANNEL = 'media';
-
-  const renderFailedPayload = {
-    payload: {
-      action: 'renderFailure',
-      actionSubject: 'datasource',
-      actionSubjectId: undefined,
-      attributes: {
-        reason: 'internal',
-      },
-      eventType: 'ui',
-    },
-    context: [
-      {
-        packageName: '@atlaskit/fabric',
-        packageVersion: '0.0.0',
-      },
-    ],
-  };
-
-  const setup = (renderComponent: React.ReactNode, url?: string) => {
-    const onAnalyticFireEvent = jest.fn();
-
-    render(
-      <AnalyticsListener channel={EVENT_CHANNEL} onEvent={onAnalyticFireEvent}>
-        <CardErrorBoundary
-          url={url}
-          unsupportedComponent={MockedUnsupportedInline}
-          isDatasource={true}
-        >
-          {renderComponent}
-        </CardErrorBoundary>
-      </AnalyticsListener>,
-    );
-
-    return onAnalyticFireEvent;
-  };
-
-  const ErrorChild = () => {
-    throw new Error('Error');
-  };
-
-  it('fires datasource renderFailed event when error is caught by boundary', () => {
-    const onAnalyticFireEvent = setup(<ErrorChild />, url);
-
-    expect(onAnalyticFireEvent).toHaveBeenCalledTimes(1);
-    expect(onAnalyticFireEvent).toBeCalledWith(
-      expect.objectContaining(renderFailedPayload),
-      EVENT_CHANNEL,
-    );
-  });
-
-  it('fires datasource renderFailed event when error is caught by boundary and unsafe URL provided', () => {
-    const unsafeUrl = 'javascript:alert(1)';
-
-    const onAnalyticFireEvent = setup(<ErrorChild />, unsafeUrl);
-
-    expect(onAnalyticFireEvent).toHaveBeenCalledTimes(1);
-    expect(onAnalyticFireEvent).toBeCalledWith(
-      expect.objectContaining(renderFailedPayload),
-      EVENT_CHANNEL,
-    );
-  });
-
-  it('does not fire datasource renderFailed event when rendering without error', () => {
-    const onAnalyticFireEvent = setup(<MockedChildren />, url);
-
-    expect(onAnalyticFireEvent).toHaveBeenCalledTimes(0);
   });
 });

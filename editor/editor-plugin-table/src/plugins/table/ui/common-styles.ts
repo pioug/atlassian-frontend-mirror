@@ -249,7 +249,6 @@ const tableWrapperStyles = () => {
         position: relative;
 
         > table[data-number-column='true'] {
-          margin-left: 1px;
           width: calc(100% - 1px);
         }
       }

@@ -2,13 +2,17 @@ import createUniversalPreset from '../../universal';
 
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import * as table from '@atlaskit/editor-plugin-table';
-import { datePlugin } from '../../../../../plugins';
+import { datePlugin } from '../../../../../plugins/date';
 import * as date from '../../../../../plugins/date';
 
-// jest.mock('@atlaskit/editor-plugin-table');
 jest.mock('@atlaskit/editor-plugin-table', () => ({
   __esModule: true,
   ...jest.requireActual('@atlaskit/editor-plugin-table'),
+}));
+
+jest.mock('../../../../../plugins/date', () => ({
+  __esModule: true,
+  ...jest.requireActual('../../../../../plugins/date'),
 }));
 
 describe('createUniversalPreset', () => {
@@ -128,8 +132,12 @@ describe('createUniversalPreset', () => {
   });
 
   describe('date', () => {
+    beforeEach(() => {
+      jest.mock('../../../../../plugins/date');
+    });
+
     it('should add datePlugin if allowDate is true', () => {
-      jest.spyOn(date, 'default');
+      jest.spyOn(date, 'datePlugin');
       const preset = createUniversalPreset(
         'full-page',
         { paste: {}, allowDate: true },
@@ -141,7 +149,7 @@ describe('createUniversalPreset', () => {
     });
 
     it('should NOT add datePlugin if allowDate is false', () => {
-      jest.spyOn(date, 'default');
+      jest.spyOn(date, 'datePlugin');
       const preset = createUniversalPreset(
         'full-page',
         { paste: {}, allowDate: false },
@@ -153,7 +161,7 @@ describe('createUniversalPreset', () => {
     });
 
     it('should add datePlugin if allowDate is is an object with weekStartDay', () => {
-      jest.spyOn(date, 'default');
+      jest.spyOn(date, 'datePlugin');
       const preset = createUniversalPreset(
         'full-page',
         { paste: {}, allowDate: { weekStartDay: 0 } },

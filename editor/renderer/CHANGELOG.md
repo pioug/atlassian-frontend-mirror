@@ -1,5 +1,18 @@
 # @atlaskit/renderer
 
+## 108.15.10
+
+### Patch Changes
+
+- [#40745](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40745) [`dbc9194d7e1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dbc9194d7e1) - CardErrorBoundary now uses lazy loaded DatasourceRenderFailedAnalyticsWrapper
+- Updated dependencies
+
+## 108.15.9
+
+### Patch Changes
+
+- [#41151](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41151) [`d6300ceb512`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6300ceb512) - Pass through allowCaptions from media prop to mediaSingle
+
 ## 108.15.8
 
 ### Patch Changes

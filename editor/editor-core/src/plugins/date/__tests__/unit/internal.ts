@@ -1,4 +1,4 @@
-import { DateType, DateSegment } from '../../types';
+import type { DateType, DateSegment } from '../../types';
 
 import {
   getLocaleDatePlaceholder,

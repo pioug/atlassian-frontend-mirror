@@ -2,11 +2,11 @@ import clone from 'lodash/clone';
 
 import type { DocBuilder } from '@atlaskit/editor-common/types';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import selectionPlugin from '@atlaskit/editor-core/src/plugins/selection';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
+import { selectionPlugin } from '@atlaskit/editor-plugin-selection';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { redo, undo } from '@atlaskit/editor-prosemirror/history';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -53,7 +53,7 @@ const INSERT_COLUMN = (editorView: EditorView) =>
   );
 const DELETE_COLUMN = (editorView: EditorView) => {
   const { state, dispatch } = editorView;
-  dispatch(deleteColumns(colsToRect([0], 1))(state.tr));
+  dispatch(deleteColumns(colsToRect([0], 1), true, editorView)(state.tr));
 };
 const SHORTCUT_ADD_COLUMN_BEFORE = (editorView: EditorView) =>
   sendKeyToPm(editorView, 'Ctrl-Alt-ArrowLeft');

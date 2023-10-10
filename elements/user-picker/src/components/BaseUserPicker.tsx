@@ -39,6 +39,7 @@ import {
   optionToSelectableOptions,
 } from './utils';
 import { userPickerOptionsShownUfoExperience } from '../util/ufoExperiences';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 export type BaseUserPickerProps = UserPickerProps & {
   SelectComponent: React.ComponentClass<any>;
@@ -51,6 +52,14 @@ export type BaseUserPickerProps = UserPickerProps & {
 
 const loadingMessage = () => null;
 
+const observerOptions = {
+  subtree: true,
+  attributes: true,
+  attributeFilter: ['class'],
+};
+
+const classNamePrefix = 'fabric-user-picker';
+const optionFocusedClass = `${classNamePrefix}__option--is-focused`;
 export class BaseUserPickerWithoutAnalytics extends React.Component<
   BaseUserPickerProps,
   UserPickerState
@@ -421,10 +430,47 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
     }
   }
 
+  private focusedOptionObserverCallback: MutationCallback = (
+    mutationList: MutationRecord[],
+  ) => {
+    for (const mutation of mutationList) {
+      if (
+        mutation.type === 'attributes' &&
+        mutation.attributeName === 'class'
+      ) {
+        const target = mutation.target as Element;
+        if (target.classList.contains(optionFocusedClass)) {
+          this.selectRef.select.inputRef.setAttribute(
+            'aria-activedescendant',
+            target.id,
+          );
+          break;
+        }
+      }
+    }
+  };
+
+  private focusedOptionObserver = new MutationObserver(
+    this.focusedOptionObserverCallback,
+  );
+
   componentDidUpdate(_: UserPickerProps, prevState: UserPickerState) {
     const { menuIsOpen, options, resolving, count, inputValue } = this.state;
 
     if (menuIsOpen && !prevState.menuIsOpen) {
+      if (
+        getBooleanFF(
+          'platform.design-system-team.select-aria-activedescendant_psxzq',
+        )
+      ) {
+        const menuRef = this.selectRef.select.menuListRef;
+        menuRef.children[0]?.classList.contains(optionFocusedClass) &&
+          this.selectRef.select.inputRef.setAttribute(
+            'aria-activedescendant',
+            menuRef.children[0].id,
+          );
+        this.focusedOptionObserver.observe(menuRef, observerOptions);
+      }
       if (!this.session) {
         // session should have been created onFocus
         this.startSession();
@@ -442,6 +488,14 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
     if (!menuIsOpen && prevState.menuIsOpen && this.session) {
       this.fireEvent(cancelEvent, prevState);
       this.session = undefined;
+      if (
+        getBooleanFF(
+          'platform.design-system-team.select-aria-activedescendant_psxzq',
+        )
+      ) {
+        this.selectRef.select.inputRef.removeAttribute('aria-activedescendant');
+        this.focusedOptionObserver.disconnect();
+      }
     }
 
     if (
@@ -602,7 +656,7 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
           placeholder ?? <FormattedMessage {...messages.placeholder} />
         }
         addMoreMessage={addMoreMessage}
-        classNamePrefix="fabric-user-picker"
+        classNamePrefix={classNamePrefix}
         hoveringClearIndicator={hoveringClearIndicator}
         appearance={appearance}
         isClearable={isClearable}

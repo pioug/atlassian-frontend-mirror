@@ -130,5 +130,5 @@ export const getTableMaxWidth = ({
     maxWidth -= akEditorTableNumberColumnWidth;
   }
 
-  return maxWidth;
+  return maxWidth as number;
 };

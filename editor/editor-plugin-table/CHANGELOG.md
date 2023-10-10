@@ -1,5 +1,27 @@
 # @atlaskit/editor-plugin-table
 
+## 5.0.0
+
+### Major Changes
+
+- [#40750](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40750) [`fc19a7b9edd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fc19a7b9edd) - [ED-19875] Extraction of Editor Core's Selection Plugin into independent package '@atlaskit/editor-plugin-selection'.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.2.1
+
+### Patch Changes
+
+- [#40795](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40795) [`fec7aa5c761`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fec7aa5c761) - [ux] Fix distribute column resize will not been override when undefined
+
+## 4.2.0
+
+### Minor Changes
+
+- [#40780](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40780) [`981ad6038e9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/981ad6038e9) - Fixes a bug when deleting a table column will cause column resizing to become unresponsive and lag. Delete columns operation will now update the table column widths to avoid this, under a new feature flag.
+
 ## 4.1.1
 
 ### Patch Changes

@@ -1,12 +1,12 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { DateNodeView } from '../nodeviews/date';
 import { getInlineNodeViewProducer } from '@atlaskit/editor-common/react-node-view';
-import { PMPluginFactory } from '../../../types';
-import { pluginFactory } from '../../../utils/plugin-state-factory';
+import type { PMPluginFactory } from '@atlaskit/editor-common/types';
+import { pluginFactory } from '@atlaskit/editor-common/utils';
 
 import { reducer, mapping, onSelectionChanged } from './utils';
 import { pluginKey } from './plugin-key';
-import { DatePluginState } from './types';
+import type { DatePluginState } from './types';
 
 const { createPluginState, getPluginState } = pluginFactory(
   pluginKey,

@@ -141,6 +141,10 @@ this is a new line text, not in the table`,
       'ADFEXP-191 Should not add the strong marks to table header if they are JavaScript Code ',
       '|| {code:js}let example = "value"{code}|',
     ],
+    [
+      'ADFEXP-191 Should not add the strong marks to text in any codeBlock node',
+      '||* Foo {noformat}bar{noformat}|',
+    ],
   ];
 
   const context = {

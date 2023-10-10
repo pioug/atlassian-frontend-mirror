@@ -1,5 +1,17 @@
 # @atlaskit/smart-card
 
+## 26.34.3
+
+### Patch Changes
+
+- [#41344](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41344) [`b2772a33471`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b2772a33471) - [ux] Added forbidden state to redesigned inline card
+
+## 26.34.2
+
+### Patch Changes
+
+- [#41147](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41147) [`38e8635bbf9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/38e8635bbf9) - [ux] Update block card view styling behind cross-join feature flag
+
 ## 26.34.1
 
 ### Patch Changes

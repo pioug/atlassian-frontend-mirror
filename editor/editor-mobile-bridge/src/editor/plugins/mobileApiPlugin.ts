@@ -27,6 +27,8 @@ import type { CodeBlockPlugin } from '@atlaskit/editor-core/src/plugins/code-blo
 import type { PanelPlugin } from '@atlaskit/editor-core/src/plugins/panel';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import type { BlockTypePlugin } from '@atlaskit/editor-plugin-block-type';
+import type { DatePlugin } from '@atlaskit/editor-core/src/plugins/date';
+import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 
 const useListeners = (
   pluginInjectionApi: ExtractInjectionAPI<typeof mobileApiPlugin> | undefined,
@@ -71,6 +73,8 @@ export const mobileApiPlugin: NextEditorPlugin<
       OptionalPlugin<RulePlugin>,
       EmojiPlugin,
       MentionPlugin,
+      EditorDisabledPlugin,
+      DatePlugin,
     ];
     pluginConfiguration: { bridge: WebBridgeImpl; intl: IntlShape };
   }

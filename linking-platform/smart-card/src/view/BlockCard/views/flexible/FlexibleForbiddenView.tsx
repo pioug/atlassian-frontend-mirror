@@ -1,22 +1,32 @@
 import React, { useMemo } from 'react';
 import { JsonLd } from 'json-ld-types';
 import FlexibleCard from '../../../FlexibleCard';
-import TitleBlock from '../../../FlexibleCard/components/blocks/title-block';
-import { CustomBlock } from '../../../FlexibleCard/components/blocks';
+import {
+  CustomBlock,
+  PreviewBlock,
+  TitleBlock,
+} from '../../../FlexibleCard/components/blocks';
 import { token } from '@atlaskit/tokens';
 import { R300 } from '@atlaskit/theme/colors';
 import { messages } from '../../../../messages';
-import LockIcon from '@atlaskit/icon/glyph/lock-filled';
+import LockIcon from '@atlaskit/icon/glyph/lock';
 import BlockCardFooter from '../../components/flexible/footer';
 import { ActionItem } from '../../../FlexibleCard/components/blocks/types';
 import { ForbiddenAction } from '../../actions/flexible/ForbiddenAction';
 import Text from '../../../FlexibleCard/components/elements/text';
-import { SmartLinkStatus } from '../../../../constants';
+import {
+  MediaPlacement,
+  SmartLinkSize,
+  SmartLinkStatus,
+} from '../../../../constants';
 import { FlexibleBlockCardProps } from './types';
 import { getForbiddenJsonLd } from '../../../../utils/jsonld';
 import { extractProvider } from '@atlaskit/link-extractors';
-import { extractRequestAccessContext } from '../../../../extractors/common/context';
 import { withFlexibleUIBlockCardStyle } from './utils/withFlexibleUIBlockCardStyle';
+import { extractRequestAccessContextImproved } from '../../../../extractors/common/context/extractAccessContext';
+import { FormattedMessage } from 'react-intl-next';
+import { forbiddenViewTitleStyle } from './styled';
+import extractHostname from '../../../../extractors/common/hostname/extractHostname';
 
 /**
  * This view represent a Block Card with the 'Forbidden' status.
@@ -41,16 +51,26 @@ const FlexibleForbiddenView = ({
   const provider = extractProvider(details?.data as JsonLd.Data.BaseData);
   const providerName = provider?.text || '';
 
-  const requestAccessContext = extractRequestAccessContext({
-    jsonLd: cardMetadata,
-    url,
-    context: providerName,
-  });
+  const messageContext = useMemo(() => {
+    const hostname = <b>{extractHostname(url)}</b>;
+
+    return { product: providerName, hostname };
+  }, [providerName, url]);
+
+  const requestAccessContext = useMemo(() => {
+    return extractRequestAccessContextImproved({
+      jsonLd: cardMetadata,
+      url,
+      product: providerName,
+    });
+  }, [cardMetadata, providerName, url]);
 
   const descriptiveMessageKey =
     requestAccessContext && requestAccessContext.descriptiveMessageKey
       ? requestAccessContext.descriptiveMessageKey
       : 'invalid_permissions_description';
+
+  const { titleMessageKey, buttonDisabled } = requestAccessContext ?? {};
 
   const actions = useMemo<ActionItem[]>(() => {
     let actionFromAccessContext: ActionItem[] = [];
@@ -67,14 +87,15 @@ const FlexibleForbiddenView = ({
               ForbiddenAction(
                 action.promise,
                 callToActionMessageKey,
-                providerName,
+                messageContext,
+                buttonDisabled,
               ),
             ]
           : [];
     }
 
     return [...tryAnotherAccountAction, ...actionFromAccessContext];
-  }, [onAuthorize, requestAccessContext, providerName]);
+  }, [onAuthorize, requestAccessContext, messageContext, buttonDisabled]);
 
   return (
     <FlexibleCard
@@ -84,14 +105,28 @@ const FlexibleForbiddenView = ({
       onClick={onClick}
       onError={onError}
       testId={testId}
-      ui={{ hideElevation: true }}
+      ui={{ hideElevation: true, size: SmartLinkSize.Medium }}
       url={url}
     >
-      <TitleBlock
-        hideRetry={true}
-        anchorTarget={anchorTarget}
-        {...titleBlockProps}
-      />
+      {titleMessageKey ? (
+        <CustomBlock
+          overrideCss={forbiddenViewTitleStyle}
+          testId={`${testId}-title`}
+        >
+          <a target={anchorTarget} href={url}>
+            <FormattedMessage
+              {...messages[titleMessageKey]}
+              values={messageContext}
+            />
+          </a>
+        </CustomBlock>
+      ) : (
+        <TitleBlock
+          hideRetry={true}
+          anchorTarget={anchorTarget}
+          {...titleBlockProps}
+        />
+      )}
       <CustomBlock>
         <LockIcon
           label="forbidden-lock-icon"
@@ -100,12 +135,17 @@ const FlexibleForbiddenView = ({
           testId={`${testId}-lock-icon`}
         />
         <Text
+          maxLines={2}
           message={{
             descriptor: messages[descriptiveMessageKey],
-            values: { context: providerName },
+            values: messageContext,
           }}
         />
       </CustomBlock>
+      <PreviewBlock
+        placement={MediaPlacement.Right}
+        ignoreContainerPadding={true}
+      />
       <CustomBlock>
         <BlockCardFooter actions={actions} status={status} />
       </CustomBlock>

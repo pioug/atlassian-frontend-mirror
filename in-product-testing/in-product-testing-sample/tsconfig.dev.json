@@ -32,6 +32,7 @@
     "composite": true,
     "outDir": "../../../tsDist/@atlaskit__in-product-testing-sample/dev"
   },
+  "files": ["../../../cypress/support/index.d.ts"],
   "references": [
     {
       "path": "tsconfig.app.json"

@@ -1,4 +1,5 @@
-import React, { Component, SyntheticEvent } from 'react';
+import type { SyntheticEvent } from 'react';
+import React, { Component } from 'react';
 
 import { createPortal } from 'react-dom';
 
@@ -6,8 +7,8 @@ import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { Popup } from '@atlaskit/editor-common/ui';
 import { closestElement } from '@atlaskit/editor-common/utils';
-import { Selection } from '@atlaskit/editor-prosemirror/state';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { Selection } from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import {
@@ -21,7 +22,7 @@ import {
   deleteRowsWithAnalytics,
 } from '../../commands-with-analytics';
 import { getPluginState as getTablePluginState } from '../../pm-plugins/plugin-factory';
-import { RowStickyState } from '../../pm-plugins/sticky-headers';
+import type { RowStickyState } from '../../pm-plugins/sticky-headers';
 import { TableCssClassName as ClassName } from '../../types';
 import {
   getColumnDeleteButtonParams,
@@ -34,7 +35,7 @@ import tableMessages from '../messages';
 
 import DeleteButton from './DeleteButton';
 import getPopupOptions from './getPopUpOptions';
-import { CellSelectionType } from './types';
+import type { CellSelectionType } from './types';
 
 export interface Props {
   editorView: EditorView;
@@ -278,7 +279,7 @@ class FloatingDeleteButton extends Component<Props, State> {
           deleteColumnsWithAnalytics(editorAnalyticsAPI)(
             INPUT_METHOD.BUTTON,
             rect,
-          )(state, dispatch);
+          )(state, dispatch, this.props.editorView);
           return;
         }
         case 'row': {

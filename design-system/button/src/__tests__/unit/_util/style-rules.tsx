@@ -37,8 +37,8 @@ export function hasStyleRule(selector: string, expected: CSSObject): boolean {
     return false;
   }
 
-  const serialized: SerializedStyles = css(expected);
-  const targets: string[] = getCssRules(serialized.styles);
+  const serializedStyles: SerializedStyles = css(expected);
+  const targets: string[] = getCssRules(serializedStyles.styles);
 
   return targets.every((target: string) => {
     return matchSelector.some((rule: CSSStyleRule): boolean => {

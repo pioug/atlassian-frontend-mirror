@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 
 import { isSafeUrl } from '@atlaskit/adf-schema';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
@@ -17,10 +17,32 @@ const ErrorChild = () => {
   throw new Error('Error');
 };
 
-describe('DatasourceErrorBoundary', () => {
+describe('DatasourceErrorBoundary', async () => {
   let mockEditorView: EditorView;
   let mockTr: Partial<EditorView['state']['tr']>;
   let props: any;
+
+  const setup = async (renderComponent: React.ReactNode, url?: string) => {
+    const { getByText } = render(
+      <DatasourceErrorBoundary {...props} url={url}>
+        {renderComponent}
+      </DatasourceErrorBoundary>,
+    );
+
+    // Wait for any of the children to have been rendered
+    const waitForChildComponent = screen.findByText('Child Component');
+    const waitForInline = screen.findByText('Inline');
+    const waitForUnsupportedComponent = screen.findByText(
+      'Unsupported Component',
+    );
+
+    await Promise.race([
+      waitForChildComponent,
+      waitForInline,
+      waitForUnsupportedComponent,
+    ]);
+    return getByText;
+  };
 
   beforeEach(() => {
     jest
@@ -59,22 +81,14 @@ describe('DatasourceErrorBoundary', () => {
     jest.clearAllMocks();
   });
 
-  it('renders child component without error', () => {
-    const { getByText } = render(
-      <DatasourceErrorBoundary {...props}>
-        <ChildComponent />
-      </DatasourceErrorBoundary>,
-    );
+  it('renders child component without error', async () => {
+    const getByText = await setup(<ChildComponent />);
 
     expect(getByText('Child Component')).toBeInTheDocument();
   });
 
-  it('renders unsupported component when an error is thrown and no url', () => {
-    const { getByText } = render(
-      <DatasourceErrorBoundary {...props}>
-        <ErrorChild />
-      </DatasourceErrorBoundary>,
-    );
+  it('renders unsupported component when an error is thrown and no url', async () => {
+    const getByText = await setup(<ErrorChild />);
 
     const handleError = jest.spyOn(props, 'handleError');
 
@@ -82,12 +96,8 @@ describe('DatasourceErrorBoundary', () => {
     expect(getByText('Unsupported Component')).toBeInTheDocument();
   });
 
-  it('renders unsupported when an error is thrown and no safe url', () => {
-    const { getByText } = render(
-      <DatasourceErrorBoundary {...props} url={badUrl}>
-        <ErrorChild />
-      </DatasourceErrorBoundary>,
-    );
+  it('renders unsupported when an error is thrown and no safe url', async () => {
+    const getByText = await setup(<ErrorChild />, badUrl);
 
     expect(isSafeUrl(badUrl)).toBe(false);
     const handleError = jest.spyOn(props, 'handleError');
@@ -96,12 +106,8 @@ describe('DatasourceErrorBoundary', () => {
     expect(getByText('Unsupported Component')).toBeInTheDocument();
   });
 
-  it('renders inline when an error is thrown and safe url', () => {
-    const { getByText } = render(
-      <DatasourceErrorBoundary {...props} url={url}>
-        <ErrorChild />
-      </DatasourceErrorBoundary>,
-    );
+  it('renders inline when an error is thrown and safe url', async () => {
+    const getByText = await setup(<ErrorChild />, url);
 
     expect(isSafeUrl(url)).toBe(true);
     const handleError = jest.spyOn(props, 'handleError');
@@ -110,7 +116,14 @@ describe('DatasourceErrorBoundary', () => {
     expect(getByText('Inline')).toBeInTheDocument();
   });
 
-  describe('analytics', () => {
+  it('renders unsupported component while handling absence of handleError function', async () => {
+    props.handleError = undefined;
+    const getByText = await setup(<ErrorChild />);
+
+    expect(getByText('Unsupported Component')).toBeInTheDocument();
+  });
+
+  describe('analytics', async () => {
     const EVENT_CHANNEL = 'media';
 
     const renderFailedPayload = {
@@ -121,7 +134,7 @@ describe('DatasourceErrorBoundary', () => {
         attributes: {
           reason: 'internal',
         },
-        eventType: 'ui',
+        eventType: 'operational',
       },
       context: [
         {
@@ -131,7 +144,7 @@ describe('DatasourceErrorBoundary', () => {
       ],
     };
 
-    const setup = (renderComponent: React.ReactNode, url?: string) => {
+    const setup = async (renderComponent: React.ReactNode, url?: string) => {
       const onAnalyticFireEvent = jest.fn();
 
       render(
@@ -145,11 +158,15 @@ describe('DatasourceErrorBoundary', () => {
         </AnalyticsListener>,
       );
 
+      await waitFor(() => {
+        expect(onAnalyticFireEvent).toHaveBeenCalled();
+      });
+
       return onAnalyticFireEvent;
     };
 
-    it('fires datasource renderFailed event when error is caught by boundary', () => {
-      const onAnalyticFireEvent = setup(<ErrorChild />, url);
+    it('fires datasource renderFailed event when error is caught by boundary', async () => {
+      const onAnalyticFireEvent = await setup(<ErrorChild />, url);
 
       expect(onAnalyticFireEvent).toHaveBeenCalledTimes(1);
       expect(onAnalyticFireEvent).toBeCalledWith(
@@ -158,8 +175,8 @@ describe('DatasourceErrorBoundary', () => {
       );
     });
 
-    it('fires datasource renderFailed event when error is caught by boundary and no URL is present', () => {
-      const onAnalyticFireEvent = setup(<ErrorChild />);
+    it('fires datasource renderFailed event when error is caught by boundary and no URL is present', async () => {
+      const onAnalyticFireEvent = await setup(<ErrorChild />);
 
       expect(onAnalyticFireEvent).toHaveBeenCalledTimes(1);
       expect(onAnalyticFireEvent).toBeCalledWith(
@@ -168,9 +185,9 @@ describe('DatasourceErrorBoundary', () => {
       );
     });
 
-    it('fires datasource renderFailed event when error is caught by boundary and URL is unsafe', () => {
+    it('fires datasource renderFailed event when error is caught by boundary and URL is unsafe', async () => {
       const unsafeUrl = 'javascript:alert(1)';
-      const onAnalyticFireEvent = setup(<ErrorChild />, unsafeUrl);
+      const onAnalyticFireEvent = await setup(<ErrorChild />, unsafeUrl);
 
       expect(onAnalyticFireEvent).toHaveBeenCalledTimes(1);
       expect(onAnalyticFireEvent).toBeCalledWith(
@@ -179,21 +196,27 @@ describe('DatasourceErrorBoundary', () => {
       );
     });
 
-    it('does not fire datasource renderFailed event when rendering without error', () => {
-      const onAnalyticFireEvent = setup(<ChildComponent />, url);
+    it('fires datasource renderFailed event when error is caught by boundary and URL is unsafe', async () => {
+      const unsafeUrl = 'javascript:alert(1)';
+      const onAnalyticFireEvent = await setup(<ErrorChild />, unsafeUrl);
 
-      render(
-        <AnalyticsListener
-          channel={EVENT_CHANNEL}
-          onEvent={onAnalyticFireEvent}
-        >
-          <DatasourceErrorBoundary {...props}>
-            <ChildComponent />
-          </DatasourceErrorBoundary>
-        </AnalyticsListener>,
+      expect(onAnalyticFireEvent).toHaveBeenCalledTimes(1);
+      expect(onAnalyticFireEvent).toBeCalledWith(
+        expect.objectContaining(renderFailedPayload),
+        EVENT_CHANNEL,
       );
+    });
 
-      expect(onAnalyticFireEvent).toHaveBeenCalledTimes(0);
+    it('fires datasource renderFailed event when error is caught by boundary and URL is unsafe and unsupportedComponent is not provided', async () => {
+      const unsafeUrl = 'javascript:alert(1)';
+      props.unsupportedComponent = null;
+      const onAnalyticFireEvent = await setup(<ErrorChild />, unsafeUrl);
+
+      expect(onAnalyticFireEvent).toHaveBeenCalledTimes(1);
+      expect(onAnalyticFireEvent).toBeCalledWith(
+        expect.objectContaining(renderFailedPayload),
+        EVENT_CHANNEL,
+      );
     });
   });
 });

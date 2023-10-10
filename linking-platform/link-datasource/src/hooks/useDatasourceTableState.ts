@@ -278,14 +278,21 @@ export const useDatasourceTableState = ({
         return;
       }
 
-      reset();
-
-      void onNextPage({
-        isSchemaFromData: false, // since this is not inital load, we will already have schema
-        shouldRequestFirstPage: true,
+      // check if each fieldKey already appears at least once in the object keys of each response item
+      const hasDataForColumns = responseItems.some(responseItem => {
+        const responseItemKeys = Object.keys(responseItem);
+        return fieldKeys.every(key => responseItemKeys.includes(key));
       });
+
+      if (!hasDataForColumns) {
+        reset();
+        void onNextPage({
+          isSchemaFromData: false, // since this is not inital load, we will already have schema
+          shouldRequestFirstPage: true,
+        });
+      }
     }
-  }, [fieldKeys, lastRequestedFieldKeys, onNextPage, reset]);
+  }, [fieldKeys, lastRequestedFieldKeys, responseItems, reset, onNextPage]);
 
   return {
     status,

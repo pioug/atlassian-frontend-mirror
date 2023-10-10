@@ -35,7 +35,7 @@ import extensionPlugin from '../../../extension';
 import layoutPlugin from '../../../layout';
 import expandPlugin from '../../../expand';
 import panelPlugin from '../../../panel';
-import selectionPlugin from '../../../selection';
+import { selectionPlugin } from '@atlaskit/editor-plugin-selection';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';

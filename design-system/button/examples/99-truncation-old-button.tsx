@@ -1,27 +1,27 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 
 import Expand from '@atlaskit/icon/glyph/arrow-down';
 import Question from '@atlaskit/icon/glyph/question';
 
 import Button from '../src';
 
-const narrowWrapperStyle = {
+const narrowWrapperStyles = css({
+  width: '190px',
   margin: '10px',
   padding: '10px',
-  width: '190px',
   border: '1px solid red',
-
+  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   '& > *': {
-    marginBottom: '10px',
+    marginBlockEnd: '10px',
     '&:last-child': {
-      marginBottom: 0,
+      marginBlockEnd: 0,
     },
   },
-};
+});
 
 export default () => (
-  <div css={narrowWrapperStyle}>
+  <div css={narrowWrapperStyles}>
     <div>
       <Button appearance="primary">I am wider than my parent</Button>
     </div>

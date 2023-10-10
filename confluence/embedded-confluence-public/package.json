@@ -31,8 +31,8 @@
   "scripts": {
     "prepack": "node ./scripts/devCleanup.js",
     "postpublish": "node ./scripts/devRestore.js",
-    "webpack-build": "NODE_OPTIONS=--max-old-space-size=4096 webpack --env NODE_ENV=production --env prod --progress --config config/webpack.prod.js",
-    "ak-postbuild": "NODE_OPTIONS=--max-old-space-size=4096 webpack --env NODE_ENV=production --env prod --config config/webpack.prod.js"
+    "webpack-build": "NODE_OPTIONS=\"--max-old-space-size=4096 --openssl-legacy-provider\" webpack --env NODE_ENV=production --env prod --progress --config config/webpack.prod.js",
+    "ak-postbuild": "NODE_OPTIONS=\"--max-old-space-size=4096 --openssl-legacy-provider\" webpack --env NODE_ENV=production --env prod --config config/webpack.prod.js"
   },
   "dependencies": {
     "@babel/runtime": "^7.0.0",

@@ -1,5 +1,11 @@
 # @atlaskit/drawer
 
+## 7.6.2
+
+### Patch Changes
+
+- [#41065](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41065) [`e96b5be2269`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e96b5be2269) - [ux] This release removes the feature flag behind which Drawer got improves for accessibility. Now it is a modal dialog, preventing users to focus elements beyond it's content. Focus is set to first element of Drawer content on opening. On closing focus is returned to triggering element. Additionally introduced props adding/referencing accessible name.
+
 ## 7.6.1
 
 ### Patch Changes

@@ -1,13 +1,11 @@
 /** @jsx jsx */
+import { token } from '@atlaskit/tokens';
 import React from 'react';
 import { css, jsx } from '@emotion/react';
-import {
-  defineMessages,
-  WrappedComponentProps,
-  injectIntl,
-} from 'react-intl-next';
-import { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
-import { DateType } from '../../types';
+import type { WrappedComponentProps } from 'react-intl-next';
+import { defineMessages, injectIntl } from 'react-intl-next';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+import type { DateType } from '../../types';
 import {
   findDateSegmentByPosition,
   adjustDate,
@@ -19,15 +17,15 @@ import {
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
-} from '../../../analytics/types/enums';
+} from '@atlaskit/editor-common/analytics';
 
 import TextField from '@atlaskit/textfield';
 import { ErrorMessage } from '@atlaskit/form';
-import { FormEvent } from 'react';
+import type { FormEvent } from 'react';
 
 const dateTextFieldWrapper = css`
   padding: 22px;
-  padding-bottom: 12px;
+  padding-bottom: ${token('space.150', '12px')};
 `;
 export interface InputProps {
   /** Locale code string (eg. "en-AU") */

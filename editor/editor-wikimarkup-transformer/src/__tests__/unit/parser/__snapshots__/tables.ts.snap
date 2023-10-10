@@ -1371,6 +1371,79 @@ Object {
 }
 `;
 
+exports[`JIRA wiki markup - Tables ADFEXP-191 Should not add the strong marks to text in any codeBlock node 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "__autoSize": false,
+        "isNumberColumnEnabled": false,
+        "layout": "default",
+        "localId": "",
+        "width": null,
+      },
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "content": Array [
+                        Object {
+                          "content": Array [
+                            Object {
+                              "marks": Array [
+                                Object {
+                                  "type": "strong",
+                                },
+                              ],
+                              "text": "Foo ",
+                              "type": "text",
+                            },
+                          ],
+                          "type": "paragraph",
+                        },
+                        Object {
+                          "attrs": Object {
+                            "language": null,
+                            "uniqueId": null,
+                          },
+                          "content": Array [
+                            Object {
+                              "text": "bar",
+                              "type": "text",
+                            },
+                          ],
+                          "type": "codeBlock",
+                        },
+                      ],
+                      "type": "listItem",
+                    },
+                  ],
+                  "type": "bulletList",
+                },
+              ],
+              "type": "tableHeader",
+            },
+          ],
+          "type": "tableRow",
+        },
+      ],
+      "type": "table",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
 exports[`JIRA wiki markup - Tables ADFS-80 Pipes inside invalid links do not close a table cell 1`] = `
 Object {
   "content": Array [

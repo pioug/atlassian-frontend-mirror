@@ -1,5 +1,4 @@
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
-import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type {
   EditorState,
   Selection,
@@ -7,7 +6,6 @@ import type {
 import {
   NodeSelection,
   TextSelection,
-  AllSelection,
 } from '@atlaskit/editor-prosemirror/state';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import { GapCursorSelection } from '@atlaskit/editor-common/selection';
@@ -15,24 +13,9 @@ import { GapCursorSelection } from '@atlaskit/editor-common/selection';
 export {
   setNodeSelection,
   setTextSelection,
+  setAllSelection,
+  setCellSelection,
 } from '@atlaskit/editor-common/utils';
-
-export function setAllSelection(view: EditorView) {
-  const { state, dispatch } = view;
-  const tr = state.tr.setSelection(new AllSelection(view.state.doc));
-  dispatch(tr);
-}
-
-export function setCellSelection(
-  view: EditorView,
-  anchor: number,
-  head?: number,
-) {
-  const { state, dispatch } = view;
-  dispatch(
-    state.tr.setSelection(CellSelection.create(state.doc, anchor, head) as any),
-  );
-}
 
 // checks if the given position is within the ProseMirror document
 export const isValidPosition = (pos: number, state: EditorState): boolean => {

@@ -41,7 +41,7 @@ import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import betterTypeHistoryPlugin from '../../../better-type-history';
-import selectionPlugin from '../../../selection';
+import { selectionPlugin } from '@atlaskit/editor-plugin-selection';
 
 describe('paste plugin: third-party', () => {
   const createEditor = createProsemirrorEditorFactory();

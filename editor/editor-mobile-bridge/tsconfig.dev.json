@@ -24,9 +24,12 @@
     "**/mock.*",
     "**/codemods/**/*.ts",
     "**/codemods/**/*.tsx",
-    "./example-helpers/**/*"
+    "./example-helpers/**/*",
+    "./src/globals.d.ts",
+    "**/__fixtures__/**/*.json",
+    "./build/utils.ts"
   ],
-  "exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
+  "exclude": ["./dist/**/*", "./node_modules/**/*"],
   "compilerOptions": {
     "baseUrl": "./",
     "resolveJsonModule": true,

@@ -115,7 +115,7 @@ export function awaitError(
 export const bigDocFileId: FileIdentifier;
 
 // @public (undocumented)
-export class ClipboardMockFile implements File {
+export class ClipboardMockFile implements Omit<File, 'constructor'> {
   constructor(options?: { type: string; name: string });
   // (undocumented)
   arrayBuffer(): Promise<ArrayBuffer>;
@@ -129,6 +129,8 @@ export class ClipboardMockFile implements File {
   msDetachStream(): any;
   // (undocumented)
   readonly name: string;
+  // (undocumented)
+  prototype: File;
   // (undocumented)
   readonly size: number;
   // (undocumented)

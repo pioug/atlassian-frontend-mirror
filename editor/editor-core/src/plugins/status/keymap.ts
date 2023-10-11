@@ -1,8 +1,12 @@
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 
-import { bindKeymapWithCommand, enter, tab } from '../../keymaps';
-import type { Command } from '../../types';
+import {
+  bindKeymapWithCommand,
+  enter,
+  tab,
+} from '@atlaskit/editor-common/keymaps';
+import type { Command } from '@atlaskit/editor-common/types';
 
 import { mayGetStatusAtSelection } from './utils';
 

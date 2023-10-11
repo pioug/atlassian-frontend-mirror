@@ -12,7 +12,7 @@ import { StatusPicker as AkStatusPicker } from '@atlaskit/status/picker';
 import { borderRadius } from '@atlaskit/theme/constants';
 import { N0 } from '@atlaskit/theme/colors';
 
-import withOuterListeners from '../../../ui/with-outer-listeners';
+import { withReactEditorViewOuterListeners as withOuterListeners } from '@atlaskit/editor-common/ui-react';
 import { DEFAULT_STATUS } from '../actions';
 import { analyticsState, createStatusAnalyticsAndFire } from '../analytics';
 import type { StatusType, ClosingPayload } from '../plugin';
@@ -75,7 +75,7 @@ export class StatusPickerWithoutAnalytcs extends React.Component<Props, State> {
   private inputMethod?: InputMethod;
   private createStatusAnalyticsAndFireFunc: Function;
   private popupBodyWrapper: RefObject<HTMLDivElement>;
-
+  private focusTimeout: ReturnType<typeof requestAnimationFrame> | undefined;
   constructor(props: Props) {
     super(props);
 
@@ -128,11 +128,15 @@ export class StatusPickerWithoutAnalytcs extends React.Component<Props, State> {
     this.fireStatusPopupOpenedAnalytics(this.state);
     if (typeof this.props.isNew === 'boolean' && this.props.isNew === false) {
       // Wrapper should be focused only if status already exists otherwise input field will receive focus
-      this.popupBodyWrapper?.current?.focus();
+      this.focusTimeout = requestAnimationFrame(() => {
+        // Defer to prevent editor scrolling to top. See https://product-fabric.atlassian.net/browse/DTR-1952
+        this.popupBodyWrapper?.current?.focus();
+      });
     }
   }
 
   componentWillUnmount() {
+    this.focusTimeout && cancelAnimationFrame(this.focusTimeout);
     this.fireStatusPopupClosedAnalytics(this.state);
     this.startTime = 0;
   }

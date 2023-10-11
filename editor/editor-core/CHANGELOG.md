@@ -1,5 +1,28 @@
 # @atlaskit/editor-core
 
+## 188.7.3
+
+### Patch Changes
+
+- [#41387](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41387) [`5b2cd469875`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5b2cd469875) - Fix scrolling to top of page on status selection.
+- Updated dependencies
+
+## 188.7.0
+
+### Minor Changes
+
+- [#41355](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41355) [`150c2a815ac`](https://bitbucket.org/atlassian/atlassian-frontend/commits/150c2a815ac) - Editor now forcibly sets position static on its dropdown menu items.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 188.6.0
+
+### Minor Changes
+
+- [#41341](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41341) [`bd128fb1cfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bd128fb1cfb) - Decouple status plugin from editor-core. Add new actions for updating status.
+
 ## 188.5.2
 
 ### Patch Changes

@@ -1,5 +1,7 @@
 import { UnbindFn } from 'bind-event-listener';
 
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+
 import {
   ThemeIdsWithOverrides,
   ThemeState,
@@ -19,6 +21,7 @@ import { loadAndAppendThemeCss } from './utils/theme-loading';
  *
  * @param {Object<string, string>} themeState The themes and color mode that should be applied.
  * @param {string} themeState.colorMode Determines which color theme is applied. If set to `auto`, the theme applied will be determined by the OS setting.
+ * @param {string} themeState.contrastMode The contrast mode theme to be applied. If set to `auto`, the theme applied will be determined by the OS setting.set to `auto`, the theme applied will be determined by the OS setting.
  * @param {string} themeState.dark The color theme to be applied when the color mode resolves to 'dark'.
  * @param {string} themeState.light The color theme to be applied when the color mode resolves to 'light'.
  * @param {string} themeState.shape The shape theme to be applied.
@@ -37,6 +40,7 @@ import { loadAndAppendThemeCss } from './utils/theme-loading';
 const setGlobalTheme = async (
   {
     colorMode = themeStateDefaults['colorMode'],
+    contrastMode = themeStateDefaults['contrastMode'],
     dark = themeStateDefaults['dark'],
     light = themeStateDefaults['light'],
     shape = themeStateDefaults['shape'],
@@ -46,8 +50,20 @@ const setGlobalTheme = async (
   }: Partial<ThemeState> = {},
   themeLoader?: (id: ThemeIdsWithOverrides) => void | Promise<void>,
 ): Promise<UnbindFn> => {
+  // CLEANUP: Remove. This blocks application of increased contrast themes
+  // without the feature flag enabled.
+  if (!getBooleanFF('platform.design-system-team.increased-contrast-themes')) {
+    if (light === 'light-increased-contrast') {
+      light = 'light';
+    }
+    if (dark === 'dark-increased-contrast') {
+      dark = 'dark';
+    }
+  }
+
   const themeState = {
     colorMode,
+    contrastMode,
     dark,
     light,
     shape,

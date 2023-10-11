@@ -105,14 +105,18 @@ export const completeUfoExperience = (
   }
 };
 
+const getBasePayloadAttributes = () => ({
+  packageName,
+  packageVersion,
+  mediaEnvironment: getMediaEnvironment(),
+  mediaRegion: getMediaRegion(),
+});
+
 const succeedUfoExperience = (id: string, properties?: SucceedUfoPayload) => {
   getExperience(id).success({
     metadata: {
       ...properties,
-      packageName,
-      packageVersion,
-      mediaEnvironment: getMediaEnvironment(),
-      mediaRegion: getMediaRegion(),
+      ...getBasePayloadAttributes(),
     },
   });
 };
@@ -121,10 +125,20 @@ const failUfoExperience = (id: string, properties?: FailedUfoPayload) => {
   getExperience(id).failure({
     metadata: {
       ...properties,
-      packageName,
-      packageVersion,
-      mediaEnvironment: getMediaEnvironment(),
-      mediaRegion: getMediaRegion(),
+      ...getBasePayloadAttributes(),
+    },
+  });
+};
+
+export const abortUfoExperience = (
+  id: string,
+  properties?: Partial<SucceedUfoPayload>,
+) => {
+  // UFO won't abort if it's already in a final state (succeeded, failed, aborted, etc)
+  getExperience(id).abort({
+    metadata: {
+      ...properties,
+      ...getBasePayloadAttributes(),
     },
   });
 };

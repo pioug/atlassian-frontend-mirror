@@ -8,14 +8,15 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { uuid } from '@atlaskit/adf-schema';
 
-import type { Command } from '../../types';
+import type { Command } from '@atlaskit/editor-common/types';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
-  withAnalytics,
-} from '../analytics';
+} from '@atlaskit/editor-common/analytics';
+import { withAnalytics } from '@atlaskit/editor-common/editor-analytics';
 import type { TOOLBAR_MENU_TYPE } from '@atlaskit/editor-common/types';
 
 import { pluginKey } from './plugin-key';
@@ -119,17 +120,21 @@ export const updateStatus =
     return false;
   };
 
-export const updateStatusWithAnalytics = (
+export type UpdateStatus = (
   inputMethod: TOOLBAR_MENU_TYPE,
   status?: StatusType,
-): Command =>
-  withAnalytics({
-    action: ACTION.INSERTED,
-    actionSubject: ACTION_SUBJECT.DOCUMENT,
-    actionSubjectId: ACTION_SUBJECT_ID.STATUS,
-    attributes: { inputMethod },
-    eventType: EVENT_TYPE.TRACK,
-  })(updateStatus(status));
+) => Command;
+
+export const updateStatusWithAnalytics =
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
+  (inputMethod: TOOLBAR_MENU_TYPE, status?: StatusType): Command =>
+    withAnalytics(editorAnalyticsAPI, {
+      action: ACTION.INSERTED,
+      actionSubject: ACTION_SUBJECT.DOCUMENT,
+      actionSubjectId: ACTION_SUBJECT_ID.STATUS,
+      attributes: { inputMethod },
+      eventType: EVENT_TYPE.TRACK,
+    })(updateStatus(status));
 
 export const setStatusPickerAt =
   (showStatusPickerAt: number | null) =>

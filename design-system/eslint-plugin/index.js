@@ -6,9 +6,12 @@ const path = require('path');
 const paths = require('tsconfig-paths');
 
 if (!require.extensions['.ts']) {
+  const tsConfigPath = path.join(__dirname, 'tsconfig.json');
+  // Tells `tsconfig-paths` to resolve config from here instead of root cwd for monorepo
+  process.env.TS_NODE_PROJECT = tsConfigPath;
   // ts-node can only handle being registered once, see https://github.com/TypeStrong/ts-node/issues/409
   require('ts-node').register({
-    project: path.join(__dirname, 'tsconfig.json'),
+    project: tsConfigPath,
   });
 }
 

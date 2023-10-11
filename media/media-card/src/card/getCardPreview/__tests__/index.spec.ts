@@ -25,7 +25,6 @@ import {
   FileState,
   MediaStoreGetFileImageParams,
   MediaBlobUrlAttrs,
-  FileIdentifier,
 } from '@atlaskit/media-client';
 import { CardPreview } from '../../../types';
 import { ImageResizeMode } from '@atlaskit/media-client';
@@ -45,7 +44,6 @@ import { LocalPreviewError } from '../../../errors';
 import * as filePreviewStatusModule from '../filePreviewStatus';
 import * as dimensionComparerModule from '../../../utils/dimensionComparer';
 import { CardStatus } from '../../../types';
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 const localPreview: CardPreview = {
   dataURI: 'some-card-preview-from-file-preview',
@@ -72,9 +70,6 @@ const imageUrlParams: MediaStoreGetFileImageParams = {
   mode: 'crop',
 };
 const event = { fire: jest.fn() };
-const createAnalyticsEventMock = jest.fn(() => event);
-const createAnalyticsEvent =
-  createAnalyticsEventMock as unknown as CreateUIAnalyticsEvent;
 
 // filePreview and isRemotePreviewReady have to be set in their relevant tests
 const cardPreviewParams = {
@@ -83,15 +78,8 @@ const cardPreviewParams = {
   dimensions: { width: '33', height: '44' },
   imageUrlParams,
   mediaBlobUrlAttrs,
-  createAnalyticsEvent,
 } as unknown as CardPreviewParams;
 
-const fileIdentifier: FileIdentifier = {
-  id: 'some-id',
-  mediaItemType: 'file',
-  collectionName: 'some-collection-name',
-  occurrenceKey: 'some-occurrence-key',
-};
 const defaultMode: ImageResizeMode = 'crop';
 
 const filePreview = {
@@ -133,7 +121,6 @@ describe('shouldResolvePreview()', () => {
     expect(
       shouldResolvePreview({
         wasResolvedUpfrontPreview: false,
-        identifier: fileIdentifier,
         status: dummyStatus,
         hasCardPreview: true,
         fileState: {} as FileState,
@@ -151,8 +138,6 @@ describe('shouldResolvePreview()', () => {
         hasCardPreview: true,
         fileState: {} as FileState,
         isBannedLocalPreview: false,
-        identifier: fileIdentifier,
-        fileImageMode: defaultMode,
         wasResolvedUpfrontPreview: true,
       }),
     ).toBe(false);
@@ -166,8 +151,6 @@ describe('shouldResolvePreview()', () => {
         hasCardPreview: true,
         fileState,
         isBannedLocalPreview: false,
-        identifier: fileIdentifier,
-        fileImageMode: defaultMode,
         wasResolvedUpfrontPreview: true,
       }),
     ).toBe(false);
@@ -182,8 +165,6 @@ describe('shouldResolvePreview()', () => {
       hasCardPreview: false,
       fileState: processedFileState,
       dimensions: {},
-      identifier: fileIdentifier,
-      fileImageMode: defaultMode,
       isBannedLocalPreview: false,
       wasResolvedUpfrontPreview: true,
     });
@@ -199,8 +180,6 @@ describe('shouldResolvePreview()', () => {
       hasCardPreview: true,
       fileState: processedFileState,
       dimensions: {},
-      identifier: fileIdentifier,
-      fileImageMode: defaultMode,
       isBannedLocalPreview: false,
       wasResolvedUpfrontPreview: true,
     });

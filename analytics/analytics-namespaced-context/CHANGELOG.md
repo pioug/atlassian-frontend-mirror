@@ -1,5 +1,11 @@
 # @atlaskit/analytics-namespaced-context
 
+## 6.7.4
+
+### Patch Changes
+
+- [#41325](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41325) [`5ecc6e21ca8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5ecc6e21ca8) - Enrol @atlaskit/analytics-namespaced-context to push model in JFE.
+
 ## 6.7.3
 
 ### Patch Changes

@@ -35,8 +35,15 @@ const paletteValue = (palette: object, color: string): string => {
 const transform = (palette: Record<string, any>): Transform => ({
   type: 'value',
   matcher: (token) => !!token.attributes && token.attributes.group === 'shadow',
-  transformer: (token) => {
+  transformer: (token, { options }) => {
     const shadowToken = token.original as ShadowToken<any>;
+
+    // FIXME: Extension theme deep merging causes shadow tokens to not
+    // override the entire value. This reduces the shadow to only the
+    // first value for increased contrast themes.
+    if (options?.increasedContrastTarget) {
+      shadowToken.value = [shadowToken.value[0]];
+    }
 
     return shadowToken.value
       .splice(0)

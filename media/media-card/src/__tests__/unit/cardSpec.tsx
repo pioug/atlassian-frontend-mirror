@@ -42,6 +42,7 @@ jest.mock('../../utils/ufoExperiences', () => {
     ...actualModule,
     startUfoExperience: jest.fn(actualModule.startUfoExperience),
     completeUfoExperience: jest.fn(actualModule.completeUfoExperience),
+    abortUfoExperience: jest.fn(actualModule.abortUfoExperience),
   };
 });
 jest.mock('../../utils/generateUniqueId', () => ({
@@ -112,6 +113,7 @@ import getDocument from '../../utils/document';
 import {
   completeUfoExperience,
   startUfoExperience,
+  abortUfoExperience,
 } from '../../utils/ufoExperiences';
 
 asMock(getDocument).mockImplementation(() => document);
@@ -1624,6 +1626,21 @@ describe('Card', () => {
         handler.unmount();
         await callCopy();
         expect(fireCopiedEvent).toBeCalledTimes(1);
+      });
+    });
+
+    describe('Aborted', () => {
+      it('should abort the experience when unmounted', () => {
+        const component = mount(
+          <CardBase
+            mediaClient={fakeMediaClient()}
+            identifier={fileIdentifier}
+            isLazy={false}
+            createAnalyticsEvent={createAnalyticsEvent}
+          />,
+        );
+        component.unmount();
+        expect(abortUfoExperience).toBeCalledTimes(1);
       });
     });
   });

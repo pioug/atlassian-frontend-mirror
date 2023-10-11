@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 1.26.0
+
+### Minor Changes
+
+- [#40801](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40801) [`f0f44726caa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f0f44726caa) - We are testing increased contrast themes behind a feature flag. These are alternative themes that enable according to user contrast system preferences. If testing is successful they will be available in a later release.
+
 ## 1.25.2
 
 ### Patch Changes

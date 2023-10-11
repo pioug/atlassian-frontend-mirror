@@ -40,7 +40,7 @@ type ColorMode = 'auto' | 'dark' | 'light';
 type ReconciledColorMode = Exclude<ColorMode, 'auto'>;
 
 // @public (undocumented)
-type Theme = Omit<ThemeState, 'colorMode'>;
+type Theme = Omit<ThemeState, 'colorMode' | 'contrastMode'>;
 
 // @public
 export function useColorMode(): ReconciledColorMode;

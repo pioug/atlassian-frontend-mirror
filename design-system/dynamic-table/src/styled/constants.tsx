@@ -24,13 +24,7 @@ export const fixedSizeTruncateStyles = css({
 });
 
 export const overflowTruncateStyles = css({
-  // Use "clip" overflow to allow ellipses on x-axis without clipping descenders
-  '@supports not (overflow-x: clip)': {
-    overflow: 'hidden',
-  },
-  '@supports (overflow-x: clip)': {
-    overflowX: 'clip',
-  },
+  overflow: 'hidden',
 });
 
 export const getTruncationStyleVars = ({ width }: TruncateStyleProps) =>

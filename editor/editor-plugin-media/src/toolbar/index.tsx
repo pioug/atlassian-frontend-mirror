@@ -28,6 +28,7 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import {
   findParentNodeOfType,
+  hasParentNode,
   hasParentNodeOfType,
   removeSelectedNode,
 } from '@atlaskit/editor-prosemirror/utils';
@@ -436,6 +437,11 @@ const generateMediaSingleFloatingToolbar = (
             ? pixelWidthFromElement
             : mediaSingleWidth;
 
+          //hasParentNode will return falsey value if selection depth === 0
+          const isNested = hasParentNode(
+            n => n.type !== state.schema.nodes.doc,
+          )(state.selection);
+
           return (
             <PixelEntry
               intl={intl}
@@ -468,6 +474,7 @@ const generateMediaSingleFloatingToolbar = (
                   layout,
                   contentWidth,
                   options.fullWidthEnabled,
+                  isNested,
                 );
 
                 updateMediaSingleWidth(pluginInjectionApi?.analytics?.actions)(

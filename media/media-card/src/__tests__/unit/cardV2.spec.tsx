@@ -5,6 +5,7 @@ jest.mock('../../utils/ufoExperiences', () => {
     ...actualModule,
     startUfoExperience: jest.fn(actualModule.startUfoExperience),
     completeUfoExperience: jest.fn(actualModule.completeUfoExperience),
+    abortUfoExperience: jest.fn(actualModule.abortUfoExperience),
   };
 });
 jest.mock('../../card/cardAnalytics', () => {
@@ -49,7 +50,10 @@ import {
 import { getFileStreamsCache } from '@atlaskit/media-client';
 import { IntlProvider } from 'react-intl-next';
 import cardPreviewCache from '../../card/getCardPreview/cache';
-import { completeUfoExperience } from '../../utils/ufoExperiences';
+import {
+  completeUfoExperience,
+  abortUfoExperience,
+} from '../../utils/ufoExperiences';
 import {
   fireOperationalEvent,
   fireCommencedEvent,
@@ -2789,6 +2793,7 @@ describe('Card V2', () => {
       (fireOperationalEvent as jest.Mock).mockClear();
       (fireCommencedEvent as jest.Mock).mockClear();
       (completeUfoExperience as jest.Mock).mockClear();
+      (abortUfoExperience as jest.Mock).mockClear();
       jest.spyOn(performance, 'now').mockReturnValue(1000);
     });
 
@@ -3542,6 +3547,31 @@ describe('Card V2', () => {
           reason: 'pollingMaxAttemptsExceeded',
           details: { attempts: 2 },
         });
+      });
+    });
+
+    describe('should abort the experience', () => {
+      it('when the component is unmounted', () => {
+        let initialStore: any = { files: {} };
+        const mediaClient = createMediaClient({ initialStore });
+        const identifier = {
+          mediaItemType: 'file',
+          id: fileMap.workingPdfWithRemotePreview.id,
+          collectionName: fileMap.workingPdfWithRemotePreview.collection,
+        } as const;
+
+        const { unmount } = render(
+          <MediaClientContext.Provider value={mediaClient}>
+            <CardV2Loader
+              mediaClientConfig={dummyMediaClientConfig}
+              identifier={identifier}
+              isLazy={false}
+            />
+          </MediaClientContext.Provider>,
+        );
+
+        unmount();
+        expect(abortUfoExperience).toBeCalledTimes(1);
       });
     });
   });

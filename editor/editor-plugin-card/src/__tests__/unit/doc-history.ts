@@ -86,6 +86,8 @@ describe('card', () => {
 
           const { editorView } = editor(initialDoc);
           const { dispatch } = editorView;
+          // Unrelated editor-disabled plugin will also call rafSchd so clear it here
+          jest.clearAllMocks();
 
           dispatch(setProvider(provider)(editorView.state.tr));
 

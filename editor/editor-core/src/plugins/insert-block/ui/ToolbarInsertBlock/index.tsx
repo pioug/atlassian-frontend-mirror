@@ -20,7 +20,6 @@ import { showPlaceholderFloatingToolbar } from '../../../placeholder-text/action
 import { insertLayoutColumnsWithAnalytics } from '../../../layout/actions';
 import { insertTaskDecisionCommand } from '../../../tasks-and-decisions/commands';
 import { insertExpand } from '../../../expand/commands';
-import { updateStatusWithAnalytics } from '../../../status/actions';
 import {
   ACTION,
   ACTION_SUBJECT,
@@ -404,12 +403,13 @@ export class ToolbarInsertBlock extends React.PureComponent<
   };
 
   private createStatus = (inputMethod: TOOLBAR_MENU_TYPE): boolean => {
-    const { editorView } = this.props;
-    updateStatusWithAnalytics(inputMethod)(
-      editorView.state,
-      editorView.dispatch,
+    const { pluginInjectionApi, editorView } = this.props;
+    return (
+      pluginInjectionApi?.status?.actions?.updateStatus(inputMethod)(
+        editorView.state,
+        editorView.dispatch,
+      ) ?? false
     );
-    return true;
   };
 
   private openMediaPicker = (inputMethod: TOOLBAR_MENU_TYPE): boolean => {

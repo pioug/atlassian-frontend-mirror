@@ -48,6 +48,9 @@
       "path": "../editor-core/tsconfig.app.json"
     },
     {
+      "path": "../editor-shared-styles/tsconfig.app.json"
+    },
+    {
       "path": "../editor-test-helpers/tsconfig.app.json"
     },
     {

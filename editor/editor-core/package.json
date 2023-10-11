@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-core",
-  "version": "188.5.2",
+  "version": "188.7.3",
   "description": "A package contains Atlassian editor core functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -55,7 +55,7 @@
     "@atlaskit/code": "^14.6.0",
     "@atlaskit/date": "^0.10.0",
     "@atlaskit/datetime-picker": "^12.10.0",
-    "@atlaskit/editor-common": "^76.8.0",
+    "@atlaskit/editor-common": "^76.9.0",
     "@atlaskit/editor-json-transformer": "^8.10.0",
     "@atlaskit/editor-markdown-transformer": "^5.2.5",
     "@atlaskit/editor-palette": "1.5.1",
@@ -88,7 +88,7 @@
     "@atlaskit/editor-plugin-quick-insert": "^0.2.0",
     "@atlaskit/editor-plugin-rule": "^0.1.0",
     "@atlaskit/editor-plugin-selection": "^0.1.0",
-    "@atlaskit/editor-plugin-table": "^5.0.0",
+    "@atlaskit/editor-plugin-table": "^5.1.0",
     "@atlaskit/editor-plugin-text-formatting": "^0.4.0",
     "@atlaskit/editor-plugin-type-ahead": "^0.5.0",
     "@atlaskit/editor-plugin-unsupported-content": "^0.2.0",
@@ -106,7 +106,7 @@
     "@atlaskit/media-client": "^24.0.0",
     "@atlaskit/media-common": "^9.0.0",
     "@atlaskit/mention": "^22.1.0",
-    "@atlaskit/menu": "^1.11.0",
+    "@atlaskit/menu": "^2.0.0",
     "@atlaskit/platform-feature-flags": "^0.2.0",
     "@atlaskit/prosemirror-collab": "^0.2.0",
     "@atlaskit/prosemirror-input-rules": "^2.4.0",
@@ -123,7 +123,7 @@
     "@atlaskit/textfield": "^5.6.0",
     "@atlaskit/theme": "^12.6.0",
     "@atlaskit/toggle": "^12.6.0",
-    "@atlaskit/tokens": "^1.25.0",
+    "@atlaskit/tokens": "^1.26.0",
     "@atlaskit/tooltip": "^17.8.0",
     "@atlaskit/width-detector": "^4.1.0",
     "@babel/runtime": "^7.0.0",
@@ -155,7 +155,7 @@
     "@af/integration-testing": "*",
     "@af/visual-regression": "*",
     "@atlaskit/collab-provider": "9.15.1",
-    "@atlaskit/dropdown-menu": "^11.14.0",
+    "@atlaskit/dropdown-menu": "^12.0.0",
     "@atlaskit/editor-extension-dropbox": "^0.4.0",
     "@atlaskit/flag": "^15.2.0",
     "@atlaskit/icon-object": "^6.3.0",
@@ -239,10 +239,6 @@
     },
     "platform.linking-platform.editor.fix-link-insert-analytics": {
       "type": "boolean"
-    },
-    "platform.design-system-team.menu-selected-state-change_0see9": {
-      "type": "boolean",
-      "referenceOnly": "true"
     },
     "platform.editor.table-sticky-scrollbar": {
       "type": "boolean"

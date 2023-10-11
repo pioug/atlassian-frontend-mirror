@@ -901,7 +901,6 @@ describe('Media Card', () => {
       expect(getCardStateFromFileState).toBeCalledWith(
         fileStates.processed,
         false,
-        featureFlags,
       );
       // It must use createStateUpdater to ensure the correct transition through statuses
       expect(createStateUpdater).toBeCalledTimes(1);
@@ -961,9 +960,6 @@ describe('Media Card', () => {
         isBannedLocalPreview: false,
         prevDimensions: expect.objectContaining({}),
         dimensions: initialDimensions,
-        identifier: indentifiers.file,
-        fileImageMode: defaultMode,
-        featureFlags,
         wasResolvedUpfrontPreview: false,
       });
       expect(shouldResolvePreview).toHaveBeenNthCalledWith(2, {
@@ -973,9 +969,6 @@ describe('Media Card', () => {
         isBannedLocalPreview: false,
         prevDimensions: initialDimensions,
         dimensions: nextDimensions,
-        identifier: indentifiers.file,
-        fileImageMode: defaultMode,
-        featureFlags,
         wasResolvedUpfrontPreview: false,
       });
 

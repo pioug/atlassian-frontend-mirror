@@ -1,14 +1,23 @@
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+
 import {
   COLOR_MODE_ATTRIBUTE,
+  CONTRAST_MODE_ATTRIBUTE,
   CUSTOM_THEME_ATTRIBUTE,
   THEME_DATA_ATTRIBUTE,
 } from './constants';
-import { DataColorModes, ThemeState, themeStateDefaults } from './theme-config';
+import {
+  DataColorModes,
+  DataContrastModes,
+  ThemeState,
+  themeStateDefaults,
+} from './theme-config';
 import { themeObjectToString } from './theme-state-transformer';
 import { isValidBrandHex } from './utils/color-utils';
 import { hash } from './utils/hash';
 
 const defaultColorMode: DataColorModes = 'light';
+const defaultContrastMode: DataContrastModes = 'no-preference';
 
 /**
  * Server-side rendering utility. Generates the valid HTML attributes for a given theme.
@@ -28,6 +37,7 @@ const getThemeHtmlAttrs = ({
   colorMode = themeStateDefaults['colorMode'],
   dark = themeStateDefaults['dark'],
   light = themeStateDefaults['light'],
+  contrastMode = themeStateDefaults['contrastMode'],
   shape = themeStateDefaults['shape'],
   spacing = themeStateDefaults['spacing'],
   typography = themeStateDefaults['typography'],
@@ -41,11 +51,22 @@ const getThemeHtmlAttrs = ({
     typography,
   });
 
-  const result: Record<string, string> = {
+  let result: Record<string, string> = {
     [THEME_DATA_ATTRIBUTE]: themeAttribute,
     [COLOR_MODE_ATTRIBUTE]:
       colorMode === 'auto' ? (defaultColorMode as string) : colorMode,
   };
+
+  if (getBooleanFF('platform.design-system-team.increased-contrast-themes')) {
+    result = {
+      ...result,
+      // CLEANUP: Move this to the initial `result` assignment above
+      [CONTRAST_MODE_ATTRIBUTE]:
+        contrastMode === 'auto'
+          ? (defaultContrastMode as string)
+          : contrastMode,
+    };
+  }
 
   if (UNSAFE_themeOptions && isValidBrandHex(UNSAFE_themeOptions.brandColor)) {
     const optionString = JSON.stringify(UNSAFE_themeOptions);

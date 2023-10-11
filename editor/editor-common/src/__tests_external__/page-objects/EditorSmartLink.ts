@@ -1,7 +1,5 @@
-import {
-  CypressType,
-  InProductTestPageObject,
-} from '@atlaskit/in-product-testing';
+import type { CypressType } from '@atlaskit/in-product-testing';
+import { InProductTestPageObject } from '@atlaskit/in-product-testing';
 import type { CardAppearance } from '@atlaskit/smart-card';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import {
@@ -10,7 +8,7 @@ import {
   InlineCardPageObject,
 } from '@atlaskit/smart-card/in-product';
 
-import { EditorPageObject } from './Editor';
+import type { EditorPageObject } from './Editor';
 
 export class EditorSmartLinkPageObject extends InProductTestPageObject {
   constructor(protected cy: CypressType, private editor: EditorPageObject) {
@@ -24,7 +22,7 @@ export class EditorSmartLinkPageObject extends InProductTestPageObject {
     displayCardOption: 'block-appearance',
     displayEmbedOption: 'embed-appearance',
     linkUrl: 'link-url',
-    linkLabel: 'link-label',
+    linkLabel: 'link-text',
   };
   ariaLabels = {
     editLink: 'Edit link',

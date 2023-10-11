@@ -43,6 +43,10 @@ import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { pluginConfig } from './create-plugin-config';
 import { createPlugin as createDecorationsPlugin } from './pm-plugins/decorations/plugin';
+import {
+  createPlugin as createDragAndDropPlugin,
+  pluginKey as dragAndDropPluginKey,
+} from './pm-plugins/drag-and-drop';
 import { keymapPlugin } from './pm-plugins/keymap';
 import { createPlugin } from './pm-plugins/main';
 import { pluginKey } from './pm-plugins/plugin-key';
@@ -267,6 +271,13 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
               : undefined,
         },
         {
+          name: 'tableDragAndDrop',
+          plugin: ({ dispatch, eventDispatcher }) =>
+            options?.dragAndDropEnabled
+              ? createDragAndDropPlugin(dispatch, eventDispatcher)
+              : undefined,
+        },
+        {
           name: 'tableLocalId',
           plugin: ({ dispatch }) => createTableLocalIdPlugin(dispatch),
         },
@@ -343,6 +354,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
               tableWidthPluginState: tableWidthPluginKey,
               tableResizingPluginState: tableResizingPluginKey,
               stickyHeadersState: stickyHeadersPluginKey,
+              dragAndDropState: dragAndDropPluginKey,
             }}
             render={({
               tableResizingPluginState: resizingPluginState,

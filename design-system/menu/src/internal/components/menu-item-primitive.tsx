@@ -37,27 +37,15 @@ const contentStyles = css({
   flexGrow: 1,
   lineHeight: token('font.lineHeight.100', '16px'),
   outline: 'none',
+  overflow: 'hidden',
   textAlign: 'left',
-  // Use "clip" overflow to allow ellipses on x-axis without clipping descenders
-  '@supports not (overflow-x: clip)': {
-    overflow: 'hidden',
-  },
-  '@supports (overflow-x: clip)': {
-    overflowX: 'clip',
-  },
 });
 
 const truncateStyles = css({
   display: 'block',
+  overflow: 'hidden',
   textOverflow: 'ellipsis',
   whiteSpace: 'nowrap',
-  // Use "clip" overflow to allow ellipses on x-axis without clipping descenders
-  '@supports not (overflow-x: clip)': {
-    overflow: 'hidden',
-  },
-  '@supports (overflow-x: clip)': {
-    overflowX: 'clip',
-  },
 });
 
 const wordBreakStyles = css({
@@ -65,9 +53,9 @@ const wordBreakStyles = css({
 });
 
 const descriptionStyles = css({
+  marginTop: token('space.050', '4px'),
   color: token('color.text.subtlest', N200),
   fontSize: token('font.size.075', '12px'),
-  marginBlockStart: token('space.050', '4px'),
 });
 
 const disabledDescriptionStyles = css({
@@ -145,11 +133,11 @@ const selectedBorderStyles = css({
   '&::before': {
     width: 2,
     position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: 0,
     background: token('color.border.selected', 'transparent'),
     content: '""',
-    insetBlockEnd: 0,
-    insetBlockStart: 0,
-    insetInlineStart: 0,
   },
 });
 
@@ -157,15 +145,15 @@ const selectedNotchStyles = css({
   '&::before': {
     width: 4,
     position: 'absolute',
+    top: token('space.150', '12px'),
+    bottom: token('space.150', '12px'),
+    left: 0,
     background: token('color.border.selected', 'transparent'),
     borderRadius: `0 ${token('border.radius', '4px')} ${token(
       'border.radius',
       '4px',
     )} 0`,
     content: '""',
-    insetBlockEnd: token('space.150', '12px'),
-    insetBlockStart: token('space.150', '12px'),
-    insetInlineStart: 0,
   },
 });
 
@@ -243,18 +231,14 @@ const MenuItemPrimitive = ({
             {children({
               className: cx([
                 cn([
-                  getBooleanFF(
-                    'platform.design-system-team.menu-selected-state-change_0see9',
-                  ) && positionRelativeStyles,
+                  positionRelativeStyles,
                   primitiveStyles,
                   spacingMapStyles[spacing],
                   !isDisabled && !isSelected && unselectedStyles,
                   !isDisabled &&
                     isSelected && [
                       selectedStyles,
-                      getBooleanFF(
-                        'platform.design-system-team.menu-selected-state-change_0see9',
-                      ) && [
+                      [
                         selectionStyle === 'border' && selectedBorderStyles,
                         selectionStyle === 'notch' && selectedNotchStyles,
                       ],

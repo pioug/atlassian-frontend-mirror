@@ -6,16 +6,13 @@ import {
   addFileAttrsToUrl,
   MediaStoreGetFileImageParams,
   MediaBlobUrlAttrs,
-  FileIdentifier,
 } from '@atlaskit/media-client';
 import {
-  MediaFeatureFlags,
   isMimeTypeSupportedByBrowser,
   SSR,
   MediaTraceContext,
 } from '@atlaskit/media-common';
 import { ImageResizeMode } from '@atlaskit/media-client';
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { CardDimensions } from '../../types';
 import cardPreviewCache from './cache';
 import {
@@ -65,8 +62,6 @@ export type CardPreviewParams = {
   isRemotePreviewReady: boolean;
   imageUrlParams: MediaStoreGetFileImageParams;
   mediaBlobUrlAttrs?: MediaBlobUrlAttrs;
-  createAnalyticsEvent?: CreateUIAnalyticsEvent;
-  featureFlags?: MediaFeatureFlags;
   traceContext?: MediaTraceContext;
 };
 
@@ -121,8 +116,6 @@ export const getCardPreview = async ({
   isRemotePreviewReady,
   imageUrlParams,
   mediaBlobUrlAttrs,
-  createAnalyticsEvent,
-  featureFlags,
   traceContext,
 }: CardPreviewParams): Promise<CardPreview> => {
   const mode = imageUrlParams.mode;
@@ -195,22 +188,16 @@ export const shouldResolvePreview = ({
   fileState,
   prevDimensions,
   dimensions,
-  identifier,
-  fileImageMode,
   hasCardPreview,
   isBannedLocalPreview,
-  featureFlags,
   wasResolvedUpfrontPreview,
 }: {
   status: CardStatus;
   fileState: FileState;
   prevDimensions?: CardDimensions;
   dimensions?: CardDimensions;
-  identifier: FileIdentifier;
-  fileImageMode?: ImageResizeMode;
   hasCardPreview: boolean;
   isBannedLocalPreview: boolean;
-  featureFlags?: MediaFeatureFlags;
   wasResolvedUpfrontPreview: boolean;
 }) => {
   const statusIsPreviewable = isPreviewableStatus(

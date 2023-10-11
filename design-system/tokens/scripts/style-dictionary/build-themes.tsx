@@ -50,14 +50,14 @@ const getPalette = (paletteId: Palettes) => {
 /**
  * Recursively find all base themes that the theme extends.
  */
-const getBaseThemes = (themeName: ThemeFileNames): string[] => {
+const getBaseThemes = (themeName: ThemeFileNames): ThemeFileNames[] => {
   let baseTheme;
   const extendedTheme =
     themeConfig[themeName].extends || themeConfig[themeName].attributes.extends;
   if (extendedTheme) {
     baseTheme = Object.entries(themeConfig).find(
       ([, { id }]) => id === extendedTheme,
-    )?.[0];
+    )?.[0] as ThemeFileNames;
   }
 
   const furtherExtensions = baseTheme
@@ -67,10 +67,27 @@ const getBaseThemes = (themeName: ThemeFileNames): string[] => {
   return baseTheme ? [baseTheme, ...furtherExtensions] : [];
 };
 
+/**
+ * Finds theme targeted for increased contrast.
+ */
+const getIncreasedContrastTargetTheme = (
+  themeName: ThemeFileNames,
+): ThemeFileNames | undefined => {
+  let targetTheme;
+  if (themeConfig[themeName].increasesContrastFor) {
+    targetTheme = Object.entries(themeConfig).find(
+      ([, { id }]) => id === themeConfig[themeName].increasesContrastFor,
+    )?.[0] as ThemeFileNames;
+  }
+
+  return targetTheme;
+};
+
 const createThemeConfig = (
   themeName: ThemeFileNames,
-  baseThemes: string[],
+  baseThemes: ThemeFileNames[],
   palette: ReturnType<typeof getPalette>,
+  increasedContrastTarget?: ThemeFileNames,
 ): Config => {
   const config: Config = {
     parsers: [
@@ -99,6 +116,9 @@ const createThemeConfig = (
     },
     source: [path.join(THEME_INPUT_DIR, themeName, '**', '*.tsx')],
     include: [
+      /**
+       * Adds base themes as source for extension themes.
+       */
       ...baseThemes.map((baseTheme) =>
         path.join(THEME_INPUT_DIR, baseTheme, '**', '*.tsx'),
       ),
@@ -149,6 +169,7 @@ const createThemeConfig = (
         buildPath: path.join(ARTIFACT_OUTPUT_DIR, 'themes/'),
         options: {
           themeName,
+          increasedContrastTarget,
         },
         files: [
           {
@@ -189,8 +210,15 @@ export default function build(styleDictionary: Core) {
     .forEach((theme) => {
       const themeName = theme.name as ThemeFileNames;
       const baseThemes = getBaseThemes(themeName);
+      const increasedContrastTarget =
+        getIncreasedContrastTargetTheme(themeName);
       const palette = getPalette(themeConfig[themeName].palette);
-      const config = createThemeConfig(themeName, baseThemes, palette);
+      const config = createThemeConfig(
+        themeName,
+        baseThemes,
+        palette,
+        increasedContrastTarget,
+      );
       styleDictionary.extend(config).buildAllPlatforms();
     });
 }

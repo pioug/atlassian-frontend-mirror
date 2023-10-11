@@ -4,12 +4,16 @@ import { PureComponent } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import Spinner from '@atlaskit/spinner';
+import { N30 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import LinkSearchListItem from './LinkSearchListItem';
-import { LinkSearchListItemData } from './types';
+import type { LinkSearchListItemData } from './types';
 
 const listContainer = css`
   padding-top: 0;
+  margin-top: ${token('space.150', '12px')};
+  border-top: 1px solid ${token('color.border', N30)};
 `;
 
 const spinnerContainer = css`

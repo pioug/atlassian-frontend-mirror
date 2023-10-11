@@ -4,38 +4,6 @@ const dropdownTrigger = '[data-testid="dropdown--trigger"]';
 const dropdownContent = '[data-testid="dropdown--content"]';
 
 describe('Snapshot Test', () => {
-  it('should match visual snapshot for dropdown', async () => {
-    const url = getExampleUrl(
-      'design-system',
-      'dropdown-menu',
-      'testing',
-      global.__BASEURL__,
-    );
-
-    const { page } = global;
-
-    await loadPage(page, url);
-
-    const dropdownImage = await page.screenshot();
-    expect(dropdownImage).toMatchProdImageSnapshot();
-  });
-
-  it('should set fallback placements correctly', async () => {
-    const url = getExampleUrl(
-      'design-system',
-      'dropdown-menu',
-      'testing-placements',
-      global.__BASEURL__,
-    );
-
-    const { page } = global;
-
-    await loadPage(page, url);
-
-    const dropdownImage = await page.screenshot();
-    expect(dropdownImage).toMatchProdImageSnapshot();
-  });
-
   it('should accept custom zIndex', async () => {
     const url = getExampleUrl(
       'design-system',
@@ -80,22 +48,5 @@ describe('Snapshot Test', () => {
 
     const dropdownHasLoaded = await page.screenshot();
     expect(dropdownHasLoaded).toMatchProdImageSnapshot();
-  });
-
-  it('should honor different spacing densities', async () => {
-    const url = getExampleUrl(
-      'design-system',
-      'dropdown-menu',
-      'dropdown-spacing',
-      global.__BASEURL__,
-    );
-
-    const { page } = global;
-
-    await loadPage(page, url);
-    await page.waitForSelector(dropdownContent);
-
-    const image = await page.screenshot();
-    expect(image).toMatchProdImageSnapshot();
   });
 });

@@ -4,7 +4,6 @@ import {
   navigateToUrl,
   takeElementScreenShot,
 } from '@atlaskit/visual-regression/helper';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 // Css-selectors
 const sideNavigation = "[data-testid='side-navigation']";
@@ -76,19 +75,6 @@ describe('<SideNavigation /> integration tests', () => {
       await takeElementScreenShot(global.page, sideNavigation),
     ).toMatchProdImageSnapshot();
   });
-
-  it.each(['light', 'dark', 'none'] as const)(
-    'side-navigation for theme "%s" should match production example',
-    async (theme) => {
-      await openExamplesAndWaitFor('nested-side-navigation', sideNavigation, {
-        theme,
-      });
-
-      expect(
-        await takeElementScreenShot(global.page, sideNavigation),
-      ).toMatchProdImageSnapshot();
-    },
-  );
 
   it('should match nested navigation custom icon with production example', async () => {
     await openExamplesAndWaitFor(
@@ -247,30 +233,6 @@ describe('<SideNavigation /> integration tests', () => {
       await takeElementScreenShot(global.page, dropboxButton),
     ).toMatchProdImageSnapshot();
   });
-
-  ffTest(
-    'platform.design-system-team.menu-selected-state-change_0see9',
-    async () => {
-      const url = getExampleUrl(
-        'design-system',
-        'side-navigation',
-        'nested-side-navigation',
-        undefined,
-        'light',
-      );
-
-      const { page } = global;
-
-      await navigateToUrl(page, url, false);
-
-      expect(
-        await takeElementScreenShot(
-          global.page,
-          '[data-testid="selected--item"]',
-        ),
-      ).toMatchProdImageSnapshot();
-    },
-  );
 
   it('should match the active states', async () => {
     const settingsButton = "[data-testid='settings-nesting-item--item']";

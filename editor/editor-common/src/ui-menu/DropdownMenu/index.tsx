@@ -7,7 +7,6 @@ import { css, jsx } from '@emotion/react';
 import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
 import type { CustomItemComponentProps } from '@atlaskit/menu';
 import { CustomItem, MenuGroup } from '@atlaskit/menu';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { B100, DN600, DN80, N70, N900 } from '@atlaskit/theme/colors';
 import { themed } from '@atlaskit/theme/components';
 import type { ThemeProps } from '@atlaskit/theme/types';
@@ -298,11 +297,7 @@ const DropdownMenuItemCustomComponent = React.forwardRef<
         // The current implementation unfortunately is very brittle. Design System Team will
         // be prioritizing official support for accessible nested menus that we want you to move
         // to in the future.
-        position: getBooleanFF(
-          'platform.design-system-team.menu-selected-state-change_0see9',
-        )
-          ? 'static'
-          : undefined,
+        position: 'static',
       }}
     >
       {children}

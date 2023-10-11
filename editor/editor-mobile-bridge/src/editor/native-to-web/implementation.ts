@@ -22,10 +22,6 @@ import { EditorActions } from '@atlaskit/editor-core';
 import { clearEditorContent } from '@atlaskit/editor-core/src/commands';
 import { changeColor } from '@atlaskit/editor-core/src/plugins/text-color/commands/change-color';
 import {
-  updateStatusWithAnalytics,
-  commitStatusPicker,
-} from '@atlaskit/editor-core/src/plugins/status/actions';
-import {
   setMobilePaddingTop,
   setIsExpanded,
 } from '@atlaskit/editor-core/src/plugins/mobile-dimensions/commands';
@@ -353,7 +349,7 @@ export default class WebBridgeImpl
     inputMethod: InsertBlockInputMethodToolbar = INPUT_METHOD.TOOLBAR,
   ) {
     if (this.statusBridgeState && this.editorView) {
-      updateStatusWithAnalytics(inputMethod, {
+      this.pluginInjectionApi?.status.actions.updateStatus(inputMethod, {
         text,
         color,
         localId: uuid,
@@ -363,7 +359,9 @@ export default class WebBridgeImpl
 
   onStatusPickerDismissed() {
     if (this.statusBridgeState && this.editorView) {
-      commitStatusPicker()(this.editorView);
+      this.pluginInjectionApi?.status.actions.commitStatusPicker()(
+        this.editorView,
+      );
     }
   }
 
@@ -1095,6 +1093,16 @@ export default class WebBridgeImpl
     trackFontSizeUpdated(defaultFontSize, trueFontSize);
   }
 
+  updateStatus(status: StatusType) {
+    if (!this.editorView) {
+      return;
+    }
+    return this.pluginInjectionApi?.status.actions.updateStatus(
+      INPUT_METHOD.TOOLBAR,
+      status,
+    )(this.editorView.state, this.editorView.dispatch);
+  }
+
   /**
    * Inserts a node in the Hybrid Editor.
    * Most node types are implemented on web, and we can use their implementation here.
@@ -1102,9 +1110,9 @@ export default class WebBridgeImpl
    * @param nodeType is the node we are inserting in the editor.
    */
   insertNode(nodeType: string) {
-    const apply = (command: Command) => {
+    const apply = (command: Command | undefined) => {
       const { state, dispatch } = this.editorView!;
-      command(state, dispatch);
+      command?.(state, dispatch);
     };
 
     switch (nodeType) {
@@ -1114,7 +1122,7 @@ export default class WebBridgeImpl
           color: 'neutral',
         } as StatusType;
 
-        apply(updateStatusWithAnalytics(INPUT_METHOD.TOOLBAR, status));
+        this.updateStatus(status);
         break;
       case 'date':
         const dateType = dateToDateType(new Date());

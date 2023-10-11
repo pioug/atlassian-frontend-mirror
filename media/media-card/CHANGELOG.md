@@ -1,5 +1,13 @@
 # @atlaskit/media-card
 
+## 77.1.2
+
+### Patch Changes
+
+- [#41371](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41371) [`a5766038a35`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a5766038a35) - Fix TS errors in AFM
+- [#41070](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41070) [`d86446f88c8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d86446f88c8) - The UFO experience is aborted if it hasn't completed when Card is unmounted
+- Updated dependencies
+
 ## 77.1.1
 
 ### Patch Changes

@@ -76,9 +76,6 @@
     },
     {
       "path": "../../../build/test-tooling/webdriver-runner/tsconfig.app.json"
-    },
-    {
-      "path": "../../platform/feature-flags-test-utils/tsconfig.app.json"
     }
   ]
 }

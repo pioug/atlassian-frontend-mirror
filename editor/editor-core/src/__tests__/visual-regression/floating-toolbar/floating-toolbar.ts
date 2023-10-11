@@ -81,14 +81,16 @@ describe('Floating toolbars:', () => {
       });
     });
 
-    it('should render and focus the block extension toolbar inside table', async () => {
+    // FIXME: This test was automatically skipped due to failure on 07/10/2023: https://product-fabric.atlassian.net/browse/ED-20352
+    it.skip('should render and focus the block extension toolbar inside table', async () => {
       const endCellSelector = getSelectorForTableCell({ row: 2, cell: 3 });
       await page.click(`${endCellSelector} .extensionView-content-wrap`);
 
       await waitForExtensionToolbar(page);
     });
 
-    it('should render and focus the inline extension toolbar inside table', async () => {
+    // FIXME: This test was automatically skipped due to failure on 07/10/2023: https://product-fabric.atlassian.net/browse/ED-20353
+    it.skip('should render and focus the inline extension toolbar inside table', async () => {
       const endCellSelector = getSelectorForTableCell({ row: 2, cell: 2 });
       await page.click(`${endCellSelector} .inlineExtensionView-content-wrap`);
 

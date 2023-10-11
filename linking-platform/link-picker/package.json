@@ -65,7 +65,7 @@
     "@atlaskit/tabs": "^13.4.0",
     "@atlaskit/textfield": "^5.6.0",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.25.0",
+    "@atlaskit/tokens": "^1.26.0",
     "@atlaskit/tooltip": "^17.8.0",
     "@atlaskit/ufo": "^0.2.0",
     "@atlaskit/visually-hidden": "^1.2.0",
@@ -84,7 +84,7 @@
   "devDependencies": {
     "@af/analytics-codegen": "^0.1.0",
     "@af/visual-regression": "*",
-    "@atlaskit/dropdown-menu": "^11.14.0",
+    "@atlaskit/dropdown-menu": "^12.0.0",
     "@atlaskit/link-provider": "^1.6.0",
     "@atlaskit/link-test-helpers": "^6.1.0",
     "@atlaskit/visual-regression": "*",

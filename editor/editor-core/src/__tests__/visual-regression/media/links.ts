@@ -78,8 +78,8 @@ describe('Snapshot Test: Media', () => {
         );
 
         // test that it doesn't just insert the url after switching to the other input
-        await page.click('[data-testid="link-label"]');
-        await page.type('[data-testid="link-label"]', 'Hello world!');
+        await page.click('[data-testid="link-text"]');
+        await page.type('[data-testid="link-text"]', 'Hello world!');
 
         await retryUntilStablePosition(
           page,

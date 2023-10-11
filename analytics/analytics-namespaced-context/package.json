@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/analytics-namespaced-context",
-  "version": "6.7.3",
+  "version": "6.7.4",
   "description": "Provides a namespace for AnalyticsContext data (@atlaskit/analytics-next)",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -32,7 +32,10 @@
   },
   "atlassian": {
     "team": "UIP Frontend Observability",
-    "releaseModel": "continuous"
+    "releaseModel": "continuous",
+    "productPushConsumption": [
+      "jira"
+    ]
   },
   "config": {
     "access": "public"

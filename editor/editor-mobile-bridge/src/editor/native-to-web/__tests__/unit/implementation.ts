@@ -1,6 +1,5 @@
 import type { Provider as CollabProvider } from '@atlaskit/collab-provider';
 import { EditorActions } from '@atlaskit/editor-core';
-import { updateStatusWithAnalytics } from '@atlaskit/editor-core/src/plugins/status/actions';
 
 import { dateToDateType } from '@atlaskit/editor-core/src/plugins/date/utils/formatParse';
 import { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
@@ -54,7 +53,6 @@ jest.mock('@atlaskit/editor-core', () => ({
       };
     },
   },
-  updateStatusWithAnalytics: jest.fn(() => () => {}),
   openDatePicker: jest.fn(() => () => {}),
   setMobilePaddingTop: jest.fn(() => () => {}),
 }));
@@ -63,13 +61,6 @@ jest.mock('@atlaskit/editor-core/src/plugins/type-ahead/api', () => ({
   ...(jest.genMockFromModule(
     '@atlaskit/editor-core/src/plugins/type-ahead/api',
   ) as object),
-}));
-
-jest.mock('@atlaskit/editor-core/src/plugins/status/actions', () => ({
-  ...(jest.requireActual(
-    '@atlaskit/editor-core/src/plugins/status/actions',
-  ) as object),
-  updateStatusWithAnalytics: jest.fn(() => () => {}),
 }));
 
 jest.mock('@atlaskit/editor-common/utils', () => ({
@@ -774,10 +765,19 @@ describe('insert node', () => {
   it('should insert a status node', () => {
     let bridge: WebBridgeImpl = new WebBridgeImpl();
     const editorView = {} as EditorViewWithComposition;
+    const mockUpdateStatus = jest.fn(() => () => {});
+    const mockPluginInjectionAPI = {
+      status: {
+        actions: {
+          updateStatus: mockUpdateStatus,
+        },
+      },
+    };
     bridge.editorView = editorView;
+    bridge.setPluginInjectionApi(mockPluginInjectionAPI as any);
     bridge.insertNode('status');
 
-    expect(updateStatusWithAnalytics).toBeCalledWith('toolbar', {
+    expect(mockUpdateStatus).toBeCalledWith('toolbar', {
       text: '',
       color: 'neutral',
     });

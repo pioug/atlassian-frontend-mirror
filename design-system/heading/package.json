@@ -32,7 +32,7 @@
     "codegen": "ts-node ./scripts/codegen.tsx"
   },
   "dependencies": {
-    "@atlaskit/tokens": "^1.25.0",
+    "@atlaskit/tokens": "^1.26.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1"
   },

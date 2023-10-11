@@ -20,7 +20,6 @@ import {
   commitStatusPicker,
   setStatusPickerAt,
   updateStatus,
-  updateStatusWithAnalytics,
 } from '../../../../plugins/status/actions';
 import { INPUT_METHOD } from '../../../../plugins/analytics';
 
@@ -334,20 +333,26 @@ describe('status plugin: actions', () => {
 
   describe('updateStatusWithAnalytics', () => {
     it('should fire analytics event', () => {
-      const { editorView } = editor(doc(p('')));
+      const { editorView, editorAPI } = editor(doc(p('')));
+      const analyticsSpy = jest.spyOn(
+        editorAPI?.analytics?.actions as any,
+        'attachAnalyticsEvent',
+      );
 
-      updateStatusWithAnalytics(INPUT_METHOD.TOOLBAR, {
+      editorAPI?.status?.actions?.updateStatus(INPUT_METHOD.TOOLBAR, {
         color: 'green',
         text: 'OK',
-      })(editorView.state, editorView.dispatch);
-
-      expect(createAnalyticsEvent).toBeCalledWith({
-        action: 'inserted',
-        actionSubject: 'document',
-        actionSubjectId: 'status',
-        eventType: 'track',
-        attributes: expect.objectContaining({ inputMethod: 'toolbar' }),
-      });
+      })(editorView.state, editorView.dispatch),
+        expect(analyticsSpy).toBeCalledWith(
+          {
+            action: 'inserted',
+            actionSubject: 'document',
+            actionSubjectId: 'status',
+            eventType: 'track',
+            attributes: expect.objectContaining({ inputMethod: 'toolbar' }),
+          },
+          undefined,
+        );
     });
   });
 

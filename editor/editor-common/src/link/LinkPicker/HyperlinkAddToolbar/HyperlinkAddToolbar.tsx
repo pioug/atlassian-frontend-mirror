@@ -1,41 +1,40 @@
 /** @jsx jsx */
-import React, { KeyboardEvent, PureComponent, RefObject } from 'react';
+import type { KeyboardEvent, RefObject } from 'react';
+import React, { PureComponent } from 'react';
 
 import { css, jsx } from '@emotion/react';
 import debounce from 'lodash/debounce';
-import {
-  defineMessages,
-  injectIntl,
-  WrappedComponentProps,
-} from 'react-intl-next';
+import type { WrappedComponentProps } from 'react-intl-next';
+import { defineMessages, injectIntl } from 'react-intl-next';
 
-import { ActivityItem, ActivityProvider } from '@atlaskit/activity-provider';
+import type {
+  ActivityItem,
+  ActivityProvider,
+} from '@atlaskit/activity-provider';
 import { isSafeUrl } from '@atlaskit/adf-schema';
-import {
-  withAnalyticsEvents,
-  WithAnalyticsEventsProps,
-} from '@atlaskit/analytics-next';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
+import { withAnalyticsEvents } from '@atlaskit/analytics-next';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import Page16Icon from '@atlaskit/icon-object/glyph/page/16';
 import CrossCircleIcon from '@atlaskit/icon/glyph/cross-circle';
-import EditorAlignLeftIcon from '@atlaskit/icon/glyph/editor/align-left';
-import LinkIcon from '@atlaskit/icon/glyph/link';
-import { N30, N80, N90 } from '@atlaskit/theme/colors';
+import { N200, N90 } from '@atlaskit/theme/colors';
+import { fontSizeSmall } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
+import type {
+  CreateLinkInlineDialogEventPayload,
+  FireAnalyticsCallback,
+} from '../../../analytics';
 import {
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
-  CreateLinkInlineDialogEventPayload,
   EVENT_TYPE,
-  FireAnalyticsCallback,
   fireAnalyticsEvent,
   INPUT_METHOD,
 } from '../../../analytics';
 import type { HyperlinkState } from '../../../link';
-import { linkToolbarMessages as linkToolbarCommonMessages } from '../../../messages';
 import type {
   QuickSearchResult,
   SearchProvider,
@@ -50,7 +49,7 @@ import {
   inputWrapper,
 } from '../../LinkSearch/ToolbarComponents';
 import { transformTimeStamp } from '../../LinkSearch/transformTimeStamp';
-import { LinkSearchListItemData } from '../../LinkSearch/types';
+import type { LinkSearchListItemData } from '../../LinkSearch/types';
 
 import {
   filterUniqueItems,
@@ -85,16 +84,27 @@ const clearText = css`
   border: none;
 `;
 
-const textInputWrapper = css`
-  ${inputWrapper};
-  border-top: 1px solid ${token('color.border', N30)};
-  border-bottom: 1px solid ${token('color.border', N30)};
+const clearTextWrapper = css`
+  position: absolute;
+  right: 0;
+`;
+const containerPadding = css`
+  padding: ${token('space.150', '12px')} ${token('space.100', '8px')};
 `;
 
-const iconWrapper = css`
-  color: ${token('color.icon.subtle', N80)};
-  padding: ${token('space.050', '4px')} ${token('space.100', '8px')};
-  width: 18px;
+const textLabelMargin = css`
+  margin-top: ${token('space.150', '12px')};
+`;
+
+const inputLabel = css`
+  font-size: ${fontSizeSmall()}px;
+  color: ${token('color.text.subtlest', N200)};
+  font-weight: 500;
+  padding-bottom: ${token('space.050', '4px')};
+`;
+
+const inputWrapperPosition = css`
+  position: relative;
 `;
 
 export const messages = defineMessages({
@@ -125,10 +135,15 @@ export const messages = defineMessages({
       '{count, plural, =0 {no results} one {# result} other {# results}} found',
     description: 'Announce search results for screen-reader users.',
   },
-  linkAriaLabel: {
-    id: 'fabric.editor.hyperlink.linkAriaLabel',
-    defaultMessage: 'Link label',
-    description: 'aria label for a link',
+  linkVisibleLabel: {
+    id: 'fabric.editor.hyperlink.linkVisibleLabel',
+    defaultMessage: 'Paste or search for link',
+    description: 'Visible label for link input in hyperlink floating control',
+  },
+  textVisibleLabel: {
+    id: 'fabric.editor.hyperlink.textVisibleLabel',
+    defaultMessage: 'Display text (optional)',
+    description: 'Visible label for text input in hyperlink floating control',
   },
 });
 
@@ -588,22 +603,14 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
       intl: { formatMessage },
       activityProvider,
     } = this.props;
-    const placeholder = formatMessage(
-      activityProvider
-        ? linkToolbarCommonMessages.placeholder
-        : linkToolbarCommonMessages.linkPlaceholder,
-    );
 
-    const formatLinkAddressText = formatMessage(
-      linkToolbarCommonMessages.linkAddress,
-    );
     const formatClearLinkText = formatMessage(messages.clearLink);
-    const formatDisplayText = formatMessage(messages.displayText);
     const screenReaderDescriptionId = 'search-recent-links-field-description';
     const linkSearchListId = 'hyperlink-search-list';
     const ariaActiveDescendant =
       selectedIndex > -1 ? `link-search-list-item-${selectedIndex}` : '';
-
+    const linkSearchInputId = 'search-recent-links-field-id';
+    const displayTextInputId = 'display-text-filed-id';
     // Added workaround with a screen reader Announcer specifically for VoiceOver + Safari
     // as the Aria design pattern for combobox does not work in this case
     // for details: https://a11y-internal.atlassian.net/browse/AK-740
@@ -612,15 +619,17 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
     return (
       <div aria-label="Hyperlink Edit" className="recent-list">
         <div
-          css={[container, !!activityProvider && containerWithProvider]}
+          css={[
+            container,
+            !!activityProvider && containerWithProvider,
+            containerPadding,
+          ]}
           ref={this.wrapperRef}
         >
-          <div css={inputWrapper}>
-            <span css={iconWrapper}>
-              <Tooltip content={formatLinkAddressText}>
-                <LinkIcon label={formatLinkAddressText} />
-              </Tooltip>
-            </span>
+          <label htmlFor={linkSearchInputId} css={inputLabel}>
+            {formatMessage(messages.linkVisibleLabel)}
+          </label>
+          <div css={[inputWrapper, inputWrapperPosition]}>
             {screenReaderText && (
               <Announcer
                 ariaLive="assertive"
@@ -644,7 +653,6 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
               ariaAutoComplete
               describedById={screenReaderDescriptionId}
               ref={(ele) => (this.urlInputContainer = ele)}
-              placeholder={placeholder}
               testId={'link-url'}
               onSubmit={this.handleSubmit}
               onChange={this.updateInput}
@@ -652,48 +660,55 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
               onCancel={this.handleCancel}
               defaultValue={displayUrl}
               onKeyDown={this.handleKeyDown}
+              inputId={linkSearchInputId}
             />
             {displayUrl && (
-              <Tooltip content={formatClearLinkText}>
-                <button
-                  type="button"
-                  css={clearText}
-                  onClick={this.handleClearText}
-                  tabIndex={0}
-                >
-                  <CrossCircleIcon label={formatClearLinkText} />
-                </button>
-              </Tooltip>
+              <div css={clearTextWrapper}>
+                <Tooltip content={formatClearLinkText}>
+                  <button
+                    type="button"
+                    css={clearText}
+                    onClick={this.handleClearText}
+                    tabIndex={0}
+                  >
+                    <CrossCircleIcon label={formatClearLinkText} />
+                  </button>
+                </Tooltip>
+              </div>
             )}
           </div>
-          <div css={textInputWrapper}>
-            <span css={iconWrapper}>
-              <Tooltip content={formatDisplayText}>
-                <EditorAlignLeftIcon label={formatDisplayText} />
-              </Tooltip>
-            </span>
+          <label
+            htmlFor={displayTextInputId}
+            css={[inputLabel, textLabelMargin]}
+          >
+            {formatMessage(messages.textVisibleLabel)}
+          </label>
+          <div css={[inputWrapper, inputWrapperPosition]}>
             <PanelTextInput
               ref={(ele) => (this.displayTextInputContainer = ele)}
-              placeholder={formatDisplayText}
-              ariaLabel={formatMessage(messages.linkAriaLabel)}
-              testId={'link-label'}
+              testId={'link-text'}
               onChange={this.updateTextInput}
               onCancel={this.handleCancel}
               defaultValue={displayText}
               onSubmit={this.handleSubmit}
               onKeyDown={this.handleKeyDown}
+              inputId={displayTextInputId}
             />
             {displayText && (
-              <Tooltip content={formatMessage(messages.clearText)}>
-                <button
-                  type="button"
-                  css={clearText}
-                  onClick={this.handleClearDisplayText}
-                  onKeyDown={this.handleClearTextKeyDown}
-                >
-                  <CrossCircleIcon label={formatMessage(messages.clearText)} />
-                </button>
-              </Tooltip>
+              <div css={clearTextWrapper}>
+                <Tooltip content={formatMessage(messages.clearText)}>
+                  <button
+                    type="button"
+                    css={clearText}
+                    onClick={this.handleClearDisplayText}
+                    onKeyDown={this.handleClearTextKeyDown}
+                  >
+                    <CrossCircleIcon
+                      label={formatMessage(messages.clearText)}
+                    />
+                  </button>
+                </Tooltip>
+              </div>
             )}
           </div>
           <div

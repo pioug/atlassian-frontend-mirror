@@ -9,7 +9,7 @@ import { injectIntl } from 'react-intl-next';
 import type { Color, StatusStyle } from '@atlaskit/status/element';
 import { Status } from '@atlaskit/status/element';
 
-import type { EventDispatcher } from '../../../event-dispatcher';
+import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import type { InlineNodeViewComponentProps } from '@atlaskit/editor-common/react-node-view';
 
 import type { StatusPluginOptions } from '../types';

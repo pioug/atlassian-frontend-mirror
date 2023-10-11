@@ -7,17 +7,14 @@ import {
 } from '@atlaskit/editor-core/src/ui/ColorPalette/Palettes/statusColorPalette';
 import { statusMessages } from '@atlaskit/editor-core/src/messages';
 import messages from '@atlaskit/editor-common/messages';
+import type WebBridgeImpl from './native-to-web';
 
-import {
-  updateStatusWithAnalytics,
-  removeStatus,
-} from '@atlaskit/editor-core/src/plugins/status/actions';
+import { removeStatus } from '@atlaskit/editor-core/src/plugins/status/actions';
 import type {
   Command,
   CommandDispatch,
   FloatingToolbarConfig,
 } from '@atlaskit/editor-common/types';
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import type EditorConfiguration from './editor-configuration';
@@ -31,13 +28,13 @@ const getColorOptionsForMode = (themeMode: ThemeModes) => {
 };
 
 const changeColor =
-  (status: StatusType, color: PaletteColor): Command =>
+  (status: StatusType, color: PaletteColor, bridge: WebBridgeImpl): Command =>
   (state, dispatch) => {
     const newStatus = {
       ...status,
       color: color.label,
     } as StatusType;
-    updateStatusWithAnalytics(INPUT_METHOD.TOOLBAR, newStatus)(state, dispatch);
+    bridge.updateStatus(newStatus);
     return true;
   };
 
@@ -58,6 +55,7 @@ const onStatusTextChange =
     status: StatusType,
     newStatusText: string,
     showStatusPickerAt: number,
+    bridge: WebBridgeImpl,
   ): Command =>
   (state, dispatch) => {
     if (newStatusText === '') {
@@ -68,7 +66,8 @@ const onStatusTextChange =
       ...status,
       text: newStatusText,
     } as StatusType;
-    updateStatusWithAnalytics(INPUT_METHOD.TOOLBAR, newStatus)(state, dispatch);
+    bridge.updateStatus(newStatus);
+
     return true;
   };
 
@@ -83,6 +82,7 @@ export const createInputToolbar = (
   nodeType: NodeType,
   showStatusPickerAt: number,
   intl: IntlShape,
+  bridge: WebBridgeImpl,
 ): FloatingToolbarConfig => {
   return {
     title: 'Status',
@@ -95,7 +95,7 @@ export const createInputToolbar = (
         title: intl.formatMessage(statusMessages.editText),
         defaultValue: status.text,
         onSubmit: (newStatusText) =>
-          onStatusTextChange(status, newStatusText, showStatusPickerAt),
+          onStatusTextChange(status, newStatusText, showStatusPickerAt, bridge),
         onBlur: (value) => onBlur(value),
       },
     ],
@@ -109,6 +109,7 @@ export const createFloatingToolbarConfigForStatus = (
   refresh: (floatingToolbarConfig: FloatingToolbarConfig) => void,
   editorConfig: EditorConfiguration,
   intl: IntlShape,
+  bridge: WebBridgeImpl,
 ): FloatingToolbarConfig => {
   const themeMode = editorConfig.getMode();
   if (status.text === '') {
@@ -123,7 +124,12 @@ export const createFloatingToolbarConfigForStatus = (
           title: intl.formatMessage(statusMessages.editText),
           defaultValue: status.text,
           onSubmit: (newStatusText) =>
-            onStatusTextChange(status, newStatusText, showStatusPickerAt),
+            onStatusTextChange(
+              status,
+              newStatusText,
+              showStatusPickerAt,
+              bridge,
+            ),
           onBlur: (value) => onBlur(value),
         },
       ],
@@ -144,6 +150,7 @@ export const createFloatingToolbarConfigForStatus = (
               nodeType,
               showStatusPickerAt,
               intl,
+              bridge,
             );
 
             refresh(newInput);
@@ -160,7 +167,8 @@ export const createFloatingToolbarConfigForStatus = (
           title: intl.formatMessage(statusMessages.editColor),
           defaultValue: getDefaultColorValueForMode(status, themeMode),
           options: getColorOptionsForMode(themeMode),
-          onChange: (selected: PaletteColor) => changeColor(status, selected),
+          onChange: (selected: PaletteColor) =>
+            changeColor(status, selected, bridge),
         },
         {
           type: 'separator',

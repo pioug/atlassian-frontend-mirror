@@ -1,5 +1,11 @@
 # @atlaskit/dynamic-table
 
+## 14.11.7
+
+### Patch Changes
+
+- [#40650](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40650) [`07aa588c8a4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/07aa588c8a4) - Reverts the fix to text descender cut-off, due to incompatibilities with Firefox and Safari.
+
 ## 14.11.6
 
 ### Patch Changes

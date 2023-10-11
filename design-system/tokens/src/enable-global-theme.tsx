@@ -32,6 +32,7 @@ import { getThemePreferences } from './utils/get-theme-preferences';
 const enableGlobalTheme = (
   {
     colorMode = themeStateDefaults['colorMode'],
+    contrastMode = themeStateDefaults['contrastMode'],
     dark = themeStateDefaults['dark'],
     light = themeStateDefaults['light'],
     shape = themeStateDefaults['shape'],
@@ -43,6 +44,7 @@ const enableGlobalTheme = (
 ): UnbindFn => {
   const themeState = {
     colorMode,
+    contrastMode,
     dark,
     light,
     shape,

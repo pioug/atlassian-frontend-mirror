@@ -1,5 +1,42 @@
 # @atlaskit/editor-mobile-bridge
 
+## 188.7.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 188.7.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 188.7.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 188.7.1
+
+### Patch Changes
+
+- [#40954](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40954) [`14fb785fb7b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/14fb785fb7b) - Fix dark mode contrast issue in editor-mobile-bridge by overriding certain token colors with less transparent ones.
+
+## 188.7.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 188.6.0
+
+### Patch Changes
+
+- [#41341](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41341) [`bd128fb1cfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bd128fb1cfb) - Decouple status plugin from editor-core. Add new actions for updating status.
+- Updated dependencies
+
 ## 188.5.2
 
 ### Patch Changes

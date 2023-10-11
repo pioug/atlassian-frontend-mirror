@@ -81,8 +81,7 @@ export class ArchiveSidebarFolderEntry extends React.Component<ArchiveSidebarFol
       const name = this.formatName(root, entry.name);
       downloadUrl(URL.createObjectURL(blob), { name });
     } catch (error) {
-      // @ts-expect-error
-      this.props.onError(error, entry);
+      this.props.onError(error as ArchiveViewerError, entry);
     }
   };
 

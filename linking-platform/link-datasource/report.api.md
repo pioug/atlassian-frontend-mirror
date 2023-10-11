@@ -20,9 +20,7 @@
 import { DatasourceAdf } from '@atlaskit/linking-common/types';
 import { DatasourceAdfTableView } from '@atlaskit/linking-common/types';
 import { DatasourceAdfView } from '@atlaskit/linking-common/types';
-import { ForwardRefExoticComponent } from 'react';
 import { InlineCardAdf } from '@atlaskit/linking-common/types';
-import { RefAttributes } from 'react';
 import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 // @public (undocumented)
@@ -78,11 +76,6 @@ export { DatasourceAdf };
 export { DatasourceAdfTableView };
 
 export { DatasourceAdfView };
-
-// @public (undocumented)
-export const DatasourceRenderFailedAnalyticsWrapper: ForwardRefExoticComponent<
-  Pick<any, number | string | symbol> & RefAttributes<any>
->;
 
 // @public (undocumented)
 export const DatasourceTableView: (
@@ -167,6 +160,11 @@ export interface JiraIssuesDatasourceAdf extends DatasourceAdf {
     };
   };
 }
+
+// @public (undocumented)
+export const LazyLoadedDatasourceRenderFailedAnalyticsWrapper: (
+  props: any,
+) => JSX.Element;
 
 // @public (undocumented)
 type XOR<T1, T2> =

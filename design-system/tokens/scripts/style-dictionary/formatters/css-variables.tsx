@@ -4,13 +4,15 @@ import { createSignedArtifact } from '@atlassian/codegen';
 
 import {
   COLOR_MODE_ATTRIBUTE,
+  CONTRAST_MODE_ATTRIBUTE,
   THEME_DATA_ATTRIBUTE,
 } from '../../../src/constants';
 import themeConfig, { Themes } from '../../../src/theme-config';
+import getIncreasedContrastTheme from '../../../src/utils/get-increased-contrast-theme';
 import { getCSSCustomProperty } from '../../../src/utils/token-ids';
 import sortTokens from '../sort-tokens';
 import { fontTokenToCSS } from '../transformers/web-font';
-import { getValue } from '../utilities';
+import { getValue, themeNameToId } from '../utilities';
 
 export const cssVariableFormatter: Format['formatter'] = ({
   dictionary,
@@ -48,26 +50,67 @@ export const cssVariableFormatter: Format['formatter'] = ({
   });
 
   let output = '';
-  const themeId = theme.override || theme.id;
+  let indent = 0;
+
+  function outputLine(line: string) {
+    output += `${' '.repeat(indent)}${line}\n`;
+  }
+
+  let themeId = theme.override || theme.id;
 
   if (theme.attributes.type === 'color') {
-    const selectors = colorModes.map(
+    let selectors: string[] = colorModes.map(
       (mode) =>
         `html[${COLOR_MODE_ATTRIBUTE}="${mode}"][${THEME_DATA_ATTRIBUTE}~="${mode}:${themeId}"]`,
     );
-    output += `${selectors.join(',\n')} {\n`;
-    output += `  color-scheme: ${theme.attributes.mode};\n`;
+
+    const hasIncreasedContrastTheme = Boolean(
+      getIncreasedContrastTheme(themeId),
+    );
+    const targetIncreasedContrastTheme = options.increasedContrastTarget
+      ? themeNameToId(options.increasedContrastTarget)
+      : undefined;
+
+    if (hasIncreasedContrastTheme) {
+      // TODO: This is not enabled yet as it's not needed due to specificity,
+      // but we should consider adding this in future.
+      //
+      // If this is a standard theme that has an increased contrast theme,
+      // append selectors with `prefers-contrast: no-preference` so they aren't
+      // matched when inactive.
+      // selectors = selectors.map(
+      //   (selector) => `${selector}[${CONTRAST_MODE_ATTRIBUTE}="no-preference"]`,
+      // );
+    } else if (targetIncreasedContrastTheme) {
+      // If this theme IS an increased contrast theme, add additional selectors targeting the
+      // standard theme combined with `prefers-contrast: more`.
+      selectors = [
+        ...selectors,
+        ...colorModes.map(
+          (mode) =>
+            `html[${COLOR_MODE_ATTRIBUTE}="${mode}"][${CONTRAST_MODE_ATTRIBUTE}="more"][${THEME_DATA_ATTRIBUTE}~="${mode}:${targetIncreasedContrastTheme}"]`,
+        ),
+      ];
+    }
+
+    outputLine(`${selectors.join(',\n')} {`);
+    indent += 2;
+    outputLine(`color-scheme: ${theme.attributes.mode};`);
   } else {
-    output += `html[${THEME_DATA_ATTRIBUTE}~="${theme.attributes.type}:${themeId}"] {\n`;
+    outputLine(
+      `html[${THEME_DATA_ATTRIBUTE}~="${theme.attributes.type}:${themeId}"] {`,
+    );
+    indent += 2;
   }
 
   tokens.forEach((token) => {
     const tokenValue = getValue(dictionary, token);
 
-    output += `  ${token.name}: ${tokenValue};\n`;
+    outputLine(`${token.name}: ${tokenValue};`);
   });
 
-  output += `}\n`;
+  indent -= 2;
+  outputLine('}');
 
   return output;
 };

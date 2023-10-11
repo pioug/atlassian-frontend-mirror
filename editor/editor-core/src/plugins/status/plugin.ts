@@ -9,7 +9,7 @@ import {
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { pmHistoryPluginKey } from '@atlaskit/editor-common/utils';
 import { getInlineNodeViewProducer } from '@atlaskit/editor-common/react-node-view';
-import type { PMPluginFactoryParams } from '../../types';
+import type { PMPluginFactoryParams } from '@atlaskit/editor-common/types';
 
 import { StatusNodeView } from './nodeviews/status';
 import { pluginKey } from './plugin-key';

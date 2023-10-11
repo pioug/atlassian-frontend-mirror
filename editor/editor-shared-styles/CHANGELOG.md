@@ -1,5 +1,11 @@
 # @atlaskit/editor-shared-styles
 
+## 2.8.1
+
+### Patch Changes
+
+- [#41274](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41274) [`17ba12fb12b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/17ba12fb12b) - fix unnecessarily high z-index so that the vertical scrollbar in Safari does not overlay other layer components with z-index below 9999
+
 ## 2.8.0
 
 ### Minor Changes

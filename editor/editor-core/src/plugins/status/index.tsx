@@ -4,33 +4,50 @@ import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 
 import { status } from '@atlaskit/adf-schema';
 
-import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
-import WithPluginState from '../../ui/WithPluginState';
+import type {
+  NextEditorPlugin,
+  OptionalPlugin,
+  ExtractInjectionAPI,
+} from '@atlaskit/editor-common/types';
+import { WithPluginState } from '@atlaskit/editor-common/with-plugin-state';
 import {
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
-  addAnalytics,
   EVENT_TYPE,
   INPUT_METHOD,
-} from '../analytics';
+} from '@atlaskit/editor-common/analytics';
 import { messages } from '../insert-block/ui/ToolbarInsertBlock/messages';
 import { IconStatus } from '@atlaskit/editor-common/quick-insert';
 
-import { commitStatusPicker, createStatus, updateStatus } from './actions';
+import type { UpdateStatus } from './actions';
+import {
+  updateStatusWithAnalytics,
+  commitStatusPicker,
+  createStatus,
+  updateStatus,
+} from './actions';
 import { keymapPlugin } from './keymap';
 import type { ClosingPayload } from './plugin';
 import createStatusPlugin from './plugin';
 import { pluginKey } from './plugin-key';
 import type { StatusPluginOptions, StatusState, StatusType } from './types';
 import StatusPicker from './ui/statusPicker';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 
-const baseStatusPlugin: NextEditorPlugin<
+export type StatusPlugin = NextEditorPlugin<
   'status',
   {
+    dependencies: [OptionalPlugin<AnalyticsPlugin>];
     pluginConfiguration: StatusPluginOptions | undefined;
+    actions: {
+      commitStatusPicker: typeof commitStatusPicker;
+      updateStatus: UpdateStatus;
+    };
   }
-> = ({ config: options }) => ({
+>;
+
+const baseStatusPlugin: StatusPlugin = ({ config: options, api }) => ({
   name: 'status',
 
   nodes() {
@@ -46,6 +63,11 @@ const baseStatusPlugin: NextEditorPlugin<
       },
       { name: 'statusKeymap', plugin: keymapPlugin },
     ];
+  },
+
+  actions: {
+    commitStatusPicker,
+    updateStatus: updateStatusWithAnalytics(api?.analytics?.actions),
   },
 
   contentComponent({
@@ -111,15 +133,9 @@ const baseStatusPlugin: NextEditorPlugin<
 });
 
 const decorateWithPluginOptions = (
-  plugin: ReturnType<
-    NextEditorPlugin<
-      'status',
-      {
-        pluginConfiguration: StatusPluginOptions;
-      }
-    >
-  >,
+  plugin: ReturnType<StatusPlugin>,
   options: StatusPluginOptions | undefined,
+  api: ExtractInjectionAPI<StatusPlugin> | undefined,
 ) => {
   if (options?.menuDisabled === true) {
     return plugin;
@@ -134,7 +150,8 @@ const decorateWithPluginOptions = (
         keywords: ['lozenge'],
         icon: () => <IconStatus />,
         action(insert, state) {
-          return addAnalytics(state, createStatus()(insert, state), {
+          const tr = createStatus()(insert, state);
+          api?.analytics?.actions.attachAnalyticsEvent({
             action: ACTION.INSERTED,
             actionSubject: ACTION_SUBJECT.DOCUMENT,
             actionSubjectId: ACTION_SUBJECT_ID.STATUS,
@@ -142,7 +159,8 @@ const decorateWithPluginOptions = (
               inputMethod: INPUT_METHOD.QUICK_INSERT,
             },
             eventType: EVENT_TYPE.TRACK,
-          });
+          })(tr);
+          return tr;
         },
       },
     ],
@@ -150,15 +168,11 @@ const decorateWithPluginOptions = (
   return plugin;
 };
 
-const statusPlugin: NextEditorPlugin<
-  'status',
-  {
-    pluginConfiguration: StatusPluginOptions;
-  }
-> = ({ config: options, api }) =>
+const statusPlugin: StatusPlugin = ({ config: options, api }) =>
   decorateWithPluginOptions(
     baseStatusPlugin({ config: options, api }),
     options,
+    api,
   );
 
 export default statusPlugin;

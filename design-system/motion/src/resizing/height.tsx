@@ -149,5 +149,4 @@ export const ResizingHeight = ({
 /**
  * This exists only to be able to extract opts.
  */
-// eslint-disable-next-line @repo/internal/react/use-noop
-export default (opts: ResizingHeightOpts) => {};
+export default (_opts: ResizingHeightOpts) => {};

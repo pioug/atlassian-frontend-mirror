@@ -34,7 +34,7 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@atlaskit/tokens": "^1.25.0",
+    "@atlaskit/tokens": "^1.26.0",
     "@babel/runtime": "^7.0.0"
   },
   "devDependencies": {

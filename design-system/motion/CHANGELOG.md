@@ -1,5 +1,11 @@
 # @atlaskit/motion
 
+## 1.5.1
+
+### Patch Changes
+
+- [#41372](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41372) [`971e55b3699`](https://bitbucket.org/atlassian/atlassian-frontend/commits/971e55b3699) - Prefix unused opts variable with '\_' to fix typechecking under local consumption
+
 ## 1.5.0
 
 ### Minor Changes

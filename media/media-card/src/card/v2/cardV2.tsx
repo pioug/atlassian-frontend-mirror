@@ -94,6 +94,7 @@ import { getMediaCardCursor } from '../../utils/getMediaCardCursor';
 import {
   completeUfoExperience,
   startUfoExperience,
+  abortUfoExperience,
 } from '../../utils/ufoExperiences';
 import { generateUniqueId } from '../../utils/generateUniqueId';
 import { FileStateFlags } from '../../types';
@@ -221,7 +222,7 @@ export class CardV2Base extends Component<CardV2BaseProps, CardState> {
     const { identifier, ssr, dimensions } = this.props;
 
     if (isCardVisible && isFileIdentifier(identifier)) {
-      this.updateStateForIdentifier(identifier);
+      this.updateStateForIdentifier();
       if (!cardPreview) {
         this.resolveUpfrontPreview(identifier);
       }
@@ -265,10 +266,8 @@ export class CardV2Base extends Component<CardV2BaseProps, CardState> {
       mediaClient,
       identifier,
       dimensions,
-      featureFlags,
       useInlinePlayer,
       disableOverlay,
-      resizeMode,
       ssr,
     } = this.props;
     const {
@@ -300,7 +299,6 @@ export class CardV2Base extends Component<CardV2BaseProps, CardState> {
       !!prevCardPreview && isSSRClientPreview(prevCardPreview) && !cardPreview;
 
     const isNewMediaClient = prevMediaClient !== mediaClient;
-    const fileImageMode = imageResizeModeToFileImageMode(resizeMode);
 
     this.updateFileStateFlag(fileState);
 
@@ -329,7 +327,7 @@ export class CardV2Base extends Component<CardV2BaseProps, CardState> {
       (turnedVisible ||
         (!!this.subscription && (isNewMediaClient || isDiffIdentifier)))
     ) {
-      this.updateStateForIdentifier(identifier);
+      this.updateStateForIdentifier();
     }
 
     if (this.state.status !== prevState.status) {
@@ -362,9 +360,6 @@ export class CardV2Base extends Component<CardV2BaseProps, CardState> {
         fileState,
         prevDimensions,
         dimensions,
-        identifier,
-        fileImageMode,
-        featureFlags,
         hasCardPreview: !!cardPreview,
         isBannedLocalPreview,
         wasResolvedUpfrontPreview,
@@ -422,11 +417,12 @@ export class CardV2Base extends Component<CardV2BaseProps, CardState> {
   }
 
   componentWillUnmount() {
+    this.fireAbortedEvent();
     this.hasBeenMounted = false;
     getDocument()?.removeEventListener('copy', this.fireCopiedEvent);
   }
 
-  updateStateForIdentifier(identifier: FileIdentifier) {
+  updateStateForIdentifier() {
     this.fireCommencedEvent();
     this.setState({ shouldUpdateStateForIdentifier: true });
   }
@@ -467,7 +463,7 @@ export class CardV2Base extends Component<CardV2BaseProps, CardState> {
   ): CardPreviewParams => {
     const { isBannedLocalPreview } = this.state;
     const { id } = identifier;
-    const { dimensions = {}, mediaClient, createAnalyticsEvent } = this.props;
+    const { dimensions = {}, mediaClient } = this.props;
 
     return {
       mediaClient,
@@ -480,8 +476,6 @@ export class CardV2Base extends Component<CardV2BaseProps, CardState> {
       isRemotePreviewReady: isImageRepresentationReady(fileState),
       imageUrlParams: this.getImageURLParams(identifier),
       mediaBlobUrlAttrs: this.getMediaBlobUrlAttrs(identifier, fileState),
-      createAnalyticsEvent,
-      featureFlags: this.props.featureFlags,
       traceContext: this.traceContext,
     };
   };
@@ -588,11 +582,9 @@ export class CardV2Base extends Component<CardV2BaseProps, CardState> {
     const { isBannedLocalPreview } = this.state;
 
     if (fileState.status !== 'error') {
-      const { featureFlags } = this.props;
       const newState = getCardStateFromFileState(
         fileState,
         isBannedLocalPreview,
-        featureFlags,
       );
       this.safeSetState(newState);
     } else {
@@ -762,6 +754,16 @@ export class CardV2Base extends Component<CardV2BaseProps, CardState> {
         this.traceContext,
       );
     startUfoExperience(this.internalOccurrenceKey);
+  }
+
+  private fireAbortedEvent() {
+    const { fileAttributes, fileStateFlags, ssrReliability } = this;
+    // UFO won't abort if it's already in a final state (succeeded, failed, aborted, etc)
+    abortUfoExperience(this.internalOccurrenceKey, {
+      fileAttributes,
+      fileStateFlags,
+      ssrReliability,
+    });
   }
 
   private fireCopiedEvent = () => {

@@ -93,7 +93,7 @@ export const akEditorFullWidthLayoutLineLength = 1792;
 export const akEditorFullWidthLayoutWidth = 1800;
 
 // @public (undocumented)
-export const akEditorGridLineZIndex = 9999;
+export const akEditorGridLineZIndex = 1;
 
 // @public (undocumented)
 export const akEditorGutterPadding = 32;

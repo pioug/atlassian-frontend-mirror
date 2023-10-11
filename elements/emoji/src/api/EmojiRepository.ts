@@ -326,7 +326,7 @@ export default class EmojiRepository {
     options?: SearchOptions,
   ): EmojiDescription[] {
     if (!options) {
-      options = <SearchOptions>{};
+      options = {};
     }
 
     if (options.sort === undefined) {

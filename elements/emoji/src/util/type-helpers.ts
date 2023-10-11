@@ -19,23 +19,24 @@ import {
 export const isSpriteServiceRepresentation = (
   rep: EmojiServiceRepresentation,
 ): rep is SpriteServiceRepresentation =>
-  !!(rep && (<SpriteServiceRepresentation>rep).spriteRef);
+  !!(rep && (rep as SpriteServiceRepresentation).spriteRef);
 export const isSpriteRepresentation = (
   rep: EmojiRepresentation,
-): rep is SpriteRepresentation => !!(rep && (<SpriteRepresentation>rep).sprite);
+): rep is SpriteRepresentation =>
+  !!(rep && (rep as SpriteRepresentation).sprite);
 export const isImageRepresentation = (
   rep:
     | EmojiRepresentation
     | EmojiServiceRepresentation
     | EmojiImageRepresentation,
 ): rep is ImageRepresentation =>
-  !!(rep && (<ImageRepresentation>rep).imagePath);
+  !!(rep && (rep as ImageRepresentation).imagePath);
 export const isMediaRepresentation = (
   rep: EmojiRepresentation | EmojiImageRepresentation,
 ): rep is MediaApiRepresentation =>
-  !!(rep && (<MediaApiRepresentation>rep).mediaPath);
+  !!(rep && (rep as MediaApiRepresentation).mediaPath);
 export const isPromise = <T>(p: any): p is Promise<T> =>
-  !!(p && (<Promise<T>>p).then);
+  !!(p && (p as Promise<T>).then);
 export const isEmojiDescription = (
   possibleEmojiDescription: any,
 ): possibleEmojiDescription is EmojiDescription =>
@@ -55,7 +56,7 @@ export const isLoadedMediaEmoji = (emoji: EmojiDescription) =>
 export const isEmojiDescriptionWithVariations = (
   emoji: OptionalEmojiDescription,
 ): emoji is EmojiDescriptionWithVariations =>
-  !!(emoji && (<EmojiDescriptionWithVariations>emoji).skinVariations);
+  !!(emoji && (emoji as EmojiDescriptionWithVariations).skinVariations);
 
 export const isEmojiVariationDescription = (
   object: any,

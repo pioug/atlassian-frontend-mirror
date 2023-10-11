@@ -25,3 +25,4 @@ export const loadThemeCss = async (themeId: ThemeIdsWithOverrides) => {
 };
 
 export const darkModeMediaQuery = '(prefers-color-scheme: dark)';
+export const moreContrastMediaQuery = '(prefers-contrast: more)';

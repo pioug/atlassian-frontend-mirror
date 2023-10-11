@@ -88,8 +88,11 @@ export const calcNewLayout = (
   layout: RichMediaLayout,
   contentWidth: number,
   fullWidthMode = false,
+  isNested = false,
 ) => {
   const isWrappedLayout = wrappedLayouts.indexOf(layout) > -1;
+
+  //See flowchart for layout logic: https://hello.atlassian.net/wiki/spaces/TWPCP/whiteboard/2969594044
   if (width >= akEditorFullWidthLayoutWidth) {
     // If width is greater than or equal to full editor width
     return 'full-width';
@@ -100,12 +103,13 @@ export const calcNewLayout = (
     return isWrappedLayout ? layout : 'center';
   }
 
-  if (width > contentWidth) {
+  if (width > contentWidth && !isNested) {
     // If width is greater than content length and not nested
     return 'wide';
   }
-
-  return isWrappedLayout && width !== contentWidth ? layout : 'center';
+  return isNested || (isWrappedLayout && width !== contentWidth)
+    ? layout
+    : 'center';
 };
 
 let maxToolbarFitWidth = 0;

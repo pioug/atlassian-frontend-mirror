@@ -43,9 +43,9 @@ BrowserTestCase(
     await waitForBlockCardSelection(page);
     await page.click('button[aria-label="Edit link"]');
     // Clear the Link Label field before typing
-    await page.clear('[data-testid="link-label"]');
+    await page.clear('[data-testid="link-text"]');
     // Change the 'text to display' field to 'New heading' and press enter
-    await page.type('[data-testid="link-label"]', 'New heading');
+    await page.type('[data-testid="link-text"]', 'New heading');
     await page.keys(['Enter']);
     await animationFrame(page);
     await page.waitForSelector('a[href]');

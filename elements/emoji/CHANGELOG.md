@@ -1,5 +1,11 @@
 # @atlaskit/emoji
 
+## 67.5.10
+
+### Patch Changes
+
+- [#41409](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41409) [`54e3f8659fc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54e3f8659fc) - update usage of angle-bracket type assertion to instead use 'as' type assertion
+
 ## 67.5.9
 
 ### Patch Changes

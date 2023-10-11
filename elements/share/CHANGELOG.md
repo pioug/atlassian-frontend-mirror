@@ -1,5 +1,17 @@
 # @atlaskit/share
 
+## 4.4.5
+
+### Patch Changes
+
+- [#41412](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41412) [`93298c60b92`](https://bitbucket.org/atlassian/atlassian-frontend/commits/93298c60b92) - Add missing atlaskit dependency
+
+## 4.4.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.4.3
 
 ### Patch Changes

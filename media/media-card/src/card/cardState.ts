@@ -1,5 +1,4 @@
 import { FileState, isErrorFileState } from '@atlaskit/media-client';
-import { MediaFeatureFlags } from '@atlaskit/media-common';
 import { CardState } from '../types';
 import { MediaCardError } from '../errors';
 import { getCardStatus, isFinalCardStatus } from './getCardStatus';
@@ -33,7 +32,6 @@ export const createStateUpdater =
 export const getCardStateFromFileState = (
   fileState: FileState,
   isBannedLocalPreview: boolean,
-  featureFlags?: MediaFeatureFlags,
 ): Partial<CardState> => {
   const status = getCardStatus(
     fileState.status,

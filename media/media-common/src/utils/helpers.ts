@@ -10,7 +10,7 @@ export const pick = (obj?: Object, keys: Array<String> = []) => {
 };
 
 export const omitBy = (obj: Object, predicate: Function) =>
-  Object.fromEntries(Object.entries(obj).filter(([k, v]) => !predicate(v)));
+  Object.fromEntries(Object.entries(obj).filter(([, v]) => !predicate(v)));
 
 export const debounce = (func: Function, wait: number) => {
   let timeout: NodeJS.Timeout;

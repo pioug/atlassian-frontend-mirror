@@ -1,5 +1,31 @@
 # @atlaskit/menu
 
+## 2.0.1
+
+### Patch Changes
+
+- [#40650](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40650) [`07aa588c8a4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/07aa588c8a4) - Reverts the fix to text descender cut-off, due to incompatibilities with Firefox and Safari.
+
+## 2.0.0
+
+### Major Changes
+
+- [#41355](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41355) [`cd1c813da18`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cd1c813da18) - Menu items now have a secondary selected state (border or notch), this was previously feature flagged for Atlassian experiences and is now available for everyone.
+
+  This change makes all menu items are now relatively positioned, if you had any child elements that leaned on this behaviour your experiences will now be broken!
+
+  For example the below code code previously the `div` would be positioned relatively to the menu group element. Now, it is positioned relatively to the button item element.
+
+  ```jsx
+  <MenuGroup>
+    <ButtonItem>
+      <div style={{ position: 'absolute', top: '100%' }} />
+    </ButtonItem>
+  </MenuGroup>
+  ```
+
+  As a path forward you should not be leaning on this behaviour. If you need a popup experience use `@atlaskit/dropdown-menu` or `@atlaskit/popup`.
+
 ## 1.11.1
 
 ### Patch Changes

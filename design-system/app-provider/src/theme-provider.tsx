@@ -10,7 +10,7 @@ import { bind } from 'bind-event-listener';
 
 import { setGlobalTheme, type ThemeState } from '@atlaskit/tokens';
 
-export type Theme = Omit<ThemeState, 'colorMode'>;
+export type Theme = Omit<ThemeState, 'colorMode' | 'contrastMode'>;
 export type ColorMode = 'light' | 'dark' | 'auto';
 export type ReconciledColorMode = Exclude<ColorMode, 'auto'>;
 

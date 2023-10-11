@@ -9,7 +9,9 @@
  */
 export type Themes =
   | 'atlassian-light'
+  | 'atlassian-light-increased-contrast'
   | 'atlassian-dark'
+  | 'atlassian-dark-increased-contrast'
   | 'atlassian-legacy-light'
   | 'atlassian-legacy-dark'
   | 'atlassian-shape'
@@ -49,14 +51,23 @@ export type ThemeColorModes = (typeof themeColorModes)[number];
 export type DataColorModes = Exclude<ThemeColorModes, 'auto'>;
 
 /**
+ * Contrast preferences: The system contrast preference
+ */
+export const themeContrastModes = ['more', 'no-preference', 'auto'] as const;
+export type ThemeContrastModes = (typeof themeContrastModes)[number];
+export type DataContrastModes = 'more' | 'no-preference' | 'auto';
+
+/**
  * Theme ids: The value that will be mounted to the DOM as a data attr
  * For example: `data-theme="light:light dark:dark spacing:spacing"
  *
  * These ids must be kebab case
  */
 export const themeIds = [
+  'light-increased-contrast',
   'light',
   'dark',
+  'dark-increased-contrast',
   'legacy-light',
   'legacy-dark',
   'spacing',
@@ -133,8 +144,24 @@ interface ThemeConfig {
     extends?: ExtensionThemeId;
     /* eslint-enable @repo/internal/deprecations/deprecation-ticket-required */
   };
-  extends?: ExtensionThemeId;
+  /**
+   * Theme to use a base. This will create the theme as
+   * an extension with all token values marked as optional
+   * to allow tokens to be overridden as required.
+   */
+  extends?: ThemeIds;
+  /**
+   * Theme to override. This will cause the theme to only
+   * output css variables which can be imported to temporarily
+   * override existing themes for testing purposes.
+   */
   override?: ThemeIds;
+  /**
+   * Use when the theme provides an increased contrast
+   * version of another theme. This will cause the theme to be loaded
+   * under the media query `@media (prefers-contrast: more)`.
+   */
+  increasesContrastFor?: ThemeIds;
 }
 
 const themeConfig: Record<Themes | ThemeOverrides, ThemeConfig> = {
@@ -147,6 +174,17 @@ const themeConfig: Record<Themes | ThemeOverrides, ThemeConfig> = {
       mode: 'light',
     },
   },
+  'atlassian-light-increased-contrast': {
+    id: 'light-increased-contrast',
+    displayName: 'Light Theme (increased contrast)',
+    palette: 'defaultPalette',
+    attributes: {
+      type: 'color',
+      mode: 'light',
+    },
+    extends: 'light',
+    increasesContrastFor: 'light',
+  },
   'atlassian-dark': {
     id: 'dark',
     displayName: 'Dark Theme',
@@ -155,6 +193,17 @@ const themeConfig: Record<Themes | ThemeOverrides, ThemeConfig> = {
       type: 'color',
       mode: 'dark',
     },
+  },
+  'atlassian-dark-increased-contrast': {
+    id: 'dark-increased-contrast',
+    displayName: 'Dark Theme (increased contrast)',
+    palette: 'defaultPalette',
+    attributes: {
+      type: 'color',
+      mode: 'dark',
+    },
+    extends: 'dark',
+    increasesContrastFor: 'dark',
   },
   'atlassian-legacy-light': {
     id: 'legacy-light',
@@ -274,9 +323,26 @@ export interface ThemeOptionsSchema {
  * ThemeState: the standard representation of an app's current theme and preferences
  */
 export interface ThemeState {
-  light: Extract<ThemeIds, 'light' | 'dark' | 'legacy-dark' | 'legacy-light'>;
-  dark: Extract<ThemeIds, 'light' | 'dark' | 'legacy-dark' | 'legacy-light'>;
+  light: Extract<
+    ThemeIds,
+    | 'light'
+    | 'dark'
+    | 'legacy-dark'
+    | 'legacy-light'
+    | 'light-increased-contrast'
+    | 'dark-increased-contrast'
+  >;
+  dark: Extract<
+    ThemeIds,
+    | 'light'
+    | 'dark'
+    | 'legacy-dark'
+    | 'legacy-light'
+    | 'light-increased-contrast'
+    | 'dark-increased-contrast'
+  >;
   colorMode: ThemeColorModes;
+  contrastMode: ThemeContrastModes;
   shape?: Extract<ThemeIds, 'shape'>;
   spacing: Extract<ThemeIds, 'spacing'>;
   typography?: Extract<
@@ -291,6 +357,7 @@ export interface ThemeState {
  */
 export const themeStateDefaults: ThemeState = {
   colorMode: 'auto',
+  contrastMode: 'auto',
   dark: 'dark',
   light: 'light',
   shape: undefined,

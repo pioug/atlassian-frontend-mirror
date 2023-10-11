@@ -7,7 +7,6 @@ import { CardStatus, CardState } from '../../../types';
 import { createStateUpdater, getCardStateFromFileState } from '../../cardState';
 import * as getCardStatusModule from '../../getCardStatus';
 import * as filePreviewStatusModule from '../../getCardPreview/filePreviewStatus';
-import { MediaFeatureFlags } from '@atlaskit/media-common';
 import { MediaCardError } from '../../../errors';
 import { FilePreviewStatus } from '../../../types';
 
@@ -115,8 +114,7 @@ describe('getCardStateFromFileState', () => {
       some: 'file-state',
       status: 'some-status',
     } as unknown as FileState;
-    const featureFlags = { some: 'feature-flags' } as MediaFeatureFlags;
-    const cardState = getCardStateFromFileState(fileState, false, featureFlags);
+    const cardState = getCardStateFromFileState(fileState, false);
     expect(cardState).toEqual(
       expect.objectContaining({
         fileState,
@@ -139,8 +137,7 @@ describe('getCardStateFromFileState', () => {
       id: 'some-id',
       message: 'some-message',
     };
-    const featureFlags = { some: 'feature-flags' } as MediaFeatureFlags;
-    const cardState = getCardStateFromFileState(fileState, false, featureFlags);
+    const cardState = getCardStateFromFileState(fileState, false);
     expect(cardState).toEqual(
       expect.objectContaining({
         fileState,
@@ -168,8 +165,7 @@ describe('getCardStateFromFileState', () => {
       mediaType: 'image',
       mimeType: 'some-mimeType',
     };
-    const featureFlags = { some: 'feature-flags' } as MediaFeatureFlags;
-    const cardState = getCardStateFromFileState(fileState, false, featureFlags);
+    const cardState = getCardStateFromFileState(fileState, false);
     expect(cardState).toEqual(
       expect.objectContaining({
         fileState,

@@ -13,7 +13,7 @@ import {
 } from './types';
 
 export function clientTimeoutPromise(timeout: number) {
-  return new Promise<Response>((resolve, reject) => {
+  return new Promise<Response>((_, reject) => {
     setTimeout(reject, timeout, new RequestError('clientTimeoutRequest'));
   });
 }

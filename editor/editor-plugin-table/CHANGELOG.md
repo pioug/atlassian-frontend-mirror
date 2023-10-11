@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-table
 
+## 5.1.0
+
+### Minor Changes
+
+- [#41273](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41273) [`322add4eb2a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/322add4eb2a) - Created table drag N drop plugin
+
 ## 5.0.0
 
 ### Major Changes

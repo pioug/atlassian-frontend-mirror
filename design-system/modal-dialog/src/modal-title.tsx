@@ -56,29 +56,20 @@ const iconStyles = css({
 const lineHeightOffset = fontSize - fontSize * adjustedLineHeight;
 
 const truncatedTextStyles = css({
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/design-system/ensure-design-token-usage/preview
+  marginTop: `${lineHeightOffset / 2}px`,
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/design-system/ensure-design-token-usage/preview
+  marginBottom: `${lineHeightOffset / 2}px`,
+  lineHeight: adjustedLineHeight,
+  overflow: 'hidden',
   textOverflow: 'ellipsis',
   whiteSpace: 'nowrap',
-
-  // Use "clip" overflow to allow ellipses on x-axis without clipping descenders
-  '@supports (overflow-x: clip)': {
-    overflowX: 'clip',
-  },
-  '@supports not (overflow-x: clip)': {
-    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/design-system/ensure-design-token-usage/preview
-    marginTop: `${lineHeightOffset / 2}px`,
-    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/design-system/ensure-design-token-usage/preview
-    marginBottom: `${lineHeightOffset / 2}px`,
-    lineHeight: adjustedLineHeight,
-    overflow: 'hidden',
-  },
 });
 
 const truncatedTextIconStyles = css({
-  '@supports not (overflow-x: clip)': {
-    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/design-system/ensure-design-token-usage/preview
-    marginBottom: `${lineHeightOffset / 2}px`,
-    lineHeight: 1.2,
-  },
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/design-system/ensure-design-token-usage/preview
+  marginBottom: `${lineHeightOffset / 2}px`,
+  lineHeight: 1.2,
 });
 
 const TitleIcon = ({

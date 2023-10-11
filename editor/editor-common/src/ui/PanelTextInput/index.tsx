@@ -1,5 +1,6 @@
 /** @jsx jsx */
-import { FocusEvent, KeyboardEvent, PureComponent } from 'react';
+import type { FocusEvent, KeyboardEvent } from 'react';
+import { PureComponent } from 'react';
 
 import { jsx } from '@emotion/react';
 
@@ -31,6 +32,7 @@ export interface Props {
   ariaControls?: string;
   role?: string;
   ariaAutoComplete?: boolean;
+  inputId?: string;
 }
 
 export interface State {
@@ -91,6 +93,7 @@ export default class PanelTextInput extends PureComponent<Props, State> {
       ariaExpanded,
       ariaAutoComplete,
       role,
+      inputId,
     } = this.props;
     const { value } = this.state;
     return (
@@ -116,6 +119,7 @@ export default class PanelTextInput extends PureComponent<Props, State> {
         ref={this.handleRef}
         maxLength={maxLength}
         aria-label={ariaLabel}
+        id={inputId}
       />
     );
   }

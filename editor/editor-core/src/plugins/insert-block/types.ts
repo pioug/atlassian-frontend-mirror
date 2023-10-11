@@ -17,6 +17,7 @@ import type panelPlugin from '../panel';
 import type { RulePlugin } from '@atlaskit/editor-plugin-rule';
 import type { MediaPlugin } from '@atlaskit/editor-plugin-media';
 import type { MentionPlugin } from '../mentions';
+import type { StatusPlugin } from '../status';
 
 export type InsertBlockPluginDependencies = [
   FeatureFlagsPlugin,
@@ -34,4 +35,5 @@ export type InsertBlockPluginDependencies = [
   OptionalPlugin<typeof panelPlugin>,
   OptionalPlugin<MediaPlugin>,
   OptionalPlugin<MentionPlugin>,
+  OptionalPlugin<StatusPlugin>,
 ];

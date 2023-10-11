@@ -62,7 +62,7 @@ interface Attachment {
   fileName: string;
   mimeType?: string;
   contentLength: number;
-  url: string;
+  url?: string;
 }
 
 export function formatMessage(text: string) {

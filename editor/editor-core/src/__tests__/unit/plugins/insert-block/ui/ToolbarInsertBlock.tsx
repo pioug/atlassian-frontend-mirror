@@ -928,7 +928,10 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
 
       describe('click status option', () => {
         beforeEach(() => {
-          buildToolbarForMenu({ nativeStatusSupported: true });
+          buildToolbarForMenu({
+            nativeStatusSupported: true,
+            pluginInjectionApi: editorAPI,
+          });
           menu.clickButton(messages.status.defaultMessage, toolbarOption);
         });
 

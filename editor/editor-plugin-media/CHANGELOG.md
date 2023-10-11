@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-media
 
+## 0.3.2
+
+### Patch Changes
+
+- [#41248](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41248) [`21fa5648746`](https://bitbucket.org/atlassian/atlassian-frontend/commits/21fa5648746) - Fix incorrect layout calculation for nested Media Single nodes resized via toolbar
+- Updated dependencies
+
 ## 0.3.1
 
 ### Patch Changes

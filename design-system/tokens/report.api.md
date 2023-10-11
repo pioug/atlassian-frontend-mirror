@@ -1230,6 +1230,7 @@ interface DesignToken<TValue, Group extends Groups>
 export const enableGlobalTheme: (
   {
     colorMode,
+    contrastMode,
     dark,
     light,
     shape,
@@ -1281,6 +1282,7 @@ export const getGlobalTheme: () => Partial<ActiveThemeState>;
 // @public
 export const getSSRAutoScript: (
   colorMode: ThemeState['colorMode'],
+  contrastMode?: ThemeState['contrastMode'],
 ) => string | undefined;
 
 // @public
@@ -1288,6 +1290,7 @@ export const getThemeHtmlAttrs: ({
   colorMode,
   dark,
   light,
+  contrastMode,
   shape,
   spacing,
   typography,
@@ -1800,6 +1803,7 @@ type Replacement = InternalTokenIds | InternalTokenIds[];
 export const setGlobalTheme: (
   {
     colorMode,
+    contrastMode,
     dark,
     light,
     shape,
@@ -1862,11 +1866,10 @@ interface ThemeConfig {
   };
   // (undocumented)
   displayName: string;
-  // (undocumented)
-  extends?: ExtensionThemeId;
+  extends?: ThemeIds;
   // (undocumented)
   id: ThemeIds | ThemeOverrideIds;
-  // (undocumented)
+  increasesContrastFor?: ThemeIds;
   override?: ThemeIds;
   // (undocumented)
   palette: Palettes;
@@ -1876,12 +1879,20 @@ interface ThemeConfig {
 export const themeConfig: Record<ThemeOverrides | Themes, ThemeConfig>;
 
 // @public (undocumented)
+type ThemeContrastModes = (typeof themeContrastModes)[number];
+
+// @public
+const themeContrastModes: readonly ['more', 'no-preference', 'auto'];
+
+// @public (undocumented)
 export type ThemeIds = (typeof themeIds)[number];
 
 // @public
 const themeIds: readonly [
+  'light-increased-contrast',
   'light',
   'dark',
+  'dark-increased-contrast',
   'legacy-light',
   'legacy-dark',
   'spacing',
@@ -1896,8 +1907,10 @@ type ThemeIdsWithOverrides = (typeof themeIdsWithOverrides)[number];
 
 // @public (undocumented)
 const themeIdsWithOverrides: readonly [
+  'light-increased-contrast',
   'light',
   'dark',
+  'dark-increased-contrast',
   'legacy-light',
   'legacy-dark',
   'spacing',
@@ -1957,9 +1970,11 @@ type ThemeOverrides =
 // @public
 export type Themes =
   | 'atlassian-dark'
+  | 'atlassian-dark-increased-contrast'
   | 'atlassian-legacy-dark'
   | 'atlassian-legacy-light'
   | 'atlassian-light'
+  | 'atlassian-light-increased-contrast'
   | 'atlassian-shape'
   | 'atlassian-spacing'
   | 'atlassian-typography'
@@ -1971,9 +1986,27 @@ export interface ThemeState {
   // (undocumented)
   colorMode: ThemeColorModes;
   // (undocumented)
-  dark: Extract<ThemeIds, 'dark' | 'legacy-dark' | 'legacy-light' | 'light'>;
+  contrastMode: ThemeContrastModes;
   // (undocumented)
-  light: Extract<ThemeIds, 'dark' | 'legacy-dark' | 'legacy-light' | 'light'>;
+  dark: Extract<
+    ThemeIds,
+    | 'dark'
+    | 'dark-increased-contrast'
+    | 'legacy-dark'
+    | 'legacy-light'
+    | 'light'
+    | 'light-increased-contrast'
+  >;
+  // (undocumented)
+  light: Extract<
+    ThemeIds,
+    | 'dark'
+    | 'dark-increased-contrast'
+    | 'legacy-dark'
+    | 'legacy-light'
+    | 'light'
+    | 'light-increased-contrast'
+  >;
   // (undocumented)
   shape?: Extract<ThemeIds, 'shape'>;
   // (undocumented)

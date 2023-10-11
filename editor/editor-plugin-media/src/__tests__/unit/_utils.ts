@@ -9,6 +9,8 @@ import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-hel
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import type { CreateEditorFactoryFn } from '@atlaskit/editor-test-helpers/create-editor';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { media } from '@atlaskit/editor-test-helpers/doc-builder';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
@@ -54,7 +56,8 @@ export const temporaryMediaWithoutDimensions = () => {
   })();
 };
 
-const createEditor = createEditorFactory<MediaPluginState>();
+const createEditor: CreateEditorFactoryFn<MediaPluginState> =
+  createEditorFactory<MediaPluginState>();
 type EditorProps = Parameters<typeof createEditor>[0]['editorProps'];
 
 export const mediaEditor = (

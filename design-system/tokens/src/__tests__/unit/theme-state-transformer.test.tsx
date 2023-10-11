@@ -8,6 +8,7 @@ describe('themeObjectToString', () => {
   it('should convert theme state object to a formatted string', () => {
     const themeState: ThemeState = {
       colorMode: 'auto',
+      contrastMode: 'auto',
       dark: 'dark',
       light: 'legacy-light',
       spacing: 'spacing',
@@ -23,6 +24,7 @@ describe('themeObjectToString', () => {
   it('should convert theme state object to a formatted string if custom theme options provided', () => {
     const themeState: ThemeState = {
       colorMode: 'auto',
+      contrastMode: 'auto',
       dark: 'dark',
       light: 'legacy-light',
       spacing: 'spacing',
@@ -38,6 +40,7 @@ describe('themeObjectToString', () => {
   it('should convert theme state object to a formatted string which can be encoded with encodeURIComponent, and then decoded with decodeURIComponent', () => {
     const themeState: ThemeState = {
       colorMode: 'auto',
+      contrastMode: 'auto',
       dark: 'dark',
       light: 'light',
       spacing: 'spacing',

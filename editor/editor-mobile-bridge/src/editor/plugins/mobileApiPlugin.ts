@@ -24,8 +24,8 @@ import { useQuickInsertListener } from './useQuickInsertListener';
 import { useBlockTypeListener } from './useBlockTypeListener';
 import type { MentionPlugin } from '@atlaskit/editor-core/src/plugins/mentions';
 import type { CodeBlockPlugin } from '@atlaskit/editor-core/src/plugins/code-block';
+import type { StatusPlugin } from '@atlaskit/editor-core/src/plugins/status';
 import type { PanelPlugin } from '@atlaskit/editor-core/src/plugins/panel';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import type { BlockTypePlugin } from '@atlaskit/editor-plugin-block-type';
 import type { DatePlugin } from '@atlaskit/editor-core/src/plugins/date';
 import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
@@ -75,6 +75,7 @@ export const mobileApiPlugin: NextEditorPlugin<
       MentionPlugin,
       EditorDisabledPlugin,
       DatePlugin,
+      StatusPlugin,
     ];
     pluginConfiguration: { bridge: WebBridgeImpl; intl: IntlShape };
   }

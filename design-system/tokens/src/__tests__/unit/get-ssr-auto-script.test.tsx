@@ -1,7 +1,8 @@
 import __noop from '@atlaskit/ds-lib/noop';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 // This import is just to get types
-import { COLOR_MODE_ATTRIBUTE } from '../../constants';
+import { COLOR_MODE_ATTRIBUTE, CONTRAST_MODE_ATTRIBUTE } from '../../constants';
 import * as getSSRAutoScriptTypes from '../../get-ssr-auto-script';
 
 // Mock window.matchMedia before importing setGlobalTheme
@@ -38,20 +39,25 @@ function setMatchMedia(matchesDark: boolean) {
  */
 const cleanDOM = () => {
   // Clear the DOM after each test
-  document.getElementsByTagName('html')[0].innerHTML = '';
+  const html = document.documentElement;
+
+  // Remove attributes on html
+  [...html.attributes].forEach((attr) => html.removeAttribute(attr.name));
+
+  html.innerHTML = '';
   setMatchMedia(false);
 };
 
 describe('getSSRAutoScript', () => {
-  beforeAll(cleanDOM);
-  it('returns undefined when colorMode is not automatically set', async () => {
-    const result = getSSRAutoScript('light');
+  beforeEach(cleanDOM);
+  it('returns undefined when colorMode and contrastMode is not automatically set', async () => {
+    const result = getSSRAutoScript('light', 'no-preference');
     expect(result).toBeUndefined();
   });
 
   it('returns a script that correctly sets the data-color-mode attribute based on the system theme', async () => {
     // Get the SSR auto script
-    const result = getSSRAutoScript('auto');
+    const result = getSSRAutoScript('auto', 'no-preference');
     expect(result).toBeDefined();
 
     // Execute the returned script
@@ -59,8 +65,51 @@ describe('getSSRAutoScript', () => {
     script.innerHTML = result || '';
     document.head.appendChild(script);
 
-    // Check that the data-color-mode attribute has been set as expected to "light"
     const el = document.querySelector(`[${COLOR_MODE_ATTRIBUTE}]`);
+
+    // Check that the data-color-mode attribute has been set as expected to "light"
     expect(el?.getAttribute(COLOR_MODE_ATTRIBUTE)).toBe('light');
+
+    // Check that the data-contrast-mode attribute has not been set
+    expect(el?.hasAttribute(CONTRAST_MODE_ATTRIBUTE)).toBe(false);
+  });
+
+  describe('returns a script that correctly sets the data-contrast-mode attribute based on the system color preference', () => {
+    ffTest(
+      'platform.design-system-team.increased-contrast-themes',
+      async () => {
+        // Get the SSR auto script
+        const result = getSSRAutoScript('light', 'auto');
+        expect(result).toBeDefined();
+
+        // Execute the returned script
+        const script = document.createElement('script');
+        script.innerHTML = result || '';
+        document.head.appendChild(script);
+
+        const el = document.querySelector(`[${CONTRAST_MODE_ATTRIBUTE}]`);
+
+        // Check that the data-contrast-mode attribute has been set as expected to "no-preference"
+        expect(el?.getAttribute(CONTRAST_MODE_ATTRIBUTE)).toBe('no-preference');
+
+        // Check that the data-color-mode attribute has not been set
+        expect(el?.hasAttribute(COLOR_MODE_ATTRIBUTE)).toBe(false);
+      },
+      async () => {
+        // Get the SSR auto script
+        const result = getSSRAutoScript('light', 'auto');
+        expect(result).toBeDefined();
+
+        // Execute the returned script
+        const script = document.createElement('script');
+        script.innerHTML = result || '';
+        document.head.appendChild(script);
+
+        // Check that the data-contrast-mode attribute has not been set".
+        expect(
+          document.documentElement?.hasAttribute(CONTRAST_MODE_ATTRIBUTE),
+        ).toBe(false);
+      },
+    );
   });
 });

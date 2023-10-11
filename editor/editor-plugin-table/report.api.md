@@ -19,12 +19,10 @@ import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { Command } from '@atlaskit/editor-common/types';
 import type { ContentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
-import type { EditorCommand } from '@atlaskit/editor-common/types';
-import type { EditorSelectionAPI } from '@atlaskit/editor-common/selection';
 import type { GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
 import type { GuidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
-import type { OptionalPlugin } from '@atlaskit/editor-common/types';
+import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
 import type { TableLayout } from '@atlaskit/adf-schema';
 import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
 
@@ -71,17 +69,6 @@ interface PluginConfig {
 }
 
 // @public (undocumented)
-type SelectionPlugin = NextEditorPlugin<
-  'selection',
-  {
-    pluginConfiguration: unknown;
-    commands: {
-      displayGapCursor: (toggle: boolean) => EditorCommand;
-    };
-  }
->;
-
-// @public (undocumented)
 export type TablePlugin = NextEditorPlugin<
   'table',
   {
@@ -94,7 +81,7 @@ export type TablePlugin = NextEditorPlugin<
       ContentInsertionPlugin,
       WidthPlugin,
       GuidelinePlugin,
-      OptionalPlugin<SelectionPlugin>,
+      SelectionPlugin,
     ];
   }
 >;
@@ -107,8 +94,6 @@ interface TablePluginOptions {
   breakoutEnabled?: boolean;
   // (undocumented)
   dragAndDropEnabled?: boolean;
-  // (undocumented)
-  editorSelectionAPI?: EditorSelectionAPI;
   // (undocumented)
   fullWidthEnabled?: boolean;
   // (undocumented)

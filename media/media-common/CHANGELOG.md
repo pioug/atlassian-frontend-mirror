@@ -1,5 +1,11 @@
 # @atlaskit/media-common
 
+## 9.0.2
+
+### Patch Changes
+
+- [#41371](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41371) [`a5766038a35`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a5766038a35) - Fix TS errors in AFM
+
 ## 9.0.1
 
 ### Patch Changes

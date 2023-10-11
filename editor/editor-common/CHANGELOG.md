@@ -1,5 +1,27 @@
 # @atlaskit/editor-common
 
+## 76.9.2
+
+### Patch Changes
+
+- [#40650](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40650) [`46a9feaf8d0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/46a9feaf8d0) - Adjust keyboard shortcut position in the element list to support reverted @atlaskit/menu styles
+
+## 76.9.1
+
+### Patch Changes
+
+- [#40437](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40437) [`24a1d9ae0b6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/24a1d9ae0b6) - [ux] Add visible labels for hyperlink input and text description input and remove placeholders because Placeholder text disappears when a user starts to type into the mentioned combobox field, thus users with cognitive impairments (such as dyslexia or attention disorders) and the elderly may face trouble remembering the purpose of the field if the label is not visible at all times as the place holder disappears as soon as users start typing.
+
+## 76.9.0
+
+### Minor Changes
+
+- [#41355](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41355) [`150c2a815ac`](https://bitbucket.org/atlassian/atlassian-frontend/commits/150c2a815ac) - Editor now forcibly sets position static on its dropdown menu items.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 76.8.0
 
 ### Minor Changes

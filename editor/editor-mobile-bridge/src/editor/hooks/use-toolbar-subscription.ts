@@ -77,6 +77,7 @@ export function useToolbarSubscription(
                 ),
               editorConfiguration,
               intl,
+              bridge,
             );
 
             bridge.mobileEditingToolbarActions.notifyNativeBridgeForEditCapabilitiesChanges(

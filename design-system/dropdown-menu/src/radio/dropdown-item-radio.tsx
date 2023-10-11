@@ -3,7 +3,6 @@ import React, { KeyboardEvent, MouseEvent, useCallback } from 'react';
 import noop from '@atlaskit/ds-lib/noop';
 import { SELECTION_STYLE_CONTEXT_DO_NOT_USE } from '@atlaskit/menu';
 import ButtonItem from '@atlaskit/menu/button-item';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import RadioIcon from '../internal/components/radio-icon';
 import useRadioState from '../internal/hooks/use-radio-state';
@@ -70,12 +69,7 @@ const DropdownItemRadio = ({
         iconBefore={<RadioIcon checked={selected} />}
         id={id}
         isDisabled={isDisabled}
-        isSelected={
-          selected &&
-          getBooleanFF(
-            'platform.design-system-team.menu-selected-state-change_0see9',
-          )
-        }
+        isSelected={selected}
         onClick={onClickHandler}
         ref={itemRef}
         role={isVoiceOverSupported() ? 'radio' : 'menuitemradio'}

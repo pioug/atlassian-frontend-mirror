@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/dropdown-menu",
-  "version": "11.14.5",
+  "version": "12.0.0",
   "description": "A dropdown menu displays a list of actions or options to a user.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -12,14 +12,6 @@
   "module": "dist/esm/index.js",
   "module:es2019": "dist/es2019/index.js",
   "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
   "sideEffects": false,
   "atlaskit:src": "src/index.tsx",
   "atlassian": {
@@ -36,13 +28,13 @@
     "@atlaskit/ds-lib": "^2.2.0",
     "@atlaskit/icon": "^21.12.0",
     "@atlaskit/layering": "^0.2.0",
-    "@atlaskit/menu": "^1.11.0",
+    "@atlaskit/menu": "^2.0.0",
     "@atlaskit/platform-feature-flags": "^0.2.2",
     "@atlaskit/popup": "^1.10.0",
     "@atlaskit/primitives": "^1.6.0",
     "@atlaskit/spinner": "^15.6.0",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.25.0",
+    "@atlaskit/tokens": "^1.26.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
     "bind-event-listener": "^2.1.1"
@@ -53,6 +45,7 @@
   },
   "devDependencies": {
     "@af/accessibility-testing": "*",
+    "@af/visual-regression": "*",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
@@ -96,14 +89,19 @@
       "deprecation": "no-deprecated-imports"
     }
   },
+  "typesVersions": {
+    ">=4.5 <4.9": {
+      "*": [
+        "dist/types-ts4.5/*",
+        "dist/types-ts4.5/index.d.ts"
+      ]
+    }
+  },
   "af:exports": {
     ".": "./src/index.tsx",
     "./types": "./src/types.tsx"
   },
   "platform-feature-flags": {
-    "platform.design-system-team.menu-selected-state-change_0see9": {
-      "type": "boolean"
-    },
     "platform.design-system-team.border-checkbox_nyoiu": {
       "type": "boolean"
     },

@@ -1,0 +1,3523 @@
+{
+  "name": "Light increased-contrast",
+  "tokens": {
+    "Light increased-contrast/color.text": {
+      "value": "#091E42",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for primary text, such as body copy, sentence case headers, and buttons."
+      }
+    },
+    "Light increased-contrast/color.text.accent.lime": {
+      "value": "#37471F",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.8.0",
+        "description": "Use for lime text on subtlest and subtler lime accent backgrounds when there is no meaning tied to the color."
+      }
+    },
+    "Light increased-contrast/color.text.accent.lime.bolder": {
+      "value": "#2A3818",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.8.0",
+        "description": "Use for lime text on subtle lime accent backgrounds when there is no meaning tied to the color."
+      }
+    },
+    "Light increased-contrast/color.text.accent.red": {
+      "value": "#601E16",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for red text on subtlest and subtler red accent backgrounds when there is no meaning tied to the color."
+      }
+    },
+    "Light increased-contrast/color.text.accent.red.bolder": {
+      "value": "#4F1C16",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for red text on subtle red accent backgrounds when there is no meaning tied to the color."
+      }
+    },
+    "Light increased-contrast/color.text.accent.orange": {
+      "value": "#5F3811",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for orange text on subtlest and subtler orange accent backgrounds when there is no meaning tied to the color."
+      }
+    },
+    "Light increased-contrast/color.text.accent.orange.bolder": {
+      "value": "#4A2B0F",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for orange text on subtle orange accent backgrounds when there is no meaning tied to the color."
+      }
+    },
+    "Light increased-contrast/color.text.accent.yellow": {
+      "value": "#533F04",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for yellow text on subtlest and subtler yellow accent backgrounds when there is no meaning tied to the color."
+      }
+    },
+    "Light increased-contrast/color.text.accent.yellow.bolder": {
+      "value": "#3F3102",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for yellow text on subtle yellow accent backgrounds when there is no meaning tied to the color."
+      }
+    },
+    "Light increased-contrast/color.text.accent.green": {
+      "value": "#164B35",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for green text on subtlest and subtler green accent backgrounds when there is no meaning tied to the color."
+      }
+    },
+    "Light increased-contrast/color.text.accent.green.bolder": {
+      "value": "#143C2B",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for green text on subtle green accent backgrounds when there is no meaning tied to the color."
+      }
+    },
+    "Light increased-contrast/color.text.accent.teal": {
+      "value": "#1D474C",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for teal text on subtlest and subtler teal accent backgrounds when there is no meaning tied to the color."
+      }
+    },
+    "Light increased-contrast/color.text.accent.teal.bolder": {
+      "value": "#15373B",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for teal text on subtle teal accent backgrounds when there is no meaning tied to the color."
+      }
+    },
+    "Light increased-contrast/color.text.accent.blue": {
+      "value": "#09326C",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for blue text on subtlest and subtler blue accent backgrounds when there is no meaning tied to the color."
+      }
+    },
+    "Light increased-contrast/color.text.accent.blue.bolder": {
+      "value": "#092957",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for blue text on subtle blue accent backgrounds when there is no meaning tied to the color."
+      }
+    },
+    "Light increased-contrast/color.text.accent.purple": {
+      "value": "#352C63",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for purple text on subtlest and subtler purple accent backgrounds when there is no meaning tied to the color."
+      }
+    },
+    "Light increased-contrast/color.text.accent.purple.bolder": {
+      "value": "#2B2451",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for purple text on subtle purple accent backgrounds when there is no meaning tied to the color."
+      }
+    },
+    "Light increased-contrast/color.text.accent.magenta": {
+      "value": "#50253F",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for magenta text on subtlest and subtler magenta accent backgrounds when there is no meaning tied to the color."
+      }
+    },
+    "Light increased-contrast/color.text.accent.magenta.bolder": {
+      "value": "#421F34",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for magenta text on subtle magenta accent backgrounds when there is no meaning tied to the color."
+      }
+    },
+    "Light increased-contrast/color.text.accent.gray": {
+      "value": "#2C3E5D",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.10.5",
+        "description": "Use for text on non-bold gray accent backgrounds, such as colored tags."
+      }
+    },
+    "Light increased-contrast/color.text.accent.gray.bolder": {
+      "value": "#172B4D",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.10.5",
+        "description": "Use for text and icons on gray subtle accent backgrounds."
+      }
+    },
+    "Light increased-contrast/color.text.disabled": {
+      "value": "#091E424F",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.0.15",
+        "description": "Use for text in a disabled state."
+      }
+    },
+    "Light increased-contrast/color.text.inverse": {
+      "value": "#FFFFFF",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for text on bold backgrounds."
+      }
+    },
+    "Light increased-contrast/color.text.selected": {
+      "value": "#09326C",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for text in selected or opened states, such as tabs and dropdown buttons."
+      }
+    },
+    "Light increased-contrast/color.text.brand": {
+      "value": "#09326C",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for text that reinforces our brand."
+      }
+    },
+    "Light increased-contrast/color.text.danger": {
+      "value": "#601E16",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.0.15",
+        "description": "Use for critical text, such as input field error messaging."
+      }
+    },
+    "Light increased-contrast/color.text.warning": {
+      "value": "#5F3811",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.0.15",
+        "description": "Use for text to emphasize caution, such as in moved lozenges."
+      }
+    },
+    "Light increased-contrast/color.text.warning.inverse": {
+      "value": "#FFFFFF",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for text when on bold warning backgrounds."
+      }
+    },
+    "Light increased-contrast/color.text.success": {
+      "value": "#164B35",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.0.15",
+        "description": "Use for text to communicate a favorable outcome, such as input field success messaging."
+      }
+    },
+    "Light increased-contrast/color.text.discovery": {
+      "value": "#352C63",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.0.15",
+        "description": "Use for text to emphasize change or something new, such as in new lozenges."
+      }
+    },
+    "Light increased-contrast/color.text.information": {
+      "value": "#09326C",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for informative text or to communicate something is in progress, such as in-progress lozenges."
+      }
+    },
+    "Light increased-contrast/color.text.subtlest": {
+      "value": "#2C3E5D",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for tertiary text, such as meta-data, breadcrumbs, input field placeholder and helper text."
+      }
+    },
+    "Light increased-contrast/color.text.subtle": {
+      "value": "#172B4D",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for secondary text, such as navigation, subtle button links, input field labels, and all caps subheadings."
+      }
+    },
+    "Light increased-contrast/color.link": {
+      "value": "#09326C",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for links in a default or hovered state. Add an underline for hovered states."
+      }
+    },
+    "Light increased-contrast/color.link.pressed": {
+      "value": "#092957",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for links in a pressed state."
+      }
+    },
+    "Light increased-contrast/color.link.visited": {
+      "value": "#5E4DB2",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.23.0",
+        "description": "Use for links in a visited state."
+      }
+    },
+    "Light increased-contrast/color.icon": {
+      "value": "#172B4D",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for icon-only buttons, or icons paired with color.text"
+      }
+    },
+    "Light increased-contrast/color.icon.accent.lime": {
+      "value": "#4C6B1F",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.6.0",
+        "description": "Use for lime icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
+      }
+    },
+    "Light increased-contrast/color.icon.accent.red": {
+      "value": "#AE2A19",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for red icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
+      }
+    },
+    "Light increased-contrast/color.icon.accent.orange": {
+      "value": "#974F0C",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for orange icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
+      }
+    },
+    "Light increased-contrast/color.icon.accent.yellow": {
+      "value": "#7F5F01",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for yellow icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
+      }
+    },
+    "Light increased-contrast/color.icon.accent.green": {
+      "value": "#216E4E",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for green icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
+      }
+    },
+    "Light increased-contrast/color.icon.accent.teal": {
+      "value": "#206B74",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for teal icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
+      }
+    },
+    "Light increased-contrast/color.icon.accent.blue": {
+      "value": "#0055CC",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for blue icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
+      }
+    },
+    "Light increased-contrast/color.icon.accent.purple": {
+      "value": "#5E4DB2",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for purple icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
+      }
+    },
+    "Light increased-contrast/color.icon.accent.magenta": {
+      "value": "#943D73",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for magenta icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
+      }
+    },
+    "Light increased-contrast/color.icon.accent.gray": {
+      "value": "#44546F",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.10.5",
+        "description": "Use for icons on non-bold gray accent backgrounds, such as file type icons."
+      }
+    },
+    "Light increased-contrast/color.icon.disabled": {
+      "value": "#091E424F",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for icons in a disabled state."
+      }
+    },
+    "Light increased-contrast/color.icon.inverse": {
+      "value": "#FFFFFF",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for icons on bold backgrounds."
+      }
+    },
+    "Light increased-contrast/color.icon.selected": {
+      "value": "#0055CC",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.2",
+        "description": "Use for icons in selected or opened states, such as those used in dropdown buttons."
+      }
+    },
+    "Light increased-contrast/color.icon.brand": {
+      "value": "#0055CC",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for icons that reinforce our brand."
+      }
+    },
+    "Light increased-contrast/color.icon.danger": {
+      "value": "#CA3521",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for icons communicating critical information, such as those used in error handing."
+      }
+    },
+    "Light increased-contrast/color.icon.warning": {
+      "value": "#974F0C",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for icons communicating caution, such as those used in warning section messages."
+      }
+    },
+    "Light increased-contrast/color.icon.warning.inverse": {
+      "value": "#FFFFFF",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for icons when on bold warning backgrounds."
+      }
+    },
+    "Light increased-contrast/color.icon.success": {
+      "value": "#216E4E",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for icons communicating a favorable outcome, such as those used in success section messaged."
+      }
+    },
+    "Light increased-contrast/color.icon.discovery": {
+      "value": "#6E5DC6",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for icons communicating change or something new, such as discovery section messages."
+      }
+    },
+    "Light increased-contrast/color.icon.information": {
+      "value": "#0055CC",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for icons communicating information or something in-progress, such as information section messages."
+      }
+    },
+    "Light increased-contrast/color.icon.subtle": {
+      "value": "#2C3E5D",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for icons paired with color.text.subtle"
+      }
+    },
+    "Light increased-contrast/color.border": {
+      "value": "#9BB4CA80",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use to visually group or separate UI elements, such as flat cards or side panel dividers."
+      }
+    },
+    "Light increased-contrast/color.border.accent.lime": {
+      "value": "#4C6B1F",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.6.0",
+        "description": "Use for lime borders on non-bold backgrounds when there is no meaning tied to the color."
+      }
+    },
+    "Light increased-contrast/color.border.accent.red": {
+      "value": "#AE2A19",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for red borders on non-bold backgrounds when there is no meaning tied to the color."
+      }
+    },
+    "Light increased-contrast/color.border.accent.orange": {
+      "value": "#974F0C",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for orange borders on non-bold backgrounds when there is no meaning tied to the color."
+      }
+    },
+    "Light increased-contrast/color.border.accent.yellow": {
+      "value": "#7F5F01",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for yellow borders on non-bold backgrounds when there is no meaning tied to the color."
+      }
+    },
+    "Light increased-contrast/color.border.accent.green": {
+      "value": "#216E4E",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for green borders on non-bold backgrounds when there is no meaning tied to the color."
+      }
+    },
+    "Light increased-contrast/color.border.accent.teal": {
+      "value": "#206B74",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for teal borders on non-bold backgrounds when there is no meaning tied to the color."
+      }
+    },
+    "Light increased-contrast/color.border.accent.blue": {
+      "value": "#0055CC",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for blue borders on non-bold backgrounds when there is no meaning tied to the color."
+      }
+    },
+    "Light increased-contrast/color.border.accent.purple": {
+      "value": "#5E4DB2",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for purple borders on non-bold backgrounds when there is no meaning tied to the color."
+      }
+    },
+    "Light increased-contrast/color.border.accent.magenta": {
+      "value": "#943D73",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for magenta borders on non-bold backgrounds when there is no meaning tied to the color."
+      }
+    },
+    "Light increased-contrast/color.border.accent.gray": {
+      "value": "#44546F",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.10.5",
+        "description": "Use for borders on non-bold gray accent backgrounds."
+      }
+    },
+    "Light increased-contrast/color.border.disabled": {
+      "value": "#091E4224",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for borders of elements in a disabled state."
+      }
+    },
+    "Light increased-contrast/color.border.focused": {
+      "value": "#0055CC",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for focus rings of elements in a focus state."
+      }
+    },
+    "Light increased-contrast/color.border.input": {
+      "value": "#44546F",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for borders of form UI elements, such as text fields, checkboxes, and radio buttons."
+      }
+    },
+    "Light increased-contrast/color.border.inverse": {
+      "value": "#FFFFFF",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for borders on bold backgrounds."
+      }
+    },
+    "Light increased-contrast/color.border.selected": {
+      "value": "#0055CC",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.2",
+        "description": "Use for borders or visual indicators of elements in a selected or opened state, such as in tabs or menu items."
+      }
+    },
+    "Light increased-contrast/color.border.brand": {
+      "value": "#0055CC",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for borders or visual indicators of elements that reinforce our brand, such as logos or primary buttons."
+      }
+    },
+    "Light increased-contrast/color.border.danger": {
+      "value": "#CA3521",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for borders communicating critical information, such as the borders on invalid text fields."
+      }
+    },
+    "Light increased-contrast/color.border.warning": {
+      "value": "#974F0C",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for borders communicating caution."
+      }
+    },
+    "Light increased-contrast/color.border.success": {
+      "value": "#216E4E",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for borders communicating a favorable outcome, such as the borders on validated text fields."
+      }
+    },
+    "Light increased-contrast/color.border.discovery": {
+      "value": "#6E5DC6",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for borders communicating change or something new, such as the borders in onboarding spotlights."
+      }
+    },
+    "Light increased-contrast/color.border.information": {
+      "value": "#0055CC",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for borders communicating information or something in-progress."
+      }
+    },
+    "Light increased-contrast/color.border.bold": {
+      "value": "#44546F",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.10.8",
+        "description": "A neutral border option that passes min 3:1 contrast ratios."
+      }
+    },
+    "Light increased-contrast/color.background.accent.lime.subtlest": {
+      "value": "#EEFBDA",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.6.0",
+        "description": "Use for for backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+      }
+    },
+    "Light increased-contrast/color.background.accent.lime.subtlest.hovered": {
+      "value": "#D3F1A7",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.lime.subtlest."
+      }
+    },
+    "Light increased-contrast/color.background.accent.lime.subtlest.pressed": {
+      "value": "#B3DF72",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.lime.subtlest."
+      }
+    },
+    "Light increased-contrast/color.background.accent.lime.subtler": {
+      "value": "#D3F1A7",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.6.0",
+        "description": "Use for for backgrounds when there is no meaning tied to the color, such as colored tags."
+      }
+    },
+    "Light increased-contrast/color.background.accent.lime.subtler.hovered": {
+      "value": "#B3DF72",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.lime.subtler."
+      }
+    },
+    "Light increased-contrast/color.background.accent.lime.subtler.pressed": {
+      "value": "#94C748",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.lime.subtler."
+      }
+    },
+    "Light increased-contrast/color.background.accent.lime.subtle": {
+      "value": "#B3DF72",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.6.0",
+        "description": "Use for vibrant for backgrounds when there is no meaning tied to the color, such as colored tags."
+      }
+    },
+    "Light increased-contrast/color.background.accent.lime.subtle.hovered": {
+      "value": "#D3F1A7",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.lime.subtle."
+      }
+    },
+    "Light increased-contrast/color.background.accent.lime.subtle.pressed": {
+      "value": "#EEFBDA",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.lime.subtle."
+      }
+    },
+    "Light increased-contrast/color.background.accent.lime.bolder": {
+      "value": "#37471F",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.6.0",
+        "description": "Use for for backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+      }
+    },
+    "Light increased-contrast/color.background.accent.lime.bolder.hovered": {
+      "value": "#2A3818",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.lime.bolder."
+      }
+    },
+    "Light increased-contrast/color.background.accent.lime.bolder.pressed": {
+      "value": "#233013",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.lime.bolder."
+      }
+    },
+    "Light increased-contrast/color.background.accent.red.subtlest": {
+      "value": "#FFEDEB",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for red backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+      }
+    },
+    "Light increased-contrast/color.background.accent.red.subtlest.hovered": {
+      "value": "#FFD2CC",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.red.subtlest."
+      }
+    },
+    "Light increased-contrast/color.background.accent.red.subtlest.pressed": {
+      "value": "#FF9C8F",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.red.subtlest."
+      }
+    },
+    "Light increased-contrast/color.background.accent.red.subtler": {
+      "value": "#FFD2CC",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for red backgrounds when there is no meaning tied to the color, such as colored tags."
+      }
+    },
+    "Light increased-contrast/color.background.accent.red.subtler.hovered": {
+      "value": "#FF9C8F",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.red.subtler."
+      }
+    },
+    "Light increased-contrast/color.background.accent.red.subtler.pressed": {
+      "value": "#F87462",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.red.subtler."
+      }
+    },
+    "Light increased-contrast/color.background.accent.red.subtle": {
+      "value": "#fbb7ae",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for vibrant red backgrounds when there is no meaning tied to the color, such as colored tags."
+      }
+    },
+    "Light increased-contrast/color.background.accent.red.subtle.hovered": {
+      "value": "#FFD2CC",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.red.subtle."
+      }
+    },
+    "Light increased-contrast/color.background.accent.red.subtle.pressed": {
+      "value": "#FFEDEB",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.red.subtle."
+      }
+    },
+    "Light increased-contrast/color.background.accent.red.bolder": {
+      "value": "#601E16",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for red backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+      }
+    },
+    "Light increased-contrast/color.background.accent.red.bolder.hovered": {
+      "value": "#4F1C16",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.red.bolder."
+      }
+    },
+    "Light increased-contrast/color.background.accent.red.bolder.pressed": {
+      "value": "#49120C",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.red.bolder."
+      }
+    },
+    "Light increased-contrast/color.background.accent.orange.subtlest": {
+      "value": "#FFF4E5",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for orange backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+      }
+    },
+    "Light increased-contrast/color.background.accent.orange.subtlest.hovered": {
+      "value": "#FFE2BD",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.orange.subtlest."
+      }
+    },
+    "Light increased-contrast/color.background.accent.orange.subtlest.pressed": {
+      "value": "#FEC57B",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.orange.subtlest."
+      }
+    },
+    "Light increased-contrast/color.background.accent.orange.subtler": {
+      "value": "#FFE2BD",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for orange backgrounds when there is no meaning tied to the color, such as colored tags."
+      }
+    },
+    "Light increased-contrast/color.background.accent.orange.subtler.hovered": {
+      "value": "#FEC57B",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.orange.subtler."
+      }
+    },
+    "Light increased-contrast/color.background.accent.orange.subtler.pressed": {
+      "value": "#FAA53D",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.orange.subtler."
+      }
+    },
+    "Light increased-contrast/color.background.accent.orange.subtle": {
+      "value": "#FEC57B",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for vibrant orange backgrounds when there is no meaning tied to the color, such as colored tags."
+      }
+    },
+    "Light increased-contrast/color.background.accent.orange.subtle.hovered": {
+      "value": "#FFE2BD",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.orange.subtle."
+      }
+    },
+    "Light increased-contrast/color.background.accent.orange.subtle.pressed": {
+      "value": "#FFF4E5",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.orange.subtle."
+      }
+    },
+    "Light increased-contrast/color.background.accent.orange.bolder": {
+      "value": "#5F3811",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for orange backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+      }
+    },
+    "Light increased-contrast/color.background.accent.orange.bolder.hovered": {
+      "value": "#4A2B0F",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.orange.bolder."
+      }
+    },
+    "Light increased-contrast/color.background.accent.orange.bolder.pressed": {
+      "value": "#3E2108",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.orange.bolder."
+      }
+    },
+    "Light increased-contrast/color.background.accent.yellow.subtlest": {
+      "value": "#FFF7D6",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for yellow backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+      }
+    },
+    "Light increased-contrast/color.background.accent.yellow.subtlest.hovered": {
+      "value": "#F8E6A0",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.yellow.subtlest."
+      }
+    },
+    "Light increased-contrast/color.background.accent.yellow.subtlest.pressed": {
+      "value": "#F5CD47",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.yellow.subtlest."
+      }
+    },
+    "Light increased-contrast/color.background.accent.yellow.subtler": {
+      "value": "#F8E6A0",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for yellow backgrounds when there is no meaning tied to the color, such as colored tags."
+      }
+    },
+    "Light increased-contrast/color.background.accent.yellow.subtler.hovered": {
+      "value": "#F5CD47",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.yellow.subtler."
+      }
+    },
+    "Light increased-contrast/color.background.accent.yellow.subtler.pressed": {
+      "value": "#E2B203",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.yellow.subtler."
+      }
+    },
+    "Light increased-contrast/color.background.accent.yellow.subtle": {
+      "value": "#F5CD47",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for vibrant yellow backgrounds when there is no meaning tied to the color, such as colored tags."
+      }
+    },
+    "Light increased-contrast/color.background.accent.yellow.subtle.hovered": {
+      "value": "#F8E6A0",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.yellow.subtle."
+      }
+    },
+    "Light increased-contrast/color.background.accent.yellow.subtle.pressed": {
+      "value": "#FFF7D6",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.yellow.subtle."
+      }
+    },
+    "Light increased-contrast/color.background.accent.yellow.bolder": {
+      "value": "#533F04",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for yellow backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+      }
+    },
+    "Light increased-contrast/color.background.accent.yellow.bolder.hovered": {
+      "value": "#3F3102",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.yellow.bolder."
+      }
+    },
+    "Light increased-contrast/color.background.accent.yellow.bolder.pressed": {
+      "value": "#342800",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.yellow.bolder."
+      }
+    },
+    "Light increased-contrast/color.background.accent.green.subtlest": {
+      "value": "#DFFCF0",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for green backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+      }
+    },
+    "Light increased-contrast/color.background.accent.green.subtlest.hovered": {
+      "value": "#BAF3DB",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.green.subtlest."
+      }
+    },
+    "Light increased-contrast/color.background.accent.green.subtlest.pressed": {
+      "value": "#7EE2B8",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.green.subtlest."
+      }
+    },
+    "Light increased-contrast/color.background.accent.green.subtler": {
+      "value": "#BAF3DB",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for green backgrounds when there is no meaning tied to the color, such as colored tags."
+      }
+    },
+    "Light increased-contrast/color.background.accent.green.subtler.hovered": {
+      "value": "#7EE2B8",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.green.subtler."
+      }
+    },
+    "Light increased-contrast/color.background.accent.green.subtler.pressed": {
+      "value": "#4BCE97",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.green.subtler."
+      }
+    },
+    "Light increased-contrast/color.background.accent.green.subtle": {
+      "value": "#7EE2B8",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for vibrant green backgrounds when there is no meaning tied to the color, such as colored tags."
+      }
+    },
+    "Light increased-contrast/color.background.accent.green.subtle.hovered": {
+      "value": "#BAF3DB",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.green.subtle."
+      }
+    },
+    "Light increased-contrast/color.background.accent.green.subtle.pressed": {
+      "value": "#DFFCF0",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.green.subtle."
+      }
+    },
+    "Light increased-contrast/color.background.accent.green.bolder": {
+      "value": "#164B35",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for green backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+      }
+    },
+    "Light increased-contrast/color.background.accent.green.bolder.hovered": {
+      "value": "#143C2B",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.green.bolder."
+      }
+    },
+    "Light increased-contrast/color.background.accent.green.bolder.pressed": {
+      "value": "#0F3324",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.green.bolder."
+      }
+    },
+    "Light increased-contrast/color.background.accent.teal.subtlest": {
+      "value": "#E3FAFC",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for teal backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+      }
+    },
+    "Light increased-contrast/color.background.accent.teal.subtlest.hovered": {
+      "value": "#C1F0F5",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.teal.subtlest."
+      }
+    },
+    "Light increased-contrast/color.background.accent.teal.subtlest.pressed": {
+      "value": "#8BDBE5",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.teal.subtlest."
+      }
+    },
+    "Light increased-contrast/color.background.accent.teal.subtler": {
+      "value": "#C1F0F5",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for teal backgrounds when there is no meaning tied to the color, such as colored tags."
+      }
+    },
+    "Light increased-contrast/color.background.accent.teal.subtler.hovered": {
+      "value": "#8BDBE5",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.teal.subtler."
+      }
+    },
+    "Light increased-contrast/color.background.accent.teal.subtler.pressed": {
+      "value": "#60C6D2",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.teal.subtler."
+      }
+    },
+    "Light increased-contrast/color.background.accent.teal.subtle": {
+      "value": "#8BDBE5",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for vibrant teal backgrounds when there is no meaning tied to the color, such as colored tags."
+      }
+    },
+    "Light increased-contrast/color.background.accent.teal.subtle.hovered": {
+      "value": "#C1F0F5",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.teal.subtle."
+      }
+    },
+    "Light increased-contrast/color.background.accent.teal.subtle.pressed": {
+      "value": "#E3FAFC",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.teal.subtle."
+      }
+    },
+    "Light increased-contrast/color.background.accent.teal.bolder": {
+      "value": "#1D474C",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for teal backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+      }
+    },
+    "Light increased-contrast/color.background.accent.teal.bolder.hovered": {
+      "value": "#15373B",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.teal.bolder."
+      }
+    },
+    "Light increased-contrast/color.background.accent.teal.bolder.pressed": {
+      "value": "#103034",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.teal.bolder."
+      }
+    },
+    "Light increased-contrast/color.background.accent.blue.subtlest": {
+      "value": "#E9F2FF",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for blue backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+      }
+    },
+    "Light increased-contrast/color.background.accent.blue.subtlest.hovered": {
+      "value": "#CCE0FF",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.blue.subtlest."
+      }
+    },
+    "Light increased-contrast/color.background.accent.blue.subtlest.pressed": {
+      "value": "#85B8FF",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.blue.subtlest."
+      }
+    },
+    "Light increased-contrast/color.background.accent.blue.subtler": {
+      "value": "#CCE0FF",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for blue backgrounds when there is no meaning tied to the color, such as colored tags."
+      }
+    },
+    "Light increased-contrast/color.background.accent.blue.subtler.hovered": {
+      "value": "#85B8FF",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.blue.subtler."
+      }
+    },
+    "Light increased-contrast/color.background.accent.blue.subtler.pressed": {
+      "value": "#579DFF",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.blue.subtler."
+      }
+    },
+    "Light increased-contrast/color.background.accent.blue.subtle": {
+      "value": "#85B8FF",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for vibrant blue backgrounds when there is no meaning tied to the color, such as colored tags."
+      }
+    },
+    "Light increased-contrast/color.background.accent.blue.subtle.hovered": {
+      "value": "#CCE0FF",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.blue.subtle."
+      }
+    },
+    "Light increased-contrast/color.background.accent.blue.subtle.pressed": {
+      "value": "#E9F2FF",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.blue.subtle."
+      }
+    },
+    "Light increased-contrast/color.background.accent.blue.bolder": {
+      "value": "#09326C",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for blue backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+      }
+    },
+    "Light increased-contrast/color.background.accent.blue.bolder.hovered": {
+      "value": "#092957",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.blue.bolder."
+      }
+    },
+    "Light increased-contrast/color.background.accent.blue.bolder.pressed": {
+      "value": "#022353",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.blue.bolder."
+      }
+    },
+    "Light increased-contrast/color.background.accent.purple.subtlest": {
+      "value": "#F3F0FF",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for purple backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+      }
+    },
+    "Light increased-contrast/color.background.accent.purple.subtlest.hovered": {
+      "value": "#DFD8FD",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.purple.subtlest."
+      }
+    },
+    "Light increased-contrast/color.background.accent.purple.subtlest.pressed": {
+      "value": "#B8ACF6",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.purple.subtlest."
+      }
+    },
+    "Light increased-contrast/color.background.accent.purple.subtler": {
+      "value": "#DFD8FD",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for purple backgrounds when there is no meaning tied to the color, such as colored tags."
+      }
+    },
+    "Light increased-contrast/color.background.accent.purple.subtler.hovered": {
+      "value": "#B8ACF6",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.purple.subtler."
+      }
+    },
+    "Light increased-contrast/color.background.accent.purple.subtler.pressed": {
+      "value": "#9F8FEF",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.purple.subtler."
+      }
+    },
+    "Light increased-contrast/color.background.accent.purple.subtle": {
+      "value": "#c3b9fa",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for vibrant purple backgrounds when there is no meaning tied to the color, such as colored tags."
+      }
+    },
+    "Light increased-contrast/color.background.accent.purple.subtle.hovered": {
+      "value": "#DFD8FD",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.purple.subtle."
+      }
+    },
+    "Light increased-contrast/color.background.accent.purple.subtle.pressed": {
+      "value": "#F3F0FF",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.purple.subtle."
+      }
+    },
+    "Light increased-contrast/color.background.accent.purple.bolder": {
+      "value": "#352C63",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for purple backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+      }
+    },
+    "Light increased-contrast/color.background.accent.purple.bolder.hovered": {
+      "value": "#2B2451",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.purple.bolder."
+      }
+    },
+    "Light increased-contrast/color.background.accent.purple.bolder.pressed": {
+      "value": "#211A47",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.purple.bolder."
+      }
+    },
+    "Light increased-contrast/color.background.accent.magenta.subtlest": {
+      "value": "#FFECF8",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for magenta backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+      }
+    },
+    "Light increased-contrast/color.background.accent.magenta.subtlest.hovered": {
+      "value": "#FDD0EC",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.magenta.subtlest."
+      }
+    },
+    "Light increased-contrast/color.background.accent.magenta.subtlest.pressed": {
+      "value": "#F797D2",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.magenta.subtlest."
+      }
+    },
+    "Light increased-contrast/color.background.accent.magenta.subtler": {
+      "value": "#FDD0EC",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for magenta backgrounds when there is no meaning tied to the color, such as colored tags."
+      }
+    },
+    "Light increased-contrast/color.background.accent.magenta.subtler.hovered": {
+      "value": "#F797D2",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.magenta.subtler."
+      }
+    },
+    "Light increased-contrast/color.background.accent.magenta.subtler.pressed": {
+      "value": "#E774BB",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.magenta.subtler."
+      }
+    },
+    "Light increased-contrast/color.background.accent.magenta.subtle": {
+      "value": "#f2a6d4",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for vibrant magenta backgrounds when there is no meaning tied to the color, such as colored tags."
+      }
+    },
+    "Light increased-contrast/color.background.accent.magenta.subtle.hovered": {
+      "value": "#FDD0EC",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.magenta.subtle."
+      }
+    },
+    "Light increased-contrast/color.background.accent.magenta.subtle.pressed": {
+      "value": "#FFECF8",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.magenta.subtle."
+      }
+    },
+    "Light increased-contrast/color.background.accent.magenta.bolder": {
+      "value": "#50253F",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for magenta backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+      }
+    },
+    "Light increased-contrast/color.background.accent.magenta.bolder.hovered": {
+      "value": "#421F34",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.magenta.bolder."
+      }
+    },
+    "Light increased-contrast/color.background.accent.magenta.bolder.pressed": {
+      "value": "#37172A",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.magenta.bolder."
+      }
+    },
+    "Light increased-contrast/color.background.accent.gray.subtlest": {
+      "value": "#F1F2F4",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for gray backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+      }
+    },
+    "Light increased-contrast/color.background.accent.gray.subtlest.hovered": {
+      "value": "#DCDFE4",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.gray.subtlest."
+      }
+    },
+    "Light increased-contrast/color.background.accent.gray.subtlest.pressed": {
+      "value": "#B3B9C4",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.gray.subtlest."
+      }
+    },
+    "Light increased-contrast/color.background.accent.gray.subtler": {
+      "value": "#DCDFE4",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for gray backgrounds when there is no meaning tied to the color, such as colored tags."
+      }
+    },
+    "Light increased-contrast/color.background.accent.gray.subtler.hovered": {
+      "value": "#B3B9C4",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.gray.subtler."
+      }
+    },
+    "Light increased-contrast/color.background.accent.gray.subtler.pressed": {
+      "value": "#8590A2",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.gray.subtler."
+      }
+    },
+    "Light increased-contrast/color.background.accent.gray.subtle": {
+      "value": "#B3B9C4",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for vibrant gray backgrounds when there is no meaning tied to the color, such as colored tags."
+      }
+    },
+    "Light increased-contrast/color.background.accent.gray.subtle.hovered": {
+      "value": "#DCDFE4",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.gray.subtle."
+      }
+    },
+    "Light increased-contrast/color.background.accent.gray.subtle.pressed": {
+      "value": "#F1F2F4",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.gray.subtle."
+      }
+    },
+    "Light increased-contrast/color.background.accent.gray.bolder": {
+      "value": "#44546F",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for gray backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+      }
+    },
+    "Light increased-contrast/color.background.accent.gray.bolder.hovered": {
+      "value": "#2C3E5D",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Hovered state of color.background.accent.gray.bolder."
+      }
+    },
+    "Light increased-contrast/color.background.accent.gray.bolder.pressed": {
+      "value": "#172B4D",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.19.0",
+        "description": "Pressed state of color.background.accent.gray.subtlest."
+      }
+    },
+    "Light increased-contrast/color.background.disabled": {
+      "value": "#091E4208",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.0.15",
+        "description": "Use for backgrounds of elements in a disabled state."
+      }
+    },
+    "Light increased-contrast/color.background.input": {
+      "value": "#FFFFFF",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for background of form UI elements, such as text fields, checkboxes, and radio buttons."
+      }
+    },
+    "Light increased-contrast/color.background.input.hovered": {
+      "value": "#F7F8F9",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Hovered state for color.background.input"
+      }
+    },
+    "Light increased-contrast/color.background.input.pressed": {
+      "value": "#FFFFFF",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Pressed state for color.background.input"
+      }
+    },
+    "Light increased-contrast/color.background.inverse.subtle": {
+      "value": "#00000029",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.8.3",
+        "description": "Use for backgrounds of elements on a bold background, such as in the buttons on spotlight cards."
+      }
+    },
+    "Light increased-contrast/color.background.inverse.subtle.hovered": {
+      "value": "#0000003D",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.8.3",
+        "description": "Use for the hovered state of color.background.inverse.subtle"
+      }
+    },
+    "Light increased-contrast/color.background.inverse.subtle.pressed": {
+      "value": "#00000052",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.8.3",
+        "description": "Use for the pressed state of color.background.inverse.subtle"
+      }
+    },
+    "Light increased-contrast/color.background.neutral": {
+      "value": "#091E420F",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "The default background for neutral elements, such as default buttons."
+      }
+    },
+    "Light increased-contrast/color.background.neutral.hovered": {
+      "value": "#091E4224",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Hovered state for color.background.neutral"
+      }
+    },
+    "Light increased-contrast/color.background.neutral.pressed": {
+      "value": "#091E424F",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Pressed state for color.background.neutral"
+      }
+    },
+    "Light increased-contrast/color.background.neutral.subtle": {
+      "value": "#00000000",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for the background of elements that appear to have no background in a resting state, such as subtle buttons and menu items."
+      }
+    },
+    "Light increased-contrast/color.background.neutral.subtle.hovered": {
+      "value": "#091E420F",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Hovered state for color.background.neutral.subtle"
+      }
+    },
+    "Light increased-contrast/color.background.neutral.subtle.pressed": {
+      "value": "#091E4224",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Pressed state for color.background.neutral.subtle"
+      }
+    },
+    "Light increased-contrast/color.background.neutral.bold": {
+      "value": "#44546F",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "A vibrant background option for neutral UI elements, such as announcement banners."
+      }
+    },
+    "Light increased-contrast/color.background.neutral.bold.hovered": {
+      "value": "#2C3E5D",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Hovered state of color.background.neutral.bold"
+      }
+    },
+    "Light increased-contrast/color.background.neutral.bold.pressed": {
+      "value": "#172B4D",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Pressed state of color.background.neutral.bold"
+      }
+    },
+    "Light increased-contrast/color.background.selected": {
+      "value": "#E9F2FF",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.2",
+        "description": "Use for the background of elements in a selected state, such as in opened dropdown buttons."
+      }
+    },
+    "Light increased-contrast/color.background.selected.hovered": {
+      "value": "#CCE0FF",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.2",
+        "description": "Hovered state for color.background.selected"
+      }
+    },
+    "Light increased-contrast/color.background.selected.pressed": {
+      "value": "#85B8FF",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.2",
+        "description": "Pressed state for color.background.selected"
+      }
+    },
+    "Light increased-contrast/color.background.selected.bold": {
+      "value": "#09326C",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.2",
+        "description": "Use for the backgrounds of elements in a selected state, such as checkboxes and radio buttons."
+      }
+    },
+    "Light increased-contrast/color.background.selected.bold.hovered": {
+      "value": "#092957",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.2",
+        "description": "Hovered state of color.background.selected.bold"
+      }
+    },
+    "Light increased-contrast/color.background.selected.bold.pressed": {
+      "value": "#022353",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.2",
+        "description": "Pressed state of color.background.selected.bold"
+      }
+    },
+    "Light increased-contrast/color.background.brand.subtlest": {
+      "value": "#E9F2FF",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.13.0",
+        "description": "Use for the background of elements used to reinforce our brand, but with less emphasis."
+      }
+    },
+    "Light increased-contrast/color.background.brand.subtlest.hovered": {
+      "value": "#CCE0FF",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.13.0",
+        "description": "Hovered state of color.background.brand.subtlest."
+      }
+    },
+    "Light increased-contrast/color.background.brand.subtlest.pressed": {
+      "value": "#85B8FF",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.13.0",
+        "description": "Pressed state of color.background.brand.subtlest"
+      }
+    },
+    "Light increased-contrast/color.background.brand.bold": {
+      "value": "#09326C",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for the background of elements used to reinforce our brand, but with more emphasis."
+      }
+    },
+    "Light increased-contrast/color.background.brand.bold.hovered": {
+      "value": "#092957",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Hovered state of color.background.brand.bold."
+      }
+    },
+    "Light increased-contrast/color.background.brand.bold.pressed": {
+      "value": "#022353",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Pressed state of color.background.brand.bold."
+      }
+    },
+    "Light increased-contrast/color.background.brand.boldest": {
+      "value": "#092957",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.13.0",
+        "description": "Use for the background of elements used to reinforce our brand, that need to stand out a lot."
+      }
+    },
+    "Light increased-contrast/color.background.brand.boldest.hovered": {
+      "value": "#09326C",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.13.0",
+        "description": "Hovered state of color.background.brand.boldest."
+      }
+    },
+    "Light increased-contrast/color.background.brand.boldest.pressed": {
+      "value": "#0055CC",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.13.0",
+        "description": "Pressed state of color.background.brand.boldest."
+      }
+    },
+    "Light increased-contrast/color.background.danger": {
+      "value": "#FFEDEB",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for backgrounds communicating critical information, such in error section messages."
+      }
+    },
+    "Light increased-contrast/color.background.danger.hovered": {
+      "value": "#FFD2CC",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Hovered state for color.background.danger"
+      }
+    },
+    "Light increased-contrast/color.background.danger.pressed": {
+      "value": "#FF9C8F",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Pressed state for color.background.danger"
+      }
+    },
+    "Light increased-contrast/color.background.danger.bold": {
+      "value": "#601E16",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "A vibrant background option for communicating critical information, such as in danger buttons and error banners."
+      }
+    },
+    "Light increased-contrast/color.background.danger.bold.hovered": {
+      "value": "#4F1C16",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Hovered state of color.background.danger.bold"
+      }
+    },
+    "Light increased-contrast/color.background.danger.bold.pressed": {
+      "value": "#49120C",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Pressed state of color.background.danger.bold"
+      }
+    },
+    "Light increased-contrast/color.background.warning": {
+      "value": "#FFF7D6",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for backgrounds communicating caution, such as in warning section messages."
+      }
+    },
+    "Light increased-contrast/color.background.warning.hovered": {
+      "value": "#F8E6A0",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Hovered state for color.background.warning"
+      }
+    },
+    "Light increased-contrast/color.background.warning.pressed": {
+      "value": "#F5CD47",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Pressed state for color.background.warning"
+      }
+    },
+    "Light increased-contrast/color.background.warning.bold": {
+      "value": "#533F04",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "A vibrant background option for communicating caution, such as in warning buttons and warning banners."
+      }
+    },
+    "Light increased-contrast/color.background.warning.bold.hovered": {
+      "value": "#3F3102",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Hovered state of color.background.warning.bold"
+      }
+    },
+    "Light increased-contrast/color.background.warning.bold.pressed": {
+      "value": "#342800",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Pressed state of color.background.warning.bold"
+      }
+    },
+    "Light increased-contrast/color.background.success": {
+      "value": "#DFFCF0",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for backgrounds communicating a favorable outcome, such as in success section messages."
+      }
+    },
+    "Light increased-contrast/color.background.success.hovered": {
+      "value": "#BAF3DB",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Hovered state for color.background.success"
+      }
+    },
+    "Light increased-contrast/color.background.success.pressed": {
+      "value": "#7EE2B8",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Pressed state for color.background.success"
+      }
+    },
+    "Light increased-contrast/color.background.success.bold": {
+      "value": "#164B35",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "A vibrant background option for communicating a favorable outcome, such as in checked toggles."
+      }
+    },
+    "Light increased-contrast/color.background.success.bold.hovered": {
+      "value": "#143C2B",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Hovered state of color.background.success.bold"
+      }
+    },
+    "Light increased-contrast/color.background.success.bold.pressed": {
+      "value": "#0F3324",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Pressed state of color.background.success.bold"
+      }
+    },
+    "Light increased-contrast/color.background.discovery": {
+      "value": "#F3F0FF",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for backgrounds communicating change or something new, such as in discovery section messages."
+      }
+    },
+    "Light increased-contrast/color.background.discovery.hovered": {
+      "value": "#DFD8FD",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Hover state for color.background.discovery"
+      }
+    },
+    "Light increased-contrast/color.background.discovery.pressed": {
+      "value": "#B8ACF6",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Pressed state for color.background.discovery"
+      }
+    },
+    "Light increased-contrast/color.background.discovery.bold": {
+      "value": "#352C63",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "A vibrant background option communicating change or something new, such as in onboarding spotlights."
+      }
+    },
+    "Light increased-contrast/color.background.discovery.bold.hovered": {
+      "value": "#2B2451",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Hovered state of color.background.discovery.bold"
+      }
+    },
+    "Light increased-contrast/color.background.discovery.bold.pressed": {
+      "value": "#211A47",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Pressed state of color.background.discovery.bold"
+      }
+    },
+    "Light increased-contrast/color.background.information": {
+      "value": "#E9F2FF",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for backgrounds communicating information or something in-progress, such as in information section messages."
+      }
+    },
+    "Light increased-contrast/color.background.information.hovered": {
+      "value": "#CCE0FF",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Hovered state of color.background.information"
+      }
+    },
+    "Light increased-contrast/color.background.information.pressed": {
+      "value": "#85B8FF",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Pressed state of color.background.information"
+      }
+    },
+    "Light increased-contrast/color.background.information.bold": {
+      "value": "#09326C",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "A vibrant background option for communicating information or something in-progress."
+      }
+    },
+    "Light increased-contrast/color.background.information.bold.hovered": {
+      "value": "#092957",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Hovered state of color.background.information.bold"
+      }
+    },
+    "Light increased-contrast/color.background.information.bold.pressed": {
+      "value": "#022353",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Pressed state of color.background.information.bold"
+      }
+    },
+    "Light increased-contrast/color.blanket": {
+      "value": "#091E427D",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.0.15",
+        "description": "Use for the screen overlay that appears with modal dialogs"
+      }
+    },
+    "Light increased-contrast/color.blanket.selected": {
+      "value": "#388BFF14",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use as an overlay to communicate selected states when a simple background color change isn't possible, such as in Editor block elements"
+      }
+    },
+    "Light increased-contrast/color.blanket.danger": {
+      "value": "#EF5C4814",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use as an overlay to communicate danger states when a simple background color change isn't possible, such as deletion of Editor block elements"
+      }
+    },
+    "Light increased-contrast/color.interaction.hovered": {
+      "value": "#00000029",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use as a background overlay for elements in a hovered state when their background color cannot change, such as avatars."
+      }
+    },
+    "Light increased-contrast/color.interaction.pressed": {
+      "value": "#00000052",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use as a background overlay for elements in a pressed state when their background color cannot change, such as avatars."
+      }
+    },
+    "Light increased-contrast/color.skeleton": {
+      "value": "#091E420F",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.8.0",
+        "description": "Use for skeleton loading states"
+      }
+    },
+    "Light increased-contrast/color.skeleton.subtle": {
+      "value": "#091E4208",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.8.0",
+        "description": "Use for the pulse or shimmer effect in skeleton loading states"
+      }
+    },
+    "Light increased-contrast/color.chart.categorical.1": {
+      "value": "#206B74",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only. Follow numbered sequence."
+      }
+    },
+    "Light increased-contrast/color.chart.categorical.1.hovered": {
+      "value": "#1D474C",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.categorical.1."
+      }
+    },
+    "Light increased-contrast/color.chart.categorical.2": {
+      "value": "#5E4DB2",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only. Follow numbered sequence."
+      }
+    },
+    "Light increased-contrast/color.chart.categorical.2.hovered": {
+      "value": "#352C63",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.categorical.2."
+      }
+    },
+    "Light increased-contrast/color.chart.categorical.3": {
+      "value": "#974F0C",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only. Follow numbered sequence."
+      }
+    },
+    "Light increased-contrast/color.chart.categorical.3.hovered": {
+      "value": "#5F3811",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.categorical.3."
+      }
+    },
+    "Light increased-contrast/color.chart.categorical.4": {
+      "value": "#943D73",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only. Follow numbered sequence."
+      }
+    },
+    "Light increased-contrast/color.chart.categorical.4.hovered": {
+      "value": "#50253F",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.categorical.4."
+      }
+    },
+    "Light increased-contrast/color.chart.categorical.5": {
+      "value": "#09326C",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only. Follow numbered sequence."
+      }
+    },
+    "Light increased-contrast/color.chart.categorical.5.hovered": {
+      "value": "#092957",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.categorical.5."
+      }
+    },
+    "Light increased-contrast/color.chart.categorical.6": {
+      "value": "#5E4DB2",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only. Follow numbered sequence."
+      }
+    },
+    "Light increased-contrast/color.chart.categorical.6.hovered": {
+      "value": "#352C63",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.categorical.6."
+      }
+    },
+    "Light increased-contrast/color.chart.categorical.7": {
+      "value": "#50253F",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only. Follow numbered sequence."
+      }
+    },
+    "Light increased-contrast/color.chart.categorical.7.hovered": {
+      "value": "#421F34",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.categorical.7."
+      }
+    },
+    "Light increased-contrast/color.chart.categorical.8": {
+      "value": "#974F0C",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only. Follow numbered sequence."
+      }
+    },
+    "Light increased-contrast/color.chart.categorical.8.hovered": {
+      "value": "#5F3811",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.categorical.8."
+      }
+    },
+    "Light increased-contrast/color.chart.lime.bold": {
+      "value": "#4C6B1F",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.8.0",
+        "description": "For data visualisation only."
+      }
+    },
+    "Light increased-contrast/color.chart.lime.bold.hovered": {
+      "value": "#37471F",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.8.0",
+        "description": "Hovered state of color.chart.lime.bold."
+      }
+    },
+    "Light increased-contrast/color.chart.lime.bolder": {
+      "value": "#37471F",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.8.0",
+        "description": "For data visualisation only."
+      }
+    },
+    "Light increased-contrast/color.chart.lime.bolder.hovered": {
+      "value": "#2A3818",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.8.0",
+        "description": "Hovered state of color.chart.lime.bolder."
+      }
+    },
+    "Light increased-contrast/color.chart.lime.boldest": {
+      "value": "#2A3818",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.8.0",
+        "description": "For data visualisation only."
+      }
+    },
+    "Light increased-contrast/color.chart.lime.boldest.hovered": {
+      "value": "#233013",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.8.0",
+        "description": "Hovered state of color.chart.lime.boldest."
+      }
+    },
+    "Light increased-contrast/color.chart.neutral": {
+      "value": "#626F86",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "A secondary color for data visualisation or to communicate 'to-do' statues."
+      }
+    },
+    "Light increased-contrast/color.chart.neutral.hovered": {
+      "value": "#44546F",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.neutral."
+      }
+    },
+    "Light increased-contrast/color.chart.red.bold": {
+      "value": "#AE2A19",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      }
+    },
+    "Light increased-contrast/color.chart.red.bold.hovered": {
+      "value": "#601E16",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.red.bold."
+      }
+    },
+    "Light increased-contrast/color.chart.red.bolder": {
+      "value": "#601E16",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      }
+    },
+    "Light increased-contrast/color.chart.red.bolder.hovered": {
+      "value": "#4F1C16",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.red.bolder."
+      }
+    },
+    "Light increased-contrast/color.chart.red.boldest": {
+      "value": "#4F1C16",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      }
+    },
+    "Light increased-contrast/color.chart.red.boldest.hovered": {
+      "value": "#49120C",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.red.boldest."
+      }
+    },
+    "Light increased-contrast/color.chart.orange.bold": {
+      "value": "#974F0C",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      }
+    },
+    "Light increased-contrast/color.chart.orange.bold.hovered": {
+      "value": "#5F3811",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.orange.bold."
+      }
+    },
+    "Light increased-contrast/color.chart.orange.bolder": {
+      "value": "#5F3811",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      }
+    },
+    "Light increased-contrast/color.chart.orange.bolder.hovered": {
+      "value": "#4A2B0F",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.orange.bolder."
+      }
+    },
+    "Light increased-contrast/color.chart.orange.boldest": {
+      "value": "#4A2B0F",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      }
+    },
+    "Light increased-contrast/color.chart.orange.boldest.hovered": {
+      "value": "#3E2108",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.orange.boldest."
+      }
+    },
+    "Light increased-contrast/color.chart.yellow.bold": {
+      "value": "#7F5F01",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      }
+    },
+    "Light increased-contrast/color.chart.yellow.bold.hovered": {
+      "value": "#533F04",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.yellow.bold."
+      }
+    },
+    "Light increased-contrast/color.chart.yellow.bolder": {
+      "value": "#533F04",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      }
+    },
+    "Light increased-contrast/color.chart.yellow.bolder.hovered": {
+      "value": "#3F3102",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.yellow.bolder."
+      }
+    },
+    "Light increased-contrast/color.chart.yellow.boldest": {
+      "value": "#3F3102",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      }
+    },
+    "Light increased-contrast/color.chart.yellow.boldest.hovered": {
+      "value": "#342800",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.yellow.boldest."
+      }
+    },
+    "Light increased-contrast/color.chart.green.bold": {
+      "value": "#216E4E",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      }
+    },
+    "Light increased-contrast/color.chart.green.bold.hovered": {
+      "value": "#164B35",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.green.bold."
+      }
+    },
+    "Light increased-contrast/color.chart.green.bolder": {
+      "value": "#164B35",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      }
+    },
+    "Light increased-contrast/color.chart.green.bolder.hovered": {
+      "value": "#143C2B",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.green.bolder."
+      }
+    },
+    "Light increased-contrast/color.chart.green.boldest": {
+      "value": "#143C2B",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      }
+    },
+    "Light increased-contrast/color.chart.green.boldest.hovered": {
+      "value": "#0F3324",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.green.boldest."
+      }
+    },
+    "Light increased-contrast/color.chart.teal.bold": {
+      "value": "#206B74",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      }
+    },
+    "Light increased-contrast/color.chart.teal.bold.hovered": {
+      "value": "#1D474C",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.teal.bold."
+      }
+    },
+    "Light increased-contrast/color.chart.teal.bolder": {
+      "value": "#1D474C",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      }
+    },
+    "Light increased-contrast/color.chart.teal.bolder.hovered": {
+      "value": "#15373B",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.teal.bolder."
+      }
+    },
+    "Light increased-contrast/color.chart.teal.boldest": {
+      "value": "#15373B",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      }
+    },
+    "Light increased-contrast/color.chart.teal.boldest.hovered": {
+      "value": "#103034",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.teal.boldest."
+      }
+    },
+    "Light increased-contrast/color.chart.blue.bold": {
+      "value": "#0055CC",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      }
+    },
+    "Light increased-contrast/color.chart.blue.bold.hovered": {
+      "value": "#09326C",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.blue.bold."
+      }
+    },
+    "Light increased-contrast/color.chart.blue.bolder": {
+      "value": "#09326C",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      }
+    },
+    "Light increased-contrast/color.chart.blue.bolder.hovered": {
+      "value": "#092957",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.blue.bolder."
+      }
+    },
+    "Light increased-contrast/color.chart.blue.boldest": {
+      "value": "#092957",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      }
+    },
+    "Light increased-contrast/color.chart.blue.boldest.hovered": {
+      "value": "#022353",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.blue.boldest."
+      }
+    },
+    "Light increased-contrast/color.chart.purple.bold": {
+      "value": "#5E4DB2",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      }
+    },
+    "Light increased-contrast/color.chart.purple.bold.hovered": {
+      "value": "#352C63",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.purple.bold."
+      }
+    },
+    "Light increased-contrast/color.chart.purple.bolder": {
+      "value": "#352C63",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      }
+    },
+    "Light increased-contrast/color.chart.purple.bolder.hovered": {
+      "value": "#2B2451",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.purple.bolder."
+      }
+    },
+    "Light increased-contrast/color.chart.purple.boldest": {
+      "value": "#2B2451",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      }
+    },
+    "Light increased-contrast/color.chart.purple.boldest.hovered": {
+      "value": "#211A47",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.purple.boldest."
+      }
+    },
+    "Light increased-contrast/color.chart.magenta.bold": {
+      "value": "#943D73",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      }
+    },
+    "Light increased-contrast/color.chart.magenta.bold.hovered": {
+      "value": "#50253F",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.magenta.bold."
+      }
+    },
+    "Light increased-contrast/color.chart.magenta.bolder": {
+      "value": "#50253F",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      }
+    },
+    "Light increased-contrast/color.chart.magenta.bolder.hovered": {
+      "value": "#421F34",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.magenta.bolder."
+      }
+    },
+    "Light increased-contrast/color.chart.magenta.boldest": {
+      "value": "#421F34",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      }
+    },
+    "Light increased-contrast/color.chart.magenta.boldest.hovered": {
+      "value": "#37172A",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.magenta.boldest."
+      }
+    },
+    "Light increased-contrast/color.chart.gray.bold": {
+      "value": "#626F86",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      }
+    },
+    "Light increased-contrast/color.chart.gray.bold.hovered": {
+      "value": "#44546F",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.gray.bold."
+      }
+    },
+    "Light increased-contrast/color.chart.gray.bolder": {
+      "value": "#44546F",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      }
+    },
+    "Light increased-contrast/color.chart.gray.bolder.hovered": {
+      "value": "#2C3E5D",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.gray.bolder."
+      }
+    },
+    "Light increased-contrast/color.chart.gray.boldest": {
+      "value": "#2C3E5D",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      }
+    },
+    "Light increased-contrast/color.chart.gray.boldest.hovered": {
+      "value": "#172B4D",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.gray.boldest."
+      }
+    },
+    "Light increased-contrast/color.chart.brand": {
+      "value": "#0C66E4",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Our primary color for data visualisation. Use when only one color is required."
+      }
+    },
+    "Light increased-contrast/color.chart.brand.hovered": {
+      "value": "#0055CC",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.brand."
+      }
+    },
+    "Light increased-contrast/color.chart.danger": {
+      "value": "#CA3521",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation communicating negative information, such as 'off track'."
+      }
+    },
+    "Light increased-contrast/color.chart.danger.hovered": {
+      "value": "#AE2A19",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.danger."
+      }
+    },
+    "Light increased-contrast/color.chart.danger.bold": {
+      "value": "#601E16",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "A stronger emphasis option of color.chart.danger."
+      }
+    },
+    "Light increased-contrast/color.chart.danger.bold.hovered": {
+      "value": "#4F1C16",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.danger.bold."
+      }
+    },
+    "Light increased-contrast/color.chart.warning": {
+      "value": "#7F5F01",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation communicating caution, such as 'at risk' statuses."
+      }
+    },
+    "Light increased-contrast/color.chart.warning.hovered": {
+      "value": "#533F04",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.warning."
+      }
+    },
+    "Light increased-contrast/color.chart.warning.bold": {
+      "value": "#533F04",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "A stronger emphasis option of color.chart.warning."
+      }
+    },
+    "Light increased-contrast/color.chart.warning.bold.hovered": {
+      "value": "#3F3102",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.warning.bold."
+      }
+    },
+    "Light increased-contrast/color.chart.success": {
+      "value": "#216E4E",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation communicating positive information, such as 'on track'."
+      }
+    },
+    "Light increased-contrast/color.chart.success.hovered": {
+      "value": "#164B35",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.success."
+      }
+    },
+    "Light increased-contrast/color.chart.success.bold": {
+      "value": "#164B35",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "A stronger emphasis option of color.chart.success."
+      }
+    },
+    "Light increased-contrast/color.chart.success.bold.hovered": {
+      "value": "#143C2B",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.success.bold."
+      }
+    },
+    "Light increased-contrast/color.chart.discovery": {
+      "value": "#6E5DC6",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation communicating 'new' statuses."
+      }
+    },
+    "Light increased-contrast/color.chart.discovery.hovered": {
+      "value": "#5E4DB2",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.discovery."
+      }
+    },
+    "Light increased-contrast/color.chart.discovery.bold": {
+      "value": "#352C63",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "A stronger emphasis option of color.chart.discovery."
+      }
+    },
+    "Light increased-contrast/color.chart.discovery.bold.hovered": {
+      "value": "#2B2451",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.discovery.bold."
+      }
+    },
+    "Light increased-contrast/color.chart.information": {
+      "value": "#0C66E4",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation communicating low priority or in-progress statuses."
+      }
+    },
+    "Light increased-contrast/color.chart.information.hovered": {
+      "value": "#0055CC",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.information."
+      }
+    },
+    "Light increased-contrast/color.chart.information.bold": {
+      "value": "#09326C",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "A stronger emphasis option of color.chart.information."
+      }
+    },
+    "Light increased-contrast/color.chart.information.bold.hovered": {
+      "value": "#092957",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.information.bold."
+      }
+    },
+    "Light increased-contrast/elevation.surface": {
+      "value": "#FFFFFF",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use as the primary background for the UI."
+      }
+    },
+    "Light increased-contrast/elevation.surface.hovered": {
+      "value": "#F1F2F4",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.10.20",
+        "description": "Hovered state of elevation.surface"
+      }
+    },
+    "Light increased-contrast/elevation.surface.pressed": {
+      "value": "#DCDFE4",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.10.20",
+        "description": "Pressed state of elevation.surface"
+      }
+    },
+    "Light increased-contrast/elevation.surface.overlay": {
+      "value": "#FFFFFF",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for the background of elements that sit on top of they UI, such as modals, dialogs, dropdown menus, floating toolbars, and floating single-action buttons. Also use for the background of raised cards in a dragged state. Combine with elevation.shadow.overlay."
+      }
+    },
+    "Light increased-contrast/elevation.surface.overlay.hovered": {
+      "value": "#F1F2F4",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.10.20",
+        "description": "Hovered state of elevation.surface.overlay"
+      }
+    },
+    "Light increased-contrast/elevation.surface.overlay.pressed": {
+      "value": "#DCDFE4",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.10.20",
+        "description": "Pressed state of elevation.surface.overlay"
+      }
+    },
+    "Light increased-contrast/elevation.surface.raised": {
+      "value": "#FFFFFF",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for the background of cards that can be moved, such as Jira cards on a Kanban board. Combine with elevation.shadow.raised."
+      }
+    },
+    "Light increased-contrast/elevation.surface.raised.hovered": {
+      "value": "#F1F2F4",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.10.20",
+        "description": "Hovered state of elevation.surface.raised"
+      }
+    },
+    "Light increased-contrast/elevation.surface.raised.pressed": {
+      "value": "#DCDFE4",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.10.20",
+        "description": "Pressed state of elevation.surface.raised"
+      }
+    },
+    "Light increased-contrast/elevation.surface.sunken": {
+      "value": "#FCFDFE",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "A secondary background for the UI commonly used for grouping items, such as Jira cards in columns."
+      }
+    },
+    "Light increased-contrast/elevation.shadow.overflow": {
+      "value": [
+        {
+          "radius": 8,
+          "offset": {
+            "x": 0,
+            "y": 0
+          },
+          "color": "#091E42",
+          "opacity": 0.16
+        },
+        {
+          "radius": 1,
+          "offset": {
+            "x": 0,
+            "y": 0
+          },
+          "color": "#091E42",
+          "opacity": 0.12
+        }
+      ],
+      "attributes": {
+        "group": "shadow",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use to create a shadow when content scrolls under other content."
+      }
+    },
+    "Light increased-contrast/elevation.shadow.overflow.perimeter": {
+      "value": "#091e421f",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.10.32",
+        "description": "Use only when elevation.shadow.overflow is not technically feasible to implement. Pair with elevation.shadow.overflow.spread to replicate the overflow shadow."
+      }
+    },
+    "Light increased-contrast/elevation.shadow.overflow.spread": {
+      "value": "#091e4229",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.10.32",
+        "description": "Use only when elevation.shadow.overflow is not technically feasible to implement. Pair with elevation.shadow.overflow.perimeter to replicate the overflow shadow."
+      }
+    },
+    "Light increased-contrast/elevation.shadow.overlay": {
+      "value": [
+        {
+          "radius": 0,
+          "offset": {
+            "x": 0,
+            "y": 0
+          },
+          "color": "#091E42",
+          "opacity": 0.5,
+          "spread": 1,
+          "inset": true
+        },
+        {
+          "radius": 1,
+          "offset": {
+            "x": 0,
+            "y": 0
+          },
+          "color": "#091E42",
+          "opacity": 0.31
+        }
+      ],
+      "attributes": {
+        "group": "shadow",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for the box shadow of elements that sit on top of the UI, such as modals, dropdown menus, flags, and inline dialogs. Combine with elevation.surface.overlay\n\nAlso use for the box shadow of raised cards in a dragged state."
+      }
+    },
+    "Light increased-contrast/elevation.shadow.raised": {
+      "value": [
+        {
+          "radius": 0,
+          "offset": {
+            "x": 0,
+            "y": 0
+          },
+          "color": "#091E42",
+          "opacity": 0.5,
+          "spread": 1,
+          "inset": true
+        },
+        {
+          "radius": 1,
+          "offset": {
+            "x": 0,
+            "y": 0
+          },
+          "color": "#091E42",
+          "opacity": 0.31
+        }
+      ],
+      "attributes": {
+        "group": "shadow",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for the box shadow of raised card elements, such as Jira cards on a Kanban board. Combine with elevation.surface.raised"
+      }
+    }
+  },
+  "renameMap": {}
+}

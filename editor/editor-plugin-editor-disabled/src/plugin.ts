@@ -1,8 +1,11 @@
+import rafSchedule from 'raf-schd';
+
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import { pluginFactory } from '@atlaskit/editor-common/utils';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 export type EditorDisabledPluginState = { editorDisabled: boolean };
 
@@ -19,6 +22,17 @@ function reducer(
 
 const { createPluginState, getPluginState } = pluginFactory(pluginKey, reducer);
 
+const scheduleEditorDisabledUpdate = rafSchedule((view: EditorView) => {
+  if (getPluginState(view.state).editorDisabled !== !view.editable) {
+    const tr = view.state.tr.setMeta(pluginKey, {
+      editorDisabled: !view.editable,
+    } as EditorDisabledPluginState);
+
+    tr.setMeta('isLocal', true);
+    view.dispatch(tr);
+  }
+});
+
 /*
 Stores the state of the editor enabled/disabled for panel and floating
 toolbar to subscribe to through <WithPluginState>. Otherwise the NodeViews
@@ -33,14 +47,10 @@ function createPlugin(
     view: () => {
       return {
         update(view) {
-          if (getPluginState(view.state).editorDisabled !== !view.editable) {
-            const tr = view.state.tr.setMeta(pluginKey, {
-              editorDisabled: !view.editable,
-            } as EditorDisabledPluginState);
-
-            tr.setMeta('isLocal', true);
-            view.dispatch(tr);
-          }
+          scheduleEditorDisabledUpdate(view);
+        },
+        destroy() {
+          scheduleEditorDisabledUpdate.cancel();
         },
       };
     },

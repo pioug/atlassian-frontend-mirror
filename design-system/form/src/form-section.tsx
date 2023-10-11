@@ -30,15 +30,9 @@ const formSectionTitleStyles = css({
   marginTop: 0,
   marginRight: token('space.400', '32px'),
   lineHeight: token('space.400', '32px'),
+  overflow: 'hidden',
   textOverflow: 'ellipsis',
   whiteSpace: 'nowrap',
-  // Use "clip" overflow to allow ellipses on x-axis without clipping descenders
-  '@supports not (overflow-x: clip)': {
-    overflow: 'hidden',
-  },
-  '@supports (overflow-x: clip)': {
-    overflowX: 'clip',
-  },
 });
 
 const formSectionWrapperStyles = css({

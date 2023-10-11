@@ -43,6 +43,7 @@ import type { OptionalPlugin } from '@atlaskit/editor-common/types';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { Providers } from '@atlaskit/editor-common/provider-factory';
 import type { RichMediaLayout } from '@atlaskit/adf-schema';
+import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
 import type { UploadEndEventPayload } from '@atlaskit/media-picker/types';
 import type { UploadErrorEventPayload } from '@atlaskit/media-picker/types';
 import type { UploadParams } from '@atlaskit/media-picker/types';
@@ -164,6 +165,7 @@ export type MediaPlugin = NextEditorPlugin<
       FloatingToolbarPlugin,
       EditorDisabledPlugin,
       FocusPlugin,
+      SelectionPlugin,
     ];
     sharedState: MediaPluginState | null;
     actions: {

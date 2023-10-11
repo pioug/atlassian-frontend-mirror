@@ -349,7 +349,10 @@ const itemBody = css`
   line-height: 1.4;
   width: 100%;
 
-  margin-top: -2px; // Fixes the Item Icon and text's alignment issue
+  margin-top: ${token(
+    'space.negative.025',
+    '-2px',
+  )}; // Fixes the Item Icon and text's alignment issue
 `;
 
 /*
@@ -391,6 +394,10 @@ const itemTitle = css`
 
 const itemAfter = css`
   flex: 0 0 auto;
+
+  // Prevents item from being cut off due to negative margin
+  padding-top: ${token('space.025', '2px')};
+  margin-bottom: ${token('space.negative.025', '-2px')};
 `;
 
 const itemIconStyle = css`

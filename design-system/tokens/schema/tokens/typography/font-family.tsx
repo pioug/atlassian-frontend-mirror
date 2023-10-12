@@ -1,0 +1,62 @@
+import type {
+  AttributeSchema,
+  FontFamilyTokenSchema,
+} from '../../../src/types';
+import type { FontFamilyBaseToken as BaseToken } from '../../palettes/typography-palette';
+
+const font: AttributeSchema<FontFamilyTokenSchema<BaseToken>> = {
+  font: {
+    family: {
+      sans: {
+        attributes: {
+          group: 'fontFamily',
+          state: 'active',
+          introduced: '0.10.33',
+          description: 'Helpful guidance goes here',
+        },
+      },
+      monospace: {
+        attributes: {
+          group: 'fontFamily',
+          state: 'active',
+          introduced: '0.10.33',
+          description: 'Helpful guidance goes here',
+        },
+      },
+      code: {
+        attributes: {
+          group: 'fontFamily',
+          state: 'experimental',
+          introduced: '1.14.0',
+          description: 'Helpful guidance goes here',
+        },
+      },
+      brand: {
+        attributes: {
+          group: 'fontFamily',
+          state: 'experimental',
+          introduced: '1.14.0',
+          description: 'Helpful guidance goes here',
+        },
+      },
+      heading: {
+        attributes: {
+          group: 'fontFamily',
+          state: 'experimental',
+          introduced: '1.14.0',
+          description: 'Helpful guidance goes here',
+        },
+      },
+      body: {
+        attributes: {
+          group: 'fontFamily',
+          state: 'experimental',
+          introduced: '1.14.0',
+          description: 'Helpful guidance goes here',
+        },
+      },
+    },
+  },
+};
+
+export default font;

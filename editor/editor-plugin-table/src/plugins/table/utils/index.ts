@@ -26,6 +26,8 @@ export {
   tablesHaveDifferentColumnWidths,
   tablesHaveDifferentNoOfColumns,
   isTableNested,
+  anyChildCellMergedAcrossRow,
+  supportedHeaderRow,
 } from './nodes';
 export {
   unwrapContentFromTable,

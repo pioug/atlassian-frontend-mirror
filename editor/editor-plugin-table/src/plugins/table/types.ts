@@ -121,6 +121,8 @@ export interface TablePluginState {
   isBreakoutEnabled?: boolean;
   wasFullWidthModeEnabled?: boolean;
   isTableResizingEnabled?: boolean;
+
+  isDragAndDropEnabled?: boolean;
 }
 
 export type TablePluginAction =

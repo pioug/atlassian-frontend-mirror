@@ -30,7 +30,10 @@
     "baseUrl": "./",
     "composite": true,
     "outDir": "../../../tsDist/@atlaskit__blanket/dev",
-    "types": ["@emotion/react/types/css-prop"]
+    "types": [
+      "@emotion/react/types/css-prop",
+      "@types/testing-library__jest-dom"
+    ]
   },
   "references": [
     {

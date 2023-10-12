@@ -1,5 +1,17 @@
 # @atlaskit/ds-explorations
 
+## 3.0.3
+
+### Patch Changes
+
+- [#40324](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40324) [`8d123310957`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d123310957) - Minor internal changes. There is no expected behaviour change
+
+## 3.0.2
+
+### Patch Changes
+
+- [#41492](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41492) [`dc028fe1e3b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dc028fe1e3b) - Loosen SurfaceProvider type to `any`.
+
 ## 3.0.1
 
 ### Patch Changes

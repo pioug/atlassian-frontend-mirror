@@ -59,7 +59,7 @@ describe('caption', () => {
     expect(screen.getByText('Add a caption')).not.toBeNull();
   });
 
-  it('should not show a placeholder when selecting away from media single', () => {
+  it('should not show a placeholder when selecting away from media single', async () => {
     const { editorView } = editor(
       doc(
         '{<node>}', // node selection
@@ -67,12 +67,13 @@ describe('caption', () => {
         p('this is a random piece of text'),
       ),
     );
-    expect(screen.getByText('Add a caption')).not.toBeNull();
+    let caption = await screen.findByText('Add a caption');
+    expect(caption).toBeDefined();
     setTextSelection(editorView, 13, 14);
     expect(screen.queryByText('Add a caption')).toBeNull();
   });
 
-  it('should show a placeholder when selecting a media single', () => {
+  it('should show a placeholder when selecting a media single', async () => {
     const { editorView } = editor(
       doc(
         '{node}', // node selection
@@ -82,7 +83,8 @@ describe('caption', () => {
     );
     expect(screen.queryByText('Add a caption')).toBeNull();
     setNodeSelection(editorView, 0);
-    expect(screen.getByText('Add a caption')).not.toBeNull();
+    let caption = await screen.findByText('Add a caption');
+    expect(caption).toBeDefined();
   });
 });
 

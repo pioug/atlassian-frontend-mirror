@@ -80,6 +80,22 @@ export const getErrorAttributes = (
       errorCategory: error.classification,
     };
   } else if (error instanceof Error) {
+    // Jira custom profile card client error, they wrap the error & put the underlying error in the cause property
+    if (error.message.startsWith('Unable to fetch user:')) {
+      if (error.hasOwnProperty('cause')) {
+        const causeError = (error as any).cause;
+        if (
+          causeError instanceof DirectoryGraphQLErrors ||
+          causeError instanceof AGGErrors
+        ) {
+          return getErrorAttributes(causeError);
+        }
+      }
+      return {
+        errorMessage: error.message,
+        isSLOFailure: false,
+      };
+    }
     return {
       errorMessage: error.message,
       isSLOFailure: true,

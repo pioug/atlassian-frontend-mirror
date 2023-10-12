@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 0.6.0
+
+### Minor Changes
+
+- [#41459](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41459) [`9874d0f70b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9874d0f70b0) - [ED-20003] TypeAhead extraction: Replace the mobile view-subscription with proper API
+
 ## 0.5.0
 
 ### Minor Changes

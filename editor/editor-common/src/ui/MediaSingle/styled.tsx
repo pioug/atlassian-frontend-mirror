@@ -205,7 +205,7 @@ export const MediaSingleDimensionHelper = ({
 
   &[class*='not-resizing'] {
     ${isNestedNode
-      ? /* Make nested node appear responsives when resizing table cell */
+      ? /* Make nested node appear responsive when resizing table cell */
         `max-width: 100%;`
       : nonWrappedLayouts.includes(layout) &&
         `margin-left: 50%;

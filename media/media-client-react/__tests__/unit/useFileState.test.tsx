@@ -6,10 +6,18 @@ import { disableFetchMocks } from 'jest-fetch-mock';
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
 
-import { getFileStreamsCache, ResponseFileItem } from '@atlaskit/media-client';
+import {
+  getFileStreamsCache,
+  MediaClient,
+  ResponseFileItem,
+} from '@atlaskit/media-client';
 import { mediaStore } from '@atlaskit/media-state';
 
-import { MediaClientProvider, useFileState } from '../../src';
+import {
+  MediaClientContext,
+  MediaClientProvider,
+  useFileState,
+} from '../../src';
 
 disableFetchMocks();
 
@@ -119,6 +127,46 @@ describe('useFileState', () => {
         status: 'error',
       }),
     );
+  });
+
+  it('should return the file state from cache only if cache already exists in the cache', async () => {
+    const mediaClient = new MediaClient({
+      authProvider: () =>
+        Promise.resolve({
+          clientId: 'clientId',
+          token: 'token',
+          baseUrl,
+        }),
+    });
+
+    spyOn(mediaClient.mediaStore, 'getItems');
+
+    const testState = {
+      id: testFileId,
+      status: 'processing',
+      name: 'test file',
+      size: 312312,
+      mediaType: 'unknown',
+      mimeType: 'video/mp4',
+    } as any;
+
+    mediaStore.setState(state => {
+      state.files[testFileId] = testState;
+    });
+
+    const wrapper = ({ children }: any) => (
+      <MediaClientContext.Provider value={mediaClient}>
+        {children}
+      </MediaClientContext.Provider>
+    );
+
+    const { result } = renderHook(
+      () => useFileState(testFileId, { collectionName }),
+      { wrapper },
+    );
+
+    expect(result.current.fileState).toEqual(testState);
+    expect(mediaClient.mediaStore.getItems).not.toBeCalled();
   });
 
   it('should return the correct file state for a succeeded processing status', async () => {
@@ -431,6 +479,34 @@ describe('useFileState', () => {
       // We don't expect any result in this situation.
       // As for a 500 error, the system will keep trying until it hits the maximum attempts.
       await waitFor(() => expect(result.current.fileState).toEqual(undefined));
+    });
+  });
+
+  describe('options', () => {
+    it('skipRemote', () => {
+      const mediaClient = new MediaClient({
+        authProvider: () =>
+          Promise.resolve({
+            clientId: 'clientId',
+            token: 'token',
+            baseUrl,
+          }),
+      });
+
+      spyOn(mediaClient.mediaStore, 'getItems');
+      const wrapper = ({ children }: any) => (
+        <MediaClientContext.Provider value={mediaClient}>
+          {children}
+        </MediaClientContext.Provider>
+      );
+
+      const { result } = renderHook(
+        () => useFileState(testFileId, { collectionName, skipRemote: true }),
+        { wrapper },
+      );
+
+      expect(result.current.fileState).toEqual(undefined);
+      expect(mediaClient.mediaStore.getItems).not.toBeCalled();
     });
   });
 });

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-placeholder",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Placeholder plugin for @atlaskit/editor-core.",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -31,10 +31,10 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@atlaskit/editor-common": "^76.9.0",
+    "@atlaskit/editor-common": "^76.10.0",
     "@atlaskit/editor-plugin-composition": "^0.1.0",
     "@atlaskit/editor-plugin-focus": "^0.2.0",
-    "@atlaskit/editor-plugin-type-ahead": "^0.5.0",
+    "@atlaskit/editor-plugin-type-ahead": "^0.6.0",
     "@atlaskit/editor-prosemirror": "1.1.0",
     "@babel/runtime": "^7.0.0"
   },

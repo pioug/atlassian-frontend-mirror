@@ -22,7 +22,7 @@ The cookie can be obtained upon logging in to [Confluence](https://www.atlassian
 
   - _Embedded Confluence requires access to 3rd party cookies and for a user to be logged into Confluence beforehand. As of **v2.0.0**, there is a Login/Authentication flow supported for Embedded Pages which asks the user to allow Storage Access and login to Confluence using the Atlassian Identity Platform. (More details on this can be found in the Login/Authentication Flow section)._
 
-- The 3rd party will need to reach out to Atlassian/an Atlassian representative via this [service desk request form](https://fy22august.atlassian.net/servicedesk/customer/portal/6/group/19/create/63) and provide the domain(s) used by the 3rd party application for Atlassian to allowlist.
+- The 3rd party will need to reach out to Atlassian/an Atlassian representative via this [service desk request form](https://ecosystem.atlassian.net/servicedesk/customer/portal/34/group/106/create/567) and provide the domain(s) used by the 3rd party application for Atlassian to allowlist.
 
 # Installation guide
 

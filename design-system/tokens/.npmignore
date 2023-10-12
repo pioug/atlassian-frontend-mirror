@@ -12,6 +12,7 @@ dist/figma/
 dist/tokens-browser-extension
 tokens-browser-extension
 scripts/
+schema/
 constellation/
 
 dist/**/artifacts/generated-pairs

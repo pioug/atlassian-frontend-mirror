@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::54cdec07bc1ce255f26b8254ca514b76>>
+ * @codegen <<SignedSource::b5cb4872c7a2014d836a8fa15e4c0102>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -12,7 +12,7 @@ const tokens = [
       "description": "Equates to `0`. Use for resetting default spacing styles."
     },
     "value": "0px",
-    "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
+    "filePath": "schema/themes/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -42,7 +42,7 @@ const tokens = [
       "description": "Use for small and compact pieces of UI."
     },
     "value": "2px",
-    "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
+    "filePath": "schema/themes/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -76,7 +76,7 @@ const tokens = [
       "description": "Use for small and compact pieces of UI."
     },
     "value": "4px",
-    "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
+    "filePath": "schema/themes/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -110,7 +110,7 @@ const tokens = [
       "description": "Use for small and compact pieces of UI."
     },
     "value": "6px",
-    "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
+    "filePath": "schema/themes/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -144,7 +144,7 @@ const tokens = [
       "description": "Use for small and compact pieces of UI."
     },
     "value": "8px",
-    "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
+    "filePath": "schema/themes/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -180,7 +180,7 @@ const tokens = [
       "description": "Use for larger and less dense pieces of UI."
     },
     "value": "12px",
-    "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
+    "filePath": "schema/themes/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -218,7 +218,7 @@ const tokens = [
       "description": "Use for larger and less dense pieces of UI."
     },
     "value": "16px",
-    "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
+    "filePath": "schema/themes/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -256,7 +256,7 @@ const tokens = [
       "description": "Use for larger and less dense pieces of UI."
     },
     "value": "20px",
-    "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
+    "filePath": "schema/themes/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -295,7 +295,7 @@ const tokens = [
       "description": "Use for larger and less dense pieces of UI."
     },
     "value": "24px",
-    "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
+    "filePath": "schema/themes/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -337,7 +337,7 @@ const tokens = [
       "description": "Use for the largest pieces of UI and for layout elements."
     },
     "value": "32px",
-    "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
+    "filePath": "schema/themes/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -372,7 +372,7 @@ const tokens = [
       "description": "Use for the largest pieces of UI and for layout elements."
     },
     "value": "40px",
-    "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
+    "filePath": "schema/themes/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -398,7 +398,7 @@ const tokens = [
       "description": "Use for the largest pieces of UI and for layout elements."
     },
     "value": "48px",
-    "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
+    "filePath": "schema/themes/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -424,7 +424,7 @@ const tokens = [
       "description": "Use for the largest pieces of UI and for layout elements."
     },
     "value": "64px",
-    "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
+    "filePath": "schema/themes/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -450,7 +450,7 @@ const tokens = [
       "description": "Use for the largest pieces of UI and for layout elements."
     },
     "value": "80px",
-    "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
+    "filePath": "schema/themes/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -480,7 +480,7 @@ const tokens = [
       "description": "Use to negate parent whitespace or overlap small pieces of UI."
     },
     "value": "-2px",
-    "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
+    "filePath": "schema/themes/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -515,7 +515,7 @@ const tokens = [
       "description": "Use to negate parent whitespace or overlap small pieces of UI."
     },
     "value": "-4px",
-    "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
+    "filePath": "schema/themes/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -550,7 +550,7 @@ const tokens = [
       "description": "Use to negate parent whitespace or overlap small pieces of UI."
     },
     "value": "-6px",
-    "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
+    "filePath": "schema/themes/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -585,7 +585,7 @@ const tokens = [
       "description": "Use to negate parent whitespace or overlap small pieces of UI."
     },
     "value": "-8px",
-    "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
+    "filePath": "schema/themes/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -622,7 +622,7 @@ const tokens = [
       "description": "Use to negate parent whitespace or overlap larger pieces of UI."
     },
     "value": "-12px",
-    "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
+    "filePath": "schema/themes/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -661,7 +661,7 @@ const tokens = [
       "description": "Use to negate parent whitespace or overlap larger pieces of UI."
     },
     "value": "-16px",
-    "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
+    "filePath": "schema/themes/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -700,7 +700,7 @@ const tokens = [
       "description": "Use to negate parent whitespace or overlap larger pieces of UI."
     },
     "value": "-20px",
-    "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
+    "filePath": "schema/themes/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -740,7 +740,7 @@ const tokens = [
       "description": "Use to negate parent whitespace or overlap larger pieces of UI."
     },
     "value": "-24px",
-    "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
+    "filePath": "schema/themes/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -783,7 +783,7 @@ const tokens = [
       "description": "Use to negate parent whitespace or overlap the largest pieces of UI."
     },
     "value": "-32px",
-    "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
+    "filePath": "schema/themes/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
       "attributes": {

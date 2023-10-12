@@ -1,12 +1,13 @@
 /** @jsx jsx */
 import type { MouseEvent } from 'react';
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
 import { jsx } from '@emotion/react';
 
 import type {
   ExtendedMediaAttributes,
   MediaADFAttrs,
+  MediaAttributes,
   RichMediaLayout as MediaSingleLayout,
 } from '@atlaskit/adf-schema';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
@@ -59,6 +60,7 @@ import ResizableMediaSingle from '../ui/ResizableMediaSingle';
 import ResizableMediaSingleNext from '../ui/ResizableMediaSingle/ResizableMediaSingleNext';
 import { isMediaBlobUrlFromAttrs } from '../utils/media-common';
 
+import { hasPrivateAttrsChanged } from './helpers';
 import { MediaNodeUpdater } from './mediaNodeUpdater';
 import { figureWrapper, MediaSingleNodeSelector } from './styles';
 import type { MediaSingleNodeProps, MediaSingleNodeViewProps } from './types';
@@ -72,7 +74,7 @@ export interface MediaSingleNodeState {
 }
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
-export default class MediaSingleNode extends Component<
+export default class MediaSingleNode extends PureComponent<
   MediaSingleNodeProps,
   MediaSingleNodeState
 > {
@@ -80,6 +82,7 @@ export default class MediaSingleNode extends Component<
     mediaOptions: {},
   };
   static displayName = 'MediaSingleNode';
+  mediaNodeUpdater: MediaNodeUpdater | null = null;
 
   state: MediaSingleNodeState = {
     width: undefined,
@@ -91,18 +94,25 @@ export default class MediaSingleNode extends Component<
   mediaSingleWrapperRef = React.createRef<HTMLDivElement>();
   captionPlaceHolderRef = React.createRef<HTMLSpanElement>();
 
-  createMediaNodeUpdater = (props: MediaSingleNodeProps): MediaNodeUpdater => {
+  createOrUpdateMediaNodeUpdater = (props: MediaSingleNodeProps) => {
     const node = this.props.node.firstChild;
-
-    return new MediaNodeUpdater({
+    const updaterProps = {
       ...props,
       isMediaSingle: true,
       node: node ? (node as PMNode) : this.props.node,
       dispatchAnalyticsEvent: this.props.dispatchAnalyticsEvent,
-    });
+    };
+    if (!this.mediaNodeUpdater) {
+      this.mediaNodeUpdater = new MediaNodeUpdater(updaterProps);
+    } else {
+      this.mediaNodeUpdater?.setProps(updaterProps);
+    }
   };
 
   UNSAFE_componentWillReceiveProps(nextProps: MediaSingleNodeProps) {
+    if (!this.mediaNodeUpdater) {
+      this.createOrUpdateMediaNodeUpdater(nextProps);
+    }
     if (nextProps.mediaProvider !== this.props.mediaProvider) {
       this.setViewMediaClientConfig(nextProps);
     }
@@ -112,9 +122,20 @@ export default class MediaSingleNode extends Component<
       return;
     }
 
-    // We need to call this method on any prop change since attrs can get removed with collab editing
-    // the method internally checks if we already have all attrs
-    this.createMediaNodeUpdater(nextProps).updateMediaSingleFileAttrs();
+    if (nextProps.mediaProvider !== this.props.mediaProvider) {
+      this.createOrUpdateMediaNodeUpdater(nextProps);
+      this.mediaNodeUpdater?.updateMediaSingleFileAttrs();
+    } else if (nextProps.node.firstChild && this.props.node.firstChild) {
+      const attrsChanged = hasPrivateAttrsChanged(
+        this.props.node.firstChild.attrs as MediaAttributes,
+        nextProps.node.firstChild.attrs,
+      );
+      if (attrsChanged) {
+        this.createOrUpdateMediaNodeUpdater(nextProps);
+        // We need to call this method on any prop change since attrs can get removed with collab editing
+        this.mediaNodeUpdater?.updateMediaSingleFileAttrs();
+      }
+    }
   }
 
   setViewMediaClientConfig = async (props: MediaSingleNodeProps) => {
@@ -129,7 +150,7 @@ export default class MediaSingleNode extends Component<
   };
 
   updateMediaNodeAttributes = async (props: MediaSingleNodeProps) => {
-    const mediaNodeUpdater = this.createMediaNodeUpdater(props);
+    this.createOrUpdateMediaNodeUpdater(props);
     const { addPendingTask } = this.props.mediaPluginState;
 
     // we want the first child of MediaSingle (type "media")
@@ -138,13 +159,19 @@ export default class MediaSingleNode extends Component<
       return;
     }
 
-    const updatedDimensions = await mediaNodeUpdater.getRemoteDimensions();
-    if (updatedDimensions) {
-      mediaNodeUpdater.updateDimensions(updatedDimensions);
+    const updatedDimensions =
+      await this.mediaNodeUpdater?.getRemoteDimensions();
+    const currentAttrs = this.props.node.firstChild?.attrs;
+    if (
+      updatedDimensions &&
+      (currentAttrs?.width !== updatedDimensions.width ||
+        currentAttrs?.height !== updatedDimensions.height)
+    ) {
+      this.mediaNodeUpdater?.updateDimensions(updatedDimensions);
     }
 
     if (node.attrs.type === 'external' && node.attrs.__external) {
-      const updatingNode = mediaNodeUpdater.handleExternalMedia(
+      const updatingNode = this.mediaNodeUpdater!.handleExternalMedia(
         this.props.getPos,
       );
       addPendingTask(updatingNode);
@@ -152,18 +179,18 @@ export default class MediaSingleNode extends Component<
       return;
     }
 
-    const contextId = mediaNodeUpdater.getNodeContextId();
+    const contextId = this.mediaNodeUpdater?.getNodeContextId();
     if (!contextId) {
-      await mediaNodeUpdater.updateContextId();
+      await this.mediaNodeUpdater?.updateContextId();
     }
 
     const hasDifferentContextId =
-      await mediaNodeUpdater.hasDifferentContextId();
+      await this.mediaNodeUpdater?.hasDifferentContextId();
 
     if (hasDifferentContextId) {
       this.setState({ isCopying: true });
       try {
-        const copyNode = mediaNodeUpdater.copyNode({
+        const copyNode = this.mediaNodeUpdater!.copyNode({
           traceId: node.attrs.__mediaTraceId,
         });
         addPendingTask(copyNode);
@@ -177,6 +204,7 @@ export default class MediaSingleNode extends Component<
 
   async componentDidMount() {
     const { contextIdentifierProvider } = this.props;
+    this.createOrUpdateMediaNodeUpdater(this.props);
 
     await Promise.all([
       this.setViewMediaClientConfig(this.props),

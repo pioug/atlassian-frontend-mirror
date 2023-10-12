@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "@atlaskit/adf-schema": "^32.0.0",
-    "@atlaskit/editor-common": "^76.9.0",
+    "@atlaskit/editor-common": "^76.10.0",
     "@atlaskit/editor-plugin-feature-flags": "^1.0.1",
     "@atlaskit/editor-prosemirror": "1.1.0",
     "@atlaskit/platform-feature-flags": "^0.2.0",
@@ -44,7 +44,7 @@
     "@atlaskit/editor-plugin-emoji": "^0.4.0",
     "@atlaskit/editor-plugin-guideline": "^0.5.0",
     "@atlaskit/editor-plugin-selection": "^0.1.0",
-    "@atlaskit/editor-plugin-table": "^5.1.0",
+    "@atlaskit/editor-plugin-table": "^5.2.0",
     "@atlaskit/editor-plugin-width": "^0.2.0",
     "@atlaskit/util-data-test": "^17.8.0",
     "@atlaskit/webdriver-runner": "*",

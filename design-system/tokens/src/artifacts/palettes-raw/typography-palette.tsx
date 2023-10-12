@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::70935f0c6dc0ecb8df8e0eea44853fba>>
+ * @codegen <<SignedSource::b3ceb703addd40fe781df7b89d7772de>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -9,7 +9,7 @@ const tokens = [
     "attributes": {
       "group": "fontFamily"
     },
-    "filePath": "src/palettes/typography-palette.tsx",
+    "filePath": "schema/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
       "value": "Roboto Mono",
@@ -29,7 +29,7 @@ const tokens = [
     "attributes": {
       "group": "fontFamily"
     },
-    "filePath": "src/palettes/typography-palette.tsx",
+    "filePath": "schema/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
       "value": "Roboto",
@@ -49,7 +49,7 @@ const tokens = [
     "attributes": {
       "group": "fontFamily"
     },
-    "filePath": "src/palettes/typography-palette.tsx",
+    "filePath": "schema/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
       "value": "Charlie Sans",
@@ -69,7 +69,7 @@ const tokens = [
     "attributes": {
       "group": "fontFamily"
     },
-    "filePath": "src/palettes/typography-palette.tsx",
+    "filePath": "schema/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
       "value": "ui-monospace, Menlo, \"Segoe UI Mono\", \"Ubuntu Mono\", monospace",
@@ -89,7 +89,7 @@ const tokens = [
     "attributes": {
       "group": "fontFamily"
     },
-    "filePath": "src/palettes/typography-palette.tsx",
+    "filePath": "schema/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
       "value": "ui-sans-serif, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
@@ -109,7 +109,7 @@ const tokens = [
     "attributes": {
       "group": "fontFamily"
     },
-    "filePath": "src/palettes/typography-palette.tsx",
+    "filePath": "schema/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
       "value": "SF Mono",
@@ -129,7 +129,7 @@ const tokens = [
     "attributes": {
       "group": "fontFamily"
     },
-    "filePath": "src/palettes/typography-palette.tsx",
+    "filePath": "schema/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
       "value": "SF Pro",
@@ -149,7 +149,7 @@ const tokens = [
     "attributes": {
       "group": "fontFamily"
     },
-    "filePath": "src/palettes/typography-palette.tsx",
+    "filePath": "schema/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
       "value": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Roboto\", \"Oxygen\", \"Ubuntu\", \"Fira Sans\", \"Droid Sans\", \"Helvetica Neue\", sans-serif",
@@ -169,7 +169,7 @@ const tokens = [
     "attributes": {
       "group": "fontSize"
     },
-    "filePath": "src/palettes/typography-palette.tsx",
+    "filePath": "schema/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
       "value": 12,
@@ -189,7 +189,7 @@ const tokens = [
     "attributes": {
       "group": "fontSize"
     },
-    "filePath": "src/palettes/typography-palette.tsx",
+    "filePath": "schema/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
       "value": 14,
@@ -209,7 +209,7 @@ const tokens = [
     "attributes": {
       "group": "fontSize"
     },
-    "filePath": "src/palettes/typography-palette.tsx",
+    "filePath": "schema/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
       "value": 16,
@@ -229,7 +229,7 @@ const tokens = [
     "attributes": {
       "group": "fontSize"
     },
-    "filePath": "src/palettes/typography-palette.tsx",
+    "filePath": "schema/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
       "value": 20,
@@ -249,7 +249,7 @@ const tokens = [
     "attributes": {
       "group": "fontSize"
     },
-    "filePath": "src/palettes/typography-palette.tsx",
+    "filePath": "schema/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
       "value": 24,
@@ -269,7 +269,7 @@ const tokens = [
     "attributes": {
       "group": "fontSize"
     },
-    "filePath": "src/palettes/typography-palette.tsx",
+    "filePath": "schema/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
       "value": 28,
@@ -289,7 +289,7 @@ const tokens = [
     "attributes": {
       "group": "fontSize"
     },
-    "filePath": "src/palettes/typography-palette.tsx",
+    "filePath": "schema/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
       "value": 32,
@@ -309,7 +309,7 @@ const tokens = [
     "attributes": {
       "group": "fontSize"
     },
-    "filePath": "src/palettes/typography-palette.tsx",
+    "filePath": "schema/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
       "value": 36,
@@ -329,7 +329,7 @@ const tokens = [
     "attributes": {
       "group": "fontSize"
     },
-    "filePath": "src/palettes/typography-palette.tsx",
+    "filePath": "schema/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
       "value": 48,
@@ -349,7 +349,7 @@ const tokens = [
     "attributes": {
       "group": "fontSize"
     },
-    "filePath": "src/palettes/typography-palette.tsx",
+    "filePath": "schema/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
       "value": "0.875em",
@@ -369,7 +369,7 @@ const tokens = [
     "attributes": {
       "group": "fontSize"
     },
-    "filePath": "src/palettes/typography-palette.tsx",
+    "filePath": "schema/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
       "value": 11,
@@ -389,7 +389,7 @@ const tokens = [
     "attributes": {
       "group": "fontSize"
     },
-    "filePath": "src/palettes/typography-palette.tsx",
+    "filePath": "schema/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
       "value": 29,
@@ -409,7 +409,7 @@ const tokens = [
     "attributes": {
       "group": "fontSize"
     },
-    "filePath": "src/palettes/typography-palette.tsx",
+    "filePath": "schema/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
       "value": 35,
@@ -429,7 +429,7 @@ const tokens = [
     "attributes": {
       "group": "fontWeight"
     },
-    "filePath": "src/palettes/typography-palette.tsx",
+    "filePath": "schema/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
       "value": "400",
@@ -449,7 +449,7 @@ const tokens = [
     "attributes": {
       "group": "fontWeight"
     },
-    "filePath": "src/palettes/typography-palette.tsx",
+    "filePath": "schema/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
       "value": "500",
@@ -469,7 +469,7 @@ const tokens = [
     "attributes": {
       "group": "fontWeight"
     },
-    "filePath": "src/palettes/typography-palette.tsx",
+    "filePath": "schema/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
       "value": "600",
@@ -489,7 +489,7 @@ const tokens = [
     "attributes": {
       "group": "fontWeight"
     },
-    "filePath": "src/palettes/typography-palette.tsx",
+    "filePath": "schema/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
       "value": "700",
@@ -509,7 +509,7 @@ const tokens = [
     "attributes": {
       "group": "letterSpacing"
     },
-    "filePath": "src/palettes/typography-palette.tsx",
+    "filePath": "schema/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
       "value": "0",
@@ -529,7 +529,7 @@ const tokens = [
     "attributes": {
       "group": "letterSpacing"
     },
-    "filePath": "src/palettes/typography-palette.tsx",
+    "filePath": "schema/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
       "value": "-0.003em",
@@ -549,7 +549,7 @@ const tokens = [
     "attributes": {
       "group": "letterSpacing"
     },
-    "filePath": "src/palettes/typography-palette.tsx",
+    "filePath": "schema/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
       "value": "-0.006em",
@@ -569,7 +569,7 @@ const tokens = [
     "attributes": {
       "group": "letterSpacing"
     },
-    "filePath": "src/palettes/typography-palette.tsx",
+    "filePath": "schema/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
       "value": "-0.008em",
@@ -589,7 +589,7 @@ const tokens = [
     "attributes": {
       "group": "letterSpacing"
     },
-    "filePath": "src/palettes/typography-palette.tsx",
+    "filePath": "schema/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
       "value": "-0.01em",
@@ -609,7 +609,7 @@ const tokens = [
     "attributes": {
       "group": "lineHeight"
     },
-    "filePath": "src/palettes/typography-palette.tsx",
+    "filePath": "schema/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
       "value": 12,
@@ -629,7 +629,7 @@ const tokens = [
     "attributes": {
       "group": "lineHeight"
     },
-    "filePath": "src/palettes/typography-palette.tsx",
+    "filePath": "schema/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
       "value": "1",
@@ -649,7 +649,7 @@ const tokens = [
     "attributes": {
       "group": "lineHeight"
     },
-    "filePath": "src/palettes/typography-palette.tsx",
+    "filePath": "schema/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
       "value": 16,
@@ -669,7 +669,7 @@ const tokens = [
     "attributes": {
       "group": "lineHeight"
     },
-    "filePath": "src/palettes/typography-palette.tsx",
+    "filePath": "schema/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
       "value": 20,
@@ -689,7 +689,7 @@ const tokens = [
     "attributes": {
       "group": "lineHeight"
     },
-    "filePath": "src/palettes/typography-palette.tsx",
+    "filePath": "schema/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
       "value": 24,
@@ -709,7 +709,7 @@ const tokens = [
     "attributes": {
       "group": "lineHeight"
     },
-    "filePath": "src/palettes/typography-palette.tsx",
+    "filePath": "schema/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
       "value": 28,
@@ -729,7 +729,7 @@ const tokens = [
     "attributes": {
       "group": "lineHeight"
     },
-    "filePath": "src/palettes/typography-palette.tsx",
+    "filePath": "schema/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
       "value": 32,
@@ -749,7 +749,7 @@ const tokens = [
     "attributes": {
       "group": "lineHeight"
     },
-    "filePath": "src/palettes/typography-palette.tsx",
+    "filePath": "schema/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
       "value": 36,
@@ -769,7 +769,7 @@ const tokens = [
     "attributes": {
       "group": "lineHeight"
     },
-    "filePath": "src/palettes/typography-palette.tsx",
+    "filePath": "schema/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
       "value": 40,

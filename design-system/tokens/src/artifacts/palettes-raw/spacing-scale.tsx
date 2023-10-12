@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::f1c7eb6fca38275b61cb71127efc2f1a>>
+ * @codegen <<SignedSource::773f331b816c6bade1dffda09ee7f5ff>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -9,7 +9,7 @@ const tokens = [
     "attributes": {
       "group": "spacing"
     },
-    "filePath": "src/palettes/spacing-scale.tsx",
+    "filePath": "schema/palettes/spacing-scale.tsx",
     "isSource": true,
     "original": {
       "value": 0,
@@ -28,7 +28,7 @@ const tokens = [
     "attributes": {
       "group": "spacing"
     },
-    "filePath": "src/palettes/spacing-scale.tsx",
+    "filePath": "schema/palettes/spacing-scale.tsx",
     "isSource": true,
     "original": {
       "value": 2,
@@ -47,7 +47,7 @@ const tokens = [
     "attributes": {
       "group": "spacing"
     },
-    "filePath": "src/palettes/spacing-scale.tsx",
+    "filePath": "schema/palettes/spacing-scale.tsx",
     "isSource": true,
     "original": {
       "value": 4,
@@ -66,7 +66,7 @@ const tokens = [
     "attributes": {
       "group": "spacing"
     },
-    "filePath": "src/palettes/spacing-scale.tsx",
+    "filePath": "schema/palettes/spacing-scale.tsx",
     "isSource": true,
     "original": {
       "value": 6,
@@ -85,7 +85,7 @@ const tokens = [
     "attributes": {
       "group": "spacing"
     },
-    "filePath": "src/palettes/spacing-scale.tsx",
+    "filePath": "schema/palettes/spacing-scale.tsx",
     "isSource": true,
     "original": {
       "value": 8,
@@ -104,7 +104,7 @@ const tokens = [
     "attributes": {
       "group": "spacing"
     },
-    "filePath": "src/palettes/spacing-scale.tsx",
+    "filePath": "schema/palettes/spacing-scale.tsx",
     "isSource": true,
     "original": {
       "value": 80,
@@ -123,7 +123,7 @@ const tokens = [
     "attributes": {
       "group": "spacing"
     },
-    "filePath": "src/palettes/spacing-scale.tsx",
+    "filePath": "schema/palettes/spacing-scale.tsx",
     "isSource": true,
     "original": {
       "value": 12,
@@ -142,7 +142,7 @@ const tokens = [
     "attributes": {
       "group": "spacing"
     },
-    "filePath": "src/palettes/spacing-scale.tsx",
+    "filePath": "schema/palettes/spacing-scale.tsx",
     "isSource": true,
     "original": {
       "value": 16,
@@ -161,7 +161,7 @@ const tokens = [
     "attributes": {
       "group": "spacing"
     },
-    "filePath": "src/palettes/spacing-scale.tsx",
+    "filePath": "schema/palettes/spacing-scale.tsx",
     "isSource": true,
     "original": {
       "value": 20,
@@ -180,7 +180,7 @@ const tokens = [
     "attributes": {
       "group": "spacing"
     },
-    "filePath": "src/palettes/spacing-scale.tsx",
+    "filePath": "schema/palettes/spacing-scale.tsx",
     "isSource": true,
     "original": {
       "value": 24,
@@ -199,7 +199,7 @@ const tokens = [
     "attributes": {
       "group": "spacing"
     },
-    "filePath": "src/palettes/spacing-scale.tsx",
+    "filePath": "schema/palettes/spacing-scale.tsx",
     "isSource": true,
     "original": {
       "value": 32,
@@ -218,7 +218,7 @@ const tokens = [
     "attributes": {
       "group": "spacing"
     },
-    "filePath": "src/palettes/spacing-scale.tsx",
+    "filePath": "schema/palettes/spacing-scale.tsx",
     "isSource": true,
     "original": {
       "value": 40,
@@ -237,7 +237,7 @@ const tokens = [
     "attributes": {
       "group": "spacing"
     },
-    "filePath": "src/palettes/spacing-scale.tsx",
+    "filePath": "schema/palettes/spacing-scale.tsx",
     "isSource": true,
     "original": {
       "value": 48,
@@ -256,7 +256,7 @@ const tokens = [
     "attributes": {
       "group": "spacing"
     },
-    "filePath": "src/palettes/spacing-scale.tsx",
+    "filePath": "schema/palettes/spacing-scale.tsx",
     "isSource": true,
     "original": {
       "value": 64,
@@ -275,7 +275,7 @@ const tokens = [
     "attributes": {
       "group": "spacing"
     },
-    "filePath": "src/palettes/spacing-scale.tsx",
+    "filePath": "schema/palettes/spacing-scale.tsx",
     "isSource": true,
     "original": {
       "value": -2,
@@ -294,7 +294,7 @@ const tokens = [
     "attributes": {
       "group": "spacing"
     },
-    "filePath": "src/palettes/spacing-scale.tsx",
+    "filePath": "schema/palettes/spacing-scale.tsx",
     "isSource": true,
     "original": {
       "value": -4,
@@ -313,7 +313,7 @@ const tokens = [
     "attributes": {
       "group": "spacing"
     },
-    "filePath": "src/palettes/spacing-scale.tsx",
+    "filePath": "schema/palettes/spacing-scale.tsx",
     "isSource": true,
     "original": {
       "value": -6,
@@ -332,7 +332,7 @@ const tokens = [
     "attributes": {
       "group": "spacing"
     },
-    "filePath": "src/palettes/spacing-scale.tsx",
+    "filePath": "schema/palettes/spacing-scale.tsx",
     "isSource": true,
     "original": {
       "value": -8,
@@ -351,7 +351,7 @@ const tokens = [
     "attributes": {
       "group": "spacing"
     },
-    "filePath": "src/palettes/spacing-scale.tsx",
+    "filePath": "schema/palettes/spacing-scale.tsx",
     "isSource": true,
     "original": {
       "value": -12,
@@ -370,7 +370,7 @@ const tokens = [
     "attributes": {
       "group": "spacing"
     },
-    "filePath": "src/palettes/spacing-scale.tsx",
+    "filePath": "schema/palettes/spacing-scale.tsx",
     "isSource": true,
     "original": {
       "value": -16,
@@ -389,7 +389,7 @@ const tokens = [
     "attributes": {
       "group": "spacing"
     },
-    "filePath": "src/palettes/spacing-scale.tsx",
+    "filePath": "schema/palettes/spacing-scale.tsx",
     "isSource": true,
     "original": {
       "value": -20,
@@ -408,7 +408,7 @@ const tokens = [
     "attributes": {
       "group": "spacing"
     },
-    "filePath": "src/palettes/spacing-scale.tsx",
+    "filePath": "schema/palettes/spacing-scale.tsx",
     "isSource": true,
     "original": {
       "value": -24,
@@ -427,7 +427,7 @@ const tokens = [
     "attributes": {
       "group": "spacing"
     },
-    "filePath": "src/palettes/spacing-scale.tsx",
+    "filePath": "schema/palettes/spacing-scale.tsx",
     "isSource": true,
     "original": {
       "value": -32,

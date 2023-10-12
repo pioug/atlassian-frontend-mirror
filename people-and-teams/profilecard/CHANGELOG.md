@@ -1,5 +1,11 @@
 # @atlaskit/profilecard
 
+## 19.7.0
+
+### Minor Changes
+
+- [#41507](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41507) [`211ff35c18f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/211ff35c18f) - Handling of Jira custom client wrapping profile errors
+
 ## 19.6.1
 
 ### Patch Changes

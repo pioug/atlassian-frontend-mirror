@@ -202,9 +202,9 @@ describe('nodeviews/media', () => {
         const image = await findByTestId('media-card-view');
 
         // editorWidth.width
-        expect(window.getComputedStyle(image).width).toBe('640px');
+        expect(window.getComputedStyle(image).width).toBe('100%');
         // (height / width) * editorWidth.width is the current formula
-        expect(window.getComputedStyle(image).height).toBe('480px');
+        expect(window.getComputedStyle(image).height).toBe('100%');
       });
 
       it('correctly sets contenteditable', () => {
@@ -242,10 +242,8 @@ describe('nodeviews/media', () => {
 
         const image = await findByTestId('media-card-view');
 
-        expect(window.getComputedStyle(image).width).toBe('640px');
-        expect(window.getComputedStyle(image).height).toBe(
-          '359.52941176470586px',
-        );
+        expect(window.getComputedStyle(image).width).toBe('100%');
+        expect(window.getComputedStyle(image).height).toBe('100%');
       });
     });
   });

@@ -77,18 +77,14 @@ describe('mediaSingle', () => {
   });
 
   test('updates file attrs for props change', async () => {
-    const { MediaNodeUpdater } = await import('../mediaNodeUpdater');
-
     const { rerender } = render(<MediaSingleNode {...getMediaSingleProps()} />);
 
     rerender(<MediaSingleNode {...getMediaSingleProps()} />);
 
-    expect(MediaNodeUpdater).toHaveBeenCalledTimes(2);
+    expect(mocks.mockSetProps).toHaveBeenCalledTimes(2);
   });
 
   test('does not update file attrs for props change if copy/paste is not enabled', async () => {
-    const { MediaNodeUpdater } = await import('../mediaNodeUpdater');
-
     const { rerender } = render(
       <MediaSingleNode {...getMediaSingleProps()} isCopyPasteEnabled={false} />,
     );
@@ -97,7 +93,7 @@ describe('mediaSingle', () => {
       <MediaSingleNode {...getMediaSingleProps()} isCopyPasteEnabled={false} />,
     );
 
-    expect(MediaNodeUpdater).toHaveBeenCalledTimes(1);
+    expect(mocks.mockSetProps).toHaveBeenCalledTimes(1);
   });
 
   it('external media adds a promise to pending tasks', async () => {

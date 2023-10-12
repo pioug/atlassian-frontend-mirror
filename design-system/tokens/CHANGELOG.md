@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 1.26.1
+
+### Patch Changes
+
+- [#40324](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40324) [`67b68e00b3f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/67b68e00b3f) - Removed un-exported schema information from src and the package bundle
+
 ## 1.26.0
 
 ### Minor Changes

@@ -1,4 +1,4 @@
-import {
+import type {
   AnalyticsEventPayload,
   CreateUIAnalyticsEvent,
 } from '@atlaskit/analytics-next';

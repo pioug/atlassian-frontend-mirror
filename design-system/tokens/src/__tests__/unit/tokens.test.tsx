@@ -1,8 +1,11 @@
 import fs from 'fs';
 
+import { THEME_INPUT_DIR } from '../../../scripts/style-dictionary/constants';
 import tokens from '../../artifacts/token-names';
 import type { Themes } from '../../index';
 import themeConfig from '../../theme-config';
+
+const tokenPath = `../../../${THEME_INPUT_DIR}`;
 
 const extensionThemes = Object.keys(themeConfig).filter(
   (fileName) =>
@@ -79,7 +82,7 @@ describe('tokens', () => {
 
   it('should ensure all color themes have the same folder structure', () => {
     const themes = fs
-      .readdirSync(`${__dirname}/../../tokens`, {
+      .readdirSync(`${__dirname}/${tokenPath}`, {
         withFileTypes: true,
       })
       .filter(
@@ -100,7 +103,7 @@ describe('tokens', () => {
     themes.forEach((themeName) => {
       const regex = new RegExp(`^.+${themeName}/`);
       const dir = readDirRecursive(
-        `${__dirname}/../../tokens/${themeName}`,
+        `${__dirname}/${tokenPath}/${themeName}`,
       ).map((path) => path.replace(regex, ''));
 
       if (!snapshot) {
@@ -115,7 +118,7 @@ describe('tokens', () => {
 
   it('should ensure all token files have the same shape', () => {
     const themes = fs
-      .readdirSync(`${__dirname}/../../tokens`, { withFileTypes: true })
+      .readdirSync(`${__dirname}/${tokenPath}`, { withFileTypes: true })
       .filter(
         (result) =>
           result.isDirectory() &&
@@ -127,7 +130,7 @@ describe('tokens', () => {
 
     themes.forEach((themeName) => {
       const regex = new RegExp(`^.+${themeName}/`);
-      const dirs = readDirRecursive(`${__dirname}/../../tokens/${themeName}`);
+      const dirs = readDirRecursive(`${__dirname}/${tokenPath}/${themeName}`);
 
       dirs.forEach((path) => {
         const value = require(path);

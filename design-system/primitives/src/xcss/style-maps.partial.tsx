@@ -28,10 +28,10 @@ export type Dimension = keyof typeof dimensionMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::6a1c1c7a326eab1fd8f07e923e26f784>>
+ * @codegen <<SignedSource::3cd327a4cd23dce8564f0b76a0d600ce>>
  * @codegenId spacing
  * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-spacing.tsx <<SignedSource::298080e8024fb3eb37589721413e0156>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-spacing.tsx <<SignedSource::55622b91aca9b3afac4bce440f222b71>>
  */
 export const spaceMap = {
   'space.0': token('space.0', '0px'),
@@ -70,11 +70,11 @@ export type NegativeSpace = keyof typeof negativeSpaceMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::2d67e9258c01e48d564a26a1e4400b94>>
+ * @codegen <<SignedSource::b93d845e13422e2b25a860f34dc6882b>>
  * @codegenId colors
  * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
  * @codegenParams ["border", "background", "shadow", "text", "fill", "surface"]
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::f6a616f7ea03ec40c148fc83050d073b>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::5188ac15a9f4d65b80cf12e4eecac815>>
  */
 export const borderColorMap = {
   'color.border': token('color.border', '#091e4221'),
@@ -1024,11 +1024,11 @@ export type Layer = keyof typeof layerMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::ffa10f95df2d9bbc0f5d91f9d19b9a69>>
+ * @codegen <<SignedSource::d44c306cfe2334f9664fc122aa7d9fe6>>
  * @codegenId border
  * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
  * @codegenParams ["width", "radius"]
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-shape.tsx <<SignedSource::25105916a589322f57c322068cb0074a>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-shape.tsx <<SignedSource::80457377fd80c31f5dfcb5cc743d7016>>
  */
 export const borderWidthMap = {
   'border.width': token('border.width', '1px'),

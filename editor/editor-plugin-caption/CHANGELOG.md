@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-caption
 
+## 0.2.2
+
+### Patch Changes
+
+- [#41343](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41343) [`243143e8007`](https://bitbucket.org/atlassian/atlassian-frontend/commits/243143e8007) - Improved media single performance by preventing unnecessary updates to collab service on every component update
+
 ## 0.2.1
 
 ### Patch Changes

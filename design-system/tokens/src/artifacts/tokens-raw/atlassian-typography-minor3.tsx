@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a2b2ba21b8b91fbc1e372aaed37f2619>>
+ * @codegen <<SignedSource::4197cb73414458032918015469216944>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -12,7 +12,7 @@ const tokens = [
       "description": "Text transform uppercase token used for backwards compatibility between new and old theming solutions"
     },
     "value": "uppercase",
-    "filePath": "src/tokens/atlassian-typography-minor3/theme.tsx",
+    "filePath": "schema/themes/atlassian-typography-minor3/theme.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -39,7 +39,7 @@ const tokens = [
       "description": "The default body font."
     },
     "value": "normal 400 14px/20px var(--ds-font-family-body)",
-    "filePath": "src/tokens/atlassian-typography-minor3/theme.tsx",
+    "filePath": "schema/themes/atlassian-typography-minor3/theme.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -73,7 +73,7 @@ const tokens = [
       "description": "Larger body font or default body font for text rich experiences."
     },
     "value": "normal 400 16px/24px var(--ds-font-family-body)",
-    "filePath": "src/tokens/atlassian-typography-minor3/theme.tsx",
+    "filePath": "schema/themes/atlassian-typography-minor3/theme.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -107,7 +107,7 @@ const tokens = [
       "description": "Smaller body font."
     },
     "value": "normal 400 12px/20px var(--ds-font-family-body)",
-    "filePath": "src/tokens/atlassian-typography-minor3/theme.tsx",
+    "filePath": "schema/themes/atlassian-typography-minor3/theme.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -141,7 +141,7 @@ const tokens = [
       "description": "Used for monospace and code."
     },
     "value": "normal 400 0.875em/1 var(--ds-font-family-code)",
-    "filePath": "src/tokens/atlassian-typography-minor3/theme.tsx",
+    "filePath": "schema/themes/atlassian-typography-minor3/theme.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -175,7 +175,7 @@ const tokens = [
       "description": "TBD"
     },
     "value": "normal 700 24px/28px var(--ds-font-family-heading)",
-    "filePath": "src/tokens/atlassian-typography-minor3/theme.tsx",
+    "filePath": "schema/themes/atlassian-typography-minor3/theme.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -209,7 +209,7 @@ const tokens = [
       "description": "TBD"
     },
     "value": "normal 700 20px/24px var(--ds-font-family-heading)",
-    "filePath": "src/tokens/atlassian-typography-minor3/theme.tsx",
+    "filePath": "schema/themes/atlassian-typography-minor3/theme.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -243,7 +243,7 @@ const tokens = [
       "description": "TBD"
     },
     "value": "normal 700 16px/20px var(--ds-font-family-heading)",
-    "filePath": "src/tokens/atlassian-typography-minor3/theme.tsx",
+    "filePath": "schema/themes/atlassian-typography-minor3/theme.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -277,7 +277,7 @@ const tokens = [
       "description": "TBD"
     },
     "value": "normal 700 28px/32px var(--ds-font-family-heading)",
-    "filePath": "src/tokens/atlassian-typography-minor3/theme.tsx",
+    "filePath": "schema/themes/atlassian-typography-minor3/theme.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -311,7 +311,7 @@ const tokens = [
       "description": "TBD"
     },
     "value": "normal 700 14px/16px var(--ds-font-family-heading)",
-    "filePath": "src/tokens/atlassian-typography-minor3/theme.tsx",
+    "filePath": "schema/themes/atlassian-typography-minor3/theme.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -345,7 +345,7 @@ const tokens = [
       "description": "TBD"
     },
     "value": "normal 700 32px/36px var(--ds-font-family-heading)",
-    "filePath": "src/tokens/atlassian-typography-minor3/theme.tsx",
+    "filePath": "schema/themes/atlassian-typography-minor3/theme.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -379,7 +379,7 @@ const tokens = [
       "description": "TBD"
     },
     "value": "normal 700 12px/16px var(--ds-font-family-heading)",
-    "filePath": "src/tokens/atlassian-typography-minor3/theme.tsx",
+    "filePath": "schema/themes/atlassian-typography-minor3/theme.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -413,7 +413,7 @@ const tokens = [
       "description": "Helpful guidance goes here"
     },
     "value": "0",
-    "filePath": "src/tokens/atlassian-typography-minor3/letter-spacing.tsx",
+    "filePath": "schema/themes/atlassian-typography-minor3/letter-spacing.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -440,7 +440,7 @@ const tokens = [
       "description": "Helpful guidance goes here"
     },
     "value": "0",
-    "filePath": "src/tokens/atlassian-typography-minor3/letter-spacing.tsx",
+    "filePath": "schema/themes/atlassian-typography-minor3/letter-spacing.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -467,7 +467,7 @@ const tokens = [
       "description": "Helpful guidance goes here"
     },
     "value": "0",
-    "filePath": "src/tokens/atlassian-typography-minor3/letter-spacing.tsx",
+    "filePath": "schema/themes/atlassian-typography-minor3/letter-spacing.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -494,7 +494,7 @@ const tokens = [
       "description": "Helpful guidance goes here"
     },
     "value": "0",
-    "filePath": "src/tokens/atlassian-typography-minor3/letter-spacing.tsx",
+    "filePath": "schema/themes/atlassian-typography-minor3/letter-spacing.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -521,7 +521,7 @@ const tokens = [
       "description": "Helpful guidance goes here"
     },
     "value": "0",
-    "filePath": "src/tokens/atlassian-typography-minor3/letter-spacing.tsx",
+    "filePath": "schema/themes/atlassian-typography-minor3/letter-spacing.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -548,7 +548,7 @@ const tokens = [
       "description": "Single-line non-wrapping text like that in a button."
     },
     "value": "normal 400 14px/1 var(--ds-font-family-body)",
-    "filePath": "src/tokens/atlassian-typography-minor3/theme.tsx",
+    "filePath": "schema/themes/atlassian-typography-minor3/theme.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -582,7 +582,7 @@ const tokens = [
       "description": "Single-line non-wrapping supporting text like that in a smaller label."
     },
     "value": "normal 400 12px/1 var(--ds-font-family-body)",
-    "filePath": "src/tokens/atlassian-typography-minor3/theme.tsx",
+    "filePath": "schema/themes/atlassian-typography-minor3/theme.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -616,7 +616,7 @@ const tokens = [
       "description": "Helpful guidance goes here"
     },
     "value": "ui-sans-serif, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
-    "filePath": "src/tokens/atlassian-typography-minor3/font-family.tsx",
+    "filePath": "schema/themes/atlassian-typography-minor3/font-family.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -643,7 +643,7 @@ const tokens = [
       "description": "Helpful guidance goes here"
     },
     "value": "ui-monospace, Menlo, \"Segoe UI Mono\", \"Ubuntu Mono\", monospace",
-    "filePath": "src/tokens/atlassian-typography-minor3/font-family.tsx",
+    "filePath": "schema/themes/atlassian-typography-minor3/font-family.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -670,7 +670,7 @@ const tokens = [
       "description": "Helpful guidance goes here"
     },
     "value": "ui-sans-serif, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
-    "filePath": "src/tokens/atlassian-typography-minor3/font-family.tsx",
+    "filePath": "schema/themes/atlassian-typography-minor3/font-family.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -697,7 +697,7 @@ const tokens = [
       "description": "Helpful guidance goes here"
     },
     "value": "ui-monospace, Menlo, \"Segoe UI Mono\", \"Ubuntu Mono\", monospace",
-    "filePath": "src/tokens/atlassian-typography-minor3/font-family.tsx",
+    "filePath": "schema/themes/atlassian-typography-minor3/font-family.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -724,7 +724,7 @@ const tokens = [
       "description": "Helpful guidance goes here"
     },
     "value": "ui-sans-serif, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
-    "filePath": "src/tokens/atlassian-typography-minor3/font-family.tsx",
+    "filePath": "schema/themes/atlassian-typography-minor3/font-family.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -751,7 +751,7 @@ const tokens = [
       "description": "Helpful guidance goes here"
     },
     "value": "Charlie Sans",
-    "filePath": "src/tokens/atlassian-typography-minor3/font-family.tsx",
+    "filePath": "schema/themes/atlassian-typography-minor3/font-family.tsx",
     "isSource": true,
     "original": {
       "attributes": {

@@ -25,10 +25,8 @@ import {
 import type {
   GetEditorContainerWidth,
   GetEditorFeatureFlags,
-  getPosHandler,
 } from '@atlaskit/editor-common/types';
 import { browser, closestElement } from '@atlaskit/editor-common/utils';
-import type { Node as ProseMirrorNode } from '@atlaskit/editor-prosemirror/model';
 import type {
   EditorState,
   TextSelection,
@@ -67,7 +65,8 @@ import {
   whenTableInFocus,
 } from '../event-handlers';
 import { createTableView } from '../nodeviews/table';
-import TableCellNodeView from '../nodeviews/tableCell';
+import TableCell from '../nodeviews/TableCell';
+import TableRow from '../nodeviews/TableRow';
 import { pluginKey as decorationsPluginKey } from '../pm-plugins/decorations/plugin';
 import { fixTables, replaceSelectedTable } from '../transforms';
 import type {
@@ -103,6 +102,7 @@ export const createPlugin = (
   fullWidthModeEnabled?: boolean,
   tableResizingEnabled?: boolean,
   previousFullWidthModeEnabled?: boolean,
+  dragAndDropEnabled?: boolean,
   editorAnalyticsAPI?: EditorAnalyticsAPI,
   pluginInjectionApi?: PluginInjectionAPI,
 ) => {
@@ -116,6 +116,7 @@ export const createPlugin = (
     isTableResizingEnabled: tableResizingEnabled,
     isHeaderRowEnabled: !!pluginConfig.allowHeaderRow,
     isHeaderColumnEnabled: false,
+    isDragAndDropEnabled: dragAndDropEnabled,
     ...defaultTableSelection,
     getIntl,
   });
@@ -132,19 +133,6 @@ export const createPlugin = (
         });
       })
     : undefined;
-
-  const tableCellNodeview = {
-    tableCell: (
-      node: ProseMirrorNode,
-      view: EditorView,
-      getPos: getPosHandler,
-    ) => new TableCellNodeView(node, view, getPos, observer),
-    tableHeader: (
-      node: ProseMirrorNode,
-      view: EditorView,
-      getPos: getPosHandler,
-    ) => new TableCellNodeView(node, view, getPos, observer),
-  };
 
   // Used to prevent invalid table cell spans being reported more than once per editor/document
   const invalidTableIds: string[] = [];
@@ -365,9 +353,7 @@ export const createPlugin = (
         }
         return false;
       },
-
       nodeViews: {
-        ...tableCellNodeview,
         table: (node, view, getPos) =>
           createTableView(
             node,
@@ -379,8 +365,13 @@ export const createPlugin = (
             getEditorFeatureFlags,
             pluginInjectionApi,
           ),
+        tableRow: (node, view, getPos) =>
+          new TableRow(node, view, getPos, eventDispatcher),
+        tableCell: (node, view, getPos) =>
+          new TableCell(node, view, getPos, eventDispatcher, observer),
+        tableHeader: (node, view, getPos) =>
+          new TableCell(node, view, getPos, eventDispatcher, observer),
       },
-
       handleDOMEvents: {
         focus: handleFocus,
         blur: handleBlur,

@@ -184,6 +184,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
               breakoutEnabled,
               tableOptions,
               getEditorFeatureFlags,
+              dragAndDropEnabled,
             } = options || ({} as TablePluginOptions);
             return createPlugin(
               dispatchAnalyticsEvent,
@@ -198,6 +199,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
               fullWidthEnabled,
               tableResizingEnabled,
               wasFullWidthEnabled,
+              dragAndDropEnabled,
               editorAnalyticsAPI,
               api,
             );

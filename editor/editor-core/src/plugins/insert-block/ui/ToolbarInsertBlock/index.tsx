@@ -378,13 +378,14 @@ export class ToolbarInsertBlock extends React.PureComponent<
   };
 
   private createDate = (inputMethod: TOOLBAR_MENU_TYPE): boolean => {
-    const { pluginInjectionApi, editorView } = this.props;
-    return (
-      pluginInjectionApi?.date?.actions.insertDate(undefined, inputMethod)(
-        editorView.state,
-        editorView.dispatch,
-      ) ?? false
+    const { pluginInjectionApi } = this.props;
+    pluginInjectionApi?.core.actions.execute(
+      pluginInjectionApi?.date?.commands?.insertDate({
+        inputMethod,
+      }),
     );
+
+    return true;
   };
 
   private createPlaceholderText = (): boolean => {

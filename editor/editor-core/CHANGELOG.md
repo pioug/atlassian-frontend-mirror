@@ -1,5 +1,28 @@
 # @atlaskit/editor-core
 
+## 188.8.0
+
+### Minor Changes
+
+- [#41459](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41459) [`9874d0f70b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9874d0f70b0) - [ED-20003] TypeAhead extraction: Replace the mobile view-subscription with proper API
+
+### Patch Changes
+
+- Updated dependencies
+
+## 188.7.6
+
+### Patch Changes
+
+- [#41438](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41438) [`b8d36b142ca`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b8d36b142ca) - Make insertDate and deleteDate an Editor Command
+
+## 188.7.5
+
+### Patch Changes
+
+- [#41452](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41452) [`53c21a4394a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/53c21a4394a) - Decouple status plugin from editor-core.
+- Updated dependencies
+
 ## 188.7.3
 
 ### Patch Changes

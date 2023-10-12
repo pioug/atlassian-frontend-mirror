@@ -4,7 +4,10 @@ import { EditorActions } from '@atlaskit/editor-core';
 import { dateToDateType } from '@atlaskit/editor-core/src/plugins/date/utils/formatParse';
 import { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
-import type { DocBuilder } from '@atlaskit/editor-common/types';
+import type {
+  DocBuilder,
+  TypeAheadHandler,
+} from '@atlaskit/editor-common/types';
 import { createProsemirrorEditorFactory } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorViewWithComposition } from '../../../../types';
@@ -16,7 +19,6 @@ import WebBridgeImpl, {
 } from '../../implementation';
 import * as BridgeUtils from '../../../../utils/bridge';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
-import type { TypeAheadHandler } from '@atlaskit/editor-core/src/plugins/type-ahead/types';
 import { getEmptyADF } from '@atlaskit/adf-utils/empty-adf';
 import * as crossPlatformPromise from '../../../../cross-platform-promise';
 import { flushPromises } from '../../../../__tests__/__helpers/_flush-promises';
@@ -55,12 +57,6 @@ jest.mock('@atlaskit/editor-core', () => ({
   },
   openDatePicker: jest.fn(() => () => {}),
   setMobilePaddingTop: jest.fn(() => () => {}),
-}));
-
-jest.mock('@atlaskit/editor-core/src/plugins/type-ahead/api', () => ({
-  ...(jest.genMockFromModule(
-    '@atlaskit/editor-core/src/plugins/type-ahead/api',
-  ) as object),
 }));
 
 jest.mock('@atlaskit/editor-common/utils', () => ({
@@ -789,13 +785,18 @@ describe('insert node', () => {
     const editorView = {} as EditorViewWithComposition;
     bridge.editorView = editorView;
     bridge.setPluginInjectionApi({
-      date: { actions: { insertDate: mockInsertDate } },
+      core: { actions: { execute: (fn: any) => fn() } },
+      date: { commands: { insertDate: mockInsertDate } },
     } as any);
 
     bridge.insertNode('date');
     const dateType = dateToDateType(new Date());
 
-    expect(mockInsertDate).toBeCalledWith(dateType, 'toolbar', 'picker');
+    expect(mockInsertDate).toBeCalledWith({
+      commitMethod: 'picker',
+      date: dateType,
+      inputMethod: 'toolbar',
+    });
   });
 
   it('should shift the cursor', () => {

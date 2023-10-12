@@ -1,14 +1,11 @@
 import { createContext, useContext } from 'react';
 
-import type { BackgroundColor } from '@atlaskit/primitives';
-
 /**
  * __Surface context__
  *
  * A surface context provides context information on the current background (if set).
  */
-export const SurfaceContext =
-  createContext<BackgroundColor>('elevation.surface');
+export const SurfaceContext = createContext<any>('elevation.surface');
 
 /**
  * __useSurface__

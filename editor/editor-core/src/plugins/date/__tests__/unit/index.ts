@@ -28,11 +28,11 @@ import type {
 } from '@atlaskit/analytics-next';
 import {
   setDatePickerAt,
-  insertDate,
   openDatePicker,
   closeDatePicker,
   closeDatePickerWithAnalytics,
 } from '../../actions';
+import { insertDateCommand } from '../../commands';
 
 // Editor plugins
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
@@ -137,10 +137,12 @@ describe('date plugin', () => {
       });
     });
 
-    describe('insertDate', () => {
+    describe('insertDateCommand', () => {
       it('should insert date node to the document', () => {
-        const { editorView: view } = editor(doc(paragraph('hello{<>}')));
-        insertDate()(view.state, view.dispatch);
+        const { editorView: view, editorAPI } = editor(
+          doc(paragraph('hello{<>}')),
+        );
+        editorAPI.core.actions.execute(insertDateCommand(editorAPI)({}));
         expect(
           view.state.doc.nodeAt(view.state.selection.$from.pos)!.type.name,
         ).toEqual(view.state.schema.nodes.date.name);
@@ -151,21 +153,22 @@ describe('date plugin', () => {
 
       describe('if inserted in codeBlock', () => {
         it('should insert date outside of codeBlock', () => {
-          const { editorView: view } = editor(
+          const { editorView: view, editorAPI } = editor(
             doc(code_block()('I am{<>} codeblock')),
           );
           const expected = doc(
             code_block()('I am codeblock'),
             paragraph('', date({ timestamp: '1599091200000' }), ' '),
           );
-          insertDate({ year: 2020, month: 9, day: 3 })(
-            view.state,
-            view.dispatch,
+          editorAPI.core.actions.execute(
+            insertDateCommand(editorAPI)({
+              date: { year: 2020, month: 9, day: 3 },
+            }),
           );
           expect(view.state.tr.doc).toEqualDocument(expected);
         });
         it('should insert date outside of codeBlock with range selection', () => {
-          const { editorView: view } = editor(
+          const { editorView: view, editorAPI } = editor(
             doc(code_block()('I {<}am{>} codeblock'), paragraph('hello')),
           );
           const expected = doc(
@@ -173,14 +176,15 @@ describe('date plugin', () => {
             paragraph('', date({ timestamp: '1599091200000' }), ' '),
             paragraph('hello'),
           );
-          insertDate({ year: 2020, month: 9, day: 3 })(
-            view.state,
-            view.dispatch,
+          editorAPI.core.actions.execute(
+            insertDateCommand(editorAPI)({
+              date: { year: 2020, month: 9, day: 3 },
+            }),
           );
           expect(view.state.tr.doc).toEqualDocument(expected);
         });
         it('should insert date outside of codeBlock with range selection ending outside', () => {
-          const { editorView: view } = editor(
+          const { editorView: view, editorAPI } = editor(
             doc(code_block()('I {<}am codeblock'), paragraph('he{>}llo')),
           );
           const expected = doc(
@@ -188,14 +192,15 @@ describe('date plugin', () => {
             paragraph('', date({ timestamp: '1599091200000' }), ' '),
             paragraph('hello'),
           );
-          insertDate({ year: 2020, month: 9, day: 3 })(
-            view.state,
-            view.dispatch,
+          editorAPI.core.actions.execute(
+            insertDateCommand(editorAPI)({
+              date: { year: 2020, month: 9, day: 3 },
+            }),
           );
           expect(view.state.tr.doc).toEqualDocument(expected);
         });
         it('should insert date in between codeBlock and other block node', () => {
-          const { editorView: view } = editor(
+          const { editorView: view, editorAPI } = editor(
             doc(code_block()('I am{<>} codeblock'), paragraph('hello')),
           );
           const expected = doc(
@@ -203,15 +208,16 @@ describe('date plugin', () => {
             paragraph('', date({ timestamp: '1599091200000' }), ' '),
             paragraph('hello'),
           );
-          insertDate({ year: 2020, month: 9, day: 3 })(
-            view.state,
-            view.dispatch,
+          editorAPI.core.actions.execute(
+            insertDateCommand(editorAPI)({
+              date: { year: 2020, month: 9, day: 3 },
+            }),
           );
           expect(view.state.tr.doc).toEqualDocument(expected);
         });
         it('should insert date outside of codeblock inside same table cell', () => {
           const TABLE_LOCAL_ID = 'test-table-local-id';
-          const { editorView: view } = editor(
+          const { editorView: view, editorAPI } = editor(
             doc(
               table({ localId: TABLE_LOCAL_ID })(
                 tr(td({})(code_block()('I am{<>} codeblock'))),
@@ -229,16 +235,17 @@ describe('date plugin', () => {
               ),
             ),
           );
-          insertDate({ year: 2020, month: 9, day: 3 })(
-            view.state,
-            view.dispatch,
+          editorAPI.core.actions.execute(
+            insertDateCommand(editorAPI)({
+              date: { year: 2020, month: 9, day: 3 },
+            }),
           );
           expect(view.state.tr.doc).toEqualDocument(expected);
         });
       });
 
       it('should set isNew to false if date node already exists', () => {
-        const { editorView: view } = editor(
+        const { editorView: view, editorAPI } = editor(
           doc(paragraph('hello{<>}', date(attrs))),
         );
         openDatePicker()(view.state, view.dispatch);
@@ -254,7 +261,9 @@ describe('date plugin', () => {
           day: 15,
         };
         // Simulate clicking a day in the calendar (note date already exists)
-        insertDate(dateObj)(view.state, view.dispatch);
+        editorAPI.core.actions.execute(
+          insertDateCommand(editorAPI)({ date: dateObj }),
+        );
 
         const newPluginState = pluginKey.getState(view.state)!;
 
@@ -264,18 +273,26 @@ describe('date plugin', () => {
       });
 
       it('should insert UTC timestamp', () => {
-        const { editorView: view } = editor(doc(paragraph('hello{<>}')));
-        insertDate({ year: 2018, month: 5, day: 1 })(view.state, view.dispatch);
+        const { editorView: view, editorAPI } = editor(
+          doc(paragraph('hello{<>}')),
+        );
+        editorAPI.core.actions.execute(
+          insertDateCommand(editorAPI)({
+            date: { year: 2018, month: 5, day: 1 },
+          }),
+        );
         const node = view.state.doc.nodeAt(view.state.selection.$from.pos);
         expect(node!.type.name).toEqual(view.state.schema.nodes.date.name);
         expect(node!.attrs.timestamp).toEqual(Date.UTC(2018, 4, 1).toString());
       });
 
       it('should keep the same "showDatePickerAt" in collab mode', () => {
-        const { editorView: view, refs } = editor(
-          doc(paragraph('{insertPos}world{<>}')),
-        );
-        insertDate()(view.state, view.dispatch);
+        const {
+          editorView: view,
+          refs,
+          editorAPI,
+        } = editor(doc(paragraph('{insertPos}world{<>}')));
+        editorAPI.core.actions.execute(insertDateCommand(editorAPI)({}));
         openDatePicker()(view.state, view.dispatch);
 
         const documentChangeTr = view.state.tr.insertText(
@@ -294,14 +311,12 @@ describe('date plugin', () => {
       });
 
       it('should fire analytics event when inserting date node', () => {
-        const { editorView: view } = editor(doc(paragraph('{<>}')));
-        insertDate(
-          undefined,
-          INPUT_METHOD.TOOLBAR,
-          undefined,
-          undefined,
-          mockPluginInjectionApiWithAnalytics,
-        )(view.state, view.dispatch);
+        const { editorAPI } = editor(doc(paragraph('{<>}')));
+        editorAPI.core.actions.execute(
+          insertDateCommand(mockPluginInjectionApiWithAnalytics)({
+            inputMethod: INPUT_METHOD.TOOLBAR,
+          }),
+        );
         expect(attachAnalyticsEvent).toBeCalledWith({
           action: 'inserted',
           actionSubject: 'document',
@@ -312,9 +327,7 @@ describe('date plugin', () => {
       });
 
       it('should fire analytics event when committing a date via datepicker', () => {
-        const { editorView: view } = editor(
-          doc(paragraph('{<>}', date(attrs))),
-        );
+        const { editorAPI } = editor(doc(paragraph('{<>}', date(attrs))));
 
         const validDate = parseDateType('3/25/2020', 'en-US');
 
@@ -324,13 +337,12 @@ describe('date plugin', () => {
           return;
         }
 
-        insertDate(
-          validDate,
-          undefined,
-          INPUT_METHOD.PICKER,
-          undefined,
-          mockPluginInjectionApiWithAnalytics,
-        )(view.state, view.dispatch);
+        editorAPI.core.actions.execute(
+          insertDateCommand(mockPluginInjectionApiWithAnalytics)({
+            date: validDate,
+            commitMethod: INPUT_METHOD.PICKER,
+          }),
+        );
         expect(attachAnalyticsEvent).toBeCalledWith({
           eventType: 'track',
           action: 'committed',
@@ -348,11 +360,12 @@ describe('date plugin', () => {
         if (invalidDate === null) {
           return;
         }
-        insertDate(
-          invalidDate,
-          undefined,
-          INPUT_METHOD.PICKER,
-        )(view.state, view.dispatch);
+        editorAPI.core.actions.execute(
+          insertDateCommand(editorAPI)({
+            date: invalidDate,
+            commitMethod: INPUT_METHOD.PICKER,
+          }),
+        );
         expect(createAnalyticsEvent).toBeCalledWith({
           eventType: 'track',
           action: 'committed',
@@ -366,9 +379,7 @@ describe('date plugin', () => {
       });
 
       it('should fire analytics event when committing a date via keyboard', () => {
-        const { editorView: view } = editor(
-          doc(paragraph('{<>}', date(attrs))),
-        );
+        const { editorAPI } = editor(doc(paragraph('{<>}', date(attrs))));
 
         const validDate = parseDateType('3/25/2020', 'en-US');
         // Date shouldn't be invalid, but in case
@@ -377,13 +388,12 @@ describe('date plugin', () => {
           return;
         }
 
-        insertDate(
-          validDate,
-          undefined,
-          INPUT_METHOD.KEYBOARD,
-          undefined,
-          mockPluginInjectionApiWithAnalytics,
-        )(view.state, view.dispatch);
+        editorAPI.core.actions.execute(
+          insertDateCommand(mockPluginInjectionApiWithAnalytics)({
+            date: validDate,
+            commitMethod: INPUT_METHOD.KEYBOARD,
+          }),
+        );
         expect(attachAnalyticsEvent).toBeCalledWith({
           eventType: 'track',
           action: 'committed',
@@ -401,13 +411,13 @@ describe('date plugin', () => {
         if (invalidDate === null) {
           return;
         }
-        insertDate(
-          invalidDate,
-          undefined,
-          INPUT_METHOD.KEYBOARD,
-          undefined,
-          mockPluginInjectionApiWithAnalytics,
-        )(view.state, view.dispatch);
+
+        editorAPI.core.actions.execute(
+          insertDateCommand(mockPluginInjectionApiWithAnalytics)({
+            date: invalidDate,
+            commitMethod: INPUT_METHOD.KEYBOARD,
+          }),
+        );
         expect(attachAnalyticsEvent).toBeCalledWith({
           eventType: 'track',
           action: 'committed',
@@ -421,17 +431,17 @@ describe('date plugin', () => {
       });
 
       it('should keep the selection when enterPressed is false', () => {
-        const { editorView: view } = editor(
+        const { editorView: view, editorAPI } = editor(
           doc(paragraph('{<>}', date(attrs))),
         );
 
         openDatePicker()(view.state, view.dispatch);
-        insertDate(
-          { year: 2021, month: 9, day: 27 },
-          undefined,
-          undefined,
-          false,
-        )(view.state, view.dispatch);
+        editorAPI.core.actions.execute(
+          insertDateCommand(editorAPI)({
+            date: { year: 2021, month: 9, day: 27 },
+            enterPressed: false,
+          }),
+        );
 
         const pluginState = pluginKey.getState(view.state)!;
         expect(pluginState.showDatePickerAt).toBeTruthy();
@@ -440,17 +450,17 @@ describe('date plugin', () => {
       });
 
       it('should move the selection enterPressed is true', () => {
-        const { editorView: view } = editor(
+        const { editorView: view, editorAPI } = editor(
           doc(paragraph('{<>}', date(attrs), 'asfdasd')),
         );
 
         openDatePicker()(view.state, view.dispatch);
-        insertDate(
-          { year: 2021, month: 9, day: 27 },
-          undefined,
-          undefined,
-          true,
-        )(view.state, view.dispatch);
+        editorAPI.core.actions.execute(
+          insertDateCommand(editorAPI)({
+            date: { year: 2021, month: 9, day: 27 },
+            enterPressed: true,
+          }),
+        );
 
         const pluginState = pluginKey.getState(view.state)!;
         expect(pluginState.showDatePickerAt).toBeFalsy();
@@ -482,9 +492,11 @@ describe('date plugin', () => {
       });
 
       it('should leave isNew as true if it was already true', () => {
-        const { editorView: view } = editor(doc(paragraph('hello{<>}')));
+        const { editorView: view, editorAPI } = editor(
+          doc(paragraph('hello{<>}')),
+        );
         // Insert date
-        insertDate()(view.state, view.dispatch);
+        editorAPI.core.actions.execute(insertDateCommand(editorAPI)({}));
         expect(
           view.state.doc.nodeAt(view.state.selection.$from.pos)!.type.name,
         ).toEqual(view.state.schema.nodes.date.name);
@@ -523,9 +535,11 @@ describe('date plugin', () => {
       });
 
       it('should set "isNew" in state to false after closing date picker', () => {
-        const { editorView: view } = editor(doc(paragraph('hello{<>}')));
+        const { editorView: view, editorAPI } = editor(
+          doc(paragraph('hello{<>}')),
+        );
         // Insert date
-        insertDate()(view.state, view.dispatch);
+        editorAPI.core.actions.execute(insertDateCommand(editorAPI)({}));
         openDatePicker()(view.state, view.dispatch);
 
         // isNew should be true after opening
@@ -589,10 +603,12 @@ describe('date plugin', () => {
       });
 
       it('should set isNew in plugin state to false when changing selection after inserting a date', () => {
-        const { editorView: view, refs } = editor(
-          doc(paragraph(' {insertPos}{<>} {newSelectPos}')),
-        );
-        insertDate()(view.state, view.dispatch);
+        const {
+          editorView: view,
+          refs,
+          editorAPI,
+        } = editor(doc(paragraph(' {insertPos}{<>} {newSelectPos}')));
+        editorAPI.core.actions.execute(insertDateCommand(editorAPI)({}));
 
         const initialPluginState = pluginKey.getState(view.state)!;
         expect(initialPluginState.showDatePickerAt).toBeTruthy();
@@ -609,7 +625,11 @@ describe('date plugin', () => {
       });
 
       it('should set isNew to be false when swapping date selections', () => {
-        const { editorView: view, refs } = editor(
+        const {
+          editorView: view,
+          refs,
+          editorAPI,
+        } = editor(
           doc(
             paragraph(
               '{originalDateNode}{<node>}',
@@ -618,7 +638,7 @@ describe('date plugin', () => {
             ),
           ),
         );
-        insertDate()(view.state, view.dispatch);
+        editorAPI.core.actions.execute(insertDateCommand(editorAPI)({}));
 
         const initialPluginState = pluginKey.getState(view.state)!;
         expect(initialPluginState.showDatePickerAt).toBe(refs.insertPoint);

@@ -15,6 +15,7 @@ export { messages as fullPageMessages } from './full-page';
 export { toolbarMessages } from './toolbar';
 export { messages as listMessages } from './list';
 export { messages as undoRedoMessages } from './undo-redo';
+export { messages as statusMessages } from './status';
 
 export default defineMessages({
   layoutFixedWidth: {

@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-table
 
+## 5.2.0
+
+### Minor Changes
+
+- [#41423](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41423) [`d0acefc12f6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d0acefc12f6) - The nodeviews are now all located in a single space rather then being spread out amounst other sub-plugins. Only the main pm-plugin should add one nodeview per node.
+
 ## 5.1.0
 
 ### Minor Changes

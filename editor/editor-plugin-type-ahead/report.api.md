@@ -64,6 +64,9 @@ export type TypeAheadPlugin = NextEditorPlugin<
     dependencies: [OptionalPlugin<AnalyticsPlugin>];
     sharedState: {
       query: string;
+      isOpen: boolean;
+      isAllowed: boolean;
+      currentHandler?: TypeAheadHandler;
     };
     actions: {
       isOpen: (editorState: EditorState) => boolean;

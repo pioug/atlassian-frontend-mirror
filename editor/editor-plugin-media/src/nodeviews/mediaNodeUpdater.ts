@@ -56,6 +56,10 @@ export class MediaNodeUpdater {
     this.props = props;
   }
 
+  setProps(newComponentProps: Partial<MediaNodeUpdaterProps>) {
+    this.props = { ...this.props, ...newComponentProps };
+  }
+
   isMediaBlobUrl(): boolean {
     const attrs = this.getAttrs();
 

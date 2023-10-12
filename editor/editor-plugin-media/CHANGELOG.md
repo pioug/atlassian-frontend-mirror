@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-media
 
+## 0.3.4
+
+### Patch Changes
+
+- [#41343](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41343) [`243143e8007`](https://bitbucket.org/atlassian/atlassian-frontend/commits/243143e8007) - Improved media single performance by preventing unnecessary updates to collab service on every component update
+
+## 0.3.3
+
+### Patch Changes
+
+- [#41425](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41425) [`130e8656e37`](https://bitbucket.org/atlassian/atlassian-frontend/commits/130e8656e37) - Fixed bug where media single node was shrinking unexpectedly inside table cell.
+
 ## 0.3.2
 
 ### Patch Changes

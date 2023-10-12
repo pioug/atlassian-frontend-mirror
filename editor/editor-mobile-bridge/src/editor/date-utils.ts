@@ -37,13 +37,15 @@ export const createFloatingToolbarConfigForDate = (
             month: date.getUTCMonth() + 1, // Date month is 0-11, DateType is 1-12
             year: date.getUTCFullYear(),
           };
-          if (dispatch) {
-            api?.date?.actions?.insertDate(
-              dateType,
-              INPUT_METHOD.TOOLBAR,
-              INPUT_METHOD.PICKER,
-              false,
-            )(state, dispatch);
+          if (dispatch && api?.date?.commands?.insertDate) {
+            api?.core?.actions?.execute(
+              api.date.commands.insertDate({
+                date: dateType,
+                inputMethod: INPUT_METHOD.TOOLBAR,
+                commitMethod: INPUT_METHOD.PICKER,
+                enterPressed: false,
+              }),
+            );
           }
 
           return true;
@@ -58,7 +60,9 @@ export const createFloatingToolbarConfigForDate = (
       title: intl.formatMessage(messages.remove),
       icon: RemoveIcon,
       onClick: (state, dispatch) => {
-        api?.date?.actions?.deleteDate()(state, dispatch);
+        if (dispatch && api?.date?.commands?.deleteDate) {
+          api?.core?.actions?.execute(api?.date?.commands?.deleteDate);
+        }
         return true;
       },
     },

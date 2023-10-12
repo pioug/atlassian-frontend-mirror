@@ -1,4 +1,6 @@
-import defaultPalette, { BaseToken } from '../../../../../src/palettes/palette';
+import defaultPalette, {
+  BaseToken,
+} from '../../../../../schema/palettes/palette';
 import { PaintToken, ShadowToken } from '../../../../../src/types';
 import paletteTransformer from '../../palette';
 

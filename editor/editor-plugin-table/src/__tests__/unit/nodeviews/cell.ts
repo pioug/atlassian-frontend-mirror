@@ -32,7 +32,7 @@ import {
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import tablePlugin from '../../../plugins/table-plugin';
-import TableCellViews from '../../../plugins/table/nodeviews/tableCell';
+import TableCell from '../../../plugins/table/nodeviews/TableCell';
 import { pluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
 import type { PluginConfig } from '../../../plugins/table/types';
 
@@ -121,7 +121,7 @@ describe('table -> nodeviews -> tableCell.tsx', () => {
       const { state, dispatch } = editorView;
       const cell = findCellClosestToPos(state.doc.resolve(pos))!;
       const background = tableBackgroundColorNames.get('red');
-      const updateSpy = jest.spyOn(TableCellViews.prototype, 'update');
+      const updateSpy = jest.spyOn(TableCell.prototype, 'update');
       dispatch(setCellAttrs(cell, { background })(state.tr));
       expect(updateSpy).toHaveReturnedWith(true);
       const cellDomNode = document.querySelector('td')!;

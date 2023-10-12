@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::6009ba9010fc2a039dc1080a936d9f80>>
+ * @codegen <<SignedSource::c4d30aec956d07ff54a669e63627aacf>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -12,7 +12,7 @@ const tokens = [
       "description": "Use for primary text, such as body copy, sentence case headers, and buttons."
     },
     "value": "#172B4D",
-    "filePath": "src/tokens/atlassian-light/color/text.tsx",
+    "filePath": "schema/themes/atlassian-light/color/text.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -39,7 +39,7 @@ const tokens = [
       "description": "Use for lime text on subtlest and subtler lime accent backgrounds when there is no meaning tied to the color."
     },
     "value": "#4C6B1F",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -68,7 +68,7 @@ const tokens = [
       "description": "Use for lime text on subtle lime accent backgrounds when there is no meaning tied to the color."
     },
     "value": "#37471F",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -97,7 +97,7 @@ const tokens = [
       "description": "Use for red text on subtlest and subtler red accent backgrounds when there is no meaning tied to the color."
     },
     "value": "#AE2A19",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -126,7 +126,7 @@ const tokens = [
       "description": "Use for red text on subtle red accent backgrounds when there is no meaning tied to the color."
     },
     "value": "#601E16",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -155,7 +155,7 @@ const tokens = [
       "description": "Use for orange text on subtlest and subtler orange accent backgrounds when there is no meaning tied to the color."
     },
     "value": "#974F0C",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -184,7 +184,7 @@ const tokens = [
       "description": "Use for orange text on subtle orange accent backgrounds when there is no meaning tied to the color."
     },
     "value": "#5F3811",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -213,7 +213,7 @@ const tokens = [
       "description": "Use for yellow text on subtlest and subtler yellow accent backgrounds when there is no meaning tied to the color."
     },
     "value": "#7F5F01",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -242,7 +242,7 @@ const tokens = [
       "description": "Use for yellow text on subtle yellow accent backgrounds when there is no meaning tied to the color."
     },
     "value": "#533F04",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -271,7 +271,7 @@ const tokens = [
       "description": "Use for green text on subtlest and subtler green accent backgrounds when there is no meaning tied to the color."
     },
     "value": "#216E4E",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -300,7 +300,7 @@ const tokens = [
       "description": "Use for green text on subtle green accent backgrounds when there is no meaning tied to the color."
     },
     "value": "#164B35",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -329,7 +329,7 @@ const tokens = [
       "description": "Use for teal text on subtlest and subtler teal accent backgrounds when there is no meaning tied to the color."
     },
     "value": "#206B74",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -358,7 +358,7 @@ const tokens = [
       "description": "Use for teal text on subtle teal accent backgrounds when there is no meaning tied to the color."
     },
     "value": "#1D474C",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -387,7 +387,7 @@ const tokens = [
       "description": "Use for blue text on subtlest and subtler blue accent backgrounds when there is no meaning tied to the color."
     },
     "value": "#0055CC",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -416,7 +416,7 @@ const tokens = [
       "description": "Use for blue text on subtle blue accent backgrounds when there is no meaning tied to the color."
     },
     "value": "#09326C",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -445,7 +445,7 @@ const tokens = [
       "description": "Use for purple text on subtlest and subtler purple accent backgrounds when there is no meaning tied to the color."
     },
     "value": "#5E4DB2",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -474,7 +474,7 @@ const tokens = [
       "description": "Use for purple text on subtle purple accent backgrounds when there is no meaning tied to the color."
     },
     "value": "#352C63",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -503,7 +503,7 @@ const tokens = [
       "description": "Use for magenta text on subtlest and subtler magenta accent backgrounds when there is no meaning tied to the color."
     },
     "value": "#943D73",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -532,7 +532,7 @@ const tokens = [
       "description": "Use for magenta text on subtle magenta accent backgrounds when there is no meaning tied to the color."
     },
     "value": "#50253F",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -561,7 +561,7 @@ const tokens = [
       "description": "Use for text on non-bold gray accent backgrounds, such as colored tags."
     },
     "value": "#44546F",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -590,7 +590,7 @@ const tokens = [
       "description": "Use for text and icons on gray subtle accent backgrounds."
     },
     "value": "#091E42",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -619,7 +619,7 @@ const tokens = [
       "description": "Use for text in a disabled state."
     },
     "value": "#091E424F",
-    "filePath": "src/tokens/atlassian-light/color/text.tsx",
+    "filePath": "schema/themes/atlassian-light/color/text.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -646,7 +646,7 @@ const tokens = [
       "description": "Use for text on bold backgrounds."
     },
     "value": "#FFFFFF",
-    "filePath": "src/tokens/atlassian-light/color/text.tsx",
+    "filePath": "schema/themes/atlassian-light/color/text.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -673,7 +673,7 @@ const tokens = [
       "description": "Use for text in selected or opened states, such as tabs and dropdown buttons."
     },
     "value": "#0C66E4",
-    "filePath": "src/tokens/atlassian-light/color/text.tsx",
+    "filePath": "schema/themes/atlassian-light/color/text.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -700,7 +700,7 @@ const tokens = [
       "description": "Use for text that reinforces our brand."
     },
     "value": "#0C66E4",
-    "filePath": "src/tokens/atlassian-light/color/text.tsx",
+    "filePath": "schema/themes/atlassian-light/color/text.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -727,7 +727,7 @@ const tokens = [
       "description": "Use for critical text, such as input field error messaging."
     },
     "value": "#AE2A19",
-    "filePath": "src/tokens/atlassian-light/color/text.tsx",
+    "filePath": "schema/themes/atlassian-light/color/text.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -754,7 +754,7 @@ const tokens = [
       "description": "Use for text to emphasize caution, such as in moved lozenges."
     },
     "value": "#974F0C",
-    "filePath": "src/tokens/atlassian-light/color/text.tsx",
+    "filePath": "schema/themes/atlassian-light/color/text.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -782,7 +782,7 @@ const tokens = [
       "description": "Use for text when on bold warning backgrounds."
     },
     "value": "#172B4D",
-    "filePath": "src/tokens/atlassian-light/color/text.tsx",
+    "filePath": "schema/themes/atlassian-light/color/text.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -810,7 +810,7 @@ const tokens = [
       "description": "Use for text to communicate a favorable outcome, such as input field success messaging."
     },
     "value": "#216E4E",
-    "filePath": "src/tokens/atlassian-light/color/text.tsx",
+    "filePath": "schema/themes/atlassian-light/color/text.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -837,7 +837,7 @@ const tokens = [
       "description": "Use for text to emphasize change or something new, such as in new lozenges."
     },
     "value": "#5E4DB2",
-    "filePath": "src/tokens/atlassian-light/color/text.tsx",
+    "filePath": "schema/themes/atlassian-light/color/text.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -864,7 +864,7 @@ const tokens = [
       "description": "Use for informative text or to communicate something is in progress, such as in-progress lozenges."
     },
     "value": "#0055CC",
-    "filePath": "src/tokens/atlassian-light/color/text.tsx",
+    "filePath": "schema/themes/atlassian-light/color/text.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -891,7 +891,7 @@ const tokens = [
       "description": "Use for tertiary text, such as meta-data, breadcrumbs, input field placeholder and helper text."
     },
     "value": "#626F86",
-    "filePath": "src/tokens/atlassian-light/color/text.tsx",
+    "filePath": "schema/themes/atlassian-light/color/text.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -918,7 +918,7 @@ const tokens = [
       "description": "Use for secondary text, such as navigation, subtle button links, input field labels, and all caps subheadings."
     },
     "value": "#44546F",
-    "filePath": "src/tokens/atlassian-light/color/text.tsx",
+    "filePath": "schema/themes/atlassian-light/color/text.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -945,7 +945,7 @@ const tokens = [
       "description": "Use for links in a default or hovered state. Add an underline for hovered states."
     },
     "value": "#0C66E4",
-    "filePath": "src/tokens/atlassian-light/color/text.tsx",
+    "filePath": "schema/themes/atlassian-light/color/text.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -972,7 +972,7 @@ const tokens = [
       "description": "Use for links in a pressed state."
     },
     "value": "#0055CC",
-    "filePath": "src/tokens/atlassian-light/color/text.tsx",
+    "filePath": "schema/themes/atlassian-light/color/text.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -999,7 +999,7 @@ const tokens = [
       "description": "Use for links in a visited state."
     },
     "value": "#5E4DB2",
-    "filePath": "src/tokens/atlassian-light/color/text.tsx",
+    "filePath": "schema/themes/atlassian-light/color/text.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -1026,7 +1026,7 @@ const tokens = [
       "description": "Use for icon-only buttons, or icons paired with color.text"
     },
     "value": "#44546F",
-    "filePath": "src/tokens/atlassian-light/color/icon.tsx",
+    "filePath": "schema/themes/atlassian-light/color/icon.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -1053,7 +1053,7 @@ const tokens = [
       "description": "Use for lime icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
     },
     "value": "#6A9A23",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -1081,7 +1081,7 @@ const tokens = [
       "description": "Use for red icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
     },
     "value": "#E34935",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -1109,7 +1109,7 @@ const tokens = [
       "description": "Use for orange icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
     },
     "value": "#D97008",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -1137,7 +1137,7 @@ const tokens = [
       "description": "Use for yellow icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
     },
     "value": "#B38600",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -1165,7 +1165,7 @@ const tokens = [
       "description": "Use for green icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
     },
     "value": "#22A06B",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -1193,7 +1193,7 @@ const tokens = [
       "description": "Use for teal icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
     },
     "value": "#1D9AAA",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -1221,7 +1221,7 @@ const tokens = [
       "description": "Use for blue icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
     },
     "value": "#1D7AFC",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -1249,7 +1249,7 @@ const tokens = [
       "description": "Use for purple icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
     },
     "value": "#8270DB",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -1277,7 +1277,7 @@ const tokens = [
       "description": "Use for magenta icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
     },
     "value": "#CD519D",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -1305,7 +1305,7 @@ const tokens = [
       "description": "Use for icons on non-bold gray accent backgrounds, such as file type icons."
     },
     "value": "#758195",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -1333,7 +1333,7 @@ const tokens = [
       "description": "Use for icons in a disabled state."
     },
     "value": "#091E424F",
-    "filePath": "src/tokens/atlassian-light/color/icon.tsx",
+    "filePath": "schema/themes/atlassian-light/color/icon.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -1360,7 +1360,7 @@ const tokens = [
       "description": "Use for icons on bold backgrounds."
     },
     "value": "#FFFFFF",
-    "filePath": "src/tokens/atlassian-light/color/icon.tsx",
+    "filePath": "schema/themes/atlassian-light/color/icon.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -1387,7 +1387,7 @@ const tokens = [
       "description": "Use for icons in selected or opened states, such as those used in dropdown buttons."
     },
     "value": "#0C66E4",
-    "filePath": "src/tokens/atlassian-light/color/icon.tsx",
+    "filePath": "schema/themes/atlassian-light/color/icon.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -1414,7 +1414,7 @@ const tokens = [
       "description": "Use for icons that reinforce our brand."
     },
     "value": "#0C66E4",
-    "filePath": "src/tokens/atlassian-light/color/icon.tsx",
+    "filePath": "schema/themes/atlassian-light/color/icon.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -1441,7 +1441,7 @@ const tokens = [
       "description": "Use for icons communicating critical information, such as those used in error handing."
     },
     "value": "#E34935",
-    "filePath": "src/tokens/atlassian-light/color/icon.tsx",
+    "filePath": "schema/themes/atlassian-light/color/icon.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -1468,7 +1468,7 @@ const tokens = [
       "description": "Use for icons communicating caution, such as those used in warning section messages."
     },
     "value": "#D97008",
-    "filePath": "src/tokens/atlassian-light/color/icon.tsx",
+    "filePath": "schema/themes/atlassian-light/color/icon.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -1496,7 +1496,7 @@ const tokens = [
       "description": "Use for icons when on bold warning backgrounds."
     },
     "value": "#172B4D",
-    "filePath": "src/tokens/atlassian-light/color/icon.tsx",
+    "filePath": "schema/themes/atlassian-light/color/icon.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -1524,7 +1524,7 @@ const tokens = [
       "description": "Use for icons communicating a favorable outcome, such as those used in success section messaged."
     },
     "value": "#22A06B",
-    "filePath": "src/tokens/atlassian-light/color/icon.tsx",
+    "filePath": "schema/themes/atlassian-light/color/icon.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -1551,7 +1551,7 @@ const tokens = [
       "description": "Use for icons communicating change or something new, such as discovery section messages."
     },
     "value": "#8270DB",
-    "filePath": "src/tokens/atlassian-light/color/icon.tsx",
+    "filePath": "schema/themes/atlassian-light/color/icon.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -1578,7 +1578,7 @@ const tokens = [
       "description": "Use for icons communicating information or something in-progress, such as information section messages."
     },
     "value": "#1D7AFC",
-    "filePath": "src/tokens/atlassian-light/color/icon.tsx",
+    "filePath": "schema/themes/atlassian-light/color/icon.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -1605,7 +1605,7 @@ const tokens = [
       "description": "Use for icons paired with color.text.subtle"
     },
     "value": "#626F86",
-    "filePath": "src/tokens/atlassian-light/color/icon.tsx",
+    "filePath": "schema/themes/atlassian-light/color/icon.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -1632,7 +1632,7 @@ const tokens = [
       "description": "Use to visually group or separate UI elements, such as flat cards or side panel dividers."
     },
     "value": "#091E4224",
-    "filePath": "src/tokens/atlassian-light/color/border.tsx",
+    "filePath": "schema/themes/atlassian-light/color/border.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -1659,7 +1659,7 @@ const tokens = [
       "description": "Use for lime borders on non-bold backgrounds when there is no meaning tied to the color."
     },
     "value": "#6A9A23",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -1687,7 +1687,7 @@ const tokens = [
       "description": "Use for red borders on non-bold backgrounds when there is no meaning tied to the color."
     },
     "value": "#E34935",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -1715,7 +1715,7 @@ const tokens = [
       "description": "Use for orange borders on non-bold backgrounds when there is no meaning tied to the color."
     },
     "value": "#D97008",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -1743,7 +1743,7 @@ const tokens = [
       "description": "Use for yellow borders on non-bold backgrounds when there is no meaning tied to the color."
     },
     "value": "#B38600",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -1771,7 +1771,7 @@ const tokens = [
       "description": "Use for green borders on non-bold backgrounds when there is no meaning tied to the color."
     },
     "value": "#22A06B",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -1799,7 +1799,7 @@ const tokens = [
       "description": "Use for teal borders on non-bold backgrounds when there is no meaning tied to the color."
     },
     "value": "#1D9AAA",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -1827,7 +1827,7 @@ const tokens = [
       "description": "Use for blue borders on non-bold backgrounds when there is no meaning tied to the color."
     },
     "value": "#1D7AFC",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -1855,7 +1855,7 @@ const tokens = [
       "description": "Use for purple borders on non-bold backgrounds when there is no meaning tied to the color."
     },
     "value": "#8270DB",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -1883,7 +1883,7 @@ const tokens = [
       "description": "Use for magenta borders on non-bold backgrounds when there is no meaning tied to the color."
     },
     "value": "#CD519D",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -1911,7 +1911,7 @@ const tokens = [
       "description": "Use for borders on non-bold gray accent backgrounds."
     },
     "value": "#758195",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -1939,7 +1939,7 @@ const tokens = [
       "description": "Use for borders of elements in a disabled state."
     },
     "value": "#091E420F",
-    "filePath": "src/tokens/atlassian-light/color/border.tsx",
+    "filePath": "schema/themes/atlassian-light/color/border.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -1966,7 +1966,7 @@ const tokens = [
       "description": "Use for focus rings of elements in a focus state."
     },
     "value": "#388BFF",
-    "filePath": "src/tokens/atlassian-light/color/border.tsx",
+    "filePath": "schema/themes/atlassian-light/color/border.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -1993,7 +1993,7 @@ const tokens = [
       "description": "Use for borders of form UI elements, such as text fields, checkboxes, and radio buttons."
     },
     "value": "#091E4224",
-    "filePath": "src/tokens/atlassian-light/color/border.tsx",
+    "filePath": "schema/themes/atlassian-light/color/border.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -2020,7 +2020,7 @@ const tokens = [
       "description": "Use for borders on bold backgrounds."
     },
     "value": "#FFFFFF",
-    "filePath": "src/tokens/atlassian-light/color/border.tsx",
+    "filePath": "schema/themes/atlassian-light/color/border.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -2047,7 +2047,7 @@ const tokens = [
       "description": "Use for borders or visual indicators of elements in a selected or opened state, such as in tabs or menu items."
     },
     "value": "#0C66E4",
-    "filePath": "src/tokens/atlassian-light/color/border.tsx",
+    "filePath": "schema/themes/atlassian-light/color/border.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -2074,7 +2074,7 @@ const tokens = [
       "description": "Use for borders or visual indicators of elements that reinforce our brand, such as logos or primary buttons."
     },
     "value": "#0C66E4",
-    "filePath": "src/tokens/atlassian-light/color/border.tsx",
+    "filePath": "schema/themes/atlassian-light/color/border.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -2101,7 +2101,7 @@ const tokens = [
       "description": "Use for borders communicating critical information, such as the borders on invalid text fields."
     },
     "value": "#E34935",
-    "filePath": "src/tokens/atlassian-light/color/border.tsx",
+    "filePath": "schema/themes/atlassian-light/color/border.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -2128,7 +2128,7 @@ const tokens = [
       "description": "Use for borders communicating caution."
     },
     "value": "#D97008",
-    "filePath": "src/tokens/atlassian-light/color/border.tsx",
+    "filePath": "schema/themes/atlassian-light/color/border.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -2155,7 +2155,7 @@ const tokens = [
       "description": "Use for borders communicating a favorable outcome, such as the borders on validated text fields."
     },
     "value": "#22A06B",
-    "filePath": "src/tokens/atlassian-light/color/border.tsx",
+    "filePath": "schema/themes/atlassian-light/color/border.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -2182,7 +2182,7 @@ const tokens = [
       "description": "Use for borders communicating change or something new, such as the borders in onboarding spotlights."
     },
     "value": "#8270DB",
-    "filePath": "src/tokens/atlassian-light/color/border.tsx",
+    "filePath": "schema/themes/atlassian-light/color/border.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -2209,7 +2209,7 @@ const tokens = [
       "description": "Use for borders communicating information or something in-progress."
     },
     "value": "#1D7AFC",
-    "filePath": "src/tokens/atlassian-light/color/border.tsx",
+    "filePath": "schema/themes/atlassian-light/color/border.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -2236,7 +2236,7 @@ const tokens = [
       "description": "A neutral border option that passes min 3:1 contrast ratios."
     },
     "value": "#758195",
-    "filePath": "src/tokens/atlassian-light/color/border.tsx",
+    "filePath": "schema/themes/atlassian-light/color/border.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -2263,7 +2263,7 @@ const tokens = [
       "description": "Use for for backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
     },
     "value": "#EEFBDA",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -2293,7 +2293,7 @@ const tokens = [
       "description": "Hovered state of color.background.accent.lime.subtlest."
     },
     "value": "#D3F1A7",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -2323,7 +2323,7 @@ const tokens = [
       "description": "Pressed state of color.background.accent.lime.subtlest."
     },
     "value": "#B3DF72",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -2353,7 +2353,7 @@ const tokens = [
       "description": "Use for for backgrounds when there is no meaning tied to the color, such as colored tags."
     },
     "value": "#D3F1A7",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -2383,7 +2383,7 @@ const tokens = [
       "description": "Hovered state of color.background.accent.lime.subtler."
     },
     "value": "#B3DF72",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -2413,7 +2413,7 @@ const tokens = [
       "description": "Pressed state of color.background.accent.lime.subtler."
     },
     "value": "#94C748",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -2443,7 +2443,7 @@ const tokens = [
       "description": "Use for vibrant for backgrounds when there is no meaning tied to the color, such as colored tags."
     },
     "value": "#94C748",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -2473,7 +2473,7 @@ const tokens = [
       "description": "Hovered state of color.background.accent.lime.subtle."
     },
     "value": "#B3DF72",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -2503,7 +2503,7 @@ const tokens = [
       "description": "Pressed state of color.background.accent.lime.subtle."
     },
     "value": "#D3F1A7",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -2533,7 +2533,7 @@ const tokens = [
       "description": "Use for for backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
     },
     "value": "#5B7F24",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -2563,7 +2563,7 @@ const tokens = [
       "description": "Hovered state of color.background.accent.lime.bolder."
     },
     "value": "#4C6B1F",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -2593,7 +2593,7 @@ const tokens = [
       "description": "Pressed state of color.background.accent.lime.bolder."
     },
     "value": "#37471F",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -2623,7 +2623,7 @@ const tokens = [
       "description": "Use for red backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
     },
     "value": "#FFEDEB",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -2653,7 +2653,7 @@ const tokens = [
       "description": "Hovered state of color.background.accent.red.subtlest."
     },
     "value": "#FFD2CC",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -2683,7 +2683,7 @@ const tokens = [
       "description": "Pressed state of color.background.accent.red.subtlest."
     },
     "value": "#FF9C8F",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -2713,7 +2713,7 @@ const tokens = [
       "description": "Use for red backgrounds when there is no meaning tied to the color, such as colored tags."
     },
     "value": "#FFD2CC",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -2743,7 +2743,7 @@ const tokens = [
       "description": "Hovered state of color.background.accent.red.subtler."
     },
     "value": "#FF9C8F",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -2773,7 +2773,7 @@ const tokens = [
       "description": "Pressed state of color.background.accent.red.subtler."
     },
     "value": "#F87462",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -2803,7 +2803,7 @@ const tokens = [
       "description": "Use for vibrant red backgrounds when there is no meaning tied to the color, such as colored tags."
     },
     "value": "#F87462",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -2833,7 +2833,7 @@ const tokens = [
       "description": "Hovered state of color.background.accent.red.subtle."
     },
     "value": "#FF9C8F",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -2863,7 +2863,7 @@ const tokens = [
       "description": "Pressed state of color.background.accent.red.subtle."
     },
     "value": "#FFD2CC",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -2893,7 +2893,7 @@ const tokens = [
       "description": "Use for red backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
     },
     "value": "#CA3521",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -2923,7 +2923,7 @@ const tokens = [
       "description": "Hovered state of color.background.accent.red.bolder."
     },
     "value": "#AE2A19",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -2953,7 +2953,7 @@ const tokens = [
       "description": "Pressed state of color.background.accent.red.bolder."
     },
     "value": "#601E16",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -2983,7 +2983,7 @@ const tokens = [
       "description": "Use for orange backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
     },
     "value": "#FFF4E5",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -3013,7 +3013,7 @@ const tokens = [
       "description": "Hovered state of color.background.accent.orange.subtlest."
     },
     "value": "#FFE2BD",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -3043,7 +3043,7 @@ const tokens = [
       "description": "Pressed state of color.background.accent.orange.subtlest."
     },
     "value": "#FEC57B",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -3073,7 +3073,7 @@ const tokens = [
       "description": "Use for orange backgrounds when there is no meaning tied to the color, such as colored tags."
     },
     "value": "#FFE2BD",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -3103,7 +3103,7 @@ const tokens = [
       "description": "Hovered state of color.background.accent.orange.subtler."
     },
     "value": "#FEC57B",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -3133,7 +3133,7 @@ const tokens = [
       "description": "Pressed state of color.background.accent.orange.subtler."
     },
     "value": "#FAA53D",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -3163,7 +3163,7 @@ const tokens = [
       "description": "Use for vibrant orange backgrounds when there is no meaning tied to the color, such as colored tags."
     },
     "value": "#FAA53D",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -3193,7 +3193,7 @@ const tokens = [
       "description": "Hovered state of color.background.accent.orange.subtle."
     },
     "value": "#FEC57B",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -3223,7 +3223,7 @@ const tokens = [
       "description": "Pressed state of color.background.accent.orange.subtle."
     },
     "value": "#FFE2BD",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -3253,7 +3253,7 @@ const tokens = [
       "description": "Use for orange backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
     },
     "value": "#B65C02",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -3283,7 +3283,7 @@ const tokens = [
       "description": "Hovered state of color.background.accent.orange.bolder."
     },
     "value": "#974F0C",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -3313,7 +3313,7 @@ const tokens = [
       "description": "Pressed state of color.background.accent.orange.bolder."
     },
     "value": "#5F3811",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -3343,7 +3343,7 @@ const tokens = [
       "description": "Use for yellow backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
     },
     "value": "#FFF7D6",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -3373,7 +3373,7 @@ const tokens = [
       "description": "Hovered state of color.background.accent.yellow.subtlest."
     },
     "value": "#F8E6A0",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -3403,7 +3403,7 @@ const tokens = [
       "description": "Pressed state of color.background.accent.yellow.subtlest."
     },
     "value": "#F5CD47",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -3433,7 +3433,7 @@ const tokens = [
       "description": "Use for yellow backgrounds when there is no meaning tied to the color, such as colored tags."
     },
     "value": "#F8E6A0",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -3463,7 +3463,7 @@ const tokens = [
       "description": "Hovered state of color.background.accent.yellow.subtler."
     },
     "value": "#F5CD47",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -3493,7 +3493,7 @@ const tokens = [
       "description": "Pressed state of color.background.accent.yellow.subtler."
     },
     "value": "#E2B203",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -3523,7 +3523,7 @@ const tokens = [
       "description": "Use for vibrant yellow backgrounds when there is no meaning tied to the color, such as colored tags."
     },
     "value": "#E2B203",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -3553,7 +3553,7 @@ const tokens = [
       "description": "Hovered state of color.background.accent.yellow.subtle."
     },
     "value": "#F5CD47",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -3583,7 +3583,7 @@ const tokens = [
       "description": "Pressed state of color.background.accent.yellow.subtle."
     },
     "value": "#F8E6A0",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -3613,7 +3613,7 @@ const tokens = [
       "description": "Use for yellow backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
     },
     "value": "#946F00",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -3643,7 +3643,7 @@ const tokens = [
       "description": "Hovered state of color.background.accent.yellow.bolder."
     },
     "value": "#7F5F01",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -3673,7 +3673,7 @@ const tokens = [
       "description": "Pressed state of color.background.accent.yellow.bolder."
     },
     "value": "#533F04",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -3703,7 +3703,7 @@ const tokens = [
       "description": "Use for green backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
     },
     "value": "#DFFCF0",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -3733,7 +3733,7 @@ const tokens = [
       "description": "Hovered state of color.background.accent.green.subtlest."
     },
     "value": "#BAF3DB",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -3763,7 +3763,7 @@ const tokens = [
       "description": "Pressed state of color.background.accent.green.subtlest."
     },
     "value": "#7EE2B8",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -3793,7 +3793,7 @@ const tokens = [
       "description": "Use for green backgrounds when there is no meaning tied to the color, such as colored tags."
     },
     "value": "#BAF3DB",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -3823,7 +3823,7 @@ const tokens = [
       "description": "Hovered state of color.background.accent.green.subtler."
     },
     "value": "#7EE2B8",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -3853,7 +3853,7 @@ const tokens = [
       "description": "Pressed state of color.background.accent.green.subtler."
     },
     "value": "#4BCE97",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -3883,7 +3883,7 @@ const tokens = [
       "description": "Use for vibrant green backgrounds when there is no meaning tied to the color, such as colored tags."
     },
     "value": "#4BCE97",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -3913,7 +3913,7 @@ const tokens = [
       "description": "Hovered state of color.background.accent.green.subtle."
     },
     "value": "#7EE2B8",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -3943,7 +3943,7 @@ const tokens = [
       "description": "Pressed state of color.background.accent.green.subtle."
     },
     "value": "#BAF3DB",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -3973,7 +3973,7 @@ const tokens = [
       "description": "Use for green backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
     },
     "value": "#1F845A",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -4003,7 +4003,7 @@ const tokens = [
       "description": "Hovered state of color.background.accent.green.bolder."
     },
     "value": "#216E4E",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -4033,7 +4033,7 @@ const tokens = [
       "description": "Pressed state of color.background.accent.green.bolder."
     },
     "value": "#164B35",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -4063,7 +4063,7 @@ const tokens = [
       "description": "Use for teal backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
     },
     "value": "#E3FAFC",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -4093,7 +4093,7 @@ const tokens = [
       "description": "Hovered state of color.background.accent.teal.subtlest."
     },
     "value": "#C1F0F5",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -4123,7 +4123,7 @@ const tokens = [
       "description": "Pressed state of color.background.accent.teal.subtlest."
     },
     "value": "#8BDBE5",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -4153,7 +4153,7 @@ const tokens = [
       "description": "Use for teal backgrounds when there is no meaning tied to the color, such as colored tags."
     },
     "value": "#C1F0F5",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -4183,7 +4183,7 @@ const tokens = [
       "description": "Hovered state of color.background.accent.teal.subtler."
     },
     "value": "#8BDBE5",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -4213,7 +4213,7 @@ const tokens = [
       "description": "Pressed state of color.background.accent.teal.subtler."
     },
     "value": "#60C6D2",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -4243,7 +4243,7 @@ const tokens = [
       "description": "Use for vibrant teal backgrounds when there is no meaning tied to the color, such as colored tags."
     },
     "value": "#60C6D2",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -4273,7 +4273,7 @@ const tokens = [
       "description": "Hovered state of color.background.accent.teal.subtle."
     },
     "value": "#8BDBE5",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -4303,7 +4303,7 @@ const tokens = [
       "description": "Pressed state of color.background.accent.teal.subtle."
     },
     "value": "#C1F0F5",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -4333,7 +4333,7 @@ const tokens = [
       "description": "Use for teal backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
     },
     "value": "#1D7F8C",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -4363,7 +4363,7 @@ const tokens = [
       "description": "Hovered state of color.background.accent.teal.bolder."
     },
     "value": "#206B74",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -4393,7 +4393,7 @@ const tokens = [
       "description": "Pressed state of color.background.accent.teal.bolder."
     },
     "value": "#1D474C",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -4423,7 +4423,7 @@ const tokens = [
       "description": "Use for blue backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
     },
     "value": "#E9F2FF",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -4453,7 +4453,7 @@ const tokens = [
       "description": "Hovered state of color.background.accent.blue.subtlest."
     },
     "value": "#CCE0FF",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -4483,7 +4483,7 @@ const tokens = [
       "description": "Pressed state of color.background.accent.blue.subtlest."
     },
     "value": "#85B8FF",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -4513,7 +4513,7 @@ const tokens = [
       "description": "Use for blue backgrounds when there is no meaning tied to the color, such as colored tags."
     },
     "value": "#CCE0FF",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -4543,7 +4543,7 @@ const tokens = [
       "description": "Hovered state of color.background.accent.blue.subtler."
     },
     "value": "#85B8FF",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -4573,7 +4573,7 @@ const tokens = [
       "description": "Pressed state of color.background.accent.blue.subtler."
     },
     "value": "#579DFF",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -4603,7 +4603,7 @@ const tokens = [
       "description": "Use for vibrant blue backgrounds when there is no meaning tied to the color, such as colored tags."
     },
     "value": "#579DFF",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -4633,7 +4633,7 @@ const tokens = [
       "description": "Hovered state of color.background.accent.blue.subtle."
     },
     "value": "#85B8FF",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -4663,7 +4663,7 @@ const tokens = [
       "description": "Pressed state of color.background.accent.blue.subtle."
     },
     "value": "#CCE0FF",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -4693,7 +4693,7 @@ const tokens = [
       "description": "Use for blue backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
     },
     "value": "#0C66E4",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -4723,7 +4723,7 @@ const tokens = [
       "description": "Hovered state of color.background.accent.blue.bolder."
     },
     "value": "#0055CC",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -4753,7 +4753,7 @@ const tokens = [
       "description": "Pressed state of color.background.accent.blue.bolder."
     },
     "value": "#09326C",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -4783,7 +4783,7 @@ const tokens = [
       "description": "Use for purple backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
     },
     "value": "#F3F0FF",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -4813,7 +4813,7 @@ const tokens = [
       "description": "Hovered state of color.background.accent.purple.subtlest."
     },
     "value": "#DFD8FD",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -4843,7 +4843,7 @@ const tokens = [
       "description": "Pressed state of color.background.accent.purple.subtlest."
     },
     "value": "#B8ACF6",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -4873,7 +4873,7 @@ const tokens = [
       "description": "Use for purple backgrounds when there is no meaning tied to the color, such as colored tags."
     },
     "value": "#DFD8FD",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -4903,7 +4903,7 @@ const tokens = [
       "description": "Hovered state of color.background.accent.purple.subtler."
     },
     "value": "#B8ACF6",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -4933,7 +4933,7 @@ const tokens = [
       "description": "Pressed state of color.background.accent.purple.subtler."
     },
     "value": "#9F8FEF",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -4963,7 +4963,7 @@ const tokens = [
       "description": "Use for vibrant purple backgrounds when there is no meaning tied to the color, such as colored tags."
     },
     "value": "#9F8FEF",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -4993,7 +4993,7 @@ const tokens = [
       "description": "Hovered state of color.background.accent.purple.subtle."
     },
     "value": "#B8ACF6",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -5023,7 +5023,7 @@ const tokens = [
       "description": "Pressed state of color.background.accent.purple.subtle."
     },
     "value": "#DFD8FD",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -5053,7 +5053,7 @@ const tokens = [
       "description": "Use for purple backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
     },
     "value": "#6E5DC6",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -5083,7 +5083,7 @@ const tokens = [
       "description": "Hovered state of color.background.accent.purple.bolder."
     },
     "value": "#5E4DB2",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -5113,7 +5113,7 @@ const tokens = [
       "description": "Pressed state of color.background.accent.purple.bolder."
     },
     "value": "#352C63",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -5143,7 +5143,7 @@ const tokens = [
       "description": "Use for magenta backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
     },
     "value": "#FFECF8",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -5173,7 +5173,7 @@ const tokens = [
       "description": "Hovered state of color.background.accent.magenta.subtlest."
     },
     "value": "#FDD0EC",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -5203,7 +5203,7 @@ const tokens = [
       "description": "Pressed state of color.background.accent.magenta.subtlest."
     },
     "value": "#F797D2",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -5233,7 +5233,7 @@ const tokens = [
       "description": "Use for magenta backgrounds when there is no meaning tied to the color, such as colored tags."
     },
     "value": "#FDD0EC",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -5263,7 +5263,7 @@ const tokens = [
       "description": "Hovered state of color.background.accent.magenta.subtler."
     },
     "value": "#F797D2",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -5293,7 +5293,7 @@ const tokens = [
       "description": "Pressed state of color.background.accent.magenta.subtler."
     },
     "value": "#E774BB",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -5323,7 +5323,7 @@ const tokens = [
       "description": "Use for vibrant magenta backgrounds when there is no meaning tied to the color, such as colored tags."
     },
     "value": "#E774BB",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -5353,7 +5353,7 @@ const tokens = [
       "description": "Hovered state of color.background.accent.magenta.subtle."
     },
     "value": "#F797D2",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -5383,7 +5383,7 @@ const tokens = [
       "description": "Pressed state of color.background.accent.magenta.subtle."
     },
     "value": "#FDD0EC",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -5413,7 +5413,7 @@ const tokens = [
       "description": "Use for magenta backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
     },
     "value": "#AE4787",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -5443,7 +5443,7 @@ const tokens = [
       "description": "Hovered state of color.background.accent.magenta.bolder."
     },
     "value": "#943D73",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -5473,7 +5473,7 @@ const tokens = [
       "description": "Pressed state of color.background.accent.magenta.bolder."
     },
     "value": "#50253F",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -5503,7 +5503,7 @@ const tokens = [
       "description": "Use for gray backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
     },
     "value": "#F1F2F4",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -5533,7 +5533,7 @@ const tokens = [
       "description": "Hovered state of color.background.accent.gray.subtlest."
     },
     "value": "#DCDFE4",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -5563,7 +5563,7 @@ const tokens = [
       "description": "Pressed state of color.background.accent.gray.subtlest."
     },
     "value": "#B3B9C4",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -5593,7 +5593,7 @@ const tokens = [
       "description": "Use for gray backgrounds when there is no meaning tied to the color, such as colored tags."
     },
     "value": "#DCDFE4",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -5623,7 +5623,7 @@ const tokens = [
       "description": "Hovered state of color.background.accent.gray.subtler."
     },
     "value": "#B3B9C4",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -5653,7 +5653,7 @@ const tokens = [
       "description": "Pressed state of color.background.accent.gray.subtler."
     },
     "value": "#8590A2",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -5683,7 +5683,7 @@ const tokens = [
       "description": "Use for vibrant gray backgrounds when there is no meaning tied to the color, such as colored tags."
     },
     "value": "#8590A2",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -5713,7 +5713,7 @@ const tokens = [
       "description": "Hovered state of color.background.accent.gray.subtle."
     },
     "value": "#B3B9C4",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -5743,7 +5743,7 @@ const tokens = [
       "description": "Pressed state of color.background.accent.gray.subtle."
     },
     "value": "#DCDFE4",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -5773,7 +5773,7 @@ const tokens = [
       "description": "Use for gray backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
     },
     "value": "#626F86",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -5803,7 +5803,7 @@ const tokens = [
       "description": "Hovered state of color.background.accent.gray.bolder."
     },
     "value": "#44546F",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -5833,7 +5833,7 @@ const tokens = [
       "description": "Pressed state of color.background.accent.gray.subtlest."
     },
     "value": "#2C3E5D",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -5863,7 +5863,7 @@ const tokens = [
       "description": "Use for backgrounds of elements in a disabled state."
     },
     "value": "#091E4208",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -5890,7 +5890,7 @@ const tokens = [
       "description": "Use for background of form UI elements, such as text fields, checkboxes, and radio buttons."
     },
     "value": "#FFFFFF",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -5918,7 +5918,7 @@ const tokens = [
       "description": "Hovered state for color.background.input"
     },
     "value": "#F7F8F9",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -5946,7 +5946,7 @@ const tokens = [
       "description": "Pressed state for color.background.input"
     },
     "value": "#FFFFFF",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -5974,7 +5974,7 @@ const tokens = [
       "description": "Use for backgrounds of elements on a bold background, such as in the buttons on spotlight cards."
     },
     "value": "#00000029",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -6003,7 +6003,7 @@ const tokens = [
       "description": "Use for the hovered state of color.background.inverse.subtle"
     },
     "value": "#0000003D",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -6032,7 +6032,7 @@ const tokens = [
       "description": "Use for the pressed state of color.background.inverse.subtle"
     },
     "value": "#00000052",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -6061,7 +6061,7 @@ const tokens = [
       "description": "The default background for neutral elements, such as default buttons."
     },
     "value": "#091E420F",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -6090,7 +6090,7 @@ const tokens = [
       "description": "Hovered state for color.background.neutral"
     },
     "value": "#091E4224",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -6119,7 +6119,7 @@ const tokens = [
       "description": "Pressed state for color.background.neutral"
     },
     "value": "#091E424F",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -6148,7 +6148,7 @@ const tokens = [
       "description": "Use for the background of elements that appear to have no background in a resting state, such as subtle buttons and menu items."
     },
     "value": "#00000000",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -6177,7 +6177,7 @@ const tokens = [
       "description": "Hovered state for color.background.neutral.subtle"
     },
     "value": "#091E420F",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -6206,7 +6206,7 @@ const tokens = [
       "description": "Pressed state for color.background.neutral.subtle"
     },
     "value": "#091E4224",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -6235,7 +6235,7 @@ const tokens = [
       "description": "A vibrant background option for neutral UI elements, such as announcement banners."
     },
     "value": "#44546F",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -6264,7 +6264,7 @@ const tokens = [
       "description": "Hovered state of color.background.neutral.bold"
     },
     "value": "#2C3E5D",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -6293,7 +6293,7 @@ const tokens = [
       "description": "Pressed state of color.background.neutral.bold"
     },
     "value": "#172B4D",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -6322,7 +6322,7 @@ const tokens = [
       "description": "Use for the background of elements in a selected state, such as in opened dropdown buttons."
     },
     "value": "#E9F2FF",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -6351,7 +6351,7 @@ const tokens = [
       "description": "Hovered state for color.background.selected"
     },
     "value": "#CCE0FF",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -6380,7 +6380,7 @@ const tokens = [
       "description": "Pressed state for color.background.selected"
     },
     "value": "#85B8FF",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -6409,7 +6409,7 @@ const tokens = [
       "description": "Use for the backgrounds of elements in a selected state, such as checkboxes and radio buttons."
     },
     "value": "#0C66E4",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -6438,7 +6438,7 @@ const tokens = [
       "description": "Hovered state of color.background.selected.bold"
     },
     "value": "#0055CC",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -6467,7 +6467,7 @@ const tokens = [
       "description": "Pressed state of color.background.selected.bold"
     },
     "value": "#09326C",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -6496,7 +6496,7 @@ const tokens = [
       "description": "Use for the background of elements used to reinforce our brand, but with less emphasis."
     },
     "value": "#E9F2FF",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -6525,7 +6525,7 @@ const tokens = [
       "description": "Hovered state of color.background.brand.subtlest."
     },
     "value": "#CCE0FF",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -6554,7 +6554,7 @@ const tokens = [
       "description": "Pressed state of color.background.brand.subtlest"
     },
     "value": "#85B8FF",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -6583,7 +6583,7 @@ const tokens = [
       "description": "Use for the background of elements used to reinforce our brand, but with more emphasis."
     },
     "value": "#0C66E4",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -6612,7 +6612,7 @@ const tokens = [
       "description": "Hovered state of color.background.brand.bold."
     },
     "value": "#0055CC",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -6641,7 +6641,7 @@ const tokens = [
       "description": "Pressed state of color.background.brand.bold."
     },
     "value": "#09326C",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -6670,7 +6670,7 @@ const tokens = [
       "description": "Use for the background of elements used to reinforce our brand, that need to stand out a lot."
     },
     "value": "#092957",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -6699,7 +6699,7 @@ const tokens = [
       "description": "Hovered state of color.background.brand.boldest."
     },
     "value": "#09326C",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -6728,7 +6728,7 @@ const tokens = [
       "description": "Pressed state of color.background.brand.boldest."
     },
     "value": "#0055CC",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -6757,7 +6757,7 @@ const tokens = [
       "description": "Use for backgrounds communicating critical information, such in error section messages."
     },
     "value": "#FFEDEB",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -6786,7 +6786,7 @@ const tokens = [
       "description": "Hovered state for color.background.danger"
     },
     "value": "#FFD2CC",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -6815,7 +6815,7 @@ const tokens = [
       "description": "Pressed state for color.background.danger"
     },
     "value": "#FF9C8F",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -6844,7 +6844,7 @@ const tokens = [
       "description": "A vibrant background option for communicating critical information, such as in danger buttons and error banners."
     },
     "value": "#CA3521",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -6873,7 +6873,7 @@ const tokens = [
       "description": "Hovered state of color.background.danger.bold"
     },
     "value": "#AE2A19",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -6902,7 +6902,7 @@ const tokens = [
       "description": "Pressed state of color.background.danger.bold"
     },
     "value": "#601E16",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -6931,7 +6931,7 @@ const tokens = [
       "description": "Use for backgrounds communicating caution, such as in warning section messages."
     },
     "value": "#FFF7D6",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -6960,7 +6960,7 @@ const tokens = [
       "description": "Hovered state for color.background.warning"
     },
     "value": "#F8E6A0",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -6989,7 +6989,7 @@ const tokens = [
       "description": "Pressed state for color.background.warning"
     },
     "value": "#F5CD47",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -7018,7 +7018,7 @@ const tokens = [
       "description": "A vibrant background option for communicating caution, such as in warning buttons and warning banners."
     },
     "value": "#E2B203",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -7047,7 +7047,7 @@ const tokens = [
       "description": "Hovered state of color.background.warning.bold"
     },
     "value": "#CF9F02",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -7076,7 +7076,7 @@ const tokens = [
       "description": "Pressed state of color.background.warning.bold"
     },
     "value": "#B38600",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -7105,7 +7105,7 @@ const tokens = [
       "description": "Use for backgrounds communicating a favorable outcome, such as in success section messages."
     },
     "value": "#DFFCF0",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -7134,7 +7134,7 @@ const tokens = [
       "description": "Hovered state for color.background.success"
     },
     "value": "#BAF3DB",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -7163,7 +7163,7 @@ const tokens = [
       "description": "Pressed state for color.background.success"
     },
     "value": "#7EE2B8",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -7192,7 +7192,7 @@ const tokens = [
       "description": "A vibrant background option for communicating a favorable outcome, such as in checked toggles."
     },
     "value": "#1F845A",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -7221,7 +7221,7 @@ const tokens = [
       "description": "Hovered state of color.background.success.bold"
     },
     "value": "#216E4E",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -7250,7 +7250,7 @@ const tokens = [
       "description": "Pressed state of color.background.success.bold"
     },
     "value": "#164B35",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -7279,7 +7279,7 @@ const tokens = [
       "description": "Use for backgrounds communicating change or something new, such as in discovery section messages."
     },
     "value": "#F3F0FF",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -7308,7 +7308,7 @@ const tokens = [
       "description": "Hover state for color.background.discovery"
     },
     "value": "#DFD8FD",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -7337,7 +7337,7 @@ const tokens = [
       "description": "Pressed state for color.background.discovery"
     },
     "value": "#B8ACF6",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -7366,7 +7366,7 @@ const tokens = [
       "description": "A vibrant background option communicating change or something new, such as in onboarding spotlights."
     },
     "value": "#6E5DC6",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -7395,7 +7395,7 @@ const tokens = [
       "description": "Hovered state of color.background.discovery.bold"
     },
     "value": "#5E4DB2",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -7424,7 +7424,7 @@ const tokens = [
       "description": "Pressed state of color.background.discovery.bold"
     },
     "value": "#352C63",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -7453,7 +7453,7 @@ const tokens = [
       "description": "Use for backgrounds communicating information or something in-progress, such as in information section messages."
     },
     "value": "#E9F2FF",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -7482,7 +7482,7 @@ const tokens = [
       "description": "Hovered state of color.background.information"
     },
     "value": "#CCE0FF",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -7511,7 +7511,7 @@ const tokens = [
       "description": "Pressed state of color.background.information"
     },
     "value": "#85B8FF",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -7540,7 +7540,7 @@ const tokens = [
       "description": "A vibrant background option for communicating information or something in-progress."
     },
     "value": "#0C66E4",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -7569,7 +7569,7 @@ const tokens = [
       "description": "Hovered state of color.background.information.bold"
     },
     "value": "#0055CC",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -7598,7 +7598,7 @@ const tokens = [
       "description": "Pressed state of color.background.information.bold"
     },
     "value": "#09326C",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -7627,7 +7627,7 @@ const tokens = [
       "description": "Use for the screen overlay that appears with modal dialogs"
     },
     "value": "#091E427D",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -7654,7 +7654,7 @@ const tokens = [
       "description": "Use as an overlay to communicate selected states when a simple background color change isn't possible, such as in Editor block elements"
     },
     "value": "#388BFF14",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -7681,7 +7681,7 @@ const tokens = [
       "description": "Use as an overlay to communicate danger states when a simple background color change isn't possible, such as deletion of Editor block elements"
     },
     "value": "#EF5C4814",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -7708,7 +7708,7 @@ const tokens = [
       "description": "Use as a background overlay for elements in a hovered state when their background color cannot change, such as avatars."
     },
     "value": "#00000029",
-    "filePath": "src/tokens/atlassian-light/color/interaction.tsx",
+    "filePath": "schema/themes/atlassian-light/color/interaction.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -7735,7 +7735,7 @@ const tokens = [
       "description": "Use as a background overlay for elements in a pressed state when their background color cannot change, such as avatars."
     },
     "value": "#00000052",
-    "filePath": "src/tokens/atlassian-light/color/interaction.tsx",
+    "filePath": "schema/themes/atlassian-light/color/interaction.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -7762,7 +7762,7 @@ const tokens = [
       "description": "Use for skeleton loading states"
     },
     "value": "#091E420F",
-    "filePath": "src/tokens/atlassian-light/color/skeleton.tsx",
+    "filePath": "schema/themes/atlassian-light/color/skeleton.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -7789,7 +7789,7 @@ const tokens = [
       "description": "Use for the pulse or shimmer effect in skeleton loading states"
     },
     "value": "#091E4208",
-    "filePath": "src/tokens/atlassian-light/color/skeleton.tsx",
+    "filePath": "schema/themes/atlassian-light/color/skeleton.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -7816,7 +7816,7 @@ const tokens = [
       "description": "For data visualisation only. Follow numbered sequence."
     },
     "value": "#1D9AAA",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -7845,7 +7845,7 @@ const tokens = [
       "description": "Hovered state of color.chart.categorical.1."
     },
     "value": "#1D7F8C",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -7874,7 +7874,7 @@ const tokens = [
       "description": "For data visualisation only. Follow numbered sequence."
     },
     "value": "#5E4DB2",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -7903,7 +7903,7 @@ const tokens = [
       "description": "Hovered state of color.chart.categorical.2."
     },
     "value": "#352C63",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -7932,7 +7932,7 @@ const tokens = [
       "description": "For data visualisation only. Follow numbered sequence."
     },
     "value": "#D97008",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -7961,7 +7961,7 @@ const tokens = [
       "description": "Hovered state of color.chart.categorical.3."
     },
     "value": "#B65C02",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -7990,7 +7990,7 @@ const tokens = [
       "description": "For data visualisation only. Follow numbered sequence."
     },
     "value": "#943D73",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -8019,7 +8019,7 @@ const tokens = [
       "description": "Hovered state of color.chart.categorical.4."
     },
     "value": "#50253F",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -8048,7 +8048,7 @@ const tokens = [
       "description": "For data visualisation only. Follow numbered sequence."
     },
     "value": "#09326C",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -8077,7 +8077,7 @@ const tokens = [
       "description": "Hovered state of color.chart.categorical.5."
     },
     "value": "#092957",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -8106,7 +8106,7 @@ const tokens = [
       "description": "For data visualisation only. Follow numbered sequence."
     },
     "value": "#8F7EE7",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -8135,7 +8135,7 @@ const tokens = [
       "description": "Hovered state of color.chart.categorical.6."
     },
     "value": "#8270DB",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -8164,7 +8164,7 @@ const tokens = [
       "description": "For data visualisation only. Follow numbered sequence."
     },
     "value": "#50253F",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -8193,7 +8193,7 @@ const tokens = [
       "description": "Hovered state of color.chart.categorical.7."
     },
     "value": "#421F34",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -8222,7 +8222,7 @@ const tokens = [
       "description": "For data visualisation only. Follow numbered sequence."
     },
     "value": "#974F0C",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -8251,7 +8251,7 @@ const tokens = [
       "description": "Hovered state of color.chart.categorical.8."
     },
     "value": "#5F3811",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -8280,7 +8280,7 @@ const tokens = [
       "description": "For data visualisation only."
     },
     "value": "#6A9A23",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -8309,7 +8309,7 @@ const tokens = [
       "description": "Hovered state of color.chart.lime.bold."
     },
     "value": "#5B7F24",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -8338,7 +8338,7 @@ const tokens = [
       "description": "For data visualisation only."
     },
     "value": "#5B7F24",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -8367,7 +8367,7 @@ const tokens = [
       "description": "Hovered state of color.chart.lime.bolder."
     },
     "value": "#4C6B1F",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -8396,7 +8396,7 @@ const tokens = [
       "description": "For data visualisation only."
     },
     "value": "#4C6B1F",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -8425,7 +8425,7 @@ const tokens = [
       "description": "Hovered state of color.chart.lime.boldest."
     },
     "value": "#37471F",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -8454,7 +8454,7 @@ const tokens = [
       "description": "A secondary color for data visualisation or to communicate 'to-do' statues."
     },
     "value": "#8590A2",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -8482,7 +8482,7 @@ const tokens = [
       "description": "Hovered state of color.chart.neutral."
     },
     "value": "#758195",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -8510,7 +8510,7 @@ const tokens = [
       "description": "For data visualisation only."
     },
     "value": "#EF5C48",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -8539,7 +8539,7 @@ const tokens = [
       "description": "Hovered state of color.chart.red.bold."
     },
     "value": "#E34935",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -8568,7 +8568,7 @@ const tokens = [
       "description": "For data visualisation only."
     },
     "value": "#E34935",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -8597,7 +8597,7 @@ const tokens = [
       "description": "Hovered state of color.chart.red.bolder."
     },
     "value": "#CA3521",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -8626,7 +8626,7 @@ const tokens = [
       "description": "For data visualisation only."
     },
     "value": "#AE2A19",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -8655,7 +8655,7 @@ const tokens = [
       "description": "Hovered state of color.chart.red.boldest."
     },
     "value": "#601E16",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -8684,7 +8684,7 @@ const tokens = [
       "description": "For data visualisation only."
     },
     "value": "#D97008",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -8713,7 +8713,7 @@ const tokens = [
       "description": "Hovered state of color.chart.orange.bold."
     },
     "value": "#B65C02",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -8742,7 +8742,7 @@ const tokens = [
       "description": "For data visualisation only."
     },
     "value": "#B65C02",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -8771,7 +8771,7 @@ const tokens = [
       "description": "Hovered state of color.chart.orange.bolder."
     },
     "value": "#974F0C",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -8800,7 +8800,7 @@ const tokens = [
       "description": "For data visualisation only."
     },
     "value": "#974F0C",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -8829,7 +8829,7 @@ const tokens = [
       "description": "Hovered state of color.chart.orange.boldest."
     },
     "value": "#5F3811",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -8858,7 +8858,7 @@ const tokens = [
       "description": "For data visualisation only."
     },
     "value": "#B38600",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -8887,7 +8887,7 @@ const tokens = [
       "description": "Hovered state of color.chart.yellow.bold."
     },
     "value": "#946F00",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -8916,7 +8916,7 @@ const tokens = [
       "description": "For data visualisation only."
     },
     "value": "#946F00",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -8945,7 +8945,7 @@ const tokens = [
       "description": "Hovered state of color.chart.yellow.bolder."
     },
     "value": "#7F5F01",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -8974,7 +8974,7 @@ const tokens = [
       "description": "For data visualisation only."
     },
     "value": "#7F5F01",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -9003,7 +9003,7 @@ const tokens = [
       "description": "Hovered state of color.chart.yellow.boldest."
     },
     "value": "#533F04",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -9032,7 +9032,7 @@ const tokens = [
       "description": "For data visualisation only."
     },
     "value": "#22A06B",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -9061,7 +9061,7 @@ const tokens = [
       "description": "Hovered state of color.chart.green.bold."
     },
     "value": "#1F845A",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -9090,7 +9090,7 @@ const tokens = [
       "description": "For data visualisation only."
     },
     "value": "#1F845A",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -9119,7 +9119,7 @@ const tokens = [
       "description": "Hovered state of color.chart.green.bolder."
     },
     "value": "#216E4E",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -9148,7 +9148,7 @@ const tokens = [
       "description": "For data visualisation only."
     },
     "value": "#216E4E",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -9177,7 +9177,7 @@ const tokens = [
       "description": "Hovered state of color.chart.green.boldest."
     },
     "value": "#164B35",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -9206,7 +9206,7 @@ const tokens = [
       "description": "For data visualisation only."
     },
     "value": "#1D9AAA",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -9235,7 +9235,7 @@ const tokens = [
       "description": "Hovered state of color.chart.teal.bold."
     },
     "value": "#1D7F8C",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -9264,7 +9264,7 @@ const tokens = [
       "description": "For data visualisation only."
     },
     "value": "#1D7F8C",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -9293,7 +9293,7 @@ const tokens = [
       "description": "Hovered state of color.chart.teal.bolder."
     },
     "value": "#206B74",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -9322,7 +9322,7 @@ const tokens = [
       "description": "For data visualisation only."
     },
     "value": "#206B74",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -9351,7 +9351,7 @@ const tokens = [
       "description": "Hovered state of color.chart.teal.boldest."
     },
     "value": "#1D474C",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -9380,7 +9380,7 @@ const tokens = [
       "description": "For data visualisation only."
     },
     "value": "#388BFF",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -9409,7 +9409,7 @@ const tokens = [
       "description": "Hovered state of color.chart.blue.bold."
     },
     "value": "#1D7AFC",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -9438,7 +9438,7 @@ const tokens = [
       "description": "For data visualisation only."
     },
     "value": "#1D7AFC",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -9467,7 +9467,7 @@ const tokens = [
       "description": "Hovered state of color.chart.blue.bolder."
     },
     "value": "#0C66E4",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -9496,7 +9496,7 @@ const tokens = [
       "description": "For data visualisation only."
     },
     "value": "#0055CC",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -9525,7 +9525,7 @@ const tokens = [
       "description": "Hovered state of color.chart.blue.boldest."
     },
     "value": "#09326C",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -9554,7 +9554,7 @@ const tokens = [
       "description": "For data visualisation only."
     },
     "value": "#8F7EE7",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -9583,7 +9583,7 @@ const tokens = [
       "description": "Hovered state of color.chart.purple.bold."
     },
     "value": "#8270DB",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -9612,7 +9612,7 @@ const tokens = [
       "description": "For data visualisation only."
     },
     "value": "#8270DB",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -9641,7 +9641,7 @@ const tokens = [
       "description": "Hovered state of color.chart.purple.bolder."
     },
     "value": "#6E5DC6",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -9670,7 +9670,7 @@ const tokens = [
       "description": "For data visualisation only."
     },
     "value": "#5E4DB2",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -9699,7 +9699,7 @@ const tokens = [
       "description": "Hovered state of color.chart.purple.boldest."
     },
     "value": "#352C63",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -9728,7 +9728,7 @@ const tokens = [
       "description": "For data visualisation only."
     },
     "value": "#DA62AC",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -9757,7 +9757,7 @@ const tokens = [
       "description": "Hovered state of color.chart.magenta.bold."
     },
     "value": "#CD519D",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -9786,7 +9786,7 @@ const tokens = [
       "description": "For data visualisation only."
     },
     "value": "#CD519D",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -9815,7 +9815,7 @@ const tokens = [
       "description": "Hovered state of color.chart.magenta.bolder."
     },
     "value": "#AE4787",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -9844,7 +9844,7 @@ const tokens = [
       "description": "For data visualisation only."
     },
     "value": "#943D73",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -9873,7 +9873,7 @@ const tokens = [
       "description": "Hovered state of color.chart.magenta.boldest."
     },
     "value": "#50253F",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -9902,7 +9902,7 @@ const tokens = [
       "description": "For data visualisation only."
     },
     "value": "#8590A2",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -9931,7 +9931,7 @@ const tokens = [
       "description": "Hovered state of color.chart.gray.bold."
     },
     "value": "#758195",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -9960,7 +9960,7 @@ const tokens = [
       "description": "For data visualisation only."
     },
     "value": "#758195",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -9989,7 +9989,7 @@ const tokens = [
       "description": "Hovered state of color.chart.gray.bolder."
     },
     "value": "#626F86",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -10018,7 +10018,7 @@ const tokens = [
       "description": "For data visualisation only."
     },
     "value": "#44546F",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -10047,7 +10047,7 @@ const tokens = [
       "description": "Hovered state of color.chart.gray.boldest."
     },
     "value": "#2C3E5D",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -10076,7 +10076,7 @@ const tokens = [
       "description": "Our primary color for data visualisation. Use when only one color is required."
     },
     "value": "#1D7AFC",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -10104,7 +10104,7 @@ const tokens = [
       "description": "Hovered state of color.chart.brand."
     },
     "value": "#0C66E4",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -10132,7 +10132,7 @@ const tokens = [
       "description": "For data visualisation communicating negative information, such as 'off track'."
     },
     "value": "#EF5C48",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -10161,7 +10161,7 @@ const tokens = [
       "description": "Hovered state of color.chart.danger."
     },
     "value": "#E34935",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -10190,7 +10190,7 @@ const tokens = [
       "description": "A stronger emphasis option of color.chart.danger."
     },
     "value": "#AE2A19",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -10219,7 +10219,7 @@ const tokens = [
       "description": "Hovered state of color.chart.danger.bold."
     },
     "value": "#601E16",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -10248,7 +10248,7 @@ const tokens = [
       "description": "For data visualisation communicating caution, such as 'at risk' statuses."
     },
     "value": "#B38600",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -10277,7 +10277,7 @@ const tokens = [
       "description": "Hovered state of color.chart.warning."
     },
     "value": "#946F00",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -10306,7 +10306,7 @@ const tokens = [
       "description": "A stronger emphasis option of color.chart.warning."
     },
     "value": "#7F5F01",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -10335,7 +10335,7 @@ const tokens = [
       "description": "Hovered state of color.chart.warning.bold."
     },
     "value": "#533F04",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -10364,7 +10364,7 @@ const tokens = [
       "description": "For data visualisation communicating positive information, such as 'on track'."
     },
     "value": "#22A06B",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -10393,7 +10393,7 @@ const tokens = [
       "description": "Hovered state of color.chart.success."
     },
     "value": "#1F845A",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -10422,7 +10422,7 @@ const tokens = [
       "description": "A stronger emphasis option of color.chart.success."
     },
     "value": "#216E4E",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -10451,7 +10451,7 @@ const tokens = [
       "description": "Hovered state of color.chart.success.bold."
     },
     "value": "#164B35",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -10480,7 +10480,7 @@ const tokens = [
       "description": "For data visualisation communicating 'new' statuses."
     },
     "value": "#8F7EE7",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -10509,7 +10509,7 @@ const tokens = [
       "description": "Hovered state of color.chart.discovery."
     },
     "value": "#8270DB",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -10538,7 +10538,7 @@ const tokens = [
       "description": "A stronger emphasis option of color.chart.discovery."
     },
     "value": "#5E4DB2",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -10567,7 +10567,7 @@ const tokens = [
       "description": "Hovered state of color.chart.discovery.bold."
     },
     "value": "#352C63",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -10596,7 +10596,7 @@ const tokens = [
       "description": "For data visualisation communicating low priority or in-progress statuses."
     },
     "value": "#388BFF",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -10625,7 +10625,7 @@ const tokens = [
       "description": "Hovered state of color.chart.information."
     },
     "value": "#1D7AFC",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -10654,7 +10654,7 @@ const tokens = [
       "description": "A stronger emphasis option of color.chart.information."
     },
     "value": "#0055CC",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -10683,7 +10683,7 @@ const tokens = [
       "description": "Hovered state of color.chart.information.bold."
     },
     "value": "#09326C",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -10712,7 +10712,7 @@ const tokens = [
       "description": "Use as the primary background for the UI."
     },
     "value": "#FFFFFF",
-    "filePath": "src/tokens/atlassian-light/elevation/surface.tsx",
+    "filePath": "schema/themes/atlassian-light/elevation/surface.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -10740,7 +10740,7 @@ const tokens = [
       "description": "Hovered state of elevation.surface"
     },
     "value": "#F1F2F4",
-    "filePath": "src/tokens/atlassian-light/elevation/surface.tsx",
+    "filePath": "schema/themes/atlassian-light/elevation/surface.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -10768,7 +10768,7 @@ const tokens = [
       "description": "Pressed state of elevation.surface"
     },
     "value": "#DCDFE4",
-    "filePath": "src/tokens/atlassian-light/elevation/surface.tsx",
+    "filePath": "schema/themes/atlassian-light/elevation/surface.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -10796,7 +10796,7 @@ const tokens = [
       "description": "Use for the background of elements that sit on top of they UI, such as modals, dialogs, dropdown menus, floating toolbars, and floating single-action buttons. Also use for the background of raised cards in a dragged state. Combine with elevation.shadow.overlay."
     },
     "value": "#FFFFFF",
-    "filePath": "src/tokens/atlassian-light/elevation/surface.tsx",
+    "filePath": "schema/themes/atlassian-light/elevation/surface.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -10824,7 +10824,7 @@ const tokens = [
       "description": "Hovered state of elevation.surface.overlay"
     },
     "value": "#F1F2F4",
-    "filePath": "src/tokens/atlassian-light/elevation/surface.tsx",
+    "filePath": "schema/themes/atlassian-light/elevation/surface.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -10852,7 +10852,7 @@ const tokens = [
       "description": "Pressed state of elevation.surface.overlay"
     },
     "value": "#DCDFE4",
-    "filePath": "src/tokens/atlassian-light/elevation/surface.tsx",
+    "filePath": "schema/themes/atlassian-light/elevation/surface.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -10880,7 +10880,7 @@ const tokens = [
       "description": "Use for the background of cards that can be moved, such as Jira cards on a Kanban board. Combine with elevation.shadow.raised."
     },
     "value": "#FFFFFF",
-    "filePath": "src/tokens/atlassian-light/elevation/surface.tsx",
+    "filePath": "schema/themes/atlassian-light/elevation/surface.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -10908,7 +10908,7 @@ const tokens = [
       "description": "Hovered state of elevation.surface.raised"
     },
     "value": "#F1F2F4",
-    "filePath": "src/tokens/atlassian-light/elevation/surface.tsx",
+    "filePath": "schema/themes/atlassian-light/elevation/surface.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -10936,7 +10936,7 @@ const tokens = [
       "description": "Pressed state of elevation.surface.raised"
     },
     "value": "#DCDFE4",
-    "filePath": "src/tokens/atlassian-light/elevation/surface.tsx",
+    "filePath": "schema/themes/atlassian-light/elevation/surface.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -10964,7 +10964,7 @@ const tokens = [
       "description": "A secondary background for the UI commonly used for grouping items, such as Jira cards in columns."
     },
     "value": "#F7F8F9",
-    "filePath": "src/tokens/atlassian-light/elevation/surface.tsx",
+    "filePath": "schema/themes/atlassian-light/elevation/surface.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -11010,7 +11010,7 @@ const tokens = [
         "opacity": 0.12
       }
     ],
-    "filePath": "src/tokens/atlassian-light/elevation/shadow.tsx",
+    "filePath": "schema/themes/atlassian-light/elevation/shadow.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -11057,7 +11057,7 @@ const tokens = [
       "description": "Use only when elevation.shadow.overflow is not technically feasible to implement. Pair with elevation.shadow.overflow.spread to replicate the overflow shadow."
     },
     "value": "#091e421f",
-    "filePath": "src/tokens/atlassian-light/elevation/shadow.tsx",
+    "filePath": "schema/themes/atlassian-light/elevation/shadow.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -11085,7 +11085,7 @@ const tokens = [
       "description": "Use only when elevation.shadow.overflow is not technically feasible to implement. Pair with elevation.shadow.overflow.perimeter to replicate the overflow shadow."
     },
     "value": "#091e4229",
-    "filePath": "src/tokens/atlassian-light/elevation/shadow.tsx",
+    "filePath": "schema/themes/atlassian-light/elevation/shadow.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -11132,7 +11132,7 @@ const tokens = [
         "opacity": 0.31
       }
     ],
-    "filePath": "src/tokens/atlassian-light/elevation/shadow.tsx",
+    "filePath": "schema/themes/atlassian-light/elevation/shadow.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -11197,7 +11197,7 @@ const tokens = [
         "opacity": 0.31
       }
     ],
-    "filePath": "src/tokens/atlassian-light/elevation/shadow.tsx",
+    "filePath": "schema/themes/atlassian-light/elevation/shadow.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -11243,7 +11243,7 @@ const tokens = [
       "description": "Apply to images when in a disabled state."
     },
     "value": 0.4,
-    "filePath": "src/tokens/atlassian-light/opacity/opacity.tsx",
+    "filePath": "schema/themes/atlassian-light/opacity/opacity.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -11269,7 +11269,7 @@ const tokens = [
       "description": "Apply to content that sits under a loading spinner."
     },
     "value": 0.2,
-    "filePath": "src/tokens/atlassian-light/opacity/opacity.tsx",
+    "filePath": "schema/themes/atlassian-light/opacity/opacity.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -11295,7 +11295,7 @@ const tokens = [
       "description": "Transparent token used for backwards compatibility between new and old theming solutions"
     },
     "value": "transparent",
-    "filePath": "src/tokens/atlassian-light/utility/utility.tsx",
+    "filePath": "schema/themes/atlassian-light/utility/utility.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -11322,7 +11322,7 @@ const tokens = [
       "description": "A dynamic token that represents the current surface color set by a parent element. It defaults to the 'elevation.surface' token value."
     },
     "value": "#FFFFFF",
-    "filePath": "src/tokens/atlassian-light/utility/utility.tsx",
+    "filePath": "schema/themes/atlassian-light/utility/utility.tsx",
     "isSource": true,
     "original": {
       "attributes": {

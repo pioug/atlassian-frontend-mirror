@@ -4,12 +4,11 @@ import Loadable from 'react-loadable';
 import { date } from '@atlaskit/adf-schema';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import {
-  insertDate,
   closeDatePicker,
   closeDatePickerWithAnalytics,
   createDate,
-  deleteDate,
 } from './actions';
+import { insertDateCommand, deleteDateCommand } from './commands';
 import createDatePlugin from './pm-plugins/main';
 import keymap from './pm-plugins/keymap';
 
@@ -85,9 +84,8 @@ function ContentComponent({
       isNew={isNew}
       autoFocus={focusDateInput}
       onDelete={() => {
-        deleteDate()(editorView.state, dispatch);
+        dependencyApi?.core.actions.execute(deleteDateCommand(dependencyApi));
         editorView.focus();
-        return;
       }}
       onSelect={(
         date: DateType | null,
@@ -97,16 +95,21 @@ function ContentComponent({
         if (date === undefined || date === null) {
           return;
         }
-        insertDate(date, undefined, commitMethod)(editorView.state, dispatch);
+        dependencyApi?.core.actions.execute(
+          insertDateCommand(dependencyApi)({
+            date,
+            commitMethod,
+          }),
+        );
         editorView.focus();
       }}
       onTextChanged={(date?: DateType) => {
-        insertDate(
-          date,
-          undefined,
-          undefined,
-          false,
-        )(editorView.state, dispatch);
+        dependencyApi?.core.actions.execute(
+          insertDateCommand(dependencyApi)({
+            date,
+            enterPressed: false,
+          }),
+        );
       }}
       closeDatePicker={() => {
         closeDatePicker()(editorView.state, dispatch);
@@ -142,9 +145,9 @@ const datePlugin: DatePlugin = ({ config: options = {}, api }) => ({
     };
   },
 
-  actions: {
-    insertDate,
-    deleteDate,
+  commands: {
+    insertDate: insertDateCommand(api),
+    deleteDate: deleteDateCommand(api),
   },
 
   nodes() {

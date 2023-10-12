@@ -32,6 +32,13 @@ test.describe('resizing a table', () => {
   test('should limit minimum width if resizing in 3 column', async ({
     editor,
   }) => {
+    fixTest({
+      jiraIssueId: 'ED-20321',
+      reason:
+        'FIXME: This test was automatically skipped due to failure on 05/10/2023: https://product-fabric.atlassian.net/browse/ED-20321',
+      browsers: [BROWSERS.webkit],
+    });
+
     const nodes = EditorNodeContainerModel.from(editor);
     const tableLocator = nodes.table.nth(0);
     const threeColumnTable = EditorTableModel.from(tableLocator);

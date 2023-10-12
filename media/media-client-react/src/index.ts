@@ -7,4 +7,4 @@ export {
 export { useFileState } from './useFileState';
 export { useMediaStore } from './useMediaStore';
 
-export type { UseFileStateResult } from './useFileState';
+export type { UseFileStateResult, UseFileStateOptions } from './useFileState';

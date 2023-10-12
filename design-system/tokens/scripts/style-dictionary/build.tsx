@@ -12,7 +12,7 @@ import buildThemes from './build-themes';
 
 /**
  * The palette step builds artifacts related to base-tokens which are used to create themes.
- * It mostly looks at the src/palettes dir to create artifacts
+ * It mostly looks at the schema/palettes dir to create artifacts
  * For example, palettes-raw
  */
 buildPalettes(styleDictionary);
@@ -27,7 +27,7 @@ buildThemes(styleDictionary);
 
 /**
  * The schema step builds artifacts related to the structure of themes.
- * It mostly looks at the schema (aka src/tokens/default dir) to create artifacts
+ * It mostly looks at the schema (aka schema/tokens dir) to create artifacts
  * For example, replacement tokens and token descriptions are both artifacts that
  * apply to all themes
  */

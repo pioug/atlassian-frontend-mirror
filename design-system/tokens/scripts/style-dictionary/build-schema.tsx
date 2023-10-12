@@ -2,10 +2,10 @@ import path from 'path';
 
 import { Config, Core } from 'style-dictionary';
 
-import defaultPalette from '../../src/palettes/palette';
-import shapePalette from '../../src/palettes/shape-palette';
-import spacingScale from '../../src/palettes/spacing-scale';
-import typographyPalette from '../../src/palettes/typography-palette';
+import defaultPalette from '../../schema/palettes/palette';
+import shapePalette from '../../schema/palettes/shape-palette';
+import spacingScale from '../../schema/palettes/spacing-scale';
+import typographyPalette from '../../schema/palettes/typography-palette';
 
 import { ARTIFACT_OUTPUT_DIR, THEME_INPUT_DIR } from './constants';
 import formatterTokenDescriptionCSV from './formatters/csv-token-description';
@@ -133,7 +133,7 @@ const createGlobalConfig = (schemaInputDir: string): Config => ({
 });
 
 export default function build(styleDictionary: Core) {
-  const schemaInputDir = `${__dirname}/../../src/tokens/default`;
+  const schemaInputDir = `${__dirname}/../../schema/tokens`;
   const config = createGlobalConfig(schemaInputDir);
   styleDictionary.extend(config).buildAllPlatforms();
 }

@@ -17,7 +17,7 @@ import {
   EVENT_TYPE,
   INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
-import { messages } from '../insert-block/ui/ToolbarInsertBlock/messages';
+import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import { IconStatus } from '@atlaskit/editor-common/quick-insert';
 
 import type { UpdateStatus } from './actions';

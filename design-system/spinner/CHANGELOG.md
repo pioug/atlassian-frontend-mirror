@@ -1,5 +1,11 @@
 # @atlaskit/spinner
 
+## 15.6.1
+
+### Patch Changes
+
+- [#41196](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41196) [`c9142a5d5e7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c9142a5d5e7) - Added this package into push model consumption.
+
 ## 15.6.0
 
 ### Minor Changes

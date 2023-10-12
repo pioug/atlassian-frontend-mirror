@@ -136,9 +136,10 @@ class MediaNodeView extends SelectionBasedNodeView<MediaNodeViewProps> {
       width = width || DEFAULT_IMAGE_WIDTH;
       height = height || DEFAULT_IMAGE_HEIGHT;
 
+      // mediaSingle defines the max dimensions, so we don't need to constrain twice.
       const maxDimensions = {
-        width: `${editorWidth!.width}px`,
-        height: `${(height / width) * editorWidth!.width}px`,
+        width: `100%`,
+        height: `100%`,
       };
 
       const originalDimensions = {

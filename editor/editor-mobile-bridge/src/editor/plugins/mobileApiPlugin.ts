@@ -1,4 +1,4 @@
-import { useLayoutEffect } from 'react';
+import { useLayoutEffect, useEffect } from 'react';
 import type { IntlShape } from 'react-intl-next';
 import type {
   OptionalPlugin,
@@ -6,7 +6,11 @@ import type {
   ExtractInjectionAPI,
 } from '@atlaskit/editor-common/types';
 import type WebBridgeImpl from '../native-to-web';
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import {
+  useSharedPluginState,
+  usePreviousState,
+} from '@atlaskit/editor-common/hooks';
+import { TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { HyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
@@ -29,6 +33,8 @@ import type { PanelPlugin } from '@atlaskit/editor-core/src/plugins/panel';
 import type { BlockTypePlugin } from '@atlaskit/editor-plugin-block-type';
 import type { DatePlugin } from '@atlaskit/editor-core/src/plugins/date';
 import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
+import type EditorConfiguration from '../editor-configuration';
+import { toNativeBridge } from '../web-to-native';
 
 const useListeners = (
   pluginInjectionApi: ExtractInjectionAPI<typeof mobileApiPlugin> | undefined,
@@ -56,6 +62,71 @@ const useListeners = (
   useBlockTypeListener(blockTypeState);
 };
 
+function useTypeAheadSubscription(
+  pluginInjectionApi: ExtractInjectionAPI<typeof mobileApiPlugin> | undefined,
+  editorConfiguration: EditorConfiguration,
+) {
+  const { typeAheadState } = useSharedPluginState(pluginInjectionApi, [
+    'typeAhead',
+  ]);
+  const previousTypeAheadState = usePreviousState(typeAheadState);
+
+  const newPluginState = typeAheadState;
+  const oldPluginState = previousTypeAheadState;
+
+  useEffect(() => {
+    if (!newPluginState || !oldPluginState) {
+      return;
+    }
+
+    const wasClosed = !newPluginState.isOpen && oldPluginState.isOpen;
+
+    if (wasClosed) {
+      toNativeBridge.call('typeAheadBridge', 'dismissTypeAhead');
+      return;
+    }
+
+    if (!newPluginState.currentHandler) {
+      return;
+    }
+    const {
+      currentHandler: { trigger },
+    } = newPluginState;
+
+    const wasOpened =
+      oldPluginState.currentHandler !== newPluginState.currentHandler;
+    const hasQueryChanged = newPluginState.query !== oldPluginState.query;
+    const isQuickInsert =
+      newPluginState.currentHandler.id === TypeAheadAvailableNodes.QUICK_INSERT;
+    const query = newPluginState.query;
+
+    if (isQuickInsert && (wasOpened || hasQueryChanged)) {
+      const quickInsertList =
+        pluginInjectionApi?.quickInsert?.actions.getSuggestions({
+          query,
+          disableDefaultItems: true,
+        });
+      const quickInsertItems = quickInsertList?.map(({ id, title }) => ({
+        id,
+        title,
+      }));
+
+      toNativeBridge.call('typeAheadBridge', 'typeAheadDisplayItems', {
+        query,
+        trigger,
+        items: JSON.stringify(quickInsertItems),
+      });
+    } else if (hasQueryChanged || wasOpened) {
+      toNativeBridge.call('typeAheadBridge', 'typeAheadQuery', {
+        query,
+        trigger,
+      });
+    }
+    // We need to recreate the hook when there is a new editorConfiguration
+  }, [editorConfiguration, newPluginState, oldPluginState, pluginInjectionApi]); // eslint-disable-line react-hooks/exhaustive-deps
+  // }, [editorReady, editorConfiguration, editorView, bridge]); // eslint-disable-line react-hooks/exhaustive-deps
+}
+
 export const mobileApiPlugin: NextEditorPlugin<
   'mobile',
   {
@@ -77,9 +148,13 @@ export const mobileApiPlugin: NextEditorPlugin<
       DatePlugin,
       StatusPlugin,
     ];
-    pluginConfiguration: { bridge: WebBridgeImpl; intl: IntlShape };
+    pluginConfiguration: {
+      editorConfiguration: EditorConfiguration;
+      bridge: WebBridgeImpl;
+      intl: IntlShape;
+    };
   }
-> = ({ config: { bridge, intl }, api }) => ({
+> = ({ config: { bridge, intl, editorConfiguration }, api }) => ({
   name: 'mobile',
 
   usePluginHook({ editorView }) {
@@ -88,5 +163,6 @@ export const mobileApiPlugin: NextEditorPlugin<
     }, []);
 
     useListeners(api, editorView, bridge, intl);
+    useTypeAheadSubscription(api, editorConfiguration);
   },
 });

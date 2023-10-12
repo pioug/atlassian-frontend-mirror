@@ -8,7 +8,7 @@ import formatterRaw from './formatters/raw';
 import dotSyntax from './transformers/dot-syntax';
 import rawPixel from './transformers/number-pixel';
 
-const PALETTE_INPUT_DIR = './src/palettes/';
+const PALETTE_INPUT_DIR = './schema/palettes/';
 
 const createPaletteConfig = (paletteFileName: string): Config => ({
   source: [path.join(PALETTE_INPUT_DIR, paletteFileName)],
@@ -45,7 +45,7 @@ const createPaletteConfig = (paletteFileName: string): Config => ({
 });
 
 export default function build(styleDictionary: Core) {
-  const paletteInputDir = `${__dirname}/../../src/palettes`;
+  const paletteInputDir = `${__dirname}/../../schema/palettes`;
 
   fs.readdirSync(paletteInputDir, { withFileTypes: true })
     .filter((result) => !result.isDirectory())

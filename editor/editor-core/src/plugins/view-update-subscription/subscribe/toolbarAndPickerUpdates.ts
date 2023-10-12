@@ -4,7 +4,6 @@ import type { FloatingToolbarPluginState } from '@atlaskit/editor-plugin-floatin
 import type { ConfigWithNodeInfo } from '@atlaskit/editor-plugin-floating-toolbar';
 import type { StatusState } from '../../status/types';
 import { areSameItems } from '@atlaskit/editor-common/floating-toolbar';
-import { isTypeAheadOpen } from '../../type-ahead/utils';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { ViewUpdateSubscription } from '..';
 import { trackerStore } from '..';
@@ -56,14 +55,14 @@ export const subscribeToToolbarAndPickerUpdates: SubscribeToToolbarAndPickerUpda
     let lastUpdatedState: EditorState | null = null;
 
     const subscription: ViewUpdateSubscription = ({ newEditorState }) => {
-      // TypeAhead has priority in the mobile-bridge
-      // In case it is open we don't need to send
-      // any toolbar updates don't need to be send
-      if (isTypeAheadOpen(newEditorState)) {
-        return;
-      }
-
       // Creating fake plugin keys for these plugins for the mean time until all these plugins are extracted.
+      const typeAheadPluginKey = {
+        key: 'typeAheadPlugin$',
+        getState: (state: EditorState) => {
+          return (state as any)['typeAheadPlugin$'];
+        },
+      };
+
       const datePluginKey = {
         key: 'datePlugin$',
         getState: (state: EditorState) => {
@@ -84,6 +83,17 @@ export const subscribeToToolbarAndPickerUpdates: SubscribeToToolbarAndPickerUpda
           return (state as any)['floatingToolbarPluginKey$'];
         },
       };
+
+      const isTypeAheadOpen = (editorState: EditorState) => {
+        const typeAheadState = typeAheadPluginKey.getState(newEditorState);
+        return !!typeAheadState.decorationSet?.find().length;
+      };
+      // TypeAhead has priority in the mobile-bridge
+      // In case it is open we don't need to send
+      // any toolbar updates don't need to be send
+      if (isTypeAheadOpen(newEditorState)) {
+        return;
+      }
 
       const dateState = datePluginKey.getState(newEditorState);
       const statusState = statusPluginKey.getState(newEditorState);

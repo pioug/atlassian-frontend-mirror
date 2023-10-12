@@ -3,9 +3,11 @@ export const mockHandleExternalMedia = jest.fn();
 export const mockHasDifferentContextId = jest.fn();
 export const mockCopyNode = jest.fn();
 export const mockInsertCaptionAtPos = jest.fn(() => () => () => {});
+export const mockSetProps = jest.fn();
 
 jest.mock('../mediaNodeView/media', () => () => null);
 jest.mock('../mediaNodeUpdater', () => ({
+  ...jest.requireActual('../mediaNodeUpdater'),
   MediaNodeUpdater: jest.fn(() => ({
     updateMediaSingleFileAttrs: jest.fn(),
     getNodeContextId: jest.fn(),
@@ -16,6 +18,7 @@ jest.mock('../mediaNodeUpdater', () => ({
     hasDifferentContextId: mockHasDifferentContextId,
     copyNode: mockCopyNode,
     handleExternalMedia: mockHandleExternalMedia,
+    setProps: mockSetProps,
   })),
 }));
 jest.mock('../../commands/captions', () => ({

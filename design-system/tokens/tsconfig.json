@@ -5,6 +5,8 @@
     "__tests__/**/*.tsx",
     "docs/**/*.ts",
     "docs/**/*.tsx",
+    "schema/**/*.ts",
+    "schema/**/*.tsx",
     "examples/**/*.ts",
     "examples/**/*.tsx",
     "src/**/*.ts",

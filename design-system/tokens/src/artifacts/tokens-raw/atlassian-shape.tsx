@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::475f699859423669fdb3de04f32b3560>>
+ * @codegen <<SignedSource::c6c0b8c2ca5e429f25fe4035e374a0c5>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -12,7 +12,7 @@ const tokens = [
       "description": "Used for selection indicators, like tabs."
     },
     "value": "2px",
-    "filePath": "src/tokens/atlassian-shape/shape.tsx",
+    "filePath": "schema/themes/atlassian-shape/shape.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -43,7 +43,7 @@ const tokens = [
       "description": "The default border radius."
     },
     "value": "4px",
-    "filePath": "src/tokens/atlassian-shape/shape.tsx",
+    "filePath": "schema/themes/atlassian-shape/shape.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -74,7 +74,7 @@ const tokens = [
       "description": "Used for buttons and inputs."
     },
     "value": "4px",
-    "filePath": "src/tokens/atlassian-shape/shape.tsx",
+    "filePath": "schema/themes/atlassian-shape/shape.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -101,7 +101,7 @@ const tokens = [
       "description": "Used for smaller cards."
     },
     "value": "8px",
-    "filePath": "src/tokens/atlassian-shape/shape.tsx",
+    "filePath": "schema/themes/atlassian-shape/shape.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -128,7 +128,7 @@ const tokens = [
       "description": "Used for cards and larger containers."
     },
     "value": "12px",
-    "filePath": "src/tokens/atlassian-shape/shape.tsx",
+    "filePath": "schema/themes/atlassian-shape/shape.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -155,7 +155,7 @@ const tokens = [
       "description": "Used for modals."
     },
     "value": "16px",
-    "filePath": "src/tokens/atlassian-shape/shape.tsx",
+    "filePath": "schema/themes/atlassian-shape/shape.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -185,7 +185,7 @@ const tokens = [
       "description": "Used for circular containers, like a rounded button."
     },
     "value": "32032px",
-    "filePath": "src/tokens/atlassian-shape/shape.tsx",
+    "filePath": "schema/themes/atlassian-shape/shape.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -219,7 +219,7 @@ const tokens = [
       "description": "The default border width. Used for all borders."
     },
     "value": "1px",
-    "filePath": "src/tokens/atlassian-shape/shape.tsx",
+    "filePath": "schema/themes/atlassian-shape/shape.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -250,7 +250,7 @@ const tokens = [
       "description": "Used for zero width borders."
     },
     "value": "0px",
-    "filePath": "src/tokens/atlassian-shape/shape.tsx",
+    "filePath": "schema/themes/atlassian-shape/shape.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -277,7 +277,7 @@ const tokens = [
       "description": "Used for indicators like tab and menu selected states."
     },
     "value": "3px",
-    "filePath": "src/tokens/atlassian-shape/shape.tsx",
+    "filePath": "schema/themes/atlassian-shape/shape.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -304,7 +304,7 @@ const tokens = [
       "description": "Used for focus, active or selected inputs."
     },
     "value": "2px",
-    "filePath": "src/tokens/atlassian-shape/shape.tsx",
+    "filePath": "schema/themes/atlassian-shape/shape.tsx",
     "isSource": true,
     "original": {
       "attributes": {

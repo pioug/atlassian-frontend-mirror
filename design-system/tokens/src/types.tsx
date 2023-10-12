@@ -1,6 +1,4 @@
 import type { InternalTokenIds } from './artifacts/types-internal';
-import type { ShapePaletteToken } from './palettes/shape-palette';
-import type { SpacingPaletteToken } from './palettes/spacing-scale';
 
 export type Groups =
   | 'raw'
@@ -181,8 +179,8 @@ export type ShadowToken<BaseToken> = DesignToken<
 >;
 
 export type OpacityToken = DesignToken<string, 'opacity'>;
-export type SpacingToken = DesignToken<SpacingPaletteToken, 'spacing'>;
-export type ShapeToken = DesignToken<ShapePaletteToken, 'shape'>;
+export type SpacingToken<BaseToken> = DesignToken<BaseToken, 'spacing'>;
+export type ShapeToken<BaseToken> = DesignToken<BaseToken, 'shape'>;
 export type FontSizeToken<BaseToken> = DesignToken<BaseToken, 'fontSize'>;
 export type FontWeightToken<BaseToken> = DesignToken<BaseToken, 'fontWeight'>;
 export type FontFamilyToken<BaseToken> = DesignToken<BaseToken, 'fontFamily'>;
@@ -1077,32 +1075,32 @@ export type ColorTokenSchema<BaseToken> =
 export type TokenSchema<BaseToken> = ColorTokenSchema<BaseToken> &
   ElevationTokenSchema<BaseToken>;
 
-export interface SpacingTokenSchema {
+export interface SpacingTokenSchema<BaseToken> {
   space: {
-    '0': SpacingToken;
-    '025': SpacingToken;
-    '050': SpacingToken;
-    '075': SpacingToken;
-    '100': SpacingToken;
-    '150': SpacingToken;
-    '200': SpacingToken;
-    '250': SpacingToken;
-    '300': SpacingToken;
-    '400': SpacingToken;
-    '500': SpacingToken;
-    '600': SpacingToken;
-    '800': SpacingToken;
-    '1000': SpacingToken;
+    '0': SpacingToken<BaseToken>;
+    '025': SpacingToken<BaseToken>;
+    '050': SpacingToken<BaseToken>;
+    '075': SpacingToken<BaseToken>;
+    '100': SpacingToken<BaseToken>;
+    '150': SpacingToken<BaseToken>;
+    '200': SpacingToken<BaseToken>;
+    '250': SpacingToken<BaseToken>;
+    '300': SpacingToken<BaseToken>;
+    '400': SpacingToken<BaseToken>;
+    '500': SpacingToken<BaseToken>;
+    '600': SpacingToken<BaseToken>;
+    '800': SpacingToken<BaseToken>;
+    '1000': SpacingToken<BaseToken>;
     negative: {
-      '025': SpacingToken;
-      '050': SpacingToken;
-      '075': SpacingToken;
-      '100': SpacingToken;
-      '150': SpacingToken;
-      '200': SpacingToken;
-      '250': SpacingToken;
-      '300': SpacingToken;
-      '400': SpacingToken;
+      '025': SpacingToken<BaseToken>;
+      '050': SpacingToken<BaseToken>;
+      '075': SpacingToken<BaseToken>;
+      '100': SpacingToken<BaseToken>;
+      '150': SpacingToken<BaseToken>;
+      '200': SpacingToken<BaseToken>;
+      '250': SpacingToken<BaseToken>;
+      '300': SpacingToken<BaseToken>;
+      '400': SpacingToken<BaseToken>;
     };
   };
 }
@@ -1167,22 +1165,22 @@ export interface TypographyTokenSchema<
   };
 }
 
-export interface ShapeTokenSchema {
+export interface ShapeTokenSchema<BaseToken> {
   border: {
     width: {
-      '[default]': ShapeToken;
-      '0': ShapeToken;
-      indicator: ShapeToken;
-      outline: ShapeToken;
+      '[default]': ShapeToken<BaseToken>;
+      '0': ShapeToken<BaseToken>;
+      indicator: ShapeToken<BaseToken>;
+      outline: ShapeToken<BaseToken>;
     };
     radius: {
-      '[default]': ShapeToken;
-      '050': ShapeToken;
-      '100': ShapeToken;
-      '200': ShapeToken;
-      '300': ShapeToken;
-      '400': ShapeToken;
-      circle: ShapeToken;
+      '[default]': ShapeToken<BaseToken>;
+      '050': ShapeToken<BaseToken>;
+      '100': ShapeToken<BaseToken>;
+      '200': ShapeToken<BaseToken>;
+      '300': ShapeToken<BaseToken>;
+      '400': ShapeToken<BaseToken>;
+      circle: ShapeToken<BaseToken>;
     };
   };
 }

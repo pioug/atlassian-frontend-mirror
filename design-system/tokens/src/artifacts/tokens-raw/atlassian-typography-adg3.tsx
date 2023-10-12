@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::385a83af4c578715d2776d3fe65ff10b>>
+ * @codegen <<SignedSource::9a936afc84b1d60e754307860c256a05>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -12,7 +12,7 @@ const tokens = [
       "description": "Text transform uppercase token used for backwards compatibility between new and old theming solutions"
     },
     "value": "uppercase",
-    "filePath": "src/tokens/atlassian-typography-adg3/theme.tsx",
+    "filePath": "schema/themes/atlassian-typography-adg3/theme.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -39,7 +39,7 @@ const tokens = [
       "description": "The default body font."
     },
     "value": "normal 400 14px/20px var(--ds-font-family-body)",
-    "filePath": "src/tokens/atlassian-typography-adg3/theme.tsx",
+    "filePath": "schema/themes/atlassian-typography-adg3/theme.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -73,7 +73,7 @@ const tokens = [
       "description": "Larger body font or default body font for text rich experiences."
     },
     "value": "normal 400 16px/24px var(--ds-font-family-body)",
-    "filePath": "src/tokens/atlassian-typography-adg3/theme.tsx",
+    "filePath": "schema/themes/atlassian-typography-adg3/theme.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -107,7 +107,7 @@ const tokens = [
       "description": "Smaller body font."
     },
     "value": "normal 400 11px/20px var(--ds-font-family-body)",
-    "filePath": "src/tokens/atlassian-typography-adg3/theme.tsx",
+    "filePath": "schema/themes/atlassian-typography-adg3/theme.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -141,7 +141,7 @@ const tokens = [
       "description": "Used for monospace and code."
     },
     "value": "normal 400 0.875em/1 var(--ds-font-family-code)",
-    "filePath": "src/tokens/atlassian-typography-adg3/theme.tsx",
+    "filePath": "schema/themes/atlassian-typography-adg3/theme.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -175,7 +175,7 @@ const tokens = [
       "description": "TBD"
     },
     "value": "normal 500 24px/28px var(--ds-font-family-heading)",
-    "filePath": "src/tokens/atlassian-typography-adg3/theme.tsx",
+    "filePath": "schema/themes/atlassian-typography-adg3/theme.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -209,7 +209,7 @@ const tokens = [
       "description": "TBD"
     },
     "value": "normal 500 20px/24px var(--ds-font-family-heading)",
-    "filePath": "src/tokens/atlassian-typography-adg3/theme.tsx",
+    "filePath": "schema/themes/atlassian-typography-adg3/theme.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -243,7 +243,7 @@ const tokens = [
       "description": "TBD"
     },
     "value": "normal 600 16px/20px var(--ds-font-family-heading)",
-    "filePath": "src/tokens/atlassian-typography-adg3/theme.tsx",
+    "filePath": "schema/themes/atlassian-typography-adg3/theme.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -277,7 +277,7 @@ const tokens = [
       "description": "TBD"
     },
     "value": "normal 600 29px/32px var(--ds-font-family-heading)",
-    "filePath": "src/tokens/atlassian-typography-adg3/theme.tsx",
+    "filePath": "schema/themes/atlassian-typography-adg3/theme.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -311,7 +311,7 @@ const tokens = [
       "description": "TBD"
     },
     "value": "normal 600 14px/16px var(--ds-font-family-heading)",
-    "filePath": "src/tokens/atlassian-typography-adg3/theme.tsx",
+    "filePath": "schema/themes/atlassian-typography-adg3/theme.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -345,7 +345,7 @@ const tokens = [
       "description": "TBD"
     },
     "value": "normal 500 35px/40px var(--ds-font-family-heading)",
-    "filePath": "src/tokens/atlassian-typography-adg3/theme.tsx",
+    "filePath": "schema/themes/atlassian-typography-adg3/theme.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -379,7 +379,7 @@ const tokens = [
       "description": "TBD"
     },
     "value": "normal 600 12px/16px var(--ds-font-family-heading)",
-    "filePath": "src/tokens/atlassian-typography-adg3/theme.tsx",
+    "filePath": "schema/themes/atlassian-typography-adg3/theme.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -413,7 +413,7 @@ const tokens = [
       "description": "Helpful guidance goes here"
     },
     "value": "0",
-    "filePath": "src/tokens/atlassian-typography-adg3/letter-spacing.tsx",
+    "filePath": "schema/themes/atlassian-typography-adg3/letter-spacing.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -440,7 +440,7 @@ const tokens = [
       "description": "Helpful guidance goes here"
     },
     "value": "-0.003em",
-    "filePath": "src/tokens/atlassian-typography-adg3/letter-spacing.tsx",
+    "filePath": "schema/themes/atlassian-typography-adg3/letter-spacing.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -467,7 +467,7 @@ const tokens = [
       "description": "Helpful guidance goes here"
     },
     "value": "-0.006em",
-    "filePath": "src/tokens/atlassian-typography-adg3/letter-spacing.tsx",
+    "filePath": "schema/themes/atlassian-typography-adg3/letter-spacing.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -494,7 +494,7 @@ const tokens = [
       "description": "Helpful guidance goes here"
     },
     "value": "-0.008em",
-    "filePath": "src/tokens/atlassian-typography-adg3/letter-spacing.tsx",
+    "filePath": "schema/themes/atlassian-typography-adg3/letter-spacing.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -521,7 +521,7 @@ const tokens = [
       "description": "Helpful guidance goes here"
     },
     "value": "-0.01em",
-    "filePath": "src/tokens/atlassian-typography-adg3/letter-spacing.tsx",
+    "filePath": "schema/themes/atlassian-typography-adg3/letter-spacing.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -548,7 +548,7 @@ const tokens = [
       "description": "Single-line non-wrapping text like that in a button."
     },
     "value": "normal 400 14px/1 var(--ds-font-family-body)",
-    "filePath": "src/tokens/atlassian-typography-adg3/theme.tsx",
+    "filePath": "schema/themes/atlassian-typography-adg3/theme.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -582,7 +582,7 @@ const tokens = [
       "description": "Single-line non-wrapping supporting text like that in a smaller label."
     },
     "value": "normal 400 11px/1 var(--ds-font-family-body)",
-    "filePath": "src/tokens/atlassian-typography-adg3/theme.tsx",
+    "filePath": "schema/themes/atlassian-typography-adg3/theme.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -616,7 +616,7 @@ const tokens = [
       "description": "Helpful guidance goes here"
     },
     "value": "ui-sans-serif, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
-    "filePath": "src/tokens/atlassian-typography-adg3/font-family.tsx",
+    "filePath": "schema/themes/atlassian-typography-adg3/font-family.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -643,7 +643,7 @@ const tokens = [
       "description": "Helpful guidance goes here"
     },
     "value": "ui-monospace, Menlo, \"Segoe UI Mono\", \"Ubuntu Mono\", monospace",
-    "filePath": "src/tokens/atlassian-typography-adg3/font-family.tsx",
+    "filePath": "schema/themes/atlassian-typography-adg3/font-family.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -670,7 +670,7 @@ const tokens = [
       "description": "Helpful guidance goes here"
     },
     "value": "ui-sans-serif, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
-    "filePath": "src/tokens/atlassian-typography-adg3/font-family.tsx",
+    "filePath": "schema/themes/atlassian-typography-adg3/font-family.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -697,7 +697,7 @@ const tokens = [
       "description": "Helpful guidance goes here"
     },
     "value": "ui-monospace, Menlo, \"Segoe UI Mono\", \"Ubuntu Mono\", monospace",
-    "filePath": "src/tokens/atlassian-typography-adg3/font-family.tsx",
+    "filePath": "schema/themes/atlassian-typography-adg3/font-family.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -724,7 +724,7 @@ const tokens = [
       "description": "Helpful guidance goes here"
     },
     "value": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Roboto\", \"Oxygen\", \"Ubuntu\", \"Fira Sans\", \"Droid Sans\", \"Helvetica Neue\", sans-serif",
-    "filePath": "src/tokens/atlassian-typography-adg3/font-family.tsx",
+    "filePath": "schema/themes/atlassian-typography-adg3/font-family.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -751,7 +751,7 @@ const tokens = [
       "description": "Helpful guidance goes here"
     },
     "value": "Charlie Sans",
-    "filePath": "src/tokens/atlassian-typography-adg3/font-family.tsx",
+    "filePath": "schema/themes/atlassian-typography-adg3/font-family.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -778,7 +778,7 @@ const tokens = [
       "description": "Helpful guidance goes here"
     },
     "value": "11px",
-    "filePath": "src/tokens/atlassian-typography-adg3/font-size.tsx",
+    "filePath": "schema/themes/atlassian-typography-adg3/font-size.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -805,7 +805,7 @@ const tokens = [
       "description": "Helpful guidance goes here"
     },
     "value": "12px",
-    "filePath": "src/tokens/atlassian-typography-adg3/font-size.tsx",
+    "filePath": "schema/themes/atlassian-typography-adg3/font-size.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -832,7 +832,7 @@ const tokens = [
       "description": "Helpful guidance goes here"
     },
     "value": "14px",
-    "filePath": "src/tokens/atlassian-typography-adg3/font-size.tsx",
+    "filePath": "schema/themes/atlassian-typography-adg3/font-size.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -859,7 +859,7 @@ const tokens = [
       "description": "Helpful guidance goes here"
     },
     "value": "16px",
-    "filePath": "src/tokens/atlassian-typography-adg3/font-size.tsx",
+    "filePath": "schema/themes/atlassian-typography-adg3/font-size.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -886,7 +886,7 @@ const tokens = [
       "description": "Helpful guidance goes here"
     },
     "value": "20px",
-    "filePath": "src/tokens/atlassian-typography-adg3/font-size.tsx",
+    "filePath": "schema/themes/atlassian-typography-adg3/font-size.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -913,7 +913,7 @@ const tokens = [
       "description": "Helpful guidance goes here"
     },
     "value": "24px",
-    "filePath": "src/tokens/atlassian-typography-adg3/font-size.tsx",
+    "filePath": "schema/themes/atlassian-typography-adg3/font-size.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -940,7 +940,7 @@ const tokens = [
       "description": "Helpful guidance goes here"
     },
     "value": "29px",
-    "filePath": "src/tokens/atlassian-typography-adg3/font-size.tsx",
+    "filePath": "schema/themes/atlassian-typography-adg3/font-size.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -967,7 +967,7 @@ const tokens = [
       "description": "Helpful guidance goes here"
     },
     "value": "35px",
-    "filePath": "src/tokens/atlassian-typography-adg3/font-size.tsx",
+    "filePath": "schema/themes/atlassian-typography-adg3/font-size.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -994,7 +994,7 @@ const tokens = [
       "description": "Helpful guidance goes here"
     },
     "value": "700",
-    "filePath": "src/tokens/atlassian-typography-adg3/font-weight.tsx",
+    "filePath": "schema/themes/atlassian-typography-adg3/font-weight.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -1021,7 +1021,7 @@ const tokens = [
       "description": "Helpful guidance goes here"
     },
     "value": "500",
-    "filePath": "src/tokens/atlassian-typography-adg3/font-weight.tsx",
+    "filePath": "schema/themes/atlassian-typography-adg3/font-weight.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -1048,7 +1048,7 @@ const tokens = [
       "description": "Helpful guidance goes here"
     },
     "value": "400",
-    "filePath": "src/tokens/atlassian-typography-adg3/font-weight.tsx",
+    "filePath": "schema/themes/atlassian-typography-adg3/font-weight.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -1075,7 +1075,7 @@ const tokens = [
       "description": "Helpful guidance goes here"
     },
     "value": "600",
-    "filePath": "src/tokens/atlassian-typography-adg3/font-weight.tsx",
+    "filePath": "schema/themes/atlassian-typography-adg3/font-weight.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -1102,7 +1102,7 @@ const tokens = [
       "description": "Used single-line text."
     },
     "value": "1",
-    "filePath": "src/tokens/atlassian-typography-adg3/line-height.tsx",
+    "filePath": "schema/themes/atlassian-typography-adg3/line-height.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -1129,7 +1129,7 @@ const tokens = [
       "description": "Helpful guidance goes here"
     },
     "value": "16px",
-    "filePath": "src/tokens/atlassian-typography-adg3/line-height.tsx",
+    "filePath": "schema/themes/atlassian-typography-adg3/line-height.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -1156,7 +1156,7 @@ const tokens = [
       "description": "Helpful guidance goes here"
     },
     "value": "20px",
-    "filePath": "src/tokens/atlassian-typography-adg3/line-height.tsx",
+    "filePath": "schema/themes/atlassian-typography-adg3/line-height.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -1183,7 +1183,7 @@ const tokens = [
       "description": "Helpful guidance goes here"
     },
     "value": "24px",
-    "filePath": "src/tokens/atlassian-typography-adg3/line-height.tsx",
+    "filePath": "schema/themes/atlassian-typography-adg3/line-height.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -1210,7 +1210,7 @@ const tokens = [
       "description": "Helpful guidance goes here"
     },
     "value": "28px",
-    "filePath": "src/tokens/atlassian-typography-adg3/line-height.tsx",
+    "filePath": "schema/themes/atlassian-typography-adg3/line-height.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -1237,7 +1237,7 @@ const tokens = [
       "description": "Helpful guidance goes here"
     },
     "value": "32px",
-    "filePath": "src/tokens/atlassian-typography-adg3/line-height.tsx",
+    "filePath": "schema/themes/atlassian-typography-adg3/line-height.tsx",
     "isSource": true,
     "original": {
       "attributes": {
@@ -1264,7 +1264,7 @@ const tokens = [
       "description": "Helpful guidance goes here"
     },
     "value": "40px",
-    "filePath": "src/tokens/atlassian-typography-adg3/line-height.tsx",
+    "filePath": "schema/themes/atlassian-typography-adg3/line-height.tsx",
     "isSource": true,
     "original": {
       "attributes": {

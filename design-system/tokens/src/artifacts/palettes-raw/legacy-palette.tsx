@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::dedf6c0d26805cf0e48a136204fac4d2>>
+ * @codegen <<SignedSource::5fb765784561d214bcc78d25188fa47e>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -10,7 +10,7 @@ const tokens = [
       "group": "palette",
       "category": "red"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#FFEBE6",
@@ -32,7 +32,7 @@ const tokens = [
       "group": "palette",
       "category": "red"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#FFBDAD",
@@ -54,7 +54,7 @@ const tokens = [
       "group": "palette",
       "category": "red"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#FF8F73",
@@ -76,7 +76,7 @@ const tokens = [
       "group": "palette",
       "category": "red"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#FF7452",
@@ -98,7 +98,7 @@ const tokens = [
       "group": "palette",
       "category": "red"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#FF5630",
@@ -120,7 +120,7 @@ const tokens = [
       "group": "palette",
       "category": "red"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#DE350B",
@@ -142,7 +142,7 @@ const tokens = [
       "group": "palette",
       "category": "red"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#BF2600",
@@ -164,7 +164,7 @@ const tokens = [
       "group": "palette",
       "category": "red"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "transparent",
@@ -186,7 +186,7 @@ const tokens = [
       "group": "palette",
       "category": "orange"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#974F0C",
@@ -208,7 +208,7 @@ const tokens = [
       "group": "palette",
       "category": "yellow"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#FFFAE6",
@@ -230,7 +230,7 @@ const tokens = [
       "group": "palette",
       "category": "yellow"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#FFF0B3",
@@ -252,7 +252,7 @@ const tokens = [
       "group": "palette",
       "category": "yellow"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#FFE380",
@@ -274,7 +274,7 @@ const tokens = [
       "group": "palette",
       "category": "yellow"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#FFC400",
@@ -296,7 +296,7 @@ const tokens = [
       "group": "palette",
       "category": "yellow"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#FFAB00",
@@ -318,7 +318,7 @@ const tokens = [
       "group": "palette",
       "category": "yellow"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#FF991F",
@@ -340,7 +340,7 @@ const tokens = [
       "group": "palette",
       "category": "yellow"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#FF8B00",
@@ -362,7 +362,7 @@ const tokens = [
       "group": "palette",
       "category": "green"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#E3FCEF",
@@ -384,7 +384,7 @@ const tokens = [
       "group": "palette",
       "category": "green"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#ABF5D1",
@@ -406,7 +406,7 @@ const tokens = [
       "group": "palette",
       "category": "green"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#79F2C0",
@@ -428,7 +428,7 @@ const tokens = [
       "group": "palette",
       "category": "green"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#57D9A3",
@@ -450,7 +450,7 @@ const tokens = [
       "group": "palette",
       "category": "green"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#36B37E",
@@ -472,7 +472,7 @@ const tokens = [
       "group": "palette",
       "category": "green"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#00875A",
@@ -494,7 +494,7 @@ const tokens = [
       "group": "palette",
       "category": "green"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#006644",
@@ -516,7 +516,7 @@ const tokens = [
       "group": "palette",
       "category": "teal"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#E6FCFF",
@@ -538,7 +538,7 @@ const tokens = [
       "group": "palette",
       "category": "teal"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#B3F5FF",
@@ -560,7 +560,7 @@ const tokens = [
       "group": "palette",
       "category": "teal"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#79E2F2",
@@ -582,7 +582,7 @@ const tokens = [
       "group": "palette",
       "category": "teal"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#00C7E6",
@@ -604,7 +604,7 @@ const tokens = [
       "group": "palette",
       "category": "teal"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#00B8D9",
@@ -626,7 +626,7 @@ const tokens = [
       "group": "palette",
       "category": "teal"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#00A3BF",
@@ -648,7 +648,7 @@ const tokens = [
       "group": "palette",
       "category": "teal"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#008DA6",
@@ -670,7 +670,7 @@ const tokens = [
       "group": "palette",
       "category": "blue"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#DEEBFF",
@@ -692,7 +692,7 @@ const tokens = [
       "group": "palette",
       "category": "blue"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#B3D4FF",
@@ -714,7 +714,7 @@ const tokens = [
       "group": "palette",
       "category": "blue"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#4C9AFF",
@@ -736,7 +736,7 @@ const tokens = [
       "group": "palette",
       "category": "blue"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#2684FF",
@@ -758,7 +758,7 @@ const tokens = [
       "group": "palette",
       "category": "blue"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#0065FF",
@@ -780,7 +780,7 @@ const tokens = [
       "group": "palette",
       "category": "blue"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#0052CC",
@@ -802,7 +802,7 @@ const tokens = [
       "group": "palette",
       "category": "blue"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#0747A6",
@@ -824,7 +824,7 @@ const tokens = [
       "group": "palette",
       "category": "purple"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#EAE6FF",
@@ -846,7 +846,7 @@ const tokens = [
       "group": "palette",
       "category": "purple"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#C0B6F2",
@@ -868,7 +868,7 @@ const tokens = [
       "group": "palette",
       "category": "purple"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#998DD9",
@@ -890,7 +890,7 @@ const tokens = [
       "group": "palette",
       "category": "purple"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#8777D9",
@@ -912,7 +912,7 @@ const tokens = [
       "group": "palette",
       "category": "purple"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#6554C0",
@@ -934,7 +934,7 @@ const tokens = [
       "group": "palette",
       "category": "purple"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#5243AA",
@@ -956,7 +956,7 @@ const tokens = [
       "group": "palette",
       "category": "purple"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#403294",
@@ -978,7 +978,7 @@ const tokens = [
       "group": "palette",
       "category": "light mode neutral"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#FFFFFF",
@@ -1000,7 +1000,7 @@ const tokens = [
       "group": "palette",
       "category": "light mode neutral"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#FAFBFC",
@@ -1022,7 +1022,7 @@ const tokens = [
       "group": "palette",
       "category": "light mode neutral"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#F4F5F7",
@@ -1044,7 +1044,7 @@ const tokens = [
       "group": "palette",
       "category": "light mode neutral"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#EBECF0",
@@ -1066,7 +1066,7 @@ const tokens = [
       "group": "palette",
       "category": "light mode neutral"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#DFE1E6",
@@ -1088,7 +1088,7 @@ const tokens = [
       "group": "palette",
       "category": "light mode neutral"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#C1C7D0",
@@ -1110,7 +1110,7 @@ const tokens = [
       "group": "palette",
       "category": "light mode neutral"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#B3BAC5",
@@ -1132,7 +1132,7 @@ const tokens = [
       "group": "palette",
       "category": "light mode neutral"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#A5ADBA",
@@ -1154,7 +1154,7 @@ const tokens = [
       "group": "palette",
       "category": "light mode neutral"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#97A0AF",
@@ -1176,7 +1176,7 @@ const tokens = [
       "group": "palette",
       "category": "light mode neutral"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#8993A4",
@@ -1198,7 +1198,7 @@ const tokens = [
       "group": "palette",
       "category": "light mode neutral"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#7A869A",
@@ -1220,7 +1220,7 @@ const tokens = [
       "group": "palette",
       "category": "light mode neutral"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#6B778C",
@@ -1242,7 +1242,7 @@ const tokens = [
       "group": "palette",
       "category": "light mode neutral"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#5E6C84",
@@ -1264,7 +1264,7 @@ const tokens = [
       "group": "palette",
       "category": "light mode neutral"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#505F79",
@@ -1286,7 +1286,7 @@ const tokens = [
       "group": "palette",
       "category": "light mode neutral"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#42526E",
@@ -1308,7 +1308,7 @@ const tokens = [
       "group": "palette",
       "category": "light mode neutral"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#344563",
@@ -1330,7 +1330,7 @@ const tokens = [
       "group": "palette",
       "category": "light mode neutral"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#253858",
@@ -1352,7 +1352,7 @@ const tokens = [
       "group": "palette",
       "category": "light mode neutral"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#172B4D",
@@ -1374,7 +1374,7 @@ const tokens = [
       "group": "palette",
       "category": "light mode neutral"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#091E42",
@@ -1396,7 +1396,7 @@ const tokens = [
       "group": "palette",
       "category": "light mode neutral"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#091e4205",
@@ -1418,7 +1418,7 @@ const tokens = [
       "group": "palette",
       "category": "light mode neutral"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#091e420a",
@@ -1440,7 +1440,7 @@ const tokens = [
       "group": "palette",
       "category": "light mode neutral"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#091e4214",
@@ -1462,7 +1462,7 @@ const tokens = [
       "group": "palette",
       "category": "light mode neutral"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#091e4221",
@@ -1484,7 +1484,7 @@ const tokens = [
       "group": "palette",
       "category": "light mode neutral"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#091e423f",
@@ -1506,7 +1506,7 @@ const tokens = [
       "group": "palette",
       "category": "light mode neutral"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#091e424f",
@@ -1528,7 +1528,7 @@ const tokens = [
       "group": "palette",
       "category": "light mode neutral"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#091e425b",
@@ -1550,7 +1550,7 @@ const tokens = [
       "group": "palette",
       "category": "light mode neutral"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#091e426b",
@@ -1572,7 +1572,7 @@ const tokens = [
       "group": "palette",
       "category": "light mode neutral"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#091e427a",
@@ -1594,7 +1594,7 @@ const tokens = [
       "group": "palette",
       "category": "light mode neutral"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#091e4289",
@@ -1616,7 +1616,7 @@ const tokens = [
       "group": "palette",
       "category": "light mode neutral"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#091e4299",
@@ -1638,7 +1638,7 @@ const tokens = [
       "group": "palette",
       "category": "light mode neutral"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#091e42a8",
@@ -1660,7 +1660,7 @@ const tokens = [
       "group": "palette",
       "category": "light mode neutral"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#091e42b5",
@@ -1682,7 +1682,7 @@ const tokens = [
       "group": "palette",
       "category": "light mode neutral"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#091e42c4",
@@ -1704,7 +1704,7 @@ const tokens = [
       "group": "palette",
       "category": "light mode neutral"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#091e42d1",
@@ -1726,7 +1726,7 @@ const tokens = [
       "group": "palette",
       "category": "light mode neutral"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#091e42e2",
@@ -1748,7 +1748,7 @@ const tokens = [
       "group": "palette",
       "category": "light mode neutral"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#091e42f2",
@@ -1770,7 +1770,7 @@ const tokens = [
       "group": "palette",
       "category": "dark mode neutral"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#0D1424",
@@ -1792,7 +1792,7 @@ const tokens = [
       "group": "palette",
       "category": "dark mode neutral"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#0E1624",
@@ -1814,7 +1814,7 @@ const tokens = [
       "group": "palette",
       "category": "dark mode neutral"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#121A29",
@@ -1836,7 +1836,7 @@ const tokens = [
       "group": "palette",
       "category": "dark mode neutral"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#1B2638",
@@ -1858,7 +1858,7 @@ const tokens = [
       "group": "palette",
       "category": "dark mode neutral"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#202B3D",
@@ -1880,7 +1880,7 @@ const tokens = [
       "group": "palette",
       "category": "dark mode neutral"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#283447",
@@ -1902,7 +1902,7 @@ const tokens = [
       "group": "palette",
       "category": "dark mode neutral"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#313D52",
@@ -1924,7 +1924,7 @@ const tokens = [
       "group": "palette",
       "category": "dark mode neutral"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#3B475C",
@@ -1946,7 +1946,7 @@ const tokens = [
       "group": "palette",
       "category": "dark mode neutral"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#455166",
@@ -1968,7 +1968,7 @@ const tokens = [
       "group": "palette",
       "category": "dark mode neutral"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#56637A",
@@ -1990,7 +1990,7 @@ const tokens = [
       "group": "palette",
       "category": "dark mode neutral"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#67758F",
@@ -2012,7 +2012,7 @@ const tokens = [
       "group": "palette",
       "category": "dark mode neutral"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#7988A3",
@@ -2034,7 +2034,7 @@ const tokens = [
       "group": "palette",
       "category": "dark mode neutral"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#8C9CB8",
@@ -2056,7 +2056,7 @@ const tokens = [
       "group": "palette",
       "category": "dark mode neutral"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#9FB0CC",
@@ -2078,7 +2078,7 @@ const tokens = [
       "group": "palette",
       "category": "dark mode neutral"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#ABBBD6",
@@ -2100,7 +2100,7 @@ const tokens = [
       "group": "palette",
       "category": "dark mode neutral"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#B8C7E0",
@@ -2122,7 +2122,7 @@ const tokens = [
       "group": "palette",
       "category": "dark mode neutral"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#CED9EB",
@@ -2144,7 +2144,7 @@ const tokens = [
       "group": "palette",
       "category": "dark mode neutral"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#DCE5F5",
@@ -2166,7 +2166,7 @@ const tokens = [
       "group": "palette",
       "category": "dark mode neutral"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#E6EDFA",
@@ -2188,7 +2188,7 @@ const tokens = [
       "group": "palette",
       "category": "dark mode neutral"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#0d1424f7",
@@ -2210,7 +2210,7 @@ const tokens = [
       "group": "palette",
       "category": "dark mode neutral"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#0d1424f2",
@@ -2232,7 +2232,7 @@ const tokens = [
       "group": "palette",
       "category": "dark mode neutral"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#0d1424ea",
@@ -2254,7 +2254,7 @@ const tokens = [
       "group": "palette",
       "category": "dark mode neutral"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#0d1424e2",
@@ -2276,7 +2276,7 @@ const tokens = [
       "group": "palette",
       "category": "dark mode neutral"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#0d1424d8",
@@ -2298,7 +2298,7 @@ const tokens = [
       "group": "palette",
       "category": "dark mode neutral"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#0d1424ce",
@@ -2320,7 +2320,7 @@ const tokens = [
       "group": "palette",
       "category": "dark mode neutral"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#0d1424c6",
@@ -2342,7 +2342,7 @@ const tokens = [
       "group": "palette",
       "category": "dark mode neutral"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#0d1424ba",
@@ -2364,7 +2364,7 @@ const tokens = [
       "group": "palette",
       "category": "dark mode neutral"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#0d1424a0",
@@ -2386,7 +2386,7 @@ const tokens = [
       "group": "palette",
       "category": "dark mode neutral"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#0d142487",
@@ -2408,7 +2408,7 @@ const tokens = [
       "group": "palette",
       "category": "dark mode neutral"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#0d142477",
@@ -2430,7 +2430,7 @@ const tokens = [
       "group": "palette",
       "category": "dark mode neutral"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#0d142466",
@@ -2452,7 +2452,7 @@ const tokens = [
       "group": "palette",
       "category": "dark mode neutral"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#0d14245b",
@@ -2474,7 +2474,7 @@ const tokens = [
       "group": "palette",
       "category": "dark mode neutral"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#0d142449",
@@ -2496,7 +2496,7 @@ const tokens = [
       "group": "palette",
       "category": "dark mode neutral"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#0d14242d",
@@ -2518,7 +2518,7 @@ const tokens = [
       "group": "palette",
       "category": "dark mode neutral"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#0d142423",
@@ -2540,7 +2540,7 @@ const tokens = [
       "group": "palette",
       "category": "dark mode neutral"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": "#0d1424f",
@@ -2562,7 +2562,7 @@ const tokens = [
       "group": "palette",
       "category": "opacity"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": 0.2,
@@ -2584,7 +2584,7 @@ const tokens = [
       "group": "palette",
       "category": "opacity"
     },
-    "filePath": "src/palettes/legacy-palette.tsx",
+    "filePath": "schema/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
       "value": 0.4,

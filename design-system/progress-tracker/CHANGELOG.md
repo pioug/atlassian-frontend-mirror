@@ -1,5 +1,11 @@
 # @atlaskit/progress-tracker
 
+## 8.5.5
+
+### Patch Changes
+
+- [#41451](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41451) [`b9bbfbe5bbf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b9bbfbe5bbf) - Added this package into push model consumption.
+
 ## 8.5.4
 
 ### Patch Changes

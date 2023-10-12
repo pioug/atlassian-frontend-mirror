@@ -21,7 +21,7 @@ import {
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { uuid } from '@atlaskit/adf-schema';
 
-import { insertDate } from '../../actions';
+import { insertDateCommand } from '../../commands';
 import { DateNodeView } from '../../nodeviews/date';
 
 // Editor plugins
@@ -77,7 +77,7 @@ describe('date plugin', () => {
     // selection.$from to determine the parent for the Date node.
     describe('with focus on taskItem', () => {
       it('should set color to red for past dates in action item', () => {
-        const { editorView: view } = editor(
+        const { editorView: view, editorAPI } = editor(
           doc(
             taskList({ localId: 'local-highlight' })(
               taskItem({ localId: 'local-highlight' })('Hello World {<>}'),
@@ -85,11 +85,15 @@ describe('date plugin', () => {
           ),
         );
         const date = new Date();
-        insertDate({
-          year: date.getFullYear(),
-          month: date.getMonth(),
-          day: date.getDate() - 2,
-        })(view.state, view.dispatch);
+        editorAPI.core.actions.execute(
+          insertDateCommand(editorAPI)({
+            date: {
+              year: date.getFullYear(),
+              month: date.getMonth(),
+              day: date.getDate() - 2,
+            },
+          }),
+        );
         const dateNode = mountWithIntl(
           <DateNodeView
             view={view}
@@ -103,7 +107,7 @@ describe('date plugin', () => {
       });
 
       it('should not set color to red for past dates in completed action item', () => {
-        const { editorView: view } = editor(
+        const { editorView: view, editorAPI } = editor(
           doc(
             taskList({ localId: 'local-highlight' })(
               taskItem({ localId: 'local-highlight', state: 'DONE' })(
@@ -113,11 +117,15 @@ describe('date plugin', () => {
           ),
         );
         const date = new Date();
-        insertDate({
-          year: date.getFullYear(),
-          month: date.getMonth(),
-          day: date.getDate() - 2,
-        })(view.state, view.dispatch);
+        editorAPI.core.actions.execute(
+          insertDateCommand(editorAPI)({
+            date: {
+              year: date.getFullYear(),
+              month: date.getMonth(),
+              day: date.getDate() - 2,
+            },
+          }),
+        );
         const dateNode = mountWithIntl(
           <DateNodeView
             view={view}

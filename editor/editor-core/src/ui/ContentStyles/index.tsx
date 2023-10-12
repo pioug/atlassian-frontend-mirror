@@ -52,7 +52,7 @@ import { expandStyles } from '../../plugins/expand/ui/styles';
 import { MediaSharedClassNames } from '@atlaskit/editor-common/styles';
 import { findReplaceStyles } from '../../plugins/find-replace/styles';
 import { taskDecisionStyles } from '../../plugins/tasks-and-decisions/styles';
-import { statusStyles } from '../../plugins/status/styles';
+import { statusStyles } from './status';
 import { dateStyles } from './date';
 import type { FeatureFlags } from '../../types/feature-flags';
 import { InlineNodeViewSharedStyles } from '../../nodeviews/getInlineNodeViewProducer.styles';

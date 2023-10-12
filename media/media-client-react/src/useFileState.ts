@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 
-import { GetFileOptions } from '@atlaskit/media-client';
 import type { FileState } from '@atlaskit/media-state';
 
 import { useMediaClient } from './MediaClientProvider';
@@ -10,18 +9,29 @@ export type UseFileStateResult = {
   fileState: FileState | undefined;
 };
 
+export type UseFileStateOptions = {
+  collectionName?: string;
+  occurrenceKey?: string;
+  // If `true`, we don't fetch remote file state if not found in the cache.
+  // The default value is `false`
+  skipRemote?: boolean;
+};
+
 export function useFileState(
   id: string,
-  options: GetFileOptions = {},
+  options: UseFileStateOptions = {},
 ): UseFileStateResult {
-  const { collectionName, occurrenceKey } = options;
+  const { collectionName, occurrenceKey, skipRemote = false } = options;
   const mediaClient = useMediaClient();
   const fileState = useMediaStore(state => state.files[id]);
   useEffect(() => {
-    mediaClient.file.getFileState(id, {
-      collectionName,
-      occurrenceKey,
-    });
-  }, [id, mediaClient, collectionName, occurrenceKey]);
+    if (!skipRemote) {
+      mediaClient.file.getFileState(id, {
+        collectionName,
+        occurrenceKey,
+      });
+    }
+  }, [id, mediaClient, collectionName, occurrenceKey, skipRemote]);
+
   return { fileState };
 }

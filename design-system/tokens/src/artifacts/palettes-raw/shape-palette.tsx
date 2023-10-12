@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b929a0286651ecabd7f635e23b71f002>>
+ * @codegen <<SignedSource::279b779961a28128ed651f2f529f7e86>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -9,7 +9,7 @@ const tokens = [
     "attributes": {
       "group": "shape"
     },
-    "filePath": "src/palettes/shape-palette.tsx",
+    "filePath": "schema/palettes/shape-palette.tsx",
     "isSource": true,
     "original": {
       "value": 2,
@@ -29,7 +29,7 @@ const tokens = [
     "attributes": {
       "group": "shape"
     },
-    "filePath": "src/palettes/shape-palette.tsx",
+    "filePath": "schema/palettes/shape-palette.tsx",
     "isSource": true,
     "original": {
       "value": 4,
@@ -49,7 +49,7 @@ const tokens = [
     "attributes": {
       "group": "shape"
     },
-    "filePath": "src/palettes/shape-palette.tsx",
+    "filePath": "schema/palettes/shape-palette.tsx",
     "isSource": true,
     "original": {
       "value": 8,
@@ -69,7 +69,7 @@ const tokens = [
     "attributes": {
       "group": "shape"
     },
-    "filePath": "src/palettes/shape-palette.tsx",
+    "filePath": "schema/palettes/shape-palette.tsx",
     "isSource": true,
     "original": {
       "value": 12,
@@ -89,7 +89,7 @@ const tokens = [
     "attributes": {
       "group": "shape"
     },
-    "filePath": "src/palettes/shape-palette.tsx",
+    "filePath": "schema/palettes/shape-palette.tsx",
     "isSource": true,
     "original": {
       "value": 16,
@@ -109,7 +109,7 @@ const tokens = [
     "attributes": {
       "group": "shape"
     },
-    "filePath": "src/palettes/shape-palette.tsx",
+    "filePath": "schema/palettes/shape-palette.tsx",
     "isSource": true,
     "original": {
       "value": 32032,
@@ -129,7 +129,7 @@ const tokens = [
     "attributes": {
       "group": "shape"
     },
-    "filePath": "src/palettes/shape-palette.tsx",
+    "filePath": "schema/palettes/shape-palette.tsx",
     "isSource": true,
     "original": {
       "value": 0,
@@ -149,7 +149,7 @@ const tokens = [
     "attributes": {
       "group": "shape"
     },
-    "filePath": "src/palettes/shape-palette.tsx",
+    "filePath": "schema/palettes/shape-palette.tsx",
     "isSource": true,
     "original": {
       "value": 1,
@@ -169,7 +169,7 @@ const tokens = [
     "attributes": {
       "group": "shape"
     },
-    "filePath": "src/palettes/shape-palette.tsx",
+    "filePath": "schema/palettes/shape-palette.tsx",
     "isSource": true,
     "original": {
       "value": 2,
@@ -189,7 +189,7 @@ const tokens = [
     "attributes": {
       "group": "shape"
     },
-    "filePath": "src/palettes/shape-palette.tsx",
+    "filePath": "schema/palettes/shape-palette.tsx",
     "isSource": true,
     "original": {
       "value": 3,

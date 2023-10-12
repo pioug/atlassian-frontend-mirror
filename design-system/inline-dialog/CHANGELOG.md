@@ -1,5 +1,11 @@
 # @atlaskit/inline-dialog
 
+## 13.6.7
+
+### Patch Changes
+
+- [#41435](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41435) [`a4eca15aedd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a4eca15aedd) - Enrol @atlaskit/inline-dialog into jira-frontend push model consumption
+
 ## 13.6.6
 
 ### Patch Changes

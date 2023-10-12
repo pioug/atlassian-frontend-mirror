@@ -295,9 +295,6 @@
       "path": "../../design-system/spinner/tsconfig.app.json"
     },
     {
-      "path": "../../elements/status/tsconfig.app.json"
-    },
-    {
       "path": "../synchrony-test-helpers/tsconfig.app.json"
     },
     {

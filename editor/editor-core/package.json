@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-core",
-  "version": "188.7.3",
+  "version": "188.8.0",
   "description": "A package contains Atlassian editor core functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -55,7 +55,7 @@
     "@atlaskit/code": "^14.6.0",
     "@atlaskit/date": "^0.10.0",
     "@atlaskit/datetime-picker": "^12.10.0",
-    "@atlaskit/editor-common": "^76.9.0",
+    "@atlaskit/editor-common": "^76.10.0",
     "@atlaskit/editor-json-transformer": "^8.10.0",
     "@atlaskit/editor-markdown-transformer": "^5.2.5",
     "@atlaskit/editor-palette": "1.5.1",
@@ -88,9 +88,9 @@
     "@atlaskit/editor-plugin-quick-insert": "^0.2.0",
     "@atlaskit/editor-plugin-rule": "^0.1.0",
     "@atlaskit/editor-plugin-selection": "^0.1.0",
-    "@atlaskit/editor-plugin-table": "^5.1.0",
+    "@atlaskit/editor-plugin-table": "^5.2.0",
     "@atlaskit/editor-plugin-text-formatting": "^0.4.0",
-    "@atlaskit/editor-plugin-type-ahead": "^0.5.0",
+    "@atlaskit/editor-plugin-type-ahead": "^0.6.0",
     "@atlaskit/editor-plugin-unsupported-content": "^0.2.0",
     "@atlaskit/editor-plugin-width": "^0.2.0",
     "@atlaskit/editor-prosemirror": "1.1.0",

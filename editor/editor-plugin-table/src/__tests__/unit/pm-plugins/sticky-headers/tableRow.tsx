@@ -33,10 +33,11 @@ import {
 
 import tablePlugin from '../../../../plugins/table';
 import TableComponent from '../../../../plugins/table/nodeviews/TableComponent';
+import TableRow from '../../../../plugins/table/nodeviews/TableRow';
 import { pluginKey } from '../../../../plugins/table/pm-plugins/plugin-key';
-import { TableRowNodeView } from '../../../../plugins/table/pm-plugins/sticky-headers';
 import { updateStickyState } from '../../../../plugins/table/pm-plugins/sticky-headers/commands';
 import { TableCssClassName } from '../../../../plugins/table/types';
+import type { PluginConfig } from '../../../../plugins/table/types';
 import {
   stickyRowOffsetTop,
   tableScrollbarOffset,
@@ -56,8 +57,17 @@ jest.mock('@atlaskit/editor-common/ui', () => ({
   findOverflowScrollParent: jest.fn(() => jest.fn()),
 }));
 
-describe('TableRowNodeView', () => {
-  let tableRowNodeView: TableRowNodeView;
+describe('TableRow', () => {
+  const tableOptions = {
+    allowNumberColumn: true,
+    allowHeaderRow: true,
+    allowHeaderColumn: true,
+    permittedLayouts: 'all',
+    allowColumnResizing: true,
+    stickyHeaders: true,
+  } as PluginConfig;
+
+  let tableRowNodeView: TableRow;
   const fakeGetEditorFeatureFlags = jest.fn(() => ({}));
   const createEditor = createProsemirrorEditorFactory();
   const editor = (doc: DocBuilder) => {
@@ -72,7 +82,12 @@ describe('TableRowNodeView', () => {
         .add(widthPlugin)
         .add(guidelinePlugin)
         .add(selectionPlugin)
-        .add(tablePlugin),
+        .add([
+          tablePlugin,
+          {
+            tableOptions,
+          },
+        ]),
       pluginKey,
       attachTo: document.body,
     });
@@ -94,121 +109,6 @@ describe('TableRowNodeView', () => {
     toJSON: jest.fn(),
   };
 
-  describe('stickyHeader', () => {
-    beforeEach(() => {
-      const editorWithTableSticky = (doc: DocBuilder) =>
-        createEditor({
-          doc,
-          preset: new Preset<LightEditorPlugin>()
-            .add([featureFlagsPlugin, {}])
-            .add([analyticsPlugin, {}])
-            .add(contentInsertionPlugin)
-            .add(widthPlugin)
-            .add(guidelinePlugin)
-            .add(selectionPlugin)
-            .add(tablePlugin),
-          pluginKey,
-        });
-      const editorData = editorWithTableSticky(
-        doc(table({ localId: '' })(tr(tdEmpty, tdEmpty))),
-      );
-      editorView = editorData.editorView;
-      eventDispatcher = editorData.eventDispatcher;
-      tableRowNode = editorView.state.doc.firstChild!.firstChild!;
-      tableRowDom = editorView.dom.getElementsByTagName('tr')[0];
-      tableRowNodeView = new TableRowNodeView(
-        tableRowNode,
-        editorView,
-        jest.fn(),
-        eventDispatcher,
-      );
-    });
-    afterEach(() => {
-      jest.clearAllMocks();
-    });
-
-    function createBoundingClientRect(rect: any) {
-      return {
-        getBoundingClientRect: () => {
-          return rect;
-        },
-      };
-    }
-
-    function setupMocks(
-      tableRowNodeView: any,
-      editorRect: any,
-      tableRect: any,
-    ) {
-      jest.spyOn(tableRowNodeView as any, 'tree', 'get').mockReturnValue({
-        wrapper: createBoundingClientRect(tableRect),
-      });
-
-      Object.defineProperty(tableRowNodeView, 'editorScrollableElement', {
-        get() {
-          return createBoundingClientRect(editorRect);
-        },
-      });
-      Object.defineProperty(tableRowNodeView, 'dom', {
-        get() {
-          return {
-            previousElementSibling: false,
-            nextElementSibling: true,
-            clientHeight: 20,
-          };
-        },
-      });
-
-      Object.defineProperty(tableRowNodeView, 'topPosEditorElement', {
-        get() {
-          return 50;
-        },
-      });
-    }
-
-    it('should make it sticky if table is taller than viewport', () => {
-      const tableRect = { top: 10, bottom: 110, height: 100 };
-      const editorRect = { top: 50, bottom: 100, height: 50 };
-      setupMocks(tableRowNodeView, editorRect, tableRect);
-      const res = tableRowNodeView.shouldHeaderStick(
-        tableRowNodeView.tree as any,
-      );
-      expect(res).toBe(true);
-    });
-
-    it('should make it sticky if table is lower than the editor', () => {
-      const tableRect = { top: 20, bottom: 120, height: 100 };
-      const editorRect = { top: 50, bottom: 100, height: 50 };
-      setupMocks(tableRowNodeView, editorRect, tableRect);
-      const res = tableRowNodeView.shouldHeaderStick(
-        tableRowNodeView.tree as any,
-      );
-      expect(res).toBe(true);
-    });
-
-    it('should make it non-sticky if table is higher than the editor', () => {
-      const tableRect = { top: 60, bottom: 70, height: 50 };
-      const editorRect = { top: 50, bottom: 150, height: 100 };
-      setupMocks(tableRowNodeView, editorRect, tableRect);
-
-      const res = tableRowNodeView.shouldHeaderStick(
-        tableRowNodeView.tree as any,
-      );
-      expect(res).toBe(false);
-    });
-
-    it('should make it non-sticky if table out of viewport', () => {
-      const tableRect = { top: -50, bottom: 20, height: 70 };
-      const editorRect = { top: 50, bottom: 150, height: 100 };
-      setupMocks(tableRowNodeView, editorRect, tableRect);
-
-      const res = tableRowNodeView.shouldHeaderStick(
-        tableRowNodeView.tree as any,
-      );
-      expect(res).toBe(false);
-    });
-  });
-
   describe('ignoreMutation', () => {
     beforeEach(() => {
       const editorData = editor(
@@ -217,10 +117,10 @@ describe('TableRowNodeView', () => {
       editorView = editorData.editorView;
       eventDispatcher = editorData.eventDispatcher;
       tableRowNode = editorView.state.doc.firstChild!.firstChild!;
-      tableRowNodeView = new TableRowNodeView(
+      tableRowNodeView = new TableRow(
         tableRowNode,
         editorView,
-        jest.fn(),
+        () => 0,
         eventDispatcher,
       );
       tableRowDom = editorView.dom.getElementsByTagName('tr')[0];
@@ -363,10 +263,10 @@ describe('TableRowNodeView', () => {
       tableRowDom = editorView.dom.getElementsByTagName('tr')[0];
       scrollContainer = mockScrollPositions(tableRowDom)!;
 
-      tableRowNodeView = new TableRowNodeView(
+      tableRowNodeView = new TableRow(
         tableRowNode,
         editorView,
-        jest.fn(),
+        () => 0,
         eventDispatcher,
       );
       tableRowNodeView.dom = tableRowDom;
@@ -616,18 +516,13 @@ describe('TableRowNodeView', () => {
       tableRowNode = editorView.state.doc.firstChild!.firstChild!;
       tableRowDom = editorView.dom.getElementsByTagName('tr')[0];
 
-      tableRowNodeView = new TableRowNodeView(
+      tableRowNodeView = new TableRow(
         tableRowNode,
         editorView,
-        jest.fn(),
+        () => 0,
         eventDispatcher,
       );
       tableRowNodeView.dom = tableRowDom;
-
-      // Initialize with sticky off
-      tableRowNodeView.isSticky = false;
-      tableRowNodeView.top = 0;
-      tableRowNodeView.padding = 0;
 
       makeRowHeaderNotStickySpy = jest.spyOn(
         tableRowNodeView as any,
@@ -664,24 +559,6 @@ describe('TableRowNodeView', () => {
         tableRef,
       });
       expect(makeRowHeaderNotStickySpy).toHaveBeenCalled();
-    });
-
-    it('should cause isSticky state to be set to false when called', () => {
-      // Begin test with stickyheaders state on
-      tableRowNodeView.isSticky = true;
-      tableRowNodeView.top = 1;
-      tableRowNodeView.padding = 1;
-
-      tableRowNodeView.makeRowHeaderNotSticky(tableRef);
-
-      expect(updateStickyState).toHaveBeenCalledWith(
-        expect.objectContaining({
-          sticky: false,
-        }),
-      );
-      expect(tableRowNodeView.isSticky).toBe(false);
-      expect(tableRowNodeView.top).toBe(0);
-      expect(tableRowNodeView.padding).toBe(0);
     });
   });
 });

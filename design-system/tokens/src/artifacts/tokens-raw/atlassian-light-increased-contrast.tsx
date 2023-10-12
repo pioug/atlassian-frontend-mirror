@@ -1,12 +1,12 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::8aa7286ecd6f079de06fa3afe3dc443e>>
+ * @codegen <<SignedSource::ba4727849cfe1b62059099a594316de7>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
   {
     "value": "#091E42",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/text.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/text.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -33,7 +33,7 @@ const tokens = [
   },
   {
     "value": "#37471F",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -62,7 +62,7 @@ const tokens = [
   },
   {
     "value": "#2A3818",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -91,7 +91,7 @@ const tokens = [
   },
   {
     "value": "#601E16",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -120,7 +120,7 @@ const tokens = [
   },
   {
     "value": "#4F1C16",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -149,7 +149,7 @@ const tokens = [
   },
   {
     "value": "#5F3811",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -178,7 +178,7 @@ const tokens = [
   },
   {
     "value": "#4A2B0F",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -207,7 +207,7 @@ const tokens = [
   },
   {
     "value": "#533F04",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -236,7 +236,7 @@ const tokens = [
   },
   {
     "value": "#3F3102",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -265,7 +265,7 @@ const tokens = [
   },
   {
     "value": "#164B35",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -294,7 +294,7 @@ const tokens = [
   },
   {
     "value": "#143C2B",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -323,7 +323,7 @@ const tokens = [
   },
   {
     "value": "#1D474C",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -352,7 +352,7 @@ const tokens = [
   },
   {
     "value": "#15373B",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -381,7 +381,7 @@ const tokens = [
   },
   {
     "value": "#09326C",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -410,7 +410,7 @@ const tokens = [
   },
   {
     "value": "#092957",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -439,7 +439,7 @@ const tokens = [
   },
   {
     "value": "#352C63",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -468,7 +468,7 @@ const tokens = [
   },
   {
     "value": "#2B2451",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -497,7 +497,7 @@ const tokens = [
   },
   {
     "value": "#50253F",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -526,7 +526,7 @@ const tokens = [
   },
   {
     "value": "#421F34",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -555,7 +555,7 @@ const tokens = [
   },
   {
     "value": "#2C3E5D",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -584,7 +584,7 @@ const tokens = [
   },
   {
     "value": "#172B4D",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -613,7 +613,7 @@ const tokens = [
   },
   {
     "value": "#091E424F",
-    "filePath": "src/tokens/atlassian-light/color/text.tsx",
+    "filePath": "schema/themes/atlassian-light/color/text.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -640,7 +640,7 @@ const tokens = [
   },
   {
     "value": "#FFFFFF",
-    "filePath": "src/tokens/atlassian-light/color/text.tsx",
+    "filePath": "schema/themes/atlassian-light/color/text.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -667,7 +667,7 @@ const tokens = [
   },
   {
     "value": "#09326C",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/text.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/text.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -694,7 +694,7 @@ const tokens = [
   },
   {
     "value": "#09326C",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/text.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/text.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -721,7 +721,7 @@ const tokens = [
   },
   {
     "value": "#601E16",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/text.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/text.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -748,7 +748,7 @@ const tokens = [
   },
   {
     "value": "#5F3811",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/text.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/text.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -776,7 +776,7 @@ const tokens = [
   },
   {
     "value": "#FFFFFF",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/text.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/text.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -804,7 +804,7 @@ const tokens = [
   },
   {
     "value": "#164B35",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/text.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/text.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -831,7 +831,7 @@ const tokens = [
   },
   {
     "value": "#352C63",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/text.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/text.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -858,7 +858,7 @@ const tokens = [
   },
   {
     "value": "#09326C",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/text.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/text.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -885,7 +885,7 @@ const tokens = [
   },
   {
     "value": "#2C3E5D",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/text.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/text.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -912,7 +912,7 @@ const tokens = [
   },
   {
     "value": "#172B4D",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/text.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/text.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -939,7 +939,7 @@ const tokens = [
   },
   {
     "value": "#09326C",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/text.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/text.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -966,7 +966,7 @@ const tokens = [
   },
   {
     "value": "#092957",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/text.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/text.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -993,7 +993,7 @@ const tokens = [
   },
   {
     "value": "#5E4DB2",
-    "filePath": "src/tokens/atlassian-light/color/text.tsx",
+    "filePath": "schema/themes/atlassian-light/color/text.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -1020,7 +1020,7 @@ const tokens = [
   },
   {
     "value": "#172B4D",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/icon.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/icon.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -1047,7 +1047,7 @@ const tokens = [
   },
   {
     "value": "#4C6B1F",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -1075,7 +1075,7 @@ const tokens = [
   },
   {
     "value": "#AE2A19",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -1103,7 +1103,7 @@ const tokens = [
   },
   {
     "value": "#974F0C",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -1131,7 +1131,7 @@ const tokens = [
   },
   {
     "value": "#7F5F01",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -1159,7 +1159,7 @@ const tokens = [
   },
   {
     "value": "#216E4E",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -1187,7 +1187,7 @@ const tokens = [
   },
   {
     "value": "#206B74",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -1215,7 +1215,7 @@ const tokens = [
   },
   {
     "value": "#0055CC",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -1243,7 +1243,7 @@ const tokens = [
   },
   {
     "value": "#5E4DB2",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -1271,7 +1271,7 @@ const tokens = [
   },
   {
     "value": "#943D73",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -1299,7 +1299,7 @@ const tokens = [
   },
   {
     "value": "#44546F",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -1327,7 +1327,7 @@ const tokens = [
   },
   {
     "value": "#091E424F",
-    "filePath": "src/tokens/atlassian-light/color/icon.tsx",
+    "filePath": "schema/themes/atlassian-light/color/icon.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -1354,7 +1354,7 @@ const tokens = [
   },
   {
     "value": "#FFFFFF",
-    "filePath": "src/tokens/atlassian-light/color/icon.tsx",
+    "filePath": "schema/themes/atlassian-light/color/icon.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -1381,7 +1381,7 @@ const tokens = [
   },
   {
     "value": "#0055CC",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/icon.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/icon.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -1408,7 +1408,7 @@ const tokens = [
   },
   {
     "value": "#0055CC",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/icon.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/icon.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -1435,7 +1435,7 @@ const tokens = [
   },
   {
     "value": "#CA3521",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/icon.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/icon.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -1462,7 +1462,7 @@ const tokens = [
   },
   {
     "value": "#974F0C",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/icon.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/icon.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -1490,7 +1490,7 @@ const tokens = [
   },
   {
     "value": "#FFFFFF",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/icon.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/icon.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -1518,7 +1518,7 @@ const tokens = [
   },
   {
     "value": "#216E4E",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/icon.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/icon.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -1545,7 +1545,7 @@ const tokens = [
   },
   {
     "value": "#6E5DC6",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/icon.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/icon.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -1572,7 +1572,7 @@ const tokens = [
   },
   {
     "value": "#0055CC",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/icon.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/icon.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -1599,7 +1599,7 @@ const tokens = [
   },
   {
     "value": "#2C3E5D",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/icon.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/icon.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -1626,7 +1626,7 @@ const tokens = [
   },
   {
     "value": "#9BB4CA80",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/border.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/border.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -1653,7 +1653,7 @@ const tokens = [
   },
   {
     "value": "#4C6B1F",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -1681,7 +1681,7 @@ const tokens = [
   },
   {
     "value": "#AE2A19",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -1709,7 +1709,7 @@ const tokens = [
   },
   {
     "value": "#974F0C",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -1737,7 +1737,7 @@ const tokens = [
   },
   {
     "value": "#7F5F01",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -1765,7 +1765,7 @@ const tokens = [
   },
   {
     "value": "#216E4E",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -1793,7 +1793,7 @@ const tokens = [
   },
   {
     "value": "#206B74",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -1821,7 +1821,7 @@ const tokens = [
   },
   {
     "value": "#0055CC",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -1849,7 +1849,7 @@ const tokens = [
   },
   {
     "value": "#5E4DB2",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -1877,7 +1877,7 @@ const tokens = [
   },
   {
     "value": "#943D73",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -1905,7 +1905,7 @@ const tokens = [
   },
   {
     "value": "#44546F",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -1933,7 +1933,7 @@ const tokens = [
   },
   {
     "value": "#091E4224",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/border.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/border.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -1960,7 +1960,7 @@ const tokens = [
   },
   {
     "value": "#0055CC",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/border.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/border.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -1987,7 +1987,7 @@ const tokens = [
   },
   {
     "value": "#44546F",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/border.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/border.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -2014,7 +2014,7 @@ const tokens = [
   },
   {
     "value": "#FFFFFF",
-    "filePath": "src/tokens/atlassian-light/color/border.tsx",
+    "filePath": "schema/themes/atlassian-light/color/border.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -2041,7 +2041,7 @@ const tokens = [
   },
   {
     "value": "#0055CC",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/border.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/border.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -2068,7 +2068,7 @@ const tokens = [
   },
   {
     "value": "#0055CC",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/border.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/border.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -2095,7 +2095,7 @@ const tokens = [
   },
   {
     "value": "#CA3521",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/border.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/border.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -2122,7 +2122,7 @@ const tokens = [
   },
   {
     "value": "#974F0C",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/border.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/border.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -2149,7 +2149,7 @@ const tokens = [
   },
   {
     "value": "#216E4E",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/border.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/border.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -2176,7 +2176,7 @@ const tokens = [
   },
   {
     "value": "#6E5DC6",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/border.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/border.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -2203,7 +2203,7 @@ const tokens = [
   },
   {
     "value": "#0055CC",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/border.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/border.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -2230,7 +2230,7 @@ const tokens = [
   },
   {
     "value": "#44546F",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/border.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/border.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -2257,7 +2257,7 @@ const tokens = [
   },
   {
     "value": "#EEFBDA",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -2287,7 +2287,7 @@ const tokens = [
   },
   {
     "value": "#D3F1A7",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -2317,7 +2317,7 @@ const tokens = [
   },
   {
     "value": "#B3DF72",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -2347,7 +2347,7 @@ const tokens = [
   },
   {
     "value": "#D3F1A7",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -2377,7 +2377,7 @@ const tokens = [
   },
   {
     "value": "#B3DF72",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -2407,7 +2407,7 @@ const tokens = [
   },
   {
     "value": "#94C748",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -2437,7 +2437,7 @@ const tokens = [
   },
   {
     "value": "#B3DF72",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -2467,7 +2467,7 @@ const tokens = [
   },
   {
     "value": "#D3F1A7",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -2497,7 +2497,7 @@ const tokens = [
   },
   {
     "value": "#EEFBDA",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -2527,7 +2527,7 @@ const tokens = [
   },
   {
     "value": "#37471F",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -2557,7 +2557,7 @@ const tokens = [
   },
   {
     "value": "#2A3818",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -2587,7 +2587,7 @@ const tokens = [
   },
   {
     "value": "#233013",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -2617,7 +2617,7 @@ const tokens = [
   },
   {
     "value": "#FFEDEB",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -2647,7 +2647,7 @@ const tokens = [
   },
   {
     "value": "#FFD2CC",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -2677,7 +2677,7 @@ const tokens = [
   },
   {
     "value": "#FF9C8F",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -2707,7 +2707,7 @@ const tokens = [
   },
   {
     "value": "#FFD2CC",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -2737,7 +2737,7 @@ const tokens = [
   },
   {
     "value": "#FF9C8F",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -2767,7 +2767,7 @@ const tokens = [
   },
   {
     "value": "#F87462",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -2797,7 +2797,7 @@ const tokens = [
   },
   {
     "value": "#fbb7ae",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -2827,7 +2827,7 @@ const tokens = [
   },
   {
     "value": "#FFD2CC",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -2857,7 +2857,7 @@ const tokens = [
   },
   {
     "value": "#FFEDEB",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -2887,7 +2887,7 @@ const tokens = [
   },
   {
     "value": "#601E16",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -2917,7 +2917,7 @@ const tokens = [
   },
   {
     "value": "#4F1C16",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -2947,7 +2947,7 @@ const tokens = [
   },
   {
     "value": "#49120C",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -2977,7 +2977,7 @@ const tokens = [
   },
   {
     "value": "#FFF4E5",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -3007,7 +3007,7 @@ const tokens = [
   },
   {
     "value": "#FFE2BD",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -3037,7 +3037,7 @@ const tokens = [
   },
   {
     "value": "#FEC57B",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -3067,7 +3067,7 @@ const tokens = [
   },
   {
     "value": "#FFE2BD",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -3097,7 +3097,7 @@ const tokens = [
   },
   {
     "value": "#FEC57B",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -3127,7 +3127,7 @@ const tokens = [
   },
   {
     "value": "#FAA53D",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -3157,7 +3157,7 @@ const tokens = [
   },
   {
     "value": "#FEC57B",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -3187,7 +3187,7 @@ const tokens = [
   },
   {
     "value": "#FFE2BD",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -3217,7 +3217,7 @@ const tokens = [
   },
   {
     "value": "#FFF4E5",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -3247,7 +3247,7 @@ const tokens = [
   },
   {
     "value": "#5F3811",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -3277,7 +3277,7 @@ const tokens = [
   },
   {
     "value": "#4A2B0F",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -3307,7 +3307,7 @@ const tokens = [
   },
   {
     "value": "#3E2108",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -3337,7 +3337,7 @@ const tokens = [
   },
   {
     "value": "#FFF7D6",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -3367,7 +3367,7 @@ const tokens = [
   },
   {
     "value": "#F8E6A0",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -3397,7 +3397,7 @@ const tokens = [
   },
   {
     "value": "#F5CD47",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -3427,7 +3427,7 @@ const tokens = [
   },
   {
     "value": "#F8E6A0",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -3457,7 +3457,7 @@ const tokens = [
   },
   {
     "value": "#F5CD47",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -3487,7 +3487,7 @@ const tokens = [
   },
   {
     "value": "#E2B203",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -3517,7 +3517,7 @@ const tokens = [
   },
   {
     "value": "#F5CD47",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -3547,7 +3547,7 @@ const tokens = [
   },
   {
     "value": "#F8E6A0",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -3577,7 +3577,7 @@ const tokens = [
   },
   {
     "value": "#FFF7D6",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -3607,7 +3607,7 @@ const tokens = [
   },
   {
     "value": "#533F04",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -3637,7 +3637,7 @@ const tokens = [
   },
   {
     "value": "#3F3102",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -3667,7 +3667,7 @@ const tokens = [
   },
   {
     "value": "#342800",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -3697,7 +3697,7 @@ const tokens = [
   },
   {
     "value": "#DFFCF0",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -3727,7 +3727,7 @@ const tokens = [
   },
   {
     "value": "#BAF3DB",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -3757,7 +3757,7 @@ const tokens = [
   },
   {
     "value": "#7EE2B8",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -3787,7 +3787,7 @@ const tokens = [
   },
   {
     "value": "#BAF3DB",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -3817,7 +3817,7 @@ const tokens = [
   },
   {
     "value": "#7EE2B8",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -3847,7 +3847,7 @@ const tokens = [
   },
   {
     "value": "#4BCE97",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -3877,7 +3877,7 @@ const tokens = [
   },
   {
     "value": "#7EE2B8",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -3907,7 +3907,7 @@ const tokens = [
   },
   {
     "value": "#BAF3DB",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -3937,7 +3937,7 @@ const tokens = [
   },
   {
     "value": "#DFFCF0",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -3967,7 +3967,7 @@ const tokens = [
   },
   {
     "value": "#164B35",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -3997,7 +3997,7 @@ const tokens = [
   },
   {
     "value": "#143C2B",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -4027,7 +4027,7 @@ const tokens = [
   },
   {
     "value": "#0F3324",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -4057,7 +4057,7 @@ const tokens = [
   },
   {
     "value": "#E3FAFC",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -4087,7 +4087,7 @@ const tokens = [
   },
   {
     "value": "#C1F0F5",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -4117,7 +4117,7 @@ const tokens = [
   },
   {
     "value": "#8BDBE5",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -4147,7 +4147,7 @@ const tokens = [
   },
   {
     "value": "#C1F0F5",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -4177,7 +4177,7 @@ const tokens = [
   },
   {
     "value": "#8BDBE5",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -4207,7 +4207,7 @@ const tokens = [
   },
   {
     "value": "#60C6D2",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -4237,7 +4237,7 @@ const tokens = [
   },
   {
     "value": "#8BDBE5",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -4267,7 +4267,7 @@ const tokens = [
   },
   {
     "value": "#C1F0F5",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -4297,7 +4297,7 @@ const tokens = [
   },
   {
     "value": "#E3FAFC",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -4327,7 +4327,7 @@ const tokens = [
   },
   {
     "value": "#1D474C",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -4357,7 +4357,7 @@ const tokens = [
   },
   {
     "value": "#15373B",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -4387,7 +4387,7 @@ const tokens = [
   },
   {
     "value": "#103034",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -4417,7 +4417,7 @@ const tokens = [
   },
   {
     "value": "#E9F2FF",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -4447,7 +4447,7 @@ const tokens = [
   },
   {
     "value": "#CCE0FF",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -4477,7 +4477,7 @@ const tokens = [
   },
   {
     "value": "#85B8FF",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -4507,7 +4507,7 @@ const tokens = [
   },
   {
     "value": "#CCE0FF",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -4537,7 +4537,7 @@ const tokens = [
   },
   {
     "value": "#85B8FF",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -4567,7 +4567,7 @@ const tokens = [
   },
   {
     "value": "#579DFF",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -4597,7 +4597,7 @@ const tokens = [
   },
   {
     "value": "#85B8FF",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -4627,7 +4627,7 @@ const tokens = [
   },
   {
     "value": "#CCE0FF",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -4657,7 +4657,7 @@ const tokens = [
   },
   {
     "value": "#E9F2FF",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -4687,7 +4687,7 @@ const tokens = [
   },
   {
     "value": "#09326C",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -4717,7 +4717,7 @@ const tokens = [
   },
   {
     "value": "#092957",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -4747,7 +4747,7 @@ const tokens = [
   },
   {
     "value": "#022353",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -4777,7 +4777,7 @@ const tokens = [
   },
   {
     "value": "#F3F0FF",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -4807,7 +4807,7 @@ const tokens = [
   },
   {
     "value": "#DFD8FD",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -4837,7 +4837,7 @@ const tokens = [
   },
   {
     "value": "#B8ACF6",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -4867,7 +4867,7 @@ const tokens = [
   },
   {
     "value": "#DFD8FD",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -4897,7 +4897,7 @@ const tokens = [
   },
   {
     "value": "#B8ACF6",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -4927,7 +4927,7 @@ const tokens = [
   },
   {
     "value": "#9F8FEF",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -4957,7 +4957,7 @@ const tokens = [
   },
   {
     "value": "#c3b9fa",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -4987,7 +4987,7 @@ const tokens = [
   },
   {
     "value": "#DFD8FD",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -5017,7 +5017,7 @@ const tokens = [
   },
   {
     "value": "#F3F0FF",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -5047,7 +5047,7 @@ const tokens = [
   },
   {
     "value": "#352C63",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -5077,7 +5077,7 @@ const tokens = [
   },
   {
     "value": "#2B2451",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -5107,7 +5107,7 @@ const tokens = [
   },
   {
     "value": "#211A47",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -5137,7 +5137,7 @@ const tokens = [
   },
   {
     "value": "#FFECF8",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -5167,7 +5167,7 @@ const tokens = [
   },
   {
     "value": "#FDD0EC",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -5197,7 +5197,7 @@ const tokens = [
   },
   {
     "value": "#F797D2",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -5227,7 +5227,7 @@ const tokens = [
   },
   {
     "value": "#FDD0EC",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -5257,7 +5257,7 @@ const tokens = [
   },
   {
     "value": "#F797D2",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -5287,7 +5287,7 @@ const tokens = [
   },
   {
     "value": "#E774BB",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -5317,7 +5317,7 @@ const tokens = [
   },
   {
     "value": "#f2a6d4",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -5347,7 +5347,7 @@ const tokens = [
   },
   {
     "value": "#FDD0EC",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -5377,7 +5377,7 @@ const tokens = [
   },
   {
     "value": "#FFECF8",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -5407,7 +5407,7 @@ const tokens = [
   },
   {
     "value": "#50253F",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -5437,7 +5437,7 @@ const tokens = [
   },
   {
     "value": "#421F34",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -5467,7 +5467,7 @@ const tokens = [
   },
   {
     "value": "#37172A",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -5497,7 +5497,7 @@ const tokens = [
   },
   {
     "value": "#F1F2F4",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -5527,7 +5527,7 @@ const tokens = [
   },
   {
     "value": "#DCDFE4",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -5557,7 +5557,7 @@ const tokens = [
   },
   {
     "value": "#B3B9C4",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -5587,7 +5587,7 @@ const tokens = [
   },
   {
     "value": "#DCDFE4",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -5617,7 +5617,7 @@ const tokens = [
   },
   {
     "value": "#B3B9C4",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -5647,7 +5647,7 @@ const tokens = [
   },
   {
     "value": "#8590A2",
-    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light/color/accent.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -5677,7 +5677,7 @@ const tokens = [
   },
   {
     "value": "#B3B9C4",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -5707,7 +5707,7 @@ const tokens = [
   },
   {
     "value": "#DCDFE4",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -5737,7 +5737,7 @@ const tokens = [
   },
   {
     "value": "#F1F2F4",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -5767,7 +5767,7 @@ const tokens = [
   },
   {
     "value": "#44546F",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -5797,7 +5797,7 @@ const tokens = [
   },
   {
     "value": "#2C3E5D",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -5827,7 +5827,7 @@ const tokens = [
   },
   {
     "value": "#172B4D",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/accent.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/accent.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -5857,7 +5857,7 @@ const tokens = [
   },
   {
     "value": "#091E4208",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -5884,7 +5884,7 @@ const tokens = [
   },
   {
     "value": "#FFFFFF",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -5912,7 +5912,7 @@ const tokens = [
   },
   {
     "value": "#F7F8F9",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -5940,7 +5940,7 @@ const tokens = [
   },
   {
     "value": "#FFFFFF",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -5968,7 +5968,7 @@ const tokens = [
   },
   {
     "value": "#00000029",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -5997,7 +5997,7 @@ const tokens = [
   },
   {
     "value": "#0000003D",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -6026,7 +6026,7 @@ const tokens = [
   },
   {
     "value": "#00000052",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -6055,7 +6055,7 @@ const tokens = [
   },
   {
     "value": "#091E420F",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -6084,7 +6084,7 @@ const tokens = [
   },
   {
     "value": "#091E4224",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -6113,7 +6113,7 @@ const tokens = [
   },
   {
     "value": "#091E424F",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -6142,7 +6142,7 @@ const tokens = [
   },
   {
     "value": "#00000000",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -6171,7 +6171,7 @@ const tokens = [
   },
   {
     "value": "#091E420F",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -6200,7 +6200,7 @@ const tokens = [
   },
   {
     "value": "#091E4224",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -6229,7 +6229,7 @@ const tokens = [
   },
   {
     "value": "#44546F",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -6258,7 +6258,7 @@ const tokens = [
   },
   {
     "value": "#2C3E5D",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -6287,7 +6287,7 @@ const tokens = [
   },
   {
     "value": "#172B4D",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -6316,7 +6316,7 @@ const tokens = [
   },
   {
     "value": "#E9F2FF",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -6345,7 +6345,7 @@ const tokens = [
   },
   {
     "value": "#CCE0FF",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -6374,7 +6374,7 @@ const tokens = [
   },
   {
     "value": "#85B8FF",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -6403,7 +6403,7 @@ const tokens = [
   },
   {
     "value": "#09326C",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -6432,7 +6432,7 @@ const tokens = [
   },
   {
     "value": "#092957",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -6461,7 +6461,7 @@ const tokens = [
   },
   {
     "value": "#022353",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -6490,7 +6490,7 @@ const tokens = [
   },
   {
     "value": "#E9F2FF",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -6519,7 +6519,7 @@ const tokens = [
   },
   {
     "value": "#CCE0FF",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -6548,7 +6548,7 @@ const tokens = [
   },
   {
     "value": "#85B8FF",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -6577,7 +6577,7 @@ const tokens = [
   },
   {
     "value": "#09326C",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -6606,7 +6606,7 @@ const tokens = [
   },
   {
     "value": "#092957",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -6635,7 +6635,7 @@ const tokens = [
   },
   {
     "value": "#022353",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -6664,7 +6664,7 @@ const tokens = [
   },
   {
     "value": "#092957",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -6693,7 +6693,7 @@ const tokens = [
   },
   {
     "value": "#09326C",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -6722,7 +6722,7 @@ const tokens = [
   },
   {
     "value": "#0055CC",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -6751,7 +6751,7 @@ const tokens = [
   },
   {
     "value": "#FFEDEB",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -6780,7 +6780,7 @@ const tokens = [
   },
   {
     "value": "#FFD2CC",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -6809,7 +6809,7 @@ const tokens = [
   },
   {
     "value": "#FF9C8F",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -6838,7 +6838,7 @@ const tokens = [
   },
   {
     "value": "#601E16",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -6867,7 +6867,7 @@ const tokens = [
   },
   {
     "value": "#4F1C16",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -6896,7 +6896,7 @@ const tokens = [
   },
   {
     "value": "#49120C",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -6925,7 +6925,7 @@ const tokens = [
   },
   {
     "value": "#FFF7D6",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -6954,7 +6954,7 @@ const tokens = [
   },
   {
     "value": "#F8E6A0",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -6983,7 +6983,7 @@ const tokens = [
   },
   {
     "value": "#F5CD47",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -7012,7 +7012,7 @@ const tokens = [
   },
   {
     "value": "#533F04",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -7041,7 +7041,7 @@ const tokens = [
   },
   {
     "value": "#3F3102",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -7070,7 +7070,7 @@ const tokens = [
   },
   {
     "value": "#342800",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -7099,7 +7099,7 @@ const tokens = [
   },
   {
     "value": "#DFFCF0",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -7128,7 +7128,7 @@ const tokens = [
   },
   {
     "value": "#BAF3DB",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -7157,7 +7157,7 @@ const tokens = [
   },
   {
     "value": "#7EE2B8",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -7186,7 +7186,7 @@ const tokens = [
   },
   {
     "value": "#164B35",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -7215,7 +7215,7 @@ const tokens = [
   },
   {
     "value": "#143C2B",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -7244,7 +7244,7 @@ const tokens = [
   },
   {
     "value": "#0F3324",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -7273,7 +7273,7 @@ const tokens = [
   },
   {
     "value": "#F3F0FF",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -7302,7 +7302,7 @@ const tokens = [
   },
   {
     "value": "#DFD8FD",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -7331,7 +7331,7 @@ const tokens = [
   },
   {
     "value": "#B8ACF6",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -7360,7 +7360,7 @@ const tokens = [
   },
   {
     "value": "#352C63",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -7389,7 +7389,7 @@ const tokens = [
   },
   {
     "value": "#2B2451",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -7418,7 +7418,7 @@ const tokens = [
   },
   {
     "value": "#211A47",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -7447,7 +7447,7 @@ const tokens = [
   },
   {
     "value": "#E9F2FF",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -7476,7 +7476,7 @@ const tokens = [
   },
   {
     "value": "#CCE0FF",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -7505,7 +7505,7 @@ const tokens = [
   },
   {
     "value": "#85B8FF",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -7534,7 +7534,7 @@ const tokens = [
   },
   {
     "value": "#09326C",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -7563,7 +7563,7 @@ const tokens = [
   },
   {
     "value": "#092957",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -7592,7 +7592,7 @@ const tokens = [
   },
   {
     "value": "#022353",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/background.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -7621,7 +7621,7 @@ const tokens = [
   },
   {
     "value": "#091E427D",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -7648,7 +7648,7 @@ const tokens = [
   },
   {
     "value": "#388BFF14",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -7675,7 +7675,7 @@ const tokens = [
   },
   {
     "value": "#EF5C4814",
-    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -7702,7 +7702,7 @@ const tokens = [
   },
   {
     "value": "#00000029",
-    "filePath": "src/tokens/atlassian-light/color/interaction.tsx",
+    "filePath": "schema/themes/atlassian-light/color/interaction.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -7729,7 +7729,7 @@ const tokens = [
   },
   {
     "value": "#00000052",
-    "filePath": "src/tokens/atlassian-light/color/interaction.tsx",
+    "filePath": "schema/themes/atlassian-light/color/interaction.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -7756,7 +7756,7 @@ const tokens = [
   },
   {
     "value": "#091E420F",
-    "filePath": "src/tokens/atlassian-light/color/skeleton.tsx",
+    "filePath": "schema/themes/atlassian-light/color/skeleton.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -7783,7 +7783,7 @@ const tokens = [
   },
   {
     "value": "#091E4208",
-    "filePath": "src/tokens/atlassian-light/color/skeleton.tsx",
+    "filePath": "schema/themes/atlassian-light/color/skeleton.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -7810,7 +7810,7 @@ const tokens = [
   },
   {
     "value": "#206B74",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -7839,7 +7839,7 @@ const tokens = [
   },
   {
     "value": "#1D474C",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -7868,7 +7868,7 @@ const tokens = [
   },
   {
     "value": "#5E4DB2",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -7897,7 +7897,7 @@ const tokens = [
   },
   {
     "value": "#352C63",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -7926,7 +7926,7 @@ const tokens = [
   },
   {
     "value": "#974F0C",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -7955,7 +7955,7 @@ const tokens = [
   },
   {
     "value": "#5F3811",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -7984,7 +7984,7 @@ const tokens = [
   },
   {
     "value": "#943D73",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -8013,7 +8013,7 @@ const tokens = [
   },
   {
     "value": "#50253F",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -8042,7 +8042,7 @@ const tokens = [
   },
   {
     "value": "#09326C",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -8071,7 +8071,7 @@ const tokens = [
   },
   {
     "value": "#092957",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -8100,7 +8100,7 @@ const tokens = [
   },
   {
     "value": "#5E4DB2",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -8129,7 +8129,7 @@ const tokens = [
   },
   {
     "value": "#352C63",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -8158,7 +8158,7 @@ const tokens = [
   },
   {
     "value": "#50253F",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -8187,7 +8187,7 @@ const tokens = [
   },
   {
     "value": "#421F34",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -8216,7 +8216,7 @@ const tokens = [
   },
   {
     "value": "#974F0C",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -8245,7 +8245,7 @@ const tokens = [
   },
   {
     "value": "#5F3811",
-    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light/color/chart.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -8274,7 +8274,7 @@ const tokens = [
   },
   {
     "value": "#4C6B1F",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -8303,7 +8303,7 @@ const tokens = [
   },
   {
     "value": "#37471F",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -8332,7 +8332,7 @@ const tokens = [
   },
   {
     "value": "#37471F",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -8361,7 +8361,7 @@ const tokens = [
   },
   {
     "value": "#2A3818",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -8390,7 +8390,7 @@ const tokens = [
   },
   {
     "value": "#2A3818",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -8419,7 +8419,7 @@ const tokens = [
   },
   {
     "value": "#233013",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -8448,7 +8448,7 @@ const tokens = [
   },
   {
     "value": "#626F86",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -8476,7 +8476,7 @@ const tokens = [
   },
   {
     "value": "#44546F",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -8504,7 +8504,7 @@ const tokens = [
   },
   {
     "value": "#AE2A19",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -8533,7 +8533,7 @@ const tokens = [
   },
   {
     "value": "#601E16",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -8562,7 +8562,7 @@ const tokens = [
   },
   {
     "value": "#601E16",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -8591,7 +8591,7 @@ const tokens = [
   },
   {
     "value": "#4F1C16",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -8620,7 +8620,7 @@ const tokens = [
   },
   {
     "value": "#4F1C16",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -8649,7 +8649,7 @@ const tokens = [
   },
   {
     "value": "#49120C",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -8678,7 +8678,7 @@ const tokens = [
   },
   {
     "value": "#974F0C",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -8707,7 +8707,7 @@ const tokens = [
   },
   {
     "value": "#5F3811",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -8736,7 +8736,7 @@ const tokens = [
   },
   {
     "value": "#5F3811",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -8765,7 +8765,7 @@ const tokens = [
   },
   {
     "value": "#4A2B0F",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -8794,7 +8794,7 @@ const tokens = [
   },
   {
     "value": "#4A2B0F",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -8823,7 +8823,7 @@ const tokens = [
   },
   {
     "value": "#3E2108",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -8852,7 +8852,7 @@ const tokens = [
   },
   {
     "value": "#7F5F01",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -8881,7 +8881,7 @@ const tokens = [
   },
   {
     "value": "#533F04",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -8910,7 +8910,7 @@ const tokens = [
   },
   {
     "value": "#533F04",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -8939,7 +8939,7 @@ const tokens = [
   },
   {
     "value": "#3F3102",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -8968,7 +8968,7 @@ const tokens = [
   },
   {
     "value": "#3F3102",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -8997,7 +8997,7 @@ const tokens = [
   },
   {
     "value": "#342800",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -9026,7 +9026,7 @@ const tokens = [
   },
   {
     "value": "#216E4E",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -9055,7 +9055,7 @@ const tokens = [
   },
   {
     "value": "#164B35",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -9084,7 +9084,7 @@ const tokens = [
   },
   {
     "value": "#164B35",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -9113,7 +9113,7 @@ const tokens = [
   },
   {
     "value": "#143C2B",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -9142,7 +9142,7 @@ const tokens = [
   },
   {
     "value": "#143C2B",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -9171,7 +9171,7 @@ const tokens = [
   },
   {
     "value": "#0F3324",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -9200,7 +9200,7 @@ const tokens = [
   },
   {
     "value": "#206B74",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -9229,7 +9229,7 @@ const tokens = [
   },
   {
     "value": "#1D474C",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -9258,7 +9258,7 @@ const tokens = [
   },
   {
     "value": "#1D474C",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -9287,7 +9287,7 @@ const tokens = [
   },
   {
     "value": "#15373B",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -9316,7 +9316,7 @@ const tokens = [
   },
   {
     "value": "#15373B",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -9345,7 +9345,7 @@ const tokens = [
   },
   {
     "value": "#103034",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -9374,7 +9374,7 @@ const tokens = [
   },
   {
     "value": "#0055CC",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -9403,7 +9403,7 @@ const tokens = [
   },
   {
     "value": "#09326C",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -9432,7 +9432,7 @@ const tokens = [
   },
   {
     "value": "#09326C",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -9461,7 +9461,7 @@ const tokens = [
   },
   {
     "value": "#092957",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -9490,7 +9490,7 @@ const tokens = [
   },
   {
     "value": "#092957",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -9519,7 +9519,7 @@ const tokens = [
   },
   {
     "value": "#022353",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -9548,7 +9548,7 @@ const tokens = [
   },
   {
     "value": "#5E4DB2",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -9577,7 +9577,7 @@ const tokens = [
   },
   {
     "value": "#352C63",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -9606,7 +9606,7 @@ const tokens = [
   },
   {
     "value": "#352C63",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -9635,7 +9635,7 @@ const tokens = [
   },
   {
     "value": "#2B2451",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -9664,7 +9664,7 @@ const tokens = [
   },
   {
     "value": "#2B2451",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -9693,7 +9693,7 @@ const tokens = [
   },
   {
     "value": "#211A47",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -9722,7 +9722,7 @@ const tokens = [
   },
   {
     "value": "#943D73",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -9751,7 +9751,7 @@ const tokens = [
   },
   {
     "value": "#50253F",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -9780,7 +9780,7 @@ const tokens = [
   },
   {
     "value": "#50253F",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -9809,7 +9809,7 @@ const tokens = [
   },
   {
     "value": "#421F34",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -9838,7 +9838,7 @@ const tokens = [
   },
   {
     "value": "#421F34",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -9867,7 +9867,7 @@ const tokens = [
   },
   {
     "value": "#37172A",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -9896,7 +9896,7 @@ const tokens = [
   },
   {
     "value": "#626F86",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -9925,7 +9925,7 @@ const tokens = [
   },
   {
     "value": "#44546F",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -9954,7 +9954,7 @@ const tokens = [
   },
   {
     "value": "#44546F",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -9983,7 +9983,7 @@ const tokens = [
   },
   {
     "value": "#2C3E5D",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -10012,7 +10012,7 @@ const tokens = [
   },
   {
     "value": "#2C3E5D",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -10041,7 +10041,7 @@ const tokens = [
   },
   {
     "value": "#172B4D",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -10070,7 +10070,7 @@ const tokens = [
   },
   {
     "value": "#0C66E4",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -10098,7 +10098,7 @@ const tokens = [
   },
   {
     "value": "#0055CC",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -10126,7 +10126,7 @@ const tokens = [
   },
   {
     "value": "#CA3521",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -10155,7 +10155,7 @@ const tokens = [
   },
   {
     "value": "#AE2A19",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -10184,7 +10184,7 @@ const tokens = [
   },
   {
     "value": "#601E16",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -10213,7 +10213,7 @@ const tokens = [
   },
   {
     "value": "#4F1C16",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -10242,7 +10242,7 @@ const tokens = [
   },
   {
     "value": "#7F5F01",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -10271,7 +10271,7 @@ const tokens = [
   },
   {
     "value": "#533F04",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -10300,7 +10300,7 @@ const tokens = [
   },
   {
     "value": "#533F04",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -10329,7 +10329,7 @@ const tokens = [
   },
   {
     "value": "#3F3102",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -10358,7 +10358,7 @@ const tokens = [
   },
   {
     "value": "#216E4E",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -10387,7 +10387,7 @@ const tokens = [
   },
   {
     "value": "#164B35",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -10416,7 +10416,7 @@ const tokens = [
   },
   {
     "value": "#164B35",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -10445,7 +10445,7 @@ const tokens = [
   },
   {
     "value": "#143C2B",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -10474,7 +10474,7 @@ const tokens = [
   },
   {
     "value": "#6E5DC6",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -10503,7 +10503,7 @@ const tokens = [
   },
   {
     "value": "#5E4DB2",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -10532,7 +10532,7 @@ const tokens = [
   },
   {
     "value": "#352C63",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -10561,7 +10561,7 @@ const tokens = [
   },
   {
     "value": "#2B2451",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -10590,7 +10590,7 @@ const tokens = [
   },
   {
     "value": "#0C66E4",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -10619,7 +10619,7 @@ const tokens = [
   },
   {
     "value": "#0055CC",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -10648,7 +10648,7 @@ const tokens = [
   },
   {
     "value": "#09326C",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -10677,7 +10677,7 @@ const tokens = [
   },
   {
     "value": "#092957",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/color/chart.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/chart.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -10706,7 +10706,7 @@ const tokens = [
   },
   {
     "value": "#FFFFFF",
-    "filePath": "src/tokens/atlassian-light/elevation/surface.tsx",
+    "filePath": "schema/themes/atlassian-light/elevation/surface.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -10734,7 +10734,7 @@ const tokens = [
   },
   {
     "value": "#F1F2F4",
-    "filePath": "src/tokens/atlassian-light/elevation/surface.tsx",
+    "filePath": "schema/themes/atlassian-light/elevation/surface.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -10762,7 +10762,7 @@ const tokens = [
   },
   {
     "value": "#DCDFE4",
-    "filePath": "src/tokens/atlassian-light/elevation/surface.tsx",
+    "filePath": "schema/themes/atlassian-light/elevation/surface.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -10790,7 +10790,7 @@ const tokens = [
   },
   {
     "value": "#FFFFFF",
-    "filePath": "src/tokens/atlassian-light/elevation/surface.tsx",
+    "filePath": "schema/themes/atlassian-light/elevation/surface.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -10818,7 +10818,7 @@ const tokens = [
   },
   {
     "value": "#F1F2F4",
-    "filePath": "src/tokens/atlassian-light/elevation/surface.tsx",
+    "filePath": "schema/themes/atlassian-light/elevation/surface.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -10846,7 +10846,7 @@ const tokens = [
   },
   {
     "value": "#DCDFE4",
-    "filePath": "src/tokens/atlassian-light/elevation/surface.tsx",
+    "filePath": "schema/themes/atlassian-light/elevation/surface.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -10874,7 +10874,7 @@ const tokens = [
   },
   {
     "value": "#FFFFFF",
-    "filePath": "src/tokens/atlassian-light/elevation/surface.tsx",
+    "filePath": "schema/themes/atlassian-light/elevation/surface.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -10902,7 +10902,7 @@ const tokens = [
   },
   {
     "value": "#F1F2F4",
-    "filePath": "src/tokens/atlassian-light/elevation/surface.tsx",
+    "filePath": "schema/themes/atlassian-light/elevation/surface.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -10930,7 +10930,7 @@ const tokens = [
   },
   {
     "value": "#DCDFE4",
-    "filePath": "src/tokens/atlassian-light/elevation/surface.tsx",
+    "filePath": "schema/themes/atlassian-light/elevation/surface.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -10958,7 +10958,7 @@ const tokens = [
   },
   {
     "value": "#FCFDFE",
-    "filePath": "src/tokens/atlassian-light-increased-contrast/elevation/surface.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/elevation/surface.tsx",
     "isSource": true,
     "attributes": {
       "group": "paint",
@@ -11004,7 +11004,7 @@ const tokens = [
         "opacity": 0.12
       }
     ],
-    "filePath": "src/tokens/atlassian-light/elevation/shadow.tsx",
+    "filePath": "schema/themes/atlassian-light/elevation/shadow.tsx",
     "isSource": false,
     "attributes": {
       "group": "shadow",
@@ -11051,7 +11051,7 @@ const tokens = [
   },
   {
     "value": "#091e421f",
-    "filePath": "src/tokens/atlassian-light/elevation/shadow.tsx",
+    "filePath": "schema/themes/atlassian-light/elevation/shadow.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -11079,7 +11079,7 @@ const tokens = [
   },
   {
     "value": "#091e4229",
-    "filePath": "src/tokens/atlassian-light/elevation/shadow.tsx",
+    "filePath": "schema/themes/atlassian-light/elevation/shadow.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",
@@ -11128,7 +11128,7 @@ const tokens = [
         "opacity": 0.31
       }
     ],
-    "filePath": "src/tokens/atlassian-light-increased-contrast/elevation/shadow.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/elevation/shadow.tsx",
     "isSource": true,
     "attributes": {
       "group": "shadow",
@@ -11197,7 +11197,7 @@ const tokens = [
         "opacity": 0.31
       }
     ],
-    "filePath": "src/tokens/atlassian-light-increased-contrast/elevation/shadow.tsx",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/elevation/shadow.tsx",
     "isSource": true,
     "attributes": {
       "group": "shadow",
@@ -11245,7 +11245,7 @@ const tokens = [
   },
   {
     "value": 0.4,
-    "filePath": "src/tokens/atlassian-light/opacity/opacity.tsx",
+    "filePath": "schema/themes/atlassian-light/opacity/opacity.tsx",
     "isSource": false,
     "attributes": {
       "group": "opacity",
@@ -11271,7 +11271,7 @@ const tokens = [
   },
   {
     "value": 0.2,
-    "filePath": "src/tokens/atlassian-light/opacity/opacity.tsx",
+    "filePath": "schema/themes/atlassian-light/opacity/opacity.tsx",
     "isSource": false,
     "attributes": {
       "group": "opacity",
@@ -11297,7 +11297,7 @@ const tokens = [
   },
   {
     "value": "transparent",
-    "filePath": "src/tokens/atlassian-light/utility/utility.tsx",
+    "filePath": "schema/themes/atlassian-light/utility/utility.tsx",
     "isSource": false,
     "attributes": {
       "group": "raw",
@@ -11324,7 +11324,7 @@ const tokens = [
   },
   {
     "value": "#FFFFFF",
-    "filePath": "src/tokens/atlassian-light/utility/utility.tsx",
+    "filePath": "schema/themes/atlassian-light/utility/utility.tsx",
     "isSource": false,
     "attributes": {
       "group": "paint",

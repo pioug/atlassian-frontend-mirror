@@ -13,7 +13,7 @@ import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import type { InlineNodeViewComponentProps } from '@atlaskit/editor-common/react-node-view';
 
 import type { StatusPluginOptions } from '../types';
-import { messages } from './messages';
+import { statusMessages as messages } from '@atlaskit/editor-common/messages';
 
 const styledStatus = css`
   opacity: 1;
@@ -52,7 +52,10 @@ const StatusContainerView: React.FC<ContainerProps> = (props) => {
   };
 
   return (
-    <span css={text ? styledStatus : styledStatusPlaceholder}>
+    <span
+      css={text ? styledStatus : styledStatusPlaceholder}
+      data-testid="statusContainerView"
+    >
       <Status
         text={statusText}
         color={color}
@@ -70,7 +73,7 @@ export type Props = InlineNodeViewComponentProps & {
   options: StatusPluginOptions | undefined;
 };
 
-export const StatusNodeView: React.FC<Props> = (props) => {
+export const StatusNodeView = (props: Props) => {
   const { view } = props;
   const { text, color, localId, style } = props.node.attrs;
 

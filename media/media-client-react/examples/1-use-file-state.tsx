@@ -20,8 +20,12 @@ function App() {
 }
 
 function MyApp() {
-  const [file, setFile] = useState<string>();
+  const [fileId, setFileId] = useState<string>('');
   const mediaClient = useMediaClient();
+  const { fileState } = useFileState(fileId, {
+    collectionName: defaultCollectionName,
+    skipRemote: !fileId,
+  });
 
   const uploadFile = (event: SyntheticEvent<HTMLInputElement>) => {
     const file = event.currentTarget.files![0];
@@ -33,35 +37,16 @@ function MyApp() {
         collection: defaultCollectionName,
       })
       .subscribe(stream => {
-        setFile(stream.id);
+        setFileId(stream.id);
       });
   };
   return (
     <div>
       <input type="file" onChange={uploadFile} />
-      <div>
-        <h1>File</h1>
-        {file && (
-          <FileStateWrapper id={file} collectionName={defaultCollectionName} />
-        )}
-      </div>
-    </div>
-  );
-}
-
-interface Props {
-  id: string;
-  collectionName: string;
-}
-
-function FileStateWrapper({ id, collectionName }: Props) {
-  const { fileState } = useFileState(id, { collectionName });
-
-  return (
-    <>
+      <h1>File</h1>
       <div>id: {fileState?.id}</div>
       <div>Status: {fileState?.status}</div>
-    </>
+    </div>
   );
 }
 

@@ -1,5 +1,11 @@
 # @atlaskit/primitives
 
+## 1.6.4
+
+### Patch Changes
+
+- [#40324](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40324) [`8d123310957`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d123310957) - Minor internal changes. There is no expected behaviour change
+
 ## 1.6.3
 
 ### Patch Changes

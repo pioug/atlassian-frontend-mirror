@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::1b8e6179220992a91da861f10183038f>>
+ * @codegen <<SignedSource::0e3f6bfc7a03913b35d8aabe0be4d8d6>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -12,7 +12,7 @@ const tokens = [
       "description": "Use for borders of form UI elements, such as text fields, checkboxes, and radio buttons."
     },
     "value": "#8590A2",
-    "filePath": "src/tokens/atlassian-light-new-input-border/color/border.tsx",
+    "filePath": "schema/themes/atlassian-light-new-input-border/color/border.tsx",
     "isSource": true,
     "original": {
       "attributes": {

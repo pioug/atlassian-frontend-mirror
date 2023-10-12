@@ -40,7 +40,7 @@ import { useEditorLifecycle } from './hooks/use-editor-life-cycle';
 import { usePluginListeners } from './hooks/use-plugin-listeners';
 import type EditorConfiguration from './editor-configuration';
 import { useToolbarSubscription } from './hooks/use-toolbar-subscription';
-import { useTypeAheadSubscription } from './hooks/use-type-ahead-subscription';
+//import { useTypeAheadSubscription } from './hooks/use-type-ahead-subscription';
 import type { FeatureFlags } from '@atlaskit/editor-common/types';
 import { setGlobalTheme } from '@atlaskit/tokens';
 
@@ -159,7 +159,7 @@ export function MobileEditor(props: MobileEditorProps) {
 
   usePluginListeners(editorReady, editorConfiguration, bridge);
   useToolbarSubscription(editorReady, editorConfiguration, bridge, intl);
-  useTypeAheadSubscription(editorReady, bridge, editorConfiguration);
+  //useTypeAheadSubscription(editorReady, bridge, editorConfiguration);
 
   // @ts-expect-error: this one is needed for passing tests
   const mode = editorConfiguration.getMode();
@@ -241,6 +241,7 @@ export function MobileEditor(props: MobileEditorProps) {
             mentionProvider={mentionProvider}
             emojiProvider={emojiProvider}
             placeholder={editorConfiguration.getPlaceholder()}
+            editorConfiguration={editorConfiguration}
           />
         </EditorContext>
       </SmartCardProvider>

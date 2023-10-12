@@ -16,7 +16,6 @@
 
 ```ts
 import type { FileState } from '@atlaskit/media-state';
-import { GetFileOptions } from '@atlaskit/media-client';
 import { MediaClient } from '@atlaskit/media-client';
 import { MediaClientConfig } from '@atlaskit/media-client';
 import { default as React_2 } from 'react';
@@ -42,8 +41,15 @@ interface MediaClientProviderProp {
 // @public (undocumented)
 export function useFileState(
   id: string,
-  options?: GetFileOptions,
+  options?: UseFileStateOptions,
 ): UseFileStateResult;
+
+// @public (undocumented)
+export type UseFileStateOptions = {
+  collectionName?: string;
+  occurrenceKey?: string;
+  skipRemote?: boolean;
+};
 
 // @public (undocumented)
 export type UseFileStateResult = {

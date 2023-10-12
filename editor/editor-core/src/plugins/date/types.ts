@@ -2,7 +2,7 @@ import type { WeekDay } from '@atlaskit/calendar/types';
 import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import type { insertDate, deleteDate } from './actions';
+import type { InsertDate, DeleteDate } from './commands';
 
 export type DateType = {
   year: number;
@@ -28,9 +28,9 @@ export type DatePlugin = NextEditorPlugin<
     pluginConfiguration: DatePluginConfig | undefined;
     dependencies: [typeof analyticsPlugin, EditorDisabledPlugin];
     sharedState: DatePluginSharedState;
-    actions: {
-      insertDate: typeof insertDate;
-      deleteDate: typeof deleteDate;
+    commands: {
+      insertDate: InsertDate;
+      deleteDate: DeleteDate;
     };
   }
 >;

@@ -8,6 +8,8 @@ export class MediaNodeUpdater {
 
   constructor() {
     const mockOverrides = MediaNodeUpdater.mockOverrides as any;
+    this.setProps = mockOverrides['setProps'] || jest.fn();
+    jest.fn().mockResolvedValue(undefined);
     this.updateContextId =
       mockOverrides['updateContextId'] ||
       jest.fn().mockResolvedValue(undefined);
@@ -56,6 +58,7 @@ export class MediaNodeUpdater {
     (MediaNodeUpdater.mockOverrides as any)[thisKey] = value;
   }
 
+  setProps() {}
   async updateContextId() {}
   async updateNodeContextId() {}
   getAttrs() {}

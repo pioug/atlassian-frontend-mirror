@@ -1,5 +1,18 @@
 # @atlaskit/editor-common
 
+## 76.10.1
+
+### Patch Changes
+
+- [#41438](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41438) [`b8d36b142ca`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b8d36b142ca) - Make insertDate and deleteDate an Editor Command
+- [#41343](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41343) [`41f1a7aaf16`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41f1a7aaf16) - Fixed typo in comment
+
+## 76.10.0
+
+### Minor Changes
+
+- [#41452](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41452) [`53c21a4394a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/53c21a4394a) - Decouple status plugin from editor-core.
+
 ## 76.9.2
 
 ### Patch Changes

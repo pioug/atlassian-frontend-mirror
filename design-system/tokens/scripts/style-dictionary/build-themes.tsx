@@ -4,18 +4,19 @@ import path from 'path';
 
 import { Config, Core } from 'style-dictionary';
 
-import legacyPalette from '../../src/palettes/legacy-palette';
-import defaultPalette from '../../src/palettes/palette';
-import shapePalette from '../../src/palettes/shape-palette';
-import spacingScale from '../../src/palettes/spacing-scale';
-import typographyPalette from '../../src/palettes/typography-palette';
-import updatedSaturatedPalette from '../../src/palettes/updated-saturated-palette';
+import legacyPalette from '../../schema/palettes/legacy-palette';
+import defaultPalette from '../../schema/palettes/palette';
+import shapePalette from '../../schema/palettes/shape-palette';
+import spacingScale from '../../schema/palettes/spacing-scale';
+import typographyPalette from '../../schema/palettes/typography-palette';
+import updatedSaturatedPalette from '../../schema/palettes/updated-saturated-palette';
 import themeConfig, { Palettes, ThemeFileNames } from '../../src/theme-config';
 
 import {
   ARTIFACT_OUTPUT_DIR,
   FIGMA_ARTIFACT_OUTPUT_DIR,
   THEME_INPUT_DIR,
+  TOKENS_INPUT_DIR,
 } from './constants';
 import formatterCSSVariables from './formatters/css-variables';
 import formatterCSSVariablesAsModule from './formatters/css-variables-as-module';
@@ -122,7 +123,7 @@ const createThemeConfig = (
       ...baseThemes.map((baseTheme) =>
         path.join(THEME_INPUT_DIR, baseTheme, '**', '*.tsx'),
       ),
-      path.join(THEME_INPUT_DIR, 'default', '**', '*.tsx'),
+      path.join(TOKENS_INPUT_DIR, '**', '*.tsx'),
     ],
     platforms: {
       figma: {
@@ -203,10 +204,10 @@ const createThemeConfig = (
 };
 
 export default function build(styleDictionary: Core) {
-  const tokensInputDir = `${__dirname}/../../src/tokens`;
+  const tokensInputDir = `${__dirname}/../../${THEME_INPUT_DIR}`;
 
   fs.readdirSync(tokensInputDir, { withFileTypes: true })
-    .filter((result) => result.isDirectory() && result.name !== 'default')
+    .filter((result) => result.isDirectory())
     .forEach((theme) => {
       const themeName = theme.name as ThemeFileNames;
       const baseThemes = getBaseThemes(themeName);

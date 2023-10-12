@@ -1,5 +1,9 @@
-import { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
-import { EditorState, Selection } from '@atlaskit/editor-prosemirror/state';
+import { mapChildren } from '@atlaskit/editor-common/utils';
+import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
+import type {
+  EditorState,
+  Selection,
+} from '@atlaskit/editor-prosemirror/state';
 import { hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { findTable } from '@atlaskit/editor-tables/utils';
@@ -148,4 +152,28 @@ export const isTableNested = (state: EditorState, tablePos = 0): boolean => {
     parent.type === nodeTypes.expand ||
     parent.type === nodeTypes.bodiedExtension
   );
+};
+
+export const anyChildCellMergedAcrossRow = (node: PmNode): boolean =>
+  mapChildren(node, (child) => child.attrs.rowspan || 0).some(
+    (rowspan) => rowspan > 1,
+  );
+
+/**
+ * Check if a given node is a header row with this definition:
+ *  - all children are tableHeader cells
+ *  - no table cells have been have merged with other table row cells
+ *
+ * @param node ProseMirror node
+ * @return boolean if it meets definition
+ */
+export const supportedHeaderRow = (node: PmNode): boolean => {
+  const allHeaders = mapChildren(
+    node,
+    (child) => child.type.name === 'tableHeader',
+  ).every(Boolean);
+
+  const someMerged = anyChildCellMergedAcrossRow(node);
+
+  return allHeaders && !someMerged;
 };

@@ -121,4 +121,51 @@ describe('getErrorAttributes', () => {
       isSLOFailure: true,
     });
   });
+
+  it('should handle Jira Custom Profile Card client error with cause', () => {
+    const causeError = new DirectoryGraphQLErrors(
+      [
+        {
+          message: 'message1',
+          category: 'NotFound',
+          type: 'type1',
+          extensions: { errorNumber: 1 },
+        },
+        {
+          message: 'message2',
+          category: 'NotPermitted',
+          type: 'Gone',
+          extensions: { errorNumber: 2 },
+          path: ['path', 'two'],
+        },
+      ],
+      '123',
+    );
+    const error = new Error('Unable to fetch user: Some reason...');
+    (error as any).cause = causeError;
+
+    const expected = getErrorAttributes(causeError);
+
+    expect(getErrorAttributes(error)).toEqual(expected);
+  });
+
+  it('should handle Jira Custom Profile Card client error without cause', () => {
+    const error = new Error('Unable to fetch user: Some reason...');
+
+    expect(getErrorAttributes(error)).toEqual({
+      errorMessage: error.message,
+      isSLOFailure: false,
+    });
+  });
+
+  it('should handle Jira Custom Profile Card client error with cause that is not known', () => {
+    const error = new Error('Unable to fetch user: Some reason...');
+    const causeError = new Error('Who knows');
+    (error as any).cause = causeError;
+
+    expect(getErrorAttributes(error)).toEqual({
+      errorMessage: error.message,
+      isSLOFailure: false,
+    });
+  });
 });

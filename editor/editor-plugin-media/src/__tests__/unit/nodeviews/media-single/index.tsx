@@ -13,8 +13,10 @@ import {
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
-import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
+import type {
+  ContextIdentifierProvider,
+  MediaProvider,
+} from '@atlaskit/editor-common/provider-factory';
 import type { RefsNode } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
@@ -44,10 +46,7 @@ import MediaSingle, {
 import type { MediaSingleNodeViewProps } from '../../../../nodeviews/types';
 import { stateKey as mediaStateKey } from '../../../../pm-plugins/plugin-key';
 import type { MediaPluginState } from '../../../../pm-plugins/types';
-import type { MediaState } from '../../../../types';
-import type { MediaOptions } from '../../../../types';
-
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import type { MediaOptions, MediaState } from '../../../../types';
 
 const testCollectionName = `media-plugin-mock-collection-${randomId()}`;
 
@@ -366,10 +365,9 @@ describe('nodeviews/mediaSingle', () => {
         mediaSingleNodeWithoutDimensions(defaultSchema),
       );
 
-      (MediaNodeUpdater as any).setMock(
-        'getRemoteDimensions',
-        getDimensions(wrapper),
-      );
+      const instances: MediaNodeUpdater[] = (MediaNodeUpdater as any).instances;
+      instances[0].getRemoteDimensions = getDimensions(wrapper);
+      instances[0].setProps = jest.fn();
 
       await (wrapper.instance() as any).componentDidMount();
 
@@ -399,6 +397,7 @@ describe('nodeviews/mediaSingle', () => {
 
       const instances: MediaNodeUpdater[] = (MediaNodeUpdater as any).instances;
       instances[0].getRemoteDimensions = getDimensions(wrapper);
+      instances[0].setProps = jest.fn();
 
       await (wrapper.instance() as MediaSingle).componentDidMount();
       expect(instances[0].updateDimensions).toHaveBeenCalledTimes(0);
@@ -427,6 +426,7 @@ describe('nodeviews/mediaSingle', () => {
         instances[0].hasDifferentContextId,
         Promise.resolve(true),
       );
+    instances[0].setProps = jest.fn();
 
     await instance.componentDidMount();
     expect(instances[0].hasDifferentContextId).toHaveBeenCalled();
@@ -444,8 +444,10 @@ describe('nodeviews/mediaSingle', () => {
     const mediaSingleNode = mediaSingle()(mediaNode);
     const wrapper = mountNode(mediaSingleNode(defaultSchema));
 
+    const instances: MediaNodeUpdater[] = (MediaNodeUpdater as any).instances;
+    instances[0].setProps = jest.fn();
     expect(wrapper.state('viewMediaClientConfig')).toBeUndefined();
-    wrapper.setProps({ mediaProvider });
+    wrapper.setProps({ mediaProvider: getFreshMediaProvider() });
     // We need to await to ticks since we await 2 different promises on the UNSAFE_componentWillReceiveProps
     // unfortunately we can't access the real promises here
     await nextTick();
@@ -461,9 +463,14 @@ describe('nodeviews/mediaSingle', () => {
       collection: 'collection',
     };
 
+    const mediaProvider = getFreshMediaProvider();
+
     const mediaNode = media(mediaNodeAttrs as MediaAttributes)();
     const mediaSingleNode = mediaSingle()(mediaNode);
     const wrapper = mountNode(mediaSingleNode(defaultSchema));
+
+    const instances: MediaNodeUpdater[] = (MediaNodeUpdater as any).instances;
+    instances[0].setProps = jest.fn();
 
     expect(wrapper.state('viewMediaClientConfig')).toBeUndefined();
     wrapper.setProps({ mediaProvider });

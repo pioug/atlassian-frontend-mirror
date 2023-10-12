@@ -1110,11 +1110,6 @@ export default class WebBridgeImpl
    * @param nodeType is the node we are inserting in the editor.
    */
   insertNode(nodeType: string) {
-    const apply = (command: Command | undefined) => {
-      const { state, dispatch } = this.editorView!;
-      command?.(state, dispatch);
-    };
-
     switch (nodeType) {
       case 'status':
         const status = {
@@ -1127,15 +1122,20 @@ export default class WebBridgeImpl
       case 'date':
         const dateType = dateToDateType(new Date());
 
-        if (this.pluginInjectionApi?.date?.actions?.insertDate) {
-          apply(
-            this.pluginInjectionApi?.date?.actions?.insertDate(
-              dateType,
-              INPUT_METHOD.TOOLBAR,
-              INPUT_METHOD.PICKER,
-            ),
-          );
+        if (
+          !this.editorView ||
+          !this.pluginInjectionApi?.date?.commands?.insertDate
+        ) {
+          return;
         }
+
+        this.pluginInjectionApi.core?.actions?.execute(
+          this.pluginInjectionApi.date.commands.insertDate({
+            date: dateType,
+            inputMethod: INPUT_METHOD.TOOLBAR,
+            commitMethod: INPUT_METHOD.PICKER,
+          }),
+        );
 
         break;
       default:

@@ -1,5 +1,12 @@
 # @atlaskit/link-datasource
 
+## 1.7.3
+
+### Patch Changes
+
+- [#41405](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41405) [`6619f042a24`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6619f042a24) - [ux] Fix issue where any inline/block/embeds don't open up datasource modal with proper info
+- Updated dependencies
+
 ## 1.7.2
 
 ### Patch Changes

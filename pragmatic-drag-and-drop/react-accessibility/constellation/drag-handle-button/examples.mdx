@@ -8,6 +8,7 @@ import { Code } from '@atlaskit/code';
 import SectionMessage from '@atlaskit/section-message';
 
 import DragHandleButtonExample from '../../examples/drag-handle-button';
+import DragHandleButtonSmallExample from '../../examples/drag-handle-button-small';
 
 <SectionMessage appearance="warning">
   This component does not use the <Code>@atlaskit/button</Code> component,
@@ -19,3 +20,12 @@ import DragHandleButtonExample from '../../examples/drag-handle-button';
 ## Default
 
 <Example Component={DragHandleButtonExample} />
+
+## Small variant
+
+A small variant is available through the `/drag-handle-button-small` entrypoint.
+
+It is intended for experiences with very limited space to accomodate a drag handle.
+It is not recommended for general use due to the small target size.
+
+<Example Component={DragHandleButtonSmallExample} />

@@ -420,7 +420,9 @@ export const getToolbarCellOptionsConfig = (
   };
 };
 
-const getClosestSelectionRect = (state: EditorState): Rect | undefined => {
+export const getClosestSelectionRect = (
+  state: EditorState,
+): Rect | undefined => {
   const selection = state.selection;
   return isSelectionType(selection, 'cell')
     ? getSelectionRect(selection)!

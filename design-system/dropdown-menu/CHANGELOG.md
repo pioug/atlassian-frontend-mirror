@@ -1,5 +1,11 @@
 # @atlaskit/dropdown-menu
 
+## 12.1.0
+
+### Minor Changes
+
+- [#41586](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41586) [`ef0466f92d9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ef0466f92d9) - We are removing previously added feature flag and unsafe entry point usage of the new Button inside DropdownMenu.
+
 ## 12.0.0
 
 ### Major Changes

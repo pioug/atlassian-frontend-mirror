@@ -42,6 +42,7 @@ describe('Task Item - NodeView', () => {
       portalProviderAPI,
       eventDispatcher,
       providerFactory,
+      undefined,
     )(node, editorView, () => -1);
 
     if (nodeView instanceof ReactNodeView) {
@@ -63,6 +64,7 @@ describe('Task Item - NodeView', () => {
       portalProviderAPI,
       eventDispatcher,
       providerFactory,
+      undefined,
     )(taskItemNode, editorView, getPos);
 
     render((nodeView as ReactNodeView).render({})!, { wrapper: Providers });
@@ -87,6 +89,7 @@ describe('Task Item - NodeView', () => {
       portalProviderAPI,
       eventDispatcher,
       providerFactory,
+      undefined,
     )(taskItemNode, editorView, getPos);
 
     render((nodeView as ReactNodeView).render({})!, { wrapper: Providers });

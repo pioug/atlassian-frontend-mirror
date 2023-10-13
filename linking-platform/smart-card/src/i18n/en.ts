@@ -40,7 +40,7 @@ export default {
   'fabric.linking.delete': 'Delete',
   'fabric.linking.direct_access_crossjoin': 'Go to {product}',
   'fabric.linking.direct_access_description_crossjoin':
-    'All {emailDomain} emails are approved to access {hostname} in {product}.',
+    'All accounts with your same email domain are approved to access {hostname} in {product}.',
   'fabric.linking.direct_access_title_crossjoin': 'Join your team in {product}',
   'fabric.linking.download': 'Download',
   'fabric.linking.edit': 'Edit',
@@ -48,6 +48,8 @@ export default {
   'fabric.linking.forbidden_access': 'Your access is forbidden',
   'fabric.linking.forbidden_description':
     'You don’t have access to this preview. Contact the site admin if you need access.',
+  'fabric.linking.forbidden_description_crossjoin': 'Contact your admin to request access.',
+  'fabric.linking.forbidden_title_crossjoin': "You don't have access to this content",
   'fabric.linking.go_back': 'Go back',
   'fabric.linking.invalid_permissions': 'Restricted content',
   'fabric.linking.invalid_permissions_description':
@@ -95,7 +97,7 @@ export default {
   'fabric.linking.request_access_pending_description': 'Your access request is pending.',
   'fabric.linking.request_access_pending_description_crossjoin':
     'Your request to access {hostname} is awaiting admin approval.',
-  'fabric.linking.request_access_pending_title_crossjoin': 'Access to {product} pending',
+  'fabric.linking.request_access_pending_title_crossjoin': 'Access to {product} is pending',
   'fabric.linking.request_access_to_view': 'Request access to {context} to view this issue',
   'fabric.linking.request_denied': 'Your access request was denied',
   'fabric.linking.request_denied_description':

@@ -14,10 +14,8 @@ import {
   mentionsPlugin,
   panelPlugin,
   placeholderTextPlugin,
-  saveOnEnterPlugin,
   tasksAndDecisionsPlugin,
   textColorPlugin,
-  statusPlugin,
   alignmentPlugin,
   indentationPlugin,
   customAutoformatPlugin,
@@ -25,7 +23,6 @@ import {
   historyPlugin,
   expandPlugin,
   isExpandInsertionEnabled,
-  scrollIntoViewPlugin,
   mobileDimensionsPlugin,
   findReplacePlugin,
   mobileSelectionPlugin,
@@ -35,6 +32,7 @@ import {
   beforePrimaryToolbarPlugin,
   codeBidiWarningPlugin,
 } from '../../../plugins';
+import { statusPlugin } from '@atlaskit/editor-plugin-status';
 import { datePlugin } from '../../../plugins/date';
 import { captionPlugin } from '@atlaskit/editor-plugin-caption';
 import { borderPlugin } from '@atlaskit/editor-plugin-border';
@@ -51,6 +49,8 @@ import { cardPlugin } from '@atlaskit/editor-plugin-card';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { saveOnEnterPlugin } from '@atlaskit/editor-plugin-save-on-enter';
+import { scrollIntoViewPlugin } from '@atlaskit/editor-plugin-scroll-into-view';
 
 import type { EditorAppearance } from '@atlaskit/editor-common/types';
 

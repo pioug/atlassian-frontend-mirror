@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-table
 
+## 5.2.1
+
+### Patch Changes
+
+- [#41471](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41471) [`94c3351cece`](https://bitbucket.org/atlassian/atlassian-frontend/commits/94c3351cece) - Table row nodeviews will now be set as drop targets when the DnD FF is enabled
+
 ## 5.2.0
 
 ### Minor Changes

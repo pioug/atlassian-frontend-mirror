@@ -7,6 +7,8 @@
  */
 //Ukrainian (Ukraine)
 export default {
+  'fabric.linking.access_exists_description':
+    'Зверніться до адміністратора з проханням переглянути цей вміст з {hostname}.',
   'fabric.linking.actions': 'Дії',
   'fabric.linking.add_account': 'Додати обліковий запис',
   'fabric.linking.assigned_to': 'Призначено для {context}',
@@ -38,12 +40,18 @@ export default {
   'fabric.linking.create_on_relative': 'Створено {context}',
   'fabric.linking.created_by': 'Автор: {context}',
   'fabric.linking.delete': 'Видалити',
+  'fabric.linking.direct_access_crossjoin': 'Перейти в {product}',
+  'fabric.linking.direct_access_description_crossjoin':
+    'Усі облікові записи з тим самим доменом електронної пошти схвалено для доступу до {hostname} в {product}.',
+  'fabric.linking.direct_access_title_crossjoin': 'Приєднуйтеся до команди в {product}',
   'fabric.linking.download': 'Завантажити',
   'fabric.linking.edit': 'Редагувати',
   'fabric.linking.follow': 'Підписатися',
   'fabric.linking.forbidden_access': 'У вас немає доступу',
   'fabric.linking.forbidden_description':
     'Ви не маєте доступу до цього вмісту. Якщо вам потрібен доступ, зверніться до адміністратора сайту.',
+  'fabric.linking.forbidden_description_crossjoin': 'Зверніться до адміністратора з проханням надати доступ.',
+  'fabric.linking.forbidden_title_crossjoin': 'У вас немає доступу до цього вмісту',
   'fabric.linking.go_back': 'Назад',
   'fabric.linking.invalid_permissions': 'Вміст із обмеженим доступом',
   'fabric.linking.invalid_permissions_description':
@@ -56,9 +64,13 @@ export default {
   'fabric.linking.modified_on_absolute': 'Оновлено {context}',
   'fabric.linking.modified_on_relative': 'Оновлено {context}',
   'fabric.linking.more_actions': 'Інші дії',
+  'fabric.linking.no_access_title_crossjoin': 'У вас немає доступу до цього вмісту',
   'fabric.linking.not_found_description':
     'Не вдалося знайти посилання. Перевірте URL-адресу й спробуйте її відредагувати або вставити знову.',
+  'fabric.linking.not_found_description_crossjoin':
+    'Сторінка не існує або, можливо, змінилася після додавання цього посилання.',
   'fabric.linking.not_found_title': 'Ой! Не вдається знайти це посилання.',
+  'fabric.linking.not_found_title_crossjoin': 'Не вдається відобразити цю сторінку {product}',
   'fabric.linking.open_issue_in_jira': 'Відкрити завдання в Jira',
   'fabric.linking.open_link_in_a_new_tab': 'Відкрити посилання в новій вкладці',
   'fabric.linking.owned_by': 'Власник: {context}',
@@ -80,14 +92,22 @@ export default {
   'fabric.linking.priority_undefined': 'Не визначено',
   'fabric.linking.read_time': 'Текст на {context} хв',
   'fabric.linking.request_access': 'Надіслати запит на доступ',
+  'fabric.linking.request_access_crossjoin': 'Надіслати запит на доступ',
   'fabric.linking.request_access_description':
     'Надішліть запит на доступ до {context}, щоб попередньо переглянути продукт.',
+  'fabric.linking.request_access_description_crossjoin': 'Зверніться до адміністратора з проханням надати доступ.',
   'fabric.linking.request_access_pending': 'Очікується надання доступу',
+  'fabric.linking.request_access_pending_crossjoin': 'Очікується підтвердження',
   'fabric.linking.request_access_pending_description': 'Ваш запит на надання доступу в очікуванні.',
+  'fabric.linking.request_access_pending_description_crossjoin':
+    'Ваш запит на доступ до {hostname} очікує на схвалення адміністратора.',
+  'fabric.linking.request_access_pending_title_crossjoin': 'Очікується надання доступу до {product}',
   'fabric.linking.request_access_to_view': 'Надішліть запит на доступ до {context}, щоб переглянути завдання',
   'fabric.linking.request_denied': 'Ваш запит на надання доступу відхилено',
   'fabric.linking.request_denied_description':
     'Ваш запит на надання доступу відхилено. Якщо вам усе ще потрібен доступ, зверніться до адміністратора сайту.',
+  'fabric.linking.request_denied_description_crossjoin':
+    'Ваш адміністратор не схвалив запит на перегляд сторінок {product} з {hostname}.',
   'fabric.linking.restricted_link': 'Посилання з обмеженим доступом; спробуйте інший обліковий запис',
   'fabric.linking.retry': 'Повторити спробу',
   'fabric.linking.save': 'Зберегти',

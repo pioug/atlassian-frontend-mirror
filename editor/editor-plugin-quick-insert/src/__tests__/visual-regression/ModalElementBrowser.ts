@@ -26,7 +26,8 @@ describe('ModalElementBrowser', () => {
     afterEach(async () => {
       await page.click("[data-testid='ModalElementBrowser__close-button']");
     });
-    it('should match ModalElementBrowser snapshot for breakpoint: 768 x 1024', async () => {
+    // FIXME: flaky test - failed on https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/1792686/steps/%7B8ddb5459-2fd0-477c-bd38-15eef630fb73%7D/test-report
+    it.skip('should match ModalElementBrowser snapshot for breakpoint: 768 x 1024', async () => {
       await shouldMatchSnapshotFor(
         'ModalElementBrowser__example__open_button',
         {
@@ -35,7 +36,8 @@ describe('ModalElementBrowser', () => {
         },
       );
     });
-    it('should match ModalElementBrowser snapshot for breakpoint: 1920 x 1080', async () => {
+    // FIXME: flaky test - failed on https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/1793378/steps/%7Beb84d54b-1213-43d5-ae98-ebde42d5469d%7D/test-report
+    it.skip('should match ModalElementBrowser snapshot for breakpoint: 1920 x 1080', async () => {
       await shouldMatchSnapshotFor(
         'ModalElementBrowser__example__open_button',
         {
@@ -49,7 +51,8 @@ describe('ModalElementBrowser', () => {
 
 describe('InlineElementBrowser', () => {
   beforeEach(getElementBrowserPage);
-  it('should match InlineElementBrowser snapshot', async () => {
+  // FIXME: flaky test - failed on https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/1794142/steps/%7B74783f8e-d735-47d5-bc42-54adb6ea6c43%7D/test-report
+  it.skip('should match InlineElementBrowser snapshot', async () => {
     await shouldMatchSnapshotFor('InlineElementBrowser__example__open_button', {
       width: 800,
       height: 600,

@@ -25,11 +25,11 @@ describe('Decision Item - NodeView', () => {
     });
     const node = decisionItem()('this is the decision')(defaultSchema);
 
-    const nodeView = decisionItemNodeView(portalProviderAPI, eventDispatcher)(
-      node,
-      editorView,
-      () => -1,
-    );
+    const nodeView = decisionItemNodeView(
+      portalProviderAPI,
+      eventDispatcher,
+      undefined,
+    )(node, editorView, () => -1);
 
     if (nodeView instanceof ReactNodeView) {
       const contentDOM = nodeView.contentDOM as HTMLElement;

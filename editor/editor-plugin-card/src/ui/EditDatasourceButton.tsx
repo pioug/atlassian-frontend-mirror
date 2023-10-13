@@ -1,6 +1,4 @@
 /** @jsx jsx */
-import { useEffect, useState } from 'react';
-
 import { css, jsx } from '@emotion/react';
 import type { IntlShape } from 'react-intl-next';
 
@@ -18,12 +16,12 @@ import {
 } from '@atlaskit/editor-common/utils';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import type { JsonLdDatasourceResponse } from '@atlaskit/link-client-extension';
 import type { CardContext } from '@atlaskit/link-provider';
 
 import { showDatasourceModal } from '../pm-plugins/actions';
 
 import { CardContextProvider } from './CardContextProvider';
+import { useFetchDatasourceInfo } from './useFetchDatasourceInfo';
 
 export interface EditDatasourceButtonProps {
   intl: IntlShape;
@@ -42,6 +40,8 @@ const buttonWrapperStyles = css({
   display: 'flex',
 });
 
+// Edit button in toolbar to open datasource modal. This button is shown for inline, block, and embed cards
+// if they can resolve into a datasource.
 const EditDatasourceButtonWithCardContext = ({
   cardContext,
   intl,
@@ -50,26 +50,11 @@ const EditDatasourceButtonWithCardContext = ({
   editorView,
   editorState,
 }: EditDatasourceButtonProps) => {
-  const [datasourceId, setDatasourceId] = useState<string | null>(null);
-  useEffect(() => {
-    const fetchDatasource = async () => {
-      try {
-        const response =
-          url &&
-          cardContext &&
-          (await cardContext?.connections?.client?.fetchData(url));
-        const datasources =
-          (response && (response as JsonLdDatasourceResponse).datasources) ||
-          [];
-
-        setDatasourceId(datasources[0]?.id || null);
-      } catch (e) {
-        setDatasourceId(null);
-      }
-    };
-
-    void fetchDatasource();
-  }, [cardContext, url]);
+  const { datasourceId } = useFetchDatasourceInfo({
+    isRegularCardNode: true,
+    url,
+    cardContext,
+  });
 
   if (!datasourceId || !canRenderDatasource(datasourceId, false)) {
     return null;

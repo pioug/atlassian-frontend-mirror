@@ -18,6 +18,7 @@
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { Command } from '@atlaskit/editor-common/types';
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
@@ -26,6 +27,7 @@ import type { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { TypeAheadHandler } from '@atlaskit/editor-common/types';
 import type { TypeAheadItem } from '@atlaskit/editor-common/types';
+import type { TypeAheadStats } from '@atlaskit/editor-common/types';
 
 // @public (undocumented)
 type CloseTypeAheadProps = {
@@ -48,6 +50,8 @@ type OpenTypeAheadProps = {
   inputMethod: TypeAheadInputMethod;
   query?: string;
 };
+
+export { TypeAheadHandler };
 
 // @public (undocumented)
 export type TypeAheadInputMethod =
@@ -82,11 +86,33 @@ export type TypeAheadPlugin = NextEditorPlugin<
   }
 >;
 
+// @public
+export const typeAheadPlugin: TypeAheadPlugin;
+
 // @public (undocumented)
 export type TypeAheadPluginOptions = {
   isMobile?: boolean;
   createAnalyticsEvent?: CreateUIAnalyticsEvent;
 };
+
+// @public (undocumented)
+export type TypeAheadPluginState = {
+  decorationSet: DecorationSet;
+  decorationElement: HTMLElement | null;
+  typeAheadHandlers: Array<TypeAheadHandler>;
+  query: string;
+  items: Array<TypeAheadItem>;
+  triggerHandler?: TypeAheadHandler;
+  selectedIndex: number;
+  stats: TypeAheadStatsSerializable | null;
+  inputMethod: TypeAheadInputMethod | null;
+};
+
+// @public (undocumented)
+interface TypeAheadStatsSerializable extends TypeAheadStats {
+  // (undocumented)
+  serialize: () => TypeAheadStats;
+}
 
 // (No @packageDocumentation comment for this package)
 ```
@@ -99,7 +125,9 @@ export type TypeAheadPluginOptions = {
 
 ```json
 {
-  "react": "^16.8.0"
+  "react": "^16.8.0",
+  "react-dom": "^16.8.0",
+  "react-intl-next": "npm:react-intl@^5.18.1"
 }
 ```
 

@@ -39,7 +39,7 @@ import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import datePlugin from '../../plugin';
 import { quickInsertPlugin } from '@atlaskit/editor-plugin-quick-insert';
-import typeAheadPlugin from '../../../type-ahead';
+import { typeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
 import codeBlockPlugin from '../../../code-block';
 import { selectionPlugin } from '@atlaskit/editor-plugin-selection';
 import { compositionPlugin } from '@atlaskit/editor-plugin-composition';

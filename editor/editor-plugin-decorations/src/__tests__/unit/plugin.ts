@@ -12,7 +12,7 @@ import mentionsPlugin from '@atlaskit/editor-core/src/plugins/mentions';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import panelPlugin from '@atlaskit/editor-core/src/plugins/panel';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import typeAheadPlugin from '@atlaskit/editor-core/src/plugins/type-ahead';
+import { typeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
 import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {

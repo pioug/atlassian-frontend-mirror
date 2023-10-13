@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-card",
-  "version": "0.9.1",
+  "version": "0.9.2",
   "description": "Card plugin for @atlaskit/editor-core",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -74,6 +74,7 @@
     "@atlassian/feature-flags-test-utils": "*",
     "@testing-library/dom": "^8.17.1",
     "@testing-library/react": "^12.1.5",
+    "@testing-library/react-hooks": "^8.0.1",
     "@testing-library/user-event": "^14.4.3",
     "raf-stub": "^2.0.1",
     "react-dom": "^16.8.0",

@@ -6,6 +6,8 @@ import { findOverflowScrollParent } from '@atlaskit/editor-common/ui';
 import { browser } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
+import { attachClosestEdge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/addon/closest-edge';
+import { dropTargetForElements } from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
 
 import { getPluginState } from '../pm-plugins/plugin-factory';
 import { pluginKey as tablePluginKey } from '../pm-plugins/plugin-key';
@@ -14,7 +16,7 @@ import {
   syncStickyRowToTable,
   updateStickyMargins as updateTableMargin,
 } from '../pm-plugins/table-resizing/utils/dom';
-import type { TablePluginState } from '../types';
+import type { DraggableSourceData, TablePluginState } from '../types';
 import { TableCssClassName as ClassName, TableCssClassName } from '../types';
 import {
   STICKY_HEADER_TOGGLE_TOLERANCE_MS,
@@ -62,6 +64,10 @@ export default class TableRow
         this.subscribe();
       }
     }
+
+    if (this.isDragAndDropEnabled) {
+      this.addDropTarget(this.contentDOM);
+    }
   }
 
   /**
@@ -87,6 +93,7 @@ export default class TableRow
   private listening = false;
   private padding: number = 0;
   private top: number = 0;
+  private dropTargetCleanup?: () => void;
 
   /**
    * Methods: Nodeview Lifecycle
@@ -133,6 +140,9 @@ export default class TableRow
 
       this.emitOff(true);
     }
+
+    // If a drop target cleanup method has been set then we should call it.
+    this.dropTargetCleanup?.();
   }
 
   ignoreMutation(
@@ -171,6 +181,49 @@ export default class TableRow
   /**
    * Methods
    */
+
+  private addDropTarget(element: HTMLElement) {
+    const pos = this.getPos()!;
+    if (!Number.isFinite(pos)) {
+      return;
+    }
+
+    if (this.dropTargetCleanup) {
+      this.dropTargetCleanup();
+    }
+
+    const resolvedPos = this.view.state.doc.resolve(pos);
+    const targetIndex = resolvedPos.index();
+    const localId = resolvedPos.parent.attrs.localId;
+
+    this.dropTargetCleanup = dropTargetForElements({
+      element: element,
+      canDrop({ source }) {
+        const data = source.data as DraggableSourceData;
+        return (
+          // Only draggables of row type can be dropped on this target
+          data.type === 'table-row' &&
+          // Only draggables which came from the same table can be dropped on this target
+          data.localId === localId &&
+          // Only draggables which DO NOT include this drop targets index can be dropped
+          !!data.indexes?.length &&
+          data.indexes?.indexOf(targetIndex) === -1
+        );
+      },
+      getData({ input, element }) {
+        const data = {
+          localId,
+          type: 'table-row',
+          targetIndex,
+        };
+        return attachClosestEdge(data, {
+          input,
+          element,
+          allowedEdges: ['top', 'bottom'],
+        });
+      },
+    });
+  }
 
   private headerRowMouseScrollEnd = debounce(() => {
     this.dom.classList.remove('no-pointer-events');

@@ -7,6 +7,8 @@
  */
 //Russian
 export default {
+  'fabric.linking.access_exists_description':
+    'Обратитесь к администратору и запросите доступ для просмотра контента с {hostname}.',
   'fabric.linking.actions': 'Действия',
   'fabric.linking.add_account': 'Добавить аккаунт',
   'fabric.linking.assigned_to': 'Назначено пользователю {context}',
@@ -38,12 +40,18 @@ export default {
   'fabric.linking.create_on_relative': 'Создано: {context}',
   'fabric.linking.created_by': 'Создано: {context}',
   'fabric.linking.delete': 'Удалить',
+  'fabric.linking.direct_access_crossjoin': 'Перейти к {product}',
+  'fabric.linking.direct_access_description_crossjoin':
+    'Доступ к {hostname} в {product} подтвержден для всех аккаунтов с тем же доменом электронной почты.',
+  'fabric.linking.direct_access_title_crossjoin': 'Присоединяйтесь к команде в {product}',
   'fabric.linking.download': 'Скачать',
   'fabric.linking.edit': 'Изменить',
   'fabric.linking.follow': 'Подписаться',
   'fabric.linking.forbidden_access': 'Доступ запрещен',
   'fabric.linking.forbidden_description':
     'У вас нет доступа к предварительному просмотру. Если вам требуется доступ, обратитесь к администратору сайта.',
+  'fabric.linking.forbidden_description_crossjoin': 'Обратитесь к администратору, чтобы запросить доступ.',
+  'fabric.linking.forbidden_title_crossjoin': 'У вас нет доступа к этому контенту',
   'fabric.linking.go_back': 'Вернуться назад',
   'fabric.linking.invalid_permissions': 'Контент с ограниченным доступом',
   'fabric.linking.invalid_permissions_description':
@@ -56,9 +64,12 @@ export default {
   'fabric.linking.modified_on_absolute': 'Обновлено {context}',
   'fabric.linking.modified_on_relative': 'Обновлено: {context}',
   'fabric.linking.more_actions': 'Другие действия',
+  'fabric.linking.no_access_title_crossjoin': 'У вас нет доступа к этому контенту',
   'fabric.linking.not_found_description':
     'Не удалось найти ссылку. Проверьте URL-адрес и попробуйте изменить или вставить еще раз.',
+  'fabric.linking.not_found_description_crossjoin': 'Страница не существует или была изменена после добавления ссылки.',
   'fabric.linking.not_found_title': 'К сожалению, не удалось найти эту ссылку.',
+  'fabric.linking.not_found_title_crossjoin': 'Невозможно показать эту страницу {product}',
   'fabric.linking.open_issue_in_jira': 'Открыть задачу в Jira',
   'fabric.linking.open_link_in_a_new_tab': 'Открыть ссылку в новой вкладке',
   'fabric.linking.owned_by': 'Владелец: {context}',
@@ -80,13 +91,21 @@ export default {
   'fabric.linking.priority_undefined': 'Не определен',
   'fabric.linking.read_time': 'Время чтения: {context} мин.',
   'fabric.linking.request_access': 'Запросить доступ',
+  'fabric.linking.request_access_crossjoin': 'Запросить доступ',
   'fabric.linking.request_access_description': 'Запросите доступ к продукту {context} для предварительного просмотра.',
+  'fabric.linking.request_access_description_crossjoin': 'Обратитесь к администратору, чтобы запросить доступ.',
   'fabric.linking.request_access_pending': 'Ожидается предоставление доступа',
+  'fabric.linking.request_access_pending_crossjoin': 'В ожидании подтверждения',
   'fabric.linking.request_access_pending_description': 'Ваш запрос на доступ ожидает рассмотрения.',
+  'fabric.linking.request_access_pending_description_crossjoin':
+    'Ваш запрос на доступ к {hostname} ожидает подтверждения администратора.',
+  'fabric.linking.request_access_pending_title_crossjoin': 'Ожидается предоставление доступа к {product}',
   'fabric.linking.request_access_to_view': 'Для просмотра этой задачи запросите доступ к {context}',
   'fabric.linking.request_denied': 'Ваш запрос на доступ отклонен',
   'fabric.linking.request_denied_description':
     'Ваш запрос на доступ отклонен. Если вам требуется доступ, обратитесь к администратору сайта.',
+  'fabric.linking.request_denied_description_crossjoin':
+    'Администратор не подтвердил ваш запрос на просмотр страниц {product} с {hostname}.',
   'fabric.linking.restricted_link': 'Доступ к ссылке ограничен, попробуйте войти в другой аккаунт',
   'fabric.linking.retry': 'Повторить',
   'fabric.linking.save': 'Сохранить',

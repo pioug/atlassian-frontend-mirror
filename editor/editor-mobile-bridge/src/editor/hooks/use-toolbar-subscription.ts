@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import type WebBridgeImpl from '../native-to-web';
 import type EditorConfiguration from '../editor-configuration';
 import type { IntlShape } from 'react-intl-next';
-import type { StatusType } from '@atlaskit/editor-core/src/plugins/status/plugin';
+import type { StatusType } from '@atlaskit/editor-plugin-status';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { subscribeToToolbarAndPickerUpdates } from '@atlaskit/editor-core/src/plugins/view-update-subscription/subscribe/toolbarAndPickerUpdates';
 import { createFloatingToolbarConfigForStatus } from '../status-utils';

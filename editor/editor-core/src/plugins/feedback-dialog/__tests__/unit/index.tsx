@@ -19,7 +19,7 @@ import * as LoadJiraCollectorDialogScript from '../../loadJiraCollectorDialogScr
 import feedbackDialogPlugin, { openFeedbackDialog } from '../../index';
 import deprecatedAnalyticsPlugin from '../../../analytics';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import typeAheadPlugin from '../../../type-ahead';
+import { typeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
 import { quickInsertPlugin } from '@atlaskit/editor-plugin-quick-insert';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 

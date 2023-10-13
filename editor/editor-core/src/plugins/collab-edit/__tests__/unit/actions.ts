@@ -16,7 +16,7 @@ import { applyRemoteSteps } from '../../actions';
 import type { PrivateCollabEditOptions } from '../../types';
 import collabEditPlugin from '../../index';
 import mentionsPlugin from '../../../mentions';
-import typeAheadPlugin from '../../../type-ahead';
+import { typeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
 import { unsupportedContentPlugin } from '@atlaskit/editor-plugin-unsupported-content';
 import { textFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';
 import { toggleMark } from '@atlaskit/editor-common/mark';

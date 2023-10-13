@@ -12,7 +12,12 @@ import type {
   INPUT_METHOD,
   USER_CONTEXT,
 } from '@atlaskit/editor-common/analytics';
-import type { LongPressSelectionPluginOptions } from '@atlaskit/editor-common/types';
+import type {
+  NextEditorPlugin,
+  OptionalPlugin,
+  LongPressSelectionPluginOptions,
+} from '@atlaskit/editor-common/types';
+import type { TypeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
 
 export type TaskDecisionListType = 'taskList' | 'decisionList';
 
@@ -48,3 +53,11 @@ export interface TaskDecisionPluginOptions
   allowNestedTasks?: boolean;
   consumeTabs?: boolean;
 }
+
+export type TaskAndDecisionsPlugin = NextEditorPlugin<
+  'taskDecision',
+  {
+    pluginConfiguration: TaskDecisionPluginOptions | undefined;
+    dependencies: [OptionalPlugin<TypeAheadPlugin>];
+  }
+>;

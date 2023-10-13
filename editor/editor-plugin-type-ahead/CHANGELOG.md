@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 0.7.0
+
+### Minor Changes
+
+- [#41047](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41047) [`8f0b00d165f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f0b00d165f) - [ED-20003] Extract TypeAhead from editor-core to its own package @atlaskit/editor-plugin-type-ahead
+
 ## 0.6.0
 
 ### Minor Changes

@@ -32,7 +32,7 @@ import codeBlockPlugin from '../../../code-block';
 import { compositionPlugin } from '@atlaskit/editor-plugin-composition';
 import tasksAndDecisionsPlugin from '../../../tasks-and-decisions';
 import placeholderTextPlugin from '../../../placeholder-text';
-import typeAheadPlugin from '../../../type-ahead';
+import { typeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
 import { pluginKey as undoRedoPluginKey } from '../../pm-plugins/plugin-key';
 import createPMPlugin from '../../pm-plugins/main';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';

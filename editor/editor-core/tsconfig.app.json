@@ -173,7 +173,16 @@
       "path": "../editor-plugin-rule/tsconfig.app.json"
     },
     {
+      "path": "../editor-plugin-save-on-enter/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-scroll-into-view/tsconfig.app.json"
+    },
+    {
       "path": "../editor-plugin-selection/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-status/tsconfig.app.json"
     },
     {
       "path": "../editor-plugin-table/tsconfig.app.json"
@@ -233,9 +242,6 @@
       "path": "../../elements/mention/tsconfig.app.json"
     },
     {
-      "path": "../../design-system/menu/tsconfig.app.json"
-    },
-    {
       "path": "../../platform/feature-flags/tsconfig.app.json"
     },
     {
@@ -261,9 +267,6 @@
     },
     {
       "path": "../../design-system/spinner/tsconfig.app.json"
-    },
-    {
-      "path": "../../elements/status/tsconfig.app.json"
     },
     {
       "path": "../../design-system/tabs/tsconfig.app.json"

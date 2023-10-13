@@ -26,7 +26,7 @@ import { findExpand } from '../../utils';
 import expandPlugin from '../../index';
 import deprecatedAnalyticsPlugin from '../../../analytics';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import typeAheadPlugin from '../../../type-ahead';
+import { typeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
 import { quickInsertPlugin } from '@atlaskit/editor-plugin-quick-insert';
 import { selectionPlugin } from '@atlaskit/editor-plugin-selection';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';

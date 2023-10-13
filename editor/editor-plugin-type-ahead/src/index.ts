@@ -1,5 +1,8 @@
+export { typeAheadPlugin } from './plugin';
 export type {
+  TypeAheadHandler,
+  TypeAheadInputMethod,
   TypeAheadPlugin,
   TypeAheadPluginOptions,
-  TypeAheadInputMethod,
+  TypeAheadPluginState,
 } from './types';

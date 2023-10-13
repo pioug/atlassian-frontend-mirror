@@ -11,8 +11,7 @@ import type {
   Schema,
 } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
-import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
-import { INPUT_METHOD } from '../analytics';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { messages as insertBlockMessages } from '../insert-block/ui/ToolbarInsertBlock/messages';
 import { IconAction, IconDecision } from '@atlaskit/editor-common/quick-insert';
 
@@ -20,7 +19,7 @@ import { insertTaskDecisionAction, getListTypes } from './commands';
 import inputRulePlugin from './pm-plugins/input-rules';
 import keymap from './pm-plugins/keymaps';
 import { createPlugin } from './pm-plugins/main';
-import type { TaskDecisionListType, TaskDecisionPluginOptions } from './types';
+import type { TaskAndDecisionsPlugin, TaskDecisionListType } from './types';
 import ToolbarDecision from './ui/ToolbarDecision';
 import ToolbarTask from './ui/ToolbarTask';
 
@@ -52,13 +51,9 @@ const addItem =
     );
   };
 
-const tasksAndDecisionsPlugin: NextEditorPlugin<
-  'taskDecision',
-  {
-    pluginConfiguration: TaskDecisionPluginOptions | undefined;
-  }
-> = ({
+const tasksAndDecisionsPlugin: TaskAndDecisionsPlugin = ({
   config: { allowNestedTasks, consumeTabs, useLongPressSelection } = {},
+  api,
 }) => ({
   name: 'taskDecision',
   nodes() {
@@ -88,6 +83,7 @@ const tasksAndDecisionsPlugin: NextEditorPlugin<
             eventDispatcher,
             providerFactory,
             dispatch,
+            api,
             useLongPressSelection,
           );
         },

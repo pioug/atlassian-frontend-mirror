@@ -1,5 +1,25 @@
 # @atlaskit/editor-mobile-bridge
 
+## 188.9.2
+
+### Patch Changes
+
+- [#41047](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41047) [`8f0b00d165f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f0b00d165f) - [ED-20003] Extract TypeAhead from editor-core to its own package @atlaskit/editor-plugin-type-ahead
+- Updated dependencies
+
+## 188.9.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 188.9.0
+
+### Patch Changes
+
+- [#41560](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41560) [`75f34802424`](https://bitbucket.org/atlassian/atlassian-frontend/commits/75f34802424) - Extract the status plugin from editor-core to @atlaskit/editor-plugin-status
+- Updated dependencies
+
 ## 188.8.0
 
 ### Patch Changes

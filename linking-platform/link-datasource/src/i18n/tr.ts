@@ -46,7 +46,7 @@ export default {
   'linkDataSource.jira-issues.refresh': 'Yenile',
   'linkDataSource.jira-issues.unableToLoadItems': 'Öğeler yüklenemiyor',
   'linkDataSource.jira-issues.unableToLoadResults': 'Sonuçlar yüklenemiyor',
-  'linkDataSource.modal-initial-state.learnMoreLink': 'JQL ile arama yapmak hakkında daha fazla bilgi edinin.',
+  'linkDataSource.modal-initial-state.learnMoreLink': 'JQL ile arama yapmak hakkında daha fazla bilgi edinin',
   'linkDataSource.modal-initial-state.searchDescription': 'Aramak için yazmaya başlayın veya JQL kullanın.',
   'linkDataSource.modal-initial-state.searchTitle': 'Jira konuları arayın',
   'linkDataSource.render-type.boolean.false': 'Hayır',

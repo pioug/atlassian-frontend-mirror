@@ -44,7 +44,7 @@ export default {
   'linkDataSource.jira-issues.refresh': '새로 고침',
   'linkDataSource.jira-issues.unableToLoadItems': '항목을 로드할 수 없음',
   'linkDataSource.jira-issues.unableToLoadResults': '결과를 로드할 수 없음',
-  'linkDataSource.modal-initial-state.learnMoreLink': 'JQL을 사용한 검색에 대해 자세히 알아보세요.',
+  'linkDataSource.modal-initial-state.learnMoreLink': 'JQL을 사용한 검색에 대해 자세히 알아보기',
   'linkDataSource.modal-initial-state.searchDescription': '입력을 시작하거나 JQL을 사용하여 검색합니다.',
   'linkDataSource.modal-initial-state.searchTitle': 'Jira 이슈 검색',
   'linkDataSource.render-type.boolean.false': '아니요',

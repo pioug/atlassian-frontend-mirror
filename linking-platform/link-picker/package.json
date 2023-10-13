@@ -84,7 +84,7 @@
   "devDependencies": {
     "@af/analytics-codegen": "^0.1.0",
     "@af/visual-regression": "*",
-    "@atlaskit/dropdown-menu": "^12.0.0",
+    "@atlaskit/dropdown-menu": "^12.1.0",
     "@atlaskit/link-provider": "^1.6.0",
     "@atlaskit/link-test-helpers": "^6.1.0",
     "@atlaskit/visual-regression": "*",

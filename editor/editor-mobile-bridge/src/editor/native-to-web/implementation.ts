@@ -1,9 +1,6 @@
 import type { TOOLBAR_MENU_TYPE as InsertBlockInputMethodToolbar } from '@atlaskit/editor-common/types';
 import type { MentionPluginState } from '@atlaskit/editor-core/src/plugins/mentions/types';
-import type {
-  StatusState,
-  StatusType,
-} from '@atlaskit/editor-core/src/plugins/status/plugin';
+import type { StatusState, StatusType } from '@atlaskit/editor-plugin-status';
 import type { CustomMediaPicker } from '@atlaskit/editor-plugin-media/types';
 import type {
   ListState,
@@ -1101,6 +1098,12 @@ export default class WebBridgeImpl
       INPUT_METHOD.TOOLBAR,
       status,
     )(this.editorView.state, this.editorView.dispatch);
+  }
+
+  removeStatus(showStatusPickerAt: number) {
+    return this.pluginInjectionApi?.core.actions.execute(
+      this.pluginInjectionApi?.status.commands.removeStatus(showStatusPickerAt),
+    );
   }
 
   /**

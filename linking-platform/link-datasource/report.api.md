@@ -136,6 +136,8 @@ interface JiraIssuesConfigModalProps {
   // (undocumented)
   parameters?: JiraIssueDatasourceParameters;
   // (undocumented)
+  viewMode?: JiraIssueViewModes;
+  // (undocumented)
   visibleColumnKeys?: string[];
 }
 
@@ -160,6 +162,9 @@ export interface JiraIssuesDatasourceAdf extends DatasourceAdf {
     };
   };
 }
+
+// @public (undocumented)
+type JiraIssueViewModes = 'count' | 'issue';
 
 // @public (undocumented)
 export const LazyLoadedDatasourceRenderFailedAnalyticsWrapper: (

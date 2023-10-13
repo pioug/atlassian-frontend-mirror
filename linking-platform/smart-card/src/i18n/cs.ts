@@ -7,6 +7,8 @@
  */
 //Czech
 export default {
+  'fabric.linking.access_exists_description':
+    'Pokud si chcete zobrazit tento obsah z {hostname}, požádejte správce o přístup.',
   'fabric.linking.actions': 'Akce',
   'fabric.linking.add_account': 'Přidat účet',
   'fabric.linking.assigned_to': 'Přiřazeno k: {context}',
@@ -37,12 +39,18 @@ export default {
   'fabric.linking.create_on_relative': 'Vytvořeno: {context}',
   'fabric.linking.created_by': 'Vytvořil(a) {context}',
   'fabric.linking.delete': 'Odstranit',
+  'fabric.linking.direct_access_crossjoin': 'Přejít do {product}',
+  'fabric.linking.direct_access_description_crossjoin':
+    'Všechny účty se stejnou e-mailovou doménou mají schválený přístup k {hostname} v {product}.',
+  'fabric.linking.direct_access_title_crossjoin': 'Připojte se ke svému týmu v produktu {product}',
   'fabric.linking.download': 'Stáhnout',
   'fabric.linking.edit': 'Upravit',
   'fabric.linking.follow': 'Sledovat',
   'fabric.linking.forbidden_access': 'Přístup byl odepřen',
   'fabric.linking.forbidden_description':
     'K tomuto náhledu nemáte přístup. Pokud potřebujete přístup, obraťte se na správce webu.',
+  'fabric.linking.forbidden_description_crossjoin': 'Pokud chcete požádat o přístup, kontaktujte správce.',
+  'fabric.linking.forbidden_title_crossjoin': 'K tomuto obsahu nemáte přístup',
   'fabric.linking.go_back': 'Přejít zpět',
   'fabric.linking.invalid_permissions': 'Omezený obsah',
   'fabric.linking.invalid_permissions_description':
@@ -55,9 +63,12 @@ export default {
   'fabric.linking.modified_on_absolute': 'Aktualizováno: {context}',
   'fabric.linking.modified_on_relative': 'Aktualizováno: {context}',
   'fabric.linking.more_actions': 'Další akce',
+  'fabric.linking.no_access_title_crossjoin': 'K tomuto obsahu nemáte přístup',
   'fabric.linking.not_found_description':
     'Odkaz se nepodařilo najít. Zkontrolujte adresu URL a zkuste ji upravit nebo vložit znovu.',
+  'fabric.linking.not_found_description_crossjoin': 'Stránka neexistuje nebo se po přidání tohoto odkazu mohla změnit.',
   'fabric.linking.not_found_title': 'Jejda. Tento odkaz se nepodařilo najít.',
+  'fabric.linking.not_found_title_crossjoin': 'Tuto stránku {product} vám nemůžeme zobrazit',
   'fabric.linking.open_issue_in_jira': 'Otevřít požadavek v Jira',
   'fabric.linking.open_link_in_a_new_tab': 'Otevřít odkaz na nové kartě',
   'fabric.linking.owned_by': 'Vlastník: {context}',
@@ -79,15 +90,23 @@ export default {
   'fabric.linking.priority_undefined': 'Nedefinováno',
   'fabric.linking.read_time': '{context} min. čtení',
   'fabric.linking.request_access': 'Požádat o přístup',
+  'fabric.linking.request_access_crossjoin': 'Požádat o přístup',
   'fabric.linking.request_access_description':
     'Pokud si chcete zobrazit tento náhled, požádejte o přístup k řešení {context}.',
+  'fabric.linking.request_access_description_crossjoin': 'Pokud chcete požádat o přístup, kontaktujte správce.',
   'fabric.linking.request_access_pending': 'Čeká se na vyřízení přístupu',
+  'fabric.linking.request_access_pending_crossjoin': 'Čeká na schválení',
   'fabric.linking.request_access_pending_description': 'Vaše žádost o přístup čeká na vyřízení.',
+  'fabric.linking.request_access_pending_description_crossjoin':
+    'Vaše žádost o přístup z {hostname} čeká na schválení správcem.',
+  'fabric.linking.request_access_pending_title_crossjoin': 'Přístup k {product} čeká na vyřízení',
   'fabric.linking.request_access_to_view':
     'Chcete-li si zobrazit tento požadavek, požádejte o přístup ke službě {context}.',
   'fabric.linking.request_denied': 'Vaše žádost o přístup byla odmítnuta.',
   'fabric.linking.request_denied_description':
     'Vaše žádost o přístup byla odmítnuta. Pokud stále potřebujete přístup, obraťte se na správce webu.',
+  'fabric.linking.request_denied_description_crossjoin':
+    'Správce neschválil vaši žádost o zobrazení stránek {product} z {hostname}.',
   'fabric.linking.restricted_link': 'Omezený odkaz, zkuste jiný účet.',
   'fabric.linking.retry': 'Zkusit znovu',
   'fabric.linking.save': 'Uložit',

@@ -3,14 +3,12 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { bind } from 'bind-event-listener';
 
 import Button from '@atlaskit/button/standard-button';
-import { UNSAFE_BUTTON } from '@atlaskit/button/unsafe';
 import { KEY_DOWN } from '@atlaskit/ds-lib/keycodes';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import noop from '@atlaskit/ds-lib/noop';
 import useControlledState from '@atlaskit/ds-lib/use-controlled';
 import useFocus from '@atlaskit/ds-lib/use-focus-event';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import Popup, { TriggerProps } from '@atlaskit/popup';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { gridSize as gridSizeFn, layers } from '@atlaskit/theme/constants';
@@ -215,24 +213,7 @@ const DropdownMenu = <T extends HTMLElement = HTMLElement>({
             });
           }
 
-          return getBooleanFF(
-            'platform.design-system-team.new-button-adoption-in-dropdown_p8sn4',
-          ) ? (
-            <UNSAFE_BUTTON
-              iconAfter={<ExpandIcon size="medium" label="" />}
-              onFocus={bindFocus.onFocus}
-              onBlur={bindFocus.onBlur}
-              ref={mergeRefs([ref, itemRef])}
-              aria-controls={ariaControls}
-              aria-expanded={ariaExpanded}
-              aria-haspopup={ariaHasPopup}
-              isSelected={isLocalOpen}
-              onClick={handleTriggerClicked}
-              testId={testId && `${testId}--trigger`}
-            >
-              {trigger}
-            </UNSAFE_BUTTON>
-          ) : (
+          return (
             <Button
               {...bindFocus}
               ref={mergeRefs([ref, itemRef])}

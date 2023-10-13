@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-core",
-  "version": "188.8.0",
+  "version": "188.9.2",
   "description": "A package contains Atlassian editor core functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -87,10 +87,13 @@
     "@atlaskit/editor-plugin-placeholder": "^0.1.0",
     "@atlaskit/editor-plugin-quick-insert": "^0.2.0",
     "@atlaskit/editor-plugin-rule": "^0.1.0",
+    "@atlaskit/editor-plugin-save-on-enter": "^0.1.0",
+    "@atlaskit/editor-plugin-scroll-into-view": "^0.1.0",
     "@atlaskit/editor-plugin-selection": "^0.1.0",
+    "@atlaskit/editor-plugin-status": "^0.1.0",
     "@atlaskit/editor-plugin-table": "^5.2.0",
     "@atlaskit/editor-plugin-text-formatting": "^0.4.0",
-    "@atlaskit/editor-plugin-type-ahead": "^0.6.0",
+    "@atlaskit/editor-plugin-type-ahead": "^0.7.0",
     "@atlaskit/editor-plugin-unsupported-content": "^0.2.0",
     "@atlaskit/editor-plugin-width": "^0.2.0",
     "@atlaskit/editor-prosemirror": "1.1.0",
@@ -106,7 +109,6 @@
     "@atlaskit/media-client": "^24.0.0",
     "@atlaskit/media-common": "^9.0.0",
     "@atlaskit/mention": "^22.1.0",
-    "@atlaskit/menu": "^2.0.0",
     "@atlaskit/platform-feature-flags": "^0.2.0",
     "@atlaskit/prosemirror-collab": "^0.2.0",
     "@atlaskit/prosemirror-input-rules": "^2.4.0",
@@ -116,7 +118,6 @@
     "@atlaskit/smart-card": "^26.34.0",
     "@atlaskit/smart-user-picker": "^6.3.0",
     "@atlaskit/spinner": "^15.6.0",
-    "@atlaskit/status": "^1.4.0",
     "@atlaskit/tabs": "^13.4.0",
     "@atlaskit/task-decision": "^17.9.0",
     "@atlaskit/textarea": "^4.7.0",
@@ -129,7 +130,6 @@
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
     "@types/react-loadable": "^5.4.1",
-    "@types/react-virtualized": "^9.18.12",
     "classnames": "^2.2.5",
     "date-fns": "^2.17.0",
     "is-number": "^7.0.0",
@@ -139,7 +139,6 @@
     "raf-schd": "^4.0.3",
     "react-loadable": "^5.1.0",
     "react-transition-group": "^4.4.1",
-    "react-virtualized": "^9.8.0",
     "uuid": "^3.1.0",
     "w3c-keyname": "^2.1.0"
   },
@@ -155,7 +154,7 @@
     "@af/integration-testing": "*",
     "@af/visual-regression": "*",
     "@atlaskit/collab-provider": "9.15.1",
-    "@atlaskit/dropdown-menu": "^12.0.0",
+    "@atlaskit/dropdown-menu": "^12.1.0",
     "@atlaskit/editor-extension-dropbox": "^0.4.0",
     "@atlaskit/flag": "^15.2.0",
     "@atlaskit/icon-object": "^6.3.0",
@@ -166,6 +165,7 @@
     "@atlaskit/media-core": "^34.1.0",
     "@atlaskit/media-integration-test-helpers": "^3.0.0",
     "@atlaskit/media-test-helpers": "^33.0.0",
+    "@atlaskit/menu": "^2.0.0",
     "@atlaskit/modal-dialog": "^12.8.0",
     "@atlaskit/renderer": "^108.15.0",
     "@atlaskit/synchrony-test-helpers": "^2.3.0",
@@ -288,6 +288,10 @@
       "referenceOnly": "true"
     },
     "platform.editor.table.increase-shadow-visibility_lh89r": {
+      "type": "boolean",
+      "referenceOnly": "true"
+    },
+    "platform.editor.table.shift-arrowup-fix": {
       "type": "boolean",
       "referenceOnly": "true"
     },

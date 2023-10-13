@@ -6,6 +6,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { DatasourceErrorBoundary } from '../../datasourceErrorBoundary';
 import type { cardPlugin } from '../../plugin';
+import { CardContextProvider } from '../CardContextProvider';
 
 import { DatasourceModal } from './index';
 
@@ -24,10 +25,15 @@ const ModalWithState = ({
 
   return (
     <DatasourceErrorBoundary view={editorView}>
-      <DatasourceModal
-        view={editorView}
-        modalType={cardState?.datasourceModalType}
-      />
+      <CardContextProvider>
+        {({ cardContext }) => (
+          <DatasourceModal
+            view={editorView}
+            modalType={cardState?.datasourceModalType}
+            cardContext={cardContext}
+          />
+        )}
+      </CardContextProvider>
     </DatasourceErrorBoundary>
   );
 };

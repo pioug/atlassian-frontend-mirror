@@ -7,6 +7,8 @@
  */
 //Korean
 export default {
+  'fabric.linking.access_exists_description':
+    '관리자에게 문의하여 {hostname}에서 이 콘텐츠를 보기 위한 액세스 권한을 요청하세요.',
   'fabric.linking.actions': '작업',
   'fabric.linking.add_account': '계정 추가',
   'fabric.linking.assigned_to': '{context} 님에게 할당',
@@ -36,12 +38,18 @@ export default {
   'fabric.linking.create_on_relative': '{context}에 만듦',
   'fabric.linking.created_by': '작성자: {context}',
   'fabric.linking.delete': '삭제',
+  'fabric.linking.direct_access_crossjoin': '{product}(으)로 이동',
+  'fabric.linking.direct_access_description_crossjoin':
+    '같은 이메일 도메인의 모든 계정이 {product}에서 {hostname}에 액세스하도록 승인되었습니다.',
+  'fabric.linking.direct_access_title_crossjoin': '{product}에서 팀에 참여',
   'fabric.linking.download': '다운로드',
   'fabric.linking.edit': '편집',
   'fabric.linking.follow': '팔로우',
   'fabric.linking.forbidden_access': '액세스가 금지되었습니다',
   'fabric.linking.forbidden_description':
     '이 미리 보기에 액세스할 수 없습니다. 액세스가 필요한 경우 사이트 관리자에게 문의하세요.',
+  'fabric.linking.forbidden_description_crossjoin': '액세스를 요청하려면 관리자에게 문의하세요.',
+  'fabric.linking.forbidden_title_crossjoin': '이 콘텐츠에 대한 액세스 권한이 없습니다',
   'fabric.linking.go_back': '뒤로 가기',
   'fabric.linking.invalid_permissions': '제한된 콘텐츠',
   'fabric.linking.invalid_permissions_description':
@@ -54,8 +62,12 @@ export default {
   'fabric.linking.modified_on_absolute': '{context}에 업데이트',
   'fabric.linking.modified_on_relative': '{context}에 업데이트',
   'fabric.linking.more_actions': '추가 작업',
+  'fabric.linking.no_access_title_crossjoin': '이 콘텐츠에 대한 액세스 권한이 없습니다',
   'fabric.linking.not_found_description': '링크를 찾을 수 없습니다. URL을 확인하고 편집하거나 다시 붙여넣으세요.',
+  'fabric.linking.not_found_description_crossjoin':
+    '페이지가 존재하지 않거나 이 링크를 추가한 후 변경되었을 수 있습니다.',
   'fabric.linking.not_found_title': '죄송합니다. 이 링크를 찾을 수 없습니다.',
+  'fabric.linking.not_found_title_crossjoin': '{product} 페이지를 표시할 수 없습니다',
   'fabric.linking.open_issue_in_jira': 'Jira에서 이슈 열기',
   'fabric.linking.open_link_in_a_new_tab': '새 탭에서 링크 열기',
   'fabric.linking.owned_by': '소유자: {context}',
@@ -77,13 +89,21 @@ export default {
   'fabric.linking.priority_undefined': '정의되지 않음',
   'fabric.linking.read_time': '{context}분 읽기',
   'fabric.linking.request_access': '액세스 요청',
+  'fabric.linking.request_access_crossjoin': '액세스 요청',
   'fabric.linking.request_access_description': '이 미리 보기를 보려면 {context}에 액세스를 요청하세요.',
+  'fabric.linking.request_access_description_crossjoin': '액세스를 요청하려면 관리자에게 문의하세요.',
   'fabric.linking.request_access_pending': '액세스 보류 중',
+  'fabric.linking.request_access_pending_crossjoin': '승인 대기 중',
   'fabric.linking.request_access_pending_description': '액세스 요청이 보류 중입니다.',
+  'fabric.linking.request_access_pending_description_crossjoin':
+    '{hostname}에 대한 액세스 요청이 관리자 승인을 기다리는 중입니다.',
+  'fabric.linking.request_access_pending_title_crossjoin': '{product}에 대한 액세스 보류 중',
   'fabric.linking.request_access_to_view': '이 이슈를 보려면 {context}에 대한 액세스를 요청하세요',
   'fabric.linking.request_denied': '액세스 요청이 거부되었습니다',
   'fabric.linking.request_denied_description':
     '액세스 요청이 거부되었습니다. 계속해서 액세스가 필요한 경우 사이트 관리자에게 문의하세요.',
+  'fabric.linking.request_denied_description_crossjoin':
+    '관리자가 {hostname}에서 {product} 페이지를 보기 위한 요청을 승인하지 않았습니다.',
   'fabric.linking.restricted_link': '제한된 링크, 다른 계정으로 시도하세요',
   'fabric.linking.retry': '다시 시도',
   'fabric.linking.save': '저장',

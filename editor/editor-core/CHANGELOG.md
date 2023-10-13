@@ -1,5 +1,25 @@
 # @atlaskit/editor-core
 
+## 188.9.2
+
+### Patch Changes
+
+- [#41047](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41047) [`8f0b00d165f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f0b00d165f) - [ED-20003] Extract TypeAhead from editor-core to its own package @atlaskit/editor-plugin-type-ahead
+- Updated dependencies
+
+## 188.9.0
+
+### Minor Changes
+
+- [#41276](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41276) [`12babd16e09`](https://bitbucket.org/atlassian/atlassian-frontend/commits/12babd16e09) - [ED-20361] Editor Plugin Save-on-enter
+
+### Patch Changes
+
+- [#41562](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41562) [`d698f4b6e02`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d698f4b6e02) - Small refactor of ReactEditorView
+- [#41560](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41560) [`75f34802424`](https://bitbucket.org/atlassian/atlassian-frontend/commits/75f34802424) - Extract the status plugin from editor-core to @atlaskit/editor-plugin-status
+- [#41434](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41434) [`a10d06a26af`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a10d06a26af) - [ED-20429] Extracting Scroll-into-view plugin
+- Updated dependencies
+
 ## 188.8.0
 
 ### Minor Changes

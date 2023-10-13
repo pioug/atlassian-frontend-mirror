@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-card
 
+## 0.9.2
+
+### Patch Changes
+
+- [#41405](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41405) [`6619f042a24`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6619f042a24) - [ux] Fix issue where any inline/block/embeds don't open up datasource modal with proper info
+
 ## 0.9.1
 
 ### Patch Changes

@@ -36,13 +36,13 @@ import { blockTypePlugin } from '@atlaskit/editor-plugin-block-type';
 import panelPlugin from '../../../../../plugins/panel';
 import { rulePlugin } from '@atlaskit/editor-plugin-rule';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
-import statusPlugin from '../../../../../plugins/status';
+import { statusPlugin } from '@atlaskit/editor-plugin-status';
 import expandPlugin from '../../../../../plugins/expand';
 import deprecatedAnalyticsPlugin, {
   INPUT_METHOD,
 } from '../../../../../plugins/analytics';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import typeAheadPlugin from '../../../../../plugins/type-ahead';
+import { typeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
 import { quickInsertPlugin } from '@atlaskit/editor-plugin-quick-insert';
 import taskDecisionPlugin from '../../../../../plugins/tasks-and-decisions';
 import mentionsPlugin from '../../../../../plugins/mentions';

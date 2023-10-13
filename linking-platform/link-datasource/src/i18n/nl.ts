@@ -46,7 +46,7 @@ export default {
   'linkDataSource.jira-issues.refresh': 'Vernieuwen',
   'linkDataSource.jira-issues.unableToLoadItems': 'Kan items niet laden',
   'linkDataSource.jira-issues.unableToLoadResults': 'Resultaten kunnen niet worden geladen',
-  'linkDataSource.modal-initial-state.learnMoreLink': 'Meer informatie over zoeken met JQL.',
+  'linkDataSource.modal-initial-state.learnMoreLink': 'Meer informatie over zoeken met JQL',
   'linkDataSource.modal-initial-state.searchDescription': 'Begin met typen of gebruik een JQL om te zoeken.',
   'linkDataSource.modal-initial-state.searchTitle': 'Zoek naar Jira-issues',
   'linkDataSource.render-type.boolean.false': 'Nee',

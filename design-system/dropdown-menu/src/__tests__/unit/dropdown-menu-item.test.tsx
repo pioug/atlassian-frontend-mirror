@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import CheckIcon from '@atlaskit/icon/glyph/check';
 
@@ -9,88 +9,105 @@ import { DropdownItem } from '../../index';
 describe('DropdownMenu Item', () => {
   describe('default menu - button', () => {
     it('simple menu item', () => {
-      const { getByText } = render(<DropdownItem>Menu</DropdownItem>);
-      expect(getByText('Menu')).toBeInTheDocument();
+      render(<DropdownItem>Menu</DropdownItem>);
+      expect(screen.getByText('Menu')).toBeInTheDocument();
     });
 
     it('should have description', () => {
       const desc = 'A long text to describe a menu';
-      const { getByText } = render(
-        <DropdownItem description={desc}>Menu</DropdownItem>,
-      );
-      expect(getByText(desc)).toBeInTheDocument();
+      render(<DropdownItem description={desc}>Menu</DropdownItem>);
+      expect(screen.getByText(desc)).toBeInTheDocument();
     });
 
-    it('should have icon before the text', () => {
-      const { container } = render(
-        <DropdownItem elemBefore={<CheckIcon label="check" />}>
-          Menu
-        </DropdownItem>,
-      );
+    describe('icon', () => {
+      const uniqueText = 'uniqueText';
+      const testId = 'testId';
 
-      const iconBefore = container.querySelector('[aria-label="check"]');
-      expect(iconBefore).toBeInTheDocument();
-      expect(
-        container.querySelector('[data-item-elem-before="true"]'),
-      ).toBeInTheDocument();
-    });
+      it('should have icon before the text', () => {
+        render(
+          <DropdownItem
+            elemBefore={<CheckIcon label={uniqueText} testId={testId} />}
+            testId={testId}
+          >
+            Menu
+          </DropdownItem>,
+        );
 
-    it('should have icon after the text', () => {
-      const { container } = render(
-        <DropdownItem elemAfter={<CheckIcon label="check" />}>
-          Menu
-        </DropdownItem>,
-      );
-      const iconBefore = container.querySelector('[aria-label="check"]');
+        const iconBefore = screen.getByLabelText(uniqueText);
+        const container = screen.getByTestId(
+          `${testId}--primitive--icon-before`,
+        );
+        expect(iconBefore).toBeInTheDocument();
+        expect(container).toBeInTheDocument();
+      });
 
-      expect(iconBefore).toBeInTheDocument();
-      expect(
-        container.querySelector('[data-item-elem-after="true"]'),
-      ).toBeInTheDocument();
-    });
+      it('should have icon after the text', () => {
+        render(
+          <DropdownItem
+            elemAfter={<CheckIcon label={uniqueText} />}
+            testId={testId}
+          >
+            Menu
+          </DropdownItem>,
+        );
+        const iconBefore = screen.getByLabelText(uniqueText);
+        const container = screen.getByTestId(
+          `${testId}--primitive--icon-after`,
+        );
+        expect(iconBefore).toBeInTheDocument();
+        expect(container).toBeInTheDocument();
+      });
 
-    it('should have icon before and after the text', () => {
-      const { container } = render(
-        <DropdownItem
-          elemBefore={<CheckIcon label="check" />}
-          elemAfter={<CheckIcon label="check" />}
-        >
-          Menu
-        </DropdownItem>,
-      );
-      const iconBefore = container.querySelector('[aria-label="check"]');
-
-      expect(iconBefore).toBeInTheDocument();
-      expect(
-        container.querySelector('[data-item-elem-before="true"]'),
-      ).toBeInTheDocument();
-      expect(
-        container.querySelector('[data-item-elem-after="true"]'),
-      ).toBeInTheDocument();
+      it('should have icon before and after the text', () => {
+        const beforeText = `${uniqueText}Before`;
+        const afterText = `${uniqueText}After`;
+        render(
+          <DropdownItem
+            elemBefore={<CheckIcon label={beforeText} />}
+            elemAfter={<CheckIcon label={afterText} />}
+            testId={testId}
+          >
+            Menu
+          </DropdownItem>,
+        );
+        const iconBefore = screen.getByLabelText(beforeText);
+        const iconBeforeContainer = screen.getByTestId(
+          `${testId}--primitive--icon-before`,
+        );
+        const iconAfter = screen.getByLabelText(afterText);
+        const iconAfterContainer = screen.getByTestId(
+          `${testId}--primitive--icon-after`,
+        );
+        expect(iconBefore).toBeInTheDocument();
+        expect(iconAfter).toBeInTheDocument();
+        expect(iconBeforeContainer).toBeInTheDocument();
+        expect(iconAfterContainer).toBeInTheDocument();
+      });
     });
   });
 
   describe('link menu', () => {
+    const href = '/hello';
+
     it('menu can be a link', () => {
-      const { container } = render(
-        <DropdownItem href="/hello">Menu</DropdownItem>,
-      );
-      const link = container.querySelector('a');
+      render(<DropdownItem href={href}>Menu</DropdownItem>);
+      const link = screen.getByRole('menuitem');
       expect(link).toBeInTheDocument();
-      expect(link?.getAttribute('href')).toEqual('/hello');
+      expect(link.tagName.toLowerCase()).toBe('a');
+      expect(link).toHaveAttribute('href', href);
     });
 
     it('link menu should have description', () => {
       const desc = 'A long text to describe a menu';
-      const { container, getByText } = render(
-        <DropdownItem href="/hello" description={desc}>
+      render(
+        <DropdownItem href={href} description={desc}>
           Menu
         </DropdownItem>,
       );
-      const link = container.querySelector('a');
-      expect(link).toBeInTheDocument();
-      expect(link?.getAttribute('href')).toEqual('/hello');
-      expect(getByText(desc)).toBeInTheDocument();
+      const link = screen.getByRole('menuitem');
+      expect(link.tagName.toLowerCase()).toBe('a');
+      expect(link).toHaveAttribute('href', href);
+      expect(screen.getByText(desc)).toBeInTheDocument();
     });
   });
 });

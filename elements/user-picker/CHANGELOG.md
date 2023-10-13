@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 10.11.2
+
+### Patch Changes
+
+- [#41424](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41424) [`3a85e7b6eb1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3a85e7b6eb1) - [ux] Added z-index of 400 to menu for user picker as per design system popup guidelines
+
 ## 10.11.1
 
 ### Patch Changes

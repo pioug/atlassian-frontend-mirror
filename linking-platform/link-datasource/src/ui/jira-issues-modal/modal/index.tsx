@@ -137,11 +137,12 @@ export const PlainJiraIssuesConfigModal = (
     visibleColumnKeys: initialVisibleColumnKeys,
     onCancel,
     onInsert,
+    viewMode = 'issue',
   } = props;
 
   const [availableSites, setAvailableSites] = useState<Site[]>([]);
   const [currentViewMode, setCurrentViewMode] =
-    useState<JiraIssueViewModes>('issue');
+    useState<JiraIssueViewModes>(viewMode);
   const [cloudId, setCloudId] = useState(initialParameters?.cloudId);
   const [jql, setJql] = useState(initialParameters?.jql);
   const [visibleColumnKeys, setVisibleColumnKeys] = useState(

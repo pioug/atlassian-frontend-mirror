@@ -19,7 +19,7 @@ import {
   changePanelType,
 } from '../../../../plugins/panel/actions';
 import panelPlugin from '../../../../plugins/panel';
-import typeAheadPlugin from '../../../../plugins/type-ahead';
+import { typeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
 import { emojiPlugin } from '@atlaskit/editor-plugin-emoji';
 import deprecatedAnalyticsPlugin from '../../../../plugins/analytics';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';

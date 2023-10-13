@@ -1,7 +1,11 @@
 import React from 'react';
 
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import type { Decoration, NodeView } from '@atlaskit/editor-prosemirror/view';
+import type {
+  Decoration,
+  EditorView,
+  NodeView,
+} from '@atlaskit/editor-prosemirror/view';
 
 import type {
   AnalyticsEventPayload,
@@ -11,25 +15,71 @@ import { AnalyticsListener } from '@atlaskit/analytics-next';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
 
-import type { EventDispatcher } from '../../../event-dispatcher';
-import type {
-  ForwardRef,
-  getPosHandler,
-  getPosHandlerNode,
-} from '../../../nodeviews';
+import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
+
 import ReactNodeView from '@atlaskit/editor-common/react-node-view';
 
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
-import WithPluginState from '../../../ui/WithPluginState';
+import { WithPluginState } from '@atlaskit/editor-common/with-plugin-state';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { stateKey as taskPluginKey } from '../pm-plugins/plugin-key';
 import TaskItem from '../ui/Task';
-import { isTypeAheadOpen } from '../../type-ahead/utils';
 
+import type { TaskAndDecisionsPlugin } from '../types';
+//import { isTypeAheadOpen } from '../../type-ahead/utils';
+
+type ForwardRef = (node: HTMLElement | null) => void;
+type getPosHandler = getPosHandlerNode | boolean;
+type getPosHandlerNode = () => number | undefined;
 export interface Props {
   providerFactory: ProviderFactory;
 }
 
+type TaskItemWrapperProps = {
+  localId: string;
+  forwardRef: ForwardRef;
+  isContentNodeEmpty: boolean;
+  api: ExtractInjectionAPI<TaskAndDecisionsPlugin> | undefined;
+  providerFactory: ProviderFactory;
+  isDone: boolean;
+  isFocused: boolean;
+  onChange: (taskId: string, isChecked: boolean) => false | undefined;
+};
+const TaskItemWrapper = ({
+  localId,
+  forwardRef,
+  isDone,
+  onChange,
+  isFocused,
+  isContentNodeEmpty,
+  providerFactory,
+  api,
+}: TaskItemWrapperProps) => {
+  const { typeAheadState } = useSharedPluginState(api, ['typeAhead']);
+
+  return (
+    <TaskItem
+      taskId={localId}
+      contentRef={forwardRef}
+      isDone={isDone}
+      onChange={onChange}
+      isFocused={isFocused}
+      showPlaceholder={isContentNodeEmpty && !typeAheadState?.isOpen}
+      providers={providerFactory}
+    />
+  );
+};
+
 class Task extends ReactNodeView<Props> {
+  private api: ExtractInjectionAPI<TaskAndDecisionsPlugin> | undefined;
+
+  initWithAPI(api: ExtractInjectionAPI<TaskAndDecisionsPlugin> | undefined) {
+    this.init();
+    this.api = api;
+    return this;
+  }
+
   private isContentEmpty(node: PMNode) {
     return node.content.childCount === 0;
   }
@@ -115,6 +165,8 @@ class Task extends ReactNodeView<Props> {
 
   render(props: Props, forwardRef: ForwardRef) {
     const { localId, state } = this.node.attrs;
+    const isContentNodeEmpty = this.isContentEmpty(this.node);
+
     return (
       <AnalyticsListener
         channel="fabric-elements"
@@ -126,19 +178,17 @@ class Task extends ReactNodeView<Props> {
           }}
           render={({ taskDecisionPlugin }) => {
             return (
-              <TaskItem
-                taskId={localId}
-                contentRef={forwardRef}
+              <TaskItemWrapper
+                localId={localId}
+                forwardRef={forwardRef}
                 isDone={state === 'DONE'}
                 onChange={this.handleOnChange}
-                isFocused={
-                  taskDecisionPlugin?.focusedTaskItemLocalId === localId
-                }
-                showPlaceholder={
-                  this.isContentEmpty(this.node) &&
-                  !isTypeAheadOpen(this.view.state)
-                }
-                providers={props.providerFactory}
+                isFocused={Boolean(
+                  taskDecisionPlugin?.focusedTaskItemLocalId === localId,
+                )}
+                isContentNodeEmpty={isContentNodeEmpty}
+                providerFactory={props.providerFactory}
+                api={this.api}
               />
             );
           }}
@@ -173,8 +223,9 @@ export function taskItemNodeViewFactory(
   portalProviderAPI: PortalProviderAPI,
   eventDispatcher: EventDispatcher,
   providerFactory: ProviderFactory,
+  api: ExtractInjectionAPI<TaskAndDecisionsPlugin> | undefined,
 ) {
-  return (node: any, view: any, getPos: getPosHandler): NodeView => {
+  return (node: PMNode, view: EditorView, getPos: getPosHandler): NodeView => {
     const hasIntlContext = true;
     return new Task(
       node,
@@ -189,6 +240,6 @@ export function taskItemNodeViewFactory(
       undefined,
       undefined,
       hasIntlContext,
-    ).init();
+    ).initWithAPI(api);
   };
 }

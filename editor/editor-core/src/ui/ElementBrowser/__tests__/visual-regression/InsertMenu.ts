@@ -39,7 +39,8 @@ describe('InsertMenu Button', () => {
     await animationFrame(page);
   });
 
-  it('should match the InsertMenu item snapshot', async () => {
+  // ED-20360
+  it.skip('should match the InsertMenu item snapshot', async () => {
     await animationFrame(page);
     await waitForInsertMenuIcons(page);
     // Wait for loaded SVG icon

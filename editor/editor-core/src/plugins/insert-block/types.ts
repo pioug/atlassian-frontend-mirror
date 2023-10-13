@@ -16,11 +16,13 @@ import type codeBlockPlugin from '../code-block';
 import type panelPlugin from '../panel';
 import type { RulePlugin } from '@atlaskit/editor-plugin-rule';
 import type { MediaPlugin } from '@atlaskit/editor-plugin-media';
+import type { TypeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
 import type { MentionPlugin } from '../mentions';
-import type { StatusPlugin } from '../status';
+import type { StatusPlugin } from '@atlaskit/editor-plugin-status';
 
 export type InsertBlockPluginDependencies = [
   FeatureFlagsPlugin,
+  TypeAheadPlugin,
   OptionalPlugin<typeof tablesPlugin>,
   OptionalPlugin<typeof hyperlinkPlugin>,
   OptionalPlugin<DatePlugin>,

@@ -7,6 +7,8 @@
  */
 //Norwegian (Bokmål)
 export default {
+  'fabric.linking.access_exists_description':
+    'Kontakt administratoren og be om tilgang til å vise dette innholdet fra {hostname}.',
   'fabric.linking.actions': 'Tiltak',
   'fabric.linking.add_account': 'Legg til en konto',
   'fabric.linking.assigned_to': 'Tilordnet til {context}',
@@ -37,12 +39,18 @@ export default {
   'fabric.linking.create_on_relative': 'Opprettet {context}',
   'fabric.linking.created_by': 'Opprettet av {context}',
   'fabric.linking.delete': 'Slett',
+  'fabric.linking.direct_access_crossjoin': 'Gå til {product}',
+  'fabric.linking.direct_access_description_crossjoin':
+    'Alle kontoer med samme e-postdomene er godkjent for tilgang til {hostname} i {product}.',
+  'fabric.linking.direct_access_title_crossjoin': 'Bli med teamet i {product}',
   'fabric.linking.download': 'Last ned',
   'fabric.linking.edit': 'Rediger',
   'fabric.linking.follow': 'Følg',
   'fabric.linking.forbidden_access': 'Du har ikke tilgang',
   'fabric.linking.forbidden_description':
     'Du har ikke tilgang til denne forhåndsvisningen. Ta kontakt med nettstedets administrator hvis du trenger tilgang.',
+  'fabric.linking.forbidden_description_crossjoin': 'Kontakt administratoren for å be om tilgang.',
+  'fabric.linking.forbidden_title_crossjoin': 'Du har ikke tilgang til dette innholdet',
   'fabric.linking.go_back': 'Gå tilbake',
   'fabric.linking.invalid_permissions': 'Begrenset innhold',
   'fabric.linking.invalid_permissions_description':
@@ -55,9 +63,13 @@ export default {
   'fabric.linking.modified_on_absolute': 'Oppdatert {context}',
   'fabric.linking.modified_on_relative': 'Oppdatert {context}',
   'fabric.linking.more_actions': 'Flere handlinger',
+  'fabric.linking.no_access_title_crossjoin': 'Du har ikke tilgang til dette innholdet',
   'fabric.linking.not_found_description':
     'Vi finner ikke koblingen. Sjekk URL-en og prøv å redigere den, eller lim inn på nytt.',
+  'fabric.linking.not_found_description_crossjoin':
+    'Siden finnes ikke, eller den kan ha blitt endret siden denne koblingen ble lagt til.',
   'fabric.linking.not_found_title': 'Oi sann. VI finner ikke denne koblingen.',
+  'fabric.linking.not_found_title_crossjoin': 'Vi kan ikke vise deg denne {product}-siden',
   'fabric.linking.open_issue_in_jira': 'Åpne saken i Jira',
   'fabric.linking.open_link_in_a_new_tab': 'Åpne kobling i en ny fane',
   'fabric.linking.owned_by': 'Eid av {context}',
@@ -79,13 +91,21 @@ export default {
   'fabric.linking.priority_undefined': 'Udefinert',
   'fabric.linking.read_time': '{context} min å lese',
   'fabric.linking.request_access': 'Be om tilgang',
+  'fabric.linking.request_access_crossjoin': 'Be om tilgang',
   'fabric.linking.request_access_description': 'Be om tilgang til {context} for å se denne forhåndsvisningen.',
+  'fabric.linking.request_access_description_crossjoin': 'Kontakt administratoren for å be om tilgang.',
   'fabric.linking.request_access_pending': 'Venter på tilgang',
+  'fabric.linking.request_access_pending_crossjoin': 'Venter på godkjenning',
   'fabric.linking.request_access_pending_description': 'Avventer svar på forespørsel om tilgang',
+  'fabric.linking.request_access_pending_description_crossjoin':
+    'Forespørselen din om tilgang til {hostname} venter på godkjenning fra administratoren.',
+  'fabric.linking.request_access_pending_title_crossjoin': 'Venter på tilgang til {product}',
   'fabric.linking.request_access_to_view': 'Be om tilgang til {context} for å vise denne saken',
   'fabric.linking.request_denied': 'Forespørselen din om tilgang ble avslått',
   'fabric.linking.request_denied_description':
     'Forespørselen din om tilgang ble avslått. Kontakt administratoren for nettstedet for å be om tilgang.',
+  'fabric.linking.request_denied_description_crossjoin':
+    'Administratoren godkjente ikke forespørselen din om å vise {product}-sider fra {hostname}.',
   'fabric.linking.restricted_link': 'Begrenset kobling, prøv en annen konto',
   'fabric.linking.retry': 'Prøv igjen',
   'fabric.linking.save': 'Lagre',

@@ -205,6 +205,7 @@ const MenuItemPrimitive = ({
   shouldDescriptionWrap = false,
   isDisabled = false,
   isSelected = false,
+  testId,
 }: MenuItemPrimitiveProps) => {
   propDeprecationWarning(
     process.env._PACKAGE_NAME_ || '',
@@ -254,9 +255,14 @@ const MenuItemPrimitive = ({
                   alignBlock="center"
                   space={gapMap[spacing]}
                   grow="fill"
+                  testId={testId && `${testId}--container`}
                 >
                   {iconBefore && (
-                    <span data-item-elem-before css={beforeAfterElementStyles}>
+                    <span
+                      data-item-elem-before
+                      css={beforeAfterElementStyles}
+                      data-testid={testId && `${testId}--icon-before`}
+                    >
                       {iconBefore}
                     </span>
                   )}
@@ -286,7 +292,11 @@ const MenuItemPrimitive = ({
                     </span>
                   )}
                   {iconAfter && (
-                    <span data-item-elem-after css={beforeAfterElementStyles}>
+                    <span
+                      data-item-elem-after
+                      css={beforeAfterElementStyles}
+                      data-testid={testId && `${testId}--icon-after`}
+                    >
                       {iconAfter}
                     </span>
                   )}

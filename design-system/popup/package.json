@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/popup",
-  "version": "1.10.2",
+  "version": "1.11.0",
   "description": "A popup displays brief content in an overlay.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -37,6 +37,7 @@
   "dependencies": {
     "@atlaskit/ds-lib": "^2.2.0",
     "@atlaskit/layering": "^0.2.0",
+    "@atlaskit/platform-feature-flags": "*",
     "@atlaskit/popper": "^5.5.0",
     "@atlaskit/portal": "^4.3.0",
     "@atlaskit/theme": "^12.6.0",
@@ -94,5 +95,10 @@
     }
   },
   "homepage": "https://atlassian.design/components/popup/",
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
+  "platform-feature-flags": {
+    "platform.design-system-team.remove-focus-trap-from-popup_3q7sk": {
+      "type": "boolean"
+    }
+  }
 }

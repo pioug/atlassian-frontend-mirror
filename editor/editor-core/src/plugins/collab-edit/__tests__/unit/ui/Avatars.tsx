@@ -24,7 +24,7 @@ import ToolbarButton from '../../../../../ui/ToolbarButton';
 // Editor plugins
 import collabEditPlugin from '../../../index';
 import mentionsPlugin from '../../../../mentions';
-import typeAheadPlugin from '../../../../type-ahead';
+import { typeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
 
 describe('collab-edit | Avatars', () => {
   const createEditor = createProsemirrorEditorFactory();

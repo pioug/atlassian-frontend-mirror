@@ -23,7 +23,7 @@ import type EditorActions from '../actions';
 import { getUiComponent } from '../create-editor';
 import ErrorBoundary from '../create-editor/ErrorBoundary';
 import { createFeatureFlagsFromProps } from '../create-editor/feature-flags-from-props';
-import ReactEditorView from '../create-editor/ReactEditorViewNext';
+import ReactEditorView from '../create-editor/ReactEditorView';
 import type { EventDispatcher } from '../event-dispatcher';
 import { ContextAdapter } from '../nodeviews/context-adapter';
 import type { EditorNextProps } from '../types/editor-props';

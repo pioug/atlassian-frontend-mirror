@@ -48,7 +48,7 @@ import { AnnotationSelectionType } from '../../types';
 import annotationPlugin from '../..';
 import { textFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';
 import { emojiPlugin } from '@atlaskit/editor-plugin-emoji';
-import typeAheadPlugin from '../../../type-ahead';
+import { typeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
 import { inlineCommentProvider } from '../_utils';
 import { mediaPlugin } from '@atlaskit/editor-plugin-media';
 import codeBlockPlugin from '../../../code-block';

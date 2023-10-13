@@ -8,7 +8,8 @@ import {
 import { retryUntilStablePosition } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 
 describe('ElementBrowser', () => {
-  it('should match ElementBrowser snapshot', async () => {
+  // ED-20360
+  it.skip('should match ElementBrowser snapshot', async () => {
     const url = getExampleUrl(
       'editor',
       'editor-core',

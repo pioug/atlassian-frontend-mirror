@@ -88,6 +88,7 @@ const LinkItem = memo(
             })
           }
           title={children}
+          testId={testId && `${testId}--primitive`}
         >
           {({ children, className }) => (
             <a

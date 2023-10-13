@@ -29,6 +29,7 @@ export const getStyles = memoizeOne(
         ...css,
         width,
         minWidth: state.selectProps.menuMinWidth,
+        zIndex: '400',
       }),
       menuList: (css: any) => ({
         ...css,

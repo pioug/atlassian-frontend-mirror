@@ -184,13 +184,22 @@
       "path": "../editor-plugin-rule/tsconfig.app.json"
     },
     {
+      "path": "../editor-plugin-scroll-into-view/tsconfig.app.json"
+    },
+    {
       "path": "../editor-plugin-selection/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-status/tsconfig.app.json"
     },
     {
       "path": "../editor-plugin-table/tsconfig.app.json"
     },
     {
       "path": "../editor-plugin-text-formatting/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-type-ahead/tsconfig.app.json"
     },
     {
       "path": "../editor-plugin-unsupported-content/tsconfig.app.json"
@@ -233,9 +242,6 @@
     },
     {
       "path": "../../design-system/logo/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/lozenge/tsconfig.app.json"
     },
     {
       "path": "../../media/media-common/tsconfig.app.json"
@@ -338,6 +344,9 @@
     },
     {
       "path": "../../platform/feature-flags-test-utils/tsconfig.app.json"
+    },
+    {
+      "path": "../../monorepo-tooling/gemini/tsconfig.app.json"
     },
     {
       "path": "../../linking-platform/link-picker-plugins/tsconfig.app.json"

@@ -367,3 +367,19 @@ export type InvalidNodeAttr = {
   spanValue: number;
   tableLocalId: string;
 };
+
+/**
+ * Drag and Drop interfaces
+ */
+export type DraggableType = 'table-row' | 'table-column';
+export interface DraggableSourceData extends Record<string, unknown> {
+  type: DraggableType;
+  localId: string;
+  indexes: number[];
+}
+
+export interface DraggableTargetData extends Record<string, unknown> {
+  type: DraggableType;
+  localId: string;
+  targetIndex: number;
+}

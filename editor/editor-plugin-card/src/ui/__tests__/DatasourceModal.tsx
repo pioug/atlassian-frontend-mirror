@@ -3,10 +3,15 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
-import { DatasourceModalType } from '@atlaskit/editor-common/types';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { DatasourceModalType } from '@atlaskit/editor-common/types';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { DatasourceModal } from '../DatasourceModal';
+
+import {
+  cardContext,
+  MockCardContextAdapter,
+} from './_utils/mock-card-context';
 
 const mockEditorView = {
   state: {},
@@ -19,7 +24,13 @@ describe('DatasourceModal', () => {
   const setup = (modalType?: DatasourceModalType) =>
     render(
       <IntlProvider locale="en">
-        <DatasourceModal modalType={modalType} view={mockEditorView} />
+        <MockCardContextAdapter card={cardContext}>
+          <DatasourceModal
+            modalType={modalType}
+            view={mockEditorView}
+            cardContext={cardContext as any}
+          />
+        </MockCardContextAdapter>
       </IntlProvider>,
     );
 

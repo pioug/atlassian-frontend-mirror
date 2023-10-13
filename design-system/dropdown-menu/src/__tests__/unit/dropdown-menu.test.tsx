@@ -1,43 +1,41 @@
 import React, { useState } from 'react';
 
-import { act, fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 import Button from '@atlaskit/button/standard-button';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../../index';
 
-const getAllMenuItems = (container: HTMLElement) =>
-  Array.from(container.querySelectorAll('button[role="menuitem"]'));
-
 describe('dropdown menu', () => {
+  const items = ['Move', 'Clone', 'Delete'];
+  const testId = 'testId';
+  const triggerText = 'Click me to open';
+
   describe('trigger', () => {
     it('there should be a trigger button by default', () => {
-      const { container } = render(<DropdownMenu />);
+      render(<DropdownMenu />);
 
-      const trigger = container.querySelector('button');
+      const trigger = screen.getByRole('button');
 
       expect(trigger).toBeInTheDocument();
     });
 
     it('trigger button with text', () => {
-      const triggerText = 'click me to open';
-      const { getByText } = render(<DropdownMenu trigger={triggerText} />);
+      render(<DropdownMenu trigger={triggerText} />);
 
-      const trigger = getByText(triggerText);
+      const trigger = screen.getByRole('button');
 
       expect(trigger).toBeInTheDocument();
     });
 
     it('should callback with flipped state when closed and controlled', () => {
       const callback = jest.fn();
-      const { getByTestId } = render(
-        <DropdownMenu onOpenChange={callback} testId="ddm" isOpen={false} />,
+      render(
+        <DropdownMenu onOpenChange={callback} testId={testId} isOpen={false} />,
       );
 
-      act(() => {
-        fireEvent.click(getByTestId('ddm--trigger'));
-      });
+      fireEvent.click(screen.getByTestId(`${testId}--trigger`));
 
       expect(callback).toHaveBeenCalledWith(
         expect.objectContaining({ isOpen: true }),
@@ -46,12 +44,9 @@ describe('dropdown menu', () => {
 
     it('should callback with flipped state when opened and controlled', () => {
       const callback = jest.fn();
-      const { getByTestId } = render(
-        <DropdownMenu onOpenChange={callback} testId="ddm" isOpen />,
-      );
-      act(() => {
-        fireEvent.click(getByTestId('ddm--trigger'));
-      });
+      render(<DropdownMenu onOpenChange={callback} testId={testId} isOpen />);
+
+      fireEvent.click(screen.getByTestId(`${testId}--trigger`));
 
       expect(callback).toHaveBeenCalledWith(
         expect.objectContaining({ isOpen: false }),
@@ -60,10 +55,10 @@ describe('dropdown menu', () => {
 
     it('should callback with false when opened', () => {
       const callback = jest.fn();
-      render(<DropdownMenu onOpenChange={callback} testId="ddm" isOpen />);
-      act(() => {
-        fireEvent.click(document.body);
-      });
+      render(<DropdownMenu onOpenChange={callback} testId={testId} isOpen />);
+
+      fireEvent.click(document.body);
+
       expect(callback).toHaveBeenCalledWith({
         isOpen: false,
         event: new MouseEvent('click'),
@@ -71,27 +66,21 @@ describe('dropdown menu', () => {
     });
 
     it('should open the menu list when button is clicked', () => {
-      const triggerText = 'click me to open';
-
-      const { getByText, container } = render(
+      render(
         <DropdownMenu trigger={triggerText}>
           <DropdownItemGroup>
-            <DropdownItem>Move</DropdownItem>
-            <DropdownItem>Clone</DropdownItem>
-            <DropdownItem>Delete</DropdownItem>
+            {items.map((text) => (
+              <DropdownItem>{text}</DropdownItem>
+            ))}
           </DropdownItemGroup>
         </DropdownMenu>,
       );
 
-      expect(getAllMenuItems(container).length).toEqual(0);
+      expect(screen.queryAllByRole('menuitem')).toHaveLength(0);
 
-      act(() => {
-        fireEvent.click(getByText(triggerText));
-      });
+      fireEvent.click(screen.getByRole('button'));
 
-      expect(getByText('Move')).toBeInTheDocument();
-      expect(getByText('Clone')).toBeInTheDocument();
-      expect(getByText('Delete')).toBeInTheDocument();
+      expect(screen.queryAllByRole('menuitem')).toHaveLength(items.length);
     });
   });
 
@@ -162,8 +151,7 @@ describe('dropdown menu', () => {
 
   describe('customised trigger', () => {
     it('render custom button on the page', () => {
-      const triggerText = 'click me to open';
-      const { getByText } = render(
+      render(
         <DropdownMenu
           trigger={(triggerProps) => (
             <Button {...triggerProps} data-test-id="native-button">
@@ -173,13 +161,13 @@ describe('dropdown menu', () => {
         />,
       );
 
-      const trigger = getByText(triggerText);
+      const trigger = screen.getByRole('button');
 
       expect(trigger).toBeInTheDocument();
     });
 
     it('custom trigger to open popup', () => {
-      const triggerText = 'click me to open';
+      const triggerTestId = 'triggerTestId';
 
       const DDMWithCustomTrigger = () => {
         const [isOpen, setOpen] = useState(false);
@@ -190,32 +178,28 @@ describe('dropdown menu', () => {
               <Button
                 {...triggerProps}
                 onClick={() => setOpen(!isOpen)}
-                data-test-id="native-button"
+                testId={triggerTestId}
               >
                 {triggerText}
               </Button>
             )}
           >
             <DropdownItemGroup>
-              <DropdownItem>Move</DropdownItem>
-              <DropdownItem>Clone</DropdownItem>
-              <DropdownItem>Delete</DropdownItem>
+              {items.map((text) => (
+                <DropdownItem>{text}</DropdownItem>
+              ))}
             </DropdownItemGroup>
           </DropdownMenu>
         );
       };
 
-      const { getByText } = render(<DDMWithCustomTrigger />);
+      render(<DDMWithCustomTrigger />);
 
-      const trigger = getByText(triggerText);
+      const trigger = screen.getByTestId(triggerTestId);
 
-      act(() => {
-        fireEvent.click(trigger);
-      });
+      fireEvent.click(trigger);
 
-      expect(getByText('Move')).toBeInTheDocument();
-      expect(getByText('Clone')).toBeInTheDocument();
-      expect(getByText('Delete')).toBeInTheDocument();
+      expect(screen.getAllByRole('menuitem')).toHaveLength(items.length);
     });
   });
 
@@ -223,9 +207,7 @@ describe('dropdown menu', () => {
     const testId = 'test';
 
     it('does not display the dropdown item when loading', async () => {
-      const triggerText = 'click me to open';
-
-      const { getByText, queryAllByRole } = render(
+      render(
         <DropdownMenu trigger={triggerText} isLoading>
           <DropdownItemGroup>
             <DropdownItem>Loaded action</DropdownItem>
@@ -233,19 +215,12 @@ describe('dropdown menu', () => {
         </DropdownMenu>,
       );
 
-      act(() => {
-        fireEvent.click(getByText(triggerText));
-      });
+      fireEvent.click(screen.getByRole('button'));
 
-      let menuItems = (queryAllByRole('menuitem') || []).map(
-        (x) => x.innerText,
-      );
-
-      expect(menuItems.length).toBe(0);
+      expect(screen.queryAllByRole('menuitem')).toHaveLength(0);
     });
 
     it('display default label to indicate in loading status', async () => {
-      const triggerText = 'click me to open';
       const defaultLoadingText = 'Loading';
 
       render(
@@ -256,14 +231,13 @@ describe('dropdown menu', () => {
         </DropdownMenu>,
       );
 
-      fireEvent.click(screen.getByText(triggerText));
+      fireEvent.click(screen.getByRole('button'));
 
       const loadingIndicator = await screen.findByTestId(/loading-indicator$/);
       expect(loadingIndicator).toHaveAccessibleName(defaultLoadingText);
     });
 
     it('display label to indicate in loading status', async () => {
-      const triggerText = 'click me to open';
       const statusLabel = 'the content is loading';
 
       render(
@@ -279,35 +253,33 @@ describe('dropdown menu', () => {
         </DropdownMenu>,
       );
 
-      fireEvent.click(screen.getByText(triggerText));
+      fireEvent.click(screen.getByRole('button'));
 
       const loadingIndicator = await screen.findByTestId(/loading-indicator$/);
       expect(loadingIndicator).toHaveAccessibleName(statusLabel);
     });
 
     it('should close the dropdown menu on outside click', () => {
-      const { getByTestId, queryByTestId } = render(
+      render(
         <>
           <button data-testid="outside" type="button" />
           <DropdownMenu testId={testId} trigger="click to open" />
         </>,
       );
 
-      act(() => {
-        fireEvent.click(getByTestId(`${testId}--trigger`));
-      });
+      fireEvent.click(screen.getByTestId(`${testId}--trigger`));
 
-      expect(getByTestId(`${testId}--content`)).toBeInTheDocument();
+      expect(screen.getByTestId(`${testId}--content`)).toBeInTheDocument();
 
-      act(() => {
-        fireEvent.click(getByTestId('outside'));
-      });
+      fireEvent.click(screen.getByTestId('outside'));
 
-      expect(queryByTestId(`${testId}--content`)).not.toBeInTheDocument();
+      expect(
+        screen.queryByTestId(`${testId}--content`),
+      ).not.toBeInTheDocument();
     });
 
     it('should close the dropdown menu on outside click which has stopPropagation', () => {
-      const { getByTestId, queryByTestId } = render(
+      render(
         <>
           <button
             data-testid="outside"
@@ -318,39 +290,40 @@ describe('dropdown menu', () => {
         </>,
       );
 
-      act(() => {
-        fireEvent.click(getByTestId(`${testId}--trigger`));
-      });
+      fireEvent.click(screen.getByTestId(`${testId}--trigger`));
 
-      expect(getByTestId(`${testId}--content`)).toBeInTheDocument();
+      expect(screen.getByTestId(`${testId}--content`)).toBeInTheDocument();
 
-      act(() => {
-        fireEvent.click(getByTestId('outside'));
-      });
+      fireEvent.click(screen.getByTestId('outside'));
 
-      expect(queryByTestId(`${testId}--content`)).not.toBeInTheDocument();
+      expect(
+        screen.queryByTestId(`${testId}--content`),
+      ).not.toBeInTheDocument();
     });
 
     it('should generate a psuedorandom id to link the trigger and the popup if none was passed to it', () => {
-      const { getByTestId } = render(
+      render(
         <DropdownMenu trigger={'click to open'} isOpen testId={testId}>
           <DropdownItemGroup>
-            <DropdownItem>Move</DropdownItem>
-            <DropdownItem>Clone</DropdownItem>
-            <DropdownItem>Delete</DropdownItem>
+            {items.map((text) => (
+              <DropdownItem>{text}</DropdownItem>
+            ))}
           </DropdownItemGroup>
         </DropdownMenu>,
       );
-      const ariaControls = getByTestId(`${testId}--trigger`).getAttribute(
-        'aria-controls',
-      );
-      const popupId = getByTestId(`${testId}--content`).getAttribute('id');
 
-      expect(ariaControls).toBe(popupId);
+      const popupId = screen
+        .getByTestId(`${testId}--content`)
+        .getAttribute('id');
+
+      expect(screen.getByTestId(`${testId}--trigger`)).toHaveAttribute(
+        'aria-controls',
+        popupId,
+      );
     });
 
     it('should generate a psuedorandom id to link the custom trigger and the popup if none was passed to it', () => {
-      const { getByTestId } = render(
+      render(
         <DropdownMenu
           trigger={({ triggerRef, ...props }) => (
             <Button ref={triggerRef} {...props} type="button" />
@@ -359,18 +332,21 @@ describe('dropdown menu', () => {
           testId={testId}
         >
           <DropdownItemGroup>
-            <DropdownItem>Move</DropdownItem>
-            <DropdownItem>Clone</DropdownItem>
-            <DropdownItem>Delete</DropdownItem>
+            {items.map((text) => (
+              <DropdownItem>{text}</DropdownItem>
+            ))}
           </DropdownItemGroup>
         </DropdownMenu>,
       );
-      const ariaControls = getByTestId(`${testId}--trigger`).getAttribute(
-        'aria-controls',
-      );
-      const popupId = getByTestId(`${testId}--content`).getAttribute('id');
 
-      expect(ariaControls).toBe(popupId);
+      const popupId = screen
+        .getByTestId(`${testId}--content`)
+        .getAttribute('id');
+
+      expect(screen.getByTestId(`${testId}--trigger`)).toHaveAttribute(
+        'aria-controls',
+        popupId,
+      );
     });
   });
 });

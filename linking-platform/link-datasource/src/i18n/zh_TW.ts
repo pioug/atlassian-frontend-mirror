@@ -44,7 +44,7 @@ export default {
   'linkDataSource.jira-issues.refresh': '重新整理',
   'linkDataSource.jira-issues.unableToLoadItems': '無法載入項目',
   'linkDataSource.jira-issues.unableToLoadResults': '無法載入結果',
-  'linkDataSource.modal-initial-state.learnMoreLink': '進一步了解如何使用 JQL 進行搜尋。',
+  'linkDataSource.modal-initial-state.learnMoreLink': '進一步了解如何使用 JQL 進行搜尋',
   'linkDataSource.modal-initial-state.searchDescription': '開始輸入或使用 JQL 進行搜尋。',
   'linkDataSource.modal-initial-state.searchTitle': '搜尋 Jira 議題',
   'linkDataSource.render-type.boolean.false': '否',

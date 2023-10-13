@@ -66,7 +66,6 @@ function PopperWrapper({
   shouldRenderToParent,
 }: PopperWrapperProps) {
   const [popupRef, setPopupRef] = useState<HTMLDivElement | null>(null);
-
   const [initialFocusRef, setInitialFocusRef] = useState<HTMLElement | null>(
     null,
   );

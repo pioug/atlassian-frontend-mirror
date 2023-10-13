@@ -20,6 +20,7 @@ import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { findTable, isTableSelected } from '@atlaskit/editor-tables/utils';
 
 import type tablePlugin from '../index';
+import { getClosestSelectionRect } from '../toolbar';
 
 export enum TableSelectionDirection {
   TopToBottom = 'TopToBottom',
@@ -485,3 +486,26 @@ const isSelectionAtStartOfTable = ($pos: ResolvedPos, selection: Selection) =>
 
 const isSelectionAtEndOfTable = ($pos: ResolvedPos, selection: Selection) =>
   isSelectionAtEndOfNode($pos, findTable(selection));
+
+export const shiftArrowUpFromTable =
+  (
+    editorSelectionAPI:
+      | ExtractInjectionAPI<typeof tablePlugin>['selection']
+      | undefined,
+  ) =>
+  (): Command =>
+  (state, dispatch) => {
+    const { selection } = state;
+    const table = findTable(selection);
+    const selectionRect = getClosestSelectionRect(state);
+    const index = selectionRect?.top;
+    if (table && index === 0) {
+      return selectFullTable(editorSelectionAPI)({
+        node: table.node,
+        startPos: table.start,
+        dir: TableSelectionDirection.BottomToTop,
+      })(state, dispatch);
+    }
+
+    return false;
+  };

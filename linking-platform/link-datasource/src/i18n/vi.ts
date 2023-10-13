@@ -44,7 +44,7 @@ export default {
   'linkDataSource.jira-issues.refresh': 'Làm mới',
   'linkDataSource.jira-issues.unableToLoadItems': 'Không thể tải được các mục',
   'linkDataSource.jira-issues.unableToLoadResults': 'Không tải được kết quả',
-  'linkDataSource.modal-initial-state.learnMoreLink': 'Tìm hiểu thêm về việc tìm kiếm bằng JQL.',
+  'linkDataSource.modal-initial-state.learnMoreLink': 'Tìm hiểu thêm về việc tìm kiếm bằng JQL',
   'linkDataSource.modal-initial-state.searchDescription': 'Bắt đầu nhập hoặc sử dụng JQL để tìm kiếm.',
   'linkDataSource.modal-initial-state.searchTitle': 'Tìm kiếm vấn đề Jira',
   'linkDataSource.render-type.boolean.false': 'Không',

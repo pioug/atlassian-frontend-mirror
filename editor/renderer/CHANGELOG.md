@@ -1,5 +1,17 @@
 # @atlaskit/renderer
 
+## 108.15.12
+
+### Patch Changes
+
+- [#41589](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41589) [`ed53fde1ce5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ed53fde1ce5) - Add a unit test for inline SSR script for renderer breakout
+
+## 108.15.11
+
+### Patch Changes
+
+- [#41579](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41579) [`826ee5c6530`](https://bitbucket.org/atlassian/atlassian-frontend/commits/826ee5c6530) - Handle comment nodes in Media SSR inline script
+
 ## 108.15.10
 
 ### Patch Changes

@@ -8,6 +8,7 @@ import { Code } from '@atlaskit/code';
 import SectionMessage from '@atlaskit/section-message';
 
 import DragHandleDropdownMenuExample from '../../examples/drag-handle-dropdown-menu';
+import DragHandleDropdownMenuSmallExample from '../../examples/drag-handle-dropdown-menu-small';
 
 <SectionMessage appearance="warning">
   This component does not use the <Code>@atlaskit/button</Code> component,
@@ -19,3 +20,12 @@ import DragHandleDropdownMenuExample from '../../examples/drag-handle-dropdown-m
 ## Default
 
 <Example Component={DragHandleDropdownMenuExample} />
+
+## Small variant
+
+A small variant is available through the `/drag-handle-dropdown-menu-small` entrypoint.
+
+It is intended for experiences with very limited space to accomodate a drag handle.
+It is not recommended for general use due to the small target size.
+
+<Example Component={DragHandleButtonSizeExample} />

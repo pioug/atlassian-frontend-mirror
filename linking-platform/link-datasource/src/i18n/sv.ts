@@ -45,7 +45,7 @@ export default {
   'linkDataSource.jira-issues.refresh': 'Uppdatera',
   'linkDataSource.jira-issues.unableToLoadItems': 'Det gick inte att läsa in objekten',
   'linkDataSource.jira-issues.unableToLoadResults': 'Det gick inte att läsa in resultat',
-  'linkDataSource.modal-initial-state.learnMoreLink': 'Läs mer om att söka med JQL.',
+  'linkDataSource.modal-initial-state.learnMoreLink': 'Läs mer om att söka med JQL',
   'linkDataSource.modal-initial-state.searchDescription': 'Börja skriva eller använd JQL för att söka.',
   'linkDataSource.modal-initial-state.searchTitle': 'Sök efter Jira-ärenden',
   'linkDataSource.render-type.boolean.false': 'Nej',

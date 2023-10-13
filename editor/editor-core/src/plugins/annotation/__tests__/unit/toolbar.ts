@@ -21,7 +21,7 @@ import {
 import annotationPlugin from '../..';
 import { emojiPlugin } from '@atlaskit/editor-plugin-emoji';
 import { blockTypePlugin } from '@atlaskit/editor-plugin-block-type';
-import typeAheadPlugin from '../../../type-ahead';
+import { typeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
 import tasksAndDecisionsPlugin from '../../../tasks-and-decisions';
 import { buildToolbar } from '../../toolbar';
 import { inlineCommentProvider } from '../_utils';

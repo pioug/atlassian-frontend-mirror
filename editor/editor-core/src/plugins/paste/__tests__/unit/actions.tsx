@@ -37,7 +37,7 @@ import { uuid } from '@atlaskit/adf-schema';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import pastePlugin from '../../index';
 import tasksAndDecisionsPlugin from '../../../tasks-and-decisions';
-import statusPlugin from '../../../status';
+import { statusPlugin } from '@atlaskit/editor-plugin-status';
 import { blockTypePlugin } from '@atlaskit/editor-plugin-block-type';
 import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';

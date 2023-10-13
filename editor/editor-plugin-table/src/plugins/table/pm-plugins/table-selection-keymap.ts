@@ -2,12 +2,18 @@ import {
   bindKeymapWithCommand,
   moveLeft,
   moveRight,
+  shiftArrowUp,
 } from '@atlaskit/editor-common/keymaps';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
-import { arrowLeftFromTable, arrowRightFromTable } from '../commands/selection';
+import {
+  arrowLeftFromTable,
+  arrowRightFromTable,
+  shiftArrowUpFromTable,
+} from '../commands/selection';
 import type tablePlugin from '../index';
 
 export function tableSelectionKeymapPlugin(
@@ -28,6 +34,14 @@ export function tableSelectionKeymapPlugin(
     arrowLeftFromTable(editorSelectionAPI)(),
     list,
   );
+
+  if (getBooleanFF('platform.editor.table.shift-arrowup-fix')) {
+    bindKeymapWithCommand(
+      shiftArrowUp.common!,
+      shiftArrowUpFromTable(editorSelectionAPI)(),
+      list,
+    );
+  }
 
   return keymap(list) as SafePlugin;
 }

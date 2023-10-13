@@ -1,6 +1,6 @@
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 import type { PaletteColor } from '@atlaskit/editor-core/src/ui/ColorPalette/Palettes/type';
-import type { StatusType } from '@atlaskit/editor-core/src/plugins/status/plugin';
+import type { StatusType } from '@atlaskit/editor-plugin-status';
 import {
   lightModeStatusColorPalette,
   darkModeStatusColorPalette,
@@ -9,7 +9,6 @@ import { statusMessages } from '@atlaskit/editor-core/src/messages';
 import messages from '@atlaskit/editor-common/messages';
 import type WebBridgeImpl from './native-to-web';
 
-import { removeStatus } from '@atlaskit/editor-core/src/plugins/status/actions';
 import type {
   Command,
   CommandDispatch,
@@ -59,7 +58,7 @@ const onStatusTextChange =
   ): Command =>
   (state, dispatch) => {
     if (newStatusText === '') {
-      return removeStatus(showStatusPickerAt)(state, dispatch);
+      return bridge.removeStatus(showStatusPickerAt) ?? false;
     }
 
     const newStatus = {
@@ -179,7 +178,7 @@ export const createFloatingToolbarConfigForStatus = (
           title: intl.formatMessage(messages.remove),
           icon: RemoveIcon,
           onClick: (state: EditorState, dispatch?: CommandDispatch) => {
-            return removeStatus(showStatusPickerAt)(state, dispatch);
+            return bridge.removeStatus(showStatusPickerAt) ?? false;
           },
         },
       ],

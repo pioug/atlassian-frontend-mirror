@@ -99,6 +99,10 @@ export const space = makeKeyMapWithCommon('Space', 'Space');
 export const escape = makeKeyMapWithCommon('Escape', 'Escape');
 export const nextCell = makeKeyMapWithCommon('Next cell', 'Tab');
 export const previousCell = makeKeyMapWithCommon('Previous cell', 'Shift-Tab');
+export const shiftArrowUp = makeKeyMapWithCommon(
+  'Shift ArrowUp',
+  'Shift-ArrowUp',
+);
 export const shiftTab = makeKeyMapWithCommon('Shift Tab', 'Shift-Tab');
 export const toggleTable = makeKeyMapWithCommon('Table', 'Shift-Alt-t');
 export const addRowBefore = makeKeyMapWithCommon(

@@ -7,6 +7,7 @@ import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import { selectionPlugin } from '@atlaskit/editor-plugin-selection';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
+import { typeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import type {
   EditorState,
@@ -31,9 +32,6 @@ import {
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 
-// eslint-disable-next-line @atlassian/tangerine/import/no-relative-package-imports
-// eslint-disable-next-line @atlassian/tangerine/import/no-relative-package-imports
-import typeAheadPlugin from '../../../../editor-core/src/plugins/type-ahead';
 import { basePlugin } from '../../index';
 import type { InlineCursorTargetState } from '../../pm-plugins/inline-cursor-target';
 import { inlineCursorTargetStateKey } from '../../pm-plugins/inline-cursor-target';

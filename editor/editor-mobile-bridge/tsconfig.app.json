@@ -96,6 +96,9 @@
       "path": "../editor-plugin-rule/tsconfig.app.json"
     },
     {
+      "path": "../editor-plugin-status/tsconfig.app.json"
+    },
+    {
       "path": "../editor-plugin-table/tsconfig.app.json"
     },
     {

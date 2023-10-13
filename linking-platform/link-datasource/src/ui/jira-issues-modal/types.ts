@@ -47,4 +47,5 @@ export interface JiraIssuesConfigModalProps {
     adf: InlineCardAdf | JiraIssuesDatasourceAdf,
     analyticsEvent?: UIAnalyticsEvent,
   ) => void;
+  viewMode?: JiraIssueViewModes;
 }

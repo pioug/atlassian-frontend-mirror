@@ -89,6 +89,11 @@ function applyBreakoutAfterSSR(id: string, breakoutConsts: any) {
         (item.target as HTMLElement).classList.contains('ak-renderer-document')
       ) {
         item.addedNodes.forEach((maybeNode) => {
+          // maybeNode may contain comments which doesn't have a dataset property
+          if (maybeNode.nodeType !== Node.ELEMENT_NODE) {
+            return;
+          }
+
           let width;
           const node = maybeNode as HTMLElement;
           const mode = node.dataset.mode || node.dataset.layout || '';

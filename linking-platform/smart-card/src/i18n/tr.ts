@@ -7,6 +7,8 @@
  */
 //Turkish (Turkey)
 export default {
+  'fabric.linking.access_exists_description':
+    '{hostname} üzerindeki bu içeriği görüntülemek üzere yöneticinizle iletişime geçin ve erişim talep edin.',
   'fabric.linking.actions': 'Eylemler',
   'fabric.linking.add_account': 'Hesap ekle',
   'fabric.linking.assigned_to': '{context} adlı kişiye atandı',
@@ -37,12 +39,18 @@ export default {
   'fabric.linking.create_on_relative': '{context} oluşturuldu',
   'fabric.linking.created_by': '{context} tarafından oluşturuldu',
   'fabric.linking.delete': 'Sil',
+  'fabric.linking.direct_access_crossjoin': '{product} ürününe git',
+  'fabric.linking.direct_access_description_crossjoin':
+    'Aynı e-posta etki alanına sahip tüm hesaplarınızın {product} ürününde {hostname} adresine erişmesi onaylandı.',
+  'fabric.linking.direct_access_title_crossjoin': '{product} ürününde takımınıza katılın',
   'fabric.linking.download': 'İndir',
   'fabric.linking.edit': 'Düzenle',
   'fabric.linking.follow': 'Takip Et',
   'fabric.linking.forbidden_access': 'Erişiminiz yasak',
   'fabric.linking.forbidden_description':
     'Bu önizlemeye erişiminiz yok. Erişim gerekliyse site yöneticisiyle iletişime geçin.',
+  'fabric.linking.forbidden_description_crossjoin': 'Erişim talep etmek için yöneticinizle iletişime geçin.',
+  'fabric.linking.forbidden_title_crossjoin': 'Bu içeriğe erişiminiz yok',
   'fabric.linking.go_back': 'Geri dön',
   'fabric.linking.invalid_permissions': 'Kısıtlanmış içerik',
   'fabric.linking.invalid_permissions_description':
@@ -55,9 +63,13 @@ export default {
   'fabric.linking.modified_on_absolute': '{context} tarihinde güncellendi',
   'fabric.linking.modified_on_relative': '{context} güncellendi',
   'fabric.linking.more_actions': 'Daha fazla işlem',
+  'fabric.linking.no_access_title_crossjoin': 'Bu içeriğe erişiminiz yok',
   'fabric.linking.not_found_description':
     "Bağlantıyı bulamadık. URL'yi kontrol edin ve düzenlemeyi veya yeniden yapıştırmayı deneyin.",
+  'fabric.linking.not_found_description_crossjoin':
+    'Bu sayfa mevcut değil veya bu bağlantı eklendikten sonra değişmiş olabilir.',
   'fabric.linking.not_found_title': 'Hay aksi! Bu bağlantıyı bulamadık!',
+  'fabric.linking.not_found_title_crossjoin': 'Bu {product} sayfası gösterilemiyor',
   'fabric.linking.open_issue_in_jira': "Konuyu Jira'da aç",
   'fabric.linking.open_link_in_a_new_tab': 'Bağlantıyı yeni sekmede aç',
   'fabric.linking.owned_by': 'Sahibi: {context}',
@@ -79,13 +91,21 @@ export default {
   'fabric.linking.priority_undefined': 'Tanımlanmamış',
   'fabric.linking.read_time': '{context} dk. okuma süresi',
   'fabric.linking.request_access': 'Erişim talep edin',
+  'fabric.linking.request_access_crossjoin': 'Erişim talep edin',
   'fabric.linking.request_access_description': 'Bu önizlemeyi görüntülemek için {context} ürününe erişim talep edin.',
+  'fabric.linking.request_access_description_crossjoin': 'Erişim talep etmek için yöneticinizle iletişime geçin.',
   'fabric.linking.request_access_pending': 'Erişim bekleniyor',
+  'fabric.linking.request_access_pending_crossjoin': 'Onay bekleniyor',
   'fabric.linking.request_access_pending_description': 'Erişim talebiniz beklemede.',
+  'fabric.linking.request_access_pending_description_crossjoin':
+    '{hostname} adresine erişme talebiniz yönetici onayı bekliyor.',
+  'fabric.linking.request_access_pending_title_crossjoin': '{product} ürününe erişim bekleniyor',
   'fabric.linking.request_access_to_view': 'Bu konuyu görüntülemek için {context} ürününe erişim talep edin',
   'fabric.linking.request_denied': 'Erişim talebiniz reddedildi',
   'fabric.linking.request_denied_description':
     'Erişim talebiniz reddedildi. Hâlâ erişim gerekliyse site yöneticisiyle iletişime geçin.',
+  'fabric.linking.request_denied_description_crossjoin':
+    'Yöneticiniz {hostname} üzerinde {product} sayfalarını görüntüleme talebinizi onaylamadı.',
   'fabric.linking.restricted_link': 'Sınırlı bağlantı, başka bir hesap deneyin',
   'fabric.linking.retry': 'Yeniden Dene',
   'fabric.linking.save': 'Kaydet',

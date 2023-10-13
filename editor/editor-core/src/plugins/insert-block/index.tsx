@@ -9,15 +9,12 @@ import type {
 import { WithProviders } from '@atlaskit/editor-common/provider-factory';
 import type { Providers } from '@atlaskit/editor-common/provider-factory';
 
-import { isTypeAheadAllowed } from '../type-ahead/utils';
-
 import { pluginKey as layoutStateKey } from '../layout';
 import type { LayoutState } from '../layout/pm-plugins/types';
 import type { MacroState } from '../macro';
 import { insertMacroFromMacroBrowser } from '../macro';
 import WithPluginState from '../../ui/WithPluginState';
 import ToolbarInsertBlock from './ui/ToolbarInsertBlock';
-import { pluginKey as typeAheadPluginKey } from '../type-ahead/pm-plugins/key';
 import {
   BLOCK_QUOTE,
   CODE_BLOCK,
@@ -112,7 +109,6 @@ const insertBlockPlugin: NextEditorPlugin<
         return (
           <WithPluginState
             plugins={{
-              typeAheadState: typeAheadPluginKey,
               macroState: macroStateKey,
               placeholderTextState: placeholderTextStateKey,
               layoutState: layoutStateKey,
@@ -204,6 +200,7 @@ function ToolbarInsertBlockWithInjectionApi({
     emojiState,
     blockTypeState,
     mediaState,
+    typeAheadState,
   } = useSharedPluginState(pluginInjectionApi, [
     'hyperlink',
     'date',
@@ -212,6 +209,7 @@ function ToolbarInsertBlockWithInjectionApi({
     'emoji',
     'blockType',
     'media',
+    'typeAhead',
   ]);
 
   return (
@@ -220,7 +218,7 @@ function ToolbarInsertBlockWithInjectionApi({
       buttons={buttons}
       isReducedSpacing={isToolbarReducedSpacing}
       isDisabled={disabled}
-      isTypeAheadAllowed={isTypeAheadAllowed(editorView.state)}
+      isTypeAheadAllowed={Boolean(typeAheadState?.isAllowed)}
       editorView={editorView}
       tableSupported={!!editorView.state.schema.nodes.table}
       actionSupported={!!editorView.state.schema.nodes.taskItem}

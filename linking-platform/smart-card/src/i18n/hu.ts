@@ -7,6 +7,8 @@
  */
 //Hungarian
 export default {
+  'fabric.linking.access_exists_description':
+    'Fordulj az adminisztrátorhoz, és kérj tőle hozzáférést, hogy megtekinthesd ezt a tartalmat innen: {hostname}.',
   'fabric.linking.actions': 'Műveletek',
   'fabric.linking.add_account': 'Fiók hozzáadása',
   'fabric.linking.assigned_to': 'Hozzárendelve a következő személyhez: {context}',
@@ -38,12 +40,18 @@ export default {
   'fabric.linking.create_on_relative': 'Létrehozva: {context}',
   'fabric.linking.created_by': 'Létrehozta: {context}',
   'fabric.linking.delete': 'Törlés',
+  'fabric.linking.direct_access_crossjoin': 'Ugrás ide: {product}',
+  'fabric.linking.direct_access_description_crossjoin':
+    'Az ugyanehhez az e-mail-tartományhoz tartozó fiókok megkapták a jóváhagyást, hogy hozzáférjenek a következőhöz a(z) {product} termékben: {hostname}.',
+  'fabric.linking.direct_access_title_crossjoin': 'Csatlakozz a csapatodhoz itt: {product}',
   'fabric.linking.download': 'Letöltés',
   'fabric.linking.edit': 'Szerkesztés',
   'fabric.linking.follow': 'Követés',
   'fabric.linking.forbidden_access': 'Hozzáférés megtagadva',
   'fabric.linking.forbidden_description':
     'Nincs hozzáférésed ehhez az előnézethez. Lépj kapcsolatba a webhely adminisztrátorával, ha szükséged van hozzáférésre.',
+  'fabric.linking.forbidden_description_crossjoin': 'Fordulj az adminisztrátorhoz, és kérj tőle hozzáférést.',
+  'fabric.linking.forbidden_title_crossjoin': 'Nincs hozzáférésed ehhez a tartalomhoz',
   'fabric.linking.go_back': 'Vissza',
   'fabric.linking.invalid_permissions': 'Korlátozott tartalom',
   'fabric.linking.invalid_permissions_description':
@@ -56,9 +64,12 @@ export default {
   'fabric.linking.modified_on_absolute': 'Frissítve ekkor: {context}',
   'fabric.linking.modified_on_relative': 'Frissítve: {context}',
   'fabric.linking.more_actions': 'További műveletek',
+  'fabric.linking.no_access_title_crossjoin': 'Nincs hozzáférésed ehhez a tartalomhoz',
   'fabric.linking.not_found_description':
     'Nem találtuk meg a linket. Ellenőrizd az URL-címet, és próbáld meg módosítani, vagy másold be újra.',
+  'fabric.linking.not_found_description_crossjoin': 'Az oldal nem létezik, vagy módosították a link hozzáadása óta.',
   'fabric.linking.not_found_title': 'Hoppá. Nem találjuk ezt a linket!',
+  'fabric.linking.not_found_title_crossjoin': 'Nem tudjuk megjeleníteni ezt a(z) {product}-oldalt',
   'fabric.linking.open_issue_in_jira': 'Ügy megnyitása a Jirában',
   'fabric.linking.open_link_in_a_new_tab': 'Link megnyitása új lapon',
   'fabric.linking.owned_by': 'Tulajdonos: {context}',
@@ -80,14 +91,22 @@ export default {
   'fabric.linking.priority_undefined': 'Nincs meghatározva',
   'fabric.linking.read_time': '{context} perc olvasási idő',
   'fabric.linking.request_access': 'Hozzáférés kérése',
+  'fabric.linking.request_access_crossjoin': 'Hozzáférés kérése',
   'fabric.linking.request_access_description':
     'Kérj hozzáférést a következő termékhez az előnézet megtekintése érdekében: {context}.',
+  'fabric.linking.request_access_description_crossjoin': 'Fordulj az adminisztrátorhoz, és kérj tőle hozzáférést.',
   'fabric.linking.request_access_pending': 'Hozzáférés függőben',
+  'fabric.linking.request_access_pending_crossjoin': 'Függőben levő jóváhagyás',
   'fabric.linking.request_access_pending_description': 'A hozzáférési kérelmed függőben van.',
+  'fabric.linking.request_access_pending_description_crossjoin':
+    'A következőre vonatkozó hozzáférési kérelmed még adminisztrátori jóváhagyásra vár: {hostname}.',
+  'fabric.linking.request_access_pending_title_crossjoin': 'Függőben van a(z) {product}-hozzáférés',
   'fabric.linking.request_access_to_view': 'Az ügy megtekintése érdekében kérj hozzáférést ehhez: {context}',
   'fabric.linking.request_denied': 'A hozzáférési kérelmedet elutasították',
   'fabric.linking.request_denied_description':
     'A hozzáférési kérelmedet elutasították. Lépj kapcsolatba a webhely adminisztrátorával, ha továbbra is szükséged van hozzáférésre.',
+  'fabric.linking.request_denied_description_crossjoin':
+    'Az adminisztrátorod nem hagyta jóvá a kérelmed, hogy megtekinthess {product}-oldalakat innen: {hostname}.',
   'fabric.linking.restricted_link': 'Korlátozott link, próbálkozz másik fiókkal',
   'fabric.linking.retry': 'Újra',
   'fabric.linking.save': 'Mentés',

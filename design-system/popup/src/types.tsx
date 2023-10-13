@@ -210,8 +210,8 @@ export type CloseManagerHook = Pick<PopupProps, 'isOpen' | 'onClose'> & {
 };
 
 export type FocusManagerHook = {
-  popupRef: PopupRef;
   initialFocusRef: HTMLElement | null;
+  popupRef: PopupRef;
 };
 
 export type RepositionOnUpdateProps = {

@@ -43,7 +43,7 @@ export default {
   'linkDataSource.jira-issues.refresh': '刷新',
   'linkDataSource.jira-issues.unableToLoadItems': '无法加载项目',
   'linkDataSource.jira-issues.unableToLoadResults': '无法加载结果',
-  'linkDataSource.modal-initial-state.learnMoreLink': '详细了解如何使用 JQL 进行搜索。',
+  'linkDataSource.modal-initial-state.learnMoreLink': '详细了解如何使用 JQL 进行搜索',
   'linkDataSource.modal-initial-state.searchDescription': '开始输入搜索内容或使用 JQL 进行搜索。',
   'linkDataSource.modal-initial-state.searchTitle': '搜索 Jira 事务',
   'linkDataSource.render-type.boolean.false': '否',

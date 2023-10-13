@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-mobile-bridge",
-  "version": "188.8.0",
+  "version": "188.9.2",
   "description": "Mobile distribution of the Editor",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -35,7 +35,7 @@
     "@atlaskit/collab-provider": "^9.15.0",
     "@atlaskit/editor-card-provider": "^3.1.0",
     "@atlaskit/editor-common": "76.10.1",
-    "@atlaskit/editor-core": "188.8.0",
+    "@atlaskit/editor-core": "188.9.2",
     "@atlaskit/editor-json-transformer": "8.10.10",
     "@atlaskit/editor-plugin-media": "^0.3.0",
     "@atlaskit/editor-plugin-table": "^5.2.0",
@@ -47,7 +47,7 @@
     "@atlaskit/media-client": "^24.0.0",
     "@atlaskit/media-picker": "^66.2.0",
     "@atlaskit/mention": "22.1.6",
-    "@atlaskit/renderer": "108.15.10",
+    "@atlaskit/renderer": "108.15.12",
     "@atlaskit/smart-card": "26.34.4",
     "@atlaskit/status": "1.4.2",
     "@atlaskit/task-decision": "17.9.2",
@@ -76,7 +76,8 @@
     "@atlaskit/editor-plugin-feature-flags": "^1.0.0",
     "@atlaskit/editor-plugin-hyperlink": "^0.5.0",
     "@atlaskit/editor-plugin-quick-insert": "^0.2.0",
-    "@atlaskit/editor-plugin-type-ahead": "^0.6.0",
+    "@atlaskit/editor-plugin-status": "^0.1.0",
+    "@atlaskit/editor-plugin-type-ahead": "^0.7.0",
     "@atlaskit/editor-test-helpers": "^18.14.0",
     "@atlaskit/media-core": "^34.1.0",
     "@atlaskit/media-integration-test-helpers": "^3.0.0",

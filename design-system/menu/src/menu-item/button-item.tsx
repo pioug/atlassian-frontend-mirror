@@ -83,6 +83,7 @@ const ButtonItem = memo(
               isDisabled,
             })
           }
+          testId={testId && `${testId}--primitive`}
         >
           {({ children, className }) => (
             <button

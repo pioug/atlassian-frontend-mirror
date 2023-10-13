@@ -1,3 +1,3 @@
-import type { DragHandleDropdownMenuProps } from '../src/drag-handle-dropdown-menu';
+import type { DragHandleDropdownMenuProps } from '../src/types';
 
 export default function ({}: DragHandleDropdownMenuProps) {}

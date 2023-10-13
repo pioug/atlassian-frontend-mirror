@@ -7,6 +7,8 @@
  */
 //Dutch (Netherlands)
 export default {
+  'fabric.linking.access_exists_description':
+    'Neem contact op met je beheerder en vraag om toegang om de inhoud van {hostname} te bekijken.',
   'fabric.linking.actions': 'Acties',
   'fabric.linking.add_account': 'Account toevoegen',
   'fabric.linking.assigned_to': 'Toegewezen aan {context}',
@@ -37,12 +39,18 @@ export default {
   'fabric.linking.create_on_relative': 'Aangemaakt: {context}',
   'fabric.linking.created_by': 'Aangemaakt door {context}',
   'fabric.linking.delete': 'Verwijderen',
+  'fabric.linking.direct_access_crossjoin': 'Ga naar {product}',
+  'fabric.linking.direct_access_description_crossjoin':
+    'Alle accounts met dezelfde e-maildomein als jij hebben toegang tot {hostname} in {product}.',
+  'fabric.linking.direct_access_title_crossjoin': 'Sluit je aan bij je team op {product}',
   'fabric.linking.download': 'Downloaden',
   'fabric.linking.edit': 'Bewerken',
   'fabric.linking.follow': 'Volgen',
   'fabric.linking.forbidden_access': 'Je hebt geen toegang',
   'fabric.linking.forbidden_description':
     'Je hebt geen toegang tot deze voorvertoning. Neem contact op met de sitebeheerder als je toegang nodig hebt.',
+  'fabric.linking.forbidden_description_crossjoin': 'Neem contact op met je beheerder om toegang aan te vragen.',
+  'fabric.linking.forbidden_title_crossjoin': 'Je hebt geen toegang tot deze inhoud',
   'fabric.linking.go_back': 'Teruggaan',
   'fabric.linking.invalid_permissions': 'Beperkte toegang',
   'fabric.linking.invalid_permissions_description':
@@ -55,9 +63,13 @@ export default {
   'fabric.linking.modified_on_absolute': 'Bijgewerkt op {context}',
   'fabric.linking.modified_on_relative': 'Bijgewerkt: {context}',
   'fabric.linking.more_actions': 'Meer acties',
+  'fabric.linking.no_access_title_crossjoin': 'Je hebt geen toegang tot deze inhoud',
   'fabric.linking.not_found_description':
     'We konden de link niet vinden. Controleer de URL en probeer nogmaals te bewerken of plakken.',
+  'fabric.linking.not_found_description_crossjoin':
+    'Deze pagina bestaat niet of is mogelijk gewijzigd nadat deze link is toegevoegd.',
   'fabric.linking.not_found_title': 'Oh-oh. We kunnen deze link niet vinden.',
+  'fabric.linking.not_found_title_crossjoin': 'We kunnen deze {product}-pagina niet weergeven',
   'fabric.linking.open_issue_in_jira': 'Open issue in Jira',
   'fabric.linking.open_link_in_a_new_tab': 'Open de link in een nieuw tabblad',
   'fabric.linking.owned_by': 'Eigendom van {context}',
@@ -79,13 +91,21 @@ export default {
   'fabric.linking.priority_undefined': 'Niet gedefinieerd',
   'fabric.linking.read_time': '{context} min. leestijd',
   'fabric.linking.request_access': 'Toegang aanvragen',
+  'fabric.linking.request_access_crossjoin': 'Toegang aanvragen',
   'fabric.linking.request_access_description': 'Vraag toegang aan tot {context} om deze voorvertoning te bekijken.',
+  'fabric.linking.request_access_description_crossjoin': 'Neem contact op met je beheerder om toegang aan te vragen.',
   'fabric.linking.request_access_pending': 'Toegang wordt behandeld',
+  'fabric.linking.request_access_pending_crossjoin': 'Wachten op goedkeuring',
   'fabric.linking.request_access_pending_description': 'Je toegangsaanvraag wordt behandeld.',
+  'fabric.linking.request_access_pending_description_crossjoin':
+    'Je aanvraag voor toegang tot {hostname} is in afwachting van goedkeuring van de beheerder.',
+  'fabric.linking.request_access_pending_title_crossjoin': 'Toegang tot {product} is in afwachting',
   'fabric.linking.request_access_to_view': 'Vraag toegang aan tot {context} om deze issue te bekijken',
   'fabric.linking.request_denied': 'Je toegangsaanvraag is afgewezen',
   'fabric.linking.request_denied_description':
     'Je toegangsaanvraag is afgewezen. Neem contact op met de sitebeheerder als je toegang nodig hebt.',
+  'fabric.linking.request_denied_description_crossjoin':
+    "Je beheerder heeft je aanvraag om {product}-pagina's te bekijken van {hostname} niet goedgekeurd.",
   'fabric.linking.restricted_link': 'Afgeschermde link, probeer een ander account',
   'fabric.linking.retry': 'Probeer opnieuw',
   'fabric.linking.save': 'Opslaan',

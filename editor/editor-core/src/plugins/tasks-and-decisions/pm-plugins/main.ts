@@ -1,16 +1,34 @@
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type {
+  Transaction,
+  ReadonlyTransaction,
+} from '@atlaskit/editor-prosemirror/state';
 
 import { uuid } from '@atlaskit/adf-schema';
-import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
+import type {
+  ProviderFactory,
+  ContextIdentifierProvider,
+} from '@atlaskit/editor-common/provider-factory';
+import type {
+  ExtractInjectionAPI,
+  Command,
+} from '@atlaskit/editor-common/types';
 
-import type { Dispatch, EventDispatcher } from '../../../event-dispatcher';
-import type { Command } from '../../../types';
+import type { TaskAndDecisionsPlugin } from '../types';
+import type {
+  Dispatch,
+  EventDispatcher,
+} from '@atlaskit/editor-common/event-dispatcher';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
-import { nodesBetweenChanged, SetAttrsStep } from '../../../utils';
-import { createSelectionClickHandler } from '@atlaskit/editor-common/selection';
+import { getStepRange } from '@atlaskit/editor-common/utils';
+import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
+import {
+  createSelectionClickHandler,
+  GapCursorSelection,
+} from '@atlaskit/editor-common/selection';
 import { decisionItemNodeView } from '../nodeviews/decisionItem';
 import { taskItemNodeViewFactory } from '../nodeviews/taskItem';
 
@@ -22,8 +40,26 @@ import {
   focusCheckboxAndUpdateSelection,
   removeCheckboxFocus,
 } from './helpers';
-import { GapCursorSelection } from '@atlaskit/editor-common/selection';
 import { ACTIONS } from './types';
+
+type ChangedFn = (
+  node: PMNode,
+  pos: number,
+  parent: PMNode | null,
+  index: number,
+) => boolean | void;
+function nodesBetweenChanged(
+  tr: Transaction | ReadonlyTransaction,
+  f: ChangedFn,
+  startPos?: number,
+) {
+  const stepRange = getStepRange(tr);
+  if (!stepRange) {
+    return;
+  }
+
+  tr.doc.nodesBetween(stepRange.from, stepRange.to, f, startPos);
+}
 
 const setContextIdentifierProvider =
   (provider: ContextIdentifierProvider | undefined): Command =>
@@ -44,6 +80,7 @@ export function createPlugin(
   eventDispatcher: EventDispatcher,
   providerFactory: ProviderFactory,
   dispatch: Dispatch,
+  api: ExtractInjectionAPI<TaskAndDecisionsPlugin> | undefined,
   useLongPressSelection: boolean = false,
 ) {
   return new SafePlugin({
@@ -53,8 +90,13 @@ export function createPlugin(
           portalProviderAPI,
           eventDispatcher,
           providerFactory,
+          api,
         ),
-        decisionItem: decisionItemNodeView(portalProviderAPI, eventDispatcher),
+        decisionItem: decisionItemNodeView(
+          portalProviderAPI,
+          eventDispatcher,
+          api,
+        ),
       },
       handleTextInput(
         view: EditorView,

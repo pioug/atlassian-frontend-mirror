@@ -165,6 +165,7 @@ export interface MenuItemPrimitiveProps {
   isDisabled: boolean | undefined;
   isSelected: boolean | undefined;
   className?: string;
+  testId?: string;
 }
 
 export interface MenuItemProps {

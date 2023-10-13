@@ -1,3 +1,3 @@
-import type { DragHandleButtonProps } from '../src/drag-handle-button';
+import type { DragHandleButtonProps } from '../src/types';
 
 export default function ({}: DragHandleButtonProps) {}

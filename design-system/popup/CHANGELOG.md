@@ -1,5 +1,11 @@
 # @atlaskit/popup
 
+## 1.11.0
+
+### Minor Changes
+
+- [#41251](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41251) [`b0a2a8d78c6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b0a2a8d78c6) - [ux] We are testing removing the `focus-trap` package for a smaller sharper implementation of focus management behind a feature flag. If this fix is successful it will be available in a later release.
+
 ## 1.10.2
 
 ### Patch Changes

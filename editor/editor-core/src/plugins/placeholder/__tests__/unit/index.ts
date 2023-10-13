@@ -14,7 +14,7 @@ import { focusPlugin } from '@atlaskit/editor-plugin-focus';
 import { placeholderPlugin } from '@atlaskit/editor-plugin-placeholder';
 import { compositionPlugin } from '@atlaskit/editor-plugin-composition';
 // ONCE WE DECOUPLE TYPE-AHEAD LET'S MOVE THIS TEST INTO @atlaskit/editor-plugin-placeholder
-import typeAheadPlugin from '../../../type-ahead';
+import { typeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
 import type { TypeAheadHandler } from '@atlaskit/editor-common/types';
 import { TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';

@@ -12,7 +12,7 @@ import type { BasePluginOptions } from '@atlaskit/editor-plugin-base';
 import { basePlugin } from '@atlaskit/editor-plugin-base';
 import { focusPlugin } from '@atlaskit/editor-plugin-focus';
 import { editorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
-import typeAheadPlugin from '../../../plugins/type-ahead';
+import { typeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
 import submitEditorPlugin from '../../../plugins/submit-editor';
 import fakeTextCursorPlugin from '../../../plugins/fake-text-cursor';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
@@ -42,7 +42,7 @@ import type { SelectionPluginOptions } from '@atlaskit/editor-common/selection';
 import type { CardOptions } from '@atlaskit/editor-common/card';
 import undoRedoPlugin from '../../../plugins/undo-redo';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
-import type { TypeAheadPluginOptions } from '../../../plugins/type-ahead';
+import type { TypeAheadPluginOptions } from '@atlaskit/editor-plugin-type-ahead';
 import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
 // #endregion
 

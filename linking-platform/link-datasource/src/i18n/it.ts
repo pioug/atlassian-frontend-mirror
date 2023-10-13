@@ -46,7 +46,7 @@ export default {
   'linkDataSource.jira-issues.refresh': 'Aggiorna',
   'linkDataSource.jira-issues.unableToLoadItems': 'Impossibile caricare gli elementi',
   'linkDataSource.jira-issues.unableToLoadResults': 'Impossibile caricare i risultati',
-  'linkDataSource.modal-initial-state.learnMoreLink': 'Scopri di più sulla ricerca con JQL.',
+  'linkDataSource.modal-initial-state.learnMoreLink': 'Scopri di più sulla ricerca con JQL',
   'linkDataSource.modal-initial-state.searchDescription': 'Inizia a digitare o utilizza JQL per la ricerca.',
   'linkDataSource.modal-initial-state.searchTitle': 'Cerca ticket Jira',
   'linkDataSource.render-type.boolean.false': 'No',

@@ -28,7 +28,7 @@ import { useQuickInsertListener } from './useQuickInsertListener';
 import { useBlockTypeListener } from './useBlockTypeListener';
 import type { MentionPlugin } from '@atlaskit/editor-core/src/plugins/mentions';
 import type { CodeBlockPlugin } from '@atlaskit/editor-core/src/plugins/code-block';
-import type { StatusPlugin } from '@atlaskit/editor-core/src/plugins/status';
+import type { StatusPlugin } from '@atlaskit/editor-plugin-status';
 import type { PanelPlugin } from '@atlaskit/editor-core/src/plugins/panel';
 import type { BlockTypePlugin } from '@atlaskit/editor-plugin-block-type';
 import type { DatePlugin } from '@atlaskit/editor-core/src/plugins/date';

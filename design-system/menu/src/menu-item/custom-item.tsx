@@ -101,6 +101,7 @@ const CustomItem = memo(
               isSelected,
             }),
           )}
+          testId={testId && `${testId}--primitive`}
         >
           {({ children, className }) => (
             <Component

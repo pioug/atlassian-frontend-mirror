@@ -106,6 +106,41 @@ describe('JiraSearchContainer', () => {
     );
   });
 
+  it('displays an initial jql query and does not switch back to jql search mode if user searches using basic text', async () => {
+    const { getByTestId, getByPlaceholderText, mockOnSearch } = setup({
+      parameters: {
+        ...initialParameters,
+        jql: 'status = "0. On Hold"',
+      },
+    });
+    // switch to jql search
+    act(() => {
+      fireEvent.click(getByTestId('mode-toggle-jql'));
+    });
+    expect(JQLEditor).toHaveBeenCalledWith(
+      expect.objectContaining({ query: 'status = "0. On Hold"' }),
+      expect.anything(),
+    );
+    // switch to basic, type, and search
+    fireEvent.click(getByTestId('mode-toggle-basic'));
+    const basicTextInput = getByPlaceholderText('Search');
+    fireEvent.change(basicTextInput, {
+      target: { value: 'testing' },
+    });
+    fireEvent.click(
+      getByTestId('jira-jql-datasource-modal--basic-search-button'),
+    );
+    expect(mockOnSearch).toHaveBeenCalledWith(
+      {
+        jql: 'text ~ "testing*" or summary ~ "testing*" ORDER BY created DESC',
+      },
+      'basic',
+    );
+    expect(
+      getByTestId('mode-toggle-basic').querySelector('input'),
+    ).toBeChecked();
+  });
+
   it('should call onSearch with JQL user input', () => {
     const { getByTestId, mockOnSearch, getLatestJQLEditorProps } = setup();
 
@@ -134,6 +169,46 @@ describe('JiraSearchContainer', () => {
       },
       'jql',
     );
+  });
+
+  it('should open in jql search method on a rerender if the component is in the count view mode', () => {
+    const { rerender, getByTestId, mockOnSearch, getLatestJQLEditorProps } =
+      setup();
+    // switch to jql search
+    act(() => {
+      fireEvent.click(getByTestId('mode-toggle-jql'));
+    });
+    act(() => {
+      getLatestJQLEditorProps().onUpdate!('some-query', {
+        represents: '',
+        errors: [],
+        query: undefined,
+      });
+    });
+    getLatestJQLEditorProps().onSearch!('some-other-query', {
+      represents: '',
+      errors: [],
+      query: undefined,
+    });
+    expect(mockOnSearch).toHaveBeenCalledWith(
+      {
+        jql: 'some-query',
+      },
+      'jql',
+    );
+    // re-render the component with count view mode
+    rerender(
+      <AnalyticsListener channel={EVENT_CHANNEL} onEvent={onAnalyticFireEvent}>
+        <IntlProvider locale="en">
+          <JiraSearchContainer
+            onSearch={mockOnSearch}
+            parameters={{ ...initialParameters }}
+          />
+        </IntlProvider>
+      </AnalyticsListener>,
+    );
+    // make sure JQL is showing as toggle method
+    expect(getByTestId('mode-toggle-jql').querySelector('input')).toBeChecked();
   });
 
   it('calls onSearch with JQL', () => {

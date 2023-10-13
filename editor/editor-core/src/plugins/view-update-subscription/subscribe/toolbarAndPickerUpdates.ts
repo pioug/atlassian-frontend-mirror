@@ -2,7 +2,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { DatePluginSharedState } from '../../date';
 import type { FloatingToolbarPluginState } from '@atlaskit/editor-plugin-floating-toolbar';
 import type { ConfigWithNodeInfo } from '@atlaskit/editor-plugin-floating-toolbar';
-import type { StatusState } from '../../status/types';
+import type { StatusState } from '@atlaskit/editor-plugin-status';
 import { areSameItems } from '@atlaskit/editor-common/floating-toolbar';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { ViewUpdateSubscription } from '..';

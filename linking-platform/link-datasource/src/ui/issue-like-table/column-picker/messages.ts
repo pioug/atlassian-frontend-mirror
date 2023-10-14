@@ -18,4 +18,9 @@ export const columnPickerMessages = defineMessages({
     description: 'Search bar message to look for more fields',
     defaultMessage: 'Search for fields',
   },
+  tooltip: {
+    id: 'linkDataSource.column-picker.tooltip',
+    description: 'Tooltip message for the column picker button',
+    defaultMessage: 'Configure columns',
+  },
 });

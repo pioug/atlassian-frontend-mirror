@@ -1,6 +1,7 @@
 import { KeyboardEvent, MouseEvent, ReactElement, ReactNode, Ref } from 'react';
 
 import type {
+  CustomItemComponentProps,
   CustomItemProps,
   MenuGroupProps,
   SectionProps,
@@ -393,4 +394,11 @@ export interface DropdownItemRadioProps {
    * serving as a hook for automated tests.
    */
   testId?: string;
+}
+
+export interface CustomItemHtmlProps extends CustomItemComponentProps {
+  /**
+   * Link to another page.
+   */
+  href?: string;
 }

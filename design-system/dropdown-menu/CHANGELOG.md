@@ -1,5 +1,11 @@
 # @atlaskit/dropdown-menu
 
+## 12.1.1
+
+### Patch Changes
+
+- [#41611](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41611) [`876d7943287`](https://bitbucket.org/atlassian/atlassian-frontend/commits/876d7943287) - Fix keyboard arrow controls for dropdown item custom component.
+
 ## 12.1.0
 
 ### Minor Changes

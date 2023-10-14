@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 8.10.1
+
+### Patch Changes
+
+- [#41402](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41402) [`25bf22e0ad8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/25bf22e0ad8) - Add better conditional checks in internal util.
+
 ## 8.10.0
 
 ### Minor Changes

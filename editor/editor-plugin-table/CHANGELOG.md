@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-table
 
+## 5.2.2
+
+### Patch Changes
+
+- [#41510](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41510) [`12e9528f975`](https://bitbucket.org/atlassian/atlassian-frontend/commits/12e9528f975) - [ux] Adds a command for shift+arrowUp when pressed inside table to select the whole table when we reach top row.
+- Updated dependencies
+
 ## 5.2.1
 
 ### Patch Changes

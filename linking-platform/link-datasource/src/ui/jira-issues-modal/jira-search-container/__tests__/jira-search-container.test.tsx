@@ -33,11 +33,14 @@ const initialParameters: JiraIssueDatasourceParameters = {
 
 const setup = (propsOverride: Partial<SearchContainerProps> = {}) => {
   const mockOnSearch = jest.fn();
+  const mockOnSearchMethodChange = jest.fn();
   const component = render(
     <AnalyticsListener channel={EVENT_CHANNEL} onEvent={onAnalyticFireEvent}>
       <IntlProvider locale="en">
         <JiraSearchContainer
           onSearch={mockOnSearch}
+          onSearchMethodChange={mockOnSearchMethodChange}
+          initialSearchMethod={'jql'}
           parameters={{ ...initialParameters }}
           {...propsOverride}
         />
@@ -50,17 +53,20 @@ const setup = (propsOverride: Partial<SearchContainerProps> = {}) => {
     return calls[calls.length - 1][0] as JQLEditorProps;
   };
 
-  return { ...component, mockOnSearch, getLatestJQLEditorProps };
+  return {
+    ...component,
+    mockOnSearch,
+    mockOnSearchMethodChange,
+    getLatestJQLEditorProps,
+  };
 };
 
 describe('JiraSearchContainer', () => {
-  it('renders the basic input when initially rendered without parameters', () => {
-    const { getByTestId, getByPlaceholderText } = setup();
+  it('renders the JQL input when initially rendered without parameters', async () => {
+    const { getByTestId } = setup();
 
-    expect(getByPlaceholderText('Search')).toBeInTheDocument();
-    expect(
-      getByTestId('mode-toggle-basic').querySelector('input'),
-    ).toBeChecked();
+    expect(getByTestId('mode-toggle-jql').querySelector('input')).toBeChecked();
+    expect(getByTestId('mocked-jql-editor')).toBeInTheDocument();
   });
 
   it('renders the jql input when initially rendered with parameters', () => {
@@ -75,7 +81,7 @@ describe('JiraSearchContainer', () => {
     expect(getByTestId('mode-toggle-jql').querySelector('input')).toBeChecked();
   });
 
-  it('changes to correct input mode when an option is selected', async () => {
+  it('changes to correct input mode when an option is selected', () => {
     const { getByTestId, getByPlaceholderText } = setup();
 
     // switch to jql search
@@ -84,10 +90,24 @@ describe('JiraSearchContainer', () => {
 
     // switch to basic search
     fireEvent.click(getByTestId('mode-toggle-basic'));
-    expect(getByPlaceholderText('Search')).toBeInTheDocument();
+    expect(
+      getByPlaceholderText('Search for issues by keyword'),
+    ).toBeInTheDocument();
   });
 
-  it('displays an initial jql query', async () => {
+  it('should call onSearchMethodChange when mode changes', () => {
+    const { getByTestId, mockOnSearchMethodChange } = setup();
+
+    // switch to basic search
+    fireEvent.click(getByTestId('mode-toggle-basic'));
+    expect(mockOnSearchMethodChange).toHaveBeenCalledWith('basic');
+
+    // switch to jql search
+    fireEvent.click(getByTestId('mode-toggle-jql'));
+    expect(mockOnSearchMethodChange).toHaveBeenCalledWith('jql');
+  });
+
+  it('displays an initial jql query', () => {
     const { getByTestId } = setup({
       parameters: {
         ...initialParameters,
@@ -95,10 +115,7 @@ describe('JiraSearchContainer', () => {
       },
     });
 
-    // switch to jql search
-    act(() => {
-      fireEvent.click(getByTestId('mode-toggle-jql'));
-    });
+    expect(getByTestId('mode-toggle-jql').querySelector('input')).toBeChecked();
 
     expect(JQLEditor).toHaveBeenCalledWith(
       expect.objectContaining({ query: 'status = "0. On Hold"' }),
@@ -123,7 +140,7 @@ describe('JiraSearchContainer', () => {
     );
     // switch to basic, type, and search
     fireEvent.click(getByTestId('mode-toggle-basic'));
-    const basicTextInput = getByPlaceholderText('Search');
+    const basicTextInput = getByPlaceholderText('Search for issues by keyword');
     fireEvent.change(basicTextInput, {
       target: { value: 'testing' },
     });
@@ -136,6 +153,20 @@ describe('JiraSearchContainer', () => {
       },
       'basic',
     );
+    expect(
+      getByTestId('mode-toggle-basic').querySelector('input'),
+    ).toBeChecked();
+  });
+
+  it('displays an initial basic query', async () => {
+    const { getByTestId } = setup({
+      parameters: {
+        ...initialParameters,
+        jql: '(text ~ "test*" OR summary ~ "test*") order by fakeKey ASC',
+      },
+      initialSearchMethod: 'basic',
+    });
+
     expect(
       getByTestId('mode-toggle-basic').querySelector('input'),
     ).toBeChecked();
@@ -202,6 +233,8 @@ describe('JiraSearchContainer', () => {
         <IntlProvider locale="en">
           <JiraSearchContainer
             onSearch={mockOnSearch}
+            onSearchMethodChange={jest.fn()}
+            initialSearchMethod={'jql'}
             parameters={{ ...initialParameters }}
           />
         </IntlProvider>
@@ -211,10 +244,12 @@ describe('JiraSearchContainer', () => {
     expect(getByTestId('mode-toggle-jql').querySelector('input')).toBeChecked();
   });
 
-  it('calls onSearch with JQL', () => {
+  it('calls onSearch with Basic search', () => {
     const { getByTestId, getByPlaceholderText, mockOnSearch } = setup();
 
-    fireEvent.change(getByPlaceholderText('Search'), {
+    fireEvent.click(getByTestId('mode-toggle-basic'));
+
+    fireEvent.change(getByPlaceholderText('Search for issues by keyword'), {
       target: { value: 'testing' },
     });
     fireEvent.click(
@@ -232,7 +267,9 @@ describe('JiraSearchContainer', () => {
   it('persists basic text search on toggle', () => {
     const { getByTestId, getByPlaceholderText } = setup();
 
-    const basicTextInput = getByPlaceholderText('Search');
+    fireEvent.click(getByTestId('mode-toggle-basic'));
+
+    const basicTextInput = getByPlaceholderText('Search for issues by keyword');
     fireEvent.change(basicTextInput, {
       target: { value: 'testing' },
     });
@@ -262,7 +299,7 @@ describe('JiraSearchContainer', () => {
 
     fireEvent.click(getByTestId('mode-toggle-basic'));
 
-    const basicTextInput = getByPlaceholderText('Search');
+    const basicTextInput = getByPlaceholderText('Search for issues by keyword');
     fireEvent.change(basicTextInput, {
       target: { value: 'testing' },
     });
@@ -293,7 +330,7 @@ describe('JiraSearchContainer', () => {
 
     fireEvent.click(getByTestId('mode-toggle-basic'));
 
-    fireEvent.change(getByPlaceholderText('Search'), {
+    fireEvent.change(getByPlaceholderText('Search for issues by keyword'), {
       target: { value: 'testing' },
     });
 
@@ -316,7 +353,7 @@ describe('JiraSearchContainer', () => {
 
     // persists default query if user enters empty string to basic search
     fireEvent.click(getByTestId('mode-toggle-basic'));
-    const basicTextInput = getByPlaceholderText('Search');
+    const basicTextInput = getByPlaceholderText('Search for issues by keyword');
     fireEvent.change(basicTextInput, {
       target: { value: '  ' },
     });
@@ -332,14 +369,26 @@ describe('JiraSearchContainer', () => {
     ffTest(
       'platform.linking-platform.datasource.show-jlol-basic-filters',
       () => {
-        const { queryByTestId } = setup();
+        const { queryByTestId, getByTestId, mockOnSearchMethodChange } =
+          setup();
+
+        // switch to basic search because default is JQL
+        // in current implementation JQL doesn't have basic filters
+        fireEvent.click(getByTestId('mode-toggle-basic'));
+        expect(mockOnSearchMethodChange).toHaveBeenCalledWith('basic');
 
         expect(
           queryByTestId('jlol-datasource-basic-filter-container'),
         ).toBeInTheDocument();
       },
       () => {
-        const { queryByTestId } = setup();
+        const { queryByTestId, getByTestId, mockOnSearchMethodChange } =
+          setup();
+
+        // switch to basic search because default is JQL
+        // in current implementation JQL doesn't have basic filters
+        fireEvent.click(getByTestId('mode-toggle-basic'));
+        expect(mockOnSearchMethodChange).toHaveBeenCalledWith('basic');
 
         expect(
           queryByTestId('jlol-datasource-basic-filter-container'),
@@ -358,7 +407,10 @@ describe('Analytics: JiraSearchContainer', () => {
     it('should fire event on search button click', async () => {
       const { getByPlaceholderText, getByTestId } = setup();
 
-      const basicTextInput = getByPlaceholderText('Search');
+      fireEvent.click(getByTestId('mode-toggle-basic'));
+      const basicTextInput = getByPlaceholderText(
+        'Search for issues by keyword',
+      );
       fireEvent.change(basicTextInput, {
         target: { value: 'testing' },
       });
@@ -382,9 +434,12 @@ describe('Analytics: JiraSearchContainer', () => {
     });
 
     it('should fire event on enter key press', async () => {
-      const { getByPlaceholderText } = setup();
+      const { getByPlaceholderText, getByTestId } = setup();
 
-      const basicTextInput = getByPlaceholderText('Search');
+      fireEvent.click(getByTestId('mode-toggle-basic'));
+      const basicTextInput = getByPlaceholderText(
+        'Search for issues by keyword',
+      );
       await userEvent.type(basicTextInput, 'testing{enter}');
 
       expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(

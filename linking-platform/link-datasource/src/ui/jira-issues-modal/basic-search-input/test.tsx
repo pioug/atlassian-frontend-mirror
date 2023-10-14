@@ -67,7 +67,7 @@ describe('BasicSearchInput', () => {
   it('calls onSearch on form submit', async () => {
     const { getByPlaceholderText, mockOnSearch } = setup();
 
-    const input = getByPlaceholderText('Search');
+    const input = getByPlaceholderText('Search for issues by keyword');
 
     fireEvent.click(input);
     fireEvent.submit(input);

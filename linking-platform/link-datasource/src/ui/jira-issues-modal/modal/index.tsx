@@ -152,7 +152,10 @@ export const PlainJiraIssuesConfigModal = (
   // analytics related parameters
   const searchCount = useRef(0);
   const userInteractionActions = useRef<Set<DatasourceAction>>(new Set());
-  const lastSearchMethodRef = useRef<JiraSearchMethod | null>(null);
+  const initialSearchMethod: JiraSearchMethod = 'jql'; // TODO EDM-7688 This where we can add feature that decides if it's basic or jql based on JQL content (Regexp)
+  const [currentSearchMethod, setCurrentSearchMethod] =
+    useState<JiraSearchMethod>(initialSearchMethod);
+  const searchMethodSearchedWith = useRef<JiraSearchMethod | null>(null);
   const visibleColumnCount = useRef(visibleColumnKeys?.length || 0);
 
   const parameters = useMemo<JiraIssueDatasourceParameters | undefined>(
@@ -295,14 +298,14 @@ export const PlainJiraIssuesConfigModal = (
   const fireSingleItemViewedEvent = useCallback(() => {
     fireEvent('ui.link.viewed.singleItem', {
       ...analyticsPayload,
-      searchMethod: mapSearchMethod(lastSearchMethodRef.current),
+      searchMethod: mapSearchMethod(searchMethodSearchedWith.current),
     });
   }, [analyticsPayload, fireEvent]);
 
   const fireCountViewedEvent = useCallback(() => {
     fireEvent('ui.link.viewed.count', {
       ...analyticsPayload,
-      searchMethod: mapSearchMethod(lastSearchMethodRef.current),
+      searchMethod: mapSearchMethod(searchMethodSearchedWith.current),
       totalItemCount: totalCount || 0,
     });
   }, [analyticsPayload, fireEvent, totalCount]);
@@ -312,7 +315,7 @@ export const PlainJiraIssuesConfigModal = (
       fireEvent('ui.table.viewed.datasourceConfigModal', {
         ...analyticsPayload,
         totalItemCount: totalCount || 0,
-        searchMethod: mapSearchMethod(lastSearchMethodRef.current),
+        searchMethod: mapSearchMethod(searchMethodSearchedWith.current),
         displayedColumnCount: visibleColumnCount.current,
       });
     }
@@ -354,7 +357,7 @@ export const PlainJiraIssuesConfigModal = (
       searchMethod: JiraSearchMethod,
     ) => {
       searchCount.current++;
-      lastSearchMethodRef.current = searchMethod;
+      searchMethodSearchedWith.current = searchMethod;
 
       if (jql !== newParameters.jql) {
         userInteractionActions.current.add(DatasourceAction.QUERY_UPDATED);
@@ -415,7 +418,7 @@ export const PlainJiraIssuesConfigModal = (
           displayedColumnCount: visibleColumnCount.current,
           display: getDisplayValue(currentViewMode, totalCount || 0),
           searchCount: searchCount.current,
-          searchMethod: mapSearchMethod(lastSearchMethodRef.current),
+          searchMethod: mapSearchMethod(searchMethodSearchedWith.current),
           actions: Array.from(userInteractionActions.current),
         },
         eventType: 'ui',
@@ -590,7 +593,7 @@ export const PlainJiraIssuesConfigModal = (
               isLoading={true}
             />
           ) : (
-            <InitialStateView />
+            <InitialStateView searchMethod={currentSearchMethod} />
           )}
         </div>
       );
@@ -616,6 +619,7 @@ export const PlainJiraIssuesConfigModal = (
     issueLikeDataTableView,
     selectedJiraSite?.displayName,
     jql,
+    currentSearchMethod,
   ]);
 
   return (
@@ -666,6 +670,8 @@ export const PlainJiraIssuesConfigModal = (
             isSearching={status === 'loading'}
             parameters={parameters}
             onSearch={onSearch}
+            initialSearchMethod={initialSearchMethod}
+            onSearchMethodChange={setCurrentSearchMethod}
           />
           {currentViewMode === 'count'
             ? renderCountModeContent()

@@ -177,6 +177,7 @@ const expectedEditedAssetsDatasourceBlockCard = datasourceBlockCard({
   },
 });
 
+const basicToggleTestId = `mode-toggle-basic`;
 const datasourceTestIdPrefix = 'jira-jql-datasource-modal--';
 const modalInputTestId = `${datasourceTestIdPrefix}basic-search-input`;
 const modalSearchButtonTestId = `${datasourceTestIdPrefix}basic-search-button`;
@@ -198,6 +199,10 @@ test.describe('blockCard:datasource', () => {
 
     await editor.keyboard.type('/jira');
     await editor.keyboard.press('Enter');
+
+    const basicToggle = editor.page.getByTestId(basicToggleTestId);
+    await (await basicToggle.elementHandle())?.waitForElementState('stable');
+    basicToggle.click();
 
     const modalInput = editor.page.getByTestId(modalInputTestId);
     await (await modalInput.elementHandle())?.waitForElementState('stable');

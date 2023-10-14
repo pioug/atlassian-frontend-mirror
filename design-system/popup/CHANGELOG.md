@@ -1,5 +1,11 @@
 # @atlaskit/popup
 
+## 1.11.1
+
+### Patch Changes
+
+- [#41322](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41322) [`f54519b315c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f54519b315c) - This removes the error in console when passing `shouldRenderToParent` prop.
+
 ## 1.11.0
 
 ### Minor Changes

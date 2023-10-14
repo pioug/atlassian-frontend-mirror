@@ -35,14 +35,16 @@ const popupOverflowStyles = css({
 
 const DefaultPopupComponent = forwardRef<HTMLDivElement, PopupComponentProps>(
   (props, ref) => {
-    const { shouldRenderToParent } = props;
+    const { shouldRenderToParent, children, ...htmlAttributes } = props;
 
     return (
       <div
         css={[popupStyles, !shouldRenderToParent && popupOverflowStyles]}
-        {...props}
+        {...htmlAttributes}
         ref={ref}
-      />
+      >
+        {children}
+      </div>
     );
   },
 );

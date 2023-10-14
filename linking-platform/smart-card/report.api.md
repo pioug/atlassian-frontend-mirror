@@ -436,6 +436,9 @@ type CustomActionItem = BaseActionItem & {
         Pick<ActionProps, 'content'>)
   );
 
+// @internal
+export const CustomBlock: React_2.FC<BlockProps>;
+
 export { DatasourceAdf };
 
 export { DatasourceAdfView };

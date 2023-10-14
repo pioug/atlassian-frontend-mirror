@@ -6,7 +6,7 @@ import CustomItem from '@atlaskit/menu/custom-item';
 import LinkItem from '@atlaskit/menu/link-item';
 
 import useRegisterItemWithFocusManager from './internal/hooks/use-register-item-with-focus-manager';
-import { DropdownItemProps } from './types';
+import { CustomItemHtmlProps, DropdownItemProps } from './types';
 
 /**
  * __Dropdown menu item__
@@ -40,7 +40,7 @@ const DropdownMenuItem = forwardRef<HTMLElement, DropdownItemProps>(
     const itemRef = useRegisterItemWithFocusManager();
     if (component) {
       return (
-        <CustomItem
+        <CustomItem<CustomItemHtmlProps>
           component={component}
           description={description}
           iconAfter={elemAfter}
@@ -52,6 +52,7 @@ const DropdownMenuItem = forwardRef<HTMLElement, DropdownItemProps>(
           shouldDescriptionWrap={shouldDescriptionWrap}
           shouldTitleWrap={shouldTitleWrap}
           testId={testId}
+          href={href}
         >
           {children}
         </CustomItem>

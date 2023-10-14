@@ -668,6 +668,12 @@ export default class PopupSelect<
                       placeholder={placeholder}
                       ref={this.getSelectRef}
                       {...props}
+                      onMenuClose={() => {
+                        getBooleanFF(
+                          'platform.design-system-team.popup-select-close_8h15h',
+                        ) && this.close();
+                        props.onMenuClose?.();
+                      }}
                       isSearchable={showSearchControl}
                       styles={selectStyles}
                       maxMenuHeight={this.getMaxHeight()}

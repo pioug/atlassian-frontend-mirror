@@ -33,7 +33,7 @@ export type HeadingProps =
           /**
            * @private
            * @deprecated Use `variant` prop instead.
-           * The headling level as defined by the Atlasian Design [typography foundations](/foundations/typography/). The `level` prop affects the actual HTML element rendered in the DOM:
+           * The heading level as defined by the Atlassian Design [typography foundations](/foundations/typography/). The `level` prop affects the actual HTML element rendered in the DOM:
            * @example
            * ```js
            * const levelMap = {

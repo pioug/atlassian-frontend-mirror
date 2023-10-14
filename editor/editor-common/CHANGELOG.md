@@ -1,5 +1,11 @@
 # @atlaskit/editor-common
 
+## 76.11.0
+
+### Minor Changes
+
+- [#41510](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41510) [`12e9528f975`](https://bitbucket.org/atlassian/atlassian-frontend/commits/12e9528f975) - Adds a keymap to use when Shift + ArrowUp is used inside table.
+
 ## 76.10.1
 
 ### Patch Changes

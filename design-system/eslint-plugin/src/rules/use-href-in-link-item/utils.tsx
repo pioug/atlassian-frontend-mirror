@@ -13,6 +13,8 @@ export const getLinkItemImportName = (scope: Scope.Scope): string | null => {
         const def: Scope.Definition = variable.defs?.[0];
 
         if (
+          !def ||
+          !def?.node ||
           !isNodeOfType(def.node, 'ImportSpecifier') ||
           !def.parent ||
           !isNodeOfType(def.parent, 'ImportDeclaration')

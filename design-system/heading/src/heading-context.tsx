@@ -37,7 +37,7 @@ export interface HeadingLevelContextProps {
    */
   value?: HeadingLevel;
   /**
-   * Semantic heirarchy of content below the heading context.
+   * Semantic hierarchy of content below the heading context.
    */
   children: ReactNode;
 }
@@ -45,7 +45,7 @@ export interface HeadingLevelContextProps {
 /**
  * __Heading level provider__
  *
- * The Heading level provider injectes the heading level to all `Heading` components below it in the component tree.
+ * The Heading level provider injects the heading level to all `Heading` components below it in the component tree.
  *
  * @example
  * ```tsx

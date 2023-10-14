@@ -1,5 +1,18 @@
 # @atlaskit/link-datasource
 
+## 1.7.5
+
+### Patch Changes
+
+- [#40232](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40232) [`b8c29cec088`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b8c29cec088) - [ux] Make JQL mode to be selected by default
+
+## 1.7.4
+
+### Patch Changes
+
+- [#41481](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41481) [`5b8e224d195`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5b8e224d195) - [ux] Adds tooltip to column picker
+- Updated dependencies
+
 ## 1.7.3
 
 ### Patch Changes

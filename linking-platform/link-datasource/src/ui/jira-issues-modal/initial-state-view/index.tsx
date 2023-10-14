@@ -1,9 +1,13 @@
 /** @jsx jsx */
 
 import { css, jsx } from '@emotion/react';
-import { useIntl } from 'react-intl-next';
+import { FormattedMessage, MessageDescriptor } from 'react-intl-next';
 
+import Lozenge from '@atlaskit/lozenge';
+import { N300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
+
+import { JiraSearchMethod } from '../../../common/types';
 
 import { InitialStateSVG } from './assets/initial-state-svg';
 import { initialStateViewMessages } from './messages';
@@ -13,41 +17,81 @@ const initialStateViewContainerStyles = css({
   justifyContent: 'center',
   height: '100%',
 });
+
 const svgAndTextsWrapperStyles = css({
   textAlign: 'center',
   alignSelf: 'center',
   paddingTop: token('space.600', '48px'),
   paddingBottom: token('space.600', '48px'),
+  width: '260px',
 });
+
+const betaTagStyles = css({
+  display: 'flex',
+});
+
 const searchTitleStyles = css({
-  fontWeight: token('font.weight.semibold', '600'),
-  fontSize: token('font.size.200', '16px'),
+  color: token('color.text.subtlest', N300),
+  fontWeight: token('font.weight.medium', '500'),
+  fontSize: token('font.size.300', '20px'),
   lineHeight: token('font.lineHeight.300', '24px'),
   paddingTop: token('space.200', '16px'),
   paddingBottom: token('space.100', '8px'),
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  gap: token('space.100', '8px'),
 });
+
+const mainTextStyles = css({
+  color: token('color.text.subtlest', N300),
+});
+
+const learnMoreLinkStyles = css({
+  paddingTop: token('space.200', '16px'),
+  display: 'inline-block',
+});
+
+interface InitialStateViewProps {
+  searchMethod: JiraSearchMethod;
+}
+
+const methodToDescriptionMessage: Record<JiraSearchMethod, MessageDescriptor> =
+  {
+    basic: initialStateViewMessages.searchDescriptionForBasicSearch,
+    jql: initialStateViewMessages.searchDescriptionForJQLSearch,
+  };
 
 const jqlSupportDocumentLink =
   'https://support.atlassian.com/jira-service-management-cloud/docs/use-advanced-search-with-jira-query-language-jql/';
 
-export const InitialStateView = () => {
-  const { formatMessage } = useIntl();
-
-  return (
-    <div
-      css={initialStateViewContainerStyles}
-      data-testid="jlol-datasource-modal--initial-state-view"
-    >
-      <div css={svgAndTextsWrapperStyles}>
-        <InitialStateSVG />
-        <div css={searchTitleStyles}>
-          {formatMessage(initialStateViewMessages.searchTitle)}
+export const InitialStateView = ({ searchMethod }: InitialStateViewProps) => (
+  <div
+    css={initialStateViewContainerStyles}
+    data-testid="jlol-datasource-modal--initial-state-view"
+  >
+    <div css={svgAndTextsWrapperStyles}>
+      <InitialStateSVG />
+      <div css={searchTitleStyles}>
+        <div css={betaTagStyles}>
+          <Lozenge appearance="new">
+            <FormattedMessage {...initialStateViewMessages.beta} />
+          </Lozenge>
         </div>
-        <div>{formatMessage(initialStateViewMessages.searchDescription)}</div>
-        <a href={jqlSupportDocumentLink} target="_blank">
-          {formatMessage(initialStateViewMessages.learnMoreLink)}
-        </a>
+        <FormattedMessage {...initialStateViewMessages.searchTitle} />
       </div>
+      <div css={mainTextStyles}>
+        <FormattedMessage {...methodToDescriptionMessage[searchMethod]} />
+      </div>
+      {searchMethod === 'jql' ? (
+        <a
+          href={jqlSupportDocumentLink}
+          target="_blank"
+          css={learnMoreLinkStyles}
+        >
+          <FormattedMessage {...initialStateViewMessages.learnMoreLink} />
+        </a>
+      ) : null}
     </div>
-  );
-};
+  </div>
+);

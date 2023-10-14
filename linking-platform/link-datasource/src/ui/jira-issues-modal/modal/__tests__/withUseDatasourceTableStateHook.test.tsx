@@ -13,12 +13,12 @@ import { SmartCardProvider } from '@atlaskit/link-provider';
 import { mockSiteData } from '@atlaskit/link-test-helpers/datasource';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 
-import SmartLinkClient from '../../../../examples-helpers/smartLinkCustomClient';
-import { EVENT_CHANNEL } from '../../../analytics';
-import { getAvailableJiraSites } from '../../../services/getAvailableJiraSites';
-import JiraIssuesConfigModal from '../index';
+import SmartLinkClient from '../../../../../examples-helpers/smartLinkCustomClient';
+import { EVENT_CHANNEL } from '../../../../analytics';
+import { getAvailableJiraSites } from '../../../../services/getAvailableJiraSites';
+import JiraIssuesConfigModal from '../../index';
 
-jest.mock('../../../services/getAvailableJiraSites', () => ({
+jest.mock('../../../../services/getAvailableJiraSites', () => ({
   getAvailableJiraSites: jest.fn(),
 }));
 

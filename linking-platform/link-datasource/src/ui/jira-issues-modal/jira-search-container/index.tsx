@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, { useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 import { useIntl } from 'react-intl-next';
@@ -37,40 +37,49 @@ export interface SearchContainerProps {
     query: JiraIssueDatasourceParametersQuery,
     searchMethod: JiraSearchMethod,
   ) => void;
+  initialSearchMethod: JiraSearchMethod;
+  onSearchMethodChange: (searchMethod: JiraSearchMethod) => void;
   parameters?: JiraIssueDatasourceParameters;
 }
 
-export const getInitialSearchMethod = (
-  initialJql?: string,
-): JiraSearchMethod => {
-  return initialJql ? 'jql' : 'basic';
-};
-
 export const JiraSearchContainer = (props: SearchContainerProps) => {
-  const { isSearching, parameters, onSearch } = props;
+  const {
+    isSearching,
+    parameters,
+    onSearch,
+    onSearchMethodChange: onSearchMethodChangeCallback,
+    initialSearchMethod,
+  } = props;
   const { cloudId, jql: initialJql } = parameters || {};
 
   const { formatMessage } = useIntl();
 
   const [basicSearchTerm, setBasicSearchTerm] = useState('');
   const [currentSearchMethod, setCurrentSearchMethod] =
-    useState<JiraSearchMethod>(getInitialSearchMethod(initialJql));
+    useState<JiraSearchMethod>(initialSearchMethod);
   const [jql, setJql] = useState(initialJql || DEFAULT_JQL_QUERY);
   const [orderKey, setOrderKey] = useState<string | undefined>();
   const [orderDirection, setOrderDirection] = useState<string | undefined>();
   const { fireEvent } = useDatasourceAnalyticsEvents();
 
-  const onSearchModeChange = (searchMode: JiraSearchMethod) => {
-    setCurrentSearchMethod(searchMode);
-  };
+  const onSearchMethodChange = useCallback(
+    (searchMethod: JiraSearchMethod) => {
+      onSearchMethodChangeCallback(searchMethod);
+      setCurrentSearchMethod(searchMethod);
+    },
+    [onSearchMethodChangeCallback],
+  );
 
-  const handleBasicSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const rawSearch = e.currentTarget.value;
-    setBasicSearchTerm(rawSearch);
-    setJql(buildJQL({ rawSearch, orderDirection, orderKey }));
-  };
+  const handleBasicSearchChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const rawSearch = e.currentTarget.value;
+      setBasicSearchTerm(rawSearch);
+      setJql(buildJQL({ rawSearch, orderDirection, orderKey }));
+    },
+    [orderDirection, orderKey],
+  );
 
-  const onQueryChange = (query: string) => {
+  const onQueryChange = useCallback((query: string) => {
     // determine if order keys have been set so they can be saved and persisted when changes occur in basic search
     const fragments =
       query
@@ -89,9 +98,9 @@ export const JiraSearchContainer = (props: SearchContainerProps) => {
     }
 
     setJql(query);
-  };
+  }, []);
 
-  const handleSearch = () => {
+  const handleSearch = useCallback(() => {
     onSearch({ jql }, currentSearchMethod);
 
     if (currentSearchMethod === 'basic') {
@@ -99,7 +108,7 @@ export const JiraSearchContainer = (props: SearchContainerProps) => {
     } else if (currentSearchMethod === 'jql') {
       fireEvent('ui.jqlEditor.searched', {});
     }
-  };
+  }, [currentSearchMethod, fireEvent, jql, onSearch]);
 
   const showBasicFilters = useMemo(() => {
     if (
@@ -135,14 +144,14 @@ export const JiraSearchContainer = (props: SearchContainerProps) => {
         />
       )}
       <JiraSearchMethodSwitcher
-        onOptionValueChange={onSearchModeChange}
+        onOptionValueChange={onSearchMethodChange}
         selectedOptionValue={currentSearchMethod}
         options={[
+          { label: 'JQL', value: 'jql' },
           {
             label: formatMessage(modeSwitcherMessages.basicTextSearchLabel),
             value: 'basic',
           },
-          { label: 'JQL', value: 'jql' },
         ]}
       />
     </div>

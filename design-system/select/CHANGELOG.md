@@ -1,5 +1,11 @@
 # @atlaskit/select
 
+## 16.7.3
+
+### Patch Changes
+
+- [#41553](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41553) [`89f1ebf3c96`](https://bitbucket.org/atlassian/atlassian-frontend/commits/89f1ebf3c96) - Fix popup select close issue when pressing escape
+
 ## 16.7.2
 
 ### Patch Changes

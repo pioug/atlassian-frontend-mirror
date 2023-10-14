@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 26.35.0
+
+### Minor Changes
+
+- [#41552](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41552) [`821f5611706`](https://bitbucket.org/atlassian/atlassian-frontend/commits/821f5611706) - Export CustomBlock from Linking Platform
+
 ## 26.34.4
 
 ### Patch Changes

@@ -59,6 +59,7 @@ export {
   SnippetBlock,
   TitleBlock,
   FooterBlock,
+  CustomBlock,
 } from './view/FlexibleCard/components/blocks';
 export type {
   ActionItem,

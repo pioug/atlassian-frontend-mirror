@@ -15,6 +15,7 @@ import {
   OptionType,
   PopupSelect,
 } from '@atlaskit/select';
+import Tooltip from '@atlaskit/tooltip';
 
 import { succeedUfoExperience } from '../../../analytics/ufoExperiences';
 
@@ -105,6 +106,7 @@ export const ColumnPicker = ({
       selectValue.some(selectedValue => selectedValue.value === option.value)
     );
   };
+
   useEffect(() => {
     if (allOptions.length) {
       // necessary to refocus the search input after the loading state
@@ -144,19 +146,24 @@ export const ColumnPicker = ({
       onChange={handleChange}
       isLoading={allOptions.length === 0}
       target={({ isOpen, ...triggerProps }) => (
-        <Button
-          {...triggerProps}
-          isSelected={isOpen}
-          iconBefore={
-            <div>
-              <BoardIcon label="board" size="medium" />
-              <ChevronDownIcon label="down" size="medium" />
-            </div>
-          }
-          spacing="compact"
-          appearance="subtle"
-          testId="column-picker-trigger-button"
-        />
+        <Tooltip content={intl.formatMessage(columnPickerMessages.tooltip)}>
+          {tooltipProps => (
+            <Button
+              {...tooltipProps}
+              {...triggerProps}
+              isSelected={isOpen}
+              iconBefore={
+                <div>
+                  <BoardIcon label="board" size="medium" />
+                  <ChevronDownIcon label="down" size="medium" />
+                </div>
+              }
+              spacing="compact"
+              appearance="subtle"
+              testId="column-picker-trigger-button"
+            />
+          )}
+        </Tooltip>
       )}
     />
   );

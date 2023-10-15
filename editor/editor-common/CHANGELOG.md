@@ -1,5 +1,11 @@
 # @atlaskit/editor-common
 
+## 76.11.1
+
+### Patch Changes
+
+- [#41044](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41044) [`ea97b09431b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ea97b09431b) - migrated the flaky card vr tests to gemeni-vr test
+
 ## 76.11.0
 
 ### Minor Changes

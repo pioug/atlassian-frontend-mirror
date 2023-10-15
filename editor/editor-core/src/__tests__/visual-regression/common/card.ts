@@ -7,18 +7,14 @@ import {
 import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
-  Appearance,
-  initEditorWithAdf,
   initFullPageEditorWithAdf,
   snapshot,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
-import cardAdf from './__fixtures__/card-adf.json';
 import cardSelectionAdf from './__fixtures__/card-selection-adf.json';
 import cardAdfRequestAccess from './__fixtures__/card-request-access.adf.json';
 import cardAdfBlock from './__fixtures__/card-adf.block.json';
 import cardAdfSupportedPlatforms from './__fixtures__/card-adf.supported-platforms.json';
 import cardAdfBlockLongTitle from './__fixtures__/card-adf-long-title.block.json';
-import cardAdfDatasource from './__fixtures__/card-datasource.adf.json';
 import cardInsideInfoAndLayout from './__fixtures__/card-inside-info-and-layout-adf.json';
 
 import {
@@ -31,162 +27,14 @@ import {
   waitForResolvedEmbedCard,
   waitForResolvedInlineCard,
   waitForSuccessfullyResolvedEmbedCard,
-  waitForDatasourceTableView,
 } from '@atlaskit/media-integration-test-helpers';
 import { contexts } from './__helpers__/card-utils';
-
-const themes = ['light', 'dark'];
-
-function getMode(theme: any) {
-  return theme === 'light' ? 'light' : 'dark';
-}
 
 describe('Cards:', () => {
   let page: PuppeteerPage;
 
   beforeEach(async () => {
     page = global.page;
-  });
-
-  describe.each(themes)('Theme: %s', (theme) => {
-    // FIXME: This test was manually skipped due to failure on 23/08/2023: https://product-fabric.atlassian.net/browse/ED-19657
-    describe.skip.each([
-      Appearance.fullPage,
-      Appearance.fullWidth,
-      Appearance.comment,
-      Appearance.chromeless,
-      Appearance.mobile,
-    ])('with %s editor', (appearance) => {
-      it('displays links with correct appearance', async () => {
-        await initEditorWithAdf(page, {
-          adf: cardAdf,
-          appearance,
-          device: Device.LaptopHiDPI,
-          viewport: {
-            width: 800,
-            height: 4500,
-          },
-          editorProps: {
-            smartLinks: {
-              resolveBeforeMacros: ['jira'],
-              allowBlockCards: true,
-              allowEmbeds: true,
-            },
-          },
-          mode: getMode(theme),
-          forceReload: true,
-        });
-
-        await evaluateTeardownMockDate(page);
-
-        // Render an assortment of inline cards.
-        await waitForResolvedInlineCard(page);
-        await waitForResolvedInlineCard(page, 'resolving');
-        await waitForResolvedInlineCard(page, 'unauthorized');
-        await waitForResolvedInlineCard(page, 'forbidden');
-        await waitForResolvedInlineCard(page, 'not_found');
-        await waitForResolvedInlineCard(page, 'errored');
-
-        // Render an assortment of block cards.
-        await waitForResolvedBlockCard(page);
-        await waitForResolvedBlockCard(page, 'resolving');
-        await waitForResolvedBlockCard(page, 'unauthorized');
-        await waitForResolvedBlockCard(page, 'forbidden');
-        await waitForResolvedBlockCard(page, 'not_found');
-        await waitForResolvedBlockCard(page, 'errored');
-
-        // Render an assortment of embed cards.
-        await waitForSuccessfullyResolvedEmbedCard(page);
-        await waitForResolvedEmbedCard(page, 'resolving');
-        await waitForResolvedEmbedCard(page, 'unauthorized');
-        await waitForResolvedEmbedCard(page, 'forbidden');
-        await waitForResolvedEmbedCard(page, 'not_found');
-        await waitForResolvedEmbedCard(page, 'errored');
-
-        // Ensure all images have finished loading on the page.
-        await waitForLoadedImageElements(page, 3000);
-
-        await snapshot(page);
-      });
-
-      if (appearance !== Appearance.mobile) {
-        it('displays datasource on non-mobile editors', async () => {
-          await initEditorWithAdf(page, {
-            adf: cardAdfDatasource,
-            appearance,
-            device: Device.LaptopHiDPI,
-            viewport: {
-              width: 2400,
-              height: 1200,
-            },
-            editorProps: {
-              smartLinks: {
-                allowBlockCards: true,
-                allowDatasource: true,
-              },
-            },
-            mode: getMode(theme),
-            forceReload: true,
-            platformFeatureFlags: {
-              'platform.linking-platform.datasource-jira_issues': true,
-            },
-            datasourceMocks: {
-              shouldMockORSBatch: true,
-              initialVisibleColumnKeys: [
-                'type',
-                'assignee',
-                'summary',
-                'description',
-              ],
-            },
-          });
-
-          await evaluateTeardownMockDate(page);
-
-          // Render an assortment of inline cards.
-          await waitForDatasourceTableView(page);
-          await snapshot(page);
-        });
-      } else {
-        it('displays inline fallback instead of datasource tables on mobile', async () => {
-          await initEditorWithAdf(page, {
-            adf: cardAdfDatasource,
-            appearance,
-            device: Device.LaptopHiDPI,
-            viewport: {
-              width: 800,
-              height: 400,
-            },
-            editorProps: {
-              smartLinks: {
-                allowBlockCards: true,
-                allowDatasource: true,
-              },
-            },
-            mode: getMode(theme),
-            forceReload: true,
-            platformFeatureFlags: {
-              'platform.linking-platform.datasource-jira_issues': true,
-            },
-            datasourceMocks: {
-              shouldMockORSBatch: true,
-              initialVisibleColumnKeys: [
-                'type',
-                'assignee',
-                'summary',
-                'description',
-              ],
-            },
-          });
-
-          await evaluateTeardownMockDate(page);
-
-          // Render an assortment of inline cards.
-          await waitForResolvedInlineCard(page, 'resolved');
-          await snapshot(page);
-        });
-      }
-    });
   });
 
   describe.each(contexts)(

@@ -200,25 +200,6 @@ export type FeatureFlags = {
   twoLineEditorToolbar?: boolean;
 
   /**
-   * Prevent transactions from being mutated (e.g. apply, filterTransaction, appendTransaction) after being dispatched,
-   * will throw on transaction dispatch unless saferDispatchedTransactionsAnalyticsOnly is enabled.
-   * @see https://product-fabric.atlassian.net/wiki/spaces/E/pages/3131836958/Editor+DACI+013+Avoid+content+loss+with+bad+transactions+Ghost+Steps
-   * @see https://product-fabric.atlassian.net/browse/ED-14002
-   * @default false
-   */
-  saferDispatchedTransactions?: boolean;
-
-  /**
-   * Detect when transaction is being mutated after being dispatched and emit analytics event if so (e.g. apply, filterTransaction,
-   * appendTransaction)
-   * @see https://product-fabric.atlassian.net/wiki/spaces/E/pages/3131836958/Editor+DACI+013+Avoid+content+loss+with+bad+transactions+Ghost+Steps
-   * @see https://product-fabric.atlassian.net/browse/ED-14002
-   * @see https://product-fabric.atlassian.net/wiki/spaces/AS/pages/3321201329/Rolling+out+safer-dispatched+transaction
-   * @default false
-   */
-  saferDispatchedTransactionsAnalyticsOnly?: boolean;
-
-  /**
    * @description
    * Enable new collab service
    * @see https://product-fabric.atlassian.net/browse/ED-14097

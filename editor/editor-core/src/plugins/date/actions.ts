@@ -5,7 +5,7 @@ import type {
 import { NodeSelection, Selection } from '@atlaskit/editor-prosemirror/state';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import { todayTimestampInUTC } from '@atlaskit/editor-common/utils';
-import type { DatePlugin, DateType } from './types';
+import type { DatePlugin, DateType } from '@atlaskit/editor-plugin-date';
 import type {
   Command,
   CommandDispatch,

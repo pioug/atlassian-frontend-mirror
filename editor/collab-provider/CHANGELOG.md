@@ -1,5 +1,11 @@
 # @atlaskit/collab-provider
 
+## 9.15.2
+
+### Patch Changes
+
+- [#40950](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40950) [`6fa1988ec35`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6fa1988ec35) - clean up FF for enabling fallback to reconcile
+
 ## 9.15.1
 
 ### Patch Changes

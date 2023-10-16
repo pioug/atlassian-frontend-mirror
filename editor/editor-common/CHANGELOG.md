@@ -1,5 +1,37 @@
 # @atlaskit/editor-common
 
+## 76.11.6
+
+### Patch Changes
+
+- [#41549](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41549) [`2b9597a3f14`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2b9597a3f14) - ESS-3896-remove-safer-dispatch-transaction-FF
+
+## 76.11.5
+
+### Patch Changes
+
+- [#41531](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41531) [`dc3175dfe30`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dc3175dfe30) - [ux] add 1px margin allowance to shadow observer
+- [#40640](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40640) [`42b4beab30c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/42b4beab30c) - ux [ED-18034] Inconsistent copy/paste behaviour of inline nodes in nested code blocks
+
+## 76.11.4
+
+### Patch Changes
+
+- [#40384](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40384) [`1ed4227201a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1ed4227201a) - [ux] ED-19206 Fixing the issue of color Selection from toolbar doesn't refocus to editor
+
+## 76.11.3
+
+### Patch Changes
+
+- [#40950](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40950) [`6fa1988ec35`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6fa1988ec35) - clean up FF for enabling fallback to reconcile
+- [#40056](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40056) [`1a189e4493d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1a189e4493d) - [ux] COMMENTS-481: reverted changes from ED-19508
+
+## 76.11.2
+
+### Patch Changes
+
+- [#41206](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41206) [`c8ce594a2a0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c8ce594a2a0) - Fixed type imports.
+
 ## 76.11.1
 
 ### Patch Changes

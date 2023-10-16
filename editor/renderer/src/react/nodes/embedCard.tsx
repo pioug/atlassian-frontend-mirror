@@ -151,9 +151,18 @@ export default function EmbedCard(props: {
   return (
     <AnalyticsContext data={analyticsData}>
       <WidthConsumer>
-        {({ width: containerWidth, breakpoint }) => {
-          let nonFullWidthSize = containerWidth;
+        {({ width: documentWidth }) => {
           const isFullWidth = rendererAppearance === 'full-width';
+
+          let containerWidth = documentWidth;
+          if (smartLinks?.ssr && !containerWidth) {
+            // EDM-8114: When we are rendering on SSR, we have no idea what the width is.
+            containerWidth = isFullWidth
+              ? akEditorFullWidthLayoutWidth
+              : akEditorDefaultLayoutWidth;
+          }
+
+          let nonFullWidthSize = containerWidth;
           if (!isInsideOfBlockNode && rendererAppearance !== 'comment') {
             const isContainerSizeGreaterThanMaxFullPageWidth =
               containerWidth - padding >= akEditorDefaultLayoutWidth;

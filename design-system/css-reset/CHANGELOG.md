@@ -1,5 +1,11 @@
 # @atlaskit/css-reset
 
+## 6.6.0
+
+### Minor Changes
+
+- [#41575](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41575) [`8d437d8aeb4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d437d8aeb4) - add a styles entry point to export all concatenated styles
+
 ## 6.5.4
 
 ### Patch Changes

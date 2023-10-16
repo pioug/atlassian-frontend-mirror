@@ -32,6 +32,7 @@ jest.mock('../../channel', () => {
       broadcast: () => jest.fn(),
       fetchCatchup: () => jest.fn(),
       sendMetadata: () => jest.fn(),
+      fetchReconcile: () => jest.fn(),
     };
   }
   return {
@@ -1381,7 +1382,7 @@ describe('Provider', () => {
       });
 
       it('should not log UGC when logging an error', async () => {
-        expect.assertions(8);
+        expect.assertions(10);
         const invalidDocument = {
           type: 'doc',
           content: [
@@ -1405,7 +1406,7 @@ describe('Provider', () => {
             ),
           );
 
-          expect(sendActionEventSpy).toHaveBeenCalledTimes(2);
+          expect(sendActionEventSpy).toHaveBeenCalledTimes(3);
           expect(sendActionEventSpy).toHaveBeenNthCalledWith(
             1,
             'getCurrentState',
@@ -1414,11 +1415,17 @@ describe('Provider', () => {
           );
           expect(sendActionEventSpy).toHaveBeenNthCalledWith(
             2,
+            'getCurrentState',
+            'FAILURE',
+            { latency: undefined }, // Performance API undefined when running jest tests
+          );
+          expect(sendActionEventSpy).toHaveBeenNthCalledWith(
+            3,
             'publishPage',
             'FAILURE',
             { latency: undefined }, // Performance API undefined when running jest tests
           );
-          expect(sendErrorEventSpy).toHaveBeenCalledTimes(3);
+          expect(sendErrorEventSpy).toHaveBeenCalledTimes(4);
           expect(sendErrorEventSpy).toHaveBeenNthCalledWith(
             1,
             new TypeError(
@@ -1431,10 +1438,17 @@ describe('Provider', () => {
             new TypeError(
               "Cannot read properties of undefined (reading 'forEach')",
             ),
-            'Error while returning ADF version of the final draft document',
+            'Error while returning ADF version of current draft document',
           );
           expect(sendErrorEventSpy).toHaveBeenNthCalledWith(
             3,
+            new TypeError(
+              "Cannot read properties of undefined (reading 'forEach')",
+            ),
+            'Error while returning ADF version of the final draft document',
+          );
+          expect(sendErrorEventSpy).toHaveBeenNthCalledWith(
+            4,
             new TypeError(
               "Cannot read properties of undefined (reading 'forEach')",
             ),
@@ -1533,18 +1547,21 @@ describe('Provider', () => {
           });
         });
 
-        describe("should fail if can't sync up", () => {
-          it('should throw ', async () => {
+        describe("if can't sync up", () => {
+          it('should call reconcile ', async () => {
             provider.initialize(() => newState);
+            jest
+              // @ts-ignore
+              .spyOn(provider.documentService as any, 'fetchReconcile')
+              .mockImplementationOnce(() => {
+                return {
+                  document: JSON.stringify(editorState.doc),
+                  version: 2,
+                };
+              });
 
-            await expect(
-              provider.getFinalAcknowledgedState(),
-            ).rejects.toThrowError(
-              new Error(
-                "Can't sync up with Collab Service: unable to send unconfirmed steps and max retry reached",
-              ),
-            );
-            expect(sendActionEventSpy).toHaveBeenCalledTimes(2);
+            await provider.getFinalAcknowledgedState();
+            expect(sendActionEventSpy).toHaveBeenCalledTimes(3);
             expect(sendActionEventSpy).toHaveBeenNthCalledWith(
               1,
               'commitUnconfirmedSteps',
@@ -1556,8 +1573,16 @@ describe('Provider', () => {
             );
             expect(sendActionEventSpy).toHaveBeenNthCalledWith(
               2,
+              'getCurrentState',
+              'SUCCESS',
+              {
+                latency: undefined, // Performance API undefined when running jest tests
+              },
+            );
+            expect(sendActionEventSpy).toHaveBeenNthCalledWith(
+              3,
               'publishPage',
-              'FAILURE',
+              'SUCCESS',
               {
                 latency: undefined, // Performance API undefined when running jest tests
               },
@@ -1565,8 +1590,15 @@ describe('Provider', () => {
             expect(sendSpy).toHaveBeenCalledTimes(ACK_MAX_TRY + 1);
           });
 
-          it('should call onSyncUpError', async () => {
+          it('should call onSyncUpError if reconcile fails', async () => {
             const onSyncUpErrorMock = jest.fn();
+            jest
+              // @ts-ignore
+              .spyOn(provider.documentService as any, 'fetchReconcile')
+              .mockImplementationOnce(() => {
+                throw new Error();
+              });
+
             provider.setup({
               getState: () => newState,
               onSyncUpError: onSyncUpErrorMock,

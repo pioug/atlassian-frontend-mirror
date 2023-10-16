@@ -3,6 +3,7 @@
   "compilerOptions": {
     "baseUrl": "./",
     "resolveJsonModule": true,
+    "emitDeclarationOnly": false,
     "declaration": false,
     "module": "commonjs"
   },

@@ -1,5 +1,5 @@
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import type { DatePluginSharedState } from '../../date';
+import type { DatePluginSharedState } from '@atlaskit/editor-plugin-date';
 import type { FloatingToolbarPluginState } from '@atlaskit/editor-plugin-floating-toolbar';
 import type { ConfigWithNodeInfo } from '@atlaskit/editor-plugin-floating-toolbar';
 import type { StatusState } from '@atlaskit/editor-plugin-status';

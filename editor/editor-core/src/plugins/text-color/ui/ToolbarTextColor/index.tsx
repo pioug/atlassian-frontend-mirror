@@ -248,9 +248,6 @@ export class ToolbarTextColor extends React.Component<
       //To set the focus on the textcolor button when the menu is closed by 'Esc' only to meet aria guidelines
       this.props.editorView?.focus();
     }
-
-    this.toolbarItemRef?.current?.focus();
-
     return false;
   };
 

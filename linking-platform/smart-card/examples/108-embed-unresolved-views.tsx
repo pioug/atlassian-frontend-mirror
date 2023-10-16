@@ -6,10 +6,10 @@ import CardView from './utils/card-view';
 import { embedWrapperStyles } from './utils/common';
 import {
   ForbiddenClient,
-  ForbiddenWithImageClient,
   ForbiddenWithObjectRequestAccessClient,
   ForbiddenWithSiteDeniedRequestClient,
   ForbiddenWithSiteDirectAccessClient,
+  ForbiddenWithSiteForbiddenClient,
   ForbiddenWithSitePendingRequestClient,
   ForbiddenWithSiteRequestAccessClient,
   NotFoundClient,
@@ -70,7 +70,7 @@ export default () => {
         'I have access to the site, but not the object',
       )}
       {render(
-        new ForbiddenWithImageClient(),
+        new ForbiddenWithSiteForbiddenClient(),
         '[Forbidden] Forbidden',
         "When you don't have access to the site, and you can’t request access",
       )}

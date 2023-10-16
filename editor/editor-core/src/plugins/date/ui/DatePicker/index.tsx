@@ -14,7 +14,7 @@ import { borderRadius } from '@atlaskit/theme/constants';
 import { N60A, N0 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import { withOuterListeners } from '@atlaskit/editor-common/ui';
-import type { DateType } from '../../types';
+import type { DateType } from '@atlaskit/editor-plugin-date';
 
 const PopupWithListeners = withOuterListeners(Popup);
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';

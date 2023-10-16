@@ -3,7 +3,7 @@ import type { OptionalPlugin } from '@atlaskit/editor-common/types';
 import type { ImageUploadPlugin } from '@atlaskit/editor-plugin-image-upload';
 
 import type { EmojiPlugin } from '@atlaskit/editor-plugin-emoji';
-import type { DatePlugin } from '../date';
+import type { DatePlugin } from '@atlaskit/editor-plugin-date';
 import type { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import type { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 

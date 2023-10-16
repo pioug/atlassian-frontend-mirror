@@ -31,7 +31,7 @@ import type { CodeBlockPlugin } from '@atlaskit/editor-core/src/plugins/code-blo
 import type { StatusPlugin } from '@atlaskit/editor-plugin-status';
 import type { PanelPlugin } from '@atlaskit/editor-core/src/plugins/panel';
 import type { BlockTypePlugin } from '@atlaskit/editor-plugin-block-type';
-import type { DatePlugin } from '@atlaskit/editor-core/src/plugins/date';
+import type { DatePlugin } from '@atlaskit/editor-plugin-date';
 import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 import type EditorConfiguration from '../editor-configuration';
 import { toNativeBridge } from '../web-to-native';

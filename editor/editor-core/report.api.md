@@ -31,6 +31,7 @@ import { CardProvider } from '@atlaskit/editor-common/provider-factory';
 import type { CollabEditOptions } from '@atlaskit/editor-common/collab';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
 import type { ContextUpdateHandler } from '@atlaskit/editor-common/types';
+import type { DatePluginConfig } from '@atlaskit/editor-plugin-date';
 import type { EditorActionsOptions } from '@atlaskit/editor-common/types';
 import { EditorAppearance } from '@atlaskit/editor-common/types';
 import { EditorPlugin } from '@atlaskit/editor-common/types';
@@ -88,7 +89,6 @@ import type { Transformer as Transformer_2 } from '@atlaskit/editor-common/types
 import { TypeAheadItem } from '@atlaskit/editor-common/provider-factory';
 import { UIComponentFactory } from '@atlaskit/editor-common/types';
 import type { UseStickyToolbarType } from '@atlaskit/editor-common/ui';
-import type { WeekDay } from '@atlaskit/calendar/types';
 import { WithIntlProps } from 'react-intl-next';
 import type { WrappedComponentProps } from 'react-intl-next';
 
@@ -99,6 +99,9 @@ export { ACTION_SUBJECT };
 export { ACTION_SUBJECT_ID };
 
 export { AnalyticsEventPayload };
+
+// @public (undocumented)
+type AnnotationCallback = (params: string) => void;
 
 // @public (undocumented)
 type AnnotationComponentProps = {
@@ -143,6 +146,8 @@ export interface AnnotationTypeProvider<Type, State> {
 
 // @public (undocumented)
 export class AnnotationUpdateEmitter extends EventEmitter_2 {
+  // (undocumented)
+  off(event: string, listener: AnnotationCallback | VisibilityCallback): this;
   // (undocumented)
   on(event: VisibilityEvent, listener: (isVisible: boolean) => void): this;
   // (undocumented)
@@ -195,12 +200,6 @@ export type CommandDispatch = (tr: Transaction) => void;
 
 // @public (undocumented)
 export function ContextPanel(props: Props_4): jsx.JSX.Element;
-
-// @public (undocumented)
-interface DatePluginConfig {
-  // (undocumented)
-  weekStartDay?: WeekDay;
-}
 
 // @public (undocumented)
 export class Editor extends React_2.Component<EditorProps> {
@@ -802,6 +801,9 @@ export type UpdateEvent =
 
 // @public (undocumented)
 export const version: string;
+
+// @public (undocumented)
+type VisibilityCallback = (params: boolean) => void;
 
 // @public (undocumented)
 type VisibilityEvent = 'setvisibility';

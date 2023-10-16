@@ -27,15 +27,6 @@ export class ForbiddenClient extends CardClient {
   }
 }
 
-// "visibility": "not_found",
-// "access": "forbidden",
-// "accessType": "FORBIDDEN",
-export class ForbiddenWithImageClient extends CardClient {
-  fetchData(): Promise<JsonLd.Response> {
-    return Promise.resolve(mocks.unresolved('FORBIDDEN', 'not_found'));
-  }
-}
-
 // "visibility": "restricted",
 // "access": "forbidden",
 // "accessType": "ACCESS_EXISTS",
@@ -62,6 +53,15 @@ export class ForbiddenWithSiteDeniedRequestClient extends CardClient {
 export class ForbiddenWithSiteDirectAccessClient extends CardClient {
   fetchData(): Promise<JsonLd.Response> {
     return Promise.resolve(mocks.unresolved('DIRECT_ACCESS', 'not_found'));
+  }
+}
+
+// "visibility": "not_found",
+// "access": "forbidden",
+// "accessType": "FORBIDDEN",
+export class ForbiddenWithSiteForbiddenClient extends CardClient {
+  fetchData(): Promise<JsonLd.Response> {
+    return Promise.resolve(mocks.unresolved('FORBIDDEN', 'not_found'));
   }
 }
 

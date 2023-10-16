@@ -1,10 +1,9 @@
 import { formatDateType, dateTypeToDate, dateToDateType } from './formatParse';
-import type { DateType } from '../types';
+import type { DateSegment } from '../types';
+import type { DateType } from '@atlaskit/editor-plugin-date';
 import addDays from 'date-fns/addDays';
 import addMonths from 'date-fns/addMonths';
 import addYears from 'date-fns/addYears';
-
-import type { DateSegment } from '../types';
 
 function isDigit(c: string): boolean {
   if (c === undefined) {

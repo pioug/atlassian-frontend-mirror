@@ -1,12 +1,9 @@
 import type {
-  TOOLBAR_MENU_TYPE,
   PluginInjectionAPIWithDependencies,
-  EditorCommand,
   OptionalPlugin,
 } from '@atlaskit/editor-common/types';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, Selection } from '@atlaskit/editor-prosemirror/state';
-import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import {
   ACTION,
   ACTION_SUBJECT,
@@ -15,12 +12,14 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import { canInsert } from '@atlaskit/editor-prosemirror/utils';
 import { todayTimestampInUTC } from '@atlaskit/editor-common/utils';
-import type { DatePlugin, DateType } from './types';
 import { pluginKey } from './pm-plugins/plugin-key';
 import { isToday } from './utils/internal';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-
-export type DeleteDate = EditorCommand;
+import type {
+  DeleteDate,
+  InsertDate,
+  DatePlugin,
+} from '@atlaskit/editor-plugin-date';
 
 type DeleteDateCommand = (
   pluginInjectionApi:
@@ -45,13 +44,6 @@ export const deleteDateCommand: DeleteDateCommand =
 
     return tr;
   };
-
-export type InsertDate = (props: {
-  date?: DateType;
-  inputMethod?: TOOLBAR_MENU_TYPE;
-  commitMethod?: INPUT_METHOD.PICKER | INPUT_METHOD.KEYBOARD;
-  enterPressed?: boolean;
-}) => EditorCommand;
 
 type InsertDateCommand = (
   pluginInjectionApi:

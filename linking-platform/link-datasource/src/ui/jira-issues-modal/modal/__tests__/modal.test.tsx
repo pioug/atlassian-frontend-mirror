@@ -310,6 +310,31 @@ describe('JiraIssuesConfigModal', () => {
     });
   });
 
+  describe('when onNextPage is called from IssueLikeDataTableView', () => {
+    it('it should call onNextPage from the hook with the correct parameters', async () => {
+      const mockOnNextPage = jest.fn();
+
+      const { getLatestIssueLikeTableProps } = await setup({
+        hookState: {
+          ...getDefaultHookState(),
+          hasNextPage: true,
+          onNextPage: mockOnNextPage,
+        },
+      });
+
+      const { onNextPage } = getLatestIssueLikeTableProps();
+      onNextPage({
+        isSchemaFromData: false,
+        shouldForceRequest: true,
+      });
+
+      expect(mockOnNextPage).toHaveBeenCalledWith({
+        isSchemaFromData: false,
+        shouldForceRequest: true,
+      });
+    });
+  });
+
   it('should use useDatasourceTableState hook', async () => {
     await setup();
     expect(useDatasourceTableState).toHaveBeenCalledWith<

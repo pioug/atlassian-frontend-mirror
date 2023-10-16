@@ -88,8 +88,7 @@ describe('usePlugins', () => {
       expect(result.current.items?.length).toBe(1);
     });
 
-    // https://product-fabric.atlassian.net/browse/EDM-4550
-    it.skip('isLoading should be `true` while the plugin is fetching new Items', async () => {
+    it('isLoading should be `true` while the plugin is fetching new Items', async () => {
       const { result, waitForNextUpdate } = setUpHook({
         state,
         activeTab,

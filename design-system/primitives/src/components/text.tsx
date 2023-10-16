@@ -9,18 +9,17 @@ import { token } from '@atlaskit/tokens';
 import {
   BodyText,
   bodyTextStylesMap,
+  inverseColorMap,
   TextColor,
-  // textColorStylesMap,
+  textColorStylesMap,
   UiText,
   uiTextStylesMap,
 } from '../xcss/style-maps.partial';
 
-// import surfaceColorMap from '../internal/color-map';
-
-// import { useSurface } from './internal/surface-provider';
+import { useSurface } from './internal/surface-provider';
 import type { BasePrimitiveProps } from './types';
 
-const asAllowlist = ['span', 'p', 'strong', 'em', 'label'] as const;
+const asAllowlist = ['span', 'p', 'strong', 'em'] as const;
 type AsElement = (typeof asAllowlist)[number];
 
 type Variant = BodyText | UiText;
@@ -37,10 +36,11 @@ export interface TextProps extends BasePrimitiveProps {
   /**
    * Text variant
    */
-  variant: Variant;
+  variant?: Variant;
   /**
-   * Text color
-   * Pending colour exploration
+   * Token representing text color with a built-in fallback value.
+   * Will apply inverse text color automatically if placed within a Box with backgroundColor.
+   *
    */
   color?: TextColor;
   /**
@@ -50,7 +50,6 @@ export interface TextProps extends BasePrimitiveProps {
   /**
    * Truncates text with an ellipsis when text overflows its parent container
    * (i.e. `width` has been set on parent that is shorter than text length).
-   * Pending truncation exploration -- remove for now?
    */
   shouldTruncate?: boolean;
   /**
@@ -61,6 +60,14 @@ export interface TextProps extends BasePrimitiveProps {
 
 const variantStyles = { ...bodyTextStylesMap, ...uiTextStylesMap };
 
+const strongStyles = css({
+  fontWeight: token('font.weight.bold', 'bold'),
+});
+
+const emStyles = css({
+  fontStyle: 'italic',
+});
+
 type TextAlign = keyof typeof textAlignMap;
 const textAlignMap = {
   center: css({ textAlign: 'center' }),
@@ -68,42 +75,28 @@ const textAlignMap = {
   start: css({ textAlign: 'start' }),
 };
 
-// p tag has padding on top in css-reset. dont know if we want to add it here
-const baseStyles = css({
-  margin: token('space.0', '0px'),
-  padding: token('space.0', '0px'),
-});
-
 const truncateStyles = css({
   overflow: 'hidden',
   textOverflow: 'ellipsis',
   whiteSpace: 'nowrap',
 });
 
-// TODO
-// const asElementStyles: Record<AsElement, SerializedStyles> = {
-//   abbr: css({
-//     borderBottom: `1px ${token('color.border', '#ccc')} dotted`,
-//     cursor: 'help',
-//   }),
-// };
-
 /**
  * Custom hook designed to abstract the parsing of the color props and make it clearer in the future how color is reconciled between themes and tokens.
  */
-// const useColor = (colorProp: TextColor): NonNullable<TextColor> => {
-//   const surface = useSurface();
-//   const inverseTextColor =
-//     surfaceColorMap[surface as keyof typeof surfaceColorMap];
+const useColor = (colorProp: TextColor): NonNullable<TextColor> => {
+  const surface = useSurface();
+  const inverseTextColor =
+    inverseColorMap[surface as keyof typeof inverseColorMap];
 
-//   /**
-//    * Where the color of the surface is inverted we override the user choice
-//    * as there is no valid choice that is not covered by the override.
-//    */
-//   const color = inverseTextColor ?? colorProp;
+  /**
+   * Where the color of the surface is inverted we override the user choice
+   * as there is no valid choice that is not covered by the override.
+   */
+  const color = inverseTextColor ?? colorProp;
 
-//   return color;
-// };
+  return color;
+};
 
 const HasTextAncestorContext = createContext(false);
 const useHasTextAncestor = () => useContext(HasTextAncestorContext);
@@ -120,12 +113,12 @@ const useHasTextAncestor = () => useContext(HasTextAncestorContext);
 const Text: FC<TextProps> = ({ children, ...props }) => {
   const {
     as: asElement,
-    // color: colorProp,
+    color: colorProp,
     shouldTruncate = false,
     textAlign,
     testId,
     id,
-    variant,
+    variant = 'body',
   } = props;
 
   let Component = asElement;
@@ -140,9 +133,9 @@ const Text: FC<TextProps> = ({ children, ...props }) => {
 
   invariant(
     asAllowlist.includes(Component),
-    `@atlaskit/ds-explorations: Text received an invalid "as" value of "${Component}"`,
+    `@atlaskit/primitives: Text received an invalid "as" value of "${Component}"`,
   );
-  // const color = useColor(colorProp!);
+  const color = useColor(colorProp!);
   const isWrapped = useHasTextAncestor();
 
   /**
@@ -155,14 +148,13 @@ const Text: FC<TextProps> = ({ children, ...props }) => {
 
   const component = (
     <Component
-      // style={UNSAFE_style}
       css={[
-        baseStyles,
         variant && variantStyles[variant],
-        // color && textColorMap[color],
-        // colorProp && textColorMap[colorProp],
+        color && textColorStylesMap[color],
         shouldTruncate && truncateStyles,
         textAlign && textAlignMap[textAlign],
+        asElement === 'em' && emStyles,
+        asElement === 'strong' && strongStyles,
       ]}
       data-testid={testId}
       id={id}

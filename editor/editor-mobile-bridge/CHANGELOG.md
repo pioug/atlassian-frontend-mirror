@@ -1,5 +1,48 @@
 # @atlaskit/editor-mobile-bridge
 
+## 188.10.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 188.10.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 188.10.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 188.10.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 188.10.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 188.10.0
+
+### Patch Changes
+
+- [#41572](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41572) [`e2c74f2ae09`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e2c74f2ae09) - Scaffolding for editor-plugin-date. Adds package.json, LICENSE, tsconfig, exported type and other fundamentals required to create a new package
+- Updated dependencies
+
+## 188.9.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 188.9.5
 
 ### Patch Changes

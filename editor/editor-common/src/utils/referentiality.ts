@@ -1,8 +1,8 @@
 import type { FragmentAttributes } from '@atlaskit/adf-schema/schema';
-import { Mark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { Mark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 
-import { ConfirmDialogChildInfo } from '../types';
+import type { ConfirmDialogChildInfo } from '../types';
 
 type LocalId = FragmentAttributes['localId'];
 

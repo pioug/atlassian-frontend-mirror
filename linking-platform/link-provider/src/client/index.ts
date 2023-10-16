@@ -78,11 +78,11 @@ export default class CardClient implements CardClientInterface {
       // we make sure we return a valid dataloader response by creating an error
       // response for each url
       resolvedUrls = urls.map(() => {
-        // @ts-expect-error
+        // @ts-ignore
         const status = isErrorResponse(error) ? error.status : 500;
         const errorResponse: ErrorResponse = {
           status,
-          // @ts-expect-error
+          // @ts-ignore
           error,
         };
         return errorResponse;

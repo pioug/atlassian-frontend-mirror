@@ -9,14 +9,12 @@ describe('Feature flags', () => {
       {
         testFF: true,
         socketMessageMetricsFF: true,
-        enableFallbackToReconcile: true,
       },
       'confluence',
     );
     expect(result).toEqual([
       'confluence.frontend.collab.provider.testFF',
       'confluence.frontend.collab.provider.socketMessageMetricsFF',
-      'confluence.frontend.collab.provider.enable-fallback-to-reconcile',
     ]);
   });
 

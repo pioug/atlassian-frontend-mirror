@@ -2,7 +2,7 @@
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 import DatePickerInput from '../../../ui/DatePicker/date-picker-input';
 import React from 'react';
-import type { DateType } from '../../../types';
+import type { DateType } from '@atlaskit/editor-plugin-date';
 
 describe('DatePickerInput', () => {
   describe('autofocus', () => {

@@ -6,6 +6,7 @@ import EmbedCardForbiddenDefault from '../../../examples/vr-embed-card/vr-embed-
 import EmbedCardForbiddenObjectRequestAccess from '../../../examples/vr-embed-card/vr-embed-card-forbidden-object-request-access';
 import EmbedCardForbiddenSiteDeniedAccess from '../../../examples/vr-embed-card/vr-embed-card-forbidden-site-denied-access';
 import EmbedCardForbiddenSiteDirectAccess from '../../../examples/vr-embed-card/vr-embed-card-forbidden-site-direct-access';
+import EmbedCardForbiddenSiteForbiddenAccess from '../../../examples/vr-embed-card/vr-embed-card-forbidden-site-forbidden-access';
 import EmbedCardForbiddenSitePendingAccess from '../../../examples/vr-embed-card/vr-embed-card-forbidden-site-pending-access';
 import EmbedCardForbiddenSiteRequestAccess from '../../../examples/vr-embed-card/vr-embed-card-forbidden-site-request-access';
 import EmbedCardNotFound from '../../../examples/vr-embed-card/vr-embed-card-not-found';
@@ -68,6 +69,13 @@ snapshot(EmbedCardForbiddenSiteDeniedAccess, {
   },
 });
 snapshot(EmbedCardForbiddenSiteDirectAccess, {
+  featureFlags: {
+    'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
+      true,
+    'platform.linking-platform.smart-card.cross-join': true,
+  },
+});
+snapshot(EmbedCardForbiddenSiteForbiddenAccess, {
   featureFlags: {
     'platform.linking-platform.smart-card.show-smart-links-refreshed-design':
       true,

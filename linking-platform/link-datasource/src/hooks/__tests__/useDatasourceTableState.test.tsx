@@ -162,7 +162,7 @@ describe('useDatasourceTableState', () => {
           },
           pageSize: 20,
           pageCursor: undefined,
-          fields: ['abcd', 'city', 'name'],
+          fields: ['name', 'abcd', 'city'],
           includeSchema: true,
         },
         false,

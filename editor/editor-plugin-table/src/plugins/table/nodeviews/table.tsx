@@ -248,6 +248,7 @@ export default class TableView extends ReactNodeView<Props> {
               allowControls={pluginState!.pluginConfig.allowControls!}
               isHeaderRowEnabled={pluginState!.isHeaderRowEnabled}
               isHeaderColumnEnabled={pluginState!.isHeaderColumnEnabled}
+              isDragAndDropEnabled={pluginState!.isDragAndDropEnabled}
               tableActive={tableActive}
               ordering={pluginState!.ordering as TableColumnOrdering}
               isResizing={isResizing}

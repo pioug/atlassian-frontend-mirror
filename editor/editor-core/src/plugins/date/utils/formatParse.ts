@@ -1,5 +1,5 @@
 import { createLocalizationProvider } from '@atlaskit/locale';
-import { DateType } from '../types';
+import type { DateType } from '@atlaskit/editor-plugin-date';
 
 /**
  * Attempt to parse a string representing a date in a particular locale to a date object

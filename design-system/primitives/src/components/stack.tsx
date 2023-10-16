@@ -22,12 +22,12 @@ export type StackProps<T extends ElementType = 'div'> = {
    */
   as?: 'div' | 'span' | 'ul' | 'ol';
   /**
-   * Used to align children along the main axis.
+   * Used to align children along the block axis (typically vertical).
    */
   alignBlock?: Exclude<AlignBlock, 'baseline'>;
 
   /**
-   * Used to align children along the cross axis.
+   * Used to align children along the inline axis (typically horizontal).
    */
   alignInline?: AlignInline;
 

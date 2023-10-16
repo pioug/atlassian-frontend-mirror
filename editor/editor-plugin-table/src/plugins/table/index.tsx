@@ -78,7 +78,7 @@ import FloatingDeleteButton from './ui/FloatingDeleteButton';
 import FloatingInsertButton from './ui/FloatingInsertButton';
 import LayoutButton from './ui/LayoutButton';
 import { isLayoutSupported } from './utils';
-interface TablePluginOptions {
+export interface TablePluginOptions {
   tableOptions: PluginConfig;
   // experimental custom table resizing experience, set inside editor-core behind a feature flag
   // will eventually replace breakoutEnabled

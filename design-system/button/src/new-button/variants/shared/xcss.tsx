@@ -12,7 +12,7 @@ import colors, { type ColorGroup } from './colors';
 
 const fontSize: number = getFontSize();
 
-const heights: { [key in Spacing]: string } = {
+export const heights: { [key in Spacing]: string } = {
   default: `${32 / fontSize}em`,
   compact: `${24 / fontSize}em`,
   none: 'auto',
@@ -50,6 +50,20 @@ const verticalAlign: { [key in Spacing]: string } = {
   none: 'baseline',
 };
 
+const splitBorderStyles = {
+  ':first-of-type': {
+    borderTopRightRadius: 0,
+    borderBottomRightRadius: 0,
+  },
+  ':last-of-type': {
+    borderTopLeftRadius: 0,
+    borderBottomLeftRadius: 0,
+  },
+  ':focus-visible': {
+    zIndex: 1,
+  },
+};
+
 function getColor<T extends BackgroundColor | TextColor>({
   group,
   key,
@@ -65,9 +79,16 @@ function getColors({
   interactionState = 'default',
   isDisabled,
   isSelected,
+  isActiveOverSelected,
   hasOverlay,
 }: {
   appearance: Appearance;
+  /**
+   * isSelected state has limited relevance (e.g. dropdown-menu trigger button).
+   * There is no isSelected state for color variants (e.g. primary, danger, warning).
+   * Hens we provide ability to override the isSelected state with isActiveOverSelected to display `active` state instead of `selected` state.
+   */
+  isActiveOverSelected: boolean;
   interactionState?: 'default' | 'hover' | 'active';
   isDisabled?: boolean;
   isSelected?: boolean;
@@ -79,7 +100,7 @@ function getColors({
   let key: keyof ColorGroup<any> = interactionState;
   // Overlay does not change color on interaction, revert to 'default' or resting state
   key = hasOverlay ? 'default' : key;
-  key = isSelected ? 'selected' : key;
+  key = isSelected ? (isActiveOverSelected ? 'active' : 'selected') : key;
   // Disabled colors overrule everything else
   key = isDisabled ? 'disabled' : key;
 
@@ -100,6 +121,7 @@ export type GetXCSSArgs = {
   spacing: Spacing;
   isDisabled: boolean;
   isSelected: boolean;
+  isActiveOverSelected: boolean;
   shouldFitContainer: boolean;
   hasOverlay: boolean;
   isIconButton: boolean;
@@ -109,6 +131,10 @@ export type GetXCSSArgs = {
    * If the button is a LinkButton
    */
   isLink: boolean;
+  /**
+   * If the button is a SplitButton
+   */
+  isSplit: boolean;
 };
 
 export function getXCSS({
@@ -116,9 +142,11 @@ export function getXCSS({
   spacing,
   isDisabled,
   isSelected,
+  isActiveOverSelected,
   isIconButton,
   shouldFitContainer,
   isLink,
+  isSplit,
   hasOverlay,
   hasIconBefore,
   hasIconAfter,
@@ -126,6 +154,7 @@ export function getXCSS({
   const baseColors = getColors({
     appearance,
     isSelected,
+    isActiveOverSelected,
     isDisabled,
   });
 
@@ -148,6 +177,8 @@ export function getXCSS({
     paddingInline[spacing][hasIconBefore ? 'withIcon' : 'default'];
   const paddingInlineEnd =
     paddingInline[spacing][hasIconAfter ? 'withIcon' : 'default'];
+
+  const splitButtonStyles = isSplit ? splitBorderStyles : {};
 
   return xcss({
     alignItems: 'center',
@@ -186,6 +217,7 @@ export function getXCSS({
       ...getColors({
         appearance,
         isSelected,
+        isActiveOverSelected,
         isDisabled,
         interactionState: 'hover',
         hasOverlay,
@@ -202,6 +234,7 @@ export function getXCSS({
       ...getColors({
         appearance,
         isSelected,
+        isActiveOverSelected,
         isDisabled,
         interactionState: 'active',
         hasOverlay,
@@ -209,5 +242,6 @@ export function getXCSS({
       // background, box-shadow
       transitionDuration: '0s, 0s',
     },
+    ...splitButtonStyles,
   });
 }

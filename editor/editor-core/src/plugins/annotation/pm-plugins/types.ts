@@ -51,12 +51,7 @@ export type InlineCommentAction =
       };
     }
   | { type: ACTIONS.INLINE_COMMENT_CLEAR_DIRTY_MARK }
-  | {
-      type: ACTIONS.CLOSE_COMPONENT;
-      data: {
-        lastClosedPos: number;
-      };
-    }
+  | { type: ACTIONS.CLOSE_COMPONENT }
   | {
       type: ACTIONS.ADD_INLINE_COMMENT;
       data: {
@@ -85,8 +80,4 @@ export type InlineCommentPluginState = {
 
   // Allow users to hide inline comments during editing
   isVisible: boolean;
-
-  // Position of the last manually closed comment
-  // This is used to prevent the closed comment from reopening unintentionally
-  lastClosedPos?: number;
 };

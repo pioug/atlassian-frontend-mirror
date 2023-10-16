@@ -22,7 +22,7 @@ import {
   INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
-import type { DatePlugin, DateType } from './types';
+import type { DatePlugin, DateType } from '@atlaskit/editor-plugin-date';
 import { pluginKey as datePluginKey } from './pm-plugins/plugin-key';
 import type { Props as DatePickerProps } from './ui/DatePicker';
 import type { UiComponentFactoryParams } from '@atlaskit/editor-common/types';

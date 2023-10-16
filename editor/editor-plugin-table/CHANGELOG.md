@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-table
 
+## 5.3.0
+
+### Minor Changes
+
+- [#41577](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41577) [`3d9daab8d32`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3d9daab8d32) - [ux] Added a new floating column control region to the table. This region now also contains Pragmatic DnD Drop targets so we can identify where draggable elements are dropped
+
 ## 5.2.2
 
 ### Patch Changes

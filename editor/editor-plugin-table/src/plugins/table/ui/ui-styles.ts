@@ -374,6 +374,20 @@ const getFloatingDotOverrides = (props: ThemeProps) => {
     : '';
 };
 
+export const floatingColumnControls = (props: ThemeProps) => {
+  return css`
+    .${ClassName.COLUMN_DROP_TARGET_CONTROLS} {
+      box-sizing: border-box;
+      position: absolute;
+
+      .${ClassName.COLUMN_CONTROLS_INNER} {
+        display: flex;
+        flex-direction: row;
+      }
+    }
+  `;
+};
+
 export const columnControlsDecoration = (props: ThemeProps) => {
   if (getBooleanFF('platform.editor.table.column-controls-styles-updated')) {
     return css`

@@ -626,33 +626,34 @@ export const messages: Messages = defineMessages({
    */
   default_no_access_title_crossjoin: {
     id: 'fabric.linking.no_access_title_crossjoin',
-    defaultMessage: "You don't have access to this content",
+    defaultMessage: 'Join {product} to view this content',
     description:
       'Informs the user that they dont have access to certain content',
   },
 
   direct_access_title_crossjoin: {
     id: 'fabric.linking.direct_access_title_crossjoin',
-    defaultMessage: 'Join your team in {product}',
+    defaultMessage: 'Join {product} to view this content',
     description:
       'Informs the user that they have access to this product, and can sign up or join right away.',
   },
   direct_access_description_crossjoin: {
     id: 'fabric.linking.direct_access_description_crossjoin',
     defaultMessage:
-      'All accounts with your same email domain are approved to access {hostname} in {product}.',
+      'Your team uses {product} to collaborate and you can start using it right away!',
     description:
       'Informs the user that they have access to this product, and can sign up or join right away.',
   },
   direct_access_crossjoin: {
     id: 'fabric.linking.direct_access_crossjoin',
-    defaultMessage: 'Go to {product}',
+    defaultMessage: 'Join now',
     description: 'Allows the user join the product or service immediately',
   },
 
   request_access_description_crossjoin: {
     id: 'fabric.linking.request_access_description_crossjoin',
-    defaultMessage: 'Contact your admin to request access.',
+    defaultMessage:
+      'Your team uses {product} to collaborate. Send your admin a request for access.',
     description:
       'Informs the user to request access to a product by talking to the website administrator',
   },
@@ -692,8 +693,7 @@ export const messages: Messages = defineMessages({
 
   access_exists_description_crossjoin: {
     id: 'fabric.linking.access_exists_description',
-    defaultMessage:
-      'Contact your admin and request access to view this content from {hostname}.',
+    defaultMessage: 'Request access to view this content from {hostname}.',
     description:
       'Informs the user to contact the website administrator to request access to a product',
   },
@@ -719,7 +719,7 @@ export const messages: Messages = defineMessages({
   },
   forbidden_description_crossjoin: {
     id: 'fabric.linking.forbidden_description_crossjoin',
-    defaultMessage: 'Contact your admin to request access.',
+    defaultMessage: 'Contact your admin to request access to {hostname}.',
     description:
       'Informs the user that they must contact the site administrator for access.',
   },

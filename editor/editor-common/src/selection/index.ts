@@ -113,7 +113,7 @@ export function getRangeSelectionAnalyticsPayload(
 
     const nodes: string[] = [];
     doc.nodesBetween(from, to, (node, pos) => {
-      // We want to send top-level nodes only, ie. the nodes that would have the selection styling
+      // We want to send top-level nodes only, ie.the nodes that would have the selection styling
       // We allow text nodes that are not fully covered as they are a special case
       if (node.isText || (pos >= from && pos + node.nodeSize <= to)) {
         nodes.push(node.type.name);

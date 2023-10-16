@@ -115,7 +115,7 @@ export const extractRequestAccessContextImproved = ({
     case 'DENIED_REQUEST_EXISTS':
       return {
         ...requestAccess,
-        titleMessageKey: 'default_no_access_title_crossjoin',
+        titleMessageKey: 'forbidden_title_crossjoin',
         descriptiveMessageKey: 'request_denied_description_crossjoin',
       };
     case 'ACCESS_EXISTS':
@@ -129,7 +129,7 @@ export const extractRequestAccessContextImproved = ({
 
       return {
         ...requestAccess,
-        titleMessageKey: 'default_no_access_title_crossjoin',
+        titleMessageKey: 'forbidden_title_crossjoin',
         descriptiveMessageKey: 'access_exists_description_crossjoin',
         callToActionMessageKey: 'request_access_crossjoin',
         action: ForbiddenAction(

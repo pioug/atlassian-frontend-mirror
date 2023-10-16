@@ -37,7 +37,6 @@ export const createMockService = (config: Partial<Config> = {}) => {
     // @ts-ignore
     config.failedStepLimitBeforeCatchupOnPublish,
     config.enableErrorOnFailedDocumentApply,
-    config.featureFlags,
   );
 
   // @ts-expect-error - jest mock class

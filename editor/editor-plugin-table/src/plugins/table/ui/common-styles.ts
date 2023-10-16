@@ -55,6 +55,7 @@ import {
   columnControlsDecoration,
   columnControlsLineMarker,
   DeleteButton,
+  floatingColumnControls,
   HeaderButton,
   HeaderButtonDanger,
   HeaderButtonHover,
@@ -515,6 +516,10 @@ export const tableStyles = (
         }
       }
 
+      .${ClassName.COLUMN_CONTROLS_WRAPPER} {
+        padding: 0 ${tablePadding}px;
+      }
+
       &.${ClassName.TABLE_CONTAINER}[data-number-column='true'] {
         padding-left: ${akEditorTableNumberColumnWidth + tablePadding - 1}px;
       }
@@ -669,6 +674,8 @@ export const tableStyles = (
       `,
       )}
     }
+
+    ${floatingColumnControls(props)}
 
     :not(.${ClassName.IS_RESIZING}) .${ClassName.ROW_CONTROLS} {
       ${HeaderButtonHover(props)}
@@ -855,6 +862,12 @@ export const tableStyles = (
     .${ClassName.ROW_CONTROLS_WRAPPER} {
       left: -${tableToolbarSize}px;
     }
+
+    .${ClassName.COLUMN_CONTROLS_WRAPPER} {
+      position: absolute;
+      top: ${tableMarginTop + 1}px;
+    }
+
     ${tableWrapperStyles()}
   }
 

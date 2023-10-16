@@ -44,11 +44,11 @@ describe('Forbidden Hover Card', () => {
       'hover-card-forbidden-view-button',
     );
 
-    expect(titleElement.textContent).toBe('Join your team in Jira');
+    expect(titleElement.textContent).toBe('Join Jira to view this content');
     expect(mainContentElement.textContent).toBe(
-      'All accounts with your same email domain are approved to access mock-url.com in Jira.',
+      'Your team uses Jira to collaborate and you can start using it right away!',
     );
-    expect(buttonElement.textContent).toBe('Go to Jira');
+    expect(buttonElement.textContent).toBe('Join now');
   });
 
   it('does not render forbidden hover card when accessContext is undefined', async () => {

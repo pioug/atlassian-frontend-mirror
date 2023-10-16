@@ -415,12 +415,12 @@ const breakoutWidthStyle = () => {
   return css`
     *:not([data-mark-type='fragment'])
       .${TableSharedCssClassName.TABLE_CONTAINER} {
-      width: 100% !important;
+      width: 100%;
       left: 0 !important;
     }
 
     [data-mark-type='fragment'] * .${TableSharedCssClassName.TABLE_CONTAINER} {
-      width: 100% !important;
+      width: 100%;
       left: 0 !important;
     }
   `;

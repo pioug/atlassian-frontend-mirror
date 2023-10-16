@@ -39,7 +39,10 @@ import { useColumnPickerRenderedFailedUfoExperience } from '../../../analytics/u
 import { useDataRenderedUfoExperience } from '../../../analytics/ufoExperiences/hooks/useDataRenderedUfoExperience';
 import { mapSearchMethod } from '../../../analytics/utils';
 import type { JiraSearchMethod } from '../../../common/types';
-import { useDatasourceTableState } from '../../../hooks/useDatasourceTableState';
+import {
+  onNextPageProps,
+  useDatasourceTableState,
+} from '../../../hooks/useDatasourceTableState';
 import {
   getAvailableJiraSites,
   Site,
@@ -497,10 +500,13 @@ export const PlainJiraIssuesConfigModal = (
     setCurrentViewMode(selectedMode as JiraIssueViewModes);
   };
 
-  const handleOnNextPage = useCallback(() => {
-    userInteractionActions.current.add(DatasourceAction.NEXT_PAGE_SCROLLED);
-    onNextPage();
-  }, [onNextPage]);
+  const handleOnNextPage = useCallback(
+    (onNextPageProps: onNextPageProps = {}) => {
+      userInteractionActions.current.add(DatasourceAction.NEXT_PAGE_SCROLLED);
+      onNextPage(onNextPageProps);
+    },
+    [onNextPage],
+  );
 
   const handleVisibleColumnKeysChange = useCallback(
     (newVisibleColumnKeys: string[] = []) => {

@@ -1,4 +1,4 @@
-import { BreakoutMarkAttrs } from '@atlaskit/adf-schema';
+import type { BreakoutMarkAttrs } from '@atlaskit/adf-schema';
 import {
   akEditorBreakoutPadding,
   akEditorDefaultLayoutWidth,
@@ -9,7 +9,7 @@ import {
 } from '@atlaskit/editor-shared-styles';
 
 import commonMessages from '../messages';
-import { BreakoutMode } from '../types/breakout';
+import type { BreakoutMode } from '../types/breakout';
 import { mapBreakpointToLayoutMaxWidth } from '../ui/BaseTheme';
 import { getBreakpoint } from '../ui/WidthProvider';
 
@@ -19,6 +19,7 @@ import { parsePx } from './dom';
  * Variables required to construct a context for breakout ssr inline script.
  *
  * TODO: Clean this up after: https://product-fabric.atlassian.net/browse/ED-8942
+ *
  */
 const breakoutConsts: any = {
   padding: akEditorBreakoutPadding,

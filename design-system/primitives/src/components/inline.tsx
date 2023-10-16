@@ -33,12 +33,12 @@ export type InlineProps<T extends ElementType = 'div'> = {
    */
   as?: 'div' | 'span' | 'ul' | 'ol' | 'li';
   /**
-   * Used to align children along the main axis.
+   * Used to align children along the block axis (typically vertical).
    */
   alignBlock?: AlignBlock;
 
   /**
-   * Used to align children along the cross axis.
+   * Used to align children along the inline axis (typically horizontal).
    */
   alignInline?: AlignInline;
 

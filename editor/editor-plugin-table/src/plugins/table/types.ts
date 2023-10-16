@@ -239,6 +239,7 @@ export enum TableDecorations {
   CELL_CONTROLS_HOVER = 'CELL_CONTROLS_HOVER',
 
   COLUMN_CONTROLS_DECORATIONS = 'COLUMN_CONTROLS_DECORATIONS',
+  COLUMN_DROP_TARGET_DECORATIONS = 'COLUMN_DROP_TARGET_DECORATIONS',
   COLUMN_SELECTED = 'COLUMN_SELECTED',
   COLUMN_RESIZING_HANDLE = 'COLUMN_RESIZING_HANDLE',
   COLUMN_RESIZING_HANDLE_WIDGET = 'COLUMN_RESIZING_HANDLE_WIDGET',
@@ -253,6 +254,10 @@ export const TableCssClassName = {
   COLUMN_CONTROLS: `${tablePrefixSelector}-column-controls`,
   COLUMN_CONTROLS_DECORATIONS: `${tablePrefixSelector}-column-controls-decoration`,
   COLUMN_SELECTED: `${tablePrefixSelector}-column__selected`,
+
+  COLUMN_CONTROLS_WRAPPER: `${tablePrefixSelector}-col-controls-wrapper`,
+  COLUMN_DROP_TARGET_CONTROLS: `${tablePrefixSelector}-col-drop-target-controls`,
+  COLUMN_CONTROLS_INNER: `${tablePrefixSelector}-col-controls__inner`,
 
   ROW_CONTROLS_WRAPPER: `${tablePrefixSelector}-row-controls-wrapper`,
   ROW_CONTROLS: `${tablePrefixSelector}-row-controls`,

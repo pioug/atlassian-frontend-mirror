@@ -54,7 +54,13 @@
       "path": "../../../build/website/docs/tsconfig.app.json"
     },
     {
+      "path": "../dropdown-menu/tsconfig.app.json"
+    },
+    {
       "path": "../ds-lib/tsconfig.app.json"
+    },
+    {
+      "path": "../heading/tsconfig.app.json"
     },
     {
       "path": "../icon/tsconfig.app.json"
@@ -64,6 +70,9 @@
     },
     {
       "path": "../logo/tsconfig.app.json"
+    },
+    {
+      "path": "../modal-dialog/tsconfig.app.json"
     },
     {
       "path": "../primitives/tsconfig.app.json"
@@ -84,7 +93,13 @@
       "path": "../tokens/tsconfig.app.json"
     },
     {
+      "path": "../tooltip/tsconfig.app.json"
+    },
+    {
       "path": "../../../build/test-tooling/visual-regression/tsconfig.app.json"
+    },
+    {
+      "path": "../../monorepo-tooling/gemini/tsconfig.app.json"
     }
   ]
 }

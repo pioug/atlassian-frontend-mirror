@@ -24,7 +24,6 @@ export default (
       return {
         ...pluginState,
         mouseData,
-        lastClosedPos: undefined,
       };
     case ACTIONS.SET_INLINE_COMMENT_DRAFT_STATE:
       return getNewDraftState(
@@ -42,7 +41,6 @@ export default (
       return {
         ...pluginState,
         selectedAnnotations: [],
-        lastClosedPos: action.data.lastClosedPos,
       };
     case ACTIONS.ADD_INLINE_COMMENT:
       const updatedPluginState = getNewDraftState(

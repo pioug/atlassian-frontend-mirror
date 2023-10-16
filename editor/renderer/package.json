@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/renderer",
-  "version": "108.15.12",
+  "version": "108.15.14",
   "description": "Renderer component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -69,7 +69,7 @@
   "devDependencies": {
     "@af/visual-regression": "*",
     "@atlaskit/analytics-gas-types": "^5.1.0",
-    "@atlaskit/css-reset": "^6.5.0",
+    "@atlaskit/css-reset": "^6.6.0",
     "@atlaskit/link-provider": "^1.6.0",
     "@atlaskit/link-test-helpers": "^6.1.0",
     "@atlaskit/media-core": "^34.1.0",

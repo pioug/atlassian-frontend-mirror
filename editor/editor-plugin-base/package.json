@@ -44,7 +44,7 @@
     "@atlaskit/editor-plugin-emoji": "^0.4.0",
     "@atlaskit/editor-plugin-guideline": "^0.5.0",
     "@atlaskit/editor-plugin-selection": "^0.1.0",
-    "@atlaskit/editor-plugin-table": "^5.2.0",
+    "@atlaskit/editor-plugin-table": "^5.3.0",
     "@atlaskit/editor-plugin-type-ahead": "^0.7.0",
     "@atlaskit/editor-plugin-width": "^0.2.0",
     "@atlaskit/util-data-test": "^17.8.0",

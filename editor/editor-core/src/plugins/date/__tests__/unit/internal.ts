@@ -1,4 +1,5 @@
-import type { DateType, DateSegment } from '../../types';
+import type { DateSegment } from '../../types';
+import type { DateType } from '@atlaskit/editor-plugin-date';
 
 import {
   getLocaleDatePlaceholder,

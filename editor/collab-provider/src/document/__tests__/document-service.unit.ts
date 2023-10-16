@@ -327,21 +327,18 @@ describe('document-service', () => {
       });
     });
     describe('getFinalAcknowledgedState', () => {
-      let service: DocumentService;
-      let analyticsMock: AnalyticsHelper;
-
       beforeEach(() => {
         jest.useFakeTimers();
+      });
+
+      it('Returns current document state after trying to commit all steps', async () => {
         const mocks = createMockService();
-        analyticsMock = mocks.analyticsHelperMock;
-        service = mocks.service;
+        const analyticsMock = mocks.analyticsHelperMock;
+        const service = mocks.service;
         jest.spyOn(service, 'commitUnconfirmedSteps');
         jest
           .spyOn(service, 'getCurrentState')
           .mockResolvedValue('mockState' as any);
-      });
-
-      it('Returns current document state after trying to commit all steps', async () => {
         (service.commitUnconfirmedSteps as jest.Mock).mockResolvedValue(
           undefined,
         );
@@ -356,31 +353,9 @@ describe('document-service', () => {
         );
       });
 
-      it('Handles an exception from commitUnconfirmedSteps', async () => {
-        (service.commitUnconfirmedSteps as jest.Mock).mockRejectedValue(
-          new Error('My Error'),
-        );
-        await expect(service.getFinalAcknowledgedState).rejects.toThrowError(
-          'My Error',
-        );
-        expect(analyticsMock.sendActionEvent).toBeCalledTimes(1);
-        expect(analyticsMock.sendActionEvent).toBeCalledWith(
-          'publishPage',
-          'FAILURE',
-          { latency: undefined },
-        );
-      });
-    });
-    describe('getFinalAcknowledgedState, with enableFallbackToReconcile FF enabled', () => {
-      beforeEach(() => {
-        jest.useFakeTimers();
-      });
-
       it('Calls reconcile if commitUnconfirmedSteps fails', async () => {
         const { service, fetchReconcileMock, analyticsHelperMock } =
-          createMockService({
-            featureFlags: { enableFallbackToReconcile: true },
-          });
+          createMockService();
         jest
           .spyOn(service, 'commitUnconfirmedSteps')
           .mockRejectedValue(new Error('My Error'));
@@ -432,9 +407,7 @@ describe('document-service', () => {
 
       it('Throws error when both commitUnconfirmedSteps and reconcile fail', async () => {
         const { service, fetchReconcileMock, analyticsHelperMock } =
-          createMockService({
-            featureFlags: { enableFallbackToReconcile: true },
-          });
+          createMockService();
         jest
           .spyOn(service, 'commitUnconfirmedSteps')
           .mockRejectedValue(new Error('My Error'));

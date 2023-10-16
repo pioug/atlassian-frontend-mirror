@@ -307,8 +307,9 @@ describe('smart-card: card states, embed', () => {
             "site - request access: I don't have access to the site, but I can request access",
             { accessType: 'REQUEST_ACCESS', visibility: 'not_found' },
             {
-              title: "You don't have access to this content",
-              description: 'Contact your admin to request access.',
+              title: 'Join Jira to view this content',
+              description:
+                'Your team uses Jira to collaborate. Send your admin a request for access.',
               button: 'Request access',
             },
             {
@@ -349,10 +350,10 @@ describe('smart-card: card states, embed', () => {
             "site - direct access: I don't have access to the site, but I can join directly",
             { accessType: 'DIRECT_ACCESS', visibility: 'not_found' },
             {
-              title: 'Join your team in Jira',
+              title: 'Join Jira to view this content',
               description:
-                'All accounts with your same email domain are approved to access site.atlassian.net in Jira.',
-              button: 'Go to Jira',
+                'Your team uses Jira to collaborate and you can start using it right away!',
+              button: 'Join now',
             },
             {
               title: 'Restricted content',
@@ -367,7 +368,7 @@ describe('smart-card: card states, embed', () => {
             {
               title: "You don't have access to this content",
               description:
-                'Contact your admin and request access to view this content from site.atlassian.net.',
+                'Request access to view this content from site.atlassian.net.',
               button: 'Request access',
             },
             {
@@ -396,7 +397,8 @@ describe('smart-card: card states, embed', () => {
             { accessType: 'FORBIDDEN', visibility: 'not_found' },
             {
               title: "You don't have access to this content",
-              description: 'Contact your admin to request access.',
+              description:
+                'Contact your admin to request access to site.atlassian.net.',
             },
             {
               title: 'Restricted content',

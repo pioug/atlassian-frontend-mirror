@@ -142,7 +142,7 @@ describe('extractors.access.context', () => {
       }),
     ).toMatchObject({
       accessType: 'DENIED_REQUEST_EXISTS',
-      titleMessageKey: 'default_no_access_title_crossjoin',
+      titleMessageKey: 'forbidden_title_crossjoin',
       descriptiveMessageKey: 'request_denied_description_crossjoin',
       hostname: 'visit.url.com',
     });
@@ -161,7 +161,7 @@ describe('extractors.access.context', () => {
       }),
     ).toMatchObject({
       accessType: 'ACCESS_EXISTS',
-      titleMessageKey: 'default_no_access_title_crossjoin',
+      titleMessageKey: 'forbidden_title_crossjoin',
       descriptiveMessageKey: 'access_exists_description_crossjoin',
       action: {
         buttonAppearance: 'default',

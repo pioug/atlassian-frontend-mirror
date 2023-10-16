@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/css-reset",
-  "version": "6.5.4",
+  "version": "6.6.0",
   "description": "A base stylesheet for the Atlassian Design System.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -74,6 +74,7 @@
   },
   "af:exports": {
     ".": "./src/index.tsx",
+    "./styles": "./src/index.tsx",
     "./base": "./src/base.tsx",
     "./browser-fixes": "./src/browser-fixes.tsx",
     "./reset": "./src/reset.tsx",

@@ -5,7 +5,7 @@ import { css, jsx } from '@emotion/react';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { defineMessages, injectIntl } from 'react-intl-next';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
-import type { DateType } from '../../types';
+import type { DateType } from '@atlaskit/editor-plugin-date';
 import {
   findDateSegmentByPosition,
   adjustDate,

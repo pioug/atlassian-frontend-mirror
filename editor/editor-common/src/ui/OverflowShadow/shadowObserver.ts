@@ -70,7 +70,7 @@ export class ShadowObserver {
       (entries: IntersectionObserverEntry[], _: IntersectionObserver) => {
         entries.forEach(this.onIntersect);
       },
-      { root: this.scrollContainer },
+      { root: this.scrollContainer, rootMargin: '1px' },
     );
 
     this.intersectionObserver.observe(this.sentinels.left);

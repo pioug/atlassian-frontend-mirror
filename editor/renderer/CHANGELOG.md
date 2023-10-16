@@ -1,5 +1,17 @@
 # @atlaskit/renderer
 
+## 108.15.14
+
+### Patch Changes
+
+- [#41531](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41531) [`7301110e9d4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7301110e9d4) - [ux] remove force width in editor table container to fix right shadow
+
+## 108.15.13
+
+### Patch Changes
+
+- [#41521](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41521) [`3787f4e37c7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3787f4e37c7) - Fix smart link embed url display veritically on ssr when the renderer is full width.
+
 ## 108.15.12
 
 ### Patch Changes

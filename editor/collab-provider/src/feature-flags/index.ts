@@ -1,4 +1,4 @@
-import {
+import type {
   NCSFeatureFlags,
   ProductKeys,
   RequiredNCSFeatureFlags,
@@ -8,7 +8,6 @@ import {
 const defaultNCSFeatureFlags: Required<NCSFeatureFlags> = {
   testFF: false,
   socketMessageMetricsFF: false,
-  enableFallbackToReconcile: false,
 };
 
 /**
@@ -19,8 +18,6 @@ const productKeys: ProductKeys = {
     testFF: 'confluence.frontend.collab.provider.testFF',
     socketMessageMetricsFF:
       'confluence.frontend.collab.provider.socketMessageMetricsFF',
-    enableFallbackToReconcile:
-      'confluence.frontend.collab.provider.enable-fallback-to-reconcile',
   },
 };
 

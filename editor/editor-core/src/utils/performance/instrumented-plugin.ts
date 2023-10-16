@@ -9,12 +9,9 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { EditorProps } from '../../types/editor-props';
 import type { TransactionTracker } from './track-transactions';
 import { freezeUnsafeTransactionProperties } from './safer-transactions';
-import type { FeatureFlags } from '../../types/feature-flags';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 
 type InstrumentedPluginOptions = EditorProps['performanceTracking'] & {
-  saferDispatchedTransactions?: FeatureFlags['saferDispatchedTransactions'];
-  saferDispatchedTransactionsAnalyticsOnly?: FeatureFlags['saferDispatchedTransactionsAnalyticsOnly'];
   dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
 };
 
@@ -27,17 +24,10 @@ export class InstrumentedPlugin<PluginState> extends SafePlugin<PluginState> {
     const {
       transactionTracking = { enabled: false },
       uiTracking = { enabled: false },
-      saferDispatchedTransactions = false,
-      saferDispatchedTransactionsAnalyticsOnly = false,
       dispatchAnalyticsEvent,
     } = options;
 
-    const shouldOverrideApply =
-      (transactionTracking.enabled && transactionTracker) ||
-      saferDispatchedTransactions ||
-      saferDispatchedTransactionsAnalyticsOnly;
-
-    if (shouldOverrideApply && spec.state) {
+    if (spec.state) {
       const originalApply = spec.state.apply.bind(spec.state);
 
       spec.state.apply = (
@@ -47,18 +37,13 @@ export class InstrumentedPlugin<PluginState> extends SafePlugin<PluginState> {
         newState: EditorState,
       ) => {
         const self = this as any;
-        const tr =
-          saferDispatchedTransactions ||
-          saferDispatchedTransactionsAnalyticsOnly
-            ? new Proxy(
-                aTr,
-                freezeUnsafeTransactionProperties<ReadonlyTransaction>({
-                  dispatchAnalyticsEvent,
-                  pluginKey: self.key,
-                  analyticsOnly: saferDispatchedTransactionsAnalyticsOnly,
-                }),
-              )
-            : aTr;
+        const tr = new Proxy(
+          aTr,
+          freezeUnsafeTransactionProperties<ReadonlyTransaction>({
+            dispatchAnalyticsEvent,
+            pluginKey: self.key,
+          }),
+        );
         const shouldTrackTransactions =
           transactionTracker?.shouldTrackTransaction(transactionTracking);
 

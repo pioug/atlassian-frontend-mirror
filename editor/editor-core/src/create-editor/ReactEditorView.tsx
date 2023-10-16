@@ -727,19 +727,13 @@ export class ReactEditorView<T = {}> extends React.Component<
 
     const nodes: PMNode[] = findChangedNodesFromTransaction(unsafeTransaction);
     const changedNodesValid = validateNodes(nodes);
-    const transaction =
-      this.featureFlags.saferDispatchedTransactions ||
-      this.featureFlags.saferDispatchedTransactionsAnalyticsOnly
-        ? new Proxy(
-            unsafeTransaction,
-            freezeUnsafeTransactionProperties<Transaction>({
-              dispatchAnalyticsEvent: this.dispatchAnalyticsEvent,
-              pluginKey: 'unknown-reacteditorview',
-              analyticsOnly:
-                this.featureFlags.saferDispatchedTransactionsAnalyticsOnly,
-            }),
-          )
-        : unsafeTransaction;
+    const transaction = new Proxy(
+      unsafeTransaction,
+      freezeUnsafeTransactionProperties<Transaction>({
+        dispatchAnalyticsEvent: this.dispatchAnalyticsEvent,
+        pluginKey: 'unknown-reacteditorview',
+      }),
+    );
 
     if (changedNodesValid) {
       const oldEditorState = this.view.state;

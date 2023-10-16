@@ -1,5 +1,11 @@
 # @atlaskit/link-client-extension
 
+## 1.7.3
+
+### Patch Changes
+
+- [#41377](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41377) [`6191c789222`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6191c789222) - Fix bug where on next page load sorts the column in alphabetical order.
+
 ## 1.7.2
 
 ### Patch Changes

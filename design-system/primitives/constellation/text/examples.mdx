@@ -1,0 +1,27 @@
+---
+order: 0
+---
+
+import TextDefault from '../../examples/constellation/text/basic';
+import TextAsElement from '../../examples/constellation/text/as-element';
+import ColorInverse from '../../examples/constellation/text/color-inverse';
+
+## Basic
+
+Implements the [Atlassian typography system](/foundations/typography/) as a component, scoped to body and UI text usages.
+
+The `variant` prop expresses the visual appearance of the text element.
+
+<Example Component={TextDefault} pacckageName="@atlaskit/primitives" />
+
+## Rendered HTML tag
+
+By default, `body` variants are rendered as `<p>` tags and `ui` variants are rendered as `<span>` tags. This can be ovrridden by the `as` prop.
+
+<Example Component={TextAsElement} packageName="@atlaskit/primitives" />
+
+## Color
+
+Set `color` to change the text color. When used within a [box component](/components/primitives/box) that has a background color set, the text color can be automatically inverted without setting the `color` prop depending on the background color of the box.
+
+<Example Component={ColorInverse} pacckageName="@atlaskit/primitives" />

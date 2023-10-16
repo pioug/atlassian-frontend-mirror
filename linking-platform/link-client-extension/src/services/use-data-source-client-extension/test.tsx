@@ -425,6 +425,19 @@ describe('useDatasourceClientExtension', () => {
           expect(mockFetch).toHaveBeenCalledTimes(1);
         });
 
+        it('should not make another request when the field prop in the request parameter is sorted', async () => {
+          const { getDatasourceData, datasourceDataParams } = setup();
+          const dataWithSortedFields = {
+            ...datasourceDataParams,
+            fields: ['issueType', 'status', 'summary'],
+          };
+
+          await getDatasourceData(datasourceId, { ...datasourceDataParams });
+          await getDatasourceData(datasourceId, { ...dataWithSortedFields });
+
+          expect(mockFetch).toHaveBeenCalledTimes(1);
+        });
+
         it('should return response from first request when called second time', async () => {
           const { getDatasourceData, datasourceDataParams } = setup();
 

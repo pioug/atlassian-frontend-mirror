@@ -1,5 +1,17 @@
 # @atlaskit/primitives
 
+## 1.6.6
+
+### Patch Changes
+
+- [#41440](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41440) [`5c01cb4e16d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5c01cb4e16d) - Add surface color context to Box. Refine Text API.
+
+## 1.6.5
+
+### Patch Changes
+
+- [#41563](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41563) [`50de1ccacd7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/50de1ccacd7) - Additional documentation details for alignment props on Inline and Stack.
+
 ## 1.6.4
 
 ### Patch Changes

@@ -1206,28 +1206,19 @@ export function handleRichText(
       }
     } else {
       // need to scan the slice if there's a block node or list items inside it
-      let doesBlockNodeExist = false;
       let sliceHasList = false;
       slice.content.nodesBetween(0, slice.content.size, (node, start) => {
         if (node.type === state.schema.nodes.listItem) {
           sliceHasList = true;
-        }
-        if (
-          start >= slice.openStart &&
-          start <= slice.content.size - slice.openEnd &&
-          node.isBlock
-        ) {
-          doesBlockNodeExist = true;
           return false;
         }
       });
 
       if (
         (insideTableCell(state) &&
-          (!doesBlockNodeExist ||
-            (isInListItem(state) &&
-              canInsert(selection.$from, slice.content) &&
-              canInsert(selection.$to, slice.content)))) ||
+          isInListItem(state) &&
+          canInsert(selection.$from, slice.content) &&
+          canInsert(selection.$to, slice.content)) ||
         sliceHasList
       ) {
         tr.replaceSelection(slice);

@@ -58,6 +58,7 @@ import {
   tableOverflowShadowWidth,
   tableOverflowShadowWidthWide,
 } from '../ui/consts';
+import TableFloatingColumnControls from '../ui/TableFloatingColumnControls';
 import TableFloatingControls from '../ui/TableFloatingControls';
 import {
   containsHeaderRow,
@@ -91,6 +92,7 @@ export interface ComponentProps {
   isHeaderRowEnabled: boolean;
   isHeaderColumnEnabled: boolean;
   isMediaFullscreen?: boolean;
+  isDragAndDropEnabled?: boolean;
   tableActive: boolean;
   ordering: TableColumnOrdering;
   isResizing?: boolean;
@@ -396,6 +398,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
       options,
       getPos,
       pluginInjectionApi,
+      isDragAndDropEnabled,
     } = this.props;
     const { showBeforeShadow, showAfterShadow } = this.state;
     const node = getNode();
@@ -421,6 +424,24 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
           isHeaderRowEnabled={isHeaderRowEnabled}
           ordering={ordering}
           isHeaderColumnEnabled={isHeaderColumnEnabled}
+          hasHeaderRow={hasHeaderRow}
+          // pass `selection` and `tableHeight` to control re-render
+          selection={view.state.selection}
+          headerRowHeight={headerRow ? headerRow.offsetHeight : undefined}
+          stickyHeader={this.state.stickyHeader}
+          getEditorFeatureFlags={this.props.getEditorFeatureFlags}
+        />
+      </div>
+    );
+
+    const colControls = (
+      <div className={ClassName.COLUMN_CONTROLS_WRAPPER}>
+        <TableFloatingColumnControls
+          editorView={view}
+          tableRef={tableRef}
+          tableActive={tableActive}
+          hoveredRows={hoveredRows}
+          ordering={ordering}
           hasHeaderRow={hasHeaderRow}
           // pass `selection` and `tableHeight` to control re-render
           selection={view.state.selection}
@@ -482,7 +503,11 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
             data-testid="sticky-scrollbar-sentinel-top"
           />
         )}
+
         {allowControls && rowControls}
+
+        {isDragAndDropEnabled && allowControls && colControls}
+
         <div
           style={shadowStyle(showBeforeShadow)}
           className={ClassName.TABLE_LEFT_SHADOW}

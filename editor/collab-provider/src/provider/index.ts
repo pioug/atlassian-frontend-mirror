@@ -165,7 +165,6 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
       this.metadataService,
       this.config.failedStepLimitBeforeCatchupOnPublish,
       this.config.enableErrorOnFailedDocumentApply,
-      this.config.featureFlags,
     );
     this.namespaceService = new NamespaceService();
   }

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-core",
-  "version": "188.9.5",
+  "version": "188.10.5",
   "description": "A package contains Atlassian editor core functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -70,6 +70,7 @@
     "@atlaskit/editor-plugin-content-insertion": "^0.1.4",
     "@atlaskit/editor-plugin-context-panel": "^0.2.0",
     "@atlaskit/editor-plugin-copy-button": "^1.0.0",
+    "@atlaskit/editor-plugin-date": "^0.1.0",
     "@atlaskit/editor-plugin-decorations": "^0.2.0",
     "@atlaskit/editor-plugin-editor-disabled": "^0.2.0",
     "@atlaskit/editor-plugin-emoji": "^0.4.0",
@@ -91,7 +92,7 @@
     "@atlaskit/editor-plugin-scroll-into-view": "^0.1.0",
     "@atlaskit/editor-plugin-selection": "^0.1.0",
     "@atlaskit/editor-plugin-status": "^0.1.0",
-    "@atlaskit/editor-plugin-table": "^5.2.0",
+    "@atlaskit/editor-plugin-table": "^5.3.0",
     "@atlaskit/editor-plugin-text-formatting": "^0.4.0",
     "@atlaskit/editor-plugin-type-ahead": "^0.7.0",
     "@atlaskit/editor-plugin-unsupported-content": "^0.2.0",
@@ -153,7 +154,7 @@
     "@af/editor-libra": "*",
     "@af/integration-testing": "*",
     "@af/visual-regression": "*",
-    "@atlaskit/collab-provider": "9.15.1",
+    "@atlaskit/collab-provider": "9.15.2",
     "@atlaskit/dropdown-menu": "^12.1.0",
     "@atlaskit/editor-extension-dropbox": "^0.4.0",
     "@atlaskit/flag": "^15.2.0",

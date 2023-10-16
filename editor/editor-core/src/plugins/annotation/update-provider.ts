@@ -17,4 +17,7 @@ export class AnnotationUpdateEmitter extends EventEmitter {
   on(event: string, listener: AnnotationCallback | VisibilityCallback): this {
     return super.on(event, listener);
   }
+  off(event: string, listener: AnnotationCallback | VisibilityCallback): this {
+    return super.removeListener(event, listener);
+  }
 }

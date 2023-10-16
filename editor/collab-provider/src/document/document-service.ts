@@ -41,7 +41,6 @@ import { catchup } from './catchup';
 import type { ParticipantsService } from '../participants/participants-service';
 import { StepQueueState } from './step-queue-state';
 import type { InternalError } from '../errors/error-types';
-import { getCollabProviderFeatureFlag } from '../feature-flags';
 
 import {
   CantSyncUpError,
@@ -80,7 +79,6 @@ export class DocumentService {
    * @param metadataService
    * @param failedStepsBeforeCatchupOnPublish - Control MAX_STEP_REJECTED_ERROR during page publishes.
    * @param enableErrorOnFailedDocumentApply - Enable failed document update exceptions.
-   * @param featureFlags - Feature flag config
    */
   constructor(
     private participantsService: ParticipantsService,
@@ -103,7 +101,6 @@ export class DocumentService {
     private metadataService: MetadataService,
     private failedStepsBeforeCatchupOnPublish: number = MAX_STEP_REJECTED_ERROR,
     private enableErrorOnFailedDocumentApply: boolean = false,
-    private featureFlags: { [key: string]: boolean } | undefined,
   ) {
     this.stepQueue = new StepQueueState();
   }
@@ -418,30 +415,20 @@ export class DocumentService {
       startMeasure(MEASURE_NAME.PUBLISH_PAGE, this.analyticsHelper);
       let finalAcknowledgedState: ResolvedEditorState;
 
-      if (
-        getCollabProviderFeatureFlag(
-          'enableFallbackToReconcile',
-          this.featureFlags,
-        )
-      ) {
-        try {
-          await this.commitUnconfirmedSteps();
-          finalAcknowledgedState = await this.getCurrentState();
-        } catch (error) {
-          // if fails to commit unconfirmed steps, send reconcile request to NCS BE and return the doc to CC
-          const currentState = await this.getCurrentState();
-          const reconcileResponse = await this.fetchReconcile(
-            JSON.stringify(currentState.content),
-          );
-          finalAcknowledgedState = {
-            content: JSON.parse(reconcileResponse.document),
-            title: currentState.title,
-            stepVersion: reconcileResponse.version,
-          };
-        }
-      } else {
+      try {
         await this.commitUnconfirmedSteps();
         finalAcknowledgedState = await this.getCurrentState();
+      } catch (error) {
+        // if fails to commit unconfirmed steps, send reconcile request to NCS BE and return the doc to CC
+        const currentState = await this.getCurrentState();
+        const reconcileResponse = await this.fetchReconcile(
+          JSON.stringify(currentState.content),
+        );
+        finalAcknowledgedState = {
+          content: JSON.parse(reconcileResponse.document),
+          title: currentState.title,
+          stepVersion: reconcileResponse.version,
+        };
       }
 
       const measure = stopMeasure(

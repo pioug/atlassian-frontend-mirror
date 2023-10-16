@@ -71,7 +71,7 @@ export function InlineCommentView({
   const { createComponent: CreateComponent, viewComponent: ViewComponent } =
     inlineCommentProvider;
   const inlineCommentState = getPluginState(state);
-  const { bookmark, selectedAnnotations, annotations, lastClosedPos } =
+  const { bookmark, selectedAnnotations, annotations } =
     inlineCommentState || {};
   const annotationsList = getAllAnnotations(editorView.state.doc);
 
@@ -147,13 +147,7 @@ export function InlineCommentView({
     selectedAnnotations?.filter(
       (mark) => annotations && annotations[mark.id] === false,
     ) || [];
-
-  if (
-    !ViewComponent ||
-    activeAnnotations.length === 0 ||
-    // Check if the user has moved the selection since closing the previous comment
-    editorView.state.selection.$head.pos === lastClosedPos
-  ) {
+  if (!ViewComponent || activeAnnotations.length === 0) {
     return null;
   }
 
@@ -197,10 +191,7 @@ export function InlineCommentView({
           )(editorView.state, editorView.dispatch)
         }
         onClose={() => {
-          closeComponent(editorView.state)(
-            editorView.state,
-            editorView.dispatch,
-          );
+          closeComponent()(editorView.state, editorView.dispatch);
         }}
       />
     </AnnotationViewWrapper>

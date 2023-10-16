@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 26.35.1
+
+### Patch Changes
+
+- [#41661](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41661) [`df9a5124fe8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/df9a5124fe8) - Improve cross join content (behind feature flag)
+
 ## 26.35.0
 
 ### Minor Changes

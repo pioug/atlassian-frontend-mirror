@@ -19,6 +19,7 @@ import {
 } from '../xcss/style-maps.partial';
 import { parseXcss } from '../xcss/xcss';
 
+import { SurfaceContext } from './internal/surface-provider';
 import { SVGElements } from './internal/types';
 import type { BasePrimitiveProps } from './types';
 
@@ -134,7 +135,7 @@ export const Box: BoxComponent = forwardRef(
     const { className: _spreadClass, ...safeHtmlAttributes } = htmlAttributes;
     const className = xcss && parseXcss(xcss);
 
-    return (
+    const node = (
       // @ts-expect-error Expression produces a union type that is too complex to represent. I think this is unavoidable
       <Component
         style={style}
@@ -164,6 +165,14 @@ export const Box: BoxComponent = forwardRef(
       >
         {children}
       </Component>
+    );
+
+    return backgroundColor ? (
+      <SurfaceContext.Provider value={backgroundColor}>
+        {node}
+      </SurfaceContext.Provider>
+    ) : (
+      node
     );
   },
 );

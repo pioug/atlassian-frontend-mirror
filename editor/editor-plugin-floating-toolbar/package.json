@@ -34,7 +34,7 @@
     "@atlaskit/editor-plugin-editor-disabled": "^0.2.0",
     "@atlaskit/editor-plugin-extension": "^0.2.0",
     "@atlaskit/editor-plugin-feature-flags": "^1.0.0",
-    "@atlaskit/editor-plugin-table": "^5.2.0",
+    "@atlaskit/editor-plugin-table": "^5.3.0",
     "@atlaskit/editor-prosemirror": "1.1.0",
     "@atlaskit/emoji": "^67.5.0",
     "@atlaskit/icon": "^21.12.0",

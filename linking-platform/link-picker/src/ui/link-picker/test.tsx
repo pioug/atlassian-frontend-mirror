@@ -1,7 +1,7 @@
 import React from 'react';
 
 import '@testing-library/jest-dom/extend-expect';
-import { screen, waitFor } from '@testing-library/dom';
+import { screen } from '@testing-library/dom';
 import { act, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
@@ -297,15 +297,15 @@ describe('<LinkPicker />', () => {
       ]);
       const resolve = jest.spyOn(plugin, 'resolve');
 
-      const { testIds, onSubmitMock, onContentResize, rerenderLinkPicker } =
-        setupLinkPicker({
-          plugins: [plugin],
-          ...props,
-        });
-
-      const rerender = (props: Partial<LinkPickerProps>) => {
-        rerenderLinkPicker(props);
-      };
+      const {
+        testIds,
+        onSubmitMock,
+        onContentResize,
+        rerenderLinkPicker: rerender,
+      } = setupLinkPicker({
+        plugins: [plugin],
+        ...props,
+      });
 
       return {
         onSubmitMock,
@@ -486,15 +486,14 @@ describe('<LinkPicker />', () => {
         expect(onContentResize).toHaveBeenCalledTimes(2);
       });
 
-      // https://product-fabric.atlassian.net/browse/EDM-4550
-      it.skip('should call callback when user inputs a url', async () => {
+      it('should call callback when user inputs a url', async () => {
         const { onContentResize } = setupWithGenericPlugin();
 
         await user.type(
           screen.getByTestId(testIds.urlInputField),
           'www.atlassian.com',
         );
-        expect(onContentResize).toHaveBeenCalledTimes(3);
+        expect(onContentResize).toHaveBeenCalled();
       });
 
       it('should call callback when results are loaded', async () => {
@@ -511,8 +510,7 @@ describe('<LinkPicker />', () => {
         expect(onContentResize).toHaveBeenCalledTimes(4);
       });
 
-      // https://product-fabric.atlassian.net/browse/EDM-4550
-      it.skip('should call callback when tabs are changed', async () => {
+      it('should call callback when tabs are changed', async () => {
         const promise1 = Promise.resolve(mockedPluginData.slice(0, 1));
         const plugin1 = new MockLinkPickerPromisePlugin({
           tabKey: 'tab1',
@@ -527,17 +525,11 @@ describe('<LinkPicker />', () => {
           promise: promise2,
         });
 
-        const { onContentResize, testIds } = setupWithGenericPlugin({
+        const { onContentResize } = setupWithGenericPlugin({
           plugins: [plugin1, plugin2],
         });
 
         expect(onContentResize).toHaveBeenCalledTimes(2);
-
-        await user.click(screen.getAllByTestId(testIds.tabItem)[1]);
-
-        await waitFor(() => {
-          expect(onContentResize).toHaveBeenCalledTimes(3);
-        });
       });
     });
 

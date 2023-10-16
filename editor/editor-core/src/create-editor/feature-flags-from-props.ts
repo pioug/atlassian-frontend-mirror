@@ -117,25 +117,6 @@ export function createFeatureFlagsFromProps(props: EditorProps): FeatureFlags {
         : false,
     ),
 
-    saferDispatchedTransactions: Boolean(
-      (typeof normalizedFeatureFlags.saferDispatchedTransactions ===
-        'boolean' &&
-        !!normalizedFeatureFlags.saferDispatchedTransactions) ||
-        (typeof props.featureFlags?.saferDispatchedTransactions === 'boolean'
-          ? !!props.featureFlags?.saferDispatchedTransactions
-          : false),
-    ),
-
-    saferDispatchedTransactionsAnalyticsOnly: Boolean(
-      (typeof normalizedFeatureFlags.saferDispatchedTransactionsAnalyticsOnly ===
-        'boolean' &&
-        !!normalizedFeatureFlags.saferDispatchedTransactionsAnalyticsOnly) ||
-        (typeof props.featureFlags?.saferDispatchedTransactionsAnalyticsOnly ===
-        'boolean'
-          ? !!props.featureFlags?.saferDispatchedTransactionsAnalyticsOnly
-          : false),
-    ),
-
     useNativeCollabPlugin: Boolean(
       typeof props.collabEdit?.useNativePlugin === 'boolean'
         ? !!props.collabEdit?.useNativePlugin

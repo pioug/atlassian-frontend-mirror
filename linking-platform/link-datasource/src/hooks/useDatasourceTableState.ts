@@ -149,14 +149,11 @@ export const useDatasourceTableState = ({
         shouldForceRequest = false,
       } = requestInfo;
 
-      const sortedFieldKeys = [...fieldKeys];
-      // Sort keys to use cached version of response regardless of the order
-      sortedFieldKeys.sort();
       const datasourceDataRequest: DatasourceDataRequest = {
         parameters,
         pageSize: DEFAULT_GET_DATASOURCE_DATA_PAGE_SIZE,
         pageCursor: shouldRequestFirstPage ? undefined : nextCursor,
-        fields: sortedFieldKeys,
+        fields: fieldKeys,
         includeSchema: isSchemaFromData,
       };
 
